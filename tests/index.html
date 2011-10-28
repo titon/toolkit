@@ -3,15 +3,26 @@
 	<head>
 		<title>Titon Test</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<script src="mootools-core-1.4.1-full-compat-yc.js"></script>
+		<script src="mootools-core-1.4.1.js"></script>
+		<script src="mootools-more-1.4.0.1.js"></script>
 		<script src="../src/Titon.js"></script>
-		<script src="../src/ui/Tooltip.js"></script>
+		<script src="../src/Tooltip.js"></script>
+		<style>
+			body { padding: 100px; }
+			.titon-tooltip { position: absolute; background: #000; color: #fff; padding: 10px; display: none; }
+		</style>
 	</head>
 	<body>
-		<div data-tooltip="RAWR">TODO write content</div>
+		<!--<div data-tooltip="TEXT">Basic tooltip</div>
+		<div data-tooltip="#content">DOM tooltip</div>
+		<div data-tooltip="ajax.html" data-tooltip-config="isAjax:true">AJAX tooltip</div>-->
+		
+		<div id="content" style="display: none">THIS IS FROM HTML</div>
+		<!--<span data-tooltip="#content" data-tooltip-config="position:mouse">DOM tooltip</span>-->
+		<span data-tooltip="ajax.html" data-tooltip-config="isAjax:true">AJAX tooltip</span>
 		
 		<script>
-			var tooltip = new Titon.UI.Tooltip('[data-tooltip]');
+			Titon.Tooltip.factory('[data-tooltip]');
 		</script>
 	</body>
 </html>

@@ -51,14 +51,14 @@ var Titon = {
 	
 };
 
-/*Element.implement({
+Element.implement({
 	
-	show: function() {
-		this.setStyle('display','');
+	show: function(force) {
+		this.setStyle('display', force ? 'block' : '');
 	},
 
 	hide: function() {
-		this.setStyle('display','none');
+		this.setStyle('display', 'none');
 	}
 	
-});*/
+});
