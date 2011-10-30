@@ -9,6 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
+ * @version	0.4
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Element.*
@@ -73,6 +74,9 @@ Titon.Tooltip = new Class({
 	/**
 	 * Initialize tooltips for the passed DOM query. 
 	 * Will apply event delegation and generate the HTML required for this tooltip instance.
+	 * 
+	 * @param query
+	 * @param config
 	 */
 	initialize: function(query, config) {
 		document.body.addEvent('mouseover:relay(' + query + ')', this.listen.bind(this));
@@ -96,6 +100,8 @@ Titon.Tooltip = new Class({
 	 * Set the default configuration.
 	 * 
 	 * @param config
+	 * @return Tooltip
+	 * @chainable
 	 */
 	configure: function(config) {
 		if (config) {
@@ -106,7 +112,7 @@ Titon.Tooltip = new Class({
 	},
 	
 	/**
-	 * Position the tooltip to follow the mouse cursor.
+	 * Callback to position the tooltip at the mouse cursor.
 	 * 
 	 * @param e
 	 */
@@ -216,6 +222,7 @@ Titon.Tooltip = new Class({
 	 * DOM storage will always take precedent.
 	 * 
 	 * @param type
+	 * @return mixed
 	 */
 	read: function(type) {
 		var data = this.node.retrieve('tooltip:' + type),
@@ -238,6 +245,7 @@ Titon.Tooltip = new Class({
 	 * 
 	 * @param node
 	 * @param config
+	 * @return boolean
 	 */
 	show: function(node, config) {
 		if (!node) {
