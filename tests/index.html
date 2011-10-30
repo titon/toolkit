@@ -9,7 +9,7 @@
 		<script src="../src/Tooltip.js"></script>
 		<style>
 			body { padding: 100px; }
-			.titon-tooltip { position: absolute; background: #000; color: #fff; padding: 10px; display: none; }
+			.titon-tooltip { position: absolute; background: rgba(0, 0, 0, .70); color: #fff; padding: 5px; display: none; border-radius: 5px; }
 		</style>
 	</head>
 	<body>
@@ -18,7 +18,8 @@
 		<div data-tooltip="ajax.html" data-tooltip-config="isAjax:true">AJAX tooltip</div>-->
 		
 		<div id="content" style="display: none">THIS IS FROM HTML</div>
-		<!--<span data-tooltip="#content" data-tooltip-config="position:mouse">DOM tooltip</span>-->
+		<span data-tooltip="TEXT" id="test" title="some title">Basic tooltip</span><br /><br />
+		<span data-tooltip="#content" data-tooltip-config="position:mouse;className:miles">DOM tooltip</span><br /><br />
 		<span data-tooltip="ajax.html" data-tooltip-config="isAjax:true">AJAX tooltip</span>
 		
 		<script>

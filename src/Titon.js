@@ -33,6 +33,10 @@ var Titon = {
 		return value;
 	},
 	
+	mergeConfig: function(base, config) {
+		return Object.merge(Object.clone(base), config || {});
+	},
+	
 	parseConfig: function(data) {
 		var config = {};
 		
@@ -54,7 +58,7 @@ var Titon = {
 Element.implement({
 	
 	show: function(force) {
-		this.setStyle('display', force ? 'block' : '');
+		this.setStyle('display', force || '');
 	},
 
 	hide: function() {

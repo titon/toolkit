@@ -1,5 +1,7 @@
 # Titon JS #
 
+In development!
+
 Requires:
 - Array.Extras
 - Object.Extras
