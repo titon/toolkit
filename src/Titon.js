@@ -9,28 +9,28 @@
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  * 
- * @version	0.1.0 ALPHA
+ * @version	0.1.1 ALPHA
  */
 var Titon = {
 
 	/**
 	 * Current version.
 	 */
-	version: '0.1.0 ALPHA',
+	version: '0.1.1 ALPHA',
 
 	/**
-	 * Configuration for all classes.
+	 * Options for all classes.
 	 * 
 	 *	prefix - Class name to prepend to all element containers
 	 *	
 	 */
-	config: {
+	options: {
 		prefix: 'titon-'
 	},
 	
 	/**
 	 * Converts a value to a specific scalar type.
-	 * The value is extracted via parseConfig().
+	 * The value is extracted via parseOptions().
 	 * 
 	 * @param value
 	 * @return mixed
@@ -56,46 +56,46 @@ var Titon = {
 	},
 	
 	/**
-	 * Merge custom config into the base. Clone the base as to not reference the original.
+	 * Merge custom options into the base. Clone the base as to not reference the original.
 	 * 
 	 * @param base
-	 * @param config
+	 * @param options
 	 * @return object
 	 */
-	mergeConfig: function(base, config) {
-		return Object.merge(Object.clone(base), config || {});
+	mergeOptions: function(base, options) {
+		return Object.merge(Object.clone(base), options || {});
 	},
 	
 	/**
-	 * Parse configuration out of the data config attributes.
+	 * Parse options out of the data-options attributes.
 	 * Format: key1:value1;key2:value2
 	 * 
 	 * @param data
 	 * @return object
 	 */
-	parseConfig: function(data) {
-		var config = {};
+	parseOptions: function(data) {
+		var options = {};
 		
 		if (data) {
 			data.split(';').each(function(item) {
 				var pieces = item.split(':');
 
 				if (pieces.length) {
-					config[pieces[0]] = Titon.convertType(pieces[1]);
+					options[pieces[0]] = Titon.convertType(pieces[1]);
 				}
 			});
 		}
 		
-		return config;
+		return options;
 	},
 	
 	/**
-	 * Apply custom configuration.
+	 * Apply custom options.
 	 * 
-	 * @param config
+	 * @param options
 	 */
-	setup: function(config) {
-		Titon.config = Object.merge(Titon.config, config);
+	setup: function(options) {
+		Titon.options = Object.merge(Titon.options, options);
 	}
 	
 };

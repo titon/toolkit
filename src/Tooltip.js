@@ -9,10 +9,11 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.4
+ * @version	0.5
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
+ * @uses	Core/Options
  * @uses	Core/Element.*
  * @uses	More/Element.Position
  *	
@@ -22,7 +23,7 @@
  *		- Better AJAX support
  */
 Titon.Tooltip = new Class({
-	Implements: Events,
+	Implements: [Events, Options],
 	
 	/**
 	 * DOM objects created to hold the tooltip content.
@@ -48,14 +49,14 @@ Titon.Tooltip = new Class({
 	cache: {},
 	
 	/**
-	 * Dynamic configuration that changes per node.
+	 * Dynamic options that change per node.
 	 */
-	config: {},
+	customOptions: {},
 	
 	/**
-	 * Default configuration.
+	 * Default options.
 	 */
-	defaultConfig: {
+	options: {
 		isAjax: false,
 		className: '',
 		position: 'topRight',
@@ -77,14 +78,14 @@ Titon.Tooltip = new Class({
 	 * Will apply event delegation and generate the HTML required for this tooltip instance.
 	 * 
 	 * @param query
-	 * @param config
+	 * @param options
 	 */
-	initialize: function(query, config) {
-		this.configure(config);
+	initialize: function(query, options) {
+		this.setOptions(options);
 		
 		document.body.addEvent('mouseover:relay(' + query + ')', this.listen.bind(this));
 		
-		var outer = new Element('div.' + Titon.config.prefix + 'tooltip'),
+		var outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
 			inner = new Element('div.tooltip-inner'),
 			head = new Element('div.tooltip-head'),
 			body = new Element('div.tooltip-body');
@@ -96,22 +97,7 @@ Titon.Tooltip = new Class({
 		this.objectHead = head;
 		this.objectBody = body;
 	},
-	
-	/**
-	 * Set the default configuration.
-	 * 
-	 * @param config
-	 * @return Tooltip
-	 * @chainable
-	 */
-	configure: function(config) {
-		if (config) {
-			this.defaultConfig = Object.merge(this.defaultConfig, config);
-		}
-		
-		return this;
-	},
-	
+
 	/**
 	 * Callback to position the tooltip at the mouse cursor.
 	 * 
@@ -121,8 +107,8 @@ Titon.Tooltip = new Class({
 		e.stop();
 		
 		this.object.setPosition({
-			x: (e.page.x + 10 + this.config.xOffset),
-			y: (e.page.y + 10 + this.config.yOffset)
+			x: (e.page.x + 10 + this.customOptions.xOffset),
+			y: (e.page.y + 10 + this.customOptions.yOffset)
 		}).show();
 	},
 	
@@ -136,8 +122,8 @@ Titon.Tooltip = new Class({
 		this.title = null;
 		this.content = null;
 		
-		if (this.config.className) {
-			this.object.removeClass(this.config.className);
+		if (this.customOptions.className) {
+			this.object.removeClass(this.customOptions.className);
 		}
 		
 		this.object.hide();
@@ -153,9 +139,9 @@ Titon.Tooltip = new Class({
 		e.stop();
 		
 		var node = e.target,
-			config = node.get('data-tooltip-config');
+			options = node.get('data-tooltip-options');
 			
-		this.show(node, Titon.parseConfig(config));
+		this.show(node, Titon.parseOptions(options));
 	},
 	
 	/**
@@ -163,14 +149,14 @@ Titon.Tooltip = new Class({
 	 * Additionally will apply the title/text and hide/show if necessary.
 	 */
 	position: function() {
-		var config = this.config;
+		var options = this.customOptions;
 		
 		// Apply styles and content
-		if (config.className) {
-			this.object.addClass(this.config.className);
+		if (options.className) {
+			this.object.addClass(options.className);
 		}
 		
-		if (this.title && config.showTitle) {
+		if (this.title && options.showTitle) {
 			this.objectHead.set('html', this.title).show();
 		} else {
 			this.objectHead.hide();
@@ -183,14 +169,14 @@ Titon.Tooltip = new Class({
 		}
 			
 		// Follow the mouse
-		if (config.position === 'mouse') {
+		if (options.position === 'mouse') {
 			this.node
 				.removeEvent('mousemove', this.followMouse.bind(this))
 				.addEvent('mousemove', this.followMouse.bind(this));
 
 		// Position accordingly
 		} else {
-			var position = config.position,
+			var position = options.position,
 				edgeMap = {
 					topLeft: 'bottomRight',
 					topCenter: 'bottomCenter',
@@ -208,8 +194,8 @@ Titon.Tooltip = new Class({
 				position: position,
 				edge: edgeMap[position] || 'topLeft',
 				offset: {
-					x: config.xOffset,
-					y: config.yOffset
+					x: options.xOffset,
+					y: options.yOffset
 				}
 			}).show();
 		}
@@ -227,7 +213,7 @@ Titon.Tooltip = new Class({
 	 */
 	read: function(type) {
 		var data = this.node.retrieve('tooltip:' + type),
-			key = (type == 'title') ? this.config.titleQuery : this.config.contentQuery;
+			key = (type == 'title') ? this.customOptions.titleQuery : this.customOptions.contentQuery;
 			
 		if (data) {
 			return data;
@@ -242,19 +228,19 @@ Titon.Tooltip = new Class({
 	
 	/**
 	 * Show the tooltip and determine whether to grab the content from an AJAX call,
-	 * a DOM node, or plain text. Can pass a config object to overwrite the defaults.
+	 * a DOM node, or plain text. Can pass an options object to overwrite the defaults.
 	 * 
 	 * @param node
-	 * @param config
+	 * @param options
 	 * @return boolean
 	 */
-	show: function(node, config) {
+	show: function(node, options) {
 		if (!node) {
 			return false;
 		}
 		
 		// Configuration
-		config = this.config = Titon.mergeConfig(this.defaultConfig, config);
+		options = this.customOptions = Titon.mergeOptions(this.options, options);
 		
 		this.node = new Element(node);
 		this.title = this.read('title');
@@ -268,7 +254,7 @@ Titon.Tooltip = new Class({
 			.addEvent('mouseout', this.hide.bind(this));
 
 		// Do an AJAX call using content as the URL
-		if (config.isAjax) {
+		if (options.isAjax) {
 			var url = this.content || this.node.get('href');
 
 			if (this.cache[url]) {
@@ -288,7 +274,7 @@ Titon.Tooltip = new Class({
 					}.bind(this),
 					
 					onRequest: function() {
-						if (this.config.showLoading) {
+						if (this.customOptions.showLoading) {
 							this.content = 'Loading...';
 							this.position();
 						}
@@ -325,10 +311,10 @@ Titon.Tooltip.instances = [];
  * Easily create multiple tooltip instances.
  * 
  * @param query
- * @param config
+ * @param options
  */
-Titon.Tooltip.factory = function(query, config) {
-	var instance = new Titon.Tooltip(query, config);
+Titon.Tooltip.factory = function(query, options) {
+	var instance = new Titon.Tooltip(query, options);
 	
 	Titon.Tooltip.instances.push(instance);
 	

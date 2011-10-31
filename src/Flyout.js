@@ -17,7 +17,7 @@ Titon.Flyout = new Class({
 	initialize: function(query, url, options) {
 		this.setOptions(options);
 		
-		this.object = new Element('div.' + Titon.config.prefix + 'flyout');
+		this.object = new Element('div.' + Titon.options.prefix + 'flyout');
 		this.object
 			.inject( document.body )
 			.addEvent('mouseenter', null)
@@ -56,7 +56,7 @@ Titon.Flyout = new Class({
 		this.object.show();
 		
 		this.menu.setPosition({
-			x: coords.left + coords.width,
+			x: coords.left,
 			y: coords.top + coords.height
 		}).show();
 	},

@@ -23,9 +23,9 @@
 		
 		<span data-tooltip="TEXT" id="test" title="Title">Text Tooltip</span>
 		<br /><br />
-		<span data-tooltip="#content" data-tooltip-config="position:mouse;">DOM Tooltip</span>
+		<span data-tooltip="#content" data-tooltip-options="position:mouse;">DOM Tooltip</span>
 		<br /><br />
-		<span data-tooltip="ajax.php" data-tooltip-config="isAjax:true">AJAX Tooltip</span>
+		<span data-tooltip="ajax.php" data-tooltip-options="isAjax:true">AJAX Tooltip</span>
 		
 		<div class="breadcrumbs">
 			<a href="http://titon/js/tests/index.php">ROOT</a> &raquo; 
