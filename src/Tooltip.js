@@ -11,6 +11,7 @@
  * 
  * @version	0.4
  * @uses	Titon
+ * @uses	Core/Request
  * @uses	Core/Events
  * @uses	Core/Element.*
  * @uses	More/Element.Position
@@ -79,6 +80,8 @@ Titon.Tooltip = new Class({
 	 * @param config
 	 */
 	initialize: function(query, config) {
+		this.configure(config);
+		
 		document.body.addEvent('mouseover:relay(' + query + ')', this.listen.bind(this));
 		
 		var outer = new Element('div.' + Titon.config.prefix + 'tooltip'),
@@ -92,8 +95,6 @@ Titon.Tooltip = new Class({
 		this.object = outer;
 		this.objectHead = head;
 		this.objectBody = body;
-		
-		this.configure(config);
 	},
 	
 	/**
@@ -122,7 +123,7 @@ Titon.Tooltip = new Class({
 		this.object.setPosition({
 			x: (e.page.x + 10 + this.config.xOffset),
 			y: (e.page.y + 10 + this.config.yOffset)
-		}).show('block');
+		}).show();
 	},
 	
 	/**
@@ -210,7 +211,7 @@ Titon.Tooltip = new Class({
 					x: config.xOffset,
 					y: config.yOffset
 				}
-			}).show('block');
+			}).show();
 		}
 		
 		this.fireEvent('display');

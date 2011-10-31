@@ -111,7 +111,7 @@ Element.implement({
 	 * @param force
 	 */
 	show: function(force) {
-		this.setStyle('display', force || '');
+		this.setStyle('display', force || 'block');
 	},
 
 	/**
