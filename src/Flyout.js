@@ -10,18 +10,29 @@ Titon.Flyout = new Class({
 	data: [],
 	dataMap: {},
 	
+	showTimer: null,
+	hideTimer: null,
+	
 	options: {
-		delay: 500
+		showDelay: 500,
+		hideDelay: 500
 	},
 	
 	initialize: function(query, url, options) {
 		this.setOptions(options);
 		
+		var events = {
+			mouseenter: function() {
+				window.clearTimeout(this.hideTimer);
+			}.bind(this),
+
+			mouseleave: function() {
+				this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.hideDelay);
+			}.bind(this)
+		};
+		
 		this.object = new Element('div.' + Titon.options.prefix + 'flyout');
-		this.object
-			.inject( document.body )
-			.addEvent('mouseenter', null)
-			.addEvent('mouseleave', this.hide.bind(this));
+		this.object.inject(document.body).removeEvents(events).addEvents(events);
 
 		new Request.JSON({
 			url: url,
@@ -29,18 +40,19 @@ Titon.Flyout = new Class({
 			onSuccess: this.load.bind(this)
 		}).get();
 		
-		$$(query).addEvent('mouseover', this.listen.bind(this));
+		$$(query).addEvent('mouseover', function(e) {
+			this.show(e.target, e.target.get('href'))
+		}.bind(this));
 	},
-	
-	hide: function() {
-		this.object.hide();
-		this.fireEvent('hide');
-	},
-	
-	listen: function(e) {
-		e.stop();
 
-		this.show(e.target, e.target.get('href'))
+	hide: function() {
+		window.clearTimeout(this.hideTimer);
+		window.clearTimeout(this.showTimer);
+		
+		this.object.hide();
+		$$('.flyout-menu').hide();
+		
+		this.fireEvent('hide');
 	},
 	
 	load: function(data) {
@@ -49,8 +61,6 @@ Titon.Flyout = new Class({
 	},
 	
 	position: function() {
-		$$('.flyout-menu').hide();
-		
 		var coords = this.node.getCoordinates();
 
 		this.object.show();
@@ -66,18 +76,28 @@ Titon.Flyout = new Class({
 			return false;
 		}
 		
-		var data = this.dataMap[url];
+		var events = {
+			mouseenter: function() {
+				this.showTimer = window.setTimeout(this.display.bind(this), this.options.showDelay);
+			}.bind(this),
+
+			mouseleave: function() {
+				window.clearTimeout(this.showTimer);
+			}.bind(this)
+		};
 		
 		this.node = new Element(node);
-		this.menu = $('flyout-' + data.id);
+		this.node.removeEvents(events).addEvents(events);
+	},
+	
+	display: function() {	
+		/*this.menu = $('flyout-' + data.id);
 
 		if (this.menu) {
 			
 		} else if (data.children) {
 			this.menu = this.buildMenu(this.object, data, true);
-		}
-
-		window.setTimeout(this.position.bind(this), this.options.delay);
+		}*/
 	},
 	
 	buildMenu: function(parent, data, cache) {

@@ -200,8 +200,8 @@ Titon.Tooltip = new Class({
 			}).show();
 		}
 		
-		this.fireEvent('display');
 		this.isVisible = true;
+		this.fireEvent('display');
 	},
 	
 	/**
@@ -288,10 +288,9 @@ Titon.Tooltip = new Class({
 			
 		// Plain text
 		} else {
-			
 			// Copy the content found in the referenced ID
 			if (this.content.substr(0, 1) === '#') {
-				this.content = document.id(this.content.replace('#', '')).get('html');
+				this.content = $(this.content.replace('#', '')).get('html');
 			}
 			
 			this.position();

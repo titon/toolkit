@@ -12,10 +12,11 @@
 			body { padding: 100px; }
 			.titon-tooltip,
 			.flyout-menu { position: absolute; background: rgba(0, 0, 0, .70); color: #fff; margin: 0; padding: 5px; display: none; border-radius: 5px; }
-			.flyout-menu { list-style: none; width: 200px; }
+			.flyout-menu ul { list-style: none; width: 200px; padding: 0; margin: 0; }
 			.flyout-menu li { position: relative; }
-			.flyout-menu li a { display: block; padding: 2px; }
-			.flyout-menu li .flyout-menu { top: 0; left: 200px; }
+			.flyout-menu li a { display: block; padding: 2px; color: #fff; }
+			.flyout-menu li a:hover { color: yellow; }
+			.flyout-menu li .flyout-menu { top: 0; left: 200px; display: none; }
 		</style>
 	</head>
 	<body>
