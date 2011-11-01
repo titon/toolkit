@@ -11,7 +11,7 @@
 		<style>
 			body { padding: 100px; }
 			.titon-tooltip,
-			.flyout-menu { position: absolute; background: rgba(0, 0, 0, .70); color: #fff; margin: 0; padding: 5px; display: none; border-radius: 5px; }
+			.flyout-menu { position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, .70); color: #fff; margin: 0; padding: 5px; opacity: 0; border-radius: 5px; max-width: 200px; }
 			.flyout-menu ul { list-style: none; width: 200px; padding: 0; margin: 0; }
 			.flyout-menu li { position: relative; }
 			.flyout-menu li a { display: block; padding: 2px; color: #fff; }
@@ -26,7 +26,7 @@
 		<br /><br />
 		<span data-tooltip="#content" data-tooltip-options="position:mouse;">DOM Tooltip</span>
 		<br /><br />
-		<span data-tooltip="ajax.php" data-tooltip-options="isAjax:true">AJAX Tooltip</span>
+		<span data-tooltip="ajax.php" data-tooltip-options="ajax:true">AJAX Tooltip</span>
 		
 		<div class="breadcrumbs">
 			<a href="http://titon/js/tests/index.php">ROOT</a> &raquo; 

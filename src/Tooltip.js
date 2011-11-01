@@ -9,18 +9,19 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.5
+ * @version	0.6
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
  * @uses	Core/Options
+ * @uses	Core/Fx.Tween (For fading)
  * @uses	Core/Element.*
  * @uses	More/Element.Position
  *	
- * @todo
- *		- Fade in/out system (will have to remove position()?)
- *		- Delay for hide/show
- *		- Better AJAX support
+ * @changelog
+ *	v0.6
+ *		Added fade support
+ *		Added a delay time for show/hide
  */
 Titon.Tooltip = new Class({
 	Implements: [Events, Options],
@@ -57,7 +58,8 @@ Titon.Tooltip = new Class({
 	 * Default options.
 	 */
 	options: {
-		isAjax: false,
+		ajax: false,
+		fade: true,
 		className: '',
 		position: 'topRight',
 		showLoading: true,
@@ -65,7 +67,8 @@ Titon.Tooltip = new Class({
 		titleQuery: 'title',
 		contentQuery: 'data-tooltip',
 		xOffset: 0,
-		yOffset: 0
+		yOffset: 0,
+		delay: 0
 	},
 	
 	/**
@@ -91,7 +94,10 @@ Titon.Tooltip = new Class({
 			body = new Element('div.tooltip-body');
 			
 		inner.grab(head).grab(body);
-		outer.grab(inner).inject( document.body );
+		outer.grab(inner).inject(document.body).set('tween', {
+			duration: 150,
+			link: 'cancel'
+		});
 
 		this.object = outer;
 		this.objectHead = head;
@@ -109,7 +115,7 @@ Titon.Tooltip = new Class({
 		this.object.setPosition({
 			x: (e.page.x + 10 + this.customOptions.xOffset),
 			y: (e.page.y + 10 + this.customOptions.yOffset)
-		}).show();
+		}).fade('show').show();
 	},
 	
 	/**
@@ -126,7 +132,12 @@ Titon.Tooltip = new Class({
 			this.object.removeClass(this.customOptions.className);
 		}
 		
-		this.object.hide();
+		if (this.options.fade) {
+			this.object.fade('out');
+		} else {
+			this.object.setProperty('style', '');
+		}
+		
 		this.fireEvent('hide');
 	},
 	
@@ -197,7 +208,15 @@ Titon.Tooltip = new Class({
 					x: options.xOffset,
 					y: options.yOffset
 				}
-			}).show();
+			});
+			
+			window.setTimeout(function() {
+				if (this.options.fade) {
+					this.object.fade('in');
+				} else {
+					this.object.setStyle('opacity', 1);
+				}
+			}.bind(this), options.delay || 1);
 		}
 		
 		this.isVisible = true;
@@ -254,7 +273,7 @@ Titon.Tooltip = new Class({
 			.addEvent('mouseout', this.hide.bind(this));
 
 		// Do an AJAX call using content as the URL
-		if (options.isAjax) {
+		if (options.ajax) {
 			var url = this.content || this.node.get('href');
 
 			if (this.cache[url]) {
