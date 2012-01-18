@@ -1,7 +1,7 @@
 /**
  * Titon: The Mootools UI/Utility Framework
  *
- * @copyright	Copyright 2010, Titon
+ * @copyright	Copyright 2010+, Titon
  * @link		http://github.com/titon
  * @license		http://opensource.org/licenses/bsd-license.php (BSD License)
  */
@@ -321,12 +321,12 @@ Titon.Tooltip = new Class({
 });
 
 /**
- * All tooltip instances loaded via factory().
+ * All instances loaded via factory().
  */
 Titon.Tooltip.instances = [];
 
 /**
- * Easily create multiple tooltip instances.
+ * Easily create multiple instances.
  * 
  * @param query
  * @param options
