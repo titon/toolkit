@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.6
+ * @version	0.7
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
@@ -19,6 +19,9 @@
  * @uses	More/Element.Position
  *	
  * @changelog
+ *	v0.7
+ *		Fixed incorrect fireEvent() in position()
+ *		Made factory() use objects instead of arrays
  *	v0.6
  *		Added fade support
  *		Added a delay time for show/hide
@@ -68,7 +71,10 @@ Titon.Tooltip = new Class({
 		contentQuery: 'data-tooltip',
 		xOffset: 0,
 		yOffset: 0,
-		delay: 0
+		delay: 0,
+		onHide: null,
+		onShow: null,
+		onPosition: null
 	},
 	
 	/**
@@ -135,7 +141,7 @@ Titon.Tooltip = new Class({
 		if (this.options.fade) {
 			this.object.fade('out');
 		} else {
-			this.object.setProperty('style', '');
+			this.object.removeProperty('style');
 		}
 		
 		this.fireEvent('hide');
@@ -148,11 +154,8 @@ Titon.Tooltip = new Class({
 	 */
 	listen: function(e) {
 		e.stop();
-		
-		var node = e.target,
-			options = node.get('data-tooltip-options');
-			
-		this.show(node, Titon.parseOptions(options));
+
+		this.show(e.target, Titon.parseOptions(node.get('data-tooltip-options')));
 	},
 	
 	/**
@@ -220,7 +223,7 @@ Titon.Tooltip = new Class({
 		}
 		
 		this.isVisible = true;
-		this.fireEvent('display');
+		this.fireEvent('position');
 	},
 	
 	/**
@@ -323,7 +326,7 @@ Titon.Tooltip = new Class({
 /**
  * All instances loaded via factory().
  */
-Titon.Tooltip.instances = [];
+Titon.Tooltip.instances = {};
 
 /**
  * Easily create multiple instances.
@@ -334,7 +337,7 @@ Titon.Tooltip.instances = [];
 Titon.Tooltip.factory = function(query, options) {
 	var instance = new Titon.Tooltip(query, options);
 	
-	Titon.Tooltip.instances.push(instance);
+	Titon.Tooltip.instances[query] = instance;
 	
 	return instance;
 };
