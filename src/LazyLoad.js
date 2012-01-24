@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.1
+ * @version	0.2
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
@@ -20,7 +20,7 @@
 	Implements: [Events, Options],
 	
 	/**
-	 * Has all elements been force loaded?
+	 * Have all elements been force loaded?
 	 */
 	loaded: false,
 	
@@ -30,86 +30,111 @@
 	options: {
 		fade: false,
 		forceLoad: false,
-		className: 'lazy-load',
 		threshhold: 150,
-		delay: 2000,
+		delay: 5000,
 		container: window
 	},
 	
 	/**
-	 * @todo
+	 * DOM query used for binding.
+	 */
+	query: '',
+	
+	/**
+	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
+	 * @param query
 	 * @param options
 	 */
-	initialize: function(options) {
+	initialize: function(query, options) {
 		this.setOptions(options);
+		this.query = query;
 		
+		// Setup CSS styles
 		var sheet = document.createElement('style');
-		sheet.innerHTML = '.' + this.options.className + ' * { display: none !important; }';
+		sheet.innerHTML = query + ' * { display: none !important; }';
 		
 		document.head.grab(sheet);
 		
 		// Add events
 		this.container.addEvents({
-			scroll: this.reveal,
-			resize: this.reveal
+			scroll: this.load,
+			resize: this.load
 		});
 		
-		// Reveal elements within viewport
-		this.reveal();
+		// Load elements within viewport
+		this.load();
+		
+		// Set force load on DOM ready
+		if (this.options.forceLoad) {
+			window.addEvent('load', function() {
+				window.setTimeout(this.loadAll.bind(this), this.options.delay);
+			});
+		}
+	},
+	
+	/**
+	 * When triggered, will shutdown the instance from executing any longer.
+	 * Any container events will be removed and loading will cease.
+	 */
+	shutdown: function() {
+		this.loaded = true;
+		
+		this.container.removeEvents({
+			scroll: this.load,
+			resize: this.load
+		});
 	},
 	
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
-	 * If options.forceLoad is true, it will kick off a timer to pre-fetch all the remaining elements.
 	 *
 	 * @param e
+	 * @return boolean
 	 */
-	reveal: function(e) {
+	load: function(e) {
 		if (this.loaded) {
 			return false;
 		}
 		
 		e.stop();
 		
-		var elements = $$('.' + this.options.className);
+		var elements = $$(this.query);
 		
-		if (!elements.length) {
-			this.loaded = true;
+		if (elements.length == 0) {
+			this.shutdown();
+			
 			return false;
 		}
 		
-		toLoad.each(function(node) {
+		elements.each(function(node) {
+			node = new Element(node);
+			
 			if (this.inViewport(node)) {
 				this.show(node);
 			}
 		}, this);
-		
-		if (typeof(e) !== 'null' && this.options.forceLoad) {
-			window.setTimeout(this.revealAll.bind(this), this.options.delay);
-		}
-		
+
 		return true;
 	},
 	
 	/**
-	 * Reveal the remaining hidden elements and remove any container events.
+	 * Load the remaining hidden elements and remove any container events.
+	 *
+	 * @return boolean
 	 */
-	revealAll: function() {
+	loadAll: function() {
 		if (this.loaded) {
 			return false;
 		}
 		
-		var className = this.options.className;
+		$$(this.query).each(function(node) {
+			this.show(new Element(node));
+		}, this);
 		
-		$$('.' + className).removeClass(className);
+		this.shutdown();
 		
-		this.container.removeEvents({
-			scroll: this.reveal,
-			resize: this.reveal
-		});
-		
-		this.loaded = true;
+		return true;
 	},
 	
 	/**
@@ -118,16 +143,15 @@
 	 * @param node
 	 */
 	show: function(node) {
-		var className = this.options.className;
-		
 		if (this.options.fade) {
 			var children = node.getChildren();
 			
 			children.hide();
-			node.removeClass(className);
+			node.removeClass(this.query);
 			children.fade('in');
+			
 		} else {
-			node.removeClass(className);
+			node.removeClass(this.query);
 		}
 		
 		this.fireEvent('show');
@@ -142,18 +166,18 @@
 	inViewport: function(node) {
 		var threshhold = this.options.threshhold,
 			scrollSize = window.getScroll(),
-			pageSize = window.getSize(),
+			windowSize = window.getSize(),
 			nodeOffset = node.getPosition();
 
 		return (
-			// Below the top fold
+			// Below the top
 			((nodeOffset.y - threshhold) >= scrollSize.y) &&
-			// Above the bottom fold
-			(nodeOffset.y <= (scrollSize.y + pageSize.y + threshhold)) &&
-			// Right of the left fold
+			// Above the bottom
+			(nodeOffset.y <= (scrollSize.y + windowSize.y + threshhold)) &&
+			// Right of the left
 			((nodeOffset.x - threshhold) >= scrollSize.x) &&
-			// Left of the right fold
-			(nodeOffset.x <= (scrollSize.x + pageSize.x + threshhold))
+			// Left of the right
+			(nodeOffset.x <= (scrollSize.x + windowSize.x + threshhold))
 		);
 	}
 	
@@ -162,17 +186,18 @@
 /**
  * All instances loaded via factory().
  */
-Titon.LazyLoad.instances = [];
+Titon.LazyLoad.instances = {};
 
 /**
  * Easily create multiple instances.
  * 
+ * @param query
  * @param options
  */
-Titon.LazyLoad.factory = function(options) {
-	var instance = new Titon.LazyLoad(options);
+Titon.LazyLoad.factory = function(query, options) {
+	var instance = new Titon.LazyLoad(query, options);
 	
-	Titon.LazyLoad.instances.push(instance);
+	Titon.LazyLoad.instances[query] = instance;
 	
 	return instance;
 };
