@@ -9,12 +9,16 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.2
+ * @version	0.3
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
  * @uses	Core/Fx.Tween (For fading)
  * @uses	Core/Element.*
+ *
+ * @changelog
+ *	v0.3
+ *		Added fireEvent()s for onLoad, onLoadAll, onShutdown
  */
  Titon.LazyLoad = new Class({
 	Implements: [Events, Options],
@@ -32,7 +36,11 @@
 		forceLoad: false,
 		threshhold: 150,
 		delay: 5000,
-		container: window
+		container: window,
+		onLoad: null,
+		onLoadAll: null,
+		onShow: null,
+		onShutdown: null
 	},
 	
 	/**
@@ -84,6 +92,8 @@
 			scroll: this.load,
 			resize: this.load
 		});
+		
+		this.fireEvent('shutdown');
 	},
 	
 	/**
@@ -114,6 +124,8 @@
 				this.show(node);
 			}
 		}, this);
+		
+		this.fireEvent('load');
 
 		return true;
 	},
@@ -131,6 +143,8 @@
 		$$(this.query).each(function(node) {
 			this.show(new Element(node));
 		}, this);
+		
+		this.fireEvent('loadAll');
 		
 		this.shutdown();
 		
