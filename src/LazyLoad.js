@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.3
+ * @version	0.4
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
@@ -17,6 +17,8 @@
  * @uses	Core/Element.*
  *
  * @changelog
+ *	v0.4
+ *		Added data-options support to single elements
  *	v0.3
  *		Added fireEvent()s for onLoad, onLoadAll, onShutdown
  */
@@ -157,7 +159,9 @@
 	 * @param node
 	 */
 	show: function(node) {
-		if (this.options.fade) {
+		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload'));
+
+		if (options.fade) {
 			var children = node.getChildren();
 			
 			children.hide();

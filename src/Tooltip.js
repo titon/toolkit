@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.7
+ * @version	0.8
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
@@ -19,6 +19,9 @@
  * @uses	More/Element.Position
  *	
  * @changelog
+ *	v0.8
+ *		Fixed some incorrect customOptions usage
+ *		Node now uses getOptions('tooltip')
  *	v0.7
  *		Fixed incorrect fireEvent() in position()
  *		Made factory() use objects instead of arrays
@@ -138,7 +141,7 @@ Titon.Tooltip = new Class({
 			this.object.removeClass(this.customOptions.className);
 		}
 		
-		if (this.options.fade) {
+		if (this.customOptions.fade) {
 			this.object.fade('out');
 		} else {
 			this.object.removeProperty('style');
@@ -154,8 +157,8 @@ Titon.Tooltip = new Class({
 	 */
 	listen: function(e) {
 		e.stop();
-
-		this.show(e.target, Titon.parseOptions(node.get('data-tooltip-options')));
+		
+		this.show(e.target);
 	},
 	
 	/**
@@ -214,7 +217,7 @@ Titon.Tooltip = new Class({
 			});
 			
 			window.setTimeout(function() {
-				if (this.options.fade) {
+				if (this.customOptions.fade) {
 					this.object.fade('in');
 				} else {
 					this.object.setStyle('opacity', 1);
@@ -262,9 +265,10 @@ Titon.Tooltip = new Class({
 		}
 		
 		// Configuration
-		options = this.customOptions = Titon.mergeOptions(this.options, options);
+		node = new Element(node);
+		options = this.customOptions = Titon.mergeOptions(this.options, node.getOptions('tooltip') || options);
 		
-		this.node = new Element(node);
+		this.node = node;
 		this.title = this.read('title');
 		this.content = this.read('content');
 

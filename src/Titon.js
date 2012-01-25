@@ -54,7 +54,7 @@ var Titon = {
 		
 		return value;
 	},
-	
+
 	/**
 	 * Merge custom options into the base. Clone the base as to not reference the original.
 	 * 
@@ -63,7 +63,7 @@ var Titon = {
 	 * @return object
 	 */
 	mergeOptions: function(base, options) {
-		return Object.merge(Object.clone(base), options || {});
+		return Object.merge(Object.clone(base || {}), options || {});
 	},
 	
 	/**
@@ -104,6 +104,16 @@ var Titon = {
  * Prototype overrides.
  */
 Element.implement({
+
+	/**
+	 * Returns an object representation of the data-options attribute located on the element.
+	 *
+	 * @param scope
+	 * @return object
+	 */
+	getOptions: function(scope) {
+		return Titon.parseOptions(this.get('data-' + scope + '-options'));
+	},
 	
 	/**
 	 * Show an element using its default display type, or pass a forced type.
