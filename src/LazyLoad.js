@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.4
+ * @version	0.5
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
@@ -17,8 +17,13 @@
  * @uses	Core/Element.*
  *
  * @changelog
+ *	v0.5
+ *		Fixed a bug with forceLoad option
+ *		Fixed a bug where the container was being referenced incorrectly
+ * 		Fixed incorrect logic in inViewport()
+ *		Added support to hide background images for the passed CSS query
  *	v0.4
- *		Added data-options support to single elements
+ *		Added data-options support to single elements, uses getOptions('lazyload')
  *	v0.3
  *		Added fireEvent()s for onLoad, onLoadAll, onShutdown
  */
@@ -37,7 +42,7 @@
 		fade: false,
 		forceLoad: false,
 		threshhold: 150,
-		delay: 5000,
+		delay: 10000,
 		container: window,
 		onLoad: null,
 		onLoadAll: null,
@@ -62,12 +67,13 @@
 		
 		// Setup CSS styles
 		var sheet = document.createElement('style');
-		sheet.innerHTML = query + ' * { display: none !important; }';
+			sheet.innerHTML = query + ' { background: none !important; }';
+			sheet.innerHTML = query + ' * { display: none !important; }';
 		
 		document.head.grab(sheet);
 		
 		// Add events
-		this.container.addEvents({
+		this.options.container.addEvents({
 			scroll: this.load,
 			resize: this.load
 		});
@@ -79,7 +85,7 @@
 		if (this.options.forceLoad) {
 			window.addEvent('load', function() {
 				window.setTimeout(this.loadAll.bind(this), this.options.delay);
-			});
+			}.bind(this));
 		}
 	},
 	
@@ -90,7 +96,7 @@
 	shutdown: function() {
 		this.loaded = true;
 		
-		this.container.removeEvents({
+		this.options.container.removeEvents({
 			scroll: this.load,
 			resize: this.load
 		});
@@ -189,11 +195,11 @@
 
 		return (
 			// Below the top
-			((nodeOffset.y - threshhold) >= scrollSize.y) &&
+			(nodeOffset.y >= (scrollSize.y - threshhold)) &&
 			// Above the bottom
 			(nodeOffset.y <= (scrollSize.y + windowSize.y + threshhold)) &&
 			// Right of the left
-			((nodeOffset.x - threshhold) >= scrollSize.x) &&
+			(nodeOffset.x >= (scrollSize.x - threshhold)) &&
 			// Left of the right
 			(nodeOffset.x <= (scrollSize.x + windowSize.x + threshhold))
 		);
