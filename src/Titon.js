@@ -29,6 +29,13 @@ var Titon = {
 	},
 	
 	/**
+	 * Localization messages.
+	 */
+	msg: {
+		loading: 'Loading...'
+	},
+	
+	/**
 	 * Converts a value to a specific scalar type.
 	 * The value is extracted via parseOptions().
 	 * 
@@ -36,13 +43,13 @@ var Titon = {
 	 * @return mixed
 	 */
 	convertType: function(value) {
-		if (value == 'true') {
+		if (value === 'true') {
 			value = true;
 			
-		} else if (value == 'false') {
+		} else if (value === 'false') {
 			value = false;
 			
-		} else if (value == 'null') {
+		} else if (value === 'null') {
 			value = null;
 			
 		} else if (isNaN(value)) {

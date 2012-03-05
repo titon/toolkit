@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.8
+ * @version	0.9
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
@@ -19,6 +19,9 @@
  * @uses	More/Element.Position
  *	
  * @changelog
+ *	v0.9
+ *		Added a context option (defaults to document)
+ *		Added a mode option to toggle between hover and click
  *	v0.8
  *		Fixed some incorrect customOptions usage
  *		Node now uses getOptions('tooltip')
@@ -66,6 +69,7 @@ Titon.Tooltip = new Class({
 	options: {
 		ajax: false,
 		fade: true,
+		mode: 'hover',
 		className: '',
 		position: 'topRight',
 		showLoading: true,
@@ -75,6 +79,7 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
+		context: document,
 		onHide: null,
 		onShow: null,
 		onPosition: null
@@ -95,7 +100,11 @@ Titon.Tooltip = new Class({
 	initialize: function(query, options) {
 		this.setOptions(options);
 		
-		document.body.addEvent('mouseover:relay(' + query + ')', this.listen.bind(this));
+		var event = (this.options.mode === 'hover' ? 'mouseover' : 'click'),
+			context = new Element(this.options.context);
+		
+		context.removeEvent(event + ':relay(' + query + ')', this.listen.bind(this));
+		context.addEvent(event + ':relay(' + query + ')', this.listen.bind(this));
 		
 		var outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
 			inner = new Element('div.tooltip-inner'),
@@ -151,12 +160,17 @@ Titon.Tooltip = new Class({
 	},
 	
 	/**
-	 * Event callback for tooltip element mouseover.
+	 * Event callback for tooltip element mouseover or click.
 	 * 
 	 * @param e
 	 */
 	listen: function(e) {
 		e.stop();
+		
+		if (this.options.mode === 'click' && this.isVisible) {
+			this.hide();
+			return;
+		}
 		
 		this.show(e.target);
 	},
@@ -238,7 +252,7 @@ Titon.Tooltip = new Class({
 	 */
 	read: function(type) {
 		var data = this.node.retrieve('tooltip:' + type),
-			key = (type == 'title') ? this.customOptions.titleQuery : this.customOptions.contentQuery;
+			key = (type === 'title') ? this.customOptions.titleQuery : this.customOptions.contentQuery;
 			
 		if (data) {
 			return data;
@@ -275,9 +289,11 @@ Titon.Tooltip = new Class({
 		// Set mouse events
 		this.fireEvent('show');
 		
-		this.node
-			.removeEvent('mouseout', this.hide.bind(this))
-			.addEvent('mouseout', this.hide.bind(this));
+		if (options.mode !== 'click') {
+			this.node
+				.removeEvent('mouseout', this.hide.bind(this))
+				.addEvent('mouseout', this.hide.bind(this));
+		}
 
 		// Do an AJAX call using content as the URL
 		if (options.ajax) {
@@ -301,7 +317,7 @@ Titon.Tooltip = new Class({
 					
 					onRequest: function() {
 						if (this.customOptions.showLoading) {
-							this.content = 'Loading...';
+							this.content = Titon.msg.loading;
 							this.position();
 						}
 					}.bind(this),
