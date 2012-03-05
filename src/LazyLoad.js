@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.5
+ * @version	0.6
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
@@ -17,6 +17,8 @@
  * @uses	Core/Element.*
  *
  * @changelog
+ *	v0.6
+ *		Renamed options container to context
  *	v0.5
  *		Fixed a bug with forceLoad option
  *		Fixed a bug where the container was being referenced incorrectly
@@ -43,7 +45,7 @@
 		forceLoad: false,
 		threshhold: 150,
 		delay: 10000,
-		container: window,
+		context: window,
 		onLoad: null,
 		onLoadAll: null,
 		onShow: null,
@@ -73,7 +75,7 @@
 		document.head.grab(sheet);
 		
 		// Add events
-		this.options.container.addEvents({
+		this.options.context.addEvents({
 			scroll: this.load,
 			resize: this.load
 		});
@@ -96,7 +98,7 @@
 	shutdown: function() {
 		this.loaded = true;
 		
-		this.options.container.removeEvents({
+		this.options.context.removeEvents({
 			scroll: this.load,
 			resize: this.load
 		});
@@ -119,7 +121,7 @@
 		
 		var elements = $$(this.query);
 		
-		if (elements.length == 0) {
+		if (elements.length === 0) {
 			this.shutdown();
 			
 			return false;
