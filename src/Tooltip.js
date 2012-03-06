@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.9
+ * @version	0.10
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
@@ -19,6 +19,13 @@
  * @uses	More/Element.Position
  *	
  * @changelog
+ *	v0.10
+ *		Disabled fade option by default
+ *		Added a duration option to handle fade animation
+ *		Switched mouseover to mouseenter and mouseout to mouseleave
+ *		Fixed a bug with document.body being passed as the context
+ *		Fixed a bug when position mouse and mode click were used together
+ *		Fixed a bug where offset values weren't being used correctly in position()
  *	v0.9
  *		Added a context option (defaults to document)
  *		Added a mode option to toggle between hover and click
@@ -68,7 +75,7 @@ Titon.Tooltip = new Class({
 	 */
 	options: {
 		ajax: false,
-		fade: true,
+		fade: false,
 		mode: 'hover',
 		className: '',
 		position: 'topRight',
@@ -79,7 +86,8 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		context: document,
+		duration: 250,
+		context: null,
 		onHide: null,
 		onShow: null,
 		onPosition: null
@@ -100,11 +108,13 @@ Titon.Tooltip = new Class({
 	initialize: function(query, options) {
 		this.setOptions(options);
 		
-		var event = (this.options.mode === 'hover' ? 'mouseover' : 'click'),
-			context = new Element(this.options.context);
-		
-		context.removeEvent(event + ':relay(' + query + ')', this.listen.bind(this));
-		context.addEvent(event + ':relay(' + query + ')', this.listen.bind(this));
+		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click');
+			context = $(this.options.context || document.body),
+			listenCallback = this.listen.bind(this);
+
+		context
+			.removeEvent(event + ':relay(' + query + ')', listenCallback)
+			.addEvent(event + ':relay(' + query + ')', listenCallback);
 		
 		var outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
 			inner = new Element('div.tooltip-inner'),
@@ -113,7 +123,7 @@ Titon.Tooltip = new Class({
 			
 		inner.grab(head).grab(body);
 		outer.grab(inner).inject(document.body).set('tween', {
-			duration: 150,
+			duration: this.options.duration || 250,
 			link: 'cancel'
 		});
 
@@ -142,6 +152,7 @@ Titon.Tooltip = new Class({
 	hide: function() {
 		this.isVisible = false;
 		
+		this.node.removeEvents('mousemove');
 		this.node = null;
 		this.title = null;
 		this.content = null;
@@ -155,7 +166,7 @@ Titon.Tooltip = new Class({
 		} else {
 			this.object.removeProperty('style');
 		}
-		
+
 		this.fireEvent('hide');
 	},
 	
@@ -166,7 +177,7 @@ Titon.Tooltip = new Class({
 	 */
 	listen: function(e) {
 		e.stop();
-		
+
 		if (this.options.mode === 'click' && this.isVisible) {
 			this.hide();
 			return;
@@ -202,7 +213,7 @@ Titon.Tooltip = new Class({
 		// Follow the mouse
 		if (options.position === 'mouse') {
 			this.node
-				.removeEvent('mousemove', this.followMouse.bind(this))
+				.removeEvents('mousemove')
 				.addEvent('mousemove', this.followMouse.bind(this));
 
 		// Position accordingly
@@ -225,8 +236,8 @@ Titon.Tooltip = new Class({
 				position: position,
 				edge: edgeMap[position] || 'topLeft',
 				offset: {
-					x: options.xOffset,
-					y: options.yOffset
+					x: -options.xOffset,
+					y: -options.yOffset
 				}
 			});
 			
@@ -271,11 +282,10 @@ Titon.Tooltip = new Class({
 	 * 
 	 * @param node
 	 * @param options
-	 * @return boolean
 	 */
 	show: function(node, options) {
 		if (!node) {
-			return false;
+			return;
 		}
 		
 		// Configuration
@@ -291,8 +301,8 @@ Titon.Tooltip = new Class({
 		
 		if (options.mode !== 'click') {
 			this.node
-				.removeEvent('mouseout', this.hide.bind(this))
-				.addEvent('mouseout', this.hide.bind(this));
+				.removeEvents('mouseleave')
+				.addEvent('mouseleave', this.hide.bind(this));
 		}
 
 		// Do an AJAX call using content as the URL
@@ -337,8 +347,6 @@ Titon.Tooltip = new Class({
 			
 			this.position();
 		}
-		
-		return true;
 	}
 	
 });
