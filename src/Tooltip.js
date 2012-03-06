@@ -150,6 +150,10 @@ Titon.Tooltip = new Class({
 	 * Hide the tooltip and set all relevant values to null.
 	 */
 	hide: function() {
+		if (!this.isVisible) {
+			return;
+		}
+		
 		this.isVisible = false;
 		
 		this.node.removeEvents('mousemove');
@@ -357,7 +361,7 @@ Titon.Tooltip = new Class({
 Titon.Tooltip.instances = {};
 
 /**
- * Easily create multiple instances.
+ * Easily create multiple Tooltip instances.
  * 
  * @param query
  * @param options
@@ -368,4 +372,13 @@ Titon.Tooltip.factory = function(query, options) {
 	Titon.Tooltip.instances[query] = instance;
 	
 	return instance;
+};
+
+/**
+ * Hide all Tooltip instances.
+ */ 
+Titon.Tooltip.hide = function() {
+	Object.each(Titon.Tooltip.instances, function(tooltip) {
+		tooltip.hide();
+	});
 };
