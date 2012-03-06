@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  * 
- * @version	0.10
+ * @version	0.11
  * @uses	Titon
  * @uses	Core/Request
  * @uses	Core/Events
@@ -19,6 +19,8 @@
  * @uses	More/Element.Position
  *	
  * @changelog
+ *	v0.11
+ *		Added a top level hide() method to hide all instances on a page
  *	v0.10
  *		Disabled fade option by default
  *		Added a duration option to handle fade animation
