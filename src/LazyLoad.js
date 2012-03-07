@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  * 
- * @version	0.6
+ * @version	0.7
  * @uses	Titon
  * @uses	Core/Events
  * @uses	Core/Options
@@ -17,6 +17,13 @@
  * @uses	Core/Element.*
  *
  * @changelog
+ *	v0.7
+ *		Fixed a bug with options context not working correctly
+ *		Fixed a bug where window events aren't binding the correct reference
+ *		Fixed a bug where show() would use the incorrect class name
+ *		Added a duration option used for fading
+ *		Added a createStyles option to toggle CSS style generation
+ *		Updated the first load event to use domready instead of load
  *	v0.6
  *		Renamed options container to context
  *	v0.5
@@ -45,6 +52,8 @@
 		forceLoad: false,
 		threshhold: 150,
 		delay: 10000,
+		duration: 250,
+		createStyles: true,
 		context: window,
 		onLoad: null,
 		onLoadAll: null,
@@ -68,27 +77,31 @@
 		this.query = query;
 		
 		// Setup CSS styles
-		var sheet = document.createElement('style');
-			sheet.innerHTML = query + ' { background: none !important; }';
-			sheet.innerHTML = query + ' * { display: none !important; }';
-		
-		document.head.grab(sheet);
+		if (this.options.createStyles) {
+			var sheet = document.createElement('style');
+				sheet.innerHTML = query + ' { background: none !important; }';
+				sheet.innerHTML = query + ' * { display: none !important; }';
+			
+			document.head.grab(sheet);
+		}
 		
 		// Add events
-		this.options.context.addEvents({
-			scroll: this.load,
-			resize: this.load
+		this._eventLoad = this.load.bind(this);
+		
+		$(this.options.context || window).addEvents({
+			scroll: this._eventLoad,
+			resize: this._eventLoad
 		});
 		
 		// Load elements within viewport
-		this.load();
+		window.addEvent('domready', function() {
+			this.load();
 		
-		// Set force load on DOM ready
-		if (this.options.forceLoad) {
-			window.addEvent('load', function() {
+			// Set force load on DOM ready
+			if (this.options.forceLoad) {
 				window.setTimeout(this.loadAll.bind(this), this.options.delay);
-			}.bind(this));
-		}
+			}
+		}.bind(this));
 	},
 	
 	/**
@@ -98,9 +111,9 @@
 	shutdown: function() {
 		this.loaded = true;
 		
-		this.options.context.removeEvents({
-			scroll: this.load,
-			resize: this.load
+		$(this.options.context || window).removeEvents({
+			scroll: this._eventLoad,
+			resize: this._eventLoad
 		});
 		
 		this.fireEvent('shutdown');
@@ -116,8 +129,6 @@
 		if (this.loaded) {
 			return false;
 		}
-		
-		e.stop();
 		
 		var elements = $$(this.query);
 		
@@ -167,17 +178,22 @@
 	 * @param node
 	 */
 	show: function(node) {
-		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload'));
+		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload')),
+			className = this.query.replace('.', '');
 
 		if (options.fade) {
 			var children = node.getChildren();
 			
-			children.hide();
-			node.removeClass(this.query);
+			children.setStyle('opacity', 0).set('tween', {
+				link: 'ignore',
+				duration: options.duration || 250
+			});
+			
+			node.removeClass(className);
 			children.fade('in');
 			
 		} else {
-			node.removeClass(this.query);
+			node.removeClass(className);
 		}
 		
 		this.fireEvent('show');
