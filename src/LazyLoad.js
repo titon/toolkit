@@ -8,7 +8,7 @@
 
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
- * 
+ *
  * @version	0.7
  * @uses	Titon
  * @uses	Core/Events
@@ -38,12 +38,12 @@
  */
  Titon.LazyLoad = new Class({
 	Implements: [Events, Options],
-	
+
 	/**
 	 * Have all elements been force loaded?
 	 */
 	loaded: false,
-	
+
 	/**
 	 * Default options.
 	 */
@@ -60,12 +60,12 @@
 		onShow: null,
 		onShutdown: null
 	},
-	
+
 	/**
 	 * DOM query used for binding.
 	 */
 	query: '',
-	
+
 	/**
 	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
@@ -75,50 +75,50 @@
 	initialize: function(query, options) {
 		this.setOptions(options);
 		this.query = query;
-		
+
 		// Setup CSS styles
 		if (this.options.createStyles) {
 			var sheet = document.createElement('style');
 				sheet.innerHTML = query + ' { background: none !important; }';
 				sheet.innerHTML = query + ' * { display: none !important; }';
-			
+
 			document.head.grab(sheet);
 		}
-		
+
 		// Add events
 		this._eventLoad = this.load.bind(this);
-		
+
 		$(this.options.context || window).addEvents({
 			scroll: this._eventLoad,
 			resize: this._eventLoad
 		});
-		
+
 		// Load elements within viewport
 		window.addEvent('domready', function() {
 			this.load();
-		
+
 			// Set force load on DOM ready
 			if (this.options.forceLoad) {
 				window.setTimeout(this.loadAll.bind(this), this.options.delay);
 			}
 		}.bind(this));
 	},
-	
+
 	/**
 	 * When triggered, will shutdown the instance from executing any longer.
 	 * Any container events will be removed and loading will cease.
 	 */
 	shutdown: function() {
 		this.loaded = true;
-		
+
 		$(this.options.context || window).removeEvents({
 			scroll: this._eventLoad,
 			resize: this._eventLoad
 		});
-		
+
 		this.fireEvent('shutdown');
 	},
-	
+
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
@@ -129,28 +129,28 @@
 		if (this.loaded) {
 			return false;
 		}
-		
+
 		var elements = $$(this.query);
-		
+
 		if (elements.length === 0) {
 			this.shutdown();
-			
+
 			return false;
 		}
-		
+
 		elements.each(function(node) {
 			node = new Element(node);
-			
+
 			if (this.inViewport(node)) {
 				this.show(node);
 			}
 		}, this);
-		
+
 		this.fireEvent('load');
 
 		return true;
 	},
-	
+
 	/**
 	 * Load the remaining hidden elements and remove any container events.
 	 *
@@ -160,18 +160,18 @@
 		if (this.loaded) {
 			return false;
 		}
-		
+
 		$$(this.query).each(function(node) {
 			this.show(new Element(node));
 		}, this);
-		
+
 		this.fireEvent('loadAll');
-		
+
 		this.shutdown();
-		
+
 		return true;
 	},
-	
+
 	/**
 	 * Show or fade in the element by removing the lazy load class.
 	 *
@@ -183,22 +183,22 @@
 
 		if (options.fade) {
 			var children = node.getChildren();
-			
+
 			children.setStyle('opacity', 0).set('tween', {
 				link: 'ignore',
 				duration: options.duration || 250
 			});
-			
+
 			node.removeClass(className);
 			children.fade('in');
-			
+
 		} else {
 			node.removeClass(className);
 		}
-		
+
 		this.fireEvent('show');
 	},
-	
+
 	/**
 	 * Verify that the element is within the current browser viewport.
 	 *
@@ -222,7 +222,7 @@
 			(nodeOffset.x <= (scrollSize.x + windowSize.x + threshhold))
 		);
 	}
-	
+
 });
 
 /**
@@ -232,14 +232,14 @@ Titon.LazyLoad.instances = {};
 
 /**
  * Easily create multiple instances.
- * 
+ *
  * @param query
  * @param options
  */
 Titon.LazyLoad.factory = function(query, options) {
 	var instance = new Titon.LazyLoad(query, options);
-	
+
 	Titon.LazyLoad.instances[query] = instance;
-	
+
 	return instance;
 };
