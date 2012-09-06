@@ -65,9 +65,9 @@ var Titon = {
 	/**
 	 * Merge custom options into the base. Clone the base as to not reference the original.
 	 *
-	 * @param base
-	 * @param options
-	 * @return object
+	 * @param {object} base
+	 * @param {object} options
+	 * @return {object}
 	 */
 	mergeOptions: function(base, options) {
 		return Object.merge(Object.clone(base || {}), options || {});
@@ -77,8 +77,8 @@ var Titon = {
 	 * Parse options out of the data-options attributes.
 	 * Format: key1:value1;key2:value2
 	 *
-	 * @param data
-	 * @return object
+	 * @param {object} data
+	 * @return {object}
 	 */
 	parseOptions: function(data) {
 		var options = {};
@@ -99,7 +99,7 @@ var Titon = {
 	/**
 	 * Apply custom options.
 	 *
-	 * @param options
+	 * @param {object} options
 	 */
 	setup: function(options) {
 		Titon.options = Object.merge(Titon.options, options);
@@ -115,8 +115,8 @@ Element.implement({
 	/**
 	 * Returns an object representation of the data-options attribute located on the element.
 	 *
-	 * @param scope
-	 * @return object
+	 * @param {string} scope
+	 * @return {object}
 	 */
 	getOptions: function(scope) {
 		return Titon.parseOptions(this.get('data-' + scope + '-options'));
@@ -125,7 +125,7 @@ Element.implement({
 	/**
 	 * Show an element using its default display type, or pass a forced type.
 	 *
-	 * @param force
+	 * @param {string} force
 	 */
 	show: function(force) {
 		this.setStyle('display', force || 'block');
@@ -136,6 +136,19 @@ Element.implement({
 	 */
 	hide: function() {
 		this.setStyle('display', 'none');
+	},
+
+	/**
+	 * Fade out an element and remove from DOM.
+	 *
+	 * @param {int} duration
+	 */
+	fadeOut: function(duration) {
+		duration = duration || 600;
+
+		this.set('tween', { duration: duration }).fade('out').get('tween').chain(function() {
+			this.element.dispose();
+		});
 	}
 
 });
