@@ -9,7 +9,7 @@
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  *
- * @version	0.1.1 ALPHA
+ * @version	0.2.1 ALPHA
  */
 var Titon = {
 
@@ -21,11 +21,14 @@ var Titon = {
 	/**
 	 * Options for all classes.
 	 *
-	 *	prefix - Class name to prepend to all element containers
-	 *
+	 *	prefix 			- (string) String to prepend to all created element containers
+	 *	activeClass		- (string) Class name to append to active elements
+	 *	disabledClass	- (string) Class name to append to disabled elements
 	 */
 	options: {
-		prefix: 'titon-'
+		prefix: 'titon-',
+		activeClass: 'active',
+		disabledClass: 'disabled'
 	},
 
 	/**
@@ -128,7 +131,7 @@ Element.implement({
 	 * @param {string} force
 	 */
 	show: function(force) {
-		this.setStyle('display', force || 'block');
+		this.setStyle('display', force || '');
 	},
 
 	/**
@@ -139,6 +142,23 @@ Element.implement({
 	},
 
 	/**
+	 * Fade in an element and set its display type.
+	 *
+	 * @param {int} duration
+	 */
+	fadeIn: function(duration) {
+		duration = duration || 600;
+
+		this.setStyles({
+			display: '',
+			opacity: 0
+		}).set('tween', {
+			duration: duration,
+			link: 'cancel'
+		}).fade('in');
+	},
+
+	/**
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
@@ -146,7 +166,10 @@ Element.implement({
 	fadeOut: function(duration) {
 		duration = duration || 600;
 
-		this.set('tween', { duration: duration }).fade('out').get('tween').chain(function() {
+		this.set('tween', {
+			duration: duration,
+			link: 'cancel'
+		}).fade('out').get('tween').chain(function() {
 			this.element.dispose();
 		});
 	}
