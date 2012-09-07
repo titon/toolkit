@@ -9,14 +9,15 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  *
- * @version	0.7
+ * @version	0.8
  * @uses	Titon
- * @uses	Core/Events
- * @uses	Core/Options
- * @uses	Core/Fx.Tween (For fading)
- * @uses	Core/Element.*
+ * @uses	Core
  *
  * @changelog
+ * 	v0.8
+ * 		Renamed duration option to fadeDuration
+ * 		Renamed threshhold option to threshold
+ * 		Updated factory() to return instance if it exists
  *	v0.7
  *		Fixed a bug with options context not working correctly
  *		Fixed a bug where window events aren't binding the correct reference
@@ -46,13 +47,25 @@
 
 	/**
 	 * Default options.
+	 *
+	 * 	fade			- (bool) Will fade the items in and out
+	 * 	fadeDuration	- (int) Fade duration in milliseconds
+	 * 	forceLoad		- (bool) Will force all items to load after a delay
+	 *	delay			- (int) The delay in milliseconds before items are force loaded
+	 * 	threshold		- (int) The threshold in pixels to load images outside the viewport
+	 * 	createStyles	- (bool) Will automatically create CSS styles related to lazy loading
+	 *	context			- (element) The element the lazy loading triggers in (defaults window)
+	 *	onLoad			- (function) Callback to trigger when the scroll bar loads items
+	 *	onLoadAll		- (function) Callback to trigger when all items are loaded
+	 *	onShow			- (function) Callback to trigger when an item is shown
+	 *	onShutdown		- (function) Callback to trigger when all items are loaded and events destroyed
 	 */
 	options: {
 		fade: false,
+		fadeDuration: 250,
 		forceLoad: false,
-		threshhold: 150,
 		delay: 10000,
-		duration: 250,
+		threshold: 150,
 		createStyles: true,
 		context: window,
 		onLoad: null,
@@ -62,9 +75,9 @@
 	},
 
 	/**
-	 * DOM query used for binding.
+	 * Query selector used for element targeting.
 	 */
-	query: '',
+	query: null,
 
 	/**
 	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
@@ -181,19 +194,10 @@
 		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload')),
 			className = this.query.replace('.', '');
 
+		node.removeClass(className);
+
 		if (options.fade) {
-			var children = node.getChildren();
-
-			children.setStyle('opacity', 0).set('tween', {
-				link: 'ignore',
-				duration: options.duration || 250
-			});
-
-			node.removeClass(className);
-			children.fade('in');
-
-		} else {
-			node.removeClass(className);
+			node.getChildren().fadeIn(this.options.fadeDuration);
 		}
 
 		this.fireEvent('show');
@@ -206,20 +210,20 @@
 	 * @return boolean
 	 */
 	inViewport: function(node) {
-		var threshhold = this.options.threshhold,
+		var threshold = this.options.threshold,
 			scrollSize = window.getScroll(),
 			windowSize = window.getSize(),
 			nodeOffset = node.getPosition();
 
 		return (
 			// Below the top
-			(nodeOffset.y >= (scrollSize.y - threshhold)) &&
+			(nodeOffset.y >= (scrollSize.y - threshold)) &&
 			// Above the bottom
-			(nodeOffset.y <= (scrollSize.y + windowSize.y + threshhold)) &&
+			(nodeOffset.y <= (scrollSize.y + windowSize.y + threshold)) &&
 			// Right of the left
-			(nodeOffset.x >= (scrollSize.x - threshhold)) &&
+			(nodeOffset.x >= (scrollSize.x - threshold)) &&
 			// Left of the right
-			(nodeOffset.x <= (scrollSize.x + windowSize.x + threshhold))
+			(nodeOffset.x <= (scrollSize.x + windowSize.x + threshold))
 		);
 	}
 
@@ -237,6 +241,10 @@ Titon.LazyLoad.instances = {};
  * @param options
  */
 Titon.LazyLoad.factory = function(query, options) {
+	if (Titon.LazyLoad.instances[query]) {
+		return Titon.LazyLoad.instances[query];
+	}
+
 	var instance = new Titon.LazyLoad(query, options);
 
 	Titon.LazyLoad.instances[query] = instance;
