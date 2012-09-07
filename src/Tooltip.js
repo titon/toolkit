@@ -9,16 +9,15 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  *
- * @version	0.12
+ * @version	0.13
  * @uses	Titon
- * @uses	Core/Request
- * @uses	Core/Events
- * @uses	Core/Options
- * @uses	Core/Fx.Tween (For fading)
- * @uses	Core/Element.*
+ * @uses	Core
  * @uses	More/Element.Position
  *
  * @changelog
+ * 	v0.13
+ * 		Renamed duration option to fadeDuration
+ * 		Updated factory() to return instance if it exists
  * 	v0.12
  * 		Fixed minor bugs
  * 		Supplied the node for element events
@@ -82,10 +81,29 @@ Titon.Tooltip = new Class({
 
 	/**
 	 * Default options.
+	 *
+	 * 	ajax			- (bool) The tooltip uses the target as an AJAX call
+	 * 	fade			- (bool) Will fade the tooltips in and out
+	 * 	fadeDuration	- (int) Fade duration in milliseconds
+	 * 	mode			- (string) Either "hover" or "click"
+	 * 	className		- (string) Class name to append to a tooltip when it is shown
+	 * 	position		- (string) The position to display the tooltip over the element
+	 * 	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
+	 * 	showTitle		- (bool) Will display the element title in the tooltip
+	 * 	titleQuery		- (string) Attribute to read the title from
+	 * 	contentQuery	- (string) Attribute to read the content from
+	 * 	xOffset			- (int) Additional margin on the X axis
+	 * 	yOffset			- (int) Additional margin on the Y axis
+	 * 	delay			- (int) The delay in milliseconds before the tooltip shows
+	 *	context			- (element) The element the tooltips will display in (defaults body)
+	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
+	 *	onShow			- (function) Callback to trigger when a tooltip is shown
+	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
 	 */
 	options: {
 		ajax: false,
 		fade: false,
+		fadeDuration: 250,
 		mode: 'hover',
 		className: '',
 		position: 'topRight',
@@ -96,7 +114,6 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		duration: 250,
 		context: null,
 		onHide: null,
 		onShow: null,
@@ -133,7 +150,7 @@ Titon.Tooltip = new Class({
 
 		inner.grab(head).grab(body);
 		outer.grab(inner).inject(document.body).set('tween', {
-			duration: this.options.duration || 250,
+			duration: this.options.fadeDuration || 250,
 			link: 'cancel'
 		});
 
@@ -259,7 +276,7 @@ Titon.Tooltip = new Class({
 
 			window.setTimeout(function() {
 				if (this.customOptions.fade) {
-					this.object.fade('in');
+					this.object.fadeIn();
 				} else {
 					this.object.setStyle('opacity', 1);
 				}
@@ -379,6 +396,10 @@ Titon.Tooltip.instances = {};
  * @param {object} options
  */
 Titon.Tooltip.factory = function(query, options) {
+	if (Titon.Tooltip.instances[query]) {
+		return Titon.Tooltip.instances[query];
+	}
+
 	var instance = new Titon.Tooltip(query, options);
 
 	Titon.Tooltip.instances[query] = instance;
