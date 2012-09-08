@@ -165,16 +165,23 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
+	 * @param {boolean} remove
 	 * @return {Element}
 	 */
-	fadeOut: function(duration) {
+	fadeOut: function(duration, remove) {
 		duration = duration || 600;
+
+		if (typeOf(remove) === 'null') {
+			remove = true;
+		}
 
 		return this.set('tween', {
 			duration: duration,
 			link: 'cancel'
 		}).fade('out').get('tween').chain(function() {
-			this.element.dispose();
+			if (remove) {
+				this.element.dispose();
+			}
 		});
 	}
 

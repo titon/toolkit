@@ -134,6 +134,7 @@ Titon.Tooltip = new Class({
 	 */
 	initialize: function(query, options) {
 		this.setOptions(options);
+		this.query = query;
 
 		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
 			context = $(this.options.context || document.body),
@@ -149,12 +150,8 @@ Titon.Tooltip = new Class({
 			body = new Element('div.tooltip-body');
 
 		inner.grab(head).grab(body);
-		outer.grab(inner).inject(document.body).set('tween', {
-			duration: this.options.fadeDuration || 250,
-			link: 'cancel'
-		});
+		outer.grab(inner).inject(document.body);
 
-		this.query = query;
 		this.object = outer;
 		this.objectHead = head;
 		this.objectBody = body;
@@ -163,7 +160,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Callback to position the tooltip at the mouse cursor.
 	 *
-	 * @param e
+	 * @param {event} e
 	 */
 	followMouse: function(e) {
 		e.stop();
@@ -194,7 +191,7 @@ Titon.Tooltip = new Class({
 		}
 
 		if (this.customOptions.fade) {
-			this.object.fade('out');
+			this.object.fadeOut(this.options.fadeDuration, false);
 		} else {
 			this.object.removeProperty('style');
 		}
@@ -205,7 +202,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Event callback for tooltip element mouseover or click.
 	 *
-	 * @param {object} e
+	 * @param {event} e
 	 * @param {object} node
 	 */
 	listen: function(e, node) {
@@ -292,7 +289,7 @@ Titon.Tooltip = new Class({
 	 * DOM storage will always take precedent.
 	 *
 	 * @param {string} type
-	 * @return mixed
+	 * @return {string}
 	 */
 	read: function(type) {
 		var data = this.node.retrieve('tooltip:' + type),
@@ -375,7 +372,7 @@ Titon.Tooltip = new Class({
 		} else {
 			// Copy the content found in the referenced ID
 			if (this.content.substr(0, 1) === '#') {
-				this.content = $(this.content.replace('#', '')).get('html');
+				this.content = $(this.content.remove('#')).get('html');
 			}
 
 			this.position();
