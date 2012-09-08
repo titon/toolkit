@@ -42,8 +42,8 @@ var Titon = {
 	 * Converts a value to a specific scalar type.
 	 * The value is extracted via parseOptions().
 	 *
-	 * @param value
-	 * @return mixed
+	 * @param {string} value
+	 * @return {boolean|string|number}
 	 */
 	convertType: function(value) {
 		if (value === 'true') {
@@ -129,27 +129,30 @@ Element.implement({
 	 * Show an element using its default display type, or pass a forced type.
 	 *
 	 * @param {string} force
+	 * @return {Element}
 	 */
 	show: function(force) {
-		this.setStyle('display', force || '');
+		return this.setStyle('display', force || '');
 	},
 
 	/**
 	 * Hide an element.
+	 * @return {Element}
 	 */
 	hide: function() {
-		this.setStyle('display', 'none');
+		return this.setStyle('display', 'none');
 	},
 
 	/**
 	 * Fade in an element and set its display type.
 	 *
 	 * @param {int} duration
+	 * @return {Element}
 	 */
 	fadeIn: function(duration) {
 		duration = duration || 600;
 
-		this.setStyles({
+		return this.setStyles({
 			display: '',
 			opacity: 0
 		}).set('tween', {
@@ -162,16 +165,35 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
+	 * @return {Element}
 	 */
 	fadeOut: function(duration) {
 		duration = duration || 600;
 
-		this.set('tween', {
+		return this.set('tween', {
 			duration: duration,
 			link: 'cancel'
 		}).fade('out').get('tween').chain(function() {
 			this.element.dispose();
 		});
+	}
+
+});
+
+String.implement({
+
+	/**
+	 * Remove specific characters from a string.
+	 *
+	 * @param {string|array} chars
+	 * @return {String}
+	 */
+	remove: function(chars) {
+		if (typeOf(chars) !== 'array') {
+			chars = chars.toString().split('');
+		}
+
+		return this.replace(new RegExp('[' + chars.join('|') + ']+', 'ig'), '');
 	}
 
 });
