@@ -28,11 +28,14 @@
  * 		</script>
  * }}}
  *
- * @version	0.2
+ * @version	0.3
  * @uses	Titon
  * @uses	Core
  *
  * @changelog
+ * 	v0.3
+ * 		Added an onShow callback option
+ * 		Added previousIndex and currentIndex properties
  * 	v0.2
  * 		Added a tabsQuery and sectionsQuery option
  * 		Renamed node property to object
@@ -61,6 +64,12 @@ Titon.Tabs = new Class({
 	sections: [],
 
 	/**
+	 * The current and previous shown indices.
+	 */
+	previousIndex: 0,
+	currentIndex: 0,
+
+	/**
 	 * Default options.
 	 *
 	 * 	fade			- (bool) Should the sections fade in
@@ -72,6 +81,7 @@ Titon.Tabs = new Class({
 	 * 	cookieDuration	- (int) The length the cookie will last (in days)
 	 * 	tabsQuery		- (string) The CSS query to grab the tab elements
 	 * 	sectionsQuery	- (string) The CSS query to grab the section elements
+	 *	onShow			- (function) Callback to trigger when a section is shown
 	 */
 	options: {
 		fade: false,
@@ -82,7 +92,8 @@ Titon.Tabs = new Class({
 		cookie: null,
 		cookieDuration: 30,
 		tabsQuery: 'nav a',
-		sectionsQuery: 'section'
+		sectionsQuery: 'section',
+		onShow: null
 	},
 
 	/**
@@ -166,6 +177,12 @@ Titon.Tabs = new Class({
 				duration: this.options.cookieDuration
 			});
 		}
+
+		// Track
+		this.previousIndex = this.currentIndex;
+		this.currentIndex = tab.get('data-tabs-index');
+
+		this.fireEvent('show', tab);
 	}
 
 });
