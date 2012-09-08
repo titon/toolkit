@@ -15,12 +15,12 @@
  * @uses	More/Element.Position
  *
  * @changelog
- * 	v0.13
- * 		Renamed duration option to fadeDuration
- * 		Updated factory() to return instance if it exists
- * 	v0.12
- * 		Fixed minor bugs
- * 		Supplied the node for element events
+ *	v0.13
+ *		Renamed duration option to fadeDuration
+ *		Updated factory() to return instance if it exists
+ *	v0.12
+ *		Fixed minor bugs
+ *		Supplied the node for element events
  *	v0.11
  *		Added a top level hide() method to hide all instances on a page
  *	v0.10
@@ -82,19 +82,19 @@ Titon.Tooltip = new Class({
 	/**
 	 * Default options.
 	 *
-	 * 	ajax			- (bool) The tooltip uses the target as an AJAX call
-	 * 	fade			- (bool) Will fade the tooltips in and out
-	 * 	fadeDuration	- (int) Fade duration in milliseconds
-	 * 	mode			- (string) Either "hover" or "click"
-	 * 	className		- (string) Class name to append to a tooltip when it is shown
-	 * 	position		- (string) The position to display the tooltip over the element
-	 * 	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
-	 * 	showTitle		- (bool) Will display the element title in the tooltip
-	 * 	titleQuery		- (string) Attribute to read the title from
-	 * 	contentQuery	- (string) Attribute to read the content from
-	 * 	xOffset			- (int) Additional margin on the X axis
-	 * 	yOffset			- (int) Additional margin on the Y axis
-	 * 	delay			- (int) The delay in milliseconds before the tooltip shows
+	 *	ajax			- (bool) The tooltip uses the target as an AJAX call
+	 *	fade			- (bool) Will fade the tooltips in and out
+	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	mode			- (string) Either "hover" or "click"
+	 *	className		- (string) Class name to append to a tooltip when it is shown
+	 *	position		- (string) The position to display the tooltip over the element
+	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
+	 *	showTitle		- (bool) Will display the element title in the tooltip
+	 *	titleQuery		- (string) Attribute to read the title from
+	 *	contentQuery	- (string) Attribute to read the content from
+	 *	xOffset			- (int) Additional margin on the X axis
+	 *	yOffset			- (int) Additional margin on the Y axis
+	 *	delay			- (int) The delay in milliseconds before the tooltip shows
 	 *	context			- (element) The element the tooltips will display in (defaults body)
 	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
 	 *	onShow			- (function) Callback to trigger when a tooltip is shown

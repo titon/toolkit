@@ -33,12 +33,12 @@
  * @uses	Core
  *
  * @changelog
- * 	v0.3
- * 		Added an onShow callback option
- * 		Added previousIndex and currentIndex properties
- * 	v0.2
- * 		Added a tabsQuery and sectionsQuery option
- * 		Renamed node property to object
+ *	v0.3
+ *		Added an onShow callback option
+ *		Added previousIndex and currentIndex properties
+ *	v0.2
+ *		Added a tabsQuery and sectionsQuery option
+ *		Renamed node property to object
  */
 Titon.Tabs = new Class({
 	Implements: [Events, Options],
@@ -72,15 +72,15 @@ Titon.Tabs = new Class({
 	/**
 	 * Default options.
 	 *
-	 * 	fade			- (bool) Should the sections fade in
-	 * 	fadeDuration	- (int) Fade duration in milliseconds
-	 * 	activeClass		- (string) Class name appended to the active tab
-	 * 	defaultIndex	- (int) Index of the tab/section to display by default
-	 * 	persistState	- (bool) Will persist the last tab clicked between page loads
-	 * 	cookie			- (string) The key used in the cookie name
-	 * 	cookieDuration	- (int) The length the cookie will last (in days)
-	 * 	tabsQuery		- (string) The CSS query to grab the tab elements
-	 * 	sectionsQuery	- (string) The CSS query to grab the section elements
+	 *	fade			- (bool) Should the sections fade in
+	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	activeClass		- (string) Class name appended to the active tab
+	 *	defaultIndex	- (int) Index of the tab/section to display by default
+	 *	persistState	- (bool) Will persist the last tab clicked between page loads
+	 *	cookie			- (string) The key used in the cookie name
+	 *	cookieDuration	- (int) The length the cookie will last (in days)
+	 *	tabsQuery		- (string) The CSS query to grab the tab elements
+	 *	sectionsQuery	- (string) The CSS query to grab the section elements
 	 *	onShow			- (function) Callback to trigger when a section is shown
 	 */
 	options: {
