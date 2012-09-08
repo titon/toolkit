@@ -16,7 +16,7 @@
  * @changelog
  * 	v0.8
  * 		Renamed duration option to fadeDuration
- * 		Renamed threshhold option to threshold
+ * 		Renamed threshold option to threshold
  * 		Updated factory() to return instance if it exists
  *	v0.7
  *		Fixed a bug with options context not working correctly
@@ -41,6 +41,11 @@
 	Implements: [Events, Options],
 
 	/**
+	 * Query selector used for element targeting.
+	 */
+	query: null,
+
+	/**
 	 * Have all elements been force loaded?
 	 */
 	loaded: false,
@@ -58,7 +63,7 @@
 	 *	onLoad			- (function) Callback to trigger when the scroll bar loads items
 	 *	onLoadAll		- (function) Callback to trigger when all items are loaded
 	 *	onShow			- (function) Callback to trigger when an item is shown
-	 *	onShutdown		- (function) Callback to trigger when all items are loaded and events destroyed
+	 *	onShutdown		- (function) Callback to trigger when lazy loading is disabled
 	 */
 	options: {
 		fade: false,
@@ -75,15 +80,10 @@
 	},
 
 	/**
-	 * Query selector used for element targeting.
-	 */
-	query: null,
-
-	/**
 	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
-	 * @param query
-	 * @param options
+	 * @param {string} query
+	 * @param {object} options
 	 */
 	initialize: function(query, options) {
 		this.setOptions(options);
@@ -101,7 +101,7 @@
 		// Add events
 		this._eventLoad = this.load.bind(this);
 
-		$(this.options.context || window).addEvents({
+		$(this.options.context).addEvents({
 			scroll: this._eventLoad,
 			resize: this._eventLoad
 		});
@@ -124,7 +124,7 @@
 	shutdown: function() {
 		this.loaded = true;
 
-		$(this.options.context || window).removeEvents({
+		$(this.options.context).removeEvents({
 			scroll: this._eventLoad,
 			resize: this._eventLoad
 		});
@@ -135,8 +135,8 @@
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
-	 * @param e
-	 * @return boolean
+	 * @param {event} e
+	 * @return {boolean}
 	 */
 	load: function(e) {
 		if (this.loaded) {
@@ -167,7 +167,7 @@
 	/**
 	 * Load the remaining hidden elements and remove any container events.
 	 *
-	 * @return boolean
+	 * @return {boolean}
 	 */
 	loadAll: function() {
 		if (this.loaded) {
@@ -192,7 +192,7 @@
 	 */
 	show: function(node) {
 		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload')),
-			className = this.query.replace('.', '');
+			className = this.query.remove('.');
 
 		node.removeClass(className);
 
