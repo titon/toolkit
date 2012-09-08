@@ -10,8 +10,6 @@
  * Provides tabbed support to an element containing navigation tabs and sections.
  * Each time a tab is clicked, the section with the same ID as the tab href will be displayed.
  *
- * The target element must follow the HTML structure below.
- *
  * {{{
  * 		<div id="tabs">
  *			<nav>
@@ -30,9 +28,14 @@
  * 		</script>
  * }}}
  *
- * @version	0.1
+ * @version	0.2
  * @uses	Titon
  * @uses	Core
+ *
+ * @changelog
+ * 	v0.2
+ * 		Added a tabsQuery and sectionsQuery option
+ * 		Renamed node property to object
  */
 Titon.Tabs = new Class({
 	Implements: [Events, Options],
@@ -43,9 +46,9 @@ Titon.Tabs = new Class({
 	query: null,
 
 	/**
-	 * The wrapping parent node (the query).
+	 * The wrapping parent element.
 	 */
-	node: null,
+	object: null,
 
 	/**
 	 * Collection of tabs (anchor links).
@@ -67,6 +70,8 @@ Titon.Tabs = new Class({
 	 * 	persistState	- (bool) Will persist the last tab clicked between page loads
 	 * 	cookie			- (string) The key used in the cookie name
 	 * 	cookieDuration	- (int) The length the cookie will last (in days)
+	 * 	tabsQuery		- (string) The CSS query to grab the tab elements
+	 * 	sectionsQuery	- (string) The CSS query to grab the section elements
 	 */
 	options: {
 		fade: false,
@@ -75,7 +80,9 @@ Titon.Tabs = new Class({
 		defaultIndex: 0,
 		persistState: false,
 		cookie: null,
-		cookieDuration: 30
+		cookieDuration: 30,
+		tabsQuery: 'nav a',
+		sectionsQuery: 'section'
 	},
 
 	/**
@@ -91,9 +98,9 @@ Titon.Tabs = new Class({
 		this.options.cookie = (this.options.cookie || this.query).camelCase();
 
 		// Get elements
-		this.node = $(query);
-		this.tabs = this.node.getElements('nav a');
-		this.sections = this.node.getElements('section');
+		this.object = $(query);
+		this.tabs = this.object.getElements(this.options.tabsQuery);
+		this.sections = this.object.getElements(this.options.sectionsQuery);
 
 		// Bind events
 		this.tabs.addEvent('click', this.listen.bind(this));
@@ -114,7 +121,7 @@ Titon.Tabs = new Class({
 	/**
 	 * Event callback for tab element click.
 	 *
-	 * @param {object} e
+	 * @param {event} e
 	 */
 	listen: function(e) {
 		e.stop();
@@ -137,7 +144,7 @@ Titon.Tabs = new Class({
 		}
 
 		var className = this.options.activeClass,
-			target = (tab.get('data-tabs-target') || tab.get('href')).replace('#', '');
+			target = (tab.get('data-tabs-target') || tab.get('href')).remove('#');
 
 		// Toggle tabs
 		this.tabs.removeClass(className);
