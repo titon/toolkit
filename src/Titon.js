@@ -9,14 +9,19 @@
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  *
- * @version	0.2.1 ALPHA
+ * @version	0.3
+ *
+ * @changelog
+ * 	v0.3
+ * 		Added blackout support
+ * 		Added callback support to fadeOut()
  */
 var Titon = {
 
 	/**
 	 * Current version.
 	 */
-	version: '0.1.1 ALPHA',
+	version: '0.3',
 
 	/**
 	 * Options for all classes.
@@ -24,11 +29,13 @@ var Titon = {
 	 *	prefix 			- (string) String to prepend to all created element containers
 	 *	activeClass		- (string) Class name to append to active elements
 	 *	disabledClass	- (string) Class name to append to disabled elements
+	 *	draggingClass	- (string) Class name to append to elements being dragged
 	 */
 	options: {
 		prefix: 'titon-',
 		activeClass: 'active',
-		disabledClass: 'disabled'
+		disabledClass: 'disabled',
+		draggingClass: 'dragging'
 	},
 
 	/**
@@ -37,6 +44,16 @@ var Titon = {
 	msg: {
 		loading: 'Loading...'
 	},
+
+	/**
+	 * The blackout element.
+	 */
+	blackout: null,
+
+	/**
+	 * The count of how many methods are calling blackouts.
+	 */
+	blackoutCount: 0,
 
 	/**
 	 * Converts a value to a specific scalar type.
@@ -63,6 +80,19 @@ var Titon = {
 		}
 
 		return value;
+	},
+
+	/**
+	 * Hide the blackout if the counter reaches 0.
+	 */
+	hideBlackout: function() {
+		if (Titon.blackoutCount) {
+			Titon.blackoutCount--;
+
+			if (Titon.blackoutCount <= 0) {
+				Titon.blackout.hide();
+			}
+		}
 	},
 
 	/**
@@ -97,6 +127,20 @@ var Titon = {
 		}
 
 		return options;
+	},
+
+	/**
+	 * Show the blackout and increase the counter.
+	 */
+	showBlackout: function() {
+		if (!Titon.blackout) {
+			Titon.blackout = new Element('div.' + Titon.options.prefix + 'blackout', {
+				id: 'titon-blackout'
+			});
+		}
+
+		Titon.blackout.show();
+		Titon.blackoutCount++;
 	},
 
 	/**
@@ -165,24 +209,28 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
-	 * @param {boolean} remove
+	 * @param {function} callback
 	 * @return {Element}
 	 */
-	fadeOut: function(duration, remove) {
+	fadeOut: function(duration, callback) {
 		duration = duration || 600;
 
-		if (typeOf(remove) === 'null') {
-			remove = true;
+		if (typeOf(callback) === 'null') {
+			callback = function() {
+				this.element.dispose();
+			};
 		}
 
-		return this.set('tween', {
+		this.set('tween', {
 			duration: duration,
 			link: 'cancel'
-		}).fade('out').get('tween').chain(function() {
-			if (remove) {
-				this.element.dispose();
-			}
-		});
+		}).fade('out');
+
+		if (callback) {
+			this.get('tween').chain(callback);
+		}
+
+		return this;
 	}
 
 });
