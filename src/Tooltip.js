@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  *
- * @version	0.13
+ * @version	0.15
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.Position
@@ -18,9 +18,9 @@ Titon.Tooltip = new Class({
 	Implements: [Events, Options],
 
 	/**
-	 * Query selector used for tooltip activation.
+	 * A cache of all AJAX calls, indexed by the URL.
 	 */
-	query: null,
+	cache: {},
 
 	/**
 	 * DOM elements.
@@ -30,19 +30,19 @@ Titon.Tooltip = new Class({
 	elementBody: null,
 
 	/**
+	 * Is the tooltip currently visible?
+	 */
+	isVisible: false,
+
+	/**
 	 * Current node that activated the tooltip.
 	 */
 	node: null,
 
 	/**
-	 * A cache of all AJAX calls, indexed by the URL.
+	 * Query selector used for tooltip activation.
 	 */
-	cache: {},
-
-	/**
-	 * Is the tooltip currently visible?
-	 */
-	isVisible: false,
+	query: null,
 
 	/**
 	 * Default options.
@@ -97,16 +97,11 @@ Titon.Tooltip = new Class({
 		this.query = query;
 
 		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
-			listenCallback = this.listen.bind(this);
-
-		$(this.options.context)
-			.removeEvent(event + ':relay(' + query + ')', listenCallback)
-			.addEvent(event + ':relay(' + query + ')', listenCallback);
-
-		var outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
+			outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
 			inner = new Element('div.tooltip-inner'),
 			head = new Element('div.tooltip-head'),
-			body = new Element('div.tooltip-body');
+			body = new Element('div.tooltip-body'),
+			listenCallback = this.listen.bind(this);
 
 		inner.grab(head).grab(body);
 		outer.grab(inner).inject(document.body);
@@ -119,6 +114,11 @@ Titon.Tooltip = new Class({
 		if (this.options.className) {
 			this.element.addClass(this.options.className);
 		}
+
+		// Set events
+		$(this.options.context)
+			.removeEvent(event + ':relay(' + query + ')', listenCallback)
+			.addEvent(event + ':relay(' + query + ')', listenCallback);
 	},
 
 	/**
@@ -167,7 +167,9 @@ Titon.Tooltip = new Class({
 		e.stop();
 
 		if (this.options.mode === 'click') {
-			this.hide();
+			if (this.isVisible) {
+				this.hide();
+			}
 		} else {
 			this.show(node);
 		}
@@ -181,14 +183,10 @@ Titon.Tooltip = new Class({
 	 * @param {object} options
 	 */
 	show: function(node, options) {
-		if (!node) {
-			return;
-		}
-
+		node = new Element(node);
 		options = Titon.mergeOptions(this.options, node.getOptions('tooltip') || options);
 
-		// Configuration
-		this.node = new Element(node);
+		this.node = node;
 
 		var title = this._read('title'),
 			content = this._read('content');
@@ -235,13 +233,12 @@ Titon.Tooltip = new Class({
 				}).get();
 			}
 
-		// Text or DOM element
-		} else {
-			// Copy the content found in the referenced ID
-			if (content.substr(0, 1) === '#') {
-				content = $(content.remove('#')).get('html');
-			}
+		// DOM element
+		} else if (content.substr(0, 1) === '#') {
+			this._position($(content.remove('#')).get('html'));
 
+		// Text
+		} else {
 			this._position(content);
 		}
 	},
@@ -253,8 +250,6 @@ Titon.Tooltip = new Class({
 	 * @param {string|Element} content
 	 */
 	_position: function(content) {
-		var options = this.options;
-
 		if (content) {
 			this.elementBody.set('html', content).show();
 		} else {
@@ -262,14 +257,14 @@ Titon.Tooltip = new Class({
 		}
 
 		// Follow the mouse
-		if (options.position === 'mouse') {
+		if (this.options.position === 'mouse') {
 			this.node
 				.removeEvents('mousemove')
 				.addEvent('mousemove', this.follow.bind(this));
 
 			// Position accordingly
 		} else {
-			var position = options.position,
+			var position = this.options.position,
 				edgeMap = {
 					topLeft: 'bottomRight',
 					topCenter: 'bottomCenter',
@@ -287,8 +282,8 @@ Titon.Tooltip = new Class({
 				position: position,
 				edge: edgeMap[position] || 'topLeft',
 				offset: {
-					x: -options.xOffset,
-					y: -options.yOffset
+					x: -this.options.xOffset,
+					y: -this.options.yOffset
 				}
 			});
 
@@ -301,7 +296,7 @@ Titon.Tooltip = new Class({
 
 				this.isVisible = true;
 				this.fireEvent('position');
-			}.bind(this), options.delay || 0);
+			}.bind(this), this.options.delay || 0);
 		}
 	}.protect(),
 
@@ -313,7 +308,7 @@ Titon.Tooltip = new Class({
 	 * @return {string}
 	 */
 	_read: function(type) {
-		var data = this.node.retrieve('tooltip:' + type),
+		var data = this.node.retrieve('tooltip:' + type, null),
 			key = (type === 'title') ? this.options.titleQuery : this.options.contentQuery;
 
 		if (data) {
