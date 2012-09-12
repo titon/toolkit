@@ -161,7 +161,7 @@ Titon.Tooltip = new Class({
 	 * Event callback for tooltip element mouseover or click.
 	 *
 	 * @param {event} e
-	 * @param {object} node
+	 * @param {Element} node
 	 */
 	listen: function(e, node) {
 		e.stop();
@@ -179,7 +179,7 @@ Titon.Tooltip = new Class({
 	 * Show the tooltip and determine whether to grab the content from an AJAX call,
 	 * a DOM node, or plain text. Can pass an options object to overwrite the defaults.
 	 *
-	 * @param {object} node
+	 * @param {Element} node
 	 * @param {object} options
 	 */
 	show: function(node, options) {
@@ -218,15 +218,18 @@ Titon.Tooltip = new Class({
 					url: url,
 					method: 'get',
 					evalScripts: true,
+
 					onSuccess: function(response) {
 						this.cache[url] = response;
 						this._position(response);
 					}.bind(this),
+
 					onRequest: function() {
 						if (this.options.showLoading) {
 							this._position(Titon.msg.loading);
 						}
 					}.bind(this),
+
 					onFailure: function() {
 						this.hide();
 					}.bind(this)

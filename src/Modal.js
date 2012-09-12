@@ -9,7 +9,7 @@
 /**
  * @todo
  *
- * @version	0.2
+ * @version	0.3
  * @uses	Titon
  * @uses	Core
  * @uses	More/Drag
@@ -19,9 +19,14 @@ Titon.Modal = new Class({
 	Implements: [Events, Options],
 
 	/**
-	 * Query selector used for modal activation.
+	 * A cache of all AJAX calls, indexed by the URL.
 	 */
-	query: null,
+	cache: {},
+
+	/**
+	 * Drag instance if options.drag is true.
+	 */
+	drag: null,
 
 	/**
 	 * DOM elements.
@@ -30,24 +35,19 @@ Titon.Modal = new Class({
 	elementBody: null,
 
 	/**
+	 * Is the tooltip currently visible?
+	 */
+	isVisible: false,
+
+	/**
 	 * Current node that activated the modal.
 	 */
 	node: null,
 
 	/**
-	 * Drag instance if options.drag is true.
+	 * Query selector used for modal activation.
 	 */
-	drag: null,
-
-	/**
-	 * A cache of all AJAX calls, indexed by the URL.
-	 */
-	cache: {},
-
-	/**
-	 * Is the tooltip currently visible?
-	 */
-	isVisible: false,
+	query: null,
 
 	/**
 	 * Default options.
@@ -97,6 +97,11 @@ Titon.Modal = new Class({
 			close = new Element('a.modal-close'),
 			listenCallback = this.listen.bind(this);
 
+		outer.grab(inner).grab(close).inject(document.body);
+
+		this.element = outer;
+		this.elementBody = inner;
+
 		// Set options
 		if (this.options.className) {
 			outer.addClass(this.options.className);
@@ -113,12 +118,7 @@ Titon.Modal = new Class({
 			});
 		}
 
-		// Assign elements and events
-		outer.grab(inner).grab(close).inject(document.body);
-
-		this.element = outer;
-		this.elementBody = inner;
-
+		// Set events
 		$(this.options.context)
 			.removeEvent('click:relay(' + query + ')', listenCallback)
 			.addEvent('click:relay(' + query + ')', listenCallback);
@@ -165,7 +165,7 @@ Titon.Modal = new Class({
 	 * Event callback for modal click.
 	 *
 	 * @param {event} e
-	 * @param {object} node
+	 * @param {Element} node
 	 */
 	listen: function(e, node) {
 		e.stop();
@@ -174,11 +174,64 @@ Titon.Modal = new Class({
 	},
 
 	/**
+	 * Show the modal after fetching the content.
+	 *
+	 * @param {Element} node
+	 * @param {object} options
+	 */
+	show: function(node, options) {
+		node = new Element(node);
+		options = Titon.mergeOptions(this.options, node.getOptions('modal') || options);
+
+		this.node = node;
+
+		var target = this.node.get(options.contentQuery) || this.node.get('href');
+
+		// DOM element
+		if (target.substr(0, 1) === '#') {
+			this._position($(target.remove('#')).get('html'));
+
+		// AJAX call
+		} else {
+			if (this.cache[target]) {
+				this._position(this.cache[target]);
+
+			} else {
+				new Request({
+					url: target,
+					method: 'get',
+					evalScripts: true,
+
+					onSuccess: function(response) {
+						this.cache[target] = response;
+						this._position(response);
+					}.bind(this),
+
+					onRequest: function() {
+						if (options.showLoading) {
+							var html = new Element('div.modal-loading');
+								html.set('html', Titon.msg.loading);
+
+							this._position(html);
+						}
+					}.bind(this),
+
+					onFailure: function() {
+						this.hide();
+					}.bind(this)
+				}).get();
+			}
+		}
+
+		this.fireEvent('show');
+	},
+
+	/**
 	 * Position the modal in the center of the screen.
 	 *
 	 * @param {string|Element} content
 	 */
-	position: function(content) {
+	_position: function(content) {
 		this.elementBody
 			.set('html', content)
 			.getElements(this.options.closeQuery).addEvent('click', this.hide().bind(this));
@@ -202,60 +255,7 @@ Titon.Modal = new Class({
 			this.isVisible = true;
 			this.fireEvent('position');
 		}.bind(this), this.options.delay || 0);
-	},
-
-	/**
-	 * Show the modal after fetching the content.
-	 *
-	 * @param {object} node
-	 */
-	show: function(node) {
-		if (!node) {
-			return;
-		}
-
-		this.node = new Element(node);
-
-		var target = this.node.get(this.options.contentQuery) || this.node.get('href');
-
-		// DOM element
-		if (target.substr(0, 1) === '#') {
-			this.position($(target.remove('#')).get('html'));
-
-		// AJAX call
-		} else {
-			if (this.cache[target]) {
-				this.position(this.cache[target]);
-
-			} else {
-				new Request({
-					url: target,
-					method: 'get',
-					evalScripts: true,
-
-					onSuccess: function(response) {
-						this.cache[target] = response;
-						this.position(response);
-					}.bind(this),
-
-					onRequest: function() {
-						if (this.options.showLoading) {
-							var html = new Element('div.modal-loading');
-								html.set('html', Titon.msg.loading);
-
-							this.position(html);
-						}
-					}.bind(this),
-
-					onFailure: function() {
-						this.hide();
-					}.bind(this)
-				}).get();
-			}
-		}
-
-		this.fireEvent('show');
-	}
+	}.protect()
 
 });
 
