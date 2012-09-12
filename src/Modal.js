@@ -9,7 +9,7 @@
 /**
  * @todo
  *
- * @version	0.1
+ * @version	0.2
  * @uses	Titon
  * @uses	Core
  * @uses	More/Drag
@@ -53,13 +53,13 @@ Titon.Modal = new Class({
 	 * Default options.
 	 *
 	 *	draggable		- (bool) Will enable dragging on the outer element
-	 *	closeable		- (bool) Will create a closeable element and set esc binds
 	 *	blackout		- (bool) Will show a blackout when a modal is opened, and hide it when it is closed
 	 *	fade			- (bool) Will fade the modals in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	className		- (string) Class name to append to a tooltip when it is shown
 	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
 	 *	contentQuery	- (string) Attribute to read the content from
+	 *	closeQuery		- (string) CSS query to bind hide() events to inner content
 	 *	delay			- (int) The delay in milliseconds before the modal shows
 	 *	context			- (element) The element the tooltips will display in (defaults body)
 	 *	onHide			- (function) Callback to trigger when a modal is hidden
@@ -68,13 +68,13 @@ Titon.Modal = new Class({
 	 */
 	options: {
 		draggable: false,
-		closeable: false,
 		blackout: false,
 		fade: false,
 		fadeDuration: 250,
 		className: '',
 		showLoading: true,
 		contentQuery: 'data-modal',
+		closeQuery: '.modal-close-button',
 		delay: 0,
 		context: document.body,
 		onHide: null,
@@ -114,14 +114,7 @@ Titon.Modal = new Class({
 		}
 
 		// Assign elements and events
-		outer.grab(inner);
-
-		if (this.options.closeable) {
-			outer.grab(close);
-			close.addEvent('click', this.hide.bind(this));
-		}
-
-		outer.inject(document.body);
+		outer.grab(inner).grab(close).inject(document.body);
 
 		this.element = outer;
 		this.elementBody = inner;
@@ -129,6 +122,14 @@ Titon.Modal = new Class({
 		$(this.options.context)
 			.removeEvent('click:relay(' + query + ')', listenCallback)
 			.addEvent('click:relay(' + query + ')', listenCallback);
+
+		close.addEvent('click', this.hide.bind(this));
+
+		window.addEvent('keydown', function(e) {
+			if (e.key === 'esc') {
+				this.hide();
+			}
+		}.bind(this));
 	},
 
 	/**
@@ -181,7 +182,9 @@ Titon.Modal = new Class({
 	 * @param {string|Element} content
 	 */
 	position: function(content) {
-		this.elementBody.set('html', content);
+		this.elementBody
+			.set('html', content)
+			.getElements(this.options.closeQuery).addEvent('click', this.hide().bind(this));
 
 		this.element.position({
 			relativeTo: document.body,
