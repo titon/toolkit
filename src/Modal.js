@@ -83,7 +83,7 @@ Titon.Modal = new Class({
 	},
 
 	/**
-	 * @todo
+	 * Initialize the modal be creating the DOM elements and setting default events.
 	 *
 	 * @param {string} query
 	 * @param {object} options

@@ -28,35 +28,17 @@
  * 		</script>
  * }}}
  *
- * @version	0.3
+ * @version	0.4
  * @uses	Titon
  * @uses	Core
- *
- * @changelog
- *	v0.3
- *		Added an onShow callback option
- *		Added previousIndex and currentIndex properties
- *	v0.2
- *		Added a tabsQuery and sectionsQuery option
- *		Renamed node property to object
  */
 Titon.Tabs = new Class({
 	Implements: [Events, Options],
 
 	/**
-	 * Query selector used for node targeting.
-	 */
-	query: null,
-
-	/**
 	 * The wrapping parent element.
 	 */
-	object: null,
-
-	/**
-	 * Collection of tabs (anchor links).
-	 */
-	tabs: [],
+	element: null,
 
 	/**
 	 * Collection of content sections.
@@ -64,10 +46,20 @@ Titon.Tabs = new Class({
 	sections: [],
 
 	/**
+	 * Collection of tabs (anchor links).
+	 */
+	tabs: [],
+
+	/**
 	 * The current and previous shown indices.
 	 */
 	previousIndex: 0,
 	currentIndex: 0,
+
+	/**
+	 * Query selector used for node targeting.
+	 */
+	query: null,
 
 	/**
 	 * Default options.
@@ -109,9 +101,9 @@ Titon.Tabs = new Class({
 		this.options.cookie = (this.options.cookie || this.query).camelCase();
 
 		// Get elements
-		this.object = $(query);
-		this.tabs = this.object.getElements(this.options.tabsQuery);
-		this.sections = this.object.getElements(this.options.sectionsQuery);
+		this.element = $(query);
+		this.tabs = this.element.getElements(this.options.tabsQuery);
+		this.sections = this.element.getElements(this.options.sectionsQuery);
 
 		// Bind events
 		this.tabs.addEvent('click', this.listen.bind(this));

@@ -10,11 +10,6 @@
  * The base object for all Titon classes. Contains global functionality and configuration.
  *
  * @version	0.3
- *
- * @changelog
- * 	v0.3
- * 		Added blackout support
- * 		Added callback support to fadeOut()
  */
 var Titon = {
 
