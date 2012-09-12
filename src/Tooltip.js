@@ -13,50 +13,21 @@
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.Position
- *
- * @changelog
- *	v0.13
- *		Renamed duration option to fadeDuration
- *		Updated factory() to return instance if it exists
- *	v0.12
- *		Fixed minor bugs
- *		Supplied the node for element events
- *	v0.11
- *		Added a top level hide() method to hide all instances on a page
- *	v0.10
- *		Disabled fade option by default
- *		Added a duration option to handle fade animation
- *		Switched mouseover to mouseenter and mouseout to mouseleave
- *		Fixed a bug with document.body being passed as the context
- *		Fixed a bug when position mouse and mode click were used together
- *		Fixed a bug where offset values weren't being used correctly in position()
- *	v0.9
- *		Added a context option (defaults to document)
- *		Added a mode option to toggle between hover and click
- *	v0.8
- *		Fixed some incorrect customOptions usage
- *		Node now uses getOptions('tooltip')
- *	v0.7
- *		Fixed incorrect fireEvent() in position()
- *		Made factory() use objects instead of arrays
- *	v0.6
- *		Added fade support
- *		Added a delay time for show/hide
  */
 Titon.Tooltip = new Class({
 	Implements: [Events, Options],
 
 	/**
-	 * Query selector used for these tooltips.
+	 * Query selector used for tooltip activation.
 	 */
 	query: null,
 
 	/**
-	 * DOM objects created to hold the tooltip content.
+	 * DOM elements.
 	 */
-	object: null,
-	objectHead: null,
-	objectBody: null,
+	element: null,
+	elementHead: null,
+	elementBody: null,
 
 	/**
 	 * Current node that activated the tooltip.
@@ -64,20 +35,14 @@ Titon.Tooltip = new Class({
 	node: null,
 
 	/**
-	 * Current tooltip title and content.
-	 */
-	title: null,
-	content: null,
-
-	/**
 	 * A cache of all AJAX calls, indexed by the URL.
 	 */
 	cache: {},
 
 	/**
-	 * Dynamic options that change per node.
+	 * Is the tooltip currently visible?
 	 */
-	customOptions: {},
+	isVisible: false,
 
 	/**
 	 * Default options.
@@ -114,16 +79,11 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		context: null,
+		context: document.body,
 		onHide: null,
 		onShow: null,
 		onPosition: null
 	},
-
-	/**
-	 * Is the tooltip currently visible?
-	 */
-	isVisible: false,
 
 	/**
 	 * Initialize tooltips for the passed DOM query.
@@ -137,10 +97,9 @@ Titon.Tooltip = new Class({
 		this.query = query;
 
 		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
-			context = $(this.options.context || document.body),
 			listenCallback = this.listen.bind(this);
 
-		context
+		$(this.options.context)
 			.removeEvent(event + ':relay(' + query + ')', listenCallback)
 			.addEvent(event + ':relay(' + query + ')', listenCallback);
 
@@ -152,9 +111,14 @@ Titon.Tooltip = new Class({
 		inner.grab(head).grab(body);
 		outer.grab(inner).inject(document.body);
 
-		this.object = outer;
-		this.objectHead = head;
-		this.objectBody = body;
+		this.element = outer;
+		this.elementHead = head;
+		this.elementBody = body;
+
+		// Set options
+		if (this.options.className) {
+			this.element.addClass(this.options.className);
+		}
 	},
 
 	/**
@@ -162,12 +126,12 @@ Titon.Tooltip = new Class({
 	 *
 	 * @param {event} e
 	 */
-	followMouse: function(e) {
+	follow: function(e) {
 		e.stop();
 
-		this.object.setPosition({
-			x: (e.page.x + 10 + this.customOptions.xOffset),
-			y: (e.page.y + 10 + this.customOptions.yOffset)
+		this.element.setPosition({
+			x: (e.page.x + 10 + this.options.xOffset),
+			y: (e.page.y + 10 + this.options.yOffset)
 		}).fade('show').show();
 	},
 
@@ -183,17 +147,11 @@ Titon.Tooltip = new Class({
 
 		this.node.removeEvents('mousemove');
 		this.node = null;
-		this.title = null;
-		this.content = null;
 
-		if (this.customOptions.className) {
-			this.object.removeClass(this.customOptions.className);
-		}
-
-		if (this.customOptions.fade) {
-			this.object.fadeOut(this.options.fadeDuration, false);
+		if (this.options.fade) {
+			this.element.fadeOut(this.options.fadeDuration, false);
 		} else {
-			this.object.removeProperty('style');
+			this.element.hide();
 		}
 
 		this.fireEvent('hide');
@@ -208,101 +166,10 @@ Titon.Tooltip = new Class({
 	listen: function(e, node) {
 		e.stop();
 
-		if (this.options.mode === 'click' && this.isVisible) {
+		if (this.options.mode === 'click') {
 			this.hide();
-			return;
-		}
-
-		this.show(node);
-	},
-
-	/**
-	 * Positions the tooltip relative to the current node or the mouse cursor.
-	 * Additionally will apply the title/text and hide/show if necessary.
-	 */
-	position: function() {
-		var options = this.customOptions;
-
-		// Apply styles and content
-		if (options.className) {
-			this.object.addClass(options.className);
-		}
-
-		if (this.title && options.showTitle) {
-			this.objectHead.set('html', this.title).show();
 		} else {
-			this.objectHead.hide();
-		}
-
-		if (this.content) {
-			this.objectBody.set('html', this.content).show();
-		} else {
-			this.objectBody.hide();
-		}
-
-		// Follow the mouse
-		if (options.position === 'mouse') {
-			this.node
-				.removeEvents('mousemove')
-				.addEvent('mousemove', this.followMouse.bind(this));
-
-		// Position accordingly
-		} else {
-			var position = options.position,
-				edgeMap = {
-					topLeft: 'bottomRight',
-					topCenter: 'bottomCenter',
-					topRight: 'bottomLeft',
-					centerLeft: 'centerRight',
-					center: 'center',
-					centerRight: 'centerLeft',
-					bottomLeft: 'topRight',
-					bottomCenter: 'topCenter',
-					bottomRight: 'topLeft'
-				};
-
-			this.object.position({
-				relativeTo: this.node,
-				position: position,
-				edge: edgeMap[position] || 'topLeft',
-				offset: {
-					x: -options.xOffset,
-					y: -options.yOffset
-				}
-			});
-
-			window.setTimeout(function() {
-				if (this.customOptions.fade) {
-					this.object.fadeIn();
-				} else {
-					this.object.setStyle('opacity', 1);
-				}
-			}.bind(this), options.delay || 1);
-		}
-
-		this.isVisible = true;
-		this.fireEvent('position');
-	},
-
-	/**
-	 * Attempt to read a value from multiple locations.
-	 * DOM storage will always take precedent.
-	 *
-	 * @param {string} type
-	 * @return {string}
-	 */
-	read: function(type) {
-		var data = this.node.retrieve('tooltip:' + type),
-			key = (type === 'title') ? this.customOptions.titleQuery : this.customOptions.contentQuery;
-
-		if (data) {
-			return data;
-
-		} else if (typeOf(key) === 'function') {
-			return key(this.node);
-
-		} else {
-			return this.node.get(key);
+			this.show(node);
 		}
 	},
 
@@ -318,13 +185,19 @@ Titon.Tooltip = new Class({
 			return;
 		}
 
-		// Configuration
-		node = new Element(node);
-		options = this.customOptions = Titon.mergeOptions(this.options, node.getOptions('tooltip') || options);
+		options = Titon.mergeOptions(this.options, node.getOptions('tooltip') || options);
 
-		this.node = node;
-		this.title = this.read('title');
-		this.content = this.read('content');
+		// Configuration
+		this.node = new Element(node);
+
+		var title = this._read('title'),
+			content = this._read('content');
+
+		if (title && options.showTitle) {
+			this.elementHead.set('html', title).show();
+		} else {
+			this.elementHead.hide();
+		}
 
 		// Set mouse events
 		this.fireEvent('show');
@@ -335,49 +208,124 @@ Titon.Tooltip = new Class({
 				.addEvent('mouseleave', this.hide.bind(this));
 		}
 
-		// Do an AJAX call using content as the URL
+		// AJAX call
 		if (options.ajax) {
-			var url = this.content || this.node.get('href');
+			var url = content || this.node.get('href');
 
 			if (this.cache[url]) {
-				this.content = this.cache[url];
-				this.position();
+				this._position(this.cache[url]);
 
 			} else {
 				new Request({
 					url: url,
-					method : 'get',
+					method: 'get',
 					evalScripts: true,
-
 					onSuccess: function(response) {
 						this.cache[url] = response;
-						this.content = response;
-						this.position();
+						this._position(response);
 					}.bind(this),
-
 					onRequest: function() {
-						if (this.customOptions.showLoading) {
-							this.content = Titon.msg.loading;
-							this.position();
+						if (this.options.showLoading) {
+							this._position(Titon.msg.loading);
 						}
 					}.bind(this),
-
 					onFailure: function() {
 						this.hide();
 					}.bind(this)
 				}).get();
 			}
 
-		// Plain text
+		// Text or DOM element
 		} else {
 			// Copy the content found in the referenced ID
-			if (this.content.substr(0, 1) === '#') {
-				this.content = $(this.content.remove('#')).get('html');
+			if (content.substr(0, 1) === '#') {
+				content = $(content.remove('#')).get('html');
 			}
 
-			this.position();
+			this._position(content);
 		}
-	}
+	},
+
+	/**
+	 * Positions the tooltip relative to the current node or the mouse cursor.
+	 * Additionally will apply the title/text and hide/show if necessary.
+	 *
+	 * @param {string|Element} content
+	 */
+	_position: function(content) {
+		var options = this.options;
+
+		if (content) {
+			this.elementBody.set('html', content).show();
+		} else {
+			this.elementBody.hide();
+		}
+
+		// Follow the mouse
+		if (options.position === 'mouse') {
+			this.node
+				.removeEvents('mousemove')
+				.addEvent('mousemove', this.follow.bind(this));
+
+			// Position accordingly
+		} else {
+			var position = options.position,
+				edgeMap = {
+					topLeft: 'bottomRight',
+					topCenter: 'bottomCenter',
+					topRight: 'bottomLeft',
+					centerLeft: 'centerRight',
+					center: 'center',
+					centerRight: 'centerLeft',
+					bottomLeft: 'topRight',
+					bottomCenter: 'topCenter',
+					bottomRight: 'topLeft'
+				};
+
+			this.element.position({
+				relativeTo: this.node,
+				position: position,
+				edge: edgeMap[position] || 'topLeft',
+				offset: {
+					x: -options.xOffset,
+					y: -options.yOffset
+				}
+			});
+
+			window.setTimeout(function() {
+				if (this.options.fade) {
+					this.element.fadeIn(this.options.fadeDuration);
+				} else {
+					this.element.show();
+				}
+
+				this.isVisible = true;
+				this.fireEvent('position');
+			}.bind(this), options.delay || 0);
+		}
+	}.protect(),
+
+	/**
+	 * Attempt to read a value from multiple locations.
+	 * DOM storage will always take precedent.
+	 *
+	 * @param {string} type
+	 * @return {string}
+	 */
+	_read: function(type) {
+		var data = this.node.retrieve('tooltip:' + type),
+			key = (type === 'title') ? this.options.titleQuery : this.options.contentQuery;
+
+		if (data) {
+			return data;
+
+		} else if (typeOf(key) === 'function') {
+			return key(this.node);
+
+		} else {
+			return this.node.get(key);
+		}
+	}.protect()
 
 });
 

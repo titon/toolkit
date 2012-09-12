@@ -166,14 +166,11 @@ Titon.Modal = new Class({
 	 *
 	 * @param {event} e
 	 * @param {object} node
-	 * @return {boolean}
 	 */
 	listen: function(e, node) {
 		e.stop();
 
 		this.show(node);
-
-		return false;
 	},
 
 	/**
