@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  *
- * @version	0.15
+ * @version	0.16
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.Position
@@ -79,7 +79,7 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		context: document.body,
+		context: null,
 		onHide: null,
 		onShow: null,
 		onPosition: null
@@ -104,7 +104,7 @@ Titon.Tooltip = new Class({
 			listenCallback = this.listen.bind(this);
 
 		inner.grab(head).grab(body);
-		outer.grab(inner).inject(document.body);
+		outer.grab(inner).inject(document.body).hide();
 
 		this.element = outer;
 		this.elementHead = head;
@@ -116,7 +116,7 @@ Titon.Tooltip = new Class({
 		}
 
 		// Set events
-		$(this.options.context)
+		$(this.options.context || document.body)
 			.removeEvent(event + ':relay(' + query + ')', listenCallback)
 			.addEvent(event + ':relay(' + query + ')', listenCallback);
 	},
@@ -166,13 +166,12 @@ Titon.Tooltip = new Class({
 	listen: function(e, node) {
 		e.stop();
 
-		if (this.options.mode === 'click') {
-			if (this.isVisible) {
-				this.hide();
-			}
-		} else {
-			this.show(node);
+		if (this.options.mode === 'click' && this.isVisible) {
+			this.hide();
+			return;
 		}
+
+		this.show(node);
 	},
 
 	/**
@@ -259,11 +258,15 @@ Titon.Tooltip = new Class({
 			this.elementBody.hide();
 		}
 
+		this.isVisible = true;
+
 		// Follow the mouse
 		if (this.options.position === 'mouse') {
 			this.node
 				.removeEvents('mousemove')
 				.addEvent('mousemove', this.follow.bind(this));
+
+			this.fireEvent('position');
 
 			// Position accordingly
 		} else {
@@ -297,7 +300,6 @@ Titon.Tooltip = new Class({
 					this.element.show();
 				}
 
-				this.isVisible = true;
 				this.fireEvent('position');
 			}.bind(this), this.options.delay || 0);
 		}
