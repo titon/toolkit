@@ -41,24 +41,6 @@ var Titon = {
 	},
 
 	/**
-	 * The blackout element.
-	 */
-	blackout: null,
-
-	/**
-	 * The count of how many methods are calling blackouts.
-	 */
-	blackoutCount: 0,
-
-	/**
-	 * Initialize the blackout element.
-	 */
-	initialize: function() {
-		Titon.blackout = new Element('div.' + Titon.options.prefix + 'blackout', { id: 'titon-blackout' });
-		Titon.blackout.hide().inject(document.body);
-	},
-
-	/**
 	 * Converts a value to a specific scalar type.
 	 * The value is extracted via parseOptions().
 	 *
@@ -83,19 +65,6 @@ var Titon = {
 		}
 
 		return value;
-	},
-
-	/**
-	 * Hide the blackout if the counter reaches 0.
-	 */
-	hideBlackout: function() {
-		if (Titon.blackoutCount) {
-			Titon.blackoutCount--;
-
-			if (Titon.blackoutCount <= 0) {
-				Titon.blackout.hide();
-			}
-		}
 	},
 
 	/**
@@ -130,19 +99,6 @@ var Titon = {
 		}
 
 		return options;
-	},
-
-	/**
-	 * Show the blackout and increase the counter.
-	 */
-	showBlackout: function() {
-		var size = window.getSize();
-
-		Titon.blackoutCount++;
-		Titon.blackout.show().setStyles({
-			width: size.x,
-			height: size.y
-		});
 	},
 
 	/**

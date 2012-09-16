@@ -11,12 +11,18 @@
  *
  * @version	0.4
  * @uses	Titon
+ * @uses	Titon/Blackout
  * @uses	Core
  * @uses	More/Drag
  * @uses	More/Element.Position
  */
 Titon.Modal = new Class({
 	Implements: [Events, Options],
+
+	/**
+	 * Blackout instance if options.blackout is true.
+	 */
+	blackout: null,
 
 	/**
 	 * A cache of all AJAX calls, indexed by the URL.
@@ -132,7 +138,8 @@ Titon.Modal = new Class({
 		}.bind(this));
 
 		if (this.options.blackout) {
-			Titon.blackout.addEvent('click', this.hide.bind(this));
+			this.blackout = new Titon.Blackout();
+			this.blackout.element.addEvent('click', this.hide.bind(this));
 		}
 	},
 
@@ -150,7 +157,7 @@ Titon.Modal = new Class({
 		if (this.options.fade) {
 			this.element.fadeOut(this.options.fadeDuration, function() {
 				if (this.options.blackout) {
-					Titon.hideBlackout();
+					this.blackout.hide();
 				}
 			}.bind(this));
 
@@ -158,7 +165,7 @@ Titon.Modal = new Class({
 			this.element.hide();
 
 			if (this.options.blackout) {
-				Titon.hideBlackout();
+				this.blackout.hide();
 			}
 		}
 
@@ -217,6 +224,11 @@ Titon.Modal = new Class({
 								html.set('html', Titon.msg.loading);
 
 							this._position(html);
+
+							// Decrease count since _position() is being called twice
+							if (this.options.blackout) {
+								this.blackout.decrease();
+							}
 						}
 					}.bind(this),
 
@@ -247,7 +259,7 @@ Titon.Modal = new Class({
 
 		window.setTimeout(function() {
 			if (this.options.blackout) {
-				Titon.showBlackout();
+				this.blackout.show();
 			}
 
 			if (this.options.fade) {
