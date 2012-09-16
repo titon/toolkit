@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  *
- * @version	0.16
+ * @version	0.17
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.Position
@@ -151,6 +151,10 @@ Titon.Tooltip = new Class({
 
 		this.isVisible = false;
 
+		if (this.customOptions.className !== this.options.className) {
+			this.element.removeClass(this.customOptions.className);
+		}
+
 		this.element.removeClass(this.customOptions.position.hyphenate());
 		this.customOptions = {};
 
@@ -206,8 +210,10 @@ Titon.Tooltip = new Class({
 			this.elementHead.hide();
 		}
 
-		// Add position class for arrow
-		this.element.addClass(options.position.hyphenate());
+		// Add custom classes
+		this.element
+			.addClass(options.position.hyphenate())
+			.addClass(options.className);
 
 		// Set mouse events
 		if (options.mode !== 'click') {
