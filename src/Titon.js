@@ -48,6 +48,8 @@ var Titon = {
 	 * @return {boolean|string|number}
 	 */
 	convertType: function(value) {
+		value = value.trim();
+
 		if (value === 'true') {
 			value = true;
 

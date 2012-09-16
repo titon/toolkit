@@ -86,6 +86,11 @@ Titon.Tooltip = new Class({
 	},
 
 	/**
+	 * Custom options per node.
+	 */
+	customOptions: {},
+
+	/**
 	 * Initialize tooltips for the passed DOM query.
 	 * Will apply event delegation and generate the HTML required for this tooltip instance.
 	 *
@@ -101,10 +106,11 @@ Titon.Tooltip = new Class({
 			inner = new Element('div.tooltip-inner'),
 			head = new Element('div.tooltip-head'),
 			body = new Element('div.tooltip-body'),
+			arrow = new Element('div.tooltip-arrow'),
 			listenCallback = this.listen.bind(this);
 
 		inner.grab(head).grab(body);
-		outer.grab(inner).inject(document.body).hide();
+		outer.grab(inner).grab(arrow).inject(document.body).hide();
 
 		this.element = outer;
 		this.elementHead = head;
@@ -144,6 +150,9 @@ Titon.Tooltip = new Class({
 		}
 
 		this.isVisible = false;
+
+		this.element.removeClass(this.customOptions.position.hyphenate());
+		this.customOptions = {};
 
 		this.node.removeEvents('mousemove');
 		this.node = null;
@@ -186,6 +195,7 @@ Titon.Tooltip = new Class({
 		options = Titon.mergeOptions(this.options, node.getOptions('tooltip') || options);
 
 		this.node = node;
+		this.customOptions = options;
 
 		var title = this._read('title'),
 			content = this._read('content');
@@ -196,9 +206,10 @@ Titon.Tooltip = new Class({
 			this.elementHead.hide();
 		}
 
-		// Set mouse events
-		this.fireEvent('show');
+		// Add position class for arrow
+		this.element.addClass(options.position.hyphenate());
 
+		// Set mouse events
 		if (options.mode !== 'click') {
 			this.node
 				.removeEvents('mouseleave')
@@ -243,6 +254,8 @@ Titon.Tooltip = new Class({
 		} else {
 			this._position(content);
 		}
+
+		this.fireEvent('show');
 	},
 
 	/**
@@ -252,6 +265,8 @@ Titon.Tooltip = new Class({
 	 * @param {string|Element} content
 	 */
 	_position: function(content) {
+		var options = this.customOptions;
+
 		if (content) {
 			this.elementBody.set('html', content).show();
 		} else {
@@ -261,7 +276,7 @@ Titon.Tooltip = new Class({
 		this.isVisible = true;
 
 		// Follow the mouse
-		if (this.options.position === 'mouse') {
+		if (options.position === 'mouse') {
 			this.node
 				.removeEvents('mousemove')
 				.addEvent('mousemove', this.follow.bind(this));
@@ -270,7 +285,7 @@ Titon.Tooltip = new Class({
 
 			// Position accordingly
 		} else {
-			var position = this.options.position,
+			var position = options.position,
 				edgeMap = {
 					topLeft: 'bottomRight',
 					topCenter: 'bottomCenter',
@@ -288,8 +303,8 @@ Titon.Tooltip = new Class({
 				position: position,
 				edge: edgeMap[position] || 'topLeft',
 				offset: {
-					x: -this.options.xOffset,
-					y: -this.options.yOffset
+					x: -options.xOffset,
+					y: -options.yOffset
 				}
 			});
 
