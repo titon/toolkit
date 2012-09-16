@@ -27,7 +27,7 @@ var Titon = {
 	 *	draggingClass	- (string) Class name to append to elements being dragged
 	 */
 	options: {
-		prefix: 'titon-',
+		prefix: '',
 		activeClass: 'active',
 		disabledClass: 'disabled',
 		draggingClass: 'dragging'
@@ -49,6 +49,14 @@ var Titon = {
 	 * The count of how many methods are calling blackouts.
 	 */
 	blackoutCount: 0,
+
+	/**
+	 * Initialize the blackout element.
+	 */
+	initialize: function() {
+		Titon.blackout = new Element('div.' + Titon.options.prefix + 'blackout', { id: 'titon-blackout' });
+		Titon.blackout.hide().inject(document.body);
+	},
 
 	/**
 	 * Converts a value to a specific scalar type.
@@ -128,14 +136,13 @@ var Titon = {
 	 * Show the blackout and increase the counter.
 	 */
 	showBlackout: function() {
-		if (!Titon.blackout) {
-			Titon.blackout = new Element('div.' + Titon.options.prefix + 'blackout', {
-				id: 'titon-blackout'
-			});
-		}
+		var size = window.getSize();
 
-		Titon.blackout.show();
 		Titon.blackoutCount++;
+		Titon.blackout.show().setStyles({
+			width: size.x,
+			height: size.y
+		});
 	},
 
 	/**

@@ -9,7 +9,7 @@
 /**
  * @todo
  *
- * @version	0.3
+ * @version	0.4
  * @uses	Titon
  * @uses	Core
  * @uses	More/Drag
@@ -76,7 +76,7 @@ Titon.Modal = new Class({
 		contentQuery: 'data-modal',
 		closeQuery: '.modal-close-button',
 		delay: 0,
-		context: document.body,
+		context: null,
 		onHide: null,
 		onShow: null,
 		onPosition: null
@@ -97,7 +97,7 @@ Titon.Modal = new Class({
 			close = new Element('a.modal-close'),
 			listenCallback = this.listen.bind(this);
 
-		outer.grab(inner).grab(close).inject(document.body);
+		outer.grab(inner).grab(close).inject(document.body).hide();
 
 		this.element = outer;
 		this.elementBody = inner;
@@ -119,7 +119,7 @@ Titon.Modal = new Class({
 		}
 
 		// Set events
-		$(this.options.context)
+		$(this.options.context || document.body)
 			.removeEvent('click:relay(' + query + ')', listenCallback)
 			.addEvent('click:relay(' + query + ')', listenCallback);
 
@@ -130,6 +130,10 @@ Titon.Modal = new Class({
 				this.hide();
 			}
 		}.bind(this));
+
+		if (this.options.blackout) {
+			Titon.blackout.addEvent('click', this.hide.bind(this));
+		}
 	},
 
 	/**
@@ -234,7 +238,7 @@ Titon.Modal = new Class({
 	_position: function(content) {
 		this.elementBody
 			.set('html', content)
-			.getElements(this.options.closeQuery).addEvent('click', this.hide().bind(this));
+			.getElements(this.options.closeQuery).addEvent('click', this.hide.bind(this));
 
 		this.element.position({
 			relativeTo: document.body,
@@ -255,7 +259,7 @@ Titon.Modal = new Class({
 			this.isVisible = true;
 			this.fireEvent('position');
 		}.bind(this), this.options.delay || 0);
-	}.protect()
+	}
 
 });
 

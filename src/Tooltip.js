@@ -303,7 +303,7 @@ Titon.Tooltip = new Class({
 				this.fireEvent('position');
 			}.bind(this), this.options.delay || 0);
 		}
-	}.protect(),
+	},
 
 	/**
 	 * Attempt to read a value from multiple locations.
@@ -325,7 +325,7 @@ Titon.Tooltip = new Class({
 		} else {
 			return this.node.get(key);
 		}
-	}.protect()
+	}
 
 });
 

@@ -131,6 +131,7 @@ Titon.Tabs = new Class({
 
 		this.show(e.target);
 	},
+
 	/**
 	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
 	 * or pass an element object for a tab in the collection.
