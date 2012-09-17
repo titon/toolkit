@@ -24,12 +24,14 @@ var Titon = {
 	 *	prefix 			- (string) String to prepend to all created element containers
 	 *	activeClass		- (string) Class name to append to active elements
 	 *	disabledClass	- (string) Class name to append to disabled elements
+	 *	draggableClass	- (string) Class name to append to elements that are draggable
 	 *	draggingClass	- (string) Class name to append to elements being dragged
 	 */
 	options: {
 		prefix: '',
 		activeClass: 'active',
 		disabledClass: 'disabled',
+		draggableClass: 'draggable',
 		draggingClass: 'dragging'
 	},
 

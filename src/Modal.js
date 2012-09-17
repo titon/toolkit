@@ -7,9 +7,9 @@
  */
 
 /**
- * @todo
+ * Creates dynamic modals that will display above the content.
  *
- * @version	0.4
+ * @version	0.5
  * @uses	Titon
  * @uses	Titon/Blackout
  * @uses	Core
@@ -89,6 +89,11 @@ Titon.Modal = new Class({
 	},
 
 	/**
+	 * Custom options per node.
+	 */
+	customOptions: {},
+
+	/**
 	 * Initialize the modal be creating the DOM elements and setting default events.
 	 *
 	 * @param {string} query
@@ -122,6 +127,13 @@ Titon.Modal = new Class({
 					element.removeClass(Titon.options.draggingClass);
 				}
 			});
+
+			this.element.addClass(Titon.options.draggableClass);
+		}
+
+		if (this.options.blackout) {
+			this.blackout = new Titon.Blackout();
+			this.blackout.element.addEvent('click', this.hide.bind(this));
 		}
 
 		// Set events
@@ -136,11 +148,6 @@ Titon.Modal = new Class({
 				this.hide();
 			}
 		}.bind(this));
-
-		if (this.options.blackout) {
-			this.blackout = new Titon.Blackout();
-			this.blackout.element.addEvent('click', this.hide.bind(this));
-		}
 	},
 
 	/**
@@ -153,6 +160,12 @@ Titon.Modal = new Class({
 
 		this.isVisible = false;
 		this.node = null;
+
+		if (this.customOptions.className !== this.options.className) {
+			this.element.removeClass(this.customOptions.className);
+		}
+
+		this.customOptions = {};
 
 		if (this.options.fade) {
 			this.element.fadeOut(this.options.fadeDuration, function() {
@@ -195,8 +208,12 @@ Titon.Modal = new Class({
 		options = Titon.mergeOptions(this.options, node.getOptions('modal') || options);
 
 		this.node = node;
+		this.customOptions = options;
 
 		var target = this.node.get(options.contentQuery) || this.node.get('href');
+
+		// Add custom classes
+		this.element.addClass(options.className);
 
 		// DOM element
 		if (target.substr(0, 1) === '#') {
@@ -226,7 +243,7 @@ Titon.Modal = new Class({
 							this._position(html);
 
 							// Decrease count since _position() is being called twice
-							if (this.options.blackout) {
+							if (options.blackout) {
 								this.blackout.decrease();
 							}
 						}
