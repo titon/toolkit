@@ -9,13 +9,13 @@
 /**
  * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
  *
- * @version	0.17
+ * @version	0.18
  * @uses	Titon
+ * @uses	Titon.Module
  * @uses	Core
  * @uses	More/Element.Position
  */
-Titon.Tooltip = new Class({
-	Implements: [Events, Options],
+Titon.Tooltip = new Titon.Module({
 
 	/**
 	 * A cache of all AJAX calls, indexed by the URL.
@@ -25,7 +25,6 @@ Titon.Tooltip = new Class({
 	/**
 	 * DOM elements.
 	 */
-	element: null,
 	elementHead: null,
 	elementBody: null,
 
@@ -64,6 +63,9 @@ Titon.Tooltip = new Class({
 	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
 	 *	onShow			- (function) Callback to trigger when a tooltip is shown
 	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
+	 *	titleElement	- (string) CSS query for the title element within the template
+	 *	contentElement	- (string) CSS query for the content element within the template
+	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 */
 	options: {
 		ajax: false,
@@ -82,7 +84,16 @@ Titon.Tooltip = new Class({
 		context: null,
 		onHide: null,
 		onShow: null,
-		onPosition: null
+		onPosition: null,
+		titleElement: '.tooltip-head',
+		contentElement: '.tooltip-body',
+		template: '<div class="tooltip">' +
+			'<div class="tooltip-inner">' +
+				'<div class="tooltip-head"></div>' +
+				'<div class="tooltip-body"></div>' +
+			'</div>' +
+			'<div class="tooltip-arrow"></div>' +
+		'</div>'
 	},
 
 	/**
@@ -91,30 +102,18 @@ Titon.Tooltip = new Class({
 	customOptions: {},
 
 	/**
-	 * Initialize tooltips for the passed DOM query.
-	 * Will apply event delegation and generate the HTML required for this tooltip instance.
+	 * Initialize tooltips.
 	 *
 	 * @param {string} query
 	 * @param {object} options
 	 */
 	initialize: function(query, options) {
-		this.setOptions(options);
+		this.parent(options);
 		this.query = query;
 
-		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
-			outer = new Element('div.' + Titon.options.prefix + 'tooltip'),
-			inner = new Element('div.tooltip-inner'),
-			head = new Element('div.tooltip-head'),
-			body = new Element('div.tooltip-body'),
-			arrow = new Element('div.tooltip-arrow'),
-			listenCallback = this.listen.bind(this);
-
-		inner.grab(head).grab(body);
-		outer.grab(inner).grab(arrow).inject(document.body).hide();
-
-		this.element = outer;
-		this.elementHead = head;
-		this.elementBody = body;
+		// Get elements
+		this.elementHead = this.element.getElement(this.options.titleElement);
+		this.elementBody = this.element.getElement(this.options.contentElement);
 
 		// Set options
 		if (this.options.className) {
@@ -122,9 +121,12 @@ Titon.Tooltip = new Class({
 		}
 
 		// Set events
+		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
+			callback = this.listen.bind(this);
+
 		$(this.options.context || document.body)
-			.removeEvent(event + ':relay(' + query + ')', listenCallback)
-			.addEvent(event + ':relay(' + query + ')', listenCallback);
+			.removeEvent(event + ':relay(' + query + ')', callback)
+			.addEvent(event + ':relay(' + query + ')', callback);
 	},
 
 	/**

@@ -9,15 +9,15 @@
 /**
  * Creates dynamic modals that will display above the content.
  *
- * @version	0.5
+ * @version	0.6
  * @uses	Titon
- * @uses	Titon/Blackout
+ * @uses	Titon.Blackout
+ * @uses	Titon.Module
  * @uses	Core
  * @uses	More/Drag
  * @uses	More/Element.Position
  */
-Titon.Modal = new Class({
-	Implements: [Events, Options],
+Titon.Modal = new Titon.Module({
 
 	/**
 	 * Blackout instance if options.blackout is true.
@@ -37,8 +37,8 @@ Titon.Modal = new Class({
 	/**
 	 * DOM elements.
 	 */
-	element: null,
 	elementBody: null,
+	elementClose: null,
 
 	/**
 	 * Is the tooltip currently visible?
@@ -71,6 +71,9 @@ Titon.Modal = new Class({
 	 *	onHide			- (function) Callback to trigger when a modal is hidden
 	 *	onShow			- (function) Callback to trigger when a modal is shown
 	 *	onPosition		- (function) Callback to trigger when a modal is positioned
+	 *	contentElement	- (string) CSS query for the content element within the template
+	 *	closeElement	- (string) CSS query for the close element within the template
+	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 */
 	options: {
 		draggable: false,
@@ -85,7 +88,13 @@ Titon.Modal = new Class({
 		context: null,
 		onHide: null,
 		onShow: null,
-		onPosition: null
+		onPosition: null,
+		contentElement: '.modal-inner',
+		closeElement: '.modal-close',
+		template: '<div class="modal">' +
+			'<div class="modal-inner"></div>' +
+			'<a href="#close" class="modal-close"></a>' +
+		'</div>'
 	},
 
 	/**
@@ -100,26 +109,20 @@ Titon.Modal = new Class({
 	 * @param {object} options
 	 */
 	initialize: function(query, options) {
-		this.setOptions(options);
+		this.parent(options);
 		this.query = query;
 
-		var outer = new Element('div.' + Titon.options.prefix + 'modal'),
-			inner = new Element('div.modal-inner'),
-			close = new Element('a.modal-close'),
-			listenCallback = this.listen.bind(this);
-
-		outer.grab(inner).grab(close).inject(document.body).hide();
-
-		this.element = outer;
-		this.elementBody = inner;
+		// Get elements
+		this.elementBody = this.element.getElement(this.options.contentElement);
+		this.elementClose = this.element.getElement(this.options.closeElement);
 
 		// Set options
 		if (this.options.className) {
-			outer.addClass(this.options.className);
+			this.element.addClass(this.options.className);
 		}
 
 		if (this.options.draggable) {
-			this.drag = new Drag(outer, {
+			this.drag = new Drag(this.element, {
 				onStart: function(element) {
 					element.addClass(Titon.options.draggingClass);
 				},
@@ -137,11 +140,13 @@ Titon.Modal = new Class({
 		}
 
 		// Set events
-		$(this.options.context || document.body)
-			.removeEvent('click:relay(' + query + ')', listenCallback)
-			.addEvent('click:relay(' + query + ')', listenCallback);
+		var callback = this.listen.bind(this);
 
-		close.addEvent('click', this.hide.bind(this));
+		$(this.options.context || document.body)
+			.removeEvent('click:relay(' + query + ')', callback)
+			.addEvent('click:relay(' + query + ')', callback);
+
+		this.elementClose.addEvent('click', this.hide.bind(this));
 
 		window.addEvent('keydown', function(e) {
 			if (e.key === 'esc') {

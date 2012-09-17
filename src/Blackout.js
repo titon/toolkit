@@ -9,45 +9,26 @@
 /**
  * Displays a transparent black element over the entire website.
  *
- * @version	0.1
+ * @version	0.2
  * @uses	Titon
+ * @uses	Titon.Module
  * @uses	Core
  */
-Titon.Blackout = new Class({
-	Implements: [Events, Options],
-
-	/**
-	 * DOM element.
-	 */
-	element: null,
+Titon.Blackout = new Titon.Module({
 
 	/**
 	 * Default options.
 	 *
-	 *	onHide	- (function) Callback to trigger when the blackout is hidden
-	 *	onShow	- (function) Callback to trigger when the blackout is shown
+	 *	onHide			- (function) Callback to trigger when the blackout is hidden
+	 *	onShow			- (function) Callback to trigger when the blackout is shown
+	 *	template		- (string) HTML string template that will be converted to DOM nodes
+	 *	templateFrom	- (string) ID of an element to use as the template
 	 */
 	options: {
 		onHide: null,
-		onShow: null
-	},
-
-	/**
-	 * Initialize the blackout element. If it already exists use it, else create it.
-	 *
-	 * @param {object} options
-	 */
-	initialize: function(options) {
-		this.setOptions(options);
-
-		var element = $('titon-blackout');
-
-		if (!element) {
-			element = new Element('div.' + Titon.options.prefix + 'blackout', { id: 'titon-blackout' });
-			element.inject(document.body).hide();
-		}
-
-		this.element = element;
+		onShow: null,
+		template: '<div class="blackout" id="titon-blackout"></div>',
+		templateFrom: 'titon-blackout'
 	},
 
 	/**

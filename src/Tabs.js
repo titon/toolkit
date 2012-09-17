@@ -28,17 +28,12 @@
  * 		</script>
  * }}}
  *
- * @version	0.4
+ * @version	0.5
  * @uses	Titon
+ * @uses	Titon.Module
  * @uses	Core
  */
-Titon.Tabs = new Class({
-	Implements: [Events, Options],
-
-	/**
-	 * The wrapping parent element.
-	 */
-	element: null,
+Titon.Tabs = new Titon.Module({
 
 	/**
 	 * Collection of content sections.
@@ -71,9 +66,10 @@ Titon.Tabs = new Class({
 	 *	persistState	- (bool) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
-	 *	tabsQuery		- (string) The CSS query to grab the tab elements
-	 *	sectionsQuery	- (string) The CSS query to grab the section elements
 	 *	onShow			- (function) Callback to trigger when a section is shown
+	 *	tabsElement		- (string) The CSS query to grab the tab elements
+	 *	sectionsElement	- (string) The CSS query to grab the section elements
+	 *	template		- (string) Do not use an HTML template
 	 */
 	options: {
 		fade: false,
@@ -83,9 +79,10 @@ Titon.Tabs = new Class({
 		persistState: false,
 		cookie: null,
 		cookieDuration: 30,
-		tabsQuery: 'nav a',
-		sectionsQuery: 'section',
-		onShow: null
+		onShow: null,
+		tabsElement: 'nav a',
+		sectionsElement: 'section',
+		template: false
 	},
 
 	/**
@@ -95,25 +92,24 @@ Titon.Tabs = new Class({
 	 * @param {object} options
 	 */
 	initialize: function(query, options) {
-		this.setOptions(options);
+		this.parent(options);
 		this.query = query;
 
 		this.options.cookie = (this.options.cookie || this.query).camelCase();
 
 		// Get elements
 		this.element = $(query);
-		this.tabs = this.element.getElements(this.options.tabsQuery);
-		this.sections = this.element.getElements(this.options.sectionsQuery);
 
-		// Bind events
-		this.tabs.addEvent('click', this.listen.bind(this));
-
-		// Setup elements
+		this.tabs = this.element.getElements(this.options.tabsElement);
 		this.tabs.each(function(tab, index) {
 			tab.set('data-tabs-index', index).removeClass(this.options.activeClass);
 		}.bind(this));
 
+		this.sections = this.element.getElements(this.options.sectionsElement);
 		this.sections.hide();
+
+		// Set events
+		this.tabs.addEvent('click', this.listen.bind(this));
 
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
