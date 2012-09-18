@@ -9,41 +9,12 @@
 /**
  * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
  *
- * @version	0.8
+ * @version	0.9
  * @uses	Titon
+ * @uses	Titon.Module
  * @uses	Core
- *
- * @changelog
- *	v0.8
- *		Renamed duration option to fadeDuration
- *		Renamed threshold option to threshold
- *		Updated factory() to return instance if it exists
- *	v0.7
- *		Fixed a bug with options context not working correctly
- *		Fixed a bug where window events aren't binding the correct reference
- *		Fixed a bug where show() would use the incorrect class name
- *		Added a duration option used for fading
- *		Added a createStyles option to toggle CSS style generation
- *		Updated the first load event to use domready instead of load
- *	v0.6
- *		Renamed options container to context
- *	v0.5
- *		Fixed a bug with forceLoad option
- *		Fixed a bug where the container was being referenced incorrectly
- *		Fixed incorrect logic in inViewport()
- *		Added support to hide background images for the passed CSS query
- *	v0.4
- *		Added data-options support to single elements, uses getOptions('lazyload')
- *	v0.3
- *		Added fireEvent()s for onLoad, onLoadAll, onShutdown
  */
- Titon.LazyLoad = new Class({
-	Implements: [Events, Options],
-
-	/**
-	 * Query selector used for element targeting.
-	 */
-	query: null,
+ Titon.LazyLoad = new Titon.Module({
 
 	/**
 	 * Have all elements been force loaded?
@@ -51,6 +22,11 @@
 	loaded: false,
 
 	/**
+	 * Query selector used for element targeting.
+	 */
+	query: null,
+
+	 /**
 	 * Default options.
 	 *
 	 *	fade			- (bool) Will fade the items in and out
@@ -72,7 +48,7 @@
 		delay: 10000,
 		threshold: 150,
 		createStyles: true,
-		context: window,
+		context: null,
 		onLoad: null,
 		onLoadAll: null,
 		onShow: null,
@@ -86,7 +62,7 @@
 	 * @param {object} options
 	 */
 	initialize: function(query, options) {
-		this.setOptions(options);
+		this.parent(options);
 		this.query = query;
 
 		// Setup CSS styles
@@ -99,11 +75,11 @@
 		}
 
 		// Add events
-		this._eventLoad = this.load.bind(this);
+		this._callback = this.load.bind(this);
 
-		$(this.options.context).addEvents({
-			scroll: this._eventLoad,
-			resize: this._eventLoad
+		$(this.options.context || window).addEvents({
+			scroll: this._callback,
+			resize: this._callback
 		});
 
 		// Load elements within viewport
@@ -124,9 +100,9 @@
 	shutdown: function() {
 		this.loaded = true;
 
-		$(this.options.context).removeEvents({
-			scroll: this._eventLoad,
-			resize: this._eventLoad
+		$(this.options.context || window).removeEvents({
+			scroll: this._callback,
+			resize: this._callback
 		});
 
 		this.fireEvent('shutdown');
@@ -191,12 +167,9 @@
 	 * @param node
 	 */
 	show: function(node) {
-		var options = Titon.mergeOptions(this.options, node.getOptions('lazyload')),
-			className = this.query.remove('.');
+		node.removeClass(this.query.remove('.'));
 
-		node.removeClass(className);
-
-		if (options.fade) {
+		if (this.options.fade) {
 			node.getChildren().fadeIn(this.options.fadeDuration);
 		}
 

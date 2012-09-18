@@ -92,14 +92,13 @@ Titon.Tabs = new Titon.Module({
 	 * @param {object} options
 	 */
 	initialize: function(query, options) {
+		options.cookie = (options.cookie || query).camelCase();
+		options.templateFrom = query;
+
 		this.parent(options);
 		this.query = query;
 
-		this.options.cookie = (this.options.cookie || this.query).camelCase();
-
 		// Get elements
-		this.element = $(query);
-
 		this.tabs = this.element.getElements(this.options.tabsElement);
 		this.tabs.each(function(tab, index) {
 			tab.set('data-tabs-index', index).removeClass(this.options.activeClass);
