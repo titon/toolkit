@@ -33,7 +33,8 @@
  * @uses	Titon.Module
  * @uses	Core
  */
-Titon.Tabs = new Titon.Module({
+Titon.Tabs = new Class({
+	Extends: Titon.Module,
 
 	/**
 	 * Collection of content sections.

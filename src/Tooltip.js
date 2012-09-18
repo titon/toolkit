@@ -15,7 +15,8 @@
  * @uses	Core
  * @uses	More/Element.Position
  */
-Titon.Tooltip = new Titon.Module({
+Titon.Tooltip = new Class({
+	Extends: Titon.Module,
 
 	/**
 	 * A cache of all AJAX calls, indexed by the URL.

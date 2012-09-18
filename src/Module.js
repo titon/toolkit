@@ -74,7 +74,7 @@ Titon.Module = new Class({
 			return this;
 		}
 
-		var element = Element.from(template);
+		var element = Elements.from(template);
 
 		// Element.from() returns an array, so grab the first node
 		if (element[0]) {

@@ -1,6 +1,6 @@
 
 Titon.Flyout = new Class({
-	Implements: [Events, Options],
+	Extends: Titon.Module,
 
 	object: null,
 

@@ -17,7 +17,8 @@
  * @uses	More/Drag
  * @uses	More/Element.Position
  */
-Titon.Modal = new Titon.Module({
+Titon.Modal = new Class({
+	Extends: Titon.Module,
 
 	/**
 	 * Blackout instance if options.blackout is true.

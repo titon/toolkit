@@ -14,7 +14,8 @@
  * @uses	Titon.Module
  * @uses	Core
  */
-Titon.Blackout = new Titon.Module({
+Titon.Blackout = new Class({
+	Extends: Titon.Module,
 
 	/**
 	 * Default options.

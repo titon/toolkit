@@ -14,7 +14,8 @@
  * @uses	Titon.Module
  * @uses	Core
  */
- Titon.LazyLoad = new Titon.Module({
+ Titon.LazyLoad = new Class({
+	 Extends: Titon.Module,
 
 	/**
 	 * Have all elements been force loaded?
