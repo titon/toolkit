@@ -28,10 +28,12 @@ Titon.Module = new Class({
 	 *
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
+	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 */
 	options: {
 		template: '',
-		templateFrom: ''
+		templateFrom: '',
+		parseTemplate: true
 	},
 
 	/**
@@ -43,53 +45,61 @@ Titon.Module = new Class({
 		this.setOptions(options);
 
 		// Parse the template from a string, or use a target element
-		var template = this.options.template || '';
+		if (this.options.parseTemplate) {
+			var element;
 
-		if (this.options.templateFrom) {
-			var element = $(this.options.templateFrom);
+			// From an element
+			if (this.options.templateFrom) {
+				element = $(this.options.templateFrom.remove('#'));
+			}
 
+			// From a string
+			if (!element && this.options.template) {
+				element = this.parseTemplate(this.options.template);
+			}
+
+			// Store it in the DOM
 			if (element) {
-				template = element;
+				element.hide().inject(document.body);
+
+				this.element = element;
+			} else {
+				throw new Error('Template failed to parse.');
 			}
 		}
-
-		this.parseTemplate(template);
 	},
 
 	/**
 	 * Parse the template string into a set of DOM elements.
 	 *
 	 * @param {string} template
-	 * @return {Titon.Module}
+	 * @return {Element}
 	 */
 	parseTemplate: function(template) {
 		if (!template) {
-			return this;
+			return null;
 		}
 
 		// If template is an element, use it
 		if (typeOf(template) === 'element') {
-			this.element = template;
-
-			return this;
+			return template;
 		}
 
+		// Elements.from() returns an array, so grab the first node
 		var element = Elements.from(template);
 
-		// Element.from() returns an array, so grab the first node
 		if (element[0]) {
 			element = element[0];
-			element.hide().inject(document.body);
 
 			// Apply prefix to base class
 			if (Titon.options.prefix) {
 				element.set('class', Titon.options.prefix + element.get('class'));
 			}
 
-			this.element = element;
+			return element;
 		}
 
-		return this;
+		return null;
 	}
 
 });

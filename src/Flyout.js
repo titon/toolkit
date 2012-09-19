@@ -1,123 +1,281 @@
+/**
+ * Titon: The Mootools UI/Utility Framework
+ *
+ * @copyright	Copyright 2010+, Titon
+ * @link		http://github.com/titon
+ * @license		http://opensource.org/licenses/bsd-license.php (BSD License)
+ */
 
+/**
+ * Creates a nested flyout menu that appears below a node that activates it.
+ *
+ * @version	0.1
+ * @uses	Titon
+ * @uses	Titon.Module
+ * @uses	Core
+ */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
 
-	object: null,
+	/**
+	 * The current menu URL being displayed.
+	 */
+	current: null,
 
-	node: null,
-	menu: null,
-
+	/**
+	 * Raw data response.
+	 */
 	data: [],
+
+	/**
+	 * Mapping of data indexed by URL.
+	 */
 	dataMap: {},
 
+	/**
+	 * Collection of menu elements indexed by URL.
+	 */
+	elements: {},
+
+	/**
+	 * Is the event mode a click?
+	 */
+	isClick: false,
+
+	/**
+	 * Is a menu currently visible?
+	 */
+	isVisible: false,
+
+	/**
+	 * Current node that activated the tooltip.
+	 */
+	node: null,
+
+	/**
+	 * Query selector used for activation.
+	 */
+	query: null,
+
+	/**
+	 * Timers used for show and hide delays.
+	 */
 	showTimer: null,
 	hideTimer: null,
 
+	/**
+	 * Default options.
+	 *
+	 *	fade			- (bool) Will fade the tooltips in and out
+	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	mode			- (string) Either "hover" or "click"
+	 *	className		- (string) Class name to append to a tooltip when it is shown
+	 *	urlQuery		- (string) Attribute to read the URL from
+	 *	xOffset			- (int) Additional margin on the X axis
+	 *	yOffset			- (int) Additional margin on the Y axis
+	 *	delay			- (int) The delay in milliseconds before the tooltip shows
+	 *	context			- (element) The element the tooltips will display in (defaults body)
+	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
+	 *	onShow			- (function) Callback to trigger when a tooltip is shown
+	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
+	 *	template		- (string) HTML string template that will be converted to DOM nodes
+	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
+	 */
 	options: {
-		showDelay: 500,
-		hideDelay: 500
+		fade: false,
+		fadeDuration: 250,
+		mode: 'hover',
+		className: '',
+		urlQuery: 'href',
+		xOffset: 0,
+		yOffset: 0,
+		delay: 500,
+		context: null,
+		onHide: null,
+		onShow: null,
+		onPosition: null,
+		template: '<div class="flyout"></div>',
+		parseTemplate: false
 	},
 
+	/**
+	 * Initialize all options and events and fetch data from the defined URL.
+	 *
+	 * @param {string} query
+	 * @param {string} url
+	 * @param {object} options
+	 */
 	initialize: function(query, url, options) {
-		this.setOptions(options);
+		this.parent(options);
+		this.query = query;
 
-		var events = {
-			mouseenter: function() {
-				window.clearTimeout(this.hideTimer);
-			}.bind(this),
+		// Load data from the URL
+		if (url) {
+			new Request.JSON({
+				url: url,
+				secure: true,
+				onSuccess: this.load.bind(this)
+			}).get();
+		}
 
-			mouseleave: function() {
-				this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.hideDelay);
-			}.bind(this)
-		};
+		// Set events
+		this.isClick = (this.options.mode !== 'hover');
 
-		this.object = new Element('div.' + Titon.options.prefix + 'flyout');
-		this.object.inject(document.body).removeEvents(events).addEvents(events);
+		var event = (this.isClick ? 'click' : 'mouseenter') + ':relay(' + query + ')',
+			callback = this.listen.bind(this);
 
-		new Request.JSON({
-			url: url,
-			secure: true,
-			onSuccess: this.load.bind(this)
-		}).get();
+		$(this.options.context || document.body)
+			.removeEvent(event, callback)
+			.addEvent(event, callback);
 
-		$$(query).addEvent('mouseover', function(e) {
-			this.show(e.target, e.target.get('href'))
-		}.bind(this));
+		if (!this.isClick) {
+			$$(query)
+				.addEvent('mouseenter', function() {
+					window.clearTimeout(this.hideTimer);
+					this.showTimer = window.setTimeout(this._position.bind(this), this.options.delay);
+				}.bind(this))
+				.addEvent('mouseleave', function() {
+					window.clearTimeout(this.showTimer);
+					this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.delay);
+				}.bind(this));
+		}
 	},
 
+	/**
+	 * Hide the currently shown menu.
+	 */
 	hide: function() {
 		window.clearTimeout(this.hideTimer);
 		window.clearTimeout(this.showTimer);
 
-		this.object.hide();
-		$$('.flyout-menu').hide();
+		if (!this.isVisible || !this.current) {
+			return;
+		}
+
+		if (this.options.fade) {
+			this.elements[this.current].fadeOut(this.options.fadeDuration, false);
+		} else {
+			this.elements[this.current].hide();
+		}
+
+		this.isVisible = false;
+		this.node = null;
+		this.current = null;
 
 		this.fireEvent('hide');
 	},
 
-	load: function(data) {
-		this.data = data;
-		this.loadDataMap(data, 0, 0);
-	},
+	/**
+	 * Event callback for node mouseover or click.
+	 *
+	 * @param {event} e
+	 * @param {Element} node
+	 */
+	listen: function(e, node) {
+		if (this.isClick) {
+			e.stop();
 
-	position: function() {
-		var coords = this.node.getCoordinates();
-
-		this.object.show();
-
-		this.menu.setPosition({
-			x: coords.left,
-			y: coords.top + coords.height
-		}).show();
-	},
-
-	show: function(node, url) {
-		if (!this.dataMap[url]) {
-			return false;
+			if (this.isVisible) {
+				this.hide();
+				return;
+			}
 		}
 
-		var events = {
-			mouseenter: function() {
-				this.showTimer = window.setTimeout(this.display.bind(this), this.options.showDelay);
-			}.bind(this),
-
-			mouseleave: function() {
-				window.clearTimeout(this.showTimer);
-			}.bind(this)
-		};
-
-		this.node = new Element(node);
-		this.node.removeEvents(events).addEvents(events);
+		this.show(node);
 	},
 
-	display: function() {
-		/*this.menu = $('flyout-' + data.id);
+	/**
+	 * Load the data into the class and save a mapping of it.
+	 *
+	 * @param {object} data
+	 * @param {int} depth
+	 */
+	load: function(data, depth) {
+		depth = depth || 0;
 
-		if (this.menu) {
+		// If root, store the data
+		if (depth === 0) {
+			this.data = data;
+		}
 
-		} else if (data.children) {
-			this.menu = this.buildMenu(this.object, data, true);
-		}*/
+		// Store the data indexed by URL
+		this.dataMap[data.url] = data;
+
+		if (data.children) {
+			for (var i = 0, l = data.children.length; i < l; i++) {
+				this.load(data.children[i], depth + 1);
+			}
+		}
 	},
 
-	buildMenu: function(parent, data, cache) {
-		var div = new Element('div.flyout-menu'),
+	/**
+	 * Show the menu below the node.
+	 *
+	 * @param {Element} node
+	 */
+	show: function(node) {
+		this.node = node;
+
+		// Only hide if not the same target
+		var target = this._getTarget();
+
+		if (target !== this.current) {
+			this.hide();
+			this.node = node;
+
+		} else if (this.isVisible) {
+			return;
+		}
+
+		// Find the menu, else create it
+		if (!this._getMenu()) {
+			return;
+		}
+
+		// Call show before position if click mode
+		this.fireEvent('show');
+
+		// Display immediately if click
+		if (this.isClick) {
+			this._position();
+		}
+	},
+
+	/**
+	 * Build a nested list menu using the data object.
+	 *
+	 * @private
+	 * @param {Element} parent
+	 * @param {object} data
+	 * @return {Element}
+	 */
+	_buildMenu: function(parent, data) {
+		var menu = this.parseTemplate(this.options.template),
 			ul = new Element('ul'),
 			li,
 			tag;
 
-		if (cache) {
-			div.set('id', 'flyout-' + data.id);
+		if (this.options.className) {
+			menu.addClass(this.options.className);
 		}
 
 		for (var i = 0, l = data.children.length, child; i < l; i++) {
 			child = data.children[i];
 
+			// Build tag
+			if (data.url) {
+				tag = new Element('a', {
+					text: child.title,
+					href: child.url
+				});
+			} else {
+				tag = new Element('span', {
+					text: child.title
+				});
+			}
+
+			// Build list
 			li = new Element('li');
-			tag = new Element(data.url ? 'a' : 'span', {
-				text: child.title,
-				href: child.url
-			});
 
 			if (child.className) {
 				li.addClass(child.className);
@@ -126,45 +284,113 @@ Titon.Flyout = new Class({
 			li.grab(tag).inject(ul);
 
 			if (child.children) {
-				this.buildMenu(li, child);
+				this._buildMenu(li, child);
 			}
 		}
 
-		div.grab(ul).inject(parent);
+		menu.grab(ul).inject(parent);
 
-		return div;
+		return menu;
 	}.protect(),
 
-	loadDataMap: function(data, index, depth) {
-		data.id = depth + '' + index;
+	/**
+	 * Get the menu if it exists, else build it and set events.
+	 *
+	 * @private
+	 * @return {Element}
+	 */
+	_getMenu: function() {
+		var target = this._getTarget();
 
-		this.dataMap[data.url] = data;
+		if (this.elements[target]) {
+			this.current = target;
 
-		if (data.children) {
-			data.children.each(function(item, index) {
-				this.loadDataMap(item, index, depth + 1);
-			}.bind(this));
+			return this.elements[target];
 		}
-	}.protect()
+
+		if (this.dataMap[target]) {
+			var menu = this._buildMenu(document.body, this.dataMap[target]);
+
+			if (!this.isClick) {
+				menu.hide()
+					.addEvent('mouseenter', function() {
+						window.clearTimeout(this.hideTimer);
+					}.bind(this))
+					.addEvent('mouseleave', function() {
+						this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.delay);
+					}.bind(this));
+			}
+
+			this.current = target;
+			this.elements[target] = menu;
+
+			return this.elements[target];
+		}
+
+		return null;
+	}.protect(),
+
+	/**
+	 * Get the target URL to determine which menu to show.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	_getTarget: function() {
+		return this.node.get(this.options.urlQuery) || this.node.get('href');
+	}.protect(),
+
+	/**
+	 * Position the menu below the target node.
+	 *
+	 * @private
+	 */
+	_position: function() {
+		var coords = this.node.getCoordinates(),
+			target = this.current,
+			options = this.options;
+
+		if (!this.elements[target]) {
+			return;
+		}
+
+		this.elements[target].setPosition({
+			x: coords.left + options.xOffset,
+			y: coords.top + options.yOffset + coords.height
+		});
+
+		if (options.fade) {
+			this.elements[target].fadeIn(options.fadeDuration);
+		} else {
+			this.elements[target].show();
+		}
+
+		this.isVisible = true;
+		this.fireEvent('position');
+	}
 
 });
 
 /**
- * All flyout instances loaded via factory().
+ * All instances loaded via factory().
  */
-Titon.Flyout.instances = [];
+Titon.Flyout.instances = {};
 
 /**
- * Easily create multiple tooltip instances.
+ * Easily create multiple instances.
  *
- * @param query
- * @param url
- * @param options
+ * @param {string} query
+ * @param {string} url
+ * @param {object} options
  */
 Titon.Flyout.factory = function(query, url, options) {
+	if (Titon.Flyout.instances[query]) {
+		return Titon.Flyout.instances[query];
+	}
+
 	var instance = new Titon.Flyout(query, url, options);
 
-	Titon.Flyout.instances.push(instance);
+	Titon.Flyout.instances[query] = instance;
 
 	return instance;
 };
