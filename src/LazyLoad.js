@@ -20,7 +20,7 @@
 	/**
 	 * Have all elements been force loaded?
 	 */
-	loaded: false,
+	isLoaded: false,
 
 	/**
 	 * Query selector used for element targeting.
@@ -99,7 +99,7 @@
 	 * Any container events will be removed and loading will cease.
 	 */
 	shutdown: function() {
-		this.loaded = true;
+		this.isLoaded = true;
 
 		$(this.options.context || window).removeEvents({
 			scroll: this._callback,
@@ -116,7 +116,7 @@
 	 * @return {boolean}
 	 */
 	load: function(e) {
-		if (this.loaded) {
+		if (this.isLoaded) {
 			return false;
 		}
 
@@ -147,7 +147,7 @@
 	 * @return {boolean}
 	 */
 	loadAll: function() {
-		if (this.loaded) {
+		if (this.isLoaded) {
 			return false;
 		}
 

@@ -268,6 +268,7 @@ Titon.Modal = new Class({
 	/**
 	 * Position the modal in the center of the screen.
 	 *
+	 * @private
 	 * @param {string|Element} content
 	 */
 	_position: function(content) {

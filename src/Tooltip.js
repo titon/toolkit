@@ -30,6 +30,11 @@ Titon.Tooltip = new Class({
 	elementBody: null,
 
 	/**
+	 * Is the event mode a click?
+	 */
+	isClick: false,
+
+	/**
 	 * Is the tooltip currently visible?
 	 */
 	isVisible: false,
@@ -122,12 +127,14 @@ Titon.Tooltip = new Class({
 		}
 
 		// Set events
-		var event = (this.options.mode === 'hover' ? 'mouseenter' : 'click'),
+		this.isClick = (this.options.mode !== 'hover');
+
+		var event = (this.isClick ? 'click' : 'mouseenter') + ':relay(' + query + ')',
 			callback = this.listen.bind(this);
 
 		$(this.options.context || document.body)
-			.removeEvent(event + ':relay(' + query + ')', callback)
-			.addEvent(event + ':relay(' + query + ')', callback);
+			.removeEvent(event, callback)
+			.addEvent(event, callback);
 	},
 
 	/**
@@ -180,11 +187,13 @@ Titon.Tooltip = new Class({
 	 * @param {Element} node
 	 */
 	listen: function(e, node) {
-		e.stop();
+		if (this.isClick) {
+			e.stop();
 
-		if (this.options.mode === 'click' && this.isVisible) {
-			this.hide();
-			return;
+			if (this.isVisible) {
+				this.hide();
+				return;
+			}
 		}
 
 		this.show(node);
@@ -219,7 +228,7 @@ Titon.Tooltip = new Class({
 			.addClass(options.className);
 
 		// Set mouse events
-		if (options.mode !== 'click') {
+		if (!this.isClick) {
 			this.node
 				.removeEvents('mouseleave')
 				.addEvent('mouseleave', this.hide.bind(this));
@@ -244,7 +253,7 @@ Titon.Tooltip = new Class({
 					}.bind(this),
 
 					onRequest: function() {
-						if (this.options.showLoading) {
+						if (options.showLoading) {
 							this._position(Titon.msg.loading);
 						}
 					}.bind(this),
@@ -271,6 +280,7 @@ Titon.Tooltip = new Class({
 	 * Positions the tooltip relative to the current node or the mouse cursor.
 	 * Additionally will apply the title/text and hide/show if necessary.
 	 *
+	 * @private
 	 * @param {string|Element} content
 	 */
 	_position: function(content) {
@@ -292,7 +302,7 @@ Titon.Tooltip = new Class({
 
 			this.fireEvent('position');
 
-			// Position accordingly
+		// Position accordingly
 		} else {
 			var position = options.position,
 				edgeMap = {
@@ -333,6 +343,7 @@ Titon.Tooltip = new Class({
 	 * Attempt to read a value from multiple locations.
 	 * DOM storage will always take precedent.
 	 *
+	 * @private
 	 * @param {string} type
 	 * @return {string}
 	 */
