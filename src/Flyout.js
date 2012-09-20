@@ -9,13 +9,15 @@
 /**
  * Creates a nested flyout menu that appears below a node that activates it.
  *
- * @version	0.1
+ * @version	0.2
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
+ * @uses	Core/Class.Timers
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
+	Implements: [Class.Timers],
 
 	/**
 	 * The current menu URL being displayed.
@@ -56,12 +58,6 @@ Titon.Flyout = new Class({
 	 * Query selector used for activation.
 	 */
 	query: null,
-
-	/**
-	 * Timers used for show and hide delays.
-	 */
-	showTimer: null,
-	hideTimer: null,
 
 	/**
 	 * Default options.
@@ -118,6 +114,12 @@ Titon.Flyout = new Class({
 			}).get();
 		}
 
+		// Set timers
+		this.addTimers({
+			show: this._position,
+			hide: this.hide
+		});
+
 		// Set events
 		this.isClick = (this.options.mode !== 'hover');
 
@@ -131,12 +133,10 @@ Titon.Flyout = new Class({
 		if (!this.isClick) {
 			$$(query)
 				.addEvent('mouseenter', function() {
-					window.clearTimeout(this.hideTimer);
-					this.showTimer = window.setTimeout(this._position.bind(this), this.options.delay);
+					this.clearTimer('hide').startTimer('show', this.options.delay);
 				}.bind(this))
 				.addEvent('mouseleave', function() {
-					window.clearTimeout(this.showTimer);
-					this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.delay);
+					this.clearTimer('show').startTimer('hide', this.options.delay);
 				}.bind(this));
 		}
 	},
@@ -145,8 +145,7 @@ Titon.Flyout = new Class({
 	 * Hide the currently shown menu.
 	 */
 	hide: function() {
-		window.clearTimeout(this.hideTimer);
-		window.clearTimeout(this.showTimer);
+		this.clearTimers();
 
 		if (!this.isVisible || !this.current) {
 			return;
@@ -314,10 +313,10 @@ Titon.Flyout = new Class({
 			if (!this.isClick) {
 				menu.hide()
 					.addEvent('mouseenter', function() {
-						window.clearTimeout(this.hideTimer);
+						this.clearTimer('hide');
 					}.bind(this))
 					.addEvent('mouseleave', function() {
-						this.hideTimer = window.setTimeout(this.hide.bind(this), this.options.delay);
+						this.startTimer('hide', this.options.delay);
 					}.bind(this));
 			}
 
