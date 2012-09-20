@@ -32,7 +32,7 @@ Class.Timers = new Class({
 	 * @return {Class}
 	 */
 	addTimer: function(key, fn) {
-		this.timers[key] = fn;
+		this.timers[key] = Function.from(fn);
 
 		return this;
 	},
@@ -63,7 +63,7 @@ Class.Timers = new Class({
 		this.clearTimer(key);
 
 		if (this.timers[key]) {
-			this.$timers[key] = window.setTimeout(this.timers[key].apply(this, args), delay || 0);
+			this.$timers[key] = this.timers[key].delay(delay, this, args);
 		}
 
 		return this;
@@ -81,7 +81,7 @@ Class.Timers = new Class({
 		this.clearTimer(key);
 
 		if (this.timers[key]) {
-			this.$timers[key] = window.setInterval(this.timers[key].apply(this, args), interval || 0);
+			this.$timers[key] = this.timers[key].periodical(interval, this, args);
 		}
 
 		return this;
