@@ -182,7 +182,7 @@ Titon.Tabs = new Class({
 Titon.Tabs.instances = {};
 
 /**
- * Easily create multiple Tabs instances.
+ * Easily create multiple instances.
  *
  * @param {string} query
  * @param {object} options

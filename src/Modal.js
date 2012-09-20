@@ -42,7 +42,7 @@ Titon.Modal = new Class({
 	elementClose: null,
 
 	/**
-	 * Is the tooltip currently visible?
+	 * Is the modal currently visible?
 	 */
 	isVisible: false,
 
@@ -63,12 +63,12 @@ Titon.Modal = new Class({
 	 *	blackout		- (boolean) Will show a blackout when a modal is opened, and hide it when it is closed
 	 *	fade			- (boolean) Will fade the modals in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
-	 *	className		- (string) Class name to append to a tooltip when it is shown
+	 *	className		- (string) Class name to append to a modal when it is shown
 	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
 	 *	contentQuery	- (string) Attribute to read the content from
 	 *	closeQuery		- (string) CSS query to bind hide() events to inner content
 	 *	delay			- (int) The delay in milliseconds before the modal shows
-	 *	context			- (element) The element the tooltips will display in (defaults body)
+	 *	context			- (element) The element the modals will display in (defaults body)
 	 *	onHide			- (function) Callback to trigger when a modal is hidden
 	 *	onShow			- (function) Callback to trigger when a modal is shown
 	 *	onPosition		- (function) Callback to trigger when a modal is positioned
@@ -249,7 +249,7 @@ Titon.Modal = new Class({
 							this._position(html);
 
 							// Decrease count since _position() is being called twice
-							if (options.blackout) {
+							if (this.options.blackout) {
 								this.blackout.decrease();
 							}
 						}
@@ -305,7 +305,7 @@ Titon.Modal = new Class({
 Titon.Modal.instances = {};
 
 /**
- * Easily create multiple Modal instances.
+ * Easily create multiple instances.
  *
  * @param {string} query
  * @param {object} options
@@ -323,7 +323,7 @@ Titon.Modal.factory = function(query, options) {
 };
 
 /**
- * Hide all Tooltip instances.
+ * Hide all instances.
  */
 Titon.Modal.hide = function() {
 	Object.each(Titon.Modal.instances, function(modal) {

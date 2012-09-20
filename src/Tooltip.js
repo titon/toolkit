@@ -13,6 +13,7 @@
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
+ * @uses	More/Element.Event.Pseudos
  * @uses	More/Element.Position
  */
 Titon.Tooltip = new Class({
@@ -296,9 +297,11 @@ Titon.Tooltip = new Class({
 
 		// Follow the mouse
 		if (options.position === 'mouse') {
+			var callback = this.follow.bind(this);
+
 			this.node
-				.removeEvents('mousemove')
-				.addEvent('mousemove', this.follow.bind(this));
+				.removeEvent('mousemove:throttle(150)', callback)
+				.addEvent('mousemove:throttle(150)', callback);
 
 			this.fireEvent('position');
 
@@ -370,7 +373,7 @@ Titon.Tooltip = new Class({
 Titon.Tooltip.instances = {};
 
 /**
- * Easily create multiple Tooltip instances.
+ * Easily create multiple instances.
  *
  * @param {string} query
  * @param {object} options
@@ -388,7 +391,7 @@ Titon.Tooltip.factory = function(query, options) {
 };
 
 /**
- * Hide all Tooltip instances.
+ * Hide all instances.
  */
 Titon.Tooltip.hide = function() {
 	Object.each(Titon.Tooltip.instances, function(tooltip) {
