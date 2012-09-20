@@ -9,7 +9,7 @@
 /**
  * Creates a nested flyout menu that appears below a node that activates it.
  *
- * @version	0.2
+ * @version	0.3
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
@@ -50,7 +50,7 @@ Titon.Flyout = new Class({
 	isVisible: false,
 
 	/**
-	 * Current node that activated the tooltip.
+	 * Current node that activated the flyout.
 	 */
 	node: null,
 
@@ -62,18 +62,19 @@ Titon.Flyout = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	fade			- (boolean) Will fade the tooltips in and out
+	 *	fade			- (boolean) Will fade the menus in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
-	 *	className		- (string) Class name to append to a tooltip when it is shown
+	 *	className		- (string) Class name to append to a menu when it is shown
 	 *	urlQuery		- (string) Attribute to read the URL from
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
-	 *	delay			- (int) The delay in milliseconds before the tooltip shows
-	 *	context			- (element) The element the tooltips will display in (defaults body)
-	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
-	 *	onShow			- (function) Callback to trigger when a tooltip is shown
-	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
+	 *	delay			- (int) The delay in milliseconds before the menu shows
+	 *	context			- (element) The element the menus will display in (defaults body)
+	 *	onHide			- (function) Callback to trigger when a menu is hidden
+	 *	onShow			- (function) Callback to trigger when a menu is shown
+	 *	onPosition		- (function) Callback to trigger when a menu is positioned
+	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 */
@@ -90,6 +91,7 @@ Titon.Flyout = new Class({
 		onHide: null,
 		onShow: null,
 		onPosition: null,
+		contentElement: '',
 		template: '<div class="flyout"></div>',
 		parseTemplate: false
 	},
@@ -287,7 +289,13 @@ Titon.Flyout = new Class({
 			}
 		}
 
-		menu.grab(ul).inject(parent);
+		if (this.options.contentElement) {
+			menu.getElement(this.options.contentElement).grab(ul);
+		} else {
+			menu.grab(ul);
+		}
+
+		menu.inject(parent);
 
 		return menu;
 	}.protect(),
