@@ -13,9 +13,11 @@
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
+ * @uses	More/Class.Binds
  */
  Titon.LazyLoad = new Class({
-	 Extends: Titon.Module,
+	Extends: Titon.Module,
+	Binds: ['load'],
 
 	/**
 	 * Have all elements been force loaded?
@@ -30,17 +32,18 @@
 	 /**
 	 * Default options.
 	 *
-	 *	fade			- (bool) Will fade the items in and out
+	 *	fade			- (boolean) Will fade the items in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
-	 *	forceLoad		- (bool) Will force all items to load after a delay
+	 *	forceLoad		- (boolean) Will force all items to load after a delay
 	 *	delay			- (int) The delay in milliseconds before items are force loaded
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
-	 *	createStyles	- (bool) Will automatically create CSS styles related to lazy loading
+	 *	createStyles	- (boolean) Will automatically create CSS styles related to lazy loading
 	 *	context			- (element) The element the lazy loading triggers in (defaults window)
 	 *	onLoad			- (function) Callback to trigger when the scroll bar loads items
 	 *	onLoadAll		- (function) Callback to trigger when all items are loaded
 	 *	onShow			- (function) Callback to trigger when an item is shown
 	 *	onShutdown		- (function) Callback to trigger when lazy loading is disabled
+	  *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 */
 	options: {
 		fade: false,
@@ -53,7 +56,8 @@
 		onLoad: null,
 		onLoadAll: null,
 		onShow: null,
-		onShutdown: null
+		onShutdown: null,
+		parseTemplate: false
 	},
 
 	/**
@@ -76,11 +80,9 @@
 		}
 
 		// Add events
-		this._callback = this.load.bind(this);
-
 		$(this.options.context || window).addEvents({
-			scroll: this._callback,
-			resize: this._callback
+			scroll: this.load,
+			resize: this.load
 		});
 
 		// Load elements within viewport
@@ -102,8 +104,8 @@
 		this.isLoaded = true;
 
 		$(this.options.context || window).removeEvents({
-			scroll: this._callback,
-			resize: this._callback
+			scroll: this.load,
+			resize: this.load
 		});
 
 		this.fireEvent('shutdown');

@@ -66,7 +66,7 @@ Titon.Flyout = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	fade			- (bool) Will fade the tooltips in and out
+	 *	fade			- (boolean) Will fade the tooltips in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
 	 *	className		- (string) Class name to append to a tooltip when it is shown

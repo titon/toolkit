@@ -60,11 +60,11 @@ Titon.Tabs = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	fade			- (bool) Should the sections fade in
+	 *	fade			- (boolean) Should the sections fade in
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	activeClass		- (string) Class name appended to the active tab
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
-	 *	persistState	- (bool) Will persist the last tab clicked between page loads
+	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
 	 *	onShow			- (function) Callback to trigger when a section is shown

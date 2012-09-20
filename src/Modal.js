@@ -59,12 +59,12 @@ Titon.Modal = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	draggable		- (bool) Will enable dragging on the outer element
-	 *	blackout		- (bool) Will show a blackout when a modal is opened, and hide it when it is closed
-	 *	fade			- (bool) Will fade the modals in and out
+	 *	draggable		- (boolean) Will enable dragging on the outer element
+	 *	blackout		- (boolean) Will show a blackout when a modal is opened, and hide it when it is closed
+	 *	fade			- (boolean) Will fade the modals in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	className		- (string) Class name to append to a tooltip when it is shown
-	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
+	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
 	 *	contentQuery	- (string) Attribute to read the content from
 	 *	closeQuery		- (string) CSS query to bind hide() events to inner content
 	 *	delay			- (int) The delay in milliseconds before the modal shows

@@ -52,14 +52,14 @@ Titon.Tooltip = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	ajax			- (bool) The tooltip uses the target as an AJAX call
-	 *	fade			- (bool) Will fade the tooltips in and out
+	 *	ajax			- (boolean) The tooltip uses the target as an AJAX call
+	 *	fade			- (boolean) Will fade the tooltips in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
 	 *	className		- (string) Class name to append to a tooltip when it is shown
 	 *	position		- (string) The position to display the tooltip over the element
-	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
-	 *	showTitle		- (bool) Will display the element title in the tooltip
+	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
+	 *	showTitle		- (boolean) Will display the element title in the tooltip
 	 *	titleQuery		- (string) Attribute to read the title from
 	 *	contentQuery	- (string) Attribute to read the content from
 	 *	xOffset			- (int) Additional margin on the X axis
