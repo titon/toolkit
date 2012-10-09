@@ -1,0 +1,41 @@
+{
+	"sourcePath": "src/",
+	"dependencies": [
+		{
+			"name": "Titon",
+			"path": "Titon.js"
+		}, {
+			"name": "Module",
+			"path": "Module.js",
+			"requires": ["Titon"]
+		}, {
+			"name": "Class.Timers",
+			"path": "Class.Timers.js"
+		}, {
+			"name": "Blackout",
+			"path": "Blackout.js",
+			"requires": ["Titon", "Module"]
+		}, {
+			"name": "Flyout",
+			"path": "Flyout.js",
+			"requires": ["Titon", "Module", "Class.Timers"]
+		}, {
+			"name": "LazyLoad",
+			"path": "LazyLoad.js",
+			"requires": ["Titon", "Module"]
+		}, {
+			"name": "Modal",
+			"path": "Modal.js",
+			"requires": ["Titon", "Module", "Blackout"]
+		}, {
+			"name": "Tabs",
+			"path": "Tabs.js",
+			"requires": ["Titon", "Module"]
+		}, {
+			"name": "Tooltip",
+			"path": "Tooltip.js",
+			"requires": ["Titon", "Module"]
+		}
+	],
+	"bundles": []
+}
