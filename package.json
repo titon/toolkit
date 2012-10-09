@@ -1,41 +1,79 @@
 {
+	"name": "Titon",
+	"description": "The Mootools UI Framework",
+	"version": "1.0.0-beta",
+	"link": "http://github.com/titon",
+	"license": "MIT",
 	"sourcePath": "src/",
-	"dependencies": [
+	"outputFile": "bin/{name}-{version}.min.js",
+	"authors": [
 		{
-			"name": "Titon",
-			"path": "Titon.js"
-		}, {
-			"name": "Module",
-			"path": "Module.js",
-			"requires": ["Titon"]
-		}, {
-			"name": "Class.Timers",
-			"path": "Class.Timers.js"
-		}, {
-			"name": "Blackout",
-			"path": "Blackout.js",
-			"requires": ["Titon", "Module"]
-		}, {
-			"name": "Flyout",
-			"path": "Flyout.js",
-			"requires": ["Titon", "Module", "Class.Timers"]
-		}, {
-			"name": "LazyLoad",
-			"path": "LazyLoad.js",
-			"requires": ["Titon", "Module"]
-		}, {
-			"name": "Modal",
-			"path": "Modal.js",
-			"requires": ["Titon", "Module", "Blackout"]
-		}, {
-			"name": "Tabs",
-			"path": "Tabs.js",
-			"requires": ["Titon", "Module"]
-		}, {
-			"name": "Tooltip",
-			"path": "Tooltip.js",
-			"requires": ["Titon", "Module"]
+			"name": "Miles Johnson",
+			"homepage": "http://milesj.me"
 		}
 	],
-	"bundles": []
+	"includes": ["Titon", "Module"],
+	"scripts": {
+		"Titon": {
+			"title": "Titon",
+			"description": "Base object that contains global functionality and configuration.",
+			"path": "Titon.js",
+			"category": "core"
+		},
+		"Module": {
+			"title": "Module",
+			"description": "Primary class that all sub-classes should extend from.",
+			"path": "Module.js",
+			"category": "core",
+			"requires": ["Titon"]
+		},
+		"Class.Timers": {
+			"title": "Class.Timers",
+			"description": "Provides timer and interval management within the class layer.",
+			"path": "class/Class.Timers.js",
+			"category": "class"
+		},
+		"Blackout": {
+			"title": "Blackout",
+			"description": "Displays a transparent black element over the entire website.",
+			"path": "modules/Blackout.js",
+			"category": "module",
+			"requires": ["Titon", "Module"]
+		},
+		"Flyout": {
+			"title": "Flyout",
+			"description": "Creates a nested flyout menu that appears below a node that activates it.",
+			"path": "modules/Flyout.js",
+			"category": "module",
+			"requires": ["Titon", "Module", "Class.Timers"]
+		},
+		"Modal": {
+			"title": "Modal",
+			"description": "Creates dynamic modals that will display above the content.",
+			"path": "modules/Modal.js",
+			"category": "module",
+			"requires": ["Titon", "Module", "Blackout"]
+		},
+		"Tabs": {
+			"title": "Tabs",
+			"description": "Provides tabbed support to an element containing navigation tabs and sections.",
+			"path": "modules/Tabs.js",
+			"category": "module",
+			"requires": ["Titon", "Module"]
+		},
+		"Tooltip": {
+			"title": "Tooltip",
+			"description": "Creates dynamic tooltips that will display at a specific node or the mouse cursor.",
+			"path": "modules/Tooltip.js",
+			"category": "module",
+			"requires": ["Titon", "Module"]
+		},
+		"LazyLoad": {
+			"title": "LazyLoad",
+			"description": "Provides an easy way to lazy-load elements on the page to conserve bandwidth and improve page loading times.",
+			"path": "utilities/LazyLoad.js",
+			"category": "utility",
+			"requires": ["Titon", "Module"]
+		}
+	}
 }
