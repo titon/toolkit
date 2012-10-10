@@ -63,6 +63,7 @@ Titon.Tooltip = new Class({
 	 *	showTitle		- (boolean) Will display the element title in the tooltip
 	 *	getTitle		- (string) Attribute to read the title from
 	 *	getContent		- (string) Attribute to read the content from
+	 *	mouseThrottle	- (int) The amount in milliseconds to update mouse hover location
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
@@ -85,6 +86,7 @@ Titon.Tooltip = new Class({
 		showTitle: true,
 		getTitle: 'title',
 		getContent: 'data-tooltip',
+		mouseThrottle: 50,
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
@@ -297,11 +299,12 @@ Titon.Tooltip = new Class({
 
 		// Follow the mouse
 		if (options.position === 'mouse') {
-			var callback = this.follow.bind(this);
+			var callback = this.follow.bind(this),
+				event = 'mousemove:throttle(' + this.options.mouseThrottle + ')';
 
 			this.node
-				.removeEvent('mousemove:throttle(150)', callback)
-				.addEvent('mousemove:throttle(150)', callback);
+				.removeEvent(event, callback)
+				.addEvent(event, callback);
 
 			this.fireEvent('position');
 

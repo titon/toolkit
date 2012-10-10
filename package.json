@@ -18,62 +18,71 @@
 			"title": "Titon",
 			"description": "Base object that contains global functionality and configuration.",
 			"path": "Titon.js",
-			"category": "core"
+			"category": "core",
+			"externalRequires": ["Core"]
 		},
 		"Module": {
 			"title": "Module",
 			"description": "Primary class that all sub-classes should extend from.",
 			"path": "Module.js",
 			"category": "core",
-			"requires": ["Titon"]
+			"requires": ["Titon"],
+			"externalRequires": ["Core", "More/Element.From"]
 		},
 		"Class.Timers": {
 			"title": "Class.Timers",
 			"description": "Provides timer and interval management within the class layer.",
 			"path": "class/Class.Timers.js",
-			"category": "class"
+			"category": "class",
+			"externalRequires": ["Core"]
 		},
 		"Blackout": {
 			"title": "Blackout",
 			"description": "Displays a transparent black element over the entire website.",
 			"path": "modules/Blackout.js",
 			"category": "module",
-			"requires": ["Titon", "Module"]
+			"requires": ["Titon", "Module"],
+			"externalRequires": ["Core"]
 		},
 		"Flyout": {
 			"title": "Flyout",
 			"description": "Creates a nested flyout menu that appears below a node that activates it.",
 			"path": "modules/Flyout.js",
 			"category": "module",
-			"requires": ["Titon", "Module", "Class.Timers"]
+			"requires": ["Titon", "Module", "Class.Timers"],
+			"externalRequires": ["Core"]
 		},
 		"Modal": {
 			"title": "Modal",
 			"description": "Creates dynamic modals that will display above the content.",
 			"path": "modules/Modal.js",
 			"category": "module",
-			"requires": ["Titon", "Module", "Blackout"]
+			"requires": ["Titon", "Module", "Blackout"],
+			"externalRequires": ["Core", "More/Drag", "More/Element.Position"]
 		},
 		"Tabs": {
 			"title": "Tabs",
 			"description": "Provides tabbed support to an element containing navigation tabs and sections.",
 			"path": "modules/Tabs.js",
 			"category": "module",
-			"requires": ["Titon", "Module"]
+			"requires": ["Titon", "Module"],
+			"externalRequires": ["Core"]
 		},
 		"Tooltip": {
 			"title": "Tooltip",
 			"description": "Creates dynamic tooltips that will display at a specific node or the mouse cursor.",
 			"path": "modules/Tooltip.js",
 			"category": "module",
-			"requires": ["Titon", "Module"]
+			"requires": ["Titon", "Module"],
+			"externalRequires": ["Core", "More/Element.Event.Pseudos", "More/Element.Position"]
 		},
 		"LazyLoad": {
 			"title": "LazyLoad",
 			"description": "Provides an easy way to lazy-load elements on the page to conserve bandwidth and improve page loading times.",
 			"path": "utilities/LazyLoad.js",
 			"category": "utility",
-			"requires": ["Titon", "Module"]
+			"requires": ["Titon", "Module"],
+			"externalRequires": ["Core", "More/Class.Binds"]
 		}
 	}
 }

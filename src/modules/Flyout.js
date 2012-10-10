@@ -12,8 +12,8 @@
  * @version	0.3
  * @uses	Titon
  * @uses	Titon.Module
+ * @uses	Titon/Class.Timers
  * @uses	Core
- * @uses	Core/Class.Timers
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
