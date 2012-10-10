@@ -66,7 +66,7 @@ Titon.Flyout = new Class({
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
 	 *	className		- (string) Class name to append to a menu when it is shown
-	 *	urlQuery		- (string) Attribute to read the URL from
+	 *	getUrl			- (string) Attribute to read the URL from
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the menu shows
@@ -83,7 +83,7 @@ Titon.Flyout = new Class({
 		fadeDuration: 250,
 		mode: 'hover',
 		className: '',
-		urlQuery: 'href',
+		getUrl: 'href',
 		xOffset: 0,
 		yOffset: 0,
 		delay: 500,
@@ -344,7 +344,7 @@ Titon.Flyout = new Class({
 	 * @return {string}
 	 */
 	_getTarget: function() {
-		return this.node.get(this.options.urlQuery) || this.node.get('href');
+		return this.node.get(this.options.getUrl) || this.node.get('href');
 	}.protect(),
 
 	/**

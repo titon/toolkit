@@ -65,8 +65,8 @@ Titon.Modal = new Class({
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	className		- (string) Class name to append to a modal when it is shown
 	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
-	 *	contentQuery	- (string) Attribute to read the content from
-	 *	closeQuery		- (string) CSS query to bind hide() events to inner content
+	 *	getContent		- (string) Attribute to read the content from
+	 *	getClose		- (string) CSS query to bind hide() events to inner content
 	 *	delay			- (int) The delay in milliseconds before the modal shows
 	 *	context			- (element) The element the modals will display in (defaults body)
 	 *	onHide			- (function) Callback to trigger when a modal is hidden
@@ -83,8 +83,8 @@ Titon.Modal = new Class({
 		fadeDuration: 250,
 		className: '',
 		showLoading: true,
-		contentQuery: 'data-modal',
-		closeQuery: '.modal-close-button',
+		getContent: 'data-modal',
+		getClose: '.modal-close-button',
 		delay: 0,
 		context: null,
 		onHide: null,
@@ -216,7 +216,7 @@ Titon.Modal = new Class({
 		this.node = node;
 		this.customOptions = options;
 
-		var target = this.node.get(options.contentQuery) || this.node.get('href');
+		var target = this.node.get(options.getContent) || this.node.get('href');
 
 		// Add custom classes
 		this.element.addClass(options.className);
@@ -274,7 +274,7 @@ Titon.Modal = new Class({
 	_position: function(content) {
 		this.elementBody
 			.set('html', content)
-			.getElements(this.options.closeQuery).addEvent('click', this.hide.bind(this));
+			.getElements(this.options.getClose).addEvent('click', this.hide.bind(this));
 
 		this.element.position({
 			relativeTo: document.body,

@@ -61,8 +61,8 @@ Titon.Tooltip = new Class({
 	 *	position		- (string) The position to display the tooltip over the element
 	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
 	 *	showTitle		- (boolean) Will display the element title in the tooltip
-	 *	titleQuery		- (string) Attribute to read the title from
-	 *	contentQuery	- (string) Attribute to read the content from
+	 *	getTitle		- (string) Attribute to read the title from
+	 *	getContent		- (string) Attribute to read the content from
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
@@ -83,8 +83,8 @@ Titon.Tooltip = new Class({
 		position: 'topRight',
 		showLoading: true,
 		showTitle: true,
-		titleQuery: 'title',
-		contentQuery: 'data-tooltip',
+		getTitle: 'title',
+		getContent: 'data-tooltip',
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
@@ -352,7 +352,7 @@ Titon.Tooltip = new Class({
 	 */
 	_read: function(type) {
 		var data = this.node.retrieve('tooltip:' + type, null),
-			key = (type === 'title') ? this.options.titleQuery : this.options.contentQuery;
+			key = (type === 'title') ? this.options.getTitle : this.options.getContent;
 
 		if (data) {
 			return data;
