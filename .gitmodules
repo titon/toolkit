@@ -1,0 +1,6 @@
+[submodule "bin/jsmin"]
+	path = bin/jsmin
+	url = git://github.com/rgrove/jsmin-php.git
+[submodule "bin/packager"]
+	path = bin/packager
+	url = git://github.com/milesj/php-packager.git
