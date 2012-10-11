@@ -7,7 +7,7 @@
  */
 
 /**
- * Creates dynamic tooltips that will display at a specific node or the mouse cursor.
+ * Creates dynamic tooltips that will display at a specific element or the mouse cursor.
  *
  * @version	0.18
  * @uses	Titon

@@ -7,7 +7,7 @@
  */
 
 /**
- * Creates a nested flyout menu that appears below a node that activates it.
+ * Creates nested flyout menus that appear below an element that activates it.
  *
  * @version	0.3
  * @uses	Titon

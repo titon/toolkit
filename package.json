@@ -12,7 +12,7 @@
 			"homepage": "http://milesj.me"
 		}
 	],
-	"includes": ["Titon", "Module"],
+	"includes": [],
 	"scripts": {
 		"Titon": {
 			"title": "Titon",

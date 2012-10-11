@@ -7,7 +7,7 @@
  */
 
 /**
- * Provides an easy way to lazy-load elements (primarily images) on the page to conserve bandwidth and improve page loading times.
+ * Provides an easy way to lazy-load images while scrolling to conserve bandwidth and improve page loading times.
  *
  * @version	0.9
  * @uses	Titon
