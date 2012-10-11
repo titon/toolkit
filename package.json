@@ -46,7 +46,7 @@
 		},
 		"Flyout": {
 			"title": "Flyout",
-			"description": "Creates a nested flyout menu that appears below a node that activates it.",
+			"description": "Creates nested flyout menus that appear below an element that activates it.",
 			"path": "modules/Flyout.js",
 			"category": "module",
 			"requires": ["Titon", "Module", "Class.Timers"],
@@ -70,7 +70,7 @@
 		},
 		"Tooltip": {
 			"title": "Tooltip",
-			"description": "Creates dynamic tooltips that will display at a specific node or the mouse cursor.",
+			"description": "Creates dynamic tooltips that will display at a specific element or the mouse cursor.",
 			"path": "modules/Tooltip.js",
 			"category": "module",
 			"requires": ["Titon", "Module"],
@@ -78,7 +78,7 @@
 		},
 		"LazyLoad": {
 			"title": "LazyLoad",
-			"description": "Provides an easy way to lazy-load elements on the page to conserve bandwidth and improve page loading times.",
+			"description": "Provides an easy way to lazy-load images while scrolling.",
 			"path": "utilities/LazyLoad.js",
 			"category": "utility",
 			"requires": ["Titon", "Module"],

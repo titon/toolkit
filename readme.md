@@ -24,7 +24,7 @@ Titon, built on top of MooTools, is a collection of very powerful user-interface
 
 * LazyLoad - Provides an easy way to lazy-load images while scrolling
 
-## MooTools ##
+## Extensions ##
 
 Titon also provides classes that build upon MooTools itself.
 
