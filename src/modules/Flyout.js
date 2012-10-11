@@ -9,7 +9,7 @@
 /**
  * Creates nested flyout menus that appear below an element that activates it.
  *
- * @version	0.3
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Titon/Class.Timers

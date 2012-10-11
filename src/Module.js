@@ -10,7 +10,7 @@
  * Primary class that all sub-classes should extend from.
  * Provides options, event and template support.
  *
- * @version	0.1
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.From

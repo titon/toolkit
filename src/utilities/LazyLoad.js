@@ -9,7 +9,7 @@
 /**
  * Provides an easy way to lazy-load images while scrolling to conserve bandwidth and improve page loading times.
  *
- * @version	0.9
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core

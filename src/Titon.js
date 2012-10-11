@@ -9,14 +9,14 @@
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  *
- * @version	0.3
+ * @version	1.0.0
  */
 var Titon = {
 
 	/**
 	 * Current version.
 	 */
-	version: '0.3',
+	version: '1.0.0-beta',
 
 	/**
 	 * Options for all classes.

@@ -28,7 +28,7 @@
  * 		</script>
  * }}}
  *
- * @version	0.5
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core

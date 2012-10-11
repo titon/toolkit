@@ -9,7 +9,7 @@
 /**
  * Creates dynamic tooltips that will display at a specific element or the mouse cursor.
  *
- * @version	0.18
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core

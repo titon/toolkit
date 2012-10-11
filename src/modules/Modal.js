@@ -9,7 +9,7 @@
 /**
  * Creates dynamic modals that will display above the content.
  *
- * @version	0.6
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Blackout
  * @uses	Titon.Module

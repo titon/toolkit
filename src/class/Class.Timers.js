@@ -9,7 +9,7 @@
 /**
  * Provides timer and interval management within the class layer.
  *
- * @version	0.1
+ * @version	1.0.0
  * @uses	Core
  */
 Class.Timers = new Class({

@@ -9,7 +9,7 @@
 /**
  * Displays a transparent black element over the entire website.
  *
- * @version	0.2
+ * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
