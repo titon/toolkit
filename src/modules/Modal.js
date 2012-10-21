@@ -155,8 +155,14 @@ Titon.Modal = new Class({
 
 	/**
 	 * Hide the modal and reset relevant values.
+	 *
+	 * @param {Event} e
 	 */
-	hide: function() {
+	hide: function(e) {
+		if (typeOf(e) === 'domevent') {
+			e.stop();
+		}
+
 		if (!this.isVisible) {
 			return;
 		}
