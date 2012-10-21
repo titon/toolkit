@@ -1,7 +1,7 @@
 {
 	"name": "Titon",
 	"description": "The Mootools UI Framework",
-	"version": "1.0.0-beta",
+	"version": "1.0.0-rc1",
 	"link": "http://github.com/titon",
 	"license": "MIT",
 	"sourcePath": "src/",

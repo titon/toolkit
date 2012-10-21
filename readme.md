@@ -1,4 +1,4 @@
-# Titon v1.0.0 BETA #
+# Titon v1.0.0 RC1 #
 
 Titon, built on top of MooTools, is a collection of very powerful user-interface modules and utility classes.
 
