@@ -59,6 +59,7 @@ Titon.Modal = new Class({
 	/**
 	 * Default options.
 	 *
+	 *	ajax			- (boolean) The modal uses the target as an AJAX call
 	 *	draggable		- (boolean) Will enable dragging on the outer element
 	 *	blackout		- (boolean) Will show a blackout when a modal is opened, and hide it when it is closed
 	 *	fade			- (boolean) Will fade the modals in and out
@@ -77,6 +78,7 @@ Titon.Modal = new Class({
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 */
 	options: {
+		ajax: true,
 		draggable: false,
 		blackout: false,
 		fade: false,
@@ -97,11 +99,6 @@ Titon.Modal = new Class({
 			'<a href="#close" class="modal-close"></a>' +
 		'</div>'
 	},
-
-	/**
-	 * Custom options per node.
-	 */
-	customOptions: {},
 
 	/**
 	 * Initialize the modal be creating the DOM elements and setting default events.
@@ -167,12 +164,6 @@ Titon.Modal = new Class({
 		this.isVisible = false;
 		this.node = null;
 
-		if (this.customOptions.className !== this.options.className) {
-			this.element.removeClass(this.customOptions.className);
-		}
-
-		this.customOptions = {};
-
 		if (this.options.fade) {
 			this.element.fadeOut(this.options.fadeDuration, function() {
 				if (this.options.blackout) {
@@ -206,38 +197,41 @@ Titon.Modal = new Class({
 	/**
 	 * Show the modal after fetching the content.
 	 *
-	 * @param {Element} node
+	 * @param {Element|string} node
 	 * @param {object} options
 	 */
 	show: function(node, options) {
-		node = new Element(node);
-		options = Titon.mergeOptions(this.options, node.getOptions('modal') || options);
+		options = Titon.mergeOptions(this.options, options);
 
-		this.node = node;
-		this.customOptions = options;
+		var content;
 
-		var target = this.node.get(options.getContent) || this.node.get('href');
+		if (typeOf(node) === 'element') {
+			this.node = new Element(node);
 
-		// Add custom classes
-		this.element.addClass(options.className);
+			options = Titon.mergeOptions(options, this.node.getOptions('modal'));
+			content = this.node.get(options.getContent) || this.node.get('href');
 
-		// DOM element
-		if (target.substr(0, 1) === '#') {
-			this._position($(target.remove('#')).get('html'));
+		} else if (typeOf(node) === 'string') {
+			options.ajax = false;
+			content = node;
+
+		} else {
+			return;
+		}
 
 		// AJAX call
-		} else {
-			if (this.cache[target]) {
-				this._position(this.cache[target]);
+		if (options.ajax) {
+			if (this.cache[content]) {
+				this._position(this.cache[content]);
 
 			} else {
 				new Request({
-					url: target,
+					url: content,
 					method: 'get',
 					evalScripts: true,
 
 					onSuccess: function(response) {
-						this.cache[target] = response;
+						this.cache[content] = response;
 						this._position(response);
 					}.bind(this),
 
@@ -260,6 +254,14 @@ Titon.Modal = new Class({
 					}.bind(this)
 				}).get();
 			}
+
+		// DOM element
+		} else if (content.substr(0, 1) === '#') {
+			this._position($(content.remove('#')).get('html'));
+
+		// Text
+		} else {
+			this._position(content);
 		}
 
 		this.fireEvent('show');
@@ -272,9 +274,8 @@ Titon.Modal = new Class({
 	 * @param {string|Element} content
 	 */
 	_position: function(content) {
-		this.elementBody
-			.set('html', content)
-			.getElements(this.options.getClose).addEvent('click', this.hide.bind(this));
+		this.elementBody.set('html', content);
+		this.elementBody.getElements(this.options.getClose).addEvent('click', this.hide.bind(this));
 
 		this.element.position({
 			relativeTo: document.body,
