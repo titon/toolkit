@@ -55,17 +55,26 @@ Titon.Module = new Class({
 
 			// From a string
 			if (!element && this.options.template) {
-				element = this.parseTemplate(this.options.template);
+				if (element = this.parseTemplate(this.options.template)) {
+					element.hide().inject(document.body);
+				}
 			}
 
 			// Store it in the DOM
 			if (element) {
-				element.hide().inject(document.body);
-
 				this.element = element;
 			} else {
 				throw new Error('Template failed to parse.');
 			}
+		}
+	},
+
+	/**
+	 * Destroy the current template and reset.
+	 */
+	resetTemplate: function() {
+		if (this.element) {
+			this.element.dispose();
 		}
 	},
 
