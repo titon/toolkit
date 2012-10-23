@@ -32,9 +32,11 @@
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
+ * @uses	More/Class.Binds
  */
 Titon.Tabs = new Class({
 	Extends: Titon.Module,
+	Binds: ['_listen'],
 
 	/**
 	 * Collection of content sections.
@@ -114,12 +116,34 @@ Titon.Tabs = new Class({
 		this.sections.hide();
 
 		// Set events
-		this.tabs.addEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen.bind(this));
+		this.disable().enable();
 
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
 
 		this.show(index);
+	},
+
+	/**
+	 * Disable tab events.
+	 *
+	 * @return {Titon.Tabs}
+	 */
+	disable: function() {
+		this.tabs.removeEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen);
+
+		return this;
+	},
+
+	/**
+	 * Enable tab events.
+	 *
+	 * @return {Titon.Tabs}
+	 */
+	enable: function() {
+		this.tabs.addEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen);
+
+		return this;
 	},
 
 	/**
