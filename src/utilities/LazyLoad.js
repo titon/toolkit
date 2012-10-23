@@ -24,11 +24,6 @@
 	 */
 	isLoaded: false,
 
-	/**
-	 * Query selector used for element targeting.
-	 */
-	query: null,
-
 	 /**
 	 * Default options.
 	 *

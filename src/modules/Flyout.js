@@ -14,10 +14,12 @@
  * @uses	Titon.Module
  * @uses	Titon/Class.Timers
  * @uses	Core
+ * @uses	More/Class.Binds
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
 	Implements: [Class.Timers],
+	Binds: ['_listen'],
 
 	/**
 	 * The current menu URL being displayed.
@@ -93,6 +95,7 @@ Titon.Flyout = new Class({
 	initialize: function(query, url, options) {
 		this.parent(options);
 		this.query = query;
+		this.isClick = (this.options.mode !== 'hover');
 
 		// Load data from the URL
 		if (url) {
@@ -110,14 +113,7 @@ Titon.Flyout = new Class({
 		});
 
 		// Set events
-		this.isClick = (this.options.mode !== 'hover');
-
-		var event = (this.isClick ? 'click' : 'mouseenter') + ':relay(' + query + ')',
-			callback = this.listen.bind(this);
-
-		$(this.options.context || document.body)
-			.removeEvent(event, callback)
-			.addEvent(event, callback);
+		this.disable().enable();
 
 		if (!this.isClick) {
 			$$(query)
@@ -128,6 +124,28 @@ Titon.Flyout = new Class({
 					this.clearTimer('show').startTimer('hide', this.options.delay);
 				}.bind(this));
 		}
+	},
+
+	/**
+	 * Disable flyout events.
+	 *
+	 * @return {Titon.Flyout}
+	 */
+	disable: function() {
+		$(this.options.context || document.body).removeEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
+
+		return this;
+	},
+
+	/**
+	 * Enable flyout events.
+	 *
+	 * @return {Titon.Flyout}
+	 */
+	enable: function() {
+		$(this.options.context || document.body).addEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
+
+		return this;
 	},
 
 	/**
@@ -150,25 +168,6 @@ Titon.Flyout = new Class({
 		this.current = null;
 
 		this.fireEvent('hide');
-	},
-
-	/**
-	 * Event callback for node mouseover or click.
-	 *
-	 * @param {Event} e
-	 * @param {Element} node
-	 */
-	listen: function(e, node) {
-		if (this.isClick) {
-			e.stop();
-
-			if (this.isVisible()) {
-				this.hide();
-				return;
-			}
-		}
-
-		this.show(node);
 	},
 
 	/**
@@ -330,8 +329,27 @@ Titon.Flyout = new Class({
 	 * @return {String}
 	 */
 	_getTarget: function() {
-		return this.node.get(this.options.getUrl) || this.node.get('href');
+		return this.getValue(this.node, this.options.getUrl) || this.node.get('href');
 	}.protect(),
+
+	/**
+	 * Event callback for node mouseover or click.
+	 *
+	 * @param {Event} e
+	 * @param {Element} node
+	 */
+	_listen: function(e, node) {
+		e.stop();
+
+		if (this.isClick) {
+			if (this.isVisible()) {
+				this.hide();
+				return;
+			}
+		}
+
+		this.show(node);
+	},
 
 	/**
 	 * Position the menu below the target node.

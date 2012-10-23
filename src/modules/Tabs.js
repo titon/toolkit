@@ -167,30 +167,26 @@ Titon.Tabs = new Class({
 			section = this.sections[target];
 
 		// Load content with AJAX
-		if (url && !url.contains('#') && this.options.ajax) {
-			if (!this.cache[url]) {
-				new Request({
-					url: url,
-					method: 'get',
-					evalScripts: true,
-					onSuccess: function(response) {
-						this.cache[url] = response;
-						section.setHtml(response);
-					}.bind(this),
-					onRequest: function() {
-						if (this.options.showLoading) {
-							section.setHtml(new Element('div.tabs-loading', {
-								text: this.options.loadingMessage
-							}));
-						}
-					}.bind(this),
-					onFailure: function() {
-						section.setHtml(new Element('div.tabs-error', {
-							text: this.options.errorMessage
-						}));
-					}.bind(this)
-				}).get();
-			}
+		if (url && !url.contains('#') && this.options.ajax && !this.cache[url]) {
+			new Request({
+				url: url,
+				method: 'get',
+				evalScripts: true,
+				onSuccess: function(response) {
+					this.cache[url] = response;
+					section.setHtml(response);
+				}.bind(this),
+				onRequest: function() {
+					section.setHtml(new Element('div.tabs-loading', {
+						text: this.options.loadingMessage
+					}));
+				}.bind(this),
+				onFailure: function() {
+					section.setHtml(new Element('div.tabs-error', {
+						text: this.options.errorMessage
+					}));
+				}.bind(this)
+			}).get();
 		}
 
 		// Toggle tabs

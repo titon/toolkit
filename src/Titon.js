@@ -48,7 +48,7 @@ var Titon = {
 	 * The value is extracted via parseOptions().
 	 *
 	 * @param {String} value
-	 * @return {boolean|String|number}
+	 * @return {boolean|String|int}
 	 */
 	convertType: function(value) {
 		value = value.trim();
