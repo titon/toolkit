@@ -120,7 +120,7 @@ Titon.Tabs = new Class({
 	/**
 	 * Event callback for tab element click.
 	 *
-	 * @param {event} e
+	 * @param {Event} e
 	 */
 	listen: function(e) {
 		e.stop();

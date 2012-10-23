@@ -169,7 +169,7 @@ Titon.Flyout = new Class({
 	/**
 	 * Event callback for node mouseover or click.
 	 *
-	 * @param {event} e
+	 * @param {Event} e
 	 * @param {Element} node
 	 */
 	listen: function(e, node) {

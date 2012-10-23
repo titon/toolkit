@@ -114,7 +114,7 @@
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
-	 * @param {event} e
+	 * @param {Event} e
 	 * @return {boolean}
 	 */
 	load: function(e) {

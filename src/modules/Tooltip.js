@@ -69,7 +69,8 @@ Titon.Tooltip = new Class({
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
 	 *	context			- (element) The element the tooltips will display in (defaults body)
 	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
-	 *	onShow			- (function) Callback to trigger when a tooltip is shown
+	 *	onLoad			- (function) Callback to trigger when a tooltip content is loaded
+	 *	onShow			- (function) Callback to trigger when a tooltip is shown through event
 	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
 	 *	titleElement	- (string) CSS query for the title element within the template
 	 *	contentElement	- (string) CSS query for the content element within the template
@@ -92,6 +93,7 @@ Titon.Tooltip = new Class({
 		delay: 0,
 		context: null,
 		onHide: null,
+		onLoad: null,
 		onShow: null,
 		onPosition: null,
 		titleElement: '.tooltip-head',
@@ -143,7 +145,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Callback to position the tooltip at the mouse cursor.
 	 *
-	 * @param {event} e
+	 * @param {Event} e
 	 */
 	follow: function(e) {
 		e.stop();
@@ -186,7 +188,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Event callback for tooltip element mouseover or click.
 	 *
-	 * @param {event} e
+	 * @param {Event} e
 	 * @param {Element} node
 	 */
 	listen: function(e, node) {
@@ -200,6 +202,70 @@ Titon.Tooltip = new Class({
 		}
 
 		this.show(node);
+	},
+
+	/**
+	 * Load the tooltip content with a string.
+	 *
+	 * @param {string} string
+	 */
+	loadFromString: function(string) {
+		this._position(string);
+
+		this.fireEvent('load');
+	},
+
+	/**
+	 * Load the tooltip content with a DOM element.
+	 *
+	 * @param {Element|string} element
+	 */
+	loadFromDom: function(element) {
+		if (typeOf(element) === 'string' && element.substr(0, 1) === '#') {
+			element = $(element.remove('#')).get('html');
+		}
+
+		this._position(element);
+
+		this.fireEvent('load');
+	},
+
+	/**
+	 * Load the modal content from an AJAX URL request.
+	 *
+	 * @param {string} url
+	 */
+	loadFromUrl: function(url) {
+		if (this.cache[url]) {
+			this._position(this.cache[url]);
+
+			this.fireEvent('load');
+
+			return;
+		}
+
+		new Request({
+			url: url,
+			method: 'get',
+			evalScripts: true,
+
+			onSuccess: function(response) {
+				this.cache[url] = response;
+				this._position(response);
+			}.bind(this),
+
+			onRequest: function() {
+				this.fireEvent('load');
+
+				if (this.options.showLoading) {
+					this._position(new Element('div.tooltip-loading', { text: Titon.msg.loading }));
+				}
+			}.bind(this),
+
+			onFailure: function() {
+				this.hide();
+			}.bind(this)
+		}).get();
 	},
 
 	/**
@@ -220,7 +286,7 @@ Titon.Tooltip = new Class({
 			content = this._read('content');
 
 		if (title && options.showTitle) {
-			this.elementHead.set('html', title).show();
+			this.elementHead.setHtml(title).show();
 		} else {
 			this.elementHead.hide();
 		}
@@ -233,47 +299,18 @@ Titon.Tooltip = new Class({
 		// Set mouse events
 		if (!this.isClick) {
 			this.node
-				.removeEvents('mouseleave')
+				.removeEvent('mouseleave')
 				.addEvent('mouseleave', this.hide.bind(this));
 		}
 
-		// AJAX call
 		if (options.ajax) {
-			var url = content || this.node.get('href');
+			this.loadFromUrl(content || this.node.get('href'));
 
-			if (this.cache[url]) {
-				this._position(this.cache[url]);
-
-			} else {
-				new Request({
-					url: url,
-					method: 'get',
-					evalScripts: true,
-
-					onSuccess: function(response) {
-						this.cache[url] = response;
-						this._position(response);
-					}.bind(this),
-
-					onRequest: function() {
-						if (options.showLoading) {
-							this._position(Titon.msg.loading);
-						}
-					}.bind(this),
-
-					onFailure: function() {
-						this.hide();
-					}.bind(this)
-				}).get();
-			}
-
-		// DOM element
 		} else if (content.substr(0, 1) === '#') {
-			this._position($(content.remove('#')).get('html'));
+			this.loadFromDom(content);
 
-		// Text
 		} else {
-			this._position(content);
+			this.loadFromString(content);
 		}
 
 		this.fireEvent('show');
@@ -334,10 +371,12 @@ Titon.Tooltip = new Class({
 			});
 
 			window.setTimeout(function() {
-				if (this.options.fade) {
-					this.element.fadeIn(this.options.fadeDuration);
-				} else {
-					this.element.show();
+				if (!this.element.isVisible()) {
+					if (this.options.fade) {
+						this.element.fadeIn(this.options.fadeDuration);
+					} else {
+						this.element.show();
+					}
 				}
 
 				this.fireEvent('position');

@@ -14,6 +14,7 @@
  * @uses	Titon
  * @uses	Core
  * @uses	More/Element.From
+ * @uses	More/Element.Shortcut
  */
 Titon.Module = new Class({
 	Implements: [Events, Options],
