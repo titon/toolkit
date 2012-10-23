@@ -33,6 +33,15 @@ Titon.Blackout = new Class({
 	},
 
 	/**
+	 * Add events for browser resizing.
+	 */
+	initialize: function() {
+		this.parent();
+
+		window.addEvent('resize', this.position.bind(this));
+	},
+
+	/**
 	 * Return the current count.
 	 *
 	 * @return {int}
@@ -88,15 +97,25 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	show: function() {
+		this.position();
+		this.increase();
+		this.fireEvent('show');
+
+		return this;
+	},
+
+	/**
+	 * Display and position the blackout.
+	 *
+	 * @return {Titon.Blackout}
+	 */
+	position: function() {
 		var size = window.getSize();
 
 		this.element.show().setStyles({
 			width: size.x,
 			height: size.y
 		});
-
-		this.increase();
-		this.fireEvent('show');
 
 		return this;
 	}
