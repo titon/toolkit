@@ -39,11 +39,11 @@
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
 	 *	createStyles	- (boolean) Will automatically create CSS styles related to lazy loading
 	 *	context			- (element) The element the lazy loading triggers in (defaults window)
+	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 *	onLoad			- (function) Callback to trigger when the scroll bar loads items
 	 *	onLoadAll		- (function) Callback to trigger when all items are loaded
 	 *	onShow			- (function) Callback to trigger when an item is shown
 	 *	onShutdown		- (function) Callback to trigger when lazy loading is disabled
-	  *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 */
 	options: {
 		fade: false,
@@ -53,18 +53,18 @@
 		threshold: 150,
 		createStyles: true,
 		context: null,
+		parseTemplate: false,
 		onLoad: null,
 		onLoadAll: null,
 		onShow: null,
-		onShutdown: null,
-		parseTemplate: false
+		onShutdown: null
 	},
 
 	/**
 	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
-	 * @param {string} query
-	 * @param {object} options
+	 * @param {String} query
+	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
 		this.parent(options);
@@ -167,7 +167,7 @@
 	/**
 	 * Show or fade in the element by removing the lazy load class.
 	 *
-	 * @param node
+	 * @param {Element} node
 	 */
 	show: function(node) {
 		node.removeClass(this.query.remove('.'));
@@ -182,8 +182,8 @@
 	/**
 	 * Verify that the element is within the current browser viewport.
 	 *
-	 * @param node
-	 * @return boolean
+	 * @param {Element} node
+	 * @return {boolean}
 	 */
 	inViewport: function(node) {
 		var threshold = this.options.threshold,
@@ -213,8 +213,8 @@ Titon.LazyLoad.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param query
- * @param options
+ * @param {String} query
+ * @param {Object} options
  */
 Titon.LazyLoad.factory = function(query, options) {
 	if (Titon.LazyLoad.instances[query]) {

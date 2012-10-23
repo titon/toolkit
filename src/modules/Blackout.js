@@ -20,16 +20,18 @@ Titon.Blackout = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	onHide			- (function) Callback to trigger when the blackout is hidden
-	 *	onShow			- (function) Callback to trigger when the blackout is shown
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
+	 *	onHide			- (function) Callback to trigger when the blackout is hidden
+	 *	onShow			- (function) Callback to trigger when the blackout is shown
 	 */
 	options: {
-		onHide: null,
-		onShow: null,
 		template: '<div class="blackout" id="titon-blackout"></div>',
-		templateFrom: 'titon-blackout'
+		templateFrom: 'titon-blackout',
+
+		// Events
+		onHide: null,
+		onShow: null
 	},
 
 	/**

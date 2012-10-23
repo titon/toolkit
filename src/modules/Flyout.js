@@ -45,16 +45,6 @@ Titon.Flyout = new Class({
 	isClick: false,
 
 	/**
-	 * Current node that activated the flyout.
-	 */
-	node: null,
-
-	/**
-	 * Query selector used for activation.
-	 */
-	query: null,
-
-	/**
 	 * Default options.
 	 *
 	 *	fade			- (boolean) Will fade the menus in and out
@@ -66,12 +56,12 @@ Titon.Flyout = new Class({
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the menu shows
 	 *	context			- (element) The element the menus will display in (defaults body)
-	 *	onHide			- (function) Callback to trigger when a menu is hidden
-	 *	onShow			- (function) Callback to trigger when a menu is shown
-	 *	onPosition		- (function) Callback to trigger when a menu is positioned
 	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
+	 *	onHide			- (function) Callback to trigger when a menu is hidden
+	 *	onShow			- (function) Callback to trigger when a menu is shown
+	 *	onPosition		- (function) Callback to trigger when a menu is positioned
 	 */
 	options: {
 		fade: false,
@@ -83,12 +73,14 @@ Titon.Flyout = new Class({
 		yOffset: 0,
 		delay: 500,
 		context: null,
-		onHide: null,
-		onShow: null,
-		onPosition: null,
 		contentElement: '',
 		template: '<div class="flyout"></div>',
-		parseTemplate: false
+		parseTemplate: false,
+
+		// Events
+		onHide: null,
+		onShow: null,
+		onPosition: null
 	},
 
 	/**
@@ -182,7 +174,7 @@ Titon.Flyout = new Class({
 	/**
 	 * Load the data into the class and save a mapping of it.
 	 *
-	 * @param {object} data
+	 * @param {Object} data
 	 * @param {int} depth
 	 */
 	load: function(data, depth) {
@@ -241,7 +233,7 @@ Titon.Flyout = new Class({
 	 *
 	 * @private
 	 * @param {Element} parent
-	 * @param {object} data
+	 * @param {Object} data
 	 * @return {Element}
 	 */
 	_buildMenu: function(parent, data) {
@@ -335,7 +327,7 @@ Titon.Flyout = new Class({
 	 * Get the target URL to determine which menu to show.
 	 *
 	 * @private
-	 * @return {string}
+	 * @return {String}
 	 */
 	_getTarget: function() {
 		return this.node.get(this.options.getUrl) || this.node.get('href');

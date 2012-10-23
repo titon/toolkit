@@ -67,10 +67,10 @@ Titon.Tabs = new Class({
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
-	 *	onShow			- (function) Callback to trigger when a section is shown
 	 *	tabsElement		- (string) The CSS query to grab the tab elements
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
 	 *	template		- (string) Do not use an HTML template
+	 *	onShow			- (function) Callback to trigger when a section is shown
 	 */
 	options: {
 		fade: false,
@@ -80,17 +80,19 @@ Titon.Tabs = new Class({
 		persistState: false,
 		cookie: null,
 		cookieDuration: 30,
-		onShow: null,
 		tabsElement: 'nav a',
 		sectionsElement: 'section',
-		template: false
+		template: false,
+
+		// Events
+		onShow: null
 	},
 
 	/**
 	 * Initialize Tabs by storing the query, gathering the elements and binding events.
 	 *
-	 * @param {string} query
-	 * @param {object} options
+	 * @param {String} query
+	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
 		options.cookie = (options.cookie || query).camelCase();
@@ -132,7 +134,7 @@ Titon.Tabs = new Class({
 	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
 	 * or pass an element object for a tab in the collection.
 	 *
-	 * @param {object|int} tab
+	 * @param {Object|int} tab
 	 */
 	show: function(tab) {
 		if (typeOf(tab) === 'number') {

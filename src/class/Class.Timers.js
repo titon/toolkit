@@ -27,9 +27,9 @@ Class.Timers = new Class({
 	/**
 	 * Add a timer callback function.
 	 *
-	 * @param {string} key
-	 * @param {function} fn
-	 * @return {Class}
+	 * @param {String} key
+	 * @param {Function} fn
+	 * @return {Class.Timers}
 	 */
 	addTimer: function(key, fn) {
 		this.timers[key] = Function.from(fn);
@@ -40,8 +40,8 @@ Class.Timers = new Class({
 	/**
 	 * Add multiple timers.
 	 *
-	 * @param {object} timers
-	 * @return {Class}
+	 * @param {Object} timers
+	 * @return {Class.Timers}
 	 */
 	addTimers: function(timers) {
 		for (var key in timers) {
@@ -54,10 +54,10 @@ Class.Timers = new Class({
 	/**
 	 * Start a timer that executes a function after a delay.
 	 *
-	 * @param {string} key
+	 * @param {String} key
 	 * @param {int} delay
-	 * @param {array} args
-	 * @return {Class}
+	 * @param {Array} args
+	 * @return {Class.Timers}
 	 */
 	startTimer: function(key, delay, args) {
 		this.clearTimer(key);
@@ -72,10 +72,10 @@ Class.Timers = new Class({
 	/**
 	 * Start a timer that executes at every interval.
 	 *
-	 * @param {string} key
+	 * @param {String} key
 	 * @param {int} interval
-	 * @param {array} args
-	 * @return {Class}
+	 * @param {Array} args
+	 * @return {Class.Timers}
 	 */
 	startInterval: function(key, interval, args) {
 		this.clearTimer(key);
@@ -90,10 +90,10 @@ Class.Timers = new Class({
 	/**
 	 * Clear a timer or interval. If a function is passed, execute it.
 	 *
-	 * @param {string} key
-	 * @param {function} fn
-	 * @param {array} args
-	 * @return {Class}
+	 * @param {String} key
+	 * @param {Function} fn
+	 * @param {Array} args
+	 * @return {Class.Timers}
 	 */
 	clearTimer: function(key, fn, args) {
 		window.clearTimeout(this.$timers[key]);
@@ -101,7 +101,7 @@ Class.Timers = new Class({
 		delete this.$timers[key];
 
 		if (typeOf(fn) === 'function') {
-			fn.apply(this, args);
+			fn.apply(this, args || []);
 		}
 
 		return this;
@@ -110,8 +110,8 @@ Class.Timers = new Class({
 	/**
 	 * Clear all timers, or all timers defined by keys.
 	 *
-	 * @param {array} timers
-	 * @return {Class}
+	 * @param {Array} timers
+	 * @return {Class.Timers}
 	 */
 	clearTimers: function(timers) {
 		if (timers) {
@@ -131,8 +131,8 @@ Class.Timers = new Class({
 	/**
 	 * Remove a timer function.
 	 *
-	 * @param {string} key
-	 * @return {Class}
+	 * @param {String} key
+	 * @return {Class.Timers}
 	 */
 	removeTimer: function(key) {
 		delete this.timers[key];
@@ -143,8 +143,8 @@ Class.Timers = new Class({
 	/**
 	 * Remove all defined timers.
 	 *
-	 * @param {array} timers
-	 * @return {Class}
+	 * @param {Array} timers
+	 * @return {Class.Timers}
 	 */
 	removeTimers: function(timers) {
 		Array.from(timers).each(function(value) {

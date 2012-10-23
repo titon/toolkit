@@ -47,8 +47,8 @@ var Titon = {
 	 * Converts a value to a specific scalar type.
 	 * The value is extracted via parseOptions().
 	 *
-	 * @param {string} value
-	 * @return {boolean|string|number}
+	 * @param {String} value
+	 * @return {boolean|String|number}
 	 */
 	convertType: function(value) {
 		value = value.trim();
@@ -75,9 +75,9 @@ var Titon = {
 	/**
 	 * Merge custom options into the base. Clone the base as to not reference the original.
 	 *
-	 * @param {object} base
-	 * @param {object} options
-	 * @return {object}
+	 * @param {Object} base
+	 * @param {Object} options
+	 * @return {Object}
 	 */
 	mergeOptions: function(base, options) {
 		return Object.merge(Object.clone(base || {}), options || {});
@@ -87,8 +87,8 @@ var Titon = {
 	 * Parse options out of the data-options attributes.
 	 * Format: key1:value1;key2:value2
 	 *
-	 * @param {object} data
-	 * @return {object}
+	 * @param {Object} data
+	 * @return {Object}
 	 */
 	parseOptions: function(data) {
 		var options = {};
@@ -109,7 +109,7 @@ var Titon = {
 	/**
 	 * Apply custom options.
 	 *
-	 * @param {object} options
+	 * @param {Object} options
 	 */
 	setup: function(options) {
 		Titon.options = Object.merge(Titon.options, options);
@@ -125,8 +125,8 @@ Element.implement({
 	/**
 	 * Returns an object representation of the data-options attribute located on the element.
 	 *
-	 * @param {string} scope
-	 * @return {object}
+	 * @param {String} scope
+	 * @return {Object}
 	 */
 	getOptions: function(scope) {
 		return Titon.parseOptions(this.get('data-' + scope + '-options'));
@@ -154,7 +154,7 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
-	 * @param {function} callback
+	 * @param {Function} callback
 	 * @return {Element}
 	 */
 	fadeOut: function(duration, callback) {
@@ -181,7 +181,7 @@ Element.implement({
 	/**
 	 * Set the content of the element.
 	 *
-	 * @param {string|Element} html
+	 * @param {String|Element} html
 	 * @return {Element}
 	 */
 	setHtml: function(html) {
@@ -205,7 +205,7 @@ String.implement({
 	/**
 	 * Remove specific characters from a string.
 	 *
-	 * @param {string|array} chars
+	 * @param {String|Array} chars
 	 * @return {String}
 	 */
 	remove: function(chars) {

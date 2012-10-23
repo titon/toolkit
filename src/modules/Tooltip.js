@@ -63,13 +63,13 @@ Titon.Tooltip = new Class({
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
 	 *	context			- (element) The element the tooltips will display in (defaults body)
+	 *	titleElement	- (string) CSS query for the title element within the template
+	 *	contentElement	- (string) CSS query for the content element within the template
+	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
 	 *	onLoad			- (function) Callback to trigger when a tooltip content is loaded
 	 *	onShow			- (function) Callback to trigger when a tooltip is shown through event
 	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
-	 *	titleElement	- (string) CSS query for the title element within the template
-	 *	contentElement	- (string) CSS query for the content element within the template
-	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 */
 	options: {
 		ajax: false,
@@ -87,10 +87,6 @@ Titon.Tooltip = new Class({
 		yOffset: 0,
 		delay: 0,
 		context: null,
-		onHide: null,
-		onLoad: null,
-		onShow: null,
-		onPosition: null,
 		titleElement: '.tooltip-head',
 		contentElement: '.tooltip-body',
 		template: '<div class="tooltip">' +
@@ -99,7 +95,13 @@ Titon.Tooltip = new Class({
 				'<div class="tooltip-body"></div>' +
 			'</div>' +
 			'<div class="tooltip-arrow"></div>' +
-		'</div>'
+		'</div>',
+
+		// Events
+		onHide: null,
+		onLoad: null,
+		onShow: null,
+		onPosition: null
 	},
 
 	/**
@@ -110,8 +112,8 @@ Titon.Tooltip = new Class({
 	/**
 	 * Initialize tooltips.
 	 *
-	 * @param {string} query
-	 * @param {object} options
+	 * @param {String} query
+	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
 		this.parent(options);
@@ -200,7 +202,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Load the tooltip content with a string.
 	 *
-	 * @param {string} string
+	 * @param {String} string
 	 */
 	loadFromString: function(string) {
 		this._position(string);
@@ -211,7 +213,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Load the tooltip content with a DOM element.
 	 *
-	 * @param {Element|string} element
+	 * @param {Element|String} element
 	 */
 	loadFromDom: function(element) {
 		if (typeOf(element) === 'string' && element.substr(0, 1) === '#') {
@@ -226,7 +228,7 @@ Titon.Tooltip = new Class({
 	/**
 	 * Load the modal content from an AJAX URL request.
 	 *
-	 * @param {string} url
+	 * @param {String} url
 	 */
 	loadFromUrl: function(url) {
 		if (this.cache[url]) {
@@ -266,7 +268,7 @@ Titon.Tooltip = new Class({
 	 * a DOM node, or plain text. Can pass an options object to overwrite the defaults.
 	 *
 	 * @param {Element} node
-	 * @param {object} options
+	 * @param {Object} options
 	 */
 	show: function(node, options) {
 		node = new Element(node);
@@ -314,7 +316,7 @@ Titon.Tooltip = new Class({
 	 * Additionally will apply the title/text and hide/show if necessary.
 	 *
 	 * @private
-	 * @param {string|Element} content
+	 * @param {String|Element} content
 	 */
 	_position: function(content) {
 		var options = this.customOptions;
