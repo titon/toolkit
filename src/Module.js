@@ -15,6 +15,7 @@
  * @uses	Core
  * @uses	More/Element.From
  * @uses	More/Element.Shortcut
+ * @uses	More/Hash
  */
 Titon.Module = new Class({
 	Implements: [Events, Options],
@@ -23,6 +24,16 @@ Titon.Module = new Class({
 	 * The primary DOM element.
 	 */
 	element: null,
+
+	/**
+	 * Current node that activated the module.
+	 */
+	node: null,
+
+	/**
+	 * Query selector used for module activation.
+	 */
+	query: null,
 
 	/**
 	 * Default options.
@@ -40,7 +51,7 @@ Titon.Module = new Class({
 	/**
 	 * Initialize options and template.
 	 *
-	 * @param {object} options
+	 * @param {Object} options
 	 */
 	initialize: function(options) {
 		this.setOptions(options);
@@ -71,18 +82,42 @@ Titon.Module = new Class({
 	},
 
 	/**
-	 * Destroy the current template and reset.
+	 * Return the class name of the current object.
+	 *
+	 * @return {String}
 	 */
-	resetTemplate: function() {
-		if (this.element) {
-			this.element.dispose();
+	className: function() {
+		return new Hash(window.Titon).keyOf(this.$constructor);
+	},
+
+	/**
+	 * Attempt to read a value from a node element using the query.
+	 *
+	 * @param {Element} node
+	 * @param {String|Function} query
+	 * @return {String}
+	 */
+	getValue: function(node, query) {
+		if (typeOf(query) === 'function') {
+			return query(node).bind(this);
 		}
+
+		return node.get(query);
+	},
+
+	/**
+	 * Return true if the element exists and is visible.
+	 *
+	 * @return {boolean}
+	 */
+	isVisible: function() {
+		return (this.element && this.element.isVisible());
 	},
 
 	/**
 	 * Parse the template string into a set of DOM elements.
 	 *
-	 * @param {string} template
+	 * @param {String} template
 	 * @return {Element}
 	 */
 	parseTemplate: function(template) {
@@ -91,7 +126,7 @@ Titon.Module = new Class({
 		}
 
 		// If template is an element, use it
-		if (typeOf(template) === 'element') {
+		if (typeOf(template) === 'element' || instanceOf(template, Element)) {
 			return template;
 		}
 
@@ -110,6 +145,31 @@ Titon.Module = new Class({
 		}
 
 		return null;
+	},
+
+	/**
+	 * Destroy the current template and reset.
+	 *
+	 * @return {Titon.Module}
+	 */
+	reset: function() {
+		if (this.element) {
+			this.element.dispose();
+			this.element = null;
+		}
+
+		this.node = null;
+
+		return this;
+	},
+
+	/**
+	 * Return the element when the class is passed as an argument.
+	 *
+	 * @return {Element}
+	 */
+	toElement: function() {
+		return this.element;
 	}
 
 });

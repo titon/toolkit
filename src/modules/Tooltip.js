@@ -36,11 +36,6 @@ Titon.Tooltip = new Class({
 	isClick: false,
 
 	/**
-	 * Is the tooltip currently visible?
-	 */
-	isVisible: false,
-
-	/**
 	 * Current node that activated the tooltip.
 	 */
 	node: null,
@@ -160,11 +155,9 @@ Titon.Tooltip = new Class({
 	 * Hide the tooltip and set all relevant values to null.
 	 */
 	hide: function() {
-		if (!this.isVisible) {
+		if (!this.isVisible()) {
 			return;
 		}
-
-		this.isVisible = false;
 
 		if (this.customOptions.className !== this.options.className) {
 			this.element.removeClass(this.customOptions.className);
@@ -195,7 +188,7 @@ Titon.Tooltip = new Class({
 		if (this.isClick) {
 			e.stop();
 
-			if (this.isVisible) {
+			if (this.isVisible()) {
 				this.hide();
 				return;
 			}
@@ -282,8 +275,8 @@ Titon.Tooltip = new Class({
 		this.node = node;
 		this.customOptions = options;
 
-		var title = this._read('title'),
-			content = this._read('content');
+		var title = this.getValue(this.node, this.options.getTitle),
+			content = this.getValue(this.node, this.options.getContent);
 
 		if (title && options.showTitle) {
 			this.elementHead.setHtml(title).show();
@@ -332,8 +325,6 @@ Titon.Tooltip = new Class({
 			this.elementBody.hide();
 		}
 
-		this.isVisible = true;
-
 		// Follow the mouse
 		if (options.position === 'mouse') {
 			var callback = this.follow.bind(this),
@@ -371,7 +362,7 @@ Titon.Tooltip = new Class({
 			});
 
 			window.setTimeout(function() {
-				if (!this.element.isVisible()) {
+				if (!this.isVisible()) {
 					if (this.options.fade) {
 						this.element.fadeIn(this.options.fadeDuration);
 					} else {
@@ -381,29 +372,6 @@ Titon.Tooltip = new Class({
 
 				this.fireEvent('position');
 			}.bind(this), this.options.delay || 0);
-		}
-	},
-
-	/**
-	 * Attempt to read a value from multiple locations.
-	 * DOM storage will always take precedent.
-	 *
-	 * @private
-	 * @param {string} type
-	 * @return {string}
-	 */
-	_read: function(type) {
-		var data = this.node.retrieve('tooltip:' + type, null),
-			key = (type === 'title') ? this.options.getTitle : this.options.getContent;
-
-		if (data) {
-			return data;
-
-		} else if (typeOf(key) === 'function') {
-			return key(this.node);
-
-		} else {
-			return this.node.get(key);
 		}
 	}
 

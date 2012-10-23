@@ -97,6 +97,7 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	show: function() {
+		this.element.show();
 		this.position();
 		this.increase();
 		this.fireEvent('show');
@@ -110,12 +111,14 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	position: function() {
-		var size = window.getSize();
+		if (this.isVisible()) {
+			var size = window.getSize();
 
-		this.element.show().setStyles({
-			width: size.x,
-			height: size.y
-		});
+			this.element.setStyles({
+				width: size.x,
+				height: size.y
+			});
+		}
 
 		return this;
 	}

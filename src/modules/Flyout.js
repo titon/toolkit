@@ -45,11 +45,6 @@ Titon.Flyout = new Class({
 	isClick: false,
 
 	/**
-	 * Is a menu currently visible?
-	 */
-	isVisible: false,
-
-	/**
 	 * Current node that activated the flyout.
 	 */
 	node: null,
@@ -149,7 +144,7 @@ Titon.Flyout = new Class({
 	hide: function() {
 		this.clearTimers();
 
-		if (!this.isVisible || !this.current) {
+		if (!this.isVisible() || !this.current) {
 			return;
 		}
 
@@ -159,7 +154,6 @@ Titon.Flyout = new Class({
 			this.elements[this.current].hide();
 		}
 
-		this.isVisible = false;
 		this.node = null;
 		this.current = null;
 
@@ -176,7 +170,7 @@ Titon.Flyout = new Class({
 		if (this.isClick) {
 			e.stop();
 
-			if (this.isVisible) {
+			if (this.isVisible()) {
 				this.hide();
 				return;
 			}
@@ -224,7 +218,7 @@ Titon.Flyout = new Class({
 			this.hide();
 			this.node = node;
 
-		} else if (this.isVisible) {
+		} else if (this.isVisible()) {
 			return;
 		}
 
@@ -372,7 +366,6 @@ Titon.Flyout = new Class({
 			this.elements[target].show();
 		}
 
-		this.isVisible = true;
 		this.fireEvent('position');
 	}
 

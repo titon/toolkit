@@ -39,7 +39,8 @@ var Titon = {
 	 * Localization messages.
 	 */
 	msg: {
-		loading: 'Loading...'
+		loading: 'Loading...',
+		error: 'An error has occurred!'
 	},
 
 	/**
@@ -184,8 +185,12 @@ Element.implement({
 	 * @return {Element}
 	 */
 	setHtml: function(html) {
-		if (instanceOf(html, Element)) {
+		if (typeOf(html) === 'element') {
 			this.empty().grab(html);
+
+		} else if (typeOf(html) === 'string' && html.substr(0, 1) === '#') {
+			this.set('html', document.getElement(html).get('html'));
+
 		} else {
 			this.set('html', html);
 		}

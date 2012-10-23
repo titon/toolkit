@@ -27,7 +27,7 @@
 			"path": "Module.js",
 			"category": "core",
 			"requires": ["Titon"],
-			"externalRequires": ["Core", "More/Element.From"]
+			"externalRequires": ["Core", "More/Element.From", "More/Hash"]
 		},
 		"Class.Timers": {
 			"title": "Class.Timers",
