@@ -53,11 +53,6 @@ Titon.Tabs = new Class({
 	currentIndex: 0,
 
 	/**
-	 * Query selector used for node targeting.
-	 */
-	query: null,
-
-	/**
 	 * Default options.
 	 *
 	 *	fade			- (boolean) Should the sections fade in
@@ -111,23 +106,12 @@ Titon.Tabs = new Class({
 		this.sections.hide();
 
 		// Set events
-		this.tabs.addEvent('click', this.listen.bind(this));
+		this.tabs.addEvent('click', this._listen.bind(this));
 
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
 
 		this.show(index);
-	},
-
-	/**
-	 * Event callback for tab element click.
-	 *
-	 * @param {Event} e
-	 */
-	listen: function(e) {
-		e.stop();
-
-		this.show(e.target);
 	},
 
 	/**
@@ -174,6 +158,17 @@ Titon.Tabs = new Class({
 		this.currentIndex = tab.get('data-tabs-index');
 
 		this.fireEvent('show', tab);
+	},
+
+	/**
+	 * Event callback for tab element click.
+	 *
+	 * @param {Event} e
+	 */
+	_listen: function(e) {
+		e.stop();
+
+		this.show(e.target);
 	}
 
 });
@@ -186,8 +181,9 @@ Titon.Tabs.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {string} query
- * @param {object} options
+ * @param {String} query
+ * @param {Object} options
+ * @return {Titon.Tabs}
  */
 Titon.Tabs.factory = function(query, options) {
 	if (Titon.Tabs.instances[query]) {

@@ -86,9 +86,9 @@ Titon.Flyout = new Class({
 	/**
 	 * Initialize all options and events and fetch data from the defined URL.
 	 *
-	 * @param {string} query
-	 * @param {string} url
-	 * @param {object} options
+	 * @param {String} query
+	 * @param {String} url
+	 * @param {Object} options
 	 */
 	initialize: function(query, url, options) {
 		this.parent(options);
@@ -371,9 +371,10 @@ Titon.Flyout.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {string} query
- * @param {string} url
- * @param {object} options
+ * @param {String} query
+ * @param {String} url
+ * @param {Object} options
+ * @return {Titon.Flyout}
  */
 Titon.Flyout.factory = function(query, url, options) {
 	if (Titon.Flyout.instances[query]) {

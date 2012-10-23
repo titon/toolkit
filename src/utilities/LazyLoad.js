@@ -215,6 +215,7 @@ Titon.LazyLoad.instances = {};
  *
  * @param {String} query
  * @param {Object} options
+ * @return {Titon.LazyLoad}
  */
 Titon.LazyLoad.factory = function(query, options) {
 	if (Titon.LazyLoad.instances[query]) {

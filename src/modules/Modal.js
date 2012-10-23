@@ -209,13 +209,10 @@ Titon.Modal = new Class({
 	 * If a node is passed, grab the modal AJAX URL.
 	 *
 	 * @param {Element} node
-	 * @param {Element|String} content
+	 * @param {String|Element} content
 	 * @param {Object|boolean} options
 	 */
 	show: function(node, content, options) {
-		this.node = node;
-
-		// Get options
 		if (options === true) {
 			options = { ajax: true };
 		}
@@ -230,6 +227,8 @@ Titon.Modal = new Class({
 		if (!content) {
 			return;
 		}
+
+		this.node = node;
 
 		// AJAX
 		if (options.ajax) {
@@ -303,7 +302,7 @@ Titon.Modal = new Class({
 			}.bind(this)
 		}).send();
 
-		this.fireEvent('submit');
+		this.fireEvent('submit', button);
 	},
 
 	/**
@@ -323,7 +322,7 @@ Titon.Modal = new Class({
 	 * Position the modal in the center of the screen.
 	 *
 	 * @private
-	 * @param {Element|String} content
+	 * @param {String|Element} content
 	 */
 	_position: function(content) {
 		this.elementBody.setHtml(content);
@@ -377,6 +376,7 @@ Titon.Modal.instances = {};
  *
  * @param {String} query
  * @param {Object} options
+ * @return {Titon.Modal}
  */
 Titon.Modal.factory = function(query, options) {
 	if (Titon.Modal.instances[query]) {
