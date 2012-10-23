@@ -132,24 +132,6 @@ Element.implement({
 	},
 
 	/**
-	 * Show an element using its default display type, or pass a forced type.
-	 *
-	 * @param {string} force
-	 * @return {Element}
-	 */
-	show: function(force) {
-		return this.setStyle('display', force || '');
-	},
-
-	/**
-	 * Hide an element.
-	 * @return {Element}
-	 */
-	hide: function() {
-		return this.setStyle('display', 'none');
-	},
-
-	/**
 	 * Fade in an element and set its display type.
 	 *
 	 * @param {int} duration

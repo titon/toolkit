@@ -19,7 +19,7 @@
 			"description": "Base object that contains global functionality and configuration.",
 			"path": "Titon.js",
 			"category": "core",
-			"externalRequires": ["Core"]
+			"externalRequires": ["Core", "More/Element.Shortcuts"]
 		},
 		"Module": {
 			"title": "Module",
