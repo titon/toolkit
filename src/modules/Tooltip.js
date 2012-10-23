@@ -22,11 +22,6 @@ Titon.Tooltip = new Class({
 	Binds: ['_follow', '_listen'],
 
 	/**
-	 * A cache of all AJAX calls, indexed by the URL.
-	 */
-	cache: {},
-
-	/**
 	 * DOM elements.
 	 */
 	elementHead: null,

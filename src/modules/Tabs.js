@@ -55,26 +55,34 @@ Titon.Tabs = new Class({
 	/**
 	 * Default options.
 	 *
+	 *	ajax			- (boolean) Will load the href as an ajax call when applicable
 	 *	fade			- (boolean) Should the sections fade in
 	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	mode			- (string) Either "hover" or "click"
 	 *	activeClass		- (string) Class name appended to the active tab
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
+	 *	errorMessage	- (string) Error message when AJAX calls fail
+	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	tabsElement		- (string) The CSS query to grab the tab elements
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
 	 *	template		- (string) Do not use an HTML template
 	 *	onShow			- (function) Callback to trigger when a section is shown
 	 */
 	options: {
+		ajax: true,
 		fade: false,
 		fadeDuration: 600,
+		mode: 'click',
 		activeClass: Titon.options.activeClass,
 		defaultIndex: 0,
 		persistState: false,
 		cookie: null,
 		cookieDuration: 30,
+		errorMessage: Titon.msg.error,
+		loadingMessage: Titon.msg.loading,
 		tabsElement: 'nav a',
 		sectionsElement: 'section',
 		template: false,
@@ -106,7 +114,7 @@ Titon.Tabs = new Class({
 		this.sections.hide();
 
 		// Set events
-		this.tabs.addEvent('click', this._listen.bind(this));
+		this.tabs.addEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen.bind(this));
 
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
@@ -118,7 +126,7 @@ Titon.Tabs = new Class({
 	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
 	 * or pass an element object for a tab in the collection.
 	 *
-	 * @param {Object|int} tab
+	 * @param {Element|int} tab
 	 */
 	show: function(tab) {
 		if (typeOf(tab) === 'number') {
@@ -130,7 +138,36 @@ Titon.Tabs = new Class({
 		}
 
 		var className = this.options.activeClass,
-			target = (tab.get('data-tabs-target') || tab.get('href')).remove('#');
+			target = tab.get('data-tabs-index'),
+			url = tab.get('href'),
+			section = this.sections[target];
+
+		// Load content with AJAX
+		if (url && !url.contains('#') && this.options.ajax) {
+			if (!this.cache[url]) {
+				new Request({
+					url: url,
+					method: 'get',
+					evalScripts: true,
+					onSuccess: function(response) {
+						this.cache[url] = response;
+						section.setHtml(response);
+					}.bind(this),
+					onRequest: function() {
+						if (this.options.showLoading) {
+							section.setHtml(new Element('div.tabs-loading', {
+								text: this.options.loadingMessage
+							}));
+						}
+					}.bind(this),
+					onFailure: function() {
+						section.setHtml(new Element('div.tabs-error', {
+							text: this.options.errorMessage
+						}));
+					}.bind(this)
+				}).get();
+			}
+		}
 
 		// Toggle tabs
 		this.tabs.removeClass(className);
@@ -141,9 +178,9 @@ Titon.Tabs = new Class({
 		this.sections.hide();
 
 		if (this.options.fade) {
-			$(target).fadeIn(this.options.fadeDuration)
+			section.fadeIn(this.options.fadeDuration)
 		} else {
-			$(target).show();
+			section.show();
 		}
 
 		// Persist the state using a cookie

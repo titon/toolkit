@@ -21,6 +21,11 @@ Titon.Module = new Class({
 	Implements: [Events, Options],
 
 	/**
+	 * Cached data.
+	 */
+	cache: {},
+
+	/**
 	 * The primary DOM element.
 	 */
 	element: null,
@@ -150,14 +155,16 @@ Titon.Module = new Class({
 	/**
 	 * Destroy the current template and reset.
 	 *
+	 * @param {boolean} dispose
 	 * @return {Titon.Module}
 	 */
-	reset: function() {
-		if (this.element) {
+	reset: function(dispose) {
+		if (this.element && dispose) {
 			this.element.dispose();
 			this.element = null;
 		}
 
+		this.cache = {};
 		this.node = null;
 
 		return this;

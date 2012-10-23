@@ -28,11 +28,6 @@ Titon.Modal = new Class({
 	blackout: null,
 
 	/**
-	 * A cache of all AJAX calls, indexed by the URL.
-	 */
-	cache: {},
-
-	/**
 	 * Drag instance if options.drag is true.
 	 */
 	drag: null,
