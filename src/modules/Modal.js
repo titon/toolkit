@@ -96,9 +96,10 @@ Titon.Modal = new Class({
 		onPosition: null,
 		contentElement: '.modal-inner',
 		closeElement: '.modal-close',
+		closeEvent: '.modal-event-close',
 		template: '<div class="modal">' +
 			'<div class="modal-inner"></div>' +
-			'<a href="#close" class="modal-close"></a>' +
+			'<a href="#close" class="modal-close modal-event-close"></a>' +
 		'</div>'
 	},
 
@@ -297,9 +298,9 @@ Titon.Modal = new Class({
 	 * @param {Element|string} content
 	 */
 	_position: function(content) {
-		this.elementBody.set('html', content);
+		this.elementBody.setHtml(content);
 
-		this.element.getElements(this.options.closeElement)
+		this.element.getElements(this.options.closeEvent)
 			.removeEvent('click')
 			.addEvent('click', this.hide.bind(this));
 
@@ -314,14 +315,16 @@ Titon.Modal = new Class({
 		}
 
 		window.setTimeout(function() {
-			if (this.options.blackout) {
-				this.blackout.show();
-			}
+			if (!this.element.isVisible()) {
+				if (this.options.blackout) {
+					this.blackout.show();
+				}
 
-			if (this.options.fade) {
-				this.element.fadeIn(this.options.fadeDuration);
-			} else {
-				this.element.show();
+				if (this.options.fade) {
+					this.element.fadeIn(this.options.fadeDuration);
+				} else {
+					this.element.show();
+				}
 			}
 
 			this.isVisible = true;

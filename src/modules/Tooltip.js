@@ -290,7 +290,7 @@ Titon.Tooltip = new Class({
 		var options = this.customOptions;
 
 		if (content) {
-			this.elementBody.set('html', content).show();
+			this.elementBody.setHtml(content).show();
 		} else {
 			this.elementBody.hide();
 		}

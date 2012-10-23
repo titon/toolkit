@@ -175,6 +175,22 @@ Element.implement({
 		}
 
 		return this;
+	},
+
+	/**
+	 * Set the content of the element.
+	 *
+	 * @param {string|Element} html
+	 * @return {Element}
+	 */
+	setHtml: function(html) {
+		if (instanceOf(html, Element)) {
+			this.empty().grab(html);
+		} else {
+			this.set('html', html);
+		}
+
+		return this;
 	}
 
 });
