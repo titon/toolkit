@@ -14,11 +14,13 @@
  * @uses	Titon.Blackout
  * @uses	Titon.Module
  * @uses	Core
+ * @uses	More/Class.Binds
  * @uses	More/Drag
  * @uses	More/Element.Position
  */
 Titon.Modal = new Class({
 	Extends: Titon.Module,
+	Binds: ['_listen'],
 
 	/**
 	 * Blackout instance if options.blackout is true.
@@ -36,24 +38,9 @@ Titon.Modal = new Class({
 	drag: null,
 
 	/**
-	 * DOM elements.
+	 * Body DOM element.
 	 */
 	elementBody: null,
-
-	/**
-	 * Is the modal currently visible?
-	 */
-	isVisible: false,
-
-	/**
-	 * Current node that activated the modal.
-	 */
-	node: null,
-
-	/**
-	 * Query selector used for modal activation.
-	 */
-	query: null,
 
 	/**
 	 * Default options.
@@ -69,18 +56,22 @@ Titon.Modal = new Class({
 	 *	getContent		- (string) Attribute to read the content from
 	 *	delay			- (int) The delay in milliseconds before the modal shows
 	 *	context			- (element) The element the modals will display in (defaults body)
-	 *	onHide			- (function) Callback to trigger when a modal is hidden
-	 *	onLoad			- (function) Callback to trigger when a modal content is loaded
-	 *	onShow			- (function) Callback to trigger when a modal is shown through event
-	 *	onPosition		- (function) Callback to trigger when a modal is positioned
+	 *	errorMessage	- (string) Error message when AJAX calls fail
+	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	contentElement	- (string) CSS query for the content element within the template
 	 *	closeElement	- (string) CSS query for the close element within the template
+	 *	closeEvent		- (string) CSS query to bind hide events to
+	 *	submitEvent		- (string) CSS query to bind submit events to
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
+	 *	onHide			- (function) Callback to trigger when a modal is hidden
+	 *	onShow			- (function) Callback to trigger when a modal is shown
+	 *	onPosition		- (function) Callback to trigger when a modal is positioned
+	 *	onSubmit		- (function) Callback to trigger when a modal form is submitted
 	 */
 	options: {
 		ajax: true,
 		draggable: false,
-		blackout: false,
+		blackout: true,
 		fixed: true,
 		fade: false,
 		fadeDuration: 250,
@@ -90,24 +81,29 @@ Titon.Modal = new Class({
 		getContent: 'data-modal',
 		delay: 0,
 		context: null,
-		onHide: null,
-		onLoad: null,
-		onShow: null,
-		onPosition: null,
+		errorMessage: Titon.msg.error,
+		loadingMessage: Titon.msg.loading,
 		contentElement: '.modal-inner',
 		closeElement: '.modal-close',
 		closeEvent: '.modal-event-close',
+		submitEvent: '.modal-event-submit',
 		template: '<div class="modal">' +
 			'<div class="modal-inner"></div>' +
-			'<a href="#close" class="modal-close modal-event-close"></a>' +
-		'</div>'
+			'<a href="javascript:;" class="modal-close modal-event-close"></a>' +
+		'</div>',
+
+		// Events
+		onHide: null,
+		onShow: null,
+		onPosition: null,
+		onSubmit: null
 	},
 
 	/**
 	 * Initialize the modal be creating the DOM elements and setting default events.
 	 *
-	 * @param {string} query
-	 * @param {object} options
+	 * @param {String} query
+	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
 		this.parent(options);
@@ -140,19 +136,39 @@ Titon.Modal = new Class({
 		}
 
 		// Set events
-		if (query) {
-			var callback = this.listen.bind(this);
-
-			$(this.options.context || document.body)
-				.removeEvent('click:relay(' + query + ')', callback)
-				.addEvent('click:relay(' + query + ')', callback);
-		}
+		this.disable().enable();
 
 		window.addEvent('keydown', function(e) {
 			if (e.key === 'esc') {
-				this.hide();
+				Titon.Modal.hide();
 			}
-		}.bind(this));
+		});
+	},
+
+	/**
+	 * Disable modal events.
+	 *
+	 * @return {Titon.Modal}
+	 */
+	disable: function() {
+		if (this.query) {
+			$(this.options.context || document.body).removeEvent('click:relay(' + this.query + ')', this._listen);
+		}
+
+		return this;
+	},
+
+	/**
+	 * Enable modal events.
+	 *
+	 * @return {Titon.Modal}
+	 */
+	enable: function() {
+		if (this.query) {
+			$(this.options.context || document.body).addEvent('click:relay(' + this.query + ')', this._listen);
+		}
+
+		return this;
 	},
 
 	/**
@@ -165,22 +181,20 @@ Titon.Modal = new Class({
 			e.stop();
 		}
 
-		if (!this.isVisible) {
+		if (!this.isVisible()) {
 			return;
 		}
 
-		var options = this.options,
-			blackout = function() {
-				if (this.options.blackout) {
-					this.blackout.hide();
-				}
-			}.bind(this);
-
-		this.isVisible = false;
 		this.node = null;
 
-		if (options.fade) {
-			this.element.fadeOut(options.fadeDuration, blackout);
+		var blackout = function() {
+			if (this.options.blackout) {
+				this.blackout.hide();
+			}
+		}.bind(this);
+
+		if (this.options.fade) {
+			this.element.fadeOut(this.options.fadeDuration, blackout);
 
 		} else {
 			this.element.hide();
@@ -191,119 +205,139 @@ Titon.Modal = new Class({
 	},
 
 	/**
-	 * Event callback for modal click.
+	 * Show the modal with the specific content.
+	 * If a node is passed, grab the modal AJAX URL.
 	 *
-	 * @param {Event} e
 	 * @param {Element} node
+	 * @param {Element|String} content
+	 * @param {Object|boolean} options
 	 */
-	listen: function(e, node) {
-		e.stop();
+	show: function(node, content, options) {
+		this.node = node;
 
-		this.show(node);
-	},
-
-	/**
-	 * Load the modal content with a string.
-	 *
-	 * @param {string} string
-	 */
-	loadFromString: function(string) {
-		this._position(string);
-
-		this.fireEvent('load');
-	},
-
-	/**
-	 * Load the modal content with a DOM element.
-	 *
-	 * @param {Element|string} element
-	 */
-	loadFromDom: function(element) {
-		if (typeOf(element) === 'string' && element.substr(0, 1) === '#') {
-			element = $(element.remove('#')).get('html');
+		// Get options
+		if (options === true) {
+			options = { ajax: true };
 		}
 
-		this._position(element);
+		options = Titon.mergeOptions(this.options, options);
 
-		this.fireEvent('load');
-	},
+		// Get content
+		if (node && !content) {
+			content = this.getValue(node, options.getContent) || node.get('href');
+		}
 
-	/**
-	 * Load the modal content from an AJAX URL request.
-	 *
-	 * @param {string} url
-	 */
-	loadFromUrl: function(url) {
-		if (this.cache[url]) {
-			this._position(this.cache[url]);
-
-			this.fireEvent('load');
-
+		if (!content) {
 			return;
 		}
 
-		new Request({
-			url: url,
-			method: 'get',
-			evalScripts: true,
+		// AJAX
+		if (options.ajax) {
+			if (this.cache[content]) {
+				this._position(this.cache[content]);
 
-			onSuccess: function(response) {
-				this.cache[url] = response;
-				this._position(response);
-			}.bind(this),
+			} else {
+				new Request({
+					url: content,
+					method: 'get',
+					evalScripts: true,
+					onSuccess: function(response) {
+						this.cache[content] = response;
+						this._position(response);
+					}.bind(this),
+					onRequest: function() {
+						if (options.showLoading) {
+							this._position(new Element('div.modal-loading', {
+								text: options.loadingMessage
+							}));
 
-			onRequest: function() {
-				this.fireEvent('load');
+							// Decrease count since _position() is being called twice
+							if (this.options.blackout) {
+								this.blackout.decrease();
+							}
+						}
+					}.bind(this),
+					onFailure: function() {
+						this._position(new Element('div.modal-error', {
+							text: options.errorMessage
+						}));
+					}.bind(this)
+				}).get();
+			}
 
-				if (this.options.showLoading) {
-					this._position(new Element('div.modal-loading', { text: Titon.msg.loading }));
-
-					// Decrease count since _position() is being called twice
-					if (this.options.blackout) {
-						this.blackout.decrease();
-					}
-				}
-			}.bind(this),
-
-			onFailure: function() {
-				this.hide();
-			}.bind(this)
-		}).get();
-	},
-
-	/**
-	 * Show the modal after loading the content.
-	 *
-	 * @param {Element|string} node
-	 */
-	show: function(node) {
-		this.node = new Element(node);
-
-		var options = Titon.mergeOptions(this.options, this.node.getOptions('modal')),
-			content = this.node.get(options.getContent) || this.node.get('href');
-
-		if (content.substr(0, 1) === '#') {
-			this.loadFromDom(content);
+		// Element, String
 		} else {
-			this.loadFromUrl(content);
+			this._position(content);
 		}
 
 		this.fireEvent('show');
 	},
 
 	/**
+	 * Submit the form within the modal if it exists and re-render the modal with the response.
+	 *
+	 * @param {Event} e
+	 */
+	submit: function(e) {
+		e.stop();
+
+		var button = e.target,
+			form = button.getParent('form');
+
+		if (!form) {
+			return;
+		}
+
+		new Request({
+			url: form.get('action'),
+			method: form.get('method').toUpperCase(),
+			data: form.toQueryString(),
+			evalScripts: true,
+			onSuccess: function(response) {
+				this._position(response);
+			}.bind(this),
+			onFailure: function() {
+				this._position(new Element('div.modal-error', {
+					text: this.options.errorMessage
+				}));
+			}.bind(this)
+		}).send();
+
+		this.fireEvent('submit');
+	},
+
+	/**
+	 * Callback for delegation events.
+	 *
+	 * @private
+	 * @param {Event} e
+	 * @param {Element} node
+	 */
+	_listen: function(e, node) {
+		e.stop();
+
+		this.show(node);
+	},
+
+	/**
 	 * Position the modal in the center of the screen.
 	 *
 	 * @private
-	 * @param {Element|string} content
+	 * @param {Element|String} content
 	 */
 	_position: function(content) {
 		this.elementBody.setHtml(content);
 
+		// Set events
 		this.element.getElements(this.options.closeEvent)
 			.removeEvent('click')
 			.addEvent('click', this.hide.bind(this));
 
+		this.element.getElements(this.options.submitEvent)
+			.removeEvent('click')
+			.addEvent('click', this.submit.bind(this));
+
+		// Position
 		this.element.position({
 			relativeTo: document.body,
 			position: this.options.position,
@@ -315,7 +349,7 @@ Titon.Modal = new Class({
 		}
 
 		window.setTimeout(function() {
-			if (!this.element.isVisible()) {
+			if (!this.isVisible()) {
 				if (this.options.blackout) {
 					this.blackout.show();
 				}
@@ -327,7 +361,6 @@ Titon.Modal = new Class({
 				}
 			}
 
-			this.isVisible = true;
 			this.fireEvent('position');
 		}.bind(this), this.options.delay || 0);
 	}
@@ -342,8 +375,8 @@ Titon.Modal.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {string} query
- * @param {object} options
+ * @param {String} query
+ * @param {Object} options
  */
 Titon.Modal.factory = function(query, options) {
 	if (Titon.Modal.instances[query]) {

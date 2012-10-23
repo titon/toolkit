@@ -58,7 +58,7 @@
 			"path": "modules/Modal.js",
 			"category": "module",
 			"requires": ["Titon", "Module", "Blackout"],
-			"externalRequires": ["Core", "More/Drag", "More/Element.Position"]
+			"externalRequires": ["Core", "More/Class.Binds", "More/Drag", "More/Element.Position"]
 		},
 		"Tabs": {
 			"title": "Tabs",
