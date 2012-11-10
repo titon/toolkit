@@ -210,6 +210,8 @@ Titon.Modal = new Class({
 	show: function(node, content, options) {
 		if (options === true) {
 			options = { ajax: true };
+		} else if (!options) {
+			options = { ajax: this.options.ajax };
 		}
 
 		options = Titon.mergeOptions(this.options, options);
@@ -217,6 +219,7 @@ Titon.Modal = new Class({
 		// Get content
 		if (node && !content) {
 			content = this.getValue(node, options.getContent) || node.get('href');
+			options.ajax = true;
 		}
 
 		if (!content) {
@@ -240,6 +243,8 @@ Titon.Modal = new Class({
 						this._position(response);
 					}.bind(this),
 					onRequest: function() {
+						this.cache[content] = true;
+
 						if (options.showLoading) {
 							this._position(new Element('div.modal-loading', {
 								text: options.loadingMessage
@@ -252,6 +257,8 @@ Titon.Modal = new Class({
 						}
 					}.bind(this),
 					onFailure: function() {
+						delete this.cache[content];
+
 						this._position(new Element('div.modal-error', {
 							text: options.errorMessage
 						}));

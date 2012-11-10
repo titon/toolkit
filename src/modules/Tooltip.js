@@ -188,6 +188,8 @@ Titon.Tooltip = new Class({
 	show: function(node, content, options, title) {
 		if (options === true) {
 			options = { ajax: true };
+		} else if (!options) {
+			options = { ajax: this.options.ajax };
 		}
 
 		options = Titon.mergeOptions(this.options, options);
@@ -234,6 +236,8 @@ Titon.Tooltip = new Class({
 						this._position(response);
 					}.bind(this),
 					onRequest: function() {
+						this.cache[content] = true;
+
 						if (options.showLoading) {
 							this._position(new Element('div.tooltip-loading', {
 								text: this.options.loadingMessage
@@ -241,6 +245,8 @@ Titon.Tooltip = new Class({
 						}
 					}.bind(this),
 					onFailure: function() {
+						delete this.cache[content];
+
 						this._position(new Element('div.tooltip-error', {
 							text: this.options.errorMessage
 						}));

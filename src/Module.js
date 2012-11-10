@@ -104,7 +104,7 @@ Titon.Module = new Class({
 	 */
 	getValue: function(node, query) {
 		if (typeOf(query) === 'function') {
-			return query(node).bind(this);
+			return query(node, this);
 		}
 
 		return node.get(query);
