@@ -211,7 +211,7 @@ Titon.Modal = new Class({
 		if (options === true) {
 			options = { ajax: true };
 		} else if (!options) {
-			options = { ajax: this.options.ajax };
+			options = { ajax: false };
 		}
 
 		options = Titon.mergeOptions(this.options, options);
@@ -327,6 +327,10 @@ Titon.Modal = new Class({
 	 * @param {String|Element} content
 	 */
 	_position: function(content) {
+		if (content === true) {
+			return;
+		}
+
 		this.elementBody.setHtml(content);
 
 		// Set events

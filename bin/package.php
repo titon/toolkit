@@ -21,7 +21,7 @@ if ($minify) {
 
 // Package the contents
 if ($packager->package($items)) {
-	$scripts = $packager->getScripts();
+	$scripts = $packager->getItems();
 	$package = $packager->getPackage();
 
 	echo 'Package created with: ' . implode(', ', array_keys($package)) . '<br><br>';

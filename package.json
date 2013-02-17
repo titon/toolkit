@@ -13,7 +13,7 @@
 		}
 	],
 	"includes": [],
-	"scripts": {
+	"contents": {
 		"Titon": {
 			"title": "Titon",
 			"description": "Base object that contains global functionality and configuration.",
@@ -27,7 +27,7 @@
 			"path": "Module.js",
 			"category": "core",
 			"requires": ["Titon"],
-			"externalRequires": ["Core", "More/Element.From", "More/Hash"]
+			"externalRequires": ["Core", "More/Elements.From", "More/Hash"]
 		},
 		"Class.Timers": {
 			"title": "Class.Timers",
@@ -50,7 +50,7 @@
 			"path": "modules/Flyout.js",
 			"category": "module",
 			"requires": ["Titon", "Module", "Class.Timers"],
-			"externalRequires": ["Core"]
+			"externalRequires": ["Core", "More/Element.Measure"]
 		},
 		"Modal": {
 			"title": "Modal",
@@ -66,7 +66,7 @@
 			"path": "modules/Tabs.js",
 			"category": "module",
 			"requires": ["Titon", "Module"],
-			"externalRequires": ["Core"]
+			"externalRequires": ["Core", "More/Class.Binds"]
 		},
 		"Tooltip": {
 			"title": "Tooltip",

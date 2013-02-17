@@ -306,6 +306,10 @@ Titon.Tooltip = new Class({
 	 * @param {String|Element} title
 	 */
 	_position: function(content, title) {
+		if (content === true) {
+			return;
+		}
+
 		var options = this.customOptions;
 
 		// Set title
