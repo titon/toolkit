@@ -1,7 +1,7 @@
 <?php
 
 // Includes, no need for an auto-loader
-require_once 'jsmin/jsmin.php';
+require_once 'jsmin/JsMin/Minify.php';
 require_once 'packager/src/Packager/Packager.php';
 require_once 'packager/src/Packager/Minifier.php';
 require_once 'packager/src/Packager/Minifier/JsMinifier.php';

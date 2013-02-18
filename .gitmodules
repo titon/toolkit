@@ -1,3 +1,6 @@
 [submodule "bin/packager"]
 	path = bin/packager
 	url = git://github.com/milesj/Packager.git
+[submodule "bin/jsmin"]
+	path = bin/jsmin
+	url = git://github.com/nick4fake/JsMin.git
