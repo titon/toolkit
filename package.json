@@ -50,7 +50,7 @@
 			"path": "modules/Flyout.js",
 			"category": "module",
 			"requires": ["Titon", "Module", "Class.Timers"],
-			"externalRequires": ["Core", "More/Element.Measure"]
+			"externalRequires": ["Core", "More/Element.Measure", "More/Class.Binds"]
 		},
 		"Modal": {
 			"title": "Modal",
@@ -74,7 +74,7 @@
 			"path": "modules/Tooltip.js",
 			"category": "module",
 			"requires": ["Titon", "Module"],
-			"externalRequires": ["Core", "More/Element.Event.Pseudos", "More/Element.Position"]
+			"externalRequires": ["Core", "More/Element.Event.Pseudos", "More/Element.Position", "More/Class.Binds"]
 		},
 		"LazyLoad": {
 			"title": "LazyLoad",

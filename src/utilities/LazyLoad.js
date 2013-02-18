@@ -49,6 +49,8 @@
 		createStyles: true,
 		context: null,
 		parseTemplate: false,
+
+		// Events
 		onLoad: null,
 		onLoadAll: null,
 		onShow: null,

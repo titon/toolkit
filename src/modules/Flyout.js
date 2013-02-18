@@ -15,6 +15,7 @@
  * @uses	Titon/Class.Timers
  * @uses	Core
  * @uses	More/Class.Binds
+ * @uses	More/Element.Measure
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
@@ -288,8 +289,7 @@ Titon.Flyout = new Class({
 			if (child.children && child.children.length) {
 				this._buildMenu(li, child);
 
-				li
-					.addClass('children')
+				li.addClass('children')
 					.addEvent('mouseenter', this._positionChild.bind(this, li))
 					.addEvent('mouseleave', function() {
 						this.removeClass('opened').getElement(target).hide();

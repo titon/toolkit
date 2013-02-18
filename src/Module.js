@@ -59,7 +59,7 @@ Titon.Module = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(options) {
-		this.setOptions(options);
+		this.setOptions(options || {});
 
 		// Parse the template from a string, or use a target element
 		if (this.options.parseTemplate) {
@@ -81,7 +81,7 @@ Titon.Module = new Class({
 			if (element) {
 				this.element = element;
 			} else {
-				throw new Error('Template failed to parse.');
+				throw new Error('Template failed to parse');
 			}
 		}
 	},
