@@ -1,9 +1,7 @@
 /**
- * Titon: The Mootools UI Framework
- *
- * @copyright	Copyright 2006-2012, Titon
- * @license		http://opensource.org/licenses/mit-license.php - Licensed under the MIT License
- * @link		http://github.com/titon
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
  */
 
 /**
@@ -28,7 +26,6 @@
  * 		</script>
  * }}}
  *
- * @version	1.0.0
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core

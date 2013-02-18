@@ -6,11 +6,16 @@ Titon, built on top of MooTools, is a collection of very powerful user-interface
 
 **MooTools 1.4**
 * Core
-* More/Element.From
+* More/Class.Binds
+* More/Elements.From
+* More/Element.Shortcuts
+* More/Hash
+
+** Optional **
 * More/Drag (Modal)
+* More/Element.Measure (Flyout)
 * More/Element.Position (Modal, Tooltip)
 * More/Element.Event.Pseudos (Tooltip)
-* More/Class.Binds (LazyLoad)
 
 ## Modules ##
 
