@@ -2,12 +2,12 @@
 
 // Includes, no need for an auto-loader
 require_once 'jsmin/jsmin.php';
-require_once 'packager/Packager.php';
-require_once 'packager/Minifier.php';
-require_once 'packager/minifiers/JsMinifier.php';
+require_once 'packager/src/Packager/Packager.php';
+require_once 'packager/src/Packager/Minifier.php';
+require_once 'packager/src/Packager/Minifier/JsMinifier.php';
 
-use \mjohnson\packager\Packager;
-use \mjohnson\packager\minifiers\JsMinifier;
+use \Packager\Packager;
+use \Packager\Minifier\JsMinifier;
 
 // Fetch variables
 $items = isset($_GET['items']) ? explode(',', $_GET['items']) : array();
