@@ -12,7 +12,7 @@ var Titon = {
 	/**
 	 * Current version.
 	 */
-	version: '1.0.0-beta',
+	version: '1.0.0-rc2',
 
 	/**
 	 * Options for all classes.

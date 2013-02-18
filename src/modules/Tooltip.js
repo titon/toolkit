@@ -16,7 +16,7 @@
  */
 Titon.Tooltip = new Class({
 	Extends: Titon.Module,
-	Binds: ['_follow', '_listen'],
+	Binds: ['_follow', '_listen', 'hide'],
 
 	/**
 	 * DOM elements.
@@ -154,6 +154,12 @@ Titon.Tooltip = new Class({
 			return;
 		}
 
+		if (this.options.fade) {
+			this.element.fadeOut(this.options.fadeDuration, false);
+		} else {
+			this.element.hide();
+		}
+
 		if (this.customOptions.className !== this.options.className) {
 			this.element.removeClass(this.customOptions.className);
 		}
@@ -163,12 +169,6 @@ Titon.Tooltip = new Class({
 
 		this.node.removeEvents('mousemove');
 		this.node = null;
-
-		if (this.options.fade) {
-			this.element.fadeOut(this.options.fadeDuration, false);
-		} else {
-			this.element.hide();
-		}
 
 		this.fireEvent('hide');
 	},
@@ -195,6 +195,13 @@ Titon.Tooltip = new Class({
 		if (node) {
 			options = Titon.mergeOptions(options, node.getOptions('tooltip'));
 
+			// Set mouse events
+			if (!this.isClick) {
+				node
+					.removeEvent('mouseleave', this.hide)
+					.addEvent('mouseleave', this.hide);
+			}
+
 			title = title || this.getValue(node, options.getTitle);
 			content = content || this.getValue(node, options.getContent);
 		}
@@ -211,13 +218,6 @@ Titon.Tooltip = new Class({
 			.addClass(options.position.hyphenate())
 			.addClass(options.className);
 
-		// Set mouse events
-		if (node && !this.isClick) {
-			node
-				.removeEvent('mouseleave')
-				.addEvent('mouseleave', this.hide.bind(this));
-		}
-
 		// AJAX
 		if (options.ajax) {
 			if (this.cache[content]) {
@@ -230,7 +230,14 @@ Titon.Tooltip = new Class({
 					evalScripts: true,
 					onSuccess: function(response) {
 						this.cache[content] = response;
-						this._position(response);
+
+						if (options.showLoading) {
+							if (this.isVisible()) {
+								this._position(response);
+							}
+						} else {
+							this._position(response);
+						}
 					}.bind(this),
 					onRequest: function() {
 						this.cache[content] = true;
@@ -284,11 +291,12 @@ Titon.Tooltip = new Class({
 	_listen: function(e, node) {
 		e.stop();
 
-		if (this.isClick) {
-			if (this.isVisible()) {
+		if (this.isVisible()) {
+			if (this.isClick) {
 				this.hide();
-				return;
 			}
+
+			return;
 		}
 
 		this.show(node);
