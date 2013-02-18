@@ -50,7 +50,7 @@
 			"path": "modules/Flyout.js",
 			"category": "module",
 			"requires": ["Titon", "Module", "Class.Timers"],
-			"externalRequires": ["Core", "More/Element.Measure", "More/Class.Binds"]
+			"externalRequires": ["Core", "More/Element.Measure", "More/Class.Binds", "More/Array.Extras"]
 		},
 		"Modal": {
 			"title": "Modal",

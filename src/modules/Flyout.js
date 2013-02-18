@@ -13,6 +13,7 @@
  * @uses	Core
  * @uses	More/Class.Binds
  * @uses	More/Element.Measure
+ * @uses	More/Array.Extras
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
@@ -54,7 +55,9 @@ Titon.Flyout = new Class({
 	 *	getUrl			- (string) Attribute to read the URL from
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
-	 *	delay			- (int) The delay in milliseconds before the menu shows
+	 *	showDelay		- (int) The delay in milliseconds before the menu shows
+	 *	hideDelay		- (int) The delay in milliseconds before the menu hides
+	 *	itemLimit		- (int) How many items before splitting the lists
 	 *	context			- (element) The element the menus will display in (defaults body)
 	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
@@ -73,6 +76,7 @@ Titon.Flyout = new Class({
 		yOffset: 0,
 		showDelay: 350,
 		hideDelay: 1000,
+		itemLimit: 15,
 		context: null,
 		contentElement: '.flyout',
 		template: '<div class="flyout"></div>',
@@ -243,67 +247,80 @@ Titon.Flyout = new Class({
 		}
 
 		var menu = this.parseTemplate(this.options.template),
-			ul = new Element('ul'),
+			groups = [],
+			ul,
 			li,
 			tag,
-			target = this.options.contentElement;
+			target = this.options.contentElement,
+			limit = this.options.itemLimit;
 
 		if (this.options.className) {
 			menu.addClass(this.options.className);
 		}
 
-		for (var i = 0, l = data.children.length, child; i < l; i++) {
-			child = data.children[i];
-
-			// Build tag
-			if (child.url) {
-				tag = new Element('a', {
-					text: child.title,
-					href: child.url
-				});
-			} else {
-				tag = new Element('span', {
-					text: child.title
-				});
-			}
-
-			if (child.attributes) {
-				tag.set(child.attributes);
-			}
-
-			// Add icon
-			new Element('span').addClass(child.icon || '').inject(tag, 'top');
-
-			// Build list
-			li = new Element('li');
-
-			if (child.className) {
-				li.addClass(child.className);
-			}
-
-			li.grab(tag).inject(ul);
-
-			if (child.children && child.children.length) {
-				this._buildMenu(li, child);
-
-				li.addClass('children')
-					.addEvent('mouseenter', this._positionChild.bind(this, li))
-					.addEvent('mouseleave', function() {
-						this.removeClass('opened').getElement(target).hide();
-					});
-			}
-		}
-
-		if (target) {
-			if (target.substr(0, 1) === '.' && menu.hasClass(target.remove('.'))) {
-				menu.grab(ul);
-			} else {
-				menu.getElement(target).grab(ul);
-			}
+		if (limit && data.children.length > limit) {
+			groups = data.children.chunk(limit);
 		} else {
-			menu.grab(ul);
+			groups.push(data.children);
 		}
 
+		for (var g = 0, group; group = groups[g]; g++) {
+			ul = new Element('ul');
+
+			for (var i = 0, l = group.length, child; i < l; i++) {
+				child = group[i];
+
+				// Build tag
+				if (child.url) {
+					tag = new Element('a', {
+						text: child.title,
+						href: child.url
+					});
+				} else {
+					tag = new Element('span', {
+						text: child.title
+					});
+				}
+
+				if (child.attributes) {
+					tag.set(child.attributes);
+				}
+
+				// Add icon
+				new Element('span').addClass(child.icon || '').inject(tag, 'top');
+
+				// Build list
+				li = new Element('li');
+
+				if (child.className) {
+					li.addClass(child.className);
+				}
+
+				li.grab(tag).inject(ul);
+
+				if (child.children && child.children.length) {
+					this._buildMenu(li, child);
+
+					li.addClass('children')
+						.addEvent('mouseenter', this._positionChild.bind(this, li))
+						.addEvent('mouseleave', function() {
+							this.removeClass('opened').getElement(target).hide();
+						});
+				}
+			}
+
+			if (target) {
+				if (target.substr(0, 1) === '.' && menu.hasClass(target.remove('.'))) {
+					menu.grab(ul);
+				} else {
+					menu.getElement(target).grab(ul);
+				}
+			} else {
+				menu.grab(ul);
+			}
+		}
+
+		menu.grab(new Element('span.clear'));
 		menu.inject(parent);
 
 		return menu;
@@ -372,11 +389,12 @@ Titon.Flyout = new Class({
 	_listen: function(e, node) {
 		e.stop();
 
-		if (this.isClick) {
-			if (this.isVisible()) {
+		if (this.isVisible()) {
+			if (this.isClick) {
 				this.hide();
-				return;
 			}
+
+			return;
 		}
 
 		this.show(node);
@@ -446,6 +464,15 @@ Titon.Flyout = new Class({
 		}
 
 		menu.show();
+
+		// Alter width
+		var dims = menu.getComputedSize();
+
+		menu.setStyle('width', (
+			menu.getElements('ul').getWidth().sum() +
+			dims['border-left-width'] + dims['border-right-width'] +
+			dims['padding-left'] + dims['padding-right']
+		) + 'px');
 	}
 
 });

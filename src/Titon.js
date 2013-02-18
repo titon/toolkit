@@ -213,3 +213,21 @@ String.implement({
 	}
 
 });
+
+Array.implement({
+
+	/**
+	 * Split an array into multiple chunked arrays.
+	 *
+	 * @param {int} size
+	 * @return {Array}
+	 */
+	chunk: function(size) {
+		var array = this;
+
+		return [].concat.apply([], array.map(function(elem, i) {
+			return (i % size) ? [] : [ array.slice(i, i + size) ];
+		}));
+	}
+
+});
