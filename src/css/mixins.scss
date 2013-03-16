@@ -1,0 +1,43 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@mixin clear-after {
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		line-height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+@mixin reset-inline-block {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	z-index: 0;
+	position: relative;
+	text-decoration: none;
+	vertical-align: middle;
+	outline: none;
+}
+
+// Default sizes
+@mixin size-small {
+	font-size: 11px;
+	padding: 6px 10px;
+}
+
+@mixin size-medium {
+	font-size: 13px;
+	padding: 9px 14px;
+}
+
+@mixin size-large {
+	font-size: 16px;
+	padding: 12px 17px;
+}

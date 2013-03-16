@@ -1,0 +1,41 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Pagination.Effect
+ *
+ * Provides additional pagination style effects.
+ * By default, pagination buttons are separate unless the group style is applied, which will mimic the Button Group module.
+ *
+ * @styles	grouped
+ */
+
+.pagination.grouped li {
+	margin-left: -1px;
+	margin-right: 0; }
+
+.pagination.grouped li:first-child { margin-left: 0; }
+.pagination.grouped li:hover,
+.pagination.grouped a:hover { z-index: 1; }
+
+.pagination.grouped.round a,
+.pagination.grouped.pill a { border-radius: 0; }
+
+.pagination.grouped.round li:first-child a {
+	border-top-left-radius: .3em;
+	border-bottom-left-radius: .3em; }
+
+.pagination.grouped.round li:last-child a {
+	border-top-right-radius: .3em;
+	border-bottom-right-radius: .3em; }
+
+.pagination.grouped.pill li:first-child a {
+	border-top-left-radius: 2em;
+	border-bottom-left-radius: 2em; }
+
+.pagination.grouped.pill li:last-child a {
+	border-top-right-radius: 2em;
+	border-bottom-right-radius: 2em; }

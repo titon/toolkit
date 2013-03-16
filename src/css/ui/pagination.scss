@@ -1,0 +1,76 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Pagination
+ *
+ * A module for pagination using an unordered list consisting of numbers, previous and next buttons.
+ * Square and medium are the default and can be omitted.
+ *
+ * @shapes	square (default), round, pill
+ * @sizes	small, medium (default), large
+ * @states	disabled, active
+ *
+ * {{{
+ *		<nav class="pagination small pill">
+ *			<ul>
+ *				<li><a href="">Previous</a></li>
+ *				<li><a href="">1</a></li>
+ *				<li><a href="">2</a></li>
+ *				<li class="active"><a href="">3</a></li>
+ *				<li><a href="">4</a></li>
+ *				<li><a href="">5</a></li>
+ *				<li class="disabled"><a href="">Next</a></li>
+ *			</ul>
+ *		</nav>
+ * }}}
+ */
+
+.pagination {
+	display: block;
+
+	ul,
+	li {
+		@include reset-inline-block;
+		list-style: none;
+	}
+
+	li {
+		float: left;
+		margin-right: 5px;
+		z-index: 0;
+
+		a {
+			@include reset-inline-block;
+			float: left;
+			text-align: center;
+			cursor: pointer;
+			font-family: sans-serif;
+			@include size-medium;
+		}
+
+		&.active,
+		&.active:hover,
+		&.active a,
+		&.active a:hover {
+			z-index: 1;
+			cursor: default;
+		}
+	}
+
+	// Shapes
+	&.round,
+	&.round li a { border-radius: $border-round; }
+
+	&.pill,
+	&.pill li a { border-radius: $border-pill; }
+
+	// Sizes
+	&.small li a { @include size-small; }
+	&.large li a { @include size-large; }
+
+	@include clear-after;
+}

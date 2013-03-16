@@ -1,0 +1,45 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Label.Effect
+ *
+ * Provides additional label style effects.
+ *
+ * @styles	left-arrow, right-arrow
+ */
+
+.label.left-arrow {
+	border-top-left-radius: 1px;
+	border-bottom-left-radius: 1px;
+	padding-left: 2px;
+	margin-left: 10px; }
+
+.label.left-arrow:after {
+	top: 0;
+	right: 100%;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border: 9px solid transparent;
+	border-right-color: #969896; }
+
+.label.right-arrow {
+	border-top-right-radius: 1px;
+	border-bottom-right-radius: 1px;
+	padding-right: 2px;
+	margin-right: 10px; }
+
+.label.right-arrow:after {
+	top: 0;
+	left: 100%;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border: 9px solid transparent;
+	border-left-color: #969896; }

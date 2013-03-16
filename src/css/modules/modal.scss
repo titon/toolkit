@@ -1,0 +1,33 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Modal
+ *
+ * A module for displaying modals above content in the page.
+ * Should be used in conjunction with the JavaScript Titon.Modal module.
+ *
+ * @link	https://github.com/titon/js
+ *
+ * {{{
+ *		<div class="modal">
+ *			<div class="modal-inner"></div>
+ *			<a href="#close" class="modal-close"></a>
+ *		</div>
+ * }}}
+ */
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 610;
+
+	// Reset .draggable
+	.modal-inner { cursor: default; }
+}

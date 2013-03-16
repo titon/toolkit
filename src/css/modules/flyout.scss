@@ -1,0 +1,42 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Flyout
+ *
+ * A module for displaying flyout menus at specific locations.
+ * Should be used in conjunction with the JavaScript Titon.Flyout module.
+ *
+ * @link	https://github.com/titon/js
+ */
+
+.flyout {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 640;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		float: left;
+		width: 200px;
+
+		li {
+			position: relative;
+
+			a { text-decoration: none; }
+
+			.flyout {
+				display: none;
+				left: 195px;
+			}
+
+			&.opened .flyout { display: block; }
+		}
+	}
+}

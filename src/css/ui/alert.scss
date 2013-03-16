@@ -1,0 +1,56 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Alert
+ *
+ * A module for displaying closeable alert notification boxes.
+ *
+ * @styles	info, warning, error, success
+ *
+ * {{{
+ *		<div class="alert info">
+ *			<button type="button" class="close">
+ *				<span class="x">&times;</span>
+ *			</button>
+ *			<p>This is an information message!</p>
+ *		</div>
+ * }}}
+ */
+
+.alert {
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .50);
+	padding: 10px;
+
+	p {
+		margin: 10px 0 0 0;
+
+		&:first-child {
+			margin: 0;
+		}
+	}
+
+	.close {
+		display: inline-block;
+		float: right;
+		padding: 4px;
+		margin: 0;
+		background: rgba(255, 255, 255, .75);
+		border: none;
+		border-radius: 2px;
+		opacity: .75;
+		height: 12px;
+		line-height: 9px;
+		cursor: pointer;
+
+		&:hover { opacity: 1; }
+
+		.x {
+			color: #000;
+			opacity: .50;
+		}
+	}
+}

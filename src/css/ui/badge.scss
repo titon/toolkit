@@ -1,0 +1,36 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Badge
+ *
+ * A module for displaying small numerical badges.
+ *
+ * @styles	info, warning, error, success
+ * @shapes	round
+ *
+ * {{{
+ *		<span class="badge success">15</span>
+ * }}}
+ */
+
+.badge {
+	@include reset-inline-block;
+	color: #fff;
+	font: bold 11px/100% Arial, sans-serif;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .50);
+	background: #969896;
+	padding: 4px;
+	text-transform: uppercase;
+	border-radius: 2px;
+	white-space: nowrap;
+
+	// Shape: round
+	.round {
+		padding: 4px 5px;
+		border-radius: 10px;
+	}
+}

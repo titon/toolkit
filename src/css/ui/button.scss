@@ -1,0 +1,48 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Button
+ *
+ * A module for button elements using the button or anchor tag.
+ *
+ * @shapes	square (default), round, pill, oval, skew
+ * @sizes	small, medium (default), large
+ * @states	disabled
+ *
+ * {{{
+ *		<button type="button" class="button large round">Large Rounded Button</button>
+ *		<a href="" class="button small pill">Small Pill Button</a>
+ * }}}
+ */
+
+.button {
+	@include reset-inline-block;
+	background: none;
+	cursor: pointer;
+	text-align: center;
+	overflow: hidden;
+	font-family: sans-serif;
+	user-select: none;
+	zoom: 1;
+	@include size-medium;
+
+	// Sizes
+	&.small { @include size-small; }
+	&.large { @include size-large; }
+
+	// Shapes
+	&.round { border-radius: $border-round; }
+	&.pill { border-radius: $border-pill; }
+	&.oval { border-radius: $border-oval; }
+	&.skew { border-radius: 1em 1em 0 0 / 3em 3em 0 0; }
+}
+
+// Reset
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}

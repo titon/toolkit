@@ -1,0 +1,34 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+/**
+ * Tooltip
+ *
+ * A module for displaying tooltips at certain locations in the page.
+ * Should be used in conjunction with the JavaScript Titon.Tooltip module.
+ *
+ * @link	https://github.com/titon/js
+ *
+ * {{{
+ *		<div class="tooltip">
+ *			<div class="tooltip-inner">
+ *				<div class="tooltip-head">Tooltip Title</div>
+ *				<div class="tooltip-body">Tooltip Content</div>
+ *			</div>
+ *			<div class="tooltip-arrow"></div>
+ *		</div>
+ * }}}
+ */
+
+ .tooltip {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 650;
+	max-width: 200px;
+ }
