@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+@import "../mixins";
+
 /**
  * Alert
  *
@@ -22,7 +24,7 @@
  */
 
 .alert {
-	text-shadow: 0 1px 0 rgba(255, 255, 255, .50);
+	text-shadow: 0 1px 0 white(.50);
 	padding: 10px;
 
 	p {
@@ -34,23 +36,22 @@
 	}
 
 	.close {
-		display: inline-block;
+		@include reset-inline-block;
 		float: right;
 		padding: 4px;
-		margin: 0;
-		background: rgba(255, 255, 255, .75);
-		border: none;
+		margin-left: 10px;
+		background: white(.50);
 		border-radius: 2px;
-		opacity: .75;
-		height: 12px;
-		line-height: 9px;
+		line-height: 80%;
 		cursor: pointer;
 
-		&:hover { opacity: 1; }
+		&:hover { background: white(.80); }
 
 		.x {
 			color: #000;
-			opacity: .50;
+			opacity: .75;
 		}
+
+		~ p { margin: 0; }
 	}
 }

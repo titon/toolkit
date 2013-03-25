@@ -4,6 +4,9 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
+@import "../mixins";
+
 /**
  * Button
  *
@@ -37,7 +40,7 @@
 	// Shapes
 	&.round { border-radius: $border-round; }
 	&.pill { border-radius: $border-pill; }
-	&.oval { border-radius: $border-oval; }
+	&.oval { border-radius: 7em / 2.75em; }
 	&.skew { border-radius: 1em 1em 0 0 / 3em 3em 0 0; }
 }
 

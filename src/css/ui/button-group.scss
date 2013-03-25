@@ -4,6 +4,9 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
+@import "../mixins";
+
 /**
  * Button Group
  *
@@ -12,11 +15,9 @@
  * Square and medium are the default and can be omitted.
  *
  * @shapes	square (default), round, pill, skew
- * @sizes	small, medium (default), large
- * @states	disabled
  *
  * {{{
- *		<div class="button-group large pill">
+ *		<div class="button-group pill">
  *			<a href="" class="button">Left Button</a>
  *			<a href="" class="button">Center Button</a>
  *			<a href="" class="button">Right Button</a>

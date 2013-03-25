@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+@import "../mixins";
+
 /**
  * Badge
  *
@@ -21,16 +23,17 @@
 	@include reset-inline-block;
 	color: #fff;
 	font: bold 11px/100% Arial, sans-serif;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, .50);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
 	background: #969896;
-	padding: 4px;
+	padding: 4px 5px;
 	text-transform: uppercase;
 	border-radius: 2px;
 	white-space: nowrap;
+	line-height: 90%;
 
 	// Shape: round
-	.round {
-		padding: 4px 5px;
+	&.round {
+		padding: 4px 6px;
 		border-radius: 10px;
 	}
 }

@@ -19,8 +19,10 @@
 .align-right { text-align: right; }
 .align-justify { text-align: justify; }
 
-.float-left { float: left; }
-.float-right { float: right; }
+.float-left,
+.pull-left { float: left; }
+.float-right,
+.pull-right { float: right; }
 .float-none { float: none; }
 
 // Display
@@ -52,29 +54,25 @@
 // Styles
 .round { border-radius: $border-round; }
 .draggable { cursor: move; }
-.disabled { cursor: not-allowed; }
+.disabled { cursor: not-allowed !important; }
 
 // Carets
 .caret {
+	@include reset-inline-block;
 	border: 5px solid transparent;
 	content: "";
-	display: inline-block;
-	vertical-align: middle;
 	height: 0;
 	width: 0;
-}
 
-.caret.up { border-bottom-color: #fff; }
-.caret.down { border-top-color: #fff; }
-.caret.left { border-right-color: #fff; }
-.caret.right { border-left-color: #fff; }
+	&.up { border-bottom-color: #fff; }
+	&.down { border-top-color: #fff; }
+	&.left { border-right-color: #fff; }
+	&.right { border-left-color: #fff; }
+}
 
 // Characters
 .x {
-	display: inline-block;
-	vertical-align: middle;
-	padding: 0;
-	margin: 0;
+	@include reset-inline-block;
 	color: #fff;
 	font: bold 18px/0% Arial, sans-serif;
 	text-transform: uppercase;

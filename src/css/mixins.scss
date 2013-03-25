@@ -17,6 +17,7 @@
 
 @mixin reset-inline-block {
 	display: inline-block;
+	border: 0;
 	margin: 0;
 	padding: 0;
 	z-index: 0;
@@ -26,7 +27,6 @@
 	outline: none;
 }
 
-// Default sizes
 @mixin size-small {
 	font-size: 11px;
 	padding: 6px 10px;
@@ -40,4 +40,12 @@
 @mixin size-large {
 	font-size: 16px;
 	padding: 12px 17px;
+}
+
+@function black($opacity){
+	@return rgba(0, 0, 0, $opacity);
+}
+
+@function white($opacity){
+	@return rgba(255, 255, 255, $opacity);
 }

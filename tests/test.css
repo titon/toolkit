@@ -1,0 +1,22 @@
+body {
+	font: normal 13px Verdana, Arial, sans-serif;
+	padding: 25px;
+	background: #373b41;
+	color: #fff; }
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal; }
+
+h1 { font-size: 36px; }
+
+.example {
+	margin: 40px 0;
+	position: relative; }
+
+.example h2 { margin-bottom: 10px; }
+
+.flyout li:hover > .flyout { display: block; }
+
+.pagination { margin-bottom: 15px; }

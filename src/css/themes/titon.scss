@@ -58,6 +58,9 @@
 	background-image: -webkit-linear-gradient(top, #969896, #515251);
 	background-image: -ms-linear-gradient(top, #969896, #515251); }
 
+.button.disabled,
+.button[disabled] { opacity: .35; }
+
 .button:hover {
 	background-image: linear-gradient(top, #e2e3e2, #969896);
 	background-image: -o-linear-gradient(top, #e2e3e2, #969896);
