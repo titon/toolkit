@@ -29,17 +29,23 @@
 
 @mixin size-small {
 	font-size: 11px;
-	padding: 6px 10px;
+	padding: 0 10px;
+	height: 26px;
+	line-height: 26px;
 }
 
 @mixin size-medium {
 	font-size: 13px;
-	padding: 9px 14px;
+	padding: 0 14px;
+	height: 34px;
+	line-height: 34px;
 }
 
 @mixin size-large {
-	font-size: 16px;
-	padding: 12px 17px;
+	font-size: 18px;
+	padding: 0 17px;
+	height: 44px;
+	line-height: 44px;
 }
 
 @function black($opacity){
