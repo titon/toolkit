@@ -48,6 +48,21 @@
 	line-height: 44px;
 }
 
+@mixin active-state {
+	.active &,
+	&.active,
+	&.active:hover,
+	&:hover { @content; }
+}
+
+@mixin disabled-state {
+	.disabled &,
+	&.disabled,
+	&[disabled],
+	&.disabled:hover,
+	&[disabled]:hover { @content; }
+}
+
 @function black($opacity){
 	@return rgba(0, 0, 0, $opacity);
 }
