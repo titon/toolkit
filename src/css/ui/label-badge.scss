@@ -7,33 +7,37 @@
 @import "../mixins";
 
 /**
- * Badge
+ * Label & Badge
  *
- * A module for displaying small numerical badges.
+ * A module for displaying small numerical badges or inline label tags.
  *
  * @styles	info, warning, error, success
- * @shapes	round
  *
  * {{{
  *		<span class="badge success">15</span>
+ *		<span class="label error">Required</span>
  * }}}
  */
 
-.badge {
+.badge, .label {
 	@include reset-inline-block;
-	color: #fff;
+	color: #000;
 	font: bold 11px/100% Arial, sans-serif;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+	text-shadow: 1px 1px 0 white(.35);
 	background: #969896;
 	padding: 4px 5px;
 	text-transform: uppercase;
 	border-radius: 2px;
 	white-space: nowrap;
 	line-height: 90%;
+}
 
-	// Shape: round
-	&.round {
-		padding: 4px 6px;
-		border-radius: 10px;
-	}
+.label {
+	font-size: 9px;
+	letter-spacing: 1px;
+}
+
+.badge {
+	padding: 4px 6px;
+	border-radius: 10px;
 }
