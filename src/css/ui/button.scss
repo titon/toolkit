@@ -34,14 +34,14 @@
 	@include size-medium;
 
 	// Sizes
-	&.small { @include size-small; }
-	&.large { @include size-large; }
+	&.small, .small & { @include size-small; }
+	&.large, .large & { @include size-large; }
 
 	// Shapes
-	&.round { border-radius: $border-round; }
-	&.pill { border-radius: $border-pill; }
-	&.oval { border-radius: 7em / 2.75em; }
-	&.skew { border-radius: 1em 1em 0 0 / 3em 3em 0 0; }
+	&.round, .round & { border-radius: $border-round; }
+	&.pill, .pill & { border-radius: $border-pill; }
+	&.oval, .oval & { border-radius: 7em / 2.75em; }
+	&.skew, .skew & { border-radius: 1em 1em 0 0 / 3em 3em 0 0; }
 }
 
 // Reset
