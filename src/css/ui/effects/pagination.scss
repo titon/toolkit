@@ -4,6 +4,9 @@
  * @link		http://titon.io
  */
 
+@import "../../variables";
+@import "../../mixins";
+
 /**
  * Pagination.Effect
  *
@@ -13,29 +16,51 @@
  * @styles	grouped
  */
 
-.pagination.grouped li {
-	margin-left: -1px;
-	margin-right: 0; }
+.pagination.grouped {
+	li {
+		margin-left: -1px;
+		margin-right: 0;
 
-.pagination.grouped li:first-child { margin-left: 0; }
-.pagination.grouped li:hover,
-.pagination.grouped a:hover { z-index: 1; }
+		&:first-child { margin-left: 0; }
+		&:hover, .button:hover { z-index: 1; }
 
-.pagination.grouped.round a,
-.pagination.grouped.pill a { border-radius: 0; }
+		.button {
+			margin: 0;
+			border-radius: 0;
+		}
+	}
 
-.pagination.grouped.round li:first-child a {
-	border-top-left-radius: .3em;
-	border-bottom-left-radius: .3em; }
+	// Shape: round
+	&.round {
+		ul {
+			border-radius: $border-round;
+		}
 
-.pagination.grouped.round li:last-child a {
-	border-top-right-radius: .3em;
-	border-bottom-right-radius: .3em; }
+		li:first-child .button {
+			border-top-left-radius: $border-round;
+			border-bottom-left-radius: $border-round;
+		}
 
-.pagination.grouped.pill li:first-child a {
-	border-top-left-radius: 2em;
-	border-bottom-left-radius: 2em; }
+		li:last-child .button {
+			border-top-right-radius: $border-round;
+			border-bottom-right-radius: $border-round;
+		}
+	}
 
-.pagination.grouped.pill li:last-child a {
-	border-top-right-radius: 2em;
-	border-bottom-right-radius: 2em; }
+	// Shape: pill
+	&.pill {
+		ul {
+			border-radius: $border-pill;
+		}
+
+		li:first-child .button {
+			border-top-left-radius: $border-pill;
+			border-bottom-left-radius: $border-pill;
+		}
+
+		li:last-child .button {
+			border-top-right-radius: $border-pill;
+			border-bottom-right-radius: $border-pill;
+		}
+	}
+}

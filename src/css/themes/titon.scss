@@ -58,9 +58,6 @@
 	background-image: -webkit-linear-gradient(top, #969896, #515251);
 	background-image: -ms-linear-gradient(top, #969896, #515251); }
 
-.button.disabled,
-.button[disabled] { opacity: .35; }
-
 .button:hover {
 	background-image: linear-gradient(top, #e2e3e2, #969896);
 	background-image: -o-linear-gradient(top, #e2e3e2, #969896);
@@ -71,9 +68,22 @@
 .button.disabled,
 .button[disabled],
 .button.disabled:hover,
-.button[disabled]:hover { background: #969896; }
+.button[disabled]:hover,
+.disabled .button {
+	opacity: .35;
+	background: #969896;
+	cursor: not-allowed; }
 
-.button.large { font-weight: normal; }
+.button.large,
+.large .button { font-weight: normal; }
+
+.button.active,
+.active .button {
+	background-image: linear-gradient(top, #81a2be, #45586d);
+	background-image: -o-linear-gradient(top, #81a2be, #45586d);
+	background-image: -moz-linear-gradient(top, #81a2be, #45586d);
+	background-image: -webkit-linear-gradient(top, #81a2be, #45586d);
+	background-image: -ms-linear-gradient(top, #81a2be, #45586d); }
 
 .button.info {
 	background-image: linear-gradient(top, #81a2be, #45586d);
@@ -224,42 +234,13 @@
 /**
  * Pagination
  */
-
-.pagination a {
-	color: #fff;
-	font-weight: bold;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, .25), -1px -1px 1px rgba(0, 0, 0, .25), 0 0 2px rgba(0, 0, 0, .3);
-	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 0 3px #000;
-	background-image: linear-gradient(top, #969896, #515251);
-	background-image: -o-linear-gradient(top, #969896, #515251);
-	background-image: -moz-linear-gradient(top, #969896, #515251);
-	background-image: -webkit-linear-gradient(top, #969896, #515251);
-	background-image: -ms-linear-gradient(top, #969896, #515251); }
-
-.pagination a:hover {
-	background-image: linear-gradient(top, #e2e3e2, #969896);
-	background-image: -o-linear-gradient(top, #e2e3e2, #969896);
-	background-image: -moz-linear-gradient(top, #e2e3e2, #969896);
-	background-image: -webkit-linear-gradient(top, #e2e3e2, #969896);
-	background-image: -ms-linear-gradient(top, #e2e3e2, #969896); }
-
-.pagination li.active a {
-	background-image: linear-gradient(top, #81a2be, #45586d);
-	background-image: -o-linear-gradient(top, #81a2be, #45586d);
-	background-image: -moz-linear-gradient(top, #81a2be, #45586d);
-	background-image: -webkit-linear-gradient(top, #81a2be, #45586d);
-	background-image: -ms-linear-gradient(top, #81a2be, #45586d); }
-
-.pagination li.disabled a { background: #969896; }
-
-.pagination.large a { font-weight: normal; }
-
 .pagination.grouped ul { box-shadow: 0 0 3px #000; }
-.pagination.grouped.round ul { border-radius: .3em; }
-.pagination.grouped.pill ul { border-radius: 2em; }
 
-.pagination.grouped a {
-	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+.pagination.grouped li {
 	border-left: 1px solid #515251;
 	border-right: 1px solid #515251; }
 
+.pagination.grouped li:first-child { border-left: 0; }
+.pagination.grouped li:last-child { border-right: 0; }
+
+.pagination.grouped .button { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; }

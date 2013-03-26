@@ -20,13 +20,13 @@
  * {{{
  *		<nav class="pagination small pill">
  *			<ul>
- *				<li><a href="">Previous</a></li>
- *				<li><a href="">1</a></li>
- *				<li><a href="">2</a></li>
- *				<li class="active"><a href="">3</a></li>
- *				<li><a href="">4</a></li>
- *				<li><a href="">5</a></li>
- *				<li class="disabled"><a href="">Next</a></li>
+ *				<li><a href="" class="button">Previous</a></li>
+ *				<li><a href="" class="button">1</a></li>
+ *				<li><a href="" class="button">2</a></li>
+ *				<li class="active"><a href="" class="button">3</a></li>
+ *				<li><a href="" class="button">4</a></li>
+ *				<li><a href="" class="button">5</a></li>
+ *				<li class="disabled"><a href="" class="button">Next</a></li>
  *			</ul>
  *		</nav>
  * }}}
@@ -44,36 +44,19 @@
 	li {
 		float: left;
 		margin-right: 5px;
-		z-index: 0;
 
-		a {
-			@include reset-inline-block;
+		.button {
 			float: left;
-			text-align: center;
-			cursor: pointer;
-			font-family: sans-serif;
-			@include size-medium;
 		}
 
 		&.active,
 		&.active:hover,
-		&.active a,
-		&.active a:hover {
+		&.active .button,
+		&.active .button:hover {
 			z-index: 1;
 			cursor: default;
 		}
 	}
-
-	// Shapes
-	&.round,
-	&.round li a { border-radius: $border-round; }
-
-	&.pill,
-	&.pill li a { border-radius: $border-pill; }
-
-	// Sizes
-	&.small li a { @include size-small; }
-	&.large li a { @include size-large; }
 
 	@include clear-after;
 }

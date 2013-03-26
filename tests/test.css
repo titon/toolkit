@@ -18,5 +18,3 @@ h1 { font-size: 36px; }
 .example h2 { margin-bottom: 10px; }
 
 .flyout li:hover > .flyout { display: block; }
-
-.pagination { margin-bottom: 15px; }
