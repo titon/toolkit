@@ -30,10 +30,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 <h1>Pagination: Effects</h1>
 
-<?php // Grouped cant use these
-unset($shapes['oval'], $shapes['skew']);
-
-$t = 0;
+<?php $t = 0;
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">

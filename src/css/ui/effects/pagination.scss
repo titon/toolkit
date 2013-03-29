@@ -60,4 +60,34 @@
 			border-bottom-right-radius: $border-pill;
 		}
 	}
+
+	// Shape: oval
+	&.oval {
+		ul {
+			border-radius: 7em / 2.75em;
+		}
+
+		li:first-child .button {
+			border-radius: 7em 0 0 7em / 2.75em 0 0 2.75em;
+		}
+
+		li:last-child .button {
+			border-radius: 0 7em 7em 0 / 0 2.75em 2.75em 0;
+		}
+	}
+
+	// Shape: skew
+	&.skew {
+		ul {
+			border-radius: 1em 1em 0 0 / 3em 3em 0 0;
+		}
+
+		li:first-child .button {
+			border-radius: 1em 0 0 0 / 3em 0 0 0;
+		}
+
+		li:last-child .button {
+			border-radius: 0 1em 0 0 / 0 3em 0 0;
+		}
+	}
 }
