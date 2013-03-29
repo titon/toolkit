@@ -38,7 +38,10 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 <h1>Button Group: Effects</h1>
 
-<?php foreach ($effects as $effect => $effectTitle) { ?>
+<?php // New shape
+$shapes['skew-reverse'] = 'Skew Reverse';
+
+foreach ($effects as $effect => $effectTitle) { ?>
 
 	<div class="example">
 		<h2><?php echo $effectTitle; ?></h2>
