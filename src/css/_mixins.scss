@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+@import "variables";
+
 @mixin clear-after {
 	&:after {
 		content: "";
@@ -49,17 +51,17 @@
 }
 
 @mixin active-state {
-	.active &,
-	&.active,
-	&.active:hover,
+	#{$active-class} &,
+	&#{$active-class},
+	&#{$active-class}:hover,
 	&:hover { @content; }
 }
 
 @mixin disabled-state {
-	.disabled &,
-	&.disabled,
+	#{$disabled-class} &,
+	&#{$disabled-class},
+	&#{$disabled-class}:hover,
 	&[disabled],
-	&.disabled:hover,
 	&[disabled]:hover { @content; }
 }
 

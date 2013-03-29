@@ -8,45 +8,42 @@
  * Label.Effect
  *
  * Provides additional label style effects.
- *
- * @styles	left-arrow, right-arrow
  */
 
-.label {
+// Left arrow
+.label.label-left {
+	border-top-left-radius: 1px;
+	border-bottom-left-radius: 1px;
+	padding-left: 2px;
+	margin-left: 10px;
 
-	&.left-arrow {
-		border-top-left-radius: 1px;
-		border-bottom-left-radius: 1px;
-		padding-left: 2px;
-		margin-left: 10px;
-
-		&:after {
-			top: 0;
-			right: 100%;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			border: 8px solid transparent;
-			border-right-color: #969896;
-		}
+	&:after {
+		top: 0;
+		right: 100%;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		border: 8px solid transparent;
+		border-right-color: #969896;
 	}
+}
 
-	&.right-arrow {
-		border-top-right-radius: 1px;
-		border-bottom-right-radius: 1px;
-		padding-right: 2px;
-		margin-right: 10px;
+// Right arrow
+.label.label-right {
+	border-top-right-radius: 1px;
+	border-bottom-right-radius: 1px;
+	padding-right: 2px;
+	margin-right: 10px;
 
-		&:after {
-			top: 0;
-			left: 100%;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			border: 8px solid transparent;
-			border-left-color: #969896;
-		}
+	&:after {
+		top: 0;
+		left: 100%;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		border: 8px solid transparent;
+		border-left-color: #969896;
 	}
 }

@@ -4,18 +4,16 @@
  * @link		http://titon.io
  */
 
-@import "../../variables";
 @import "../../mixins";
 
 /**
  * ButtonGroup.Effect
  *
  * Provides additional button group style effects.
- *
- * @styles	vertical
  */
 
-.button-group.vertical {
+// Vertical
+.button-group.button-group-vertical {
 	vertical-align: top;
 
 	.button {

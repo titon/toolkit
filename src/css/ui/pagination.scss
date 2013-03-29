@@ -4,7 +4,6 @@
  * @link		http://titon.io
  */
 
-@import "../variables";
 @import "../mixins";
 
 /**
@@ -49,12 +48,12 @@
 			float: left;
 		}
 
-		&.active,
-		&.active:hover,
-		&.active .button,
-		&.active .button:hover {
+		@include active-state {
 			z-index: 1;
-			cursor: default;
+
+			.button {
+				z-index: 1;
+			}
 		}
 	}
 

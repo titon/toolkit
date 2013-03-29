@@ -4,7 +4,6 @@
  * @link		http://titon.io
  */
 
-@import "../../variables";
 @import "../../mixins";
 
 /**
@@ -12,11 +11,9 @@
  *
  * Provides additional pagination style effects.
  * By default, pagination buttons are separate unless the group style is applied, which will mimic the Button Group module.
- *
- * @styles	grouped
  */
 
-.pagination.grouped {
+.pagination.pagination-grouped {
 	li {
 		margin-left: -1px;
 		margin-right: 0;

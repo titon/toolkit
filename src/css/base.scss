@@ -54,7 +54,7 @@
 // Styles
 .round { border-radius: $border-round; }
 .draggable { cursor: move; }
-.disabled { cursor: not-allowed !important; }
+#{$disabled-class} { cursor: not-allowed !important; }
 
 // Carets
 .caret {

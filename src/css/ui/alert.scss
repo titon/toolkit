@@ -24,7 +24,6 @@
  */
 
 .alert {
-	text-shadow: 0 1px 0 white(.50);
 	padding: 10px;
 
 	p {
@@ -35,7 +34,7 @@
 		}
 	}
 
-	.close {
+	.alert-close {
 		@include reset-inline-block;
 		float: right;
 		padding: 4px;

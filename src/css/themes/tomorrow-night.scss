@@ -23,10 +23,11 @@ $green: #b5bd68;
 @mixin alert-style($color) {
 	background-color: tint($color, 60%);
 	border: 1px solid $color;
-	color: shade($color, 50%);
+	color: shade($color, 65%);
 }
 
 .alert {
+	text-shadow: 0 1px 0 white(.50);
 	box-shadow: 0 0 3px #000;
 	@include alert-style($gray);
 
@@ -42,15 +43,16 @@ $green: #b5bd68;
 $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 @mixin button-style($color) {
+	color: shade($color, 90%);
 	@include background-image(linear-gradient($color, shade($color, 30%)));
 	@include active-state { @include background-image(linear-gradient(tint($color, 30%), $color)); }
 	@include disabled-state { background: $color; }
+	&:focus, &:active { background: $color; }
 }
 
 .button {
-	color: #fff;
 	font-weight: bold;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, .25), -1px -1px 1px black(.25), 0 0 2px black(.3);
+	text-shadow: 0 1px white(.35);
 	box-shadow: $button-shadow;
 
 	&.large, .large & { font-weight: normal; }
@@ -58,8 +60,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	@include button-style($gray);
 	@include disabled-state {
 		opacity: .35;
-		cursor: not-allowed;
-		z-index: -1;
+		z-index: 0;
 	}
 
 	&.info { @include button-style($blue); }
@@ -68,7 +69,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&.success { @include button-style($green); }
 }
 
-.button.popout {
+.button.button-popout {
 	box-shadow: $button-shadow, 0 6px 0 0 black(.25);
 
 	&:active {
@@ -80,7 +81,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
  * Button & Pagination Groups
  */
 .button-group,
-.pagination.grouped ul {
+.pagination.pagination-grouped ul {
 	box-shadow: 0 0 3px #000;
 
 	.button {
@@ -95,12 +96,12 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&:last-child { border-right: 0; }
 }
 
-.pagination.grouped li {
+.pagination.pagination-grouped li {
 	&:first-child .button { border-left: 0; }
 	&:last-child .button { border-right: 0; }
 }
 
-.button-group.vertical {
+.button-group.button-group-vertical {
 	.button {
 		box-shadow: none;
 		border: 0;
@@ -112,22 +113,27 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	}
 }
 
-// Labels & Badges
+/**
+ * Labels & Badges
+ */
 .label, .badge {
+	box-shadow: 0 0 3px #000;
+	text-shadow: 0 1px white(.35);
+
 	&.info { background-color: $blue; }
 	&.warning { background-color: $yellow; }
 	&.error { background-color: $red; }
 	&.success { background-color: $green; }
 }
 
-.label.left-arrow {
+.label.label-left {
 	&.info:after { border-right-color: $blue; }
 	&.warning:after { border-right-color: $yellow; }
 	&.error:after { border-right-color: $red; }
 	&.success:after { border-right-color: $green; }
 }
 
-.label.right-arrow {
+.label.label-right {
 	&.info:after { border-left-color: $blue; }
 	&.warning:after { border-left-color: $yellow; }
 	&.error:after { border-left-color: $red; }
