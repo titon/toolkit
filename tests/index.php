@@ -31,6 +31,9 @@ $assets = array(
 );
 
 $themes = array(
+	'none' => array(
+		'title' => 'None'
+	),
 	'tomorrow-night' => array(
 		'title' => 'Tomorrow Night',
 		'css' => 'themes/tomorrow-night.css'
@@ -94,5 +97,23 @@ $theme = $themes[$themeKey]; ?>
 </head>
 <body>
 	<?php include sprintf('%s.php', $assetKey); ?>
+
+	<form action="" method="get" class="test-switcher">
+		<select name="asset">
+			<option value="">-- Module --</option>
+			<?php foreach ($assets as $key => $value) { ?>
+				<option value="<?php echo $key; ?>"<?php if ($key === $assetKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+			<?php } ?>
+		</select>
+
+		<select name="theme">
+			<option value="">-- Theme --</option>
+			<?php foreach ($themes as $key => $value) { ?>
+				<option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+			<?php } ?>
+		</select>
+
+		<button type="submit">GO</button>
+	</form>
 </body>
 </html>

@@ -21,9 +21,9 @@
 
 .badge, .label {
 	@include reset-inline-block;
-	color: #000;
+	color: #fff;
 	font: bold 11px/100% Arial, sans-serif;
-	background: #969896;
+	background: #282a2e;
 	padding: 4px 5px;
 	text-transform: uppercase;
 	border-radius: 2px;
