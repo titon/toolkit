@@ -28,7 +28,61 @@
 	top: 0;
 	left: 0;
 	margin: 0;
-	padding: 0;
+	padding: 10px;
 	z-index: 650;
 	max-width: 200px;
+	background: #000;
+
+	.tooltip-arrow {
+		border: 6px solid transparent;
+		position: absolute;
+	}
+
+	// Color
+	&.top-left .tooltip-arrow,
+	&.center-right .tooltip-arrow,
+	&.bottom-left .tooltip-arrow { border-right-color: #000; }
+
+	&.top-center .tooltip-arrow {
+		border-top-color: #000;
+		bottom: -12px;
+	}
+
+	&.bottom-center .tooltip-arrow {
+		border-bottom-color: #000;
+		top: -12px;
+	}
+
+	&.top-right .tooltip-arrow,
+	&.center-left .tooltip-arrow,
+	&.bottom-right .tooltip-arrow { border-left-color: #000; }
+
+	// Position
+	&.top-left .tooltip-arrow,
+	&.top-right .tooltip-arrow { bottom: -6px; }
+
+	&.center-left  .tooltip-arrow,
+	&.center-right .tooltip-arrow {
+		top: 50%;
+		margin-top: -6px;
+	}
+
+	&.center-left .tooltip-arrow { right: -12px; }
+	&.center-right .tooltip-arrow { left: -12px; }
+
+	&.bottom-left .tooltip-arrow,
+	&.bottom-right .tooltip-arrow { top: -6px; }
+
+	&.top-left .tooltip-arrow,
+	&.bottom-left .tooltip-arrow { right: 0; }
+
+	&.top-center .tooltip-arrow,
+	&.bottom-center .tooltip-arrow { left: 50%; margin-left: -6px; }
+
+	&.top-right .tooltip-arrow,
+	&.bottom-right .tooltip-arrow { left: 0; }
+
+	// Mouse, Center
+	&.mouse .tooltip-arrow,
+	&.center .tooltip-arrow { display: none; }
 }

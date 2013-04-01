@@ -10,8 +10,8 @@
  *
  * @uses	Titon
  * @uses	Core
- * @uses	More/Element.From
- * @uses	More/Element.Shortcut
+ * @uses	More/Elements.From
+ * @uses	More/Element.Shortcuts
  * @uses	More/Hash
  */
 Titon.Module = new Class({
@@ -100,6 +100,10 @@ Titon.Module = new Class({
 	 * @return {String}
 	 */
 	getValue: function(node, query) {
+		if (!query) {
+			return null;
+		}
+
 		if (typeOf(query) === 'function') {
 			return query(node, this);
 		}

@@ -150,7 +150,7 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
-	 * @param {Function} callback
+	 * @param {Function|boolean} callback
 	 * @return {Element}
 	 */
 	fadeOut: function(duration, callback) {

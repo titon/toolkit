@@ -155,7 +155,11 @@ Titon.Tooltip = new Class({
 		}
 
 		if (this.options.fade) {
-			this.element.fadeOut(this.options.fadeDuration, false);
+			this.element.fadeOut(this.options.fadeDuration, function() {
+				// Must set to hidden or else it won't show again
+				this.element.hide();
+			}.bind(this));
+
 		} else {
 			this.element.hide();
 		}
@@ -164,7 +168,10 @@ Titon.Tooltip = new Class({
 			this.element.removeClass(this.customOptions.className);
 		}
 
-		this.element.removeClass(this.customOptions.position.hyphenate());
+		if (this.customOptions.position) {
+			this.element.removeClass(this.customOptions.position.hyphenate());
+		}
+
 		this.customOptions = {};
 
 		this.node.removeEvents('mousemove');

@@ -172,3 +172,39 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	float: right; }
 
 .flyout li .flyout { left: 190px; }
+
+/**
+ * Tooltip
+ */
+.tooltip {
+	background: white(.90);
+	color: #000;
+	padding: 10px;
+	border-radius: 3px;
+	margin: 7px;
+
+	.tooltip-head {
+		padding-bottom: 5px;
+		font-weight: bold;
+		font-size: 14px;
+	}
+
+	&.top-left { border-bottom-right-radius: 1px; }
+	&.top-right { border-bottom-left-radius: 1px; }
+	&.bottom-left { border-top-right-radius: 1px; }
+	&.bottom-right { border-top-left-radius: 1px; }
+
+	&.top-left,
+	&.bottom-left { margin-right: -6px; }
+	&.top-right,
+	&.bottom-right { margin-left: -6px; }
+
+	&.top-left .tooltip-arrow { border-right-color: white(.90); }
+	&.top-center .tooltip-arrow { border-top-color: white(.90); }
+	&.top-right .tooltip-arrow { border-left-color: white(.90); }
+	&.center-left .tooltip-arrow { border-left-color: white(.90); }
+	&.center-right .tooltip-arrow { border-right-color: white(.90); }
+	&.bottom-left .tooltip-arrow { border-right-color: white(.90); }
+	&.bottom-center .tooltip-arrow { border-bottom-color: white(.90); }
+	&.bottom-right .tooltip-arrow { border-left-color: white(.90); }
+}
