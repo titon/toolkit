@@ -174,10 +174,10 @@ Titon.Tooltip = new Class({
 
 		this.customOptions = {};
 
+		this.fireEvent('hide');
+
 		this.node.removeEvents('mousemove');
 		this.node = null;
-
-		this.fireEvent('hide');
 	},
 
 	/**

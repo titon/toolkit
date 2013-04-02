@@ -7,6 +7,7 @@
 	<button type="button" class="button tooltip-base" data-tooltip="This is the data-tooltip attribute">Via Data Attribute (Default)</button>
 	<button type="button" class="button tooltip-base" data-tooltip="#hidden">Via DOM Element</button>
 	<button type="button" class="button tooltip-ajax" data-tooltip="ajax/tooltip.php">Via AJAX</button>
+	<button type="button" class="button tooltip-ajax" data-tooltip="ajax/tooltip.php?slow">Via AJAX w/ Loader</button>
 
 	<div id="hidden" style="display: none">This is loaded from a hidden DOM element</div>
 </div>
@@ -18,6 +19,7 @@
 	<button type="button" class="button tooltip-click" data-tooltip="Tooltip is shown and hidden with mouse click">Click Toggle</button>
 	<button type="button" class="button tooltip-delay" data-tooltip="Tooltip is shown after 300ms">Show Delay</button>
 	<button type="button" class="button tooltip-base" data-tooltip="#hidden" title="Custom Title">Title and Content</button>
+	<button type="button" class="button tooltip-offset" data-tooltip="Tooltip will have its axis altered">X/Y Offsets</button>
 </div>
 
 <div class="example">
@@ -46,6 +48,13 @@
 	</div>
 </div>
 
+<div class="example">
+	<h2>Events</h2>
+
+	<button type="button" class="button tooltip-event" data-tooltip="Tooltip will have a custom class applied via event callbacks">onShow, onHide</button>
+	<button type="button" class="button tooltip-event2" data-tooltip="Activating node will be disabled after tooltip is positioned">onPosition</button>
+</div>
+
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		Titon.Tooltip.factory('.tooltip-base');
@@ -54,6 +63,7 @@
 		Titon.Tooltip.factory('.tooltip-fade', { fade: true });
 		Titon.Tooltip.factory('.tooltip-click', { mode: 'click' });
 		Titon.Tooltip.factory('.tooltip-delay', { delay: 250 });
+		Titon.Tooltip.factory('.tooltip-offset', { xOffset: 15, yOffset: 15 });
 		Titon.Tooltip.factory('.tooltip-tl', { position: 'topLeft' });
 		Titon.Tooltip.factory('.tooltip-tc', { position: 'topCenter' });
 		Titon.Tooltip.factory('.tooltip-tr', { position: 'topRight' });
@@ -64,5 +74,18 @@
 		Titon.Tooltip.factory('.tooltip-bc', { position: 'bottomCenter' });
 		Titon.Tooltip.factory('.tooltip-br', { position: 'bottomRight' });
 		Titon.Tooltip.factory('.tooltip-mouse', { position: 'mouse' });
+		Titon.Tooltip.factory('.tooltip-event', {
+			onShow: function() {
+				this.node.addClass('success');
+			},
+			onHide: function() {
+				this.node.removeClass('success');
+			}
+		});
+		Titon.Tooltip.factory('.tooltip-event2', {
+			onPosition: function() {
+				this.node.set('disabled', true);
+			}
+		});
 	});
 </script>
