@@ -348,18 +348,7 @@ Titon.Modal = new Class({
 			.addEvent('click', this.submit.bind(this));
 
 		// Position
-		var position = this.options.position,
-			edgeMap = {
-				topLeft: 'bottomRight',
-				topCenter: 'bottomCenter',
-				topRight: 'bottomLeft',
-				centerLeft: 'centerRight',
-				center: 'center',
-				centerRight: 'centerLeft',
-				bottomLeft: 'topRight',
-				bottomCenter: 'topCenter',
-				bottomRight: 'topLeft'
-			};
+		var position = this.options.position;
 
 		this.element.position({
 			position: position,
