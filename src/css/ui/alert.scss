@@ -26,6 +26,7 @@
 .alert {
 	padding: 10px;
 	background: #282a2e;
+	text-align: left;
 
 	p {
 		margin: 10px 0 0 0;
@@ -52,6 +53,6 @@
 			opacity: .75;
 		}
 
-		~ p { margin: 0; }
+		& ~ p { margin: 0; }
 	}
 }
