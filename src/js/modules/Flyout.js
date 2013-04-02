@@ -164,7 +164,7 @@ Titon.Flyout = new Class({
 		}
 
 		if (this.options.fade) {
-			this.elements[this.current].fadeOut(this.options.fadeDuration, false);
+			this.elements[this.current].fadeOut(this.options.fadeDuration);
 		} else {
 			this.elements[this.current].hide();
 		}

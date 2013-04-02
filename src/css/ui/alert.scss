@@ -36,22 +36,9 @@
 		}
 	}
 
-	.alert-close {
-		@include reset-inline-block;
+	@include close-button('alert') {
 		float: right;
-		padding: 4px;
 		margin-left: 10px;
-		background: white(.50);
-		border-radius: 2px;
-		line-height: 80%;
-		cursor: pointer;
-
-		&:hover { background: white(.80); }
-
-		.x {
-			color: #000;
-			opacity: .75;
-		}
 
 		& ~ p { margin: 0; }
 	}

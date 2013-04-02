@@ -40,6 +40,7 @@ Titon.Modal = new Class({
 	 *	ajax			- (boolean) The modal uses the target as an AJAX call
 	 *	draggable		- (boolean) Will enable dragging on the outer element
 	 *	blackout		- (boolean) Will show a blackout when a modal is opened, and hide it when it is closed
+	 *	fixed			- (boolean) Will position the modal in the center of the page regardless of scrolling
 	 *	fade			- (boolean) Will fade the modals in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	className		- (string) Class name to append to a modal when it is shown
@@ -81,7 +82,9 @@ Titon.Modal = new Class({
 		submitEvent: '.modal-event-submit',
 		template: '<div class="modal">' +
 			'<div class="modal-inner"></div>' +
-			'<a href="javascript:;" class="modal-close modal-event-close"></a>' +
+			'<button type="button" class="modal-close modal-event-close">' +
+				'<span class="x">&times;</span>' +
+			'</button>' +
 		'</div>',
 
 		// Events
@@ -177,23 +180,23 @@ Titon.Modal = new Class({
 			return;
 		}
 
-		this.node = null;
-
 		var blackout = function() {
 			if (this.options.blackout) {
 				this.blackout.hide();
 			}
+
+			this.element.hide();
 		}.bind(this);
 
 		if (this.options.fade) {
 			this.element.fadeOut(this.options.fadeDuration, blackout);
-
 		} else {
-			this.element.hide();
 			blackout();
 		}
 
 		this.fireEvent('hide');
+
+		this.node = null;
 	},
 
 	/**
@@ -247,6 +250,8 @@ Titon.Modal = new Class({
 								text: options.loadingMessage
 							}));
 
+							this.element.addClass(Titon.options.loadingClass);
+
 							// Decrease count since _position() is being called twice
 							if (this.options.blackout) {
 								this.blackout.decrease();
@@ -259,6 +264,8 @@ Titon.Modal = new Class({
 						this._position(new Element('div.modal-error', {
 							text: options.errorMessage
 						}));
+
+						this.element.addClass(Titon.options.failedClass);
 					}.bind(this)
 				}).get();
 			}
@@ -286,6 +293,8 @@ Titon.Modal = new Class({
 			return;
 		}
 
+		this.fireEvent('submit', button);
+
 		new Request({
 			url: form.get('action'),
 			method: form.get('method').toUpperCase(),
@@ -300,8 +309,6 @@ Titon.Modal = new Class({
 				}));
 			}.bind(this)
 		}).send();
-
-		this.fireEvent('submit', button);
 	},
 
 	/**
@@ -329,6 +336,7 @@ Titon.Modal = new Class({
 		}
 
 		this.elementBody.setHtml(content);
+		this.element.removeClass(Titon.options.loadingClass);
 
 		// Set events
 		this.element.getElements(this.options.closeEvent)
@@ -340,9 +348,22 @@ Titon.Modal = new Class({
 			.addEvent('click', this.submit.bind(this));
 
 		// Position
+		var position = this.options.position,
+			edgeMap = {
+				topLeft: 'bottomRight',
+				topCenter: 'bottomCenter',
+				topRight: 'bottomLeft',
+				centerLeft: 'centerRight',
+				center: 'center',
+				centerRight: 'centerLeft',
+				bottomLeft: 'topRight',
+				bottomCenter: 'topCenter',
+				bottomRight: 'topLeft'
+			};
+
 		this.element.position({
-			relativeTo: document.body,
-			position: this.options.position,
+			position: position,
+			edge: position,
 			ignoreScroll: this.options.fixed
 		});
 

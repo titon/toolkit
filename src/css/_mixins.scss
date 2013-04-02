@@ -65,6 +65,26 @@
 	&[disabled]:hover { @content; }
 }
 
+@mixin close-button($module) {
+	.#{$module}-close {
+		@include reset-inline-block;
+		padding: 4px;
+		background: white(.50);
+		border-radius: 2px;
+		line-height: 80%;
+		cursor: pointer;
+
+		&:hover { background: white(.80); }
+
+		.x {
+			color: #000;
+			opacity: .75;
+		}
+
+		@content;
+	}
+}
+
 @function black($opacity){
 	@return rgba(0, 0, 0, $opacity);
 }

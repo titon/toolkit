@@ -28,7 +28,9 @@ var Titon = {
 		activeClass: 'active',
 		disabledClass: 'disabled',
 		draggableClass: 'draggable',
-		draggingClass: 'dragging'
+		draggingClass: 'dragging',
+		loadingClass: 'loading',
+		failedClass: 'failed'
 	},
 
 	/**
@@ -150,16 +152,21 @@ Element.implement({
 	 * Fade out an element and remove from DOM.
 	 *
 	 * @param {int} duration
-	 * @param {Function|boolean} callback
+	 * @param {Function|string} callback
 	 * @return {Element}
 	 */
 	fadeOut: function(duration, callback) {
 		duration = duration || 600;
+		callback = callback || 'hide';
 
-		if (typeOf(callback) === 'null') {
+		if (typeOf(callback) === 'string') {
 			callback = function() {
-				this.element.dispose();
-			};
+				if (callback === 'remove') {
+					this.dispose();
+				} else {
+					this.hide();
+				}
+			}.bind(this);
 		}
 
 		this.set('tween', {

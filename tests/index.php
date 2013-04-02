@@ -24,6 +24,11 @@ $assets = array(
 		'title' => 'Label & Badge',
 		'css' => array('ui/label-badge.css', 'ui/effects/label.css')
 	),
+	'modal' => array(
+		'title' => 'Modal',
+		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),
+		'js' => array('modules/Blackout.js', 'modules/Modal.js')
+	),
 	'pagination' => array(
 		'title' => 'Pagination',
 		'css' => array('ui/button.css', 'ui/pagination.css', 'ui/effects/pagination.css')

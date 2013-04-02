@@ -155,11 +155,7 @@ Titon.Tooltip = new Class({
 		}
 
 		if (this.options.fade) {
-			this.element.fadeOut(this.options.fadeDuration, function() {
-				// Must set to hidden or else it won't show again
-				this.element.hide();
-			}.bind(this));
-
+			this.element.fadeOut(this.options.fadeDuration);
 		} else {
 			this.element.hide();
 		}
@@ -253,6 +249,8 @@ Titon.Tooltip = new Class({
 							this._position(new Element('div.tooltip-loading', {
 								text: this.options.loadingMessage
 							}));
+
+							this.element.addClass(Titon.options.loadingClass);
 						}
 					}.bind(this),
 					onFailure: function() {
@@ -261,6 +259,8 @@ Titon.Tooltip = new Class({
 						this._position(new Element('div.tooltip-error', {
 							text: this.options.errorMessage
 						}));
+
+						this.element.addClass(Titon.options.failedClass);
 					}.bind(this)
 				}).get();
 			}
@@ -337,6 +337,8 @@ Titon.Tooltip = new Class({
 		} else {
 			this.elementBody.hide();
 		}
+
+		this.element.removeClass(Titon.options.loadingClass);
 
 		// Follow the mouse
 		if (options.position === 'mouse') {

@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+@import "../mixins";
+
 /**
  * Modal
  *
@@ -15,7 +17,7 @@
  * {{{
  *		<div class="modal">
  *			<div class="modal-inner"></div>
- *			<a href="#close" class="modal-close"></a>
+ *			<button type="button" class="modal-close"></button>
  *		</div>
  * }}}
  */
@@ -27,6 +29,14 @@
 	margin: 0;
 	padding: 0;
 	z-index: 610;
+	background: #282a2e;
+	max-width: 500px;
+
+	@include close-button('modal') {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+	}
 
 	// Reset .draggable
 	.modal-inner { cursor: default; }

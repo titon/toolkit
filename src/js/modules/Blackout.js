@@ -46,7 +46,7 @@ Titon.Blackout = new Class({
 	 * @return {int}
 	 */
 	count: function() {
-		return Number.from(this.element.get('data-blackout-count') || 0);
+		return Number.from(this.element.get('data-blackout-count') || 1);
 	},
 
 	/**
@@ -55,7 +55,13 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	decrease: function() {
-		this.element.set('data-blackout-count', (this.count() - 1));
+		var count = this.count() - 1;
+
+		if (count < 0) {
+			count = 0;
+		}
+
+		this.element.set('data-blackout-count', count);
 
 		return this;
 	},
