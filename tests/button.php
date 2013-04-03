@@ -4,13 +4,6 @@
 $sizes['disabled'] = 'Disabled';
 $sizes['active'] = 'Active';
 
-$effects = array(
-	'button-gloss' => 'Gloss',
-	'button-reflect' => 'Reflect',
-	'button-glare' => 'Glare',
-	'button-popout' => 'Popout'
-);
-
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">
@@ -39,17 +32,17 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 <h1>Button: Effects</h1>
 
-<?php foreach ($effects as $effect => $effectTitle) { ?>
+<?php foreach ($visuals as $visual => $visualTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $effectTitle; ?></h2>
+		<h2><?php echo $visualTitle; ?></h2>
 
 		<?php
 		$i = 0;
 		$typeClasses = array_keys($types);
 
 		foreach ($shapes as $shape => $shapeTitle) {
-			$classes = array($effect, $shape, $typeClasses[$i]); ?>
+			$classes = array($visual, $shape, $typeClasses[$i]); ?>
 
 			<div class="row">
 

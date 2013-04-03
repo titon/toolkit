@@ -10,7 +10,7 @@ $assets = array(
 	),
 	'button' => array(
 		'title' => 'Button',
-		'css' => array('ui/button.css', 'ui/effects/button.css')
+		'css' => array('ui/button.css')
 	),
 	'button-group' => array(
 		'title' => 'Button Group',
@@ -77,6 +77,13 @@ $types = array(
 	'error' => 'Error'
 );
 
+$visuals = array(
+	'visual-gloss' => 'Gloss',
+	'visual-reflect' => 'Reflect',
+	'visual-glare' => 'Glare',
+	'visual-popout' => 'Popout'
+);
+
 // Detect theme and asset
 $assetKey = 'base';
 $themeKey = 'tomorrow-night';
@@ -108,8 +115,10 @@ $theme = $themes[$themeKey]; ?>
 		foreach ((array) $theme['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">
 		<?php }
-	}
-	if (!empty($asset['js'])) { ?>
+	} ?>
+	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
+
+	<?php if (!empty($asset['js'])) { ?>
 		<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
 		<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
 		<script type="text/javascript" src="../src/js/Titon.js"></script>

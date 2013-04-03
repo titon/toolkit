@@ -5,16 +5,16 @@
  */
 
 @import "compass/css3/images";
-@import "../../mixins";
+@import "../mixins";
 
 /**
- * Button.Effect
+ * Visual
  *
- * Provides additional button style effects.
+ * Provides global visual effect styles.
  */
 
 // Gloss
-.button.button-gloss {
+.visual-gloss {
 	&:after {
 		content: "";
 		position: absolute;
@@ -23,7 +23,7 @@
 		top: 3%;
 		left: 0;
 		border-radius: 0 0 2em 2em / 0 0 1em 1em;
-		@include background-image(linear-gradient(left, white(.4) 0%, white(0) 50%, white(.4) 100%));
+		@include background-image(linear-gradient(left, white(.3) 0%, white(0) 50%, white(.3) 100%));
 	}
 
 	&.round:after {
@@ -45,34 +45,34 @@
 }
 
 // Reflection
-.button.button-reflect:after {
+.visual-reflect:after {
 	content: "";
 	position: absolute;
 	width: 100%;
 	height: 50%;
 	top: 0;
 	left: 0;
-	@include background-image(linear-gradient(top, white(0), white(.35)));
+	@include background-image(linear-gradient(top, white(0), white(.3)));
 }
 
 // Glare
-.button.button-glare:after {
+.visual-glare:after {
 	content: "";
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
-	@include background-image(linear-gradient(-80deg, white(.4) 0%, white(.1) 50%, white(0) 50%, white(.15) 100%));
+	@include background-image(linear-gradient(160deg, white(.5) 0%, white(.1) 50%, white(0) 50%, white(.3) 100%));
 }
 
 // Popout
-.button.button-popout {
-	box-shadow: 0 6px 0 0 black(.25);
+.visual-popout {
+	box-shadow: 0 6px 0 0 black(.25) !important;
 	top: -3px;
 
 	&:active {
-		box-shadow: 0 3px 0 0 black(.5);
+		box-shadow: 0 3px 0 0 black(.5) !important;
 		top: 0;
 	}
 }

@@ -12,8 +12,6 @@
  * @uses	Titon.Module
  * @uses	Core
  * @uses	More/Class.Binds
- *
- * @todo	Allow dropdowns in tab anchor links
  */
 Titon.Tabs = new Class({
 	Extends: Titon.Module,

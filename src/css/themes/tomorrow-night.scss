@@ -69,11 +69,11 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&.success { @include button-style($green); }
 }
 
-.button.button-popout {
-	box-shadow: $button-shadow, 0 6px 0 0 black(.25);
+.button.visual-popout {
+	box-shadow: $button-shadow, 0 6px 0 0 black(.25) !important;
 
 	&:active {
-		box-shadow: $button-shadow, 0 3px 0 0 black(.5);
+		box-shadow: $button-shadow, 0 3px 0 0 black(.5) !important;
 	}
 }
 
