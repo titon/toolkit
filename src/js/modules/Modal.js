@@ -14,6 +14,8 @@
  * @uses	More/Class.Binds
  * @uses	More/Drag
  * @uses	More/Element.Position
+ *
+ * @todo	Refactor fixed positioning
  */
 Titon.Modal = new Class({
 	Extends: Titon.Module,

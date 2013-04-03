@@ -8,28 +8,12 @@
  * Provides tabbed support to an element containing navigation tabs and sections.
  * Each time a tab is clicked, the section with the same ID as the tab href will be displayed.
  *
- * {{{
- * 		<div id="tabs">
- *			<nav>
- *				<ul>
- *					<li><a href="#tab-1">Tab 1</a></li>
- *					<li><a href="#tab-2">Tab 2</a></li>
- *				</ul>
- *			</nav>
- *
- *			<section id="tab-1"></section>
- *			<section id="tab-2"></section>
- * 		</div>
- *
- * 		<script>
- *			var tabs = Titon.Tabs.factory('tabs', {});
- * 		</script>
- * }}}
- *
  * @uses	Titon
  * @uses	Titon.Module
  * @uses	Core
  * @uses	More/Class.Binds
+ *
+ * @todo	Allow dropdowns in tab anchor links
  */
 Titon.Tabs = new Class({
 	Extends: Titon.Module,
@@ -58,7 +42,6 @@ Titon.Tabs = new Class({
 	 *	fade			- (boolean) Should the sections fade in
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
-	 *	activeClass		- (string) Class name appended to the active tab
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
@@ -69,13 +52,13 @@ Titon.Tabs = new Class({
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
 	 *	template		- (string) Do not use an HTML template
 	 *	onShow			- (function) Callback to trigger when a section is shown
+	 *	onHide			- (function) Callback to trigger when all sections are hidden
 	 */
 	options: {
 		ajax: true,
 		fade: false,
 		fadeDuration: 600,
 		mode: 'click',
-		activeClass: Titon.options.activeClass,
 		defaultIndex: 0,
 		persistState: false,
 		cookie: null,
@@ -87,7 +70,8 @@ Titon.Tabs = new Class({
 		template: false,
 
 		// Events
-		onShow: null
+		onShow: null,
+		onHide: null
 	},
 
 	/**
@@ -97,6 +81,7 @@ Titon.Tabs = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
+		options = options || {};
 		options.cookie = (options.cookie || query).camelCase();
 		options.templateFrom = query;
 
@@ -106,7 +91,7 @@ Titon.Tabs = new Class({
 		// Get elements
 		this.tabs = this.element.getElements(this.options.tabsElement);
 		this.tabs.each(function(tab, index) {
-			tab.set('data-tabs-index', index).removeClass(this.options.activeClass);
+			tab.set('data-tabs-index', index).removeClass(Titon.options.activeClass);
 		}.bind(this));
 
 		this.sections = this.element.getElements(this.options.sectionsElement);
@@ -144,6 +129,15 @@ Titon.Tabs = new Class({
 	},
 
 	/**
+	 * Hide all sections and trigger event.
+	 */
+	hide: function() {
+		this.sections.hide();
+
+		this.fireEvent('hide', this.node);
+	},
+
+	/**
 	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
 	 * or pass an element object for a tab in the collection.
 	 *
@@ -158,7 +152,12 @@ Titon.Tabs = new Class({
 			return;
 		}
 
-		var className = this.options.activeClass,
+		// Set default tab
+		if (!this.node) {
+			this.node = tab;
+		}
+
+		var className = Titon.options.activeClass,
 			target = tab.get('data-tabs-index'),
 			url = tab.get('href'),
 			section = this.sections[target];
@@ -170,7 +169,7 @@ Titon.Tabs = new Class({
 				method: 'get',
 				evalScripts: true,
 				onSuccess: function(response) {
-					this.cache[url] = response;
+					this.cache[url] = true;
 					section.setHtml(response);
 				}.bind(this),
 				onRequest: function() {
@@ -181,18 +180,17 @@ Titon.Tabs = new Class({
 				onFailure: function() {
 					section.setHtml(new Element('div.tabs-error', {
 						text: this.options.errorMessage
-					}));
+					})).addClass(Titon.options.failedClass);
 				}.bind(this)
 			}).get();
 		}
 
 		// Toggle tabs
 		this.tabs.removeClass(className);
-
 		tab.addClass(className);
 
 		// Toggle sections
-		this.sections.hide();
+		this.hide();
 
 		if (this.options.fade) {
 			section.fadeIn(this.options.fadeDuration)
@@ -212,6 +210,9 @@ Titon.Tabs = new Class({
 		this.currentIndex = tab.get('data-tabs-index');
 
 		this.fireEvent('show', tab);
+
+		// Set current node
+		this.node = tab;
 	},
 
 	/**

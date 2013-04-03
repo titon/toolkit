@@ -1,0 +1,44 @@
+
+@import "../../mixins";
+
+.tabs.tabs-left,
+.tabs.tabs-right {
+	nav {
+		margin-bottom: 0;
+		width: 100px;
+
+		ul, li, a {
+			display: block;
+		}
+
+		.button-group-vertical {
+			display: block;
+		}
+	}
+
+	@include clear-after;
+}
+
+.tabs.tabs-left {
+	nav {
+		float: left;
+
+		a { text-align: right; }
+	}
+
+	section {
+		margin-left: 115px;
+	}
+}
+
+.tabs.tabs-right {
+	nav {
+		float: right;
+
+		a { text-align: left; }
+	}
+
+	section {
+		margin-right: 115px;
+	}
+}

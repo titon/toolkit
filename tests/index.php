@@ -33,6 +33,11 @@ $assets = array(
 		'title' => 'Pagination',
 		'css' => array('ui/button.css', 'ui/pagination.css', 'ui/effects/pagination.css')
 	),
+	'tabs' => array(
+		'title' => 'Tabs',
+		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css', 'modules/tabs.css', 'modules/effects/tabs.css'),
+		'js' => array('modules/Tabs.js')
+	),
 	'tooltip' => array(
 		'title' => 'Tooltip',
 		'css' => array('ui/button.css', 'modules/tooltip.css'),

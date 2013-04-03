@@ -46,7 +46,7 @@
 </div>
 
 <div class="example">
-	<h2>Features</h2>
+	<h2>Events</h2>
 
 	<button type="button" class="button modal-event" data-modal="ajax/modal.php">onShow, onHide</button>
 	<button type="button" class="button modal-event2" data-modal="ajax/modal.php">onPosition</button>
