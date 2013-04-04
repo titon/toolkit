@@ -147,35 +147,40 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 /**
  * Flyouts
  */
-
 .flyout {
-	background: #45586d;
-	box-shadow: 0 0 3px #000; }
+	border: 3px solid white(.75);
+	border-radius: 3px;
+	background: #1d1f21;
+	box-shadow: 0 0 3px #000;
 
-.flyout li { margin: 5px; }
+	li {
+		border-top: 1px solid #282a2e;
 
-.flyout li a {
-	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
-	background: $blue;
-	color: #fff;
-	display: block;
-	padding: 5px;
-	border-radius: 2px; }
+		&:first-child { border: 0; }
 
-.flyout li a:hover {
-	background: #d2e9f4;
-	color: #45586d; }
+		a {
+			display: block;
+			padding: 8px;
+			color: $blue;
 
-.flyout li .divider {
-	color: #d2e9f4;
-	display: block;
-	padding: 5px; }
+			.caret-right {
+				float: right;
+				margin-top: 3px;
+			}
+		}
 
-.flyout li a .caret {
-	margin-top: 4px;
-	float: right; }
+		a:hover,
+		&.opened > a {
+			background: #0f1214;
+			color: #fff;
+		}
 
-.flyout li .flyout { left: 190px; }
+		.divider {
+			display: block;
+			padding: 8px;
+		}
+	}
+}
 
 /**
  * Modal

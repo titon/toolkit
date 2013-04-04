@@ -16,6 +16,11 @@ $assets = array(
 		'title' => 'Button Group',
 		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css')
 	),
+	'flyout' => array(
+		'title' => 'Flyout',
+		'css' => array('ui/button.css', 'modules/flyout.css'),
+		'js' => array('class/Class.Timers.js', 'modules/Flyout.js')
+	),
 	'icon' => array(
 		'title' => 'Icon',
 		'css' => array('ui/button.css', 'ui/icon.css')

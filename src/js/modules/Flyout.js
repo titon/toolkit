@@ -59,12 +59,14 @@ Titon.Flyout = new Class({
 	 *	hideDelay		- (int) The delay in milliseconds before the menu hides
 	 *	itemLimit		- (int) How many items before splitting the lists
 	 *	context			- (element) The element the menus will display in (defaults body)
-	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected
+	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected into
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
-	 *	onHide			- (function) Callback to trigger when a menu is hidden
-	 *	onShow			- (function) Callback to trigger when a menu is shown
-	 *	onPosition		- (function) Callback to trigger when a menu is positioned
+	 *	onHide			- (function) Callback to trigger when the parent menu is hidden
+	 *	onHideChild		- (function) Callback to trigger when a child menu is hidden
+	 *	onShow			- (function) Callback to trigger when the parent menu is shown
+	 *	onShowChild		- (function) Callback to trigger when a child menu is shown
+	 *	onPosition		- (function) Callback to trigger when the parent menu is positioned
 	 */
 	options: {
 		fade: false,
@@ -84,7 +86,9 @@ Titon.Flyout = new Class({
 
 		// Events
 		onHide: null,
+		onHideChild: null,
 		onShow: null,
+		onShowChild: null,
 		onPosition: null
 	},
 
@@ -157,9 +161,9 @@ Titon.Flyout = new Class({
 	hide: function() {
 		this.clearTimers();
 
-		this.node.removeClass('active');
+		this.node.removeClass(Titon.options.activeClass);
 
-		if (!this.current || !this.elements[this.current].isVisible()) {
+		if (!this.current || !this.isVisible()) {
 			return;
 		}
 
@@ -169,10 +173,19 @@ Titon.Flyout = new Class({
 			this.elements[this.current].hide();
 		}
 
+		this.fireEvent('hide');
+
 		this.node = null;
 		this.current = null;
+	},
 
-		this.fireEvent('hide');
+	/**
+	 * Return true if the current menu exists and is visible.
+	 *
+	 * @return {boolean}
+	 */
+	isVisible: function() {
+		return (this.current && this.elements[this.current] && this.elements[this.current].isVisible());
 	},
 
 	/**
@@ -222,7 +235,7 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		this.node.addClass('active');
+		this.node.addClass(Titon.options.activeClass);
 
 		// Call show before position if click mode
 		this.fireEvent('show');
@@ -279,7 +292,7 @@ Titon.Flyout = new Class({
 				} else {
 					tag = new Element('span', {
 						text: child.title
-					});
+					}).addClass('divider');
 				}
 
 				if (child.attributes) {
@@ -287,7 +300,7 @@ Titon.Flyout = new Class({
 				}
 
 				// Add icon
-				new Element('span').addClass(child.icon || '').inject(tag, 'top');
+				new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
 
 				// Build list
 				li = new Element('li');
@@ -303,9 +316,7 @@ Titon.Flyout = new Class({
 
 					li.addClass('children')
 						.addEvent('mouseenter', this._positionChild.bind(this, li))
-						.addEvent('mouseleave', function() {
-							this.removeClass('opened').getElement(target).hide();
-						});
+						.addEvent('mouseleave', this._hideChild.bind(this, li));
 				}
 			}
 
@@ -320,7 +331,6 @@ Titon.Flyout = new Class({
 			}
 		}
 
-		menu.grab(new Element('span.clear'));
 		menu.inject(parent);
 
 		return menu;
@@ -464,15 +474,22 @@ Titon.Flyout = new Class({
 		}
 
 		menu.show();
+		menu.setStyle('width', menu.getElements('ul').getWidth().sum()  + 'px');
 
-		// Alter width
-		var dims = menu.getComputedSize();
+		this.fireEvent('showChild', parent);
+	},
 
-		menu.setStyle('width', (
-			menu.getElements('ul').getWidth().sum() +
-			dims['border-left-width'] + dims['border-right-width'] +
-			dims['padding-left'] + dims['padding-right']
-		) + 'px');
+	/**
+	 * Hide the child menu after exiting parent li.
+	 *
+	 * @param {Element} parent
+	 * @private
+	 */
+	_hideChild: function(parent) {
+		parent.removeClass('opened')
+			.getElement(this.options.contentElement).hide();
+
+		this.fireEvent('hideChild', parent);
 	}
 
 });

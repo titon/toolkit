@@ -69,12 +69,12 @@
 	.#{$module}-close {
 		@include reset-inline-block;
 		padding: 4px;
-		background: white(.50);
+		background: white(.5);
 		border-radius: 2px;
 		line-height: 80%;
 		cursor: pointer;
 
-		&:hover { background: white(.80); }
+		&:hover { background: white(.8); }
 
 		.x {
 			color: #000;

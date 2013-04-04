@@ -4,13 +4,13 @@
  * @link		http://titon.io
  */
 
+@import "../mixins";
+
 /**
  * Flyout
  *
  * A module for displaying flyout menus at specific locations.
  * Should be used in conjunction with the JavaScript Titon.Flyout module.
- *
- * @link	https://github.com/titon/js
  */
 
 .flyout {
@@ -36,7 +36,14 @@
 				left: 195px;
 			}
 
-			&.opened .flyout { display: block; }
+			.caret-right {
+				display: none;
+			}
+
+			&.children > a .caret-right { display: inline-block; }
+			&.opened > .flyout { display: block; }
 		}
 	}
+
+	@include clear-after;
 }

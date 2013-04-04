@@ -58,18 +58,21 @@
 [disabled] { cursor: not-allowed !important; }
 
 // Carets
-.caret {
+.caret-up,
+.caret-down,
+.caret-left,
+.caret-right {
 	@include reset-inline-block;
 	border: 5px solid transparent;
 	content: "";
 	height: 0;
 	width: 0;
-
-	&.up { border-bottom-color: #fff; }
-	&.down { border-top-color: #fff; }
-	&.left { border-right-color: #fff; }
-	&.right { border-left-color: #fff; }
 }
+
+.caret-up { border-bottom-color: #fff; }
+.caret-down { border-top-color: #fff; }
+.caret-left { border-right-color: #fff; }
+.caret-right { border-left-color: #fff; }
 
 // Characters
 .x {
