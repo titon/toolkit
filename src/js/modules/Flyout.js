@@ -464,17 +464,30 @@ Titon.Flyout = new Class({
 
 		parent.addClass('opened');
 
-		// Reverse menu if below half way
-		if (parent.getCoordinates().top > (window.getScrollSize().y / 2)) {
-			var height = menu.getDimensions().height - parent.getHeight();
+		// Alter width because of columns
+		menu.setStyle('width', menu.getElements('ul').getWidth().sum()  + 'px');
 
-			menu.setStyle('top', '-' + height + 'px');
+		// Get sizes after menu positioning
+		var windowScroll = window.getScrollSize(),
+			windowSize = window.getCoordinates(),
+			parentSize = parent.getCoordinates(),
+			childSize = menu.getCoordinates();
+
+		// Display menu horizontally on opposite side if it spills out of viewport
+		var hWidth = parentSize.right + childSize.width;
+
+		if (hWidth >= windowSize.width) {
+			menu.setStyle('left', '-' + childSize.width + 'px');
+		} else {
+			menu.setStyle('left', parentSize.width + 'px');
+		}
+
+		// Reverse menu vertically if below half way fold
+		if (parentSize.top > (windowScroll.y / 2)) {
+			menu.setStyle('top', '-' + (childSize.height - parentSize.height) + 'px');
 		} else {
 			menu.setStyle('top', 0);
 		}
-
-		menu.show();
-		menu.setStyle('width', menu.getElements('ul').getWidth().sum()  + 'px');
 
 		this.fireEvent('showChild', parent);
 	},
@@ -486,8 +499,7 @@ Titon.Flyout = new Class({
 	 * @private
 	 */
 	_hideChild: function(parent) {
-		parent.removeClass('opened')
-			.getElement(this.options.contentElement).hide();
+		parent.removeClass('opened');
 
 		this.fireEvent('hideChild', parent);
 	}
