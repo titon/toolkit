@@ -71,7 +71,7 @@
 		padding: 4px;
 		background: white(.5);
 		border-radius: 2px;
-		line-height: 80%;
+		line-height: 76%;
 		cursor: pointer;
 
 		&:hover { background: white(.8); }
@@ -79,6 +79,7 @@
 		.x {
 			color: #000;
 			opacity: .75;
+			line-height: 0;
 		}
 
 		@content;
