@@ -49,6 +49,8 @@ Titon.Tooltip = new Class({
 	 *	context			- (element) The element the tooltips will display in (defaults body)
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
+	 *	errorElement	- (string) CSS query for the error message element within the template
+	 *	loadingElement	- (string) CSS query for the loading element within the template
 	 *	titleElement	- (string) CSS query for the title element within the template
 	 *	contentElement	- (string) CSS query for the content element within the template
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
@@ -74,6 +76,8 @@ Titon.Tooltip = new Class({
 		context: null,
 		errorMessage: Titon.msg.error,
 		loadingMessage: Titon.msg.loading,
+		errorElement: '.tooltip-error',
+		loadingElement: '.tooltip-loading',
 		titleElement: '.tooltip-head',
 		contentElement: '.tooltip-body',
 		template: '<div class="tooltip">' +
@@ -168,12 +172,11 @@ Titon.Tooltip = new Class({
 			this.element.removeClass(this.customOptions.position.hyphenate());
 		}
 
-		this.customOptions = {};
-
 		this.fireEvent('hide');
 
+		this.customOptions = {};
+
 		this.node.removeEvents('mousemove');
-		this.node = null;
 	},
 
 	/**
@@ -246,7 +249,7 @@ Titon.Tooltip = new Class({
 						this.cache[content] = true;
 
 						if (options.showLoading) {
-							this._position(new Element('div.tooltip-loading', {
+							this._position(new Element('div' + this.options.loadingElement, {
 								text: this.options.loadingMessage
 							}));
 
@@ -256,7 +259,7 @@ Titon.Tooltip = new Class({
 					onFailure: function() {
 						delete this.cache[content];
 
-						this._position(new Element('div.tooltip-error', {
+						this._position(new Element('div' + this.options.errorElement, {
 							text: this.options.errorMessage
 						}));
 
@@ -303,7 +306,10 @@ Titon.Tooltip = new Class({
 				this.hide();
 			}
 
-			return;
+			// Exit if the same node
+			if (node == this.node) {
+				return;
+			}
 		}
 
 		this.show(node);

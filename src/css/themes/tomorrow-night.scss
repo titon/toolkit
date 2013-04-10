@@ -231,6 +231,70 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 }
 
 /**
+ * Popovers
+ */
+.popover {
+	border: 3px solid white(.75);
+	border-radius: 3px;
+	background: #1d1f21;
+	box-shadow: 0 0 3px #000;
+	margin: 10px;
+
+	.popover-head,
+	.popover-body {
+		padding: 10px;
+	}
+
+	.popover-head {
+		font-size: 14px;
+		font-weight: bold;
+		color: $blue;
+		background: #0f1214;
+		border-bottom: 1px solid #282a2e;
+	}
+
+	&.center-left .popover-arrow {
+		right: -19px;
+		border-left-color: black(.25);
+
+		&:after {
+			margin-left: -2px;
+			border-left-color: white(.75);
+		}
+	}
+
+	&.center-right .popover-arrow {
+		left: -19px;
+		border-right-color: #1d1f21;
+
+		&:after {
+			margin-left: 2px;
+			border-right-color: white(.75);
+		}
+	}
+
+	&.top-center .popover-arrow {
+		bottom: -19px;
+		border-top-color: #1d1f21;
+
+		&:after {
+			margin-top: -2px;
+			border-top-color: white(.75);
+		}
+	}
+
+	&.bottom-center .popover-arrow {
+		top: -19px;
+		border-bottom-color: #1d1f21;
+
+		&:after {
+			margin-top: 2px;
+			border-bottom-color: white(.75);
+		}
+	}
+}
+
+/**
  * Tooltip
  */
 .tooltip {

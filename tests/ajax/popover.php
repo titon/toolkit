@@ -2,4 +2,4 @@
 	sleep(1);
 } ?>
 
-This tooltip is loaded from an AJAX call.
+This popover is loaded from an AJAX call.

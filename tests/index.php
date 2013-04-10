@@ -38,6 +38,11 @@ $assets = array(
 		'title' => 'Pagination',
 		'css' => array('ui/button.css', 'ui/pagination.css', 'ui/effects/pagination.css')
 	),
+	'popover' => array(
+		'title' => 'Popover',
+		'css' => array('ui/button.css', 'modules/popover.css'),
+		'js' => array('modules/Tooltip.js', 'modules/Popover.js')
+	),
 	'tabs' => array(
 		'title' => 'Tabs',
 		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css', 'modules/tabs.css', 'modules/effects/tabs.css'),

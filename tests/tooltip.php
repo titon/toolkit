@@ -33,7 +33,6 @@
 
 	<div class="row">
 		<button type="button" class="button tooltip-cl" data-tooltip="Positioned at center left">Center Left</button>
-		<button type="button" class="button tooltip-cc" data-tooltip="Positioned in the center">Center</button>
 		<button type="button" class="button tooltip-cr" data-tooltip="Positioned at center right">Center Right</button>
 	</div>
 
@@ -68,7 +67,6 @@
 		Titon.Tooltip.factory('.tooltip-tc', { position: 'topCenter' });
 		Titon.Tooltip.factory('.tooltip-tr', { position: 'topRight' });
 		Titon.Tooltip.factory('.tooltip-cl', { position: 'centerLeft' });
-		Titon.Tooltip.factory('.tooltip-cc', { position: 'center' });
 		Titon.Tooltip.factory('.tooltip-cr', { position: 'centerRight' });
 		Titon.Tooltip.factory('.tooltip-bl', { position: 'bottomLeft' });
 		Titon.Tooltip.factory('.tooltip-bc', { position: 'bottomCenter' });
