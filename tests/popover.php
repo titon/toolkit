@@ -44,7 +44,7 @@
 <div class="example">
 	<h2>Events</h2>
 
-	<p>The following are supported: onShow, onHide, onPosition</p>
+	<p>The following are supported: onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">

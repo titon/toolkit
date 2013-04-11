@@ -37,11 +37,13 @@ Titon.Module = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	className		- (string) Class name to append to a menu when it is shown
+	 *	className		- (string) Class name to append to primary element
 	 *	context			- (element) The element the module will display in (defaults to document.body)
-	 *	fade			- (boolean) Will fade the menus in and out
+	 *	fade			- (boolean) Will fade the element in and out
 	 *	fadeDuration	- (int) Fade duration in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
+	 *	errorMessage	- (string) Error message when AJAX calls fail
+	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
@@ -55,6 +57,12 @@ Titon.Module = new Class({
 		fade: false,
 		fadeDuration: 250,
 		mode: 'click',
+
+		// Ajax
+		errorMessage: Titon.msg.error,
+		loadingMessage: Titon.msg.loading,
+
+		// Templates
 		template: '',
 		templateFrom: '',
 		parseTemplate: true,
@@ -153,13 +161,21 @@ Titon.Module = new Class({
 
 	/**
 	 * Hide the element and set all relevant values to null.
+	 *
+	 * @param {Function} callback
 	 */
-	hide: function() {
+	hide: function(callback) {
 		if (this.isVisible()) {
+			if (typeOf(callback) !== 'function') {
+				callback = function() {
+					this.element.hide();
+				}.bind(this);
+			}
+
 			if (this.options.fade) {
-				this.element.fadeOut(this.options.fadeDuration);
+				this.element.fadeOut(this.options.fadeDuration, callback);
 			} else {
-				this.element.hide();
+				callback();
 			}
 		}
 
@@ -209,6 +225,57 @@ Titon.Module = new Class({
 	},
 
 	/**
+	 * Request data from a URL and handle all the possible scenarios.
+	 *
+	 * @param {String} url
+	 */
+	requestData: function(url) {
+		if (this.cache[url]) {
+			return;
+		}
+
+		new Request({
+			url: url,
+			method: 'get',
+			evalScripts: true,
+
+			onSuccess: function(response) {
+				this.cache[url] = response;
+
+				this._position(response);
+
+				this.element.removeClass(Titon.options.loadingClass);
+			}.bind(this),
+
+			onRequest: function() {
+				this.cache[url] = true;
+
+				// Does not apply to all modules
+				if (this.options.showLoading) {
+					this._position(this._loadingTemplate());
+
+					this.element.addClass(Titon.options.loadingClass);
+
+					// Decrease count since _position() is being called twice
+					if (this.options.blackout) {
+						this.blackout.decrease();
+					}
+				}
+			}.bind(this),
+
+			onFailure: function() {
+				delete this.cache[url];
+
+				this._position(this._errorTemplate());
+
+				this.element
+					.removeClass(Titon.options.loadingClass)
+					.addClass(Titon.options.failedClass);
+			}.bind(this)
+		}).get();
+	},
+
+	/**
 	 * Destroy the current template and reset.
 	 *
 	 * @param {boolean} dispose
@@ -253,7 +320,19 @@ Titon.Module = new Class({
 	},
 
 	/**
-	 * Event callback for node mouseover or click.
+	 * Return a DOM element for error messages.
+	 *
+	 * @private
+	 * @returns {Element}
+	 */
+	_errorTemplate: function() {
+		return new Element('div.' + this.className().toLowerCase() + '-error', {
+			text: this.options.errorMessage
+		});
+	}.protect(),
+
+	/**
+	 * Event callback for node hover or click.
 	 *
 	 * @private
 	 * @param {Event} e
@@ -274,6 +353,28 @@ Titon.Module = new Class({
 		}
 
 		this.show(node);
+	},
+
+	/**
+	 * Return a DOM element for loading messages.
+	 *
+	 * @private
+	 * @returns {Element}
+	 */
+	_loadingTemplate: function() {
+		return new Element('div.' + this.className().toLowerCase() + '-loading', {
+			text: this.options.loadingMessage
+		});
+	}.protect(),
+
+	/**
+	 * Set the content and position the element.
+	 *
+	 * @private
+	 * @param {String} content
+	 */
+	_position: function(content) {
+		this.element.setHtml(content);
 	},
 
 	/**

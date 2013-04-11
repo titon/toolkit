@@ -151,7 +151,7 @@ Element.implement({
 	},
 
 	/**
-	 * Fade out an element and remove from DOM.
+	 * Fade out an element and trigger callback.
 	 *
 	 * @param {int} duration
 	 * @param {Function|string} callback

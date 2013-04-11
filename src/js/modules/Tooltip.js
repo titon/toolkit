@@ -32,16 +32,12 @@ Titon.Tooltip = new Class({
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
-	 *	errorMessage	- (string) Error message when AJAX calls fail
-	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
-	 *	errorElement	- (string) CSS query for the error message element within the template
-	 *	loadingElement	- (string) CSS query for the loading element within the template
 	 *	titleElement	- (string) CSS query for the title element within the template
 	 *	contentElement	- (string) CSS query for the content element within the template
 	 */
 	options: {
-		ajax: false,
 		mode: 'hover',
+		ajax: false,
 		position: 'topRight',
 		showLoading: true,
 		showTitle: true,
@@ -51,10 +47,6 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		errorMessage: Titon.msg.error,
-		loadingMessage: Titon.msg.loading,
-		errorElement: '.tooltip-error',
-		loadingElement: '.tooltip-loading',
 		titleElement: '.tooltip-head',
 		contentElement: '.tooltip-body',
 		template: '<div class="tooltip">' +
@@ -67,11 +59,6 @@ Titon.Tooltip = new Class({
 	},
 
 	/**
-	 * Custom options per node.
-	 */
-	customOptions: {},
-
-	/**
 	 * Initialize tooltips.
 	 *
 	 * @param {String} query
@@ -80,8 +67,12 @@ Titon.Tooltip = new Class({
 	initialize: function(query, options) {
 		this.parent(query, options);
 
+		// Fetch elements
 		this.elementHead = this.element.getElement(this.options.titleElement);
 		this.elementBody = this.element.getElement(this.options.contentElement);
+
+		// Add position class
+		this.element.addClass(this.options.position.hyphenate());
 
 		// Set events
 		this.disable().enable();
@@ -90,59 +81,23 @@ Titon.Tooltip = new Class({
 	},
 
 	/**
-	 * Hide the tooltip and set all relevant values to null.
-	 */
-	hide: function() {
-		if (!this.isVisible()) {
-			return;
-		}
-
-		this.parent();
-
-		if (this.customOptions.className !== this.options.className) {
-			this.element.removeClass(this.customOptions.className);
-		}
-
-		if (this.customOptions.position) {
-			this.element.removeClass(this.customOptions.position.hyphenate());
-		}
-
-		this.customOptions = {};
-
-		this.node.removeEvents('mousemove');
-	},
-
-	/**
 	 * Show the tooltip and determine whether to grab the content from an AJAX call,
-	 * a DOM node, or plain text. Can pass an options object to overwrite the defaults.
+	 * a DOM node, or plain text. The content and title can also be passed as arguments.
 	 *
 	 * @param {Element} node
 	 * @param {String|Element} content
-	 * @param {Object|boolean} options
 	 * @param {String|Element} title
 	 */
-	show: function(node, content, options, title) {
-		if (options === true) {
-			options = { ajax: true };
-		} else if (!options) {
-			options = { ajax: this.options.ajax };
-		}
-
-		options = Titon.mergeOptions(this.options, options);
-
-		// Get content
+	show: function(node, content, title) {
 		if (node) {
-			options = Titon.mergeOptions(options, node.getOptions('tooltip'));
-
-			// Set mouse events
 			if (this.options.mode === 'hover') {
 				node
 					.removeEvent('mouseleave', this.hide)
 					.addEvent('mouseleave', this.hide);
 			}
 
-			title = title || this.getValue(node, options.getTitle);
-			content = content || this.getValue(node, options.getContent);
+			title = title || this.getValue(node, this.options.getTitle);
+			content = content || this.getValue(node, this.options.getContent);
 		}
 
 		if (!content) {
@@ -150,58 +105,13 @@ Titon.Tooltip = new Class({
 		}
 
 		this.node = node;
-		this.customOptions = options;
 
-		// Add custom classes
-		this.element
-			.addClass(options.position.hyphenate())
-			.addClass(options.className);
-
-		// AJAX
-		if (options.ajax) {
+		if (this.options.ajax) {
 			if (this.cache[content]) {
 				this._position(this.cache[content], title);
-
 			} else {
-				new Request({
-					url: content,
-					method: 'get',
-					evalScripts: true,
-					onSuccess: function(response) {
-						this.cache[content] = response;
-
-						if (options.showLoading) {
-							if (this.isVisible()) {
-								this._position(response);
-							}
-						} else {
-							this._position(response);
-						}
-					}.bind(this),
-					onRequest: function() {
-						this.cache[content] = true;
-
-						if (options.showLoading) {
-							this._position(new Element('div' + this.options.loadingElement, {
-								text: this.options.loadingMessage
-							}));
-
-							this.element.addClass(Titon.options.loadingClass);
-						}
-					}.bind(this),
-					onFailure: function() {
-						delete this.cache[content];
-
-						this._position(new Element('div' + this.options.errorElement, {
-							text: this.options.errorMessage
-						}));
-
-						this.element.addClass(Titon.options.failedClass);
-					}.bind(this)
-				}).get();
+				this.requestData(content);
 			}
-
-		// Element, String
 		} else {
 			this._position(content, title);
 		}
@@ -224,21 +134,16 @@ Titon.Tooltip = new Class({
 
 	/**
 	 * Positions the tooltip relative to the current node or the mouse cursor.
-	 * Additionally will apply the title/text and hide/show if necessary.
+	 * Additionally will apply the title/content and hide/show if necessary.
 	 *
 	 * @private
 	 * @param {String|Element} content
 	 * @param {String|Element} title
 	 */
 	_position: function(content, title) {
-		if (content === true) {
-			return;
-		}
-
-		var options = this.customOptions;
 
 		// Set title
-		if (title && options.showTitle) {
+		if (title && this.options.showTitle) {
 			this.elementHead.setHtml(title).show();
 		} else {
 			this.elementHead.hide();
@@ -251,10 +156,8 @@ Titon.Tooltip = new Class({
 			this.elementBody.hide();
 		}
 
-		this.element.removeClass(Titon.options.loadingClass);
-
 		// Follow the mouse
-		if (options.position === 'mouse') {
+		if (this.options.position === 'mouse') {
 			var event = 'mousemove:throttle(' + this.options.mouseThrottle + ')';
 
 			this.node
@@ -265,7 +168,7 @@ Titon.Tooltip = new Class({
 
 		// Position accordingly
 		} else {
-			var position = options.position,
+			var position = this.options.position,
 				edgeMap = {
 					topLeft: 'bottomRight',
 					topCenter: 'bottomCenter',
@@ -283,10 +186,10 @@ Titon.Tooltip = new Class({
 				position: position,
 				edge: edgeMap[position] || 'topLeft',
 				offset: {
-					x: -options.xOffset,
-					y: -options.yOffset
+					x: -this.options.xOffset,
+					y: -this.options.yOffset
 				}
-			});
+			}).hide();
 
 			window.setTimeout(function() {
 				if (!this.isVisible()) {

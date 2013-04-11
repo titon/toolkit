@@ -50,8 +50,7 @@
 <div class="example">
 	<h2>Events</h2>
 
-	<button type="button" class="button tooltip-event" data-tooltip="Tooltip will have a custom class applied via event callbacks">onShow, onHide</button>
-	<button type="button" class="button tooltip-event2" data-tooltip="Activating node will be disabled after tooltip is positioned">onPosition</button>
+	<p>The following are supported: onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">
@@ -72,18 +71,5 @@
 		Titon.Tooltip.factory('.tooltip-bc', { position: 'bottomCenter' });
 		Titon.Tooltip.factory('.tooltip-br', { position: 'bottomRight' });
 		Titon.Tooltip.factory('.tooltip-mouse', { position: 'mouse' });
-		Titon.Tooltip.factory('.tooltip-event', {
-			onShow: function() {
-				this.node.addClass('success');
-			},
-			onHide: function() {
-				this.node.removeClass('success');
-			}
-		});
-		Titon.Tooltip.factory('.tooltip-event2', {
-			onPosition: function() {
-				this.node.set('disabled', true);
-			}
-		});
 	});
 </script>
