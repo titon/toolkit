@@ -19,7 +19,7 @@ $assets = array(
 	'flyout' => array(
 		'title' => 'Flyout',
 		'css' => array('ui/button.css', 'modules/flyout.css'),
-		'js' => array('class/Class.Timers.js', 'modules/Flyout.js')
+		'js' => array('class/Timers.js', 'modules/Flyout.js')
 	),
 	'icon' => array(
 		'title' => 'Icon',

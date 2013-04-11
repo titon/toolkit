@@ -11,7 +11,7 @@
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
-	Implements: [Class.Timers],
+	Implements: [Timers],
 
 	/**
 	 * The current menu URL being displayed.

@@ -6,10 +6,8 @@
 
 /**
  * Provides timer and interval management within the class layer.
- *
- * @uses	Core
  */
-Class.Timers = new Class({
+var Timers = new Class({
 
 	/**
 	 * Collection of timer callback functions.
@@ -26,7 +24,7 @@ Class.Timers = new Class({
 	 *
 	 * @param {String} key
 	 * @param {Function} fn
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	addTimer: function(key, fn) {
 		this.timers[key] = Function.from(fn);
@@ -38,7 +36,7 @@ Class.Timers = new Class({
 	 * Add multiple timers.
 	 *
 	 * @param {Object} timers
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	addTimers: function(timers) {
 		for (var key in timers) {
@@ -54,7 +52,7 @@ Class.Timers = new Class({
 	 * @param {String} key
 	 * @param {int} delay
 	 * @param {Array} args
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	startTimer: function(key, delay, args) {
 		this.clearTimer(key);
@@ -72,7 +70,7 @@ Class.Timers = new Class({
 	 * @param {String} key
 	 * @param {int} interval
 	 * @param {Array} args
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	startInterval: function(key, interval, args) {
 		this.clearTimer(key);
@@ -90,7 +88,7 @@ Class.Timers = new Class({
 	 * @param {String} key
 	 * @param {Function} fn
 	 * @param {Array} args
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	clearTimer: function(key, fn, args) {
 		window.clearTimeout(this.$timers[key]);
@@ -108,7 +106,7 @@ Class.Timers = new Class({
 	 * Clear all timers, or all timers defined by keys.
 	 *
 	 * @param {Array} timers
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	clearTimers: function(timers) {
 		if (timers) {
@@ -129,7 +127,7 @@ Class.Timers = new Class({
 	 * Remove a timer function.
 	 *
 	 * @param {String} key
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	removeTimer: function(key) {
 		delete this.timers[key];
@@ -141,7 +139,7 @@ Class.Timers = new Class({
 	 * Remove all defined timers.
 	 *
 	 * @param {Array} timers
-	 * @return {Class.Timers}
+	 * @return {Timers}
 	 */
 	removeTimers: function(timers) {
 		Array.from(timers).each(function(value) {

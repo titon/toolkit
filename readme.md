@@ -33,4 +33,4 @@ Titon, built on top of MooTools, is a collection of very powerful user-interface
 
 Titon also provides classes that build upon MooTools itself.
 
-* Class.Timers - Provides timer and interval management within the class layer
+* Timers - Provides timer and interval management within the class layer
