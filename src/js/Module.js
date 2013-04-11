@@ -59,8 +59,8 @@ Titon.Module = new Class({
 		mode: 'click',
 
 		// Ajax
-		errorMessage: Titon.msg.error,
-		loadingMessage: Titon.msg.loading,
+		errorMessage: null,
+		loadingMessage: null,
 
 		// Templates
 		template: '',
@@ -327,7 +327,7 @@ Titon.Module = new Class({
 	 */
 	_errorTemplate: function() {
 		return new Element('div.' + this.className().toLowerCase() + '-error', {
-			text: this.options.errorMessage
+			text: this.options.errorMessage || Locale.get('Titon.error')
 		});
 	}.protect(),
 
@@ -353,7 +353,7 @@ Titon.Module = new Class({
 	 */
 	_loadingTemplate: function() {
 		return new Element('div.' + this.className().toLowerCase() + '-loading', {
-			text: this.options.loadingMessage
+			text: this.options.loadingMessage || Locale.get('Titon.loading')
 		});
 	}.protect(),
 

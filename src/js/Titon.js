@@ -36,14 +36,6 @@ var Titon = {
 	},
 
 	/**
-	 * Localization messages.
-	 */
-	msg: {
-		loading: 'Loading...',
-		error: 'An error has occurred!'
-	},
-
-	/**
 	 * Apply custom options.
 	 *
 	 * @param {Object} options
@@ -53,6 +45,14 @@ var Titon = {
 	}
 
 };
+
+/**
+ * Localization messages.
+ */
+Locale.define('en-US', 'Titon', {
+	loading: 'Loading...',
+	error: 'An error has occurred!'
+});
 
 /**
  * Prototype overrides.
