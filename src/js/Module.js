@@ -88,8 +88,8 @@ Titon.Module = new Class({
 			var element;
 
 			// From an element
-			if (this.options.templateFrom) {
-				element = document.id(this.options.templateFrom);
+			if (element = this.options.templateFrom.remove('#')) {
+				element = $(element);
 			}
 
 			// From a string

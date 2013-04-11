@@ -36,8 +36,6 @@ Titon.Tabs = new Class({
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
-	 *	errorMessage	- (string) Error message when AJAX calls fail
-	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	tabsElement		- (string) The CSS query to grab the tab elements
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
 	 */
@@ -47,8 +45,6 @@ Titon.Tabs = new Class({
 		persistState: false,
 		cookie: null,
 		cookieDuration: 30,
-		errorMessage: Titon.msg.error,
-		loadingMessage: Titon.msg.loading,
 		tabsElement: 'nav a',
 		sectionsElement: 'section'
 	},
@@ -84,7 +80,7 @@ Titon.Tabs = new Class({
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
 
-		this.show(index);
+		this.jump(index);
 	},
 
 	/**
@@ -97,32 +93,31 @@ Titon.Tabs = new Class({
 	},
 
 	/**
+	 * Jump to a specific tab via index.
+	 *
+	 * @param {Number} index
+	 */
+	jump: function(index) {
+		if (this.tabs[index]) {
+			this.show(this.tabs[index]);
+		}
+	},
+
+	/**
 	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
 	 * or pass an element object for a tab in the collection.
 	 *
-	 * @param {Element|int} tab
+	 * @param {Element} tab
 	 */
 	show: function(tab) {
-		if (typeOf(tab) === 'number') {
-			tab = this.tabs[tab] || null;
-		}
-
-		if (!tab) {
-			return;
-		}
-
-		// Set default tab
-		if (!this.node) {
-			this.node = tab;
-		}
-
-		var className = Titon.options.activeClass,
-			target = tab.get('data-tabs-index'),
-			url = tab.get('href'),
-			section = this.sections[target];
+		var activeClass = Titon.options.activeClass,
+			loadingClass = Titon.options.loadingClass,
+			failedClass = Titon.options.failedClass,
+			section = this.sections[tab.get('data-tabs-index')],
+			url = tab.get('href');
 
 		// Load content with AJAX
-		if (url && !url.contains('#') && this.options.ajax && !this.cache[url]) {
+		if (this.options.ajax && url && !url.contains('#') && !this.cache[url]) {
 			new Request({
 				url: url,
 				method: 'get',
@@ -130,26 +125,26 @@ Titon.Tabs = new Class({
 				onSuccess: function(response) {
 					this.cache[url] = true;
 
-					section
-						.setHtml(response)
-						.removeClass(Titon.options.loadingClass);
+					section.setHtml(response)
+						.removeClass(loadingClass);
 				}.bind(this),
+
 				onRequest: function() {
-					section.setHtml(new Element('div.tabs-loading', {
-						text: this.options.loadingMessage
-					})).addClass(Titon.options.loadingClass);
+					section.setHtml(this._loadingTemplate())
+						.addClass(loadingClass);
 				}.bind(this),
+
 				onFailure: function() {
-					section.setHtml(new Element('div.tabs-error', {
-						text: this.options.errorMessage
-					})).addClass(Titon.options.failedClass);
+					section.setHtml(this._errorTemplate())
+						.removeClass(loadingClass)
+						.addClass(failedClass);
 				}.bind(this)
 			}).get();
 		}
 
 		// Toggle tabs
-		this.tabs.removeClass(className);
-		tab.addClass(className);
+		this.tabs.removeClass(activeClass);
+		tab.addClass(activeClass);
 
 		// Toggle sections
 		this.hide();

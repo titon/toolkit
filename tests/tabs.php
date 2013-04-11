@@ -42,7 +42,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 <div class="example">
 	<h2>Effects</h2>
 
-	<p>Hover instead of click, persistent tabs, default 2nd section.</p>
+	<p>Hover instead of click, section fading, persistent tabs, default 2nd section.</p>
 
 	<div class="tabs" id="tabs-effects">
 		<nav>
@@ -60,21 +60,9 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <div class="example">
-	<h2>Events, Features</h2>
+	<h2>Events</h2>
 
-	<p>Custom events, section fading.</p>
-
-	<div class="tabs" id="tabs-events">
-		<nav>
-			<ul>
-				<li><a href="#tab-7" class="button">No Event</a></li>
-				<li><a href="#tab-8" class="button">onShow, onHide</a></li>
-			</ul>
-		</nav>
-
-		<section id="tab-7" style="display: none">No event.</section>
-		<section id="tab-8" style="display: none">The activated tab will have a custom class toggled.</section>
-	</div>
+	<p>The following are supported: onInit, onShow, onHide</p>
 </div>
 
 <h1>Tabs: Effects</h1>
@@ -147,17 +135,9 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		Titon.Tabs.factory('tabs-base2');
 		Titon.Tabs.factory('tabs-effects', {
 			mode: 'hover',
+			fade: true,
 			persistState: true,
 			defaultIndex: 1
-		});
-		Titon.Tabs.factory('tabs-events', {
-			fade: true,
-			onShow: function(tab) {
-				tab.addClass('success');
-			},
-			onHide: function(tab) {
-				tab.removeClass('success');
-			}
 		});
 		Titon.Tabs.factory('tabs-left');
 		Titon.Tabs.factory('tabs-left2');
