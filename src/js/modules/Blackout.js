@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Displays a transparent black element over the entire website.
  *
@@ -16,19 +18,10 @@ Titon.Blackout = new Class({
 
 	/**
 	 * Default options.
-	 *
-	 *	template		- (string) HTML string template that will be converted to DOM nodes
-	 *	templateFrom	- (string) ID of an element to use as the template
-	 *	onHide			- (function) Callback to trigger when the blackout is hidden
-	 *	onShow			- (function) Callback to trigger when the blackout is shown
 	 */
 	options: {
 		template: '<div class="blackout" id="titon-blackout"></div>',
-		templateFrom: 'titon-blackout',
-
-		// Events
-		onHide: null,
-		onShow: null
+		templateFrom: 'titon-blackout'
 	},
 
 	/**
@@ -38,6 +31,8 @@ Titon.Blackout = new Class({
 		this.parent();
 
 		window.addEvent('resize', this.position.bind(this));
+
+		this.fireEvent('init');
 	},
 
 	/**
@@ -80,7 +75,7 @@ Titon.Blackout = new Class({
 		}
 
 		this.decrease();
-		this.fireEvent('hide');
+		this.parent();
 
 		return this;
 	},

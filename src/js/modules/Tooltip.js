@@ -4,19 +4,14 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Creates dynamic tooltips that will display at a specific element or the mouse cursor.
- *
- * @uses	Titon
- * @uses	Titon.Module
- * @uses	Core
- * @uses	More/Class.Binds
- * @uses	More/Element.Event.Pseudos
- * @uses	More/Element.Position
  */
 Titon.Tooltip = new Class({
 	Extends: Titon.Module,
-	Binds: ['_follow', '_listen', 'hide'],
+	Binds: ['_follow'],
 
 	/**
 	 * DOM elements.
@@ -25,18 +20,9 @@ Titon.Tooltip = new Class({
 	elementBody: null,
 
 	/**
-	 * Is the event mode a click?
-	 */
-	isClick: false,
-
-	/**
 	 * Default options.
 	 *
 	 *	ajax			- (boolean) The tooltip uses the target as an AJAX call
-	 *	fade			- (boolean) Will fade the tooltips in and out
-	 *	fadeDuration	- (int) Fade duration in milliseconds
-	 *	mode			- (string) Either "hover" or "click"
-	 *	className		- (string) Class name to append to a tooltip when it is shown
 	 *	position		- (string) The position to display the tooltip over the element
 	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
 	 *	showTitle		- (boolean) Will display the element title in the tooltip
@@ -46,24 +32,16 @@ Titon.Tooltip = new Class({
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	delay			- (int) The delay in milliseconds before the tooltip shows
-	 *	context			- (element) The element the tooltips will display in (defaults body)
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	errorElement	- (string) CSS query for the error message element within the template
 	 *	loadingElement	- (string) CSS query for the loading element within the template
 	 *	titleElement	- (string) CSS query for the title element within the template
 	 *	contentElement	- (string) CSS query for the content element within the template
-	 *	template		- (string) HTML string template that will be converted to DOM nodes
-	 *	onHide			- (function) Callback to trigger when a tooltip is hidden
-	 *	onShow			- (function) Callback to trigger when a tooltip is shown through event
-	 *	onPosition		- (function) Callback to trigger when a tooltip is positioned
 	 */
 	options: {
 		ajax: false,
-		fade: false,
-		fadeDuration: 250,
 		mode: 'hover',
-		className: '',
 		position: 'topRight',
 		showLoading: true,
 		showTitle: true,
@@ -73,7 +51,6 @@ Titon.Tooltip = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		delay: 0,
-		context: null,
 		errorMessage: Titon.msg.error,
 		loadingMessage: Titon.msg.loading,
 		errorElement: '.tooltip-error',
@@ -86,12 +63,7 @@ Titon.Tooltip = new Class({
 				'<div class="tooltip-body"></div>' +
 			'</div>' +
 			'<div class="tooltip-arrow"></div>' +
-		'</div>',
-
-		// Events
-		onHide: null,
-		onShow: null,
-		onPosition: null
+		'</div>'
 	},
 
 	/**
@@ -106,48 +78,15 @@ Titon.Tooltip = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
-		this.parent(options);
-		this.query = query;
+		this.parent(query, options);
 
-		// Get elements
 		this.elementHead = this.element.getElement(this.options.titleElement);
 		this.elementBody = this.element.getElement(this.options.contentElement);
 
-		// Set options
-		if (this.options.className) {
-			this.element.addClass(this.options.className);
-		}
-
-		this.isClick = (this.options.mode !== 'hover');
-
 		// Set events
 		this.disable().enable();
-	},
 
-	/**
-	 * Disable tooltip events.
-	 *
-	 * @return {Titon.Tooltip}
-	 */
-	disable: function() {
-		if (this.query) {
-			$(this.options.context || document.body).removeEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
-		}
-
-		return this;
-	},
-
-	/**
-	 * Enable tooltip events.
-	 *
-	 * @return {Titon.Tooltip}
-	 */
-	enable: function() {
-		if (this.query) {
-			$(this.options.context || document.body).addEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
-		}
-
-		return this;
+		this.fireEvent('init');
 	},
 
 	/**
@@ -158,11 +97,7 @@ Titon.Tooltip = new Class({
 			return;
 		}
 
-		if (this.options.fade) {
-			this.element.fadeOut(this.options.fadeDuration);
-		} else {
-			this.element.hide();
-		}
+		this.parent();
 
 		if (this.customOptions.className !== this.options.className) {
 			this.element.removeClass(this.customOptions.className);
@@ -171,8 +106,6 @@ Titon.Tooltip = new Class({
 		if (this.customOptions.position) {
 			this.element.removeClass(this.customOptions.position.hyphenate());
 		}
-
-		this.fireEvent('hide');
 
 		this.customOptions = {};
 
@@ -202,7 +135,7 @@ Titon.Tooltip = new Class({
 			options = Titon.mergeOptions(options, node.getOptions('tooltip'));
 
 			// Set mouse events
-			if (!this.isClick) {
+			if (this.options.mode === 'hover') {
 				node
 					.removeEvent('mouseleave', this.hide)
 					.addEvent('mouseleave', this.hide);
@@ -272,8 +205,6 @@ Titon.Tooltip = new Class({
 		} else {
 			this._position(content, title);
 		}
-
-		this.fireEvent('show');
 	},
 
 	/**
@@ -289,30 +220,6 @@ Titon.Tooltip = new Class({
 			x: (e.page.x + 10 + this.options.xOffset),
 			y: (e.page.y + 10 + this.options.yOffset)
 		}).fade('show').show();
-	},
-
-	/**
-	 * Event callback for tooltip element mouseover or click.
-	 *
-	 * @private
-	 * @param {Event} e
-	 * @param {Element} node
-	 */
-	_listen: function(e, node) {
-		e.stop();
-
-		if (this.isVisible()) {
-			if (this.isClick) {
-				this.hide();
-			}
-
-			// Exit if the same node
-			if (node == this.node) {
-				return;
-			}
-		}
-
-		this.show(node);
 	},
 
 	/**
@@ -354,7 +261,7 @@ Titon.Tooltip = new Class({
 				.removeEvent(event, this._follow)
 				.addEvent(event, this._follow);
 
-			this.fireEvent('position');
+			this.fireEvent('show');
 
 		// Position accordingly
 		} else {
@@ -390,7 +297,7 @@ Titon.Tooltip = new Class({
 					}
 				}
 
-				this.fireEvent('position');
+				this.fireEvent('show');
 			}.bind(this), this.options.delay || 0);
 		}
 	}

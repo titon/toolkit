@@ -4,18 +4,13 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Provides tabbed support to an element containing navigation tabs and sections.
- * Each time a tab is clicked, the section with the same ID as the tab href will be displayed.
- *
- * @uses	Titon
- * @uses	Titon.Module
- * @uses	Core
- * @uses	More/Class.Binds
  */
 Titon.Tabs = new Class({
 	Extends: Titon.Module,
-	Binds: ['_listen'],
 
 	/**
 	 * Collection of content sections.
@@ -37,9 +32,6 @@ Titon.Tabs = new Class({
 	 * Default options.
 	 *
 	 *	ajax			- (boolean) Will load the href as an ajax call when applicable
-	 *	fade			- (boolean) Should the sections fade in
-	 *	fadeDuration	- (int) Fade duration in milliseconds
-	 *	mode			- (string) Either "hover" or "click"
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	cookie			- (string) The key used in the cookie name
@@ -48,15 +40,9 @@ Titon.Tabs = new Class({
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
 	 *	tabsElement		- (string) The CSS query to grab the tab elements
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
-	 *	template		- (string) Do not use an HTML template
-	 *	onShow			- (function) Callback to trigger when a section is shown
-	 *	onHide			- (function) Callback to trigger when all sections are hidden
 	 */
 	options: {
 		ajax: true,
-		fade: false,
-		fadeDuration: 600,
-		mode: 'click',
 		defaultIndex: 0,
 		persistState: false,
 		cookie: null,
@@ -64,12 +50,7 @@ Titon.Tabs = new Class({
 		errorMessage: Titon.msg.error,
 		loadingMessage: Titon.msg.loading,
 		tabsElement: 'nav a',
-		sectionsElement: 'section',
-		template: false,
-
-		// Events
-		onShow: null,
-		onHide: null
+		sectionsElement: 'section'
 	},
 
 	/**
@@ -82,15 +63,15 @@ Titon.Tabs = new Class({
 		options = options || {};
 		options.cookie = (options.cookie || query).camelCase();
 		options.templateFrom = query;
+		options.template = false;
 
-		this.parent(options);
-		this.query = query;
+		this.parent(query, options);
 
 		// Get elements
 		this.tabs = this.element.getElements(this.options.tabsElement);
 		this.tabs.each(function(tab, index) {
 			tab.set('data-tabs-index', index).removeClass(Titon.options.activeClass);
-		}.bind(this));
+		});
 
 		this.sections = this.element.getElements(this.options.sectionsElement);
 		this.sections.hide();
@@ -98,32 +79,12 @@ Titon.Tabs = new Class({
 		// Set events
 		this.disable().enable();
 
+		this.fireEvent('init');
+
 		// Trigger default tab to display
 		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
 
 		this.show(index);
-	},
-
-	/**
-	 * Disable tab events.
-	 *
-	 * @return {Titon.Tabs}
-	 */
-	disable: function() {
-		this.tabs.removeEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen);
-
-		return this;
-	},
-
-	/**
-	 * Enable tab events.
-	 *
-	 * @return {Titon.Tabs}
-	 */
-	enable: function() {
-		this.tabs.addEvent((this.options.mode === 'click') ? 'click' : 'mouseover', this._listen);
-
-		return this;
 	},
 
 	/**
@@ -168,12 +129,15 @@ Titon.Tabs = new Class({
 				evalScripts: true,
 				onSuccess: function(response) {
 					this.cache[url] = true;
-					section.setHtml(response);
+
+					section
+						.setHtml(response)
+						.removeClass(Titon.options.loadingClass);
 				}.bind(this),
 				onRequest: function() {
 					section.setHtml(new Element('div.tabs-loading', {
 						text: this.options.loadingMessage
-					}));
+					})).addClass(Titon.options.loadingClass);
 				}.bind(this),
 				onFailure: function() {
 					section.setHtml(new Element('div.tabs-error', {
@@ -216,13 +180,36 @@ Titon.Tabs = new Class({
 	/**
 	 * Event callback for tab element click.
 	 *
+	 * @private
 	 * @param {Event} e
 	 */
 	_listen: function(e) {
 		e.stop();
 
 		this.show(e.target);
-	}
+	},
+
+	/**
+	 * Toggle activation events on and off.
+	 *
+	 * @private
+	 * @return {Titon.Tabs}
+	 */
+	_toggleEvents: function(on) {
+		if (!this.query) {
+			return this;
+		}
+
+		var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
+
+		if (on) {
+			this.tabs.addEvent(event, this._listen);
+		} else {
+			this.tabs.removeEvent(event, this._listen);
+		}
+
+		return this;
+	}.protect()
 
 });
 

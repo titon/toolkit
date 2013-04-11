@@ -4,22 +4,15 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Creates dynamic modals that will display above the content.
- *
- * @uses	Titon
- * @uses	Titon.Blackout
- * @uses	Titon.Module
- * @uses	Core
- * @uses	More/Class.Binds
- * @uses	More/Drag
- * @uses	More/Element.Position
  *
  * @todo	Refactor fixed positioning
  */
 Titon.Modal = new Class({
 	Extends: Titon.Module,
-	Binds: ['_listen'],
 
 	/**
 	 * Blackout instance if options.blackout is true.
@@ -68,14 +61,10 @@ Titon.Modal = new Class({
 		draggable: false,
 		blackout: true,
 		fixed: true,
-		fade: false,
-		fadeDuration: 250,
-		className: '',
 		position: 'center',
 		showLoading: true,
 		getContent: 'data-modal',
 		delay: 0,
-		context: null,
 		errorMessage: Titon.msg.error,
 		loadingMessage: Titon.msg.loading,
 		contentElement: '.modal-inner',
@@ -90,9 +79,6 @@ Titon.Modal = new Class({
 		'</div>',
 
 		// Events
-		onHide: null,
-		onShow: null,
-		onPosition: null,
 		onSubmit: null
 	},
 
@@ -103,17 +89,12 @@ Titon.Modal = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
-		this.parent(options);
-		this.query = query;
+		this.parent(query, options);
 
 		// Get elements
 		this.elementBody = this.element.getElement(this.options.contentElement);
 
-		// Set options
-		if (this.options.className) {
-			this.element.addClass(this.options.className);
-		}
-
+		// Draggable
 		if (this.options.draggable) {
 			this.drag = new Drag(this.element, {
 				onStart: function(element) {
@@ -127,9 +108,10 @@ Titon.Modal = new Class({
 			this.element.addClass(Titon.options.draggableClass);
 		}
 
+		// Blackout
 		if (this.options.blackout) {
 			this.blackout = new Titon.Blackout();
-			this.blackout.element.addEvent('click', this.hide.bind(this));
+			this.blackout.element.addEvent('click', this.hide);
 		}
 
 		// Set events
@@ -143,41 +125,9 @@ Titon.Modal = new Class({
 	},
 
 	/**
-	 * Disable modal events.
-	 *
-	 * @return {Titon.Modal}
-	 */
-	disable: function() {
-		if (this.query) {
-			$(this.options.context || document.body).removeEvent('click:relay(' + this.query + ')', this._listen);
-		}
-
-		return this;
-	},
-
-	/**
-	 * Enable modal events.
-	 *
-	 * @return {Titon.Modal}
-	 */
-	enable: function() {
-		if (this.query) {
-			$(this.options.context || document.body).addEvent('click:relay(' + this.query + ')', this._listen);
-		}
-
-		return this;
-	},
-
-	/**
 	 * Hide the modal and reset relevant values.
-	 *
-	 * @param {Event} e
 	 */
-	hide: function(e) {
-		if (typeOf(e) === 'domevent') {
-			e.stop();
-		}
-
+	hide: function() {
 		if (!this.isVisible()) {
 			return;
 		}
@@ -197,8 +147,6 @@ Titon.Modal = new Class({
 		}
 
 		this.fireEvent('hide');
-
-		this.node = null;
 	},
 
 	/**
@@ -375,7 +323,7 @@ Titon.Modal = new Class({
 				}
 			}
 
-			this.fireEvent('position');
+			this.fireEvent('show');
 		}.bind(this), this.options.delay || 0);
 	}
 

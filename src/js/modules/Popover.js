@@ -4,25 +4,16 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Creates dynamic popovers that will display at a specific element on click.
- *
- * @uses	Titon
- * @uses	Titon.Tooltip
  */
 Titon.Popover = new Class({
 	Extends: Titon.Tooltip,
 
 	/**
 	 * Default options.
-	 *
-	 *	position		- (string) The position to display the popover over the element
-	 *	getContent		- (string) Attribute to read the content from
-	 *	errorElement	- (string) CSS query for the error message element within the template
-	 *	loadingElement	- (string) CSS query for the loading element within the template
-	 *	titleElement	- (string) CSS query for the title element within the template
-	 *	contentElement	- (string) CSS query for the content element within the template
-	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 */
 	options: {
 		position: 'topCenter',

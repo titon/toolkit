@@ -4,21 +4,14 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Creates nested flyout menus that appear below an element that activates it.
- *
- * @uses	Titon
- * @uses	Titon.Module
- * @uses	Titon/Class.Timers
- * @uses	Core
- * @uses	More/Class.Binds
- * @uses	More/Element.Measure
- * @uses	More/Array.Extras
  */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
 	Implements: [Class.Timers],
-	Binds: ['_listen'],
 
 	/**
 	 * The current menu URL being displayed.
@@ -41,55 +34,33 @@ Titon.Flyout = new Class({
 	elements: {},
 
 	/**
-	 * Is the event mode a click?
-	 */
-	isClick: false,
-
-	/**
 	 * Default options.
 	 *
-	 *	fade			- (boolean) Will fade the menus in and out
-	 *	fadeDuration	- (int) Fade duration in milliseconds
-	 *	mode			- (string) Either "hover" or "click"
-	 *	className		- (string) Class name to append to a menu when it is shown
 	 *	getUrl			- (string) Attribute to read the URL from
 	 *	xOffset			- (int) Additional margin on the X axis
 	 *	yOffset			- (int) Additional margin on the Y axis
 	 *	showDelay		- (int) The delay in milliseconds before the menu shows
 	 *	hideDelay		- (int) The delay in milliseconds before the menu hides
 	 *	itemLimit		- (int) How many items before splitting the lists
-	 *	context			- (element) The element the menus will display in (defaults body)
 	 *	contentElement	- (string) CSS query for the element within the template that the <ul> menu will be injected into
-	 *	template		- (string) HTML string template that will be converted to DOM nodes
-	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
-	 *	onHide			- (function) Callback to trigger when the parent menu is hidden
 	 *	onHideChild		- (function) Callback to trigger when a child menu is hidden
-	 *	onShow			- (function) Callback to trigger when the parent menu is shown
 	 *	onShowChild		- (function) Callback to trigger when a child menu is shown
-	 *	onPosition		- (function) Callback to trigger when the parent menu is positioned
 	 */
 	options: {
-		fade: false,
-		fadeDuration: 250,
 		mode: 'hover',
-		className: '',
 		getUrl: 'href',
 		xOffset: 0,
 		yOffset: 0,
 		showDelay: 350,
 		hideDelay: 1000,
 		itemLimit: 15,
-		context: null,
 		contentElement: '.flyout',
 		template: '<div class="flyout"></div>',
 		parseTemplate: false,
 
 		// Events
-		onHide: null,
 		onHideChild: null,
-		onShow: null,
-		onShowChild: null,
-		onPosition: null
+		onShowChild: null
 	},
 
 	/**
@@ -100,9 +71,7 @@ Titon.Flyout = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(query, url, options) {
-		this.parent(options);
-		this.query = query;
-		this.isClick = (this.options.mode !== 'hover');
+		this.parent(query, options);
 
 		// Load data from the URL
 		if (url) {
@@ -122,7 +91,7 @@ Titon.Flyout = new Class({
 		// Set events
 		this.disable().enable();
 
-		if (!this.isClick) {
+		if (this.options.mode === 'hover') {
 			$$(query)
 				.addEvent('mouseenter', function() {
 					this.clearTimer('hide').startTimer('show', this.options.showDelay);
@@ -131,28 +100,8 @@ Titon.Flyout = new Class({
 					this.clearTimer('show').startTimer('hide', this.options.showDelay);
 				}.bind(this));
 		}
-	},
 
-	/**
-	 * Disable flyout events.
-	 *
-	 * @return {Titon.Flyout}
-	 */
-	disable: function() {
-		$(this.options.context || document.body).removeEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
-
-		return this;
-	},
-
-	/**
-	 * Enable flyout events.
-	 *
-	 * @return {Titon.Flyout}
-	 */
-	enable: function() {
-		$(this.options.context || document.body).addEvent((this.isClick ? 'click' : 'mouseenter') + ':relay(' + this.query + ')', this._listen);
-
-		return this;
+		this.fireEvent('init');
 	},
 
 	/**
@@ -167,16 +116,15 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		if (this.options.fade) {
-			this.elements[this.current].fadeOut(this.options.fadeDuration);
-		} else {
-			this.elements[this.current].hide();
+		if (this.isVisible()) {
+			if (this.options.fade) {
+				this.elements[this.current].fadeOut(this.options.fadeDuration);
+			} else {
+				this.elements[this.current].hide();
+			}
 		}
 
 		this.fireEvent('hide');
-
-		this.node = null;
-		this.current = null;
 	},
 
 	/**
@@ -218,9 +166,9 @@ Titon.Flyout = new Class({
 	 * @param {Element} node
 	 */
 	show: function(node) {
-		// Only hide if not the same target
 		var target = this._getTarget(node);
 
+		// Only hide if not the same target
 		if (this.current && target !== this.current) {
 			this.hide();
 
@@ -237,11 +185,8 @@ Titon.Flyout = new Class({
 
 		this.node.addClass(Titon.options.activeClass);
 
-		// Call show before position if click mode
-		this.fireEvent('show');
-
 		// Display immediately if click
-		if (this.isClick) {
+		if (this.options.mode === 'click') {
 			this._position();
 		}
 	},
@@ -358,7 +303,7 @@ Titon.Flyout = new Class({
 				return null;
 			}
 
-			if (!this.isClick) {
+			if (this.options.mode === 'hover') {
 				menu.hide()
 					.addEvent('mouseenter', function() {
 						this.clearTimer('hide');
@@ -389,26 +334,6 @@ Titon.Flyout = new Class({
 
 		return this.getValue(node, this.options.getUrl) || node.get('href');
 	}.protect(),
-
-	/**
-	 * Event callback for node mouseover or click.
-	 *
-	 * @param {Event} e
-	 * @param {Element} node
-	 */
-	_listen: function(e, node) {
-		e.stop();
-
-		if (this.isVisible()) {
-			if (this.isClick) {
-				this.hide();
-			}
-
-			return;
-		}
-
-		this.show(node);
-	},
 
 	/**
 	 * Position the menu below the target node.
@@ -446,14 +371,14 @@ Titon.Flyout = new Class({
 			menu.show();
 		}
 
-		this.fireEvent('position');
+		this.fireEvent('show');
 	},
 
 	/**
 	 * Position the child menu dependent on the position in the page.
 	 *
-	 * @param {Element} parent
 	 * @private
+	 * @param {Element} parent
 	 */
 	_positionChild: function(parent) {
 		var menu = parent.getElement(this.options.contentElement);
@@ -495,8 +420,8 @@ Titon.Flyout = new Class({
 	/**
 	 * Hide the child menu after exiting parent li.
 	 *
-	 * @param {Element} parent
 	 * @private
+	 * @param {Element} parent
 	 */
 	_hideChild: function(parent) {
 		parent.removeClass('opened');

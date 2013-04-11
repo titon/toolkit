@@ -4,18 +4,15 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * Primary class that all sub-classes should extend from.
  * Provides options, event and template support.
- *
- * @uses	Titon
- * @uses	Core
- * @uses	More/Elements.From
- * @uses	More/Element.Shortcuts
- * @uses	More/Hash
  */
 Titon.Module = new Class({
 	Implements: [Events, Options],
+	Binds: ['_listen', 'hide', 'show'],
 
 	/**
 	 * Cached data.
@@ -40,22 +37,42 @@ Titon.Module = new Class({
 	/**
 	 * Default options.
 	 *
+	 *	className		- (string) Class name to append to a menu when it is shown
+	 *	context			- (element) The element the module will display in (defaults to document.body)
+	 *	fade			- (boolean) Will fade the menus in and out
+	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	mode			- (string) Either "hover" or "click"
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
+	 *	onInit			- (function) Callback to trigger when class is instantiated
+	 *	onHide			- (function) Callback to trigger when the element is hidden
+	 *	onShow			- (function) Callback to trigger when the element is shown
 	 */
 	options: {
+		className: '',
+		context: null,
+		fade: false,
+		fadeDuration: 250,
+		mode: 'click',
 		template: '',
 		templateFrom: '',
-		parseTemplate: true
+		parseTemplate: true,
+
+		// Events
+		onInit: null,
+		onHide: null,
+		onShow: null
 	},
 
 	/**
 	 * Initialize options and template.
 	 *
+	 * @param {String} query
 	 * @param {Object} options
 	 */
-	initialize: function(options) {
+	initialize: function(query, options) {
+		this.query = query;
 		this.setOptions(options || {});
 
 		// Parse the template from a string, or use a target element
@@ -64,7 +81,7 @@ Titon.Module = new Class({
 
 			// From an element
 			if (this.options.templateFrom) {
-				element = $(this.options.templateFrom.remove('#'));
+				element = document.id(this.options.templateFrom);
 			}
 
 			// From a string
@@ -80,6 +97,11 @@ Titon.Module = new Class({
 			} else {
 				throw new Error('Template failed to parse');
 			}
+
+			// Add a class name
+			if (this.options.className) {
+				this.element.addClass(this.options.className);
+			}
 		}
 	},
 
@@ -90,6 +112,24 @@ Titon.Module = new Class({
 	 */
 	className: function() {
 		return new Hash(window.Titon).keyOf(this.$constructor);
+	},
+
+	/**
+	 * Disable activation events.
+	 *
+	 * @return {Titon.Module}
+	 */
+	disable: function() {
+		return this._toggleEvents(false);
+	},
+
+	/**
+	 * Enable activation events.
+	 *
+	 * @return {Titon.Module}
+	 */
+	enable: function() {
+		return this._toggleEvents(true);
 	},
 
 	/**
@@ -109,6 +149,21 @@ Titon.Module = new Class({
 		}
 
 		return node.get(query);
+	},
+
+	/**
+	 * Hide the element and set all relevant values to null.
+	 */
+	hide: function() {
+		if (this.isVisible()) {
+			if (this.options.fade) {
+				this.element.fadeOut(this.options.fadeDuration);
+			} else {
+				this.element.hide();
+			}
+		}
+
+		this.fireEvent('hide');
 	},
 
 	/**
@@ -172,12 +227,77 @@ Titon.Module = new Class({
 	},
 
 	/**
+	 * Show the element and store the node.
+	 *
+	 * @param {Element} node
+	 */
+	show: function(node) {
+		this.node = node;
+
+		if (this.options.fade) {
+			this.element.fadeIn(this.options.fadeDuration);
+		} else {
+			this.element.show();
+		}
+
+		this.fireEvent('show')
+	},
+
+	/**
 	 * Return the element when the class is passed as an argument.
 	 *
 	 * @return {Element}
 	 */
 	toElement: function() {
 		return this.element;
-	}
+	},
+
+	/**
+	 * Event callback for node mouseover or click.
+	 *
+	 * @private
+	 * @param {Event} e
+	 * @param {Element} node
+	 */
+	_listen: function(e, node) {
+		e.stop();
+
+		if (this.isVisible()) {
+			if (this.options.mode === 'click') {
+				this.hide();
+			}
+
+			// Exit if the same node
+			if (node === this.node) {
+				return;
+			}
+		}
+
+		this.show(node);
+	},
+
+	/**
+	 * Toggle activation events on and off.
+	 *
+	 * @private
+	 * @return {Titon.Module}
+	 */
+	_toggleEvents: function(on) {
+		if (!this.query) {
+			return this;
+		}
+
+		var options = this.options,
+			event = (this.options.mode === 'click' ? 'click' : 'mouseenter') + ':relay(' + this.query + ')',
+			context = $(options.context || document.body);
+
+		if (on) {
+			context.addEvent(event, this._listen);
+		} else {
+			context.removeEvent(event, this._listen);
+		}
+
+		return this;
+	}.protect()
 
 });
