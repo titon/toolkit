@@ -85,12 +85,13 @@ Titon.Flyout = new Class({
 		// Set timers
 		this.addTimers({
 			show: this._position,
-			hide: this.hide
+			hide: this._hide
 		});
 
 		// Set events
 		this.disable().enable();
 
+		// Handles keeping menu open even if mouse exits the context
 		if (this.options.mode === 'hover') {
 			$$(query)
 				.addEvent('mouseenter', function() {
@@ -110,21 +111,23 @@ Titon.Flyout = new Class({
 	hide: function() {
 		this.clearTimers();
 
+		// Must be called even if the menu is hidden
 		this.node.removeClass(Titon.options.activeClass);
 
 		if (!this.current || !this.isVisible()) {
 			return;
 		}
 
-		if (this.isVisible()) {
-			if (this.options.fade) {
-				this.elements[this.current].fadeOut(this.options.fadeDuration);
-			} else {
-				this.elements[this.current].hide();
-			}
+		if (this.options.fade) {
+			this.elements[this.current].fadeOut(this.options.fadeDuration);
+		} else {
+			this.elements[this.current].hide();
 		}
 
 		this.fireEvent('hide');
+
+		// Reset last
+		this.current = null;
 	},
 
 	/**
@@ -168,12 +171,11 @@ Titon.Flyout = new Class({
 	show: function(node) {
 		var target = this._getTarget(node);
 
-		// Only hide if not the same target
+		// When jumping from one node to another
+		// Immediately hide the other menu and start the timer for the current one
 		if (this.current && target !== this.current) {
 			this.hide();
-
-		} else if (this.isVisible()) {
-			return;
+			this.startTimer('show', this.options.showDelay);
 		}
 
 		this.node = node;
@@ -303,14 +305,17 @@ Titon.Flyout = new Class({
 				return null;
 			}
 
+			menu.hide();
+
 			if (this.options.mode === 'hover') {
-				menu.hide()
-					.addEvent('mouseenter', function() {
+				menu.addEvents({
+					mouseenter: function() {
 						this.clearTimer('hide');
-					}.bind(this))
-					.addEvent('mouseleave', function() {
+					}.bind(this),
+					mouseleave: function() {
 						this.startTimer('hide', this.options.hideDelay);
-					}.bind(this));
+					}.bind(this)
+				});
 			}
 
 			this.current = target;
@@ -334,6 +339,18 @@ Titon.Flyout = new Class({
 
 		return this.getValue(node, this.options.getUrl) || node.get('href');
 	}.protect(),
+
+	/**
+	 * Hide the child menu after exiting parent li.
+	 *
+	 * @private
+	 * @param {Element} parent
+	 */
+	_hideChild: function(parent) {
+		parent.removeClass('opened');
+
+		this.fireEvent('hideChild', parent);
+	},
 
 	/**
 	 * Position the menu below the target node.
@@ -415,18 +432,6 @@ Titon.Flyout = new Class({
 		}
 
 		this.fireEvent('showChild', parent);
-	},
-
-	/**
-	 * Hide the child menu after exiting parent li.
-	 *
-	 * @private
-	 * @param {Element} parent
-	 */
-	_hideChild: function(parent) {
-		parent.removeClass('opened');
-
-		this.fireEvent('hideChild', parent);
 	}
 
 });

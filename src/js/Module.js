@@ -12,7 +12,7 @@
  */
 Titon.Module = new Class({
 	Implements: [Events, Options],
-	Binds: ['_show', '_hide'],
+	Binds: ['_show', '_hide', '_position'],
 
 	/**
 	 * Cached data.
@@ -338,7 +338,9 @@ Titon.Module = new Class({
 	 * @param {Event} e
 	 */
 	_hide: function(e) {
-		e.stop();
+		if (typeOf(e) === 'domevent') {
+			e.stop();
+		}
 
 		this.hide();
 	},
@@ -373,7 +375,9 @@ Titon.Module = new Class({
 	 * @param {Element} node
 	 */
 	_show: function(e, node) {
-		e.stop();
+		if (typeOf(e) === 'domevent') {
+			e.stop();
+		}
 
 		if (this.isVisible()) {
 			if (this.options.mode === 'click') {
