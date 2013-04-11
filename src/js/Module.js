@@ -242,9 +242,16 @@ Titon.Module = new Class({
 			onSuccess: function(response) {
 				this.cache[url] = response;
 
-				this._position(response);
+				// Does not apply to all modules
+				if (this.options.showLoading) {
+					this.element.removeClass(Titon.options.loadingClass);
 
-				this.element.removeClass(Titon.options.loadingClass);
+					if (this.isVisible()) {
+						this._position(response);
+					}
+				} else {
+					this._position(response);
+				}
 			}.bind(this),
 
 			onRequest: function() {
@@ -252,9 +259,9 @@ Titon.Module = new Class({
 
 				// Does not apply to all modules
 				if (this.options.showLoading) {
-					this._position(this._loadingTemplate());
-
 					this.element.addClass(Titon.options.loadingClass);
+
+					this._position(this._loadingTemplate());
 
 					// Decrease count since _position() is being called twice
 					if (this.options.blackout) {
@@ -266,11 +273,11 @@ Titon.Module = new Class({
 			onFailure: function() {
 				delete this.cache[url];
 
-				this._position(this._errorTemplate());
-
 				this.element
 					.removeClass(Titon.options.loadingClass)
 					.addClass(Titon.options.failedClass);
+
+				this._position(this._errorTemplate());
 			}.bind(this)
 		}).get();
 	},

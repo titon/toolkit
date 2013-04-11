@@ -96,7 +96,7 @@ Titon.Modal = new Class({
 		// Blackout
 		if (this.options.blackout) {
 			this.blackout = new Titon.Blackout();
-			this.blackout.element.addEvent('click', this.hide);
+			this.blackout.element.addEvent('click', this._hide);
 		}
 
 		// Set events
