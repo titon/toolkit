@@ -1,0 +1,67 @@
+body {
+	font: normal 13px Verdana, Arial, sans-serif;
+	padding: 25px;
+	background: #373b41;
+	color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+h1 { font-size: 36px; }
+
+.test-switcher {
+	background: #000;
+	padding: 10px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	border-bottom-left-radius: 2px;
+}
+
+.example {
+	margin: 40px 0;
+	position: relative;
+	text-align: center;
+}
+
+.example > p {
+	margin: 15px;
+	color: #818181;
+}
+
+.example a, .example button { color: #ccc; }
+.example a:hover, .example button:hover { color: #fff; }
+
+.example .col {
+	float: left;
+	width: 33%;
+	text-align: center;
+}
+
+.clear {
+	clear: both;
+	display: block;
+}
+
+.example h2,
+.row,
+.alert,
+.pagination { margin-bottom: 10px; }
+
+.tabs {
+	width: 600px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+	text-align: left;
+}
+
+[class*="icon-"] { background: url("../img/glyphicons.png") no-repeat; }
+.icon-16-filter { background-position: 0 0; }
+.icon-16-home { background-position: 0 -24px; }
+.icon-16-tag { background-position: 0 -48px; }
+.icon-16-pencil { background-position: 0 -72px; }
+.icon-16-plus { background-position: 0 -96px; }

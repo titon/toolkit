@@ -18,6 +18,7 @@
 	top: 0;
 	left: 0;
 	z-index: 640;
+	background: #282a2e;
 
 	ul {
 		list-style: none;
@@ -29,14 +30,22 @@
 		li {
 			position: relative;
 
-			a { text-decoration: none; }
+			a {
+				padding: 5px;
+				display: block;
+				text-decoration: none;
+			}
 
 			.flyout,
 			.caret-right {
 				display: none;
 			}
 
-			&.children > a .caret-right { display: inline-block; }
+			&.children > a .caret-right {
+				float: right;
+				display: inline-block;
+			}
+
 			&.opened > .flyout { display: block; }
 		}
 	}

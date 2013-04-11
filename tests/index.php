@@ -132,15 +132,23 @@ $theme = $themes[$themeKey]; ?>
 	} ?>
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
 
-	<?php if (!empty($asset['js'])) { ?>
+	<?php if (!empty($asset['js'])) {
+		$minFile = dirname(__DIR__) . '/bin/titon-1.0.0.min.js'; ?>
+
 		<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
 		<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
-		<script type="text/javascript" src="../src/js/Titon.js"></script>
-		<script type="text/javascript" src="../src/js/Module.js"></script>
 
-		<?php foreach ((array) $asset['js'] as $js) { ?>
-			<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>
-		<?php }
+		<?php if (file_exists($minFile)) { ?>
+			<script type="text/javascript" src="../bin/titon-1.0.0.min.js"></script>
+
+		<?php } else { ?>
+			<script type="text/javascript" src="../src/js/Titon.js"></script>
+			<script type="text/javascript" src="../src/js/Module.js"></script>
+
+			<?php foreach ((array) $asset['js'] as $js) { ?>
+				<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>
+			<?php }
+		}
 	} ?>
 </head>
 <body>
