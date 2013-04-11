@@ -18,8 +18,6 @@ Titon.Popover = new Class({
 	options: {
 		position: 'topCenter',
 		getContent: 'data-popover',
-		errorElement: '.popover-error',
-		loadingElement: '.popover-loading',
 		titleElement: '.popover-head',
 		contentElement: '.popover-body',
 		template: '<div class="popover">' +

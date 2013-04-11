@@ -12,7 +12,7 @@
  */
 Titon.Module = new Class({
 	Implements: [Events, Options],
-	Binds: ['_listen', 'hide', 'show'],
+	Binds: ['_show', '_hide'],
 
 	/**
 	 * Cached data.
@@ -332,27 +332,15 @@ Titon.Module = new Class({
 	}.protect(),
 
 	/**
-	 * Event callback for node hover or click.
+	 * Event callback to hide an element.
 	 *
 	 * @private
 	 * @param {Event} e
-	 * @param {Element} node
 	 */
-	_listen: function(e, node) {
+	_hide: function(e) {
 		e.stop();
 
-		if (this.isVisible()) {
-			if (this.options.mode === 'click') {
-				this.hide();
-			}
-
-			// Exit if the same node
-			if (node === this.node) {
-				return;
-			}
-		}
-
-		this.show(node);
+		this.hide();
 	},
 
 	/**
@@ -378,6 +366,30 @@ Titon.Module = new Class({
 	},
 
 	/**
+	 * Event callback to show an element via node hover or click.
+	 *
+	 * @private
+	 * @param {Event} e
+	 * @param {Element} node
+	 */
+	_show: function(e, node) {
+		e.stop();
+
+		if (this.isVisible()) {
+			if (this.options.mode === 'click') {
+				this.hide();
+			}
+
+			// Exit if the same node
+			if (node === this.node) {
+				return;
+			}
+		}
+
+		this.show(node);
+	},
+
+	/**
 	 * Toggle activation events on and off.
 	 *
 	 * @private
@@ -393,9 +405,9 @@ Titon.Module = new Class({
 			context = $(options.context || document.body);
 
 		if (on) {
-			context.addEvent(event, this._listen);
+			context.addEvent(event, this._show);
 		} else {
-			context.removeEvent(event, this._listen);
+			context.removeEvent(event, this._show);
 		}
 
 		return this;

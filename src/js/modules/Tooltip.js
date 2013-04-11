@@ -92,8 +92,8 @@ Titon.Tooltip = new Class({
 		if (node) {
 			if (this.options.mode === 'hover') {
 				node
-					.removeEvent('mouseleave', this.hide)
-					.addEvent('mouseleave', this.hide);
+					.removeEvent('mouseleave', this._hide)
+					.addEvent('mouseleave', this._hide);
 			}
 
 			title = title || this.getValue(node, this.options.getTitle);
@@ -141,6 +141,10 @@ Titon.Tooltip = new Class({
 	 * @param {String|Element} title
 	 */
 	_position: function(content, title) {
+		// AJAX is currently loading
+		if (content === true) {
+			return;
+		}
 
 		// Set title
 		if (title && this.options.showTitle) {

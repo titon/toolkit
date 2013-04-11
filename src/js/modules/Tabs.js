@@ -178,7 +178,7 @@ Titon.Tabs = new Class({
 	 * @private
 	 * @param {Event} e
 	 */
-	_listen: function(e) {
+	_show: function(e) {
 		e.stop();
 
 		this.show(e.target);
@@ -198,9 +198,9 @@ Titon.Tabs = new Class({
 		var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
 
 		if (on) {
-			this.tabs.addEvent(event, this._listen);
+			this.tabs.addEvent(event, this._show);
 		} else {
-			this.tabs.removeEvent(event, this._listen);
+			this.tabs.removeEvent(event, this._show);
 		}
 
 		return this;

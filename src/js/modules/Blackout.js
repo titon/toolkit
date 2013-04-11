@@ -75,7 +75,7 @@ Titon.Blackout = new Class({
 		}
 
 		this.decrease();
-		this.parent();
+		this.fireEvent('hide');
 
 		return this;
 	},

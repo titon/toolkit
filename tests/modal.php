@@ -24,33 +24,9 @@
 </div>
 
 <div class="example">
-	<h2>Positioning</h2>
-
-	<div class="row">
-		<button type="button" class="button modal-tl" data-modal="ajax/modal.php">Top Left</button>
-		<button type="button" class="button modal-tc" data-modal="ajax/modal.php">Top Center</button>
-		<button type="button" class="button modal-tr" data-modal="ajax/modal.php">Top Right</button>
-	</div>
-
-	<div class="row">
-		<button type="button" class="button modal-cl" data-modal="ajax/modal.php">Center Left</button>
-		<button type="button" class="button modal-cc" data-modal="ajax/modal.php">Center (Default)</button>
-		<button type="button" class="button modal-cr" data-modal="ajax/modal.php">Center Right</button>
-	</div>
-
-	<div class="row">
-		<button type="button" class="button modal-bl" data-modal="ajax/modal.php">Bottom Left</button>
-		<button type="button" class="button modal-bc" data-modal="ajax/modal.php">Bottom Center</button>
-		<button type="button" class="button modal-br" data-modal="ajax/modal.php">Bottom Right</button>
-	</div>
-</div>
-
-<div class="example">
 	<h2>Events</h2>
 
-	<button type="button" class="button modal-event" data-modal="ajax/modal.php">onShow, onHide</button>
-	<button type="button" class="button modal-event2" data-modal="ajax/modal.php">onPosition</button>
-	<button type="button" class="button modal-event3" data-modal="ajax/modal-form.php">onSubmit</button>
+	<p>The following are supported: onInit, onShow, onHide, onSubmit</p>
 </div>
 
 <script type="text/javascript">
@@ -61,34 +37,5 @@
 		Titon.Modal.factory('.modal-fade', { fade: true });
 		Titon.Modal.factory('.modal-fixed', { fixed: false });
 		Titon.Modal.factory('.modal-delay', { delay: 350 });
-		Titon.Modal.factory('.modal-tl', { position: 'topLeft' });
-		Titon.Modal.factory('.modal-tc', { position: 'topCenter' });
-		Titon.Modal.factory('.modal-tr', { position: 'topRight' });
-		Titon.Modal.factory('.modal-cl', { position: 'centerLeft' });
-		Titon.Modal.factory('.modal-cc', { position: 'center' });
-		Titon.Modal.factory('.modal-cr', { position: 'centerRight' });
-		Titon.Modal.factory('.modal-bl', { position: 'bottomLeft' });
-		Titon.Modal.factory('.modal-bc', { position: 'bottomCenter' });
-		Titon.Modal.factory('.modal-br', { position: 'bottomRight' });
-		Titon.Modal.factory('.modal-event', {
-			onShow: function() {
-				this.node.addClass('success');
-			},
-			onHide: function() {
-				this.node.removeClass('success');
-			}
-		});
-		Titon.Modal.factory('.modal-event2', {
-			onPosition: function() {
-				this.node.set('disabled', true);
-				alert('Disabled the activating node!');
-			}
-		});
-		Titon.Modal.factory('.modal-event3', {
-			onSubmit: function(button) {
-				button.addClass('error').set('text', 'Submitting...');
-				alert('Changed the submit button!');
-			}
-		});
 	});
 </script>
