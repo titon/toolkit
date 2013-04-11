@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+"use strict";
+
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  */
