@@ -6,15 +6,15 @@
 
 /**
  * Provides an easy way to lazy-load images while scrolling to conserve bandwidth and improve page loading times.
- *
- * @uses	Titon
- * @uses	Titon.Module
- * @uses	Core
- * @uses	More/Class.Binds
  */
  Titon.LazyLoad = new Class({
-	Extends: Titon.Module,
-	Binds: ['load'],
+	Implements: [Events, Options],
+	Binds: ['load', 'loadAll'],
+
+	/**
+	 * Query selector used for module activation.
+	 */
+	query: null,
 
 	/**
 	 * Have all elements been force loaded?
@@ -39,13 +39,12 @@
 	 */
 	options: {
 		fade: false,
-		fadeDuration: 250,
+		fadeDuration: 1000,
 		forceLoad: false,
 		delay: 10000,
 		threshold: 150,
 		createStyles: true,
 		context: null,
-		parseTemplate: false,
 
 		// Events
 		onLoad: null,
@@ -61,14 +60,14 @@
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
-		this.parent(options);
+		this.setOptions(options);
 		this.query = query;
 
 		// Setup CSS styles
 		if (this.options.createStyles) {
 			var sheet = document.createElement('style');
-				sheet.innerHTML = query + ' { background: none !important; }';
-				sheet.innerHTML = query + ' * { display: none !important; }';
+				sheet.innerHTML  = query + ' { background: none !important; }';
+				sheet.innerHTML += query + ' * { display: none !important; }';
 
 			document.head.grab(sheet);
 		}
@@ -85,7 +84,7 @@
 
 			// Set force load on DOM ready
 			if (this.options.forceLoad) {
-				window.setTimeout(this.loadAll.bind(this), this.options.delay);
+				window.setTimeout(this.loadAll, this.options.delay);
 			}
 		}.bind(this));
 	},
@@ -108,10 +107,9 @@
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
-	 * @param {Event} e
 	 * @return {boolean}
 	 */
-	load: function(e) {
+	load: function() {
 		if (this.isLoaded) {
 			return false;
 		}
@@ -147,11 +145,13 @@
 			return false;
 		}
 
-		$$(this.query).each(function(node) {
+		var elements = $$(this.query);
+
+		elements.each(function(node) {
 			this.show(new Element(node));
 		}, this);
 
-		this.fireEvent('loadAll');
+		this.fireEvent('loadAll', elements);
 
 		this.shutdown();
 
@@ -170,7 +170,7 @@
 			node.getChildren().fadeIn(this.options.fadeDuration);
 		}
 
-		this.fireEvent('show');
+		this.fireEvent('show', node);
 	},
 
 	/**

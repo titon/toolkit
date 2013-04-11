@@ -29,6 +29,10 @@ $assets = array(
 		'title' => 'Label & Badge',
 		'css' => array('ui/label-badge.css', 'ui/effects/label.css')
 	),
+	'lazy-load' => array(
+		'title' => 'LazyLoad',
+		'js' => array('utilities/LazyLoad.js')
+	),
 	'modal' => array(
 		'title' => 'Modal',
 		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),
