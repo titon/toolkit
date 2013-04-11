@@ -44,69 +44,6 @@ var Titon = {
 	},
 
 	/**
-	 * Converts a value to a specific scalar type.
-	 * The value is extracted via parseOptions().
-	 *
-	 * @param {String} value
-	 * @return {boolean|String|int}
-	 */
-	convertType: function(value) {
-		value = value.trim();
-
-		if (value === 'true') {
-			value = true;
-
-		} else if (value === 'false') {
-			value = false;
-
-		} else if (value === 'null') {
-			value = null;
-
-		} else if (isNaN(value)) {
-			value = String.from(value);
-
-		} else {
-			value = Number.from(value);
-		}
-
-		return value;
-	},
-
-	/**
-	 * Merge custom options into the base. Clone the base as to not reference the original.
-	 *
-	 * @param {Object} base
-	 * @param {Object} options
-	 * @return {Object}
-	 */
-	mergeOptions: function(base, options) {
-		return Object.merge(Object.clone(base || {}), options || {});
-	},
-
-	/**
-	 * Parse options out of the data-options attributes.
-	 * Format: key1:value1;key2:value2
-	 *
-	 * @param {Object} data
-	 * @return {Object}
-	 */
-	parseOptions: function(data) {
-		var options = {};
-
-		if (data) {
-			data.split(';').each(function(item) {
-				var pieces = item.split(':');
-
-				if (pieces.length) {
-					options[pieces[0]] = Titon.convertType(pieces[1]);
-				}
-			});
-		}
-
-		return options;
-	},
-
-	/**
 	 * Apply custom options.
 	 *
 	 * @param {Object} options
@@ -121,16 +58,6 @@ var Titon = {
  * Prototype overrides.
  */
 Element.implement({
-
-	/**
-	 * Returns an object representation of the data-options attribute located on the element.
-	 *
-	 * @param {String} scope
-	 * @return {Object}
-	 */
-	getOptions: function(scope) {
-		return Titon.parseOptions(this.get('data-' + scope + '-options'));
-	},
 
 	/**
 	 * Fade in an element and set its display type.
