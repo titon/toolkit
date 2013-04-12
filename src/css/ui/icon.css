@@ -1,0 +1,15 @@
+/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
+/** Icon  A module for display icon image sprites at fixed sizes.  {{{ 		<span class="icon-16-delete"></span> }}} */
+[class*="icon-"] { display: inline-block; border: 0; margin: 0; padding: 0; z-index: 0; position: relative; text-decoration: none; vertical-align: middle; }
+
+[class*="icon-12"] { width: 12px; height: 12px; }
+
+[class*="icon-16"] { width: 16px; height: 16px; }
+
+[class*="icon-24"] { width: 24px; height: 24px; }
+
+[class*="icon-32"] { width: 32px; height: 32px; }
+
+[class*="icon-64"] { width: 64px; height: 64px; }
+
+.button [class*="icon-"] { margin-top: -1px; }

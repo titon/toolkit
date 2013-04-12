@@ -1,0 +1,3 @@
+/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
+/** Blackout  A module for displaying a transparent black div over the content. Should be used in conjunction with the JavaScript Titon.Blackout module.  @link	https://github.com/titon/js */
+.blackout { position: fixed; top: 0; left: 0; height: 100%; width: 100%; z-index: 600; background: rgba(0, 0, 0, 0.5); }

@@ -1,0 +1,14 @@
+/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
+/** Tabs.Effect  Provides additional tabs style effects. */
+.tabs.tabs-left nav, .tabs.tabs-right nav { margin-bottom: 0; width: 100px; }
+.tabs.tabs-left nav ul, .tabs.tabs-left nav li, .tabs.tabs-left nav a, .tabs.tabs-right nav ul, .tabs.tabs-right nav li, .tabs.tabs-right nav a { display: block; }
+.tabs.tabs-left nav .button-group-vertical, .tabs.tabs-right nav .button-group-vertical { display: block; }
+.tabs.tabs-left:after, .tabs.tabs-right:after { content: ""; display: block; height: 0; line-height: 0; clear: both; visibility: hidden; }
+
+.tabs.tabs-left nav { float: left; }
+.tabs.tabs-left nav a { text-align: right; }
+.tabs.tabs-left section { margin-left: 115px; }
+
+.tabs.tabs-right nav { float: right; }
+.tabs.tabs-right nav a { text-align: left; }
+.tabs.tabs-right section { margin-right: 115px; }
