@@ -30,6 +30,7 @@
 		float: left;
 		margin-left: -1px;
 		border-radius: 0;
+		display: block;
 
 		&:first-child { margin-left: 0; }
 		&:hover { z-index: 1; }

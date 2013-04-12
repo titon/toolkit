@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Provides tabbed support to an element containing navigation tabs and sections.
@@ -150,7 +151,7 @@ Titon.Tabs = new Class({
 		this.hide();
 
 		if (this.options.fade) {
-			section.fadeIn(this.options.fadeDuration)
+			section.fadeIn(this.options.fadeDuration);
 		} else {
 			section.show();
 		}
@@ -231,3 +232,5 @@ Titon.Tabs.factory = function(query, options) {
 
 	return instance;
 };
+
+})();

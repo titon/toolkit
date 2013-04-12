@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Displays a transparent black element over the entire website.
@@ -124,3 +125,5 @@ Titon.Blackout = new Class({
 	}
 
 });
+
+})();

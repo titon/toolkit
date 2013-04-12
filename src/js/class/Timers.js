@@ -4,10 +4,13 @@
  * @link		http://titon.io
  */
 
+(function(window) {
+	'use strict';
+
 /**
  * Provides timer and interval management within the class layer.
  */
-var Timers = new Class({
+window.Timers = new Class({
 
 	/**
 	 * Collection of timer callback functions.
@@ -150,3 +153,5 @@ var Timers = new Class({
 	}
 
 });
+
+})(window);

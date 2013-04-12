@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Creates dynamic popovers that will display at a specific element on click.
@@ -81,3 +82,5 @@ Titon.Popover.hide = function() {
 		popover.hide();
 	});
 };
+
+})();

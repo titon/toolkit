@@ -1,4 +1,5 @@
 .idea
 .sass-cache
+node_modules/
 *.css
 !tests/css/*.css

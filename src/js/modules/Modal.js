@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Creates dynamic modals that will display above the content.
@@ -274,3 +275,5 @@ Titon.Modal.hide = function() {
 		modal.hide();
 	});
 };
+
+})();

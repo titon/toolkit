@@ -4,6 +4,9 @@
  * @link		http://titon.io
  */
 
+(function() {
+	'use strict';
+
 /**
  * Provides an easy way to lazy-load images while scrolling to conserve bandwidth and improve page loading times.
  */
@@ -21,7 +24,7 @@
 	 */
 	isLoaded: false,
 
-	 /**
+	/**
 	 * Default options.
 	 *
 	 *	fade			- (boolean) Will fade the items in and out
@@ -222,3 +225,5 @@ Titon.LazyLoad.factory = function(query, options) {
 
 	return instance;
 };
+
+})();

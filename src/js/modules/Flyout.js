@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Creates nested flyout menus that appear below an element that activates it.
@@ -460,3 +461,5 @@ Titon.Flyout.factory = function(query, url, options) {
 
 	return instance;
 };
+
+})();

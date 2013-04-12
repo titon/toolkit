@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Primary class that all sub-classes should extend from.
@@ -85,16 +86,17 @@ Titon.Module = new Class({
 
 		// Parse the template from a string, or use a target element
 		if (this.options.parseTemplate) {
-			var element;
+			var element = this.options.templateFrom.remove('#');
 
-			// From an element
-			if (element = this.options.templateFrom.remove('#')) {
+			if (element) {
 				element = $(element);
 			}
 
 			// From a string
 			if (!element && this.options.template) {
-				if (element = this.parseTemplate(this.options.template)) {
+				element = this.parseTemplate(this.options.template);
+
+				if (element) {
 					element.hide().inject(document.body);
 				}
 			}
@@ -314,7 +316,7 @@ Titon.Module = new Class({
 			this.element.show();
 		}
 
-		this.fireEvent('show')
+		this.fireEvent('show');
 	},
 
 	/**
@@ -425,3 +427,5 @@ Titon.Module = new Class({
 	}.protect()
 
 });
+
+})();

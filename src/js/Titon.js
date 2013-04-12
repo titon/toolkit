@@ -4,12 +4,13 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function(window) {
+	'use strict';
 
 /**
  * The base object for all Titon classes. Contains global functionality and configuration.
  */
-var Titon = {
+window.Titon = {
 
 	/**
 	 * Current version.
@@ -19,7 +20,7 @@ var Titon = {
 	/**
 	 * Options for all classes.
 	 *
-	 *	prefix 			- (string) String to prepend to all created element containers
+	 *	prefix			- (string) String to prepend to all created element containers
 	 *	activeClass		- (string) Class name to append to active elements
 	 *	disabledClass	- (string) Class name to append to disabled elements
 	 *	draggableClass	- (string) Class name to append to elements that are draggable
@@ -167,3 +168,5 @@ Array.implement({
 	}
 
 });
+
+})(window);

@@ -4,7 +4,8 @@
  * @link		http://titon.io
  */
 
-"use strict";
+(function() {
+	'use strict';
 
 /**
  * Creates dynamic tooltips that will display at a specific element or the mouse cursor.
@@ -243,3 +244,5 @@ Titon.Tooltip.hide = function() {
 		tooltip.hide();
 	});
 };
+
+})();

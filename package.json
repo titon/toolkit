@@ -1,222 +1,34 @@
 {
-	"version": "1.0.0",
-	"name": "Titon",
-	"description": "The CSS3 & MooTools UI Toolkit",
-	"copyright": "2010-2013, The Titon Project",
-	"homepage": ["http://github.com/titon", "http://titon.io"],
-	"license": "BSD 2 <http://opensource.org/licenses/bsd-license.php>",
-	"inputPath": "src/",
-	"outputPath": "bin/",
-	"authors": [
-		{
-			"name": "Miles Johnson",
-			"homepage": "http://milesj.me"
-		}
-	],
-	"includes": [
-		"css/base"
-	],
-	"contents": {
-		"css/base": {
-			"title": "Base",
-			"path": "css/base.css",
-			"type": "css",
-			"category": "core"
-		},
-		"css/visual": {
-			"title": "Visual Effects",
-			"path": "css/effects/visual.css",
-			"type": "css",
-			"category": "effect"
-		},
-		"css/blackout": {
-			"title": "Blackout",
-			"path": "css/modules/blackout.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/flyout": {
-			"title": "Flyout",
-			"path": "css/modules/flyout.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/modal": {
-			"title": "Modal",
-			"path": "css/modules/modal.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/popover": {
-			"title": "Popover",
-			"path": "css/modules/popover.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/tabs": {
-			"title": "Tabs",
-			"path": "css/modules/tabs.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/tabs/effects": {
-			"title": "Tabs Effects",
-			"path": "css/modules/effects/tabs.css",
-			"type": "css",
-			"category": "effect",
-			"requires": ["css/tabs"]
-		},
-		"css/tooltip": {
-			"title": "Tooltip",
-			"path": "css/modules/tooltip.css",
-			"type": "css",
-			"category": "module"
-		},
-		"css/alert": {
-			"title": "Alert",
-			"path": "css/ui/alert.css",
-			"type": "css",
-			"category": "ui"
-		},
-		"css/button": {
-			"title": "Button",
-			"path": "css/ui/button.css",
-			"type": "css",
-			"category": "ui"
-		},
-		"css/button-group": {
-			"title": "ButtonGroup",
-			"path": "css/ui/button-group.css",
-			"type": "css",
-			"category": "ui",
-			"requires": ["css/button"]
-		},
-		"css/button-group/effects": {
-			"title": "ButtonGroup Effects",
-			"path": "css/ui/effects/button-group.css",
-			"type": "css",
-			"category": "effect",
-			"requires": ["css/button-group"]
-		},
-		"css/icon": {
-			"title": "Icon",
-			"path": "css/ui/icon.css",
-			"type": "css",
-			"category": "ui"
-		},
-		"css/label-badge": {
-			"title": "Label & Badge",
-			"path": "css/ui/label-badge.css",
-			"type": "css",
-			"category": "ui"
-		},
-		"css/label/effects": {
-			"title": "Label Effects",
-			"path": "css/ui/effects/label.css",
-			"type": "css",
-			"category": "effect",
-			"requires": ["css/label-badge"]
-		},
-		"css/pagination": {
-			"title": "Pagination",
-			"path": "css/ui/pagination.css",
-			"type": "css",
-			"category": "ui"
-		},
-		"css/pagination/effects": {
-			"title": "Pagination Effects",
-			"path": "css/ui/effects/pagination.css",
-			"type": "css",
-			"category": "effect",
-			"requires": ["css/pagination"]
-		},
-
-		"js/titon": {
-			"title": "Titon",
-			"description": "Base object that contains global functionality and configuration.",
-			"path": "js/titon.js",
-			"type": "js",
-			"category": "core",
-			"dependencies": ["Core", "More/Element.Shortcuts"]
-		},
-		"js/module": {
-			"title": "Module",
-			"description": "Primary class that all sub-classes should extend from.",
-			"path": "js/module.js",
-			"type": "js",
-			"category": "core",
-			"requires": ["js/titon", "css/base"],
-			"dependencies": ["Core", "More/Elements.From", "More/Hash", "More/Class.Binds"]
-		},
-		"js/timers": {
-			"title": "Timers",
-			"description": "Provides timer and interval management within the class layer.",
-			"path": "js/class/Timers.js",
-			"type": "js",
-			"category": "class",
-			"dependencies": ["Core"]
-		},
-		"js/blackout": {
-			"title": "Blackout",
-			"description": "Displays a transparent black element over the entire website.",
-			"path": "js/modules/Blackout.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/module", "css/blackout"],
-			"dependencies": ["Core"]
-		},
-		"js/flyout": {
-			"title": "Flyout",
-			"description": "Creates nested flyout menus that appear below an element that activates it.",
-			"path": "js/modules/Flyout.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/module", "js/timers", "css/flyout"],
-			"dependencies": ["Core", "More/Element.Measure", "More/Array.Extras"]
-		},
-		"js/modal": {
-			"title": "Modal",
-			"description": "Creates dynamic modals that will display above the content.",
-			"path": "js/modules/Modal.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/module", "js/blackout", "css/modal"],
-			"dependencies": ["Core", "More/Drag", "More/Element.Position"]
-		},
-		"js/popover": {
-			"title": "Popover",
-			"description": "Creates dynamic popovers that will display at a specific element on click.",
-			"path": "js/modules/Popover.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/tooltip", "css/popover"]
-		},
-		"js/tabs": {
-			"title": "Tabs",
-			"description": "Provides tabbed support to an element containing navigation tabs and sections.",
-			"path": "js/modules/Tabs.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/module", "css/tabs"],
-			"dependencies": ["Core"]
-		},
-		"js/tooltip": {
-			"title": "Tooltip",
-			"description": "Creates dynamic tooltips that will display at a specific element or the mouse cursor.",
-			"path": "js/modules/Tooltip.js",
-			"type": "js",
-			"category": "module",
-			"requires": ["js/module", "css/tooltip"],
-			"dependencies": ["Core", "More/Element.Event.Pseudos", "More/Element.Position"]
-		},
-		"js/lazy-load": {
-			"title": "LazyLoad",
-			"description": "Provides an easy way to lazy-load images while scrolling.",
-			"path": "js/utilities/LazyLoad.js",
-			"type": "js",
-			"category": "utility",
-			"requires": ["js/titon"],
-			"dependencies": ["Core"]
-		}
-	}
+  "version": "1.0.0",
+  "name": "Titon",
+  "description": "The CSS3 & MooTools UI Toolkit",
+  "keywords": [
+    "titon",
+    "toolkit",
+    "css",
+    "mootools",
+    "javascript",
+    "ui",
+    "framework",
+    "bootstrap"
+  ],
+  "copyright": "2010-2013, The Titon Project",
+  "homepage": "http://titon.io",
+  "license": "BSD",
+  "author": {
+    "name": "Miles Johnson",
+    "url": "http://milesj.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/titon/Toolkit"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-jshint": "*",
+	 "grunt-contrib-csslint": "*",
+    "grunt-contrib-sass": "*"
+  }
 }
