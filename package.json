@@ -1,34 +1,39 @@
 {
-  "version": "1.0.0",
-  "name": "Titon",
-  "description": "The CSS3 & MooTools UI Toolkit",
-  "keywords": [
-    "titon",
-    "toolkit",
-    "css",
-    "mootools",
-    "javascript",
-    "ui",
-    "framework",
-    "bootstrap"
-  ],
-  "copyright": "2010-2013, The Titon Project",
-  "homepage": "http://titon.io",
-  "license": "BSD",
-  "author": {
-    "name": "Miles Johnson",
-    "url": "http://milesj.me"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/titon/Toolkit"
-  },
-  "devDependencies": {
-    "grunt": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-jshint": "*",
-	 "grunt-contrib-csslint": "*",
-    "grunt-contrib-sass": "*"
-  }
+	"version": "1.0.0",
+	"name": "Titon",
+	"description": "The CSS3 & MooTools UI Toolkit",
+	"keywords": [
+		"titon",
+		"toolkit",
+		"css",
+		"mootools",
+		"javascript",
+		"ui",
+		"framework",
+		"bootstrap"
+	],
+	"copyright": "Copyright 2010-2013, The Titon Project",
+	"homepage": "http://titon.io",
+	"licenses": [
+		{
+			"type": "BSD-2",
+			"url": "https://github.com/titon/Toolkit/blob/master/license.md"
+		}
+	],
+	"author": {
+		"name": "Miles Johnson",
+		"url": "http://milesj.me"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/titon/Toolkit"
+	},
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-sass": "*",
+		"grunt-contrib-compress": "*"
+	}
 }

@@ -16,13 +16,13 @@
  * }}}
  */
 
-[class*="icon-"] { @include reset-inline-block; }
-[class*="icon-12"] { width: 12px; height: 12px; }
-[class*="icon-16"] { width: 16px; height: 16px; }
-[class*="icon-24"] { width: 24px; height: 24px; }
-[class*="icon-32"] { width: 32px; height: 32px; }
-[class*="icon-64"] { width: 64px; height: 64px; }
+span[class*="icon-"] { @include reset-inline-block; }
+span[class*="icon-12"] { width: 12px; height: 12px; }
+span[class*="icon-16"] { width: 16px; height: 16px; }
+span[class*="icon-24"] { width: 24px; height: 24px; }
+span[class*="icon-32"] { width: 32px; height: 32px; }
+span[class*="icon-64"] { width: 64px; height: 64px; }
 
 .button {
-	[class*="icon-"] { margin-top: -1px; }
+	span[class*="icon-"] { margin-top: -1px; }
 }

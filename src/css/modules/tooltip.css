@@ -1,17 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** Tooltip  A module for displaying tooltips at certain locations in the page. Should be used in conjunction with the JavaScript Titon.Tooltip module.  {{{ 		<div class="tooltip"> 			<div class="tooltip-inner"> 				<div class="tooltip-head">Tooltip Title</div> 				<div class="tooltip-body">Tooltip Content</div> 			</div> 			<div class="tooltip-arrow"></div> 		</div> }}} */
-.tooltip { position: absolute; top: 0; left: 0; margin: 0; padding: 10px; z-index: 650; max-width: 200px; background: #000; }
-.tooltip .tooltip-arrow { border: 6px solid transparent; position: absolute; }
-.tooltip.top-left .tooltip-arrow, .tooltip.center-right .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow { border-right-color: #000; }
-.tooltip.top-center .tooltip-arrow { border-top-color: #000; bottom: -12px; }
-.tooltip.bottom-center .tooltip-arrow { border-bottom-color: #000; top: -12px; }
-.tooltip.top-right .tooltip-arrow, .tooltip.center-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow { border-left-color: #000; }
-.tooltip.top-left .tooltip-arrow, .tooltip.top-right .tooltip-arrow { bottom: -6px; }
-.tooltip.center-left .tooltip-arrow, .tooltip.center-right .tooltip-arrow { top: 50%; margin-top: -6px; }
-.tooltip.center-left .tooltip-arrow { right: -12px; }
-.tooltip.center-right .tooltip-arrow { left: -12px; }
-.tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow { top: -6px; }
-.tooltip.top-left .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow { right: 0; }
-.tooltip.top-center .tooltip-arrow, .tooltip.bottom-center .tooltip-arrow { left: 50%; margin-left: -6px; }
-.tooltip.top-right .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow { left: 0; }
-.tooltip.mouse .tooltip-arrow, .tooltip.center .tooltip-arrow { display: none; }
+.tooltip{position:absolute;top:0;left:0;margin:0;padding:10px;z-index:650;max-width:200px;background:#000}.tooltip .tooltip-arrow{border:6px solid transparent;position:absolute}.tooltip.top-left .tooltip-arrow,.tooltip.center-right .tooltip-arrow,.tooltip.bottom-left .tooltip-arrow{border-right-color:#000}.tooltip.top-center .tooltip-arrow{border-top-color:#000;bottom:-12px}.tooltip.bottom-center .tooltip-arrow{border-bottom-color:#000;top:-12px}.tooltip.top-right .tooltip-arrow,.tooltip.center-left .tooltip-arrow,.tooltip.bottom-right .tooltip-arrow{border-left-color:#000}.tooltip.top-left .tooltip-arrow,.tooltip.top-right .tooltip-arrow{bottom:-6px}.tooltip.center-left .tooltip-arrow,.tooltip.center-right .tooltip-arrow{top:50%;margin-top:-6px}.tooltip.center-left .tooltip-arrow{right:-12px}.tooltip.center-right .tooltip-arrow{left:-12px}.tooltip.bottom-left .tooltip-arrow,.tooltip.bottom-right .tooltip-arrow{top:-6px}.tooltip.top-left .tooltip-arrow,.tooltip.bottom-left .tooltip-arrow{right:0}.tooltip.top-center .tooltip-arrow,.tooltip.bottom-center .tooltip-arrow{left:50%;margin-left:-6px}.tooltip.top-right .tooltip-arrow,.tooltip.bottom-right .tooltip-arrow{left:0}.tooltip.mouse .tooltip-arrow,.tooltip.center .tooltip-arrow{display:none}

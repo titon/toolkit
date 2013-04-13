@@ -1,18 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** ButtonGroup.Effect  Provides additional button group style effects. */
-.button-group.button-group-vertical { vertical-align: top; }
-.button-group.button-group-vertical .button { float: none; display: block; margin: -1px 0 0 0; width: auto; max-width: 100%; border-left: 0; border-right: 0; }
-.button-group.button-group-vertical .button:first-child { margin-top: 0; }
-.button-group.button-group-vertical .button:hover { z-index: 1; }
-.button-group.button-group-vertical.round .button, .button-group.button-group-vertical.pill .button, .button-group.button-group-vertical.skew .button { border-radius: 0; }
-.button-group.button-group-vertical.round .button:first-child { border-top-left-radius: 0.3em; border-top-right-radius: 0.3em; }
-.button-group.button-group-vertical.round .button:last-child { border-bottom-left-radius: 0.3em; border-bottom-right-radius: 0.3em; }
-.button-group.button-group-vertical.pill { border-radius: 2em; }
-.button-group.button-group-vertical.pill .button:first-child { border-top-left-radius: 2em; border-top-right-radius: 2em; }
-.button-group.button-group-vertical.pill .button:last-child { border-bottom-left-radius: 2em; border-bottom-right-radius: 2em; }
-.button-group.button-group-vertical.skew { border-top-left-radius: 3em 1.5em; border-bottom-left-radius: 3em 1.5em; }
-.button-group.button-group-vertical.skew .button:first-child { border-top-left-radius: 3em 1em; }
-.button-group.button-group-vertical.skew .button:last-child { border-bottom-left-radius: 3em 1em; }
-.button-group.button-group-vertical.skew-reverse { border-top-right-radius: 3em 1.25em; border-bottom-right-radius: 3em 1.25em; }
-.button-group.button-group-vertical.skew-reverse .button:first-child { border-top-right-radius: 3em 1em; }
-.button-group.button-group-vertical.skew-reverse .button:last-child { border-bottom-right-radius: 3em 1em; }
+.button-group.button-group-vertical{vertical-align:top}.button-group.button-group-vertical .button{float:none;display:block;margin:-1px 0 0 0;width:auto;max-width:100%;border-left:0;border-right:0}.button-group.button-group-vertical .button:first-child{margin-top:0}.button-group.button-group-vertical .button:hover{z-index:1}.button-group.button-group-vertical.round .button,.button-group.button-group-vertical.pill .button,.button-group.button-group-vertical.skew .button{border-radius:0}.button-group.button-group-vertical.round .button:first-child{border-top-left-radius:0.3em;border-top-right-radius:0.3em}.button-group.button-group-vertical.round .button:last-child{border-bottom-left-radius:0.3em;border-bottom-right-radius:0.3em}.button-group.button-group-vertical.pill{border-radius:2em}.button-group.button-group-vertical.pill .button:first-child{border-top-left-radius:2em;border-top-right-radius:2em}.button-group.button-group-vertical.pill .button:last-child{border-bottom-left-radius:2em;border-bottom-right-radius:2em}.button-group.button-group-vertical.skew{border-top-left-radius:3em 1.5em;border-bottom-left-radius:3em 1.5em}.button-group.button-group-vertical.skew .button:first-child{border-top-left-radius:3em 1em}.button-group.button-group-vertical.skew .button:last-child{border-bottom-left-radius:3em 1em}.button-group.button-group-vertical.skew-reverse{border-top-right-radius:3em 1.25em;border-bottom-right-radius:3em 1.25em}.button-group.button-group-vertical.skew-reverse .button:first-child{border-top-right-radius:3em 1em}.button-group.button-group-vertical.skew-reverse .button:last-child{border-bottom-right-radius:3em 1em}

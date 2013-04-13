@@ -1,9 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** Pagination  A module for pagination using an unordered list consisting of numbers, previous and next buttons. Square and medium are the default and can be omitted.  @shapes	square (default), round, pill @sizes	small, medium (default), large @states	disabled, active  {{{ 		<nav class="pagination small pill"> 			<ul> 				<li><a href="" class="button">Previous</a></li> 				<li><a href="" class="button">1</a></li> 				<li><a href="" class="button">2</a></li> 				<li class="active"><a href="" class="button">3</a></li> 				<li><a href="" class="button">4</a></li> 				<li><a href="" class="button">5</a></li> 				<li class="disabled"><a href="" class="button">Next</a></li> 			</ul> 		</nav> }}} */
-.pagination { display: block; }
-.pagination ul, .pagination li { display: inline-block; border: 0; margin: 0; padding: 0; z-index: 0; position: relative; text-decoration: none; vertical-align: middle; list-style: none; }
-.pagination li { float: left; margin-right: 5px; }
-.pagination li .button { float: left; }
-.active .pagination li, .pagination li.active, .pagination li.active:hover, .pagination li:hover { z-index: 1; }
-.active .pagination li .button, .pagination li.active .button, .pagination li.active:hover .button, .pagination li:hover .button { z-index: 1; }
-.pagination:after { content: ""; display: block; height: 0; line-height: 0; clear: both; visibility: hidden; }
+.pagination{display:block}.pagination ul,.pagination li{display:inline-block;border:0;margin:0;padding:0;z-index:0;position:relative;text-decoration:none;vertical-align:middle;list-style:none}.pagination li{float:left;margin-right:5px}.pagination li .button{float:left}.active .pagination li,.pagination li.active,.pagination li.active:hover,.pagination li:hover{z-index:1}.active .pagination li .button,.pagination li.active .button,.pagination li.active:hover .button,.pagination li:hover .button{z-index:1}.pagination:after{content:"";display:block;height:0;line-height:0;clear:both;visibility:hidden}

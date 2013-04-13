@@ -1,18 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** Pagination.Effect  Provides additional pagination style effects. By default, pagination buttons are separate unless the group style is applied, which will mimic the Button Group module. */
-.pagination.pagination-grouped li { margin-left: -1px; margin-right: 0; }
-.pagination.pagination-grouped li:first-child { margin-left: 0; }
-.pagination.pagination-grouped li:hover, .pagination.pagination-grouped li .button:hover { z-index: 1; }
-.pagination.pagination-grouped li .button { margin: 0; border-radius: 0; }
-.pagination.pagination-grouped.round ul { border-radius: 0.3em; }
-.pagination.pagination-grouped.round li:first-child .button { border-top-left-radius: 0.3em; border-bottom-left-radius: 0.3em; }
-.pagination.pagination-grouped.round li:last-child .button { border-top-right-radius: 0.3em; border-bottom-right-radius: 0.3em; }
-.pagination.pagination-grouped.pill ul { border-radius: 2em; }
-.pagination.pagination-grouped.pill li:first-child .button { border-top-left-radius: 2em; border-bottom-left-radius: 2em; }
-.pagination.pagination-grouped.pill li:last-child .button { border-top-right-radius: 2em; border-bottom-right-radius: 2em; }
-.pagination.pagination-grouped.oval ul { border-radius: 7em/2.75em; }
-.pagination.pagination-grouped.oval li:first-child .button { border-radius: 7em 0 0 7em/2.75em 0 0 2.75em; }
-.pagination.pagination-grouped.oval li:last-child .button { border-radius: 0 7em 7em 0/0 2.75em 2.75em 0; }
-.pagination.pagination-grouped.skew ul { border-radius: 1em 1em 0 0/3em 3em 0 0; }
-.pagination.pagination-grouped.skew li:first-child .button { border-radius: 1em 0 0 0/3em 0 0 0; }
-.pagination.pagination-grouped.skew li:last-child .button { border-radius: 0 1em 0 0/0 3em 0 0; }
+.pagination.pagination-grouped li{margin-left:-1px;margin-right:0}.pagination.pagination-grouped li:first-child{margin-left:0}.pagination.pagination-grouped li:hover,.pagination.pagination-grouped li .button:hover{z-index:1}.pagination.pagination-grouped li .button{margin:0;border-radius:0}.pagination.pagination-grouped.round ul{border-radius:0.3em}.pagination.pagination-grouped.round li:first-child .button{border-top-left-radius:0.3em;border-bottom-left-radius:0.3em}.pagination.pagination-grouped.round li:last-child .button{border-top-right-radius:0.3em;border-bottom-right-radius:0.3em}.pagination.pagination-grouped.pill ul{border-radius:2em}.pagination.pagination-grouped.pill li:first-child .button{border-top-left-radius:2em;border-bottom-left-radius:2em}.pagination.pagination-grouped.pill li:last-child .button{border-top-right-radius:2em;border-bottom-right-radius:2em}.pagination.pagination-grouped.oval ul{border-radius:7em/2.75em}.pagination.pagination-grouped.oval li:first-child .button{border-radius:7em 0 0 7em/2.75em 0 0 2.75em}.pagination.pagination-grouped.oval li:last-child .button{border-radius:0 7em 7em 0/0 2.75em 2.75em 0}.pagination.pagination-grouped.skew ul{border-radius:1em 1em 0 0/3em 3em 0 0}.pagination.pagination-grouped.skew li:first-child .button{border-radius:1em 0 0 0/3em 0 0 0}.pagination.pagination-grouped.skew li:last-child .button{border-radius:0 1em 0 0/0 3em 0 0}

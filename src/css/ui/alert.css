@@ -1,9 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** Alert  A module for displaying closeable alert notification boxes.  @styles	info, warning, error, success  {{{ 		<div class="alert info"> 			<button type="button" class="close"> 				<span class="x">&times;</span> 			</button> 			<p>This is an information message!</p> 		</div> }}} */
-.alert { padding: 10px; background: #282a2e; text-align: left; }
-.alert p { margin: 10px 0 0 0; }
-.alert p:first-child { margin: 0; }
-.alert .alert-close { display: inline-block; border: 0; margin: 0; padding: 0; z-index: 0; position: relative; text-decoration: none; vertical-align: middle; padding: 4px; background: rgba(255, 255, 255, 0.5); border-radius: 2px; line-height: 76%; cursor: pointer; float: right; margin-left: 10px; }
-.alert .alert-close:hover { background: rgba(255, 255, 255, 0.8); }
-.alert .alert-close .x { color: #000; opacity: .75; line-height: 0; }
-.alert .alert-close ~ p { margin: 0; }
+.alert{padding:10px;background:#282a2e;text-align:left}.alert p{margin:10px 0 0 0}.alert p:first-child{margin:0}.alert .alert-close{display:inline-block;border:0;margin:0;padding:0;z-index:0;position:relative;text-decoration:none;vertical-align:middle;padding:4px;background:rgba(255,255,255,0.5);border-radius:2px;line-height:76%;cursor:pointer;float:right;margin-left:10px}.alert .alert-close:hover{background:rgba(255,255,255,0.8)}.alert .alert-close .x{color:#000;opacity:.75;line-height:0}.alert .alert-close ~ p{margin:0}

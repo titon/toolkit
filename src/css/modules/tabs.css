@@ -1,6 +1,1 @@
-/** @copyright	Copyright 2010-2013, The Titon Project @license		http://opensource.org/licenses/bsd-license.php @link		http://titon.io */
-/** Tabs  A module for displaying tabbed sections of content. The markup requires a nav containing anchor links, and a list of sections that correspond to the links. Should be used in conjunction with the JavaScript Titon.Tabs module.  {{{ 		<div id="tabs"> 			<nav> 				<ul> 					<li><a href="#tab-1">Tab 1</a></li> 					<li><a href="#tab-2">Tab 2</a></li> 				</ul> 			</nav>  			<section id="tab-1"></section> 			<section id="tab-2"></section> 		</div> }}} */
-.tabs { text-align: left; }
-.tabs nav { display: block; margin-bottom: 10px; }
-.tabs nav ul, .tabs nav li { display: inline-block; border: 0; margin: 0; padding: 0; z-index: 0; position: relative; text-decoration: none; vertical-align: middle; list-style: none; }
-.tabs nav:after { content: ""; display: block; height: 0; line-height: 0; clear: both; visibility: hidden; }
+.tabs{text-align:left}.tabs nav{display:block;margin-bottom:10px}.tabs nav ul,.tabs nav li{display:inline-block;border:0;margin:0;padding:0;z-index:0;position:relative;text-decoration:none;vertical-align:middle;list-style:none}.tabs nav:after{content:"";display:block;height:0;line-height:0;clear:both;visibility:hidden}
