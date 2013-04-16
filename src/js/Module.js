@@ -248,7 +248,9 @@ Titon.Module = new Class({
 				if (this.options.showLoading) {
 					this.element.removeClass(Titon.options.loadingClass);
 
-					if (this.isVisible()) {
+					// Allow delay to position modal since the request could finish before the delay
+					// Which would put it in a case where the element is still hidden
+					if (this.isVisible() || (this.options.delay && this.options.delay > 0)) {
 						this._position(response);
 					}
 				} else {
