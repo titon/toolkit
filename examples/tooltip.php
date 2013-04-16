@@ -42,8 +42,23 @@
 		<button type="button" class="button tooltip-br" data-tooltip="Positioned at bottom right">Bottom Right</button>
 	</div>
 
+	<p>Toggle the tooltips following the mouse.</p>
+
 	<div class="row">
-		<button type="button" class="button tooltip-mouse" data-tooltip="Positioned next to the mouse cursor">Mouse Follow</button>
+		<button type="button" class="button tooltip-mtl" data-tooltip="Positioned at top left">Top Left</button>
+		<button type="button" class="button tooltip-mtc" data-tooltip="Positioned at top center">Top Center</button>
+		<button type="button" class="button tooltip-mtr" data-tooltip="Positioned at top right">Top Right (Default)</button>
+	</div>
+
+	<div class="row">
+		<button type="button" class="button tooltip-mcl" data-tooltip="Positioned at center left">Center Left</button>
+		<button type="button" class="button tooltip-mcr" data-tooltip="Positioned at center right">Center Right</button>
+	</div>
+
+	<div class="row">
+		<button type="button" class="button tooltip-mbl" data-tooltip="Positioned at bottom left">Bottom Left</button>
+		<button type="button" class="button tooltip-mbc" data-tooltip="Positioned at bottom center">Bottom Center</button>
+		<button type="button" class="button tooltip-mbr" data-tooltip="Positioned at bottom right">Bottom Right</button>
 	</div>
 </div>
 
@@ -70,6 +85,13 @@
 		Titon.Tooltip.factory('.tooltip-bl', { position: 'bottomLeft' });
 		Titon.Tooltip.factory('.tooltip-bc', { position: 'bottomCenter' });
 		Titon.Tooltip.factory('.tooltip-br', { position: 'bottomRight' });
-		Titon.Tooltip.factory('.tooltip-mouse', { position: 'mouse' });
+		Titon.Tooltip.factory('.tooltip-mtl', { position: 'topLeft', follow: true });
+		Titon.Tooltip.factory('.tooltip-mtc', { position: 'topCenter', follow: true });
+		Titon.Tooltip.factory('.tooltip-mtr', { position: 'topRight', follow: true });
+		Titon.Tooltip.factory('.tooltip-mcl', { position: 'centerLeft', follow: true });
+		Titon.Tooltip.factory('.tooltip-mcr', { position: 'centerRight', follow: true });
+		Titon.Tooltip.factory('.tooltip-mbl', { position: 'bottomLeft', follow: true });
+		Titon.Tooltip.factory('.tooltip-mbc', { position: 'bottomCenter', follow: true });
+		Titon.Tooltip.factory('.tooltip-mbr', { position: 'bottomRight', follow: true });
 	});
 </script>
