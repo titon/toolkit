@@ -43,7 +43,7 @@
 		});
 
 		Titon.Flyout.factory('.flyout-1', 'ajax/flyout.php');
-		Titon.Flyout.factory('.flyout-2', 'ajax/flyout.php', { fade: true });
+		Titon.Flyout.factory('.flyout-2', 'ajax/flyout.php', { fade: 250 });
 		Titon.Flyout.factory('.flyout-3', 'ajax/flyout.php', { mode: 'click', itemLimit: 5 });
 		Titon.Flyout.factory('.flyout-4', 'ajax/flyout.php', { showDelay: 0, hideDelay: 200 });
 	});

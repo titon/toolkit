@@ -22,7 +22,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		<section id="tab-3" style="display: none"><?php echo $p3; ?></section>
 	</div>
 
-	<p>Integrate with the button-group module for a slicker navigation.</p>
+	<p>Integrate with the button-group module for a slicker navigation. Also collapsible sections.</p>
 
 	<div class="tabs" id="tabs-base2">
 		<nav>
@@ -132,10 +132,10 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		Titon.Tabs.factory('tabs-base');
-		Titon.Tabs.factory('tabs-base2');
+		Titon.Tabs.factory('tabs-base2', { collapsible: true });
 		Titon.Tabs.factory('tabs-effects', {
 			mode: 'hover',
-			fade: true,
+			fade: 250,
 			persistState: true,
 			defaultIndex: 1
 		});

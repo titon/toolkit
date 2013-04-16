@@ -58,7 +58,7 @@
 		Titon.Tooltip.factory('.tooltip-base');
 		Titon.Tooltip.factory('.tooltip-attr', { getTitle: false, getContent: 'title' });
 		Titon.Tooltip.factory('.tooltip-ajax', { ajax: true });
-		Titon.Tooltip.factory('.tooltip-fade', { fade: true });
+		Titon.Tooltip.factory('.tooltip-fade', { fade: 250 });
 		Titon.Tooltip.factory('.tooltip-click', { mode: 'click' });
 		Titon.Tooltip.factory('.tooltip-delay', { delay: 250 });
 		Titon.Tooltip.factory('.tooltip-offset', { xOffset: 15, yOffset: 15 });

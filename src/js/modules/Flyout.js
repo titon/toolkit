@@ -119,12 +119,7 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		if (this.options.fade) {
-			this.elements[this.current].fadeOut(this.options.fadeDuration);
-		} else {
-			this.elements[this.current].hide();
-		}
-
+		this.hideElement(this.elements[this.current]);
 		this.fireEvent('hide');
 
 		// Reset last
@@ -383,12 +378,7 @@ Titon.Flyout = new Class({
 			y: y
 		});
 
-		if (options.fade) {
-			menu.fadeIn(options.fadeDuration);
-		} else {
-			menu.show();
-		}
-
+		this.showElement(menu);
 		this.fireEvent('show');
 	},
 

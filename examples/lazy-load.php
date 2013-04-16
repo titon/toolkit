@@ -44,6 +44,6 @@
 
 <script type="text/javascript">
 	Titon.LazyLoad.factory('.lazy-load-0');
-	Titon.LazyLoad.factory('.lazy-load-1', { fade: true });
+	Titon.LazyLoad.factory('.lazy-load-1', { fade: 2000 });
 	Titon.LazyLoad.factory('.lazy-load-2', { forceLoad: true, delay: 5000 });
 </script>

@@ -33,6 +33,7 @@ Titon.Tabs = new Class({
 	 * Default options.
 	 *
 	 *	ajax			- (boolean) Will load the href as an ajax call when applicable
+	 *	collapsible		- (boolean) Hide the section if the tab is clicked again
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
 	 *	preventDefault	- (boolean) Prevent the default action from triggering for tabs
@@ -43,6 +44,7 @@ Titon.Tabs = new Class({
 	 */
 	options: {
 		ajax: true,
+		collapsible: false,
 		defaultIndex: 0,
 		persistState: false,
 		preventDefault: true,
@@ -116,7 +118,8 @@ Titon.Tabs = new Class({
 		var activeClass = Titon.options.activeClass,
 			loadingClass = Titon.options.loadingClass,
 			failedClass = Titon.options.failedClass,
-			section = this.sections[tab.get('data-tabs-index')],
+			index = tab.get('data-tabs-index'),
+			section = this.sections[index],
 			url = tab.get('href');
 
 		// Load content with AJAX
@@ -147,27 +150,33 @@ Titon.Tabs = new Class({
 
 		// Toggle tabs
 		this.tabs.removeClass(activeClass);
-		tab.addClass(activeClass);
 
 		// Toggle sections
-		this.hide();
+		if (index == this.currentIndex && this.options.collapsible) {
+			if (section.isVisible()) {
+				this.hideElement(section);
 
-		if (this.options.fade) {
-			section.fadeIn(this.options.fadeDuration);
+			} else {
+				tab.addClass(activeClass);
+				this.showElement(section);
+			}
 		} else {
-			section.show();
+			this.hide();
+
+			tab.addClass(activeClass);
+			this.showElement(section);
 		}
 
 		// Persist the state using a cookie
 		if (this.options.persistState) {
-			Cookie.write('titon.tabs.' + this.options.cookie, tab.get('data-tabs-index'), {
+			Cookie.write('titon.tabs.' + this.options.cookie, index, {
 				duration: this.options.cookieDuration
 			});
 		}
 
 		// Track
 		this.previousIndex = this.currentIndex;
-		this.currentIndex = tab.get('data-tabs-index');
+		this.currentIndex = index;
 
 		this.fireEvent('show', tab);
 

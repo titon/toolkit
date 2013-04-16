@@ -51,7 +51,7 @@
 	window.addEvent('domready', function() {
 		Titon.Popover.factory('.popover-base');
 		Titon.Popover.factory('.popover-ajax', { ajax: true });
-		Titon.Popover.factory('.popover-fade', { fade: true });
+		Titon.Popover.factory('.popover-fade', { fade: 250 });
 		Titon.Popover.factory('.popover-delay', { delay: 250 });
 		Titon.Popover.factory('.popover-offset', { xOffset: 15, yOffset: 15 });
 		Titon.Popover.factory('.popover-tl', { position: 'topLeft' });

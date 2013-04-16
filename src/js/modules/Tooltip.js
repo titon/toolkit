@@ -197,14 +197,7 @@ Titon.Tooltip = new Class({
 			}).hide();
 
 			window.setTimeout(function() {
-				if (!this.isVisible()) {
-					if (this.options.fade) {
-						this.element.fadeIn(this.options.fadeDuration);
-					} else {
-						this.element.show();
-					}
-				}
-
+				this.showElement();
 				this.fireEvent('show');
 			}.bind(this), this.options.delay || 0);
 		}

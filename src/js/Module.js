@@ -40,8 +40,7 @@ Titon.Module = new Class({
 	 *
 	 *	className		- (string) Class name to append to primary element
 	 *	context			- (element) The element the module will display in (defaults to document.body)
-	 *	fade			- (boolean) Will fade the element in and out
-	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	fade			- (int) Will fade the element in and out in milliseconds
 	 *	mode			- (string) Either "hover" or "click"
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
@@ -56,7 +55,6 @@ Titon.Module = new Class({
 		className: '',
 		context: null,
 		fade: false,
-		fadeDuration: 250,
 		mode: 'click',
 
 		// Ajax
@@ -167,21 +165,32 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	hide: function(callback) {
-		if (this.isVisible()) {
-			if (typeOf(callback) !== 'function') {
-				callback = function() {
-					this.element.hide();
-				}.bind(this);
-			}
+		this.hideElement(null, callback);
+		this.fireEvent('hide');
+	},
 
-			if (this.options.fade) {
-				this.element.fadeOut(this.options.fadeDuration, callback);
-			} else {
+	/**
+	 * Helper method to either fade out or hide the element.
+	 *
+	 * @param {Element} element
+	 * @param {Function} callback
+	 */
+	hideElement: function(element, callback) {
+		element = element || this.element;
+
+		if (!element.isVisible()) {
+			return;
+		}
+
+		if (this.options.fade) {
+			element.fadeOut(this.options.fade, callback);
+		} else {
+			element.hide();
+
+			if (typeOf(callback) === 'function') {
 				callback();
 			}
 		}
-
-		this.fireEvent('hide');
 	},
 
 	/**
@@ -312,13 +321,32 @@ Titon.Module = new Class({
 	show: function(node) {
 		this.node = node;
 
-		if (this.options.fade) {
-			this.element.fadeIn(this.options.fadeDuration);
-		} else {
-			this.element.show();
+		this.showElement();
+		this.fireEvent('show');
+	},
+
+	/**
+	 * Helper method to either fade in or show the element.
+	 *
+	 * @param {Element} element
+	 * @param {Function} callback
+	 */
+	showElement: function(element, callback) {
+		element = element || this.element;
+
+		if (element.isVisible()) {
+			return;
 		}
 
-		this.fireEvent('show');
+		if (this.options.fade) {
+			element.fadeIn(this.options.fade, callback);
+		} else {
+			element.show();
+
+			if (typeOf(callback) === 'function') {
+				callback();
+			}
+		}
 	},
 
 	/**

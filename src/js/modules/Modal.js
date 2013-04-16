@@ -118,8 +118,6 @@ Titon.Modal = new Class({
 			if (this.options.blackout) {
 				this.blackout.hide();
 			}
-
-			this.element.hide();
 		}.bind(this));
 	},
 
@@ -199,11 +197,7 @@ Titon.Modal = new Class({
 					this.blackout.show();
 				}
 
-				if (this.options.fade) {
-					this.element.fadeIn(this.options.fadeDuration);
-				} else {
-					this.element.show();
-				}
+				this.showElement();
 			}
 
 			this.fireEvent('show');

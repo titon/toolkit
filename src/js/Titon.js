@@ -64,49 +64,40 @@ Element.implement({
 	 * Fade in an element and set its display type.
 	 *
 	 * @param {int} duration
+	 * @param {Function} callback
 	 * @return {Element}
 	 */
-	fadeIn: function(duration) {
-		duration = duration || 600;
-
-		return this.setStyles({
+	fadeIn: function(duration, callback) {
+		this.setStyles({
 			display: '',
 			opacity: 0
 		}).set('tween', {
-			duration: duration,
+			duration: duration || 600,
 			link: 'cancel'
 		}).fade('in');
+
+		this.get('tween').chain(callback);
+
+		return this;
 	},
 
 	/**
 	 * Fade out an element and trigger callback.
 	 *
 	 * @param {int} duration
-	 * @param {Function|string} callback
+	 * @param {Function} callback
 	 * @return {Element}
 	 */
 	fadeOut: function(duration, callback) {
-		duration = duration || 600;
-		callback = callback || 'hide';
-
-		if (typeOf(callback) === 'string') {
-			callback = function() {
-				if (callback === 'remove') {
-					this.dispose();
-				} else {
-					this.hide();
-				}
-			}.bind(this);
-		}
-
 		this.set('tween', {
-			duration: duration,
+			duration: duration || 600,
 			link: 'cancel'
 		}).fade('out');
 
-		if (callback) {
-			this.get('tween').chain(callback);
-		}
+		this.get('tween').chain(callback, function() {
+			// Hide the element so isVisible() returns correctly
+			this.hide();
+		}.bind(this));
 
 		return this;
 	},

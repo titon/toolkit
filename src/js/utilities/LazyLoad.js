@@ -27,8 +27,7 @@
 	/**
 	 * Default options.
 	 *
-	 *	fade			- (boolean) Will fade the items in and out
-	 *	fadeDuration	- (int) Fade duration in milliseconds
+	 *	fade			- (int) Will fade the items in and out in milliseconds
 	 *	forceLoad		- (boolean) Will force all items to load after a delay
 	 *	delay			- (int) The delay in milliseconds before items are force loaded
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
@@ -42,7 +41,6 @@
 	 */
 	options: {
 		fade: false,
-		fadeDuration: 1000,
 		forceLoad: false,
 		delay: 10000,
 		threshold: 150,
@@ -170,7 +168,7 @@
 		node.removeClass(this.query.remove('.'));
 
 		if (this.options.fade) {
-			node.getChildren().fadeIn(this.options.fadeDuration);
+			node.getChildren().fadeIn(this.options.fade);
 		}
 
 		this.fireEvent('show', node);

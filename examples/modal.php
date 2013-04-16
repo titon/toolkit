@@ -34,7 +34,7 @@
 		Titon.Modal.factory('.modal-base');
 		Titon.Modal.factory('.modal-black', { blackout: false });
 		Titon.Modal.factory('.modal-drag', { draggable: true });
-		Titon.Modal.factory('.modal-fade', { fade: true });
+		Titon.Modal.factory('.modal-fade', { fade: 250 });
 		Titon.Modal.factory('.modal-fixed', { fixed: false });
 		Titon.Modal.factory('.modal-delay', { delay: 350 });
 	});
