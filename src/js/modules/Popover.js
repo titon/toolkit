@@ -36,11 +36,7 @@ Titon.Popover = new Class({
 	initialize: function(query, options) {
 		options = options || {};
 		options.mode = 'click';
-
-		// Disallow mouse positioning
-		if (options.position && options.position === 'mouse') {
-			options.position = 'topCenter';
-		}
+		options.follow = false;
 
 		this.parent(query, options);
 	}

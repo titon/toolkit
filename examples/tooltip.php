@@ -42,7 +42,7 @@
 		<button type="button" class="button tooltip-br" data-tooltip="Positioned at bottom right">Bottom Right</button>
 	</div>
 
-	<p>Toggle the tooltips following the mouse.</p>
+	<p>Tooltips can also follow the mouse trail.</p>
 
 	<div class="row">
 		<button type="button" class="button tooltip-mtl" data-tooltip="Positioned at top left">Top Left</button>

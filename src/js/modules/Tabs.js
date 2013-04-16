@@ -149,7 +149,7 @@ Titon.Tabs = new Class({
 		this.tabs.removeClass(activeClass);
 
 		// Toggle sections
-		if (index == this.currentIndex && this.options.collapsible) {
+		if (index === this.currentIndex && this.options.collapsible) {
 			if (section.isVisible()) {
 				this.hideElement(section);
 
