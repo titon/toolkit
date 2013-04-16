@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Provides tabbed support to an element containing navigation tabs and sections.
- */
 Titon.Tabs = new Class({
 	Extends: Titon.Module,
 

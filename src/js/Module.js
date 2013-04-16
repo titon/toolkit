@@ -7,10 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Primary class that all sub-classes should extend from.
- * Provides options, event and template support.
- */
 Titon.Module = new Class({
 	Implements: [Events, Options],
 	Binds: ['_show', '_hide', '_position'],

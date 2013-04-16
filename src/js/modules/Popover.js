@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Creates dynamic popovers that will display at a specific element on click.
- */
 Titon.Popover = new Class({
 	Extends: Titon.Tooltip,
 

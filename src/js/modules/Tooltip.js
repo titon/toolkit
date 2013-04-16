@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Creates dynamic tooltips that will display at a specific element or the mouse cursor.
- */
 Titon.Tooltip = new Class({
 	Extends: Titon.Module,
 	Binds: ['_follow'],

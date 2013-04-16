@@ -7,9 +7,6 @@
 (function(window) {
 	'use strict';
 
-/**
- * Provides timer and interval management within the class layer.
- */
 window.Timers = new Class({
 
 	/**

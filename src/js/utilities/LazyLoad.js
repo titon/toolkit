@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Provides an easy way to lazy-load images while scrolling to conserve bandwidth and improve page loading times.
- */
  Titon.LazyLoad = new Class({
 	Implements: [Events, Options],
 	Binds: ['load', 'loadAll'],

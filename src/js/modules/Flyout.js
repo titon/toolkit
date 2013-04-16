@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Creates nested flyout menus that appear below an element that activates it.
- */
 Titon.Flyout = new Class({
 	Extends: Titon.Module,
 	Implements: [Timers],

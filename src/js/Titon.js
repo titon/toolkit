@@ -7,9 +7,6 @@
 (function(window) {
 	'use strict';
 
-/**
- * The base object for all Titon classes. Contains global functionality and configuration.
- */
 window.Titon = {
 
 	/**

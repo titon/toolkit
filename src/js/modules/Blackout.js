@@ -7,13 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Displays a transparent black element over the entire website.
- *
- * @uses	Titon
- * @uses	Titon.Module
- * @uses	Core
- */
 Titon.Blackout = new Class({
 	Extends: Titon.Module,
 

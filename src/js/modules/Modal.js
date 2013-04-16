@@ -7,9 +7,6 @@
 (function() {
 	'use strict';
 
-/**
- * Creates dynamic modals that will display above the content.
- */
 Titon.Modal = new Class({
 	Extends: Titon.Module,
 	Binds: ['_submit'],
