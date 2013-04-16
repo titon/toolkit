@@ -44,8 +44,14 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 @mixin button-style($color) {
 	color: shade($color, 90%);
+	background: $color;
 	@include background-image(linear-gradient($color, shade($color, 30%)));
-	@include active-state { @include background-image(linear-gradient(tint($color, 30%), $color)); }
+
+	@include active-state {
+		background: tint($color, 30%);
+		@include background-image(linear-gradient(tint($color, 30%), $color));
+	}
+
 	@include disabled-state { background: $color; }
 	&:focus, &:active { background: $color; }
 }

@@ -3,6 +3,7 @@
 $assets = array(
 	'base' => array(
 		'title' => 'Base',
+		'css' => 'ui/base.css'
 	),
 	'alert' => array(
 		'title' => 'Alert',
@@ -118,40 +119,45 @@ $theme = $themes[$themeKey]; ?>
 <head>
 	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
 	<link href="css/test.css" rel="stylesheet" type="text/css">
-	<link href="../src/css/base.css" rel="stylesheet" type="text/css">
-	<?php
-	if (!empty($asset['css'])) {
-		foreach ((array) $asset['css'] as $css) { ?>
+
+	<?php $minFile = dirname(__DIR__) . '/build/titon-1.0.0.min.css';
+
+	if (file_exists($minFile)) { ?>
+		<link href="../build/titon-1.0.0.min.css" rel="stylesheet" type="text/css">
+
+	<?php } else if (!empty($asset['css'])) { ?>
+		<link href="../src/css/base.css" rel="stylesheet" type="text/css">
+		<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
+
+		<?php foreach ((array) $asset['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">
 		<?php }
 	}
+
 	if (!empty($theme['css'])) {
 		foreach ((array) $theme['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">
 		<?php }
 	} ?>
-	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
 
-	<?php if (!empty($asset['js'])) {
-		$minFile = dirname(__DIR__) . '/bin/titon-1.0.0.min.js'; ?>
+	<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
+	<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
 
-		<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
-		<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
+	<?php $minFile = dirname(__DIR__) . '/build/titon-1.0.0.min.js';
 
-		<?php if (file_exists($minFile)) { ?>
-			<script type="text/javascript" src="../bin/titon-1.0.0.min.js"></script>
+	if (file_exists($minFile)) { ?>
+		<script type="text/javascript" src="../build/titon-1.0.0.min.js"></script>
 
-		<?php } else { ?>
-			<script type="text/javascript" src="../src/js/Titon.js"></script>
-			<script type="text/javascript" src="../src/js/Module.js"></script>
+	<?php } else if (!empty($asset['js'])) { ?>
+		<script type="text/javascript" src="../src/js/Titon.js"></script>
+		<script type="text/javascript" src="../src/js/Module.js"></script>
 
-			<?php foreach ((array) $asset['js'] as $js) { ?>
-				<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>
-			<?php }
-		}
+		<?php foreach ((array) $asset['js'] as $js) { ?>
+			<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>
+		<?php }
 	} ?>
 </head>
-<body>
+<body class="<?php echo $themeKey; ?>">
 	<?php include sprintf('%s.php', $assetKey); ?>
 
 	<form action="" method="get" class="test-switcher">

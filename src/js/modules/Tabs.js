@@ -35,6 +35,7 @@ Titon.Tabs = new Class({
 	 *	ajax			- (boolean) Will load the href as an ajax call when applicable
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
 	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
+	 *	preventDefault	- (boolean) Prevent the default action from triggering for tabs
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
 	 *	tabsElement		- (string) The CSS query to grab the tab elements
@@ -44,6 +45,7 @@ Titon.Tabs = new Class({
 		ajax: true,
 		defaultIndex: 0,
 		persistState: false,
+		preventDefault: true,
 		cookie: null,
 		cookieDuration: 30,
 		tabsElement: 'nav a',
@@ -180,7 +182,9 @@ Titon.Tabs = new Class({
 	 * @param {Event} e
 	 */
 	_show: function(e) {
-		e.stop();
+		if (this.options.preventDefault) {
+			e.preventDefault();
+		}
 
 		this.show(e.target);
 	},
@@ -202,6 +206,12 @@ Titon.Tabs = new Class({
 			this.tabs.addEvent(event, this._show);
 		} else {
 			this.tabs.removeEvent(event, this._show);
+		}
+
+		if (event === 'mouseover' && this.options.preventDefault) {
+			this.tabs.addEvent('click', function(e) {
+				e.preventDefault();
+			});
 		}
 
 		return this;

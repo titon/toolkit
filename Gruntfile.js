@@ -22,7 +22,8 @@ module.exports = function(grunt) {
 			require: ['base']
 		},
 		buttonGroup: {
-			css: ['ui/button.css'],
+			css: ['ui/button-group.css'],
+			effects: ['ui/effects/button-group.css'],
 			require: ['button']
 		},
 		flyout: {
@@ -36,6 +37,7 @@ module.exports = function(grunt) {
 		},
 		labelBadge: {
 			css: ['ui/label-badge.css'],
+			effects: ['ui/effects/label.css'],
 			require: ['base']
 		},
 		lazyLoad: {
@@ -49,6 +51,7 @@ module.exports = function(grunt) {
 		},
 		pagination: {
 			css: ['ui/pagination.css'],
+			effects: ['ui/effects/pagination.css'],
 			require: ['base', 'button']
 		},
 		popover: {
@@ -59,6 +62,7 @@ module.exports = function(grunt) {
 		tabs: {
 			css: ['modules/tabs.css'],
 			js: ['modules/Tabs.js'],
+			effects: ['modules/effects/tabs.css'],
 			require: ['base']
 		},
 		timers: {
@@ -76,7 +80,8 @@ module.exports = function(grunt) {
 	};
 
 	// Determine which files we should package
-	var toPackage = grunt.option('package') ? grunt.option('package').split(',') : _.keys(manifest),
+	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
+		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : toPackage,
 		dependencies = {};
 
 	toPackage.forEach(addDependency);
@@ -95,8 +100,17 @@ module.exports = function(grunt) {
 		}
 
 		_.forOwn(component, function(value, key) {
+			if (key === 'effects') {
+				if (!_.contains(useEffects, name)) {
+					return;
+				}
+
+				key = 'css';
+			}
+
 			if (key === 'provide') {
 				value.forEach(addDependency);
+
 			} else {
 				dependencies[key] = _.union(dependencies[key] || [], value.map(function(v) {
 					return 'src/' + key + '/' + v;

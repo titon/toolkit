@@ -33,8 +33,10 @@ h1 { font-size: 36px; }
 	color: #818181;
 }
 
-.example a, .example button { color: #ccc; }
-.example a:hover, .example button:hover { color: #fff; }
+.none .example a,
+.none .example button { color: #ccc; }
+.none .example a:hover,
+.none .example button:hover { color: #fff; }
 
 .example .col {
 	float: left;
