@@ -5,6 +5,11 @@ $assets = array(
 		'title' => 'Base',
 		'css' => 'ui/base.css'
 	),
+	'accordion' => array(
+		'title' => 'Accordion',
+		'css' => 'modules/accordion.css',
+		'js' => array('modules/Accordion.js')
+	),
 	'alert' => array(
 		'title' => 'Alert',
 		'css' => 'ui/alert.css'

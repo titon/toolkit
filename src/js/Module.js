@@ -17,9 +17,10 @@ Titon.Module = new Class({
 	cache: {},
 
 	/**
-	 * The primary DOM element.
+	 * The primary DOM element or elements.
 	 */
 	element: null,
+	elements: [],
 
 	/**
 	 * Current node that activated the module.
@@ -40,6 +41,7 @@ Titon.Module = new Class({
 	 *	mode			- (string) Either "hover" or "click"
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
+	 *	multiElement	- (bool) Whether the module holds a single element or multiple
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
 	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
@@ -56,6 +58,9 @@ Titon.Module = new Class({
 		// Ajax
 		errorMessage: null,
 		loadingMessage: null,
+
+		// Elements
+		multiElement: false,
 
 		// Templates
 		template: '',
@@ -77,6 +82,11 @@ Titon.Module = new Class({
 	initialize: function(query, options) {
 		this.query = query;
 		this.setOptions(options || {});
+
+		// No templates for multiple elements
+		if (this.options.multiElement) {
+			this.options.parseTemplate = false;
+		}
 
 		// Parse the template from a string, or use a target element
 		if (this.options.parseTemplate) {

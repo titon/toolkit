@@ -322,3 +322,46 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&.center-right .tooltip-arrow { border-right-color: white(.90); }
 	&.bottom-center .tooltip-arrow { border-bottom-color: white(.90); }
 }
+
+/**
+ * Accordion.
+ */
+.accordion {
+	border: 1px solid white(.75);
+	border-radius: 3px;
+	background: #1d1f21;
+
+	li {
+		header {
+			font-size: 14px;
+			font-weight: bold;
+			color: $blue;
+			background: #0f1214;
+			border-bottom: 1px solid #282a2e;
+			padding: 10px;
+
+			&.active {
+				color: $green;
+			}
+		}
+
+		section {
+			border-bottom: 1px solid #282a2e;
+			padding: 10px;
+		}
+
+		&:first-child header {
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
+		}
+
+		&:last-child {
+			header:not(.active) {
+				border-bottom-left-radius: 3px;
+				border-bottom-right-radius: 3px;
+			}
+
+			section { border: 0; }
+		}
+	}
+}

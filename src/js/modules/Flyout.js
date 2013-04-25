@@ -27,11 +27,6 @@ Titon.Flyout = new Class({
 	dataMap: {},
 
 	/**
-	 * Collection of menu elements indexed by URL.
-	 */
-	elements: {},
-
-	/**
 	 * Default options.
 	 *
 	 *	getUrl			- (string) Attribute to read the URL from
@@ -54,7 +49,7 @@ Titon.Flyout = new Class({
 		itemLimit: 15,
 		contentElement: '.flyout',
 		template: '<div class="flyout"></div>',
-		parseTemplate: false,
+		multiElement: true,
 
 		// Events
 		onHideChild: null,
