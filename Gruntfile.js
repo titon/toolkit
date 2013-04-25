@@ -79,14 +79,18 @@ module.exports = function(grunt) {
 		}
 	};
 
-	// Determine which files we should package
+	/**
+	 * Determine which components we should package.
+	 *
+	 * The --components= parameter can be used to filter down components.
+	 * The --effects= parameter can be used to include component effects.
+	 */
 	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
-		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : toPackage,
+		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : [],
 		dependencies = {};
 
 	toPackage.forEach(addDependency);
 
-	// Helper functions
 	function addDependency(name) {
 		if (!manifest[name]) {
 			log.error('Invalid component: ' + name);
@@ -121,22 +125,39 @@ module.exports = function(grunt) {
 		toPackage = _.union([name], toPackage);
 	}
 
-	function mapSass(css) {
-		var map = {};
+	/**
+	 * Map all the available source files for each task.
+	 * We need to map tons of different paths since each task accepts a different format -.-
+	 */
+	var cssPaths = {
+			build: dependencies.css,
+			buildSass: {}
+		},
+		jsPaths = {
+			build: [],
+			buildUglify: {}
+		};
 
-		css.forEach(function(path) {
-			map[path] = path.replace(/css/g, 'scss');
-		});
+	dependencies.css.forEach(function(path) {
+		cssPaths.buildSass[path] = path.replace(/css/g, 'scss');
+	});
 
-		return map;
-	}
+	dependencies.js.forEach(function(path) {
+		var buildPath = path.replace(/src/g, 'build');
 
+		jsPaths.build.push(buildPath);
+		jsPaths.buildUglify[buildPath] = path;
+	});
+
+	/**
+	 * Configure grunt and all its tasks.
+	 */
 	function createBanner() {
 		return "/*!\n" +
 			" * Titon Toolkit v<%= pkg.version %>\n" +
 			" * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
 			" * <%= pkg.licenses[0].type %> - <%= pkg.licenses[0].url %>\n" +
-			" * Components: " + toPackage.join(', ') + "\n" +
+			" * Components: " + toPackage.sort().join(', ') + "\n" +
 			" */\n";
 	}
 
@@ -185,36 +206,34 @@ module.exports = function(grunt) {
 				compass: 'src/config.rb'
 			},
 			build: {
-				files: mapSass(dependencies.css)
+				files: cssPaths.buildSass
 			}
 		},
 
-		// 3) Combine the JS and CSS components into a single file
-		// https://npmjs.org/package/grunt-contrib-concat
-		concat: {
-			options: {
-				banner: createBanner(),
-				separator: ""
-			},
-			build: {
-				files: [
-					{ src: dependencies.css, dest: '<%= buildFile %>.min.css' },
-					{ src: dependencies.js, dest: '<%= buildFile %>.min.js' }
-				]
-			}
-		},
-
-		// 4) Minify Javascript (CSS was minified in step 2)
+		// 3) Minify Javascript (CSS was minified in step 2)
 		// http://lisperator.net/uglifyjs/
 		uglify: {
 			options: {
-				report: 'min',
-				banner: createBanner()
+				report: 'min'
 			},
 			build: {
-				files: {
-					'<%= buildFile %>.min.js': '<%= buildFile %>.min.js'
-				}
+				files: jsPaths.buildUglify
+			}
+		},
+
+		// 4) Combine the JS and CSS components into a single file
+		// https://npmjs.org/package/grunt-contrib-concat
+		concat: {
+			options: {
+				stripBanners: true,
+				banner: createBanner(),
+				separator: "\n"
+			},
+			build: {
+				files: [
+					{ src: cssPaths.build, dest: '<%= buildFile %>.min.css' },
+					{ src: jsPaths.build, dest: '<%= buildFile %>.min.js' }
+				]
 			}
 		},
 
@@ -245,5 +264,5 @@ module.exports = function(grunt) {
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compress']);
+	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'compress']);
 };
