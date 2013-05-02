@@ -203,7 +203,8 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				style: 'compressed',
-				compass: 'src/config.rb'
+				compass: 'src/config.rb',
+				trace: true
 			},
 			build: {
 				files: cssPaths.buildSass

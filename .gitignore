@@ -1,5 +1,6 @@
-.idea
-.sass-cache
+.idea/
+.sass-cache/
 node_modules/
 build/
+npm-debug.log
 !empty
