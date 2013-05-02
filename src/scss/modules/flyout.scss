@@ -5,6 +5,7 @@
  */
 
 @import "../mixins";
+@import "compass/css3";
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Flyout module.
@@ -16,6 +17,7 @@
 	left: 0;
 	z-index: 640;
 	background: #282a2e;
+	@include box-sizing(border-box);
 
 	ul {
 		list-style: none;
