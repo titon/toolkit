@@ -253,6 +253,16 @@ module.exports = function(grunt) {
 					{ src: '*.md' }
 				]
 			}
+		},
+
+		// 6) Use Intern to run JS unit tests
+		// https://github.com/theintern/intern/wiki/Using-Intern-with-Grunt
+		intern: {
+			build: {
+				options: {
+					config: '../../tests/intern'
+				}
+			}
 		}
 	});
 
@@ -262,8 +272,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('intern');
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
+	grunt.registerTask('test', ['intern']);
 	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'compress']);
 };

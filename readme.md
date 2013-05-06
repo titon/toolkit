@@ -1,4 +1,4 @@
-# Titon v1.0.0 #
+# Titon v0.0.0 #
 
 Titon, built on top of MooTools, is a collection of very powerful user-interface modules and utility classes.
 
@@ -11,7 +11,7 @@ Titon, built on top of MooTools, is a collection of very powerful user-interface
 * More/Element.Shortcuts
 * More/Hash
 
-** Optional **
+**Optional**
 * More/Drag (Modal)
 * More/Element.Measure (Flyout)
 * More/Element.Position (Modal, Tooltip)
