@@ -54,6 +54,10 @@ module.exports = function(grunt) {
 			effects: ['ui/effects/pagination.css'],
 			require: ['base', 'button']
 		},
+		pin: {
+			js: ['utilities/Pin.js'],
+			require: ['base']
+		},
 		popover: {
 			css: ['modules/popover.css'],
 			js: ['modules/Popover.js'],

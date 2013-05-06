@@ -7,7 +7,7 @@
 (function() {
 	'use strict';
 
- Titon.LazyLoad = new Class({
+Titon.LazyLoad = new Class({
 	Implements: [Events, Options],
 	Binds: ['load', 'loadAll'],
 

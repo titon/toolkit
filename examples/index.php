@@ -48,6 +48,10 @@ $assets = array(
 		'title' => 'Pagination',
 		'css' => array('ui/button.css', 'ui/pagination.css', 'ui/effects/pagination.css')
 	),
+	'pin' => array(
+		'title' => 'Pin',
+		'js' => array('utilities/Pin.js')
+	),
 	'popover' => array(
 		'title' => 'Popover',
 		'css' => array('ui/button.css', 'modules/popover.css'),

@@ -67,3 +67,27 @@ h1 { font-size: 36px; }
 .icon-16-tag { background-position: 0 -48px; }
 .icon-16-pencil { background-position: 0 -72px; }
 .icon-16-plus { background-position: 0 -96px; }
+
+.pin {
+	background: #000;
+	width: 200px;
+	padding: 15px;
+}
+
+.pin-right,
+.pin-left {
+	margin-bottom: 500px;
+}
+
+.pin-right p {
+	text-align: left;
+	margin-right: 250px;
+}
+
+.pin-left p {
+	text-align: left;
+	margin-left: 250px;
+}
+
+.pin-left .pin { float: left; }
+.pin-right .pin { float: right; }
