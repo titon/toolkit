@@ -10,8 +10,19 @@
 Titon.Accordion = new Class({
 	Extends: Titon.Module,
 
+	/**
+	 * Default options.
+	 *
+	 *	defaultIndex	- (int) Index of the row to display by default
+	 *	slide			- (bool) Slide sections in and out when displaying
+	 *	multiple		- (bool) Allow multiple sections to be open simultaneously
+	 *	collapsible		- (bool) Hide the section if the row is clicked again
+	 *	headerElement	- (string) CSS query for the header element within the row
+	 *	contentElement	- (string) CSS query for the content element within the row
+	 */
 	options: {
 		mode: 'click',
+		defaultIndex: 0,
 		slide: true,
 		multiple: false,
 		collapsible: false,
@@ -20,17 +31,34 @@ Titon.Accordion = new Class({
 		multiElement: true
 	},
 
+	/**
+	 * Apply module to all accordions in the page.
+	 * Trigger the default row and toggle events.
+	 *
+	 * @param {String} query
+	 * @param {Object} options
+	 */
 	initialize: function(query, options) {
 		this.parent(query, options);
 
-		// Setup state
 		this.elements = $$(query);
+
+		// Hide all sections besides the defaultIndex
 		this.elements.each(function(accordion) {
-			accordion.getElements(this.options.contentElement).each(function(section, index) {
-				if (index > 0) {
-					section.hide();
-				}
-			});
+			var options = this.options,
+				headers = accordion.getElements(options.headerElement),
+				header = headers[0];
+
+			// Fall back to first row if the default doesn't exist
+			if (headers[options.defaultIndex]) {
+				header = headers[options.defaultIndex];
+			}
+
+			// Reset the state of every row
+			accordion.getElements('li').removeClass(Titon.options.activeClass);
+			accordion.getElements(options.contentElement).hide();
+
+			this.show(header);
 		}.bind(this));
 
 		this.disable().enable();
@@ -38,42 +66,51 @@ Titon.Accordion = new Class({
 		this.fireEvent('init');
 	},
 
+	/**
+	 * Toggle the section display of a row via the header click/hover event.
+	 * Take into account the multiple and collapsible options.
+	 *
+	 * @param {Element} node
+	 */
 	show: function(node) {
-		this.node = node;
-
-		var parent = node.getParent(this.query),
-			options = this.options,
+		var options = this.options,
+			wrapper = node.getParent(this.query), // ul
+			parent = node.getParent(), // li
+			section = node.getNext(options.contentElement), // section
 			activeClass = Titon.options.activeClass;
 
-		// Set active styles
-		//
-
-		// Targets
-		var section = node.getNext(options.contentElement);
-
-		if (options.collapsible) {
+		// Allow simultaneous open and closed sections
+		// Or allow the same section to collapse
+		if (options.multiple || (options.collapsible && this.node === node)) {
 			if (section.isVisible()) {
 				this.hideElement(section);
-				node.removeClass(activeClass);
+				parent.removeClass(activeClass);
+
 			} else {
 				this.showElement(section);
-				node.addClass(activeClass);
+				parent.addClass(activeClass);
 			}
 
+		// Only one open at a time
 		} else {
-			parent.getElements(options.headerElement).removeClass(Titon.options.activeClass);
-			node.addClass(Titon.options.activeClass);
 
-			var toShow = node.getNext(options.contentElement),
-				toHide = parent.getElements(options.contentElement);
+			// Exit early so we dont mess with animations
+			if (this.node === node) {
+				return;
+			}
 
-			toHide.hide();
-			toShow.show();
+			this.hideElement(wrapper.getElements(options.contentElement));
+			this.showElement(section);
+
+			wrapper.getElements('li').removeClass(activeClass);
+			parent.addClass(activeClass);
 		}
+
+		this.node = node;
 	},
 
 	/**
-	 * Event callback for tab element click.
+	 * Event callback for tab element click or hover.
 	 *
 	 * @private
 	 * @param {Event} e
@@ -120,7 +157,7 @@ Titon.Accordion.instances = {};
  *
  * @param {String} query
  * @param {Object} options
- * @return {Titon.Tooltip}
+ * @return {Titon.Accordion}
  */
 Titon.Accordion.factory = function(query, options) {
 	if (Titon.Accordion.instances[query]) {
@@ -132,15 +169,6 @@ Titon.Accordion.factory = function(query, options) {
 	Titon.Accordion.instances[query] = instance;
 
 	return instance;
-};
-
-/**
- * Hide all instances.
- */
-Titon.Accordion.hide = function() {
-	Object.each(Titon.Accordion.instances, function(acc) {
-		acc.hide();
-	});
 };
 
 })();

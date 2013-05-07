@@ -39,11 +39,29 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			<section><?php echo $p3; ?></section>
 		</li>
 	</ul>
+
+	<p>No slide animation. Toggle with hover.</p>
+
+	<ul class="accordion acc-3">
+		<li>
+			<header>One</header>
+			<section><?php echo $p1; ?></section>
+		</li>
+		<li>
+			<header>Two</header>
+			<section><?php echo $p2; ?></section>
+		</li>
+		<li>
+			<header>Three</header>
+			<section><?php echo $p3; ?></section>
+		</li>
+	</ul>
 </div>
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		Titon.Accordion.factory('.acc-1');
 		Titon.Accordion.factory('.acc-2', { multiple: true, collapsible: true });
+		Titon.Accordion.factory('.acc-3', { slide: false, mode: 'hover' });
 	});
 </script>

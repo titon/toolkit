@@ -339,10 +339,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 			background: #0f1214;
 			border-bottom: 1px solid #282a2e;
 			padding: 10px;
-
-			&.active {
-				color: $green;
-			}
+			text-align: center;
 		}
 
 		section {
@@ -356,12 +353,16 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		}
 
 		&:last-child {
-			header:not(.active) {
+			header {
 				border-bottom-left-radius: 3px;
 				border-bottom-right-radius: 3px;
 			}
 
 			section { border: 0; }
+		}
+
+		&.active {
+			header { color: $green; }
 		}
 	}
 }

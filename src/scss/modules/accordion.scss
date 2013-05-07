@@ -1,6 +1,26 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
 
-.accordion {
+/**
+ * Should be used in conjunction with the JavaScript Titon.Tooltip module.
+ *
+ * {{{
+ *		<ul class="accordion">
+ *			<li>
+ *				<header>Title Bar</header>
+ *				<section>Collapsible content</section>
+ *			</li>
+ *		</ul>
+ * }}}
+ */
+
+.accordion,
+.accordion li {
 	list-style: none;
+	text-align: left;
 	margin: 0;
 	padding: 0;
 }
