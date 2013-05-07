@@ -17,7 +17,7 @@
 	left: 0;
 	z-index: 640;
 	background: #282a2e;
-	@include box-sizing(border-box);
+	@include box-sizing("content-box"); // required for multi columns
 
 	ul {
 		list-style: none;

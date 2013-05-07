@@ -40,6 +40,26 @@ window.Titon = {
 	 */
 	setup: function(options) {
 		Titon.options = Object.merge(Titon.options, options);
+	},
+
+	/**
+	 * If the value is an object, merge it.
+	 * Otherwise set a default key on the object.
+	 *
+	 * @param {Type} value
+	 * @param {String} defaultKey
+	 * @returns {Object}
+	 */
+	parseOptions: function(value, defaultKey) {
+		var options = {};
+
+		if (typeOf(value) === 'object') {
+			Object.merge(options, value);
+		} else if (value) {
+			options[defaultKey] = value;
+		}
+
+		return options;
 	}
 
 };
@@ -65,9 +85,8 @@ Element.implement({
 	 * @return {Element}
 	 */
 	fadeIn: function(options, callback) {
-		if (typeOf(options) === 'number') {
-			options.duration = options;
-		}
+		options = Titon.parseOptions(options, 'duration');
+		options.link = 'cancel';
 
 		this.setStyles({ display: '', opacity: 0 }).set('tween', options).fade('in');
 		this.get('tween').chain(callback);
@@ -83,12 +102,15 @@ Element.implement({
 	 * @return {Element}
 	 */
 	fadeOut: function(options, callback) {
-		if (typeOf(options) === 'number') {
-			options.duration = options;
-		}
+		options = Titon.parseOptions(options, 'duration');
+		options.link = 'cancel';
 
 		this.set('tween', options).fade('out');
-		this.get('tween').chain(callback, function() {
+		this.get('tween').chain(function() {
+			if (typeOf(callback) === 'function') {
+				callback();
+			}
+
 			this.hide(); // Hide the element so isVisible() returns correctly
 		}.bind(this));
 
@@ -123,11 +145,7 @@ Element.implement({
 	 * @return {Element}
 	 */
 	slideIn: function(options, callback) {
-		if (typeOf(options) === 'number') {
-			options.duration = options;
-		}
-
-		this.set('slide', options).slide('in');
+		this.set('slide', Titon.parseOptions(options, 'duration')).slide('in');
 		this.get('slide').chain(callback);
 
 		return this;
@@ -141,11 +159,7 @@ Element.implement({
 	 * @return {Element}
 	 */
 	slideOut: function(options, callback) {
-		if (typeOf(options) === 'number') {
-			options.duration = options;
-		}
-
-		this.set('slide', options).slide('out');
+		this.set('slide', Titon.parseOptions(options, 'duration')).slide('out');
 		this.get('slide').chain(callback);
 
 		return this;
