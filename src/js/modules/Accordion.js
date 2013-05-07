@@ -14,7 +14,7 @@ Titon.Accordion = new Class({
 	 * Default options.
 	 *
 	 *	defaultIndex	- (int) Index of the row to display by default
-	 *	slide			- (bool) Slide sections in and out when displaying
+	 *	slide			- (int) Slide sections in and out when displaying
 	 *	multiple		- (bool) Allow multiple sections to be open simultaneously
 	 *	collapsible		- (bool) Hide the section if the row is clicked again
 	 *	headerElement	- (string) CSS query for the header element within the row
@@ -23,7 +23,7 @@ Titon.Accordion = new Class({
 	options: {
 		mode: 'click',
 		defaultIndex: 0,
-		slide: true,
+		slide: 250,
 		multiple: false,
 		collapsible: false,
 		headerElement: 'header',
@@ -46,6 +46,7 @@ Titon.Accordion = new Class({
 		// Hide all sections besides the defaultIndex
 		this.elements.each(function(accordion) {
 			var options = this.options,
+				sections = accordion.getElements(options.contentElement),
 				headers = accordion.getElements(options.headerElement),
 				header = headers[0];
 
@@ -56,7 +57,12 @@ Titon.Accordion = new Class({
 
 			// Reset the state of every row
 			accordion.getElements('li').removeClass(Titon.options.activeClass);
-			accordion.getElements(options.contentElement).hide();
+
+			if (options.slide) {
+				sections.slide('hide');
+			} else {
+				sections.hide();
+			}
 
 			this.show(header);
 		}.bind(this));
@@ -79,10 +85,17 @@ Titon.Accordion = new Class({
 			section = node.getNext(options.contentElement), // section
 			activeClass = Titon.options.activeClass;
 
+		// Slide wraps elements in div
+		if (options.slide) {
+			section = node.getNext('div').getElement(options.contentElement);
+		} else {
+			section = node.getNext(options.contentElement)
+		}
+
 		// Allow simultaneous open and closed sections
 		// Or allow the same section to collapse
 		if (options.multiple || (options.collapsible && this.node === node)) {
-			if (section.isVisible()) {
+			if (this.isVisible(section)) {
 				this.hideElement(section);
 				parent.removeClass(activeClass);
 
@@ -94,7 +107,7 @@ Titon.Accordion = new Class({
 		// Only one open at a time
 		} else {
 
-			// Exit early so we dont mess with animations
+			// Exit early so we don't mess with animations
 			if (this.node === node) {
 				return;
 			}

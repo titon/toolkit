@@ -182,14 +182,18 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	hideElement: function(element, callback) {
-		element = element || this.element;
+		element = element || this.element || this.elements;
 
-		if (!element.isVisible()) {
+		if (!this.isVisible(element)) {
 			return;
 		}
 
 		if (this.options.fade) {
 			element.fadeOut(this.options.fade, callback);
+
+		} else if (this.options.slide) {
+			element.slideOut(this.options.slide, callback);
+
 		} else {
 			element.hide();
 
@@ -202,10 +206,24 @@ Titon.Module = new Class({
 	/**
 	 * Return true if the element exists and is visible.
 	 *
+	 * @param {Element} element
 	 * @return {boolean}
 	 */
-	isVisible: function() {
-		return (this.element && this.element.isVisible());
+	isVisible: function(element) {
+		element = element || this.element;
+
+		// Slide has special logic since its not hidden, just overflown
+		if (this.options.slide) {
+
+			// We cant calculate slide on multiple elements so just force to true
+			if (typeOf(element) === 'elements') {
+				return true;
+			}
+
+			return (element && element.get('slide').open);
+		}
+
+		return (element && element.isVisible());
 	},
 
 	/**
@@ -338,14 +356,18 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	showElement: function(element, callback) {
-		element = element || this.element;
+		element = element || this.element || this.elements;
 
-		if (element.isVisible()) {
+		if (this.isVisible(element)) {
 			return;
 		}
 
 		if (this.options.fade) {
 			element.fadeIn(this.options.fade, callback);
+
+		} else if (this.options.slide) {
+			element.slideIn(this.options.slide, callback);
+
 		} else {
 			element.show();
 

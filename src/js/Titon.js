@@ -58,21 +58,18 @@ Locale.define('en-US', 'Titon', {
 Element.implement({
 
 	/**
-	 * Fade in an element and set its display type.
+	 * Fade in an element and trigger callback.
 	 *
-	 * @param {int} duration
+	 * @param {Object|int} options
 	 * @param {Function} callback
 	 * @return {Element}
 	 */
-	fadeIn: function(duration, callback) {
-		this.setStyles({
-			display: '',
-			opacity: 0
-		}).set('tween', {
-			duration: duration || 600,
-			link: 'cancel'
-		}).fade('in');
+	fadeIn: function(options, callback) {
+		if (typeOf(options) === 'number') {
+			options.duration = options;
+		}
 
+		this.setStyles({ display: '', opacity: 0 }).set('tween', options).fade('in');
 		this.get('tween').chain(callback);
 
 		return this;
@@ -81,19 +78,18 @@ Element.implement({
 	/**
 	 * Fade out an element and trigger callback.
 	 *
-	 * @param {int} duration
+	 * @param {Object|int} options
 	 * @param {Function} callback
 	 * @return {Element}
 	 */
-	fadeOut: function(duration, callback) {
-		this.set('tween', {
-			duration: duration || 600,
-			link: 'cancel'
-		}).fade('out');
+	fadeOut: function(options, callback) {
+		if (typeOf(options) === 'number') {
+			options.duration = options;
+		}
 
+		this.set('tween', options).fade('out');
 		this.get('tween').chain(callback, function() {
-			// Hide the element so isVisible() returns correctly
-			this.hide();
+			this.hide(); // Hide the element so isVisible() returns correctly
 		}.bind(this));
 
 		return this;
@@ -115,6 +111,42 @@ Element.implement({
 		} else {
 			this.set('html', html);
 		}
+
+		return this;
+	},
+
+	/**
+	 * Slide in an element and trigger callback.
+	 *
+	 * @param {Object|int} options
+	 * @param {Function} callback
+	 * @return {Element}
+	 */
+	slideIn: function(options, callback) {
+		if (typeOf(options) === 'number') {
+			options.duration = options;
+		}
+
+		this.set('slide', options).slide('in');
+		this.get('slide').chain(callback);
+
+		return this;
+	},
+
+	/**
+	 * Slide out an element and trigger callback.
+	 *
+	 * @param {Object|int} options
+	 * @param {Function} callback
+	 * @return {Element}
+	 */
+	slideOut: function(options, callback) {
+		if (typeOf(options) === 'number') {
+			options.duration = options;
+		}
+
+		this.set('slide', options).slide('out');
+		this.get('slide').chain(callback);
 
 		return this;
 	}
