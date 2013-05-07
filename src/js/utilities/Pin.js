@@ -55,6 +55,10 @@ Titon.Pin = new Class({
 		this.disable().enable();
 
 		this.fireEvent('init');
+
+		// Cache the element coordinates
+		this.elementSize = this.element.getCoordinates();
+		this.parentSize = this.element.getParent().getCoordinates();
 	},
 
 	/**
@@ -77,24 +81,23 @@ Titon.Pin = new Class({
 	 */
 	_scroll: function() {
 		var options = this.options,
-			eSize = this.element.getCoordinates(),
-			pSize = this.element.getParent().getCoordinates(),
+			eSize = this.elementSize,
+			pSize = this.parentSize,
 			wScroll = window.getScroll(),
 			pos = {},
 			x = options.xOffset,
 			y = options.yOffset;
 
-		// Scroll reaches the top of the container
+		// Scroll reaches the top or bottom of the parent
 		if (wScroll.y > pSize.top) {
-			y += (wScroll.y - pSize.top);
-		}
+			var elementMaxPos = wScroll.y + eSize.height,
+				parentMaxHeight = pSize.height + pSize.top;
 
-		// Scroll reaches the bottom of the container
-		var elementTop = wScroll.y + eSize.height,
-			parentMaxHeight = pSize.height + pSize.top;
-
-		if (elementTop >= parentMaxHeight) {
-			y = options.yOffset + (pSize.height - eSize.height);
+			if (elementMaxPos >= parentMaxHeight) {
+				y += (pSize.height - eSize.height);
+			} else {
+				y += (wScroll.y - pSize.top);
+			}
 		}
 
 		// Position the element
