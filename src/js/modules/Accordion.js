@@ -89,7 +89,7 @@ Titon.Accordion = new Class({
 		if (options.slide) {
 			section = node.getNext('div').getElement(options.contentElement);
 		} else {
-			section = node.getNext(options.contentElement)
+			section = node.getNext(options.contentElement);
 		}
 
 		// Allow simultaneous open and closed sections

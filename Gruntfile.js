@@ -6,7 +6,14 @@ module.exports = function(grunt) {
 	var manifest = {
 		base: {
 			css: ['base.css'],
-			js: ['Titon.js', 'Module.js']
+			js: ['Titon.js', 'Module.js'],
+			moo: ['Core', 'More/Array.Extras', 'More/Class.Binds', 'More/Elements.From', 'More/Element.Shortcuts', 'More/Hash', 'More/Locale']
+		},
+		accordion: {
+			css: ['modules/accordion.css'],
+			js: ['modules/Accordion.js'],
+			moo: ['More/Fx.Slide'],
+			require: ['base']
 		},
 		alert: {
 			css: ['ui/alert.css'],
@@ -47,7 +54,8 @@ module.exports = function(grunt) {
 		modal: {
 			css: ['modules/modal.css'],
 			js: ['modules/Modal.js'],
-			require: ['base']
+			moo: ['More/Drag', 'More/Element.Position'],
+			require: ['base', 'blackout']
 		},
 		pagination: {
 			css: ['ui/pagination.css'],
@@ -70,11 +78,13 @@ module.exports = function(grunt) {
 			require: ['base']
 		},
 		timers: {
-			js: ['class/Timers.js']
+			js: ['class/Timers.js'],
+			moo: ['Core']
 		},
 		tooltip: {
 			css: ['modules/tooltip.css'],
 			js: ['modules/Tooltip.js'],
+			moo: ['More/Element.Event.Pseudos', 'More/Element.Position'],
 			require: ['base']
 		},
 		visual: {
@@ -120,9 +130,13 @@ module.exports = function(grunt) {
 				value.forEach(addDependency);
 
 			} else {
-				dependencies[key] = _.union(dependencies[key] || [], value.map(function(v) {
-					return 'src/' + key + '/' + v;
-				}));
+				if (key !== 'moo') {
+					value = value.map(function(v) {
+						return 'src/' + key + '/' + v;
+					});
+				}
+
+				dependencies[key] = _.union(dependencies[key] || [], value);
 			}
 		});
 
@@ -162,6 +176,7 @@ module.exports = function(grunt) {
 			" * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
 			" * <%= pkg.licenses[0].type %> - <%= pkg.licenses[0].url %>\n" +
 			" * Components: " + toPackage.sort().join(', ') + "\n" +
+			" * Dependencies: " + dependencies.moo.sort().join(', ') + "\n" +
 			" */\n";
 	}
 
