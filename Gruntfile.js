@@ -48,6 +48,7 @@ module.exports = function(grunt) {
 			require: ['base']
 		},
 		lazyLoad: {
+			css: ['ui/lazy-load.css'],
 			js: ['utilities/LazyLoad.js'],
 			require: ['base']
 		},

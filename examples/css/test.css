@@ -95,4 +95,4 @@ h1 { font-size: 36px; }
 .lazy-load { width: 200px; height: 200px; }
 .lazy-load-0,
 .lazy-load-1,
-.lazy-load-2 { background: none !important; }
+.lazy-load-2 { background-image: none !important; }
