@@ -76,29 +76,47 @@ Titon.Module = new Class({
 	/**
 	 * Initialize options and template.
 	 *
-	 * @param {String} query
+	 * @param {String|Element|Elements} query
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
-		this.query = query;
 		this.setOptions(options || {});
 
+		options = this.options;
+
+		// Allow element to be targeted
+		if (typeOf(query) === 'element') {
+			this.element = query;
+			this.query = this.element.get('id');
+			options.parseTemplate = false;
+
+		} else if (typeOf(query) === 'elements') {
+			this.elements = query;
+			this.query = this.elements.get('class');
+			options.multiElement = true;
+
+		} else {
+			this.query = query;
+		}
+
 		// No templates for multiple elements
-		if (this.options.multiElement) {
-			this.options.parseTemplate = false;
+		if (options.multiElement) {
+			options.parseTemplate = false;
 		}
 
 		// Parse the template from a string, or use a target element
-		if (this.options.parseTemplate) {
-			var element = this.options.templateFrom.remove('#');
+		if (options.parseTemplate) {
+			var element;
 
-			if (element) {
-				element = $(element);
+			if (typeOf(options.templateFrom) === 'element') {
+				element = options.templateFrom;
+			} else {
+				element = $(options.templateFrom.remove('#'));
 			}
 
 			// From a string
-			if (!element && this.options.template) {
-				element = this.parseTemplate(this.options.template);
+			if (!element && options.template) {
+				element = this.parseTemplate(options.template);
 
 				if (element) {
 					element.hide().inject(document.body);
@@ -111,10 +129,15 @@ Titon.Module = new Class({
 			} else {
 				throw new Error('Template failed to parse');
 			}
+		}
 
-			// Add a class name
-			if (this.options.className) {
-				this.element.addClass(this.options.className);
+		// Add a class name
+		if (options.className) {
+			if (this.element) {
+				this.element.addClass(options.className);
+
+			} else if (this.elements) {
+				this.elements.addClass(options.className);
 			}
 		}
 	},

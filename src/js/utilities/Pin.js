@@ -14,7 +14,7 @@ Titon.Pin = new Class({
 	/**
 	 * The current window width and height.
 	 */
-	viewport: window.getSize(),
+	viewport: null,
 
 	/**
 	 * Default options.
@@ -53,6 +53,7 @@ Titon.Pin = new Class({
 		this.parent(id, options);
 
 		// Cache the element coordinates
+		this.viewport = window.getSize();
 		this.elementSize = this.element.getCoordinates();
 		this.parentSize = this.element.getParent().getCoordinates();
 
