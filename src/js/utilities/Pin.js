@@ -28,7 +28,6 @@ Titon.Pin = new Class({
 	 *	onResize	- (function) Callback triggered when page is resized
 	 */
 	options: {
-		position: 'absolute',
 		location: 'right',
 		xOffset: 0,
 		yOffset: 0,
@@ -65,6 +64,8 @@ Titon.Pin = new Class({
 		}
 
 		this.fireEvent('init');
+
+		window.addEvent('resize', this._resize);
 	},
 
 	/**
@@ -91,11 +92,14 @@ Titon.Pin = new Class({
 			pSize = this.parentSize,
 			wScroll = window.getScroll(),
 			pos = {},
-			x = options.xOffset,
-			y = options.yOffset;
+			x = 0,
+			y = 0;
 
 		// Scroll reaches the top or bottom of the parent
 		if (wScroll.y > pSize.top) {
+			x = options.xOffset;
+			y = options.yOffset;
+
 			var elementMaxPos = wScroll.y + eSize.height,
 				parentMaxHeight = pSize.height + pSize.top;
 
@@ -107,7 +111,7 @@ Titon.Pin = new Class({
 		}
 
 		// Position the element
-		pos.position = options.position;
+		pos.position = 'absolute';
 		pos[options.location] = x;
 		pos.top = y;
 
@@ -126,8 +130,6 @@ Titon.Pin = new Class({
 		if (!this.query) {
 			return this;
 		}
-
-		window.addEvent('resize', this._resize);
 
 		if (on) {
 			window.addEvent('scroll:throttle(' + this.options.throttle + ')', this._scroll);
