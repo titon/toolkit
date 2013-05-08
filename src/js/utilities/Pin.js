@@ -42,23 +42,28 @@ Titon.Pin = new Class({
 	/**
 	 * Pin the element and enable events.
 	 *
-	 * @param query
-	 * @param options
+	 * @param {String} id
+	 * @param {Object} options
 	 */
-	initialize: function(query, options) {
+	initialize: function(id, options) {
 		options = options || {};
-		options.templateFrom = query;
+		options.templateFrom = id;
 		options.template = false;
 
-		this.parent(query, options);
-
-		this.disable().enable();
-
-		this.fireEvent('init');
+		this.parent(id, options);
 
 		// Cache the element coordinates
 		this.elementSize = this.element.getCoordinates();
 		this.parentSize = this.element.getParent().getCoordinates();
+
+		// Enable pin if the parent is larger than the child
+		this.disable();
+
+		if (this.parentSize.height >= (this.elementSize.height * 2)) {
+			this.enable();
+		}
+
+		this.fireEvent('init');
 	},
 
 	/**
@@ -142,18 +147,18 @@ Titon.Pin.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {String} query
+ * @param {String} id
  * @param {Object} options
  * @return {Titon.Pin}
  */
-Titon.Pin.factory = function(query, options) {
-	if (Titon.Pin.instances[query]) {
-		return Titon.Pin.instances[query];
+Titon.Pin.factory = function(id, options) {
+	if (Titon.Pin.instances[id]) {
+		return Titon.Pin.instances[id];
 	}
 
-	var instance = new Titon.Pin(query, options);
+	var instance = new Titon.Pin(id, options);
 
-	Titon.Pin.instances[query] = instance;
+	Titon.Pin.instances[id] = instance;
 
 	return instance;
 };
