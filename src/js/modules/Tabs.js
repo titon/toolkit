@@ -29,11 +29,11 @@ Titon.Tabs = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	ajax			- (boolean) Will load the href as an ajax call when applicable
-	 *	collapsible		- (boolean) Hide the section if the tab is clicked again
+	 *	ajax			- (bool) Will load the href as an ajax call when applicable
+	 *	collapsible		- (bool) Hide the section if the tab is clicked again
 	 *	defaultIndex	- (int) Index of the tab/section to display by default
-	 *	persistState	- (boolean) Will persist the last tab clicked between page loads
-	 *	preventDefault	- (boolean) Prevent the default action from triggering for tabs
+	 *	persistState	- (bool) Will persist the last tab clicked between page loads
+	 *	preventDefault	- (bool) Prevent the default action from triggering for tabs
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
 	 *	tabsElement		- (string) The CSS query to grab the tab elements

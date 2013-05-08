@@ -29,11 +29,11 @@ Titon.Modal = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	ajax			- (boolean) The modal uses the target as an AJAX call
-	 *	draggable		- (boolean) Will enable dragging on the outer element
-	 *	blackout		- (boolean) Will show a blackout when a modal is opened, and hide it when it is closed
-	 *	fixed			- (boolean) Will position the modal in the center of the page regardless of scrolling
-	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
+	 *	ajax			- (bool) The modal uses the target as an AJAX call
+	 *	draggable		- (bool) Will enable dragging on the outer element
+	 *	blackout		- (bool) Will show a blackout when a modal is opened, and hide it when it is closed
+	 *	fixed			- (bool) Will position the modal in the center of the page regardless of scrolling
+	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
 	 *	getContent		- (string) Attribute to read the content from
 	 *	delay			- (int) The delay in milliseconds before the modal shows
 	 *	contentElement	- (string) CSS query for the content element within the template

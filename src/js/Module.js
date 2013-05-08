@@ -44,7 +44,7 @@ Titon.Module = new Class({
 	 *	multiElement	- (bool) Whether the module holds a single element or multiple
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
-	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
+	 *	parseTemplate	- (bool) Whether to parse the template during initialization
 	 *	onInit			- (function) Callback to trigger when class is instantiated
 	 *	onHide			- (function) Callback to trigger when the element is hidden
 	 *	onShow			- (function) Callback to trigger when the element is shown
@@ -230,7 +230,7 @@ Titon.Module = new Class({
 	 * Return true if the element exists and is visible.
 	 *
 	 * @param {Element} element
-	 * @return {boolean}
+	 * @return {bool}
 	 */
 	isVisible: function(element) {
 		element = element || this.element;
@@ -345,7 +345,7 @@ Titon.Module = new Class({
 	/**
 	 * Destroy the current template and reset.
 	 *
-	 * @param {boolean} dispose
+	 * @param {bool} dispose
 	 * @return {Titon.Module}
 	 */
 	reset: function(dispose) {

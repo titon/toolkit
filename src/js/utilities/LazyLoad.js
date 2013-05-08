@@ -25,7 +25,7 @@ Titon.LazyLoad = new Class({
 	 * Default options.
 	 *
 	 *	fade			- (int) Will fade the items in and out in milliseconds
-	 *	forceLoad		- (boolean) Will force all items to load after a delay
+	 *	forceLoad		- (bool) Will force all items to load after a delay
 	 *	delay			- (int) The delay in milliseconds before items are force loaded
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
 	 *	context			- (element) The element the lazy loading triggers in (defaults window)
@@ -93,7 +93,7 @@ Titon.LazyLoad = new Class({
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
-	 * @return {boolean}
+	 * @return {bool}
 	 */
 	load: function() {
 		if (this.isLoaded) {
@@ -122,7 +122,7 @@ Titon.LazyLoad = new Class({
 	/**
 	 * Load the remaining hidden elements and remove any container events.
 	 *
-	 * @return {boolean}
+	 * @return {bool}
 	 */
 	loadAll: function() {
 		if (this.isLoaded) {
@@ -170,7 +170,7 @@ Titon.LazyLoad = new Class({
 	 * Verify that the element is within the current browser viewport.
 	 *
 	 * @param {Element} node
-	 * @return {boolean}
+	 * @return {bool}
 	 */
 	inViewport: function(node) {
 		var threshold = this.options.threshold,

@@ -121,7 +121,7 @@ Titon.Flyout = new Class({
 	/**
 	 * Return true if the current menu exists and is visible.
 	 *
-	 * @return {boolean}
+	 * @return {bool}
 	 */
 	isVisible: function() {
 		return (this.current && this.elements[this.current] && this.elements[this.current].isVisible());

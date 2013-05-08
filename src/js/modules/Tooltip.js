@@ -20,11 +20,11 @@ Titon.Tooltip = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	ajax			- (boolean) The tooltip uses the target as an AJAX call
+	 *	ajax			- (bool) The tooltip uses the target as an AJAX call
 	 *	follow			- (bool) The tooltip will follow the mouse
 	 *	position		- (string) The position to display the tooltip over the element
-	 *	showLoading		- (boolean) Will display the loading text while waiting for AJAX calls
-	 *	showTitle		- (boolean) Will display the element title in the tooltip
+	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
+	 *	showTitle		- (bool) Will display the element title in the tooltip
 	 *	getTitle		- (string) Attribute to read the title from
 	 *	getContent		- (string) Attribute to read the content from
 	 *	mouseThrottle	- (int) The amount in milliseconds to update mouse hover location
