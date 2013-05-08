@@ -91,3 +91,8 @@ h1 { font-size: 36px; }
 
 .pin-left .pin { float: left; }
 .pin-right .pin { float: right; }
+
+.lazy-load { width: 200px; height: 200px; }
+.lazy-load-0,
+.lazy-load-1,
+.lazy-load-2 { background: none !important; }

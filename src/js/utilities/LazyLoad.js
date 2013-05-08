@@ -28,9 +28,7 @@ Titon.LazyLoad = new Class({
 	 *	forceLoad		- (boolean) Will force all items to load after a delay
 	 *	delay			- (int) The delay in milliseconds before items are force loaded
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
-	 *	createStyles	- (boolean) Will automatically create CSS styles related to lazy loading
 	 *	context			- (element) The element the lazy loading triggers in (defaults window)
-	 *	parseTemplate	- (boolean) Whether to parse the template during initialization
 	 *	onLoad			- (function) Callback to trigger when the scroll bar loads items
 	 *	onLoadAll		- (function) Callback to trigger when all items are loaded
 	 *	onShow			- (function) Callback to trigger when an item is shown
@@ -41,7 +39,6 @@ Titon.LazyLoad = new Class({
 		forceLoad: false,
 		delay: 10000,
 		threshold: 150,
-		createStyles: true,
 		context: null,
 
 		// Events
@@ -60,15 +57,6 @@ Titon.LazyLoad = new Class({
 	initialize: function(query, options) {
 		this.setOptions(options);
 		this.query = query;
-
-		// Setup CSS styles
-		if (this.options.createStyles) {
-			var sheet = document.createElement('style');
-				sheet.innerHTML  = query + ' { background: none !important; }';
-				sheet.innerHTML += query + ' * { display: none !important; }';
-
-			document.head.grab(sheet);
-		}
 
 		// Add events
 		$(this.options.context || window).addEvents({
@@ -121,8 +109,6 @@ Titon.LazyLoad = new Class({
 		}
 
 		elements.each(function(node) {
-			node = new Element(node);
-
 			if (this.inViewport(node)) {
 				this.show(node);
 			}
@@ -146,7 +132,7 @@ Titon.LazyLoad = new Class({
 		var elements = $$(this.query);
 
 		elements.each(function(node) {
-			this.show(new Element(node));
+			this.show(node);
 		}, this);
 
 		this.fireEvent('loadAll', elements);
@@ -165,8 +151,17 @@ Titon.LazyLoad = new Class({
 		node.removeClass(this.query.remove('.'));
 
 		if (this.options.fade) {
-			node.getChildren().fadeIn(this.options.fade);
+			node.fadeIn(this.options.fade);
 		}
+
+		// Replace src attributes on images
+		node.getElements('img').each(function(image) {
+			var data = image.get('data-lazyload');
+
+			if (data) {
+				image.set('src', data);
+			}
+		});
 
 		this.fireEvent('show', node);
 	},

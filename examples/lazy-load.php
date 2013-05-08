@@ -8,8 +8,8 @@
 
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
 
-			<div class="lazy-load-0 lazy-load">
-				<img src="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+			<div class="lazy-load-0 lazy-load" style="background-image: url('http://lorempixel.com/200/200/?c=<?php echo $c; ?>')">
+				<!-- Background styles are lazy loaded via CSS -->
 			</div>
 
 		<?php $c++; } ?>
@@ -21,7 +21,7 @@
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
 
 			<div class="lazy-load-1 lazy-load">
-				<img src="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+				<img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
 			</div>
 
 		<?php $c++; } ?>
@@ -33,7 +33,7 @@
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
 
 			<div class="lazy-load-2 lazy-load">
-				<img src="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+				<img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
 			</div>
 
 		<?php $c++; } ?>
