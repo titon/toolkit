@@ -36,7 +36,7 @@ $assets = array(
 		'css' => array('ui/label-badge.css', 'ui/effects/label.css')
 	),
 	'lazy-load' => array(
-		'title' => 'LazyLoad',
+		'title' => 'Lazy Load',
 		'js' => array('utilities/LazyLoad.js')
 	),
 	'modal' => array(
@@ -66,6 +66,11 @@ $assets = array(
 		'title' => 'Tooltip',
 		'css' => array('ui/button.css', 'modules/tooltip.css'),
 		'js' => array('modules/Tooltip.js')
+	),
+	'type-ahead' => array(
+		'title' => 'Type Ahead',
+		'css' => array('modules/type-ahead.css'),
+		'js' => array('modules/TypeAhead.js')
 	),
 );
 
