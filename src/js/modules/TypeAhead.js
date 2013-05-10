@@ -40,14 +40,16 @@ Titon.TypeAhead = new Class({
 	 * Default options.
 	 */
 	options: {
-		minLength: 2,
+		minLength: 1,
 		itemLimit: 15,
 		throttle: 200,
+		prefetch: false,
 		source: [],
-		sorter: null,
-		filter: null,
-		matcher: null,
 		template: '<div class="type-ahead"></div>',
+
+		// Callbacks
+		sorter: null,
+		matcher: null,
 
 		// Events
 		onSelect: null,
@@ -72,10 +74,38 @@ Titon.TypeAhead = new Class({
 			this.input.set('autocomplete', 'off');
 		}
 
+		// Use default callbacks
+		if (this.options.sorter === null) {
+			this.options.sorter = this.sorter;
+		}
+
+		if (this.options.matcher === null) {
+			this.options.matcher = this.matcher;
+		}
+
 		// Set events
 		this.disable().enable();
 
 		this.fireEvent('init');
+	},
+
+	/**
+	 * Highlight the current term within the item string.
+	 * Split multi-word terms to highlight separately.
+	 *
+	 * @param {String} item
+	 * @returns {String}
+	 */
+	highlight: function(item) {
+		var terms = this.term.replace(/[\-\[\]{}()*+?.,\\^$|#]/g, "\\$&").split(" ");
+
+		for (var i = 0, t; t = terms[i]; i++) {
+			item = item.replace(new RegExp(t, "ig"), function(match) {
+				return '<span class="highlight">' + match + '</span>';
+			});
+		}
+
+		return item;
 	},
 
 	/**
@@ -126,23 +156,39 @@ Titon.TypeAhead = new Class({
 	},
 
 	/**
+	 * Match an item if it contains the term.
+	 *
+	 * @param {String} item
+	 * @param {String} term
+	 * @returns {bool}
+	 */
+	matcher: function(item, term) {
+		return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+	},
+
+	/**
 	 * Process the list of items be generating new elements and positioning below the input.
 	 *
 	 * @param {Array} items
 	 */
 	process: function(items) {
 		this.items = Array.from(items);
+		this.index = -1;
 
-		// Cache the data
-		if (this.term) {
-			this.cache[this.term] = this.items;
-		}
-
-		// Build a new menu
 		this._buildList();
 		this._position();
 
 		this.fireEvent('show');
+	},
+
+	/**
+	 * Sort the items.
+	 *
+	 * @param {Array} items
+	 * @returns {Array}
+	 */
+	sorter: function(items) {
+		return items.sort();
 	},
 
 	/**
@@ -156,29 +202,42 @@ Titon.TypeAhead = new Class({
 			items = this.items,
 			item,
 			ul = new Element('ul'),
-			li, a;
+			a,
+			filteredItems = [],
+			matcherType = typeOf(options.matcher);
 
-		// TODO filter
-		// TODO sorter
-		// TODO matcher
+		if (typeOf(options.sorter) === 'function') {
+			items = options.sorter(items);
+		}
 
-		for (var i = 0, l = items.length; i < l; i++) {
-			if (i >= options.itemLimit) {
-				break;
-			}
-
+		for (var i = 0, c = 0, l = items.length; i < l; i++) {
 			item = items[i];
 
+			if (c >= options.itemLimit) {
+				break;
+
+			} else if (matcherType === 'function' && !options.matcher(item, this.term)) {
+				continue;
+			}
+
 			a = new Element('a', {
-				text: item,
+				html: this.highlight(item),
 				href: 'javascript:;'
 			});
 
-			li = new Element('li');
-			li.grab(a).inject(ul);
+			new Element('li', {
+				'data-index': i
+			}).grab(a).inject(ul);
+
+			filteredItems.push(item);
+			c++;
 		}
 
 		this.element.empty().grab(ul);
+
+		// Reset item list since the original should be cached
+		this.items = filteredItems;
+		this.cache[this.term] = this.items;
 	},
 
 	/**
@@ -216,14 +275,16 @@ Titon.TypeAhead = new Class({
 
 			// Select first
 			case 'tab':
+				e.preventDefault();
+
 				this.index = 0;
-				this.fireEvent('select', [0, items[0]]);
+				this.fireEvent('select', [items[0], this.index]);
 				this.hide();
 			break;
 
 			// Select current index
 			case 'enter':
-				this.fireEvent('select', [this.index, items[this.index]]);
+				this.fireEvent('select', [items[this.index], this.index]);
 				this.hide();
 			break;
 
@@ -280,6 +341,11 @@ Titon.TypeAhead = new Class({
 	 * @private
 	 */
 	_position: function() {
+		if (!this.items.length) {
+			this.hide();
+			return;
+		}
+
 		var iPos = this.input.getCoordinates();
 
 		this.element.setPosition({
