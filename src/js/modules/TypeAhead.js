@@ -42,9 +42,10 @@ Titon.TypeAhead = new Class({
 	options: {
 		minLength: 1,
 		itemLimit: 15,
-		throttle: 200,
+		throttle: 250,
 		prefetch: false,
 		source: [],
+		contentElement: '',
 		template: '<div class="type-ahead"></div>',
 
 		// Callbacks
@@ -65,6 +66,8 @@ Titon.TypeAhead = new Class({
 	initialize: function(id, options) {
 		this.parent(id, options);
 
+		options = this.options;
+
 		// Store the input
 		this.input = $(id);
 
@@ -75,12 +78,25 @@ Titon.TypeAhead = new Class({
 		}
 
 		// Use default callbacks
-		if (this.options.sorter === null) {
+		if (options.sorter === null) {
 			this.options.sorter = this.sorter;
 		}
 
-		if (this.options.matcher === null) {
+		if (options.matcher === null) {
 			this.options.matcher = this.matcher;
+		}
+
+		// Prefetch source from URL
+		if (options.prefetch && typeOf(options.source) === 'string') {
+			var url = options.source;
+
+			new Request.JSON({
+				url: url,
+				onSuccess: function(items) {
+					this.items = items;
+					this.cache[url] = items;
+				}.bind(this)
+			}).get();
 		}
 
 		// Set events
@@ -132,12 +148,17 @@ Titon.TypeAhead = new Class({
 
 			// Use the response of an AJAX request
 			} else if (sourceType === 'string') {
-				new Request.JSON({
-					url: options.source,
-					data: { term: term },
-					onSuccess: this.process.bind(this)
-				}).get();
+				var url = options.source;
 
+				if (this.cache[url]) {
+					this.process(this.cache[url]);
+				} else {
+					new Request.JSON({
+						url: url,
+						data: { term: term },
+						onSuccess: this.process.bind(this)
+					}).get();
+				}
 			// Use a literal array list
 			} else if (sourceType === 'array') {
 				this.process(options.source);

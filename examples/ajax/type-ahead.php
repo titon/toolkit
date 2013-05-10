@@ -2,7 +2,20 @@
 $funcs = get_defined_functions();
 $funcs = $funcs['internal'];
 
-// Shuffle it so we can sort in JS
-shuffle($funcs);
+if (isset($_GET['term'])) {
+	$clean = [];
+	$term = $_GET['term'];
 
-echo json_encode($funcs);
+	foreach ($funcs as $func) {
+		if (strpos($func, $term) !== false) {
+			$clean[] = $func;
+		}
+	}
+
+	sort($clean);
+} else {
+	$clean = $funcs;
+	shuffle($clean);
+}
+
+echo json_encode($clean);
