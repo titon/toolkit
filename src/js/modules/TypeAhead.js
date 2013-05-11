@@ -79,11 +79,11 @@ Titon.TypeAhead = new Class({
 
 		// Use default callbacks
 		if (options.sorter === null) {
-			this.options.sorter = this.sorter;
+			this.options.sorter = this.sort;
 		}
 
 		if (options.matcher === null) {
-			this.options.matcher = this.matcher;
+			this.options.matcher = this.match;
 		}
 
 		// Prefetch source from URL
@@ -132,12 +132,6 @@ Titon.TypeAhead = new Class({
 	 */
 	lookup: function(term) {
 		this.term = term;
-
-		if (this.timer !== null) {
-			window.clearTimeout(this.timer);
-			this.timer = null;
-		}
-
 		this.timer = window.setTimeout(function() {
 			var options = this.options,
 				sourceType = typeOf(options.source);
@@ -183,7 +177,7 @@ Titon.TypeAhead = new Class({
 	 * @param {String} term
 	 * @returns {bool}
 	 */
-	matcher: function(item, term) {
+	match: function(item, term) {
 		return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
 	},
 
@@ -193,45 +187,27 @@ Titon.TypeAhead = new Class({
 	 * @param {Array} items
 	 */
 	process: function(items) {
-		this.items = Array.from(items);
-		this.index = -1;
+		if (!this.term.length || !this.items.length) {
+			this.hide();
+			return;
+		}
 
-		this._buildList();
-		this._position();
-
-		this.fireEvent('show');
-	},
-
-	/**
-	 * Sort the items.
-	 *
-	 * @param {Array} items
-	 * @returns {Array}
-	 */
-	sorter: function(items) {
-		return items.sort();
-	},
-
-	/**
-	 * Generate the list of items to display.
-	 * Items will be passed through a filter, sorter and matcher, in that order.
-	 *
-	 * @private
-	 */
-	_buildList: function() {
 		var options = this.options,
-			items = this.items,
 			item,
-			ul = new Element('ul'),
-			a,
-			filteredItems = [],
+			list = new Element('ul'),
 			matcherType = typeOf(options.matcher);
 
+		// Reset
+		this.items = [];
+		this.index = -1;
+
+		// Sort the list of items
 		if (typeOf(options.sorter) === 'function') {
 			items = options.sorter(items);
 		}
 
-		for (var i = 0, c = 0, l = items.length; i < l; i++) {
+		// Loop through the items and build the markup
+		for (var i = 0, c = 0, l = items.length, a; i < l; i++) {
 			item = items[i];
 
 			if (c >= options.itemLimit) {
@@ -246,19 +222,30 @@ Titon.TypeAhead = new Class({
 				href: 'javascript:;'
 			});
 
-			new Element('li', {
-				'data-index': i
-			}).grab(a).inject(ul);
+			new Element('li').grab(a).inject(list);
 
-			filteredItems.push(item);
+			this.items.push(item);
 			c++;
 		}
 
-		this.element.empty().grab(ul);
+		this.element.empty().grab(list);
 
-		// Reset item list since the original should be cached
-		this.items = filteredItems;
+		// Cache the result to the term
 		this.cache[this.term] = this.items;
+
+		this._position();
+
+		this.fireEvent('show');
+	},
+
+	/**
+	 * Sort the items.
+	 *
+	 * @param {Array} items
+	 * @returns {Array}
+	 */
+	sort: function(items) {
+		return items.sort();
 	},
 
 	/**
@@ -346,6 +333,8 @@ Titon.TypeAhead = new Class({
 			return; // Handle with _cycle()
 		}
 
+		window.clearTimeout(this.timer);
+
 		var term = this.input.get('value').trim();
 
 		if (term.length < this.options.minLength) {
@@ -412,18 +401,18 @@ Titon.TypeAhead.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {String} query
+ * @param {String} id
  * @param {Object} options
  * @return {Titon.TypeAhead}
  */
-Titon.TypeAhead.factory = function(query, options) {
-	if (Titon.TypeAhead.instances[query]) {
-		return Titon.TypeAhead.instances[query];
+Titon.TypeAhead.factory = function(id, options) {
+	if (Titon.TypeAhead.instances[id]) {
+		return Titon.TypeAhead.instances[id];
 	}
 
-	var instance = new Titon.TypeAhead(query, options);
+	var instance = new Titon.TypeAhead(id, options);
 
-	Titon.TypeAhead.instances[query] = instance;
+	Titon.TypeAhead.instances[id] = instance;
 
 	return instance;
 };
