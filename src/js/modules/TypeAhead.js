@@ -9,6 +9,7 @@
 
 Titon.TypeAhead = new Class({
 	Extends: Titon.Module,
+	Implements: [Cache],
 	Binds: ['_cycle', '_lookup'],
 
 	/**
@@ -38,6 +39,8 @@ Titon.TypeAhead = new Class({
 
 	/**
 	 * Default options.
+	 *
+	 * TODO
 	 */
 	options: {
 		minLength: 1,
@@ -45,6 +48,7 @@ Titon.TypeAhead = new Class({
 		throttle: 250,
 		prefetch: false,
 		source: [],
+		storage: 'session',
 		contentElement: '',
 		template: '<div class="type-ahead"></div>',
 
@@ -67,6 +71,9 @@ Titon.TypeAhead = new Class({
 		this.parent(id, options);
 
 		options = this.options;
+
+		// Set cache
+		this.setStorage(options.storage);
 
 		// Store the input
 		this.input = $(id);
@@ -94,7 +101,7 @@ Titon.TypeAhead = new Class({
 				url: url,
 				onSuccess: function(items) {
 					this.items = items;
-					this.cache[url] = items;
+					this.setCache(url, items);
 				}.bind(this)
 			}).get();
 		}
@@ -142,10 +149,11 @@ Titon.TypeAhead = new Class({
 
 			// Use the response of an AJAX request
 			} else if (sourceType === 'string') {
-				var url = options.source;
+				var url = options.source,
+					cache = this.getCache(url);
 
-				if (this.cache[url]) {
-					this.process(this.cache[url]);
+				if (cache) {
+					this.process(cache);
 				} else {
 					new Request.JSON({
 						url: url,
