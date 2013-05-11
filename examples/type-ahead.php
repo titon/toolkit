@@ -7,7 +7,8 @@
 </div>
 
 <div class="example">
-	<p>Function: Source data is returned from a function.</p>
+	<p>Function: Source data is returned from a function.<br>
+	Menu also fades in.</p>
 
 	<input type="text" id="ta-2">
 </div>
@@ -35,6 +36,7 @@
 		});
 
 		Titon.TypeAhead.factory('ta-2', {
+			fade: 250,
 			source: function() {
 				return langs;
 			}

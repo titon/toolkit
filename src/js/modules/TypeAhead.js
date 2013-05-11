@@ -187,7 +187,7 @@ Titon.TypeAhead = new Class({
 	 * @param {Array} items
 	 */
 	process: function(items) {
-		if (!this.term.length || !this.items.length) {
+		if (!this.term.length || !items.length) {
 			this.hide();
 			return;
 		}
@@ -228,7 +228,14 @@ Titon.TypeAhead = new Class({
 			c++;
 		}
 
-		this.element.empty().grab(list);
+		// Append list
+		this.element.empty();
+
+		if (options.contentElement) {
+			this.element.getElement(options.contentElement).grab(list);
+		} else {
+			this.element.grab(list);
+		}
 
 		// Cache the result to the term
 		this.cache[this.term] = this.items;
