@@ -70,7 +70,7 @@ $assets = array(
 	'type-ahead' => array(
 		'title' => 'Type Ahead',
 		'css' => array('modules/type-ahead.css'),
-		'js' => array('modules/TypeAhead.js')
+		'js' => array('class/Cache.js', 'modules/TypeAhead.js')
 	),
 );
 

@@ -230,6 +230,8 @@ Titon.TypeAhead = new Class({
 				href: 'javascript:;'
 			});
 
+			a.addEvent('mouseover', this.rewind.bind(this));
+
 			new Element('li').grab(a).inject(list);
 
 			this.items.push(item);
@@ -251,6 +253,14 @@ Titon.TypeAhead = new Class({
 		this._position();
 
 		this.fireEvent('show');
+	},
+
+	/**
+	 * Rewind the cycle pointer to the beginning.
+	 */
+	rewind: function() {
+		this.index = -1;
+		this.element.getElements('li').removeClass(Titon.options.activeClass);
 	},
 
 	/**
