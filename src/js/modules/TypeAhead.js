@@ -10,7 +10,7 @@
 Titon.TypeAhead = new Class({
 	Extends: Titon.Module,
 	Implements: [Cache],
-	Binds: ['_cycle', '_lookup'],
+	Binds: ['_cycle', '_lookup', 'process'],
 
 	/**
 	 * Input element to display menu against.
@@ -100,7 +100,6 @@ Titon.TypeAhead = new Class({
 			new Request.JSON({
 				url: url,
 				onSuccess: function(items) {
-					this.items = items;
 					this.setCache(url, items);
 				}.bind(this)
 			}).get();
@@ -120,7 +119,7 @@ Titon.TypeAhead = new Class({
 	 * @returns {String}
 	 */
 	highlight: function(item) {
-		var terms = this.term.replace(/[\-\[\]{}()*+?.,\\^$|#]/g, "\\$&").split(" ");
+		var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, "\\$&").split(" ");
 
 		for (var i = 0, t; t = terms[i]; i++) {
 			item = item.replace(new RegExp(t, "ig"), function(match) {
@@ -158,7 +157,7 @@ Titon.TypeAhead = new Class({
 					new Request.JSON({
 						url: url,
 						data: { term: term },
-						onSuccess: this.process.bind(this)
+						onSuccess: this.process
 					}).get();
 				}
 			// Use a literal array list
@@ -221,16 +220,20 @@ Titon.TypeAhead = new Class({
 			if (c >= options.itemLimit) {
 				break;
 
-			} else if (matcherType === 'function' && !options.matcher(item, this.term)) {
+			} else if (matcherType === 'function' && !options.matcher(item.title, this.term)) {
 				continue;
 			}
 
 			a = new Element('a', {
-				html: this.highlight(item),
+				html: this.highlight(item.title),
 				href: 'javascript:;'
+			}).addEvents({
+				mouseover: this.rewind.bind(this),
+				click: function(index) {
+					this.select(index);
+					this.hide();
+				}.pass(c, this)
 			});
-
-			a.addEvent('mouseover', this.rewind.bind(this));
 
 			new Element('li').grab(a).inject(list);
 
@@ -264,6 +267,30 @@ Titon.TypeAhead = new Class({
 	},
 
 	/**
+	 * Select an item in the list.
+	 *
+	 * @param {int} index
+	 */
+	select: function(index) {
+		this.index = index;
+
+		var rows = this.element.getElements('li'),
+			activeClass = Titon.options.activeClass;
+
+		rows.removeClass(activeClass);
+
+		if (index >= 0 && this.items[index]) {
+			var item = this.items[index];
+
+			rows[index].addClass(activeClass);
+
+			this.input.set('value', item.title);
+
+			this.fireEvent('select', [item, index]);
+		}
+	},
+
+	/**
 	 * Sort the items.
 	 *
 	 * @param {Array} items
@@ -280,8 +307,7 @@ Titon.TypeAhead = new Class({
 	 * @param {DOMEvent} e
 	 */
 	_cycle: function(e) {
-		var items = this.items,
-			length = items.length.limit(0, this.options.itemLimit);
+		var length =  this.items.length.limit(0, this.options.itemLimit);
 
 		if (!length || !this.isVisible()) {
 			return;
@@ -311,13 +337,11 @@ Titon.TypeAhead = new Class({
 				e.preventDefault();
 
 				this.index = 0;
-				this.fireEvent('select', [items[0], this.index]);
 				this.hide();
 			break;
 
 			// Select current index
 			case 'enter':
-				this.fireEvent('select', [items[this.index], this.index]);
 				this.hide();
 			break;
 
@@ -336,15 +360,7 @@ Titon.TypeAhead = new Class({
 		}
 
 		// Select the item
-		var rows = this.element.getElements('li'),
-			activeClass = Titon.options.activeClass;
-
-		rows.removeClass(activeClass);
-
-		if (this.index >= 0) {
-			rows[this.index].addClass(activeClass);
-			this.input.set('value', items[this.index]);
-		}
+		this.select(this.index);
 	},
 
 	/**

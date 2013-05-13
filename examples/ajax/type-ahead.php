@@ -18,4 +18,8 @@ if (isset($_GET['term'])) {
 	shuffle($clean);
 }
 
+$clean = array_map(function($value) {
+	return array('title' => $value);
+}, $clean);
+
 echo json_encode($clean);

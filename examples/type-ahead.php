@@ -29,7 +29,17 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		var langs = ['PHP', 'HTML', 'Javascript', 'MooTools', 'jQuery', 'Ruby', 'RoR', 'Java', 'Python'];
+		var langs = [
+			{ title: 'PHP' },
+			{ title: 'HTML' },
+			{ title: 'Javascript' },
+			{ title: 'MooTools' },
+			{ title: 'jQuery' },
+			{ title: 'Ruby' },
+			{ title: 'Ruby on Rails' },
+			{ title: 'Java' },
+			{ title: 'Python' }
+		];
 
 		Titon.TypeAhead.factory('ta-1', {
 			source: langs
