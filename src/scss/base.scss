@@ -6,6 +6,7 @@
 
 @import "variables";
 @import "mixins";
+@import "compass/css3/filter";
 
 // Alignment
 .align-left { text-align: left; }
@@ -13,10 +14,8 @@
 .align-right { text-align: right; }
 .align-justify { text-align: justify; }
 
-.float-left,
-.pull-left { float: left; }
-.float-right,
-.pull-right { float: right; }
+.float-left { float: left; }
+.float-right { float: right; }
 .float-none { float: none; }
 
 // Display
@@ -34,22 +33,15 @@
 .static { position: static; }
 
 // Layout
-.clear {
-	clear: both;
-	display: block;
-	margin: 0;
-	padding: 0;
-}
-
-.clear-after {
-	@include clear-after;
-}
+.clear { clear: both; display: block; margin: 0; padding: 0; }
+.clear-after { @include clear-after; }
 
 // Styles
 .round { border-radius: $border-round; }
 .draggable { cursor: move; }
 #{$disabled-class},
-[disabled] { cursor: not-allowed !important; }
+button[disabled] { cursor: not-allowed !important; }
+.blur { @include filter(blur(2px)); }
 
 // Carets
 .caret-up,

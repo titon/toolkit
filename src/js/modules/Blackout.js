@@ -14,15 +14,18 @@ Titon.Blackout = new Class({
 	 * Default options.
 	 */
 	options: {
+		blur: false,
 		template: '<div class="blackout" id="titon-blackout"></div>',
 		templateFrom: 'titon-blackout'
 	},
 
 	/**
 	 * Add events for browser resizing.
+	 *
+	 * @param {Object} options
 	 */
-	initialize: function() {
-		this.parent();
+	initialize: function(options) {
+		this.parent('.blackout', options);
 
 		window.addEvent('resize', this.position.bind(this));
 
@@ -65,6 +68,10 @@ Titon.Blackout = new Class({
 			count--;
 
 		if (count <= 0) {
+			if (this.options.blur) {
+				$(this.options.blur).removeClass('blur');
+			}
+
 			this.element.hide();
 		}
 
@@ -91,6 +98,10 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	show: function() {
+		if (this.options.blur) {
+			$(this.options.blur).addClass('blur');
+		}
+
 		this.element.show();
 		this.position();
 		this.increase();

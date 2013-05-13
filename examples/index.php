@@ -162,24 +162,26 @@ $theme = $themes[$themeKey]; ?>
 	} ?>
 </head>
 <body class="<?php echo $themeKey; ?>">
-	<?php include sprintf('%s.php', $assetKey); ?>
+	<div id="wrapper">
+		<?php include sprintf('%s.php', $assetKey); ?>
 
-	<form action="" method="get" class="test-switcher">
-		<select name="asset">
-			<option value="">-- Module --</option>
-			<?php foreach ($assets as $key => $value) { ?>
-				<option value="<?php echo $key; ?>"<?php if ($key === $assetKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
-			<?php } ?>
-		</select>
+		<form action="" method="get" class="test-switcher">
+			<select name="asset">
+				<option value="">-- Module --</option>
+				<?php foreach ($assets as $key => $value) { ?>
+					<option value="<?php echo $key; ?>"<?php if ($key === $assetKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+				<?php } ?>
+			</select>
 
-		<select name="theme">
-			<option value="">-- Theme --</option>
-			<?php foreach ($themes as $key => $value) { ?>
-				<option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
-			<?php } ?>
-		</select>
+			<select name="theme">
+				<option value="">-- Theme --</option>
+				<?php foreach ($themes as $key => $value) { ?>
+					<option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+				<?php } ?>
+			</select>
 
-		<button type="submit">GO</button>
-	</form>
+			<button type="submit">GO</button>
+		</form>
+	</div>
 </body>
 </html>

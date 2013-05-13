@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Modal.factory('.modal-base');
+		Titon.Modal.factory('.modal-base', { blur: 'wrapper' });
 		Titon.Modal.factory('.modal-black', { blackout: false });
 		Titon.Modal.factory('.modal-drag', { draggable: true });
 		Titon.Modal.factory('.modal-fade', { fade: 250 });

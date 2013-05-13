@@ -93,7 +93,7 @@ Titon.Modal = new Class({
 
 		// Blackout
 		if (this.options.blackout) {
-			this.blackout = new Titon.Blackout();
+			this.blackout = new Titon.Blackout({ blur: this.options.blur || false });
 			this.blackout.element.addEvent('click', this._hide);
 		}
 
