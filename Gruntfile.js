@@ -33,6 +33,11 @@ module.exports = function(grunt) {
 			effects: ['ui/effects/button-group.css'],
 			require: ['button']
 		},
+		cache: {
+			js: ['class/Cache.js'],
+			moo: ['Core'],
+			require: ['JSON']
+		},
 		flyout: {
 			css: ['modules/flyout.css'],
 			js: ['modules/Flyout.js'],
@@ -87,6 +92,11 @@ module.exports = function(grunt) {
 			js: ['modules/Tooltip.js'],
 			moo: ['More/Element.Event.Pseudos', 'More/Element.Position'],
 			require: ['base']
+		},
+		typeAhead: {
+			css: ['modules/type-ahead.css'],
+			js: ['modules/TypeAhead.js'],
+			require: ['base', 'cache']
 		},
 		visual: {
 			css: ['effects/visual.css'],
