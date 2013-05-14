@@ -12,40 +12,43 @@ Titon.TypeAhead = new Class({
 	Implements: [Cache],
 	Binds: ['_cycle', '_lookup', 'process'],
 
-	/**
-	 * Input element to display menu against.
-	 */
+	/** Input element to display menu against. */
 	input: null,
 
-	/**
-	 * Shadow input element.
-	 */
+	/** Shadow input element. */
 	shadow: null,
 
-	/**
-	 * Current active index when cycling through the list.
-	 */
+	/** Current active index when cycling through the list. */
 	index: -1,
 
-	/**
-	 * List of items to display and match against.
-	 */
+	/** List of items to display and match against. */
 	items: [],
 
-	/**
-	 * Current term used during lookup and matching.
-	 */
+	/** Current term used during lookup and matching. */
 	term: '',
 
-	/**
-	 * Throttle timer.
-	 */
+	/** Throttle timer. */
 	timer: null,
 
 	/**
 	 * Default options.
 	 *
-	 * TODO
+	 *	source			- (string|function|array) The source data to use for list building
+	 *	minLength		- (int) Minimum character length before lookup triggers
+	 *	itemLimit		- (int) Max items to display in the list
+	 *	throttle		- (int) Time in milliseconds before each lookup is triggered; Reduces AJAX requests
+	 *	prefetch		- (bool) Will prefetch and cache the source if the source is an AJAX call
+	 *	shadow			- (bool) Will display shadow text behind the input that correlates to the first available match
+	 *	storage			- (string) The storage layer to use for caching: local, session, memory
+	 *	contentElement	- (string) CSS query for the element that lists are inserted to
+	 *	titleElement	- (string) CSS query for the title element within the list item
+	 *	descElement		- (string) CSS query for the description element within the list item
+	 *	shadowElement	- (string) CSS query for the shadow wrapping div
+	 *	sorter			- (function) Callback to use for data sorting
+	 *	matcher			- (function) Callback to use for data matching
+	 *	builder			- (function) Callback to use for list item building
+	 *	onSelect		- (function) Callback to trigger when a list item is selected
+	 *	onReset			- (function) Callback to trigger when the list is reset
 	 */
 	options: {
 		source: [],
@@ -380,17 +383,22 @@ Titon.TypeAhead = new Class({
 
 		rows.removeClass(activeClass);
 
-		if (index >= 0 && this.items[index]) {
-			var item = this.items[index];
+		// Select
+		if (index >= 0) {
+			if (this.items[index]) {
+				var item = this.items[index];
 
-			rows[index].addClass(activeClass);
+				rows[index].addClass(activeClass);
 
-			this.input.set('value', item.title);
+				this.input.set('value', item.title);
 
-			this.fireEvent('select', [item, index]);
-
+				this.fireEvent('select', [item, index]);
+			}
+		// Reset
 		} else {
 			this.input.set('value', this.term);
+
+			this.fireEvent('reset');
 		}
 	},
 
@@ -443,7 +451,13 @@ Titon.TypeAhead = new Class({
 			case 'tab':
 				e.preventDefault();
 
-				this.index = 0;
+				var i = 0;
+
+				while (!this.items[i]) {
+					i++;
+				}
+
+				this.index = i;
 				this.hide();
 			break;
 
@@ -455,8 +469,6 @@ Titon.TypeAhead = new Class({
 			// Reset
 			case 'esc':
 				this.index = -1;
-				this.input.set('value', this.term);
-				this.fireEvent('reset');
 				this.hide();
 			break;
 
