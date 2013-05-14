@@ -131,6 +131,8 @@ Titon.TypeAhead = new Class({
 		}
 
 		// Set events
+		document.body.addEvent('click', this._hide);
+
 		this.disable().enable();
 
 		this.fireEvent('init');
@@ -386,6 +388,9 @@ Titon.TypeAhead = new Class({
 			this.input.set('value', item.title);
 
 			this.fireEvent('select', [item, index]);
+
+		} else {
+			this.input.set('value', this.term);
 		}
 	},
 
@@ -421,7 +426,7 @@ Titon.TypeAhead = new Class({
 				this.index -= (items[this.index - 1] ? 1 : 2); // category check
 
 				if (this.index < 0) {
-					this.index = length - 1;
+					this.index = length;
 				}
 			break;
 
@@ -430,7 +435,7 @@ Titon.TypeAhead = new Class({
 				this.index += (items[this.index + 1] ? 1 : 2); // category check
 
 				if (this.index >= length) {
-					this.index = 0;
+					this.index = -1;
 				}
 			break;
 
