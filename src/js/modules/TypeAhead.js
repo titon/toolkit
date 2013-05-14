@@ -10,7 +10,7 @@
 Titon.TypeAhead = new Class({
 	Extends: Titon.Module,
 	Implements: [Cache],
-	Binds: ['_cycle', '_lookup', 'process'],
+	Binds: ['_cycle', '_lookup', 'process', 'rewind'],
 
 	/** Input element to display menu against. */
 	input: null,
@@ -184,12 +184,13 @@ Titon.TypeAhead = new Class({
 	 * @returns {String}
 	 */
 	highlight: function(item) {
-		var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, "\\$&").split(" ");
+		var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
+			callback = function(match) {
+				return '<span class="highlight">' + match + '</span>';
+			};
 
 		for (var i = 0, t; t = terms[i]; i++) {
-			item = item.replace(new RegExp(t, "ig"), function(match) {
-				return '<span class="highlight">' + match + '</span>';
-			});
+			item = item.replace(new RegExp(t, 'ig'), callback);
 		}
 
 		return item;
@@ -319,11 +320,8 @@ Titon.TypeAhead = new Class({
 
 				a = options.builder(item);
 				a.addEvents({
-					mouseover: this.rewind.bind(this),
-					click: function(index) {
-						this.select(index);
-						this.hide();
-					}.pass(results.length, this)
+					mouseover: this.rewind,
+					click: this._select.pass(results.length, this)
 				});
 
 				elements.push( new Element('li').grab(a) );
@@ -475,7 +473,6 @@ Titon.TypeAhead = new Class({
 			// Cancel others
 			default:
 				return;
-			break;
 		}
 
 		if (this.shadow) {
@@ -529,6 +526,17 @@ Titon.TypeAhead = new Class({
 		}).hide();
 
 		this.showElement();
+	}.protect(),
+
+	/**
+	 * Event callback to select an item from the list.
+	 *
+	 * @private
+	 * @param {int} index
+	 */
+	_select: function(index) {
+		this.select(index);
+		this.hide();
 	},
 
 	/**
@@ -555,7 +563,7 @@ Titon.TypeAhead = new Class({
 		}
 
 		this.shadow.set('value', value);
-	},
+	}.protect(),
 
 	/**
 	 * Toggle activation events on and off.

@@ -35,8 +35,7 @@ module.exports = function(grunt) {
 		},
 		cache: {
 			js: ['class/Cache.js'],
-			moo: ['Core'],
-			require: ['JSON']
+			moo: ['Core', 'JSON']
 		},
 		flyout: {
 			css: ['modules/flyout.css'],
@@ -203,12 +202,13 @@ module.exports = function(grunt) {
 			options: {
 				globals: {
 					Titon: true,
-					Timers: true
+					Timers: true,
+					Cache: true
 				},
 				browser: true,
 				mootools: true,
 				// enforcing
-				camelcase: true,
+				//camelcase: true,
 				curly: true,
 				eqeqeq: true,
 				immed: true,
@@ -221,7 +221,8 @@ module.exports = function(grunt) {
 				strict: true,
 				trailing: true,
 				// relaxing
-				boss: true
+				boss: true,
+				scripturl: true
 			},
 			build: {
 				src: ['src/js/**/*.js']

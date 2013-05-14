@@ -36,6 +36,7 @@ window.Cache = new Class({
 					} catch (LocalStorageError) {
 					}
 				}
+				/* falls through */
 			case 'session':
 			case 'sessionstorage':
 				if (window.sessionStorage) {
@@ -48,6 +49,7 @@ window.Cache = new Class({
 					} catch (SessionStorageError) {
 					}
 				}
+				/* falls through */
 			default:
 				this.storage = (function() {
 					var memory = {},
@@ -70,7 +72,7 @@ window.Cache = new Class({
 							delete memory[key];
 							length--;
 						}
-					}
+					};
 				})();
 			break;
 		}
