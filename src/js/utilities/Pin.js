@@ -11,9 +11,7 @@ Titon.Pin = new Class({
 	Extends: Titon.Module,
 	Binds: ['_resize', '_scroll'],
 
-	/**
-	 * The current window width and height.
-	 */
+	/** The current window width and height. */
 	viewport: null,
 
 	/**

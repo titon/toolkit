@@ -11,19 +11,13 @@ Titon.Flyout = new Class({
 	Extends: Titon.Module,
 	Implements: [Timers],
 
-	/**
-	 * The current menu URL being displayed.
-	 */
+	/** The current menu URL being displayed. */
 	current: null,
 
-	/**
-	 * Raw data response.
-	 */
+	/** Raw data response. */
 	data: [],
 
-	/**
-	 * Mapping of data indexed by URL.
-	 */
+	/** Mapping of data indexed by URL. */
 	dataMap: {},
 
 	/**

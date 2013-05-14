@@ -9,9 +9,7 @@
 
 window.Titon = {
 
-	/**
-	 * Current version.
-	 */
+	/** Current version. */
 	version: '1.0.0',
 
 	/**

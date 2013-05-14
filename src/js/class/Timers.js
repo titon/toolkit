@@ -9,14 +9,10 @@
 
 window.Timers = new Class({
 
-	/**
-	 * Collection of timer callback functions.
-	 */
+	/** Collection of timer callback functions. */
 	timers: {},
 
-	/**
-	 * Collection of active timers.
-	 */
+	/** Collection of active timers. */
 	$timers: {},
 
 	/**

@@ -11,14 +11,10 @@ Titon.LazyLoad = new Class({
 	Implements: [Events, Options],
 	Binds: ['load', 'loadAll'],
 
-	/**
-	 * Query selector used for module activation.
-	 */
+	/** Query selector used for module activation. */
 	query: null,
 
-	/**
-	 * Have all elements been force loaded?
-	 */
+	/** Have all elements been force loaded? */
 	isLoaded: false,
 
 	/**

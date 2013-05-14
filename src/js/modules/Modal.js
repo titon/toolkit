@@ -11,19 +11,13 @@ Titon.Modal = new Class({
 	Extends: Titon.Module,
 	Binds: ['_submit'],
 
-	/**
-	 * Blackout instance if options.blackout is true.
-	 */
+	/** Blackout instance if options.blackout is true. */
 	blackout: null,
 
-	/**
-	 * Drag instance if options.drag is true.
-	 */
+	/** Drag instance if options.drag is true. */
 	drag: null,
 
-	/**
-	 * Body DOM element.
-	 */
+	/** Body DOM element. */
 	elementBody: null,
 
 	/**

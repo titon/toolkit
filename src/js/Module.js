@@ -11,25 +11,17 @@ Titon.Module = new Class({
 	Implements: [Events, Options],
 	Binds: ['_show', '_hide', '_position'],
 
-	/**
-	 * Cached data.
-	 */
+	/** Cached data. */
 	cache: {},
 
-	/**
-	 * The primary DOM element or elements.
-	 */
+	/** The primary DOM element or elements. */
 	element: null,
 	elements: [],
 
-	/**
-	 * Current node that activated the module.
-	 */
+	/** Current node that activated the module. */
 	node: null,
 
-	/**
-	 * Query selector used for module activation.
-	 */
+	/** Query selector used for module activation. */
 	query: null,
 
 	/**
