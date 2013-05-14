@@ -55,6 +55,7 @@ Titon.TypeAhead = new Class({
 		// Callbacks
 		sorter: null,
 		matcher: null,
+		builder: null,
 
 		// Events
 		onSelect: null,
@@ -85,13 +86,21 @@ Titon.TypeAhead = new Class({
 		}
 
 		// Use default callbacks
-		if (options.sorter === null) {
-			this.options.sorter = this.sort;
-		}
+		Object.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(fn, key) {
+			if (options[key] === false) {
+				return;
+			}
 
-		if (options.matcher === null) {
-			this.options.matcher = this.match;
-		}
+			var callback;
+
+			if (options[key] === null || typeOf(options[key]) !== 'function') {
+				callback = this[fn];
+			} else {
+				callback = options[key];
+			}
+
+			this.options[key] = callback.bind(this);
+		}.bind(this));
 
 		// Prefetch source from URL
 		if (options.prefetch && typeOf(options.source) === 'string') {
@@ -109,6 +118,30 @@ Titon.TypeAhead = new Class({
 		this.disable().enable();
 
 		this.fireEvent('init');
+	},
+
+	/**
+	 * Build the anchor link that will be used in the list.
+	 *
+	 * @param {Object} item
+	 * @returns {HTMLElement}
+	 */
+	build: function(item) {
+		var a = new Element('a', {
+			href: 'javascript:;'
+		});
+
+		a.grab( new Element('span.type-ahead-title', {
+			html: this.highlight(item.title)
+		}) );
+
+		if (item.description) {
+			a.grab( new Element('span.type-ahead-desc', {
+				html: item.description
+			}) );
+		}
+
+		return a;
 	},
 
 	/**
@@ -224,10 +257,8 @@ Titon.TypeAhead = new Class({
 				continue;
 			}
 
-			a = new Element('a', {
-				html: this.highlight(item.title),
-				href: 'javascript:;'
-			}).addEvents({
+			a = options.builder(item);
+			a.addEvents({
 				mouseover: this.rewind.bind(this),
 				click: function(index) {
 					this.select(index);

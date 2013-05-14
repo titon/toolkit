@@ -192,8 +192,16 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	}
 }
 
-.type-ahead .highlight {
-	color: $yellow;
+.type-ahead {
+	.type-ahead-desc {
+		display: block;
+		color: $gray;
+		font-size: .8em;
+	}
+
+	.highlight {
+		color: $yellow;
+	}
 }
 
 /**

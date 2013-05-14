@@ -30,8 +30,8 @@
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		var langs = [
-			{ title: 'PHP' },
-			{ title: 'HTML' },
+			{ title: 'PHP', description: 'Pre-HyperText Processor' },
+			{ title: 'HTML', description: 'Hyper Text Markup Language' },
 			{ title: 'Javascript' },
 			{ title: 'MooTools' },
 			{ title: 'jQuery' },
@@ -55,7 +55,7 @@
 		Titon.TypeAhead.factory('ta-3', {
 			sorter: false,
 			matcher: false,
-			source: 'ajax/type-ahead.php'
+			source: 'ajax/type-ahead.php?unique'
 		});
 
 		Titon.TypeAhead.factory('ta-4', {
