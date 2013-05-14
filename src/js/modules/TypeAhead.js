@@ -18,6 +18,11 @@ Titon.TypeAhead = new Class({
 	input: null,
 
 	/**
+	 * Shadow input element.
+	 */
+	shadow: null,
+
+	/**
 	 * Current active index when cycling through the list.
 	 */
 	index: -1,
@@ -43,15 +48,17 @@ Titon.TypeAhead = new Class({
 	 * TODO
 	 */
 	options: {
+		source: [],
 		minLength: 1,
 		itemLimit: 15,
 		throttle: 250,
 		prefetch: false,
-		source: [],
+		shadow: false,
 		storage: 'session',
 		contentElement: '',
 		titleElement: '.type-ahead-title',
 		descElement: '.type-ahead-desc',
+		shadowElement: '.type-ahead-shadow',
 		template: '<div class="type-ahead"></div>',
 
 		// Callbacks
@@ -116,6 +123,13 @@ Titon.TypeAhead = new Class({
 			}).get();
 		}
 
+		// Enable shadow inputs
+		if (options.shadow) {
+			this.node = new Element('div' + options.shadowElement).wraps(this.input);
+			this.shadow = this.input.clone().addClass('is-shadow').inject(this.node, 'top');
+			this.input.addClass('not-shadow');
+		}
+
 		// Set events
 		this.disable().enable();
 
@@ -144,6 +158,17 @@ Titon.TypeAhead = new Class({
 		}
 
 		return a;
+	},
+
+	/**
+	 * Hide the list and reset shadow.
+	 */
+	hide: function() {
+		if (this.shadow) {
+			this.shadow.set('value', '');
+		}
+
+		this.parent();
 	},
 
 	/**
@@ -178,8 +203,8 @@ Titon.TypeAhead = new Class({
 				sourceType = typeOf(options.source);
 
 			// Check the cache first
-			if (this.cache[term]) {
-				this.process(this.cache[term]);
+			if (this.cache[term.toLowerCase()]) {
+				this.process(this.cache[term.toLowerCase()]);
 
 			// Use the response of an AJAX request
 			} else if (sourceType === 'string') {
@@ -319,10 +344,14 @@ Titon.TypeAhead = new Class({
 
 		// Cache the result set to the term
 		// Filter out null categories so that we can re-use the cache
-		this.cache[this.term] = results.filter(function(item) {
+		this.cache[this.term.toLowerCase()] = results.filter(function(item) {
 			return (item !== null);
 		});
 
+		// Apply the shadow text
+		this._shadow();
+
+		// Position the list
 		this._position();
 
 		this.fireEvent('show');
@@ -432,6 +461,10 @@ Titon.TypeAhead = new Class({
 			break;
 		}
 
+		if (this.shadow) {
+			this.shadow.set('value', '');
+		}
+
 		// Select the item
 		this.select(this.index);
 	},
@@ -455,6 +488,7 @@ Titon.TypeAhead = new Class({
 			this.hide();
 
 		} else {
+			this._shadow();
 			this.lookup(term);
 		}
 	},
@@ -478,6 +512,32 @@ Titon.TypeAhead = new Class({
 		}).hide();
 
 		this.showElement();
+	},
+
+	/**
+	 * Monitor the current input term to determine the shadow text.
+	 * Shadow text will reference the term cache.
+	 *
+	 * @private
+	 */
+	_shadow: function() {
+		if (!this.shadow) {
+			return;
+		}
+
+		var term = this.input.get('value'),
+			termLower = term.toLowerCase(),
+			value = '';
+
+		if (this.cache[termLower] && this.cache[termLower][0]) {
+			var title = this.cache[termLower][0].title;
+
+			if (title.toLowerCase().indexOf(termLower) === 0) {
+				value = term + title.substr(term.length, (title.length - term.length));
+			}
+		}
+
+		this.shadow.set('value', value);
 	},
 
 	/**

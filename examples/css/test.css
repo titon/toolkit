@@ -96,3 +96,27 @@ h1 { font-size: 36px; }
 .lazy-load-0,
 .lazy-load-1,
 .lazy-load-2 { background-image: none !important; }
+
+.type-ahead-shadow {
+	position: relative;
+	width: 200px;
+	height: 30px;
+	margin: 0 auto;
+}
+
+.type-ahead-shadow input {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.type-ahead-shadow .is-shadow {
+	z-index: 0;
+	color: gray;
+}
+
+.type-ahead-shadow .not-shadow {
+	background: transparent;
+	border-color: transparent;
+	z-index: 5;
+}

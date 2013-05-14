@@ -1,7 +1,8 @@
 <h1>Type Ahead</h1>
 
 <div class="example">
-	<p>Array: Source data is defined as a literal array.</p>
+	<p>Array: Source data is defined as a literal array.<br>
+	Shadow text will be displayed within the input.</p>
 
 	<input type="text" id="ta-1">
 </div>
@@ -51,7 +52,8 @@
 		];
 
 		Titon.TypeAhead.factory('ta-1', {
-			source: langs
+			source: langs,
+			shadow: true
 		});
 
 		Titon.TypeAhead.factory('ta-2', {
