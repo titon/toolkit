@@ -50,6 +50,8 @@ Titon.TypeAhead = new Class({
 		source: [],
 		storage: 'session',
 		contentElement: '',
+		titleElement: '.type-ahead-title',
+		descElement: '.type-ahead-desc',
 		template: '<div class="type-ahead"></div>',
 
 		// Callbacks
@@ -131,12 +133,12 @@ Titon.TypeAhead = new Class({
 			href: 'javascript:;'
 		});
 
-		a.grab( new Element('span.type-ahead-title', {
+		a.grab( new Element('span' + this.options.titleElement, {
 			html: this.highlight(item.title)
 		}) );
 
 		if (item.description) {
-			a.grab( new Element('span.type-ahead-desc', {
+			a.grab( new Element('span' + this.options.descElement, {
 				html: item.description
 			}) );
 		}
@@ -233,44 +235,74 @@ Titon.TypeAhead = new Class({
 		}
 
 		var options = this.options,
+			categories = { _empty_: [] },
 			item,
-			list = new Element('ul'),
-			matcherType = typeOf(options.matcher);
+			list = new Element('ul');
 
 		// Reset
 		this.items = [];
 		this.index = -1;
 
-		// Sort the list of items
+		// Sort and match the list of items
 		if (typeOf(options.sorter) === 'function') {
 			items = options.sorter(items);
 		}
 
+		if (typeOf(options.matcher) === 'function') {
+			items = items.filter(function(item) {
+				return options.matcher(item.title, this.term);
+			}.bind(this));
+		}
+
+		// Group the items into categories
+		for (var i = 0; item = items[i]; i++) {
+			if (item.category) {
+				if (!categories[item.category]) {
+					categories[item.category] = [];
+				}
+
+				categories[item.category].push(item);
+			} else {
+				categories._empty_.push(item);
+			}
+		}
+
 		// Loop through the items and build the markup
-		for (var i = 0, c = 0, l = items.length, a; i < l; i++) {
-			item = items[i];
+		var results = [],
+			count = 0;
 
-			if (c >= options.itemLimit) {
-				break;
+		Object.each(categories, function(items, category) {
+			var elements = new Elements();
 
-			} else if (matcherType === 'function' && !options.matcher(item.title, this.term)) {
-				continue;
+			if (category !== '_empty_') {
+				results.push(null);
+
+				elements.push(
+					new Element('li').grab(new Element('span.divider', { text: category }))
+				);
 			}
 
-			a = options.builder(item);
-			a.addEvents({
-				mouseover: this.rewind.bind(this),
-				click: function(index) {
-					this.select(index);
-					this.hide();
-				}.pass(c, this)
-			});
+			for (var i = 0, a; item = items[i]; i++) {
+				if (count >= options.itemLimit) {
+					break;
+				}
 
-			new Element('li').grab(a).inject(list);
+				a = options.builder(item);
+				a.addEvents({
+					mouseover: this.rewind.bind(this),
+					click: function(index) {
+						this.select(index);
+						this.hide();
+					}.pass(results.length, this)
+				});
 
-			this.items.push(item);
-			c++;
-		}
+				elements.push( new Element('li').grab(a) );
+				results.push(item);
+				count++;
+			}
+
+			elements.inject(list);
+		}.bind(this));
 
 		// Append list
 		this.element.empty();
@@ -281,8 +313,15 @@ Titon.TypeAhead = new Class({
 			this.element.grab(list);
 		}
 
-		// Cache the result to the term
-		this.cache[this.term] = this.items;
+		// Set the current result set to the items list
+		// This will be used for index cycling
+		this.items = results;
+
+		// Cache the result set to the term
+		// Filter out null categories so that we can re-use the cache
+		this.cache[this.term] = results.filter(function(item) {
+			return (item !== null);
+		});
 
 		this._position();
 
@@ -328,7 +367,9 @@ Titon.TypeAhead = new Class({
 	 * @returns {Array}
 	 */
 	sort: function(items) {
-		return items.sort();
+		return items.sort(function(a, b) {
+			return a.title.localeCompare(b.title);
+		});
 	},
 
 	/**
@@ -338,7 +379,8 @@ Titon.TypeAhead = new Class({
 	 * @param {DOMEvent} e
 	 */
 	_cycle: function(e) {
-		var length =  this.items.length.limit(0, this.options.itemLimit);
+		var items = this.items,
+			length =  items.length.limit(0, this.options.itemLimit);
 
 		if (!length || !this.isVisible()) {
 			return;
@@ -347,7 +389,7 @@ Titon.TypeAhead = new Class({
 		switch (e.key) {
 			// Cycle upwards
 			case 'up':
-				this.index--;
+				this.index -= (items[this.index - 1] ? 1 : 2); // category check
 
 				if (this.index < 0) {
 					this.index = length - 1;
@@ -356,7 +398,7 @@ Titon.TypeAhead = new Class({
 
 			// Cycle downwards
 			case 'down':
-				this.index++;
+				this.index += (items[this.index + 1] ? 1 : 2); // category check
 
 				if (this.index >= length) {
 					this.index = 0;

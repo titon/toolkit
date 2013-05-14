@@ -30,15 +30,24 @@
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		var langs = [
-			{ title: 'PHP', description: 'Pre-HyperText Processor' },
-			{ title: 'HTML', description: 'Hyper Text Markup Language' },
-			{ title: 'Javascript' },
-			{ title: 'MooTools' },
-			{ title: 'jQuery' },
-			{ title: 'Ruby' },
-			{ title: 'Ruby on Rails' },
-			{ title: 'Java' },
-			{ title: 'Python' }
+			{ title: 'PHP', description: 'Pre-HyperText Processor', category: 'Backend' },
+			{ title: 'CakePHP', category: 'Framework' },
+			{ title: 'Symfony', category: 'Framework' },
+			{ title: 'Zend', category: 'Framework' },
+			{ title: 'Code Igniter', category: 'Framework' },
+			{ title: 'Lithium', category: 'Framework' },
+			{ title: 'HTML', description: 'Hyper Text Markup Language', category: 'Frontend' },
+			{ title: 'Javascript', category: 'Frontend' },
+			{ title: 'MooTools', category: 'Framework' },
+			{ title: 'jQuery', category: 'Framework' },
+			{ title: 'Ruby', category: 'Backend' },
+			{ title: 'Ruby on Rails', category: 'Framework' },
+			{ title: 'Java', category: 'Backend' },
+			{ title: 'Python', category: 'Backend' },
+			{ title: 'Go', category: 'Backend' },
+			{ title: 'Node.js', category: 'Backend' },
+			{ title: 'Asp.net', category: 'Backend' },
+			{ title: 'Notepad' }
 		];
 
 		Titon.TypeAhead.factory('ta-1', {
