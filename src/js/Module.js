@@ -191,9 +191,18 @@ Titon.Module = new Class({
 	},
 
 	/**
+	 * Return true if the element is visible.
+	 *
+	 * @return {bool}
+	 */
+	isVisible: function() {
+		return (this.element && this.element.isVisible());
+	},
+
+	/**
 	 * Parse the template string into a set of DOM elements.
 	 *
-	 * @param {String} template
+	 * @param {String|Element} template
 	 * @return {Element}
 	 */
 	parseTemplate: function(template) {
@@ -202,7 +211,7 @@ Titon.Module = new Class({
 		}
 
 		// If template is an element, use it
-		if (typeOf(template) === 'element' || instanceOf(template, Element)) {
+		if (typeOf(template) === 'element') {
 			return template;
 		}
 

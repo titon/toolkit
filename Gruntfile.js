@@ -39,6 +39,7 @@ module.exports = function(grunt) {
 		flyout: {
 			css: ['modules/flyout.css'],
 			js: ['modules/Flyout.js'],
+			moo: ['More/Array.Extras'],
 			require: ['base', 'timers']
 		},
 		icon: {
