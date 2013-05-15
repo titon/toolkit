@@ -68,6 +68,7 @@ module.exports = function(grunt) {
 			require: ['base', 'button']
 		},
 		pin: {
+			css: ['ui/pin.css'],
 			js: ['utilities/Pin.js'],
 			require: ['base']
 		},

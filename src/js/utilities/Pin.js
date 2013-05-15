@@ -29,7 +29,7 @@ Titon.Pin = new Class({
 		location: 'right',
 		xOffset: 0,
 		yOffset: 0,
-		throttle: 0,
+		throttle: 50,
 
 		// Events
 		onScroll: null,
