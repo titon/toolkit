@@ -359,10 +359,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 			cursor: pointer;
 		}
 
-		section {
-			border-bottom: 1px solid #282a2e;
-			padding: 10px;
-		}
+		section p { margin: 15px; }
 
 		&:first-child header {
 			border-top-left-radius: 3px;

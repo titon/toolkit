@@ -138,6 +138,7 @@ $theme = $themes[$themeKey]; ?>
 	<?php if (!empty($asset['css'])) { ?>
 		<link href="../src/css/base.css" rel="stylesheet" type="text/css">
 		<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
+		<link href="../src/css/effects/animations.css" rel="stylesheet" type="text/css">
 
 		<?php foreach ((array) $asset['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">

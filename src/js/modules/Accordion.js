@@ -23,7 +23,7 @@ Titon.Accordion = new Class({
 	options: {
 		mode: 'click',
 		defaultIndex: 0,
-		slide: 250,
+		slide: true,
 		multiple: false,
 		collapsible: false,
 		headerElement: 'header',
@@ -50,6 +50,11 @@ Titon.Accordion = new Class({
 				headers = accordion.getElements(options.headerElement),
 				header = headers[0];
 
+			// Add slide class
+			if (options.slide) {
+				sections.addClass('slide');
+			}
+
 			// Fall back to first row if the default doesn't exist
 			if (headers[options.defaultIndex]) {
 				header = headers[options.defaultIndex];
@@ -58,12 +63,7 @@ Titon.Accordion = new Class({
 			// Reset the state of every row
 			accordion.getElements('li').removeClass(Titon.options.activeClass);
 
-			if (options.slide) {
-				sections.slide('hide');
-			} else {
-				sections.hide();
-			}
-
+			this.hideElements(sections);
 			this.show(header);
 		}.bind(this));
 
@@ -85,13 +85,6 @@ Titon.Accordion = new Class({
 			section = node.getNext(options.contentElement), // section
 			activeClass = Titon.options.activeClass;
 
-		// Slide wraps elements in div
-		if (options.slide) {
-			section = node.getNext('div').getElement(options.contentElement);
-		} else {
-			section = node.getNext(options.contentElement);
-		}
-
 		// Allow simultaneous open and closed sections
 		// Or allow the same section to collapse
 		if (options.multiple || (options.collapsible && this.node === node)) {
@@ -112,7 +105,7 @@ Titon.Accordion = new Class({
 				return;
 			}
 
-			this.hideElement(wrapper.getElements(options.contentElement));
+			this.hideElements(wrapper.getElements(options.contentElement));
 			this.showElement(section);
 
 			wrapper.getElements('li').removeClass(activeClass);

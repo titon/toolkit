@@ -111,7 +111,7 @@ Titon.Module = new Class({
 				element = this.parseTemplate(options.template);
 
 				if (element) {
-					element.hide().inject(document.body);
+					element.inject(document.body).setOpacity(0);
 				}
 			}
 
@@ -197,17 +197,13 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	hideElement: function(element, callback) {
-		element = element || this.element || this.elements;
+		element = element || this.element;
 
-		if (!this.isVisible(element)) {
-			return;
-		}
+		if (element.hasClass('fade')) {
+			element.setStyle('opacity', 0);
 
-		if (this.options.fade) {
-			element.fadeOut(this.options.fade, callback);
-
-		} else if (this.options.slide) {
-			element.slideOut(this.options.slide, callback);
+		} else if (element.hasClass('slide')) {
+			element.setStyle('height', 0);
 
 		} else {
 			element.hide();
@@ -219,6 +215,20 @@ Titon.Module = new Class({
 	},
 
 	/**
+	 * Apply hideElement() to an elements collection.
+	 *
+	 * @param {Elements} elements
+	 * @param {Function} callback
+	 */
+	hideElements: function(elements, callback) {
+		elements = elements || this.elements;
+
+		elements.forEach(function(item) {
+			this.hideElement(item, callback);
+		}.bind(this));
+	},
+
+	/**
 	 * Return true if the element exists and is visible.
 	 *
 	 * @param {Element} element
@@ -227,18 +237,14 @@ Titon.Module = new Class({
 	isVisible: function(element) {
 		element = element || this.element;
 
-		// Slide has special logic since its not hidden, just overflown
-		if (this.options.slide) {
+		if (element.hasClass('fade')) {
+			return (element.getStyle('opacity') > 0);
 
-			// We cant calculate slide on multiple elements so just force to true
-			if (typeOf(element) === 'elements') {
-				return true;
-			}
-
-			return (element && element.get('slide').open);
+		} else if (element.hasClass('slide')) {
+			return (element.getStyle('height').toInt() > 0);
 		}
 
-		return (element && element.isVisible());
+		return element.isVisible();
 	},
 
 	/**
@@ -371,17 +377,15 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	showElement: function(element, callback) {
-		element = element || this.element || this.elements;
+		element = element || this.element;
 
-		if (this.isVisible(element)) {
-			return;
-		}
+		if (element.hasClass('fade')) {
+			element.setStyle('opacity', 1);
 
-		if (this.options.fade) {
-			element.fadeIn(this.options.fade, callback);
-
-		} else if (this.options.slide) {
-			element.slideIn(this.options.slide, callback);
+		} else if (element.hasClass('slide')) {
+			element.setStyle('height', element.measure(function() {
+				return this.setStyle('height', 'auto').getHeight();
+			}));
 
 		} else {
 			element.show();
@@ -390,6 +394,20 @@ Titon.Module = new Class({
 				callback();
 			}
 		}
+	},
+
+	/**
+	 * Apply showElement() to an elements collection.
+	 *
+	 * @param {Elements} elements
+	 * @param {Function} callback
+	 */
+	showElements: function(elements, callback) {
+		elements = elements || this.elements;
+
+		elements.forEach(function(item) {
+			this.showElement(item, callback);
+		}.bind(this));
 	},
 
 	/**

@@ -1,0 +1,21 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "compass/css3/transition";
+
+.fade {
+	@include transition(opacity .30s linear);
+}
+
+.slide {
+	overflow: hidden;
+	@include transition(height .30s ease-out);
+}
+
+.slide-x {
+	overflow: hidden;
+	@include transition(width .30s ease);
+}

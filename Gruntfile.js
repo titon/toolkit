@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 		accordion: {
 			css: ['modules/accordion.css'],
 			js: ['modules/Accordion.js'],
-			moo: ['More/Fx.Slide'],
 			require: ['base']
 		},
 		alert: {
