@@ -8,7 +8,7 @@
 @import "compass/css3/filter";
 
 .fade {
-	@include transition(opacity .20s linear);
+	@include transition(opacity .30s linear);
 }
 
 .blur {

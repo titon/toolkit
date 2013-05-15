@@ -68,6 +68,11 @@ Titon.Modal = new Class({
 	initialize: function(query, options) {
 		this.parent(query, options);
 
+		// Enable fading
+		if (this.options.fade) {
+			this.element.addClass('fade');
+		}
+
 		// Get elements
 		this.elementBody = this.element.getElement(this.options.contentElement);
 
@@ -188,7 +193,7 @@ Titon.Modal = new Class({
 					this.blackout.show();
 				}
 
-				this.showElement();
+				this.element.show();
 			}
 
 			this.fireEvent('show');

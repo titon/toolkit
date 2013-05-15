@@ -75,15 +75,28 @@ Locale.define('en-US', 'Titon', {
  */
 Element.implement({
 
-	show: function(callback) {
-		if (this.hasClass('fade')) {
-			this.setStyle('opacity', 1);
+	show: function(type, callback) {
+		if (type === true) {
+			this.setStyle('display', '');
 
-		} else if (this.hasClass('slide')) {
+		// Fade in the element using CSS3 opacity transition
+		// Force the elements display and opacity before animating
+		} else if (type === 'fade' || this.hasClass('fade')) {
+			this.show(true).setStyle('opacity', 0);
+
+			// We need to place opacity change on a timer or else it wont animate
+			window.setTimeout(function() {
+				this.setStyle('opacity', 1);
+			}.bind(this), 50);
+
+		// Slide down an element using CSS3 height transition
+		// Use measure() so that we can determine the height of the element
+		} else if (type === 'slide' || this.hasClass('slide')) {
 			this.setStyle('height', this.measure(function() {
 				return this.setStyle('height', 'auto').getHeight();
 			}));
 
+		// Set the display to the elements type
 		} else {
 			this.setStyle('display', '');
 		}
@@ -95,13 +108,24 @@ Element.implement({
 		return this;
 	},
 
-	hide: function(callback) {
-		if (this.hasClass('fade')) {
-			this.setStyle('opacity', 0);
+	hide: function(type, callback) {
+		if (type === true) {
+			this.setStyle('display', 'none');
 
-		} else if (this.hasClass('slide')) {
+		// Fade out the element using CSS3 opacity transition
+		// Set a transitionend event to hide the element (display none) so that the element doesn't block the DOM
+		} else if (type === 'fade' || this.hasClass('fade')) {
+			var eventCallback = function() {
+				this.hide(true).removeEvent('transitionend', eventCallback);
+			};
+
+			this.addEvent('transitionend', eventCallback).setStyle('opacity', 0);
+
+		// Slide up an element using CSS3 height transition
+		} else if (type === 'slide' || this.hasClass('slide')) {
 			this.setStyle('height', 0);
 
+		// Set the display to none
 		} else {
 			this.setStyle('display', 'none');
 		}
@@ -119,14 +143,16 @@ Element.implement({
 	 * @return {bool}
 	 */
 	isVisible: function() {
+		var display = (this.getStyle('display') !== 'none');
+
 		if (this.hasClass('fade')) {
-			return (this.getStyle('opacity') > 0);
+			return (display && this.getStyle('opacity') > 0);
 
 		} else if (this.hasClass('slide')) {
-			return (this.getStyle('height').toInt() > 0);
+			return (display && this.getStyle('height').toInt() > 0);
 		}
 
-		return (this.getStyle('display') !== 'none');
+		return display;
 	},
 
 	/**
@@ -187,4 +213,31 @@ Array.implement({
 
 });
 
+/**
+ * Custom events.
+ */
+
+var transitionEndEvent = (function() {
+	var style = document.documentElement.style,
+		transitions = {
+			'transition': 'transitionend',
+			'OTransition': 'oTransitionEnd',
+			'MozTransition': 'transitionend',
+			'WebkitTransition': 'webkitTransitionEnd',
+			'MSTransitionEnd': 'msTransitionEnd'
+		};
+
+	for (var t in transitions){
+		if (transitions.hasOwnProperty(t) && typeOf(style[t]) !== 'null') {
+			return transitions[t];
+		}
+	}
+
+	return null;
+})();
+
+
+Element.NativeEvents[transitionEndEvent] = 2;
+
 })(window);
+
