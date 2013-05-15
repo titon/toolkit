@@ -6,7 +6,6 @@
 
 @import "variables";
 @import "mixins";
-@import "compass/css3/filter";
 
 // Alignment
 .align-left { text-align: left; }
@@ -41,7 +40,6 @@
 .draggable { cursor: move; }
 #{$disabled-class},
 button[disabled] { cursor: not-allowed !important; }
-.blur { @include filter(blur(2px)); }
 
 // Carets
 .caret-up,

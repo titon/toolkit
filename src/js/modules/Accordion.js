@@ -62,8 +62,8 @@ Titon.Accordion = new Class({
 
 			// Reset the state of every row
 			accordion.getElements('li').removeClass(Titon.options.activeClass);
+			sections.hide();
 
-			this.hideElements(sections);
 			this.show(header);
 		}.bind(this));
 
@@ -88,12 +88,12 @@ Titon.Accordion = new Class({
 		// Allow simultaneous open and closed sections
 		// Or allow the same section to collapse
 		if (options.multiple || (options.collapsible && this.node === node)) {
-			if (this.isVisible(section)) {
-				this.hideElement(section);
+			if (section.isVisible()) {
+				section.hide();
 				parent.removeClass(activeClass);
 
 			} else {
-				this.showElement(section);
+				section.show();
 				parent.addClass(activeClass);
 			}
 
@@ -105,8 +105,8 @@ Titon.Accordion = new Class({
 				return;
 			}
 
-			this.hideElements(wrapper.getElements(options.contentElement));
-			this.showElement(section);
+			wrapper.getElements(options.contentElement).hide();
+			section.show();
 
 			wrapper.getElements('li').removeClass(activeClass);
 			parent.addClass(activeClass);

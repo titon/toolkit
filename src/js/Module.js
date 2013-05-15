@@ -111,7 +111,7 @@ Titon.Module = new Class({
 				element = this.parseTemplate(options.template);
 
 				if (element) {
-					element.inject(document.body).setOpacity(0);
+					element.hide().inject(document.body);
 				}
 			}
 
@@ -119,7 +119,7 @@ Titon.Module = new Class({
 			if (element) {
 				this.element = element;
 			} else {
-				throw new Error('Template failed to parse');
+				throw new Error(this.className() + ' template failed to parse');
 			}
 		}
 
@@ -186,65 +186,8 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	hide: function(callback) {
-		this.hideElement(null, callback);
+		this.element.hide(callback);
 		this.fireEvent('hide');
-	},
-
-	/**
-	 * Helper method to either fade out or hide the element.
-	 *
-	 * @param {Element} element
-	 * @param {Function} callback
-	 */
-	hideElement: function(element, callback) {
-		element = element || this.element;
-
-		if (element.hasClass('fade')) {
-			element.setStyle('opacity', 0);
-
-		} else if (element.hasClass('slide')) {
-			element.setStyle('height', 0);
-
-		} else {
-			element.hide();
-
-			if (typeOf(callback) === 'function') {
-				callback();
-			}
-		}
-	},
-
-	/**
-	 * Apply hideElement() to an elements collection.
-	 *
-	 * @param {Elements} elements
-	 * @param {Function} callback
-	 */
-	hideElements: function(elements, callback) {
-		elements = elements || this.elements;
-
-		elements.forEach(function(item) {
-			this.hideElement(item, callback);
-		}.bind(this));
-	},
-
-	/**
-	 * Return true if the element exists and is visible.
-	 *
-	 * @param {Element} element
-	 * @return {bool}
-	 */
-	isVisible: function(element) {
-		element = element || this.element;
-
-		if (element.hasClass('fade')) {
-			return (element.getStyle('opacity') > 0);
-
-		} else if (element.hasClass('slide')) {
-			return (element.getStyle('height').toInt() > 0);
-		}
-
-		return element.isVisible();
 	},
 
 	/**
@@ -366,48 +309,8 @@ Titon.Module = new Class({
 	show: function(node) {
 		this.node = node;
 
-		this.showElement();
+		this.element.show();
 		this.fireEvent('show');
-	},
-
-	/**
-	 * Helper method to either fade in or show the element.
-	 *
-	 * @param {Element} element
-	 * @param {Function} callback
-	 */
-	showElement: function(element, callback) {
-		element = element || this.element;
-
-		if (element.hasClass('fade')) {
-			element.setStyle('opacity', 1);
-
-		} else if (element.hasClass('slide')) {
-			element.setStyle('height', element.measure(function() {
-				return this.setStyle('height', 'auto').getHeight();
-			}));
-
-		} else {
-			element.show();
-
-			if (typeOf(callback) === 'function') {
-				callback();
-			}
-		}
-	},
-
-	/**
-	 * Apply showElement() to an elements collection.
-	 *
-	 * @param {Elements} elements
-	 * @param {Function} callback
-	 */
-	showElements: function(elements, callback) {
-		elements = elements || this.elements;
-
-		elements.forEach(function(item) {
-			this.showElement(item, callback);
-		}.bind(this));
 	},
 
 	/**

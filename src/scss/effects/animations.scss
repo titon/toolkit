@@ -5,9 +5,14 @@
  */
 
 @import "compass/css3/transition";
+@import "compass/css3/filter";
 
 .fade {
 	@include transition(opacity .30s linear);
+}
+
+.blur {
+	@include filter(blur(2px));
 }
 
 .slide {

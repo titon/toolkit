@@ -75,44 +75,58 @@ Locale.define('en-US', 'Titon', {
  */
 Element.implement({
 
-	/**
-	 * Fade in an element and trigger callback.
-	 *
-	 * @param {Object|int} options
-	 * @param {Function} callback
-	 * @return {Element}
-	 */
-	fadeIn: function(options, callback) {
-		options = Titon.parseOptions(options, 'duration');
-		options.link = 'cancel';
+	show: function(callback) {
+		if (this.hasClass('fade')) {
+			this.setStyle('opacity', 1);
 
-		this.setStyles({ display: '', opacity: 0 }).set('tween', options).fade('in');
-		this.get('tween').chain(callback);
+		} else if (this.hasClass('slide')) {
+			this.setStyle('height', this.measure(function() {
+				return this.setStyle('height', 'auto').getHeight();
+			}));
+
+		} else {
+			this.setStyle('display', '');
+		}
+
+		if (typeOf(callback) === 'function') {
+			callback();
+		}
+
+		return this;
+	},
+
+	hide: function(callback) {
+		if (this.hasClass('fade')) {
+			this.setStyle('opacity', 0);
+
+		} else if (this.hasClass('slide')) {
+			this.setStyle('height', 0);
+
+		} else {
+			this.setStyle('display', 'none');
+		}
+
+		if (typeOf(callback) === 'function') {
+			callback();
+		}
 
 		return this;
 	},
 
 	/**
-	 * Fade out an element and trigger callback.
+	 * Return true if the element exists and is visible.
 	 *
-	 * @param {Object|int} options
-	 * @param {Function} callback
-	 * @return {Element}
+	 * @return {bool}
 	 */
-	fadeOut: function(options, callback) {
-		options = Titon.parseOptions(options, 'duration');
-		options.link = 'cancel';
+	isVisible: function() {
+		if (this.hasClass('fade')) {
+			return (this.getStyle('opacity') > 0);
 
-		this.set('tween', options).fade('out');
-		this.get('tween').chain(function() {
-			if (typeOf(callback) === 'function') {
-				callback();
-			}
+		} else if (this.hasClass('slide')) {
+			return (this.getStyle('height').toInt() > 0);
+		}
 
-			this.hide(); // Hide the element so isVisible() returns correctly
-		}.bind(this));
-
-		return this;
+		return (this.getStyle('display') !== 'none');
 	},
 
 	/**
@@ -131,34 +145,6 @@ Element.implement({
 		} else {
 			this.set('html', html);
 		}
-
-		return this;
-	},
-
-	/**
-	 * Slide in an element and trigger callback.
-	 *
-	 * @param {Object|int} options
-	 * @param {Function} callback
-	 * @return {Element}
-	 */
-	slideIn: function(options, callback) {
-		this.set('slide', Titon.parseOptions(options, 'duration')).slide('in');
-		this.get('slide').chain(callback);
-
-		return this;
-	},
-
-	/**
-	 * Slide out an element and trigger callback.
-	 *
-	 * @param {Object|int} options
-	 * @param {Function} callback
-	 * @return {Element}
-	 */
-	slideOut: function(options, callback) {
-		this.set('slide', Titon.parseOptions(options, 'duration')).slide('out');
-		this.get('slide').chain(callback);
 
 		return this;
 	}

@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 		base: {
 			css: ['base.css'],
 			js: ['Titon.js', 'Module.js'],
-			moo: ['Core', 'More/Array.Extras', 'More/Class.Binds', 'More/Elements.From', 'More/Element.Shortcuts', 'More/Hash', 'More/Locale']
+			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
 		accordion: {
 			css: ['modules/accordion.css'],
