@@ -75,7 +75,7 @@ Titon.Tooltip = new Class({
 	 * Initialize tooltips.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		this.parent(query, options);
@@ -102,8 +102,8 @@ Titon.Tooltip = new Class({
 	 * a DOM node, or plain text. The content and title can also be passed as arguments.
 	 *
 	 * @param {Element} node
-	 * @param {String|Element} content
-	 * @param {String|Element} title
+	 * @param {String|Element} [content]
+	 * @param {String|Element} [title]
 	 */
 	show: function(node, content, title) {
 		if (node) {
@@ -185,8 +185,8 @@ Titon.Tooltip = new Class({
 	 * Additionally will apply the title/content and hide/show if necessary.
 	 *
 	 * @private
-	 * @param {String|Element} content
-	 * @param {String|Element} title
+	 * @param {String|Element} [content]
+	 * @param {String|Element} [title]
 	 */
 	_position: function(content, title) {
 		// AJAX is currently loading
@@ -196,14 +196,14 @@ Titon.Tooltip = new Class({
 
 		// Set title
 		if (title && this.options.showTitle) {
-			this.elementHead.setHtml(title).show();
+			this.elementHead.set('html', title).show();
 		} else {
 			this.elementHead.hide();
 		}
 
 		// Set body
 		if (content) {
-			this.elementBody.setHtml(content).show();
+			this.elementBody.set('html', content).show();
 		} else {
 			this.elementBody.hide();
 		}
@@ -250,7 +250,7 @@ Titon.Tooltip.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Tooltip}
  */
 Titon.Tooltip.factory = function(query, options) {

@@ -31,7 +31,7 @@ Titon.Popover = new Class({
 	 * Initialize popovers.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		options = options || {};
@@ -52,7 +52,7 @@ Titon.Popover.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Popover}
  */
 Titon.Popover.factory = function(query, options) {

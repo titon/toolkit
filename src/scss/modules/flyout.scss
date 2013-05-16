@@ -40,12 +40,12 @@
 				display: none;
 			}
 
-			&.children > a .caret-right {
+			&.has-children > a .caret-right {
 				float: right;
 				display: inline-block;
 			}
 
-			&.opened > .flyout { display: block; }
+			&.is-open > .flyout { display: block; }
 		}
 	}
 

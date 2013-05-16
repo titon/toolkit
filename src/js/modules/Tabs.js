@@ -49,7 +49,7 @@ Titon.Tabs = new Class({
 	 * Initialize Tabs by storing the query, gathering the elements and binding events.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		options = options || {};
@@ -126,17 +126,17 @@ Titon.Tabs = new Class({
 				onSuccess: function(response) {
 					this.cache[url] = true;
 
-					section.setHtml(response)
+					section.set('html', response)
 						.removeClass(loadingClass);
 				}.bind(this),
 
 				onRequest: function() {
-					section.setHtml(this._loadingTemplate())
+					section.set('html', this._loadingTemplate())
 						.addClass(loadingClass);
 				}.bind(this),
 
 				onFailure: function() {
-					section.setHtml(this._errorTemplate())
+					section.set('html', this._errorTemplate())
 						.removeClass(loadingClass)
 						.addClass(failedClass);
 				}.bind(this)
@@ -232,7 +232,7 @@ Titon.Tabs.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Tabs}
  */
 Titon.Tabs.factory = function(query, options) {

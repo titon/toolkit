@@ -45,16 +45,16 @@
 }
 
 @mixin active-state {
-	#{$active-class} &,
-	&#{$active-class},
-	&#{$active-class}:hover,
+	.is-active &,
+	&.is-active,
+	&.is-active:hover,
 	&:hover { @content; }
 }
 
 @mixin disabled-state {
-	#{$disabled-class} &,
-	&#{$disabled-class},
-	&#{$disabled-class}:hover,
+	.is-disabled &,
+	&.is-disabled,
+	&.is-disabled:hover,
 	&[disabled],
 	&[disabled]:hover { @content; }
 }

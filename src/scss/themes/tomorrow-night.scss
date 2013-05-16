@@ -179,8 +179,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		}
 
 		a:hover,
-		&.opened > a,
-		&.active > a {
+		&.is-open > a,
+		&.is-active > a {
 			background: #0f1214;
 			color: #fff;
 		}
@@ -249,8 +249,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		right: 8px;
 	}
 
-	&.loading .modal-close,
-	&.failed .modal-close { display: none; }
+	&.is-loading .modal-close,
+	&.has-failed .modal-close { display: none; }
 }
 
 /**
@@ -375,7 +375,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 			section { border: 0; }
 		}
 
-		&.active {
+		&.is-active {
 			header { color: $green; }
 		}
 	}

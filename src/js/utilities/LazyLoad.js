@@ -40,10 +40,10 @@ Titon.LazyLoad = new Class({
 	},
 
 	/**
-	 * Initialize container events, append CSS styles based on query, instantly load() elements in viewport and set force load timeout if option is true.
+	 * Initialize container events, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		options = options || {};
@@ -190,7 +190,7 @@ Titon.LazyLoad.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.LazyLoad}
  */
 Titon.LazyLoad.factory = function(query, options) {

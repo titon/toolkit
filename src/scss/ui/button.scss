@@ -38,7 +38,7 @@
 	&.skew, .skew & { border-radius: 1em 1em 0 0 / 3em 3em 0 0; }
 
 	// State
-	.disabled & { cursor: not-allowed; }
+	.is-disabled & { cursor: not-allowed; }
 }
 
 // Reset

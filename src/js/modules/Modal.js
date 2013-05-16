@@ -63,7 +63,7 @@ Titon.Modal = new Class({
 	 * Initialize the modal be creating the DOM elements and setting default events.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		this.parent(query, options);
@@ -123,7 +123,7 @@ Titon.Modal = new Class({
 	 * If content is passed, display it immediately.
 	 *
 	 * @param {Element} node
-	 * @param {String|Element} content
+	 * @param {String|Element} [content]
 	 */
 	show: function(node, content) {
 		var options = this.options;
@@ -166,7 +166,7 @@ Titon.Modal = new Class({
 			return;
 		}
 
-		this.elementBody.setHtml(content);
+		this.elementBody.set('html', content);
 
 		// Set events
 		this.element.getElements(this.options.closeEvent)
@@ -242,7 +242,7 @@ Titon.Modal.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Modal}
  */
 Titon.Modal.factory = function(query, options) {

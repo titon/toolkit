@@ -78,7 +78,7 @@ Titon.TypeAhead = new Class({
 	 * Store the input reference and trigger events.
 	 *
 	 * @param {String} id
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(id, options) {
 		this.parent(id, options);
@@ -573,7 +573,7 @@ Titon.TypeAhead = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Tabs}
+	 * @return {Titon.TypeAhead}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.query) {
@@ -605,7 +605,7 @@ Titon.TypeAhead.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} id
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.TypeAhead}
  */
 Titon.TypeAhead.factory = function(id, options) {

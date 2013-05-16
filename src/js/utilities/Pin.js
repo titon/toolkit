@@ -44,7 +44,7 @@ Titon.Pin = new Class({
 	 * Pin the element and enable events.
 	 *
 	 * @param {String} id
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(id, options) {
 		options = options || {};
@@ -126,7 +126,7 @@ Titon.Pin = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Tabs}
+	 * @return {Titon.Pin}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.query) {
@@ -153,7 +153,7 @@ Titon.Pin.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} id
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Pin}
  */
 Titon.Pin.factory = function(id, options) {

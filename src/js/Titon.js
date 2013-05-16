@@ -10,7 +10,7 @@
 window.Titon = {
 
 	/** Current version. */
-	version: '1.0.0',
+	version: '0.0.0',
 
 	/**
 	 * Options for all classes.
@@ -18,17 +18,21 @@ window.Titon = {
 	 *	prefix			- (string) String to prepend to all created element containers
 	 *	activeClass		- (string) Class name to append to active elements
 	 *	disabledClass	- (string) Class name to append to disabled elements
+	 *	openClass		- (string) Class name to append to elements that have menus open
 	 *	draggableClass	- (string) Class name to append to elements that are draggable
 	 *	draggingClass	- (string) Class name to append to elements being dragged
+	 *	loadingClass	- (string) Class name to append to elements being loaded by AJAX
+	 *	failedClass		- (string) Class name used when AJAX calls fail
 	 */
 	options: {
 		prefix: '',
-		activeClass: 'active',
-		disabledClass: 'disabled',
-		draggableClass: 'draggable',
-		draggingClass: 'dragging',
-		loadingClass: 'loading',
-		failedClass: 'failed'
+		activeClass: 'is-active',
+		disabledClass: 'is-disabled',
+		openClass: 'is-open',
+		draggableClass: 'is-draggable',
+		draggingClass: 'is-dragging',
+		loadingClass: 'is-loading',
+		failedClass: 'has-failed'
 	},
 
 	/**
@@ -53,6 +57,7 @@ window.Titon = {
 
 		if (typeOf(value) === 'object') {
 			Object.merge(options, value);
+
 		} else if (value) {
 			options[defaultKey] = value;
 		}
@@ -75,6 +80,13 @@ Locale.define('en-US', 'Titon', {
  */
 Element.implement({
 
+	/**
+	 * Show the element either through fading, sliding, or direct display.
+	 *
+	 * @param {String|bool} [type]
+	 * @param {Function} [callback]
+	 * @returns {Element}
+	 */
 	show: function(type, callback) {
 		if (type === true) {
 			this.setStyle('display', '');
@@ -108,6 +120,13 @@ Element.implement({
 		return this;
 	},
 
+	/**
+	 * Hide the element either through fading, sliding, or direct display.
+	 *
+	 * @param {String|bool} [type]
+	 * @param {Function} [callback]
+	 * @returns {Element}
+	 */
 	hide: function(type, callback) {
 		if (type === true) {
 			this.setStyle('display', 'none');
@@ -153,29 +172,36 @@ Element.implement({
 		}
 
 		return display;
-	},
+	}
 
-	/**
-	 * Set the content of the element.
-	 *
-	 * @param {String|Element} html
-	 * @return {Element}
-	 */
-	setHtml: function(html) {
-		if (typeOf(html) === 'element') {
-			this.empty().grab(html);
+});
 
-		} else if (typeOf(html) === 'string' && html.substr(0, 1) === '#') {
-			this.set('html', document.getElement(html).get('html'));
+/**
+ * Overwrite the default HTML setter and allow element nodes to be used.
+ */
+Element.Properties.html.set = function(html) {
+	var htmlType = typeOf(html);
 
-		} else {
-			this.set('html', html);
-		}
+	// If we use get('html') it will only get the inner HTML
+	// This approach will append the element itself
+	if (htmlType === 'element') {
+		this.innerHTML = '';
+		this.appendChild(html);
 
 		return this;
 	}
 
-});
+	if (htmlType === 'string' && html.substr(0, 1) === '#') {
+		html = document.getElement(html).get('html');
+
+	} else if (htmlType === 'array') {
+		html = html.join('');
+	}
+
+	this.innerHTML = html;
+
+	return this;
+};
 
 String.implement({
 

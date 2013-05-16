@@ -36,7 +36,7 @@ Titon.Accordion = new Class({
 	 * Trigger the default row and toggle events.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		this.parent(query, options);
@@ -129,7 +129,7 @@ Titon.Accordion = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Tabs}
+	 * @return {Titon.Accordion}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.query) {
@@ -162,7 +162,7 @@ Titon.Accordion.instances = {};
  * Easily create multiple instances.
  *
  * @param {String} query
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Accordion}
  */
 Titon.Accordion.factory = function(query, options) {

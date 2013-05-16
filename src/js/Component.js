@@ -69,7 +69,7 @@ Titon.Component = new Class({
 	 * Initialize options and template.
 	 *
 	 * @param {String|Element|Elements} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		this.setOptions(options || {});
@@ -97,7 +97,7 @@ Titon.Component = new Class({
 		}
 
 		// Parse the template from a string, or use a target element
-		if (options.parseTemplate) {
+		if (options.parseTemplate && !this.element) {
 			var element;
 
 			if (typeOf(options.templateFrom) === 'element') {
@@ -183,7 +183,7 @@ Titon.Component = new Class({
 	/**
 	 * Hide the element and set all relevant values to null.
 	 *
-	 * @param {Function} callback
+	 * @param {Function} [callback]
 	 */
 	hide: function(callback) {
 		if (this.isVisible()) {
@@ -297,7 +297,7 @@ Titon.Component = new Class({
 	/**
 	 * Destroy the current template and reset.
 	 *
-	 * @param {bool} dispose
+	 * @param {bool} [dispose]
 	 * @return {Titon.Component}
 	 */
 	reset: function(dispose) {
@@ -378,7 +378,7 @@ Titon.Component = new Class({
 	 * @param {String} content
 	 */
 	_position: function(content) {
-		this.element.setHtml(content);
+		this.element.set('html', content);
 	},
 
 	/**

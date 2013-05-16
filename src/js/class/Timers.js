@@ -47,7 +47,7 @@ window.Timers = new Class({
 	 *
 	 * @param {String} key
 	 * @param {int} delay
-	 * @param {Array} args
+	 * @param {Array} [args]
 	 * @return {Timers}
 	 */
 	startTimer: function(key, delay, args) {
@@ -65,7 +65,7 @@ window.Timers = new Class({
 	 *
 	 * @param {String} key
 	 * @param {int} interval
-	 * @param {Array} args
+	 * @param {Array} [args]
 	 * @return {Timers}
 	 */
 	startInterval: function(key, interval, args) {
@@ -83,7 +83,7 @@ window.Timers = new Class({
 	 *
 	 * @param {String} key
 	 * @param {Function} fn
-	 * @param {Array} args
+	 * @param {Array} [args]
 	 * @return {Timers}
 	 */
 	clearTimer: function(key, fn, args) {

@@ -13,11 +13,11 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 			<nav class="pagination <?php echo $shape . ' ' . $size; ?>">
 				<ul>
-					<li class="active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
+					<li class="is-active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
 					<?php for ($i = 0; $i <= rand(2, 10); $i++) { ?>
 						<li><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>"><?php echo $i; ?></a></li>
 					<?php } ?>
-					<li class="disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
+					<li class="is-disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
 				</ul>
 			</nav>
 
@@ -40,11 +40,11 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 			<nav class="pagination pagination-grouped <?php echo $shape . ' ' . $size; ?>">
 				<ul>
-					<li class="active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
+					<li class="is-active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
 					<?php for ($i = 0; $i <= rand(2, 10); $i++) { ?>
 						<li><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>"><?php echo $i; ?></a></li>
 					<?php } ?>
-					<li class="disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
+					<li class="is-disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
 				</ul>
 			</nav>
 

@@ -12,6 +12,8 @@ Titon.Blackout = new Class({
 
 	/**
 	 * Default options.
+	 *
+	 *	blur	- (string) Apply a blur over the document
 	 */
 	options: {
 		blur: false,
@@ -22,7 +24,7 @@ Titon.Blackout = new Class({
 	/**
 	 * Add events for browser resizing.
 	 *
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(options) {
 		this.parent('.blackout', options);

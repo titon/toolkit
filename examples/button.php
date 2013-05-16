@@ -1,8 +1,8 @@
 <h1>Button</h1>
 
 <?php
-$sizes['disabled'] = 'Disabled';
-$sizes['active'] = 'Active';
+$sizes['is-disabled'] = 'Disabled';
+$sizes['is-active'] = 'Active';
 
 foreach ($shapes as $shape => $shapeTitle) { ?>
 

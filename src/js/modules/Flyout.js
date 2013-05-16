@@ -55,19 +55,17 @@ Titon.Flyout = new Class({
 	 *
 	 * @param {String} query
 	 * @param {String} url
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, url, options) {
 		this.parent(query, options);
 
 		// Load data from the URL
-		if (url) {
-			new Request.JSON({
-				url: url,
-				secure: true,
-				onSuccess: this.load.bind(this)
-			}).get();
-		}
+		new Request.JSON({
+			url: url,
+			secure: true,
+			onSuccess: this.load.bind(this)
+		}).get();
 
 		// Set timers
 		this.addTimers({
@@ -129,7 +127,7 @@ Titon.Flyout = new Class({
 	 * Load the data into the class and save a mapping of it.
 	 *
 	 * @param {Object} data
-	 * @param {int} depth
+	 * @param {int} [depth]
 	 */
 	load: function(data, depth) {
 		depth = depth || 0;
@@ -251,7 +249,7 @@ Titon.Flyout = new Class({
 				if (child.children && child.children.length) {
 					this._buildMenu(li, child);
 
-					li.addClass('children')
+					li.addClass('has-children')
 						.addEvent('mouseenter', this._positionChild.bind(this, li))
 						.addEvent('mouseleave', this._hideChild.bind(this, li));
 				}
@@ -337,7 +335,7 @@ Titon.Flyout = new Class({
 	 * @param {Element} parent
 	 */
 	_hideChild: function(parent) {
-		parent.removeClass('opened');
+		parent.removeClass(Titon.options.openClass);
 
 		this.fireEvent('hideChild', parent);
 	},
@@ -388,7 +386,7 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		parent.addClass('opened');
+		parent.addClass(Titon.options.openClass);
 
 		// Alter width because of columns
 		menu.setStyle('width', menu.getElements('ul').getWidth().sum()  + 'px');
@@ -430,7 +428,7 @@ Titon.Flyout.instances = {};
  *
  * @param {String} query
  * @param {String} url
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Titon.Flyout}
  */
 Titon.Flyout.factory = function(query, url, options) {

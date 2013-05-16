@@ -37,8 +37,8 @@
 
 // Styles
 .round { border-radius: $border-round; }
-.draggable { cursor: move; }
-#{$disabled-class},
+.is-draggable { cursor: move; }
+.is-disabled,
 button[disabled] { cursor: not-allowed !important; }
 
 // Carets
