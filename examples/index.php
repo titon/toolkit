@@ -50,8 +50,7 @@ $assets = array(
 	),
 	'pin' => array(
 		'title' => 'Pin',
-		'js' => array('utilities/Pin.js'),
-		'css' => array('ui/pin.css')
+		'js' => array('utilities/Pin.js')
 	),
 	'popover' => array(
 		'title' => 'Popover',

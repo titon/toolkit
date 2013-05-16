@@ -24,3 +24,7 @@
 	overflow: hidden;
 	@include transition(width .30s ease);
 }
+
+.pin {
+	@include transition(top 1s, right .5s, left .5s);
+}
