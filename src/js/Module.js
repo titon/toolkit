@@ -111,7 +111,7 @@ Titon.Module = new Class({
 				element = this.parseTemplate(options.template);
 
 				if (element) {
-					element.hide().inject(document.body);
+					element.hide(true).inject(document.body);
 				}
 			}
 

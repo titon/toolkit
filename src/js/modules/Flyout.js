@@ -118,7 +118,11 @@ Titon.Flyout = new Class({
 	 * @return {bool}
 	 */
 	isVisible: function() {
-		return (this.current && this.elements[this.current] && this.elements[this.current].isVisible());
+		if (this.current && this.elements[this.current]) {
+			this.element = this.elements[this.current];
+		}
+
+		return this.parent();
 	},
 
 	/**
@@ -291,7 +295,7 @@ Titon.Flyout = new Class({
 				return null;
 			}
 
-			menu.hide();
+			menu.hide(true);
 
 			if (this.options.mode === 'hover') {
 				menu.addEvents({
