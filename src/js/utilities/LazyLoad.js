@@ -20,7 +20,6 @@ Titon.LazyLoad = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	fade			- (int) Will fade the items in and out in milliseconds
 	 *	forceLoad		- (bool) Will force all items to load after a delay
 	 *	delay			- (int) The delay in milliseconds before items are force loaded
 	 *	threshold		- (int) The threshold in pixels to load images outside the viewport
@@ -31,7 +30,6 @@ Titon.LazyLoad = new Class({
 	 *	onShutdown		- (function) Callback to trigger when lazy loading is disabled
 	 */
 	options: {
-		fade: false,
 		forceLoad: false,
 		delay: 10000,
 		threshold: 150,
@@ -139,16 +137,12 @@ Titon.LazyLoad = new Class({
 	},
 
 	/**
-	 * Show or fade in the element by removing the lazy load class.
+	 * Show the element by removing the lazy load class.
 	 *
 	 * @param {Element} node
 	 */
 	show: function(node) {
 		node.removeClass(this.query.remove('.'));
-
-		if (this.options.fade) {
-			node.fadeIn(this.options.fade);
-		}
 
 		// Replace src attributes on images
 		node.getElements('img').each(function(image) {
