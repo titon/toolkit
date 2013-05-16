@@ -87,6 +87,10 @@ Titon.Tooltip = new Class({
 		// Add position class
 		this.element.addClass(this.options.position.hyphenate());
 
+		if (this.options.fade) {
+			this.element.addClass('fade');
+		}
+
 		// Set events
 		this.disable().enable();
 
@@ -226,10 +230,10 @@ Titon.Tooltip = new Class({
 					x: this.options.xOffset,
 					y: this.options.yOffset
 				}
-			}).hide();
+			});
 
 			window.setTimeout(function() {
-				this.showElement();
+				this.element.show();
 				this.fireEvent('show');
 			}.bind(this), this.options.delay || 0);
 		}
