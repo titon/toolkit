@@ -1,22 +1,24 @@
 # Titon v0.0.0 #
 
-Titon, built on MooTools, is a collection of very powerful user-interface modules and utility classes.
+Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
+Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
+
+Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
+Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
 ## Requirements ##
 
 **MooTools 1.4**
 * Core
-* More/Array.Extras
 * More/Class.Binds
+* More/Element.Measure
 * More/Elements.From
-* More/Element.Shortcuts
 * More/Hash
 * More/Locale
 
 **Optional**
-* More/Fx.Slide (Accordion)
 * More/Drag (Modal)
-* More/Element.Measure (Flyout)
+* More/Array.Extras (Flyout)
 * More/Element.Position (Modal, Tooltip)
 * More/Element.Event.Pseudos (Tooltip)
 
@@ -33,7 +35,7 @@ Titon, built on MooTools, is a collection of very powerful user-interface module
 
 ## Utilities ##
 
-* `LazyLoad` - Provides an easy way to lazy-load images while scrolling
+* `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
 * `Pin` - Pin an element in a container that stays within the viewport while scrolling
 
 ## Extensions ##
