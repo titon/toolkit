@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Tooltip = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 	Binds: ['_follow'],
 
 	/** DOM elements. */

@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Flyout = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 	Implements: [Timers],
 
 	/** The current menu URL being displayed. */

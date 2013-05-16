@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Modal = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 	Binds: ['_submit'],
 
 	/** Blackout instance if options.blackout is true. */

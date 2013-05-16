@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Accordion = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 
 	/**
 	 * Default options.

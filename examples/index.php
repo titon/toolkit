@@ -2,8 +2,7 @@
 
 $assets = array(
 	'base' => array(
-		'title' => 'Base',
-		'css' => 'ui/base.css'
+		'title' => 'Base'
 	),
 	'accordion' => array(
 		'title' => 'Accordion',
@@ -133,13 +132,12 @@ $theme = $themes[$themeKey]; ?>
 <head>
 	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
 	<link href="css/test.css" rel="stylesheet" type="text/css">
+	<link href="../src/css/base.css" rel="stylesheet" type="text/css">
+	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
+	<link href="../src/css/effects/animations.css" rel="stylesheet" type="text/css">
 
-	<?php if (!empty($asset['css'])) { ?>
-		<link href="../src/css/base.css" rel="stylesheet" type="text/css">
-		<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
-		<link href="../src/css/effects/animations.css" rel="stylesheet" type="text/css">
-
-		<?php foreach ((array) $asset['css'] as $css) { ?>
+	<?php if (!empty($asset['css'])) {
+		foreach ((array) $asset['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">
 		<?php }
 	}
@@ -155,7 +153,7 @@ $theme = $themes[$themeKey]; ?>
 
 	<?php if (!empty($asset['js'])) { ?>
 		<script type="text/javascript" src="../src/js/Titon.js"></script>
-		<script type="text/javascript" src="../src/js/Module.js"></script>
+		<script type="text/javascript" src="../src/js/Component.js"></script>
 
 		<?php foreach ((array) $asset['js'] as $js) { ?>
 			<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>

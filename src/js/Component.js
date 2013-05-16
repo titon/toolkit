@@ -7,7 +7,7 @@
 (function() {
 	'use strict';
 
-Titon.Module = new Class({
+Titon.Component = new Class({
 	Implements: [Events, Options],
 	Binds: ['_show', '_hide', '_position'],
 
@@ -146,7 +146,7 @@ Titon.Module = new Class({
 	/**
 	 * Disable activation events.
 	 *
-	 * @return {Titon.Module}
+	 * @return {Titon.Component}
 	 */
 	disable: function() {
 		return this._toggleEvents(false);
@@ -155,7 +155,7 @@ Titon.Module = new Class({
 	/**
 	 * Enable activation events.
 	 *
-	 * @return {Titon.Module}
+	 * @return {Titon.Component}
 	 */
 	enable: function() {
 		return this._toggleEvents(true);
@@ -298,7 +298,7 @@ Titon.Module = new Class({
 	 * Destroy the current template and reset.
 	 *
 	 * @param {bool} dispose
-	 * @return {Titon.Module}
+	 * @return {Titon.Component}
 	 */
 	reset: function(dispose) {
 		if (this.element && dispose) {
@@ -411,7 +411,7 @@ Titon.Module = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Module}
+	 * @return {Titon.Component}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.query) {

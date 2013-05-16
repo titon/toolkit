@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.TypeAhead = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 	Implements: [Cache],
 	Binds: ['_cycle', '_lookup', 'process', 'rewind'],
 

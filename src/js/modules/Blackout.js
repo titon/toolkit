@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Blackout = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 
 	/**
 	 * Default options.

@@ -8,7 +8,7 @@
 	'use strict';
 
 Titon.Tabs = new Class({
-	Extends: Titon.Module,
+	Extends: Titon.Component,
 
 	/** Collection of content sections. */
 	sections: [],

@@ -8,11 +8,8 @@
 	'use strict';
 
 Titon.LazyLoad = new Class({
-	Implements: [Events, Options],
+	Extends: Titon.Component,
 	Binds: ['load', 'loadAll'],
-
-	/** Query selector used for module activation. */
-	query: null,
 
 	/** Have all elements been force loaded? */
 	isLoaded: false,
@@ -49,8 +46,10 @@ Titon.LazyLoad = new Class({
 	 * @param {Object} options
 	 */
 	initialize: function(query, options) {
-		this.setOptions(options);
-		this.query = query;
+		options = options || {};
+		options.multiElement = true;
+
+		this.parent(query, options);
 
 		// Add events
 		$(this.options.context || window).addEvents({

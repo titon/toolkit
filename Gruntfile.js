@@ -5,8 +5,8 @@ module.exports = function(grunt) {
 	// Component tree and dependencies
 	var manifest = {
 		base: {
-			css: ['base.css'],
-			js: ['Titon.js', 'Module.js'],
+			css: ['base.css', 'effects/animations.css'],
+			js: ['Titon.js', 'Component.js'],
 			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
 		accordion: {
@@ -68,7 +68,6 @@ module.exports = function(grunt) {
 			require: ['base', 'button']
 		},
 		pin: {
-			css: ['ui/pin.css'],
 			js: ['utilities/Pin.js'],
 			require: ['base']
 		},
