@@ -186,8 +186,10 @@ Titon.Module = new Class({
 	 * @param {Function} callback
 	 */
 	hide: function(callback) {
-		this.element.hide(null, callback);
-		this.fireEvent('hide');
+		if (this.isVisible()) {
+			this.element.hide(null, callback);
+			this.fireEvent('hide');
+		}
 	},
 
 	/**

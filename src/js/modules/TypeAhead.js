@@ -85,6 +85,10 @@ Titon.TypeAhead = new Class({
 
 		options = this.options;
 
+		if (options.fade) {
+			this.element.addClass('fade');
+		}
+
 		// Set cache
 		this.setStorage(options.storage);
 
@@ -523,9 +527,9 @@ Titon.TypeAhead = new Class({
 		this.element.setPosition({
 			x: iPos.left,
 			y: (iPos.top + iPos.height)
-		}).hide();
+		});
 
-		this.showElement();
+		this.element.show();
 	}.protect(),
 
 	/**
