@@ -29,10 +29,18 @@
 
 	@include close-button('modal') {
 		position: absolute;
-		top: 5px;
-		right: 5px;
+		top: 10px;
+		right: 10px;
 	}
-
-	// Reset .is-draggable
-	.modal-inner { cursor: default; }
 }
+
+.modal-head,
+.modal-body,
+.modal-foot,
+.modal-loading,
+.modal-error {
+	padding: 1rem;
+}
+
+// Reset .is-draggable
+.modal-inner { cursor: default; }

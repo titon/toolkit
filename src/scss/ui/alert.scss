@@ -32,6 +32,8 @@
 
 	@include close-button('alert') {
 		float: right;
+		position: relative;
+		top: -2px;
 		margin-left: 1rem;
 
 		& ~ p { margin: 0; }

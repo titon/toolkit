@@ -178,13 +178,10 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 		a:hover,
 		&.is-open > a,
-		&.is-active > a {
-			background: #0f1214;
-			color: #fff;
-		}
-
+		&.is-active > a,
 		.divider {
 			background: #0f1214;
+			color: #fff;
 		}
 	}
 }
@@ -193,7 +190,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	.type-ahead-desc {
 		display: block;
 		color: $gray;
-		font-size: .8rem;
+		font-size: .7rem;
 	}
 
 	.highlight {
@@ -214,7 +211,6 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	.modal-foot,
 	.modal-loading,
 	.modal-error {
-		padding: 1rem;
 		background: #0f1214;
 	}
 
@@ -229,7 +225,6 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	}
 
 	.modal-body {
-		padding: 1rem;
 		border-top: 1px solid #282a2e;
 		border-bottom: 1px solid #282a2e;
 
@@ -241,8 +236,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	}
 
 	.modal-close {
-		top: 8px;
-		right: 8px;
+		top: 13px;
+		right: 13px;
 	}
 
 	&.is-loading .modal-close,
@@ -257,12 +252,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	border-radius: 3px;
 	background: #1d1f21;
 	box-shadow: 0 0 3px #000;
-	margin: 1rem;
-
-	.popover-head,
-	.popover-body {
-		padding: .8rem;
-	}
+	margin: 10px;
 
 	.popover-head {
 		font-size: 1rem;

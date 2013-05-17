@@ -25,3 +25,25 @@
 		}
 	}
 }
+
+.type-ahead-shadow {
+	position: relative;
+
+	input {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.is-shadow {
+		z-index: 0;
+		color: gray;
+	}
+
+	.not-shadow {
+		background: transparent;
+		border-color: transparent;
+		box-shadow: none;
+		z-index: 15;
+	}
+}

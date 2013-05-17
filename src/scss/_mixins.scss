@@ -25,21 +25,21 @@
 
 @mixin size-small {
 	font-size: .7rem;
-	padding: 0 .7rem;
+	padding: 0 .6rem;
 	height: 26px;
 	line-height: 26px;
 }
 
 @mixin size-medium {
 	font-size: .85rem;
-	padding: 0 .85rem;
+	padding: 0 .75rem;
 	height: 34px;
 	line-height: 34px;
 }
 
 @mixin size-large {
 	font-size: 1.1rem;
-	padding: 0 1.1rem;
+	padding: 0 1rem;
 	height: 42px;
 	line-height: 42px;
 }
@@ -62,7 +62,7 @@
 @mixin close-button($module) {
 	.#{$module}-close {
 		@include reset-inline-block;
-		padding: 4px;
+		padding: 3px 4px;
 		background: white(.5);
 		border-radius: 2px;
 		line-height: 100%;
@@ -74,6 +74,8 @@
 			color: #000;
 			opacity: .75;
 			line-height: 0;
+			position: relative;
+			top: -1px;
 		}
 
 		@content;

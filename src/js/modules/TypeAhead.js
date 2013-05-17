@@ -133,7 +133,12 @@ Titon.TypeAhead = new Class({
 		// Enable shadow inputs
 		if (options.shadow) {
 			this.node = new Element('div' + options.shadowElement).wraps(this.input);
-			this.shadow = this.input.clone().addClass('is-shadow').inject(this.node, 'top');
+
+			this.shadow = this.input.clone()
+				.addClass('is-shadow')
+				.set('readonly', true)
+				.inject(this.node, 'top');
+
 			this.input.addClass('not-shadow');
 		}
 

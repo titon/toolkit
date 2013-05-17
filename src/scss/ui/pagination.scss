@@ -38,13 +38,12 @@
 		.button {
 			float: left;
 		}
+	}
 
-		@include active-state {
+	@include active-state {
+		li,
+		.button {
 			z-index: 1;
-
-			.button {
-				z-index: 1;
-			}
 		}
 	}
 

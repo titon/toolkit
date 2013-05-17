@@ -28,19 +28,6 @@
 	max-width: 200px;
 	background: #000;
 
-	.tooltip-arrow {
-		width: 0;
-		height: 0;
-		border: 6px solid transparent;
-		position: absolute;
-
-		&:after {
-			content: "";
-			border: 4px solid transparent;
-			position: absolute;
-		}
-	}
-
 	&.center-left .tooltip-arrow,
 	&.center-right .tooltip-arrow {
 		top: 50%;
@@ -71,5 +58,18 @@
 	&.bottom-center .tooltip-arrow {
 		border-bottom-color: #000;
 		top: -12px;
+	}
+}
+
+.tooltip-arrow {
+	width: 0;
+	height: 0;
+	border: 6px solid transparent;
+	position: absolute;
+
+	&:after {
+		content: "";
+		border: 4px solid transparent;
+		position: absolute;
 	}
 }
