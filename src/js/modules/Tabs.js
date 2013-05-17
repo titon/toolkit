@@ -48,16 +48,16 @@ Titon.Tabs = new Class({
 	/**
 	 * Initialize Tabs by storing the query, gathering the elements and binding events.
 	 *
-	 * @param {String} query
+	 * @param {String} id
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(id, options) {
 		options = options || {};
-		options.cookie = (options.cookie || query).camelCase();
-		options.templateFrom = query;
+		options.cookie = (options.cookie || id).camelCase();
+		options.templateFrom = id;
 		options.template = false;
 
-		this.parent(query, options);
+		this.parent(id, options);
 
 		if (!this.element) {
 			return;
@@ -235,18 +235,18 @@ Titon.Tabs.instances = {};
 /**
  * Easily create multiple instances.
  *
- * @param {String} query
+ * @param {String} id
  * @param {Object} [options]
  * @return {Titon.Tabs}
  */
-Titon.Tabs.factory = function(query, options) {
-	if (Titon.Tabs.instances[query]) {
-		return Titon.Tabs.instances[query];
+Titon.Tabs.factory = function(id, options) {
+	if (Titon.Tabs.instances[id]) {
+		return Titon.Tabs.instances[id];
 	}
 
-	var instance = new Titon.Tabs(query, options);
+	var instance = new Titon.Tabs(id, options);
 
-	Titon.Tabs.instances[query] = instance;
+	Titon.Tabs.instances[id] = instance;
 
 	return instance;
 };
