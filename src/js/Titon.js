@@ -84,10 +84,9 @@ Element.implement({
 	 * Show the element either through fading, sliding, or direct display.
 	 *
 	 * @param {String|bool} [type]
-	 * @param {Function} [callback]
 	 * @returns {Element}
 	 */
-	show: function(type, callback) {
+	show: function(type) {
 		if (type === true) {
 			this.setStyle('display', '');
 
@@ -113,10 +112,6 @@ Element.implement({
 			this.setStyle('display', '');
 		}
 
-		if (typeOf(callback) === 'function') {
-			callback();
-		}
-
 		return this;
 	},
 
@@ -124,10 +119,9 @@ Element.implement({
 	 * Hide the element either through fading, sliding, or direct display.
 	 *
 	 * @param {String|bool} [type]
-	 * @param {Function} [callback]
 	 * @returns {Element}
 	 */
-	hide: function(type, callback) {
+	hide: function(type) {
 		if (type === true) {
 			this.setStyle('display', 'none');
 
@@ -147,10 +141,6 @@ Element.implement({
 		// Set the display to none
 		} else {
 			this.setStyle('display', 'none');
-		}
-
-		if (typeOf(callback) === 'function') {
-			callback();
 		}
 
 		return this;

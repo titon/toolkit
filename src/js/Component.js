@@ -185,7 +185,12 @@ Titon.Component = new Class({
 	 */
 	hide: function(callback) {
 		if (this.isVisible()) {
-			this.element.hide(null, callback);
+			this.element.hide();
+
+			if (typeOf(callback) === 'function') {
+				callback();
+			}
+
 			this.fireEvent('hide');
 		}
 	},
