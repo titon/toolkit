@@ -6,8 +6,7 @@ Each component represents encapsulated HTML, CSS and JS functionality for role s
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
 Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
-## Requirements ##
-
+#### Requirements ####
 **MooTools 1.4**
 * Core
 * More/Class.Binds
@@ -22,8 +21,14 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * More/Element.Position (Modal, Tooltip)
 * More/Element.Event.Pseudos (Tooltip)
 
-## Modules ##
+#### Tested Against ####
+* Chrome 26
+* Firefox 20
+* Internet Explorer 9
 
+## Components ##
+
+#### Modules ####
 * `Accordion` - Provides collapsible support to a list of sections
 * `Blackout` - Displays a transparent black element over the document
 * `Flyout` - Displays nested flyout menus that appear below an element that activates it
@@ -33,13 +38,11 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing
 
-## Utilities ##
-
+#### Utilities ####
 * `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
 * `Pin` - Pin an element in a container that stays within the viewport while scrolling
 
-## Extensions ##
-
+#### Extensions ####
 Titon also provides classes that build upon MooTools itself. These classes do not require the Titon library.
 
 * `Timers` - Provides timer and interval management within the class layer
