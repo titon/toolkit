@@ -118,8 +118,6 @@ Titon.Component = new Class({
 			// Store it in the DOM
 			if (element) {
 				this.element = element;
-			} else {
-				throw new Error(this.className() + ' template failed to parse');
 			}
 		}
 
@@ -231,7 +229,7 @@ Titon.Component = new Class({
 			return element;
 		}
 
-		return null;
+		throw new Error(this.className() + ' template failed to parse');
 	},
 
 	/**

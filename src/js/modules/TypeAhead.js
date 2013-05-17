@@ -83,23 +83,27 @@ Titon.TypeAhead = new Class({
 	initialize: function(id, options) {
 		this.parent(id, options);
 
-		options = this.options;
-
-		if (options.fade) {
-			this.element.addClass('fade');
-		}
-
-		// Set cache
-		this.setStorage(options.storage);
-
 		// Store the input
 		this.input = $(id);
+
+		if (!this.input) {
+			return;
+		}
 
 		if (this.input.get('tag') !== 'input') {
 			throw new Error('TypeAhead must be initialized on an input field');
 		} else {
 			this.input.set('autocomplete', 'off');
 		}
+
+		// Setup state
+		options = this.options;
+
+		if (options.fade) {
+			this.element.addClass('fade');
+		}
+
+		this.setStorage(options.storage);
 
 		// Use default callbacks
 		Object.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(fn, key) {
@@ -143,7 +147,11 @@ Titon.TypeAhead = new Class({
 		}
 
 		// Set events
-		document.body.addEvent('click', this._hide);
+		window.addEvent('keydown', function(e) {
+			if (e.key === 'esc') {
+				Titon.TypeAhead.hide();
+			}
+		});
 
 		this.disable().enable();
 

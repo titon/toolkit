@@ -62,5 +62,6 @@
 		Titon.Popover.factory('.popover-bl', { position: 'bottomLeft' });
 		Titon.Popover.factory('.popover-bc', { position: 'bottomCenter' });
 		Titon.Popover.factory('.popover-br', { position: 'bottomRight' });
+		Titon.Popover.factory('.popover-missing');
 	});
 </script>

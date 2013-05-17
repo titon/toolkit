@@ -33,4 +33,5 @@
 <script type="text/javascript">
 	Titon.LazyLoad.factory('.lazy-load-0');
 	Titon.LazyLoad.factory('.lazy-load-1', { forceLoad: true, delay: 5000 });
+	Titon.LazyLoad.factory('.lazy-load-missing');
 </script>

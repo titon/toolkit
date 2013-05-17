@@ -93,5 +93,6 @@
 		Titon.Tooltip.factory('.tooltip-mbl', { position: 'bottomLeft', follow: true });
 		Titon.Tooltip.factory('.tooltip-mbc', { position: 'bottomCenter', follow: true });
 		Titon.Tooltip.factory('.tooltip-mbr', { position: 'bottomRight', follow: true });
+		Titon.Tooltip.factory('.tooltip-missing');
 	});
 </script>

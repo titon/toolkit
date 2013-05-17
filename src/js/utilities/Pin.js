@@ -55,6 +55,10 @@ Titon.Pin = new Class({
 
 		this.parent(id, options);
 
+		if (!this.element) {
+			return;
+		}
+
 		if (this.options.animate) {
 			this.element.addClass('pin');
 		}

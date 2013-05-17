@@ -37,5 +37,6 @@
 		Titon.Modal.factory('.modal-fade', { fade: 250 });
 		Titon.Modal.factory('.modal-fixed', { fixed: false });
 		Titon.Modal.factory('.modal-delay', { delay: 350 });
+		Titon.Modal.factory('.modal-missing');
 	});
 </script>

@@ -59,6 +59,10 @@ Titon.Tabs = new Class({
 
 		this.parent(query, options);
 
+		if (!this.element) {
+			return;
+		}
+
 		// Get elements
 		this.tabs = this.element.getElements(this.options.tabsElement);
 		this.tabs.each(function(tab, index) {

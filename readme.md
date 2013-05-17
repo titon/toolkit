@@ -6,7 +6,6 @@ Each component represents encapsulated HTML, CSS and JS functionality for role s
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
 Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
-#### Requirements ####
 **MooTools 1.4**
 * Core
 * More/Class.Binds
@@ -14,8 +13,6 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * More/Elements.From
 * More/Hash
 * More/Locale
-
-**Optional**
 * More/Drag (Modal)
 * More/Array.Extras (Flyout)
 * More/Element.Position (Modal, Tooltip)

@@ -73,5 +73,7 @@
 			prefetch: true,
 			source: 'ajax/type-ahead.php'
 		});
+
+		Titon.TypeAhead.factory('ta-missing');
 	});
 </script>

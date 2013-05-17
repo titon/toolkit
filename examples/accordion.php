@@ -63,5 +63,6 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 		Titon.Accordion.factory('.acc-1');
 		Titon.Accordion.factory('.acc-2', { multiple: true, collapsible: true });
 		Titon.Accordion.factory('.acc-3', { slide: false, mode: 'hover' });
+		Titon.Accordion.factory('.acc-missing');
 	});
 </script>

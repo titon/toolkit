@@ -143,5 +143,6 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		Titon.Tabs.factory('tabs-left2');
 		Titon.Tabs.factory('tabs-right');
 		Titon.Tabs.factory('tabs-right2');
+		Titon.Tabs.factory('tabs-missing');
 	});
 </script>
