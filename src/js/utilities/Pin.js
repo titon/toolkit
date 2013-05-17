@@ -21,6 +21,7 @@ Titon.Pin = new Class({
 	/**
 	 * Default options.
 	 *
+	 *	animate		- (bool) Enable animation while scrolling
 	 *	position	- (string) What type of positioning to use: absolute, static, fixed
 	 *	location	- (string) Whether the pin should be located on the left or right of the parent
 	 *	xOffset		- (int) Additional margin on the X axis
@@ -30,6 +31,7 @@ Titon.Pin = new Class({
 	 *	onResize	- (function) Callback triggered when page is resized
 	 */
 	options: {
+		animate: true,
 		location: 'right',
 		xOffset: 0,
 		yOffset: 0,
@@ -52,6 +54,10 @@ Titon.Pin = new Class({
 		options.template = false;
 
 		this.parent(id, options);
+
+		if (this.options.animate) {
+			this.element.addClass('pin');
+		}
 
 		// Cache the element coordinates
 		this.viewport = window.getSize();

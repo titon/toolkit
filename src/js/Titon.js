@@ -99,7 +99,7 @@ Element.implement({
 			// We need to place opacity change on a timer or else it wont animate
 			window.setTimeout(function() {
 				this.setStyle('opacity', 1);
-			}.bind(this), 50);
+			}.bind(this), 10); // Higher than 10 fails on modal + blackout
 
 		// Slide down an element using CSS3 height transition
 		// Use measure() so that we can determine the height of the element

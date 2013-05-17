@@ -1,3 +1,8 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
 
 .type-ahead {
 	position: absolute;
@@ -12,8 +17,11 @@
 		padding: 0;
 		min-width: 200px;
 
-		a {
+		a,
+		.divider {
+			padding: .5rem;
 			display: block;
+			text-decoration: none;
 		}
 	}
 }

@@ -62,6 +62,6 @@ button[disabled] { cursor: not-allowed !important; }
 .x {
 	@include reset-inline-block;
 	color: #fff;
-	font: bold 18px Arial, sans-serif;
+	font: bold 18px/100% Arial, sans-serif;
 	text-transform: uppercase;
 }

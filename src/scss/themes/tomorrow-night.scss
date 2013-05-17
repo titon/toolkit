@@ -88,7 +88,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
  * Button & Pagination Groups
  */
 .button-group,
-.pagination.pagination-grouped ul {
+.pagination.pagination--grouped ul {
 	box-shadow: 0 0 3px #000;
 
 	.button {
@@ -103,12 +103,12 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&:last-child { border-right: 0; }
 }
 
-.pagination.pagination-grouped li {
+.pagination.pagination--grouped li {
 	&:first-child .button { border-left: 0; }
 	&:last-child .button { border-right: 0; }
 }
 
-.button-group.button-group-vertical {
+.button-group.button-group--vertical {
 	.button {
 		box-shadow: none;
 		border: 0;
@@ -123,7 +123,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 /**
  * Labels & Badges
  */
-.label, .badge {
+.label,
+.badge {
 	color: #000;
 	box-shadow: 0 0 3px #000;
 	text-shadow: 0 1px white(.35);
@@ -135,7 +136,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&.success { background-color: $green; }
 }
 
-.label.label-left {
+.label.label--left {
 	&:after { border-right-color: $gray; }
 	&.info:after { border-right-color: $blue; }
 	&.warning:after { border-right-color: $yellow; }
@@ -143,7 +144,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	&.success:after { border-right-color: $green; }
 }
 
-.label.label-right {
+.label.label--right {
 	&:after { border-left-color: $gray; }
 	&.info:after { border-left-color: $blue; }
 	&.warning:after { border-left-color: $yellow; }
@@ -167,10 +168,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		&:first-child { border: 0; }
 
 		a {
-			display: block;
-			padding: 8px;
 			color: $blue;
-			text-decoration: none;
 
 			.caret-right {
 				float: right;
@@ -187,8 +185,6 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 		.divider {
 			background: #0f1214;
-			display: block;
-			padding: 8px;
 		}
 	}
 }
@@ -197,7 +193,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	.type-ahead-desc {
 		display: block;
 		color: $gray;
-		font-size: .8em;
+		font-size: .8rem;
 	}
 
 	.highlight {
@@ -218,12 +214,12 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	.modal-foot,
 	.modal-loading,
 	.modal-error {
-		padding: 10px;
+		padding: 1rem;
 		background: #0f1214;
 	}
 
 	.modal-head {
-		font-size: 18px;
+		font-size: 1rem;
 		font-weight: normal;
 		color: $blue;
 	}
@@ -233,12 +229,12 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	}
 
 	.modal-body {
-		padding: 10px;
+		padding: 1rem;
 		border-top: 1px solid #282a2e;
 		border-bottom: 1px solid #282a2e;
 
 		p {
-			margin: 10px 0 0 0;
+			margin: 1rem 0 0 0;
 
 			&:first-child { margin: 0; }
 		}
@@ -261,15 +257,15 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	border-radius: 3px;
 	background: #1d1f21;
 	box-shadow: 0 0 3px #000;
-	margin: 10px;
+	margin: 1rem;
 
 	.popover-head,
 	.popover-body {
-		padding: 10px;
+		padding: .8rem;
 	}
 
 	.popover-head {
-		font-size: 14px;
+		font-size: 1rem;
 		font-weight: bold;
 		color: $blue;
 		background: #0f1214;
@@ -323,14 +319,13 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .tooltip {
 	background: white(.90);
 	color: #000;
-	padding: 10px;
 	border-radius: 3px;
 	margin: 7px;
 
 	.tooltip-head {
 		padding-bottom: 5px;
 		font-weight: bold;
-		font-size: 14px;
+		font-size: 1rem;
 	}
 
 	&.top-center .tooltip-arrow { border-top-color: white(.90); }
@@ -349,17 +344,17 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 	li {
 		header {
-			font-size: 14px;
+			font-size: .9rem;
 			font-weight: bold;
 			color: $blue;
 			background: #0f1214;
 			border-bottom: 1px solid #282a2e;
-			padding: 10px;
+			padding: 1rem;
 			text-align: center;
 			cursor: pointer;
 		}
 
-		section p { margin: 15px; }
+		section p { margin: 1rem; }
 
 		&:first-child header {
 			border-top-left-radius: 3px;

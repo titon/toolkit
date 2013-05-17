@@ -10,17 +10,17 @@
  * Enables tabs to be placed on the left, right and bottom sides.
  */
 
-.tabs.tabs-left,
-.tabs.tabs-right {
+.tabs.tabs--left,
+.tabs.tabs--right {
 	nav {
 		margin-bottom: 0;
-		width: 100px;
+		width: 25%;
 
 		ul, li, a {
 			display: block;
 		}
 
-		.button-group-vertical {
+		.button-group--vertical {
 			display: block;
 		}
 	}
@@ -28,7 +28,7 @@
 	@include clear-after;
 }
 
-.tabs.tabs-left {
+.tabs.tabs--left {
 	nav {
 		float: left;
 
@@ -36,11 +36,11 @@
 	}
 
 	section {
-		margin-left: 115px;
+		margin-left: 28%;
 	}
 }
 
-.tabs.tabs-right {
+.tabs.tabs--right {
 	nav {
 		float: right;
 
@@ -48,6 +48,6 @@
 	}
 
 	section {
-		margin-right: 115px;
+		margin-right: 28%;
 	}
 }

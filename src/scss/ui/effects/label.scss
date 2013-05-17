@@ -9,7 +9,7 @@
  */
 
 // Left arrow
-.label.label-left {
+.label.label--left {
 	border-top-left-radius: 1px;
 	border-bottom-left-radius: 1px;
 	padding-left: 2px;
@@ -28,7 +28,7 @@
 }
 
 // Right arrow
-.label.label-right {
+.label.label--right {
 	border-top-right-radius: 1px;
 	border-bottom-right-radius: 1px;
 	padding-right: 2px;

@@ -38,7 +38,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 		<?php foreach ($sizes as $size => $sizeTitle) { ?>
 
-			<nav class="pagination pagination-grouped <?php echo $shape . ' ' . $size; ?>">
+			<nav class="pagination pagination--grouped <?php echo $shape . ' ' . $size; ?>">
 				<ul>
 					<li class="is-active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
 					<?php for ($i = 0; $i <= rand(2, 10); $i++) { ?>

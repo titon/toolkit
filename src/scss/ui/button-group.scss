@@ -7,8 +7,6 @@
 @import "../mixins";
 
 /**
- * @shapes	square (default), round, pill, skew
- *
  * {{{
  *		<div class="button-group pill">
  *			<a href="" class="button">Left Button</a>
@@ -84,5 +82,5 @@
 
 // Space out groups
 .button-group + .button-group {
-	margin-left: 10px;
+	margin-left: 1rem;
 }

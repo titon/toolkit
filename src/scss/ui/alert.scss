@@ -7,34 +7,32 @@
 @import "../mixins";
 
 /**
- * @styles	info, warning, error, success
- *
  * {{{
  *		<div class="alert info">
  *			<button type="button" class="close">
  *				<span class="x">&times;</span>
  *			</button>
+ *
  *			<p>This is an information message!</p>
  *		</div>
  * }}}
  */
 
 .alert {
-	padding: 10px;
+	padding: 1rem;
 	background: #282a2e;
 	text-align: left;
 
 	p {
-		margin: 10px 0 0 0;
+		margin: 1rem 0;
 
-		&:first-child {
-			margin: 0;
-		}
+		&:first-child { margin-top: 0; }
+		&:last-child { margin-bottom: 0; }
 	}
 
 	@include close-button('alert') {
 		float: right;
-		margin-left: 10px;
+		margin-left: 1rem;
 
 		& ~ p { margin: 0; }
 	}

@@ -29,8 +29,9 @@
 		li {
 			position: relative;
 
-			a {
-				padding: 5px;
+			a,
+			.divider {
+				padding: .5rem;
 				display: block;
 				text-decoration: none;
 			}

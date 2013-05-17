@@ -10,7 +10,7 @@
  * By default, pagination buttons are separate unless the group style is applied, which will mimic the Button Group module.
  */
 
-.pagination.pagination-grouped {
+.pagination.pagination--grouped {
 	li {
 		margin-left: -1px;
 		margin-right: 0;
@@ -61,30 +61,30 @@
 	// Shape: oval
 	&.oval {
 		ul {
-			border-radius: 7em / 2.75em;
+			border-radius: 7rem / 2.75rem;
 		}
 
 		li:first-child .button {
-			border-radius: 7em 0 0 7em / 2.75em 0 0 2.75em;
+			border-radius: 7rem 0 0 7rem / 2.75rem 0 0 2.75rem;
 		}
 
 		li:last-child .button {
-			border-radius: 0 7em 7em 0 / 0 2.75em 2.75em 0;
+			border-radius: 0 7rem 7rem 0 / 0 2.75rem 2.75rem 0;
 		}
 	}
 
 	// Shape: skew
 	&.skew {
 		ul {
-			border-radius: 1em 1em 0 0 / 3em 3em 0 0;
+			border-radius: 1rem 1rem 0 0 / 3rem 3rem 0 0;
 		}
 
 		li:first-child .button {
-			border-radius: 1em 0 0 0 / 3em 0 0 0;
+			border-radius: 1rem 0 0 0 / 3rem 0 0 0;
 		}
 
 		li:last-child .button {
-			border-radius: 0 1em 0 0 / 0 3em 0 0;
+			border-radius: 0 1rem 0 0 / 0 3rem 0 0;
 		}
 	}
 }

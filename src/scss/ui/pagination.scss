@@ -7,10 +7,6 @@
 @import "../mixins";
 
 /**
- * @shapes	square (default), round, pill
- * @sizes	small, medium (default), large
- * @states	disabled, active
- *
  * {{{
  *		<nav class="pagination small pill">
  *			<ul>
@@ -37,7 +33,7 @@
 
 	li {
 		float: left;
-		margin-right: 5px;
+		margin-right: .5rem;
 
 		.button {
 			float: left;

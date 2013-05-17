@@ -10,8 +10,7 @@
  * Enables button groups to be displayed vertically.
  */
 
-// Vertical
-.button-group.button-group-vertical {
+.button-group.button-group--vertical {
 	vertical-align: top;
 
 	.button {
@@ -30,7 +29,8 @@
 	// Reset radius
 	&.round,
 	&.pill,
-	&.skew {
+	&.skew,
+	&.skew-reverse {
 		.button { border-radius: 0; }
 	}
 
@@ -64,8 +64,8 @@
 
 	// Shape: skew
 	&.skew {
-		border-top-left-radius: 3em 1.5em;
-		border-bottom-left-radius: 3em 1.5em;
+		border-top-left-radius: 3rem 1.5rem;
+		border-bottom-left-radius: 3rem 1.5rem;
 
 		.button:first-child {
 			border-top-left-radius: $border-skew-reverse;
@@ -78,8 +78,8 @@
 
 	// Shape: skew-reverse
 	&.skew-reverse {
-		border-top-right-radius: 3em 1.25em;
-		border-bottom-right-radius: 3em 1.25em;
+		border-top-right-radius: 3rem 1.25rem;
+		border-bottom-right-radius: 3rem 1.25rem;
 
 		.button:first-child {
 			border-top-right-radius: $border-skew-reverse;

@@ -16,12 +16,12 @@
 		height: 60%;
 		top: 3%;
 		left: 0;
-		border-radius: 0 0 2em 2em / 0 0 1em 1em;
+		border-radius: 0 0 2rem 2rem / 0 0 1rem 1rem;
 		@include background-image(linear-gradient(left, white(.3) 0%, white(0) 50%, white(.3) 100%));
 	}
 
 	&.round:after {
-		border-radius: .2em .2em 2em 2em / .5em .5em 1em 1em;
+		border-radius: .2rem .2rem 2rem 2rem / .5rem .5rem 1rem 1rem;
 		width: 98%;
 		left: 1.5%;
 	}
@@ -33,9 +33,9 @@
 		left: 5.5%;
 	}
 
-	&.pill:after { border-radius: 1em 1em 2em 2em / 1em 1em 1em 1em; }
-	&.oval:after { border-radius: 5em 5em 4em 4em / 1.5em 1.5em 1.5em 1.5em; }
-	&.skew:after { border-radius: 1em 1em 3em 3em / 1em 1em 2em 2em; }
+	&.pill:after { border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem; }
+	&.oval:after { border-radius: 5rem 5rem 4rem 4rem / 1.5rem 1.5rem 1.5rem 1.5rem; }
+	&.skew:after { border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem; }
 }
 
 // Reflection

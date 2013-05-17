@@ -70,7 +70,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 <div class="example">
 	<h2>Left, Right</h2>
 
-	<div class="tabs tabs-left" id="tabs-left">
+	<div class="tabs tabs--left" id="tabs-left">
 		<nav>
 			<ul>
 				<li><a href="#tab-21" class="button">Tab 1</a></li>
@@ -84,7 +84,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		<section id="tab-23" style="display: none"><?php echo $p3 . $p3; ?></section>
 	</div>
 
-	<div class="tabs tabs-right" id="tabs-right">
+	<div class="tabs tabs--right" id="tabs-right">
 		<nav>
 			<ul>
 				<li><a href="#tab-31" class="button">Tab 1</a></li>
@@ -100,9 +100,9 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 
 	<p>The button-group-vertical effect can also be used here.</p>
 
-	<div class="tabs tabs-left" id="tabs-left2">
+	<div class="tabs tabs--left" id="tabs-left2">
 		<nav>
-			<div class="button-group button-group-vertical skew">
+			<div class="button-group button-group--vertical skew">
 				<a href="#tab-24" class="button">Tab 1</a>
 				<a href="#tab-25" class="button">Tab 2</a>
 				<a href="#tab-26" class="button">Tab 3</a>
@@ -114,9 +114,9 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		<section id="tab-26" style="display: none"><?php echo $p3 . $p3; ?></section>
 	</div>
 
-	<div class="tabs tabs-right" id="tabs-right2">
+	<div class="tabs tabs--right" id="tabs-right2">
 		<nav>
-			<div class="button-group button-group-vertical skew-reverse">
+			<div class="button-group button-group--vertical skew-reverse">
 				<a href="#tab-34" class="button">Tab 1</a>
 				<a href="#tab-35" class="button">Tab 2</a>
 				<a href="#tab-36" class="button">Tab 3</a>

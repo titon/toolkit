@@ -3,7 +3,7 @@
 <?php unset($shapes['oval']);
 
 $effects = array(
-	'button-group-vertical' => 'Vertical'
+	'button-group--vertical' => 'Vertical'
 );
 
 foreach ($shapes as $shape => $shapeTitle) { ?>
