@@ -131,6 +131,7 @@ $theme = $themes[$themeKey]; ?>
 <html>
 <head>
 	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/test.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/base.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
