@@ -113,8 +113,6 @@ module.exports = function(grunt) {
 		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : [],
 		dependencies = {};
 
-	toPackage.forEach(addDependency);
-
 	function addDependency(name) {
 		if (!manifest[name]) {
 			log.error('Invalid component: ' + name);
@@ -152,6 +150,8 @@ module.exports = function(grunt) {
 
 		toPackage = _.union([name], toPackage);
 	}
+
+	toPackage.forEach(addDependency);
 
 	/**
 	 * Map all the available source files for each task.
@@ -303,10 +303,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('intern');
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
-	grunt.registerTask('test', ['intern']);
 	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'compress']);
 };

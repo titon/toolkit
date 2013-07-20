@@ -34,7 +34,6 @@
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-jshint": "*",
 		"grunt-contrib-sass": "*",
-		"grunt-contrib-compress": "*",
-		"intern": "*"
+		"grunt-contrib-compress": "*"
 	}
 }
