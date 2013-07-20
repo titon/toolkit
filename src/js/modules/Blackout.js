@@ -13,7 +13,7 @@ Titon.Blackout = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	blur	- (string) Apply a blur over the document
+	 *	blur - (string) Apply a blur over the document, usually the wrapping div
 	 */
 	options: {
 		blur: false,
@@ -35,64 +35,21 @@ Titon.Blackout = new Class({
 	},
 
 	/**
-	 * Return the current count.
-	 *
-	 * @return {int}
-	 */
-	count: function() {
-		return Number.from(this.element.get('data-blackout-count') || 1);
-	},
-
-	/**
-	 * Decrease the display count.
-	 *
-	 * @return {Titon.Blackout}
-	 */
-	decrease: function() {
-		var count = this.count() - 1;
-
-		if (count < 0) {
-			count = 0;
-		}
-
-		this.element.set('data-blackout-count', count);
-
-		return this;
-	},
-
-	/**
 	 * Hide the blackout and lower the display count.
 	 *
 	 * @return {Titon.Blackout}
 	 */
 	hide: function() {
-		var count = this.count();
-			count--;
-
-		if (count <= 0) {
-			if (this.options.blur) {
-				$(this.options.blur).removeClass('blur');
-			}
-
-			this.element.hide();
+		if (this.options.blur) {
+			$(this.options.blur).removeClass('blur');
 		}
 
-		this.decrease();
+		this.element.hide();
 		this.fireEvent('hide');
 
 		return this;
 	},
 
-	/**
-	 * Increase the display count.
-	 *
-	 * @return {Titon.Blackout}
-	 */
-	increase: function() {
-		this.element.set('data-blackout-count', (this.count() + 1));
-
-		return this;
-	},
 
 	/**
 	 * Show the blackout and increase the display count.
@@ -106,7 +63,6 @@ Titon.Blackout = new Class({
 
 		this.element.show();
 		this.position();
-		this.increase();
 		this.fireEvent('show');
 
 		return this;

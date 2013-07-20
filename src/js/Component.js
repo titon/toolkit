@@ -271,11 +271,6 @@ Titon.Component = new Class({
 					this.element.addClass(Titon.options.loadingClass);
 
 					this._position(this._loadingTemplate());
-
-					// Decrease count since _position() is being called twice
-					if (this.options.blackout) {
-						this.blackout.decrease();
-					}
 				}
 			}.bind(this),
 
