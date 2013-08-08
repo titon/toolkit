@@ -201,3 +201,24 @@ a {
 	background: $gray-lightest;
 	text-align: center;
 }
+
+//-------------------- Tooltip --------------------//
+
+.tooltip {
+	background: black(.70);
+	color: #fff;
+	border-radius: $round;
+	line-height: 115%;
+	margin: $margin / 2;
+
+	&.top-center .tooltip-arrow { border-top-color: black(.70); }
+	&.center-left .tooltip-arrow { border-left-color: black(.70); }
+	&.center-right .tooltip-arrow { border-right-color: black(.70); }
+	&.bottom-center .tooltip-arrow { border-bottom-color: black(.70); }
+}
+
+.tooltip-head {
+	color: $error;
+	font-weight: bold;
+	margin-bottom:  $margin / 2;
+}

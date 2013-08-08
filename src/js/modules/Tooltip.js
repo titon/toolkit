@@ -87,10 +87,6 @@ Titon.Tooltip = new Class({
 		// Add position class
 		this.element.addClass(this.options.position.hyphenate());
 
-		if (this.options.fade) {
-			this.element.addClass('fade');
-		}
-
 		// Set events
 		this.disable().enable();
 
@@ -196,16 +192,16 @@ Titon.Tooltip = new Class({
 
 		// Set title
 		if (title && this.options.showTitle) {
-			this.elementHead.set('html', title).show();
+			this.elementHead.set('html', title).show(true);
 		} else {
-			this.elementHead.hide();
+			this.elementHead.hide(true);
 		}
 
 		// Set body
 		if (content) {
-			this.elementBody.set('html', content).show();
+			this.elementBody.set('html', content).show(true);
 		} else {
-			this.elementBody.hide();
+			this.elementBody.hide(true);
 		}
 
 		// Follow the mouse

@@ -83,20 +83,32 @@ Element.implement({
 	/**
 	 * Show the element by applying specialty classes.
 	 *
+	 * @param {bool} force
 	 * @returns {Element}
 	 */
-	show: function() {
-		this.removeClass('hide').addClass('show');
+	show: function(force) {
+		if (force) {
+			this.setStyle('display', '');
+		} else {
+			this.removeClass('hide').addClass('show');
+		}
+
 		return this;
 	},
 
 	/**
 	 * Hide the element by applying specialty classes.
 	 *
+	 * @param {bool} force
 	 * @returns {Element}
 	 */
-	hide: function() {
-		this.removeClass('show').addClass('hide');
+	hide: function(force) {
+		if (force) {
+			this.setStyle('display', 'none');
+		} else {
+			this.removeClass('show').addClass('hide');
+		}
+
 		return this;
 	},
 

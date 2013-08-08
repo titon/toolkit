@@ -64,7 +64,7 @@ $assets = array(
 	),
 	'tooltip' => array(
 		'title' => 'Tooltip',
-		'css' => array('ui/button.css', 'modules/tooltip.css'),
+		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/effects/tooltip.css'),
 		'js' => array('modules/Tooltip.js')
 	),
 	'type-ahead' => array(

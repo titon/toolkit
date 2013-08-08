@@ -15,11 +15,20 @@
 <div class="example">
 	<h2>Effects</h2>
 
-	<button type="button" class="button tooltip-fade" data-tooltip="Tooltip will fade in and out within 250ms">Fade In/Out</button>
 	<button type="button" class="button tooltip-click" data-tooltip="Tooltip is shown and hidden with mouse click">Click Toggle</button>
 	<button type="button" class="button tooltip-delay" data-tooltip="Tooltip is shown after 300ms">Show Delay</button>
 	<button type="button" class="button tooltip-base" data-tooltip="#hidden" title="Custom Title">Title and Content</button>
 	<button type="button" class="button tooltip-offset" data-tooltip="Tooltip will have its axis altered">X/Y Offsets</button>
+</div>
+
+<div class="example">
+	<h2>Animations</h2>
+
+	<button type="button" class="button tooltip-fade" data-tooltip="Tooltip will fade in and out">Fade In/Out</button>
+	<button type="button" class="button tooltip-from-above" data-tooltip="Tooltip is falls in from above">From Above</button>
+	<button type="button" class="button tooltip-from-below" data-tooltip="Tooltip is moves in from below">From Below</button>
+	<button type="button" class="button tooltip-flip-rotate" data-tooltip="Tooltip will flip and rotate into place">Flip Rotate</button>
+	<button type="button" class="button tooltip-slide-in" data-tooltip="Tooltip will slide into place (works on all directions)">Slide In</button>
 </div>
 
 <div class="example">
@@ -73,7 +82,11 @@
 		Titon.Tooltip.factory('.tooltip-base');
 		Titon.Tooltip.factory('.tooltip-attr', { getTitle: false, getContent: 'title' });
 		Titon.Tooltip.factory('.tooltip-ajax', { ajax: true });
-		Titon.Tooltip.factory('.tooltip-fade', { fade: 250 });
+		Titon.Tooltip.factory('.tooltip-fade', { animation: 'fade' });
+		Titon.Tooltip.factory('.tooltip-from-above', { animation: 'from-above' });
+		Titon.Tooltip.factory('.tooltip-from-below', { animation: 'from-below' });
+		Titon.Tooltip.factory('.tooltip-flip-rotate', { animation: 'flip-rotate' });
+		Titon.Tooltip.factory('.tooltip-slide-in', { animation: 'slide-in' });
 		Titon.Tooltip.factory('.tooltip-click', { mode: 'click' });
 		Titon.Tooltip.factory('.tooltip-delay', { delay: 250 });
 		Titon.Tooltip.factory('.tooltip-offset', { xOffset: 15, yOffset: 15 });
