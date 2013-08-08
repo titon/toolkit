@@ -10,6 +10,9 @@
 Titon.Tabs = new Class({
 	Extends: Titon.Component,
 
+	/** Navigation container */
+	nav: null,
+
 	/** Collection of content sections. */
 	sections: [],
 
@@ -30,7 +33,7 @@ Titon.Tabs = new Class({
 	 *	preventDefault	- (bool) Prevent the default action from triggering for tabs
 	 *	cookie			- (string) The key used in the cookie name
 	 *	cookieDuration	- (int) The length the cookie will last (in days)
-	 *	tabsElement		- (string) The CSS query to grab the tab elements
+	 *	navElement		- (string) The CSS query to that contains the list buttons
 	 *	sectionsElement	- (string) The CSS query to grab the section elements
 	 */
 	options: {
@@ -41,8 +44,8 @@ Titon.Tabs = new Class({
 		preventDefault: true,
 		cookie: null,
 		cookieDuration: 30,
-		tabsElement: 'nav a',
-		sectionsElement: 'section'
+		navElement: '.tabs-nav',
+		sectionsElement: '.tabs-section'
 	},
 
 	/**
@@ -64,17 +67,15 @@ Titon.Tabs = new Class({
 		}
 
 		// Get elements
-		this.tabs = this.element.getElements(this.options.tabsElement);
+		this.nav = this.element.getElement(this.options.navElement);
+
+		this.tabs = this.nav.getElements('ul > li > a');
 		this.tabs.each(function(tab, index) {
 			tab.set('data-tabs-index', index).removeClass(Titon.options.activeClass);
 		});
 
 		this.sections = this.element.getElements(this.options.sectionsElement);
-		this.sections.hide(true);
-
-		if (this.options.fade) {
-			this.sections.addClass('fade');
-		}
+		this.sections.hide();
 
 		// Set events
 		this.disable().enable();
@@ -91,7 +92,7 @@ Titon.Tabs = new Class({
 	 * Hide all sections and trigger event.
 	 */
 	hide: function() {
-		this.sections.hide(true);
+		this.sections.hide();
 
 		this.fireEvent('hide', this.node);
 	},
@@ -148,7 +149,7 @@ Titon.Tabs = new Class({
 		}
 
 		// Toggle tabs
-		this.tabs.removeClass(activeClass);
+		this.nav.getElements('ul > li').removeClass(activeClass);
 
 		// Toggle sections
 		if (index === this.currentIndex && this.options.collapsible) {
@@ -156,13 +157,13 @@ Titon.Tabs = new Class({
 				section.hide();
 
 			} else {
-				tab.addClass(activeClass);
+				tab.getParent().addClass(activeClass);
 				section.show();
 			}
 		} else {
 			this.hide();
 
-			tab.addClass(activeClass);
+			tab.getParent().addClass(activeClass);
 			section.show();
 		}
 

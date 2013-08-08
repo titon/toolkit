@@ -9,7 +9,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 	<h2>Content Loading</h2>
 
 	<div class="tabs" id="tabs-base">
-		<nav>
+		<nav class="tabs-nav">
 			<ul>
 				<li><a href="#tab-1" class="button">Tab 1 via DOM</a></li>
 				<li><a href="#tab-2" class="button">Tab 2 via DOM</a></li>
@@ -17,35 +17,35 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section id="tab-1" style="display: none"><?php echo $p1; ?></section>
-		<section id="tab-2" style="display: none"><?php echo $p2; ?></section>
-		<section id="tab-3" style="display: none"><?php echo $p3; ?></section>
+		<section class="tabs-section" id="tab-1"><?php echo $p1; ?></section>
+		<section class="tabs-section" id="tab-2"><?php echo $p2; ?></section>
+		<section class="tabs-section" id="tab-3"><?php echo $p3; ?></section>
 	</div>
 
 	<p>Integrate with the button-group module for a slicker navigation. Also collapsible sections.</p>
 
 	<div class="tabs" id="tabs-base2">
-		<nav>
-			<div class="button-group pill">
-				<a href="#tab-10" class="button">Tab 1</a>
-				<a href="#tab-20" class="button">Tab 2</a>
-				<a href="#tab-30" class="button">Tab 3</a>
-			</div>
+		<nav class="tabs-nav">
+			<ul class="button-group pill">
+				<li><a href="#tab-10" class="button">Tab 1</a></li>
+				<li><a href="#tab-20" class="button">Tab 2</a></li>
+				<li><a href="#tab-30" class="button">Tab 3</a></li>
+			</ul>
 		</nav>
 
-		<section id="tab-10" style="display: none"><?php echo $p1; ?></section>
-		<section id="tab-20" style="display: none"><?php echo $p2; ?></section>
-		<section id="tab-30" style="display: none"><?php echo $p3; ?></section>
+		<section class="tabs-section" id="tab-10"><?php echo $p1; ?></section>
+		<section class="tabs-section" id="tab-20"><?php echo $p2; ?></section>
+		<section class="tabs-section" id="tab-30"><?php echo $p3; ?></section>
 	</div>
 </div>
 
 <div class="example">
 	<h2>Effects</h2>
 
-	<p>Hover instead of click, section fading, persistent tabs, default 2nd section.</p>
+	<p>Hover instead of click, persistent tabs, default 2nd section.</p>
 
 	<div class="tabs" id="tabs-effects">
-		<nav>
+		<nav class="tabs-nav">
 			<ul>
 				<li><a href="#tab-3" class="button">Tab 1 via DOM</a></li>
 				<li><a href="#tab-4" class="button">Tab 2 via DOM</a></li>
@@ -53,9 +53,9 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section id="tab-4" style="display: none"><?php echo $p1; ?></section>
-		<section id="tab-5" style="display: none"><?php echo $p2; ?></section>
-		<section id="tab-6" style="display: none"><?php echo $p3; ?></section>
+		<section class="tabs-section" id="tab-4"><?php echo $p1; ?></section>
+		<section class="tabs-section" id="tab-5"><?php echo $p2; ?></section>
+		<section class="tabs-section" id="tab-6"><?php echo $p3; ?></section>
 	</div>
 </div>
 
@@ -71,7 +71,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 	<h2>Left, Right</h2>
 
 	<div class="tabs tabs--left" id="tabs-left">
-		<nav>
+		<nav class="tabs-nav">
 			<ul>
 				<li><a href="#tab-21" class="button">Tab 1</a></li>
 				<li><a href="#tab-22" class="button">Tab 2</a></li>
@@ -79,13 +79,13 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section id="tab-21" style="display: none"><?php echo $p1 . $p1; ?></section>
-		<section id="tab-22" style="display: none"><?php echo $p2 . $p2; ?></section>
-		<section id="tab-23" style="display: none"><?php echo $p3 . $p3; ?></section>
+		<section class="tabs-section" id="tab-21"><?php echo $p1 . $p1; ?></section>
+		<section class="tabs-section" id="tab-22"><?php echo $p2 . $p2; ?></section>
+		<section class="tabs-section" id="tab-23"><?php echo $p3 . $p3; ?></section>
 	</div>
 
 	<div class="tabs tabs--right" id="tabs-right">
-		<nav>
+		<nav class="tabs-nav">
 			<ul>
 				<li><a href="#tab-31" class="button">Tab 1</a></li>
 				<li><a href="#tab-32" class="button">Tab 2</a></li>
@@ -93,39 +93,39 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section id="tab-31" style="display: none"><?php echo $p1 . $p1; ?></section>
-		<section id="tab-32" style="display: none"><?php echo $p2 . $p2; ?></section>
-		<section id="tab-33" style="display: none"><?php echo $p3 . $p3; ?></section>
+		<section class="tabs-section" id="tab-31"><?php echo $p1 . $p1; ?></section>
+		<section class="tabs-section" id="tab-32"><?php echo $p2 . $p2; ?></section>
+		<section class="tabs-section" id="tab-33"><?php echo $p3 . $p3; ?></section>
 	</div>
 
 	<p>The button-group-vertical effect can also be used here.</p>
 
 	<div class="tabs tabs--left" id="tabs-left2">
-		<nav>
-			<div class="button-group button-group--vertical skew">
-				<a href="#tab-24" class="button">Tab 1</a>
-				<a href="#tab-25" class="button">Tab 2</a>
-				<a href="#tab-26" class="button">Tab 3</a>
-			</div>
+		<nav class="tabs-nav">
+			<ul class="button-group button-group--vertical skew">
+				<li><a href="#tab-24" class="button">Tab 1</a></li>
+				<li><a href="#tab-25" class="button">Tab 2</a></li>
+				<li><a href="#tab-26" class="button">Tab 3</a></li>
+			</ul>
 		</nav>
 
-		<section id="tab-24" style="display: none"><?php echo $p1 . $p1; ?></section>
-		<section id="tab-25" style="display: none"><?php echo $p2 . $p2; ?></section>
-		<section id="tab-26" style="display: none"><?php echo $p3 . $p3; ?></section>
+		<section class="tabs-section" id="tab-24"><?php echo $p1 . $p1; ?></section>
+		<section class="tabs-section" id="tab-25"><?php echo $p2 . $p2; ?></section>
+		<section class="tabs-section" id="tab-26"><?php echo $p3 . $p3; ?></section>
 	</div>
 
 	<div class="tabs tabs--right" id="tabs-right2">
-		<nav>
-			<div class="button-group button-group--vertical skew-reverse">
-				<a href="#tab-34" class="button">Tab 1</a>
-				<a href="#tab-35" class="button">Tab 2</a>
-				<a href="#tab-36" class="button">Tab 3</a>
-			</div>
+		<nav class="tabs-nav">
+			<ul class="button-group button-group--vertical skew-reverse">
+				<li><a href="#tab-34" class="button">Tab 1</a></li>
+				<li><a href="#tab-35" class="button">Tab 2</a></li>
+				<li><a href="#tab-36" class="button">Tab 3</a></li>
+			</ul>
 		</nav>
 
-		<section id="tab-34" style="display: none"><?php echo $p1 . $p1; ?></section>
-		<section id="tab-35" style="display: none"><?php echo $p2 . $p2; ?></section>
-		<section id="tab-36" style="display: none"><?php echo $p3 . $p3; ?></section>
+		<section class="tabs-section" id="tab-34"><?php echo $p1 . $p1; ?></section>
+		<section class="tabs-section" id="tab-35"><?php echo $p2 . $p2; ?></section>
+		<section class="tabs-section" id="tab-36"><?php echo $p3 . $p3; ?></section>
 	</div>
 </div>
 
@@ -135,7 +135,6 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 		Titon.Tabs.factory('tabs-base2', { collapsible: true });
 		Titon.Tabs.factory('tabs-effects', {
 			mode: 'hover',
-			fade: 250,
 			persistState: true,
 			defaultIndex: 1
 		});

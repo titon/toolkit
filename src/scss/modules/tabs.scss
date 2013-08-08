@@ -10,16 +10,16 @@
  * Should be used in conjunction with the JavaScript Titon.Tabs module.
  *
  * {{{
- * 		<div id="tabs">
- *			<nav>
+ * 		<div id="tabs" class="tabs">
+ *			<nav class="tabs-nav">
  *				<ul>
  *					<li><a href="#tab-1">Tab 1</a></li>
  *					<li><a href="#tab-2">Tab 2</a></li>
  *				</ul>
  *			</nav>
  *
- *			<section id="tab-1"></section>
- *			<section id="tab-2"></section>
+ *			<section id="tab-1" class="tabs-section"></section>
+ *			<section id="tab-2" class="tabs-section"></section>
  * 		</div>
  * }}}
  */
@@ -38,4 +38,8 @@
 
 		@include clear-after;
 	}
+}
+
+.tabs-section.hide {
+	display: none; // Necessary
 }

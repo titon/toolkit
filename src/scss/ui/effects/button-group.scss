@@ -13,6 +13,7 @@
 .button-group.button-group--vertical {
 	vertical-align: top;
 
+	li,
 	.button {
 		float: none;
 		display: block;
@@ -34,12 +35,14 @@
 
 	// Shape: round
 	&.round {
-		.button:first-child {
+		li:first-child .button,
+		> .button:first-child {
 			border-top-left-radius: $round;
 			border-top-right-radius: $round;
 		}
 
-		.button:last-child {
+		li:last-child .button,
+		> .button:last-child {
 			border-bottom-left-radius: $round;
 			border-bottom-right-radius: $round;
 		}
@@ -49,12 +52,14 @@
 	&.pill {
 		border-radius: $pill;
 
-		.button:first-child {
+		li:first-child .button,
+		> .button:first-child {
 			border-top-left-radius: $pill;
 			border-top-right-radius: $pill;
 		}
 
-		.button:last-child {
+		li:last-child .button,
+		> .button:last-child {
 			border-bottom-left-radius: $pill;
 			border-bottom-right-radius: $pill;
 		}
@@ -65,11 +70,13 @@
 		border-top-left-radius: $skew-y 1.5rem;
 		border-bottom-left-radius: $skew-y 1.5rem;
 
-		.button:first-child {
+		li:first-child .button,
+		> .button:first-child {
 			border-top-left-radius: $skew-reverse;
 		}
 
-		.button:last-child {
+		li:last-child .button,
+		> .button:last-child {
 			border-bottom-left-radius: $skew-reverse;
 		}
 	}
@@ -79,11 +86,13 @@
 		border-top-right-radius: $skew-y 1.25rem;
 		border-bottom-right-radius: $skew-y 1.25rem;
 
-		.button:first-child {
+		li:first-child .button,
+		> .button:first-child {
 			border-top-right-radius: $skew-reverse;
 		}
 
-		.button:last-child {
+		li:last-child .button,
+		> .button:last-child {
 			border-bottom-right-radius: $skew-reverse;
 		}
 	}
