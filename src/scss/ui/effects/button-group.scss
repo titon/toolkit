@@ -19,8 +19,6 @@
 		margin: -1px 0 0 0;
 		width: auto;
 		max-width: 100%;
-		border-left: 0;
-		border-right: 0;
 
 		&:first-child { margin-top: 0; }
 		&:hover { z-index: 1; }
@@ -31,7 +29,7 @@
 	&.pill,
 	&.skew,
 	&.skew-reverse {
-		.button { border-radius: 0 !important; }
+		.button { border-radius: 0; }
 	}
 
 	// Shape: round
@@ -68,11 +66,11 @@
 		border-bottom-left-radius: $skew-y 1.5rem;
 
 		.button:first-child {
-			border-top-left-radius: #{$skew-y} / #{$skew-x};
+			border-top-left-radius: $skew-reverse;
 		}
 
 		.button:last-child {
-			border-bottom-left-radius: #{$skew-y} / #{$skew-x};
+			border-bottom-left-radius: $skew-reverse;
 		}
 	}
 
@@ -82,11 +80,11 @@
 		border-bottom-right-radius: $skew-y 1.25rem;
 
 		.button:first-child {
-			border-top-right-radius: #{$skew-y} / #{$skew-x};
+			border-top-right-radius: $skew-reverse;
 		}
 
 		.button:last-child {
-			border-bottom-right-radius: #{$skew-y} / #{$skew-x};
+			border-bottom-right-radius: $skew-reverse;
 		}
 	}
 }

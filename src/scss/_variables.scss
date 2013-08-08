@@ -69,4 +69,5 @@ $oval-y: 2.75rem;
 
 $skew-x: 1rem;
 $skew-y: 3rem;
-$skew: #{$skew-x} / #{$skew-y};
+$skew: $skew-x $skew-y;
+$skew-reverse: $skew-y $skew-x;
