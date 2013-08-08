@@ -100,6 +100,7 @@ a {
 
 .button {
 	color: #fff;
+	@include transition(all .3s);
 	@include button-style($default, $default-light, $default-dark);
 
 	&.info { @include button-style($info, $info-light, $info-dark); }

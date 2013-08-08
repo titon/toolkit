@@ -70,6 +70,7 @@ h1 { font-size: 36px; }
 .pin {
 	background: #000;
 	width: 200px;
+	color: #fff;
 	padding: 15px;
 }
 

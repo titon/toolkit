@@ -33,16 +33,13 @@
 
 	li {
 		float: left;
-		margin-right: .5rem;
+		margin-right: $margin / 2;
 
 		.button {
 			float: left;
 		}
-	}
 
-	@include active-state {
-		li,
-		.button {
+		&.is-active {
 			z-index: 1;
 		}
 	}
