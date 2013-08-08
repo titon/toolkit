@@ -2,6 +2,7 @@
 @import "../variables";
 @import "../mixins";
 @import "compass/css3/transition";
+@import "compass/css3/transform";
 
 body {
 	font: normal 90%/2rem Verdana, Arial, sans-serif;
@@ -200,6 +201,67 @@ a {
 .modal-foot {
 	background: $gray-lightest;
 	text-align: center;
+}
+
+//-------------------- Popover --------------------//
+
+.popover {
+	margin: $margin;
+	background: #fff;
+	line-height: 115%;
+	border: 1px solid $gray-dark;
+	box-shadow: 5px 5px black(.25);
+
+	&.top-center .popover-arrow {
+		border-top-color: black(.25);
+		@include transform(translateY(6px));
+
+		&:after {
+			margin-top: -8px;
+			border-top: 8px solid #fff;
+		}
+	}
+
+	&.center-left .popover-arrow {
+		border-left-color: black(.25);
+		@include transform(translateX(6px));
+
+		&:after {
+			margin-left: -8px;
+			border-left: 8px solid #fff;
+		}
+	}
+
+	&.center-right .popover-arrow {
+		border-right-color: $gray-dark;
+
+		&:after {
+			margin-left: 2px;
+			border-right-color: #fff;
+		}
+	}
+
+	&.bottom-center .popover-arrow {
+		border-bottom-color: $gray-dark;
+
+		&:after {
+			margin-top: 2px;
+			border-bottom-color: #fff;
+		}
+	}
+
+	&.top-left,
+	&.top-right,
+	&.bottom-left,
+	&.bottom-right {
+		margin: $margin / 2;
+	}
+}
+
+.popover-head {
+	font-weight: bold;
+	background: $gray;
+	border-bottom: 1px solid $gray-dark;
 }
 
 //-------------------- Tooltip --------------------//

@@ -14,10 +14,19 @@
 <div class="example">
 	<h2>Effects</h2>
 
-	<button type="button" class="button popover-fade" data-popover="Popover will fade in and out within 250ms">Fade In/Out</button>
 	<button type="button" class="button popover-delay" data-popover="Popover is shown after 300ms">Show Delay</button>
 	<button type="button" class="button popover-base" data-popover="#hidden" title="Custom Title">Title and Content</button>
 	<button type="button" class="button popover-offset" data-popover="Popover will have its axis altered">X/Y Offsets</button>
+</div>
+
+<div class="example">
+	<h2>Animations</h2>
+
+	<button type="button" class="button popover-fade" data-popover="Popover will fade in and out">Fade In/Out</button>
+	<button type="button" class="button popover-from-above" data-popover="Popover is falls in from above">From Above</button>
+	<button type="button" class="button popover-from-below" data-popover="Popover is moves in from below">From Below</button>
+	<button type="button" class="button popover-flip-rotate" data-popover="Popover will flip and rotate into place">Flip Rotate</button>
+	<button type="button" class="button popover-slide-in" data-popover="Popover will slide into place (works on all directions)">Slide In</button>
 </div>
 
 <div class="example">
@@ -51,9 +60,13 @@
 	window.addEvent('domready', function() {
 		Titon.Popover.factory('.popover-base');
 		Titon.Popover.factory('.popover-ajax', { ajax: true });
-		Titon.Popover.factory('.popover-fade', { fade: 250 });
 		Titon.Popover.factory('.popover-delay', { delay: 250 });
 		Titon.Popover.factory('.popover-offset', { xOffset: 15, yOffset: 15 });
+		Titon.Popover.factory('.popover-fade', { animation: 'fade' });
+		Titon.Popover.factory('.popover-from-above', { animation: 'from-above' });
+		Titon.Popover.factory('.popover-from-below', { animation: 'from-below' });
+		Titon.Popover.factory('.popover-flip-rotate', { animation: 'flip-rotate' });
+		Titon.Popover.factory('.popover-slide-in', { animation: 'slide-in' });
 		Titon.Popover.factory('.popover-tl', { position: 'topLeft' });
 		Titon.Popover.factory('.popover-tc', { position: 'topCenter' });
 		Titon.Popover.factory('.popover-tr', { position: 'topRight' });

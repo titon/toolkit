@@ -4,6 +4,8 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Popover module.
  *
@@ -26,7 +28,7 @@
 	padding: 0;
 	z-index: 650;
 	max-width: 300px;
-	background: #000;
+	visibility: hidden;
 
 	&.center-left .popover-arrow,
 	&.center-right .popover-arrow {
@@ -63,7 +65,7 @@
 
 .popover-head,
 .popover-body {
-	padding: .8rem;
+	padding: $padding / 2;
 }
 
 .popover-arrow {

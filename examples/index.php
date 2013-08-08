@@ -54,7 +54,7 @@ $assets = array(
 	),
 	'popover' => array(
 		'title' => 'Popover',
-		'css' => array('ui/button.css', 'modules/popover.css'),
+		'css' => array('ui/button.css', 'modules/popover.css', 'modules/effects/popover-tooltip.css'),
 		'js' => array('modules/Tooltip.js', 'modules/Popover.js')
 	),
 	'tabs' => array(
@@ -64,7 +64,7 @@ $assets = array(
 	),
 	'tooltip' => array(
 		'title' => 'Tooltip',
-		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/effects/tooltip.css'),
+		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/effects/popover-tooltip.css'),
 		'js' => array('modules/Tooltip.js')
 	),
 	'type-ahead' => array(
