@@ -293,7 +293,7 @@ Titon.Flyout = new Class({
 				return null;
 			}
 
-			menu.hide(true);
+			menu.hide();
 
 			if (this.options.mode === 'hover') {
 				menu.addEvents({

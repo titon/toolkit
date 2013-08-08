@@ -331,7 +331,7 @@ Titon.Component = new Class({
 	 * @return {Element}
 	 */
 	toElement: function() {
-		return this.element;
+		return this.element || this.elements;
 	},
 
 	/**

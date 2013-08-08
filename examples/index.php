@@ -36,6 +36,7 @@ $assets = array(
 	),
 	'lazy-load' => array(
 		'title' => 'Lazy Load',
+		'css' => array('ui/lazy-load.css'),
 		'js' => array('utilities/LazyLoad.js')
 	),
 	'modal' => array(
@@ -133,8 +134,6 @@ $theme = $themes[$themeKey]; ?>
 <html>
 <head>
 	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
-	<link href="css/normalize.css" rel="stylesheet" type="text/css">
-	<link href="css/test.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/base.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/ui/typography.css" rel="stylesheet" type="text/css">
@@ -151,6 +150,7 @@ $theme = $themes[$themeKey]; ?>
 		<?php }
 	} ?>
 
+	<link href="css/test.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
 	<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
 

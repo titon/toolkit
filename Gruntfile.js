@@ -5,9 +5,9 @@ module.exports = function(grunt) {
 	// Component tree and dependencies
 	var manifest = {
 		base: {
-			css: ['base.css', 'effects/animations.css'],
+			css: ['base.css'],
 			js: ['Titon.js', 'Component.js'],
-			moo: ['Core', 'More/Class.Binds', 'More/Element.Measure', 'More/Elements.From', 'More/Hash', 'More/Locale']
+			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
 		accordion: {
 			css: ['modules/accordion.css'],
@@ -69,12 +69,14 @@ module.exports = function(grunt) {
 			require: ['base', 'button']
 		},
 		pin: {
+			css: ['ui/pin.css'],
 			js: ['utilities/Pin.js'],
 			require: ['base']
 		},
 		popover: {
 			css: ['modules/popover.css'],
 			js: ['modules/Popover.js'],
+			effects: ['modules/effects/popover-tooltip.css'],
 			require: ['base', 'tooltip']
 		},
 		tabs: {
@@ -91,6 +93,7 @@ module.exports = function(grunt) {
 			css: ['modules/tooltip.css'],
 			js: ['modules/Tooltip.js'],
 			moo: ['More/Element.Event.Pseudos', 'More/Element.Position'],
+			effects: ['modules/effects/popover-tooltip.css'],
 			require: ['base']
 		},
 		typeAhead: {

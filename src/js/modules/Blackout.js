@@ -12,11 +12,8 @@ Titon.Blackout = new Class({
 
 	/**
 	 * Default options.
-	 *
-	 *	blur - (string) Apply a blur over the document, usually the wrapping div
 	 */
 	options: {
-		blur: false,
 		template: '<div class="blackout" id="titon-blackout"></div>',
 		templateFrom: 'titon-blackout'
 	},
@@ -40,10 +37,6 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	hide: function() {
-		if (this.options.blur) {
-			$(this.options.blur).removeClass('blur');
-		}
-
 		this.element.hide();
 		this.fireEvent('hide');
 
@@ -57,10 +50,6 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	show: function() {
-		if (this.options.blur) {
-			$(this.options.blur).addClass('blur');
-		}
-
 		this.element.show();
 		this.position();
 		this.fireEvent('show');
