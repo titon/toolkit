@@ -10,16 +10,28 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 
 	<ul class="accordion acc-1">
 		<li>
-			<header>One</header>
-			<section><?php echo $p1; ?></section>
+			<header class="accordion-head">
+				<h4>One</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p1; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Two</header>
-			<section><?php echo $p2; ?></section>
+			<header class="accordion-head">
+				<h4>Two</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p2; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Three</header>
-			<section><?php echo $p3; ?></section>
+			<header class="accordion-head">
+				<h4>Three</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p3; ?></div>
+			</section>
 		</li>
 	</ul>
 
@@ -27,33 +39,57 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 
 	<ul class="accordion acc-2">
 		<li>
-			<header>One</header>
-			<section><?php echo $p1; ?></section>
+			<header class="accordion-head">
+				<h4>One</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p1; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Two</header>
-			<section><?php echo $p2; ?></section>
+			<header class="accordion-head">
+				<h4>Two</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p2; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Three</header>
-			<section><?php echo $p3; ?></section>
+			<header class="accordion-head">
+				<h4>Three</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p3; ?></div>
+			</section>
 		</li>
 	</ul>
 
-	<p>No slide animation. Toggle with hover.</p>
+	<p>Toggle with hover.</p>
 
 	<ul class="accordion acc-3">
 		<li>
-			<header>One</header>
-			<section><?php echo $p1; ?></section>
+			<header class="accordion-head">
+				<h4>One</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p1; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Two</header>
-			<section><?php echo $p2; ?></section>
+			<header class="accordion-head">
+				<h4>Two</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p2; ?></div>
+			</section>
 		</li>
 		<li>
-			<header>Three</header>
-			<section><?php echo $p3; ?></section>
+			<header class="accordion-head">
+				<h4>Three</h4>
+			</header>
+			<section class="accordion-inner">
+				<div class="accordion-body"><?php echo $p3; ?></div>
+			</section>
 		</li>
 	</ul>
 </div>
@@ -62,7 +98,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 	window.addEvent('domready', function() {
 		Titon.Accordion.factory('.acc-1');
 		Titon.Accordion.factory('.acc-2', { multiple: true, collapsible: true });
-		Titon.Accordion.factory('.acc-3', { slide: false, mode: 'hover' });
+		Titon.Accordion.factory('.acc-3', { mode: 'hover' });
 		Titon.Accordion.factory('.acc-missing');
 	});
 </script>

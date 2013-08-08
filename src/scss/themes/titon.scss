@@ -1,6 +1,7 @@
 
 @import "../variables";
 @import "../mixins";
+@import "compass/css3/transition";
 
 body {
 	font: normal 90%/2rem Verdana, Arial, sans-serif;
@@ -17,42 +18,34 @@ a {
 	&:hover { color: $error-dark; }
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2.2rem; }
-h3 { font-size: 1.8rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	line-height: 100%;
-}
-
 //-------------------- Accordion --------------------//
 
 .accordion {
 	border: 1px solid $gray-dark;
+}
 
-	header {
-		padding: $padding;
-		background: $gray;
-		border-top: 1px solid $gray-dark;
-		border-bottom: 1px solid $gray-dark;
+.accordion-head {
+	padding: $padding;
+	background: $gray;
+	border: 1px solid $gray-dark;
+	margin: -1px;
+	cursor: pointer;
+	@include transition(all .3s);
+
+	.is-active & {
+		background: $error;
+		border-color: $error-dark;
+		color: #fff;
 	}
+}
 
-	section {
-		padding: $padding;
-	}
-
-	li:first-child header { border-top: 0; }
-	li:last-child header { border-bottom: 0; }
+.accordion-body {
+	padding: $padding;
 }
 
 //-------------------- Alert --------------------//
 
-@mixin alert-state($bg, $text) {
+@mixin alert-style($bg, $text) {
 	color: $text;
 	background: $bg;
 	border: 1px solid shade($bg, 10%);
@@ -66,17 +59,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .alert {
-	@include alert-state($default-light, $default-dark);
+	@include alert-style($default-light, $default-dark);
 
-	&.info { @include alert-state($info-light, $info-dark); }
-	&.error { @include alert-state($error-light, $error-dark); }
-	&.warning { @include alert-state($warning-light, $warning-dark); }
-	&.success { @include alert-state($success-light, $success-dark); }
+	&.info { @include alert-style($info-light, $info-dark); }
+	&.error { @include alert-style($error-light, $error-dark); }
+	&.warning { @include alert-style($warning-light, $warning-dark); }
+	&.success { @include alert-style($success-light, $success-dark); }
 }
 
 //-------------------- Button --------------------//
 
-@mixin button-state($base, $light, $dark) {
+@mixin button-style($base, $light, $dark) {
 	font-weight: bold;
 	background: shade($base, 5%);
 	text-shadow: 1px 1px black(.2);
@@ -107,12 +100,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .button {
 	color: #fff;
-	@include button-state($default, $default-light, $default-dark);
+	@include button-style($default, $default-light, $default-dark);
 
-	&.info { @include button-state($info, $info-light, $info-dark); }
-	&.error { @include button-state($error, $error-light, $error-dark); }
-	&.warning { @include button-state($warning, $warning-light, $warning-dark); }
-	&.success { @include button-state($success, $success-light, $success-dark); }
+	&.info { @include button-style($info, $info-light, $info-dark); }
+	&.error { @include button-style($error, $error-light, $error-dark); }
+	&.warning { @include button-style($warning, $warning-light, $warning-dark); }
+	&.success { @include button-style($success, $success-light, $success-dark); }
 }
 
 //-------------------- Flyout, TypeAhead --------------------//
@@ -153,6 +146,39 @@ h1, h2, h3, h4, h5, h6 {
 		.type-ahead-desc { color: $gray-lightest; }
 		.type-ahead-highlight{ background: $error-light; }
 	}
+}
+
+//-------------------- Label, Badge --------------------//
+
+@mixin label-style($bg, $text) {
+	background: $bg;
+	color: $text;
+}
+
+.label,
+.badge {
+	@include label-style($default-light, $default-dark);
+
+	&.info { @include label-style($info-light, $info-dark); }
+	&.error { @include label-style($error-light, $error-dark); }
+	&.warning { @include label-style($warning-light, $warning-dark); }
+	&.success { @include label-style($success-light, $success-dark); }
+}
+
+.label.label--left {
+	&:after { border-right-color: $default-light; }
+	&.info:after { border-right-color: $info-light; }
+	&.error:after { border-right-color: $error-light; }
+	&.warning:after { border-right-color: $warning-light; }
+	&.success:after { border-right-color: $success-light; }
+}
+
+.label.label--right {
+	&:after { border-left-color: $default-light; }
+	&.info:after { border-left-color: $info-light; }
+	&.error:after { border-left-color: $error-light; }
+	&.warning:after { border-left-color: $warning-light; }
+	&.success:after { border-left-color: $success-light; }
 }
 
 //-------------------- Modal --------------------//

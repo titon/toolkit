@@ -5,9 +5,7 @@
  */
 
 @import "../variables";
-@import "../mixins";
 @import "compass/css3/transition";
-@import "compass/css3/transform";
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
@@ -15,8 +13,10 @@
  * {{{
  *		<ul class="accordion">
  *			<li>
- *				<header>Title Bar</header>
- *				<section>Collapsible content</section>
+ *				<header class="accordion-head">Title Bar</header>
+ *				<section class="accordion-inner">
+ *					<div class="accordion-body">Collapsible content</div>
+ *				</section>
  *			</li>
  *		</ul>
  * }}}
@@ -30,14 +30,12 @@
 	padding: 0;
 }
 
-.accordion li.is-active {
-
-}
-
-.accordion-outer {
+.accordion-inner {
 	overflow: hidden;
-	height: 0px;
 	position: relative;
 	z-index: 10;
-	@include transition(height 0.3s ease-in-out);
+	@include transition(all .3s ease-in-out);
+
+	&.show { height: auto; }
+	&.hide { max-height: 0; } // don't include on base styles
 }

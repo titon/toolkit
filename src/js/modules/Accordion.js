@@ -24,8 +24,8 @@ Titon.Accordion = new Class({
 		defaultIndex: 0,
 		multiple: false,
 		collapsible: false,
-		headerElement: 'header',
-		contentElement: 'section',
+		headerElement: '.accordion-head',
+		contentElement: '.accordion-inner',
 		multiElement: true
 	},
 
@@ -55,7 +55,11 @@ Titon.Accordion = new Class({
 
 			// Reset the state of every row
 			accordion.getElements('li').removeClass(Titon.options.activeClass);
-			sections.hide();
+
+			// Cache the height so we can use for sliding
+			sections.each(function(section) {
+				section.set('data-height', section.getHeight());
+			}).hide();
 
 			this.show(header);
 		}.bind(this));
@@ -78,15 +82,18 @@ Titon.Accordion = new Class({
 			section = node.getNext(options.contentElement), // section
 			activeClass = Titon.options.activeClass;
 
+		// If we don't double the height the animation won't occur
+		var height = section.get('data-height') * 2;
+
 		// Allow simultaneous open and closed sections
 		// Or allow the same section to collapse
 		if (options.multiple || (options.collapsible && this.node === node)) {
 			if (section.isVisible()) {
-				section.hide();
+				section.setStyle('max-height', 0).hide();
 				parent.removeClass(activeClass);
 
 			} else {
-				section.show();
+				section.setStyle('max-height', height).show();
 				parent.addClass(activeClass);
 			}
 
@@ -98,8 +105,8 @@ Titon.Accordion = new Class({
 				return;
 			}
 
-			wrapper.getElements(options.contentElement).hide();
-			section.show();
+			wrapper.getElements(options.contentElement).setStyle('max-height', 0).hide();
+			section.setStyle('max-height', height).show();
 
 			wrapper.getElements('li').removeClass(activeClass);
 			parent.addClass(activeClass);
@@ -115,7 +122,19 @@ Titon.Accordion = new Class({
 	 * @param {Event} e
 	 */
 	_show: function(e) {
-		this.show(e.target);
+		var target = e.target,
+			headerClass = this.options.headerElement.remove('.');
+
+		// Fetch the header in case a child is clicked
+		while (target && !target.hasClass(headerClass)) {
+			target = target.getParent();
+		}
+
+		if (!target) {
+			return;
+		}
+
+		this.show(target);
 	},
 
 	/**
