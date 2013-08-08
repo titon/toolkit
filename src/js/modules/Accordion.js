@@ -14,7 +14,6 @@ Titon.Accordion = new Class({
 	 * Default options.
 	 *
 	 *	defaultIndex	- (int) Index of the row to display by default
-	 *	slide			- (int) Slide sections in and out when displaying
 	 *	multiple		- (bool) Allow multiple sections to be open simultaneously
 	 *	collapsible		- (bool) Hide the section if the row is clicked again
 	 *	headerElement	- (string) CSS query for the header element within the row
@@ -23,7 +22,6 @@ Titon.Accordion = new Class({
 	options: {
 		mode: 'click',
 		defaultIndex: 0,
-		slide: true,
 		multiple: false,
 		collapsible: false,
 		headerElement: 'header',
@@ -49,11 +47,6 @@ Titon.Accordion = new Class({
 				sections = accordion.getElements(options.contentElement),
 				headers = accordion.getElements(options.headerElement),
 				header = headers[0];
-
-			// Add slide class
-			if (options.slide) {
-				sections.addClass('slide');
-			}
 
 			// Fall back to first row if the default doesn't exist
 			if (headers[options.defaultIndex]) {

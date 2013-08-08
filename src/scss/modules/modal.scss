@@ -4,43 +4,63 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
 @import "../mixins";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Modal module.
  *
  * {{{
  *		<div class="modal">
- *			<div class="modal-inner"></div>
- *			<button type="button" class="modal-close"></button>
+ *			<div class="modal-outer">
+ *				<div class="modal-inner"></div>
+ *				<button type="button" class="modal-close"></button>
+ *			</div>
  *		</div>
  * }}}
  */
 
 .modal {
 	position: fixed;
-	top: 0;
-	left: 0;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	height: auto;
 	margin: 0;
 	padding: 0;
 	z-index: 610;
-	background: #282a2e;
-	max-width: 500px;
+	max-width: 650px;
+	min-width: 350px;
+	visibility: hidden;
+	backface-visibility: hidden;
+	@include transform(translateX(-50%) translateY(-50%));
 
-	@include close-button('modal') {
+	@include close-button {
 		position: absolute;
 		top: 10px;
 		right: 10px;
 	}
 }
 
+// Used for animations
+.modal-outer {
+	position: relative;
+	margin: 0 auto;
+}
+
+// Reset .is-draggable
+.modal.is-draggable {
+	.modal-inner { cursor: default; }
+	.modal-head { cursor: move; }
+}
+
+// Apply block padding
 .modal-head,
 .modal-body,
 .modal-foot,
 .modal-loading,
 .modal-error {
-	padding: 1rem;
+	padding: $padding;
 }
-
-// Reset .is-draggable
-.modal-inner { cursor: default; }

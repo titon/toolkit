@@ -1,6 +1,72 @@
 
-// Border radiuses
-$border-round: .3rem;
-$border-pill: 2rem;
-$border-skew: 1rem 3rem;
-$border-skew-reverse: 3rem 1rem;
+$experimental-support-for-mozilla: true !default;
+$experimental-support-for-webkit: true !default;
+$experimental-support-for-opera: false !default;
+$experimental-support-for-microsoft: false !default;
+$experimental-support-for-khtml: false !default;
+
+$support-for-original-webkit-gradients: false !default;
+
+//-------------------- Colors --------------------//
+
+$gray-lightest: #fbfbfb;
+$gray-light: #f8f8f8;
+$gray: #f5f5f5;
+$gray-dark: #e5e5e5;
+$gray-darkest: #c2c2c2;
+
+$background-color: #fff;
+$foreground-color: #2d2d2d;
+
+//-------------------- States --------------------//
+// http://tympanus.net/Tutorials/CaptionHoverEffects/
+// http://tympanus.net/Development/CreativeButtons/
+
+$default: #929497;
+$default-light: #d0d2d3;
+$default-dark: #404041;
+
+$info: #45c5eb;
+$info-light: #dbf1fa;
+$info-dark: #4067ab;
+
+$warning: #fcd04b;
+$warning-light: #ffebb5;
+$warning-dark: #c87e00;
+
+$success: #97cb6f;
+$success-light: #e7f2dd;
+$success-dark: #226b36;
+
+$error: #f06060;
+$error-light: #f8aeaa;
+$error-dark: #b10e0e;
+
+$disabled-opacity: .75;
+
+//-------------------- Block Styles --------------------//
+
+$padding: 1rem;
+$margin: 1rem;
+
+$small-size: .7rem;
+$small-padding: .5rem;
+
+$medium-size: .85rem;
+$medium-padding: .75rem;
+
+$large-size: 1.1rem;
+$large-padding: 1rem;
+
+//-------------------- Border Styles --------------------//
+
+$round: .3rem;
+
+$pill: 2rem;
+
+$oval-x: 7rem;
+$oval-y: 2.75rem;
+
+$skew-x: 1rem;
+$skew-y: 3rem;
+$skew: #{$skew-x} / #{$skew-y};

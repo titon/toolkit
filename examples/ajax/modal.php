@@ -3,7 +3,7 @@
 } ?>
 
 <div class="modal-head">
-	Modal Title
+	<h4>Modal Title</h4>
 </div>
 
 <div class="modal-body">

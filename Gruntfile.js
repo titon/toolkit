@@ -59,7 +59,8 @@ module.exports = function(grunt) {
 		modal: {
 			css: ['modules/modal.css'],
 			js: ['modules/Modal.js'],
-			moo: ['More/Drag', 'More/Element.Position'],
+			moo: ['More/Drag'],
+			effects: ['modules/effects/modal.css'],
 			require: ['base', 'blackout']
 		},
 		pagination: {

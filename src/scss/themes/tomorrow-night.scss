@@ -18,6 +18,8 @@ $yellow: #f0c674;
 $red: #cc6666;
 $green: #b5bd68;
 
+body { color: #fff; background: #1d1f21; }
+
 /**
  * Alerts
  */
@@ -202,10 +204,12 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
  * Modal
  */
 .modal {
-	border: 10px solid white(.75);
-	border-radius: 3px;
-	background: #1d1f21;
-	margin: 10px;
+	.modal-inner {
+		border: 10px solid white(.75);
+		border-radius: 3px;
+		background: #1d1f21;
+		margin: 10px;
+	}
 
 	.modal-head,
 	.modal-foot,

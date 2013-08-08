@@ -81,68 +81,22 @@ Locale.define('en-US', 'Titon', {
 Element.implement({
 
 	/**
-	 * Show the element either through fading, sliding, or direct display.
+	 * Show the element by applying specialty classes.
 	 *
-	 * @param {String|bool} [type]
 	 * @returns {Element}
 	 */
-	show: function(type) {
-		if (type === true) {
-			this.setStyle('display', '');
-
-		// Fade in the element using CSS3 opacity transition
-		// Force the elements display and opacity before animating
-		} else if (type === 'fade' || this.hasClass('fade')) {
-			this.show(true).setStyle('opacity', 0);
-
-			// We need to place opacity change on a timer or else it wont animate
-			window.setTimeout(function() {
-				this.setStyle('opacity', 1);
-			}.bind(this), 10); // Higher than 10 fails on modal + blackout
-
-		// Slide down an element using CSS3 height transition
-		// Use measure() so that we can determine the height of the element
-		} else if (type === 'slide' || this.hasClass('slide')) {
-			this.setStyle('height', this.measure(function() {
-				return this.setStyle('height', 'auto').getHeight();
-			}));
-
-		// Set the display to the elements type
-		} else {
-			this.setStyle('display', '');
-		}
-
+	show: function() {
+		this.removeClass('hide').addClass('show');
 		return this;
 	},
 
 	/**
-	 * Hide the element either through fading, sliding, or direct display.
+	 * Hide the element by applying specialty classes.
 	 *
-	 * @param {String|bool} [type]
 	 * @returns {Element}
 	 */
-	hide: function(type) {
-		if (type === true) {
-			this.setStyle('display', 'none');
-
-		// Fade out the element using CSS3 opacity transition
-		// Set a transitionend event to hide the element (display none) so that the element doesn't block the DOM
-		} else if (type === 'fade' || this.hasClass('fade')) {
-			var eventCallback = function() {
-				this.hide(true).removeEvent('transitionend', eventCallback);
-			};
-
-			this.addEvent('transitionend', eventCallback).setStyle('opacity', 0);
-
-		// Slide up an element using CSS3 height transition
-		} else if (type === 'slide' || this.hasClass('slide')) {
-			this.setStyle('height', 0);
-
-		// Set the display to none
-		} else {
-			this.setStyle('display', 'none');
-		}
-
+	hide: function() {
+		this.removeClass('show').addClass('hide');
 		return this;
 	},
 
@@ -152,16 +106,7 @@ Element.implement({
 	 * @return {bool}
 	 */
 	isVisible: function() {
-		var display = (this.getStyle('display') !== 'none');
-
-		if (this.hasClass('fade')) {
-			return (display && this.getStyle('opacity') > 0);
-
-		} else if (this.hasClass('slide')) {
-			return (display && this.getStyle('height').toInt() > 0);
-		}
-
-		return display;
+		return (this.getStyle('visibility') !== 'hidden');
 	}
 
 });
@@ -232,7 +177,6 @@ Array.implement({
 /**
  * Custom events.
  */
-
 var transitionEndEvent = (function() {
 	var style = document.documentElement.style,
 		transitions = {

@@ -27,34 +27,34 @@
 	// Shape: round
 	&.round {
 		ul {
-			border-radius: $border-round;
+			border-radius: $round;
 		}
 
 		li:first-child .button {
-			border-top-left-radius: $border-round;
-			border-bottom-left-radius: $border-round;
+			border-top-left-radius: $round;
+			border-bottom-left-radius: $round;
 		}
 
 		li:last-child .button {
-			border-top-right-radius: $border-round;
-			border-bottom-right-radius: $border-round;
+			border-top-right-radius: $round;
+			border-bottom-right-radius: $round;
 		}
 	}
 
 	// Shape: pill
 	&.pill {
 		ul {
-			border-radius: $border-pill;
+			border-radius: $pill;
 		}
 
 		li:first-child .button {
-			border-top-left-radius: $border-pill;
-			border-bottom-left-radius: $border-pill;
+			border-top-left-radius: $pill;
+			border-bottom-left-radius: $pill;
 		}
 
 		li:last-child .button {
-			border-top-right-radius: $border-pill;
-			border-bottom-right-radius: $border-pill;
+			border-top-right-radius: $pill;
+			border-bottom-right-radius: $pill;
 		}
 	}
 

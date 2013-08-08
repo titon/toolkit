@@ -26,10 +26,8 @@ Titon.Modal = new Class({
 	 *	ajax			- (bool) The modal uses the target as an AJAX call
 	 *	draggable		- (bool) Will enable dragging on the outer element
 	 *	blackout		- (bool) Will show a blackout when a modal is opened, and hide it when it is closed
-	 *	fixed			- (bool) Will position the modal in the center of the page regardless of scrolling
 	 *	showLoading		- (bool) Will display the loading text while waiting for AJAX calls
 	 *	getContent		- (string) Attribute to read the content from
-	 *	delay			- (int) The delay in milliseconds before the modal shows
 	 *	contentElement	- (string) CSS query for the content element within the template
 	 *	closeElement	- (string) CSS query for the close element within the template
 	 *	closeEvent		- (string) CSS query to bind hide events to
@@ -40,19 +38,19 @@ Titon.Modal = new Class({
 		ajax: true,
 		draggable: false,
 		blackout: true,
-		fixed: true,
 		showLoading: true,
 		getContent: 'data-modal',
-		delay: 0,
 		contentElement: '.modal-inner',
 		closeElement: '.modal-close',
 		closeEvent: '.modal-event-close',
 		submitEvent: '.modal-event-submit',
 		template: '<div class="modal">' +
-			'<div class="modal-inner"></div>' +
-			'<button type="button" class="modal-close modal-event-close">' +
-				'<span class="x">&times;</span>' +
-			'</button>' +
+			'<div class="modal-outer">' +
+				'<div class="modal-inner"></div>' +
+				'<button type="button" class="close modal-event-close">' +
+					'<span class="x">&times;</span>' +
+				'</button>' +
+			'</div>' +
 		'</div>',
 
 		// Events
@@ -67,11 +65,6 @@ Titon.Modal = new Class({
 	 */
 	initialize: function(query, options) {
 		this.parent(query, options);
-
-		// Enable fading
-		if (this.options.fade) {
-			this.element.addClass('fade');
-		}
 
 		// Get elements
 		this.elementBody = this.element.getElement(this.options.contentElement);
@@ -92,7 +85,7 @@ Titon.Modal = new Class({
 
 		// Blackout
 		if (this.options.blackout) {
-			this.blackout = new Titon.Blackout({ blur: this.options.blur || false });
+			this.blackout = new Titon.Blackout();
 			this.blackout.element.addEvent('click', this._hide);
 		}
 
@@ -133,8 +126,11 @@ Titon.Modal = new Class({
 			options.ajax = false;
 
 		} else if (node) {
-			options.ajax = true;
 			content = this.getValue(node, options.getContent) || node.get('href');
+
+			if (content.substr(0, 1) === '#') {
+				options.ajax = false;
+			}
 		}
 
 		if (!content) {
@@ -177,27 +173,16 @@ Titon.Modal = new Class({
 			.removeEvent('click')
 			.addEvent('click', this._submit);
 
-		// Position
-		this.element.position({
-			position: 'center',
-			ignoreScroll: this.options.fixed
-		});
-
-		if (this.options.fixed) {
-			this.element.setStyle('position', 'fixed');
-		}
-
-		window.setTimeout(function() {
-			if (!this.isVisible()) {
-				if (this.options.blackout) {
-					this.blackout.show();
-				}
-
-				this.element.show();
+		// Display
+		if (!this.isVisible()) {
+			if (this.options.blackout) {
+				this.blackout.show();
 			}
 
-			this.fireEvent('show');
-		}.bind(this), this.options.delay || 0);
+			this.element.show();
+		}
+
+		this.fireEvent('show');
 	},
 
 	/**

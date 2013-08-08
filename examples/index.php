@@ -40,7 +40,7 @@ $assets = array(
 	),
 	'modal' => array(
 		'title' => 'Modal',
-		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),
+		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css', 'modules/effects/modal.css'),
 		'js' => array('modules/Blackout.js', 'modules/Modal.js')
 	),
 	'pagination' => array(
@@ -74,8 +74,9 @@ $assets = array(
 );
 
 $themes = array(
-	'none' => array(
-		'title' => 'None'
+	'titon' => array(
+		'title' => 'Titon',
+		'css' => 'themes/titon.css'
 	),
 	'tomorrow-night' => array(
 		'title' => 'Tomorrow Night',
@@ -114,7 +115,7 @@ $visuals = array(
 
 // Detect theme and asset
 $assetKey = 'base';
-$themeKey = 'tomorrow-night';
+$themeKey = 'titon';
 
 if (isset($_GET['asset']) && isset($assets[$_GET['asset']])) {
 	$assetKey = $_GET['asset'];
@@ -162,7 +163,7 @@ $theme = $themes[$themeKey]; ?>
 	} ?>
 </head>
 <body class="<?php echo $themeKey; ?>">
-	<div id="wrapper">
+	<div id="wrapper" class="skeleton">
 		<?php include sprintf('%s.php', $assetKey); ?>
 
 		<form action="" method="get" class="test-switcher">

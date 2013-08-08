@@ -1,1 +1,1 @@
-.accordion,.accordion li{list-style:none;text-align:left;margin:0;padding:0}
+.accordion,.accordion li{list-style:none;text-align:left;margin:0;padding:0}.accordion-outer{overflow:hidden;height:0px;position:relative;z-index:10;-webkit-transition:height 0.3s ease-in-out;-moz-transition:height 0.3s ease-in-out;transition:height 0.3s ease-in-out}

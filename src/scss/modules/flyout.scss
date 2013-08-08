@@ -4,6 +4,7 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
 @import "../mixins";
 @import "compass/css3";
 
@@ -16,8 +17,10 @@
 	top: 0;
 	left: 0;
 	z-index: 640;
-	background: #282a2e;
+	opacity: 0;
+	visibility: hidden;
 	@include box-sizing("content-box"); // required for multi columns
+	@include transition(opacity 0.3s);
 
 	ul {
 		list-style: none;
@@ -31,22 +34,33 @@
 
 			a,
 			.divider {
-				padding: .5rem;
+				padding: $padding / 2;
+				line-height: 100%;
 				display: block;
 				text-decoration: none;
 			}
 
-			.flyout,
-			.caret-right {
-				display: none;
-			}
+			// Arrow
+			.caret-right { display: none; }
 
 			&.has-children > a .caret-right {
 				float: right;
-				display: inline-block;
+				display: inline-block; // reveal
+				margin-top: 3px;
 			}
 
-			&.is-open > .flyout { display: block; }
+			// Sub-flyouts
+			> .flyout {
+				left: 75%;
+				display: none;
+				@include transition(all 0.3s);
+			}
+
+			&.is-open > .flyout {
+				opacity: 1;
+				visibility: visible;
+				display: block;
+			}
 		}
 	}
 

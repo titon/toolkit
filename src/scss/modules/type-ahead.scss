@@ -4,12 +4,22 @@
  * @link		http://titon.io
  */
 
+@import "../variables";
+@import "../mixins";
+@import "compass/css3";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.TypeAhead module.
+ */
+
 .type-ahead {
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 640;
-	background: #282a2e;
+	opacity: 0;
+	visibility: hidden;
+	@include transition(opacity 0.3s);
 
 	ul {
 		list-style: none;
@@ -19,7 +29,8 @@
 
 		a,
 		.divider {
-			padding: .5rem;
+			padding: $padding / 2;
+			line-height: 100%;
 			display: block;
 			text-decoration: none;
 		}

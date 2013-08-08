@@ -202,8 +202,8 @@ Titon.Flyout = new Class({
 			menu.addClass(this.options.className);
 		}
 
-		if (this.options.fade) {
-			menu.addClass('fade');
+		if (parent === document.body) {
+			menu.addClass('flyout-root');
 		}
 
 		if (limit && data.children.length > limit) {
@@ -336,6 +336,7 @@ Titon.Flyout = new Class({
 	 */
 	_hideChild: function(parent) {
 		parent.removeClass(Titon.options.openClass);
+		parent.getChildren(this.options.contentElement).removeProperty('style');
 
 		this.fireEvent('hideChild', parent);
 	},
@@ -389,7 +390,7 @@ Titon.Flyout = new Class({
 		parent.addClass(Titon.options.openClass);
 
 		// Alter width because of columns
-		menu.setStyle('width', menu.getElements('ul').getWidth().sum()  + 'px');
+		menu.setStyle('width', menu.getChildren('ul').getWidth().sum()  + 'px');
 
 		// Get sizes after menu positioning
 		var windowScroll = window.getScrollSize(),

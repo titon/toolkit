@@ -27,9 +27,9 @@ Titon.Component = new Class({
 	/**
 	 * Default options.
 	 *
-	 *	className		- (string) Class name to append to primary element
 	 *	context			- (element) The element the module will display in (defaults to document.body)
-	 *	fade			- (int) Will fade the element in and out in milliseconds
+	 *	className		- (string) Class name to append to primary element
+	 *	animation		- (string) The name of the animation class to use
 	 *	mode			- (string) Either "hover" or "click"
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
@@ -42,9 +42,9 @@ Titon.Component = new Class({
 	 *	onShow			- (function) Callback to trigger when the element is shown
 	 */
 	options: {
-		className: '',
 		context: null,
-		fade: false,
+		className: '',
+		animation: '',
 		mode: 'click',
 
 		// Ajax
@@ -111,7 +111,7 @@ Titon.Component = new Class({
 				element = this.parseTemplate(options.template);
 
 				if (element) {
-					element.hide(true).inject(document.body);
+					element.inject(document.body);
 				}
 			}
 
@@ -128,6 +128,16 @@ Titon.Component = new Class({
 
 			} else if (this.elements) {
 				this.elements.addClass(options.className);
+			}
+		}
+
+		// Enable animations
+		if (options.animation) {
+			if (this.element) {
+				this.element.addClass(options.animation);
+
+			} else if (this.elements) {
+				this.elements.addClass(options.animation);
 			}
 		}
 	},
@@ -311,7 +321,6 @@ Titon.Component = new Class({
 	 */
 	show: function(node) {
 		this.node = node;
-
 		this.element.show();
 		this.fireEvent('show');
 	},

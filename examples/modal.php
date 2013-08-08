@@ -16,11 +16,24 @@
 </div>
 
 <div class="example">
-	<h2>Effects</h2>
+	<h2>Animations</h2>
 
-	<button type="button" class="button modal-fade" data-modal="ajax/modal.php">Fade In/Out</button>
-	<button type="button" class="button modal-fixed" data-modal="ajax/modal.php">Non-Fixed Position</button>
-	<button type="button" class="button modal-delay" data-modal="ajax/modal.php">Show Delay</button>
+	<button type="button" class="button modal-fade" data-modal="ajax/modal.php">Fade</button>
+	<button type="button" class="button modal-from-above" data-modal="ajax/modal.php">From Above</button>
+	<button type="button" class="button modal-from-below" data-modal="ajax/modal.php">From Below</button>
+	<br>
+	<button type="button" class="button modal-slide-in-top" data-modal="ajax/modal.php">Slide In Top</button>
+	<button type="button" class="button modal-slide-in-bottom" data-modal="ajax/modal.php">Slide In Bottom</button>
+	<button type="button" class="button modal-slide-in-left" data-modal="ajax/modal.php">Slide In Left</button>
+	<button type="button" class="button modal-slide-in-right" data-modal="ajax/modal.php">Slide In Right</button>
+	<br>
+	<button type="button" class="button modal-sticky-top" data-modal="ajax/modal.php">Sticky Top</button>
+	<button type="button" class="button modal-sticky-bottom" data-modal="ajax/modal.php">Sticky Bottom</button>
+	<button type="button" class="button modal-sticky-left" data-modal="ajax/modal.php">Sticky Left</button>
+	<button type="button" class="button modal-sticky-right" data-modal="ajax/modal.php">Sticky Right</button>
+	<br>
+	<button type="button" class="button modal-flip" data-modal="ajax/modal.php">Flip Horizontal</button>
+	<button type="button" class="button modal-flip-vert" data-modal="ajax/modal.php">Flip Vertical</button>
 </div>
 
 <div class="example">
@@ -34,9 +47,18 @@
 		Titon.Modal.factory('.modal-base', { blur: 'wrapper' });
 		Titon.Modal.factory('.modal-black', { blackout: false });
 		Titon.Modal.factory('.modal-drag', { draggable: true });
-		Titon.Modal.factory('.modal-fade', { fade: 250 });
-		Titon.Modal.factory('.modal-fixed', { fixed: false });
-		Titon.Modal.factory('.modal-delay', { delay: 350 });
-		Titon.Modal.factory('.modal-missing');
+		Titon.Modal.factory('.modal-fade', { animation: 'fade' });
+		Titon.Modal.factory('.modal-from-above', { animation: 'from-above' });
+		Titon.Modal.factory('.modal-from-below', { animation: 'from-below' });
+		Titon.Modal.factory('.modal-slide-in-top', { animation: 'slide-in-top' });
+		Titon.Modal.factory('.modal-slide-in-right', { animation: 'slide-in-right' });
+		Titon.Modal.factory('.modal-slide-in-bottom', { animation: 'slide-in-bottom' });
+		Titon.Modal.factory('.modal-slide-in-left', { animation: 'slide-in-left' });
+		Titon.Modal.factory('.modal-sticky-top', { animation: 'sticky-top' });
+		Titon.Modal.factory('.modal-sticky-bottom', { animation: 'sticky-bottom' });
+		Titon.Modal.factory('.modal-sticky-left', { animation: 'sticky-left' });
+		Titon.Modal.factory('.modal-sticky-right', { animation: 'sticky-right' });
+		Titon.Modal.factory('.modal-flip', { animation: 'flip' });
+		Titon.Modal.factory('.modal-flip-vert', { animation: 'flip-vert' });
 	});
 </script>

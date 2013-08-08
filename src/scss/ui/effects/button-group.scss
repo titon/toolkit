@@ -31,62 +31,62 @@
 	&.pill,
 	&.skew,
 	&.skew-reverse {
-		.button { border-radius: 0; }
+		.button { border-radius: 0 !important; }
 	}
 
 	// Shape: round
 	&.round {
 		.button:first-child {
-			border-top-left-radius: $border-round;
-			border-top-right-radius: $border-round;
+			border-top-left-radius: $round;
+			border-top-right-radius: $round;
 		}
 
 		.button:last-child {
-			border-bottom-left-radius: $border-round;
-			border-bottom-right-radius: $border-round;
+			border-bottom-left-radius: $round;
+			border-bottom-right-radius: $round;
 		}
 	}
 
 	// Shape: pill
 	&.pill {
-		border-radius: $border-pill;
+		border-radius: $pill;
 
 		.button:first-child {
-			border-top-left-radius: $border-pill;
-			border-top-right-radius: $border-pill;
+			border-top-left-radius: $pill;
+			border-top-right-radius: $pill;
 		}
 
 		.button:last-child {
-			border-bottom-left-radius: $border-pill;
-			border-bottom-right-radius: $border-pill;
+			border-bottom-left-radius: $pill;
+			border-bottom-right-radius: $pill;
 		}
 	}
 
 	// Shape: skew
 	&.skew {
-		border-top-left-radius: 3rem 1.5rem;
-		border-bottom-left-radius: 3rem 1.5rem;
+		border-top-left-radius: $skew-y 1.5rem;
+		border-bottom-left-radius: $skew-y 1.5rem;
 
 		.button:first-child {
-			border-top-left-radius: $border-skew-reverse;
+			border-top-left-radius: #{$skew-y} / #{$skew-x};
 		}
 
 		.button:last-child {
-			border-bottom-left-radius: $border-skew-reverse;
+			border-bottom-left-radius: #{$skew-y} / #{$skew-x};
 		}
 	}
 
 	// Shape: skew-reverse
 	&.skew-reverse {
-		border-top-right-radius: 3rem 1.25rem;
-		border-bottom-right-radius: 3rem 1.25rem;
+		border-top-right-radius: $skew-y 1.25rem;
+		border-bottom-right-radius: $skew-y 1.25rem;
 
 		.button:first-child {
-			border-top-right-radius: $border-skew-reverse;
+			border-top-right-radius: #{$skew-y} / #{$skew-x};
 		}
 
 		.button:last-child {
-			border-bottom-right-radius: $border-skew-reverse;
+			border-bottom-right-radius: #{$skew-y} / #{$skew-x};
 		}
 	}
 }

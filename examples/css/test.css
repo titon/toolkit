@@ -1,8 +1,5 @@
 body {
-	font: normal 13px Verdana, Arial, sans-serif;
-	padding: 25px 0;
-	background: #373b41;
-	color: #fff;
+	padding: 25px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -12,6 +9,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { font-size: 36px; }
+
+#wrapper { min-height: 100%; }
 
 .test-switcher {
 	background: #000;

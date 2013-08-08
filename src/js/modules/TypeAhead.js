@@ -99,10 +99,6 @@ Titon.TypeAhead = new Class({
 		// Setup state
 		options = this.options;
 
-		if (options.fade) {
-			this.element.addClass('fade');
-		}
-
 		this.setStorage(options.storage);
 
 		// Use default callbacks
@@ -203,7 +199,7 @@ Titon.TypeAhead = new Class({
 	highlight: function(item) {
 		var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
 			callback = function(match) {
-				return '<span class="highlight">' + match + '</span>';
+				return '<span class="type-ahead-highlight">' + match + '</span>';
 			};
 
 		for (var i = 0, t; t = terms[i]; i++) {

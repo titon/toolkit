@@ -3,7 +3,7 @@ $funcs = get_defined_functions();
 $funcs = $funcs['internal'];
 
 if (isset($_GET['term'])) {
-	$clean = [];
+	$clean = array();
 	$term = $_GET['term'];
 
 	foreach ($funcs as $func) {
