@@ -76,6 +76,10 @@ blockquote cite { color: $gray; }
 	tbody tr:hover { background: #1d1f21; }
 }
 
+pre, code, kbd { color: #282a2e; }
+code { background: tint($blue, 60%); color: shade($blue, 25%); }
+var { background: tint($red, 60%); color: shade($red, 25%); }
+
 //-------------------- Accordion --------------------//
 
 .accordion {

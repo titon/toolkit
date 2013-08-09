@@ -22,6 +22,10 @@ $assets = array(
 		'title' => 'Button Group',
 		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css')
 	),
+	'code' => array(
+		'title' => 'Code',
+		'css' => array('layout/code.css')
+	),
 	'flyout' => array(
 		'title' => 'Flyout',
 		'css' => array('ui/button.css', 'modules/flyout.css'),

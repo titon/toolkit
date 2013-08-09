@@ -32,6 +32,11 @@ a {
 
 blockquote cite { color: $default; }
 
+//-------------------- Layout --------------------//
+
+code { background: $info-light; color: $info-dark; }
+var { background: $error-light; color: $error-dark; }
+
 //-------------------- Accordion --------------------//
 
 .accordion {

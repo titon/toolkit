@@ -10,12 +10,16 @@ module.exports = function(grunt) {
 			js: ['Titon.js', 'Component.js'],
 			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
-		table: {
-			css: ['layout/table.css'],
-			require: ['base']
-		},
 		typography: {
 			css: ['layout/typography.css'],
+			require: ['base']
+		},
+		code: {
+			css: ['layout/code.css'],
+			require: ['base']
+		},
+		table: {
+			css: ['layout/table.css'],
 			require: ['base']
 		},
 		// Components
