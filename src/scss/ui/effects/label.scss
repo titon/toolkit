@@ -16,11 +16,11 @@
 	&:after {
 		top: 0;
 		right: 100%;
-		content: " ";
+		content: "";
 		height: 0;
 		width: 0;
 		position: absolute;
-		border: 9px solid transparent;
+		border: .8em solid transparent;
 		border-right-color: #282a2e;
 	}
 }
@@ -34,11 +34,17 @@
 	&:after {
 		top: 0;
 		left: 100%;
-		content: " ";
+		content: "";
 		height: 0;
 		width: 0;
 		position: absolute;
-		border: 9px solid transparent;
+		border: .8em solid transparent;
 		border-left-color: #282a2e;
 	}
+}
+
+// Fix scaling issues for large headings
+h1 .label.label--left:after,
+h1 .label.label--right:after {
+	border-width: .75em;
 }
