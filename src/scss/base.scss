@@ -49,6 +49,9 @@
 .is-disabled,
 button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 
+// Images
+.img-responsive { width: 100%; height: auto; }
+
 // Carets
 .caret-up,
 .caret-down,

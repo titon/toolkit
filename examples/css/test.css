@@ -9,8 +9,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-h1 { font-size: 36px; }
-
 #wrapper { min-height: 100%; }
 
 .test-switcher {
@@ -50,11 +48,6 @@ h1 { font-size: 36px; }
 	background: rgba(0, 0, 0, .25)
 }
 
-.none .example a,
-.none .example button { color: #ccc; }
-.none .example a:hover,
-.none .example button:hover { color: #fff; }
-
 .example .col {
 	float: left;
 	width: 30%;
@@ -62,12 +55,6 @@ h1 { font-size: 36px; }
 	text-align: center;
 }
 
-.clear {
-	clear: both;
-	display: block;
-}
-
-.example h2,
 .row,
 .alert,
 .pagination { margin-bottom: 10px; }

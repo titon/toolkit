@@ -4,11 +4,17 @@ module.exports = function(grunt) {
 
 	// Component tree and dependencies
 	var manifest = {
+		// Defaults
 		base: {
 			css: ['base.css'],
 			js: ['Titon.js', 'Component.js'],
 			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
+		typography: {
+			css: ['ui/typography.css'],
+			require: ['base']
+		},
+		// Components
 		accordion: {
 			css: ['modules/accordion.css'],
 			js: ['modules/Accordion.js'],

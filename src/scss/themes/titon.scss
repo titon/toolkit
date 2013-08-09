@@ -290,3 +290,13 @@ a {
 	font-weight: bold;
 	margin-bottom:  $margin / 2;
 }
+
+//-------------------- Typography --------------------//
+
+.text-muted { color: $default; }
+.text-info { color: $info-dark; }
+.text-error { color: $error-dark; }
+.text-warning { color: $warning-dark; }
+.text-success { color: $success-dark; }
+
+blockquote cite { color: $default; }

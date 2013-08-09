@@ -1,6 +1,8 @@
 
 @import "variables";
 
+// Styles
+
 @mixin clear-after {
 	&:after {
 		content: "";
@@ -23,6 +25,8 @@
 	vertical-align: middle;
 }
 
+// Sizes
+
 @mixin size-small {
 	font-size: $small-size;
 	padding: $small-padding;
@@ -38,6 +42,8 @@
 	padding: $large-padding;
 }
 
+// States
+
 @mixin active-state {
 	.is-active &,
 	&.is-active,
@@ -52,6 +58,8 @@
 	&[disabled],
 	&[disabled]:hover { @content; }
 }
+
+// Elements
 
 @mixin close-button {
 	.close {
@@ -76,10 +84,50 @@
 	}
 }
 
+// Helpers
+
 @function black($opacity){
 	@return rgba(0, 0, 0, $opacity);
 }
 
 @function white($opacity){
 	@return rgba(255, 255, 255, $opacity);
+}
+
+// Responsive
+
+@mixin if-desktop {
+	@media all and (max-width: 1440px) {
+		@content;
+	}
+}
+
+@mixin if-laptop {
+	@media all and (max-width: 1366px) {
+		@content;
+	}
+}
+
+@mixin if-tablet-landscape {
+	@media all and (max-width: 1024px) {
+		@content;
+	}
+}
+
+@mixin if-tablet-portrait {
+	@media all and (max-width: 768px) {
+		@content;
+	}
+}
+
+@mixin if-mobile-landscape {
+	@media all and (max-width: 480px) {
+		@content;
+	}
+}
+
+@mixin if-mobile-portrait {
+	@media all and (max-width: 320px) {
+		@content;
+	}
 }

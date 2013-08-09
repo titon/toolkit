@@ -2,7 +2,8 @@
 
 $assets = array(
 	'base' => array(
-		'title' => 'Base'
+		'title' => 'Base',
+		'css' => 'ui/typography.css',
 	),
 	'accordion' => array(
 		'title' => 'Accordion',
@@ -130,12 +131,11 @@ $asset = $assets[$assetKey];
 $theme = $themes[$themeKey]; ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
 	<link href="../src/css/base.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
-	<link href="../src/css/ui/typography.css" rel="stylesheet" type="text/css">
 
 	<?php if (!empty($asset['css'])) {
 		foreach ((array) $asset['css'] as $css) { ?>
