@@ -1,7 +1,7 @@
 
 @import "variables";
 
-// Styles
+//-------------------- Styles --------------------//
 
 @mixin clear-after {
 	&:after {
@@ -25,7 +25,7 @@
 	vertical-align: middle;
 }
 
-// Sizes
+//-------------------- Sizes --------------------//
 
 @mixin size-small {
 	font-size: $small-size;
@@ -42,7 +42,7 @@
 	padding: $large-padding;
 }
 
-// States
+//-------------------- States --------------------//
 
 @mixin active-state {
 	.is-active &,
@@ -59,32 +59,7 @@
 	&[disabled]:hover { @content; }
 }
 
-// Elements
-
-@mixin close-button {
-	.close {
-		@include reset-inline-block;
-		padding: 3px 4px;
-		background: white(.5);
-		border-radius: 2px;
-		line-height: 100%;
-		cursor: pointer;
-
-		&:hover { background: white(.8); }
-
-		.x {
-			color: #000;
-			opacity: .75;
-			line-height: 0;
-			position: relative;
-			top: -1px;
-		}
-
-		@content;
-	}
-}
-
-// Helpers
+//-------------------- Helpers --------------------//
 
 @function black($opacity){
 	@return rgba(0, 0, 0, $opacity);
@@ -94,7 +69,7 @@
 	@return rgba(255, 255, 255, $opacity);
 }
 
-// Responsive
+//-------------------- Responsive --------------------//
 
 @mixin if-desktop {
 	@media all and (max-width: 1440px) {

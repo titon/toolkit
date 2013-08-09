@@ -7,6 +7,10 @@
 @import "../variables";
 @import "compass/css3/transition";
 
+/**
+ * Adds a sliding effect to pinned elements.
+ * Should be used in conjunction with the JavaScript Titon.Modal module.
+ */
 .pin {
 	@include transition(top 1s, right .5s, left .5s);
 }

@@ -9,10 +9,9 @@
 /**
  * Enables tabs to be placed on the left, right and bottom sides.
  */
-
 .tabs.tabs--left,
 .tabs.tabs--right {
-	nav {
+	.tabs-nav {
 		margin-bottom: 0;
 		width: 25%;
 
@@ -29,25 +28,25 @@
 }
 
 .tabs.tabs--left {
-	nav {
+	.tabs-nav {
 		float: left;
 
 		a { text-align: right; }
 	}
 
-	section {
+	.tabs-section {
 		margin-left: 28%;
 	}
 }
 
 .tabs.tabs--right {
-	nav {
+	.tabs-nav {
 		float: right;
 
 		a { text-align: left; }
 	}
 
-	section {
+	.tabs-section {
 		margin-right: 28%;
 	}
 }

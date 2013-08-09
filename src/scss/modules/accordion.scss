@@ -10,18 +10,15 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
  *
- * {{{
- *		<ul class="accordion">
- *			<li>
- *				<header class="accordion-head">Title Bar</header>
- *				<section class="accordion-inner">
- *					<div class="accordion-body">Collapsible content</div>
- *				</section>
- *			</li>
- *		</ul>
- * }}}
+ *	<ul class="accordion">
+ *		<li>
+ *			<header class="accordion-head">Title Bar</header>
+ *			<section class="accordion-inner">
+ *				<div class="accordion-body">Collapsible content</div>
+ *			</section>
+ *		</li>
+ *	</ul>
  */
-
 .accordion,
 .accordion li {
 	list-style: none;

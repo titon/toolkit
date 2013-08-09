@@ -12,16 +12,15 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Modal module.
  *
- * {{{
- *		<div class="modal">
- *			<div class="modal-outer">
- *				<div class="modal-inner"></div>
- *				<button type="button" class="modal-close"></button>
+ *	<div class="modal">
+ *		<div class="modal-outer">
+ *			<div class="modal-inner">
+ *				Custom content here
  *			</div>
+ *			<button type="button" class="modal-close"></button>
  *		</div>
- * }}}
+ *	</div>
  */
-
 .modal {
 	position: fixed;
 	top: 50%;
@@ -37,10 +36,10 @@
 	backface-visibility: hidden;
 	@include transform(translateX(-50%) translateY(-50%));
 
-	@include close-button {
+	.close {
 		position: absolute;
-		top: 10px;
-		right: 10px;
+		top: $margin;
+		right: $margin;
 	}
 }
 

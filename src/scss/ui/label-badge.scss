@@ -7,12 +7,9 @@
 @import "../mixins";
 
 /**
- * {{{
- *		<span class="badge success">15</span>
- *		<span class="label error">Required</span>
- * }}}
+ *	<span class="badge success">15</span>
+ *	<span class="label error">Required</span>
  */
-
 .badge,
 .label {
 	@include reset-inline-block;

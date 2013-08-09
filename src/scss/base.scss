@@ -73,6 +73,28 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 .x {
 	@include reset-inline-block;
 	color: $foreground-color;
-	font: bold 18px/100% Arial, sans-serif;
+	font: bold 1.5rem/100% Arial, sans-serif;
 	text-transform: uppercase;
+}
+
+.close {
+	@include reset-inline-block;
+	padding: 4px 5px;
+	background: white(.5);
+	border-radius: 2px;
+	line-height: 100%;
+	cursor: pointer;
+
+	.x {
+		color: black(.5);
+		line-height: 0;
+		position: relative;
+		top: -1px;
+	}
+
+	&:hover {
+		background: white(.8);
+
+		.x { color: black(.75); }
+	}
 }

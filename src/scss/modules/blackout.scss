@@ -10,7 +10,6 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Blackout module.
  */
-
 .blackout {
 	position: fixed;
 	top: 0;
@@ -20,6 +19,6 @@
 	z-index: 600;
 	opacity: 0;
 	visibility: hidden;
-	background: rgba(0, 0, 0, .50);
+	background: black(.5);
 	@include transition(all 0.3s);
 }

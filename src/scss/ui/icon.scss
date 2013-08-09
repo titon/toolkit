@@ -7,11 +7,8 @@
 @import "../mixins";
 
 /**
- * {{{
- *		<span class="icon-16-delete"></span>
- * }}}
+ *	<span class="icon-16-delete"></span>
  */
-
 [class*="icon-"] { @include reset-inline-block; }
 [class*="icon-12"] { width: 12px; height: 12px; }
 [class*="icon-16"] { width: 16px; height: 16px; }

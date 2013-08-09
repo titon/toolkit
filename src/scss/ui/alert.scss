@@ -7,17 +7,15 @@
 @import "../mixins";
 
 /**
- * {{{
- *		<div class="alert info">
- *			<button type="button" class="close">
- *				<span class="x">&times;</span>
- *			</button>
+ *	<div class="alert info">
+ *		<button type="button" class="close">
+ *			<span class="x">&times;</span>
+ *		</button>
  *
- *			<p>This is an information message!</p>
- *		</div>
- * }}}
+ *		<h3 class="alert-title">Title</h3>
+ *		<p>This is an information message!</p>
+ *	</div>
  */
-
 .alert {
 	padding: $padding;
 	text-align: left;
@@ -38,10 +36,8 @@
 		font-weight: bold;
 	}
 
-	@include close-button {
+	.close {
 		float: right;
-		position: relative;
-		top: -2px;
 		margin-left: $margin;
 
 		& ~ p { margin: 0; }

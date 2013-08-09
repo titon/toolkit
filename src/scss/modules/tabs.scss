@@ -9,35 +9,32 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Tabs module.
  *
- * {{{
- * 		<div id="tabs" class="tabs">
- *			<nav class="tabs-nav">
- *				<ul>
- *					<li><a href="#tab-1">Tab 1</a></li>
- *					<li><a href="#tab-2">Tab 2</a></li>
- *				</ul>
- *			</nav>
+ * 	<div id="tabs" class="tabs">
+ *		<nav class="tabs-nav">
+ *			<ul>
+ *				<li><a href="#tab-1">Tab 1</a></li>
+ *				<li><a href="#tab-2">Tab 2</a></li>
+ *			</ul>
+ *		</nav>
  *
- *			<section id="tab-1" class="tabs-section"></section>
- *			<section id="tab-2" class="tabs-section"></section>
- * 		</div>
- * }}}
+ *		<section id="tab-1" class="tabs-section"></section>
+ *		<section id="tab-2" class="tabs-section"></section>
+ * 	</div>
  */
-
 .tabs {
 	text-align: left;
+}
 
-	nav {
-		display: block;
-		margin-bottom: 1rem;
+.tabs-nav {
+	display: block;
+	margin-bottom: $margin;
 
-		ul, li {
-			@include reset-inline-block;
-			list-style: none;
-		}
-
-		@include clear-after;
+	ul, li {
+		@include reset-inline-block;
+		list-style: none;
 	}
+
+	@include clear-after;
 }
 
 .tabs-section.hide {

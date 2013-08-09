@@ -7,21 +7,18 @@
 @import "../mixins";
 
 /**
- * {{{
- *		<nav class="pagination small pill">
- *			<ul>
- *				<li><a href="" class="button">Previous</a></li>
- *				<li><a href="" class="button">1</a></li>
- *				<li><a href="" class="button">2</a></li>
- *				<li class="active"><a href="" class="button">3</a></li>
- *				<li><a href="" class="button">4</a></li>
- *				<li><a href="" class="button">5</a></li>
- *				<li class="disabled"><a href="" class="button">Next</a></li>
- *			</ul>
- *		</nav>
- * }}}
+ *	<nav class="pagination small pill">
+ *		<ul>
+ *			<li><a href="" class="button">Previous</a></li>
+ *			<li><a href="" class="button">1</a></li>
+ *			<li><a href="" class="button">2</a></li>
+ *			<li class="active"><a href="" class="button">3</a></li>
+ *			<li><a href="" class="button">4</a></li>
+ *			<li><a href="" class="button">5</a></li>
+ *			<li class="disabled"><a href="" class="button">Next</a></li>
+ *		</ul>
+ *	</nav>
  */
-
 .pagination {
 	display: block;
 

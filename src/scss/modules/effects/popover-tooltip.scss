@@ -10,7 +10,6 @@
 
 .tooltip,
 .popover {
-
 	&.fade {
 		opacity: 0;
 		@include transition(opacity 0.5s);

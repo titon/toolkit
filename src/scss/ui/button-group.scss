@@ -7,15 +7,12 @@
 @import "../mixins";
 
 /**
- * {{{
- *		<div class="button-group pill">
- *			<a href="" class="button">Left Button</a>
- *			<a href="" class="button">Center Button</a>
- *			<a href="" class="button">Right Button</a>
- *		</div>
- * }}}
+ *	<div class="button-group pill">
+ *		<a href="" class="button">Left Button</a>
+ *		<a href="" class="button">Center Button</a>
+ *		<a href="" class="button">Right Button</a>
+ *	</div>
  */
-
 .button-group {
 	@include reset-inline-block;
 	white-space: nowrap;
