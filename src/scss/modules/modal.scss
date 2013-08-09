@@ -41,6 +41,8 @@
 		top: $margin;
 		right: $margin;
 	}
+
+	&.is-loading .close { display: none; }
 }
 
 // Necessary
