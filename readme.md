@@ -10,13 +10,12 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * **MooTools 1.4**
 	* Core
 	* More/Class.Binds
-	* More/Element.Measure
 	* More/Elements.From
 	* More/Hash
 	* More/Locale
 	* More/Drag (optional: Modal)
 	* More/Array.Extras (optional: Flyout)
-	* More/Element.Position (optional: Modal, Tooltip)
+	* More/Element.Position (optional: Tooltip)
 	* More/Element.Event.Pseudos (optional: Tooltip)
 * **CSS3**
 * **HTML5**
@@ -49,7 +48,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 
 ## CSS Components ##
 #### Effects ####
-* `Animations` - CSS3 transitions for specific animations: fade, slide, etc
 * `Visual` - Provides visual aesthetics like gloss and glare over elements
 
 #### UI ####
@@ -60,6 +58,16 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Label` - Styles for inline tag labels
 * `Badge` - Styles for inline notification bubbles
 * `Pagination` - Styles for pagination lists
+* `Pin` - Animations for element pinning
+* `Typography` - Resets and default styles for typography
 
 #### Themes ####
+* `Titon` - Titon specific theme that mimics Twitter Bootstrap
 * `TomorrowNight` - Tomorrow Night theme for all Titon components
+
+## Authors ##
+Miles Johnson - https://github.com/milesj
+
+#### Third Party ####
+* `Normalize.css` provided by Nicolas Gallagher
+* `Iconic` icon set provided by P.J. Onori
