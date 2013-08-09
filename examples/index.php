@@ -30,6 +30,11 @@ $assets = array(
 		'title' => 'Code',
 		'css' => array('layout/code.css')
 	),
+	'dropdown' => array(
+		'title' => 'Dropdown',
+		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/dropdown.css'),
+		'js' => array('utilities/Toggle.js')
+	),
 	'flyout' => array(
 		'title' => 'Flyout',
 		'css' => array('ui/button.css', 'modules/flyout.css'),

@@ -155,6 +155,40 @@ var { background: $error-light; color: $error-dark; }
 	&.success { @include button-style($success, $success-light, $success-dark); }
 }
 
+//-------------------- Dropdown --------------------//
+
+.dropdown {
+	box-shadow: 5px 5px black(.25);
+
+	a {
+		@include transition(all .3s);
+
+		.caret-right {
+			top: 2px;
+		}
+	}
+
+	li:hover > a {
+		background: $error;
+		color: #fff;
+
+		.caret-right { border-left-color: #fff; }
+	}
+
+	li:nth-child(odd) {
+		background: $gray-lightest;
+	}
+}
+
+.dropdown-heading {
+	color: $default;
+	font-size: .8rem;
+}
+
+.dropdown.dropdown--top {
+	box-shadow: 5px -5px black(.25);
+}
+
 //-------------------- Flyout, TypeAhead --------------------//
 
 .flyout,
@@ -167,6 +201,10 @@ var { background: $error-light; color: $error-dark; }
 	li {
 		&:nth-child(odd) > a { background: $gray-lightest; }
 		.divider { background: $gray-dark; }
+
+		> a {
+			@include transition(all .3s);
+		}
 
 		> a:hover,
 		&.is-open > a,

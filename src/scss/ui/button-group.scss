@@ -17,8 +17,8 @@
 	@include reset-inline-block;
 	white-space: nowrap;
 
-	li,
-	.button {
+	> li,
+	> .button {
 		float: left;
 		margin-left: -1px;
 		border-radius: 0;
@@ -32,13 +32,13 @@
 	&.round {
 		border-radius: $round;
 
-		li:first-child .button,
+		> li:first-child .button,
 		> .button:first-child {
 			border-top-left-radius: $round;
 			border-bottom-left-radius: $round;
 		}
 
-		li:last-child .button,
+		> li:last-child .button,
 		> .button:last-child {
 			border-top-right-radius: $round;
 			border-bottom-right-radius: $round;
@@ -49,13 +49,13 @@
 	&.pill {
 		border-radius: $pill;
 
-		li:first-child .button,
+		> li:first-child .button,
 		> .button:first-child {
 			border-top-left-radius: $pill;
 			border-bottom-left-radius: $pill;
 		}
 
-		li:last-child .button,
+		> li:last-child .button,
 		> .button:last-child {
 			border-top-right-radius: $pill;
 			border-bottom-right-radius: $pill;
@@ -69,13 +69,13 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 
-		li:first-child .button,
+		> li:first-child .button,
 		> .button:first-child {
 			border-top-left-radius: $skew;
 			border-bottom-left-radius: 0;
 		}
 
-		li:last-child .button,
+		> li:last-child .button,
 		> .button:last-child {
 			border-top-right-radius: $skew;
 			border-bottom-right-radius: 0;

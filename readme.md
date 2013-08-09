@@ -33,6 +33,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * `Modal` - Displays dynamic modals that will display above the content
 * `Popover` - Displays dynamic notification elements over an element
 * `Tabs` - Provides tabbed support to an element containing navigation tabs and sections
+* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing
 
@@ -58,6 +59,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Alert` - Styles for block level notification messages
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
+* `Dropdown` - Allows for togglable dropdown menus with support for nested menus
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `Label` - Styles for inline tag labels
 * `Badge` - Styles for inline notification bubbles

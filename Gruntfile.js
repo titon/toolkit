@@ -62,6 +62,10 @@ module.exports = function(grunt) {
 			js: ['class/Cache.js'],
 			moo: ['Core', 'JSON']
 		},
+		dropdown: {
+			css: ['ui/dropdown.css'],
+			require: ['base', 'toggle']
+		},
 		flyout: {
 			css: ['modules/flyout.css'],
 			js: ['modules/Flyout.js'],
@@ -114,6 +118,10 @@ module.exports = function(grunt) {
 		timers: {
 			js: ['class/Timers.js'],
 			moo: ['Core']
+		},
+		toggle: {
+			js: ['utilities/Toggle.js'],
+			require: ['base']
 		},
 		tooltip: {
 			css: ['modules/tooltip.css'],
