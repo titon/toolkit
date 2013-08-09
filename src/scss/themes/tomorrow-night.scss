@@ -49,6 +49,33 @@ a {
 
 blockquote cite { color: $gray; }
 
+//-------------------- Layout --------------------//
+
+.table {
+	background: #282a2e;
+
+	td, th {
+		border-color: #575b62;
+	}
+
+	thead tr,
+	tfoot tr {
+		background: #4f535a;
+
+		th { border-color: tint(#4f535a, 20%); }
+	}
+
+	tbody tr {
+		background: #282a2e;
+
+		&:nth-child(odd) { background: #373b41; }
+	}
+}
+
+.table.table--hover {
+	tbody tr:hover { background: #1d1f21; }
+}
+
 //-------------------- Accordion --------------------//
 
 .accordion {

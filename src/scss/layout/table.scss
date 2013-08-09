@@ -1,0 +1,52 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "../variables";
+
+/**
+ * Defines basic styles for tables.
+ */
+.table {
+	width: 100%;
+	background: $gray;
+	border-collapse: collapse;
+
+	th, td {
+		padding: $padding;
+		line-height: 100%;
+		vertical-align: top;
+		border: 1px solid $gray-dark;
+		text-align: left;
+	}
+
+	// Move headings to bottom
+	thead th { vertical-align: bottom; }
+
+	// Allow for multiple tbody's
+	tbody + tbody { border-top-width: 2px; }
+
+	// Zebra striping
+	thead tr,
+	tfoot tr {
+		background: $gray-dark;
+
+		th { border-color: shade($gray-dark, 10%); }
+	}
+
+	tbody tr {
+		background: $gray;
+
+		&:nth-child(odd) { background: $gray-light; }
+	}
+}
+
+.table.table--hover {
+	tbody tr:hover { background: #fff; }
+}
+
+.table.table--compact {
+	th, td { padding: $padding / 2; }
+}

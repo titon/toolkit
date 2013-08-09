@@ -3,7 +3,7 @@
 $assets = array(
 	'base' => array(
 		'title' => 'Base',
-		'css' => 'ui/typography.css',
+		'css' => 'layout/typography.css',
 	),
 	'accordion' => array(
 		'title' => 'Accordion',
@@ -57,6 +57,10 @@ $assets = array(
 		'title' => 'Popover',
 		'css' => array('ui/button.css', 'modules/popover.css', 'modules/effects/popover-tooltip.css'),
 		'js' => array('modules/Tooltip.js', 'modules/Popover.js')
+	),
+	'table' => array(
+		'title' => 'Table',
+		'css' => array('layout/table.css'),
 	),
 	'tabs' => array(
 		'title' => 'Tabs',

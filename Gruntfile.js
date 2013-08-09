@@ -4,14 +4,18 @@ module.exports = function(grunt) {
 
 	// Component tree and dependencies
 	var manifest = {
-		// Defaults
+		// Layout
 		base: {
 			css: ['base.css'],
 			js: ['Titon.js', 'Component.js'],
 			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},
+		table: {
+			css: ['layout/table.css'],
+			require: ['base']
+		},
 		typography: {
-			css: ['ui/typography.css'],
+			css: ['layout/typography.css'],
 			require: ['base']
 		},
 		// Components
