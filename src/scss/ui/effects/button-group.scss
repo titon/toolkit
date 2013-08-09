@@ -96,3 +96,17 @@
 		}
 	}
 }
+
+/**
+ * Enables buttons within the group to span the whole width.
+ */
+.button-group.button-group--justified {
+	display: inline-table;
+	table-layout: fixed;
+	width: 100%;
+
+	> a.button {
+		float: none;
+		display: table-cell;
+	}
+}

@@ -71,3 +71,16 @@ foreach ($effects as $effect => $effectTitle) { ?>
 	</div>
 
 <?php } ?>
+
+
+<div class="example">
+	<div class="example-title">Justified</div>
+
+	<div class="button-group button-group--justified">
+		<a href="" class="button">Button 1</a>
+		<a href="" class="button">Button 2</a>
+		<a href="" class="button">Button 3</a>
+		<a href="" class="button">Button 4</a>
+		<a href="" class="button">Button 5</a>
+	</div>
+</div>
