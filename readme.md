@@ -1,4 +1,4 @@
-# Titon v0.2.0 #
+# Titon v0.3.0 #
 
 Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -66,7 +66,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `TomorrowNight` - Tomorrow Night theme for all Titon components
 
 ## Authors ##
-Miles Johnson - https://github.com/milesj
+* Miles Johnson - https://github.com/milesj
 
 #### Third Party ####
 * `Normalize.css` provided by Nicolas Gallagher
