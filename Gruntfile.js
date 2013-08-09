@@ -14,6 +14,10 @@ module.exports = function(grunt) {
 			css: ['layout/typography.css'],
 			require: ['base']
 		},
+		grid: {
+			css: ['layout/grid.css'],
+			require: ['base']
+		},
 		code: {
 			css: ['layout/code.css'],
 			require: ['base']

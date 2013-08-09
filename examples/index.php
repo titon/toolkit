@@ -31,6 +31,10 @@ $assets = array(
 		'css' => array('ui/button.css', 'modules/flyout.css'),
 		'js' => array('class/Timers.js', 'modules/Flyout.js')
 	),
+	'grid' => array(
+		'title' => 'Grid',
+		'css' => array('layout/grid.css')
+	),
 	'icon' => array(
 		'title' => 'Icon',
 		'css' => array('ui/button.css', 'ui/icon.css')

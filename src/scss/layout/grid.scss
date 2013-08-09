@@ -1,0 +1,90 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "../variables";
+@import "../mixins";
+
+/**
+ * Generates all the rows and columns for a fluid 12 column grid.
+ * Uses the latest CSS3 flexbox functionality.
+ *
+ * @link http://css-tricks.com/using-flexbox/
+ */
+@function span($n) {
+	@return $grid-width * $n;
+}
+
+@mixin column($width) {
+	// Use 0 0 as we dont want the columns to grow or shrink
+	-webkit-flex: 0 0 $width;
+	-ms-flex: 0 0 $width;
+	flex: 0 0 $width;
+}
+
+.grid {
+	text-align: left;
+	width: 100%;
+	max-width: 100%;
+	display: -webkit-flex;
+	display: flex;
+
+	@include clear-after;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+	position: relative;
+	min-height: 1px;
+}
+
+.col-1 { @include column(span(1)); }
+.col-2 { @include column(span(2)); }
+.col-3 { @include column(span(3)); }
+.col-4 { @include column(span(4)); }
+.col-5 { @include column(span(5)); }
+.col-6 { @include column(span(6)); }
+.col-7 { @include column(span(7)); }
+.col-8 { @include column(span(8)); }
+.col-9 { @include column(span(9)); }
+.col-10 { @include column(span(10)); }
+.col-11 { @include column(span(11)); }
+.col-12 { @include column(span(12)); }
+
+.push-1 { left: span(1); }
+.push-2 { left: span(2); }
+.push-3 { left: span(3); }
+.push-4 { left: span(4); }
+.push-5 { left: span(5); }
+.push-6 { left: span(6); }
+.push-7 { left: span(7); }
+.push-8 { left: span(8); }
+.push-9 { left: span(9); }
+.push-10 { left: span(10); }
+.push-11 { left: span(11); }
+.push-12 { left: span(12); }
+
+.pull-1 { right: span(1); }
+.pull-2 { right: span(2); }
+.pull-3 { right: span(3); }
+.pull-4 { right: span(4); }
+.pull-5 { right: span(5); }
+.pull-6 { right: span(6); }
+.pull-7 { right: span(7); }
+.pull-8 { right: span(8); }
+.pull-9 { right: span(9); }
+.pull-10 { right: span(10); }
+.pull-11 { right: span(11); }
+.pull-12 { right: span(12); }

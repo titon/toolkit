@@ -69,3 +69,8 @@ $skew-x: 1rem;
 $skew-y: 3rem;
 $skew: $skew-x $skew-y;
 $skew-reverse: $skew-y $skew-x;
+
+//-------------------- Grid --------------------//
+
+$grid-columns: 12;
+$grid-width: 8.333333%; // requires at least six 3's to equate to 100%
