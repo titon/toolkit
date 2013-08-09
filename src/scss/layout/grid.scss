@@ -30,8 +30,6 @@
 	max-width: 100%;
 	display: -webkit-flex;
 	display: flex;
-
-	@include clear-after;
 }
 
 .col-1,
@@ -88,3 +86,16 @@
 .pull-10 { right: span(10); }
 .pull-11 { right: span(11); }
 .pull-12 { right: span(12); }
+
+.span-1 { width: span(1); }
+.span-2 { width: span(2); }
+.span-3 { width: span(3); }
+.span-4 { width: span(4); }
+.span-5 { width: span(5); }
+.span-6 { width: span(6); }
+.span-7 { width: span(7); }
+.span-8 { width: span(8); }
+.span-9 { width: span(9); }
+.span-10 { width: span(10); }
+.span-11 { width: span(11); }
+.span-12 { width: span(12); }

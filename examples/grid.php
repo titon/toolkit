@@ -124,4 +124,7 @@
 		<div class="col-9 push-3">9 (first)</div>
 		<div class="col-3 pull-9">3 (second)</div>
 	</div>
+	<div class="grid grid-test">
+		<div class="col-7 push-3">7</div>
+	</div>
 </div>

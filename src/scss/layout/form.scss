@@ -1,0 +1,176 @@
+
+@import "../variables";
+@import "../mixins";
+@import "compass/css3/transition";
+
+/**
+ * Defines basic styles for horizontal and vertical forms.
+ */
+form { text-align: left; }
+
+input[type="file"] { display: inline-block; }
+
+select[multiple],
+select[size] { height: auto; }
+
+//-------------------- Inputs --------------------//
+
+.input,
+.select {
+	display: inline-block;
+	vertical-align: middle;
+	background: $gray-lightest;
+	border: 1px solid $gray-dark;
+	border-radius: 2px;
+	padding: 0 8px;
+	@include transition(all .3s);
+
+	// heights required to match default button sizes
+	line-height: 40px;
+	height: 40px;
+
+	&:hover { border-color: $gray-darkest; }
+	&:focus { border-color: $info; box-shadow: 0 0 5px $info-light; }
+
+	@include disabled-state {
+		cursor: not-allowed;
+		color: $gray-darkest;
+		border-color: $gray;
+	}
+
+	&[readonly] {
+		color: $gray-darkest;
+		border: 1px solid $gray-dark;
+		box-shadow: none;
+	}
+}
+
+.select { padding: 8px; } // fixes vertical alignment
+.select[multiple] { min-height: 150px; max-height: 500px; }
+
+textarea.input {
+	line-height: 125%;
+	min-height: 150px;
+	padding: $padding / 2;
+}
+
+.radio,
+.checkbox {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+
+	input[type="checkbox"],
+	input[type="radio"] {
+		vertical-align: middle;
+		position: relative;
+		top: -1px;
+		margin-right: 3px;
+	}
+}
+
+.input-static {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 40px;
+	height: 40px;
+}
+
+//-------------------- Fields, Labels --------------------//
+
+.field {
+	margin-bottom: $margin;
+
+	&.is-required {
+		.field-label { font-weight: bold; }
+	}
+
+	&.has-error {
+		.input,
+		.select {
+			border-color: $error;
+
+			&:focus { box-shadow: 0 0 5px $error-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $error-dark;
+		}
+	}
+
+	&.has-warning {
+		.input,
+		.select {
+			border-color: $warning;
+
+			&:focus { box-shadow: 0 0 5px $warning-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $warning-dark;
+		}
+	}
+
+	&.has-success {
+		.input,
+		.select {
+			border-color: $success;
+
+			&:focus { box-shadow: 0 0 5px $success-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $success-dark;
+		}
+	}
+}
+
+.field-label,
+.field-help {
+	display: block;
+	vertical-align: middle;
+	margin-bottom: 5px;
+	line-height: 100%;
+}
+
+.field-help {
+	margin: 5px 0 0 0;
+	font-size: .8rem;
+}
+
+.form-actions {
+	text-align: center;
+}
+
+//-------------------- Modifiers --------------------//
+
+.form--horizontal {
+	.field {
+		display: -webkit-flex;
+		display: flex;
+	}
+
+	.field-label {
+		text-align: right;
+		margin: 0;
+		padding-top: 12px;
+	}
+
+	.field-col {
+		margin-left: $margin;
+	}
+}
+
+.form--inline {
+	.field,
+	.field-label,
+	.form-actions {
+		display: inline-block;
+		margin-right: $margin;
+	}
+
+	.field-label { margin: 0 ($margin / 2) 0 0; }
+}
