@@ -1,7 +1,7 @@
-<h1>Popover</h1>
+<div class="example-header">Popover</div>
 
 <div class="example">
-	<h2>Content Loading</h2>
+	<div class="example-title">Content Loading</div>
 
 	<button type="button" class="button popover-base" data-popover="This is the data-popover attribute">Via Data Attribute (Default)</button>
 	<button type="button" class="button popover-base" data-popover="#hidden">Via DOM Element</button>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="example">
-	<h2>Effects</h2>
+	<div class="example-title">Effects</div>
 
 	<button type="button" class="button popover-delay" data-popover="Popover is shown after 300ms">Show Delay</button>
 	<button type="button" class="button popover-base" data-popover="#hidden" title="Custom Title">Title and Content</button>
@@ -20,7 +20,7 @@
 </div>
 
 <div class="example">
-	<h2>Animations</h2>
+	<div class="example-title">Animations</div>
 
 	<button type="button" class="button popover-fade" data-popover="Popover will fade in and out">Fade In/Out</button>
 	<button type="button" class="button popover-from-above" data-popover="Popover is falls in from above">From Above</button>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="example">
-	<h2>Positioning</h2>
+	<div class="example-title">Positioning</div>
 
 	<div class="row">
 		<button type="button" class="button popover-tl" data-popover="Positioned at top left">Top Left</button>
@@ -51,9 +51,9 @@
 </div>
 
 <div class="example">
-	<h2>Events</h2>
+	<div class="example-title">Events</div>
 
-	<p>The following are supported: onInit, onShow, onHide</p>
+	<p>onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">

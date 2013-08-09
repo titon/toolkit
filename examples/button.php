@@ -1,4 +1,4 @@
-<h1>Button</h1>
+<div class="example-header">Button</div>
 
 <?php
 $sizes['is-disabled'] = 'Disabled';
@@ -7,7 +7,7 @@ $sizes['is-active'] = 'Active';
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $shapeTitle; ?></h2>
+		<div class="example-title"><?php echo $shapeTitle; ?></div>
 
 		<?php foreach ($types as $type => $typeTitle) {
 			$classes = array($type, $shape); ?>
@@ -30,12 +30,12 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 <?php } ?>
 
-<h1>Button: Effects</h1>
+<div class="example-header">Button: Effects</div>
 
 <?php foreach ($visuals as $visual => $visualTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $visualTitle; ?></h2>
+		<div class="example-title"><?php echo $visualTitle; ?></div>
 
 		<?php
 		$i = 0;

@@ -1,7 +1,7 @@
-<h1>Icon</h1>
+<div class="example-header">Icon</div>
 
 <div class="example">
-	<h2>Inline</h2>
+	<div class="example-title">Inline</div>
 
 	<span class="icon-16-filter"></span>
 	<span class="icon-16-home"></span>
@@ -11,7 +11,7 @@
 </div>
 
 <div class="example">
-	<h2>Buttons</h2>
+	<div class="example-title">Buttons</div>
 
 	<button type="button" class="button">
 		<span class="icon-16-filter"></span>

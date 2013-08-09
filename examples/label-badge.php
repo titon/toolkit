@@ -1,4 +1,4 @@
-<h1>Badge</h1>
+<div class="example-header">Badge</div>
 
 <div class="example">
 	<?php foreach ($types as $type => $typeTitle) { ?>
@@ -6,7 +6,7 @@
 	<?php } ?>
 </div>
 
-<h1>Label</h1>
+<div class="example-header">Label</div>
 
 <div class="example">
 	<?php foreach ($types as $type => $typeTitle) { ?>
@@ -14,10 +14,8 @@
 	<?php } ?>
 </div>
 
-<h1>Label: Effects</h1>
-
 <div class="example">
-	<h2>Arrows</h2>
+	<div class="example-title">Arrows</div>
 
 	<div class="row">
 		<?php foreach ($types as $type => $typeTitle) { ?>

@@ -1,4 +1,4 @@
-<h1>Button Group</h1>
+<div class="example-header">Button Group</div>
 
 <?php unset($shapes['oval']);
 
@@ -9,7 +9,7 @@ $effects = array(
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $shapeTitle; ?></h2>
+		<div class="example-title"><?php echo $shapeTitle; ?></div>
 
 		<?php foreach ($types as $type => $typeTitle) { ?>
 
@@ -36,7 +36,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 <?php } ?>
 
-<h1>Button Group: Effects</h1>
+<div class="example-header">Button Group: Effects</div>
 
 <?php // New shape
 $shapes['skew-reverse'] = 'Skew Reverse';
@@ -44,7 +44,7 @@ $shapes['skew-reverse'] = 'Skew Reverse';
 foreach ($effects as $effect => $effectTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $effectTitle; ?></h2>
+		<div class="example-title"><?php echo $effectTitle; ?></div>
 
 		<?php
 		$t = 0;

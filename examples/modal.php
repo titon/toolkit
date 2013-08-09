@@ -1,7 +1,7 @@
-<h1>Modal</h1>
+<div class="example-header">Modal</div>
 
 <div class="example">
-	<h2>Content Loading</h2>
+	<div class="example-title">Content Loading</div>
 
 	<button type="button" class="button modal-base" data-modal="ajax/modal.php">Via AJAX</button>
 	<button type="button" class="button modal-base" data-modal="ajax/modal.php?slow">Via AJAX w/ Loader</button>
@@ -9,14 +9,14 @@
 </div>
 
 <div class="example">
-	<h2>Features</h2>
+	<div class="example-title">Features</div>
 
 	<button type="button" class="button modal-base" data-modal="ajax/modal-form.php">Form Submitting</button>
 	<button type="button" class="button modal-drag" data-modal="ajax/modal.php">Dragging</button>
 </div>
 
 <div class="example">
-	<h2>Animations</h2>
+	<div class="example-title">Animations</div>
 
 	<button type="button" class="button modal-fade" data-modal="ajax/modal.php">Fade</button>
 	<button type="button" class="button modal-from-above" data-modal="ajax/modal.php">From Above</button>
@@ -37,9 +37,9 @@
 </div>
 
 <div class="example">
-	<h2>Events</h2>
+	<div class="example-title">Events</div>
 
-	<p>The following are supported: onInit, onShow, onHide, onSubmit</p>
+	<p>onInit, onShow, onHide, onSubmit</p>
 </div>
 
 <script type="text/javascript">

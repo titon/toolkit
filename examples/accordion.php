@@ -3,10 +3,10 @@ $p1 = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor
 $p2 = '<p>Suspendisse interdum malesuada mi non dictum. Quisque cursus imperdiet lorem, in posuere quam eleifend non. Integer eros libero, lacinia nec fringilla non, vulputate vitae felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis ligula sapien, tristique sit amet tempor id, iaculis vel nisl. Maecenas rhoncus facilisis lacus non blandit. Nam quis erat arcu. Suspendisse facilisis venenatis elit, et posuere leo dictum a. Integer at tellus leo, sit amet malesuada orci. Proin placerat nulla vitae diam mattis at volutpat risus pellentesque.</p>';
 $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis vulputate enim. Proin a enim sit amet purus interdum ultricies. In hac habitasse platea dictumst. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut a magna sem, nec placerat nibh. Proin quis metus nunc, at vulputate erat. Etiam quis diam est. Nullam quam turpis, condimentum et iaculis in, pharetra sed enim.</p>'; ?>
 
-<h1>Accordion</h1>
+<div class="example-header">Accordion</div>
 
 <div class="example">
-	<h2>Default</h2>
+	<p>Default functionality.</p>
 
 	<ul class="accordion acc-1">
 		<li>
@@ -34,7 +34,9 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 			</section>
 		</li>
 	</ul>
+</div>
 
+<div class="example">
 	<p>Collapsible sections. Multiple visibility.</p>
 
 	<ul class="accordion acc-2">
@@ -63,7 +65,9 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 			</section>
 		</li>
 	</ul>
+</div>
 
+<div class="example">
 	<p>Toggle with hover.</p>
 
 	<ul class="accordion acc-3">
@@ -92,6 +96,12 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 			</section>
 		</li>
 	</ul>
+</div>
+
+<div class="example">
+	<div class="example-title">Events</div>
+
+	<p>onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">

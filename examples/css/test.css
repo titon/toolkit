@@ -1,3 +1,4 @@
+
 body {
 	padding: 25px;
 }
@@ -16,20 +17,37 @@ h1 { font-size: 36px; }
 	background: #000;
 	padding: 10px;
 	position: fixed;
-	top: 0;
-	right: 0;
-	border-bottom-left-radius: 2px;
+	bottom: 0;
+	left: 0;
+	border-top-right-radius: 3px;
 }
 
 .example {
-	margin: 40px 0;
+	margin: 50px 0;
 	position: relative;
 	text-align: center;
 }
 
-.example > p {
-	margin: 15px;
-	color: #818181;
+.example > p:first-child {
+	margin: 0 0 25px 0;
+}
+
+.example-header {
+	font-size: 3rem;
+	line-height: 100%;
+	padding: 10px;
+	color: #fff;
+	border-radius: 3px;
+	background: rgba(0, 0, 0, .75)
+}
+
+.example-title {
+	font-size: 1.8rem;
+	line-height: 100%;
+	padding: 10px;
+	margin-bottom: 25px;
+	border-radius: 3px;
+	background: rgba(0, 0, 0, .25)
 }
 
 .none .example a,
@@ -39,7 +57,8 @@ h1 { font-size: 36px; }
 
 .example .col {
 	float: left;
-	width: 33%;
+	width: 30%;
+	margin-right: 3%;
 	text-align: center;
 }
 
@@ -69,6 +88,7 @@ h1 { font-size: 36px; }
 
 .pin {
 	background: #000;
+	border-radius: 3px;
 	width: 200px;
 	color: #fff;
 	padding: 15px;

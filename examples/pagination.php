@@ -1,4 +1,4 @@
-<h1>Pagination</h1>
+<div class="example-header">Pagination</div>
 
 <?php
 $typeClasses = array_keys($types);
@@ -7,7 +7,7 @@ $t = 0;
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $shapeTitle; ?></h2>
+		<div class="example-title"><?php echo $shapeTitle; ?></div>
 
 		<?php foreach ($sizes as $size => $sizeTitle) { ?>
 
@@ -28,13 +28,13 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 	<?php $t++;
 } ?>
 
-<h1>Pagination: Effects</h1>
+<div class="example-header">Pagination: Effects</div>
 
 <?php $t = 0;
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">
-		<h2><?php echo $shapeTitle; ?>: Grouped</h2>
+		<div class="example-title"><?php echo $shapeTitle; ?>: Grouped</div>
 
 		<?php foreach ($sizes as $size => $sizeTitle) { ?>
 

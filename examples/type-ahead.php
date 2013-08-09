@@ -1,4 +1,4 @@
-<h1>Type Ahead</h1>
+<div class="example-header">Type Ahead</div>
 
 <div class="example">
 	<p>Array: Source data is defined as a literal array.<br>
@@ -8,8 +8,7 @@
 </div>
 
 <div class="example">
-	<p>Function: Source data is returned from a function.<br>
-	Menu also fades in.</p>
+	<p>Function: Source data is returned from a function.</p>
 
 	<input type="text" id="ta-2">
 </div>
@@ -26,6 +25,12 @@
 	Sorting and matching is handled within Type Ahead.</p>
 
 	<input type="text" id="ta-4">
+</div>
+
+<div class="example">
+	<div class="example-title">Events</div>
+
+	<p>onInit, onShow, onHide, onSelect, onReset</p>
 </div>
 
 <script type="text/javascript">
@@ -57,7 +62,6 @@
 		});
 
 		Titon.TypeAhead.factory('ta-2', {
-			fade: 250,
 			source: function() {
 				return langs;
 			}

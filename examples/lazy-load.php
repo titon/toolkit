@@ -1,10 +1,10 @@
-<h1>LazyLoad</h1>
+<div class="example-header">LazyLoad</div>
 
 <div class="example">
 	<?php $c = time(); ?>
 
 	<div class="col align-center">
-		<h2>Default</h2>
+		<div class="example-title">Default</div>
 
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
 
@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="col align-center">
-		<h2>Force Load</h2>
+		<div class="example-title">Force Load</div>
 
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
 
@@ -28,6 +28,12 @@
 	</div>
 
 	<span class="clear"></span>
+</div>
+
+<div class="example">
+	<div class="example-title">Events</div>
+
+	<p>onInit, onShow, onLoad, onLoadAll, onShutdown</p>
 </div>
 
 <script type="text/javascript">

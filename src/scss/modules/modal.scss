@@ -44,6 +44,11 @@
 	}
 }
 
+// Necessary
+.modal.hide {
+	display: none;
+}
+
 // Used for animations
 .modal-outer {
 	position: relative;

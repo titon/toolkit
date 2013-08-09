@@ -36,7 +36,6 @@ $assets = array(
 	),
 	'lazy-load' => array(
 		'title' => 'Lazy Load',
-		'css' => array('ui/lazy-load.css'),
 		'js' => array('utilities/LazyLoad.js')
 	),
 	'modal' => array(
@@ -169,7 +168,7 @@ $theme = $themes[$themeKey]; ?>
 
 		<form action="" method="get" class="test-switcher">
 			<select name="asset">
-				<option value="">-- Module --</option>
+				<option value="">-- Component --</option>
 				<?php foreach ($assets as $key => $value) { ?>
 					<option value="<?php echo $key; ?>"<?php if ($key === $assetKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
 				<?php } ?>

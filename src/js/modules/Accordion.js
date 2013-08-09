@@ -113,6 +113,7 @@ Titon.Accordion = new Class({
 		}
 
 		this.node = node;
+		this.fireEvent('show', section);
 	},
 
 	/**

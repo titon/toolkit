@@ -1,7 +1,7 @@
-<h1>Tooltip</h1>
+<div class="example-header">Tooltip</div>
 
 <div class="example">
-	<h2>Content Loading</h2>
+	<div class="example-title">Content Loading</div>
 
 	<button type="button" class="button tooltip-attr" title="This is the title attribute">Via Title Attribute</button>
 	<button type="button" class="button tooltip-base" data-tooltip="This is the data-tooltip attribute">Via Data Attribute (Default)</button>
@@ -13,7 +13,7 @@
 </div>
 
 <div class="example">
-	<h2>Effects</h2>
+	<div class="example-title">Effects</div>
 
 	<button type="button" class="button tooltip-click" data-tooltip="Tooltip is shown and hidden with mouse click">Click Toggle</button>
 	<button type="button" class="button tooltip-delay" data-tooltip="Tooltip is shown after 300ms">Show Delay</button>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="example">
-	<h2>Animations</h2>
+	<div class="example-title">Animations</div>
 
 	<button type="button" class="button tooltip-fade" data-tooltip="Tooltip will fade in and out">Fade In/Out</button>
 	<button type="button" class="button tooltip-from-above" data-tooltip="Tooltip is falls in from above">From Above</button>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="example">
-	<h2>Positioning</h2>
+	<div class="example-title">Positioning</div>
 
 	<div class="row">
 		<button type="button" class="button tooltip-tl" data-tooltip="Positioned at top left">Top Left</button>
@@ -72,9 +72,9 @@
 </div>
 
 <div class="example">
-	<h2>Events</h2>
+	<div class="example-title">Events</div>
 
-	<p>The following are supported: onInit, onShow, onHide</p>
+	<p>onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">

@@ -1,4 +1,4 @@
-<h1>Pin</h1>
+<div class="example-header">Pin</div>
 
 <div class="example pin-right">
 	<div class="pin" id="pin-right">
@@ -29,6 +29,12 @@
 	<?php for ($i = 0; $i <= 10; $i++) { ?>
 		<p id="b<?php echo $i; ?>">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
 	<?php } ?>
+</div>
+
+<div class="example">
+	<div class="example-title">Events</div>
+
+	<p>onInit, onShow, onHide, onScroll, onResize</p>
 </div>
 
 <script type="text/javascript">

@@ -1,7 +1,9 @@
-<h1>Flyout</h1>
+<div class="example-header">Flyout</div>
 
 <div class="example">
-	<h2>Data Loading</h2>
+	<div class="example-title">Data Loading</div>
+
+	<p>Default functionality. Will fetch menu via AJAX.</p>
 
 	<a href="/" class="button flyout-1">Root Path</a>
 	<a href="/3/0" class="button flyout-1">3 > 0 Path</a>
@@ -9,7 +11,7 @@
 </div>
 
 <div class="example">
-	<h2>Effects</h2>
+	<div class="example-title">Options</div>
 
 	<p>Show menu on click instead of hover. Lower column split to 5.</p>
 
@@ -25,9 +27,9 @@
 </div>
 
 <div class="example">
-	<h2>Events</h2>
+	<div class="example-title">Events</div>
 
-	<p>The following are supported: onInit, onShow, onHide, onShowChild, onHideChild</p>
+	<p>onInit, onShow, onHide, onShowChild, onHideChild</p>
 </div>
 
 <script type="text/javascript">
@@ -39,5 +41,6 @@
 		Titon.Flyout.factory('.flyout-1', 'ajax/flyout.php');
 		Titon.Flyout.factory('.flyout-2', 'ajax/flyout.php', { mode: 'click', itemLimit: 5 });
 		Titon.Flyout.factory('.flyout-3', 'ajax/flyout.php', { showDelay: 0, hideDelay: 200 });
+		Titon.Flyout.factory('.flyout-missing', 'ajax/flyout.php');
 	});
 </script>

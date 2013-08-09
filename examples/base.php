@@ -1,7 +1,7 @@
-<h1>Base</h1>
+<div class="example-header">Base</div>
 
 <div class="example">
-	<h2>Typography</h2>
+	<div class="example-title">Heading 2</div>
 
 	<h1>Heading 1</h1>
 	<h2>Heading 2</h2>
@@ -13,7 +13,7 @@
 </div>
 
 <div class="example">
-	<h2>Carets</h2>
+	<div class="example-title">Carets</div>
 
 	<span class="caret-down"></span>
 	<span class="caret-up"></span>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="example">
-	<h2>Characters</h2>
+	<div class="example-title">Characters</div>
 
 	<span class="x">&times;</span>
 </div>

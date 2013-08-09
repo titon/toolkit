@@ -1,7 +1,7 @@
-<h1>Alert</h1>
+<div class="example-header">Alert</div>
 
 <div class="example">
-	<h2>Square</h2>
+	<p>Square corners (default).</p>
 
 	<div class="alert">
 		<button type="button" class="close"><span class="x">&times;</span></button>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="example">
-	<h2>Round</h2>
+	<p>Rounded corners.</p>
 
 	<div class="alert round">
 		<button type="button" class="close"><span class="x">&times;</span></button>

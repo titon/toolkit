@@ -3,10 +3,10 @@ $p1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gr
 $p2 = 'Suspendisse interdum malesuada mi non dictum. Quisque cursus imperdiet lorem, in posuere quam eleifend non. Integer eros libero, lacinia nec fringilla non, vulputate vitae felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis ligula sapien, tristique sit amet tempor id, iaculis vel nisl. Maecenas rhoncus facilisis lacus non blandit. Nam quis erat arcu. Suspendisse facilisis venenatis elit, et posuere leo dictum a. Integer at tellus leo, sit amet malesuada orci. Proin placerat nulla vitae diam mattis at volutpat risus pellentesque.';
 $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis vulputate enim. Proin a enim sit amet purus interdum ultricies. In hac habitasse platea dictumst. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut a magna sem, nec placerat nibh. Proin quis metus nunc, at vulputate erat. Etiam quis diam est. Nullam quam turpis, condimentum et iaculis in, pharetra sed enim.'; ?>
 
-<h1>Tabs</h1>
+<div class="example-header">Tabs</div>
 
 <div class="example">
-	<h2>Content Loading</h2>
+	<div class="example-title">Content Loading</div>
 
 	<div class="tabs" id="tabs-base">
 		<nav class="tabs-nav">
@@ -40,7 +40,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <div class="example">
-	<h2>Effects</h2>
+	<div class="example-title">Effects</div>
 
 	<p>Hover instead of click, persistent tabs, default 2nd section.</p>
 
@@ -60,15 +60,15 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <div class="example">
-	<h2>Events</h2>
+	<div class="example-title">Events</div>
 
-	<p>The following are supported: onInit, onShow, onHide</p>
+	<p>onInit, onShow, onHide</p>
 </div>
 
-<h1>Tabs: Effects</h1>
+<div class="example-header">Tabs: Effects</div>
 
 <div class="example">
-	<h2>Left, Right</h2>
+	<div class="example-title">Left, Right</div>
 
 	<div class="tabs tabs--left" id="tabs-left">
 		<nav class="tabs-nav">
