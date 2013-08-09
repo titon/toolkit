@@ -7,7 +7,9 @@ Titon makes use of the latest and greatest technology. This includes CSS3 for an
 Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
 #### Requirements ####
-* **MooTools 1.4**
+* **HTML5**
+* **CSS3**
+* **MooTools 1.4** (for JS components)
 	* Core
 	* More/Class.Binds
 	* More/Elements.From
@@ -17,8 +19,6 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 	* More/Array.Extras (optional: Flyout)
 	* More/Element.Position (optional: Tooltip)
 	* More/Element.Event.Pseudos (optional: Tooltip)
-* **CSS3**
-* **HTML5**
 
 #### Tested Against ####
 * Chrome 26
@@ -47,8 +47,12 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Cache` - Provides local and session storage within the class layer
 
 ## CSS Components ##
-#### Effects ####
-* `Visual` - Provides visual aesthetics like gloss and glare over elements
+#### Layout ####
+* `Base` - Provides utility and helper classes
+* `Grid` - Implements a fluid 12 column grid system that uses flexbox
+* `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
+* `Code` - Styles for code blocks
+* `Table` - Styles for tables
 
 #### UI ####
 * `Alert` - Styles for block level notification messages
