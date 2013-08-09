@@ -41,6 +41,14 @@ a {
 	&:hover { color: tint($blue, 25%); }
 }
 
+.text-muted { color: $gray; }
+.text-info { color: $blue; }
+.text-error { color: $red; }
+.text-warning { color: $yellow; }
+.text-success { color: $green; }
+
+blockquote cite { color: $gray; }
+
 //-------------------- Accordion --------------------//
 
 .accordion {
