@@ -7,7 +7,8 @@
 @import "../mixins";
 @import "compass/css3/images";
 
-// Gloss
+//-------------------- Gloss --------------------//
+
 .visual-gloss {
 	&:after {
 		content: "";
@@ -38,7 +39,8 @@
 	&.skew:after { border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem; }
 }
 
-// Reflection
+//-------------------- Reflection --------------------//
+
 .visual-reflect:after {
 	content: "";
 	position: absolute;
@@ -49,7 +51,8 @@
 	@include background-image(linear-gradient(top, white(0), white(.3)));
 }
 
-// Glare
+//-------------------- Glare --------------------//
+
 .visual-glare:after {
 	content: "";
 	position: absolute;
@@ -60,7 +63,8 @@
 	@include background-image(linear-gradient(160deg, white(.5) 0%, white(.1) 50%, white(0) 50%, white(.3) 100%));
 }
 
-// Popout
+//-------------------- Popout --------------------//
+
 .visual-popout {
 	box-shadow: 0 6px 0 0 black(.25) !important;
 	top: -3px;

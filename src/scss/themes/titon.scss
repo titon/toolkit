@@ -37,6 +37,18 @@ blockquote cite { color: $default; }
 code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
 
+.input,
+.select,
+.input-static {
+	// heights required to match default button sizes
+	line-height: 40px;
+	height: 40px;
+	padding: 0 8px;
+}
+
+.select { padding: 8px; }
+.input-static { padding: 0; }
+
 //-------------------- Accordion --------------------//
 
 .accordion {
@@ -64,19 +76,6 @@ var { background: $error-light; color: $error-dark; }
 
 //-------------------- Alert --------------------//
 
-@mixin alert-style($bg, $text) {
-	color: $text;
-	background: $bg;
-	border: 1px solid shade($bg, 10%);
-
-	hr { border-color: shade($bg, 10%); }
-
-	a { color: shade($text, 10%); }
-	a:hover { color: tint($text, 25%); }
-
-	@content;
-}
-
 .alert {
 	@include alert-style($default-light, $default-dark);
 
@@ -87,35 +86,6 @@ var { background: $error-light; color: $error-dark; }
 }
 
 //-------------------- Button --------------------//
-
-@mixin button-style($base, $light, $dark) {
-	font-weight: bold;
-	background: shade($base, 5%);
-	text-shadow: 1px 1px black(.2);
-	border: 1px solid shade($base, 12%);
-
-	@include active-state {
-		color: #fff;
-		background-color: shade($base, 20%);
-		text-shadow: 1px 1px $dark;
-		border-color: shade($base, 30%);
-	}
-
-	&:active {
-		top: 1px;
-	}
-
-	@include disabled-state {
-		background: $base;
-		border-color: $base;
-		box-shadow: none;
-		text-shadow: none;
-		top: 0;
-		opacity: $disabled-opacity;
-	}
-
-	@content;
-}
 
 .button {
 	color: #fff;
@@ -169,11 +139,6 @@ var { background: $error-light; color: $error-dark; }
 }
 
 //-------------------- Label, Badge --------------------//
-
-@mixin label-style($bg, $text) {
-	background: $bg;
-	color: $text;
-}
 
 .label,
 .badge {

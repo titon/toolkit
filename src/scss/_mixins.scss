@@ -45,14 +45,14 @@
 //-------------------- States --------------------//
 
 @mixin active-state {
-	.is-active &,
+	.is-active > &,
 	&.is-active,
 	&.is-active:hover,
 	&:hover { @content; }
 }
 
 @mixin disabled-state {
-	.is-disabled &,
+	.is-disabled > &,
 	&.is-disabled,
 	&.is-disabled:hover,
 	&[disabled],
@@ -105,4 +105,73 @@
 	@media all and (max-width: 320px) {
 		@content;
 	}
+}
+
+//-------------------- Grid --------------------//
+
+@function grid-span($n) {
+	@return $grid-width * $n;
+}
+
+// Use 0 0 as we dont want the columns to grow or shrink by default
+@mixin grid-column($width, $grow: 0, $shrink: 0) {
+	-webkit-flex: $grow $shrink $width;
+	-ms-flex: $grow $shrink $width;
+	flex: $grow $shrink $width;
+}
+
+@mixin grid-row() {
+	width: 100%;
+	max-width: 100%;
+	display: -webkit-flex;
+	display: flex;
+}
+
+//-------------------- Themes --------------------//
+
+@mixin alert-style($bg, $text) {
+	color: $text;
+	background: $bg;
+	border: 1px solid shade($bg, 10%);
+
+	hr { border-color: shade($bg, 10%); }
+
+	a { color: shade($text, 10%); }
+	a:hover { color: tint($text, 25%); }
+
+	@content;
+}
+
+@mixin button-style($base, $light, $dark) {
+	font-weight: bold;
+	background: shade($base, 5%);
+	text-shadow: 1px 1px black(.2);
+	border: 1px solid shade($base, 12%);
+
+	@include active-state {
+		color: #fff;
+		background-color: shade($base, 20%);
+		text-shadow: 1px 1px $dark;
+		border-color: shade($base, 30%);
+	}
+
+	&:active {
+		top: 1px;
+	}
+
+	@include disabled-state {
+		background: $base;
+		border-color: $base;
+		box-shadow: none;
+		text-shadow: none;
+		top: 0;
+		opacity: $disabled-opacity;
+	}
+
+	@content;
+}
+
+@mixin label-style($bg, $text) {
+	background: $bg;
+	color: $text;
 }

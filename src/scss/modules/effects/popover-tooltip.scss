@@ -8,6 +8,9 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 
+/**
+ * Display animations for tooltips and popovers.
+ */
 .tooltip,
 .popover {
 	&.fade {

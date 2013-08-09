@@ -28,7 +28,7 @@
 	// Allow for multiple tbody's
 	tbody + tbody { border-top-width: 2px; }
 
-	// Zebra striping
+	// Row colors
 	thead tr,
 	tfoot tr {
 		background: $gray-dark;
@@ -36,6 +36,7 @@
 		th { border-color: shade($gray-dark, 10%); }
 	}
 
+	// Zebra striping
 	tbody tr {
 		background: $gray;
 

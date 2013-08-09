@@ -101,12 +101,10 @@
  * Enables buttons within the group to span the whole width.
  */
 .button-group.button-group--justified {
-	display: inline-table;
-	table-layout: fixed;
-	width: 100%;
+	@include grid-row;
 
-	> a.button {
+	> .button {
 		float: none;
-		display: table-cell;
+		@include grid-column(auto, 1, 1);
 	}
 }
