@@ -18,6 +18,8 @@
  */
 .alert {
 	padding: $padding;
+	background: $gray;
+	border: 1px solid $gray-dark;
 	text-align: left;
 
 	p, ul, hr {

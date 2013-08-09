@@ -26,6 +26,8 @@
 	z-index: 650;
 	max-width: 200px;
 	visibility: hidden;
+	background: #000;
+	color: #fff;
 
 	&.center-left .tooltip-arrow,
 	&.center-right .tooltip-arrow {

@@ -18,6 +18,8 @@
 	z-index: 640;
 	opacity: 0;
 	visibility: hidden;
+	background: $gray;
+	border: 1px solid $gray-dark;
 	@include transition(opacity 0.3s);
 
 	ul {
@@ -34,6 +36,12 @@
 			text-decoration: none;
 		}
 	}
+}
+
+.type-ahead-desc {
+	display: block;
+	color: $gray-darkest;
+	font-size: .7rem;
 }
 
 .type-ahead-shadow {

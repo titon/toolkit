@@ -27,10 +27,34 @@
 	padding: 0;
 }
 
+.accordion {
+	border: 1px solid $gray-dark;
+}
+
+.accordion-head {
+	padding: $padding;
+	background: $gray;
+	border: 1px solid $gray-dark;
+	margin: -1px;
+	cursor: pointer;
+
+	.is-active & {
+		background: $gray-dark;
+		border-color: $gray-darkest;
+	}
+}
+
+.accordion-body {
+	padding: $padding;
+
+	p:first-child { margin-top: 0; }
+	p:last-child { margin-bottom: 0; }
+}
+
+// Inner is used for animations
 .accordion-inner {
 	overflow: hidden;
 	position: relative;
-	z-index: 10;
 	@include transition(all .3s ease-in-out);
 
 	&.show { height: auto; }

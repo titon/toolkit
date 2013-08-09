@@ -35,3 +35,9 @@ blockquote {
 	cite { display: block; font-size: .8rem; }
 	cite:before { content: "\2014 \00A0"; /* em dash */ }
 }
+
+.text-muted { color: $default; }
+.text-info { color: $info-dark; }
+.text-error { color: $error-dark; }
+.text-warning { color: $warning-dark; }
+.text-success { color: $success-dark; }

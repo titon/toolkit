@@ -24,12 +24,6 @@ a {
 	&:hover { color: $error-dark; }
 }
 
-.text-muted { color: $default; }
-.text-info { color: $info-dark; }
-.text-error { color: $error-dark; }
-.text-warning { color: $warning-dark; }
-.text-success { color: $success-dark; }
-
 blockquote cite { color: $default; }
 
 //-------------------- Layout --------------------//
@@ -51,16 +45,7 @@ var { background: $error-light; color: $error-dark; }
 
 //-------------------- Accordion --------------------//
 
-.accordion {
-	border: 1px solid $gray-dark;
-}
-
 .accordion-head {
-	padding: $padding;
-	background: $gray;
-	border: 1px solid $gray-dark;
-	margin: -1px;
-	cursor: pointer;
 	@include transition(all .3s);
 
 	.is-active & {
@@ -68,10 +53,6 @@ var { background: $error-light; color: $error-dark; }
 		border-color: $error-dark;
 		color: #fff;
 	}
-}
-
-.accordion-body {
-	padding: $padding;
 }
 
 //-------------------- Alert --------------------//
@@ -217,12 +198,6 @@ var { background: $error-light; color: $error-dark; }
 	}
 }
 
-.type-ahead-desc {
-	display: block;
-	color: $gray-darkest;
-	font-size: .7rem;
-}
-
 .type-ahead-highlight { background: $warning-light; }
 
 .type-ahead {
@@ -349,8 +324,8 @@ var { background: $error-light; color: $error-dark; }
 	background: black(.70);
 	color: #fff;
 	border-radius: $round;
+	margin: 0;
 	line-height: 115%;
-	margin: $margin / 2;
 
 	&.top-center .tooltip-arrow { border-top-color: black(.70); }
 	&.center-left .tooltip-arrow { border-left-color: black(.70); }

@@ -20,6 +20,8 @@
 	line-height: 100%;
 	white-space: nowrap;
 	@include size-medium;
+	background: $gray;
+	border: 1px solid $gray-dark;
 
 	// Sizes
 	&.small, .small & { @include size-small; }

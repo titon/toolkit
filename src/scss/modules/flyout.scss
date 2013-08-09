@@ -18,6 +18,8 @@
 	z-index: 640;
 	opacity: 0;
 	visibility: hidden;
+	background: $gray;
+	border: 1px solid $gray-dark;
 	@include box-sizing("content-box"); // required for multi columns
 	@include transition(opacity 0.3s);
 

@@ -26,6 +26,8 @@
 	z-index: 650;
 	max-width: 300px;
 	visibility: hidden;
+	background: $gray;
+	border: 1px solid $gray-dark;
 
 	&.center-left .popover-arrow,
 	&.center-right .popover-arrow {

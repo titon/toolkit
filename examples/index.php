@@ -142,7 +142,7 @@ $visuals = array(
 
 // Detect theme and asset
 $assetKey = 'base';
-$themeKey = 'titon';
+$themeKey = '';
 
 if (isset($_GET['asset']) && isset($assets[$_GET['asset']])) {
 	$assetKey = $_GET['asset'];
@@ -153,7 +153,7 @@ if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
 }
 
 $asset = $assets[$assetKey];
-$theme = $themes[$themeKey]; ?>
+$theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
 
 <!DOCTYPE html>
 <html lang="en">

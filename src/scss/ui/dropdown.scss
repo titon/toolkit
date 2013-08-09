@@ -51,7 +51,7 @@
 
 		// Show nested dropdown
 		&:hover {
-			a { background: #fff; }
+			> a { background: #fff; }
 
 			.dropdown {
 				visibility: visible;

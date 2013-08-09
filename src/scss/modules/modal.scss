@@ -45,6 +45,12 @@
 	&.is-loading .close { display: none; }
 }
 
+// Inner should contain the styles
+.modal-inner {
+	background: $gray;
+	border: 1px solid $gray-dark;
+}
+
 // Necessary
 .modal.hide {
 	display: none;
