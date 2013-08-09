@@ -45,6 +45,10 @@ module.exports = function(grunt) {
 			js: ['modules/Blackout.js'],
 			require: ['base']
 		},
+		breadcrumbs: {
+			css: ['ui/breadcrumbs.css'],
+			require: ['base']
+		},
 		button: {
 			css: ['ui/button.css'],
 			require: ['base']

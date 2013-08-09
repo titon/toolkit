@@ -85,6 +85,63 @@ var { background: $error-light; color: $error-dark; }
 	&.success { @include alert-style($success-light, $success-dark); }
 }
 
+//-------------------- Breadcrumbs --------------------//
+
+.breadcrumbs {
+	overflow: hidden;
+
+	a {
+		height: 45px;
+		line-height: 45px;
+		padding: 0 30px 0 20px;
+		border-right: 0;
+
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			height: 31px;
+			width: 31px;
+			border-right: 2px solid $gray-lightest;
+			border-bottom: 2px solid $gray-lightest;
+			top: 6px;
+			right: 0;
+			z-index: 1;
+			@include transform(rotate(-45deg));
+		}
+
+		&:before {
+			height: 32px;
+			width: 32px;
+			border-right: 1px solid $gray-dark;
+			border-bottom: 1px solid $gray-dark;
+			right: 3px;
+		}
+
+		&:hover {
+			&:before {
+				border-color: $gray-darkest;
+			}
+		}
+	}
+
+	li:last-child a {
+		color: $default;
+	}
+
+	&.small {
+		a { height: 30px; line-height: 30px; padding: 0 25px 0 15px; }
+		a:before { height: 21px; width: 21px; top: 4px; }
+		a:after { height: 20px; width: 20px; top: 4px; }
+	}
+
+	&.large {
+		a { height: 50px; line-height: 50px; padding: 0 30px 0 20px; }
+		a:before { height: 41px; width: 41px; top: 4px; }
+		a:after { height: 40px; width: 40px; top: 4px; }
+	}
+}
+
 //-------------------- Button --------------------//
 
 .button {

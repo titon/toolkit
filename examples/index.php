@@ -14,6 +14,10 @@ $assets = array(
 		'title' => 'Alert',
 		'css' => 'ui/alert.css'
 	),
+	'breadcrumbs' => array(
+		'title' => 'Breadcrumbs',
+		'css' => array('ui/breadcrumbs.css')
+	),
 	'button' => array(
 		'title' => 'Button',
 		'css' => array('ui/button.css')

@@ -1,0 +1,54 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "../variables";
+@import "../mixins";
+
+/**
+ *	<nav class="breadcrumbs">
+ *		<ol>
+ *			<li><a href="">Home</a></li>
+ *			<li><a href="">Sub-page</a></li>
+ *			<li><a href="">Sub-page</a></li>
+ *			<li><a href="">Sub-page</a></li>
+ *			<li><a href="">Current</a></li>
+ *		</ol>
+ *	</nav>
+ */
+.breadcrumbs {
+	text-align: left;
+	margin: $margin 0;
+	background: $gray;
+	border: 1px solid $gray-dark;
+	border-radius: 2px;
+
+	ul, ol {
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		position: relative;
+		list-style: none;
+		float: left;
+	}
+
+	a {
+		display: block;
+		padding: $medium-padding;
+		line-height: 100%;
+		background: $gray;
+		border-right: 1px solid $gray-dark;
+		z-index: 0;
+		font-size: $medium-size;
+	}
+
+	// Sizes
+	&.small a { padding: $small-padding; font-size: $small-size; }
+	&.large a { padding: $large-padding; font-size: $large-size; }
+
+	@include clear-after;
+}
