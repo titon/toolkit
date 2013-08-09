@@ -113,14 +113,21 @@ module.exports = function(grunt) {
 		}
 	};
 
+	var themes = {
+		titon: 'themes/titon.css',
+		tomorrowNight: 'themes/tomorrow-night.css'
+	};
+
 	/**
 	 * Determine which components we should package.
 	 *
 	 * The --components= parameter can be used to filter down components.
 	 * The --effects= parameter can be used to include component effects.
+	 * The --theme= parameter can be used to include a theme.
 	 */
 	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
 		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : [],
+		useTheme = grunt.option('theme') || null,
 		dependencies = {};
 
 	function addDependency(name) {
@@ -162,6 +169,14 @@ module.exports = function(grunt) {
 	}
 
 	toPackage.forEach(addDependency);
+
+	if (useTheme) {
+		if (themes[useTheme]) {
+			dependencies.css.push('src/css/' + themes[useTheme]);
+		} else {
+			log.error('Invalid theme: ' + useTheme);
+		}
+	}
 
 	/**
 	 * Map all the available source files for each task.
