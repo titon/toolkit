@@ -26,11 +26,9 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 	</div>
 
 	<?php $t++;
-} ?>
+}
 
-<div class="example-header">Pagination: Effects</div>
-
-<?php $t = 0;
+$t = 0;
 foreach ($shapes as $shape => $shapeTitle) { ?>
 
 	<div class="example">

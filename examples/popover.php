@@ -12,7 +12,7 @@
 </div>
 
 <div class="example">
-	<div class="example-title">Effects</div>
+	<div class="example-title">Options</div>
 
 	<button type="button" class="button popover-delay" data-popover="Popover is shown after 300ms">Show Delay</button>
 	<button type="button" class="button popover-base" data-popover="#hidden" title="Custom Title">Title and Content</button>

@@ -40,7 +40,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <div class="example">
-	<div class="example-title">Effects</div>
+	<div class="example-title">Options</div>
 
 	<p>Hover instead of click, persistent tabs, default 2nd section.</p>
 
@@ -64,8 +64,6 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 
 	<p>onInit, onShow, onHide</p>
 </div>
-
-<div class="example-header">Tabs: Effects</div>
 
 <div class="example">
 	<div class="example-title">Left, Right</div>

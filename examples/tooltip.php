@@ -13,7 +13,7 @@
 </div>
 
 <div class="example">
-	<div class="example-title">Effects</div>
+	<div class="example-title">Options</div>
 
 	<button type="button" class="button tooltip-click" data-tooltip="Tooltip is shown and hidden with mouse click">Click Toggle</button>
 	<button type="button" class="button tooltip-delay" data-tooltip="Tooltip is shown after 300ms">Show Delay</button>

@@ -28,11 +28,9 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 		<?php } ?>
 	</div>
 
-<?php } ?>
+<?php }
 
-<div class="example-header">Button: Effects</div>
-
-<?php foreach ($visuals as $visual => $visualTitle) { ?>
+foreach ($visuals as $visual => $visualTitle) { ?>
 
 	<div class="example">
 		<div class="example-title"><?php echo $visualTitle; ?></div>

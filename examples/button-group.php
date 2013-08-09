@@ -34,11 +34,9 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 		<?php } ?>
 	</div>
 
-<?php } ?>
+<?php }
 
-<div class="example-header">Button Group: Effects</div>
-
-<?php // New shape
+// New shape
 $shapes['skew-reverse'] = 'Skew Reverse';
 
 foreach ($effects as $effect => $effectTitle) { ?>
@@ -71,7 +69,6 @@ foreach ($effects as $effect => $effectTitle) { ?>
 	</div>
 
 <?php } ?>
-
 
 <div class="example">
 	<div class="example-title">Justified</div>
