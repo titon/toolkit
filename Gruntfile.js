@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 	var manifest = {
 		// Layout
 		base: {
-			css: ['base.css'],
+			css: ['layout/base.css'],
 			js: ['Titon.js', 'Component.js'],
 			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
 		},

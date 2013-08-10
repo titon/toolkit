@@ -4,10 +4,10 @@
  * @link		http://titon.io
  */
 
-@import "common";
+@import "../_common";
 
 // Use normalize
-@import "vendor/normalize";
+@import "../vendor/normalize";
 
 // Use border-box
 * { @include box-sizing(border-box); }
