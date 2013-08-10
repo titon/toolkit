@@ -127,6 +127,10 @@ var { background: $error-light; color: $error-dark; }
 	@include transition(all .3s);
 	@include button-style($default, $default-light, $default-dark);
 
+	&:active {
+		top: 1px;
+	}
+
 	&.info { @include button-style($info, $info-light, $info-dark); }
 	&.error { @include button-style($error, $error-light, $error-dark); }
 	&.warning { @include button-style($warning, $warning-light, $warning-dark); }

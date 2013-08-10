@@ -160,10 +160,6 @@
 		border-color: shade($base, 30%);
 	}
 
-	&:active {
-		top: 1px;
-	}
-
 	@include disabled-state {
 		background: $base;
 		border-color: $base;
@@ -179,4 +175,6 @@
 @mixin label-style($bg, $text) {
 	background: $bg;
 	color: $text;
+
+	@content;
 }

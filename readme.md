@@ -50,13 +50,16 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 ## CSS Components ##
 #### Layout ####
 * `Base` - Provides utility and helper classes
-* `Grid` - Implements a fluid 12 column grid system that uses flexbox
-* `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
 * `Code` - Styles for code blocks
+* `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
+* `Grid` - Implements a fluid 12 column grid system that uses flexbox
+* `Responsive` - Responsive classes for mobile, tablet and desktop resolutions
 * `Table` - Styles for tables
+* `Typography` - Resets and default styles for typography
 
 #### UI ####
 * `Alert` - Styles for block level notification messages
+* `Breadcrumbs` - Styles for bread crumb navigation trails
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
 * `Dropdown` - Allows for togglable dropdown menus with support for nested menus
@@ -65,7 +68,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Badge` - Styles for inline notification bubbles
 * `Pagination` - Styles for pagination lists
 * `Pin` - Animations for element pinning
-* `Typography` - Resets and default styles for typography
 
 #### Themes ####
 * `Titon` - Titon specific theme that mimics Twitter Bootstrap
