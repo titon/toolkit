@@ -128,3 +128,19 @@
 		<div class="col-7 push-3">7</div>
 	</div>
 </div>
+
+<div class="example">
+	<div class="example-title">Responsive</div>
+
+	<div class="grid grid-test">
+		<div class="col-4 visible-mobile" style="color: red">Visible in mobile</div>
+		<div class="col-4 visible-tablet" style="color: blue">Visible in tablets</div>
+		<div class="col-4 visible-desktop" style="color: green">Visible in desktops</div>
+	</div>
+
+	<div class="grid grid-test">
+		<div class="col-4 hidden-mobile" style="color: red">Hidden in mobile</div>
+		<div class="col-4 hidden-tablet" style="color: blue">Hidden in tablets</div>
+		<div class="col-4 hidden-desktop" style="color: green">Hidden in desktops</div>
+	</div>
+</div>

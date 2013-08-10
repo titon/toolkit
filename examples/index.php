@@ -45,8 +45,8 @@ $assets = array(
 		'css' => array('ui/button.css', 'layout/grid.css', 'layout/form.css')
 	),
 	'grid' => array(
-		'title' => 'Grid',
-		'css' => array('layout/grid.css')
+		'title' => 'Grid & Responsive',
+		'css' => array('layout/grid.css', 'layout/responsive.css')
 	),
 	'icon' => array(
 		'title' => 'Icon',
