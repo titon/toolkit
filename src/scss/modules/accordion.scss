@@ -4,8 +4,7 @@
  * @link		http://titon.io
  */
 
-@import "../variables";
-@import "compass/css3/transition";
+@import "../common";
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
@@ -47,8 +46,7 @@
 .accordion-body {
 	padding: $padding;
 
-	p:first-child { margin-top: 0; }
-	p:last-child { margin-bottom: 0; }
+	@include content-spacing;
 }
 
 // Inner is used for animations

@@ -4,7 +4,7 @@
  * @link		http://titon.io
  */
 
-@import "../mixins";
+@import "../common";
 
 /**
  *	<div class="alert info">
@@ -22,13 +22,6 @@
 	border: 1px solid $gray-dark;
 	text-align: left;
 
-	p, ul, hr {
-		margin: $margin 0;
-
-		&:first-child { margin-top: 0; }
-		&:last-child { margin-bottom: 0; }
-	}
-
 	hr {
 		border: 0;
 		border-top: 1px solid transparent;
@@ -44,6 +37,8 @@
 
 		& ~ p { margin: 0; }
 	}
+
+	@include content-spacing;
 }
 
 .alert-title {

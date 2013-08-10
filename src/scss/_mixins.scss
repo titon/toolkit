@@ -1,6 +1,4 @@
 
-@import "variables";
-
 //-------------------- Styles --------------------//
 
 @mixin clear-after {
@@ -23,6 +21,13 @@
 	position: relative;
 	text-decoration: none;
 	vertical-align: middle;
+}
+
+@mixin content-spacing {
+	p, ul, hr, blockquote {
+		&:first-child { margin-top: 0; }
+		&:last-child { margin-bottom: 0; }
+	}
 }
 
 //-------------------- Sizes --------------------//

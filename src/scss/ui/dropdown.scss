@@ -1,7 +1,20 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
 
-@import "../variables";
-@import "compass/css3/transition";
+@import "../common";
 
+/**
+ *	<ul class="dropdown">
+ *		<li class="dropdown-heading>Heading</li>
+ *		<li><a href="">Some Action</a></li>
+ *		<li><a href="">Some Action</a></li>
+ *		<li class="divider"></li>
+ *		<li><a href="">Some Action</a></li>
+ *	</ul>
+ */
 .dropdown {
 	display: none;
 	text-align: left;

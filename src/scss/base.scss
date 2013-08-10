@@ -4,9 +4,7 @@
  * @link		http://titon.io
  */
 
-@import "variables";
-@import "mixins";
-@import "compass/css3/box-sizing";
+@import "common";
 
 // Use normalize
 @import "vendor/normalize";
@@ -69,7 +67,7 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 .caret-left { border-right-color: $foreground-color; }
 .caret-right { border-left-color: $foreground-color; }
 
-// Characters
+// Close
 .x {
 	@include reset-inline-block;
 	color: $foreground-color;

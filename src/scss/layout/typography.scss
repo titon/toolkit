@@ -4,7 +4,7 @@
  * @link		http://titon.io
  */
 
-@import "../_variables";
+@import "../common";
 
 /**
  * Defines default styles for typography related elements.
@@ -22,18 +22,19 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 100%;
 }
 
-p { margin: $margin 0; }
+p, ul, hr, blockquote {
+	margin: $margin 0;
+}
 
 blockquote {
 	margin: $margin;
 	padding: 0 $padding;
 	border-left: 5px solid $gray;
 
-	p:first-child { margin-top: 0; }
-	p:last-child { margin-bottom: 0; }
-
 	cite { display: block; font-size: .8rem; }
 	cite:before { content: "\2014 \00A0"; /* em dash */ }
+
+	@include content-spacing;
 }
 
 .text-muted { color: $default; }

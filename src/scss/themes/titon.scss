@@ -4,10 +4,7 @@
  * @link		http://titon.io
  */
 
-@import "../variables";
-@import "../mixins";
-@import "compass/css3/transition";
-@import "compass/css3/transform";
+@import "../common";
 
 body {
 	font: normal 90%/2rem Verdana, Arial, sans-serif;
