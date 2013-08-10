@@ -33,54 +33,11 @@
 	min-height: 1px;
 }
 
-.col-1 { @include grid-column(grid-span(1)); }
-.col-2 { @include grid-column(grid-span(2)); }
-.col-3 { @include grid-column(grid-span(3)); }
-.col-4 { @include grid-column(grid-span(4)); }
-.col-5 { @include grid-column(grid-span(5)); }
-.col-6 { @include grid-column(grid-span(6)); }
-.col-7 { @include grid-column(grid-span(7)); }
-.col-8 { @include grid-column(grid-span(8)); }
-.col-9 { @include grid-column(grid-span(9)); }
-.col-10 { @include grid-column(grid-span(10)); }
-.col-11 { @include grid-column(grid-span(11)); }
-.col-12 { @include grid-column(grid-span(12)); }
+@for $i from 1 through $grid-columns {
+	$span: grid-span($i);
 
-.push-1 { left: grid-span(1); }
-.push-2 { left: grid-span(2); }
-.push-3 { left: grid-span(3); }
-.push-4 { left: grid-span(4); }
-.push-5 { left: grid-span(5); }
-.push-6 { left: grid-span(6); }
-.push-7 { left: grid-span(7); }
-.push-8 { left: grid-span(8); }
-.push-9 { left: grid-span(9); }
-.push-10 { left: grid-span(10); }
-.push-11 { left: grid-span(11); }
-.push-12 { left: grid-span(12); }
-
-.pull-1 { right: grid-span(1); }
-.pull-2 { right: grid-span(2); }
-.pull-3 { right: grid-span(3); }
-.pull-4 { right: grid-span(4); }
-.pull-5 { right: grid-span(5); }
-.pull-6 { right: grid-span(6); }
-.pull-7 { right: grid-span(7); }
-.pull-8 { right: grid-span(8); }
-.pull-9 { right: grid-span(9); }
-.pull-10 { right: grid-span(10); }
-.pull-11 { right: grid-span(11); }
-.pull-12 { right: grid-span(12); }
-
-.span-1 { width: grid-span(1); }
-.span-2 { width: grid-span(2); }
-.span-3 { width: grid-span(3); }
-.span-4 { width: grid-span(4); }
-.span-5 { width: grid-span(5); }
-.span-6 { width: grid-span(6); }
-.span-7 { width: grid-span(7); }
-.span-8 { width: grid-span(8); }
-.span-9 { width: grid-span(9); }
-.span-10 { width: grid-span(10); }
-.span-11 { width: grid-span(11); }
-.span-12 { width: grid-span(12); }
+	.col-#{$i} { @include grid-column($span); }
+	.push-#{$i} { left: $span; }
+	.pull-#{$i} { right: $span; }
+	.span-#{$i} { width: $span; }
+}
