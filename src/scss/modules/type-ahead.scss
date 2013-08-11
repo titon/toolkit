@@ -27,11 +27,15 @@
 		min-width: 200px;
 
 		a,
-		.divider {
+		li.heading {
 			padding: $padding / 2;
 			line-height: 100%;
 			display: block;
 			text-decoration: none;
+		}
+
+		li.heading {
+			font-weight: bold;
 		}
 	}
 }

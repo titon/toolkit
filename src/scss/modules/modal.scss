@@ -69,3 +69,7 @@
 .modal-error {
 	padding: $padding;
 }
+
+.modal-body {
+	@include content-spacing;
+}

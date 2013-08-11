@@ -10,10 +10,10 @@
 	<p>With headings.</p>
 
 	<ul class="dropdown show" style="position: static; margin: 0 auto;">
-		<li class="dropdown-heading">Heading</li>
+		<li class="heading">Heading</li>
 		<li><a href="">Another Action</a></li>
 		<li><a href="">Last Action</a></li>
-		<li class="dropdown-heading">Heading</li>
+		<li class="heading">Heading</li>
 		<li><a href="">Some Action</a></li>
 	</ul>
 

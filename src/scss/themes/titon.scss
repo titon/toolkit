@@ -101,6 +101,8 @@ var { background: $error-light; color: $error-dark; }
 				border-color: $gray-darkest;
 			}
 		}
+
+		.caret-right { display: none; }
 	}
 
 	li:last-child a {
@@ -142,29 +144,31 @@ var { background: $error-light; color: $error-dark; }
 .dropdown {
 	box-shadow: 5px 5px black(.25);
 
-	a {
-		@include transition(all .3s);
+	li {
+		a {
+			@include transition(all .3s);
 
-		.caret-right {
-			top: 2px;
+			.caret-right {
+				top: 2px;
+			}
+		}
+
+		&.heading {
+			color: $default;
+			font-size: .8rem;
+		}
+
+		&:hover > a {
+			background: $error;
+			color: #fff;
+
+			.caret-right { border-left-color: #fff; }
+		}
+
+		&:nth-child(odd) {
+			background: $gray-lightest;
 		}
 	}
-
-	li:hover > a {
-		background: $error;
-		color: #fff;
-
-		.caret-right { border-left-color: #fff; }
-	}
-
-	li:nth-child(odd) {
-		background: $gray-lightest;
-	}
-}
-
-.dropdown-heading {
-	color: $default;
-	font-size: .8rem;
 }
 
 .dropdown.dropdown--top {
@@ -182,7 +186,7 @@ var { background: $error-light; color: $error-dark; }
 
 	li {
 		&:nth-child(odd) > a { background: $gray-lightest; }
-		.divider { background: $gray-dark; }
+		&.heading { background: $gray-dark; }
 
 		> a {
 			@include transition(all .3s);

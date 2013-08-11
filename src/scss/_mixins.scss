@@ -178,3 +178,47 @@
 
 	@content;
 }
+
+@mixin field-style() {
+	&.has-error {
+		.input,
+		.select {
+			border-color: $error;
+
+			&:focus { box-shadow: 0 0 5px $error-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $error-dark;
+		}
+	}
+
+	&.has-warning {
+		.input,
+		.select {
+			border-color: $warning;
+
+			&:focus { box-shadow: 0 0 5px $warning-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $warning-dark;
+		}
+	}
+
+	&.has-success {
+		.input,
+		.select {
+			border-color: $success;
+
+			&:focus { box-shadow: 0 0 5px $success-light; }
+		}
+
+		.radio,
+		.checkbox {
+			color: $success-dark;
+		}
+	}
+}

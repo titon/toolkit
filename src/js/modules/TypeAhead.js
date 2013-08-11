@@ -322,7 +322,7 @@ Titon.TypeAhead = new Class({
 				results.push(null);
 
 				elements.push(
-					new Element('li').grab(new Element('span.divider', { text: category }))
+					new Element('li').addClass('heading').grab(new Element('span', { text: category }))
 				);
 			}
 

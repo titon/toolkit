@@ -11,79 +11,138 @@
 
 @import "../common";
 
-$gray: #969896;
-$blue: #81a2be;
-$yellow: #f0c674;
-$red: #cc6666;
-$green: #b5bd68;
+$gray-lightest: #72757b;
+$gray-light: #575b62;
+$gray: #373b41;
+$gray-dark: #282a2e;
+$gray-darkest: #1d1f21;
+
+$background-color: #1d1f21;
+$foreground-color: #c5c8c6;
+$middleground-color: #373b41;
+
+$default: #969896;
+$default-light: #e2e3e2;
+$default-dark: #515251;
+
+$info: #81a2be;
+$info-light: #d2e9f4;
+$info-dark: #45586d;
+
+$warning: #f0c674;
+$warning-light: #fdf7c5;
+$warning-dark: #b1753e;
+
+$success: #b5bd68;
+$success-light: #f1f4b8;
+$success-dark: #666d37;
+
+$error: #cc6666;
+$error-light: #f8b5b5;
+$error-dark: #7a3636;
+
+//-------------------- Layout --------------------//
 
 body {
-	color: #c5c8c6;
-	background: #1d1f21;
+	color: $foreground-color;
+	background: $background-color;
 }
 
 //-------------------- Typography --------------------//
 
-.caret-up { border-bottom-color: #fff; }
-.caret-down { border-top-color: #fff; }
-.caret-left { border-right-color: #fff; }
-.caret-right { border-left-color: #fff; }
-.x { color: #fff; }
+.caret-up { border-bottom-color: $foreground-color; }
+.caret-down { border-top-color: $foreground-color; }
+.caret-left { border-right-color: $foreground-color; }
+.caret-right { border-left-color: $foreground-color; }
+.x { color: $foreground-color; }
 
-blockquote { border-color: $blue; }
+.text-muted { color: $default; }
+.text-info { color: $info; }
+.text-error { color: $error; }
+.text-warning { color: $warning; }
+.text-success { color: $success; }
+
 
 a {
-	color: $blue;
+	color: $info;
 	text-decoration: none;
 
-	&:hover { color: tint($blue, 25%); }
+	&:hover { color: $info-light; }
 }
 
-.text-muted { color: $gray; }
-.text-info { color: $blue; }
-.text-error { color: $red; }
-.text-warning { color: $yellow; }
-.text-success { color: $green; }
+blockquote { border-color: $info; }
+blockquote cite { color: $default; }
 
-blockquote cite { color: $gray; }
+pre, code, var, kbd { color: $default-dark; }
+code { background: $info-light; color: $info-dark; }
+var { background: $error-light; color: $error-dark; }
 
 //-------------------- Layout --------------------//
 
 .table {
-	background: #282a2e;
+	background: $gray;
 
 	td, th {
-		border-color: #575b62;
+		border-color: $gray-light;
 	}
 
 	thead tr,
 	tfoot tr {
-		background: #4f535a;
+		background: $gray-light;
 
-		th { border-color: tint(#4f535a, 20%); }
+		th { border-color: $gray-lightest; }
 	}
 
 	tbody tr {
-		background: #282a2e;
+		background: $gray;
 
-		&:nth-child(odd) { background: #373b41; }
+		&:nth-child(odd) { background: $gray-dark; }
 	}
 }
 
 .table.table--hover {
-	tbody tr:hover { background: #1d1f21; }
+	tbody tr:hover { background: $gray-darkest; }
 }
 
-pre, code, kbd { color: #282a2e; }
-code { background: tint($blue, 60%); color: shade($blue, 25%); }
-var { background: tint($red, 60%); color: shade($red, 25%); }
+.input,
+.select {
+	background: $gray;
+	border-color: $gray-light;
+	color: $foreground-color;
+
+	&:hover { border-color: $gray-lightest; }
+	&:focus { border-color: $info; box-shadow: 0 0 5px $info-light; }
+
+	@include disabled-state {
+		color: $default;
+		border-color: $gray;
+	}
+
+	&[readonly] {
+		color: $default;
+		border-color: $gray;
+		box-shadow: none;
+	}
+
+	// heights required to match default button sizes
+	line-height: 38px;
+	height: 38px;
+	padding: 0 8px;
+}
+
+.select { padding: 8px; }
+.input-static { padding: 0; }
+
+.field {
+	@include field-style;
+}
 
 //-------------------- Accordion --------------------//
 
 .accordion {
-	border: 1px solid white(.75);
+	border-color: $gray-light;
 	border-radius: 3px;
-	background: #1d1f21;
+	background: $gray-dark;
 
 	li {
 		&:first-child .accordion-head {
@@ -102,45 +161,63 @@ var { background: tint($red, 60%); color: shade($red, 25%); }
 			}
 		}
 
-		&.is-active .accordion-head { color: $green; }
+		&.is-active .accordion-head {
+			background: $gray-light;
+			border-color: $gray-lightest;
+			color: $success;
+		}
 	}
 }
 
 .accordion-head {
-	font-size: .9rem;
-	font-weight: bold;
-	color: $blue;
-	background: #0f1214;
-	border-bottom: 1px solid #282a2e;
+	color: $info;
+	background: $gray;
+	border-color: $gray-light;
 	padding: 1rem;
 	text-align: center;
 	cursor: pointer;
+	@include transition(all .3s);
 }
 
 .accordion-body { padding: $padding; }
 
 //-------------------- Alert --------------------//
 
-@mixin alert-style($color) {
-	background-color: tint($color, 60%);
-	border: 1px solid $color;
-	color: shade($color, 65%);
-
-	hr { border-color: $color; }
-
-	a { color: shade($color, 75%); }
-	a:hover { color: shade($color, 35%); }
-}
-
 .alert {
 	text-shadow: 0 1px 0 white(.50);
 	box-shadow: 0 0 3px #000;
-	@include alert-style($gray);
+	@include alert-style($default-light, $default-dark);
 
-	&.info { @include alert-style($blue); }
-	&.warning { @include alert-style($yellow); }
-	&.error { @include alert-style($red); }
-	&.success { @include alert-style($green); }
+	&.info { @include alert-style($info-light, $info-dark); }
+	&.warning { @include alert-style($warning-light, $warning-dark); }
+	&.error { @include alert-style($error-light, $error-dark); }
+	&.success { @include alert-style($success-light, $success-dark); }
+}
+
+//-------------------- Button --------------------//
+
+.breadcrumbs {
+	background: $gray;
+	border-color: $gray-light;
+
+	a {
+		padding-right: 0 !important;
+
+		.caret-right {
+			top: -1px;
+			margin-left: $medium-padding;
+			opacity: .5;
+			display: inline-block;
+		}
+	};
+
+	&.small a .caret-right { margin-left: $small-padding; }
+	&.large a .caret-right { margin-left: $large-padding; }
+
+	li:last-child a {
+		color: $default;
+		.caret-right { display: none; }
+	}
 }
 
 //-------------------- Button --------------------//
@@ -148,36 +225,40 @@ var { background: tint($red, 60%); color: shade($red, 25%); }
 $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 @mixin button-style($color) {
-	color: shade($color, 90%);
+	color: shade($color, 75%);
 	background: $color;
+	border: 1px solid #000;
 	@include background-image(linear-gradient($color, shade($color, 30%)));
 
 	@include active-state {
+		color: #000;
 		background: tint($color, 30%);
 		@include background-image(linear-gradient(tint($color, 30%), $color));
 	}
 
 	@include disabled-state { background: $color; }
-	&:focus, &:active { background: $color; }
+	&:active { background: $color; }
 }
 
 .button {
 	font-weight: bold;
 	text-shadow: 0 1px white(.35);
 	box-shadow: $button-shadow;
+	@include transition(all .3s);
 
+	&.small, .small & { text-shadow: 0 1px white(.25); }
 	&.large, .large & { font-weight: normal; }
 
-	@include button-style($gray);
+	@include button-style($default);
 	@include disabled-state {
 		opacity: .35;
 		z-index: 0;
 	}
 
-	&.info { @include button-style($blue); }
-	&.warning { @include button-style($yellow); }
-	&.error { @include button-style($red); }
-	&.success { @include button-style($green); }
+	&.info { @include button-style($info); }
+	&.warning { @include button-style($warning); }
+	&.error { @include button-style($error); }
+	&.success { @include button-style($success); }
 }
 
 .button.visual-popout {
@@ -194,7 +275,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .pagination.pagination--grouped ul {
 	box-shadow: 0 0 3px #000;
 
-	.button {
+	li .button,
+	> .button {
 		box-shadow: 0 1px 0 white(0.5) inset;
 		border-left: 1px solid black(.35);
 		border-right: 1px solid black(.35);
@@ -202,10 +284,10 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 }
 
 .button-group {
-	li:first-child .button,
+	> li:first-child .button,
 	> .button:first-child { border-left: 0; }
 
-	li:last-child .button,
+	> li:last-child .button,
 	> .button:last-child { border-right: 0; }
 }
 
@@ -220,17 +302,11 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		border: 1px solid black(.35);
 	}
 
-	li:first-child .button,
+	> li:first-child .button,
 	> .button:first-child { border-top: 0; }
 
-	li:last-child .button,
+	> li:last-child .button,
 	> .button:last-child { border-bottom: 0; }
-}
-
-.button-group.button-group--justified {
-	a.button:not(:first-child) {
-		border-left: 0;
-	}
 }
 
 //-------------------- Label, Badge --------------------//
@@ -240,47 +316,47 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	color: #000;
 	box-shadow: 0 0 3px #000;
 	text-shadow: 0 1px white(.35);
-	background-color: $gray;
+	background-color: $default;
 
-	&.info { background-color: $blue; }
-	&.warning { background-color: $yellow; }
-	&.error { background-color: $red; }
-	&.success { background-color: $green; }
+	&.info { background-color: $info; }
+	&.warning { background-color: $warning; }
+	&.error { background-color: $error; }
+	&.success { background-color: $success; }
 }
 
 .label.label--left {
-	&:after { border-right-color: $gray; }
-	&.info:after { border-right-color: $blue; }
-	&.warning:after { border-right-color: $yellow; }
-	&.error:after { border-right-color: $red; }
-	&.success:after { border-right-color: $green; }
+	&:after { border-right-color: $default; }
+	&.info:after { border-right-color: $info; }
+	&.warning:after { border-right-color: $warning; }
+	&.error:after { border-right-color: $error; }
+	&.success:after { border-right-color: $success; }
 }
 
 .label.label--right {
-	&:after { border-left-color: $gray; }
-	&.info:after { border-left-color: $blue; }
-	&.warning:after { border-left-color: $yellow; }
-	&.error:after { border-left-color: $red; }
-	&.success:after { border-left-color: $green; }
+	&:after { border-left-color: $default; }
+	&.info:after { border-left-color: $info; }
+	&.warning:after { border-left-color: $warning; }
+	&.error:after { border-left-color: $error; }
+	&.success:after { border-left-color: $success; }
 }
 
-//-------------------- TypeAhead, Flyout --------------------//
+//-------------------- Dropdown, TypeAhead, Flyout --------------------//
 
+.dropdown,
 .flyout,
 .type-ahead {
 	border: 3px solid white(.75);
 	border-radius: 3px;
-	background: #1d1f21;
+	background: $gray-dark;
 	box-shadow: 0 0 3px #000;
 
 	li {
-		border-top: 1px solid #282a2e;
+		border-top: 1px solid $gray;
+		z-index: 0;
 
 		&:first-child { border: 0; }
 
 		a {
-			color: $blue;
-
 			.caret-right {
 				float: right;
 				margin-top: 3px;
@@ -290,36 +366,49 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		a:hover,
 		&.is-open > a,
 		&.is-active > a,
-		.divider {
-			background: #0f1214;
+		&:hover > a {
+			background: $gray-darkest;
 			color: #fff;
+		}
+
+		&.heading {
+			background: $gray;
+			font-size: .9em;
+			color: #fff;
+		}
+
+		&.divider {
+			background: $gray-darkest;
+			border-top: 1px solid $gray;
+			height: 10px;
+			margin: 0;
 		}
 	}
 }
 
 .type-ahead-desc {
 	display: block;
-	color: $gray;
+	color: $default;
 	font-size: .7rem;
 }
 
 .type-ahead-highlight {
-	color: $yellow;
+	color: $warning;
 }
 
 //-------------------- Modal --------------------//
 
 .modal {
 	.close {
-		top: 1.5rem;
-		right: 2rem;
+		top: .9rem;
+		right: .9rem;
 	}
 }
 
-.modal-inner {
+.modal-outer {
 	border: 10px solid white(.75);
 	border-radius: 3px;
-	background: #1d1f21;
+	background: $gray-dark;
 	margin: 10px;
 }
 
@@ -327,13 +416,13 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .modal-foot,
 .modal-loading,
 .modal-error {
-	background: #0f1214;
+	background: $gray-darkest;
 }
 
 .modal-head {
 	font-size: 1rem;
 	font-weight: normal;
-	color: $blue;
+	color: $info;
 }
 
 .modal-foot {
@@ -341,14 +430,8 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 }
 
 .modal-body {
-	border-top: 1px solid #282a2e;
-	border-bottom: 1px solid #282a2e;
-
-	p {
-		margin: 1rem 0 0 0;
-
-		&:first-child { margin: 0; }
-	}
+	border-top: 1px solid $gray;
+	border-bottom: 1px solid $gray;
 }
 
 //-------------------- Popover --------------------//
@@ -356,21 +439,21 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .popover {
 	border: 3px solid white(.75);
 	border-radius: 3px;
-	background: #1d1f21;
+	background: $gray-dark;
 	box-shadow: 0 0 3px #000;
 	margin: 10px;
 
 	.popover-head {
 		font-size: 1rem;
 		font-weight: bold;
-		color: $blue;
-		background: #0f1214;
-		border-bottom: 1px solid #282a2e;
+		color: $info;
+		background: $gray-darkest;
+		border-bottom: 1px solid $gray;
 	}
 
 	&.center-left .popover-arrow {
 		right: -19px;
-		border-left-color: black(.25);
+		border-left-color: $gray-darkest;
 
 		&:after {
 			margin-left: -2px;
@@ -380,7 +463,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 	&.center-right .popover-arrow {
 		left: -19px;
-		border-right-color: #1d1f21;
+		border-right-color: $gray-darkest;
 
 		&:after {
 			margin-left: 2px;
@@ -390,7 +473,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 	&.top-center .popover-arrow {
 		bottom: -19px;
-		border-top-color: #1d1f21;
+		border-top-color: $gray-darkest;
 
 		&:after {
 			margin-top: -2px;
@@ -400,7 +483,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 	&.bottom-center .popover-arrow {
 		top: -19px;
-		border-bottom-color: #1d1f21;
+		border-bottom-color: $gray-darkest;
 
 		&:after {
 			margin-top: 2px;

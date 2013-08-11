@@ -8,7 +8,7 @@
 
 /**
  *	<ul class="dropdown">
- *		<li class="dropdown-heading>Heading</li>
+ *		<li class="heading>Heading</li>
  *		<li><a href="">Some Action</a></li>
  *		<li><a href="">Some Action</a></li>
  *		<li class="divider"></li>
@@ -33,10 +33,9 @@
 	.dropdown {
 		display: block;
 		top: 0;
-		left: auto;
-		right: -85%;
+		left: 85%;
 		z-index: 1;
-		@include transition(right .3s, opacity .3s);
+		@include transition(left .3s, opacity .3s);
 	}
 
 	li {
@@ -69,8 +68,13 @@
 			.dropdown {
 				visibility: visible;
 				opacity: 1;
-				right: -100%;
+				left: 100%;
 			}
+		}
+
+		&.heading {
+			font-weight: bold;
+			padding: $padding / 2;
 		}
 	}
 
@@ -85,11 +89,6 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-}
-
-.dropdown-heading {
-	font-weight: bold;
-	padding: $padding / 2;
 }
 
 //-------------------- Modifiers --------------------//

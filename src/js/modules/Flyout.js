@@ -217,6 +217,7 @@ Titon.Flyout = new Class({
 
 			for (var i = 0, l = group.length, child; i < l; i++) {
 				child = group[i];
+				li = new Element('li');
 
 				// Build tag
 				if (child.url) {
@@ -227,7 +228,9 @@ Titon.Flyout = new Class({
 				} else {
 					tag = new Element('span', {
 						text: child.title
-					}).addClass('divider');
+					});
+
+					li.addClass('heading');
 				}
 
 				if (child.attributes) {
@@ -238,8 +241,6 @@ Titon.Flyout = new Class({
 				new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
 
 				// Build list
-				li = new Element('li');
-
 				if (child.className) {
 					li.addClass(child.className);
 				}
