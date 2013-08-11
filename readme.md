@@ -1,4 +1,4 @@
-# Titon v0.3.0 #
+# Titon v0.4.0 #
 
 Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -33,13 +33,13 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * `Modal` - Displays dynamic modals that will display above the content
 * `Popover` - Displays dynamic notification elements over an element
 * `Tabs` - Provides tabbed support to an element containing navigation tabs and sections
-* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing
 
 #### Utilities ####
 * `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
 * `Pin` - Pin an element in a container that stays within the viewport while scrolling
+* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 
 #### Extensions ####
 Titon also provides classes that build upon MooTools itself. These classes do not require the Titon library.
