@@ -15,7 +15,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
 			<div class="row">
 
-				<?php $count = 3;
+				<?php $count = 2;
 				foreach ($sizes as $size => $sizeTitle) {
 					$class = $shape . ' ' . $size;
 					$title = $shapeTitle . ' ' . $sizeTitle; ?>

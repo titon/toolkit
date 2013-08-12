@@ -11,15 +11,24 @@
  */
 form { text-align: left; }
 
-input[type="file"] { display: inline-block; }
+fieldset {
+	padding: $padding 0;
+	margin: 0;
+	border: none;
+	border-top: 1px solid $gray-dark;
+}
+
+legend {
+	font-size: 1.3rem;
+	padding-right: $padding;
+}
 
 select[multiple],
 select[size] { height: auto; }
 
 //-------------------- Inputs --------------------//
 
-.input,
-.select {
+.input {
 	display: inline-block;
 	vertical-align: middle;
 	background: $gray-lightest;
@@ -44,8 +53,15 @@ select[size] { height: auto; }
 	}
 }
 
-.select { padding: 4px; } // fixes vertical alignment
-.select[multiple] { min-height: 150px; max-height: 500px; }
+.input[type="file"] {
+	display: inline-block;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+select.input { padding: 4px; } // fixes vertical alignment
+select.input[multiple] { min-height: 150px; max-height: 500px; }
 
 textarea.input {
 	line-height: 135%;
@@ -105,19 +121,15 @@ textarea.input {
 //-------------------- Modifiers --------------------//
 
 .form--horizontal {
-	.field {
-		@include grid-row;
-	}
+	.field { @include grid-row; }
 
 	.field-label {
 		text-align: right;
 		margin: 0;
-		padding-top: $padding / 1.25;
+		padding-top: $padding / 1.5;
 	}
 
-	.field-col {
-		margin-left: $margin;
-	}
+	.field-col { margin-left: $margin; }
 }
 
 .form--inline {
@@ -129,4 +141,5 @@ textarea.input {
 	}
 
 	.field-label { margin: 0 ($margin / 2) 0 0; }
+	.field-help { display: none; }
 }

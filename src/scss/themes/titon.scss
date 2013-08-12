@@ -7,7 +7,7 @@
 @import "../common";
 
 body {
-	font: normal 90%/2rem Verdana, Arial, sans-serif;
+	font: normal 90%/1.75rem Verdana, Arial, sans-serif;
 	background: $background-color;
 	color: $foreground-color;
 }
@@ -15,10 +15,10 @@ body {
 //-------------------- Typography --------------------//
 
 a {
-	color: $error;
+	color: shade($info, 15%);
 	text-decoration: none;
 
-	&:hover { color: $error-dark; }
+	&:hover { color: $info-dark; }
 }
 
 blockquote cite { color: $default; }
@@ -29,7 +29,6 @@ code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
 
 .input,
-.select,
 .input-static {
 	// heights required to match default button sizes
 	line-height: 40px;
@@ -37,17 +36,17 @@ var { background: $error-light; color: $error-dark; }
 	padding: 0 8px;
 }
 
-.select { padding: 8px; }
+select.input { padding: 8px; }
 .input-static { padding: 0; }
 
 //-------------------- Accordion --------------------//
 
 .accordion-head {
-	@include transition(all .3s);
+	@include transition(all .15s);
 
 	.is-active & {
-		background: $error;
-		border-color: $error-dark;
+		background: $info;
+		border-color: $info-dark;
 		color: #fff;
 	}
 }
@@ -73,17 +72,18 @@ var { background: $error-light; color: $error-dark; }
 		line-height: 45px;
 		padding: 0 30px 0 20px;
 		border-right: 0;
+		outline: none;
 
 		&:before,
 		&:after {
 			content: "";
 			position: absolute;
-			height: 31px;
-			width: 31px;
-			border-right: 2px solid $gray-lightest;
-			border-bottom: 2px solid $gray-lightest;
+			height: 32px;
+			width: 32px;
+			border-right: 1px solid $gray-lightest;
+			border-bottom: 1px solid $gray-lightest;
 			top: 6px;
-			right: 0;
+			right: 2px;
 			z-index: 1;
 			@include transform(rotate(-45deg));
 		}
@@ -93,7 +93,7 @@ var { background: $error-light; color: $error-dark; }
 			width: 32px;
 			border-right: 1px solid $gray-dark;
 			border-bottom: 1px solid $gray-dark;
-			right: 3px;
+			right: 4px;
 		}
 
 		&:hover {
@@ -111,13 +111,13 @@ var { background: $error-light; color: $error-dark; }
 
 	&.small {
 		a { height: 30px; line-height: 30px; padding: 0 25px 0 15px; }
-		a:before { height: 21px; width: 21px; top: 4px; }
-		a:after { height: 20px; width: 20px; top: 4px; }
+		a:before { height: 22px; width: 22px; top: 4px; }
+		a:after { height: 22px; width: 22px; top: 4px; }
 	}
 
 	&.large {
 		a { height: 50px; line-height: 50px; padding: 0 30px 0 20px; }
-		a:before { height: 41px; width: 41px; top: 4px; }
+		a:before { height: 40px; width: 40px; top: 4px; }
 		a:after { height: 40px; width: 40px; top: 4px; }
 	}
 }
@@ -126,7 +126,7 @@ var { background: $error-light; color: $error-dark; }
 
 .button {
 	color: #fff;
-	@include transition(all .3s);
+	@include transition(all .2s);
 	@include button-style($default, $default-light, $default-dark);
 
 	&:active {
@@ -146,7 +146,7 @@ var { background: $error-light; color: $error-dark; }
 
 	li {
 		a {
-			@include transition(all .3s);
+			@include transition(background .15s);
 
 			.caret-right {
 				top: 2px;
@@ -159,7 +159,7 @@ var { background: $error-light; color: $error-dark; }
 		}
 
 		&:hover > a {
-			background: $error;
+			background: $info;
 			color: #fff;
 
 			.caret-right { border-left-color: #fff; }
@@ -189,13 +189,13 @@ var { background: $error-light; color: $error-dark; }
 		&.heading { background: $gray-dark; }
 
 		> a {
-			@include transition(all .3s);
+			@include transition(all .15s);
 		}
 
 		> a:hover,
 		&.is-open > a,
 		&.is-active > a {
-			background: $error;
+			background: $info;
 			color: #fff;
 
 			.caret-right { border-left-color: #fff; }
@@ -209,7 +209,7 @@ var { background: $error-light; color: $error-dark; }
 	li a:hover,
 	li.is-active a {
 		.type-ahead-desc { color: $gray-lightest; }
-		.type-ahead-highlight{ background: $error-light; }
+		.type-ahead-highlight{ background: $info-light; color: $info-dark; }
 	}
 }
 
@@ -339,7 +339,7 @@ var { background: $error-light; color: $error-dark; }
 }
 
 .tooltip-head {
-	color: $error;
+	color: $info;
 	font-weight: bold;
 	margin-bottom:  $margin / 2;
 }

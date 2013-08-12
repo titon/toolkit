@@ -15,8 +15,8 @@
 	border-collapse: collapse;
 
 	th, td {
-		padding: $padding;
-		line-height: 100%;
+		padding: $padding / 1.3;
+		line-height: 110%;
 		vertical-align: top;
 		border: 1px solid $gray-dark;
 		text-align: left;
@@ -42,12 +42,18 @@
 
 		&:nth-child(odd) { background: $gray-light; }
 	}
+
+	tbody tr.divider {
+		background: $gray-dark;
+
+		td { border-color: shade($gray-dark, 10%); }
+	}
 }
 
 //-------------------- Modifiers --------------------//
 
 .table.table--hover {
-	tbody tr:hover { background: #fff; }
+	tbody tr:not(.divider):hover { background: #fff; }
 }
 
 .table.table--compact {

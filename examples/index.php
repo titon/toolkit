@@ -1,6 +1,6 @@
 <?php
 
-$assets = array(
+$components = array(
 	'base' => array(
 		'title' => 'Base',
 		'css' => 'layout/typography.css',
@@ -140,30 +140,30 @@ $visuals = array(
 	'visual-popout' => 'Popout'
 );
 
-// Detect theme and asset
-$assetKey = 'base';
+// Detect theme and component
+$componentKey = 'base';
 $themeKey = '';
 
-if (isset($_GET['asset']) && isset($assets[$_GET['asset']])) {
-	$assetKey = $_GET['asset'];
+if (isset($_GET['component']) && isset($components[$_GET['component']])) {
+	$componentKey = $_GET['component'];
 }
 
 if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
 	$themeKey = $_GET['theme'];
 }
 
-$asset = $assets[$assetKey];
+$component = $components[$componentKey];
 $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Titon - Toolkit - <?php echo $asset['title']; ?></title>
+	<title>Titon - Toolkit - <?php echo $component['title']; ?></title>
 	<link href="../src/css/layout/base.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
 
-	<?php if (!empty($asset['css'])) {
-		foreach ((array) $asset['css'] as $css) { ?>
+	<?php if (!empty($component['css'])) {
+		foreach ((array) $component['css'] as $css) { ?>
 			<link href="../src/css/<?php echo $css; ?>" rel="stylesheet" type="text/css">
 		<?php }
 	}
@@ -178,24 +178,24 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
 	<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
 	<script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
 
-	<?php if (!empty($asset['js'])) { ?>
+	<?php if (!empty($component['js'])) { ?>
 		<script type="text/javascript" src="../src/js/Titon.js"></script>
 		<script type="text/javascript" src="../src/js/Component.js"></script>
 
-		<?php foreach ((array) $asset['js'] as $js) { ?>
+		<?php foreach ((array) $component['js'] as $js) { ?>
 			<script type="text/javascript" src="../src/js/<?php echo $js; ?>"></script>
 		<?php }
 	} ?>
 </head>
 <body class="<?php echo $themeKey; ?>">
 	<div id="wrapper" class="skeleton">
-		<?php include sprintf('%s.php', $assetKey); ?>
+		<?php include sprintf('%s.php', $componentKey); ?>
 
 		<form action="" method="get" class="test-switcher">
-			<select name="asset">
+			<select name="component">
 				<option value="">-- Component --</option>
-				<?php foreach ($assets as $key => $value) { ?>
-					<option value="<?php echo $key; ?>"<?php if ($key === $assetKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+				<?php foreach ($components as $key => $value) { ?>
+					<option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
 				<?php } ?>
 			</select>
 

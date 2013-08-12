@@ -14,9 +14,11 @@ Titon.Toggle = new Class({
 	 * Default options.
 	 *
 	 *	getTarget	- (string) Attribute to fetch the target ID from
+	 *	hideOpened	- (bool) Hide other dropdowns that are currently open
 	 */
 	options: {
-		getTarget: 'data-toggle'
+		getTarget: 'data-toggle',
+		hideOpened: true
 	},
 
 	/**
@@ -33,7 +35,26 @@ Titon.Toggle = new Class({
 
 		this.disable().enable();
 
+		window.addEvent('click', this.hide.bind(this));
+
 		this.fireEvent('init');
+	},
+
+	/**
+	 * Toggle node class.
+	 */
+	hide: function() {
+		this.parent(function() {
+			this.node.removeClass(Titon.options.activeClass);
+		}.bind(this));
+	},
+
+	/**
+	 * Toggle node class.
+	 */
+	show: function(node) {
+		this.parent(node);
+		this.node.addClass(Titon.options.activeClass);
 	},
 
 	/**
@@ -61,14 +82,15 @@ Titon.Toggle = new Class({
 			return;
 		}
 
+		if (this.options.hideOpened && this.node && this.node !== node) {
+			this.hide();
+		}
+
 		this.element = element;
 
 		if (!this.isVisible()) {
-			node.addClass(Titon.options.activeClass);
 			this.show(node);
-
 		} else {
-			node.removeClass(Titon.options.activeClass);
 			this.hide();
 		}
 	}

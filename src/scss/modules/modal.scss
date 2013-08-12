@@ -42,11 +42,6 @@
 	&.is-loading .close { display: none; }
 }
 
-// Necessary
-.modal.hide {
-	display: none;
-}
-
 // Used for animations, should also contain the styles
 .modal-outer {
 	position: relative;

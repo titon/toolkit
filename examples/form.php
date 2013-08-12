@@ -2,6 +2,8 @@
 
 <div class="example">
 	<form action="" method="get">
+		<fieldset>
+
 		<div class="field">
 			<label class="field-label" for="i1">Text</label>
 			<input id="i1" type="text" class="input" name="text">
@@ -35,7 +37,7 @@
 
 		<div class="field">
 			<label class="field-label" for="i6">File</label>
-			<input id="i6" type="file" name="file">
+			<input id="i6" type="file" class="input" name="file">
 		</div>
 
 		<div class="field">
@@ -48,9 +50,14 @@
 			<input id="i8" type="search" class="input" name="search">
 		</div>
 
+		</fieldset>
+
+		<fieldset>
+			<legend>Selects</legend>
+
 		<div class="field">
 			<label class="field-label" for="i9">Select</label>
-			<select id="i9" class="select" name="select">
+			<select id="i9" class="input" name="select">
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -59,7 +66,7 @@
 
 		<div class="field">
 			<label class="field-label" for="i10">Select + Optgroup</label>
-			<select id="i10" class="select" name="select_group">
+			<select id="i10" class="input" name="select_group">
 				<optgroup label="Front-end">
 					<option value="">CSS</option>
 					<option value="">HTML</option>
@@ -75,7 +82,7 @@
 
 		<div class="field">
 			<label class="field-label" for="i11">Select + Multiple</label>
-			<select id="i11" class="select" name="select_multi" multiple>
+			<select id="i11" class="input" name="select_multi" multiple>
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -84,6 +91,11 @@
 				<option value="">Ruby</option>
 			</select>
 		</div>
+
+		</fieldset>
+
+		<fieldset>
+			<legend>Others</legend>
 
 		<div class="field">
 			<label class="field-label" for="i12">Textarea</label>
@@ -103,6 +115,8 @@
 			<button type="submit" class="button success">Submit</button>
 			<button type="reset" class="button">Reset</button>
 		</div>
+
+		</fieldset>
 	</form>
 </div>
 
@@ -124,7 +138,7 @@
 
 		<div class="field">
 			<label class="field-label" for="i9d">Select + Disabled</label>
-			<select id="i9d" class="select" name="select" disabled>
+			<select id="i9d" class="input" name="select" disabled>
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -151,7 +165,7 @@
 
 		<div class="field has-error">
 			<label class="field-label" for="s2">Select</label>
-			<select id="s2" class="select" name="select">
+			<select id="s2" class="input" name="select">
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -178,7 +192,7 @@
 
 		<div class="field has-warning is-required">
 			<label class="field-label" for="w2">Select</label>
-			<select id="w2" class="select" name="select">
+			<select id="w2" class="input" name="select">
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -205,7 +219,7 @@
 
 		<div class="field has-success is-required">
 			<label class="field-label" for="s2">Select</label>
-			<select id="s2" class="select" name="select">
+			<select id="s2" class="input" name="select">
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
@@ -238,6 +252,9 @@
 	<p>Utilizes the grid component and its columns to build the layout.</p>
 
 	<form action="" method="get" class="form--horizontal">
+		<fieldset>
+			<legend>Horizontal</legend>
+
 		<div class="field">
 			<label class="field-label col-4" for="h1">Text</label>
 			<div class="field-col col-7">
@@ -255,7 +272,7 @@
 		<div class="field">
 			<label class="field-label col-4" for="h2">Select</label>
 			<div class="field-col col-7">
-				<select id="h2" class="select" name="select">
+				<select id="h2" class="input" name="select">
 					<option value="">CSS</option>
 					<option value="">HTML</option>
 					<option value="">JavaScript</option>
@@ -286,6 +303,8 @@
 			<button type="submit" class="button success">Submit</button>
 			<button type="reset" class="button">Reset</button>
 		</div>
+
+		</fieldset>
 	</form>
 </div>
 
@@ -305,7 +324,7 @@
 
 		<div class="field">
 			<label class="field-label" for="n2">Select</label>
-			<select id="n2" class="select" name="select">
+			<select id="n2" class="input" name="select">
 				<option value="">CSS</option>
 				<option value="">HTML</option>
 				<option value="">JavaScript</option>
