@@ -13,19 +13,11 @@ The custom build file will be compiled and written to the `build` folder. It's a
 
 The full list of available components can be found in the `Gruntfile.js` file.
 
-### Effects ###
-
-By default, componenet effects and animations are not included in the output file. An effect is optional functionality that can be added onto a component.
-
-To specify a list of effects, pass a comma separated list of component names to the grunt command line.
-
-	grunt --components=tooltip,modal,buttonGroup --effects=buttonGroup
-
-The list of available components can be found under the `effects` key in the components list.
-
 ### Themes ###
 
-Like the other options, pass the name of the theme to include in the output.
+By default no theme is generated. This allows the use of default component functionality with no aesthetics applied.
+
+To specify a theme, use the theme option in the command line.
 
 	grunt --theme=titon
 

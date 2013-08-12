@@ -24,7 +24,7 @@ $components = array(
 	),
 	'button-group' => array(
 		'title' => 'Button Group',
-		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css', 'ui/dropdown.css')
+		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/dropdown.css')
 	),
 	'code' => array(
 		'title' => 'Code',
@@ -54,7 +54,7 @@ $components = array(
 	),
 	'label-badge' => array(
 		'title' => 'Label & Badge',
-		'css' => array('ui/label-badge.css', 'ui/effects/label.css')
+		'css' => array('ui/label-badge.css')
 	),
 	'lazy-load' => array(
 		'title' => 'Lazy Load',
@@ -62,12 +62,12 @@ $components = array(
 	),
 	'modal' => array(
 		'title' => 'Modal',
-		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css', 'modules/effects/modal.css'),
+		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),
 		'js' => array('modules/Blackout.js', 'modules/Modal.js')
 	),
 	'pagination' => array(
 		'title' => 'Pagination',
-		'css' => array('ui/button.css', 'ui/pagination.css', 'ui/effects/pagination.css')
+		'css' => array('ui/button.css', 'ui/pagination.css')
 	),
 	'pin' => array(
 		'title' => 'Pin',
@@ -76,7 +76,7 @@ $components = array(
 	),
 	'popover' => array(
 		'title' => 'Popover',
-		'css' => array('ui/button.css', 'modules/popover.css', 'modules/effects/popover-tooltip.css'),
+		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/popover.css'),
 		'js' => array('modules/Tooltip.js', 'modules/Popover.js')
 	),
 	'table' => array(
@@ -85,12 +85,12 @@ $components = array(
 	),
 	'tabs' => array(
 		'title' => 'Tabs',
-		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css', 'modules/tabs.css', 'modules/effects/tabs.css'),
+		'css' => array('ui/button.css', 'ui/button-group.css', 'modules/tabs.css', 'layout/grid.css'),
 		'js' => array('modules/Tabs.js')
 	),
 	'tooltip' => array(
 		'title' => 'Tooltip',
-		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/effects/popover-tooltip.css'),
+		'css' => array('ui/button.css', 'modules/tooltip.css'),
 		'js' => array('modules/Tooltip.js')
 	),
 	'type-ahead' => array(

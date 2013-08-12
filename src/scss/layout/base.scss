@@ -9,7 +9,7 @@
 // Use normalize
 @import "../vendor/normalize";
 
-// Use border-box
+// Use border-box for everything
 * { @include box-sizing(border-box); }
 
 // Alignment

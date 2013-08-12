@@ -9,6 +9,7 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Flyout module.
  */
+
 .flyout {
 	position: absolute;
 	top: 0;
@@ -18,7 +19,7 @@
 	visibility: hidden;
 	background: $gray;
 	border: 1px solid $gray-dark;
-	@include box-sizing("content-box"); // required for multi columns
+	@include box-sizing(content-box); // required by MooTools for multi columns
 	@include transition(opacity 0.3s);
 
 	ul {

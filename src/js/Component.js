@@ -103,7 +103,7 @@ Titon.Component = new Class({
 			if (typeOf(options.templateFrom) === 'element') {
 				element = options.templateFrom;
 			} else {
-				element = document.getElement(options.templateFrom);
+				element = document.id(options.templateFrom.remove('#'));
 			}
 
 			// From a string
@@ -421,7 +421,7 @@ Titon.Component = new Class({
 
 		var options = this.options,
 			event = (this.options.mode === 'click' ? 'click' : 'mouseenter') + ':relay(' + this.query + ')',
-			context = $(options.context || document.body);
+			context = document.id(options.context || document.body);
 
 		if (on) {
 			context.addEvent(event, this._show);

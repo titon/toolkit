@@ -18,6 +18,7 @@
  *		</li>
  *	</ul>
  */
+
 .accordion,
 .accordion li {
 	list-style: none;
@@ -43,13 +44,14 @@
 	}
 }
 
+// Style this
 .accordion-body {
 	padding: $padding;
 
 	@include content-spacing;
 }
 
-// Inner is used for animations
+// Inner is used for animations, do not style it!
 .accordion-inner {
 	overflow: hidden;
 	position: relative;

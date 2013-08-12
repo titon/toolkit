@@ -55,7 +55,6 @@ module.exports = function(grunt) {
 		},
 		buttonGroup: {
 			css: ['ui/button-group.css'],
-			effects: ['ui/effects/button-group.css'],
 			require: ['button']
 		},
 		cache: {
@@ -82,7 +81,6 @@ module.exports = function(grunt) {
 		},
 		labelBadge: {
 			css: ['ui/label-badge.css'],
-			effects: ['ui/effects/label.css'],
 			require: ['base']
 		},
 		lazyLoad: {
@@ -94,12 +92,10 @@ module.exports = function(grunt) {
 			css: ['modules/modal.css'],
 			js: ['modules/Modal.js'],
 			moo: ['More/Drag'],
-			effects: ['modules/effects/modal.css'],
 			require: ['base', 'blackout']
 		},
 		pagination: {
 			css: ['ui/pagination.css'],
-			effects: ['ui/effects/pagination.css'],
 			require: ['base', 'button']
 		},
 		pin: {
@@ -110,13 +106,11 @@ module.exports = function(grunt) {
 		popover: {
 			css: ['modules/popover.css'],
 			js: ['modules/Popover.js'],
-			effects: ['modules/effects/popover-tooltip.css'],
 			require: ['base', 'tooltip']
 		},
 		tabs: {
 			css: ['modules/tabs.css'],
 			js: ['modules/Tabs.js'],
-			effects: ['modules/effects/tabs.css'],
 			require: ['base']
 		},
 		timers: {
@@ -131,7 +125,6 @@ module.exports = function(grunt) {
 			css: ['modules/tooltip.css'],
 			js: ['modules/Tooltip.js'],
 			moo: ['More/Element.Event.Pseudos', 'More/Element.Position'],
-			effects: ['modules/effects/popover-tooltip.css'],
 			require: ['base']
 		},
 		typeAhead: {
@@ -154,11 +147,9 @@ module.exports = function(grunt) {
 	 * Determine which components we should package.
 	 *
 	 * The --components= parameter can be used to filter down components.
-	 * The --effects= parameter can be used to include component effects.
 	 * The --theme= parameter can be used to include a theme.
 	 */
 	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
-		useEffects = grunt.option('effects') ? grunt.option('effects').split(',') : [],
 		useTheme = grunt.option('theme') || null,
 		dependencies = {};
 
@@ -175,14 +166,6 @@ module.exports = function(grunt) {
 		}
 
 		_.forOwn(component, function(value, key) {
-			if (key === 'effects') {
-				if (!_.contains(useEffects, name)) {
-					return;
-				}
-
-				key = 'css';
-			}
-
 			if (key === 'provide') {
 				value.forEach(addDependency);
 

@@ -17,12 +17,13 @@
  *		</ol>
  *	</nav>
  */
+
 .breadcrumbs {
 	text-align: left;
 	margin: $margin 0;
 	background: $gray;
 	border: 1px solid $gray-dark;
-	border-radius: 2px;
+	border-radius: $round;
 
 	ul, ol {
 		margin: 0;

@@ -251,7 +251,7 @@ var { background: $error-light; color: $error-dark; }
 //-------------------- Popover --------------------//
 
 .popover {
-	margin: $margin;
+	margin: 15px;
 	background: #fff;
 	line-height: 115%;
 	border-radius: $round;
@@ -316,7 +316,7 @@ var { background: $error-light; color: $error-dark; }
 	background: black(.70);
 	color: #fff;
 	border-radius: $round;
-	margin: 0;
+	margin: 10px;
 	line-height: 115%;
 
 	&.top-center .tooltip-arrow { border-top-color: black(.70); }

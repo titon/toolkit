@@ -124,6 +124,11 @@ var { background: $error-light; color: $error-dark; }
 	}
 }
 
+.input-addon {
+	border-color: $gray-light;
+	background-color: $gray-dark;
+}
+
 .field {
 	@include field-style;
 }

@@ -86,7 +86,7 @@ Titon.TypeAhead = new Class({
 		this.parent(id, options);
 
 		// Store the input
-		this.input = $(id);
+		this.input = document.id(id);
 
 		if (!this.input) {
 			return;

@@ -10,6 +10,7 @@
  *	<span class="badge success">15</span>
  *	<span class="label error">Required</span>
  */
+
 .badge,
 .label {
 	@include reset-inline-block;
@@ -31,4 +32,48 @@
 
 .badge {
 	border-radius: 10px;
+}
+
+//-------------------- Modifiers --------------------//
+
+.label.label--left {
+	border-top-left-radius: 1px;
+	border-bottom-left-radius: 1px;
+	padding-left: 2px;
+	margin-left: 10px;
+
+	&:after {
+		top: 0;
+		right: 100%;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		border: .8em solid transparent;
+		border-right-color: #282a2e;
+	}
+}
+
+.label.label--right {
+	border-top-right-radius: 1px;
+	border-bottom-right-radius: 1px;
+	padding-right: 2px;
+	margin-right: 10px;
+
+	&:after {
+		top: 0;
+		left: 100%;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		border: .8em solid transparent;
+		border-left-color: #282a2e;
+	}
+}
+
+// Fix scaling issues for large headings
+h1 .label.label--left:after,
+h1 .label.label--right:after {
+	border-width: .70em;
 }

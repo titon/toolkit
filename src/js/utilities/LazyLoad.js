@@ -52,7 +52,7 @@ Titon.LazyLoad = new Class({
 		this.parent(query, options);
 
 		// Add events
-		$(this.options.context || window).addEvents({
+		document.id(this.options.context || window).addEvents({
 			scroll: this.load,
 			resize: this.load
 		});
@@ -75,7 +75,7 @@ Titon.LazyLoad = new Class({
 	shutdown: function() {
 		this.isLoaded = true;
 
-		$(this.options.context || window).removeEvents({
+		document.id(this.options.context || window).removeEvents({
 			scroll: this.load,
 			resize: this.load
 		});

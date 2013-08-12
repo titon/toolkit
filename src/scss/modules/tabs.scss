@@ -21,6 +21,7 @@
  *		<section id="tab-2" class="tabs-section"></section>
  * 	</div>
  */
+
 .tabs {
 	text-align: left;
 }
@@ -37,6 +38,19 @@
 	@include clear-after;
 }
 
+// Display none on sections since visibility takes up DOM space
 .tabs-section.hide {
-	display: none; // Necessary
+	display: none;
+}
+
+//-------------------- Modifiers --------------------//
+
+.tabs.tabs--horizontal {
+	.tabs-nav {
+		ul, li, a, button {
+			display: block;
+			float: none;
+			text-align: left;
+		}
+	}
 }

@@ -68,8 +68,10 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 <div class="example">
 	<div class="example-title">Left, Right</div>
 
-	<div class="tabs tabs--left" id="tabs-left">
-		<nav class="tabs-nav">
+	<p>Requires the grid component.</p>
+
+	<div class="tabs tabs--horizontal grid" id="tabs-left">
+		<nav class="tabs-nav col-4">
 			<ul>
 				<li><a href="#tab-21" class="button">Tab 1</a></li>
 				<li><a href="#tab-22" class="button">Tab 2</a></li>
@@ -77,29 +79,33 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section class="tabs-section" id="tab-21"><?php echo $p1 . $p1; ?></section>
-		<section class="tabs-section" id="tab-22"><?php echo $p2 . $p2; ?></section>
-		<section class="tabs-section" id="tab-23"><?php echo $p3 . $p3; ?></section>
+		<div class="col-7 push-1">
+			<section class="tabs-section" id="tab-21"><?php echo $p1 . $p1; ?></section>
+			<section class="tabs-section" id="tab-22"><?php echo $p2 . $p2; ?></section>
+			<section class="tabs-section" id="tab-23"><?php echo $p3 . $p3; ?></section>
+		</div>
 	</div>
 
-	<div class="tabs tabs--right" id="tabs-right">
-		<nav class="tabs-nav">
+	<div class="tabs tabs--horizontal grid" id="tabs-right">
+		<div class="col-7">
+			<section class="tabs-section" id="tab-31"><?php echo $p1 . $p1; ?></section>
+			<section class="tabs-section" id="tab-32"><?php echo $p2 . $p2; ?></section>
+			<section class="tabs-section" id="tab-33"><?php echo $p3 . $p3; ?></section>
+		</div>
+
+		<nav class="tabs-nav col-4 push-1">
 			<ul>
 				<li><a href="#tab-31" class="button">Tab 1</a></li>
 				<li><a href="#tab-32" class="button">Tab 2</a></li>
 				<li><a href="#tab-33" class="button">Tab 3</a></li>
 			</ul>
 		</nav>
-
-		<section class="tabs-section" id="tab-31"><?php echo $p1 . $p1; ?></section>
-		<section class="tabs-section" id="tab-32"><?php echo $p2 . $p2; ?></section>
-		<section class="tabs-section" id="tab-33"><?php echo $p3 . $p3; ?></section>
 	</div>
 
 	<p>The button-group-vertical effect can also be used here.</p>
 
-	<div class="tabs tabs--left" id="tabs-left2">
-		<nav class="tabs-nav">
+	<div class="tabs tabs--horizontal grid" id="tabs-left2">
+		<nav class="tabs-nav col-4">
 			<ul class="button-group button-group--vertical skew">
 				<li><a href="#tab-24" class="button">Tab 1</a></li>
 				<li><a href="#tab-25" class="button">Tab 2</a></li>
@@ -107,23 +113,27 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 			</ul>
 		</nav>
 
-		<section class="tabs-section" id="tab-24"><?php echo $p1 . $p1; ?></section>
-		<section class="tabs-section" id="tab-25"><?php echo $p2 . $p2; ?></section>
-		<section class="tabs-section" id="tab-26"><?php echo $p3 . $p3; ?></section>
+		<div class="col-7 push-1">
+			<section class="tabs-section" id="tab-24"><?php echo $p1 . $p1; ?></section>
+			<section class="tabs-section" id="tab-25"><?php echo $p2 . $p2; ?></section>
+			<section class="tabs-section" id="tab-26"><?php echo $p3 . $p3; ?></section>
+		</div>
 	</div>
 
-	<div class="tabs tabs--right" id="tabs-right2">
-		<nav class="tabs-nav">
+	<div class="tabs tabs--horizontal grid" id="tabs-right2">
+		<div class="col-7">
+			<section class="tabs-section" id="tab-34"><?php echo $p1 . $p1; ?></section>
+			<section class="tabs-section" id="tab-35"><?php echo $p2 . $p2; ?></section>
+			<section class="tabs-section" id="tab-36"><?php echo $p3 . $p3; ?></section>
+		</div>
+
+		<nav class="tabs-nav col-4 push-1">
 			<ul class="button-group button-group--vertical skew-reverse">
 				<li><a href="#tab-34" class="button">Tab 1</a></li>
 				<li><a href="#tab-35" class="button">Tab 2</a></li>
 				<li><a href="#tab-36" class="button">Tab 3</a></li>
 			</ul>
 		</nav>
-
-		<section class="tabs-section" id="tab-34"><?php echo $p1 . $p1; ?></section>
-		<section class="tabs-section" id="tab-35"><?php echo $p2 . $p2; ?></section>
-		<section class="tabs-section" id="tab-36"><?php echo $p3 . $p3; ?></section>
 	</div>
 </div>
 
