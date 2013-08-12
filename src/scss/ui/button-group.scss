@@ -33,13 +33,15 @@
 		border-radius: $round;
 
 		> li:first-child .button,
-		> .button:first-child {
+		> .button:first-child,
+		> .button.first {
 			border-top-left-radius: $round;
 			border-bottom-left-radius: $round;
 		}
 
 		> li:last-child .button,
-		> .button:last-child {
+		> .button:last-child,
+		> .button.last {
 			border-top-right-radius: $round;
 			border-bottom-right-radius: $round;
 		}
@@ -50,13 +52,15 @@
 		border-radius: $pill;
 
 		> li:first-child .button,
-		> .button:first-child {
+		> .button:first-child,
+		> .button.first {
 			border-top-left-radius: $pill;
 			border-bottom-left-radius: $pill;
 		}
 
 		> li:last-child .button,
-		> .button:last-child {
+		> .button:last-child,
+		> .button.last {
 			border-top-right-radius: $pill;
 			border-bottom-right-radius: $pill;
 		}
@@ -70,13 +74,15 @@
 		border-bottom-right-radius: 0;
 
 		> li:first-child .button,
-		> .button:first-child {
+		> .button:first-child,
+		> .button.first {
 			border-top-left-radius: $skew;
 			border-bottom-left-radius: 0;
 		}
 
 		> li:last-child .button,
-		> .button:last-child {
+		> .button:last-child,
+		> .button.last {
 			border-top-right-radius: $skew;
 			border-bottom-right-radius: 0;
 		}

@@ -1,5 +1,59 @@
 <div class="example-header">Button Group</div>
 
+<div class="example">
+	<p>Anchors.</p>
+
+	<div class="button-group round">
+		<a href="javascript:;" class="button">Button</a>
+		<a href="javascript:;" class="button">Button</a>
+		<a href="javascript:;" class="button">Button</a>
+	</div>
+
+	<div class="button-group round">
+		<a href="javascript:;" class="button">Single Button</a>
+	</div>
+
+	<div class="button-group round">
+		<a href="javascript:;" class="button last">Button With Dropdown</a>
+
+		<ul class="dropdown">
+			<li><a href="javascript:;">Action</a></li>
+		</ul>
+	</div>
+
+	<p>Buttons.</p>
+
+	<div class="button-group round">
+		<button type="button" class="button">Button</button>
+		<button type="button" class="button">Button</button>
+		<button type="button" class="button">Button</button>
+	</div>
+
+	<div class="button-group round">
+		<button type="button" class="button">Single Button</button>
+	</div>
+
+	<div class="button-group round">
+		<ul class="dropdown">
+			<li><a href="javascript:;">Action</a></li>
+		</ul>
+
+		<button type="button" class="button first">Button With Dropdown</button>
+	</div>
+
+	<p>Anchors and buttons within an unordered list.</p>
+
+	<ul class="button-group round">
+		<li><button type="button" class="button">Button</button></li>
+		<li><a href="javascript:;" class="button">Button</a></li>
+		<li><button type="button" class="button">Button</button></li>
+	</ul>
+
+	<ul class="button-group round">
+		<li><button type="button" class="button">Button</button></li>
+	</ul>
+</div>
+
 <?php unset($shapes['oval']);
 
 $effects = array(

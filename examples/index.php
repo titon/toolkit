@@ -24,7 +24,7 @@ $components = array(
 	),
 	'button-group' => array(
 		'title' => 'Button Group',
-		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css')
+		'css' => array('ui/button.css', 'ui/button-group.css', 'ui/effects/button-group.css', 'ui/dropdown.css')
 	),
 	'code' => array(
 		'title' => 'Code',
