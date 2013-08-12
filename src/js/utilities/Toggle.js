@@ -76,7 +76,7 @@ Titon.Toggle = new Class({
 			return;
 		}
 
-		var element = $(target.remove('#'));
+		var element = document.getElement(target);
 
 		if (!element) {
 			return;

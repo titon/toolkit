@@ -103,7 +103,7 @@ Titon.Component = new Class({
 			if (typeOf(options.templateFrom) === 'element') {
 				element = options.templateFrom;
 			} else {
-				element = $(options.templateFrom.remove('#'));
+				element = document.getElement(options.templateFrom);
 			}
 
 			// From a string
