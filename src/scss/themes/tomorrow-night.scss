@@ -96,6 +96,7 @@ var { background: $error-light; color: $error-dark; }
 		background: $gray;
 
 		&:nth-child(odd) { background: $gray-dark; }
+		&.divider { background: $gray-light; }
 	}
 }
 

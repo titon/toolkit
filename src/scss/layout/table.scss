@@ -41,12 +41,7 @@
 		background: $gray;
 
 		&:nth-child(odd) { background: $gray-light; }
-	}
-
-	tbody tr.divider {
-		background: $gray-dark;
-
-		td { border-color: shade($gray-dark, 10%); }
+		&.divider { background: $gray-dark; }
 	}
 }
 
