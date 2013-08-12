@@ -103,7 +103,7 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		this.elements[this.current].hide();
+		this.elements[this.current].conceal();
 		this.fireEvent('hide');
 
 		// Reset last
@@ -294,7 +294,7 @@ Titon.Flyout = new Class({
 				return null;
 			}
 
-			menu.hide();
+			menu.conceal();
 
 			if (this.options.mode === 'hover') {
 				menu.addEvents({
@@ -370,7 +370,7 @@ Titon.Flyout = new Class({
 		menu.setPosition({
 			x: x,
 			y: y
-		}).show();
+		}).reveal();
 
 		this.fireEvent('show');
 	},

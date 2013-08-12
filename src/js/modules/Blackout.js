@@ -37,7 +37,7 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	hide: function() {
-		this.element.hide();
+		this.element.conceal();
 		this.fireEvent('hide');
 
 		return this;
@@ -50,7 +50,7 @@ Titon.Blackout = new Class({
 	 * @return {Titon.Blackout}
 	 */
 	show: function() {
-		this.element.show();
+		this.element.reveal();
 		this.position();
 		this.fireEvent('show');
 

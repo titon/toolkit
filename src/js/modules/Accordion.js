@@ -59,7 +59,7 @@ Titon.Accordion = new Class({
 			// Cache the height so we can use for sliding
 			sections.each(function(section) {
 				section.set('data-height', section.getHeight());
-			}).hide();
+			}).conceal();
 
 			this.show(header);
 		}.bind(this));
@@ -88,12 +88,12 @@ Titon.Accordion = new Class({
 		// Allow simultaneous open and closed sections
 		// Or allow the same section to collapse
 		if (options.multiple || (options.collapsible && this.node === node)) {
-			if (section.isVisible()) {
-				section.setStyle('max-height', 0).hide();
+			if (section.isShown()) {
+				section.setStyle('max-height', 0).conceal();
 				parent.removeClass(activeClass);
 
 			} else {
-				section.setStyle('max-height', height).show();
+				section.setStyle('max-height', height).reveal();
 				parent.addClass(activeClass);
 			}
 
@@ -105,8 +105,8 @@ Titon.Accordion = new Class({
 				return;
 			}
 
-			wrapper.getElements(options.contentElement).setStyle('max-height', 0).hide();
-			section.setStyle('max-height', height).show();
+			wrapper.getElements(options.contentElement).setStyle('max-height', 0).conceal();
+			section.setStyle('max-height', height).reveal();
 
 			wrapper.getElements('li').removeClass(activeClass);
 			parent.addClass(activeClass);

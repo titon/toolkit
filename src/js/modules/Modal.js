@@ -179,7 +179,7 @@ Titon.Modal = new Class({
 				this.blackout.show();
 			}
 
-			this.element.show();
+			this.element.reveal();
 		}
 
 		this.fireEvent('show');

@@ -81,43 +81,31 @@ Locale.define('en-US', 'Titon', {
 Element.implement({
 
 	/**
-	 * Show the element by applying specialty classes.
+	 * Reveal the element by applying the show class.
+	 * Should be used to trigger transitions and animations.
 	 *
-	 * @param {bool} force
 	 * @returns {Element}
 	 */
-	show: function(force) {
-		if (force) {
-			this.setStyle('display', '');
-		} else {
-			this.removeClass('hide').addClass('show');
-		}
-
-		return this;
+	reveal: function() {
+		return this.swapClass('hide', 'show');
 	},
 
 	/**
-	 * Hide the element by applying specialty classes.
+	 * Conceal the element by applying the hide class.
+	 * Should be used to trigger transitions and animations.
 	 *
-	 * @param {bool} force
 	 * @returns {Element}
 	 */
-	hide: function(force) {
-		if (force) {
-			this.setStyle('display', 'none');
-		} else {
-			this.removeClass('show').addClass('hide');
-		}
-
-		return this;
+	conceal: function() {
+		return this.swapClass('show', 'hide');
 	},
 
 	/**
-	 * Return true if the element exists and is visible.
+	 * Used for animations. Do not conflict with isVisible() or isHidden().
 	 *
-	 * @return {bool}
+	 * @returns {boolean}
 	 */
-	isVisible: function() {
+	isShown: function() {
 		return (this.getStyle('visibility') !== 'hidden');
 	}
 
@@ -127,21 +115,21 @@ Element.implement({
  * Overwrite the default HTML setter and allow element nodes to be used.
  */
 Element.Properties.html.set = function(html) {
-	var htmlType = typeOf(html);
+	var type = typeOf(html);
 
 	// If we use get('html') it will only get the inner HTML
 	// This approach will append the element itself
-	if (htmlType === 'element') {
+	if (type === 'element') {
 		this.innerHTML = '';
 		this.appendChild(html);
 
 		return this;
 	}
 
-	if (htmlType === 'string' && html.substr(0, 1) === '#') {
+	if (type === 'string' && html.substr(0, 1) === '#') {
 		html = document.getElement(html).get('html');
 
-	} else if (htmlType === 'array') {
+	} else if (type === 'array') {
 		html = html.join('');
 	}
 

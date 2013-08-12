@@ -545,7 +545,7 @@ Titon.TypeAhead = new Class({
 			y: (iPos.top + iPos.height)
 		});
 
-		this.element.show();
+		this.element.reveal();
 	}.protect(),
 
 	/**

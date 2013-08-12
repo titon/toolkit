@@ -75,7 +75,7 @@ Titon.Tabs = new Class({
 		});
 
 		this.sections = this.element.getElements(this.options.sectionsElement);
-		this.sections.hide();
+		this.sections.conceal();
 
 		// Set events
 		this.disable().enable();
@@ -92,7 +92,7 @@ Titon.Tabs = new Class({
 	 * Hide all sections and trigger event.
 	 */
 	hide: function() {
-		this.sections.hide();
+		this.sections.conceal();
 
 		this.fireEvent('hide', this.node);
 	},
@@ -154,17 +154,17 @@ Titon.Tabs = new Class({
 		// Toggle sections
 		if (index === this.currentIndex && this.options.collapsible) {
 			if (section.isVisible()) {
-				section.hide();
+				section.conceal();
 
 			} else {
 				tab.getParent().addClass(activeClass);
-				section.show();
+				section.reveal();
 			}
 		} else {
 			this.hide();
 
 			tab.getParent().addClass(activeClass);
-			section.show();
+			section.reveal();
 		}
 
 		// Persist the state using a cookie

@@ -173,7 +173,7 @@ Titon.Tooltip = new Class({
 			dimensions: dimensions
 		});
 
-		this.element.setPosition(coordinates).fade('show').show();
+		this.element.setPosition(coordinates).reveal();
 	},
 
 	/**
@@ -192,16 +192,16 @@ Titon.Tooltip = new Class({
 
 		// Set title
 		if (title && this.options.showTitle) {
-			this.elementHead.set('html', title).show(true);
+			this.elementHead.set('html', title).show();
 		} else {
-			this.elementHead.hide(true);
+			this.elementHead.hide();
 		}
 
 		// Set body
 		if (content) {
-			this.elementBody.set('html', content).show(true);
+			this.elementBody.set('html', content).show();
 		} else {
-			this.elementBody.hide(true);
+			this.elementBody.hide();
 		}
 
 		// Follow the mouse
@@ -229,7 +229,7 @@ Titon.Tooltip = new Class({
 			});
 
 			window.setTimeout(function() {
-				this.element.show();
+				this.element.reveal();
 				this.fireEvent('show');
 			}.bind(this), this.options.delay || 0);
 		}

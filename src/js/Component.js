@@ -195,7 +195,7 @@ Titon.Component = new Class({
 	 */
 	hide: function(callback) {
 		if (this.isVisible()) {
-			this.element.hide();
+			this.element.conceal();
 
 			if (typeOf(callback) === 'function') {
 				callback();
@@ -211,7 +211,7 @@ Titon.Component = new Class({
 	 * @return {bool}
 	 */
 	isVisible: function() {
-		return (this.element && this.element.isVisible());
+		return (this.element && this.element.isShown());
 	},
 
 	/**
@@ -321,7 +321,7 @@ Titon.Component = new Class({
 	 */
 	show: function(node) {
 		this.node = node;
-		this.element.show();
+		this.element.reveal();
 		this.fireEvent('show');
 	},
 

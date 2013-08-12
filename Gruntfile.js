@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 		base: {
 			css: ['layout/base.css'],
 			js: ['Titon.js', 'Component.js'],
-			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale']
+			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale', 'More/Element.Shortcuts']
 		},
 		typography: {
 			css: ['layout/typography.css'],
@@ -75,6 +75,10 @@ module.exports = function(grunt) {
 		icon: {
 			css: ['ui/icon.css'],
 			require: ['base']
+		},
+		inputGroup: {
+			css: ['layout/input-group.css'],
+			require: ['form']
 		},
 		labelBadge: {
 			css: ['ui/label-badge.css'],
