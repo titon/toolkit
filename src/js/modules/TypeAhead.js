@@ -40,6 +40,7 @@ Titon.TypeAhead = new Class({
 	 *	prefetch		- (bool) Will prefetch and cache the source if the source is an AJAX call
 	 *	shadow			- (bool) Will display shadow text behind the input that correlates to the first available match
 	 *	storage			- (string) The storage layer to use for caching: local, session, memory
+	 *	query			- (object) Query string of key value pairs to append to the AJAX request
 	 *	contentElement	- (string) CSS query for the element that lists are inserted to
 	 *	titleElement	- (string) CSS query for the title element within the list item
 	 *	descElement		- (string) CSS query for the description element within the list item
@@ -58,6 +59,7 @@ Titon.TypeAhead = new Class({
 		prefetch: false,
 		shadow: false,
 		storage: 'session',
+		query: {},
 		contentElement: '',
 		titleElement: '.type-ahead-title',
 		descElement: '.type-ahead-desc',
@@ -124,6 +126,7 @@ Titon.TypeAhead = new Class({
 
 			new Request.JSON({
 				url: url,
+				data: options.query,
 				onSuccess: function(items) {
 					this.setCache(url, items);
 				}.bind(this)
@@ -233,9 +236,12 @@ Titon.TypeAhead = new Class({
 				if (cache) {
 					this.process(cache);
 				} else {
+					var query = options.query;
+						query.term = term;
+
 					new Request.JSON({
 						url: url,
-						data: { term: term },
+						data: query,
 						onSuccess: this.process
 					}).get();
 				}
@@ -512,6 +518,7 @@ Titon.TypeAhead = new Class({
 		var term = this.input.get('value').trim();
 
 		if (term.length < this.options.minLength) {
+			this.fireEvent('reset');
 			this.hide();
 
 		} else {
