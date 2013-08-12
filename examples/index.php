@@ -41,8 +41,8 @@ $components = array(
 		'js' => array('class/Timers.js', 'modules/Flyout.js')
 	),
 	'form' => array(
-		'title' => 'Form',
-		'css' => array('ui/button.css', 'layout/grid.css', 'layout/form.css')
+		'title' => 'Form & Input Group',
+		'css' => array('ui/button.css', 'layout/grid.css', 'layout/form.css', 'layout/input-group.css', 'ui/dropdown.css')
 	),
 	'grid' => array(
 		'title' => 'Grid & Responsive',
