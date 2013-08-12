@@ -16,8 +16,8 @@
 	text-align: center;
 	overflow: hidden;
 	font-weight: normal;
+	line-height: normal; // setting it to normal allows it to match form input heights
 	user-select: none;
-	line-height: 100%;
 	white-space: nowrap;
 	@include size-medium;
 	background: $gray;
@@ -40,7 +40,7 @@
 	}
 }
 
-// Reset
+// Reset browser styles
 button::-moz-focus-inner {
 	padding: 0;
 	border: 0;

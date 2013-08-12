@@ -12,7 +12,7 @@ body {
 	color: $foreground-color;
 }
 
-//-------------------- Typography --------------------//
+//-------------------- Layout --------------------//
 
 a {
 	color: shade($info, 15%);
@@ -23,21 +23,8 @@ a {
 
 blockquote cite { color: $default; }
 
-//-------------------- Layout --------------------//
-
 code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
-
-.input,
-.input-static {
-	// heights required to match default button sizes
-	line-height: 40px;
-	height: 40px;
-	padding: 0 8px;
-}
-
-select.input { padding: 8px; }
-.input-static { padding: 0; }
 
 //-------------------- Accordion --------------------//
 

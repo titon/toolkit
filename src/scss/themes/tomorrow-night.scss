@@ -62,7 +62,6 @@ body {
 .text-warning { color: $warning; }
 .text-success { color: $success; }
 
-
 a {
 	color: $info;
 	text-decoration: none;
@@ -101,11 +100,10 @@ var { background: $error-light; color: $error-dark; }
 }
 
 .table.table--hover {
-	tbody tr:hover { background: $gray-darkest; }
+	tbody tr:not(.divider):hover { background: $gray-darkest; }
 }
 
-.input,
-.select {
+.input:not([type="file"]) {
 	background: $gray;
 	border-color: $gray-light;
 	color: $foreground-color;
@@ -123,15 +121,7 @@ var { background: $error-light; color: $error-dark; }
 		border-color: $gray;
 		box-shadow: none;
 	}
-
-	// heights required to match default button sizes
-	line-height: 38px;
-	height: 38px;
-	padding: 0 8px;
 }
-
-.select { padding: 8px; }
-.input-static { padding: 0; }
 
 .field {
 	@include field-style;

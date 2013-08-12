@@ -1,6 +1,13 @@
 <div class="example-header">Form</div>
 
 <div class="example">
+	<input type="text" class="input" value="Input">
+	<button type="Button" class="button">Button</button>
+	<a href="javascript:;" class="button">Anchor</a>
+	<select class="input"><option>Select</option></select>
+
+	<br><br>
+
 	<form action="" method="get">
 		<fieldset>
 

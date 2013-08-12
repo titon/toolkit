@@ -26,15 +26,32 @@ legend {
 select[multiple],
 select[size] { height: auto; }
 
+// Reset browser styles
+input::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+// Required values to match browser restrictions
+label,
+.input-static {
+	font-size: inherit;
+	line-height: normal;
+}
+
 //-------------------- Inputs --------------------//
 
-.input {
-	display: inline-block;
-	vertical-align: middle;
-	background: $gray-lightest;
+.input,
+.input-static {
+	@include reset-inline-block;
 	border: 1px solid $gray-dark;
-	border-radius: 2px;
-	padding: 5px;
+	font-size: $medium-size;
+	padding: $medium-padding;
+}
+
+.input {
+	background: $gray-lightest;
+	border-radius: $round;
 	@include transition(all .3s);
 
 	&:hover { border-color: $gray-darkest; }
@@ -53,20 +70,20 @@ select[size] { height: auto; }
 	}
 }
 
+.input-static,
 .input[type="file"] {
-	display: inline-block;
-	background: none;
-	border: none;
-	padding: 0;
+	background: transparent;
+	border-color: transparent;
+	padding-left: 0;
+	padding-right: 0;
 }
 
-select.input { padding: 4px; } // fixes vertical alignment
+select.input { padding: $medium-padding - .05; } // fixes vertical alignment
 select.input[multiple] { min-height: 150px; max-height: 500px; }
 
 textarea.input {
 	line-height: 135%;
 	min-height: 150px;
-	padding: $padding / 2;
 }
 
 .radio,
@@ -84,11 +101,6 @@ textarea.input {
 	}
 }
 
-.input-static {
-	display: inline-block;
-	vertical-align: middle;
-}
-
 //-------------------- Fields, Labels --------------------//
 
 .field {
@@ -101,17 +113,15 @@ textarea.input {
 	@include field-style;
 }
 
-.field-label,
-.field-help {
+.field-label {
 	display: block;
 	vertical-align: middle;
-	margin-bottom: 5px;
-	line-height: 100%;
+	margin-bottom: 7px;
 }
 
 .field-help {
-	margin: 5px 0 0 0;
-	font-size: .8rem;
+	margin-top: 7px;
+	font-size: $small-size;
 }
 
 .form-actions {
@@ -125,8 +135,8 @@ textarea.input {
 
 	.field-label {
 		text-align: right;
-		margin: 0;
-		padding-top: $padding / 1.5;
+		border: 1px solid transparent; // matches input sizes
+		padding-top: $medium-padding;
 	}
 
 	.field-col { margin-left: $margin; }
