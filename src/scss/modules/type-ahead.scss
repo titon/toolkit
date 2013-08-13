@@ -14,7 +14,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 640;
+	z-index: 500;
 	opacity: 0;
 	visibility: hidden;
 	background: $gray;
@@ -62,6 +62,6 @@
 
 	.not-shadow {
 		background: transparent;
-		z-index: 15;
+		z-index: 1;
 	}
 }

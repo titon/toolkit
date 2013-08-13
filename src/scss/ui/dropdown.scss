@@ -35,7 +35,7 @@
 	.dropdown {
 		display: block;
 		top: 0;
-		left: 85%;
+		left: 90%;
 		z-index: 510;
 		@include transition(left .3s, opacity .3s);
 	}

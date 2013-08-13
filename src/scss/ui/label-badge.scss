@@ -15,7 +15,7 @@
 .label {
 	@include reset-inline-block;
 	color: #fff;
-	font: bold .5em/100% Arial, sans-serif;
+	font: bold .6em/100% Arial, sans-serif;
 	background: #282a2e;
 	padding: 3px 5px;
 	text-transform: uppercase;
@@ -75,5 +75,5 @@
 // Fix scaling issues for large headings
 h1 .label.label--left:after,
 h1 .label.label--right:after {
-	border-width: .70em;
+	border-width: .65em;
 }

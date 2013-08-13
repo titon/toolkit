@@ -57,7 +57,7 @@ label,
 	@include transition(all .3s);
 
 	&:hover { border-color: $gray-darkest; }
-	&:focus { border-color: $info; box-shadow: 0 0 5px $info-light; }
+	&:focus { border-color: $info; box-shadow: 0 0 5px $info-light; outline: 0; }
 
 	@include disabled-state {
 		cursor: not-allowed;

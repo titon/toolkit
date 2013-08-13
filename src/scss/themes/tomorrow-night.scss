@@ -248,7 +248,6 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	@include button-style($default);
 	@include disabled-state {
 		opacity: .35;
-		z-index: 0;
 	}
 
 	&.info { @include button-style($info); }
@@ -348,7 +347,6 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 	li {
 		border-top: 1px solid $gray;
-		z-index: 0;
 
 		&:first-child { border: 0; }
 
