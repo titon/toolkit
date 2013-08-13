@@ -14,6 +14,9 @@ Titon.LazyLoad = new Class({
 	/** Have all elements been force loaded? */
 	isLoaded: false,
 
+	/** Count of how many have loaded. */
+	loaded: 0,
+
 	/**
 	 * Default options.
 	 *
@@ -99,14 +102,14 @@ Titon.LazyLoad = new Class({
 
 		var elements = this.element;
 
-		if (elements.length === 0) {
+		if (this.loaded == elements.length) {
 			this.shutdown();
 
 			return false;
 		}
 
 		elements.each(function(node, index) {
-			if (this.inViewport(node)) {
+			if (node && this.inViewport(node)) {
 				this.show(node, index);
 			}
 		}, this);
@@ -126,13 +129,13 @@ Titon.LazyLoad = new Class({
 			return false;
 		}
 
-		var elements = this.element;
-
-		elements.each(function(node, index) {
-			this.show(node, index);
+		this.element.each(function(node, index) {
+			if (node) {
+				this.show(node, index);
+			}
 		}, this);
 
-		this.fireEvent('loadAll', elements);
+		this.fireEvent('loadAll');
 
 		this.shutdown();
 
@@ -157,8 +160,9 @@ Titon.LazyLoad = new Class({
 			}
 		});
 
-		// Remove element from list
-		this.element.splice(index, 1);
+		// Replace element with null since removing from the array causes it to break
+		this.element.splice(index, 1, null);
+		this.loaded++;
 
 		this.fireEvent('show', node);
 	},
