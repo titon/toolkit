@@ -22,9 +22,10 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 	* More/Element.Event.Pseudos (optional: Tooltip)
 
 #### Tested Against ####
-* Chrome 26
-* Firefox 20
-* Internet Explorer 9
+* Chrome 26, 28
+* Firefox 20, 23
+* Internet Explorer 10
+* Opera 12
 
 ## Javascript Components ##
 #### Modules ####
@@ -81,3 +82,10 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 #### Third Party ####
 * `Normalize.css` provided by Nicolas Gallagher
 * `Iconic` icon set provided by P.J. Onori
+
+## Known Issues ##
+* Grids do not work in IE10 as it requires the latest flexbox functionality
+* Labels and badges get really janky at really small font sizes
+* Slide in modal animations do not work correctly in Chrome
+* Flip modal animations do not work in Opera
+* Tooltip positioning does not work in Opera (possible MooTools problem)
