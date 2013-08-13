@@ -83,12 +83,13 @@ Titon.TypeAhead = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(id, options) {
-		this.parent(id, options);
+		this.parent(options);
+		this.createElement();
 
 		// Store the input
-		this.input = document.id(id);
+		this.input = document.getElement(id);
 
-		if (!this.input) {
+		if (!this.input || !this.element) {
 			return;
 		}
 
@@ -592,7 +593,7 @@ Titon.TypeAhead = new Class({
 	 * @return {Titon.TypeAhead}
 	 */
 	_toggleEvents: function(on) {
-		if (!this.query) {
+		if (!this.input) {
 			return this;
 		}
 

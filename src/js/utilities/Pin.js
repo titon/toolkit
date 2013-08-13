@@ -36,6 +36,7 @@ Titon.Pin = new Class({
 		xOffset: 0,
 		yOffset: 0,
 		throttle: 50,
+		template: false,
 
 		// Events
 		onScroll: null,
@@ -49,11 +50,8 @@ Titon.Pin = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(id, options) {
-		options = options || {};
-		options.templateFrom = id;
-		options.template = false;
-
-		this.parent(id, options);
+		this.parent(options);
+		this.setElement(id);
 
 		if (!this.element) {
 			return;
@@ -139,7 +137,7 @@ Titon.Pin = new Class({
 	 * @return {Titon.Pin}
 	 */
 	_toggleEvents: function(on) {
-		if (!this.query) {
+		if (!this.element) {
 			return this;
 		}
 

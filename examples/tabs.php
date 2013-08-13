@@ -139,17 +139,17 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Tabs.factory('tabs-base');
-		Titon.Tabs.factory('tabs-base2', { collapsible: true });
-		Titon.Tabs.factory('tabs-effects', {
+		Titon.Tabs.factory('#tabs-base');
+		Titon.Tabs.factory('#tabs-base2', { collapsible: true });
+		Titon.Tabs.factory('#tabs-effects', {
 			mode: 'hover',
 			persistState: true,
 			defaultIndex: 1
 		});
-		Titon.Tabs.factory('tabs-left');
-		Titon.Tabs.factory('tabs-left2');
-		Titon.Tabs.factory('tabs-right');
-		Titon.Tabs.factory('tabs-right2');
-		Titon.Tabs.factory('tabs-missing');
+		Titon.Tabs.factory('#tabs-left');
+		Titon.Tabs.factory('#tabs-left2');
+		Titon.Tabs.factory('#tabs-right');
+		Titon.Tabs.factory('#tabs-right2');
+		Titon.Tabs.factory('#tabs-missing');
 	});
 </script>

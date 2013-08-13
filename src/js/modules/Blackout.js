@@ -15,7 +15,7 @@ Titon.Blackout = new Class({
 	 */
 	options: {
 		template: '<div class="blackout" id="titon-blackout"></div>',
-		templateFrom: 'titon-blackout'
+		templateFrom: '#titon-blackout'
 	},
 
 	/**
@@ -24,7 +24,8 @@ Titon.Blackout = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(options) {
-		this.parent('.blackout', options);
+		this.parent(options);
+		this.createElement();
 
 		window.addEvent('resize', this.position.bind(this));
 

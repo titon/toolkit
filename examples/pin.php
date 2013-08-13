@@ -39,9 +39,9 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Pin.factory('pin-right');
-		Titon.Pin.factory('pin-left1', { location: 'left' });
+		Titon.Pin.factory('#pin-right');
+		Titon.Pin.factory('#pin-left1', { location: 'left' });
 		Titon.Pin.factory($('pin-left2'), { location: 'left', xOffset: 10 });
-		Titon.Pin.factory('pin-missing');
+		Titon.Pin.factory('#pin-missing');
 	});
 </script>

@@ -30,19 +30,18 @@ Titon.Accordion = new Class({
 	},
 
 	/**
-	 * Apply module to all accordions in the page.
+	 * Apply to all accordions in the page.
 	 * Trigger the default row and toggle events.
 	 *
 	 * @param {String} query
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
-		this.parent(query, options);
-
-		this.elements = $$(query);
+		this.parent(options);
+		this.setElements(query);
 
 		// Hide all sections besides the defaultIndex
-		this.elements.each(function(accordion) {
+		this.element.each(function(accordion) {
 			var options = this.options,
 				sections = accordion.getElements(options.contentElement),
 				headers = accordion.getElements(options.headerElement),
@@ -64,6 +63,7 @@ Titon.Accordion = new Class({
 			this.show(header);
 		}.bind(this));
 
+		// Set events
 		this.disable().enable();
 
 		this.fireEvent('init');
@@ -77,8 +77,8 @@ Titon.Accordion = new Class({
 	 */
 	show: function(node) {
 		var options = this.options,
-			wrapper = node.getParent(this.query), // ul
 			parent = node.getParent(), // li
+			wrapper = parent.getParent(), // ul
 			section = node.getNext(options.contentElement), // section
 			activeClass = Titon.options.activeClass;
 
@@ -145,13 +145,13 @@ Titon.Accordion = new Class({
 	 * @return {Titon.Accordion}
 	 */
 	_toggleEvents: function(on) {
-		if (!this.query) {
+		if (!this.element) {
 			return this;
 		}
 
 		var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
 
-		this.elements.each(function(accordion) {
+		this.element.each(function(accordion) {
 			var headers = accordion.getElements(this.options.headerElement);
 
 			if (on) {

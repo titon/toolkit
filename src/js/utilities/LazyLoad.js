@@ -46,10 +46,14 @@ Titon.LazyLoad = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
-		options = options || {};
-		options.multiElement = true;
+		this.parent(options);
+		this.bindTo(query);
+		this.setElements(query);
 
-		this.parent(query, options);
+		// Exit if no elements
+		if (!this.element.length) {
+			return;
+		}
 
 		// Add events
 		document.id(this.options.context || window).addEvents({
@@ -93,7 +97,7 @@ Titon.LazyLoad = new Class({
 			return false;
 		}
 
-		var elements = $$(this.query);
+		var elements = this.element;
 
 		if (elements.length === 0) {
 			this.shutdown();
@@ -101,9 +105,9 @@ Titon.LazyLoad = new Class({
 			return false;
 		}
 
-		elements.each(function(node) {
+		elements.each(function(node, index) {
 			if (this.inViewport(node)) {
-				this.show(node);
+				this.show(node, index);
 			}
 		}, this);
 
@@ -122,10 +126,10 @@ Titon.LazyLoad = new Class({
 			return false;
 		}
 
-		var elements = $$(this.query);
+		var elements = this.element;
 
-		elements.each(function(node) {
-			this.show(node);
+		elements.each(function(node, index) {
+			this.show(node, index);
 		}, this);
 
 		this.fireEvent('loadAll', elements);
@@ -139,8 +143,9 @@ Titon.LazyLoad = new Class({
 	 * Show the element by removing the lazy load class.
 	 *
 	 * @param {Element} node
+	 * @param {Number} index
 	 */
-	show: function(node) {
+	show: function(node, index) {
 		node.removeClass(this.query.remove('.'));
 
 		// Replace src attributes on images
@@ -151,6 +156,9 @@ Titon.LazyLoad = new Class({
 				image.set('src', data);
 			}
 		});
+
+		// Remove element from list
+		this.element.splice(index, 1);
 
 		this.fireEvent('show', node);
 	},

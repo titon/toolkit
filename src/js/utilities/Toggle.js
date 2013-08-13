@@ -28,10 +28,8 @@ Titon.Toggle = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
-		options = options || {};
-		options.multiElement = true;
-
-		this.parent(query, options);
+		this.parent(options);
+		this.bindTo(query);
 
 		this.disable().enable();
 
@@ -76,17 +74,11 @@ Titon.Toggle = new Class({
 			return;
 		}
 
-		var element = document.getElement(target);
-
-		if (!element) {
-			return;
-		}
-
 		if (this.options.hideOpened && this.node && this.node !== node) {
 			this.hide();
 		}
 
-		this.element = element;
+		this.setElement(target);
 
 		if (!this.isVisible()) {
 			this.show(node);

@@ -14,6 +14,9 @@ Titon.Flyout = new Class({
 	/** The current menu URL being displayed. */
 	current: null,
 
+	/** Collection of menu elements. */
+	menus: {},
+
 	/** Raw data response. */
 	data: [],
 
@@ -58,7 +61,8 @@ Titon.Flyout = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, url, options) {
-		this.parent(query, options);
+		this.parent(options);
+		this.bindTo(query);
 
 		// Load data from the URL
 		new Request.JSON({
@@ -103,7 +107,7 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		this.elements[this.current].conceal();
+		this.menus[this.current].conceal();
 		this.fireEvent('hide');
 
 		// Reset last
@@ -116,8 +120,8 @@ Titon.Flyout = new Class({
 	 * @return {bool}
 	 */
 	isVisible: function() {
-		if (this.current && this.elements[this.current]) {
-			this.element = this.elements[this.current];
+		if (this.current && this.menus[this.current]) {
+			this.element = this.menus[this.current];
 		}
 
 		return this.parent();
@@ -281,10 +285,10 @@ Titon.Flyout = new Class({
 	_getMenu: function() {
 		var target = this._getTarget();
 
-		if (this.elements[target]) {
+		if (this.menus[target]) {
 			this.current = target;
 
-			return this.elements[target];
+			return this.menus[target];
 		}
 
 		if (this.dataMap[target]) {
@@ -308,9 +312,9 @@ Titon.Flyout = new Class({
 			}
 
 			this.current = target;
-			this.elements[target] = menu;
+			this.menus[target] = menu;
 
-			return this.elements[target];
+			return this.menus[target];
 		}
 
 		return null;
@@ -351,11 +355,11 @@ Titon.Flyout = new Class({
 		var target = this.current,
 			options = this.options;
 
-		if (!this.elements[target]) {
+		if (!this.menus[target]) {
 			return;
 		}
 
-		var menu = this.elements[target],
+		var menu = this.menus[target],
 			height = menu.getDimensions().height,
 			coords = this.node.getCoordinates(),
 			x = coords.left + options.xOffset,

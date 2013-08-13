@@ -45,7 +45,8 @@ Titon.Tabs = new Class({
 		cookie: null,
 		cookieDuration: 30,
 		navElement: '.tabs-nav',
-		sectionsElement: '.tabs-section'
+		sectionsElement: '.tabs-section',
+		template: false
 	},
 
 	/**
@@ -57,10 +58,9 @@ Titon.Tabs = new Class({
 	initialize: function(id, options) {
 		options = options || {};
 		options.cookie = (options.cookie || id).camelCase();
-		options.templateFrom = id;
-		options.template = false;
 
-		this.parent(id, options);
+		this.parent(options);
+		this.setElement(id);
 
 		if (!this.element) {
 			return;
@@ -205,7 +205,7 @@ Titon.Tabs = new Class({
 	 * @return {Titon.Tabs}
 	 */
 	_toggleEvents: function(on) {
-		if (!this.query) {
+		if (!this.element) {
 			return this;
 		}
 

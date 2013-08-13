@@ -64,7 +64,9 @@ Titon.Modal = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
-		this.parent(query, options);
+		this.parent(options);
+		this.bindTo(query);
+		this.createElement();
 
 		// Get elements
 		this.elementBody = this.element.getElement(this.options.contentElement);
@@ -112,7 +114,7 @@ Titon.Modal = new Class({
 
 	/**
 	 * Show the modal with the specific content.
-	 * If a node is passed, grab the modal AJAX URL.
+	 * If a node is passed, grab the modal AJAX URL or target element.
 	 * If content is passed, display it immediately.
 	 *
 	 * @param {Element} node
@@ -166,11 +168,11 @@ Titon.Modal = new Class({
 
 		// Set events
 		this.element.getElements(this.options.closeEvent)
-			.removeEvent('click')
+			.removeEvent('click', this._hide)
 			.addEvent('click', this._hide);
 
 		this.element.getElements(this.options.submitEvent)
-			.removeEvent('click')
+			.removeEvent('click', this._submit)
 			.addEvent('click', this._submit);
 
 		// Display

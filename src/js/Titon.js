@@ -112,7 +112,7 @@ Element.implement({
 });
 
 /**
- * Overwrite the default HTML setter and allow element nodes to be used.
+ * Override the default HTML setter and allow element nodes to be used.
  */
 Element.Properties.html.set = function(html) {
 	var type = typeOf(html);

@@ -78,7 +78,9 @@ Titon.Tooltip = new Class({
 	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
-		this.parent(query, options);
+		this.parent(options);
+		this.bindTo(query);
+		this.createElement();
 
 		// Fetch elements
 		this.elementHead = this.element.getElement(this.options.titleElement);

@@ -107,7 +107,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		Titon.Accordion.factory('.acc-1');
-		Titon.Accordion.factory('.acc-2', { multiple: true, collapsible: true });
+		Titon.Accordion.factory($$('.acc-2'), { multiple: true, collapsible: true });
 		Titon.Accordion.factory('.acc-3', { mode: 'hover' });
 		Titon.Accordion.factory('.acc-missing');
 	});

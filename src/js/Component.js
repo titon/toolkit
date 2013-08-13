@@ -14,26 +14,27 @@ Titon.Component = new Class({
 	/** Cached data. */
 	cache: {},
 
-	/** The primary DOM element or elements. */
+	/** The template element or targeted DOM element used for interaction. */
 	element: null,
-	elements: [],
 
-	/** Current node that activated the module. */
+	/** Elements that were bound with events that activate functionality. */
+	nodes: null,
+
+	/** Current node that activated the component. */
 	node: null,
 
-	/** Query selector used for module activation. */
+	/** Query selector used for node binding. */
 	query: null,
 
 	/**
 	 * Default options.
 	 *
-	 *	context			- (element) The element the module will display in (defaults to document.body)
-	 *	className		- (string) Class name to append to primary element
+	 *	context			- (element) The element the component will display in (defaults to document.body)
+	 *	className		- (string) Class name to append to element
 	 *	animation		- (string) The name of the animation class to use
 	 *	mode			- (string) Either "hover" or "click"
 	 *	errorMessage	- (string) Error message when AJAX calls fail
 	 *	loadingMessage	- (string) Loading message while waiting for AJAX calls
-	 *	multiElement	- (bool) Whether the module holds a single element or multiple
 	 *	template		- (string) HTML string template that will be converted to DOM nodes
 	 *	templateFrom	- (string) ID of an element to use as the template
 	 *	parseTemplate	- (bool) Whether to parse the template during initialization
@@ -51,9 +52,6 @@ Titon.Component = new Class({
 		errorMessage: null,
 		loadingMessage: null,
 
-		// Elements
-		multiElement: false,
-
 		// Templates
 		template: '',
 		templateFrom: '',
@@ -66,80 +64,25 @@ Titon.Component = new Class({
 	},
 
 	/**
-	 * Initialize options and template.
+	 * Set options.
 	 *
-	 * @param {String|Element|Elements} query
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(options) {
 		this.setOptions(options || {});
+	},
 
-		options = this.options;
+	/**
+	 * Store the list of elements (referred to as nodes) that will be bound with activation events.
+	 *
+	 * @param {String} query
+	 * @return {Titon.Component}
+	 */
+	bindTo: function(query) {
+		this.query = query;
+		this.nodes = $$(query);
 
-		// Allow element to be targeted
-		if (typeOf(query) === 'element') {
-			this.element = query;
-			this.query = this.element.get('id');
-			options.parseTemplate = false;
-
-		} else if (typeOf(query) === 'elements') {
-			this.elements = query;
-			this.query = this.elements.get('class');
-			options.multiElement = true;
-
-		} else {
-			this.query = query;
-		}
-
-		// No templates for multiple elements
-		if (options.multiElement) {
-			options.parseTemplate = false;
-		}
-
-		// Parse the template from a string, or use a target element
-		if (options.parseTemplate && !this.element) {
-			var element;
-
-			if (typeOf(options.templateFrom) === 'element') {
-				element = options.templateFrom;
-			} else {
-				element = document.id(options.templateFrom.remove('#'));
-			}
-
-			// From a string
-			if (!element && options.template) {
-				element = this.parseTemplate(options.template);
-
-				if (element) {
-					element.inject(document.body);
-				}
-			}
-
-			// Store it in the DOM
-			if (element) {
-				this.element = element;
-			}
-		}
-
-		// Add a class name
-		if (options.className) {
-			if (this.element) {
-				this.element.addClass(options.className);
-
-			} else if (this.elements) {
-				this.elements.addClass(options.className);
-			}
-		}
-
-		// Enable animations
-		if (options.animation) {
-			if (this.element) {
-				this.element.addClass(options.animation);
-
-			} else if (this.elements) {
-				this.elements.addClass(options.animation);
-			}
-		}
+		return this;
 	},
 
 	/**
@@ -149,6 +92,57 @@ Titon.Component = new Class({
 	 */
 	className: function() {
 		return new Hash(window.Titon).keyOf(this.$constructor);
+	},
+
+	/**
+	 * Create the element from the template.
+	 *
+	 * @return {Titon.Component}
+	 */
+	createElement: function() {
+		var options = this.options,
+			template;
+
+		if (!options.parseTemplate || this.element) {
+			return this;
+		}
+
+		// Use another element as the template
+		if (options.templateFrom) {
+			if (typeOf(options.templateFrom) === 'element') {
+				template = options.templateFrom;
+			} else {
+				template = document.getElement(options.templateFrom);
+			}
+		}
+
+		// From a string
+		if (!template && options.template) {
+			template = this.parseTemplate(options.template);
+
+			if (template) {
+				template.inject(document.body);
+			}
+		}
+
+		// Store it in the DOM
+		if (template) {
+			this.element = template;
+		} else {
+			throw new Error(this.className() + ' failed to create template element');
+		}
+
+		// Add a class name
+		if (options.className) {
+			this.element.addClass(options.className);
+		}
+
+		// Enable animations
+		if (options.animation) {
+			this.element.addClass(options.animation);
+		}
+
+		return this;
 	},
 
 	/**
@@ -170,22 +164,23 @@ Titon.Component = new Class({
 	},
 
 	/**
-	 * Attempt to read a value from a node element using the query.
+	 * Attempt to read a value from an element using the query.
+	 * Query can either be an attribute name, or a callback function.
 	 *
-	 * @param {Element} node
+	 * @param {Element} element
 	 * @param {String|Function} query
 	 * @return {String}
 	 */
-	getValue: function(node, query) {
+	getValue: function(element, query) {
 		if (!query) {
 			return null;
 		}
 
 		if (typeOf(query) === 'function') {
-			return query(node, this);
+			return query(element, this);
 		}
 
-		return node.get(query);
+		return element.get(query);
 	},
 
 	/**
@@ -265,7 +260,7 @@ Titon.Component = new Class({
 			onSuccess: function(response) {
 				this.cache[url] = response;
 
-				// Does not apply to all modules
+				// Does not apply to all components
 				if (this.options.showLoading) {
 					this.element.removeClass(Titon.options.loadingClass);
 				}
@@ -276,7 +271,7 @@ Titon.Component = new Class({
 			onRequest: function() {
 				this.cache[url] = true;
 
-				// Does not apply to all modules
+				// Does not apply to all components
 				if (this.options.showLoading) {
 					this.element.addClass(Titon.options.loadingClass);
 
@@ -315,6 +310,32 @@ Titon.Component = new Class({
 	},
 
 	/**
+	 * Set the element to use.
+	 *
+	 * @param {String|Element} element
+	 * @returns {Titon.Component}
+	 */
+	setElement: function(element) {
+		this.element = document.getElement(element); // Uses #id format
+		this.options.parseTemplate = false;
+
+		return this;
+	},
+
+	/**
+	 * Set the collection of elements to use.
+	 *
+	 * @param {String|Elements} element
+	 * @returns {Titon.Component}
+	 */
+	setElements: function(element) {
+		this.element = $$(element);
+		this.options.parseTemplate = false;
+
+		return this;
+	},
+
+	/**
 	 * Show the element and store the node.
 	 *
 	 * @param {Element} node
@@ -328,10 +349,10 @@ Titon.Component = new Class({
 	/**
 	 * Return the element when the class is passed as an argument.
 	 *
-	 * @return {Element}
+	 * @return {Element|Elements}
 	 */
 	toElement: function() {
-		return this.element || this.elements;
+		return this.element;
 	},
 
 	/**
