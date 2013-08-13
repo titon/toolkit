@@ -13,6 +13,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 	* Core
 	* More/Class.Binds
 	* More/Elements.From
+	* More/Element.Shortcuts
 	* More/Hash
 	* More/Locale
 	* More/Drag (optional: Modal)
@@ -53,6 +54,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Code` - Styles for code blocks
 * `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
 * `Grid` - Implements a fluid 12 column grid system that uses flexbox
+* `InputGroup` - Allows for the grouping of inputs with buttons and static blocks
 * `Responsive` - Responsive classes for mobile, tablet and desktop resolutions
 * `Table` - Styles for tables
 * `Typography` - Resets and default styles for typography
@@ -62,7 +64,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Breadcrumbs` - Styles for bread crumb navigation trails
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
-* `Dropdown` - Allows for togglable dropdown menus with support for nested menus
+* `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `Label` - Styles for inline tag labels
 * `Badge` - Styles for inline notification bubbles

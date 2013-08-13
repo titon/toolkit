@@ -22,6 +22,10 @@ module.exports = function(grunt) {
 			css: ['layout/form.css'],
 			require: ['base', 'grid']
 		},
+		inputGroup: {
+			css: ['layout/input-group.css'],
+			require: ['form']
+		},
 		code: {
 			css: ['layout/code.css'],
 			require: ['base']
@@ -29,6 +33,10 @@ module.exports = function(grunt) {
 		table: {
 			css: ['layout/table.css'],
 			require: ['base']
+		},
+		responsive: {
+			css: ['layout/responsive.css'],
+			require: ['grid']
 		},
 		// Components
 		accordion: {
@@ -39,6 +47,9 @@ module.exports = function(grunt) {
 		alert: {
 			css: ['ui/alert.css'],
 			require: ['base']
+		},
+		badge: {
+			require: ['labelBadge']
 		},
 		blackout: {
 			css: ['modules/blackout.css'],
@@ -75,9 +86,8 @@ module.exports = function(grunt) {
 			css: ['ui/icon.css'],
 			require: ['base']
 		},
-		inputGroup: {
-			css: ['layout/input-group.css'],
-			require: ['form']
+		label: {
+			require: ['labelBadge']
 		},
 		labelBadge: {
 			css: ['ui/label-badge.css'],
