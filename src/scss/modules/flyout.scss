@@ -14,7 +14,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 640;
+	z-index: 500;
 	opacity: 0;
 	visibility: hidden;
 	background: $gray;
@@ -32,16 +32,15 @@
 		li {
 			position: relative;
 
-			a,
-			.divider {
+			> a,
+			> .divider {
 				padding: $padding / 2;
 				line-height: 100%;
 				display: block;
 				text-decoration: none;
 			}
 
-			// Arrow
-			.caret-right { display: none; }
+			> a .caret-right { display: none; }
 
 			&.has-children > a .caret-right {
 				float: right;
@@ -51,15 +50,26 @@
 
 			// Sub-flyouts
 			> .flyout {
-				left: 75%;
-				display: none;
-				@include transition(all 0.3s);
+				left: 90%;
+				@include transition(left .3s, right .3s, opacity .3s);
+
+				// Reverse menu to left side incase it goes outside the viewport
+				// Will be set automatically from the Javascript layer
+				&.flyout--left {
+					left: auto;
+					right: 90%;
+				}
 			}
 
 			&.is-open > .flyout {
 				opacity: 1;
 				visibility: visible;
-				display: block;
+				left: 100%;
+
+				&.flyout--left {
+					left: auto;
+					right: 100%;
+				}
 			}
 		}
 	}

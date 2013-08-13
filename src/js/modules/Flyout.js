@@ -392,8 +392,6 @@ Titon.Flyout = new Class({
 			return;
 		}
 
-		parent.addClass(Titon.options.openClass);
-
 		// Alter width because of columns
 		menu.setStyle('width', menu.getChildren('ul').getWidth().sum()  + 'px');
 
@@ -407,9 +405,7 @@ Titon.Flyout = new Class({
 		var hWidth = parentSize.right + childSize.width;
 
 		if (hWidth >= windowSize.width) {
-			menu.setStyle('left', '-' + childSize.width + 'px');
-		} else {
-			menu.setStyle('left', parentSize.width + 'px');
+			menu.addClass('flyout--left');
 		}
 
 		// Reverse menu vertically if below half way fold
@@ -418,6 +414,8 @@ Titon.Flyout = new Class({
 		} else {
 			menu.setStyle('top', 0);
 		}
+
+		parent.addClass(Titon.options.openClass);
 
 		this.fireEvent('showChild', parent);
 	}

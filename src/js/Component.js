@@ -121,7 +121,7 @@ Titon.Component = new Class({
 			template = this.parseTemplate(options.template);
 
 			if (template) {
-				template.inject(document.body);
+				template.conceal().inject(document.body);
 			}
 		}
 
