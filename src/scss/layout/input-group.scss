@@ -21,9 +21,10 @@
 
 		&:hover,
 		&:focus,
-		&:active,
-		&.is-active { z-index: 1; }
+		&:active { z-index: 1; }
 	}
+
+	> .button-group .button.is-active { z-index: 1; }
 }
 
 .input-addon {
