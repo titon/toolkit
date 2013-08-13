@@ -17,11 +17,12 @@
 		position: relative;
 		border-radius: 0;
 		margin-right: -6px; // remove whitespace and overlap borders
-		z-index: 0;
 		white-space: nowrap;
 
 		&:hover,
-		&:focus { z-index: 1; }
+		&:focus,
+		&:active,
+		&.is-active { z-index: 1; }
 	}
 }
 

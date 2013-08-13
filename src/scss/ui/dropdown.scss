@@ -26,6 +26,7 @@
 	background: $gray-light;
 	border: 1px solid $gray-dark;
 	line-height: 100%;
+	z-index: 500;
 	opacity: 0;
 	visibility: hidden;
 	@include transition(opacity .3s);
@@ -35,13 +36,12 @@
 		display: block;
 		top: 0;
 		left: 85%;
-		z-index: 1;
+		z-index: 510;
 		@include transition(left .3s, opacity .3s);
 	}
 
 	li {
 		position: relative;
-		z-index: 0;
 
 	 	> a {
 			padding: $padding / 2;

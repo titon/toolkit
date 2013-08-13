@@ -35,6 +35,7 @@ Titon.Modal = new Class({
 	 *	onSubmit		- (function) Callback to trigger when a modal form is submitted
 	 */
 	options: {
+		animation: 'fade',
 		ajax: true,
 		draggable: false,
 		blackout: true,
