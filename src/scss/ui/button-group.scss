@@ -29,6 +29,11 @@
 		&:hover { z-index: 1; }
 	}
 
+	> li .button {
+		display: block;
+		border-radius: 0;
+	}
+
 	// Shape: round
 	&.round {
 		border-radius: $round;

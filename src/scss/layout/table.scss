@@ -16,11 +16,13 @@
 		line-height: 110%;
 		vertical-align: top;
 		border: 1px solid $gray-dark;
-		text-align: left;
 	}
 
 	// Move headings to bottom
-	thead th { vertical-align: bottom; }
+	thead th {
+		vertical-align: bottom;
+		text-align: left;
+	}
 
 	// Allow for multiple tbody's
 	tbody + tbody { border-top-width: 2px; }
@@ -38,7 +40,7 @@
 		background: $gray;
 
 		&:nth-child(odd) { background: $gray-light; }
-		&.divider { background: $gray-dark; }
+		&.divider { background: shade($gray, 2%); }
 	}
 }
 
@@ -50,4 +52,22 @@
 
 .table.table--compact {
 	th, td { padding: $padding / 2; }
+}
+
+.table.table--sortable {
+	thead th {
+		padding: 0;
+
+		a, span {
+			padding: $padding;
+			display: block;
+		}
+
+		a {
+			background: $gray-dark;
+			color: #000;
+
+			&:hover { background: shade($gray-dark, 5%); }
+		}
+	}
 }
