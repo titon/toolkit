@@ -48,6 +48,10 @@ $components = array(
 		'title' => 'Grid & Responsive',
 		'css' => array('layout/grid.css', 'layout/responsive.css')
 	),
+	'grid-compat' => array(
+		'title' => 'Grid & Responsive (Compat)',
+		'css' => array('layout/grid-compat.css', 'layout/responsive.css')
+	),
 	'icon' => array(
 		'title' => 'Icon',
 		'css' => array('ui/button.css', 'ui/icon.css')

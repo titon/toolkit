@@ -121,6 +121,7 @@
 // Use 0 0 as we dont want the columns to grow or shrink by default
 @mixin grid-column($width, $grow: 0, $shrink: 0) {
 	-ms-flex: $grow $shrink $width;
+	-moz-flex: $grow $shrink $width;
 	-webkit-flex: $grow $shrink $width;
 	flex: $grow $shrink $width;
 }
@@ -129,6 +130,7 @@
 	width: 100%;
 	max-width: 100%;
 	display: -ms-flex;
+	display: -moz-flex;
 	display: -webkit-flex;
 	display: flex;
 }

@@ -7,16 +7,16 @@
 @import "../common";
 
 /**
- * Generates all the rows and grid-columns for a fluid 12 grid-column grid.
- * Uses the latest CSS3 flexbox functionality.
- *
- * @link http://css-tricks.com/using-flexbox/
- * @link http://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ * Uses floats for grid functionality instead of flexbox.
+ * Compatibility for older browsers.
  */
 
 .grid {
 	text-align: left;
-	@include grid-row;
+	width: 100%;
+	max-width: 100%;
+
+	@include clear-after;
 }
 
 .col-1,
@@ -33,12 +33,17 @@
 .col-12 {
 	position: relative;
 	min-height: 1px;
+	float: left;
+}
+
+.col-12 {
+	float: none;
 }
 
 @for $i from 1 through $grid-columns {
 	$span: grid-span($i);
 
-	.col-#{$i} { @include grid-column($span); }
+	.col-#{$i} { width: $span; }
 	.push-#{$i} { left: $span; }
 	.pull-#{$i} { right: $span; }
 	.span-#{$i} { width: $span; }
@@ -48,13 +53,8 @@
 
 // Stack grid vertically in mobile layouts
 @include if-mobile-landscape {
-	.grid {
-		-webkit-flex-direction: column;
-		flex-direction: column;
-	}
-
 	@for $i from 1 through $grid-columns {
-		.col-#{$i} { @include grid-column(100%, 1, 0); }
+		.col-#{$i} { float: none; width: 100%; }
 
 		// Push and pull arent necessary on mobile
 		.push-#{$i} { left: auto; }

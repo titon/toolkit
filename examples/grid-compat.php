@@ -1,4 +1,4 @@
-<div class="example-header">Grid &amp; Responsive</div>
+<div class="example-header">Grid &amp; Responsive (Compatibility)</div>
 
 <div class="example">
 	<p>Examples of a 12 column grid system. Inherits styles for test examples.</p>

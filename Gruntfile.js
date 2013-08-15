@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 		},
 		grid: {
 			css: ['layout/grid.css'],
-			require: ['base']
+			require: ['base'],
+			compat: true
 		},
 		form: {
 			css: ['layout/form.css'],
@@ -158,9 +159,11 @@ module.exports = function(grunt) {
 	 *
 	 * The --components= parameter can be used to filter down components.
 	 * The --theme= parameter can be used to include a theme.
+	 * The --compat flag will generate in compatibility mode
 	 */
 	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
 		useTheme = grunt.option('theme') || null,
+		useCompat = grunt.option('compat') || false,
 		dependencies = {};
 
 	function addDependency(name) {
@@ -172,13 +175,20 @@ module.exports = function(grunt) {
 
 		if (component.require) {
 			component.require.forEach(addDependency);
-			delete component.require;
 		}
+
+		if (useCompat && component.compat && component.css) {
+			component.css = component.css.map(function(v) {
+				return v.replace('.css', '-compat.css');
+			});
+		}
+
+		delete component.require;
+		delete component.compat;
 
 		_.forOwn(component, function(value, key) {
 			if (key === 'provide') {
 				value.forEach(addDependency);
-
 			} else {
 				if (key !== 'moo') {
 					value = value.map(function(v) {

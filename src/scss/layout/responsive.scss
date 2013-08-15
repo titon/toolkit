@@ -8,16 +8,10 @@
 
 .img-full { width: 100%; height: auto; }
 
-//-------------------- Visibility --------------------//
-
 // Inherit desktop styles by default
-//.visible-desktop { display: initial; }
 .visible-tablet { display: none; }
 .visible-mobile { display: none; }
-
 .hidden-desktop { display: none; }
-//.hidden-tablet { display: initial; }
-//.hidden-mobile { display: initial; }
 
 // Cascade override for tablet
 @include if-tablet-landscape {
@@ -35,22 +29,4 @@
 
 	.hidden-tablet { display: initial; }
 	.hidden-mobile { display: none; }
-}
-
-//-------------------- Grid --------------------//
-
-// Stack grid vertically in mobile layouts
-@include if-mobile-landscape {
-	.grid {
-		-webkit-flex-direction: column;
-		flex-direction: column;
-	}
-
-	@for $i from 1 through $grid-columns {
-		.col-#{$i} { @include grid-column(auto, $i, 1); }
-
-		// Push and pull arent necessary on mobile
-		.push-#{$i} { left: auto; }
-		.pull-#{$i} { right: auto; }
-	}
 }

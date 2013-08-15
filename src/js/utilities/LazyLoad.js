@@ -102,7 +102,7 @@ Titon.LazyLoad = new Class({
 
 		var elements = this.element;
 
-		if (this.loaded == elements.length) {
+		if (this.loaded === elements.length) {
 			this.shutdown();
 
 			return false;
