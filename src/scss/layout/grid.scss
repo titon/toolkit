@@ -44,11 +44,33 @@
 	.span-#{$i} { width: $span; }
 }
 
+.col-grow {
+	-ms-flex-grow: 1;
+	-moz-flex-grow: 1;
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+}
+
+.col-shrink {
+	-ms-flex-shrink: 1;
+	-moz-flex-shrink: 1;
+	-webkit-flex-shrink: 1;
+	flex-shrink: 1;
+}
+
+//-------------------- Modifiers --------------------//
+
+.grid.grid--gutter {
+	justify-content: space-between;
+}
+
 //-------------------- Responsive --------------------//
 
 // Stack grid vertically in mobile layouts
 @include if-mobile-landscape {
 	.grid {
+		-ms-flex-direction: column;
+		-moz-flex-direction: column;
 		-webkit-flex-direction: column;
 		flex-direction: column;
 	}

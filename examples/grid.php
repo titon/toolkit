@@ -130,6 +130,33 @@
 </div>
 
 <div class="example">
+	<div class="example-title">Gutter (flex only)</div>
+
+	<div class="grid grid-test grid--gutter">
+		<div class="col-3">3</div>
+		<div class="col-3">3</div>
+		<div class="col-3">3</div>
+	</div>
+
+	<div class="grid grid-test grid--gutter">
+		<div class="col-3">3</div>
+		<div class="col-1">1</div>
+		<div class="col-4">4</div>
+	</div>
+
+	<div class="grid grid-test grid--gutter">
+		<div class="col-2">2</div>
+		<div class="col-2">2</div>
+		<div class="col-2">2</div>
+	</div>
+
+	<div class="grid grid-test grid--gutter">
+		<div class="col-1">1</div>
+		<div class="col-2">2</div>
+	</div>
+</div>
+
+<div class="example">
 	<div class="example-title">Responsive</div>
 
 	<div class="grid grid-test">
