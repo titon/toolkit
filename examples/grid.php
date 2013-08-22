@@ -133,14 +133,21 @@
 	<div class="example-title">Responsive</div>
 
 	<div class="grid grid-test">
-		<div class="col-4 visible-mobile" style="color: red">Visible in mobile</div>
-		<div class="col-4 visible-tablet" style="color: blue">Visible in tablets</div>
-		<div class="col-4 visible-desktop" style="color: green">Visible in desktops</div>
+		<div class="col-4 show-mobile" style="color: red">Visible in mobile</div>
+		<div class="col-4 show-tablet" style="color: blue">Visible in tablets</div>
+		<div class="col-4 show-desktop" style="color: green">Visible in desktops</div>
 	</div>
 
 	<div class="grid grid-test">
-		<div class="col-4 hidden-mobile" style="color: red">Hidden in mobile</div>
-		<div class="col-4 hidden-tablet" style="color: blue">Hidden in tablets</div>
-		<div class="col-4 hidden-desktop" style="color: green">Hidden in desktops</div>
+		<div class="col-4 hide-mobile" style="color: red">Hidden in mobile</div>
+		<div class="col-4 hide-tablet" style="color: blue">Hidden in tablets</div>
+		<div class="col-4 hide-desktop" style="color: green">Hidden in desktops</div>
+	</div>
+
+	<div class="grid grid-test">
+		<div class="col-4 hide-landscape" style="color: red">Hidden in landscape</div>
+		<div class="col-4 hide-portrait" style="color: blue">Hidden in portrait</div>
+		<div class="col-4 show-landscape" style="color: red">Visible in landscape</div>
+		<div class="col-4 show-portrait" style="color: blue">Visible in portrait</div>
 	</div>
 </div>

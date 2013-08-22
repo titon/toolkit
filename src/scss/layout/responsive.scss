@@ -8,25 +8,34 @@
 
 .img-full { width: 100%; height: auto; }
 
-// Inherit desktop styles by default
-.visible-tablet { display: none; }
-.visible-mobile { display: none; }
-.hidden-desktop { display: none; }
-
-// Cascade override for tablet
-@include if-tablet-landscape {
-	.visible-desktop { display: none; }
-	.visible-tablet { display: initial; }
-
-	.hidden-desktop { display: initial; }
-	.hidden-tablet { display: none; }
+// Desktop states
+@media only screen and (min-width: 1025px) {
+	.show-tablet,
+	.show-mobile,
+	.hide-desktop { display: none; }
 }
 
-// Cascade override for mobile
-@include if-mobile-landscape {
-	.visible-tablet { display: none; }
-	.visible-mobile { display: initial; }
+// Tablet states
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+	.show-desktop,
+	.show-mobile,
+	.hide-tablet { display: none; }
+}
 
-	.hidden-tablet { display: initial; }
-	.hidden-mobile { display: none; }
+// Mobile states
+@media only screen and (max-width: 480px)  {
+	.show-desktop,
+	.show-tablet,
+	.hide-mobile { display: none; }
+}
+
+// Orientation states
+@include if-portrait {
+	.show-landscape,
+	.hide-portrait { display: none; }
+}
+
+@include if-landscape {
+	.show-portrait,
+	.hide-landscape { display: none; }
 }

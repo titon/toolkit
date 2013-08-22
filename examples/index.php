@@ -163,6 +163,7 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
 <html lang="en">
 <head>
 	<title>Titon - Toolkit - <?php echo $component['title']; ?></title>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<link href="../src/css/layout/base.css" rel="stylesheet" type="text/css">
 	<link href="../src/css/effects/visual.css" rel="stylesheet" type="text/css">
 
