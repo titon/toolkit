@@ -10,7 +10,7 @@
 @import "../vendor/normalize";
 
 // Use border-box for everything
-* { @include box-sizing(border-box); }
+*, *:after, *:before { @include box-sizing(border-box); }
 
 // Alignment
 .align-left { text-align: left; }

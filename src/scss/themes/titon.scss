@@ -7,7 +7,7 @@
 @import "../common";
 
 body {
-	font: normal 90%/1.75rem Verdana, Arial, sans-serif;
+	font: normal 16px/1.75rem "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background: $background-color;
 	color: $foreground-color;
 }
@@ -25,6 +25,8 @@ blockquote cite { color: $default; }
 
 code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
+
+.close { line-height: 90%; }
 
 //-------------------- Accordion --------------------//
 

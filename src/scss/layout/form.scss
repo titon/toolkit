@@ -72,8 +72,7 @@ label,
 	}
 }
 
-.input-static,
-.input[type="file"] {
+.input-static {
 	background: transparent;
 	border-color: transparent;
 	padding-left: 0;
@@ -151,6 +150,7 @@ textarea.input {
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: $margin;
+		margin-bottom: $margin / 2;
 	}
 
 	.field-label { margin: 0 ($margin / 2) 0 0; }

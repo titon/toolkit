@@ -16,15 +16,14 @@
 		display: inline-block;
 		position: relative;
 		border-radius: 0;
-		margin-right: -6px; // remove whitespace and overlap borders
+		margin-right: -6px; // Remove whitespace and overlap borders
 		white-space: nowrap;
-
-		&:hover,
-		&:focus,
-		&:active { z-index: 1; }
+		height: auto;
+		vertical-align: middle;
 	}
 
-	> .button-group .button.is-active { z-index: 1; }
+	// Inputs should always be above everything else
+	> .input { z-index: 1; }
 }
 
 .input-addon {

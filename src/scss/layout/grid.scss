@@ -61,6 +61,9 @@
 //-------------------- Modifiers --------------------//
 
 .grid.grid--gutter {
+	-ms-justify-content: space-between;
+	-moz-justify-content: space-between;
+	-webkit-justify-content: space-between;
 	justify-content: space-between;
 }
 

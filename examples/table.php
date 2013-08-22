@@ -73,3 +73,32 @@ $count = count($funcs['internal']) - 1; ?>
 		</tbody>
 	</table>
 </div>
+
+<div class="example">
+	<p>With sortable modifier.</p>
+
+	<table class="table table--sortable">
+		<thead>
+			<tr>
+				<th><a href="">Heading</a></th>
+				<th><a href="">Heading</a></th>
+				<th><a href="">Heading</a></th>
+				<th><a href="">Heading</a></th>
+				<th><a href="">Heading</a></th>
+				<th><a href="">Heading</a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i = 0; $i <= 10; $i++) { ?>
+				<tr>
+					<td>Lorem ipsum dolor sit amet</td>
+					<td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+					<td><a href="">Some random link</a></td>
+					<td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+					<td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+					<td><?php echo date('Y-m-d H:i:s'); ?></td>
+				</tr>
+			<?php } ?>
+		</tbody>
+	</table>
+</div>
