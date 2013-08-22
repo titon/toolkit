@@ -10,7 +10,7 @@
 window.Titon = {
 
 	/** Current version. */
-	version: '0.5.0',
+	version: '0.5.1',
 
 	/**
 	 * Options for all classes.

@@ -1,4 +1,4 @@
-# Titon v0.5.0 #
+# Titon v0.5.1 #
 
 Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -84,7 +84,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Iconic` icon set provided by P.J. Onori
 
 ## Known Issues ##
-* Grids do not work in IE10 as it requires the latest flexbox functionality
 * Labels and badges get really janky at really small font sizes
 * Slide in modal animations do not work correctly in Chrome
 * Flip modal animations do not work in Opera
