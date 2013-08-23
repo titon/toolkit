@@ -47,5 +47,5 @@
 	&.small a { padding: $small-padding; font-size: $small-size; }
 	&.large a { padding: $large-padding; font-size: $large-size; }
 
-	@include clear-after;
+	@include clear-fix;
 }

@@ -6,24 +6,28 @@
 
 @import "../common";
 
-.img-full { width: 100%; height: auto; }
+img, video, canvas {
+	max-width: 100%;
+	max-height: auto;
+	height: auto;
+}
 
 // Desktop states
-@media only screen and (min-width: 1025px) {
+@include in-desktop {
 	.show-tablet,
 	.show-mobile,
 	.hide-desktop { display: none; }
 }
 
 // Tablet states
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
+@include in-tablet {
 	.show-desktop,
 	.show-mobile,
 	.hide-tablet { display: none; }
 }
 
 // Mobile states
-@media only screen and (max-width: 480px)  {
+@include in-mobile  {
 	.show-desktop,
 	.show-tablet,
 	.hide-mobile { display: none; }

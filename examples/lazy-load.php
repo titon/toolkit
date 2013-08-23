@@ -3,7 +3,7 @@
 <div class="example">
 	<?php $c = time(); ?>
 
-	<div class="col align-center">
+	<div class="example-col align-center">
 		<div class="example-title">Default</div>
 
 		<?php for ($x = 0; $x <= 10; $x++) { ?>
@@ -15,7 +15,7 @@
 		<?php $c++; } ?>
 	</div>
 
-	<div class="col align-center">
+	<div class="example-col align-center">
 		<div class="example-title">Force Load</div>
 
 		<?php for ($x = 0; $x <= 10; $x++) { ?>

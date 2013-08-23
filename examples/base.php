@@ -25,6 +25,8 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus tempor risus, a ultricies libero posuere ut. Proin vitae enim fermentum, vulputate justo id, imperdiet nunc. Curabitur pellentesque convallis lectus a porta. Quisque tristique lectus sem, vel lacinia ipsum bibendum a. Phasellus et mauris volutpat augue tempor convallis. Aliquam metus dolor, imperdiet non volutpat nec, molestie sed felis. Etiam orci ipsum, venenatis nec magna nec, porttitor aliquet est. Vivamus id tincidunt dui, in vestibulum enim. Maecenas convallis interdum nibh, vitae tristique tellus adipiscing id. Phasellus rutrum diam in condimentum convallis.</p>
 			<cite>Miles Johnson</cite>
 		</blockquote>
+
+		<p>This is <mark>highlighted</mark> text.</p>
 	</div>
 </div>
 

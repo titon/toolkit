@@ -25,6 +25,7 @@ blockquote cite { color: $default; }
 
 code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
+mark { background: tint($warning-light, 25%); }
 
 .close { line-height: 90%; }
 

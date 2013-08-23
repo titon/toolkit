@@ -35,6 +35,13 @@ blockquote {
 	@include content-spacing;
 }
 
+mark {
+	display: inline-block;
+	background: $gray-dark;
+	border-radius: 2px;
+	padding: 0 5px;
+}
+
 .text-muted { color: $default; }
 .text-info { color: $info-dark; }
 .text-error { color: $error-dark; }

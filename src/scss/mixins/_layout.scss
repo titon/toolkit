@@ -1,0 +1,87 @@
+
+$padding: .75rem !default;
+$margin: 1.25rem !default;
+$small-size: .7rem !default;
+$small-padding: .5rem !default;
+$medium-size: inherit !default;
+$medium-padding: $padding !default;
+$large-size: 1.3rem !default;
+$large-padding: 1rem !default;
+
+// Container clear fix for floats
+@mixin clear-fix {
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		line-height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+// Reset an inline-block element to defaults
+@mixin reset-inline-block {
+	display: inline-block;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+// Remove the top and bottom margin from content elements
+// Allows for perfect spacing within content blocks
+@mixin content-spacing {
+	p, ul, ol, hr, blockquote {
+		&:first-child { margin-top: 0; }
+		&:last-child { margin-bottom: 0; }
+	}
+}
+
+//-------------------- Sizes --------------------//
+
+@mixin size-small {
+	font-size: $small-size;
+	padding: $small-padding;
+}
+
+@mixin size-medium {
+	font-size: $medium-size;
+	padding: $medium-padding;
+}
+
+@mixin size-large {
+	font-size: $large-size;
+	padding: $large-padding;
+}
+
+//-------------------- States --------------------//
+
+// Contains hover and active styles (on self or inherited from parent)
+@mixin active-state {
+	.is-active > &,
+	&:hover,
+	&.is-active,
+	&.is-active:hover { @content; }
+}
+
+// Contains disabled styles (on self or inherited from parent)
+@mixin disabled-state {
+	.is-disabled > &,
+	&.is-disabled,
+	&.is-disabled:hover,
+	&[disabled],
+	&[disabled]:hover { @content; }
+}
+
+//-------------------- Helpers --------------------//
+
+@function black($opacity){
+	@return rgba(0, 0, 0, $opacity);
+}
+
+@function white($opacity){
+	@return rgba(255, 255, 255, $opacity);
+}

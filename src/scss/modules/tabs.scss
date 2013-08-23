@@ -35,7 +35,7 @@
 		list-style: none;
 	}
 
-	@include clear-after;
+	@include clear-fix;
 }
 
 // Display none on sections since visibility takes up DOM space

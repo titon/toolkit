@@ -94,7 +94,7 @@
 		}
 	}
 
-	@include clear-after;
+	@include clear-fix;
 }
 
 // Space out groups
@@ -115,7 +115,7 @@
 		width: auto;
 		max-width: 100%;
 
-		&:first-child { margin-top: 0; }
+		&:first-child { margin-top: 0 !important; }
 		&:hover { z-index: 1; }
 	}
 
@@ -193,11 +193,11 @@
 	}
 }
 
-.button-group.button-group--justified {
+/*.button-group.button-group--justified {
 	@include grid-row;
 
 	> .button {
 		float: none;
 		@include grid-column(auto, 1, 1);
 	}
-}
+}*/

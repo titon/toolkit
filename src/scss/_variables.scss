@@ -42,20 +42,6 @@ $error-dark: #b10e0e;
 
 $disabled-opacity: .75;
 
-//-------------------- Block Styles --------------------//
-
-$padding: 1rem;
-$margin: 1.5rem;
-
-$small-size: .7rem;
-$small-padding: .5rem;
-
-$medium-size: inherit;
-$medium-padding: .75rem;
-
-$large-size: 1.3rem;
-$large-padding: 1rem;
-
 //-------------------- Border Styles --------------------//
 
 $round: .2rem;
@@ -69,8 +55,3 @@ $skew-x: 1rem;
 $skew-y: 3rem;
 $skew: $skew-x $skew-y;
 $skew-reverse: $skew-y $skew-x;
-
-//-------------------- Grid --------------------//
-
-$grid-columns: 12;
-$grid-width: 8.333333%; // requires at least six 3's to equate to 100%

@@ -6,83 +6,54 @@
 
 @import "../common";
 
-/**
- * Generates all the rows and grid-columns for a fluid 12 grid-column grid.
- * Uses the latest CSS3 flexbox functionality.
- *
- * @link http://css-tricks.com/using-flexbox/
- * @link http://css-tricks.com/snippets/css/a-guide-to-flexbox/
- */
-
 .grid {
-	text-align: left;
 	@include grid-row;
 }
 
-.col-1,
-.col-2,
-.col-3,
-.col-4,
-.col-5,
-.col-6,
-.col-7,
-.col-8,
-.col-9,
-.col-10,
-.col-11,
-.col-12 {
-	position: relative;
-	min-height: 1px;
-}
-
+// Widths are the same for all sizes
 @for $i from 1 through $grid-columns {
-	$span: grid-span($i);
-
-	.col-#{$i} { @include grid-column($span); }
-	.push-#{$i} { left: $span; }
-	.pull-#{$i} { right: $span; }
-	.span-#{$i} { width: $span; }
+	.span-#{$i} { width: grid-span($i); }
 }
 
-.col-grow {
-	-ms-flex-grow: 1;
-	-moz-flex-grow: 1;
-	-webkit-flex-grow: 1;
-	flex-grow: 1;
+// Mobile supports 3 columns
+.col[class*="mobile-"] {
+	@include grid-column;
 }
 
-.col-shrink {
-	-ms-flex-shrink: 1;
-	-moz-flex-shrink: 1;
-	-webkit-flex-shrink: 1;
-	flex-shrink: 1;
+@for $i from 1 through ceil($grid-columns / 4) {
+	$span: grid-span($i * 4);
+
+	.col.mobile-#{$i} { width: $span; }
+	.col.mobile-push-#{$i} { left: $span; }
+	.col.mobile-pull-#{$i} { right: $span; }
 }
 
-//-------------------- Modifiers --------------------//
+// Tablet supports 6 columns
+@include in-tablet {
+	.col[class*="tablet-"] {
+		@include grid-column;
+	}
 
-.grid.grid--gutter {
-	-ms-justify-content: space-between;
-	-moz-justify-content: space-between;
-	-webkit-justify-content: space-between;
-	justify-content: space-between;
+	@for $i from 1 through ceil($grid-columns / 2) {
+		$span: grid-span($i * 2);
+
+		.col.tablet-#{$i} { width: $span; }
+		.col.tablet-push-#{$i} { left: $span; }
+		.col.tablet-pull-#{$i} { right: $span; }
+	}
 }
 
-//-------------------- Responsive --------------------//
-
-// Stack grid vertically in mobile layouts
-@include if-mobile-landscape {
-	.grid {
-		-ms-flex-direction: column;
-		-moz-flex-direction: column;
-		-webkit-flex-direction: column;
-		flex-direction: column;
+// Desktop supports 12 columns
+@include in-desktop {
+	.col[class*="desktop-"] {
+		@include grid-column;
 	}
 
 	@for $i from 1 through $grid-columns {
-		.col-#{$i} { @include grid-column(100%, 1, 0); }
+		$span: grid-span($i);
 
-		// Push and pull arent necessary on mobile
-		.push-#{$i} { left: auto; }
-		.pull-#{$i} { right: auto; }
+		.col.desktop-#{$i} { width: $span; }
+		.col.desktop-push-#{$i} { left: $span; }
+		.col.desktop-pull-#{$i} { right: $span; }
 	}
 }

@@ -39,7 +39,7 @@
 
 // Layout
 .clear { clear: both; display: block; margin: 0; padding: 0; }
-.clear-after { @include clear-after; }
+.clear-fix { @include clear-fix; }
 
 // Styles
 .round { border-radius: $round; }

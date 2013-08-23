@@ -16,8 +16,7 @@ module.exports = function(grunt) {
 		},
 		grid: {
 			css: ['layout/grid.css'],
-			require: ['base'],
-			compat: true
+			require: ['base']
 		},
 		form: {
 			css: ['layout/form.css'],
