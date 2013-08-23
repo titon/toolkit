@@ -35,8 +35,7 @@ module.exports = function(grunt) {
 			require: ['base']
 		},
 		responsive: {
-			css: ['layout/responsive.css'],
-			require: ['grid']
+			css: ['layout/responsive.css']
 		},
 		// Components
 		accordion: {
