@@ -84,7 +84,5 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Iconic` icon set provided by P.J. Onori
 
 ## Known Issues ##
-* Labels and badges get really janky at really small font sizes
-* Slide in modal animations do not work correctly in Chrome
+* Slide in modal animations do not work correctly in Chrome/IE
 * Flip modal animations do not work in Opera
-* Tooltip positioning does not work in Opera (possible MooTools problem)

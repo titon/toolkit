@@ -193,11 +193,12 @@
 	}
 }
 
-/*.button-group.button-group--justified {
-	@include grid-row;
+.button-group.button-group--justified {
+	display: table;
+	width: 100%;
 
 	> .button {
 		float: none;
-		@include grid-column(auto, 1, 1);
+		display: table-cell;
 	}
-}*/
+}

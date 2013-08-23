@@ -125,7 +125,7 @@ foreach ($effects as $effect => $effectTitle) { ?>
 <?php } ?>
 
 <div class="example">
-	<div class="example-title">Justified (flex only)</div>
+	<div class="example-title">Justified</div>
 
 	<div class="button-group button-group--justified">
 		<a href="" class="button">Button 1</a>

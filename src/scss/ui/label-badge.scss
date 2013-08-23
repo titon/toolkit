@@ -15,7 +15,10 @@
 .label {
 	@include reset-inline-block;
 	color: #fff;
-	font: bold .6rem/100% Arial, sans-serif;
+	// Shorthand doesn't work in IE
+	font-weight: bold;
+	font-size: .6rem;
+	line-height: 100%;
 	background: #282a2e;
 	padding: 3px 5px;
 	text-transform: uppercase;
