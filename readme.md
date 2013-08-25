@@ -1,4 +1,4 @@
-# Titon v0.5.2 #
+# Titon v0.6.0 #
 
 Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -26,6 +26,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * Firefox 20, 23
 * Internet Explorer 10
 * Opera 12
+* Safari 5
 
 ## Javascript Components ##
 #### Modules ####
@@ -54,7 +55,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Base` - Provides utility and helper classes
 * `Code` - Styles for code blocks
 * `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
-* `Grid` - Implements a fluid 12 column grid system that uses flexbox
+* `Grid` - Implements a fluid 12 column grid system with responsive support for all devices
 * `InputGroup` - Allows for the grouping of inputs with buttons and static blocks
 * `Responsive` - Responsive classes for mobile, tablet and desktop resolutions
 * `Table` - Styles for tables
@@ -71,6 +72,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Badge` - Styles for inline notification bubbles
 * `Pagination` - Styles for pagination lists
 * `Pin` - Animations for element pinning
+* `Progress` - Basic styles for progress bars
 
 #### Themes ####
 * `Titon` - Titon specific theme that mimics Twitter Bootstrap
