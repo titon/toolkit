@@ -12,6 +12,8 @@ img, video, canvas {
 	height: auto;
 }
 
+.show-print { display: none; }
+
 // Desktop states
 @include in-desktop {
 	.show-tablet,
@@ -42,4 +44,10 @@ img, video, canvas {
 @include if-landscape {
 	.show-portrait,
 	.hide-landscape { display: none; }
+}
+
+// Type states
+@media print {
+	.show-print { display: block; }
+	.hide-print { display: none; }
 }
