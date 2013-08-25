@@ -313,6 +313,31 @@ mark { background: tint($warning-light, 25%); }
 	border-bottom: 1px solid $gray-dark;
 }
 
+//-------------------- Progress --------------------//
+
+.progress {
+	box-shadow: inset 1px 1px 2px $gray-darkest;
+	border-radius: $round;
+}
+
+.progress-bar {
+	color: #fff;
+	font-weight: bold;
+	border-top-left-radius: $round;
+	border-bottom-left-radius: $round;
+	@include progress-style($default, $default-dark);
+
+	&.info { @include progress-style($info, $info-dark); }
+	&.error { @include progress-style($error, $error-dark); }
+	&.warning { @include progress-style($warning, $warning-dark); }
+	&.success { @include progress-style($success, $success-dark); }
+}
+
+.progress-bar + .progress-bar {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
 //-------------------- Tooltip --------------------//
 
 .tooltip {

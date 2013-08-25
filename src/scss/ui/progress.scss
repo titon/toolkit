@@ -1,0 +1,23 @@
+
+@import "../common";
+
+.progress {
+	height: 25px;
+	overflow: hidden;
+	position: relative;
+	background: $gray;
+
+	@include clear-fix;
+}
+
+.progress-bar {
+	height: 25px;
+	line-height: 25px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	font-size: .9rem;
+	background: $gray-darkest;
+	float: left;
+	@include transition(width .6s, background .3s);
+}

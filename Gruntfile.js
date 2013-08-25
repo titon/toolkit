@@ -117,6 +117,10 @@ module.exports = function(grunt) {
 			js: ['modules/Popover.js'],
 			require: ['base', 'tooltip']
 		},
+		progress: {
+			css: ['ui/progress.css'],
+			require: ['base']
+		},
 		tabs: {
 			css: ['modules/tabs.css'],
 			js: ['modules/Tabs.js'],

@@ -79,6 +79,10 @@ $components = array(
 		'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/popover.css'),
 		'js' => array('modules/Tooltip.js', 'modules/Popover.js')
 	),
+	'progress' => array(
+		'title' => 'Progress Bar',
+		'css' => array('ui/progress.css'),
+	),
 	'table' => array(
 		'title' => 'Table',
 		'css' => array('layout/table.css'),
