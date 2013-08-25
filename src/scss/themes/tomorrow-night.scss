@@ -495,7 +495,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	margin: $margin / 2;
 
 	.tooltip-head {
-		padding-bottom: $padding / 2;
+		padding-bottom: $small-padding;
 		font-weight: bold;
 		font-size: 1rem;
 	}

@@ -43,7 +43,7 @@ mark {
 }
 
 .text-muted { color: $default; }
-.text-info { color: $info-dark; }
-.text-error { color: $error-dark; }
-.text-warning { color: $warning-dark; }
-.text-success { color: $success-dark; }
+.text-info { color: shade($info, 15%); }
+.text-error { color: shade($error, 15%); }
+.text-warning { color: shade($warning, 15%); }
+.text-success { color: shade($success, 15%); }

@@ -6,15 +6,13 @@
 
 @import "../common";
 
-$cell-padding: $padding / 1.3;
-
 .table {
 	width: 100%;
 	background: $gray;
 	border-collapse: collapse;
 
 	th, td {
-		padding: $cell-padding;
+		padding: $padding;
 		line-height: 110%;
 		vertical-align: top;
 		border: 1px solid $gray-dark;
@@ -57,7 +55,7 @@ $cell-padding: $padding / 1.3;
 		padding: 0;
 
 		a, span {
-			padding: $cell-padding;
+			padding: $padding;
 			display: block;
 		}
 
@@ -72,13 +70,13 @@ $cell-padding: $padding / 1.3;
 
 .table.table--compact {
 	thead th,
-	tbody td { padding: $padding / 2; }
+	tbody td { padding: $small-padding; }
 
 	&.table--sortable {
 		thead th {
 			padding: 0;
 
-			a, span { padding: $padding / 2; }
+			a, span { padding: $small-padding; }
 		}
 	}
 }

@@ -172,7 +172,7 @@ mark { background: tint($warning-light, 25%); }
 	background: $gray;
 	border: 1px solid $gray-dark;
 	box-shadow: 5px 5px black(.25);
-	padding: $padding / 2;
+	padding: $small-padding;
 
 	li {
 		&:nth-child(odd) > a { background: $gray-lightest; }

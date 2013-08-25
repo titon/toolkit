@@ -44,7 +44,7 @@
 		position: relative;
 
 	 	> a {
-			padding: $padding / 2;
+			padding: $small-padding;
 			display: block;
 
 			.caret-right {
@@ -75,7 +75,7 @@
 
 		&.heading {
 			font-weight: bold;
-			padding: $padding / 2;
+			padding: $small-padding;
 		}
 	}
 
