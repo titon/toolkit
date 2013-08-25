@@ -103,6 +103,14 @@
 			Mobile: 33%
 		</div>
 	</div>
+
+	<p>The columns should stay the same percentage in all sizes.</p>
+
+	<div class="grid grid-test">
+		<div class="col span-2">16%</div>
+		<div class="col span-8">66%</div>
+		<div class="col span-2">16%</div>
+	</div>
 </div>
 
 <div class="example">
@@ -164,6 +172,19 @@
 			Desktop: 50%, 16% push<br>
 			Tablet: 50%, 16% push<br>
 			Mobile: 33%, no push<br>
+		</div>
+	</div>
+
+	<p>Test the global push pull with the device overrides.</p>
+
+	<div class="grid grid-test">
+		<div class="col span-4 desktop-5 desktop-push-1">
+			Global: 33%<br>
+			Desktop: 41%, 8% push
+		</div>
+		<div class="col span-7 push-1 desktop-5">
+			Global: 58%, 8% push<br>
+			Desktop: 41%
 		</div>
 	</div>
 </div>

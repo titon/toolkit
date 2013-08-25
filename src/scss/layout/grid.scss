@@ -10,12 +10,17 @@
 	@include grid-row;
 }
 
-// Widths are the same for all sizes
+// These should be the same for all sizes
 @for $i from 1 through $grid-columns {
-	.span-#{$i} { width: grid-span($i); }
+	$span: grid-span($i);
+
+	.span-#{$i} { width: $span; }
+	.push-#{$i} { left: $span; }
+	.pull-#{$i} { right: $span; }
 }
 
 // Mobile supports 3 columns
+.col[class*="span-"],
 .col[class*="mobile-"] {
 	@include grid-column;
 }
