@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: left;
 }
 
-[class*="icon-"] { background: url("../img/icons.png") no-repeat; }
+[class*="icon-16"] { background: url("../img/icons.png") no-repeat; }
 .icon-16-1 { background-position: 0 0; }
 .icon-16-2 { background-position: -16px 0; }
 .icon-16-3 { background-position: -32px 0; }
