@@ -71,6 +71,11 @@ module.exports = function(grunt) {
 			js: ['class/Cache.js'],
 			moo: ['Core', 'JSON']
 		},
+		carousel: {
+			css: ['modules/carousel.css'],
+			js: ['modules/Carousel.js'],
+			require: ['base']
+		},
 		dropdown: {
 			css: ['ui/dropdown.css'],
 			require: ['base', 'toggle']

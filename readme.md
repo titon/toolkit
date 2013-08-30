@@ -32,6 +32,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 #### Modules ####
 * `Accordion` - Provides collapsible support to a list of sections
 * `Blackout` - Displays a transparent black element over the document
+* `Carousel` - Provides a 16:9 responsive carousel with panels that slide or fade in
 * `Flyout` - Displays nested flyout menus that appear below an element that activates it
 * `Modal` - Displays dynamic modals that will display above the content
 * `Popover` - Displays dynamic notification elements over an element
