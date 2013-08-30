@@ -104,7 +104,18 @@ var { background: $error-light; color: $error-dark; }
 	tbody tr:not(.divider):hover { background: $gray-darkest; }
 }
 
-.input:not([type="file"]) {
+.table.table--sortable thead th a {
+	background: $gray-light;
+	color: #fff;
+
+	&:hover { background: shade($gray-light, 5%); }
+}
+
+fieldset {
+	border-color: $gray-light;
+}
+
+.input {
 	background: $gray;
 	border-color: $gray-light;
 	color: $foreground-color;
@@ -127,6 +138,15 @@ var { background: $error-light; color: $error-dark; }
 .input-addon {
 	border-color: $gray-light;
 	background-color: $gray-dark;
+}
+
+.input-group {
+	.input-addon,
+	.button,
+	.button-group {
+		box-shadow: none;
+		margin-right: -5px;
+	}
 }
 
 .field {
@@ -484,6 +504,32 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 			border-bottom-color: white(.75);
 		}
 	}
+}
+
+//-------------------- Progress --------------------//
+
+.progress {
+	background: $gray;
+	box-shadow: inset 1px 1px 2px $gray-darkest;
+	border-radius: $round;
+}
+
+.progress-bar {
+	color: #fff;
+	font-weight: bold;
+	border-top-left-radius: $round;
+	border-bottom-left-radius: $round;
+	@include progress-style($default, $default-dark);
+
+	&.info { @include progress-style($info, $info-dark); }
+	&.error { @include progress-style($error, $error-dark); }
+	&.warning { @include progress-style($warning, $warning-dark); }
+	&.success { @include progress-style($success, $success-dark); }
+}
+
+.progress-bar + .progress-bar {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
 //-------------------- Tooltip --------------------//
