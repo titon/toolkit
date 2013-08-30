@@ -13,22 +13,22 @@ $slides = array(
 	<p>Images provided by <a href="http://lorempixel.com">lorempixel.com</a>. Icons provided by <a href="http://fortawesome.github.io/Font-Awesome">FontAwesome</a> (chrome only).</p>
 
 	<div class="carousel" id="carousel-1">
-		<div class="carousel-slides">
+		<ul class="carousel-slides">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
-				<div class="carousel-slide">
+				<li>
 					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
 					<div class="caption">
 						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
 						<?php echo $slides[$i]; ?>
 					</div>
-				</div>
+				</li>
 			<?php } ?>
-		</div>
+		</ul>
 
 		<ol class="carousel-tabs">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
-				<li<?php if (!$i) echo ' class="is-active"'; ?>><a href="javascript:;" data-index="<?php echo $i; ?>"></a></li>
+				<li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
 			<?php } ?>
 		</ol>
 
@@ -41,22 +41,70 @@ $slides = array(
 		</a>
 	</div>
 
-	<p>Should disable with a single image.</p>
+	<p>Do a slide animation upward instead. No index tabs.</p>
 
 	<div class="carousel" id="carousel-2">
-		<div class="carousel-slides">
-			<div class="carousel-slide">
-				<img class="image" src="http://lorempixel.com/640/360/?c=2a">
+		<ul class="carousel-slides">
+			<?php for ($i = 0; $i < 5; $i++) { ?>
+				<li>
+					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+
+					<div class="caption">
+						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
+						<?php echo $slides[$i]; ?>
+					</div>
+				</li>
+			<?php } ?>
+		</ul>
+
+		<a href="javascript:;" class="carousel-prev">
+			<span class="icon-chevron-sign-left"></span>
+		</a>
+
+		<a href="javascript:;" class="carousel-next">
+			<span class="icon-chevron-sign-right"></span>
+		</a>
+	</div>
+
+	<p>Do a fade animation instead. No next or previous.</p>
+
+	<div class="carousel" id="carousel-3">
+		<ul class="carousel-slides">
+			<?php for ($i = 0; $i < 5; $i++) { ?>
+				<li>
+					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+
+					<div class="caption">
+						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
+						<?php echo $slides[$i]; ?>
+					</div>
+				</li>
+			<?php } ?>
+		</ul>
+
+		<ol class="carousel-tabs">
+			<?php for ($i = 0; $i < 5; $i++) { ?>
+				<li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
+			<?php } ?>
+		</ol>
+	</div>
+
+	<p>Should disable with a single image.</p>
+
+	<div class="carousel" id="carousel-4">
+		<ul class="carousel-slides">
+			<li>
+				<img class="image" src="http://lorempixel.com/640/360/?c=1">
 
 				<div class="caption">
 					<h2><a href="">Slide #1</a></h2>
 					<?php echo $slides[1]; ?>
 				</div>
-			</div>
-		</div>
+			</li>
+		</ul>
 
 		<ol class="carousel-tabs">
-			<li class="is-active"><a href="javascript:;" data-index="1"></a></li>
+			<li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
 		</ol>
 
 		<a href="javascript:;" class="carousel-prev">
@@ -72,6 +120,8 @@ $slides = array(
 <script type="text/javascript">
 	window.addEvent('domready', function() {
 		Titon.Carousel.factory('#carousel-1');
-		Titon.Carousel.factory('#carousel-2');
+		Titon.Carousel.factory('#carousel-2', { animation: 'slide-up' });
+		Titon.Carousel.factory('#carousel-3', { animation: 'fade' });
+		Titon.Carousel.factory('#carousel-4');
 	});
 </script>

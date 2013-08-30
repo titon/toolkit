@@ -10,50 +10,53 @@
  * Should be used in conjunction with the JavaScript Titon.Carousel module.
  */
 
-// 16:9 resolution
-$carousel-width: 640px !default;
-$carousel-height: 360px !default;
-
 .carousel {
-	max-width: $carousel-width;
-	max-height: $carousel-height;
+	// 16:9
+	max-width: 640px;
+	max-height: 360px;
 	width: 100%;
 	height: auto;
 	margin: 0 auto;
 	text-align: left;
 	position: relative;
-}
-
-.carousel-slides {
-	position: relative;
-	width: 100%;
-	height: $carousel-height;
-	z-index: 1;
 	overflow: hidden;
 }
 
-.carousel-slide {
-	position: absolute;
+.carousel-slides {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
 	top: 0;
 	left: 0;
+	width: 100%;
+	height: auto;
 	z-index: 1;
-	display: block;
+	@include transition(left 1s, top 1s);
 
-	.image {
-		display: block;
+	> li {
+		position: relative;
 		width: 100%;
-		max-width: 100%;
 		height: auto;
-	}
+		z-index: 1;
+		display: block;
 
-	.caption {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		padding: $padding;
-		color: #fff;
-		background: black(.70);
+		.image {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+		}
+
+		.caption {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: $padding;
+			color: #fff;
+			background: black(.70);
+		}
 	}
 }
 
@@ -65,7 +68,7 @@ $carousel-height: 360px !default;
 	width: auto;
 	height: auto;
 	z-index: 5;
-	font-size: 56px;
+	font-size: 28px;
 	color: #fff;
 	opacity: .65;
 	top: 50%;
@@ -105,10 +108,46 @@ $carousel-height: 360px !default;
 		opacity: .65;
 
 		&:hover { opacity: 1; }
+		&.is-active { background: #fff; }
 	}
-
-	li.is-active a { background: #fff; }
 
 	// Hide if no tabs
 	&:empty { display: none; }
+}
+
+// Large icons for large resolutions
+@include if-tablet-landscape {
+	.carousel-prev,
+	.carousel-next {
+		font-size: 56px;
+	}
+}
+
+//-------------------- Animations --------------------//
+
+.carousel.slide {
+	.carousel-slides {
+		@include clear-fix;
+
+		> li {
+			float: left;
+		}
+	}
+}
+
+.carousel.fade {
+	.carousel-slides {
+		height: 360px; // needs a base height because slides are absolute
+
+		> li {
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: 1;
+			@include transition(opacity 1s);
+
+			&.show { z-index: 2; }
+		}
+	}
 }
