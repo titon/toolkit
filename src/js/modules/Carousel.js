@@ -39,6 +39,19 @@ Titon.Carousel = new Class({
 
 	/**
 	 * Default options.
+	 *
+	 * 	duration		- (int) The duration between each slide
+	 * 	stopOnHover		- (bool) Stop sliding while the mouse is hovering over the carousel
+	 *	slidesElement	- (string) CSS query for the slides container element
+	 *	slideElement	- (string) CSS query for the slides element
+	 *	tabsElement		- (string) CSS query for the indicator tabs container element
+	 *	tabElement		- (string) CSS query for the indicator tabs element
+	 *	nextElement		- (string) CSS query for the next button
+	 *	prevElement		- (string) CSS query for the previous button
+	 *	onStart			- (function) Callback to trigger when the carousel starts
+	 *	onStop			- (function) Callback to trigger when the carousel stops
+	 *	onCycle			- (function) Callback to trigger when the cycle triggers each slide
+	 *	onJump			- (function) Callback to trigger when a slide is jumped to
 	 */
 	options: {
 		animation: 'slide',
@@ -50,7 +63,13 @@ Titon.Carousel = new Class({
 		tabElement: 'a',
 		nextElement: '.carousel-next',
 		prevElement: '.carousel-prev',
-		template: false
+		template: false,
+
+		// Events
+		onStart: null,
+		onStop: null,
+		onCycle: null,
+		onJump: null
 	},
 
 	/**
@@ -119,6 +138,7 @@ Titon.Carousel = new Class({
 
 		this.fireEvent('init');
 	},
+
 	/**
 	 * Go to the slide indicated by the index number.
 	 * If the index is too large, jump to the beginning.
@@ -160,6 +180,8 @@ Titon.Carousel = new Class({
 				this.slidesWrapper.setStyle('left', -(index * 100) + '%');
 			break;
 		}
+
+		this.fireEvent('jump');
 	},
 
 	/**
@@ -182,6 +204,8 @@ Titon.Carousel = new Class({
 	start: function() {
 		this.element.removeClass('is-stopped');
 		this.stopped = false;
+
+		this.fireEvent('start');
 	},
 
 	/**
@@ -190,6 +214,8 @@ Titon.Carousel = new Class({
 	stop: function() {
 		this.element.addClass('is-stopped');
 		this.stopped = true;
+
+		this.fireEvent('stop');
 	},
 
 	/**
@@ -205,6 +231,7 @@ Titon.Carousel = new Class({
 
 		// Don't cycle if the carousel has stopped
 		if (!this.stopped) {
+			this.fireEvent('cycle');
 			this.next();
 		}
 	},
