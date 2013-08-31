@@ -11,19 +11,19 @@ Titon.Component = new Class({
 	Implements: [Events, Options],
 	Binds: ['_show', '_hide', '_position'],
 
-	/** Cached data. */
+	/** Cached data */
 	cache: {},
 
-	/** The template element or targeted DOM element used for interaction. */
+	/** The template element or targeted DOM element used for interaction */
 	element: null,
 
-	/** Elements that were bound with events that activate functionality. */
+	/** Elements that were bound with events that activate functionality */
 	nodes: null,
 
-	/** Current node that activated the component. */
+	/** Current node that activated the component */
 	node: null,
 
-	/** Query selector used for node binding. */
+	/** Query selector used for node binding */
 	query: null,
 
 	/**

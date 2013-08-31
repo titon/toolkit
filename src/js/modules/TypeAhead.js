@@ -12,22 +12,22 @@ Titon.TypeAhead = new Class({
 	Implements: [Cache],
 	Binds: ['_cycle', '_lookup', 'process', 'rewind'],
 
-	/** Input element to display menu against. */
+	/** Input element to display menu against */
 	input: null,
 
-	/** Shadow input element. */
+	/** Shadow input element */
 	shadow: null,
 
-	/** Current active index when cycling through the list. */
+	/** Current active index when cycling through the list */
 	index: -1,
 
-	/** List of items to display and match against. */
+	/** List of items to display and match against */
 	items: [],
 
-	/** Current term used during lookup and matching. */
+	/** Current term used during lookup and matching */
 	term: '',
 
-	/** Throttle timer. */
+	/** Throttle timer */
 	timer: null,
 
 	/**

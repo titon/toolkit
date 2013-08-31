@@ -11,7 +11,7 @@ Titon.Tooltip = new Class({
 	Extends: Titon.Component,
 	Binds: ['_follow'],
 
-	/** DOM elements. */
+	/** DOM elements */
 	elementHead: null,
 	elementBody: null,
 

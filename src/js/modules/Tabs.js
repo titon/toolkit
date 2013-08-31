@@ -13,13 +13,13 @@ Titon.Tabs = new Class({
 	/** Navigation container */
 	nav: null,
 
-	/** Collection of content sections. */
+	/** Collection of content sections */
 	sections: [],
 
-	/** Collection of tabs (anchor links). */
+	/** Collection of tabs (anchor links) */
 	tabs: [],
 
-	/** The current and previous shown indices. */
+	/** The current and previous shown indices */
 	previousIndex: 0,
 	currentIndex: 0,
 

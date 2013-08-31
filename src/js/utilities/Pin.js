@@ -11,10 +11,10 @@ Titon.Pin = new Class({
 	Extends: Titon.Component,
 	Binds: ['_resize', '_scroll'],
 
-	/** The current window width and height. */
+	/** The current window width and height */
 	viewport: null,
 
-	/** Target and container sizes. */
+	/** Target and container sizes */
 	elementSize: null,
 	parentSize: null,
 

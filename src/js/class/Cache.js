@@ -9,7 +9,7 @@
 
 window.Cache = new Class({
 
-	/** Storage engine. */
+	/** Storage engine */
 	storage: null,
 
 	/**

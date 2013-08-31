@@ -9,7 +9,7 @@
 
 window.Titon = {
 
-	/** Current version. */
+	/** Current version */
 	version: '0.7.0',
 
 	/**
@@ -173,31 +173,6 @@ Array.implement({
 	}
 
 });
-
-/**
- * Custom events.
- */
-var transitionEndEvent = (function() {
-	var style = document.documentElement.style,
-		transitions = {
-			'transition': 'transitionend',
-			'OTransition': 'oTransitionEnd',
-			'MozTransition': 'transitionend',
-			'WebkitTransition': 'webkitTransitionEnd',
-			'MSTransitionEnd': 'msTransitionEnd'
-		};
-
-	for (var t in transitions){
-		if (transitions.hasOwnProperty(t) && typeOf(style[t]) !== 'null') {
-			return transitions[t];
-		}
-	}
-
-	return null;
-})();
-
-
-Element.NativeEvents[transitionEndEvent] = 2;
 
 })(window);
 

@@ -14,7 +14,7 @@ Titon.Carousel = new Class({
 	/** Is the carousel stopped? */
 	stopped: false,
 
-	/** Slides and parent container. */
+	/** Slides and parent container */
 	slidesWrapper: null,
 	slides: [],
 
@@ -22,15 +22,15 @@ Titon.Carousel = new Class({
 	slideWidth: 0,
 	slideHeight: 0,
 
-	/** Tabs and parent container. */
+	/** Tabs and parent container */
 	tabsWrapper: null,
 	tabs: [],
 
-	/** Previous and next buttons. */
+	/** Previous and next buttons */
 	prevButton: null,
 	nextButton: null,
 
-	/** The current and previous shown indices. */
+	/** The current and previous shown indices */
 	previousIndex: 0,
 	currentIndex: 0,
 

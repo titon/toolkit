@@ -14,7 +14,7 @@ Titon.LazyLoad = new Class({
 	/** Have all elements been force loaded? */
 	isLoaded: false,
 
-	/** Count of how many have loaded. */
+	/** Count of how many have loaded */
 	loaded: 0,
 
 	/**

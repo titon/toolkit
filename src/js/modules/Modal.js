@@ -11,13 +11,13 @@ Titon.Modal = new Class({
 	Extends: Titon.Component,
 	Binds: ['_submit'],
 
-	/** Blackout instance if options.blackout is true. */
+	/** Blackout instance if options.blackout is true */
 	blackout: null,
 
-	/** Drag instance if options.drag is true. */
+	/** Drag instance if options.drag is true */
 	drag: null,
 
-	/** Body DOM element. */
+	/** Body DOM element */
 	elementBody: null,
 
 	/**
@@ -100,6 +100,10 @@ Titon.Modal = new Class({
 				Titon.Modal.hide();
 			}
 		});
+
+		this.element
+			.addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)
+			.addEvent('click:relay(' + this.options.submitEvent + ')', this._submit);
 	},
 
 	/**
@@ -167,16 +171,6 @@ Titon.Modal = new Class({
 
 		this.elementBody.set('html', content);
 
-		// Set events
-		this.element.getElements(this.options.closeEvent)
-			.removeEvent('click', this._hide)
-			.addEvent('click', this._hide);
-
-		this.element.getElements(this.options.submitEvent)
-			.removeEvent('click', this._submit)
-			.addEvent('click', this._submit);
-
-		// Display
 		if (!this.isVisible()) {
 			if (this.options.blackout) {
 				this.blackout.show();
