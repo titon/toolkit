@@ -204,10 +204,10 @@ fieldset {
 	box-shadow: 0 0 3px #000;
 	@include alert-style($default-light, $default-dark);
 
-	&.info { @include alert-style($info-light, $info-dark); }
-	&.warning { @include alert-style($warning-light, $warning-dark); }
-	&.error { @include alert-style($error-light, $error-dark); }
-	&.success { @include alert-style($success-light, $success-dark); }
+	&.is-info { @include alert-style($info-light, $info-dark); }
+	&.is-warning { @include alert-style($warning-light, $warning-dark); }
+	&.is-error { @include alert-style($error-light, $error-dark); }
+	&.is-success { @include alert-style($success-light, $success-dark); }
 }
 
 //-------------------- Button --------------------//
@@ -270,10 +270,10 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 		opacity: .35;
 	}
 
-	&.info { @include button-style($info); }
-	&.warning { @include button-style($warning); }
-	&.error { @include button-style($error); }
-	&.success { @include button-style($success); }
+	&.is-info { @include button-style($info); }
+	&.is-warning { @include button-style($warning); }
+	&.is-error { @include button-style($error); }
+	&.is-success { @include button-style($success); }
 }
 
 .button.visual-popout {
@@ -333,26 +333,26 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	text-shadow: 0 1px white(.35);
 	background-color: $default;
 
-	&.info { background-color: $info; }
-	&.warning { background-color: $warning; }
-	&.error { background-color: $error; }
-	&.success { background-color: $success; }
+	&.is-info { background-color: $info; }
+	&.is-warning { background-color: $warning; }
+	&.is-error { background-color: $error; }
+	&.is-success { background-color: $success; }
 }
 
 .label.label--left {
 	&:after { border-right-color: $default; }
-	&.info:after { border-right-color: $info; }
-	&.warning:after { border-right-color: $warning; }
-	&.error:after { border-right-color: $error; }
-	&.success:after { border-right-color: $success; }
+	&.is-info:after { border-right-color: $info; }
+	&.is-warning:after { border-right-color: $warning; }
+	&.is-error:after { border-right-color: $error; }
+	&.is-success:after { border-right-color: $success; }
 }
 
 .label.label--right {
 	&:after { border-left-color: $default; }
-	&.info:after { border-left-color: $info; }
-	&.warning:after { border-left-color: $warning; }
-	&.error:after { border-left-color: $error; }
-	&.success:after { border-left-color: $success; }
+	&.is-info:after { border-left-color: $info; }
+	&.is-warning:after { border-left-color: $warning; }
+	&.is-error:after { border-left-color: $error; }
+	&.is-success:after { border-left-color: $success; }
 }
 
 //-------------------- Dropdown, TypeAhead, Flyout --------------------//
@@ -521,10 +521,10 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 	border-bottom-left-radius: $round;
 	@include progress-style($default, $default-dark);
 
-	&.info { @include progress-style($info, $info-dark); }
-	&.error { @include progress-style($error, $error-dark); }
-	&.warning { @include progress-style($warning, $warning-dark); }
-	&.success { @include progress-style($success, $success-dark); }
+	&.is-info { @include progress-style($info, $info-dark); }
+	&.is-error { @include progress-style($error, $error-dark); }
+	&.is-warning { @include progress-style($warning, $warning-dark); }
+	&.is-success { @include progress-style($success, $success-dark); }
 }
 
 .progress-bar + .progress-bar {

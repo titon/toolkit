@@ -6,19 +6,19 @@
 	</div>
 
 	<div class="progress">
-		<div class="progress-bar info" style="width: 65%">65%</div>
+		<div class="progress-bar is-info" style="width: 65%">65%</div>
 	</div>
 
 	<div class="progress">
-		<div class="progress-bar error" style="width: 5%">5%</div>
+		<div class="progress-bar is-error" style="width: 5%">5%</div>
 	</div>
 
 	<div class="progress">
-		<div class="progress-bar warning" style="width: 25%">25%</div>
+		<div class="progress-bar is-warning" style="width: 25%">25%</div>
 	</div>
 
 	<div class="progress">
-		<div class="progress-bar success" style="width: 95%">95%</div>
+		<div class="progress-bar is-success" style="width: 95%">95%</div>
 	</div>
 
 	<div class="progress">
@@ -26,9 +26,9 @@
 	</div>
 
 	<div class="progress">
-		<div class="progress-bar warning" style="width: 25%">25%</div>
-		<div class="progress-bar error" style="width: 65%">65%</div>
-		<div class="progress-bar info" style="width: 5%">5%</div>
+		<div class="progress-bar is-warning" style="width: 25%">25%</div>
+		<div class="progress-bar is-error" style="width: 65%">65%</div>
+		<div class="progress-bar is-info" style="width: 5%">5%</div>
 	</div>
 
 	<div class="progress">
@@ -49,13 +49,13 @@
 				state;
 
 			if (rand > 85) {
-				state = 'success';
+				state = 'is-success';
 			} else if (rand > 50) {
-				state = 'info';
+				state = 'is-info';
 			} else if (rand > 20) {
-				state = 'warning';
+				state = 'is-warning';
 			} else {
-				state = 'error';
+				state = 'is-error';
 			}
 
 			$('bar')

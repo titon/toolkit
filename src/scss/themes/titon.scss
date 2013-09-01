@@ -46,10 +46,10 @@ mark { background: tint($warning-light, 25%); }
 .alert {
 	@include alert-style($default-light, $default-dark);
 
-	&.info { @include alert-style($info-light, $info-dark); }
-	&.error { @include alert-style($error-light, $error-dark); }
-	&.warning { @include alert-style($warning-light, $warning-dark); }
-	&.success { @include alert-style($success-light, $success-dark); }
+	&.is-info { @include alert-style($info-light, $info-dark); }
+	&.is-error { @include alert-style($error-light, $error-dark); }
+	&.is-warning { @include alert-style($warning-light, $warning-dark); }
+	&.is-success { @include alert-style($success-light, $success-dark); }
 }
 
 //-------------------- Breadcrumbs --------------------//
@@ -123,10 +123,10 @@ mark { background: tint($warning-light, 25%); }
 		top: 1px;
 	}
 
-	&.info { @include button-style($info, $info-light, $info-dark); }
-	&.error { @include button-style($error, $error-light, $error-dark); }
-	&.warning { @include button-style($warning, $warning-light, $warning-dark); }
-	&.success { @include button-style($success, $success-light, $success-dark); }
+	&.is-info { @include button-style($info, $info-light, $info-dark); }
+	&.is-error { @include button-style($error, $error-light, $error-dark); }
+	&.is-warning { @include button-style($warning, $warning-light, $warning-dark); }
+	&.is-success { @include button-style($success, $success-light, $success-dark); }
 }
 
 //-------------------- Dropdown --------------------//
@@ -209,26 +209,26 @@ mark { background: tint($warning-light, 25%); }
 .badge {
 	@include label-style($default-light, $default-dark);
 
-	&.info { @include label-style($info-light, $info-dark); }
-	&.error { @include label-style($error-light, $error-dark); }
-	&.warning { @include label-style($warning-light, $warning-dark); }
-	&.success { @include label-style($success-light, $success-dark); }
+	&.is-info { @include label-style($info-light, $info-dark); }
+	&.is-error { @include label-style($error-light, $error-dark); }
+	&.is-warning { @include label-style($warning-light, $warning-dark); }
+	&.is-success { @include label-style($success-light, $success-dark); }
 }
 
 .label.label--left {
 	&:after { border-right-color: $default-light; }
-	&.info:after { border-right-color: $info-light; }
-	&.error:after { border-right-color: $error-light; }
-	&.warning:after { border-right-color: $warning-light; }
-	&.success:after { border-right-color: $success-light; }
+	&.is-info:after { border-right-color: $info-light; }
+	&.is-error:after { border-right-color: $error-light; }
+	&.is-warning:after { border-right-color: $warning-light; }
+	&.is-success:after { border-right-color: $success-light; }
 }
 
 .label.label--right {
 	&:after { border-left-color: $default-light; }
-	&.info:after { border-left-color: $info-light; }
-	&.error:after { border-left-color: $error-light; }
-	&.warning:after { border-left-color: $warning-light; }
-	&.success:after { border-left-color: $success-light; }
+	&.is-info:after { border-left-color: $info-light; }
+	&.is-error:after { border-left-color: $error-light; }
+	&.is-warning:after { border-left-color: $warning-light; }
+	&.is-success:after { border-left-color: $success-light; }
 }
 
 //-------------------- Modal --------------------//
@@ -327,10 +327,10 @@ mark { background: tint($warning-light, 25%); }
 	border-bottom-left-radius: $round;
 	@include progress-style($default, $default-dark);
 
-	&.info { @include progress-style($info, $info-dark); }
-	&.error { @include progress-style($error, $error-dark); }
-	&.warning { @include progress-style($warning, $warning-dark); }
-	&.success { @include progress-style($success, $success-dark); }
+	&.is-info { @include progress-style($info, $info-dark); }
+	&.is-error { @include progress-style($error, $error-dark); }
+	&.is-warning { @include progress-style($warning, $warning-dark); }
+	&.is-success { @include progress-style($success, $success-dark); }
 }
 
 .progress-bar + .progress-bar {

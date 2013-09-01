@@ -136,10 +136,10 @@ $sizes = array(
 
 $types = array(
 	'' => 'Default',
-	'info' => 'Information',
-	'warning' => 'Warning',
-	'success' => 'Success',
-	'error' => 'Error'
+	'is-info' => 'Information',
+	'is-warning' => 'Warning',
+	'is-success' => 'Success',
+	'is-error' => 'Error'
 );
 
 $visuals = array(
