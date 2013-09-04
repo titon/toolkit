@@ -40,8 +40,9 @@ Titon.Carousel = new Class({
 	/**
 	 * Default options.
 	 *
-	 * 	duration		- (int) The duration between each slide
-	 * 	stopOnHover		- (bool) Stop sliding while the mouse is hovering over the carousel
+	 *	duration		- (int) The duration between each slide
+	 *	autoCycle		- (bool) Automatically cycle between slides
+	 *	stopOnHover		- (bool) Stop sliding while the mouse is hovering over the carousel
 	 *	slidesElement	- (string) CSS query for the slides container element
 	 *	slideElement	- (string) CSS query for the slides element
 	 *	tabsElement		- (string) CSS query for the indicator tabs container element
@@ -56,6 +57,7 @@ Titon.Carousel = new Class({
 	options: {
 		animation: 'slide',
 		duration: 5000,
+        autoCycle: true,
 		stopOnHover: true,
 		slidesElement: '.carousel-slides',
 		slideElement: 'li',
@@ -306,8 +308,10 @@ Titon.Carousel = new Class({
 
 		window.addEvent('resize', this._resize);
 
-		clearInterval(this.timer);
-		this.timer = setInterval(this._cycle, this.options.duration);
+		if (this.options.autoCycle) {
+			clearInterval(this.timer);
+			this.timer = setInterval(this._cycle, this.options.duration);
+		}
 
 		return this;
 	}.protect()
