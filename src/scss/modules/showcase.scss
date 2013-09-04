@@ -1,0 +1,78 @@
+
+@import "../common";
+
+.showcase {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	z-index: 610; // higher than blackout
+	visibility: hidden;
+	backface-visibility: hidden;
+	@include transform(translateX(-50%) translateY(-50%));
+
+	.close {
+		position: absolute;
+		top: -1px;
+		right: -30px;
+	}
+}
+
+.showcase-inner {
+	position: relative;
+	padding: $padding;
+	background: $gray;
+	border: 1px solid $gray-dark;
+}
+
+.showcase-items {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100px;
+	height: 100px;
+	position: relative;
+	@include transition(width .3s, height .3s);
+
+	> li {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		@include transition(opacity .3s);
+	}
+}
+
+.showcase-prev,
+.showcase-next {
+	display: block;
+	position: absolute;
+	padding: $padding;
+	width: auto;
+	height: auto;
+	z-index: 5;
+	font-size: 28px;
+	color: #fff;
+	opacity: .65;
+	top: 50%;
+	@include transform(translateY(-50%)); // move up 50% of their height
+
+	&:hover {
+		color: #fff;
+		opacity: 1;
+	}
+}
+
+.showcase-prev { left: $padding; }
+.showcase-next { right: $padding; }
+
+// Large icons for large resolutions
+@include if-tablet-landscape {
+	.showcase-prev,
+	.showcase-next {
+		font-size: 56px;
+	}
+}

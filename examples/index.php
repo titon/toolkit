@@ -88,6 +88,11 @@ $components = array(
 		'title' => 'Progress Bar',
 		'css' => array('ui/progress.css'),
 	),
+	'showcase' => array(
+		'title' => 'Showcase',
+		'css' => array('modules/blackout.css', 'modules/showcase.css'),
+		'js' => array('modules/Blackout.js', 'modules/Showcase.js')
+	),
 	'table' => array(
 		'title' => 'Table',
 		'css' => array('layout/table.css'),

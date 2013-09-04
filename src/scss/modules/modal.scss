@@ -36,8 +36,8 @@
 
 	.close {
 		position: absolute;
-		top: $padding;
-		right: $padding;
+		top: -1px;
+		right: -30px;
 	}
 
 	&.is-loading .close { display: none; }
