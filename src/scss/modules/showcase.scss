@@ -19,6 +19,14 @@
 		top: -1px;
 		right: -30px;
 	}
+
+	&.is-loading {
+		.showcase-prev,
+		.showcase-next,
+		.showcase-tabs {
+			display: none !important;
+		}
+	}
 }
 
 .showcase-inner {
@@ -35,6 +43,7 @@
 	width: 100px;
 	height: 100px;
 	position: relative;
+	overflow: hidden;
 	@include transition(width .3s, height .3s);
 
 	> li {
@@ -43,7 +52,37 @@
 		left: 0;
 		opacity: 0;
 		@include transition(opacity .3s);
+
+		> img {
+			max-width: 100%;
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		&.show {
+			.showcase-caption {
+				display: block;
+			}
+		}
 	}
+}
+
+.showcase-caption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: $padding;
+	color: #fff;
+	background: black(.70);
+	display: none;
+}
+
+.showcase-tabs {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 .showcase-prev,
@@ -75,4 +114,36 @@
 	.showcase-next {
 		font-size: 56px;
 	}
+}
+
+.showcase-tabs {
+	list-style: none;
+	line-height: 100%;
+	margin: 0;
+	padding: $padding;
+	position: absolute;
+	top: $padding;
+	left: 50%;
+	z-index: 5;
+	@include transform(translateX(-50%)); // move left 50% of their width
+
+	li {
+		display: inline-block;
+		margin: 0 3px;
+	}
+
+	a {
+		display: inline-block;
+		border: 2px solid #fff;
+		height: 10px;
+		width: 10px;
+		border-radius: 50%;
+		opacity: .65;
+
+		&:hover { opacity: 1; }
+		&.is-active { background: #fff; }
+	}
+
+	// Hide if no tabs
+	&:empty { display: none; }
 }

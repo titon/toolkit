@@ -9,9 +9,8 @@
 
 Titon.Showcase = new Class({
 	Extends: Titon.Component,
-	Binds: ['next', 'prev'],
+	Binds: ['next', 'prev', '_jump'],
 
-	captionElement: null,
 	itemsElement: null,
 	tabsElement: null,
 	prevElement: null,
@@ -29,10 +28,10 @@ Titon.Showcase = new Class({
 
 	options: {
 		blackout: true,
+		transition: 300,
 		getCategory: 'data-showcase',
 		getSource: 'href',
 		getTitle: 'title',
-		captionElement: '.showcase-caption',
 		itemsElement: '.showcase-items',
 		tabsElement: '.showcase-tabs',
 		prevElement: '.showcase-prev',
@@ -44,7 +43,6 @@ Titon.Showcase = new Class({
 			'<div class="showcase-inner">' +
 				'<ul class="showcase-items"></ul>' +
 				'<ol class="showcase-tabs"></ol>' +
-				'<div class="showcase-caption"></div>' +
 				'<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="icon-chevron-sign-left"></span></a>' +
 				'<a href="javascript:;" class="showcase-next showcase-event-next"><span class="icon-chevron-sign-right"></span></a>' +
 				'<button type="button" class="close showcase-event-close">' +
@@ -62,7 +60,6 @@ Titon.Showcase = new Class({
 		options = this.options;
 
 		// Get elements
-		this.captionElement = this.element.getElement(options.captionElement);
 		this.itemsElement = this.element.getElement(options.itemsElement);
 		this.tabsElement = this.element.getElement(options.tabsElement);
 		this.prevElement = this.element.getElement(options.prevElement);
@@ -86,7 +83,8 @@ Titon.Showcase = new Class({
 		this.element
 			.addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)
 			.addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
-			.addEvent('click:relay(' + this.options.prevEvent + ')', this.prev);
+			.addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
+			.addEvent('click:relay(' + this.options.tabsElement + ' a)', this._jump);
 	},
 
 	/**
@@ -105,36 +103,84 @@ Titon.Showcase = new Class({
 	},
 
 	jump: function(index) {
-		index = index || this.currentIndex;
-
 		if (index >= this.items.length) {
 			index = 0;
 		} else if (index < 0) {
 			index = this.items.length - 1;
 		}
 
+		var options = this.options,
+			element = this.element,
+			list = this.itemsElement,
+			listItems = list.getElements('li'),
+			listItem = listItems[index],
+			items = this.items,
+			item = items[index],
+			loadingClass = Titon.options.loadingClass,
+			activeClass = Titon.options.activeClass;
+
 		// Save state
 		this.previousIndex = this.currentIndex;
 		this.currentIndex = index;
 
-		// Resize based on media
-		var items = this.itemsElement.getElements('li'),
-			size = items[index].measure(function() {
-				return this.getSize();
+		// Update tabs
+		if (this.tabsElement) {
+			var listTabs = this.tabsElement.getElements('a');
+
+			listTabs.removeClass(activeClass);
+			listTabs[index].addClass(activeClass);
+		}
+
+		// Fade out previous image
+		listItems.removeClass('show');
+
+		// Image already exists
+		if (listItem.hasAttribute('data-width')) {
+
+			// Resize the showcase to the image size
+			list.setStyles({
+				width: listItem.get('data-width').toInt(),
+				height: listItem.get('data-height').toInt()
 			});
 
-		this.itemsElement.setStyles({
-			width: size.x,
-			height: size.y
-		});
+			// Reveal the image after animation
+			setTimeout(function() {
+				listItem.addClass('show');
+			}, options.transition);
 
-		// Preload image
-		var img = new Image();
-			img.src = this.items[index].image;
-			img.onload =function() {
-				items.removeClass('show');
-				items[index].addClass('show');
+		// Create image and animate
+		} else {
+			element.addClass(loadingClass);
+
+			// Preload image
+			var img = new Image();
+				img.src = item.image;
+
+			// Resize showcase after image loads
+			img.onload = function() {
+				list.setStyles({
+					width: this.width,
+					height: this.height
+				});
+
+				// Cache the width and height
+				listItem
+					.set('data-width', this.width)
+					.set('data-height', this.height);
+
+				// Create the caption
+				if (item.title) {
+					listItem.grab(new Element('div.showcase-caption').set('text', item.title));
+				}
+
+				// Reveal the image after animation
+				setTimeout(function() {
+					element.removeClass(loadingClass);
+
+					listItem.addClass('show').grab(img);
+				}, options.transition);
 			};
+		}
 	},
 
 	/**
@@ -154,25 +200,29 @@ Titon.Showcase = new Class({
 	show: function(node) {
 		this.node = node;
 		this.currentIndex = this.previousIndex = 0;
+		this.element.addClass(Titon.options.loadingClass);
 
 		var options = this.options,
 			read = this.getValue,
 			category = read(node, options.getCategory),
-			items = [];
+			items = [],
+			index = 0;
 
 		// Multiple items based on category
 		if (category) {
-			for (var i = 0, n; n = this.nodes[i]; i++) {
-				if (n === node) {
-					this.currentIndex = i;
-				}
-
+			for (var i = 0, x = 0, n; n = this.nodes[i]; i++) {
 				if (read(n, options.getCategory) === category) {
+					if (n === node) {
+						index = x;
+					}
+
 					items.push({
 						title: read(n, options.getTitle),
 						category: category,
 						image: read(n, options.getSource)
 					});
+
+					x++;
 				}
 			}
 
@@ -187,7 +237,7 @@ Titon.Showcase = new Class({
 
 		this._buildItems(items);
 		this._position();
-		this.jump();
+		this.jump(index);
 	},
 
 	_buildItems: function(items) {
@@ -196,12 +246,11 @@ Titon.Showcase = new Class({
 
 		for (var li, item, i = 0; item = items[i]; i++) {
 			li = new Element('li');
-
-			if (item.image) {
-				li.grab(new Element('img.media').set('src', item.image));
-			}
-
 			li.inject(this.itemsElement);
+
+			li = new Element('li');
+			li.grab(new Element('a').set('href', 'javascript:;').set('data-index', i))
+				.inject(this.tabsElement);
 		}
 
 		if (items.length > 1) {
@@ -214,6 +263,18 @@ Titon.Showcase = new Class({
 			this.tabsElement.hide();
 		}
 	}.protect(),
+
+	/**
+	 * Event handler for jumping between items.
+	 *
+	 * @param {DOMEvent} e
+	 * @private
+	 */
+	_jump: function(e) {
+		e.stop();
+
+		this.jump(e.target.get('data-index') || 0);
+	},
 
 	_position: function() {
 		if (!this.isVisible()) {
