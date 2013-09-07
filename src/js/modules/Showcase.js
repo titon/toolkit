@@ -11,14 +11,16 @@ Titon.Showcase = new Class({
 	Extends: Titon.Component,
 	Binds: ['next', 'prev', '_jump'],
 
-	/** Elements within the showcase */
-	itemsElement: null,
-	tabsElement: null,
-	prevElement: null,
-	nextElement: null,
+	/** List elements */
+	items: null,
+	tabs: null,
+
+	/** Previous and next buttons */
+	prevButton: null,
+	nextButton: null,
 
 	/** List of items data to populate the showcase with **/
-	items: [],
+	data: [],
 
 	/** The current and previous shown indices */
 	previousIndex: 0,
@@ -88,10 +90,10 @@ Titon.Showcase = new Class({
 		options = this.options;
 
 		// Get elements
-		this.itemsElement = this.element.getElement(options.itemsElement);
-		this.tabsElement = this.element.getElement(options.tabsElement);
-		this.prevElement = this.element.getElement(options.prevElement);
-		this.nextElement = this.element.getElement(options.nextElement);
+		this.items = this.element.getElement(options.itemsElement);
+		this.tabs = this.element.getElement(options.tabsElement);
+		this.prevButton = this.element.getElement(options.prevElement);
+		this.nextButton = this.element.getElement(options.nextElement);
 
 		// Blackout
 		if (this.options.blackout) {
@@ -134,7 +136,7 @@ Titon.Showcase = new Class({
 
 			this.element.removeClass('is-single');
 
-			this.itemsElement
+			this.items
 				.removeProperty('style')
 				.getElements('li').removeClass('show');
 		}.bind(this));
@@ -148,18 +150,18 @@ Titon.Showcase = new Class({
 	 * @param {Number} index
 	 */
 	jump: function(index) {
-		if (index >= this.items.length) {
+		if (index >= this.data.length) {
 			index = 0;
 		} else if (index < 0) {
-			index = this.items.length - 1;
+			index = this.data.length - 1;
 		}
 
 		var options = this.options,
 			element = this.element,
-			list = this.itemsElement,
+			list = this.items,
 			listItems = list.getElements('li'),
 			listItem = listItems[index],
-			items = this.items,
+			items = this.data,
 			item = items[index],
 			loadingClass = Titon.options.loadingClass,
 			activeClass = Titon.options.activeClass;
@@ -169,8 +171,8 @@ Titon.Showcase = new Class({
 		this.currentIndex = index;
 
 		// Update tabs
-		if (this.tabsElement) {
-			var listTabs = this.tabsElement.getElements('a');
+		if (this.tabs) {
+			var listTabs = this.tabs.getElements('a');
 
 			listTabs.removeClass(activeClass);
 			listTabs[index].addClass(activeClass);
@@ -288,6 +290,8 @@ Titon.Showcase = new Class({
 			});
 		}
 
+		this.fireEvent('show');
+
 		this._buildItems(items);
 		this._position();
 		this.jump(index);
@@ -301,13 +305,13 @@ Titon.Showcase = new Class({
 	 * @private
 	 */
 	_buildItems: function(items) {
-		this.items = items;
-		this.itemsElement.empty();
-		this.tabsElement.empty();
+		this.data = items;
+		this.items.empty();
+		this.tabs.empty();
 
 		for (var li, a, item, i = 0; item = items[i]; i++) {
 			li = new Element('li');
-			li.inject(this.itemsElement);
+			li.inject(this.items);
 
 			a = new Element('a')
 				.set('class', this.options.jumpEvent.substr(1))
@@ -315,7 +319,7 @@ Titon.Showcase = new Class({
 				.set('data-index', i);
 
 			li = new Element('li');
-			li.inject(this.tabsElement).grab(a);
+			li.inject(this.tabs).grab(a);
 		}
 
 		if (items.length <= 1) {
