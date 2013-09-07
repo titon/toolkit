@@ -22,7 +22,7 @@
 	overflow: hidden;
 }
 
-.carousel-slides {
+.carousel-items {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -41,14 +41,14 @@
 		z-index: 1;
 		display: block;
 
-		.image {
+		> img {
 			display: block;
 			width: 100%;
 			max-width: 100%;
 			height: auto;
 		}
 
-		.caption {
+		.carousel-caption {
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -77,6 +77,18 @@
 	&:hover {
 		color: #fff;
 		opacity: 1;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	// Large icons for large resolutions
+	@include if-tablet-landscape {
+		.carousel-prev,
+		.carousel-next {
+			font-size: 56px;
+		}
 	}
 }
 
@@ -115,18 +127,10 @@
 	&:empty { display: none; }
 }
 
-// Large icons for large resolutions
-@include if-tablet-landscape {
-	.carousel-prev,
-	.carousel-next {
-		font-size: 56px;
-	}
-}
-
 //-------------------- Animations --------------------//
 
 .carousel.slide {
-	.carousel-slides {
+	.carousel-items {
 		@include clear-fix;
 
 		> li {
@@ -136,7 +140,7 @@
 }
 
 .carousel.fade {
-	.carousel-slides {
+	.carousel-items {
 		height: 360px; // needs a base height because slides are absolute
 
 		> li {

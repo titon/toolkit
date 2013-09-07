@@ -1,5 +1,5 @@
 <?php
-$slides = array(
+$items = array(
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 	'Nullam auctor gravida diam. Donec eget magna nunc.',
 	'Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula.',
@@ -13,14 +13,14 @@ $slides = array(
 	<p>Images provided by <a href="http://lorempixel.com">lorempixel.com</a>. Icons provided by <a href="http://fortawesome.github.io/Font-Awesome">FontAwesome</a> (chrome only).</p>
 
 	<div class="carousel" id="carousel-1">
-		<ul class="carousel-slides">
+		<ul class="carousel-items">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
 				<li>
-					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+					<img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
-					<div class="caption">
+					<div class="carousel-caption">
 						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
-						<?php echo $slides[$i]; ?>
+						<?php echo $items[$i]; ?>
 					</div>
 				</li>
 			<?php } ?>
@@ -44,14 +44,14 @@ $slides = array(
 	<p>Do a slide animation upward instead. No index tabs.</p>
 
 	<div class="carousel" id="carousel-2">
-		<ul class="carousel-slides">
+		<ul class="carousel-items">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
 				<li>
-					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+					<img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
-					<div class="caption">
+					<div class="carousel-caption">
 						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
-						<?php echo $slides[$i]; ?>
+						<?php echo $items[$i]; ?>
 					</div>
 				</li>
 			<?php } ?>
@@ -69,14 +69,14 @@ $slides = array(
 	<p>Do a fade animation instead. No next or previous.</p>
 
 	<div class="carousel" id="carousel-3">
-		<ul class="carousel-slides">
+		<ul class="carousel-items">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
 				<li>
-					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+					<img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
-					<div class="caption">
+					<div class="carousel-caption">
 						<h2><a href="">Slide #<?php echo $i; ?></a></h2>
-						<?php echo $slides[$i]; ?>
+						<?php echo $items[$i]; ?>
 					</div>
 				</li>
 			<?php } ?>
@@ -92,13 +92,13 @@ $slides = array(
 	<p>Should disable with a single image.</p>
 
 	<div class="carousel" id="carousel-4">
-		<ul class="carousel-slides">
+		<ul class="carousel-items">
 			<li>
-				<img class="image" src="http://lorempixel.com/640/360/?c=1">
+				<img src="http://lorempixel.com/640/360/?c=1">
 
-				<div class="caption">
+				<div class="carousel-caption">
 					<h2><a href="">Slide #1</a></h2>
-					<?php echo $slides[1]; ?>
+					<?php echo $items[1]; ?>
 				</div>
 			</li>
 		</ul>
@@ -119,7 +119,7 @@ $slides = array(
 	<p>Will not auto-rotate. No captions.</p>
 
 	<div class="carousel" id="carousel-5">
-		<ul class="carousel-slides">
+		<ul class="carousel-items">
 			<?php for ($i = 0; $i < 5; $i++) { ?>
 				<li>
 					<img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
