@@ -1,5 +1,14 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
 
 @import "../common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Showcase module.
+ */
 
 .showcase {
 	position: fixed;
@@ -20,11 +29,16 @@
 		right: -30px;
 	}
 
-	&.is-loading {
+	&.is-loading,
+	&.is-single {
 		.showcase-prev,
 		.showcase-next,
 		.showcase-tabs {
 			display: none !important;
+		}
+
+		.showcase-inner {
+			background: $gray url("../../img/loader.gif") 50% 50% no-repeat;
 		}
 	}
 }
@@ -42,6 +56,7 @@
 	margin: 0;
 	width: 100px;
 	height: 100px;
+	max-width: 1024px;
 	position: relative;
 	overflow: hidden;
 	@include transition(width .3s, height .3s);
@@ -79,12 +94,6 @@
 	display: none;
 }
 
-.showcase-tabs {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
 .showcase-prev,
 .showcase-next {
 	display: block;
@@ -103,18 +112,14 @@
 		color: #fff;
 		opacity: 1;
 	}
+
+	&:focus {
+		outline: none;
+	}
 }
 
 .showcase-prev { left: $padding; }
 .showcase-next { right: $padding; }
-
-// Large icons for large resolutions
-@include if-tablet-landscape {
-	.showcase-prev,
-	.showcase-next {
-		font-size: 56px;
-	}
-}
 
 .showcase-tabs {
 	list-style: none;

@@ -183,7 +183,7 @@ Titon.Carousel = new Class({
 			break;
 		}
 
-		this.fireEvent('jump');
+		this.fireEvent('jump', index);
 	},
 
 	/**

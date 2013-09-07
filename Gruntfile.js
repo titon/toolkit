@@ -126,6 +126,11 @@ module.exports = function(grunt) {
 			css: ['ui/progress.css'],
 			require: ['base']
 		},
+		showcase: {
+			css: ['modules/showcase.css'],
+			js: ['modules/Showcase.js'],
+			require: ['base']
+		},
 		tabs: {
 			css: ['modules/tabs.css'],
 			js: ['modules/Tabs.js'],

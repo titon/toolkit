@@ -11,6 +11,7 @@ Titon.Showcase = new Class({
 	Extends: Titon.Component,
 	Binds: ['next', 'prev', '_jump'],
 
+	/** Elements within the showcase */
 	itemsElement: null,
 	tabsElement: null,
 	prevElement: null,
@@ -26,17 +27,35 @@ Titon.Showcase = new Class({
 	/** Blackout instance if options.blackout is true */
 	blackout: null,
 
+	/**
+	 * Default options.
+	 *
+	 *	blackout		- (bool) Will show a blackout when the showcase is opened, and hide it when it is closed
+	 *	transition		- (int) The length of CSS transition animations
+	 *	getCategory		- (string) The attribute to grab the category from
+	 *	getImage		- (string) The attribute to grab the image path from
+	 *	getTitle		- (string) The attribute to grab the title caption from
+	 *	itemsElement	- (string) CSS query for the items list element within the template
+	 *	tabsElement		- (string) CSS query for the tabs list element within the template
+	 *	prevElement		- (string) CSS query for the prev button element within the template
+	 *	nextElement		- (string) CSS query for the next button element within the template
+	 *	closeEvent		- (string) CSS query to bind hide events to
+	 *	jumpEvent		- (string) CSS query to bind jump events to
+	 *	prevEvent		- (string) CSS query to bind prev events to
+	 *	nextEvent		- (string) CSS query to bind next events to
+	 */
 	options: {
 		blackout: true,
 		transition: 300,
 		getCategory: 'data-showcase',
-		getSource: 'href',
+		getImage: 'href',
 		getTitle: 'title',
 		itemsElement: '.showcase-items',
 		tabsElement: '.showcase-tabs',
 		prevElement: '.showcase-prev',
 		nextElement: '.showcase-next',
 		closeEvent: '.showcase-event-close',
+		jumpEvent: '.showcase-event-jump',
 		prevEvent: '.showcase-event-prev',
 		nextEvent: '.showcase-event-next',
 		template: '<div class="showcase">' +
@@ -49,9 +68,18 @@ Titon.Showcase = new Class({
 					'<span class="x">&times;</span>' +
 				'</button>' +
 			'</div>' +
-		'</div>'
+		'</div>',
+
+		// Events
+		onJump: null
 	},
 
+	/**
+	 * Initialize the showcase, its elements and events.
+	 *
+	 * @param {String} query
+	 * @param {Object} options
+	 */
 	initialize: function(query, options) {
 		this.parent(options);
 		this.bindTo(query);
@@ -75,8 +103,14 @@ Titon.Showcase = new Class({
 		this.disable().enable();
 
 		window.addEvent('keydown', function(e) {
-			if (e.key === 'esc') {
-				this.hide();
+			if (this.isVisible()) {
+				switch (e.key) {
+					case 'esc':		this.hide(); break;
+					case 'up':		this.jump(0); break;
+					case 'down':	this.jump(-1); break;
+					case 'left':	this.prev(); break;
+					case 'right':	this.next(); break;
+				}
 			}
 		}.bind(this));
 
@@ -84,7 +118,9 @@ Titon.Showcase = new Class({
 			.addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)
 			.addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
 			.addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
-			.addEvent('click:relay(' + this.options.tabsElement + ' a)', this._jump);
+			.addEvent('click:relay(' + this.options.jumpEvent + ')', this._jump);
+
+		this.fireEvent('init');
 	},
 
 	/**
@@ -96,12 +132,21 @@ Titon.Showcase = new Class({
 				this.blackout.hide();
 			}
 
+			this.element.removeClass('is-single');
+
 			this.itemsElement
 				.removeProperty('style')
 				.getElements('li').removeClass('show');
 		}.bind(this));
 	},
 
+	/**
+	 * Jump to a specific item indicated by the index number.
+	 * If the index is too large, jump to the beginning.
+	 * If the index is too small, jump to the end.
+	 *
+	 * @param {Number} index
+	 */
 	jump: function(index) {
 		if (index >= this.items.length) {
 			index = 0;
@@ -131,7 +176,7 @@ Titon.Showcase = new Class({
 			listTabs[index].addClass(activeClass);
 		}
 
-		// Fade out previous image
+		// Fade out previous item
 		listItems.removeClass('show');
 
 		// Image already exists
@@ -170,17 +215,18 @@ Titon.Showcase = new Class({
 
 				// Create the caption
 				if (item.title) {
-					listItem.grab(new Element('div.showcase-caption').set('text', item.title));
+					listItem.grab(new Element('div.showcase-caption').set('html', item.title));
 				}
 
 				// Reveal the image after animation
 				setTimeout(function() {
 					element.removeClass(loadingClass);
-
 					listItem.addClass('show').grab(img);
 				}, options.transition);
 			};
 		}
+
+		this.fireEvent('jump', index);
 	},
 
 	/**
@@ -197,6 +243,13 @@ Titon.Showcase = new Class({
 		this.jump(this.currentIndex - 1);
 	},
 
+	/**
+	 * Reveal the showcase after scraping for items data.
+	 * Will scrape data from the activating node.
+	 * If a category exists, scrape data from multiple nodes.
+	 *
+	 * @param {Element} node
+	 */
 	show: function(node) {
 		this.node = node;
 		this.currentIndex = this.previousIndex = 0;
@@ -219,7 +272,7 @@ Titon.Showcase = new Class({
 					items.push({
 						title: read(n, options.getTitle),
 						category: category,
-						image: read(n, options.getSource)
+						image: read(n, options.getImage)
 					});
 
 					x++;
@@ -231,7 +284,7 @@ Titon.Showcase = new Class({
 			items.push({
 				title: read(node, options.getTitle),
 				category: category,
-				image: read(node, options.getSource)
+				image: read(node, options.getImage)
 			});
 		}
 
@@ -240,27 +293,33 @@ Titon.Showcase = new Class({
 		this.jump(index);
 	},
 
+	/**
+	 * Build the list of items and tabs based on the generated data.
+	 * Determine which elements to show and bind based on the data.
+	 *
+	 * @param {Array} items
+	 * @private
+	 */
 	_buildItems: function(items) {
 		this.items = items;
 		this.itemsElement.empty();
+		this.tabsElement.empty();
 
-		for (var li, item, i = 0; item = items[i]; i++) {
+		for (var li, a, item, i = 0; item = items[i]; i++) {
 			li = new Element('li');
 			li.inject(this.itemsElement);
 
+			a = new Element('a')
+				.set('class', this.options.jumpEvent.substr(1))
+				.set('href', 'javascript:;')
+				.set('data-index', i);
+
 			li = new Element('li');
-			li.grab(new Element('a').set('href', 'javascript:;').set('data-index', i))
-				.inject(this.tabsElement);
+			li.inject(this.tabsElement).grab(a);
 		}
 
-		if (items.length > 1) {
-			this.nextElement.show();
-			this.prevElement.show();
-			this.tabsElement.show();
-		} else {
-			this.nextElement.hide();
-			this.prevElement.hide();
-			this.tabsElement.hide();
+		if (items.length <= 1) {
+			this.element.addClass('is-single');
 		}
 	}.protect(),
 
@@ -276,6 +335,11 @@ Titon.Showcase = new Class({
 		this.jump(e.target.get('data-index') || 0);
 	},
 
+	/**
+	 * Position the element in the middle of the screen.
+	 *
+	 * @private
+	 */
 	_position: function() {
 		if (!this.isVisible()) {
 			if (this.options.blackout) {
@@ -286,7 +350,7 @@ Titon.Showcase = new Class({
 		}
 
 		this.fireEvent('show');
-	}
+	}.protect()
 
 });
 
