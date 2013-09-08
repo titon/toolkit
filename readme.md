@@ -89,3 +89,4 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 ## Known Issues ##
 * Slide in modal animations do not work correctly in Chrome/IE
 * Flip modal animations do not work in Opera
+* Tooltip positioning does not work in Opera

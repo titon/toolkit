@@ -44,7 +44,6 @@ Titon.Blackout = new Class({
 		return this;
 	},
 
-
 	/**
 	 * Show the blackout and increase the display count.
 	 *

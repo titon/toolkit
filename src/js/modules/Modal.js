@@ -97,10 +97,10 @@ Titon.Modal = new Class({
 		this.disable().enable();
 
 		window.addEvent('keydown', function(e) {
-			if (e.key === 'esc') {
-				Titon.Modal.hide();
+			if (e.key === 'esc' && this.isVisible()) {
+				this.hide();
 			}
-		});
+		}.bind(this));
 
 		this.element
 			.addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)

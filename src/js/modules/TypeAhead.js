@@ -144,10 +144,10 @@ Titon.TypeAhead = new Class({
 
 		// Set events
 		window.addEvent('keydown', function(e) {
-			if (e.key === 'esc') {
-				Titon.TypeAhead.hide();
+			if (e.key === 'esc' && this.isVisible()) {
+				this.hide();
 			}
-		});
+		}.bind(this));
 
 		this.disable().enable();
 

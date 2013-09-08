@@ -187,6 +187,10 @@ Titon.Carousel = new Class({
 				this.items[index].reveal();
 			break;
 			case 'slide-up':
+				if (!this.itemHeight) {
+					this._resize();
+				}
+
 				// Animating top property doesn't work with percentages
 				this.itemsWrapper.setStyle('top', -(index * this.itemHeight) + 'px');
 			break;

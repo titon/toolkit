@@ -106,9 +106,5 @@
 		$$('.tooltip-mbl').tooltip({ delegate: '.tooltip-mbl', position: 'bottomLeft', follow: true });
 		$$('.tooltip-mbc').tooltip({ delegate: '.tooltip-mbc', position: 'bottomCenter', follow: true });
 		$$('.tooltip-mbr').tooltip({ delegate: '.tooltip-mbr', position: 'bottomRight', follow: true });
-
-		// Error checks
-		$$('.tooltip-base').tooltip();
-		$$('.tooltip-missing').tooltip();
 	});
 </script>
