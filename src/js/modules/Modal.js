@@ -35,6 +35,7 @@ Titon.Modal = new Class({
 	 *	onSubmit		- (function) Callback to trigger when a modal form is submitted
 	 */
 	options: {
+		delegate: '.js-modal',
 		animation: 'fade',
 		ajax: true,
 		draggable: false,
@@ -61,12 +62,12 @@ Titon.Modal = new Class({
 	/**
 	 * Initialize the modal be creating the DOM elements and setting default events.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(elements, options) {
 		this.parent(options);
-		this.bindTo(query);
+		this.setNodes(elements);
 		this.createElement();
 
 		// Get elements
@@ -112,13 +113,11 @@ Titon.Modal = new Class({
 	 * @returns {Titon.Modal}
 	 */
 	hide: function() {
-		this.parent(function() {
+		return this.parent(function() {
 			if (this.options.blackout) {
 				this.blackout.hide();
 			}
 		}.bind(this));
-
-		return this;
 	},
 
 	/**
@@ -223,36 +222,26 @@ Titon.Modal = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Modal.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable modals on Elements collections by calling modal().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-modal').modal({
+ * 			draggable: true
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Modal}
  */
-Titon.Modal.factory = function(query, options) {
-	if (Titon.Modal.instances[query]) {
-		return Titon.Modal.instances[query];
+Elements.implement('modal', function(options) {
+	if (this.$modal) {
+		return this.$modal;
 	}
 
-	var instance = new Titon.Modal(query, options);
+	this.$modal = new Titon.Modal(this, options);
 
-	Titon.Modal.instances[query] = instance;
-
-	return instance;
-};
-
-/**
- * Hide all instances.
- */
-Titon.Modal.hide = function() {
-	Object.each(Titon.Modal.instances, function(modal) {
-		modal.hide();
-	});
-};
+	return this.$modal;
+});
 
 })();

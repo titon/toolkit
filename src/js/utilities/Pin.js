@@ -46,12 +46,12 @@ Titon.Pin = new Class({
 	/**
 	 * Pin the element and enable events.
 	 *
-	 * @param {String} id
+	 * @param {Element} element
 	 * @param {Object} [options]
 	 */
-	initialize: function(id, options) {
+	initialize: function(element, options) {
 		this.parent(options);
-		this.setElement(id);
+		this.setElement(element);
 
 		if (!this.element) {
 			return;
@@ -154,27 +154,26 @@ Titon.Pin = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Pin.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable Element pinning by calling pin().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} id
+ * @example
+ * 		$('pin-id').pin({
+ * 			animate: true
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Pin}
  */
-Titon.Pin.factory = function(id, options) {
-	if (Titon.Pin.instances[id]) {
-		return Titon.Pin.instances[id];
+Element.implement('pin', function(options) {
+	if (this.$pin) {
+		return this.$pin;
 	}
 
-	var instance = new Titon.Pin(id, options);
+	this.$pin = new Titon.Pin(this, options);
 
-	Titon.Pin.instances[id] = instance;
-
-	return instance;
-};
+	return this.$pin;
+});
 
 })();

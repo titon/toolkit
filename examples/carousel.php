@@ -145,10 +145,10 @@ $items = array(
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Carousel.factory('#carousel-1');
-		Titon.Carousel.factory('#carousel-2', { animation: 'slide-up' });
-		Titon.Carousel.factory('#carousel-3', { animation: 'fade' });
-		Titon.Carousel.factory('#carousel-4');
-		Titon.Carousel.factory('#carousel-5', { autoCycle: false });
+		$('carousel-1').carousel();
+		$('carousel-2').carousel({ animation: 'slide-up' });
+		$('carousel-3').carousel({ animation: 'fade' });
+		$('carousel-4').carousel();
+		$('carousel-5').carousel({ autoCycle: false });
 	});
 </script>

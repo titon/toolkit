@@ -52,15 +52,15 @@ Titon.Tabs = new Class({
 	/**
 	 * Initialize Tabs by storing the query, gathering the elements and binding events.
 	 *
-	 * @param {String} id
+	 * @param {Element} element
 	 * @param {Object} [options]
 	 */
-	initialize: function(id, options) {
+	initialize: function(element, options) {
 		options = options || {};
-		options.cookie = (options.cookie || id).camelCase();
+		options.cookie = (options.cookie || element.get('id')).camelCase();
 
 		this.parent(options);
-		this.setElement(id);
+		this.setElement(element);
 
 		if (!this.element) {
 			return;
@@ -71,7 +71,7 @@ Titon.Tabs = new Class({
 
 		this.tabs = this.nav.getElements('ul > li > a');
 		this.tabs.each(function(tab, index) {
-			tab.set('data-tabs-index', index).removeClass(Titon.options.activeClass);
+			tab.set('data-index', index).removeClass(Titon.options.activeClass);
 		});
 
 		this.sections = this.element.getElements(this.options.sectionsElement);
@@ -126,7 +126,7 @@ Titon.Tabs = new Class({
 		var activeClass = Titon.options.activeClass,
 			loadingClass = Titon.options.loadingClass,
 			failedClass = Titon.options.failedClass,
-			index = tab.get('data-tabs-index'),
+			index = tab.get('data-index'),
 			section = this.sections[index],
 			url = tab.get('href');
 
@@ -240,27 +240,26 @@ Titon.Tabs = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Tabs.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable tabular sections on an Element by calling tabs().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} id
+ * @example
+ * 		$('tabs-id').tabs({
+ * 			collapsible: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Tabs}
  */
-Titon.Tabs.factory = function(id, options) {
-	if (Titon.Tabs.instances[id]) {
-		return Titon.Tabs.instances[id];
+Element.implement('tabs', function(options) {
+	if (this.$tabs) {
+		return this.$tabs;
 	}
 
-	var instance = new Titon.Tabs(id, options);
+	this.$tabs = new Titon.Tabs(this, options);
 
-	Titon.Tabs.instances[id] = instance;
-
-	return instance;
-};
+	return this.$tabs;
+});
 
 })();

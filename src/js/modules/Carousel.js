@@ -77,12 +77,12 @@ Titon.Carousel = new Class({
 	/**
 	 * Initialize Carousel by storing the query, gathering the elements and binding events.
 	 *
-	 * @param {String} id
+	 * @param {Element} element
 	 * @param {Object} [options]
 	 */
-	initialize: function(id, options) {
+	initialize: function(element, options) {
 		this.parent(options);
-		this.setElement(id);
+		this.setElement(element);
 
 		if (!this.element) {
 			return;
@@ -356,27 +356,26 @@ Titon.Carousel = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Carousel.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Allow the carousel to be created on elements by calling carousel().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} id
+ * @example
+ * 		$('carousel-id').carousel({
+ * 			stopOnHover: true
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Carousel}
  */
-Titon.Carousel.factory = function(id, options) {
-	if (Titon.Carousel.instances[id]) {
-		return Titon.Carousel.instances[id];
+Element.implement('carousel', function(options) {
+	if (this.$carousel) {
+		return this.$carousel;
 	}
 
-	var instance = new Titon.Carousel(id, options);
+	this.$carousel = new Titon.Carousel(this, options);
 
-	Titon.Carousel.instances[id] = instance;
-
-	return instance;
-};
+	return this.$carousel;
+});
 
 })();

@@ -38,9 +38,8 @@
 			e.preventDefault();
 		});
 
-		Titon.Flyout.factory('.flyout-1', 'ajax/flyout.php');
-		Titon.Flyout.factory('.flyout-2', 'ajax/flyout.php', { mode: 'click', itemLimit: 5 });
-		Titon.Flyout.factory('.flyout-3', 'ajax/flyout.php', { showDelay: 0, hideDelay: 200 });
-		Titon.Flyout.factory('.flyout-missing', 'ajax/flyout.php');
+		$$('.flyout-1').flyout('ajax/flyout.php', { delegate: '.flyout-1' });
+		$$('.flyout-2').flyout('ajax/flyout.php', { delegate: '.flyout-2', mode: 'click', itemLimit: 5 });
+		$$('.flyout-3').flyout('ajax/flyout.php', { delegate: '.flyout-3', showDelay: 0, hideDelay: 200 });
 	});
 </script>

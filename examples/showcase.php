@@ -20,6 +20,6 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Showcase.factory('.js-showcase');
+		$$('.js-showcase').showcase();
 	});
 </script>

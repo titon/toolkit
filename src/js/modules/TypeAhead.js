@@ -79,19 +79,15 @@ Titon.TypeAhead = new Class({
 	/**
 	 * Store the input reference and trigger events.
 	 *
-	 * @param {String} id
+	 * @param {Element} element
 	 * @param {Object} [options]
 	 */
-	initialize: function(id, options) {
+	initialize: function(element, options) {
 		this.parent(options);
 		this.createElement();
 
 		// Store the input
-		this.input = document.getElement(id);
-
-		if (!this.input || !this.element) {
-			return;
-		}
+		this.input = element;
 
 		if (this.input.get('tag') !== 'input') {
 			throw new Error('TypeAhead must be initialized on an input field');
@@ -192,9 +188,7 @@ Titon.TypeAhead = new Class({
 			this.shadow.set('value', '');
 		}
 
-		this.parent();
-
-		return this;
+		return this.parent();
 	},
 
 	/**
@@ -632,36 +626,26 @@ Titon.TypeAhead = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.TypeAhead.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} id
+ * @example
+ * 		$('input-id').typeAhead({
+ * 			shadow: true
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.TypeAhead}
  */
-Titon.TypeAhead.factory = function(id, options) {
-	if (Titon.TypeAhead.instances[id]) {
-		return Titon.TypeAhead.instances[id];
+Element.implement('typeAhead', function(options) {
+	if (this.$typeAhead) {
+		return this.$typeAhead;
 	}
 
-	var instance = new Titon.TypeAhead(id, options);
+	this.$typeAhead = new Titon.TypeAhead(this, options);
 
-	Titon.TypeAhead.instances[id] = instance;
-
-	return instance;
-};
-
-/**
- * Hide all instances.
- */
-Titon.TypeAhead.hide = function() {
-	Object.each(Titon.TypeAhead.instances, function(ta) {
-		ta.hide();
-	});
-};
+	return this.$typeAhead;
+});
 
 })();

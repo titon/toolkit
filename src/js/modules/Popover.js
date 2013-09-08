@@ -14,6 +14,7 @@ Titon.Popover = new Class({
 	 * Default options.
 	 */
 	options: {
+		delegate: '.js-popover',
 		position: 'topCenter',
 		getContent: 'data-popover',
 		titleElement: '.popover-head',
@@ -44,36 +45,26 @@ Titon.Popover = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Popover.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable popovers on Elements collections by calling popover().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-popover').popover({
+ * 			ajax: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Popover}
  */
-Titon.Popover.factory = function(query, options) {
-	if (Titon.Popover.instances[query]) {
-		return Titon.Popover.instances[query];
+Elements.implement('popover', function(options) {
+	if (this.$popover) {
+		return this.$popover;
 	}
 
-	var instance = new Titon.Popover(query, options);
+	this.$popover = new Titon.Popover(this, options);
 
-	Titon.Popover.instances[query] = instance;
-
-	return instance;
-};
-
-/**
- * Hide all instances.
- */
-Titon.Popover.hide = function() {
-	Object.each(Titon.Popover.instances, function(popover) {
-		popover.hide();
-	});
-};
+	return this.$popover;
+});
 
 })();

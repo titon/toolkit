@@ -79,33 +79,36 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Tooltip.factory('.tooltip-base');
-		Titon.Tooltip.factory('.tooltip-attr', { getTitle: false, getContent: 'title' });
-		Titon.Tooltip.factory('.tooltip-ajax', { ajax: true });
-		Titon.Tooltip.factory('.tooltip-fade', { animation: 'fade' });
-		Titon.Tooltip.factory('.tooltip-from-above', { animation: 'from-above' });
-		Titon.Tooltip.factory('.tooltip-from-below', { animation: 'from-below' });
-		Titon.Tooltip.factory('.tooltip-flip-rotate', { animation: 'flip-rotate' });
-		Titon.Tooltip.factory('.tooltip-slide-in', { animation: 'slide-in' });
-		Titon.Tooltip.factory('.tooltip-click', { mode: 'click' });
-		Titon.Tooltip.factory('.tooltip-delay', { delay: 250 });
-		Titon.Tooltip.factory('.tooltip-offset', { xOffset: 15, yOffset: 15 });
-		Titon.Tooltip.factory('.tooltip-tl', { position: 'topLeft' });
-		Titon.Tooltip.factory('.tooltip-tc', { position: 'topCenter' });
-		Titon.Tooltip.factory('.tooltip-tr', { position: 'topRight' });
-		Titon.Tooltip.factory('.tooltip-cl', { position: 'centerLeft' });
-		Titon.Tooltip.factory('.tooltip-cr', { position: 'centerRight' });
-		Titon.Tooltip.factory('.tooltip-bl', { position: 'bottomLeft' });
-		Titon.Tooltip.factory('.tooltip-bc', { position: 'bottomCenter' });
-		Titon.Tooltip.factory('.tooltip-br', { position: 'bottomRight' });
-		Titon.Tooltip.factory('.tooltip-mtl', { position: 'topLeft', follow: true });
-		Titon.Tooltip.factory('.tooltip-mtc', { position: 'topCenter', follow: true });
-		Titon.Tooltip.factory('.tooltip-mtr', { position: 'topRight', follow: true });
-		Titon.Tooltip.factory('.tooltip-mcl', { position: 'centerLeft', follow: true });
-		Titon.Tooltip.factory('.tooltip-mcr', { position: 'centerRight', follow: true });
-		Titon.Tooltip.factory('.tooltip-mbl', { position: 'bottomLeft', follow: true });
-		Titon.Tooltip.factory('.tooltip-mbc', { position: 'bottomCenter', follow: true });
-		Titon.Tooltip.factory('.tooltip-mbr', { position: 'bottomRight', follow: true });
-		Titon.Tooltip.factory('.tooltip-missing');
+		$$('.tooltip-base').tooltip({ delegate: '.tooltip-base' });
+		$$('.tooltip-attr').tooltip({ delegate: '.tooltip-attr', getTitle: false, getContent: 'title' });
+		$$('.tooltip-ajax').tooltip({ delegate: '.tooltip-ajax', ajax: true });
+		$$('.tooltip-fade').tooltip({ delegate: '.tooltip-fade', animation: 'fade' });
+		$$('.tooltip-from-above').tooltip({ delegate: '.tooltip-from-above', animation: 'from-above' });
+		$$('.tooltip-from-below').tooltip({ delegate: '.tooltip-from-below', animation: 'from-below' });
+		$$('.tooltip-flip-rotate').tooltip({ delegate: '.tooltip-flip-rotate', animation: 'flip-rotate' });
+		$$('.tooltip-slide-in').tooltip({ delegate: '.tooltip-slide-in', animation: 'slide-in' });
+		$$('.tooltip-click').tooltip({ delegate: '.tooltip-click', mode: 'click' });
+		$$('.tooltip-delay').tooltip({ delegate: '.tooltip-delay', delay: 250 });
+		$$('.tooltip-offset').tooltip({ delegate: '.tooltip-offset', xOffset: 15, yOffset: 15 });
+		$$('.tooltip-tl').tooltip({ delegate: '.tooltip-tl', position: 'topLeft' });
+		$$('.tooltip-tc').tooltip({ delegate: '.tooltip-tc', position: 'topCenter' });
+		$$('.tooltip-tr').tooltip({ delegate: '.tooltip-tr', position: 'topRight' });
+		$$('.tooltip-cl').tooltip({ delegate: '.tooltip-cl', position: 'centerLeft' });
+		$$('.tooltip-cr').tooltip({ delegate: '.tooltip-cr', position: 'centerRight' });
+		$$('.tooltip-bl').tooltip({ delegate: '.tooltip-bl', position: 'bottomLeft' });
+		$$('.tooltip-bc').tooltip({ delegate: '.tooltip-bc', position: 'bottomCenter' });
+		$$('.tooltip-br').tooltip({ delegate: '.tooltip-br', position: 'bottomRight' });
+		$$('.tooltip-mtl').tooltip({ delegate: '.tooltip-mtl', position: 'topLeft', follow: true });
+		$$('.tooltip-mtc').tooltip({ delegate: '.tooltip-mtc', position: 'topCenter', follow: true });
+		$$('.tooltip-mtr').tooltip({ delegate: '.tooltip-mtr', position: 'topRight', follow: true });
+		$$('.tooltip-mcl').tooltip({ delegate: '.tooltip-mcl', position: 'centerLeft', follow: true });
+		$$('.tooltip-mcr').tooltip({ delegate: '.tooltip-mcr', position: 'centerRight', follow: true });
+		$$('.tooltip-mbl').tooltip({ delegate: '.tooltip-mbl', position: 'bottomLeft', follow: true });
+		$$('.tooltip-mbc').tooltip({ delegate: '.tooltip-mbc', position: 'bottomCenter', follow: true });
+		$$('.tooltip-mbr').tooltip({ delegate: '.tooltip-mbr', position: 'bottomRight', follow: true });
+
+		// Error checks
+		$$('.tooltip-base').tooltip();
+		$$('.tooltip-missing').tooltip();
 	});
 </script>

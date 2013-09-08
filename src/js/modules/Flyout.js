@@ -37,6 +37,7 @@ Titon.Flyout = new Class({
 	 *	onShowChild		- (function) Callback to trigger when a child menu is shown
 	 */
 	options: {
+		delegate: '.js-flyout',
 		mode: 'hover',
 		getUrl: 'href',
 		xOffset: 0,
@@ -56,13 +57,17 @@ Titon.Flyout = new Class({
 	/**
 	 * Initialize all options and events and fetch data from the defined URL.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {String} url
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, url, options) {
+	initialize: function(elements, url, options) {
 		this.parent(options);
-		this.bindTo(query);
+		this.setNodes(elements);
+
+		if (!url) {
+			throw new Error('Flyout URL required to download sitemap JSON');
+		}
 
 		// Load data from the URL
 		new Request.JSON({
@@ -81,13 +86,15 @@ Titon.Flyout = new Class({
 		this.disable().enable();
 
 		// Handles keeping menu open even if mouse exits the context
-		if (this.options.mode === 'hover') {
-			$$(query)
-				.addEvent('mouseenter', function() {
-					this.clearTimer('hide').startTimer('show', this.options.showDelay);
+		options = this.options;
+
+		if (options.mode === 'hover') {
+			$(options.context || document.body)
+				.addEvent('mouseenter:relay(' + options.delegate + ')', function() {
+					this.clearTimer('hide').startTimer('show', options.showDelay);
 				}.bind(this))
-				.addEvent('mouseleave', function() {
-					this.clearTimer('show').startTimer('hide', this.options.showDelay);
+				.addEvent('mouseleave:relay(' + options.delegate + ')', function() {
+					this.clearTimer('show').startTimer('hide', options.showDelay);
 				}.bind(this));
 		}
 
@@ -271,7 +278,7 @@ Titon.Flyout = new Class({
 			}
 
 			if (target) {
-				if (target.substr(0, 1) === '.' && menu.hasClass(target.remove('.'))) {
+				if (target.substr(0, 1) === '.' && menu.hasClass(target.substr(1))) {
 					menu.grab(ul);
 				} else {
 					menu.getElement(target).grab(ul);
@@ -433,28 +440,27 @@ Titon.Flyout = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Flyout.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable flyouts on Elements collections by calling flyout().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-flyout').flyout({
+ * 			ajax: false
+ * 		});
+ *
  * @param {String} url
  * @param {Object} [options]
  * @returns {Titon.Flyout}
  */
-Titon.Flyout.factory = function(query, url, options) {
-	if (Titon.Flyout.instances[query]) {
-		return Titon.Flyout.instances[query];
+Elements.implement('flyout', function(url, options) {
+	if (this.$flyout) {
+		return this.$flyout;
 	}
 
-	var instance = new Titon.Flyout(query, url, options);
+	this.$flyout = new Titon.Flyout(this, url, options);
 
-	Titon.Flyout.instances[query] = instance;
-
-	return instance;
-};
+	return this.$flyout;
+});
 
 })();

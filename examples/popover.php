@@ -58,23 +58,22 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Popover.factory('.popover-base');
-		Titon.Popover.factory('.popover-ajax', { ajax: true });
-		Titon.Popover.factory('.popover-delay', { delay: 250 });
-		Titon.Popover.factory('.popover-offset', { xOffset: 15, yOffset: 15 });
-		Titon.Popover.factory('.popover-fade', { animation: 'fade' });
-		Titon.Popover.factory('.popover-from-above', { animation: 'from-above' });
-		Titon.Popover.factory('.popover-from-below', { animation: 'from-below' });
-		Titon.Popover.factory('.popover-flip-rotate', { animation: 'flip-rotate' });
-		Titon.Popover.factory('.popover-slide-in', { animation: 'slide-in' });
-		Titon.Popover.factory('.popover-tl', { position: 'topLeft' });
-		Titon.Popover.factory('.popover-tc', { position: 'topCenter' });
-		Titon.Popover.factory('.popover-tr', { position: 'topRight' });
-		Titon.Popover.factory('.popover-cl', { position: 'centerLeft' });
-		Titon.Popover.factory('.popover-cr', { position: 'centerRight' });
-		Titon.Popover.factory('.popover-bl', { position: 'bottomLeft' });
-		Titon.Popover.factory('.popover-bc', { position: 'bottomCenter' });
-		Titon.Popover.factory('.popover-br', { position: 'bottomRight' });
-		Titon.Popover.factory('.popover-missing');
+		$$('.popover-base').popover({ delegate: '.popover-base' });
+		$$('.popover-ajax').popover({ delegate: '.popover-ajax', ajax: true });
+		$$('.popover-delay').popover({ delegate: '.popover-delay', delay: 250 });
+		$$('.popover-offset').popover({ delegate: '.popover-offset', xOffset: 15, yOffset: 15 });
+		$$('.popover-fade').popover({ delegate: '.popover-fade', animation: 'fade' });
+		$$('.popover-from-above').popover({ delegate: '.popover-from-above', animation: 'from-above' });
+		$$('.popover-from-below').popover({ delegate: '.popover-from-below', animation: 'from-below' });
+		$$('.popover-flip-rotate').popover({ delegate: '.popover-flip-rotate', animation: 'flip-rotate' });
+		$$('.popover-slide-in').popover({ delegate: '.popover-slide-in', animation: 'slide-in' });
+		$$('.popover-tl').popover({ delegate: '.popover-tl', position: 'topLeft' });
+		$$('.popover-tc').popover({ delegate: '.popover-tc', position: 'topCenter' });
+		$$('.popover-tr').popover({ delegate: '.popover-tr', position: 'topRight' });
+		$$('.popover-cl').popover({ delegate: '.popover-cl', position: 'centerLeft' });
+		$$('.popover-cr').popover({ delegate: '.popover-cr', position: 'centerRight' });
+		$$('.popover-bl').popover({ delegate: '.popover-bl', position: 'bottomLeft' });
+		$$('.popover-bc').popover({ delegate: '.popover-bc', position: 'bottomCenter' });
+		$$('.popover-br').popover({ delegate: '.popover-br', position: 'bottomRight' });
 	});
 </script>

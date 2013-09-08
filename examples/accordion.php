@@ -8,7 +8,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 <div class="example">
 	<p>Default functionality.</p>
 
-	<ul class="accordion acc-1">
+	<ul class="accordion acc-1" id="acc-1">
 		<li>
 			<header class="accordion-head">
 				<h4>One</h4>
@@ -106,9 +106,8 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		console.log(Titon.Accordion.factory('.acc-1'));
-		Titon.Accordion.factory($$('.acc-2'), { multiple: true, collapsible: true });
-		Titon.Accordion.factory('.acc-3', { mode: 'hover' });
-		Titon.Accordion.factory('.acc-missing');
+		$('acc-1').accordion();
+		$$('.acc-2').accordion({ multiple: true, collapsible: true });
+		$$('.acc-3').accordion({ mode: 'hover' });
 	});
 </script>

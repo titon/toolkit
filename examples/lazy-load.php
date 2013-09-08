@@ -37,7 +37,6 @@
 </div>
 
 <script type="text/javascript">
-	Titon.LazyLoad.factory('.lazy-load-0');
-	Titon.LazyLoad.factory('.lazy-load-1', { forceLoad: true, delay: 5000 });
-	Titon.LazyLoad.factory('.lazy-load-missing');
+	$$('.lazy-load-0').lazyLoad({ lazyClass: '.lazy-load-0' });
+	$$('.lazy-load-1').lazyLoad({ lazyClass: '.lazy-load-1', forceLoad: true, delay: 5000 });
 </script>

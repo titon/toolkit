@@ -15,7 +15,6 @@ window.Titon = {
 	/**
 	 * Options for all classes.
 	 *
-	 *	prefix			- (string) String to prepend to all created element containers
 	 *	activeClass		- (string) Class name to append to active elements
 	 *	disabledClass	- (string) Class name to append to disabled elements
 	 *	openClass		- (string) Class name to append to elements that have menus open
@@ -25,7 +24,6 @@ window.Titon = {
 	 *	failedClass		- (string) Class name used when AJAX calls fail
 	 */
 	options: {
-		prefix: '',
 		activeClass: 'is-active',
 		disabledClass: 'is-disabled',
 		openClass: 'is-open',
@@ -137,24 +135,6 @@ Element.Properties.html.set = function(html) {
 
 	return this;
 };
-
-String.implement({
-
-	/**
-	 * Remove specific characters from a string.
-	 *
-	 * @param {String|Array} chars
-	 * @returns {String}
-	 */
-	remove: function(chars) {
-		if (typeOf(chars) !== 'array') {
-			chars = chars.toString().split('');
-		}
-
-		return this.replace(new RegExp('[' + chars.join('|') + ']+', 'ig'), '');
-	}
-
-});
 
 Array.implement({
 

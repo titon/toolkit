@@ -23,13 +23,11 @@ Titon.Component = new Class({
 	/** Current node that activated the component */
 	node: null,
 
-	/** Query selector used for node binding */
-	query: null,
-
 	/**
 	 * Default options.
 	 *
 	 *	context			- (element) The element the component will display in (defaults to document.body)
+	 *	delegate		- (string) CSS query of elements to attach events to (overrides single element events)
 	 *	className		- (string) Class name to append to element
 	 *	animation		- (string) The name of the animation class to use
 	 *	mode			- (string) Either "hover" or "click"
@@ -44,6 +42,7 @@ Titon.Component = new Class({
 	 */
 	options: {
 		context: null,
+		delegate: '',
 		className: '',
 		animation: '',
 		mode: 'click',
@@ -70,19 +69,6 @@ Titon.Component = new Class({
 	 */
 	initialize: function(options) {
 		this.setOptions(options || {});
-	},
-
-	/**
-	 * Store the list of elements (referred to as nodes) that will be bound with activation events.
-	 *
-	 * @param {String} query
-	 * @returns {Titon.Component}
-	 */
-	bindTo: function(query) {
-		this.query = query;
-		this.nodes = $$(query);
-
-		return this;
 	},
 
 	/**
@@ -177,7 +163,7 @@ Titon.Component = new Class({
 		}
 
 		if (typeOf(query) === 'function') {
-			return query(element, this);
+			return query.call(this, element);
 		}
 
 		return element.get(query);
@@ -229,14 +215,7 @@ Titon.Component = new Class({
 		var element = Elements.from(template);
 
 		if (element[0]) {
-			element = element[0];
-
-			// Apply prefix to base class
-			if (Titon.options.prefix) {
-				element.set('class', Titon.options.prefix + element.get('class'));
-			}
-
-			return element;
+			return element[0];
 		}
 
 		throw new Error(this.className() + ' template failed to parse');
@@ -246,10 +225,11 @@ Titon.Component = new Class({
 	 * Request data from a URL and handle all the possible scenarios.
 	 *
 	 * @param {String} url
+	 * @returns {Titon.Component}
 	 */
 	requestData: function(url) {
 		if (this.cache[url]) {
-			return;
+			return this;
 		}
 
 		new Request({
@@ -289,6 +269,8 @@ Titon.Component = new Class({
 				this._position(this._errorTemplate());
 			}.bind(this)
 		}).get();
+
+		return this;
 	},
 
 	/**
@@ -316,21 +298,25 @@ Titon.Component = new Class({
 	 * @returns {Titon.Component}
 	 */
 	setElement: function(element) {
-		this.element = document.getElement(element); // Uses #id format
+		if (typeOf(element) === 'string') {
+			element = document.getElement(element); // Uses #id format
+		}
+
+		this.element = element;
 		this.options.parseTemplate = false;
 
 		return this;
 	},
 
 	/**
-	 * Set the collection of elements to use.
+	 * Store the list of elements (referred to as nodes) that will be bound with activation events.
+	 * These are usually the elements returned from an Elements constructor.
 	 *
-	 * @param {String|Elements} element
+	 * @param {Elements} nodes
 	 * @returns {Titon.Component}
 	 */
-	setElements: function(element) {
-		this.element = $$(element);
-		this.options.parseTemplate = false;
+	setNodes: function(nodes) {
+		this.nodes = nodes;
 
 		return this;
 	},
@@ -415,6 +401,8 @@ Titon.Component = new Class({
 			e.stop();
 		}
 
+		node = node || e.target;
+
 		if (this.isVisible()) {
 			if (this.options.mode === 'click') {
 				this.hide();
@@ -431,20 +419,30 @@ Titon.Component = new Class({
 
 	/**
 	 * Toggle activation events on and off.
+	 * Will either apply events via delegation or directly to an element.
 	 *
 	 * @private
+	 * @param {bool} on
 	 * @returns {Titon.Component}
 	 */
 	_toggleEvents: function(on) {
-		if (!this.query) {
-			return this;
-		}
-
 		var options = this.options,
-			event = (this.options.mode === 'click' ? 'click' : 'mouseenter') + ':relay(' + this.query + ')',
+			event = (options.mode === 'click' ? 'click' : 'mouseenter'),
+			context;
+
+		// Delegation
+		if (options.delegate) {
+			event += ':relay(' + options.delegate + ')';
 			context = document.id(options.context || document.body);
 
-		if (on) {
+		// Direct
+		} else if (this.element) {
+			context = this.element;
+		}
+
+		if (!context) {
+			return this;
+		} else if (on) {
 			context.addEvent(event, this._show);
 		} else {
 			context.removeEvent(event, this._show);

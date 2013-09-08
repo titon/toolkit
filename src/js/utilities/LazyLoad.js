@@ -30,6 +30,7 @@ Titon.LazyLoad = new Class({
 	 *	onShutdown		- (function) Callback to trigger when lazy loading is disabled
 	 */
 	options: {
+		lazyClass: '.lazy-load',
 		forceLoad: false,
 		delay: 10000,
 		threshold: 150,
@@ -45,13 +46,12 @@ Titon.LazyLoad = new Class({
 	/**
 	 * Initialize container events, instantly load() elements in viewport and set force load timeout if option is true.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(elements, options) {
 		this.parent(options);
-		this.bindTo(query);
-		this.setElements(query);
+		this.setElement(elements);
 
 		// Exit if no elements
 		if (!this.element.length) {
@@ -154,7 +154,7 @@ Titon.LazyLoad = new Class({
 	 * @returns {Titon.LazyLoad}
 	 */
 	show: function(node, index) {
-		node.removeClass(this.query.remove('.'));
+		node.removeClass(this.options.lazyClass.substr(1));
 
 		// Replace src attributes on images
 		node.getElements('img').each(function(image) {
@@ -201,27 +201,26 @@ Titon.LazyLoad = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.LazyLoad.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable lazy loading on Elements collections by calling lazyLoad().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.lazy-load').lazyLoad({
+ * 			forceLoad: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.LazyLoad}
  */
-Titon.LazyLoad.factory = function(query, options) {
-	if (Titon.LazyLoad.instances[query]) {
-		return Titon.LazyLoad.instances[query];
+Elements.implement('lazyLoad', function(options) {
+	if (this.$lazyLoad) {
+		return this.$lazyLoad;
 	}
 
-	var instance = new Titon.LazyLoad(query, options);
+	this.$lazyLoad = new Titon.LazyLoad(this, options);
 
-	Titon.LazyLoad.instances[query] = instance;
-
-	return instance;
-};
+	return this.$lazyLoad;
+});
 
 })();

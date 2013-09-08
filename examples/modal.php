@@ -44,21 +44,21 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Modal.factory('.modal-base', { blur: 'wrapper' });
-		Titon.Modal.factory('.modal-black', { blackout: false });
-		Titon.Modal.factory('.modal-drag', { draggable: true });
-		Titon.Modal.factory('.modal-fade', { animation: 'fade' });
-		Titon.Modal.factory('.modal-from-above', { animation: 'from-above' });
-		Titon.Modal.factory('.modal-from-below', { animation: 'from-below' });
-		Titon.Modal.factory('.modal-slide-in-top', { animation: 'slide-in-top' });
-		Titon.Modal.factory('.modal-slide-in-right', { animation: 'slide-in-right' });
-		Titon.Modal.factory('.modal-slide-in-bottom', { animation: 'slide-in-bottom' });
-		Titon.Modal.factory('.modal-slide-in-left', { animation: 'slide-in-left' });
-		Titon.Modal.factory('.modal-sticky-top', { animation: 'sticky-top' });
-		Titon.Modal.factory('.modal-sticky-bottom', { animation: 'sticky-bottom' });
-		Titon.Modal.factory('.modal-sticky-left', { animation: 'sticky-left' });
-		Titon.Modal.factory('.modal-sticky-right', { animation: 'sticky-right' });
-		Titon.Modal.factory('.modal-flip', { animation: 'flip' });
-		Titon.Modal.factory('.modal-flip-vert', { animation: 'flip-vert' });
+		$$('.modal-base').modal({ delegate: '.modal-base', blur: 'wrapper' });
+		$$('.modal-black').modal({ delegate: '.modal-black', blackout: false });
+		$$('.modal-drag').modal({ delegate: '.modal-drag', draggable: true });
+		$$('.modal-fade').modal({ delegate: '.modal-fade', animation: 'fade' });
+		$$('.modal-from-above').modal({ delegate: '.modal-from-above', animation: 'from-above' });
+		$$('.modal-from-below').modal({ delegate: '.modal-from-below', animation: 'from-below' });
+		$$('.modal-slide-in-top').modal({ delegate: '.modal-slide-in-top', animation: 'slide-in-top' });
+		$$('.modal-slide-in-right').modal({ delegate: '.modal-slide-in-right', animation: 'slide-in-right' });
+		$$('.modal-slide-in-bottom').modal({ delegate: '.modal-slide-in-bottom', animation: 'slide-in-bottom' });
+		$$('.modal-slide-in-left').modal({ delegate: '.modal-slide-in-left', animation: 'slide-in-left' });
+		$$('.modal-sticky-top').modal({ delegate: '.modal-sticky-top', animation: 'sticky-top' });
+		$$('.modal-sticky-bottom').modal({ delegate: '.modal-sticky-bottom', animation: 'sticky-bottom' });
+		$$('.modal-sticky-left').modal({ delegate: '.modal-sticky-left', animation: 'sticky-left' });
+		$$('.modal-sticky-right').modal({ delegate: '.modal-sticky-right', animation: 'sticky-right' });
+		$$('.modal-flip').modal({ delegate: '.modal-flip', animation: 'flip' });
+		$$('.modal-flip-vert').modal({ delegate: '.modal-flip-vert', animation: 'flip-vert' });
 	});
 </script>

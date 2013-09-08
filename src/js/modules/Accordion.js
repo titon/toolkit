@@ -25,43 +25,40 @@ Titon.Accordion = new Class({
 		multiple: false,
 		collapsible: false,
 		headerElement: '.accordion-head',
-		contentElement: '.accordion-inner',
-		multiElement: true
+		contentElement: '.accordion-inner'
 	},
 
 	/**
-	 * Apply to all accordions in the page.
-	 * Trigger the default row and toggle events.
+	 * Set the element and attach events.
 	 *
-	 * @param {String} query
+	 * @param {Element} element
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(element, options) {
 		this.parent(options);
-		this.setElements(query);
+		this.setElement(element);
+
+		options = this.options;
 
 		// Hide all sections besides the defaultIndex
-		this.element.each(function(accordion) {
-			var options = this.options,
-				sections = accordion.getElements(options.contentElement),
-				headers = accordion.getElements(options.headerElement),
-				header = headers[0];
+		var sections = this.element.getElements(options.contentElement),
+			headers = this.element.getElements(options.headerElement),
+			header = headers[0];
 
-			// Fall back to first row if the default doesn't exist
-			if (headers[options.defaultIndex]) {
-				header = headers[options.defaultIndex];
-			}
+		// Fall back to first row if the default doesn't exist
+		if (headers[options.defaultIndex]) {
+			header = headers[options.defaultIndex];
+		}
 
-			// Reset the state of every row
-			accordion.getElements('li').removeClass(Titon.options.activeClass);
+		// Reset the state of every row
+		this.element.getElements('li').removeClass(Titon.options.activeClass);
 
-			// Cache the height so we can use for sliding
-			sections.each(function(section) {
-				section.set('data-height', section.getHeight());
-			}).conceal();
+		// Cache the height so we can use for sliding
+		sections.each(function(section) {
+			section.set('data-height', section.getHeight());
+		}).conceal();
 
-			this.show(header);
-		}.bind(this));
+		this.show(header);
 
 		// Set events
 		this.disable().enable();
@@ -127,7 +124,7 @@ Titon.Accordion = new Class({
 	 */
 	_show: function(e) {
 		var target = e.target,
-			headerClass = this.options.headerElement.remove('.');
+			headerClass = this.options.headerElement.substr(1);
 
 		// Fetch the header in case a child is clicked
 		while (target && !target.hasClass(headerClass)) {
@@ -153,17 +150,14 @@ Titon.Accordion = new Class({
 			return this;
 		}
 
-		var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
+		var event = (this.options.mode === 'click') ? 'click' : 'mouseover',
+			headers = this.element.getElements(this.options.headerElement);
 
-		this.element.each(function(accordion) {
-			var headers = accordion.getElements(this.options.headerElement);
-
-			if (on) {
-				headers.addEvent(event, this._show);
-			} else {
-				headers.removeEvent(event, this._show);
-			}
-		}.bind(this));
+		if (on) {
+			headers.addEvent(event, this._show);
+		} else {
+			headers.removeEvent(event, this._show);
+		}
 
 		return this;
 	}.protect()
@@ -171,27 +165,26 @@ Titon.Accordion = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Accordion.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable an accordion on an element by calling accordion().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$('accordion-id').accordion({
+ * 			multiple: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Accordion}
  */
-Titon.Accordion.factory = function(query, options) {
-	if (Titon.Accordion.instances[query]) {
-		return Titon.Accordion.instances[query];
+Element.implement('accordion', function(options) {
+	if (this.$accordion) {
+		return this.$accordion;
 	}
 
-	var instance = new Titon.Accordion(query, options);
+	this.$accordion = new Titon.Accordion(this, options);
 
-	Titon.Accordion.instances[query] = instance;
-
-	return instance;
-};
+	return this.$accordion;
+});
 
 })();

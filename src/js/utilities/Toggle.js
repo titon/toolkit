@@ -24,12 +24,12 @@ Titon.Toggle = new Class({
 	/**
 	 * Initialize toggles.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(elements, options) {
 		this.parent(options);
-		this.bindTo(query);
+		this.setNodes(elements);
 
 		this.disable().enable();
 
@@ -44,11 +44,9 @@ Titon.Toggle = new Class({
 	 * @returns {Titon.Toggle}
 	 */
 	hide: function() {
-		this.parent(function() {
+		return this.parent(function() {
 			this.node.removeClass(Titon.options.activeClass);
 		}.bind(this));
-
-		return this;
 	},
 
 	/**
@@ -98,27 +96,29 @@ Titon.Toggle = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Toggle.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable dropdowns on Elements collections by calling dropdown().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-dropdown').dropdown({
+ * 			hideOpened: true
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Toggle}
  */
-Titon.Toggle.factory = function(query, options) {
-	if (Titon.Toggle.instances[query]) {
-		return Titon.Toggle.instances[query];
+Elements.implement('dropdown', function(options) {
+	if (this.$dropdown) {
+		return this.$dropdown;
 	}
 
-	var instance = new Titon.Toggle(query, options);
+	options = options || {};
+	options.delegate = options.delegate || '.js-dropdown';
 
-	Titon.Toggle.instances[query] = instance;
+	this.$dropdown = new Titon.Toggle(this, options);
 
-	return instance;
-};
+	return this.$dropdown;
+});
 
 })();

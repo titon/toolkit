@@ -47,6 +47,7 @@ Titon.Showcase = new Class({
 	 *	nextEvent		- (string) CSS query to bind next events to
 	 */
 	options: {
+		delegate: '.js-showcase',
 		blackout: true,
 		transition: 300,
 		getCategory: 'data-showcase',
@@ -79,12 +80,12 @@ Titon.Showcase = new Class({
 	/**
 	 * Initialize the showcase, its elements and events.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(elements, options) {
 		this.parent(options);
-		this.bindTo(query);
+		this.setNodes(elements);
 		this.createElement();
 
 		options = this.options;
@@ -377,27 +378,26 @@ Titon.Showcase = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Showcase.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable showcase galleries on Elements collections by calling showcase().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-showcase').showcase({
+ * 			blackout: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Showcase}
  */
-Titon.Showcase.factory = function(query, options) {
-	if (Titon.Showcase.instances[query]) {
-		return Titon.Showcase.instances[query];
+Elements.implement('showcase', function(options) {
+	if (this.$showcase) {
+		return this.$showcase;
 	}
 
-	var instance = new Titon.Showcase(query, options);
+	this.$showcase = new Titon.Showcase(this, options);
 
-	Titon.Showcase.instances[query] = instance;
-
-	return instance;
-};
+	return this.$showcase;
+});
 
 })();

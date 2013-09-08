@@ -101,7 +101,6 @@
 
 <script type="text/javascript">
 	window.addEvent('domready', function() {
-		Titon.Toggle.factory('.js-dropdown');
-		Titon.Toggle.factory('.js-dropdown-missing');
+		$$('.js-dropdown').dropdown();
 	});
 </script>

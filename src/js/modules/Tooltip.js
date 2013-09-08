@@ -11,7 +11,7 @@ Titon.Tooltip = new Class({
 	Extends: Titon.Component,
 	Binds: ['_follow'],
 
-	/** DOM elements */
+	/** Inner elements */
 	elementHead: null,
 	elementBody: null,
 
@@ -33,6 +33,7 @@ Titon.Tooltip = new Class({
 	 *	contentElement	- (string) CSS query for the content element within the template
 	 */
 	options: {
+		delegate: '.js-tooltip',
 		mode: 'hover',
 		ajax: false,
 		follow: false,
@@ -74,12 +75,12 @@ Titon.Tooltip = new Class({
 	/**
 	 * Initialize tooltips.
 	 *
-	 * @param {String} query
+	 * @param {Elements} elements
 	 * @param {Object} [options]
 	 */
-	initialize: function(query, options) {
+	initialize: function(elements, options) {
 		this.parent(options);
-		this.bindTo(query);
+		this.setNodes(elements);
 		this.createElement();
 
 		// Fetch elements
@@ -243,36 +244,26 @@ Titon.Tooltip = new Class({
 });
 
 /**
- * All instances loaded via factory().
- */
-Titon.Tooltip.instances = {};
-
-/**
- * Easily create multiple instances.
+ * Enable tooltips on Elements collections by calling tooltip().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
  *
- * @param {String} query
+ * @example
+ * 		$$('.js-tooltip').tooltip({
+ * 			ajax: false
+ * 		});
+ *
  * @param {Object} [options]
  * @returns {Titon.Tooltip}
  */
-Titon.Tooltip.factory = function(query, options) {
-	if (Titon.Tooltip.instances[query]) {
-		return Titon.Tooltip.instances[query];
+Elements.implement('tooltip', function(options) {
+	if (this.$tooltip) {
+		return this.$tooltip;
 	}
 
-	var instance = new Titon.Tooltip(query, options);
+	this.$tooltip = new Titon.Tooltip(this, options);
 
-	Titon.Tooltip.instances[query] = instance;
-
-	return instance;
-};
-
-/**
- * Hide all instances.
- */
-Titon.Tooltip.hide = function() {
-	Object.each(Titon.Tooltip.instances, function(tooltip) {
-		tooltip.hide();
-	});
-};
+	return this.$tooltip;
+});
 
 })();

@@ -56,28 +56,26 @@
 			{ title: 'Notepad' }
 		];
 
-		Titon.TypeAhead.factory('#ta-1', {
+		$('ta-1').typeAhead({
 			source: langs,
 			shadow: true
 		});
 
-		Titon.TypeAhead.factory('#ta-2', {
+		$('ta-2').typeAhead({
 			source: function() {
 				return langs;
 			}
 		});
 
-		Titon.TypeAhead.factory($('ta-3'), {
+		$('ta-3').typeAhead({
 			sorter: false,
 			matcher: false,
 			source: 'ajax/type-ahead.php?unique'
 		});
 
-		Titon.TypeAhead.factory('#ta-4', {
+		$('ta-4').typeAhead({
 			prefetch: true,
 			source: 'ajax/type-ahead.php'
 		});
-
-		Titon.TypeAhead.factory('#ta-missing');
 	});
 </script>
