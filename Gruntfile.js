@@ -356,16 +356,6 @@ module.exports = function(grunt) {
 					{ src: '*.md' }
 				]
 			}
-		},
-
-		// 6) Use Intern to run JS unit tests
-		// https://github.com/theintern/intern/wiki/Using-Intern-with-Grunt
-		intern: {
-			build: {
-				options: {
-					config: '../../tests/intern'
-				}
-			}
 		}
 	});
 
