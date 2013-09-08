@@ -14,7 +14,6 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 	* More/Class.Binds
 	* More/Elements.From
 	* More/Element.Shortcuts
-	* More/Hash
 	* More/Locale
 	* More/Drag (optional: Modal)
 	* More/Array.Extras (optional: Flyout)

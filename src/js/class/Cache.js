@@ -81,7 +81,7 @@ window.Cache = new Class({
 	/**
 	 * Return the cache size.
 	 *
-	 * @returns {int}
+	 * @returns {Number}
 	 */
 	cacheSize: function() {
 		return this.storage.length || 0;

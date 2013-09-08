@@ -90,22 +90,29 @@ Titon.Tabs = new Class({
 
 	/**
 	 * Hide all sections and trigger event.
+	 *
+	 * @returns {Titon.Tabs}
 	 */
 	hide: function() {
 		this.sections.conceal();
 
 		this.fireEvent('hide', this.node);
+
+		return this;
 	},
 
 	/**
 	 * Jump to a specific tab via index.
 	 *
 	 * @param {Number} index
+	 * @returns {Titon.Tabs}
 	 */
 	jump: function(index) {
 		if (this.tabs[index]) {
 			this.show(this.tabs[index]);
 		}
+
+		return this;
 	},
 
 	/**
@@ -113,6 +120,7 @@ Titon.Tabs = new Class({
 	 * or pass an element object for a tab in the collection.
 	 *
 	 * @param {Element} tab
+	 * @returns {Titon.Tabs}
 	 */
 	show: function(tab) {
 		var activeClass = Titon.options.activeClass,
@@ -182,13 +190,15 @@ Titon.Tabs = new Class({
 
 		// Set current node
 		this.node = tab;
+
+		return this;
 	},
 
 	/**
 	 * Event callback for tab element click.
 	 *
 	 * @private
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 */
 	_show: function(e) {
 		if (this.options.preventDefault) {
@@ -202,7 +212,8 @@ Titon.Tabs = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Tabs}
+	 * @param {bool} on
+	 * @returns {Titon.Tabs}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.element) {
@@ -238,7 +249,7 @@ Titon.Tabs.instances = {};
  *
  * @param {String} id
  * @param {Object} [options]
- * @return {Titon.Tabs}
+ * @returns {Titon.Tabs}
  */
 Titon.Tabs.factory = function(id, options) {
 	if (Titon.Tabs.instances[id]) {

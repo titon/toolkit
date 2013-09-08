@@ -20,7 +20,7 @@ window.Timers = new Class({
 	 *
 	 * @param {String} key
 	 * @param {Function} fn
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	addTimer: function(key, fn) {
 		this.timers[key] = Function.from(fn);
@@ -32,7 +32,7 @@ window.Timers = new Class({
 	 * Add multiple timers.
 	 *
 	 * @param {Object} timers
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	addTimers: function(timers) {
 		for (var key in timers) {
@@ -46,9 +46,9 @@ window.Timers = new Class({
 	 * Start a timer that executes a function after a delay.
 	 *
 	 * @param {String} key
-	 * @param {int} delay
+	 * @param {Number} delay
 	 * @param {Array} [args]
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	startTimer: function(key, delay, args) {
 		this.clearTimer(key);
@@ -64,9 +64,9 @@ window.Timers = new Class({
 	 * Start a timer that executes at every interval.
 	 *
 	 * @param {String} key
-	 * @param {int} interval
+	 * @param {Number} interval
 	 * @param {Array} [args]
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	startInterval: function(key, interval, args) {
 		this.clearTimer(key);
@@ -84,7 +84,7 @@ window.Timers = new Class({
 	 * @param {String} key
 	 * @param {Function} fn
 	 * @param {Array} [args]
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	clearTimer: function(key, fn, args) {
 		window.clearTimeout(this.$timers[key]);
@@ -102,7 +102,7 @@ window.Timers = new Class({
 	 * Clear all timers, or all timers defined by keys.
 	 *
 	 * @param {Array} timers
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	clearTimers: function(timers) {
 		if (timers) {
@@ -123,7 +123,7 @@ window.Timers = new Class({
 	 * Remove a timer function.
 	 *
 	 * @param {String} key
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	removeTimer: function(key) {
 		delete this.timers[key];
@@ -135,7 +135,7 @@ window.Timers = new Class({
 	 * Remove all defined timers.
 	 *
 	 * @param {Array} timers
-	 * @return {Timers}
+	 * @returns {Timers}
 	 */
 	removeTimers: function(timers) {
 		Array.from(timers).each(function(value) {

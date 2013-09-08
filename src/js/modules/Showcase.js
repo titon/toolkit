@@ -80,7 +80,7 @@ Titon.Showcase = new Class({
 	 * Initialize the showcase, its elements and events.
 	 *
 	 * @param {String} query
-	 * @param {Object} options
+	 * @param {Object} [options]
 	 */
 	initialize: function(query, options) {
 		this.parent(options);
@@ -127,6 +127,8 @@ Titon.Showcase = new Class({
 
 	/**
 	 * Hide the showcase and reset relevant values.
+	 *
+	 * @returns {Titon.Showcase}
 	 */
 	hide: function() {
 		this.parent(function() {
@@ -140,6 +142,8 @@ Titon.Showcase = new Class({
 				.removeProperty('style')
 				.getElements('li').removeClass('show');
 		}.bind(this));
+
+		return this;
 	},
 
 	/**
@@ -148,6 +152,7 @@ Titon.Showcase = new Class({
 	 * If the index is too small, jump to the end.
 	 *
 	 * @param {Number} index
+	 * @returns {Titon.Showcase}
 	 */
 	jump: function(index) {
 		if (index >= this.data.length) {
@@ -229,20 +234,30 @@ Titon.Showcase = new Class({
 		}
 
 		this.fireEvent('jump', index);
+
+		return this;
 	},
 
 	/**
 	 * Go to the next item.
+	 *
+	 * @returns {Titon.Showcase}
 	 */
 	next: function() {
 		this.jump(this.currentIndex + 1);
+
+		return this;
 	},
 
 	/**
 	 * Go to the previous item.
+	 *
+	 * @returns {Titon.Showcase}
 	 */
 	prev: function() {
 		this.jump(this.currentIndex - 1);
+
+		return this;
 	},
 
 	/**
@@ -251,6 +266,7 @@ Titon.Showcase = new Class({
 	 * If a category exists, scrape data from multiple nodes.
 	 *
 	 * @param {Element} node
+	 * @returns {Titon.Showcase}
 	 */
 	show: function(node) {
 		this.node = node;
@@ -295,14 +311,16 @@ Titon.Showcase = new Class({
 		this._buildItems(items);
 		this._position();
 		this.jump(index);
+
+		return this;
 	},
 
 	/**
 	 * Build the list of items and tabs based on the generated data.
 	 * Determine which elements to show and bind based on the data.
 	 *
-	 * @param {Array} items
 	 * @private
+	 * @param {Array} items
 	 */
 	_buildItems: function(items) {
 		this.data = items;
@@ -330,8 +348,8 @@ Titon.Showcase = new Class({
 	/**
 	 * Event handler for jumping between items.
 	 *
-	 * @param {DOMEvent} e
 	 * @private
+	 * @param {DOMEvent} e
 	 */
 	_jump: function(e) {
 		e.stop();
@@ -368,7 +386,7 @@ Titon.Showcase.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Showcase}
+ * @returns {Titon.Showcase}
  */
 Titon.Showcase.factory = function(query, options) {
 	if (Titon.Showcase.instances[query]) {

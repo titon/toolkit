@@ -35,7 +35,7 @@ Titon.Blackout = new Class({
 	/**
 	 * Hide the blackout and lower the display count.
 	 *
-	 * @return {Titon.Blackout}
+	 * @returns {Titon.Blackout}
 	 */
 	hide: function() {
 		this.element.conceal();
@@ -48,7 +48,7 @@ Titon.Blackout = new Class({
 	/**
 	 * Show the blackout and increase the display count.
 	 *
-	 * @return {Titon.Blackout}
+	 * @returns {Titon.Blackout}
 	 */
 	show: function() {
 		this.element.reveal();
@@ -61,7 +61,7 @@ Titon.Blackout = new Class({
 	/**
 	 * Display and position the blackout.
 	 *
-	 * @return {Titon.Blackout}
+	 * @returns {Titon.Blackout}
 	 */
 	position: function() {
 		if (this.isVisible()) {

@@ -76,7 +76,7 @@ Titon.Component = new Class({
 	 * Store the list of elements (referred to as nodes) that will be bound with activation events.
 	 *
 	 * @param {String} query
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	bindTo: function(query) {
 		this.query = query;
@@ -88,16 +88,16 @@ Titon.Component = new Class({
 	/**
 	 * Return the class name of the current object.
 	 *
-	 * @return {String}
+	 * @returns {String}
 	 */
 	className: function() {
-		return new Hash(window.Titon).keyOf(this.$constructor);
+		return Object.keyOf(window.Titon, this.$constructor);
 	},
 
 	/**
 	 * Create the element from the template.
 	 *
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	createElement: function() {
 		var options = this.options,
@@ -148,7 +148,7 @@ Titon.Component = new Class({
 	/**
 	 * Disable activation events.
 	 *
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	disable: function() {
 		return this._toggleEvents(false);
@@ -157,7 +157,7 @@ Titon.Component = new Class({
 	/**
 	 * Enable activation events.
 	 *
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	enable: function() {
 		return this._toggleEvents(true);
@@ -169,7 +169,7 @@ Titon.Component = new Class({
 	 *
 	 * @param {Element} element
 	 * @param {String|Function} query
-	 * @return {String}
+	 * @returns {String}
 	 */
 	getValue: function(element, query) {
 		if (!query) {
@@ -203,7 +203,7 @@ Titon.Component = new Class({
 	/**
 	 * Return true if the element is visible.
 	 *
-	 * @return {bool}
+	 * @returns {bool}
 	 */
 	isVisible: function() {
 		return (this.element && this.element.isShown());
@@ -213,7 +213,7 @@ Titon.Component = new Class({
 	 * Parse the template string into a set of DOM elements.
 	 *
 	 * @param {String|Element} template
-	 * @return {Element}
+	 * @returns {Element}
 	 */
 	parseTemplate: function(template) {
 		if (!template) {
@@ -295,7 +295,7 @@ Titon.Component = new Class({
 	 * Destroy the current template and reset.
 	 *
 	 * @param {bool} [dispose]
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	reset: function(dispose) {
 		if (this.element && dispose) {
@@ -349,7 +349,7 @@ Titon.Component = new Class({
 	/**
 	 * Return the element when the class is passed as an argument.
 	 *
-	 * @return {Element|Elements}
+	 * @returns {Element}
 	 */
 	toElement: function() {
 		return this.element;
@@ -371,7 +371,7 @@ Titon.Component = new Class({
 	 * Event callback to hide an element.
 	 *
 	 * @private
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 */
 	_hide: function(e) {
 		if (typeOf(e) === 'domevent') {
@@ -407,7 +407,7 @@ Titon.Component = new Class({
 	 * Event callback to show an element via node hover or click.
 	 *
 	 * @private
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 * @param {Element} node
 	 */
 	_show: function(e, node) {
@@ -433,7 +433,7 @@ Titon.Component = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Component}
+	 * @returns {Titon.Component}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.query) {

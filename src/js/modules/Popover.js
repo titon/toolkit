@@ -53,7 +53,7 @@ Titon.Popover.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Popover}
+ * @returns {Titon.Popover}
  */
 Titon.Popover.factory = function(query, options) {
 	if (Titon.Popover.instances[query]) {

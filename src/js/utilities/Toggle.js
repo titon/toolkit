@@ -40,28 +40,36 @@ Titon.Toggle = new Class({
 
 	/**
 	 * Toggle node class.
+	 *
+	 * @returns {Titon.Toggle}
 	 */
 	hide: function() {
 		this.parent(function() {
 			this.node.removeClass(Titon.options.activeClass);
 		}.bind(this));
+
+		return this;
 	},
 
 	/**
 	 * Toggle node class.
+	 *
+	 * @returns {Titon.Toggle}
 	 */
 	show: function(node) {
 		this.parent(node);
 		this.node.addClass(Titon.options.activeClass);
+
+		return this;
 	},
 
 	/**
 	 * When a node is clicked, grab the target from the attribute.
 	 * Validate the target element, then either display or hide.
 	 *
+	 * @private
 	 * @param {DOMEvent} e
 	 * @param {Element} node
-	 * @private
 	 */
 	_show: function(e, node) {
 		if (typeOf(e) === 'domevent') {
@@ -99,7 +107,7 @@ Titon.Toggle.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Toggle}
+ * @returns {Titon.Toggle}
  */
 Titon.Toggle.factory = function(query, options) {
 	if (Titon.Toggle.instances[query]) {

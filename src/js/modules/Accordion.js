@@ -74,6 +74,7 @@ Titon.Accordion = new Class({
 	 * Take into account the multiple and collapsible options.
 	 *
 	 * @param {Element} node
+	 * @returns {Titon.Accordion}
 	 */
 	show: function(node) {
 		var options = this.options,
@@ -102,7 +103,7 @@ Titon.Accordion = new Class({
 
 			// Exit early so we don't mess with animations
 			if (this.node === node) {
-				return;
+				return this;
 			}
 
 			wrapper.getElements(options.contentElement).setStyle('max-height', 0).conceal();
@@ -114,13 +115,15 @@ Titon.Accordion = new Class({
 
 		this.node = node;
 		this.fireEvent('show', section);
+
+		return this;
 	},
 
 	/**
 	 * Event callback for tab element click or hover.
 	 *
 	 * @private
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 */
 	_show: function(e) {
 		var target = e.target,
@@ -142,7 +145,8 @@ Titon.Accordion = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Accordion}
+	 * @param {bool} on
+	 * @returns {Titon.Accordion}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.element) {
@@ -176,7 +180,7 @@ Titon.Accordion.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Accordion}
+ * @returns {Titon.Accordion}
  */
 Titon.Accordion.factory = function(query, options) {
 	if (Titon.Accordion.instances[query]) {

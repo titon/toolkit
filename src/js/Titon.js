@@ -49,7 +49,7 @@ window.Titon = {
 	 * Otherwise set a default key on the object.
 	 *
 	 * @param {Type} value
-	 * @param {String} defaultKey
+	 * @param {String} [defaultKey]
 	 * @returns {Object}
 	 */
 	parseOptions: function(value, defaultKey) {
@@ -103,7 +103,7 @@ Element.implement({
 	/**
 	 * Used for animations. Do not conflict with isVisible() or isHidden().
 	 *
-	 * @returns {boolean}
+	 * @returns {bool}
 	 */
 	isShown: function() {
 		return (this.getStyle('visibility') !== 'hidden');
@@ -144,7 +144,7 @@ String.implement({
 	 * Remove specific characters from a string.
 	 *
 	 * @param {String|Array} chars
-	 * @return {String}
+	 * @returns {String}
 	 */
 	remove: function(chars) {
 		if (typeOf(chars) !== 'array') {
@@ -161,8 +161,8 @@ Array.implement({
 	/**
 	 * Split an array into multiple chunked arrays.
 	 *
-	 * @param {int} size
-	 * @return {Array}
+	 * @param {Number} size
+	 * @returns {Array}
 	 */
 	chunk: function(size) {
 		var array = this;

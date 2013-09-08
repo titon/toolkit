@@ -162,7 +162,7 @@ Titon.TypeAhead = new Class({
 	 * Build the anchor link that will be used in the list.
 	 *
 	 * @param {Object} item
-	 * @returns {HTMLElement}
+	 * @returns {Element}
 	 */
 	build: function(item) {
 		var a = new Element('a', {
@@ -184,6 +184,8 @@ Titon.TypeAhead = new Class({
 
 	/**
 	 * Hide the list and reset shadow.
+	 *
+	 * @returns {Titon.TypeAhead}
 	 */
 	hide: function() {
 		if (this.shadow) {
@@ -191,6 +193,8 @@ Titon.TypeAhead = new Class({
 		}
 
 		this.parent();
+
+		return this;
 	},
 
 	/**
@@ -218,6 +222,7 @@ Titon.TypeAhead = new Class({
 	 * Trigger different actions depending on the type of source.
 	 *
 	 * @param {String} term
+	 * @returns {Titon.TypeAhead}
 	 */
 	lookup: function(term) {
 		this.term = term;
@@ -261,6 +266,8 @@ Titon.TypeAhead = new Class({
 				throw new Error('Invalid TypeAhead source type');
 			}
 		}.bind(this), this.options.throttle);
+
+		return this;
 	},
 
 	/**
@@ -278,11 +285,12 @@ Titon.TypeAhead = new Class({
 	 * Process the list of items be generating new elements and positioning below the input.
 	 *
 	 * @param {Array} items
+	 * @returns {Titon.TypeAhead}
 	 */
 	process: function(items) {
 		if (!this.term.length || !items.length) {
 			this.hide();
-			return;
+			return this;
 		}
 
 		var options = this.options,
@@ -378,20 +386,27 @@ Titon.TypeAhead = new Class({
 		this._position();
 
 		this.fireEvent('show');
+
+		return this;
 	},
 
 	/**
 	 * Rewind the cycle pointer to the beginning.
+	 *
+	 * @returns {Titon.TypeAhead}
 	 */
 	rewind: function() {
 		this.index = -1;
 		this.element.getElements('li').removeClass(Titon.options.activeClass);
+
+		return this;
 	},
 
 	/**
 	 * Select an item in the list.
 	 *
-	 * @param {int} index
+	 * @param {Number} index
+	 * @returns {Titon.TypeAhead}
 	 */
 	select: function(index) {
 		this.index = index;
@@ -418,6 +433,8 @@ Titon.TypeAhead = new Class({
 
 			this.fireEvent('reset');
 		}
+
+		return this;
 	},
 
 	/**
@@ -553,7 +570,7 @@ Titon.TypeAhead = new Class({
 	 * Event callback to select an item from the list.
 	 *
 	 * @private
-	 * @param {int} index
+	 * @param {Number} index
 	 */
 	_select: function(index) {
 		this.select(index);
@@ -590,7 +607,8 @@ Titon.TypeAhead = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.TypeAhead}
+	 * @param {bool} on
+	 * @returns {Titon.TypeAhead}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.input) {
@@ -623,7 +641,7 @@ Titon.TypeAhead.instances = {};
  *
  * @param {String} id
  * @param {Object} [options]
- * @return {Titon.TypeAhead}
+ * @returns {Titon.TypeAhead}
  */
 Titon.TypeAhead.factory = function(id, options) {
 	if (Titon.TypeAhead.instances[id]) {

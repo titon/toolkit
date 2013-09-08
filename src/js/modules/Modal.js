@@ -108,6 +108,8 @@ Titon.Modal = new Class({
 
 	/**
 	 * Hide the modal and reset relevant values.
+	 *
+	 * @returns {Titon.Modal}
 	 */
 	hide: function() {
 		this.parent(function() {
@@ -115,6 +117,8 @@ Titon.Modal = new Class({
 				this.blackout.hide();
 			}
 		}.bind(this));
+
+		return this;
 	},
 
 	/**
@@ -124,6 +128,7 @@ Titon.Modal = new Class({
 	 *
 	 * @param {Element} node
 	 * @param {String|Element} [content]
+	 * @returns {Titon.Modal}
 	 */
 	show: function(node, content) {
 		var options = this.options;
@@ -141,7 +146,7 @@ Titon.Modal = new Class({
 		}
 
 		if (!content) {
-			return;
+			return true;
 		}
 
 		this.node = node;
@@ -155,6 +160,8 @@ Titon.Modal = new Class({
 		} else {
 			this._position(content);
 		}
+
+		return this;
 	},
 
 	/**
@@ -185,7 +192,7 @@ Titon.Modal = new Class({
 	/**
 	 * Submit the form within the modal if it exists and re-render the modal with the response.
 	 *
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 */
 	_submit: function(e) {
 		e.stop();
@@ -225,7 +232,7 @@ Titon.Modal.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Modal}
+ * @returns {Titon.Modal}
  */
 Titon.Modal.factory = function(query, options) {
 	if (Titon.Modal.instances[query]) {

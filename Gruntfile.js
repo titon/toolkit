@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 		base: {
 			css: ['layout/base.css'],
 			js: ['Titon.js', 'Component.js'],
-			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Hash', 'More/Locale', 'More/Element.Shortcuts']
+			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Locale', 'More/Element.Shortcuts']
 		},
 		typography: {
 			css: ['layout/typography.css'],

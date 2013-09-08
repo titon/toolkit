@@ -102,6 +102,7 @@ Titon.Tooltip = new Class({
 	 * @param {Element} node
 	 * @param {String|Element} [content]
 	 * @param {String|Element} [title]
+	 * @returns {Titon.Tooltip}
 	 */
 	show: function(node, content, title) {
 		if (node) {
@@ -116,7 +117,7 @@ Titon.Tooltip = new Class({
 		}
 
 		if (!content) {
-			return;
+			return this;
 		}
 
 		this.node = node;
@@ -130,13 +131,15 @@ Titon.Tooltip = new Class({
 		} else {
 			this._position(content, title);
 		}
+
+		return this;
 	},
 
 	/**
 	 * Callback to position the tooltip at the mouse cursor.
 	 *
 	 * @private
-	 * @param {Event} e
+	 * @param {DOMEvent} e
 	 */
 	_follow: function(e) {
 		e.stop();
@@ -249,7 +252,7 @@ Titon.Tooltip.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.Tooltip}
+ * @returns {Titon.Tooltip}
  */
 Titon.Tooltip.factory = function(query, options) {
 	if (Titon.Tooltip.instances[query]) {

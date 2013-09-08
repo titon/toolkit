@@ -78,6 +78,8 @@ Titon.LazyLoad = new Class({
 	/**
 	 * When triggered, will shutdown the instance from executing any longer.
 	 * Any container events will be removed and loading will cease.
+	 *
+	 * @returns {Titon.LazyLoad}
 	 */
 	shutdown: function() {
 		this.isLoaded = true;
@@ -88,12 +90,14 @@ Titon.LazyLoad = new Class({
 		});
 
 		this.fireEvent('shutdown');
+
+		return this;
 	},
 
 	/**
 	 * Loop over the lazy loaded elements and verify they are within the viewport.
 	 *
-	 * @return {bool}
+	 * @returns {bool}
 	 */
 	load: function() {
 		if (this.isLoaded) {
@@ -122,7 +126,7 @@ Titon.LazyLoad = new Class({
 	/**
 	 * Load the remaining hidden elements and remove any container events.
 	 *
-	 * @return {bool}
+	 * @returns {bool}
 	 */
 	loadAll: function() {
 		if (this.isLoaded) {
@@ -147,6 +151,7 @@ Titon.LazyLoad = new Class({
 	 *
 	 * @param {Element} node
 	 * @param {Number} index
+	 * @returns {Titon.LazyLoad}
 	 */
 	show: function(node, index) {
 		node.removeClass(this.query.remove('.'));
@@ -165,13 +170,15 @@ Titon.LazyLoad = new Class({
 		this.loaded++;
 
 		this.fireEvent('show', node);
+
+		return this;
 	},
 
 	/**
 	 * Verify that the element is within the current browser viewport.
 	 *
 	 * @param {Element} node
-	 * @return {bool}
+	 * @returns {bool}
 	 */
 	inViewport: function(node) {
 		var threshold = this.options.threshold,
@@ -203,7 +210,7 @@ Titon.LazyLoad.instances = {};
  *
  * @param {String} query
  * @param {Object} [options]
- * @return {Titon.LazyLoad}
+ * @returns {Titon.LazyLoad}
  */
 Titon.LazyLoad.factory = function(query, options) {
 	if (Titon.LazyLoad.instances[query]) {

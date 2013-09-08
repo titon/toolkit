@@ -158,6 +158,7 @@ Titon.Carousel = new Class({
 	 * If the index is too small, jump to the end.
 	 *
 	 * @param {Number} index
+	 * @returns {Titon.Carousel}
 	 */
 	jump: function(index) {
 		if (index >= this.items.length) {
@@ -196,40 +197,58 @@ Titon.Carousel = new Class({
 
 		this._reset();
 		this.fireEvent('jump', index);
+
+		return this;
 	},
 
 	/**
 	 * Go to the next item.
+	 *
+	 * @returns {Titon.Carousel}
 	 */
 	next: function() {
 		this.jump(this.currentIndex + 1);
+
+		return this;
 	},
 
 	/**
 	 * Go to the previous item.
+	 *
+	 * @returns {Titon.Carousel}
 	 */
 	prev: function() {
 		this.jump(this.currentIndex - 1);
+
+		return this;
 	},
 
 	/**
 	 * Start the carousel.
+	 *
+	 * @returns {Titon.Carousel}
 	 */
 	start: function() {
 		this.element.removeClass('is-stopped');
 		this.stopped = false;
 
 		this.fireEvent('start');
+
+		return this;
 	},
 
 	/**
 	 * Stop the carousel.
+	 *
+	 * @returns {Titon.Carousel}
 	 */
 	stop: function() {
 		this.element.addClass('is-stopped');
 		this.stopped = true;
 
 		this.fireEvent('stop');
+
+		return this;
 	},
 
 	/**
@@ -253,8 +272,8 @@ Titon.Carousel = new Class({
 	/**
 	 * Event handler for jumping between items.
 	 *
-	 * @param {DOMEvent} e
 	 * @private
+	 * @param {DOMEvent} e
 	 */
 	_jump: function(e) {
 		e.stop();
@@ -270,8 +289,6 @@ Titon.Carousel = new Class({
 			clearInterval(this.timer);
 			this.timer = setInterval(this._cycle, this.options.duration);
 		}
-
-		return this;
 	}.protect(),
 
 	/**
@@ -298,7 +315,8 @@ Titon.Carousel = new Class({
 	 * Toggle activation events on and off.
 	 *
 	 * @private
-	 * @return {Titon.Tabs}
+	 * @param {bool} on
+	 * @returns {Titon.Carousel}
 	 */
 	_toggleEvents: function(on) {
 		if (!this.element) {
@@ -347,7 +365,7 @@ Titon.Carousel.instances = {};
  *
  * @param {String} id
  * @param {Object} [options]
- * @return {Titon.Carousel}
+ * @returns {Titon.Carousel}
  */
 Titon.Carousel.factory = function(id, options) {
 	if (Titon.Carousel.instances[id]) {

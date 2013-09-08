@@ -96,6 +96,8 @@ Titon.Flyout = new Class({
 
 	/**
 	 * Hide the currently shown menu.
+	 *
+	 * @returns {Titon.Flyout}
 	 */
 	hide: function() {
 		this.clearTimers();
@@ -104,7 +106,7 @@ Titon.Flyout = new Class({
 		this.node.removeClass(Titon.options.activeClass);
 
 		if (!this.current || !this.isVisible()) {
-			return;
+			return this;
 		}
 
 		this.menus[this.current].conceal();
@@ -112,12 +114,14 @@ Titon.Flyout = new Class({
 
 		// Reset last
 		this.current = null;
+
+		return this;
 	},
 
 	/**
 	 * Return true if the current menu exists and is visible.
 	 *
-	 * @return {bool}
+	 * @returns {bool}
 	 */
 	isVisible: function() {
 		if (this.current && this.menus[this.current]) {
@@ -131,7 +135,8 @@ Titon.Flyout = new Class({
 	 * Load the data into the class and save a mapping of it.
 	 *
 	 * @param {Object} data
-	 * @param {int} [depth]
+	 * @param {Number} [depth]
+	 * @returns {Titon.Flyout}
 	 */
 	load: function(data, depth) {
 		depth = depth || 0;
@@ -149,12 +154,15 @@ Titon.Flyout = new Class({
 				this.load(data.children[i], depth + 1);
 			}
 		}
+
+		return this;
 	},
 
 	/**
 	 * Show the menu below the node.
 	 *
 	 * @param {Element} node
+	 * @returns {Titon.Flyout}
 	 */
 	show: function(node) {
 		var target = this._getTarget(node);
@@ -170,7 +178,7 @@ Titon.Flyout = new Class({
 
 		// Find the menu, else create it
 		if (!this._getMenu()) {
-			return;
+			return this;
 		}
 
 		this.node.addClass(Titon.options.activeClass);
@@ -179,6 +187,8 @@ Titon.Flyout = new Class({
 		if (this.options.mode === 'click') {
 			this._position();
 		}
+
+		return this;
 	},
 
 	/**
@@ -187,7 +197,7 @@ Titon.Flyout = new Class({
 	 * @private
 	 * @param {Element} parent
 	 * @param {Object} data
-	 * @return {Element}
+	 * @returns {Element}
 	 */
 	_buildMenu: function(parent, data) {
 		if (!data.children || !data.children.length) {
@@ -280,7 +290,7 @@ Titon.Flyout = new Class({
 	 * Get the menu if it exists, else build it and set events.
 	 *
 	 * @private
-	 * @return {Element}
+	 * @returns {Element}
 	 */
 	_getMenu: function() {
 		var target = this._getTarget();
@@ -325,7 +335,7 @@ Titon.Flyout = new Class({
 	 *
 	 * @private
 	 * @param {Element} node
-	 * @return {String}
+	 * @returns {String}
 	 */
 	_getTarget: function(node) {
 		node = node || this.node;
@@ -433,7 +443,7 @@ Titon.Flyout.instances = {};
  * @param {String} query
  * @param {String} url
  * @param {Object} [options]
- * @return {Titon.Flyout}
+ * @returns {Titon.Flyout}
  */
 Titon.Flyout.factory = function(query, url, options) {
 	if (Titon.Flyout.instances[query]) {
