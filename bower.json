@@ -1,0 +1,18 @@
+{
+	"version": "0.0.0",
+	"name": "Titon Toolkit",
+	"main": [
+		"dist/titon.min.css",
+		"dist/titon.min.js"
+	],
+	"ignore": [
+		".*",
+		"*.md",
+		"src",
+		"examples",
+		"docs",
+		"build",
+		"Gruntfile.js",
+		"package.json"
+	]
+}

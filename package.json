@@ -1,11 +1,13 @@
 {
 	"version": "0.9.0",
-	"name": "Titon",
-	"description": "The MooTools UI Toolkit",
+	"name": "Titon Toolkit",
+	"description": "A powerful front-end UI and component library toolkit",
 	"keywords": [
 		"titon",
 		"toolkit",
 		"css",
+		"sass",
+		"scss",
 		"mootools",
 		"javascript",
 		"ui",
@@ -26,7 +28,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/titon/Toolkit"
+		"url": "https://github.com/titon/toolkit"
 	},
 	"devDependencies": {
 		"grunt": "*",
