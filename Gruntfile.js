@@ -341,7 +341,26 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// 5) Archive the files and docs into a zip
+		// 5) Replace variables in files
+		// https://npmjs.org/package/grunt-string-replace
+		'string-replace': {
+			options: {
+				replacements: [
+					{ pattern: '%version%', replacement: '<%= pkg.version %>' },
+					{ pattern: '%build%', replacement: Date.now().toString(36) },
+					{ pattern: /(\r?\n\r?\n)/g, replacement: "\n" },
+					{ pattern: /\r?\n$/g, replacement: "" }
+				]
+			},
+			build: {
+				files: {
+					'<%= buildFile %>.min.css': '<%= buildFile %>.min.css',
+					'<%= buildFile %>.min.js': '<%= buildFile %>.min.js'
+				}
+			}
+		},
+
+		// 6) Archive the files and docs into a zip
 		// https://npmjs.org/package/grunt-contrib-compress
 		compress: {
 			options: {
@@ -365,8 +384,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-string-replace');
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
-	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'compress']);
+	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'string-replace', 'compress']);
 };

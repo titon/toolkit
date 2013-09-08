@@ -1,5 +1,5 @@
 {
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"name": "Titon",
 	"description": "The MooTools UI Toolkit",
 	"keywords": [
@@ -34,6 +34,7 @@
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-jshint": "*",
 		"grunt-contrib-sass": "*",
-		"grunt-contrib-compress": "*"
+		"grunt-contrib-compress": "*",
+		"grunt-string-replace": "*"
 	}
 }
