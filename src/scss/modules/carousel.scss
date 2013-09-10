@@ -8,6 +8,24 @@
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Carousel module.
+ *
+ *	<div class="carousel">
+ *		<ul class="carousel-items">
+ *			<li>
+ *				<img src="/path/to/image.jpg">
+ *				<div class="carousel-caption">Image caption</div>
+ *			</li>
+ *		</ul>
+ *		<ol class="carousel-tabs">
+ *			<li><a href=""></a></li>
+ *		</ol>
+ *		<a href="javascript:;" class="carousel-prev">
+ *			<span class="icon-chevron-sign-left"></span>
+ *		</a>
+ *		<a href="javascript:;" class="carousel-next">
+ *			<span class="icon-chevron-sign-right"></span>
+ *		</a>
+ *	</div>
  */
 
 .carousel {
