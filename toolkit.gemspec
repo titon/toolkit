@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
 
 	# Files
 	gem.files = ["src/lib/titon-toolkit.rb"]
+	gem.files += Dir.glob("src/scss/**/*")
 
 	# Dependencies
 	gem.add_dependency("sass", [">= 3.2.0"])

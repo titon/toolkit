@@ -204,7 +204,12 @@ module.exports = function(grunt) {
 			} else {
 				if (key !== 'moo') {
 					value = value.map(function(v) {
-						return 'src/' + key + '/' + v;
+						if (key === 'css') {
+							return 'src/css/toolkit/' + v;
+						} else if (key === 'js') {
+							return 'src/js/mootools/' + v;
+						}
+						return '';
 					});
 				}
 
@@ -219,7 +224,7 @@ module.exports = function(grunt) {
 
 	if (useTheme) {
 		if (themes[useTheme]) {
-			dependencies.css.push('src/css/' + themes[useTheme]);
+			dependencies.css.push('src/css/toolkit/' + themes[useTheme]);
 		} else {
 			log.error('Invalid theme: ' + useTheme);
 		}
@@ -310,7 +315,13 @@ module.exports = function(grunt) {
 				trace: true
 			},
 			build: {
-				files: cssPaths.buildSass
+				files: [{
+					expand: true,
+					cwd: 'src/scss',
+					src: '**/*.scss',
+					dest: 'src/css',
+					ext: '.css'
+				}]
 			}
 		},
 
