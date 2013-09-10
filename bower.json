@@ -3,12 +3,14 @@
 	"name": "Titon Toolkit",
 	"main": [
 		"dist/titon.min.css",
-		"dist/titon.min.js"
+		"dist/titon-mootools.min.js"
 	],
 	"ignore": [
 		".*",
 		"*.md",
-		"src",
+		"src/css",
+        "src/img",
+        "src/js",
 		"examples",
 		"docs",
 		"build",

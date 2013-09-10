@@ -388,5 +388,5 @@ module.exports = function(grunt) {
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
-	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'string-replace', 'compress']);
+	grunt.registerTask('default', ['jshint', 'sass', 'uglify', 'concat', 'string-replace']);
 };
