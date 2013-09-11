@@ -1,4 +1,4 @@
-# Titon v0.9.1 #
+# Titon v0.9.2 #
 
 Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.

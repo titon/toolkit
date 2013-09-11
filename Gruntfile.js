@@ -247,6 +247,8 @@ module.exports = function(grunt) {
 		cssPaths.buildSass[path] = path.replace(/css/g, 'scss');
 	});
 
+	cssPaths.build.unshift('src/css/normalize');
+
 	dependencies.js.forEach(function(path) {
 		var buildPath = path.replace(/src/g, 'build');
 
