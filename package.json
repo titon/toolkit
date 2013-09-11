@@ -1,7 +1,7 @@
 {
 	"version": "0.9.2",
 	"name": "titon-toolkit",
-	"description": "A powerful front-end UI and component library toolkit",
+	"description": "A powerful front-end UI and component library toolkit.",
 	"keywords": [
 		"titon",
 		"toolkit",
@@ -37,6 +37,7 @@
 		"grunt-contrib-jshint": "*",
 		"grunt-contrib-sass": "*",
 		"grunt-contrib-compress": "*",
-		"grunt-string-replace": "*"
+		"grunt-string-replace": "*",
+		"compartment": "*"
 	}
 }

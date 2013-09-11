@@ -1,272 +1,76 @@
+var compartment = require('compartment');
+
 module.exports = function(grunt) {
-	var _ = grunt.util._, // http://lodash.com/docs
-		log = grunt.log;
+	var _ = grunt.util._,
+		graph = new compartment();
 
-	// Component tree and dependencies
-	var manifest = {
-		// Layout
-		base: {
-			css: ['layout/base.css'],
-			js: ['Titon.js', 'Component.js'],
-			moo: ['Core', 'More/Class.Binds', 'More/Elements.From', 'More/Locale', 'More/Element.Shortcuts']
-		},
-		typography: {
-			css: ['layout/typography.css'],
-			require: ['base']
-		},
-		grid: {
-			css: ['layout/grid.css'],
-			require: ['base']
-		},
-		form: {
-			css: ['layout/form.css'],
-			require: ['base', 'grid']
-		},
-		inputGroup: {
-			css: ['layout/input-group.css'],
-			require: ['form']
-		},
-		code: {
-			css: ['layout/code.css'],
-			require: ['base']
-		},
-		table: {
-			css: ['layout/table.css'],
-			require: ['base']
-		},
-		responsive: {
-			css: ['layout/responsive.css']
-		},
-		// Components
-		accordion: {
-			css: ['modules/accordion.css'],
-			js: ['modules/Accordion.js'],
-			require: ['base']
-		},
-		alert: {
-			css: ['ui/alert.css'],
-			require: ['base']
-		},
-		badge: {
-			require: ['labelBadge']
-		},
-		blackout: {
-			css: ['modules/blackout.css'],
-			js: ['modules/Blackout.js'],
-			require: ['base']
-		},
-		breadcrumbs: {
-			css: ['ui/breadcrumbs.css'],
-			require: ['base']
-		},
-		button: {
-			css: ['ui/button.css'],
-			require: ['base']
-		},
-		buttonGroup: {
-			css: ['ui/button-group.css'],
-			require: ['button']
-		},
-		cache: {
-			js: ['class/Cache.js'],
-			moo: ['Core', 'JSON']
-		},
-		carousel: {
-			css: ['modules/carousel.css'],
-			js: ['modules/Carousel.js'],
-			require: ['base']
-		},
-		dropdown: {
-			css: ['ui/dropdown.css'],
-			require: ['base', 'toggle']
-		},
-		flyout: {
-			css: ['modules/flyout.css'],
-			js: ['modules/Flyout.js'],
-			moo: ['More/Array.Extras'],
-			require: ['base', 'timers']
-		},
-		icon: {
-			css: ['ui/icon.css'],
-			require: ['base']
-		},
-		label: {
-			require: ['labelBadge']
-		},
-		labelBadge: {
-			css: ['ui/label-badge.css'],
-			require: ['base']
-		},
-		lazyLoad: {
-			css: ['ui/lazy-load.css'],
-			js: ['utilities/LazyLoad.js'],
-			require: ['base']
-		},
-		modal: {
-			css: ['modules/modal.css'],
-			js: ['modules/Modal.js'],
-			moo: ['More/Drag'],
-			require: ['base', 'blackout']
-		},
-		pagination: {
-			css: ['ui/pagination.css'],
-			require: ['base', 'button']
-		},
-		pin: {
-			css: ['ui/pin.css'],
-			js: ['utilities/Pin.js'],
-			require: ['base']
-		},
-		popover: {
-			css: ['modules/popover.css'],
-			js: ['modules/Popover.js'],
-			require: ['base', 'tooltip']
-		},
-		progress: {
-			css: ['ui/progress.css'],
-			require: ['base']
-		},
-		showcase: {
-			css: ['modules/showcase.css'],
-			js: ['modules/Showcase.js'],
-			require: ['base']
-		},
-		tabs: {
-			css: ['modules/tabs.css'],
-			js: ['modules/Tabs.js'],
-			require: ['base']
-		},
-		timers: {
-			js: ['class/Timers.js'],
-			moo: ['Core']
-		},
-		toggle: {
-			js: ['utilities/Toggle.js'],
-			require: ['base']
-		},
-		tooltip: {
-			css: ['modules/tooltip.css'],
-			js: ['modules/Tooltip.js'],
-			moo: ['More/Element.Event.Pseudos', 'More/Element.Position'],
-			require: ['base']
-		},
-		typeAhead: {
-			css: ['modules/type-ahead.css'],
-			js: ['modules/TypeAhead.js'],
-			require: ['base', 'cache']
-		},
-		visual: {
-			css: ['effects/visual.css'],
-			require: ['base']
-		}
-	};
-
-	var themes = {
-		titon: 'themes/titon.css',
-		tomorrowNight: 'themes/tomorrow-night.css'
-	};
+	graph.loadManifest(__dirname + '/manifest.json');
+	graph.addTypes({
+		js: 'src/js/mootools/',
+		css: 'src/css/toolkit/',
+		moo: ''
+	});
 
 	/**
-	 * Determine which components we should package.
+	 * Determine which components we should package. Allow for optional theme to be appended.
 	 *
-	 * The --components= parameter can be used to filter down components.
-	 * The --theme= parameter can be used to include a theme.
-	 * The --compat flag will generate in compatibility mode
+	 * The --components parameter can be used to filter down components
+	 * The --theme parameter can be used to include a theme
 	 */
-	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : _.keys(manifest),
+	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
 		useTheme = grunt.option('theme') || null,
-		useCompat = grunt.option('compat') || false,
-		dependencies = {};
-
-	function addDependency(name) {
-		if (!manifest[name]) {
-			log.error('Invalid component: ' + name);
-		}
-
-		var component = manifest[name];
-
-		if (component.require) {
-			component.require.forEach(addDependency);
-		}
-
-		if (useCompat && component.compat && component.css) {
-			component.css = component.css.map(function(v) {
-				return v.replace('.css', '-compat.css');
-			});
-		}
-
-		delete component.require;
-		delete component.compat;
-
-		_.forOwn(component, function(value, key) {
-			if (key === 'provide') {
-				value.forEach(addDependency);
-			} else {
-				if (key !== 'moo') {
-					value = value.map(function(v) {
-						if (key === 'css') {
-							return 'src/css/toolkit/' + v;
-						} else if (key === 'js') {
-							return 'src/js/mootools/' + v;
-						}
-						return '';
-					});
-				}
-
-				dependencies[key] = _.union(dependencies[key] || [], value);
-			}
-		});
-
-		toPackage = _.union([name], toPackage);
-	}
-
-	toPackage.forEach(addDependency);
+		categories = ['layout', 'component'];
 
 	if (useTheme) {
-		if (themes[useTheme]) {
-			dependencies.css.push('src/css/toolkit/' + themes[useTheme]);
-		} else {
-			log.error('Invalid theme: ' + useTheme);
+		useTheme = 'theme-' + useTheme;
+
+		if (!toPackage) {
+			toPackage = _.keys(graph.manifest);
 		}
+
+		categories.push('theme');
+		toPackage.push(useTheme);
 	}
 
 	/**
-	 * Map all the available source files for each task.
-	 * We need to map tons of different paths since each task accepts a different format -.-
+	 * Build the chain and generate all the paths we will need.
 	 */
-	var cssPaths = {
-			build: dependencies.css,
-			buildSass: {}
-		},
-		jsPaths = {
-			build: [],
-			buildUglify: {}
-		};
+	graph.buildChain(toPackage, categories);
 
-	dependencies.css.forEach(function(path) {
-		cssPaths.buildSass[path] = path.replace(/css/g, 'scss');
-	});
+	var jsPaths = graph.getPaths('js'),
+		jsUglifyPaths = {},
+		jsConcatPaths = [],
+		cssPaths = graph.getPaths('css');
 
-	cssPaths.build.unshift('src/css/normalize');
-
-	dependencies.js.forEach(function(path) {
+	jsPaths.forEach(function(path) {
 		var buildPath = path.replace(/src/g, 'build');
 
-		jsPaths.build.push(buildPath);
-		jsPaths.buildUglify[buildPath] = path;
+		jsConcatPaths.push(buildPath);
+		jsUglifyPaths[buildPath] = path;
 	});
 
 	/**
-	 * Configure grunt and all its tasks.
+	 * Generate the banner to place at the top of each file.
 	 */
 	function createBanner() {
-		return "/*!\n" +
-			" * Titon Toolkit v<%= pkg.version %>\n" +
-			" * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
-			" * <%= pkg.licenses[0].type %> - <%= pkg.licenses[0].url %>\n" +
-			" * Components: " + toPackage.sort().join(', ') + "\n" +
-			" * Dependencies: " + dependencies.moo.sort().join(', ') + "\n" +
-			" */\n";
+		var comps = _.keys(graph.chain).join(', '),
+			deps = graph.getPaths('moo').sort().join(', '),
+			banner = "/*!\n" +
+				" * Titon Toolkit v<%= pkg.version %>\n" +
+				" * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
+				" * <%= pkg.licenses[0].type %> - <%= pkg.licenses[0].url %>\n";
+
+		if (comps) {
+			banner += " * Components: " + comps + "\n";
+		}
+
+		if (deps) {
+			banner += " * Dependencies: " + deps + "\n";
+		}
+
+		banner += " */\n";
+
+		return banner;
 	}
 
 	// Configure
@@ -287,7 +91,6 @@ module.exports = function(grunt) {
 				browser: true,
 				mootools: true,
 				// enforcing
-				//camelcase: true,
 				curly: true,
 				eqeqeq: true,
 				immed: true,
@@ -327,14 +130,14 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// 3) Minify Javascript (CSS was minified in step 2)
+		// 3) Minify Javascript
 		// http://lisperator.net/uglifyjs/
 		uglify: {
 			options: {
 				report: 'min'
 			},
 			build: {
-				files: jsPaths.buildUglify
+				files: jsUglifyPaths
 			}
 		},
 
@@ -348,8 +151,8 @@ module.exports = function(grunt) {
 			},
 			build: {
 				files: [
-					{ src: cssPaths.build, dest: '<%= buildFile %>.min.css' },
-					{ src: jsPaths.build, dest: '<%= buildFile %>.min.js' }
+					{ src: cssPaths, dest: '<%= buildFile %>.min.css' },
+					{ src: jsConcatPaths, dest: '<%= buildFile %>.min.js' }
 				]
 			}
 		},
@@ -401,5 +204,7 @@ module.exports = function(grunt) {
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
+	grunt.registerTask('compile', ['sass', 'uglify']);
+	grunt.registerTask('build', ['concat', 'string-replace']);
 	grunt.registerTask('default', ['jshint', 'sass', 'uglify', 'concat', 'string-replace']);
 };
