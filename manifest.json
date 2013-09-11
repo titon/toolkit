@@ -1,6 +1,6 @@
 {
 	"base": {
-		"category": "layout",
+		"category": "component",
 		"priority": 1,
 		"source": {
 			"css": ["../normalize.css", "layout/base.css"],
@@ -9,7 +9,7 @@
 		}
 	},
 	"typography": {
-		"category": "layout",
+		"category": "component",
 		"priority": 2,
 		"require": ["base"],
 		"source": {
@@ -17,7 +17,7 @@
 		}
 	},
 	"grid": {
-		"category": "layout",
+		"category": "component",
 		"priority": 3,
 		"require": ["base"],
 		"source": {
@@ -25,7 +25,7 @@
 		}
 	},
 	"form": {
-		"category": "layout",
+		"category": "component",
 		"priority": 4,
 		"require": ["base", "grid"],
 		"source": {
@@ -33,7 +33,7 @@
 		}
 	},
 	"inputGroup": {
-		"category": "layout",
+		"category": "component",
 		"priority": 5,
 		"require": ["form"],
 		"source": {
@@ -41,7 +41,7 @@
 		}
 	},
 	"code": {
-		"category": "layout",
+		"category": "component",
 		"priority": 6,
 		"require": ["base"],
 		"source": {
@@ -49,7 +49,7 @@
 		}
 	},
 	"table": {
-		"category": "layout",
+		"category": "component",
 		"priority": 7,
 		"require": ["base"],
 		"source": {
@@ -57,13 +57,12 @@
 		}
 	},
 	"responsive": {
-		"category": "layout",
+		"category": "component",
 		"priority": 8,
 		"source": {
 			"css": ["layout/responsive.css"]
 		}
 	},
-
 	"accordion": {
 		"category": "component",
 		"priority": 10,

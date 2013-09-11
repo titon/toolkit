@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 	 */
 	var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
 		useTheme = grunt.option('theme') || null,
-		categories = ['layout', 'component'];
+		categories = ['component'];
 
 	if (useTheme) {
 		useTheme = 'theme-' + useTheme;
