@@ -38,7 +38,7 @@
 	.close {
 		position: absolute;
 		top: -1px;
-		right: -30px;
+		right: -35px;
 	}
 
 	&.is-loading,
@@ -50,7 +50,7 @@
 		}
 
 		.showcase-inner {
-			background: $gray url("../../img/loader.gif") 50% 50% no-repeat;
+			background: $gray url("../../../img/loader.gif") 50% 50% no-repeat;
 		}
 	}
 }

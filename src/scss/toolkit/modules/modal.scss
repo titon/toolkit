@@ -37,14 +37,14 @@
 	.close {
 		position: absolute;
 		top: -1px;
-		right: -30px;
+		right: -35px;
 	}
 
 	&.is-loading {
 		.close { display: none; }
 
 		.modal-outer {
-			background: $gray url("../../img/loader.gif") 50% 50% no-repeat;
+			background: $gray url("../../../img/loader.gif") 50% 50% no-repeat;
 		}
 	}
 }

@@ -71,15 +71,16 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 
 .close {
 	@include reset-inline-block;
-	padding: 4px 5px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
 	background: white(.5);
 	border-radius: 2px;
-	line-height: 100%;
 	cursor: pointer;
 
 	.x {
 		color: black(.5);
-		line-height: 50%;
 		position: relative;
 		top: -1px;
 	}
