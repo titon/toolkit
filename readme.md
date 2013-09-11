@@ -1,6 +1,6 @@
-# Titon v0.9.2 #
+# Toolkit v0.9.3 #
 
-Titon, built on MooTools, is a collection of very powerful user-interface components and utility classes.
+Toolkit is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
 
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),

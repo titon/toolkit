@@ -1,5 +1,5 @@
 {
-	"version": "0.9.2",
+	"version": "0.9.3",
 	"name": "Titon Toolkit",
 	"main": [
 		"dist/titon.min.css",

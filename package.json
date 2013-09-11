@@ -1,7 +1,7 @@
 {
-	"version": "0.9.2",
+	"version": "0.9.3",
 	"name": "titon-toolkit",
-	"description": "A powerful front-end UI and component library toolkit.",
+	"description": "A powerful front-end UI and component toolkit.",
 	"keywords": [
 		"titon",
 		"toolkit",
