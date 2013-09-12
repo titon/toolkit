@@ -1,4 +1,4 @@
-# Toolkit v0.9.3 #
+# Toolkit v0.9.4 #
 
 Toolkit is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
