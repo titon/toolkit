@@ -1,6 +1,6 @@
 # Installing Grunt #
 
-To run commands from the command line, Grunt and Node.js is required. Node.js can be downloaded and installed from their website: http://nodejs.org
+To run commands from the command line, Grunt and Node.js are required. Node.js can be downloaded and installed from their website: http://nodejs.org
 
 After Node.js is installed, open the command line and `cd` into the Toolkit project. Once there, install the Node.js modules.
 

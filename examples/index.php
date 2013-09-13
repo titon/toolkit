@@ -67,6 +67,11 @@ $components = array(
 		'title' => 'Lazy Load',
 		'js' => array('utilities/LazyLoad.js')
 	),
+	'masonry' => array(
+		'title' => 'Masonry',
+		'css' => array('ui/masonry.css'),
+		'js' => array('utilities/Masonry.js')
+	),
 	'modal' => array(
 		'title' => 'Modal',
 		'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),

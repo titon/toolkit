@@ -11,7 +11,7 @@ To specify a list of components, pass a comma separated list of component names 
 
 The custom build file will be compiled and written to the `build` folder. It's as simple as that.
 
-The full list of available components can be found in the `Gruntfile.js` file.
+The full list of available components can be found in the `manifest.json` file.
 
 ### Themes ###
 
@@ -21,4 +21,4 @@ To specify a theme, use the theme option in the command line.
 
 	grunt --theme=titon
 
-The list of available themes can be found under the `themes` map variable.
+The list of available themes can be found at the bottom of the manifest file.
