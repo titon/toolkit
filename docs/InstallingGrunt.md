@@ -4,14 +4,14 @@ To run commands from the command line, Grunt and Node.js are required. Node.js c
 
 After Node.js is installed, open the command line and `cd` into the Toolkit project. Once there, install the Node.js modules.
 
-	npm install
+    npm install
 
 Then install Grunt globally.
 
-	npm install -g grunt-cli
+    npm install -g grunt-cli
 
 Then verify that Grunt is working by running the grunt command. This should validate and build the Toolkit source files.
 
-	grunt
+    grunt
 
 That's it! Jump over to the other documentation to learn about custom builds.

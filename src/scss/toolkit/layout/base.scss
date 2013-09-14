@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
@@ -49,11 +49,11 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 .caret-down,
 .caret-left,
 .caret-right {
-	@include reset-inline-block;
-	border: 5px solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
+    @include reset-inline-block;
+    border: 5px solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
 }
 
 .caret-up { border-bottom-color: $foreground-color; }
@@ -63,31 +63,31 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
 
 // Close
 .x {
-	@include reset-inline-block;
-	color: $foreground-color;
-	font: bold 1.5rem/100% Arial, sans-serif;
-	text-transform: uppercase;
+    @include reset-inline-block;
+    color: $foreground-color;
+    font: bold 1.5rem/100% Arial, sans-serif;
+    text-transform: uppercase;
 }
 
 .close {
-	@include reset-inline-block;
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	text-align: center;
-	background: white(.5);
-	border-radius: 2px;
-	cursor: pointer;
+    @include reset-inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: white(.5);
+    border-radius: 2px;
+    cursor: pointer;
 
-	.x {
-		color: black(.5);
-		position: relative;
-		top: -1px;
-	}
+    .x {
+        color: black(.5);
+        position: relative;
+        top: -1px;
+    }
 
-	&:hover {
-		background: white(.8);
+    &:hover {
+        background: white(.8);
 
-		.x { color: black(.75); }
-	}
+        .x { color: black(.75); }
+    }
 }

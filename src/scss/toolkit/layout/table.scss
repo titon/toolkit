@@ -1,82 +1,82 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
 
 .table {
-	width: 100%;
-	background: $gray;
-	border-collapse: collapse;
+    width: 100%;
+    background: $gray;
+    border-collapse: collapse;
 
-	th, td {
-		padding: $padding;
-		line-height: 110%;
-		vertical-align: top;
-		border: 1px solid $gray-dark;
-	}
+    th, td {
+        padding: $padding;
+        line-height: 110%;
+        vertical-align: top;
+        border: 1px solid $gray-dark;
+    }
 
-	// Move headings to bottom
-	thead th {
-		vertical-align: bottom;
-		text-align: left;
-	}
+    // Move headings to bottom
+    thead th {
+        vertical-align: bottom;
+        text-align: left;
+    }
 
-	// Allow for multiple tbody's
-	tbody + tbody { border-top-width: 2px; }
+    // Allow for multiple tbody's
+    tbody + tbody { border-top-width: 2px; }
 
-	// Row colors
-	thead tr,
-	tfoot tr {
-		background: $gray-dark;
+    // Row colors
+    thead tr,
+    tfoot tr {
+        background: $gray-dark;
 
-		th { border-color: shade($gray-dark, 10%); }
-	}
+        th { border-color: shade($gray-dark, 10%); }
+    }
 
-	// Zebra striping
-	tbody tr {
-		background: $gray;
+    // Zebra striping
+    tbody tr {
+        background: $gray;
 
-		&:nth-child(odd) { background: $gray-light; }
-		&.divider { background: shade($gray, 2%); }
-	}
+        &:nth-child(odd) { background: $gray-light; }
+        &.divider { background: shade($gray, 2%); }
+    }
 }
 
 //-------------------- Modifiers --------------------//
 
 .table.table--hover {
-	tbody tr:not(.divider):hover { background: #fff; }
+    tbody tr:not(.divider):hover { background: #fff; }
 }
 
 .table.table--sortable {
-	thead th {
-		padding: 0;
+    thead th {
+        padding: 0;
 
-		a, span {
-			padding: $padding;
-			display: block;
-		}
+        a, span {
+            padding: $padding;
+            display: block;
+        }
 
-		a {
-			background: $gray-dark;
-			color: #000;
+        a {
+            background: $gray-dark;
+            color: #000;
 
-			&:hover { background: shade($gray-dark, 5%); }
-		}
-	}
+            &:hover { background: shade($gray-dark, 5%); }
+        }
+    }
 }
 
 .table.table--compact {
-	thead th,
-	tbody td { padding: $small-padding; }
+    thead th,
+    tbody td { padding: $small-padding; }
 
-	&.table--sortable {
-		thead th {
-			padding: 0;
+    &.table--sortable {
+        thead th {
+            padding: 0;
 
-			a, span { padding: $small-padding; }
-		}
-	}
+            a, span { padding: $small-padding; }
+        }
+    }
 }

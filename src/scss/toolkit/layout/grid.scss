@@ -1,64 +1,64 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
 
 .grid {
-	@include grid-row;
+    @include grid-row;
 }
 
 // These should be the same for all sizes
 @for $i from 1 through $grid-columns {
-	$span: grid-span($i);
+    $span: grid-span($i);
 
-	.span-#{$i} { width: $span; }
-	.push-#{$i} { left: $span; }
-	.pull-#{$i} { right: $span; }
+    .span-#{$i} { width: $span; }
+    .push-#{$i} { left: $span; }
+    .pull-#{$i} { right: $span; }
 }
 
 // Mobile supports 3 columns
 .col[class*="span-"],
 .col[class*="mobile-"] {
-	@include grid-column;
+    @include grid-column;
 }
 
 @for $i from 1 through ceil($grid-columns / 4) {
-	$span: grid-span($i * 4);
+    $span: grid-span($i * 4);
 
-	.col.mobile-#{$i} { width: $span; }
-	.col.mobile-push-#{$i} { left: $span; }
-	.col.mobile-pull-#{$i} { right: $span; }
+    .col.mobile-#{$i} { width: $span; }
+    .col.mobile-push-#{$i} { left: $span; }
+    .col.mobile-pull-#{$i} { right: $span; }
 }
 
 // Tablet supports 6 columns
 @include in-tablet {
-	.col[class*="tablet-"] {
-		@include grid-column;
-	}
+    .col[class*="tablet-"] {
+        @include grid-column;
+    }
 
-	@for $i from 1 through ceil($grid-columns / 2) {
-		$span: grid-span($i * 2);
+    @for $i from 1 through ceil($grid-columns / 2) {
+        $span: grid-span($i * 2);
 
-		.col.tablet-#{$i} { width: $span; }
-		.col.tablet-push-#{$i} { left: $span; }
-		.col.tablet-pull-#{$i} { right: $span; }
-	}
+        .col.tablet-#{$i} { width: $span; }
+        .col.tablet-push-#{$i} { left: $span; }
+        .col.tablet-pull-#{$i} { right: $span; }
+    }
 }
 
 // Desktop supports 12 columns
 @include in-desktop {
-	.col[class*="desktop-"] {
-		@include grid-column;
-	}
+    .col[class*="desktop-"] {
+        @include grid-column;
+    }
 
-	@for $i from 1 through $grid-columns {
-		$span: grid-span($i);
+    @for $i from 1 through $grid-columns {
+        $span: grid-span($i);
 
-		.col.desktop-#{$i} { width: $span; }
-		.col.desktop-push-#{$i} { left: $span; }
-		.col.desktop-pull-#{$i} { right: $span; }
-	}
+        .col.desktop-#{$i} { width: $span; }
+        .col.desktop-push-#{$i} { left: $span; }
+        .col.desktop-pull-#{$i} { right: $span; }
+    }
 }

@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
@@ -14,32 +14,32 @@ h5 { font-size: 1.2rem; }
 h6 { font-size: 1rem; }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	line-height: 100%;
-	font-weight: normal;
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    font-weight: normal;
 }
 
 p, ul, ol, hr, blockquote {
-	margin: $margin 0;
+    margin: $margin 0;
 }
 
 blockquote {
-	margin: $margin;
-	padding: 0 $padding;
-	border-left: 5px solid $gray;
+    margin: $margin;
+    padding: 0 $padding;
+    border-left: 5px solid $gray;
 
-	cite { display: block; font-size: .8rem; }
-	cite:before { content: "\2014 \00A0"; /* em dash */ }
+    cite { display: block; font-size: .8rem; }
+    cite:before { content: "\2014 \00A0"; /* em dash */ }
 
-	@include content-spacing;
+    @include content-spacing;
 }
 
 mark {
-	display: inline-block;
-	background: $gray-dark;
-	border-radius: 2px;
-	padding: 0 5px;
+    display: inline-block;
+    background: $gray-dark;
+    border-radius: 2px;
+    padding: 0 5px;
 }
 
 .text-muted { color: $default; }

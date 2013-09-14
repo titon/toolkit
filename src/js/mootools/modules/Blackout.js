@@ -1,79 +1,79 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 (function() {
-	'use strict';
+    'use strict';
 
 Titon.Blackout = new Class({
-	Extends: Titon.Component,
+    Extends: Titon.Component,
 
-	/**
-	 * Default options.
-	 */
-	options: {
-		template: '<div class="blackout" id="titon-blackout"></div>',
-		templateFrom: '#titon-blackout'
-	},
+    /**
+     * Default options.
+     */
+    options: {
+        template: '<div class="blackout" id="titon-blackout"></div>',
+        templateFrom: '#titon-blackout'
+    },
 
-	/**
-	 * Add events for browser resizing.
-	 *
-	 * @param {Object} [options]
-	 */
-	initialize: function(options) {
-		this.parent(options);
-		this.createElement();
+    /**
+     * Add events for browser resizing.
+     *
+     * @param {Object} [options]
+     */
+    initialize: function(options) {
+        this.parent(options);
+        this.createElement();
 
-		window.addEvent('resize', this.position.bind(this));
+        window.addEvent('resize', this.position.bind(this));
 
-		this.fireEvent('init');
-	},
+        this.fireEvent('init');
+    },
 
-	/**
-	 * Hide the blackout and lower the display count.
-	 *
-	 * @returns {Titon.Blackout}
-	 */
-	hide: function() {
-		this.element.conceal();
-		this.fireEvent('hide');
+    /**
+     * Hide the blackout and lower the display count.
+     *
+     * @returns {Titon.Blackout}
+     */
+    hide: function() {
+        this.element.conceal();
+        this.fireEvent('hide');
 
-		return this;
-	},
+        return this;
+    },
 
-	/**
-	 * Show the blackout and increase the display count.
-	 *
-	 * @returns {Titon.Blackout}
-	 */
-	show: function() {
-		this.element.reveal();
-		this.position();
-		this.fireEvent('show');
+    /**
+     * Show the blackout and increase the display count.
+     *
+     * @returns {Titon.Blackout}
+     */
+    show: function() {
+        this.element.reveal();
+        this.position();
+        this.fireEvent('show');
 
-		return this;
-	},
+        return this;
+    },
 
-	/**
-	 * Display and position the blackout.
-	 *
-	 * @returns {Titon.Blackout}
-	 */
-	position: function() {
-		if (this.isVisible()) {
-			var size = window.getSize();
+    /**
+     * Display and position the blackout.
+     *
+     * @returns {Titon.Blackout}
+     */
+    position: function() {
+        if (this.isVisible()) {
+            var size = window.getSize();
 
-			this.element.setStyles({
-				width: size.x,
-				height: size.y
-			});
-		}
+            this.element.setStyles({
+                width: size.x,
+                height: size.y
+            });
+        }
 
-		return this;
-	}
+        return this;
+    }
 
 });
 

@@ -1,56 +1,56 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
 
 .input-group {
-	display: inline-block;
+    display: inline-block;
 
-	> .input,
-	> .input-addon,
-	> .button,
-	> .button-group {
-		display: inline-block;
-		position: relative;
-		border-radius: 0;
-		margin-right: -6px; // Remove whitespace and overlap borders
-		white-space: nowrap;
-		height: auto;
-		vertical-align: middle;
-	}
+    > .input,
+    > .input-addon,
+    > .button,
+    > .button-group {
+        display: inline-block;
+        position: relative;
+        border-radius: 0;
+        margin-right: -6px; // Remove whitespace and overlap borders
+        white-space: nowrap;
+        height: auto;
+        vertical-align: middle;
+    }
 
-	// Inputs should always be above everything else
-	> .input { z-index: 1; }
+    // Inputs should always be above everything else
+    > .input { z-index: 1; }
 }
 
 .input-addon {
-	border: 1px solid $gray-dark;
-	background: $gray;
-	vertical-align: middle;
-	padding: $medium-padding;
-	line-height: normal;
-	font-size: inherit;
+    border: 1px solid $gray-dark;
+    background: $gray;
+    vertical-align: middle;
+    padding: $medium-padding;
+    line-height: normal;
+    font-size: inherit;
 }
 
 //-------------------- Modifiers --------------------//
 
 .input-group.round {
-	> .input:first-child,
-	> .input-addon:first-child,
-	> .button:first-child,
-	> .button-group:first-child .button {
-		border-top-left-radius: $round;
-		border-bottom-left-radius: $round;
-	}
+    > .input:first-child,
+    > .input-addon:first-child,
+    > .button:first-child,
+    > .button-group:first-child .button {
+        border-top-left-radius: $round;
+        border-bottom-left-radius: $round;
+    }
 
-	> .input:last-child,
-	> .input-addon:last-child,
-	> .button:last-child,
-	> .button-group:last-child .button {
-		border-top-right-radius: $round;
-		border-bottom-right-radius: $round;
-	}
+    > .input:last-child,
+    > .input-addon:last-child,
+    > .button:last-child,
+    > .button-group:last-child .button {
+        border-top-right-radius: $round;
+        border-bottom-right-radius: $round;
+    }
 }

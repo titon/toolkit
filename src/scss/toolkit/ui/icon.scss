@@ -1,13 +1,13 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
 
 /**
- *	<span class="icon-16-delete"></span>
+ *    <span class="icon-16-delete"></span>
  */
 
 [class*="icon-"] { @include reset-inline-block; }
@@ -18,5 +18,5 @@
 [class*="icon-64"] { width: 64px; height: 64px; }
 
 .button {
-	[class*="icon-"] { margin-top: -1px; }
+    [class*="icon-"] { margin-top: -1px; }
 }

@@ -1,241 +1,241 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 (function() {
-	'use strict';
+    'use strict';
 
 Titon.Tabs = new Class({
-	Extends: Titon.Component,
+    Extends: Titon.Component,
 
-	/** Navigation container */
-	nav: null,
+    /** Navigation container */
+    nav: null,
 
-	/** Collection of content sections */
-	sections: [],
+    /** Collection of content sections */
+    sections: [],
 
-	/** Collection of tabs (anchor links) */
-	tabs: [],
+    /** Collection of tabs (anchor links) */
+    tabs: [],
 
-	/** The current and previous shown indices */
-	previousIndex: 0,
-	currentIndex: 0,
+    /** The current and previous shown indices */
+    previousIndex: 0,
+    currentIndex: 0,
 
-	/**
-	 * Default options.
-	 *
-	 *	ajax			- (bool) Will load the href as an ajax call when applicable
-	 *	collapsible		- (bool) Hide the section if the tab is clicked again
-	 *	defaultIndex	- (int) Index of the tab/section to display by default
-	 *	persistState	- (bool) Will persist the last tab clicked between page loads
-	 *	preventDefault	- (bool) Prevent the default action from triggering for tabs
-	 *	cookie			- (string) The key used in the cookie name
-	 *	cookieDuration	- (int) The length the cookie will last (in days)
-	 *	navElement		- (string) The CSS query to that contains the list buttons
-	 *	sectionsElement	- (string) The CSS query to grab the section elements
-	 */
-	options: {
-		ajax: true,
-		collapsible: false,
-		defaultIndex: 0,
-		persistState: false,
-		preventDefault: true,
-		cookie: null,
-		cookieDuration: 30,
-		navElement: '.tabs-nav',
-		sectionsElement: '.tabs-section',
-		template: false
-	},
+    /**
+     * Default options.
+     *
+     *    ajax              - (bool) Will load the href as an ajax call when applicable
+     *    collapsible       - (bool) Hide the section if the tab is clicked again
+     *    defaultIndex      - (int) Index of the tab/section to display by default
+     *    persistState      - (bool) Will persist the last tab clicked between page loads
+     *    preventDefault    - (bool) Prevent the default action from triggering for tabs
+     *    cookie            - (string) The key used in the cookie name
+     *    cookieDuration    - (int) The length the cookie will last (in days)
+     *    navElement        - (string) The CSS query to that contains the list buttons
+     *    sectionsElement   - (string) The CSS query to grab the section elements
+     */
+    options: {
+        ajax: true,
+        collapsible: false,
+        defaultIndex: 0,
+        persistState: false,
+        preventDefault: true,
+        cookie: null,
+        cookieDuration: 30,
+        navElement: '.tabs-nav',
+        sectionsElement: '.tabs-section',
+        template: false
+    },
 
-	/**
-	 * Initialize Tabs by storing the query, gathering the elements and binding events.
-	 *
-	 * @param {Element} element
-	 * @param {Object} [options]
-	 */
-	initialize: function(element, options) {
-		options = options || {};
-		options.cookie = (options.cookie || element.get('id')).camelCase();
+    /**
+     * Initialize Tabs by storing the query, gathering the elements and binding events.
+     *
+     * @param {Element} element
+     * @param {Object} [options]
+     */
+    initialize: function(element, options) {
+        options = options || {};
+        options.cookie = (options.cookie || element.get('id')).camelCase();
 
-		this.parent(options);
-		this.setElement(element);
+        this.parent(options);
+        this.setElement(element);
 
-		if (!this.element) {
-			return;
-		}
+        if (!this.element) {
+            return;
+        }
 
-		// Get elements
-		this.nav = this.element.getElement(this.options.navElement);
+        // Get elements
+        this.nav = this.element.getElement(this.options.navElement);
 
-		this.tabs = this.nav.getElements('ul > li > a');
-		this.tabs.each(function(tab, index) {
-			tab.set('data-index', index).removeClass(Titon.options.activeClass);
-		});
+        this.tabs = this.nav.getElements('ul > li > a');
+        this.tabs.each(function(tab, index) {
+            tab.set('data-index', index).removeClass(Titon.options.activeClass);
+        });
 
-		this.sections = this.element.getElements(this.options.sectionsElement);
-		this.sections.conceal();
+        this.sections = this.element.getElements(this.options.sectionsElement);
+        this.sections.conceal();
 
-		// Set events
-		this.disable().enable();
+        // Set events
+        this.disable().enable();
 
-		this.fireEvent('init');
+        this.fireEvent('init');
 
-		// Trigger default tab to display
-		var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
+        // Trigger default tab to display
+        var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
 
-		this.jump(index);
-	},
+        this.jump(index);
+    },
 
-	/**
-	 * Hide all sections and trigger event.
-	 *
-	 * @returns {Titon.Tabs}
-	 */
-	hide: function() {
-		this.sections.conceal();
+    /**
+     * Hide all sections and trigger event.
+     *
+     * @returns {Titon.Tabs}
+     */
+    hide: function() {
+        this.sections.conceal();
 
-		this.fireEvent('hide', this.node);
+        this.fireEvent('hide', this.node);
 
-		return this;
-	},
+        return this;
+    },
 
-	/**
-	 * Jump to a specific tab via index.
-	 *
-	 * @param {Number} index
-	 * @returns {Titon.Tabs}
-	 */
-	jump: function(index) {
-		if (this.tabs[index]) {
-			this.show(this.tabs[index]);
-		}
+    /**
+     * Jump to a specific tab via index.
+     *
+     * @param {Number} index
+     * @returns {Titon.Tabs}
+     */
+    jump: function(index) {
+        if (this.tabs[index]) {
+            this.show(this.tabs[index]);
+        }
 
-		return this;
-	},
+        return this;
+    },
 
-	/**
-	 * Show the content based on the tab. Can either pass an integer as the index in the collection,
-	 * or pass an element object for a tab in the collection.
-	 *
-	 * @param {Element} tab
-	 * @returns {Titon.Tabs}
-	 */
-	show: function(tab) {
-		var activeClass = Titon.options.activeClass,
-			loadingClass = Titon.options.loadingClass,
-			failedClass = Titon.options.failedClass,
-			index = tab.get('data-index'),
-			section = this.sections[index],
-			url = tab.get('href');
+    /**
+     * Show the content based on the tab. Can either pass an integer as the index in the collection,
+     * or pass an element object for a tab in the collection.
+     *
+     * @param {Element} tab
+     * @returns {Titon.Tabs}
+     */
+    show: function(tab) {
+        var activeClass = Titon.options.activeClass,
+            loadingClass = Titon.options.loadingClass,
+            failedClass = Titon.options.failedClass,
+            index = tab.get('data-index'),
+            section = this.sections[index],
+            url = tab.get('href');
 
-		// Load content with AJAX
-		if (this.options.ajax && url && !url.contains('#') && !this.cache[url]) {
-			new Request({
-				url: url,
-				method: 'get',
-				evalScripts: true,
-				onSuccess: function(response) {
-					this.cache[url] = true;
+        // Load content with AJAX
+        if (this.options.ajax && url && !url.contains('#') && !this.cache[url]) {
+            new Request({
+                url: url,
+                method: 'get',
+                evalScripts: true,
+                onSuccess: function(response) {
+                    this.cache[url] = true;
 
-					section.set('html', response)
-						.removeClass(loadingClass);
-				}.bind(this),
+                    section.set('html', response)
+                        .removeClass(loadingClass);
+                }.bind(this),
 
-				onRequest: function() {
-					section.set('html', this._loadingTemplate())
-						.addClass(loadingClass);
-				}.bind(this),
+                onRequest: function() {
+                    section.set('html', this._loadingTemplate())
+                        .addClass(loadingClass);
+                }.bind(this),
 
-				onFailure: function() {
-					section.set('html', this._errorTemplate())
-						.removeClass(loadingClass)
-						.addClass(failedClass);
-				}.bind(this)
-			}).get();
-		}
+                onFailure: function() {
+                    section.set('html', this._errorTemplate())
+                        .removeClass(loadingClass)
+                        .addClass(failedClass);
+                }.bind(this)
+            }).get();
+        }
 
-		// Toggle tabs
-		this.nav.getElements('ul > li').removeClass(activeClass);
+        // Toggle tabs
+        this.nav.getElements('ul > li').removeClass(activeClass);
 
-		// Toggle sections
-		if (index === this.currentIndex && this.options.collapsible) {
-			if (section.isVisible()) {
-				section.conceal();
+        // Toggle sections
+        if (index === this.currentIndex && this.options.collapsible) {
+            if (section.isVisible()) {
+                section.conceal();
 
-			} else {
-				tab.getParent().addClass(activeClass);
-				section.reveal();
-			}
-		} else {
-			this.hide();
+            } else {
+                tab.getParent().addClass(activeClass);
+                section.reveal();
+            }
+        } else {
+            this.hide();
 
-			tab.getParent().addClass(activeClass);
-			section.reveal();
-		}
+            tab.getParent().addClass(activeClass);
+            section.reveal();
+        }
 
-		// Persist the state using a cookie
-		if (this.options.persistState) {
-			Cookie.write('titon.tabs.' + this.options.cookie, index, {
-				duration: this.options.cookieDuration
-			});
-		}
+        // Persist the state using a cookie
+        if (this.options.persistState) {
+            Cookie.write('titon.tabs.' + this.options.cookie, index, {
+                duration: this.options.cookieDuration
+            });
+        }
 
-		// Track
-		this.previousIndex = this.currentIndex;
-		this.currentIndex = index;
+        // Track
+        this.previousIndex = this.currentIndex;
+        this.currentIndex = index;
 
-		this.fireEvent('show', tab);
+        this.fireEvent('show', tab);
 
-		// Set current node
-		this.node = tab;
+        // Set current node
+        this.node = tab;
 
-		return this;
-	},
+        return this;
+    },
 
-	/**
-	 * Event callback for tab element click.
-	 *
-	 * @private
-	 * @param {DOMEvent} e
-	 */
-	_show: function(e) {
-		if (this.options.preventDefault) {
-			e.preventDefault();
-		}
+    /**
+     * Event callback for tab element click.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    _show: function(e) {
+        if (this.options.preventDefault) {
+            e.preventDefault();
+        }
 
-		this.show(e.target);
-	},
+        this.show(e.target);
+    },
 
-	/**
-	 * Toggle activation events on and off.
-	 *
-	 * @private
-	 * @param {bool} on
-	 * @returns {Titon.Tabs}
-	 */
-	_toggleEvents: function(on) {
-		if (!this.element) {
-			return this;
-		}
+    /**
+     * Toggle activation events on and off.
+     *
+     * @private
+     * @param {bool} on
+     * @returns {Titon.Tabs}
+     */
+    _toggleEvents: function(on) {
+        if (!this.element) {
+            return this;
+        }
 
-		var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
+        var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
 
-		if (on) {
-			this.tabs.addEvent(event, this._show);
-		} else {
-			this.tabs.removeEvent(event, this._show);
-		}
+        if (on) {
+            this.tabs.addEvent(event, this._show);
+        } else {
+            this.tabs.removeEvent(event, this._show);
+        }
 
-		if (event === 'mouseover' && this.options.preventDefault) {
-			this.tabs.addEvent('click', function(e) {
-				e.preventDefault();
-			});
-		}
+        if (event === 'mouseover' && this.options.preventDefault) {
+            this.tabs.addEvent('click', function(e) {
+                e.preventDefault();
+            });
+        }
 
-		return this;
-	}.protect()
+        return this;
+    }.protect()
 
 });
 
@@ -245,21 +245,21 @@ Titon.Tabs = new Class({
  * The class instance will be cached and returned from this function.
  *
  * @example
- * 		$('tabs-id').tabs({
- * 			collapsible: false
- * 		});
+ *     $('tabs-id').tabs({
+ *         collapsible: false
+ *     });
  *
  * @param {Object} [options]
  * @returns {Titon.Tabs}
  */
 Element.implement('tabs', function(options) {
-	if (this.$tabs) {
-		return this.$tabs;
-	}
+    if (this.$tabs) {
+        return this.$tabs;
+    }
 
-	this.$tabs = new Titon.Tabs(this, options);
+    this.$tabs = new Titon.Tabs(this, options);
 
-	return this.$tabs;
+    return this.$tabs;
 });
 
 })();

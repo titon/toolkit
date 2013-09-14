@@ -1,305 +1,314 @@
 {
-	"base": {
-		"category": "component",
-		"priority": 1,
-		"source": {
-			"css": ["../normalize.css", "layout/base.css"],
-			"js": ["Titon.js", "Component.js"],
-			"moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Locale", "More/Element.Shortcuts"]
-		}
-	},
-	"typography": {
-		"category": "component",
-		"priority": 2,
-		"require": ["base"],
-		"source": {
-			"css": ["layout/typography.css"]
-		}
-	},
-	"grid": {
-		"category": "component",
-		"priority": 3,
-		"require": ["base"],
-		"source": {
-			"css": ["layout/grid.css"]
-		}
-	},
-	"form": {
-		"category": "component",
-		"priority": 4,
-		"require": ["base", "grid"],
-		"source": {
-			"css": ["layout/form.css"]
-		}
-	},
-	"inputGroup": {
-		"category": "component",
-		"priority": 5,
-		"require": ["form"],
-		"source": {
-			"css": ["layout/input-group.css"]
-		}
-	},
-	"code": {
-		"category": "component",
-		"priority": 6,
-		"require": ["base"],
-		"source": {
-			"css": ["layout/code.css"]
-		}
-	},
-	"table": {
-		"category": "component",
-		"priority": 7,
-		"require": ["base"],
-		"source": {
-			"css": ["layout/table.css"]
-		}
-	},
-	"responsive": {
-		"category": "component",
-		"priority": 8,
-		"source": {
-			"css": ["layout/responsive.css"]
-		}
-	},
-	"accordion": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/accordion.css"],
-			"js": ["modules/Accordion.js"]
-		}
-	},
-	"alert": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/alert.css"]
-		}
-	},
-	"badge": {
-		"category": "component",
-		"priority": 10,
-		"require": ["labelBadge"]
-	},
-	"blackout": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/blackout.css"],
-			"js": ["modules/Blackout.js"]
-		}
-	},
-	"breadcrumbs": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/breadcrumbs.css"]
-		}
-	},
-	"button": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/button.css"]
-		}
-	},
-	"buttonGroup": {
-		"category": "component",
-		"priority": 10,
-		"require": ["button"],
-		"source": {
-			"css": ["ui/button-group.css"]
-		}
-	},
-	"cache": {
-		"category": "component",
-		"priority": 10,
-		"source": {
-			"js": ["class/Cache.js"],
-			"moo": ["Core", "JSON"]
-		}
-	},
-	"carousel": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/carousel.css"],
-			"js": ["modules/Carousel.js"]
-		}
-	},
-	"dropdown": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "toggle"],
-		"source": {
-			"css": ["ui/dropdown.css"]
-		}
-	},
-	"flyout": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "timers"],
-		"source": {
-			"css": ["modules/flyout.css"],
-			"js": ["modules/Flyout.js"],
-			"moo": ["More/Array.Extras"]
-		}
-	},
-	"icon": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/icon.css"]
-		}
-	},
-	"label": {
-		"category": "component",
-		"priority": 10,
-		"require": ["labelBadge"]
-	},
-	"labelBadge": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/label-badge.css"]
-		}
-	},
-	"lazyLoad": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/lazy-load.css"],
-			"js": ["utilities/LazyLoad.js"]
-		}
-	},
-	"modal": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "blackout"],
-		"source": {
-			"css": ["modules/modal.css"],
-			"js": ["modules/Modal.js"],
-			"moo": ["More/Drag"]
-		}
-	},
-	"pagination": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "button"],
-		"source": {
-			"css": ["ui/pagination.css"]
-		}
-	},
-	"pin": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/pin.css"],
-			"js": ["utilities/Pin.js"]
-		}
-	},
-	"popover": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "tooltip"],
-		"source": {
-			"css": ["modules/popover.css"],
-			"js": ["modules/Popover.js"]
-		}
-	},
-	"progress": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["ui/progress.css"]
-		}
-	},
-	"showcase": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/showcase.css"],
-			"js": ["modules/Showcase.js"]
-		}
-	},
-	"tabs": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/tabs.css"],
-			"js": ["modules/Tabs.js"]
-		}
-	},
-	"timers": {
-		"category": "component",
-		"priority": 10,
-		"source": {
-			"js": ["class/Timers.js"],
-			"moo": ["Core"]
-		}
-	},
-	"toggle": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"js": ["utilities/Toggle.js"]
-		}
-	},
-	"tooltip": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base"],
-		"source": {
-			"css": ["modules/tooltip.css"],
-			"js": ["modules/Tooltip.js"],
-			"moo": ["More/Element.Event.Pseudos", "More/Element.Position"]
-		}
-	},
-	"typeAhead": {
-		"category": "component",
-		"priority": 10,
-		"require": ["base", "cache"],
-		"source": {
-			"css": ["modules/type-ahead.css"],
-			"js": ["modules/TypeAhead.js"]
-		}
-	},
-	"visual": {
-		"category": "component",
-		"priority": 20,
-		"source": {
-			"css": ["effects/visual.css"]
-		}
-	},
+    "base": {
+        "category": "component",
+        "priority": 1,
+        "source": {
+            "css": ["../normalize.css", "layout/base.css"],
+            "js": ["Titon.js", "Component.js"],
+            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Locale", "More/Element.Shortcuts"]
+        }
+    },
+    "typography": {
+        "category": "component",
+        "priority": 2,
+        "require": ["base"],
+        "source": {
+            "css": ["layout/typography.css"]
+        }
+    },
+    "grid": {
+        "category": "component",
+        "priority": 3,
+        "require": ["base"],
+        "source": {
+            "css": ["layout/grid.css"]
+        }
+    },
+    "form": {
+        "category": "component",
+        "priority": 4,
+        "require": ["base", "grid"],
+        "source": {
+            "css": ["layout/form.css"]
+        }
+    },
+    "inputGroup": {
+        "category": "component",
+        "priority": 5,
+        "require": ["form"],
+        "source": {
+            "css": ["layout/input-group.css"]
+        }
+    },
+    "code": {
+        "category": "component",
+        "priority": 6,
+        "require": ["base"],
+        "source": {
+            "css": ["layout/code.css"]
+        }
+    },
+    "table": {
+        "category": "component",
+        "priority": 7,
+        "require": ["base"],
+        "source": {
+            "css": ["layout/table.css"]
+        }
+    },
+    "responsive": {
+        "category": "component",
+        "priority": 8,
+        "source": {
+            "css": ["layout/responsive.css"]
+        }
+    },
+    "accordion": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/accordion.css"],
+            "js": ["modules/Accordion.js"]
+        }
+    },
+    "alert": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/alert.css"]
+        }
+    },
+    "badge": {
+        "category": "component",
+        "priority": 10,
+        "require": ["labelBadge"]
+    },
+    "blackout": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/blackout.css"],
+            "js": ["modules/Blackout.js"]
+        }
+    },
+    "breadcrumbs": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/breadcrumbs.css"]
+        }
+    },
+    "button": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/button.css"]
+        }
+    },
+    "buttonGroup": {
+        "category": "component",
+        "priority": 10,
+        "require": ["button"],
+        "source": {
+            "css": ["ui/button-group.css"]
+        }
+    },
+    "cache": {
+        "category": "component",
+        "priority": 10,
+        "source": {
+            "js": ["class/Cache.js"],
+            "moo": ["Core", "JSON"]
+        }
+    },
+    "carousel": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/carousel.css"],
+            "js": ["modules/Carousel.js"]
+        }
+    },
+    "dropdown": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "toggle"],
+        "source": {
+            "css": ["ui/dropdown.css"]
+        }
+    },
+    "flyout": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "timers"],
+        "source": {
+            "css": ["modules/flyout.css"],
+            "js": ["modules/Flyout.js"],
+            "moo": ["More/Array.Extras"]
+        }
+    },
+    "icon": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/icon.css"]
+        }
+    },
+    "label": {
+        "category": "component",
+        "priority": 10,
+        "require": ["labelBadge"]
+    },
+    "labelBadge": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/label-badge.css"]
+        }
+    },
+    "lazyLoad": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/lazy-load.css"],
+            "js": ["utilities/LazyLoad.js"]
+        }
+    },
+    "matrix": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/matrix.css"],
+            "js": ["utilities/Matrix.js"]
+        }
+    },
+    "modal": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "blackout"],
+        "source": {
+            "css": ["modules/modal.css"],
+            "js": ["modules/Modal.js"],
+            "moo": ["More/Drag"]
+        }
+    },
+    "pagination": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "button"],
+        "source": {
+            "css": ["ui/pagination.css"]
+        }
+    },
+    "pin": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/pin.css"],
+            "js": ["utilities/Pin.js"]
+        }
+    },
+    "popover": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "tooltip"],
+        "source": {
+            "css": ["modules/popover.css"],
+            "js": ["modules/Popover.js"]
+        }
+    },
+    "progress": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["ui/progress.css"]
+        }
+    },
+    "showcase": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/showcase.css"],
+            "js": ["modules/Showcase.js"]
+        }
+    },
+    "tabs": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/tabs.css"],
+            "js": ["modules/Tabs.js"]
+        }
+    },
+    "timers": {
+        "category": "component",
+        "priority": 10,
+        "source": {
+            "js": ["class/Timers.js"],
+            "moo": ["Core"]
+        }
+    },
+    "toggle": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "js": ["utilities/Toggle.js"]
+        }
+    },
+    "tooltip": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["modules/tooltip.css"],
+            "js": ["modules/Tooltip.js"],
+            "moo": ["More/Element.Event.Pseudos", "More/Element.Position"]
+        }
+    },
+    "typeAhead": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "cache"],
+        "source": {
+            "css": ["modules/type-ahead.css"],
+            "js": ["modules/TypeAhead.js"]
+        }
+    },
+    "visual": {
+        "category": "component",
+        "priority": 20,
+        "source": {
+            "css": ["effects/visual.css"]
+        }
+    },
 
-	"theme-titon": {
-		"category": "theme",
-		"priority": 30,
-		"source": {
-			"css": ["themes/titon.css"]
-		}
-	},
-	"theme-tomorrowNight": {
-		"category": "theme",
-		"priority": 30,
-		"source": {
-			"css": ["themes/tomorrow-night.css"]
-		}
-	}
+    "theme-titon": {
+        "category": "theme",
+        "priority": 30,
+        "source": {
+            "css": ["themes/titon.css"]
+        }
+    },
+    "theme-tomorrowNight": {
+        "category": "theme",
+        "priority": 30,
+        "source": {
+            "css": ["themes/tomorrow-night.css"]
+        }
+    }
 }

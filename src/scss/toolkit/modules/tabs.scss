@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
@@ -9,48 +9,48 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Tabs module.
  *
- * 	<div id="tabs" class="tabs">
- *		<nav class="tabs-nav">
- *			<ul>
- *				<li><a href="#tab-1">Tab 1</a></li>
- *				<li><a href="#tab-2">Tab 2</a></li>
- *			</ul>
- *		</nav>
+ *     <div id="tabs" class="tabs">
+ *        <nav class="tabs-nav">
+ *            <ul>
+ *                <li><a href="#tab-1">Tab 1</a></li>
+ *                <li><a href="#tab-2">Tab 2</a></li>
+ *            </ul>
+ *        </nav>
  *
- *		<section id="tab-1" class="tabs-section"></section>
- *		<section id="tab-2" class="tabs-section"></section>
- * 	</div>
+ *        <section id="tab-1" class="tabs-section"></section>
+ *        <section id="tab-2" class="tabs-section"></section>
+ *     </div>
  */
 
 .tabs {
-	text-align: left;
+    text-align: left;
 }
 
 .tabs-nav {
-	display: block;
-	margin-bottom: $margin;
+    display: block;
+    margin-bottom: $margin;
 
-	ul, li {
-		@include reset-inline-block;
-		list-style: none;
-	}
+    ul, li {
+        @include reset-inline-block;
+        list-style: none;
+    }
 
-	@include clear-fix;
+    @include clear-fix;
 }
 
 // Display none on sections since visibility takes up DOM space
 .tabs-section.hide {
-	display: none;
+    display: none;
 }
 
 //-------------------- Modifiers --------------------//
 
 .tabs.tabs--horizontal {
-	.tabs-nav {
-		ul, li, a, button {
-			display: block;
-			float: none;
-			text-align: left;
-		}
-	}
+    .tabs-nav {
+        ul, li, a, button {
+            display: block;
+            float: none;
+            text-align: left;
+        }
+    }
 }

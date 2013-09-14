@@ -1,46 +1,46 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 (function() {
-	'use strict';
+    'use strict';
 
 Titon.Popover = new Class({
-	Extends: Titon.Tooltip,
+    Extends: Titon.Tooltip,
 
-	/**
-	 * Default options.
-	 */
-	options: {
-		delegate: '.js-popover',
-		position: 'topCenter',
-		getContent: 'data-popover',
-		titleElement: '.popover-head',
-		contentElement: '.popover-body',
-		template: '<div class="popover">' +
-			'<div class="popover-inner">' +
-				'<div class="popover-head"></div>' +
-				'<div class="popover-body"></div>' +
-			'</div>' +
-			'<div class="popover-arrow"></div>' +
-		'</div>'
-	},
+    /**
+     * Default options.
+     */
+    options: {
+        delegate: '.js-popover',
+        position: 'topCenter',
+        getContent: 'data-popover',
+        titleElement: '.popover-head',
+        contentElement: '.popover-body',
+        template: '<div class="popover">' +
+            '<div class="popover-inner">' +
+                '<div class="popover-head"></div>' +
+                '<div class="popover-body"></div>' +
+            '</div>' +
+            '<div class="popover-arrow"></div>' +
+        '</div>'
+    },
 
-	/**
-	 * Initialize popovers.
-	 *
-	 * @param {String} query
-	 * @param {Object} [options]
-	 */
-	initialize: function(query, options) {
-		options = options || {};
-		options.mode = 'click';
-		options.follow = false;
+    /**
+     * Initialize popovers.
+     *
+     * @param {String} query
+     * @param {Object} [options]
+     */
+    initialize: function(query, options) {
+        options = options || {};
+        options.mode = 'click';
+        options.follow = false;
 
-		this.parent(query, options);
-	}
+        this.parent(query, options);
+    }
 
 });
 
@@ -50,21 +50,21 @@ Titon.Popover = new Class({
  * The class instance will be cached and returned from this function.
  *
  * @example
- * 		$$('.js-popover').popover({
- * 			ajax: false
- * 		});
+ *     $$('.js-popover').popover({
+ *         ajax: false
+ *     });
  *
  * @param {Object} [options]
  * @returns {Titon.Popover}
  */
 Elements.implement('popover', function(options) {
-	if (this.$popover) {
-		return this.$popover;
-	}
+    if (this.$popover) {
+        return this.$popover;
+    }
 
-	this.$popover = new Titon.Popover(this, options);
+    this.$popover = new Titon.Popover(this, options);
 
-	return this.$popover;
+    return this.$popover;
 });
 
 })();

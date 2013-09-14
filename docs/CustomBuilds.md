@@ -7,7 +7,7 @@ To customize a build, Grunt must be installed. If it's not, jump to the installa
 
 To specify a list of components, pass a comma separated list of component names to the grunt command line.
 
-	grunt --components=tooltip,modal,buttonGroup
+    grunt --components=tooltip,modal,buttonGroup
 
 The custom build file will be compiled and written to the `build` folder. It's as simple as that.
 
@@ -19,6 +19,6 @@ By default no theme is generated. This allows the use of default component funct
 
 To specify a theme, use the theme option in the command line.
 
-	grunt --theme=titon
+    grunt --theme=titon
 
 The list of available themes can be found at the bottom of the manifest file.

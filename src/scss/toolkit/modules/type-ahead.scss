@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
@@ -11,57 +11,57 @@
  */
 
 .type-ahead {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 500;
-	opacity: 0;
-	visibility: hidden;
-	background: $gray;
-	border: 1px solid $gray-dark;
-	@include transition(opacity 0.3s);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    background: $gray;
+    border: 1px solid $gray-dark;
+    @include transition(opacity 0.3s);
 
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		min-width: 200px;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        min-width: 200px;
 
-		a,
-		li.heading {
-			padding: $small-padding;
-			line-height: 100%;
-			display: block;
-			text-decoration: none;
-		}
+        a,
+        li.heading {
+            padding: $small-padding;
+            line-height: 100%;
+            display: block;
+            text-decoration: none;
+        }
 
-		li.heading {
-			font-weight: bold;
-		}
-	}
+        li.heading {
+            font-weight: bold;
+        }
+    }
 }
 
 .type-ahead-desc {
-	display: block;
-	color: $gray-darkest;
-	font-size: .7rem;
+    display: block;
+    color: $gray-darkest;
+    font-size: .7rem;
 }
 
 .type-ahead-shadow {
-	position: relative;
+    position: relative;
 
-	input {
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-	.is-shadow {
-		color: gray;
-	}
+    .is-shadow {
+        color: gray;
+    }
 
-	.not-shadow {
-		background: transparent;
-		z-index: 1;
-	}
+    .not-shadow {
+        background: transparent;
+        z-index: 1;
+    }
 }

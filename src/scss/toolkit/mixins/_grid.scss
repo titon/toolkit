@@ -4,21 +4,21 @@ $grid-width: (100% / $grid-columns) !default;
 
 // Calculate a width using a grid cell
 @function grid-span($n) {
-	@return $grid-width * $n;
+    @return $grid-width * $n;
 }
 
 // Styles for the row containing the columns
 @mixin grid-row() {
-	text-align: left;
-	width: 100%;
-	max-width: 100%;
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
 
-	@include clear-fix;
+    @include clear-fix;
 }
 
 // Styles for the column
 @mixin grid-column() {
-	position: relative;
-	min-height: 1px;
-	float: left;
+    position: relative;
+    min-height: 1px;
+    float: left;
 }

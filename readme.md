@@ -10,15 +10,15 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * **HTML5**
 * **CSS3**
 * **MooTools 1.4** (for JS components)
-	* Core
-	* More/Class.Binds
-	* More/Elements.From
-	* More/Element.Shortcuts
-	* More/Locale
-	* More/Drag (optional: Modal)
-	* More/Array.Extras (optional: Flyout)
-	* More/Element.Position (optional: Tooltip)
-	* More/Element.Event.Pseudos (optional: Tooltip)
+    * Core
+    * More/Class.Binds
+    * More/Elements.From
+    * More/Element.Shortcuts
+    * More/Locale
+    * More/Drag (optional: Modal)
+    * More/Array.Extras (optional: Flyout)
+    * More/Element.Position (optional: Tooltip)
+    * More/Element.Event.Pseudos (optional: Tooltip)
 
 #### Tested Against ####
 * Chrome 26, 28

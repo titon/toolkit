@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 /**
@@ -44,8 +44,8 @@ $error-dark: #7a3636;
 //-------------------- Layout --------------------//
 
 body {
-	color: $foreground-color;
-	background: $background-color;
+    color: $foreground-color;
+    background: $background-color;
 }
 
 //-------------------- Typography --------------------//
@@ -63,10 +63,10 @@ body {
 .text-success { color: $success; }
 
 a {
-	color: $info;
-	text-decoration: none;
+    color: $info;
+    text-decoration: none;
 
-	&:hover { color: $info-light; }
+    &:hover { color: $info-light; }
 }
 
 blockquote { border-color: $info; }
@@ -79,120 +79,120 @@ var { background: $error-light; color: $error-dark; }
 //-------------------- Layout --------------------//
 
 .table {
-	background: $gray;
+    background: $gray;
 
-	td, th {
-		border-color: $gray-light;
-	}
+    td, th {
+        border-color: $gray-light;
+    }
 
-	thead tr,
-	tfoot tr {
-		background: $gray-light;
+    thead tr,
+    tfoot tr {
+        background: $gray-light;
 
-		th { border-color: $gray-lightest; }
-	}
+        th { border-color: $gray-lightest; }
+    }
 
-	tbody tr {
-		background: $gray;
+    tbody tr {
+        background: $gray;
 
-		&:nth-child(odd) { background: $gray-dark; }
-		&.divider { background: $gray-light; }
-	}
+        &:nth-child(odd) { background: $gray-dark; }
+        &.divider { background: $gray-light; }
+    }
 }
 
 .table.table--hover {
-	tbody tr:not(.divider):hover { background: $gray-darkest; }
+    tbody tr:not(.divider):hover { background: $gray-darkest; }
 }
 
 .table.table--sortable thead th a {
-	background: $gray-light;
-	color: #fff;
+    background: $gray-light;
+    color: #fff;
 
-	&:hover { background: shade($gray-light, 5%); }
+    &:hover { background: shade($gray-light, 5%); }
 }
 
 fieldset {
-	border-color: $gray-light;
+    border-color: $gray-light;
 }
 
 .input {
-	background: $gray;
-	border-color: $gray-light;
-	color: $foreground-color;
+    background: $gray;
+    border-color: $gray-light;
+    color: $foreground-color;
 
-	&:hover { border-color: $gray-lightest; }
-	&:focus { border-color: $info; box-shadow: 0 0 5px $info-light; }
+    &:hover { border-color: $gray-lightest; }
+    &:focus { border-color: $info; box-shadow: 0 0 5px $info-light; }
 
-	@include disabled-state {
-		color: $default;
-		border-color: $gray;
-	}
+    @include disabled-state {
+        color: $default;
+        border-color: $gray;
+    }
 
-	&[readonly] {
-		color: $default;
-		border-color: $gray;
-		box-shadow: none;
-	}
+    &[readonly] {
+        color: $default;
+        border-color: $gray;
+        box-shadow: none;
+    }
 }
 
 .input-addon {
-	border-color: $gray-light;
-	background-color: $gray-dark;
+    border-color: $gray-light;
+    background-color: $gray-dark;
 }
 
 .input-group {
-	.input-addon,
-	.button,
-	.button-group {
-		box-shadow: none;
-		margin-right: -5px;
-	}
+    .input-addon,
+    .button,
+    .button-group {
+        box-shadow: none;
+        margin-right: -5px;
+    }
 }
 
 .field {
-	@include field-style;
+    @include field-style;
 }
 
 //-------------------- Accordion --------------------//
 
 .accordion {
-	border-color: $gray-light;
-	border-radius: 3px;
-	background: $gray-dark;
+    border-color: $gray-light;
+    border-radius: 3px;
+    background: $gray-dark;
 
-	li {
-		&:first-child .accordion-head {
-			border-top-left-radius: 3px;
-			border-top-right-radius: 3px;
-		}
+    li {
+        &:first-child .accordion-head {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
 
-		&:last-child {
-			.accordion-head {
-				border-bottom-left-radius: 3px;
-				border-bottom-right-radius: 3px;
-			}
+        &:last-child {
+            .accordion-head {
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
 
-			.accordion-body {
-				border: 0;
-			}
-		}
+            .accordion-body {
+                border: 0;
+            }
+        }
 
-		&.is-active .accordion-head {
-			background: $gray-light;
-			border-color: $gray-lightest;
-			color: $success;
-		}
-	}
+        &.is-active .accordion-head {
+            background: $gray-light;
+            border-color: $gray-lightest;
+            color: $success;
+        }
+    }
 }
 
 .accordion-head {
-	color: $info;
-	background: $gray;
-	border-color: $gray-light;
-	padding: 1rem;
-	text-align: center;
-	cursor: pointer;
-	@include transition(all .3s);
+    color: $info;
+    background: $gray;
+    border-color: $gray-light;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    @include transition(all .3s);
 }
 
 .accordion-body { padding: $padding; }
@@ -200,40 +200,40 @@ fieldset {
 //-------------------- Alert --------------------//
 
 .alert {
-	text-shadow: 0 1px 0 white(.50);
-	box-shadow: 0 0 3px #000;
-	@include alert-style($default-light, $default-dark);
+    text-shadow: 0 1px 0 white(.50);
+    box-shadow: 0 0 3px #000;
+    @include alert-style($default-light, $default-dark);
 
-	&.is-info { @include alert-style($info-light, $info-dark); }
-	&.is-warning { @include alert-style($warning-light, $warning-dark); }
-	&.is-error { @include alert-style($error-light, $error-dark); }
-	&.is-success { @include alert-style($success-light, $success-dark); }
+    &.is-info { @include alert-style($info-light, $info-dark); }
+    &.is-warning { @include alert-style($warning-light, $warning-dark); }
+    &.is-error { @include alert-style($error-light, $error-dark); }
+    &.is-success { @include alert-style($success-light, $success-dark); }
 }
 
 //-------------------- Button --------------------//
 
 .breadcrumbs {
-	background: $gray;
-	border-color: $gray-light;
+    background: $gray;
+    border-color: $gray-light;
 
-	a {
-		padding-right: 0 !important;
+    a {
+        padding-right: 0 !important;
 
-		.caret-right {
-			top: -1px;
-			margin-left: $medium-padding;
-			opacity: .5;
-			display: inline-block;
-		}
-	};
+        .caret-right {
+            top: -1px;
+            margin-left: $medium-padding;
+            opacity: .5;
+            display: inline-block;
+        }
+    };
 
-	&.small a .caret-right { margin-left: $small-padding; }
-	&.large a .caret-right { margin-left: $large-padding; }
+    &.small a .caret-right { margin-left: $small-padding; }
+    &.large a .caret-right { margin-left: $large-padding; }
 
-	li:last-child a {
-		color: $default;
-		.caret-right { display: none; }
-	}
+    li:last-child a {
+        color: $default;
+        .caret-right { display: none; }
+    }
 }
 
 //-------------------- Button --------------------//
@@ -241,118 +241,118 @@ fieldset {
 $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
 @mixin button-style($color) {
-	color: shade($color, 75%);
-	background: $color;
-	border: 1px solid #000;
-	@include background-image(linear-gradient($color, shade($color, 30%)));
+    color: shade($color, 75%);
+    background: $color;
+    border: 1px solid #000;
+    @include background-image(linear-gradient($color, shade($color, 30%)));
 
-	@include active-state {
-		color: #000;
-		background: tint($color, 30%);
-		@include background-image(linear-gradient(tint($color, 30%), $color));
-	}
+    @include active-state {
+        color: #000;
+        background: tint($color, 30%);
+        @include background-image(linear-gradient(tint($color, 30%), $color));
+    }
 
-	@include disabled-state { background: $color; }
-	&:active { background: $color; }
+    @include disabled-state { background: $color; }
+    &:active { background: $color; }
 }
 
 .button {
-	font-weight: bold;
-	text-shadow: 0 1px white(.35);
-	box-shadow: $button-shadow;
-	@include transition(all .3s);
+    font-weight: bold;
+    text-shadow: 0 1px white(.35);
+    box-shadow: $button-shadow;
+    @include transition(all .3s);
 
-	&.small, .small & { text-shadow: 0 1px white(.25); }
-	&.large, .large & { font-weight: normal; }
+    &.small, .small & { text-shadow: 0 1px white(.25); }
+    &.large, .large & { font-weight: normal; }
 
-	@include button-style($default);
-	@include disabled-state {
-		opacity: .35;
-	}
+    @include button-style($default);
+    @include disabled-state {
+        opacity: .35;
+    }
 
-	&.is-info { @include button-style($info); }
-	&.is-warning { @include button-style($warning); }
-	&.is-error { @include button-style($error); }
-	&.is-success { @include button-style($success); }
+    &.is-info { @include button-style($info); }
+    &.is-warning { @include button-style($warning); }
+    &.is-error { @include button-style($error); }
+    &.is-success { @include button-style($success); }
 }
 
 .button.visual-popout {
-	box-shadow: $button-shadow, 0 6px 0 0 black(.25) !important;
+    box-shadow: $button-shadow, 0 6px 0 0 black(.25) !important;
 
-	&:active {
-		box-shadow: $button-shadow, 0 3px 0 0 black(.5) !important;
-	}
+    &:active {
+        box-shadow: $button-shadow, 0 3px 0 0 black(.5) !important;
+    }
 }
 
 //-------------------- ButtonGroup, Pagination --------------------//
 
 .button-group,
 .pagination.pagination--grouped ul {
-	box-shadow: 0 0 3px #000;
+    box-shadow: 0 0 3px #000;
 
-	li .button,
-	> .button {
-		box-shadow: 0 1px 0 white(0.5) inset;
-		border-left: 1px solid black(.35);
-		border-right: 1px solid black(.35);
-	}
+    li .button,
+    > .button {
+        box-shadow: 0 1px 0 white(0.5) inset;
+        border-left: 1px solid black(.35);
+        border-right: 1px solid black(.35);
+    }
 }
 
 .button-group {
-	> li:first-child .button,
-	> .button:first-child { border-left: 0; }
+    > li:first-child .button,
+    > .button:first-child { border-left: 0; }
 
-	> li:last-child .button,
-	> .button:last-child { border-right: 0; }
+    > li:last-child .button,
+    > .button:last-child { border-right: 0; }
 }
 
 .pagination.pagination--grouped li {
-	&:first-child .button { border-left: 0; }
-	&:last-child .button { border-right: 0; }
+    &:first-child .button { border-left: 0; }
+    &:last-child .button { border-right: 0; }
 }
 
 .button-group.button-group--vertical {
-	.button {
-		box-shadow: none;
-		border: 1px solid black(.35);
-	}
+    .button {
+        box-shadow: none;
+        border: 1px solid black(.35);
+    }
 
-	> li:first-child .button,
-	> .button:first-child { border-top: 0; }
+    > li:first-child .button,
+    > .button:first-child { border-top: 0; }
 
-	> li:last-child .button,
-	> .button:last-child { border-bottom: 0; }
+    > li:last-child .button,
+    > .button:last-child { border-bottom: 0; }
 }
 
 //-------------------- Label, Badge --------------------//
 
 .label,
 .badge {
-	color: #000;
-	box-shadow: 0 0 3px #000;
-	text-shadow: 0 1px white(.35);
-	background-color: $default;
+    color: #000;
+    box-shadow: 0 0 3px #000;
+    text-shadow: 0 1px white(.35);
+    background-color: $default;
 
-	&.is-info { background-color: $info; }
-	&.is-warning { background-color: $warning; }
-	&.is-error { background-color: $error; }
-	&.is-success { background-color: $success; }
+    &.is-info { background-color: $info; }
+    &.is-warning { background-color: $warning; }
+    &.is-error { background-color: $error; }
+    &.is-success { background-color: $success; }
 }
 
 .label.label--left {
-	&:after { border-right-color: $default; }
-	&.is-info:after { border-right-color: $info; }
-	&.is-warning:after { border-right-color: $warning; }
-	&.is-error:after { border-right-color: $error; }
-	&.is-success:after { border-right-color: $success; }
+    &:after { border-right-color: $default; }
+    &.is-info:after { border-right-color: $info; }
+    &.is-warning:after { border-right-color: $warning; }
+    &.is-error:after { border-right-color: $error; }
+    &.is-success:after { border-right-color: $success; }
 }
 
 .label.label--right {
-	&:after { border-left-color: $default; }
-	&.is-info:after { border-left-color: $info; }
-	&.is-warning:after { border-left-color: $warning; }
-	&.is-error:after { border-left-color: $error; }
-	&.is-success:after { border-left-color: $success; }
+    &:after { border-left-color: $default; }
+    &.is-info:after { border-left-color: $info; }
+    &.is-warning:after { border-left-color: $warning; }
+    &.is-error:after { border-left-color: $error; }
+    &.is-success:after { border-left-color: $success; }
 }
 
 //-------------------- Dropdown, TypeAhead, Flyout --------------------//
@@ -360,210 +360,210 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .dropdown,
 .flyout,
 .type-ahead {
-	border: 3px solid white(.75);
-	border-radius: 3px;
-	background: $gray-dark;
-	box-shadow: 0 0 3px #000;
+    border: 3px solid white(.75);
+    border-radius: 3px;
+    background: $gray-dark;
+    box-shadow: 0 0 3px #000;
 
-	li {
-		border-top: 1px solid $gray;
+    li {
+        border-top: 1px solid $gray;
 
-		&:first-child { border: 0; }
+        &:first-child { border: 0; }
 
-		a {
-			.caret-right {
-				float: right;
-				margin-top: 3px;
-			}
-		}
+        a {
+            .caret-right {
+                float: right;
+                margin-top: 3px;
+            }
+        }
 
-		a:hover,
-		&.is-open > a,
-		&.is-active > a,
-		&:hover > a {
-			background: $gray-darkest;
-			color: #fff;
-		}
+        a:hover,
+        &.is-open > a,
+        &.is-active > a,
+        &:hover > a {
+            background: $gray-darkest;
+            color: #fff;
+        }
 
-		&.heading {
-			background: $gray;
-			font-size: .9em;
-			color: #fff;
-		}
+        &.heading {
+            background: $gray;
+            font-size: .9em;
+            color: #fff;
+        }
 
-		&.divider {
-			background: $gray-darkest;
-			border-top: 1px solid $gray;
-			height: 10px;
-			margin: 0;
-		}
-	}
+        &.divider {
+            background: $gray-darkest;
+            border-top: 1px solid $gray;
+            height: 10px;
+            margin: 0;
+        }
+    }
 }
 
 .type-ahead-desc {
-	display: block;
-	color: $default;
-	font-size: .7rem;
+    display: block;
+    color: $default;
+    font-size: .7rem;
 }
 
 .type-ahead-highlight {
-	color: $warning;
+    color: $warning;
 }
 
 //-------------------- Modal --------------------//
 
 .modal {
-	.close {
-		top: .9rem;
-		right: .9rem;
-	}
+    .close {
+        top: .9rem;
+        right: .9rem;
+    }
 }
 
 .modal-outer {
-	border: 10px solid white(.75);
-	border-radius: 3px;
-	background: $gray-dark;
-	margin: 10px;
+    border: 10px solid white(.75);
+    border-radius: 3px;
+    background: $gray-dark;
+    margin: 10px;
 }
 
 .modal-head,
 .modal-foot,
 .modal-loading,
 .modal-error {
-	background: $gray-darkest;
+    background: $gray-darkest;
 }
 
 .modal-head {
-	font-size: 1rem;
-	font-weight: normal;
-	color: $info;
+    font-size: 1rem;
+    font-weight: normal;
+    color: $info;
 }
 
 .modal-foot {
-	text-align: center;
+    text-align: center;
 }
 
 .modal-body {
-	border-top: 1px solid $gray;
-	border-bottom: 1px solid $gray;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
 }
 
 //-------------------- Popover --------------------//
 
 .popover {
-	border: 3px solid white(.75);
-	border-radius: 3px;
-	background: $gray-dark;
-	box-shadow: 0 0 3px #000;
-	margin: 10px;
+    border: 3px solid white(.75);
+    border-radius: 3px;
+    background: $gray-dark;
+    box-shadow: 0 0 3px #000;
+    margin: 10px;
 
-	.popover-head {
-		font-size: 1rem;
-		font-weight: bold;
-		color: $info;
-		background: $gray-darkest;
-		border-bottom: 1px solid $gray;
-	}
+    .popover-head {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $info;
+        background: $gray-darkest;
+        border-bottom: 1px solid $gray;
+    }
 
-	&.center-left .popover-arrow {
-		right: -19px;
-		border-left-color: $gray-darkest;
+    &.center-left .popover-arrow {
+        right: -19px;
+        border-left-color: $gray-darkest;
 
-		&:after {
-			margin-left: -2px;
-			border-left-color: white(.75);
-		}
-	}
+        &:after {
+            margin-left: -2px;
+            border-left-color: white(.75);
+        }
+    }
 
-	&.center-right .popover-arrow {
-		left: -19px;
-		border-right-color: $gray-darkest;
+    &.center-right .popover-arrow {
+        left: -19px;
+        border-right-color: $gray-darkest;
 
-		&:after {
-			margin-left: 2px;
-			border-right-color: white(.75);
-		}
-	}
+        &:after {
+            margin-left: 2px;
+            border-right-color: white(.75);
+        }
+    }
 
-	&.top-center .popover-arrow {
-		bottom: -19px;
-		border-top-color: $gray-darkest;
+    &.top-center .popover-arrow {
+        bottom: -19px;
+        border-top-color: $gray-darkest;
 
-		&:after {
-			margin-top: -2px;
-			border-top-color: white(.75);
-		}
-	}
+        &:after {
+            margin-top: -2px;
+            border-top-color: white(.75);
+        }
+    }
 
-	&.bottom-center .popover-arrow {
-		top: -19px;
-		border-bottom-color: $gray-darkest;
+    &.bottom-center .popover-arrow {
+        top: -19px;
+        border-bottom-color: $gray-darkest;
 
-		&:after {
-			margin-top: 2px;
-			border-bottom-color: white(.75);
-		}
-	}
+        &:after {
+            margin-top: 2px;
+            border-bottom-color: white(.75);
+        }
+    }
 }
 
 //-------------------- Progress --------------------//
 
 .progress {
-	background: $gray;
-	box-shadow: inset 1px 1px 2px $gray-darkest;
-	border-radius: $round;
+    background: $gray;
+    box-shadow: inset 1px 1px 2px $gray-darkest;
+    border-radius: $round;
 }
 
 .progress-bar {
-	color: #fff;
-	font-weight: bold;
-	border-top-left-radius: $round;
-	border-bottom-left-radius: $round;
-	@include progress-style($default, $default-dark);
+    color: #fff;
+    font-weight: bold;
+    border-top-left-radius: $round;
+    border-bottom-left-radius: $round;
+    @include progress-style($default, $default-dark);
 
-	&.is-info { @include progress-style($info, $info-dark); }
-	&.is-error { @include progress-style($error, $error-dark); }
-	&.is-warning { @include progress-style($warning, $warning-dark); }
-	&.is-success { @include progress-style($success, $success-dark); }
+    &.is-info { @include progress-style($info, $info-dark); }
+    &.is-error { @include progress-style($error, $error-dark); }
+    &.is-warning { @include progress-style($warning, $warning-dark); }
+    &.is-success { @include progress-style($success, $success-dark); }
 }
 
 .progress-bar + .progress-bar {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 //-------------------- Showcase --------------------//
 
 .showcase {
-	border: 10px solid white(.75);
-	border-radius: 3px;
+    border: 10px solid white(.75);
+    border-radius: 3px;
 
-	.close {
-		top: -11px;
-		right: -40px;
-	}
+    .close {
+        top: -11px;
+        right: -40px;
+    }
 }
 
 .showcase-inner {
-	padding: 0;
+    padding: 0;
 }
 
 //-------------------- Tooltip --------------------//
 
 .tooltip {
-	background: white(.90);
-	color: #000;
-	border-radius: 3px;
-	margin: $margin / 2;
+    background: white(.90);
+    color: #000;
+    border-radius: 3px;
+    margin: $margin / 2;
 
-	.tooltip-head {
-		padding-bottom: $small-padding;
-		font-weight: bold;
-		font-size: 1rem;
-	}
+    .tooltip-head {
+        padding-bottom: $small-padding;
+        font-weight: bold;
+        font-size: 1rem;
+    }
 
-	&.top-center .tooltip-arrow { border-top-color: white(.90); }
-	&.center-left .tooltip-arrow { border-left-color: white(.90); }
-	&.center-right .tooltip-arrow { border-right-color: white(.90); }
-	&.bottom-center .tooltip-arrow { border-bottom-color: white(.90); }
+    &.top-center .tooltip-arrow { border-top-color: white(.90); }
+    &.center-left .tooltip-arrow { border-left-color: white(.90); }
+    &.center-right .tooltip-arrow { border-right-color: white(.90); }
+    &.bottom-center .tooltip-arrow { border-bottom-color: white(.90); }
 }

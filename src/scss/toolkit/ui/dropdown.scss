@@ -1,105 +1,105 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
 
 /**
- *	<ul class="dropdown">
- *		<li class="heading>Heading</li>
- *		<li><a href="">Some Action</a></li>
- *		<li><a href="">Some Action</a></li>
- *		<li class="divider"></li>
- *		<li><a href="">Some Action</a></li>
- *	</ul>
+ *    <ul class="dropdown">
+ *        <li class="heading>Heading</li>
+ *        <li><a href="">Some Action</a></li>
+ *        <li><a href="">Some Action</a></li>
+ *        <li class="divider"></li>
+ *        <li><a href="">Some Action</a></li>
+ *    </ul>
  */
 
 .dropdown {
-	display: none;
-	text-align: left;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	width: 200px;
-	background: $gray-light;
-	border: 1px solid $gray-dark;
-	line-height: 100%;
-	z-index: 500;
-	opacity: 0;
-	visibility: hidden;
-	@include transition(opacity .3s);
+    display: none;
+    text-align: left;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background: $gray-light;
+    border: 1px solid $gray-dark;
+    line-height: 100%;
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    @include transition(opacity .3s);
 
-	// Nested dropdowns
-	.dropdown {
-		display: block;
-		top: 0;
-		left: 90%;
-		z-index: 510;
-		@include transition(left .3s, opacity .3s);
-	}
+    // Nested dropdowns
+    .dropdown {
+        display: block;
+        top: 0;
+        left: 90%;
+        z-index: 510;
+        @include transition(left .3s, opacity .3s);
+    }
 
-	li {
-		position: relative;
+    li {
+        position: relative;
 
-	 	> a {
-			padding: $small-padding;
-			display: block;
+         > a {
+            padding: $small-padding;
+            display: block;
 
-			.caret-right {
-				float: right;
-				display: none;
-			}
-		}
+            .caret-right {
+                float: right;
+                display: none;
+            }
+        }
 
-		&.divider {
-			margin: ($margin / 2) 0;
-			border-top: 1px solid $gray-dark;
-		}
+        &.divider {
+            margin: ($margin / 2) 0;
+            border-top: 1px solid $gray-dark;
+        }
 
-		&.has-children {
-			> a .caret-right { display: inline-block; }
-		}
+        &.has-children {
+            > a .caret-right { display: inline-block; }
+        }
 
-		// Show nested dropdown
-		&:hover {
-			> a { background: #fff; }
+        // Show nested dropdown
+        &:hover {
+            > a { background: #fff; }
 
-			.dropdown {
-				visibility: visible;
-				opacity: 1;
-				left: 100%;
-			}
-		}
+            .dropdown {
+                visibility: visible;
+                opacity: 1;
+                left: 100%;
+            }
+        }
 
-		&.heading {
-			font-weight: bold;
-			padding: $small-padding;
-		}
-	}
+        &.heading {
+            font-weight: bold;
+            padding: $small-padding;
+        }
+    }
 
-	// Force display
-	&.show {
-		display: block;
-	}
+    // Force display
+    &.show {
+        display: block;
+    }
 }
 
 .dropdown,
 .dropdown ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 //-------------------- Modifiers --------------------//
 
 .dropdown.dropdown--right {
-	left: auto;
-	right: 0;
+    left: auto;
+    right: 0;
 }
 
 .dropdown.dropdown--top {
-	top: auto;
-	bottom: 100%;
+    top: auto;
+    bottom: 100%;
 }

@@ -6,108 +6,108 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 <div class="example-header">Accordion</div>
 
 <div class="example">
-	<p>Default functionality.</p>
+    <p>Default functionality.</p>
 
-	<ul class="accordion acc-1" id="acc-1">
-		<li>
-			<header class="accordion-head">
-				<h4>One</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p1; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Two</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p2; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Three</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p3; ?></div>
-			</section>
-		</li>
-	</ul>
+    <ul class="accordion acc-1" id="acc-1">
+        <li>
+            <header class="accordion-head">
+                <h4>One</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p1; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Two</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p2; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Three</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p3; ?></div>
+            </section>
+        </li>
+    </ul>
 </div>
 
 <div class="example">
-	<p>Collapsible sections. Multiple visibility.</p>
+    <p>Collapsible sections. Multiple visibility.</p>
 
-	<ul class="accordion acc-2">
-		<li>
-			<header class="accordion-head">
-				<h4>One</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p1; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Two</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p2; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Three</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p3; ?></div>
-			</section>
-		</li>
-	</ul>
+    <ul class="accordion acc-2">
+        <li>
+            <header class="accordion-head">
+                <h4>One</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p1; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Two</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p2; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Three</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p3; ?></div>
+            </section>
+        </li>
+    </ul>
 </div>
 
 <div class="example">
-	<p>Toggle with hover.</p>
+    <p>Toggle with hover.</p>
 
-	<ul class="accordion acc-3">
-		<li>
-			<header class="accordion-head">
-				<h4>One</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p1; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Two</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p2; ?></div>
-			</section>
-		</li>
-		<li>
-			<header class="accordion-head">
-				<h4>Three</h4>
-			</header>
-			<section class="accordion-inner">
-				<div class="accordion-body"><?php echo $p3; ?></div>
-			</section>
-		</li>
-	</ul>
+    <ul class="accordion acc-3">
+        <li>
+            <header class="accordion-head">
+                <h4>One</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p1; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Two</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p2; ?></div>
+            </section>
+        </li>
+        <li>
+            <header class="accordion-head">
+                <h4>Three</h4>
+            </header>
+            <section class="accordion-inner">
+                <div class="accordion-body"><?php echo $p3; ?></div>
+            </section>
+        </li>
+    </ul>
 </div>
 
 <div class="example">
-	<div class="example-title">Events</div>
+    <div class="example-title">Events</div>
 
-	<p>onInit, onShow, onHide</p>
+    <p>onInit, onShow, onHide</p>
 </div>
 
 <script type="text/javascript">
-	window.addEvent('domready', function() {
-		$('acc-1').accordion();
-		$$('.acc-2').accordion({ multiple: true, collapsible: true });
-		$$('.acc-3').accordion({ mode: 'hover' });
-	});
+    window.addEvent('domready', function() {
+        $('acc-1').accordion();
+        $$('.acc-2').accordion({ multiple: true, collapsible: true });
+        $$('.acc-3').accordion({ mode: 'hover' });
+    });
 </script>

@@ -1,43 +1,43 @@
 {
-	"version": "0.9.4",
-	"name": "titon-toolkit",
-	"description": "A powerful front-end UI and component toolkit.",
-	"keywords": [
-		"titon",
-		"toolkit",
-		"css",
-		"sass",
-		"scss",
-		"mootools",
-		"javascript",
-		"ui",
-		"framework",
-		"bootstrap"
-	],
-	"copyright": "Copyright 2010-2013, The Titon Project",
-	"homepage": "http://titon.io",
-	"licenses": [
-		{
-			"type": "BSD-2",
-			"url": "https://github.com/titon/toolkit/blob/master/license.md"
-		}
-	],
-	"author": {
-		"name": "Miles Johnson",
-		"url": "http://milesj.me"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/titon/toolkit"
-	},
-	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-concat": "*",
-		"grunt-contrib-uglify": "*",
-		"grunt-contrib-jshint": "*",
-		"grunt-contrib-sass": "*",
-		"grunt-contrib-compress": "*",
-		"grunt-string-replace": "*",
-		"compartment": "*"
-	}
+    "version": "0.9.4",
+    "name": "titon-toolkit",
+    "description": "A powerful front-end UI and component toolkit.",
+    "keywords": [
+        "titon",
+        "toolkit",
+        "css",
+        "sass",
+        "scss",
+        "mootools",
+        "javascript",
+        "ui",
+        "framework",
+        "bootstrap"
+    ],
+    "copyright": "Copyright 2010-2013, The Titon Project",
+    "homepage": "http://titon.io",
+    "licenses": [
+        {
+            "type": "BSD-2",
+            "url": "https://github.com/titon/toolkit/blob/master/license.md"
+        }
+    ],
+    "author": {
+        "name": "Miles Johnson",
+        "url": "http://milesj.me"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/titon/toolkit"
+    },
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-sass": "*",
+        "grunt-contrib-compress": "*",
+        "grunt-string-replace": "*",
+        "compartment": "*"
+    }
 }

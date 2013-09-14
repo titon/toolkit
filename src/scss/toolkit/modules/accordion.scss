@@ -1,7 +1,7 @@
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 @import "../common";
@@ -9,54 +9,54 @@
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
  *
- *	<ul class="accordion">
- *		<li>
- *			<header class="accordion-head">Title Bar</header>
- *			<section class="accordion-inner">
- *				<div class="accordion-body">Collapsible content</div>
- *			</section>
- *		</li>
- *	</ul>
+ *    <ul class="accordion">
+ *        <li>
+ *            <header class="accordion-head">Title Bar</header>
+ *            <section class="accordion-inner">
+ *                <div class="accordion-body">Collapsible content</div>
+ *            </section>
+ *        </li>
+ *    </ul>
  */
 
 .accordion,
 .accordion li {
-	list-style: none;
-	text-align: left;
-	margin: 0;
-	padding: 0;
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
 }
 
 .accordion {
-	border: 1px solid $gray-dark;
+    border: 1px solid $gray-dark;
 }
 
 .accordion-head {
-	padding: $padding;
-	background: $gray;
-	border: 1px solid $gray-dark;
-	margin: -1px;
-	cursor: pointer;
+    padding: $padding;
+    background: $gray;
+    border: 1px solid $gray-dark;
+    margin: -1px;
+    cursor: pointer;
 
-	.is-active & {
-		background: $gray-dark;
-		border-color: $gray-darkest;
-	}
+    .is-active & {
+        background: $gray-dark;
+        border-color: $gray-darkest;
+    }
 }
 
 // Style this
 .accordion-body {
-	padding: $padding;
+    padding: $padding;
 
-	@include content-spacing;
+    @include content-spacing;
 }
 
 // Inner is used for animations, do not style it!
 .accordion-inner {
-	overflow: hidden;
-	position: relative;
-	@include transition(all .3s ease-in-out);
+    overflow: hidden;
+    position: relative;
+    @include transition(all .3s ease-in-out);
 
-	&.show { height: auto; }
-	&.hide { max-height: 0; } // don't include on base styles
+    &.show { height: auto; }
+    &.hide { max-height: 0; } // don't include on base styles
 }
