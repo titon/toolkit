@@ -1,12 +1,19 @@
 <?php
 $images = array(
     array(200, 200),
+    array(100, 100),
+    array(300, 150),
+    array(200, 400),
+    array(500, 200),
+    array(200, 175),
+    array(250, 200),
+    array(200, 200),
     array(200, 100),
     array(200, 150),
     array(200, 400),
-    array(200, 200),
+    array(300, 225),
     array(200, 175),
-    array(200, 200)
+    array(150, 400)
 );
 
 shuffle($images); ?>

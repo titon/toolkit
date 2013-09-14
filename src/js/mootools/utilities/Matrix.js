@@ -15,6 +15,9 @@ Titon.Matrix = new Class({
     /** List of DOM elements for items to position in the grid */
     items: [],
 
+    /** List of items organized in order with span detection */
+    matrix: [],
+
     /** Current width of the wrapper */
     wrapperWidth: 0,
 
@@ -23,12 +26,6 @@ Titon.Matrix = new Class({
 
     /** How many columns to render in the grid */
     colCount: 0,
-
-    /** List of items organized into sub-lists for each column */
-    colItems: [],
-
-    /** Height (numbers of items and gutter) of each column */
-    colHeights: [],
 
     /**
      * Default options.
@@ -217,15 +214,6 @@ Titon.Matrix = new Class({
         this.colWidth = colWidth;
         this.colCount = cols;
 
-        // Prepare for height calculation
-        this.colItems = [];
-        this.colHeights = [];
-
-        while (cols--) {
-            this.colItems.push([]);
-            this.colHeights.push(0);
-        }
-
         return this;
     }.protect(),
 
@@ -250,11 +238,7 @@ Titon.Matrix = new Class({
             // How many columns does this item span?
             span = Math.max(Math.round(size.x / this.colWidth), 1);
 
-            // Increase the height for current column
-            this.colHeights[c] += (size.y + this.options.gutter);
-
-            this.colItems[c].push({
-                height: size.y,
+            this.matrix.push({
                 item: item,
                 span: span
             });
@@ -264,12 +248,10 @@ Titon.Matrix = new Class({
                 for (var s = 1; s < span; s++) {
                     c++;
 
-                    if (this.colItems[c]) {
-                        this.colHeights[c] += (size.y + this.options.gutter);
-
-                        this.colItems[c].push({
-                            height: size.y,
-                            item: null // Use empty item so we can skip over during render
+                    if (this.matrix) {
+                        this.matrix.push({
+                            item: item,
+                            span: false // Indicates an empty space
                         });
                     }
                 }
@@ -282,9 +264,6 @@ Titon.Matrix = new Class({
             }
         }
 
-        // Set height of wrapper
-        this.element.setStyle('height', Math.max.apply(Math, this.colHeights));
-
         return this;
     }.protect(),
 
@@ -295,39 +274,56 @@ Titon.Matrix = new Class({
      * @returns {Titon.Matrix}
      */
     _positionItems: function() {
-        var columns = this.colItems,
-            items,
+        var gutter = this.options.gutter,
+            items = this.matrix,
             item,
             dir = this.options.rtl ? 'right' : 'left',
-            x = 0, y,
-            c, cl, i, il,
+            x = 0, y = [], top,
+            c = 0, i, il, s,
             pos = { margin: 0 };
 
-        for (c = 0, cl = columns.length; c < cl; c++) {
-            items = columns[c];
-            y = 0;
+        for (i = 0; i < this.colCount; i++) {
+            y.push(0);
+        }
 
-            for (i = 0, il = items.length; i < il; i++) {
-                item = items[i];
+        for (i = 0, il = items.length; i < il; i++) {
+            item = items[i];
 
-                if (item.item) {
-                    pos.top = y;
-                    pos[dir] = x;
-
-                    // Allow for column spanning items
-                    pos.width = (this.colWidth * item.span) + (this.options.gutter * (item.span - 1));
-
-                    item.item.setStyles(pos).reveal();
-
-                    // Recalculate height since it can change when the width changes
-                    item.height = item.item.getSize().y;
-                }
-
-                y += (item.height + this.options.gutter);
+            // If the item extends too far out, move it to the next column
+            // Or if the last column has been reached
+            if ((c >= this.colCount) || ((item.span + c) > this.colCount)) {
+                c = 0;
+                x = 0;
             }
 
-            x += (this.colWidth + this.options.gutter);
+            // Item spans a column or multiple columns
+            if (item.span) {
+                top = 0;
+
+                // If the item spans multiple columns
+                // Get the largest height from the previous row
+                for (s = 0; s < item.span; s++) {
+                    if (y[c + s] > top) {
+                        top = y[c + s];
+                    }
+                }
+
+                pos.top = top;
+                pos[dir] = x;
+                pos.width = ((this.colWidth + gutter) * item.span) - gutter;
+
+                item.item.setStyles(pos).reveal();
+            }
+
+            // Fetch the height after the position/width has been set
+            y[c] = (item.item.getCoordinates(this.element).bottom + gutter);
+
+            x += (this.colWidth + gutter);
+            c++;
         }
+
+        // Set height of wrapper
+        this.element.setStyle('height', Math.max.apply(Math, y));
 
         return this;
     }.protect(),

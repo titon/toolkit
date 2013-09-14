@@ -7,7 +7,6 @@
     ],
     "ignore": [
         ".*",
-        "*.md",
         "src/css",
         "src/img",
         "src/js",
