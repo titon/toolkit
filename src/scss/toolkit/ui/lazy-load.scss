@@ -11,4 +11,7 @@
  * Should be used in conjunction with the JavaScript Titon.LazyLoad component.
  */
 
-.lazy-load { background-image: none !important; }
+.lazy-load {
+    background-image: none !important;
+    @include transition(background-image .3s);
+}
