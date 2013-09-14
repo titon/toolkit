@@ -120,19 +120,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .progress { margin-bottom: 25px; }
 
-.masonry-item {
+.masonry-grid {
     float: left;
-    width: 200px;
+    margin: 0 20px 20px 0;
     background: #f8f8f8;
     border: 1px solid #e5e5e5;
     color: #000;
     padding: 5px;
 }
 
-.masonry-item.w2 {
-    width: 300px;
+.masonry-grid img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.masonry-item.w4 {
-    width: 600px;
+.masonry-wrapper.no-columns .masonry-grid {
+    width: 100%;
+    float: none;
+    margin-right: 0;
 }

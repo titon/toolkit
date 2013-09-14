@@ -1,0 +1,40 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "../common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Masonry component.
+ */
+
+.masonry-wrapper {
+	position: relative;
+
+	@include clear-fix;
+
+	&.no-columns .masonry-item {
+		position: relative !important;
+	}
+}
+
+.masonry-item {
+	position: absolute;
+}
+
+//-------------------- Animations --------------------//
+
+.masonry-wrapper.fade {
+	.masonry-item {
+		opacity: 0;
+		@include transition(opacity .3s);
+	}
+}
+
+.masonry-wrapper.move-to {
+	.masonry-item {
+		@include transition(top .3s, left .3s, bottom .3s, right .3s);
+	}
+}

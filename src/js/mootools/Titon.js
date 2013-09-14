@@ -157,5 +157,34 @@ Array.implement({
 
 });
 
+Function.implement({
+
+	/**
+	 * Delays the execution of a function till the duration has completed.
+	 *
+	 * @param {Number} threshold
+	 * @returns {Function}
+	 */
+	debouce: function(threshold) {
+		var timeout, func = this;
+
+		return function debounced() {
+			var obj = this;
+
+			function delayed() {
+				func.apply(obj, arguments);
+				timeout = null;
+			}
+
+			if (timeout) {
+				clearTimeout(timeout);
+			}
+
+			timeout = setTimeout(delayed, threshold || 150);
+		};
+	}
+
+});
+
 })(window);
 

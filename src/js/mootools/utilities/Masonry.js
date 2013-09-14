@@ -7,17 +7,15 @@
 (function() {
 	'use strict';
 
+// TODO - fade animation
+// TODO - column spanning
+// TODO - append / prepend / remove items
 Titon.Masonry = new Class({
 	Extends: Titon.Component,
 	Binds: ['_resize'],
 
 	/** List of DOM elements for items to position in the grid */
 	items: [],
-
-	/** List of item heights and indices (used for re-arranging) */
-	itemData: [],
-
-	groups: [],
 
 	/** Current width of the wrapper */
 	wrapperWidth: 0,
@@ -28,36 +26,65 @@ Titon.Masonry = new Class({
 	/** How many columns to render in the grid */
 	colCount: 0,
 
+	/** List of items organized into sub-lists for each column */
+	colItems: [],
+
 	/** Height (numbers of items and gutter) of each column */
 	colHeights: [],
 
+	/**
+	 * Default options.
+	 *
+	 * 	selector	- (string) The class name for items to position within the grid
+	 * 	width		- (int) The average width that each item should conform to
+	 * 	gutter		- (int) The spacing between each item in the grid
+	 * 	rtl			- (bool) Whether to render the items right to left
+	 *	onShutdown	- (function) Callback to trigger when the grid is rendered
+	 */
 	options: {
-		animation: 'fade',
+		animation: 'move-to',
 		selector: '.masonry-item',
 		width: 200,
 		gutter: 20,
-		rtl: false
+		rtl: false,
+
+		// Events
+		onRender: null
 	},
 
+	/**
+	 * Initialize items and events for a masonry grid.
+	 *
+	 * @param {Element} element
+	 * @param {Object} options
+	 */
 	initialize: function(element, options) {
 		this.setOptions(options);
 		this.setElement(element);
 
+		// Load elements
 		if (this.options.animation) {
 			this.element.addClass(this.options.animation);
 		}
 
 		this.items = this.element.getElements(this.options.selector);
 
+		// Set events
 		this.fireEvent('init');
 
-		window.addEvent('resize', this._resize);
+		window.addEvent('resize', this._resize.debouce());
 
 		this.disable().enable();
 
+		// Render immediately
 		this.render();
 	},
 
+	/**
+	 * Add required classes to elements.
+	 *
+	 * @returns {Titon.Masonry}
+	 */
 	enable: function() {
 		this.element.addClass('masonry-wrapper');
 		this.items.addClass('masonry-item');
@@ -65,6 +92,11 @@ Titon.Masonry = new Class({
 		return this;
 	},
 
+	/**
+	 * Remove required classes and set items back to defaults.
+	 *
+	 * @returns {Titon.Masonry}
+	 */
 	disable: function() {
 		this.element.removeClass('masonry-wrapper').removeProperty('style');
 		this.items.removeClass('masonry-item').removeProperty('style');
@@ -72,33 +104,32 @@ Titon.Masonry = new Class({
 		return this;
 	},
 
+	/**
+	 * Calculate and position items in the grid.
+	 */
 	render: function() {
 		this._calculateColumns();
 
-		// Exit early if only 1 column
 		if (this.colCount <= 1) {
 			this.items.removeProperty('style');
 			this.element.addClass('no-columns');
 
-			return;
 		} else {
 			this.element.removeClass('no-columns');
+
+			this._organizeItems();
+			this._positionItems();
 		}
 
-		// Position the items
-		this.items.each(this._positionItem, this);
-
-		console.log(this);
-
-		//this._organizeGroups();
-
-		// Calculate values
-		//this._calculateHeights();
-
-		// Loop through each item and position
-		//this._positionItems();
+		this.fireEvent('render');
 	},
 
+	/**
+	 * Calculate how many columns can be supported in the current resolution.
+	 * Modify the column width to account for gaps on either side.
+	 *
+	 * @private
+	 */
 	_calculateColumns: function() {
 		var wrapperWidth = this.element.getSize().x,
 			colWidth = this.options.width,
@@ -114,7 +145,7 @@ Titon.Masonry = new Class({
 
 			} else if (colsWidth < wrapperWidth) {
 				diff = wrapperWidth - colsWidth;
-				colWidth += Math.floor(diff / cols)
+				colWidth += Math.floor(diff / cols);
 			}
 		}
 
@@ -123,164 +154,121 @@ Titon.Masonry = new Class({
 		this.colCount = cols;
 
 		// Prepare for height calculation
+		this.colItems = [];
 		this.colHeights = [];
 
 		while (cols--) {
+			this.colItems.push([]);
 			this.colHeights.push(0);
 		}
 	}.protect(),
 
-	_calculateHeights: function() {
-		/*var colHeights = [],
-			colHeights = [],
-			cols = this.colCount,
-			gutter = this.options.gutter;
+	/**
+	 * Organize the items into columns by looping over each item and calculating dimensions.
+	 * If an item spans multiple columns, account for it by filling with an empty space.
+	 *
+	 * @private
+	 */
+	_organizeItems: function() {
+		var item,
+			span,
+			size,
+			c = 0, // current column
+			l = this.items.length;
 
-		this.items.each(function(col, i) {
-			var h = col.getSize().y + gutter,
-				c = (i % cols);
-
-			colHeights.push(h);
-
-			if (!colHeights[c]) {
-				colHeights[c] = 0;
-			}
-
-			colHeights[c] += h;
-		});
-
-		this.element.setStyle('height', Math.max.apply(null, colHeights));
-
-		// Sort the items by height
-		var data = [], sorted = [];
-
-		colHeights.each(function(height, i) {
-			data.push({
-				height: height,
-				index: i
-			});
-		});
-
-		data.sort(function(a, b) {
-			return b.height - a.height;
-		});
-
-		for (var i = 0, x = 0, l = data.length, p; i < l; i += cols) {
-			p = data.slice(i, i + cols);
-
-			if (x % 2 !== 0) {
-				p = p.reverse();
-			}
-
-			sorted = sorted.concat(p);
-			x++;
-		}
-
-		this.colData = sorted;
-		this.colHeights = colHeights;*/
-	}.protect(),
-
-	_organizeGroups: function() {
-		var groups = [],
-			col = 0,
-			size;
-
-		this.items.each(function(item, i) {
+		for (var i = 0; i < l; i++) {
+			item = this.items[i];
 			size = item.getSize();
-		});
 
-		console.log(this);
+			// How many columns does this item span?
+			span = Math.max(Math.round(size.x / this.colWidth), 1);
+
+			// Increase the height for current column
+			this.colHeights[c] += (size.y + this.options.gutter);
+
+			this.colItems[c].push({
+				height: size.y,
+				item: item,
+				span: span
+			});
+
+			// Multiple columns
+			if (span > 1) {
+				for (var s = 1; s < span; s++) {
+					c++;
+
+					if (this.colItems[c]) {
+						this.colHeights[c] += (size.y + this.options.gutter);
+
+						this.colItems[c].push({
+							height: size.y,
+							item: null // Use empty item so we can skip over during render
+						});
+					}
+				}
+			}
+
+			c++;
+
+			if (c >= this.colCount) {
+				c = 0;
+			}
+		}
+
+		// Set height of wrapper
+		this.element.setStyle('height', Math.max.apply(Math, this.colHeights));
 	}.protect(),
 
-	_positionItem: function(item, index) {
-		var size = item.getSize(),
-			colSpan,
-			groupCount,
-			groupY,
-			groupColY;
+	/**
+	 * Loop through the items in each column and position them absolutely.
+	 *
+	 * @private
+	 */
+	_positionItems: function() {
+		var columns = this.colItems,
+			items,
+			item,
+			dir = this.options.rtl ? 'right' : 'left',
+			x = 0, y,
+			c, cl, i, il,
+			pos = { margin: 0 };
 
-		// How many columns does this item span?
-		colSpan = Math.min(Math.ceil(size.x / this.colWidth), this.colCount);
+		for (c = 0, cl = columns.length; c < cl; c++) {
+			items = columns[c];
+			y = 0;
 
-		// Only 1 column
-		if (colSpan === 1) {
-			groupY = this.colHeights;
+			for (i = 0, il = items.length; i < il; i++) {
+				item = items[i];
 
-		// Multiple columns
-		} else {
-			groupCount = this.colCount + 1 - colSpan;
-			groupY = [];
+				if (item.item) {
+					pos.top = y;
+					pos[dir] = x;
 
-			for (var x = 0; x < groupCount; x++) {
-				groupColY = this.colHeights.slice(x, x + colSpan);
-				groupY[x] = Math.max.apply(Math, groupColY);
-			}
-		}
+					// Allow for column spanning items
+					pos.width = (this.colWidth * item.span) + (this.options.gutter * (item.span - 1));
 
-		var minY = Math.min.apply(Math, groupY),
-			shortCol = 0;
+					item.item.setStyles(pos).reveal();
 
-		// Find index of short column, the first from the left
-		for (var i=0, len = groupY.length; i < len; i++) {
-			if ( groupY[i] === minY ) {
-				shortCol = i;
-				break;
-			}
-		}
-
-		var position = {
-			top: minY
-		};
-		position[this.options.rtl ? 'right' : 'left'] = this.colWidth * shortCol;
-
-		// apply setHeight to necessary columns
-		var setHeight = minY + size.y,
-			setSpan = this.cols + 1 - len;
-
-		for ( i=0; i < setSpan; i++ ) {
-			this.colHeights[ shortCol + i ] = setHeight;
-		}
-
-		/*var colsInCols = [],
-			colWidth = this.colWidth,
-			top,
-			left,
-			cols = this.colCount,
-			c; // current column
-
-		this.itemData.each(function(data, i) {
-			c = (i % cols);
-			top = 0;
-			left = 0;
-
-			// Add top margin based on how many cols are already in the column
-			if (colsInCols[c]) {
-				for (var x = 0, l = colsInCols[c].length; x < l; x++) {
-					top += colsInCols[c][x];
+					// Recalculate height since it can change when the width changes
+					item.height = item.item.getSize().y;
 				}
-			} else {
-				colsInCols[c] = [];
+
+				y += (item.height + this.options.gutter);
 			}
 
-			colsInCols[c].push(data.height);
+			x += (this.colWidth + this.options.gutter);
+		}
+	}.protect(),
 
-			// Add left margin and gutter based on how many columns
-			if (c > 0) {
-				left = (colWidth + this.options.gutter) * c;
-			}
-
-			this.cols[data.index].setStyles({
-				position: 'absolute',
-				left: left,
-				top: top,
-				width: colWidth
-			});
-		}.bind(this));*/
-	},
-
-	// TODO add throttling
+	/**
+	 * Event handler for browser resizing.
+	 *
+	 * @private
+	 */
 	_resize: function() {
-		this.render();
+		if (this.element.hasClass('masonry-wrapper')) {
+			this.render();
+		}
 	}
 
 });
@@ -292,7 +280,7 @@ Titon.Masonry = new Class({
  *
  * @example
  * 		$('masonry-id').masonry({
- * 			width: 100
+ * 			width: 200
  * 		});
  *
  * @param {Object} [options]
