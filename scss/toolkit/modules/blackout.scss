@@ -1,0 +1,24 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Blackout module.
+ */
+
+.blackout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 600;
+    opacity: 0;
+    visibility: hidden;
+    background: black(.5);
+    @include transition(all 0.3s);
+}

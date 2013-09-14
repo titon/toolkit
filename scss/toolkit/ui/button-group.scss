@@ -1,0 +1,204 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ *    <div class="button-group pill">
+ *        <a href="" class="button">Left Button</a>
+ *        <a href="" class="button">Center Button</a>
+ *        <a href="" class="button">Right Button</a>
+ *    </div>
+ */
+
+.button-group {
+    @include reset-inline-block;
+    white-space: nowrap;
+
+    > li,
+    > .button {
+        float: left;
+        margin-left: -1px !important;
+        border-radius: 0;
+        display: block;
+
+        &:first-child { margin-left: 0; }
+        &:hover { z-index: 1; }
+    }
+
+    > li .button {
+        display: block;
+        border-radius: 0;
+    }
+
+    // Shape: round
+    &.round {
+        border-radius: $round;
+
+        > li:first-child .button,
+        > .button:first-child,
+        > .button.first {
+            border-top-left-radius: $round;
+            border-bottom-left-radius: $round;
+        }
+
+        > li:last-child .button,
+        > .button:last-child,
+        > .button.last {
+            border-top-right-radius: $round;
+            border-bottom-right-radius: $round;
+        }
+    }
+
+    // Shape: pill
+    &.pill {
+        border-radius: $pill;
+
+        > li:first-child .button,
+        > .button:first-child,
+        > .button.first {
+            border-top-left-radius: $pill;
+            border-bottom-left-radius: $pill;
+        }
+
+        > li:last-child .button,
+        > .button:last-child,
+        > .button.last {
+            border-top-right-radius: $pill;
+            border-bottom-right-radius: $pill;
+        }
+    }
+
+    // Shape: skew
+    &.skew {
+        border-top-left-radius: $skew;
+        border-top-right-radius: $skew;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        > li:first-child .button,
+        > .button:first-child,
+        > .button.first {
+            border-top-left-radius: $skew;
+            border-bottom-left-radius: 0;
+        }
+
+        > li:last-child .button,
+        > .button:last-child,
+        > .button.last {
+            border-top-right-radius: $skew;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    @include clear-fix;
+}
+
+// Space out groups
+.button-group + .button-group {
+    margin-left: $margin;
+}
+
+//-------------------- Modifiers --------------------//
+
+.button-group.button-group--vertical {
+    vertical-align: top;
+
+    > li,
+    > .button {
+        float: none;
+        display: block;
+        margin: -1px 0 0 0 !important;
+        width: auto;
+        max-width: 100%;
+
+        &:first-child { margin-top: 0 !important; }
+        &:hover { z-index: 1; }
+    }
+
+    // Reset radius
+    &.round,
+    &.pill,
+    &.skew,
+    &.skew-reverse {
+        .button { border-radius: 0; }
+    }
+
+    // Shape: round
+    &.round {
+        > li:first-child .button,
+        > .button:first-child {
+            border-top-left-radius: $round;
+            border-top-right-radius: $round;
+        }
+
+        > li:last-child .button,
+        > .button:last-child {
+            border-bottom-left-radius: $round;
+            border-bottom-right-radius: $round;
+        }
+    }
+
+    // Shape: pill
+    &.pill {
+        border-radius: $pill;
+
+        > li:first-child .button,
+        > .button:first-child {
+            border-top-left-radius: $pill;
+            border-top-right-radius: $pill;
+        }
+
+        > li:last-child .button,
+        > .button:last-child {
+            border-bottom-left-radius: $pill;
+            border-bottom-right-radius: $pill;
+        }
+    }
+
+    // Shape: skew
+    &.skew {
+        border-top-left-radius: $skew-y 1.5rem;
+        border-bottom-left-radius: $skew-y 1.5rem;
+
+        > li:first-child .button,
+        > .button:first-child {
+            border-top-left-radius: $skew-reverse;
+        }
+
+        > li:last-child .button,
+        > .button:last-child {
+            border-bottom-left-radius: $skew-reverse;
+            border-top-right-radius: 0;
+        }
+    }
+
+    // Shape: skew-reverse
+    &.skew-reverse {
+        border-top-right-radius: $skew-y 1.25rem;
+        border-bottom-right-radius: $skew-y 1.25rem;
+
+        > li:first-child .button,
+        > .button:first-child {
+            border-top-right-radius: $skew-reverse;
+        }
+
+        > li:last-child .button,
+        > .button:last-child {
+            border-bottom-right-radius: $skew-reverse;
+        }
+    }
+}
+
+.button-group.button-group--justified {
+    display: table;
+    width: 100%;
+
+    > .button {
+        float: none;
+        display: table-cell;
+    }
+}

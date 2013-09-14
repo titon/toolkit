@@ -1,0 +1,76 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ *    <span class="badge is-success">15</span>
+ *    <span class="label is-error">Required</span>
+ */
+
+.badge,
+.label {
+    @include reset-inline-block;
+    color: #fff;
+    // Shorthand doesn't work in IE
+    font-weight: bold;
+    font-size: .6rem;
+    line-height: 100%;
+    background: #282a2e;
+    padding: 3px 5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+    top: -1px;
+
+    &:empty { display: none; }
+}
+
+.label {
+    letter-spacing: 1px;
+}
+
+.badge {
+    border-radius: 10px;
+}
+
+//-------------------- Modifiers --------------------//
+
+.label.label--left {
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    padding-left: 2px;
+    margin-left: 10px;
+
+    &:after {
+        top: 0;
+        right: 100%;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        border: .85em solid transparent;
+        border-right-color: #282a2e;
+    }
+}
+
+.label.label--right {
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    padding-right: 2px;
+    margin-right: 10px;
+
+    &:after {
+        top: 0;
+        left: 100%;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        border: .85em solid transparent;
+        border-left-color: #282a2e;
+    }
+}

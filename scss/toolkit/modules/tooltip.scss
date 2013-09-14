@@ -1,0 +1,130 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Tooltip module.
+ *
+ *    <div class="tooltip">
+ *        <div class="tooltip-inner">
+ *            <div class="tooltip-head">Tooltip Title</div>
+ *            <div class="tooltip-body">Tooltip Content</div>
+ *        </div>
+ *        <div class="tooltip-arrow"></div>
+ *    </div>
+ */
+
+.tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: $small-padding;
+    z-index: 500;
+    max-width: 200px;
+    visibility: hidden;
+    background: #000;
+    color: #fff;
+    @include box-sizing(content-box); // Required or else MooTools position() is off
+
+    &.center-left .tooltip-arrow,
+    &.center-right .tooltip-arrow {
+        top: 50%;
+        margin-top: -6px;
+    }
+
+    &.center-left .tooltip-arrow {
+        border-left-color: #000;
+        right: -12px;
+    }
+
+    &.center-right .tooltip-arrow {
+        border-right-color: #000;
+        left: -12px;
+    }
+
+    &.top-center .tooltip-arrow,
+    &.bottom-center .tooltip-arrow {
+        left: 50%;
+        margin-left: -6px;
+    }
+
+    &.top-center .tooltip-arrow {
+        border-top-color: #000;
+        bottom: -12px;
+    }
+
+    &.bottom-center .tooltip-arrow {
+        border-bottom-color: #000;
+        top: -12px;
+    }
+}
+
+.tooltip-arrow {
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    position: absolute;
+
+    &:after {
+        content: "";
+        border: 4px solid transparent;
+        position: absolute;
+    }
+}
+
+//-------------------- Animations --------------------//
+
+.tooltip,
+.popover {
+    &.fade {
+        opacity: 0;
+        @include transition(opacity 0.5s);
+    }
+
+    &.from-above {
+        @include transition(transform 0.3s);
+        @include transform(scale(1.2));
+
+        &.show {
+            @include transform(scale(1));
+        }
+    }
+
+    &.from-below {
+        @include transition(transform 0.3s);
+        @include transform(scale(0.8));
+
+        &.show {
+            @include transform(scale(1));
+        }
+    }
+
+    &.flip-rotate {
+        @include transition(transform 0.3s);
+        @include transform(rotate(-90deg));
+
+        &.show {
+            @include transform(rotate(0deg));
+        }
+    }
+
+    &.slide-in {
+        @include transition(transform 0.3s);
+
+        &.top-left { @include transform(translate(-25%, -25%)); }
+        &.top-center { @include transform(translateY(-50%)); }
+        &.top-right { @include transform(translate(25%, -25%)); }
+        &.center-left { @include transform(translateX(-25%)); }
+        &.center-right { @include transform(translateX(25%)); }
+        &.bottom-left { @include transform(translate(-25%, 25%)); }
+        &.bottom-center { @include transform(translateY(50%)); }
+        &.bottom-right { @include transform(translate(25%, 25%)); }
+
+        &.show { @include transform(translate(0)); }
+    }
+}

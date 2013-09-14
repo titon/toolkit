@@ -6,8 +6,8 @@ module.exports = function(grunt) {
 
     graph.loadManifest(__dirname + '/manifest.json');
     graph.addTypes({
-        js: 'src/js/mootools/',
-        css: 'src/css/toolkit/',
+        js: 'js/mootools/',
+        css: 'css/toolkit/',
         moo: ''
     });
 
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         cssPaths = graph.getPaths('css');
 
     jsPaths.forEach(function(path) {
-        var buildPath = path.replace(/src/g, 'build');
+        var buildPath = 'build/' + path;
 
         jsConcatPaths.push(buildPath);
         jsUglifyPaths[buildPath] = path;
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                 scripturl: true
             },
             build: {
-                src: ['src/js/**/*.js']
+                src: ['js/**/*.js']
             }
         },
 
@@ -115,15 +115,15 @@ module.exports = function(grunt) {
         sass: {
             options: {
                 style: 'compressed',
-                compass: 'src/config.rb',
+                compass: 'config.rb',
                 trace: true
             },
             build: {
                 files: [{
                     expand: true,
-                    cwd: 'src/scss',
+                    cwd: 'scss',
                     src: '**/*.scss',
-                    dest: 'src/css',
+                    dest: 'css',
                     ext: '.css'
                 }]
             }

@@ -1,0 +1,53 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+img, video, canvas {
+    max-width: 100%;
+    max-height: auto;
+    height: auto;
+}
+
+.show-print { display: none; }
+
+// Desktop states
+@include in-desktop {
+    .show-tablet,
+    .show-mobile,
+    .hide-desktop { display: none; }
+}
+
+// Tablet states
+@include in-tablet {
+    .show-desktop,
+    .show-mobile,
+    .hide-tablet { display: none; }
+}
+
+// Mobile states
+@include in-mobile  {
+    .show-desktop,
+    .show-tablet,
+    .hide-mobile { display: none; }
+}
+
+// Orientation states
+@include if-portrait {
+    .show-landscape,
+    .hide-portrait { display: none; }
+}
+
+@include if-landscape {
+    .show-portrait,
+    .hide-landscape { display: none; }
+}
+
+// Type states
+@media print {
+    .show-print { display: block; }
+    .hide-print { display: none; }
+}

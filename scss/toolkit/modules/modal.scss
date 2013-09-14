@@ -1,0 +1,243 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Modal module.
+ *
+ *    <div class="modal">
+ *        <div class="modal-outer">
+ *            <div class="modal-inner">
+ *                Custom content here
+ *            </div>
+ *            <button type="button" class="modal-close"></button>
+ *        </div>
+ *    </div>
+ */
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    z-index: 610; // higher than blackout
+    max-width: 700px;
+    min-width: 350px;
+    visibility: hidden;
+    backface-visibility: hidden;
+    @include transform(translateX(-50%) translateY(-50%));
+
+    .close {
+        position: absolute;
+        top: -1px;
+        right: -35px;
+    }
+
+    &.is-loading {
+        .close { display: none; }
+
+        .modal-outer {
+            background: $gray url("../../../img/loader.gif") 50% 50% no-repeat;
+        }
+    }
+}
+
+// Used for animations, should also contain the styles
+.modal-outer {
+    position: relative;
+    margin: 0 auto;
+    background: $gray;
+    border: 1px solid $gray-dark;
+}
+
+// Reset draggable cursor
+.modal.is-draggable {
+    .modal-inner { cursor: default; }
+    .modal-head { cursor: move; }
+}
+
+// Apply block padding
+.modal-head,
+.modal-body,
+.modal-foot,
+.modal-loading,
+.modal-error {
+    padding: $padding;
+}
+
+// Remove margins from text elements
+.modal-body {
+    @include content-spacing;
+}
+
+//-------------------- Animations --------------------//
+
+.modal {
+    &.from-above,
+    &.from-below,
+    &.slide-in-top,
+    &.slide-in-bottom,
+    &.slide-in-left,
+    &.slide-in-right,
+    &.flip,
+    &.flip-vert {
+        .modal-outer {
+            opacity: 0;
+            @include transition(all 0.3s);
+        }
+
+        &.show .modal-outer {
+            opacity: 1;
+        }
+    }
+
+    &.fade {
+        opacity: 0;
+        @include transition(opacity 0.3s);
+    }
+
+    &.from-above {
+        .modal-outer {
+            @include transform(scale(1.3));
+        }
+
+        &.show .modal-outer {
+            @include transform(scale(1));
+        }
+    }
+
+    &.from-below {
+        .modal-outer {
+            @include transform(scale(0.7));
+        }
+
+        &.show .modal-outer {
+            @include transform(scale(1));
+        }
+    }
+
+    &.slide-in-top {
+        .modal-outer {
+            @include transform(translateY(-50%));
+        }
+
+        &.show .modal-outer {
+            @include transform(translateY(0));
+        }
+    }
+
+    &.slide-in-bottom {
+        .modal-outer {
+            @include transform(translateY(50%));
+        }
+
+        &.show .modal-outer {
+            @include transform(translateY(0));
+        }
+    }
+
+    &.slide-in-left {
+        .modal-outer {
+            @include transition(all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9));
+            @include transform(translateX(-50%));
+        }
+
+        &.show .modal-outer {
+            @include transform(translateX(0));
+        }
+    }
+
+    &.slide-in-right {
+        .modal-outer {
+            @include transition(all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9));
+            @include transform(translateX(50%));
+        }
+
+        &.show .modal-outer {
+            @include transform(translateX(0));
+        }
+    }
+
+    &.sticky-top {
+        top: -100%;
+        opacity: 0;
+        @include transition(all 0.3s);
+        @include transform(translateX(-50%)); // reset to x
+
+        &.show {
+            top: 0;
+            opacity: 1;
+        }
+    }
+
+    &.sticky-bottom {
+        top: auto;
+        bottom: -100%;
+        opacity: 0;
+        @include transition(all 0.3s);
+        @include transform(translateX(-50%)); // reset to x
+
+        &.show {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+
+    &.sticky-left {
+        left: -100%;
+        opacity: 0;
+        @include transition(all 0.3s);
+        @include transform(translate(0, -50%));
+
+        &.show {
+            left: 0;
+            opacity: 1;
+        }
+    }
+
+    &.sticky-right {
+        left: auto;
+        right: -100%;
+        opacity: 0;
+        @include transition(all 0.3s);
+        @include transform(translate(0, -50%));
+
+        &.show {
+            right: 0;
+            opacity: 1;
+        }
+    }
+
+    &.flip {
+        @include perspective(1300px);
+
+        .modal-outer {
+            @include transform-style(preserve-3d);
+            @include transform(rotateY(-70deg));
+        }
+
+        &.show .modal-outer {
+            @include transform(rotateY(0deg));
+        }
+    }
+
+    &.flip-vert {
+        @include perspective(1300px);
+
+        .modal-outer {
+            @include transform-style(preserve-3d);
+            @include transform(rotateX(-70deg));
+        }
+
+        &.show .modal-outer {
+            @include transform(rotateX(0deg));
+        }
+    }
+}

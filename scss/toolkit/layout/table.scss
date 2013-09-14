@@ -1,0 +1,82 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+.table {
+    width: 100%;
+    background: $gray;
+    border-collapse: collapse;
+
+    th, td {
+        padding: $padding;
+        line-height: 110%;
+        vertical-align: top;
+        border: 1px solid $gray-dark;
+    }
+
+    // Move headings to bottom
+    thead th {
+        vertical-align: bottom;
+        text-align: left;
+    }
+
+    // Allow for multiple tbody's
+    tbody + tbody { border-top-width: 2px; }
+
+    // Row colors
+    thead tr,
+    tfoot tr {
+        background: $gray-dark;
+
+        th { border-color: shade($gray-dark, 10%); }
+    }
+
+    // Zebra striping
+    tbody tr {
+        background: $gray;
+
+        &:nth-child(odd) { background: $gray-light; }
+        &.divider { background: shade($gray, 2%); }
+    }
+}
+
+//-------------------- Modifiers --------------------//
+
+.table.table--hover {
+    tbody tr:not(.divider):hover { background: #fff; }
+}
+
+.table.table--sortable {
+    thead th {
+        padding: 0;
+
+        a, span {
+            padding: $padding;
+            display: block;
+        }
+
+        a {
+            background: $gray-dark;
+            color: #000;
+
+            &:hover { background: shade($gray-dark, 5%); }
+        }
+    }
+}
+
+.table.table--compact {
+    thead th,
+    tbody td { padding: $small-padding; }
+
+    &.table--sortable {
+        thead th {
+            padding: 0;
+
+            a, span { padding: $small-padding; }
+        }
+    }
+}

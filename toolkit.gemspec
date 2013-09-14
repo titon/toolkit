@@ -10,9 +10,8 @@ Gem::Specification.new do |gem|
     gem.license = "BSD-2"
 
     # Files
-    gem.require_paths = ["lib", "src", "src/lib"]
-    gem.files = ["src/lib/titon-toolkit.rb"]
-    gem.files += Dir.glob("src/scss/**/*")
+    gem.files = ["lib/titon-toolkit.rb"]
+    gem.files += Dir.glob("scss/**/*")
     gem.files += Dir.glob("*.md")
 
     # Dependencies

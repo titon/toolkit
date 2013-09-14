@@ -2,7 +2,7 @@
 .sass-cache/
 node_modules/
 build/
-src/css/**/_*.css
+css/**/_*.css
 npm-debug.log
 *.gem
 

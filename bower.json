@@ -7,12 +7,12 @@
     ],
     "ignore": [
         ".*",
-        "src/css",
-        "src/img",
-        "src/js",
-        "examples",
-        "docs",
-        "build",
+        "css/",
+        "img/",
+        "js/",
+        "examples/",
+        "docs/",
+        "build/",
         "Gruntfile.js",
         "package.json"
     ]

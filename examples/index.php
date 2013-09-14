@@ -182,18 +182,18 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="../src/css/toolkit/layout/base.css" rel="stylesheet" type="text/css">
-    <link href="../src/css/toolkit/effects/visual.css" rel="stylesheet" type="text/css">
+    <link href="../css/toolkit/layout/base.css" rel="stylesheet" type="text/css">
+    <link href="../css/toolkit/effects/visual.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($component['css'])) {
         foreach ((array) $component['css'] as $css) { ?>
-            <link href="../src/css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
+            <link href="../css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
         <?php }
     }
 
     if (!empty($theme['css'])) {
         foreach ((array) $theme['css'] as $css) { ?>
-            <link href="../src/css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
+            <link href="../css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
         <?php }
     } ?>
 
@@ -202,11 +202,11 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
     <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
 
     <?php if (!empty($component['js'])) { ?>
-        <script type="text/javascript" src="../src/js/mootools/Titon.js"></script>
-        <script type="text/javascript" src="../src/js/mootools/Component.js"></script>
+        <script type="text/javascript" src="../js/mootools/Titon.js"></script>
+        <script type="text/javascript" src="../js/mootools/Component.js"></script>
 
         <?php foreach ((array) $component['js'] as $js) { ?>
-            <script type="text/javascript" src="../src/js/mootools/<?php echo $js; ?>"></script>
+            <script type="text/javascript" src="../js/mootools/<?php echo $js; ?>"></script>
         <?php }
     } ?>
 </head>

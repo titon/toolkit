@@ -1,0 +1,16 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../_common";
+
+/**
+ * Adds a sliding effect to pinned elements.
+ * Should be used in conjunction with the JavaScript Titon.Pin component.
+ */
+
+.pin {
+    @include transition(top 1s, right .5s, left .5s);
+}
