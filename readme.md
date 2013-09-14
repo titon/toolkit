@@ -33,18 +33,16 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * `Blackout` - Displays a transparent black element over the document
 * `Carousel` - Provides a 16:9 responsive carousel with panels that slide or fade in
 * `Flyout` - Displays nested flyout menus that appear below an element that activates it
+* `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
+* `Matrix` - Reorganizes elements into a modular cascading grid (masonry style)
 * `Modal` - Displays dynamic modals that will display above the content
+* `Pin` - Pin an element in a container that stays within the viewport while scrolling
 * `Popover` - Displays dynamic notification elements over an element
 * `Showcase` - Provides a lightbox style image gallery
 * `Tabs` - Provides tabbed support to an element containing navigation tabs and sections
+* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing
-
-#### Utilities ####
-* `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
-* `Matrix` - Reorganizes elements into a modular cascading grid (masonry style)
-* `Pin` - Pin an element in a container that stays within the viewport while scrolling
-* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 
 #### Extensions ####
 Titon also provides classes that build upon MooTools itself. These classes do not require the Titon library.

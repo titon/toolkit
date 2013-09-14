@@ -180,7 +180,7 @@
         "require": ["base"],
         "source": {
             "css": ["ui/lazy-load.css"],
-            "js": ["utilities/LazyLoad.js"]
+            "js": ["modules/LazyLoad.js"]
         }
     },
     "matrix": {
@@ -189,7 +189,7 @@
         "require": ["base"],
         "source": {
             "css": ["ui/matrix.css"],
-            "js": ["utilities/Matrix.js"]
+            "js": ["modules/Matrix.js"]
         }
     },
     "modal": {
@@ -216,7 +216,7 @@
         "require": ["base"],
         "source": {
             "css": ["ui/pin.css"],
-            "js": ["utilities/Pin.js"]
+            "js": ["modules/Pin.js"]
         }
     },
     "popover": {
@@ -267,7 +267,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "js": ["utilities/Toggle.js"]
+            "js": ["modules/Toggle.js"]
         }
     },
     "tooltip": {
