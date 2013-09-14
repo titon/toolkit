@@ -1,4 +1,6 @@
 <?php
+
+$mode = isset($_GET['mode']) ? $_GET['mode'] : 'single';
 $images = array(
     array(200, 200),
     array(100, 100),
@@ -19,14 +21,22 @@ $images = array(
 shuffle($images); ?>
 
 <div class="example-header">
-    <button type="button" onclick="appendItem();" class="float-right">Append Item</button>
-    <button type="button" onclick="prependItem();" class="float-right">Prepend Item</button>
-    <button type="button" onclick="removeItem();" class="float-right">Remove Item</button>
-
     Matrix
 </div>
 
 <div class="example">
+    <p class="clear-fix">
+        <button type="button" onclick="appendItem();" class="float-right">Append Item</button>
+        <button type="button" onclick="prependItem();" class="float-right">Prepend Item</button>
+        <button type="button" onclick="removeItem();" class="float-right">Remove Item</button>
+
+        <span class="float-left">
+            View:
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&mode=multiple">Multiple column spanning items</a> |
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&mode=single">Single column items</a>
+        </span>
+    </p>
+
     <div id="matrix">
         <?php for ($i = 0, $x = 0; $i <= 25; $i++) {
             if ($x >= count($images)) {
@@ -34,7 +44,11 @@ shuffle($images); ?>
             } ?>
 
             <div class="matrix-grid">
-                <img src="http://lorempixel.com/<?php echo $images[$x][0]; ?>/<?php echo $images[$x][1]; ?>/">
+                <?php if ($mode === 'single') { ?>
+                    <img src="http://lorempixel.com/200/<?php echo rand(100, 600); ?>/">
+                <?php } else { ?>
+                    <img src="http://lorempixel.com/<?php echo $images[$x][0]; ?>/<?php echo $images[$x][1]; ?>/">
+                <?php } ?>
             </div>
 
         <?php $x++;
@@ -58,9 +72,13 @@ shuffle($images); ?>
     }
 
     function newItem(where) {
-        var w = 200, //Number.random(200, 600),
+        var w = 200,
             h = Number.random(200, 600),
             i = new Image();
+
+        <?php if ($mode === 'multiple') { ?>
+            w = Number.random(200, 600);
+        <?php } ?>
 
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
         i.onload = function() {
@@ -71,9 +89,8 @@ shuffle($images); ?>
     window.addEvent('domready', function() {
         setTimeout(function() {
             $('matrix').matrix({
-                animation: 'fade',
                 selector: '.matrix-grid'
             });
-        }, 1000); // Wait for images to load
+        }, 4000); // Wait for images to load
     });
 </script>

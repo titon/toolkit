@@ -154,6 +154,7 @@ Titon.Matrix = new Class({
         this.items.each(function(el) {
             if (el === item) {
                 el.remove();
+                return;
             }
         });
 
@@ -169,8 +170,8 @@ Titon.Matrix = new Class({
         this._calculateColumns();
 
         if (this.colCount <= 1) {
-            this.items.removeProperty('style');
             this.element.addClass('no-columns');
+            this.items.removeProperty('style');
 
         } else {
             this.element.removeClass('no-columns');
@@ -228,8 +229,10 @@ Titon.Matrix = new Class({
         var item,
             span,
             size,
-            c = 0, // current column
+            c = 0,
             l = this.items.length;
+
+        this.matrix = [];
 
         for (var i = 0; i < l; i++) {
             item = this.items[i];
@@ -277,46 +280,52 @@ Titon.Matrix = new Class({
         var gutter = this.options.gutter,
             items = this.matrix,
             item,
+            span,
             dir = this.options.rtl ? 'right' : 'left',
             x = 0, y = [], top,
-            c = 0, i, il, s,
+            c = 0, i, l, s,
             pos = { margin: 0 };
 
         for (i = 0; i < this.colCount; i++) {
             y.push(0);
         }
 
-        for (i = 0, il = items.length; i < il; i++) {
+        for (i = 0, l = items.length; i < l; i++) {
             item = items[i];
+            span = item.span;
 
             // If the item extends too far out, move it to the next column
             // Or if the last column has been reached
-            if ((c >= this.colCount) || ((item.span + c) > this.colCount)) {
+            if ((c >= this.colCount) || ((span + c) > this.colCount)) {
                 c = 0;
                 x = 0;
             }
 
             // Item spans a column or multiple columns
-            if (item.span) {
+            if (span) {
                 top = 0;
 
                 // If the item spans multiple columns
                 // Get the largest height from the previous row
-                for (s = 0; s < item.span; s++) {
+                for (s = 0; s < span; s++) {
                     if (y[c + s] > top) {
                         top = y[c + s];
                     }
                 }
 
+                // Position the item
                 pos.top = top;
                 pos[dir] = x;
-                pos.width = ((this.colWidth + gutter) * item.span) - gutter;
+                pos.width = ((this.colWidth + gutter) * span) - gutter;
 
                 item.item.setStyles(pos).reveal();
-            }
 
-            // Fetch the height after the position/width has been set
-            y[c] = (item.item.getCoordinates(this.element).bottom + gutter);
+                // Loop again to add the value to each columns Y top value
+                // This must be done after positioning so we can calculate a new size
+                for (s = 0; s < span; s++) {
+                    y[c + s] = item.item.getSize().y + gutter + top;
+                }
+            }
 
             x += (this.colWidth + gutter);
             c++;
