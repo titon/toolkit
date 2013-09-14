@@ -40,7 +40,7 @@ $components = array(
     'dropdown' => array(
         'title' => 'Dropdown',
         'css' => array('ui/button.css', 'ui/button-group.css', 'ui/dropdown.css'),
-        'js' => array('utilities/Toggle.js')
+        'js' => array('modules/Toggle.js')
     ),
     'flyout' => array(
         'title' => 'Flyout',
@@ -65,12 +65,12 @@ $components = array(
     ),
     'lazy-load' => array(
         'title' => 'Lazy Load',
-        'js' => array('utilities/LazyLoad.js')
+        'js' => array('modules/LazyLoad.js')
     ),
     'matrix' => array(
         'title' => 'Matrix',
         'css' => array('ui/matrix.css'),
-        'js' => array('utilities/Matrix.js')
+        'js' => array('modules/Matrix.js')
     ),
     'modal' => array(
         'title' => 'Modal',
@@ -83,7 +83,7 @@ $components = array(
     ),
     'pin' => array(
         'title' => 'Pin',
-        'js' => array('utilities/Pin.js'),
+        'js' => array('modules/Pin.js'),
         'css' => array('ui/pin.css')
     ),
     'popover' => array(
@@ -182,6 +182,7 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="../css/normalize.css" rel="stylesheet" type="text/css">
     <link href="../css/toolkit/layout/base.css" rel="stylesheet" type="text/css">
     <link href="../css/toolkit/effects/visual.css" rel="stylesheet" type="text/css">
 

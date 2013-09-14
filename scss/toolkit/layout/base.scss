@@ -73,7 +73,7 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
     @include reset-inline-block;
     width: 30px;
     height: 30px;
-    line-height: 30px;
+    line-height: 32px;
     text-align: center;
     background: white(.5);
     border-radius: 2px;

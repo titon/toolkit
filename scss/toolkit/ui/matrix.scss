@@ -23,4 +23,11 @@
 .matrix-item {
     position: absolute;
     @include transition(top .3s, left .3s, bottom .3s, right .3s, opacity .3s);
+
+    img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 }
