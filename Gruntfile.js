@@ -144,7 +144,6 @@ module.exports = function(grunt) {
         // https://npmjs.org/package/grunt-contrib-concat
         concat: {
             options: {
-                stripBanners: true,
                 banner: createBanner(),
                 separator: "\n"
             },
