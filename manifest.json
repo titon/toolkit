@@ -188,7 +188,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["modules/matrix.css"],
+            "css": ["ui/matrix.css"],
             "js": ["utilities/Matrix.js"]
         }
     },

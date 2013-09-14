@@ -1,4 +1,4 @@
-# Toolkit v0.9.4 #
+# Toolkit v0.10.0 #
 
 Toolkit is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -42,6 +42,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 
 #### Utilities ####
 * `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
+* `Matrix` - Reorganizes elements into a modular cascading grid (masonry style)
 * `Pin` - Pin an element in a container that stays within the viewport while scrolling
 * `Toggle` - Toggles the display of a target element; useful for triggering transitions
 
