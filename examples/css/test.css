@@ -120,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .progress { margin-bottom: 25px; }
 
-.masonry-grid {
+.matrix-grid {
     float: left;
     margin: 0 20px 20px 0;
     background: #f8f8f8;
@@ -129,14 +129,14 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px;
 }
 
-.masonry-grid img {
+.matrix-grid img {
     max-width: 100%;
     width: 100%;
     height: auto;
     display: block;
 }
 
-.masonry-wrapper.no-columns .masonry-grid {
+.matrix.no-columns .matrix-grid {
     width: 100%;
     float: none;
     margin-right: 0;

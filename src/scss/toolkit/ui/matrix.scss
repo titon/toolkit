@@ -1,0 +1,26 @@
+/**
+ * @copyright	Copyright 2010-2013, The Titon Project
+ * @license		http://opensource.org/licenses/bsd-license.php
+ * @link		http://titon.io
+ */
+
+@import "../common";
+
+/**
+ * Should be used in conjunction with the JavaScript Titon.Matrix component.
+ */
+
+.matrix {
+	position: relative;
+
+	@include clear-fix;
+
+	&.no-columns .matrix-item {
+		position: relative !important;
+	}
+}
+
+.matrix-item {
+	position: absolute;
+	@include transition(top .3s, left .3s, bottom .3s, right .3s, opacity .3s);
+}

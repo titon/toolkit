@@ -162,7 +162,7 @@ Function.implement({
 	/**
 	 * Delays the execution of a function till the duration has completed.
 	 *
-	 * @param {Number} threshold
+	 * @param {Number} [threshold]
 	 * @returns {Function}
 	 */
 	debouce: function(threshold) {

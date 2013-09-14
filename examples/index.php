@@ -67,10 +67,10 @@ $components = array(
 		'title' => 'Lazy Load',
 		'js' => array('utilities/LazyLoad.js')
 	),
-	'masonry' => array(
-		'title' => 'Masonry',
-		'css' => array('ui/masonry.css'),
-		'js' => array('utilities/Masonry.js')
+	'matrix' => array(
+		'title' => 'Matrix',
+		'css' => array('ui/matrix.css'),
+		'js' => array('utilities/Matrix.js')
 	),
 	'modal' => array(
 		'title' => 'Modal',

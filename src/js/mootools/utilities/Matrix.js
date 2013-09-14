@@ -7,10 +7,8 @@
 (function() {
 	'use strict';
 
-// TODO - fade animation
 // TODO - column spanning
-// TODO - append / prepend / remove items
-Titon.Masonry = new Class({
+Titon.Matrix = new Class({
 	Extends: Titon.Component,
 	Binds: ['_resize'],
 
@@ -42,18 +40,18 @@ Titon.Masonry = new Class({
 	 *	onShutdown	- (function) Callback to trigger when the grid is rendered
 	 */
 	options: {
-		animation: 'move-to',
-		selector: '.masonry-item',
+		selector: '.matrix-item',
 		width: 200,
 		gutter: 20,
 		rtl: false,
+		template: false,
 
 		// Events
 		onRender: null
 	},
 
 	/**
-	 * Initialize items and events for a masonry grid.
+	 * Initialize items and events for a matrix grid.
 	 *
 	 * @param {Element} element
 	 * @param {Object} options
@@ -63,18 +61,14 @@ Titon.Masonry = new Class({
 		this.setElement(element);
 
 		// Load elements
-		if (this.options.animation) {
-			this.element.addClass(this.options.animation);
-		}
-
 		this.items = this.element.getElements(this.options.selector);
 
 		// Set events
-		this.fireEvent('init');
+		this.disable().enable();
 
 		window.addEvent('resize', this._resize.debouce());
 
-		this.disable().enable();
+		this.fireEvent('init');
 
 		// Render immediately
 		this.render();
@@ -83,11 +77,11 @@ Titon.Masonry = new Class({
 	/**
 	 * Add required classes to elements.
 	 *
-	 * @returns {Titon.Masonry}
+	 * @returns {Titon.Matrix}
 	 */
 	enable: function() {
-		this.element.addClass('masonry-wrapper');
-		this.items.addClass('masonry-item');
+		this.element.addClass('matrix');
+		this.items.addClass('matrix-item');
 
 		return this;
 	},
@@ -95,17 +89,84 @@ Titon.Masonry = new Class({
 	/**
 	 * Remove required classes and set items back to defaults.
 	 *
-	 * @returns {Titon.Masonry}
+	 * @returns {Titon.Matrix}
 	 */
 	disable: function() {
-		this.element.removeClass('masonry-wrapper').removeProperty('style');
-		this.items.removeClass('masonry-item').removeProperty('style');
+		this.element.removeClass('matrix').removeProperty('style');
+		this.items.removeClass('matrix-item').removeProperty('style');
 
 		return this;
 	},
 
 	/**
+	 * Append an item to the bottom of the matrix.
+	 *
+	 * @param {Element} item
+ 	 * @returns {Titon.Matrix}
+	 */
+	append: function(item) {
+		if (typeOf(item) !== 'element') {
+			return this;
+		}
+
+		item
+			.addClass('matrix-item')
+			.inject(this.element, 'bottom')
+			.setStyle('opacity', 0);
+
+		return this.refresh();
+	},
+
+	/**
+	 * Prepend an item to the top of the matrix.
+	 *
+	 * @param {Element} item
+ 	 * @returns {Titon.Matrix}
+	 */
+	prepend: function(item) {
+		if (typeOf(item) !== 'element') {
+			return this;
+		}
+
+		item
+			.addClass('matrix-item')
+			.inject(this.element, 'top')
+			.setStyle('opacity', 0);
+
+		return this.refresh();
+	},
+
+	/**
+	 * Fetch new items and re-render the grid.
+	 *
+ 	 * @returns {Titon.Matrix}
+	 */
+	refresh: function() {
+		this.items = this.element.getElements(this.options.selector);
+
+		return this.render();
+	},
+
+	/**
+	 * Remove an item from the grid (and DOM) and re-render.
+	 *
+	 * @param {Element} item
+ 	 * @returns {Titon.Matrix}
+	 */
+	remove: function(item) {
+		this.items.each(function(el) {
+			if (el === item) {
+				el.remove();
+			}
+		});
+
+		return this.refresh();
+	},
+
+	/**
 	 * Calculate and position items in the grid.
+	 *
+ 	 * @returns {Titon.Matrix}
 	 */
 	render: function() {
 		this._calculateColumns();
@@ -122,6 +183,8 @@ Titon.Masonry = new Class({
 		}
 
 		this.fireEvent('render');
+
+		return this;
 	},
 
 	/**
@@ -129,23 +192,24 @@ Titon.Masonry = new Class({
 	 * Modify the column width to account for gaps on either side.
 	 *
 	 * @private
+ 	 * @returns {Titon.Matrix}
 	 */
 	_calculateColumns: function() {
 		var wrapperWidth = this.element.getSize().x,
 			colWidth = this.options.width,
 			gutter = this.options.gutter,
 			cols = Math.max(Math.floor(wrapperWidth / colWidth), 1),
-			colsWidth = (cols * colWidth) + (gutter * (cols - 1)),
+			colsWidth = (cols * (colWidth + gutter)) - gutter,
 			diff;
 
 		if (cols > 1) {
 			if (colsWidth > wrapperWidth) {
 				diff = colsWidth - wrapperWidth;
-				colWidth -= Math.floor(diff / cols);
+				colWidth -= Math.round(diff / cols);
 
 			} else if (colsWidth < wrapperWidth) {
 				diff = wrapperWidth - colsWidth;
-				colWidth += Math.floor(diff / cols);
+				colWidth += Math.round(diff / cols);
 			}
 		}
 
@@ -161,6 +225,8 @@ Titon.Masonry = new Class({
 			this.colItems.push([]);
 			this.colHeights.push(0);
 		}
+
+		return this;
 	}.protect(),
 
 	/**
@@ -168,6 +234,7 @@ Titon.Masonry = new Class({
 	 * If an item spans multiple columns, account for it by filling with an empty space.
 	 *
 	 * @private
+ 	 * @returns {Titon.Matrix}
 	 */
 	_organizeItems: function() {
 		var item,
@@ -217,12 +284,15 @@ Titon.Masonry = new Class({
 
 		// Set height of wrapper
 		this.element.setStyle('height', Math.max.apply(Math, this.colHeights));
+
+		return this;
 	}.protect(),
 
 	/**
 	 * Loop through the items in each column and position them absolutely.
 	 *
 	 * @private
+ 	 * @returns {Titon.Matrix}
 	 */
 	_positionItems: function() {
 		var columns = this.colItems,
@@ -258,6 +328,8 @@ Titon.Masonry = new Class({
 
 			x += (this.colWidth + this.options.gutter);
 		}
+
+		return this;
 	}.protect(),
 
 	/**
@@ -266,7 +338,7 @@ Titon.Masonry = new Class({
 	 * @private
 	 */
 	_resize: function() {
-		if (this.element.hasClass('masonry-wrapper')) {
+		if (this.element.hasClass('matrix')) {
 			this.render();
 		}
 	}
@@ -274,26 +346,26 @@ Titon.Masonry = new Class({
 });
 
 /**
- * Enable a masonry grid on an element by calling masonry().
+ * Enable a matrix grid on an element by calling matrix().
  * An object of options can be passed as the 1st argument.
  * The class instance will be cached and returned from this function.
  *
  * @example
- * 		$('masonry-id').masonry({
+ * 		$('matrix-id').matrix({
  * 			width: 200
  * 		});
  *
  * @param {Object} [options]
- * @returns {Titon.Masonry}
+ * @returns {Titon.Matrix}
  */
-Element.implement('masonry', function(options) {
-	if (this.$masonry) {
-		return this.$masonry;
+Element.implement('matrix', function(options) {
+	if (this.$matrix) {
+		return this.$matrix;
 	}
 
-	this.$masonry = new Titon.Masonry(this, options);
+	this.$matrix = new Titon.Matrix(this, options);
 
-	return this.$masonry;
+	return this.$matrix;
 });
 
 })();
