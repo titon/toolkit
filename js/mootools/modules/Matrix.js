@@ -219,11 +219,11 @@ Titon.Matrix = new Class({
         if (cols > 1) {
             if (colsWidth > wrapperWidth) {
                 diff = colsWidth - wrapperWidth;
-                colWidth -= Math.round(diff / cols);
+                colWidth -= (diff / cols);
 
             } else if (colsWidth < wrapperWidth) {
                 diff = wrapperWidth - colsWidth;
-                colWidth += Math.round(diff / cols);
+                colWidth += (diff / cols);
             }
         }
 
