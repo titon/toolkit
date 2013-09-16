@@ -1,24 +1,5 @@
 <?php
-
-$mode = isset($_GET['mode']) ? $_GET['mode'] : 'single';
-$images = array(
-    array(200, 200),
-    array(100, 100),
-    array(300, 150),
-    array(200, 400),
-    array(500, 200),
-    array(200, 175),
-    array(250, 200),
-    array(200, 200),
-    array(200, 100),
-    array(200, 150),
-    array(200, 400),
-    array(300, 225),
-    array(200, 175),
-    array(150, 400)
-);
-
-shuffle($images); ?>
+$mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 
 <div class="example-header">
     Matrix
@@ -37,23 +18,19 @@ shuffle($images); ?>
         </span>
     </p>
 
-    <div id="matrix">
-        <?php for ($i = 0, $x = 0; $i <= 25; $i++) {
-            if ($x >= count($images)) {
-                $x = 0;
-            } ?>
+    <ul id="matrix">
+        <?php for ($i = 0, $x = 0; $i <= 25; $i++) { ?>
 
-            <div class="matrix-grid">
+            <li class="matrix-grid">
                 <?php if ($mode === 'single') { ?>
-                    <img src="http://lorempixel.com/200/<?php echo rand(100, 600); ?>/">
+                    <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/">
                 <?php } else { ?>
-                    <img src="http://lorempixel.com/<?php echo $images[$x][0]; ?>/<?php echo $images[$x][1]; ?>/">
+                    <img src="http://lorempixel.com/<?php echo rand(200, 600); ?>/<?php echo rand(100, 600); ?>/">
                 <?php } ?>
-            </div>
+            </li>
 
-        <?php $x++;
-        } ?>
-    </div>
+        <?php } ?>
+    </ul>
 </div>
 
 <script type="text/javascript">
@@ -82,15 +59,13 @@ shuffle($images); ?>
 
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
         i.onload = function() {
-            $('matrix').matrix()[where](new Element('div.matrix-grid').grab(i));
+            $('matrix').matrix()[where](new Element('li.matrix-grid').grab(i));
         };
     }
 
     window.addEvent('domready', function() {
-        setTimeout(function() {
-            $('matrix').matrix({
-                selector: '.matrix-grid'
-            });
-        }, 4000); // Wait for images to load
+        $('matrix').matrix({
+            selector: '.matrix-grid'
+        });
     });
 </script>

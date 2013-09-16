@@ -7,10 +7,9 @@
 (function() {
     'use strict';
 
-// TODO - column spanning
 Titon.Matrix = new Class({
     Extends: Titon.Component,
-    Binds: ['_resize'],
+    Binds: ['_resize', '_load'],
 
     /** List of DOM elements for items to position in the grid */
     items: [],
@@ -27,20 +26,28 @@ Titon.Matrix = new Class({
     /** How many columns to render in the grid */
     colCount: 0,
 
+    /** List of images within the matrix */
+    images: [],
+
+    /** How many images have been loaded */
+    imagesLoaded: 0,
+
     /**
      * Default options.
      *
-     *    selector    - (string) The class name for items to position within the grid
-     *    width       - (int) The average width that each item should conform to
-     *    gutter      - (int) The spacing between each item in the grid
-     *    rtl         - (bool) Whether to render the items right to left
-     *    onRender    - (function) Callback to trigger when the grid is rendered
+     *    selector  - (string) The class name for items to position within the grid
+     *    width     - (int) The average width that each item should conform to
+     *    gutter    - (int) The spacing between each item in the grid
+     *    rtl       - (bool) Whether to render the items right to left
+     *    defer     - (bool) Defer rendering until all images within the matrix are loaded
+     *    onRender  - (function) Callback to trigger when the grid is rendered
      */
     options: {
         selector: '.matrix-item',
         width: 200,
         gutter: 20,
         rtl: false,
+        defer: true,
         template: false,
 
         // Events
@@ -58,17 +65,19 @@ Titon.Matrix = new Class({
         this.setElement(element);
 
         // Load elements
+        this.element.addClass('matrix');
         this.items = this.element.getElements(this.options.selector);
 
         // Set events
-        this.disable().enable();
-
         window.addEvent('resize', this._resize.debouce());
 
         this.fireEvent('init');
 
-        // Render immediately
-        this.render();
+        if (this.options.defer) {
+            this._deferRender();
+        } else {
+            this.render();
+        }
     },
 
     /**
@@ -77,7 +86,6 @@ Titon.Matrix = new Class({
      * @returns {Titon.Matrix}
      */
     enable: function() {
-        this.element.addClass('matrix');
         this.items.addClass('matrix-item');
 
         return this;
@@ -89,7 +97,7 @@ Titon.Matrix = new Class({
      * @returns {Titon.Matrix}
      */
     disable: function() {
-        this.element.removeClass('matrix').removeProperty('style');
+        this.element.removeProperty('style');
         this.items.removeClass('matrix-item').removeProperty('style');
 
         return this;
@@ -151,11 +159,13 @@ Titon.Matrix = new Class({
      * @returns {Titon.Matrix}
      */
     remove: function(item) {
-        this.items.each(function(el) {
+        this.items.every(function(el) {
             if (el === item) {
                 el.remove();
-                return;
+                return false;
             }
+
+            return true;
         });
 
         return this.refresh();
@@ -168,6 +178,12 @@ Titon.Matrix = new Class({
      */
     render: function() {
         this._calculateColumns();
+
+        if (this.items.length < this.colCount) {
+            return this.disable();
+        } else {
+            this.enable();
+        }
 
         if (this.colCount <= 1) {
             this.element.addClass('no-columns');
@@ -214,6 +230,30 @@ Titon.Matrix = new Class({
         this.wrapperWidth = wrapperWidth;
         this.colWidth = colWidth;
         this.colCount = cols;
+
+        return this;
+    }.protect(),
+
+    /**
+     * Fetch all images within the matrix and attach an onload event.
+     * This will monitor loaded images and render once all are complete.
+     * Uses a src swap trick to force load cached images.
+     *
+     * @private
+     * @returns {Titon.Matrix}
+     */
+    _deferRender: function() {
+        this.imagesLoaded = 0;
+
+        this.images = this.element.getElements('img');
+        this.images.each(function(image) {
+            var src = image.src;
+
+            image.onload = this._load;
+            image.onerror = this._load;
+            image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+            image.src = src;
+        }, this);
 
         return this;
     }.protect(),
@@ -338,13 +378,30 @@ Titon.Matrix = new Class({
     }.protect(),
 
     /**
+     * Event handler for image loading.
+     * Will defer rendering until all inline images are loaded.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    _load: function(e) {
+        if ((e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
+            this.imagesLoaded++; // Continue rendering if load throws an error
+        }
+
+        if (this.imagesLoaded === this.images.length) {
+            this.render();
+        }
+    },
+
+    /**
      * Event handler for browser resizing.
      *
      * @private
      */
     _resize: function() {
         if (this.element.hasClass('matrix')) {
-            this.render();
+            this.refresh();
         }
     }
 
