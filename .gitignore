@@ -5,5 +5,6 @@ build/
 css/**/_*.css
 npm-debug.log
 *.gem
+Gemfile.lock
 
 !.gitkeep
