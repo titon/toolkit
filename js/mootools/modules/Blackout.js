@@ -33,7 +33,7 @@ Titon.Blackout = new Class({
     },
 
     /**
-     * Hide the blackout and lower the display count.
+     * Hide the blackout.
      *
      * @returns {Titon.Blackout}
      */
@@ -45,7 +45,7 @@ Titon.Blackout = new Class({
     },
 
     /**
-     * Show the blackout and increase the display count.
+     * Show and position the blackout.
      *
      * @returns {Titon.Blackout}
      */
