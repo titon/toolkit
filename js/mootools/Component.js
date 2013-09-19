@@ -113,19 +113,9 @@ Titon.Component = new Class({
 
         // Store it in the DOM
         if (template) {
-            this.element = template;
+            this.setElement(template);
         } else {
             throw new Error(this.className() + ' failed to create template element');
-        }
-
-        // Add a class name
-        if (options.className) {
-            this.element.addClass(options.className);
-        }
-
-        // Enable animations
-        if (options.animation) {
-            this.element.addClass(options.animation);
         }
 
         return this;
@@ -292,7 +282,7 @@ Titon.Component = new Class({
     },
 
     /**
-     * Set the element to use.
+     * Set the element to use. Apply optional class names if available.
      *
      * @param {String|Element} element
      * @returns {Titon.Component}
@@ -304,6 +294,16 @@ Titon.Component = new Class({
 
         this.element = element;
         this.options.parseTemplate = false;
+
+        // Add a class name
+        if (this.options.className) {
+            this.element.addClass(this.options.className);
+        }
+
+        // Enable animations
+        if (this.options.animation) {
+            this.element.addClass(this.options.animation);
+        }
 
         return this;
     },

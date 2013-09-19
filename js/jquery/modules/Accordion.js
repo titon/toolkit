@@ -10,16 +10,19 @@
 Titon.Accordion = function(element, options) {
 
     /** Custom options */
-    this.options = $.extend({}, $.fn.accordion.options, options || {});
+    this.options = Titon.setOptions($.fn.accordion.options, options);
 
     /** Primary DOM wrapper */
-    this.element = $(element);
+    this.element = Titon.setElement(element, this.options);
 
     /** List of DOM headers */
     this.headers = [];
 
     /** List of DOM sections */
     this.sections = [];
+
+    /** Currently active header */
+    this.node = null;
 
     /**
      * Fetch elements and attach events.
@@ -168,12 +171,14 @@ $.fn.accordion = function(options) {
 };
 
 $.fn.accordion.options = {
+    className: '',
     mode: 'click',
     defaultIndex: 0,
     multiple: false,
     collapsible: false,
     headerElement: '.accordion-head',
-    contentElement: '.accordion-inner'
+    contentElement: '.accordion-inner',
+    parseTemplate: false
 };
 
 })(jQuery);

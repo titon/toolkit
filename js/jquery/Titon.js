@@ -21,12 +21,17 @@ window.Titon = {
         error: 'An error has occurred!'
     },
 
-    // TODO
+    /**
+     * Create the element from the template.
+     *
+     * @param {Object} options
+     * @returns {Element}
+     */
     createElement: function(options) {
         var template;
 
         if (!options.parseTemplate) {
-            return null;
+            return [];
         }
 
         // Use another element as the template
@@ -48,17 +53,42 @@ window.Titon = {
             throw new Error('Failed to create template element');
         }
 
+        return Titon.setElement(template, options);
+    },
+
+    /**
+     * Set the element to use. Apply optional class names if available.
+     *
+     * @param {String|Element} element
+     * @param {Object} options
+     * @returns {Element}
+     */
+    setElement: function(element, options) {
+        element = $(element);
+        options.parseTemplate = false;
+
         // Add a class name
         if (options.className) {
-            template.addClass(options.className);
+            element.addClass(options.className);
         }
 
         // Enable animations
         if (options.animation) {
-            template.addClass(options.animation);
+            element.addClass(options.animation);
         }
 
-        return template;
+        return element;
+    },
+
+    /**
+     * Set the options by merging with defaults.
+     *
+     * @param {Object} [defaults]
+     * @param {Object} [options]
+     * @returns {Object}
+     */
+    setOptions: function(defaults, options) {
+        return $.extend({}, defaults || {}, options || {});
     }
 
 };
