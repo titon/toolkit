@@ -2,8 +2,8 @@
     "version": "0.11.1",
     "name": "Titon Toolkit",
     "main": [
-        "dist/titon.min.css",
-        "dist/titon-mootools.min.js"
+        "dist/toolkit.min.css",
+        "dist/toolkit-mootools.min.js"
     ],
     "ignore": [
         ".*",
