@@ -104,15 +104,13 @@ Titon.LazyLoad = new Class({
             return false;
         }
 
-        var elements = this.element;
-
-        if (this.loaded === elements.length) {
+        if (this.loaded === this.element.length) {
             this.shutdown();
 
             return false;
         }
 
-        elements.each(function(node, index) {
+        this.element.each(function(node, index) {
             if (node && this.inViewport(node)) {
                 this.show(node, index);
             }

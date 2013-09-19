@@ -37,6 +37,11 @@
 </div>
 
 <script type="text/javascript">
-    $$('.lazy-load-0').lazyLoad({ lazyClass: '.lazy-load-0' });
-    $$('.lazy-load-1').lazyLoad({ lazyClass: '.lazy-load-1', forceLoad: true, delay: 5000 });
+    <?php if ($library === 'mootools') { ?>
+        $$('.lazy-load-0').lazyLoad({ lazyClass: '.lazy-load-0' });
+        $$('.lazy-load-1').lazyLoad({ lazyClass: '.lazy-load-1', forceLoad: true, delay: 5000 });
+    <?php } else { ?>
+        $('.lazy-load-0').lazyLoad();
+        $('.lazy-load-1').lazyLoad({ forceLoad: true, delay: 5000 });
+    <?php } ?>
 </script>
