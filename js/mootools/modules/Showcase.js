@@ -168,9 +168,7 @@ Titon.Showcase = new Class({
             listItems = list.getElements('li'),
             listItem = listItems[index],
             items = this.data,
-            item = items[index],
-            loadingClass = Titon.options.loadingClass,
-            activeClass = Titon.options.activeClass;
+            item = items[index];
 
         // Save state
         this.previousIndex = this.currentIndex;
@@ -180,8 +178,8 @@ Titon.Showcase = new Class({
         if (this.tabs) {
             var listTabs = this.tabs.getElements('a');
 
-            listTabs.removeClass(activeClass);
-            listTabs[index].addClass(activeClass);
+            listTabs.removeClass('is-active');
+            listTabs[index].addClass('is-active');
         }
 
         // Fade out previous item
@@ -203,7 +201,7 @@ Titon.Showcase = new Class({
 
         // Create image and animate
         } else {
-            element.addClass(loadingClass);
+            element.addClass('is-loading');
 
             // Preload image
             var img = new Image();
@@ -228,7 +226,7 @@ Titon.Showcase = new Class({
 
                 // Reveal the image after animation
                 setTimeout(function() {
-                    element.removeClass(loadingClass);
+                    element.removeClass('is-loading');
                     listItem.addClass('show').grab(img);
                 }, options.transition);
             };
@@ -272,7 +270,7 @@ Titon.Showcase = new Class({
     show: function(node) {
         this.node = node;
         this.currentIndex = this.previousIndex = 0;
-        this.element.addClass(Titon.options.loadingClass);
+        this.element.addClass('is-loading');
 
         var options = this.options,
             read = this.getValue,

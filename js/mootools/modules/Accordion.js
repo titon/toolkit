@@ -10,15 +10,13 @@
 Titon.Accordion = new Class({
     Extends: Titon.Component,
 
-    /**
-     * Default options.
-     *
-     *    defaultIndex     - (int) Index of the row to display by default
-     *    multiple         - (bool) Allow multiple sections to be open simultaneously
-     *    collapsible      - (bool) Hide the section if the row is clicked again
-     *    headerElement    - (string) CSS query for the header element within the row
-     *    contentElement   - (string) CSS query for the content element within the row
-     */
+    /** List of DOM headers */
+    headers: [],
+
+    /** List of DOM sections */
+    sections: [],
+
+    /** Default options */
     options: {
         mode: 'click',
         defaultIndex: 0,
@@ -40,10 +38,13 @@ Titon.Accordion = new Class({
 
         options = this.options;
 
-        // Hide all sections besides the defaultIndex
+        // Fetch all the sections and headers
         var sections = this.element.getElements(options.contentElement),
             headers = this.element.getElements(options.headerElement),
             header = headers[0];
+
+        this.headers = headers;
+        this.sections = sections;
 
         // Fall back to first row if the default doesn't exist
         if (headers[options.defaultIndex]) {
@@ -51,12 +52,12 @@ Titon.Accordion = new Class({
         }
 
         // Reset the state of every row
-        this.element.getElements('li').removeClass(Titon.options.activeClass);
+        this.element.getElements('> li').removeClass('is-active');
 
         // Cache the height so we can use for sliding
         sections.each(function(section) {
-            section.set('data-height', section.getHeight());
-        }).conceal();
+            section.set('data-height', section.getHeight()).conceal();
+        });
 
         this.show(header);
 
@@ -76,9 +77,7 @@ Titon.Accordion = new Class({
     show: function(node) {
         var options = this.options,
             parent = node.getParent(), // li
-            wrapper = parent.getParent(), // ul
-            section = node.getNext(options.contentElement), // section
-            activeClass = Titon.options.activeClass;
+            section = node.getNext(options.contentElement); // section;
 
         // If we don't double the height the animation won't occur
         var height = section.get('data-height') * 2;
@@ -88,11 +87,11 @@ Titon.Accordion = new Class({
         if (options.multiple || (options.collapsible && this.node === node)) {
             if (section.isShown()) {
                 section.setStyle('max-height', 0).conceal();
-                parent.removeClass(activeClass);
+                parent.removeClass('is-active');
 
             } else {
                 section.setStyle('max-height', height).reveal();
-                parent.addClass(activeClass);
+                parent.addClass('is-active');
             }
 
         // Only one open at a time
@@ -103,11 +102,11 @@ Titon.Accordion = new Class({
                 return this;
             }
 
-            wrapper.getElements(options.contentElement).setStyle('max-height', 0).conceal();
+            this.sections.setStyle('max-height', 0).conceal();
             section.setStyle('max-height', height).reveal();
 
-            wrapper.getElements('li').removeClass(activeClass);
-            parent.addClass(activeClass);
+            this.element.getElements('> li').removeClass('is-active');
+            parent.addClass('is-active');
         }
 
         this.node = node;
@@ -117,7 +116,7 @@ Titon.Accordion = new Class({
     },
 
     /**
-     * Event callback for tab element click or hover.
+     * Event callback for header element click or hover.
      *
      * @private
      * @param {DOMEvent} e
@@ -150,13 +149,12 @@ Titon.Accordion = new Class({
             return this;
         }
 
-        var event = (this.options.mode === 'click') ? 'click' : 'mouseover',
-            headers = this.element.getElements(this.options.headerElement);
+        var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
 
         if (on) {
-            headers.addEvent(event, this._show);
+            this.headers.addEvent(event, this._show);
         } else {
-            headers.removeEvent(event, this._show);
+            this.headers.removeEvent(event, this._show);
         }
 
         return this;

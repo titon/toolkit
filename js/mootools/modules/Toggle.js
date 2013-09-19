@@ -45,7 +45,7 @@ Titon.Toggle = new Class({
      */
     hide: function() {
         return this.parent(function() {
-            this.node.removeClass(Titon.options.activeClass);
+            this.node.removeClass('is-active');
         }.bind(this));
     },
 
@@ -56,7 +56,7 @@ Titon.Toggle = new Class({
      */
     show: function(node) {
         this.parent(node);
-        this.node.addClass(Titon.options.activeClass);
+        this.node.addClass('is-active');
 
         return this;
     },

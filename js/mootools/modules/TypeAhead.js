@@ -391,7 +391,7 @@ Titon.TypeAhead = new Class({
      */
     rewind: function() {
         this.index = -1;
-        this.element.getElements('li').removeClass(Titon.options.activeClass);
+        this.element.getElements('li').removeClass('is-active');
 
         return this;
     },
@@ -405,17 +405,16 @@ Titon.TypeAhead = new Class({
     select: function(index) {
         this.index = index;
 
-        var rows = this.element.getElements('li'),
-            activeClass = Titon.options.activeClass;
+        var rows = this.element.getElements('li');
 
-        rows.removeClass(activeClass);
+        rows.removeClass('is-active');
 
         // Select
         if (index >= 0) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows[index].addClass(activeClass);
+                rows[index].addClass('is-active');
 
                 this.input.set('value', item.title);
 

@@ -77,14 +77,14 @@ Titon.Modal = new Class({
         if (this.options.draggable) {
             this.drag = new Drag(this.element, {
                 onStart: function(element) {
-                    element.addClass(Titon.options.draggingClass);
+                    element.addClass('is-dragging');
                 },
                 onComplete: function(element) {
-                    element.removeClass(Titon.options.draggingClass);
+                    element.removeClass('is-dragging');
                 }
             });
 
-            this.element.addClass(Titon.options.draggableClass);
+            this.element.addClass('is-draggable');
         }
 
         // Blackout

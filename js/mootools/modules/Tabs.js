@@ -71,7 +71,7 @@ Titon.Tabs = new Class({
 
         this.tabs = this.nav.getElements('ul > li > a');
         this.tabs.each(function(tab, index) {
-            tab.set('data-index', index).removeClass(Titon.options.activeClass);
+            tab.set('data-index', index).removeClass('is-active');
         });
 
         this.sections = this.element.getElements(this.options.sectionsElement);
@@ -123,10 +123,7 @@ Titon.Tabs = new Class({
      * @returns {Titon.Tabs}
      */
     show: function(tab) {
-        var activeClass = Titon.options.activeClass,
-            loadingClass = Titon.options.loadingClass,
-            failedClass = Titon.options.failedClass,
-            index = tab.get('data-index'),
+        var index = tab.get('data-index'),
             section = this.sections[index],
             url = tab.get('href');
 
@@ -140,24 +137,24 @@ Titon.Tabs = new Class({
                     this.cache[url] = true;
 
                     section.set('html', response)
-                        .removeClass(loadingClass);
+                        .removeClass('is-loading');
                 }.bind(this),
 
                 onRequest: function() {
                     section.set('html', this._loadingTemplate())
-                        .addClass(loadingClass);
+                        .addClass('is-loading');
                 }.bind(this),
 
                 onFailure: function() {
                     section.set('html', this._errorTemplate())
-                        .removeClass(loadingClass)
-                        .addClass(failedClass);
+                        .removeClass('is-loading')
+                        .addClass('has-failed');
                 }.bind(this)
             }).get();
         }
 
         // Toggle tabs
-        this.nav.getElements('ul > li').removeClass(activeClass);
+        this.nav.getElements('ul > li').removeClass('is-active');
 
         // Toggle sections
         if (index === this.currentIndex && this.options.collapsible) {
@@ -165,13 +162,13 @@ Titon.Tabs = new Class({
                 section.conceal();
 
             } else {
-                tab.getParent().addClass(activeClass);
+                tab.getParent().addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.getParent().addClass(activeClass);
+            tab.getParent().addClass('is-active');
             section.reveal();
         }
 

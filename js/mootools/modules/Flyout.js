@@ -110,7 +110,7 @@ Titon.Flyout = new Class({
         this.clearTimers();
 
         // Must be called even if the menu is hidden
-        this.node.removeClass(Titon.options.activeClass);
+        this.node.removeClass('is-active');
 
         if (!this.current || !this.isVisible()) {
             return this;
@@ -188,7 +188,7 @@ Titon.Flyout = new Class({
             return this;
         }
 
-        this.node.addClass(Titon.options.activeClass);
+        this.node.addClass('is-active');
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -357,7 +357,7 @@ Titon.Flyout = new Class({
      * @param {Element} parent
      */
     _hideChild: function(parent) {
-        parent.removeClass(Titon.options.openClass);
+        parent.removeClass('is-open');
         parent.getChildren(this.options.contentElement).removeProperty('style');
 
         this.fireEvent('hideChild', parent);
@@ -432,7 +432,7 @@ Titon.Flyout = new Class({
             menu.setStyle('top', 0);
         }
 
-        parent.addClass(Titon.options.openClass);
+        parent.addClass('is-open');
 
         this.fireEvent('showChild', parent);
     }

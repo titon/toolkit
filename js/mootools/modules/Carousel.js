@@ -173,10 +173,8 @@ Titon.Carousel = new Class({
 
         // Update tabs
         if (this.tabs.length) {
-            var activeClass = Titon.options.activeClass;
-
-            this.tabs.removeClass(activeClass);
-            this.tabs[index].addClass(activeClass);
+            this.tabs.removeClass('is-active');
+            this.tabs[index].addClass('is-active');
         }
 
         // Animate!

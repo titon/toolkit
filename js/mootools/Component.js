@@ -242,7 +242,7 @@ Titon.Component = new Class({
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.removeClass(Titon.options.loadingClass);
+                    this.element.removeClass('is-loading');
                 }
 
                 this._position(response);
@@ -253,7 +253,7 @@ Titon.Component = new Class({
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.addClass(Titon.options.loadingClass);
+                    this.element.addClass('is-loading');
 
                     this._position(this._loadingTemplate());
                 }
@@ -263,8 +263,8 @@ Titon.Component = new Class({
                 delete this.cache[url];
 
                 this.element
-                    .removeClass(Titon.options.loadingClass)
-                    .addClass(Titon.options.failedClass);
+                    .removeClass('is-loading')
+                    .addClass('has-failed');
 
                 this._position(this._errorTemplate());
             }.bind(this)
