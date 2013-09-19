@@ -105,9 +105,17 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $('acc-1').accordion();
-        $$('.acc-2').accordion({ multiple: true, collapsible: true });
-        $$('.acc-3').accordion({ mode: 'hover' });
-    });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('acc-1').accordion();
+            $$('.acc-2').accordion({ multiple: true, collapsible: true });
+            $$('.acc-3').accordion({ mode: 'hover' });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('#acc-1').accordion();
+            $('.acc-2').accordion({ multiple: true, collapsible: true });
+            $('.acc-3').accordion({ mode: 'hover' });
+        });
+    <?php } ?>
 </script>

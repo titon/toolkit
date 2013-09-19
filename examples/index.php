@@ -174,7 +174,8 @@ if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
 }
 
 $component = $components[$componentKey];
-$theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
+$theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array();
+$library = isset($_GET['library']) ? $_GET['library'] : 'mootools'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -199,15 +200,21 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
     } ?>
 
     <link href="css/test.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
-    <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
+    <?php if ($library === 'mootools') { ?>
+        <script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
+        <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
+    <?php } else { ?>
+        <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+    <?php } ?>
 
     <?php if (!empty($component['js'])) { ?>
-        <script type="text/javascript" src="../js/mootools/Titon.js"></script>
-        <script type="text/javascript" src="../js/mootools/Component.js"></script>
+        <script type="text/javascript" src="../js/<?php echo $library; ?>/Titon.js"></script>
 
-        <?php foreach ((array) $component['js'] as $js) { ?>
-            <script type="text/javascript" src="../js/mootools/<?php echo $js; ?>"></script>
+        <?php if ($library === 'mootools') { ?>
+            <script type="text/javascript" src="../js/<?php echo $library; ?>/Component.js"></script>
+        <?php }
+        foreach ((array) $component['js'] as $js) { ?>
+            <script type="text/javascript" src="../js/<?php echo $library; ?>/<?php echo $js; ?>"></script>
         <?php }
     } ?>
 </head>
@@ -228,6 +235,11 @@ $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array(); ?>
                 <?php foreach ($themes as $key => $value) { ?>
                     <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
                 <?php } ?>
+            </select>
+
+            <select name="library">
+                <option value="mootools"<?php if ($library === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
+                <option value="jquery"<?php if ($library === 'jquery') echo ' selected="selected"'; ?>>jQuery</option>
             </select>
 
             <button type="submit">GO</button>
