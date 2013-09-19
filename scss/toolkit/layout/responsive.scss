@@ -14,25 +14,50 @@ img, video, canvas {
 
 .show-print { display: none; }
 
-// Desktop states
-@include in-desktop {
-    .show-tablet,
-    .show-mobile,
-    .hide-desktop { display: none; }
+@if $responsive-size == "device" or $responsive-size == "both" {
+    // Desktop states
+    @include in-desktop {
+        .show-tablet,
+        .show-mobile,
+        .hide-desktop { display: none; }
+    }
+
+    // Tablet states
+    @include in-tablet {
+        .show-desktop,
+        .show-mobile,
+        .hide-tablet { display: none; }
+    }
+
+    // Mobile states
+    @include in-mobile  {
+        .show-desktop,
+        .show-tablet,
+        .hide-mobile { display: none; }
+    }
 }
 
-// Tablet states
-@include in-tablet {
-    .show-desktop,
-    .show-mobile,
-    .hide-tablet { display: none; }
-}
+@if $responsive-size == "size" or $responsive-size == "both" {
+    // Large states
+    @include in-large {
+        .show-medium,
+        .show-small,
+        .hide-large { display: none; }
+    }
 
-// Mobile states
-@include in-mobile  {
-    .show-desktop,
-    .show-tablet,
-    .hide-mobile { display: none; }
+    // Medium states
+    @include in-medium {
+        .show-large,
+        .show-small,
+        .hide-medium { display: none; }
+    }
+
+    // Small states
+    @include in-small  {
+        .show-large,
+        .show-medium,
+        .hide-small { display: none; }
+    }
 }
 
 // Orientation states

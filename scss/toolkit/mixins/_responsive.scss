@@ -1,11 +1,17 @@
 
 $responsive-design: "mobile" !default;
+$responsive-size: "both" !default;
+
 $breakpoint-desktop: 1440px !default;
 $breakpoint-laptop: 1280px !default;
 $breakpoint-tablet-landscape: 1024px !default;
 $breakpoint-tablet-portrait: 768px !default;
 $breakpoint-mobile-landscape: 480px !default;
 $breakpoint-mobile-portrait: 320px !default;
+
+$breakpoint-small: 768px !default;
+$breakpoint-medium: 1280px !default;
+$breakpoint-large: 1440px !default;
 
 @mixin if-min($min) {
     @media only screen and (min-width: $min) {
@@ -91,6 +97,24 @@ $breakpoint-mobile-portrait: 320px !default;
     }
 }
 
+@mixin if-large() {
+    @include do-responsive($breakpoint-large, $breakpoint-medium) {
+        @content;
+    }
+}
+
+@mixin if-medium() {
+    @include do-responsive($breakpoint-medium, $breakpoint-small) {
+        @content;
+    }
+}
+
+@mixin if-small() {
+    @include do-responsive($breakpoint-small, null) {
+        @content;
+    }
+}
+
 // Within 2 ranges
 @mixin in-desktop {
     @include if-min($breakpoint-tablet-landscape + 1) {
@@ -106,6 +130,24 @@ $breakpoint-mobile-portrait: 320px !default;
 
 @mixin in-mobile {
     @include if-max($breakpoint-mobile-landscape)  {
+        @content;
+    }
+}
+
+@mixin in-large {
+    @include if-min($breakpoint-medium + 1) {
+        @content;
+    }
+}
+
+@mixin in-medium {
+    @include if-min-max($breakpoint-small + 1, $breakpoint-medium) {
+        @content;
+    }
+}
+
+@mixin in-small {
+    @include if-max($breakpoint-small) {
         @content;
     }
 }
