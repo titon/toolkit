@@ -163,13 +163,15 @@ Titon.Component = new Class({
      * @returns {Titon.Component}
      */
     hide: function(callback) {
-        this.element.conceal();
+        if (this.isVisible()) {
+            this.element.conceal();
 
-        if (typeOf(callback) === 'function') {
-            callback();
+            if (typeOf(callback) === 'function') {
+                callback();
+            }
+
+            this.fireEvent('hide');
         }
-
-        this.fireEvent('hide');
 
         return this;
     },

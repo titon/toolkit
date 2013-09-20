@@ -21,33 +21,35 @@ Titon.Toggle = function(nodes, options) {
     /** Currently active node */
     this.node = null;
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
     /**
      * Initialize toggle events.
      */
     this.initialize = function() {
-        this.disable().enable();
-
         $(window).on('click', this.hide.bind(this));
+        $(this.options.context || document).on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
     };
 
     /**
-     * Disable events.
+     * Disable component.
      *
      * @returns {Titon.Toggle}
      */
     this.disable = function() {
-        $(this.options.context || document).off((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
+        this.enabled = false;
 
         return this;
     };
 
     /**
-     * Enable events.
+     * Enable component.
      *
      * @returns {Titon.Toggle}
      */
     this.enable = function() {
-        $(this.options.context || document).on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
+        this.enabled = true;
 
         return this;
     };
@@ -87,12 +89,16 @@ Titon.Toggle = function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this._show = function(e) {
+    this.__show = function(e) {
         e.preventDefault();
         e.stopPropagation();
 
+        if (!this.enabled) {
+            return;
+        }
+
         var node = $(e.target),
-            target = Titon.getValue.apply(this, [node, this.options.getTarget]);
+            target = Titon.readValue.apply(this, [node, this.options.getTarget]);
 
         if (!target || target.substr(0, 1) !== '#') {
             return;
@@ -112,9 +118,7 @@ Titon.Toggle = function(nodes, options) {
     };
 
     // Initialize the class only if elements exists
-    if (this.nodes.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 /**

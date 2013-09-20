@@ -10,12 +10,7 @@
 Titon.Toggle = new Class({
     Extends: Titon.Component,
 
-    /**
-     * Default options.
-     *
-     *    getTarget     - (string) Attribute to fetch the target ID from
-     *    hideOpened    - (bool) Hide other dropdowns that are currently open
-     */
+    /** Default options */
     options: {
         getTarget: 'data-toggle',
         hideOpened: true
@@ -31,15 +26,14 @@ Titon.Toggle = new Class({
         this.parent(options);
         this.setNodes(elements);
 
-        this.disable().enable();
-
         window.addEvent('click', this.hide.bind(this));
 
+        this.bindEvents();
         this.fireEvent('init');
     },
 
     /**
-     * Toggle node class.
+     * Hide the element and toggle node active state.
      *
      * @returns {Titon.Toggle}
      */
@@ -50,7 +44,7 @@ Titon.Toggle = new Class({
     },
 
     /**
-     * Toggle node class.
+     * Show the element and toggle node active state.
      *
      * @returns {Titon.Toggle}
      */
@@ -69,12 +63,16 @@ Titon.Toggle = new Class({
      * @param {DOMEvent} e
      * @param {Element} node
      */
-    _show: function(e, node) {
+    __show: function(e, node) {
         if (typeOf(e) === 'domevent') {
             e.stop();
         }
 
-        var target = this.getValue(node, this.options.getTarget);
+        if (!this.enabled) {
+            return;
+        }
+
+        var target = this.readValue(node, this.options.getTarget);
 
         if (!target || target.substr(0, 1) !== '#') {
             return;
