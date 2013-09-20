@@ -57,23 +57,45 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $$('.popover-base').popover({ delegate: '.popover-base' });
-        $$('.popover-ajax').popover({ delegate: '.popover-ajax', ajax: true });
-        $$('.popover-delay').popover({ delegate: '.popover-delay', delay: 250 });
-        $$('.popover-offset').popover({ delegate: '.popover-offset', xOffset: 15, yOffset: 15 });
-        $$('.popover-fade').popover({ delegate: '.popover-fade', animation: 'fade' });
-        $$('.popover-from-above').popover({ delegate: '.popover-from-above', animation: 'from-above' });
-        $$('.popover-from-below').popover({ delegate: '.popover-from-below', animation: 'from-below' });
-        $$('.popover-flip-rotate').popover({ delegate: '.popover-flip-rotate', animation: 'flip-rotate' });
-        $$('.popover-slide-in').popover({ delegate: '.popover-slide-in', animation: 'slide-in' });
-        $$('.popover-tl').popover({ delegate: '.popover-tl', position: 'topLeft' });
-        $$('.popover-tc').popover({ delegate: '.popover-tc', position: 'topCenter' });
-        $$('.popover-tr').popover({ delegate: '.popover-tr', position: 'topRight' });
-        $$('.popover-cl').popover({ delegate: '.popover-cl', position: 'centerLeft' });
-        $$('.popover-cr').popover({ delegate: '.popover-cr', position: 'centerRight' });
-        $$('.popover-bl').popover({ delegate: '.popover-bl', position: 'bottomLeft' });
-        $$('.popover-bc').popover({ delegate: '.popover-bc', position: 'bottomCenter' });
-        $$('.popover-br').popover({ delegate: '.popover-br', position: 'bottomRight' });
-    });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $$('.popover-base').popover({ delegate: '.popover-base' });
+            $$('.popover-ajax').popover({ delegate: '.popover-ajax', ajax: true });
+            $$('.popover-delay').popover({ delegate: '.popover-delay', delay: 250 });
+            $$('.popover-offset').popover({ delegate: '.popover-offset', xOffset: 15, yOffset: 15 });
+            $$('.popover-fade').popover({ delegate: '.popover-fade', animation: 'fade' });
+            $$('.popover-from-above').popover({ delegate: '.popover-from-above', animation: 'from-above' });
+            $$('.popover-from-below').popover({ delegate: '.popover-from-below', animation: 'from-below' });
+            $$('.popover-flip-rotate').popover({ delegate: '.popover-flip-rotate', animation: 'flip-rotate' });
+            $$('.popover-slide-in').popover({ delegate: '.popover-slide-in', animation: 'slide-in' });
+            $$('.popover-tl').popover({ delegate: '.popover-tl', position: 'topLeft' });
+            $$('.popover-tc').popover({ delegate: '.popover-tc', position: 'topCenter' });
+            $$('.popover-tr').popover({ delegate: '.popover-tr', position: 'topRight' });
+            $$('.popover-cl').popover({ delegate: '.popover-cl', position: 'centerLeft' });
+            $$('.popover-cr').popover({ delegate: '.popover-cr', position: 'centerRight' });
+            $$('.popover-bl').popover({ delegate: '.popover-bl', position: 'bottomLeft' });
+            $$('.popover-bc').popover({ delegate: '.popover-bc', position: 'bottomCenter' });
+            $$('.popover-br').popover({ delegate: '.popover-br', position: 'bottomRight' });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.popover-base').popover();
+            $('.popover-ajax').popover({ ajax: true });
+            $('.popover-delay').popover({ delay: 250 });
+            $('.popover-offset').popover({ xOffset: 15, yOffset: 15 });
+            $('.popover-fade').popover({ animation: 'fade' });
+            $('.popover-from-above').popover({ animation: 'from-above' });
+            $('.popover-from-below').popover({ animation: 'from-below' });
+            $('.popover-flip-rotate').popover({ animation: 'flip-rotate' });
+            $('.popover-slide-in').popover({ animation: 'slide-in' });
+            $('.popover-tl').popover({ position: 'topLeft' });
+            $('.popover-tc').popover({ position: 'topCenter' });
+            $('.popover-tr').popover({ position: 'topRight' });
+            $('.popover-cl').popover({ position: 'centerLeft' });
+            $('.popover-cr').popover({ position: 'centerRight' });
+            $('.popover-bl').popover({ position: 'bottomLeft' });
+            $('.popover-bc').popover({ position: 'bottomCenter' });
+            $('.popover-br').popover({ position: 'bottomRight' });
+        });
+    <?php } ?>
 </script>
