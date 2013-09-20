@@ -9,7 +9,7 @@
 
 Titon.Carousel = new Class({
     Extends: Titon.Component,
-    Binds: ['next', 'prev', 'start', 'stop', '_cycle', '_jump', '_resize'],
+    Binds: ['next', 'prev', 'start', 'stop', 'resize', '__cycle', '__jump'],
 
     /** Is the carousel stopped? */
     stopped: false,
@@ -37,23 +37,7 @@ Titon.Carousel = new Class({
     /** Cycle timer */
     timer: null,
 
-    /**
-     * Default options.
-     *
-     *    duration         - (int) The duration between each item
-     *    autoCycle        - (bool) Automatically cycle between items
-     *    stopOnHover      - (bool) Stop sliding while the mouse is hovering over the carousel
-     *    itemsElement     - (string) CSS query for the items container element
-     *    itemElement      - (string) CSS query for the items element
-     *    tabsElement      - (string) CSS query for the indicator tabs container element
-     *    tabElement       - (string) CSS query for the indicator tabs element
-     *    nextElement      - (string) CSS query for the next button
-     *    prevElement      - (string) CSS query for the previous button
-     *    onStart          - (function) Callback to trigger when the carousel starts
-     *    onStop           - (function) Callback to trigger when the carousel stops
-     *    onCycle          - (function) Callback to trigger when the cycle triggers each item
-     *    onJump           - (function) Callback to trigger when a item is jumped to
-     */
+    /** Default options */
     options: {
         animation: 'slide',
         duration: 5000,
@@ -75,7 +59,7 @@ Titon.Carousel = new Class({
     },
 
     /**
-     * Initialize Carousel by storing the query, gathering the elements and binding events.
+     * Initialize elements and attach events.
      *
      * @param {Element} element
      * @param {Object} [options]
@@ -89,10 +73,6 @@ Titon.Carousel = new Class({
         }
 
         options = this.options;
-
-        if (options.animation) {
-            this.element.addClass(options.animation);
-        }
 
         // Get elements
         this.itemsWrapper = this.element.getElement(options.itemsElement);
@@ -136,8 +116,6 @@ Titon.Carousel = new Class({
         });
 
         // Set events
-        this.disable().enable();
-
         window.addEvent('keydown', function(e) {
             switch (e.key) {
                 case 'up':      this.jump(0); break;
@@ -147,9 +125,43 @@ Titon.Carousel = new Class({
             }
         }.bind(this));
 
-        window.addEvent('resize', this._resize);
+        window.addEvent('resize', this.resize);
 
+        this.bindEvents();
         this.fireEvent('init');
+    },
+
+    /**
+     * Set events for all element interaction.
+     *
+     * @returns {Titon.Carousel}
+     */
+    bindEvents: function() {
+        if (!this.element) {
+            return this;
+        }
+
+        if (this.options.stopOnHover) {
+            this.element
+                .addEvent('mouseenter', this.stop)
+                .addEvent('mouseleave', this.start);
+        }
+
+        if (this.tabs.length) {
+            this.tabs.addEvent('click', this.__jump);
+        }
+
+        if (this.nextButton) {
+            this.nextButton.addEvent('click', this.next);
+        }
+
+        if (this.prevButton) {
+            this.prevButton.addEvent('click', this.prev);
+        }
+
+        this.start().reset();
+
+        return this;
     },
 
     /**
@@ -174,7 +186,10 @@ Titon.Carousel = new Class({
         // Update tabs
         if (this.tabs.length) {
             this.tabs.removeClass('is-active');
-            this.tabs[index].addClass('is-active');
+
+            if (this.tabs[index]) {
+                this.tabs[index].addClass('is-active');
+            }
         }
 
         // Animate!
@@ -186,7 +201,7 @@ Titon.Carousel = new Class({
             break;
             case 'slide-up':
                 if (!this.itemHeight) {
-                    this._resize();
+                    this.resize();
                 }
 
                 // Animating top property doesn't work with percentages
@@ -197,7 +212,7 @@ Titon.Carousel = new Class({
             break;
         }
 
-        this._reset();
+        this.reset();
         this.fireEvent('jump', index);
 
         return this;
@@ -221,6 +236,42 @@ Titon.Carousel = new Class({
      */
     prev: function() {
         this.jump(this.currentIndex - 1);
+
+        return this;
+    },
+
+    /**
+     * Reset the timer.
+     *
+     * @returns {Titon.Carousel}
+     */
+    reset: function() {
+        if (this.options.autoCycle) {
+            clearInterval(this.timer);
+            this.timer = setInterval(this.__cycle, this.options.duration);
+        }
+
+        return this;
+    },
+
+    /**
+     * Cache sizes once the carousel starts or when browser is resized.
+     * We need to defer this to allow image loading.
+     *
+     * @returns {Titon.Carousel}
+     */
+    resize: function() {
+        var size = this.items[0].measure(function() {
+            return this.getSize();
+        });
+
+        this.itemWidth = size.x;
+        this.itemHeight = size.y;
+
+        // Set height since items are absolute positioned
+        if (this.options.animation !== 'slide') {
+            this.itemsWrapper.setStyle('height', size.y + 'px');
+        }
 
         return this;
     },
@@ -259,9 +310,13 @@ Titon.Carousel = new Class({
      *
      * @private
      */
-    _cycle: function() {
+    __cycle: function() {
+        if (!this.enabled) {
+            return;
+        }
+
         if (!this.itemWidth || !this.itemHeight) {
-            this._resize();
+            this.resize();
         }
 
         // Don't cycle if the carousel has stopped
@@ -277,83 +332,15 @@ Titon.Carousel = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    _jump: function(e) {
+    __jump: function(e) {
         e.stop();
 
+        if (!this.enabled) {
+            return;
+        }
+
         this.jump(e.target.get('data-index') || 0);
-    },
-
-    /**
-     * Reset the timer.
-     */
-    _reset: function() {
-        if (this.options.autoCycle) {
-            clearInterval(this.timer);
-            this.timer = setInterval(this._cycle, this.options.duration);
-        }
-    }.protect(),
-
-    /**
-     * Cache sizes once the carousel starts or when browser is resized.
-     * We need to defer this to allow image loading.
-     *
-     * @private
-     */
-    _resize: function() {
-        var size = this.items[0].measure(function() {
-            return this.getSize();
-        });
-
-        this.itemWidth = size.x;
-        this.itemHeight = size.y;
-
-        // Set height since items are absolute positioned
-        if (this.options.animation !== 'slide') {
-            this.itemsWrapper.setStyle('height', size.y + 'px');
-        }
-    },
-
-    /**
-     * Toggle activation events on and off.
-     *
-     * @private
-     * @param {bool} on
-     * @returns {Titon.Carousel}
-     */
-    _toggleEvents: function(on) {
-        if (!this.element) {
-            return this;
-        }
-
-        var method = on ? 'addEvent' : 'removeEvent';
-
-        if (this.options.stopOnHover) {
-            this.element[method]('mouseenter', this.stop);
-            this.element[method]('mouseleave', this.start);
-        }
-
-        if (this.tabs.length) {
-            this.tabs[method]('click', this._jump);
-        }
-
-        if (this.nextButton) {
-            this.nextButton[method]('click', this.next);
-        }
-
-        if (this.prevButton) {
-            this.prevButton[method]('click', this.prev);
-        }
-
-        if (on) {
-            this.start();
-        } else {
-            this.stop();
-        }
-
-        this._reset();
-
-        return this;
-    }.protect()
+    }
 
 });
 

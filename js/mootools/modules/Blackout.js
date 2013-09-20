@@ -10,9 +10,7 @@
 Titon.Blackout = new Class({
     Extends: Titon.Component,
 
-    /**
-     * Default options.
-     */
+    /** Default options */
     options: {
         template: '<div class="blackout" id="titon-blackout"></div>',
         templateFrom: '#titon-blackout'
@@ -45,19 +43,6 @@ Titon.Blackout = new Class({
     },
 
     /**
-     * Show and position the blackout.
-     *
-     * @returns {Titon.Blackout}
-     */
-    show: function() {
-        this.element.reveal();
-        this.position();
-        this.fireEvent('show');
-
-        return this;
-    },
-
-    /**
      * Display and position the blackout.
      *
      * @returns {Titon.Blackout}
@@ -71,6 +56,19 @@ Titon.Blackout = new Class({
                 height: size.y
             });
         }
+
+        return this;
+    },
+
+    /**
+     * Show the blackout.
+     *
+     * @returns {Titon.Blackout}
+     */
+    show: function() {
+        this.element.reveal();
+        this.position();
+        this.fireEvent('show');
 
         return this;
     }

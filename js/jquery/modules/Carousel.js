@@ -12,7 +12,7 @@ Titon.Carousel = function(element, options) {
     /** Custom options */
     this.options = Titon.setOptions($.fn.carousel.options, options);
 
-    /** Primary DOM wrapper */
+    /** Carousel element */
     this.element = Titon.setElement(element, this.options);
 
     /** Is the carousel stopped? */
@@ -40,6 +40,9 @@ Titon.Carousel = function(element, options) {
 
     /** Cycle timer */
     this.timer = null;
+
+    /** Is the component enabled? */
+    this.enabled = true;
 
     /**
      * Initialize items and events for a matrix grid.
@@ -83,8 +86,6 @@ Titon.Carousel = function(element, options) {
         });
 
         // Set events
-        this.disable().enable();
-
         $(window)
             .on('keydown', function(e) {
                 switch (e.key.toLowerCase()) {
@@ -94,49 +95,40 @@ Titon.Carousel = function(element, options) {
                     case 'right':   this.next(); break;
                 }
             }.bind(this))
-            .on('resize', this._resize.bind(this));
-    };
+            .on('resize', this.resize.bind(this));
 
-    /**
-     * Disable events.
-     *
-     * @returns {Titon.Carousel}
-     */
-    this.disable = function() {
-        if (this.options.stopOnHover) {
-            this.element
-                .off('mouseenter', this.stop.bind(this))
-                .off('mouseleave', this.start.bind(this));
-        }
 
-        this.tabs.off('click', this._jump.bind(this));
-        this.nextButton.off('click', this.next.bind(this));
-        this.prevButton.off('click', this.prev.bind(this));
-
-        this.stop();
-        this._reset();
-
-        return this;
-    };
-
-    /**
-     * Enable events.
-     *
-     * @returns {Titon.Carousel}
-     */
-    this.enable = function() {
-        if (this.options.stopOnHover) {
+        if (options.stopOnHover) {
             this.element
                 .on('mouseenter', this.stop.bind(this))
                 .on('mouseleave', this.start.bind(this));
         }
 
-        this.tabs.on('click', this._jump.bind(this));
+        this.tabs.on('click', this.__jump.bind(this));
         this.nextButton.on('click', this.next.bind(this));
         this.prevButton.on('click', this.prev.bind(this));
 
-        this.start();
-        this._reset();
+        this.start().reset();
+    };
+
+    /**
+     * Disable component.
+     *
+     * @returns {Titon.Accordion}
+     */
+    this.disable = function() {
+        this.enabled = false;
+
+        return this;
+    };
+
+    /**
+     * Enable component.
+     *
+     * @returns {Titon.Accordion}
+     */
+    this.enable = function() {
+        this.enabled = true;
 
         return this;
     };
@@ -175,7 +167,7 @@ Titon.Carousel = function(element, options) {
             break;
             case 'slide-up':
                 if (!this.itemHeight) {
-                    this._resize();
+                    this.resize();
                 }
 
                 // Animating top property doesn't work with percentages
@@ -186,7 +178,7 @@ Titon.Carousel = function(element, options) {
             break;
         }
 
-        this._reset();
+        this.reset();
 
         return this;
     };
@@ -209,6 +201,40 @@ Titon.Carousel = function(element, options) {
      */
     this.prev = function() {
         this.jump(this.currentIndex - 1);
+
+        return this;
+    };
+
+    /**
+     * Reset the timer.
+     *
+     * @returns {Titon.Carousel}
+     */
+    this.reset = function() {
+        if (this.options.autoCycle) {
+            clearInterval(this.timer);
+            this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
+        }
+
+        return this;
+    };
+
+    /**
+     * Cache sizes once the carousel starts or when browser is resized.
+     * We need to defer this to allow image loading.
+     *
+     * @returns {Titon.Carousel}
+     */
+    this.resize = function() {
+        var item = $(this.items[0]);
+
+        this.itemWidth = item.outerWidth();
+        this.itemHeight = item.outerHeight();
+
+        // Set height since items are absolute positioned
+        if (this.options.animation !== 'slide') {
+            this.itemsWrapper.css('height', this.itemHeight + 'px');
+        }
 
         return this;
     };
@@ -243,9 +269,13 @@ Titon.Carousel = function(element, options) {
      *
      * @private
      */
-    this._cycle = function() {
+    this.__cycle = function() {
+        if (!this.enabled) {
+            return;
+        }
+
         if (!this.itemWidth || !this.itemHeight) {
-            this._resize();
+            this.resize();
         }
 
         // Don't cycle if the carousel has stopped
@@ -260,39 +290,15 @@ Titon.Carousel = function(element, options) {
      * @private
      * @param {Event} e
      */
-    this._jump = function(e) {
+    this.__jump = function(e) {
         e.preventDefault();
         e.stopPropagation();
 
+        if (!this.enabled) {
+            return;
+        }
+
         this.jump($(e.target).data('index') || 0);
-    };
-
-    /**
-     * Reset the timer.
-     */
-    this._reset = function() {
-        if (this.options.autoCycle) {
-            clearInterval(this.timer);
-            this.timer = setInterval(this._cycle.bind(this), this.options.duration);
-        }
-    };
-
-    /**
-     * Cache sizes once the carousel starts or when browser is resized.
-     * We need to defer this to allow image loading.
-     *
-     * @private
-     */
-    this._resize = function() {
-        var item = $(this.items[0]);
-
-        this.itemWidth = item.outerWidth();
-        this.itemHeight = item.outerHeight();
-
-        // Set height since items are absolute positioned
-        if (this.options.animation !== 'slide') {
-            this.itemsWrapper.css('height', this.itemHeight + 'px');
-        }
     };
 
     // Initialize the class only if the element exists

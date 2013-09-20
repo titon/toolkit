@@ -15,7 +15,7 @@ Titon.Blackout = function(options) {
         templateFrom: '#titon-blackout'
     }, options);
 
-    /** Primary DOM wrapper */
+    /** Blackout element */
     this.element = Titon.createElement(this.options);
 
     /**
@@ -37,18 +37,6 @@ Titon.Blackout = function(options) {
     };
 
     /**
-     * Show and position the blackout.
-     *
-     * @returns {Titon.Blackout}
-     */
-    this.show = function() {
-        this.element.reveal();
-        this.position();
-
-        return this;
-    };
-
-    /**
      * Display and position the blackout.
      *
      * @returns {Titon.Blackout}
@@ -62,6 +50,18 @@ Titon.Blackout = function(options) {
                 height: win.height()
             });
         }
+
+        return this;
+    };
+
+    /**
+     * Show the blackout.
+     *
+     * @returns {Titon.Blackout}
+     */
+    this.show = function() {
+        this.element.reveal();
+        this.position();
 
         return this;
     };
