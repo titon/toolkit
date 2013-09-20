@@ -22,39 +22,71 @@ Titon.Tooltip = function(nodes, options) {
     this.elementHead = null;
     this.elementBody = null;
 
+    /** Cached requests */
     this.cache = {};
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
+    /**
+     * Initialize tooltips.
+     */
     this.initialize = function() {
-        this.elementHead = this.element.find(this.options.titleElement);
-        this.elementBody = this.element.find(this.options.contentElement);
+        var options = this.options;
+
+        this.elementHead = this.element.find(options.titleElement);
+        this.elementBody = this.element.find(options.contentElement);
 
         // Add position class
-        this.element.addClass(this.options.position.hyphenate());
+        this.element.addClass(options.position.hyphenate());
 
         // Set events
-        this.disable().enable();
+        $(options.context || document)
+            .on((options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this.__show.bind(this));
     };
 
-    this.enable = function() {
-        $(this.options.context || document)
-            .on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this._show.bind(this));
-
-        return this;
-    };
-
+    /**
+     * Disable component.
+     *
+     * @returns {Titon.Tooltip}
+     */
     this.disable = function() {
-        $(this.options.context || document)
-            .off((this.options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this._show.bind(this));
+        this.enabled = false;
 
         return this;
     };
 
+    /**
+     * Enable component.
+     *
+     * @returns {Titon.Tooltip}
+     */
+    this.enable = function() {
+        this.enabled = true;
+
+        return this;
+    };
+
+    /**
+     * Hide the tooltip.
+     *
+     * @returns {Titon.Tooltip}
+     */
     this.hide = function() {
         this.element.conceal();
 
         return this;
     };
 
+    /**
+     * Show the tooltip and determine whether to grab the content from an AJAX call,
+     * a DOM node, or plain text. The content and title can also be passed as arguments.
+     *
+     * @param {jQuery} node
+     * @param {String|jQuery} [content]
+     * @param {String|jQuery} [title]
+     * @returns {Titon.Tooltip}
+     */
     this.show = function(node, content, title) {
         if (node) {
             node = $(node);
@@ -65,8 +97,8 @@ Titon.Tooltip = function(nodes, options) {
                     .on('mouseleave', this.hide.bind(this));
             }
 
-            title = title || Titon.getValue.apply(this, [node, this.options.getTitle]);
-            content = content || Titon.getValue.apply(this, [node, this.options.getContent]);
+            title = title || Titon.readValue.apply(this, [node, this.options.getTitle]);
+            content = content || Titon.readValue.apply(this, [node, this.options.getContent]);
         }
 
         if (!content) {
@@ -125,17 +157,14 @@ Titon.Tooltip = function(nodes, options) {
         return this;
     };
 
-    this._follow = function(e) {
-        e.stopPropagation();
-
-        var options = this.options;
-
-        this.element.positionTo(options.position, e, {
-            left: options.xOffset,
-            top: options.yOffset
-        }, true).reveal();
-    };
-
+    /**
+     * Positions the tooltip relative to the current node or the mouse cursor.
+     * Additionally will apply the title/content and hide/show if necessary.
+     *
+     * @private
+     * @param {String|jQuery} [content]
+     * @param {String|jQuery} [title]
+     */
     this._position = function(content, title) {
         var options = this.options;
 
@@ -160,7 +189,7 @@ Titon.Tooltip = function(nodes, options) {
 
         // Follow the mouse
         if (options.follow) {
-            var follow = this._follow.bind(this);
+            var follow = this.__follow.bind(this);
 
             this.node
                 .off('mousemove', follow)
@@ -179,7 +208,30 @@ Titon.Tooltip = function(nodes, options) {
         }
     };
 
-    this._show = function(e) {
+    /**
+     * Event handler for positioning the tooltip by the mouse.
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__follow = function(e) {
+        e.stopPropagation();
+
+        var options = this.options;
+
+        this.element.positionTo(options.position, e, {
+            left: options.xOffset,
+            top: options.yOffset
+        }, true).reveal();
+    };
+
+    /**
+     * Event handler for showing the tooltip.
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__show = function(e) {
         e.preventDefault();
 
         var node = $(e.target);
@@ -199,9 +251,7 @@ Titon.Tooltip = function(nodes, options) {
     };
 
     // Initialize the class only if the element exists
-    if (this.nodes.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 /**

@@ -10,9 +10,7 @@
 Titon.Popover = new Class({
     Extends: Titon.Tooltip,
 
-    /**
-     * Default options.
-     */
+    /** Default options */
     options: {
         delegate: '.js-popover',
         position: 'topCenter',

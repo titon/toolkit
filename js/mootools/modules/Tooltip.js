@@ -9,29 +9,13 @@
 
 Titon.Tooltip = new Class({
     Extends: Titon.Component,
-    Binds: ['_follow'],
+    Binds: ['__follow'],
 
     /** Inner elements */
     elementHead: null,
     elementBody: null,
 
-    /**
-     * Default options.
-     *
-     *    ajax            - (bool) The tooltip uses the target as an AJAX call
-     *    follow          - (bool) The tooltip will follow the mouse
-     *    position        - (string) The position to display the tooltip over the element
-     *    showLoading     - (bool) Will display the loading text while waiting for AJAX calls
-     *    showTitle       - (bool) Will display the element title in the tooltip
-     *    getTitle        - (string) Attribute to read the title from
-     *    getContent      - (string) Attribute to read the content from
-     *    mouseThrottle   - (int) The amount in milliseconds to update mouse hover location
-     *    xOffset         - (int) Additional margin on the X axis
-     *    yOffset         - (int) Additional margin on the Y axis
-     *    delay           - (int) The delay in milliseconds before the tooltip shows
-     *    titleElement    - (string) CSS query for the title element within the template
-     *    contentElement  - (string) CSS query for the content element within the template
-     */
+    /** Default options */
     options: {
         delegate: '.js-tooltip',
         mode: 'hover',
@@ -58,21 +42,6 @@ Titon.Tooltip = new Class({
     },
 
     /**
-     * Opposite edges used for positioning.
-     */
-    edges: {
-        topLeft: 'bottomRight',
-        topCenter: 'bottomCenter',
-        topRight: 'bottomLeft',
-        centerLeft: 'centerRight',
-        center: 'center',
-        centerRight: 'centerLeft',
-        bottomLeft: 'topRight',
-        bottomCenter: 'topCenter',
-        bottomRight: 'topLeft'
-    },
-
-    /**
      * Initialize tooltips.
      *
      * @param {Elements} elements
@@ -91,8 +60,7 @@ Titon.Tooltip = new Class({
         this.element.addClass(this.options.position.hyphenate());
 
         // Set events
-        this.disable().enable();
-
+        this.bindEvents();
         this.fireEvent('init');
     },
 
@@ -109,12 +77,12 @@ Titon.Tooltip = new Class({
         if (node) {
             if (this.options.mode === 'hover') {
                 node
-                    .removeEvent('mouseleave', this._hide)
-                    .addEvent('mouseleave', this._hide);
+                    .removeEvent('mouseleave', this.__hide)
+                    .addEvent('mouseleave', this.__hide);
             }
 
-            title = title || this.getValue(node, this.options.getTitle);
-            content = content || this.getValue(node, this.options.getContent);
+            title = title || this.readValue(node, this.options.getTitle);
+            content = content || this.readValue(node, this.options.getContent);
         }
 
         if (!content) {
@@ -137,52 +105,6 @@ Titon.Tooltip = new Class({
     },
 
     /**
-     * Callback to position the tooltip at the mouse cursor.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    _follow: function(e) {
-        e.stop();
-
-        var coordinates = e.page,
-            position = this.options.position,
-            edge = Element.Position.getCoordinateFromValue(this.edges[position] || 'bottomRight'),
-            dimensions = this.element.getDimensions({
-                computeSize: true,
-                styles: ['padding', 'border', 'margin']
-            });
-
-        // Adjust x and y because of the shape of the mouse cursor
-        coordinates.x += this.options.xOffset;
-        coordinates.y += this.options.yOffset;
-
-        if (edge.x === 'left') {
-            coordinates.x += 35;
-        } else if (edge.x === 'right') {
-            coordinates.x += -5;
-        }
-
-        if (edge.y === 'bottom') {
-            // topCenter problems with arrow flicker
-            if (edge.x !== 'center') {
-                coordinates.y += (dimensions['margin-bottom'] + 1);
-            }
-        } else if (edge.y === 'top') {
-            coordinates.y += 35;
-        } else if (edge.y === 'center') {
-            coordinates.y += 15;
-        }
-
-        Element.Position.toEdge(coordinates, {
-            edge: edge,
-            dimensions: dimensions
-        });
-
-        this.element.setPosition(coordinates).reveal();
-    },
-
-    /**
      * Positions the tooltip relative to the current node or the mouse cursor.
      * Additionally will apply the title/content and hide/show if necessary.
      *
@@ -191,13 +113,15 @@ Titon.Tooltip = new Class({
      * @param {String|Element} [title]
      */
     _position: function(content, title) {
+        var options = this.options;
+
         // AJAX is currently loading
         if (content === true) {
             return;
         }
 
         // Set title
-        if (title && this.options.showTitle) {
+        if (title && options.showTitle) {
             this.elementHead.set('html', title).show();
         } else {
             this.elementHead.hide();
@@ -211,34 +135,44 @@ Titon.Tooltip = new Class({
         }
 
         // Follow the mouse
-        if (this.options.follow) {
-            var event = 'mousemove:throttle(' + this.options.mouseThrottle + ')';
+        if (options.follow) {
+            var event = 'mousemove:throttle(' + options.mouseThrottle + ')';
 
             this.node
-                .removeEvent(event, this._follow)
-                .addEvent(event, this._follow);
+                .removeEvent(event, this.__follow)
+                .addEvent(event, this.__follow);
 
             this.fireEvent('show');
 
         // Position accordingly
         } else {
-            var position = this.options.position;
-
-            this.element.position({
-                relativeTo: this.node,
-                position: position,
-                edge: this.edges[position] || 'topLeft',
-                offset: {
-                    x: this.options.xOffset,
-                    y: this.options.yOffset
-                }
+            this.element.positionTo(options.position, this.node, {
+                left: options.xOffset,
+                top: options.yOffset
             });
 
             window.setTimeout(function() {
                 this.element.reveal();
                 this.fireEvent('show');
-            }.bind(this), this.options.delay || 0);
+            }.bind(this), options.delay || 0);
         }
+    },
+
+    /**
+     * Event handler for positioning the tooltip by the mouse.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    __follow: function(e) {
+        e.stop();
+
+        var options = this.options;
+
+        this.element.positionTo(options.position, e, {
+            left: options.xOffset,
+            top: options.yOffset
+        }, true).reveal();
     }
 
 });
