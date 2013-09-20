@@ -9,7 +9,7 @@
 
 Titon.Modal = new Class({
     Extends: Titon.Component,
-    Binds: ['_submit'],
+    Binds: ['__submit'],
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -20,20 +20,7 @@ Titon.Modal = new Class({
     /** Body DOM element */
     elementBody: null,
 
-    /**
-     * Default options.
-     *
-     *    ajax             - (bool) The modal uses the target as an AJAX call
-     *    draggable        - (bool) Will enable dragging on the outer element
-     *    blackout         - (bool) Will show a blackout when a modal is opened, and hide it when it is closed
-     *    showLoading      - (bool) Will display the loading text while waiting for AJAX calls
-     *    getContent       - (string) Attribute to read the content from
-     *    contentElement   - (string) CSS query for the content element within the template
-     *    closeElement     - (string) CSS query for the close element within the template
-     *    closeEvent       - (string) CSS query to bind hide events to
-     *    submitEvent      - (string) CSS query to bind submit events to
-     *    onSubmit         - (function) Callback to trigger when a modal form is submitted
-     */
+    /** Default options */
     options: {
         delegate: '.js-modal',
         animation: 'fade',
@@ -90,11 +77,20 @@ Titon.Modal = new Class({
         // Blackout
         if (this.options.blackout) {
             this.blackout = new Titon.Blackout();
-            this.blackout.element.addEvent('click', this._hide);
+            this.blackout.element.addEvent('click', this.__hide);
         }
 
         // Set events
-        this.disable().enable();
+        this.bindEvents();
+    },
+
+    /**
+     * Set delegation and window events.
+     *
+     * @returns {Titon.Modal}
+     */
+    bindEvents: function() {
+        this.parent();
 
         window.addEvent('keydown', function(e) {
             if (e.key === 'esc' && this.isVisible()) {
@@ -103,12 +99,14 @@ Titon.Modal = new Class({
         }.bind(this));
 
         this.element
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)
-            .addEvent('click:relay(' + this.options.submitEvent + ')', this._submit);
+            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
+            .addEvent('click:relay(' + this.options.submitEvent + ')', this.__submit);
+
+        return this;
     },
 
     /**
-     * Hide the modal and reset relevant values.
+     * Hide the modal.
      *
      * @returns {Titon.Modal}
      */
@@ -137,7 +135,7 @@ Titon.Modal = new Class({
             options.ajax = false;
 
         } else if (node) {
-            content = this.getValue(node, options.getContent) || node.get('href');
+            content = this.readValue(node, options.getContent) || node.get('href');
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;
@@ -191,9 +189,10 @@ Titon.Modal = new Class({
     /**
      * Submit the form within the modal if it exists and re-render the modal with the response.
      *
+     * @private
      * @param {DOMEvent} e
      */
-    _submit: function(e) {
+    __submit: function(e) {
         e.stop();
 
         var button = e.target,
@@ -214,7 +213,7 @@ Titon.Modal = new Class({
                 this._position(response);
             }.bind(this),
             onFailure: function() {
-                this._position(this._errorTemplate());
+                this._position(this.errorTemplate());
             }.bind(this)
         }).send();
     }

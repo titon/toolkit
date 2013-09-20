@@ -21,32 +21,35 @@ Titon.Modal = function(nodes, options) {
     /** Modal element */
     this.element = Titon.createElement(this.options);
 
-    /** Body DOM element */
+    /** Modal body element */
     this.elementBody = null;
 
     /** Blackout instance if options.blackout is true */
     this.blackout = null;
 
-    /** Drag instance if options.draggable is true */
-    this.drag = null;
-
     /** Cache requests */
     this.cache = {};
+
+    /** Is the component enabled? */
+    this.enabled = true;
 
     /**
      * Initialize elements and attach events.
      */
     this.initialize = function() {
-        this.elementBody = this.element.find(this.options.contentElement);
+        var options = this.options;
+
+        this.elementBody = this.element.find(options.contentElement);
 
         // Blackout
-        if (this.options.blackout) {
+        if (options.blackout) {
             this.blackout = new Titon.Blackout();
-            this.blackout.element.on('click', this._hide.bind(this));
+            this.blackout.element.on('click', this.__hide.bind(this));
         }
 
         // Set events
-        this.disable().enable();
+        $(options.context || document)
+            .on('click', this.nodes.selector, this.__show.bind(this));
 
         $(window).on('keydown', function(e) {
             if (e.key === 'esc' && this.element.is(':shown')) {
@@ -55,30 +58,28 @@ Titon.Modal = function(nodes, options) {
         }.bind(this));
 
         this.element
-            .on('click', this.options.closeEvent, this._hide.bind(this))
-            .on('click', this.options.submitEvent, this._submit.bind(this));
+            .on('click', options.closeEvent, this.__hide.bind(this))
+            .on('click', options.submitEvent, this.__submit.bind(this));
     };
 
     /**
-     * Enable events.
+     * Disable component.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Titon.Modal}
      */
-    this.enable = function() {
-        $(this.options.context || document)
-            .on('click', this.nodes.selector, this._show.bind(this));
+    this.disable = function() {
+        this.enabled = false;
 
         return this;
     };
 
     /**
-     * Disable events.
+     * Enable component.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Titon.Modal}
      */
-    this.disable = function() {
-        $(this.options.context || document)
-            .off('click', this.nodes.selector, this._show.bind(this));
+    this.enable = function() {
+        this.enabled = true;
 
         return this;
     };
@@ -89,12 +90,10 @@ Titon.Modal = function(nodes, options) {
      * @returns {Titon.Modal}
      */
     this.hide = function() {
-        if (this.element.is(':shown')) {
-            this.element.conceal();
+        this.element.conceal();
 
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
+        if (this.options.blackout) {
+            this.blackout.hide();
         }
 
         return this;
@@ -119,7 +118,7 @@ Titon.Modal = function(nodes, options) {
             options.ajax = false;
 
         } else if (node) {
-            content = Titon.getValue.apply(this, [node, options.getContent]) || node.get('href');
+            content = Titon.readValue.apply(this, [node, options.getContent]) || node.get('href');
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;
@@ -179,18 +178,6 @@ Titon.Modal = function(nodes, options) {
     };
 
     /**
-     * Event handler for hide().
-     *
-     * @private
-     * @param {Event} e
-     */
-    this._hide = function(e) {
-        e.preventDefault();
-
-        this.hide();
-    };
-
-    /**
      * Position the modal in the center of the screen.
      *
      * @private
@@ -216,14 +203,30 @@ Titon.Modal = function(nodes, options) {
     };
 
     /**
+     * Event handler for hide().
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__hide = function(e) {
+        e.preventDefault();
+
+        this.hide();
+    };
+
+    /**
      * Event handler for show().
      *
      * @private
      * @param {Event} e
      */
-    this._show = function(e) {
+    this.__show = function(e) {
         e.preventDefault();
         e.stopPropagation();
+
+        if (!this.enabled) {
+            return;
+        }
 
         this.show(e.target);
     };
@@ -234,7 +237,7 @@ Titon.Modal = function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this._submit = function(e) {
+    this.__submit = function(e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -259,9 +262,7 @@ Titon.Modal = function(nodes, options) {
     };
 
     // Initialize the class only if elements exists
-    if (this.nodes.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 /**
