@@ -29,9 +29,7 @@ Titon.Tooltip = function(nodes, options) {
         this.elementBody = this.element.find(this.options.contentElement);
 
         // Add position class
-        this.element.addClass(this.options.position.replace(/[A-Z]/g, function(match){
-			return ('-' + match.charAt(0).toLowerCase());
-		}));
+        this.element.addClass(this.options.position.hyphenate());
 
         // Set events
         this.disable().enable();
@@ -117,90 +115,37 @@ Titon.Tooltip = function(nodes, options) {
                 });
             }
         } else {
+            if (content.substr(0, 1) === '#') {
+                content = $(content).html();
+            }
+
             this._position(content, title);
         }
 
         return this;
     };
 
-    this._calculate = function(relativeTo, position, offset) {
-        var relHeight = relativeTo ? relativeTo.outerHeight() : 0,
-            relWidth = relativeTo ? relativeTo.outerWidth() : 0,
-            eHeight = this.element.outerHeight(true),
-            eWidth = this.element.outerWidth(true);
-
-        offset = offset || relativeTo.offset();
-        position = position.toLowerCase();
-
-        offset.top += this.options.yOffset;
-        offset.left += this.options.xOffset;
-
-        if (position.indexOf('top') >= 0) {
-            offset.top -= eHeight;
-        }
-
-        if (position.indexOf('bot') >= 0) {
-            offset.top += relHeight;
-        }
-
-        if (position.indexOf('left') >= 0) {
-            offset.left -= eWidth;
-        }
-
-        if (position.indexOf('right') >= 0) {
-            offset.left += relWidth;
-        }
-
-        switch (position) {
-            case 'topcenter':
-            case 'bottomcenter':
-                offset.left -= ((eWidth / 2) - (relWidth / 2));
-            break;
-            case 'centerleft':
-            case 'centerright':
-                offset.top -= ((eHeight / 2) - (relHeight / 2));
-            break;
-        }
-
-        return offset;
-    };
-
     this._follow = function(e) {
         e.stopPropagation();
 
-        var position = this.options.position.toLowerCase(),
-            coordinates = this._calculate(null, position, {
-                left: e.pageX,
-                top: e.pageY
-            });
+        var options = this.options;
 
-        if (position.indexOf('left') >= 0) {
-            coordinates.left += 35;
-        } else if (position.indexOf('right') >= 0) {
-            coordinates.left += -5;
-        }
-
-        if (position.indexOf('bottom') >= 0) {
-
-        } else if (position.indexOf('top') >= 0) {
-            coordinates.top += 35;
-        } else if (position.indexOf('center') >= 0) {
-            coordinates.top += 15;
-        }
-
-        console.log(coordinates, e);
-
-        this.element.css(coordinates).reveal();
+        this.element.positionTo(options.position, e, {
+            left: options.xOffset,
+            top: options.yOffset
+        }, true).reveal();
     };
 
     this._position = function(content, title) {
+        var options = this.options;
+
         // AJAX is currently loading
         if (content === true) {
             return;
         }
 
         // Set title
-        if (title && this.options.showTitle) {
+        if (title && options.showTitle) {
             this.elementHead.html(title).show();
         } else {
             this.elementHead.hide();
@@ -214,7 +159,7 @@ Titon.Tooltip = function(nodes, options) {
         }
 
         // Follow the mouse
-        if (this.options.follow) {
+        if (options.follow) {
             var follow = this._follow.bind(this);
 
             this.node
@@ -223,11 +168,14 @@ Titon.Tooltip = function(nodes, options) {
 
         // Position accordingly
         } else {
-            this.element.css(this._calculate(this.node, this.options.position));
+            this.element.positionTo(options.position, this.node, {
+                left: options.xOffset,
+                top: options.yOffset
+            });
 
             window.setTimeout(function() {
                 this.element.reveal();
-            }.bind(this), this.options.delay || 0);
+            }.bind(this), options.delay || 0);
         }
     };
 
