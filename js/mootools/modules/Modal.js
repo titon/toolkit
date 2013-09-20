@@ -213,7 +213,7 @@ Titon.Modal = new Class({
                 this._position(response);
             }.bind(this),
             onFailure: function() {
-                this._position(this.errorTemplate());
+                this._position(this._errorTemplate());
             }.bind(this)
         }).send();
     }

@@ -23,19 +23,7 @@ Titon.Tabs = new Class({
     previousIndex: 0,
     currentIndex: 0,
 
-    /**
-     * Default options.
-     *
-     *    ajax              - (bool) Will load the href as an ajax call when applicable
-     *    collapsible       - (bool) Hide the section if the tab is clicked again
-     *    defaultIndex      - (int) Index of the tab/section to display by default
-     *    persistState      - (bool) Will persist the last tab clicked between page loads
-     *    preventDefault    - (bool) Prevent the default action from triggering for tabs
-     *    cookie            - (string) The key used in the cookie name
-     *    cookieDuration    - (int) The length the cookie will last (in days)
-     *    navElement        - (string) The CSS query to that contains the list buttons
-     *    sectionsElement   - (string) The CSS query to grab the section elements
-     */
+    /** Default options */
     options: {
         ajax: true,
         collapsible: false,
@@ -78,7 +66,22 @@ Titon.Tabs = new Class({
         this.sections.conceal();
 
         // Set events
-        this.disable().enable();
+        this.bindEvents();
+        this.fireEvent('init');
+
+        // Trigger default tab to display
+        var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
+
+        this.jump(index);
+    },
+
+    /**
+     * Add events for tab click events.
+     *
+     * @returns {Titon.Tabs}
+     */
+    bindEvents: function() {
+        this.tabs.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
 
         if (this.options.mode === 'mouseover' && this.options.preventDefault) {
             this.tabs.addEvent('click', function(e) {
@@ -86,12 +89,7 @@ Titon.Tabs = new Class({
             });
         }
 
-        this.fireEvent('init');
-
-        // Trigger default tab to display
-        var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
-
-        this.jump(index);
+        return this;
     },
 
     /**
@@ -203,36 +201,17 @@ Titon.Tabs = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    _show: function(e) {
+    __show: function(e) {
         if (this.options.preventDefault) {
             e.preventDefault();
         }
 
+        if (!this.enabled) {
+            return;
+        }
+
         this.show(e.target);
-    },
-
-    /**
-     * Toggle activation events on and off.
-     *
-     * @private
-     * @param {bool} on
-     * @returns {Titon.Tabs}
-     */
-    _toggleEvents: function(on) {
-        if (!this.element) {
-            return this;
-        }
-
-        var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
-
-        if (on) {
-            this.tabs.addEvent(event, this._show);
-        } else {
-            this.tabs.removeEvent(event, this._show);
-        }
-
-        return this;
-    }.protect()
+    }
 
 });
 

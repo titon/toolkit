@@ -12,11 +12,8 @@ Titon.Tabs = function(element, options) {
     /** Custom options */
     this.options = Titon.setOptions($.fn.tabs.options, options);
 
-    /** Primary DOM wrapper */
+    /** Tabs wrapper */
     this.element = Titon.setElement(element, this.options);
-
-    /** Cached requests */
-    this.cache = {};
 
     /** Navigation container */
     this.nav = null;
@@ -31,15 +28,19 @@ Titon.Tabs = function(element, options) {
     this.previousIndex = 0;
     this.currentIndex = 0;
 
+    /** Cached requests */
+    this.cache = {};
+
+    /** Is the component enabled? */
+    this.enabled = true;
+
     /**
      * Fetch elements and bind events.
      */
     this.initialize = function() {
         var options = this.options;
 
-        if (!options.cookie) {
-            this.options.cookie = options.cookie = this.element.attr('id');
-        }
+        this.options.cookie = options.cookie = (options.cookie || this.element.attr('id')).hyphenate();
 
         // Get elements
         this.nav = this.element.find(options.navElement);
@@ -53,7 +54,7 @@ Titon.Tabs = function(element, options) {
         this.sections.conceal();
 
         // Set events
-        this.disable().enable();
+        this.tabs.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
 
         if (this.options.mode === 'mouseover' && this.options.preventDefault) {
             this.tabs.on('click', function(e) {
@@ -62,29 +63,38 @@ Titon.Tabs = function(element, options) {
         }
 
         // Trigger default tab to display
-        var index = options.defaultIndex; //parseInt(Cookie.read('titon.tabs.' + options.cookie) || options.defaultIndex);
+        var index = options.defaultIndex;
+
+        if (options.persistState) {
+            var cookie = 'titon.tabs.' + options.cookie,
+                value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, "\\$&") + '=([^;]*)');
+
+            if (value) {
+                index = decodeURIComponent(value[1]);
+            }
+        }
 
         this.jump(index);
     };
 
     /**
-     * Enable events.
+     * Disable component.
      *
      * @returns {Titon.Tabs}
      */
-    this.enable = function() {
-        this.tabs.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
+    this.disable = function() {
+        this.enabled = false;
 
         return this;
     };
 
     /**
-     * Disable events.
+     * Enable component.
      *
      * @returns {Titon.Tabs}
      */
-    this.disable = function() {
-        this.tabs.off((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
+    this.enable = function() {
+        this.enabled = true;
 
         return this;
     };
@@ -174,10 +184,15 @@ Titon.Tabs = function(element, options) {
 
         // Persist the state using a cookie
         if (this.options.persistState) {
-            // TODO
-            //Cookie.write('titon.tabs.' + this.options.cookie, index, {
-            //    duration: this.options.cookieDuration
-            //});
+            var cookie = 'titon.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
+            var date = new Date();
+                date.setTime(date.getTime() + this.options.cookieDuration * 24 * 60 * 60 * 1000);
+
+            cookie += '; expires=' + date.toUTCString();
+            cookie += '; path=/';
+            cookie += '; secure';
+
+            document.cookie = cookie;
         }
 
         // Track
@@ -196,9 +211,13 @@ Titon.Tabs = function(element, options) {
      * @private
      * @param {Event} e
      */
-    this._show = function(e) {
+    this.__show = function(e) {
         if (this.options.preventDefault) {
             e.preventDefault();
+        }
+
+        if (!this.enabled) {
+            return;
         }
 
         this.show(e.target);
