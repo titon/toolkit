@@ -15,7 +15,7 @@ Titon.Showcase = function(nodes, options) {
     /** List of nodes to activate showcase */
     this.nodes = $(nodes);
 
-    /** Primary DOM wrapper */
+    /** Showcase element */
     this.element = Titon.createElement(this.options);
 
     /** List elements */
@@ -36,6 +36,9 @@ Titon.Showcase = function(nodes, options) {
     /** Blackout instance if options.blackout is true */
     this.blackout = null;
 
+    /**
+     * Initialize the showcase, its elements and events.
+     */
     this.initialize = function() {
         var options = this.options;
 
@@ -46,17 +49,18 @@ Titon.Showcase = function(nodes, options) {
         this.nextButton = this.element.find(options.nextElement);
 
         // Blackout
-        if (this.options.blackout) {
+        if (options.blackout) {
             this.blackout = new Titon.Blackout();
             this.blackout.element.on('click', this.hide.bind(this));
         }
 
         // Set events
-        this.disable().enable();
+        $(options.context || document)
+            .on('click', this.nodes.selector, this.__show.bind(this));
 
         $(window).on('keydown', function(e) {
             if (this.element.is(':shown')) {
-                switch (e.key) {
+                switch (e.key.toLowerCase()) {
                     case 'esc':   this.hide(); break;
                     case 'up':    this.jump(0); break;
                     case 'down':  this.jump(-1); break;
@@ -67,36 +71,39 @@ Titon.Showcase = function(nodes, options) {
         }.bind(this));
 
         this.element
-            .on('click', this.options.closeEvent, this.hide.bind(this))
-            .on('click', this.options.nextEvent, this.next.bind(this))
-            .on('click', this.options.prevEvent, this.prev.bind(this))
-            .on('click', this.options.jumpEvent, this._jump.bind(this));
+            .on('click', options.closeEvent, this.hide.bind(this))
+            .on('click', options.nextEvent, this.next.bind(this))
+            .on('click', options.prevEvent, this.prev.bind(this))
+            .on('click', options.jumpEvent, this.__jump.bind(this));
     };
 
     /**
-     * Enable events.
+     * Disable component.
      *
-     * @returns {Titon.Flyout}
-     */
-    this.enable = function() {
-        $(this.options.context || document)
-            .on('click', this.nodes.selector, this._show.bind(this));
-
-        return this;
-    };
-
-    /**
-     * Disable events.
-     *
-     * @returns {Titon.Flyout}
+     * @returns {Titon.Showcase}
      */
     this.disable = function() {
-        $(this.options.context || document)
-            .off('click', this.nodes.selector, this._show.bind(this));
+        this.enabled = false;
 
         return this;
     };
 
+    /**
+     * Enable component.
+     *
+     * @returns {Titon.Showcase}
+     */
+    this.enable = function() {
+        this.enabled = true;
+
+        return this;
+    };
+
+    /**
+     * Hide the showcase and reset inner elements.
+     *
+     * @returns {Titon.Showcase}
+     */
     this.hide = function() {
         if (this.element.is(':shown')) {
             this.element.conceal();
@@ -114,6 +121,14 @@ Titon.Showcase = function(nodes, options) {
         return this;
     };
 
+    /**
+     * Jump to a specific item indicated by the index number.
+     * If the index is too large, jump to the beginning.
+     * If the index is too small, jump to the end.
+     *
+     * @param {Number} index
+     * @returns {Titon.Showcase}
+     */
     this.jump = function(index) {
         if (index >= this.data.length) {
             index = 0;
@@ -194,25 +209,43 @@ Titon.Showcase = function(nodes, options) {
         return this;
     };
 
+    /**
+     * Go to the next item.
+     *
+     * @returns {Titon.Showcase}
+     */
     this.next = function() {
         this.jump(this.currentIndex + 1);
 
         return this;
     };
 
+    /**
+     * Go to the previous item.
+     *
+     * @returns {Titon.Showcase}
+     */
     this.prev = function() {
         this.jump(this.currentIndex - 1);
 
         return this;
     };
 
+    /**
+     * Reveal the showcase after scraping for items data.
+     * Will scrape data from the activating node.
+     * If a category exists, scrape data from multiple nodes.
+     *
+     * @param {Element} node
+     * @returns {Titon.Showcase}
+     */
     this.show = function(node) {
         this.node = node = $(node);
         this.currentIndex = this.previousIndex = 0;
         this.element.addClass('is-loading');
 
         var options = this.options,
-            read = Titon.getValue.bind(this),
+            read = Titon.readValue.bind(this),
             category = read(node, options.getCategory),
             items = [],
             index = 0;
@@ -251,6 +284,13 @@ Titon.Showcase = function(nodes, options) {
         return this;
     };
 
+    /**
+     * Build the list of items and tabs based on the generated data.
+     * Determine which elements to show and bind based on the data.
+     *
+     * @private
+     * @param {Array} items
+     */
     this._buildItems = function(items) {
         this.data = items;
         this.items.empty();
@@ -274,25 +314,11 @@ Titon.Showcase = function(nodes, options) {
         }
     };
 
-    this._jump = function(e) {
-        e.stop();
-
-        this.jump($(e.target).data('index') || 0);
-    };
-
     /**
-     * Event handler for show().
+     * Position the element in the middle of the screen.
      *
      * @private
-     * @param {Event} e
      */
-    this._show = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        this.show(e.currentTarget);
-    };
-
     this._position = function() {
         if (!this.element.is(':shown')) {
             if (this.options.blackout) {
@@ -303,10 +329,34 @@ Titon.Showcase = function(nodes, options) {
         }
     };
 
+    /**
+     * Event handler for jumping between items.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    this.__jump = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        this.jump($(e.target).data('index') || 0);
+    };
+
+    /**
+     * Event handler for show().
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__show = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        this.show(e.currentTarget);
+    };
+
     // Initialize the class only if the element exists
-    if (this.nodes.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 /**
@@ -333,6 +383,7 @@ $.fn.showcase = function(options) {
 };
 
 $.fn.showcase.options = {
+    className: '',
     blackout: true,
     transition: 300,
     getCategory: 'data-showcase',

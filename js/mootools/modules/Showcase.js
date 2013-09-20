@@ -9,7 +9,7 @@
 
 Titon.Showcase = new Class({
     Extends: Titon.Component,
-    Binds: ['next', 'prev', '_jump'],
+    Binds: ['next', 'prev', '__jump'],
 
     /** List elements */
     items: null,
@@ -29,23 +29,7 @@ Titon.Showcase = new Class({
     /** Blackout instance if options.blackout is true */
     blackout: null,
 
-    /**
-     * Default options.
-     *
-     *    blackout        - (bool) Will show a blackout when the showcase is opened, and hide it when it is closed
-     *    transition      - (int) The length of CSS transition animations
-     *    getCategory     - (string) The attribute to grab the category from
-     *    getImage        - (string) The attribute to grab the image path from
-     *    getTitle        - (string) The attribute to grab the title caption from
-     *    itemsElement    - (string) CSS query for the items list element within the template
-     *    tabsElement     - (string) CSS query for the tabs list element within the template
-     *    prevElement     - (string) CSS query for the prev button element within the template
-     *    nextElement     - (string) CSS query for the next button element within the template
-     *    closeEvent      - (string) CSS query to bind hide events to
-     *    jumpEvent       - (string) CSS query to bind jump events to
-     *    prevEvent       - (string) CSS query to bind prev events to
-     *    nextEvent       - (string) CSS query to bind next events to
-     */
+    /** Default options */
     options: {
         delegate: '.js-showcase',
         blackout: true,
@@ -99,11 +83,21 @@ Titon.Showcase = new Class({
         // Blackout
         if (this.options.blackout) {
             this.blackout = new Titon.Blackout();
-            this.blackout.element.addEvent('click', this._hide);
+            this.blackout.element.addEvent('click', this.__hide);
         }
 
         // Set events
-        this.disable().enable();
+        this.bindEvents();
+        this.fireEvent('init');
+    },
+
+    /**
+     * Set navigation events.
+     *
+     * @returns {Titon.Showcase}
+     */
+    bindEvents: function() {
+        this.parent();
 
         window.addEvent('keydown', function(e) {
             if (this.isVisible()) {
@@ -118,16 +112,16 @@ Titon.Showcase = new Class({
         }.bind(this));
 
         this.element
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this._hide)
+            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
-            .addEvent('click:relay(' + this.options.jumpEvent + ')', this._jump);
+            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump);
 
-        this.fireEvent('init');
+        return this;
     },
 
     /**
-     * Hide the showcase and reset relevant values.
+     * Hide the showcase and reset inner elements.
      *
      * @returns {Titon.Showcase}
      */
@@ -273,7 +267,7 @@ Titon.Showcase = new Class({
         this.element.addClass('is-loading');
 
         var options = this.options,
-            read = this.getValue,
+            read = this.readValue,
             category = read(node, options.getCategory),
             items = [],
             index = 0;
@@ -345,18 +339,6 @@ Titon.Showcase = new Class({
     }.protect(),
 
     /**
-     * Event handler for jumping between items.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    _jump: function(e) {
-        e.stop();
-
-        this.jump(e.target.get('data-index') || 0);
-    },
-
-    /**
      * Position the element in the middle of the screen.
      *
      * @private
@@ -371,7 +353,19 @@ Titon.Showcase = new Class({
         }
 
         this.fireEvent('show');
-    }.protect()
+    }.protect(),
+
+    /**
+     * Event handler for jumping between items.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    __jump: function(e) {
+        e.stop();
+
+        this.jump(e.target.get('data-index') || 0);
+    }
 
 });
 
