@@ -80,6 +80,12 @@ Titon.Tabs = new Class({
         // Set events
         this.disable().enable();
 
+        if (this.options.mode === 'mouseover' && this.options.preventDefault) {
+            this.tabs.addEvent('click', function(e) {
+                e.preventDefault();
+            });
+        }
+
         this.fireEvent('init');
 
         // Trigger default tab to display
@@ -223,12 +229,6 @@ Titon.Tabs = new Class({
             this.tabs.addEvent(event, this._show);
         } else {
             this.tabs.removeEvent(event, this._show);
-        }
-
-        if (event === 'mouseover' && this.options.preventDefault) {
-            this.tabs.addEvent('click', function(e) {
-                e.preventDefault();
-            });
         }
 
         return this;

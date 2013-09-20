@@ -138,17 +138,33 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $('tabs-base').tabs();
-        $('tabs-base2').tabs({ collapsible: true });
-        $('tabs-effects').tabs({
-            mode: 'hover',
-            persistState: true,
-            defaultIndex: 1
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('tabs-base').tabs();
+            $('tabs-base2').tabs({ collapsible: true });
+            $('tabs-effects').tabs({
+                mode: 'hover',
+                persistState: true,
+                defaultIndex: 1
+            });
+            $('tabs-left').tabs();
+            $('tabs-left2').tabs();
+            $('tabs-right').tabs();
+            $('tabs-right2').tabs();
         });
-        $('tabs-left').tabs();
-        $('tabs-left2').tabs();
-        $('tabs-right').tabs();
-        $('tabs-right2').tabs();
-    });
+    <?php } else { ?>
+        $(function() {
+            $('#tabs-base').tabs();
+            $('#tabs-base2').tabs({ collapsible: true });
+            $('#tabs-effects').tabs({
+                mode: 'hover',
+                persistState: true,
+                defaultIndex: 1
+            });
+            $('#tabs-left').tabs();
+            $('#tabs-left2').tabs();
+            $('#tabs-right').tabs();
+            $('#tabs-right2').tabs();
+        });
+    <?php } ?>
 </script>

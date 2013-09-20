@@ -57,6 +57,18 @@ window.Titon = {
     },
 
     /**
+     * Return a DOM element for error messages.
+     *
+     * @param {String} component
+     * @returns {jQuery}
+     */
+    errorTemplate: function(component) {
+        return $('<div/>')
+            .addClass(component + '-error')
+            .text(Titon.messages.errorMessage);
+    },
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -76,6 +88,18 @@ window.Titon = {
         }
 
         return element.attr(query);
+    },
+
+    /**
+     * Return a DOM element for loading messages.
+     *
+     * @param {String} component
+     * @returns {Element}
+     */
+    loadingTemplate: function(component) {
+        return $('<div/>')
+            .addClass(component + '-loading')
+            .text(Titon.messages.loadingMessage);
     },
 
     /**
