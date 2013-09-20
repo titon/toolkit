@@ -119,6 +119,33 @@ Titon.Modal = new Class({
     },
 
     /**
+     * Position the modal in the center of the screen.
+     *
+     * @param {String|Element} content
+     * @returns {Titon.Modal}
+     */
+    position: function(content) {
+        // AJAX is currently loading
+        if (content === true) {
+            return this;
+        }
+
+        this.elementBody.set('html', content);
+
+        if (!this.isVisible()) {
+            if (this.options.blackout) {
+                this.blackout.show();
+            }
+
+            this.element.reveal();
+        }
+
+        this.fireEvent('show');
+
+        return this;
+    },
+
+    /**
      * Show the modal with the specific content.
      * If a node is passed, grab the modal AJAX URL or target element.
      * If content is passed, display it immediately.
@@ -150,40 +177,15 @@ Titon.Modal = new Class({
 
         if (options.ajax) {
             if (this.cache[content]) {
-                this._position(this.cache[content]);
+                this.position(this.cache[content]);
             } else {
                 this.requestData(content);
             }
         } else {
-            this._position(content);
+            this.position(content);
         }
 
         return this;
-    },
-
-    /**
-     * Position the modal in the center of the screen.
-     *
-     * @private
-     * @param {String|Element} content
-     */
-    _position: function(content) {
-        // AJAX is currently loading
-        if (content === true) {
-            return;
-        }
-
-        this.elementBody.set('html', content);
-
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
-
-            this.element.reveal();
-        }
-
-        this.fireEvent('show');
     },
 
     /**
@@ -210,10 +212,10 @@ Titon.Modal = new Class({
             data: form.toQueryString(),
             evalScripts: true,
             onSuccess: function(response) {
-                this._position(response);
+                this.position(response);
             }.bind(this),
             onFailure: function() {
-                this._position(this._errorTemplate());
+                this.position(this._errorTemplate());
             }.bind(this)
         }).send();
     }

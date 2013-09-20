@@ -221,6 +221,23 @@ Titon.Showcase = function(nodes, options) {
     };
 
     /**
+     * Position the element in the middle of the screen.
+     *
+     * @returns {Titon.Showcase}
+     */
+    this.position = function() {
+        if (!this.element.is(':shown')) {
+            if (this.options.blackout) {
+                this.blackout.show();
+            }
+
+            this.element.reveal();
+        }
+
+        return this;
+    };
+
+    /**
      * Go to the previous item.
      *
      * @returns {Titon.Showcase}
@@ -278,7 +295,7 @@ Titon.Showcase = function(nodes, options) {
         }
 
         this._buildItems(items);
-        this._position();
+        this.position();
         this.jump(index);
 
         return this;
@@ -311,21 +328,6 @@ Titon.Showcase = function(nodes, options) {
 
         if (items.length <= 1) {
             this.element.addClass('is-single');
-        }
-    };
-
-    /**
-     * Position the element in the middle of the screen.
-     *
-     * @private
-     */
-    this._position = function() {
-        if (!this.element.is(':shown')) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
-
-            this.element.reveal();
         }
     };
 

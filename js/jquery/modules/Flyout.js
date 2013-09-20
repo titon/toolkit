@@ -168,6 +168,39 @@ Titon.Flyout = function(nodes, url, options) {
     };
 
     /**
+     * Position the menu below the target node.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.position = function() {
+        var target = this.current,
+            options = this.options;
+
+        if (!this.menus[target]) {
+            return this;
+        }
+
+        var menu = this.menus[target],
+            height = menu.outerHeight(),
+            coords = this.node.offset(),
+            x = coords.left + options.xOffset,
+            y = coords.top + options.yOffset + this.node.outerHeight(),
+            windowScroll = $(window).height();
+
+        // If menu goes below half page, position it above
+        if (y > (windowScroll / 2)) {
+            y = coords.top - options.yOffset - height;
+        }
+
+        menu.css({
+            left: x,
+            top: y
+        }).reveal();
+
+        return this;
+    };
+
+    /**
      * Show the menu below the node.
      *
      * @param {jQuery} node
@@ -194,7 +227,7 @@ Titon.Flyout = function(nodes, url, options) {
 
         // Display immediately if click
         if (this.options.mode === 'click') {
-            this._position();
+            this.position();
         }
 
         return this;
@@ -214,7 +247,7 @@ Titon.Flyout = function(nodes, url, options) {
         var func;
 
         if (key === 'show') {
-            func = this._position.bind(this);
+            func = this.position.bind(this);
         } else {
             func = this.hide.bind(this);
         }
@@ -378,40 +411,6 @@ Titon.Flyout = function(nodes, url, options) {
         node = $(node || this.node);
 
         return Titon.readValue.apply(this, [node, this.options.getUrl]) || node.get('href');
-    };
-
-    /**
-     * Position the menu below the target node.
-     *
-     * @private
-     * @returns {Titon.Flyout}
-     */
-    this._position = function() {
-        var target = this.current,
-            options = this.options;
-
-        if (!this.menus[target]) {
-            return;
-        }
-
-        var menu = this.menus[target],
-            height = menu.outerHeight(),
-            coords = this.node.offset(),
-            x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + this.node.outerHeight(),
-            windowScroll = $(window).height();
-
-        // If menu goes below half page, position it above
-        if (y > (windowScroll / 2)) {
-            y = coords.top - options.yOffset - height;
-        }
-
-        menu.css({
-            left: x,
-            top: y
-        }).reveal();
-
-        return this;
     };
 
     /**

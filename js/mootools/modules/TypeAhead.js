@@ -270,6 +270,28 @@ Titon.TypeAhead = new Class({
     },
 
     /**
+     * Position the menu below the input.
+     *
+     * @returns {Titon.TypeAhead}
+     */
+    position: function() {
+        if (!this.items.length) {
+            return this.hide();
+        }
+
+        var iPos = this.input.getCoordinates();
+
+        this.element.setPosition({
+            x: iPos.left,
+            y: (iPos.top + iPos.height)
+        });
+
+        this.element.reveal();
+
+        return this;
+    },
+
+    /**
      * Process the list of items be generating new elements and positioning below the input.
      *
      * @param {Array} items
@@ -371,7 +393,7 @@ Titon.TypeAhead = new Class({
         this._shadow();
 
         // Position the list
-        this._position();
+        this.position();
 
         this.fireEvent('show');
 
@@ -436,27 +458,6 @@ Titon.TypeAhead = new Class({
             return a.title.localeCompare(b.title);
         });
     },
-
-    /**
-     * Position the menu below the input.
-     *
-     * @private
-     */
-    _position: function() {
-        if (!this.items.length) {
-            this.hide();
-            return;
-        }
-
-        var iPos = this.input.getCoordinates();
-
-        this.element.setPosition({
-            x: iPos.left,
-            y: (iPos.top + iPos.height)
-        });
-
-        this.element.reveal();
-    }.protect(),
 
     /**
      * Monitor the current input term to determine the shadow text.

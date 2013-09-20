@@ -79,6 +79,59 @@ Titon.Tooltip = function(nodes, options) {
     };
 
     /**
+     * Positions the tooltip relative to the current node or the mouse cursor.
+     * Additionally will apply the title/content and hide/show if necessary.
+     *
+     * @param {String|jQuery} [content]
+     * @param {String|jQuery} [title]
+     * @returns {Titon.Tooltip}
+     */
+    this.position = function(content, title) {
+        var options = this.options;
+
+        // AJAX is currently loading
+        if (content === true) {
+            return this;
+        }
+
+        // Set title
+        if (title && options.showTitle) {
+            this.elementHead.html(title).show();
+        } else {
+            this.elementHead.hide();
+        }
+
+        // Set body
+        if (content) {
+            this.elementBody.html(content).show();
+        } else {
+            this.elementBody.hide();
+        }
+
+        // Follow the mouse
+        if (options.follow) {
+            var follow = this.__follow.bind(this);
+
+            this.node
+                .off('mousemove', follow)
+                .on('mousemove', follow);
+
+            // Position accordingly
+        } else {
+            this.element.positionTo(options.position, this.node, {
+                left: options.xOffset,
+                top: options.yOffset
+            });
+
+            window.setTimeout(function() {
+                this.element.reveal();
+            }.bind(this), options.delay || 0);
+        }
+
+        return this;
+    };
+
+    /**
      * Show the tooltip and determine whether to grab the content from an AJAX call,
      * a DOM node, or plain text. The content and title can also be passed as arguments.
      *
@@ -109,7 +162,7 @@ Titon.Tooltip = function(nodes, options) {
 
         if (this.options.ajax) {
             if (this.cache[content]) {
-                this._position(this.cache[content], title);
+                this.position(this.cache[content], title);
             } else {
                 $.ajax({
                     url: content,
@@ -122,7 +175,7 @@ Titon.Tooltip = function(nodes, options) {
                             this.element.removeClass('is-loading');
                         }
 
-                        this._position(response);
+                        this.position(response);
                     }.bind(this),
 
                     beforeSend: function() {
@@ -131,7 +184,7 @@ Titon.Tooltip = function(nodes, options) {
                         if (this.options.showLoading) {
                             this.element.addClass('is-loading');
 
-                            this._position(Titon.loadingTemplate('tooltip'));
+                            this.position(Titon.loadingTemplate('tooltip'));
                         }
                     }.bind(this),
 
@@ -142,7 +195,7 @@ Titon.Tooltip = function(nodes, options) {
                             .removeClass('is-loading')
                             .addClass('has-failed');
 
-                        this._position(Titon.errorTemplate('tooltip'));
+                        this.position(Titon.errorTemplate('tooltip'));
                     }.bind(this)
                 });
             }
@@ -151,61 +204,10 @@ Titon.Tooltip = function(nodes, options) {
                 content = $(content).html();
             }
 
-            this._position(content, title);
+            this.position(content, title);
         }
 
         return this;
-    };
-
-    /**
-     * Positions the tooltip relative to the current node or the mouse cursor.
-     * Additionally will apply the title/content and hide/show if necessary.
-     *
-     * @private
-     * @param {String|jQuery} [content]
-     * @param {String|jQuery} [title]
-     */
-    this._position = function(content, title) {
-        var options = this.options;
-
-        // AJAX is currently loading
-        if (content === true) {
-            return;
-        }
-
-        // Set title
-        if (title && options.showTitle) {
-            this.elementHead.html(title).show();
-        } else {
-            this.elementHead.hide();
-        }
-
-        // Set body
-        if (content) {
-            this.elementBody.html(content).show();
-        } else {
-            this.elementBody.hide();
-        }
-
-        // Follow the mouse
-        if (options.follow) {
-            var follow = this.__follow.bind(this);
-
-            this.node
-                .off('mousemove', follow)
-                .on('mousemove', follow);
-
-        // Position accordingly
-        } else {
-            this.element.positionTo(options.position, this.node, {
-                left: options.xOffset,
-                top: options.yOffset
-            });
-
-            window.setTimeout(function() {
-                this.element.reveal();
-            }.bind(this), options.delay || 0);
-        }
     };
 
     /**

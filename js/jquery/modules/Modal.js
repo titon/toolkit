@@ -100,6 +100,31 @@ Titon.Modal = function(nodes, options) {
     };
 
     /**
+     * Position the modal in the center of the screen.
+     *
+     * @param {String|jQuery} content
+     * @returns {Titon.Modal}
+     */
+    this.position = function(content) {
+        // AJAX is currently loading
+        if (content === true) {
+            return this;
+        }
+
+        this.elementBody.html(content);
+
+        if (!this.element.is(':shown')) {
+            if (this.options.blackout) {
+                this.blackout.show();
+            }
+
+            this.element.reveal();
+        }
+
+        return this;
+    };
+
+    /**
      * Show the modal with the specific content.
      * If a node is passed, grab the modal AJAX URL or target element.
      * If content is passed, display it immediately.
@@ -133,7 +158,7 @@ Titon.Modal = function(nodes, options) {
 
         if (options.ajax) {
             if (this.cache[content]) {
-                this._position(this.cache[content]);
+                this.position(this.cache[content]);
             } else {
                 $.ajax({
                     url: content,
@@ -146,7 +171,7 @@ Titon.Modal = function(nodes, options) {
                             this.element.removeClass('is-loading');
                         }
 
-                        this._position(response);
+                        this.position(response);
                     }.bind(this),
 
                     beforeSend: function() {
@@ -155,7 +180,7 @@ Titon.Modal = function(nodes, options) {
                         if (this.options.showLoading) {
                             this.element.addClass('is-loading');
 
-                            this._position(Titon.loadingTemplate('modal'));
+                            this.position(Titon.loadingTemplate('modal'));
                         }
                     }.bind(this),
 
@@ -166,37 +191,12 @@ Titon.Modal = function(nodes, options) {
                             .removeClass('is-loading')
                             .addClass('has-failed');
 
-                        this._position(Titon.errorTemplate('modal'));
+                        this.position(Titon.errorTemplate('modal'));
                     }.bind(this)
                 });
             }
         } else {
-            this._position(content);
-        }
-
-        return this;
-    };
-
-    /**
-     * Position the modal in the center of the screen.
-     *
-     * @private
-     * @param {String|jQuery} content
-     */
-    this._position = function(content) {
-        // AJAX is currently loading
-        if (content === true) {
-            return this;
-        }
-
-        this.elementBody.html(content);
-
-        if (!this.element.is(':shown')) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
-
-            this.element.reveal();
+            this.position(content);
         }
 
         return this;
@@ -253,10 +253,10 @@ Titon.Modal = function(nodes, options) {
             type: (form.attr('method') || 'post').toUpperCase(),
             data: form.serialize(),
             success: function(response) {
-                this._position(response);
+                this.position(response);
             }.bind(this),
             error: function() {
-                this._position(Titon.errorTemplate('modal'));
+                this.position(Titon.errorTemplate('modal'));
             }.bind(this)
         });
     };

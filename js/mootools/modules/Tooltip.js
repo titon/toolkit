@@ -65,6 +65,62 @@ Titon.Tooltip = new Class({
     },
 
     /**
+     * Positions the tooltip relative to the current node or the mouse cursor.
+     * Additionally will apply the title/content and hide/show if necessary.
+     *
+     * @param {String|Element} [content]
+     * @param {String|Element} [title]
+     * @returns {Titon.Tooltip}
+     */
+    position: function(content, title) {
+        var options = this.options;
+
+        // AJAX is currently loading
+        if (content === true) {
+            return this;
+        }
+
+        // Set title
+        if (title && options.showTitle) {
+            this.elementHead.set('html', title).show();
+        } else {
+            this.elementHead.hide();
+        }
+
+        // Set body
+        if (content) {
+            this.elementBody.set('html', content).show();
+        } else {
+            this.elementBody.hide();
+        }
+
+        // Follow the mouse
+        if (options.follow) {
+            var event = 'mousemove:throttle(' + options.mouseThrottle + ')';
+
+            this.node
+                .removeEvent(event, this.__follow)
+                .addEvent(event, this.__follow);
+
+            this.fireEvent('show');
+
+            // Position accordingly
+        } else {
+            this.element.positionTo(options.position, this.node, {
+                left: options.xOffset,
+                top: options.yOffset
+            });
+
+            window.setTimeout(function() {
+                this.element.reveal();
+                this.fireEvent('show');
+            }.bind(this), options.delay || 0);
+        }
+
+        return this;
+    },
+
+    /**
      * Show the tooltip and determine whether to grab the content from an AJAX call,
      * a DOM node, or plain text. The content and title can also be passed as arguments.
      *
@@ -93,69 +149,15 @@ Titon.Tooltip = new Class({
 
         if (this.options.ajax) {
             if (this.cache[content]) {
-                this._position(this.cache[content], title);
+                this.position(this.cache[content], title);
             } else {
                 this.requestData(content);
             }
         } else {
-            this._position(content, title);
+            this.position(content, title);
         }
 
         return this;
-    },
-
-    /**
-     * Positions the tooltip relative to the current node or the mouse cursor.
-     * Additionally will apply the title/content and hide/show if necessary.
-     *
-     * @private
-     * @param {String|Element} [content]
-     * @param {String|Element} [title]
-     */
-    _position: function(content, title) {
-        var options = this.options;
-
-        // AJAX is currently loading
-        if (content === true) {
-            return;
-        }
-
-        // Set title
-        if (title && options.showTitle) {
-            this.elementHead.set('html', title).show();
-        } else {
-            this.elementHead.hide();
-        }
-
-        // Set body
-        if (content) {
-            this.elementBody.set('html', content).show();
-        } else {
-            this.elementBody.hide();
-        }
-
-        // Follow the mouse
-        if (options.follow) {
-            var event = 'mousemove:throttle(' + options.mouseThrottle + ')';
-
-            this.node
-                .removeEvent(event, this.__follow)
-                .addEvent(event, this.__follow);
-
-            this.fireEvent('show');
-
-        // Position accordingly
-        } else {
-            this.element.positionTo(options.position, this.node, {
-                left: options.xOffset,
-                top: options.yOffset
-            });
-
-            window.setTimeout(function() {
-                this.element.reveal();
-                this.fireEvent('show');
-            }.bind(this), options.delay || 0);
-        }
     },
 
     /**

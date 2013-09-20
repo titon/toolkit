@@ -243,6 +243,25 @@ Titon.Showcase = new Class({
     },
 
     /**
+     * Position the element in the middle of the screen.
+     *
+     * @returns {Titon.Showcase}
+     */
+    position: function() {
+        if (!this.isVisible()) {
+            if (this.options.blackout) {
+                this.blackout.show();
+            }
+
+            this.element.reveal();
+        }
+
+        this.fireEvent('show');
+
+        return this;
+    },
+
+    /**
      * Go to the previous item.
      *
      * @returns {Titon.Showcase}
@@ -302,7 +321,7 @@ Titon.Showcase = new Class({
         this.fireEvent('show');
 
         this._buildItems(items);
-        this._position();
+        this.position();
         this.jump(index);
 
         return this;
@@ -336,23 +355,6 @@ Titon.Showcase = new Class({
         if (items.length <= 1) {
             this.element.addClass('is-single');
         }
-    }.protect(),
-
-    /**
-     * Position the element in the middle of the screen.
-     *
-     * @private
-     */
-    _position: function() {
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
-
-            this.element.reveal();
-        }
-
-        this.fireEvent('show');
     }.protect(),
 
     /**

@@ -261,6 +261,26 @@ Titon.TypeAhead = function(input, options) {
     };
 
     /**
+     * Position the menu below the input.
+     *
+     * @returns {Titon.TypeAhead}
+     */
+    this.position = function() {
+        if (!this.items.length) {
+            return this.hide();
+        }
+
+        var iPos = this.input.offset();
+
+        this.element.css({
+            left: iPos.left,
+            top: (iPos.top + this.input.outerHeight())
+        }).reveal();
+
+        return this;
+    };
+
+    /**
      * Process the list of items be generating new elements and positioning below the input.
      *
      * @param {Array} items
@@ -364,7 +384,7 @@ Titon.TypeAhead = function(input, options) {
         this._shadow();
 
         // Position the list
-        this._position();
+        this.position();
 
         return this;
     };
@@ -422,25 +442,6 @@ Titon.TypeAhead = function(input, options) {
         return items.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
-    };
-
-    /**
-     * Position the menu below the input.
-     *
-     * @private
-     */
-    this._position = function() {
-        if (!this.items.length) {
-            this.hide();
-            return;
-        }
-
-        var iPos = this.input.offset();
-
-        this.element.css({
-            left: iPos.left,
-            top: (iPos.top + this.input.outerHeight())
-        }).reveal();
     };
 
     /**

@@ -66,7 +66,7 @@ Titon.Flyout = new Class({
 
         // Set timers
         this.addTimers({
-            show: this._position,
+            show: this.position,
             hide: this.__hide
         });
 
@@ -152,6 +152,41 @@ Titon.Flyout = new Class({
     },
 
     /**
+     * Position the menu below the target node.
+     *
+     * @returns {Titon.Flyout}
+     */
+    position: function() {
+        var target = this.current,
+            options = this.options;
+
+        if (!this.menus[target]) {
+            return this;
+        }
+
+        var menu = this.menus[target],
+            height = menu.getDimensions().height,
+            coords = this.node.getCoordinates(),
+            x = coords.left + options.xOffset,
+            y = coords.top + options.yOffset + coords.height,
+            windowScroll = window.getScrollSize();
+
+        // If menu goes below half page, position it above
+        if (y > (windowScroll.y / 2)) {
+            y = coords.top - options.yOffset - height;
+        }
+
+        menu.setPosition({
+            x: x,
+            y: y
+        }).reveal();
+
+        this.fireEvent('show');
+
+        return this;
+    },
+
+    /**
      * Show the menu below the node.
      *
      * @param {Element} node
@@ -178,7 +213,7 @@ Titon.Flyout = new Class({
 
         // Display immediately if click
         if (this.options.mode === 'click') {
-            this._position();
+            this.position();
         }
 
         return this;
@@ -335,42 +370,6 @@ Titon.Flyout = new Class({
 
         return this.readValue(node, this.options.getUrl) || node.get('href');
     }.protect(),
-
-    /**
-     * Position the menu below the target node.
-     *
-     * @private
-     * @returns {Titon.Flyout}
-     */
-    _position: function() {
-        var target = this.current,
-            options = this.options;
-
-        if (!this.menus[target]) {
-            return this;
-        }
-
-        var menu = this.menus[target],
-            height = menu.getDimensions().height,
-            coords = this.node.getCoordinates(),
-            x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + coords.height,
-            windowScroll = window.getScrollSize();
-
-        // If menu goes below half page, position it above
-        if (y > (windowScroll.y / 2)) {
-            y = coords.top - options.yOffset - height;
-        }
-
-        menu.setPosition({
-            x: x,
-            y: y
-        }).reveal();
-
-        this.fireEvent('show');
-
-        return this;
-    },
 
     /**
      * Event handler to hide the child menu after exiting parent li.

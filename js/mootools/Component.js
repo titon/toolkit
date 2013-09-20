@@ -9,7 +9,7 @@
 
 Titon.Component = new Class({
     Implements: [Events, Options],
-    Binds: ['__show', '__hide', '_position'],
+    Binds: ['__show', '__hide', 'position'],
 
     /** Cached data */
     cache: {},
@@ -212,6 +212,19 @@ Titon.Component = new Class({
     },
 
     /**
+     * Set the content and position the element.
+     *
+     * @private
+     * @param {String} content
+     * @returns {Titon.Component}
+     */
+    position: function(content) {
+        this.element.set('html', content);
+
+        return this;
+    },
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -255,7 +268,7 @@ Titon.Component = new Class({
                     this.element.removeClass('is-loading');
                 }
 
-                this._position(response);
+                this.position(response);
             }.bind(this),
 
             onRequest: function() {
@@ -265,7 +278,7 @@ Titon.Component = new Class({
                 if (this.options.showLoading) {
                     this.element.addClass('is-loading');
 
-                    this._position(this._loadingTemplate());
+                    this.position(this._loadingTemplate());
                 }
             }.bind(this),
 
@@ -276,7 +289,7 @@ Titon.Component = new Class({
                     .removeClass('is-loading')
                     .addClass('has-failed');
 
-                this._position(this._errorTemplate());
+                this.position(this._errorTemplate());
             }.bind(this)
         }).get();
 
@@ -370,19 +383,6 @@ Titon.Component = new Class({
             text: this.options.loadingMessage || Titon.messages.loadingMessage
         });
     }.protect(),
-
-    /**
-     * Set the content and position the element.
-     *
-     * @private
-     * @param {String} content
-     * @returns {Titon.Component}
-     */
-    _position: function(content) {
-        this.element.set('html', content);
-
-        return this;
-    },
 
     /**
      * Event handler to hide an element.
