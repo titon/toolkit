@@ -12,7 +12,7 @@ Titon.Matrix = function(element, options) {
     /** Custom options */
     this.options = Titon.setOptions($.fn.matrix.options, options);
 
-    /** Primary DOM wrapper */
+    /** Matrix wrapper */
     this.element = Titon.setElement(element, this.options);
 
     /** List of DOM elements for items to position in the grid */
@@ -44,7 +44,7 @@ Titon.Matrix = function(element, options) {
         this.items = this.element.find(this.options.selector);
 
         // Set events
-        $(window).on('resize', this._resize.bind(this));
+        $(window).on('resize', this.__resize.bind(this));
 
         if (this.options.defer) {
             this._deferRender();
@@ -54,14 +54,18 @@ Titon.Matrix = function(element, options) {
     };
 
     /**
-     * Add required classes to elements.
+     * Append an item to the bottom of the matrix.
      *
+     * @param {jQuery} item
      * @returns {Titon.Matrix}
      */
-    this.enable = function() {
-        this.items.addClass('matrix-item');
+    this.append = function(item) {
+        $(item)
+            .addClass('matrix-item')
+            .appendTo(this.element)
+            .css('opacity', 0);
 
-        return this;
+        return this.refresh();
     };
 
     /**
@@ -77,24 +81,20 @@ Titon.Matrix = function(element, options) {
     };
 
     /**
-     * Append an item to the bottom of the matrix.
+     * Add required classes to elements.
      *
-     * @param {Element} item
      * @returns {Titon.Matrix}
      */
-    this.append = function(item) {
-        $(item)
-            .addClass('matrix-item')
-            .appendTo(this.element)
-            .css('opacity', 0);
+    this.enable = function() {
+        this.items.addClass('matrix-item');
 
-        return this.refresh();
+        return this;
     };
 
     /**
      * Prepend an item to the top of the matrix.
      *
-     * @param {Element} item
+     * @param {jQuery} item
      * @returns {Titon.Matrix}
      */
     this.prepend = function(item) {
@@ -120,7 +120,7 @@ Titon.Matrix = function(element, options) {
     /**
      * Remove an item from the grid (and DOM) and re-render.
      *
-     * @param {Element} item
+     * @param {jQuery} item
      * @returns {Titon.Matrix}
      */
     this.remove = function(item) {
@@ -216,8 +216,8 @@ Titon.Matrix = function(element, options) {
         this.images.each(function(index, image) {
             var src = image.src;
 
-            image.onload = this._load.bind(this);
-            image.onerror = this._load.bind(this);
+            image.onload = this.__load.bind(this);
+            image.onerror = this.__load.bind(this);
             image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
             image.src = src;
         }.bind(this));
@@ -351,7 +351,7 @@ Titon.Matrix = function(element, options) {
      * @private
      * @param {Event} e
      */
-    this._load = function(e) {
+    this.__load = function(e) {
         if ((e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
@@ -365,8 +365,9 @@ Titon.Matrix = function(element, options) {
      * Event handler for browser resizing.
      *
      * @private
+     * @param {Event} e
      */
-    this._resize = function() {
+    this.__resize = function(e) {
         if (this.element.hasClass('matrix')) {
             this.refresh();
         }

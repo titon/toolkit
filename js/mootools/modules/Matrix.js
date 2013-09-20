@@ -9,7 +9,7 @@
 
 Titon.Matrix = new Class({
     Extends: Titon.Component,
-    Binds: ['_resize', '_load'],
+    Binds: ['__resize', '__load'],
 
     /** List of DOM elements for items to position in the grid */
     items: [],
@@ -32,16 +32,7 @@ Titon.Matrix = new Class({
     /** How many images have been loaded */
     imagesLoaded: 0,
 
-    /**
-     * Default options.
-     *
-     *    selector  - (string) The class name for items to position within the grid
-     *    width     - (int) The average width that each item should conform to
-     *    gutter    - (int) The spacing between each item in the grid
-     *    rtl       - (bool) Whether to render the items right to left
-     *    defer     - (bool) Defer rendering until all images within the matrix are loaded
-     *    onRender  - (function) Callback to trigger when the grid is rendered
-     */
+    /** Default options */
     options: {
         selector: '.matrix-item',
         width: 200,
@@ -61,7 +52,7 @@ Titon.Matrix = new Class({
      * @param {Object} options
      */
     initialize: function(element, options) {
-        this.setOptions(options);
+        this.parent(options);
         this.setElement(element);
 
         // Load elements
@@ -69,7 +60,7 @@ Titon.Matrix = new Class({
         this.items = this.element.getElements(this.options.selector);
 
         // Set events
-        window.addEvent('resize', this._resize.debouce());
+        window.addEvent('resize', this.__resize.debouce());
 
         this.fireEvent('init');
 
@@ -78,29 +69,6 @@ Titon.Matrix = new Class({
         } else {
             this.render();
         }
-    },
-
-    /**
-     * Add required classes to elements.
-     *
-     * @returns {Titon.Matrix}
-     */
-    enable: function() {
-        this.items.addClass('matrix-item');
-
-        return this;
-    },
-
-    /**
-     * Remove required classes and set items back to defaults.
-     *
-     * @returns {Titon.Matrix}
-     */
-    disable: function() {
-        this.element.removeProperty('style');
-        this.items.removeClass('matrix-item').removeProperty('style');
-
-        return this;
     },
 
     /**
@@ -120,6 +88,29 @@ Titon.Matrix = new Class({
             .setStyle('opacity', 0);
 
         return this.refresh();
+    },
+
+    /**
+     * Remove required classes and set items back to defaults.
+     *
+     * @returns {Titon.Matrix}
+     */
+    disable: function() {
+        this.element.removeProperty('style');
+        this.items.removeClass('matrix-item').removeProperty('style');
+
+        return this;
+    },
+
+    /**
+     * Add required classes to elements.
+     *
+     * @returns {Titon.Matrix}
+     */
+    enable: function() {
+        this.items.addClass('matrix-item');
+
+        return this;
     },
 
     /**
@@ -249,8 +240,8 @@ Titon.Matrix = new Class({
         this.images.each(function(image) {
             var src = image.src;
 
-            image.onload = this._load;
-            image.onerror = this._load;
+            image.onload = this.__load;
+            image.onerror = this.__load;
             image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
             image.src = src;
         }, this);
@@ -384,7 +375,7 @@ Titon.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    _load: function(e) {
+    __load: function(e) {
         if ((e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
@@ -398,8 +389,9 @@ Titon.Matrix = new Class({
      * Event handler for browser resizing.
      *
      * @private
+     * @param {DOMEvent} e
      */
-    _resize: function() {
+    __resize: function(e) {
         if (this.element.hasClass('matrix')) {
             this.refresh();
         }
