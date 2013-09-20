@@ -34,48 +34,48 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        var langs = [
-            { title: 'PHP', description: 'Pre-HyperText Processor', category: 'Backend' },
-            { title: 'CakePHP', category: 'Framework' },
-            { title: 'Symfony', category: 'Framework' },
-            { title: 'Zend', category: 'Framework' },
-            { title: 'Code Igniter', category: 'Framework' },
-            { title: 'Lithium', category: 'Framework' },
-            { title: 'HTML', description: 'Hyper Text Markup Language', category: 'Frontend' },
-            { title: 'Javascript', category: 'Frontend' },
-            { title: 'MooTools', category: 'Framework' },
-            { title: 'jQuery', category: 'Framework' },
-            { title: 'Ruby', category: 'Backend' },
-            { title: 'Ruby on Rails', category: 'Framework' },
-            { title: 'Java', category: 'Backend' },
-            { title: 'Python', category: 'Backend' },
-            { title: 'Go', category: 'Backend' },
-            { title: 'Node.js', category: 'Backend' },
-            { title: 'Asp.net', category: 'Backend' },
-            { title: 'Notepad' }
-        ];
+    var langs = [
+        { title: 'PHP', description: 'Pre-HyperText Processor', category: 'Backend' },
+        { title: 'CakePHP', category: 'Framework' },
+        { title: 'Symfony', category: 'Framework' },
+        { title: 'Zend', category: 'Framework' },
+        { title: 'Code Igniter', category: 'Framework' },
+        { title: 'Lithium', category: 'Framework' },
+        { title: 'HTML', description: 'Hyper Text Markup Language', category: 'Frontend' },
+        { title: 'Javascript', category: 'Frontend' },
+        { title: 'MooTools', category: 'Framework' },
+        { title: 'jQuery', category: 'Framework' },
+        { title: 'Ruby', category: 'Backend' },
+        { title: 'Ruby on Rails', category: 'Framework' },
+        { title: 'Java', category: 'Backend' },
+        { title: 'Python', category: 'Backend' },
+        { title: 'Go', category: 'Backend' },
+        { title: 'Node.js', category: 'Backend' },
+        { title: 'Asp.net', category: 'Backend' },
+        { title: 'Notepad' }
+    ];
 
-        $('ta-1').typeAhead({
-            source: langs,
-            shadow: true
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('ta-1').typeAhead({ source: langs, shadow: true });
+            $('ta-2').typeAhead({
+                source: function() {
+                    return langs;
+                }
+            });
+            $('ta-3').typeAhead({ sorter: false, matcher: false, source: 'ajax/type-ahead.php?unique' });
+            $('ta-4').typeAhead({ prefetch: true, source: 'ajax/type-ahead.php' });
         });
-
-        $('ta-2').typeAhead({
-            source: function() {
-                return langs;
-            }
+    <?php } else { ?>
+        $(function() {
+            $('#ta-1').typeAhead({ source: langs, shadow: true });
+            $('#ta-2').typeAhead({
+                source: function() {
+                    return langs;
+                }
+            });
+            $('#ta-3').typeAhead({ sorter: false, matcher: false, source: 'ajax/type-ahead.php?unique' });
+            $('#ta-4').typeAhead({ prefetch: true, source: 'ajax/type-ahead.php' });
         });
-
-        $('ta-3').typeAhead({
-            sorter: false,
-            matcher: false,
-            source: 'ajax/type-ahead.php?unique'
-        });
-
-        $('ta-4').typeAhead({
-            prefetch: true,
-            source: 'ajax/type-ahead.php'
-        });
-    });
+    <?php } ?>
 </script>
