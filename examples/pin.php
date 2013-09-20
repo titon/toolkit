@@ -38,9 +38,17 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $('pin-right').pin();
-        $('pin-left1').pin({ location: 'left' });
-        $('pin-left2').pin({ location: 'left', xOffset: 10 });
-    });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('pin-right').pin();
+            $('pin-left1').pin({ location: 'left' });
+            $('pin-left2').pin({ location: 'left', xOffset: 10 });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('#pin-right').pin();
+            $('#pin-left1').pin({ location: 'left' });
+            $('#pin-left2').pin({ location: 'left', xOffset: 10 });
+        });
+    <?php } ?>
 </script>

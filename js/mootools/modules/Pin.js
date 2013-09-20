@@ -31,7 +31,7 @@ Titon.Pin = new Class({
      *    onResize    - (function) Callback triggered when page is resized
      */
     options: {
-        animate: true,
+        animation: 'pin',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
@@ -57,37 +57,34 @@ Titon.Pin = new Class({
             return;
         }
 
-        if (this.options.animate) {
-            this.element.addClass('pin');
-        }
+        window.addEvent('resize:throttle(' + this.options.throttle + ')', this._resize);
+        window.addEvent('domready', this._resize);
 
-        // Cache the element coordinates
+        this.fireEvent('init');
+    },
+
+    /**
+     * Calculate the dimensions and offsets of the interacting elements.
+     * Determine whether to pin or unpin.
+     *
+     * @private
+     * @returns {Titon.Pin}
+     */
+    _resize: function() {
         this.viewport = window.getSize();
         this.elementSize = this.element.getCoordinates();
         this.parentSize = this.element.getParent().getCoordinates();
 
         // Enable pin if the parent is larger than the child
-        this.disable();
-
         if (this.parentSize.height >= (this.elementSize.height * 2)) {
             this.enable();
+        } else {
+            this.disable();
         }
 
-        this.fireEvent('init');
-
-        window.addEvent('resize', this._resize);
-    },
-
-    /**
-     * Provide an empty callback to handle functionality during browser resizing.
-     * This allows pin functionality to be enabled or disabled for responsive layouts.
-     *
-     * @private
-     */
-    _resize: function() {
-        this.viewport = window.getSize();
-
         this.fireEvent('resize');
+
+        return this;
     },
 
     /**
@@ -95,6 +92,7 @@ Titon.Pin = new Class({
      * The element should also stay contained within the parent element.
      *
      * @private
+     * @returns {Titon.Pin}
      */
     _scroll: function() {
         var options = this.options,
@@ -128,6 +126,8 @@ Titon.Pin = new Class({
         this.element.setStyles(pos);
 
         this.fireEvent('scroll');
+
+        return this;
     },
 
     /**
