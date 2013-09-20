@@ -10,7 +10,7 @@
 Titon.TypeAhead = new Class({
     Extends: Titon.Component,
     Implements: [Cache],
-    Binds: ['_cycle', '_lookup', 'process', 'rewind'],
+    Binds: ['process', 'rewind', '__cycle', '__lookup'],
 
     /** Input element to display menu against */
     input: null,
@@ -30,27 +30,7 @@ Titon.TypeAhead = new Class({
     /** Throttle timer */
     timer: null,
 
-    /**
-     * Default options.
-     *
-     *    source           - (string|function|array) The source data to use for list building
-     *    minLength        - (int) Minimum character length before lookup triggers
-     *    itemLimit        - (int) Max items to display in the list
-     *    throttle         - (int) Time in milliseconds before each lookup is triggered; Reduces AJAX requests
-     *    prefetch         - (bool) Will prefetch and cache the source if the source is an AJAX call
-     *    shadow           - (bool) Will display shadow text behind the input that correlates to the first available match
-     *    storage          - (string) The storage layer to use for caching: local, session, memory
-     *    query            - (object) Query string of key value pairs to append to the AJAX request
-     *    contentElement   - (string) CSS query for the element that lists are inserted to
-     *    titleElement     - (string) CSS query for the title element within the list item
-     *    descElement      - (string) CSS query for the description element within the list item
-     *    shadowElement    - (string) CSS query for the shadow wrapping div
-     *    sorter           - (function) Callback to use for data sorting
-     *    matcher          - (function) Callback to use for data matching
-     *    builder          - (function) Callback to use for list item building
-     *    onSelect         - (function) Callback to trigger when a list item is selected
-     *    onReset          - (function) Callback to trigger when the list is reset
-     */
+    /** Default options */
     options: {
         source: [],
         minLength: 1,
@@ -79,15 +59,15 @@ Titon.TypeAhead = new Class({
     /**
      * Store the input reference and trigger events.
      *
-     * @param {Element} element
+     * @param {Element} input
      * @param {Object} [options]
      */
-    initialize: function(element, options) {
+    initialize: function(input, options) {
         this.parent(options);
         this.createElement();
 
         // Store the input
-        this.input = element;
+        this.input = input;
 
         if (this.input.get('tag') !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
@@ -136,22 +116,36 @@ Titon.TypeAhead = new Class({
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
+                .removeProperty('id')
                 .set('readonly', true)
-                .inject(this.node, 'top');
+                .inject(this.node, 'bottom');
 
             this.input.addClass('not-shadow');
         }
 
         // Set events
+        this.bindEvents();
+        this.fireEvent('init');
+    },
+
+    /**
+     * Set keyboard detection events.
+     *
+     * @returns {Titon.TypeAhead}
+     */
+    bindEvents: function() {
         window.addEvent('keydown', function(e) {
             if (e.key === 'esc' && this.isVisible()) {
                 this.hide();
             }
         }.bind(this));
 
-        this.disable().enable();
+        this.input.addEvents({
+            keyup: this.__lookup,
+            keydown: this.__cycle
+        });
 
-        this.fireEvent('init');
+        return this;
     },
 
     /**
@@ -343,7 +337,7 @@ Titon.TypeAhead = new Class({
                 a = options.builder(item);
                 a.addEvents({
                     mouseover: this.rewind,
-                    click: this._select.pass(results.length, this)
+                    click: this.__select.pass(results.length, this)
                 });
 
                 elements.push( new Element('li').grab(a) );
@@ -420,6 +414,7 @@ Titon.TypeAhead = new Class({
 
                 this.fireEvent('select', [item, index]);
             }
+
         // Reset
         } else {
             this.input.set('value', this.term);
@@ -443,102 +438,6 @@ Titon.TypeAhead = new Class({
     },
 
     /**
-     * Cycle through the items in the list when an arrow key, esc or enter is released.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    _cycle: function(e) {
-        var items = this.items,
-            length =  items.length.limit(0, this.options.itemLimit);
-
-        if (!length || !this.isVisible()) {
-            return;
-        }
-
-        switch (e.key) {
-            // Cycle upwards
-            case 'up':
-                this.index -= (items[this.index - 1] ? 1 : 2); // category check
-
-                if (this.index < 0) {
-                    this.index = length;
-                }
-            break;
-
-            // Cycle downwards
-            case 'down':
-                this.index += (items[this.index + 1] ? 1 : 2); // category check
-
-                if (this.index >= length) {
-                    this.index = -1;
-                }
-            break;
-
-            // Select first
-            case 'tab':
-                e.preventDefault();
-
-                var i = 0;
-
-                while (!this.items[i]) {
-                    i++;
-                }
-
-                this.index = i;
-                this.hide();
-            break;
-
-            // Select current index
-            case 'enter':
-                this.hide();
-            break;
-
-            // Reset
-            case 'esc':
-                this.index = -1;
-                this.hide();
-            break;
-
-            // Cancel others
-            default:
-                return;
-        }
-
-        if (this.shadow) {
-            this.shadow.set('value', '');
-        }
-
-        // Select the item
-        this.select(this.index);
-    },
-
-    /**
-     * Lookup items based on the current input value.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    _lookup: function(e) {
-        if (['up', 'down', 'esc', 'tab', 'enter'].contains(e.key)) {
-            return; // Handle with _cycle()
-        }
-
-        window.clearTimeout(this.timer);
-
-        var term = this.input.get('value').trim();
-
-        if (term.length < this.options.minLength) {
-            this.fireEvent('reset');
-            this.hide();
-
-        } else {
-            this._shadow();
-            this.lookup(term);
-        }
-    },
-
-    /**
      * Position the menu below the input.
      *
      * @private
@@ -558,17 +457,6 @@ Titon.TypeAhead = new Class({
 
         this.element.reveal();
     }.protect(),
-
-    /**
-     * Event callback to select an item from the list.
-     *
-     * @private
-     * @param {Number} index
-     */
-    _select: function(index) {
-        this.select(index);
-        this.hide();
-    },
 
     /**
      * Monitor the current input term to determine the shadow text.
@@ -597,30 +485,111 @@ Titon.TypeAhead = new Class({
     }.protect(),
 
     /**
-     * Toggle activation events on and off.
+     * Cycle through the items in the list when an arrow key, esc or enter is released.
      *
      * @private
-     * @param {bool} on
-     * @returns {Titon.TypeAhead}
+     * @param {DOMEvent} e
      */
-    _toggleEvents: function(on) {
-        if (!this.input) {
-            return this;
+    __cycle: function(e) {
+        var items = this.items,
+            length =  items.length.limit(0, this.options.itemLimit);
+
+        if (!length || !this.isVisible()) {
+            return;
         }
 
-        var events = {
-            keyup: this._lookup,
-            keydown: this._cycle
-        };
+        switch (e.key) {
+            // Cycle upwards
+            case 'up':
+                this.index -= (items[this.index - 1] ? 1 : 2); // category check
 
-        if (on) {
-            this.input.addEvents(events);
+                if (this.index < 0) {
+                    this.index = length;
+                }
+                break;
+
+            // Cycle downwards
+            case 'down':
+                this.index += (items[this.index + 1] ? 1 : 2); // category check
+
+                if (this.index >= length) {
+                    this.index = -1;
+                }
+                break;
+
+            // Select first
+            case 'tab':
+                e.preventDefault();
+
+                var i = 0;
+
+                while (!this.items[i]) {
+                    i++;
+                }
+
+                this.index = i;
+                this.hide();
+                break;
+
+            // Select current index
+            case 'enter':
+                this.hide();
+                break;
+
+            // Reset
+            case 'esc':
+                this.index = -1;
+                this.hide();
+                break;
+
+            // Cancel others
+            default:
+                return;
+        }
+
+        if (this.shadow) {
+            this.shadow.set('value', '');
+        }
+
+        // Select the item
+        this.select(this.index);
+    },
+
+    /**
+     * Lookup items based on the current input value.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    __lookup: function(e) {
+        if (['up', 'down', 'esc', 'tab', 'enter'].contains(e.key)) {
+            return; // Handle with _cycle()
+        }
+
+        window.clearTimeout(this.timer);
+
+        var term = this.input.get('value').trim();
+
+        if (term.length < this.options.minLength) {
+            this.fireEvent('reset');
+            this.hide();
+
         } else {
-            this.input.removeEvents(events);
+            this._shadow();
+            this.lookup(term);
         }
+    },
 
-        return this;
-    }.protect()
+    /**
+     * Event handler to select an item from the list.
+     *
+     * @private
+     * @param {Number} index
+     */
+    __select: function(index) {
+        this.select(index);
+        this.hide();
+    }
 
 });
 

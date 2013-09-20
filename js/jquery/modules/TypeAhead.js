@@ -36,6 +36,12 @@ Titon.TypeAhead = function(input, options) {
     /** Cached queries */
     this.cache = {};
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
+    /**
+     * Stuff.
+     */
     this.initialize = function() {
         if (this.input.prop('tagName').toLowerCase() !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
@@ -80,44 +86,58 @@ Titon.TypeAhead = function(input, options) {
         // Enable shadow inputs
         if (options.shadow) {
             this.wrapper = $('<div/>').addClass(options.shadowElement.substr(1));
-            this.input.wrap(this.wrapper);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
-                .prop('readonly', true)
-                .appendTo(this.node);
+                .removeAttr('id')
+                .prop('readonly', true);
 
-            this.input.addClass('not-shadow');
+            // wrap() didn't seem to work correctly
+            this.input.addClass('not-shadow').replaceWith(this.wrapper);
+            this.wrapper.append(this.input).append(this.shadow);
         }
 
         // Set events
+        this.input.on({
+            keyup: this.__lookup.bind(this),
+            keydown: this.__cycle.bind(this)
+        });
+
         $(window).on('keydown', function(e) {
             if (e.key === 'esc' && this.element.is(':shown')) {
                 this.hide();
             }
         }.bind(this));
-
-        this.disable().enable();
     };
 
-    this.enable = function() {
-        this.input.on({
-            keyup: this._lookup.bind(this),
-            keydown: this._cycle.bind(this)
-        });
-
-        return this;
-    };
-
+    /**
+     * Disable component.
+     *
+     * @returns {Titon.TypeAhead}
+     */
     this.disable = function() {
-        this.input.off({
-            keyup: this._lookup.bind(this),
-            keydown: this._cycle.bind(this)
-        });
+        this.enabled = false;
 
         return this;
     };
 
+    /**
+     * Enable component.
+     *
+     * @returns {Titon.TypeAhead}
+     */
+    this.enable = function() {
+        this.enabled = true;
+
+        return this;
+    };
+
+    /**
+     * Build the anchor link that will be used in the list.
+     *
+     * @param {Object} item
+     * @returns {jQuery}
+     */
     this.build = function(item) {
         var a = $('<a/>', {
             href: 'javascript:;'
@@ -138,6 +158,11 @@ Titon.TypeAhead = function(input, options) {
         return a;
     };
 
+    /**
+     * Hide the list and reset shadow.
+     *
+     * @returns {Titon.TypeAhead}
+     */
     this.hide = function() {
         if (this.shadow) {
             this.shadow.val('');
@@ -150,6 +175,13 @@ Titon.TypeAhead = function(input, options) {
         return this;
     };
 
+    /**
+     * Highlight the current term within the item string.
+     * Split multi-word terms to highlight separately.
+     *
+     * @param {String} item
+     * @returns {String}
+     */
     this.highlight = function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
@@ -163,6 +195,13 @@ Titon.TypeAhead = function(input, options) {
         return item;
     };
 
+    /**
+     * Load the list of items to use for look ups.
+     * Trigger different actions depending on the type of source.
+     *
+     * @param {String} term
+     * @returns {Titon.TypeAhead}
+     */
     this.lookup = function(term) {
         this.term = term;
         this.timer = window.setTimeout(function() {
@@ -210,10 +249,23 @@ Titon.TypeAhead = function(input, options) {
         return this;
     };
 
+    /**
+     * Match an item if it contains the term.
+     *
+     * @param {String} item
+     * @param {String} term
+     * @returns {bool}
+     */
     this.match = function(item, term) {
         return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
     };
 
+    /**
+     * Process the list of items be generating new elements and positioning below the input.
+     *
+     * @param {Array} items
+     * @returns {Titon.TypeAhead}
+     */
     this.process = function(items) {
         if (!this.term.length || !items.length) {
             this.hide();
@@ -277,7 +329,7 @@ Titon.TypeAhead = function(input, options) {
                 a.on({
                     mouseover: this.rewind,
                     click: (function(length) {
-                        return this._select(length);
+                        return this.__select(length);
                     }.bind(this))(results.length)
                 });
 
@@ -317,6 +369,11 @@ Titon.TypeAhead = function(input, options) {
         return this;
     };
 
+    /**
+     * Rewind the cycle pointer to the beginning.
+     *
+     * @returns {Titon.TypeAhead}
+     */
     this.rewind = function() {
         this.index = -1;
         this.element.find('li').removeClass('is-active');
@@ -324,6 +381,12 @@ Titon.TypeAhead = function(input, options) {
         return this;
     };
 
+    /**
+     * Select an item in the list.
+     *
+     * @param {Number} index
+     * @returns {Titon.TypeAhead}
+     */
     this.select = function(index) {
         this.index = index;
 
@@ -340,6 +403,7 @@ Titon.TypeAhead = function(input, options) {
 
                 this.input.val(item.title);
             }
+
         // Reset
         } else {
             this.input.val(this.term);
@@ -348,13 +412,70 @@ Titon.TypeAhead = function(input, options) {
         return this;
     };
 
+    /**
+     * Sort the items.
+     *
+     * @param {Array} items
+     * @returns {Array}
+     */
     this.sort = function(items) {
         return items.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
     };
 
-    this._cycle = function(e) {
+    /**
+     * Position the menu below the input.
+     *
+     * @private
+     */
+    this._position = function() {
+        if (!this.items.length) {
+            this.hide();
+            return;
+        }
+
+        var iPos = this.input.offset();
+
+        this.element.css({
+            left: iPos.left,
+            top: (iPos.top + this.input.outerHeight())
+        }).reveal();
+    };
+
+    /**
+     * Monitor the current input term to determine the shadow text.
+     * Shadow text will reference the term cache.
+     *
+     * @private
+     */
+    this._shadow = function() {
+        if (!this.shadow) {
+            return;
+        }
+
+        var term = this.input.val(),
+            termLower = term.toLowerCase(),
+            value = '';
+
+        if (this.cache[termLower] && this.cache[termLower][0]) {
+            var title = this.cache[termLower][0].title;
+
+            if (title.toLowerCase().indexOf(termLower) === 0) {
+                value = term + title.substr(term.length, (title.length - term.length));
+            }
+        }
+
+        this.shadow.val(value);
+    };
+
+    /**
+     * Cycle through the items in the list when an arrow key, esc or enter is released.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    this.__cycle = function(e) {
         var items = this.items,
             length = Math.min(this.options.itemLimit, Math.max(0, items.length))
 
@@ -419,7 +540,13 @@ Titon.TypeAhead = function(input, options) {
         this.select(this.index);
     };
 
-    this._lookup = function(e) {
+    /**
+     * Lookup items based on the current input value.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    this.__lookup = function(e) {
         if ($.inArray(e.key.toLowerCase(), ['up', 'down', 'esc', 'tab', 'enter']) >= 0) {
             return; // Handle with _cycle()
         }
@@ -437,43 +564,15 @@ Titon.TypeAhead = function(input, options) {
         }
     };
 
-    this._position = function() {
-        if (!this.items.length) {
-            this.hide();
-            return;
-        }
-
-        var iPos = this.input.offset();
-
-        this.element.css({
-            left: iPos.left,
-            top: (iPos.top + this.input.outerHeight())
-        }).reveal();
-    };
-
-    this._select = function(index) {
+    /**
+     * Event handler to select an item from the list.
+     *
+     * @private
+     * @param {Number} index
+     */
+    this.__select = function(index) {
         this.select(index);
         this.hide();
-    };
-
-    this._shadow = function() {
-        if (!this.shadow) {
-            return;
-        }
-
-        var term = this.input.val(),
-            termLower = term.toLowerCase(),
-            value = '';
-
-        if (this.cache[termLower] && this.cache[termLower][0]) {
-            var title = this.cache[termLower][0].title;
-
-            if (title.toLowerCase().indexOf(termLower) === 0) {
-                value = term + title.substr(term.length, (title.length - term.length));
-            }
-        }
-
-        this.shadow.val(value);
     };
 
     // Initialize the class only if the element exists
