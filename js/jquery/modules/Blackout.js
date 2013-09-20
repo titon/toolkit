@@ -10,7 +10,10 @@
 Titon.Blackout = function(options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.blackout.options, options);
+    this.options = Titon.setOptions({
+        template: '<div class="blackout" id="titon-blackout"></div>',
+        templateFrom: '#titon-blackout'
+    }, options);
 
     /** Primary DOM wrapper */
     this.element = Titon.createElement(this.options);
@@ -67,12 +70,6 @@ Titon.Blackout = function(options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-$.fn.blackout.options = {
-    className: '',
-    template: '<div class="blackout" id="titon-blackout"></div>',
-    templateFrom: '#titon-blackout'
 };
 
 })(jQuery);

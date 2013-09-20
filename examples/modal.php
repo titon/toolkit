@@ -43,22 +43,43 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $$('.modal-base').modal({ delegate: '.modal-base', blur: 'wrapper' });
-        $$('.modal-black').modal({ delegate: '.modal-black', blackout: false });
-        $$('.modal-drag').modal({ delegate: '.modal-drag', draggable: true });
-        $$('.modal-fade').modal({ delegate: '.modal-fade', animation: 'fade' });
-        $$('.modal-from-above').modal({ delegate: '.modal-from-above', animation: 'from-above' });
-        $$('.modal-from-below').modal({ delegate: '.modal-from-below', animation: 'from-below' });
-        $$('.modal-slide-in-top').modal({ delegate: '.modal-slide-in-top', animation: 'slide-in-top' });
-        $$('.modal-slide-in-right').modal({ delegate: '.modal-slide-in-right', animation: 'slide-in-right' });
-        $$('.modal-slide-in-bottom').modal({ delegate: '.modal-slide-in-bottom', animation: 'slide-in-bottom' });
-        $$('.modal-slide-in-left').modal({ delegate: '.modal-slide-in-left', animation: 'slide-in-left' });
-        $$('.modal-sticky-top').modal({ delegate: '.modal-sticky-top', animation: 'sticky-top' });
-        $$('.modal-sticky-bottom').modal({ delegate: '.modal-sticky-bottom', animation: 'sticky-bottom' });
-        $$('.modal-sticky-left').modal({ delegate: '.modal-sticky-left', animation: 'sticky-left' });
-        $$('.modal-sticky-right').modal({ delegate: '.modal-sticky-right', animation: 'sticky-right' });
-        $$('.modal-flip').modal({ delegate: '.modal-flip', animation: 'flip' });
-        $$('.modal-flip-vert').modal({ delegate: '.modal-flip-vert', animation: 'flip-vert' });
-    });
+    <?php if ($library  === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $$('.modal-base').modal({ delegate: '.modal-base', blur: 'wrapper' });
+            $$('.modal-black').modal({ delegate: '.modal-black', blackout: false });
+            $$('.modal-drag').modal({ delegate: '.modal-drag', draggable: true });
+            $$('.modal-fade').modal({ delegate: '.modal-fade', animation: 'fade' });
+            $$('.modal-from-above').modal({ delegate: '.modal-from-above', animation: 'from-above' });
+            $$('.modal-from-below').modal({ delegate: '.modal-from-below', animation: 'from-below' });
+            $$('.modal-slide-in-top').modal({ delegate: '.modal-slide-in-top', animation: 'slide-in-top' });
+            $$('.modal-slide-in-right').modal({ delegate: '.modal-slide-in-right', animation: 'slide-in-right' });
+            $$('.modal-slide-in-bottom').modal({ delegate: '.modal-slide-in-bottom', animation: 'slide-in-bottom' });
+            $$('.modal-slide-in-left').modal({ delegate: '.modal-slide-in-left', animation: 'slide-in-left' });
+            $$('.modal-sticky-top').modal({ delegate: '.modal-sticky-top', animation: 'sticky-top' });
+            $$('.modal-sticky-bottom').modal({ delegate: '.modal-sticky-bottom', animation: 'sticky-bottom' });
+            $$('.modal-sticky-left').modal({ delegate: '.modal-sticky-left', animation: 'sticky-left' });
+            $$('.modal-sticky-right').modal({ delegate: '.modal-sticky-right', animation: 'sticky-right' });
+            $$('.modal-flip').modal({ delegate: '.modal-flip', animation: 'flip' });
+            $$('.modal-flip-vert').modal({ delegate: '.modal-flip-vert', animation: 'flip-vert' });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.modal-base').modal({ blur: 'wrapper' });
+            $('.modal-black').modal({ blackout: false });
+            $('.modal-drag').modal({ draggable: true });
+            $('.modal-fade').modal({ animation: 'fade' });
+            $('.modal-from-above').modal({ animation: 'from-above' });
+            $('.modal-from-below').modal({ animation: 'from-below' });
+            $('.modal-slide-in-top').modal({ animation: 'slide-in-top' });
+            $('.modal-slide-in-right').modal({ animation: 'slide-in-right' });
+            $('.modal-slide-in-bottom').modal({ animation: 'slide-in-bottom' });
+            $('.modal-slide-in-left').modal({ animation: 'slide-in-left' });
+            $('.modal-sticky-top').modal({ animation: 'sticky-top' });
+            $('.modal-sticky-bottom').modal({ animation: 'sticky-bottom' });
+            $('.modal-sticky-left').modal({ animation: 'sticky-left' });
+            $('.modal-sticky-right').modal({ animation: 'sticky-right' });
+            $('.modal-flip').modal({ animation: 'flip' });
+            $('.modal-flip-vert').modal({ animation: 'flip-vert' });
+        });
+    <?php } ?>
 </script>

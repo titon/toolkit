@@ -30,17 +30,13 @@ window.Titon = {
     createElement: function(options) {
         var template;
 
-        if (!options.parseTemplate) {
-            return [];
-        }
-
         // Use another element as the template
         if (options.templateFrom) {
             template = $(options.templateFrom);
         }
 
         // From a string
-        if (!template.length && options.template) {
+        if ((!template || !template.length) && options.template) {
             template = $(options.template);
 
             if (template.length) {
@@ -49,7 +45,7 @@ window.Titon = {
         }
 
         // Store it in the DOM
-        if (!template.length) {
+        if (!template) {
             throw new Error('Failed to create template element');
         }
 

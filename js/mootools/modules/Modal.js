@@ -14,7 +14,7 @@ Titon.Modal = new Class({
     /** Blackout instance if options.blackout is true */
     blackout: null,
 
-    /** Drag instance if options.drag is true */
+    /** Drag instance if options.draggable is true */
     drag: null,
 
     /** Body DOM element */
@@ -145,7 +145,7 @@ Titon.Modal = new Class({
         }
 
         if (!content) {
-            return true;
+            return this;
         }
 
         this.node = node;
