@@ -77,7 +77,7 @@ Titon.Component = new Class({
             context = this.element;
         }
 
-        if (!context) {
+        if (context) {
             context.addEvent(event, this.__show);
         }
 

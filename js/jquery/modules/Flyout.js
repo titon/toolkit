@@ -36,6 +36,9 @@ Titon.Flyout = function(nodes, url, options) {
     /** Delay timers */
     this.timers = {};
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
     /**
      * Fetch elements and attach events.
      */
@@ -51,9 +54,6 @@ Titon.Flyout = function(nodes, url, options) {
             success: this.load.bind(this)
         });
 
-        // Set events
-        this.disable().enable();
-
         // Handles keeping menu open even if mouse exits the context
         var options = this.options;
 
@@ -66,35 +66,15 @@ Titon.Flyout = function(nodes, url, options) {
                     this.clearTimer('show').startTimer('hide', options.showDelay);
                 }.bind(this));
         }
-    };
 
-    /**
-     * Enable events.
-     *
-     * @returns {Titon.Flyout}
-     */
-    this.enable = function() {
-        $(this.options.context || document)
-            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
-
-        return this;
-    };
-
-    /**
-     * Disable events.
-     *
-     * @returns {Titon.Flyout}
-     */
-    this.disable = function() {
-        $(this.options.context || document)
-            .off((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
-
-        return this;
+        $(options.context || document)
+            .on((options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
     };
 
     /**
      * Clear a timer by key.
      *
+     * @param {String} key
      * @returns {Titon.Flyout}
      */
     this.clearTimer = function(key) {
@@ -105,26 +85,23 @@ Titon.Flyout = function(nodes, url, options) {
     };
 
     /**
-     * Add a timer that should trigger a function after a delay.
+     * Disable component.
      *
      * @returns {Titon.Flyout}
      */
-    this.startTimer = function(key, delay, args) {
-        this.clearTimer(key);
+    this.disable = function() {
+        this.enabled = false;
 
-        var fn;
+        return this;
+    };
 
-        if (key === 'show') {
-            fn = this._position.bind(this);
-        } else {
-            fn = this.hide.bind(this);
-        }
-
-        if (fn) {
-            this.timers[key] = window.setTimeout(function() {
-                fn.apply(this, args || []);
-            }.bind(this), delay);
-        }
+    /**
+     * Enable component.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.enable = function() {
+        this.enabled = true;
 
         return this;
     };
@@ -224,6 +201,34 @@ Titon.Flyout = function(nodes, url, options) {
     };
 
     /**
+     * Add a timer that should trigger a function after a delay.
+     *
+     * @param {String} key
+     * @param {Number} delay
+     * @param {Array} args
+     * @returns {Titon.Flyout}
+     */
+    this.startTimer = function(key, delay, args) {
+        this.clearTimer(key);
+
+        var func;
+
+        if (key === 'show') {
+            func = this._position.bind(this);
+        } else {
+            func = this.hide.bind(this);
+        }
+
+        if (func) {
+            this.timers[key] = window.setTimeout(function() {
+                func.apply(this, args || []);
+            }.bind(this), delay);
+        }
+
+        return this;
+    };
+
+    /**
      * Build a nested list menu using the data object.
      *
      * @private
@@ -297,8 +302,8 @@ Titon.Flyout = function(nodes, url, options) {
                     this._buildMenu(li, child);
 
                     li.addClass('has-children')
-                        .on('mouseenter', this._positionChild.bind(this, li))
-                        .on('mouseleave', this._hideChild.bind(this, li));
+                        .on('mouseenter', this.__positionChild.bind(this, li))
+                        .on('mouseleave', this.__hideChild.bind(this, li));
                 }
             }
 
@@ -372,51 +377,14 @@ Titon.Flyout = function(nodes, url, options) {
     this._getTarget = function(node) {
         node = $(node || this.node);
 
-        return Titon.getValue.apply(this, [node, this.options.getUrl]) || node.get('href');
-    };
-
-    /**
-     * Hide the child menu after exiting parent li.
-     *
-     * @private
-     * @param {jQuery} parent
-     */
-    this._hideChild = function(parent) {
-        parent = $(parent);
-        parent.removeClass('is-open');
-        parent.children(this.options.contentElement).removeAttr('style');
-    };
-
-    /**
-     * Event handler to show the menu.
-     *
-     * @private
-     * @param {Event} e
-     */
-    this._show = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var node = $(e.target);
-
-        if (this.isVisible()) {
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node
-            if (node.get(0) === this.node.get(0)) {
-                return;
-            }
-        }
-
-        this.show(node);
+        return Titon.readValue.apply(this, [node, this.options.getUrl]) || node.get('href');
     };
 
     /**
      * Position the menu below the target node.
      *
      * @private
+     * @returns {Titon.Flyout}
      */
     this._position = function() {
         var target = this.current,
@@ -442,15 +410,29 @@ Titon.Flyout = function(nodes, url, options) {
             left: x,
             top: y
         }).reveal();
+
+        return this;
     };
 
     /**
-     * Position the child menu dependent on the position in the page.
+     * Event handler to hide the child menu after exiting parent li.
      *
      * @private
      * @param {jQuery} parent
      */
-    this._positionChild = function(parent) {
+    this.__hideChild = function(parent) {
+        parent = $(parent);
+        parent.removeClass('is-open');
+        parent.children(this.options.contentElement).removeAttr('style');
+    };
+
+    /**
+     * Event handler to position the child menu dependent on the position in the page.
+     *
+     * @private
+     * @param {jQuery} parent
+     */
+    this.__positionChild = function(parent) {
         var menu = parent.children(this.options.contentElement);
 
         if (!menu) {
@@ -489,10 +471,34 @@ Titon.Flyout = function(nodes, url, options) {
         parent.addClass('is-open');
     };
 
+    /**
+     * Event handler to show the menu.
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__show = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var node = $(e.target);
+
+        if (this.isVisible()) {
+            if (this.options.mode === 'click') {
+                this.hide();
+            }
+
+            // Exit if the same node
+            if (node.get(0) === this.node.get(0)) {
+                return;
+            }
+        }
+
+        this.show(node);
+    };
+
     // Initialize the class only if the element exists
-    if (this.nodes.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 /**

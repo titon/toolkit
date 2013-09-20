@@ -114,7 +114,7 @@ Titon.Carousel = function(element, options) {
     /**
      * Disable component.
      *
-     * @returns {Titon.Accordion}
+     * @returns {Titon.Carousel}
      */
     this.disable = function() {
         this.enabled = false;
@@ -125,7 +125,7 @@ Titon.Carousel = function(element, options) {
     /**
      * Enable component.
      *
-     * @returns {Titon.Accordion}
+     * @returns {Titon.Carousel}
      */
     this.enable = function() {
         this.enabled = true;

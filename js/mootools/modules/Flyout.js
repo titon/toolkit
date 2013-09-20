@@ -23,19 +23,7 @@ Titon.Flyout = new Class({
     /** Mapping of data indexed by URL */
     dataMap: {},
 
-    /**
-     * Default options.
-     *
-     *    getUrl           - (string) Attribute to read the URL from
-     *    xOffset          - (int) Additional margin on the X axis
-     *    yOffset          - (int) Additional margin on the Y axis
-     *    showDelay        - (int) The delay in milliseconds before the menu shows
-     *    hideDelay        - (int) The delay in milliseconds before the menu hides
-     *    itemLimit        - (int) How many items before splitting the lists
-     *    contentElement   - (string) CSS query for the element within the template that the <ul> menu will be injected into
-     *    onHideChild      - (function) Callback to trigger when a child menu is hidden
-     *    onShowChild      - (function) Callback to trigger when a child menu is shown
-     */
+    /** Default options */
     options: {
         delegate: '.js-flyout',
         mode: 'hover',
@@ -79,11 +67,8 @@ Titon.Flyout = new Class({
         // Set timers
         this.addTimers({
             show: this._position,
-            hide: this._hide
+            hide: this.__hide
         });
-
-        // Set events
-        this.disable().enable();
 
         // Handles keeping menu open even if mouse exits the context
         options = this.options;
@@ -98,6 +83,7 @@ Titon.Flyout = new Class({
                 }.bind(this));
         }
 
+        this.bindEvents();
         this.fireEvent('init');
     },
 
@@ -272,8 +258,8 @@ Titon.Flyout = new Class({
                     this._buildMenu(li, child);
 
                     li.addClass('has-children')
-                        .addEvent('mouseenter', this._positionChild.bind(this, li))
-                        .addEvent('mouseleave', this._hideChild.bind(this, li));
+                        .addEvent('mouseenter', this.__positionChild.bind(this, li))
+                        .addEvent('mouseleave', this.__hideChild.bind(this, li));
                 }
             }
 
@@ -347,33 +333,21 @@ Titon.Flyout = new Class({
     _getTarget: function(node) {
         node = node || this.node;
 
-        return this.getValue(node, this.options.getUrl) || node.get('href');
+        return this.readValue(node, this.options.getUrl) || node.get('href');
     }.protect(),
-
-    /**
-     * Hide the child menu after exiting parent li.
-     *
-     * @private
-     * @param {Element} parent
-     */
-    _hideChild: function(parent) {
-        parent.removeClass('is-open');
-        parent.getChildren(this.options.contentElement).removeProperty('style');
-
-        this.fireEvent('hideChild', parent);
-    },
 
     /**
      * Position the menu below the target node.
      *
      * @private
+     * @returns {Titon.Flyout}
      */
     _position: function() {
         var target = this.current,
             options = this.options;
 
         if (!this.menus[target]) {
-            return;
+            return this;
         }
 
         var menu = this.menus[target],
@@ -394,15 +368,30 @@ Titon.Flyout = new Class({
         }).reveal();
 
         this.fireEvent('show');
+
+        return this;
     },
 
     /**
-     * Position the child menu dependent on the position in the page.
+     * Event handler to hide the child menu after exiting parent li.
      *
      * @private
      * @param {Element} parent
      */
-    _positionChild: function(parent) {
+    __hideChild: function(parent) {
+        parent.removeClass('is-open');
+        parent.getChildren(this.options.contentElement).removeProperty('style');
+
+        this.fireEvent('hideChild', parent);
+    },
+
+    /**
+     * Event handler to position the child menu dependent on the position in the page.
+     *
+     * @private
+     * @param {Element} parent
+     */
+    __positionChild: function(parent) {
         var menu = parent.getElement(this.options.contentElement);
 
         if (!menu) {
@@ -410,7 +399,9 @@ Titon.Flyout = new Class({
         }
 
         // Alter width because of columns
-        menu.setStyle('width', menu.getChildren('ul').getWidth().sum()  + 'px');
+        var children = menu.getChildren('ul');
+
+        menu.setStyle('width', (children.getWidth() * children.length) + 'px');
 
         // Get sizes after menu positioning
         var windowScroll = window.getScrollSize(),
