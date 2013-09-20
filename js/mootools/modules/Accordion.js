@@ -27,7 +27,7 @@ Titon.Accordion = new Class({
     },
 
     /**
-     * Set the element and attach events.
+     * Initialize elements and attach events.
      *
      * @param {Element} element
      * @param {Object} [options]
@@ -52,7 +52,7 @@ Titon.Accordion = new Class({
         }
 
         // Reset the state of every row
-        this.element.getElements('> li').removeClass('is-active');
+        this.element.getChildren('li').removeClass('is-active');
 
         // Cache the height so we can use for sliding
         sections.each(function(section) {
@@ -62,9 +62,23 @@ Titon.Accordion = new Class({
         this.show(header);
 
         // Set events
-        this.disable().enable();
-
+        this.bindEvents();
         this.fireEvent('init');
+    },
+
+    /**
+     * Attach events to listen for header clicks.
+     *
+     * @returns {Titon.Accordion}
+     */
+    bindEvents: function() {
+        if (!this.element) {
+            return this;
+        }
+
+        this.headers.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
+
+        return this;
     },
 
     /**
@@ -105,7 +119,7 @@ Titon.Accordion = new Class({
             this.sections.setStyle('max-height', 0).conceal();
             section.setStyle('max-height', height).reveal();
 
-            this.element.getElements('> li').removeClass('is-active');
+            this.element.getChildren('li').removeClass('is-active');
             parent.addClass('is-active');
         }
 
@@ -116,12 +130,18 @@ Titon.Accordion = new Class({
     },
 
     /**
-     * Event callback for header element click or hover.
+     * Event handler for header element click or hover.
      *
      * @private
      * @param {DOMEvent} e
      */
-    _show: function(e) {
+    __show: function(e) {
+        e.stop();
+
+        if (!this.enabled) {
+            return;
+        }
+
         var target = e.target,
             headerClass = this.options.headerElement.substr(1);
 
@@ -135,30 +155,7 @@ Titon.Accordion = new Class({
         }
 
         this.show(target);
-    },
-
-    /**
-     * Toggle activation events on and off.
-     *
-     * @private
-     * @param {bool} on
-     * @returns {Titon.Accordion}
-     */
-    _toggleEvents: function(on) {
-        if (!this.element) {
-            return this;
-        }
-
-        var event = (this.options.mode === 'click') ? 'click' : 'mouseover';
-
-        if (on) {
-            this.headers.addEvent(event, this._show);
-        } else {
-            this.headers.removeEvent(event, this._show);
-        }
-
-        return this;
-    }.protect()
+    }
 
 });
 

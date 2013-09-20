@@ -24,8 +24,11 @@ Titon.Accordion = function(element, options) {
     /** Currently active header */
     this.node = null;
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
     /**
-     * Fetch elements and attach events.
+     * Initialize elements and attach events.
      */
     this.initialize = function() {
         var options = this.options;
@@ -44,7 +47,7 @@ Titon.Accordion = function(element, options) {
         }
 
         // Reset the state of every row
-        this.element.find('> li').removeClass('is-active');
+        this.element.children('li').removeClass('is-active');
 
         // Cache the height so we can use for sliding
         sections.each(function() {
@@ -55,27 +58,27 @@ Titon.Accordion = function(element, options) {
         this.show(header);
 
         // Set events
-        this.disable().enable();
+        headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
     };
 
     /**
-     * Disable events.
+     * Disable component.
      *
      * @returns {Titon.Accordion}
      */
     this.disable = function() {
-        this.headers.off((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
+        this.enabled = false;
 
         return this;
     };
 
     /**
-     * Enable events.
+     * Enable component.
      *
      * @returns {Titon.Accordion}
      */
     this.enable = function() {
-        this.headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
+        this.enabled = true;
 
         return this;
     };
@@ -84,7 +87,7 @@ Titon.Accordion = function(element, options) {
      * Toggle the section display of a row via the header click/hover event.
      * Take into account the multiple and collapsible options.
      *
-     * @param {Element} node
+     * @param {jQuery} node
      * @returns {Titon.Accordion}
      */
     this.show = function(node) {
@@ -120,7 +123,7 @@ Titon.Accordion = function(element, options) {
             this.sections.css('max-height', 0).conceal();
             section.css('max-height', height).reveal();
 
-            this.element.find('> li').removeClass('is-active');
+            this.element.children('li').removeClass('is-active');
             parent.addClass('is-active');
         }
 
@@ -130,12 +133,14 @@ Titon.Accordion = function(element, options) {
     };
 
     /**
-     * Event callback for header element click or hover.
+     * Event handler for header element click or hover.
      *
      * @private
      * @param {Event} e
      */
-    this._show = function(e) {
+    this.__show = function(e) {
+        e.preventDefault();
+
         this.show(e.currentTarget);
     };
 
@@ -178,7 +183,7 @@ $.fn.accordion.options = {
     collapsible: false,
     headerElement: '.accordion-head',
     contentElement: '.accordion-inner',
-    parseTemplate: false
+    template: false
 };
 
 })(jQuery);

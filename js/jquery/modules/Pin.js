@@ -162,7 +162,7 @@ $.fn.pin.options = {
     xOffset: 0,
     yOffset: 0,
     throttle: 50,
-    parseTemplate: false
+    template: false
 };
 
 })(jQuery);

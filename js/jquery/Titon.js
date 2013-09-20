@@ -65,6 +65,18 @@ window.Titon = {
     },
 
     /**
+     * Return a DOM element for loading messages.
+     *
+     * @param {String} component
+     * @returns {Element}
+     */
+    loadingTemplate: function(component) {
+        return $('<div/>')
+            .addClass(component + '-loading')
+            .text(Titon.messages.loadingMessage);
+    },
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -72,7 +84,7 @@ window.Titon = {
      * @param {String|Function} query
      * @returns {String}
      */
-    getValue: function(element, query) {
+    readValue: function(element, query) {
         if (!query) {
             return null;
         }
@@ -84,18 +96,6 @@ window.Titon = {
         }
 
         return element.attr(query);
-    },
-
-    /**
-     * Return a DOM element for loading messages.
-     *
-     * @param {String} component
-     * @returns {Element}
-     */
-    loadingTemplate: function(component) {
-        return $('<div/>')
-            .addClass(component + '-loading')
-            .text(Titon.messages.loadingMessage);
     },
 
     /**

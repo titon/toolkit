@@ -9,10 +9,13 @@
 
 Titon.Component = new Class({
     Implements: [Events, Options],
-    Binds: ['_show', '_hide', '_position'],
+    Binds: ['__show', '__hide', '_position'],
 
     /** Cached data */
     cache: {},
+
+    /** Is class functionality enabled? */
+    enabled: true,
 
     /** The template element or targeted DOM element used for interaction */
     element: null,
@@ -23,23 +26,7 @@ Titon.Component = new Class({
     /** Current node that activated the component */
     node: null,
 
-    /**
-     * Default options.
-     *
-     *    context          - (element) The element the component will display in (defaults to document.body)
-     *    delegate         - (string) CSS query of elements to attach events to (overrides single element events)
-     *    className        - (string) Class name to append to element
-     *    animation        - (string) The name of the animation class to use
-     *    mode             - (string) Either "hover" or "click"
-     *    errorMessage     - (string) Error message when AJAX calls fail
-     *    loadingMessage   - (string) Loading message while waiting for AJAX calls
-     *    template         - (string) HTML string template that will be converted to DOM nodes
-     *    templateFrom     - (string) ID of an element to use as the template
-     *    parseTemplate    - (bool) Whether to parse the template during initialization
-     *    onInit           - (function) Callback to trigger when class is instantiated
-     *    onHide           - (function) Callback to trigger when the element is hidden
-     *    onShow           - (function) Callback to trigger when the element is shown
-     */
+    /** Default options */
     options: {
         context: null,
         delegate: '',
@@ -54,7 +41,6 @@ Titon.Component = new Class({
         // Templates
         template: '',
         templateFrom: '',
-        parseTemplate: true,
 
         // Events
         onInit: null,
@@ -69,6 +55,33 @@ Titon.Component = new Class({
      */
     initialize: function(options) {
         this.setOptions(options || {});
+    },
+
+    /**
+     * Will either apply events via delegation or directly to an element.
+     *
+     * @returns {Titon.Component}
+     */
+    bindEvents: function() {
+        var options = this.options,
+            event = (options.mode === 'click' ? 'click' : 'mouseenter'),
+            context;
+
+        // Delegation
+        if (options.delegate) {
+            event += ':relay(' + options.delegate + ')';
+            context = document.id(options.context || document.body);
+
+        // Direct
+        } else if (this.element) {
+            context = this.element;
+        }
+
+        if (!context) {
+            context.addEvent(event, this.__show);
+        }
+
+        return this;
     },
 
     /**
@@ -89,7 +102,7 @@ Titon.Component = new Class({
         var options = this.options,
             template;
 
-        if (!options.parseTemplate || this.element) {
+        if (this.element) {
             return this;
         }
 
@@ -122,58 +135,43 @@ Titon.Component = new Class({
     },
 
     /**
-     * Disable activation events.
+     * Disable component.
      *
      * @returns {Titon.Component}
      */
     disable: function() {
-        return this._toggleEvents(false);
+        this.enabled = false;
+
+        return this;
     },
 
     /**
-     * Enable activation events.
+     * Enable component.
      *
      * @returns {Titon.Component}
      */
     enable: function() {
-        return this._toggleEvents(true);
+        this.enabled = true;
+
+        return this;
     },
 
     /**
-     * Attempt to read a value from an element using the query.
-     * Query can either be an attribute name, or a callback function.
-     *
-     * @param {Element} element
-     * @param {String|Function} query
-     * @returns {String}
-     */
-    getValue: function(element, query) {
-        if (!query) {
-            return null;
-        }
-
-        if (typeOf(query) === 'function') {
-            return query.call(this, element);
-        }
-
-        return element.get(query);
-    },
-
-    /**
-     * Hide the element and set all relevant values to null.
+     * Hide the element and trigger events or callbacks.
      *
      * @param {Function} [callback]
+     * @returns {Titon.Component}
      */
     hide: function(callback) {
-        if (this.isVisible()) {
-            this.element.conceal();
+        this.element.conceal();
 
-            if (typeOf(callback) === 'function') {
-                callback();
-            }
-
-            this.fireEvent('hide');
+        if (typeOf(callback) === 'function') {
+            callback();
         }
+
+        this.fireEvent('hide');
+
+        return this;
     },
 
     /**
@@ -209,6 +207,26 @@ Titon.Component = new Class({
         }
 
         throw new Error(this.className() + ' template failed to parse');
+    },
+
+    /**
+     * Attempt to read a value from an element using the query.
+     * Query can either be an attribute name, or a callback function.
+     *
+     * @param {Element} element
+     * @param {String|Function} query
+     * @returns {String}
+     */
+    readValue: function(element, query) {
+        if (!query) {
+            return null;
+        }
+
+        if (typeOf(query) === 'function') {
+            return query.call(this, element);
+        }
+
+        return element.get(query);
     },
 
     /**
@@ -264,25 +282,8 @@ Titon.Component = new Class({
     },
 
     /**
-     * Destroy the current template and reset.
-     *
-     * @param {bool} [dispose]
-     * @returns {Titon.Component}
-     */
-    reset: function(dispose) {
-        if (this.element && dispose) {
-            this.element.dispose();
-            this.element = null;
-        }
-
-        this.cache = {};
-        this.node = null;
-
-        return this;
-    },
-
-    /**
-     * Set the element to use. Apply optional class names if available.
+     * Set the primary element to interact with.
+     * Apply optional class names if available.
      *
      * @param {String|Element} element
      * @returns {Titon.Component}
@@ -293,7 +294,7 @@ Titon.Component = new Class({
         }
 
         this.element = element;
-        this.options.parseTemplate = false;
+        this.options.template = false;
 
         // Add a class name
         if (this.options.className) {
@@ -325,11 +326,14 @@ Titon.Component = new Class({
      * Show the element and store the node.
      *
      * @param {Element} node
+     * @returns {Titon.Component}
      */
     show: function(node) {
         this.node = node;
         this.element.reveal();
         this.fireEvent('show');
+
+        return this;
     },
 
     /**
@@ -349,23 +353,9 @@ Titon.Component = new Class({
      */
     _errorTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-error', {
-            text: this.options.errorMessage || Locale.get('Titon.error')
+            text: this.options.errorMessage || Titon.messages.errorMessage
         });
     }.protect(),
-
-    /**
-     * Event callback to hide an element.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    _hide: function(e) {
-        if (typeOf(e) === 'domevent') {
-            e.stop();
-        }
-
-        this.hide();
-    },
 
     /**
      * Return a DOM element for loading messages.
@@ -375,7 +365,7 @@ Titon.Component = new Class({
      */
     _loadingTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-loading', {
-            text: this.options.loadingMessage || Locale.get('Titon.loading')
+            text: this.options.loadingMessage || Titon.messages.loadingMessage
         });
     }.protect(),
 
@@ -384,21 +374,42 @@ Titon.Component = new Class({
      *
      * @private
      * @param {String} content
+     * @returns {Titon.Component}
      */
     _position: function(content) {
         this.element.set('html', content);
+
+        return this;
     },
 
     /**
-     * Event callback to show an element via node hover or click.
+     * Event handler to hide an element.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    __hide: function(e) {
+        if (typeOf(e) === 'domevent') {
+            e.stop();
+        }
+
+        this.hide();
+    },
+
+    /**
+     * Event handler to show an element via node hover or click.
      *
      * @private
      * @param {DOMEvent} e
      * @param {Element} node
      */
-    _show: function(e, node) {
+    __show: function(e, node) {
         if (typeOf(e) === 'domevent') {
             e.stop();
+        }
+
+        if (!this.enabled) {
+            return;
         }
 
         node = node || e.target;
@@ -415,41 +426,7 @@ Titon.Component = new Class({
         }
 
         this.show(node);
-    },
-
-    /**
-     * Toggle activation events on and off.
-     * Will either apply events via delegation or directly to an element.
-     *
-     * @private
-     * @param {bool} on
-     * @returns {Titon.Component}
-     */
-    _toggleEvents: function(on) {
-        var options = this.options,
-            event = (options.mode === 'click' ? 'click' : 'mouseenter'),
-            context;
-
-        // Delegation
-        if (options.delegate) {
-            event += ':relay(' + options.delegate + ')';
-            context = document.id(options.context || document.body);
-
-        // Direct
-        } else if (this.element) {
-            context = this.element;
-        }
-
-        if (!context) {
-            return this;
-        } else if (on) {
-            context.addEvent(event, this._show);
-        } else {
-            context.removeEvent(event, this._show);
-        }
-
-        return this;
-    }.protect()
+    }
 
 });
 

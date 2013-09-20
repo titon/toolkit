@@ -13,17 +13,15 @@ window.Titon = {
     version: '%version%',
 
     /** Build date hash */
-    build: '%build%'
+    build: '%build%',
+
+    /** Localization messages */
+    messages: {
+        loading: 'Loading...',
+        error: 'An error has occurred!'
+    }
 
 };
-
-/**
- * Localization messages.
- */
-Locale.define('en-US', 'Titon', {
-    loading: 'Loading...',
-    error: 'An error has occurred!'
-});
 
 /**
  * Prototype overrides.
