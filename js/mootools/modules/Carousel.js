@@ -140,10 +140,10 @@ Titon.Carousel = new Class({
 
         window.addEvent('keydown', function(e) {
             switch (e.key) {
-                case 'up':        this.jump(0); break;
+                case 'up':      this.jump(0); break;
                 case 'down':    this.jump(-1); break;
                 case 'left':    this.prev(); break;
-                case 'right':    this.next(); break;
+                case 'right':   this.next(); break;
             }
         }.bind(this));
 
