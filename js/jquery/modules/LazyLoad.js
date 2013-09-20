@@ -42,20 +42,28 @@ Titon.LazyLoad = function(elements, options) {
     };
 
     /**
-     * When triggered, will shutdown the instance from executing any longer.
-     * Any container events will be removed and loading will cease.
+     * Verify that the element is within the current browser viewport.
      *
-     * @returns {Titon.LazyLoad}
+     * @param {jQuery} node
+     * @returns {bool}
      */
-    this.shutdown = function() {
-        this.isLoaded = true;
+    this.inViewport = function(node) {
+        var win = $(window),
+            threshold = this.options.threshold,
+            scrollTop = win.scrollTop(),
+            scrollLeft = win.scrollLeft(),
+            nodeOffset = $(node).offset();
 
-        $(this.options.context || window).off({
-            scroll: this.load.bind(this),
-            resize: this.load.bind(this)
-        });
-
-        return this;
+        return (
+            // Below the top
+            (nodeOffset.top >= (scrollTop - threshold)) &&
+            // Above the bottom
+            (nodeOffset.top <= (scrollTop + win.height() + threshold)) &&
+            // Right of the left
+            (nodeOffset.left >= (scrollLeft - threshold)) &&
+            // Left of the right
+            (nodeOffset.left <= (scrollLeft + win.width() + threshold))
+        );
     };
 
     /**
@@ -131,28 +139,20 @@ Titon.LazyLoad = function(elements, options) {
     };
 
     /**
-     * Verify that the element is within the current browser viewport.
+     * When triggered, will shutdown the instance from executing any longer.
+     * Any container events will be removed and loading will cease.
      *
-     * @param {jQuery} node
-     * @returns {bool}
+     * @returns {Titon.LazyLoad}
      */
-    this.inViewport = function(node) {
-        var win = $(window),
-            threshold = this.options.threshold,
-            scrollTop = win.scrollTop(),
-            scrollLeft = win.scrollLeft(),
-            nodeOffset = $(node).offset();
+    this.shutdown = function() {
+        this.isLoaded = true;
 
-        return (
-            // Below the top
-            (nodeOffset.top >= (scrollTop - threshold)) &&
-            // Above the bottom
-            (nodeOffset.top <= (scrollTop + win.height() + threshold)) &&
-            // Right of the left
-            (nodeOffset.left >= (scrollLeft - threshold)) &&
-            // Left of the right
-            (nodeOffset.left <= (scrollLeft + win.width() + threshold))
-        );
+        $(this.options.context || window).off({
+            scroll: this.load.bind(this),
+            resize: this.load.bind(this)
+        });
+
+        return this;
     };
 
     // Initialize the class only if elements exists
@@ -167,7 +167,7 @@ Titon.LazyLoad = function(elements, options) {
  * The class instance will be cached and returned from this function.
  *
  * @example
- *     $$('.lazy-load').lazyLoad({
+ *     $('.lazy-load').lazyLoad({
  *         forceLoad: false
  *     });
  *

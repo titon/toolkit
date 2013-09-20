@@ -17,18 +17,7 @@ Titon.LazyLoad = new Class({
     /** Count of how many have loaded */
     loaded: 0,
 
-    /**
-     * Default options.
-     *
-     *    forceLoad        - (bool) Will force all items to load after a delay
-     *    delay            - (int) The delay in milliseconds before items are force loaded
-     *    threshold        - (int) The threshold in pixels to load images outside the viewport
-     *    context          - (element) The element the lazy loading triggers in (defaults window)
-     *    onLoad           - (function) Callback to trigger when the scroll bar loads items
-     *    onLoadAll        - (function) Callback to trigger when all items are loaded
-     *    onShow           - (function) Callback to trigger when an item is shown
-     *    onShutdown       - (function) Callback to trigger when lazy loading is disabled
-     */
+    /** Default options */
     options: {
         lazyClass: '.lazy-load',
         forceLoad: false,
@@ -76,22 +65,27 @@ Titon.LazyLoad = new Class({
     },
 
     /**
-     * When triggered, will shutdown the instance from executing any longer.
-     * Any container events will be removed and loading will cease.
+     * Verify that the element is within the current browser viewport.
      *
-     * @returns {Titon.LazyLoad}
+     * @param {Element} node
+     * @returns {bool}
      */
-    shutdown: function() {
-        this.isLoaded = true;
+    inViewport: function(node) {
+        var threshold = this.options.threshold,
+            scrollSize = window.getScroll(),
+            windowSize = window.getSize(),
+            nodeOffset = node.getPosition();
 
-        document.id(this.options.context || window).removeEvents({
-            scroll: this.load,
-            resize: this.load
-        });
-
-        this.fireEvent('shutdown');
-
-        return this;
+        return (
+            // Below the top
+            (nodeOffset.y >= (scrollSize.y - threshold)) &&
+            // Above the bottom
+            (nodeOffset.y <= (scrollSize.y + windowSize.y + threshold)) &&
+            // Right of the left
+            (nodeOffset.x >= (scrollSize.x - threshold)) &&
+            // Left of the right
+            (nodeOffset.x <= (scrollSize.x + windowSize.x + threshold))
+        );
     },
 
     /**
@@ -173,27 +167,22 @@ Titon.LazyLoad = new Class({
     },
 
     /**
-     * Verify that the element is within the current browser viewport.
+     * When triggered, will shutdown the instance from executing any longer.
+     * Any container events will be removed and loading will cease.
      *
-     * @param {Element} node
-     * @returns {bool}
+     * @returns {Titon.LazyLoad}
      */
-    inViewport: function(node) {
-        var threshold = this.options.threshold,
-            scrollSize = window.getScroll(),
-            windowSize = window.getSize(),
-            nodeOffset = node.getPosition();
+    shutdown: function() {
+        this.isLoaded = true;
 
-        return (
-            // Below the top
-            (nodeOffset.y >= (scrollSize.y - threshold)) &&
-            // Above the bottom
-            (nodeOffset.y <= (scrollSize.y + windowSize.y + threshold)) &&
-            // Right of the left
-            (nodeOffset.x >= (scrollSize.x - threshold)) &&
-            // Left of the right
-            (nodeOffset.x <= (scrollSize.x + windowSize.x + threshold))
-        );
+        document.id(this.options.context || window).removeEvents({
+            scroll: this.load,
+            resize: this.load
+        });
+
+        this.fireEvent('shutdown');
+
+        return this;
     }
 
 });

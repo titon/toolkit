@@ -23,32 +23,36 @@ Titon.Pin = function(element, options) {
     this.parentHeight = null;
     this.parentTop = null;
 
+    /** Is the component enabled? */
+    this.enabled = true;
+
     /**
      * Initialize events.
      */
     this.initialize = function() {
-        $(window).on('resize', this._resize.bind(this));
-        $(document).ready(this._resize.bind(this));
+        $(window).on('scroll', this.__scroll.bind(this));
+        $(window).on('resize', this.__resize.bind(this));
+        $(document).ready(this.__resize.bind(this));
     };
 
     /**
-     * Disable events.
+     * Disable component.
      *
      * @returns {Titon.Pin}
      */
     this.disable = function() {
-        $(window).off('scroll', this._scroll.bind(this));
+        this.enabled = false;
 
         return this;
     };
 
     /**
-     * Enable events.
+     * Enable component.
      *
      * @returns {Titon.Pin}
      */
     this.enable = function() {
-        $(window).on('scroll', this._scroll.bind(this));
+        this.enabled = true;
 
         return this;
     };
@@ -58,9 +62,9 @@ Titon.Pin = function(element, options) {
      * Determine whether to pin or unpin.
      *
      * @private
-     * @returns {Titon.Pin}
+     * @param {Event} e
      */
-    this._resize = function() {
+    this.__resize = function(e) {
         var win = $(window);
 
         this.viewport = {
@@ -78,8 +82,6 @@ Titon.Pin = function(element, options) {
         } else {
             this.disable();
         }
-
-        return this;
     };
 
     /**
@@ -87,9 +89,13 @@ Titon.Pin = function(element, options) {
      * The element should also stay contained within the parent element.
      *
      * @private
-     * @returns {Titon.Pin}
+     * @param {Event} e
      */
-    this._scroll = function() {
+    this.__scroll = function(e) {
+        if (!this.enabled) {
+            return;
+        }
+
         var options = this.options,
             eHeight = this.elementHeight,
             pHeight = this.parentHeight,
@@ -120,8 +126,6 @@ Titon.Pin = function(element, options) {
         pos.top = y;
 
         this.element.css(pos);
-
-        return this;
     };
 
     // Initialize the class only if the element exists

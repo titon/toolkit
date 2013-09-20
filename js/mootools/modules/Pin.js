@@ -9,7 +9,7 @@
 
 Titon.Pin = new Class({
     Extends: Titon.Component,
-    Binds: ['_resize', '_scroll'],
+    Binds: ['__resize', '__scroll'],
 
     /** The current window width and height */
     viewport: null,
@@ -18,18 +18,7 @@ Titon.Pin = new Class({
     elementSize: null,
     parentSize: null,
 
-    /**
-     * Default options.
-     *
-     *    animate     - (bool) Enable animation while scrolling
-     *    position    - (string) What type of positioning to use: absolute, static, fixed
-     *    location    - (string) Whether the pin should be located on the left or right of the parent
-     *    xOffset     - (int) Additional margin on the X axis
-     *    yOffset     - (int) Additional margin on the Y axis
-     *    throttle    - (int) The amount in milliseconds to update pin location
-     *    onScroll    - (function) Callback triggered when page is scrolled
-     *    onResize    - (function) Callback triggered when page is resized
-     */
+    /** Default options */
     options: {
         animation: 'pin',
         location: 'right',
@@ -57,8 +46,9 @@ Titon.Pin = new Class({
             return;
         }
 
-        window.addEvent('resize:throttle(' + this.options.throttle + ')', this._resize);
-        window.addEvent('domready', this._resize);
+        window.addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
+        window.addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize);
+        window.addEvent('domready', this.__resize);
 
         this.fireEvent('init');
     },
@@ -68,9 +58,9 @@ Titon.Pin = new Class({
      * Determine whether to pin or unpin.
      *
      * @private
-     * @returns {Titon.Pin}
+     * @param {DOMEvent} e
      */
-    _resize: function() {
+    __resize: function(e) {
         this.viewport = window.getSize();
         this.elementSize = this.element.getCoordinates();
         this.parentSize = this.element.getParent().getCoordinates();
@@ -83,8 +73,6 @@ Titon.Pin = new Class({
         }
 
         this.fireEvent('resize');
-
-        return this;
     },
 
     /**
@@ -92,9 +80,13 @@ Titon.Pin = new Class({
      * The element should also stay contained within the parent element.
      *
      * @private
-     * @returns {Titon.Pin}
+     * @param {DOMEvent} e
      */
-    _scroll: function() {
+    __scroll: function(e) {
+        if (!this.enabled) {
+            return;
+        }
+
         var options = this.options,
             eSize = this.elementSize,
             pSize = this.parentSize,
@@ -126,30 +118,7 @@ Titon.Pin = new Class({
         this.element.setStyles(pos);
 
         this.fireEvent('scroll');
-
-        return this;
-    },
-
-    /**
-     * Toggle activation events on and off.
-     *
-     * @private
-     * @param {bool} on
-     * @returns {Titon.Pin}
-     */
-    _toggleEvents: function(on) {
-        if (!this.element) {
-            return this;
-        }
-
-        if (on) {
-            window.addEvent('scroll:throttle(' + this.options.throttle + ')', this._scroll);
-        } else {
-            window.removeEvent('scroll:throttle(' + this.options.throttle + ')', this._scroll);
-        }
-
-        return this;
-    }.protect()
+    }
 
 });
 
