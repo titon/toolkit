@@ -57,6 +57,28 @@ window.Titon = {
     },
 
     /**
+     * Attempt to read a value from an element using the query.
+     * Query can either be an attribute name, or a callback function.
+     *
+     * @param {jQuery} element
+     * @param {String|Function} query
+     * @returns {String}
+     */
+    getValue: function(element, query) {
+        if (!query) {
+            return null;
+        }
+
+        element = $(element);
+
+        if ($.type(query) === 'function') {
+            return query.call(this, element);
+        }
+
+        return element.attr(query);
+    },
+
+    /**
      * Set the element to use. Apply optional class names if available.
      *
      * @param {String|Element} element

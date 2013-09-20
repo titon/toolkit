@@ -100,7 +100,13 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $$('.js-dropdown').dropdown();
-    });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $$('.js-dropdown').dropdown();
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.js-dropdown').dropdown();
+        });
+    <?php } ?>
 </script>

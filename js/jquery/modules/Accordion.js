@@ -64,7 +64,7 @@ Titon.Accordion = function(element, options) {
      * @returns {Titon.Accordion}
      */
     this.disable = function() {
-        this.headers.off((this.options.mode === 'click') ? 'click' : 'mouseover', this._show.bind(this));
+        this.headers.off((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
 
         return this;
     };
@@ -75,7 +75,7 @@ Titon.Accordion = function(element, options) {
      * @returns {Titon.Accordion}
      */
     this.enable = function() {
-        this.headers.on((this.options.mode === 'click') ? 'click' : 'mouseover', this._show.bind(this));
+        this.headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this._show.bind(this));
 
         return this;
     };
