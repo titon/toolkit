@@ -116,6 +116,25 @@ window.Titon = {
 };
 
 /**
+ * Fetch the component instance from the jQuery collection.
+ *
+ * @param {String} component
+ * @returns {Function}
+ */
+$.fn.toolkit = function(component) {
+    var key = '$' + component;
+
+    if (this[key]) {
+        return this[key] || null;
+
+    } else if (this.length === 1) {
+        return this[0][key] || null;
+    }
+
+    return null;
+};
+
+/**
  * Reveal the element by applying the show class.
  * Should be used to trigger transitions and animations.
  *

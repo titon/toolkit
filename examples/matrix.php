@@ -34,6 +34,10 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 </div>
 
 <script type="text/javascript">
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
     function appendItem() {
         newItem('append');
     }
@@ -43,29 +47,43 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
     }
 
     function removeItem() {
-        var items = $$('.matrix-grid').shuffle();
-
-        $('matrix').matrix().remove(items[0]);
+        <?php if ($library === 'mootools') { ?>
+            $('matrix').matrix().remove($$('.matrix-grid').shuffle()[0]);
+        <?php } else { ?>
+            $('#matrix').toolkit('matrix').remove($('.matrix-grid')[0]);
+        <?php } ?>
     }
 
     function newItem(where) {
         var w = 200,
-            h = Number.random(200, 600),
+            h = random(200, 600),
             i = new Image();
 
         <?php if ($mode === 'multiple') { ?>
-            w = Number.random(200, 600);
+            w = random(200, 600);
         <?php } ?>
 
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
         i.onload = function() {
-            $('matrix').matrix()[where](new Element('li.matrix-grid').grab(i));
+            <?php if ($library === 'mootools') { ?>
+                $('matrix').matrix()[where](new Element('li.matrix-grid').grab(i));
+            <?php } else { ?>
+                $('#matrix').toolkit('matrix')[where]($('<li/>').addClass('matrix-grid').html(i));
+            <?php } ?>
         };
     }
 
-    window.addEvent('domready', function() {
-        $('matrix').matrix({
-            selector: '.matrix-grid'
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('matrix').matrix({
+                selector: '.matrix-grid'
+            });
         });
-    });
+    <?php } else { ?>
+        $(function() {
+            $('#matrix').matrix({
+                selector: '.matrix-grid'
+            });
+        });
+    <?php } ?>
 </script>
