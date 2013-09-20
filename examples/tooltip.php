@@ -78,33 +78,65 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $$('.tooltip-base').tooltip({ delegate: '.tooltip-base' });
-        $$('.tooltip-attr').tooltip({ delegate: '.tooltip-attr', getTitle: false, getContent: 'title' });
-        $$('.tooltip-ajax').tooltip({ delegate: '.tooltip-ajax', ajax: true });
-        $$('.tooltip-fade').tooltip({ delegate: '.tooltip-fade', animation: 'fade' });
-        $$('.tooltip-from-above').tooltip({ delegate: '.tooltip-from-above', animation: 'from-above' });
-        $$('.tooltip-from-below').tooltip({ delegate: '.tooltip-from-below', animation: 'from-below' });
-        $$('.tooltip-flip-rotate').tooltip({ delegate: '.tooltip-flip-rotate', animation: 'flip-rotate' });
-        $$('.tooltip-slide-in').tooltip({ delegate: '.tooltip-slide-in', animation: 'slide-in' });
-        $$('.tooltip-click').tooltip({ delegate: '.tooltip-click', mode: 'click' });
-        $$('.tooltip-delay').tooltip({ delegate: '.tooltip-delay', delay: 250 });
-        $$('.tooltip-offset').tooltip({ delegate: '.tooltip-offset', xOffset: 15, yOffset: 15 });
-        $$('.tooltip-tl').tooltip({ delegate: '.tooltip-tl', position: 'topLeft' });
-        $$('.tooltip-tc').tooltip({ delegate: '.tooltip-tc', position: 'topCenter' });
-        $$('.tooltip-tr').tooltip({ delegate: '.tooltip-tr', position: 'topRight' });
-        $$('.tooltip-cl').tooltip({ delegate: '.tooltip-cl', position: 'centerLeft' });
-        $$('.tooltip-cr').tooltip({ delegate: '.tooltip-cr', position: 'centerRight' });
-        $$('.tooltip-bl').tooltip({ delegate: '.tooltip-bl', position: 'bottomLeft' });
-        $$('.tooltip-bc').tooltip({ delegate: '.tooltip-bc', position: 'bottomCenter' });
-        $$('.tooltip-br').tooltip({ delegate: '.tooltip-br', position: 'bottomRight' });
-        $$('.tooltip-mtl').tooltip({ delegate: '.tooltip-mtl', position: 'topLeft', follow: true });
-        $$('.tooltip-mtc').tooltip({ delegate: '.tooltip-mtc', position: 'topCenter', follow: true });
-        $$('.tooltip-mtr').tooltip({ delegate: '.tooltip-mtr', position: 'topRight', follow: true });
-        $$('.tooltip-mcl').tooltip({ delegate: '.tooltip-mcl', position: 'centerLeft', follow: true });
-        $$('.tooltip-mcr').tooltip({ delegate: '.tooltip-mcr', position: 'centerRight', follow: true });
-        $$('.tooltip-mbl').tooltip({ delegate: '.tooltip-mbl', position: 'bottomLeft', follow: true });
-        $$('.tooltip-mbc').tooltip({ delegate: '.tooltip-mbc', position: 'bottomCenter', follow: true });
-        $$('.tooltip-mbr').tooltip({ delegate: '.tooltip-mbr', position: 'bottomRight', follow: true });
-    });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $$('.tooltip-base').tooltip({ delegate: '.tooltip-base' });
+            $$('.tooltip-attr').tooltip({ delegate: '.tooltip-attr', getTitle: false, getContent: 'title' });
+            $$('.tooltip-ajax').tooltip({ delegate: '.tooltip-ajax', ajax: true });
+            $$('.tooltip-fade').tooltip({ delegate: '.tooltip-fade', animation: 'fade' });
+            $$('.tooltip-from-above').tooltip({ delegate: '.tooltip-from-above', animation: 'from-above' });
+            $$('.tooltip-from-below').tooltip({ delegate: '.tooltip-from-below', animation: 'from-below' });
+            $$('.tooltip-flip-rotate').tooltip({ delegate: '.tooltip-flip-rotate', animation: 'flip-rotate' });
+            $$('.tooltip-slide-in').tooltip({ delegate: '.tooltip-slide-in', animation: 'slide-in' });
+            $$('.tooltip-click').tooltip({ delegate: '.tooltip-click', mode: 'click' });
+            $$('.tooltip-delay').tooltip({ delegate: '.tooltip-delay', delay: 250 });
+            $$('.tooltip-offset').tooltip({ delegate: '.tooltip-offset', xOffset: 15, yOffset: 15 });
+            $$('.tooltip-tl').tooltip({ delegate: '.tooltip-tl', position: 'topLeft' });
+            $$('.tooltip-tc').tooltip({ delegate: '.tooltip-tc', position: 'topCenter' });
+            $$('.tooltip-tr').tooltip({ delegate: '.tooltip-tr', position: 'topRight' });
+            $$('.tooltip-cl').tooltip({ delegate: '.tooltip-cl', position: 'centerLeft' });
+            $$('.tooltip-cr').tooltip({ delegate: '.tooltip-cr', position: 'centerRight' });
+            $$('.tooltip-bl').tooltip({ delegate: '.tooltip-bl', position: 'bottomLeft' });
+            $$('.tooltip-bc').tooltip({ delegate: '.tooltip-bc', position: 'bottomCenter' });
+            $$('.tooltip-br').tooltip({ delegate: '.tooltip-br', position: 'bottomRight' });
+            $$('.tooltip-mtl').tooltip({ delegate: '.tooltip-mtl', position: 'topLeft', follow: true });
+            $$('.tooltip-mtc').tooltip({ delegate: '.tooltip-mtc', position: 'topCenter', follow: true });
+            $$('.tooltip-mtr').tooltip({ delegate: '.tooltip-mtr', position: 'topRight', follow: true });
+            $$('.tooltip-mcl').tooltip({ delegate: '.tooltip-mcl', position: 'centerLeft', follow: true });
+            $$('.tooltip-mcr').tooltip({ delegate: '.tooltip-mcr', position: 'centerRight', follow: true });
+            $$('.tooltip-mbl').tooltip({ delegate: '.tooltip-mbl', position: 'bottomLeft', follow: true });
+            $$('.tooltip-mbc').tooltip({ delegate: '.tooltip-mbc', position: 'bottomCenter', follow: true });
+            $$('.tooltip-mbr').tooltip({ delegate: '.tooltip-mbr', position: 'bottomRight', follow: true });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.tooltip-base').tooltip();
+            $('.tooltip-attr').tooltip({ getTitle: false, getContent: 'title' });
+            $('.tooltip-ajax').tooltip({ ajax: true });
+            $('.tooltip-fade').tooltip({ animation: 'fade' });
+            $('.tooltip-from-above').tooltip({ animation: 'from-above' });
+            $('.tooltip-from-below').tooltip({ animation: 'from-below' });
+            $('.tooltip-flip-rotate').tooltip({ animation: 'flip-rotate' });
+            $('.tooltip-slide-in').tooltip({ animation: 'slide-in' });
+            $('.tooltip-click').tooltip({ mode: 'click' });
+            $('.tooltip-delay').tooltip({ delay: 250 });
+            $('.tooltip-offset').tooltip({ xOffset: 15, yOffset: 15 });
+            $('.tooltip-tl').tooltip({ position: 'topLeft' });
+            $('.tooltip-tc').tooltip({ position: 'topCenter' });
+            $('.tooltip-tr').tooltip({ position: 'topRight' });
+            $('.tooltip-cl').tooltip({ position: 'centerLeft' });
+            $('.tooltip-cr').tooltip({ position: 'centerRight' });
+            $('.tooltip-bl').tooltip({ position: 'bottomLeft' });
+            $('.tooltip-bc').tooltip({ position: 'bottomCenter' });
+            $('.tooltip-br').tooltip({ position: 'bottomRight' });
+            $('.tooltip-mtl').tooltip({ position: 'topLeft', follow: true });
+            $('.tooltip-mtc').tooltip({ position: 'topCenter', follow: true });
+            $('.tooltip-mtr').tooltip({ position: 'topRight', follow: true });
+            $('.tooltip-mcl').tooltip({ position: 'centerLeft', follow: true });
+            $('.tooltip-mcr').tooltip({ position: 'centerRight', follow: true });
+            $('.tooltip-mbl').tooltip({ position: 'bottomLeft', follow: true });
+            $('.tooltip-mbc').tooltip({ position: 'bottomCenter', follow: true });
+            $('.tooltip-mbr').tooltip({ position: 'bottomRight', follow: true });
+        });
+    <?php } ?>
 </script>
