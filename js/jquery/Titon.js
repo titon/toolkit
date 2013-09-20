@@ -187,4 +187,20 @@ $.expr[':'].shown = function(obj) {
     return ($(obj).css('visibility') !== 'hidden');
 };
 
+/**
+ * Split an array into multiple chunked arrays.
+ *
+ * @param {Number} size
+ * @returns {Array}
+ */
+if (!Array.prototype.chunk) {
+    Array.prototype.chunk = function(size) {
+        var array = this;
+
+        return [].concat.apply([], array.map(function(elem, i) {
+            return (i % size) ? [] : [ array.slice(i, i + size) ];
+        }));
+    };
+}
+
 })(window);

@@ -4,111 +4,137 @@
  * @link        http://titon.io
  */
 
-(function() {
+(function($) {
     'use strict';
 
-Titon.Flyout = new Class({
-    Extends: Titon.Component,
-    Implements: [Timers],
+Titon.Flyout = function(nodes, url, options) {
+
+    /** Custom options */
+    this.options = Titon.setOptions($.fn.flyout.options, options);
+
+    /** Nodes to activate menus on */
+    this.nodes = $(nodes);
+
+    /** Currently active node */
+    this.node = null;
+
+    /** Currently active menu */
+    this.element = null;
 
     /** The current menu URL being displayed */
-    current: null,
+    this.current = null;
 
     /** Collection of menu elements */
-    menus: {},
+    this.menus = {};
 
     /** Raw data response */
-    data: [],
+    this.data = [];
 
     /** Mapping of data indexed by URL */
-    dataMap: {},
+    this.dataMap = {};
+
+    /** Delay timers */
+    this.timers = {};
 
     /**
-     * Default options.
-     *
-     *    getUrl           - (string) Attribute to read the URL from
-     *    xOffset          - (int) Additional margin on the X axis
-     *    yOffset          - (int) Additional margin on the Y axis
-     *    showDelay        - (int) The delay in milliseconds before the menu shows
-     *    hideDelay        - (int) The delay in milliseconds before the menu hides
-     *    itemLimit        - (int) How many items before splitting the lists
-     *    contentElement   - (string) CSS query for the element within the template that the <ul> menu will be injected into
-     *    onHideChild      - (function) Callback to trigger when a child menu is hidden
-     *    onShowChild      - (function) Callback to trigger when a child menu is shown
+     * Fetch elements and attach events.
      */
-    options: {
-        delegate: '.js-flyout',
-        mode: 'hover',
-        getUrl: 'href',
-        xOffset: 0,
-        yOffset: 0,
-        showDelay: 350,
-        hideDelay: 1000,
-        itemLimit: 15,
-        contentElement: '.flyout',
-        template: '<div class="flyout"></div>',
-        multiElement: true,
-
-        // Events
-        onHideChild: null,
-        onShowChild: null
-    },
-
-    /**
-     * Initialize all options and events and fetch data from the defined URL.
-     *
-     * @param {Elements} elements
-     * @param {String} url
-     * @param {Object} [options]
-     */
-    initialize: function(elements, url, options) {
-        this.parent(options);
-        this.setNodes(elements);
-
+    this.initialize = function() {
         if (!url) {
             throw new Error('Flyout URL required to download sitemap JSON');
         }
 
         // Load data from the URL
-        new Request.JSON({
+        $.ajax({
             url: url,
-            secure: true,
-            onSuccess: this.load.bind(this)
-        }).get();
-
-        // Set timers
-        this.addTimers({
-            show: this._position,
-            hide: this._hide
+            dataType: 'json',
+            success: this.load.bind(this)
         });
 
         // Set events
         this.disable().enable();
 
         // Handles keeping menu open even if mouse exits the context
-        options = this.options;
+        var options = this.options;
 
         if (options.mode === 'hover') {
-            $(options.context || document.body)
-                .addEvent('mouseenter:relay(' + options.delegate + ')', function() {
+            $(options.context || document)
+                .on('mouseenter', this.nodes.selector, function() {
                     this.clearTimer('hide').startTimer('show', options.showDelay);
                 }.bind(this))
-                .addEvent('mouseleave:relay(' + options.delegate + ')', function() {
+                .on('mouseleave', this.nodes.selector, function() {
                     this.clearTimer('show').startTimer('hide', options.showDelay);
                 }.bind(this));
         }
+    };
 
-        this.fireEvent('init');
-    },
+    /**
+     * Enable events.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.enable = function() {
+        $(this.options.context || document)
+            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
+
+        return this;
+    };
+
+    /**
+     * Disable events.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.disable = function() {
+        $(this.options.context || document)
+            .off((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this._show.bind(this));
+
+        return this;
+    };
+
+    /**
+     * Clear a timer by key.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.clearTimer = function(key) {
+        window.clearTimeout(this.timers[key]);
+        delete this.timers[key];
+
+        return this;
+    };
+
+    /**
+     * Add a timer that should trigger a function after a delay.
+     *
+     * @returns {Titon.Flyout}
+     */
+    this.startTimer = function(key, delay, args) {
+        this.clearTimer(key);
+
+        var fn;
+
+        if (key === 'show') {
+            fn = this._position.bind(this);
+        } else {
+            fn = this.hide.bind(this);
+        }
+
+        if (fn) {
+            this.timers[key] = window.setTimeout(function() {
+                fn.apply(this, args || []);
+            }.bind(this), delay);
+        }
+
+        return this;
+    };
 
     /**
      * Hide the currently shown menu.
      *
      * @returns {Titon.Flyout}
      */
-    hide: function() {
-        this.clearTimers();
-
+    this.hide = function() {
         // Must be called even if the menu is hidden
         this.node.removeClass('is-active');
 
@@ -117,26 +143,25 @@ Titon.Flyout = new Class({
         }
 
         this.menus[this.current].conceal();
-        this.fireEvent('hide');
 
         // Reset last
         this.current = null;
 
         return this;
-    },
+    };
 
     /**
      * Return true if the current menu exists and is visible.
      *
      * @returns {bool}
      */
-    isVisible: function() {
+    this.isVisible = function() {
         if (this.current && this.menus[this.current]) {
             this.element = this.menus[this.current];
         }
 
-        return this.parent();
-    },
+        return (this.element && this.element.is(':shown'));
+    };
 
     /**
      * Load the data into the class and save a mapping of it.
@@ -145,7 +170,7 @@ Titon.Flyout = new Class({
      * @param {Number} [depth]
      * @returns {Titon.Flyout}
      */
-    load: function(data, depth) {
+    this.load = function(data, depth) {
         depth = depth || 0;
 
         // If root, store the data
@@ -163,15 +188,15 @@ Titon.Flyout = new Class({
         }
 
         return this;
-    },
+    };
 
     /**
      * Show the menu below the node.
      *
-     * @param {Element} node
+     * @param {jQuery} node
      * @returns {Titon.Flyout}
      */
-    show: function(node) {
+    this.show = function(node) {
         var target = this._getTarget(node);
 
         // When jumping from one node to another
@@ -181,7 +206,7 @@ Titon.Flyout = new Class({
             this.startTimer('show', this.options.showDelay);
         }
 
-        this.node = node;
+        this.node = $(node);
 
         // Find the menu, else create it
         if (!this._getMenu()) {
@@ -196,22 +221,22 @@ Titon.Flyout = new Class({
         }
 
         return this;
-    },
+    };
 
     /**
      * Build a nested list menu using the data object.
      *
      * @private
-     * @param {Element} parent
+     * @param {jQuery} parent
      * @param {Object} data
-     * @returns {Element}
+     * @returns {jQuery}
      */
-    _buildMenu: function(parent, data) {
+    this._buildMenu = function(parent, data) {
         if (!data.children || !data.children.length) {
             return null;
         }
 
-        var menu = this.parseTemplate(this.options.template),
+        var menu = $(this.options.template),
             groups = [],
             ul,
             li,
@@ -223,7 +248,7 @@ Titon.Flyout = new Class({
             menu.addClass(this.options.className);
         }
 
-        if (parent === document.body) {
+        if (parent.get(0) === $('body').get(0)) {
             menu.addClass('flyout-root');
         }
 
@@ -234,20 +259,20 @@ Titon.Flyout = new Class({
         }
 
         for (var g = 0, group; group = groups[g]; g++) {
-            ul = new Element('ul');
+            ul = $('<ul/>');
 
             for (var i = 0, l = group.length, child; i < l; i++) {
                 child = group[i];
-                li = new Element('li');
+                li = $('<li/>');
 
                 // Build tag
                 if (child.url) {
-                    tag = new Element('a', {
+                    tag = $('<a/>', {
                         text: child.title,
                         href: child.url
                     });
                 } else {
-                    tag = new Element('span', {
+                    tag = $('<span/>', {
                         text: child.title
                     });
 
@@ -255,51 +280,51 @@ Titon.Flyout = new Class({
                 }
 
                 if (child.attributes) {
-                    tag.set(child.attributes);
+                    tag.attr(child.attributes);
                 }
 
                 // Add icon
-                new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
+                $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
 
                 // Build list
                 if (child.className) {
                     li.addClass(child.className);
                 }
 
-                li.grab(tag).inject(ul);
+                li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
                     this._buildMenu(li, child);
 
                     li.addClass('has-children')
-                        .addEvent('mouseenter', this._positionChild.bind(this, li))
-                        .addEvent('mouseleave', this._hideChild.bind(this, li));
+                        .on('mouseenter', this._positionChild.bind(this, li))
+                        .on('mouseleave', this._hideChild.bind(this, li));
                 }
             }
 
             if (target) {
                 if (target.substr(0, 1) === '.' && menu.hasClass(target.substr(1))) {
-                    menu.grab(ul);
+                    menu.append(ul);
                 } else {
-                    menu.getElement(target).grab(ul);
+                    menu.find(target).append(ul);
                 }
             } else {
-                menu.grab(ul);
+                menu.append(ul);
             }
         }
 
-        menu.inject(parent);
+        menu.appendTo(parent);
 
         return menu;
-    }.protect(),
+    };
 
     /**
      * Get the menu if it exists, else build it and set events.
      *
      * @private
-     * @returns {Element}
+     * @returns {jQuery}
      */
-    _getMenu: function() {
+    this._getMenu = function() {
         var target = this._getTarget();
 
         if (this.menus[target]) {
@@ -309,7 +334,7 @@ Titon.Flyout = new Class({
         }
 
         if (this.dataMap[target]) {
-            var menu = this._buildMenu(document.body, this.dataMap[target]);
+            var menu = this._buildMenu($('body'), this.dataMap[target]);
 
             if (!menu) {
                 return null;
@@ -318,7 +343,7 @@ Titon.Flyout = new Class({
             menu.conceal();
 
             if (this.options.mode === 'hover') {
-                menu.addEvents({
+                menu.on({
                     mouseenter: function() {
                         this.clearTimer('hide');
                     }.bind(this),
@@ -335,40 +360,65 @@ Titon.Flyout = new Class({
         }
 
         return null;
-    }.protect(),
+    };
 
     /**
      * Get the target URL to determine which menu to show.
      *
      * @private
-     * @param {Element} node
+     * @param {jQuery} node
      * @returns {String}
      */
-    _getTarget: function(node) {
-        node = node || this.node;
+    this._getTarget = function(node) {
+        node = $(node || this.node);
 
-        return this.getValue(node, this.options.getUrl) || node.get('href');
-    }.protect(),
+        return Titon.getValue.apply(this, [node, this.options.getUrl]) || node.get('href');
+    };
 
     /**
      * Hide the child menu after exiting parent li.
      *
      * @private
-     * @param {Element} parent
+     * @param {jQuery} parent
      */
-    _hideChild: function(parent) {
+    this._hideChild = function(parent) {
+        parent = $(parent);
         parent.removeClass('is-open');
-        parent.getChildren(this.options.contentElement).removeProperty('style');
+        parent.children(this.options.contentElement).removeAttr('style');
+    };
 
-        this.fireEvent('hideChild', parent);
-    },
+    /**
+     * Event handler to show the menu.
+     *
+     * @private
+     * @param {Event} e
+     */
+    this._show = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var node = $(e.target);
+
+        if (this.isVisible()) {
+            if (this.options.mode === 'click') {
+                this.hide();
+            }
+
+            // Exit if the same node
+            if (node.get(0) === this.node.get(0)) {
+                return;
+            }
+        }
+
+        this.show(node);
+    };
 
     /**
      * Position the menu below the target node.
      *
      * @private
      */
-    _position: function() {
+    this._position = function() {
         var target = this.current,
             options = this.options;
 
@@ -377,69 +427,73 @@ Titon.Flyout = new Class({
         }
 
         var menu = this.menus[target],
-            height = menu.getDimensions().height,
-            coords = this.node.getCoordinates(),
+            height = menu.outerHeight(),
+            coords = this.node.offset(),
             x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + coords.height,
-            windowScroll = window.getScrollSize();
+            y = coords.top + options.yOffset + this.node.outerHeight(),
+            windowScroll = $(window).height();
 
         // If menu goes below half page, position it above
-        if (y > (windowScroll.y / 2)) {
+        if (y > (windowScroll / 2)) {
             y = coords.top - options.yOffset - height;
         }
 
-        menu.setPosition({
-            x: x,
-            y: y
+        menu.css({
+            left: x,
+            top: y
         }).reveal();
-
-        this.fireEvent('show');
-    },
+    };
 
     /**
      * Position the child menu dependent on the position in the page.
      *
      * @private
-     * @param {Element} parent
+     * @param {jQuery} parent
      */
-    _positionChild: function(parent) {
-        var menu = parent.getElement(this.options.contentElement);
+    this._positionChild = function(parent) {
+        var menu = parent.children(this.options.contentElement);
 
         if (!menu) {
             return;
         }
 
         // Alter width because of columns
-        menu.setStyle('width', menu.getChildren('ul').getWidth().sum()  + 'px');
+        var children = menu.children();
+
+        menu.css('width', (children.outerWidth() * children.length) + 'px');
 
         // Get sizes after menu positioning
-        var windowScroll = window.getScrollSize(),
-            windowSize = window.getCoordinates(),
-            parentSize = parent.getCoordinates(),
-            childSize = menu.getCoordinates();
+        var win = $(window),
+            winHeight = win.height() + win.scrollTop(),
+            winWidth = win.width(),
+            parentTop = parent.offset().top,
+            parentHeight = parent.outerHeight(),
+            parentRight = parent.offset().left + parent.outerWidth();
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        var hWidth = parentSize.right + childSize.width;
+        var hWidth = parentRight + menu.outerWidth();
 
-        if (hWidth >= windowSize.width) {
+        if (hWidth >= winWidth) {
             menu.addClass('flyout--left');
         } else {
             menu.removeClass('flyout--left');
         }
 
         // Reverse menu vertically if below half way fold
-        if (parentSize.top > (windowScroll.y / 2)) {
-            menu.setStyle('top', '-' + (childSize.height - parentSize.height) + 'px');
+        if (parentTop > (winHeight / 2)) {
+            menu.css('top', '-' + (menu.outerHeight() - parentHeight) + 'px');
         } else {
-            menu.setStyle('top', 0);
+            menu.css('top', 0);
         }
 
         parent.addClass('is-open');
+    };
 
-        this.fireEvent('showChild', parent);
+    // Initialize the class only if the element exists
+    if (this.nodes.length) {
+        this.initialize();
     }
-
-});
+};
 
 /**
  * Enable flyouts on Elements collections by calling flyout().
@@ -447,7 +501,7 @@ Titon.Flyout = new Class({
  * The class instance will be cached and returned from this function.
  *
  * @example
- *     $$('.js-flyout').flyout('/sitemap.json', {
+ *     $('.js-flyout').flyout('/sitemap.json', {
  *         ajax: false
  *     });
  *
@@ -455,7 +509,7 @@ Titon.Flyout = new Class({
  * @param {Object} [options]
  * @returns {Titon.Flyout}
  */
-Elements.implement('flyout', function(url, options) {
+$.fn.flyout = function(url, options) {
     if (this.$flyout) {
         return this.$flyout;
     }
@@ -463,6 +517,21 @@ Elements.implement('flyout', function(url, options) {
     this.$flyout = new Titon.Flyout(this, url, options);
 
     return this.$flyout;
-});
+};
 
-})();
+$.fn.flyout.options = {
+    className: '',
+    context: null,
+    mode: 'hover',
+    getUrl: 'href',
+    xOffset: 0,
+    yOffset: 0,
+    showDelay: 350,
+    hideDelay: 1000,
+    itemLimit: 15,
+    contentElement: '.flyout',
+    template: '<div class="flyout"></div>',
+    multiElement: true
+};
+
+})(jQuery);

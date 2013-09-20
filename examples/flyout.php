@@ -33,13 +33,25 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        $$('.button').addEvent('click', function(e) {
-            e.preventDefault();
-        });
+    <?php if ($library === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $$('.button').addEvent('click', function(e) {
+                e.preventDefault();
+            });
 
-        $$('.flyout-1').flyout('ajax/flyout.php', { delegate: '.flyout-1' });
-        $$('.flyout-2').flyout('ajax/flyout.php', { delegate: '.flyout-2', mode: 'click', itemLimit: 5 });
-        $$('.flyout-3').flyout('ajax/flyout.php', { delegate: '.flyout-3', showDelay: 0, hideDelay: 200 });
-    });
+            $$('.flyout-1').flyout('ajax/flyout.php', { delegate: '.flyout-1' });
+            $$('.flyout-2').flyout('ajax/flyout.php', { delegate: '.flyout-2', mode: 'click', itemLimit: 5 });
+            $$('.flyout-3').flyout('ajax/flyout.php', { delegate: '.flyout-3', showDelay: 0, hideDelay: 200 });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.button').on('click', function(e) {
+                e.preventDefault();
+            });
+
+            $('.flyout-1').flyout('ajax/flyout.php');
+            $('.flyout-2').flyout('ajax/flyout.php', { mode: 'click', itemLimit: 5 });
+            $('.flyout-3').flyout('ajax/flyout.php', { showDelay: 0, hideDelay: 200 });
+        });
+    <?php } ?>
 </script>

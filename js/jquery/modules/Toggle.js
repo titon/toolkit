@@ -7,16 +7,16 @@
 (function($) {
     'use strict';
 
-Titon.Toggle = function(elements, options) {
+Titon.Toggle = function(nodes, options) {
 
     /** Custom options */
     this.options = Titon.setOptions($.fn.toggle.options, options);
 
+    /** List of elements to active toggle */
+    this.nodes = $(nodes);
+
     /** Element to toggle */
     this.element = null;
-
-    /** List of elements to active toggle */
-    this.nodes = Titon.setElement(elements, this.options);
 
     /** Currently active node */
     this.node = null;
