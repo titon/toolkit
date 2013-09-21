@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Pin = function(element, options) {
+Titon.Pin = Titon.Component.create(function(element, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.pin.options, options);
@@ -110,10 +110,7 @@ Titon.Pin = function(element, options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-Titon.Pin.prototype = new Titon.Component();
-Titon.Pin.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable Element pinning by calling pin().

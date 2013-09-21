@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Matrix = function(element, options) {
+Titon.Matrix = Titon.Component.create(function(element, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.matrix.options, options);
@@ -377,10 +377,7 @@ Titon.Matrix = function(element, options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-Titon.Matrix.prototype = new Titon.Component();
-Titon.Matrix.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable a matrix grid on an element by calling matrix().

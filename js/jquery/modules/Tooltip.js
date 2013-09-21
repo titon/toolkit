@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Tooltip = function(nodes, options) {
+Titon.Tooltip = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.tooltip.options, options);
@@ -232,10 +232,7 @@ Titon.Tooltip = function(nodes, options) {
 
     // Initialize the class only if the element exists
     this.initialize();
-};
-
-Titon.Tooltip.prototype = new Titon.Component();
-Titon.Tooltip.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable tooltips on Elements collections by calling tooltip().

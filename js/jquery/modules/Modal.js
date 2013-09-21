@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Modal = function(nodes, options) {
+Titon.Modal = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.modal.options, options);
@@ -241,10 +241,7 @@ Titon.Modal = function(nodes, options) {
 
     // Initialize the class only if elements exists
     this.initialize();
-};
-
-Titon.Modal.prototype = new Titon.Component();
-Titon.Modal.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable modals on Elements collections by calling modal().

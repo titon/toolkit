@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Blackout = function(options) {
+Titon.Blackout = Titon.Component.create(function(options) {
 
     /** Custom options */
     this.options = this.setOptions({
@@ -68,9 +68,6 @@ Titon.Blackout = function(options) {
 
     // Initialize the class only if the element exists
     this.initialize();
-};
-
-Titon.Blackout.prototype = new Titon.Component();
-Titon.Blackout.prototype.constructor = Titon.Component;
+});
 
 })(jQuery);

@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Showcase = function(nodes, options) {
+Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.showcase.options, options);
@@ -337,10 +337,7 @@ Titon.Showcase = function(nodes, options) {
 
     // Initialize the class only if the element exists
     this.initialize();
-};
-
-Titon.Showcase.prototype = new Titon.Component();
-Titon.Showcase.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable showcase galleries on Elements collections by calling showcase().

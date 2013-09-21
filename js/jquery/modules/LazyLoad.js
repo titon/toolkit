@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.LazyLoad = function(elements, options) {
+Titon.LazyLoad = Titon.Component.create(function(elements, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.lazyLoad.options, options);
@@ -160,10 +160,7 @@ Titon.LazyLoad = function(elements, options) {
     if (this.elements.length) {
         this.initialize();
     }
-};
-
-Titon.LazyLoad.prototype = new Titon.Component();
-Titon.LazyLoad.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable lazy loading on Elements collections by calling lazyLoad().

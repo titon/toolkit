@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Carousel = function(element, options) {
+Titon.Carousel = Titon.Component.create(function(element, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.carousel.options, options);
@@ -282,10 +282,7 @@ Titon.Carousel = function(element, options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-Titon.Carousel.prototype = new Titon.Component();
-Titon.Carousel.prototype.constructor = Titon.Component;
+});
 
 /**
  * Allow the carousel to be created on elements by calling carousel().

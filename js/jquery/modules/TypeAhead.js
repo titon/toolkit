@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.TypeAhead = function(input, options) {
+Titon.TypeAhead = Titon.Component.create(function(input, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.typeAhead.options, options);
@@ -556,10 +556,7 @@ Titon.TypeAhead = function(input, options) {
     if (this.input.length) {
         this.initialize();
     }
-};
-
-Titon.TypeAhead.prototype = new Titon.Component();
-Titon.TypeAhead.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable a type ahead select system over an input field by calling typeAhead() on an Element.

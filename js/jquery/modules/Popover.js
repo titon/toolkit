@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Popover = function(nodes, options) {
+Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.popover.options, options);
@@ -27,10 +27,7 @@ Titon.Popover = function(nodes, options) {
 
     // Initialize class
     this.initialize();
-};
-
-Titon.Popover.prototype = new Titon.Tooltip();
-Titon.Popover.prototype.constructor = Titon.Tooltip;
+});
 
 /**
  * Enable popovers on Elements collections by calling popover().

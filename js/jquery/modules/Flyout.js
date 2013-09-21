@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Flyout = function(nodes, url, options) {
+Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.flyout.options, options);
@@ -476,10 +476,7 @@ Titon.Flyout = function(nodes, url, options) {
 
     // Initialize the class only if the element exists
     this.initialize();
-};
-
-Titon.Flyout.prototype = new Titon.Component();
-Titon.Flyout.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable flyouts on Elements collections by calling flyout().

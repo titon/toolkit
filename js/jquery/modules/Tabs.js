@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Tabs = function(element, options) {
+Titon.Tabs = Titon.Component.create(function(element, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.tabs.options, options);
@@ -205,10 +205,7 @@ Titon.Tabs = function(element, options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-Titon.Tabs.prototype = new Titon.Component();
-Titon.Tabs.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable tabular sections on an Element by calling tabs().

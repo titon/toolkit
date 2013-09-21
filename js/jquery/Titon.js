@@ -198,4 +198,19 @@ if (!String.prototype.hyphenate) {
     };
 }
 
+/**
+ * Very basic method for allowing functions to inherit functionality through the prototype.
+ * Will set the prototype if the `base` function to the function calling `create()`.
+ *
+ * @returns {Function}
+ */
+if (!Function.prototype.create) {
+    Function.prototype.create = function(base) {
+        base.prototype = new this();
+        base.prototype.constructor = this;
+
+        return base;
+    };
+}
+
 })(window);

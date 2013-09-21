@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Accordion = function(element, options) {
+Titon.Accordion = Titon.Component.create(function(element, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.accordion.options, options);
@@ -126,10 +126,7 @@ Titon.Accordion = function(element, options) {
     if (this.element.length) {
         this.initialize();
     }
-};
-
-Titon.Accordion.prototype = new Titon.Component();
-Titon.Accordion.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable an accordion on an element by calling accordion().

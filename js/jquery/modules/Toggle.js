@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Toggle = function(nodes, options) {
+Titon.Toggle = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
     this.options = this.setOptions($.fn.toggle.options, options);
@@ -97,10 +97,7 @@ Titon.Toggle = function(nodes, options) {
 
     // Initialize the class only if elements exists
     this.initialize();
-};
-
-Titon.Accordion.prototype = new Titon.Component();
-Titon.Accordion.prototype.constructor = Titon.Component;
+});
 
 /**
  * Enable dropdowns on Elements collections by calling dropdown().
