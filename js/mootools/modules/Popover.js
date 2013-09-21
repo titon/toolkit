@@ -56,13 +56,13 @@ Titon.Popover = new Class({
  * @returns {Titon.Popover}
  */
 Elements.implement('popover', function(options) {
-    if (this.$popover) {
-        return this.$popover;
-    }
+    var popover = new Titon.Popover(this, options);
 
-    this.$popover = new Titon.Popover(this, options);
-
-    return this.$popover;
+    return this.each(function(el) {
+        if (!el.$popover) {
+            el.$popover = popover;
+        }
+    });
 });
 
 })();

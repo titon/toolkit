@@ -193,13 +193,13 @@ Titon.Tooltip = new Class({
  * @returns {Titon.Tooltip}
  */
 Elements.implement('tooltip', function(options) {
-    if (this.$tooltip) {
-        return this.$tooltip;
-    }
+    var tooltip = new Titon.Tooltip(this, options);
 
-    this.$tooltip = new Titon.Tooltip(this, options);
-
-    return this.$tooltip;
+    return this.each(function(el) {
+        if (!el.$tooltip) {
+            el.$tooltip = tooltip;
+        }
+    });
 });
 
 })();

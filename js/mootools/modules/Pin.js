@@ -136,13 +136,11 @@ Titon.Pin = new Class({
  * @returns {Titon.Pin}
  */
 Element.implement('pin', function(options) {
-    if (this.$pin) {
-        return this.$pin;
+    if (!this.$pin) {
+        this.$pin = new Titon.Pin(this, options);
     }
 
-    this.$pin = new Titon.Pin(this, options);
-
-    return this.$pin;
+    return this;
 });
 
 })();

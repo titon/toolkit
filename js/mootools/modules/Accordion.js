@@ -173,13 +173,11 @@ Titon.Accordion = new Class({
  * @returns {Titon.Accordion}
  */
 Element.implement('accordion', function(options) {
-    if (this.$accordion) {
-        return this.$accordion;
+    if (!this.$accordion) {
+        this.$accordion = new Titon.Accordion(this, options);
     }
 
-    this.$accordion = new Titon.Accordion(this, options);
-
-    return this.$accordion;
+    return this;
 });
 
 })();

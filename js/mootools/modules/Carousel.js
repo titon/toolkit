@@ -358,13 +358,11 @@ Titon.Carousel = new Class({
  * @returns {Titon.Carousel}
  */
 Element.implement('carousel', function(options) {
-    if (this.$carousel) {
-        return this.$carousel;
+    if (!this.$carousel) {
+        this.$carousel = new Titon.Carousel(this, options);
     }
 
-    this.$carousel = new Titon.Carousel(this, options);
-
-    return this.$carousel;
+    return this;
 });
 
 })();

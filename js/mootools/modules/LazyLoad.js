@@ -201,13 +201,13 @@ Titon.LazyLoad = new Class({
  * @returns {Titon.LazyLoad}
  */
 Elements.implement('lazyLoad', function(options) {
-    if (this.$lazyLoad) {
-        return this.$lazyLoad;
-    }
+    var lazyLoad = new Titon.LazyLoad(this, options);
 
-    this.$lazyLoad = new Titon.LazyLoad(this, options);
-
-    return this.$lazyLoad;
+    return this.each(function(el) {
+        if (!el.$lazyLoad) {
+            el.$lazyLoad = lazyLoad;
+        }
+    });
 });
 
 })();

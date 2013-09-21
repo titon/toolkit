@@ -413,13 +413,11 @@ Titon.Matrix = new Class({
  * @returns {Titon.Matrix}
  */
 Element.implement('matrix', function(options) {
-    if (this.$matrix) {
-        return this.$matrix;
+    if (!this.$matrix) {
+        this.$matrix = new Titon.Matrix(this, options);
     }
 
-    this.$matrix = new Titon.Matrix(this, options);
-
-    return this.$matrix;
+    return this;
 });
 
 })();

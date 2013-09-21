@@ -388,13 +388,13 @@ Titon.Showcase = new Class({
  * @returns {Titon.Showcase}
  */
 Elements.implement('showcase', function(options) {
-    if (this.$showcase) {
-        return this.$showcase;
-    }
+    var showcase = new Titon.Showcase(this, options);
 
-    this.$showcase = new Titon.Showcase(this, options);
-
-    return this.$showcase;
+    return this.each(function(el) {
+        if (!el.$showcase) {
+            el.$showcase = showcase;
+        }
+    });
 });
 
 })();

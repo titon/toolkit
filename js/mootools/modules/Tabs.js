@@ -229,13 +229,11 @@ Titon.Tabs = new Class({
  * @returns {Titon.Tabs}
  */
 Element.implement('tabs', function(options) {
-    if (this.$tabs) {
-        return this.$tabs;
+    if (!this.$tabs) {
+        this.$tabs = new Titon.Tabs(this, options);
     }
 
-    this.$tabs = new Titon.Tabs(this, options);
-
-    return this.$tabs;
+    return this;
 });
 
 })();

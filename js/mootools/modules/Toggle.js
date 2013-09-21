@@ -107,16 +107,16 @@ Titon.Toggle = new Class({
  * @returns {Titon.Toggle}
  */
 Elements.implement('dropdown', function(options) {
-    if (this.$dropdown) {
-        return this.$dropdown;
-    }
-
     options = options || {};
     options.delegate = options.delegate || '.js-dropdown';
 
-    this.$dropdown = new Titon.Toggle(this, options);
+    var dropdown = new Titon.Toggle(this, options);
 
-    return this.$dropdown;
+    return this.each(function(el) {
+        if (!el.$dropdown) {
+            el.$dropdown = dropdown;
+        }
+    });
 });
 
 })();

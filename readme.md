@@ -12,13 +12,12 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 * **jQuery**
 * (or)
 * **MooTools**
-    * Core
     * More/Class.Binds
     * More/Elements.From
     * More/Element.Shortcuts
     * More/Element.Measure
-    * More/Drag (optional: Modal)
-    * More/Element.Event.Pseudos (optional: Tooltip)
+    * More/Drag (optional for Modal)
+    * More/Element.Event.Pseudos (for Tooltip)
 
 #### Tested Against ####
 * Chrome 26, 28
@@ -86,6 +85,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Iconic` icon set provided by P.J. Onori
 
 ## Known Issues ##
+* Zepto is currently not supported (too different of an API)
 * Slide in modal animations do not work correctly in Chrome/IE
 * Flip modal animations do not work in Opera
 * Tooltip positioning does not work in Opera

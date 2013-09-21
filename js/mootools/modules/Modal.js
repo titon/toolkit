@@ -236,13 +236,13 @@ Titon.Modal = new Class({
  * @returns {Titon.Modal}
  */
 Elements.implement('modal', function(options) {
-    if (this.$modal) {
-        return this.$modal;
-    }
+    var modal = new Titon.Modal(this, options);
 
-    this.$modal = new Titon.Modal(this, options);
-
-    return this.$modal;
+    return this.each(function(el) {
+        if (!el.$modal) {
+            el.$modal = modal;
+        }
+    });
 });
 
 })();

@@ -36,7 +36,10 @@ $.fn.toolkit = function(component) {
     this.each(function() {
         if (this[key]) {
             instance = this[key];
+            return false;
         }
+
+        return true;
     });
 
     return instance;

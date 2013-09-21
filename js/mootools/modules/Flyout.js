@@ -445,13 +445,13 @@ Titon.Flyout = new Class({
  * @returns {Titon.Flyout}
  */
 Elements.implement('flyout', function(url, options) {
-    if (this.$flyout) {
-        return this.$flyout;
-    }
+    var flyout = new Titon.Flyout(this, url, options);
 
-    this.$flyout = new Titon.Flyout(this, url, options);
-
-    return this.$flyout;
+    return this.each(function(el) {
+        if (!el.$flyout) {
+            el.$flyout = flyout;
+        }
+    });
 });
 
 })();

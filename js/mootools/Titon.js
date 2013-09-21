@@ -29,6 +29,16 @@ window.Titon = {
 Element.implement({
 
     /**
+     * Fetch the component instance from the element.
+     *
+     * @param {String} component
+     * @returns {Function}
+     */
+    toolkit: function(component) {
+        return this['$' + component] || null;
+    },
+
+    /**
      * Reveal the element by applying the show class.
      * Should be used to trigger transitions and animations.
      *
@@ -133,6 +143,32 @@ Element.implement({
         }
 
         return this.setStyles(offset);
+    }
+
+});
+
+Elements.implement({
+
+    /**
+     * Fetch the component instance from the elements collection.
+     *
+     * @param {String} component
+     * @returns {Function}
+     */
+    toolkit: function(component) {
+        var key = '$' + component,
+            instance = null;
+
+        this.every(function(el) {
+            if (el[key]) {
+                instance = el[key];
+                return false;
+            }
+
+            return true;
+        });
+
+        return instance;
     }
 
 });

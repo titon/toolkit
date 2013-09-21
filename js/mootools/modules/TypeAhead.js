@@ -611,13 +611,11 @@ Titon.TypeAhead = new Class({
  * @returns {Titon.TypeAhead}
  */
 Element.implement('typeAhead', function(options) {
-    if (this.$typeAhead) {
-        return this.$typeAhead;
+    if (!this.$typeAhead) {
+        this.$typeAhead = new Titon.TypeAhead(this, options);
     }
 
-    this.$typeAhead = new Titon.TypeAhead(this, options);
-
-    return this.$typeAhead;
+    return this;
 });
 
 })();
