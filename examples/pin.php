@@ -38,7 +38,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('pin-right').pin();
             $('pin-left1').pin({ location: 'left' });

@@ -78,7 +78,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.tooltip-base').tooltip({ delegate: '.tooltip-base' });
             $$('.tooltip-attr').tooltip({ delegate: '.tooltip-attr', getTitle: false, getContent: 'title' });

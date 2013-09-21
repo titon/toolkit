@@ -175,10 +175,12 @@ if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
 
 $component = $components[$componentKey];
 $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array();
-$library = $libraryFile = isset($_GET['library']) ? $_GET['library'] : 'mootools';
+$vendor = isset($_GET['vendor']) ? $_GET['vendor'] : 'mootools';
 
-if ($library === 'jquery1' || $library === 'jquery2') {
-    $library = 'jquery';
+if ($vendor === 'mootools') {
+    $vendorFolder = 'mootools';
+} else {
+    $vendorFolder = 'jquery';
 } ?>
 
 <!DOCTYPE html>
@@ -204,21 +206,23 @@ if ($library === 'jquery1' || $library === 'jquery2') {
     } ?>
 
     <link href="css/test.css" rel="stylesheet" type="text/css">
-    <?php if ($libraryFile === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         <script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
         <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
-    <?php } else if ($libraryFile === 'jquery2') { ?>
+    <?php } else if ($vendor === 'jquery2') { ?>
         <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
-    <?php } else { ?>
+    <?php } else if ($vendor === 'jquery1') { ?>
         <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <?php } else if ($vendor === 'zepto') { ?>
+        <script type="text/javascript" src="js/zepto-1.0.1.js"></script>
     <?php } ?>
 
     <?php if (!empty($component['js'])) { ?>
-        <script type="text/javascript" src="../js/<?php echo $library; ?>/Titon.js"></script>
-        <script type="text/javascript" src="../js/<?php echo $library; ?>/Component.js"></script>
+        <script type="text/javascript" src="../js/<?php echo $vendorFolder; ?>/Titon.js"></script>
+        <script type="text/javascript" src="../js/<?php echo $vendorFolder; ?>/Component.js"></script>
 
         <?php foreach ((array) $component['js'] as $js) { ?>
-            <script type="text/javascript" src="../js/<?php echo $library; ?>/<?php echo $js; ?>"></script>
+            <script type="text/javascript" src="../js/<?php echo $vendorFolder; ?>/<?php echo $js; ?>"></script>
         <?php }
     } ?>
 </head>
@@ -241,10 +245,11 @@ if ($library === 'jquery1' || $library === 'jquery2') {
                 <?php } ?>
             </select>
 
-            <select name="library">
-                <option value="mootools"<?php if ($libraryFile === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
-                <option value="jquery1"<?php if ($libraryFile === 'jquery1') echo ' selected="selected"'; ?>>jQuery 1.10</option>
-                <option value="jquery2"<?php if ($libraryFile === 'jquery2') echo ' selected="selected"'; ?>>jQuery 2</option>
+            <select name="vendor">
+                <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
+                <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected="selected"'; ?>>jQuery 1.10</option>
+                <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected="selected"'; ?>>jQuery 2</option>
+                <option value="zepto"<?php if ($vendor === 'zepto') echo ' selected="selected"'; ?>>Zepto</option>
             </select>
 
             <button type="submit">GO</button>

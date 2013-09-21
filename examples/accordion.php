@@ -105,7 +105,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('acc-1').accordion();
             $$('.acc-2').accordion({ multiple: true, collapsible: true });

@@ -19,7 +19,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-showcase').showcase();
         });

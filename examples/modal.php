@@ -43,7 +43,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library  === 'mootools') { ?>
+    <?php if ($vendor  === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.modal-base').modal({ delegate: '.modal-base', blur: 'wrapper' });
             $$('.modal-black').modal({ delegate: '.modal-black', blackout: false });

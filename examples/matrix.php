@@ -13,8 +13,8 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 
         <span class="float-left">
             View:
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $libraryFile; ?>&mode=multiple">Multiple column spanning items</a> |
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $libraryFile; ?>&mode=single">Single column items</a>
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $vendorFile; ?>&mode=multiple">Multiple column spanning items</a> |
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $vendorFile; ?>&mode=single">Single column items</a>
         </span>
     </p>
 
@@ -47,7 +47,7 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
     }
 
     function removeItem() {
-        <?php if ($library === 'mootools') { ?>
+        <?php if ($vendor === 'mootools') { ?>
             $('matrix').matrix().remove($$('.matrix-grid').shuffle()[0]);
         <?php } else { ?>
             $('#matrix').toolkit('matrix').remove($('.matrix-grid')[0]);
@@ -65,7 +65,7 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
         i.onload = function() {
-            <?php if ($library === 'mootools') { ?>
+            <?php if ($vendor === 'mootools') { ?>
                 $('matrix').matrix()[where](new Element('li.matrix-grid').grab(i));
             <?php } else { ?>
                 $('#matrix').toolkit('matrix')[where]($('<li/>').addClass('matrix-grid').html(i));
@@ -73,7 +73,7 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
         };
     }
 
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('matrix').matrix({
                 selector: '.matrix-grid'

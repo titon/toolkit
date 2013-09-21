@@ -144,7 +144,7 @@ $items = array(
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('carousel-1').carousel();
             $('carousel-2').carousel({ animation: 'slide-up' });

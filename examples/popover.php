@@ -57,7 +57,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.popover-base').popover({ delegate: '.popover-base' });
             $$('.popover-ajax').popover({ delegate: '.popover-ajax', ajax: true });

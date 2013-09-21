@@ -55,7 +55,7 @@
         { title: 'Notepad' }
     ];
 
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('ta-1').typeAhead({ source: langs, shadow: true });
             $('ta-2').typeAhead({

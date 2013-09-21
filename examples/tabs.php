@@ -138,7 +138,7 @@ $p3 = 'Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce quis 
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('tabs-base').tabs();
             $('tabs-base2').tabs({ collapsible: true });

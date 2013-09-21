@@ -37,7 +37,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         $$('.lazy-load-0').lazyLoad({ lazyClass: '.lazy-load-0' });
         $$('.lazy-load-1').lazyLoad({ lazyClass: '.lazy-load-1', forceLoad: true, delay: 5000 });
     <?php } else { ?>

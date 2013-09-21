@@ -33,7 +33,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.button').addEvent('click', function(e) {
                 e.preventDefault();

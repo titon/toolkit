@@ -100,7 +100,7 @@
 </div>
 
 <script type="text/javascript">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-dropdown').dropdown();
             $$('.js-dropdown2').dropdown({ delegate: '.js-dropdown2', hideOpened: false });
