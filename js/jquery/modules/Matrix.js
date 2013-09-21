@@ -393,17 +393,13 @@ Titon.Matrix.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Matrix}
+ * @returns {jQuery}
  */
 $.fn.matrix = function(options) {
     return this.each(function() {
-        if (this.$matrix) {
-            return this.$matrix;
+        if (!this.$matrix) {
+            this.$matrix = new Titon.Matrix(this, options);
         }
-
-        this.$matrix = new Titon.Matrix(this, options);
-
-        return this.$matrix;
     });
 };
 

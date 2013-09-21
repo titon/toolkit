@@ -176,16 +176,16 @@ Titon.LazyLoad.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.LazyLoad}
+ * @returns {jQuery}
  */
 $.fn.lazyLoad = function(options) {
-    if (this.$lazyLoad) {
-        return this.$lazyLoad;
-    }
+    var lazyLoad = new Titon.LazyLoad(this, options);
 
-    this.$lazyLoad = new Titon.LazyLoad(this, options);
-
-    return this.$lazyLoad;
+    return this.each(function() {
+        if (!this.$lazyLoad) {
+            this.$lazyLoad = lazyLoad;
+        }
+    });
 };
 
 $.fn.lazyLoad.options = {

@@ -30,16 +30,16 @@ window.Titon = {
  * @returns {Function}
  */
 $.fn.toolkit = function(component) {
-    var key = '$' + component;
+    var key = '$' + component,
+        instance = null;
 
-    if (this[key]) {
-        return this[key] || null;
+    this.each(function() {
+        if (this[key]) {
+            instance = this[key];
+        }
+    });
 
-    } else if (this.length === 1) {
-        return this[0][key] || null;
-    }
-
-    return null;
+    return instance;
 };
 
 /**

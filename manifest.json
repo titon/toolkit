@@ -5,7 +5,7 @@
         "source": {
             "css": ["../normalize.css", "layout/base.css"],
             "js": ["Titon.js", "Component.js"],
-            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Locale", "More/Element.Shortcuts"]
+            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"]
         }
     },
     "typography": {
@@ -149,8 +149,7 @@
         "require": ["base", "timers"],
         "source": {
             "css": ["modules/flyout.css"],
-            "js": ["modules/Flyout.js"],
-            "moo": ["More/Array.Extras"]
+            "js": ["modules/Flyout.js"]
         }
     },
     "icon": {
@@ -277,7 +276,7 @@
         "source": {
             "css": ["modules/tooltip.css"],
             "js": ["modules/Tooltip.js"],
-            "moo": ["More/Element.Event.Pseudos", "More/Element.Position"]
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "typeAhead": {

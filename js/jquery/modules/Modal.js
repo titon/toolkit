@@ -257,16 +257,16 @@ Titon.Modal.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Modal}
+ * @returns {jQuery}
  */
 $.fn.modal = function(options) {
-    if (this.$modal) {
-        return this.$modal;
-    }
+    var modal = new Titon.Modal(this, options);
 
-    this.$modal = new Titon.Modal(this, options);
-
-    return this.$modal;
+    return this.each(function() {
+        if (!this.$modal) {
+            this.$modal = modal;
+        }
+    });
 };
 
 $.fn.modal.options = {

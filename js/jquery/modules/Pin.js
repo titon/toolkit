@@ -126,17 +126,13 @@ Titon.Pin.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Pin}
+ * @returns {jQuery}
  */
 $.fn.pin = function(options) {
     return this.each(function() {
-        if (this.$pin) {
-            return this.$pin;
+        if (!this.$pin) {
+            this.$pin = new Titon.Pin(this, options);
         }
-
-        this.$pin = new Titon.Pin(this, options);
-
-        return this.$pin;
     });
 };
 

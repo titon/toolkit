@@ -493,16 +493,16 @@ Titon.Flyout.prototype.constructor = Titon.Component;
  *
  * @param {String} url
  * @param {Object} [options]
- * @returns {Titon.Flyout}
+ * @returns {jQuery}
  */
 $.fn.flyout = function(url, options) {
-    if (this.$flyout) {
-        return this.$flyout;
-    }
+    var flyout = new Titon.Flyout(this, url, options);
 
-    this.$flyout = new Titon.Flyout(this, url, options);
-
-    return this.$flyout;
+    return this.each(function() {
+        if (!this.$flyout) {
+            this.$flyout = flyout;
+        }
+    });
 };
 
 $.fn.flyout.options = {

@@ -221,17 +221,13 @@ Titon.Tabs.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Tabs}
+ * @returns {jQuery}
  */
 $.fn.tabs = function(options) {
     return this.each(function() {
-        if (this.$tabs) {
-            return this.$tabs;
+        if (!this.$tabs) {
+            this.$tabs = new Titon.Tabs(this, options);
         }
-
-        this.$tabs = new Titon.Tabs(this, options);
-
-        return this.$tabs;
     });
 };
 

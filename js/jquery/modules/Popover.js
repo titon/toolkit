@@ -43,16 +43,16 @@ Titon.Popover.prototype.constructor = Titon.Tooltip;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Popover}
+ * @returns {jQuery}
  */
 $.fn.popover = function(options) {
-    if (this.$popover) {
-        return this.$popover;
-    }
+    var popover = new Titon.Popover(this, options);
 
-    this.$popover = new Titon.Popover(this, options);
-
-    return this.$popover;
+    return this.each(function() {
+        if (!this.$popover) {
+            this.$popover = popover;
+        }
+    });
 };
 
 $.fn.popover.options = {

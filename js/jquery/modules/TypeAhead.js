@@ -572,17 +572,15 @@ Titon.TypeAhead.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.TypeAhead}
+ * @returns {jQuery}
  */
 $.fn.typeAhead = function(options) {
     return this.each(function() {
-        if (this.$typeAhead) {
-            return this.$typeAhead;
+        if (!this.$typeAhead) {
+            this.$typeAhead = new Titon.TypeAhead(this, options);
         }
 
-        this.$typeAhead = new Titon.TypeAhead(this, options);
-
-        return this.$typeAhead;
+        return this;
     });
 };
 

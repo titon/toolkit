@@ -113,16 +113,16 @@ Titon.Accordion.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Toggle}
+ * @returns {jQuery}
  */
 $.fn.dropdown = function(options) {
-    if (this.$dropdown) {
-        return this.$dropdown;
-    }
+    var dropdown = new Titon.Toggle(this, options);
 
-    this.$dropdown = new Titon.Toggle(this, options);
-
-    return this.$dropdown;
+    return this.each(function() {
+        if (!this.$dropdown) {
+            this.$dropdown = dropdown;
+        }
+    });
 };
 
 $.fn.toggle.options = {

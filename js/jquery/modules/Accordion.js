@@ -142,17 +142,13 @@ Titon.Accordion.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Accordion}
+ * @returns {jQuery}
  */
 $.fn.accordion = function(options) {
     return this.each(function() {
-        if (this.$accordion) {
-            return this.$accordion;
+        if (!this.$accordion) {
+            this.$accordion = new Titon.Accordion(this, options);
         }
-
-        this.$accordion = new Titon.Accordion(this, options);
-
-        return this.$accordion;
     });
 };
 

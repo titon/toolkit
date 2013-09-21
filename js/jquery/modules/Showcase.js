@@ -353,16 +353,16 @@ Titon.Showcase.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Showcase}
+ * @returns {jQuery}
  */
 $.fn.showcase = function(options) {
-    if (this.$showcase) {
-        return this.$showcase;
-    }
+    var showcase = new Titon.Showcase(this, options);
 
-    this.$showcase = new Titon.Showcase(this, options);
-
-    return this.$showcase;
+    return this.each(function() {
+        if (!this.$showcase) {
+            this.$showcase = showcase;
+        }
+    });
 };
 
 $.fn.showcase.options = {

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     graph.loadManifest(__dirname + '/manifest.json');
     graph.addTypes({
-        js: 'js/mootools/',
+        js: 'js/library/',
         css: 'css/toolkit/',
         moo: ''
     });
@@ -38,15 +38,21 @@ module.exports = function(grunt) {
     graph.buildChain(toPackage, categories);
 
     var jsPaths = graph.getPaths('js'),
-        jsUglifyPaths = {},
-        jsConcatPaths = [],
+        mooUglifyPaths = {},
+        mooConcatPaths = [],
+        jqUglifyPaths = {},
+        jqConcatPaths = [],
         cssPaths = graph.getPaths('css');
 
     jsPaths.forEach(function(path) {
-        var buildPath = 'build/' + path;
+        var mooPath = path.replace('library', 'mootools'),
+            jqPath = path.replace('library', 'jquery');
 
-        jsConcatPaths.push(buildPath);
-        jsUglifyPaths[buildPath] = path;
+        mooConcatPaths.push('build/' + mooPath);
+        mooUglifyPaths['build/' + mooPath] = mooPath;
+
+        jqConcatPaths.push('build/' + jqPath);
+        jqUglifyPaths['build/' + jqPath] = jqPath;
     });
 
     /**
@@ -65,7 +71,7 @@ module.exports = function(grunt) {
         }
 
         if (deps) {
-            banner += " * Dependencies: " + deps + "\n";
+            //banner += " * Dependencies: " + deps + "\n";
         }
 
         banner += " */\n";
@@ -139,7 +145,10 @@ module.exports = function(grunt) {
                 report: 'min'
             },
             build: {
-                files: jsUglifyPaths
+                files: [
+                    jqUglifyPaths,
+                    mooUglifyPaths
+                ]
             }
         },
 
@@ -153,7 +162,8 @@ module.exports = function(grunt) {
             build: {
                 files: [
                     { src: cssPaths, dest: '<%= buildFile %>.min.css' },
-                    { src: jsConcatPaths, dest: '<%= buildFile %>.min.js' }
+                    { src: jqConcatPaths, dest: '<%= buildFile %>-jquery.min.js' },
+                    { src: mooConcatPaths, dest: '<%= buildFile %>-mootools.min.js' }
                 ]
             }
         },
@@ -172,7 +182,8 @@ module.exports = function(grunt) {
             build: {
                 files: {
                     '<%= buildFile %>.min.css': '<%= buildFile %>.min.css',
-                    '<%= buildFile %>.min.js': '<%= buildFile %>.min.js'
+                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
+                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
                 }
             }
         },

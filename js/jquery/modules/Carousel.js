@@ -298,17 +298,13 @@ Titon.Carousel.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Carousel}
+ * @returns {jQuery}
  */
 $.fn.carousel = function(options) {
     return this.each(function() {
-        if (this.$carousel) {
-            return this.$carousel;
+        if (!this.$carousel) {
+            this.$carousel = new Titon.Carousel(this, options);
         }
-
-        this.$carousel = new Titon.Carousel(this, options);
-
-        return this.$carousel;
     });
 };
 

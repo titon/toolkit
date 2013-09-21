@@ -248,16 +248,16 @@ Titon.Tooltip.prototype.constructor = Titon.Component;
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Tooltip}
+ * @returns {jQuery}
  */
 $.fn.tooltip = function(options) {
-    if (this.$tooltip) {
-        return this.$tooltip;
-    }
+    var tooltip = new Titon.Tooltip(this, options);
 
-    this.$tooltip = new Titon.Tooltip(this, options);
-
-    return this.$tooltip;
+    return this.each(function() {
+        if (!this.$tooltip) {
+            this.$tooltip = tooltip;
+        }
+    });
 };
 
 $.fn.tooltip.options = {
