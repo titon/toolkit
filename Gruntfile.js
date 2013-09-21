@@ -86,10 +86,13 @@ module.exports = function(grunt) {
                 globals: {
                     Titon: true,
                     Timers: true,
-                    Cache: true
+                    Cache: true,
+                    Jquery: true,
+                    Zepto: true
                 },
                 browser: true,
                 mootools: true,
+                jquery: true,
                 // enforcing
                 curly: true,
                 eqeqeq: true,
@@ -98,7 +101,7 @@ module.exports = function(grunt) {
                 noempty: true,
                 quotmark: 'single',
                 undef: true,
-                unused: true,
+                unused: 'vars',
                 strict: true,
                 trailing: true,
                 // relaxing

@@ -97,7 +97,6 @@ Titon.Carousel = function(element, options) {
             }.bind(this))
             .on('resize', this.resize.bind(this));
 
-
         if (options.stopOnHover) {
             this.element
                 .on('mouseenter', this.stop.bind(this))

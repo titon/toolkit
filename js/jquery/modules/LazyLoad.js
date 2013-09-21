@@ -27,8 +27,8 @@ Titon.LazyLoad = function(elements, options) {
      */
     this.initialize = function() {
         $(this.options.context || window).on({
-            scroll: this.load.bind(this),
-            resize: this.load.bind(this)
+            scroll: $.debounce(this.load.bind(this), 50),
+            resize: $.debounce(this.load.bind(this), 50)
         });
 
         // Load elements within viewport

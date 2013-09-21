@@ -49,10 +49,9 @@ Titon.LazyLoad = new Class({
         }
 
         // Add events
-        document.id(this.options.context || window).addEvents({
-            scroll: this.load,
-            resize: this.load
-        });
+        document.id(this.options.context || window)
+            .addEvent('scroll:throttle(50)', this.load)
+            .addEvent('resize:throttle(50)', this.load);
 
         // Load elements within viewport
         window.addEvent('domready', function() {

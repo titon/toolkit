@@ -326,9 +326,7 @@ Titon.TypeAhead = function(input, options) {
                 a = options.builder(item);
                 a.on({
                     mouseover: this.rewind,
-                    click: (function(length) {
-                        return this.__select(length);
-                    }.bind(this))(results.length)
+                    click: $.proxy(this.select, this, results.length)
                 });
 
                 elements.push( $('<li/>').append(a) );
@@ -456,7 +454,7 @@ Titon.TypeAhead = function(input, options) {
      */
     this.__cycle = function(e) {
         var items = this.items,
-            length = Math.min(this.options.itemLimit, Math.max(0, items.length))
+            length = Math.min(this.options.itemLimit, Math.max(0, items.length));
 
         if (!length || !this.element.is(':shown')) {
             return;

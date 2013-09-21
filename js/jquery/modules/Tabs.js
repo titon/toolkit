@@ -67,7 +67,7 @@ Titon.Tabs = function(element, options) {
 
         if (options.persistState) {
             var cookie = 'titon.tabs.' + options.cookie,
-                value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, "\\$&") + '=([^;]*)');
+                value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
 
             if (value) {
                 index = decodeURIComponent(value[1]);
