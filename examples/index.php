@@ -175,7 +175,11 @@ if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
 
 $component = $components[$componentKey];
 $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array();
-$library = isset($_GET['library']) ? $_GET['library'] : 'mootools'; ?>
+$library = $libraryFile = isset($_GET['library']) ? $_GET['library'] : 'mootools';
+
+if ($library === 'jquery1' || $library === 'jquery2') {
+    $library = 'jquery';
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -200,11 +204,13 @@ $library = isset($_GET['library']) ? $_GET['library'] : 'mootools'; ?>
     } ?>
 
     <link href="css/test.css" rel="stylesheet" type="text/css">
-    <?php if ($library === 'mootools') { ?>
+    <?php if ($libraryFile === 'mootools') { ?>
         <script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
         <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
-    <?php } else { ?>
+    <?php } else if ($libraryFile === 'jquery2') { ?>
         <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+    <?php } else { ?>
+        <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <?php } ?>
 
     <?php if (!empty($component['js'])) { ?>
@@ -236,8 +242,9 @@ $library = isset($_GET['library']) ? $_GET['library'] : 'mootools'; ?>
             </select>
 
             <select name="library">
-                <option value="mootools"<?php if ($library === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
-                <option value="jquery"<?php if ($library === 'jquery') echo ' selected="selected"'; ?>>jQuery</option>
+                <option value="mootools"<?php if ($libraryFile === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
+                <option value="jquery1"<?php if ($libraryFile === 'jquery1') echo ' selected="selected"'; ?>>jQuery 1.10</option>
+                <option value="jquery2"<?php if ($libraryFile === 'jquery2') echo ' selected="selected"'; ?>>jQuery 2</option>
             </select>
 
             <button type="submit">GO</button>

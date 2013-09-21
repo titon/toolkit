@@ -13,8 +13,8 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 
         <span class="float-left">
             View:
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&mode=multiple">Multiple column spanning items</a> |
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&mode=single">Single column items</a>
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $libraryFile; ?>&mode=multiple">Multiple column spanning items</a> |
+            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&library=<?php echo $libraryFile; ?>&mode=single">Single column items</a>
         </span>
     </p>
 

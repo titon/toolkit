@@ -325,8 +325,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
 
                 a = options.builder(item);
                 a.on({
-                    mouseover: this.rewind,
-                    click: $.proxy(this.select, this, results.length)
+                    mouseover: this.rewind.bind(this),
+                    click: $.proxy(this.__select, this, results.length)
                 });
 
                 elements.push( $('<li/>').append(a) );

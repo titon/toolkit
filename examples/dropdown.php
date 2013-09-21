@@ -74,7 +74,7 @@
 
     <div class="button-group">
         <a href="javascript:;" class="button">Button + Right Align</a>
-        <button type="button" class="button js-dropdown" data-toggle="#bg-dropdown-3">
+        <button type="button" class="button js-dropdown2" data-toggle="#bg-dropdown-3">
             <span class="caret-down"></span>
         </button>
 
@@ -86,7 +86,7 @@
     </div>
 
     <div class="button-group">
-        <button type="button" class="button js-dropdown" data-toggle="#bg-dropdown-4">
+        <button type="button" class="button js-dropdown2" data-toggle="#bg-dropdown-4">
             Button + Reverse Dropdown
             <span class="caret-down"></span>
         </button>
@@ -103,10 +103,12 @@
     <?php if ($library === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-dropdown').dropdown();
+            $$('.js-dropdown2').dropdown({ delegate: '.js-dropdown2', hideOpened: false });
         });
     <?php } else { ?>
         $(function() {
             $('.js-dropdown').dropdown();
+            $('.js-dropdown2').dropdown({ hideOpened: false });
         });
     <?php } ?>
 </script>

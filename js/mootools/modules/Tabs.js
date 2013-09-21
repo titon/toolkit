@@ -83,7 +83,7 @@ Titon.Tabs = new Class({
     bindEvents: function() {
         this.tabs.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
 
-        if (this.options.mode === 'mouseover' && this.options.preventDefault) {
+        if (this.options.mode === 'hover' && this.options.preventDefault) {
             this.tabs.addEvent('click', function(e) {
                 e.preventDefault();
             });

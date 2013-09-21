@@ -40,7 +40,9 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
     this.initialize = function() {
         var options = this.options;
 
-        this.options.cookie = options.cookie = (options.cookie || this.element.attr('id')).hyphenate();
+        if (!options.cookie) {
+            this.options.cookie = options.cookie = this.element.attr('id');
+        }
 
         // Get elements
         this.nav = this.element.find(options.navElement);
@@ -56,7 +58,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
         // Set events
         this.tabs.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
 
-        if (this.options.mode === 'mouseover' && this.options.preventDefault) {
+        if (this.options.mode === 'hover' && this.options.preventDefault) {
             this.tabs.on('click', function(e) {
                 e.preventDefault();
             });
@@ -69,8 +71,8 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
             var cookie = 'titon.tabs.' + options.cookie,
                 value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
 
-            if (value) {
-                index = decodeURIComponent(value[1]);
+            if (value && value.length) {
+                index = parseInt(decodeURIComponent(value[1]));
             }
         }
 
@@ -117,7 +119,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
             url = tab.attr('href');
 
         // Load content with AJAX
-        if (this.options.ajax && url && !url.contains('#') && !this.cache[url]) {
+        if (this.options.ajax && url && url.indexOf('#') < 0 && !this.cache[url]) {
             $.ajax({
                 url: url,
                 type: 'get',
@@ -168,7 +170,6 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
             cookie += '; expires=' + date.toUTCString();
             cookie += '; path=/';
-            cookie += '; secure';
 
             document.cookie = cookie;
         }

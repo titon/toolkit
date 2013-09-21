@@ -12,7 +12,7 @@
     <div class="example-title">Features</div>
 
     <button type="button" class="button modal-base" data-modal="ajax/modal-form.php">Form Submitting</button>
-    <button type="button" class="button modal-drag" data-modal="ajax/modal.php">Dragging</button>
+    <button type="button" class="button modal-drag" data-modal="ajax/modal.php">Dragging (Mootools)</button>
 </div>
 
 <div class="example">
