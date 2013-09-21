@@ -44,7 +44,7 @@ Titon.Matrix = function(element, options) {
         this.items = this.element.find(this.options.selector);
 
         // Set events
-        $(window).on('resize', this.__resize.bind(this));
+        $(window).on('resize', $.debounce(this.__resize.bind(this)));
 
         if (this.options.defer) {
             this._deferRender();

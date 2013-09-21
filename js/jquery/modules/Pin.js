@@ -30,8 +30,8 @@ Titon.Pin = function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        $(window).on('scroll', this.__scroll.bind(this));
-        $(window).on('resize', this.__resize.bind(this));
+        $(window).on('scroll', $.debounce(this.__scroll.bind(this), this.options.throttle));
+        $(window).on('resize', $.debounce(this.__resize.bind(this), this.options.throttle));
         $(document).ready(this.__resize.bind(this));
     };
 

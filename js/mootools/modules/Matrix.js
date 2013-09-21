@@ -60,7 +60,7 @@ Titon.Matrix = new Class({
         this.items = this.element.getElements(this.options.selector);
 
         // Set events
-        window.addEvent('resize', this.__resize.debouce());
+        window.addEvent('resize', this.__resize.debounce());
 
         this.fireEvent('init');
 

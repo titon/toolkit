@@ -35,7 +35,6 @@ Titon.Flyout = new Class({
         itemLimit: 15,
         contentElement: '.flyout',
         template: '<div class="flyout"></div>',
-        multiElement: true,
 
         // Events
         onHideChild: null,

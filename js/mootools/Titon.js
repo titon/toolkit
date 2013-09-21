@@ -163,22 +163,18 @@ Function.implement({
      * @param {Number} [threshold]
      * @returns {Function}
      */
-    debouce: function(threshold) {
+    debounce: function(threshold) {
         var timeout, func = this;
 
         return function debounced() {
-            var obj = this;
+            var obj = this, args = arguments;
 
-            function delayed() {
-                func.apply(obj, arguments);
+            clearTimeout(timeout);
+
+            timeout = setTimeout(function delayed() {
+                func.apply(obj, args);
                 timeout = null;
-            }
-
-            if (timeout) {
-                clearTimeout(timeout);
-            }
-
-            timeout = setTimeout(delayed, threshold || 150);
+            }, threshold || 150);
         };
     }
 

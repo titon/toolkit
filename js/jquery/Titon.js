@@ -139,6 +139,28 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
 };
 
 /**
+ * Delays the execution of a function till the duration has completed.
+ *
+ * @param {Function} func
+ * @param {Number} [threshold]
+ * @returns {Function}
+ */
+$.debounce = function(func, threshold) {
+    var timeout;
+
+    return function debounced() {
+        var obj = this, args = arguments;
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function delayed() {
+            func.apply(obj, args);
+            timeout = null;
+        }, threshold || 150);
+    };
+};
+
+/**
  * Used for CSS animations and transitions.
  *
  * @returns {bool}

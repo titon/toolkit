@@ -516,8 +516,7 @@ $.fn.flyout.options = {
     hideDelay: 1000,
     itemLimit: 15,
     contentElement: '.flyout',
-    template: '<div class="flyout"></div>',
-    multiElement: true
+    template: '<div class="flyout"></div>'
 };
 
 })(jQuery);
