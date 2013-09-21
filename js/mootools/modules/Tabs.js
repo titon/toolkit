@@ -38,7 +38,7 @@ Titon.Tabs = new Class({
     },
 
     /**
-     * Initialize Tabs by storing the query, gathering the elements and binding events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Element} element
      * @param {Object} [options]

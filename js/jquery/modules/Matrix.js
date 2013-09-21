@@ -37,7 +37,7 @@ Titon.Matrix = function(element, options) {
     this.imagesLoaded = 0;
 
     /**
-     * Initialize items and events for a matrix grid.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         this.element.addClass('matrix');

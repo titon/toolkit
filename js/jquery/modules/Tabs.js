@@ -35,7 +35,7 @@ Titon.Tabs = function(element, options) {
     this.enabled = true;
 
     /**
-     * Fetch elements and bind events.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         var options = this.options;

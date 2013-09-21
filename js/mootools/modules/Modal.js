@@ -47,7 +47,7 @@ Titon.Modal = new Class({
     },
 
     /**
-     * Initialize the modal be creating the DOM elements and setting default events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Elements} elements
      * @param {Object} [options]

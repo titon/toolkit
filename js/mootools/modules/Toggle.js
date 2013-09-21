@@ -17,7 +17,7 @@ Titon.Toggle = new Class({
     },
 
     /**
-     * Initialize toggles.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Elements} elements
      * @param {Object} [options]

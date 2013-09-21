@@ -22,7 +22,8 @@ Titon.LazyLoad = function(elements, options) {
     this.loaded = 0;
 
     /**
-     * Initialize container events, instantly load() elements in viewport and set force load timeout if option is true.
+     * Initialize the component by fetching elements and binding events.
+     * Call load() immediately on page load.
      */
     this.initialize = function() {
         $(this.options.context || window).on({

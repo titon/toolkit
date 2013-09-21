@@ -59,7 +59,7 @@ Titon.Carousel = new Class({
     },
 
     /**
-     * Initialize elements and attach events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Element} element
      * @param {Object} [options]

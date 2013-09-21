@@ -40,7 +40,7 @@ Titon.Flyout = function(nodes, url, options) {
     this.enabled = true;
 
     /**
-     * Fetch elements and attach events.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         if (!url) {

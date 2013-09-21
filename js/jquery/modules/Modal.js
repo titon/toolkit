@@ -34,7 +34,7 @@ Titon.Modal = function(nodes, options) {
     this.enabled = true;
 
     /**
-     * Initialize elements and attach events.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         var options = this.options;

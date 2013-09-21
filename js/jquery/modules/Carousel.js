@@ -45,7 +45,7 @@ Titon.Carousel = function(element, options) {
     this.enabled = true;
 
     /**
-     * Initialize items and events for a matrix grid.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         var options = this.options;

@@ -33,7 +33,8 @@ Titon.LazyLoad = new Class({
     },
 
     /**
-     * Initialize container events, instantly load() elements in viewport and set force load timeout if option is true.
+     * Initialize the component by fetching elements and binding events.
+     * Call load() immediately on page load.
      *
      * @param {Elements} elements
      * @param {Object} [options]

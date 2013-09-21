@@ -62,7 +62,7 @@ Titon.Showcase = new Class({
     },
 
     /**
-     * Initialize the showcase, its elements and events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Elements} elements
      * @param {Object} [options]
@@ -333,6 +333,7 @@ Titon.Showcase = new Class({
      *
      * @private
      * @param {Array} items
+     * @returns {Titon.Showcase}
      */
     _buildItems: function(items) {
         this.data = items;
@@ -355,6 +356,8 @@ Titon.Showcase = new Class({
         if (items.length <= 1) {
             this.element.addClass('is-single');
         }
+
+        return this;
     }.protect(),
 
     /**

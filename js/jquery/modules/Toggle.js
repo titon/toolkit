@@ -25,7 +25,7 @@ Titon.Toggle = function(nodes, options) {
     this.enabled = true;
 
     /**
-     * Initialize toggle events.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         $(window).on('click', this.hide.bind(this));

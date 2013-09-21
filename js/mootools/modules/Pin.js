@@ -33,7 +33,7 @@ Titon.Pin = new Class({
     },
 
     /**
-     * Pin the element and enable events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Element} element
      * @param {Object} [options]

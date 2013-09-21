@@ -46,7 +46,7 @@ Titon.Matrix = new Class({
     },
 
     /**
-     * Initialize items and events for a matrix grid.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Element} element
      * @param {Object} options

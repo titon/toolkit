@@ -42,7 +42,7 @@ Titon.Tooltip = new Class({
     },
 
     /**
-     * Initialize tooltips.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Elements} elements
      * @param {Object} [options]

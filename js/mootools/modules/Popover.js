@@ -27,7 +27,7 @@ Titon.Popover = new Class({
     },
 
     /**
-     * Initialize popovers.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {String} query
      * @param {Object} [options]

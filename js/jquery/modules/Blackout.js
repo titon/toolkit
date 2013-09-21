@@ -67,9 +67,7 @@ Titon.Blackout = function(options) {
     };
 
     // Initialize the class only if the element exists
-    if (this.element.length) {
-        this.initialize();
-    }
+    this.initialize();
 };
 
 })(jQuery);

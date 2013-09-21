@@ -37,7 +37,7 @@ Titon.Showcase = function(nodes, options) {
     this.blackout = null;
 
     /**
-     * Initialize the showcase, its elements and events.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         var options = this.options;

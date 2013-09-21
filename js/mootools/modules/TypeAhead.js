@@ -57,7 +57,7 @@ Titon.TypeAhead = new Class({
     },
 
     /**
-     * Store the input reference and trigger events.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Element} input
      * @param {Object} [options]
@@ -464,6 +464,7 @@ Titon.TypeAhead = new Class({
      * Shadow text will reference the term cache.
      *
      * @private
+     * @returns {Titon.TypeAhead}
      */
     _shadow: function() {
         if (!this.shadow) {
@@ -483,6 +484,8 @@ Titon.TypeAhead = new Class({
         }
 
         this.shadow.set('value', value);
+
+        return this;
     }.protect(),
 
     /**

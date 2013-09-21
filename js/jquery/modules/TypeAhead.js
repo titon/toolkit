@@ -40,7 +40,7 @@ Titon.TypeAhead = function(input, options) {
     this.enabled = true;
 
     /**
-     * Stuff.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         if (this.input.prop('tagName').toLowerCase() !== 'input') {

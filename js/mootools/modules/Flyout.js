@@ -43,7 +43,7 @@ Titon.Flyout = new Class({
     },
 
     /**
-     * Initialize all options and events and fetch data from the defined URL.
+     * Initialize the component by fetching elements and binding events.
      *
      * @param {Elements} elements
      * @param {String} url

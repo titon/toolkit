@@ -29,7 +29,7 @@ Titon.Tooltip = function(nodes, options) {
     this.enabled = true;
 
     /**
-     * Initialize tooltips.
+     * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
         var options = this.options;
