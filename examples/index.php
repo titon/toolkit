@@ -209,11 +209,9 @@ $library = isset($_GET['library']) ? $_GET['library'] : 'mootools'; ?>
 
     <?php if (!empty($component['js'])) { ?>
         <script type="text/javascript" src="../js/<?php echo $library; ?>/Titon.js"></script>
+        <script type="text/javascript" src="../js/<?php echo $library; ?>/Component.js"></script>
 
-        <?php if ($library === 'mootools') { ?>
-            <script type="text/javascript" src="../js/<?php echo $library; ?>/Component.js"></script>
-        <?php }
-        foreach ((array) $component['js'] as $js) { ?>
+        <?php foreach ((array) $component['js'] as $js) { ?>
             <script type="text/javascript" src="../js/<?php echo $library; ?>/<?php echo $js; ?>"></script>
         <?php }
     } ?>

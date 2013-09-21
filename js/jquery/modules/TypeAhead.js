@@ -10,10 +10,10 @@
 Titon.TypeAhead = function(input, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.typeAhead.options, options);
+    this.options = this.setOptions($.fn.typeAhead.options, options);
 
     /** Primary DOM wrapper */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /** Input element to display menu against */
     this.input = $(input);
@@ -108,28 +108,6 @@ Titon.TypeAhead = function(input, options) {
                 this.hide();
             }
         }.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.TypeAhead}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.TypeAhead}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -581,6 +559,9 @@ Titon.TypeAhead = function(input, options) {
         this.initialize();
     }
 };
+
+Titon.TypeAhead.prototype = new Titon.Component();
+Titon.TypeAhead.prototype.constructor = Titon.Component;
 
 /**
  * Enable a type ahead select system over an input field by calling typeAhead() on an Element.

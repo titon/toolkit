@@ -10,7 +10,7 @@
 Titon.Modal = function(nodes, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.modal.options, options);
+    this.options = this.setOptions($.fn.modal.options, options);
 
     /** List of elements to active modals */
     this.nodes = $(nodes);
@@ -19,7 +19,7 @@ Titon.Modal = function(nodes, options) {
     this.node = null;
 
     /** Modal element */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /** Modal body element */
     this.elementBody = null;
@@ -60,28 +60,6 @@ Titon.Modal = function(nodes, options) {
         this.element
             .on('click', options.closeEvent, this.__hide.bind(this))
             .on('click', options.submitEvent, this.__submit.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Modal}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Modal}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -143,7 +121,7 @@ Titon.Modal = function(nodes, options) {
             options.ajax = false;
 
         } else if (node) {
-            content = Titon.readValue.apply(this, [node, options.getContent]) || node.get('href');
+            content = this.readValue(node, options.getContent) || node.get('href');
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;
@@ -180,7 +158,7 @@ Titon.Modal = function(nodes, options) {
                         if (this.options.showLoading) {
                             this.element.addClass('is-loading');
 
-                            this.position(Titon.loadingTemplate('modal'));
+                            this.position(this._loadingTemplate('modal'));
                         }
                     }.bind(this),
 
@@ -191,7 +169,7 @@ Titon.Modal = function(nodes, options) {
                             .removeClass('is-loading')
                             .addClass('has-failed');
 
-                        this.position(Titon.errorTemplate('modal'));
+                        this.position(this._errorTemplate('modal'));
                     }.bind(this)
                 });
             }
@@ -256,7 +234,7 @@ Titon.Modal = function(nodes, options) {
                 this.position(response);
             }.bind(this),
             error: function() {
-                this.position(Titon.errorTemplate('modal'));
+                this.position(this._errorTemplate('modal'));
             }.bind(this)
         });
     };
@@ -264,6 +242,9 @@ Titon.Modal = function(nodes, options) {
     // Initialize the class only if elements exists
     this.initialize();
 };
+
+Titon.Modal.prototype = new Titon.Component();
+Titon.Modal.prototype.constructor = Titon.Component;
 
 /**
  * Enable modals on Elements collections by calling modal().

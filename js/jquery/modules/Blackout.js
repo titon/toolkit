@@ -10,13 +10,13 @@
 Titon.Blackout = function(options) {
 
     /** Custom options */
-    this.options = Titon.setOptions({
+    this.options = this.setOptions({
         template: '<div class="blackout" id="titon-blackout"></div>',
         templateFrom: '#titon-blackout'
     }, options);
 
     /** Blackout element */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /**
      * Add events for browser resizing.
@@ -69,5 +69,8 @@ Titon.Blackout = function(options) {
     // Initialize the class only if the element exists
     this.initialize();
 };
+
+Titon.Blackout.prototype = new Titon.Component();
+Titon.Blackout.prototype.constructor = Titon.Component;
 
 })(jQuery);

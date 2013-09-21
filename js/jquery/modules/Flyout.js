@@ -10,7 +10,7 @@
 Titon.Flyout = function(nodes, url, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.flyout.options, options);
+    this.options = this.setOptions($.fn.flyout.options, options);
 
     /** Nodes to activate menus on */
     this.nodes = $(nodes);
@@ -80,28 +80,6 @@ Titon.Flyout = function(nodes, url, options) {
     this.clearTimer = function(key) {
         window.clearTimeout(this.timers[key]);
         delete this.timers[key];
-
-        return this;
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Flyout}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Flyout}
-     */
-    this.enable = function() {
-        this.enabled = true;
 
         return this;
     };
@@ -410,7 +388,7 @@ Titon.Flyout = function(nodes, url, options) {
     this._getTarget = function(node) {
         node = $(node || this.node);
 
-        return Titon.readValue.apply(this, [node, this.options.getUrl]) || node.get('href');
+        return this.readValue(node, this.options.getUrl) || node.get('href');
     };
 
     /**
@@ -499,6 +477,9 @@ Titon.Flyout = function(nodes, url, options) {
     // Initialize the class only if the element exists
     this.initialize();
 };
+
+Titon.Flyout.prototype = new Titon.Component();
+Titon.Flyout.prototype.constructor = Titon.Component;
 
 /**
  * Enable flyouts on Elements collections by calling flyout().

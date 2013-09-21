@@ -10,10 +10,10 @@
 Titon.Accordion = function(element, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.accordion.options, options);
+    this.options = this.setOptions($.fn.accordion.options, options);
 
     /** Primary DOM wrapper */
-    this.element = Titon.setElement(element, this.options);
+    this.element = this.setElement(element, this.options);
 
     /** List of DOM headers */
     this.headers = [];
@@ -59,28 +59,6 @@ Titon.Accordion = function(element, options) {
 
         // Set events
         headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Accordion}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Accordion}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -149,6 +127,9 @@ Titon.Accordion = function(element, options) {
         this.initialize();
     }
 };
+
+Titon.Accordion.prototype = new Titon.Component();
+Titon.Accordion.prototype.constructor = Titon.Component;
 
 /**
  * Enable an accordion on an element by calling accordion().

@@ -10,10 +10,10 @@
 Titon.Tabs = function(element, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.tabs.options, options);
+    this.options = this.setOptions($.fn.tabs.options, options);
 
     /** Tabs wrapper */
-    this.element = Titon.setElement(element, this.options);
+    this.element = this.setElement(element, this.options);
 
     /** Navigation container */
     this.nav = null;
@@ -78,28 +78,6 @@ Titon.Tabs = function(element, options) {
     };
 
     /**
-     * Disable component.
-     *
-     * @returns {Titon.Tabs}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Tabs}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
-    };
-
-    /**
      * Hide all sections.
      *
      * @returns {Titon.Tabs}
@@ -151,12 +129,12 @@ Titon.Tabs = function(element, options) {
                 }.bind(this),
 
                 beforeSend: function() {
-                    section.html(Titon.loadingTemplate('tabs'))
+                    section.html(this._loadingTemplate('tabs'))
                         .addClass('is-loading');
                 }.bind(this),
 
                 error: function() {
-                    section.html(Titon.errorTemplate('tabs'))
+                    section.html(this._errorTemplate('tabs'))
                         .removeClass('is-loading')
                         .addClass('has-failed');
                 }.bind(this)
@@ -228,6 +206,9 @@ Titon.Tabs = function(element, options) {
         this.initialize();
     }
 };
+
+Titon.Tabs.prototype = new Titon.Component();
+Titon.Tabs.prototype.constructor = Titon.Component;
 
 /**
  * Enable tabular sections on an Element by calling tabs().

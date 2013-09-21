@@ -10,13 +10,13 @@
 Titon.Showcase = function(nodes, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.showcase.options, options);
+    this.options = this.setOptions($.fn.showcase.options, options);
 
     /** List of nodes to activate showcase */
     this.nodes = $(nodes);
 
     /** Showcase element */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /** List elements */
     this.items = null;
@@ -75,28 +75,6 @@ Titon.Showcase = function(nodes, options) {
             .on('click', options.nextEvent, this.next.bind(this))
             .on('click', options.prevEvent, this.prev.bind(this))
             .on('click', options.jumpEvent, this.__jump.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Showcase}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Showcase}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -262,7 +240,7 @@ Titon.Showcase = function(nodes, options) {
         this.element.addClass('is-loading');
 
         var options = this.options,
-            read = Titon.readValue.bind(this),
+            read = this.readValue.bind(this),
             category = read(node, options.getCategory),
             items = [],
             index = 0;
@@ -360,6 +338,9 @@ Titon.Showcase = function(nodes, options) {
     // Initialize the class only if the element exists
     this.initialize();
 };
+
+Titon.Showcase.prototype = new Titon.Component();
+Titon.Showcase.prototype.constructor = Titon.Component;
 
 /**
  * Enable showcase galleries on Elements collections by calling showcase().

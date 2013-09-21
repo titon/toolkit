@@ -368,7 +368,7 @@ Titon.Component = new Class({
      */
     _errorTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-error', {
-            text: this.options.errorMessage || Titon.messages.errorMessage
+            text: this.options.errorMessage || Titon.messages.error
         });
     }.protect(),
 
@@ -380,7 +380,7 @@ Titon.Component = new Class({
      */
     _loadingTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-loading', {
-            text: this.options.loadingMessage || Titon.messages.loadingMessage
+            text: this.options.loadingMessage || Titon.messages.loading
         });
     }.protect(),
 

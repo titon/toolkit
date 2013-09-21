@@ -10,10 +10,10 @@
 Titon.Carousel = function(element, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.carousel.options, options);
+    this.options = this.setOptions($.fn.carousel.options, options);
 
     /** Carousel element */
-    this.element = Titon.setElement(element, this.options);
+    this.element = this.setElement(element, this.options);
 
     /** Is the carousel stopped? */
     this.stopped = false;
@@ -109,28 +109,6 @@ Titon.Carousel = function(element, options) {
         this.prevButton.on('click', this.prev.bind(this));
 
         this.start().reset();
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Carousel}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Carousel}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -306,6 +284,9 @@ Titon.Carousel = function(element, options) {
         this.initialize();
     }
 };
+
+Titon.Carousel.prototype = new Titon.Component();
+Titon.Carousel.prototype.constructor = Titon.Component;
 
 /**
  * Allow the carousel to be created on elements by calling carousel().

@@ -10,13 +10,13 @@
 Titon.Popover = function(nodes, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.popover.options, options);
+    this.options = this.setOptions($.fn.popover.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
 
     /** Tooltip wrapper */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /** Inner elements */
     this.elementHead = null;
@@ -29,7 +29,6 @@ Titon.Popover = function(nodes, options) {
     this.initialize();
 };
 
-// Inherit methods from Tooltip
 Titon.Popover.prototype = new Titon.Tooltip();
 Titon.Popover.prototype.constructor = Titon.Tooltip;
 

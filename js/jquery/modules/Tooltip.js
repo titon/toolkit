@@ -10,13 +10,13 @@
 Titon.Tooltip = function(nodes, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.tooltip.options, options);
+    this.options = this.setOptions($.fn.tooltip.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
 
     /** Tooltip wrapper */
-    this.element = Titon.createElement(this.options);
+    this.element = this.createElement(this.options);
 
     /** Inner elements */
     this.elementHead = null;
@@ -43,28 +43,6 @@ Titon.Tooltip = function(nodes, options) {
         // Set events
         $(options.context || document)
             .on((options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this.__show.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Tooltip}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Tooltip}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -150,8 +128,8 @@ Titon.Tooltip = function(nodes, options) {
                     .on('mouseleave', this.hide.bind(this));
             }
 
-            title = title || Titon.readValue.apply(this, [node, this.options.getTitle]);
-            content = content || Titon.readValue.apply(this, [node, this.options.getContent]);
+            title = title || this.readValue(node, this.options.getTitle);
+            content = content || this.readValue(node, this.options.getContent);
         }
 
         if (!content) {
@@ -184,7 +162,7 @@ Titon.Tooltip = function(nodes, options) {
                         if (this.options.showLoading) {
                             this.element.addClass('is-loading');
 
-                            this.position(Titon.loadingTemplate('tooltip'));
+                            this.position(this._loadingTemplate('tooltip'));
                         }
                     }.bind(this),
 
@@ -195,7 +173,7 @@ Titon.Tooltip = function(nodes, options) {
                             .removeClass('is-loading')
                             .addClass('has-failed');
 
-                        this.position(Titon.errorTemplate('tooltip'));
+                        this.position(this._errorTemplate('tooltip'));
                     }.bind(this)
                 });
             }
@@ -255,6 +233,9 @@ Titon.Tooltip = function(nodes, options) {
     // Initialize the class only if the element exists
     this.initialize();
 };
+
+Titon.Tooltip.prototype = new Titon.Component();
+Titon.Tooltip.prototype.constructor = Titon.Component;
 
 /**
  * Enable tooltips on Elements collections by calling tooltip().

@@ -10,10 +10,10 @@
 Titon.Matrix = function(element, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.matrix.options, options);
+    this.options = this.setOptions($.fn.matrix.options, options);
 
     /** Matrix wrapper */
-    this.element = Titon.setElement(element, this.options);
+    this.element = this.setElement(element, this.options);
 
     /** List of DOM elements for items to position in the grid */
     this.items = [];
@@ -378,6 +378,9 @@ Titon.Matrix = function(element, options) {
         this.initialize();
     }
 };
+
+Titon.Matrix.prototype = new Titon.Component();
+Titon.Matrix.prototype.constructor = Titon.Component;
 
 /**
  * Enable a matrix grid on an element by calling matrix().

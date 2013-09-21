@@ -10,7 +10,7 @@
 Titon.Toggle = function(nodes, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.toggle.options, options);
+    this.options = this.setOptions($.fn.toggle.options, options);
 
     /** List of elements to active toggle */
     this.nodes = $(nodes);
@@ -30,28 +30,6 @@ Titon.Toggle = function(nodes, options) {
     this.initialize = function() {
         $(window).on('click', this.hide.bind(this));
         $(this.options.context || document).on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Toggle}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Toggle}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -98,7 +76,7 @@ Titon.Toggle = function(nodes, options) {
         }
 
         var node = $(e.target),
-            target = Titon.readValue.apply(this, [node, this.options.getTarget]);
+            target = this.readValue(node, this.options.getTarget);
 
         if (!target || target.substr(0, 1) !== '#') {
             return;
@@ -120,6 +98,9 @@ Titon.Toggle = function(nodes, options) {
     // Initialize the class only if elements exists
     this.initialize();
 };
+
+Titon.Accordion.prototype = new Titon.Component();
+Titon.Accordion.prototype.constructor = Titon.Component;
 
 /**
  * Enable dropdowns on Elements collections by calling dropdown().

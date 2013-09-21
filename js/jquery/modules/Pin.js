@@ -10,10 +10,10 @@
 Titon.Pin = function(element, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.pin.options, options);
+    this.options = this.setOptions($.fn.pin.options, options);
 
     /** Element to pin */
-    this.element = Titon.setElement(element, this.options);
+    this.element = this.setElement(element, this.options);
 
     /** The current window width and height */
     this.viewport = null;
@@ -33,28 +33,6 @@ Titon.Pin = function(element, options) {
         $(window).on('scroll', this.__scroll.bind(this));
         $(window).on('resize', this.__resize.bind(this));
         $(document).ready(this.__resize.bind(this));
-    };
-
-    /**
-     * Disable component.
-     *
-     * @returns {Titon.Pin}
-     */
-    this.disable = function() {
-        this.enabled = false;
-
-        return this;
-    };
-
-    /**
-     * Enable component.
-     *
-     * @returns {Titon.Pin}
-     */
-    this.enable = function() {
-        this.enabled = true;
-
-        return this;
     };
 
     /**
@@ -133,6 +111,9 @@ Titon.Pin = function(element, options) {
         this.initialize();
     }
 };
+
+Titon.Pin.prototype = new Titon.Component();
+Titon.Pin.prototype.constructor = Titon.Component;
 
 /**
  * Enable Element pinning by calling pin().

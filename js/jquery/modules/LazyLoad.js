@@ -10,10 +10,10 @@
 Titon.LazyLoad = function(elements, options) {
 
     /** Custom options */
-    this.options = Titon.setOptions($.fn.lazyLoad.options, options);
+    this.options = this.setOptions($.fn.lazyLoad.options, options);
 
     /** List of elements to load */
-    this.elements = Titon.setElement(elements, this.options);
+    this.elements = this.setElement(elements, this.options);
 
     /** Have all elements been force loaded? */
     this.isLoaded = false;
@@ -161,6 +161,9 @@ Titon.LazyLoad = function(elements, options) {
         this.initialize();
     }
 };
+
+Titon.LazyLoad.prototype = new Titon.Component();
+Titon.LazyLoad.prototype.constructor = Titon.Component;
 
 /**
  * Enable lazy loading on Elements collections by calling lazyLoad().
