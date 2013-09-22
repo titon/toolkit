@@ -5,7 +5,7 @@ date_default_timezone_set('UTC');
 $components = array(
     'home' => array(
         'title' => 'Titon Toolkit',
-        'css' => array('layout/typography.css', 'layout/grid.css', 'layout/code.css')
+        'css' => array('layout/typography.css', 'layout/grid.css', 'layout/code.css', 'ui/button.css')
     ),
     'base' => array(
         'title' => 'Base',
