@@ -159,7 +159,7 @@
 
 .carousel.fade {
     .carousel-items {
-        height: 360px; // needs a base height because slides are absolute
+        padding-bottom: 56.25%; /* 16:9 ratio */
 
         > li {
             position: absolute;

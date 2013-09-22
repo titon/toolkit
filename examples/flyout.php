@@ -3,7 +3,7 @@
 <div class="example">
     <div class="example-title">Data Loading</div>
 
-    <p>Default functionality. Will fetch menu via AJAX.</p>
+    <p>Default hover functionality. Will fetch menu via AJAX.</p>
 
     <a href="/" class="button flyout-1">Root Path</a>
     <a href="/3/0" class="button flyout-1">3 > 0 Path</a>

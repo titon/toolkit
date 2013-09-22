@@ -84,7 +84,7 @@
 <div class="example">
     <div class="example-title">Responsive Grid</div>
 
-    <p>Different column sizes for mobile (3), tablet (6) and desktop (12).</p>
+    <p>Different column sizes for mobile &lt;=480px (3 columns), tablet 481px-1024px (6 columns) and desktop &gt;1024px (12 columns).</p>
 
     <div class="grid grid-test">
         <div class="col span-3 tablet-2 mobile-1">
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <p>Different column sizes for small (6), medium (8) and large (12).</p>
+    <p>Different column sizes for small &lt;=768px (6 columns), medium 769px-1280px (8 columns) and large &gt;1280px (12 columns).</p>
 
     <div class="grid grid-test">
         <div class="col large-4 medium-2 small-1">
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <p>The columns should stay the same percentage in all sizes.</p>
+    <p>The columns should stay the same percentage in all sizes, devices and resolutions.</p>
 
     <div class="grid grid-test">
         <div class="col span-2">16%</div>

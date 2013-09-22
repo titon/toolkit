@@ -164,6 +164,25 @@ $.debounce = function(func, threshold) {
 };
 
 /**
+ * Throttle the execution of a function so it triggers at every delay interval.
+ *
+ * @param {Function} func
+ * @param {Number} [delay]
+ * @param {Array} [args]
+ * @returns {Function}
+ */
+$.throttle = function(func, delay, args) {
+    if (!func.$throttled){
+        func.$throttled = setTimeout(function() {
+            func.apply(this, args || []);
+            func.$throttled = false;
+        }, delay || 250);
+    }
+
+    return func;
+};
+
+/**
  * Used for CSS animations and transitions.
  *
  * @returns {bool}

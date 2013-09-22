@@ -30,8 +30,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        $(window).on('scroll', $.debounce(this.__scroll.bind(this), this.options.throttle));
-        $(window).on('resize', $.debounce(this.__resize.bind(this), this.options.throttle));
+        $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
+        $(window).on('resize', $.throttle(this.__resize.bind(this), this.options.throttle));
         $(document).ready(this.__resize.bind(this));
     };
 

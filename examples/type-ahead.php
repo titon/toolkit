@@ -2,7 +2,7 @@
 
 <div class="example">
     <p>Array: Source data is defined as a literal array.<br>
-    Shadow text will be displayed within the input.</p>
+    Shadow text will be displayed within the input (start with "n" to see it).</p>
 
     <input type="text" id="ta-1">
 </div>

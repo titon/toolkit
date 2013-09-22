@@ -46,6 +46,8 @@
 <div class="example">
     <div class="example-title">Button Dropdowns</div>
 
+    <p>Close previously opened dropdown.</p>
+
     <div class="button-group">
         <button type="button" class="button js-dropdown" data-toggle="#bg-dropdown-1">
             Button
@@ -71,6 +73,8 @@
             <li><a href="">Last Action</a></li>
         </ul>
     </div>
+
+    <p>Individual dropdown with alignment changes.</p>
 
     <div class="button-group">
         <a href="javascript:;" class="button">Button + Right Align</a>
