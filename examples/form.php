@@ -165,12 +165,12 @@
             <label class="radio" for="i17d"><input id="i17d" type="radio" name="radio" disabled> Radio option</label>
         </div>
 
-        <div class="field has-error">
+        <div class="field is-error">
             <label class="field-label" for="s1">Text</label>
             <input id="s1" type="text" class="input" name="text">
         </div>
 
-        <div class="field has-error">
+        <div class="field is-error">
             <label class="field-label" for="s2">Select</label>
             <select id="s2" class="input" name="select">
                 <option value="">CSS</option>
@@ -179,25 +179,25 @@
             </select>
         </div>
 
-        <div class="field has-error is-required">
+        <div class="field is-error is-required">
             <label class="field-label" for="s3">Textarea</label>
             <textarea id="s3" class="input span-4" name="textarea">Lorem ipsum dolor sit amet.</textarea>
         </div>
 
-        <div class="field has-error">
+        <div class="field is-error">
             <label class="checkbox" for="s4"><input id="s4" type="checkbox" name="checkbox"> Checkbox</label>
         </div>
 
-        <div class="field has-error is-required">
+        <div class="field is-error is-required">
             <label class="radio" for="s5"><input id="s5" type="radio" name="radio"> Radio option</label>
         </div>
 
-        <div class="field has-warning">
+        <div class="field is-warning">
             <label class="field-label" for="w1">Text</label>
             <input id="w1" type="text" class="input" name="text">
         </div>
 
-        <div class="field has-warning is-required">
+        <div class="field is-warning is-required">
             <label class="field-label" for="w2">Select</label>
             <select id="w2" class="input" name="select">
                 <option value="">CSS</option>
@@ -206,25 +206,25 @@
             </select>
         </div>
 
-        <div class="field has-warning">
+        <div class="field is-warning">
             <label class="field-label" for="w3">Textarea</label>
             <textarea id="w3" class="input span-4" name="textarea">Lorem ipsum dolor sit amet.</textarea>
         </div>
 
-        <div class="field has-warning is-required">
+        <div class="field is-warning is-required">
             <label class="checkbox" for="w4"><input id="w4" type="checkbox" name="checkbox"> Checkbox</label>
         </div>
 
-        <div class="field has-warning">
+        <div class="field is-warning">
             <label class="radio" for="w5"><input id="w5" type="radio" name="radio"> Radio option</label>
         </div>
 
-        <div class="field has-success">
+        <div class="field is-success">
             <label class="field-label" for="s1">Text</label>
             <input id="s1" type="text" class="input" name="text">
         </div>
 
-        <div class="field has-success is-required">
+        <div class="field is-success is-required">
             <label class="field-label" for="s2">Select</label>
             <select id="s2" class="input" name="select">
                 <option value="">CSS</option>
@@ -233,16 +233,16 @@
             </select>
         </div>
 
-        <div class="field has-success is-required">
+        <div class="field is-success is-required">
             <label class="field-label" for="s3">Textarea</label>
             <textarea id="s3" class="input span-4" name="textarea">Lorem ipsum dolor sit amet.</textarea>
         </div>
 
-        <div class="field has-success">
+        <div class="field is-success">
             <label class="checkbox" for="s4"><input id="s4" type="checkbox" name="checkbox"> Checkbox</label>
         </div>
 
-        <div class="field has-success">
+        <div class="field is-success">
             <label class="radio" for="s5"><input id="s5" type="radio" name="radio"> Radio option</label>
         </div>
 

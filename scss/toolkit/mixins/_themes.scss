@@ -54,7 +54,7 @@
 }
 
 @mixin field-style() {
-    &.has-error {
+    &.is-error {
         .input,
         .select {
             border-color: $error;
@@ -68,7 +68,7 @@
         }
     }
 
-    &.has-warning {
+    &.is-warning {
         .input,
         .select {
             border-color: $warning;
@@ -82,7 +82,7 @@
         }
     }
 
-    &.has-success {
+    &.is-success {
         .input,
         .select {
             border-color: $success;

@@ -3,6 +3,10 @@
 date_default_timezone_set('UTC');
 
 $components = array(
+    'home' => array(
+        'title' => 'Titon Toolkit',
+        'css' => array('layout/typography.css', 'layout/grid.css', 'layout/code.css')
+    ),
     'base' => array(
         'title' => 'Base',
         'css' => 'layout/typography.css',
@@ -162,14 +166,14 @@ $visuals = array(
 );
 
 // Detect theme and component
-$componentKey = 'base';
-$themeKey = '';
+$componentKey = 'home';
+$themeKey = 'titon';
 
 if (isset($_GET['component']) && isset($components[$_GET['component']])) {
     $componentKey = $_GET['component'];
 }
 
-if (isset($_GET['theme']) && isset($themes[$_GET['theme']])) {
+if (isset($_GET['theme'])) {
     $themeKey = $_GET['theme'];
 }
 
@@ -231,25 +235,31 @@ if ($vendor === 'mootools') {
         <?php include sprintf('%s.php', $componentKey); ?>
 
         <form action="" method="get" class="test-switcher">
-            <select name="component">
-                <option value="">-- Component --</option>
-                <?php foreach ($components as $key => $value) { ?>
+            <label for="component">Component</label>
+            <select name="component" id="component">
+                <option value="">-- None --</option>
+                <?php foreach ($components as $key => $value) {
+                    if ($key === 'home') {
+                        continue;
+                    } ?>
                     <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
                 <?php } ?>
             </select>
 
-            <select name="theme">
-                <option value="">-- Theme --</option>
+            <label for="theme">Theme</label>
+            <select name="theme" id="theme">
+                <option value="">-- None --</option>
                 <?php foreach ($themes as $key => $value) { ?>
                     <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
                 <?php } ?>
             </select>
 
-            <select name="vendor">
+            <label for="vendor">Vendor</label>
+            <select name="vendor" id="vendor">
                 <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected="selected"'; ?>>MooTools</option>
                 <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected="selected"'; ?>>jQuery 1.10</option>
                 <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected="selected"'; ?>>jQuery 2</option>
-                <option value="zepto"<?php if ($vendor === 'zepto') echo ' selected="selected"'; ?>>Zepto</option>
+                <?php /*<option value="zepto"<?php if ($vendor === 'zepto') echo ' selected="selected"'; ?>>Zepto</option>*/ ?>
             </select>
 
             <button type="submit">GO</button>

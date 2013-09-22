@@ -6,6 +6,11 @@ Each component represents encapsulated HTML, CSS and JS functionality for role s
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
 Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
+#### Demo ####
+
+A temporary demo can be found here: http://titon.io/toolkit
+It's literally the examples folder within this repository.
+
 #### Requirements ####
 * **HTML5**
 * **CSS3**

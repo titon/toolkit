@@ -13,12 +13,21 @@ h1, h2, h3, h4, h5, h6 {
 
 .test-switcher {
     background: #000;
+    color: #fff;
     padding: 10px;
     position: fixed;
     bottom: 0;
     left: 0;
     border-top-right-radius: 3px;
     z-index: 50;
+}
+
+.test-switcher select {
+    margin: 0 10px 0 5px;
+}
+
+.intro {
+    padding: 0 50px 50px 0;
 }
 
 .example {
