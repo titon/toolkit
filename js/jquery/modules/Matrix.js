@@ -352,7 +352,7 @@ Titon.Matrix = Titon.Component.create(function(element, options) {
      * @param {Event} e
      */
     this.__load = function(e) {
-        if ((e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
+        if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
 

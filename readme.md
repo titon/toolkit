@@ -24,12 +24,27 @@ It's literally the examples folder within this repository.
     * More/Drag (optional for Modal)
     * More/Element.Event.Pseudos (for Tooltip)
 
-#### Tested Against ####
+#### Browser Support ####
+
+**Tested Against**
 * Chrome 26, 28
 * Firefox 20, 23
 * Internet Explorer 10
 * Opera 12
 * Safari 5
+
+**Suggested**
+* Chrome 11+
+* Firefox 4+
+* Internet Explorer 10+
+* Opera 11+
+* Safari 5+
+
+**What about IE8 and 9?**
+Toolkit works in older versions of IE, but...
+IE8 does not support em/rem scaling, media queries, and other CSS3 properties, so default styles and functionality look janky.
+Both IE8 and IE9 do not support CSS transitions or animations, so animation falls back to a simple show/hide.
+Compatibility for these browsers will be added in due time.
 
 ## Javascript Components ##
 #### Modules ####
