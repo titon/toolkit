@@ -72,7 +72,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
                 value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
 
             if (value && value.length) {
-                index = parseInt(decodeURIComponent(value[1]));
+                index = decodeURIComponent(value[1]);
             }
         }
 

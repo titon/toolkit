@@ -228,6 +228,7 @@ if (!String.prototype.hyphenate) {
  */
 if (!Function.prototype.create) {
     Function.prototype.create = function(base) {
+        /*jshint newcap:false */
         base.prototype = new this();
         base.prototype.constructor = this;
 

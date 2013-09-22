@@ -51,8 +51,11 @@ module.exports = function(grunt) {
         mooConcatPaths.push('build/' + mooPath);
         mooUglifyPaths['build/' + mooPath] = mooPath;
 
-        jqConcatPaths.push('build/' + jqPath);
-        jqUglifyPaths['build/' + jqPath] = jqPath;
+        // jQuery doesn't have these files
+        if (!_.contains(path, 'Cache.js') && !_.contains(path, 'Timers.js')) {
+            jqConcatPaths.push('build/' + jqPath);
+            jqUglifyPaths['build/' + jqPath] = jqPath;
+        }
     });
 
     /**
@@ -218,5 +221,5 @@ module.exports = function(grunt) {
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('compile', ['sass', 'uglify']);
     grunt.registerTask('build', ['concat', 'string-replace']);
-    grunt.registerTask('default', ['jshint', 'sass', 'uglify', 'concat', 'string-replace']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'string-replace']);
 };

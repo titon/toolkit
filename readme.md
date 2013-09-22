@@ -9,6 +9,7 @@ Sass for CSS pre-processing, Grunt for task and package management, and Intern f
 #### Demo ####
 
 A temporary demo can be found here: http://titon.io/toolkit
+
 It's literally the examples folder within this repository.
 
 #### Requirements ####
@@ -41,6 +42,7 @@ It's literally the examples folder within this repository.
 * Safari 5+
 
 **What about IE8 and 9?**
+
 Toolkit works in older versions of IE, but...
 IE8 does not support em/rem scaling, media queries, and other CSS3 properties, so default styles and functionality look janky.
 Both IE8 and IE9 do not support CSS transitions or animations, so animation falls back to a simple show/hide.
