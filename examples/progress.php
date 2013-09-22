@@ -43,25 +43,49 @@
 </div>
 
 <script type="text/javascript">
-    window.addEvent('domready', function() {
-        setInterval(function() {
-            var rand = Math.floor(Math.random() * 100),
-                state;
+    <?php if ($vendor === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            setInterval(function() {
+                var rand = Math.floor(Math.random() * 100),
+                    state;
 
-            if (rand > 85) {
-                state = 'is-success';
-            } else if (rand > 50) {
-                state = 'is-info';
-            } else if (rand > 20) {
-                state = 'is-warning';
-            } else {
-                state = 'is-error';
-            }
+                if (rand > 85) {
+                    state = 'is-success';
+                } else if (rand > 50) {
+                    state = 'is-info';
+                } else if (rand > 20) {
+                    state = 'is-warning';
+                } else {
+                    state = 'is-error';
+                }
 
-            $('bar')
-                .setStyle('width', rand + '%')
-                .set('text', rand + '%')
-                .set('class', 'progress-bar ' + state);
-        }, 3000);
-    });
+                $('bar')
+                    .setStyle('width', rand + '%')
+                    .set('text', rand + '%')
+                    .set('class', 'progress-bar ' + state);
+            }, 3000);
+        });
+    <?php } else { ?>
+        $(function() {
+            setInterval(function() {
+                var rand = Math.floor(Math.random() * 100),
+                    state;
+
+                if (rand > 85) {
+                    state = 'is-success';
+                } else if (rand > 50) {
+                    state = 'is-info';
+                } else if (rand > 20) {
+                    state = 'is-warning';
+                } else {
+                    state = 'is-error';
+                }
+
+                $('#bar')
+                    .css('width', rand + '%')
+                    .text(rand + '%')
+                    .attr('class', 'progress-bar ' + state);
+            }, 3000);
+        });
+    <?php } ?>
 </script>

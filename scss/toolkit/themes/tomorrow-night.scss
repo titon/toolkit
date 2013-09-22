@@ -48,6 +48,12 @@ body {
     background: $background-color;
 }
 
+.close {
+    width: 20px;
+    height: 20px;
+    line-height: 22px;
+}
+
 //-------------------- Typography --------------------//
 
 .caret-up { border-bottom-color: $foreground-color; }
@@ -415,7 +421,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 .modal {
     .close {
         top: -11px;
-        right: -45px;
+        right: -35px;
     }
 }
 
@@ -540,7 +546,7 @@ $button-shadow: 0 1px 0 white(.5) inset, 0 0 3px #000;
 
     .close {
         top: -11px;
-        right: -45px;
+        right: -35px;
     }
 }
 
