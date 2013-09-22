@@ -44,14 +44,15 @@ Titon.Tabs = new Class({
      * @param {Object} [options]
      */
     initialize: function(element, options) {
-        options = options || {};
-        options.cookie = (options.cookie || element.get('id')).camelCase();
-
         this.parent(options);
         this.setElement(element);
 
         if (!this.element) {
             return;
+        }
+
+        if (!this.options.cookie) {
+            this.options.cookie = this.element.get('id');
         }
 
         // Get elements

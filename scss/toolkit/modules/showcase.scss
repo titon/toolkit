@@ -156,6 +156,7 @@
         width: 10px;
         border-radius: 50%;
         opacity: .65;
+        background: black(0);
 
         &:hover { opacity: 1; }
         &.is-active { background: #fff; }

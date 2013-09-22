@@ -85,7 +85,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $('<div/>').addClass(options.shadowElement.substr(1));
+            this.wrapper = $('<div/>').addClass('type-ahead-shadow');
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -122,13 +122,13 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
         });
 
         a.append( $('<span/>', {
-            'class': this.options.titleElement,
+            'class': 'type-ahead-title',
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
             a.append( $('<span/>', {
-                'class': this.options.descElement,
+                'class': 'type-ahead-desc',
                 html: item.description
             }) );
         }
@@ -592,9 +592,6 @@ $.fn.typeAhead.options = {
     storage: 'session',
     query: {},
     contentElement: '',
-    titleElement: '.type-ahead-title',
-    descElement: '.type-ahead-desc',
-    shadowElement: '.type-ahead-shadow',
     template: '<div class="type-ahead"></div>',
 
     // Callbacks

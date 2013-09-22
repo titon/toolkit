@@ -41,9 +41,6 @@ Titon.TypeAhead = new Class({
         storage: 'session',
         query: {},
         contentElement: '',
-        titleElement: '.type-ahead-title',
-        descElement: '.type-ahead-desc',
-        shadowElement: '.type-ahead-shadow',
         template: '<div class="type-ahead"></div>',
 
         // Callbacks
@@ -112,7 +109,7 @@ Titon.TypeAhead = new Class({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.node = new Element('div' + options.shadowElement).wraps(this.input);
+            this.node = new Element('div.type-ahead-shadow').wraps(this.input);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -159,12 +156,12 @@ Titon.TypeAhead = new Class({
             href: 'javascript:;'
         });
 
-        a.grab( new Element('span' + this.options.titleElement, {
+        a.grab( new Element('span.type-ahead-title', {
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
-            a.grab( new Element('span' + this.options.descElement, {
+            a.grab( new Element('span.type-ahead-desc', {
                 html: item.description
             }) );
         }

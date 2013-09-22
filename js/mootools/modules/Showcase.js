@@ -101,6 +101,10 @@ Titon.Showcase = new Class({
 
         window.addEvent('keydown', function(e) {
             if (this.isVisible()) {
+                if (['up', 'down', 'left', 'right'].contains(e.key)) {
+                    e.preventDefault();
+                }
+
                 switch (e.key) {
                     case 'esc':   this.hide(); break;
                     case 'up':    this.jump(0); break;

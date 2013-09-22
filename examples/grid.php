@@ -118,7 +118,7 @@
             Small: 50%
         </div>
         <div class="col large-4 medium-4 hide-small">
-            Desktop: 33%<br>
+            Large: 33%<br>
             Medium: 50%<br>
             Small: hidden
         </div>

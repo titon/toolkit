@@ -117,6 +117,10 @@ Titon.Carousel = new Class({
 
         // Set events
         window.addEvent('keydown', function(e) {
+            if (['up', 'down', 'left', 'right'].contains(e.key)) {
+                e.preventDefault();
+            }
+
             switch (e.key) {
                 case 'up':      this.jump(0); break;
                 case 'down':    this.jump(-1); break;

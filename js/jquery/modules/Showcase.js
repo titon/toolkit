@@ -60,7 +60,13 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
         $(window).on('keydown', function(e) {
             if (this.element.is(':shown')) {
-                switch (e.key.toLowerCase()) {
+                var key = e.key.toLowerCase();
+
+                if ($.inArray(key, ['up', 'down', 'left', 'right'])) {
+                    e.preventDefault();
+                }
+
+                switch (key) {
                     case 'esc':   this.hide(); break;
                     case 'up':    this.jump(0); break;
                     case 'down':  this.jump(-1); break;

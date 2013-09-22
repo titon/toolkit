@@ -152,7 +152,7 @@ Titon.Matrix = new Class({
     remove: function(item) {
         this.items.every(function(el) {
             if (el === item) {
-                el.remove();
+                el.destroy();
                 return false;
             }
 
