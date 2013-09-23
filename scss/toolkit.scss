@@ -6,6 +6,8 @@
 
 @import "normalize";
 @import "toolkit/common";
+
+// Basic layout styles should come first
 @import "toolkit/layout/base";
 @import "toolkit/layout/typography";
 @import "toolkit/layout/grid";
@@ -13,7 +15,8 @@
 @import "toolkit/layout/input-group";
 @import "toolkit/layout/code";
 @import "toolkit/layout/table";
-@import "toolkit/layout/responsive";
+
+// Then basic UI styles
 @import "toolkit/ui/alert";
 @import "toolkit/ui/breadcrumbs";
 @import "toolkit/ui/button";
@@ -26,6 +29,8 @@
 @import "toolkit/ui/pagination";
 @import "toolkit/ui/pin";
 @import "toolkit/ui/progress";
+
+// And more advanced UI styles last
 @import "toolkit/modules/accordion";
 @import "toolkit/modules/blackout";
 @import "toolkit/modules/carousel";
@@ -37,3 +42,6 @@
 @import "toolkit/modules/tooltip";
 @import "toolkit/modules/type-ahead";
 @import "toolkit/effects/visual";
+
+// Place it last so it overrides other elements
+@import "toolkit/layout/responsive";

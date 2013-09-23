@@ -199,11 +199,15 @@ $.expr[':'].shown = function(obj) {
  */
 if (!Array.prototype.chunk) {
     Array.prototype.chunk = function(size) {
-        var array = this;
+        var array = this, chunks = [],
+            i = 0,
+            n = array.length;
 
-        return [].concat.apply([], array.map(function(elem, i) {
-            return (i % size) ? [] : [ array.slice(i, i + size) ];
-        }));
+        while (i < n) {
+            chunks.push(array.slice(i, i += size));
+        }
+
+        return chunks;
     };
 }
 
@@ -234,6 +238,38 @@ if (!Function.prototype.create) {
 
         return base;
     };
+}
+
+/**
+ * Polyfill for ECMA5 Function.bind().
+ * Credit to the MooTools team for the implementation.
+ *
+ * @returns {Function}
+ */
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function(that) {
+		var self = this,
+			args = arguments.length > 1 ? [].slice.call(arguments, 1) : null,
+			F = function(){};
+
+		var bound = function() {
+			var context = that,
+                length = arguments.length;
+
+			if (this instanceof bound){
+				F.prototype = self.prototype;
+				context = new F;
+			}
+
+			var result = (!args && !length)
+				? self.call(context)
+				: self.apply(context, args && length ? args.concat([].slice.call(arguments)) : args || arguments);
+
+			return context == that ? result : context;
+		};
+
+		return bound;
+	};
 }
 
 })(window);

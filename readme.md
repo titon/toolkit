@@ -7,7 +7,6 @@ Titon makes use of the latest and greatest technology. This includes CSS3 for an
 Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
 
 #### Demo ####
-
 A temporary demo can be found here: http://titon.io/toolkit
 
 It's literally the examples folder within this repository.
@@ -42,11 +41,10 @@ It's literally the examples folder within this repository.
 * Safari 5+
 
 **What about IE8 and 9?**
+IE9 does not support CSS3 transitions and any kind of animation will fallback to a simple show/hide.
 
-Toolkit works in older versions of IE, but...
-IE8 does not support em/rem scaling, media queries, and other CSS3 properties, so default styles and functionality look janky.
-Both IE8 and IE9 do not support CSS transitions or animations, so animation falls back to a simple show/hide.
-Compatibility for these browsers will be added in due time.
+IE8 does not support CSS3 transitions, rem scaling, media queries and specific HTML 5 elements. To support IE8, the Toolkit `ie8.css` file must be included.
+To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond). To support HTML 5 features, use [modernizr](http://modernizr.com).
 
 ## Javascript Components ##
 #### Modules ####
@@ -100,7 +98,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `TomorrowNight` - Tomorrow Night theme for all Titon components
 
 ## Authors ##
-* Miles Johnson - https://github.com/milesj
+* [Miles Johnson](https://github.com/milesj)
 
 #### Third Party ####
 * `Normalize.css` provided by Nicolas Gallagher

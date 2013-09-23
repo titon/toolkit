@@ -138,6 +138,16 @@ Titon.Modal = new Class({
             }
 
             this.element.reveal();
+
+            // IE8
+            if (Browser.ie8) {
+                var size = this.element.getSize();
+
+                this.element.setStyles({
+                    'margin-left': -(size.x / 2),
+                    'margin-top': -(size.y / 2)
+                });
+            }
         }
 
         this.fireEvent('show');

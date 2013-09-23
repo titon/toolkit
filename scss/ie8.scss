@@ -1,0 +1,177 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+$padding-small: 8px;
+$padding: 12px;
+$padding-large: 16px;
+$margin: 20px;
+
+$font-small: 12px;
+$font: 16px;
+$font-large: 20px;
+
+// IE8 does not support em/rem
+// So update padding, margin and font-size
+
+html, body { font-size: 14px; line-height: 150%; }
+
+h1 { font-size: 48px; }
+h2 { font-size: 40px; }
+h3 { font-size: 34px; }
+h4 { font-size: 28px; }
+h5 { font-size: 24px; }
+h6 { font-size: 18px; }
+
+.x { font-size: 24px; }
+
+.input,
+.input-static,
+.breadcrumbs a,
+.button {
+    font-size: $font;
+}
+
+code,
+var,
+kbd,
+pre,
+blockquote cite,
+.field-help,
+.breadcrumbs.small a,
+.button.small,
+.small .button {
+    font-size: $font-small;
+}
+
+legend,
+.breadcrumbs.large a,
+.button.large,
+.large .button {
+    font-size: $font-large;
+}
+
+.type-ahead-desc,
+.label,
+.badge,
+.progress-bar {
+    font-size: 9px;
+}
+
+pre,
+.input,
+.input-static,
+.form--horizontal .field-label,
+.input-addon,
+.table td,
+.table th,
+.table.table--sortable thead th a,
+.table.table--sortable thead th span,
+.accordion-head,
+.accordion-body,
+.carousel-caption,
+.carousel-prev,
+.carousel-next,
+.carousel-tabs,
+.modal-head,
+.modal-body,
+.modal-foot,
+.modal-loading,
+.modal-error,
+.showcase-inner,
+.showcase-caption,
+.showcase-prev,
+.showcase-next,
+.showcase-tabs,
+.alert,
+.breadcrumbs a,
+.button {
+    padding: $padding;
+}
+
+.table.table--compact thead th,
+.table.table--compact thead td,
+.table.table--compact.table--sortable thead th a,
+.table.table--compact.table--sortable thead th span,
+.flyout ul li > a,
+.flyout ul li > .divider,
+.popover-head,
+.popover-body,
+.tooltip,
+.type-ahead ul li a
+.type-ahead ul li.heading,
+.breadcrumbs.small a,
+.button.small,
+.small .button,
+.dropdown li > a,
+.dropdown li.heading,
+.type-ahead ul a {
+    padding: $padding-small;
+}
+
+.breadcrumbs.large a,
+.button.large,
+.large .button {
+    padding: $padding-large;
+}
+
+fieldset { padding: $padding 0; }
+blockquote { padding: 0 $padding; }
+legend { padding-right: $padding; }
+
+pre, p, ul, ol, hr,
+.alert,
+.breadcrumbs,
+.pagination {
+    margin: $margin 0;
+}
+
+blockquote { margin: $margin; }
+
+.alert .close,
+.button-group + .button-group {
+    margin-left: $margin;
+}
+
+.field,
+.tabs-nav {
+    margin-bottom: $margin;
+}
+
+.form--inline .field,
+.form--inline .field-label,
+.form--inline .form-actions {
+    margin-right: $margin;
+    margin-bottom: $margin / 2;
+}
+
+.form--inline  .field-label { margin: 0 ($margin / 2) 0 0; }
+.form--horizontal .field-col { padding-left: $margin; }
+.alert-title { margin: 0 0 ($margin / 2) 0; }
+.dropdown li.divider { margin: ($margin / 2) 0; }
+.pagination li { margin-right: $padding / 2; }
+
+.showcase-tabs { top: $padding; }
+.showcase-prev { left: $padding; }
+.showcase-next { right: $padding; }
+
+// IE8 does not support rgba
+// So use solid colors instead
+
+.close .x { color: #000; }
+.close:hover { background: #fff; }
+
+.blackout { background: #000; filter: alpha(opacity=50); }
+
+.carousel-caption,
+.showcase-caption { background: #000; filter: alpha(opacity=70); }
+
+.carousel-tabs,
+.showcase-tabs { left: auto; right: auto; }
+
+.showcase-next,
+.showcase-prev,
+.carousel-next,
+.carousel-prev { margin-top: -20px; }

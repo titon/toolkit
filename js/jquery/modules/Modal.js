@@ -97,6 +97,14 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             }
 
             this.element.reveal();
+
+            // IE8
+            if (!$.support.leadingWhitespace) {
+                this.element.css({
+                    'margin-left': -(this.element.outerWidth(true) / 2),
+                    'margin-top': -(this.element.outerHeight(true) / 2)
+                });
+            }
         }
 
         return this;

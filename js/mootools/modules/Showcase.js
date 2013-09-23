@@ -72,6 +72,11 @@ Titon.Showcase = new Class({
         this.setNodes(elements);
         this.createElement();
 
+        // Doesn't support animations
+        if (Browser.ie8 || Browser.ie9) {
+            this.options.transition = 1;
+        }
+
         options = this.options;
 
         // Get elements
@@ -160,7 +165,8 @@ Titon.Showcase = new Class({
             index = this.data.length - 1;
         }
 
-        var options = this.options,
+        var self = this,
+            options = this.options,
             element = this.element,
             list = this.items,
             listItems = list.getElements('li'),
@@ -195,6 +201,7 @@ Titon.Showcase = new Class({
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
+                self._resize();
             }, options.transition);
 
         // Create image and animate
@@ -226,6 +233,7 @@ Titon.Showcase = new Class({
                 setTimeout(function() {
                     element.removeClass('is-loading');
                     listItem.addClass('show').grab(img);
+                    self._resize();
                 }, options.transition);
             };
         }
@@ -258,6 +266,7 @@ Titon.Showcase = new Class({
             }
 
             this.element.reveal();
+            this._resize();
         }
 
         this.fireEvent('show');
@@ -363,6 +372,24 @@ Titon.Showcase = new Class({
 
         return this;
     }.protect(),
+
+    /**
+     * Resize and position the showcase modal for older browsers.
+     *
+     * @private
+     */
+    _resize: function() {
+        if (!Browser.ie8) {
+            return;
+        }
+
+        var size = this.element.getSize();
+
+        this.element.setStyles({
+            'margin-left': -(size.x / 2),
+            'margin-top': -(size.y / 2)
+        });
+    },
 
     /**
      * Event handler for jumping between items.

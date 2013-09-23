@@ -58,7 +58,7 @@
     },
     "responsive": {
         "category": "component",
-        "priority": 8,
+        "priority": 100,
         "source": {
             "css": ["layout/responsive.css"]
         }

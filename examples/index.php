@@ -195,7 +195,11 @@ if ($vendor === 'mootools') {
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="../css/normalize.css" rel="stylesheet" type="text/css">
     <link href="../css/toolkit.css" rel="stylesheet" type="text/css">
-    <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
+
+    <?php if (!empty($theme)) { ?>
+        <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
+    <?php } ?>
+
     <link href="css/test.css" rel="stylesheet" type="text/css">
 
     <?php if ($vendor === 'mootools') { ?>
@@ -220,6 +224,8 @@ if ($vendor === 'mootools') {
 
     <!--[if lte IE 8]>
         <link href="../css/ie8.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="js/respond-1.3.0.js"></script>
+        <script type="text/javascript" src="js/modernizr-2.6.2.js"></script>
     <![endif]-->
 </head>
 <body class="<?php echo $themeKey; ?>">

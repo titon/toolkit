@@ -42,6 +42,11 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     this.initialize = function() {
         var options = this.options;
 
+        // IE8 Doesn't support animations
+        if (!$.support.leadingWhitespace) {
+            this.options.transition = 1;
+        }
+
         // Get elements
         this.items = this.element.find(options.itemsElement);
         this.tabs = this.element.find(options.tabsElement);
@@ -120,7 +125,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             index = this.data.length - 1;
         }
 
-        var options = this.options,
+        var self = this,
+            options = this.options,
             element = this.element,
             list = this.items,
             listItems = list.children('li'),
@@ -155,6 +161,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
+                self._resize();
             }, options.transition);
 
         // Create image and animate
@@ -186,6 +193,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
                 setTimeout(function() {
                     element.removeClass('is-loading');
                     listItem.addClass('show').append(img);
+                    self._resize();
                 }, options.transition);
             };
         }
@@ -216,6 +224,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             }
 
             this.element.reveal();
+            this._resize();
         }
 
         return this;
@@ -313,6 +322,23 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         if (items.length <= 1) {
             this.element.addClass('is-single');
         }
+    };
+
+    /**
+     * Resize and position the showcase modal for older browsers.
+     *
+     * @private
+     */
+    this._resize = function() {
+        if ($.support.leadingWhitespace) {
+            return;
+        }
+
+        // IE8
+        this.element.css({
+            'margin-left': -(this.element.outerWidth(true) / 2),
+            'margin-top': -(this.element.outerHeight(true) / 2)
+        });
     };
 
     /**
