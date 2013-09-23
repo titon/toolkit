@@ -10,7 +10,7 @@
 <div class="example">
 
     <div class="grid">
-        <div class="col span-3">
+        <div class="col desktop-3 tablet-3">
             <div class="intro">
                 <h4>What is Toolkit?</h4>
 
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="col span-3">
+        <div class="col desktop-3 tablet-3">
             <div class="intro">
                 <h4>How is Toolkit different than Bootstrap or Foundation?</h4>
 
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <div class="col span-6">
+        <div class="col desktop-6 tablet-6">
             <div class="intro">
                 <h3>Available Components</h3>
 
