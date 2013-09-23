@@ -1,4 +1,4 @@
-# Toolkit v0.12.0 #
+# Toolkit v0.13.0 #
 
 Toolkit is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
@@ -41,7 +41,8 @@ It's literally the examples folder within this repository.
 * Safari 5+
 
 **What about IE8 and 9?**
-IE9 does not support CSS3 transitions and any kind of animation will fallback to a simple show/hide.
+
+IE9 does not support CSS3 transitions and any type of animation will fallback to a simple show/hide.
 
 IE8 does not support CSS3 transitions, rem scaling, media queries and specific HTML 5 elements. To support IE8, the Toolkit `ie8.css` file must be included.
 To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond). To support HTML 5 features, use [modernizr](http://modernizr.com).

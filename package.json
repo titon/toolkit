@@ -1,5 +1,5 @@
 {
-    "version": "0.12.0",
+    "version": "0.13.0",
     "name": "titon-toolkit",
     "description": "A powerful front-end UI and component toolkit.",
     "keywords": [
@@ -9,6 +9,7 @@
         "sass",
         "scss",
         "mootools",
+        "jquery",
         "javascript",
         "ui",
         "framework",
