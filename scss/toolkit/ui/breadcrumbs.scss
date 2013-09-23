@@ -44,8 +44,8 @@
     }
 
     // Sizes
-    &.small a { padding: $small-padding; font-size: $small-size; }
-    &.large a { padding: $large-padding; font-size: $large-size; }
+    &.small a { @include size-small; }
+    &.large a { @include size-large; }
 
     @include clear-fix;
 }

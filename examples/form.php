@@ -263,22 +263,22 @@
             <legend>Horizontal</legend>
 
         <div class="field">
-            <label class="field-label col desktop-4" for="h1">Text</label>
-            <div class="field-col col desktop-8">
+            <label class="field-label col span-4" for="h1">Text</label>
+            <div class="field-col col span-8">
                 <input id="h1" type="text" class="input" name="text">
             </div>
         </div>
 
         <div class="field">
-            <label class="field-label col desktop-4">Text + Static</label>
-            <div class="field-col col desktop-8">
+            <label class="field-label col span-4">Text + Static</label>
+            <div class="field-col col span-8">
                 <div class="input-static">email@domain.com</div>
             </div>
         </div>
 
         <div class="field">
-            <label class="field-label col desktop-4" for="h2">Select</label>
-            <div class="field-col col desktop-8">
+            <label class="field-label col span-4" for="h2">Select</label>
+            <div class="field-col col span-8">
                 <select id="h2" class="input" name="select">
                     <option value="">CSS</option>
                     <option value="">HTML</option>
@@ -288,20 +288,20 @@
         </div>
 
         <div class="field">
-            <label class="field-label col desktop-4" for="h3">Textarea</label>
-            <div class="field-col col desktop-8">
+            <label class="field-label col span-4" for="h3">Textarea</label>
+            <div class="field-col col span-8">
                 <textarea id="h3" class="input span-6" name="textarea">Lorem ipsum dolor sit amet.</textarea>
             </div>
         </div>
 
         <div class="field">
-            <div class="field-col col desktop-8 desktop-push-4">
+            <div class="field-col col span-8 push-4">
                 <label class="checkbox" for="h4"><input id="h4" type="checkbox" name="checkbox"> Checkbox</label>
             </div>
         </div>
 
         <div class="field">
-            <div class="field-col col desktop-8 desktop-push-4">
+            <div class="field-col col span-8 push-4">
                 <label class="radio" for="h5"><input id="h5" type="radio" name="radio"> Radio option</label>
             </div>
         </div>

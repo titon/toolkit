@@ -11,7 +11,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
     <ul class="accordion acc-1" id="acc-1">
         <li>
             <header class="accordion-head">
-                <h4>One</h4>
+                <h6>One</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p1; ?></div>
@@ -19,7 +19,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Two</h4>
+                <h6>Two</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p2; ?></div>
@@ -27,7 +27,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Three</h4>
+                <h6>Three</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p3; ?></div>
@@ -42,7 +42,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
     <ul class="accordion acc-2">
         <li>
             <header class="accordion-head">
-                <h4>One</h4>
+                <h6>One</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p1; ?></div>
@@ -50,7 +50,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Two</h4>
+                <h6>Two</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p2; ?></div>
@@ -58,7 +58,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Three</h4>
+                <h6>Three</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p3; ?></div>
@@ -73,7 +73,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
     <ul class="accordion acc-3">
         <li>
             <header class="accordion-head">
-                <h4>One</h4>
+                <h6>One</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p1; ?></div>
@@ -81,7 +81,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Two</h4>
+                <h6>Two</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p2; ?></div>
@@ -89,7 +89,7 @@ $p3 = '<p>Sed malesuada scelerisque semper. Mauris imperdiet nibh eros. Fusce qu
         </li>
         <li>
             <header class="accordion-head">
-                <h4>Three</h4>
+                <h6>Three</h6>
             </header>
             <section class="accordion-inner">
                 <div class="accordion-body"><?php echo $p3; ?></div>

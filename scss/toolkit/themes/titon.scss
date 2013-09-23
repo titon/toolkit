@@ -6,8 +6,11 @@
 
 @import "../common";
 
-body {
+html {
     font: normal 16px/1.75rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
     background: $background-color;
     color: $foreground-color;
 }
@@ -247,6 +250,7 @@ mark { background: tint($warning-light, 25%); }
 .modal-foot {
     background: $gray-lightest;
     text-align: center;
+    margin-bottom: -1px;
 }
 
 //-------------------- Popover --------------------//

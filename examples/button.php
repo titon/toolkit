@@ -12,7 +12,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
         <?php foreach ($types as $type => $typeTitle) {
             $classes = array($type, $shape); ?>
 
-            <div class="row">
+            <div class="example-row">
 
                 <?php foreach ($sizes as $size => $sizeTitle) {
                     $class = implode(' ', $classes) . ' ' . $size;
@@ -42,7 +42,7 @@ foreach ($visuals as $visual => $visualTitle) { ?>
         foreach ($shapes as $shape => $shapeTitle) {
             $classes = array($visual, $shape, $typeClasses[$i]); ?>
 
-            <div class="row">
+            <div class="example-row">
 
                 <?php foreach ($sizes as $size => $sizeTitle) {
                     $class = implode(' ', $classes) . ' ' . $size;

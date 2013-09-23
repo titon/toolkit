@@ -19,7 +19,7 @@ $items = array(
                     <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
                     <div class="carousel-caption">
-                        <h2><a href="">Slide #<?php echo $i; ?></a></h2>
+                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
                         <?php echo $items[$i]; ?>
                     </div>
                 </li>
@@ -50,7 +50,7 @@ $items = array(
                     <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
                     <div class="carousel-caption">
-                        <h2><a href="">Slide #<?php echo $i; ?></a></h2>
+                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
                         <?php echo $items[$i]; ?>
                     </div>
                 </li>
@@ -75,7 +75,7 @@ $items = array(
                     <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
                     <div class="carousel-caption">
-                        <h2><a href="">Slide #<?php echo $i; ?></a></h2>
+                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
                         <?php echo $items[$i]; ?>
                     </div>
                 </li>
@@ -97,7 +97,7 @@ $items = array(
                 <img src="http://lorempixel.com/640/360/?c=1">
 
                 <div class="carousel-caption">
-                    <h2><a href="">Slide #1</a></h2>
+                    <h5><a href="">Slide #1</a></h5>
                     <?php echo $items[1]; ?>
                 </div>
             </li>

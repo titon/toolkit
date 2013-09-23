@@ -71,6 +71,10 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+.example-row {
+    text-align: center;
+}
+
 .tabs {
     width: 50%;
     margin: 0 auto;
@@ -111,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
 .pin-left .pin { float: left; }
 .pin-right .pin { float: right; }
 
-.lazy-load { width: 200px; height: 200px; }
+.lazy-load-item { width: 200px; height: 200px; }
 .lazy-load-0,
 .lazy-load-1,
 .lazy-load-2 { background-image: none !important; }
@@ -148,4 +152,11 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     float: none;
     margin-right: 0;
+}
+
+.showcase.is-loading .showcase-inner,
+.modal.is-loading .modal-outer {
+    background-image: url("../img/loader.gif");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }

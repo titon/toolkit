@@ -4,8 +4,7 @@ date_default_timezone_set('UTC');
 
 $components = array(
     'home' => array(
-        'title' => 'Titon Toolkit',
-        'css' => array('layout/typography.css', 'layout/grid.css', 'layout/code.css', 'ui/button.css')
+        'title' => 'Titon Toolkit'
     ),
     'base' => array(
         'title' => 'Base',
@@ -195,22 +194,10 @@ if ($vendor === 'mootools') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="../css/normalize.css" rel="stylesheet" type="text/css">
-    <link href="../css/toolkit/layout/base.css" rel="stylesheet" type="text/css">
-    <link href="../css/toolkit/effects/visual.css" rel="stylesheet" type="text/css">
-
-    <?php if (!empty($component['css'])) {
-        foreach ((array) $component['css'] as $css) { ?>
-            <link href="../css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
-        <?php }
-    }
-
-    if (!empty($theme['css'])) {
-        foreach ((array) $theme['css'] as $css) { ?>
-            <link href="../css/toolkit/<?php echo $css; ?>" rel="stylesheet" type="text/css">
-        <?php }
-    } ?>
-
+    <link href="../css/toolkit.css" rel="stylesheet" type="text/css">
+    <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
     <link href="css/test.css" rel="stylesheet" type="text/css">
+
     <?php if ($vendor === 'mootools') { ?>
         <script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
         <script type="text/javascript" src="js/mootools-more-1.4.0.1.js"></script>
@@ -230,6 +217,10 @@ if ($vendor === 'mootools') {
             <script type="text/javascript" src="../js/<?php echo $vendorFolder; ?>/<?php echo $js; ?>"></script>
         <?php }
     } ?>
+
+    <!--[if lte IE 8]>
+        <link href="../css/ie8.css" rel="stylesheet" type="text/css">
+    <![endif]-->
 </head>
 <body class="<?php echo $themeKey; ?>">
     <div id="wrapper" class="skeleton">
@@ -243,7 +234,10 @@ if ($vendor === 'mootools') {
                     if ($key === 'home') {
                         continue;
                     } ?>
-                    <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected="selected"'; ?>><?php echo $value['title']; ?></option>
+                    <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected="selected"'; ?>>
+                        <?php echo $value['title']; ?>
+                        <?php if (!empty($value['js'])) echo '(JS)'; ?>
+                    </option>
                 <?php } ?>
             </select>
 

@@ -8,7 +8,7 @@
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
 
-            <div class="lazy-load-0 lazy-load" style="background-image: url('http://lorempixel.com/200/200/?c=<?php echo $c; ?>')">
+            <div class="lazy-load-0 lazy-load-item" style="background-image: url('http://lorempixel.com/200/200/?c=<?php echo $c; ?>')">
                 <!-- Background styles are lazy loaded via CSS -->
             </div>
 
@@ -20,7 +20,7 @@
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
 
-            <div class="lazy-load-1 lazy-load">
+            <div class="lazy-load-1 lazy-load-item">
                 <img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
             </div>
 

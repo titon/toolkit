@@ -81,7 +81,7 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.multiple || (options.collapsible && this.node === node)) {
-            if (section.is(':shown')) {
+            if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal();
                 parent.removeClass('is-active');
 

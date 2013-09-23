@@ -31,7 +31,7 @@
     </div>
 
     <div class="alert is-success">
-        <h3 class="alert-title">Header Title</h3>
+        <h5 class="alert-title">Header Title</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="">Nunc nec leo dui, non consequat diam.</a> Curabitur id nulla et augue facilisis tempus quis ut nibh. Aenean ullamcorper consequat enim id fringilla. Vivamus accumsan, mauris quis dictum accumsan, nisl libero luctus mauris, a dictum ligula ante ut magna. Morbi massa tellus, aliquet ut fringilla euismod, aliquam tincidunt nisi. Duis suscipit tempor viverra. Cras pretium lorem a tellus consectetur eu rutrum felis scelerisque. Phasellus sed risus nec diam feugiat fermentum. Duis semper aliquam nibh sed porttitor.</p>
     </div>
 </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="alert round is-success">
-        <h3 class="alert-title">Header Title</h3>
+        <h5 class="alert-title">Header Title</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="">Nunc nec leo dui, non consequat diam.</a> Curabitur id nulla et augue facilisis tempus quis ut nibh. Aenean ullamcorper consequat enim id fringilla. Vivamus accumsan, mauris quis dictum accumsan, nisl libero luctus mauris, a dictum ligula ante ut magna. Morbi massa tellus, aliquet ut fringilla euismod, aliquam tincidunt nisi. Duis suscipit tempor viverra. Cras pretium lorem a tellus consectetur eu rutrum felis scelerisque. Phasellus sed risus nec diam feugiat fermentum. Duis semper aliquam nibh sed porttitor.</p>
     </div>
 </div>

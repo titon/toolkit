@@ -39,13 +39,13 @@
 <div class="example">
     <div class="example-title">Arrows</div>
 
-    <div class="row">
+    <div class="example-row">
         <?php foreach ($types as $type => $typeTitle) { ?>
             <span class="label label--left <?php echo $type; ?>"><?php echo $typeTitle; ?></span>
         <?php } ?>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <?php foreach ($types as $type => $typeTitle) { ?>
             <span class="label label--right <?php echo $type; ?>"><?php echo $typeTitle; ?></span>
         <?php } ?>

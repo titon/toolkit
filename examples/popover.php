@@ -32,18 +32,18 @@
 <div class="example">
     <div class="example-title">Positioning</div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button popover-tl" data-popover="Positioned at top left">Top Left</button>
         <button type="button" class="button popover-tc" data-popover="Positioned at top center">Top Center (Default)</button>
         <button type="button" class="button popover-tr" data-popover="Positioned at top right">Top Right</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button popover-cl" data-popover="Positioned at center left">Center Left</button>
         <button type="button" class="button popover-cr" data-popover="Positioned at center right">Center Right</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button popover-bl" data-popover="Positioned at bottom left">Bottom Left</button>
         <button type="button" class="button popover-bc" data-popover="Positioned at bottom center">Bottom Center</button>
         <button type="button" class="button popover-br" data-popover="Positioned at bottom right">Bottom Right</button>

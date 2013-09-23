@@ -65,17 +65,17 @@
             max-width: 100%;
             height: auto;
         }
-
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: $padding;
-            color: #fff;
-            background: black(.70);
-        }
     }
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: $padding;
+    color: #fff;
+    background: black(.70);
 }
 
 .carousel-prev,

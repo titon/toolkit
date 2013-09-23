@@ -67,7 +67,7 @@ foreach ($shapes as $shape => $shapeTitle) { ?>
 
         <?php foreach ($types as $type => $typeTitle) { ?>
 
-            <div class="row">
+            <div class="example-row">
 
                 <?php $count = 2;
                 foreach ($sizes as $size => $sizeTitle) {

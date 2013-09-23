@@ -34,18 +34,18 @@
 <div class="example">
     <div class="example-title">Positioning</div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-tl" data-tooltip="Positioned at top left">Top Left</button>
         <button type="button" class="button tooltip-tc" data-tooltip="Positioned at top center">Top Center</button>
         <button type="button" class="button tooltip-tr" data-tooltip="Positioned at top right">Top Right (Default)</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-cl" data-tooltip="Positioned at center left">Center Left</button>
         <button type="button" class="button tooltip-cr" data-tooltip="Positioned at center right">Center Right</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-bl" data-tooltip="Positioned at bottom left">Bottom Left</button>
         <button type="button" class="button tooltip-bc" data-tooltip="Positioned at bottom center">Bottom Center</button>
         <button type="button" class="button tooltip-br" data-tooltip="Positioned at bottom right">Bottom Right</button>
@@ -53,18 +53,18 @@
 
     <p>Tooltips can also follow the mouse trail.</p>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-mtl" data-tooltip="Positioned at top left">Top Left</button>
         <button type="button" class="button tooltip-mtc" data-tooltip="Positioned at top center">Top Center</button>
         <button type="button" class="button tooltip-mtr" data-tooltip="Positioned at top right">Top Right (Default)</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-mcl" data-tooltip="Positioned at center left">Center Left</button>
         <button type="button" class="button tooltip-mcr" data-tooltip="Positioned at center right">Center Right</button>
     </div>
 
-    <div class="row">
+    <div class="example-row">
         <button type="button" class="button tooltip-mbl" data-tooltip="Positioned at bottom left">Bottom Left</button>
         <button type="button" class="button tooltip-mbc" data-tooltip="Positioned at bottom center">Bottom Center</button>
         <button type="button" class="button tooltip-mbr" data-tooltip="Positioned at bottom right">Bottom Right</button>
