@@ -264,7 +264,28 @@ if ($vendor === 'mootools') {
             </select>
 
             <button type="submit">GO</button>
+
+            <span id="width"></span>x<span id="height"></span>
         </form>
     </div>
+
+    <script type="text/javascript">
+        <?php if ($vendor === 'mootools') { ?>
+            function resize() {
+                $('width').set('html', window.getWidth());
+                $('height').set('html', window.getHeight());
+            }
+
+            window.addEvent('domready', resize).addEvent('resize', resize);
+        <?php } else { ?>
+            function resize() {
+                $('#width').html($(window).width());
+                $('#height').html($(window).height());
+            }
+
+            $(document).ready(resize);
+            $(window).on('resize', resize);
+        <?php } ?>
+    </script>
 </body>
 </html>

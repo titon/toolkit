@@ -30,6 +30,9 @@ h1, h2, h3, h4, h5, h6 {
 .test-switcher select {
     margin: 0 10px 0 5px;
 }
+.test-switcher button {
+    margin: 0 10px 0 0;
+}
 
 .intro {
     padding: 0 50px 50px 0;
