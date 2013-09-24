@@ -65,7 +65,7 @@
     },
     "accordion": {
         "category": "component",
-        "priority": 10,
+        "priority": 20,
         "require": ["base"],
         "source": {
             "css": ["modules/accordion.css"],
@@ -87,7 +87,7 @@
     },
     "blackout": {
         "category": "component",
-        "priority": 10,
+        "priority": 21,
         "require": ["base"],
         "source": {
             "css": ["modules/blackout.css"],
@@ -128,7 +128,7 @@
     },
     "carousel": {
         "category": "component",
-        "priority": 10,
+        "priority": 22,
         "require": ["base"],
         "source": {
             "css": ["modules/carousel.css"],
@@ -137,7 +137,7 @@
     },
     "dropdown": {
         "category": "component",
-        "priority": 10,
+        "priority": 23,
         "require": ["base", "toggle"],
         "source": {
             "css": ["ui/dropdown.css"]
@@ -145,7 +145,7 @@
     },
     "flyout": {
         "category": "component",
-        "priority": 10,
+        "priority": 24,
         "require": ["base", "timers"],
         "source": {
             "css": ["modules/flyout.css"],
@@ -175,7 +175,7 @@
     },
     "lazyLoad": {
         "category": "component",
-        "priority": 10,
+        "priority": 25,
         "require": ["base"],
         "source": {
             "css": ["ui/lazy-load.css"],
@@ -184,7 +184,7 @@
     },
     "matrix": {
         "category": "component",
-        "priority": 10,
+        "priority": 26,
         "require": ["base"],
         "source": {
             "css": ["ui/matrix.css"],
@@ -193,7 +193,7 @@
     },
     "modal": {
         "category": "component",
-        "priority": 10,
+        "priority": 27,
         "require": ["base", "blackout"],
         "source": {
             "css": ["modules/modal.css"],
@@ -211,7 +211,7 @@
     },
     "pin": {
         "category": "component",
-        "priority": 10,
+        "priority": 28,
         "require": ["base"],
         "source": {
             "css": ["ui/pin.css"],
@@ -220,7 +220,7 @@
     },
     "popover": {
         "category": "component",
-        "priority": 10,
+        "priority": 29,
         "require": ["base", "tooltip"],
         "source": {
             "css": ["modules/popover.css"],
@@ -237,7 +237,7 @@
     },
     "showcase": {
         "category": "component",
-        "priority": 10,
+        "priority": 30,
         "require": ["base"],
         "source": {
             "css": ["modules/showcase.css"],
@@ -246,7 +246,7 @@
     },
     "tabs": {
         "category": "component",
-        "priority": 10,
+        "priority": 31,
         "require": ["base"],
         "source": {
             "css": ["modules/tabs.css"],
@@ -263,7 +263,7 @@
     },
     "toggle": {
         "category": "component",
-        "priority": 10,
+        "priority": 32,
         "require": ["base"],
         "source": {
             "js": ["modules/Toggle.js"]
@@ -271,7 +271,7 @@
     },
     "tooltip": {
         "category": "component",
-        "priority": 10,
+        "priority": 33,
         "require": ["base"],
         "source": {
             "css": ["modules/tooltip.css"],
@@ -281,7 +281,7 @@
     },
     "typeAhead": {
         "category": "component",
-        "priority": 10,
+        "priority": 34,
         "require": ["base", "cache"],
         "source": {
             "css": ["modules/type-ahead.css"],
@@ -290,7 +290,7 @@
     },
     "visual": {
         "category": "component",
-        "priority": 20,
+        "priority": 40,
         "source": {
             "css": ["effects/visual.css"]
         }
@@ -298,14 +298,14 @@
 
     "theme-titon": {
         "category": "theme",
-        "priority": 30,
+        "priority": 50,
         "source": {
             "css": ["themes/titon.css"]
         }
     },
     "theme-tomorrowNight": {
         "category": "theme",
-        "priority": 30,
+        "priority": 50,
         "source": {
             "css": ["themes/tomorrow-night.css"]
         }
