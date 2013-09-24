@@ -125,7 +125,9 @@ Titon.Showcase = new Class({
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
-            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump);
+            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump)
+            .addEvent('swipeleft', this.next)
+            .addEvent('swiperight', this.prev);
 
         return this;
     },

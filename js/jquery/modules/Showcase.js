@@ -83,8 +83,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
         this.element
             .on('click', options.closeEvent, this.hide.bind(this))
-            .on('click', options.nextEvent, this.next.bind(this))
-            .on('click', options.prevEvent, this.prev.bind(this))
+            .on('click swipeleft', options.nextEvent, this.next.bind(this))
+            .on('click swiperight', options.prevEvent, this.prev.bind(this))
             .on('click', options.jumpEvent, this.__jump.bind(this));
     };
 

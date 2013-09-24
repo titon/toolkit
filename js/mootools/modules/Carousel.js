@@ -151,6 +151,10 @@ Titon.Carousel = new Class({
                 .addEvent('mouseleave', this.start);
         }
 
+        this.element
+            .addEvent('swipeleft', this.next)
+            .addEvent('swiperight', this.prev);
+
         if (this.tabs.length) {
             this.tabs.addEvent('click', this.__jump);
         }

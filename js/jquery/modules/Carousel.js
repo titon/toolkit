@@ -109,6 +109,10 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
                 .on('mouseleave', this.start.bind(this));
         }
 
+        this.element
+            .on('swipeleft', this.next.bind(this))
+            .on('swiperight', this.prev.bind(this));
+
         this.tabs.on('click', this.__jump.bind(this));
         this.nextButton.on('click', this.next.bind(this));
         this.prevButton.on('click', this.prev.bind(this));
