@@ -5,38 +5,40 @@ $count = count($funcs['internal']) - 1; ?>
 <div class="example-header">Table</div>
 
 <div class="example">
-    <p>Default styling.</p>
+    <p>Default styling with responsive overflow.</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Heading</th>
-                <th>Heading</th>
-                <th>Heading</th>
-                <th>Heading</th>
-                <th>Heading</th>
-                <th>Heading</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php for ($i = 0; $i <= 25; $i++) {
-                if ($i == 10) { ?>
-                    <tr class="divider">
-                        <td colspan="6">Divider</td>
-                    </tr>
-                <?php } else { ?>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
-                        <td><a href="">Some random link</a></td>
-                        <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
-                        <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
-                        <td><?php echo date('Y-m-d H:i:s'); ?></td>
-                    </tr>
-                <?php }
-            } ?>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Heading</th>
+                    <th>Heading</th>
+                    <th>Heading</th>
+                    <th>Heading</th>
+                    <th>Heading</th>
+                    <th>Heading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for ($i = 0; $i <= 25; $i++) {
+                    if ($i == 10) { ?>
+                        <tr class="divider">
+                            <td colspan="6">Divider</td>
+                        </tr>
+                    <?php } else { ?>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+                            <td><a href="">Some random link</a></td>
+                            <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+                            <td><?php echo $funcs['internal'][rand(0, $count)]; ?></td>
+                            <td><?php echo date('Y-m-d H:i:s'); ?></td>
+                        </tr>
+                    <?php }
+                } ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="example">
