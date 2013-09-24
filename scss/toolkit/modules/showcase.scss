@@ -104,6 +104,11 @@
     color: #fff;
     background: black(.70);
     display: none;
+
+    @include in-small {
+        font-size: $small-size;
+        padding: $small-padding;
+    }
 }
 
 .showcase-prev,

@@ -34,6 +34,7 @@ Titon.Showcase = new Class({
         delegate: '.js-showcase',
         blackout: true,
         transition: 300,
+        gutter: 50,
         getCategory: 'data-showcase',
         getImage: 'href',
         getTitle: 'title',
@@ -193,15 +194,12 @@ Titon.Showcase = new Class({
         if (listItem.hasAttribute('data-width')) {
 
             // Resize the showcase to the image size
-            list.setStyles({
-                width: listItem.get('data-width').toInt(),
-                height: listItem.get('data-height').toInt()
-            });
+            this._resize(listItem.get('data-width').toInt(), listItem.get('data-height').toInt());
 
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
-                self._resize();
+                self._reposition();
             }, options.transition);
 
         // Create image and animate
@@ -214,10 +212,7 @@ Titon.Showcase = new Class({
 
             // Resize showcase after image loads
             img.onload = function() {
-                list.setStyles({
-                    width: this.width,
-                    height: this.height
-                });
+                self._resize(this.width, this.height);
 
                 // Cache the width and height
                 listItem
@@ -233,7 +228,7 @@ Titon.Showcase = new Class({
                 setTimeout(function() {
                     element.removeClass('is-loading');
                     listItem.addClass('show').grab(img);
-                    self._resize();
+                    self._reposition();
                 }, options.transition);
             };
         }
@@ -266,7 +261,7 @@ Titon.Showcase = new Class({
             }
 
             this.element.reveal();
-            this._resize();
+            this._reposition();
         }
 
         this.fireEvent('show');
@@ -374,13 +369,14 @@ Titon.Showcase = new Class({
     }.protect(),
 
     /**
-     * Resize and position the showcase modal for older browsers.
+     * Re-position the showcase modal for older browsers.
      *
      * @private
+     * @return {Titon.Showcase}
      */
-    _resize: function() {
+    _reposition: function() {
         if (!Browser.ie8) {
-            return;
+            return this;
         }
 
         var size = this.element.getSize();
@@ -389,6 +385,46 @@ Titon.Showcase = new Class({
             'margin-left': -(size.x / 2),
             'margin-top': -(size.y / 2)
         });
+
+        return this;
+    },
+
+    /**
+     * Resize the showcase modal when it is larger than the current viewport.
+     *
+     * @private
+     * @param {Number} width
+     * @param {Number} height
+     * @return {Titon.Showcase}
+     */
+    _resize: function(width, height) {
+        var size = window.getSize(),
+            ratio, diff;
+
+        if (width > size.x) {
+            var newWidth = (size.x - (this.options.gutter * 2)); // leave edge gap
+
+            ratio = (width / height);
+            diff = (width - newWidth);
+            width = newWidth;
+            height -= Math.round(diff / ratio);
+
+        } else if (height > size.y) {
+            var newHeight = (size.y - (this.options.gutter * 2)); // leave edge gap
+
+            ratio = (height / width);
+            diff = (height - newHeight);
+
+            width -= Math.round(diff / ratio);
+            height = newHeight;
+        }
+
+        this.items.setStyles({
+            width: width,
+            height: height
+        });
+
+        return this;
     },
 
     /**

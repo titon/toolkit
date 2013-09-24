@@ -76,6 +76,11 @@
     padding: $padding;
     color: #fff;
     background: black(.70);
+
+    @include in-small {
+        font-size: $small-size;
+        padding: $small-padding;
+    }
 }
 
 .carousel-prev,

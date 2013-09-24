@@ -153,15 +153,12 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         if (listItem.data('width')) {
 
             // Resize the showcase to the image size
-            list.css({
-                width: listItem.data('width'),
-                height: listItem.data('height')
-            });
+            this._resize(listItem.get('data-width'), listItem.get('data-height'));
 
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
-                self._resize();
+                self._reposition();
             }, options.transition);
 
         // Create image and animate
@@ -174,10 +171,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
             // Resize showcase after image loads
             img.onload = function() {
-                list.css({
-                    width: this.width,
-                    height: this.height
-                });
+                self._resize(this.width, this.height);
 
                 // Cache the width and height
                 listItem
@@ -193,7 +187,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
                 setTimeout(function() {
                     element.removeClass('is-loading');
                     listItem.addClass('show').append(img);
-                    self._resize();
+                    self._reposition();
                 }, options.transition);
             };
         }
@@ -224,7 +218,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             }
 
             this.element.reveal();
-            this._resize();
+            this._reposition();
         }
 
         return this;
@@ -325,13 +319,14 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     };
 
     /**
-     * Resize and position the showcase modal for older browsers.
+     * Re-position the showcase modal for older browsers.
      *
      * @private
+     * @return {Titon.Showcase}
      */
-    this._resize = function() {
+    this._reposition = function() {
         if ($.support.leadingWhitespace) {
-            return;
+            return this;
         }
 
         // IE8
@@ -339,6 +334,47 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             'margin-left': -(this.element.outerWidth(true) / 2),
             'margin-top': -(this.element.outerHeight(true) / 2)
         });
+
+        return this;
+    };
+
+    /**
+     * Resize the showcase modal when it is larger than the current viewport.
+     *
+     * @private
+     * @param {Number} width
+     * @param {Number} height
+     * @return {Titon.Showcase}
+     */
+    this._resize = function(width, height) {
+        var wWidth = $(window).width(),
+            wHeight = $(window).height(),
+            ratio, diff;
+
+        if (width > wWidth) {
+            var newWidth = (wWidth - (this.options.gutter * 2)); // leave edge gap
+
+            ratio = (width / height);
+            diff = (width - newWidth);
+            width = newWidth;
+            height -= Math.round(diff / ratio);
+
+        } else if (height > wHeight) {
+            var newHeight = (wHeight - (this.options.gutter * 2)); // leave edge gap
+
+            ratio = (height / width);
+            diff = (height - newHeight);
+
+            width -= Math.round(diff / ratio);
+            height = newHeight;
+        }
+
+        this.items.css({
+            width: width,
+            height: height
+        });
+
+        return this;
     };
 
     /**
@@ -398,6 +434,7 @@ $.fn.showcase.options = {
     className: '',
     blackout: true,
     transition: 300,
+    gutter: 50,
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
