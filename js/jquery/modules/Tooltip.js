@@ -15,6 +15,9 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
 
+    /** The current node */
+    this.node = null;
+
     /** Tooltip wrapper */
     this.element = this.createElement(this.options);
 
