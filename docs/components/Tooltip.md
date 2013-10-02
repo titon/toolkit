@@ -193,7 +193,6 @@ $$('.js-tooltip').tooltip({
 </table>
 
 #### Template HTML ####
-
 ```html
 <div class="tooltip">
     <div class="tooltip-inner">
@@ -225,6 +224,7 @@ $$('.js-tooltip').tooltip({
     <thead>
         <tr>
             <th>Event</th>
+            <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -301,7 +301,6 @@ The following methods are available within the tooltip instance.
     <thead>
         <tr>
             <th>Method</th>
-            <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
