@@ -129,7 +129,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             options.ajax = false;
 
         } else if (node) {
-            content = this.readValue(node, options.getContent) || node.get('href');
+            content = this.readValue(node, options.getContent) || node.attr('href');
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;

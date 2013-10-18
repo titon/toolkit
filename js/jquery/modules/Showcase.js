@@ -153,7 +153,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         if (listItem.data('width')) {
 
             // Resize the showcase to the image size
-            this._resize(listItem.get('data-width'), listItem.get('data-height'));
+            this._resize(listItem.data('width'), listItem.data('height'));
 
             // Reveal the image after animation
             setTimeout(function() {

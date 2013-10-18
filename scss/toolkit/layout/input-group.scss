@@ -20,6 +20,10 @@
         white-space: nowrap;
         height: auto;
         vertical-align: middle;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 
     // Inputs should always be above everything else

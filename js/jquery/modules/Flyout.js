@@ -388,7 +388,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
     this._getTarget = function(node) {
         node = $(node || this.node);
 
-        return this.readValue(node, this.options.getUrl) || node.get('href');
+        return this.readValue(node, this.options.getUrl) || node.attr('href');
     };
 
     /**
