@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$tooltip-transition: .3s !default;
+$tooltip-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.

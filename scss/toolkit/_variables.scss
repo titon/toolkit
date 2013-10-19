@@ -57,3 +57,7 @@ $skew-x: 1rem !default;
 $skew-y: 3rem !default;
 $skew: $skew-x $skew-y;
 $skew-reverse: $skew-y $skew-x;
+
+//-------------------- Misc --------------------//
+
+$default-transition: .3s !default;

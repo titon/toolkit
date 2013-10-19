@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$progress-transition: $default-transition !default;
+
 /**
  *    <div class="progress">
  *        <div class="progress-bar" style="width: 50%">50%</div>
@@ -30,5 +32,5 @@
     font-size: .7rem;
     background: $gray-darkest;
     float: left;
-    @include transition(width .6s, background .3s);
+    @include transition(width .6s, background $progress-transition);
 }

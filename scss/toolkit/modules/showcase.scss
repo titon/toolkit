@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$showcase-transition: .3s !default;
+$showcase-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Showcase module.

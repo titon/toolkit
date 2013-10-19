@@ -7,7 +7,7 @@
 @import "../common";
 
 $blackout-opacity: .5 !default;
-$blackout-transition: .3s !default;
+$blackout-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Blackout module.

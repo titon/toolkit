@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$accordion-transition: .3s !default;
+$accordion-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.

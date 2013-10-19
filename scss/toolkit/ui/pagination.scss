@@ -54,7 +54,8 @@
         margin-right: 0;
 
         &:first-child { margin-left: 0; }
-        &:hover, .button:hover { z-index: 1; }
+        &:hover,
+        .button:hover { z-index: 1; }
 
         .button {
             margin: 0;

@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$flyout-transition: .3s !default;
+$flyout-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Flyout module.

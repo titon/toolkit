@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$modal-transition: .3s !default;
+$modal-transition: $default-transition !default;
 
 /**
  * Should be used in conjunction with the JavaScript Titon.Modal module.

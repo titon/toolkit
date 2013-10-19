@@ -288,24 +288,46 @@
             "js": ["modules/TypeAhead.js"]
         }
     },
-    "visual": {
-        "category": "component",
-        "priority": 40,
+
+    "effect-visual": {
+        "category": "effect",
+        "priority": 50,
         "source": {
             "css": ["effects/visual.css"]
+        }
+    },
+    "effect-oval": {
+        "category": "effect",
+        "priority": 51,
+        "source": {
+            "css": ["effects/oval.css"]
+        }
+    },
+    "effect-pill": {
+        "category": "effect",
+        "priority": 52,
+        "source": {
+            "css": ["effects/pill.css"]
+        }
+    },
+    "effect-skew": {
+        "category": "effect",
+        "priority": 53,
+        "source": {
+            "css": ["effects/skew.css"]
         }
     },
 
     "theme-titon": {
         "category": "theme",
-        "priority": 50,
+        "priority": 100,
         "source": {
             "css": ["themes/titon.css"]
         }
     },
     "theme-tomorrowNight": {
         "category": "theme",
-        "priority": 50,
+        "priority": 100,
         "source": {
             "css": ["themes/tomorrow-night.css"]
         }

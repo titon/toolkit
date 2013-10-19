@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$dropdown-transition: .3s !default;
+$dropdown-transition: $default-transition !default;
 
 /**
  *    <ul class="dropdown">

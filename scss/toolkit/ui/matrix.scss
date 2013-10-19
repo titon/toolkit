@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$matrix-transition: $default-transition !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Matrix component.
  */
@@ -27,7 +29,7 @@
     margin: 0;
     padding: 0;
     position: absolute;
-    @include transition(top .3s, left .3s, bottom .3s, right .3s, opacity .3s);
+    @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
 
     img {
         max-width: 100%;
