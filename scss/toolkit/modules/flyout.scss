@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$flyout-transition: .3s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Flyout module.
  */
@@ -20,7 +22,7 @@
     background: $gray;
     border: 1px solid $gray-dark;
     @include box-sizing(content-box); // required by MooTools for multi columns
-    @include transition(opacity 0.3s);
+    @include transition(opacity $flyout-transition);
 
     ul {
         list-style: none;
@@ -51,7 +53,7 @@
             // Sub-flyouts
             > .flyout {
                 left: 90%;
-                @include transition(left .3s, right .3s, opacity .3s);
+                @include transition(left $flyout-transition, right $flyout-transition, opacity $flyout-transition);
 
                 // Reverse menu to left side incase it goes outside the viewport
                 // Will be set automatically from the Javascript layer

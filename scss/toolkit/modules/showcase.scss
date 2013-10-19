@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$showcase-transition: .3s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Showcase module.
  *
@@ -71,14 +73,14 @@
     max-width: 1024px;
     position: relative;
     overflow: hidden;
-    @include transition(width .3s, height .3s);
+    @include transition(width $showcase-transition, height $showcase-transition);
 
     > li {
         position: absolute;
         top: 0;
         left: 0;
         opacity: 0;
-        @include transition(opacity .3s);
+        @include transition(opacity $showcase-transition);
 
         > img {
             max-width: 100%;

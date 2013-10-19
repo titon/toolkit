@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$accordion-transition: .3s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
  *
@@ -55,7 +57,7 @@
 .accordion-inner {
     overflow: hidden;
     position: relative;
-    @include transition(all .3s ease-in-out);
+    @include transition(all $accordion-transition ease-in-out);
 
     &.show { height: auto; }
     &.hide { max-height: 0; } // don't include on base styles

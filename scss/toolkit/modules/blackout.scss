@@ -6,6 +6,9 @@
 
 @import "../common";
 
+$blackout-opacity: .5 !default;
+$blackout-transition: .3s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Blackout module.
  */
@@ -19,6 +22,6 @@
     z-index: 600;
     opacity: 0;
     visibility: hidden;
-    background: black(.5);
-    @include transition(all 0.3s);
+    background: black($blackout-opacity);
+    @include transition(all $blackout-transition);
 }

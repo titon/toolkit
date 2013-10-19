@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$tooltip-transition: .3s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Tooltip module.
  *
@@ -87,7 +89,7 @@
     }
 
     &.from-above {
-        @include transition(transform 0.3s);
+        @include transition(transform $tooltip-transition);
         @include transform(scale(1.2));
 
         &.show {
@@ -96,7 +98,7 @@
     }
 
     &.from-below {
-        @include transition(transform 0.3s);
+        @include transition(transform $tooltip-transition);
         @include transform(scale(0.8));
 
         &.show {
@@ -105,7 +107,7 @@
     }
 
     &.flip-rotate {
-        @include transition(transform 0.3s);
+        @include transition(transform $tooltip-transition);
         @include transform(rotate(-90deg));
 
         &.show {
@@ -114,7 +116,7 @@
     }
 
     &.slide-in {
-        @include transition(transform 0.3s);
+        @include transition(transform $tooltip-transition);
 
         &.top-left { @include transform(translate(-25%, -25%)); }
         &.top-center { @include transform(translateY(-50%)); }

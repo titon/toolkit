@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$carousel-transition: 1s !default;
+
 /**
  * Should be used in conjunction with the JavaScript Titon.Carousel module.
  *
@@ -50,7 +52,7 @@
     width: 100%;
     height: auto;
     z-index: 1;
-    @include transition(left 1s, top 1s);
+    @include transition(left $carousel-transition, top $carousel-transition);
 
     > li {
         position: relative;
@@ -173,7 +175,7 @@
             left: 0;
             opacity: 0;
             z-index: 1;
-            @include transition(opacity 1s);
+            @include transition(opacity $carousel-transition);
 
             &.show { z-index: 2; }
         }
