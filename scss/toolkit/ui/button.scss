@@ -13,6 +13,7 @@
 
 .button {
     @include reset-inline-block;
+    @include size-medium;
     cursor: pointer;
     text-align: center;
     overflow: hidden;
@@ -20,21 +21,13 @@
     line-height: normal;
     user-select: none;
     white-space: nowrap;
-    @include size-medium;
     background: $gray;
     border: 1px solid $gray-dark;
 
-    // Sizes
     &.small, .small & { @include size-small; }
     &.large, .large & { @include size-large; }
-
-    // Shapes
     &.round { border-radius: $round; }
-    &.pill { border-radius: $pill; }
-    &.oval { border-radius: #{$oval-x} / #{$oval-y}; }
-    &.skew { border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0; }
 
-    // State
     @include disabled-state {
         cursor: not-allowed;
         pointer-events: none;

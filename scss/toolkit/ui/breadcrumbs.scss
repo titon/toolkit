@@ -38,12 +38,10 @@
 
     a {
         display: block;
-        padding: $medium-padding;
         line-height: 100%;
-        font-size: $medium-size;
+        @include size-medium;
     }
 
-    // Sizes
     &.small a { @include size-small; }
     &.large a { @include size-large; }
 

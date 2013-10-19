@@ -1,0 +1,35 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+//-------------------- Button --------------------//
+
+.button.oval { border-radius: #{$oval-x} / #{$oval-y}; }
+
+//-------------------- Pagination --------------------//
+
+.pagination.pagination--grouped.oval {
+    ul {
+        border-radius: #{$oval-x} / #{$oval-y};
+    }
+
+    li:first-child .button {
+        border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
+    }
+
+    li:last-child .button {
+        border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+    }
+}
+
+//-------------------- Visual --------------------//
+
+.visual-gloss.oval:after {
+    width: 90%;
+    left: 5.5%;
+    border-radius: 5rem 5rem 4rem 4rem / 1.5rem 1.5rem 1.5rem 1.5rem;
+}

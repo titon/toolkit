@@ -34,7 +34,6 @@
         border-radius: 0;
     }
 
-    // Shape: round
     &.round {
         border-radius: $round;
 
@@ -50,47 +49,6 @@
         > .button.last {
             border-top-right-radius: $round;
             border-bottom-right-radius: $round;
-        }
-    }
-
-    // Shape: pill
-    &.pill {
-        border-radius: $pill;
-
-        > li:first-child .button,
-        > .button:first-child,
-        > .button.first {
-            border-top-left-radius: $pill;
-            border-bottom-left-radius: $pill;
-        }
-
-        > li:last-child .button,
-        > .button:last-child,
-        > .button.last {
-            border-top-right-radius: $pill;
-            border-bottom-right-radius: $pill;
-        }
-    }
-
-    // Shape: skew
-    &.skew {
-        border-top-left-radius: $skew;
-        border-top-right-radius: $skew;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-
-        > li:first-child .button,
-        > .button:first-child,
-        > .button.first {
-            border-top-left-radius: $skew;
-            border-bottom-left-radius: 0;
-        }
-
-        > li:last-child .button,
-        > .button:last-child,
-        > .button.last {
-            border-top-right-radius: $skew;
-            border-bottom-right-radius: 0;
         }
     }
 
@@ -119,7 +77,6 @@
         &:hover { z-index: 1; }
     }
 
-    // Reset radius
     &.round,
     &.pill,
     &.skew,
@@ -127,7 +84,6 @@
         .button { border-radius: 0; }
     }
 
-    // Shape: round
     &.round {
         > li:first-child .button,
         > .button:first-child {
@@ -139,56 +95,6 @@
         > .button:last-child {
             border-bottom-left-radius: $round;
             border-bottom-right-radius: $round;
-        }
-    }
-
-    // Shape: pill
-    &.pill {
-        border-radius: $pill;
-
-        > li:first-child .button,
-        > .button:first-child {
-            border-top-left-radius: $pill;
-            border-top-right-radius: $pill;
-        }
-
-        > li:last-child .button,
-        > .button:last-child {
-            border-bottom-left-radius: $pill;
-            border-bottom-right-radius: $pill;
-        }
-    }
-
-    // Shape: skew
-    &.skew {
-        border-top-left-radius: $skew-y 1.5rem;
-        border-bottom-left-radius: $skew-y 1.5rem;
-
-        > li:first-child .button,
-        > .button:first-child {
-            border-top-left-radius: $skew-reverse;
-        }
-
-        > li:last-child .button,
-        > .button:last-child {
-            border-bottom-left-radius: $skew-reverse;
-            border-top-right-radius: 0;
-        }
-    }
-
-    // Shape: skew-reverse
-    &.skew-reverse {
-        border-top-right-radius: $skew-y 1.25rem;
-        border-bottom-right-radius: $skew-y 1.25rem;
-
-        > li:first-child .button,
-        > .button:first-child {
-            border-top-right-radius: $skew-reverse;
-        }
-
-        > li:last-child .button,
-        > .button:last-child {
-            border-bottom-right-radius: $skew-reverse;
         }
     }
 }

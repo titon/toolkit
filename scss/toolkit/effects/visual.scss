@@ -25,17 +25,6 @@
         width: 98%;
         left: 1.5%;
     }
-
-    &.pill:after,
-    &.oval:after,
-    &.skew:after {
-        width: 90%;
-        left: 5.5%;
-    }
-
-    &.pill:after { border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem; }
-    &.oval:after { border-radius: 5rem 5rem 4rem 4rem / 1.5rem 1.5rem 1.5rem 1.5rem; }
-    &.skew:after { border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem; }
 }
 
 //-------------------- Reflection --------------------//
