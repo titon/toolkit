@@ -34,6 +34,10 @@ input::-moz-focus-inner {
     border: 0;
 }
 
+input[type="search"] {
+    @include box-sizing("border-box");
+}
+
 // Required values to match browser restrictions
 label,
 .input-static {
@@ -57,7 +61,7 @@ label,
     @include transition(all .3s);
 
     &:hover { border-color: $gray-darkest; }
-    &:focus { border-color: $info; box-shadow: 0 0 5px $info-light; outline: 0; }
+    &:focus { border-color: $info; box-shadow: 0 0 5px $info-light; outline: none; }
 
     @include disabled-state {
         cursor: not-allowed;

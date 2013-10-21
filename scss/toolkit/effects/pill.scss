@@ -33,6 +33,8 @@
 .button-group.button-group--vertical.pill {
     border-radius: $pill;
 
+    .button { border-radius: 0; }
+
     > li:first-child .button,
     > .button:first-child {
         border-top-left-radius: $pill;

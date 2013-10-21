@@ -54,6 +54,13 @@ body {
     line-height: 22px;
 }
 
+.input-group {
+    > .input,
+    > .input-addon,
+    > .button,
+    > .button-group .button { height: 42px; }
+}
+
 //-------------------- Typography --------------------//
 
 .caret-up { border-bottom-color: $foreground-color; }

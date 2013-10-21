@@ -13,21 +13,20 @@
     > .input-addon,
     > .button,
     > .button-group {
+        float: left;
         display: inline-block;
         position: relative;
         border-radius: 0;
-        margin-right: -6px; // Remove whitespace and overlap borders
+        margin-right: -1px;
         white-space: nowrap;
         height: auto;
         vertical-align: middle;
 
-        &:last-child {
-            margin-right: 0;
-        }
+        &:last-child { margin-right: 0; }
+        &:hover, &:focus { z-index: 1; }
     }
 
-    // Inputs should always be above everything else
-    > .input { z-index: 1; }
+    @include clear-fix;
 }
 
 .input-addon {
