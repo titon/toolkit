@@ -16,6 +16,10 @@ Titon.Accordion = new Class({
     /** List of DOM sections */
     sections: [],
 
+    /** The current and previous shown indices */
+    previousIndex: 0,
+    currentIndex: 0,
+
     /** Default options */
     options: {
         mode: 'click',
@@ -23,7 +27,10 @@ Titon.Accordion = new Class({
         multiple: false,
         collapsible: false,
         headerElement: '.accordion-head',
-        contentElement: '.accordion-inner'
+        contentElement: '.accordion-inner',
+
+        // Events
+        onJump: null
     },
 
     /**
@@ -54,6 +61,11 @@ Titon.Accordion = new Class({
         // Reset the state of every row
         this.element.getChildren('li').removeClass('is-active');
 
+        // Store the index
+        headers.each(function(header, index) {
+            header.set('data-index', index);
+        });
+
         // Cache the height so we can use for sliding
         sections.each(function(section) {
             section.set('data-height', section.getHeight()).conceal();
@@ -82,6 +94,26 @@ Titon.Accordion = new Class({
     },
 
     /**
+     * Go to the section indicated by the index number.
+     * If the index is too large, jump to the beginning.
+     * If the index is too small, jump to the end.
+     *
+     * @param {Number} index
+     * @returns {Titon.Accordion}
+     */
+    jump: function(index) {
+        if (index >= this.headers.length) {
+            index = 0;
+        } else if (index < 0) {
+            index = this.headers.length - 1;
+        }
+
+        this.fireEvent('jump', index);
+
+        return this.show(this.headers[index]);
+    },
+
+    /**
      * Toggle the section display of a row via the header click/hover event.
      * Take into account the multiple and collapsible options.
      *
@@ -91,7 +123,8 @@ Titon.Accordion = new Class({
     show: function(node) {
         var options = this.options,
             parent = node.getParent(), // li
-            section = node.getNext(options.contentElement); // section
+            section = node.getNext(options.contentElement), // section
+            index = node.get('data-index');
 
         // If we don't double the height the animation won't occur
         var height = section.get('data-height') * 2;
@@ -123,7 +156,10 @@ Titon.Accordion = new Class({
             parent.addClass('is-active');
         }
 
+        this.previousIndex = this.currentIndex;
+        this.currentIndex = index;
         this.node = node;
+
         this.fireEvent('show', section);
 
         return this;

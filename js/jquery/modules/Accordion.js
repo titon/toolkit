@@ -21,6 +21,10 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
     /** List of DOM sections */
     this.sections = [];
 
+    /** The current and previous shown indices */
+    this.previousIndex = 0;
+    this.currentIndex = 0;
+
     /** Currently active header */
     this.node = null;
 
@@ -49,6 +53,11 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
         // Reset the state of every row
         this.element.children('li').removeClass('is-active');
 
+        // Store the index
+        headers.each(function(index) {
+            $(this).data('index', index);
+        });
+
         // Cache the height so we can use for sliding
         sections.each(function() {
             var section = $(this);
@@ -59,6 +68,26 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
 
         // Set events
         headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+    };
+
+    /**
+     * Go to the section indicated by the index number.
+     * If the index is too large, jump to the beginning.
+     * If the index is too small, jump to the end.
+     *
+     * @param {Number} index
+     * @returns {Titon.Accordion}
+     */
+    this.jump = function(index) {
+        if (index >= this.headers.length) {
+            index = 0;
+        } else if (index < 0) {
+            index = this.headers.length - 1;
+        }
+
+        this.show(this.headers[index]);
+
+        return this;
     };
 
     /**
@@ -73,7 +102,8 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
 
         var options = this.options,
             parent = node.parent(), // li
-            section = node.next(options.contentElement); // section
+            section = node.next(options.contentElement), // section
+            index = node.data('index');
 
         // If we don't double the height the animation won't occur
         var height = section.data('height') * 2;
@@ -105,6 +135,8 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
             parent.addClass('is-active');
         }
 
+        this.previousIndex = this.currentIndex;
+        this.currentIndex = index;
         this.node = node;
 
         return this;
