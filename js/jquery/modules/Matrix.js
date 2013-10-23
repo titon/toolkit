@@ -46,6 +46,8 @@ Titon.Matrix = Titon.Component.create(function(element, options) {
         // Set events
         $(window).on('resize', $.debounce(this.__resize.bind(this)));
 
+        this.fireEvent('init');
+
         if (this.options.defer) {
             this._deferRender();
         } else {
@@ -164,6 +166,8 @@ Titon.Matrix = Titon.Component.create(function(element, options) {
             this._organizeItems();
             this._positionItems();
         }
+
+        this.fireEvent('render');
 
         return this;
     };

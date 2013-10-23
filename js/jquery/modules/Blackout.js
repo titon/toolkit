@@ -23,6 +23,8 @@ Titon.Blackout = Titon.Component.create(function(options) {
      */
     this.initialize = function() {
         $(window).on('resize', this.position.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -32,6 +34,7 @@ Titon.Blackout = Titon.Component.create(function(options) {
      */
     this.hide = function() {
         this.element.conceal();
+        this.fireEvent('hide');
 
         return this;
     };
@@ -62,6 +65,7 @@ Titon.Blackout = Titon.Component.create(function(options) {
     this.show = function() {
         this.element.reveal();
         this.position();
+        this.fireEvent('show');
 
         return this;
     };

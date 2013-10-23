@@ -33,6 +33,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
         $(window).on('resize', $.throttle(this.__resize.bind(this), this.options.throttle));
         $(document).ready(this.__resize.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -60,6 +62,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         } else {
             this.disable();
         }
+
+        this.fireEvent('resize');
     };
 
     /**
@@ -104,6 +108,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         pos.top = y;
 
         this.element.css(pos);
+
+        this.fireEvent('scroll');
     };
 
     // Initialize the class only if the element exists

@@ -40,6 +40,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
                 window.setTimeout(this.loadAll.bind(this), this.options.delay);
             }
         }.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -89,6 +91,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
             }
         }.bind(this));
 
+        this.fireEvent('load');
+
         return true;
     };
 
@@ -105,6 +109,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
         this.elements.each(function(index, node) {
             this.show(node, index);
         }.bind(this));
+
+        this.fireEvent('loadAll');
 
         this.shutdown();
 
@@ -136,6 +142,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
         this.elements.splice(index, 1, null);
         this.loaded++;
 
+        this.fireEvent('show', node);
+
         return this;
     };
 
@@ -152,6 +160,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
             scroll: this.load.bind(this),
             resize: this.load.bind(this)
         });
+
+        this.fireEvent('shutdown');
 
         return this;
     };

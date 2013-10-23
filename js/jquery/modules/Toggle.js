@@ -30,6 +30,8 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
     this.initialize = function() {
         $(window).on('click', this.hide.bind(this));
         $(this.options.context || document).on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -41,6 +43,8 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
         if (this.element.is(':shown')) {
             this.element.conceal();
             this.node.removeClass('is-active');
+
+            this.fireEvent('hide');
         }
 
         return this;
@@ -54,8 +58,11 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
      */
     this.show = function(node) {
         this.element.reveal();
+
         this.node = $(node);
         this.node.addClass('is-active');
+
+        this.fireEvent('show');
 
         return this;
     };

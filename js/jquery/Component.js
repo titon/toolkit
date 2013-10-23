@@ -63,6 +63,29 @@ Titon.Component = function() {
     };
 
     /**
+     * Trigger an event if it exists.
+     *
+     * @param {String} event
+     * @param {Array} args
+     * @returns {Titon.Component}
+     */
+    this.fireEvent = function(event, args) {
+        if (args && !$.isArray(args)) {
+            args = [args];
+        }
+
+        if (event.substr(0, 2) !== 'on') {
+            event = 'on' + event.charAt(0).toUpperCase() + event.slice(1);
+        }
+
+        if (this.options[event]) {
+            this.options[event].apply(this, args || []);
+        }
+
+        return this;
+    };
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *

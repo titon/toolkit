@@ -118,6 +118,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         this.prevButton.on('click', this.prev.bind(this));
 
         this.start().reset();
+        this.fireEvent('init');
     };
 
     /**
@@ -166,6 +167,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         }
 
         this.reset();
+        this.fireEvent('jump', index);
 
         return this;
     };
@@ -235,6 +237,8 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         this.element.removeClass('is-stopped');
         this.stopped = false;
 
+        this.fireEvent('start');
+
         return this;
     };
 
@@ -246,6 +250,8 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     this.stop = function() {
         this.element.addClass('is-stopped');
         this.stopped = true;
+
+        this.fireEvent('stop');
 
         return this;
     };
@@ -267,6 +273,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
 
         // Don't cycle if the carousel has stopped
         if (!this.stopped) {
+            this.fireEvent('cycle');
             this.next();
         }
     };

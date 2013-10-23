@@ -328,8 +328,6 @@ Titon.Showcase = new Class({
             });
         }
 
-        this.fireEvent('show');
-
         this._buildItems(items);
         this.position();
         this.jump(index);

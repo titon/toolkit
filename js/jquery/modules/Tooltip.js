@@ -46,6 +46,8 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
         // Set events
         $(options.context || document)
             .on((options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this.__show.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -55,6 +57,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
      */
     this.hide = function() {
         this.element.conceal();
+        this.fireEvent('hide');
 
         return this;
     };
@@ -97,6 +100,8 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
                 .off('mousemove', follow)
                 .on('mousemove', follow);
 
+            this.fireEvent('show');
+
             // Position accordingly
         } else {
             this.element.positionTo(options.position, this.node, {
@@ -106,6 +111,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
 
             window.setTimeout(function() {
                 this.element.reveal();
+                this.fireEvent('show');
             }.bind(this), options.delay || 0);
         }
 

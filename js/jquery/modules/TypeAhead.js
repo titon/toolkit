@@ -108,6 +108,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 this.hide();
             }
         }.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -148,6 +150,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
 
         if (this.element.is(':shown')) {
             this.element.conceal();
+            this.fireEvent('hide');
         }
 
         return this;
@@ -362,6 +365,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
         // Position the list
         this.position();
 
+        this.fireEvent('show');
+
         return this;
     };
 
@@ -398,11 +403,15 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 $(rows[index]).addClass('is-active');
 
                 this.input.val(item.title);
+
+                this.fireEvent('select', [item, index]);
             }
 
         // Reset
         } else {
             this.input.val(this.term);
+
+            this.fireEvent('reset');
         }
 
         return this;
@@ -533,6 +542,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
         var term = this.input.val().trim();
 
         if (term.length < this.options.minLength) {
+            this.fireEvent('reset');
             this.hide();
 
         } else {

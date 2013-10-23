@@ -82,6 +82,7 @@ Titon.Modal = new Class({
 
         // Set events
         this.bindEvents();
+        this.fireEvent('init');
     },
 
     /**

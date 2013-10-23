@@ -64,6 +64,8 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
             });
         }
 
+        this.fireEvent('init');
+
         // Trigger default tab to display
         var index = options.defaultIndex;
 
@@ -86,6 +88,8 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
      */
     this.hide = function() {
         this.sections.conceal();
+
+        this.fireEvent('hide', this.node);
 
         return this;
     };
@@ -177,6 +181,8 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
         // Track
         this.previousIndex = this.currentIndex;
         this.currentIndex = index;
+
+        this.fireEvent('show', tab);
 
         // Set current node
         this.node = tab;

@@ -68,6 +68,8 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
 
         // Set events
         headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -85,9 +87,9 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
             index = this.headers.length - 1;
         }
 
-        this.show(this.headers[index]);
+        this.fireEvent('jump', index);
 
-        return this;
+        return this.show(this.headers[index]);
     };
 
     /**
@@ -138,6 +140,8 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
         this.previousIndex = this.currentIndex;
         this.currentIndex = index;
         this.node = node;
+
+        this.fireEvent('show', section);
 
         return this;
     };

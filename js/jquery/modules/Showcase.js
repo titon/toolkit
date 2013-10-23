@@ -86,6 +86,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             .on('click swipeleft', options.nextEvent, this.next.bind(this))
             .on('click swiperight', options.prevEvent, this.prev.bind(this))
             .on('click', options.jumpEvent, this.__jump.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -105,6 +107,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             this.items
                 .removeAttr('style')
                 .children('li').removeClass('show');
+
+            this.fireEvent('hide');
         }
 
         return this;
@@ -192,6 +196,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             };
         }
 
+        this.fireEvent('jump', index);
+
         return this;
     };
 
@@ -220,6 +226,8 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             this.element.reveal();
             this._reposition();
         }
+
+        this.fireEvent('show');
 
         return this;
     };

@@ -69,6 +69,8 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
 
         $(options.context || document)
             .on((options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -98,6 +100,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
         }
 
         this.menus[this.current].conceal();
+        this.fireEvent('hide');
 
         // Reset last
         this.current = null;
@@ -174,6 +177,8 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
             left: x,
             top: y
         }).reveal();
+
+        this.fireEvent('show');
 
         return this;
     };
@@ -401,6 +406,8 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
         parent = $(parent);
         parent.removeClass('is-open');
         parent.children(this.options.contentElement).removeAttr('style');
+
+        this.fireEvent('hideChild', parent);
     };
 
     /**
@@ -446,6 +453,8 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
         }
 
         parent.addClass('is-open');
+
+        this.fireEvent('showChild', parent);
     };
 
     /**

@@ -62,6 +62,8 @@ Titon.LazyLoad = new Class({
                 window.setTimeout(this.loadAll, this.options.delay);
             }
         }.bind(this));
+
+        this.fireEvent('init');
     },
 
     /**

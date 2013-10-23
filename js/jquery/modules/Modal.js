@@ -60,6 +60,8 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         this.element
             .on('click', options.closeEvent, this.__hide.bind(this))
             .on('click', options.submitEvent, this.__submit.bind(this));
+
+        this.fireEvent('init');
     };
 
     /**
@@ -73,6 +75,8 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         if (this.options.blackout) {
             this.blackout.hide();
         }
+
+        this.fireEvent('hide');
 
         return this;
     };
@@ -106,6 +110,8 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
                 });
             }
         }
+
+        this.fireEvent('show');
 
         return this;
     };
@@ -233,6 +239,8 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         if (!form) {
             return;
         }
+
+        this.fireEvent('submit', button);
 
         $.ajax({
             url: form.attr('action'),
