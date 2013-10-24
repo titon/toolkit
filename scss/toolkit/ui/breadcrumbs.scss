@@ -34,16 +34,39 @@
         position: relative;
         list-style: none;
         float: left;
+
+        &:last-child {
+            .divider { display: none; }
+        }
     }
 
     a {
+        @include size-medium;
         display: block;
         line-height: 100%;
-        @include size-medium;
+        padding-right: 0;
+
+        .divider {
+            margin-left: $medium-padding;
+            color: $gray-darkest;
+            position: relative;
+            left: -1px;
+        }
     }
 
-    &.small a { @include size-small; }
-    &.large a { @include size-large; }
+    &.small a {
+        @include size-small;
+        padding-right: 0;
+
+        .divider { margin-left: $small-padding; }
+    }
+
+    &.large a {
+        @include size-large;
+        padding-right: 0;
+
+        .divider { margin-left: $large-padding; }
+    }
 
     @include clear-fix;
 }

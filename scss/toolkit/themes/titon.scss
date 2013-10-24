@@ -60,66 +60,6 @@ mark { background: tint($warning-light, 25%); }
     &.is-success { @include alert-style($success-light, $success-dark); }
 }
 
-//-------------------- Breadcrumbs --------------------//
-
-.breadcrumbs {
-    overflow: hidden;
-
-    a {
-        height: 45px;
-        line-height: 45px;
-        padding: 0 30px 0 20px;
-        border-right: 0;
-        outline: none;
-
-        &:before,
-        &:after {
-            content: "";
-            position: absolute;
-            height: 32px;
-            width: 32px;
-            border-right: 1px solid $gray-lightest;
-            border-bottom: 1px solid $gray-lightest;
-            top: 6px;
-            right: 2px;
-            z-index: 1;
-            @include transform(rotate(-45deg));
-        }
-
-        &:before {
-            height: 32px;
-            width: 32px;
-            border-right: 1px solid $gray-dark;
-            border-bottom: 1px solid $gray-dark;
-            right: 4px;
-        }
-
-        &:hover {
-            &:before {
-                border-color: $gray-darkest;
-            }
-        }
-
-        .caret-right { display: none; }
-    }
-
-    li:last-child a {
-        color: $default;
-    }
-
-    &.small {
-        a { height: 30px; line-height: 30px; padding: 0 25px 0 15px; }
-        a:before { height: 22px; width: 22px; top: 4px; }
-        a:after { height: 22px; width: 22px; top: 4px; }
-    }
-
-    &.large {
-        a { height: 50px; line-height: 50px; padding: 0 30px 0 20px; }
-        a:before { height: 40px; width: 40px; top: 4px; }
-        a:after { height: 40px; width: 40px; top: 4px; }
-    }
-}
-
 //-------------------- Button --------------------//
 
 .button {
