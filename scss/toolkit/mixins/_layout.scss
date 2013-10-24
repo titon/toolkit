@@ -62,10 +62,9 @@ $large-padding: 1rem !default;
 
 //-------------------- States --------------------//
 
-// Contains hover and active styles (on self or inherited from parent)
+// Contains active styles (on self or inherited from parent)
 @mixin active-state {
     .is-active > &,
-    &:hover,
     &.is-active,
     &.is-active:hover { @content; }
 }

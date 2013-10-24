@@ -207,6 +207,18 @@ module.exports = function(grunt) {
                     { src: '*.md' }
                 ]
             }
+        },
+
+        // Watch for changes
+        watch: {
+            scripts: {
+                files: 'js/**/*.js',
+                tasks: ['uglify']
+            },
+            styles: {
+                files: 'scss/**/*.scss',
+                tasks: ['sass']
+            }
         }
     });
 
@@ -217,6 +229,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);

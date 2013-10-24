@@ -10,7 +10,11 @@
  *    <span class="icon-16-delete"></span>
  */
 
-[class*="icon-"] { @include reset-inline-block; }
+[class*="icon-"] {
+    @include reset-inline-block;
+    @include disabled-state { opacity: $disabled-opacity; }
+}
+
 [class*="icon-12"] { width: 12px; height: 12px; }
 [class*="icon-16"] { width: 16px; height: 16px; }
 [class*="icon-24"] { width: 24px; height: 24px; }
@@ -20,3 +24,9 @@
 .button {
     [class*="icon-"] { margin-top: -1px; }
 }
+
+//-------------------- Modifiers --------------------//
+
+.icon--90deg { @include transform(rotate(90deg)); }
+.icon--180deg { @include transform(rotate(180deg)); }
+.icon--270deg { @include transform(rotate(270deg)); }

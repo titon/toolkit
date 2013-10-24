@@ -40,3 +40,12 @@
 
     <button type="button" class="button">Button (No Icon)</button>
 </div>
+
+<div class="example">
+    <div class="example-title">Rotation</div>
+
+    <span class="icon-16-1"></span>
+    <span class="icon-16-1 icon--90deg"></span>
+    <span class="icon-16-1 icon--180deg"></span>
+    <span class="icon-16-1 icon--270deg"></span>
+</div>
