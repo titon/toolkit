@@ -213,8 +213,7 @@ mark { background: tint($warning-light, 25%); }
 
 //-------------------- Label, Badge --------------------//
 
-.label,
-.badge {
+.label {
     @include label-style($default-light, $default-dark);
 
     &.is-info { @include label-style($info-light, $info-dark); }
@@ -223,7 +222,7 @@ mark { background: tint($warning-light, 25%); }
     &.is-success { @include label-style($success-light, $success-dark); }
 }
 
-.label.label--left {
+.label.label--arrow-left {
     &:after { border-right-color: $default-light; }
     &.is-info:after { border-right-color: $info-light; }
     &.is-error:after { border-right-color: $error-light; }
@@ -231,12 +230,28 @@ mark { background: tint($warning-light, 25%); }
     &.is-success:after { border-right-color: $success-light; }
 }
 
-.label.label--right {
+.label.label--arrow-right {
     &:after { border-left-color: $default-light; }
     &.is-info:after { border-left-color: $info-light; }
     &.is-error:after { border-left-color: $error-light; }
     &.is-warning:after { border-left-color: $warning-light; }
     &.is-success:after { border-left-color: $success-light; }
+}
+
+.label.label--ribbon-left {
+    &:after { border-right-color: darken($default, 15%); }
+    &.is-info:after { border-right-color: darken($info-light, 15%); }
+    &.is-error:after { border-right-color: darken($error-light, 15%); }
+    &.is-warning:after { border-right-color: darken($warning-light, 15%); }
+    &.is-success:after { border-right-color: darken($success-light, 15%); }
+}
+
+.label.label--ribbon-right {
+    &:after { border-left-color: darken($default, 15%); }
+    &.is-info:after { border-left-color: darken($info-light, 15%); }
+    &.is-error:after { border-left-color: darken($error-light, 15%); }
+    &.is-warning:after { border-left-color: darken($warning-light, 15%); }
+    &.is-success:after { border-left-color: darken($success-light, 15%); }
 }
 
 //-------------------- Modal --------------------//

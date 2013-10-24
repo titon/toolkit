@@ -62,9 +62,9 @@ $components = array(
         'title' => 'Icon',
         'css' => array('ui/button.css', 'ui/icon.css')
     ),
-    'label-badge' => array(
-        'title' => 'Label & Badge',
-        'css' => array('ui/label-badge.css')
+    'label' => array(
+        'title' => 'Label',
+        'css' => array('ui/label.css')
     ),
     'lazy-load' => array(
         'title' => 'Lazy Load',

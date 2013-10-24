@@ -80,11 +80,6 @@
             "css": ["ui/alert.css"]
         }
     },
-    "badge": {
-        "category": "component",
-        "priority": 10,
-        "require": ["labelBadge"]
-    },
     "blackout": {
         "category": "component",
         "priority": 21,
@@ -163,14 +158,9 @@
     "label": {
         "category": "component",
         "priority": 10,
-        "require": ["labelBadge"]
-    },
-    "labelBadge": {
-        "category": "component",
-        "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/label-badge.css"]
+            "css": ["ui/label.css"]
         }
     },
     "lazyLoad": {
