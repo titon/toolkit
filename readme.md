@@ -89,7 +89,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `Label` - Styles for inline tag labels
-* `Badge` - Styles for inline notification bubbles
 * `Pagination` - Styles for pagination lists
 * `Pin` - Animations for element pinning
 * `Progress` - Basic styles for progress bars
@@ -109,3 +108,8 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * Zepto is currently not supported (too different of an API)
 * Slide in modal animations do not work correctly in Chrome/IE
 * Flip modal animations do not work in Opera
+
+## To Do ##
+* Guide component
+* Marquee component
+* Custom inputs component
