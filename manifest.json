@@ -32,28 +32,12 @@
             "css": ["layout/form.css"]
         }
     },
-    "inputGroup": {
-        "category": "component",
-        "priority": 5,
-        "require": ["form"],
-        "source": {
-            "css": ["layout/input-group.css"]
-        }
-    },
     "code": {
         "category": "component",
         "priority": 6,
         "require": ["base"],
         "source": {
             "css": ["layout/code.css"]
-        }
-    },
-    "table": {
-        "category": "component",
-        "priority": 7,
-        "require": ["base"],
-        "source": {
-            "css": ["layout/table.css"]
         }
     },
     "responsive": {
@@ -68,8 +52,8 @@
         "priority": 20,
         "require": ["base"],
         "source": {
-            "css": ["modules/accordion.css"],
-            "js": ["modules/Accordion.js"]
+            "css": ["components/accordion.css"],
+            "js": ["components/Accordion.js"]
         }
     },
     "alert": {
@@ -77,7 +61,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/alert.css"]
+            "css": ["components/alert.css"]
         }
     },
     "blackout": {
@@ -85,8 +69,8 @@
         "priority": 21,
         "require": ["base"],
         "source": {
-            "css": ["modules/blackout.css"],
-            "js": ["modules/Blackout.js"]
+            "css": ["components/blackout.css"],
+            "js": ["components/Blackout.js"]
         }
     },
     "breadcrumbs": {
@@ -94,7 +78,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/breadcrumbs.css"]
+            "css": ["components/breadcrumbs.css"]
         }
     },
     "button": {
@@ -102,7 +86,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/button.css"]
+            "css": ["components/button.css"]
         }
     },
     "buttonGroup": {
@@ -110,7 +94,7 @@
         "priority": 10,
         "require": ["button"],
         "source": {
-            "css": ["ui/button-group.css"]
+            "css": ["components/button-group.css"]
         }
     },
     "cache": {
@@ -126,8 +110,8 @@
         "priority": 22,
         "require": ["base"],
         "source": {
-            "css": ["modules/carousel.css"],
-            "js": ["modules/Carousel.js"]
+            "css": ["components/carousel.css"],
+            "js": ["components/Carousel.js"]
         }
     },
     "dropdown": {
@@ -135,7 +119,7 @@
         "priority": 23,
         "require": ["base", "toggle"],
         "source": {
-            "css": ["ui/dropdown.css"]
+            "css": ["components/dropdown.css"]
         }
     },
     "flyout": {
@@ -143,8 +127,8 @@
         "priority": 24,
         "require": ["base", "timers"],
         "source": {
-            "css": ["modules/flyout.css"],
-            "js": ["modules/Flyout.js"]
+            "css": ["components/flyout.css"],
+            "js": ["components/Flyout.js"]
         }
     },
     "icon": {
@@ -152,7 +136,15 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/icon.css"]
+            "css": ["components/icon.css"]
+        }
+    },
+    "inputGroup": {
+        "category": "component",
+        "priority": 10,
+        "require": ["form"],
+        "source": {
+            "css": ["components/input-group.css"]
         }
     },
     "label": {
@@ -160,7 +152,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/label.css"]
+            "css": ["components/label.css"]
         }
     },
     "lazyLoad": {
@@ -168,8 +160,8 @@
         "priority": 25,
         "require": ["base"],
         "source": {
-            "css": ["ui/lazy-load.css"],
-            "js": ["modules/LazyLoad.js"]
+            "css": ["components/lazy-load.css"],
+            "js": ["components/LazyLoad.js"]
         }
     },
     "matrix": {
@@ -177,8 +169,8 @@
         "priority": 26,
         "require": ["base"],
         "source": {
-            "css": ["ui/matrix.css"],
-            "js": ["modules/Matrix.js"]
+            "css": ["components/matrix.css"],
+            "js": ["components/Matrix.js"]
         }
     },
     "modal": {
@@ -186,8 +178,8 @@
         "priority": 27,
         "require": ["base", "blackout"],
         "source": {
-            "css": ["modules/modal.css"],
-            "js": ["modules/Modal.js"],
+            "css": ["components/modal.css"],
+            "js": ["components/Modal.js"],
             "moo": ["More/Drag"]
         }
     },
@@ -196,7 +188,7 @@
         "priority": 10,
         "require": ["base", "button"],
         "source": {
-            "css": ["ui/pagination.css"]
+            "css": ["components/pagination.css"]
         }
     },
     "pin": {
@@ -204,8 +196,8 @@
         "priority": 28,
         "require": ["base"],
         "source": {
-            "css": ["ui/pin.css"],
-            "js": ["modules/Pin.js"]
+            "css": ["components/pin.css"],
+            "js": ["components/Pin.js"]
         }
     },
     "popover": {
@@ -213,8 +205,8 @@
         "priority": 29,
         "require": ["base", "tooltip"],
         "source": {
-            "css": ["modules/popover.css"],
-            "js": ["modules/Popover.js"]
+            "css": ["components/popover.css"],
+            "js": ["components/Popover.js"]
         }
     },
     "progress": {
@@ -222,7 +214,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["ui/progress.css"]
+            "css": ["components/progress.css"]
         }
     },
     "showcase": {
@@ -230,8 +222,8 @@
         "priority": 30,
         "require": ["base"],
         "source": {
-            "css": ["modules/showcase.css"],
-            "js": ["modules/Showcase.js"]
+            "css": ["components/showcase.css"],
+            "js": ["components/Showcase.js"]
         }
     },
     "tabs": {
@@ -239,8 +231,16 @@
         "priority": 31,
         "require": ["base"],
         "source": {
-            "css": ["modules/tabs.css"],
-            "js": ["modules/Tabs.js"]
+            "css": ["components/tabs.css"],
+            "js": ["components/Tabs.js"]
+        }
+    },
+    "table": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/table.css"]
         }
     },
     "timers": {
@@ -256,7 +256,7 @@
         "priority": 32,
         "require": ["base"],
         "source": {
-            "js": ["modules/Toggle.js"]
+            "js": ["components/Toggle.js"]
         }
     },
     "tooltip": {
@@ -264,8 +264,8 @@
         "priority": 33,
         "require": ["base"],
         "source": {
-            "css": ["modules/tooltip.css"],
-            "js": ["modules/Tooltip.js"],
+            "css": ["components/tooltip.css"],
+            "js": ["components/Tooltip.js"],
             "moo": ["More/Element.Event.Pseudos"]
         }
     },
@@ -274,8 +274,8 @@
         "priority": 34,
         "require": ["base", "cache"],
         "source": {
-            "css": ["modules/type-ahead.css"],
-            "js": ["modules/TypeAhead.js"]
+            "css": ["components/type-ahead.css"],
+            "js": ["components/TypeAhead.js"]
         }
     },
 

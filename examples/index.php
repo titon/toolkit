@@ -12,29 +12,29 @@ $components = array(
     ),
     'accordion' => array(
         'title' => 'Accordion',
-        'css' => 'modules/accordion.css',
-        'js' => array('modules/Accordion.js')
+        'css' => 'components/accordion.css',
+        'js' => array('components/Accordion.js')
     ),
     'alert' => array(
         'title' => 'Alert',
-        'css' => 'ui/alert.css'
+        'css' => 'components/alert.css'
     ),
     'breadcrumbs' => array(
         'title' => 'Breadcrumbs',
-        'css' => array('ui/breadcrumbs.css')
+        'css' => array('components/breadcrumbs.css')
     ),
     'button' => array(
         'title' => 'Button',
-        'css' => array('ui/button.css')
+        'css' => array('components/button.css')
     ),
     'button-group' => array(
         'title' => 'Button Group',
-        'css' => array('ui/button.css', 'ui/button-group.css', 'ui/dropdown.css')
+        'css' => array('components/button.css', 'components/button-group.css', 'components/dropdown.css')
     ),
     'carousel' => array(
         'title' => 'Carousel',
-        'css' => array('modules/carousel.css'),
-        'js' => array('modules/Carousel.js')
+        'css' => array('components/carousel.css'),
+        'js' => array('components/Carousel.js')
     ),
     'code' => array(
         'title' => 'Code',
@@ -42,17 +42,17 @@ $components = array(
     ),
     'dropdown' => array(
         'title' => 'Dropdown',
-        'css' => array('ui/button.css', 'ui/button-group.css', 'ui/dropdown.css'),
-        'js' => array('modules/Toggle.js')
+        'css' => array('components/button.css', 'components/button-group.css', 'components/dropdown.css'),
+        'js' => array('components/Toggle.js')
     ),
     'flyout' => array(
         'title' => 'Flyout',
-        'css' => array('ui/button.css', 'modules/flyout.css'),
-        'js' => array('class/Timers.js', 'modules/Flyout.js')
+        'css' => array('components/button.css', 'components/flyout.css'),
+        'js' => array('class/Timers.js', 'components/Flyout.js')
     ),
     'form' => array(
         'title' => 'Form & Input Group',
-        'css' => array('ui/button.css', 'layout/grid.css', 'layout/form.css', 'layout/input-group.css', 'ui/dropdown.css')
+        'css' => array('components/button.css', 'layout/grid.css', 'layout/form.css', 'layout/input-group.css', 'components/dropdown.css')
     ),
     'grid' => array(
         'title' => 'Grid & Responsive',
@@ -60,48 +60,48 @@ $components = array(
     ),
     'icon' => array(
         'title' => 'Icon',
-        'css' => array('ui/button.css', 'ui/icon.css')
+        'css' => array('components/button.css', 'components/icon.css')
     ),
     'label' => array(
         'title' => 'Label',
-        'css' => array('ui/label.css')
+        'css' => array('components/label.css')
     ),
     'lazy-load' => array(
         'title' => 'Lazy Load',
-        'js' => array('modules/LazyLoad.js')
+        'js' => array('components/LazyLoad.js')
     ),
     'matrix' => array(
         'title' => 'Matrix',
-        'css' => array('ui/matrix.css'),
-        'js' => array('modules/Matrix.js')
+        'css' => array('components/matrix.css'),
+        'js' => array('components/Matrix.js')
     ),
     'modal' => array(
         'title' => 'Modal',
-        'css' => array('ui/button.css', 'modules/blackout.css', 'modules/modal.css'),
-        'js' => array('modules/Blackout.js', 'modules/Modal.js')
+        'css' => array('components/button.css', 'components/blackout.css', 'components/modal.css'),
+        'js' => array('components/Blackout.js', 'components/Modal.js')
     ),
     'pagination' => array(
         'title' => 'Pagination',
-        'css' => array('ui/button.css', 'ui/pagination.css')
+        'css' => array('components/button.css', 'components/pagination.css')
     ),
     'pin' => array(
         'title' => 'Pin',
-        'js' => array('modules/Pin.js'),
-        'css' => array('ui/pin.css')
+        'js' => array('components/Pin.js'),
+        'css' => array('components/pin.css')
     ),
     'popover' => array(
         'title' => 'Popover',
-        'css' => array('ui/button.css', 'modules/tooltip.css', 'modules/popover.css'),
-        'js' => array('modules/Tooltip.js', 'modules/Popover.js')
+        'css' => array('components/button.css', 'components/tooltip.css', 'components/popover.css'),
+        'js' => array('components/Tooltip.js', 'components/Popover.js')
     ),
     'progress' => array(
         'title' => 'Progress Bar',
-        'css' => array('ui/progress.css'),
+        'css' => array('components/progress.css'),
     ),
     'showcase' => array(
         'title' => 'Showcase',
-        'css' => array('modules/blackout.css', 'modules/showcase.css'),
-        'js' => array('modules/Blackout.js', 'modules/Showcase.js')
+        'css' => array('components/blackout.css', 'components/showcase.css'),
+        'js' => array('components/Blackout.js', 'components/Showcase.js')
     ),
     'table' => array(
         'title' => 'Table',
@@ -109,18 +109,18 @@ $components = array(
     ),
     'tabs' => array(
         'title' => 'Tabs',
-        'css' => array('ui/button.css', 'ui/button-group.css', 'modules/tabs.css', 'layout/grid.css'),
-        'js' => array('modules/Tabs.js')
+        'css' => array('components/button.css', 'components/button-group.css', 'components/tabs.css', 'layout/grid.css'),
+        'js' => array('components/Tabs.js')
     ),
     'tooltip' => array(
         'title' => 'Tooltip',
-        'css' => array('ui/button.css', 'modules/tooltip.css'),
-        'js' => array('modules/Tooltip.js')
+        'css' => array('components/button.css', 'components/tooltip.css'),
+        'js' => array('components/Tooltip.js')
     ),
     'type-ahead' => array(
         'title' => 'Type Ahead',
-        'css' => array('modules/type-ahead.css'),
-        'js' => array('class/Cache.js', 'modules/TypeAhead.js')
+        'css' => array('components/type-ahead.css'),
+        'js' => array('class/Cache.js', 'components/TypeAhead.js')
     ),
 );
 

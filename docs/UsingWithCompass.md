@@ -26,6 +26,6 @@ To override any Toolkit variables, define them above the common/variable import.
 
 To include the CSS markup for components, import the related scss file.
 
-    @import "toolkit/modules/tooltip";
+    @import "toolkit/components/tooltip";
 
 And that's it!

@@ -12,35 +12,35 @@
 @import "toolkit/layout/typography";
 @import "toolkit/layout/grid";
 @import "toolkit/layout/form";
-@import "toolkit/layout/input-group";
 @import "toolkit/layout/code";
-@import "toolkit/layout/table";
 
 // Then basic UI styles
-@import "toolkit/ui/alert";
-@import "toolkit/ui/breadcrumbs";
-@import "toolkit/ui/button";
-@import "toolkit/ui/button-group";
-@import "toolkit/ui/dropdown";
-@import "toolkit/ui/icon";
-@import "toolkit/ui/label";
-@import "toolkit/ui/lazy-load";
-@import "toolkit/ui/matrix";
-@import "toolkit/ui/pagination";
-@import "toolkit/ui/pin";
-@import "toolkit/ui/progress";
+@import "toolkit/components/alert";
+@import "toolkit/components/breadcrumbs";
+@import "toolkit/components/button";
+@import "toolkit/components/button-group";
+@import "toolkit/components/dropdown";
+@import "toolkit/components/icon";
+@import "toolkit/components/input-group";
+@import "toolkit/components/label";
+@import "toolkit/components/lazy-load";
+@import "toolkit/components/matrix";
+@import "toolkit/components/pagination";
+@import "toolkit/components/pin";
+@import "toolkit/components/progress";
+@import "toolkit/components/table";
 
 // And more advanced UI styles last
-@import "toolkit/modules/accordion";
-@import "toolkit/modules/blackout";
-@import "toolkit/modules/carousel";
-@import "toolkit/modules/flyout";
-@import "toolkit/modules/modal";
-@import "toolkit/modules/popover";
-@import "toolkit/modules/showcase";
-@import "toolkit/modules/tabs";
-@import "toolkit/modules/tooltip";
-@import "toolkit/modules/type-ahead";
+@import "toolkit/components/accordion";
+@import "toolkit/components/blackout";
+@import "toolkit/components/carousel";
+@import "toolkit/components/flyout";
+@import "toolkit/components/modal";
+@import "toolkit/components/popover";
+@import "toolkit/components/showcase";
+@import "toolkit/components/tabs";
+@import "toolkit/components/tooltip";
+@import "toolkit/components/type-ahead";
 
 // And visual effects very last
 @import "toolkit/effects/visual";
