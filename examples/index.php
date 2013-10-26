@@ -418,83 +418,94 @@ if ($vendor === 'mootools') {
     <![endif]-->
 </head>
 <body class="<?php echo $themeKey; ?>">
-    <form action="" method="get" id="skeleton" class="skeleton">
-        <?php if (!empty($component['filters'])) { ?>
+    <div id="skeleton" class="skeleton">
+        <form action="" method="get">
             <ul class="example-form example-filters">
-                <?php foreach ($component['filters'] as $name => $filter) {
-                    $default = isset($filter['default']) ? $filter['default'] : null; ?>
+                <?php if (!empty($component['filters'])) {
+                    foreach ($component['filters'] as $name => $filter) {
+                        $default = isset($filter['default']) ? $filter['default'] : null; ?>
+
+                        <li>
+                            <label for="<?php echo $name; ?>"><?php echo $filter['title']; ?></label>
+
+                            <?php if (!empty($filter['data'])) {
+                                $selected = value($name, $default); ?>
+
+                                <select id="<?php echo $name; ?>" name="<?php echo $name; ?>">
+                                    <?php foreach ($filter['data'] as $k => $v) { ?>
+                                        <option value="<?php echo $k; ?>"<?php if ($selected === $k) echo ' selected'; ?>><?php echo $v; ?></option>
+                                    <?php } ?>
+                                </select>
+
+                            <?php } else if ($filter['type'] === 'text') { ?>
+                                <input type="text" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo value($name, $default); ?>">
+
+                            <?php } else if ($filter['type'] === 'number') { ?>
+                                <input type="number" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo value($name, $default); ?>" pattern="\d+">
+
+                            <?php } else if ($filter['type'] === 'boolean') { ?>
+                                <input type="hidden" name="<?php echo $name; ?>" value="">
+                                <input type="checkbox" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="1"<?php if (value($name, $default)) echo ' checked'; ?>>
+
+                            <?php } ?>
+                        </li>
+                    <?php } ?>
 
                     <li>
-                        <label for="<?php echo $name; ?>"><?php echo $filter['title']; ?></label>
-
-                        <?php if (!empty($filter['data'])) {
-                            $selected = value($name, $default); ?>
-
-                            <select id="<?php echo $name; ?>" name="<?php echo $name; ?>">
-                                <?php foreach ($filter['data'] as $k => $v) { ?>
-                                    <option value="<?php echo $k; ?>"<?php if ($selected === $k) echo ' selected'; ?>><?php echo $v; ?></option>
-                                <?php } ?>
-                            </select>
-
-                        <?php } else if ($filter['type'] === 'text') { ?>
-                            <input type="text" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo value($name, $default); ?>">
-
-                        <?php } else if ($filter['type'] === 'number') { ?>
-                            <input type="number" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo value($name, $default); ?>" pattern="\d+">
-
-                        <?php } else if ($filter['type'] === 'boolean') { ?>
-                            <input type="hidden" name="<?php echo $name; ?>" value="">
-                            <input type="checkbox" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="1"<?php if (value($name, $default)) echo ' checked'; ?>>
-
-                        <?php } ?>
+                        <input type="hidden" name="component" value="<?php echo value('component'); ?>">
+                        <input type="hidden" name="theme" value="<?php echo value('theme', 'titon'); ?>">
+                        <input type="hidden" name="vendor" value="<?php echo value('vendor', 'mootools'); ?>">
+                        <button type="submit">Go</button>
                     </li>
                 <?php } ?>
 
-                <li><button type="submit">Go</button></li>
+                <li>&nbsp;</li>
             </ul>
-        <?php } ?>
+        </form>
 
         <div class="example">
-            <?php include sprintf('%s.php', $componentKey); ?>
+            <?php include sprintf('%s.php', $componentKey ?: 'home'); ?>
         </div>
 
-        <ul class="example-form example-switcher">
-            <li class="resolution"><span id="width"></span>x<span id="height"></span></li>
-            <li>
-                <label for="component">Component</label>
-                <select name="component" id="component">
-                    <option value="">-- None --</option>
-                    <?php foreach ($components as $key => $value) {
-                        if ($key === 'home') {
-                            continue;
-                        } ?>
-                        <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected'; ?>>
-                            <?php echo $value['title']; ?>
-                            <?php if (!empty($value['js'])) echo '(JS)'; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </li>
-            <li>
-                <label for="theme">Theme</label>
-                <select name="theme" id="theme">
-                    <option value="">-- None --</option>
-                    <?php foreach ($themes as $key => $value) { ?>
-                        <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected'; ?>><?php echo $value['title']; ?></option>
-                    <?php } ?>
-                </select>
-            </li>
-            <li>
-                <label for="vendor">Vendor</label>
-                <select name="vendor" id="vendor">
-                    <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
-                    <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected'; ?>>jQuery 1.10</option>
-                    <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected'; ?>>jQuery 2</option>
-                </select>
-            </li>
-            <li><button type="submit">Go</button></li>
-        </ul>
-    </form>
+        <form action="" method="get">
+            <ul class="example-form example-switcher">
+                <li class="resolution"><span id="width"></span>x<span id="height"></span></li>
+                <li>
+                    <label for="component">Component</label>
+                    <select name="component" id="component">
+                        <option value="">-- None --</option>
+                        <?php foreach ($components as $key => $value) {
+                            if ($key === 'home') {
+                                continue;
+                            } ?>
+                            <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected'; ?>>
+                                <?php echo $value['title']; ?>
+                                <?php if (!empty($value['js'])) echo '(JS)'; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="theme">Theme</label>
+                    <select name="theme" id="theme">
+                        <option value="">-- None --</option>
+                        <?php foreach ($themes as $key => $value) { ?>
+                            <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected'; ?>><?php echo $value['title']; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="vendor">Vendor</label>
+                    <select name="vendor" id="vendor">
+                        <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
+                        <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected'; ?>>jQuery 1.10</option>
+                        <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected'; ?>>jQuery 2</option>
+                    </select>
+                </li>
+                <li><button type="submit">Go</button></li>
+            </ul>
+        </form>
+    </div>
 
     <script>
         <?php if ($vendor === 'mootools') { ?>
