@@ -1,54 +1,20 @@
-<div class="example-header">Pagination</div>
-
 <?php
-$typeClasses = array_keys($types);
+$count = value('count', 5);
+$state = value('state');
+$classes = array(value('size'), value('shape'), value('effect'));
 
-$t = 0;
-foreach ($shapes as $shape => $shapeTitle) { ?>
-
-    <div class="example">
-        <div class="example-title"><?php echo $shapeTitle; ?></div>
-
-        <?php foreach ($sizes as $size => $sizeTitle) { ?>
-
-            <nav class="pagination <?php echo $shape . ' ' . $size; ?>">
-                <ul>
-                    <li class="is-active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
-                    <?php for ($i = 0; $i <= rand(2, 10); $i++) { ?>
-                        <li><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>"><?php echo $i; ?></a></li>
-                    <?php } ?>
-                    <li class="is-disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
-                </ul>
-            </nav>
-
-        <?php } ?>
-
-    </div>
-
-    <?php $t++;
+if ($mod = value('modifier')) {
+    $classes[] = 'pagination--' . $mod;
 }
 
-$t = 0;
-foreach ($shapes as $shape => $shapeTitle) { ?>
+$classes = implode(' ', array_filter($classes)); ?>
 
-    <div class="example">
-        <div class="example-title"><?php echo $shapeTitle; ?>: Grouped</div>
-
-        <?php foreach ($sizes as $size => $sizeTitle) { ?>
-
-            <nav class="pagination pagination--grouped <?php echo $shape . ' ' . $size; ?>">
-                <ul>
-                    <li class="is-active"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Previous</a></li>
-                    <?php for ($i = 0; $i <= rand(2, 10); $i++) { ?>
-                        <li><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>"><?php echo $i; ?></a></li>
-                    <?php } ?>
-                    <li class="is-disabled"><a href="javascript:;" class="button <?php echo $typeClasses[$t]; ?>">Next</a></li>
-                </ul>
-            </nav>
-
+<nav class="pagination <?php echo $classes; ?>">
+    <ul>
+        <li><a href="javascript:;" class="button <?php echo $state; ?>">&laquo;</a></li>
+        <?php for ($i = 1; $i <= $count; $i++) { ?>
+            <li><a href="javascript:;" class="button <?php echo $state; ?>"><?php echo $i; ?></a></li>
         <?php } ?>
-
-    </div>
-
-    <?php $t++;
-} ?>
+        <li><a href="javascript:;" class="button <?php echo $state; ?>">&raquo;</a></li>
+    </ul>
+</nav>

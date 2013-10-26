@@ -6,18 +6,6 @@
 
 @import "../common";
 
-/**
- * Should be used in conjunction with the JavaScript Titon.Popover module.
- *
- *    <div class="popover">
- *        <div class="popover-inner">
- *            <div class="popover-head">Popover Title</div>
- *            <div class="popover-body">Popover Content</div>
- *        </div>
- *        <div class="popover-arrow"></div>
- *    </div>
- */
-
 .popover {
     position: absolute;
     top: 0;

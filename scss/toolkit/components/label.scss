@@ -6,11 +6,6 @@
 
 @import "../common";
 
-/**
- *    <span class="label is-success label--badge">15</span>
- *    <span class="label is-error">Required</span>
- */
-
 .label {
     @include reset-inline-block;
     color: #fff;

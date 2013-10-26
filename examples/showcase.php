@@ -1,31 +1,32 @@
-<div class="example-header">Showcase</div>
+<?php
+$group = value('group') ? 'Titon' : '';
 
-<div class="example">
-    <p>Single media.</p>
+for ($i = 1; $i <= value('count', 5); $i++) {
+    $width = rand(200, 800);
+    $height = rand(200, 800);?>
 
-    <a href="http://lorempixel.com/640/360/?s=1" title="Some title." class="js-showcase"><img src="http://lorempixel.com/320/180/?s=1"></a>
-    <a href="http://lorempixel.com/640/360/?s=2" title="A really really long title will go here. It can be very loooong." class="js-showcase"><img src="http://lorempixel.com/320/180/?s=2"></a>
-    <a href="http://lorempixel.com/640/360/?s=3" title="" class="js-showcase"><img src="http://lorempixel.com/320/180/?s=3"></a>
-    <a href="http://lorempixel.com/640/360/?s=4" title="And maybe another." class="js-showcase"><img src="http://lorempixel.com/320/180/?s=4"></a>
-    <a href="http://lorempixel.com/640/360/?s=5" title="Another title here." class="js-showcase"><img src="http://lorempixel.com/320/180/?s=5"></a>
+    <a href="http://lorempixel.com/<?php echo $width; ?>/<?php echo $height; ?>/?s=<?php echo $i; ?>a" title="Lorem ipsum dolor sit amet." class="js-showcase" data-showcase="<?php echo $group; ?>">
+        <img src="http://lorempixel.com/<?php echo round($width / 2); ?>/<?php echo round($height / 2); ?>/?s=<?php echo $i; ?>b">
+    </a>
 
-    <p>Multiple items via category. Different image sizes.</p>
-
-    <a href="http://lorempixel.com/640/360/?s=1" title="Some title." class="js-showcase" data-showcase="Titon"><img src="http://lorempixel.com/320/180/?s=1"></a>
-    <a href="http://lorempixel.com/540/200/?s=2" title="A really really long title will go here. It can be very loooong." class="js-showcase" data-showcase="Titon"><img src="http://lorempixel.com/270/100/?s=2"></a>
-    <a href="http://lorempixel.com/250/250/?s=3" title="" class="js-showcase" data-showcase="Titon"><img src="http://lorempixel.com/175/175/?s=3"></a>
-    <a href="http://lorempixel.com/700/300/?s=4" title="And maybe another." class="js-showcase" data-showcase="Titon"><img src="http://lorempixel.com/350/150/?s=4"></a>
-    <a href="http://lorempixel.com/250/500/?s=5" title="Another title here." class="js-showcase" data-showcase="Titon"><img src="http://lorempixel.com/175/250/?s=5"></a>
-</div>
+<?php } ?>
 
 <script type="text/javascript">
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-            $$('.js-showcase').showcase();
+            $$('.js-showcase').showcase({
+                className: <?php string('className'); ?>,
+                blackout: <?php bool('blackout', true); ?>,
+                gutter: <?php number('gutter', 50); ?>
+            });
         });
     <?php } else { ?>
         $(function() {
-            $('.js-showcase').showcase();
+            $('.js-showcase').showcase({
+                className: <?php string('className'); ?>,
+                blackout: <?php bool('blackout', true); ?>,
+                gutter: <?php number('gutter', 50); ?>
+            });
         });
     <?php } ?>
 </script>

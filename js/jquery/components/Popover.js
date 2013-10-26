@@ -55,13 +55,11 @@ $.fn.popover = function(options) {
 $.fn.popover.options = {
     mode: 'click',
     ajax: false,
-    follow: false,
     position: 'topCenter',
     showLoading: true,
     showTitle: true,
     getTitle: 'title',
     getContent: 'data-popover',
-    mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
     delay: 0,

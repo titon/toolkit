@@ -159,7 +159,7 @@ $components = array(
     ),
     'form' => array(
         'title' => 'Form & Input Group',
-        'css' => array('components/button.css', 'layout/grid.css', 'layout/form.css', 'layout/input-group.css', 'components/dropdown.css')
+        'css' => array('layout/form.css', 'layout/input-group.css')
     ),
     'grid' => array(
         'title' => 'Grid & Responsive',
@@ -167,7 +167,7 @@ $components = array(
     ),
     'icon' => array(
         'title' => 'Icon',
-        'css' => array('components/button.css', 'components/icon.css'),
+        'css' => array('components/icon.css'),
         'filters' => array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', '90deg' => 'Rotate 90', '180deg' => 'Rotate 180', '270deg' => 'Rotate 270'))
         )
@@ -183,6 +183,7 @@ $components = array(
     ),
     'lazy-load' => array(
         'title' => 'Lazy Load',
+        'css' => array('components/lazy-load.css'),
         'js' => array('components/LazyLoad.js'),
         'filters' => array(
             'delay' => array('title' => 'Force Delay', 'type' => 'number', 'default' => 10000),
@@ -203,7 +204,7 @@ $components = array(
     ),
     'modal' => array(
         'title' => 'Modal',
-        'css' => array('components/button.css', 'components/blackout.css', 'components/modal.css'),
+        'css' => array('components/blackout.css', 'components/modal.css'),
         'js' => array('components/Blackout.js', 'components/Modal.js'),
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
@@ -226,7 +227,14 @@ $components = array(
     ),
     'pagination' => array(
         'title' => 'Pagination',
-        'css' => array('components/button.css', 'components/pagination.css')
+        'css' => array('components/button.css', 'components/pagination.css'),
+        'filters' => array(
+            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'grouped' => 'Grouped')),
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'state' => array('title' => 'State', 'data' => $states),
+            'shape' => array('title' => 'Shape', 'data' => $shapes),
+            'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5),
+        )
     ),
     'pin' => array(
         'title' => 'Pin',
@@ -235,36 +243,111 @@ $components = array(
     ),
     'popover' => array(
         'title' => 'Popover',
-        'css' => array('components/button.css', 'components/tooltip.css', 'components/popover.css'),
-        'js' => array('components/Tooltip.js', 'components/Popover.js')
+        'css' => array('components/tooltip.css', 'components/popover.css'),
+        'js' => array('components/Tooltip.js', 'components/Popover.js'),
+        'filters' => array(
+            'className' => array('title' => 'Class', 'type' => 'text'),
+            'position' => array('title' => 'Position', 'data' => array(
+                'topLeft' => 'Top Left',
+                'topCenter' => 'Top Center',
+                'topRight' => 'Top Right',
+                'centerLeft' => 'Center Left',
+                'centerRight' => 'Center Right',
+                'bottomLeft' => 'Bottom Left',
+                'bottomCenter' => 'Bottom Center',
+                'bottomRight' => 'Bottom Right'
+            )),
+            'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
+            'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
+            'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
+            'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => false),
+            'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
+            'showTitle' => array('title' => 'Show title?', 'type' => 'boolean', 'default' => true),
+        )
     ),
     'progress' => array(
         'title' => 'Progress Bar',
         'css' => array('components/progress.css'),
+        'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'state' => array('title' => 'State', 'data' => $states),
+            'width' => array('title' => 'Width', 'type' => 'number')
+        )
     ),
     'showcase' => array(
         'title' => 'Showcase',
         'css' => array('components/blackout.css', 'components/showcase.css'),
-        'js' => array('components/Blackout.js', 'components/Showcase.js')
+        'js' => array('components/Blackout.js', 'components/Showcase.js'),
+        'filters' => array(
+            'className' => array('title' => 'Class', 'type' => 'text'),
+            'gutter' => array('title' => 'Gutter Margin', 'type' => 'number', 'default' => 50),
+            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
+            'group' => array('title' => 'Group?', 'type' => 'boolean', 'default' => false),
+            'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
+        )
     ),
     'table' => array(
         'title' => 'Table',
         'css' => array('layout/table.css'),
+        'filters' => array(
+            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'hover' => 'Row Hover', 'sortable' => 'Sortable Header', 'compact' => 'Compact Rows')),
+            'count' => array('title' => 'Count', 'type' => 'number', 'default' => 25)
+        )
     ),
     'tabs' => array(
         'title' => 'Tabs',
-        'css' => array('components/button.css', 'components/button-group.css', 'components/tabs.css', 'layout/grid.css'),
-        'js' => array('components/Tabs.js')
+        'css' => array('components/tabs.css'),
+        'js' => array('components/Tabs.js'),
+        'filters' => array(
+            'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'click'),
+            'defaultIndex' => array('title' => 'Default Index', 'type' => 'number', 'default' => 0),
+            'cookie' => array('title' => 'Cookie Name', 'type' => 'text'),
+            'cookieDuration' => array('title' => 'Cookie Duration', 'type' => 'number', 'default' => 30),
+            'ajax' => array('title' => 'Allow AJAX?', 'type' => 'boolean', 'default' => true),
+            'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean', 'default' => false),
+            'persistState' => array('title' => 'Persist state?', 'type' => 'boolean', 'default' => true),
+            'preventDefault' => array('title' => 'Prevent default?', 'type' => 'boolean', 'default' => true),
+        )
     ),
     'tooltip' => array(
         'title' => 'Tooltip',
-        'css' => array('components/button.css', 'components/tooltip.css'),
-        'js' => array('components/Tooltip.js')
+        'css' => array('components/tooltip.css'),
+        'js' => array('components/Tooltip.js'),
+        'filters' => array(
+            'className' => array('title' => 'Class', 'type' => 'text'),
+            'position' => array('title' => 'Position', 'data' => array(
+                'topLeft' => 'Top Left',
+                'topCenter' => 'Top Center',
+                'topRight' => 'Top Right',
+                'centerLeft' => 'Center Left',
+                'centerRight' => 'Center Right',
+                'bottomLeft' => 'Bottom Left',
+                'bottomCenter' => 'Bottom Center',
+                'bottomRight' => 'Bottom Right'
+            )),
+            'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
+            'mouseThrottle' => array('title' => 'Mouse Throttle', 'type' => 'number', 'default' => 50),
+            'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
+            'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
+            'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
+            'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => false),
+            'follow' => array('title' => 'Follow mouse?', 'type' => 'boolean', 'default' => false),
+            'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
+            'showTitle' => array('title' => 'Show title?', 'type' => 'boolean', 'default' => true),
+        )
     ),
     'type-ahead' => array(
         'title' => 'Type Ahead',
         'css' => array('components/type-ahead.css'),
-        'js' => array('class/Cache.js', 'components/TypeAhead.js')
+        'js' => array('class/Cache.js', 'components/TypeAhead.js'),
+        'filters' => array(
+            'className' => array('title' => 'Class', 'type' => 'text'),
+            'minLength' => array('title' => 'Minimum Characters', 'type' => 'number', 'default' => 1),
+            'itemLimit' => array('title' => 'Item Limit', 'type' => 'number', 'default' => 15),
+            'throttle' => array('title' => 'Lookup Throttle', 'type' => 'number', 'default' => 250),
+            'prefetch' => array('title' => 'Prefetch lookup?', 'type' => 'boolean', 'default' => false),
+            'shadow' => array('title' => 'Shadow text?', 'type' => 'boolean', 'default' => false),
+        )
     ),
 );
 

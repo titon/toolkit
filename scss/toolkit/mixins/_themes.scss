@@ -48,7 +48,6 @@
     background: $bg;
     text-shadow: 1px 1px $border;
     border: 1px solid tint($border, 35%);
-    border-right: 0;
 
     @content;
 }

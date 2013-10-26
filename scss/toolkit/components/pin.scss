@@ -6,11 +6,6 @@
 
 @import "../common";
 
-/**
- * Adds a sliding effect to pinned elements.
- * Should be used in conjunction with the JavaScript Titon.Pin component.
- */
-
 .pin {
     @include transition(top 1s, right .5s, left .5s);
 }

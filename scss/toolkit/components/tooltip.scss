@@ -8,18 +8,6 @@
 
 $tooltip-transition: $default-transition !default;
 
-/**
- * Should be used in conjunction with the JavaScript Titon.Tooltip module.
- *
- *    <div class="tooltip">
- *        <div class="tooltip-inner">
- *            <div class="tooltip-head">Tooltip Title</div>
- *            <div class="tooltip-body">Tooltip Content</div>
- *        </div>
- *        <div class="tooltip-arrow"></div>
- *    </div>
- */
-
 .tooltip {
     position: absolute;
     top: 0;

@@ -6,10 +6,6 @@
 
 @import "../common";
 
-/**
- *    <span class="icon-16-delete"></span>
- */
-
 [class*="icon-"] {
     @include reset-inline-block;
     @include disabled-state { opacity: $disabled-opacity; }

@@ -1,37 +1,10 @@
-<div class="example-header">Type Ahead</div>
+<p>Uses a static array for each lookup.</p>
 
-<div class="example">
-    <p>Array: Source data is defined as a literal array.<br>
-    Shadow text will be displayed within the input (start with "n" to see it).</p>
+<input type="text" id="ta-static">
 
-    <input type="text" id="ta-1">
-</div>
+<p>Uses an AJAX call for each lookup.</p>
 
-<div class="example">
-    <p>Function: Source data is returned from a function.</p>
-
-    <input type="text" id="ta-2">
-</div>
-
-<div class="example">
-    <p>AJAX: Source data is returned from an AJAX call on demand.<br>
-    Sorting and matching is handled by the remote endpoint.</p>
-
-    <input type="text" id="ta-3">
-</div>
-
-<div class="example">
-    <p>AJAX-Prefetch: Source data is returned from an AJAX call that is pre-fetched and cached.<br>
-    Sorting and matching is handled within Type Ahead.</p>
-
-    <input type="text" id="ta-4">
-</div>
-
-<div class="example">
-    <div class="example-title">Events</div>
-
-    <p>onInit, onShow, onHide, onSelect, onReset</p>
-</div>
+<input type="text" id="ta-dynamic">
 
 <script type="text/javascript">
     var langs = [
@@ -52,30 +25,32 @@
         { title: 'Go', category: 'Backend' },
         { title: 'Node.js', category: 'Backend' },
         { title: 'Asp.net', category: 'Backend' },
-        { title: 'Notepad' }
+        { title: 'CSS' }
     ];
+
+    var options = {
+        className: <?php string('className'); ?>,
+        source: langs,
+        minLength: <?php number('minLength', 1); ?>,
+        itemLimit: <?php number('itemLimit', 15); ?>,
+        throttle: <?php number('throttle', 250); ?>,
+        prefetch: <?php bool('prefetch', false); ?>,
+        shadow: <?php bool('shadow', false); ?>
+    };
 
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-            $('ta-1').typeAhead({ source: langs, shadow: true });
-            $('ta-2').typeAhead({
-                source: function() {
-                    return langs;
-                }
-            });
-            $('ta-3').typeAhead({ sorter: false, matcher: false, source: 'ajax/type-ahead.php?unique' });
-            $('ta-4').typeAhead({ prefetch: true, source: 'ajax/type-ahead.php' });
+            $('ta-static').typeAhead(options);
+
+            options.source = 'ajax/type-ahead.php';
+            $('ta-dynamic').typeAhead(options);
         });
     <?php } else { ?>
         $(function() {
-            $('#ta-1').typeAhead({ source: langs, shadow: true });
-            $('#ta-2').typeAhead({
-                source: function() {
-                    return langs;
-                }
-            });
-            $('#ta-3').typeAhead({ sorter: false, matcher: false, source: 'ajax/type-ahead.php?unique' });
-            $('#ta-4').typeAhead({ prefetch: true, source: 'ajax/type-ahead.php' });
+            $('#ta-static').typeAhead(options);
+
+            options.source = 'ajax/type-ahead.php';
+            $('#ta-dynamic').typeAhead(options);
         });
     <?php } ?>
 </script>

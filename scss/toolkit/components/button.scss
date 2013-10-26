@@ -6,11 +6,6 @@
 
 @import "../common";
 
-/**
- *    <button type="button" class="button large round">Large Rounded Button</button>
- *    <a href="" class="button small pill">Small Pill Button</a>
- */
-
 .button {
     @include reset-inline-block;
     @include size-medium;

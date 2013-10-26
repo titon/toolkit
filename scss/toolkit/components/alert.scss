@@ -6,17 +6,6 @@
 
 @import "../common";
 
-/**
- *    <div class="alert is-info">
- *        <button type="button" class="close">
- *            <span class="x">&times;</span>
- *        </button>
- *
- *        <h3 class="alert-title">Title</h3>
- *        <p>This is an information message!</p>
- *    </div>
- */
-
 .alert {
     margin: $margin 0;
     padding: $padding;

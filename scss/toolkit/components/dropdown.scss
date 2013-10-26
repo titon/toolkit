@@ -8,16 +8,6 @@
 
 $dropdown-transition: $default-transition !default;
 
-/**
- *    <ul class="dropdown">
- *        <li class="heading>Heading</li>
- *        <li><a href="">Some Action</a></li>
- *        <li><a href="">Some Action</a></li>
- *        <li class="divider"></li>
- *        <li><a href="">Some Action</a></li>
- *    </ul>
- */
-
 .dropdown {
     display: none;
     text-align: left;
