@@ -1,118 +1,68 @@
-<div class="example-header">Dropdowns</div>
+<?php
+$class = '';
 
-<div class="example">
-    <ul class="dropdown show" style="position: static; margin: 0 auto;">
-        <li><a href="">Action</a></li>
-        <li><a href="">Another Action</a></li>
-        <li><a href="">Last Action</a></li>
-    </ul>
+if ($mod = value('modifier')) {
+    $class = 'dropdown--' . $mod;
+} ?>
 
-    <p>With headings.</p>
+<div class="button-group">
+    <button type="button" class="button js-dropdown" data-toggle="#dropdown-1">
+        Open Dropdown
+        <span class="caret-down"></span>
+    </button>
 
-    <ul class="dropdown show" style="position: static; margin: 0 auto;">
-        <li class="heading">Heading</li>
-        <li><a href="">Another Action</a></li>
-        <li><a href="">Last Action</a></li>
-        <li class="heading">Heading</li>
-        <li><a href="">Some Action</a></li>
-    </ul>
-
-    <p>With dividers and sub-menus.</p>
-
-    <ul class="dropdown show" style="position: static; margin: 0 auto;">
-        <li>
-            <a href="">
-                <span class="caret-right"></span>
-                Another Action
-            </a>
-        </li>
+    <ul class="dropdown <?php echo $class; ?>" id="dropdown-1">
+        <li><a href="">Some Dropdown</a></li>
+        <li><a href="">With A Divider</a></li>
+        <li class="dropdown-divider"></li>
         <li class="has-children">
             <a href="">
                 <span class="caret-right"></span>
-                Last Action
+                Contains Children
             </a>
-
             <ul class="dropdown">
                 <li><a href="">Action</a></li>
                 <li><a href="">Another Action</a></li>
                 <li><a href="">Last Action</a></li>
             </ul>
         </li>
-        <li class="divider"></li>
-        <li><a href="">Some Action</a></li>
+        <li><a href="">Last Item</a></li>
     </ul>
 </div>
 
-<div class="example">
-    <div class="example-title">Button Dropdowns</div>
+<br><br>
 
-    <p>Close previously opened dropdown.</p>
+<div class="button-group">
+    <button type="button" class="button js-dropdown" data-toggle="#dropdown-2">
+        Open Dropdown
+        <span class="caret-down"></span>
+    </button>
 
-    <div class="button-group">
-        <button type="button" class="button js-dropdown" data-toggle="#bg-dropdown-1">
-            Button
-            <span class="caret-down"></span>
-        </button>
-
-        <ul class="dropdown" id="bg-dropdown-1">
-            <li><a href="">Action</a></li>
-            <li><a href="">Another Action</a></li>
-            <li><a href="">Last Action</a></li>
-        </ul>
-    </div>
-
-    <div class="button-group">
-        <a href="javascript:;" class="button">Button</a>
-        <button type="button" class="button js-dropdown" data-toggle="#bg-dropdown-2">
-            <span class="caret-down"></span>
-        </button>
-
-        <ul class="dropdown" id="bg-dropdown-2">
-            <li><a href="">Action</a></li>
-            <li><a href="">Another Action</a></li>
-            <li><a href="">Last Action</a></li>
-        </ul>
-    </div>
-
-    <p>Individual dropdown with alignment changes.</p>
-
-    <div class="button-group">
-        <a href="javascript:;" class="button">Button + Right Align</a>
-        <button type="button" class="button js-dropdown2" data-toggle="#bg-dropdown-3">
-            <span class="caret-down"></span>
-        </button>
-
-        <ul class="dropdown dropdown--right" id="bg-dropdown-3">
-            <li><a href="">Action</a></li>
-            <li><a href="">Another Action</a></li>
-            <li><a href="">Last Action</a></li>
-        </ul>
-    </div>
-
-    <div class="button-group">
-        <button type="button" class="button js-dropdown2" data-toggle="#bg-dropdown-4">
-            Button + Reverse Dropdown
-            <span class="caret-down"></span>
-        </button>
-
-        <ul class="dropdown dropdown--top" id="bg-dropdown-4">
-            <li><a href="">Action</a></li>
-            <li><a href="">Another Action</a></li>
-            <li><a href="">Last Action</a></li>
-        </ul>
-    </div>
+    <ul class="dropdown <?php echo $class; ?>" id="dropdown-2">
+        <li class="dropdown-heading">Heading</li>
+        <li><a href="">Another Dropdown</a></li>
+        <li><a href="">Contains Headings</a></li>
+        <li class="dropdown-heading">Heading</li>
+        <li><a href="">Last Item</a></li>
+    </ul>
 </div>
 
 <script type="text/javascript">
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-            $$('.js-dropdown').dropdown();
-            $$('.js-dropdown2').dropdown({ delegate: '.js-dropdown2', hideOpened: false });
+            $$('.js-dropdown').dropdown({
+                mode: <?php string('mode', 'click'); ?>,
+                getTarget: <?php string('getTarget', 'data-toggle'); ?>,
+                hideOpened: <?php bool('hideOpened'); ?>
+            });
         });
     <?php } else { ?>
         $(function() {
-            $('.js-dropdown').dropdown();
-            $('.js-dropdown2').dropdown({ hideOpened: false });
+            $('.js-dropdown').dropdown({
+                mode: <?php string('mode', 'click'); ?>,
+                getTarget: <?php string('getTarget', 'data-toggle'); ?>,
+                hideOpened: <?php bool('hideOpened'); ?>
+            });
         });
     <?php } ?>
 </script>

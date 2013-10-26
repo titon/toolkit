@@ -1,37 +1,25 @@
 <?php
-$mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
+$mode = value('mode', 'single'); ?>
 
-<div class="example-header">
-    Matrix
-</div>
+<p>
+    <button type="button" onclick="appendItem();" class="button">Append Item</button>
+    <button type="button" onclick="prependItem();" class="button">Prepend Item</button>
+    <button type="button" onclick="removeItem();" class="button">Remove Item</button>
+</p>
 
-<div class="example">
-    <p class="clear-fix">
-        <button type="button" onclick="appendItem();" class="float-right">Append Item</button>
-        <button type="button" onclick="prependItem();" class="float-right">Prepend Item</button>
-        <button type="button" onclick="removeItem();" class="float-right">Remove Item</button>
+<ul id="matrix" class="matrix">
+    <?php for ($i = 0, $x = 0; $i <= 25; $i++) { ?>
 
-        <span class="float-left">
-            View:
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&vendor=<?php echo $vendor; ?>&mode=multiple">Multiple column spanning items</a> |
-            <a href="?component=matrix&theme=<?php echo $_GET['theme']; ?>&vendor=<?php echo $vendor; ?>&mode=single">Single column items</a>
-        </span>
-    </p>
+        <li class="matrix-item">
+            <?php if ($mode === 'single') { ?>
+                <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/">
+            <?php } else { ?>
+                <img src="http://lorempixel.com/<?php echo rand(200, 600); ?>/<?php echo rand(100, 600); ?>/">
+            <?php } ?>
+        </li>
 
-    <ul id="matrix">
-        <?php for ($i = 0, $x = 0; $i <= 25; $i++) { ?>
-
-            <li class="matrix-grid">
-                <?php if ($mode === 'single') { ?>
-                    <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/">
-                <?php } else { ?>
-                    <img src="http://lorempixel.com/<?php echo rand(200, 600); ?>/<?php echo rand(100, 600); ?>/">
-                <?php } ?>
-            </li>
-
-        <?php } ?>
-    </ul>
-</div>
+    <?php } ?>
+</ul>
 
 <script type="text/javascript">
     function random(min, max) {
@@ -48,9 +36,9 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
 
     function removeItem() {
         <?php if ($vendor === 'mootools') { ?>
-            $('matrix').toolkit('matrix').remove($$('.matrix-grid')[0]);
+            $('matrix').toolkit('matrix').remove($$('.matrix-item')[0]);
         <?php } else { ?>
-            $('#matrix').toolkit('matrix').remove($('.matrix-grid')[0]);
+            $('#matrix').toolkit('matrix').remove($('.matrix-item')[0]);
         <?php } ?>
     }
 
@@ -66,9 +54,9 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
         i.onload = function() {
             <?php if ($vendor === 'mootools') { ?>
-                $('matrix').toolkit('matrix')[where](new Element('li.matrix-grid').grab(i));
+                $('matrix').toolkit('matrix')[where](new Element('li').grab(i));
             <?php } else { ?>
-                $('#matrix').toolkit('matrix')[where]($('<li/>').addClass('matrix-grid').html(i));
+                $('#matrix').toolkit('matrix')[where]($('<li/>').html(i));
             <?php } ?>
         };
     }
@@ -76,13 +64,17 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'single'; ?>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('matrix').matrix({
-                selector: '.matrix-grid'
+                gutter: <?php number('gutter', 20); ?>,
+                rtl: <?php bool('rtl', false); ?>,
+                defer: <?php bool('defer', true); ?>
             });
         });
     <?php } else { ?>
         $(function() {
             $('#matrix').matrix({
-                selector: '.matrix-grid'
+                gutter: <?php number('gutter', 20); ?>,
+                rtl: <?php bool('rtl', false); ?>,
+                defer: <?php bool('defer', true); ?>
             });
         });
     <?php } ?>

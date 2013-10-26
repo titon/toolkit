@@ -1,51 +1,41 @@
-<div class="example-header">Icon</div>
+<?php
+$class = '';
 
-<div class="example">
-    <div class="example-title">Inline</div>
+if ($mod = value('modifier')) {
+    $class = 'icon--' . $mod;
+} ?>
 
-    <span class="icon-16-1"></span>
-    <span class="icon-16-2"></span>
-    <span class="icon-16-3"></span>
-    <span class="icon-16-4"></span>
-    <span class="icon-16-5"></span>
-</div>
+<span class="icon-16-1 <?php echo $class; ?>"></span>
+<span class="icon-16-2 <?php echo $class; ?>"></span>
+<span class="icon-16-3 <?php echo $class; ?>"></span>
+<span class="icon-16-4 <?php echo $class; ?>"></span>
+<span class="icon-16-5 <?php echo $class; ?>"></span>
 
-<div class="example">
-    <div class="example-title">Buttons</div>
+<div class="example-title">Buttons</div>
 
-    <button type="button" class="button">
-        <span class="icon-16-1"></span>
-        Filter
-    </button>
+<button type="button" class="button">
+    <span class="icon-16-1 <?php echo $class; ?>"></span>
+    Filter
+</button>
 
-    <button type="button" class="button info round">
-        <span class="icon-16-2"></span>
-        Home
-    </button>
+<button type="button" class="button is-info round">
+    <span class="icon-16-2 <?php echo $class; ?>"></span>
+    Home
+</button>
 
-    <button type="button" class="button warning pill">
-        <span class="icon-16-3"></span>
-        Tag
-    </button>
+<button type="button" class="button is-warning pill">
+    <span class="icon-16-3 <?php echo $class; ?>"></span>
+    Tag
+</button>
 
-    <button type="button" class="button success oval">
-        <span class="icon-16-4"></span>
-        Update
-    </button>
+<button type="button" class="button is-success oval">
+    <span class="icon-16-4 <?php echo $class; ?>"></span>
+    Update
+</button>
 
-    <button type="button" class="button error skew">
-        <span class="icon-16-5"></span>
-        Add
-    </button>
+<button type="button" class="button is-error skew">
+    <span class="icon-16-5 <?php echo $class; ?>"></span>
+    Add
+</button>
 
-    <button type="button" class="button">Button (No Icon)</button>
-</div>
-
-<div class="example">
-    <div class="example-title">Rotation</div>
-
-    <span class="icon-16-1"></span>
-    <span class="icon-16-1 icon--90deg"></span>
-    <span class="icon-16-1 icon--180deg"></span>
-    <span class="icon-16-1 icon--270deg"></span>
-</div>
+<button type="button" class="button">Button (No Icon)</button>

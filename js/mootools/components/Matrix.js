@@ -315,7 +315,7 @@ Titon.Matrix = new Class({
             dir = this.options.rtl ? 'right' : 'left',
             x = 0, y = [], top,
             c = 0, i, l, s,
-            pos = { margin: 0 };
+            pos = { margin: 0, position: 'absolute' };
 
         for (i = 0; i < this.colCount; i++) {
             y.push(0);

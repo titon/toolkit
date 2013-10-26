@@ -45,7 +45,7 @@ $dropdown-transition: $default-transition !default;
     li {
         position: relative;
 
-         > a {
+        > a {
             padding: $small-padding;
             display: block;
 
@@ -53,11 +53,6 @@ $dropdown-transition: $default-transition !default;
                 float: right;
                 display: none;
             }
-        }
-
-        &.divider {
-            margin: ($margin / 2) 0;
-            border-top: 1px solid $gray-dark;
         }
 
         &.has-children {
@@ -74,11 +69,6 @@ $dropdown-transition: $default-transition !default;
                 left: 100%;
             }
         }
-
-        &.heading {
-            font-weight: bold;
-            padding: $small-padding;
-        }
     }
 
     // Force display
@@ -92,6 +82,16 @@ $dropdown-transition: $default-transition !default;
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.dropdown-divider {
+    margin: ($margin / 2) 0;
+    border-top: 1px solid $gray-dark;
+}
+
+.dropdown-heading {
+    font-weight: bold;
+    padding: $small-padding;
 }
 
 //-------------------- Modifiers --------------------//

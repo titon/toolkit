@@ -1,112 +1,31 @@
 <?php
-$items = array(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    'Nullam auctor gravida diam. Donec eget magna nunc.',
-    'Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula.',
-    'Suspendisse interdum malesuada mi non dictum.',
-    'Quisque cursus imperdiet lorem, in posuere quam eleifend non.'
-); ?>
+$count = (int) value('count', 3); ?>
 
-<div class="example-header">Carousel</div>
-
-<div class="example">
-    <p>Images provided by <a href="http://lorempixel.com">lorempixel.com</a>. Icons provided by <a href="http://fortawesome.github.io/Font-Awesome">FontAwesome</a> (chrome only).</p>
-
-    <div class="carousel" id="carousel-1">
-        <ul class="carousel-items">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li>
-                    <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
-
-                    <div class="carousel-caption">
-                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
-                        <?php echo $items[$i]; ?>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
-
-        <ol class="carousel-tabs">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
-            <?php } ?>
-        </ol>
-
-        <a href="javascript:;" class="carousel-prev">
-            <span class="icon-chevron-sign-left"></span>
-        </a>
-
-        <a href="javascript:;" class="carousel-next">
-            <span class="icon-chevron-sign-right"></span>
-        </a>
-    </div>
-
-    <p>Do a slide animation upward instead. No index tabs.</p>
-
-    <div class="carousel" id="carousel-2">
-        <ul class="carousel-items">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li>
-                    <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
-
-                    <div class="carousel-caption">
-                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
-                        <?php echo $items[$i]; ?>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
-
-        <a href="javascript:;" class="carousel-prev">
-            <span class="icon-chevron-sign-left"></span>
-        </a>
-
-        <a href="javascript:;" class="carousel-next">
-            <span class="icon-chevron-sign-right"></span>
-        </a>
-    </div>
-
-    <p>Do a fade animation instead. No next or previous.</p>
-
-    <div class="carousel" id="carousel-3">
-        <ul class="carousel-items">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li>
-                    <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
-
-                    <div class="carousel-caption">
-                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
-                        <?php echo $items[$i]; ?>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
-
-        <ol class="carousel-tabs">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
-            <?php } ?>
-        </ol>
-    </div>
-
-    <p>Should disable with a single image.</p>
-
-    <div class="carousel" id="carousel-4">
-        <ul class="carousel-items">
+<div class="carousel" id="carousel">
+    <ul class="carousel-items">
+        <?php for ($i = 1; $i <= $count; $i++) { ?>
             <li>
-                <img src="http://lorempixel.com/640/360/?c=1">
+                <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
-                <div class="carousel-caption">
-                    <h5><a href="">Slide #1</a></h5>
-                    <?php echo $items[1]; ?>
-                </div>
+                <?php if (value('captions')) { ?>
+                    <div class="carousel-caption">
+                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                    </div>
+                <?php } ?>
             </li>
-        </ul>
+        <?php } ?>
+    </ul>
 
+    <?php if (value('tabs')) { ?>
         <ol class="carousel-tabs">
-            <li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
+            <?php for ($i = 1; $i <= $count; $i++) { ?>
+                <li><a href="javascript:;"<?php if ($i == 1) echo ' class="is-active"'; ?>></a></li>
+            <?php } ?>
         </ol>
+    <?php } ?>
 
+    <?php if (value('arrows')) { ?>
         <a href="javascript:;" class="carousel-prev">
             <span class="icon-chevron-sign-left"></span>
         </a>
@@ -114,51 +33,29 @@ $items = array(
         <a href="javascript:;" class="carousel-next">
             <span class="icon-chevron-sign-right"></span>
         </a>
-    </div>
-
-    <p>Will not auto-rotate. No captions.</p>
-
-    <div class="carousel" id="carousel-5">
-        <ul class="carousel-items">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li>
-                    <img class="image" src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
-                </li>
-            <?php } ?>
-        </ul>
-
-        <ol class="carousel-tabs">
-            <?php for ($i = 0; $i < 5; $i++) { ?>
-                <li><a href="javascript:;"<?php if (!$i) echo ' class="is-active"'; ?>></a></li>
-            <?php } ?>
-        </ol>
-
-        <a href="javascript:;" class="carousel-prev">
-            <span class="icon-chevron-sign-left"></span>
-        </a>
-
-        <a href="javascript:;" class="carousel-next">
-            <span class="icon-chevron-sign-right"></span>
-        </a>
-    </div>
+    <?php } ?>
 </div>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-            $('carousel-1').carousel();
-            $('carousel-2').carousel({ animation: 'slide-up' });
-            $('carousel-3').carousel({ animation: 'fade' });
-            $('carousel-4').carousel();
-            $('carousel-5').carousel({ autoCycle: false });
+            $('carousel').carousel({
+                className: <?php string('className'); ?>,
+                animation: <?php string('animation', 'slide'); ?>,
+                duration: <?php number('duration', 5000); ?>,
+                autoCycle: <?php bool('autoCycle', true); ?>,
+                stopOnHover: <?php bool('stopOnHover', true); ?>
+            });
         });
     <?php } else { ?>
         $(function() {
-            $('#carousel-1').carousel();
-            $('#carousel-2').carousel({ animation: 'slide-up' });
-            $('#carousel-3').carousel({ animation: 'fade' });
-            $('#carousel-4').carousel();
-            $('#carousel-5').carousel({ autoCycle: false });
+            $('#carousel').carousel({
+                className: <?php string('className'); ?>,
+                animation: <?php string('animation', 'slide'); ?>,
+                duration: <?php number('duration', 5000); ?>,
+                autoCycle: <?php bool('autoCycle', true); ?>,
+                stopOnHover: <?php bool('stopOnHover', true); ?>
+            });
         });
     <?php } ?>
 </script>

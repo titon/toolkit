@@ -1,63 +1,13 @@
-<div class="example-header">Button</div>
-
 <?php
-$sizes['is-disabled'] = 'Disabled';
-$sizes['is-active'] = 'Active';
+$classes = array(value('size'), value('state'), value('shape'), value('effect'));
 
-foreach ($shapes as $shape => $shapeTitle) { ?>
+if (value('active')) {
+    $classes[] = 'is-active';
+} else if (value('disabled')) {
+    $classes[] = 'is-disabled';
+}
 
-    <div class="example">
-        <div class="example-title"><?php echo $shapeTitle; ?></div>
+$classes = implode(' ', array_filter($classes)); ?>
 
-        <?php foreach ($types as $type => $typeTitle) {
-            $classes = array($type, $shape); ?>
-
-            <div class="example-row">
-
-                <?php foreach ($sizes as $size => $sizeTitle) {
-                    $class = implode(' ', $classes) . ' ' . $size;
-                    $title = $shapeTitle . ' ' . $sizeTitle; ?>
-
-                    <button type="button" class="button <?php echo $class; ?>"><?php echo $title; ?></button>
-                    <a href="javascript:;" class="button <?php echo $class; ?>"><?php echo $title; ?></a>
-
-                <?php } ?>
-
-            </div>
-
-        <?php } ?>
-    </div>
-
-<?php }
-
-foreach ($visuals as $visual => $visualTitle) { ?>
-
-    <div class="example">
-        <div class="example-title"><?php echo $visualTitle; ?></div>
-
-        <?php
-        $i = 0;
-        $typeClasses = array_keys($types);
-
-        foreach ($shapes as $shape => $shapeTitle) {
-            $classes = array($visual, $shape, $typeClasses[$i]); ?>
-
-            <div class="example-row">
-
-                <?php foreach ($sizes as $size => $sizeTitle) {
-                    $class = implode(' ', $classes) . ' ' . $size;
-                    $title = $shapeTitle . ' ' . $sizeTitle; ?>
-
-                    <button type="button" class="button <?php echo $class; ?>"><?php echo $title; ?></button>
-                    <a href="javascript:;" class="button <?php echo $class; ?>"><?php echo $title; ?></a>
-
-                <?php } ?>
-
-            </div>
-
-            <?php $i++;
-        } ?>
-
-    </div>
-
-<?php } ?>
+<button type="button" class="button <?php echo $classes; ?>">Button</button>
+<a href="javascript:;" class="button <?php echo $classes; ?>">Anchor</a>

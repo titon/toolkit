@@ -28,7 +28,6 @@ $matrix-transition: $default-transition !default;
 .matrix-item {
     margin: 0;
     padding: 0;
-    position: absolute;
     @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
 
     img {

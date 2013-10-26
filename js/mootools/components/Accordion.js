@@ -27,7 +27,7 @@ Titon.Accordion = new Class({
         multiple: false,
         collapsible: false,
         headerElement: '.accordion-head',
-        contentElement: '.accordion-inner',
+        contentElement: '.accordion-handle',
 
         // Events
         onJump: null

@@ -192,7 +192,7 @@ $.fn.accordion.options = {
     multiple: false,
     collapsible: false,
     headerElement: '.accordion-head',
-    contentElement: '.accordion-inner',
+    contentElement: '.accordion-handle',
     template: false
 };
 

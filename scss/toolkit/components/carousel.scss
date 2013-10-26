@@ -83,6 +83,8 @@ $carousel-transition: 1s !default;
         font-size: $small-size;
         padding: $small-padding;
     }
+
+    p { margin: 0; }
 }
 
 .carousel-prev,

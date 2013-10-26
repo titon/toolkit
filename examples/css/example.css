@@ -1,0 +1,38 @@
+
+body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 40px 0; }
+h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; font-weight: normal; }
+
+.skeleton { min-height: 100%; }
+
+.example { padding: 25px; }
+.example > *:first-child { margin-top: 0; }
+
+.example-form { margin: 0; padding: 0; list-style: none; background: #000; color: #ccc; width: 100%; z-index: 9999; }
+.example-form li { display: inline-block; padding: 5px; }
+.example-form input { border: none; border-radius: 2px; padding: 3px; }
+.example-form input[type="text"] { width: 6rem; }
+.example-form input[type="number"] { width: 3rem; }
+
+.example-filters { position: fixed; top: 0; left: 0; }
+
+.example-switcher { position: fixed; bottom: 0; left: 0; }
+.example-switcher .resolution { float: right; }
+
+.example-title { background: rgba(0, 0, 0, .5); color: #fff; margin: 25px -25px; padding: 15px 25px; font-size: 1.5rem; }
+.example-title:first-child { margin-top: -25px; }
+
+/*-------- Components --------*/
+
+[class*="icon-16"] { background: url("../img/icons.png") no-repeat; }
+.icon-16-1 { background-position: 0 0; }
+.icon-16-2 { background-position: -16px 0; }
+.icon-16-3 { background-position: -32px 0; }
+.icon-16-4 { background-position: -48px 0; }
+.icon-16-5 { background-position: -64px 0; }
+
+.example-grid .col { background: #f8f8f8; border: 1px solid #e5e5e5; color: #000; padding: 5px; }
+
+.example-lazy-load { width: 200px; height: 200px; margin: 10px auto; }
+
+.matrix > li { float: left; margin: 0 20px 20px 0; background: #f8f8f8; border: 1px solid #e5e5e5; color: #000; padding: 5px; }
+.matrix.no-columns > li { width: 100%; float: none; margin-right: 0; }
