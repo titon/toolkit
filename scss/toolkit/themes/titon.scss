@@ -49,15 +49,15 @@ mark { background: tint($warning-light, 25%); }
     }
 }
 
-//-------------------- Alert --------------------//
+//-------------------- Notice --------------------//
 
-.alert {
-    @include alert-style($default-light, $default-dark);
+.notice {
+    @include notice-style($default-light, $default-dark);
 
-    &.is-info { @include alert-style($info-light, $info-dark); }
-    &.is-error { @include alert-style($error-light, $error-dark); }
-    &.is-warning { @include alert-style($warning-light, $warning-dark); }
-    &.is-success { @include alert-style($success-light, $success-dark); }
+    &.is-info { @include notice-style($info-light, $info-dark); }
+    &.is-error { @include notice-style($error-light, $error-dark); }
+    &.is-warning { @include notice-style($warning-light, $warning-dark); }
+    &.is-success { @include notice-style($success-light, $success-dark); }
 }
 
 //-------------------- Button --------------------//

@@ -7,7 +7,7 @@
 @import "../common";
 
 // Use border-box for everything
-*, *:after, *:before { @include box-sizing(border-box); }
+*, *:after, *:before { @include box-sizing("border-box"); }
 
 // Alignment
 .align-left { text-align: left; }

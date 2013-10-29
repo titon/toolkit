@@ -210,17 +210,17 @@ fieldset {
 
 .accordion-body { padding: $padding; }
 
-//-------------------- Alert --------------------//
+//-------------------- Notice --------------------//
 
-.alert {
+.notice {
     text-shadow: 0 1px 0 white(.50);
     box-shadow: 0 0 3px #000;
-    @include alert-style($default-light, $default-dark);
+    @include notice-style($default-light, $default-dark);
 
-    &.is-info { @include alert-style($info-light, $info-dark); }
-    &.is-warning { @include alert-style($warning-light, $warning-dark); }
-    &.is-error { @include alert-style($error-light, $error-dark); }
-    &.is-success { @include alert-style($success-light, $success-dark); }
+    &.is-info { @include notice-style($info-light, $info-dark); }
+    &.is-warning { @include notice-style($warning-light, $warning-dark); }
+    &.is-error { @include notice-style($error-light, $error-dark); }
+    &.is-success { @include notice-style($success-light, $success-dark); }
 }
 
 //-------------------- Button --------------------//

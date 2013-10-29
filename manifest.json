@@ -21,7 +21,7 @@
         "priority": 3,
         "require": ["base"],
         "source": {
-            "css": ["layout/grid.css"]
+            "css": ["components/grid.css"]
         }
     },
     "form": {
@@ -54,14 +54,6 @@
         "source": {
             "css": ["components/accordion.css"],
             "js": ["components/Accordion.js"]
-        }
-    },
-    "alert": {
-        "category": "component",
-        "priority": 10,
-        "require": ["base"],
-        "source": {
-            "css": ["components/alert.css"]
         }
     },
     "blackout": {
@@ -181,6 +173,14 @@
             "css": ["components/modal.css"],
             "js": ["components/Modal.js"],
             "moo": ["More/Drag"]
+        }
+    },
+    "notice": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/notice.css"]
         }
     },
     "pagination": {

@@ -10,12 +10,11 @@
 // Basic layout styles should come first
 @import "toolkit/layout/base";
 @import "toolkit/layout/typography";
-@import "toolkit/layout/grid";
 @import "toolkit/layout/form";
 @import "toolkit/layout/code";
 
 // Then basic UI styles
-@import "toolkit/components/alert";
+@import "toolkit/components/grid";
 @import "toolkit/components/breadcrumbs";
 @import "toolkit/components/button";
 @import "toolkit/components/button-group";
@@ -25,6 +24,7 @@
 @import "toolkit/components/label";
 @import "toolkit/components/lazy-load";
 @import "toolkit/components/matrix";
+@import "toolkit/components/notice";
 @import "toolkit/components/pagination";
 @import "toolkit/components/pin";
 @import "toolkit/components/progress";

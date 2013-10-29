@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.alert {
+.notice {
     margin: $margin 0;
     padding: $padding;
     background: $gray;
@@ -32,6 +32,6 @@
     @include content-spacing;
 }
 
-.alert-title {
+.notice-title {
     margin: 0 0 ($margin / 2) 0;
 }

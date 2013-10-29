@@ -85,7 +85,7 @@ pre,
 .showcase-prev,
 .showcase-next,
 .showcase-tabs,
-.alert,
+.notice,
 .breadcrumbs a,
 .button {
     padding: $padding;
@@ -122,7 +122,7 @@ blockquote { padding: 0 $padding; }
 legend { padding-right: $padding; }
 
 pre, p, ul, ol, hr,
-.alert,
+.notice,
 .breadcrumbs,
 .pagination {
     margin: $margin 0;
@@ -130,7 +130,7 @@ pre, p, ul, ol, hr,
 
 blockquote { margin: $margin; }
 
-.alert .close,
+.notice .close,
 .button-group + .button-group {
     margin-left: $margin;
 }
@@ -149,7 +149,7 @@ blockquote { margin: $margin; }
 
 .form--inline  .field-label { margin: 0 ($margin / 2) 0 0; }
 .form--horizontal .field-col { padding-left: $margin; }
-.alert-title { margin: 0 0 ($margin / 2) 0; }
+.notice { margin: 0 0 ($margin / 2) 0; }
 .dropdown li.divider { margin: ($margin / 2) 0; }
 .pagination li { margin-right: $padding / 2; }
 

@@ -68,14 +68,6 @@ $components = array(
             'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean')
         )
     ),
-    'alert' => array(
-        'title' => 'Alert',
-        'css' => 'components/alert.css',
-        'filters' => array(
-            'state' => array('title' => 'State', 'data' => $states),
-            'round' => array('title' => 'Round?', 'type' => 'boolean')
-        )
-    ),
     'breadcrumbs' => array(
         'title' => 'Breadcrumbs',
         'css' => array('components/breadcrumbs.css'),
@@ -223,6 +215,14 @@ $components = array(
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
             'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
+        )
+    ),
+    'notice' => array(
+        'title' => 'Notice',
+        'css' => 'components/notice.css',
+        'filters' => array(
+            'state' => array('title' => 'State', 'data' => $states),
+            'round' => array('title' => 'Round?', 'type' => 'boolean')
         )
     ),
     'pagination' => array(

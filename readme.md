@@ -75,19 +75,19 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Base` - Provides utility and helper classes
 * `Code` - Styles for code blocks
 * `Form` - Allows for vertical, horizontal and inline forms; also provides default styles
-* `Grid` - Implements a fluid 12 column grid system with responsive support for all devices
 * `Responsive` - Responsive classes for mobile, tablet and desktop resolutions
 * `Typography` - Resets and default styles for typography
 
 #### UI ####
-* `Alert` - Styles for block level notification messages
 * `Breadcrumbs` - Styles for bread crumb navigation trails
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
 * `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
+* `Grid` - Implements a fluid 12 column grid system with responsive support for all devices
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `InputGroup` - Allows for the grouping of inputs with buttons and static blocks
 * `Label` - Styles for inline tag labels
+* `Notice` - Styles for block level notification messages
 * `Pagination` - Styles for pagination lists
 * `Pin` - Animations for element pinning
 * `Progress` - Basic styles for progress bars

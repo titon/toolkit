@@ -1,5 +1,5 @@
 
-@mixin alert-style($bg, $text) {
+@mixin notice-style($bg, $text) {
     color: $text;
     background: $bg;
     border: 1px solid shade($bg, 10%);
