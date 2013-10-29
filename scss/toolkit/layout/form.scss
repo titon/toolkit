@@ -58,21 +58,26 @@ label,
 .input {
     background: $gray-lightest;
     border-radius: $round;
-    @include transition(all .3s);
+    @include transition(all $default-transition);
 
     &:hover { border-color: $gray-darkest; }
-    &:focus { border-color: $info; box-shadow: 0 0 5px $info-light; outline: none; }
 
-    @include disabled-state {
-        cursor: not-allowed;
-        color: $gray-darkest;
-        border-color: $gray;
+    &:focus {
+        border-color: $info;
+        box-shadow: 0 0 5px $info-light;
+        outline: none;
     }
 
     &[readonly] {
         color: $gray-darkest;
         border: 1px solid $gray-dark;
         box-shadow: none;
+    }
+
+    @include disabled-state {
+        cursor: not-allowed;
+        color: $gray-darkest;
+        border-color: $gray;
     }
 }
 
@@ -121,11 +126,11 @@ textarea.input {
 .field-label {
     display: block;
     vertical-align: middle;
-    margin-bottom: 7px;
+    margin-bottom: .5em;
 }
 
 .field-help {
-    margin-top: 7px;
+    margin-top: .5em;
     font-size: $small-size;
 }
 

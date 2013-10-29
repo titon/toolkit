@@ -22,14 +22,14 @@
         font-weight: bold;
     }
 
-    .close {
-        float: right;
-        margin-left: $margin;
-
-        & ~ p { margin: 0; }
-    }
-
     @include content-spacing;
+}
+
+.notice-close {
+    float: right;
+    margin-left: $margin;
+
+    & ~ p { margin: 0; }
 }
 
 .notice-title {

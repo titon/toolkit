@@ -18,8 +18,8 @@ var,
 kbd {
     display: inline-block;
     background: $gray-dark;
-    border-radius: 2px;
-    padding: 2px 4px;
+    border-radius: $round;
+    padding: .2em .4em;
 }
 
 pre {

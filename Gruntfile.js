@@ -235,5 +235,5 @@ module.exports = function(grunt) {
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('compile', ['sass', 'uglify']);
     grunt.registerTask('build', ['concat', 'string-replace']);
-    grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'concat', 'string-replace']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'string-replace']);
 };

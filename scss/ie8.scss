@@ -130,7 +130,7 @@ pre, p, ul, ol, hr,
 
 blockquote { margin: $margin; }
 
-.notice .close,
+.notice-close,
 .button-group + .button-group {
     margin-left: $margin;
 }
@@ -159,9 +159,6 @@ blockquote { margin: $margin; }
 
 // IE8 does not support rgba
 // So use solid colors instead
-
-.close .x { color: #000; }
-.close:hover { background: #fff; }
 
 .blackout { background: #000; filter: alpha(opacity=50); }
 

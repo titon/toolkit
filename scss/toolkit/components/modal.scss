@@ -23,19 +23,16 @@ $modal-transition: $default-transition !default;
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
 
-    .close {
-        position: absolute;
-        top: -1px;
-        right: -35px;
-    }
-
     &.is-loading {
-        .close { display: none; }
-
-        .modal-outer {
-            background: $gray;
-        }
+        .modal-close { display: none; }
+        .modal-outer { background: $gray; }
     }
+}
+
+.modal-close {
+    position: absolute;
+    top: -1px;
+    right: -35px;
 }
 
 // Used for animations, should also contain the styles

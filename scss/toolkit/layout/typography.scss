@@ -16,7 +16,7 @@ h6 { font-size: 1.2rem; }
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
-    line-height: 100%;
+    line-height: 1.25em;
     font-weight: normal;
 }
 
@@ -29,7 +29,7 @@ blockquote {
     padding: 0 $padding;
     border-left: 5px solid $gray;
 
-    cite { display: block; font-size: .8rem; }
+    cite { display: block; font-size: $small-size; }
     cite:before { content: "\2014 \00A0"; /* em dash */ }
 
     @include content-spacing;
@@ -38,12 +38,12 @@ blockquote {
 mark {
     display: inline-block;
     background: $gray-dark;
-    border-radius: 2px;
-    padding: 0 5px;
+    border-radius: $round;
+    padding: 0 .3em;
 }
 
 .text-muted { color: $default; }
-.text-info { color: shade($info, 15%); }
-.text-error { color: shade($error, 15%); }
-.text-warning { color: shade($warning, 15%); }
-.text-success { color: shade($success, 15%); }
+.text-info { color: darken($info, 15%); }
+.text-error { color: darken($error, 15%); }
+.text-warning { color: darken($warning, 15%); }
+.text-success { color: darken($success, 15%); }

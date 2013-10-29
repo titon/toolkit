@@ -23,8 +23,8 @@
         vertical-align: middle;
 
         &:last-child { margin-right: 0; }
-        &:hover,
-        &:focus { z-index: 1; }
+        &:hover { z-index: 1; }
+        &:focus { z-index: 2; }
     }
 
     @include clear-fix;

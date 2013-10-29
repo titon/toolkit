@@ -35,14 +35,19 @@
 .static { position: static; }
 
 // Layout
-.clear { clear: both; display: block; margin: 0; padding: 0; }
 .clear-fix { @include clear-fix; }
+.clear {
+    clear: both;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
 
 // Styles
 .round { border-radius: $round; }
 .is-draggable { cursor: move; }
 .is-disabled,
-button[disabled] { cursor: not-allowed !important; pointer-events: none; }
+[disabled] { cursor: not-allowed !important; }
 
 // Carets
 .caret-up,
@@ -67,27 +72,4 @@ button[disabled] { cursor: not-allowed !important; pointer-events: none; }
     color: $foreground-color;
     font: bold 1.5rem/100% Arial, sans-serif;
     text-transform: uppercase;
-}
-
-.close {
-    @include reset-inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 32px;
-    text-align: center;
-    background: white(.5);
-    border-radius: 2px;
-    cursor: pointer;
-
-    .x {
-        color: black(.5);
-        position: relative;
-        top: -1px;
-    }
-
-    &:hover {
-        background: white(.8);
-
-        .x { color: black(.75); }
-    }
 }

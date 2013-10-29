@@ -8,7 +8,7 @@ if (value('round')) {
 $classes = implode(' ', $classes); ?>
 
 <div class="notice <?php echo $classes; ?>">
-    <button type="button" class="close"><span class="x">&times;</span></button>
+    <button type="button" class="notice-close"><span class="x">&times;</span></button>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="">Nunc nec leo dui, non consequat diam.</a> Curabitur id nulla et augue facilisis tempus quis ut nibh.
 </div>
 
