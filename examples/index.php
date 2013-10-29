@@ -355,10 +355,6 @@ $themes = array(
     'titon' => array(
         'title' => 'Titon',
         'css' => 'themes/titon.css'
-    ),
-    'tomorrow-night' => array(
-        'title' => 'Tomorrow Night',
-        'css' => 'themes/tomorrow-night.css'
     )
 );
 
