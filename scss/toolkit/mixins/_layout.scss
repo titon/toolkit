@@ -1,16 +1,4 @@
 
-$padding: .75rem !default;
-$margin: 1.25rem !default;
-
-$small-size: .7rem !default;
-$small-padding: .5rem !default;
-
-$medium-size: inherit !default;
-$medium-padding: $padding !default;
-
-$large-size: 1.3rem !default;
-$large-padding: 1rem !default;
-
 // Container clear fix for floats
 @mixin clear-fix {
     &:after {

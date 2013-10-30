@@ -120,7 +120,61 @@ textarea.input {
         .field-label { font-weight: bold; }
     }
 
-    @include field-style;
+    &.is-info {
+        .input,
+        .select {
+            border-color: $info;
+
+            &:focus { box-shadow: 0 0 5px $info-light; }
+        }
+
+        .radio,
+        .checkbox {
+            color: $info-dark;
+        }
+    }
+
+    &.is-error {
+        .input,
+        .select {
+            border-color: $error;
+
+            &:focus { box-shadow: 0 0 5px $error-light; }
+        }
+
+        .radio,
+        .checkbox {
+            color: $error-dark;
+        }
+    }
+
+    &.is-warning {
+        .input,
+        .select {
+            border-color: $warning;
+
+            &:focus { box-shadow: 0 0 5px $warning-light; }
+        }
+
+        .radio,
+        .checkbox {
+            color: $warning-dark;
+        }
+    }
+
+    &.is-success {
+        .input,
+        .select {
+            border-color: $success;
+
+            &:focus { box-shadow: 0 0 5px $success-light; }
+        }
+
+        .radio,
+        .checkbox {
+            color: $success-dark;
+        }
+    }
 }
 
 .field-label {

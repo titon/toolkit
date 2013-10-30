@@ -49,18 +49,32 @@ mark { background: tint($warning-light, 25%); }
     }
 }
 
-//-------------------- Notice --------------------//
-
-.notice {
-    @include notice-style($default-light, $default-dark);
-
-    &.is-info { @include notice-style($info-light, $info-dark); }
-    &.is-error { @include notice-style($error-light, $error-dark); }
-    &.is-warning { @include notice-style($warning-light, $warning-dark); }
-    &.is-success { @include notice-style($success-light, $success-dark); }
-}
-
 //-------------------- Button --------------------//
+
+@mixin button-style($base, $light, $dark) {
+    font-weight: bold;
+    background: shade($base, 5%);
+    text-shadow: 1px 1px black(.2);
+    border: 1px solid shade($base, 12%);
+
+    @include active-state {
+        color: #fff;
+        background-color: shade($base, 20%);
+        text-shadow: 1px 1px $dark;
+        border-color: shade($base, 30%);
+    }
+
+    @include disabled-state {
+        background: $base;
+        border-color: $base;
+        box-shadow: none;
+        text-shadow: none;
+        top: 0;
+        opacity: $disabled-opacity;
+    }
+
+    @content;
+}
 
 .button {
     color: #fff;
@@ -151,7 +165,14 @@ mark { background: tint($warning-light, 25%); }
     }
 }
 
-//-------------------- Label, Badge --------------------//
+//-------------------- Label --------------------//
+
+@mixin label-style($bg, $text) {
+    background: $bg;
+    color: $text;
+
+    @content;
+}
 
 .label {
     @include label-style($default-light, $default-dark);
@@ -213,6 +234,30 @@ mark { background: tint($warning-light, 25%); }
     background: $gray-lightest;
     text-align: center;
     margin-bottom: -1px;
+}
+
+//-------------------- Notice --------------------//
+
+@mixin notice-style($bg, $text) {
+    color: $text;
+    background: $bg;
+    border: 1px solid shade($bg, 10%);
+
+    hr { border-color: shade($bg, 10%); }
+
+    a { color: shade($text, 10%); }
+    a:hover { color: tint($text, 25%); }
+
+    @content;
+}
+
+.notice {
+    @include notice-style($default-light, $default-dark);
+
+    &.is-info { @include notice-style($info-light, $info-dark); }
+    &.is-error { @include notice-style($error-light, $error-dark); }
+    &.is-warning { @include notice-style($warning-light, $warning-dark); }
+    &.is-success { @include notice-style($success-light, $success-dark); }
 }
 
 //-------------------- Popover --------------------//
@@ -278,6 +323,14 @@ mark { background: tint($warning-light, 25%); }
 }
 
 //-------------------- Progress --------------------//
+
+@mixin progress-style($bg, $border) {
+    background: $bg;
+    text-shadow: 1px 1px $border;
+    border: 1px solid tint($border, 35%);
+
+    @content;
+}
 
 .progress {
     box-shadow: inset 1px 1px 2px $gray-darkest;

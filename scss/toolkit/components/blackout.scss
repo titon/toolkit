@@ -6,9 +6,6 @@
 
 @import "../common";
 
-$blackout-opacity: .5 !default;
-$blackout-transition: $default-transition !default;
-
 .blackout {
     position: fixed;
     top: 0;

@@ -1,12 +1,4 @@
 
-$grid-columns-large: 12 !default;
-$grid-columns-medium: 8 !default;
-$grid-columns-small: 6 !default;
-
-$grid-columns-desktop: 12 !default;
-$grid-columns-tablet: 6 !default;
-$grid-columns-mobile: 3 !default;
-
 // Calculate a width using a grid cell
 @function grid-span($columns, $n) {
     @return (100% / $columns) * $n;

@@ -1,16 +1,128 @@
 
-//-------------------- Toolkit --------------------//
+//-------------------- Imports --------------------//
 
-@import "variables";
 @import "mixins/layout";
 @import "mixins/grid";
 @import "mixins/responsive";
-@import "mixins/themes";
-
-//-------------------- Compass --------------------//
-
 @import "compass/css3/box-sizing";
 @import "compass/css3/images";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 @import "compass/css3/filter";
+
+//-------------------- Compass --------------------//
+
+$experimental-support-for-mozilla: true !default;
+$experimental-support-for-webkit: true !default;
+$experimental-support-for-opera: false !default;
+$experimental-support-for-microsoft: false !default;
+$experimental-support-for-khtml: false !default;
+
+$support-for-original-webkit-gradients: false !default;
+
+//-------------------- Colors --------------------//
+
+$gray-lightest: #fbfbfb !default;
+$gray-light: #f8f8f8 !default;
+$gray: #f5f5f5 !default;
+$gray-dark: #e5e5e5 !default;
+$gray-darkest: #c2c2c2 !default;
+
+$background-color: #fff !default;
+$foreground-color: #2d2d2d !default;
+
+//-------------------- Sizes --------------------//
+
+$padding: .75rem !default;
+$margin: 1.25rem !default;
+
+$small-size: .7rem !default;
+$small-padding: .5rem !default;
+
+$medium-size: inherit !default;
+$medium-padding: $padding !default;
+
+$large-size: 1.3rem !default;
+$large-padding: 1rem !default;
+
+//-------------------- States --------------------//
+
+$default: #929497 !default;
+$default-light: #d0d2d3 !default;
+$default-dark: #404041 !default;
+
+$info: #45c5eb !default;
+$info-light: #dbf1fa !default;
+$info-dark: #4067ab !default;
+
+$warning: #fcd04b !default;
+$warning-light: #ffebb5 !default;
+$warning-dark: #c87e00 !default;
+
+$success: #97cb6f !default;
+$success-light: #e7f2dd !default;
+$success-dark: #226b36 !default;
+
+$error: #f06060 !default;
+$error-light: #fdc5c1 !default;
+$error-dark: #b10e0e !default;
+
+//-------------------- Border Styles --------------------//
+
+$round: .2rem !default;
+
+$pill: 2rem !default;
+
+$oval-x: 7rem !default;
+$oval-y: 2.75rem !default;
+
+$skew-x: 1rem !default;
+$skew-y: 3rem !default;
+$skew: $skew-x $skew-y;
+$skew-reverse: $skew-y $skew-x;
+
+//-------------------- Opacity --------------------//
+
+$disabled-opacity: .5 !default;
+$blackout-opacity: .5 !default;
+
+//-------------------- Transitions --------------------//
+
+$default-transition: .3s !default;
+$accordion-transition: $default-transition !default;
+$blackout-transition: $default-transition !default;
+$carousel-transition: 1s !default;
+$dropdown-transition: $default-transition !default;
+$flyout-transition: $default-transition !default;
+$lazyLoad-transition: $default-transition !default;
+$matrix-transition: $default-transition !default;
+$modal-transition: $default-transition !default;
+$progress-transition: $default-transition !default;
+$showcase-transition: $default-transition !default;
+$tooltip-transition: $default-transition !default;
+
+//-------------------- Responsive --------------------//
+
+$responsive-design: "mobile" !default; // mobile, desktop
+$responsive-size: "both" !default; // device, size, both
+
+$breakpoint-desktop: 1440px !default;
+$breakpoint-laptop: 1280px !default;
+$breakpoint-tablet-landscape: 1024px !default;
+$breakpoint-tablet-portrait: 768px !default;
+$breakpoint-mobile-landscape: 480px !default;
+$breakpoint-mobile-portrait: 320px !default;
+
+$breakpoint-small: 768px !default;
+$breakpoint-medium: 1280px !default;
+$breakpoint-large: 1440px !default;
+
+//-------------------- Grid --------------------//
+
+$grid-columns-large: 12 !default;
+$grid-columns-medium: 8 !default;
+$grid-columns-small: 6 !default;
+
+$grid-columns-desktop: 12 !default;
+$grid-columns-tablet: 6 !default;
+$grid-columns-mobile: 3 !default;

@@ -6,8 +6,6 @@
 
 @import "../common";
 
-$lazyLoad-transition: $default-transition !default;
-
 .lazy-load {
     background-image: none !important;
     @include transition(background-image $lazyLoad-transition);

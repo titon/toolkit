@@ -1,18 +1,4 @@
 
-$responsive-design: "mobile" !default;
-$responsive-size: "both" !default;
-
-$breakpoint-desktop: 1440px !default;
-$breakpoint-laptop: 1280px !default;
-$breakpoint-tablet-landscape: 1024px !default;
-$breakpoint-tablet-portrait: 768px !default;
-$breakpoint-mobile-landscape: 480px !default;
-$breakpoint-mobile-portrait: 320px !default;
-
-$breakpoint-small: 768px !default;
-$breakpoint-medium: 1280px !default;
-$breakpoint-large: 1440px !default;
-
 @mixin if-min($min) {
     @media only screen and (min-width: $min) {
         @content;
