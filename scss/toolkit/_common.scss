@@ -83,8 +83,9 @@ $skew-reverse: $skew-y $skew-x;
 
 //-------------------- Opacity --------------------//
 
-$disabled-opacity: .5 !default;
-$blackout-opacity: .5 !default;
+$default-opacity: .5 !default;
+$disabled-opacity: $default-opacity !default;
+$blackout-opacity: $default-opacity !default;
 
 //-------------------- Transitions --------------------//
 
@@ -100,6 +101,10 @@ $modal-transition: $default-transition !default;
 $progress-transition: $default-transition !default;
 $showcase-transition: $default-transition !default;
 $tooltip-transition: $default-transition !default;
+
+//-------------------- Transitions --------------------//
+
+$icon-animation: 1.5s !default;
 
 //-------------------- Responsive --------------------//
 

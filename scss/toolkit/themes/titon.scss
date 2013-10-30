@@ -18,7 +18,7 @@ body {
 //-------------------- Layout --------------------//
 
 a {
-    color: shade($info, 15%);
+    color: darken($info, 15%);
     text-decoration: none;
 
     &:hover { color: $info-dark; }
@@ -28,14 +28,7 @@ blockquote cite { color: $default; }
 
 code { background: $info-light; color: $info-dark; }
 var { background: $error-light; color: $error-dark; }
-mark { background: tint($warning-light, 25%); }
-
-.input-group {
-    > .input,
-    > .input-addon,
-    > .button,
-    > .button-group .button { height: 46px; }
-}
+mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Accordion --------------------//
 
@@ -52,25 +45,24 @@ mark { background: tint($warning-light, 25%); }
 //-------------------- Button --------------------//
 
 @mixin button-style($base, $light, $dark) {
-    font-weight: bold;
-    background: shade($base, 5%);
-    text-shadow: 1px 1px black(.2);
-    border: 1px solid shade($base, 12%);
+    background: darken($base, 5%);
+    border: 1px solid darken($base, 12%);
+
+    &:hover {
+        color: #fff;
+        background-color: lighten($base, 5%);
+    }
 
     @include active-state {
         color: #fff;
-        background-color: shade($base, 20%);
+        background-color: darken($base, 20%);
         text-shadow: 1px 1px $dark;
-        border-color: shade($base, 30%);
+        border-color: darken($base, 30%);
     }
 
     @include disabled-state {
         background: $base;
         border-color: $base;
-        box-shadow: none;
-        text-shadow: none;
-        top: 0;
-        opacity: $disabled-opacity;
     }
 
     @content;
@@ -78,11 +70,20 @@ mark { background: tint($warning-light, 25%); }
 
 .button {
     color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px black(.2);
     @include transition(all .2s);
     @include button-style($default, $default-light, $default-dark);
 
     &:active {
         top: 1px;
+    }
+
+    @include disabled-state {
+        box-shadow: none;
+        text-shadow: none;
+        top: 0;
+        opacity: $disabled-opacity;
     }
 
     &.is-info { @include button-style($info, $info-light, $info-dark); }
@@ -165,6 +166,15 @@ mark { background: tint($warning-light, 25%); }
     }
 }
 
+//-------------------- InputGroup --------------------//
+
+.input-group {
+    > .input,
+    > .input-addon,
+    > .button,
+    > .button-group .button { height: 46px; }
+}
+
 //-------------------- Label --------------------//
 
 @mixin label-style($bg, $text) {
@@ -241,12 +251,12 @@ mark { background: tint($warning-light, 25%); }
 @mixin notice-style($bg, $text) {
     color: $text;
     background: $bg;
-    border: 1px solid shade($bg, 10%);
+    border: 1px solid darken($bg, 10%);
 
-    hr { border-color: shade($bg, 10%); }
+    hr { border-color: darken($bg, 10%); }
 
-    a { color: shade($text, 10%); }
-    a:hover { color: tint($text, 25%); }
+    a { color: darken($text, 10%); }
+    a:hover { color: lighten($text, 25%); }
 
     @content;
 }
@@ -327,7 +337,7 @@ mark { background: tint($warning-light, 25%); }
 @mixin progress-style($bg, $border) {
     background: $bg;
     text-shadow: 1px 1px $border;
-    border: 1px solid tint($border, 35%);
+    border: 1px solid lighten($border, 35%);
 
     @content;
 }

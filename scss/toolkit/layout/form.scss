@@ -48,7 +48,9 @@ label,
 //-------------------- Inputs --------------------//
 
 .input,
-.input-static {
+.input-static,
+.radio,
+.checkbox {
     @include reset-inline-block;
     border: 1px solid $gray-dark;
     font-size: $medium-size;
@@ -81,34 +83,38 @@ label,
     }
 }
 
-.input-static {
+.input-static,
+.radio,
+.checkbox {
     background: transparent;
     border-color: transparent;
     padding-left: 0;
     padding-right: 0;
 }
 
-select.input { padding: $medium-padding - .05; } // fixes vertical alignment
-select.input[multiple] { min-height: 150px; max-height: 500px; }
-
-textarea.input {
-    line-height: 135%;
-    min-height: 150px;
-}
-
 .radio,
 .checkbox {
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
+    padding: 0;
 
     input[type="checkbox"],
     input[type="radio"] {
         vertical-align: middle;
         position: relative;
         top: -1px;
-        margin-right: 3px;
+        margin-right: 5px;
     }
+}
+
+select.input { padding: $medium-padding - .05rem; } // fixes vertical alignment
+
+select.input[multiple] {
+    min-height: 150px;
+    max-height: 500px;
+}
+
+textarea.input {
+    line-height: 135%;
+    min-height: 150px;
 }
 
 //-------------------- Fields, Labels --------------------//
@@ -119,21 +125,9 @@ textarea.input {
     &.is-required {
         .field-label { font-weight: bold; }
     }
+}
 
-    &.is-info {
-        .input,
-        .select {
-            border-color: $info;
-
-            &:focus { box-shadow: 0 0 5px $info-light; }
-        }
-
-        .radio,
-        .checkbox {
-            color: $info-dark;
-        }
-    }
-
+.field:not(.is-disabled) {
     &.is-error {
         .input,
         .select {
@@ -145,20 +139,6 @@ textarea.input {
         .radio,
         .checkbox {
             color: $error-dark;
-        }
-    }
-
-    &.is-warning {
-        .input,
-        .select {
-            border-color: $warning;
-
-            &:focus { box-shadow: 0 0 5px $warning-light; }
-        }
-
-        .radio,
-        .checkbox {
-            color: $warning-dark;
         }
     }
 
@@ -212,10 +192,16 @@ textarea.input {
     .form-actions {
         display: inline-block;
         vertical-align: middle;
+        line-height: normal;
         margin-right: $margin;
         margin-bottom: $margin / 2;
     }
 
     .field-label { margin: 0 ($margin / 2) 0 0; }
     .field-help { display: none; }
+
+    .radio,
+    .checkbox {
+        padding: $medium-padding 0;
+    }
 }

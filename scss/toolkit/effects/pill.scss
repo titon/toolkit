@@ -33,16 +33,18 @@
 .button-group.button-group--vertical.pill {
     border-radius: $pill;
 
-    .button { border-radius: 0; }
-
     > li:first-child .button,
     > .button:first-child {
         border-top-left-radius: $pill;
         border-top-right-radius: $pill;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     > li:last-child .button,
     > .button:last-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
         border-bottom-left-radius: $pill;
         border-bottom-right-radius: $pill;
     }

@@ -53,6 +53,7 @@
 // Contains active styles (on self or inherited from parent)
 @mixin active-state {
     .is-active > &,
+    .is-active > li > &,
     &.is-active,
     &.is-active:hover { @content; }
 }
@@ -60,6 +61,7 @@
 // Contains disabled styles (on self or inherited from parent)
 @mixin disabled-state {
     .is-disabled > &,
+    .is-disabled > li > &,
     &.is-disabled,
     &.is-disabled:hover,
     &[disabled],

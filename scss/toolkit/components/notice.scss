@@ -28,8 +28,12 @@
 .notice-close {
     float: right;
     margin-left: $margin;
+    line-height: 1rem;
+    opacity: $default-opacity;
+    padding: 5px;
 
     & ~ p { margin: 0; }
+    &:hover { opacity: 1; }
 }
 
 .notice-title {

@@ -26,3 +26,35 @@
 .icon--90deg { @include transform(rotate(90deg)); }
 .icon--180deg { @include transform(rotate(180deg)); }
 .icon--270deg { @include transform(rotate(270deg)); }
+.icon--flip { @include transform(rotateY(180deg)); }
+.icon--flip-vert { @include transform(rotateX(180deg)); }
+
+@-webkit-keyframes rotate {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes rotate {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.icon--rotate {
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: $icon-animation;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: $icon-animation;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: rotate;
+    animation-duration: $icon-animation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

@@ -150,18 +150,38 @@ $components = array(
         )
     ),
     'form' => array(
-        'title' => 'Form & Input Group',
-        'css' => array('layout/form.css', 'layout/input-group.css')
+        'title' => 'Form',
+        'css' => array('layout/form.css'),
+        'filters' => array(
+            'state' => array('title' => 'State', 'data' => array('' => 'Default', 'is-error' => 'Error', 'is-success' => 'Success')),
+            'required' => array('title' => 'Required?', 'type' => 'boolean', 'default' => false),
+            'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
+        )
     ),
     'grid' => array(
-        'title' => 'Grid & Responsive',
-        'css' => array('layout/grid.css', 'layout/responsive.css')
+        'title' => 'Grid',
+        'css' => array('layout/grid.css')
     ),
     'icon' => array(
         'title' => 'Icon',
         'css' => array('components/icon.css'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', '90deg' => 'Rotate 90', '180deg' => 'Rotate 180', '270deg' => 'Rotate 270'))
+            'modifier' => array('title' => 'Modifier', 'data' => array(
+                '' => '-- None --',
+                '90deg' => 'Rotate 90',
+                '180deg' => 'Rotate 180',
+                '270deg' => 'Rotate 270',
+                'rotate' => 'Rotate Animation',
+                'flip' => 'Flip Horizontal',
+                'flip-vert' => 'Flip Vertical'
+            ))
+        )
+    ),
+    'input-group' => array(
+        'title' => 'Input Group',
+        'css' => array('components/input-group.css'),
+        'filters' => array(
+            'round' => array('title' => 'Round?', 'type' => 'boolean')
         )
     ),
     'label' => array(
@@ -232,7 +252,7 @@ $components = array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'grouped' => 'Grouped')),
             'size' => array('title' => 'Size', 'data' => $sizes),
             'state' => array('title' => 'State', 'data' => $states),
-            'shape' => array('title' => 'Shape', 'data' => $shapes),
+            'shape' => array('title' => 'Shape (Grouped)', 'data' => $shapes),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5),
         )
     ),
@@ -271,8 +291,12 @@ $components = array(
         'filters' => array(
             'size' => array('title' => 'Size', 'data' => $sizes),
             'state' => array('title' => 'State', 'data' => $states),
-            'width' => array('title' => 'Width', 'type' => 'number')
+            'width' => array('title' => 'Width', 'type' => 'number', 'default' => 55)
         )
+    ),
+    'responsive' => array(
+        'title' => 'Responsive',
+        'css' => array('layout/responsive.css')
     ),
     'showcase' => array(
         'title' => 'Showcase',
@@ -419,7 +443,7 @@ if ($vendor === 'mootools') {
             <ul class="example-form example-filters">
                 <?php if (!empty($component['filters'])) {
                     foreach ($component['filters'] as $name => $filter) {
-                        $default = isset($filter['default']) ? $filter['default'] : null; ?>
+                        $default = isset($filter['default']) ? $filter['default'] : ''; ?>
 
                         <li>
                             <label for="<?php echo $name; ?>"><?php echo $filter['title']; ?></label>

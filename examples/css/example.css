@@ -42,5 +42,10 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 
 .example-lazy-load { width: 200px; height: 200px; margin: 10px auto; }
 
+.example-responsive { width: 100%; }
+.example-responsive td { padding: 10px; color: #fff; border: 5px solid #fff; }
+.example-responsive td[class*="show"] { background: forestgreen; }
+.example-responsive td[class*="hide"] { background: indianred; }
+
 .matrix > li { float: left; margin: 0 20px 20px 0; background: #f8f8f8; border: 1px solid #e5e5e5; color: #000; padding: 5px; }
 .matrix.no-columns > li { width: 100%; float: none; margin-right: 0; }

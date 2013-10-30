@@ -1,4 +1,3 @@
-<div class="example-title">Grid</div>
 
 <div class="grid example-grid">
     <div class="col span-1">1</div>
@@ -212,37 +211,4 @@
         Global: 58%, 8% push<br>
         Desktop: 41%
     </div>
-</div>
-
-<div class="example-title">Responsive Visibility</div>
-
-<div class="grid example-grid">
-    <div class="col span-4 show-mobile" style="color: red">Visible in mobile</div>
-    <div class="col span-4 show-tablet" style="color: blue">Visible in tablets</div>
-    <div class="col span-4 show-desktop" style="color: green">Visible in desktops</div>
-</div>
-
-<div class="grid example-grid">
-    <div class="col span-4 hide-mobile" style="color: red">Hidden in mobile</div>
-    <div class="col span-4 hide-tablet" style="color: blue">Hidden in tablets</div>
-    <div class="col span-4 hide-desktop" style="color: green">Hidden in desktops</div>
-</div>
-
-<div class="row example-grid">
-    <div class="col span-4 show-small" style="color: red">Visible in small</div>
-    <div class="col span-4 show-medium" style="color: blue">Visible in medium</div>
-    <div class="col span-4 show-large" style="color: green">Visible in large</div>
-</div>
-
-<div class="row example-grid">
-    <div class="col span-4 hide-small" style="color: red">Hidden in small</div>
-    <div class="col span-4 hide-medium" style="color: blue">Hidden in medium</div>
-    <div class="col span-4 hide-large" style="color: green">Hidden in large</div>
-</div>
-
-<div class="grid example-grid">
-    <div class="col span-4 hide-landscape" style="color: red">Hidden in landscape</div>
-    <div class="col span-4 hide-portrait" style="color: blue">Hidden in portrait</div>
-    <div class="col span-4 show-landscape" style="color: red">Visible in landscape</div>
-    <div class="col span-4 show-portrait" style="color: blue">Visible in portrait</div>
 </div>

@@ -70,6 +70,6 @@
 .x {
     @include reset-inline-block;
     color: $foreground-color;
-    font: bold 1.5rem/100% Arial, sans-serif;
+    font: bold 1.5rem/1rem Arial, sans-serif;
     text-transform: uppercase;
 }
