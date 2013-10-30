@@ -6,16 +6,11 @@
 
 @import "../common";
 
-.accordion,
-.accordion > li {
+.accordion {
     list-style: none;
     text-align: left;
     margin: 0;
     padding: 0;
-}
-
-.accordion {
-    border: 1px solid $gray-dark;
 }
 
 .accordion-head {
@@ -31,19 +26,17 @@
     }
 }
 
-// Style this
 .accordion-body {
     padding: $padding;
 
     @include content-spacing;
 }
 
-// Inner is used for animations, do not style it!
+// Handle is used for animations, do not style it!
 .accordion-handle {
     overflow: hidden;
     position: relative;
     @include transition(all $accordion-transition ease-in-out);
 
-    &.show { height: auto; }
     &.hide { max-height: 0; } // don't include on base styles
 }

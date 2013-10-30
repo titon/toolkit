@@ -35,10 +35,14 @@ mark { background: lighten($warning-light, 25%); }
 .accordion-head {
     @include transition(all .15s);
 
+    &:hover { background-color: $gray-light; }
+
     .is-active & {
         background: $info;
         border-color: $info-dark;
         color: #fff;
+
+        &:hover { background-color: lighten($info, 5%); }
     }
 }
 

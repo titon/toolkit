@@ -105,14 +105,12 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
         var options = this.options,
             parent = node.parent(), // li
             section = node.next(options.contentElement), // section
-            index = node.data('index');
-
-        // If we don't double the height the animation won't occur
-        var height = section.data('height') * 2;
+            index = node.data('index'),
+            height = parseInt(section.data('height'));
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
-        if (options.multiple || (options.collapsible && this.node === node)) {
+        if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node && this.node[0] === node[0]))) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal();
                 parent.removeClass('is-active');
@@ -186,14 +184,12 @@ $.fn.accordion = function(options) {
 };
 
 $.fn.accordion.options = {
-    className: '',
     mode: 'click',
     defaultIndex: 0,
     multiple: false,
     collapsible: false,
     headerElement: '.accordion-head',
-    contentElement: '.accordion-handle',
-    template: false
+    contentElement: '.accordion-handle'
 };
 
 })(jQuery);

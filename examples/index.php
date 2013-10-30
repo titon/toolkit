@@ -61,9 +61,8 @@ $components = array(
         'css' => 'components/accordion.css',
         'js' => array('components/Accordion.js'),
         'filters' => array(
-            'className' => array('title' => 'Class', 'type' => 'text'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover')),
-            'defaultIndex' => array('title' => 'Default Index', 'type' => 'number'),
+            'defaultIndex' => array('title' => 'Default Index', 'type' => 'number', 'default' => 0),
             'multiple' => array('title' => 'Multiple?', 'type' => 'boolean'),
             'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean')
         )

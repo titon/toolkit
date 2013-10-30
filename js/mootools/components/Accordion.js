@@ -124,14 +124,12 @@ Titon.Accordion = new Class({
         var options = this.options,
             parent = node.getParent(), // li
             section = node.getNext(options.contentElement), // section
-            index = node.get('data-index');
-
-        // If we don't double the height the animation won't occur
-        var height = section.get('data-height') * 2;
+            index = node.get('data-index'),
+            height = parseInt(section.get('data-height'));
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
-        if (options.multiple || (options.collapsible && this.node === node)) {
+        if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node === node))) {
             if (section.isShown() && this.node) {
                 section.setStyle('max-height', 0).conceal();
                 parent.removeClass('is-active');
