@@ -104,7 +104,6 @@ $components = array(
         'css' => array('components/carousel.css'),
         'js' => array('components/Carousel.js'),
         'filters' => array(
-            'className' => array('title' => 'Class', 'type' => 'text'),
             'animation' => array('title' => 'Animation', 'data' => array('slide' => 'Slide', 'slide-up' => 'Slide Up', 'fade' => 'Fade')),
             'duration' => array('title' => 'Duration', 'type' => 'number', 'default' => 5000),
             'autoCycle' => array('title' => 'Auto Cycle?', 'type' => 'boolean', 'default' => true),

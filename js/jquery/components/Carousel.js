@@ -323,7 +323,6 @@ $.fn.carousel = function(options) {
 };
 
 $.fn.carousel.options = {
-    className: '',
     animation: 'slide',
     duration: 5000,
     autoCycle: true,
@@ -333,8 +332,7 @@ $.fn.carousel.options = {
     tabsElement: '.carousel-tabs',
     tabElement: 'a',
     nextElement: '.carousel-next',
-    prevElement: '.carousel-prev',
-    template: false
+    prevElement: '.carousel-prev'
 };
 
 })(jQuery);

@@ -7,27 +7,30 @@
 @import "../common";
 
 .carousel {
-    // 16:9
+    /* 16:9 ratio */
+    padding-bottom: 56.25%;
     max-width: 640px;
     max-height: 360px;
+    //max-width: 1280px;
+    //max-height: 720px;
     width: 100%;
-    height: auto;
     margin: 0 auto;
     text-align: left;
     position: relative;
-    overflow: hidden;
+    background-color: $gray;
 }
 
 .carousel-items {
     list-style: none;
     margin: 0;
     padding: 0;
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: auto;
     z-index: 1;
+    overflow: hidden;
     @include transition(left $carousel-transition, top $carousel-transition);
 
     > li {
@@ -35,7 +38,6 @@
         width: 100%;
         height: auto;
         z-index: 1;
-        display: block;
 
         > img {
             display: block;
@@ -135,18 +137,17 @@
 
 .carousel.slide {
     .carousel-items {
-        @include clear-fix;
+        white-space: nowrap;
 
         > li {
-            float: left;
+            display: inline-block;
+            margin-right: -5px;
         }
     }
 }
 
 .carousel.fade {
     .carousel-items {
-        padding-bottom: 56.25%; /* 16:9 ratio */
-
         > li {
             position: absolute;
             top: 0;

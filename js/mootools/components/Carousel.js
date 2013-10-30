@@ -105,8 +105,8 @@ Titon.Carousel = new Class({
                 this.items[0].reveal();
             break;
             case 'slide':
-                this.itemsWrapper.setStyle('width', (this.items.length * 100) + '%');
-                this.items.setStyle('width', (100 / this.items.length) + '%');
+                //this.itemsWrapper.setStyle('width', (this.items.length * 100) + '%');
+                //this.items.setStyle('width', (100 / this.items.length) + '%');
             break;
         }
 
@@ -278,7 +278,7 @@ Titon.Carousel = new Class({
 
         // Set height since items are absolute positioned
         if (this.options.animation !== 'slide') {
-            this.itemsWrapper.setStyle('height', size.y + 'px');
+            //this.itemsWrapper.setStyle('height', size.y + 'px');
         }
 
         return this;
