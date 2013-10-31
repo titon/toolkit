@@ -8,5 +8,5 @@
 
 .lazy-load {
     background-image: none !important;
-    @include transition(background-image $lazyLoad-transition);
+    @include transition(background $lazyLoad-transition);
 }

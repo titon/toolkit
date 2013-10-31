@@ -41,6 +41,23 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
 
         this.elementBody = this.element.find(options.contentElement);
 
+        // Draggable
+        if (this.options.draggable && $.ui && $.ui.draggable) {
+            this.drag = this.element.draggable({
+                appendTo: 'body',
+                containment: 'window',
+                cursor: 'grabbing',
+                start: function(e, ui) {
+                    ui.helper.addClass('is-dragging');
+                },
+                stop: function(e, ui) {
+                    ui.helper.removeClass('is-dragging');
+                }
+            });
+
+            this.element.addClass('is-draggable');
+        }
+
         // Blackout
         if (options.blackout) {
             this.blackout = new Titon.Blackout();
@@ -135,7 +152,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             options.ajax = false;
 
         } else if (node) {
-            content = this.readValue(node, options.getContent) || node.attr('href');
+            content = node.attr('href') || this.readValue(node, options.getContent);
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;
@@ -295,11 +312,11 @@ $.fn.modal.options = {
     closeEvent: '.modal-event-close',
     submitEvent: '.modal-event-submit',
     template: '<div class="modal">' +
-        '<div class="modal-outer">' +
+        '<div class="modal-handle">' +
             '<div class="modal-inner"></div>' +
-            '<button type="button" class="close modal-event-close">' +
+            '<a href="javascript:;" class="modal-close modal-event-close">' +
                 '<span class="x">&times;</span>' +
-            '</button>' +
+            '</a>' +
         '</div>' +
     '</div>'
 };

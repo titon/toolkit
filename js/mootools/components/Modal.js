@@ -34,11 +34,11 @@ Titon.Modal = new Class({
         closeEvent: '.modal-event-close',
         submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
-            '<div class="modal-outer">' +
+            '<div class="modal-handle">' +
                 '<div class="modal-inner"></div>' +
-                '<button type="button" class="close modal-event-close">' +
+                '<a href="javascript:;" class="modal-close modal-event-close">' +
                     '<span class="x">&times;</span>' +
-                '</button>' +
+                '</a>' +
             '</div>' +
         '</div>',
 
@@ -173,7 +173,7 @@ Titon.Modal = new Class({
             options.ajax = false;
 
         } else if (node) {
-            content = this.readValue(node, options.getContent) || node.get('href');
+            content = node.get('href') || this.readValue(node, options.getContent);
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;

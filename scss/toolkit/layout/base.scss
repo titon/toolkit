@@ -46,6 +46,7 @@
 // Styles
 .round { border-radius: $round; }
 .is-draggable { cursor: move; }
+.is-dragging { cursor: grabbing; }
 .is-disabled,
 [disabled] { cursor: not-allowed !important; }
 
