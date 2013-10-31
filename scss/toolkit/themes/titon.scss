@@ -255,8 +255,8 @@ mark { background: lighten($warning-light, 25%); }
 
 @mixin notice-style($bg, $text) {
     color: $text;
-    background: $bg;
-    border: 1px solid darken($bg, 10%);
+    background: lighten($bg, 5%);
+    border: 1px solid $bg;
 
     hr { border-color: darken($bg, 10%); }
 

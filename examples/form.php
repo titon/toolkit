@@ -5,9 +5,6 @@ $disabled = value('disabled', false);
 if (value('required')) {
     $classes[] = 'is-required';
 }
-if ($disabled) {
-    $classes[] = 'is-disabled';
-}
 
 $classes = implode(' ', array_filter($classes)); ?>
 
@@ -235,3 +232,4 @@ $classes = implode(' ', array_filter($classes)); ?>
 <select class="input"><option>Select</option></select>
 <button type="Button" class="button">Button</button>
 <a href="javascript:;" class="button">Anchor</a>
+<input type="submit" class="button" value="Input">
