@@ -208,7 +208,6 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
         this.show(e.target);
     };
 
-    // Initialize the class only if the element exists
     if (this.element.length) {
         this.initialize();
     }

@@ -104,7 +104,6 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
         }
     };
 
-    // Initialize the class only if elements exists
     this.initialize();
 });
 

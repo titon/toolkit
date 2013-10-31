@@ -25,7 +25,6 @@ Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
     /** Cached requests */
     this.cache = {};
 
-    // Initialize class
     this.initialize();
 });
 

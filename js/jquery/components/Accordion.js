@@ -156,7 +156,6 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
         this.show(e.currentTarget);
     };
 
-    // Initialize the class only if the element exists
     if (this.element.length) {
         this.initialize();
     }

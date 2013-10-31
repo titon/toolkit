@@ -411,7 +411,6 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         this.show(e.currentTarget);
     };
 
-    // Initialize the class only if the element exists
     this.initialize();
 });
 

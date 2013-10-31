@@ -239,7 +239,6 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
         this.show(node);
     };
 
-    // Initialize the class only if the element exists
     this.initialize();
 });
 

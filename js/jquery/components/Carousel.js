@@ -295,7 +295,6 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         this.jump($(e.target).data('index') || 0);
     };
 
-    // Initialize the class only if the element exists
     if (this.element.length) {
         this.initialize();
     }

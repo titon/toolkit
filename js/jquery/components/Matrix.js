@@ -377,7 +377,6 @@ Titon.Matrix = Titon.Component.create(function(element, options) {
         }
     };
 
-    // Initialize the class only if the element exists
     if (this.element.length) {
         this.initialize();
     }

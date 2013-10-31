@@ -483,7 +483,6 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
         this.show(node);
     };
 
-    // Initialize the class only if the element exists
     this.initialize();
 });
 

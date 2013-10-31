@@ -166,7 +166,6 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
         return this;
     };
 
-    // Initialize the class only if elements exists
     if (this.elements.length) {
         this.initialize();
     }

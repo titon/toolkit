@@ -70,7 +70,6 @@ Titon.Blackout = Titon.Component.create(function(options) {
         return this;
     };
 
-    // Initialize the class only if the element exists
     this.initialize();
 });
 

@@ -112,7 +112,6 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         this.fireEvent('scroll');
     };
 
-    // Initialize the class only if the element exists
     if (this.element.length) {
         this.initialize();
     }

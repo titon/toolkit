@@ -562,7 +562,6 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
         this.hide();
     };
 
-    // Initialize the class only if the element exists
     if (this.input.length) {
         this.initialize();
     }
