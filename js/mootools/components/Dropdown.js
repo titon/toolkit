@@ -7,12 +7,13 @@
 (function() {
     'use strict';
 
-Titon.Toggle = new Class({
+Titon.Dropdown = new Class({
     Extends: Titon.Component,
 
     /** Default options */
     options: {
-        getTarget: 'data-toggle',
+        delegate: '.js-dropdown',
+        getTarget: 'data-dropdown',
         hideOpened: true
     },
 
@@ -35,7 +36,7 @@ Titon.Toggle = new Class({
     /**
      * Hide the element and toggle node active state.
      *
-     * @returns {Titon.Toggle}
+     * @returns {Titon.Dropdown}
      */
     hide: function() {
         return this.parent(function() {
@@ -46,7 +47,7 @@ Titon.Toggle = new Class({
     /**
      * Show the element and toggle node active state.
      *
-     * @returns {Titon.Toggle}
+     * @returns {Titon.Dropdown}
      */
     show: function(node) {
         this.parent(node);
@@ -78,11 +79,13 @@ Titon.Toggle = new Class({
             return;
         }
 
+        // Hide previous dropdowns
         if (this.options.hideOpened && this.node && this.node !== node) {
             this.hide();
         }
 
         this.setElement(target);
+        this.node = node;
 
         if (!this.isVisible()) {
             this.show(node);
@@ -104,13 +107,13 @@ Titon.Toggle = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Toggle}
+ * @returns {Titon.Dropdown}
  */
 Elements.implement('dropdown', function(options) {
     options = options || {};
     options.delegate = options.delegate || '.js-dropdown';
 
-    var dropdown = new Titon.Toggle(this, options);
+    var dropdown = new Titon.Dropdown(this, options);
 
     return this.each(function(el) {
         if (!el.$dropdown) {

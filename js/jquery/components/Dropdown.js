@@ -7,12 +7,12 @@
 (function($) {
     'use strict';
 
-Titon.Toggle = Titon.Component.create(function(nodes, options) {
+Titon.Dropdown = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.toggle.options, options);
+    this.options = this.setOptions($.fn.dropdown.options, options);
 
-    /** List of elements to active toggle */
+    /** List of elements to active dropdown */
     this.nodes = $(nodes);
 
     /** Element to toggle */
@@ -37,7 +37,7 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
     /**
      * Hide the opened element and remove active state.
      *
-     * @returns {Titon.Toggle}
+     * @returns {Titon.Dropdown}
      */
     this.hide = function() {
         if (this.element.is(':shown')) {
@@ -54,7 +54,7 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
      * Open the target element and apply active state.
      *
      * @param {jQuery} node
-     * @returns {Titon.Toggle}
+     * @returns {Titon.Dropdown}
      */
     this.show = function(node) {
         this.element.reveal();
@@ -89,11 +89,13 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
             return;
         }
 
-        if (this.options.hideOpened && this.node && this.node.get(0) !== node.get(0)) {
+        // Hide previous dropdowns
+        if (this.options.hideOpened && this.node && this.node[0] !== node[0]) {
             this.hide();
         }
 
         this.element = $(target);
+        this.node = node;
 
         if (!this.element.is(':shown')) {
             this.show(node);
@@ -120,7 +122,7 @@ Titon.Toggle = Titon.Component.create(function(nodes, options) {
  * @returns {jQuery}
  */
 $.fn.dropdown = function(options) {
-    var dropdown = new Titon.Toggle(this, options);
+    var dropdown = new Titon.Dropdown(this, options);
 
     return this.each(function() {
         if (!this.$dropdown) {
@@ -129,10 +131,10 @@ $.fn.dropdown = function(options) {
     });
 };
 
-$.fn.toggle.options = {
+$.fn.dropdown.options = {
     mode: 'click',
     context: null,
-    getTarget: 'data-toggle',
+    getTarget: 'data-dropdown',
     hideOpened: true
 };
 

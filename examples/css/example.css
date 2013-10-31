@@ -27,6 +27,8 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example-title { background: rgba(0, 0, 0, .5); color: #fff; margin: 25px -25px; padding: 15px 25px; font-size: 1.5rem; }
 .example-title:first-child { margin-top: -25px; }
 
+.example-center { text-align: center; padding: 100px; }
+
 .intro { padding: 0 50px 50px 0; }
 
 /*-------- Components --------*/

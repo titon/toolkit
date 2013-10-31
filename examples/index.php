@@ -124,11 +124,20 @@ $components = array(
     'dropdown' => array(
         'title' => 'Dropdown',
         'css' => array('components/dropdown.css'),
-        'js' => array('components/Toggle.js'),
+        'js' => array('components/Dropdown.js'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'right' => 'Right Align', 'top' => 'Top Align')),
+            'modifier' => array('title' => 'Modifier', 'data' => array(
+                '' => '-- None --',
+                'top' => 'Top Align',
+                'right' => 'Right Align',
+                'left' => 'Left Align'
+            )),
+            'align' => array('title' => 'Alignment', 'data' => array(
+                '' => '-- None --',
+                'push' => 'Push (Horizontal)',
+                'pull' => 'Pull (Vertical)'
+            )),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover')),
-            'getTarget' => array('title' => 'Target From', 'type' => 'text', 'default' => 'data-toggle'),
             'hideOpened' => array('title' => 'Hide Other Opened?', 'type' => 'boolean', 'default' => true)
         )
     ),

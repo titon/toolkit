@@ -78,18 +78,33 @@
 }
 
 .dropdown-heading {
-    font-weight: bold;
     padding: $small-padding;
+    background-color: $gray-dark;
 }
 
 //-------------------- Modifiers --------------------//
 
+.dropdown.dropdown--top {
+    top: auto;
+    bottom: 100%;
+}
+
 .dropdown.dropdown--right {
+    top: auto;
+    left: 100%;
+}
+
+.dropdown.dropdown--left {
+    top: auto;
+    left: auto;
+    right: 100%;
+}
+
+.dropdown.dropdown--push {
     left: auto;
     right: 0;
 }
 
-.dropdown.dropdown--top {
-    top: auto;
-    bottom: 100%;
+.dropdown.dropdown--pull {
+    bottom: 0;
 }
