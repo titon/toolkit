@@ -104,7 +104,7 @@ Titon.Tooltip = new Class({
 
             this.fireEvent('show');
 
-            // Position accordingly
+        // Position accordingly
         } else {
             this.element.positionTo(options.position, this.node, {
                 left: options.xOffset,

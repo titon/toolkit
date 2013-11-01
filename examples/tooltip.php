@@ -1,13 +1,16 @@
 
-<a href="ajax/tooltip.php" class="button js-tooltip" data-tooltip="This content is read from the data-tooltip attribute.">Show Tooltip</a>
-<a href="ajax/tooltip.php?slow" class="button js-tooltip" title="Tooltip Title" data-tooltip="#hidden">Show Tooltip w/ Title</a>
+<div class="example-center">
+    <a href="ajax/tooltip.php" class="button js-tooltip" data-tooltip="This content is read from the data-tooltip attribute.">Show Tooltip</a>
+    <a href="ajax/tooltip.php?slow" class="button js-tooltip" title="Tooltip Title" data-tooltip="#hidden">Show Tooltip w/ Title</a>
 
-<div id="hidden" style="display: none">This content is loaded from a hidden DOM element.</div>
+    <div id="hidden" style="display: none">This content is loaded from a hidden DOM element.</div>
+</div>
 
 <script type="text/javascript">
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-tooltip').tooltip({
+                animation: <?php string('animation'); ?>,
                 mode: <?php string('mode', 'hover'); ?>,
                 ajax: <?php bool('ajax', false); ?>,
                 follow: <?php bool('follow', false); ?>,
@@ -24,6 +27,7 @@
     <?php } else { ?>
         $(function() {
             $('.js-tooltip').tooltip({
+                animation: <?php string('animation'); ?>,
                 mode: <?php string('mode', 'hover'); ?>,
                 ajax: <?php bool('ajax', false); ?>,
                 follow: <?php bool('follow', false); ?>,

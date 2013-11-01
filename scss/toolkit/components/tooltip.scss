@@ -94,7 +94,7 @@
 
     &.flip-rotate {
         @include transition(transform $tooltip-transition);
-        @include transform(rotate(-90deg));
+        @include transform(rotate(-15deg));
 
         &.show {
             @include transform(rotate(0deg));

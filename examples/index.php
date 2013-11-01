@@ -286,6 +286,14 @@ $components = array(
         'js' => array('components/Tooltip.js', 'components/Popover.js'),
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
+            'animation' => array('title' => 'Animation', 'data' => array(
+                '' => '-- None -- ',
+                'fade' => 'Fade',
+                'from-above' => 'From Above',
+                'from-below' => 'From Below',
+                'flip-rotate' => 'Flip Rotate',
+                'slide-in' => 'Slide In'
+            )),
             'position' => array('title' => 'Position', 'data' => array(
                 'topLeft' => 'Top Left',
                 'topCenter' => 'Top Center',
@@ -295,7 +303,7 @@ $components = array(
                 'bottomLeft' => 'Bottom Left',
                 'bottomCenter' => 'Bottom Center',
                 'bottomRight' => 'Bottom Right'
-            )),
+            ), 'default' => 'topRight'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
@@ -358,6 +366,14 @@ $components = array(
         'js' => array('components/Tooltip.js'),
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
+            'animation' => array('title' => 'Animation', 'data' => array(
+                '' => '-- None -- ',
+                'fade' => 'Fade',
+                'from-above' => 'From Above',
+                'from-below' => 'From Below',
+                'flip-rotate' => 'Flip Rotate',
+                'slide-in' => 'Slide In'
+            )),
             'position' => array('title' => 'Position', 'data' => array(
                 'topLeft' => 'Top Left',
                 'topCenter' => 'Top Center',
@@ -367,7 +383,7 @@ $components = array(
                 'bottomLeft' => 'Bottom Left',
                 'bottomCenter' => 'Bottom Center',
                 'bottomRight' => 'Bottom Right'
-            )),
+            ), 'default' => 'topRight'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
             'mouseThrottle' => array('title' => 'Mouse Throttle', 'type' => 'number', 'default' => 50),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
