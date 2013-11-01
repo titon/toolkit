@@ -11,7 +11,7 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example { padding: 25px; }
 .example > *:first-child { margin-top: 0; }
 
-.example-form { margin: 0; padding: 0; list-style: none; background: #000; color: #ccc; width: 100%; z-index: 9999; }
+.example-form { margin: 0; padding: 0; list-style: none; background: rgba(0, 0, 0, .8); color: #ccc; width: 100%; z-index: 100; }
 .example-form li { display: inline-block; padding: 5px; }
 .example-form input { border: none; border-radius: 2px; padding: 3px; }
 .example-form input[type="text"] { width: 6rem; }

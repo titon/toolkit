@@ -11,7 +11,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>
+                showLoading: <?php bool('showLoading', true); ?>,
+                fullScreen: <?php bool('fullScreen', false); ?>
             });
         });
     <?php } else { ?>
@@ -22,7 +23,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>
+                showLoading: <?php bool('showLoading', true); ?>,
+                fullScreen: <?php bool('fullScreen', false); ?>
             });
         });
     <?php } ?>

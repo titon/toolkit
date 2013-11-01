@@ -244,6 +244,7 @@ $components = array(
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
+            'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
             'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
         )
@@ -512,7 +513,9 @@ if ($vendor === 'mootools') {
 
         <form action="" method="get">
             <ul class="example-form example-switcher">
-                <li class="resolution"><span id="width"></span>x<span id="height"></span></li>
+                <li class="resolution">
+                    <span id="res-width"></span>x<span id="res-height"></span>
+                </li>
                 <li>
                     <label for="component">Component</label>
                     <select name="component" id="component">
@@ -553,15 +556,15 @@ if ($vendor === 'mootools') {
     <script>
         <?php if ($vendor === 'mootools') { ?>
             function resize() {
-                $('width').set('html', window.getWidth());
-                $('height').set('html', window.getHeight());
+                $('res-width').set('html', window.getWidth());
+                $('res-height').set('html', window.getHeight());
             }
 
             window.addEvent('domready', resize).addEvent('resize', resize);
         <?php } else { ?>
             function resize() {
-                $('#width').html($(window).width());
-                $('#height').html($(window).height());
+                $('#res-width').html($(window).width());
+                $('#res-height').html($(window).height());
             }
 
             $(document).ready(resize);

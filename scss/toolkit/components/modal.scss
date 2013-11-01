@@ -66,6 +66,19 @@
     @include content-spacing;
 }
 
+//-------------------- Modifiers --------------------//
+
+.modal.modal--fullscreen {
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    max-width: 100%;
+    max-height: auto;
+    border-radius: 0;
+    @include transform(translateX(0) translateY(0));
+}
+
 //-------------------- Animations --------------------//
 
 .modal {

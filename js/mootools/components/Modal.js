@@ -28,6 +28,7 @@ Titon.Modal = new Class({
         draggable: false,
         blackout: true,
         showLoading: true,
+        fullScreen: false,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
         closeElement: '.modal-close',
@@ -56,6 +57,11 @@ Titon.Modal = new Class({
         this.parent(options);
         this.setNodes(elements);
         this.createElement();
+
+        if (this.options.fullScreen) {
+            this.element.addClass('modal--fullscreen');
+            this.options.draggable = false;
+        }
 
         // Get elements
         this.elementBody = this.element.getElement(this.options.contentElement);
@@ -136,6 +142,10 @@ Titon.Modal = new Class({
         if (!this.isVisible()) {
             if (this.options.blackout) {
                 this.blackout.show();
+            }
+
+            if (this.options.fullScreen) {
+                this.element.getElement('.modal-handle').setStyle('min-height', window.getHeight());
             }
 
             this.element.reveal();

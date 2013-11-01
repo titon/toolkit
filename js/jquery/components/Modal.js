@@ -27,6 +27,9 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
     /** Blackout instance if options.blackout is true */
     this.blackout = null;
 
+    /** Drag instance if options.draggable is true */
+    this.drag = null;
+
     /** Cache requests */
     this.cache = {};
 
@@ -39,10 +42,15 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
     this.initialize = function() {
         var options = this.options;
 
+        if (options.fullScreen) {
+            this.element.addClass('modal--fullscreen');
+            options.draggable = false;
+        }
+
         this.elementBody = this.element.find(options.contentElement);
 
         // Draggable
-        if (this.options.draggable && $.ui && $.ui.draggable) {
+        if (options.draggable && $.ui && $.ui.draggable) {
             this.drag = this.element.draggable({
                 appendTo: 'body',
                 containment: 'window',
@@ -115,6 +123,10 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         if (!this.element.is(':shown')) {
             if (this.options.blackout) {
                 this.blackout.show();
+            }
+
+            if (this.options.fullScreen) {
+                this.element.find('.modal-handle').css('min-height', $(window).height());
             }
 
             this.element.reveal();
@@ -306,6 +318,7 @@ $.fn.modal.options = {
     draggable: false,
     blackout: true,
     showLoading: true,
+    fullScreen: false,
     getContent: 'data-modal',
     contentElement: '.modal-inner',
     closeElement: '.modal-close',
