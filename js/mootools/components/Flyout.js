@@ -399,7 +399,7 @@ Titon.Flyout = new Class({
         // Alter width because of columns
         var children = menu.getChildren('ul');
 
-        menu.setStyle('width', (children.getWidth() * children.length) + 'px');
+        menu.setStyle('width', (children.getWidth()[0] * children.length) + 'px');
 
         // Get sizes after menu positioning
         var windowScroll = window.getScrollSize(),

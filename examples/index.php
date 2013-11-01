@@ -148,11 +148,10 @@ $components = array(
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
-            'getUrl' => array('title' => 'URL From', 'type' => 'text', 'default' => 'href'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
-            'showDelay' => array('title' => 'Show Delay', 'type' => 'number', 'default' => 350),
-            'hideDelay' => array('title' => 'Hide Delay', 'type' => 'number', 'default' => 500),
+            'showDelay' => array('title' => 'Hover Show Delay', 'type' => 'number', 'default' => 350),
+            'hideDelay' => array('title' => 'Hover Hide Delay', 'type' => 'number', 'default' => 500),
             'itemLimit' => array('title' => 'Column Item Limit', 'type' => 'number', 'default' => 15),
         )
     ),

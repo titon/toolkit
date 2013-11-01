@@ -146,10 +146,6 @@ mark { background: lighten($warning-light, 25%); }
         &:nth-child(odd) > a { background: $gray-lightest; }
         &.heading { background: $gray-dark; }
 
-        > a {
-            @include transition(all .15s);
-        }
-
         > a:hover,
         &.is-open > a,
         &.is-active > a {
