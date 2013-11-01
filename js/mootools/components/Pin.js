@@ -66,7 +66,7 @@ Titon.Pin = new Class({
         this.parentSize = this.element.getParent().getCoordinates();
 
         // Enable pin if the parent is larger than the child
-        if (this.parentSize.height >= (this.elementSize.height * 2)) {
+        if (this.parentSize.height > this.elementSize.height) {
             this.enable();
         } else {
             this.disable();

@@ -235,6 +235,10 @@ $components = array(
                 'slide-in-right' => 'Slide In Right',
                 'slide-in-bottom' => 'Slide In Bottom',
                 'slide-in-left' => 'Slide In Left',
+                'sticky-top' => 'Sticky Top',
+                'sticky-right' => 'Sticky Right',
+                'sticky-bottom' => 'Sticky Bottom',
+                'sticky-left' => 'Sticky Left',
                 'flip' => 'Flip',
                 'flip-vert' => 'Flip Vertical'
             )),
@@ -266,7 +270,14 @@ $components = array(
     'pin' => array(
         'title' => 'Pin',
         'js' => array('components/Pin.js'),
-        'css' => array('components/pin.css')
+        'css' => array('components/pin.css'),
+        'filters' => array(
+            'location' => array('title' => 'Location', 'data' => array('right' => 'Right', 'left' => 'Left'), 'default' => 'right'),
+            'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
+            'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
+            'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
+            'height' => array('title' => 'Height', 'type' => 'number'),
+        )
     ),
     'popover' => array(
         'title' => 'Popover',

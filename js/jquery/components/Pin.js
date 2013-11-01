@@ -57,7 +57,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         this.parentTop = this.element.parent().offset().top;
 
         // Enable pin if the parent is larger than the child
-        if (this.parentHeight >= (this.elementHeight * 2)) {
+        if (this.parentHeight >= this.elementHeight) {
             this.enable();
         } else {
             this.disable();
@@ -139,13 +139,11 @@ $.fn.pin = function(options) {
 };
 
 $.fn.pin.options = {
-    className: '',
     animation: 'pin',
     location: 'right',
     xOffset: 0,
     yOffset: 0,
-    throttle: 50,
-    template: false
+    throttle: 50
 };
 
 })(jQuery);
