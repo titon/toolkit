@@ -278,7 +278,7 @@ Titon.Carousel = new Class({
 
         // Set height since items are absolute positioned
         if (this.options.animation !== 'slide') {
-            //this.itemsWrapper.setStyle('height', size.y + 'px');
+            this.itemsWrapper.setStyle('height', size.y + 'px');
         }
 
         return this;

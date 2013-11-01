@@ -125,7 +125,7 @@ Titon.Accordion = new Class({
             parent = node.getParent(), // li
             section = node.getNext(options.contentElement), // section
             index = node.get('data-index'),
-            height = parseInt(section.get('data-height'));
+            height = section.get('data-height').toInt();
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse

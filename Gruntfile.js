@@ -8,7 +8,8 @@ module.exports = function(grunt) {
     graph.addTypes({
         js: 'js/library/',
         css: 'css/toolkit/',
-        moo: ''
+        moo: '',
+        jquery: ''
     });
 
     /**
@@ -18,18 +19,28 @@ module.exports = function(grunt) {
      * The --theme parameter can be used to include a theme
      */
     var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
+        useEffects =  grunt.option('effects') ? grunt.option('effects').split(',') : [],
         useTheme = grunt.option('theme') || null,
-        categories = ['component'];
+        categories = ['layout', 'component'];
+
+    if (!toPackage.length) {
+        _.each(graph.manifest, function(value, key) {
+            if (value.category === 'layout' || value.category === 'component') {
+                toPackage.push(key);
+            }
+        });
+    }
 
     if (useTheme) {
-        useTheme = 'theme-' + useTheme;
-
-        if (!toPackage) {
-            toPackage = _.keys(graph.manifest);
-        }
-
         categories.push('theme');
-        toPackage.push(useTheme);
+        toPackage.push('theme-' + useTheme);
+    }
+
+    if (useEffects.length) {
+        categories.push('effect');
+        toPackage.push(useEffects.map(function(value) {
+            return 'effect-' + value;
+        }));
     }
 
     /**

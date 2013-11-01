@@ -106,7 +106,7 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
             parent = node.parent(), // li
             section = node.next(options.contentElement), // section
             index = node.data('index'),
-            height = parseInt(section.data('height'));
+            height = parseInt(section.data('height'), 10);
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse

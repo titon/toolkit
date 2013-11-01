@@ -1,6 +1,6 @@
 {
     "base": {
-        "category": "component",
+        "category": "layout",
         "priority": 1,
         "source": {
             "css": ["../normalize.css", "layout/base.css"],
@@ -9,47 +9,42 @@
         }
     },
     "typography": {
-        "category": "component",
+        "category": "layout",
         "priority": 2,
         "require": ["base"],
         "source": {
             "css": ["layout/typography.css"]
         }
     },
-    "grid": {
-        "category": "component",
-        "priority": 3,
-        "require": ["base"],
-        "source": {
-            "css": ["components/grid.css"]
-        }
-    },
     "form": {
-        "category": "component",
-        "priority": 4,
+        "category": "layout",
+        "priority": 3,
         "require": ["base", "grid"],
         "source": {
             "css": ["layout/form.css"]
         }
     },
     "code": {
-        "category": "component",
-        "priority": 6,
+        "category": "layout",
+        "priority": 4,
         "require": ["base"],
         "source": {
             "css": ["layout/code.css"]
         }
     },
     "responsive": {
-        "category": "component",
+        "category": "layout",
         "priority": 100,
         "source": {
             "css": ["layout/responsive.css"]
         }
     },
+
+
+
     "accordion": {
         "category": "component",
-        "priority": 20,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/accordion.css"],
@@ -58,7 +53,7 @@
     },
     "blackout": {
         "category": "component",
-        "priority": 21,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/blackout.css"],
@@ -99,7 +94,7 @@
     },
     "carousel": {
         "category": "component",
-        "priority": 22,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/carousel.css"],
@@ -108,19 +103,28 @@
     },
     "dropdown": {
         "category": "component",
-        "priority": 23,
-        "require": ["base", "toggle"],
+        "priority": 10,
+        "require": ["base"],
         "source": {
-            "css": ["components/dropdown.css"]
+            "css": ["components/dropdown.css"],
+            "js": ["components/Dropdown.js"]
         }
     },
     "flyout": {
         "category": "component",
-        "priority": 24,
+        "priority": 10,
         "require": ["base", "timers"],
         "source": {
             "css": ["components/flyout.css"],
             "js": ["components/Flyout.js"]
+        }
+    },
+    "grid": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/grid.css"]
         }
     },
     "icon": {
@@ -134,7 +138,7 @@
     "inputGroup": {
         "category": "component",
         "priority": 10,
-        "require": ["form"],
+        "require": ["base", "form"],
         "source": {
             "css": ["components/input-group.css"]
         }
@@ -149,7 +153,7 @@
     },
     "lazyLoad": {
         "category": "component",
-        "priority": 25,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/lazy-load.css"],
@@ -158,7 +162,7 @@
     },
     "matrix": {
         "category": "component",
-        "priority": 26,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/matrix.css"],
@@ -167,12 +171,13 @@
     },
     "modal": {
         "category": "component",
-        "priority": 27,
+        "priority": 10,
         "require": ["base", "blackout"],
         "source": {
             "css": ["components/modal.css"],
             "js": ["components/Modal.js"],
-            "moo": ["More/Drag"]
+            "moo": ["More/Drag"],
+            "jquery": ["UI/Draggable"]
         }
     },
     "notice": {
@@ -193,7 +198,7 @@
     },
     "pin": {
         "category": "component",
-        "priority": 28,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/pin.css"],
@@ -202,7 +207,7 @@
     },
     "popover": {
         "category": "component",
-        "priority": 29,
+        "priority": 10,
         "require": ["base", "tooltip"],
         "source": {
             "css": ["components/popover.css"],
@@ -219,20 +224,11 @@
     },
     "showcase": {
         "category": "component",
-        "priority": 30,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/showcase.css"],
             "js": ["components/Showcase.js"]
-        }
-    },
-    "tabs": {
-        "category": "component",
-        "priority": 31,
-        "require": ["base"],
-        "source": {
-            "css": ["components/tabs.css"],
-            "js": ["components/Tabs.js"]
         }
     },
     "table": {
@@ -243,6 +239,15 @@
             "css": ["components/table.css"]
         }
     },
+    "tabs": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/tabs.css"],
+            "js": ["components/Tabs.js"]
+        }
+    },
     "timers": {
         "category": "component",
         "priority": 10,
@@ -251,17 +256,9 @@
             "moo": ["Core"]
         }
     },
-    "toggle": {
-        "category": "component",
-        "priority": 32,
-        "require": ["base"],
-        "source": {
-            "js": ["components/Toggle.js"]
-        }
-    },
     "tooltip": {
         "category": "component",
-        "priority": 33,
+        "priority": 10,
         "require": ["base"],
         "source": {
             "css": ["components/tooltip.css"],
@@ -271,13 +268,15 @@
     },
     "typeAhead": {
         "category": "component",
-        "priority": 34,
+        "priority": 10,
         "require": ["base", "cache"],
         "source": {
             "css": ["components/type-ahead.css"],
             "js": ["components/TypeAhead.js"]
         }
     },
+
+
 
     "effect-visual": {
         "category": "effect",
@@ -308,18 +307,13 @@
         }
     },
 
+
+
     "theme-titon": {
         "category": "theme",
         "priority": 100,
         "source": {
             "css": ["themes/titon.css"]
-        }
-    },
-    "theme-tomorrowNight": {
-        "category": "theme",
-        "priority": 100,
-        "source": {
-            "css": ["themes/tomorrow-night.css"]
         }
     }
 }
