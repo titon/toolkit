@@ -78,6 +78,10 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
             }
         }
 
+        if (!this.tabs[index]) {
+            index = 0;
+        }
+
         this.jump(index);
     };
 
@@ -235,7 +239,6 @@ $.fn.tabs = function(options) {
 };
 
 $.fn.tabs.options = {
-    className: '',
     mode: 'click',
     ajax: true,
     collapsible: false,
@@ -245,8 +248,7 @@ $.fn.tabs.options = {
     cookie: null,
     cookieDuration: 30,
     navElement: '.tabs-nav',
-    sectionsElement: '.tabs-section',
-    template: false
+    sectionsElement: '.tabs-section'
 };
 
 })(jQuery);

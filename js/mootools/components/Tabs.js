@@ -71,7 +71,15 @@ Titon.Tabs = new Class({
         this.fireEvent('init');
 
         // Trigger default tab to display
-        var index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
+        var index = this.options.defaultIndex;
+
+        if (this.options.persistState) {
+            index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
+        }
+
+        if (!this.tabs[index]) {
+            index = 0;
+        }
 
         this.jump(index);
     },

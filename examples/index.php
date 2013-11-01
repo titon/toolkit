@@ -355,7 +355,7 @@ $components = array(
             'cookieDuration' => array('title' => 'Cookie Duration', 'type' => 'number', 'default' => 30),
             'ajax' => array('title' => 'Allow AJAX?', 'type' => 'boolean', 'default' => true),
             'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean', 'default' => false),
-            'persistState' => array('title' => 'Persist state?', 'type' => 'boolean', 'default' => true),
+            'persistState' => array('title' => 'Persist state?', 'type' => 'boolean', 'default' => false),
             'preventDefault' => array('title' => 'Prevent default?', 'type' => 'boolean', 'default' => true),
         )
     ),

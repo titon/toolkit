@@ -85,7 +85,7 @@
                 persistState: <?php bool('persistState', false); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
-                cookieDuration: <?php number('defaultIndex', 30); ?>
+                cookieDuration: <?php number('cookieDuration', 30); ?>
             });
         });
     <?php } else { ?>
@@ -98,7 +98,7 @@
                 persistState: <?php bool('persistState', false); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
-                cookieDuration: <?php number('defaultIndex', 30); ?>
+                cookieDuration: <?php number('cookieDuration', 30); ?>
             });
 
             $('#tabs-2').tabs({
@@ -109,7 +109,7 @@
                 persistState: <?php bool('persistState', false); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
-                cookieDuration: <?php number('defaultIndex', 30); ?>
+                cookieDuration: <?php number('cookieDuration', 30); ?>
             });
         });
     <?php } ?>
