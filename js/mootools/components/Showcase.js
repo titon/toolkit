@@ -52,9 +52,9 @@ Titon.Showcase = new Class({
                 '<ol class="showcase-tabs"></ol>' +
                 '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="icon-chevron-sign-left"></span></a>' +
                 '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="icon-chevron-sign-right"></span></a>' +
-                '<button type="button" class="close showcase-event-close">' +
+                '<a href="javascript:;" class="showcase-close showcase-event-close">' +
                     '<span class="x">&times;</span>' +
-                '</button>' +
+                '</a>' +
             '</div>' +
         '</div>',
 

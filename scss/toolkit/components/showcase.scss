@@ -26,17 +26,25 @@
         .showcase-tabs {
             display: none !important;
         }
+    }
 
-        .showcase-inner {
-            background: $gray;
+    &.is-loading {
+        .showcase-close {
+            display: none !important;
         }
     }
 }
 
 .showcase-close {
     position: absolute;
-    top: -1px;
-    right: -35px;
+    top: $padding;
+    right: $padding;
+    line-height: 1rem;
+    opacity: $default-opacity;
+    padding: $padding;
+
+    .x { color: #fff; }
+    &:hover { opacity: 1; }
 }
 
 .showcase-inner {
