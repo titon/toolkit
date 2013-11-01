@@ -1,10 +1,10 @@
 <p>Uses a static array for each lookup.</p>
 
-<input type="text" id="ta-static">
+<input type="text" id="ta-static" class="input">
 
 <p>Uses an AJAX call for each lookup.</p>
 
-<input type="text" id="ta-dynamic">
+<input type="text" id="ta-dynamic" class="input">
 
 <script type="text/javascript">
     var langs = [

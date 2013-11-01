@@ -465,7 +465,7 @@ Titon.TypeAhead = new Class({
      */
     _shadow: function() {
         if (!this.shadow) {
-            return;
+            return this;
         }
 
         var term = this.input.get('value'),

@@ -59,3 +59,5 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example-pin .pin { background: #000; padding: 10px; position: absolute; top: 0; color: #fff; width: 200px; }
 .example-pin.left .pin { left: 0; }
 .example-pin.right .pin { right: 0; }
+
+.type-ahead-shadow { height: 45px; }
