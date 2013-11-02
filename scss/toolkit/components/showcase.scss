@@ -117,48 +117,16 @@
     top: 50%;
     @include transform(translateY(-50%)); // move up 50% of their height
 
-    &:hover {
-        color: #fff;
-        opacity: 1;
-    }
-
-    &:focus {
-        outline: none;
-    }
+    &:hover { color: #fff; opacity: 1; }
+    &:focus { outline: none; }
 }
 
 .showcase-prev { left: $padding; }
 .showcase-next { right: $padding; }
 
 .showcase-tabs {
-    list-style: none;
-    line-height: 100%;
-    margin: 0;
-    padding: $padding;
     position: absolute;
-    top: $padding;
+    top: ($padding * 2);
     left: 50%;
-    z-index: 5;
     @include transform(translateX(-50%)); // move left 50% of their width
-
-    li {
-        display: inline-block;
-        margin: 0 3px;
-    }
-
-    a {
-        display: inline-block;
-        border: 2px solid #fff;
-        height: 10px;
-        width: 10px;
-        border-radius: 50%;
-        opacity: .65;
-        background: black(0);
-
-        &:hover { opacity: 1; }
-        &.is-active { background: #fff; }
-    }
-
-    // Hide if no tabs
-    &:empty { display: none; }
 }

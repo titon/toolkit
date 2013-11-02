@@ -82,7 +82,7 @@ window.Timers = new Class({
      * Clear a timer or interval. If a function is passed, execute it.
      *
      * @param {String} key
-     * @param {Function} fn
+     * @param {Function} [fn]
      * @param {Array} [args]
      * @returns {Timers}
      */

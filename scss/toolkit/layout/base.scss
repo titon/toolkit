@@ -74,3 +74,31 @@
     font: bold 1.5rem/1rem Arial, sans-serif;
     text-transform: uppercase;
 }
+
+// Bullets
+.bullets {
+    list-style: none;
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+    a {
+        display: inline-block;
+        border: 3px solid #fff;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        opacity: .65;
+        background: black(0);
+
+        &:hover { opacity: 1; border-width: 2px; }
+        @include active-state { background: #fff; }
+    }
+
+    &:empty { display: none; }
+}

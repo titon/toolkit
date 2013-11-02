@@ -16,11 +16,8 @@ Titon.Carousel = new Class({
 
     /** Items and parent container */
     itemsWrapper: null,
+    itemsList: null,
     items: [],
-
-    /** Item dimensions */
-    itemWidth: 0,
-    itemHeight: 0,
 
     /** Tabs and parent container */
     tabsWrapper: null,
@@ -78,6 +75,7 @@ Titon.Carousel = new Class({
         this.itemsWrapper = this.element.getElement(options.itemsElement);
 
         if (this.itemsWrapper) {
+            this.itemsList = this.itemsWrapper.getChildren('ul, ol');
             this.items = this.itemsWrapper.getElements(options.itemElement);
         }
 
@@ -105,8 +103,8 @@ Titon.Carousel = new Class({
                 this.items[0].reveal();
             break;
             case 'slide':
-                //this.itemsWrapper.setStyle('width', (this.items.length * 100) + '%');
-                //this.items.setStyle('width', (100 / this.items.length) + '%');
+                this.itemsList.setStyle('width', (this.items.length * 100) + '%');
+                this.items.setStyle('width', (100 / this.items.length) + '%');
             break;
         }
 
@@ -128,8 +126,6 @@ Titon.Carousel = new Class({
                 case 'right':   this.next(); break;
             }
         }.bind(this));
-
-        window.addEvent('resize', this.resize);
 
         this.bindEvents();
         this.fireEvent('init');
@@ -208,15 +204,10 @@ Titon.Carousel = new Class({
                 this.items[index].reveal();
             break;
             case 'slide-up':
-                if (!this.itemHeight) {
-                    this.resize();
-                }
-
-                // Animating top property doesn't work with percentages
-                this.itemsWrapper.setStyle('top', -(index * this.itemHeight) + 'px');
+                this.itemsList.setStyle('top', -(index * 100) + '%');
             break;
             default:
-                this.itemsWrapper.setStyle('left', -(index * 100) + '%');
+                this.itemsList.setStyle('left', -(index * 100) + '%');
             break;
         }
 
@@ -263,28 +254,6 @@ Titon.Carousel = new Class({
     },
 
     /**
-     * Cache sizes once the carousel starts or when browser is resized.
-     * We need to defer this to allow image loading.
-     *
-     * @returns {Titon.Carousel}
-     */
-    resize: function() {
-        var size = this.items[0].measure(function() {
-            return this.getSize();
-        });
-
-        this.itemWidth = size.x;
-        this.itemHeight = size.y;
-
-        // Set height since items are absolute positioned
-        if (this.options.animation !== 'slide') {
-            this.itemsWrapper.setStyle('height', size.y + 'px');
-        }
-
-        return this;
-    },
-
-    /**
      * Start the carousel.
      *
      * @returns {Titon.Carousel}
@@ -321,10 +290,6 @@ Titon.Carousel = new Class({
     __cycle: function() {
         if (!this.enabled) {
             return;
-        }
-
-        if (!this.itemWidth || !this.itemHeight) {
-            this.resize();
         }
 
         // Don't cycle if the carousel has stopped

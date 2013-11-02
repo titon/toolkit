@@ -1,39 +1,45 @@
 <?php
 $count = (int) value('count', 3); ?>
 
-<div class="carousel" id="carousel">
-    <ul class="carousel-items">
-        <?php for ($i = 1; $i <= $count; $i++) { ?>
-            <li>
-                <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+<div class="example-carousel">
+    <div class="carousel" id="carousel">
+        <div class="carousel-items">
+            <ul>
+                <?php for ($i = 1; $i <= $count; $i++) { ?>
+                    <li>
+                        <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
 
-                <?php if (value('captions')) { ?>
-                    <div class="carousel-caption">
-                        <h5><a href="">Slide #<?php echo $i; ?></a></h5>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
+                        <?php if (value('captions', true)) { ?>
+                            <div class="carousel-caption">
+                                <h5><a href="">Slide #<?php echo $i; ?></a></h5>
+                                Lorem ipsum dolor sit amet.
+                            </div>
+                        <?php } ?>
+                    </li>
                 <?php } ?>
-            </li>
+            </ul>
+        </div>
+
+        <?php if (value('tabs', true)) { ?>
+            <div class="carousel-tabs">
+                <ol class="bullets">
+                    <?php for ($i = 1; $i <= $count; $i++) { ?>
+                        <li><a href="javascript:;"<?php if ($i == 1) echo ' class="is-active"'; ?>></a></li>
+                    <?php } ?>
+                </ol>
+            </div>
         <?php } ?>
-    </ul>
 
-    <?php if (value('tabs')) { ?>
-        <ol class="carousel-tabs">
-            <?php for ($i = 1; $i <= $count; $i++) { ?>
-                <li><a href="javascript:;"<?php if ($i == 1) echo ' class="is-active"'; ?>></a></li>
-            <?php } ?>
-        </ol>
-    <?php } ?>
+        <?php if (value('arrows', true)) { ?>
+            <a href="javascript:;" class="carousel-prev">
+                <span class="icon-chevron-sign-left"></span>
+            </a>
 
-    <?php if (value('arrows')) { ?>
-        <a href="javascript:;" class="carousel-prev">
-            <span class="icon-chevron-sign-left"></span>
-        </a>
-
-        <a href="javascript:;" class="carousel-next">
-            <span class="icon-chevron-sign-right"></span>
-        </a>
-    <?php } ?>
+            <a href="javascript:;" class="carousel-next">
+                <span class="icon-chevron-sign-right"></span>
+            </a>
+        <?php } ?>
+    </div>
 </div>
 
 <script>

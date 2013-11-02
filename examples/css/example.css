@@ -60,4 +60,6 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example-pin.left .pin { left: 0; }
 .example-pin.right .pin { right: 0; }
 
+.example-carousel { max-width: 640px; margin: 0 auto; }
+
 .type-ahead-shadow { height: 45px; }

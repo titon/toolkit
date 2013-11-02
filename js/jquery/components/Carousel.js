@@ -20,11 +20,8 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
 
     /** Items and parent container */
     this.itemsWrapper = null;
+    this.itemsList = null;
     this.items = [];
-
-    /** Item dimensions */
-    this.itemWidth = 0;
-    this.itemHeight = 0;
 
     /** Tabs and parent container */
     this.tabsWrapper = null;
@@ -52,6 +49,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
 
         // Get elements
         this.itemsWrapper = this.element.find(options.itemsElement);
+        this.itemsList = this.itemsWrapper.children('ul, ol');
         this.items = this.itemsWrapper.find(options.itemElement);
 
         this.tabsWrapper = this.element.find(options.tabsElement);
@@ -75,7 +73,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
                 $(this.items[0]).reveal();
             break;
             case 'slide':
-                this.itemsWrapper.css('width', (this.items.length * 100) + '%');
+                this.itemsList.css('width', (this.items.length * 100) + '%');
                 this.items.css('width', (100 / this.items.length) + '%');
             break;
         }
@@ -100,8 +98,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
                     case 'left':    this.prev(); break;
                     case 'right':   this.next(); break;
                 }
-            }.bind(this))
-            .on('resize', this.resize.bind(this));
+            }.bind(this));
 
         if (options.stopOnHover) {
             this.element
@@ -154,15 +151,10 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
                 $(this.items[index]).reveal();
             break;
             case 'slide-up':
-                if (!this.itemHeight) {
-                    this.resize();
-                }
-
-                // Animating top property doesn't work with percentages
-                this.itemsWrapper.css('top', -(index * this.itemHeight) + 'px');
+                this.itemsList.css('top', -(index * 100) + '%');
             break;
             default:
-                this.itemsWrapper.css('left', -(index * 100) + '%');
+                this.itemsList.css('left', -(index * 100) + '%');
             break;
         }
 
@@ -209,26 +201,6 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     };
 
     /**
-     * Cache sizes once the carousel starts or when browser is resized.
-     * We need to defer this to allow image loading.
-     *
-     * @returns {Titon.Carousel}
-     */
-    this.resize = function() {
-        var item = $(this.items[0]);
-
-        this.itemWidth = item.outerWidth();
-        this.itemHeight = item.outerHeight();
-
-        // Set height since items are absolute positioned
-        if (this.options.animation !== 'slide') {
-            this.itemsWrapper.css('height', this.itemHeight + 'px');
-        }
-
-        return this;
-    };
-
-    /**
      * Start the carousel.
      *
      * @returns {Titon.Carousel}
@@ -265,10 +237,6 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     this.__cycle = function() {
         if (!this.enabled) {
             return;
-        }
-
-        if (!this.itemWidth || !this.itemHeight) {
-            this.resize();
         }
 
         // Don't cycle if the carousel has stopped

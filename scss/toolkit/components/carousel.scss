@@ -7,43 +7,40 @@
 @import "../common";
 
 .carousel {
-    /* 16:9 ratio */
-    padding-bottom: 56.25%;
-    max-width: 640px;
-    max-height: 360px;
-    //max-width: 1280px;
-    //max-height: 720px;
-    width: 100%;
     margin: 0 auto;
     text-align: left;
+    background-color: #000;
     position: relative;
-    background-color: $gray;
 }
 
 .carousel-items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* 16:9 ratio */
+    padding-bottom: 56.25%;
     width: 100%;
-    height: auto;
-    z-index: 1;
+    max-width: 100%;
     overflow: hidden;
-    @include transition(left $carousel-transition, top $carousel-transition);
+    position: relative;
 
-    > li {
-        position: relative;
-        width: 100%;
-        height: auto;
-        z-index: 1;
+    ul {
+        position: absolute;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        left: 0;
+        @include transition(left $carousel-transition, top $carousel-transition);
 
-        > img {
-            display: block;
+        > li {
             width: 100%;
-            max-width: 100%;
             height: auto;
+            position: relative;
+
+            > img {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
         }
     }
 }
@@ -55,14 +52,12 @@
     width: 100%;
     padding: $padding;
     color: #fff;
-    background: black(.70);
+    background: black(.7);
 
     @include in-small {
         font-size: $small-size;
         padding: $small-padding;
     }
-
-    p { margin: 0; }
 }
 
 .carousel-prev,
@@ -79,14 +74,8 @@
     top: 50%;
     @include transform(translateY(-50%)); // move up 50% of their height
 
-    &:hover {
-        color: #fff;
-        opacity: 1;
-    }
-
-    &:focus {
-        outline: none;
-    }
+    &:hover { opacity: 1; color: #fff; }
+    &:focus { outline: none; }
 
     // Large icons for large resolutions
     @include if-tablet-landscape {
@@ -101,53 +90,28 @@
 .carousel-next { right: 0; }
 
 .carousel-tabs {
-    list-style: none;
-    line-height: 100%;
-    margin: 0;
-    padding: $padding;
     position: absolute;
-    top: 0;
+    top: $padding;
     left: 50%;
-    z-index: 5;
     @include transform(translateX(-50%)); // move left 50% of their width
-
-    li {
-        display: inline-block;
-        margin: 0 3px;
-    }
-
-    a {
-        display: inline-block;
-        border: 2px solid #fff;
-        height: 10px;
-        width: 10px;
-        border-radius: 50%;
-        opacity: .65;
-        background: black(0);
-
-        &:hover { opacity: 1; }
-        &.is-active { background: #fff; }
-    }
-
-    // Hide if no tabs
-    &:empty { display: none; }
 }
 
 //-------------------- Animations --------------------//
 
 .carousel.slide {
-    .carousel-items {
-        white-space: nowrap;
+    .carousel-items ul {
+        @include clear-fix;
 
         > li {
-            display: inline-block;
-            margin-right: -5px;
+            float: left;
         }
     }
 }
 
 .carousel.fade {
-    .carousel-items {
+    .carousel-items ul {
+        position: relative;
+
         > li {
             position: absolute;
             top: 0;
