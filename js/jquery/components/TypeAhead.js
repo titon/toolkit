@@ -104,7 +104,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
         });
 
         $(window).on('keydown', function(e) {
-            if (e.key === 'esc' && this.element.is(':shown')) {
+            if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
                 this.hide();
             }
         }.bind(this));
@@ -469,9 +469,9 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
             return;
         }
 
-        switch (e.key.toLowerCase()) {
-            // Cycle upwards
-            case 'up':
+        switch (e.keyCode) {
+            // Cycle upwards (up)
+            case 38:
                 this.index -= (items[this.index - 1] ? 1 : 2); // category check
 
                 if (this.index < 0) {
@@ -479,8 +479,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 }
             break;
 
-            // Cycle downwards
-            case 'down':
+            // Cycle downwards (down)
+            case 40:
                 this.index += (items[this.index + 1] ? 1 : 2); // category check
 
                 if (this.index >= length) {
@@ -488,8 +488,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 }
             break;
 
-            // Select first
-            case 'tab':
+            // Select first (tab)
+            case 9:
                 e.preventDefault();
 
                 var i = 0;
@@ -502,13 +502,13 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 this.hide();
             break;
 
-            // Select current index
-            case 'enter':
+            // Select current index (enter)
+            case 13:
                 this.hide();
             break;
 
-            // Reset
-            case 'esc':
+            // Reset (esc)
+            case 27:
                 this.index = -1;
                 this.hide();
             break;
@@ -533,7 +533,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
      * @param {DOMEvent} e
      */
     this.__lookup = function(e) {
-        if ($.inArray(e.key.toLowerCase(), ['up', 'down', 'esc', 'tab', 'enter']) >= 0) {
+        if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
             return; // Handle with _cycle()
         }
 

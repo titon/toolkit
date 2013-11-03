@@ -77,7 +77,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             .on('click', this.nodes.selector, this.__show.bind(this));
 
         $(window).on('keydown', function(e) {
-            if (e.key === 'esc' && this.element.is(':shown')) {
+            if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
                 this.hide();
             }
         }.bind(this));

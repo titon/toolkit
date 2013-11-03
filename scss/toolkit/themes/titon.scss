@@ -314,7 +314,7 @@ mark { background: lighten($warning-light, 25%); }
 
         &:after {
             margin-top: 2px;
-            border-bottom-color: #fff;
+            border-bottom-color: $gray;
         }
     }
 

@@ -86,17 +86,15 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         // Set events
         $(window)
             .on('keydown', function(e) {
-                var key = e.key.toLowerCase();
-
-                if ($.inArray(key, ['up', 'down', 'left', 'right'])) {
+                if ($.inArray(e.keyCode, [37, 38, 39, 40])) {
                     e.preventDefault();
                 }
 
-                switch (key) {
-                    case 'up':      this.jump(0); break;
-                    case 'down':    this.jump(-1); break;
-                    case 'left':    this.prev(); break;
-                    case 'right':   this.next(); break;
+                switch (e.keyCode) {
+                    case 37: this.prev(); break;
+                    case 38: this.jump(0); break;
+                    case 39: this.next(); break;
+                    case 40: this.jump(-1); break;
                 }
             }.bind(this));
 
