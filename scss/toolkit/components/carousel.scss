@@ -14,8 +14,8 @@
 }
 
 .carousel-items {
-    /* 16:9 ratio */
-    padding-bottom: 56.25%;
+    /* 4:3 ratio */
+    padding-bottom: 75%;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -122,5 +122,21 @@
 
             &.show { z-index: 2; }
         }
+    }
+}
+
+//-------------------- Modifiers --------------------//
+
+.carousel.carousel--wide {
+    .carousel-items {
+        /* 16:9 ratio */
+        padding-bottom: 56.25%;
+    }
+}
+
+.carousel.carousel--square {
+    .carousel-items {
+        /* 1:1 ratio */
+        padding-bottom: 100%;
     }
 }

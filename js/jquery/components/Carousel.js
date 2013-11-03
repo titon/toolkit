@@ -86,7 +86,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
         // Set events
         $(window)
             .on('keydown', function(e) {
-                if ($.inArray(e.keyCode, [37, 38, 39, 40])) {
+                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
                     e.preventDefault();
                 }
 

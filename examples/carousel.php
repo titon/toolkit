@@ -1,13 +1,27 @@
 <?php
-$count = (int) value('count', 3); ?>
+$count = (int) value('count', 3);
+$mod = value('modifier', '');
+$class = '';
+
+if ($mod) {
+    $class = 'carousel--' . $mod;
+} ?>
 
 <div class="example-carousel">
-    <div class="carousel" id="carousel">
+    <div class="carousel <?php echo $class; ?>" id="carousel">
         <div class="carousel-items">
             <ul>
                 <?php for ($i = 1; $i <= $count; $i++) { ?>
                     <li>
-                        <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+                        <?php if ($mod === 'wide') { ?>
+                            <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+
+                        <?php } else if ($mod === 'square') { ?>
+                            <img src="http://lorempixel.com/500/500/?c=<?php echo $i; ?>">
+
+                        <?php } else { ?>
+                            <img src="http://lorempixel.com/400/300/?c=<?php echo $i; ?>">
+                        <?php } ?>
 
                         <?php if (value('captions', true)) { ?>
                             <div class="carousel-caption">

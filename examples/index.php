@@ -109,6 +109,11 @@ $components = array(
                 'slide-up' => 'Slide Up',
                 'fade' => 'Fade'
             )),
+            'modifier' => array('title' => 'Modifier', 'data' => array(
+                '' => 'Default (4:3)',
+                'wide' => 'Wide (16:9)',
+                'square' => 'Square (1:1)'
+            ), 'default' => ''),
             'duration' => array('title' => 'Duration', 'type' => 'number', 'default' => 5000),
             'autoCycle' => array('title' => 'Auto Cycle?', 'type' => 'boolean', 'default' => true),
             'stopOnHover' => array('title' => 'Stop On Hover?', 'type' => 'boolean', 'default' => true),

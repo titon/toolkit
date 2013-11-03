@@ -65,7 +65,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
         $(window).on('keydown', function(e) {
             if (this.element.is(':shown')) {
-                if ($.inArray(e.keyCode, [37, 38, 39, 40])) {
+                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
                     e.preventDefault();
                 }
 
