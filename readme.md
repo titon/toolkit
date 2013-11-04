@@ -1,10 +1,10 @@
 # Toolkit v0.14.0 #
 
-Toolkit is a collection of very powerful user-interface components and utility classes.
+Titon Toolkit is a collection of very powerful user-interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
 
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
-Sass for CSS pre-processing, Grunt for task and package management, and Intern for unit testing.
+Sass for CSS pre-processing, and Grunt for task and package management.
 
 #### Demo ####
 A temporary demo can be found here: http://titon.io/toolkit
@@ -52,6 +52,7 @@ To support media queries and responsiveness, use [respond.js](https://github.com
 * `Accordion` - Provides collapsible support to a list of sections
 * `Blackout` - Displays a transparent black element over the document
 * `Carousel` - Provides a 16:9 responsive carousel with panels that slide or fade in
+* `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
 * `Flyout` - Displays nested flyout menus that appear below an element that activates it
 * `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
 * `Matrix` - Reorganizes elements into a modular cascading grid (masonry style)
@@ -60,7 +61,6 @@ To support media queries and responsiveness, use [respond.js](https://github.com
 * `Popover` - Displays dynamic notification elements over an element
 * `Showcase` - Provides a lightbox style image gallery
 * `Tabs` - Provides tabbed support to an element containing navigation tabs and sections
-* `Toggle` - Toggles the display of a target element; useful for triggering transitions
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing
 
@@ -82,7 +82,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Breadcrumbs` - Styles for bread crumb navigation trails
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
-* `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
 * `Grid` - Implements a fluid 12 column grid system with responsive support for all devices
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `InputGroup` - Allows for the grouping of inputs with buttons and static blocks
@@ -95,7 +94,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 
 #### Themes ####
 * `Titon` - Titon specific theme that mimics Twitter Bootstrap
-* `TomorrowNight` - Tomorrow Night theme for all Titon components
 
 ## Authors ##
 * [Miles Johnson](https://github.com/milesj)
