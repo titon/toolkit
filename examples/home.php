@@ -1,6 +1,5 @@
 <div class="example-header">
     <a href="https://github.com/titon/toolkit" class="button float-right is-info round" style="font-size: 16px">
-        <span class="icon-github"></span> &nbsp;
         View On GitHub
     </a>
 

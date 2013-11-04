@@ -40,7 +40,7 @@
     top: $padding;
     right: $padding;
     line-height: 1rem;
-    opacity: $default-opacity;
+    opacity: $showcase-opacity;
     padding: $padding;
 
     .x { color: #fff; }
@@ -111,14 +111,26 @@
     width: auto;
     height: auto;
     z-index: 5;
-    font-size: 28px;
-    color: #fff;
-    opacity: .65;
+    opacity: $showcase-opacity;
     top: 50%;
     @include transform(translateY(-50%)); // move up 50% of their height
 
-    &:hover { color: #fff; opacity: 1; }
+    .arrow-left,
+    .arrow-right {
+        color: #fff;
+        font-size: 2rem;
+    }
+
+    &:hover { opacity: 1; }
     &:focus { outline: none; }
+
+    // Large icons for large resolutions
+    @include if-tablet-landscape {
+        .arrow-left,
+        .arrow-right {
+            font-size: 3rem;
+        }
+    }
 }
 
 .showcase-prev { left: $padding; }

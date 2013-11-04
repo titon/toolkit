@@ -68,20 +68,24 @@
     width: auto;
     height: auto;
     z-index: 5;
-    font-size: 28px;
-    color: #fff;
-    opacity: .65;
+    opacity: $carousel-opacity;
     top: 50%;
     @include transform(translateY(-50%)); // move up 50% of their height
 
-    &:hover { opacity: 1; color: #fff; }
+    .arrow-left,
+    .arrow-right {
+        color: #fff;
+        font-size: 2rem;
+    }
+
+    &:hover { opacity: 1; }
     &:focus { outline: none; }
 
     // Large icons for large resolutions
     @include if-tablet-landscape {
-        .carousel-prev,
-        .carousel-next {
-            font-size: 56px;
+        .arrow-left,
+        .arrow-right {
+            font-size: 3rem;
         }
     }
 }

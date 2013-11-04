@@ -46,11 +46,11 @@ if ($mod) {
 
         <?php if (value('arrows', true)) { ?>
             <a href="javascript:;" class="carousel-prev">
-                <span class="icon-chevron-sign-left"></span>
+                <span class="arrow-left"></span>
             </a>
 
             <a href="javascript:;" class="carousel-next">
-                <span class="icon-chevron-sign-right"></span>
+                <span class="arrow-right"></span>
             </a>
         <?php } ?>
     </div>

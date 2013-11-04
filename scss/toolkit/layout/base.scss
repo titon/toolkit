@@ -62,17 +62,44 @@
     width: 0;
 }
 
-.caret-up { border-bottom-color: $foreground-color; }
-.caret-down { border-top-color: $foreground-color; }
-.caret-left { border-right-color: $foreground-color; }
-.caret-right { border-left-color: $foreground-color; }
+.caret-up { border-bottom-color: inherit; top: -2px; }
+.caret-down { border-top-color: inherit; bottom: -2px; }
+.caret-left { border-right-color: inherit; }
+.caret-right { border-left-color: inherit; }
 
-// Close
-.x {
+// Arrows, Characters
+.x,
+.arrow-up,
+.arrow-down,
+.arrow-left,
+.arrow-right {
     @include reset-inline-block;
-    color: $foreground-color;
     font: bold 1.5rem/1rem Arial, sans-serif;
     text-transform: uppercase;
+}
+
+.x:before { content: "\00D7"; /* times */ }
+
+.arrow-up:before,
+.arrow-left:before,
+.arrow-down:before,
+.arrow-right:before {
+    display: inline-block;
+    position: relative;
+}
+
+.arrow-up:before,
+.arrow-left:before { content: "\000AB"; /* laquo */ }
+.arrow-down:before,
+.arrow-right:before { content: "\000BB"; /* raquo */ }
+
+.arrow-left:before,
+.arrow-right:before { top: -2px; }
+
+.arrow-up:before,
+.arrow-down:before {
+    right: -2px;
+    @include transform(rotate(90deg));
 }
 
 // Bullets

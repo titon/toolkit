@@ -37,9 +37,7 @@ Titon.Modal = new Class({
         template: '<div class="modal">' +
             '<div class="modal-handle">' +
                 '<div class="modal-inner"></div>' +
-                '<a href="javascript:;" class="modal-close modal-event-close">' +
-                    '<span class="x">&times;</span>' +
-                '</a>' +
+                '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
             '</div>' +
         '</div>',
 

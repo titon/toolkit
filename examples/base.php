@@ -81,11 +81,18 @@
 
 <div class="example-title">Carets</div>
 
-<span class="caret-down"></span>
 <span class="caret-up"></span>
-<span class="caret-left"></span>
 <span class="caret-right"></span>
+<span class="caret-down"></span>
+<span class="caret-left"></span>
+
+<div class="example-title">Arrows</div>
+
+<span class="arrow-up"></span>
+<span class="arrow-right"></span>
+<span class="arrow-down"></span>
+<span class="arrow-left"></span>
 
 <div class="example-title">Characters</div>
 
-<span class="x">&times;</span>
+<span class="x"></span>

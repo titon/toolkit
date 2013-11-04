@@ -50,11 +50,9 @@ Titon.Showcase = new Class({
             '<div class="showcase-inner">' +
                 '<ul class="showcase-items"></ul>' +
                 '<ol class="showcase-tabs bullets"></ol>' +
-                '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="icon-chevron-sign-left"></span></a>' +
-                '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="icon-chevron-sign-right"></span></a>' +
-                '<a href="javascript:;" class="showcase-close showcase-event-close">' +
-                    '<span class="x">&times;</span>' +
-                '</a>' +
+                '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></a>' +
+                '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="arrow-right"></span></a>' +
+                '<a href="javascript:;" class="showcase-close showcase-event-close"><span class="x"></span></a>' +
             '</div>' +
         '</div>',
 
