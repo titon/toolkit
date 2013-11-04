@@ -19,8 +19,13 @@ window.Titon = {
     messages: {
         loading: 'Loading...',
         error: 'An error has occurred!'
-    }
+    },
 
+    /** Detect IE <= 8 versions */
+    ie8: (window.attachEvent && !window.addEventListener),
+
+    /** Detect IE9 version */
+    ie9: (window.addEventListener && navigator.userAgent.match(/MSIE/i))
 };
 
 /**

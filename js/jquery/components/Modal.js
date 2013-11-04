@@ -132,7 +132,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             this.element.reveal();
 
             // IE8
-            if (!$.support.leadingWhitespace) {
+            if (Titon.ie8 && !this.options.fullScreen) {
                 this.element.css({
                     'margin-left': -(this.element.outerWidth(true) / 2),
                     'margin-top': -(this.element.outerHeight(true) / 2)

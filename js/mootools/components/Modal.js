@@ -149,7 +149,7 @@ Titon.Modal = new Class({
             this.element.reveal();
 
             // IE8
-            if (Browser.ie8) {
+            if (Browser.ie8 && !this.options.fullScreen) {
                 var size = this.element.getSize();
 
                 this.element.setStyles({

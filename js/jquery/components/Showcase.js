@@ -43,7 +43,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         var options = this.options;
 
         // IE8 Doesn't support animations
-        if (!$.support.leadingWhitespace) {
+        if (Titon.ie8 || Titon.ie9) {
             this.options.transition = 1;
         }
 
@@ -331,7 +331,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      * @return {Titon.Showcase}
      */
     this._reposition = function() {
-        if ($.support.leadingWhitespace) {
+        if (!Titon.ie8) {
             return this;
         }
 
