@@ -117,10 +117,10 @@
     a {
         display: inline-block;
         border: 3px solid #fff;
-        height: 12px;
-        width: 12px;
+        height: 10px;
+        width: 10px;
         border-radius: 50%;
-        opacity: .65;
+        opacity: $default-opacity;
         background: black(0);
 
         &:hover { opacity: 1; border-width: 2px; }

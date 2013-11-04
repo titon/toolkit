@@ -45,7 +45,6 @@
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('accordion').accordion({
-                className: <?php string('className'); ?>,
                 mode: <?php string('mode', 'click'); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 multiple: <?php bool('multiple', false); ?>,
@@ -55,7 +54,6 @@
     <?php } else { ?>
         $(function() {
             $('#accordion').accordion({
-                className: <?php string('className'); ?>,
                 mode: <?php string('mode', 'click'); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 multiple: <?php bool('multiple', false); ?>,

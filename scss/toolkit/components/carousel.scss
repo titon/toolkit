@@ -97,6 +97,7 @@
     position: absolute;
     top: $padding;
     left: 50%;
+    z-index: 5;
     @include transform(translateX(-50%)); // move left 50% of their width
 }
 

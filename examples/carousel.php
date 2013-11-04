@@ -60,7 +60,6 @@ if ($mod) {
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('carousel').carousel({
-                className: <?php string('className'); ?>,
                 animation: <?php string('animation', 'slide'); ?>,
                 duration: <?php number('duration', 5000); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
@@ -70,7 +69,6 @@ if ($mod) {
     <?php } else { ?>
         $(function() {
             $('#carousel').carousel({
-                className: <?php string('className'); ?>,
                 animation: <?php string('animation', 'slide'); ?>,
                 duration: <?php number('duration', 5000); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
