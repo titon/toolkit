@@ -65,3 +65,6 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .carousel.carousel--square { max-width: 500px; }
 
 .type-ahead-shadow { height: 45px; }
+
+.modal-loading,
+.showcase.is-loading .showcase-inner { background-image: url("../img/loader.gif"); background-position: 50% 50%; background-repeat: no-repeat; }

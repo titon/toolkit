@@ -25,12 +25,12 @@
     }
 
     &.center-left .popover-arrow {
-        border-left-color: #000;
+        border-left-color: $gray-dark;
         right: -16px;
     }
 
     &.center-right .popover-arrow {
-        border-right-color: #000;
+        border-right-color: $gray-dark;
         left: -16px;
     }
 
@@ -41,12 +41,12 @@
     }
 
     &.top-center .popover-arrow {
-        border-top-color: #000;
+        border-top-color: $gray-dark;
         bottom: -16px;
     }
 
     &.bottom-center .popover-arrow {
-        border-bottom-color: #000;
+        border-bottom-color: $gray-dark;
         top: -16px;
     }
 }

@@ -8,10 +8,9 @@
 
 .label {
     @include reset-inline-block;
-    color: #fff;
     font-size: .7rem;
     line-height: 100%;
-    background: #282a2e;
+    background: $gray-dark;
     padding: .275rem .425rem;
     text-transform: uppercase;
     border-radius: 2px;
@@ -54,7 +53,7 @@
         top: 0;
         right: 100%;
         border: .65rem solid transparent;
-        border-right-color: #282a2e;
+        border-right-color: $gray-dark;
     }
 
     &.small:after { border-width: .5rem; }
@@ -71,7 +70,7 @@
         top: 0;
         left: 100%;
         border: .65rem solid transparent;
-        border-left-color: #282a2e;
+        border-left-color: $gray-dark;
     }
 
     &.small:after { border-width: .5rem; }
@@ -88,7 +87,7 @@
         border: 1em solid transparent;
         border-top-width: 0 !important;
         border-left-width: 0 !important;
-        border-right-color: #282a2e;
+        border-right-color: $gray-darkest;
     }
 }
 
@@ -102,6 +101,6 @@
          border: 1em solid transparent;
          border-top-width: 0 !important;
          border-right-width: 0 !important;
-         border-left-color: #282a2e;
+         border-left-color: $gray-darkest;
      }
  }
