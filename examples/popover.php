@@ -6,7 +6,7 @@
     <div id="hidden" style="display: none">This content is loaded from a hidden DOM element.</div>
 </div>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-popover').popover({

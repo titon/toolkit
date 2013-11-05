@@ -51,7 +51,7 @@ if ($pos = value('align')) {
     </div>
 </div>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-dropdown').dropdown({

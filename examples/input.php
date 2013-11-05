@@ -40,19 +40,11 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="input-checkbox" for="checkbox"><input id="checkbox" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
-    </div>
-
-    <div class="field">
         <label class="input-checkbox" for="checkboxes1"><input id="checkboxes1" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
         <label class="input-checkbox" for="checkboxes2"><input id="checkboxes2" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
         <label class="input-checkbox" for="checkboxes3"><input id="checkboxes3" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
         <label class="input-checkbox" for="checkboxes4"><input id="checkboxes4" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
         <label class="input-checkbox" for="checkboxes5"><input id="checkboxes5" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
-    </div>
-
-    <div class="field">
-        <label class="input-radio" for="radio"><input id="radio" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio</label>
     </div>
 
     <div class="field">
@@ -65,11 +57,21 @@ $disabled = value('disabled', false); ?>
 </form>
 
 <script>
-    window.addEvent('domready', function() {
-       $$('.example form').input({
-           checkbox: <?php bool('checkbox', true); ?>,
-           radio: <?php bool('radio', true); ?>,
-           select: <?php bool('select', true); ?>
-       });
-    });
+    <?php if ($vendor === 'mootools') { ?>
+        window.addEvent('domready', function() {
+           $$('.example form').input({
+               checkbox: <?php bool('checkbox', true); ?>,
+               radio: <?php bool('radio', true); ?>,
+               select: <?php bool('select', true); ?>
+           });
+        });
+    <?php } else { ?>
+        $(function() {
+            $('.example form').input({
+               checkbox: <?php bool('checkbox', true); ?>,
+               radio: <?php bool('radio', true); ?>,
+               select: <?php bool('select', true); ?>
+           });
+        });
+    <?php } ?>
 </script>

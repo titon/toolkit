@@ -10,7 +10,7 @@
     <?php } ?>
 </div>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('pin').pin({

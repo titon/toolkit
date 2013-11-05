@@ -2,7 +2,7 @@
 <button type="button" class="button js-modal" data-modal="ajax/modal.php?slow">Open Modal</button>
 <button type="button" class="button js-modal" data-modal="ajax/modal-form.php">Open Modal w/ Form</button>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor  === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-modal').modal({

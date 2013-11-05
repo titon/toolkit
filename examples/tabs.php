@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('tabs-1').tabs({

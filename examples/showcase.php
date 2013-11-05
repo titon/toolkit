@@ -11,7 +11,7 @@ for ($i = 1; $i <= value('count', 5); $i++) {
 
 <?php } ?>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-showcase').showcase({

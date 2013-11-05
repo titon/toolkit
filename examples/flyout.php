@@ -5,7 +5,7 @@
 <br><br>
 <a href="/0/0/1" class="button js-flyout">Display 0>0>1 Menu</a>
 
-<script type="text/javascript">
+<script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.button').addEvent('click', function(e) {

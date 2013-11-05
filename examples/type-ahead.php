@@ -6,7 +6,7 @@
 
 <input type="text" id="ta-dynamic" class="input">
 
-<script type="text/javascript">
+<script>
     var langs = [
         { title: 'PHP', description: 'Pre-HyperText Processor', category: 'Backend' },
         { title: 'CakePHP', category: 'Framework' },
