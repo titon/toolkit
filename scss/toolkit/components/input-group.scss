@@ -7,6 +7,9 @@
 @import "../common";
 
 .input-group {
+    display: inline-block;
+    white-space: nowrap;
+
     > .input,
     > .input-addon,
     > .button,
