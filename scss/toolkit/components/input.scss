@@ -1,0 +1,97 @@
+.custom-input {
+    @include reset-inline-block;
+}
+
+// Checkbox, radio
+.custom-input {
+    .checkbox,
+    .radio {
+        @include reset-inline-block;
+        background: $gray-lightest;
+        border: 1px solid $gray-dark;
+        width: 16px;
+        height: 16px;
+        top: -2px;
+        line-height: 1rem;
+        border-radius: $round;
+        @include transition(all $default-transition);
+
+        &:hover { border-color: $gray-darkest; }
+    }
+
+    .radio { border-radius: 50%; }
+
+    input {
+        display: none;
+
+        // Style when the associated label is being hovered
+        &:hover + .checkbox,
+        &:hover + .radio {
+            border-color: $gray-darkest;
+        }
+
+        // Style when the checkbox is checked
+        &:checked + .checkbox,
+        &:checked + .radio {
+            border-color: $info;
+            box-shadow: 0 0 5px $info-light;
+        }
+    }
+}
+
+// Select
+.custom-input {
+    .select {
+        @include reset-inline-block;
+        cursor: pointer;
+        background: $gray-lightest;
+        border: 1px solid $gray-dark;
+        border-radius: $round;
+        white-space: nowrap;
+        line-height: 1rem;
+        @include transition(all $default-transition);
+    }
+
+    .select-label,
+    .select-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+        font-size: $medium-size;
+        padding: $medium-padding;
+    }
+
+    .select-arrow {
+        float: right;
+        border-left: 1px solid $gray-dark;
+        @include transition(all $default-transition);
+
+        .caret-down { border-top-color: #000; }
+    }
+
+    // Position the real select over the custom one
+    select {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0;
+        width: 100%;
+
+        // Style when the select is hovered
+        &:hover + .select,
+        &:hover + .select .select-arrow {
+            border-color: $gray-darkest;
+        }
+
+        // Style when the select is focused
+        &:focus + .select {
+            border-color: $info;
+            box-shadow: 0 0 5px $info-light;
+        }
+
+        &:focus + .select .select-arrow {
+            border-color: $info;
+        }
+    }
+}

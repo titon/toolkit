@@ -49,8 +49,8 @@ label,
 
 .input,
 .input-static,
-.radio,
-.checkbox {
+.input-radio,
+.input-checkbox {
     @include reset-inline-block;
     border: 1px solid $gray-dark;
     font-size: $medium-size;
@@ -84,16 +84,16 @@ label,
 }
 
 .input-static,
-.radio,
-.checkbox {
+.input-radio,
+.input-checkbox {
     background: transparent;
     border-color: transparent;
     padding-left: 0;
     padding-right: 0;
 }
 
-.radio,
-.checkbox {
+.input-radio,
+.input-checkbox {
     padding: 0;
 
     input[type="checkbox"],
@@ -132,29 +132,27 @@ textarea.input {
 
 .field:not(.is-disabled) {
     &.is-error {
-        .input,
-        .select {
+        .input {
             border-color: $error;
 
             &:focus { box-shadow: 0 0 5px $error-light; }
         }
 
-        .radio,
-        .checkbox {
+        .input-radio,
+        .input-checkbox {
             color: $error-dark;
         }
     }
 
     &.is-success {
-        .input,
-        .select {
+        .input {
             border-color: $success;
 
             &:focus { box-shadow: 0 0 5px $success-light; }
         }
 
-        .radio,
-        .checkbox {
+        .input-radio,
+        .input-checkbox {
             color: $success-dark;
         }
     }
@@ -203,8 +201,8 @@ textarea.input {
     .field-label { margin: 0 ($margin / 2) 0 0; }
     .field-help { display: none; }
 
-    .radio,
-    .checkbox {
+    .input-radio,
+    .input-checkbox {
         padding: $medium-padding 0;
     }
 }

@@ -117,12 +117,12 @@ $classes = implode(' ', array_filter($classes)); ?>
         </div>
 
         <div class="field <?php echo $classes; ?>">
-            <label class="checkbox" for="i15"><input id="i15" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox inline</label>
+            <label class="input-checkbox" for="i15"><input id="i15" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox inline</label>
         </div>
 
         <div class="field <?php echo $classes; ?>">
-            <label class="radio" for="i16"><input id="i16" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio first option</label><br>
-            <label class="radio" for="i17"><input id="i17" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio second option</label>
+            <label class="input-radio" for="i16"><input id="i16" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio first option</label><br>
+            <label class="input-radio" for="i17"><input id="i17" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio second option</label>
         </div>
 
         <div class="form-actions">
@@ -172,13 +172,13 @@ $classes = implode(' ', array_filter($classes)); ?>
 
     <div class="field <?php echo $classes; ?>">
         <div class="field-col col span-8 push-4">
-            <label class="checkbox" for="h4"><input id="h4" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
+            <label class="input-checkbox" for="h4"><input id="h4" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
         </div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <div class="field-col col span-8 push-4">
-            <label class="radio" for="h5"><input id="h5" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
+            <label class="input-radio" for="h5"><input id="h5" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
         </div>
     </div>
 
@@ -213,11 +213,11 @@ $classes = implode(' ', array_filter($classes)); ?>
     </div>
 
     <div class="field <?php echo $classes; ?>">
-        <label class="checkbox" for="n3"><input id="n3" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
+        <label class="input-checkbox" for="n3"><input id="n3" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
     </div>
 
     <div class="field <?php echo $classes; ?>">
-        <label class="radio" for="n4"><input id="n4" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
+        <label class="input-radio" for="n4"><input id="n4" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
     </div>
 
     <div class="form-actions">

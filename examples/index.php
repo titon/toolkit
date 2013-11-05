@@ -192,6 +192,16 @@ $components = array(
             ))
         )
     ),
+    'input' => array(
+        'title' => 'Input',
+        'css' => array('components/input.css'),
+        'js' => array('components/Input.js'),
+        'filters' => array(
+            'checkbox' => array('title' => 'Checkbox?', 'type' => 'boolean', 'default' => true),
+            'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
+            'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
+        )
+    ),
     'input-group' => array(
         'title' => 'Input Group',
         'css' => array('components/input-group.css'),
