@@ -1,5 +1,5 @@
 {
-    "version": "0.14.0",
+    "version": "1.0.0-rc1",
     "name": "Titon Toolkit",
     "main": [
         "dist/toolkit.min.css",
@@ -16,6 +16,7 @@
         "img/",
         "js/",
         "lib/",
+        "scss/",
         "config.rb",
         "Gemfile",
         "Gruntfile.js",
