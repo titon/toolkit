@@ -134,21 +134,15 @@ module.exports = function(grunt) {
         },
 
         // 2) Generate new CSS files before building
-        // https://github.com/gruntjs/grunt-contrib-sass
-        sass: {
-            options: {
-                style: 'compressed',
-                compass: 'config.rb',
-                trace: true
-            },
+        // https://github.com/gruntjs/grunt-contrib-compass
+        compass: {
             build: {
-                files: [{
-                    expand: true,
-                    cwd: 'scss',
-                    src: '**/*.scss',
-                    dest: 'css',
-                    ext: '.css'
-                }]
+                options: {
+                    config: 'config.rb',
+                    environment: 'production',
+                    outputStyle: 'compressed',
+                    trace: true
+                }
             }
         },
 
@@ -228,7 +222,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['sass']
+                tasks: ['compass']
             }
         }
     });
@@ -238,13 +232,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('compile', ['sass', 'uglify']);
+    grunt.registerTask('compile', ['compass', 'uglify']);
     grunt.registerTask('build', ['concat', 'string-replace']);
-    grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'concat', 'string-replace']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'compass', 'concat', 'string-replace']);
 };

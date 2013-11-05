@@ -36,7 +36,7 @@
         "grunt-contrib-concat": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jshint": "*",
-        "grunt-contrib-sass": "*",
+        "grunt-contrib-compass": "*",
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
         "grunt-string-replace": "*",

@@ -56,6 +56,7 @@ Furthermore, the following Toolkit components do not work in IE8: Input, Matrix.
 * `Carousel` - Provides a 16:9 responsive carousel with panels that slide or fade in
 * `Dropdown` - Allows for toggleable dropdown menus with support for nested menus
 * `Flyout` - Displays nested flyout menus that appear below an element that activates it
+* `Input` - Replaces select boxes, checkboxes and radios with custom basic functionality
 * `LazyLoad` - Provides an easy way to lazy-load images (inline and background) while scrolling
 * `Matrix` - Reorganizes elements into a modular cascading grid (masonry style)
 * `Modal` - Displays dynamic modals that will display above the content
@@ -95,7 +96,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Table` - Styles for tables
 
 #### Themes ####
-* `Titon` - Titon specific theme that mimics Twitter Bootstrap
+* `Titon` - Titon specific theme used for examples
 
 ## Authors ##
 * [Miles Johnson](https://github.com/milesj)
