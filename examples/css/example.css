@@ -11,7 +11,7 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example { padding: 25px; }
 .example > *:first-child { margin-top: 0; }
 
-.example-form { margin: 0; padding: 0; list-style: none; background: rgba(0, 0, 0, .8); color: #ccc; width: 100%; z-index: 100; }
+.example-form { margin: 0; padding: 0; list-style: none; background: #000; background: rgba(0, 0, 0, .8); color: #ccc; width: 100%; z-index: 100; }
 .example-form li { display: inline-block; padding: 5px; }
 .example-form input { border: none; border-radius: 2px; padding: 3px; }
 .example-form input[type="text"] { width: 6rem; }
@@ -22,10 +22,10 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .example-switcher { position: fixed; bottom: 0; left: 0; }
 .example-switcher .resolution { float: right; }
 
-.example-header { background: rgba(0, 0, 0, .5); color: #fff; font-size: 3rem; padding: 25px; margin: -25px -25px 35px -25px !important; }
+.example-header { background: darkgray; background: rgba(0, 0, 0, .5); color: #fff; font-size: 3rem; padding: 25px; margin: -25px -25px 35px -25px !important; }
 .example-header .button { position: relative; top: -7px; }
 
-.example-title { background: rgba(0, 0, 0, .5); color: #fff; margin: 25px -25px; padding: 15px 25px; font-size: 1.5rem; }
+.example-title { background: darkgray; background: rgba(0, 0, 0, .5); color: #fff; margin: 25px -25px; padding: 15px 25px; font-size: 1.5rem; }
 .example-title:first-child { margin-top: -25px; }
 
 .example-center { text-align: center; padding: 100px; }

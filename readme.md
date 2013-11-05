@@ -47,6 +47,8 @@ IE9 does not support CSS3 transitions and any type of animation will fallback to
 IE8 does not support CSS3 transitions, rem scaling, media queries and specific HTML 5 elements. To support IE8, the Toolkit `ie8.css` file must be included.
 To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond). To support HTML 5 features, use [modernizr](http://modernizr.com).
 
+Furthermore, the following Toolkit components do not work in IE8: Input, Matrix.
+
 ## Javascript Components ##
 #### Modules ####
 * `Accordion` - Provides collapsible support to a list of sections

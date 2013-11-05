@@ -200,6 +200,7 @@ $components = array(
             'checkbox' => array('title' => 'Checkbox?', 'type' => 'boolean', 'default' => true),
             'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
+            'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
         )
     ),
     'input-group' => array(
@@ -351,7 +352,7 @@ $components = array(
             'className' => array('title' => 'Class', 'type' => 'text'),
             'gutter' => array('title' => 'Gutter Margin', 'type' => 'number', 'default' => 50),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
-            'group' => array('title' => 'Group?', 'type' => 'boolean', 'default' => false),
+            'group' => array('title' => 'Grouped?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
         )
     ),

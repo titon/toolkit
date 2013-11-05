@@ -1,5 +1,5 @@
 <?php
-$group = value('group') ? 'Titon' : '';
+$group = value('group', true) ? 'Titon' : '';
 
 for ($i = 1; $i <= value('count', 5); $i++) {
     $width = rand(200, 800);

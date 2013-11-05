@@ -40,7 +40,7 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
      * @returns {Titon.Dropdown}
      */
     this.hide = function() {
-        if (this.element.is(':shown')) {
+        if (this.element && this.element.is(':shown')) {
             this.element.conceal();
             this.node.removeClass('is-active');
 

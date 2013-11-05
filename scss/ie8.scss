@@ -25,7 +25,11 @@ h4 { font-size: 28px; }
 h5 { font-size: 24px; }
 h6 { font-size: 18px; }
 
-.x { font-size: 24px; }
+.x,
+.arrow-up,
+.arrow-down,
+.arrow-left,
+.arrow-right { font-size: 24px; }
 
 .input,
 .input-static,
@@ -54,8 +58,6 @@ legend,
 }
 
 .type-ahead-desc,
-.label,
-.badge,
 .progress-bar {
     font-size: 9px;
 }
@@ -96,17 +98,17 @@ pre,
 .table.table--compact.table--sortable thead th a,
 .table.table--compact.table--sortable thead th span,
 .flyout ul li > a,
-.flyout ul li > .divider,
+.flyout-divider,
 .popover-head,
 .popover-body,
 .tooltip,
 .type-ahead ul li a
-.type-ahead ul li.heading,
+.type-ahead-heading,
 .breadcrumbs.small a,
 .button.small,
 .small .button,
 .dropdown li > a,
-.dropdown li.heading,
+.dropdown-heading,
 .type-ahead ul a {
     padding: $padding-small;
 }
@@ -131,7 +133,8 @@ pre, p, ul, ol, hr,
 blockquote { margin: $margin; }
 
 .notice-close,
-.button-group + .button-group {
+.button-group + .button-group,
+.breadcrumbs a .divider {
     margin-left: $margin;
 }
 
@@ -150,12 +153,19 @@ blockquote { margin: $margin; }
 .form--inline  .field-label { margin: 0 ($margin / 2) 0 0; }
 .form--horizontal .field-col { padding-left: $margin; }
 .notice { margin: 0 0 ($margin / 2) 0; }
-.dropdown li.divider { margin: ($margin / 2) 0; }
+.dropdown-divider { margin: ($margin / 2) 0; }
 .pagination li { margin-right: $padding / 2; }
 
 .showcase-tabs { top: $padding; }
 .showcase-prev { left: $padding; }
 .showcase-next { right: $padding; }
+
+.label { padding: 5px; font-size: 10px; }
+.label.small { padding: 3px; font-size: 9px; }
+.label.large { padding: 8px; font-size: 12px; }
+
+.modal-close,
+.showcase-close { top: $padding; right: $padding; }
 
 // IE8 does not support rgba
 // So use solid colors instead
@@ -166,7 +176,7 @@ blockquote { margin: $margin; }
 .showcase-caption { background: #000; filter: alpha(opacity=70); }
 
 .carousel-tabs,
-.showcase-tabs { left: auto; right: auto; }
+.showcase-tabs { left: auto; right: auto; top: $padding; }
 
 .showcase-next,
 .showcase-prev,
