@@ -20,6 +20,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
 
     /** Target and container sizes */
     this.elementHeight = null;
+    this.elementTop = null;
+
     this.parentHeight = null;
     this.parentTop = null;
 
@@ -30,6 +32,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
+        this.elementTop = parseInt(this.element.css('top'), 10);
+
         $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
         $(window).on('resize', $.throttle(this.__resize.bind(this), this.options.throttle));
         $(document).ready(this.__resize.bind(this));
@@ -39,13 +43,12 @@ Titon.Pin = Titon.Component.create(function(element, options) {
 
     /**
      * Calculate the dimensions and offsets of the interacting elements.
-     * Determine whether to pin or unpin.
      *
-     * @private
-     * @param {Event} e
+     * @returns {Titon.Pin}
      */
-    this.__resize = function(e) {
-        var win = $(window);
+    this.calculate = function() {
+        var win = $(window),
+            parent = this.element.parents(this.options.context);
 
         this.viewport = {
             width: win.width(),
@@ -53,8 +56,20 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         };
 
         this.elementHeight = this.element.outerHeight();
-        this.parentHeight = this.element.parent().outerHeight();
-        this.parentTop = this.element.parent().offset().top;
+        this.parentHeight = parent.outerHeight();
+        this.parentTop = parent.offset().top;
+
+        return this;
+    };
+
+    /**
+     * Determine whether to pin or unpin.
+     *
+     * @private
+     * @param {Event} e
+     */
+    this.__resize = function(e) {
+        this.calculate();
 
         // Enable pin if the parent is larger than the child
         if (this.parentHeight >= this.elementHeight) {
@@ -74,6 +89,10 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * @param {Event} e
      */
     this.__scroll = function(e) {
+        if (this.options.calculate) {
+            this.calculate();
+        }
+
         if (!this.enabled) {
             return;
         }
@@ -81,6 +100,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         var options = this.options,
             eHeight = this.elementHeight,
             pHeight = this.parentHeight,
+            eTop = this.elementTop,
             pTop = this.parentTop,
             scrollTop = $(window).scrollTop(),
             pos = {},
@@ -92,6 +112,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
             x = options.xOffset;
             y = options.yOffset;
 
+            // Don't extend out the bottom
             var elementMaxPos = scrollTop + eHeight,
                 parentMaxHeight = pHeight + pTop;
 
@@ -100,6 +121,13 @@ Titon.Pin = Titon.Component.create(function(element, options) {
             } else {
                 y += (scrollTop - pTop);
             }
+
+            // Don't go lower than default top
+            if (eTop && y < eTop) {
+                y = eTop;
+            }
+        } else {
+            y = eTop;
         }
 
         // Position the element
@@ -143,7 +171,9 @@ $.fn.pin.options = {
     location: 'right',
     xOffset: 0,
     yOffset: 0,
-    throttle: 50
+    throttle: 50,
+    calculate: false,
+    context: null
 };
 
 })(jQuery);

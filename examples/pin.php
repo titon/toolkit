@@ -1,6 +1,6 @@
 
 <div class="example-pin <?php echo value('location', 'right'); ?>">
-    <div class="pin" id="pin"<?php if ($height = value('height')) echo ' style="height: ' . $height . 'px"'; ?>>
+    <div class="pin" id="pin" style="<?php if ($height = value('height')) echo 'height: ' . $height . 'px;'; if ($top = value('top')) echo 'top: ' . $top . 'px;'; ?>">
         This div should stay positioned at the top right of the page, regardless of window scroll.<br><br>
         It will also stay contained within the parent.
     </div>

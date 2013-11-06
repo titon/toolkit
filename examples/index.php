@@ -296,7 +296,8 @@ $components = array(
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
-            'height' => array('title' => 'Height', 'type' => 'number'),
+            'height' => array('title' => 'Default Height', 'type' => 'number'),
+            'top' => array('title' => 'Default Top', 'type' => 'number')
         )
     ),
     'popover' => array(

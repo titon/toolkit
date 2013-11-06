@@ -18,6 +18,9 @@ Titon.Pin = new Class({
     elementSize: null,
     parentSize: null,
 
+    /** Default values */
+    elementTop: null,
+
     /** Default options */
     options: {
         animation: 'pin',
@@ -25,6 +28,8 @@ Titon.Pin = new Class({
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
+        calculate: false,
+        context: null,
         template: false,
 
         // Events
@@ -46,6 +51,9 @@ Titon.Pin = new Class({
             return;
         }
 
+        // Set defaults
+        this.elementTop = this.element.getStyle('top').toInt();
+
         window.addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
         window.addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize);
         window.addEvent('domready', this.__resize);
@@ -55,15 +63,25 @@ Titon.Pin = new Class({
 
     /**
      * Calculate the dimensions and offsets of the interacting elements.
+     *
+     * @returns {Titon.Pin}
+     */
+    calculate: function() {
+        this.viewport = window.getSize();
+        this.elementSize = this.element.getCoordinates();
+        this.parentSize = this.element.getParent(this.options.context).getCoordinates();
+
+        return this;
+    },
+
+    /**
      * Determine whether to pin or unpin.
      *
      * @private
      * @param {DOMEvent} e
      */
     __resize: function(e) {
-        this.viewport = window.getSize();
-        this.elementSize = this.element.getCoordinates();
-        this.parentSize = this.element.getParent().getCoordinates();
+        this.calculate();
 
         // Enable pin if the parent is larger than the child
         if (this.parentSize.height > this.elementSize.height) {
@@ -83,6 +101,10 @@ Titon.Pin = new Class({
      * @param {DOMEvent} e
      */
     __scroll: function(e) {
+        if (this.options.calculate) {
+            this.calculate();
+        }
+
         if (!this.enabled) {
             return;
         }
@@ -90,6 +112,7 @@ Titon.Pin = new Class({
         var options = this.options,
             eSize = this.elementSize,
             pSize = this.parentSize,
+            eTop = this.elementTop,
             wScroll = window.getScroll(),
             pos = {},
             x = 0,
@@ -100,6 +123,7 @@ Titon.Pin = new Class({
             x = options.xOffset;
             y = options.yOffset;
 
+            // Don't extend out the bottom
             var elementMaxPos = wScroll.y + eSize.height,
                 parentMaxHeight = pSize.height + pSize.top;
 
@@ -108,6 +132,13 @@ Titon.Pin = new Class({
             } else {
                 y += (wScroll.y - pSize.top);
             }
+
+            // Don't go lower than default top
+            if (eTop && y < eTop) {
+                y = eTop;
+            }
+        } else {
+            y = eTop;
         }
 
         // Position the element
