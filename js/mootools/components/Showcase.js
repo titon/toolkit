@@ -363,6 +363,8 @@ Titon.Showcase = new Class({
             this.element.addClass('is-single');
         }
 
+        this.fireEvent('load');
+
         return this;
     }.protect(),
 

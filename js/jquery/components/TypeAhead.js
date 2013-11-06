@@ -359,6 +359,8 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
             return (item !== null);
         });
 
+        this.fireEvent('load');
+
         // Apply the shadow text
         this._shadow();
 

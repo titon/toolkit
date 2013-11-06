@@ -94,6 +94,8 @@ Titon.Tooltip = new Class({
             this.elementBody.hide();
         }
 
+        this.fireEvent('load');
+
         // Follow the mouse
         if (options.follow) {
             var event = 'mousemove:throttle(' + options.mouseThrottle + ')';

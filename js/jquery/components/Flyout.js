@@ -206,6 +206,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
             return this;
         }
 
+        this.fireEvent('load');
         this.node.addClass('is-active');
 
         // Display immediately if click

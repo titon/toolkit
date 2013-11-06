@@ -208,6 +208,7 @@ Titon.Flyout = new Class({
             return this;
         }
 
+        this.fireEvent('load');
         this.node.addClass('is-active');
 
         // Display immediately if click

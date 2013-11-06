@@ -151,6 +151,8 @@ Titon.Tabs = new Class({
 
                     section.set('html', response)
                         .removeClass('is-loading');
+
+                    this.fireEvent('load');
                 }.bind(this),
 
                 onRequest: function() {

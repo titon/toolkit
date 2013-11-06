@@ -136,6 +136,8 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
                     section.html(response)
                         .removeClass('is-loading');
+
+                    this.fireEvent('load');
                 }.bind(this),
 
                 beforeSend: function() {

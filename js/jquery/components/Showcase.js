@@ -300,6 +300,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      *
      * @private
      * @param {Array} items
+     * @returns {Titon.Showcase}
      */
     this._buildItems = function(items) {
         this.data = items;
@@ -322,6 +323,10 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         if (items.length <= 1) {
             this.element.addClass('is-single');
         }
+
+        this.fireEvent('load');
+
+        return this;
     };
 
     /**

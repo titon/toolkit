@@ -386,6 +386,8 @@ Titon.TypeAhead = new Class({
             return (item !== null);
         });
 
+        this.fireEvent('load');
+
         // Apply the shadow text
         this._shadow();
 

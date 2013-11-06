@@ -45,7 +45,8 @@ Titon.Component = new Class({
         // Events
         onInit: null,
         onHide: null,
-        onShow: null
+        onShow: null,
+        onLoad: null
     },
 
     /**
@@ -220,6 +221,7 @@ Titon.Component = new Class({
      */
     position: function(content) {
         this.element.set('html', content);
+        this.fireEvent('load');
 
         return this;
     },
