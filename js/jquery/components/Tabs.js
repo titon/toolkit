@@ -128,29 +128,27 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
         // Load content with AJAX
         if (this.options.ajax && url && url.indexOf('#') < 0 && !this.cache[url]) {
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(response) {
+            this.requestData(
+                'tabs',
+                url,
+                function tabsAjaxBefore() {
+                    section.html(this._loadingTemplate('tabs'))
+                        .addClass('is-loading');
+                },
+                function tabsAjaxDone(response) {
                     this.cache[url] = true;
 
                     section.html(response)
                         .removeClass('is-loading');
 
                     this.fireEvent('load');
-                }.bind(this),
-
-                beforeSend: function() {
-                    section.html(this._loadingTemplate('tabs'))
-                        .addClass('is-loading');
-                }.bind(this),
-
-                error: function() {
+                },
+                function tabsAjaxFail() {
                     section.html(this._errorTemplate('tabs'))
                         .removeClass('is-loading')
                         .addClass('has-failed');
-                }.bind(this)
-            });
+                }
+            );
         }
 
         // Toggle tabs

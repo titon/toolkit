@@ -218,7 +218,7 @@ Titon.Modal = new Class({
         e.stop();
 
         var button = e.target,
-            form = button.getParent('form');
+            form = this.elementBody.getElement('form');
 
         if (!form) {
             return;

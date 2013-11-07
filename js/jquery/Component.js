@@ -108,6 +108,63 @@ Titon.Component = function() {
     };
 
     /**
+     * Request data from a URL and handle all the possible scenarios.
+     *
+     * @param {String} type
+     * @param {String} url
+     * @param {Function} before
+     * @param {Function} done
+     * @param {Function} fail
+     * @returns {Titon.Component}
+     */
+    this.requestData = function(type, url, before, done, fail) {
+        var ajax = {
+            url: url,
+            type: 'GET',
+            dataType: 'html',
+            context: this,
+            beforeSend: before || function() {
+                this.cache[url] = true;
+
+                // Does not apply to all components
+                if (this.options.showLoading) {
+                    this.element.addClass('is-loading');
+
+                    this.position(this._loadingTemplate(type));
+                }
+            }
+        };
+
+        // Inherit custom options
+        if ($.type(this.options.ajax) === 'object') {
+            ajax = $.merge(this.options.ajax, ajax);
+        }
+
+        $.ajax(ajax)
+            .done(done || function(response) {
+                this.cache[url] = response;
+
+                // Does not apply to all components
+                if (this.options.showLoading) {
+                    this.element.removeClass('is-loading');
+                }
+
+                this.position(response);
+            })
+            .fail(fail || function() {
+                delete this.cache[url];
+
+                this.element
+                    .removeClass('is-loading')
+                    .addClass('has-failed');
+
+                this.position(this._errorTemplate(type));
+            });
+
+        return this;
+    };
+
+    /**
      * Set the element to use. Apply optional class names if available.
      *
      * @param {String|Element} element

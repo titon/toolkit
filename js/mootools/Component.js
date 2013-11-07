@@ -250,30 +250,22 @@ Titon.Component = new Class({
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {String} url
+     * @param {Function} before
+     * @param {Function} done
+     * @param {Function} fail
      * @returns {Titon.Component}
      */
-    requestData: function(url) {
+    requestData: function(url, before, done, fail) {
         if (this.cache[url]) {
             return this;
         }
 
-        new Request({
+        var ajax = {
             url: url,
             method: 'get',
             evalScripts: true,
 
-            onSuccess: function(response) {
-                this.cache[url] = response;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.removeClass('is-loading');
-                }
-
-                this.position(response);
-            }.bind(this),
-
-            onRequest: function() {
+            onRequest: before || function() {
                 this.cache[url] = true;
 
                 // Does not apply to all components
@@ -284,7 +276,18 @@ Titon.Component = new Class({
                 }
             }.bind(this),
 
-            onFailure: function() {
+            onSuccess: done || function(response) {
+                this.cache[url] = response;
+
+                // Does not apply to all components
+                if (this.options.showLoading) {
+                    this.element.removeClass('is-loading');
+                }
+
+                this.position(response);
+            }.bind(this),
+
+            onFailure: fail || function() {
                 delete this.cache[url];
 
                 this.element
@@ -293,7 +296,13 @@ Titon.Component = new Class({
 
                 this.position(this._errorTemplate());
             }.bind(this)
-        }).get();
+        };
+
+        if (typeOf(this.options.ajax) === 'object') {
+            ajax = Object.merge(this.options.ajax, ajax);
+        }
+
+        new Request(ajax).get();
 
         return this;
     },

@@ -153,40 +153,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
             if (this.cache[content]) {
                 this.position(this.cache[content], title);
             } else {
-                $.ajax({
-                    url: content,
-                    type: 'get',
-
-                    success: function(response) {
-                        this.cache[content] = response;
-
-                        if (this.options.showLoading) {
-                            this.element.removeClass('is-loading');
-                        }
-
-                        this.position(response);
-                    }.bind(this),
-
-                    beforeSend: function() {
-                        this.cache[content] = true;
-
-                        if (this.options.showLoading) {
-                            this.element.addClass('is-loading');
-
-                            this.position(this._loadingTemplate('tooltip'));
-                        }
-                    }.bind(this),
-
-                    error: function() {
-                        delete this.cache[content];
-
-                        this.element
-                            .removeClass('is-loading')
-                            .addClass('has-failed');
-
-                        this.position(this._errorTemplate('tooltip'));
-                    }.bind(this)
-                });
+                this.requestData('tooltip', content);
             }
         } else {
             if (content.substr(0, 1) === '#') {

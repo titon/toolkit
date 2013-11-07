@@ -534,7 +534,7 @@ if ($vendor === 'mootools') {
                         <input type="hidden" name="component" value="<?php echo value('component'); ?>">
                         <input type="hidden" name="theme" value="<?php echo value('theme', 'titon'); ?>">
                         <input type="hidden" name="vendor" value="<?php echo value('vendor', 'mootools'); ?>">
-                        <button type="submit">Go</button>
+                        <button type="submit">Filter</button>
                     </li>
                 <?php } ?>
 

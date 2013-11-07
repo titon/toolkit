@@ -182,40 +182,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             if (this.cache[content]) {
                 this.position(this.cache[content]);
             } else {
-                $.ajax({
-                    url: content,
-                    type: 'get',
-
-                    success: function(response) {
-                        this.cache[content] = response;
-
-                        if (this.options.showLoading) {
-                            this.element.removeClass('is-loading');
-                        }
-
-                        this.position(response);
-                    }.bind(this),
-
-                    beforeSend: function() {
-                        this.cache[content] = true;
-
-                        if (this.options.showLoading) {
-                            this.element.addClass('is-loading');
-
-                            this.position(this._loadingTemplate('modal'));
-                        }
-                    }.bind(this),
-
-                    error: function() {
-                        delete this.cache[content];
-
-                        this.element
-                            .removeClass('is-loading')
-                            .addClass('has-failed');
-
-                        this.position(this._errorTemplate('modal'));
-                    }.bind(this)
-                });
+                this.requestData('modal', content);
             }
         } else {
             this.position(content);
@@ -264,7 +231,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         e.stopPropagation();
 
         var button = $(e.target),
-            form = button.parents('form');
+            form = this.elementBody.find('form');
 
         if (!form) {
             return;
