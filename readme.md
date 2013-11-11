@@ -109,8 +109,3 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * Zepto is currently not supported (too different of an API)
 * Slide in modal animations do not work correctly in Chrome/IE
 * Flip modal animations do not work in Opera
-
-## To Do ##
-* Guide component
-* Marquee component
-* Custom inputs component
