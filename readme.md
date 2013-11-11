@@ -6,10 +6,21 @@ Each component represents encapsulated HTML, CSS and JS functionality for role s
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
 Sass for CSS pre-processing, and Grunt for task and package management.
 
+#### Why Toolkit? ####
+
+Toolkit was built from the ground up with the following concepts and philosophies in mind.
+If any of these concepts align with your thought process or your projects requirements, than Toolkit is right for you.
+
+* Mobile first design philosophy
+* Progressive enhancement and graceful degradation
+* Cascading CSS inheritance
+* Configuration over convention
+* Responsive and fluid as first class
+* Relative scaling with `em` and `rem`
+* Animations and transitions purely with CSS
+
 #### Demo ####
 A temporary demo can be found here: http://titon.io/toolkit
-
-It's literally the examples folder within this repository.
 
 #### Requirements ####
 * **HTML5**
