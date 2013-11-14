@@ -292,6 +292,7 @@ $components = array(
         'js' => array('components/Pin.js'),
         'css' => array('components/pin.css'),
         'filters' => array(
+            'animation' => array('title' => 'Animation', 'data' => array('' => '-- None --', 'sticky' => 'Sticky', 'slide' => 'Slide')),
             'location' => array('title' => 'Location', 'data' => array('right' => 'Right', 'left' => 'Left'), 'default' => 'right'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),

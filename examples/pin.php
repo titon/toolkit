@@ -14,6 +14,7 @@
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $('pin').pin({
+                animation: <?php string('animation'); ?>,
                 location: <?php string('location', 'right'); ?>,
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,
@@ -23,6 +24,7 @@
     <?php } else { ?>
         $(function() {
             $('#pin').pin({
+                animation: <?php string('animation'); ?>,
                 location: <?php string('location', 'right'); ?>,
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,

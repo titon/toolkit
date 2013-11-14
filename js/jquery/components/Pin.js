@@ -32,6 +32,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
+        this.element.addClass('pin');
         this.elementTop = parseInt(this.element.css('top'), 10);
 
         $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
@@ -167,7 +168,7 @@ $.fn.pin = function(options) {
 };
 
 $.fn.pin.options = {
-    animation: 'pin',
+    animation: '',
     location: 'right',
     xOffset: 0,
     yOffset: 0,

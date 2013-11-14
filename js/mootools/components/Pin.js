@@ -23,7 +23,7 @@ Titon.Pin = new Class({
 
     /** Default options */
     options: {
-        animation: 'pin',
+        animation: '',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
@@ -52,6 +52,7 @@ Titon.Pin = new Class({
         }
 
         // Set defaults
+        this.element.addClass('pin');
         this.elementTop = this.element.getStyle('top').toInt();
 
         window.addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
