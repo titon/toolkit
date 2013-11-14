@@ -15,6 +15,8 @@
     ul, ol {
         margin: 0;
         padding: 0;
+
+        @include clear-fix;
     }
 
     li {
@@ -54,6 +56,4 @@
 
         .divider { margin-left: $large-padding; }
     }
-
-    @include clear-fix;
 }

@@ -10,26 +10,27 @@
     display: block;
     margin: $margin 0;
 
-    ul,
-    li {
-        @include reset-inline-block;
-        list-style: none;
+    ul, ol {
+        margin: 0;
+        padding: 0;
+
+        @include clear-fix;
     }
 
     li {
+        position: relative;
+        list-style: none;
         float: left;
         margin-right: $padding / 2;
 
-        .button {
-            float: left;
+        > a {
+            display: block;
         }
 
         &.is-active {
             z-index: 1;
         }
     }
-
-    @include clear-fix;
 }
 
 //-------------------- Modifiers --------------------//
@@ -40,10 +41,11 @@
         margin-right: 0;
 
         &:first-child { margin-left: 0; }
-        &:hover,
-        .button:hover { z-index: 1; }
 
-        .button {
+        &:hover,
+        > a:hover { z-index: 1; }
+
+        > a {
             margin: 0;
             border-radius: 0;
         }
@@ -54,12 +56,12 @@
             border-radius: $round;
         }
 
-        li:first-child .button {
+        li:first-child > a {
             border-top-left-radius: $round;
             border-bottom-left-radius: $round;
         }
 
-        li:last-child .button {
+        li:last-child > a {
             border-top-right-radius: $round;
             border-bottom-right-radius: $round;
         }
