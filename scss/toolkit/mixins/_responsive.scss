@@ -29,6 +29,15 @@
     }
 }
 
+@mixin if-retina {
+    @media
+        only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (-moz-min-device-pixel-ratio: 2),
+        only screen and (min-device-pixel-ratio: 2) {
+        @content;
+    }
+}
+
 // Either support desktop-first or mobile-first responsive pattern
 @mixin do-responsive($desktop, $mobile) {
     @if $responsive-design == "desktop" {

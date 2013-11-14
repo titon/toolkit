@@ -21,7 +21,13 @@
         <td class="hide-landscape">Landscape</td>
         <td class="show-portrait">Portrait</td>
         <td class="hide-portrait">Portrait</td>
+        <td> </td>
+    </tr>
+    <tr>
         <td class="show-print">Print</td>
         <td class="hide-print">Print</td>
+        <td class="show-retina">Retina</td>
+        <td class="hide-retina">Retina</td>
+        <td> </td>
     </tr>
 </table>

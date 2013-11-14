@@ -12,6 +12,7 @@ img, video, canvas {
     height: auto;
 }
 
+.show-retina,
 .show-print { display: none; }
 
 @if $responsive-size == "device" or $responsive-size == "both" {
@@ -72,7 +73,18 @@ img, video, canvas {
 }
 
 // Type states
+@include if-retina {
+    .hide-retina { display: none; }
+    .show-retina { display: block; }
+    tr.show-retina { display: table-row; }
+    td.show-retina,
+    th.show-retina { display: table-cell; }
+}
+
 @media print {
-    .show-print { display: block; }
     .hide-print { display: none; }
+    .show-print { display: block; }
+    tr.show-print { display: table-row; }
+    td.show-print,
+    th.show-print { display: table-cell; }
 }
