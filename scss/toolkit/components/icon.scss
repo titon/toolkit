@@ -8,6 +8,8 @@
 
 [class*="icon-"] {
     @include reset-inline-block;
+    background-repeat: no-repeat;
+
     @include disabled-state { opacity: $disabled-opacity; }
 }
 

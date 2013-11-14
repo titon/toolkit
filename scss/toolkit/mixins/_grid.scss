@@ -1,14 +1,31 @@
 
+//$gutter-width: if($grid-gutter, to-percent($grid-gutter), 0);
+
 // Calculate a width using a grid cell
 @function grid-span($columns, $n) {
-    @return (100% / $columns) * $n;
+    $row-width: 100%;
+
+    // If a gutter is set, remove width based on the sum of the gutter columns
+    /*@if $grid-gutter {
+        $row-width: $row-width - ($gutter-width * ($columns - 1));
+    }*/
+
+    // The column width should span a division of the total width
+    $span-width: ($row-width / $columns) * $n;
+
+    // If a gutter is set, increase the column width to fill in the missing gaps
+    /*@if $grid-gutter and $n > 1 {
+        $span-width: $span-width + (($n - 1) * $gutter-width);
+    }*/
+
+    @return $span-width;
 }
 
 // Styles for the row containing the columns
 @mixin grid-row() {
     text-align: left;
-    width: 100%;
-    max-width: 100%;
+    width: $grid-width;
+    max-width: $grid-width;
 
     @include clear-fix;
 }
@@ -18,4 +35,12 @@
     position: relative;
     min-height: 1px;
     float: left;
+
+    /*@if $grid-gutter {
+        margin-right: $gutter-width;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }*/
 }

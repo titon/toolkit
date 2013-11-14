@@ -77,3 +77,31 @@
 @function white($opacity){
     @return rgba(255, 255, 255, $opacity);
 }
+
+//-------------------- Conversions --------------------//
+
+// Remove the unit and return the integer
+@function strip-unit($value) {
+    @return ($value / ($value * 0 + 1));
+}
+
+// Convert a unit value to a percentage while using $base-size as the reference
+@function to-percent($from) {
+    $from-unit: unit($from);
+    $value: $from;
+
+    @if $from-unit == '%' {
+        @return $from;
+
+    } @else if $from-unit == 'px' {
+        // Do nothing
+
+    } @else if $from-unit == 'em' or $from-unit == 'rem' {
+        $value: (strip-unit($from) * strip-unit($base-size)) * 1px;
+
+    } @else {
+        @warn 'Unknown conversion unit type.';
+    }
+
+    @return percentage(($value / $base-size) / 100);
+}

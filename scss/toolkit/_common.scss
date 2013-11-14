@@ -1,15 +1,4 @@
 
-//-------------------- Imports --------------------//
-
-@import "mixins/layout";
-@import "mixins/grid";
-@import "mixins/responsive";
-@import "compass/css3/box-sizing";
-@import "compass/css3/images";
-@import "compass/css3/transition";
-@import "compass/css3/transform";
-@import "compass/css3/filter";
-
 //-------------------- Compass --------------------//
 
 $experimental-support-for-mozilla: true !default;
@@ -32,6 +21,9 @@ $background-color: #fff !default;
 $foreground-color: #2d2d2d !default;
 
 //-------------------- Sizes --------------------//
+
+$base-size: 14px !default;
+$base-size-width: ($base-size * 100) / 1px;
 
 $padding: .75rem !default;
 $margin: 1.25rem !default;
@@ -133,3 +125,17 @@ $grid-columns-small: 6 !default;
 $grid-columns-desktop: 12 !default;
 $grid-columns-tablet: 6 !default;
 $grid-columns-mobile: 3 !default;
+
+$grid-width: 100% !default;
+$grid-gutter: 0 !default;
+
+//-------------------- Imports --------------------//
+
+@import "mixins/layout";
+@import "mixins/grid";
+@import "mixins/responsive";
+@import "compass/css3/box-sizing";
+@import "compass/css3/images";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/filter";
