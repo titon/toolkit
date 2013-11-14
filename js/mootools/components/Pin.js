@@ -28,6 +28,7 @@ Titon.Pin = new Class({
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
+        fixed: false,
         calculate: false,
         context: null,
         template: false,
@@ -111,44 +112,52 @@ Titon.Pin = new Class({
         }
 
         var options = this.options,
+            isFixed = options.fixed,
             eSize = this.elementSize,
             pSize = this.parentSize,
-            eTop = this.elementTop,
             wScroll = window.getScroll(),
             pos = {},
-            x = 0,
+            x = options.xOffset,
             y = 0;
 
-        // Scroll reaches the top or bottom of the parent
-        if (wScroll.y > pSize.top) {
-            x = options.xOffset;
-            y = options.yOffset;
+        // Scroll is above the parent, remove pin inline styles
+        if (wScroll.y < pSize.top) {
+            this.element.removeProperty('style');
+            return;
+        }
 
-            // Don't extend out the bottom
-            var elementMaxPos = wScroll.y + eSize.height,
-                parentMaxHeight = pSize.height + pSize.top;
+        // Don't extend out the bottom
+        var elementMaxPos = wScroll.y + eSize.height,
+            parentMaxHeight = pSize.height + pSize.top;
+
+        // Swap positioning of the fixed menu once it reaches the parent borders
+        if (isFixed) {
+            if (elementMaxPos >= parentMaxHeight) {
+                y = 'auto';
+
+                pos.position = 'absolute';
+                pos.bottom = 0;
+            } else {
+                pos.position = 'fixed';
+                pos.bottom = 'auto';
+            }
+
+        // Stop positioning absolute menu once it exits the parent
+        } else {
+            pos.position = 'absolute';
 
             if (elementMaxPos >= parentMaxHeight) {
                 y += (pSize.height - eSize.height);
-            } else {
-                y += (wScroll.y - pSize.top);
-            }
 
-            // Don't go lower than default top
-            if (eTop && y < eTop) {
-                y = eTop;
+            } else {
+                y += (wScroll.y - pSize.top) + options.yOffset;
             }
-        } else {
-            y = eTop;
         }
 
-        // Position the element
-        pos.position = 'absolute';
         pos[options.location] = x;
         pos.top = y;
 
         this.element.setStyles(pos);
-
         this.fireEvent('scroll');
     }
 
@@ -161,7 +170,7 @@ Titon.Pin = new Class({
  *
  * @example
  *     $('pin-id').pin({
- *         animate: true
+ *         fixed: true
  *     });
  *
  * @param {Object} [options]

@@ -99,45 +99,53 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         }
 
         var options = this.options,
+            isFixed = options.fixed,
             eHeight = this.elementHeight,
             pHeight = this.parentHeight,
-            eTop = this.elementTop,
             pTop = this.parentTop,
             scrollTop = $(window).scrollTop(),
             pos = {},
-            x = 0,
+            x = options.xOffset,
             y = 0;
 
-        // Scroll reaches the top or bottom of the parent
-        if (scrollTop > pTop) {
-            x = options.xOffset;
-            y = options.yOffset;
+        // Scroll is above the parent, remove pin inline styles
+        if (scrollTop < pTop) {
+            this.element.removeAttr('style');
+            return;
+        }
 
-            // Don't extend out the bottom
-            var elementMaxPos = scrollTop + eHeight,
-                parentMaxHeight = pHeight + pTop;
+        // Don't extend out the bottom
+        var elementMaxPos = scrollTop + eHeight,
+            parentMaxHeight = pHeight + pTop;
+
+        // Swap positioning of the fixed menu once it reaches the parent borders
+        if (isFixed) {
+            if (elementMaxPos >= parentMaxHeight) {
+                y = 'auto';
+
+                pos.position = 'absolute';
+                pos.bottom = 0;
+            } else {
+                pos.position = 'fixed';
+                pos.bottom = 'auto';
+            }
+
+        // Stop positioning absolute menu once it exits the parent
+        } else {
+            pos.position = 'absolute';
 
             if (elementMaxPos >= parentMaxHeight) {
                 y += (pHeight - eHeight);
-            } else {
-                y += (scrollTop - pTop);
-            }
 
-            // Don't go lower than default top
-            if (eTop && y < eTop) {
-                y = eTop;
+            } else {
+                y += (scrollTop - pTop) + options.yOffset;
             }
-        } else {
-            y = eTop;
         }
 
-        // Position the element
-        pos.position = 'absolute';
         pos[options.location] = x;
         pos.top = y;
 
         this.element.css(pos);
-
         this.fireEvent('scroll');
     };
 
@@ -173,6 +181,7 @@ $.fn.pin.options = {
     xOffset: 0,
     yOffset: 0,
     throttle: 50,
+    fixed: false,
     calculate: false,
     context: null
 };
