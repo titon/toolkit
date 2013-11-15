@@ -99,6 +99,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         var options = this.options,
             isFixed = options.fixed,
             eHeight = this.elementHeight,
+            eTop = this.elementTop,
             pHeight = this.parentHeight,
             pTop = this.parentTop,
             scrollTop = $(window).scrollTop(),
@@ -137,6 +138,11 @@ Titon.Pin = Titon.Component.create(function(element, options) {
 
             } else {
                 y += (scrollTop - pTop) + options.yOffset;
+            }
+
+            // Don't go lower than default top
+            if (eTop && y < eTop) {
+                y = eTop;
             }
         }
 

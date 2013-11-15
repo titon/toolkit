@@ -124,6 +124,7 @@ Titon.Pin = new Class({
         var options = this.options,
             isFixed = options.fixed,
             eSize = this.elementSize,
+            eTop = this.elementTop,
             pSize = this.parentSize,
             wScroll = window.getScroll(),
             pos = {},
@@ -161,6 +162,11 @@ Titon.Pin = new Class({
 
             } else {
                 y += (wScroll.y - pSize.top) + options.yOffset;
+            }
+
+            // Don't go lower than default top
+            if (eTop && y < eTop) {
+                y = eTop;
             }
         }
 
