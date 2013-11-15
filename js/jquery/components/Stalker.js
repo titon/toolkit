@@ -20,7 +20,11 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     this.targets = [];
 
     /** Elements that trigger the active state */
+    this.marker = null;
     this.markers = [];
+
+    /** Container used for scroll detection */
+    this.container = this.element.is('body') ? $(window) : this.element;
 
     /** Is the component enabled? */
     this.enabled = true;
@@ -35,7 +39,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
 
         this.refresh();
 
-        this.element.on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
+        this.container.on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
 
         $(document).ready(this.__scroll.bind(this));
 
@@ -43,18 +47,19 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     };
 
     /**
-     * Activate a target by element.
+     * Activate a target when a marker is triggered.
      *
+     * @param {Element} marker
      * @param {Element} target
      * @returns {Titon.Stalker}
      */
-    this.activate = function(target) {
+    this.activate = function(marker, target) {
+        this.marker = $(marker);
         this.target = target = $(target);
 
-        var targets = this.targets,
-            options = this.options;
+        var targets = this.targets;
 
-        if (options.applyToParent) {
+        if (this.options.applyToParent) {
             targets.parent().removeClass('is-active');
             target.parent().addClass('is-active');
 
@@ -63,27 +68,31 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
             target.addClass('is-active');
         }
 
-        this.fireEvent('activate', target);
+        this.fireEvent('activate', [marker, target]);
 
         return this;
     };
 
     /**
-     * Activate a target by index.
+     * Deactivate the targets.
      *
-     * @param {Number} index
+     * @param {Element} marker
      * @returns {Titon.Stalker}
      */
-    this.jump = function(index) {
+    this.deactivate = function(marker) {
         var targets = this.targets;
 
-        if (index >= targets.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = targets.length - 1;
+        if (this.options.applyToParent) {
+            targets.parent().removeClass('is-active');
+        } else {
+            targets.removeClass('is-active');
         }
 
-        return this.activate(targets[index]);
+        this.marker = null;
+        this.target = null;
+        this.fireEvent('deactivate', marker);
+
+        return this;
     };
 
     /**
@@ -92,7 +101,10 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
      * @returns {Titon.Stalker}
      */
     this.refresh = function() {
+        this.target = null;
         this.targets = $(this.options.target);
+
+        this.marker = null;
         this.markers = this.element.find(this.options.marker);
 
         return this;
@@ -108,24 +120,32 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
             return;
         }
 
-        var el = this.element,
-            elTop = el.offset().top,
+        var scroll = this.container.scrollTop(),
             markers = this.markers,
             targets = this.targets,
             threshold = this.options.threshold;
 
         markers.each(function(index, marker) {
-            var y = $(marker).offset().top - elTop,
+            marker = $(marker);
+
+            var offset = marker.offset(),
+                top = offset.top - threshold,
+                bot = offset.top + marker.height() + threshold,
                 target = [];
 
-            if (y >= 0 && y <= threshold) {
+            // Scroll is within the marker
+            if (scroll >= top && scroll <= bot) {
                 target = targets.filter(function() {
-                    return ($(this).attr('href') === '#' + $(marker).attr('id'));
+                    return ($(this).attr('href') === '#' + marker.attr('id'));
                 });
 
                 if (target.length) {
-                    this.activate(target[0]);
+                    this.activate(marker, target[0]);
                 }
+
+            // Scroll went outside the marker
+            } else if (this.marker && this.marker[0] === marker[0]) {
+                this.deactivate(marker);
             }
 
         }.bind(this));

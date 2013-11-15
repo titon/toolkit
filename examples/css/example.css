@@ -69,4 +69,5 @@ body { font: normal 14px/1.75rem Verdana, Arial, sans-serif; padding: 38px 0; }
 .modal-loading,
 .showcase.is-loading .showcase-inner { background-image: url("../img/loader.gif"); background-position: 50% 50%; background-repeat: no-repeat; }
 
-.example-stalker { height: 200px; overflow: auto; margin-top: 25px; }
+.example-stalker { padding-bottom: 500px; }
+#stalker-target { position: fixed; right: 20px; top: 60px; }

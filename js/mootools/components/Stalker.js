@@ -16,6 +16,7 @@ Titon.Stalker = new Class({
     targets: [],
 
     /** Elements that trigger the active state */
+    marker: null,
     markers: [],
 
     /** Default options */
@@ -28,7 +29,8 @@ Titon.Stalker = new Class({
 
         // Events
         onScroll: null,
-        onActivate: null
+        onActivate: null,
+        onDeactivate: null
     },
 
     /**
@@ -51,18 +53,19 @@ Titon.Stalker = new Class({
     },
 
     /**
-     * Activate a target by element.
+     * Activate a target when a marker is triggered.
      *
+     * @param {Element} marker
      * @param {Element} target
      * @returns {Titon.Stalker}
      */
-    activate: function(target) {
+    activate: function(marker, target) {
+        this.marker = marker;
         this.target = target;
 
-        var targets = this.targets,
-            options = this.options;
+        var targets = this.targets;
 
-        if (options.applyToParent) {
+        if (this.options.applyToParent) {
             targets.getParent().removeClass('is-active');
             target.getParent().addClass('is-active');
 
@@ -71,7 +74,7 @@ Titon.Stalker = new Class({
             target.addClass('is-active');
         }
 
-        this.fireEvent('activate', target);
+        this.fireEvent('activate', [marker, target]);
 
         return this;
     },
@@ -82,7 +85,8 @@ Titon.Stalker = new Class({
      * @returns {Titon.Stalker}
      */
     bindEvents: function() {
-        this.element.addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
+        (this.element === document.body ? window : this.element)
+            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
 
         window.addEvent('domready', this.__scroll);
 
@@ -90,21 +94,25 @@ Titon.Stalker = new Class({
     },
 
     /**
-     * Activate a target by index.
+     * Deactivate the targets.
      *
-     * @param {Number} index
+     * @param {Element} marker
      * @returns {Titon.Stalker}
      */
-    jump: function(index) {
+    deactivate: function(marker) {
         var targets = this.targets;
 
-        if (index >= targets.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = targets.length - 1;
+        if (this.options.applyToParent) {
+            targets.getParent().removeClass('is-active');
+        } else {
+            targets.removeClass('is-active');
         }
 
-        return this.activate(targets[index]);
+        this.marker = null;
+        this.target = null;
+        this.fireEvent('deactivate', marker);
+
+        return this;
     },
 
     /**
@@ -113,7 +121,10 @@ Titon.Stalker = new Class({
      * @returns {Titon.Stalker}
      */
     refresh: function() {
+        this.target = null;
         this.targets = $$(this.options.target);
+
+        this.marker = null;
         this.markers = this.element.getElements(this.options.marker);
 
         return this;
@@ -129,24 +140,30 @@ Titon.Stalker = new Class({
             return;
         }
 
-        var el = this.element,
-            elTop = el.getPosition().y,
+        var scroll = this.element.getScroll().y,
             markers = this.markers,
             targets = this.targets,
             threshold = this.options.threshold;
 
         markers.each(function(marker) {
-            var y = marker.getPosition().y - elTop,
+            var coords = marker.getCoordinates(),
+                top = coords.top - threshold,
+                bot = coords.top + coords.height + threshold,
                 target = [];
 
-            if (y >= 0 && y <= threshold) {
+            // Scroll is within the marker
+            if (scroll >= top && scroll <= bot) {
                 target = targets.filter(function(item) {
                     return (item.get('href') === '#' + marker.get('id'));
                 });
 
                 if (target.length) {
-                    this.activate(target[0]);
+                    this.activate(marker, target[0]);
                 }
+
+            // Scroll went outside the marker
+            } else if (this.marker === marker) {
+                this.deactivate(marker);
             }
 
         }.bind(this));
