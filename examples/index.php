@@ -226,6 +226,7 @@ $components = array(
         'filters' => array(
             'delay' => array('title' => 'Force Delay', 'type' => 'number', 'default' => 10000),
             'threshold' => array('title' => 'Threshold', 'type' => 'number', 'default' => 150),
+            'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
             'forceLoad' => array('title' => 'Force load?', 'type' => 'boolean')
         )
     ),
@@ -357,6 +358,15 @@ $components = array(
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
             'group' => array('title' => 'Grouped?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
+        )
+    ),
+    'stalker' => array(
+        'title' => 'Stalker',
+        'js' => array('components/Stalker.js'),
+        'filters' => array(
+            'threshold' => array('title' => 'Threshold', 'type' => 'number', 'default' => 50),
+            'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
+            'applyToParent' => array('title' => 'Apply active to parent?', 'type' => 'boolean', 'default' => true),
         )
     ),
     'table' => array(

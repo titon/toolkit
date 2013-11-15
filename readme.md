@@ -33,7 +33,7 @@ A temporary demo can be found here: http://titon.io/toolkit
     * More/Element.Shortcuts
     * More/Element.Measure
     * More/Drag (optional for Modal)
-    * More/Element.Event.Pseudos (for Tooltip)
+    * More/Element.Event.Pseudos (for LazyLoad, Pin, Stalker, Tooltip)
 
 #### Browser Support ####
 
@@ -74,6 +74,7 @@ Furthermore, the following Toolkit components do not work in IE8: Input, Matrix.
 * `Pin` - Pin an element in a container that stays within the viewport while scrolling
 * `Popover` - Displays dynamic notification elements over an element
 * `Showcase` - Provides a lightbox style image gallery
+* `Stalker` - Monitors the scroll of an element and notifies a target when a marker is reached
 * `Tabs` - Provides tabbed support to an element containing navigation tabs and sections
 * `Tooltip` - Displays dynamic tooltips over an element or the mouse cursor
 * `TypeAhead` - Displays a list of possible options below an input while typing

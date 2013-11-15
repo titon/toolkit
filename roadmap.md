@@ -14,9 +14,6 @@ All releases will contain bug fixing and polishing for current features.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
 
-### 1.4.0 - March 2014 ###
-* Stalker - A component that will update an element based on the current position in the page scroll.
-
 ### 2.0.0 - TBD ###
 * Remove the MooTools port.
 * Drop IE 8/9 support and upgrade to jQuery 2.

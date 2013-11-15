@@ -27,8 +27,8 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
      */
     this.initialize = function() {
         $(this.options.context || window).on({
-            scroll: $.throttle(this.load.bind(this), 50),
-            resize: $.throttle(this.load.bind(this), 50)
+            scroll: $.throttle(this.load.bind(this), this.options.throttle),
+            resize: $.throttle(this.load.bind(this), this.options.throttle)
         });
 
         // Load elements within viewport
@@ -198,6 +198,7 @@ $.fn.lazyLoad.options = {
     forceLoad: false,
     delay: 10000,
     threshold: 150,
+    throttle: 50,
     context: null
 };
 

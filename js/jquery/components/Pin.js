@@ -67,9 +67,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * Determine whether to pin or unpin.
      *
      * @private
-     * @param {Event} e
      */
-    this.__resize = function(e) {
+    this.__resize = function() {
         this.calculate();
 
         // Enable pin if the parent is larger than the child
@@ -87,9 +86,8 @@ Titon.Pin = Titon.Component.create(function(element, options) {
      * The element should also stay contained within the parent element.
      *
      * @private
-     * @param {Event} e
      */
-    this.__scroll = function(e) {
+    this.__scroll = function() {
         if (this.options.calculate) {
             this.calculate();
         }

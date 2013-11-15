@@ -56,11 +56,23 @@ Titon.Pin = new Class({
         this.element.addClass('pin');
         this.elementTop = this.element.getStyle('top').toInt();
 
-        window.addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
-        window.addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize);
-        window.addEvent('domready', this.__resize);
-
+        // Set events
+        this.bindEvents();
         this.fireEvent('init');
+    },
+
+    /**
+     * Set scroll and resize events.
+     *
+     * @returns {Titon.Pin}
+     */
+    bindEvents: function() {
+        window
+            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll)
+            .addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize)
+            .addEvent('domready', this.__resize);
+
+        return this;
     },
 
     /**
@@ -80,9 +92,8 @@ Titon.Pin = new Class({
      * Determine whether to pin or unpin.
      *
      * @private
-     * @param {DOMEvent} e
      */
-    __resize: function(e) {
+    __resize: function() {
         this.calculate();
 
         // Enable pin if the parent is larger than the child
@@ -100,9 +111,8 @@ Titon.Pin = new Class({
      * The element should also stay contained within the parent element.
      *
      * @private
-     * @param {DOMEvent} e
      */
-    __scroll: function(e) {
+    __scroll: function() {
         if (this.options.calculate) {
             this.calculate();
         }

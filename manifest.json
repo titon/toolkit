@@ -157,7 +157,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/lazy-load.css"],
-            "js": ["components/LazyLoad.js"]
+            "js": ["components/LazyLoad.js"],
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "matrix": {
@@ -202,7 +203,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/pin.css"],
-            "js": ["components/Pin.js"]
+            "js": ["components/Pin.js"],
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "popover": {
@@ -229,6 +231,15 @@
         "source": {
             "css": ["components/showcase.css"],
             "js": ["components/Showcase.js"]
+        }
+    },
+    "stalker": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "js": ["components/Stalker.js"],
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "table": {
