@@ -44,6 +44,7 @@
                 target: '#stalker-target a',
                 marker: '#stalker div[id]',
                 threshold: <?php number('threshold', 50); ?>,
+                onlyWithin: <?php bool('onlyWithin', true); ?>,
                 applyToParent: <?php bool('applyToParent', true); ?>
             });
 
@@ -51,6 +52,7 @@
                 target: '#stalker2-target a',
                 marker: 'div[id]',
                 threshold: <?php number('threshold', 50); ?>,
+                onlyWithin: <?php bool('onlyWithin', true); ?>,
                 applyToParent: <?php bool('applyToParent', true); ?>
             });
         });
@@ -60,6 +62,7 @@
                 target: '#stalker-target a',
                 marker: '#stalker div[id]',
                 threshold: <?php number('threshold', 50); ?>,
+                onlyWithin: <?php bool('onlyWithin', true); ?>,
                 applyToParent: <?php bool('applyToParent', true); ?>
             });
 
@@ -67,6 +70,7 @@
                 target: '#stalker2-target a',
                 marker: 'div[id]',
                 threshold: <?php number('threshold', 50); ?>,
+                onlyWithin: <?php bool('onlyWithin', true); ?>,
                 applyToParent: <?php bool('applyToParent', true); ?>
             });
         });

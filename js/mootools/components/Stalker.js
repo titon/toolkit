@@ -28,6 +28,7 @@ Titon.Stalker = new Class({
         marker: '*[id]',
         threshold: 50,
         throttle: 50,
+        onlyWithin: true,
         applyToParent: true,
 
         // Events
@@ -153,6 +154,7 @@ Titon.Stalker = new Class({
             markers = this.markers,
             targets = this.targets,
             offsets = this.offsets,
+            onlyWithin = this.options.onlyWithin,
             threshold = this.options.threshold;
 
         markers.each(function(marker, index) {
@@ -162,7 +164,10 @@ Titon.Stalker = new Class({
                 target = [];
 
             // Scroll is within the marker
-            if (scroll >= top && scroll <= bot) {
+            if (
+                (onlyWithin && scroll >= top && scroll <= bot) ||
+                (!onlyWithin && scroll >= top)
+            ) {
                 target = targets.filter(function(item) {
                     return (item.get('href') === '#' + marker.get('id'));
                 });

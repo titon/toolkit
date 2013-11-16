@@ -367,6 +367,7 @@ $components = array(
             'threshold' => array('title' => 'Threshold', 'type' => 'number', 'default' => 50),
             'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
             'applyToParent' => array('title' => 'Apply active to parent?', 'type' => 'boolean', 'default' => true),
+            'onlyWithin' => array('title' => 'Only within marker?', 'type' => 'boolean', 'default' => true),
         )
     ),
     'table' => array(

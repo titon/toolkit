@@ -149,6 +149,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
             markers = this.markers,
             targets = this.targets,
             offsets = this.offsets,
+            onlyWithin = this.options.onlyWithin,
             threshold = this.options.threshold;
 
         markers.each(function(index, marker) {
@@ -160,7 +161,10 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
                 target = [];
 
             // Scroll is within the marker
-            if (scroll >= top && scroll <= bot) {
+            if (
+                (onlyWithin && scroll >= top && scroll <= bot) ||
+                (!onlyWithin && scroll >= top)
+            ) {
                 target = targets.filter(function() {
                     return ($(this).attr('href') === '#' + marker.attr('id'));
                 });
@@ -211,6 +215,7 @@ $.fn.stalker.options = {
     marker: '*[id]',
     threshold: 50,
     throttle: 50,
+    onlyWithin: true,
     applyToParent: true
 };
 
