@@ -19,6 +19,9 @@ Titon.Stalker = new Class({
     marker: null,
     markers: [],
 
+    /** Offset positioning for markers */
+    offsets: [],
+
     /** Default options */
     options: {
         target: '',
@@ -121,11 +124,17 @@ Titon.Stalker = new Class({
      * @returns {Titon.Stalker}
      */
     refresh: function() {
+        if (this.element.getStyle('overflow') === 'auto' && this.element !== document.body) {
+            this.element.scrollTop = 0; // Set scroll to top so offsets are correct
+        }
+
         this.target = null;
         this.targets = $$(this.options.target);
 
         this.marker = null;
         this.markers = this.element.getElements(this.options.marker);
+
+        this.offsets = this.markers.getCoordinates(this.element);
 
         return this;
     },
@@ -143,10 +152,11 @@ Titon.Stalker = new Class({
         var scroll = this.element.getScroll().y,
             markers = this.markers,
             targets = this.targets,
+            offsets = this.offsets,
             threshold = this.options.threshold;
 
-        markers.each(function(marker) {
-            var coords = marker.getCoordinates(),
+        markers.each(function(marker, index) {
+            var coords = offsets[index],
                 top = coords.top - threshold,
                 bot = coords.top + coords.height + threshold,
                 target = [];

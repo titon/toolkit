@@ -23,6 +23,9 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     this.marker = null;
     this.markers = [];
 
+    /** Offset positioning for markers */
+    this.offsets = [];
+
     /** Container used for scroll detection */
     this.container = this.element.is('body') ? $(window) : this.element;
 
@@ -101,11 +104,33 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
      * @returns {Titon.Stalker}
      */
     this.refresh = function() {
+        if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
+            this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
+        }
+
         this.target = null;
         this.targets = $(this.options.target);
 
         this.marker = null;
         this.markers = this.element.find(this.options.marker);
+
+        var isWindow = (this.container[0] === window),
+            eTop = this.element.offset().top,
+            offset,
+            offsets = [];
+
+        this.markers.each(function(index, marker) {
+            marker = $(marker);
+            offset = marker.offset();
+
+            if (!isWindow) {
+                offset.top -= eTop;
+            }
+
+            offsets.push(offset);
+        });
+
+        this.offsets = offsets;
 
         return this;
     };
@@ -123,12 +148,13 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
         var scroll = this.container.scrollTop(),
             markers = this.markers,
             targets = this.targets,
+            offsets = this.offsets,
             threshold = this.options.threshold;
 
         markers.each(function(index, marker) {
             marker = $(marker);
 
-            var offset = marker.offset(),
+            var offset = offsets[index],
                 top = offset.top - threshold,
                 bot = offset.top + marker.height() + threshold,
                 target = [];
