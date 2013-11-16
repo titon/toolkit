@@ -27,7 +27,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     this.offsets = [];
 
     /** Container used for scroll detection */
-    this.container = this.element.is('body') ? $(window) : this.element;
+    this.container = (this.element.css('overflow') === 'auto') ? this.element : $(window);
 
     /** Is the component enabled? */
     this.enabled = true;

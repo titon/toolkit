@@ -89,7 +89,7 @@ Titon.Stalker = new Class({
      * @returns {Titon.Stalker}
      */
     bindEvents: function() {
-        (this.element === document.body ? window : this.element)
+        (this.element.getStyle('overflow') === 'auto' ? this.element : window)
             .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
 
         window.addEvent('domready', this.__scroll);
