@@ -155,7 +155,7 @@ Titon.Tabs = new Class({
                     section.set('html', response)
                         .removeClass('is-loading');
 
-                    this.fireEvent('load');
+                    this.fireEvent('load', response);
                 }.bind(this),
 
                 function tabsAjaxFail() {

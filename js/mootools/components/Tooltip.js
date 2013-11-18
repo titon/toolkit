@@ -94,7 +94,7 @@ Titon.Tooltip = new Class({
             this.elementBody.hide();
         }
 
-        this.fireEvent('load');
+        this.fireEvent('load', content);
 
         // Follow the mouse
         if (options.follow) {

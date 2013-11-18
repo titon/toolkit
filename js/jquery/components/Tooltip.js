@@ -92,7 +92,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
             this.elementBody.hide();
         }
 
-        this.fireEvent('load');
+        this.fireEvent('load', content);
 
         // Follow the mouse
         if (options.follow) {

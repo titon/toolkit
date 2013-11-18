@@ -119,7 +119,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         }
 
         this.elementBody.html(content);
-        this.fireEvent('load');
+        this.fireEvent('load', content);
 
         if (!this.element.is(':shown')) {
             if (this.options.blackout) {

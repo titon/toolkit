@@ -324,7 +324,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
             this.element.addClass('is-single');
         }
 
-        this.fireEvent('load');
+        this.fireEvent('load', items);
 
         return this;
     };

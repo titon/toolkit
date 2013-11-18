@@ -141,7 +141,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
                     section.html(response)
                         .removeClass('is-loading');
 
-                    this.fireEvent('load');
+                    this.fireEvent('load', response);
                 },
                 function tabsAjaxFail() {
                     section.html(this._errorTemplate('tabs'))

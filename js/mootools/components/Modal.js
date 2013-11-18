@@ -136,7 +136,7 @@ Titon.Modal = new Class({
         }
 
         this.elementBody.set('html', content);
-        this.fireEvent('load');
+        this.fireEvent('load', content);
 
         if (!this.isVisible()) {
             if (this.options.blackout) {

@@ -221,7 +221,7 @@ Titon.Component = new Class({
      */
     position: function(content) {
         this.element.set('html', content);
-        this.fireEvent('load');
+        this.fireEvent('load', content);
 
         return this;
     },
