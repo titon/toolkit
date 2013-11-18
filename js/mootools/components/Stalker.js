@@ -51,6 +51,8 @@ Titon.Stalker = new Class({
             return;
         }
 
+        this.element.addClass('stalker');
+
         this.refresh();
         this.bindEvents();
         this.fireEvent('init');
@@ -131,9 +133,11 @@ Titon.Stalker = new Class({
 
         this.target = null;
         this.targets = $$(this.options.target);
+        this.targets.addClass('stalker-target');
 
         this.marker = null;
         this.markers = this.element.getElements(this.options.marker);
+        this.markers.addClass('stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 

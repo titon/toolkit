@@ -40,6 +40,8 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
             return;
         }
 
+        this.element.addClass('stalker');
+
         if (this.element.css('overflow') === 'auto') {
             this.container = this.element;
         } else {
@@ -116,9 +118,11 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
 
         this.target = null;
         this.targets = $(this.options.target);
+        this.targets.addClass('stalker-target');
 
         this.marker = null;
         this.markers = this.element.find(this.options.marker);
+        this.markers.addClass('stalker-marker');
 
         var isWindow = (this.container[0] === window),
             eTop = this.element.offset().top,
