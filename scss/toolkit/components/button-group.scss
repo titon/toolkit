@@ -15,15 +15,21 @@
         float: left;
         margin-left: -1px !important;
         border-radius: 0;
-        display: block;
 
         &:first-child { margin-left: 0; }
-        &:hover { z-index: 1; }
+
+        &:hover,
+        &.is-active { z-index: 1; }
     }
 
-    > li .button {
-        display: block;
-        border-radius: 0;
+    > li {
+        position: relative;
+        list-style: none;
+
+        .button {
+            display: block;
+            border-radius: 0;
+        }
     }
 
     &.round {
@@ -99,5 +105,9 @@
     > .button {
         float: none;
         display: table-cell;
+        margin: 0 !important;
     }
+
+    > li:not(:first-child) .button,
+    > .button:not(:first-child) { border-left: 0; }
 }
