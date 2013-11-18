@@ -3,7 +3,7 @@
 Customizing a Toolkit build allows for specific components to be included in the output file, while ignoring the rest.
 This is especially useful for projects where certain components are not needed.
 
-To customize a build, Grunt must be installed. If it's not, jump to the installation docs.
+To customize a build, Grunt must be installed. If it's not, jump to the Grunt installation docs.
 
 To specify a list of components, pass a comma separated list of component names to the grunt command line.
 

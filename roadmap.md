@@ -7,12 +7,12 @@ All releases will contain bug fixing and polishing for current features.
 * Mask - A component that will mask a target element with a blackout.
 
 ### 1.2.0 - January 2014 ###
-* Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
-* Divider - A component for dividing content horizontally or vertically.
-
-### 1.3.0 - February 2014 ###
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
+
+### 1.3.0 - February 2014 ###
+* Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
+* Divider - A component for dividing content horizontally or vertically.
 
 ### 2.0.0 - TBD ###
 * Remove the MooTools port.

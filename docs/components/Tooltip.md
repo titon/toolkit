@@ -8,11 +8,7 @@ The tooltip component must be initialized through the `Titon.Tooltip` JavaScript
 A target must be defined when initializing the class.
 
 ```javascript
-// jQuery
 $('.js-tooltip').tooltip();
-
-// MooTools
-$$('.js-tooltip').tooltip();
 ```
 
 Any element that has the `js-tooltip` class will now activate and display the tooltip.
@@ -26,35 +22,17 @@ The tooltip instance can be accessed through the `toolkit()` method.
 This instance provides additional properties and methods to manipulate.
 
 ```javascript
-// jQuery
 var tooltip = $('.js-tooltip').toolkit('tooltip');
-
-// MooTools
-var tooltip = $$('.js-tooltip').toolkit('tooltip');
-```
-
-#### Delegation in MooTools ####
-
-If another target besides `.js-tooltip` is used, the `delegate` option must be defined.
-This provides event delegation support for instances where MooTools does not support it.
-
-```javascript
-$$('.tip').tooltip({ delegate: '.tip' });
 ```
 
 ## Options ##
 
 Options can be customized by passing an object of key value pairs to the `tooltip()` method.
+Options can only be set the first time the component is created.
 
 ```javascript
-// jQuery
 $('.js-tooltip').tooltip({
     animation: 'fade'
-});
-
-// MooTools
-$$('.js-tooltip').tooltip({
-    position: 'bottomLeft'
 });
 ```
 
@@ -209,14 +187,8 @@ Events are defined in the same manner as options. Simply place the functions in 
 The `this` context of each event function will reference the component class instance.
 
 ```javascript
-// jQuery
 $('.js-tooltip').tooltip({
     onInit: function() {}
-});
-
-// MooTools
-$$('.js-tooltip').tooltip({
-    onShow: function() {}
 });
 ```
 

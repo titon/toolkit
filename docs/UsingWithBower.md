@@ -13,18 +13,7 @@ Install the components.
 
 Include the Toolkit distribution files in your markup.
 
-    <script src="/bower_components/titon/dist/toolkit-mootools.min.js"></script>
+    <script src="/bower_components/titon/dist/toolkit-jquery.min.js"></script>
     <link href="/bower_components/titon/dist/toolkit.min.css" rel="stylesheet">
 
 And you're ready to go!
-
-### Integrating Sass ###
-
-When downloading through Bower, the Sass files used within Toolkit are also included within the scss folder.
-This allows for direct integration into a project's scss structure.
-
-Either copy the scss files to the appropriate directory, or import them.
-
-    @import "../bower_components/titon/scss/toolkit/common";
-
-Jump to the `UsingWithCompass` for more examples on importing.
