@@ -22,7 +22,7 @@ if ($mod = value('modifier')) {
         <tbody>
             <?php for ($i = 0; $i <= value('count', 25); $i++) {
                 if ($i != 0 && $i % 10 == 0) { ?>
-                    <tr class="divider">
+                    <tr class="table-divider">
                         <td colspan="6">Divider</td>
                     </tr>
                 <?php } else { ?>

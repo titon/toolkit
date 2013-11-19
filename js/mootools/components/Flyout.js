@@ -267,6 +267,9 @@ Titon.Flyout = new Class({
                         text: child.title,
                         href: child.url
                     });
+
+                    // Add icon
+                    new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
                 } else {
                     tag = new Element('span', {
                         text: child.title
@@ -278,9 +281,6 @@ Titon.Flyout = new Class({
                 if (child.attributes) {
                     tag.set(child.attributes);
                 }
-
-                // Add icon
-                new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
 
                 // Build list
                 if (child.className) {

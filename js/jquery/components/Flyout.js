@@ -293,6 +293,9 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
                         text: child.title,
                         href: child.url
                     });
+
+                    // Add icon
+                    $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
                 } else {
                     tag = $('<span/>', {
                         text: child.title
@@ -304,9 +307,6 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
                 if (child.attributes) {
                     tag.attr(child.attributes);
                 }
-
-                // Add icon
-                $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
 
                 // Build list
                 if (child.className) {

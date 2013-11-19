@@ -29,7 +29,7 @@
             position: relative;
 
             > a,
-            > .divider {
+            &.heading {
                 padding: $small-padding;
                 line-height: 100%;
                 display: block;

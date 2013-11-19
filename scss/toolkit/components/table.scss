@@ -40,7 +40,7 @@
         background: $gray;
 
         &:nth-child(odd) { background: $gray-light; }
-        &.divider { background: shade($gray, 2%); }
+        &.table-divider { background: shade($gray, 2%); }
     }
 }
 
@@ -53,7 +53,7 @@
 //-------------------- Modifiers --------------------//
 
 .table.table--hover {
-    tbody tr:not(.divider):hover { background: #fff; }
+    tbody tr:not(.table-divider):hover { background: #fff; }
 }
 
 .table.table--sortable {

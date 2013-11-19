@@ -25,7 +25,7 @@
         float: left;
 
         &:last-child {
-            .divider { display: none; }
+            .caret { display: none; }
         }
     }
 
@@ -35,7 +35,7 @@
         line-height: 100%;
         padding-right: 0;
 
-        .divider {
+        .caret {
             margin-left: $medium-padding;
             color: $gray-darkest;
             position: relative;
@@ -47,13 +47,13 @@
         @include size-small;
         padding-right: 0;
 
-        .divider { margin-left: $small-padding; }
+        .caret { margin-left: $small-padding; }
     }
 
     &.large a {
         @include size-large;
         padding-right: 0;
 
-        .divider { margin-left: $large-padding; }
+        .caret { margin-left: $large-padding; }
     }
 }
