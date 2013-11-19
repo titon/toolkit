@@ -471,12 +471,11 @@ if ($vendor === 'mootools') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="../css/toolkit.css" rel="stylesheet" type="text/css">
+    <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
         <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
     <?php } ?>
-
-    <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if ($vendor === 'mootools') { ?>
         <script src="js/mootools-core-1.4.5.js"></script>
