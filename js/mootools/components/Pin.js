@@ -133,7 +133,10 @@ Titon.Pin = new Class({
 
         // Scroll is above the parent, remove pin inline styles
         if (wScroll.y < pSize.top) {
-            this.element.removeProperty('style');
+            this.element
+                .removeProperty('style')
+                .removeClass('is-pinned');
+
             return;
         }
 
@@ -173,7 +176,10 @@ Titon.Pin = new Class({
         pos[options.location] = x;
         pos.top = y;
 
-        this.element.setStyles(pos);
+        this.element
+            .setStyles(pos)
+            .addClass('is-pinned');
+
         this.fireEvent('scroll');
     }
 

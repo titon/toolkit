@@ -109,7 +109,10 @@ Titon.Pin = Titon.Component.create(function(element, options) {
 
         // Scroll is above the parent, remove pin inline styles
         if (scrollTop < pTop) {
-            this.element.removeAttr('style');
+            this.element
+                .removeAttr('style')
+                .addClass('is-pinned');
+
             return;
         }
 
@@ -149,7 +152,10 @@ Titon.Pin = Titon.Component.create(function(element, options) {
         pos[options.location] = x;
         pos.top = y;
 
-        this.element.css(pos);
+        this.element
+            .css(pos)
+            .addClass('is-pinned');
+
         this.fireEvent('scroll');
     };
 
