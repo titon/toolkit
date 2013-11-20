@@ -23,7 +23,6 @@ $foreground-color: #2d2d2d !default;
 //-------------------- Sizes --------------------//
 
 $base-size: 14px !default;
-$base-size-width: ($base-size * 100) / 1px; // Width used for type conversions
 
 $padding: .75rem !default;
 $margin: 1.25rem !default;
@@ -127,7 +126,7 @@ $grid-columns-tablet: 6 !default;
 $grid-columns-mobile: 3 !default;
 
 $grid-width: 100% !default;
-$grid-gutter: 0 !default;
+$grid-gutter: false !default;
 
 //-------------------- Imports --------------------//
 

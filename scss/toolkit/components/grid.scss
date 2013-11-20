@@ -17,7 +17,7 @@
 }
 
 @for $i from 1 through 12 {
-    $span: grid-span(12, $i);
+    $span: grid-span($i, 12);
 
     .span-#{$i} { width: $span; }
     .push-#{$i} { left: $span; }
@@ -34,7 +34,7 @@
         }
 
         @for $i from 1 through $grid-columns-mobile {
-            $span: grid-span($grid-columns-mobile, $i);
+            $span: grid-span($i, $grid-columns-mobile);
 
             .col.mobile-#{$i} { width: $span; }
             .col.mobile-push-#{$i} { left: $span; }
@@ -49,7 +49,7 @@
         }
 
         @for $i from 1 through $grid-columns-tablet {
-            $span: grid-span($grid-columns-tablet, $i);
+            $span: grid-span($i, $grid-columns-tablet);
 
             .col.tablet-#{$i} { width: $span; }
             .col.tablet-push-#{$i} { left: $span; }
@@ -64,7 +64,7 @@
         }
 
         @for $i from 1 through $grid-columns-desktop {
-            $span: grid-span($grid-columns-desktop, $i);
+            $span: grid-span($i, $grid-columns-desktop);
 
             .col.desktop-#{$i} { width: $span; }
             .col.desktop-push-#{$i} { left: $span; }
@@ -83,7 +83,7 @@
         }
 
         @for $i from 1 through $grid-columns-small {
-            $span: grid-span($grid-columns-small, $i);
+            $span: grid-span($i, $grid-columns-small);
 
             .col.small-#{$i} { width: $span; }
             .col.small-push-#{$i} { left: $span; }
@@ -98,7 +98,7 @@
         }
 
         @for $i from 1 through $grid-columns-medium {
-            $span: grid-span($grid-columns-medium, $i);
+            $span: grid-span($i, $grid-columns-medium);
 
             .col.medium-#{$i} { width: $span; }
             .col.medium-push-#{$i} { left: $span; }
@@ -113,7 +113,7 @@
         }
 
         @for $i from 1 through $grid-columns-large {
-            $span: grid-span($grid-columns-large, $i);
+            $span: grid-span($i, $grid-columns-large);
 
             .col.large-#{$i} { width: $span; }
             .col.large-push-#{$i} { left: $span; }

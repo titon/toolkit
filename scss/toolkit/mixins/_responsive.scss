@@ -1,34 +1,40 @@
 
+// Media query for minimum resolution
 @mixin if-min($min) {
     @media only screen and (min-width: $min) {
         @content;
     }
 }
 
+// Media query for maximum resolution
 @mixin if-max($max) {
     @media only screen and (max-width: $max) {
         @content;
     }
 }
 
+// Media query for between minimum and maximum resolution
 @mixin if-min-max($min, $max) {
     @media only screen and (min-width: $min) and (max-width: $max) {
         @content;
     }
 }
 
+// Media query for landscape orientation detection
 @mixin if-landscape {
     @media only screen and (orientation: landscape) {
         @content;
     }
 }
 
+// Media query for portrait orientation detection
 @mixin if-portrait {
     @media only screen and (orientation: portrait) {
         @content;
     }
 }
 
+// Media query for retina / HD displays
 @mixin if-retina {
     @media
         only screen and (-webkit-min-device-pixel-ratio: 2),
