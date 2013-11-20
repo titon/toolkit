@@ -57,7 +57,7 @@ Titon.Modal = new Class({
         this.createElement();
 
         if (this.options.fullScreen) {
-            this.element.addClass('modal--fullscreen');
+            this.element.addClass('is-fullscreen');
             this.options.draggable = false;
         }
 

@@ -5,10 +5,12 @@ $class = '';
 
 if ($mod) {
     $class = 'carousel--' . $mod;
+} else {
+    $class = 'carousel';
 } ?>
 
 <div class="example-carousel">
-    <div class="carousel <?php echo $class; ?>" id="carousel">
+    <div class="<?php echo $class; ?>" id="carousel">
         <div class="carousel-items">
             <ul>
                 <?php for ($i = 1; $i <= $count; $i++) { ?>

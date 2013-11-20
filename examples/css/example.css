@@ -64,8 +64,8 @@ a:hover { color: #af9aac; }
 .example-pin.right .pin { right: 0; }
 
 .carousel { max-width: 400px; margin: 0 auto; }
-.carousel.carousel--wide { max-width: 640px; }
-.carousel.carousel--square { max-width: 500px; }
+.carousel--wide { max-width: 640px; }
+.carousel--square { max-width: 500px; }
 
 .type-ahead-shadow { height: 45px; }
 

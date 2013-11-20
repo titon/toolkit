@@ -51,7 +51,7 @@
 
                 // Reverse menu to left side incase it goes outside the viewport
                 // Will be set automatically from the Javascript layer
-                &.flyout--left {
+                &.push-left {
                     left: auto;
                     right: 90%;
                 }
@@ -62,7 +62,7 @@
                 visibility: visible;
                 left: 100%;
 
-                &.flyout--left {
+                &.push-left {
                     left: auto;
                     right: 100%;
                 }

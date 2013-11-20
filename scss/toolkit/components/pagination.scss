@@ -35,7 +35,9 @@
 
 //-------------------- Modifiers --------------------//
 
-.pagination.pagination--grouped {
+.pagination--grouped {
+    @extend .pagination;
+
     li {
         margin-left: -1px;
         margin-right: 0;

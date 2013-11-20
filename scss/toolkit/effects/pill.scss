@@ -30,7 +30,7 @@
     }
 }
 
-.button-group.button-group--vertical.pill {
+.button-group--vertical.pill {
     border-radius: $pill;
 
     > li:first-child .button,
@@ -52,7 +52,7 @@
 
 //-------------------- Pagination --------------------//
 
-.pagination.pagination--grouped.pill {
+.pagination--grouped.pill {
     ul {
         border-radius: $pill;
     }

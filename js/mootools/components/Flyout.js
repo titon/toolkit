@@ -245,7 +245,7 @@ Titon.Flyout = new Class({
         }
 
         if (parent === document.body) {
-            menu.addClass('flyout-root');
+            menu.addClass('is-root');
         }
 
         if (limit && data.children.length > limit) {
@@ -412,9 +412,9 @@ Titon.Flyout = new Class({
         var hWidth = parentSize.right + childSize.width;
 
         if (hWidth >= windowSize.width) {
-            menu.addClass('flyout--left');
+            menu.addClass('push-left');
         } else {
-            menu.removeClass('flyout--left');
+            menu.removeClass('push-left');
         }
 
         // Reverse menu vertically if below half way fold

@@ -84,27 +84,27 @@
 
 //-------------------- Modifiers --------------------//
 
-.dropdown.dropdown--top {
+.dropdown.on-top {
     top: auto;
     bottom: 100%;
 }
 
-.dropdown.dropdown--right {
+.dropdown.on-right {
     top: auto;
     left: 100%;
 }
 
-.dropdown.dropdown--left {
+.dropdown.on-left {
     top: auto;
     left: auto;
     right: 100%;
 }
 
-.dropdown.dropdown--push {
+.dropdown.push-over {
     left: auto;
     right: 0;
 }
 
-.dropdown.dropdown--pull {
+.dropdown.pull-up {
     bottom: 0;
 }

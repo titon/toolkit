@@ -270,8 +270,8 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
             menu.addClass(this.options.className);
         }
 
-        if (parent.get(0) === $('body').get(0)) {
-            menu.addClass('flyout-root');
+        if (parent[0]=== $('body')[0]) {
+            menu.addClass('is-root');
         }
 
         if (limit && data.children.length > limit) {
@@ -441,9 +441,9 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
         var hWidth = parentRight + menu.outerWidth();
 
         if (hWidth >= winWidth) {
-            menu.addClass('flyout--left');
+            menu.addClass('push-left');
         } else {
-            menu.removeClass('flyout--left');
+            menu.removeClass('push-left');
         }
 
         // Reverse menu vertically if below half way fold

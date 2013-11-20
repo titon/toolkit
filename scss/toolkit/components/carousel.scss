@@ -132,14 +132,18 @@
 
 //-------------------- Modifiers --------------------//
 
-.carousel.carousel--wide {
+.carousel--wide {
+    @extend .carousel;
+
     .carousel-items {
         /* 16:9 ratio */
         padding-bottom: 56.25%;
     }
 }
 
-.carousel.carousel--square {
+.carousel--square {
+    @extend .carousel;
+
     .carousel-items {
         /* 1:1 ratio */
         padding-bottom: 100%;

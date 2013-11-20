@@ -1,14 +1,9 @@
 <?php
 $funcs = get_defined_functions();
-$total = count($funcs) - 1;
-$class = '';
-
-if ($mod = value('modifier')) {
-    $class = 'table--' . $mod;
-} ?>
+$total = count($funcs) - 1; ?>
 
 <div class="table-responsive">
-    <table class="table <?php echo $class; ?>">
+    <table class="table <?php echo value('modifier'); ?>">
         <thead>
             <tr>
                 <th><a href="">Heading</a></th>

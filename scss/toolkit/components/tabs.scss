@@ -29,7 +29,9 @@
 
 //-------------------- Modifiers --------------------//
 
-.tabs.tabs--horizontal {
+.tabs--horizontal {
+    @extend .tabs;
+
     .tabs-nav {
         ul, li, a, button {
             display: block;

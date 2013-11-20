@@ -5,11 +5,13 @@ $classes = array(value('size'), value('shape'), value('effect'));
 
 if ($mod = value('modifier')) {
     $classes[] = 'pagination--' . $mod;
+} else {
+    $classes[] = 'pagination';
 }
 
 $classes = implode(' ', array_filter($classes)); ?>
 
-<nav class="pagination <?php echo $classes; ?>">
+<nav class="<?php echo $classes; ?>">
     <ul>
         <li><a href="javascript:;" class="button <?php echo $state; ?>">&laquo;</a></li>
         <?php for ($i = 1; $i <= $count; $i++) { ?>

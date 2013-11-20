@@ -31,7 +31,7 @@
 
 <div class="example-title">Horizontal</div>
 
-<div class="tabs tabs--horizontal grid" id="tabs-2">
+<div class="tabs--horizontal grid" id="tabs-2">
     <nav class="tabs-nav col span-2">
         <ul>
             <li><a href="#tab-1" class="button">Tab 1 via DOM</a></li>

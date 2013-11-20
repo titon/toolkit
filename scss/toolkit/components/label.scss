@@ -39,11 +39,15 @@
 
 //-------------------- Modifiers --------------------//
 
-.label.label--badge {
+.label--badge {
+    @extend .label;
+
     border-radius: 1rem;
 }
 
-.label.label--arrow-left {
+.label--arrow-left {
+    @extend .label;
+
     border-top-left-radius: 1px;
     border-bottom-left-radius: 1px;
     padding-left: 2px;
@@ -60,7 +64,9 @@
     &.large:after { border-width: .75rem; }
 }
 
-.label.label--arrow-right {
+.label--arrow-right {
+    @extend .label;
+
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
     padding-right: 2px;
@@ -77,7 +83,9 @@
     &.large:after { border-width: .75rem; }
 }
 
-.label.label--ribbon-left {
+.label--ribbon-left {
+    @extend .label;
+
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 
@@ -91,16 +99,18 @@
     }
 }
 
-.label.label--ribbon-right {
-     border-top-right-radius: 0;
-     border-bottom-right-radius: 0;
+.label--ribbon-right {
+    @extend .label;
 
-     &:after {
-         top: 100%;
-         right: 0;
-         border: 1em solid transparent;
-         border-top-width: 0 !important;
-         border-right-width: 0 !important;
-         border-left-color: $gray-darkest;
-     }
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:after {
+        top: 100%;
+        right: 0;
+        border: 1em solid transparent;
+        border-top-width: 0 !important;
+        border-right-width: 0 !important;
+        border-left-color: $gray-darkest;
+    }
  }

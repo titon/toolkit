@@ -125,11 +125,11 @@ mark { background: lighten($warning-light, 25%); }
     background-color: $gray-dark !important;
 }
 
-.dropdown.dropdown--top {
+.dropdown.on-top {
     box-shadow: 5px -5px black(.25);
 }
 
-.dropdown.dropdown--left {
+.dropdown.on-left {
     box-shadow: -5px 5px black(.25);
 }
 
@@ -194,7 +194,9 @@ mark { background: lighten($warning-light, 25%); }
     &.is-success { @include label-style($success-light, $success-dark); }
 }
 
-.label.label--arrow-left {
+.label--arrow-left {
+    @extend .label;
+
     &:after { border-right-color: $default-light; }
     &.is-info:after { border-right-color: $info-light; }
     &.is-error:after { border-right-color: $error-light; }
@@ -202,7 +204,9 @@ mark { background: lighten($warning-light, 25%); }
     &.is-success:after { border-right-color: $success-light; }
 }
 
-.label.label--arrow-right {
+.label--arrow-right {
+    @extend .label;
+
     &:after { border-left-color: $default-light; }
     &.is-info:after { border-left-color: $info-light; }
     &.is-error:after { border-left-color: $error-light; }
@@ -210,7 +214,9 @@ mark { background: lighten($warning-light, 25%); }
     &.is-success:after { border-left-color: $success-light; }
 }
 
-.label.label--ribbon-left {
+.label--ribbon-left {
+    @extend .label;
+
     &:after { border-right-color: darken($default, 15%); }
     &.is-info:after { border-right-color: darken($info-light, 15%); }
     &.is-error:after { border-right-color: darken($error-light, 15%); }
@@ -218,7 +224,9 @@ mark { background: lighten($warning-light, 25%); }
     &.is-success:after { border-right-color: darken($success-light, 15%); }
 }
 
-.label.label--ribbon-right {
+.label--ribbon-right {
+    @extend .label;
+
     &:after { border-left-color: darken($default, 15%); }
     &.is-info:after { border-left-color: darken($info-light, 15%); }
     &.is-error:after { border-left-color: darken($error-light, 15%); }

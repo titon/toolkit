@@ -2,7 +2,7 @@
 $class = '';
 
 if ($mod = value('modifier')) {
-    $class = 'code--' . $mod;
+    $class = 'is-' . $mod;
 } ?>
 
 <pre<?php if ($class) echo ' class="' . $class . '"'; ?>><code>/**

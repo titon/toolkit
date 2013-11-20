@@ -2,11 +2,11 @@
 $class = '';
 
 if ($mod = value('modifier')) {
-    $class = 'dropdown--' . $mod;
+    $class = 'on-' . $mod;
 }
 
 if ($pos = value('align')) {
-    $class .= ' dropdown--' . $pos;
+    $class .= ' ' . $pos;
 } ?>
 
 <div class="example-center">

@@ -143,8 +143,8 @@ $components = array(
             )),
             'align' => array('title' => 'Alignment', 'data' => array(
                 '' => '-- None --',
-                'push' => 'Push (Horizontal)',
-                'pull' => 'Pull (Vertical)'
+                'push-over' => 'Push Over (Horizontal)',
+                'pull-up' => 'Pull Up (Vertical)'
             )),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover')),
             'hideOpened' => array('title' => 'Hide Other Opened?', 'type' => 'boolean', 'default' => true)
@@ -374,7 +374,7 @@ $components = array(
         'title' => 'Table',
         'css' => array('layout/table.css'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'hover' => 'Row Hover', 'sortable' => 'Sortable Header', 'compact' => 'Compact Rows')),
+            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'has-hover' => 'Row Hover', 'is-sortable' => 'Sortable Header', 'is-compact' => 'Compact Rows')),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 25)
         )
     ),

@@ -52,11 +52,11 @@
 
 //-------------------- Modifiers --------------------//
 
-.table.table--hover {
+.table.has-hover {
     tbody tr:not(.table-divider):hover { background: #fff; }
 }
 
-.table.table--sortable {
+.table.is-sortable {
     thead th {
         padding: 0;
 
@@ -74,11 +74,11 @@
     }
 }
 
-.table.table--compact {
+.table.is-compact {
     thead th,
     tbody td { padding: $small-padding; }
 
-    &.table--sortable {
+    &.is-sortable {
         thead th {
             padding: 0;
 

@@ -60,7 +60,8 @@
 
 //-------------------- Modifiers --------------------//
 
-.button-group.button-group--vertical {
+.button-group--vertical {
+    @extend .button-group;
     vertical-align: top;
 
     > li,
@@ -97,7 +98,8 @@
     }
 }
 
-.button-group.button-group--justified {
+.button-group--justified {
+    @extend .button-group;
     display: table;
     width: 100%;
 

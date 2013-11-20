@@ -43,7 +43,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
         var options = this.options;
 
         if (options.fullScreen) {
-            this.element.addClass('modal--fullscreen');
+            this.element.addClass('is-fullscreen');
             options.draggable = false;
         }
 
