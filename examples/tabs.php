@@ -72,6 +72,7 @@
                 collapsible: <?php bool('collapsible', false); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 persistState: <?php bool('persistState', false); ?>,
+                loadFragment: <?php bool('loadFragment', true); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
                 cookieDuration: <?php number('defaultIndex', 30); ?>
@@ -83,6 +84,7 @@
                 collapsible: <?php bool('collapsible', false); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 persistState: <?php bool('persistState', false); ?>,
+                loadFragment: <?php bool('loadFragment', true); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
                 cookieDuration: <?php number('cookieDuration', 30); ?>
@@ -96,6 +98,7 @@
                 collapsible: <?php bool('collapsible', false); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 persistState: <?php bool('persistState', false); ?>,
+                loadFragment: <?php bool('loadFragment', true); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
                 cookieDuration: <?php number('cookieDuration', 30); ?>
@@ -107,6 +110,7 @@
                 collapsible: <?php bool('collapsible', false); ?>,
                 defaultIndex: <?php number('defaultIndex'); ?>,
                 persistState: <?php bool('persistState', false); ?>,
+                loadFragment: <?php bool('loadFragment', true); ?>,
                 preventDefault: <?php bool('preventDefault', true); ?>,
                 cookie: <?php string('cookie'); ?>,
                 cookieDuration: <?php number('cookieDuration', 30); ?>

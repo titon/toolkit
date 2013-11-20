@@ -56,9 +56,9 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
         this.sections.conceal();
 
         // Set events
-        this.tabs.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+        this.tabs.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
 
-        if (this.options.mode === 'hover' && this.options.preventDefault) {
+        if (options.mode === 'hover' && options.preventDefault) {
             this.tabs.on('click', function(e) {
                 e.preventDefault();
             });
@@ -75,6 +75,15 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
             if (value && value.length) {
                 index = decodeURIComponent(value[1]);
+            }
+
+        } else if (options.loadFragment && location.hash) {
+            var tab = this.tabs.filter(function() {
+                return ($(this).attr('href') === location.hash);
+            });
+
+            if (tab.length) {
+                index = $(tab[0]).data('index');
             }
         }
 
@@ -124,10 +133,10 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
         var index = tab.data('index'),
             section = $(this.sections[index]),
-            url = tab.attr('href');
+            url = this.readValue(tab, this.options.getUrl);
 
         // Load content with AJAX
-        if (this.options.ajax && url && url.indexOf('#') < 0 && !this.cache[url]) {
+        if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(
                 'tabs',
                 url,
@@ -201,7 +210,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
      * @param {Event} e
      */
     this.__show = function(e) {
-        if (this.options.preventDefault) {
+        if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }
 
@@ -245,8 +254,10 @@ $.fn.tabs.options = {
     defaultIndex: 0,
     persistState: false,
     preventDefault: true,
+    loadFragment: true,
     cookie: null,
     cookieDuration: 30,
+    getUrl: 'href',
     navElement: '.tabs-nav',
     sectionsElement: '.tabs-section'
 };

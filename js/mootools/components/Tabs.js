@@ -30,8 +30,10 @@ Titon.Tabs = new Class({
         defaultIndex: 0,
         persistState: false,
         preventDefault: true,
+        loadFragment: true,
         cookie: null,
         cookieDuration: 30,
+        getUrl: 'href',
         navElement: '.tabs-nav',
         sectionsElement: '.tabs-section',
         template: false
@@ -55,15 +57,17 @@ Titon.Tabs = new Class({
             this.options.cookie = this.element.get('id');
         }
 
+        options = this.options;
+
         // Get elements
-        this.nav = this.element.getElement(this.options.navElement);
+        this.nav = this.element.getElement(options.navElement);
 
         this.tabs = this.nav.getElements('ul > li > a');
         this.tabs.each(function(tab, index) {
             tab.set('data-index', index).removeClass('is-active');
         });
 
-        this.sections = this.element.getElements(this.options.sectionsElement);
+        this.sections = this.element.getElements(options.sectionsElement);
         this.sections.conceal();
 
         // Set events
@@ -71,10 +75,19 @@ Titon.Tabs = new Class({
         this.fireEvent('init');
 
         // Trigger default tab to display
-        var index = this.options.defaultIndex;
+        var index = options.defaultIndex;
 
-        if (this.options.persistState) {
-            index = Number.from(Cookie.read('titon.tabs.' + this.options.cookie) || this.options.defaultIndex);
+        if (options.persistState) {
+            index = Number.from(Cookie.read('titon.tabs.' + options.cookie) || options.defaultIndex);
+
+        } else if (options.loadFragment && location.hash) {
+            var tab = this.tabs.filter(function(el) {
+                return (el.get('href') === location.hash);
+            });
+
+            if (tab[0]) {
+                index = tab[0].get('data-index');
+            }
         }
 
         if (!this.tabs[index]) {
@@ -138,10 +151,10 @@ Titon.Tabs = new Class({
     show: function(tab) {
         var index = tab.get('data-index'),
             section = this.sections[index],
-            url = tab.get('href');
+            url = this.readValue(tab, this.options.getUrl);
 
         // Load content with AJAX
-        if (this.options.ajax && url && !url.contains('#') && !this.cache[url]) {
+        if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(
                 url,
                 function tabsAjaxBefore() {
@@ -211,7 +224,7 @@ Titon.Tabs = new Class({
      * @param {DOMEvent} e
      */
     __show: function(e) {
-        if (this.options.preventDefault) {
+        if (this.options.preventDefault || (this.options.ajax && e.target.get('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }
 

@@ -390,6 +390,7 @@ $components = array(
             'ajax' => array('title' => 'Allow AJAX?', 'type' => 'boolean', 'default' => true),
             'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean', 'default' => false),
             'persistState' => array('title' => 'Persist state?', 'type' => 'boolean', 'default' => false),
+            'loadFragment' => array('title' => 'Load from fragment?', 'type' => 'boolean', 'default' => true),
             'preventDefault' => array('title' => 'Prevent default?', 'type' => 'boolean', 'default' => true),
         )
     ),
