@@ -117,7 +117,7 @@ Titon.Pin = new Class({
             this.calculate();
         }
 
-        if (!this.enabled) {
+        if (!this.enabled || !this.isVisible()) {
             return;
         }
 

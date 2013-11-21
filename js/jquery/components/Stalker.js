@@ -36,7 +36,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        if (!this.options.target) {
+        if (!this.options.target || !this.options.marker) {
             return;
         }
 
@@ -121,7 +121,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
         this.targets.addClass('stalker-target');
 
         this.marker = null;
-        this.markers = this.element.find(this.options.marker);
+        this.markers = $(this.options.marker);
         this.markers.addClass('stalker-marker');
 
         var isWindow = (this.container[0] === window),
@@ -222,7 +222,7 @@ $.fn.stalker = function(options) {
 
 $.fn.stalker.options = {
     target: '',
-    marker: '*[id]',
+    marker: '',
     threshold: 50,
     throttle: 50,
     onlyWithin: true,

@@ -92,7 +92,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
             this.calculate();
         }
 
-        if (!this.enabled) {
+        if (!this.enabled || this.element.is(':hidden')) {
             return;
         }
 

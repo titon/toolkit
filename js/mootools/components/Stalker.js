@@ -25,7 +25,7 @@ Titon.Stalker = new Class({
     /** Default options */
     options: {
         target: '',
-        marker: '*[id]',
+        marker: '',
         threshold: 50,
         throttle: 50,
         onlyWithin: true,
@@ -47,7 +47,7 @@ Titon.Stalker = new Class({
         this.parent(options);
         this.setElement(element);
 
-        if (!this.element || !this.options.target) {
+        if (!this.element || !this.options.target || !this.options.marker) {
             return;
         }
 
@@ -136,7 +136,7 @@ Titon.Stalker = new Class({
         this.targets.addClass('stalker-target');
 
         this.marker = null;
-        this.markers = this.element.getElements(this.options.marker);
+        this.markers = $$(this.options.marker);
         this.markers.addClass('stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
