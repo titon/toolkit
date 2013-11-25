@@ -1,9 +1,21 @@
 <?php
 $funcs = get_defined_functions();
-$total = count($funcs) - 1; ?>
+$total = count($funcs) - 1;
+
+$classes = array(value('size'));
+
+if (value('hover')) {
+    $classes[] = 'has-hover';
+}
+
+if (value('sortable')) {
+    $classes[] = 'is-sortable';
+}
+
+$classes = implode(' ', $classes); ?>
 
 <div class="table-responsive">
-    <table class="table <?php echo value('modifier'); ?>">
+    <table class="table <?php echo $classes; ?>">
         <thead>
             <tr>
                 <th><a href="">Heading</a></th>

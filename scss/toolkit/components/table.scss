@@ -32,15 +32,15 @@
     tfoot tr {
         background: $gray-dark;
 
-        th { border-color: shade($gray-dark, 10%); }
+        th { border-color: $gray-darkest; }
     }
 
     // Zebra striping
     tbody tr {
         background: $gray;
 
-        &:nth-child(odd) { background: $gray-light; }
-        &.table-divider { background: shade($gray, 2%); }
+        &:nth-child(odd) { background: $gray-lightest; }
+        &.table-divider { background: $gray-dark; }
     }
 }
 
@@ -74,7 +74,9 @@
     }
 }
 
-.table.is-compact {
+//-------------------- Sizes --------------------//
+
+.table.small {
     thead th,
     tbody td { padding: $small-padding; }
 
@@ -83,6 +85,19 @@
             padding: 0;
 
             a, span { padding: $small-padding; }
+        }
+    }
+}
+
+.table.large {
+    thead th,
+    tbody td { padding: $large-padding; }
+
+    &.is-sortable {
+        thead th {
+            padding: 0;
+
+            a, span { padding: $large-padding; }
         }
     }
 }

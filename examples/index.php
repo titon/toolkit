@@ -379,7 +379,9 @@ $components = array(
         'title' => 'Table',
         'css' => array('layout/table.css'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'has-hover' => 'Row Hover', 'is-sortable' => 'Sortable Header', 'is-compact' => 'Compact Rows')),
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'hover' => array('title' => 'Show hover?', 'type' => 'boolean', 'default' => false),
+            'sortable' => array('title' => 'Sortable headers?', 'type' => 'boolean', 'default' => false),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 25)
         )
     ),
