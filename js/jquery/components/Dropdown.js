@@ -10,7 +10,7 @@
 Titon.Dropdown = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.dropdown.options, options);
+    this.options = this.setOptions(Titon.Dropdown.options, options);
 
     /** List of elements to active dropdown */
     this.nodes = $(nodes);
@@ -107,6 +107,13 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
+Titon.Dropdown.options = {
+    mode: 'click',
+    context: null,
+    getTarget: 'data-dropdown',
+    hideOpened: true
+};
+
 /**
  * Enable dropdowns on Elements collections by calling dropdown().
  * An object of options can be passed as the 1st argument.
@@ -128,13 +135,6 @@ $.fn.dropdown = function(options) {
             this.$dropdown = dropdown;
         }
     });
-};
-
-$.fn.dropdown.options = {
-    mode: 'click',
-    context: null,
-    getTarget: 'data-dropdown',
-    hideOpened: true
 };
 
 })(jQuery);

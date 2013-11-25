@@ -10,7 +10,7 @@
 Titon.Input = Titon.Component.create(function(elements, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.input.options, options);
+    this.options = this.setOptions(Titon.Input.options, options);
 
     /** List of form elements */
     this.elements = this.setElement(elements, this.options);
@@ -95,6 +95,12 @@ Titon.Input = Titon.Component.create(function(elements, options) {
     }
 });
 
+Titon.Input.options = {
+    checkbox: true,
+    radio: true,
+    select: true
+};
+
 /**
  * Enable custom inputs and selects within forms by calling input().
  * An object of options can be passed as the 1st argument.
@@ -114,12 +120,6 @@ $.fn.input = function(options) {
             this.$input = new Titon.Input(this, options);
         }
     });
-};
-
-$.fn.input.options = {
-    checkbox: true,
-    radio: true,
-    select: true
 };
 
 })(jQuery);

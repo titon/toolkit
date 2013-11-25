@@ -10,7 +10,7 @@
 Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.flyout.options, options);
+    this.options = this.setOptions(Titon.Flyout.options, options);
 
     /** Nodes to activate menus on */
     this.nodes = $(nodes);
@@ -487,6 +487,20 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
     this.initialize();
 });
 
+Titon.Flyout.options = {
+    className: '',
+    context: null,
+    mode: 'hover',
+    getUrl: 'href',
+    xOffset: 0,
+    yOffset: 0,
+    showDelay: 350,
+    hideDelay: 1000,
+    itemLimit: 15,
+    contentElement: '.flyout',
+    template: '<div class="flyout"></div>'
+};
+
 /**
  * Enable flyouts on Elements collections by calling flyout().
  * An object of options can be passed as the 1st argument.
@@ -509,20 +523,6 @@ $.fn.flyout = function(url, options) {
             this.$flyout = flyout;
         }
     });
-};
-
-$.fn.flyout.options = {
-    className: '',
-    context: null,
-    mode: 'hover',
-    getUrl: 'href',
-    xOffset: 0,
-    yOffset: 0,
-    showDelay: 350,
-    hideDelay: 1000,
-    itemLimit: 15,
-    contentElement: '.flyout',
-    template: '<div class="flyout"></div>'
 };
 
 })(jQuery);

@@ -10,7 +10,7 @@
 Titon.Matrix = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.matrix.options, options);
+    this.options = this.setOptions(Titon.Matrix.options, options);
 
     /** Matrix wrapper */
     this.element = this.setElement(element, this.options);
@@ -382,6 +382,16 @@ Titon.Matrix = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Matrix.options = {
+    className: '',
+    selector: '.matrix-item',
+    width: 200,
+    gutter: 20,
+    rtl: false,
+    defer: true,
+    template: false
+};
+
 /**
  * Enable a matrix grid on an element by calling matrix().
  * An object of options can be passed as the 1st argument.
@@ -401,16 +411,6 @@ $.fn.matrix = function(options) {
             this.$matrix = new Titon.Matrix(this, options);
         }
     });
-};
-
-$.fn.matrix.options = {
-    className: '',
-    selector: '.matrix-item',
-    width: 200,
-    gutter: 20,
-    rtl: false,
-    defer: true,
-    template: false
 };
 
 })(jQuery);

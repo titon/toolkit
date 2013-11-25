@@ -10,7 +10,7 @@
 Titon.Carousel = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.carousel.options, options);
+    this.options = this.setOptions(Titon.Carousel.options, options);
 
     /** Carousel element */
     this.element = this.setElement(element, this.options);
@@ -266,6 +266,19 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Carousel.options = {
+    animation: 'slide',
+    duration: 5000,
+    autoCycle: true,
+    stopOnHover: true,
+    itemsElement: '.carousel-items',
+    itemElement: 'li',
+    tabsElement: '.carousel-tabs',
+    tabElement: 'a',
+    nextElement: '.carousel-next',
+    prevElement: '.carousel-prev'
+};
+
 /**
  * Allow the carousel to be created on elements by calling carousel().
  * An object of options can be passed as the 1st argument.
@@ -285,19 +298,6 @@ $.fn.carousel = function(options) {
             this.$carousel = new Titon.Carousel(this, options);
         }
     });
-};
-
-$.fn.carousel.options = {
-    animation: 'slide',
-    duration: 5000,
-    autoCycle: true,
-    stopOnHover: true,
-    itemsElement: '.carousel-items',
-    itemElement: 'li',
-    tabsElement: '.carousel-tabs',
-    tabElement: 'a',
-    nextElement: '.carousel-next',
-    prevElement: '.carousel-prev'
 };
 
 })(jQuery);

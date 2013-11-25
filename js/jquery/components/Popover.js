@@ -10,7 +10,7 @@
 Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.popover.options, options);
+    this.options = this.setOptions(Titon.Popover.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
@@ -27,6 +27,28 @@ Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
 
     this.initialize();
 });
+
+Titon.Popover.options = {
+    mode: 'click',
+    ajax: false,
+    position: 'topCenter',
+    showLoading: true,
+    showTitle: true,
+    getTitle: 'title',
+    getContent: 'data-popover',
+    xOffset: 0,
+    yOffset: 0,
+    delay: 0,
+    titleElement: '.popover-head',
+    contentElement: '.popover-body',
+    template: '<div class="popover">' +
+        '<div class="popover-inner">' +
+            '<div class="popover-head"></div>' +
+            '<div class="popover-body"></div>' +
+        '</div>' +
+        '<div class="popover-arrow"></div>' +
+    '</div>'
+};
 
 /**
  * Enable popovers on Elements collections by calling popover().
@@ -49,28 +71,6 @@ $.fn.popover = function(options) {
             this.$popover = popover;
         }
     });
-};
-
-$.fn.popover.options = {
-    mode: 'click',
-    ajax: false,
-    position: 'topCenter',
-    showLoading: true,
-    showTitle: true,
-    getTitle: 'title',
-    getContent: 'data-popover',
-    xOffset: 0,
-    yOffset: 0,
-    delay: 0,
-    titleElement: '.popover-head',
-    contentElement: '.popover-body',
-    template: '<div class="popover">' +
-        '<div class="popover-inner">' +
-            '<div class="popover-head"></div>' +
-            '<div class="popover-body"></div>' +
-        '</div>' +
-        '<div class="popover-arrow"></div>' +
-    '</div>'
 };
 
 })(jQuery);

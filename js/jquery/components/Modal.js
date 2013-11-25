@@ -10,7 +10,7 @@
 Titon.Modal = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.modal.options, options);
+    this.options = this.setOptions(Titon.Modal.options, options);
 
     /** List of elements to active modals */
     this.nodes = $(nodes);
@@ -255,6 +255,28 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
+Titon.Modal.options = {
+    animation: 'fade',
+    className: '',
+    context: null,
+    ajax: true,
+    draggable: false,
+    blackout: true,
+    showLoading: true,
+    fullScreen: false,
+    getContent: 'data-modal',
+    contentElement: '.modal-inner',
+    closeElement: '.modal-close',
+    closeEvent: '.modal-event-close',
+    submitEvent: '.modal-event-submit',
+    template: '<div class="modal">' +
+        '<div class="modal-handle">' +
+            '<div class="modal-inner"></div>' +
+            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
+        '</div>' +
+    '</div>'
+};
+
 /**
  * Enable modals on Elements collections by calling modal().
  * An object of options can be passed as the 1st argument.
@@ -276,28 +298,6 @@ $.fn.modal = function(options) {
             this.$modal = modal;
         }
     });
-};
-
-$.fn.modal.options = {
-    animation: 'fade',
-    className: '',
-    context: null,
-    ajax: true,
-    draggable: false,
-    blackout: true,
-    showLoading: true,
-    fullScreen: false,
-    getContent: 'data-modal',
-    contentElement: '.modal-inner',
-    closeElement: '.modal-close',
-    closeEvent: '.modal-event-close',
-    submitEvent: '.modal-event-submit',
-    template: '<div class="modal">' +
-        '<div class="modal-handle">' +
-            '<div class="modal-inner"></div>' +
-            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
-        '</div>' +
-    '</div>'
 };
 
 })(jQuery);

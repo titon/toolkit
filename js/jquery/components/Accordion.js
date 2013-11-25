@@ -10,7 +10,7 @@
 Titon.Accordion = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.accordion.options, options);
+    this.options = this.setOptions(Titon.Accordion.options, options);
 
     /** Primary DOM wrapper */
     this.element = this.setElement(element, this.options);
@@ -161,6 +161,15 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Accordion.options = {
+    mode: 'click',
+    defaultIndex: 0,
+    multiple: false,
+    collapsible: false,
+    headerElement: '.accordion-head',
+    contentElement: '.accordion-handle'
+};
+
 /**
  * Enable an accordion on an element by calling accordion().
  * An object of options can be passed as the 1st argument.
@@ -180,15 +189,6 @@ $.fn.accordion = function(options) {
             this.$accordion = new Titon.Accordion(this, options);
         }
     });
-};
-
-$.fn.accordion.options = {
-    mode: 'click',
-    defaultIndex: 0,
-    multiple: false,
-    collapsible: false,
-    headerElement: '.accordion-head',
-    contentElement: '.accordion-handle'
 };
 
 })(jQuery);

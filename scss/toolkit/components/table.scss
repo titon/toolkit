@@ -67,9 +67,8 @@
 
         a {
             background: $gray-dark;
-            color: #000;
 
-            &:hover { background: shade($gray-dark, 5%); }
+            &:hover { background: $gray-darkest; }
         }
     }
 }

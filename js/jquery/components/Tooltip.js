@@ -10,7 +10,7 @@
 Titon.Tooltip = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.tooltip.options, options);
+    this.options = this.setOptions(Titon.Tooltip.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
@@ -211,30 +211,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-/**
- * Enable tooltips on Elements collections by calling tooltip().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-tooltip').tooltip({
- *         ajax: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.tooltip = function(options) {
-    var tooltip = new Titon.Tooltip(this, options);
-
-    return this.each(function() {
-        if (!this.$tooltip) {
-            this.$tooltip = tooltip;
-        }
-    });
-};
-
-$.fn.tooltip.options = {
+Titon.Tooltip.options = {
     mode: 'hover',
     ajax: false,
     follow: false,
@@ -256,6 +233,29 @@ $.fn.tooltip.options = {
         '</div>' +
         '<div class="tooltip-arrow"></div>' +
     '</div>'
+};
+
+/**
+ * Enable tooltips on Elements collections by calling tooltip().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
+ *
+ * @example
+ *     $('.js-tooltip').tooltip({
+ *         ajax: false
+ *     });
+ *
+ * @param {Object} [options]
+ * @returns {jQuery}
+ */
+$.fn.tooltip = function(options) {
+    var tooltip = new Titon.Tooltip(this, options);
+
+    return this.each(function() {
+        if (!this.$tooltip) {
+            this.$tooltip = tooltip;
+        }
+    });
 };
 
 })(jQuery);

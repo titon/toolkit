@@ -10,7 +10,7 @@
 Titon.Pin = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.pin.options, options);
+    this.options = this.setOptions(Titon.Pin.options, options);
 
     /** Element to pin */
     this.element = this.setElement(element, this.options);
@@ -164,6 +164,17 @@ Titon.Pin = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Pin.options = {
+    animation: '',
+    location: 'right',
+    xOffset: 0,
+    yOffset: 0,
+    throttle: 50,
+    fixed: false,
+    calculate: false,
+    context: null
+};
+
 /**
  * Enable Element pinning by calling pin().
  * An object of options can be passed as the 1st argument.
@@ -183,17 +194,6 @@ $.fn.pin = function(options) {
             this.$pin = new Titon.Pin(this, options);
         }
     });
-};
-
-$.fn.pin.options = {
-    animation: '',
-    location: 'right',
-    xOffset: 0,
-    yOffset: 0,
-    throttle: 50,
-    fixed: false,
-    calculate: false,
-    context: null
 };
 
 })(jQuery);

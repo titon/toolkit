@@ -10,7 +10,7 @@
 Titon.Stalker = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.stalker.options, options);
+    this.options = this.setOptions(Titon.Stalker.options, options);
 
     /** Element to scroll */
     this.element = this.setElement(element, this.options);
@@ -198,6 +198,14 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Stalker.options = {
+    target: '',
+    marker: '',
+    threshold: 50,
+    throttle: 50,
+    onlyWithin: true,
+    applyToParent: true
+};
 
 /**
  * Enable element scroll stalking by calling stalker().
@@ -218,15 +226,6 @@ $.fn.stalker = function(options) {
             this.$stalker = new Titon.Stalker(this, options);
         }
     });
-};
-
-$.fn.stalker.options = {
-    target: '',
-    marker: '',
-    threshold: 50,
-    throttle: 50,
-    onlyWithin: true,
-    applyToParent: true
 };
 
 })(jQuery);

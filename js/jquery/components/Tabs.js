@@ -10,7 +10,7 @@
 Titon.Tabs = Titon.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.tabs.options, options);
+    this.options = this.setOptions(Titon.Tabs.options, options);
 
     /** Tabs wrapper */
     this.element = this.setElement(element, this.options);
@@ -226,6 +226,21 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
     }
 });
 
+Titon.Tabs.options = {
+    mode: 'click',
+    ajax: true,
+    collapsible: false,
+    defaultIndex: 0,
+    persistState: false,
+    preventDefault: true,
+    loadFragment: true,
+    cookie: null,
+    cookieDuration: 30,
+    getUrl: 'href',
+    navElement: '.tabs-nav',
+    sectionsElement: '.tabs-section'
+};
+
 /**
  * Enable tabular sections on an Element by calling tabs().
  * An object of options can be passed as the 1st argument.
@@ -245,21 +260,6 @@ $.fn.tabs = function(options) {
             this.$tabs = new Titon.Tabs(this, options);
         }
     });
-};
-
-$.fn.tabs.options = {
-    mode: 'click',
-    ajax: true,
-    collapsible: false,
-    defaultIndex: 0,
-    persistState: false,
-    preventDefault: true,
-    loadFragment: true,
-    cookie: null,
-    cookieDuration: 30,
-    getUrl: 'href',
-    navElement: '.tabs-nav',
-    sectionsElement: '.tabs-section'
 };
 
 })(jQuery);

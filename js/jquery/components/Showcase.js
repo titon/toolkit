@@ -10,7 +10,7 @@
 Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions($.fn.showcase.options, options);
+    this.options = this.setOptions(Titon.Showcase.options, options);
 
     /** List of nodes to activate showcase */
     this.nodes = $(nodes);
@@ -417,30 +417,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-/**
- * Enable showcase galleries on Elements collections by calling showcase().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-showcase').showcase({
- *         blackout: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.showcase = function(options) {
-    var showcase = new Titon.Showcase(this, options);
-
-    return this.each(function() {
-        if (!this.$showcase) {
-            this.$showcase = showcase;
-        }
-    });
-};
-
-$.fn.showcase.options = {
+Titon.Showcase.options = {
     className: '',
     blackout: true,
     transition: 300,
@@ -465,6 +442,29 @@ $.fn.showcase.options = {
             '<a href="javascript:;" class="showcase-close showcase-event-close"><span class="x"></span></a>' +
         '</div>' +
     '</div>'
+};
+
+/**
+ * Enable showcase galleries on Elements collections by calling showcase().
+ * An object of options can be passed as the 1st argument.
+ * The class instance will be cached and returned from this function.
+ *
+ * @example
+ *     $('.js-showcase').showcase({
+ *         blackout: false
+ *     });
+ *
+ * @param {Object} [options]
+ * @returns {jQuery}
+ */
+$.fn.showcase = function(options) {
+    var showcase = new Titon.Showcase(this, options);
+
+    return this.each(function() {
+        if (!this.$showcase) {
+            this.$showcase = showcase;
+        }
+    });
 };
 
 })(jQuery);
