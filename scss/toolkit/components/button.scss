@@ -23,7 +23,7 @@
     &.round { border-radius: $round; }
     &.square { border-radius: 0; }
 
-    @include disabled-state {
+    @include is-disabled {
         cursor: not-allowed;
     }
 }

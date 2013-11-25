@@ -65,14 +65,14 @@ mark { background: lighten($warning-light, 25%); }
         background-color: lighten($base, 5%);
     }
 
-    @include active-state {
+    @include is-active {
         color: #fff;
         background-color: darken($base, 20%);
         text-shadow: 1px 1px $dark;
         border-color: darken($base, 30%);
     }
 
-    @include disabled-state {
+    @include is-disabled {
         background: $base;
         border-color: $base;
     }
@@ -91,7 +91,7 @@ mark { background: lighten($warning-light, 25%); }
         top: 1px;
     }
 
-    @include disabled-state {
+    @include is-disabled {
         box-shadow: none;
         text-shadow: none;
         top: 0;

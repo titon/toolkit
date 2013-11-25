@@ -10,7 +10,7 @@
     @include reset-inline-block;
     background-repeat: no-repeat;
 
-    @include disabled-state { opacity: $disabled-opacity; }
+    @include is-disabled { opacity: $disabled-opacity; }
 }
 
 [class*="icon-12"] { width: 12px; height: 12px; }

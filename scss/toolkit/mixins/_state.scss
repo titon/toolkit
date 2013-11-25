@@ -1,0 +1,32 @@
+
+@mixin is-active {
+    .is-active > &,
+    .is-active > li > &,
+    &.is-active,
+    &.is-active:hover { @content; }
+}
+
+@mixin is-disabled {
+    .is-disabled > &,
+    .is-disabled > li > &,
+    &.is-disabled,
+    &.is-disabled:hover,
+    &[disabled],
+    &[disabled]:hover { @content; }
+}
+
+@mixin is-info {
+    &.is-info { @content; }
+}
+
+@mixin is-error {
+    &.is-error { @content; }
+}
+
+@mixin is-warning {
+    &.is-warning { @content; }
+}
+
+@mixin is-success {
+    &.is-success { @content; }
+}
