@@ -68,6 +68,17 @@
     }
 }
 
+//-------------------- Progress --------------------//
+
+.progress.pill {
+    border-radius: $pill;
+
+    .progress-bar {
+        border-top-left-radius: $pill;
+        border-bottom-left-radius: $pill;
+    }
+}
+
 //-------------------- Visual --------------------//
 
 .visual-gloss.pill:after {

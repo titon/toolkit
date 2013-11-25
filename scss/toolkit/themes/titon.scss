@@ -421,7 +421,6 @@ mark { background: lighten($warning-light, 25%); }
 
 .progress {
     box-shadow: inset 1px 1px 2px $gray-darkest;
-    border-radius: $round;
 
     &.is-info .progress-bar { @include progress-style($info, $info-dark); }
     &.is-error .progress-bar { @include progress-style($error, $error-dark); }
@@ -432,14 +431,7 @@ mark { background: lighten($warning-light, 25%); }
 .progress-bar {
     color: #fff;
     font-weight: bold;
-    border-top-left-radius: $round;
-    border-bottom-left-radius: $round;
     @include progress-style($default, $default-dark);
-}
-
-.progress-bar + .progress-bar {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 //-------------------- Tooltip --------------------//

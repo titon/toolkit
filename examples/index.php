@@ -341,6 +341,11 @@ $components = array(
         'filters' => array(
             'size' => array('title' => 'Size', 'data' => $sizes),
             'state' => array('title' => 'State', 'data' => $states),
+            'shape' => array('title' => 'Shape', 'data' => array(
+                '' => 'Square (Default)',
+                'round' => 'Round',
+                'pill' => 'Pill'
+            )),
             'width' => array('title' => 'Width', 'type' => 'number', 'default' => 55)
         )
     ),

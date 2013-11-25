@@ -1,5 +1,5 @@
 <?php
-$classes = array(value('size'), value('state'));
+$classes = array(value('size'), value('state'), value('shape'));
 $classes = implode(' ', array_filter($classes)); ?>
 
 <div class="progress <?php echo $classes; ?>">

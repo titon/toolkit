@@ -23,6 +23,11 @@
         font-size: $large-size;
     }
 
+    .progress-bar + .progress-bar {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
     @include clear-fix;
 }
 
@@ -36,4 +41,13 @@
     background: $gray-darkest;
     float: left;
     @include transition(width .6s, background $progress-transition);
+}
+
+.progress.round {
+    border-radius: $round;
+
+    .progress-bar {
+        border-top-left-radius: $round;
+        border-bottom-left-radius: $round;
+    }
 }
