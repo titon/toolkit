@@ -86,6 +86,21 @@
 <span class="caret-down"></span>
 <span class="caret-left"></span>
 
+<span class="sorter">
+    <span class="caret-up"></span>
+    <span class="caret-down"></span>
+</span>
+
+<span class="sorter asc">
+    <span class="caret-up"></span>
+    <span class="caret-down"></span>
+</span>
+
+<span class="sorter desc">
+    <span class="caret-up"></span>
+    <span class="caret-down"></span>
+</span>
+
 <div class="example-title">Arrows</div>
 
 <span class="arrow-up"></span>

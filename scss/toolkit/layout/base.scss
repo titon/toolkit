@@ -129,3 +129,18 @@
 
     &:empty { display: none; }
 }
+
+// Sorter
+.sorter {
+    @include reset-inline-block;
+    max-width: 10px;
+    line-height: 5px;
+    top: -1px;
+    margin: 0 .25rem;
+
+    .caret-up,
+    .caret-down { opacity: .25; }
+
+    &.desc .caret-up,
+    &.asc .caret-down { opacity: 1; }
+}

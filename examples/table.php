@@ -18,7 +18,15 @@ $classes = implode(' ', $classes); ?>
     <table class="table <?php echo $classes; ?>">
         <thead>
             <tr>
-                <th><a href="">Heading</a></th>
+                <th>
+                    <a href="">
+                        Heading
+                        <span class="sorter asc">
+                            <span class="caret-up"></span>
+                            <span class="caret-down"></span>
+                        </span>
+                    </a>
+                </th>
                 <th><a href="">Heading</a></th>
                 <th><a href="">Heading</a></th>
                 <th><a href="">Heading</a></th>

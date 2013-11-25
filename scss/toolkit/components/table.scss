@@ -60,12 +60,13 @@
     thead th {
         padding: 0;
 
-        a, span {
+        > a,
+        > span {
             padding: $padding;
             display: block;
         }
 
-        a {
+        > a {
             background: $gray-dark;
 
             &:hover { background: $gray-darkest; }
@@ -83,7 +84,8 @@
         thead th {
             padding: 0;
 
-            a, span { padding: $small-padding; }
+            > a,
+            > span { padding: $small-padding; }
         }
     }
 }
@@ -96,7 +98,8 @@
         thead th {
             padding: 0;
 
-            a, span { padding: $large-padding; }
+            > a,
+            > span { padding: $large-padding; }
         }
     }
 }
