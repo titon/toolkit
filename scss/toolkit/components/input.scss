@@ -22,7 +22,6 @@
         top: -3px;
         line-height: 1rem;
         border-radius: $round;
-        @include transition(all $default-transition);
 
         &:hover { border-color: $gray-darkest; }
     }
@@ -42,7 +41,6 @@
         &:checked + .checkbox,
         &:checked + .radio {
             border-color: $info;
-            box-shadow: 0 0 5px $info-light;
         }
 
         // Style when input is disabled
@@ -64,7 +62,6 @@
         border-radius: $round;
         white-space: nowrap;
         line-height: 1rem;
-        @include transition(all $default-transition);
     }
 
     .select-label,
@@ -72,8 +69,7 @@
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
-        font-size: $medium-size;
-        padding: $medium-padding;
+        @include size-medium;
     }
 
     .select-arrow {
@@ -99,7 +95,6 @@
         // Style when the select is focused
         &:focus + .select {
             border-color: $info;
-            box-shadow: 0 0 5px $info-light;
         }
 
         // Style when select is disabled

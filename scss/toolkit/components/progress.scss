@@ -13,13 +13,13 @@
 
     &.small .progress-bar {
         height: 1rem;
-        line-height: .75rem;
+        line-height: 1rem;
         font-size: $small-size;
     }
 
     &.large .progress-bar {
         height: 2rem;
-        line-height: 1.75rem;
+        line-height: 2rem;
         font-size: $large-size;
     }
 
@@ -28,7 +28,7 @@
 
 .progress-bar {
     height: 1.5rem;
-    line-height: 1.25rem;
+    line-height: 1.5rem;
     overflow: hidden;
     position: relative;
     text-align: center;

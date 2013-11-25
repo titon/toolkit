@@ -14,7 +14,6 @@
     opacity: 0;
     visibility: hidden;
     background: $gray;
-    border: 1px solid $gray-dark;
     @include transition(opacity 0.3s);
 
     ul {
@@ -22,15 +21,33 @@
         margin: 0;
         padding: 0;
         min-width: 200px;
+    }
 
-        a,
-        li.heading {
+    li {
+        > a {
             padding: $small-padding;
             line-height: 100%;
             display: block;
             text-decoration: none;
         }
+
+        > a:hover,
+        &.is-active a {
+            background: $gray-lightest;
+        }
     }
+}
+
+.type-ahead-heading {
+    padding: $small-padding;
+    line-height: 100%;
+    display: block;
+    text-decoration: none;
+    background: $gray-dark;
+}
+
+.type-ahead-highlight {
+    background: #fff;
 }
 
 .type-ahead-desc {

@@ -275,7 +275,7 @@ Titon.Flyout = new Class({
                         text: child.title
                     });
 
-                    li.addClass('heading');
+                    li.addClass('flyout-heading');
                 }
 
                 if (child.attributes) {

@@ -11,21 +11,20 @@
     @include size-medium;
     cursor: pointer;
     text-align: center;
-    overflow: hidden;
     font-weight: normal;
     line-height: normal;
-    user-select: none;
     white-space: nowrap;
     background: $gray;
-    border: 1px solid $gray-dark;
 
     &.small, .small & { @include size-small; }
+    &.medium, .medium & { @include size-medium; }
     &.large, .large & { @include size-large; }
+
     &.round { border-radius: $round; }
+    &.square { border-radius: 0; }
 
     @include disabled-state {
         cursor: not-allowed;
-        pointer-events: none;
     }
 }
 

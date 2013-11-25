@@ -10,13 +10,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0;
+    margin: $margin;
     padding: 0;
+    border: 0;
     z-index: 500;
     max-width: 300px;
     visibility: hidden;
     background: $gray;
-    border: 1px solid $gray-dark;
 
     &.center-left .popover-arrow,
     &.center-right .popover-arrow {
@@ -25,12 +25,12 @@
     }
 
     &.center-left .popover-arrow {
-        border-left-color: $gray-dark;
+        border-left-color: $gray;
         right: -16px;
     }
 
     &.center-right .popover-arrow {
-        border-right-color: $gray-dark;
+        border-right-color: $gray;
         left: -16px;
     }
 
@@ -41,12 +41,12 @@
     }
 
     &.top-center .popover-arrow {
-        border-top-color: $gray-dark;
+        border-top-color: $gray;
         bottom: -16px;
     }
 
     &.bottom-center .popover-arrow {
-        border-bottom-color: $gray-dark;
+        border-bottom-color: $gray;
         top: -16px;
     }
 }

@@ -29,6 +29,7 @@
     }
 
     &:empty { display: none; }
+
     &:after {
         content: "";
         height: 0;

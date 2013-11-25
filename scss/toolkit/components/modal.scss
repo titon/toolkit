@@ -23,7 +23,11 @@
 
     &.is-loading {
         .modal-close { display: none; }
-        .modal-handle { background: $gray; }
+    }
+
+    &.is-draggable {
+        .modal-inner { cursor: default; }
+        .modal-head { cursor: move; }
     }
 }
 
@@ -38,21 +42,12 @@
     &:hover { opacity: 1; }
 }
 
-// Used for animations, should also contain the styles
-.modal-handle {
+.modal-inner {
     position: relative;
     margin: 0 auto;
     background: $gray;
-    border: 1px solid $gray-dark;
 }
 
-// Reset draggable cursor
-.modal.is-draggable {
-    .modal-inner { cursor: default; }
-    .modal-head { cursor: move; }
-}
-
-// Apply block padding
 .modal-head,
 .modal-body,
 .modal-foot,

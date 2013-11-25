@@ -16,13 +16,10 @@
 .accordion-head {
     padding: $padding;
     background: $gray;
-    border: 1px solid $gray-dark;
-    margin: -1px;
     cursor: pointer;
 
     .is-active & {
         background: $gray-dark;
-        border-color: $gray-darkest;
     }
 }
 

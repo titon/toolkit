@@ -85,13 +85,15 @@
 
     &.round {
         > li:first-child .button,
-        > .button:first-child {
+        > .button:first-child,
+        > .button.first {
             border-top-left-radius: $round;
             border-top-right-radius: $round;
         }
 
         > li:last-child .button,
-        > .button:last-child {
+        > .button:last-child,
+        > .button.last {
             border-bottom-left-radius: $round;
             border-bottom-right-radius: $round;
         }

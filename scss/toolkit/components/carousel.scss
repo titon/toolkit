@@ -9,7 +9,6 @@
 .carousel {
     margin: 0 auto;
     text-align: left;
-    background-color: #000;
     position: relative;
 }
 
@@ -55,8 +54,7 @@
     background: black(.7);
 
     @include in-small {
-        font-size: $small-size;
-        padding: $small-padding;
+        @include size-small;
     }
 }
 
@@ -68,26 +66,10 @@
     width: auto;
     height: auto;
     z-index: 5;
-    opacity: $carousel-opacity;
     top: 50%;
     @include transform(translateY(-50%)); // move up 50% of their height
 
-    .arrow-left,
-    .arrow-right {
-        color: #fff;
-        font-size: 2rem;
-    }
-
-    &:hover { opacity: 1; }
     &:focus { outline: none; }
-
-    // Large icons for large resolutions
-    @include if-tablet-landscape {
-        .arrow-left,
-        .arrow-right {
-            font-size: 3rem;
-        }
-    }
 }
 
 .carousel-prev { left: 0; }

@@ -317,7 +317,7 @@ Titon.TypeAhead = Titon.Component.create(function(input, options) {
                 results.push(null);
 
                 elements.push(
-                    $('<li/>').addClass('heading').append( $('<span/>', { text: category }) )
+                    $('<li/>').addClass('type-ahead-heading').append( $('<span/>', { text: category }) )
                 );
             }
 

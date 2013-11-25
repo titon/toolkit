@@ -14,7 +14,6 @@
     opacity: 0;
     visibility: hidden;
     background: $gray;
-    border: 1px solid $gray-dark;
     @include box-sizing(content-box); // required by MooTools for multi columns
     @include transition(opacity $flyout-transition);
 
@@ -24,51 +23,65 @@
         padding: 0;
         float: left;
         width: 200px;
+    }
 
-        li {
-            position: relative;
+    li {
+        position: relative;
 
-            > a,
-            &.heading {
-                padding: $small-padding;
-                line-height: 100%;
-                display: block;
-                text-decoration: none;
+        > a {
+            padding: $small-padding;
+            line-height: 100%;
+            display: block;
+            text-decoration: none;
+
+            .caret-right { display: none; }
+        }
+
+        // Hover states
+        > a:hover,
+        &.is-open > a {
+            background: $gray-lightest;
+        }
+
+        // Display caret arrow
+        &.has-children > a .caret-right {
+            float: right;
+            display: inline-block; // reveal
+            margin-top: 3px;
+        }
+
+        // Nested flyouts
+        > .flyout {
+            left: 90%;
+            @include transition(left $flyout-transition, right $flyout-transition, opacity $flyout-transition);
+
+            // Reverse menu to left side in case it goes outside the viewport
+            // Will be set automatically from the Javascript layer
+            &.push-left {
+                left: auto;
+                right: 90%;
             }
+        }
 
-            > a .caret-right { display: none; }
+        &.is-open > .flyout {
+            opacity: 1;
+            visibility: visible;
+            left: 100%;
 
-            &.has-children > a .caret-right {
-                float: right;
-                display: inline-block; // reveal
-                margin-top: 3px;
-            }
-
-            // Sub-flyouts
-            > .flyout {
-                left: 90%;
-                @include transition(left $flyout-transition, right $flyout-transition, opacity $flyout-transition);
-
-                // Reverse menu to left side incase it goes outside the viewport
-                // Will be set automatically from the Javascript layer
-                &.push-left {
-                    left: auto;
-                    right: 90%;
-                }
-            }
-
-            &.is-open > .flyout {
-                opacity: 1;
-                visibility: visible;
-                left: 100%;
-
-                &.push-left {
-                    left: auto;
-                    right: 100%;
-                }
+            &.push-left {
+                left: auto;
+                right: 100%;
             }
         }
     }
 
     @include clear-fix;
+}
+
+.flyout-heading {
+    padding: $small-padding;
+    line-height: 100%;
+    display: block;
+    text-decoration: none;
+    background: $gray-dark;
 }

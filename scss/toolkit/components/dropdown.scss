@@ -14,7 +14,6 @@
     left: 0;
     width: 200px;
     background: $gray;
-    border: 1px solid $gray-dark;
     line-height: 100%;
     z-index: 500;
     opacity: 0;
@@ -49,7 +48,7 @@
 
         // Show nested dropdown
         &:hover {
-            > a { background: #fff; }
+            > a { background: $gray-lightest; }
 
             .dropdown {
                 visibility: visible;

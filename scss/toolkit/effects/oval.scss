@@ -17,11 +17,11 @@
         border-radius: #{$oval-x} / #{$oval-y};
     }
 
-    li:first-child .button {
+    li:first-child a {
         border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
     }
 
-    li:last-child .button {
+    li:last-child a {
         border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
     }
 }

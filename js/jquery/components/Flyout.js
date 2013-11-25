@@ -301,7 +301,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
                         text: child.title
                     });
 
-                    li.addClass('heading');
+                    li.addClass('flyout-heading');
                 }
 
                 if (child.attributes) {

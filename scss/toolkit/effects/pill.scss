@@ -57,12 +57,12 @@
         border-radius: $pill;
     }
 
-    li:first-child .button {
+    li:first-child a {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }
 
-    li:last-child .button {
+    li:last-child a {
         border-top-right-radius: $pill;
         border-bottom-right-radius: $pill;
     }

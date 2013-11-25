@@ -14,7 +14,7 @@
     display: block;
     margin-bottom: $margin;
 
-    ul, li {
+    ul, ol, li {
         @include reset-inline-block;
         list-style: none;
     }
@@ -33,7 +33,7 @@
     @extend .tabs;
 
     .tabs-nav {
-        ul, li, a, button {
+        ul, ol, li, a, button {
             display: block;
             float: none;
             text-align: left;

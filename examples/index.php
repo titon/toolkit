@@ -19,7 +19,7 @@ function bool($value, $default = true) {
 }
 
 $shapes = array(
-    '' => 'Default',
+    '' => 'Square (Default)',
     'round' => 'Round',
     'pill' => 'Pill',
     'oval' => 'Oval',

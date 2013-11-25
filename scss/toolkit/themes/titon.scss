@@ -33,6 +33,8 @@ mark { background: lighten($warning-light, 25%); }
 //-------------------- Accordion --------------------//
 
 .accordion-head {
+    border: 1px solid $gray-dark;
+    margin: -1px;
     @include transition(all .15s);
 
     &:hover { background-color: $gray-light; }
@@ -44,6 +46,12 @@ mark { background: lighten($warning-light, 25%); }
 
         &:hover { background-color: lighten($info, 5%); }
     }
+}
+
+//-------------------- Breadcrumbs --------------------//
+
+.breadcrumbs {
+    border: 1px solid $gray-dark;
 }
 
 //-------------------- Button --------------------//
@@ -96,9 +104,43 @@ mark { background: lighten($warning-light, 25%); }
     &.is-success { @include button-style($success, $success-light, $success-dark); }
 }
 
+//-------------------- Carousel, Showcase --------------------//
+
+.carousel-prev,
+.carousel-next,
+.showcase-prev,
+.showcase-next {
+    opacity: $carousel-opacity;
+
+    .arrow-left,
+    .arrow-right {
+        color: #fff;
+        font-size: 2rem;
+    }
+
+    &:hover { opacity: 1; }
+
+    // Large icons for large resolutions
+    @include if-tablet-landscape {
+        .arrow-left,
+        .arrow-right {
+            font-size: 3rem;
+        }
+    }
+}
+
+.showcase-close {
+    opacity: $showcase-opacity;
+
+    .x { color: #fff; }
+
+    &:hover { opacity: 1; }
+}
+
 //-------------------- Dropdown --------------------//
 
 .dropdown {
+    border: 1px solid $gray-dark;
     box-shadow: 5px 5px black(.25);
 
     li {
@@ -144,7 +186,6 @@ mark { background: lighten($warning-light, 25%); }
 
     li {
         &:nth-child(odd) > a { background: $gray-lightest; }
-        &.heading { background: $gray-dark; }
 
         > a:hover,
         &.is-open > a,
@@ -160,10 +201,35 @@ mark { background: lighten($warning-light, 25%); }
 .type-ahead-highlight { background: $warning-light; }
 
 .type-ahead {
-    li a:hover,
-    li.is-active a {
-        .type-ahead-desc { color: $gray-lightest; }
-        .type-ahead-highlight{ background: $info-light; color: $info-dark; }
+    li {
+        > a:hover,
+        &.is-active a {
+            .type-ahead-desc { color: $gray-lightest; }
+            .type-ahead-highlight{ background: $info-light; color: $info-dark; }
+        }
+    }
+}
+
+//-------------------- Input --------------------//
+
+.custom-input {
+    .checkbox,
+    .radio,
+    .select {
+        @include transition(all $default-transition);
+    }
+
+    input {
+        &:checked + .checkbox,
+        &:checked + .radio {
+            box-shadow: 0 0 5px $info-light;
+        }
+    }
+
+    select {
+        &:focus + .select {
+            box-shadow: 0 0 5px $info-light;
+        }
     }
 }
 
@@ -236,8 +302,11 @@ mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Modal --------------------//
 
-.modal-outer {
+.modal {
     margin: $margin;
+}
+
+.modal-inner {
     background: $gray;
     border: 1px solid $gray-dark;
     box-shadow: 5px 5px black(.25);
@@ -345,7 +414,7 @@ mark { background: lighten($warning-light, 25%); }
 @mixin progress-style($bg, $border) {
     background: $bg;
     text-shadow: 1px 1px $border;
-    border: 1px solid lighten($border, 35%);
+    border: 1px solid darken($bg, 12%);
 
     @content;
 }
