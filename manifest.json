@@ -1,11 +1,20 @@
 {
+    "normalize": {
+        "category": "layout",
+        "priority": -1,
+        "source": {
+            "css": ["../normalize.css"]
+        }
+    },
+
     "base": {
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["../normalize.css", "layout/base.css"],
+            "css": ["layout/base.css"],
             "js": ["Titon.js", "Component.js"],
-            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"]
+            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"],
+            "jquery": ["Core"]
         }
     },
     "typography": {

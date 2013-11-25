@@ -44,6 +44,19 @@ module.exports = function(grunt) {
     }
 
     /**
+     * Include or remove normalize from the output.
+     */
+    var hasNormalize = _.contains(toPackage, 'normalize');
+
+    if (!grunt.option('no-normalize')) {
+        if (!hasNormalize) {
+            toPackage.unshift('normalize');
+        }
+    } else if (hasNormalize)  {
+        toPackage = _.without(toPackage, 'normalize');
+    }
+
+    /**
      * Build the chain and generate all the paths we will need.
      */
     graph.buildChain(toPackage, categories);
@@ -74,7 +87,6 @@ module.exports = function(grunt) {
      */
     function createBanner() {
         var comps = _.keys(graph.chain).join(', '),
-            deps = graph.getPaths('moo').sort().join(', '),
             banner = "/*!\n" +
                 " * Titon Toolkit v<%= pkg.version %>\n" +
                 " * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
@@ -82,10 +94,6 @@ module.exports = function(grunt) {
 
         if (comps) {
             banner += " * Components: " + comps + "\n";
-        }
-
-        if (deps) {
-            //banner += " * Dependencies: " + deps + "\n";
         }
 
         banner += " */\n";
