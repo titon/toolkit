@@ -26,7 +26,7 @@ Titon.Input = Titon.Component.create(function(elements, options) {
 
         // Checkboxes
         if (options.checkbox) {
-            this.elements.find('input:checkbox').each(function() {
+            this.elements.find(options.checkbox).each(function() {
                 var el = $(this);
 
                 el.wrap($('<div/>').addClass('custom-input'));
@@ -39,7 +39,7 @@ Titon.Input = Titon.Component.create(function(elements, options) {
 
         // Radios
         if (options.radio) {
-            this.elements.find('input[type="radio"]').each(function() {
+            this.elements.find(options.radio).each(function() {
                 var el = $(this);
 
                 el.wrap($('<div/>').addClass('custom-input'));
@@ -52,7 +52,7 @@ Titon.Input = Titon.Component.create(function(elements, options) {
 
         // Selects
         if (options.select) {
-            this.elements.find('select').each(function() {
+            this.elements.find(options.select).each(function() {
                 var el = $(this);
 
                 if (this.multiple) {
@@ -96,9 +96,9 @@ Titon.Input = Titon.Component.create(function(elements, options) {
 });
 
 Titon.Input.options = {
-    checkbox: true,
-    radio: true,
-    select: true
+    checkbox: 'input:checkbox',
+    radio: 'input:radio',
+    select: 'select'
 };
 
 /**

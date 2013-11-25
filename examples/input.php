@@ -60,17 +60,17 @@ $disabled = value('disabled', false); ?>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
            $$('.example form').input({
-               checkbox: <?php bool('checkbox', true); ?>,
-               radio: <?php bool('radio', true); ?>,
-               select: <?php bool('select', true); ?>
+               checkbox: '<?php echo value('checkbox') ? 'input[type="checkbox"]' : ''; ?>',
+               radio: '<?php echo value('radio') ? 'input[type="radio"]' : ''; ?>',
+               select: '<?php echo value('select') ? 'select' : ''; ?>'
            });
         });
     <?php } else { ?>
         $(function() {
             $('.example form').input({
-               checkbox: <?php bool('checkbox', true); ?>,
-               radio: <?php bool('radio', true); ?>,
-               select: <?php bool('select', true); ?>
+               checkbox: '<?php echo value('checkbox') ? 'input:checkbox' : ''; ?>',
+               radio: '<?php echo value('radio') ? 'input:radio' : ''; ?>',
+               select: '<?php echo value('select') ? 'select' : ''; ?>'
            });
         });
     <?php } ?>

@@ -13,9 +13,9 @@ Titon.Input = new Class({
 
     /** Default options */
     options: {
-        checkbox: true,
-        radio: true,
-        select: true
+        checkbox: 'input[type="checkbox"]',
+        radio: 'input[type="radio"]',
+        select: 'select'
     },
 
     /**
@@ -47,7 +47,7 @@ Titon.Input = new Class({
 
         // Checkboxes
         if (options.checkbox) {
-            this.element.getElements('input[type="checkbox"]').each(function(el) {
+            this.element.getElements(options.checkbox).each(function(el) {
                 new Element('div.custom-input').wraps(el);
                 new Element('label.checkbox')
                     .setProperty('for', el.get('id'))
@@ -57,7 +57,7 @@ Titon.Input = new Class({
 
         // Radios
         if (options.radio) {
-            this.element.getElements('input[type="radio"]').each(function(el) {
+            this.element.getElements(options.radio).each(function(el) {
                 new Element('div.custom-input').wraps(el);
                 new Element('label.radio')
                     .setProperty('for', el.get('id'))
@@ -67,7 +67,7 @@ Titon.Input = new Class({
 
         // Selects
         if (options.select) {
-            this.element.getElements('select').each(function(el) {
+            this.element.getElements(options.select).each(function(el) {
                 if (el.multiple) {
                     return; // Do not style multi-selects
                 }
