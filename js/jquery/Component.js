@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-Titon.Component = function() {
+Toolkit.Component = function() {
 
     /**
      * Create the element from the template.
@@ -43,7 +43,7 @@ Titon.Component = function() {
     /**
      * Disable component.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     this.disable = function() {
         this.enabled = false;
@@ -54,7 +54,7 @@ Titon.Component = function() {
     /**
      * Enable component.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     this.enable = function() {
         this.enabled = true;
@@ -67,7 +67,7 @@ Titon.Component = function() {
      *
      * @param {String} event
      * @param {Array} args
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     this.fireEvent = function(event, args) {
         if (args && !$.isArray(args)) {
@@ -115,7 +115,7 @@ Titon.Component = function() {
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     this.requestData = function(type, url, before, done, fail) {
         var ajax = {
@@ -208,7 +208,7 @@ Titon.Component = function() {
     this._errorTemplate = function(component) {
         return $('<div/>')
             .addClass(component + '-error')
-            .text(Titon.messages.error);
+            .text(Toolkit.messages.error);
     };
 
     /**
@@ -220,7 +220,7 @@ Titon.Component = function() {
     this._loadingTemplate = function(component) {
         return $('<div/>')
             .addClass(component + '-loading')
-            .text(Titon.messages.loading);
+            .text(Toolkit.messages.loading);
     };
 
 };

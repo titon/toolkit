@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Tabs = Titon.Component.create(function(element, options) {
+Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Tabs.options, options);
+    this.options = this.setOptions(Toolkit.Tabs.options, options);
 
     /** Tabs wrapper */
     this.element = this.setElement(element, this.options);
@@ -70,7 +70,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
         var index = options.defaultIndex;
 
         if (options.persistState) {
-            var cookie = 'titon.tabs.' + options.cookie,
+            var cookie = 'toolkit.tabs.' + options.cookie,
                 value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
 
             if (value && value.length) {
@@ -97,7 +97,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
     /**
      * Hide all sections.
      *
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     this.hide = function() {
         this.sections.conceal();
@@ -111,7 +111,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
      * Jump to a specific tab via index.
      *
      * @param {Number} index
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     this.jump = function(index) {
         if (this.tabs[index]) {
@@ -126,7 +126,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
      * or pass an element object for a tab in the collection.
      *
      * @param {jQuery} tab
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     this.show = function(tab) {
         tab = $(tab);
@@ -181,7 +181,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
 
         // Persist the state using a cookie
         if (this.options.persistState) {
-            var cookie = 'titon.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
+            var cookie = 'toolkit.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
             var date = new Date();
                 date.setTime(date.getTime() + this.options.cookieDuration * 24 * 60 * 60 * 1000);
 
@@ -226,7 +226,7 @@ Titon.Tabs = Titon.Component.create(function(element, options) {
     }
 });
 
-Titon.Tabs.options = {
+Toolkit.Tabs.options = {
     mode: 'click',
     ajax: true,
     collapsible: false,
@@ -257,7 +257,7 @@ Titon.Tabs.options = {
 $.fn.tabs = function(options) {
     return this.each(function() {
         if (!this.$tabs) {
-            this.$tabs = new Titon.Tabs(this, options);
+            this.$tabs = new Toolkit.Tabs(this, options);
         }
     });
 };

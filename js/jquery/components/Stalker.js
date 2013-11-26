@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Stalker = Titon.Component.create(function(element, options) {
+Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Stalker.options, options);
+    this.options = this.setOptions(Toolkit.Stalker.options, options);
 
     /** Element to scroll */
     this.element = this.setElement(element, this.options);
@@ -62,7 +62,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
      *
      * @param {Element} marker
      * @param {Element} target
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     this.activate = function(marker, target) {
         this.marker = $(marker);
@@ -88,7 +88,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
      * Deactivate the targets.
      *
      * @param {Element} marker
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     this.deactivate = function(marker) {
         var targets = this.targets;
@@ -109,7 +109,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     /**
      * Gather the targets and markers used for stalking.
      *
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     this.refresh = function() {
         if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
@@ -198,7 +198,7 @@ Titon.Stalker = Titon.Component.create(function(element, options) {
     }
 });
 
-Titon.Stalker.options = {
+Toolkit.Stalker.options = {
     target: '',
     marker: '',
     threshold: 50,
@@ -223,7 +223,7 @@ Titon.Stalker.options = {
 $.fn.stalker = function(options) {
     return this.each(function() {
         if (!this.$stalker) {
-            this.$stalker = new Titon.Stalker(this, options);
+            this.$stalker = new Toolkit.Stalker(this, options);
         }
     });
 };

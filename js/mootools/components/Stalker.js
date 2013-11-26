@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Stalker = new Class({
-    Extends: Titon.Component,
+Toolkit.Stalker = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__scroll'],
 
     /** Elements to apply active state to */
@@ -63,7 +63,7 @@ Titon.Stalker = new Class({
      *
      * @param {Element} marker
      * @param {Element} target
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     activate: function(marker, target) {
         this.marker = marker;
@@ -88,7 +88,7 @@ Titon.Stalker = new Class({
     /**
      * Set scroll events on target element.
      *
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     bindEvents: function() {
         (this.element.getStyle('overflow') === 'auto' ? this.element : window)
@@ -103,7 +103,7 @@ Titon.Stalker = new Class({
      * Deactivate the targets.
      *
      * @param {Element} marker
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     deactivate: function(marker) {
         var targets = this.targets;
@@ -124,7 +124,7 @@ Titon.Stalker = new Class({
     /**
      * Gather the targets and markers used for stalking.
      *
-     * @returns {Titon.Stalker}
+     * @returns {Toolkit.Stalker}
      */
     refresh: function() {
         if (this.element.getStyle('overflow') === 'auto' && this.element !== document.body) {
@@ -203,11 +203,11 @@ Titon.Stalker = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Stalker}
+ * @returns {Toolkit.Stalker}
  */
 Element.implement('stalker', function(options) {
     if (!this.$stalker) {
-        this.$stalker = new Titon.Stalker(this, options);
+        this.$stalker = new Toolkit.Stalker(this, options);
     }
 
     return this;

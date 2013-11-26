@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.LazyLoad = Titon.Component.create(function(elements, options) {
+Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.LazyLoad.options, options);
+    this.options = this.setOptions(Toolkit.LazyLoad.options, options);
 
     /** List of elements to load */
     this.elements = this.setElement(elements, this.options);
@@ -122,7 +122,7 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
      *
      * @param {jQuery} node
      * @param {Number} index
-     * @returns {Titon.LazyLoad}
+     * @returns {Toolkit.LazyLoad}
      */
     this.show = function(node, index) {
         node = $(node);
@@ -151,7 +151,7 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
      * When triggered, will shutdown the instance from executing any longer.
      * Any container events will be removed and loading will cease.
      *
-     * @returns {Titon.LazyLoad}
+     * @returns {Toolkit.LazyLoad}
      */
     this.shutdown = function() {
         this.isLoaded = true;
@@ -171,7 +171,7 @@ Titon.LazyLoad = Titon.Component.create(function(elements, options) {
     }
 });
 
-Titon.LazyLoad.options = {
+Toolkit.LazyLoad.options = {
     forceLoad: false,
     delay: 10000,
     threshold: 150,
@@ -193,7 +193,7 @@ Titon.LazyLoad.options = {
  * @returns {jQuery}
  */
 $.fn.lazyLoad = function(options) {
-    var lazyLoad = new Titon.LazyLoad(this, options);
+    var lazyLoad = new Toolkit.LazyLoad(this, options);
 
     return this.each(function() {
         if (!this.$lazyLoad) {

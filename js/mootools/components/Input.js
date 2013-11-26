@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Input = new Class({
-    Extends: Titon.Component,
+Toolkit.Input = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__change'],
 
     /** Default options */
@@ -39,7 +39,7 @@ Titon.Input = new Class({
     /**
      * Replace specific form elements with custom replacements.
      *
-     * @returns {Titon.Input}
+     * @returns {Toolkit.Input}
      */
     bindEvents: function() {
         var options = this.options,
@@ -117,11 +117,11 @@ Titon.Input = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Input}
+ * @returns {Toolkit.Input}
  */
 Element.implement('input', function(options) {
     if (!this.$input) {
-        this.$input = new Titon.Input(this, options);
+        this.$input = new Toolkit.Input(this, options);
     }
 
     return this;

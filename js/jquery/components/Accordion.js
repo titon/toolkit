@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Accordion = Titon.Component.create(function(element, options) {
+Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Accordion.options, options);
+    this.options = this.setOptions(Toolkit.Accordion.options, options);
 
     /** Primary DOM wrapper */
     this.element = this.setElement(element, this.options);
@@ -78,7 +78,7 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Accordion}
+     * @returns {Toolkit.Accordion}
      */
     this.jump = function(index) {
         if (index >= this.headers.length) {
@@ -97,7 +97,7 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
      * Take into account the multiple and collapsible options.
      *
      * @param {jQuery} node
-     * @returns {Titon.Accordion}
+     * @returns {Toolkit.Accordion}
      */
     this.show = function(node) {
         node = $(node);
@@ -161,7 +161,7 @@ Titon.Accordion = Titon.Component.create(function(element, options) {
     }
 });
 
-Titon.Accordion.options = {
+Toolkit.Accordion.options = {
     mode: 'click',
     defaultIndex: 0,
     multiple: false,
@@ -186,7 +186,7 @@ Titon.Accordion.options = {
 $.fn.accordion = function(options) {
     return this.each(function() {
         if (!this.$accordion) {
-            this.$accordion = new Titon.Accordion(this, options);
+            this.$accordion = new Toolkit.Accordion(this, options);
         }
     });
 };

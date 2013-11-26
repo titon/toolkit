@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Carousel = Titon.Component.create(function(element, options) {
+Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Carousel.options, options);
+    this.options = this.setOptions(Toolkit.Carousel.options, options);
 
     /** Carousel element */
     this.element = this.setElement(element, this.options);
@@ -122,7 +122,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.jump = function(index) {
         if (index >= this.items.length) {
@@ -165,7 +165,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     /**
      * Go to the next item.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.next = function() {
         this.jump(this.currentIndex + 1);
@@ -176,7 +176,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     /**
      * Go to the previous item.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.prev = function() {
         this.jump(this.currentIndex - 1);
@@ -187,7 +187,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     /**
      * Reset the timer.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.reset = function() {
         if (this.options.autoCycle) {
@@ -201,7 +201,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     /**
      * Start the carousel.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.start = function() {
         this.element.removeClass('is-stopped');
@@ -215,7 +215,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     /**
      * Stop the carousel.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     this.stop = function() {
         this.element.addClass('is-stopped');
@@ -266,7 +266,7 @@ Titon.Carousel = Titon.Component.create(function(element, options) {
     }
 });
 
-Titon.Carousel.options = {
+Toolkit.Carousel.options = {
     animation: 'slide',
     duration: 5000,
     autoCycle: true,
@@ -295,7 +295,7 @@ Titon.Carousel.options = {
 $.fn.carousel = function(options) {
     return this.each(function() {
         if (!this.$carousel) {
-            this.$carousel = new Titon.Carousel(this, options);
+            this.$carousel = new Toolkit.Carousel(this, options);
         }
     });
 };

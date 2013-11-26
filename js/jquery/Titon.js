@@ -7,7 +7,7 @@
 (function(window) {
     'use strict';
 
-window.Titon = {
+window.Toolkit = {
 
     /** Current version */
     version: '%version%',
@@ -32,22 +32,23 @@ window.Titon = {
  * Fetch the component instance from the jQuery collection.
  *
  * @param {String} component
- * @returns {Function}
+ * @returns {Array|Function}
  */
 $.fn.toolkit = function(component) {
     var key = '$' + component,
-        instance = null;
+        instances = [];
 
     this.each(function() {
         if (this[key]) {
-            instance = this[key];
-            return false;
+            instances.push( this[key] );
         }
-
-        return true;
     });
 
-    return instance;
+    if (this.length === 1 && instances[0]) {
+        return instances[0];
+    }
+
+    return instances;
 };
 
 /**

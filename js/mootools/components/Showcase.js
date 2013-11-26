@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Showcase = new Class({
-    Extends: Titon.Component,
+Toolkit.Showcase = new Class({
+    Extends: Toolkit.Component,
     Binds: ['next', 'prev', '__jump'],
 
     /** List elements */
@@ -86,7 +86,7 @@ Titon.Showcase = new Class({
 
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Titon.Blackout();
+            this.blackout = new Toolkit.Blackout();
             this.blackout.element.addEvent('click', this.__hide);
         }
 
@@ -98,7 +98,7 @@ Titon.Showcase = new Class({
     /**
      * Set navigation events.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     bindEvents: function() {
         this.parent();
@@ -133,7 +133,7 @@ Titon.Showcase = new Class({
     /**
      * Hide the showcase and reset inner elements.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     hide: function() {
         this.parent(function() {
@@ -157,7 +157,7 @@ Titon.Showcase = new Class({
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     jump: function(index) {
         if (index >= this.data.length) {
@@ -241,7 +241,7 @@ Titon.Showcase = new Class({
     /**
      * Go to the next item.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     next: function() {
         this.jump(this.currentIndex + 1);
@@ -252,7 +252,7 @@ Titon.Showcase = new Class({
     /**
      * Position the element in the middle of the screen.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     position: function() {
         if (!this.isVisible()) {
@@ -272,7 +272,7 @@ Titon.Showcase = new Class({
     /**
      * Go to the previous item.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     prev: function() {
         this.jump(this.currentIndex - 1);
@@ -286,7 +286,7 @@ Titon.Showcase = new Class({
      * If a category exists, scrape data from multiple nodes.
      *
      * @param {Element} node
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     show: function(node) {
         this.node = node;
@@ -339,7 +339,7 @@ Titon.Showcase = new Class({
      *
      * @private
      * @param {Array} items
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     _buildItems: function(items) {
         this.data = items;
@@ -372,7 +372,7 @@ Titon.Showcase = new Class({
      * Re-position the showcase modal for older browsers.
      *
      * @private
-     * @return {Titon.Showcase}
+     * @return {Toolkit.Showcase}
      */
     _reposition: function() {
         if (!Browser.ie8) {
@@ -395,7 +395,7 @@ Titon.Showcase = new Class({
      * @private
      * @param {Number} width
      * @param {Number} height
-     * @return {Titon.Showcase}
+     * @return {Toolkit.Showcase}
      */
     _resize: function(width, height) {
         var size = window.getSize(),
@@ -452,10 +452,10 @@ Titon.Showcase = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Showcase}
+ * @returns {Toolkit.Showcase}
  */
 Elements.implement('showcase', function(options) {
-    var showcase = new Titon.Showcase(this, options);
+    var showcase = new Toolkit.Showcase(this, options);
 
     return this.each(function(el) {
         if (!el.$showcase) {

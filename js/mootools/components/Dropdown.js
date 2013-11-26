@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Dropdown = new Class({
-    Extends: Titon.Component,
+Toolkit.Dropdown = new Class({
+    Extends: Toolkit.Component,
 
     /** Default options */
     options: {
@@ -36,7 +36,7 @@ Titon.Dropdown = new Class({
     /**
      * Hide the element and toggle node active state.
      *
-     * @returns {Titon.Dropdown}
+     * @returns {Toolkit.Dropdown}
      */
     hide: function() {
         return this.parent(function() {
@@ -47,7 +47,7 @@ Titon.Dropdown = new Class({
     /**
      * Show the element and toggle node active state.
      *
-     * @returns {Titon.Dropdown}
+     * @returns {Toolkit.Dropdown}
      */
     show: function(node) {
         this.parent(node);
@@ -107,13 +107,13 @@ Titon.Dropdown = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Dropdown}
+ * @returns {Toolkit.Dropdown}
  */
 Elements.implement('dropdown', function(options) {
     options = options || {};
     options.delegate = options.delegate || '.js-dropdown';
 
-    var dropdown = new Titon.Dropdown(this, options);
+    var dropdown = new Toolkit.Dropdown(this, options);
 
     return this.each(function(el) {
         if (!el.$dropdown) {

@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Dropdown = Titon.Component.create(function(nodes, options) {
+Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Dropdown.options, options);
+    this.options = this.setOptions(Toolkit.Dropdown.options, options);
 
     /** List of elements to active dropdown */
     this.nodes = $(nodes);
@@ -37,7 +37,7 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
     /**
      * Hide the opened element and remove active state.
      *
-     * @returns {Titon.Dropdown}
+     * @returns {Toolkit.Dropdown}
      */
     this.hide = function() {
         if (this.element && this.element.is(':shown')) {
@@ -54,7 +54,7 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
      * Open the target element and apply active state.
      *
      * @param {jQuery} node
-     * @returns {Titon.Dropdown}
+     * @returns {Toolkit.Dropdown}
      */
     this.show = function(node) {
         this.element.reveal();
@@ -107,7 +107,7 @@ Titon.Dropdown = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-Titon.Dropdown.options = {
+Toolkit.Dropdown.options = {
     mode: 'click',
     context: null,
     getTarget: 'data-dropdown',
@@ -128,7 +128,7 @@ Titon.Dropdown.options = {
  * @returns {jQuery}
  */
 $.fn.dropdown = function(options) {
-    var dropdown = new Titon.Dropdown(this, options);
+    var dropdown = new Toolkit.Dropdown(this, options);
 
     return this.each(function() {
         if (!this.$dropdown) {

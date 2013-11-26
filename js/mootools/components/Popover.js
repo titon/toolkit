@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Popover = new Class({
-    Extends: Titon.Tooltip,
+Toolkit.Popover = new Class({
+    Extends: Toolkit.Tooltip,
 
     /** Default options */
     options: {
@@ -53,10 +53,10 @@ Titon.Popover = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Popover}
+ * @returns {Toolkit.Popover}
  */
 Elements.implement('popover', function(options) {
-    var popover = new Titon.Popover(this, options);
+    var popover = new Toolkit.Popover(this, options);
 
     return this.each(function(el) {
         if (!el.$popover) {

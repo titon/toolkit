@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
+Toolkit.Popover = Toolkit.Tooltip.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Popover.options, options);
+    this.options = this.setOptions(Toolkit.Popover.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
@@ -28,7 +28,7 @@ Titon.Popover = Titon.Tooltip.create(function(nodes, options) {
     this.initialize();
 });
 
-Titon.Popover.options = {
+Toolkit.Popover.options = {
     mode: 'click',
     ajax: false,
     position: 'topCenter',
@@ -64,7 +64,7 @@ Titon.Popover.options = {
  * @returns {jQuery}
  */
 $.fn.popover = function(options) {
-    var popover = new Titon.Popover(this, options);
+    var popover = new Toolkit.Popover(this, options);
 
     return this.each(function() {
         if (!this.$popover) {

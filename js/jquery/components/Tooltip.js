@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Tooltip = Titon.Component.create(function(nodes, options) {
+Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Tooltip.options, options);
+    this.options = this.setOptions(Toolkit.Tooltip.options, options);
 
     /** List of nodes to activate tooltip */
     this.nodes = $(nodes);
@@ -53,7 +53,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
     /**
      * Hide the tooltip.
      *
-     * @returns {Titon.Tooltip}
+     * @returns {Toolkit.Tooltip}
      */
     this.hide = function() {
         this.element.conceal();
@@ -68,7 +68,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
      *
      * @param {String|jQuery} [content]
      * @param {String|jQuery} [title]
-     * @returns {Titon.Tooltip}
+     * @returns {Toolkit.Tooltip}
      */
     this.position = function(content, title) {
         var options = this.options;
@@ -127,7 +127,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
      * @param {jQuery} node
      * @param {String|jQuery} [content]
      * @param {String|jQuery} [title]
-     * @returns {Titon.Tooltip}
+     * @returns {Toolkit.Tooltip}
      */
     this.show = function(node, content, title) {
         if (node) {
@@ -211,7 +211,7 @@ Titon.Tooltip = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-Titon.Tooltip.options = {
+Toolkit.Tooltip.options = {
     mode: 'hover',
     ajax: false,
     follow: false,
@@ -249,7 +249,7 @@ Titon.Tooltip.options = {
  * @returns {jQuery}
  */
 $.fn.tooltip = function(options) {
-    var tooltip = new Titon.Tooltip(this, options);
+    var tooltip = new Toolkit.Tooltip(this, options);
 
     return this.each(function() {
         if (!this.$tooltip) {

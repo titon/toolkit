@@ -7,7 +7,7 @@
 (function(window) {
     'use strict';
 
-window.Titon = {
+window.Toolkit = {
 
     /** Current version */
     version: '%version%',

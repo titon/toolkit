@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Tooltip = new Class({
-    Extends: Titon.Component,
+Toolkit.Tooltip = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__follow'],
 
     /** Inner elements */
@@ -70,7 +70,7 @@ Titon.Tooltip = new Class({
      *
      * @param {String|Element} [content]
      * @param {String|Element} [title]
-     * @returns {Titon.Tooltip}
+     * @returns {Toolkit.Tooltip}
      */
     position: function(content, title) {
         var options = this.options;
@@ -129,7 +129,7 @@ Titon.Tooltip = new Class({
      * @param {Element} node
      * @param {String|Element} [content]
      * @param {String|Element} [title]
-     * @returns {Titon.Tooltip}
+     * @returns {Toolkit.Tooltip}
      */
     show: function(node, content, title) {
         if (node) {
@@ -192,10 +192,10 @@ Titon.Tooltip = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Tooltip}
+ * @returns {Toolkit.Tooltip}
  */
 Elements.implement('tooltip', function(options) {
-    var tooltip = new Titon.Tooltip(this, options);
+    var tooltip = new Toolkit.Tooltip(this, options);
 
     return this.each(function(el) {
         if (!el.$tooltip) {

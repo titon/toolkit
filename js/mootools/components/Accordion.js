@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Accordion = new Class({
-    Extends: Titon.Component,
+Toolkit.Accordion = new Class({
+    Extends: Toolkit.Component,
 
     /** List of DOM headers */
     headers: [],
@@ -81,7 +81,7 @@ Titon.Accordion = new Class({
     /**
      * Attach events to listen for header clicks.
      *
-     * @returns {Titon.Accordion}
+     * @returns {Toolkit.Accordion}
      */
     bindEvents: function() {
         if (!this.element) {
@@ -99,7 +99,7 @@ Titon.Accordion = new Class({
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Accordion}
+     * @returns {Toolkit.Accordion}
      */
     jump: function(index) {
         if (index >= this.headers.length) {
@@ -118,7 +118,7 @@ Titon.Accordion = new Class({
      * Take into account the multiple and collapsible options.
      *
      * @param {Element} node
-     * @returns {Titon.Accordion}
+     * @returns {Toolkit.Accordion}
      */
     show: function(node) {
         var options = this.options,
@@ -204,11 +204,11 @@ Titon.Accordion = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Accordion}
+ * @returns {Toolkit.Accordion}
  */
 Element.implement('accordion', function(options) {
     if (!this.$accordion) {
-        this.$accordion = new Titon.Accordion(this, options);
+        this.$accordion = new Toolkit.Accordion(this, options);
     }
 
     return this;

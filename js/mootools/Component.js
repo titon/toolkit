@@ -7,7 +7,7 @@
 (function() {
     'use strict';
 
-Titon.Component = new Class({
+Toolkit.Component = new Class({
     Implements: [Events, Options],
     Binds: ['__show', '__hide', 'position'],
 
@@ -61,7 +61,7 @@ Titon.Component = new Class({
     /**
      * Will either apply events via delegation or directly to an element.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     bindEvents: function() {
         var options = this.options,
@@ -91,13 +91,13 @@ Titon.Component = new Class({
      * @returns {String}
      */
     className: function() {
-        return Object.keyOf(window.Titon, this.$constructor);
+        return Object.keyOf(window.Toolkit, this.$constructor);
     },
 
     /**
      * Create the element from the template.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     createElement: function() {
         var options = this.options,
@@ -138,7 +138,7 @@ Titon.Component = new Class({
     /**
      * Disable component.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     disable: function() {
         this.enabled = false;
@@ -149,7 +149,7 @@ Titon.Component = new Class({
     /**
      * Enable component.
      *
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     enable: function() {
         this.enabled = true;
@@ -161,7 +161,7 @@ Titon.Component = new Class({
      * Hide the element and trigger events or callbacks.
      *
      * @param {Function} [callback]
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     hide: function(callback) {
         if (this.isVisible()) {
@@ -217,7 +217,7 @@ Titon.Component = new Class({
      *
      * @private
      * @param {String} content
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     position: function(content) {
         this.element.set('html', content);
@@ -253,7 +253,7 @@ Titon.Component = new Class({
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     requestData: function(url, before, done, fail) {
         if (this.cache[url]) {
@@ -312,7 +312,7 @@ Titon.Component = new Class({
      * Apply optional class names if available.
      *
      * @param {String|Element} element
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     setElement: function(element) {
         if (typeOf(element) === 'string') {
@@ -340,7 +340,7 @@ Titon.Component = new Class({
      * These are usually the elements returned from an Elements constructor.
      *
      * @param {Elements} nodes
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     setNodes: function(nodes) {
         this.nodes = nodes;
@@ -352,7 +352,7 @@ Titon.Component = new Class({
      * Show the element and store the node.
      *
      * @param {Element} node
-     * @returns {Titon.Component}
+     * @returns {Toolkit.Component}
      */
     show: function(node) {
         this.node = node;
@@ -379,7 +379,7 @@ Titon.Component = new Class({
      */
     _errorTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-error', {
-            text: this.options.errorMessage || Titon.messages.error
+            text: this.options.errorMessage || Toolkit.messages.error
         });
     }.protect(),
 
@@ -391,7 +391,7 @@ Titon.Component = new Class({
      */
     _loadingTemplate: function() {
         return new Element('div.' + this.className().toLowerCase() + '-loading', {
-            text: this.options.loadingMessage || Titon.messages.loading
+            text: this.options.loadingMessage || Toolkit.messages.loading
         });
     }.protect(),
 

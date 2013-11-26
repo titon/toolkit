@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Pin = new Class({
-    Extends: Titon.Component,
+Toolkit.Pin = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__resize', '__scroll'],
 
     /** The current window width and height */
@@ -64,7 +64,7 @@ Titon.Pin = new Class({
     /**
      * Set scroll and resize events.
      *
-     * @returns {Titon.Pin}
+     * @returns {Toolkit.Pin}
      */
     bindEvents: function() {
         window
@@ -78,7 +78,7 @@ Titon.Pin = new Class({
     /**
      * Calculate the dimensions and offsets of the interacting elements.
      *
-     * @returns {Titon.Pin}
+     * @returns {Toolkit.Pin}
      */
     calculate: function() {
         this.viewport = window.getSize();
@@ -196,11 +196,11 @@ Titon.Pin = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Pin}
+ * @returns {Toolkit.Pin}
  */
 Element.implement('pin', function(options) {
     if (!this.$pin) {
-        this.$pin = new Titon.Pin(this, options);
+        this.$pin = new Toolkit.Pin(this, options);
     }
 
     return this;

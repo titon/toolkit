@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.LazyLoad = new Class({
-    Extends: Titon.Component,
+Toolkit.LazyLoad = new Class({
+    Extends: Toolkit.Component,
     Binds: ['load', 'loadAll'],
 
     /** Have all elements been force loaded? */
@@ -146,7 +146,7 @@ Titon.LazyLoad = new Class({
      *
      * @param {Element} node
      * @param {Number} index
-     * @returns {Titon.LazyLoad}
+     * @returns {Toolkit.LazyLoad}
      */
     show: function(node, index) {
         node.removeClass(this.options.lazyClass.substr(1));
@@ -173,7 +173,7 @@ Titon.LazyLoad = new Class({
      * When triggered, will shutdown the instance from executing any longer.
      * Any container events will be removed and loading will cease.
      *
-     * @returns {Titon.LazyLoad}
+     * @returns {Toolkit.LazyLoad}
      */
     shutdown: function() {
         this.isLoaded = true;
@@ -201,10 +201,10 @@ Titon.LazyLoad = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.LazyLoad}
+ * @returns {Toolkit.LazyLoad}
  */
 Elements.implement('lazyLoad', function(options) {
-    var lazyLoad = new Titon.LazyLoad(this, options);
+    var lazyLoad = new Toolkit.LazyLoad(this, options);
 
     return this.each(function(el) {
         if (!el.$lazyLoad) {

@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
+Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Flyout.options, options);
+    this.options = this.setOptions(Toolkit.Flyout.options, options);
 
     /** Nodes to activate menus on */
     this.nodes = $(nodes);
@@ -77,7 +77,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
      * Clear a timer by key.
      *
      * @param {String} key
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.clearTimer = function(key) {
         window.clearTimeout(this.timers[key]);
@@ -89,7 +89,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
     /**
      * Hide the currently shown menu.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.hide = function() {
         // Must be called even if the menu is hidden
@@ -126,7 +126,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
      *
      * @param {Object} data
      * @param {Number} [depth]
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.load = function(data, depth) {
         depth = depth || 0;
@@ -151,7 +151,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
     /**
      * Position the menu below the target node.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.position = function() {
         var target = this.current,
@@ -187,7 +187,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
      * Show the menu below the node.
      *
      * @param {jQuery} node
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.show = function(node) {
         var target = this._getTarget(node);
@@ -223,7 +223,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
      * @param {String} key
      * @param {Number} delay
      * @param {Array} args
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     this.startTimer = function(key, delay, args) {
         this.clearTimer(key);
@@ -487,7 +487,7 @@ Titon.Flyout = Titon.Component.create(function(nodes, url, options) {
     this.initialize();
 });
 
-Titon.Flyout.options = {
+Toolkit.Flyout.options = {
     className: '',
     context: null,
     mode: 'hover',
@@ -516,7 +516,7 @@ Titon.Flyout.options = {
  * @returns {jQuery}
  */
 $.fn.flyout = function(url, options) {
-    var flyout = new Titon.Flyout(this, url, options);
+    var flyout = new Toolkit.Flyout(this, url, options);
 
     return this.each(function() {
         if (!this.$flyout) {

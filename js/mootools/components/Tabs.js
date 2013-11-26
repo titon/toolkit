@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Tabs = new Class({
-    Extends: Titon.Component,
+Toolkit.Tabs = new Class({
+    Extends: Toolkit.Component,
 
     /** Navigation container */
     nav: null,
@@ -78,7 +78,7 @@ Titon.Tabs = new Class({
         var index = options.defaultIndex;
 
         if (options.persistState) {
-            index = Number.from(Cookie.read('titon.tabs.' + options.cookie) || options.defaultIndex);
+            index = Number.from(Cookie.read('toolkit.tabs.' + options.cookie) || options.defaultIndex);
 
         } else if (options.loadFragment && location.hash) {
             var tab = this.tabs.filter(function(el) {
@@ -100,7 +100,7 @@ Titon.Tabs = new Class({
     /**
      * Add events for tab click events.
      *
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     bindEvents: function() {
         this.tabs.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
@@ -117,7 +117,7 @@ Titon.Tabs = new Class({
     /**
      * Hide all sections and trigger event.
      *
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     hide: function() {
         this.sections.conceal();
@@ -131,7 +131,7 @@ Titon.Tabs = new Class({
      * Jump to a specific tab via index.
      *
      * @param {Number} index
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     jump: function(index) {
         if (this.tabs[index]) {
@@ -146,7 +146,7 @@ Titon.Tabs = new Class({
      * or pass an element object for a tab in the collection.
      *
      * @param {Element} tab
-     * @returns {Titon.Tabs}
+     * @returns {Toolkit.Tabs}
      */
     show: function(tab) {
         var index = tab.get('data-index'),
@@ -200,7 +200,7 @@ Titon.Tabs = new Class({
 
         // Persist the state using a cookie
         if (this.options.persistState) {
-            Cookie.write('titon.tabs.' + this.options.cookie, index, {
+            Cookie.write('toolkit.tabs.' + this.options.cookie, index, {
                 duration: this.options.cookieDuration
             });
         }
@@ -248,11 +248,11 @@ Titon.Tabs = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Tabs}
+ * @returns {Toolkit.Tabs}
  */
 Element.implement('tabs', function(options) {
     if (!this.$tabs) {
-        this.$tabs = new Titon.Tabs(this, options);
+        this.$tabs = new Toolkit.Tabs(this, options);
     }
 
     return this;

@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Modal = new Class({
-    Extends: Titon.Component,
+Toolkit.Modal = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__submit'],
 
     /** Blackout instance if options.blackout is true */
@@ -80,7 +80,7 @@ Titon.Modal = new Class({
 
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Titon.Blackout();
+            this.blackout = new Toolkit.Blackout();
             this.blackout.element.addEvent('click', this.__hide);
         }
 
@@ -92,7 +92,7 @@ Titon.Modal = new Class({
     /**
      * Set delegation and window events.
      *
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     bindEvents: function() {
         this.parent();
@@ -113,7 +113,7 @@ Titon.Modal = new Class({
     /**
      * Hide the modal.
      *
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     hide: function() {
         return this.parent(function() {
@@ -127,7 +127,7 @@ Titon.Modal = new Class({
      * Position the modal in the center of the screen.
      *
      * @param {String|Element} content
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     position: function(content) {
         // AJAX is currently loading
@@ -172,7 +172,7 @@ Titon.Modal = new Class({
      *
      * @param {Element} node
      * @param {String|Element} [content]
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     show: function(node, content) {
         var options = this.options;
@@ -253,10 +253,10 @@ Titon.Modal = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Modal}
+ * @returns {Toolkit.Modal}
  */
 Elements.implement('modal', function(options) {
-    var modal = new Titon.Modal(this, options);
+    var modal = new Toolkit.Modal(this, options);
 
     return this.each(function(el) {
         if (!el.$modal) {

@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Pin = Titon.Component.create(function(element, options) {
+Toolkit.Pin = Toolkit.Component.create(function(element, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Pin.options, options);
+    this.options = this.setOptions(Toolkit.Pin.options, options);
 
     /** Element to pin */
     this.element = this.setElement(element, this.options);
@@ -45,7 +45,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
     /**
      * Calculate the dimensions and offsets of the interacting elements.
      *
-     * @returns {Titon.Pin}
+     * @returns {Toolkit.Pin}
      */
     this.calculate = function() {
         var win = $(window),
@@ -164,7 +164,7 @@ Titon.Pin = Titon.Component.create(function(element, options) {
     }
 });
 
-Titon.Pin.options = {
+Toolkit.Pin.options = {
     animation: '',
     location: 'right',
     xOffset: 0,
@@ -191,7 +191,7 @@ Titon.Pin.options = {
 $.fn.pin = function(options) {
     return this.each(function() {
         if (!this.$pin) {
-            this.$pin = new Titon.Pin(this, options);
+            this.$pin = new Toolkit.Pin(this, options);
         }
     });
 };

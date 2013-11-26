@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Showcase = Titon.Component.create(function(nodes, options) {
+Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Showcase.options, options);
+    this.options = this.setOptions(Toolkit.Showcase.options, options);
 
     /** List of nodes to activate showcase */
     this.nodes = $(nodes);
@@ -43,7 +43,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
         var options = this.options;
 
         // IE8 Doesn't support animations
-        if (Titon.ie8 || Titon.ie9) {
+        if (Toolkit.ie8 || Toolkit.ie9) {
             this.options.transition = 1;
         }
 
@@ -55,7 +55,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
 
         // Blackout
         if (options.blackout) {
-            this.blackout = new Titon.Blackout();
+            this.blackout = new Toolkit.Blackout();
             this.blackout.element.on('click', this.hide.bind(this));
         }
 
@@ -91,7 +91,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     /**
      * Hide the showcase and reset inner elements.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.hide = function() {
         if (this.element.is(':shown')) {
@@ -118,7 +118,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.jump = function(index) {
         if (index >= this.data.length) {
@@ -202,7 +202,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     /**
      * Go to the next item.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.next = function() {
         this.jump(this.currentIndex + 1);
@@ -213,7 +213,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     /**
      * Position the element in the middle of the screen.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.position = function() {
         if (!this.element.is(':shown')) {
@@ -233,7 +233,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     /**
      * Go to the previous item.
      *
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.prev = function() {
         this.jump(this.currentIndex - 1);
@@ -247,7 +247,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      * If a category exists, scrape data from multiple nodes.
      *
      * @param {Element} node
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this.show = function(node) {
         this.node = node = $(node);
@@ -300,7 +300,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      *
      * @private
      * @param {Array} items
-     * @returns {Titon.Showcase}
+     * @returns {Toolkit.Showcase}
      */
     this._buildItems = function(items) {
         this.data = items;
@@ -333,10 +333,10 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      * Re-position the showcase modal for older browsers.
      *
      * @private
-     * @return {Titon.Showcase}
+     * @return {Toolkit.Showcase}
      */
     this._reposition = function() {
-        if (!Titon.ie8) {
+        if (!Toolkit.ie8) {
             return this;
         }
 
@@ -355,7 +355,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
      * @private
      * @param {Number} width
      * @param {Number} height
-     * @return {Titon.Showcase}
+     * @return {Toolkit.Showcase}
      */
     this._resize = function(width, height) {
         var wWidth = $(window).width(),
@@ -417,7 +417,7 @@ Titon.Showcase = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-Titon.Showcase.options = {
+Toolkit.Showcase.options = {
     className: '',
     blackout: true,
     transition: 300,
@@ -458,7 +458,7 @@ Titon.Showcase.options = {
  * @returns {jQuery}
  */
 $.fn.showcase = function(options) {
-    var showcase = new Titon.Showcase(this, options);
+    var showcase = new Toolkit.Showcase(this, options);
 
     return this.each(function() {
         if (!this.$showcase) {

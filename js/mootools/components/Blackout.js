@@ -7,13 +7,13 @@
 (function() {
     'use strict';
 
-Titon.Blackout = new Class({
-    Extends: Titon.Component,
+Toolkit.Blackout = new Class({
+    Extends: Toolkit.Component,
 
     /** Default options */
     options: {
-        template: '<div class="blackout" id="titon-blackout"></div>',
-        templateFrom: '#titon-blackout'
+        template: '<div class="blackout" id="toolkit-blackout"></div>',
+        templateFrom: '#toolkit-blackout'
     },
 
     /**
@@ -33,7 +33,7 @@ Titon.Blackout = new Class({
     /**
      * Hide the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     hide: function() {
         this.element.conceal();
@@ -45,7 +45,7 @@ Titon.Blackout = new Class({
     /**
      * Display and position the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     position: function() {
         if (this.isVisible()) {
@@ -63,7 +63,7 @@ Titon.Blackout = new Class({
     /**
      * Show the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     show: function() {
         this.element.reveal();

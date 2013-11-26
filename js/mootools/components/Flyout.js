@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Flyout = new Class({
-    Extends: Titon.Component,
+Toolkit.Flyout = new Class({
+    Extends: Toolkit.Component,
     Implements: [Timers],
 
     /** The current menu URL being displayed */
@@ -89,7 +89,7 @@ Titon.Flyout = new Class({
     /**
      * Hide the currently shown menu.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     hide: function() {
         this.clearTimers();
@@ -128,7 +128,7 @@ Titon.Flyout = new Class({
      *
      * @param {Object} data
      * @param {Number} [depth]
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     load: function(data, depth) {
         depth = depth || 0;
@@ -153,7 +153,7 @@ Titon.Flyout = new Class({
     /**
      * Position the menu below the target node.
      *
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     position: function() {
         var target = this.current,
@@ -189,7 +189,7 @@ Titon.Flyout = new Class({
      * Show the menu below the node.
      *
      * @param {Element} node
-     * @returns {Titon.Flyout}
+     * @returns {Toolkit.Flyout}
      */
     show: function(node) {
         var target = this._getTarget(node);
@@ -443,10 +443,10 @@ Titon.Flyout = new Class({
  *
  * @param {String} url
  * @param {Object} [options]
- * @returns {Titon.Flyout}
+ * @returns {Toolkit.Flyout}
  */
 Elements.implement('flyout', function(url, options) {
-    var flyout = new Titon.Flyout(this, url, options);
+    var flyout = new Toolkit.Flyout(this, url, options);
 
     return this.each(function(el) {
         if (!el.$flyout) {

@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Carousel = new Class({
-    Extends: Titon.Component,
+Toolkit.Carousel = new Class({
+    Extends: Toolkit.Component,
     Binds: ['next', 'prev', 'start', 'stop', 'resize', '__cycle', '__jump'],
 
     /** Is the carousel stopped? */
@@ -134,7 +134,7 @@ Titon.Carousel = new Class({
     /**
      * Set events for all element interaction.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     bindEvents: function() {
         if (!this.element) {
@@ -174,7 +174,7 @@ Titon.Carousel = new Class({
      * If the index is too small, jump to the end.
      *
      * @param {Number} index
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     jump: function(index) {
         if (index >= this.items.length) {
@@ -220,7 +220,7 @@ Titon.Carousel = new Class({
     /**
      * Go to the next item.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     next: function() {
         this.jump(this.currentIndex + 1);
@@ -231,7 +231,7 @@ Titon.Carousel = new Class({
     /**
      * Go to the previous item.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     prev: function() {
         this.jump(this.currentIndex - 1);
@@ -242,7 +242,7 @@ Titon.Carousel = new Class({
     /**
      * Reset the timer.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     reset: function() {
         if (this.options.autoCycle) {
@@ -256,7 +256,7 @@ Titon.Carousel = new Class({
     /**
      * Start the carousel.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     start: function() {
         this.element.removeClass('is-stopped');
@@ -270,7 +270,7 @@ Titon.Carousel = new Class({
     /**
      * Stop the carousel.
      *
-     * @returns {Titon.Carousel}
+     * @returns {Toolkit.Carousel}
      */
     stop: function() {
         this.element.addClass('is-stopped');
@@ -328,11 +328,11 @@ Titon.Carousel = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Carousel}
+ * @returns {Toolkit.Carousel}
  */
 Element.implement('carousel', function(options) {
     if (!this.$carousel) {
-        this.$carousel = new Titon.Carousel(this, options);
+        this.$carousel = new Toolkit.Carousel(this, options);
     }
 
     return this;

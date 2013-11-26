@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Modal = Titon.Component.create(function(nodes, options) {
+Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Modal.options, options);
+    this.options = this.setOptions(Toolkit.Modal.options, options);
 
     /** List of elements to active modals */
     this.nodes = $(nodes);
@@ -68,7 +68,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
 
         // Blackout
         if (options.blackout) {
-            this.blackout = new Titon.Blackout();
+            this.blackout = new Toolkit.Blackout();
             this.blackout.element.on('click', this.__hide.bind(this));
         }
 
@@ -92,7 +92,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
     /**
      * Hide the modal and reset relevant values.
      *
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     this.hide = function() {
         this.element.conceal();
@@ -110,7 +110,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
      * Position the modal in the center of the screen.
      *
      * @param {String|jQuery} content
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     this.position = function(content) {
         // AJAX is currently loading
@@ -133,7 +133,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
             this.element.reveal();
 
             // IE8
-            if (Titon.ie8 && !this.options.fullScreen) {
+            if (Toolkit.ie8 && !this.options.fullScreen) {
                 this.element.css({
                     'margin-left': -(this.element.outerWidth(true) / 2),
                     'margin-top': -(this.element.outerHeight(true) / 2)
@@ -153,7 +153,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
      *
      * @param {jQuery} node
      * @param {String} [content]
-     * @returns {Titon.Modal}
+     * @returns {Toolkit.Modal}
      */
     this.show = function(node, content) {
         node = $(node);
@@ -255,7 +255,7 @@ Titon.Modal = Titon.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-Titon.Modal.options = {
+Toolkit.Modal.options = {
     animation: 'fade',
     className: '',
     context: null,
@@ -291,7 +291,7 @@ Titon.Modal.options = {
  * @returns {jQuery}
  */
 $.fn.modal = function(options) {
-    var modal = new Titon.Modal(this, options);
+    var modal = new Toolkit.Modal(this, options);
 
     return this.each(function() {
         if (!this.$modal) {

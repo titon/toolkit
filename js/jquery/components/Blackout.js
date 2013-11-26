@@ -7,13 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Blackout = Titon.Component.create(function(options) {
+Toolkit.Blackout = Toolkit.Component.create(function(options) {
 
     /** Custom options */
-    this.options = this.setOptions({
-        template: '<div class="blackout" id="titon-blackout"></div>',
-        templateFrom: '#titon-blackout'
-    }, options);
+    this.options = this.setOptions(Toolkit.Blackout.options, options);
 
     /** Blackout element */
     this.element = this.createElement(this.options);
@@ -30,7 +27,7 @@ Titon.Blackout = Titon.Component.create(function(options) {
     /**
      * Hide the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     this.hide = function() {
         this.element.conceal();
@@ -42,7 +39,7 @@ Titon.Blackout = Titon.Component.create(function(options) {
     /**
      * Display and position the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     this.position = function() {
         if (this.element.is(':shown')) {
@@ -60,7 +57,7 @@ Titon.Blackout = Titon.Component.create(function(options) {
     /**
      * Show the blackout.
      *
-     * @returns {Titon.Blackout}
+     * @returns {Toolkit.Blackout}
      */
     this.show = function() {
         this.element.reveal();
@@ -72,5 +69,10 @@ Titon.Blackout = Titon.Component.create(function(options) {
 
     this.initialize();
 });
+
+Toolkit.Blackout.options = {
+    template: '<div class="blackout" id="toolkit-blackout"></div>',
+    templateFrom: '#toolkit-blackout'
+};
 
 })(jQuery);

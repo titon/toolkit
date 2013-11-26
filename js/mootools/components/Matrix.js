@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.Matrix = new Class({
-    Extends: Titon.Component,
+Toolkit.Matrix = new Class({
+    Extends: Toolkit.Component,
     Binds: ['__resize', '__load'],
 
     /** List of DOM elements for items to position in the grid */
@@ -75,7 +75,7 @@ Titon.Matrix = new Class({
      * Append an item to the bottom of the matrix.
      *
      * @param {Element} item
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     append: function(item) {
         if (typeOf(item) !== 'element') {
@@ -93,7 +93,7 @@ Titon.Matrix = new Class({
     /**
      * Remove required classes and set items back to defaults.
      *
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     disable: function() {
         this.element.removeProperty('style');
@@ -105,7 +105,7 @@ Titon.Matrix = new Class({
     /**
      * Add required classes to elements.
      *
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     enable: function() {
         this.items.addClass('matrix-item');
@@ -117,7 +117,7 @@ Titon.Matrix = new Class({
      * Prepend an item to the top of the matrix.
      *
      * @param {Element} item
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     prepend: function(item) {
         if (typeOf(item) !== 'element') {
@@ -135,7 +135,7 @@ Titon.Matrix = new Class({
     /**
      * Fetch new items and re-render the grid.
      *
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     refresh: function() {
         this.items = this.element.getElements(this.options.selector);
@@ -147,7 +147,7 @@ Titon.Matrix = new Class({
      * Remove an item from the grid (and DOM) and re-render.
      *
      * @param {Element} item
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     remove: function(item) {
         this.items.every(function(el) {
@@ -165,7 +165,7 @@ Titon.Matrix = new Class({
     /**
      * Calculate and position items in the grid.
      *
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     render: function() {
         this._calculateColumns();
@@ -197,7 +197,7 @@ Titon.Matrix = new Class({
      * Modify the column width to account for gaps on either side.
      *
      * @private
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     _calculateColumns: function() {
         var wrapperWidth = this.element.getSize().x,
@@ -231,7 +231,7 @@ Titon.Matrix = new Class({
      * Uses a src swap trick to force load cached images.
      *
      * @private
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     _deferRender: function() {
         this.imagesLoaded = 0;
@@ -254,7 +254,7 @@ Titon.Matrix = new Class({
      * If an item spans multiple columns, account for it by filling with an empty space.
      *
      * @private
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     _organizeItems: function() {
         var item,
@@ -305,7 +305,7 @@ Titon.Matrix = new Class({
      * Loop through the items in each column and position them absolutely.
      *
      * @private
-     * @returns {Titon.Matrix}
+     * @returns {Toolkit.Matrix}
      */
     _positionItems: function() {
         var gutter = this.options.gutter,
@@ -410,11 +410,11 @@ Titon.Matrix = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.Matrix}
+ * @returns {Toolkit.Matrix}
  */
 Element.implement('matrix', function(options) {
     if (!this.$matrix) {
-        this.$matrix = new Titon.Matrix(this, options);
+        this.$matrix = new Toolkit.Matrix(this, options);
     }
 
     return this;

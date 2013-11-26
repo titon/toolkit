@@ -7,10 +7,10 @@
 (function($) {
     'use strict';
 
-Titon.Input = Titon.Component.create(function(elements, options) {
+Toolkit.Input = Toolkit.Component.create(function(elements, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Titon.Input.options, options);
+    this.options = this.setOptions(Toolkit.Input.options, options);
 
     /** List of form elements */
     this.elements = this.setElement(elements, this.options);
@@ -95,7 +95,7 @@ Titon.Input = Titon.Component.create(function(elements, options) {
     }
 });
 
-Titon.Input.options = {
+Toolkit.Input.options = {
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select'
@@ -117,7 +117,7 @@ Titon.Input.options = {
 $.fn.input = function(options) {
     return this.each(function() {
         if (!this.$input) {
-            this.$input = new Titon.Input(this, options);
+            this.$input = new Toolkit.Input(this, options);
         }
     });
 };

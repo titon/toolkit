@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-Titon.TypeAhead = new Class({
-    Extends: Titon.Component,
+Toolkit.TypeAhead = new Class({
+    Extends: Toolkit.Component,
     Implements: [Cache],
     Binds: ['process', 'rewind', '__cycle', '__lookup'],
 
@@ -128,7 +128,7 @@ Titon.TypeAhead = new Class({
     /**
      * Set keyboard detection events.
      *
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     bindEvents: function() {
         window.addEvent('keydown', function(e) {
@@ -172,7 +172,7 @@ Titon.TypeAhead = new Class({
     /**
      * Hide the list and reset shadow.
      *
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     hide: function() {
         if (this.shadow) {
@@ -207,7 +207,7 @@ Titon.TypeAhead = new Class({
      * Trigger different actions depending on the type of source.
      *
      * @param {String} term
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     lookup: function(term) {
         this.term = term;
@@ -269,7 +269,7 @@ Titon.TypeAhead = new Class({
     /**
      * Position the menu below the input.
      *
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     position: function() {
         if (!this.items.length) {
@@ -292,7 +292,7 @@ Titon.TypeAhead = new Class({
      * Process the list of items be generating new elements and positioning below the input.
      *
      * @param {Array} items
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     process: function(items) {
         if (!this.term.length || !items.length) {
@@ -402,7 +402,7 @@ Titon.TypeAhead = new Class({
     /**
      * Rewind the cycle pointer to the beginning.
      *
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     rewind: function() {
         this.index = -1;
@@ -415,7 +415,7 @@ Titon.TypeAhead = new Class({
      * Select an item in the list.
      *
      * @param {Number} index
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     select: function(index) {
         this.index = index;
@@ -463,7 +463,7 @@ Titon.TypeAhead = new Class({
      * Shadow text will reference the term cache.
      *
      * @private
-     * @returns {Titon.TypeAhead}
+     * @returns {Toolkit.TypeAhead}
      */
     _shadow: function() {
         if (!this.shadow) {
@@ -607,11 +607,11 @@ Titon.TypeAhead = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Titon.TypeAhead}
+ * @returns {Toolkit.TypeAhead}
  */
 Element.implement('typeAhead', function(options) {
     if (!this.$typeAhead) {
-        this.$typeAhead = new Titon.TypeAhead(this, options);
+        this.$typeAhead = new Toolkit.TypeAhead(this, options);
     }
 
     return this;
