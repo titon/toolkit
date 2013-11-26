@@ -511,9 +511,8 @@ if ($vendor === 'mootools') {
     } ?>
 
     <!--[if lte IE 8]>
-        <link href="../css/ie8.css" rel="stylesheet" type="text/css">
-        <script src="js/respond-1.3.0.js"></script>
         <script src="js/modernizr-2.6.2.js"></script>
+        <script src="js/respond-1.3.0.js"></script>
     <![endif]-->
 </head>
 <body class="<?php echo $themeKey; ?>">

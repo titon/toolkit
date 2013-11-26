@@ -37,14 +37,6 @@ A temporary demo can be found here: http://titon.io/toolkit
 
 #### Browser Support ####
 
-**Tested Against**
-* Chrome 26, 28
-* Firefox 20, 23
-* Internet Explorer 10
-* Opera 12
-* Safari 5
-
-**Suggested**
 * Chrome 11+
 * Firefox 4+
 * Internet Explorer 10+
@@ -53,10 +45,11 @@ A temporary demo can be found here: http://titon.io/toolkit
 
 **What about IE8 and 9?**
 
-IE9 does not support CSS3 transitions and any type of animation will fallback to a simple show/hide.
+IE9 does not support CSS3 transitions; all animations will fallback to a simple show/hide.
 
-IE8 does not support CSS3 transitions, rem scaling, media queries and specific HTML 5 elements. To support IE8, the Toolkit `ie8.css` file must be included.
-To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond). To support HTML 5 features, use [modernizr](http://modernizr.com).
+IE8 does not support CSS3 transitions, rem/em scaling, media queries and specific HTML 5 elements.
+To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond).
+To support HTML 5 features, use [modernizr](http://modernizr.com).
 
 Furthermore, the following Toolkit components do not work in IE8: Input, Matrix.
 

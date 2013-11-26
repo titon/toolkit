@@ -178,7 +178,6 @@ module.exports = function(grunt) {
             build: {
                 files: [
                     { src: cssPaths, dest: '<%= buildFile %>.min.css' },
-                    { src: ['css/ie8.css'], dest: '<%= buildFile %>-ie8.min.css' },
                     { src: jqConcatPaths, dest: '<%= buildFile %>-jquery.min.js' },
                     { src: mooConcatPaths, dest: '<%= buildFile %>-mootools.min.js' }
                 ]
