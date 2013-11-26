@@ -5,7 +5,7 @@
 @viewport           { width: device-width; }
 
 html { font: normal 16px/1.75rem "Helvetica Neue", Helvetica, Arial, sans-serif; }
-body { padding: 38px 0; }
+body { padding: 0 0 100px 0; }
 
 a { color: #887284; text-decoration: none; }
 a:hover { color: #af9aac; }
@@ -20,8 +20,6 @@ a:hover { color: #af9aac; }
 .example-form input { border: none; border-radius: 2px; padding: 3px; }
 .example-form input[type="text"] { width: 6rem; }
 .example-form input[type="number"] { width: 3rem; }
-
-.example-filters { position: fixed; top: 0; left: 0; }
 
 .example-switcher { position: fixed; bottom: 0; left: 0; }
 .example-switcher .resolution { float: right; }

@@ -86,7 +86,7 @@ module.exports = function(grunt) {
      * Generate the banner to place at the top of each file.
      */
     function createBanner() {
-        var comps = _.keys(graph.chain).join(', '),
+        var comps = _.keys(graph.chain).join(','),
             banner = "/*!\n" +
                 " * Titon Toolkit v<%= pkg.version %>\n" +
                 " * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +

@@ -43,17 +43,11 @@
 
             <p>In essence, they are all very similar. They all provide a base framework to implement front-end functionality quickly and efficiently.</p>
 
-            <p>What separates Toolkit apart from the others is its extensibility. Toolkit was engineered to be used as the groundwork for a project, <b>not</b> to be tacked on for random functionality, and <b>not</b> to be used for throwing up quick websites (that all look a like).
-            Because of this mindset, the base CSS does not provide advanced styles beyond the basics, like padding, margin, display and positioning (you can see this in action by using no theme below). Any custom colors, backgrounds, shadows, aesthetics in general, should be implemented by you, the developer, by extending the base Toolkit CSS styles.</p>
+            <p>What separates Toolkit apart from the others is its extensibility. Toolkit was engineered to be used as the groundwork for a project, <b>not</b> to be tacked on for random functionality (although it can be), and <b>not</b> to be used for throwing up quick websites (that all look a like).
+            Because of this mindset, the base CSS does not provide advanced styles beyond the basics, like padding, margin, display and positioning (you can see this in action by using no theme below). Any custom colors, backgrounds, shadows, or aesthetics in general, should be implemented by you, the developer, by extending the base Toolkit CSS styles.</p>
 
             <p>On the JavaScript side, Toolkit supports both jQuery and MooTools, so feel free to use any vendor you wish! All of the JS components were built with modularity and configuration in mind.
             Want to style the elements a certain way? Style away. Want to change the HTML structure of a component? Easy through configuration. Want to interact with the class objects directly? Sure, why not.</p>
-        </div>
-
-        <div class="intro">
-            <h4>Have a question or issue report?</h4>
-
-            <p>I would love to get any feedback, so please email me through my personal website or open an issue on the GitHub repository!</p>
         </div>
     </div>
 
@@ -88,13 +82,9 @@
         </div>
 
         <div class="intro">
-            <h4>Reserved Classes</h4>
+            <h4>Have a question or issue report?</h4>
 
-            <p>Toolkit reserves global classes that are used for state. These classes <b>should not</b> have default styling and should be implemented per component. States begin with is- or has- so no conflicts occur.</p>
-
-            <p>The following state classes are available: is-error, is-warning, is-success, is-info, is-active, is-disabled, is-required, is-dragging, is-draggable, is-open, is-loading, has-failed, has-children</p>
-
-            <p>Some other global classes are reserved such as: small, medium, large, round, pill, oval, skew</p>
+            <p>I would love to get any feedback, so please email me through my personal website or open an issue on the GitHub repository!</p>
         </div>
     </div>
 </div>
