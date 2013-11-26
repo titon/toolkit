@@ -1,6 +1,6 @@
-# Toolkit v1.0.0 RC2 #
+# Toolkit v1.0.0 RC3 #
 
-Titon Toolkit is a collection of very powerful user-interface components and utility classes.
+Titon Toolkit is a collection of very powerful user interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
 
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
