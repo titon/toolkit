@@ -1,4 +1,4 @@
-<nav class="breadcrumbs <?php echo value('size'); ?>">
+<nav class="breadcrumb <?php echo value('size'); ?>">
     <ol>
         <li><a href="">Home <span class="caret">/<span></a></li>
         <li><a href="">Sub-page <span class="caret">/<span></a></li>

@@ -67,9 +67,9 @@ $components = array(
             'collapsible' => array('title' => 'Collapsible?', 'type' => 'boolean')
         )
     ),
-    'breadcrumbs' => array(
-        'title' => 'Breadcrumbs',
-        'css' => array('components/breadcrumbs.css'),
+    'breadcrumb' => array(
+        'title' => 'Breadcrumb',
+        'css' => array('components/breadcrumb.css'),
         'filters' => array(
             'size' => array('title' => 'Size', 'data' => $sizes),
         )

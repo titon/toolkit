@@ -94,7 +94,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Typography` - Resets and default styles for typography
 
 #### UI ####
-* `Breadcrumbs` - Styles for bread crumb navigation trails
+* `Breadcrumb` - Styles for bread crumb navigation trails
 * `Button` - Styles for generic cross-browser compatible buttons
 * `ButtonGroup` - Allows for the grouping of multiple buttons into 1 visual styled button
 * `Grid` - Implements a fluid 12 column grid system with responsive support for all devices
@@ -103,7 +103,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Label` - Styles for inline tag labels
 * `Notice` - Styles for block level notification messages
 * `Pagination` - Styles for pagination lists
-* `Pin` - Animations for element pinning
 * `Progress` - Basic styles for progress bars
 * `Table` - Styles for tables
 
