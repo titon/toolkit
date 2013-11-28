@@ -6,19 +6,19 @@
 
 @import "../common";
 
-html { font-size: $base-size; }
+html { font-size: $base-size; line-height: $base-line-height; }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2.5rem; }
-h3 { font-size: 2.1rem; }
-h4 { font-size: 1.8rem; }
-h5 { font-size: 1.5rem; }
-h6 { font-size: 1.2rem; }
+h1 { font-size: $h1-size; }
+h2 { font-size: $h2-size; }
+h3 { font-size: $h3-size; }
+h4 { font-size: $h4-size; }
+h5 { font-size: $h5-size; }
+h6 { font-size: $h6-size; }
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
-    line-height: 1.25em;
+    line-height: $base-line-height;
     font-weight: normal;
 }
 

@@ -112,7 +112,7 @@ module.exports = function(grunt) {
         jshint: {
             options: {
                 globals: {
-                    Titon: true,
+                    Toolkit: true,
                     Timers: true,
                     Cache: true,
                     Jquery: true,
