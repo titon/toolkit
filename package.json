@@ -1,7 +1,7 @@
 {
-    "version": "1.0.0-rc.2",
+    "version": "1.0.0-rc.3",
     "name": "titon-toolkit",
-    "description": "A powerful front-end UI and component toolkit.",
+    "description": "A collection of extensible front-end UI components for the responsive web.",
     "keywords": [
         "titon",
         "toolkit",
@@ -12,8 +12,14 @@
         "jquery",
         "javascript",
         "ui",
+        "interface",
         "framework",
-        "bootstrap"
+        "bootstrap",
+        "modular",
+        "component",
+        "responsive",
+        "fluid",
+        "mobile"
     ],
     "copyright": "Copyright 2010-2013, The Titon Project",
     "homepage": "http://titon.io",

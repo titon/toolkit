@@ -1,9 +1,8 @@
 {
-    "version": "1.0.0-rc.2",
+    "version": "1.0.0-rc.3",
     "name": "Titon Toolkit",
     "main": [
         "dist/toolkit.min.css",
-        "dist/toolkit-ie8.min.css",
         "dist/toolkit-jquery.min.js",
         "dist/toolkit-mootools.min.js"
     ],
