@@ -9,7 +9,7 @@ if (value('required')) {
 $classes = implode(' ', array_filter($classes)); ?>
 
 <form action="" method="get">
-    <fieldset>
+    <fieldset class="is-legendless">
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i1">Text</label>
             <input id="i1" type="text" class="input" name="text" <?php if ($disabled) echo 'disabled'; ?>>
