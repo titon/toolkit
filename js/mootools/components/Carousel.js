@@ -148,8 +148,16 @@ Toolkit.Carousel = new Class({
         }
 
         this.element
-            .addEvent('swipeleft', this.next)
-            .addEvent('swiperight', this.prev);
+            .addEvent('swipe', function(e) {
+                if (e.direction === 'left') {
+                    this.next();
+                }
+            }.bind(this))
+            .addEvent('swipe', function(e) {
+                if (e.direction === 'right') {
+                    this.prev();
+                }
+            }.bind(this));
 
         if (this.tabs.length) {
             this.tabs.addEvent('click', this.__jump);

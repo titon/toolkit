@@ -124,8 +124,16 @@ Toolkit.Showcase = new Class({
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
             .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump)
-            .addEvent('swipeleft', this.next)
-            .addEvent('swiperight', this.prev);
+            .addEvent('swipe', function(e) {
+                if (e.direction === 'left') {
+                    this.next();
+                }
+            }.bind(this))
+            .addEvent('swipe', function(e) {
+                if (e.direction === 'right') {
+                    this.prev();
+                }
+            }.bind(this));
 
         return this;
     },
