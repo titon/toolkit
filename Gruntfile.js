@@ -85,20 +85,58 @@ module.exports = function(grunt) {
     /**
      * Generate the banner to place at the top of each file.
      */
-    function createBanner() {
+    function createBanner(hideDeps) {
         var comps = _.keys(graph.chain).join(','),
             banner = "/*!\n" +
                 " * Titon Toolkit v<%= pkg.version %>\n" +
                 " * <%= pkg.copyright %> - <%= pkg.homepage %>\n" +
                 " * <%= pkg.licenses[0].type %> - <%= pkg.licenses[0].url %>\n";
 
-        if (comps) {
+        if (comps && !hideDeps) {
             banner += " * Components: " + comps + "\n";
         }
 
         banner += " */\n";
 
         return banner;
+    }
+
+    /**
+     * Generate a list of file paths for the dist folder.
+     */
+    function prepareDistribution(css, jquery, mootools) {
+        var list = {
+            'dist/toolkit.min.css': css,
+            'dist/toolkit-jquery.min.js': jquery,
+            'dist/toolkit-mootools.min.js': mootools,
+            'dist/jquery/toolkit.min.js': [jquery[0], jquery[1]],
+            'dist/mootools/toolkit.min.js': [mootools[0], mootools[1]]
+        }, name;
+
+        jquery.forEach(function(path, index) {
+            if (index <= 1) {
+                return;
+            }
+
+            name = path.replace('build/js/jquery/components/', '').replace('.js', '.min.js').toLowerCase();
+            list['dist/jquery/toolkit-' + name] = path;
+        });
+
+        mootools.forEach(function(path, index) {
+            if (index <= 1) {
+                return;
+            }
+
+            if (_.contains(path, 'class')) {
+                name = path.replace('build/js/mootools/class/', 'class.').replace('.js', '.min.js').toLowerCase();
+            } else {
+                name = path.replace('build/js/mootools/components/', '').replace('.js', '.min.js').toLowerCase();
+            }
+
+            list['dist/mootools/toolkit-' + name] = path;
+        });
+
+        return list;
     }
 
     // Configure
@@ -136,22 +174,19 @@ module.exports = function(grunt) {
                 boss: true,
                 scripturl: true
             },
-            build: {
-                src: ['js/**/*.js']
-            }
+            files: ['js/**/*.js']
         },
 
         // 2) Generate new CSS files before building
         // https://github.com/gruntjs/grunt-contrib-compass
         compass: {
-            build: {
-                options: {
-                    config: 'config.rb',
-                    environment: 'production',
-                    outputStyle: 'compressed',
-                    trace: true
-                }
-            }
+            options: {
+                config: 'config.rb',
+                environment: 'production',
+                outputStyle: 'compressed',
+                trace: true
+            },
+            files: []
         },
 
         // 3) Minify Javascript
@@ -161,10 +196,10 @@ module.exports = function(grunt) {
                 report: 'min'
             },
             build: {
-                files: [
-                    jqUglifyPaths,
-                    mooUglifyPaths
-                ]
+                files: [jqUglifyPaths, mooUglifyPaths]
+            },
+            dist: {
+                files: [jqUglifyPaths, mooUglifyPaths]
             }
         },
 
@@ -181,6 +216,12 @@ module.exports = function(grunt) {
                     { src: jqConcatPaths, dest: '<%= buildFile %>-jquery.min.js' },
                     { src: mooConcatPaths, dest: '<%= buildFile %>-mootools.min.js' }
                 ]
+            },
+            dist: {
+                options: {
+                    banner: createBanner(true)
+                },
+                files: prepareDistribution(cssPaths, jqConcatPaths, mooConcatPaths)
             }
         },
 
@@ -200,6 +241,15 @@ module.exports = function(grunt) {
                     '<%= buildFile %>.min.css': '<%= buildFile %>.min.css',
                     '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
                     '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                }
+            },
+            dist: {
+                files: {
+                    'dist/toolkit.min.css': 'dist/toolkit.min.css',
+                    'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
+                    'dist/toolkit-mootools.min.js': 'dist/toolkit-mootools.min.js',
+                    'dist/jquery/toolkit.min.js': 'dist/jquery/toolkit.min.js',
+                    'dist/mootools/toolkit.min.js': 'dist/mootools/toolkit.min.js'
                 }
             }
         },
@@ -225,11 +275,11 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: 'js/**/*.js',
-                tasks: ['uglify']
+                tasks: ['uglify:build']
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['compass']
+                tasks: ['compass:build']
             }
         }
     });
@@ -245,7 +295,6 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('compile', ['compass', 'uglify']);
-    grunt.registerTask('build', ['concat', 'string-replace']);
-    grunt.registerTask('default', ['jshint', 'uglify', 'compass', 'concat', 'string-replace']);
+    grunt.registerTask('dist', ['jshint', 'compass', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
+    grunt.registerTask('default', ['jshint', 'compass', 'uglify:build', 'concat:build', 'string-replace:build']);
 };

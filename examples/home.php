@@ -24,14 +24,15 @@
             <p>Toolkit was designed with the following patterns and ideology in mind.</p>
 
             <ul>
-                <li><a href="http://www.abookapart.com/products/mobile-first">Mobile first design philosophy</a></li>
+                <li><a href="http://www.abookapart.com/products/mobile-first">Mobile-first design philosophy</a></li>
                 <li><a href="http://en.wikipedia.org/wiki/Progressive_enhancement">Progressive enhancement</a> and graceful degradation</li>
                 <li><a href="http://milesj.me/blog/read/responsive-cascading-inheritance">Cascading CSS inheritance</a></li>
+                <li><a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">BEM styled naming convention</a></li>
+                <li>Responsive design</li>
                 <li>Modularity pattern</li>
                 <li>Configuration over convention</li>
                 <li>Fluid over fixed</li>
-                <li>Responsive integration for all components</li>
-                <li>Scaling with <var>em</var> and <var>rem</var> only</li>
+                <li>Scaling with <var>em</var> and <var>rem</var></li>
                 <li>Animations purely with CSS</li>
             </ul>
         </div>
