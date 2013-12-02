@@ -16,7 +16,9 @@ module.exports = function(grunt) {
      * Determine which components we should package. Allow for optional theme to be appended.
      *
      * The --components parameter can be used to filter down components
+     * The --effects parameter can be used to include effects styles
      * The --theme parameter can be used to include a theme
+     * The --no-normalize parameter will exclude normalize.css from the output
      */
     var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
         useEffects =  grunt.option('effects') ? grunt.option('effects').split(',') : [],

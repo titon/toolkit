@@ -15,7 +15,6 @@
         "img/",
         "js/",
         "lib/",
-        "scss/",
         "config.rb",
         "Gemfile",
         "Gruntfile.js",
