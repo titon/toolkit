@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0-rc.3",
+    "version": "1.0.0",
     "name": "titon-toolkit",
     "description": "A collection of extensible front-end UI components for the responsive web.",
     "keywords": [
