@@ -38,12 +38,13 @@ window.Toolkit = {
  * @returns {Array|Function}
  */
 $.fn.toolkit = function(component) {
-    var key = '$' + component,
+    var key = 'toolkit.' + component,
+        data,
         instances = [];
 
     this.each(function() {
-        if (this[key]) {
-            instances.push( this[key] );
+        if (data = $(this).data(key)) {
+            instances.push( data );
         }
     });
 
@@ -72,6 +73,41 @@ $.fn.reveal = function() {
  */
 $.fn.conceal = function() {
     return this.removeClass('show').addClass('hide');
+};
+
+/**
+ * Return a jQuery instance for the item in the collection defined by the index.
+ *
+ * @param {Number} index
+ * @returns {jQuery}
+ */
+$.fn.i = $.fn.item = function(index) {
+    var item = this.get(index);
+
+    return item ? $(item) : null;
+};
+
+/**
+ * Set data if the key does not exist, else return the current value.
+ * If the value is a function, it will be executed to extract a value.
+ *
+ * @param {String} key
+ * @param {*} value
+ * @returns {*}
+ */
+$.fn.addData = function(key, value) {
+    var data = this.data(key);
+
+    if (data) {
+        return data;
+
+    } else if (typeof value === 'function') {
+        value = value.call(this);
+    }
+
+    this.data(key, value);
+
+    return value;
 };
 
 /**

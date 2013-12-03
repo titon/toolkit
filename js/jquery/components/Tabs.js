@@ -83,7 +83,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
             });
 
             if (tab.length) {
-                index = $(tab[0]).data('index');
+                index = tab.item(0).data('index');
             }
         }
 
@@ -132,7 +132,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
         tab = $(tab);
 
         var index = tab.data('index'),
-            section = $(this.sections[index]),
+            section = this.sections.item(index),
             url = this.readValue(tab, this.options.getUrl);
 
         // Load content with AJAX
@@ -256,9 +256,9 @@ Toolkit.Tabs.options = {
  */
 $.fn.tabs = function(options) {
     return this.each(function() {
-        if (!this.$tabs) {
-            this.$tabs = new Toolkit.Tabs(this, options);
-        }
+        $(this).addData('toolkit.tabs', function() {
+            return new Toolkit.Tabs(this, options);
+        });
     });
 };
 

@@ -132,7 +132,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
             element = this.element,
             list = this.items,
             listItems = list.children('li'),
-            listItem = $(listItems[index]),
+            listItem = listItems.item(index),
             items = this.data,
             item = items[index];
 
@@ -144,8 +144,9 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
         if (this.tabs) {
             var listTabs = this.tabs.find('a');
 
-            listTabs.removeClass('is-active');
-            $(listTabs[index]).addClass('is-active');
+            listTabs
+                .removeClass('is-active')
+                .item(index).addClass('is-active');
         }
 
         // Fade out previous item
@@ -461,9 +462,7 @@ $.fn.showcase = function(options) {
     var showcase = new Toolkit.Showcase(this, options);
 
     return this.each(function() {
-        if (!this.$showcase) {
-            this.$showcase = showcase;
-        }
+        $(this).addData('toolkit.showcase', showcase);
     });
 };
 

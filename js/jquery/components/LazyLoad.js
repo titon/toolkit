@@ -196,9 +196,7 @@ $.fn.lazyLoad = function(options) {
     var lazyLoad = new Toolkit.LazyLoad(this, options);
 
     return this.each(function() {
-        if (!this.$lazyLoad) {
-            this.$lazyLoad = lazyLoad;
-        }
+        $(this).addData('toolkit.lazyload', lazyLoad);
     });
 };
 

@@ -67,9 +67,7 @@ $.fn.popover = function(options) {
     var popover = new Toolkit.Popover(this, options);
 
     return this.each(function() {
-        if (!this.$popover) {
-            this.$popover = popover;
-        }
+        $(this).addData('toolkit.popover', popover);
     });
 };
 

@@ -116,9 +116,9 @@ Toolkit.Input.options = {
  */
 $.fn.input = function(options) {
     return this.each(function() {
-        if (!this.$input) {
-            this.$input = new Toolkit.Input(this, options);
-        }
+        $(this).addData('toolkit.input', function() {
+            return new Toolkit.Input(this, options);
+        });
     });
 };
 

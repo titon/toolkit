@@ -190,9 +190,9 @@ Toolkit.Pin.options = {
  */
 $.fn.pin = function(options) {
     return this.each(function() {
-        if (!this.$pin) {
-            this.$pin = new Toolkit.Pin(this, options);
-        }
+        $(this).addData('toolkit.pin', function() {
+            return new Toolkit.Pin(this, options);
+        });
     });
 };
 

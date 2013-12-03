@@ -38,7 +38,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
         var options = this.options;
 
         // Reset for touch devices
-        if (Titon.isTouch && options.mode === 'hover') {
+        if (Toolkit.isTouch && options.mode === 'hover') {
             this.options.mode = 'click';
         }
 
@@ -257,9 +257,7 @@ $.fn.tooltip = function(options) {
     var tooltip = new Toolkit.Tooltip(this, options);
 
     return this.each(function() {
-        if (!this.$tooltip) {
-            this.$tooltip = tooltip;
-        }
+        $(this).addData('toolkit.tooltip', tooltip);
     });
 };
 

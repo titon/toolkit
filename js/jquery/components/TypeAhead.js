@@ -402,7 +402,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                $(rows[index]).addClass('is-active');
+                rows.item(index).addClass('is-active');
 
                 this.input.val(item.title);
 
@@ -603,11 +603,9 @@ Toolkit.TypeAhead.options = {
  */
 $.fn.typeAhead = function(options) {
     return this.each(function() {
-        if (!this.$typeAhead) {
-            this.$typeAhead = new Toolkit.TypeAhead(this, options);
-        }
-
-        return this;
+        $(this).addData('toolkit.typeahead', function() {
+            return new Toolkit.TypeAhead(this, options);
+        });
     });
 };
 

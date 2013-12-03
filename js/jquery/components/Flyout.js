@@ -270,7 +270,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
             menu.addClass(this.options.className);
         }
 
-        if (parent[0]=== $('body')[0]) {
+        if (parent.is('body')) {
             menu.addClass('is-root');
         }
 
@@ -519,9 +519,7 @@ $.fn.flyout = function(url, options) {
     var flyout = new Toolkit.Flyout(this, url, options);
 
     return this.each(function() {
-        if (!this.$flyout) {
-            this.$flyout = flyout;
-        }
+        $(this).addData('toolkit.flyout', flyout);
     });
 };
 

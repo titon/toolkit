@@ -90,7 +90,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
         }
 
         // Hide previous dropdowns
-        if (this.options.hideOpened && this.node && this.node[0] !== node[0]) {
+        if (this.options.hideOpened && this.node && !this.node.is(node)) {
             this.hide();
         }
 
@@ -131,9 +131,7 @@ $.fn.dropdown = function(options) {
     var dropdown = new Toolkit.Dropdown(this, options);
 
     return this.each(function() {
-        if (!this.$dropdown) {
-            this.$dropdown = dropdown;
-        }
+        $(this).addData('toolkit.dropdown', dropdown);
     });
 };
 

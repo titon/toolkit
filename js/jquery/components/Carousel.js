@@ -70,7 +70,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
         // Set some sizes for responsiveness
         switch (options.animation) {
             case 'fade':
-                $(this.items[0]).reveal();
+                this.items.item(0).reveal();
             break;
             case 'slide':
                 this.itemsList.css('width', (this.items.length * 100) + '%');
@@ -137,16 +137,18 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
 
         // Update tabs
         if (this.tabs.length) {
-            this.tabs.removeClass('is-active');
-            $(this.tabs[index]).addClass('is-active');
+            this.tabs
+                .removeClass('is-active')
+                .item(index).addClass('is-active');
         }
 
         // Animate!
         switch (this.options.animation) {
             case 'fade':
                 // Don't use conceal() as it causes the animation to flicker
-                this.items.removeClass('show');
-                $(this.items[index]).reveal();
+                this.items
+                    .removeClass('show')
+                    .item(index).reveal();
             break;
             case 'slide-up':
                 this.itemsList.css('top', -(index * 100) + '%');
@@ -294,9 +296,9 @@ Toolkit.Carousel.options = {
  */
 $.fn.carousel = function(options) {
     return this.each(function() {
-        if (!this.$carousel) {
-            this.$carousel = new Toolkit.Carousel(this, options);
-        }
+        $(this).addData('toolkit.carousel', function() {
+            return new Toolkit.Carousel(this, options);
+        });
     });
 };
 

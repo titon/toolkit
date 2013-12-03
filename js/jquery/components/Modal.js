@@ -294,9 +294,7 @@ $.fn.modal = function(options) {
     var modal = new Toolkit.Modal(this, options);
 
     return this.each(function() {
-        if (!this.$modal) {
-            this.$modal = modal;
-        }
+        $(this).addData('toolkit.modal', modal);
     });
 };
 

@@ -246,7 +246,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
         this.matrix = [];
 
         for (var i = 0; i < l; i++) {
-            item = $(this.items[i]);
+            item = this.items.item(i);
             size = item.outerWidth();
 
             // How many columns does this item span?
@@ -407,9 +407,9 @@ Toolkit.Matrix.options = {
  */
 $.fn.matrix = function(options) {
     return this.each(function() {
-        if (!this.$matrix) {
-            this.$matrix = new Toolkit.Matrix(this, options);
-        }
+        $(this).addData('toolkit.matrix', function() {
+            return new Toolkit.Matrix(this, options);
+        });
     });
 };
 

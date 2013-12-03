@@ -124,7 +124,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
         this.markers = $(this.options.marker);
         this.markers.addClass('stalker-marker');
 
-        var isWindow = (this.container[0] === window),
+        var isWindow = this.container.is(window),
             eTop = this.element.offset().top,
             offset,
             offsets = [];
@@ -180,11 +180,11 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
                 });
 
                 if (target.length) {
-                    this.activate(marker, target[0]);
+                    this.activate(marker, target.item(0));
                 }
 
             // Scroll went outside the marker
-            } else if (this.marker && this.marker[0] === marker[0]) {
+            } else if (this.marker && this.marker.is(marker)) {
                 this.deactivate(marker);
             }
 
@@ -222,9 +222,9 @@ Toolkit.Stalker.options = {
  */
 $.fn.stalker = function(options) {
     return this.each(function() {
-        if (!this.$stalker) {
-            this.$stalker = new Toolkit.Stalker(this, options);
-        }
+        $(this).addData('toolkit.stalker', function() {
+            return new Toolkit.Stalker(this, options);
+        });
     });
 };
 

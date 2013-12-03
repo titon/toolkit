@@ -53,7 +53,7 @@ Toolkit.Tooltip = new Class({
         this.createElement();
 
         // Reset for touch devices
-        if (Titon.isTouch && this.options.mode === 'hover') {
+        if (Toolkit.isTouch && this.options.mode === 'hover') {
             this.options.mode = 'click';
         }
 

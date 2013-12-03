@@ -40,7 +40,7 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
         // Fetch all the sections and headers
         var sections = this.element.find(options.contentElement),
             headers = this.element.find(options.headerElement),
-            header = headers[0];
+            header = headers.item(0);
 
         this.headers = headers;
         this.sections = sections;
@@ -106,11 +106,12 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
             parent = node.parent(), // li
             section = node.next(options.contentElement), // section
             index = node.data('index'),
-            height = parseInt(section.data('height'), 10);
+            height = parseInt(section.data('height'), 10),
+            isNode = (this.node && this.node.is(node));
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
-        if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node && this.node[0] === node[0]))) {
+        if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal();
                 parent.removeClass('is-active');
@@ -124,7 +125,7 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
         } else {
 
             // Exit early so we don't mess with animations
-            if (this.node === node) {
+            if (isNode) {
                 return this;
             }
 
@@ -185,9 +186,9 @@ Toolkit.Accordion.options = {
  */
 $.fn.accordion = function(options) {
     return this.each(function() {
-        if (!this.$accordion) {
-            this.$accordion = new Toolkit.Accordion(this, options);
-        }
+        $(this).addData('toolkit.accordion', function() {
+            return new Toolkit.Accordion(this, options);
+        });
     });
 };
 
