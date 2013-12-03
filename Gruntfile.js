@@ -298,6 +298,6 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('dist', ['jshint', 'compass', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
-    grunt.registerTask('default', ['jshint', 'compass', 'uglify:build', 'concat:build', 'string-replace:build']);
+    grunt.registerTask('dist', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
+    grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
 };
