@@ -168,6 +168,7 @@ $components = array(
         'title' => 'Form',
         'css' => array('layout/form.css'),
         'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
             'state' => array('title' => 'State', 'data' => array('' => 'Default', 'is-error' => 'Error', 'is-success' => 'Success')),
             'required' => array('title' => 'Required?', 'type' => 'boolean', 'default' => false),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
@@ -464,7 +465,7 @@ $themeKey = value('theme', 'titon');
 
 $component = isset($components[$componentKey]) ? $components[$componentKey] : $components['home'];
 $theme = isset($themes[$themeKey]) ? $themes[$themeKey] : array();
-$vendor = value('vendor', 'mootools');
+$vendor = value('vendor', 'jquery1');
 
 if ($vendor === 'mootools') {
     $vendorFolder = 'mootools';
@@ -600,9 +601,9 @@ if ($vendor === 'mootools') {
                 <li>
                     <label for="vendor">Vendor</label>
                     <select name="vendor" id="vendor">
-                        <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
                         <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected'; ?>>jQuery 1.10</option>
                         <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected'; ?>>jQuery 2</option>
+                        <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
                     </select>
                 </li>
                 <li><button type="submit">Go</button></li>

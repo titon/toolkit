@@ -188,7 +188,8 @@ module.exports = function(grunt) {
                 outputStyle: 'compressed',
                 trace: true
             },
-            files: []
+            build: {},
+            dist: {}
         },
 
         // 3) Minify Javascript

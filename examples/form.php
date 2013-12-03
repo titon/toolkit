@@ -1,6 +1,7 @@
 <?php
 $classes = array(value('state'));
 $disabled = value('disabled', false);
+$size = value('size', '');
 
 if (value('required')) {
     $classes[] = 'is-required';
@@ -12,43 +13,43 @@ $classes = implode(' ', array_filter($classes)); ?>
     <fieldset class="is-legendless">
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i1">Text</label>
-            <input id="i1" type="text" class="input" name="text" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i1" type="text" class="input <?php echo $size; ?>" name="text" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i1r">Text + Readonly</label>
-            <input id="i1r" type="text" class="input" name="readonly" readonly value="Some value here" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i1r" type="text" class="input <?php echo $size; ?>" name="readonly" readonly value="Some value here" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label">Text + Static</label>
-            <div class="input-static">email@domain.com</div>
+            <div class="input-static <?php echo $size; ?>">email@domain.com</div>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i2">Email</label>
-            <input id="i2" type="email" class="input" name="email" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i2" type="email" class="input <?php echo $size; ?>" name="email" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i3">URL</label>
-            <input id="i3" type="url" class="input" name="url" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i3" type="url" class="input <?php echo $size; ?>" name="url" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i4">Number</label>
-            <input id="i4" type="number" class="input" name="number" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i4" type="number" class="input <?php echo $size; ?>" name="number" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i5">Password</label>
-            <input id="i5" type="password" class="input" name="password" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i5" type="password" class="input <?php echo $size; ?>" name="password" <?php if ($disabled) echo 'disabled'; ?>>
             <div class="field-help">This is a string of help text below the input</div>
         </div>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i6">File</label>
-            <input id="i6" type="file" class="input" name="file" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i6" type="file" class="input <?php echo $size; ?>" name="file" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
 
         <div class="field <?php echo $classes; ?>">
@@ -58,7 +59,7 @@ $classes = implode(' ', array_filter($classes)); ?>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i8">Search</label>
-            <input id="i8" type="search" class="input" name="search" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="i8" type="search" class="input <?php echo $size; ?>" name="search" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
     </fieldset>
 
@@ -67,7 +68,7 @@ $classes = implode(' ', array_filter($classes)); ?>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i9">Select</label>
-            <select id="i9" class="input" name="select" <?php if ($disabled) echo 'disabled'; ?>>
+            <select id="i9" class="input <?php echo $size; ?>" name="select" <?php if ($disabled) echo 'disabled'; ?>>
                 <option value="">CSS</option>
                 <option value="">HTML</option>
                 <option value="">JavaScript</option>
@@ -76,7 +77,7 @@ $classes = implode(' ', array_filter($classes)); ?>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i10">Select + Optgroup</label>
-            <select id="i10" class="input" name="select_group" <?php if ($disabled) echo 'disabled'; ?>>
+            <select id="i10" class="input <?php echo $size; ?>" name="select_group" <?php if ($disabled) echo 'disabled'; ?>>
                 <optgroup label="Front-end">
                     <option value="">CSS</option>
                     <option value="">HTML</option>
@@ -92,7 +93,7 @@ $classes = implode(' ', array_filter($classes)); ?>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i11">Select + Multiple</label>
-            <select id="i11" class="input" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
+            <select id="i11" class="input <?php echo $size; ?>" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
                 <option value="">CSS</option>
                 <option value="">HTML</option>
                 <option value="">JavaScript</option>
@@ -103,7 +104,7 @@ $classes = implode(' ', array_filter($classes)); ?>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button success">Submit</button>
+            <button type="submit" class="button is-success">Submit</button>
             <button type="reset" class="button">Reset</button>
         </div>
     </fieldset>
@@ -113,20 +114,20 @@ $classes = implode(' ', array_filter($classes)); ?>
 
         <div class="field <?php echo $classes; ?>">
             <label class="field-label" for="i12">Textarea</label>
-            <textarea id="i12" class="input span-4" name="textarea" <?php if ($disabled) echo 'disabled'; ?>>Lorem ipsum dolor sit amet.</textarea>
+            <textarea id="i12" class="input <?php echo $size; ?> span-4" name="textarea" <?php if ($disabled) echo 'disabled'; ?>>Lorem ipsum dolor sit amet.</textarea>
         </div>
 
         <div class="field <?php echo $classes; ?>">
-            <label class="input-checkbox" for="i15"><input id="i15" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox inline</label>
+            <label class="input-checkbox <?php echo $size; ?>" for="i15"><input id="i15" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox inline</label>
         </div>
 
         <div class="field <?php echo $classes; ?>">
-            <label class="input-radio" for="i16"><input id="i16" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio first option</label><br>
-            <label class="input-radio" for="i17"><input id="i17" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio second option</label>
+            <label class="input-radio <?php echo $size; ?>" for="i16"><input id="i16" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio first option</label><br>
+            <label class="input-radio <?php echo $size; ?>" for="i17"><input id="i17" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio second option</label>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button success">Submit</button>
+            <button type="submit" class="button is-success">Submit</button>
             <button type="reset" class="button">Reset</button>
         </div>
     </fieldset>
@@ -141,21 +142,21 @@ $classes = implode(' ', array_filter($classes)); ?>
     <div class="field <?php echo $classes; ?>">
         <label class="field-label col span-4" for="h1">Text</label>
         <div class="field-col col span-8">
-            <input id="h1" type="text" class="input" name="text" <?php if ($disabled) echo 'disabled'; ?>>
+            <input id="h1" type="text" class="input <?php echo $size; ?>" name="text" <?php if ($disabled) echo 'disabled'; ?>>
         </div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <label class="field-label col span-4">Text + Static</label>
         <div class="field-col col span-8">
-            <div class="input-static">email@domain.com</div>
+            <div class="input-static <?php echo $size; ?>">email@domain.com</div>
         </div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <label class="field-label col span-4" for="h2">Select</label>
         <div class="field-col col span-8">
-            <select id="h2" class="input" name="select" <?php if ($disabled) echo 'disabled'; ?>>
+            <select id="h2" class="input <?php echo $size; ?>" name="select" <?php if ($disabled) echo 'disabled'; ?>>
                 <option value="">CSS</option>
                 <option value="">HTML</option>
                 <option value="">JavaScript</option>
@@ -166,24 +167,24 @@ $classes = implode(' ', array_filter($classes)); ?>
     <div class="field <?php echo $classes; ?>">
         <label class="field-label col span-4" for="h3">Textarea</label>
         <div class="field-col col span-8">
-            <textarea id="h3" class="input span-6" name="textarea" <?php if ($disabled) echo 'disabled'; ?>>Lorem ipsum dolor sit amet.</textarea>
+            <textarea id="h3" class="input <?php echo $size; ?> span-6" name="textarea" <?php if ($disabled) echo 'disabled'; ?>>Lorem ipsum dolor sit amet.</textarea>
         </div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <div class="field-col col span-8 push-4">
-            <label class="input-checkbox" for="h4"><input id="h4" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
+            <label class="input-checkbox <?php echo $size; ?>" for="h4"><input id="h4" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
         </div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <div class="field-col col span-8 push-4">
-            <label class="input-radio" for="h5"><input id="h5" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
+            <label class="input-radio <?php echo $size; ?>" for="h5"><input id="h5" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
         </div>
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="button success">Submit</button>
+        <button type="submit" class="button is-success">Submit</button>
         <button type="reset" class="button">Reset</button>
     </div>
 
@@ -195,17 +196,17 @@ $classes = implode(' ', array_filter($classes)); ?>
 <form action="" method="get" class="form--inline">
     <div class="field <?php echo $classes; ?>">
         <label class="field-label" for="n1">Text</label>
-        <input id="n1" type="text" class="input" name="text" <?php if ($disabled) echo 'disabled'; ?>>
+        <input id="n1" type="text" class="input <?php echo $size; ?>" name="text" <?php if ($disabled) echo 'disabled'; ?>>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <label class="field-label">Text + Static</label>
-        <div class="input-static">email@domain.com</div>
+        <div class="input-static <?php echo $size; ?>">email@domain.com</div>
     </div>
 
     <div class="field <?php echo $classes; ?>">
         <label class="field-label" for="n2">Select</label>
-        <select id="n2" class="input" name="select" <?php if ($disabled) echo 'disabled'; ?>>
+        <select id="n2" class="input <?php echo $size; ?>" name="select" <?php if ($disabled) echo 'disabled'; ?>>
             <option value="">CSS</option>
             <option value="">HTML</option>
             <option value="">JavaScript</option>
@@ -213,11 +214,11 @@ $classes = implode(' ', array_filter($classes)); ?>
     </div>
 
     <div class="field <?php echo $classes; ?>">
-        <label class="input-checkbox" for="n3"><input id="n3" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
+        <label class="input-checkbox <?php echo $size; ?>" for="n3"><input id="n3" type="checkbox" name="checkbox" <?php if ($disabled) echo 'disabled'; ?>> Checkbox</label>
     </div>
 
     <div class="field <?php echo $classes; ?>">
-        <label class="input-radio" for="n4"><input id="n4" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
+        <label class="input-radio <?php echo $size; ?>" for="n4"><input id="n4" type="radio" name="radio" <?php if ($disabled) echo 'disabled'; ?>> Radio option</label>
     </div>
 
     <div class="form-actions">
@@ -228,8 +229,8 @@ $classes = implode(' ', array_filter($classes)); ?>
 
 <div class="example-title">Line Height</div>
 
-<input type="text" class="input" value="Input">
-<select class="input"><option>Select</option></select>
+<input type="text" class="input <?php echo $size; ?>" value="Input">
+<select class="input <?php echo $size; ?>"><option>Select</option></select>
 <button type="Button" class="button">Button</button>
 <a href="javascript:;" class="button">Anchor</a>
 <input type="submit" class="button" value="Input">
