@@ -19,7 +19,6 @@ All releases will contain bug fixing and polishing for current features.
 * Drop IE 8/9 support and upgrade to jQuery 2.
 * Replace JS option callbacks with namespaced element events.
 * Refactor the JS component layer and reduce complex implementation.
-* Move component options from the jQuery plugin to the Toolkit component.
 * Separate component transitions into a stand alone layer that can be used anywhere.
 * Refactor in-between loading states. Possibly into a new component? CSS or JS based?
 * Replace examples with unit tests.
