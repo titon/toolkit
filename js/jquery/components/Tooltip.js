@@ -37,6 +37,11 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
     this.initialize = function() {
         var options = this.options;
 
+        // Reset for touch devices
+        if (Titon.isTouch && options.mode === 'hover') {
+            this.options.mode = 'click';
+        }
+
         this.elementHead = this.element.find(options.titleElement);
         this.elementBody = this.element.find(options.contentElement);
 

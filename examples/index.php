@@ -50,7 +50,7 @@ $effects = array(
 
 $components = array(
     'home' => array(
-        'title' => 'Titon Toolkit'
+        'title' => 'Introduction'
     ),
     'base' => array(
         'title' => 'Base',

@@ -22,10 +22,13 @@ window.Toolkit = {
     },
 
     /** Detect IE <= 8 versions */
-    ie8: (window.attachEvent && !window.addEventListener),
+    ie8: !!(window.attachEvent && !window.addEventListener),
 
     /** Detect IE9 version */
-    ie9: (window.addEventListener && navigator.userAgent.match(/MSIE/i))
+    ie9: !!(window.addEventListener && navigator.userAgent.match(/MSIE/i)),
+
+    /** Detect touch devices */
+    isTouch: !!('ontouchstart' in window)
 };
 
 /**

@@ -19,8 +19,10 @@ window.Toolkit = {
     messages: {
         loading: 'Loading...',
         error: 'An error has occurred!'
-    }
+    },
 
+    /** Detect touch devices */
+    isTouch: !!('ontouchstart' in window)
 };
 
 /**
