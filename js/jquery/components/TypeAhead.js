@@ -103,11 +103,13 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
             keydown: this.__cycle.bind(this)
         });
 
-        $(window).on('keydown', function(e) {
-            if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
-                this.hide();
-            }
-        }.bind(this));
+        $(window)
+            .on('keydown', function(e) {
+                if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
+                    this.hide();
+                }
+            }.bind(this))
+            .on('click', this.hide.bind(this));
 
         this.fireEvent('init');
     };
