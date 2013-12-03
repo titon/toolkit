@@ -144,7 +144,7 @@ Toolkit.Modal = new Class({
             }
 
             if (this.options.fullScreen) {
-                this.element.getElement('.modal-handle').setStyle('min-height', window.getHeight());
+                this.element.getElement(this.options.contentElement).setStyle('min-height', window.getHeight());
             }
 
             this.element.reveal();

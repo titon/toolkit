@@ -127,7 +127,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
             }
 
             if (this.options.fullScreen) {
-                this.element.find('.modal-handle').css('min-height', $(window).height());
+                this.element.find(this.options.contentElement).css('min-height', $(window).height());
             }
 
             this.element.reveal();

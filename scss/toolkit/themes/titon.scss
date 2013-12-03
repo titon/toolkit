@@ -312,6 +312,10 @@ mark { background: lighten($warning-light, 25%); }
     box-shadow: 5px 5px black(.25);
 }
 
+.modal-head {
+    background: $gray-lightest;
+}
+
 .modal-body {
     background: #fff;
     border-top: 1px solid $gray-dark;
@@ -319,7 +323,6 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .modal-foot {
-    background: $gray-lightest;
     text-align: center;
 }
 

@@ -64,10 +64,10 @@
 //-------------------- Modifiers --------------------//
 
 .modal.is-fullscreen {
-    width: 100%;
     top: 0;
     left: 0;
     margin: 0;
+    width: 100%;
     max-width: 100%;
     max-height: auto;
     border-radius: 0;

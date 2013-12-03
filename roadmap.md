@@ -5,6 +5,7 @@ All releases will contain bug fixing and polishing for current features.
 ### 1.1.0 - December 2013 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Mask - A component that will mask a target element with a blackout.
+* Improvements for Input by adding custom select dropdowns and multi-select support
 
 ### 1.2.0 - January 2014 ###
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
