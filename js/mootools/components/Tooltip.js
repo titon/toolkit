@@ -52,11 +52,6 @@ Toolkit.Tooltip = new Class({
         this.setNodes(elements);
         this.createElement();
 
-        // Reset for touch devices
-        if (Toolkit.isTouch && this.options.mode === 'hover') {
-            this.options.mode = 'click';
-        }
-
         // Fetch elements
         this.elementHead = this.element.getElement(this.options.titleElement);
         this.elementBody = this.element.getElement(this.options.contentElement);

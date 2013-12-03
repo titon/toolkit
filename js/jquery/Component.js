@@ -196,7 +196,14 @@ Toolkit.Component = function() {
      * @returns {Object}
      */
     this.setOptions = function(defaults, options) {
-        return $.extend({}, defaults || {}, options || {});
+        var opts = $.extend({}, defaults || {}, options || {});
+
+        // Reset for touch devices
+        if (Toolkit.isTouch && opts.mode === 'hover') {
+            opts.mode = 'click';
+        }
+
+        return opts;
     };
 
     /**

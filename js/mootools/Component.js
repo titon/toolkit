@@ -349,6 +349,36 @@ Toolkit.Component = new Class({
     },
 
     /**
+     * Override options when necessary.
+     * Code taken from Options class.
+     *
+     * @returns {Toolkit.Component}
+     */
+    setOptions: function() {
+        var options = Object.merge.apply(null, [{}, this.options].append(arguments));
+
+        // Reset for touch devices
+        if (Toolkit.isTouch && options.mode === 'hover') {
+            options.mode = 'click';
+        }
+
+		if (this.addEvent) {
+            for (var option in options){
+                if (typeOf(options[option]) !== 'function' || !(/^on[A-Z]/).test(option)) {
+                    continue;
+                }
+
+                this.addEvent(option, options[option]);
+                delete options[option];
+            }
+        }
+
+        this.options = options;
+
+        return this;
+    },
+
+    /**
      * Show the element and store the node.
      *
      * @param {Element} node
