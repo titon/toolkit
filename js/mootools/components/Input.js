@@ -43,12 +43,14 @@ Toolkit.Input = new Class({
      */
     bindEvents: function() {
         var options = this.options,
+            buildWrapper = this._buildWrapper,
             onChange = this.__change;
 
         // Checkboxes
         if (options.checkbox) {
             this.element.getElements(options.checkbox).each(function(el) {
-                new Element('div.custom-input').wraps(el);
+                buildWrapper(el).wraps(el);
+
                 new Element('label.checkbox')
                     .setProperty('for', el.get('id'))
                     .inject(el, 'after');
@@ -58,7 +60,8 @@ Toolkit.Input = new Class({
         // Radios
         if (options.radio) {
             this.element.getElements(options.radio).each(function(el) {
-                new Element('div.custom-input').wraps(el);
+                buildWrapper(el).wraps(el);
+
                 new Element('label.radio')
                     .setProperty('for', el.get('id'))
                     .inject(el, 'after');
@@ -75,7 +78,8 @@ Toolkit.Input = new Class({
                 var label = el[el.selectedIndex] ? el[el.selectedIndex].textContent : '--',
                     width = el.getWidth();
 
-                new Element('div.custom-input').wraps(el);
+                buildWrapper(el).wraps(el);
+
                 new Element('div.select')
                     .grab(new Element('div.select-arrow').set('html', '<span class="caret-down"></span>'))
                     .grab(new Element('div.select-label').set('text', label))
@@ -87,6 +91,25 @@ Toolkit.Input = new Class({
         }
 
         return this;
+    },
+
+    /**
+     * Build the element to wrap custom inputs with.
+     * Copy over the original class names.
+     *
+     * @private
+     * @param {Element} element
+     * @returns {Element}
+     */
+    _buildWrapper: function(element) {
+        var div = new Element('div.custom-input'),
+            classes = (element.get('class') || '').replace(/\binput\b/, '').trim();
+
+        if (classes) {
+            div.addClass(classes);
+        }
+
+        return div;
     },
 
     /**

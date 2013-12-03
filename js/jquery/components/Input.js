@@ -22,6 +22,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
         this.fireEvent('init');
 
         var options = this.options,
+            buildWrapper = this._buildWrapper,
             onChange = this.__change.bind(this);
 
         // Checkboxes
@@ -29,7 +30,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
             this.elements.find(options.checkbox).each(function() {
                 var el = $(this);
 
-                el.wrap($('<div/>').addClass('custom-input'));
+                el.wrap(buildWrapper(el));
 
                 $('<label/>').addClass('checkbox')
                     .attr('for', el.attr('id'))
@@ -42,7 +43,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
             this.elements.find(options.radio).each(function() {
                 var el = $(this);
 
-                el.wrap($('<div/>').addClass('custom-input'));
+                el.wrap(buildWrapper(el));
 
                 $('<label/>').addClass('radio')
                     .attr('for', el.attr('id'))
@@ -62,7 +63,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
                 var label = this[this.selectedIndex] ? this[this.selectedIndex].textContent : '--',
                     width = el.outerWidth();
 
-                el.wrap($('<div/>').addClass('custom-input'));
+                el.wrap(buildWrapper(el));
 
                 $('<div/>').addClass('select')
                     .append( $('<div/>').addClass('select-arrow').html('<span class="caret-down"></span>') )
@@ -73,6 +74,25 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
                 el.on('change', onChange);
             });
         }
+    };
+
+    /**
+     * Build the element to wrap custom inputs with.
+     * Copy over the original class names.
+     *
+     * @private
+     * @param {jQuery} element
+     * @returns {jQuery}
+     */
+    this._buildWrapper = function(element) {
+        var div = $('<div/>').addClass('custom-input'),
+            classes = (element.attr('class') || '').replace(/\binput\b/, '').trim();
+
+        if (classes) {
+            div.addClass(classes);
+        }
+
+        return div;
     };
 
     /**
