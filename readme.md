@@ -1,10 +1,10 @@
-'''
-                 ______  ______  ______  __      __  __   __  ______
-                /\__  _\/\  __ \/\  __ \/\ \    /\ \/ /  /\ \/\__  _\
-                \/_/\ \/\ \ \/\ \ \ \/\ \ \ \___\ \  _'-.\ \ \/_/\ \/
-                   \ \_\ \ \_____\ \_____\ \_____\ \_\ \_\\ \_\ \ \_\
-                    \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
-'''
+```
+                         ______  ______  ______  __      __  __   __  ______
+                        /\__  _\/\  __ \/\  __ \/\ \    /\ \/ /_ /\ \/\__  _\
+                        \/_/\ \/\ \ \/\ \ \ \/\ \ \ \___\ \  _  \\ \ \/_/\ \/
+                           \ \_\ \ \_____\ \_____\ \_____\ \_\ \_\\ \_\ \ \_\
+                            \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
+```
 
 # Toolkit v1.0.0 RC3 #
 
@@ -28,7 +28,7 @@ If any of these concepts align with your thought process or your projects requir
 * Animations and transitions purely with CSS
 
 #### Demo ####
-A temporary demo can be found here: http://titon.io/toolkit
+An interactive demo can be found here: http://titon.io/toolkit
 
 #### Requirements ####
 * **HTML5**
@@ -112,10 +112,6 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 
 ## Authors ##
 * [Miles Johnson](https://github.com/milesj)
-
-#### Third Party ####
-* `Normalize.css` provided by Nicolas Gallagher
-* `Iconic` icon set provided by P.J. Onori
 
 ## Known Issues ##
 * Zepto is currently not supported (too different of an API)
