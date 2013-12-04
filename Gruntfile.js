@@ -311,11 +311,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    //grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('assemble');
 
     // Register tasks
-    grunt.registerTask('assemble', ['assemble']);
+    grunt.registerTask('generate', ['newer:assemble']);
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('distribute', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
     grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
