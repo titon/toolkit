@@ -57,7 +57,7 @@ Toolkit.Modal = new Class({
         this.createElement();
 
         if (this.options.fullScreen) {
-            this.element.addClass('is-fullscreen');
+            this.element.addClass(Toolkit.options.isPrefix + 'fullscreen');
             this.options.draggable = false;
         }
 
@@ -68,14 +68,14 @@ Toolkit.Modal = new Class({
         if (this.options.draggable) {
             this.drag = new Drag(this.element, {
                 onStart: function(element) {
-                    element.addClass('is-dragging');
+                    element.addClass(Toolkit.options.isPrefix + 'dragging');
                 },
                 onComplete: function(element) {
-                    element.removeClass('is-dragging');
+                    element.removeClass(Toolkit.options.isPrefix + 'dragging');
                 }
             });
 
-            this.element.addClass('is-draggable');
+            this.element.addClass(Toolkit.options.isPrefix + 'draggable');
         }
 
         // Blackout

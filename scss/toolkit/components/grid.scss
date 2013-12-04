@@ -6,8 +6,8 @@
 
 @import "../common";
 
-.grid,
-.row {
+.#{$vendor-prefix}grid,
+.#{$vendor-prefix}row {
     @include grid-row;
 }
 

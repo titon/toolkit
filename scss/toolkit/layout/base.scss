@@ -45,9 +45,9 @@
 
 // Styles
 .round { border-radius: $round; }
-.is-draggable { cursor: move; }
-.is-dragging { cursor: grabbing; }
-.is-disabled,
+.#{$state-is-prefix}draggable { cursor: move; }
+.#{$state-is-prefix}dragging { cursor: grabbing; }
+.#{$state-is-prefix}disabled,
 [disabled] { cursor: not-allowed !important; }
 
 // Carets

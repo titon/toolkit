@@ -32,7 +32,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        this.element.addClass('pin');
+        this.element.addClass(Toolkit.options.vendor + 'pin');
         this.elementTop = parseInt(this.element.css('top'), 10);
 
         $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
@@ -111,7 +111,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
         if (scrollTop < pTop) {
             this.element
                 .removeAttr('style')
-                .addClass('is-pinned');
+                .addClass(Toolkit.options.isPrefix + 'pinned');
 
             return;
         }
@@ -154,7 +154,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
 
         this.element
             .css(pos)
-            .addClass('is-pinned');
+            .addClass(Toolkit.options.isPrefix + 'pinned');
 
         this.fireEvent('scroll');
     };

@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.popover {
+.#{$vendor-prefix}popover {
     position: absolute;
     top: 0;
     left: 0;
@@ -18,45 +18,45 @@
     visibility: hidden;
     background: $gray;
 
-    &.center-left .popover-arrow,
-    &.center-right .popover-arrow {
+    &.center-left .#{$vendor-prefix}popover-arrow,
+    &.center-right .#{$vendor-prefix}popover-arrow {
         top: 50%;
         margin-top: -8px;
     }
 
-    &.center-left .popover-arrow {
+    &.center-left .#{$vendor-prefix}popover-arrow {
         border-left-color: $gray;
         right: -16px;
     }
 
-    &.center-right .popover-arrow {
+    &.center-right .#{$vendor-prefix}popover-arrow {
         border-right-color: $gray;
         left: -16px;
     }
 
-    &.top-center .popover-arrow,
-    &.bottom-center .popover-arrow {
+    &.top-center .#{$vendor-prefix}popover-arrow,
+    &.bottom-center .#{$vendor-prefix}popover-arrow {
         left: 50%;
         margin-left: -8px;
     }
 
-    &.top-center .popover-arrow {
+    &.top-center .#{$vendor-prefix}popover-arrow {
         border-top-color: $gray;
         bottom: -16px;
     }
 
-    &.bottom-center .popover-arrow {
+    &.bottom-center .#{$vendor-prefix}popover-arrow {
         border-bottom-color: $gray;
         top: -16px;
     }
 }
 
-.popover-head,
-.popover-body {
+.#{$vendor-prefix}popover-head,
+.#{$vendor-prefix}popover-body {
     padding: $small-padding;
 }
 
-.popover-arrow {
+.#{$vendor-prefix}popover-arrow {
     width: 0;
     height: 0;
     border: 8px solid transparent;

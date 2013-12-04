@@ -51,7 +51,7 @@ Toolkit.Stalker = new Class({
             return;
         }
 
-        this.element.addClass('stalker');
+        this.element.addClass(Toolkit.options.vendor + 'stalker');
 
         this.refresh();
         this.bindEvents();
@@ -72,12 +72,12 @@ Toolkit.Stalker = new Class({
         var targets = this.targets;
 
         if (this.options.applyToParent) {
-            targets.getParent().removeClass('is-active');
-            target.getParent().addClass('is-active');
+            targets.getParent().removeClass(Toolkit.options.isPrefix + 'active');
+            target.getParent().addClass(Toolkit.options.isPrefix + 'active');
 
         } else {
-            targets.removeClass('is-active');
-            target.addClass('is-active');
+            targets.removeClass(Toolkit.options.isPrefix + 'active');
+            target.addClass(Toolkit.options.isPrefix + 'active');
         }
 
         this.fireEvent('activate', [marker, target]);
@@ -109,9 +109,9 @@ Toolkit.Stalker = new Class({
         var targets = this.targets;
 
         if (this.options.applyToParent) {
-            targets.getParent().removeClass('is-active');
+            targets.getParent().removeClass(Toolkit.options.isPrefix + 'active');
         } else {
-            targets.removeClass('is-active');
+            targets.removeClass(Toolkit.options.isPrefix + 'active');
         }
 
         this.marker = null;
@@ -133,11 +133,11 @@ Toolkit.Stalker = new Class({
 
         this.target = null;
         this.targets = $$(this.options.target);
-        this.targets.addClass('stalker-target');
+        this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
 
         this.marker = null;
         this.markers = $$(this.options.marker);
-        this.markers.addClass('stalker-marker');
+        this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 

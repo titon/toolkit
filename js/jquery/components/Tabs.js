@@ -49,7 +49,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
 
         this.tabs = this.nav.find('ul > li > a');
         this.tabs.each(function(index) {
-            $(this).data('index', index).removeClass('is-active');
+            $(this).data('index', index).removeClass(Toolkit.options.isPrefix + 'active');
         });
 
         this.sections = this.element.find(options.sectionsElement);
@@ -142,26 +142,26 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
                 url,
                 function tabsAjaxBefore() {
                     section.html(this._loadingTemplate('tabs'))
-                        .addClass('is-loading');
+                        .addClass(Toolkit.options.isPrefix + 'loading');
                 },
                 function tabsAjaxDone(response) {
                     this.cache[url] = true;
 
                     section.html(response)
-                        .removeClass('is-loading');
+                        .removeClass(Toolkit.options.isPrefix + 'loading');
 
                     this.fireEvent('load', response);
                 },
                 function tabsAjaxFail() {
                     section.html(this._errorTemplate('tabs'))
-                        .removeClass('is-loading')
-                        .addClass('has-failed');
+                        .removeClass(Toolkit.options.isPrefix + 'loading')
+                        .addClass(Toolkit.options.hasPrefix + 'failed');
                 }
             );
         }
 
         // Toggle tabs
-        this.nav.find('ul > li').removeClass('is-active');
+        this.nav.find('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
 
         // Toggle sections
         if (index === this.currentIndex && this.options.collapsible) {
@@ -169,13 +169,13 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
                 section.conceal();
 
             } else {
-                tab.parent().addClass('is-active');
+                tab.parent().addClass(Toolkit.options.isPrefix + 'active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.parent().addClass('is-active');
+            tab.parent().addClass(Toolkit.options.isPrefix + 'active');
             section.reveal();
         }
 

@@ -138,8 +138,8 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
         // Update tabs
         if (this.tabs.length) {
             this.tabs
-                .removeClass('is-active')
-                .item(index).addClass('is-active');
+                .removeClass(Toolkit.options.isPrefix + 'active')
+                .item(index).addClass(Toolkit.options.isPrefix + 'active');
         }
 
         // Animate!
@@ -206,7 +206,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      * @returns {Toolkit.Carousel}
      */
     this.start = function() {
-        this.element.removeClass('is-stopped');
+        this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = false;
 
         this.fireEvent('start');
@@ -220,7 +220,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      * @returns {Toolkit.Carousel}
      */
     this.stop = function() {
-        this.element.addClass('is-stopped');
+        this.element.addClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = true;
 
         this.fireEvent('stop');

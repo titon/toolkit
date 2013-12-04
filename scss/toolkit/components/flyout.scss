@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.flyout {
+.#{$vendor-prefix}flyout {
     position: absolute;
     top: 0;
     left: 0;
@@ -39,19 +39,19 @@
 
         // Hover states
         > a:hover,
-        &.is-open > a {
+        &.#{$state-is-prefix}open > a {
             background: $gray-lightest;
         }
 
         // Display caret arrow
-        &.has-children > a .caret-right {
+        &.#{$state-has-prefix}children > a .caret-right {
             float: right;
             display: inline-block; // reveal
             margin-top: 3px;
         }
 
         // Nested flyouts
-        > .flyout {
+        > .#{$vendor-prefix}flyout {
             left: 90%;
             @include transition(left $flyout-transition, right $flyout-transition, opacity $flyout-transition);
 
@@ -63,7 +63,7 @@
             }
         }
 
-        &.is-open > .flyout {
+        &.#{$state-is-prefix}open > .#{$vendor-prefix}flyout {
             opacity: 1;
             visibility: visible;
             left: 100%;
@@ -78,7 +78,7 @@
     @include clear-fix;
 }
 
-.flyout-heading {
+.#{$vendor-prefix}flyout-heading {
     padding: $small-padding;
     line-height: 100%;
     display: block;

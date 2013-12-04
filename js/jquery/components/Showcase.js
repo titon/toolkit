@@ -96,7 +96,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
     this.hide = function() {
         if (this.element.is(':shown')) {
             this.element.conceal();
-            this.element.removeClass('is-single');
+            this.element.removeClass(Toolkit.options.isPrefix + 'single');
 
             if (this.options.blackout) {
                 this.blackout.hide();
@@ -145,8 +145,8 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
             var listTabs = this.tabs.find('a');
 
             listTabs
-                .removeClass('is-active')
-                .item(index).addClass('is-active');
+                .removeClass(Toolkit.options.isPrefix + 'active')
+                .item(index).addClass(Toolkit.options.isPrefix + 'active');
         }
 
         // Fade out previous item
@@ -166,7 +166,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
 
         // Create image and animate
         } else {
-            element.addClass('is-loading');
+            element.addClass(Toolkit.options.isPrefix + 'loading');
 
             // Preload image
             var img = new Image();
@@ -183,12 +183,12 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
 
                 // Create the caption
                 if (item.title) {
-                    listItem.append($('<div/>').addClass('showcase-caption').html(item.title));
+                    listItem.append($('<div/>').addClass(Toolkit.options.vendor + 'showcase-caption').html(item.title));
                 }
 
                 // Reveal the image after animation
                 setTimeout(function() {
-                    element.removeClass('is-loading');
+                    element.removeClass(Toolkit.options.isPrefix + 'loading');
                     listItem.addClass('show').append(img);
                     self._reposition();
                 }, options.transition);
@@ -253,7 +253,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
     this.show = function(node) {
         this.node = node = $(node);
         this.currentIndex = this.previousIndex = 0;
-        this.element.addClass('is-loading');
+        this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
         var options = this.options,
             read = this.readValue.bind(this),
@@ -322,7 +322,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
         }
 
         if (items.length <= 1) {
-            this.element.addClass('is-single');
+            this.element.addClass(Toolkit.options.isPrefix + 'single');
         }
 
         this.fireEvent('load', items);

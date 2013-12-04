@@ -12,7 +12,7 @@ Toolkit.Blackout = new Class({
 
     /** Default options */
     options: {
-        template: '<div class="blackout" id="toolkit-blackout"></div>',
+        template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
     },
 

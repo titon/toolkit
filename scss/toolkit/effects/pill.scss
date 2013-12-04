@@ -8,41 +8,41 @@
 
 //-------------------- Button --------------------//
 
-.button.pill { border-radius: $pill; }
+.#{$vendor-prefix}button.pill { border-radius: $pill; }
 
 //-------------------- ButtonGroup --------------------//
 
-.button-group.pill {
+.#{$vendor-prefix}button-group.pill {
     border-radius: $pill;
 
-    > li:first-child .button,
-    > .button:first-child,
-    > .button.first {
+    > li:first-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:first-child,
+    > .#{$vendor-prefix}button.first {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }
 
-    > li:last-child .button,
-    > .button:last-child,
-    > .button.last {
+    > li:last-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:last-child,
+    > .#{$vendor-prefix}button.last {
         border-top-right-radius: $pill;
         border-bottom-right-radius: $pill;
     }
 }
 
-.button-group--vertical.pill {
+.#{$vendor-prefix}button-group--vertical.pill {
     border-radius: $pill;
 
-    > li:first-child .button,
-    > .button:first-child {
+    > li:first-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:first-child {
         border-top-left-radius: $pill;
         border-top-right-radius: $pill;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    > li:last-child .button,
-    > .button:last-child {
+    > li:last-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:last-child {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-bottom-left-radius: $pill;
@@ -52,7 +52,7 @@
 
 //-------------------- Pagination --------------------//
 
-.pagination--grouped.pill {
+.#{$vendor-prefix}pagination--grouped.pill {
     ul {
         border-radius: $pill;
     }
@@ -70,10 +70,10 @@
 
 //-------------------- Progress --------------------//
 
-.progress.pill {
+.#{$vendor-prefix}progress.pill {
     border-radius: $pill;
 
-    .progress-bar {
+    .#{$vendor-prefix}progress-bar {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }
@@ -81,7 +81,7 @@
 
 //-------------------- Visual --------------------//
 
-.visual-gloss.pill:after {
+.#{$vendor-prefix}visual-gloss.pill:after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;

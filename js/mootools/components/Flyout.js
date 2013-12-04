@@ -95,7 +95,7 @@ Toolkit.Flyout = new Class({
         this.clearTimers();
 
         // Must be called even if the menu is hidden
-        this.node.removeClass('is-active');
+        this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
         if (!this.current || !this.isVisible()) {
             return this;
@@ -209,7 +209,7 @@ Toolkit.Flyout = new Class({
         }
 
         this.fireEvent('load', node);
-        this.node.addClass('is-active');
+        this.node.addClass(Toolkit.options.isPrefix + 'active');
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -245,7 +245,7 @@ Toolkit.Flyout = new Class({
         }
 
         if (parent === document.body) {
-            menu.addClass('is-root');
+            menu.addClass(Toolkit.options.isPrefix + 'root');
         }
 
         if (limit && data.children.length > limit) {
@@ -275,7 +275,7 @@ Toolkit.Flyout = new Class({
                         text: child.title
                     });
 
-                    li.addClass('flyout-heading');
+                    li.addClass(Toolkit.options.vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -292,7 +292,7 @@ Toolkit.Flyout = new Class({
                 if (child.children && child.children.length) {
                     this._buildMenu(li, child);
 
-                    li.addClass('has-children')
+                    li.addClass(Toolkit.options.hasPrefix + 'children')
                         .addEvent('mouseenter', this.__positionChild.bind(this, li))
                         .addEvent('mouseleave', this.__hideChild.bind(this, li));
                 }
@@ -378,7 +378,7 @@ Toolkit.Flyout = new Class({
      * @param {Element} parent
      */
     __hideChild: function(parent) {
-        parent.removeClass('is-open');
+        parent.removeClass(Toolkit.options.isPrefix + 'open');
         parent.getChildren(this.options.contentElement).removeProperty('style');
 
         this.fireEvent('hideChild', parent);
@@ -424,7 +424,7 @@ Toolkit.Flyout = new Class({
             menu.setStyle('top', 0);
         }
 
-        parent.addClass('is-open');
+        parent.addClass(Toolkit.options.isPrefix + 'open');
 
         this.fireEvent('showChild', parent);
     }

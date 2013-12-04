@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.lazy-load {
+.#{$vendor-prefix}lazy-load {
     background-image: none !important;
     @include transition(background $lazyLoad-transition);
 }

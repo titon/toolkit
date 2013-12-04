@@ -40,7 +40,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
             return;
         }
 
-        this.element.addClass('stalker');
+        this.element.addClass(Toolkit.options.vendor + 'stalker');
 
         if (this.element.css('overflow') === 'auto') {
             this.container = this.element;
@@ -71,12 +71,12 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
         var targets = this.targets;
 
         if (this.options.applyToParent) {
-            targets.parent().removeClass('is-active');
-            target.parent().addClass('is-active');
+            targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
+            target.parent().addClass(Toolkit.options.isPrefix + 'active');
 
         } else {
-            targets.removeClass('is-active');
-            target.addClass('is-active');
+            targets.removeClass(Toolkit.options.isPrefix + 'active');
+            target.addClass(Toolkit.options.isPrefix + 'active');
         }
 
         this.fireEvent('activate', [marker, target]);
@@ -94,9 +94,9 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
         var targets = this.targets;
 
         if (this.options.applyToParent) {
-            targets.parent().removeClass('is-active');
+            targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
         } else {
-            targets.removeClass('is-active');
+            targets.removeClass(Toolkit.options.isPrefix + 'active');
         }
 
         this.marker = null;
@@ -118,11 +118,11 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
 
         this.target = null;
         this.targets = $(this.options.target);
-        this.targets.addClass('stalker-target');
+        this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
 
         this.marker = null;
         this.markers = $(this.options.marker);
-        this.markers.addClass('stalker-marker');
+        this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
 
         var isWindow = this.container.is(window),
             eTop = this.element.offset().top,

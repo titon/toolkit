@@ -40,7 +40,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        this.element.addClass('matrix');
+        this.element.addClass(Toolkit.options.vendor + 'matrix');
         this.items = this.element.find(this.options.selector);
 
         // Set events
@@ -63,7 +63,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      */
     this.append = function(item) {
         $(item)
-            .addClass('matrix-item')
+            .addClass(Toolkit.options.vendor + 'matrix-item')
             .appendTo(this.element)
             .css('opacity', 0);
 
@@ -77,7 +77,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      */
     this.disable = function() {
         this.element.removeProperty('style');
-        this.items.removeClass('matrix-item').removeProperty('style');
+        this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeProperty('style');
 
         return this;
     };
@@ -88,7 +88,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @returns {Toolkit.Matrix}
      */
     this.enable = function() {
-        this.items.addClass('matrix-item');
+        this.items.addClass(Toolkit.options.vendor + 'matrix-item');
 
         return this;
     };
@@ -101,7 +101,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      */
     this.prepend = function(item) {
         $(item)
-            .addClass('matrix-item')
+            .addClass(Toolkit.options.vendor + 'matrix-item')
             .prependTo(this.element)
             .css('opacity', 0);
 
@@ -372,7 +372,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @param {Event} e
      */
     this.__resize = function(e) {
-        if (this.element.hasClass('matrix')) {
+        if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
             this.refresh();
         }
     };

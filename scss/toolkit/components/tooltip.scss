@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.tooltip {
+.#{$vendor-prefix}tooltip {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,40 +20,40 @@
     color: #fff;
     @include box-sizing(content-box); // Required or else MooTools position() is off
 
-    &.center-left .tooltip-arrow,
-    &.center-right .tooltip-arrow {
+    &.center-left .#{$vendor-prefix}tooltip-arrow,
+    &.center-right .#{$vendor-prefix}tooltip-arrow {
         top: 50%;
         margin-top: -6px;
     }
 
-    &.center-left .tooltip-arrow {
+    &.center-left .#{$vendor-prefix}tooltip-arrow {
         border-left-color: #000;
         right: -12px;
     }
 
-    &.center-right .tooltip-arrow {
+    &.center-right .#{$vendor-prefix}tooltip-arrow {
         border-right-color: #000;
         left: -12px;
     }
 
-    &.top-center .tooltip-arrow,
-    &.bottom-center .tooltip-arrow {
+    &.top-center .#{$vendor-prefix}tooltip-arrow,
+    &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         left: 50%;
         margin-left: -6px;
     }
 
-    &.top-center .tooltip-arrow {
+    &.top-center .#{$vendor-prefix}tooltip-arrow {
         border-top-color: #000;
         bottom: -12px;
     }
 
-    &.bottom-center .tooltip-arrow {
+    &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         border-bottom-color: #000;
         top: -12px;
     }
 }
 
-.tooltip-arrow {
+.#{$vendor-prefix}tooltip-arrow {
     width: 0;
     height: 0;
     border: 6px solid transparent;
@@ -68,8 +68,8 @@
 
 //-------------------- Animations --------------------//
 
-.tooltip,
-.popover {
+.#{$vendor-prefix}tooltip,
+.#{$vendor-prefix}popover {
     &.fade {
         opacity: 0;
         @include transition(opacity 0.5s);

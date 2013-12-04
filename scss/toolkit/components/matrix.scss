@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.matrix {
+.#{$vendor-prefix}matrix {
     position: relative;
     list-style: none;
     margin: 0;
@@ -14,12 +14,12 @@
 
     @include clear-fix;
 
-    &.no-columns .matrix-item {
+    &.no-columns .#{$vendor-prefix}matrix-item {
         position: relative !important;
     }
 }
 
-.matrix-item {
+.#{$vendor-prefix}matrix-item {
     margin: 0;
     padding: 0;
     @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);

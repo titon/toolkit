@@ -51,7 +51,7 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
         }
 
         // Reset the state of every row
-        this.element.children('li').removeClass('is-active');
+        this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
 
         // Store the index
         headers.each(function(index) {
@@ -114,11 +114,11 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal();
-                parent.removeClass('is-active');
+                parent.removeClass(Toolkit.options.isPrefix + 'active');
 
             } else {
                 section.css('max-height', height).reveal();
-                parent.addClass('is-active');
+                parent.addClass(Toolkit.options.isPrefix + 'active');
             }
 
         // Only one open at a time
@@ -132,8 +132,8 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
             this.sections.css('max-height', 0).conceal();
             section.css('max-height', height).reveal();
 
-            this.element.children('li').removeClass('is-active');
-            parent.addClass('is-active');
+            this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
+            parent.addClass(Toolkit.options.isPrefix + 'active');
         }
 
         this.previousIndex = this.currentIndex;

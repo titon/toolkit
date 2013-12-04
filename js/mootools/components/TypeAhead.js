@@ -109,10 +109,10 @@ Toolkit.TypeAhead = new Class({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.node = new Element('div.type-ahead-shadow').wraps(this.input);
+            this.node = new Element('div.' + Toolkit.options.vendor + 'type-ahead-shadow').wraps(this.input);
 
             this.shadow = this.input.clone()
-                .addClass('is-shadow')
+                .addClass(Toolkit.options.isPrefix + 'shadow')
                 .removeProperty('id')
                 .set('readonly', true)
                 .inject(this.node, 'bottom');
@@ -158,12 +158,12 @@ Toolkit.TypeAhead = new Class({
             href: 'javascript:;'
         });
 
-        a.grab( new Element('span.type-ahead-title', {
+        a.grab( new Element('span.' + Toolkit.options.vendor + 'type-ahead-title', {
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
-            a.grab( new Element('span.type-ahead-desc', {
+            a.grab( new Element('span.' + Toolkit.options.vendor + 'type-ahead-desc', {
                 html: item.description
             }) );
         }
@@ -194,7 +194,7 @@ Toolkit.TypeAhead = new Class({
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<span class="type-ahead-highlight">' + match + '</span>';
+                return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -346,7 +346,7 @@ Toolkit.TypeAhead = new Class({
                 results.push(null);
 
                 elements.push(
-                    new Element('li').addClass('type-ahead-heading').grab(new Element('span', { text: category }))
+                    new Element('li').addClass(Toolkit.options.vendor + 'type-ahead-heading').grab(new Element('span', { text: category }))
                 );
             }
 
@@ -408,7 +408,7 @@ Toolkit.TypeAhead = new Class({
      */
     rewind: function() {
         this.index = -1;
-        this.element.getElements('li').removeClass('is-active');
+        this.element.getElements('li').removeClass(Toolkit.options.isPrefix + 'active');
 
         return this;
     },
@@ -424,14 +424,14 @@ Toolkit.TypeAhead = new Class({
 
         var rows = this.element.getElements('li');
 
-        rows.removeClass('is-active');
+        rows.removeClass(Toolkit.options.isPrefix + 'active');
 
         // Select
         if (index >= 0) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows[index].addClass('is-active');
+                rows[index].addClass(Toolkit.options.isPrefix + 'active');
 
                 this.input.set('value', item.title);
 

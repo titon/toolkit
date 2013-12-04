@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.type-ahead {
+.#{$vendor-prefix}type-ahead {
     position: absolute;
     top: 0;
     left: 0;
@@ -32,13 +32,13 @@
         }
 
         > a:hover,
-        &.is-active a {
+        &.#{$state-is-prefix}active a {
             background: $gray-lightest;
         }
     }
 }
 
-.type-ahead-heading {
+.#{$vendor-prefix}type-ahead-heading {
     padding: $small-padding;
     line-height: 100%;
     display: block;
@@ -46,17 +46,17 @@
     background: $gray-dark;
 }
 
-.type-ahead-highlight {
+.#{$vendor-prefix}type-ahead-highlight {
     background: #fff;
 }
 
-.type-ahead-desc {
+.#{$vendor-prefix}type-ahead-desc {
     display: block;
     color: $gray-darkest;
     font-size: .7rem;
 }
 
-.type-ahead-shadow {
+.#{$vendor-prefix}type-ahead-shadow {
     position: relative;
     height: 2rem;
 
@@ -66,7 +66,7 @@
         left: 0;
     }
 
-    .is-shadow {
+    .#{$state-is-prefix}shadow {
         color: gray;
     }
 

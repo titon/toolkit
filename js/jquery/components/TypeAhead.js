@@ -85,10 +85,10 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $('<div/>').addClass('type-ahead-shadow');
+            this.wrapper = $('<div/>').addClass(Toolkit.options.vendor + 'type-ahead-shadow');
 
             this.shadow = this.input.clone()
-                .addClass('is-shadow')
+                .addClass(Toolkit.options.isPrefix + 'shadow')
                 .removeAttr('id')
                 .prop('readonly', true);
 
@@ -126,13 +126,13 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
         });
 
         a.append( $('<span/>', {
-            'class': 'type-ahead-title',
+            'class': Toolkit.options.vendor + 'type-ahead-title',
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
             a.append( $('<span/>', {
-                'class': 'type-ahead-desc',
+                'class': Toolkit.options.vendor + 'type-ahead-desc',
                 html: item.description
             }) );
         }
@@ -168,7 +168,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
     this.highlight = function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<span class="type-ahead-highlight">' + match + '</span>';
+                return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -319,7 +319,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
                 results.push(null);
 
                 elements.push(
-                    $('<li/>').addClass('type-ahead-heading').append( $('<span/>', { text: category }) )
+                    $('<li/>').addClass(Toolkit.options.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -381,7 +381,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      */
     this.rewind = function() {
         this.index = -1;
-        this.element.find('li').removeClass('is-active');
+        this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
 
         return this;
     };
@@ -397,14 +397,14 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
 
         var rows = this.element.find('li');
 
-        rows.removeClass('is-active');
+        rows.removeClass(Toolkit.options.isPrefix + 'active');
 
         // Select
         if (index >= 0) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows.item(index).addClass('is-active');
+                rows.item(index).addClass(Toolkit.options.isPrefix + 'active');
 
                 this.input.val(item.title);
 

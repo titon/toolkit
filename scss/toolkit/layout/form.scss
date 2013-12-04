@@ -14,7 +14,7 @@ fieldset {
     border: 0;
     border-top: 1px solid $gray-dark;
 
-    &.is-legendless {
+    &.#{$state-is-prefix}legendless {
         border: 0;
         padding: 0;
     }
@@ -41,26 +41,26 @@ input[type="search"] {
 
 // Required values to match browser restrictions
 label,
-.input-static {
+.#{$vendor-prefix}input-static {
     font-size: inherit;
     line-height: normal;
 }
 
 //-------------------- Inputs --------------------//
 
-.input,
-.input-static,
-.input-radio,
-.input-checkbox {
+.#{$vendor-prefix}input,
+.#{$vendor-prefix}input-static,
+.#{$vendor-prefix}input-radio,
+.#{$vendor-prefix}input-checkbox {
     @include reset-inline-block;
     border: 1px solid $gray-dark;
     @include size-medium;
 
-    &.small { @include size-small; }
-    &.large { @include size-large; }
+    &.#{$size-small-class} { @include size-small; }
+    &.#{$size-large-class} { @include size-large; }
 }
 
-.input {
+.#{$vendor-prefix}input {
     background: $gray-lightest;
     border-radius: $round;
     @include transition(all $default-transition);
@@ -86,17 +86,17 @@ label,
     }
 }
 
-.input-static,
-.input-radio,
-.input-checkbox {
+.#{$vendor-prefix}input-static,
+.#{$vendor-prefix}input-radio,
+.#{$vendor-prefix}input-checkbox {
     background: transparent;
     border-color: transparent;
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
 
-.input-radio,
-.input-checkbox {
+.#{$vendor-prefix}input-radio,
+.#{$vendor-prefix}input-checkbox {
     padding: 0;
 
     input[type="checkbox"],
@@ -108,92 +108,92 @@ label,
     }
 }
 
-select.input {
+select.#{$vendor-prefix}input {
     -webkit-appearance: none;
     padding: $medium-padding - .05rem; // fixes vertical alignment
 }
 
-select.input[multiple] {
+select.#{$vendor-prefix}input[multiple] {
     min-height: 150px;
     max-height: 500px;
 }
 
-textarea.input {
+textarea.#{$vendor-prefix}input {
     line-height: 135%;
     min-height: 150px;
 }
 
 //-------------------- Fields, Labels --------------------//
 
-.field {
+.#{$vendor-prefix}field {
     margin-bottom: $margin;
 
-    &.is-required {
-        .field-label { font-weight: bold; }
+    &.#{$state-is-prefix}required {
+        .#{$vendor-prefix}field-label { font-weight: bold; }
     }
 }
 
-.field:not(.is-disabled) {
-    &.is-error {
-        .input {
+.#{$vendor-prefix}field:not(.#{$state-is-prefix}disabled) {
+    &.#{$state-is-prefix}error {
+        .#{$vendor-prefix}input {
             border-color: $error;
 
             &:focus { box-shadow: 0 0 5px $error-light; }
         }
 
-        .input-radio,
-        .input-checkbox {
+        .#{$vendor-prefix}input-radio,
+        .#{$vendor-prefix}input-checkbox {
             color: $error-dark;
         }
     }
 
-    &.is-success {
-        .input {
+    &.#{$state-is-prefix}success {
+        .#{$vendor-prefix}input {
             border-color: $success;
 
             &:focus { box-shadow: 0 0 5px $success-light; }
         }
 
-        .input-radio,
-        .input-checkbox {
+        .#{$vendor-prefix}input-radio,
+        .#{$vendor-prefix}input-checkbox {
             color: $success-dark;
         }
     }
 }
 
-.field-label {
+.#{$vendor-prefix}field-label {
     display: block;
     vertical-align: middle;
     margin-bottom: .5em;
 }
 
-.field-help {
+.#{$vendor-prefix}field-help {
     margin-top: .5em;
     font-size: $small-size;
 }
 
-.form-actions {
+.#{$vendor-prefix}form-actions {
     text-align: center;
 }
 
 //-------------------- Modifiers --------------------//
 
-.form--horizontal {
-    .field { @include grid-row; }
+.#{$vendor-prefix}form--horizontal {
+    .#{$vendor-prefix}field { @include grid-row; }
 
-    .field-label {
+    .#{$vendor-prefix}field-label {
         text-align: right;
         border: 1px solid transparent; // matches input sizes
         padding-top: $medium-padding;
     }
 
-    .field-col { padding-left: $margin; }
+    .#{$vendor-prefix}field-col { padding-left: $margin; }
 }
 
-.form--inline {
-    .field,
-    .field-label,
-    .form-actions {
+.#{$vendor-prefix}form--inline {
+    .#{$vendor-prefix}field,
+    .#{$vendor-prefix}field-label,
+    .#{$vendor-prefix}form-actions {
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
@@ -201,11 +201,11 @@ textarea.input {
         margin-bottom: $margin / 2;
     }
 
-    .field-label { margin: 0 ($margin / 2) 0 0; }
-    .field-help { display: none; }
+    .#{$vendor-prefix}field-label { margin: 0 ($margin / 2) 0 0; }
+    .#{$vendor-prefix}field-help { display: none; }
 
-    .input-radio,
-    .input-checkbox {
+    .#{$vendor-prefix}input-radio,
+    .#{$vendor-prefix}input-checkbox {
         padding: $medium-padding 0;
     }
 }

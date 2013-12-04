@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.notice {
+.#{$vendor-prefix}notice {
     margin: $margin 0;
     padding: $padding;
     background: $gray-light;
@@ -24,7 +24,7 @@
     @include content-spacing;
 }
 
-.notice-close {
+.#{$vendor-prefix}notice-close {
     float: right;
     margin-left: $margin;
     line-height: 1rem;
@@ -33,6 +33,6 @@
     & ~ p { margin: 0; }
 }
 
-.notice-title {
+.#{$vendor-prefix}notice-title {
     margin: 0 0 ($margin / 2) 0;
 }

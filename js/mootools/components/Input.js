@@ -43,6 +43,7 @@ Toolkit.Input = new Class({
      */
     bindEvents: function() {
         var options = this.options,
+            vendor = Toolkit.options.vendor,
             buildWrapper = this._buildWrapper,
             onChange = this.__change;
 
@@ -51,7 +52,7 @@ Toolkit.Input = new Class({
             this.element.getElements(options.checkbox).each(function(el) {
                 buildWrapper(el).wraps(el);
 
-                new Element('label.checkbox')
+                new Element('label.' + vendor +'checkbox')
                     .setProperty('for', el.get('id'))
                     .inject(el, 'after');
             });
@@ -62,7 +63,7 @@ Toolkit.Input = new Class({
             this.element.getElements(options.radio).each(function(el) {
                 buildWrapper(el).wraps(el);
 
-                new Element('label.radio')
+                new Element('label.' + vendor +'radio')
                     .setProperty('for', el.get('id'))
                     .inject(el, 'after');
             });
@@ -80,9 +81,9 @@ Toolkit.Input = new Class({
 
                 buildWrapper(el).wraps(el);
 
-                new Element('div.select')
-                    .grab(new Element('div.select-arrow').set('html', '<span class="caret-down"></span>'))
-                    .grab(new Element('div.select-label').set('text', label))
+                new Element('div.' + vendor +'select')
+                    .grab(new Element('div.' + vendor +'select-arrow').set('html', '<span class="caret-down"></span>'))
+                    .grab(new Element('div.' + vendor +'select-label').set('text', label))
                     .setStyle('min-width', width)
                     .inject(el, 'after');
 
@@ -102,7 +103,7 @@ Toolkit.Input = new Class({
      * @returns {Element}
      */
     _buildWrapper: function(element) {
-        var div = new Element('div.custom-input'),
+        var div = new Element('div.' + Toolkit.options.vendor +'custom-input'),
             classes = (element.get('class') || '').replace(/\binput\b/, '').trim();
 
         if (classes) {
@@ -122,7 +123,7 @@ Toolkit.Input = new Class({
         var select = e.target;
 
         if (select[select.selectedIndex]) {
-            select.getParent().getElement('.select-label')
+            select.getParent().getElement('.' + Toolkit.options.vendor +'select-label')
                 .set('text', select[select.selectedIndex].textContent);
         }
     }

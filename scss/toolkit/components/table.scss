@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.table {
+.#{$vendor-prefix}table {
     width: 100%;
     background: $gray;
     border-collapse: collapse;
@@ -40,11 +40,11 @@
         background: $gray;
 
         &:nth-child(odd) { background: $gray-lightest; }
-        &.table-divider { background: $gray-dark; }
+        &.#{$vendor-prefix}table-divider { background: $gray-dark; }
     }
 }
 
-.table-responsive {
+.#{$vendor-prefix}table-responsive {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
@@ -52,11 +52,11 @@
 
 //-------------------- Modifiers --------------------//
 
-.table.has-hover {
-    tbody tr:not(.table-divider):hover { background: #fff; }
+.#{$vendor-prefix}table.#{$state-has-prefix}hover {
+    tbody tr:not(.#{$vendor-prefix}table-divider):hover { background: #fff; }
 }
 
-.table.is-sortable {
+.#{$vendor-prefix}table.#{$state-is-prefix}sortable {
     thead th {
         padding: 0;
 
@@ -76,11 +76,11 @@
 
 //-------------------- Sizes --------------------//
 
-.table.small {
+.#{$vendor-prefix}table.#{$size-small-class} {
     thead th,
     tbody td { padding: $small-padding; }
 
-    &.is-sortable {
+    &.#{$state-is-prefix}sortable {
         thead th {
             padding: 0;
 
@@ -90,11 +90,11 @@
     }
 }
 
-.table.large {
+.#{$vendor-prefix}table.#{$size-large-class} {
     thead th,
     tbody td { padding: $large-padding; }
 
-    &.is-sortable {
+    &.#{$state-is-prefix}sortable {
         thead th {
             padding: 0;
 

@@ -6,13 +6,13 @@
 
 @import "../common";
 
-.carousel {
+.#{$vendor-prefix}carousel {
     margin: 0 auto;
     text-align: left;
     position: relative;
 }
 
-.carousel-items {
+.#{$vendor-prefix}carousel-items {
     /* 4:3 ratio */
     padding-bottom: 75%;
     width: 100%;
@@ -44,7 +44,7 @@
     }
 }
 
-.carousel-caption {
+.#{$vendor-prefix}carousel-caption {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -58,8 +58,8 @@
     }
 }
 
-.carousel-prev,
-.carousel-next {
+.#{$vendor-prefix}carousel-prev,
+.#{$vendor-prefix}carousel-next {
     display: block;
     position: absolute;
     padding: $padding;
@@ -72,10 +72,10 @@
     &:focus { outline: none; }
 }
 
-.carousel-prev { left: 0; }
-.carousel-next { right: 0; }
+.#{$vendor-prefix}carousel-prev { left: 0; }
+.#{$vendor-prefix}carousel-next { right: 0; }
 
-.carousel-tabs {
+.#{$vendor-prefix}carousel-tabs {
     position: absolute;
     top: $padding;
     left: 50%;
@@ -85,8 +85,8 @@
 
 //-------------------- Animations --------------------//
 
-.carousel.slide {
-    .carousel-items ul {
+.#{$vendor-prefix}carousel.slide {
+    .#{$vendor-prefix}carousel-items ul {
         @include clear-fix;
 
         > li {
@@ -95,8 +95,8 @@
     }
 }
 
-.carousel.fade {
-    .carousel-items ul {
+.#{$vendor-prefix}carousel.fade {
+    .#{$vendor-prefix}carousel-items ul {
         position: relative;
 
         > li {
@@ -114,19 +114,19 @@
 
 //-------------------- Modifiers --------------------//
 
-.carousel--wide {
-    @extend .carousel;
+.#{$vendor-prefix}carousel--wide {
+    @extend .#{$vendor-prefix}carousel;
 
-    .carousel-items {
+    .#{$vendor-prefix}carousel-items {
         /* 16:9 ratio */
         padding-bottom: 56.25%;
     }
 }
 
-.carousel--square {
-    @extend .carousel;
+.#{$vendor-prefix}carousel--square {
+    @extend .#{$vendor-prefix}carousel;
 
-    .carousel-items {
+    .#{$vendor-prefix}carousel-items {
         /* 1:1 ratio */
         padding-bottom: 100%;
     }

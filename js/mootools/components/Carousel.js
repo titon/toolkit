@@ -197,10 +197,10 @@ Toolkit.Carousel = new Class({
 
         // Update tabs
         if (this.tabs.length) {
-            this.tabs.removeClass('is-active');
+            this.tabs.removeClass(Toolkit.options.isPrefix + 'active');
 
             if (this.tabs[index]) {
-                this.tabs[index].addClass('is-active');
+                this.tabs[index].addClass(Toolkit.options.isPrefix + 'active');
             }
         }
 
@@ -267,7 +267,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     start: function() {
-        this.element.removeClass('is-stopped');
+        this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = false;
 
         this.fireEvent('start');
@@ -281,7 +281,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     stop: function() {
-        this.element.addClass('is-stopped');
+        this.element.addClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = true;
 
         this.fireEvent('stop');

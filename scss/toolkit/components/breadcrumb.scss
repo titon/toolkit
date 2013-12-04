@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.breadcrumb {
+.#{$vendor-prefix}breadcrumb {
     text-align: left;
     margin: $margin 0;
     background: $gray;
@@ -42,14 +42,14 @@
         }
     }
 
-    &.small a {
+    &.#{$size-small-class} a {
         @include size-small;
         padding-right: 0;
 
         .caret { margin-left: $small-padding; }
     }
 
-    &.large a {
+    &.#{$size-large-class} a {
         @include size-large;
         padding-right: 0;
 

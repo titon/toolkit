@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.blackout {
+.#{$vendor-prefix}blackout {
     position: fixed;
     top: 0;
     left: 0;

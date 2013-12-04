@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.pagination {
+.#{$vendor-prefix}pagination {
     display: block;
     margin: $margin 0;
 
@@ -27,7 +27,7 @@
             display: block;
         }
 
-        &.is-active {
+        &.#{$state-is-prefix}active {
             z-index: 1;
         }
     }
@@ -35,8 +35,8 @@
 
 //-------------------- Modifiers --------------------//
 
-.pagination--grouped {
-    @extend .pagination;
+.#{$vendor-prefix}pagination--grouped {
+    @extend .#{$vendor-prefix}pagination;
 
     li {
         margin-left: -1px;

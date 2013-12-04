@@ -8,43 +8,43 @@
 
 //-------------------- Button --------------------//
 
-.button.skew { border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0; }
+.#{$vendor-prefix}button.skew { border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0; }
 
 //-------------------- ButtonGroup --------------------//
 
-.button-group.skew {
+.#{$vendor-prefix}button-group.skew {
     border-top-left-radius: $skew;
     border-top-right-radius: $skew;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    > li:first-child .button,
-    > .button:first-child,
-    > .button.first {
+    > li:first-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:first-child,
+    > .#{$vendor-prefix}button.first {
         border-top-left-radius: $skew;
         border-bottom-left-radius: 0;
     }
 
-    > li:last-child .button,
-    > .button:last-child,
-    > .button.last {
+    > li:last-child .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:last-child,
+    > .#{$vendor-prefix}button.last {
         border-top-right-radius: $skew;
         border-bottom-right-radius: 0;
     }
 }
 
-.button-group--vertical {
+.#{$vendor-prefix}button-group--vertical {
     &.skew {
         border-top-left-radius: $skew-y 1.5rem;
         border-bottom-left-radius: $skew-y 1.5rem;
 
-        > li:first-child .button,
-        > .button:first-child {
+        > li:first-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:first-child {
             border-top-left-radius: $skew-reverse;
         }
 
-        > li:last-child .button,
-        > .button:last-child {
+        > li:last-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:last-child {
             border-bottom-left-radius: $skew-reverse;
             border-top-right-radius: 0;
         }
@@ -54,13 +54,13 @@
         border-top-right-radius: $skew-y 1.25rem;
         border-bottom-right-radius: $skew-y 1.25rem;
 
-        > li:first-child .button,
-        > .button:first-child {
+        > li:first-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:first-child {
             border-top-right-radius: $skew-reverse;
         }
 
-        > li:last-child .button,
-        > .button:last-child {
+        > li:last-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:last-child {
             border-bottom-right-radius: $skew-reverse;
         }
     }
@@ -68,7 +68,7 @@
 
 //-------------------- Pagination --------------------//
 
-.pagination--grouped.skew {
+.#{$vendor-prefix}pagination--grouped.skew {
     ul {
         border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
     }
@@ -84,7 +84,7 @@
 
 //-------------------- Visual --------------------//
 
-.visual-gloss.skew:after {
+.#{$vendor-prefix}visual-gloss.skew:after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem;

@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.button {
+.#{$vendor-prefix}button {
     @include reset-inline-block;
     @include size-medium;
     cursor: pointer;
@@ -16,9 +16,9 @@
     white-space: nowrap;
     background: $gray;
 
-    &.small, .small & { @include size-small; }
-    &.medium, .medium & { @include size-medium; }
-    &.large, .large & { @include size-large; }
+    &.#{$size-small-class}, .#{$size-small-class} & { @include size-small; }
+    &.#{$size-medium-class}, .#{$size-medium-class} & { @include size-medium; }
+    &.#{$size-large-class}, .#{$size-large-class} & { @include size-large; }
 
     &.round { border-radius: $round; }
     &.square { border-radius: 0; }

@@ -40,7 +40,7 @@ Toolkit.Dropdown = new Class({
      */
     hide: function() {
         return this.parent(function() {
-            this.node.removeClass('is-active');
+            this.node.removeClass(Toolkit.options.isPrefix + 'active');
         }.bind(this));
     },
 
@@ -51,7 +51,7 @@ Toolkit.Dropdown = new Class({
      */
     show: function(node) {
         this.parent(node);
-        this.node.addClass('is-active');
+        this.node.addClass(Toolkit.options.isPrefix + 'active');
 
         return this;
     },

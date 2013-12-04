@@ -6,12 +6,12 @@
 
 @import "../common";
 
-.button-group {
+.#{$vendor-prefix}button-group {
     @include reset-inline-block;
     white-space: nowrap;
 
     > li,
-    > .button {
+    > .#{$vendor-prefix}button {
         float: left;
         margin-left: -1px !important;
         border-radius: 0;
@@ -19,14 +19,14 @@
         &:first-child { margin-left: 0; }
 
         &:hover,
-        &.is-active { z-index: 1; }
+        &.#{$state-is-prefix}active { z-index: 1; }
     }
 
     > li {
         position: relative;
         list-style: none;
 
-        .button {
+        .#{$vendor-prefix}button {
             display: block;
             border-radius: 0;
         }
@@ -35,16 +35,16 @@
     &.round {
         border-radius: $round;
 
-        > li:first-child .button,
-        > .button:first-child,
-        > .button.first {
+        > li:first-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:first-child,
+        > .#{$vendor-prefix}button.first {
             border-top-left-radius: $round;
             border-bottom-left-radius: $round;
         }
 
-        > li:last-child .button,
-        > .button:last-child,
-        > .button.last {
+        > li:last-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:last-child,
+        > .#{$vendor-prefix}button.last {
             border-top-right-radius: $round;
             border-bottom-right-radius: $round;
         }
@@ -54,18 +54,18 @@
 }
 
 // Space out groups
-.button-group + .button-group {
+.#{$vendor-prefix}button-group + .#{$vendor-prefix}button-group {
     margin-left: $margin;
 }
 
 //-------------------- Modifiers --------------------//
 
-.button-group--vertical {
-    @extend .button-group;
+.#{$vendor-prefix}button-group--vertical {
+    @extend .#{$vendor-prefix}button-group;
     vertical-align: top;
 
     > li,
-    > .button {
+    > .#{$vendor-prefix}button {
         float: none;
         display: block;
         margin: -1px 0 0 0 !important;
@@ -80,38 +80,38 @@
     &.pill,
     &.skew,
     &.skew-reverse {
-        .button { border-radius: 0; }
+        .#{$vendor-prefix}button { border-radius: 0; }
     }
 
     &.round {
-        > li:first-child .button,
-        > .button:first-child,
-        > .button.first {
+        > li:first-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:first-child,
+        > .#{$vendor-prefix}button.first {
             border-top-left-radius: $round;
             border-top-right-radius: $round;
         }
 
-        > li:last-child .button,
-        > .button:last-child,
-        > .button.last {
+        > li:last-child .#{$vendor-prefix}button,
+        > .#{$vendor-prefix}button:last-child,
+        > .#{$vendor-prefix}button.last {
             border-bottom-left-radius: $round;
             border-bottom-right-radius: $round;
         }
     }
 }
 
-.button-group--justified {
-    @extend .button-group;
+.#{$vendor-prefix}button-group--justified {
+    @extend .#{$vendor-prefix}button-group;
     display: table;
     width: 100%;
 
     > li,
-    > .button {
+    > .#{$vendor-prefix}button {
         float: none;
         display: table-cell;
         margin: 0 !important;
     }
 
-    > li:not(:first-child) .button,
-    > .button:not(:first-child) { border-left: 0; }
+    > li:not(:first-child) .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button:not(:first-child) { border-left: 0; }
 }

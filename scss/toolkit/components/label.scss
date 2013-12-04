@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.label {
+.#{$vendor-prefix}label {
     @include reset-inline-block;
     font-size: .7rem;
     line-height: 100%;
@@ -18,12 +18,12 @@
     top: -1px;
     letter-spacing: 1px;
 
-    &.small {
+    &.#{$size-small-class} {
         font-size: .6rem;
         padding: .2rem .35rem;
     }
 
-    &.large {
+    &.#{$size-large-class} {
         font-size: .8rem;
         padding: .35rem .5rem;
     }
@@ -40,14 +40,14 @@
 
 //-------------------- Modifiers --------------------//
 
-.label--badge {
-    @extend .label;
+.#{$vendor-prefix}label--badge {
+    @extend .#{$vendor-prefix}label;
 
     border-radius: 1rem;
 }
 
-.label--arrow-left {
-    @extend .label;
+.#{$vendor-prefix}label--arrow-left {
+    @extend .#{$vendor-prefix}label;
 
     border-top-left-radius: 1px;
     border-bottom-left-radius: 1px;
@@ -61,12 +61,12 @@
         border-right-color: $gray-dark;
     }
 
-    &.small:after { border-width: .5rem; }
-    &.large:after { border-width: .75rem; }
+    &.#{$size-small-class}:after { border-width: .5rem; }
+    &.#{$size-large-class}:after { border-width: .75rem; }
 }
 
-.label--arrow-right {
-    @extend .label;
+.#{$vendor-prefix}label--arrow-right {
+    @extend .#{$vendor-prefix}label;
 
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
@@ -80,12 +80,12 @@
         border-left-color: $gray-dark;
     }
 
-    &.small:after { border-width: .5rem; }
-    &.large:after { border-width: .75rem; }
+    &.#{$size-small-class}:after { border-width: .5rem; }
+    &.#{$size-large-class}:after { border-width: .75rem; }
 }
 
-.label--ribbon-left {
-    @extend .label;
+.#{$vendor-prefix}label--ribbon-left {
+    @extend .#{$vendor-prefix}label;
 
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -100,8 +100,8 @@
     }
 }
 
-.label--ribbon-right {
-    @extend .label;
+.#{$vendor-prefix}label--ribbon-right {
+    @extend .#{$vendor-prefix}label;
 
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

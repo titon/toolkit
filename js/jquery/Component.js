@@ -128,7 +128,7 @@ Toolkit.Component = function() {
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.addClass('is-loading');
+                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
                     this.position(this._loadingTemplate(type));
                 }
@@ -146,7 +146,7 @@ Toolkit.Component = function() {
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.removeClass('is-loading');
+                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
                 }
 
                 this.position(response);
@@ -155,8 +155,8 @@ Toolkit.Component = function() {
                 delete this.cache[url];
 
                 this.element
-                    .removeClass('is-loading')
-                    .addClass('has-failed');
+                    .removeClass(Toolkit.options.isPrefix + 'loading')
+                    .addClass(Toolkit.options.hasPrefix + 'failed');
 
                 this.position(this._errorTemplate(type));
             });
@@ -214,7 +214,7 @@ Toolkit.Component = function() {
      */
     this._errorTemplate = function(component) {
         return $('<div/>')
-            .addClass(component + '-error')
+            .addClass(Toolkit.options.vendor + component + '-error')
             .text(Toolkit.messages.error);
     };
 
@@ -226,7 +226,7 @@ Toolkit.Component = function() {
      */
     this._loadingTemplate = function(component) {
         return $('<div/>')
-            .addClass(component + '-loading')
+            .addClass(Toolkit.options.vendor + component + '-loading')
             .text(Toolkit.messages.loading);
     };
 

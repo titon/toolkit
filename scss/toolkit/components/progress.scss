@@ -6,24 +6,24 @@
 
 @import "../common";
 
-.progress {
+.#{$vendor-prefix}progress {
     overflow: hidden;
     position: relative;
     background: $gray;
 
-    &.small .progress-bar {
+    &.#{$size-small-class} .#{$vendor-prefix}progress-bar {
         height: 1rem;
         line-height: 1rem;
         font-size: $small-size;
     }
 
-    &.large .progress-bar {
+    &.#{$size-large-class} .#{$vendor-prefix}progress-bar {
         height: 2rem;
         line-height: 2rem;
         font-size: $large-size;
     }
 
-    .progress-bar + .progress-bar {
+    .#{$vendor-prefix}progress-bar + .#{$vendor-prefix}progress-bar {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
@@ -31,7 +31,7 @@
     @include clear-fix;
 }
 
-.progress-bar {
+.#{$vendor-prefix}progress-bar {
     height: 1.5rem;
     line-height: 1.5rem;
     overflow: hidden;
@@ -43,10 +43,10 @@
     @include transition(width .6s, background $progress-transition);
 }
 
-.progress.round {
+.#{$vendor-prefix}progress.round {
     border-radius: $round;
 
-    .progress-bar {
+    .#{$vendor-prefix}progress-bar {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }

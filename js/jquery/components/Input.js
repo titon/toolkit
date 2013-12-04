@@ -22,6 +22,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
         this.fireEvent('init');
 
         var options = this.options,
+            vendor = Toolkit.options.vendor,
             buildWrapper = this._buildWrapper,
             onChange = this.__change.bind(this);
 
@@ -32,7 +33,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
 
                 el.wrap(buildWrapper(el));
 
-                $('<label/>').addClass('checkbox')
+                $('<label/>').addClass(vendor + 'checkbox')
                     .attr('for', el.attr('id'))
                     .insertAfter(el);
             });
@@ -45,7 +46,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
 
                 el.wrap(buildWrapper(el));
 
-                $('<label/>').addClass('radio')
+                $('<label/>').addClass(vendor + 'radio')
                     .attr('for', el.attr('id'))
                     .insertAfter(el);
             });
@@ -65,9 +66,9 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
 
                 el.wrap(buildWrapper(el));
 
-                $('<div/>').addClass('select')
-                    .append( $('<div/>').addClass('select-arrow').html('<span class="caret-down"></span>') )
-                    .append( $('<div/>').addClass('select-label').text(label) )
+                $('<div/>').addClass(vendor + 'select')
+                    .append( $('<div/>').addClass(vendor + 'select-arrow').html('<span class="caret-down"></span>') )
+                    .append( $('<div/>').addClass(vendor + 'select-label').text(label) )
                     .css('min-width', width)
                     .insertAfter(el);
 
@@ -85,7 +86,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
      * @returns {jQuery}
      */
     this._buildWrapper = function(element) {
-        var div = $('<div/>').addClass('custom-input'),
+        var div = $('<div/>').addClass(Toolkit.options.vendor + 'custom-input'),
             classes = (element.attr('class') || '').replace(/\binput\b/, '').trim();
 
         if (classes) {
@@ -105,7 +106,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
         var select = e.currentTarget;
 
         if (select[select.selectedIndex]) {
-            $(select).parent().find('.select-label')
+            $(select).parent().find('.' + Toolkit.options.vendor + 'select-label')
                 .text(select[select.selectedIndex].textContent);
         }
     };

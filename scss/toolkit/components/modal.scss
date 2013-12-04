@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.modal {
+.#{$vendor-prefix}modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -21,17 +21,17 @@
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
 
-    &.is-loading {
-        .modal-close { display: none; }
+    &.#{$state-is-prefix}loading {
+        .#{$vendor-prefix}modal-close { display: none; }
     }
 
-    &.is-draggable {
-        .modal-inner { cursor: default; }
-        .modal-head { cursor: move; }
+    &.#{$state-is-prefix}draggable {
+        .#{$vendor-prefix}modal-inner { cursor: default; }
+        .#{$vendor-prefix}modal-head { cursor: move; }
     }
 }
 
-.modal-close {
+.#{$vendor-prefix}modal-close {
     position: absolute;
     top: $padding;
     right: $padding;
@@ -42,28 +42,28 @@
     &:hover { opacity: 1; }
 }
 
-.modal-inner {
+.#{$vendor-prefix}modal-inner {
     position: relative;
     margin: 0 auto;
     background: $gray;
 }
 
-.modal-head,
-.modal-body,
-.modal-foot,
-.modal-loading,
-.modal-error {
+.#{$vendor-prefix}modal-head,
+.#{$vendor-prefix}modal-body,
+.#{$vendor-prefix}modal-foot,
+.#{$vendor-prefix}modal-loading,
+.#{$vendor-prefix}modal-error {
     padding: $padding;
 }
 
 // Remove margins from text elements
-.modal-body {
+.#{$vendor-prefix}modal-body {
     @include content-spacing;
 }
 
 //-------------------- Modifiers --------------------//
 
-.modal.is-fullscreen {
+.#{$vendor-prefix}modal.#{$state-is-prefix}fullscreen {
     top: 0;
     left: 0;
     margin: 0;
@@ -76,7 +76,7 @@
 
 //-------------------- Animations --------------------//
 
-.modal {
+.#{$vendor-prefix}modal {
     &.from-above,
     &.from-below,
     &.slide-in-top,
@@ -85,12 +85,12 @@
     &.slide-in-right,
     &.flip,
     &.flip-vert {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             opacity: 0;
             @include transition(all $modal-transition);
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             opacity: 1;
         }
     }
@@ -101,63 +101,63 @@
     }
 
     &.from-above {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform(scale(1.3));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(scale(1));
         }
     }
 
     &.from-below {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform(scale(0.7));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(scale(1));
         }
     }
 
     &.slide-in-top {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform(translateY(-50%));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(translateY(0));
         }
     }
 
     &.slide-in-bottom {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform(translateY(50%));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(translateY(0));
         }
     }
 
     &.slide-in-left {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
             @include transform(translateX(-50%));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(translateX(0));
         }
     }
 
     &.slide-in-right {
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
             @include transform(translateX(50%));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(translateX(0));
         }
     }
@@ -215,12 +215,12 @@
     &.flip {
         @include perspective(1300px);
 
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform-style(preserve-3d);
             @include transform(rotateY(-70deg));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(rotateY(0deg));
         }
     }
@@ -228,12 +228,12 @@
     &.flip-vert {
         @include perspective(1300px);
 
-        .modal-handle {
+        .#{$vendor-prefix}modal-handle {
             @include transform-style(preserve-3d);
             @include transform(rotateX(-70deg));
         }
 
-        &.show .modal-handle {
+        &.show .#{$vendor-prefix}modal-handle {
             @include transform(rotateX(0deg));
         }
     }

@@ -270,7 +270,7 @@ Toolkit.Component = new Class({
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.addClass('is-loading');
+                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
                     this.position(this._loadingTemplate());
                 }
@@ -281,7 +281,7 @@ Toolkit.Component = new Class({
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
-                    this.element.removeClass('is-loading');
+                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
                 }
 
                 this.position(response);
@@ -291,8 +291,8 @@ Toolkit.Component = new Class({
                 delete this.cache[url];
 
                 this.element
-                    .removeClass('is-loading')
-                    .addClass('has-failed');
+                    .removeClass(Toolkit.options.isPrefix + 'loading')
+                    .addClass(Toolkit.options.hasPrefix + 'failed');
 
                 this.position(this._errorTemplate());
             }.bind(this)

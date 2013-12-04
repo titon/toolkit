@@ -8,7 +8,7 @@
 
 //-------------------- Gloss --------------------//
 
-.visual-gloss {
+.#{$vendor-prefix}visual-gloss {
     &:after {
         content: "";
         position: absolute;
@@ -29,7 +29,7 @@
 
 //-------------------- Reflection --------------------//
 
-.visual-reflect:after {
+.#{$vendor-prefix}visual-reflect:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -41,7 +41,7 @@
 
 //-------------------- Glare --------------------//
 
-.visual-glare:after {
+.#{$vendor-prefix}visual-glare:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -53,7 +53,7 @@
 
 //-------------------- Popout --------------------//
 
-.visual-popout {
+.#{$vendor-prefix}visual-popout {
     box-shadow: 0 6px 0 0 black(.25) !important;
     top: -3px;
 

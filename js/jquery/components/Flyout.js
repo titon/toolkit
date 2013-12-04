@@ -93,7 +93,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      */
     this.hide = function() {
         // Must be called even if the menu is hidden
-        this.node.removeClass('is-active');
+        this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
         if (!this.current || !this.isVisible()) {
             return this;
@@ -207,7 +207,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
         }
 
         this.fireEvent('load', node);
-        this.node.addClass('is-active');
+        this.node.addClass(Toolkit.options.isPrefix + 'active');
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -271,7 +271,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
         }
 
         if (parent.is('body')) {
-            menu.addClass('is-root');
+            menu.addClass(Toolkit.options.isPrefix + 'root');
         }
 
         if (limit && data.children.length > limit) {
@@ -301,7 +301,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
                         text: child.title
                     });
 
-                    li.addClass('flyout-heading');
+                    li.addClass(Toolkit.options.vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -318,7 +318,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
                 if (child.children && child.children.length) {
                     this._buildMenu(li, child);
 
-                    li.addClass('has-children')
+                    li.addClass(Toolkit.options.hasPrefix + 'children')
                         .on('mouseenter', this.__positionChild.bind(this, li))
                         .on('mouseleave', this.__hideChild.bind(this, li));
                 }
@@ -405,7 +405,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      */
     this.__hideChild = function(parent) {
         parent = $(parent);
-        parent.removeClass('is-open');
+        parent.removeClass(Toolkit.options.isPrefix + 'open');
         parent.children(this.options.contentElement).removeAttr('style');
 
         this.fireEvent('hideChild', parent);
@@ -453,7 +453,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
             menu.css('top', 0);
         }
 
-        parent.addClass('is-open');
+        parent.addClass(Toolkit.options.isPrefix + 'open');
 
         this.fireEvent('showChild', parent);
     };

@@ -6,14 +6,14 @@
 
 @import "../common";
 
-.custom-input {
+.#{$vendor-prefix}custom-input {
     @include reset-inline-block;
 }
 
 // Checkbox, radio
-.custom-input {
-    .checkbox,
-    .radio {
+.#{$vendor-prefix}custom-input {
+    .#{$vendor-prefix}checkbox,
+    .#{$vendor-prefix}radio {
         @include reset-inline-block;
         background: $gray-lightest;
         border: 1px solid $gray-dark;
@@ -26,26 +26,26 @@
         &:hover { border-color: $gray-darkest; }
     }
 
-    .radio { border-radius: 50%; }
+    .#{$vendor-prefix}radio { border-radius: 50%; }
 
     input {
         display: none;
 
         // Style when the associated label is being hovered
-        &:hover + .checkbox,
-        &:hover + .radio {
+        &:hover + .#{$vendor-prefix}checkbox,
+        &:hover + .#{$vendor-prefix}radio {
             border-color: $gray-darkest;
         }
 
         // Style when the checkbox is checked
-        &:checked + .checkbox,
-        &:checked + .radio {
+        &:checked + .#{$vendor-prefix}checkbox,
+        &:checked + .#{$vendor-prefix}radio {
             border-color: $info;
         }
 
         // Style when input is disabled
-        &[disabled] + .checkbox,
-        &[disabled] + .radio {
+        &[disabled] + .#{$vendor-prefix}checkbox,
+        &[disabled] + .#{$vendor-prefix}radio {
             cursor: not-allowed;
             border-color: $gray;
         }
@@ -53,8 +53,8 @@
 }
 
 // Select
-.custom-input {
-    .select {
+.#{$vendor-prefix}custom-input {
+    .#{$vendor-prefix}select {
         @include reset-inline-block;
         cursor: pointer;
         background: $gray-lightest;
@@ -64,15 +64,15 @@
         line-height: 1rem;
     }
 
-    .select-label,
-    .select-arrow {
+    .#{$vendor-prefix}select-label,
+    .#{$vendor-prefix}select-arrow {
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
         @include size-medium;
     }
 
-    .select-arrow {
+    .#{$vendor-prefix}select-arrow {
         float: right;
 
         .caret-down { border-top-color: #000; }
@@ -88,17 +88,17 @@
         width: 100%;
 
         // Style when the select is hovered
-        &:hover + .select {
+        &:hover + .#{$vendor-prefix}select {
             border-color: $gray-darkest;
         }
 
         // Style when the select is focused
-        &:focus + .select {
+        &:focus + .#{$vendor-prefix}select {
             border-color: $info;
         }
 
         // Style when select is disabled
-        &[disabled] + .select {
+        &[disabled] + .#{$vendor-prefix}select {
             cursor: not-allowed;
             color: $gray-darkest;
             border-color: $gray;

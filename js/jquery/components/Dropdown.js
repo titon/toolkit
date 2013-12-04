@@ -42,7 +42,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
     this.hide = function() {
         if (this.element && this.element.is(':shown')) {
             this.element.conceal();
-            this.node.removeClass('is-active');
+            this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
             this.fireEvent('hide');
         }
@@ -60,7 +60,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
         this.element.reveal();
 
         this.node = $(node);
-        this.node.addClass('is-active');
+        this.node.addClass(Toolkit.options.isPrefix + 'active');
 
         this.fireEvent('show');
 

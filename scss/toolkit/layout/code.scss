@@ -44,7 +44,7 @@ pre {
         border: none;
     }
 
-    &.is-scrollable {
+    &.#{$state-is-prefix}scrollable {
         max-height: 350px;
         overflow-y: auto;
     }

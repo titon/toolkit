@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.dropdown {
+.#{$vendor-prefix}dropdown {
     display: none;
     text-align: left;
     position: absolute;
@@ -21,7 +21,7 @@
     @include transition(opacity .3s);
 
     // Nested dropdowns
-    .dropdown {
+    .#{$vendor-prefix}dropdown {
         display: block;
         top: 0;
         left: 90%;
@@ -42,7 +42,7 @@
             }
         }
 
-        &.has-children {
+        &.#{$state-has-prefix}children {
             > a .caret-right { display: inline-block; }
         }
 
@@ -50,7 +50,7 @@
         &:hover {
             > a { background: $gray-lightest; }
 
-            .dropdown {
+            .#{$vendor-prefix}dropdown {
                 visibility: visible;
                 opacity: 1;
                 left: 100%;
@@ -64,46 +64,46 @@
     }
 }
 
-.dropdown,
-.dropdown ul {
+.#{$vendor-prefix}dropdown,
+.#{$vendor-prefix}dropdown ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.dropdown-divider {
+.#{$vendor-prefix}dropdown-divider {
     margin: ($margin / 2) 0;
     border-top: 1px solid $gray-dark;
 }
 
-.dropdown-heading {
+.#{$vendor-prefix}dropdown-heading {
     padding: $small-padding;
     background-color: $gray-dark;
 }
 
 //-------------------- Modifiers --------------------//
 
-.dropdown.on-top {
+.#{$vendor-prefix}dropdown.on-top {
     top: auto;
     bottom: 100%;
 }
 
-.dropdown.on-right {
+.#{$vendor-prefix}dropdown.on-right {
     top: auto;
     left: 100%;
 }
 
-.dropdown.on-left {
+.#{$vendor-prefix}dropdown.on-left {
     top: auto;
     left: auto;
     right: 100%;
 }
 
-.dropdown.push-over {
+.#{$vendor-prefix}dropdown.push-over {
     left: auto;
     right: 0;
 }
 
-.dropdown.pull-up {
+.#{$vendor-prefix}dropdown.pull-up {
     bottom: 0;
 }

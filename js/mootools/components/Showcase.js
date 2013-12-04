@@ -149,7 +149,7 @@ Toolkit.Showcase = new Class({
                 this.blackout.hide();
             }
 
-            this.element.removeClass('is-single');
+            this.element.removeClass(Toolkit.options.isPrefix + 'single');
 
             this.items
                 .removeProperty('style')
@@ -191,8 +191,8 @@ Toolkit.Showcase = new Class({
         if (this.tabs) {
             var listTabs = this.tabs.getElements('a');
 
-            listTabs.removeClass('is-active');
-            listTabs[index].addClass('is-active');
+            listTabs.removeClass(Toolkit.options.isPrefix + 'active');
+            listTabs[index].addClass(Toolkit.options.isPrefix + 'active');
         }
 
         // Fade out previous item
@@ -212,7 +212,7 @@ Toolkit.Showcase = new Class({
 
         // Create image and animate
         } else {
-            element.addClass('is-loading');
+            element.addClass(Toolkit.options.isPrefix + 'loading');
 
             // Preload image
             var img = new Image();
@@ -229,12 +229,12 @@ Toolkit.Showcase = new Class({
 
                 // Create the caption
                 if (item.title) {
-                    listItem.grab(new Element('div.showcase-caption').set('html', item.title));
+                    listItem.grab(new Element('div.' + Toolkit.options.vendor + 'showcase-caption').set('html', item.title));
                 }
 
                 // Reveal the image after animation
                 setTimeout(function() {
-                    element.removeClass('is-loading');
+                    element.removeClass(Toolkit.options.isPrefix + 'loading');
                     listItem.addClass('show').grab(img);
                     self._reposition();
                 }, options.transition);
@@ -299,7 +299,7 @@ Toolkit.Showcase = new Class({
     show: function(node) {
         this.node = node;
         this.currentIndex = this.previousIndex = 0;
-        this.element.addClass('is-loading');
+        this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
         var options = this.options,
             read = this.readValue,
@@ -368,7 +368,7 @@ Toolkit.Showcase = new Class({
         }
 
         if (items.length <= 1) {
-            this.element.addClass('is-single');
+            this.element.addClass(Toolkit.options.isPrefix + 'single');
         }
 
         this.fireEvent('load', items);

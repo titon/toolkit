@@ -53,7 +53,7 @@ Toolkit.Pin = new Class({
         }
 
         // Set defaults
-        this.element.addClass('pin');
+        this.element.addClass(Toolkit.options.vendor + 'pin');
         this.elementTop = this.element.getStyle('top').toInt();
 
         // Set events
@@ -135,7 +135,7 @@ Toolkit.Pin = new Class({
         if (wScroll.y < pSize.top) {
             this.element
                 .removeProperty('style')
-                .removeClass('is-pinned');
+                .removeClass(Toolkit.options.isPrefix + 'pinned');
 
             return;
         }
@@ -178,7 +178,7 @@ Toolkit.Pin = new Class({
 
         this.element
             .setStyles(pos)
-            .addClass('is-pinned');
+            .addClass(Toolkit.options.isPrefix + 'pinned');
 
         this.fireEvent('scroll');
     }

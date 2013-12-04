@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.showcase {
+.#{$vendor-prefix}showcase {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -19,23 +19,23 @@
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
 
-    &.is-loading,
-    &.is-single {
-        .showcase-prev,
-        .showcase-next,
-        .showcase-tabs {
+    &.#{$state-is-prefix}loading,
+    &.#{$state-is-prefix}single {
+        .#{$vendor-prefix}showcase-prev,
+        .#{$vendor-prefix}showcase-next,
+        .#{$vendor-prefix}showcase-tabs {
             display: none !important;
         }
     }
 
-    &.is-loading {
-        .showcase-close {
+    &.#{$state-is-prefix}loading {
+        .#{$vendor-prefix}showcase-close {
             display: none !important;
         }
     }
 }
 
-.showcase-close {
+.#{$vendor-prefix}showcase-close {
     position: absolute;
     top: $padding;
     right: $padding;
@@ -43,14 +43,14 @@
     padding: $padding;
 }
 
-.showcase-inner {
+.#{$vendor-prefix}showcase-inner {
     position: relative;
     padding: $padding;
     background: $gray;
     border: 1px solid $gray-dark;
 }
 
-.showcase-items {
+.#{$vendor-prefix}showcase-items {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -76,14 +76,14 @@
         }
 
         &.show {
-            .showcase-caption {
+            .#{$vendor-prefix}showcase-caption {
                 display: block;
             }
         }
     }
 }
 
-.showcase-caption {
+.#{$vendor-prefix}showcase-caption {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -98,8 +98,8 @@
     }
 }
 
-.showcase-prev,
-.showcase-next {
+.#{$vendor-prefix}showcase-prev,
+.#{$vendor-prefix}showcase-next {
     display: block;
     position: absolute;
     padding: $padding;
@@ -112,10 +112,10 @@
     &:focus { outline: none; }
 }
 
-.showcase-prev { left: $padding; }
-.showcase-next { right: $padding; }
+.#{$vendor-prefix}showcase-prev { left: $padding; }
+.#{$vendor-prefix}showcase-next { right: $padding; }
 
-.showcase-tabs {
+.#{$vendor-prefix}showcase-tabs {
     position: absolute;
     top: ($padding * 2);
     left: 50%;

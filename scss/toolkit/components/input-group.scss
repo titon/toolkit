@@ -6,14 +6,14 @@
 
 @import "../common";
 
-.input-group {
+.#{$vendor-prefix}input-group {
     display: inline-block;
     white-space: nowrap;
 
-    > .input,
-    > .input-addon,
-    > .button,
-    > .button-group {
+    > .#{$vendor-prefix}input,
+    > .#{$vendor-prefix}input-addon,
+    > .#{$vendor-prefix}button,
+    > .#{$vendor-prefix}button-group {
         float: left;
         display: inline-block;
         position: relative;
@@ -31,7 +31,7 @@
     @include clear-fix;
 }
 
-.input-addon {
+.#{$vendor-prefix}input-addon {
     border: 1px solid $gray-dark;
     background: $gray;
     vertical-align: middle;
@@ -42,19 +42,19 @@
 
 //-------------------- Modifiers --------------------//
 
-.input-group.round {
-    > .input:first-child,
-    > .input-addon:first-child,
-    > .button:first-child,
-    > .button-group:first-child .button {
+.#{$vendor-prefix}input-group.round {
+    > .#{$vendor-prefix}input:first-child,
+    > .#{$vendor-prefix}input-addon:first-child,
+    > .#{$vendor-prefix}button:first-child,
+    > .#{$vendor-prefix}button-group:first-child .#{$vendor-prefix}button {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }
 
-    > .input:last-child,
-    > .input-addon:last-child,
-    > .button:last-child,
-    > .button-group:last-child .button {
+    > .#{$vendor-prefix}input:last-child,
+    > .#{$vendor-prefix}input-addon:last-child,
+    > .#{$vendor-prefix}button:last-child,
+    > .#{$vendor-prefix}button-group:last-child .#{$vendor-prefix}button {
         border-top-right-radius: $round;
         border-bottom-right-radius: $round;
     }

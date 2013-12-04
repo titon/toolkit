@@ -6,11 +6,11 @@
 
 @import "../common";
 
-.tabs {
+.#{$vendor-prefix}tabs {
     text-align: left;
 }
 
-.tabs-nav {
+.#{$vendor-prefix}tabs-nav {
     display: block;
     margin-bottom: $margin;
 
@@ -23,16 +23,16 @@
 }
 
 // Display none on sections since visibility takes up DOM space
-.tabs-section.hide {
+.#{$vendor-prefix}tabs-section.hide {
     display: none;
 }
 
 //-------------------- Modifiers --------------------//
 
-.tabs--horizontal {
-    @extend .tabs;
+.#{$vendor-prefix}tabs--horizontal {
+    @extend .#{$vendor-prefix}tabs;
 
-    .tabs-nav {
+    .#{$vendor-prefix}tabs-nav {
         ul, ol, li, a, button {
             display: block;
             float: none;
