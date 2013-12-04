@@ -18,7 +18,7 @@
     background: $gray;
     cursor: pointer;
 
-    .#{$state-is-prefix}active & {
+    @include is-active-parent {
         background: $gray-dark;
     }
 }

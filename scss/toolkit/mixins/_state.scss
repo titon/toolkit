@@ -6,6 +6,10 @@
     &.#{$state-is-prefix}active:hover { @content; }
 }
 
+@mixin is-active-parent {
+    .#{$state-is-prefix}active & { @content; }
+}
+
 @mixin is-disabled {
     .#{$state-is-prefix}disabled > &,
     .#{$state-is-prefix}disabled > li > &,

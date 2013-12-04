@@ -42,17 +42,21 @@
         }
     }
 
-    &.#{$size-small-class} a {
-        @include size-small;
-        padding-right: 0;
+    @include is-small {
+        a {
+            @include size-small;
+            padding-right: 0;
 
-        .caret { margin-left: $small-padding; }
+            .caret { margin-left: $small-padding; }
+        }
     }
 
-    &.#{$size-large-class} a {
-        @include size-large;
-        padding-right: 0;
+    @include is-large {
+        a {
+            @include size-large;
+            padding-right: 0;
 
-        .caret { margin-left: $large-padding; }
+            .caret { margin-left: $large-padding; }
+        }
     }
 }

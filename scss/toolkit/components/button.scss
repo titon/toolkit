@@ -16,9 +16,9 @@
     white-space: nowrap;
     background: $gray;
 
-    &.#{$size-small-class}, .#{$size-small-class} & { @include size-small; }
-    &.#{$size-medium-class}, .#{$size-medium-class} & { @include size-medium; }
-    &.#{$size-large-class}, .#{$size-large-class} & { @include size-large; }
+    @include is-small(true, true) { @include size-small; }
+    @include is-medium(true, true) { @include size-medium; }
+    @include is-large(true, true) { @include size-large; }
 
     &.round { border-radius: $round; }
     &.square { border-radius: 0; }

@@ -18,12 +18,17 @@
     top: -1px;
     letter-spacing: 1px;
 
-    &.#{$size-small-class} {
+    @include is-small {
         font-size: .6rem;
         padding: .2rem .35rem;
     }
 
-    &.#{$size-large-class} {
+    @include is-medium() {
+        font-size: .7rem;
+        padding: .275rem .425rem;
+    }
+
+    @include is-large {
         font-size: .8rem;
         padding: .35rem .5rem;
     }

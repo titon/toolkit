@@ -45,3 +45,38 @@
     font-size: $large-size;
     padding: $large-padding;
 }
+
+// Generate a self selector or parent selector for assigning size classes
+@mixin is-size($size, $self: true, $parent: false) {
+    $selectors: ();
+
+    @if $self {
+        $selectors: $selectors, unquote("&." + $size);
+    }
+
+    @if $parent {
+        $selectors: $selectors, unquote("." + $size + " &");
+    }
+
+    #{$selectors} {
+        @content;
+    }
+}
+
+@mixin is-small($self: true, $parent: false) {
+    @include is-size($size-small-class, $self, $parent) {
+        @content;
+    }
+}
+
+@mixin is-medium($self: true, $parent: false) {
+    @include is-size($size-medium-class, $self, $parent) {
+        @content;
+    }
+}
+
+@mixin is-large($self: true, $parent: false) {
+    @include is-size($size-large-class, $self, $parent) {
+        @content;
+    }
+}
