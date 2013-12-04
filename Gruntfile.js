@@ -284,6 +284,22 @@ module.exports = function(grunt) {
                 files: 'scss/**/*.scss',
                 tasks: ['compass:build']
             }
+        },
+
+        // Generate documentation
+        assemble: {
+            options: {
+                assets: 'docs/assets/',
+                layoutdir: 'docs/layouts/',
+                layout: 'default.html',
+                partials: 'docs/partials/**/*.html',
+                data: 'docs/data/**/*.json'
+            },
+            docs: {
+                files: [
+                    { expand: true, cwd: 'docs/pages/', src: '**/*.html', dest: 'docs/html/', ext: '.html' }
+                ]
+            }
         }
     });
 
@@ -295,9 +311,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    //grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('assemble');
 
     // Register tasks
+    grunt.registerTask('assemble', ['assemble']);
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('dist', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
+    grunt.registerTask('distribute', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
     grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
 };

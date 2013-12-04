@@ -1,10 +1,11 @@
+.DS_Store
 .idea/
 .sass-cache/
 node_modules/
 build/
 css/**/_*.css
 npm-debug.log
-docs/_build/
+docs/html/
 *.gem
 Gemfile.lock
 
