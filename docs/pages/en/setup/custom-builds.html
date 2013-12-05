@@ -1,3 +1,32 @@
-===================
-Custom Grunt Builds
-===================
+# Custom Builds #
+
+Customizing a Toolkit build allows for specific components to be included in the output file, while ignoring the rest.
+This is especially useful for projects where certain components are not needed.
+
+To customize a build, Grunt must be installed.
+
+To specify a list of components, pass a comma separated list of component names to the grunt command line.
+
+```bash
+grunt --components=tooltip,modal,buttonGroup
+```
+
+The custom build file will be compiled and written to the `build` folder. It's as simple as that.
+
+A list of available components can be found in the `scss/toolkit/components` folder within the repository.
+
+### Effects ###
+
+Effects can be included in the build process by supplying the `effects` option in the command line.
+
+### Themes ###
+
+By default no theme is generated. This allows the use of default component functionality with no aesthetics applied.
+
+To specify a theme, use the `theme` option in the command line.
+
+```bash
+grunt --theme=titon
+```
+
+A list of available themes can be found in the `scss/toolkit/themes` folder within the repository.

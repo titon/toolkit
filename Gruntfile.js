@@ -283,6 +283,10 @@ module.exports = function(grunt) {
             styles: {
                 files: 'scss/**/*.scss',
                 tasks: ['compass:build']
+            },
+            docs: {
+                files: 'docs/pages/**/*.html',
+                tasks: ['newer:assemble:docs']
             }
         },
 
