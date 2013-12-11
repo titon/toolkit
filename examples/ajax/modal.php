@@ -3,7 +3,7 @@
 } ?>
 
 <div class="modal-head">
-    <h4>Modal Title</h4>
+    <h4>AJAX Load</h4>
 </div>
 
 <div class="modal-body">

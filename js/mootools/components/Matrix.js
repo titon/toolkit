@@ -237,14 +237,19 @@ Toolkit.Matrix = new Class({
         this.imagesLoaded = 0;
 
         this.images = this.element.getElements('img');
-        this.images.each(function(image) {
-            var src = image.src;
 
-            image.onload = this.__load;
-            image.onerror = this.__load;
-            image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-            image.src = src;
-        }, this);
+        if (this.images.length) {
+            this.images.each(function(image) {
+                var src = image.src;
+
+                image.onload = this.__load;
+                image.onerror = this.__load;
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }, this);
+        } else {
+            this.render();
+        }
 
         return this;
     }.protect(),

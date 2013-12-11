@@ -175,14 +175,15 @@ Toolkit.Modal = new Class({
      * @returns {Toolkit.Modal}
      */
     show: function(node, content) {
-        var options = this.options;
+        var options = this.options,
+            preAjaxValue = options.ajax;
 
         // Get content
         if (content) {
             options.ajax = false;
 
         } else if (node) {
-            content = node.get('href') || this.readValue(node, options.getContent);
+            content = this.readValue(node, options.getContent) || node.get('href');
 
             if (content.substr(0, 1) === '#') {
                 options.ajax = false;
@@ -204,6 +205,9 @@ Toolkit.Modal = new Class({
         } else {
             this.position(content);
         }
+
+        // Reset back to original state
+        this.options.ajax = preAjaxValue;
 
         return this;
     },

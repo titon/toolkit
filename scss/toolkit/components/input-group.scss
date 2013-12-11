@@ -8,6 +8,7 @@
 
 .#{$vendor-prefix}input-group {
     display: inline-block;
+    vertical-align: middle;
     white-space: nowrap;
 
     > .#{$vendor-prefix}input,

@@ -158,16 +158,18 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
     this.show = function(node, content) {
         node = $(node);
 
-        var options = this.options;
+        var options = this.options,
+            preAjaxValue = options.ajax;
 
         // Get content
         if (content) {
             options.ajax = false;
 
         } else if (node) {
-            content = node.attr('href') || this.readValue(node, options.getContent);
+            content = this.readValue(node, options.getContent) || node.attr('href');
 
             if (content.substr(0, 1) === '#') {
+                content = $(content).html();
                 options.ajax = false;
             }
         }
@@ -187,6 +189,9 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         } else {
             this.position(content);
         }
+
+        // Reset back to original state
+        this.options.ajax = preAjaxValue;
 
         return this;
     };

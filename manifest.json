@@ -69,12 +69,12 @@
             "js": ["components/Blackout.js"]
         }
     },
-    "breadcrumbs": {
+    "breadcrumb": {
         "category": "component",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/breadcrumbs.css"]
+            "css": ["components/breadcrumb.css"]
         }
     },
     "button": {
@@ -142,6 +142,15 @@
         "require": ["base"],
         "source": {
             "css": ["components/icon.css"]
+        }
+    },
+    "input": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/input.css"],
+            "js": ["components/Input.js"]
         }
     },
     "inputGroup": {

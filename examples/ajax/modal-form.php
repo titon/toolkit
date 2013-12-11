@@ -1,6 +1,6 @@
 <form action="ajax/modal-form.php" method="post">
     <div class="modal-head">
-        <h4>Modal Title</h4>
+        <h4>AJAX Load w/ Form Submission</h4>
     </div>
 
     <div class="modal-body">

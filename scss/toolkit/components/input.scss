@@ -41,6 +41,7 @@
         &:checked + .#{$vendor-prefix}checkbox,
         &:checked + .#{$vendor-prefix}radio {
             border-color: $info;
+            background-color: $info-light;
         }
 
         // Style when input is disabled

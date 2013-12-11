@@ -251,7 +251,8 @@ mark { background: lighten($warning-light, 25%); }
     @content;
 }
 
-.label {
+.label,
+.label--badge {
     @include label-style($default-light, $default-dark);
 
     &.is-info { @include label-style($info-light, $info-dark); }

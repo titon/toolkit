@@ -76,8 +76,8 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @returns {Toolkit.Matrix}
      */
     this.disable = function() {
-        this.element.removeProperty('style');
-        this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeProperty('style');
+        this.element.removeAttr('style');
+        this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
 
         return this;
     };
@@ -217,14 +217,19 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
         this.imagesLoaded = 0;
 
         this.images = this.element.find('img');
-        this.images.each(function(index, image) {
-            var src = image.src;
 
-            image.onload = this.__load.bind(this);
-            image.onerror = this.__load.bind(this);
-            image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-            image.src = src;
-        }.bind(this));
+        if (this.images.length) {
+            this.images.each(function(index, image) {
+                var src = image.src;
+
+                image.onload = this.__load.bind(this);
+                image.onerror = this.__load.bind(this);
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }.bind(this));
+        } else {
+            this.render();
+        }
 
         return this;
     };
