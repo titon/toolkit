@@ -285,7 +285,7 @@ module.exports = function(grunt) {
                 tasks: ['compass:build']
             },
             docs: {
-                files: 'docs/pages/**/*.html',
+                files: 'docs/pages/**/*.{md,html}',
                 tasks: ['newer:assemble:docs']
             }
         },
@@ -301,7 +301,7 @@ module.exports = function(grunt) {
             },
             docs: {
                 files: [
-                    { expand: true, cwd: 'docs/pages/', src: '**/*.html', dest: 'docs/html/', ext: '.html' }
+                    { expand: true, cwd: 'docs/pages/', src: '**/*.{md,html}', dest: 'docs/html/', ext: '.html' }
                 ]
             }
         }
