@@ -7,7 +7,6 @@
 ```
 
 # Toolkit v1.0.0 #
-
 Titon Toolkit is a collection of very powerful user interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
 
@@ -15,7 +14,6 @@ Titon makes use of the latest and greatest technology. This includes CSS3 for an
 Sass for CSS pre-processing, and Grunt for task and package management.
 
 #### Why Toolkit? ####
-
 Toolkit was built from the ground up with the following concepts and philosophies in mind.
 If any of these concepts align with your thought process or your projects requirements, than Toolkit is right for you.
 
@@ -44,7 +42,6 @@ An interactive demo can be found here: http://titon.io/toolkit
     * More/Element.Event.Pseudos (for LazyLoad, Pin, Stalker, Tooltip)
 
 #### Browser Support ####
-
 * Chrome 11+
 * Firefox 4+
 * Internet Explorer 10+
