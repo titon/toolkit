@@ -25,12 +25,12 @@ Similar to a direct download, the distribution files can be found in `dist` and 
 
 ### Bower Dependency ###
 
-Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `toolkit` as a dependency within your project's `bower.json`.
+Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `titon` as a dependency within your project's `bower.json`.
 
 ```javascript
 {
     "dependencies": {
-        "toolkit": "*"
+        "titon": "*"
     }
 }
 ```
