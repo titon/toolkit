@@ -73,7 +73,7 @@ Toolkit.Flyout = new Class({
         options = this.options;
 
         if (options.mode === 'hover') {
-            $(options.context || document.body)
+            document.id(options.context || document.body)
                 .addEvent('mouseenter:relay(' + options.delegate + ')', function() {
                     this.clearTimer('hide').startTimer('show', options.showDelay);
                 }.bind(this))

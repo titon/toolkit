@@ -107,7 +107,7 @@
             z-index: 1;
             @include transition(opacity $carousel-transition);
 
-            &.show { z-index: 2; }
+            &.show { z-index: 5; }
         }
     }
 }

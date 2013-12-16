@@ -162,22 +162,23 @@ Elements.implement({
      * Fetch the component instance from the elements collection.
      *
      * @param {String} component
-     * @returns {Function}
+     * @returns {Array|Function}
      */
     toolkit: function(component) {
         var key = '$' + component,
-            instance = null;
+            instances = [];
 
-        this.every(function(el) {
+        this.each(function(el) {
             if (el[key]) {
-                instance = el[key];
-                return false;
+                instances.push( el[key] );
             }
-
-            return true;
         });
 
-        return instance;
+        if (instances.length === 1 && instances[0]) {
+            return instances[0];
+        }
+
+        return instances;
     }
 
 });
