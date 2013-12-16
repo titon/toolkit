@@ -25,12 +25,12 @@ Similar to a direct download, the distribution files can be found in `dist` and 
 
 ### Bower Dependency ###
 
-Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `titon` as a dependency within your project's `bower.json`.
+Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `toolkit` as a dependency within your project's `bower.json`.
 
 ```javascript
 {
     "dependencies": {
-        "titon": "*"
+        "toolkit": "*"
     }
 }
 ```
@@ -38,15 +38,15 @@ Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `t
 From the project root, run `bower install` to download the package(s). Once downloaded, include the assets in your project.
 
 ```html
-<link href="/bower_components/titon/dist/toolkit.min.css" rel="stylesheet">
-<script src="/bower_components/titon/dist/toolkit-jquery.min.js"></script>
+<link href="/bower_components/toolkit/dist/toolkit.min.css" rel="stylesheet">
+<script src="/bower_components/toolkit/dist/toolkit-jquery.min.js"></script>
 ```
 
 It's also possible to include Toolkit components on a case by case basis instead of including the full component list.
 
 ```html
-<script src="/bower_components/titon/dist/jquery/toolkit.min.js"></script>
-<script src="/bower_components/titon/dist/jquery/toolkit-accordion.min.js"></script>
+<script src="/bower_components/toolkit/dist/jquery/toolkit.min.js"></script>
+<script src="/bower_components/toolkit/dist/jquery/toolkit-accordion.min.js"></script>
 ```
 
 When using this approach, the `toolkit.min.js` file is required by all components.
