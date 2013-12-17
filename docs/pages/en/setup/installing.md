@@ -1,6 +1,6 @@
 # Installing #
 
-There are many ways to get started with Toolkit. Choose the once that's right for you or your project.
+There are many ways to get started with Toolkit. Choose the one that's right for you or your project.
 
 ### Download ###
 
@@ -18,10 +18,8 @@ This provides the distribution files and the source files for a more seamless in
 Just run the following command to clone the repository.
 
 ```bash
-git clone git@github.com:titon/toolkit.git
+[sudo] git clone git@github.com:titon/toolkit.git
 ```
-
-Similar to a direct download, the distribution files can be found in `dist` and source files can be found in `scss` and `js`.
 
 ### Bower Dependency ###
 
@@ -42,14 +40,10 @@ From the project root, run `bower install` to download the package(s). Once down
 <script src="/bower_components/toolkit/dist/toolkit-jquery.min.js"></script>
 ```
 
-It's also possible to include Toolkit components on a case by case basis instead of including the full component list.
-
-```html
-<script src="/bower_components/toolkit/dist/jquery/toolkit.min.js"></script>
-<script src="/bower_components/toolkit/dist/jquery/toolkit-accordion.min.js"></script>
-```
-
-When using this approach, the `toolkit.min.js` file is required by all components.
+<div class="callout is-info">
+    It's also possible to include Toolkit components on a case by case basis instead of including the full component list.
+    [Learn more about the distribution file structure](getting-started.html#distribution-files).
+</div>
 
 ### Sass & Compass Integration ###
 
@@ -89,4 +83,4 @@ For example:
 @import "toolkit";
 ```
 
-For more information on Sass integration, jump to the [Sass development documentation](#TODO).
+For more information on Sass integration, jump to the [Sass development documentation](../development/sass.html).

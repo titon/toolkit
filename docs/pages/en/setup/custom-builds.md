@@ -21,7 +21,7 @@ grunt --components=tooltip,modal,buttonGroup
 
 After the command executes, compiled CSS and Javascript files will be written to the `build` folder. It's as simple as that.
 
-The list of available components can be found in the `manifest.json` found within the root of the project (excluding names that start with theme- or effect-).
+The list of available components can be found in the `manifest.json` found within the root of the project (excluding names that start with `theme-` or `effect-`).
 
 ### Including Effects ###
 
