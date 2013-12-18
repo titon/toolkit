@@ -168,7 +168,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.attr('href');
 
-            if (content.substr(0, 1) === '#') {
+            if (content && content.substr(0, 1) === '#') {
                 content = $(content).html();
                 options.ajax = false;
             }
@@ -222,7 +222,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
             return;
         }
 
-        this.show(e.target);
+        this.show(e.currentTarget);
     };
 
     /**

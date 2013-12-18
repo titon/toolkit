@@ -185,7 +185,7 @@ Toolkit.Modal = new Class({
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.get('href');
 
-            if (content.substr(0, 1) === '#') {
+            if (content && content.substr(0, 1) === '#') {
                 options.ajax = false;
             }
         }
