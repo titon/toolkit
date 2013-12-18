@@ -70,6 +70,10 @@ When using this approach, the `{vendor}/toolkit.min.js` file is required before 
 
 #### Source Files ####
 
+Source files are found in the `js`, `scss`, and `lib` folders.
+This is where all development and engineering is focused.
+These files will later be processed for distribution.
+
 ```
 toolkit/
 ├── js/
@@ -77,6 +81,8 @@ toolkit/
 |       ├── components/
 |       ├── Component.js
 |       └── Toolkit.js
+├── lib/
+|   └── titon-toolkit.rb
 └── scss/
     ├── toolkit/
     |   ├── components/
@@ -88,5 +94,17 @@ toolkit/
     ├── normalize.scss
     └── toolkit.scss
 ```
+
+Files are organized into folders that represent specific functionality.
+
+* The `components` folder contains source files for individual components.
+* The `effects` folder contains effects that improve components with new aesthetics.
+* The `layout` folder contains styles that alter built-in HTML tags, like forms and text.
+* The `mixins` folder contains mixins and functions for use in Sass files.
+* The `themes` folder contains custom themes built around Toolkit components.
+
+<div class="notice is-info">
+    The `lib` folder is required by Compass extensions and serves no other purpose.
+</div>
 
 ### Boilerplate Template ###
