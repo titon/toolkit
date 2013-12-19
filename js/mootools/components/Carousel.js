@@ -314,7 +314,7 @@ Toolkit.Carousel = new Class({
      * @param {DOMEvent} e
      */
     __jump: function(e) {
-        e.stop();
+        e.preventDefault();
 
         if (!this.enabled) {
             return;

@@ -466,7 +466,6 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      */
     this.__show = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         var node = $(e.target);
 

@@ -169,7 +169,7 @@ Toolkit.Tooltip = new Class({
      * @param {DOMEvent} e
      */
     __follow: function(e) {
-        e.stop();
+        e.preventDefault();
 
         var options = this.options;
 

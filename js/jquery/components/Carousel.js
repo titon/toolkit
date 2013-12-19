@@ -254,7 +254,6 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      */
     this.__jump = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         if (!this.enabled) {
             return;

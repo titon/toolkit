@@ -173,7 +173,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @param {Event} e
      */
     this.__follow = function(e) {
-        e.stopPropagation();
+        e.preventDefault();
 
         var options = this.options;
 

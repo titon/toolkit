@@ -442,7 +442,7 @@ Toolkit.Showcase = new Class({
      * @param {DOMEvent} e
      */
     __jump: function(e) {
-        e.stop();
+        e.preventDefault();
 
         this.jump(e.target.get('data-index') || 0);
     }

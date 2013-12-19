@@ -66,7 +66,7 @@ Toolkit.Dropdown = new Class({
      */
     __show: function(e, node) {
         if (typeOf(e) === 'domevent') {
-            e.stop();
+            e.preventDefault();
         }
 
         if (!this.enabled) {

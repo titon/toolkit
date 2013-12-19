@@ -216,7 +216,6 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      */
     this.__show = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         if (!this.enabled) {
             return;
@@ -233,7 +232,6 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      */
     this.__submit = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         var button = $(e.target),
             form = this.elementBody.find('form');

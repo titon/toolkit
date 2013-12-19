@@ -219,7 +219,7 @@ Toolkit.Modal = new Class({
      * @param {DOMEvent} e
      */
     __submit: function(e) {
-        e.stop();
+        e.preventDefault();
 
         var button = e.target,
             form = this.elementBody.getElement('form');

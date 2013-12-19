@@ -170,7 +170,7 @@ Toolkit.Accordion = new Class({
      * @param {DOMEvent} e
      */
     __show: function(e) {
-        e.stop();
+        e.preventDefault();
 
         if (!this.enabled) {
             return;

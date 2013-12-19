@@ -433,7 +433,7 @@ Toolkit.Component = new Class({
      */
     __hide: function(e) {
         if (typeOf(e) === 'domevent') {
-            e.stop();
+            e.preventDefault();
         }
 
         this.hide();
@@ -448,7 +448,7 @@ Toolkit.Component = new Class({
      */
     __show: function(e, node) {
         if (typeOf(e) === 'domevent') {
-            e.stop();
+            e.preventDefault();
         }
 
         if (!this.enabled) {

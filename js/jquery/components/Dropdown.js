@@ -76,7 +76,6 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
      */
     this.__show = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         if (!this.enabled) {
             return;

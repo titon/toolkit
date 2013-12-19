@@ -397,7 +397,6 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      */
     this.__jump = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         this.jump($(e.target).data('index') || 0);
     };
@@ -410,7 +409,6 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      */
     this.__show = function(e) {
         e.preventDefault();
-        e.stopPropagation();
 
         this.show(e.currentTarget);
     };
