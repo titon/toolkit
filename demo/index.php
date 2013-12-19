@@ -425,7 +425,7 @@ $components = array(
                 'bottomLeft' => 'Bottom Left',
                 'bottomCenter' => 'Bottom Center',
                 'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topRight'),
+            ), 'default' => 'topCenter'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
             'mouseThrottle' => array('title' => 'Mouse Throttle', 'type' => 'number', 'default' => 50),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),

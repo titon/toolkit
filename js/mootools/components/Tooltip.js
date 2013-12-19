@@ -21,7 +21,7 @@ Toolkit.Tooltip = new Class({
         mode: 'hover',
         ajax: false,
         follow: false,
-        position: 'topRight',
+        position: 'topCenter',
         showLoading: true,
         showTitle: true,
         getTitle: 'title',

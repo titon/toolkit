@@ -215,7 +215,7 @@ Toolkit.Tooltip.options = {
     mode: 'hover',
     ajax: false,
     follow: false,
-    position: 'topRight',
+    position: 'topCenter',
     showLoading: true,
     showTitle: true,
     getTitle: 'title',
