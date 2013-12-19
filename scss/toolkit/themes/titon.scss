@@ -148,7 +148,8 @@ mark { background: lighten($warning-light, 25%); }
             top: 2px;
         }
 
-        &:hover > a {
+        &:hover > a,
+        &.is-active a {
             background: $info;
             color: #fff;
 
@@ -226,10 +227,9 @@ mark { background: lighten($warning-light, 25%); }
         }
     }
 
-    select {
-        &:focus + .select {
-            box-shadow: 0 0 5px $info-light;
-        }
+    select:focus + .select,
+    .select.is-active {
+        box-shadow: 0 0 5px $info-light;
     }
 }
 

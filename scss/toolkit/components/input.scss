@@ -63,6 +63,11 @@
         border-radius: $round;
         white-space: nowrap;
         line-height: 1rem;
+        z-index: 3;
+
+        &.#{$state-is-prefix}active {
+            border-color: $info;
+        }
     }
 
     .#{$vendor-prefix}select-label,
@@ -84,7 +89,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1;
+        z-index: 5;
         opacity: 0;
         width: 100%;
 
@@ -103,6 +108,8 @@
             cursor: not-allowed;
             color: $gray-darkest;
             border-color: $gray;
+
+            .#{$vendor-prefix}select-arrow { opacity: $default-opacity; }
         }
     }
 }

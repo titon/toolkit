@@ -3,11 +3,11 @@ $disabled = value('disabled', false); ?>
 
 <form action="" method="get">
     <div class="field">
-        <label class="field-label" for="select">Select</label>
-        <select id="select" class="input custom-class" name="select" <?php if ($disabled) echo 'disabled'; ?>>
-            <option value="">CSS</option>
-            <option value="">HTML</option>
-            <option value="">JavaScript</option>
+        <label class="field-label" for="select_single">Select</label>
+        <select id="select_single" class="input custom-class" name="select_single" <?php if ($disabled) echo 'disabled'; ?>>
+            <option value="css">CSS</option>
+            <option value="html" selected>HTML</option>
+            <option value="js">JavaScript</option>
         </select>
     </div>
 
@@ -15,14 +15,14 @@ $disabled = value('disabled', false); ?>
         <label class="field-label" for="select_group">Select + Optgroup</label>
         <select id="select_group" class="another-class input" name="select_group" <?php if ($disabled) echo 'disabled'; ?>>
             <optgroup label="Front-end">
-                <option value="">CSS</option>
-                <option value="">HTML</option>
-                <option value="">JavaScript</option>
+                <option value="css">CSS</option>
+                <option value="html">HTML</option>
+                <option value="js">JavaScript</option>
             </optgroup>
             <optgroup label="Back-end">
-                <option value="">PHP</option>
-                <option value="">Python</option>
-                <option value="">Ruby</option>
+                <option value="php">PHP</option>
+                <option value="python">Python</option>
+                <option value="ruby">Ruby</option>
             </optgroup>
         </select>
     </div>
@@ -30,12 +30,12 @@ $disabled = value('disabled', false); ?>
     <div class="field">
         <label class="field-label" for="select_multi">Select + Multiple (Not wrapped)</label>
         <select id="select_multi" class="input" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
-            <option value="">CSS</option>
-            <option value="">HTML</option>
-            <option value="">JavaScript</option>
-            <option value="">PHP</option>
-            <option value="">Python</option>
-            <option value="">Ruby</option>
+            <option value="css">CSS</option>
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="ruby" selected>Ruby</option>
         </select>
     </div>
 
@@ -59,18 +59,22 @@ $disabled = value('disabled', false); ?>
 <script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-           $$('.example form').input({
-               checkbox: '<?php echo value('checkbox', true) ? 'input[type="checkbox"]' : ''; ?>',
-               radio: '<?php echo value('radio', true) ? 'input[type="radio"]' : ''; ?>',
-               select: '<?php echo value('select', true) ? 'select' : ''; ?>'
-           });
+            $$('.example form').input({
+                checkbox: '<?php echo value('checkbox', true) ? 'input[type="checkbox"]' : ''; ?>',
+                radio: '<?php echo value('radio', true) ? 'input[type="radio"]' : ''; ?>',
+                select: '<?php echo value('select', true) ? 'select' : ''; ?>',
+                dropdown: <?php bool('dropdown', true); ?>,
+                multiple: <?php bool('multiple', true); ?>
+            });
         });
     <?php } else { ?>
         $(function() {
             $('.example form').input({
-               checkbox: '<?php echo value('checkbox', true) ? 'input:checkbox' : ''; ?>',
-               radio: '<?php echo value('radio', true) ? 'input:radio' : ''; ?>',
-               select: '<?php echo value('select', true) ? 'select' : ''; ?>'
+                checkbox: '<?php echo value('checkbox', true) ? 'input:checkbox' : ''; ?>',
+                radio: '<?php echo value('radio', true) ? 'input:radio' : ''; ?>',
+                select: '<?php echo value('select', true) ? 'select' : ''; ?>',
+                dropdown: <?php bool('dropdown', true); ?>,
+                multiple: <?php bool('multiple', true); ?>
            });
         });
     <?php } ?>

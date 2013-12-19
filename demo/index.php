@@ -201,6 +201,8 @@ $components = array(
             'checkbox' => array('title' => 'Checkbox?', 'type' => 'boolean', 'default' => true),
             'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
+            'dropdown' => array('title' => 'Custom select dropdown?', 'type' => 'boolean', 'default' => true),
+            'multiple' => array('title' => 'Multiple select support?', 'type' => 'boolean', 'default' => true),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
         )
     ),
