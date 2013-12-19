@@ -65,7 +65,7 @@ When using this approach, the `{vendor}/toolkit.min.js` file is required before 
 
 <div class="notice is-info">
     There are no individual CSS files for components, only JavaScript.
-    The `toolkit.min.css` will still need to be included.
+    The <code>toolkit.min.css</code> will still need to be included.
 </div>
 
 #### Source Files ####
@@ -104,7 +104,52 @@ Files are organized into folders that represent specific functionality.
 * The `themes` folder contains custom themes built around Toolkit components.
 
 <div class="notice is-info">
-    The `lib` folder is required by Compass extensions and serves no other purpose.
+    The <code>lib</code> folder is required by Compass extensions and serves no other purpose.
 </div>
 
 ### Boilerplate Template ###
+
+Now that we have our assets, let's create the HTML template.
+We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://html5boilerplate.com/) as a foundation.
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Titon Toolkit</title>
+        <link href="css/toolkit.min.css" rel="stylesheet">
+        <link href="css/style.min.css" rel="stylesheet">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/toolkit-jquery.min.js"></script>
+    </head>
+    <body>
+    </body>
+</html>
+```
+
+You'll notice that we placed `toolkit.min.css` before `style.min.css`. This allows for helper classes and component styles to be inherited first.
+Placing project specific styles after Toolkit allows customization and themeing of components.
+
+Let's test our JavaScript components by placing the following code within the `<body>` tags.
+
+```html
+<button type="button" class="button" data-tooltip="This messages displays on hover.">Click Me!</button>
+
+<script>
+    $(function() {
+        $('[data-tooltip]').tooltip();
+    });
+</script>
+```
+
+Now comes the fun part, testing the code. Open up the previously created HTML file and hover your mouse over the button in the page.
+If all goes well, you shall see a contextual tooltip appear relative to the button. Pretty awesome right?
+
+<div class="callout is-warning">
+    If no styles have been defined yet, the button and tooltip component will use default styles, which look rather boring.
+</div>
+
+Getting started with Toolkit was extremely easy, and we can guarantee working in and integrating it is just as easy.
