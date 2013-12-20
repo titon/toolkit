@@ -233,6 +233,11 @@ $components = array(
             'forceLoad' => array('title' => 'Force load?', 'type' => 'boolean')
         )
     ),
+    'mask' => array(
+        'title' => 'Mask',
+        'css' => array('components/mask.css'),
+        'js' => array('components/Mask.js'),
+    ),
     'matrix' => array(
         'title' => 'Matrix',
         'css' => array('components/matrix.css'),
