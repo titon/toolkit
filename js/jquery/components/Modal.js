@@ -234,25 +234,34 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         e.preventDefault();
 
         var button = $(e.target),
-            form = this.elementBody.find('form');
+            form = this.elementBody.find('form:first');
 
         if (!form) {
             return;
         }
 
-        this.fireEvent('submit', button);
+        this.fireEvent('submit', [button, form]);
 
-        $.ajax({
+        var options = {
             url: form.attr('action'),
             type: (form.attr('method') || 'post').toUpperCase(),
-            data: form.serialize(),
             success: function(response) {
                 this.position(response);
             }.bind(this),
             error: function() {
                 this.position(this._errorTemplate('modal'));
             }.bind(this)
-        });
+        };
+
+        if (window.FormData) {
+            options.processData = false;
+            options.contentType = false;
+            options.data = new FormData(form[0]);
+        } else {
+            options.data = form.serialize();
+        }
+
+        $.ajax(options);
     };
 
     this.initialize();

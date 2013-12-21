@@ -309,8 +309,6 @@ Toolkit.Input.Select = new Class({
             return;
         }
 
-        console.log(e);
-
         var dropdown = this.dropdown;
 
         if (dropdown.isShown()) {

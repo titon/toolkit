@@ -228,12 +228,11 @@ Toolkit.Modal = new Class({
             return;
         }
 
-        this.fireEvent('submit', button);
+        this.fireEvent('submit', [button, form]);
 
-        new Request({
+        var options = {
             url: form.get('action'),
             method: form.get('method').toUpperCase(),
-            data: form.toQueryString(),
             evalScripts: true,
             onSuccess: function(response) {
                 this.position(response);
@@ -241,7 +240,15 @@ Toolkit.Modal = new Class({
             onFailure: function() {
                 this.position(this._errorTemplate());
             }.bind(this)
-        }).send();
+        }, data;
+
+        if (window.FormData) {
+            data = new FormData(form);
+        } else {
+            data = form.toQueryString();
+        }
+
+        new Request(options).send(data);
     }
 
 });
