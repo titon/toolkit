@@ -6,7 +6,10 @@
 
 @import "../common";
 
-.#{$vendor-prefix}dropdown {
+.#{$vendor-prefix}drop--down,
+.#{$vendor-prefix}drop--up,
+.#{$vendor-prefix}drop--left,
+.#{$vendor-prefix}drop--right {
     display: none;
     text-align: left;
     position: absolute;
@@ -20,13 +23,22 @@
     visibility: hidden;
     @include transition(opacity .3s);
 
-    // Nested dropdowns
-    .#{$vendor-prefix}dropdown {
+    // Nested
+    .#{$vendor-prefix}drop--down,
+    .#{$vendor-prefix}drop--up {
         display: block;
         top: 0;
         left: 90%;
         z-index: 510;
         @include transition(left .3s, opacity .3s);
+    }
+
+    // Apply to self
+    &,
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
 
     li {
@@ -50,7 +62,8 @@
         &:hover {
             > a { background: $gray-lightest; }
 
-            .#{$vendor-prefix}dropdown {
+            .#{$vendor-prefix}drop--down,
+            .#{$vendor-prefix}drop--up {
                 visibility: visible;
                 opacity: 1;
                 left: 100%;
@@ -64,46 +77,45 @@
     }
 }
 
-.#{$vendor-prefix}dropdown,
-.#{$vendor-prefix}dropdown ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.#{$vendor-prefix}dropdown-divider {
+.#{$vendor-prefix}drop-divider {
     margin: ($margin / 2) 0;
     border-top: 1px solid $gray-dark;
 }
 
-.#{$vendor-prefix}dropdown-heading {
+.#{$vendor-prefix}drop-heading {
     padding: $small-padding;
     background-color: $gray-dark;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}dropdown.on-top {
+.#{$vendor-prefix}drop--up {
     top: auto;
     bottom: 100%;
 }
 
-.#{$vendor-prefix}dropdown.on-right {
+.#{$vendor-prefix}drop--right {
     top: auto;
     left: 100%;
 }
 
-.#{$vendor-prefix}dropdown.on-left {
+.#{$vendor-prefix}drop--left {
     top: auto;
     left: auto;
     right: 100%;
 }
 
-.#{$vendor-prefix}dropdown.push-over {
-    left: auto;
-    right: 0;
+.#{$vendor-prefix}drop--right,
+.#{$vendor-prefix}drop--left {
+    &.reverse-align {
+        bottom: 0;
+    }
 }
 
-.#{$vendor-prefix}dropdown.pull-up {
-    bottom: 0;
+.#{$vendor-prefix}drop--down,
+.#{$vendor-prefix}drop--up {
+    &.reverse-align {
+        left: auto;
+        right: 0;
+    }
 }

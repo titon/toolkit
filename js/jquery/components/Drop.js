@@ -7,12 +7,12 @@
 (function($) {
     'use strict';
 
-Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
+Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
 
     /** Custom options */
-    this.options = this.setOptions(Toolkit.Dropdown.options, options);
+    this.options = this.setOptions(Toolkit.Drop.options, options);
 
-    /** List of elements to active dropdown */
+    /** List of elements to active drop */
     this.nodes = $(nodes);
 
     /** Element to toggle */
@@ -28,8 +28,11 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        $(window).on('click', this.hide.bind(this));
-        $(this.options.context || document).on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
+        var selector = this.nodes.selector;
+
+        $(this.options.context || document)
+            .blurclick(selector + ', .drop--down, .drop--up, .drop--left, .drop--right', this.hide.bind(this))
+            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), selector, this.__show.bind(this));
 
         this.fireEvent('init');
     };
@@ -37,7 +40,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
     /**
      * Hide the opened element and remove active state.
      *
-     * @returns {Toolkit.Dropdown}
+     * @returns {Toolkit.Drop}
      */
     this.hide = function() {
         if (this.element && this.element.is(':shown')) {
@@ -54,7 +57,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
      * Open the target element and apply active state.
      *
      * @param {jQuery} node
-     * @returns {Toolkit.Dropdown}
+     * @returns {Toolkit.Drop}
      */
     this.show = function(node) {
         this.element.reveal();
@@ -88,7 +91,7 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
             return;
         }
 
-        // Hide previous dropdowns
+        // Hide previous drops
         if (this.options.hideOpened && this.node && !this.node.is(node)) {
             this.hide();
         }
@@ -106,31 +109,31 @@ Toolkit.Dropdown = Toolkit.Component.create(function(nodes, options) {
     this.initialize();
 });
 
-Toolkit.Dropdown.options = {
+Toolkit.Drop.options = {
     mode: 'click',
     context: null,
-    getTarget: 'data-dropdown',
+    getTarget: 'data-drop',
     hideOpened: true
 };
 
 /**
- * Enable dropdowns on Elements collections by calling dropdown().
+ * Enable drop's on Elements collections by calling drop().
  * An object of options can be passed as the 1st argument.
  * The class instance will be cached and returned from this function.
  *
  * @example
- *     $('.js-dropdown').dropdown({
+ *     $('.js-drop').drop({
  *         hideOpened: true
  *     });
  *
  * @param {Object} [options]
  * @returns {jQuery}
  */
-$.fn.dropdown = function(options) {
-    var dropdown = new Toolkit.Dropdown(this, options);
+$.fn.drop = function(options) {
+    var drop = new Toolkit.Drop(this, options);
 
     return this.each(function() {
-        $(this).addData('toolkit.dropdown', dropdown);
+        $(this).addData('toolkit.drop', drop);
     });
 };
 

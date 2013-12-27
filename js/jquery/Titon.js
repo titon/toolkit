@@ -118,6 +118,30 @@ $.fn.addData = function(key, value) {
 };
 
 /**
+ * An event that allows the clicking of the document to trigger a callback.
+ * However, will only trigger if the element clicked is not in the exclude list or a child of.
+ * Useful for closing dropdowns and menus.
+ *
+ * Based on and credited to http://stackoverflow.com/a/7385673
+ *
+ * @param {String|jQuery} exclude
+ * @param {Function} fn
+ * @returns {jQuery}
+ */
+$.fn.blurclick = function(exclude, fn) {
+    exclude = $(exclude);
+
+    return this.mouseup(function(e) {
+        if (
+            !exclude.is(e.target) && // target isn't the exclude
+            exclude.has(e.target).length === 0 // and target isn't a child of exclude
+        ) {
+            fn.call();
+        }
+    });
+};
+
+/**
  * Position the element relative to another element in the document, or to the mouse cursor.
  * Determine the offsets through the `relativeTo` argument, which can be an event, or a jQuery element.
  * Optional account for mouse location and base offset coordinates.

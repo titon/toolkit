@@ -7,13 +7,13 @@
 (function() {
     'use strict';
 
-Toolkit.Dropdown = new Class({
+Toolkit.Drop = new Class({
     Extends: Toolkit.Component,
 
     /** Default options */
     options: {
-        delegate: '.js-dropdown',
-        getTarget: 'data-dropdown',
+        delegate: '.js-drop',
+        getTarget: 'data-drop',
         hideOpened: true
     },
 
@@ -36,7 +36,7 @@ Toolkit.Dropdown = new Class({
     /**
      * Hide the element and toggle node active state.
      *
-     * @returns {Toolkit.Dropdown}
+     * @returns {Toolkit.Drop}
      */
     hide: function() {
         return this.parent(function() {
@@ -47,7 +47,7 @@ Toolkit.Dropdown = new Class({
     /**
      * Show the element and toggle node active state.
      *
-     * @returns {Toolkit.Dropdown}
+     * @returns {Toolkit.Drop}
      */
     show: function(node) {
         this.parent(node);
@@ -79,7 +79,7 @@ Toolkit.Dropdown = new Class({
             return;
         }
 
-        // Hide previous dropdowns
+        // Hide previous drops
         if (this.options.hideOpened && this.node && this.node !== node) {
             this.hide();
         }
@@ -97,27 +97,24 @@ Toolkit.Dropdown = new Class({
 });
 
 /**
- * Enable dropdowns on Elements collections by calling dropdown().
+ * Enable drop's on Elements collections by calling drop().
  * An object of options can be passed as the 1st argument.
  * The class instance will be cached and returned from this function.
  *
  * @example
- *     $$('.js-dropdown').dropdown({
+ *     $$('.js-drop').drop({
  *         hideOpened: true
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Dropdown}
+ * @returns {Toolkit.Drop}
  */
-Elements.implement('dropdown', function(options) {
-    options = options || {};
-    options.delegate = options.delegate || '.js-dropdown';
-
-    var dropdown = new Toolkit.Dropdown(this, options);
+Elements.implement('drop', function(options) {
+    var drop = new Toolkit.Drop(this, options);
 
     return this.each(function(el) {
-        if (!el.$dropdown) {
-            el.$dropdown = dropdown;
+        if (!el.$drop) {
+            el.$drop = drop;
         }
     });
 });

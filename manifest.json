@@ -110,13 +110,13 @@
             "js": ["components/Carousel.js"]
         }
     },
-    "dropdown": {
+    "drop": {
         "category": "component",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/dropdown.css"],
-            "js": ["components/Dropdown.js"]
+            "css": ["components/drop.css"],
+            "js": ["components/Drop.js"]
         }
     },
     "flyout": {

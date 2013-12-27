@@ -130,22 +130,18 @@ $components = array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'scrollable' => 'Scrollable'))
         )
     ),
-    'dropdown' => array(
-        'title' => 'Dropdown',
-        'css' => array('components/dropdown.css'),
-        'js' => array('components/Dropdown.js'),
+    'drop' => array(
+        'title' => 'Drop',
+        'css' => array('components/drop.css'),
+        'js' => array('components/Drop.js'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array(
-                '' => '-- None --',
-                'top' => 'Top Align',
-                'right' => 'Right Align',
-                'left' => 'Left Align'
+            'position' => array('title' => 'Position', 'data' => array(
+                'drop--down' => 'Down (Default)',
+                'drop--up' => 'Up',
+                'drop--right' => 'Right',
+                'drop--left' => 'Left'
             )),
-            'align' => array('title' => 'Alignment', 'data' => array(
-                '' => '-- None --',
-                'push-over' => 'Push Over (Horizontal)',
-                'pull-up' => 'Pull Up (Vertical)'
-            )),
+            'reverse' => array('title' => 'Reverse alignment?', 'type' => 'boolean', 'default' => false),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover')),
             'hideOpened' => array('title' => 'Hide Other Opened?', 'type' => 'boolean', 'default' => true)
         )
