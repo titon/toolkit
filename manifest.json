@@ -179,6 +179,14 @@
             "moo": ["More/Element.Event.Pseudos"]
         }
     },
+    "loader": {
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/loader.css"]
+        }
+    },
     "matrix": {
         "category": "component",
         "priority": 10,

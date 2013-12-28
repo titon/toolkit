@@ -14,6 +14,7 @@
     font-weight: normal;
     line-height: normal;
     white-space: nowrap;
+    text-decoration: none;
     background: $gray;
 
     @include is-small(true, true) { @include size-small; }

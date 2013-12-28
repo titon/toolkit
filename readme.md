@@ -99,6 +99,7 @@ Titon also provides classes that build upon MooTools itself. These classes do no
 * `Icon` - Allows for inline image sprites to be used at 12, 16, 24, 32, and 64 sizes
 * `InputGroup` - Allows for the grouping of inputs with buttons and static blocks
 * `Label` - Styles for inline tag labels
+* `Loader` - CSS based loaders and spinners for loading states
 * `Notice` - Styles for block level notification messages
 * `Pagination` - Styles for pagination lists
 * `Progress` - Basic styles for progress bars

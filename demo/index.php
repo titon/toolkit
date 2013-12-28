@@ -229,6 +229,10 @@ $components = array(
             'forceLoad' => array('title' => 'Force load?', 'type' => 'boolean')
         )
     ),
+    'loader' => array(
+        'title' => 'Loader',
+        'css' => array('components/loader.css')
+    ),
     'mask' => array(
         'title' => 'Mask',
         'css' => array('components/mask.css'),
