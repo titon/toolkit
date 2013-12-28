@@ -108,8 +108,9 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
                 if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
                     this.hide();
                 }
-            }.bind(this))
-            .on('click', this.hide.bind(this));
+            }.bind(this));
+
+        this.element.clickout(this.hide.bind(this));
 
         this.fireEvent('init');
     };

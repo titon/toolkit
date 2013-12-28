@@ -131,13 +131,13 @@ Toolkit.TypeAhead = new Class({
      * @returns {Toolkit.TypeAhead}
      */
     bindEvents: function() {
-        window
-            .addEvent('keydown', function(e) {
-                if (e.key === 'esc' && this.isVisible()) {
-                    this.hide();
-                }
-            }.bind(this))
-            .addEvent('click', this.hide.bind(this));
+        window.addEvent('keydown', function(e) {
+            if (e.key === 'esc' && this.isVisible()) {
+                this.hide();
+            }
+        }.bind(this));
+
+        this.element.addEvent('clickout', this.hide.bind(this));
 
         this.input.addEvents({
             keyup: this.__lookup,

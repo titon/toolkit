@@ -122,23 +122,60 @@ $.fn.addData = function(key, value) {
  * However, will only trigger if the element clicked is not in the exclude list or a child of.
  * Useful for closing dropdowns and menus.
  *
- * Based on and credited to http://stackoverflow.com/a/7385673
+ * Based on and credited to http://benalman.com/news/2010/03/jquery-special-events/
  *
- * @param {String|jQuery} exclude
- * @param {Function} fn
- * @returns {jQuery}
+ * @returns {Object}
  */
-$.fn.blurclick = function(exclude, fn) {
-    exclude = $(exclude);
+jQuery.event.special.clickout = (function() {
+    var elements = $([]),
+        doc = $(document);
 
-    return this.mouseup(function(e) {
-        if (
-            !exclude.is(e.target) && // target isn't the exclude
-            exclude.has(e.target).length === 0 // and target isn't a child of exclude
-        ) {
-            fn.call();
+    function clickOut(e) {
+        var trigger = true;
+
+        elements.each(function() {
+            if (trigger) {
+                var self = $(this);
+
+                trigger = (!self.is(e.target) && self.has(e.target).length === 0);
+            }
+        });
+
+        if (trigger) {
+            elements.triggerHandler('clickout', [e.target]);
         }
-    });
+    }
+
+    return {
+        setup: function() {
+            elements = elements.add(this);
+
+            if (elements.length === 1) {
+                doc.on('click', clickOut);
+            }
+        },
+        teardown: function() {
+            elements = elements.not(this);
+
+            if (elements.length === 0) {
+                doc.off('click', clickOut);
+            }
+        },
+        add: function(handler) {
+            var oldHandler = handler.handler;
+
+            handler.handler = function(e, el) {
+                e.target = el;
+                oldHandler.apply(this, arguments);
+            }
+        }
+    };
+})();
+
+$.fn.clickout = function(data, fn) {
+    return arguments.length > 0 ?
+        this.on('clickout', null, data, fn) :
+        this.trigger('clickout');
 };
 
 /**

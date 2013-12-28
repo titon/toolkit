@@ -69,10 +69,12 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         // Blackout
         if (options.blackout) {
             this.blackout = new Toolkit.Blackout();
-            this.blackout.element.on('click', this.__hide.bind(this));
         }
 
         // Set events
+        this.element.clickout(this.__hide.bind(this));
+        this.nodes.clickout(this.__hide.bind(this));
+
         $(options.context || document)
             .on('click', this.nodes.selector, this.__show.bind(this));
 

@@ -81,7 +81,6 @@ Toolkit.Modal = new Class({
         // Blackout
         if (this.options.blackout) {
             this.blackout = new Toolkit.Blackout();
-            this.blackout.element.addEvent('click', this.__hide);
         }
 
         // Set events
@@ -104,8 +103,12 @@ Toolkit.Modal = new Class({
         }.bind(this));
 
         this.element
+            .addEvent('clickout', this.__hide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.submitEvent + ')', this.__submit);
+
+        this.nodes
+            .addEvent('clickout', this.__hide);
 
         return this;
     },

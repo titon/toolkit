@@ -87,7 +87,6 @@ Toolkit.Showcase = new Class({
         // Blackout
         if (this.options.blackout) {
             this.blackout = new Toolkit.Blackout();
-            this.blackout.element.addEvent('click', this.__hide);
         }
 
         // Set events
@@ -120,6 +119,7 @@ Toolkit.Showcase = new Class({
         }.bind(this));
 
         this.element
+            .addEvent('clickout', this.__hide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
@@ -134,6 +134,9 @@ Toolkit.Showcase = new Class({
                     this.prev();
                 }
             }.bind(this));
+
+        this.nodes
+            .addEvent('clickout', this.__hide);
 
         return this;
     },

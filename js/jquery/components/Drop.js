@@ -30,8 +30,10 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
     this.initialize = function() {
         var selector = this.nodes.selector;
 
+        $(selector + ', .drop--down, .drop--up, .drop--left, .drop--right')
+            .clickout(this.hide.bind(this));
+
         $(this.options.context || document)
-            .blurclick(selector + ', .drop--down, .drop--up, .drop--left, .drop--right', this.hide.bind(this))
             .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), selector, this.__show.bind(this));
 
         this.fireEvent('init');

@@ -27,7 +27,8 @@ Toolkit.Drop = new Class({
         this.parent(options);
         this.setNodes(elements);
 
-        window.addEvent('click', this.hide.bind(this));
+        $$(this.options.delegate + ', .drop--down, .drop--up, .drop--left, .drop--right')
+            .addEvent('clickout', this.hide.bind(this));
 
         this.bindEvents();
         this.fireEvent('init');

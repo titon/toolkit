@@ -227,6 +227,56 @@ Function.implement({
 });
 
 /**
+ * An event that allows the clicking of the document to trigger a callback.
+ * However, will only trigger if the element clicked is not in the exclude list or a child of.
+ * Useful for closing dropdowns and menus.
+ *
+ * Based on and credited to http://benalman.com/news/2010/03/jquery-special-events/
+ *
+ * @returns {Object}
+ */
+Element.Events.clickout = (function() {
+    var elements = new Elements();
+
+    function isOut(e) {
+        var trigger = true;
+
+        elements.each(function(el) {
+            if (trigger) {
+                trigger = (el !== e.target && el.getElements(e.target).length === 0);
+            }
+        });
+
+        return trigger;
+    }
+
+    function clickOut(e) {
+        if (isOut(e)) {
+            elements.fireEvent('clickout', [e.target]);
+        }
+    }
+
+    return {
+        base: 'click',
+        condition: isOut,
+        onAdd: function() {
+            elements.push(this);
+
+            if (elements.length === 1) {
+                document.addEvent('click', clickOut);
+            }
+        },
+        onRemove: function() {
+            elements.pop(this);
+
+            if (elements.length === 0) {
+                document.removeEvent('click', clickOut);
+            }
+        }
+    };
+})();
+
+/**
  * Override the default HTML setter and allow element nodes to be used.
  */
 Element.Properties.html.set = function(html) {
