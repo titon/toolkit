@@ -13,28 +13,28 @@ img, video, canvas {
 }
 
 .show-retina,
-.show-print { display: none; }
+.show-print { display: none !important; }
 
 @if $responsive-size == "device" or $responsive-size == "both" {
     // Desktop states
     @include in-desktop {
         .show-tablet,
         .show-mobile,
-        .hide-desktop { display: none; }
+        .hide-desktop { display: none !important; }
     }
 
     // Tablet states
     @include in-tablet {
         .show-desktop,
         .show-mobile,
-        .hide-tablet { display: none; }
+        .hide-tablet { display: none !important; }
     }
 
     // Mobile states
     @include in-mobile  {
         .show-desktop,
         .show-tablet,
-        .hide-mobile { display: none; }
+        .hide-mobile { display: none !important; }
     }
 }
 
@@ -43,48 +43,50 @@ img, video, canvas {
     @include in-large {
         .show-medium,
         .show-small,
-        .hide-large { display: none; }
+        .hide-large { display: none !important; }
     }
 
     // Medium states
     @include in-medium {
         .show-large,
         .show-small,
-        .hide-medium { display: none; }
+        .hide-medium { display: none !important; }
     }
 
     // Small states
     @include in-small  {
         .show-large,
         .show-medium,
-        .hide-small { display: none; }
+        .hide-small { display: none !important; }
     }
 }
 
 // Orientation states
 @include if-portrait {
     .show-landscape,
-    .hide-portrait { display: none; }
+    .hide-portrait { display: none !important; }
 }
 
 @include if-landscape {
     .show-portrait,
-    .hide-landscape { display: none; }
+    .hide-landscape { display: none !important; }
 }
 
 // Type states
 @include if-retina {
-    .hide-retina { display: none; }
-    .show-retina { display: block; }
-    tr.show-retina { display: table-row; }
+    .hide-retina { display: none !important; }
+    .show-retina { display: block !important; }
+    table.show-retina { display: table !important; }
+    tr.show-retina { display: table-row !important; }
     td.show-retina,
-    th.show-retina { display: table-cell; }
+    th.show-retina { display: table-cell !important; }
 }
 
 @media print {
-    .hide-print { display: none; }
-    .show-print { display: block; }
-    tr.show-print { display: table-row; }
+    .hide-print { display: none !important; }
+    .show-print { display: block !important; }
+    table.show-print { display: table !important; }
+    tr.show-print { display: table-row !important; }
     td.show-print,
-    th.show-print { display: table-cell; }
+    th.show-print { display: table-cell !important; }
 }
