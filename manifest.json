@@ -28,7 +28,6 @@
         "description": "Variable font scaling and text styling for headers, paragraphs, lists, and other text based elements.",
         "category": "layout",
         "priority": 2,
-        "require": ["base"],
         "source": {
             "css": ["layout/typography.css"]
         }
@@ -38,7 +37,7 @@
         "description": "Classes for input fields and form structuring.",
         "category": "layout",
         "priority": 3,
-        "require": ["base", "grid"],
+        "require": ["grid"],
         "source": {
             "css": ["layout/form.css"]
         }
@@ -48,7 +47,6 @@
         "description": "Styles for code related HTML tags",
         "category": "layout",
         "priority": 4,
-        "require": ["base"],
         "source": {
             "css": ["layout/code.css"]
         }
@@ -112,7 +110,7 @@
         "description": "Groups multiple buttons by collapsing spacing in between to visually mimic a single button.",
         "category": "component",
         "priority": 10,
-        "require": ["button"],
+        "require": ["base", "button"],
         "source": {
             "css": ["components/button-group.css"]
         }
@@ -124,7 +122,7 @@
         "priority": 10,
         "source": {
             "js": ["class/Cache.js"],
-            "moo": ["Core", "JSON"]
+            "moo": ["Core"]
         }
     },
     "carousel": {
@@ -262,7 +260,7 @@
         "description": "Divides content into multiple pages through a list of numerical links.",
         "category": "component",
         "priority": 10,
-        "require": ["base", "button"],
+        "require": ["base"],
         "source": {
             "css": ["components/pagination.css"]
         }
@@ -305,14 +303,14 @@
         "description": "Lightbox styled image gallery with optional categorization.",
         "category": "component",
         "priority": 10,
-        "require": ["base"],
+        "require": ["base", "blackout"],
         "source": {
             "css": ["components/showcase.css"],
             "js": ["components/Showcase.js"]
         }
     },
     "stalker": {
-        "name": "Normalize",
+        "name": "Stalker",
         "description": "Monitors the scroll of an element and notifies a target when a marker is reached.",
         "category": "component",
         "priority": 10,
