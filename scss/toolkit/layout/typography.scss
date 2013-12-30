@@ -6,7 +6,10 @@
 
 @import "../common";
 
-html { font-size: $base-size; line-height: $base-line-height; }
+html {
+    font-size: $base-size;
+    line-height: $base-line-height;
+}
 
 h1 { font-size: $h1-size; }
 h2 { font-size: $h2-size; }

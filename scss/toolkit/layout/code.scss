@@ -42,6 +42,7 @@ pre {
         white-space: pre-wrap;
         background: transparent;
         border: none;
+        display: block;
     }
 
     &.#{$state-is-prefix}scrollable {

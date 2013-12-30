@@ -43,6 +43,13 @@
     padding: 0;
 }
 
+.center-vertical {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
 // Styles
 .round { border-radius: $round; }
 .#{$state-is-prefix}draggable { cursor: move; }
