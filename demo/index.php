@@ -334,7 +334,7 @@ $components = array(
                 'bottomLeft' => 'Bottom Left',
                 'bottomCenter' => 'Bottom Center',
                 'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topRight'),
+            ), 'default' => 'topCenter'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
