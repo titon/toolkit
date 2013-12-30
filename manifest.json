@@ -136,13 +136,15 @@
             "js": ["components/Carousel.js"]
         }
     },
-    "dropdown": {
+    "drop": {
+        "name": "Drop",
+        "description": "A contextual menu that is dropped down (or up, left, right) and displayed relative a target element.",
         "category": "component",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/dropdown.css"],
-            "js": ["components/Dropdown.js"]
+            "css": ["components/drop.css"],
+            "js": ["components/Drop.js"]
         }
     },
     "flyout": {
@@ -220,6 +222,8 @@
         }
     },
     "loader": {
+        "name": "Loader",
+        "description": "Animated Loaders and spinners used for processing and loading states.",
         "category": "component",
         "priority": 10,
         "require": ["base"],
