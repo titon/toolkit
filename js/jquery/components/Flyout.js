@@ -48,11 +48,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
         }
 
         // Load data from the URL
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            success: this.load.bind(this)
-        });
+        $.getJSON(url, this.load.bind(this));
 
         // Handles keeping menu open even if mouse exits the context
         var options = this.options;

@@ -225,8 +225,7 @@ Toolkit.Modal = new Class({
         e.preventDefault();
 
         var button = e.target,
-            form = this.elementBody.getElement('form'),
-            self = this;
+            form = this.elementBody.getElement('form');
 
         if (!form) {
             return;
@@ -236,34 +235,16 @@ Toolkit.Modal = new Class({
 
         var options = {
             url: form.get('action'),
-            method: form.get('method').toUpperCase(),
-            evalScripts: true,
-            onSuccess: function(response) {
-                var contentType = this.xhr.getResponseHeader('Content-Type');
-
-                if (contentType.indexOf('text/html') >= 0) {
-                    self.position(response);
-
-                } else {
-                    if (contentType === 'application/json') {
-                        response = JSON.parse(response);
-                    }
-
-                    self.process(response);
-                }
-            },
-            onFailure: function() {
-                this.position(this._errorTemplate());
-            }.bind(this)
-        }, data;
+            method: form.get('method').toUpperCase()
+        };
 
         if (window.FormData) {
-            data = new FormData(form);
+            options.data = new FormData(form);
         } else {
-            data = form.toQueryString();
+            options.data = form.toQueryString();
         }
 
-        new Request(options).send(data);
+        this.requestData(options);
     }
 
 });

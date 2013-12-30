@@ -73,14 +73,9 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
         if (options.prefetch && $.type(options.source) === 'string') {
             var url = options.source;
 
-            $.ajax({
-                url: url,
-                data: options.query,
-                dataType: 'json',
-                success: function(items) {
-                    this.cache[url] = items;
-                }.bind(this)
-            });
+            $.getJSON(url, options.query, function(items) {
+                this.cache[url] = items;
+            }.bind(this));
         }
 
         // Enable shadow inputs
@@ -207,12 +202,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
                     var query = options.query;
                         query.term = term;
 
-                    $.ajax({
-                        url: url,
-                        data: query,
-                        dataType: 'json',
-                        success: this.process.bind(this)
-                    });
+                    $.getJSON(url, query, this.process.bind(this));
                 }
             // Use a literal array list
             } else if (sourceType === 'array') {

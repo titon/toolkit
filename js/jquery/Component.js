@@ -136,14 +136,17 @@ Toolkit.Component = function() {
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {String} type
-     * @param {String} url
+     * @param {Object} options
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
      * @returns {Toolkit.Component}
      */
-    this.requestData = function(type, url, before, done, fail) {
-        var ajax = {
+    this.requestData = function(type, options, before, done, fail) {
+        var url = options.url || options;
+
+        // Set default options
+        var ajax = $.extend({}, {
             url: url,
             type: 'GET',
             context: this,
@@ -157,12 +160,14 @@ Toolkit.Component = function() {
                     this.position(this._loadingTemplate(type));
                 }
             }
-        };
+        }, options);
 
-        // Inherit custom options
+        // Inherit base options
         if ($.type(this.options.ajax) === 'object') {
-            ajax = $.merge(this.options.ajax, ajax);
+            ajax = $.extend({}, this.options.ajax, ajax);
         }
+
+        var cache = (ajax.type.toUpperCase() === 'GET');
 
         $.ajax(ajax)
             .done(done || function(response, status, xhr) {
@@ -174,7 +179,9 @@ Toolkit.Component = function() {
 
                 // HTML
                 if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
-                    this.cache[url] = response;
+                    if (cache) {
+                        this.cache[url] = response;
+                    }
 
                     this.position(response);
 

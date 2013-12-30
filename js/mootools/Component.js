@@ -275,25 +275,20 @@ Toolkit.Component = new Class({
     /**
      * Request data from a URL and handle all the possible scenarios.
      *
-     * @param {String} url
+     * @param {Object} options
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
      * @returns {Toolkit.Component}
      */
-    requestData: function(url, before, done, fail) {
-        if (this.cache[url]) {
-            return this;
-        }
+    requestData: function(options, before, done, fail) {
+        var url = options.url || options;
 
-        // We can't bind the class in some request callbacks
-        var self = this;
-
-        var ajax = {
+        // Set default options
+        var ajax = Object.merge({
             url: url,
-            method: 'get',
+            method: 'GET',
             evalScripts: true,
-
             onRequest: before || function() {
                 this.cache[url] = true;
 
@@ -303,51 +298,58 @@ Toolkit.Component = new Class({
 
                     this.position(this._loadingTemplate());
                 }
-            }.bind(this),
-
-            onSuccess: done || function(response) {
-                var contentType = this.xhr.getResponseHeader('Content-Type');
-
-                // Does not apply to all components
-                if (self.options.showLoading) {
-                    self.element.removeClass(Toolkit.options.isPrefix + 'loading');
-                }
-
-                // HTML
-                if (contentType.indexOf('text/html') >= 0) {
-                    self.cache[url] = response;
-
-                    self.position(response);
-
-                // JSON, others
-                } else {
-                    delete self.cache[url];
-
-                    // MooTools doesn't auto parse
-                    if (contentType === 'application/json') {
-                        response = JSON.parse(response);
-                    }
-
-                    self.process(response);
-                }
-            },
-
-            onFailure: fail || function() {
-                delete this.cache[url];
-
-                this.element
-                    .removeClass(Toolkit.options.isPrefix + 'loading')
-                    .addClass(Toolkit.options.hasPrefix + 'failed');
-
-                this.position(this._errorTemplate());
             }.bind(this)
-        };
+        }, options);
 
+        // Inherit base options
         if (typeOf(this.options.ajax) === 'object') {
-            ajax = Object.merge(this.options.ajax, ajax);
+            ajax = Object.merge({}, this.options.ajax, ajax);
         }
 
-        new Request(ajax).get();
+        // Set callbacks
+        var self = this,
+            cache = (ajax.method.toUpperCase() === 'GET');
+
+        ajax.onSuccess = done || function(response) {
+            var contentType = this.xhr.getResponseHeader('Content-Type');
+
+            // Does not apply to all components
+            if (self.options.showLoading) {
+                self.element.removeClass(Toolkit.options.isPrefix + 'loading');
+            }
+
+            // HTML
+            if (contentType.indexOf('text/html') >= 0) {
+                if (cache) {
+                    self.cache[url] = response;
+                }
+
+                self.position(response);
+
+                // JSON, others
+            } else {
+                delete self.cache[url];
+
+                // MooTools doesn't auto parse
+                if (contentType === 'application/json') {
+                    response = JSON.parse(response);
+                }
+
+                self.process(response);
+            }
+        };
+
+        ajax.onFailure = fail || function() {
+            delete this.cache[url];
+
+            this.element
+                .removeClass(Toolkit.options.isPrefix + 'loading')
+                .addClass(Toolkit.options.hasPrefix + 'failed');
+
+            this.position(this._errorTemplate());
+        }.bind(this);
+
+        new Request(ajax).send();
 
         return this;
     },
