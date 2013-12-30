@@ -173,7 +173,7 @@ Toolkit.Component = function() {
                 }
 
                 // HTML
-                if (xhr.getResponseHeader('Content-Type') === 'text/html') {
+                if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
                     this.cache[url] = response;
 
                     this.position(response);

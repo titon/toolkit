@@ -247,12 +247,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         var options = {
             url: form.attr('action'),
             type: (form.attr('method') || 'post').toUpperCase(),
-            success: function(response) {
-                this.position(response);
-            }.bind(this),
-            error: function() {
-                this.position(this._errorTemplate('modal'));
-            }.bind(this)
+            context: this
         };
 
         if (window.FormData) {
@@ -263,7 +258,17 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
             options.data = form.serialize();
         }
 
-        $.ajax(options);
+        $.ajax(options)
+            .done(function(response, status, xhr) {
+                if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
+                    this.position(response);
+                } else {
+                    this.process(response);
+                }
+            })
+            .fail(function() {
+                this.position(this._errorTemplate('modal'));
+            });
     };
 
     this.initialize();

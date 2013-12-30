@@ -6,7 +6,7 @@
                           \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
 ```
 
-# Toolkit v1.0.4 #
+# Toolkit v1.1.0-alpha #
 Titon Toolkit is a collection of very powerful user interface components and utility classes.
 Each component represents encapsulated HTML, CSS and JS functionality for role specific page elements.
 

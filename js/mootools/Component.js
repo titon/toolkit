@@ -314,7 +314,7 @@ Toolkit.Component = new Class({
                 }
 
                 // HTML
-                if (contentType === 'text/html') {
+                if (contentType.indexOf('text/html') >= 0) {
                     self.cache[url] = response;
 
                     self.position(response);

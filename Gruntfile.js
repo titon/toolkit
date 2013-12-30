@@ -25,6 +25,8 @@ module.exports = function(grunt) {
         useTheme = grunt.option('theme') || null,
         categories = ['layout', 'component'];
 
+    toPackage = toPackage.sort();
+
     if (!toPackage.length) {
         _.each(graph.manifest, function(value, key) {
             if (value.category === 'layout' || value.category === 'component') {

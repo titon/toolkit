@@ -225,7 +225,8 @@ Toolkit.Modal = new Class({
         e.preventDefault();
 
         var button = e.target,
-            form = this.elementBody.getElement('form');
+            form = this.elementBody.getElement('form'),
+            self = this;
 
         if (!form) {
             return;
@@ -238,8 +239,19 @@ Toolkit.Modal = new Class({
             method: form.get('method').toUpperCase(),
             evalScripts: true,
             onSuccess: function(response) {
-                this.position(response);
-            }.bind(this),
+                var contentType = this.xhr.getResponseHeader('Content-Type');
+
+                if (contentType.indexOf('text/html') >= 0) {
+                    self.position(response);
+
+                } else {
+                    if (contentType === 'application/json') {
+                        response = JSON.parse(response);
+                    }
+
+                    self.process(response);
+                }
+            },
             onFailure: function() {
                 this.position(this._errorTemplate());
             }.bind(this)
