@@ -46,7 +46,8 @@ Toolkit.Component = new Class({
         onInit: null,
         onHide: null,
         onShow: null,
-        onLoad: null
+        onLoad: null,
+        onProcess: null
     },
 
     /**
@@ -227,6 +228,31 @@ Toolkit.Component = new Class({
     },
 
     /**
+     * Handle and process non-HTML responses.
+     *
+     * @param {*} content
+     * @returns {Toolkit.Component}
+     */
+    process: function(content) {
+        this.hide();
+
+        if (content.callback) {
+            var namespaces = content.callback.split('.'),
+                func = window;
+
+            for (var i = 0; i < namespaces.length; i++) {
+                func = func[namespaces[i]];
+            }
+
+            func.call(this, content);
+        }
+
+        this.fireEvent('process', content);
+
+        return this;
+    },
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -260,6 +286,9 @@ Toolkit.Component = new Class({
             return this;
         }
 
+        // We can't bind the class in some request callbacks
+        var self = this;
+
         var ajax = {
             url: url,
             method: 'get',
@@ -277,15 +306,31 @@ Toolkit.Component = new Class({
             }.bind(this),
 
             onSuccess: done || function(response) {
-                this.cache[url] = response;
+                var contentType = this.xhr.getResponseHeader('Content-Type');
 
                 // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
+                if (self.options.showLoading) {
+                    self.element.removeClass(Toolkit.options.isPrefix + 'loading');
                 }
 
-                this.position(response);
-            }.bind(this),
+                // HTML
+                if (contentType === 'text/html') {
+                    self.cache[url] = response;
+
+                    self.position(response);
+
+                // JSON, others
+                } else {
+                    delete self.cache[url];
+
+                    // MooTools doesn't auto parse
+                    if (contentType === 'application/json') {
+                        response = JSON.parse(response);
+                    }
+
+                    self.process(response);
+                }
+            },
 
             onFailure: fail || function() {
                 delete this.cache[url];

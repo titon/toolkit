@@ -86,6 +86,31 @@ Toolkit.Component = function() {
     };
 
     /**
+     * Handle and process non-HTML responses.
+     *
+     * @param {*} content
+     * @returns {Toolkit.Component}
+     */
+    this.process = function(content) {
+        this.hide();
+
+        if (content.callback) {
+            var namespaces = content.callback.split('.'),
+                func = window;
+
+            for (var i = 0; i < namespaces.length; i++) {
+                func = func[namespaces[i]];
+            }
+
+            func.call(this, content);
+        }
+
+        this.fireEvent('process', content);
+
+        return this;
+    };
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -121,7 +146,6 @@ Toolkit.Component = function() {
         var ajax = {
             url: url,
             type: 'GET',
-            dataType: 'html',
             context: this,
             beforeSend: before || function() {
                 this.cache[url] = true;
@@ -141,15 +165,25 @@ Toolkit.Component = function() {
         }
 
         $.ajax(ajax)
-            .done(done || function(response) {
-                this.cache[url] = response;
+            .done(done || function(response, status, xhr) {
 
                 // Does not apply to all components
                 if (this.options.showLoading) {
                     this.element.removeClass(Toolkit.options.isPrefix + 'loading');
                 }
 
-                this.position(response);
+                // HTML
+                if (xhr.getResponseHeader('Content-Type') === 'text/html') {
+                    this.cache[url] = response;
+
+                    this.position(response);
+
+                // JSON, others
+                } else {
+                    delete this.cache[url];
+
+                    this.process(response);
+                }
             })
             .fail(fail || function() {
                 delete this.cache[url];
