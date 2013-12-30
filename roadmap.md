@@ -15,7 +15,7 @@ All releases will contain bug fixing and polishing for current features.
 * Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
 * Divider - A component for dividing content horizontally or vertically.
 
-### 2.0.0 - TBD ###
+### 2.0.0 ###
 * Remove the MooTools port.
 * Drop IE 8/9 support and upgrade to jQuery 2.
 * Replace JS option callbacks with namespaced element events.

@@ -43,6 +43,13 @@
     padding: 0;
 }
 
+.vertical-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
 // Styles
 .round { border-radius: $round; }
 .#{$state-is-prefix}draggable { cursor: move; }
@@ -86,21 +93,12 @@
 .arrow-right:before {
     display: inline-block;
     position: relative;
+    content: "\025B3"; /* bigtriangleup */
 }
 
-.arrow-up:before,
-.arrow-left:before { content: "\000AB"; /* laquo */ }
-.arrow-down:before,
-.arrow-right:before { content: "\000BB"; /* raquo */ }
-
-.arrow-left:before,
-.arrow-right:before { top: -2px; }
-
-.arrow-up:before,
-.arrow-down:before {
-    right: -2px;
-    @include transform(rotate(90deg));
-}
+.arrow-right:before { @include transform(rotate(90deg)); }
+.arrow-left:before { @include transform(rotate(-90deg)); }
+.arrow-down:before { @include transform(rotate(180deg)); }
 
 // Bullets
 .bullets {
