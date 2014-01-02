@@ -1,4 +1,4 @@
-# Vendor Comparison #
+# Competitor Comparison #
 
 ## Component Support ##
 
