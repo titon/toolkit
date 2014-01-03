@@ -2,10 +2,18 @@
 
 ## Component System ##
 
+### Options ###
+
+### Events ###
+
+### Methods ###
+
 ## Custom Template Markup ##
 
 ## Reserved Namespaces ##
 
-## jQuery Extensions ##
+## Extensions ##
 
-## MooTools Extensions ##
+### jQuery ###
+
+### MooTools ###
