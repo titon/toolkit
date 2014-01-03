@@ -1,8 +1,11 @@
 # Competitor Comparison #
 
-## Component Support ##
+The following charts provide a comparison of Toolkit to other popular front-end libraries.
+The charts demonstrate what features and components are implemented by each vendor.
 
-<table>
+## Components ##
+
+<table class="table comparison-table">
     <thead>
         <tr>
             <th>Component</th>
@@ -12,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="table-divider">
             <td colspan="4">Toolkit</td>
         </tr>
         <tr>
@@ -47,6 +50,12 @@
         </tr>
         <tr>
             <td>Button Group</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Button + Dropdown</td>
             <td>&check;</td>
             <td>&check;</td>
             <td>&check;</td>
@@ -199,7 +208,7 @@
             <td>Type Ahead</td>
             <td>&check;</td>
             <td></td>
-            <td></td>
+            <td>Known as AutoComplete</td>
         </tr>
         <tr>
             <td>Typography</td>
@@ -208,7 +217,7 @@
             <td>&check;</td>
         </tr>
 
-        <tr>
+        <tr class="table-divider">
             <td colspan="4">Foundation</td>
         </tr>
         <tr>
@@ -260,19 +269,13 @@
             <td></td>
         </tr>
 
-        <tr>
+        <tr class="table-divider">
             <td colspan="4">Bootstrap</td>
         </tr>
         <tr>
             <td>Badge</td>
             <td>Part of Label</td>
             <td></td>
-            <td>&check;</td>
-        </tr>
-        <tr>
-            <td>Button Dropdown</td>
-            <td>&check;</td>
-            <td>&check;</td>
             <td>&check;</td>
         </tr>
         <tr>
@@ -307,7 +310,7 @@
         </tr>
         <tr>
             <td>Nav</td>
-            <td>Known as Tabs</td>
+            <td>Possible with Tabs</td>
             <td></td>
             <td>&check;</td>
         </tr>
@@ -350,6 +353,101 @@
     </tbody>
 </table>
 
-Other known features:
+## Features ##
 
-* RTL
+<table class="table comparison-table">
+    <thead>
+        <tr>
+            <th>Feature</th>
+            <th>Toolkit</th>
+            <th>Foundation</th>
+            <th>Bootstrap</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-divider">
+            <td colspan="4">Technology</td>
+        </tr>
+        <tr>
+            <td>Sass</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Less</td>
+            <td></td>
+            <td></td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Grunt</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Bower</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>jQuery</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>MooTools</td>
+            <td>&check;</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="table-divider">
+            <td colspan="4">Functionality</td>
+        </tr>
+        <tr>
+            <td>CSS Animations</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>CSS Transitions</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Em Scaling</td>
+            <td>&check;</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Mobile First</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Responsive</td>
+            <td>&check;</td>
+            <td>&check;</td>
+            <td>&check;</td>
+        </tr>
+        <tr>
+            <td>Fluid</td>
+            <td>&check;</td>
+            <td>Partially</td>
+            <td>Partially</td>
+        </tr>
+        <tr>
+            <td>Right-to-Left</td>
+            <td></td>
+            <td>&check;</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

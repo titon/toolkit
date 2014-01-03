@@ -32,11 +32,11 @@ Options can only be set the first time the component is created.
 
 ```javascript
 $('.js-tooltip').tooltip({
-animation: 'fade'
+    animation: 'fade'
 });
 ```
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Option</th>
@@ -171,6 +171,7 @@ animation: 'fade'
 </table>
 
 #### Template HTML ####
+
 ```html
 <div class="tooltip">
     <div class="tooltip-inner">
@@ -188,11 +189,11 @@ The `this` context of each event function will reference the component class ins
 
 ```javascript
 $('.js-tooltip').tooltip({
-onInit: function() {}
+    onInit: function() {}
 });
 ```
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Event</th>
@@ -223,7 +224,7 @@ onInit: function() {}
 
 The following properties are available within the tooltip instance.
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Property</th>
@@ -269,7 +270,7 @@ The following properties are available within the tooltip instance.
 
 The following methods are available within the tooltip instance.
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Method</th>
