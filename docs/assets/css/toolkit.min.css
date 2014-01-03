@@ -43,3 +43,7 @@ h1 { margin-bottom: 1rem; }
 h2,
 h3 { margin-bottom: 1rem; margin-top: 3rem; }
 .comparison-table td:not(:first-child) { text-align: center; }
+
+.table tbody td.is-success { background: #e7f2dd; }
+.table tbody td.is-error { background: #fdc5c1; }
+.table tbody td.is-info { background: #dbf1fa; }
