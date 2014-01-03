@@ -6,6 +6,11 @@ The charts demonstrate what features and components are implemented by each vend
 A green cell in the chart denotes support for that item, while red denotes no support.
 If a cell is blue, than either partial support is provided, or the item has a different name.
 
+<div class="callout is-warning">
+    Please submit a pull request or contact us if any information in this chart is incorrect.
+    We will update accordingly.
+</div>
+
 ## Components ##
 
 <table class="table comparison-table">
@@ -15,20 +20,23 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
+            <th>Semantic UI</th>
         </tr>
     </thead>
     <tbody>
         <tr class="table-divider">
-            <td colspan="4">Toolkit</td>
+            <td colspan="5">Toolkit</td>
         </tr>
         <tr>
             <td>Accordion</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Collapse</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Base (Helpers)</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -38,9 +46,11 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-info">Known as Dimmer</td>
         </tr>
         <tr>
             <td>Breadcrumb</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -50,9 +60,11 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Button Group</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -62,21 +74,25 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Carousel</td>
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Orbit</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Code</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Dropdown</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -86,9 +102,11 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Form</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -98,27 +116,32 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Icon</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Input</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-success">Known as Checkbox, Dropdown</td>
         </tr>
         <tr>
             <td>Input Group</td>
             <td class="is-success">&check;</td>
             <td class="is-success">Known as Pre/Postfix</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Label</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -128,10 +151,12 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Matrix</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
@@ -140,33 +165,39 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Reveal</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Notice</td>
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Alert</td>
             <td class="is-info">Known as Alert</td>
+            <td class="is-info">Known as Message</td>
         </tr>
         <tr>
             <td>Pagination</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Part of Menu</td>
         </tr>
         <tr>
             <td>Pin</td>
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Magellan</td>
             <td class="is-info">Known as Affix</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Popover</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Progress</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -176,11 +207,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-info">Part of Visibility and Media Queries</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Showcase</td>
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Lightbox</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -188,9 +221,11 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-info">Part of Magellan</td>
             <td class="is-info">Known as Scrollspy</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Table</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -200,39 +235,45 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Part of Menu</td>
         </tr>
         <tr>
             <td>Tooltip</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Known as Popup</td>
         </tr>
         <tr>
             <td>Type Ahead</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-info">Known as AutoComplete</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Typography</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
 
         <tr class="table-divider">
-            <td colspan="4">Foundation</td>
+            <td colspan="5">Foundation</td>
         </tr>
         <tr>
             <td>Abide</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-info">Known as Form</td>
         </tr>
         <tr>
             <td>Block Grid</td>
             <td class="is-info">Possible with Grid mixins</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -240,11 +281,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Interchange</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -252,45 +295,52 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Off Canvas</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-info">Known as Sidebar</td>
         </tr>
         <tr>
             <td>Side Nav</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-info">Part of Menu</td>
         </tr>
         <tr>
             <td>Sub Nav</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-info">Part of Menu</td>
         </tr>
 
         <tr class="table-divider">
-            <td colspan="4">Bootstrap</td>
+            <td colspan="5">Bootstrap</td>
         </tr>
         <tr>
             <td>Badge</td>
             <td class="is-info">Part of Label</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Part of Label</td>
         </tr>
         <tr>
             <td>Glyphicons</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Image</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
@@ -298,57 +348,134 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>List Group</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Media</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Nav</td>
             <td class="is-info">Possible with Tabs</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Part of Menu</td>
         </tr>
         <tr>
             <td>Navbar</td>
             <td class="is-error"></td>
             <td class="is-info">Known as Top Bar</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Part of Menu</td>
         </tr>
         <tr>
             <td>Page Header</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Known as Header</td>
         </tr>
         <tr>
             <td>Panels</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Thumbnail</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Transitions</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Wells</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+            <td class="is-info">Known as Segment</td>
+        </tr>
+
+        <tr class="table-divider">
+            <td colspan="5">Semantic UI</td>
+        </tr>
+        <tr>
+            <td>Loader</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Reveal</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Step</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Comment</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Feed</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Item</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Dimmer</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Rating</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Shape</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
@@ -365,16 +492,18 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
+            <th>Semantic UI</th>
         </tr>
     </thead>
     <tbody>
         <tr class="table-divider">
-            <td colspan="4">Technology</td>
+            <td colspan="5">Technology</td>
         </tr>
         <tr>
             <td>Sass</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -382,15 +511,18 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Less</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Grunt</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -400,9 +532,11 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>jQuery</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -412,30 +546,35 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Functionality</td>
+            <td colspan="5">Functionality</td>
         </tr>
         <tr>
             <td>CSS Animations</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Partially</td>
         </tr>
         <tr>
             <td>CSS Transitions</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Partially</td>
         </tr>
         <tr>
             <td>Em Scaling</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+            <td class="is-info">Partially</td>
         </tr>
         <tr>
             <td>Mobile First</td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -445,10 +584,12 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Fluid</td>
             <td class="is-success">&check;</td>
+            <td class="is-info">Partially</td>
             <td class="is-info">Partially</td>
             <td class="is-info">Partially</td>
         </tr>
@@ -456,6 +597,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>Right-to-Left</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
     </tbody>
