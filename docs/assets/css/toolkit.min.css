@@ -43,6 +43,8 @@ h1 { margin-bottom: 1rem; }
 h2,
 h3,
 h4 { margin-bottom: 1rem; margin-top: 3rem; }
+
+.compatibility-table td.is-success,
 .comparison-table td:not(:first-child) { text-align: center; }
 
 .table tbody td.is-success { background: #e7f2dd; }

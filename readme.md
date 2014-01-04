@@ -13,51 +13,6 @@ Each component represents encapsulated HTML, CSS and JS functionality for role s
 Titon makes use of the latest and greatest technology. This includes CSS3 for animation (fade, slide, etc),
 Sass for CSS pre-processing, and Grunt for task and package management.
 
-#### Why Toolkit? ####
-Toolkit was built from the ground up with the following concepts and philosophies in mind.
-If any of these concepts align with your thought process or your projects requirements, than Toolkit is right for you.
-
-* Mobile first design philosophy
-* Progressive enhancement and graceful degradation
-* Cascading CSS inheritance
-* Configuration over convention
-* Responsive and fluid as first class
-* Relative scaling with `em` and `rem`
-* Animations and transitions purely with CSS
-
-#### Demo ####
-An interactive demo can be found here: http://titon.io/toolkit
-
-#### Requirements ####
-* **HTML5**
-* **CSS3**
-* **jQuery**
-* (or)
-* **MooTools**
-    * More/Class.Binds
-    * More/Elements.From
-    * More/Element.Shortcuts
-    * More/Element.Measure
-    * More/Drag (optional for Modal)
-    * More/Element.Event.Pseudos (for LazyLoad, Pin, Stalker, Tooltip)
-
-#### Browser Support ####
-* Chrome 11+
-* Firefox 4+
-* Internet Explorer 10+
-* Opera 11+
-* Safari 5+
-
-**What about IE8 and 9?**
-
-IE9 does not support CSS3 transitions; all animations will fallback to a simple show/hide.
-
-IE8 does not support CSS3 transitions, rem/em scaling, media queries and specific HTML 5 elements.
-To support media queries and responsiveness, use [respond.js](https://github.com/scottjehl/Respond).
-To support HTML 5 features, use [modernizr](http://modernizr.com).
-
-Furthermore, the following Toolkit components do not work in IE8: Input, Matrix.
-
 ## Javascript Components ##
 #### Modules ####
 * `Accordion` - Provides collapsible support to a list of sections
