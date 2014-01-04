@@ -26,7 +26,7 @@ The following minimum versions should support most (if not all) of Toolkits func
 ## Internet Explorer 8 & 9 ##
 
 Although IE 8 and 9 are partially supported, they do not support many of the features implemented by modern browsers, which is represented in the table below.
-Supported is determined through [caniuse.com](http://caniuse.com/) and can be filtered down by clicking on the table row titles.
+Supported is determined through [caniuse.com](http://caniuse.com/) and can be verified by clicking on the table row titles.
 
 <table class="table compatibility-table">
     <thead>
@@ -39,19 +39,19 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
     <tbody>
         <tr>
             <td><a href="http://caniuse.com/#feat=html5semantic">HTML5 Elements</a></td>
-            <td class="is-error">Can be enabled with [modernizr](http://modernizr.com) or [normalize.css](http://necolas.github.io/normalize.css/)</td>
+            <td class="is-error">Can be enabled with <a href="http://modernizr.com">modernizr</a> or <a href="http://necolas.github.io/normalize.css/">normalize.css</a></td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>[CSS3 Animations](http://caniuse.com/#feat=css-animation)</td>
+            <td><a href="http://caniuse.com/#feat=css-animation">CSS3 Animations</a></td>
             <td class="is-error" colspan="2">Falls back to element display toggling as the JavaScript layer does not use animations</td>
         </tr>
         <tr>
-            <td>[CSS3 Transitions](http://caniuse.com/#feat=css-transitions)</td>
+            <td><a href="http://caniuse.com/#feat=css-transitions">CSS3 Transitions</a></td>
             <td class="is-error" colspan="2">Any transition effects will be instant</td>
         </tr>
         <tr>
-            <td>[CSS3 Box Sizing](http://caniuse.com/#feat=css3-boxsizing)</td>
+            <td><a href="http://caniuse.com/#feat=css3-boxsizing">CSS3 Box Sizing</a></td>
             <td class="is-info">Has partial support</td>
             <td class="is-success">&check;</td>
         </tr>
@@ -61,13 +61,13 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>[Rem Scaling](http://caniuse.com/#feat=rem)</td>
+            <td><a href="http://caniuse.com/#feat=rem">Rem Scaling</a></td>
             <td class="is-error">Instances of <code>rem</code> will need to be overwritten</td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>[Media Queries](http://caniuse.com/#feat=css-mediaqueries)</td>
-            <td class="is-error">Can be enabled with [respond.js](https://github.com/scottjehl/Respond)</td>
+            <td><a href="http://caniuse.com/#feat=css-mediaqueries">Media Queries</a></td>
+            <td class="is-error">Can be enabled with <a href="https://github.com/scottjehl/Respond">respond.js</a></td>
             <td class="is-success">&check;</td>
         </tr>
     </tbody>
@@ -77,8 +77,8 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
 
 On top of the features above not being supported, the following Toolkit components are not supported in IE 8 and 9.
 
-* Input
-* Matrix
+* [Input](../components/input.html)
+* [Matrix](../components/matrix.html)
 
 ### Compatibility Mode ###
 
