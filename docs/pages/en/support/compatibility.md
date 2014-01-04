@@ -38,7 +38,7 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
     </thead>
     <tbody>
         <tr>
-            <td>[HTML5 Elements](http://caniuse.com/#feat=html5semantic)</td>
+            <td><a href="http://caniuse.com/#feat=html5semantic">HTML5 Elements</a></td>
             <td class="is-error">Can be enabled with [modernizr](http://modernizr.com) or [normalize.css](http://necolas.github.io/normalize.css/)</td>
             <td class="is-success">&check;</td>
         </tr>
@@ -62,7 +62,7 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
         </tr>
         <tr>
             <td>[Rem Scaling](http://caniuse.com/#feat=rem)</td>
-            <td class="is-error">Instances of `rem` will need to be overwritten</td>
+            <td class="is-error">Instances of <code>rem</code> will need to be overwritten</td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
@@ -72,6 +72,8 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be fi
         </tr>
     </tbody>
 </table>
+
+### Unsupported Components ###
 
 On top of the features above not being supported, the following Toolkit components are not supported in IE 8 and 9.
 
