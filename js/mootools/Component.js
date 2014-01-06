@@ -447,10 +447,6 @@ Toolkit.Component = new Class({
      * @param {Element} node
      */
     __show: function(e, node) {
-        if (typeOf(e) === 'domevent') {
-            e.preventDefault();
-        }
-
         if (!this.enabled) {
             return;
         }
@@ -458,6 +454,12 @@ Toolkit.Component = new Class({
         node = node || e.target;
 
         if (this.isVisible()) {
+
+            // Allow touch devices to click through to the link on the second click
+            if (!Toolkit.isTouch) {
+                e.preventDefault();
+            }
+
             if (this.options.mode === 'click') {
                 this.hide();
             }
@@ -466,6 +468,8 @@ Toolkit.Component = new Class({
             if (node === this.node) {
                 return;
             }
+        } else if (typeOf(e) === 'domevent') {
+            e.preventDefault();
         }
 
         this.show(node);

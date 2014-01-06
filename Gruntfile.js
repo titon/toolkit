@@ -211,7 +211,7 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 banner: createBanner(),
-                separator: "\n"
+                separator: ';'
             },
             build: {
                 files: [

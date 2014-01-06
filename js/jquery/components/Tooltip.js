@@ -194,11 +194,15 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @param {Event} e
      */
     this.__show = function(e) {
-        e.preventDefault();
-
         var node = $(e.target);
 
         if (this.element.is(':shown')) {
+
+            // Allow touch devices to click through to the link on the second click
+            if (!Toolkit.isTouch) {
+                e.preventDefault();
+            }
+
             if (this.options.mode === 'click') {
                 this.hide();
             }
@@ -207,6 +211,8 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
             if (this.node && node.get(0) === this.node.get(0)) {
                 return;
             }
+        } else {
+            e.preventDefault();
         }
 
         this.show(node);
