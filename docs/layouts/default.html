@@ -2,15 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Toolkit</title>
+    <link href="{{ assets }}css/toolkit.min.css" rel="stylesheet" type="text/css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{ assets }}js/toolkit-jquery.min.js"></script>
 </head>
 <body>
-<ul>
-    {{#each  pages }}
-    <li><a href="#"> {{basename }} </a> </li>
-    {{/each  }}
-</ul>
-
 {{#markdown}}
 {{> body}}
 {{/markdown}}

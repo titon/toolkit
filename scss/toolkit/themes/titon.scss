@@ -26,8 +26,8 @@ a {
 
 blockquote cite { color: $default; }
 
-code { background: $info-light; color: $info-dark; }
-var { background: $error-light; color: $error-dark; }
+//code { background: $info-light; color: $info-dark; }
+//var { background: $error-light; color: $error-dark; }
 mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Accordion --------------------//

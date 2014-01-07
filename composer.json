@@ -1,0 +1,32 @@
+{
+    "type": "library",
+    "name": "titon/toolkit",
+    "description": "A collection of extensible front-end UI components for the responsive web.",
+    "keywords": [
+        "titon",
+        "toolkit",
+        "css",
+        "sass",
+        "scss",
+        "mootools",
+        "jquery",
+        "javascript",
+        "ui",
+        "interface",
+        "framework",
+        "bootstrap",
+        "modular",
+        "component",
+        "responsive",
+        "fluid",
+        "mobile"
+    ],
+    "homepage": "http://titon.io",
+    "license": "BSD-2",
+    "authors": [
+        {
+            "name": "Miles Johnson",
+            "homepage": "http://milesj.me"
+        }
+    ]
+}

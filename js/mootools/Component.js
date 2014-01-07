@@ -494,10 +494,6 @@ Toolkit.Component = new Class({
      * @param {Element} node
      */
     __show: function(e, node) {
-        if (typeOf(e) === 'domevent') {
-            e.preventDefault();
-        }
-
         if (!this.enabled) {
             return;
         }
@@ -505,14 +501,30 @@ Toolkit.Component = new Class({
         node = node || e.target;
 
         if (this.isVisible()) {
+
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (node !== this.node || this.node.get('tag') !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
+                e.preventDefault();
+            }
+
+            // Second click should close it
             if (this.options.mode === 'click') {
                 this.hide();
             }
 
-            // Exit if the same node
+            // Exit if the same node so it doesn't re-open
             if (node === this.node) {
                 return;
             }
+
+        } else if (typeOf(e) === 'domevent') {
+            e.preventDefault();
         }
 
         this.show(node);
