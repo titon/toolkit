@@ -1,5 +1,10 @@
 # Changelog #
 
+### 1.0.5 ###
+* Added `composer.json` allowing the project to be installed via Composer
+* Fixed a prototype inheritance bug that caused Popovers to trigger Tooltips that capture all click events
+* Updated `hover` modes to default to click on touch devices; will pass-through to anchor link on second click
+
 ### 1.0.4 ###
 * Added `.vertical-center` class
 * Added `!important` to Responsive display properties
