@@ -51,6 +51,10 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
         $(options.context || document)
             .on((options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this.__show.bind(this));
 
+        if (options.mode === 'click') {
+            this.element.clickout(this.hide.bind(this));
+        }
+
         this.fireEvent('init');
     };
 
