@@ -194,23 +194,32 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @param {Event} e
      */
     this.__show = function(e) {
-        var node = $(e.target);
+        var node = $(e.target),
+            isNode = (this.node && node[0] === this.node[0]);
 
         if (this.element.is(':shown')) {
 
-            // Allow touch devices to click through to the link on the second click
-            if (!Toolkit.isTouch) {
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
                 e.preventDefault();
             }
 
+            // Second click should close it
             if (this.options.mode === 'click') {
                 this.hide();
             }
 
-            // Exit if the same node
-            if (this.node && node.get(0) === this.node.get(0)) {
+            // Exit if the same node so it doesn't re-open
+            if (isNode) {
                 return;
             }
+
         } else {
             e.preventDefault();
         }

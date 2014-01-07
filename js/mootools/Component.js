@@ -455,19 +455,27 @@ Toolkit.Component = new Class({
 
         if (this.isVisible()) {
 
-            // Allow touch devices to click through to the link on the second click
-            if (!Toolkit.isTouch) {
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (node !== this.node || this.node.get('tag') !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
                 e.preventDefault();
             }
 
+            // Second click should close it
             if (this.options.mode === 'click') {
                 this.hide();
             }
 
-            // Exit if the same node
+            // Exit if the same node so it doesn't re-open
             if (node === this.node) {
                 return;
             }
+
         } else if (typeOf(e) === 'domevent') {
             e.preventDefault();
         }
