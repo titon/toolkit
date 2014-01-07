@@ -28,13 +28,15 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
      * Initialize the component by fetching elements and binding events.
      */
     this.initialize = function() {
-        var selector = this.nodes.selector;
+        var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
+            return '.' + Toolkit.options.vendor + 'drop--' + value;
+        });
 
-        $(selector + ', .drop--down, .drop--up, .drop--left, .drop--right')
+        $(this.nodes.selector + ', ' + selectors.join(', '))
             .clickout(this.hide.bind(this));
 
         $(this.options.context || document)
-            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), selector, this.__show.bind(this));
+            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
 
         this.fireEvent('init');
     };

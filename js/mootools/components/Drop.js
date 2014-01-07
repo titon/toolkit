@@ -27,7 +27,11 @@ Toolkit.Drop = new Class({
         this.parent(options);
         this.setNodes(elements);
 
-        $$(this.options.delegate + ', .drop--down, .drop--up, .drop--left, .drop--right')
+        var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
+            return '.' + Toolkit.options.vendor + 'drop--' + value;
+        });
+
+        $$(this.options.delegate + ', ' + selectors.join(', '))
             .addEvent('clickout', this.hide.bind(this));
 
         this.bindEvents();
