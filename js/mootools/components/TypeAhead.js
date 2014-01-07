@@ -50,6 +50,7 @@ Toolkit.TypeAhead = new Class({
 
         // Events
         onSelect: null,
+        onCycle: null,
         onReset: null
     },
 
@@ -417,9 +418,10 @@ Toolkit.TypeAhead = new Class({
      * Select an item in the list.
      *
      * @param {Number} index
+     * @param {String} [event]
      * @returns {Toolkit.TypeAhead}
      */
-    select: function(index) {
+    select: function(index, event) {
         this.index = index;
 
         var rows = this.element.getElements('li');
@@ -435,7 +437,7 @@ Toolkit.TypeAhead = new Class({
 
                 this.input.set('value', item.title);
 
-                this.fireEvent('select', [item, index]);
+                this.fireEvent(event || 'select', [item, index]);
             }
 
         // Reset
@@ -557,7 +559,7 @@ Toolkit.TypeAhead = new Class({
         }
 
         // Select the item
-        this.select(this.index);
+        this.select(this.index, 'cycle');
     },
 
     /**

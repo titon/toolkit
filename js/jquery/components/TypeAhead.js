@@ -381,9 +381,10 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * Select an item in the list.
      *
      * @param {Number} index
+     * @param {String} event
      * @returns {Toolkit.TypeAhead}
      */
-    this.select = function(index) {
+    this.select = function(index, event) {
         this.index = index;
 
         var rows = this.element.find('li');
@@ -399,7 +400,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
 
                 this.input.val(item.title);
 
-                this.fireEvent('select', [item, index]);
+                this.fireEvent(event || 'select', [item, index]);
             }
 
         // Reset
