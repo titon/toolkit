@@ -7,25 +7,40 @@
 (function($) {
     'use strict';
 
-Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
+    Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
+        this.component = 'LazyLoad';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.LazyLoad.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.LazyLoad.options, options);
 
-    /** List of elements to load */
-    this.elements = this.setElement(elements, this.options);
+        /** List of elements to load */
+        this.elements = this.setElement(elements, this.options);
 
-    /** Have all elements been force loaded? */
-    this.isLoaded = false;
+        /** Have all elements been force loaded? */
+        this.isLoaded = false;
 
-    /** Count of how many have loaded */
-    this.loaded = 0;
+        /** Count of how many have loaded */
+        this.loaded = 0;
+
+        this.initialize();
+    });
+
+    Toolkit.LazyLoad.options = {
+        forceLoad: false,
+        delay: 10000,
+        threshold: 150,
+        throttle: 50,
+        context: null
+    };
+
+    var LazyLoad = Toolkit.LazyLoad.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      * Call load() immediately on page load.
      */
-    this.initialize = function() {
+    LazyLoad.initialize = function() {
         $(this.options.context || window).on({
             scroll: $.throttle(this.load.bind(this), this.options.throttle),
             resize: $.throttle(this.load.bind(this), this.options.throttle)
@@ -50,7 +65,7 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
      * @param {jQuery} node
      * @returns {bool}
      */
-    this.inViewport = function(node) {
+    LazyLoad.inViewport = function(node) {
         var win = $(window),
             threshold = this.options.threshold,
             scrollTop = win.scrollTop(),
@@ -74,7 +89,7 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
      *
      * @returns {bool}
      */
-    this.load = function() {
+    LazyLoad.load = function() {
         if (this.isLoaded) {
             return false;
         }
@@ -101,7 +116,7 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
      *
      * @returns {bool}
      */
-    this.loadAll = function() {
+    LazyLoad.loadAll = function() {
         if (this.isLoaded) {
             return false;
         }
@@ -124,7 +139,7 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
      * @param {Number} index
      * @returns {Toolkit.LazyLoad}
      */
-    this.show = function(node, index) {
+    LazyLoad.show = function(node, index) {
         node = $(node);
         node.removeClass(this.elements.selector.substr(1));
 
@@ -153,7 +168,7 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
      *
      * @returns {Toolkit.LazyLoad}
      */
-    this.shutdown = function() {
+    LazyLoad.shutdown = function() {
         this.isLoaded = true;
 
         $(this.options.context || window).off({
@@ -166,38 +181,25 @@ Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
         return this;
     };
 
-    if (this.elements.length) {
-        this.initialize();
-    }
-});
+    /**
+     * Enable lazy loading on Elements collections by calling lazyLoad().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.lazy-load').lazyLoad({
+     *         forceLoad: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.lazyLoad = function(options) {
+        var lazyLoad = new Toolkit.LazyLoad(this, options);
 
-Toolkit.LazyLoad.options = {
-    forceLoad: false,
-    delay: 10000,
-    threshold: 150,
-    throttle: 50,
-    context: null
-};
-
-/**
- * Enable lazy loading on Elements collections by calling lazyLoad().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.lazy-load').lazyLoad({
- *         forceLoad: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.lazyLoad = function(options) {
-    var lazyLoad = new Toolkit.LazyLoad(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.lazyload', lazyLoad);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.lazyload', lazyLoad);
+        });
+    };
 
 })(jQuery);

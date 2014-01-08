@@ -7,39 +7,65 @@
 (function($) {
     'use strict';
 
-Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
+        this.component = 'Modal';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Modal.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Modal.options, options);
 
-    /** List of elements to active modals */
-    this.nodes = $(nodes);
+        /** List of elements to active modals */
+        this.nodes = $(nodes);
 
-    /** Currently active node */
-    this.node = null;
+        /** Currently active node */
+        this.node = null;
 
-    /** Modal element */
-    this.element = this.createElement(this.options);
+        /** Modal element */
+        this.element = this.createElement(this.options);
 
-    /** Modal body element */
-    this.elementBody = null;
+        /** Modal body element */
+        this.elementBody = null;
 
-    /** Blackout instance if options.blackout is true */
-    this.blackout = null;
+        /** Blackout instance if options.blackout is true */
+        this.blackout = null;
 
-    /** Drag instance if options.draggable is true */
-    this.drag = null;
+        /** Drag instance if options.draggable is true */
+        this.drag = null;
 
-    /** Cache requests */
-    this.cache = {};
+        /** Cache requests */
+        this.cache = {};
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Modal.options = {
+        animation: 'fade',
+        className: '',
+        context: null,
+        ajax: true,
+        draggable: false,
+        blackout: true,
+        showLoading: true,
+        fullScreen: false,
+        getContent: 'data-modal',
+        contentElement: '.modal-inner',
+        closeElement: '.modal-close',
+        closeEvent: '.modal-event-close',
+        submitEvent: '.modal-event-submit',
+        template: '<div class="modal">' +
+            '<div class="modal-handle">' +
+                '<div class="modal-inner"></div>' +
+                '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
+            '</div>' +
+        '</div>'
+    };
+
+    var Modal = Toolkit.Modal.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Modal.initialize = function() {
         var options = this.options;
 
         if (options.fullScreen) {
@@ -96,7 +122,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Modal}
      */
-    this.hide = function() {
+    Modal.hide = function() {
         this.element.conceal();
 
         if (this.options.blackout) {
@@ -114,7 +140,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      * @param {String|jQuery} content
      * @returns {Toolkit.Modal}
      */
-    this.position = function(content) {
+    Modal.position = function(content) {
         // AJAX is currently loading
         if (content === true) {
             return this;
@@ -157,7 +183,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      * @param {String} [content]
      * @returns {Toolkit.Modal}
      */
-    this.show = function(node, content) {
+    Modal.show = function(node, content) {
         node = $(node);
 
         var options = this.options,
@@ -204,7 +230,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__hide = function(e) {
+    Modal.__hide = function(e) {
         e.preventDefault();
 
         this.hide();
@@ -216,7 +242,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Modal.__show = function(e) {
         e.preventDefault();
 
         if (!this.enabled) {
@@ -232,7 +258,7 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__submit = function(e) {
+    Modal.__submit = function(e) {
         e.preventDefault();
 
         var button = $(e.target),
@@ -260,50 +286,27 @@ Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
         this.requestData('modal', options);
     };
 
-    this.initialize();
-});
+    /**
+     * Enable modals on Elements collections by calling modal().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-modal').modal({
+     *         draggable: true
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.modal = function(options) {
+        console.log(this, options);
 
-Toolkit.Modal.options = {
-    animation: 'fade',
-    className: '',
-    context: null,
-    ajax: true,
-    draggable: false,
-    blackout: true,
-    showLoading: true,
-    fullScreen: false,
-    getContent: 'data-modal',
-    contentElement: '.modal-inner',
-    closeElement: '.modal-close',
-    closeEvent: '.modal-event-close',
-    submitEvent: '.modal-event-submit',
-    template: '<div class="modal">' +
-        '<div class="modal-handle">' +
-            '<div class="modal-inner"></div>' +
-            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
-        '</div>' +
-    '</div>'
-};
+        var modal = new Toolkit.Modal(this, options);
 
-/**
- * Enable modals on Elements collections by calling modal().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-modal').modal({
- *         draggable: true
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.modal = function(options) {
-    var modal = new Toolkit.Modal(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.modal', modal);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.modal', modal);
+        });
+    };
 
 })(jQuery);

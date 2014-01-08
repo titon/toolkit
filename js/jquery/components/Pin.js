@@ -7,31 +7,46 @@
 (function($) {
     'use strict';
 
-Toolkit.Pin = Toolkit.Component.create(function(element, options) {
+    Toolkit.Pin = Toolkit.Component.create(function(element, options) {
+        this.component = 'Pin';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Pin.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Pin.options, options);
 
-    /** Element to pin */
-    this.element = this.setElement(element, this.options);
+        /** Element to pin */
+        this.element = this.setElement(element, this.options);
 
-    /** The current window width and height */
-    this.viewport = null;
+        /** The current window width and height */
+        this.viewport = null;
 
-    /** Target and container sizes */
-    this.elementHeight = null;
-    this.elementTop = null;
+        /** Target and container sizes */
+        this.elementHeight = null;
+        this.elementTop = null;
 
-    this.parentHeight = null;
-    this.parentTop = null;
+        this.parentHeight = null;
+        this.parentTop = null;
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Pin.options = {
+        animation: '',
+        location: 'right',
+        xOffset: 0,
+        yOffset: 0,
+        throttle: 50,
+        fixed: false,
+        calculate: false,
+        context: null
+    };
+
+    var Pin = Toolkit.Pin.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Pin.initialize = function() {
         this.element.addClass(Toolkit.options.vendor + 'pin');
         this.elementTop = parseInt(this.element.css('top'), 10);
 
@@ -47,7 +62,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Pin}
      */
-    this.calculate = function() {
+    Pin.calculate = function() {
         var win = $(window),
             parent = this.element.parents(this.options.context);
 
@@ -68,7 +83,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
      *
      * @private
      */
-    this.__resize = function() {
+    Pin.__resize = function() {
         this.calculate();
 
         // Enable pin if the parent is larger than the child
@@ -87,7 +102,7 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
      *
      * @private
      */
-    this.__scroll = function() {
+    Pin.__scroll = function() {
         if (this.options.calculate) {
             this.calculate();
         }
@@ -159,41 +174,25 @@ Toolkit.Pin = Toolkit.Component.create(function(element, options) {
         this.fireEvent('scroll');
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Pin.options = {
-    animation: '',
-    location: 'right',
-    xOffset: 0,
-    yOffset: 0,
-    throttle: 50,
-    fixed: false,
-    calculate: false,
-    context: null
-};
-
-/**
- * Enable Element pinning by calling pin().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#pin-id').pin({
- *         throttle: 100
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.pin = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.pin', function() {
-            return new Toolkit.Pin(this, options);
+    /**
+     * Enable Element pinning by calling pin().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#pin-id').pin({
+     *         throttle: 100
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.pin = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.pin', function() {
+                return new Toolkit.Pin(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

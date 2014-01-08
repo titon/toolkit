@@ -7,34 +7,62 @@
 (function($) {
     'use strict';
 
-Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
+        this.component = 'Tooltip';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Tooltip.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Tooltip.options, options);
 
-    /** List of nodes to activate tooltip */
-    this.nodes = $(nodes);
+        /** List of nodes to activate tooltip */
+        this.nodes = $(nodes);
 
-    /** The current node */
-    this.node = null;
+        /** The current node */
+        this.node = null;
 
-    /** Tooltip wrapper */
-    this.element = this.createElement(this.options);
+        /** Tooltip wrapper */
+        this.element = this.createElement(this.options);
 
-    /** Inner elements */
-    this.elementHead = null;
-    this.elementBody = null;
+        /** Inner elements */
+        this.elementHead = null;
+        this.elementBody = null;
 
-    /** Cached requests */
-    this.cache = {};
+        /** Cached requests */
+        this.cache = {};
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Tooltip.options = {
+        mode: 'hover',
+        ajax: false,
+        follow: false,
+        position: 'topCenter',
+        showLoading: true,
+        showTitle: true,
+        getTitle: 'title',
+        getContent: 'data-tooltip',
+        mouseThrottle: 50,
+        xOffset: 0,
+        yOffset: 0,
+        delay: 0,
+        titleElement: '.tooltip-head',
+        contentElement: '.tooltip-body',
+        template: '<div class="tooltip">' +
+            '<div class="tooltip-inner">' +
+                '<div class="tooltip-head"></div>' +
+                '<div class="tooltip-body"></div>' +
+            '</div>' +
+            '<div class="tooltip-arrow"></div>' +
+        '</div>'
+    };
+
+    var Tooltip = Toolkit.Tooltip.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Tooltip.initialize = function() {
         if (!this.nodes.length) {
             return;
         }
@@ -63,7 +91,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Tooltip}
      */
-    this.hide = function() {
+    Tooltip.hide = function() {
         this.element.conceal();
         this.fireEvent('hide');
 
@@ -78,7 +106,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @param {String|jQuery} [title]
      * @returns {Toolkit.Tooltip}
      */
-    this.position = function(content, title) {
+    Tooltip.position = function(content, title) {
         var options = this.options;
 
         // AJAX is currently loading
@@ -137,7 +165,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @param {String|jQuery} [title]
      * @returns {Toolkit.Tooltip}
      */
-    this.show = function(node, content, title) {
+    Tooltip.show = function(node, content, title) {
         if (node) {
             node = $(node);
 
@@ -180,7 +208,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__follow = function(e) {
+    Tooltip.__follow = function(e) {
         e.preventDefault();
 
         var options = this.options;
@@ -197,7 +225,7 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Tooltip.__show = function(e) {
         var node = $(e.target),
             isNode = (this.node && node[0] === this.node[0]);
 
@@ -231,52 +259,25 @@ Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
         this.show(node);
     };
 
-    this.initialize();
-});
+    /**
+     * Enable tooltips on Elements collections by calling tooltip().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-tooltip').tooltip({
+     *         ajax: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.tooltip = function(options) {
+        var tooltip = new Toolkit.Tooltip(this, options);
 
-Toolkit.Tooltip.options = {
-    mode: 'hover',
-    ajax: false,
-    follow: false,
-    position: 'topCenter',
-    showLoading: true,
-    showTitle: true,
-    getTitle: 'title',
-    getContent: 'data-tooltip',
-    mouseThrottle: 50,
-    xOffset: 0,
-    yOffset: 0,
-    delay: 0,
-    titleElement: '.tooltip-head',
-    contentElement: '.tooltip-body',
-    template: '<div class="tooltip">' +
-        '<div class="tooltip-inner">' +
-            '<div class="tooltip-head"></div>' +
-            '<div class="tooltip-body"></div>' +
-        '</div>' +
-        '<div class="tooltip-arrow"></div>' +
-    '</div>'
-};
-
-/**
- * Enable tooltips on Elements collections by calling tooltip().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-tooltip').tooltip({
- *         ajax: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.tooltip = function(options) {
-    var tooltip = new Toolkit.Tooltip(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.tooltip', tooltip);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.tooltip', tooltip);
+        });
+    };
 
 })(jQuery);

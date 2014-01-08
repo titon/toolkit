@@ -7,37 +7,56 @@
 (function($) {
     'use strict';
 
-Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
+    Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
+        this.component = 'Tabs';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Tabs.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Tabs.options, options);
 
-    /** Tabs wrapper */
-    this.element = this.setElement(element, this.options);
+        /** Tabs wrapper */
+        this.element = this.setElement(element, this.options);
 
-    /** Navigation container */
-    this.nav = null;
+        /** Navigation container */
+        this.nav = null;
 
-    /** Collection of content sections */
-    this.sections = [];
+        /** Collection of content sections */
+        this.sections = [];
 
-    /** Collection of tabs (anchor links) */
-    this.tabs = [];
+        /** Collection of tabs (anchor links) */
+        this.tabs = [];
 
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
+        /** The current and previous shown indices */
+        this.previousIndex = 0;
+        this.currentIndex = 0;
 
-    /** Cached requests */
-    this.cache = {};
+        /** Cached requests */
+        this.cache = {};
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Tabs.options = {
+        mode: 'click',
+        ajax: true,
+        collapsible: false,
+        defaultIndex: 0,
+        persistState: false,
+        preventDefault: true,
+        loadFragment: true,
+        cookie: null,
+        cookieDuration: 30,
+        getUrl: 'href',
+        navElement: '.tabs-nav',
+        sectionsElement: '.tabs-section'
+    };
+
+    var Tabs = Toolkit.Tabs.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Tabs.initialize = function() {
         var options = this.options;
 
         if (!options.cookie) {
@@ -99,7 +118,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Tabs}
      */
-    this.hide = function() {
+    Tabs.hide = function() {
         this.sections.conceal();
 
         this.fireEvent('hide', this.node);
@@ -113,7 +132,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
      * @param {Number} index
      * @returns {Toolkit.Tabs}
      */
-    this.jump = function(index) {
+    Tabs.jump = function(index) {
         if (this.tabs[index]) {
             this.show(this.tabs[index]);
         }
@@ -128,7 +147,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
      * @param {jQuery} tab
      * @returns {Toolkit.Tabs}
      */
-    this.show = function(tab) {
+    Tabs.show = function(tab) {
         tab = $(tab);
 
         var index = tab.data('index'),
@@ -209,7 +228,7 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Tabs.__show = function(e) {
         if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }
@@ -221,45 +240,25 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
         this.show(e.target);
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Tabs.options = {
-    mode: 'click',
-    ajax: true,
-    collapsible: false,
-    defaultIndex: 0,
-    persistState: false,
-    preventDefault: true,
-    loadFragment: true,
-    cookie: null,
-    cookieDuration: 30,
-    getUrl: 'href',
-    navElement: '.tabs-nav',
-    sectionsElement: '.tabs-section'
-};
-
-/**
- * Enable tabular sections on an Element by calling tabs().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#tabs-id').tabs({
- *         collapsible: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.tabs = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.tabs', function() {
-            return new Toolkit.Tabs(this, options);
+    /**
+     * Enable tabular sections on an Element by calling tabs().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#tabs-id').tabs({
+     *         collapsible: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.tabs = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.tabs', function() {
+                return new Toolkit.Tabs(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

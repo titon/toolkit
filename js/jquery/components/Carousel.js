@@ -7,44 +7,61 @@
 (function($) {
     'use strict';
 
-Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
+    Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
+        this.component = 'Carousel';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Carousel.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Carousel.options, options);
 
-    /** Carousel element */
-    this.element = this.setElement(element, this.options);
+        /** Carousel element */
+        this.element = this.setElement(element, this.options);
 
-    /** Is the carousel stopped? */
-    this.stopped = false;
+        /** Is the carousel stopped? */
+        this.stopped = false;
 
-    /** Items and parent container */
-    this.itemsWrapper = null;
-    this.itemsList = null;
-    this.items = [];
+        /** Items and parent container */
+        this.itemsWrapper = null;
+        this.itemsList = null;
+        this.items = [];
 
-    /** Tabs and parent container */
-    this.tabsWrapper = null;
-    this.tabs = [];
+        /** Tabs and parent container */
+        this.tabsWrapper = null;
+        this.tabs = [];
 
-    /** Previous and next buttons */
-    this.prevButton = null;
-    this.nextButton = null;
+        /** Previous and next buttons */
+        this.prevButton = null;
+        this.nextButton = null;
 
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
+        /** The current and previous shown indices */
+        this.previousIndex = 0;
+        this.currentIndex = 0;
 
-    /** Cycle timer */
-    this.timer = null;
+        /** Cycle timer */
+        this.timer = null;
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Carousel.options = {
+        animation: 'slide',
+        duration: 5000,
+        autoCycle: true,
+        stopOnHover: true,
+        itemsElement: '.carousel-items',
+        itemElement: 'li',
+        tabsElement: '.carousel-tabs',
+        tabElement: 'a',
+        nextElement: '.carousel-next',
+        prevElement: '.carousel-prev'
+    };
+
+    var Carousel = Toolkit.Carousel.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Carousel.initialize = function() {
         var options = this.options;
 
         // Get elements
@@ -124,7 +141,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      * @param {Number} index
      * @returns {Toolkit.Carousel}
      */
-    this.jump = function(index) {
+    Carousel.jump = function(index) {
         if (index >= this.items.length) {
             index = 0;
         } else if (index < 0) {
@@ -169,7 +186,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Carousel}
      */
-    this.next = function() {
+    Carousel.next = function() {
         this.jump(this.currentIndex + 1);
 
         return this;
@@ -180,7 +197,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Carousel}
      */
-    this.prev = function() {
+    Carousel.prev = function() {
         this.jump(this.currentIndex - 1);
 
         return this;
@@ -191,7 +208,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Carousel}
      */
-    this.reset = function() {
+    Carousel.reset = function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
             this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
@@ -205,7 +222,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Carousel}
      */
-    this.start = function() {
+    Carousel.start = function() {
         this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = false;
 
@@ -219,7 +236,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Carousel}
      */
-    this.stop = function() {
+    Carousel.stop = function() {
         this.element.addClass(Toolkit.options.isPrefix + 'stopped');
         this.stopped = true;
 
@@ -234,7 +251,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      *
      * @private
      */
-    this.__cycle = function() {
+    Carousel.__cycle = function() {
         if (!this.enabled) {
             return;
         }
@@ -252,7 +269,7 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
      * @private
      * @param {Event} e
      */
-    this.__jump = function(e) {
+    Carousel.__jump = function(e) {
         e.preventDefault();
 
         if (!this.enabled) {
@@ -262,43 +279,25 @@ Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
         this.jump($(e.target).data('index') || 0);
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Carousel.options = {
-    animation: 'slide',
-    duration: 5000,
-    autoCycle: true,
-    stopOnHover: true,
-    itemsElement: '.carousel-items',
-    itemElement: 'li',
-    tabsElement: '.carousel-tabs',
-    tabElement: 'a',
-    nextElement: '.carousel-next',
-    prevElement: '.carousel-prev'
-};
-
-/**
- * Allow the carousel to be created on elements by calling carousel().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#carousel-id').carousel({
- *         stopOnHover: true
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.carousel = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.carousel', function() {
-            return new Toolkit.Carousel(this, options);
+    /**
+     * Allow the carousel to be created on elements by calling carousel().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#carousel-id').carousel({
+     *         stopOnHover: true
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.carousel = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.carousel', function() {
+                return new Toolkit.Carousel(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

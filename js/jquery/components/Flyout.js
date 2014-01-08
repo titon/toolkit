@@ -7,42 +7,62 @@
 (function($) {
     'use strict';
 
-Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
+    Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
+        this.component = 'Flyout';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Flyout.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Flyout.options, options);
 
-    /** Nodes to activate menus on */
-    this.nodes = $(nodes);
+        /** Nodes to activate menus on */
+        this.nodes = $(nodes);
 
-    /** Currently active node */
-    this.node = null;
+        /** Currently active node */
+        this.node = null;
 
-    /** Currently active menu */
-    this.element = null;
+        /** Currently active menu */
+        this.element = null;
 
-    /** The current menu URL being displayed */
-    this.current = null;
+        /** The current menu URL being displayed */
+        this.current = null;
 
-    /** Collection of menu elements */
-    this.menus = {};
+        /** Collection of menu elements */
+        this.menus = {};
 
-    /** Raw data response */
-    this.data = [];
+        /** Raw data response */
+        this.data = [];
 
-    /** Mapping of data indexed by URL */
-    this.dataMap = {};
+        /** Mapping of data indexed by URL */
+        this.dataMap = {};
 
-    /** Delay timers */
-    this.timers = {};
+        /** Delay timers */
+        this.timers = {};
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize(url);
+    });
+
+    Toolkit.Flyout.options = {
+        className: '',
+        context: null,
+        mode: 'hover',
+        getUrl: 'href',
+        xOffset: 0,
+        yOffset: 0,
+        showDelay: 350,
+        hideDelay: 1000,
+        itemLimit: 15,
+        contentElement: '.flyout',
+        template: '<div class="flyout"></div>'
+    };
+
+    var Flyout = Toolkit.Flyout.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
+     *
+     * @param {String} url
      */
-    this.initialize = function() {
+    Flyout.initialize = function(url) {
         if (!url) {
             throw new Error('Flyout URL required to download sitemap JSON');
         }
@@ -75,7 +95,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {String} key
      * @returns {Toolkit.Flyout}
      */
-    this.clearTimer = function(key) {
+    Flyout.clearTimer = function(key) {
         window.clearTimeout(this.timers[key]);
         delete this.timers[key];
 
@@ -87,7 +107,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      *
      * @returns {Toolkit.Flyout}
      */
-    this.hide = function() {
+    Flyout.hide = function() {
         // Must be called even if the menu is hidden
         this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
@@ -109,7 +129,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      *
      * @returns {bool}
      */
-    this.isVisible = function() {
+    Flyout.isVisible = function() {
         if (this.current && this.menus[this.current]) {
             this.element = this.menus[this.current];
         }
@@ -124,7 +144,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {Number} [depth]
      * @returns {Toolkit.Flyout}
      */
-    this.load = function(data, depth) {
+    Flyout.load = function(data, depth) {
         depth = depth || 0;
 
         // If root, store the data
@@ -149,7 +169,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      *
      * @returns {Toolkit.Flyout}
      */
-    this.position = function() {
+    Flyout.position = function() {
         var target = this.current,
             options = this.options;
 
@@ -185,7 +205,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {jQuery} node
      * @returns {Toolkit.Flyout}
      */
-    this.show = function(node) {
+    Flyout.show = function(node) {
         var target = this._getTarget(node);
 
         // When jumping from one node to another
@@ -221,7 +241,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {Array} args
      * @returns {Toolkit.Flyout}
      */
-    this.startTimer = function(key, delay, args) {
+    Flyout.startTimer = function(key, delay, args) {
         this.clearTimer(key);
 
         var func;
@@ -249,7 +269,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {Object} data
      * @returns {jQuery}
      */
-    this._buildMenu = function(parent, data) {
+    Flyout._buildMenu = function(parent, data) {
         if (!data.children || !data.children.length) {
             return null;
         }
@@ -342,7 +362,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @private
      * @returns {jQuery}
      */
-    this._getMenu = function() {
+    Flyout._getMenu = function() {
         var target = this._getTarget();
 
         if (this.menus[target]) {
@@ -387,7 +407,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @param {jQuery} node
      * @returns {String}
      */
-    this._getTarget = function(node) {
+    Flyout._getTarget = function(node) {
         node = $(node || this.node);
 
         return this.readValue(node, this.options.getUrl) || node.attr('href');
@@ -399,7 +419,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @private
      * @param {jQuery} parent
      */
-    this.__hideChild = function(parent) {
+    Flyout.__hideChild = function(parent) {
         parent = $(parent);
         parent.removeClass(Toolkit.options.isPrefix + 'open');
         parent.children(this.options.contentElement).removeAttr('style');
@@ -413,7 +433,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @private
      * @param {jQuery} parent
      */
-    this.__positionChild = function(parent) {
+    Flyout.__positionChild = function(parent) {
         var menu = parent.children(this.options.contentElement);
 
         if (!menu) {
@@ -460,7 +480,7 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Flyout.__show = function(e) {
         var node = $(e.target),
             isNode = (this.node && node[0] === this.node[0]);
 
@@ -494,43 +514,26 @@ Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
         this.show(node);
     };
 
-    this.initialize();
-});
+    /**
+     * Enable flyouts on Elements collections by calling flyout().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-flyout').flyout('/sitemap.json', {
+     *         ajax: false
+     *     });
+     *
+     * @param {String} url
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.flyout = function(url, options) {
+        var flyout = new Toolkit.Flyout(this, url, options);
 
-Toolkit.Flyout.options = {
-    className: '',
-    context: null,
-    mode: 'hover',
-    getUrl: 'href',
-    xOffset: 0,
-    yOffset: 0,
-    showDelay: 350,
-    hideDelay: 1000,
-    itemLimit: 15,
-    contentElement: '.flyout',
-    template: '<div class="flyout"></div>'
-};
-
-/**
- * Enable flyouts on Elements collections by calling flyout().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-flyout').flyout('/sitemap.json', {
- *         ajax: false
- *     });
- *
- * @param {String} url
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.flyout = function(url, options) {
-    var flyout = new Toolkit.Flyout(this, url, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.flyout', flyout);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.flyout', flyout);
+        });
+    };
 
 })(jQuery);

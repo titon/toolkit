@@ -7,39 +7,73 @@
 (function($) {
     'use strict';
 
-Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
+        this.component = 'Showcase';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Showcase.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Showcase.options, options);
 
-    /** List of nodes to activate showcase */
-    this.nodes = $(nodes);
+        /** List of nodes to activate showcase */
+        this.nodes = $(nodes);
 
-    /** Showcase element */
-    this.element = this.createElement(this.options);
+        /** Showcase element */
+        this.element = this.createElement(this.options);
 
-    /** List elements */
-    this.items = null;
-    this.tabs = null;
+        /** List elements */
+        this.items = null;
+        this.tabs = null;
 
-    /** Previous and next buttons */
-    this.prevButton = null;
-    this.nextButton = null;
+        /** Previous and next buttons */
+        this.prevButton = null;
+        this.nextButton = null;
 
-    /** List of items data to populate the showcase with **/
-    this.data = [];
+        /** List of items data to populate the showcase with **/
+        this.data = [];
 
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
+        /** The current and previous shown indices */
+        this.previousIndex = 0;
+        this.currentIndex = 0;
 
-    /** Blackout instance if options.blackout is true */
-    this.blackout = null;
+        /** Blackout instance if options.blackout is true */
+        this.blackout = null;
+
+        this.initialize();
+    });
+
+    Toolkit.Showcase.options = {
+        className: '',
+        blackout: true,
+        transition: 300,
+        gutter: 50,
+        getCategory: 'data-showcase',
+        getImage: 'href',
+        getTitle: 'title',
+        itemsElement: '.showcase-items',
+        tabsElement: '.showcase-tabs',
+        prevElement: '.showcase-prev',
+        nextElement: '.showcase-next',
+        closeEvent: '.showcase-event-close',
+        jumpEvent: '.showcase-event-jump',
+        prevEvent: '.showcase-event-prev',
+        nextEvent: '.showcase-event-next',
+        template: '<div class="showcase">' +
+            '<div class="showcase-inner">' +
+                '<ul class="showcase-items"></ul>' +
+                '<ol class="showcase-tabs bullets"></ol>' +
+                '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></a>' +
+                '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="arrow-right"></span></a>' +
+                '<a href="javascript:;" class="showcase-close showcase-event-close"><span class="x"></span></a>' +
+            '</div>' +
+        '</div>'
+    };
+
+    var Showcase = Toolkit.Showcase.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Showcase.initialize = function() {
         var options = this.options;
 
         // IE8 Doesn't support animations
@@ -95,7 +129,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Showcase}
      */
-    this.hide = function() {
+    Showcase.hide = function() {
         if (this.element.is(':shown')) {
             this.element.conceal();
             this.element.removeClass(Toolkit.options.isPrefix + 'single');
@@ -122,7 +156,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @param {Number} index
      * @returns {Toolkit.Showcase}
      */
-    this.jump = function(index) {
+    Showcase.jump = function(index) {
         if (index >= this.data.length) {
             index = 0;
         } else if (index < 0) {
@@ -207,7 +241,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Showcase}
      */
-    this.next = function() {
+    Showcase.next = function() {
         this.jump(this.currentIndex + 1);
 
         return this;
@@ -218,7 +252,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Showcase}
      */
-    this.position = function() {
+    Showcase.position = function() {
         if (!this.element.is(':shown')) {
             if (this.options.blackout) {
                 this.blackout.show();
@@ -238,7 +272,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Showcase}
      */
-    this.prev = function() {
+    Showcase.prev = function() {
         this.jump(this.currentIndex - 1);
 
         return this;
@@ -252,7 +286,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @param {Element} node
      * @returns {Toolkit.Showcase}
      */
-    this.show = function(node) {
+    Showcase.show = function(node) {
         this.node = node = $(node);
         this.currentIndex = this.previousIndex = 0;
         this.element.addClass(Toolkit.options.isPrefix + 'loading');
@@ -305,7 +339,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @param {Array} items
      * @returns {Toolkit.Showcase}
      */
-    this._buildItems = function(items) {
+    Showcase._buildItems = function(items) {
         this.data = items;
         this.items.empty();
         this.tabs.empty();
@@ -338,7 +372,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @return {Toolkit.Showcase}
      */
-    this._reposition = function() {
+    Showcase._reposition = function() {
         if (!Toolkit.ie8) {
             return this;
         }
@@ -360,7 +394,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @param {Number} height
      * @return {Toolkit.Showcase}
      */
-    this._resize = function(width, height) {
+    Showcase._resize = function(width, height) {
         var wWidth = $(window).width(),
             wHeight = $(window).height(),
             ratio, diff;
@@ -397,7 +431,7 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {DOMEvent} e
      */
-    this.__jump = function(e) {
+    Showcase.__jump = function(e) {
         e.preventDefault();
 
         this.jump($(e.target).data('index') || 0);
@@ -409,61 +443,31 @@ Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Showcase.__show = function(e) {
         e.preventDefault();
 
         this.show(e.currentTarget);
     };
 
-    this.initialize();
-});
+    /**
+     * Enable showcase galleries on Elements collections by calling showcase().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-showcase').showcase({
+     *         blackout: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.showcase = function(options) {
+        var showcase = new Toolkit.Showcase(this, options);
 
-Toolkit.Showcase.options = {
-    className: '',
-    blackout: true,
-    transition: 300,
-    gutter: 50,
-    getCategory: 'data-showcase',
-    getImage: 'href',
-    getTitle: 'title',
-    itemsElement: '.showcase-items',
-    tabsElement: '.showcase-tabs',
-    prevElement: '.showcase-prev',
-    nextElement: '.showcase-next',
-    closeEvent: '.showcase-event-close',
-    jumpEvent: '.showcase-event-jump',
-    prevEvent: '.showcase-event-prev',
-    nextEvent: '.showcase-event-next',
-    template: '<div class="showcase">' +
-        '<div class="showcase-inner">' +
-            '<ul class="showcase-items"></ul>' +
-            '<ol class="showcase-tabs bullets"></ol>' +
-            '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></a>' +
-            '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="arrow-right"></span></a>' +
-            '<a href="javascript:;" class="showcase-close showcase-event-close"><span class="x"></span></a>' +
-        '</div>' +
-    '</div>'
-};
-
-/**
- * Enable showcase galleries on Elements collections by calling showcase().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-showcase').showcase({
- *         blackout: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.showcase = function(options) {
-    var showcase = new Toolkit.Showcase(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.showcase', showcase);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.showcase', showcase);
+        });
+    };
 
 })(jQuery);

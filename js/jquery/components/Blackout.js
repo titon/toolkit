@@ -7,18 +7,30 @@
 (function($) {
     'use strict';
 
-Toolkit.Blackout = Toolkit.Component.create(function(options) {
+    Toolkit.Blackout = Toolkit.Component.create(function(options) {
+        this.component = 'Blackout';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Blackout.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Blackout.options, options);
 
-    /** Blackout element */
-    this.element = this.createElement(this.options);
+        /** Blackout element */
+        this.element = this.createElement(this.options);
+
+        this.initialize();
+    });
+
+    Toolkit.Blackout.options = {
+        template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
+        templateFrom: '#toolkit-blackout'
+    };
+
+    var Blackout = Toolkit.Blackout.prototype;
 
     /**
      * Add events for browser resizing.
      */
-    this.initialize = function() {
+    Blackout.initialize = function() {
         $(window).on('resize', this.position.bind(this));
 
         this.fireEvent('init');
@@ -29,7 +41,7 @@ Toolkit.Blackout = Toolkit.Component.create(function(options) {
      *
      * @returns {Toolkit.Blackout}
      */
-    this.hide = function() {
+    Blackout.hide = function() {
         this.element.conceal();
         this.fireEvent('hide');
 
@@ -41,7 +53,7 @@ Toolkit.Blackout = Toolkit.Component.create(function(options) {
      *
      * @returns {Toolkit.Blackout}
      */
-    this.position = function() {
+    Blackout.position = function() {
         if (this.element.is(':shown')) {
             var win = $(window);
 
@@ -59,20 +71,12 @@ Toolkit.Blackout = Toolkit.Component.create(function(options) {
      *
      * @returns {Toolkit.Blackout}
      */
-    this.show = function() {
+    Blackout.show = function() {
         this.element.reveal();
         this.position();
         this.fireEvent('show');
 
         return this;
     };
-
-    this.initialize();
-});
-
-Toolkit.Blackout.options = {
-    template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
-    templateFrom: '#toolkit-blackout'
-};
 
 })(jQuery);

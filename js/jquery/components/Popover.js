@@ -7,68 +7,70 @@
 (function($) {
     'use strict';
 
-Toolkit.Popover = Toolkit.Tooltip.create(function(nodes, options) {
+    Toolkit.Popover = Toolkit.Tooltip.create(function(nodes, options) {
+        this.component = 'Popover';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Popover.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Popover.options, options);
 
-    /** List of nodes to activate tooltip */
-    this.nodes = $(nodes);
+        /** List of nodes to activate tooltip */
+        this.nodes = $(nodes);
 
-    /** Tooltip wrapper */
-    this.element = this.createElement(this.options);
+        /** Tooltip wrapper */
+        this.element = this.createElement(this.options);
 
-    /** Inner elements */
-    this.elementHead = null;
-    this.elementBody = null;
+        /** Inner elements */
+        this.elementHead = null;
+        this.elementBody = null;
 
-    /** Cached requests */
-    this.cache = {};
+        /** Cached requests */
+        this.cache = {};
 
-    this.initialize();
-});
-
-Toolkit.Popover.options = {
-    mode: 'click',
-    ajax: false,
-    position: 'topCenter',
-    showLoading: true,
-    showTitle: true,
-    getTitle: 'title',
-    getContent: 'data-popover',
-    xOffset: 0,
-    yOffset: 0,
-    delay: 0,
-    titleElement: '.popover-head',
-    contentElement: '.popover-body',
-    template: '<div class="popover">' +
-        '<div class="popover-inner">' +
-            '<div class="popover-head"></div>' +
-            '<div class="popover-body"></div>' +
-        '</div>' +
-        '<div class="popover-arrow"></div>' +
-    '</div>'
-};
-
-/**
- * Enable popovers on Elements collections by calling popover().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-popover').popover({
- *         ajax: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.popover = function(options) {
-    var popover = new Toolkit.Popover(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.popover', popover);
+        this.initialize();
     });
-};
+
+    Toolkit.Popover.options = {
+        mode: 'click',
+        ajax: false,
+        position: 'topCenter',
+        showLoading: true,
+        showTitle: true,
+        getTitle: 'title',
+        getContent: 'data-popover',
+        xOffset: 0,
+        yOffset: 0,
+        delay: 0,
+        titleElement: '.popover-head',
+        contentElement: '.popover-body',
+        template: '<div class="popover">' +
+            '<div class="popover-inner">' +
+                '<div class="popover-head"></div>' +
+                '<div class="popover-body"></div>' +
+            '</div>' +
+            '<div class="popover-arrow"></div>' +
+        '</div>'
+    };
+
+    /**
+     * Enable popovers on Elements collections by calling popover().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-popover').popover({
+     *         ajax: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.popover = function(options) {
+        var popover = new Toolkit.Popover(this, options);
+
+        return this.each(function() {
+            $(this).addData('toolkit.popover', popover);
+        });
+    };
 
 })(jQuery);

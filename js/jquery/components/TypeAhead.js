@@ -7,42 +7,65 @@
 (function($) {
     'use strict';
 
-Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
+    Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
+        this.component = 'TypeAhead';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.TypeAhead.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.TypeAhead.options, options);
 
-    /** Primary DOM wrapper */
-    this.element = this.createElement(this.options);
+        /** Primary DOM wrapper */
+        this.element = this.createElement(this.options);
 
-    /** Input element to display menu against */
-    this.input = $(input);
+        /** Input element to display menu against */
+        this.input = $(input);
 
-    /** Shadow input element */
-    this.shadow = null;
+        /** Shadow input element */
+        this.shadow = null;
 
-    /** Current active index when cycling through the list */
-    this.index = -1;
+        /** Current active index when cycling through the list */
+        this.index = -1;
 
-    /** List of items to display and match against */
-    this.items = [];
+        /** List of items to display and match against */
+        this.items = [];
 
-    /** Current term used during lookup and matching */
-    this.term = '';
+        /** Current term used during lookup and matching */
+        this.term = '';
 
-    /** Throttle timer */
-    this.timer = null;
+        /** Throttle timer */
+        this.timer = null;
 
-    /** Cached queries */
-    this.cache = {};
+        /** Cached queries */
+        this.cache = {};
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.TypeAhead.options = {
+        className: '',
+        source: [],
+        minLength: 1,
+        itemLimit: 15,
+        throttle: 250,
+        prefetch: false,
+        shadow: false,
+        storage: 'session',
+        query: {},
+        contentElement: '',
+        template: '<div class="type-ahead"></div>',
+
+        // Callbacks
+        sorter: null,
+        matcher: null,
+        builder: null
+    };
+
+    var TypeAhead = Toolkit.TypeAhead.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    TypeAhead.initialize = function() {
         if (this.input.prop('tagName').toLowerCase() !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
         } else {
@@ -116,7 +139,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {Object} item
      * @returns {jQuery}
      */
-    this.build = function(item) {
+    TypeAhead.build = function(item) {
         var a = $('<a/>', {
             href: 'javascript:;'
         });
@@ -141,7 +164,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      *
      * @returns {Toolkit.TypeAhead}
      */
-    this.hide = function() {
+    TypeAhead.hide = function() {
         if (this.shadow) {
             this.shadow.val('');
         }
@@ -161,7 +184,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {String} item
      * @returns {String}
      */
-    this.highlight = function(item) {
+    TypeAhead.highlight = function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
                 return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
@@ -181,7 +204,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {String} term
      * @returns {Toolkit.TypeAhead}
      */
-    this.lookup = function(term) {
+    TypeAhead.lookup = function(term) {
         this.term = term;
         this.timer = window.setTimeout(function() {
             var options = this.options,
@@ -230,7 +253,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {String} term
      * @returns {bool}
      */
-    this.match = function(item, term) {
+    TypeAhead.match = function(item, term) {
         return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
     };
 
@@ -239,7 +262,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      *
      * @returns {Toolkit.TypeAhead}
      */
-    this.position = function() {
+    TypeAhead.position = function() {
         if (!this.items.length) {
             return this.hide();
         }
@@ -260,7 +283,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {Array} items
      * @returns {Toolkit.TypeAhead}
      */
-    this.process = function(items) {
+    TypeAhead.process = function(items) {
         if (!this.term.length || !items.length) {
             this.hide();
             return this;
@@ -370,7 +393,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      *
      * @returns {Toolkit.TypeAhead}
      */
-    this.rewind = function() {
+    TypeAhead.rewind = function() {
         this.index = -1;
         this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
 
@@ -384,7 +407,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {String} event
      * @returns {Toolkit.TypeAhead}
      */
-    this.select = function(index, event) {
+    TypeAhead.select = function(index, event) {
         this.index = index;
 
         var rows = this.element.find('li');
@@ -419,7 +442,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @param {Array} items
      * @returns {Array}
      */
-    this.sort = function(items) {
+    TypeAhead.sort = function(items) {
         return items.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
@@ -431,7 +454,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      *
      * @private
      */
-    this._shadow = function() {
+    TypeAhead._shadow = function() {
         if (!this.shadow) {
             return;
         }
@@ -457,7 +480,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @private
      * @param {DOMEvent} e
      */
-    this.__cycle = function(e) {
+    TypeAhead.__cycle = function(e) {
         var items = this.items,
             length = Math.min(this.options.itemLimit, Math.max(0, items.length));
 
@@ -528,7 +551,7 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @private
      * @param {DOMEvent} e
      */
-    this.__lookup = function(e) {
+    TypeAhead.__lookup = function(e) {
         if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
             return; // Handle with _cycle()
         }
@@ -553,54 +576,30 @@ Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
      * @private
      * @param {Number} index
      */
-    this.__select = function(index) {
+    TypeAhead.__select = function(index) {
         this.select(index);
         this.hide();
     };
 
-    if (this.input.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.TypeAhead.options = {
-    className: '',
-    source: [],
-    minLength: 1,
-    itemLimit: 15,
-    throttle: 250,
-    prefetch: false,
-    shadow: false,
-    storage: 'session',
-    query: {},
-    contentElement: '',
-    template: '<div class="type-ahead"></div>',
-
-    // Callbacks
-    sorter: null,
-    matcher: null,
-    builder: null
-};
-
-/**
- * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#input-id').typeAhead({
- *         shadow: true
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.typeAhead = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.typeahead', function() {
-            return new Toolkit.TypeAhead(this, options);
+    /**
+     * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#input-id').typeAhead({
+     *         shadow: true
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.typeAhead = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.typeahead', function() {
+                return new Toolkit.TypeAhead(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

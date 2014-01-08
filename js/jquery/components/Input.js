@@ -7,18 +7,31 @@
 (function($) {
     'use strict';
 
-Toolkit.Input = Toolkit.Component.create(function(elements, options) {
+    Toolkit.Input = Toolkit.Component.create(function(elements, options) {
+        this.component = 'Input';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Input.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Input.options, options);
 
-    /** List of form elements */
-    this.elements = this.setElement(elements, this.options);
+        /** List of form elements */
+        this.elements = this.setElement(elements, this.options);
+
+        this.initialize();
+    });
+
+    Toolkit.Input.options = {
+        checkbox: 'input:checkbox',
+        radio: 'input:radio',
+        select: 'select'
+    };
+
+    var Input = Toolkit.Input.prototype;
 
     /**
      * Replace specific form elements with custom replacements.
      */
-    this.initialize = function() {
+    Input.initialize = function() {
         this.fireEvent('init');
 
         var options = this.options,
@@ -85,7 +98,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
      * @param {jQuery} element
      * @returns {jQuery}
      */
-    this._buildWrapper = function(element) {
+    Input._buildWrapper = function(element) {
         var div = $('<div/>').addClass(Toolkit.options.vendor + 'custom-input'),
             classes = (element.attr('class') || '').replace(/\binput\b/, '').trim();
 
@@ -102,7 +115,7 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
      * @private
      * @param {Event} e
      */
-    this.__change = function(e) {
+    Input.__change = function(e) {
         var select = e.currentTarget;
 
         if (select[select.selectedIndex]) {
@@ -111,36 +124,25 @@ Toolkit.Input = Toolkit.Component.create(function(elements, options) {
         }
     };
 
-    if (this.elements.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Input.options = {
-    checkbox: 'input:checkbox',
-    radio: 'input:radio',
-    select: 'select'
-};
-
-/**
- * Enable custom inputs and selects within forms by calling input().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('form').input({
- *         checkbox: true
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.input = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.input', function() {
-            return new Toolkit.Input(this, options);
+    /**
+     * Enable custom inputs and selects within forms by calling input().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('form').input({
+     *         checkbox: true
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.input = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.input', function() {
+                return new Toolkit.Input(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

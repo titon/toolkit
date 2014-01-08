@@ -7,35 +7,48 @@
 (function($) {
     'use strict';
 
-Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
+    Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
+        this.component = 'Stalker';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Stalker.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Stalker.options, options);
 
-    /** Element to scroll */
-    this.element = this.setElement(element, this.options);
+        /** Element to scroll */
+        this.element = this.setElement(element, this.options);
 
-    /** Elements to apply active state to */
-    this.target = null;
-    this.targets = [];
+        /** Elements to apply active state to */
+        this.target = null;
+        this.targets = [];
 
-    /** Elements that trigger the active state */
-    this.marker = null;
-    this.markers = [];
+        /** Elements that trigger the active state */
+        this.marker = null;
+        this.markers = [];
 
-    /** Offset positioning for markers */
-    this.offsets = [];
+        /** Offset positioning for markers */
+        this.offsets = [];
 
-    /** Container used for scroll detection */
-    this.container = null;
+        /** Container used for scroll detection */
+        this.container = null;
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Stalker.options = {
+        target: '',
+        marker: '',
+        threshold: 50,
+        throttle: 50,
+        onlyWithin: true,
+        applyToParent: true
+    };
+
+    var Stalker = Toolkit.Stalker.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Stalker.initialize = function() {
         if (!this.options.target || !this.options.marker) {
             return;
         }
@@ -64,7 +77,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
      * @param {Element} target
      * @returns {Toolkit.Stalker}
      */
-    this.activate = function(marker, target) {
+    Stalker.activate = function(marker, target) {
         this.marker = $(marker);
         this.target = target = $(target);
 
@@ -90,7 +103,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
      * @param {Element} marker
      * @returns {Toolkit.Stalker}
      */
-    this.deactivate = function(marker) {
+    Stalker.deactivate = function(marker) {
         var targets = this.targets;
 
         if (this.options.applyToParent) {
@@ -111,7 +124,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Stalker}
      */
-    this.refresh = function() {
+    Stalker.refresh = function() {
         if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
             this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
         }
@@ -150,7 +163,7 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
      *
      * @private
      */
-    this.__scroll = function() {
+    Stalker.__scroll = function() {
         if (!this.enabled) {
             return;
         }
@@ -193,39 +206,25 @@ Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
         this.fireEvent('scroll');
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Stalker.options = {
-    target: '',
-    marker: '',
-    threshold: 50,
-    throttle: 50,
-    onlyWithin: true,
-    applyToParent: true
-};
-
-/**
- * Enable element scroll stalking by calling stalker().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('stalker-id').stalker({
- *         threshold: 100
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.stalker = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.stalker', function() {
-            return new Toolkit.Stalker(this, options);
+    /**
+     * Enable element scroll stalking by calling stalker().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('stalker-id').stalker({
+     *         threshold: 100
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.stalker = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.stalker', function() {
+                return new Toolkit.Stalker(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

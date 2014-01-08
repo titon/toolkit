@@ -7,34 +7,47 @@
 (function($) {
     'use strict';
 
-Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
+    Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
+        this.component = 'Accordion';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Accordion.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Accordion.options, options);
 
-    /** Primary DOM wrapper */
-    this.element = this.setElement(element, this.options);
+        /** Primary DOM wrapper */
+        this.element = this.setElement(element, this.options);
 
-    /** List of DOM headers */
-    this.headers = [];
+        /** List of DOM headers */
+        this.headers = [];
 
-    /** List of DOM sections */
-    this.sections = [];
+        /** List of DOM sections */
+        this.sections = [];
 
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
+        /** The current and previous shown indices */
+        this.previousIndex = 0;
+        this.currentIndex = 0;
 
-    /** Currently active header */
-    this.node = null;
+        /** Currently active header */
+        this.node = null;
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Accordion.options = {
+        mode: 'click',
+        defaultIndex: 0,
+        multiple: false,
+        collapsible: false,
+        headerElement: '.accordion-head',
+        contentElement: '.accordion-handle'
+    };
+
+    var Accordion = Toolkit.Accordion.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Accordion.initialize = function() {
         var options = this.options;
 
         // Fetch all the sections and headers
@@ -80,7 +93,7 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
      * @param {Number} index
      * @returns {Toolkit.Accordion}
      */
-    this.jump = function(index) {
+    Accordion.jump = function(index) {
         if (index >= this.headers.length) {
             index = 0;
         } else if (index < 0) {
@@ -99,7 +112,7 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
      * @param {jQuery} node
      * @returns {Toolkit.Accordion}
      */
-    this.show = function(node) {
+    Accordion.show = function(node) {
         node = $(node);
 
         var options = this.options,
@@ -151,45 +164,31 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Accordion.__show = function(e) {
         e.preventDefault();
 
         this.show(e.currentTarget);
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Accordion.options = {
-    mode: 'click',
-    defaultIndex: 0,
-    multiple: false,
-    collapsible: false,
-    headerElement: '.accordion-head',
-    contentElement: '.accordion-handle'
-};
-
-/**
- * Enable an accordion on an element by calling accordion().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#accordion-id').accordion({
- *         multiple: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.accordion = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.accordion', function() {
-            return new Toolkit.Accordion(this, options);
+    /**
+     * Enable an accordion on an element by calling accordion().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#accordion-id').accordion({
+     *         multiple: false
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.accordion = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.accordion', function() {
+                return new Toolkit.Accordion(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

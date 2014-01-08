@@ -7,7 +7,14 @@
 (function($) {
     'use strict';
 
-Toolkit.Component = function() {
+    Toolkit.Component = function() {};
+
+    var Component = Toolkit.Component.prototype;
+
+    // Shared properties
+    Component.component = 'Component';
+    Component.version = '0.0.0';
+    Component.enabled = true;
 
     /**
      * Create the element from the template.
@@ -15,7 +22,7 @@ Toolkit.Component = function() {
      * @param {Object} options
      * @returns {jQuery}
      */
-    this.createElement = function(options) {
+    Component.createElement = function(options) {
         var template;
 
         // Use another element as the template
@@ -45,7 +52,7 @@ Toolkit.Component = function() {
      *
      * @returns {Toolkit.Component}
      */
-    this.disable = function() {
+    Component.disable = function() {
         this.enabled = false;
 
         return this;
@@ -56,7 +63,7 @@ Toolkit.Component = function() {
      *
      * @returns {Toolkit.Component}
      */
-    this.enable = function() {
+    Component.enable = function() {
         this.enabled = true;
 
         return this;
@@ -69,7 +76,7 @@ Toolkit.Component = function() {
      * @param {Array} args
      * @returns {Toolkit.Component}
      */
-    this.fireEvent = function(event, args) {
+    Component.fireEvent = function(event, args) {
         if (args && !$.isArray(args)) {
             args = [args];
         }
@@ -91,7 +98,7 @@ Toolkit.Component = function() {
      * @param {*} content
      * @returns {Toolkit.Component}
      */
-    this.process = function(content) {
+    Component.process = function(content) {
         this.hide();
 
         if (content.callback) {
@@ -118,7 +125,7 @@ Toolkit.Component = function() {
      * @param {String|Function} query
      * @returns {String}
      */
-    this.readValue = function(element, query) {
+    Component.readValue = function(element, query) {
         if (!query) {
             return null;
         }
@@ -142,7 +149,7 @@ Toolkit.Component = function() {
      * @param {Function} fail
      * @returns {Toolkit.Component}
      */
-    this.requestData = function(type, options, before, done, fail) {
+    Component.requestData = function(type, options, before, done, fail) {
         var url = options.url || options;
 
         // Set default options
@@ -212,7 +219,7 @@ Toolkit.Component = function() {
      * @param {Object} options
      * @returns {jQuery}
      */
-    this.setElement = function(element, options) {
+    Component.setElement = function(element, options) {
         element = $(element);
         options.template = false;
 
@@ -236,7 +243,7 @@ Toolkit.Component = function() {
      * @param {Object} [options]
      * @returns {Object}
      */
-    this.setOptions = function(defaults, options) {
+    Component.setOptions = function(defaults, options) {
         var opts = $.extend({}, defaults || {}, options || {});
 
         // Reset for touch devices
@@ -253,7 +260,7 @@ Toolkit.Component = function() {
      * @param {String} component
      * @returns {jQuery}
      */
-    this._errorTemplate = function(component) {
+    Component._errorTemplate = function(component) {
         return $('<div/>')
             .addClass(Toolkit.options.vendor + component + '-error')
             .text(Toolkit.messages.error);
@@ -265,12 +272,10 @@ Toolkit.Component = function() {
      * @param {String} component
      * @returns {jQuery}
      */
-    this._loadingTemplate = function(component) {
+    Component._loadingTemplate = function(component) {
         return $('<div/>')
             .addClass(Toolkit.options.vendor + component + '-loading')
             .text(Toolkit.messages.loading);
     };
-
-};
 
 })(jQuery);

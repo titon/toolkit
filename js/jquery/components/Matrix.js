@@ -7,39 +7,56 @@
 (function($) {
     'use strict';
 
-Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
+    Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
+        this.component = 'Matrix';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Matrix.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Matrix.options, options);
 
-    /** Matrix wrapper */
-    this.element = this.setElement(element, this.options);
+        /** Matrix wrapper */
+        this.element = this.setElement(element, this.options);
 
-    /** List of DOM elements for items to position in the grid */
-    this.items = [];
+        /** List of DOM elements for items to position in the grid */
+        this.items = [];
 
-    /** List of items organized in order with span detection */
-    this.matrix = [];
+        /** List of items organized in order with span detection */
+        this.matrix = [];
 
-    /** Current width of the wrapper */
-    this.wrapperWidth = 0;
+        /** Current width of the wrapper */
+        this.wrapperWidth = 0;
 
-    /** The final width of each column */
-    this.colWidth = 0;
+        /** The final width of each column */
+        this.colWidth = 0;
 
-    /** How many columns to render in the grid */
-    this.colCount = 0;
+        /** How many columns to render in the grid */
+        this.colCount = 0;
 
-    /** List of images within the matrix */
-    this.images = [];
+        /** List of images within the matrix */
+        this.images = [];
 
-    /** How many images have been loaded */
-    this.imagesLoaded = 0;
+        /** How many images have been loaded */
+        this.imagesLoaded = 0;
+
+        this.initialize();
+    });
+
+    Toolkit.Matrix.options = {
+        className: '',
+        selector: '.matrix-item',
+        width: 200,
+        gutter: 20,
+        rtl: false,
+        defer: true,
+        template: false
+    };
+
+    var Matrix = Toolkit.Matrix.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Matrix.initialize = function() {
         this.element.addClass(Toolkit.options.vendor + 'matrix');
         this.items = this.element.find(this.options.selector);
 
@@ -61,7 +78,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @param {jQuery} item
      * @returns {Toolkit.Matrix}
      */
-    this.append = function(item) {
+    Matrix.append = function(item) {
         $(item)
             .addClass(Toolkit.options.vendor + 'matrix-item')
             .appendTo(this.element)
@@ -75,7 +92,8 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Matrix}
      */
-    this.disable = function() {
+    Matrix.disable = function() {
+        this.enabled = false;
         this.element.removeAttr('style');
         this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
 
@@ -87,7 +105,8 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Matrix}
      */
-    this.enable = function() {
+    Matrix.enable = function() {
+        this.enabled = true;
         this.items.addClass(Toolkit.options.vendor + 'matrix-item');
 
         return this;
@@ -99,7 +118,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @param {jQuery} item
      * @returns {Toolkit.Matrix}
      */
-    this.prepend = function(item) {
+    Matrix.prepend = function(item) {
         $(item)
             .addClass(Toolkit.options.vendor + 'matrix-item')
             .prependTo(this.element)
@@ -113,7 +132,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Matrix}
      */
-    this.refresh = function() {
+    Matrix.refresh = function() {
         this.items = this.element.find(this.options.selector);
 
         return this.render();
@@ -125,7 +144,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @param {jQuery} item
      * @returns {Toolkit.Matrix}
      */
-    this.remove = function(item) {
+    Matrix.remove = function(item) {
         item = $(item).get(0);
 
         this.items.each(function() {
@@ -147,7 +166,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      *
      * @returns {Toolkit.Matrix}
      */
-    this.render = function() {
+    Matrix.render = function() {
         this._calculateColumns();
 
         if (this.items.length < this.colCount) {
@@ -179,7 +198,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @returns {Toolkit.Matrix}
      */
-    this._calculateColumns = function() {
+    Matrix._calculateColumns = function() {
         var wrapperWidth = this.element.outerWidth(),
             colWidth = this.options.width,
             gutter = this.options.gutter,
@@ -213,7 +232,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @returns {Toolkit.Matrix}
      */
-    this._deferRender = function() {
+    Matrix._deferRender = function() {
         this.imagesLoaded = 0;
 
         this.images = this.element.find('img');
@@ -241,7 +260,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @returns {Toolkit.Matrix}
      */
-    this._organizeItems = function() {
+    Matrix._organizeItems = function() {
         var item,
             span,
             size,
@@ -292,7 +311,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @returns {Toolkit.Matrix}
      */
-    this._positionItems = function() {
+    Matrix._positionItems = function() {
         var gutter = this.options.gutter,
             items = this.matrix,
             item,
@@ -360,7 +379,7 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @param {Event} e
      */
-    this.__load = function(e) {
+    Matrix.__load = function(e) {
         if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
@@ -376,46 +395,31 @@ Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
      * @private
      * @param {Event} e
      */
-    this.__resize = function(e) {
+    Matrix.__resize = function(e) {
         if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
             this.refresh();
         }
     };
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Matrix.options = {
-    className: '',
-    selector: '.matrix-item',
-    width: 200,
-    gutter: 20,
-    rtl: false,
-    defer: true,
-    template: false
-};
-
-/**
- * Enable a matrix grid on an element by calling matrix().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#matrix-id').matrix({
- *         width: 200
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.matrix = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.matrix', function() {
-            return new Toolkit.Matrix(this, options);
+    /**
+     * Enable a matrix grid on an element by calling matrix().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('#matrix-id').matrix({
+     *         width: 200
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.matrix = function(options) {
+        return this.each(function() {
+            $(this).addData('toolkit.matrix', function() {
+                return new Toolkit.Matrix(this, options);
+            });
         });
-    });
-};
+    };
 
 })(jQuery);

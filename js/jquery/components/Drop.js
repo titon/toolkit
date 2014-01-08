@@ -7,27 +7,38 @@
 (function($) {
     'use strict';
 
-Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
+        this.component = 'Drop';
+        this.version = '0.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Drop.options, options);
+        /** Custom options */
+        this.options = this.setOptions(Toolkit.Drop.options, options);
 
-    /** List of elements to active drop */
-    this.nodes = $(nodes);
+        /** Currently active node */
+        this.node = null;
 
-    /** Element to toggle */
-    this.element = null;
+        /** List of elements to active drop */
+        this.nodes = $(nodes);
 
-    /** Currently active node */
-    this.node = null;
+        /** Element to toggle */
+        this.element = null;
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        this.initialize();
+    });
+
+    Toolkit.Drop.options = {
+        mode: 'click',
+        context: null,
+        getTarget: 'data-drop',
+        hideOpened: true
+    };
+
+    var Drop = Toolkit.Drop.prototype;
 
     /**
      * Initialize the component by fetching elements and binding events.
      */
-    this.initialize = function() {
+    Drop.initialize = function() {
         var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
             return '.' + Toolkit.options.vendor + 'drop--' + value;
         });
@@ -46,7 +57,7 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
      *
      * @returns {Toolkit.Drop}
      */
-    this.hide = function() {
+    Drop.hide = function() {
         if (this.element && this.element.is(':shown')) {
             this.element.conceal();
             this.node.removeClass(Toolkit.options.isPrefix + 'active');
@@ -63,7 +74,7 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
      * @param {jQuery} node
      * @returns {Toolkit.Drop}
      */
-    this.show = function(node) {
+    Drop.show = function(node) {
         this.element.reveal();
 
         this.node = $(node);
@@ -81,7 +92,7 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
      * @private
      * @param {Event} e
      */
-    this.__show = function(e) {
+    Drop.__show = function(e) {
         e.preventDefault();
 
         if (!this.enabled) {
@@ -110,35 +121,25 @@ Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
         }
     };
 
-    this.initialize();
-});
+    /**
+     * Enable drop's on Elements collections by calling drop().
+     * An object of options can be passed as the 1st argument.
+     * The class instance will be cached and returned from this function.
+     *
+     * @example
+     *     $('.js-drop').drop({
+     *         hideOpened: true
+     *     });
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    $.fn.drop = function(options) {
+        var drop = new Toolkit.Drop(this, options);
 
-Toolkit.Drop.options = {
-    mode: 'click',
-    context: null,
-    getTarget: 'data-drop',
-    hideOpened: true
-};
-
-/**
- * Enable drop's on Elements collections by calling drop().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('.js-drop').drop({
- *         hideOpened: true
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.drop = function(options) {
-    var drop = new Toolkit.Drop(this, options);
-
-    return this.each(function() {
-        $(this).addData('toolkit.drop', drop);
-    });
-};
+        return this.each(function() {
+            $(this).addData('toolkit.drop', drop);
+        });
+    };
 
 })(jQuery);

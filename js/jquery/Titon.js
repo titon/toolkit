@@ -339,14 +339,13 @@ if (!String.prototype.hyphenate) {
 
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
- * Will set the prototype if the `base` function to the function calling `create()`.
  *
  * @returns {Function}
  */
 if (!Function.prototype.create) {
     Function.prototype.create = function(base) {
-        /*jshint newcap:false */
-        base.prototype = new this();
+        // Extend the prototype else we'll run into weird shared inheritance bugs
+        base.prototype = $.extend({}, this.prototype);
         base.prototype.constructor = base;
 
         return base;
