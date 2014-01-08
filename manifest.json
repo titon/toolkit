@@ -18,7 +18,7 @@
         "priority": 1,
         "source": {
             "css": ["layout/base.css"],
-            "js": ["Titon.js", "Component.js"],
+            "js": ["Toolkit.js", "Component.js"],
             "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"],
             "jquery": ["Core"]
         }

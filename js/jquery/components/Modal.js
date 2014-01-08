@@ -300,8 +300,6 @@
      * @returns {jQuery}
      */
     $.fn.modal = function(options) {
-        console.log(this, options);
-
         var modal = new Toolkit.Modal(this, options);
 
         return this.each(function() {
