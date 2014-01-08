@@ -3,11 +3,12 @@
 All releases will contain bug fixing and polishing for current features.
 
 ### 1.1.0 ###
-* Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Mask - A component that will mask a target element with a blackout.
+* Loader - CSS based loaders and spinners
 * Improvements for Input by adding custom select dropdowns and multi-select support
 
 ### 1.2.0 ###
+* Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
 
@@ -19,7 +20,6 @@ All releases will contain bug fixing and polishing for current features.
 * Remove the MooTools port.
 * Drop IE 8/9 support and upgrade to jQuery 2.
 * Replace JS option callbacks with namespaced element events.
-* Refactor the JS component layer and reduce complex implementation.
 * Separate component transitions into a stand alone layer that can be used anywhere.
 * Refactor in-between loading states. Possibly into a new component? CSS or JS based?
 * Replace examples with unit tests.
