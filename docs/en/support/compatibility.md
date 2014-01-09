@@ -77,8 +77,8 @@ Supported is determined through [caniuse.com](http://caniuse.com/) and can be ve
 
 On top of the features above not being supported, the following Toolkit components are not supported in IE 8 and 9.
 
-* [Input](../components/input.html)
-* [Matrix](../components/matrix.html)
+* [Input](../components/input.md)
+* [Matrix](../components/matrix.md)
 
 ### Compatibility Mode ###
 
