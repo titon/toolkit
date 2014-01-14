@@ -26,7 +26,7 @@ The following minimum versions should support most (if not all) of Toolkits func
 ## Internet Explorer 8 & 9 ##
 
 Although IE 8 and 9 are partially supported, they do not support many of the features implemented by modern browsers, which is represented in the table below.
-Supported is determined through [caniuse.com](http://caniuse.com/) and can be verified by clicking on the table row titles.
+Support is determined through [caniuse.com](http://caniuse.com/) and can be verified by clicking on the table row titles.
 
 <table class="table compatibility-table">
     <thead>

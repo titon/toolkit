@@ -14,7 +14,7 @@
 
     @include clear-fix;
 
-    &.no-columns .#{$vendor-prefix}matrix-item {
+    &.#{$state-has-prefix}no-columns .#{$vendor-prefix}matrix-item {
         position: relative !important;
     }
 }
