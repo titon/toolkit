@@ -97,7 +97,7 @@ The shape and size class names can be changed through the `$size-*-class` and `$
 
 ### States ###
 
-By default all state classes are prefixed with `is` or `has`, so `.active` would be `.is-active` and `.children` would be `.has-children`.
+By default all state classes are prefixed with `is-` or `has-`, so `.active` would be `.is-active` and `.children` would be `.has-children`.
 Prefixes can be changed through the `$state-is-prefix` and `$state-has-prefix` variables.
 
 ### Components ###
@@ -105,3 +105,4 @@ Prefixes can be changed through the `$state-is-prefix` and `$state-has-prefix` v
 Component names follow the BEM naming convention mentioned above, so all component class names are also reserved.
 However, Toolkit does support prefixing *ALL* components with a vendor name,
 so that `.tooltip` would be renamed to `.titon-tooltip` if the `$vendor-prefix` variable was set to `titon-`.
+This is disabled by default.
