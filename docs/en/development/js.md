@@ -1,6 +1,47 @@
 # JavaScript Development #
 
+The ins and outs of the JavaScript layer within Toolkit.
+
+* [Component System](#component-system)
+    * [Templates](#templates)
+    * [Options](#options)
+    * [Events](#events)
+    * [Properties](#properties)
+    * [Methods](#methods)
+* [Custom Template Markup](#custom-template-markup)
+* [Reserved Namespaces](#reserved-namespaces)
+* [Extensions](#extensions)
+    * [jQuery](#jquery)
+    * [MooTools](#mootools)
+
 ## Component System ##
+
+The individual components that make up the Toolkit JavaScript layer are powered by a robust object-oriented class layer.
+This base class that all components extend can be found under the `Toolkit.Component` object.
+The Component class provides common methods, options, and events &mdash; all of which can be found in more detail below.
+
+Before we learn more about the component system, we must differentiate between the multiple types of components.
+Every type of component falls into one of the following categories.
+
+* Activated
+    * Component is initialized on an element that actives the component.
+    * Template is created through the component (can be customized through options).
+* Embedded
+    * Component is initialized on an existing element in the DOM.
+    * Target element becomes the template used by the component.
+* Passive
+    * Component is initialized on an existing element in the DOM.
+    * Templates can be optional, auto-created, or discovered.
+    * Functionality triggers automatically.
+
+And the components placed in their respective type.
+Do note that it is possible for a component to share functionality from multiple types.
+
+* Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip
+* Embedded: Accordion, Carousel, Matrix, Tabs
+* Passive: Dropdown, Input, LazyLoad, Pin, Stalker, TypeAhead
+
+### Templates ###
 
 ### Options ###
 
@@ -35,7 +76,7 @@ $('.js-tooltip').tooltip({
 
 Similar to native JavaScript events, the component layer has a system for dispatching callbacks at specific events.
 The difference between native events and Toolkit events, is that Toolkit events are set as options through the constructor.
-Any option that begins with `on` and defines an anonymous function is considered an event.
+Any option that begins with `on` and defines an anonymous function is considered an event, for example.
 
 ```javascript
 $('#carousel').carousel({
@@ -55,32 +96,27 @@ The following events exist in all components, however, each component may have t
     <thead>
         <tr>
             <th>Event</th>
-            <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onInit</td>
-            <td></td>
+            <td>onInit()</td>
             <td>Triggered immediately after a component has initialized.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td></td>
+            <td>onShow()</td>
             <td>
-                Triggered when the component element is shown (this can change depending on context).
-                Is also triggered after an AJAX call has finished.
+                Triggered when the component element is shown (this can change depending on context),
+                and after an AJAX call has finished.
             </td>
         </tr>
         <tr>
-            <td>onHide</td>
-            <td></td>
+            <td>onHide()</td>
             <td>Triggered when the component element is hidden (this also depends on context).</td>
         </tr>
         <tr>
-            <td>onLoad</td>
-            <td>response</td>
+            <td>onLoad(response)</td>
             <td>Triggered after an AJAX call has finished, but before the response is rendered.</td>
         </tr>
     </tbody>
@@ -90,6 +126,8 @@ The following events exist in all components, however, each component may have t
     The event system will be changing in future versions to support native element events instead of option events.
     This allows multiples events to be bound and to be bound per element.
 </div>
+
+### Properties ###
 
 ### Methods ###
 

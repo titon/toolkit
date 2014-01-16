@@ -2,6 +2,15 @@
 
 A few pointers on using and understanding the CSS behind Toolkit.
 
+* [Normalize Integration](#normalize-integration)
+* [Mobile First](#mobile-first)
+* [Fluid & Responsiveness](#fluid--responsiveness)
+* [Block-Element-Modifier Methodology](#block-element-modifier-methodology)
+* [Reserved Classes](#reserved-classes)
+    * [Shapes & Sizes](#shapes--sizes)
+    * [States](#states)
+    * [Components](#components)
+
 ## Normalize Integration ##
 
 Toolkit makes use of [normalize.css](http://necolas.github.io/normalize.css) as a means to standardize implementations across browsers.
@@ -31,7 +40,7 @@ This allows components to scale and reposition automatically based on the device
 
 Responsive websites require media query support within the browser &mdash; [the following browsers are supported](../support/compatibility.md).
 
-## Block-Element-Modifier (BEM) Methodology ##
+## Block-Element-Modifier Methodology ##
 
 Toolkit utilizes a variation of the [BEM methodology](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/), which is a convention for naming classes in an organized fashion.
 In simple terms, BEM stands for block-element-modifier, where `block` is the high level component, the `element` is a child of the parent, and `modifier` alters the state or behavior of a parent.
