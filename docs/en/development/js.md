@@ -8,7 +8,6 @@ The ins and outs of the JavaScript layer within Toolkit.
     * [Events](#events)
     * [Properties](#properties)
     * [Methods](#methods)
-* [Custom Template Markup](#custom-template-markup)
 * [Reserved Namespaces](#reserved-namespaces)
 * [Extensions](#extensions)
     * [jQuery](#jquery)
@@ -20,28 +19,63 @@ The individual components that make up the Toolkit JavaScript layer are powered 
 This base class that all components extend can be found under the `Toolkit.Component` object.
 The Component class provides common methods, options, and events &mdash; all of which can be found in more detail below.
 
-Before we learn more about the component system, we must differentiate between the multiple types of components.
-Every type of component falls into one of the following categories.
+Before we learn more about the component system, we must differentiate between the two types of components.
+Every type of component falls into one of the following.
 
 * Activated
-    * Component is initialized on an element that actives the component.
-    * Template is created through the component (can be customized through options).
+    * Component class is initialized on an element that actives the component.
+    * Component element is created with JavaScript (can be customized through options).
 * Embedded
-    * Component is initialized on an existing element in the DOM.
-    * Target element becomes the template used by the component.
-* Passive
-    * Component is initialized on an existing element in the DOM.
-    * Templates can be optional, auto-created, or discovered.
-    * Functionality triggers automatically.
+    * Component class is initialized on an existing element in the DOM.
+    * Component element is the target element from the DOM.
 
 And the components placed in their respective type.
-Do note that it is possible for a component to share functionality from multiple types.
+Do note that it's possible for a component to share functionality from multiple types &mdash; TypeAhead for example.
 
-* Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip
-* Embedded: Accordion, Carousel, Matrix, Tabs
-* Passive: Dropdown, Input, LazyLoad, Pin, Stalker, TypeAhead
+* Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip, TypeAhead
+* Embedded: Accordion, Carousel, Dropdown, Input, LazyLoad, Matrix, Pin, Stalker, Tabs
 
 ### Templates ###
+
+Templates are strings of HTML markup used for the creation of DOM elements.
+The are primarily used by activated components as the main element for interaction.
+
+For example, the Modal component uses the following template markup to create the elements that are used in the page.
+
+```javascript
+{
+    template: '<div class="modal">' +
+        '<div class="modal-handle">' +
+            '<div class="modal-inner"></div>' +
+            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
+        '</div>' +
+    '</div>'
+}
+```
+
+Templates can be customized by overriding the `template` option.
+When customizing however, it's important to associate the custom markup with class mappings.
+These mappings tell the component layer where critical elements within the template can be found.
+
+Continuing with the Modal example, the component must have knowledge of where to place content within the modal.
+This is handled by the `contentElement` option, which is set to `.modal-inner` by default.
+Options that end with `Element` are used for template mapping.
+
+And for a more concrete, albeit simple, example of customizing.
+
+```javascript
+$('.js-modal').modal({
+    contentElement: '.modal-body',
+    template: '<div class="modal">' +
+        '<div class="modal-body"></div>' +
+    '</div>'
+});
+```
+
+<div class="notice is-info">
+    Every component that supports templates will have different option mappings and requirements.
+    Jump to the individual component documentation for more information.
+</div>
 
 ### Options ###
 
@@ -132,8 +166,6 @@ The following events exist in all components, however, each component may have t
 ### Methods ###
 
 Every component class has a set of methods that can be used publicly.
-
-## Custom Template Markup ##
 
 ## Reserved Namespaces ##
 
