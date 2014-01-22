@@ -192,7 +192,7 @@ The following properties are available on all class instances, but not all compo
     <tbody>
         <tr>
             <td>enabled</td>
-            <td>Boolean</td>
+            <td>boolean</td>
             <td>
                 Whether the instance is currently enabled or not.
                 Disabled components will not trigger events or functionality.
@@ -201,7 +201,7 @@ The following properties are available on all class instances, but not all compo
         </tr>
         <tr>
             <td>element</td>
-            <td>Element</td>
+            <td>element</td>
             <td>
                 The primary element used by the component.
                 Is built from the <code>template</code> or <code>templateFrom</code> options.
@@ -209,14 +209,14 @@ The following properties are available on all class instances, but not all compo
         </tr>
         <tr>
             <td>elements</td>
-            <td>Element collection</td>
+            <td>collection</td>
             <td>
                 A collection of elements used by the component.
             </td>
         </tr>
         <tr>
             <td>node</td>
-            <td>Element</td>
+            <td>element</td>
             <td>
                 The element that currently activated the component.
                 Primarily used by activated components.
@@ -224,14 +224,14 @@ The following properties are available on all class instances, but not all compo
         </tr>
         <tr>
             <td>nodes</td>
-            <td>Element collection</td>
+            <td>collection</td>
             <td>
                 A collection of elements that are used for activating the component.
             </td>
         </tr>
         <tr>
             <td>options</td>
-            <td>Object</td>
+            <td>object</td>
             <td>
                 Configurable options. More information can be found above.
             </td>
@@ -245,10 +245,6 @@ Either read the source code or the individual documentation for a list of proper
 ### Methods ###
 
 The following methods are available on all class instances, but not all components make use of them.
-
-<div class="notice is-warning">
-    Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
-</div>
 
 <table class="table">
     <thead>
@@ -327,6 +323,10 @@ The following methods are available on all class instances, but not all componen
     </tbody>
 </table>
 
+<div class="notice is-warning">
+    Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
+</div>
+
 ## Toolkit Namespace ##
 
 The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
@@ -336,7 +336,7 @@ Each component class definition can be found on the `Toolkit` object, for exampl
 
 ### Global Options ###
 
-The following options can be used to alter all components and are found under `Toolkit.options`.
+The following options are used to alter all components and are found under `Toolkit.options`.
 They can be modified in a similar fashion to component options (more information above).
 
 <table class="table">
@@ -344,7 +344,7 @@ They can be modified in a similar fashion to component options (more information
         <tr>
             <th>Option</th>
             <th>Default</th>
-            <td>Description</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -381,7 +381,7 @@ They are represented as an object allowing for easy localization, and can be mod
         <tr>
             <th>Message</th>
             <th>Default</th>
-            <td>Description</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -408,7 +408,7 @@ Each flag can be found on the `Toolkit` object.
         <tr>
             <th>Flag</th>
             <th>Vendor</th>
-            <td>Description</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -435,6 +435,165 @@ Each flag can be found on the `Toolkit` object.
 </div>
 
 ## Extensions ##
+
+Why stop at components? Why not extend jQuery and MooTools directly with new functionality?
+Well don't worry, that's exactly what Toolkit has done.
+We extended the prototype of each vendor with new functionality that eased component development.
+These extensions may even solve a problem in your own codebase.
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Extension</th>
+            <th>Vendor</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>jQuery.prototype.toolkit(component)</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Return an instance of a component if one has been bound on this element.
+                If an array of elements is queried, an array of component instances will be returned.
+            </td>
+        </tr>
+        <tr>
+            <td>Element.prototype.toolkit(component)</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.reveal()</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Show an element by replacing <code>.hide</code> with <code>.show</code>.
+                Will trigger any animations or transitions.
+            </td>
+        </tr>
+        <tr>
+            <td>Element.prototype.reveal()</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.conceal()</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Hide an element by replacing <code>.show</code> with <code>.hide</code>.
+                Will trigger any animations or transitions.
+            </td>
+        </tr>
+        <tr>
+            <td>Element.prototype.conceal()</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.positionTo(position, relativeTo[, baseOffset[, isMouse]])</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Position the element relative to another element.
+                <code>position</code> may be any combination of top, bottom, left, right, and center, in camel case format.
+                <code>relativeTo</code> may either be an element or event (used with <code>isMouse</code> for mouse following).
+                <code>baseOffset</code> may be an object with default left and top values.
+                When set to true, <code>isMouse</code> will re-position the element based on mouse cursor dimensions.
+            </td>
+        </tr>
+        <tr>
+            <td>Element.prototype.positionTo(position, relativeTo[, baseOffset[, isMouse]])</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.expr[':'].shown</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Determines whether an element is visible or not by checking that <code>visibility</code> is not equal to hidden.
+                Is used in conjunction with <code>conceal()</code> and <code>reveal()</code> for animating.
+                The jQuery version can be called as such: <code>$('.query').is(':shown')</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Element.prototype.isShown()</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.i(index)</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Return a jQuery wrapped value from the current jQuery collection defined by the index number.
+                This is equivalent to <code>$($('.query')[0])</code> or <code>$($('.query').get(0))</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>jQuery.prototype.item(index)</td>
+            <td>jQuery</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.addData(key, value)</td>
+            <td>jQuery</td>
+            <td>
+                Set data if the key does not exist, else return the current value.
+                This is a combination of getting and setting internal jQuery data.
+            </td>
+        </tr>
+
+        <tr>
+            <td>jQuery.debounce(func[, threshold])</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                Delays the execution of a function until the duration has completed.
+            </td>
+        </tr>
+        <tr>
+            <td>Function.prototype.debounce([threshold])</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.throttle(func[, delay[, args]])</td>
+            <td>jQuery</td>
+            <td>
+                Throttle the execution of a function so it triggers at every delay interval.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Array.prototype.chunk(size)</td>
+            <td>Both</td>
+            <td>
+                Split an array into multiple chunked arrays.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Function.prototype.bind(func)</td>
+            <td>jQuery</td>
+            <td>
+                Alters the <code>this</code> context of bound functions.
+                A polyfill for ECMA5 functionality.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Function.prototype.create(parent)</td>
+            <td>jQuery</td>
+            <td>
+                Create a new object and apply the parent as the prototype.
+                Allows for simple class inheritance.
+            </td>
+        </tr>
+
+        <tr>
+            <td>String.prototype.hyphenate()</td>
+            <td>jQuery</td>
+            <td>Convert uppercase character strings to a lower case dashed form.</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Conventions ##
 
