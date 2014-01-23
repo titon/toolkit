@@ -3,7 +3,7 @@
 * [Variables](#variables)
 * [Mixins](#mixins)
 * [Functions](#functions)
-* [Unit Type Conversion](#unit-type-conversion)
+* [Unit Conversion](#unit-conversion)
 * [Media Queries & Responsiveness](#media-queries--responsiveness)
 * [Grid Building](#grid-building)
 
@@ -377,7 +377,31 @@ The following variables are used for grid rendering.
 
 ## Functions ##
 
-## Unit Type Conversion ##
+## Unit Conversion ##
+
+Converting between unit types in Sass is rather complex and tedious as too many external variables are involved.
+To save everyone time, we took the grunt of the work and implemented a system for converting between unit types.
+The following units of measurement are supported: `px`, `em`, `rem` and `%`.
+
+Conversion is split into the following functions, `to-pixel(from)`, `to-percent(from)`, `to-rem(from)`, and `to-em(from)`,
+with all functions accepting a single argument - the unit measurement to convert from.
+Conversions use the `$base-size` variable as a foundation for determining 100% equivalent scaling.
+This allows for percent conversion to be exact.
+
+```scss
+$base-size: 16px; // 16px = 1, 1600px = 100
+
+to-pixel(3rem); // 48px
+to-percent(550px); // 34%
+to-rem(52%); // 52rem
+to-em(123px); // 7.6em
+```
+
+When calculating, `16px`, `1%`, `1rem`, and `1em` are equivalent, so use accordingly.
+The primary focus of these functions is to calculate correctly scaled widths for grids.
+
+Another useful function is `strip-unit(value)`, which will remove the unit of measurement and return the literal number.
+This function is used heavily in the other conversion functions.
 
 ## Media Queries & Responsiveness ##
 
