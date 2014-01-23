@@ -39,10 +39,9 @@
             width: $loader-bar-width;
             @include animation(bar-wave 1.2s infinite ease-in-out);
 
-            &:nth-child(2) { @include animation-delay(-1.1s); }
-            &:nth-child(3) { @include animation-delay(-1.0s); }
-            &:nth-child(4) { @include animation-delay(-0.9s); }
-            &:nth-child(5) { @include animation-delay(-0.8s); }
+            @for $i from 2 through $loader-wave-count {
+                &:nth-child(#{$i}) { @include animation-delay(-#{(1.3 - ($i * 0.1))}s); }
+            }
         }
 
         .loader-text {
@@ -72,10 +71,9 @@
             @include animation(bubble-wave 1.5s infinite ease-in-out);
             @include animation-fill-mode(both);
 
-            &:nth-child(2) { @include animation-delay(-1.4s); }
-            &:nth-child(3) { @include animation-delay(-1.3s); }
-            &:nth-child(4) { @include animation-delay(-1.2s); }
-            &:nth-child(5) { @include animation-delay(-1.1s); }
+            @for $i from 2 through $loader-wave-count {
+                &:nth-child(#{$i}) { @include animation-delay(-#{(1.6 - ($i * 0.1))}s); }
+            }
         }
     }
 }
