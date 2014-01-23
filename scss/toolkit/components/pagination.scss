@@ -53,7 +53,7 @@
         }
     }
 
-    &.round {
+    &.#{$shape-round-class} {
         ul {
             border-radius: $round;
         }

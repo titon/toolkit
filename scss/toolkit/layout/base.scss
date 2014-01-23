@@ -51,7 +51,7 @@
 }
 
 // Styles
-.round { border-radius: $round; }
+.#{$shape-round-class} { border-radius: $round; }
 .#{$state-is-prefix}draggable { cursor: move; }
 .#{$state-is-prefix}dragging { cursor: grabbing; }
 .#{$state-is-prefix}disabled,

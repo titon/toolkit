@@ -55,7 +55,7 @@
     @include transition(width .6s, background $progress-transition);
 }
 
-.#{$vendor-prefix}progress.round {
+.#{$vendor-prefix}progress.#{$shape-round-class} {
     border-radius: $round;
 
     .#{$vendor-prefix}progress-bar {

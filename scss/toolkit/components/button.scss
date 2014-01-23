@@ -21,8 +21,8 @@
     @include is-medium(true, true) { @include size-medium; }
     @include is-large(true, true) { @include size-large; }
 
-    &.round { border-radius: $round; }
-    &.square { border-radius: 0; }
+    &.#{$shape-round-class} { border-radius: $round; }
+    &.#{$shape-square-class} { border-radius: 0; }
 
     @include is-disabled {
         cursor: not-allowed;

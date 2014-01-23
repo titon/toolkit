@@ -20,7 +20,7 @@
         @include background-image(linear-gradient(left, white(.3) 0%, white(0) 50%, white(.3) 100%));
     }
 
-    &.round:after {
+    &.#{$shape-round-class}:after {
         border-radius: .2rem .2rem 2rem 2rem / .5rem .5rem 1rem 1rem;
         width: 98%;
         left: 1.5%;

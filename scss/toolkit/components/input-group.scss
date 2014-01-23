@@ -43,7 +43,7 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}input-group.round {
+.#{$vendor-prefix}input-group.#{$shape-round-class} {
     > .#{$vendor-prefix}input:first-child,
     > .#{$vendor-prefix}input-addon:first-child,
     > .#{$vendor-prefix}button:first-child,
