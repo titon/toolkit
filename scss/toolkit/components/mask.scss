@@ -12,8 +12,22 @@
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 600;
+    z-index: 100;
     opacity: 0;
+    color: #fff;
     background: black($mask-opacity);
     @include transition(opacity $mask-transition);
+}
+
+.#{$vendor-prefix}mask-message {
+    text-align: center;
+    max-width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
+.#{$vendor-prefix}maskable {
+
 }

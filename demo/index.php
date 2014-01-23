@@ -513,7 +513,7 @@ if ($vendor === 'mootools') {
     <?php } ?>
 
     <?php if (!empty($component['js'])) { ?>
-        <script src="../js/<?php echo $vendorFolder; ?>/Titon.js"></script>
+        <script src="../js/<?php echo $vendorFolder; ?>/Toolkit.js"></script>
         <script src="../js/<?php echo $vendorFolder; ?>/Component.js"></script>
 
         <?php foreach ((array) $component['js'] as $js) { ?>

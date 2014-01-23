@@ -10,6 +10,9 @@
 Toolkit.Mask = new Class({
     Extends: Toolkit.Component,
 
+    options: {
+    },
+
     mask: null,
 
     initialize: function(element, options) {
@@ -21,11 +24,39 @@ Toolkit.Mask = new Class({
             this.element.setStyle('position', 'relative');
         }
 
-        // Create the mask
-        this.mask = new Element('div.' + Toolkit.options.vendor + 'mask')
-            .addClass('hide')
-            .inject(element, 'bottom');
+        this.element.addClass(Toolkit.options.vendor + 'maskable');
+
+        // Find a mask or create it
+        var maskClass = '.' + Toolkit.options.vendor + 'mask';
+
+        this.mask = this.element.getElement(maskClass);
+
+        if (this.mask) {
+            this.mask.addClass('hide');
+        } else {
+            this.mask = new Element('div' + maskClass)
+                .addClass('hide')
+                .inject(element, 'bottom');
+        }
+
+        this.fireEvent('init');
+    },
+
+    hide: function() {
+        this.mask.conceal();
+        this.element.removeClass(Toolkit.options.isPrefix + 'masked');
+    },
+
+    show: function(node) {
+        this.node = node;
+        this.mask.reveal();
+        this.element.addClass(Toolkit.options.isPrefix + 'masked');
+    },
+
+    toggle: function() {
+        return this.mask.isShown() ? this.hide() : this.show();
     }
+
 });
 
 Element.implement('mask', function(options) {

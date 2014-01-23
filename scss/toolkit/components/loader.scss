@@ -12,6 +12,7 @@
 .loader {
     @include reset-inline-block;
     margin: 0 auto;
+    text-align: center;
 
     > span { display: inline-block; }
 }
