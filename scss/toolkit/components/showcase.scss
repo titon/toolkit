@@ -51,9 +51,7 @@
 }
 
 .#{$vendor-prefix}showcase-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    @include reset-list;
     width: 100px;
     height: 100px;
     max-width: 1024px;

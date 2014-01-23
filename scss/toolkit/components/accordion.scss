@@ -7,10 +7,7 @@
 @import "../common";
 
 .#{$vendor-prefix}accordion {
-    list-style: none;
-    text-align: left;
-    margin: 0;
-    padding: 0;
+    @include reset-list;
 }
 
 .#{$vendor-prefix}accordion-head {

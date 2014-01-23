@@ -21,10 +21,8 @@
     position: relative;
 
     ul {
+        @include reset-list;
         position: absolute;
-        list-style: none;
-        margin: 0;
-        padding: 0;
         top: 0;
         left: 0;
         @include transition(left $carousel-transition, top $carousel-transition);

@@ -7,11 +7,8 @@
 @import "../common";
 
 .#{$vendor-prefix}matrix {
+    @include reset-list;
     position: relative;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
     @include clear-fix;
 
     &.no-columns .#{$vendor-prefix}matrix-item {

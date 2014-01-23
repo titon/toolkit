@@ -18,6 +18,13 @@
     vertical-align: middle;
 }
 
+// Reset a list and remove default styles
+@mixin reset-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 // Remove the top and bottom margin from content elements
 // Allows for perfect spacing within content blocks
 @mixin content-spacing {

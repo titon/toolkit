@@ -17,9 +17,7 @@
     @include transition(opacity 0.3s);
 
     ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
+        @include reset-list;
         min-width: 200px;
     }
 
@@ -66,7 +64,7 @@
         left: 0;
     }
 
-    .#{$state-is-prefix}shadow {
+    .is-shadow {
         color: gray;
     }
 
