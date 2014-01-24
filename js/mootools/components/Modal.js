@@ -27,7 +27,6 @@ Toolkit.Modal = new Class({
         ajax: true,
         draggable: false,
         blackout: true,
-        showLoading: true,
         fullScreen: false,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
@@ -80,7 +79,7 @@ Toolkit.Modal = new Class({
 
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Toolkit.Blackout();
+            this.blackout = Toolkit.Blackout.factory();
         }
 
         // Set events
@@ -119,11 +118,11 @@ Toolkit.Modal = new Class({
      * @returns {Toolkit.Modal}
      */
     hide: function() {
-        return this.parent(function() {
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
-        }.bind(this));
+        if (this.blackout) {
+            this.blackout.hide();
+        }
+
+        return this.parent();
     },
 
     /**
@@ -141,26 +140,27 @@ Toolkit.Modal = new Class({
         this.elementBody.set('html', content);
         this.fireEvent('load', content);
 
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
+        // Hide blackout loading message
+        if (this.blackout) {
+            this.blackout.hideLoader();
+        }
 
-            if (this.options.fullScreen) {
-                this.element.getElement(this.options.contentElement).setStyle('min-height', window.getHeight());
-            }
+        // Reveal modal
+        this.element.reveal();
 
-            this.element.reveal();
+        // Resize modal
+        if (this.options.fullScreen) {
+            this.element.getElement(this.options.contentElement)
+                .setStyle('min-height', window.getHeight());
 
-            // IE8
-            if (Browser.ie8 && !this.options.fullScreen) {
-                var size = this.element.getSize();
+        // IE8
+        } else if (Browser.ie8) {
+            var size = this.element.getSize();
 
-                this.element.setStyles({
-                    'margin-left': -(size.x / 2),
-                    'margin-top': -(size.y / 2)
-                });
-            }
+            this.element.setStyles({
+                'margin-left': -(size.x / 2),
+                'margin-top': -(size.y / 2)
+            });
         }
 
         this.fireEvent('show');
@@ -179,17 +179,17 @@ Toolkit.Modal = new Class({
      */
     show: function(node, content) {
         var options = this.options,
-            preAjaxValue = options.ajax;
+            ajax = true;
 
         // Get content
         if (content) {
-            options.ajax = false;
+            ajax = false;
 
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.get('href');
 
             if (content && content.substr(0, 1) === '#') {
-                options.ajax = false;
+                ajax = false;
             }
         }
 
@@ -199,7 +199,13 @@ Toolkit.Modal = new Class({
 
         this.node = node;
 
-        if (options.ajax) {
+        // Show blackout
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
+        // Fetch content
+        if (ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content]);
             } else {
@@ -208,9 +214,6 @@ Toolkit.Modal = new Class({
         } else {
             this.position(content);
         }
-
-        // Reset back to original state
-        this.options.ajax = preAjaxValue;
 
         return this;
     },

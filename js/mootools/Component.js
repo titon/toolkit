@@ -291,13 +291,7 @@ Toolkit.Component = new Class({
             evalScripts: true,
             onRequest: before || function() {
                 this.cache[url] = true;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
-
-                    this.position(this._loadingTemplate());
-                }
+                this.element.addClass(Toolkit.options.isPrefix + 'loading');
             }.bind(this)
         }, options);
 
@@ -314,9 +308,7 @@ Toolkit.Component = new Class({
             var contentType = this.xhr.getResponseHeader('Content-Type');
 
             // Does not apply to all components
-            if (self.options.showLoading) {
-                self.element.removeClass(Toolkit.options.isPrefix + 'loading');
-            }
+            self.element.removeClass(Toolkit.options.isPrefix + 'loading');
 
             // HTML
             if (contentType.indexOf('text/html') >= 0) {
