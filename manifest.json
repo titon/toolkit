@@ -79,7 +79,7 @@
         "description": "Blacks out the viewport while displaying other modules.",
         "category": "component",
         "priority": 10,
-        "require": ["base"],
+        "require": ["base", "loader"],
         "source": {
             "css": ["components/blackout.css"],
             "js": ["components/Blackout.js"]
@@ -229,6 +229,17 @@
         "require": ["base"],
         "source": {
             "css": ["components/loader.css"]
+        }
+    },
+    "mask": {
+        "name": "Mask",
+        "description": "Conceal an element by masking its content with a transparent overlay.",
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/mask.css"],
+            "js": ["components/Mask.js"]
         }
     },
     "matrix": {
