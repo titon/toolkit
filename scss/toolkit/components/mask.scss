@@ -23,11 +23,8 @@
 .#{$vendor-prefix}mask-message {
     text-align: center;
     max-width: 80%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
     opacity: 1;
-    @include transform(translate(-50%, -50%));
+    @include position-center;
     @include transition(all $mask-transition);
 
     &:empty { display: none; }

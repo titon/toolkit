@@ -100,7 +100,7 @@ $skew-reverse: $skew-y $skew-x;
 
 $default-opacity: .5 !default;
 $disabled-opacity: $default-opacity !default;
-$blackout-opacity: $default-opacity !default;
+$blackout-opacity: .85 !default;
 $carousel-opacity: $default-opacity !default;
 $mask-opacity: .85 !default;
 $showcase-opacity: $default-opacity !default;

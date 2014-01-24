@@ -10,8 +10,20 @@
 Toolkit.Blackout = new Class({
     Extends: Toolkit.Component,
 
+    /* How many times the blackout has been opened */
+    count: 0,
+
+    /** The wrapping loader element */
+    loader: null,
+
+    /** The loading message element */
+    message: null,
+
     /** Default options */
     options: {
+        loader: 'bar-wave',
+        loaderMessage: Toolkit.messages.loading,
+        waveCount: 5,
         template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
     },
@@ -24,10 +36,40 @@ Toolkit.Blackout = new Class({
     initialize: function(options) {
         this.parent(options);
         this.createElement();
-
-        window.addEvent('resize', this.position.bind(this));
-
+        this.createLoader();
         this.fireEvent('init');
+    },
+
+    /**
+     * Create the loader and loading message.
+     */
+    createLoader: function() {
+        var options = this.options,
+            vendor = Toolkit.options.vendor,
+            count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount;
+
+        this.loader = new Element('div.' + vendor + 'loader.' + options.loader)
+            .inject(this.element);
+
+        // Create all the spans
+        var spans = '', i;
+
+        for (i = 0; i < count; i++) {
+            spans += '<span></span>';
+        }
+
+        // Append to the loader
+        if (options.loader === 'bubble-spinner') {
+            new Element('div.spinner')
+                .set('html', spans)
+                .inject(this.loader);
+        } else {
+            this.loader.set('html', spans);
+        }
+
+        this.message = new Element('div.' + vendor + 'loader-message')
+            .set('html', options.loaderMessage)
+            .inject(this.loader);
     },
 
     /**
@@ -36,26 +78,28 @@ Toolkit.Blackout = new Class({
      * @returns {Toolkit.Blackout}
      */
     hide: function() {
-        this.element.conceal();
-        this.fireEvent('hide');
+        var count = this.count - 1;
+
+        if (count <= 0) {
+            this.count = 0;
+            this.element.conceal();
+            this.hideLoader();
+        } else {
+            this.count = count;
+        }
+
+        this.fireEvent('hide', (count <= 0));
 
         return this;
     },
 
     /**
-     * Display and position the blackout.
+     * Hide the loader.
      *
      * @returns {Toolkit.Blackout}
      */
-    position: function() {
-        if (this.isVisible()) {
-            var size = window.getSize();
-
-            this.element.setStyles({
-                width: size.x,
-                height: size.y
-            });
-        }
+    hideLoader: function() {
+        this.loader.conceal();
 
         return this;
     },
@@ -66,13 +110,44 @@ Toolkit.Blackout = new Class({
      * @returns {Toolkit.Blackout}
      */
     show: function() {
+        this.count++;
         this.element.reveal();
-        this.position();
+
+        this.showLoader();
         this.fireEvent('show');
+
+        return this;
+    },
+
+    /**
+     * Show the loader.
+     *
+     * @returns {Toolkit.Blackout}
+     */
+    showLoader: function() {
+        this.loader.reveal();
 
         return this;
     }
 
 });
+
+/** Has the blackout been created already? */
+var instance = null;
+
+/**
+ * Only one instance of Blackout should exist,
+ * so provide a factory method that stores the instance.
+ *
+ * @param {Object} [options]
+ * @returns {Toolkit.Blackout}
+ */
+Toolkit.Blackout.factory = function(options) {
+    if (instance) {
+        return instance;
+    }
+
+    return instance = new Toolkit.Blackout(options);
+};
 
 })();
