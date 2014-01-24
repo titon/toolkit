@@ -237,6 +237,9 @@ $components = array(
         'title' => 'Mask',
         'css' => array('components/mask.css'),
         'js' => array('components/Mask.js'),
+        'filters' => array(
+            'revealOnClick' => array('title' => 'Reveal on click?', 'type' => 'boolean', 'default' => false)
+        )
     ),
     'matrix' => array(
         'title' => 'Matrix',

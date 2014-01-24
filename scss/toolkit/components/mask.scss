@@ -12,11 +12,12 @@
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 100;
+    z-index: 600;
     opacity: 0;
-    color: #fff;
+    visibility: hidden;
     background: black($mask-opacity);
-    @include transition(opacity $mask-transition);
+    @include transition(all $mask-transition);
+    color: #fff;
 }
 
 .#{$vendor-prefix}mask-message {
@@ -25,9 +26,11 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    opacity: 1;
     @include transform(translate(-50%, -50%));
+    @include transition(all $mask-transition);
 }
 
 .#{$vendor-prefix}maskable {
-
+    overflow: hidden;
 }
