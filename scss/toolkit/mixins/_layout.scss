@@ -25,6 +25,14 @@
     padding: 0;
 }
 
+// Align an element in the center of another element
+@mixin position-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
 // Remove the top and bottom margin from content elements
 // Allows for perfect spacing within content blocks
 @mixin content-spacing {

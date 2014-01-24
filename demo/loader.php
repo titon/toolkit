@@ -8,7 +8,7 @@
         <span></span>
         <span></span>
 
-        <div class="loader-text">
+        <div class="loader-message">
             Loading...
         </div>
     </div>
@@ -22,7 +22,7 @@
         <span></span>
         <span></span>
 
-        <div class="loader-text">
+        <div class="loader-message">
             Reticulating splines...
         </div>
     </div>
@@ -41,7 +41,7 @@
             <span></span>
         </div>
 
-        <div class="loader-text">
+        <div class="loader-message">
             Siphoning mana...
         </div>
     </div>
