@@ -104,7 +104,6 @@ Toolkit.Drop = new Class({
 /**
  * Enable drop's on Elements collections by calling drop().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-drop').drop({
@@ -112,7 +111,7 @@ Toolkit.Drop = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Drop}
+ * @returns {Elements}
  */
 Elements.implement('drop', function(options) {
     var drop = new Toolkit.Drop(this, options);

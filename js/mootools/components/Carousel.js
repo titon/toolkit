@@ -328,7 +328,6 @@ Toolkit.Carousel = new Class({
 /**
  * Allow the carousel to be created on elements by calling carousel().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('carousel-id').carousel({
@@ -336,7 +335,7 @@ Toolkit.Carousel = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Carousel}
+ * @returns {Element}
  */
 Element.implement('carousel', function(options) {
     if (!this.$carousel) {

@@ -455,7 +455,6 @@ Toolkit.Showcase = new Class({
 /**
  * Enable showcase galleries on Elements collections by calling showcase().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-showcase').showcase({
@@ -463,7 +462,7 @@ Toolkit.Showcase = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Showcase}
+ * @returns {Elements}
  */
 Elements.implement('showcase', function(options) {
     var showcase = new Toolkit.Showcase(this, options);

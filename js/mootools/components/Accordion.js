@@ -196,7 +196,6 @@ Toolkit.Accordion = new Class({
 /**
  * Enable an accordion on an element by calling accordion().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('accordion-id').accordion({
@@ -204,7 +203,7 @@ Toolkit.Accordion = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Accordion}
+ * @returns {Element}
  */
 Element.implement('accordion', function(options) {
     if (!this.$accordion) {

@@ -324,13 +324,12 @@ Toolkit.Input.Select = new Class({
 /**
  * Enable custom inputs and selects within forms by calling input().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('form').input();
  *
  * @param {Object} [options]
- * @returns {Toolkit.Input}
+ * @returns {Element}
  */
 Element.implement('input', function(options) {
     if (!this.$input) {

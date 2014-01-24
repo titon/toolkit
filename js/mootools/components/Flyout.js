@@ -434,7 +434,6 @@ Toolkit.Flyout = new Class({
 /**
  * Enable flyouts on Elements collections by calling flyout().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-flyout').flyout('/sitemap.json', {
@@ -443,7 +442,7 @@ Toolkit.Flyout = new Class({
  *
  * @param {String} url
  * @param {Object} [options]
- * @returns {Toolkit.Flyout}
+ * @returns {Elements}
  */
 Elements.implement('flyout', function(url, options) {
     var flyout = new Toolkit.Flyout(this, url, options);

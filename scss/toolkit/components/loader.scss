@@ -14,7 +14,10 @@
     margin: 0 auto;
     text-align: center;
 
-    > span { display: inline-block; }
+    > span {
+        display: inline-block;
+        margin: 0 2px;
+    }
 }
 
 .loader-text {

@@ -195,7 +195,6 @@ Toolkit.Stalker = new Class({
 /**
  * Enable element scroll stalking by calling stalker().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('stalker-id').stalker({
@@ -203,7 +202,7 @@ Toolkit.Stalker = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Stalker}
+ * @returns {Element}
  */
 Element.implement('stalker', function(options) {
     if (!this.$stalker) {

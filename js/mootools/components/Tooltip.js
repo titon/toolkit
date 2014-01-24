@@ -189,7 +189,6 @@ Toolkit.Tooltip = new Class({
 /**
  * Enable tooltips on Elements collections by calling tooltip().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-tooltip').tooltip({
@@ -197,7 +196,7 @@ Toolkit.Tooltip = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Tooltip}
+ * @returns {Element}
  */
 Elements.implement('tooltip', function(options) {
     var tooltip = new Toolkit.Tooltip(this, options);

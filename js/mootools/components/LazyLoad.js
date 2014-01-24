@@ -193,7 +193,6 @@ Toolkit.LazyLoad = new Class({
 /**
  * Enable lazy loading on Elements collections by calling lazyLoad().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.lazy-load').lazyLoad({
@@ -201,7 +200,7 @@ Toolkit.LazyLoad = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.LazyLoad}
+ * @returns {Element}
  */
 Elements.implement('lazyLoad', function(options) {
     var lazyLoad = new Toolkit.LazyLoad(this, options);

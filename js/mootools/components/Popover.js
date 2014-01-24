@@ -45,7 +45,6 @@ Toolkit.Popover = new Class({
 /**
  * Enable popovers on Elements collections by calling popover().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-popover').popover({
@@ -53,7 +52,7 @@ Toolkit.Popover = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Popover}
+ * @returns {Elements}
  */
 Elements.implement('popover', function(options) {
     var popover = new Toolkit.Popover(this, options);

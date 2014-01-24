@@ -188,7 +188,6 @@ Toolkit.Pin = new Class({
 /**
  * Enable Element pinning by calling pin().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('pin-id').pin({
@@ -196,7 +195,7 @@ Toolkit.Pin = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Pin}
+ * @returns {Element}
  */
 Element.implement('pin', function(options) {
     if (!this.$pin) {

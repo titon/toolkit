@@ -252,7 +252,6 @@ Toolkit.Modal = new Class({
 /**
  * Enable modals on Elements collections by calling modal().
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $$('.js-modal').modal({
@@ -260,7 +259,7 @@ Toolkit.Modal = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.Modal}
+ * @returns {Elements}
  */
 Elements.implement('modal', function(options) {
     var modal = new Toolkit.Modal(this, options);

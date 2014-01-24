@@ -603,7 +603,6 @@ Toolkit.TypeAhead = new Class({
 /**
  * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('input-id').typeAhead({
@@ -611,7 +610,7 @@ Toolkit.TypeAhead = new Class({
  *     });
  *
  * @param {Object} [options]
- * @returns {Toolkit.TypeAhead}
+ * @returns {Element}
  */
 Element.implement('typeAhead', function(options) {
     if (!this.$typeAhead) {
