@@ -102,7 +102,7 @@ Toolkit.Mask = new Class({
     /**
      * Show the mask and conceal the element.
      *
-     * @param {Element} node
+     * @param {Element} [node]
      * @returns {Toolkit.Mask}
      */
     show: function(node) {
@@ -132,13 +132,12 @@ Toolkit.Mask = new Class({
 /**
  * Enable Element masking by calling mask() on a target element.
  * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
  *
  * @example
  *     $('target-element').mask();
  *
  * @param {Object} [options]
- * @returns {Toolkit.Mask}
+ * @returns {Element}
  */
 Element.implement('mask', function(options) {
     if (!this.$mask) {

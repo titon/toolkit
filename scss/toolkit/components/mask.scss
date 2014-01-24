@@ -29,6 +29,8 @@
     opacity: 1;
     @include transform(translate(-50%, -50%));
     @include transition(all $mask-transition);
+
+    &:empty { display: none; }
 }
 
 .#{$vendor-prefix}maskable {

@@ -3,7 +3,7 @@
     <button type="button" class="button" data-mask="#mask-1">Mask 1st</button>
     <button type="button" class="button" data-mask="#mask-2">Mask 2nd</button>
     <button type="button" class="button" data-mask="#mask-3">Mask 3rd</button>
-    <button type="button" class="button" data-mask="document">Mask Document</button>
+    <button type="button" class="button" data-mask="body">Mask Document</button>
 </div>
 
 <div class="js-mask" id="mask-0">
@@ -59,7 +59,7 @@
             $$('.button').addEvent('click', function(e) {
                 var target = e.target.get('data-mask');
 
-                if (target === 'document') {
+                if (target === 'body') {
                     document.body.toolkit('mask').toggle();
                 } else {
                     $(target.substr(1)).toolkit('mask').toggle();
@@ -68,8 +68,15 @@
         });
     <?php } else { ?>
         $(function() {
+            $('#body-mask').appendTo('body');
+
             $('.js-mask').mask({
-                revealOnClick: <?php bool('revealOnClick', false); ?>
+                revealOnClick: <?php bool('revealOnClick', false); ?>,
+                messageContent: 'This message is defined through options.'
+            });
+
+            $('body').mask({
+                revealOnClick: true
             });
 
             $('.button').click(function(e) {
