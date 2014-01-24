@@ -188,7 +188,7 @@ Toolkit.Modal = new Class({
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.get('href');
 
-            if (content && content.substr(0, 1) === '#') {
+            if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                 ajax = false;
             }
         }

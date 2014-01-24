@@ -22,6 +22,7 @@ Toolkit.Tooltip = new Class({
         ajax: false,
         follow: false,
         position: 'topCenter',
+        loadingMessage: Toolkit.messages.loading,
         showLoading: true,
         showTitle: true,
         getTitle: 'title',
@@ -137,15 +138,17 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     show: function(node, content, title) {
+        var options = this.options;
+
         if (node) {
-            if (this.options.mode === 'hover') {
+            if (options.mode === 'hover') {
                 node
                     .removeEvent('mouseleave', this.__hide)
                     .addEvent('mouseleave', this.__hide);
             }
 
-            title = title || this.readValue(node, this.options.getTitle);
-            content = content || this.readValue(node, this.options.getContent);
+            title = title || this.readValue(node, options.getTitle);
+            content = content || this.readValue(node, options.getContent);
         }
 
         if (!content) {
@@ -154,10 +157,14 @@ Toolkit.Tooltip = new Class({
 
         this.node = node;
 
-        if (this.options.ajax) {
+        if (options.ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content], title);
             } else {
+                if (options.showLoading) {
+                    this.position(options.loadingMessage);
+                }
+
                 this.requestData(content);
             }
         } else {

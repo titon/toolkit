@@ -291,7 +291,7 @@ Element.Properties.html.set = function(html) {
         return this;
     }
 
-    if (type === 'string' && html.substr(0, 1) === '#') {
+    if (type === 'string' && html.match(/^#[a-z0-9_\-\.:]+$/i)) {
         html = document.getElement(html).get('html');
 
     } else if (type === 'array') {
