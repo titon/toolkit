@@ -179,7 +179,7 @@ Toolkit.Modal = new Class({
      */
     show: function(node, content) {
         var options = this.options,
-            ajax = true;
+            ajax = options.ajax;
 
         // Get content
         if (content) {

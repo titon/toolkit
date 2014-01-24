@@ -276,8 +276,7 @@ $components = array(
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
-            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
-            'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
+            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true)
         )
     ),
     'notice' => array(
