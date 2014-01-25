@@ -86,7 +86,7 @@ Toolkit.Showcase = new Class({
 
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Toolkit.Blackout();
+            this.blackout = Toolkit.Blackout.factory();
         }
 
         // Set events
@@ -147,11 +147,11 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     hide: function() {
-        this.parent(function() {
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
+        if (this.blackout) {
+            this.blackout.hide();
+        }
 
+        this.parent(function() {
             this.element.removeClass(Toolkit.options.isPrefix + 'single');
 
             this.items
@@ -210,7 +210,7 @@ Toolkit.Showcase = new Class({
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
-                self._reposition();
+                self.position();
             }, options.transition);
 
         // Create image and animate
@@ -239,7 +239,7 @@ Toolkit.Showcase = new Class({
                 setTimeout(function() {
                     element.removeClass(Toolkit.options.isPrefix + 'loading');
                     listItem.addClass('show').grab(img);
-                    self._reposition();
+                    self.position();
                 }, options.transition);
             };
         }
@@ -266,13 +266,19 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     position: function() {
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
+        if (this.blackout) {
+            this.blackout.hideLoader();
+        }
 
-            this.element.reveal();
-            this._reposition();
+        this.element.reveal();
+
+        if (Browser.ie8) {
+            var size = this.element.getSize();
+
+            this.element.setStyles({
+                'margin-left': -(size.x / 2),
+                'margin-top': -(size.y / 2)
+            });
         }
 
         this.fireEvent('show');
@@ -337,8 +343,11 @@ Toolkit.Showcase = new Class({
             });
         }
 
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
         this._buildItems(items);
-        this.position();
         this.jump(index);
 
         return this;
@@ -378,27 +387,6 @@ Toolkit.Showcase = new Class({
 
         return this;
     }.protect(),
-
-    /**
-     * Re-position the showcase modal for older browsers.
-     *
-     * @private
-     * @return {Toolkit.Showcase}
-     */
-    _reposition: function() {
-        if (!Browser.ie8) {
-            return this;
-        }
-
-        var size = this.element.getSize();
-
-        this.element.setStyles({
-            'margin-left': -(size.x / 2),
-            'margin-top': -(size.y / 2)
-        });
-
-        return this;
-    },
 
     /**
      * Resize the showcase modal when it is larger than the current viewport.

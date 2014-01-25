@@ -15,9 +15,11 @@
     margin: 0;
     padding: 0;
     z-index: 610; // higher than blackout
+    opacity: 0;
     visibility: hidden;
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
+    @include transition(opacity $showcase-transition, visibility $showcase-transition);
 
     &.#{$state-is-prefix}loading,
     &.#{$state-is-prefix}single {

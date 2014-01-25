@@ -97,7 +97,7 @@
 
     &.fade {
         opacity: 0;
-        @include transition(opacity $modal-transition);
+        @include transition(opacity $modal-transition, visibility $modal-transition);
     }
 
     &.from-above {

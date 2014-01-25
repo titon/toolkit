@@ -370,7 +370,6 @@ $components = array(
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
             'gutter' => array('title' => 'Gutter Margin', 'type' => 'number', 'default' => 50),
-            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
             'group' => array('title' => 'Grouped?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
         )
