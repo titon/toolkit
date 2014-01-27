@@ -35,7 +35,7 @@
         <div class="loader bar-wave">
             <span></span><span></span><span></span><span></span><span></span>
 
-            <div class="loader-text">
+            <div class="loader-message">
                 Mask with loader...
             </div>
         </div>
