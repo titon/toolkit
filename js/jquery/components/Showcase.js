@@ -89,7 +89,7 @@
 
         // Blackout
         if (options.blackout) {
-            this.blackout = new Toolkit.Blackout();
+            this.blackout = Toolkit.Blackout.factory();
         }
 
         // Set events
@@ -130,13 +130,13 @@
      * @returns {Toolkit.Showcase}
      */
     Showcase.hide = function() {
+        if (this.blackout) {
+            this.blackout.hide();
+        }
+
         if (this.element.is(':shown')) {
             this.element.conceal();
             this.element.removeClass(Toolkit.options.isPrefix + 'single');
-
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
 
             this.items
                 .removeAttr('style')
@@ -197,7 +197,7 @@
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
-                self._reposition();
+                self.position();
             }, options.transition);
 
         // Create image and animate
@@ -226,7 +226,7 @@
                 setTimeout(function() {
                     element.removeClass(Toolkit.options.isPrefix + 'loading');
                     listItem.addClass('show').append(img);
-                    self._reposition();
+                    self.position();
                 }, options.transition);
             };
         }
@@ -253,13 +253,17 @@
      * @returns {Toolkit.Showcase}
      */
     Showcase.position = function() {
-        if (!this.element.is(':shown')) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
+        if (this.blackout) {
+            this.blackout.hideLoader();
+        }
 
-            this.element.reveal();
-            this._reposition();
+        this.element.reveal();
+
+        if (Toolkit.ie8) {
+            this.element.css({
+                'margin-left': -(this.element.outerWidth(true) / 2),
+                'margin-top': -(this.element.outerHeight(true) / 2)
+            });
         }
 
         this.fireEvent('show');
@@ -324,8 +328,11 @@
             });
         }
 
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
         this._buildItems(items);
-        this.position();
         this.jump(index);
 
         return this;
@@ -362,26 +369,6 @@
         }
 
         this.fireEvent('load', items);
-
-        return this;
-    };
-
-    /**
-     * Re-position the showcase modal for older browsers.
-     *
-     * @private
-     * @return {Toolkit.Showcase}
-     */
-    Showcase._reposition = function() {
-        if (!Toolkit.ie8) {
-            return this;
-        }
-
-        // IE8
-        this.element.css({
-            'margin-left': -(this.element.outerWidth(true) / 2),
-            'margin-top': -(this.element.outerHeight(true) / 2)
-        });
 
         return this;
     };

@@ -159,13 +159,7 @@
             context: this,
             beforeSend: before || function() {
                 this.cache[url] = true;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
-
-                    this.position(this._loadingTemplate(type));
-                }
+                this.element.addClass(Toolkit.options.isPrefix + 'loading');
             }
         }, options);
 
@@ -178,11 +172,7 @@
 
         $.ajax(ajax)
             .done(done || function(response, status, xhr) {
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
-                }
+                this.element.removeClass(Toolkit.options.isPrefix + 'loading');
 
                 // HTML
                 if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {

@@ -27,7 +27,6 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>,
                 fullScreen: <?php bool('fullScreen', false); ?>
             });
 
@@ -39,7 +38,6 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>,
                 fullScreen: <?php bool('fullScreen', false); ?>
             });
         });
@@ -51,7 +49,6 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>,
                 fullScreen: <?php bool('fullScreen', false); ?>
             });
 
@@ -62,7 +59,6 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                showLoading: <?php bool('showLoading', true); ?>,
                 fullScreen: <?php bool('fullScreen', false); ?>
             });
         });

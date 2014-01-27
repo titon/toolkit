@@ -45,7 +45,6 @@
         ajax: true,
         draggable: false,
         blackout: true,
-        showLoading: true,
         fullScreen: false,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
@@ -77,24 +76,27 @@
 
         // Draggable
         if (options.draggable && $.ui && $.ui.draggable) {
+            var isPrefix = Toolkit.options.isPrefix;
+
             this.drag = this.element.draggable({
                 appendTo: 'body',
                 containment: 'window',
                 cursor: 'grabbing',
                 start: function(e, ui) {
-                    ui.helper.addClass(Toolkit.options.isPrefix + 'dragging');
+                    ui.helper.addClass(isPrefix + 'dragging');
                 },
                 stop: function(e, ui) {
-                    ui.helper.removeClass(Toolkit.options.isPrefix + 'dragging');
+                    ui.helper.removeClass(isPrefix + 'dragging');
                 }
             });
 
-            this.element.addClass(Toolkit.options.isPrefix + 'draggable');
+            this.element.addClass(isPrefix + 'draggable');
         }
 
         // Blackout
         if (options.blackout) {
-            this.blackout = new Toolkit.Blackout();
+            this.blackout = Toolkit.Blackout.factory();
+            this.blackout.element.click(this.__hide.bind(this));
         }
 
         // Set events
@@ -125,7 +127,7 @@
     Modal.hide = function() {
         this.element.conceal();
 
-        if (this.options.blackout) {
+        if (this.blackout) {
             this.blackout.hide();
         }
 
@@ -149,24 +151,25 @@
         this.elementBody.html(content);
         this.fireEvent('load', content);
 
-        if (!this.element.is(':shown')) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
+        // Hide blackout loading message
+        if (this.blackout) {
+            this.blackout.hideLoader();
+        }
 
-            if (this.options.fullScreen) {
-                this.element.find(this.options.contentElement).css('min-height', $(window).height());
-            }
+        // Reveal modal
+        this.element.reveal();
 
-            this.element.reveal();
+        // Resize modal
+        if (this.options.fullScreen) {
+            this.element.find(this.options.contentElement)
+                .css('min-height', $(window).height());
 
-            // IE8
-            if (Toolkit.ie8 && !this.options.fullScreen) {
-                this.element.css({
-                    'margin-left': -(this.element.outerWidth(true) / 2),
-                    'margin-top': -(this.element.outerHeight(true) / 2)
-                });
-            }
+        // IE8
+        } else if (Toolkit.ie8) {
+            this.element.css({
+                'margin-left': -(this.element.outerWidth(true) / 2),
+                'margin-top': -(this.element.outerHeight(true) / 2)
+            });
         }
 
         this.fireEvent('show');
@@ -187,18 +190,18 @@
         node = $(node);
 
         var options = this.options,
-            preAjaxValue = options.ajax;
+            ajax = options.ajax;
 
         // Get content
         if (content) {
-            options.ajax = false;
+            ajax = false;
 
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.attr('href');
 
-            if (content && content.substr(0, 1) === '#') {
+            if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                 content = $(content).html();
-                options.ajax = false;
+                ajax = false;
             }
         }
 
@@ -208,7 +211,12 @@
 
         this.node = node;
 
-        if (options.ajax) {
+        // Show blackout
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
+        if (ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content]);
             } else {
@@ -217,9 +225,6 @@
         } else {
             this.position(content);
         }
-
-        // Reset back to original state
-        this.options.ajax = preAjaxValue;
 
         return this;
     };
