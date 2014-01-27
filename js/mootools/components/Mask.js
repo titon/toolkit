@@ -77,7 +77,7 @@ Toolkit.Mask = new Class({
         element.addClass('hide').inject(this.element, 'bottom');
 
         if (this.element === document.body) {
-            element.setStyle('position', 'fixed')
+            element.setStyle('position', 'fixed');
         }
 
         if (options.revealOnClick) {

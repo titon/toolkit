@@ -89,7 +89,7 @@
         element.addClass('hide').appendTo(this.element);
 
         if (this.element.is('body')) {
-            element.css('position', 'fixed')
+            element.css('position', 'fixed');
         }
 
         if (options.revealOnClick) {
