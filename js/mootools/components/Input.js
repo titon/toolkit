@@ -353,7 +353,11 @@
                 return;
             }
 
-            this.dropdown.isShown() ? this.hide() : this.show();
+            if (this.dropdown.isShown()) {
+                this.hide();
+            } else {
+                this.show();
+            }
         }
     });
 
