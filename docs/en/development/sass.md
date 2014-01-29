@@ -268,18 +268,18 @@ The following variables are used for responsive design. They will alter the outp
             <td>$responsive-design</td>
             <td>mobile</td>
             <td>
-                Determines which type of device to target; accepts <var>mobile</var> or <var>desktop</var>.
-                If <var>mobile</var> is used, <code>if/in</code> responsive mixins will use <code>min-width</code> breakpoints in media queries.
-                If <var>desktop</var> is used, then <code>max-width</code> breakpoints are used.
+                Determines which type of device to target; accepts <code>mobile</code> or <code>desktop</code>.
+                If <code>mobile</code> is used, <code>if/in</code> responsive mixins will use <code>min-width</code> breakpoints in media queries.
+                If <code>desktop</code> is used, then <code>max-width</code> breakpoints are used.
             </td>
         </tr>
         <tr>
             <td>$responsive-size</td>
             <td>both</td>
             <td>
-                Determines which responsive columns are generated within the Grid component; accepts <var>device</var>, <var>size</var>, or <var>both</var>.
-                If <var>device</var> is used, than mobile, tablet, and desktop classes are available for the <code>.col</code> class.
-                If <var>size</var> is used, than small, medium, and large classes are available. If <var>both</var> is used, then all classes are available.
+                Determines which responsive columns are generated within the Grid component; accepts <code>device</code>, <code>size</code>, or <code>both</code>.
+                If <code>device</code> is used, than mobile, tablet, and desktop classes are available for the <code>.col</code> class.
+                If <code>size</code> is used, than small, medium, and large classes are available. If <code>both</code> is used, then all classes are available.
                 The breakpoint variables below are used to determine the media query breakpoints per column class.
             </td>
         </tr>
@@ -287,8 +287,8 @@ The following variables are used for responsive design. They will alter the outp
             <td>$breakpoint-desktop</td>
             <td>1440px</td>
             <td rowspan="6">
-                Breakpoints used when <code>$responsive-size</code> is <var>device</var>.
-                Also used as <code>min/max-width</code> in <code>in/if-&lt;device&gt;</code> responsive mixins.
+                Breakpoints used when <code>$responsive-size</code> is <code>device</code>.
+                Also used as <code>min/max-width</code> in <code>in/if</code> responsive mixins.
             </td>
         </tr>
         <tr>
@@ -315,8 +315,8 @@ The following variables are used for responsive design. They will alter the outp
             <td>$breakpoint-large</td>
             <td>1440px</td>
             <td rowspan="3">
-                Breakpoints used when <code>$responsive-size</code> is <var>size</var>.
-                Also used as <code>min/max-width</code> in <code>in/if-&lt;device&gt;</code> responsive mixins.
+                Breakpoints used when <code>$responsive-size</code> is <code>size</code>.
+                Also used as <code>min/max-width</code> in <code>in/if</code> responsive mixins.
             </td>
         </tr>
         <tr>
@@ -342,12 +342,12 @@ The following variables are used for grid rendering.
         <tr>
             <td>$grid-gutter</td>
             <td>false</td>
-            <td>The spacing between each column. Can accept any unit type: px, em, rem, %.</td>
+            <td>The spacing between each column. Can accept any unit type: px, em, rem, %, or false if no gutter is desired.</td>
         </tr>
         <tr>
             <td>$grid-columns-desktop</td>
             <td>12</td>
-            <td rowspan="3">The number of columns available per device when <code>$responsive-size</code> is <var>device</var>.</td>
+            <td rowspan="3">The number of columns available per device when <code>$responsive-size</code> is <code>device</code>.</td>
         </tr>
         <tr>
             <td>$grid-columns-tablet</td>
@@ -360,7 +360,7 @@ The following variables are used for grid rendering.
         <tr>
             <td>$grid-columns-large</td>
             <td>12</td>
-            <td rowspan="3">The number of columns available per size when <code>$responsive-size</code> is <var>size</var>.</td>
+            <td rowspan="3">The number of columns available per size when <code>$responsive-size</code> is <code>size</code>.</td>
         </tr>
         <tr>
             <td>$grid-columns-medium</td>
@@ -374,6 +374,221 @@ The following variables are used for grid rendering.
 </table>
 
 ## Mixins ##
+
+Mixins are a powerful Sass feature that allow for modularity and re-use of code. Toolkit comes bundle with a handful of mixins
+that solve everyday problems like grid building, style resets, and media query management.
+
+The following mixins are used for basic layout styling.
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mixin</th>
+            <th>Nestable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>clear-fix()</td>
+            <td></td>
+            <td>Provides <code>:after</code> styles on the parent for clearing child floats.</td>
+        </tr>
+        <tr>
+            <td>reset-inline-block()</td>
+            <td></td>
+            <td>Resets the styles of an element to inline-block, aligns vertically in the middle, and resets margin, padding, etc.</td>
+        </tr>
+        <tr>
+            <td>content-spacing()</td>
+            <td></td>
+            <td>Removes top and bottom margin on p, ul, ol, hr, and blockquote child elements.</td>
+        </tr>
+        <tr>
+            <td>size-small()</td>
+            <td></td>
+            <td rowspan="3">Defines the font size and padding for the respective size. Uses the sizing variables as values.</td>
+        </tr>
+        <tr>
+            <td>size-medium()</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>size-large()</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>is-small($self, $parent)</td>
+            <td>Yes</td>
+            <td rowspan="3">
+                Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
+            </td>
+        </tr>
+        <tr>
+            <td>is-medium($self, $parent)</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>is-large($self, $parent)</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+The following mixins apply styles for state classes.
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td>is-active()</td>
+            <td>Yes</td>
+            <td>Defines styles for the active class on the current element, and for being a child of an active parent.</td>
+        </tr>
+        <tr>
+            <td>is-disabled()</td>
+            <td>Yes</td>
+            <td>Defines styles for the disabled class on the current element, and for being a child of a disabled parent.</td>
+        </tr>
+        <tr>
+            <td>is-info()</td>
+            <td>Yes</td>
+            <td rowspan="4">Defines styles for the respective state class on the current element.</td>
+        </tr>
+        <tr>
+            <td>is-error()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>is-warning()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>is-success()</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
+
+The following mixins aid in the building of grids. More information on grids can be found below.
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td>grid-row($width)</td>
+            <td></td>
+            <td>Defines width and wrapper styles for a row in a grid.</td>
+        </tr>
+        <tr>
+            <td>grid-column($width, $gutter)</td>
+            <td></td>
+            <td>Defines width, margin, and gutter styles for a column in a grid.</td>
+        </tr>
+    </tbody>
+</table>
+
+The following mixins generate media queries for use in responsive layouts. More information on responsiveness can be found below.
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td>if-min($min)</td>
+            <td>Yes</td>
+            <td rowspan="3">
+                Generates media queries using <code>min-width</code> and or <code>max-width</code> features.
+            </code>
+        </tr>
+        <tr>
+            <td>if-max($max)</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-min-max($min, $max)</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-landscape()</td>
+            <td>Yes</td>
+            <td rowspan="2">Generates media queries for device orientation.</code>
+        </tr>
+        <tr>
+            <td>if-portrait()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-retina()</td>
+            <td>Yes</td>
+            <td>Generates media queries for detecting retina displays.</code>
+        </tr>
+        <tr>
+            <td>if-desktop()</td>
+            <td>Yes</td>
+            <td rowspan="8">
+                Generates media queries that apply styles when the current device being used falls under a breakpoint threshold.
+                Uses the breakpoint variables (above) as the ranges for detection.
+                The value of <code>$responsive-design</code> determines whether <code>min-width</code>
+                or <code>max-width</code> features are used in media queries.
+                <b>Properties defined within these mixins will cascade and override where applicable.</b>
+            </code>
+        </tr>
+        <tr>
+            <td>if-tablet-landscape()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-tablet-portrait()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-mobile-landscape()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-mobile-portrait()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-large()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-medium()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>if-small()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-desktop()</td>
+            <td>Yes</td>
+            <td rowspan="6">
+                Generates media queries that apply styles when the current device being used falls within a certain breakpoint range.
+                Uses the breakpoint variables (above) and <code>min-width</code> coupled with <code>max-width</code> for range detection.
+                <b>Properties defined within these mixins will not cascade and will only apply within certain ranges.</b>
+            </code>
+        </tr>
+        <tr>
+            <td>in-tablet()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-mobile()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-large()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-medium()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-small()</td>
+            <td>Yes</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Functions ##
 
