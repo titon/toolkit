@@ -12,7 +12,7 @@ Of course the first thing we need to do is acquire the Toolkit files. Let's begi
 ```
 
 Besides git, there are multiple ways to download Toolkit.
-[Jump to the installation documentation for more approaches.](installing.html)
+[Jump to the installation documentation for more approaches.](installing.md)
 
 ### Project Structure ###
 

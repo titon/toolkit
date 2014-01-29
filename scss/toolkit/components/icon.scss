@@ -19,7 +19,7 @@
 [class*="icon-32"] { width: 32px; height: 32px; }
 [class*="icon-64"] { width: 64px; height: 64px; }
 
-.button {
+.#{$vendor-prefix}button {
     [class*="icon-"] { margin-top: -1px; }
 }
 

@@ -64,10 +64,6 @@
      * Initialize the component by fetching elements and binding events.
      */
     Tooltip.initialize = function() {
-        if (!this.nodes.length) {
-            return;
-        }
-
         var options = this.options;
 
         this.elementHead = this.element.find(options.titleElement);

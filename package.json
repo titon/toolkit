@@ -39,7 +39,6 @@
     },
     "devDependencies": {
         "grunt": "*",
-        "grunt-newer": "*",
         "grunt-contrib-concat": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jshint": "*",
@@ -47,7 +46,6 @@
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
         "grunt-string-replace": "*",
-        "compartment": "*",
-        "assemble": "*"
+        "compartment": "*"
     }
 }

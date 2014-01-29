@@ -18,7 +18,7 @@ Sass for CSS pre-processing, and Grunt for task and package management.
 * [Components](http://titon.io/toolkit#components)
 
 ## Learn More ##
-* [Getting Started](https://github.com/titon/toolkit/blob/master/docs/pages/en/setup/getting-started.md)
-* [Downloading & Installing](https://github.com/titon/toolkit/blob/master/docs/pages/en/setup/installing.md)
-* [Custom Builds](https://github.com/titon/toolkit/blob/master/docs/pages/en/setup/custom-builds.md)
-* [Browser Compatibility](https://github.com/titon/toolkit/blob/master/docs/pages/en/support/compatibility.md)
+* [Getting Started](https://github.com/titon/toolkit/blob/master/docs/en/setup/getting-started.md)
+* [Downloading & Installing](https://github.com/titon/toolkit/blob/master/docs/en/setup/installing.md)
+* [Custom Builds](https://github.com/titon/toolkit/blob/master/docs/en/setup/custom-builds.md)
+* [Browser Compatibility](https://github.com/titon/toolkit/blob/master/docs/en/support/compatibility.md)

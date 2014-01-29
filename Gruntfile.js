@@ -285,26 +285,6 @@ module.exports = function(grunt) {
             styles: {
                 files: 'scss/**/*.scss',
                 tasks: ['compass:build']
-            },
-            docs: {
-                files: 'docs/pages/**/*.{md,html}',
-                tasks: ['newer:assemble:docs']
-            }
-        },
-
-        // Generate documentation
-        assemble: {
-            options: {
-                assets: 'docs/assets/',
-                layoutdir: 'docs/layouts/',
-                layout: 'default.html',
-                partials: 'docs/partials/**/*.html',
-                data: 'docs/data/**/*.json'
-            },
-            docs: {
-                files: [
-                    { expand: true, cwd: 'docs/pages/', src: '**/*.{md,html}', dest: 'docs/html/', ext: '.html' }
-                ]
             }
         }
     });
@@ -315,13 +295,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('assemble');
+    grunt.loadNpmTasks('grunt-string-replace');
 
     // Register tasks
-    grunt.registerTask('generate', ['newer:assemble']);
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('distribute', ['jshint', 'compass:build', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
     grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
