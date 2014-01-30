@@ -114,7 +114,6 @@ select.#{$vendor-prefix}input {
 }
 
 select.#{$vendor-prefix}input[multiple] {
-    min-height: 150px;
     max-height: 500px;
 }
 

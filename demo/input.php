@@ -12,15 +12,24 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_group">Select + Optgroup</label>
+        <label class="field-label" for="select_single2">Select w/ Custom Labels</label>
+        <select id="select_single2" class="input custom-class" name="select_single2" <?php if ($disabled) echo 'disabled'; ?>>
+            <option value="css" title="Style">CSS</option>
+            <option value="html" title="Markup">HTML</option>
+            <option value="js" title="Script">JavaScript</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="select_group">Select + Optgroup w/ Descriptions</label>
         <select id="select_group" class="another-class input" name="select_group" <?php if ($disabled) echo 'disabled'; ?>>
             <optgroup label="Front-end">
-                <option value="css">CSS</option>
-                <option value="html">HTML</option>
+                <option value="css" data-description="Cascading Style Sheets">CSS</option>
+                <option value="html" data-description="Hyper Text Markup Lang">HTML</option>
                 <option value="js">JavaScript</option>
             </optgroup>
             <optgroup label="Back-end">
-                <option value="php">PHP</option>
+                <option value="php" data-description="Hyper Text Pre-Processor">PHP</option>
                 <option value="python">Python</option>
                 <option value="ruby">Ruby</option>
             </optgroup>
@@ -28,14 +37,26 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_multi">Select + Multiple (Not wrapped)</label>
+        <label class="field-label" for="select_multi">Multiple Select</label>
         <select id="select_multi" class="input" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
             <option value="css">CSS</option>
             <option value="html">HTML</option>
             <option value="js">JavaScript</option>
             <option value="php">PHP</option>
             <option value="python">Python</option>
-            <option value="ruby" selected>Ruby</option>
+            <option value="ruby">Ruby</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="select_multi2">Multiple Select w/ Default Label</label>
+        <select id="select_multi2" class="input" name="select_multi2" title="-- Select One --" multiple <?php if ($disabled) echo 'disabled'; ?>>
+            <option value="css">CSS</option>
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="ruby">Ruby</option>
         </select>
     </div>
 
@@ -64,7 +85,9 @@ $disabled = value('disabled', false); ?>
                 radio: '<?php echo value('radio', true) ? 'input[type="radio"]' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',
                 dropdown: <?php bool('dropdown', true); ?>,
-                multiple: <?php bool('multiple', true); ?>
+                multiple: <?php bool('multiple', true); ?>,
+                multipleFormat: <?php string('multipleFormat', 'count'); ?>,
+                listLimit: <?php number('listLimit', 5); ?>
             });
         });
     <?php } else { ?>
@@ -74,7 +97,9 @@ $disabled = value('disabled', false); ?>
                 radio: '<?php echo value('radio', true) ? 'input:radio' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',
                 dropdown: <?php bool('dropdown', true); ?>,
-                multiple: <?php bool('multiple', true); ?>
+                multiple: <?php bool('multiple', true); ?>,
+                multipleFormat: <?php string('multipleFormat', 'count'); ?>,
+                listLimit: <?php number('listLimit', 5); ?>
            });
         });
     <?php } ?>

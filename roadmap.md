@@ -22,4 +22,5 @@ All releases will contain bug fixing and polishing for current features.
 * Replace JS option callbacks with namespaced element events.
 * Separate component transitions into a stand alone layer that can be used anywhere.
 * Replace examples with unit tests.
-* Add deferred/promise integration
+* Add deferred/promise integration.
+* Inherit options at runtime through data attributes.

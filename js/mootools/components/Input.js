@@ -20,7 +20,8 @@
         options: {
             checkbox: 'input[type="checkbox"]',
             radio: 'input[type="radio"]',
-            select: 'select'
+            select: 'select',
+            copyClasses: true
         },
 
         /**
@@ -72,16 +73,28 @@
          * @returns {Toolkit.Input}
          */
         buildWrapper: function(element) {
-            var div = new Element('div.' + Toolkit.options.vendor +'custom-input'),
-                classes = (element.get('class') || '').replace(/\binput\b/, '').trim();
+            this.wrapper = new Element('div.' + Toolkit.options.vendor +'custom-input').wraps(element);
 
-            if (classes) {
-                div.addClass(classes);
+            if (this.options.copyClasses) {
+                this.copyClasses(element, this.wrapper);
             }
 
-            div.wraps(element);
+            return this;
+        },
 
-            this.wrapper = div;
+        /**
+         * Copy classes from one element to another, but do not copy .input classes.
+         *
+         * @param {Element} from
+         * @param {Element} to
+         * @returns {Toolkit.Input}
+         */
+        copyClasses: function(from, to) {
+            var classes = (from.get('class') || '').replace(/\binput\b/, '').trim();
+
+            if (classes) {
+                to.addClass(classes);
+            }
 
             return this;
         }
@@ -153,18 +166,20 @@
         Extends: Toolkit.Input,
         Binds: ['_buildOption', '__change', '__toggle'],
 
-        /** Custom button */
-        button: null,
-
         /** Custom dropdown */
         dropdown: null,
 
         /** Default options */
         options: {
-            multiple: false,
             dropdown: true,
+            multiple: true,
+            multipleFormat: 'count', // count, list
+            countMessage: '{count} of {total} selected',
+            listLimit: 3,
             arrowContent: '<span class="caret-down"></span>',
-            defaultLabel: ''
+            getDefaultLabel: 'title',
+            getOptionLabel: 'title',
+            getDescription: 'data-description'
         },
 
         /**
@@ -178,9 +193,20 @@
             this.setOptions(options);
 
             // Do not style multi-selects
-            if (select.multiple && !this.options.multiple) {
-                return;
+            if (this.options.multiple) {
+                if (!select.multiple) {
+                    this.options.multiple = false;
+                } else {
+                    this.options.dropdown = true;
+                }
+            } else {
+                if (select.multiple) {
+                    return;
+                }
             }
+
+            // All change events behave the same
+            select.addEvent('change', this.__change);
 
             // Create custom elements
             this.buildWrapper(select);
@@ -191,24 +217,22 @@
                 this.buildDropdown(select);
 
                 // Trigger focus on the real select when the custom button is clicked
-                this.button.addEvent('click', function(e) {
-                    e.preventDefault();
+                this.element.addEvent('click', this.__toggle);
 
-                    select.fireEvent('focus', { target: select });
-                });
-
+                // Cant hide/invisible the real select or we lose focus/blur
+                // So place it below .custom-input
                 select
-                    // Open the dropdown when the real select gets/loses focus via label
-                    .addEvent('focus', this.__toggle)
-                    .addEvent('blur', this.__hide)
+                    .setStyle('z-index', 1)
+                    .addEvent('blur', this.__hide);
 
-                    // Cant hide/invisible the real select or we lose focus/blur
-                    // So place it below .custom-input
-                    .setStyle('z-index', 1);
+                this.element.addEvent('clickout', this.__hide);
+                this.dropdown.addEvent('clickout', this.__hide);
             }
 
-            // All change events behave the same
-            select.addEvent('change', this.__change);
+            // Trigger change immediately to update the label
+            this.input.fireEvent('change', { target: this.input });
+
+            this.fireEvent('init');
         },
 
         /**
@@ -220,11 +244,16 @@
         buildButton: function(select) {
             var vendor = Toolkit.options.vendor;
 
-            this.button = new Element('div.' + vendor + 'select')
+            this.element = new Element('div.' + vendor + 'select')
                 .grab(new Element('div.' + vendor + 'select-arrow').set('html', this.options.arrowContent))
-                .grab(new Element('div.' + vendor + 'select-label').set('text', this.options.defaultLabel || select[select.selectedIndex].textContent))
+                .grab(new Element('div.' + vendor + 'select-label').set('text', Toolkit.options.loadingMessage))
                 .setStyle('min-width', select.getWidth())
                 .inject(select, 'after');
+
+            // Hide the options be forcing a height on the select
+            if (this.options.multiple) {
+                this.input.setStyle('max-height', this.element.getHeight());
+            }
 
             return this;
         },
@@ -238,7 +267,11 @@
         buildDropdown: function(select) {
             var vendor = Toolkit.options.vendor,
                 buildOption = this.buildOption.bind(this),
-                dropdown = new Element('ul.' + vendor + 'drop--down');
+                dropdown = new Element('ul.' + vendor + 'drop--down.custom-select');
+
+            if (select.multiple) {
+                dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
+            }
 
             this.dropdown = dropdown;
 
@@ -270,22 +303,48 @@
          * @returns {Element}
          */
         buildOption: function(option) {
-            var select = this.select,
+            var select = this.input,
                 dropdown = this.dropdown,
                 activeClass = Toolkit.options.isPrefix + 'active';
 
             // Create elements
-            var li = new Element('li');
+            var li = new Element('li'),
+                content = option.textContent,
+                description;
 
             if (option.selected) {
                 li.addClass(activeClass);
             }
 
+            if (description = this.readValue(option, this.options.getDescription)) {
+                content += ' <span class="' + Toolkit.options.vendor + 'drop-desc">' + description + '</span>';
+            }
+
             var a = new Element('a')
-                .set('text', option.textContent)
-                .set('href', 'javascript:;')
-                .addEvent('click', function() {
-                    dropdown.conceal();
+                .set('html', content)
+                .set('href', 'javascript:;');
+
+            if (this.options.copyClasses) {
+                this.copyClasses(option, li);
+            }
+
+            // Set events
+            if (this.options.multiple) {
+                a.addEvent('click', function() {
+                    if (option.selected) {
+                        option.selected = false;
+                        this.getParent().removeClass(activeClass);
+
+                    } else {
+                        option.selected = true;
+                        this.getParent().addClass(activeClass);
+                    }
+
+                    select.fireEvent('change', { target: select });
+                });
+
+            } else {
+                a.addEvent('click', function() {
                     dropdown.getElements('li').removeClass(activeClass);
 
                     this.getParent().addClass(activeClass);
@@ -293,6 +352,7 @@
                     select.set('value', option.value);
                     select.fireEvent('change', { target: select });
                 });
+            }
 
             return li.grab(a);
         },
@@ -303,8 +363,12 @@
          * @returns {Toolkit.Input.Select}
          */
         hide: function() {
-            this.button.removeClass(Toolkit.options.isPrefix + 'active');
-            this.dropdown.conceal();
+            this.element.removeClass(Toolkit.options.isPrefix + 'active');
+
+            if (this.dropdown) {
+                this.dropdown.conceal();
+            }
+
             this.fireEvent('hide');
 
             return this;
@@ -316,8 +380,12 @@
          * @returns {Toolkit.Input.Select}
          */
         show: function() {
-            this.button.addClass(Toolkit.options.isPrefix + 'active');
-            this.dropdown.reveal();
+            this.element.addClass(Toolkit.options.isPrefix + 'active');
+
+            if (this.dropdown) {
+                this.dropdown.reveal();
+            }
+
             this.fireEvent('show');
 
             return this;
@@ -330,16 +398,58 @@
          * @param {DOMEvent} e
          */
         __change: function(e) {
-            var select = e.target;
+            var select = e.target,
+                options = select.getElements('option'),
+                isMulti = this.options.multiple,
+                label = [];
 
-            if (select[select.selectedIndex]) {
-                select.getParent().getElement('.' + Toolkit.options.vendor + 'select-label')
-                    .set('text', select[select.selectedIndex].textContent);
+            // Fetch label from selected option
+            options.each(function(option) {
+                if (option.selected) {
+                    label.push( this.readValue(option, this.options.getOptionLabel) || option.textContent );
+                }
+            }, this);
+
+            // Reformat label if needed
+            if (isMulti) {
+                var title = this.readValue(select, this.options.getDefaultLabel),
+                    format = this.options.multipleFormat,
+                    count = label.length;
+
+                // Use default title if nothing selected
+                if (!label.length && title) {
+                    label = title;
+
+                // Display a counter for label
+                } else if (format === 'count') {
+                    label = this.options.countMessage
+                        .replace('{count}', count)
+                        .replace('{total}', options.length);
+
+                // Display options as a list for label
+                } else if (format === 'list') {
+                    var limit = this.options.listLimit;
+
+                    label = label.splice(0, limit).join(', ');
+
+                    if (limit < count) {
+                        label += ' ...';
+                    }
+                }
+            } else {
+                label = label.join(', ');
             }
 
-            select.fireEvent('blur', { target: select });
+            // Set the label
+            select.getParent().getElement('.' + Toolkit.options.vendor + 'select-label')
+                .set('text', label);
 
-            this.fireEvent('change');
+            // Hide the dropdown after selecting something
+            if (!isMulti) {
+                this.hide();
+            }
+
+            this.fireEvent('change', select.get('value'));
         },
 
         /**
@@ -349,7 +459,7 @@
          * @param {DOMEvent} e
          */
         __toggle: function(e) {
-            if (!this.enabled || this.select.disabled) {
+            if (!this.enabled || this.input.disabled) {
                 return;
             }
 

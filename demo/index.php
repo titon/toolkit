@@ -199,6 +199,11 @@ $components = array(
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
             'dropdown' => array('title' => 'Custom select dropdown?', 'type' => 'boolean', 'default' => true),
             'multiple' => array('title' => 'Multiple select support?', 'type' => 'boolean', 'default' => true),
+            'multipleFormat' => array('title' => 'Multiple label format', 'data' => array(
+                'count' => 'Counter',
+                'list' => 'Option list'
+            )),
+            'listLimit' => array('title' => 'Label list limit', 'type' => 'number', 'default' => 3),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
         )
     ),

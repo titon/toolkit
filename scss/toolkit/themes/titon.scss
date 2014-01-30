@@ -156,6 +156,7 @@ mark { background: lighten($warning-light, 25%); }
             background: $info;
             color: #fff;
 
+            .drop-desc { color: #fff; }
             .caret-right { border-left-color: #fff; }
         }
 
@@ -177,6 +178,12 @@ mark { background: lighten($warning-light, 25%); }
 
 .drop--left {
     box-shadow: -5px 5px black(.25);
+}
+
+.drop-desc {
+    display: block;
+    color: $gray-darkest;
+    font-size: .7rem;
 }
 
 //-------------------- Flyout, TypeAhead --------------------//
