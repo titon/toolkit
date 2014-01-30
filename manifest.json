@@ -183,7 +183,7 @@
         "description": "Replaces selects, checkboxes, and radios with custom elements.",
         "category": "component",
         "priority": 10,
-        "require": ["base"],
+        "require": ["base", "drop"],
         "source": {
             "css": ["components/input.css"],
             "js": ["components/Input.js"]

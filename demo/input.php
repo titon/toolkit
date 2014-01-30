@@ -21,6 +21,15 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
+        <label class="field-label" for="select_single2">Select w/ Disabled Options</label>
+        <select id="select_single3" class="input custom-class" name="select_single3" <?php if ($disabled) echo 'disabled'; ?>>
+            <option value="css" disabled>CSS</option>
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+        </select>
+    </div>
+
+    <div class="field">
         <label class="field-label" for="select_group">Select + Optgroup w/ Descriptions</label>
         <select id="select_group" class="another-class input" name="select_group" <?php if ($disabled) echo 'disabled'; ?>>
             <optgroup label="Front-end">
@@ -30,6 +39,22 @@ $disabled = value('disabled', false); ?>
             </optgroup>
             <optgroup label="Back-end">
                 <option value="php" data-description="Hyper Text Pre-Processor">PHP</option>
+                <option value="python">Python</option>
+                <option value="ruby">Ruby</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="select_group2">Select + Optgroup w/ Disabled Options</label>
+        <select id="select_group2" class="another-class input" name="select_group2" <?php if ($disabled) echo 'disabled'; ?>>
+            <optgroup label="Front-end">
+                <option value="css">CSS</option>
+                <option value="html">HTML</option>
+                <option value="js" disabled>JavaScript</option>
+            </optgroup>
+            <optgroup label="Back-end" disabled>
+                <option value="php">PHP</option>
                 <option value="python">Python</option>
                 <option value="ruby">Ruby</option>
             </optgroup>
@@ -57,6 +82,18 @@ $disabled = value('disabled', false); ?>
             <option value="php">PHP</option>
             <option value="python">Python</option>
             <option value="ruby">Ruby</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="select_multi">Multiple Select w/ Disabled Options</label>
+        <select id="select_multi" class="input" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
+            <option value="css">CSS</option>
+            <option value="html" disabled>HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="php" disabled>PHP</option>
+            <option value="python">Python</option>
+            <option value="ruby" disabled>Ruby</option>
         </select>
     </div>
 

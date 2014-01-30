@@ -267,7 +267,7 @@
         buildDropdown: function(select) {
             var vendor = Toolkit.options.vendor,
                 buildOption = this.buildOption.bind(this),
-                dropdown = new Element('ul.' + vendor + 'drop--down.custom-select');
+                dropdown = new Element('ul.' + vendor + 'drop--down.' + vendor + 'select-drop');
 
             if (select.multiple) {
                 dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
@@ -284,6 +284,10 @@
                     );
 
                     Array.from(optgroup.children).each(function(option) {
+                        if (optgroup.disabled) {
+                            option.disabled = true;
+                        }
+
                         dropdown.grab( buildOption(option) );
                     });
                 } else {
@@ -328,6 +332,15 @@
                 this.copyClasses(option, li);
             }
 
+            li.grab(a);
+
+            // Attach no events for disabled options
+            if (option.disabled) {
+                li.addClass(Toolkit.options.isPrefix + 'disabled');
+
+                return li;
+            }
+
             // Set events
             if (this.options.multiple) {
                 a.addEvent('click', function() {
@@ -354,7 +367,7 @@
                 });
             }
 
-            return li.grab(a);
+            return li;
         },
 
         /**

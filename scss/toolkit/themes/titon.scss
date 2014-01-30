@@ -147,14 +147,20 @@ mark { background: lighten($warning-light, 25%); }
     box-shadow: 5px 5px black(.25);
 
     li {
-        a .caret-right {
-            top: 2px;
+        > a {
+            color: darken($info, 15%);
+
+            .caret-right { top: 2px; }
         }
 
-        &:hover > a,
-        &.is-active a {
-            background: $info;
+        &:hover > a {
+            color: darken($info, 15%);
+            background: $info-light;
+        }
+
+        &.is-active > a {
             color: #fff;
+            background: $info;
 
             .drop-desc { color: #fff; }
             .caret-right { border-left-color: #fff; }

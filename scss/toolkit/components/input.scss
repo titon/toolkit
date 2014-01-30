@@ -113,3 +113,15 @@
         }
     }
 }
+
+// Select dropdown
+.#{$vendor-prefix}select-drop.#{$vendor-prefix}drop--down {
+    li.#{$state-is-prefix}disabled {
+        > a,
+        > a:hover {
+            background: none;
+            color: $gray-darkest;
+            cursor: not-allowed;
+        }
+    }
+}
