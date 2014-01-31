@@ -164,13 +164,16 @@
      */
     Toolkit.Input.Select = new Class({
         Extends: Toolkit.Input,
-        Binds: ['_buildOption', '__change', '__toggle'],
+        Binds: ['buildOption', '__change', '__cycle', '__toggle'],
 
         /** Custom dropdown */
         dropdown: null,
 
         /** Is it a multi-select */
         multiple: false,
+
+        /** Current index while cycling through options */
+        currentIndex: 0,
 
         /** Default options */
         options: {
@@ -203,9 +206,6 @@
                 return;
             }
 
-            // All change events behave the same
-            select.addEvent('change', this.__change);
-
             // Create custom elements
             this.buildWrapper(select);
             this.buildButton(select);
@@ -214,23 +214,41 @@
             if (!this.options.native) {
                 this.buildDropdown(select);
 
-                // Trigger focus on the real select when the custom button is clicked
-                this.element.addEvent('click', this.__toggle);
-
                 // Cant hide/invisible the real select or we lose focus/blur
                 // So place it below .custom-input
                 select
                     .setStyle('z-index', 1)
                     .addEvent('blur', this.__hide);
+            }
 
-                this.element.addEvent('clickout', this.__hide);
+            this.bindEvents();
+            this.fireEvent('init');
+        },
+
+        /**
+         * Bind events.
+         *
+         * @returns {Toolkit.Input.Select}
+         */
+        bindEvents: function() {
+            this.input.addEvent('change', this.__change);
+
+            if (!this.options.native) {
                 this.dropdown.addEvent('clickout', this.__hide);
+
+                this.element
+                    .addEvent('clickout', this.__hide)
+                    .addEvent('click', this.__toggle);
+            }
+
+            if (!this.multiple) {
+                window.addEvent('keydown', this.__cycle);
             }
 
             // Trigger change immediately to update the label
             this.input.fireEvent('change', { target: this.input });
 
-            this.fireEvent('init');
+            return this;
         },
 
         /**
@@ -265,9 +283,10 @@
         buildDropdown: function(select) {
             var vendor = Toolkit.options.vendor,
                 options = this.options,
-                buildOption = this.buildOption.bind(this),
+                buildOption = this.buildOption,
                 dropdown = new Element('div.' + vendor + 'drop--down.' + vendor + 'select-options'),
-                list = new Element('ul');
+                list = new Element('ul'),
+                index = 0;
 
             if (options.hideSelected && !options.multiple) {
                 dropdown.addClass('hide-selected');
@@ -279,7 +298,7 @@
 
             this.dropdown = dropdown;
 
-            Array.from(select.children).each(function(optgroup, i) {
+            Array.from(select.children).each(function(optgroup) {
                 if (optgroup.get('tag') === 'optgroup') {
                     list.grab(
                         new Element('li')
@@ -292,14 +311,24 @@
                             option.disabled = true;
                         }
 
-                        list.grab( buildOption(option) );
-                    });
+                        if (option.selected) {
+                            this.currentIndex = index;
+                        }
+
+                        list.grab( buildOption(option, index) );
+                        index++;
+                    }, this);
                 } else {
-                    if (options.hideFirst && i === 0) {
+                    if (options.hideFirst && index === 0) {
                         return;
                     }
 
-                    list.grab( buildOption(optgroup) );
+                    if (optgroup.selected) {
+                        this.currentIndex = index;
+                    }
+
+                    list.grab( buildOption(optgroup, index) );
+                    index++;
                 }
             }, this);
 
@@ -312,9 +341,10 @@
          * Build the list item to represent the select option.
          *
          * @param {Element} option
+         * @param {Number} index
          * @returns {Element}
          */
-        buildOption: function(option) {
+        buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
                 activeClass = Toolkit.options.isPrefix + 'active';
@@ -365,10 +395,14 @@
                 });
 
             } else {
+                var self = this;
+
                 a.addEvent('click', function() {
                     dropdown.getElements('li').removeClass(activeClass);
+                    dropdown.conceal();
 
                     this.getParent().addClass(activeClass);
+                    self.currentIndex = index;
 
                     select.set('value', option.value);
                     select.fireEvent('change', { target: select });
@@ -466,12 +500,77 @@
             select.getParent().getElement('.' + Toolkit.options.vendor + 'select-label')
                 .set('text', label);
 
-            // Hide the dropdown after selecting something
-            if (!this.multiple) {
-                this.hide();
+            this.fireEvent('change', [select.get('value'), selected]);
+        },
+
+        /**
+         * Event handler for cycling through options with up and down keys.
+         *
+         * @private
+         * @param {DOMEvent} e
+         */
+        __cycle: function(e) {
+            if (!this.dropdown.isVisible()) {
+                return;
             }
 
-            this.fireEvent('change', [select.get('value'), selected]);
+            if (['up', 'down', 'enter', 'esc'].contains(e.key)) {
+                e.preventDefault();
+            } else {
+                return;
+            }
+
+            var options = this.input.getElements('option'),
+                items = this.dropdown.getElements('a'),
+                activeClass = Toolkit.options.isPrefix + 'active',
+                index = this.currentIndex;
+
+            switch (e.key) {
+                case 'enter':
+                case 'esc':
+                    this.hide();
+                    return;
+                break;
+                case 'up':
+                    index--;
+
+                    if (index < 0) {
+                        index = options.length - 1;
+                    }
+
+                    while (options[index].disabled) {
+                        index--;
+
+                        if (index < 0) {
+                            index = options.length - 1;
+                        }
+                    }
+                break;
+                case 'down':
+                    index++;
+
+                    if (index >= options.length) {
+                        index = 0;
+                    }
+
+                    while (options[index].disabled) {
+                        index++;
+
+                        if (index >= options.length) {
+                            index = 0;
+                        }
+                    }
+                break;
+            }
+
+            options.set('selected', false);
+            options[index].selected = true;
+
+            items.getParent().removeClass(activeClass);
+            items[index].getParent().addClass(activeClass);
+
+            this.currentIndex = index;
+            this.input.fireEvent('change', { target: this.input });
         },
 
         /**
