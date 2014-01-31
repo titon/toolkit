@@ -8,7 +8,9 @@
 
 .#{$vendor-prefix}button {
     @include reset-inline-block;
-    @include size-medium;
+    border: 0;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
     text-align: center;
     font-weight: normal;
@@ -16,6 +18,7 @@
     white-space: nowrap;
     text-decoration: none;
     background: $gray;
+    @include size-medium;
 
     @include is-small(true, true) { @include size-small; }
     @include is-medium(true, true) { @include size-medium; }

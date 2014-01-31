@@ -24,6 +24,7 @@
 
 .#{$vendor-prefix}button-group {
     @include reset-inline-block;
+    @include reset-list;
     white-space: nowrap;
 
     > li,

@@ -64,7 +64,7 @@ Toolkit.Tooltip = new Class({
         this.bindEvents();
 
         if (this.options.mode === 'click') {
-            this.element.clickout(this.__hide);
+            this.element.addEvent('clickout', this.__hide);
         }
 
         this.fireEvent('init');
