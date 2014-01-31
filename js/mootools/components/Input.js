@@ -171,11 +171,13 @@
 
         /** Default options */
         options: {
-            dropdown: true,
+            native: false,
             multiple: true,
             multipleFormat: 'count', // count, list
             countMessage: '{count} of {total} selected',
             listLimit: 3,
+            hideFirst: false,
+            hideSelected: false,
             arrowContent: '<span class="caret-down"></span>',
             getDefaultLabel: 'title',
             getOptionLabel: 'title',
@@ -192,12 +194,12 @@
             this.input = select;
             this.setOptions(options);
 
-            // Do not style multi-selects
+            // Multiple selects cannot use native controls
             if (this.options.multiple) {
                 if (!select.multiple) {
                     this.options.multiple = false;
                 } else {
-                    this.options.dropdown = true;
+                    this.options.native = false;
                 }
             } else {
                 if (select.multiple) {
@@ -213,7 +215,7 @@
             this.buildButton(select);
 
             // Custom dropdowns
-            if (this.options.dropdown) {
+            if (!this.options.native) {
                 this.buildDropdown(select);
 
                 // Trigger focus on the real select when the custom button is clicked
@@ -266,8 +268,14 @@
          */
         buildDropdown: function(select) {
             var vendor = Toolkit.options.vendor,
+                options = this.options,
                 buildOption = this.buildOption.bind(this),
-                dropdown = new Element('ul.' + vendor + 'drop--down.' + vendor + 'select-drop');
+                dropdown = new Element('div.' + vendor + 'drop--down.' + vendor + 'select-options'),
+                list = new Element('ul');
+
+            if (options.hideSelected && !options.multiple) {
+                dropdown.addClass('hide-selected');
+            }
 
             if (select.multiple) {
                 dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
@@ -275,9 +283,9 @@
 
             this.dropdown = dropdown;
 
-            Array.from(select.children).each(function(optgroup) {
+            Array.from(select.children).each(function(optgroup, i) {
                 if (optgroup.get('tag') === 'optgroup') {
-                    dropdown.grab(
+                    list.grab(
                         new Element('li')
                             .addClass(vendor + 'drop-heading')
                             .set('text', optgroup.get('label'))
@@ -288,14 +296,18 @@
                             option.disabled = true;
                         }
 
-                        dropdown.grab( buildOption(option) );
+                        list.grab( buildOption(option) );
                     });
                 } else {
-                    dropdown.grab( buildOption(optgroup) );
-                }
-            });
+                    if (options.hideFirst && i == 0) {
+                        return;
+                    }
 
-            this.wrapper.grab(dropdown);
+                    list.grab( buildOption(optgroup) );
+                }
+            }, this);
+
+            this.wrapper.grab(dropdown.grab(list));
 
             return this;
         },

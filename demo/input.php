@@ -12,7 +12,7 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_single2">Select w/ Custom Labels</label>
+        <label class="field-label" for="select_single2">Select w/ Custom labels</label>
         <select id="select_single2" class="input custom-class" name="select_single2" <?php if ($disabled) echo 'disabled'; ?>>
             <option value="css" title="Style">CSS</option>
             <option value="html" title="Markup">HTML</option>
@@ -21,11 +21,11 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_single2">Select w/ Disabled Options</label>
+        <label class="field-label" for="select_single3">Select w/ Disabled options</label>
         <select id="select_single3" class="input custom-class" name="select_single3" <?php if ($disabled) echo 'disabled'; ?>>
-            <option value="css" disabled>CSS</option>
+            <option value="css">CSS</option>
             <option value="html">HTML</option>
-            <option value="js">JavaScript</option>
+            <option value="js" disabled>JavaScript</option>
         </select>
     </div>
 
@@ -46,7 +46,7 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_group2">Select + Optgroup w/ Disabled Options</label>
+        <label class="field-label" for="select_group2">Select + Optgroup w/ Disabled options</label>
         <select id="select_group2" class="another-class input" name="select_group2" <?php if ($disabled) echo 'disabled'; ?>>
             <optgroup label="Front-end">
                 <option value="css">CSS</option>
@@ -74,7 +74,7 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_multi2">Multiple Select w/ Default Label</label>
+        <label class="field-label" for="select_multi2">Multiple Select w/ Default label</label>
         <select id="select_multi2" class="input" name="select_multi2" title="-- Select One --" multiple <?php if ($disabled) echo 'disabled'; ?>>
             <option value="css">CSS</option>
             <option value="html">HTML</option>
@@ -86,16 +86,15 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="field-label" for="select_multi">Multiple Select w/ Disabled Options</label>
+        <label class="field-label" for="select_multi">Multiple Select + Many items w/ Disabled options</label>
         <select id="select_multi" class="input" name="select_multi" multiple <?php if ($disabled) echo 'disabled'; ?>>
-            <option value="css">CSS</option>
-            <option value="html" disabled>HTML</option>
-            <option value="js">JavaScript</option>
-            <option value="php" disabled>PHP</option>
-            <option value="python">Python</option>
-            <option value="ruby" disabled>Ruby</option>
+            <?php for ($i = 0; $i <= 50; $i++) { ?>
+                <option value="<?php echo $i; ?>"<?php echo ($i % 3 == 0) ? ' disabled' : ''; ?>><?php echo $i; ?></option>
+            <?php } ?>
         </select>
     </div>
+
+    <br><br><br><br><br><br><br>
 
     <div class="field">
         <label class="input-checkbox" for="checkboxes1"><input id="checkboxes1" type="checkbox" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
@@ -121,10 +120,12 @@ $disabled = value('disabled', false); ?>
                 checkbox: '<?php echo value('checkbox', true) ? 'input[type="checkbox"]' : ''; ?>',
                 radio: '<?php echo value('radio', true) ? 'input[type="radio"]' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',
-                dropdown: <?php bool('dropdown', true); ?>,
+                native: <?php bool('native', false); ?>,
                 multiple: <?php bool('multiple', true); ?>,
                 multipleFormat: <?php string('multipleFormat', 'count'); ?>,
-                listLimit: <?php number('listLimit', 5); ?>
+                listLimit: <?php number('listLimit', 5); ?>,
+                hideFirst: <?php bool('hideFirst', false); ?>,
+                hideSelected: <?php bool('hideSelected', false); ?>
             });
         });
     <?php } else { ?>
@@ -133,10 +134,12 @@ $disabled = value('disabled', false); ?>
                 checkbox: '<?php echo value('checkbox', true) ? 'input:checkbox' : ''; ?>',
                 radio: '<?php echo value('radio', true) ? 'input:radio' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',
-                dropdown: <?php bool('dropdown', true); ?>,
+                native: <?php bool('native', false); ?>,
                 multiple: <?php bool('multiple', true); ?>,
                 multipleFormat: <?php string('multipleFormat', 'count'); ?>,
-                listLimit: <?php number('listLimit', 5); ?>
+                listLimit: <?php number('listLimit', 5); ?>,
+                hideFirst: <?php bool('hideFirst', false); ?>,
+                hideSelected: <?php bool('hideSelected', false); ?>
            });
         });
     <?php } ?>

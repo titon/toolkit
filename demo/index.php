@@ -197,13 +197,15 @@ $components = array(
             'checkbox' => array('title' => 'Checkbox?', 'type' => 'boolean', 'default' => true),
             'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
-            'dropdown' => array('title' => 'Custom select dropdown?', 'type' => 'boolean', 'default' => true),
+            'native' => array('title' => 'Native select dropdown?', 'type' => 'boolean', 'default' => false),
             'multiple' => array('title' => 'Multiple select support?', 'type' => 'boolean', 'default' => true),
             'multipleFormat' => array('title' => 'Multiple label format', 'data' => array(
                 'count' => 'Counter',
                 'list' => 'Option list'
             )),
             'listLimit' => array('title' => 'Label list limit', 'type' => 'number', 'default' => 3),
+            'hideFirst' => array('title' => 'Hide first?', 'type' => 'boolean', 'default' => false),
+            'hideSelected' => array('title' => 'Hide selected?', 'type' => 'boolean', 'default' => false),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
         )
     ),
