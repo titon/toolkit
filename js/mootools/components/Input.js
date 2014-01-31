@@ -295,7 +295,7 @@
                         list.grab( buildOption(option) );
                     });
                 } else {
-                    if (options.hideFirst && i == 0) {
+                    if (options.hideFirst && i === 0) {
                         return;
                     }
 
