@@ -24,6 +24,7 @@ All releases will contain bug fixing and polishing for current features.
 * Replace examples with unit tests.
 * Add deferred/promise integration.
 * Inherit options at runtime through data attributes.
+* Add aria attributes where applicable.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

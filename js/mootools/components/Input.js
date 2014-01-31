@@ -169,10 +169,12 @@
         /** Custom dropdown */
         dropdown: null,
 
+        /** Is it a multi-select */
+        multiple: false,
+
         /** Default options */
         options: {
             native: false,
-            multiple: true,
             multipleFormat: 'count', // count, list
             countMessage: '{count} of {total} selected',
             listLimit: 3,
@@ -194,17 +196,11 @@
             this.input = select;
             this.setOptions(options);
 
-            // Multiple selects cannot use native controls
-            if (this.options.multiple) {
-                if (!select.multiple) {
-                    this.options.multiple = false;
-                } else {
-                    this.options.native = false;
-                }
-            } else {
-                if (select.multiple) {
-                    return;
-                }
+            // Multiple selects must use native controls
+            this.multiple = select.multiple;
+
+            if (select.multiple && this.options.native) {
+                return;
             }
 
             // All change events behave the same
@@ -253,7 +249,7 @@
                 .inject(select, 'after');
 
             // Hide the options be forcing a height on the select
-            if (this.options.multiple) {
+            if (this.multiple) {
                 this.input.setStyle('max-height', this.element.getHeight());
             }
 
@@ -354,7 +350,7 @@
             }
 
             // Set events
-            if (this.options.multiple) {
+            if (this.multiple) {
                 a.addEvent('click', function() {
                     if (option.selected) {
                         option.selected = false;
@@ -425,18 +421,19 @@
         __change: function(e) {
             var select = e.target,
                 options = select.getElements('option'),
-                isMulti = this.options.multiple,
+                selected = [],
                 label = [];
 
             // Fetch label from selected option
             options.each(function(option) {
                 if (option.selected) {
+                    selected.push( option );
                     label.push( this.readValue(option, this.options.getOptionLabel) || option.textContent );
                 }
             }, this);
 
             // Reformat label if needed
-            if (isMulti) {
+            if (this.multiple) {
                 var title = this.readValue(select, this.options.getDefaultLabel),
                     format = this.options.multipleFormat,
                     count = label.length;
@@ -470,11 +467,11 @@
                 .set('text', label);
 
             // Hide the dropdown after selecting something
-            if (!isMulti) {
+            if (!this.multiple) {
                 this.hide();
             }
 
-            this.fireEvent('change', select.get('value'));
+            this.fireEvent('change', [select.get('value'), selected]);
         },
 
         /**

@@ -198,7 +198,6 @@ $components = array(
             'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
             'native' => array('title' => 'Native select dropdown?', 'type' => 'boolean', 'default' => false),
-            'multiple' => array('title' => 'Multiple select support?', 'type' => 'boolean', 'default' => true),
             'multipleFormat' => array('title' => 'Multiple label format', 'data' => array(
                 'count' => 'Counter',
                 'list' => 'Option list'
