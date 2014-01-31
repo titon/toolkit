@@ -25,6 +25,7 @@ All releases will contain bug fixing and polishing for current features.
 * Add deferred/promise integration.
 * Inherit options at runtime through data attributes.
 * Add aria attributes where applicable.
+* Remove jQuery mobile dependency for touch events.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
