@@ -77,15 +77,15 @@
      * @returns {Toolkit.Component}
      */
     Component.fireEvent = function(event, args) {
-        if (args && !$.isArray(args)) {
-            args = [args];
-        }
-
         if (event.substr(0, 2) !== 'on') {
             event = 'on' + event.charAt(0).toUpperCase() + event.slice(1);
         }
 
         if (this.options[event]) {
+            if (!$.isArray(args)) {
+                args = [args];
+            }
+
             this.options[event].apply(this, args || []);
         }
 
