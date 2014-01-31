@@ -399,9 +399,9 @@
 
                 a.addEvent('click', function() {
                     dropdown.getElements('li').removeClass(activeClass);
-                    dropdown.conceal();
-
                     this.getParent().addClass(activeClass);
+
+                    self.hide();
                     self.currentIndex = index;
 
                     select.set('value', option.value);
@@ -529,8 +529,7 @@
                 case 'enter':
                 case 'esc':
                     this.hide();
-                    return;
-                break;
+                return;
                 case 'up':
                     index--;
 
