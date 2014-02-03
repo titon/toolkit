@@ -12,8 +12,6 @@
 Toolkit provides many variables for adjusting and modifying functionality within the Sass layer &mdash;
 it *does not* provide variables for property styling. This can and should be achieved by writing Sass (or CSS) after installing Toolkit.
 
-The following variables alter the output of class names.
-
 <table class="table">
     <thead>
         <tr>
@@ -50,13 +48,10 @@ The following variables alter the output of class names.
             <td>$size-large-class</td>
             <td>large</td>
         </tr>
-    </tbody>
-</table>
 
-The following variables are used for font sizing and measurement scaling.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">Sizing & Spacing</td>
+        </tr>
         <tr>
             <td>$base-size</td>
             <td>14px</td>
@@ -92,13 +87,6 @@ The following variables are used for font sizing and measurement scaling.
             <td>$h6-size</td>
             <td>1.2rem</td>
         </tr>
-    </tbody>
-</table>
-
-The following variables are used for element spacing.
-
-<table class="table">
-    <tbody>
         <tr>
             <td>$small-size</td>
             <td>.7rem</td>
@@ -129,13 +117,10 @@ The following variables are used for element spacing.
             <td>1rem</td>
             <td>Padding for elements with the <code>.large</code> class.</td>
         </tr>
-    </tbody>
-</table>
 
-The following variables are used for border styles.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">Border Styles</td>
+        </tr>
         <tr>
             <td>$round</td>
             <td>.2rem</td>
@@ -164,13 +149,10 @@ The following variables are used for border styles.
             <td>$skew-y</td>
             <td>3rem</td>
         </tr>
-    </tbody>
-</table>
 
-The following variables are used for styling elements with colors.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">States</td>
+        </tr>
         <tr>
             <td>$gray</td>
             <td>#f5f5f5</td>
@@ -257,19 +239,16 @@ The following variables are used for styling elements with colors.
             <td>$error-dark</td>
             <td>#b10e0e</td>
         </tr>
-    </tbody>
-</table>
 
-The following variables are used for responsive design. They will alter the output of certain components.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">Responsive</td>
+        </tr>
         <tr>
             <td>$responsive-design</td>
             <td>mobile</td>
             <td>
                 Determines which type of device to target; accepts <code>mobile</code> or <code>desktop</code>.
-                If <code>mobile</code> is used, <code>if/in</code> responsive mixins will use <code>min-width</code> breakpoints in media queries.
+                If <code>mobile</code> is used, responsive mixins will use <code>min-width</code> breakpoints in media queries.
                 If <code>desktop</code> is used, then <code>max-width</code> breakpoints are used.
             </td>
         </tr>
@@ -288,7 +267,7 @@ The following variables are used for responsive design. They will alter the outp
             <td>1440px</td>
             <td rowspan="6">
                 Breakpoints used when <code>$responsive-size</code> is <code>device</code>.
-                Also used as <code>min/max-width</code> in <code>in/if</code> responsive mixins.
+                Also used as <code>min/max-width</code> in responsive mixins.
             </td>
         </tr>
         <tr>
@@ -316,7 +295,7 @@ The following variables are used for responsive design. They will alter the outp
             <td>1440px</td>
             <td rowspan="3">
                 Breakpoints used when <code>$responsive-size</code> is <code>size</code>.
-                Also used as <code>min/max-width</code> in <code>in/if</code> responsive mixins.
+                Also used as <code>min/max-width</code> in responsive mixins.
             </td>
         </tr>
         <tr>
@@ -327,13 +306,10 @@ The following variables are used for responsive design. They will alter the outp
             <td>$breakpoint-small</td>
             <td>768px</td>
         </tr>
-    </tbody>
-</table>
 
-The following variables are used for grid rendering.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">Grid</td>
+        </tr>
         <tr>
             <td>$grid-width</td>
             <td>100%</td>
@@ -432,13 +408,10 @@ The following mixins are used for basic layout styling.
             <td>is-large($self, $parent)</td>
             <td>Yes</td>
         </tr>
-    </tbody>
-</table>
 
-The following mixins apply styles for state classes.
-
-<table class="table">
-    <tbody>
+        <tr class="table-divider">
+            <td colspan="3">States</td>
+        </tr>
         <tr>
             <td>is-active()</td>
             <td>Yes</td>
@@ -466,36 +439,16 @@ The following mixins apply styles for state classes.
             <td>is-success()</td>
             <td>Yes</td>
         </tr>
-    </tbody>
-</table>
 
-The following mixins aid in the building of grids. More information on grids can be found below.
-
-<table class="table">
-    <tbody>
-        <tr>
-            <td>grid-row($width)</td>
-            <td></td>
-            <td>Defines width and wrapper styles for a row in a grid.</td>
+        <tr class="table-divider">
+            <td colspan="3">Responsive</td>
         </tr>
-        <tr>
-            <td>grid-column($width, $gutter)</td>
-            <td></td>
-            <td>Defines width, margin, and gutter styles for a column in a grid.</td>
-        </tr>
-    </tbody>
-</table>
-
-The following mixins generate media queries for use in responsive layouts. More information on responsiveness can be found below.
-
-<table class="table">
-    <tbody>
         <tr>
             <td>if-min($min)</td>
             <td>Yes</td>
             <td rowspan="3">
                 Generates media queries using <code>min-width</code> and or <code>max-width</code> features.
-            </code>
+            </td>
         </tr>
         <tr>
             <td>if-max($max)</td>
@@ -508,7 +461,7 @@ The following mixins generate media queries for use in responsive layouts. More 
         <tr>
             <td>if-landscape()</td>
             <td>Yes</td>
-            <td rowspan="2">Generates media queries for device orientation.</code>
+            <td rowspan="2">Generates media queries for device orientation.</td>
         </tr>
         <tr>
             <td>if-portrait()</td>
@@ -517,7 +470,7 @@ The following mixins generate media queries for use in responsive layouts. More 
         <tr>
             <td>if-retina()</td>
             <td>Yes</td>
-            <td>Generates media queries for detecting retina displays.</code>
+            <td>Generates media queries for high resolution displays.</td>
         </tr>
         <tr>
             <td>if-desktop()</td>
@@ -528,7 +481,7 @@ The following mixins generate media queries for use in responsive layouts. More 
                 The value of <code>$responsive-design</code> determines whether <code>min-width</code>
                 or <code>max-width</code> features are used in media queries.
                 <b>Properties defined within these mixins will cascade and override where applicable.</b>
-            </code>
+            </td>
         </tr>
         <tr>
             <td>if-tablet-landscape()</td>
@@ -565,7 +518,7 @@ The following mixins generate media queries for use in responsive layouts. More 
                 Generates media queries that apply styles when the current device being used falls within a certain breakpoint range.
                 Uses the breakpoint variables (above) and <code>min-width</code> coupled with <code>max-width</code> for range detection.
                 <b>Properties defined within these mixins will not cascade and will only apply within certain ranges.</b>
-            </code>
+            </td>
         </tr>
         <tr>
             <td>in-tablet()</td>
@@ -587,21 +540,88 @@ The following mixins generate media queries for use in responsive layouts. More 
             <td>in-small()</td>
             <td>Yes</td>
         </tr>
+
+        <tr class="table-divider">
+            <td colspan="3">Grid</td>
+        </tr>
+        <tr>
+            <td>grid-row($width)</td>
+            <td></td>
+            <td>Defines width and wrapper styles for a row in a grid.</td>
+        </tr>
+        <tr>
+            <td>grid-column($width, $gutter)</td>
+            <td></td>
+            <td>Defines width, margin, and gutter styles for a column in a grid.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Functions ##
 
+Like mixins, functions allow re-use of code. The following functions exist within Toolkit,
+and more information on their use can be found below.
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Function</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>black($opacity)</td>
+            <td>Output a black background with alpha transparency using <code>rgba()</code>.</td>
+        </tr>
+        <tr>
+            <td>white($opacity)</td>
+            <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
+        </tr>
+        <tr>
+            <td>grid-gutter($grid-width, $gutter)</td>
+            <td>
+                Calculate the gutter margin between columns as a percentage, using the max width of the grid as a base.
+                The gutter value supports most unit measurements, or false can be used for no gutter.
+            </td>
+        </tr>
+        <tr>
+            <td>grid-span($column, $max-columns, $grid-width, $gutter)</td>
+            <td>
+                Calculate the width of an individual grid column as a percentage, taking into account the max grid width and gutter.
+            </td>
+        </tr>
+        <tr>
+            <td>strip-unit($value)</td>
+            <td>Strip the unit measurement off a value and return the integer.</td>
+        </tr>
+        <tr>
+            <td>to-pixel($from)</td>
+            <td rowspan="4">
+                Converts from one type of unit measurement to another.
+                Conversions use the <code>$base-size</code> variable as a foundation for determining 100% equivalent scaling.
+            </td>
+        </tr>
+        <tr>
+            <td>to-percent($from)</td>
+        </tr>
+        <tr>
+            <td>to-rem($from)</td>
+        </tr>
+        <tr>
+            <td>to-em($from)</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Unit Conversion ##
 
 Converting between unit types in Sass is rather complex and tedious as too many external variables are involved.
 To save everyone time, we took the grunt of the work and implemented a system for converting between unit types.
-The following units of measurement are supported: `px`, `em`, `rem` and `%`.
+The following units of measurement are supported: `px`, `em`, `rem`, and `%`.
 
 Conversion is split into the following functions, `to-pixel(from)`, `to-percent(from)`, `to-rem(from)`, and `to-em(from)`,
 with all functions accepting a single argument - the unit measurement to convert from.
-Conversions use the `$base-size` variable as a foundation for determining 100% equivalent scaling.
-This allows for percent conversion to be exact.
 
 ```scss
 $base-size: 16px; // 16px = 1, 1600px = 100
@@ -620,4 +640,111 @@ This function is used heavily in the other conversion functions.
 
 ## Media Queries & Responsiveness ##
 
+Responsive design is the way of the future, as it allows a single website to render differently across multiple devices and resolutions.
+Because Toolkit follows the mobile first and responsive design philosophies, many features have been developed to
+aid in the implementation of responsive websites.
+
+The first of which is cascading inheritance through media queries &mdash; the foundation for mobile first design.
+The concept behind this pattern is that CSS (or Sass) should be initially written for mobile devices, and any additional styles
+should be inherited for larger devices through media queries. This improves mobile rendering speeds as the lowest amount of CSS properties
+are being used. When using this approach, the `$responsive-design` variable should be set to `mobile`.
+
+Let's now see this approach in action by creating a unordered list that displays vertically in mobile, and horizontally in larger devices.
+
+```scss
+// Menu should stack vertically by default
+.menu {
+    @include reset-list;
+
+    a {
+        display: block;
+        padding: .5rem 1rem;
+    }
+}
+
+// Render horizontally in medium sized devices and above
+@include if-medium() {
+    .menu {
+        @include clear-fix;
+
+        li { float: left; }
+    }
+}
+
+// Increase the link sizes in large devices and above
+@include if-large() {
+    .menu a {
+        padding: 1rem 2rem;
+    }
+}
+```
+
+<div class="notice is-info">
+    If you prefer doing the reverse and implementing desktop first, be sure to set `$responsive-design` to `desktop`,
+    and swapping the mixins that are used.
+</div>
+
+We can also swap images for high resolution devices.
+
+```scss
+.icon {
+    background: url('/img/icon.png') no-repeat;
+    background-size: 16px 16px;
+
+    // Use a 32x32 icon for retina displays
+    @include if-retina() {
+        background-image: url('/img/icon@2x.png');
+    }
+}
+```
+
+Or toggle the display of an element depending on device orientation.
+
+```scss
+.hero {
+    width: 100%;
+    height: auto;
+
+    // 4x3 in portrait
+    @include if-portrait() {
+        padding-bottom: 75%;
+    }
+
+    // 16x9 in landscape
+    @include if-landscape() {
+        padding-bottom: 56.25%
+    }
+}
+```
+
+For greater compatibility, the [Responsive component](../components/responsive.md) provides a handful of helper classes,
+so be sure to check those out as well!
+
 ## Grid Building ##
+
+Even though Toolkit comes bundled with a robust responsive Grid component, there may be instances where you want to create your own grids.
+This is entirely possible using the grid functions and mixins listed above.
+
+Let's make use of the grid helpers to structure a list with 5 items that should be evenly spaced out.
+The first thing we need to do is create the wrapper with `grid-row()`, and the column with `grid-column()`.
+
+```scss
+.block-grid {
+    @include reset-list;
+    @include grid-row(500px); // 500px wide
+
+    li {
+        @include grid-column(500px, 20px); // 20px gutter
+    }
+}
+```
+
+Now that we have the basic structure, we need to add the widths for each of the 5 items.
+We can accomplish this by calling `grid-span()` and supplying the column count, grid width, and gutter size.
+
+```scss
+.block-grid li {
+    // Get the width for 1 column out of 5 with a 20px gutter
+    width: grid-span(1, 5, 500px, 20px);
+}
+```
