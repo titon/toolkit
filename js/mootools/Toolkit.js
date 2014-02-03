@@ -207,20 +207,28 @@ Function.implement({
      * Delays the execution of a function till the duration has completed.
      *
      * @param {Number} [threshold]
+     * @param {bool} [immediate]
      * @returns {Function}
      */
-    debounce: function(threshold) {
+    debounce: function(threshold, immediate) {
         var timeout, func = this;
 
-        return function debounced() {
-            var obj = this, args = arguments;
+        return function() {
+            var context = this, args = arguments;
 
             clearTimeout(timeout);
 
-            timeout = setTimeout(function delayed() {
-                func.apply(obj, args);
+            timeout = setTimeout(function() {
                 timeout = null;
+
+                if (!immediate) {
+                    func.apply(context, args);
+                }
             }, threshold || 150);
+
+            if (immediate && !timeout)  {
+                func.apply(context, args);
+            }
         };
     }
 

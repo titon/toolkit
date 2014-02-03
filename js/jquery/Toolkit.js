@@ -259,20 +259,28 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
  *
  * @param {Function} func
  * @param {Number} [threshold]
+ * @param {bool} [immediate]
  * @returns {Function}
  */
-$.debounce = function(func, threshold) {
+$.debounce = function(func, threshold, immediate) {
     var timeout;
 
-    return function debounced() {
-        var obj = this, args = arguments;
+    return function() {
+        var context = this, args = arguments;
 
         clearTimeout(timeout);
 
-        timeout = setTimeout(function delayed() {
-            func.apply(obj, args);
+        timeout = setTimeout(function() {
             timeout = null;
+
+            if (!immediate) {
+                func.apply(context, args);
+            }
         }, threshold || 150);
+
+        if (immediate && !timeout)  {
+            func.apply(context, args);
+        }
     };
 };
 
@@ -281,18 +289,23 @@ $.debounce = function(func, threshold) {
  *
  * @param {Function} func
  * @param {Number} [delay]
- * @param {Array} [args]
  * @returns {Function}
  */
-$.throttle = function(func, delay, args) {
-    if (!func.$throttled){
-        func.$throttled = setTimeout(function() {
-            func.apply(this, args || []);
-            func.$throttled = false;
-        }, delay || 250);
-    }
+$.throttle = function(func, delay) {
+    var throttled = false;
 
-    return func;
+    return function() {
+        var context = this, args = arguments;
+
+        if (!throttled) {
+            throttled = true;
+
+            setTimeout(function() {
+                func.apply(context, args);
+                throttled = false;
+            }, delay || 150);
+        }
+    };
 };
 
 /**
