@@ -72,21 +72,28 @@
     /**
      * Trigger an event if it exists.
      *
-     * @param {String} event
+     * @param {String} type
      * @param {Array} args
      * @returns {Toolkit.Component}
      */
-    Component.fireEvent = function(event, args) {
-        if (event.substr(0, 2) !== 'on') {
-            event = 'on' + event.charAt(0).toUpperCase() + event.slice(1);
+    Component.fireEvent = function(type, args) {
+        if (!$.isArray(args)) {
+            args = [args];
         }
 
-        if (this.options[event]) {
-            if (!$.isArray(args)) {
-                args = [args];
-            }
+        // Trigger on event globally
+        var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
 
-            this.options[event].apply(this, args || []);
+        if (this.options[onType]) {
+            this.options[onType].apply(this, args || []);
+        }
+
+        // Trigger per element
+        if (this.element && this.element.length) {
+            var event = jQuery.Event(type + '.toolkit.' + this.component.toLowerCase());
+                event.context = this;
+
+            this.element.trigger(event, args || []);
         }
 
         return this;
@@ -205,7 +212,7 @@
     /**
      * Set the element to use. Apply optional class names if available.
      *
-     * @param {String|Element} element
+     * @param {String|Element|jQuery} element
      * @param {Object} options
      * @returns {jQuery}
      */
@@ -234,7 +241,7 @@
      * @returns {Object}
      */
     Component.setOptions = function(defaults, options) {
-        var opts = $.extend({}, defaults || {}, options || {});
+        var opts = $.extend(true, {}, defaults || {}, options || {});
 
         // Reset for touch devices
         if (Toolkit.isTouch && opts.mode === 'hover') {

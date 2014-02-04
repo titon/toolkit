@@ -129,8 +129,8 @@
         this.nextButton.on('click', this.next.bind(this));
         this.prevButton.on('click', this.prev.bind(this));
 
-        this.start().reset();
         this.fireEvent('init');
+        this.start().reset();
     };
 
     /**
