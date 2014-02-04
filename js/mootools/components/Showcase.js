@@ -76,7 +76,11 @@ Toolkit.Showcase = new Class({
             this.options.transition = 1;
         }
 
+        var padding = this.element.getStyle('padding-top').toInt() +
+            this.element.getElement('.showcase-inner').getStyle('padding-top').toInt();
+
         options = this.options;
+        options.gutter += padding;
 
         // Get elements
         this.items = this.element.getElement(options.itemsElement);
@@ -398,18 +402,19 @@ Toolkit.Showcase = new Class({
      */
     _resize: function(width, height) {
         var size = window.getSize(),
+            gutter = this.options.gutter,
             ratio, diff;
 
-        if (width > size.x) {
-            var newWidth = (size.x - (this.options.gutter * 2)); // leave edge gap
+        if ((width + gutter) > size.x) {
+            var newWidth = (size.x - (gutter * 2)); // leave edge gap
 
             ratio = (width / height);
             diff = (width - newWidth);
             width = newWidth;
             height -= Math.round(diff / ratio);
 
-        } else if (height > size.y) {
-            var newHeight = (size.y - (this.options.gutter * 2)); // leave edge gap
+        } else if ((height + gutter) > size.y) {
+            var newHeight = (size.y - (gutter * 2)); // leave edge gap
 
             ratio = (height / width);
             diff = (height - newHeight);

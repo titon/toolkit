@@ -74,12 +74,16 @@
      * Initialize the component by fetching elements and binding events.
      */
     Showcase.initialize = function() {
-        var options = this.options;
-
         // IE8 Doesn't support animations
         if (Toolkit.ie8 || Toolkit.ie9) {
             this.options.transition = 1;
         }
+
+        var padding = parseInt(this.element.css('padding-top'), 10) +
+            parseInt(this.element.find('.showcase-inner').css('padding-top'), 10);
+
+        var options = this.options;
+            options.gutter += padding;
 
         // Get elements
         this.items = this.element.find(options.itemsElement);
@@ -384,18 +388,19 @@
     Showcase._resize = function(width, height) {
         var wWidth = $(window).width(),
             wHeight = $(window).height(),
+            gutter = this.options.gutter,
             ratio, diff;
 
-        if (width > wWidth) {
-            var newWidth = (wWidth - (this.options.gutter * 2)); // leave edge gap
+        if ((width + gutter) > wWidth) {
+            var newWidth = (wWidth - (gutter * 2)); // leave edge gap
 
             ratio = (width / height);
             diff = (width - newWidth);
             width = newWidth;
             height -= Math.round(diff / ratio);
 
-        } else if (height > wHeight) {
-            var newHeight = (wHeight - (this.options.gutter * 2)); // leave edge gap
+        } else if ((height + gutter) > wHeight) {
+            var newHeight = (wHeight - (gutter * 2)); // leave edge gap
 
             ratio = (height / width);
             diff = (height - newHeight);
