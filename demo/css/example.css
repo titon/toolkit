@@ -15,7 +15,7 @@ a:hover { color: #b84374; }
 .example { padding: 25px; }
 .example > *:first-child { margin-top: 0; }
 
-.example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 1000; }
+.example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 300; }
 .example-form li { display: inline-block; padding: 5px; }
 .example-form input { border: none; border-radius: 2px; padding: 3px; }
 .example-form input[type="text"] { width: 6rem; }

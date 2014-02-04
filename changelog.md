@@ -1,10 +1,10 @@
 # Changelog #
 
 ### 1.1.0 ###
-* Added a new `Loader` component - displays loading animations using purely CSS
-* Added a new `Mask` component - masks an element with a transparent overlay
-* Added a new `clickout` event type that triggers when a click happens outside of an element
-* Added a new `reset-list()` and `position-center()` mixins
+* Added a `Loader` component - displays loading animations using purely CSS
+* Added a `Mask` component - masks an element with a transparent overlay
+* Added a `clickout` event type that triggers when a click happens outside of an element
+* Added `reset-list()` and `position-center()` mixins
 * Refactored `debounce()` and `throttle()` methods
 * Renamed `Titon.js` to `Toolkit.js`
 * jQuery
@@ -23,17 +23,18 @@
     * Added `Toolkit.Blackout.factory()` to return the single instance
     * Added a `count` property that records how many times the blackout has been opened to allow for multiple components to display
     * Added a `loader` option that determines which loader class to render
-    * Added a `loaderMessage` that displays a loading message while the blackout is loading
-    * Added a `waveCount` that determines how many bars to display in wave loaders
+    * Added a `loaderMessage` option that displays a loading message while the blackout is loading
+    * Added a `waveCount` option that determines how many bars to display in wave loaders
 * Dropdown
     * Renamed component to `Drop`
     * Renamed modifiers to `drop--down`, `drop--up`, `drop--left`, and `drop--right`
     * Replaced alignment classes with a single `reverse-align` class
 * Grid
     * Added an `.end` class that can be used on the last `.col` for justification
+    * Updated `$grid-columns-medium` from 8 to 9
 * Input
     * Has been split up into 3 sub-components: `Radio`, `Checkbox`, and `Select`
-    * Added new plugin methods `radio()`, `checkbox()`, and `select()` (primary `input()` method still exists and triggers the 3)
+    * Added new jQuery methods `radio()`, `checkbox()`, and `select()` (primary `input()` method still exists and triggers all 3)
     * Added custom drop down support that replaces the native drop downs (requires the `Drop` component)
     * Added multiple select support (only possible when native is disabled)
     * Added a `copyClasses` option that will copy classes from the form element to the custom one

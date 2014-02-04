@@ -104,8 +104,8 @@ $classes = implode(' ', array_filter($classes)); ?>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button is-success">Submit</button>
-            <button type="reset" class="button">Reset</button>
+            <button type="submit" class="button is-success <?php echo $size; ?>">Submit</button>
+            <button type="reset" class="button <?php echo $size; ?>">Reset</button>
         </div>
     </fieldset>
 
@@ -127,8 +127,8 @@ $classes = implode(' ', array_filter($classes)); ?>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button is-success">Submit</button>
-            <button type="reset" class="button">Reset</button>
+            <button type="submit" class="button is-success <?php echo $size; ?>">Submit</button>
+            <button type="reset" class="button <?php echo $size; ?>">Reset</button>
         </div>
     </fieldset>
 </form>
@@ -184,8 +184,8 @@ $classes = implode(' ', array_filter($classes)); ?>
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="button is-success">Submit</button>
-        <button type="reset" class="button">Reset</button>
+        <button type="submit" class="button is-success <?php echo $size; ?>">Submit</button>
+        <button type="reset" class="button <?php echo $size; ?>">Reset</button>
     </div>
 
     </fieldset>
@@ -222,8 +222,8 @@ $classes = implode(' ', array_filter($classes)); ?>
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="button success">Submit</button>
-        <button type="reset" class="button">Reset</button>
+        <button type="submit" class="button success <?php echo $size; ?>">Submit</button>
+        <button type="reset" class="button <?php echo $size; ?>">Reset</button>
     </div>
 </form>
 
@@ -231,6 +231,6 @@ $classes = implode(' ', array_filter($classes)); ?>
 
 <input type="text" class="input <?php echo $size; ?>" value="Input">
 <select class="input <?php echo $size; ?>"><option>Select</option></select>
-<button type="Button" class="button">Button</button>
-<a href="javascript:;" class="button">Anchor</a>
-<input type="submit" class="button" value="Input">
+<button type="Button" class="button <?php echo $size; ?>">Button</button>
+<a href="javascript:;" class="button <?php echo $size; ?>">Anchor</a>
+<input type="submit" class="button <?php echo $size; ?>" value="Input">
