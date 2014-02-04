@@ -34,6 +34,7 @@
         mode: 'click',
         ajax: false,
         position: 'topCenter',
+        loadingMessage: Toolkit.messages.loading,
         showLoading: true,
         showTitle: true,
         getTitle: 'title',

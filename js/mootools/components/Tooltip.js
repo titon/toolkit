@@ -87,6 +87,8 @@ Toolkit.Tooltip = new Class({
         }
 
         // Set title
+        title = title || this.readValue(this.node, options.getTitle);
+
         if (title && options.showTitle) {
             this.elementHead.set('html', title).show();
         } else {
@@ -147,7 +149,6 @@ Toolkit.Tooltip = new Class({
                     .addEvent('mouseleave', this.__hide);
             }
 
-            title = title || this.readValue(node, options.getTitle);
             content = content || this.readValue(node, options.getContent);
         }
 

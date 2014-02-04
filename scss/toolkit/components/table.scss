@@ -22,6 +22,10 @@
     thead th {
         vertical-align: bottom;
         text-align: left;
+
+        .sorter {
+            margin: -.5rem .25rem;
+        }
     }
 
     // Allow for multiple tbody's

@@ -112,6 +112,8 @@
         }
 
         // Set title
+        title = title || this.readValue(this.node, options.getTitle);
+
         if (title && options.showTitle) {
             this.elementHead.html(title).show();
         } else {
@@ -174,7 +176,6 @@
                     .on('mouseleave', this.hide.bind(this));
             }
 
-            title = title || this.readValue(node, options.getTitle);
             content = content || this.readValue(node, options.getContent);
         }
 
