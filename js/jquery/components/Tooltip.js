@@ -192,7 +192,7 @@
                     this.position(options.loadingMessage);
                 }
 
-                this.requestData('tooltip', content);
+                this.requestData(content);
             }
         } else {
             if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {

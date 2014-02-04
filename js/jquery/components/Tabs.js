@@ -156,14 +156,12 @@
 
         // Load content with AJAX
         if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
-            this.requestData(
-                'tabs',
-                url,
-                function tabsAjaxBefore() {
-                    section.html(this._loadingTemplate('tabs'))
+            this.requestData(url,
+                function() {
+                    section.html(this._loadingTemplate())
                         .addClass(Toolkit.options.isPrefix + 'loading');
                 },
-                function tabsAjaxDone(response) {
+                function(response) {
                     this.cache[url] = true;
 
                     section.html(response)
@@ -171,8 +169,8 @@
 
                     this.fireEvent('load', response);
                 },
-                function tabsAjaxFail() {
-                    section.html(this._errorTemplate('tabs'))
+                function() {
+                    section.html(this._errorTemplate())
                         .removeClass(Toolkit.options.isPrefix + 'loading')
                         .addClass(Toolkit.options.hasPrefix + 'failed');
                 }

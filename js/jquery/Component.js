@@ -103,13 +103,14 @@
 
         if (content.callback) {
             var namespaces = content.callback.split('.'),
-                func = window;
+                func = window, prev = func;
 
             for (var i = 0; i < namespaces.length; i++) {
+                prev = func;
                 func = func[namespaces[i]];
             }
 
-            func.call(this, content);
+            func.call(prev, content);
         }
 
         this.fireEvent('process', content);
@@ -142,14 +143,13 @@
     /**
      * Request data from a URL and handle all the possible scenarios.
      *
-     * @param {String} type
      * @param {Object} options
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
      * @returns {Toolkit.Component}
      */
-    Component.requestData = function(type, options, before, done, fail) {
+    Component.requestData = function(options, before, done, fail) {
         var url = options.url || options;
 
         // Set default options
@@ -196,7 +196,7 @@
                     .removeClass(Toolkit.options.isPrefix + 'loading')
                     .addClass(Toolkit.options.hasPrefix + 'failed');
 
-                this.position(this._errorTemplate(type));
+                this.position(this._errorTemplate());
             });
 
         return this;
@@ -247,24 +247,22 @@
     /**
      * Return a DOM element for error messages.
      *
-     * @param {String} component
      * @returns {jQuery}
      */
-    Component._errorTemplate = function(component) {
+    Component._errorTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + component + '-error')
+            .addClass(Toolkit.options.vendor + this.component.toLowerCase + '-error')
             .text(Toolkit.messages.error);
     };
 
     /**
      * Return a DOM element for loading messages.
      *
-     * @param {String} component
      * @returns {jQuery}
      */
-    Component._loadingTemplate = function(component) {
+    Component._loadingTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + component + '-loading')
+            .addClass(Toolkit.options.vendor + this.component.toLowerCase + '-loading')
             .text(Toolkit.messages.loading);
     };
 

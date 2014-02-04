@@ -220,7 +220,7 @@
             if (this.cache[content]) {
                 this.position(this.cache[content]);
             } else {
-                this.requestData('modal', content);
+                this.requestData(content);
             }
         } else {
             this.position(content);
@@ -288,7 +288,7 @@
             options.data = form.serialize();
         }
 
-        this.requestData('modal', options);
+        this.requestData(options);
     };
 
     /**

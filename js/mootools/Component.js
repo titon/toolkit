@@ -238,9 +238,10 @@ Toolkit.Component = new Class({
 
         if (content.callback) {
             var namespaces = content.callback.split('.'),
-                func = window;
+                func = window, prev = func;
 
             for (var i = 0; i < namespaces.length; i++) {
+                prev = func;
                 func = func[namespaces[i]];
             }
 
