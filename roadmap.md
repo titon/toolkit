@@ -4,8 +4,8 @@ All releases will contain bug fixing and polishing for current features.
 
 ### 1.1.0 ###
 * Mask - A component that will mask a target element with a blackout.
-* Loader - CSS based loaders and spinners
-* Improvements for Input by adding custom select dropdowns and multi-select support
+* Loader - CSS based loaders and spinners.
+* Improvements for Input by adding custom select dropdowns and multi-select support.
 
 ### 1.2.0 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.

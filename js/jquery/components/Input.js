@@ -111,8 +111,7 @@
             $('<label/>')
                 .addClass(Toolkit.options.vendor + 'checkbox')
                 .attr('for', this.input.attr('id'))
-                .insertAfter(this.input)
-            , this.options);
+                .insertAfter(this.input), this.options);
 
         this.fireEvent('init');
     });
@@ -143,8 +142,7 @@
             $('<label/>')
                 .addClass(Toolkit.options.vendor + 'radio')
                 .attr('for', this.input.attr('id'))
-                .insertAfter(this.input)
-            , this.options);
+                .insertAfter(this.input), this.options);
 
         this.fireEvent('init');
     });
