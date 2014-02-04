@@ -354,8 +354,6 @@ it *does not* provide variables for property styling. This can and should be ach
 Mixins are a powerful Sass feature that allow for modularity and re-use of code. Toolkit comes bundle with a handful of mixins
 that solve everyday problems like grid building, style resets, and media query management.
 
-The following mixins are used for basic layout styling.
-
 <table class="table">
     <thead>
         <tr>

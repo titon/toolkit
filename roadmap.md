@@ -19,13 +19,13 @@ All releases will contain bug fixing and polishing for current features.
 ### 2.0.0 ###
 * Remove the MooTools port.
 * Drop IE 8/9 support and upgrade to jQuery 2.
-* Replace JS option callbacks with namespaced element events.
 * Separate component transitions into a stand alone layer that can be used anywhere.
 * Replace examples with unit tests.
 * Add deferred/promise integration.
 * Inherit options at runtime through data attributes.
 * Add aria attributes where applicable.
 * Remove jQuery mobile dependency for touch events.
+* Updated to use AMD.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
