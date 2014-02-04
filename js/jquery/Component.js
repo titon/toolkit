@@ -81,7 +81,7 @@
             args = [args];
         }
 
-        // Trigger on event globally
+        // Trigger event globally
         var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
 
         if (this.options[onType]) {

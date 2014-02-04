@@ -129,6 +129,8 @@ Toolkit.Carousel = new Class({
 
         this.bindEvents();
         this.fireEvent('init');
+
+        this.start().reset();
     },
 
     /**
@@ -170,8 +172,6 @@ Toolkit.Carousel = new Class({
         if (this.prevButton) {
             this.prevButton.addEvent('click', this.prev);
         }
-
-        this.start().reset();
 
         return this;
     },

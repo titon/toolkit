@@ -71,11 +71,11 @@ Toolkit.Accordion = new Class({
             section.set('data-height', section.getHeight()).conceal();
         });
 
-        this.show(header);
-
         // Set events
         this.bindEvents();
         this.fireEvent('init');
+
+        this.show(header);
     },
 
     /**

@@ -77,12 +77,11 @@
             section.data('height', section.height()).conceal();
         });
 
-        this.show(header);
-
         // Set events
         headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
 
         this.fireEvent('init');
+        this.show(header);
     };
 
     /**
