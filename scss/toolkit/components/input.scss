@@ -130,5 +130,9 @@
         &.hide-selected {
             li.#{$state-is-prefix}active { display: none !important; }
         }
+
+        &.hide-first {
+            li:first-child:not(.#{$vendor-prefix}drop-heading) { display: none !important; }
+        }
     }
 }

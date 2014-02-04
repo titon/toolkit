@@ -273,20 +273,16 @@
             index = 0,
             self = this;
 
-        if (options.hideSelected && !options.multiple) {
-            dropdown.addClass('hide-selected');
-        }
-
-        if (select.multiple) {
-            dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
-        }
-
         this.dropdown = dropdown;
 
         select.children().each(function() {
             var optgroup = $(this);
 
             if (optgroup.prop('tagName').toLowerCase() === 'optgroup') {
+                if (index === 0) {
+                    options.hideFirst = false;
+                }
+
                 list.append(
                     $('<li/>')
                         .addClass(vendor + 'drop-heading')
@@ -308,10 +304,6 @@
                     index++;
                 });
             } else {
-                if (options.hideFirst && index === 0) {
-                    return;
-                }
-
                 if (optgroup.prop('selected')) {
                     self.currentIndex = index;
                 }
@@ -320,6 +312,18 @@
                 index++;
             }
         });
+
+        if (options.hideSelected && !options.multiple) {
+            dropdown.addClass('hide-selected');
+        }
+
+        if (options.hideFirst) {
+            dropdown.addClass('hide-first');
+        }
+
+        if (select.multiple) {
+            dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
+        }
 
         this.wrapper.append(dropdown.append(list));
 
@@ -521,34 +525,10 @@
                 this.hide();
             return;
             case 38: // up
-                index--;
-
-                if (index < 0) {
-                    index = options.length - 1;
-                }
-
-                while (options[index].disabled) {
-                    index--;
-
-                    if (index < 0) {
-                        index = options.length - 1;
-                    }
-                }
+                index = this.__loop(index, -1, options);
             break;
             case 40: // down
-                index++;
-
-                if (index >= options.length) {
-                    index = 0;
-                }
-
-                while (options[index].disabled) {
-                    index++;
-
-                    if (index >= options.length) {
-                        index = 0;
-                    }
-                }
+                index = this.__loop(index, 1, options);
             break;
         }
 
@@ -560,6 +540,34 @@
 
         this.currentIndex = index;
         this.input.change();
+    };
+
+    /**
+     * Loop through the options and determine the index to select.
+     * Skip over missing options, disabled options, or hidden options.
+     *
+     * @private
+     * @param {Number} index
+     * @param {Number} step
+     * @param {jQuery} options
+     * @returns {Number}
+     */
+    Select.__loop = function(index, step, options) {
+        var hideFirst = this.options.hideFirst;
+
+        index += step;
+
+        while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+            index += step;
+
+            if (index >= options.length) {
+                index = 0;
+            } else if (index < 0) {
+                index = options.length - 1;
+            }
+        }
+
+        return index;
     };
 
     /**
