@@ -247,6 +247,13 @@ mark { background: lighten($warning-light, 25%); }
     .select.is-active {
         box-shadow: 0 0 5px $info-light;
     }
+
+    .select.is-active {
+        .caret-down {
+            top: -5px;
+            @include transform(rotate(-180deg));
+        }
+    }
 }
 
 //-------------------- InputGroup --------------------//

@@ -164,7 +164,7 @@ jQuery.event.special.clickout = (function() {
         });
 
         if (trigger) {
-            elements.triggerHandler('clickout', [e.target]);
+            elements.trigger('clickout', [e.target]);
         }
     }
 
