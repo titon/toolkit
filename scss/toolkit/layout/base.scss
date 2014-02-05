@@ -93,7 +93,7 @@
 .arrow-right:before {
     display: inline-block;
     position: relative;
-    content: "\025B3"; /* bigtriangleup */
+    content: "\025B4"; /* blacktriangle */
 }
 
 .arrow-right:before { @include transform(rotate(90deg)); }
