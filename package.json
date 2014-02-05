@@ -46,6 +46,7 @@
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
         "grunt-string-replace": "*",
+        "grunt-newer": "*",
         "compartment": "*"
     }
 }

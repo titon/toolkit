@@ -25,8 +25,6 @@ module.exports = function(grunt) {
         useTheme = grunt.option('theme') || null,
         categories = ['layout', 'component'];
 
-    toPackage = toPackage.sort();
-
     if (!toPackage.length) {
         _.each(graph.manifest, function(value, key) {
             if (value.category === 'layout' || value.category === 'component') {
@@ -34,6 +32,8 @@ module.exports = function(grunt) {
             }
         });
     }
+
+    toPackage = toPackage.sort();
 
     if (useTheme) {
         categories.push('theme');
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // Package schema - https://npmjs.org/doc/json.html
         pkg: grunt.file.readJSON('package.json'),
-        buildFile: 'build/<%= pkg.name.toLowerCase() %>-<%= pkg.version %>',
+        buildFile: 'build/<%= pkg.name.toLowerCase() %>',
 
         // 1) Validate the Javascript source directory
         // http://jshint.com/docs/
@@ -280,11 +280,11 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: 'js/**/*.js',
-                tasks: ['uglify:build']
+                tasks: ['newer:uglify:build', 'concat:build']
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['compass:build']
+                tasks: ['newer:compass:build']
             }
         }
     });
@@ -297,6 +297,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-newer');
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);

@@ -495,7 +495,7 @@ if ($vendor === 'mootools') {
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../css/toolkit.css" rel="stylesheet" type="text/css">
+    <link href="../build/titon-toolkit.min.css" rel="stylesheet" type="text/css">
     <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
@@ -506,29 +506,24 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
+        <script src="../build/titon-toolkit-mootools.min.js"></script>
 
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery-mobile-1.3.2.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
 
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery-mobile-1.3.2.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
     <?php } ?>
-
-    <?php if (!empty($component['js'])) { ?>
-        <script src="../js/<?php echo $vendorFolder; ?>/Toolkit.js"></script>
-        <script src="../js/<?php echo $vendorFolder; ?>/Component.js"></script>
-
-        <?php foreach ((array) $component['js'] as $js) { ?>
-            <script src="../js/<?php echo $vendorFolder; ?>/<?php echo $js; ?>"></script>
-        <?php }
-    } ?>
 
     <!--[if lte IE 8]>
         <script src="js/modernizr-2.6.2.js"></script>
