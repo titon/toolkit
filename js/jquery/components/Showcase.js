@@ -44,6 +44,7 @@
     Toolkit.Showcase.options = {
         className: '',
         blackout: true,
+        stopScroll: true,
         transition: 300,
         gutter: 50,
         getCategory: 'data-showcase',
@@ -136,6 +137,10 @@
     Showcase.hide = function() {
         if (this.blackout) {
             this.blackout.hide();
+        }
+
+        if (this.options.stopScroll) {
+            $('body').css('overflow', '');
         }
 
         if (this.element.is(':shown')) {
@@ -334,6 +339,10 @@
 
         if (this.blackout) {
             this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            $('body').css('overflow', 'hidden');
         }
 
         this._buildItems(items);

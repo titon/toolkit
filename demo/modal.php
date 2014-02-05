@@ -27,7 +27,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                fullScreen: <?php bool('fullScreen', false); ?>
+                fullScreen: <?php bool('fullScreen', false); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
 
             // Allow 2 modals at once
@@ -38,7 +39,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                fullScreen: <?php bool('fullScreen', false); ?>
+                fullScreen: <?php bool('fullScreen', false); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
         });
     <?php } else { ?>
@@ -49,7 +51,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                fullScreen: <?php bool('fullScreen', false); ?>
+                fullScreen: <?php bool('fullScreen', false); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
 
             // Allow 2 modals at once
@@ -59,7 +62,8 @@
                 ajax: <?php bool('ajax', true); ?>,
                 draggable: <?php bool('draggable', false); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                fullScreen: <?php bool('fullScreen', false); ?>
+                fullScreen: <?php bool('fullScreen', false); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
         });
     <?php } ?>

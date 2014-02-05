@@ -28,6 +28,7 @@ Toolkit.Modal = new Class({
         draggable: false,
         blackout: true,
         fullScreen: false,
+        stopScroll: true,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
         closeElement: '.modal-close',
@@ -80,6 +81,14 @@ Toolkit.Modal = new Class({
         // Blackout
         if (this.options.blackout) {
             this.blackout = Toolkit.Blackout.factory();
+
+            if (this.options.stopScroll) {
+                this.blackout.addEvent('hide', function(hidden) {
+                    if (hidden) {
+                        document.body.setStyle('overflow', '');
+                    }
+                });
+            }
         }
 
         // Set events
@@ -202,6 +211,10 @@ Toolkit.Modal = new Class({
         // Show blackout
         if (this.blackout) {
             this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            document.body.setStyle('overflow', 'hidden');
         }
 
         // Fetch content

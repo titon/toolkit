@@ -33,6 +33,7 @@ Toolkit.Showcase = new Class({
     options: {
         delegate: '.js-showcase',
         blackout: true,
+        stopScroll: true,
         transition: 300,
         gutter: 50,
         getCategory: 'data-showcase',
@@ -153,6 +154,10 @@ Toolkit.Showcase = new Class({
     hide: function() {
         if (this.blackout) {
             this.blackout.hide();
+        }
+
+        if (this.options.stopScroll) {
+            document.body.setStyle('overflow', '');
         }
 
         this.parent(function() {
@@ -349,6 +354,10 @@ Toolkit.Showcase = new Class({
 
         if (this.blackout) {
             this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            document.body.setStyle('overflow', 'hidden');
         }
 
         this._buildItems(items);

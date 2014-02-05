@@ -282,6 +282,7 @@ $components = array(
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
+            'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true)
         )
     ),
@@ -377,6 +378,7 @@ $components = array(
             'className' => array('title' => 'Class', 'type' => 'text'),
             'gutter' => array('title' => 'Gutter Margin', 'type' => 'number', 'default' => 50),
             'group' => array('title' => 'Grouped?', 'type' => 'boolean', 'default' => true),
+            'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
         )
     ),

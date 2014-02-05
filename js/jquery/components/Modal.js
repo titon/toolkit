@@ -46,6 +46,7 @@
         draggable: false,
         blackout: true,
         fullScreen: false,
+        stopScroll: true,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
         closeElement: '.modal-close',
@@ -97,6 +98,14 @@
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.factory();
             this.blackout.element.click(this.__hide.bind(this));
+
+            if (options.stopScroll) {
+                this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
+                    if (hidden) {
+                        $('body').css('overflow', '');
+                    }
+                });
+            }
         }
 
         // Set events
@@ -214,6 +223,10 @@
         // Show blackout
         if (this.blackout) {
             this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            $('body').css('overflow', 'hidden');
         }
 
         if (ajax) {
