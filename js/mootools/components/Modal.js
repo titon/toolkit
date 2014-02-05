@@ -163,7 +163,7 @@ Toolkit.Modal = new Class({
                 .setStyle('min-height', window.getHeight());
 
         // IE8
-        } else if (Browser.ie8) {
+        } else if (!Toolkit.hasTransform) {
             var size = this.element.getSize();
 
             this.element.setStyles({

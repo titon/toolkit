@@ -174,7 +174,7 @@
                 .css('min-height', $(window).height());
 
         // IE8
-        } else if (Toolkit.ie8) {
+        } else if (!Toolkit.hasTransform) {
             this.element.css({
                 'margin-left': -(this.element.outerWidth(true) / 2),
                 'margin-top': -(this.element.outerHeight(true) / 2)

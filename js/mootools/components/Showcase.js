@@ -72,8 +72,8 @@ Toolkit.Showcase = new Class({
         this.setNodes(elements);
         this.createElement();
 
-        // Doesn't support animations
-        if (Browser.ie8 || Browser.ie9) {
+        // IE doesn't support animations
+        if (!Toolkit.hasTransition) {
             this.options.transition = 1;
         }
 
@@ -281,7 +281,7 @@ Toolkit.Showcase = new Class({
 
         this.element.reveal();
 
-        if (Browser.ie8) {
+        if (!Toolkit.hasTransform) {
             var size = this.element.getSize();
 
             this.element.setStyles({

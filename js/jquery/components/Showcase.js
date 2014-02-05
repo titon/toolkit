@@ -75,8 +75,8 @@
      * Initialize the component by fetching elements and binding events.
      */
     Showcase.initialize = function() {
-        // IE8 Doesn't support animations
-        if (Toolkit.ie8 || Toolkit.ie9) {
+        // IE doesn't support animations
+        if (!Toolkit.hasTransition) {
             this.options.transition = 1;
         }
 
@@ -268,7 +268,7 @@
 
         this.element.reveal();
 
-        if (Toolkit.ie8) {
+        if (!Toolkit.hasTransform) {
             this.element.css({
                 'margin-left': -(this.element.outerWidth(true) / 2),
                 'margin-top': -(this.element.outerHeight(true) / 2)
