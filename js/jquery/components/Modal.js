@@ -97,7 +97,6 @@
         // Blackout
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.factory();
-            this.blackout.element.click(this.__hide.bind(this));
 
             if (options.stopScroll) {
                 this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {

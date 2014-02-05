@@ -245,7 +245,7 @@ Toolkit.Component = new Class({
                 func = func[namespaces[i]];
             }
 
-            func.call(this, content);
+            func.call(prev, content);
         }
 
         this.fireEvent('process', content);

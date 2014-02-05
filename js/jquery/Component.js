@@ -258,7 +258,7 @@
      */
     Component._errorTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.toLowerCase + '-error')
+            .addClass(Toolkit.options.vendor + this.component.toLowerCase() + '-error')
             .text(Toolkit.messages.error);
     };
 
@@ -269,7 +269,7 @@
      */
     Component._loadingTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.toLowerCase + '-loading')
+            .addClass(Toolkit.options.vendor + this.component.toLowerCase() + '-loading')
             .text(Toolkit.messages.loading);
     };
 
