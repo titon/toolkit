@@ -284,7 +284,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['newer:compass:build']
+                tasks: ['compass:build']
             }
         }
     });

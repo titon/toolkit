@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
     gem.name = "titon-toolkit"
-    gem.version = "1.1.0-alpha"
+    gem.version = "1.1.0.rc.1"
 
     # Info
     gem.authors = ["Titon", "Miles Johnson"]
