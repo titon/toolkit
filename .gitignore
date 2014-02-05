@@ -3,9 +3,8 @@
 .sass-cache/
 node_modules/
 build/
-css/**/_*.css
+css/
 npm-debug.log
-docs/html/
 *.gem
 Gemfile.lock
 
