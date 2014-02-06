@@ -48,6 +48,27 @@ it *does not* provide variables for property styling. This can and should be ach
             <td>$size-large-class</td>
             <td>large</td>
         </tr>
+        <tr>
+            <td>$shape-square-class</td>
+            <td>square</td>
+            <td rowspan="5">Names for global shape classes.</td>
+        </tr>
+        <tr>
+            <td>$shape-round-class</td>
+            <td>round</td>
+        </tr>
+        <tr>
+            <td>$shape-oval-class</td>
+            <td>oval</td>
+        </tr>
+        <tr>
+            <td>$shape-pill-class</td>
+            <td>pill</td>
+        </tr>
+        <tr>
+            <td>$shape-skew-class</td>
+            <td>skew</td>
+        </tr>
 
         <tr class="table-divider">
             <td colspan="3">Sizing & Spacing</td>
@@ -374,9 +395,19 @@ that solve everyday problems like grid building, style resets, and media query m
             <td>Resets the styles of an element to inline-block, aligns vertically in the middle, and resets margin, padding, etc.</td>
         </tr>
         <tr>
+            <td>reset-list()</td>
+            <td></td>
+            <td>Resets the styles of a list element by removing margin, padding, and list style.</td>
+        </tr>
+        <tr>
             <td>content-spacing()</td>
             <td></td>
             <td>Removes top and bottom margin on p, ul, ol, hr, and blockquote child elements.</td>
+        </tr>
+        <tr>
+            <td>position-center()</td>
+            <td></td>
+            <td>Absolutely positions an element in the center of the container. Makes use of the transform translate CSS property.</td>
         </tr>
         <tr>
             <td>size-small()</td>

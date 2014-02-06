@@ -5,7 +5,9 @@
 * Added a `Mask` component - masks an element with a transparent overlay
 * Added a `clickout` event type that triggers when a click happens outside of an element
 * Added `reset-list()` and `position-center()` mixins
+* Improved the Grunt build process
 * Refactored `debounce()` and `throttle()` methods
+* Replaced Toolkit `ie8` and `ie9` flags with `hasTransform` and `hasTransition` feature flags
 * Renamed `Titon.js` to `Toolkit.js`
 * jQuery
     * Prototype inheritance has been rewritten and improved
@@ -16,6 +18,7 @@
     * Added `onProcess` option event
     * Updated `requestData()` to call `position()` for HTML responses and `process()` for non-HTML
     * Updated `requestData()` to accept an object of options as the 1st argument
+    * Updated `fireEvent()` to trigger namespaced element events (jQuery only)
 * Blackout
     * Rewritten to be a singleton to differ from the new `Mask` component
     * Added `Loader` support for in-between states
@@ -50,17 +53,20 @@
     * Added a `getDescription` option that allows for option descriptions
 * Modal
     * Multiple modals can now be opened at the same time (requires separate modal instances)
-    * Refactored to handle the `Blackout` changes
     * Added file uploading support for form submissions (requires the browser `FormData` API)
-    * Removed the `showLoading` option in favor of the `Blackout` loader
-* Popover
-    * Updated default `position` to `topCenter`
-* Showcase
+    * Added a `stopScroll` option that freezes the scrollbar while the modal is open
     * Refactored to handle the `Blackout` changes
-* Tooltip
+    * Removed the `showLoading` option in favor of the `Blackout` loader
+* Showcase
+    * Added a `stopScroll` option that freezes the scrollbar while the showcase is open
+    * Refactored to handle the `Blackout` changes
+    * Updated gutter detection to include the showcase padding
+* Popover & Tooltip
+    * Fixed a bug where the title was not being displaying during an AJAX load
+    * Added a `loadingMessage` option to use during AJAX loading
     * Updated default `position` to `topCenter`
 * TypeAhead
-    * Added `onCycle` option event
+    * Added `cycle` event
 
 ### 1.0.5 ###
 * Added `composer.json` allowing the project to be installed via Composer

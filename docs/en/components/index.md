@@ -15,6 +15,7 @@
 * [Icon](icon.md)
 * [Input Group](input-group.md)
 * [Label](label.md)
+* [Loader](loader.md)
 * [Notice](notice.md)
 * [Pagination](pagination.md)
 * [Progress](progress.md)
@@ -28,6 +29,7 @@
 * [Flyout](flyout.md)
 * [Input](input.md)
 * [Lazy Load](lazy-load.md)
+* [Mask](mask.md)
 * [Matrix](matrix.md)
 * [Modal](modal.md)
 * [Pin](pin.md)
@@ -38,7 +40,7 @@
 * [Type Ahead](type-ahead.md)
 
 ### Effects ###
-* [Oval](oval.md)
-* [Pill](pill.md)
-* [Skew](skew.md)
-* [Visual](visual.md)
+* [Oval](effects.md)
+* [Pill](effects.md)
+* [Skew](effects.md)
+* [Visual](effects.md)
