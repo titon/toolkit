@@ -57,7 +57,52 @@ window.Toolkit = {
     })(),
 
     /** Detect touch devices */
-    isTouch: !!('ontouchstart' in window)
+    isTouch: !!('ontouchstart' in window),
+
+    /**
+     * Creates a jQuery plugin by extending the jQuery prototype and defines a method
+     * that initializes a component. The component is only initialized if one has not been already.
+     * Components are either defined per element, or on a collection of elements.
+     *
+     * @param {String} component
+     * @param {Function} callback
+     * @param {bool} collection
+     */
+    createComponent: function(component, callback, collection) {
+        var name = component;
+
+        // Prefix with toolkit to avoid collisions
+        if ($.fn[name]) {
+            name = 'toolkit' + name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        $.fn[name] = collection ?
+
+            // Apply the instance to a collection of elements
+            function() {
+                var instance = callback.apply(this, arguments);
+
+                return this.each(function() {
+                    $(this).addData('toolkit.' + component, instance);
+                });
+            } :
+
+            // Apply the instance per element
+            function() {
+                var args = arguments;
+
+                return this.each(function() {
+                    var self = this;
+
+                    $(this).addData('toolkit.' + component, (function() {
+                        return function() {
+                            return callback.apply(self, args);
+                        };
+                    })());
+                });
+            };
+    }
+
 };
 
 /**

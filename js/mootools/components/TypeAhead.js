@@ -600,24 +600,11 @@ Toolkit.TypeAhead = new Class({
 
 });
 
-/**
- * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $('input-id').typeAhead({
- *         shadow: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Element}
- */
-Element.implement('typeAhead', function(options) {
-    if (!this.$typeAhead) {
-        this.$typeAhead = new Toolkit.TypeAhead(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through typeAhead().
+     */
+    Toolkit.createComponent('typeAhead', function(options) {
+        return new Toolkit.TypeAhead(this, options);
+    });
 
 })();

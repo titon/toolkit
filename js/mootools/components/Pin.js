@@ -185,24 +185,11 @@ Toolkit.Pin = new Class({
 
 });
 
-/**
- * Enable Element pinning by calling pin().
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $('pin-id').pin({
- *         fixed: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Element}
- */
-Element.implement('pin', function(options) {
-    if (!this.$pin) {
-        this.$pin = new Toolkit.Pin(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through pin().
+     */
+    Toolkit.createComponent('pin', function(options) {
+        return new Toolkit.Pin(this, options);
+    });
 
 })();

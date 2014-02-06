@@ -402,24 +402,10 @@
     };
 
     /**
-     * Enable a matrix grid on an element by calling matrix().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('#matrix-id').matrix({
-     *         width: 200
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through matrix().
      */
-    $.fn.matrix = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.matrix', function() {
-                return new Toolkit.Matrix(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('matrix', function(options) {
+        return new Toolkit.Matrix(this, options);
+    });
 
 })(jQuery);

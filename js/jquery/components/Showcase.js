@@ -451,24 +451,10 @@
     };
 
     /**
-     * Enable showcase galleries on Elements collections by calling showcase().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('.js-showcase').showcase({
-     *         blackout: false
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through showcase().
      */
-    $.fn.showcase = function(options) {
-        var showcase = new Toolkit.Showcase(this, options);
-
-        return this.each(function() {
-            $(this).addData('toolkit.showcase', showcase);
-        });
-    };
+    Toolkit.createComponent('showcase', function(options) {
+        return new Toolkit.Showcase(this, options);
+    }, true);
 
 })(jQuery);

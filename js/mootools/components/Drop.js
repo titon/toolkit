@@ -101,26 +101,11 @@ Toolkit.Drop = new Class({
 
 });
 
-/**
- * Enable drop's on Elements collections by calling drop().
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $$('.js-drop').drop({
- *         hideOpened: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Elements}
- */
-Elements.implement('drop', function(options) {
-    var drop = new Toolkit.Drop(this, options);
-
-    return this.each(function(el) {
-        if (!el.$drop) {
-            el.$drop = drop;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through drop().
+     */
+    Toolkit.createComponent('drop', function(options) {
+        return new Toolkit.Drop(this, options);
+    }, true);
 
 })();

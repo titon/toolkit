@@ -264,24 +264,10 @@
     };
 
     /**
-     * Enable tooltips on Elements collections by calling tooltip().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('.js-tooltip').tooltip({
-     *         ajax: false
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through tooltip().
      */
-    $.fn.tooltip = function(options) {
-        var tooltip = new Toolkit.Tooltip(this, options);
-
-        return this.each(function() {
-            $(this).addData('toolkit.tooltip', tooltip);
-        });
-    };
+    Toolkit.createComponent('tooltip', function(options) {
+        return new Toolkit.Tooltip(this, options);
+    }, true);
 
 })(jQuery);

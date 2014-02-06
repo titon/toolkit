@@ -280,24 +280,10 @@
     };
 
     /**
-     * Allow the carousel to be created on elements by calling carousel().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('#carousel-id').carousel({
-     *         stopOnHover: true
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through carousel().
      */
-    $.fn.carousel = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.carousel', function() {
-                return new Toolkit.Carousel(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('carousel', function(options) {
+        return new Toolkit.Carousel(this, options);
+    });
 
 })(jQuery);

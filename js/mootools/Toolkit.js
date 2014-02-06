@@ -57,7 +57,51 @@ window.Toolkit = {
     })(),
 
     /** Detect touch devices */
-    isTouch: !!('ontouchstart' in window)
+    isTouch: !!('ontouchstart' in window),
+
+    /**
+     * Creates a new component by extending the Element(s) prototype and defines a method
+     * that initializes a component. The component is only initialized if one has not been already.
+     * Components are either defined per element, or on a collection of elements.
+     *
+     * @param {String} component
+     * @param {Function} callback
+     * @param {bool} collection
+     */
+    createComponent: function(component, callback, collection) {
+        var name = component,
+            key = '$' + name;
+
+        // Prefix with toolkit to avoid collisions
+        if (collection) {
+            if (Elements.prototype[name]) {
+                name = 'toolkit' + name.charAt(0).toUpperCase() + name.slice(1);
+            }
+
+            Elements.implement(name, function() {
+                var instance = callback.apply(this, arguments);
+
+                return this.each(function(el) {
+                    if (!el[key]) {
+                        el[key] = instance;
+                    }
+                });
+            });
+
+        } else {
+            if (Element.prototype[name]) {
+                name = 'toolkit' + name.charAt(0).toUpperCase() + name.slice(1);
+            }
+
+            Element.implement(name, function() {
+                if (!this[key]) {
+                    this[key] = callback.apply(this, arguments);
+                }
+
+                return this;
+            });
+        }
+    }
 };
 
 /**

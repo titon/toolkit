@@ -15,7 +15,7 @@
         this.options = this.setOptions(Toolkit.LazyLoad.options, options);
 
         /** List of elements to load */
-        this.elements = this.setElement(elements, this.options);
+        this.element = this.setElement(elements, this.options);
 
         /** Have all elements been force loaded? */
         this.isLoaded = false;
@@ -94,13 +94,13 @@
             return false;
         }
 
-        if (this.loaded === this.elements.length) {
+        if (this.loaded === this.element.length) {
             this.shutdown();
 
             return false;
         }
 
-        this.elements.each(function(index, node) {
+        this.element.each(function(index, node) {
             if (node && this.inViewport(node)) {
                 this.show(node, index);
             }
@@ -121,7 +121,7 @@
             return false;
         }
 
-        this.elements.each(function(index, node) {
+        this.element.each(function(index, node) {
             this.show(node, index);
         }.bind(this));
 
@@ -141,7 +141,7 @@
      */
     LazyLoad.show = function(node, index) {
         node = $(node);
-        node.removeClass(this.elements.selector.substr(1));
+        node.removeClass(this.element.selector.substr(1));
 
         // Replace src attributes on images
         node.find('img').each(function() {
@@ -154,7 +154,7 @@
         });
 
         // Replace element with null since removing from the array causes it to break
-        this.elements.splice(index, 1, null);
+        this.element.splice(index, 1, null);
         this.loaded++;
 
         this.fireEvent('show', node);
@@ -182,24 +182,10 @@
     };
 
     /**
-     * Enable lazy loading on Elements collections by calling lazyLoad().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('.lazy-load').lazyLoad({
-     *         forceLoad: false
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through lazyLoad().
      */
-    $.fn.lazyLoad = function(options) {
-        var lazyLoad = new Toolkit.LazyLoad(this, options);
-
-        return this.each(function() {
-            $(this).addData('toolkit.lazyload', lazyLoad);
-        });
-    };
+    Toolkit.createComponent('lazyLoad', function(options) {
+        return new Toolkit.LazyLoad(this, options);
+    }, true);
 
 })(jQuery);

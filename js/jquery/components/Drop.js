@@ -122,24 +122,10 @@
     };
 
     /**
-     * Enable drop's on Elements collections by calling drop().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('.js-drop').drop({
-     *         hideOpened: true
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through drop().
      */
-    $.fn.drop = function(options) {
-        var drop = new Toolkit.Drop(this, options);
-
-        return this.each(function() {
-            $(this).addData('toolkit.drop', drop);
-        });
-    };
+    Toolkit.createComponent('drop', function(options) {
+        return new Toolkit.Drop(this, options);
+    }, true);
 
 })(jQuery);

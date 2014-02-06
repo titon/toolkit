@@ -90,7 +90,10 @@
 
         // Trigger per element
         if (this.element && this.element.length) {
-            var event = jQuery.Event(type + '.toolkit.' + this.component.toLowerCase());
+            var name = this.component;
+                name = name.charAt(0).toLowerCase() + name.slice(1);
+
+            var event = jQuery.Event(type + '.toolkit.' + name);
                 event.context = this;
 
             this.element.trigger(event, args || []);
@@ -258,7 +261,7 @@
      */
     Component._errorTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.toLowerCase() + '-error')
+            .addClass(Toolkit.options.vendor + this.component.hyphenate().slice(1) + '-error')
             .text(Toolkit.messages.error);
     };
 
@@ -269,7 +272,7 @@
      */
     Component._loadingTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.toLowerCase() + '-loading')
+            .addClass(Toolkit.options.vendor + this.component.hyphenate().slice(1) + '-loading')
             .text(Toolkit.messages.loading);
     };
 

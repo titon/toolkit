@@ -193,24 +193,11 @@ Toolkit.Accordion = new Class({
 
 });
 
-/**
- * Enable an accordion on an element by calling accordion().
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $('accordion-id').accordion({
- *         multiple: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Element}
- */
-Element.implement('accordion', function(options) {
-    if (!this.$accordion) {
-        this.$accordion = new Toolkit.Accordion(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through accordion().
+     */
+    Toolkit.createComponent('accordion', function(options) {
+        return new Toolkit.Accordion(this, options);
+    });
 
 })();

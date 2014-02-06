@@ -207,24 +207,10 @@
     };
 
     /**
-     * Enable element scroll stalking by calling stalker().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('stalker-id').stalker({
-     *         threshold: 100
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through stalker().
      */
-    $.fn.stalker = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.stalker', function() {
-                return new Toolkit.Stalker(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('stalker', function(options) {
+        return new Toolkit.Stalker(this, options);
+    });
 
 })(jQuery);

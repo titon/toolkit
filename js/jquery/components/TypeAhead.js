@@ -582,24 +582,10 @@
     };
 
     /**
-     * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('#input-id').typeAhead({
-     *         shadow: true
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through typeAhead().
      */
-    $.fn.typeAhead = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.typeahead', function() {
-                return new Toolkit.TypeAhead(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('typeAhead', function(options) {
+        return new Toolkit.TypeAhead(this, options);
+    });
 
 })(jQuery);

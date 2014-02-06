@@ -142,21 +142,10 @@
     };
 
     /**
-     * Enable Element masking by calling mask() on a target element.
-     * An object of options can be passed as the 1st argument.
-     *
-     * @example
-     *     $('#target-element').mask();
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through mask().
      */
-    $.fn.mask = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.mask', function() {
-                return new Toolkit.Mask(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('mask', function(options) {
+        return new Toolkit.Mask(this, options);
+    });
 
 })(jQuery);

@@ -170,24 +170,10 @@
     };
 
     /**
-     * Enable an accordion on an element by calling accordion().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('#accordion-id').accordion({
-     *         multiple: false
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through accordion().
      */
-    $.fn.accordion = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.accordion', function() {
-                return new Toolkit.Accordion(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('accordion', function(options) {
+        return new Toolkit.Accordion(this, options);
+    });
 
 })(jQuery);

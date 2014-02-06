@@ -448,7 +448,7 @@ Toolkit.Component = new Class({
      * @returns {Element}
      */
     _errorTemplate: function() {
-        return new Element('div.' + this.className().toLowerCase() + '-error', {
+        return new Element('div.' + this.className().hyphenate().slice(1) + '-error', {
             text: this.options.errorMessage || Toolkit.messages.error
         });
     }.protect(),
@@ -460,7 +460,7 @@ Toolkit.Component = new Class({
      * @returns {Element}
      */
     _loadingTemplate: function() {
-        return new Element('div.' + this.className().toLowerCase() + '-loading', {
+        return new Element('div.' + this.className().hyphenate().slice(1) + '-loading', {
             text: this.options.loadingMessage || Toolkit.messages.loading
         });
     }.protect(),

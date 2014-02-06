@@ -129,22 +129,11 @@ Toolkit.Mask = new Class({
 
 });
 
-/**
- * Enable Element masking by calling mask() on a target element.
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $('target-element').mask();
- *
- * @param {Object} [options]
- * @returns {Element}
- */
-Element.implement('mask', function(options) {
-    if (!this.$mask) {
-        this.$mask = new Toolkit.Mask(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through mask().
+     */
+    Toolkit.createComponent('mask', function(options) {
+        return new Toolkit.Mask(this, options);
+    });
 
 })();

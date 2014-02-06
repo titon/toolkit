@@ -51,15 +51,15 @@
             var options = this.options;
 
             if (options.checkbox) {
-                this.element.getElements(options.checkbox).checkbox(options);
+                this.element.getElements(options.checkbox).inputCheckbox(options);
             }
 
             if (options.radio) {
-                this.element.getElements(options.radio).radio(options);
+                this.element.getElements(options.radio).inputRadio(options);
             }
 
             if (options.select) {
-                this.element.getElements(options.select).select(options);
+                this.element.getElements(options.select).inputSelect(options);
             }
 
             return this;
@@ -600,45 +600,23 @@
     });
 
     /**
-     * Enable custom inputs and selects within forms by calling input().
-     * An object of options can be passed as the 1st argument.
-     *
-     * @example
-     *     $$('form').input();
-     *     $$('input[type="radio"]').radio();
-     *     $$('input[type="checkbox"]').checkbox();
-     *     $$('select').select();
-     *
-     * @param {Object} [options]
-     * @returns {Element}
+     * Define jQuery plugins that can be instantiated through
+     * input() (triggers all 3), inputRadio(), inputCheckbox(), and inputSelect().
      */
-    Element.implement({
-        input: function(options) {
-            new Toolkit.Input(this, options);
+    Toolkit.createComponent('input', function(options) {
+        return new Toolkit.Input(this, options);
+    });
 
-            return this;
-        },
-        radio: function(options) {
-            if (!this.$radio) {
-                this.$radio = new Toolkit.Input.Radio(this, options);
-            }
+    Toolkit.createComponent('inputRadio', function(options) {
+        return new Toolkit.Input.Radio(this, options);
+    });
 
-            return this;
-        },
-        checkbox: function(options) {
-            if (!this.$checkbox) {
-                this.$checkbox = new Toolkit.Input.Checkbox(this, options);
-            }
+    Toolkit.createComponent('inputCheckbox', function(options) {
+        return new Toolkit.Input.Checkbox(this, options);
+    });
 
-            return this;
-        },
-        select: function(options) {
-            if (!this.$select) {
-                this.$select = new Toolkit.Input.Select(this, options);
-            }
-
-            return this;
-        }
+    Toolkit.createComponent('inputSelect', function(options) {
+        return new Toolkit.Input.Select(this, options);
     });
 
 })();

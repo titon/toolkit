@@ -515,25 +515,10 @@
     };
 
     /**
-     * Enable flyouts on Elements collections by calling flyout().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('.js-flyout').flyout('/sitemap.json', {
-     *         ajax: false
-     *     });
-     *
-     * @param {String} url
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through flyout().
      */
-    $.fn.flyout = function(url, options) {
-        var flyout = new Toolkit.Flyout(this, url, options);
-
-        return this.each(function() {
-            $(this).addData('toolkit.flyout', flyout);
-        });
-    };
+    Toolkit.createComponent('flyout', function(url, options) {
+        return new Toolkit.Flyout(this, url, options);
+    }, true);
 
 })(jQuery);

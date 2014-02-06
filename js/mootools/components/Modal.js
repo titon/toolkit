@@ -265,26 +265,11 @@ Toolkit.Modal = new Class({
 
 });
 
-/**
- * Enable modals on Elements collections by calling modal().
- * An object of options can be passed as the 1st argument.
- *
- * @example
- *     $$('.js-modal').modal({
- *         draggable: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Elements}
- */
-Elements.implement('modal', function(options) {
-    var modal = new Toolkit.Modal(this, options);
-
-    return this.each(function(el) {
-        if (!el.$modal) {
-            el.$modal = modal;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through modal().
+     */
+    Toolkit.createComponent('modal', function(options) {
+        return new Toolkit.Modal(this, options);
+    }, true);
 
 })();

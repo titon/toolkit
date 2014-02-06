@@ -175,24 +175,10 @@
     };
 
     /**
-     * Enable Element pinning by calling pin().
-     * An object of options can be passed as the 1st argument.
-     * The class instance will be cached and returned from this function.
-     *
-     * @example
-     *     $('#pin-id').pin({
-     *         throttle: 100
-     *     });
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Defines a component that can be instantiated through pin().
      */
-    $.fn.pin = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.pin', function() {
-                return new Toolkit.Pin(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('pin', function(options) {
+        return new Toolkit.Pin(this, options);
+    });
 
 })(jQuery);

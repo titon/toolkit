@@ -39,15 +39,15 @@
         var options = this.options;
 
         if (options.checkbox) {
-            this.element.find(options.checkbox).checkbox(options);
+            this.element.find(options.checkbox).inputCheckbox(options);
         }
 
         if (options.radio) {
-            this.element.find(options.radio).radio(options);
+            this.element.find(options.radio).inputRadio(options);
         }
 
         if (options.select) {
-            this.element.find(options.select).select(options);
+            this.element.find(options.select).inputSelect(options);
         }
 
         this.fireEvent('init');
@@ -589,46 +589,23 @@
     };
 
     /**
-     * Enable custom inputs and selects within forms by calling input().
-     * An object of options can be passed as the 1st argument.
-     *
-     * @example
-     *     $('form').input();
-     *     $('input:radio').radio();
-     *     $('input:checkbox').checkbox();
-     *     $('select').select();
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
+     * Define jQuery plugins that can be instantiated through
+     * input() (triggers all 3), inputRadio(), inputCheckbox(), and inputSelect().
      */
-    $.fn.input = function(options) {
-        return this.each(function() {
-            new Toolkit.Input(this, options);
-        });
-    };
+    Toolkit.createComponent('input', function(options) {
+        return new Toolkit.Input(this, options);
+    });
 
-    $.fn.radio = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.input.radio', function() {
-                return new Toolkit.Input.Radio(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('inputRadio', function(options) {
+        return new Toolkit.Input.Radio(this, options);
+    });
 
-    $.fn.checkbox = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.input.checkbox', function() {
-                return new Toolkit.Input.Checkbox(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('inputCheckbox', function(options) {
+        return new Toolkit.Input.Checkbox(this, options);
+    });
 
-    $.fn.select = function(options) {
-        return this.each(function() {
-            $(this).addData('toolkit.input.select', function() {
-                return new Toolkit.Input.Select(this, options);
-            });
-        });
-    };
+    Toolkit.createComponent('inputSelect', function(options) {
+        return new Toolkit.Input.Select(this, options);
+    });
 
 })(jQuery);
