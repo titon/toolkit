@@ -261,7 +261,7 @@
      */
     Component._errorTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.hyphenate().slice(1) + '-error')
+            .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-error')
             .text(Toolkit.messages.error);
     };
 
@@ -272,7 +272,7 @@
      */
     Component._loadingTemplate = function() {
         return $('<div/>')
-            .addClass(Toolkit.options.vendor + this.component.hyphenate().slice(1) + '-loading')
+            .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-loading')
             .text(Toolkit.messages.loading);
     };
 

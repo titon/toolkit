@@ -28,20 +28,6 @@ window.Toolkit = {
         error: 'An error has occurred!'
     },
 
-    /** Does the browser support transforms? */
-    hasTransform: (function() {
-        var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' '),
-            style = document.createElement('div').style;
-
-        for (var i = 0; i < prefixes.length; i++) {
-            if (prefixes[i] in style) {
-                return prefixes[i];
-            }
-        }
-
-        return false;
-    })(),
-
     /** Does the browser support transitions? */
     hasTransition: (function() {
         var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
@@ -193,7 +179,7 @@ $.fn.addData = function(key, value) {
  *
  * @returns {Object}
  */
-jQuery.event.special.clickout = (function() {
+$.event.special.clickout = (function() {
     var elements = $([]),
         doc = $(document);
 
@@ -257,7 +243,7 @@ $.fn.clickout = function(data, fn) {
  * @returns {jQuery}
  */
 $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
-    position = position.hyphenate().split('-');
+    position = $.hyphenate(position).split('-');
 
     var edge = { y: position[0], x: position[1] },
         offset = baseOffset || { left: 0, top: 0 },
@@ -387,35 +373,33 @@ $.expr[':'].shown = function(obj) {
 /**
  * Split an array into multiple chunked arrays.
  *
+ * @param {Array} array
  * @param {Number} size
  * @returns {Array}
  */
-if (!Array.prototype.chunk) {
-    Array.prototype.chunk = function(size) {
-        var array = this, chunks = [],
-            i = 0,
-            n = array.length;
+$.chunk = function(array, size) {
+    var chunks = [],
+        i = 0,
+        n = array.length;
 
-        while (i < n) {
-            chunks.push(array.slice(i, i += size));
-        }
+    while (i < n) {
+        chunks.push(array.slice(i, i += size));
+    }
 
-        return chunks;
-    };
-}
+    return chunks;
+};
 
 /**
  * Convert uppercase characters to lower case dashes.
  *
+ * @param {String} string
  * @returns {String}
  */
-if (!String.prototype.hyphenate) {
-    String.prototype.hyphenate = function() {
-        return this.replace(/[A-Z]/g, function(match) {
-            return ('-' + match.charAt(0).toLowerCase());
-        });
-    };
-}
+$.hyphenate = function(string) {
+    return string.replace(/[A-Z]/g, function(match) {
+        return ('-' + match.charAt(0).toLowerCase());
+    });
+};
 
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
@@ -434,30 +418,25 @@ if (!Function.prototype.create) {
 
 /**
  * Polyfill for ECMA5 Function.bind().
- * Credit to the MooTools team for the implementation.
+ * Credit to the MDN team for the implementation.
  *
+ * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
  * @returns {Function}
  */
 if (!Function.prototype.bind) {
-    Function.prototype.bind = function(that) {
+    Function.prototype.bind = function(context) {
         var self = this,
-            args = arguments.length > 1 ? [].slice.call(arguments, 1) : null,
-            F = function(){};
+            args = [].slice.call(arguments, 1),
+            func = function() {},
+            bound = function() {
+                return self.apply(
+                    (this instanceof func && context) ? this : context,
+                    args.concat([].slice.call(arguments))
+                );
+            };
 
-        var bound = function() {
-            var context = that,
-                length = arguments.length;
-
-            if (this instanceof bound){
-                F.prototype = self.prototype;
-                context = new F();
-            }
-
-            var result = (!args && !length) ? self.call(context) :
-                self.apply(context, args && length ? args.concat([].slice.call(arguments)) : args || arguments);
-
-            return (context === that) ? result : context;
-        };
+        func.prototype = this.prototype;
+        bound.prototype = new func();
 
         return bound;
     };

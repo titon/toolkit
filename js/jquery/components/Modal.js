@@ -171,13 +171,6 @@
         if (this.options.fullScreen) {
             this.element.find(this.options.contentElement)
                 .css('min-height', $(window).height());
-
-        // IE8
-        } else if (!Toolkit.hasTransform) {
-            this.element.css({
-                'margin-left': -(this.element.outerWidth(true) / 2),
-                'margin-top': -(this.element.outerHeight(true) / 2)
-            });
         }
 
         this.fireEvent('show');

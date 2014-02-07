@@ -22,7 +22,7 @@ The following minimum versions should support most (if not all) of Toolkits func
 * Chrome 11+
 * Firefox 10+
 * Safari 5.1+
-* Internet Explorer 8+
+* Internet Explorer 9+
 * Opera 12+
 
 ## Internet Explorer 8 & 9 ##
@@ -85,9 +85,13 @@ Support is determined through [caniuse.com](http://caniuse.com/) and can be veri
     </tbody>
 </table>
 
+<div class="notice is-warning">
+    If you need to support IE8, quite a bit of manual work will be required to make the components work correctly.
+</div>
+
 ### Unsupported Components ###
 
-On top of the features above not being supported, the following Toolkit components are not supported in IE 8 and 9.
+On top of the features above not being supported, the following Toolkit components are not supported in IE 8.
 
 * [Input](../components/input.md)
 * [Matrix](../components/matrix.md)

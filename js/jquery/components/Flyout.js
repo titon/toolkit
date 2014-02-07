@@ -291,7 +291,7 @@
         }
 
         if (limit && data.children.length > limit) {
-            groups = data.children.chunk(limit);
+            groups = $.chunk(data.children, limit);
         } else {
             groups.push(data.children);
         }

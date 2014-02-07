@@ -19,21 +19,27 @@ module.exports = function(grunt) {
      * The --effects parameter can be used to include effects styles
      * The --theme parameter can be used to include a theme
      * The --no-normalize parameter will exclude normalize.css from the output
+     * The --demo parameter will include all files for demo debugging
      */
     var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
         useEffects =  grunt.option('effects') ? grunt.option('effects').split(',') : [],
         useTheme = grunt.option('theme') || null,
         categories = ['layout', 'component'];
 
+    if (grunt.option('demo')) {
+        toPackage = [];
+        useEffects = [];
+        useTheme = null;
+        categories.push('effect');
+    }
+
     if (!toPackage.length) {
         _.each(graph.manifest, function(value, key) {
-            if (value.category === 'layout' || value.category === 'component') {
+            if (_.contains(categories, value.category)) {
                 toPackage.push(key);
             }
         });
     }
-
-    toPackage = toPackage.sort();
 
     if (useTheme) {
         categories.push('theme');

@@ -18,13 +18,13 @@
     background: black($blackout-opacity);
     @include transition(all $blackout-transition);
 
-    & .#{$vendor-prefix}loader {
+    .#{$vendor-prefix}loader {
         opacity: 1;
         color: #fff;
         @include position-center;
         @include transition(all $blackout-transition);
 
         > span,
-        .spinner > span { background: #fff; }
+        .spinner > span { background: #fff !important; }
     }
 }
