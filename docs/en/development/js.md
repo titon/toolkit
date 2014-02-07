@@ -542,14 +542,14 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.debounce(func[, threshold])</td>
+            <td>jQuery.debounce(func[, threshold[, immediate]])</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Delays the execution of a function until the duration has completed.
             </td>
         </tr>
         <tr>
-            <td>Function.prototype.debounce([threshold])</td>
+            <td>Function.prototype.debounce([threshold[, immediate]])</td>
             <td>MooTools</td>
         </tr>
 
@@ -560,13 +560,22 @@ These extensions may even solve a problem in your own codebase.
                 Throttle the execution of a function so it triggers at every delay interval.
             </td>
         </tr>
+        <tr>
+            <td>jQuery.hyphenate(string)</td>
+            <td>jQuery</td>
+            <td>Convert uppercase character strings to a lower case dashed form.</td>
+        </tr>
 
         <tr>
-            <td>Array.prototype.chunk(size)</td>
-            <td>Both</td>
-            <td>
+            <td>jQuery.chunk(array, size)</td>
+            <td>jQuery</td>
+            <td rowspan="2">
                 Split an array into multiple chunked arrays.
             </td>
+        </tr>
+        <tr>
+            <td>Array.prototype.chunk(size)</td>
+            <td>MooTools</td>
         </tr>
 
         <tr>
@@ -580,17 +589,11 @@ These extensions may even solve a problem in your own codebase.
 
         <tr>
             <td>Function.prototype.create(parent)</td>
-            <td>jQuery</td>
+            <td>Both</td>
             <td>
                 Create a new object and apply the parent as the prototype.
                 Allows for simple class inheritance.
             </td>
-        </tr>
-
-        <tr>
-            <td>String.prototype.hyphenate()</td>
-            <td>jQuery</td>
-            <td>Convert uppercase character strings to a lower case dashed form.</td>
         </tr>
     </tbody>
 </table>

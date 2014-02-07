@@ -26,15 +26,36 @@ if ($mod = value('modifier')) {
         error: 'An error has occurred!'
     },
 
-    /** Detect IE <= 8 versions */
-    ie8: !!(window.attachEvent && !window.addEventListener),
+    /** Does the browser support transforms? */
+    hasTransform: (function() {
+        var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' '),
+            style = document.createElement('div').style;
 
-    /** Detect IE9 version */
-    ie9: !!(window.addEventListener && navigator.userAgent.match(/MSIE/i)),
+        for (var i = 0; i &lt; prefixes.length; i++) {
+            if (prefixes[i] in style) {
+                return prefixes[i];
+            }
+        }
+
+        return false;
+    })(),
+
+    /** Does the browser support transitions? */
+    hasTransition: (function() {
+        var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+            style = document.createElement('div').style;
+
+        for (var i = 0; i &lt; prefixes.length; i++) {
+            if (prefixes[i] in style) {
+                return prefixes[i];
+            }
+        }
+
+        return false;
+    })(),
 
     /** Detect touch devices */
     isTouch: !!('ontouchstart' in window)
-
 };</code></pre>
 
 <div class="example-title">Inline</div>

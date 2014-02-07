@@ -80,17 +80,16 @@
             this.options.transition = 1;
         }
 
-        var padding = parseInt(this.element.css('padding-top'), 10) +
-            parseInt(this.element.find('.showcase-inner').css('padding-top'), 10);
-
         var options = this.options;
-            options.gutter += padding;
 
         // Get elements
         this.items = this.element.find(options.itemsElement);
         this.tabs = this.element.find(options.tabsElement);
         this.prevButton = this.element.find(options.prevElement);
         this.nextButton = this.element.find(options.nextElement);
+
+        // Increase gutter
+        options.gutter += (this.element.height() - this.items.height());
 
         // Blackout
         if (options.blackout) {
@@ -267,13 +266,6 @@
         }
 
         this.element.reveal();
-
-        if (!Toolkit.hasTransform) {
-            this.element.css({
-                'margin-left': -(this.element.outerWidth(true) / 2),
-                'margin-top': -(this.element.outerHeight(true) / 2)
-            });
-        }
 
         this.fireEvent('show');
 

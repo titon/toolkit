@@ -70,7 +70,7 @@
         this.elementBody = this.element.find(options.contentElement);
 
         // Add position class
-        this.element.addClass(options.position.hyphenate());
+        this.element.addClass($.hyphenate(options.position));
 
         // Set events
         $(options.context || document)

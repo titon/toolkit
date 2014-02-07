@@ -77,17 +77,16 @@ Toolkit.Showcase = new Class({
             this.options.transition = 1;
         }
 
-        var padding = this.element.getStyle('padding-top').toInt() +
-            this.element.getElement('.showcase-inner').getStyle('padding-top').toInt();
-
         options = this.options;
-        options.gutter += padding;
 
         // Get elements
         this.items = this.element.getElement(options.itemsElement);
         this.tabs = this.element.getElement(options.tabsElement);
         this.prevButton = this.element.getElement(options.prevElement);
         this.nextButton = this.element.getElement(options.nextElement);
+
+        // Increase gutter
+        options.gutter += (this.element.getHeight() - this.items.getHeight());
 
         // Blackout
         if (this.options.blackout) {
@@ -280,15 +279,6 @@ Toolkit.Showcase = new Class({
         }
 
         this.element.reveal();
-
-        if (!Toolkit.hasTransform) {
-            var size = this.element.getSize();
-
-            this.element.setStyles({
-                'margin-left': -(size.x / 2),
-                'margin-top': -(size.y / 2)
-            });
-        }
 
         this.fireEvent('show');
 

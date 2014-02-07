@@ -28,20 +28,6 @@ window.Toolkit = {
         error: 'An error has occurred!'
     },
 
-    /** Does the browser support transforms? */
-    hasTransform: (function() {
-        var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' '),
-            style = document.createElement('div').style;
-
-        for (var i = 0; i < prefixes.length; i++) {
-            if (prefixes[i] in style) {
-                return prefixes[i];
-            }
-        }
-
-        return false;
-    })(),
-
     /** Does the browser support transitions? */
     hasTransition: (function() {
         var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),

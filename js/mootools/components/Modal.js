@@ -161,15 +161,6 @@ Toolkit.Modal = new Class({
         if (this.options.fullScreen) {
             this.element.getElement(this.options.contentElement)
                 .setStyle('min-height', window.getHeight());
-
-        // IE8
-        } else if (!Toolkit.hasTransform) {
-            var size = this.element.getSize();
-
-            this.element.setStyles({
-                'margin-left': -(size.x / 2),
-                'margin-top': -(size.y / 2)
-            });
         }
 
         this.fireEvent('show');
