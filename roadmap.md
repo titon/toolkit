@@ -26,6 +26,7 @@ All releases will contain bug fixing and polishing for current features.
 * Add aria attributes where applicable.
 * Remove jQuery mobile dependency for touch events.
 * Updated to use AMD.
+* Optimize classes for smaller filesize.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

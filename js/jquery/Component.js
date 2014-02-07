@@ -226,6 +226,7 @@
             var defaults = Toolkit,
                 path = this.component;
 
+            // Drill into object to find defaults
             if (path.indexOf('.') >= 0) {
                 path = path.split('.');
 
