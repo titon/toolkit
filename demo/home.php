@@ -3,7 +3,7 @@
         View GitHub
     </a>
 
-    <a href="https://titon.io" class="button float-right is-info round" style="font-size: 16px; margin-right: 10px;">
+    <a href="http://titon.io" class="button float-right is-info round" style="font-size: 16px; margin-right: 10px;">
         View Website
     </a>
 

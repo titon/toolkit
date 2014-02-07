@@ -13,12 +13,13 @@ All releases will contain bug fixing and polishing for current features.
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
 
 ### 1.3.0 ###
+* Toast - A component to display toast notifications
 * Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
 * Divider - A component for dividing content horizontally or vertically.
 
 ### 2.0.0 ###
 * Remove the MooTools port.
-* Drop IE 8/9 support and upgrade to jQuery 2.
+* Drop IE8 support and upgrade to jQuery 2.
 * Separate component transitions into a stand alone layer that can be used anywhere.
 * Replace examples with unit tests.
 * Add deferred/promise integration.
