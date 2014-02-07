@@ -11,38 +11,18 @@
         this.component = 'Mask';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Mask.options, options);
+        // Set options and element
+        this.options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
-        /** Matrix wrapper */
-        this.element = this.setElement(element, this.options);
-
-        /** The transparent mask that covers the element */
+        // Mask and message elements
         this.mask = null;
-
-        /** Element that displays a message within the mask */
         this.message = null;
 
-        this.initialize();
-    });
-
-    Toolkit.Mask.options = {
-        revealOnClick: false,
-        messageContent: '',
-        messageElement: '.mask-message'
-    };
-
-    var Mask = Toolkit.Mask.prototype;
-
-    /**
-     * Initialize on the element and create the mask element.
-     */
-    Mask.initialize = function() {
-        var element = this.element,
-            vendor = Toolkit.options.vendor,
+        // Create the mask and message elements
+        var vendor = Toolkit.options.vendor,
             maskClass = vendor + 'mask';
 
-        // Only apply to static elements
         if (!element.is('body')) {
             element.addClass(vendor + 'maskable');
 
@@ -59,87 +39,92 @@
         }
 
         this.setMask(mask);
-
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Hide the mask and reveal the element.
-     *
-     * @returns {Toolkit.Mask}
-     */
-    Mask.hide = function() {
-        this.mask.conceal();
-        this.element.removeClass(Toolkit.options.isPrefix + 'masked');
-        this.fireEvent('hide');
+        /**
+         * Hide the mask and reveal the element.
+         *
+         * @returns {Toolkit.Mask}
+         */
+        hide: function() {
+            this.mask.conceal();
+            this.element.removeClass(Toolkit.options.isPrefix + 'masked');
+            this.fireEvent('hide');
 
-        return this;
-    };
-
-    /**
-     * Set the element to use as a mask and append it to the target element.
-     * Apply optional classes, events, and styles dependent on implementation.
-     *
-     * @param {jQuery} element
-     * @returns {Toolkit.Mask}
-     */
-    Mask.setMask = function(element) {
-        var options = this.options;
-
-        element.addClass('hide').appendTo(this.element);
-
-        if (this.element.is('body')) {
-            element.css('position', 'fixed');
-        }
-
-        if (options.revealOnClick) {
-            element.click(this.hide.bind(this));
-        }
-
-        this.mask = element;
-        this.message = element.find('> ' + options.messageElement);
-
-        // Create message if it does not exist
-        if (!this.message.length) {
-            this.message = $('<div/>')
-                .addClass(options.messageElement.substr(1))
-                .appendTo(element);
-
-            if (options.messageContent) {
-                this.message.html(options.messageContent);
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Show the mask and conceal the element.
-     *
-     * @param {Element} [node]
-     * @returns {Toolkit.Mask}
-     */
-    Mask.show = function(node) {
-        if (!this.enabled) {
             return this;
+        },
+
+        /**
+         * Set the element to use as a mask and append it to the target element.
+         * Apply optional classes, events, and styles dependent on implementation.
+         *
+         * @param {jQuery} element
+         * @returns {Toolkit.Mask}
+         */
+        setMask: function(element) {
+            var options = this.options;
+
+            element.addClass('hide').appendTo(this.element);
+
+            if (this.element.is('body')) {
+                element.css('position', 'fixed');
+            }
+
+            if (options.revealOnClick) {
+                element.click(this.hide.bind(this));
+            }
+
+            this.mask = element;
+            this.message = element.find('> ' + options.messageElement);
+
+            // Create message if it does not exist
+            if (!this.message.length) {
+                this.message = $('<div/>')
+                    .addClass(options.messageElement.substr(1))
+                    .appendTo(element);
+
+                if (options.messageContent) {
+                    this.message.html(options.messageContent);
+                }
+            }
+
+            return this;
+        },
+
+        /**
+         * Show the mask and conceal the element.
+         *
+         * @param {Element} [node]
+         * @returns {Toolkit.Mask}
+         */
+        show: function(node) {
+            if (!this.enabled) {
+                return this;
+            }
+
+            this.node = node;
+            this.mask.reveal();
+            this.element.addClass(Toolkit.options.isPrefix + 'masked');
+            this.fireEvent('show');
+
+            return this;
+        },
+
+        /**
+         * Toggle between display states,
+         *
+         * @returns {Toolkit.Mask}
+         */
+        toggle: function() {
+            return this.mask.is(':shown') ? this.hide() : this.show();
         }
 
-        this.node = node;
-        this.mask.reveal();
-        this.element.addClass(Toolkit.options.isPrefix + 'masked');
-        this.fireEvent('show');
-
-        return this;
-    };
-
-    /**
-     * Toggle between display states,
-     *
-     * @returns {Toolkit.Mask}
-     */
-    Mask.toggle = function() {
-        return this.mask.is(':shown') ? this.hide() : this.show();
-    };
+    }, {
+        revealOnClick: false,
+        messageContent: '',
+        messageElement: '.mask-message'
+    });
 
     /**
      * Defines a component that can be instantiated through mask().

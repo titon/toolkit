@@ -11,115 +11,107 @@
         this.component = 'Drop';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Drop.options, options);
+        // Set options
+        this.options = options = this.setOptions(options);
 
-        /** Currently active node */
-        this.node = null;
-
-        /** List of elements to active drop */
-        this.nodes = $(nodes);
-
-        /** Element to toggle */
+        // Element to toggle
         this.element = null;
 
-        this.initialize();
-    });
+        // Currently active node
+        this.node = null;
 
-    Toolkit.Drop.options = {
-        mode: 'click',
-        context: null,
-        getTarget: 'data-drop',
-        hideOpened: true
-    };
+        // List of elements to active drop
+        this.nodes = nodes = $(nodes);
 
-    var Drop = Toolkit.Drop.prototype;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    Drop.initialize = function() {
+        // Set events
         var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
             return '.' + Toolkit.options.vendor + 'drop--' + value;
         });
 
-        $(this.nodes.selector + ', ' + selectors.join(', '))
+        $(nodes.selector + ', ' + selectors.join(', '))
             .clickout(this.hide.bind(this));
 
-        $(this.options.context || document)
-            .on((this.options.mode === 'click' ? 'click' : 'mouseenter'), this.nodes.selector, this.__show.bind(this));
+        $(options.context || document)
+            .on((options.mode === 'click' ? 'click' : 'mouseenter'), nodes.selector, this.__show.bind(this));
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Hide the opened element and remove active state.
-     *
-     * @returns {Toolkit.Drop}
-     */
-    Drop.hide = function() {
-        if (this.element && this.element.is(':shown')) {
-            this.element.conceal();
-            this.node.removeClass(Toolkit.options.isPrefix + 'active');
+        /**
+         * Hide the opened element and remove active state.
+         *
+         * @returns {Toolkit.Drop}
+         */
+        hide: function() {
+            if (this.element && this.element.is(':shown')) {
+                this.element.conceal();
+                this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
-            this.fireEvent('hide');
+                this.fireEvent('hide');
+            }
+
+            return this;
+        },
+
+        /**
+         * Open the target element and apply active state.
+         *
+         * @param {jQuery} node
+         * @returns {Toolkit.Drop}
+         */
+        show: function(node) {
+            this.element.reveal();
+
+            this.node = $(node);
+            this.node.addClass(Toolkit.options.isPrefix + 'active');
+
+            this.fireEvent('show');
+
+            return this;
+        },
+
+        /**
+         * When a node is clicked, grab the target from the attribute.
+         * Validate the target element, then either display or hide.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __show: function(e) {
+            e.preventDefault();
+
+            if (!this.enabled) {
+                return;
+            }
+
+            var node = $(e.target),
+                target = this.readValue(node, this.options.getTarget);
+
+            if (!target || target.substr(0, 1) !== '#') {
+                return;
+            }
+
+            // Hide previous drops
+            if (this.options.hideOpened && this.node && !this.node.is(node)) {
+                this.hide();
+            }
+
+            this.element = $(target);
+            this.node = node;
+
+            if (!this.element.is(':shown')) {
+                this.show(node);
+            } else {
+                this.hide();
+            }
         }
 
-        return this;
-    };
-
-    /**
-     * Open the target element and apply active state.
-     *
-     * @param {jQuery} node
-     * @returns {Toolkit.Drop}
-     */
-    Drop.show = function(node) {
-        this.element.reveal();
-
-        this.node = $(node);
-        this.node.addClass(Toolkit.options.isPrefix + 'active');
-
-        this.fireEvent('show');
-
-        return this;
-    };
-
-    /**
-     * When a node is clicked, grab the target from the attribute.
-     * Validate the target element, then either display or hide.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Drop.__show = function(e) {
-        e.preventDefault();
-
-        if (!this.enabled) {
-            return;
-        }
-
-        var node = $(e.target),
-            target = this.readValue(node, this.options.getTarget);
-
-        if (!target || target.substr(0, 1) !== '#') {
-            return;
-        }
-
-        // Hide previous drops
-        if (this.options.hideOpened && this.node && !this.node.is(node)) {
-            this.hide();
-        }
-
-        this.element = $(target);
-        this.node = node;
-
-        if (!this.element.is(':shown')) {
-            this.show(node);
-        } else {
-            this.hide();
-        }
-    };
+    }, {
+        mode: 'click',
+        context: null,
+        getTarget: 'data-drop',
+        hideOpened: true
+    });
 
     /**
      * Defines a component that can be instantiated through drop().

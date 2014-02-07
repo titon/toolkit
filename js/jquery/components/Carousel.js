@@ -11,69 +11,32 @@
         this.component = 'Carousel';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Carousel.options, options);
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
-        /** Carousel element */
-        this.element = this.setElement(element, this.options);
-
-        /** Is the carousel stopped? */
+        // Is the carousel stopped?
         this.stopped = false;
 
-        /** Items and parent container */
-        this.itemsWrapper = null;
-        this.itemsList = null;
-        this.items = [];
-
-        /** Tabs and parent container */
-        this.tabsWrapper = null;
-        this.tabs = [];
-
-        /** Previous and next buttons */
-        this.prevButton = null;
-        this.nextButton = null;
-
-        /** The current and previous shown indices */
-        this.previousIndex = 0;
-        this.currentIndex = 0;
-
-        /** Cycle timer */
-        this.timer = null;
-
-        this.initialize();
-    });
-
-    Toolkit.Carousel.options = {
-        animation: 'slide',
-        duration: 5000,
-        autoCycle: true,
-        stopOnHover: true,
-        itemsElement: '.carousel-items',
-        itemElement: 'li',
-        tabsElement: '.carousel-tabs',
-        tabElement: 'a',
-        nextElement: '.carousel-next',
-        prevElement: '.carousel-prev'
-    };
-
-    var Carousel = Toolkit.Carousel.prototype;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    Carousel.initialize = function() {
-        var options = this.options;
-
-        // Get elements
-        this.itemsWrapper = this.element.find(options.itemsElement);
+        // Items and parent container
+        this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
         this.items = this.itemsWrapper.find(options.itemElement);
 
-        this.tabsWrapper = this.element.find(options.tabsElement);
+        // Tabs and parent container
+        this.tabsWrapper = element.find(options.tabsElement);
         this.tabs = this.tabsWrapper.find(options.tabElement);
 
-        this.nextButton = this.element.find(options.nextElement);
-        this.prevButton = this.element.find(options.prevElement);
+        // Previous and next buttons
+        this.nextButton = element.find(options.nextElement);
+        this.prevButton = element.find(options.prevElement);
+
+        // The current and previous shown indices
+        this.previousIndex = 0;
+        this.currentIndex = 0;
+
+        // Cycle timer
+        this.timer = null;
 
         // Disable carousel if too low of items
         if (this.items.length <= 1) {
@@ -130,154 +93,168 @@
         this.prevButton.on('click', this.prev.bind(this));
 
         this.fireEvent('init');
-        this.start().reset();
-    };
-
-    /**
-     * Go to the item indicated by the index number.
-     * If the index is too large, jump to the beginning.
-     * If the index is too small, jump to the end.
-     *
-     * @param {Number} index
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.jump = function(index) {
-        if (index >= this.items.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = this.items.length - 1;
-        }
-
-        // Save state
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
-
-        // Update tabs
-        if (this.tabs.length) {
-            this.tabs
-                .removeClass(Toolkit.options.isPrefix + 'active')
-                .item(index).addClass(Toolkit.options.isPrefix + 'active');
-        }
-
-        // Animate!
-        switch (this.options.animation) {
-            case 'fade':
-                // Don't use conceal() as it causes the animation to flicker
-                this.items
-                    .removeClass('show')
-                    .item(index).reveal();
-            break;
-            case 'slide-up':
-                this.itemsList.css('top', -(index * 100) + '%');
-            break;
-            default:
-                this.itemsList.css('left', -(index * 100) + '%');
-            break;
-        }
-
+        this.start();
         this.reset();
-        this.fireEvent('jump', index);
+    }, {
 
-        return this;
-    };
+        /**
+         * Go to the item indicated by the index number.
+         * If the index is too large, jump to the beginning.
+         * If the index is too small, jump to the end.
+         *
+         * @param {Number} index
+         * @returns {Toolkit.Carousel}
+         */
+        jump: function(index) {
+            if (index >= this.items.length) {
+                index = 0;
+            } else if (index < 0) {
+                index = this.items.length - 1;
+            }
 
-    /**
-     * Go to the next item.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.next = function() {
-        this.jump(this.currentIndex + 1);
+            // Save state
+            this.previousIndex = this.currentIndex;
+            this.currentIndex = index;
 
-        return this;
-    };
+            // Update tabs
+            if (this.tabs.length) {
+                this.tabs
+                    .removeClass(Toolkit.options.isPrefix + 'active')
+                    .item(index).addClass(Toolkit.options.isPrefix + 'active');
+            }
 
-    /**
-     * Go to the previous item.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.prev = function() {
-        this.jump(this.currentIndex - 1);
+            // Animate!
+            switch (this.options.animation) {
+                case 'fade':
+                    // Don't use conceal() as it causes the animation to flicker
+                    this.items
+                        .removeClass('show')
+                        .item(index).reveal();
+                break;
+                case 'slide-up':
+                    this.itemsList.css('top', -(index * 100) + '%');
+                break;
+                default:
+                    this.itemsList.css('left', -(index * 100) + '%');
+                break;
+            }
 
-        return this;
-    };
+            this.reset();
+            this.fireEvent('jump', index);
 
-    /**
-     * Reset the timer.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.reset = function() {
-        if (this.options.autoCycle) {
-            clearInterval(this.timer);
-            this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
+            return this;
+        },
+
+        /**
+         * Go to the next item.
+         *
+         * @returns {Toolkit.Carousel}
+         */
+        next: function() {
+            this.jump(this.currentIndex + 1);
+
+            return this;
+        },
+
+        /**
+         * Go to the previous item.
+         *
+         * @returns {Toolkit.Carousel}
+         */
+        prev: function() {
+            this.jump(this.currentIndex - 1);
+
+            return this;
+        },
+
+        /**
+         * Reset the timer.
+         *
+         * @returns {Toolkit.Carousel}
+         */
+        reset: function() {
+            if (this.options.autoCycle) {
+                clearInterval(this.timer);
+                this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
+            }
+
+            return this;
+        },
+
+        /**
+         * Start the
+         *
+         * @returns {Toolkit.Carousel}
+         */
+        start: function() {
+            this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
+            this.stopped = false;
+
+            this.fireEvent('start');
+
+            return this;
+        },
+
+        /**
+         * Stop the
+         *
+         * @returns {Toolkit.Carousel}
+         */
+        stop: function() {
+            this.element.addClass(Toolkit.options.isPrefix + 'stopped');
+            this.stopped = true;
+
+            this.fireEvent('stop');
+
+            return this;
+        },
+
+        /**
+         * Event handler for cycling between items.
+         * Will stop cycling if carousel is stopped.
+         *
+         * @private
+         */
+        __cycle: function() {
+            if (!this.enabled) {
+                return;
+            }
+
+            // Don't cycle if the carousel has stopped
+            if (!this.stopped) {
+                this.fireEvent('cycle');
+                this.next();
+            }
+        },
+
+        /**
+         * Event handler for jumping between items.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __jump: function(e) {
+            e.preventDefault();
+
+            if (!this.enabled) {
+                return;
+            }
+
+            this.jump($(e.target).data('index') || 0);
         }
 
-        return this;
-    };
-
-    /**
-     * Start the carousel.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.start = function() {
-        this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
-        this.stopped = false;
-
-        this.fireEvent('start');
-
-        return this;
-    };
-
-    /**
-     * Stop the carousel.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    Carousel.stop = function() {
-        this.element.addClass(Toolkit.options.isPrefix + 'stopped');
-        this.stopped = true;
-
-        this.fireEvent('stop');
-
-        return this;
-    };
-
-    /**
-     * Event handler for cycling between items.
-     * Will stop cycling if carousel is stopped.
-     *
-     * @private
-     */
-    Carousel.__cycle = function() {
-        if (!this.enabled) {
-            return;
-        }
-
-        // Don't cycle if the carousel has stopped
-        if (!this.stopped) {
-            this.fireEvent('cycle');
-            this.next();
-        }
-    };
-
-    /**
-     * Event handler for jumping between items.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Carousel.__jump = function(e) {
-        e.preventDefault();
-
-        if (!this.enabled) {
-            return;
-        }
-
-        this.jump($(e.target).data('index') || 0);
-    };
+    }, {
+        animation: 'slide',
+        duration: 5000,
+        autoCycle: true,
+        stopOnHover: true,
+        itemsElement: '.carousel-items',
+        itemElement: 'li',
+        tabsElement: '.carousel-tabs',
+        tabElement: 'a',
+        nextElement: '.carousel-next',
+        prevElement: '.carousel-prev'
+    });
 
     /**
      * Defines a component that can be instantiated through carousel().

@@ -8,72 +8,42 @@
     'use strict';
 
     Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
+        var element;
+            input = $(input);
+
+        if (input.prop('tagName').toLowerCase() !== 'input') {
+            throw new Error('TypeAhead must be initialized on an input field');
+        } else {
+            input.attr('autocomplete', 'off');
+        }
+
         this.component = 'TypeAhead';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.TypeAhead.options, options);
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement();
 
-        /** Primary DOM wrapper */
-        this.element = this.createElement(this.options);
+        // Input element to display menu against
+        this.input = input;
 
-        /** Input element to display menu against */
-        this.input = $(input);
-
-        /** Shadow input element */
+        // Shadow input element
         this.shadow = null;
 
-        /** Current active index when cycling through the list */
+        // Current active index when cycling through the list
         this.index = -1;
 
-        /** List of items to display and match against */
+        // List of items to display and match against
         this.items = [];
 
-        /** Current term used during lookup and matching */
+        // Current term used during lookup and matching
         this.term = '';
 
-        /** Throttle timer */
+        // Throttle timer
         this.timer = null;
 
-        /** Cached queries */
+        // Cached queries
         this.cache = {};
-
-        this.initialize();
-    });
-
-    Toolkit.TypeAhead.options = {
-        className: '',
-        source: [],
-        minLength: 1,
-        itemLimit: 15,
-        throttle: 250,
-        prefetch: false,
-        shadow: false,
-        storage: 'session',
-        query: {},
-        contentElement: '',
-        template: '<div class="type-ahead"></div>',
-
-        // Callbacks
-        sorter: null,
-        matcher: null,
-        builder: null
-    };
-
-    var TypeAhead = Toolkit.TypeAhead.prototype;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    TypeAhead.initialize = function() {
-        if (this.input.prop('tagName').toLowerCase() !== 'input') {
-            throw new Error('TypeAhead must be initialized on an input field');
-        } else {
-            this.input.attr('autocomplete', 'off');
-        }
-
-        // Setup state
-        var options = this.options;
 
         // Use default callbacks
         $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {
@@ -89,7 +59,7 @@
                 callback = options[key];
             }
 
-            this.options[key] = callback.bind(this);
+            options[key] = callback.bind(this);
         }.bind(this));
 
         // Prefetch source from URL
@@ -110,7 +80,6 @@
                 .removeAttr('id')
                 .prop('readonly', true);
 
-            // wrap() didn't seem to work correctly
             this.input.addClass('not-shadow').replaceWith(this.wrapper);
             this.wrapper.append(this.input).append(this.shadow);
         }
@@ -123,463 +92,482 @@
 
         $(window)
             .on('keydown', function(e) {
-                if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
+                if (e.keyCode === 27 /*esc*/ && element.is(':shown')) {
                     this.hide();
                 }
             }.bind(this));
 
-        this.element.clickout(this.hide.bind(this));
+        element.clickout(this.hide.bind(this));
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Build the anchor link that will be used in the list.
-     *
-     * @param {Object} item
-     * @returns {jQuery}
-     */
-    TypeAhead.build = function(item) {
-        var a = $('<a/>', {
-            href: 'javascript:;'
-        });
+        /**
+         * Build the anchor link that will be used in the list.
+         *
+         * @param {Object} item
+         * @returns {jQuery}
+         */
+        build: function(item) {
+            var a = $('<a/>', {
+                href: 'javascript:;'
+            });
 
-        a.append( $('<span/>', {
-            'class': Toolkit.options.vendor + 'type-ahead-title',
-            html: this.highlight(item.title)
-        }) );
-
-        if (item.description) {
             a.append( $('<span/>', {
-                'class': Toolkit.options.vendor + 'type-ahead-desc',
-                html: item.description
+                'class': Toolkit.options.vendor + 'type-ahead-title',
+                html: this.highlight(item.title)
             }) );
-        }
 
-        return a;
-    };
-
-    /**
-     * Hide the list and reset shadow.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.hide = function() {
-        if (this.shadow) {
-            this.shadow.val('');
-        }
-
-        if (this.element.is(':shown')) {
-            this.element.conceal();
-            this.fireEvent('hide');
-        }
-
-        return this;
-    };
-
-    /**
-     * Highlight the current term within the item string.
-     * Split multi-word terms to highlight separately.
-     *
-     * @param {String} item
-     * @returns {String}
-     */
-    TypeAhead.highlight = function(item) {
-        var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
-            callback = function(match) {
-                return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
-            };
-
-        for (var i = 0, t; t = terms[i]; i++) {
-            item = item.replace(new RegExp(t, 'ig'), callback);
-        }
-
-        return item;
-    };
-
-    /**
-     * Load the list of items to use for look ups.
-     * Trigger different actions depending on the type of source.
-     *
-     * @param {String} term
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.lookup = function(term) {
-        this.term = term;
-        this.timer = window.setTimeout(function() {
-            var options = this.options,
-                sourceType = $.type(options.source);
-
-            // Check the cache first
-            if (this.cache[term.toLowerCase()]) {
-                this.process(this.cache[term.toLowerCase()]);
-
-            // Use the response of an AJAX request
-            } else if (sourceType === 'string') {
-                var url = options.source,
-                    cache = this.cache[url];
-
-                if (cache) {
-                    this.process(cache);
-                } else {
-                    var query = options.query;
-                        query.term = term;
-
-                    $.getJSON(url, query, this.process.bind(this));
-                }
-            // Use a literal array list
-            } else if (sourceType === 'array') {
-                this.process(options.source);
-
-            // Use the return of a function
-            } else if (sourceType === 'function') {
-                var response = options.source.call(this);
-
-                if (response) {
-                    this.process(response);
-                }
-            } else {
-                throw new Error('Invalid TypeAhead source type');
+            if (item.description) {
+                a.append( $('<span/>', {
+                    'class': Toolkit.options.vendor + 'type-ahead-desc',
+                    html: item.description
+                }) );
             }
-        }.bind(this), this.options.throttle);
 
-        return this;
-    };
+            return a;
+        },
 
-    /**
-     * Match an item if it contains the term.
-     *
-     * @param {String} item
-     * @param {String} term
-     * @returns {bool}
-     */
-    TypeAhead.match = function(item, term) {
-        return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
-    };
+        /**
+         * Hide the list and reset shadow.
+         *
+         * @returns {Toolkit.TypeAhead}
+         */
+        hide: function() {
+            if (this.shadow) {
+                this.shadow.val('');
+            }
 
-    /**
-     * Position the menu below the input.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.position = function() {
-        if (!this.items.length) {
-            return this.hide();
-        }
+            if (this.element.is(':shown')) {
+                this.element.conceal();
+                this.fireEvent('hide');
+            }
 
-        var iPos = this.input.offset();
-
-        this.element.css({
-            left: iPos.left,
-            top: (iPos.top + this.input.outerHeight())
-        }).reveal();
-
-        return this;
-    };
-
-    /**
-     * Process the list of items be generating new elements and positioning below the input.
-     *
-     * @param {Array} items
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.process = function(items) {
-        if (!this.term.length || !items.length) {
-            this.hide();
             return this;
-        }
+        },
 
-        var options = this.options,
-            categories = { _empty_: [] },
-            item,
-            list = $('<ul/>');
+        /**
+         * Highlight the current term within the item string.
+         * Split multi-word terms to highlight separately.
+         *
+         * @param {String} item
+         * @returns {String}
+         */
+        highlight: function(item) {
+            var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
+                callback = function(match) {
+                    return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
+                };
 
-        // Reset
-        this.items = [];
-        this.index = -1;
+            for (var i = 0, t; t = terms[i]; i++) {
+                item = item.replace(new RegExp(t, 'ig'), callback);
+            }
 
-        // Sort and match the list of items
-        if ($.type(options.sorter) === 'function') {
-            items = options.sorter(items);
-        }
+            return item;
+        },
 
-        if ($.type(options.matcher) === 'function') {
-            items = items.filter(function(item) {
-                return options.matcher(item.title, this.term);
+        /**
+         * Load the list of items to use for look ups.
+         * Trigger different actions depending on the type of source.
+         *
+         * @param {String} term
+         * @returns {Toolkit.TypeAhead}
+         */
+        lookup: function(term) {
+            this.term = term;
+            this.timer = setTimeout(function() {
+                var options = this.options,
+                    sourceType = $.type(options.source);
+
+                // Check the cache first
+                if (this.cache[term.toLowerCase()]) {
+                    this.process(this.cache[term.toLowerCase()]);
+
+                // Use the response of an AJAX request
+                } else if (sourceType === 'string') {
+                    var url = options.source,
+                        cache = this.cache[url];
+
+                    if (cache) {
+                        this.process(cache);
+                    } else {
+                        var query = options.query;
+                            query.term = term;
+
+                        $.getJSON(url, query, this.process.bind(this));
+                    }
+                // Use a literal array list
+                } else if (sourceType === 'array') {
+                    this.process(options.source);
+
+                // Use the return of a function
+                } else if (sourceType === 'function') {
+                    var response = options.source.call(this);
+
+                    if (response) {
+                        this.process(response);
+                    }
+                } else {
+                    throw new Error('Invalid TypeAhead source type');
+                }
+            }.bind(this), this.options.throttle);
+
+            return this;
+        },
+
+        /**
+         * Match an item if it contains the term.
+         *
+         * @param {String} item
+         * @param {String} term
+         * @returns {bool}
+         */
+        match: function(item, term) {
+            return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+        },
+
+        /**
+         * Position the menu below the input.
+         *
+         * @returns {Toolkit.TypeAhead}
+         */
+        position: function() {
+            if (!this.items.length) {
+                return this.hide();
+            }
+
+            var iPos = this.input.offset();
+
+            this.element.css({
+                left: iPos.left,
+                top: (iPos.top + this.input.outerHeight())
+            }).reveal();
+
+            return this;
+        },
+
+        /**
+         * Process the list of items be generating new elements and positioning below the input.
+         *
+         * @param {Array} items
+         * @returns {Toolkit.TypeAhead}
+         */
+        process: function(items) {
+            if (!this.term.length || !items.length) {
+                this.hide();
+                return this;
+            }
+
+            var options = this.options,
+                categories = { _empty_: [] },
+                item,
+                list = $('<ul/>');
+
+            // Reset
+            this.items = [];
+            this.index = -1;
+
+            // Sort and match the list of items
+            if ($.type(options.sorter) === 'function') {
+                items = options.sorter(items);
+            }
+
+            if ($.type(options.matcher) === 'function') {
+                items = items.filter(function(item) {
+                    return options.matcher(item.title, this.term);
+                }.bind(this));
+            }
+
+            // Group the items into categories
+            for (var i = 0; item = items[i]; i++) {
+                if (item.category) {
+                    if (!categories[item.category]) {
+                        categories[item.category] = [];
+                    }
+
+                    categories[item.category].push(item);
+                } else {
+                    categories._empty_.push(item);
+                }
+            }
+
+            // Loop through the items and build the markup
+            var results = [],
+                count = 0;
+
+            $.each(categories, function(category, items) {
+                var elements = [];
+
+                if (category !== '_empty_') {
+                    results.push(null);
+
+                    elements.push(
+                        $('<li/>').addClass(Toolkit.options.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
+                    );
+                }
+
+                for (var i = 0, a; item = items[i]; i++) {
+                    if (count >= options.itemLimit) {
+                        break;
+                    }
+
+                    a = options.builder(item);
+                    a.on({
+                        mouseover: this.rewind.bind(this),
+                        click: $.proxy(this.__select, this, results.length)
+                    });
+
+                    elements.push( $('<li/>').append(a) );
+                    results.push(item);
+                    count++;
+                }
+
+                list.append(elements);
             }.bind(this));
-        }
 
-        // Group the items into categories
-        for (var i = 0; item = items[i]; i++) {
-            if (item.category) {
-                if (!categories[item.category]) {
-                    categories[item.category] = [];
-                }
+            // Append list
+            this.element.empty();
 
-                categories[item.category].push(item);
+            if (options.contentElement) {
+                this.element.find(options.contentElement).append(list);
             } else {
-                categories._empty_.push(item);
-            }
-        }
-
-        // Loop through the items and build the markup
-        var results = [],
-            count = 0;
-
-        $.each(categories, function(category, items) {
-            var elements = [];
-
-            if (category !== '_empty_') {
-                results.push(null);
-
-                elements.push(
-                    $('<li/>').addClass(Toolkit.options.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
-                );
+                this.element.append(list);
             }
 
-            for (var i = 0, a; item = items[i]; i++) {
-                if (count >= options.itemLimit) {
-                    break;
-                }
+            // Set the current result set to the items list
+            // This will be used for index cycling
+            this.items = results;
 
-                a = options.builder(item);
-                a.on({
-                    mouseover: this.rewind.bind(this),
-                    click: $.proxy(this.__select, this, results.length)
-                });
+            // Cache the result set to the term
+            // Filter out null categories so that we can re-use the cache
+            this.cache[this.term.toLowerCase()] = results.filter(function(item) {
+                return (item !== null);
+            });
 
-                elements.push( $('<li/>').append(a) );
-                results.push(item);
-                count++;
-            }
+            this.fireEvent('load');
 
-            list.append(elements);
-        }.bind(this));
-
-        // Append list
-        this.element.empty();
-
-        if (options.contentElement) {
-            this.element.find(options.contentElement).append(list);
-        } else {
-            this.element.append(list);
-        }
-
-        // Set the current result set to the items list
-        // This will be used for index cycling
-        this.items = results;
-
-        // Cache the result set to the term
-        // Filter out null categories so that we can re-use the cache
-        this.cache[this.term.toLowerCase()] = results.filter(function(item) {
-            return (item !== null);
-        });
-
-        this.fireEvent('load');
-
-        // Apply the shadow text
-        this._shadow();
-
-        // Position the list
-        this.position();
-
-        this.fireEvent('show');
-
-        return this;
-    };
-
-    /**
-     * Rewind the cycle pointer to the beginning.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.rewind = function() {
-        this.index = -1;
-        this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
-
-        return this;
-    };
-
-    /**
-     * Select an item in the list.
-     *
-     * @param {Number} index
-     * @param {String} event
-     * @returns {Toolkit.TypeAhead}
-     */
-    TypeAhead.select = function(index, event) {
-        this.index = index;
-
-        var rows = this.element.find('li');
-
-        rows.removeClass(Toolkit.options.isPrefix + 'active');
-
-        // Select
-        if (index >= 0) {
-            if (this.items[index]) {
-                var item = this.items[index];
-
-                rows.item(index).addClass(Toolkit.options.isPrefix + 'active');
-
-                this.input.val(item.title);
-
-                this.fireEvent(event || 'select', [item, index]);
-            }
-
-        // Reset
-        } else {
-            this.input.val(this.term);
-
-            this.fireEvent('reset');
-        }
-
-        return this;
-    };
-
-    /**
-     * Sort the items.
-     *
-     * @param {Array} items
-     * @returns {Array}
-     */
-    TypeAhead.sort = function(items) {
-        return items.sort(function(a, b) {
-            return a.title.localeCompare(b.title);
-        });
-    };
-
-    /**
-     * Monitor the current input term to determine the shadow text.
-     * Shadow text will reference the term cache.
-     *
-     * @private
-     */
-    TypeAhead._shadow = function() {
-        if (!this.shadow) {
-            return;
-        }
-
-        var term = this.input.val(),
-            termLower = term.toLowerCase(),
-            value = '';
-
-        if (this.cache[termLower] && this.cache[termLower][0]) {
-            var title = this.cache[termLower][0].title;
-
-            if (title.toLowerCase().indexOf(termLower) === 0) {
-                value = term + title.substr(term.length, (title.length - term.length));
-            }
-        }
-
-        this.shadow.val(value);
-    };
-
-    /**
-     * Cycle through the items in the list when an arrow key, esc or enter is released.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    TypeAhead.__cycle = function(e) {
-        var items = this.items,
-            length = Math.min(this.options.itemLimit, Math.max(0, items.length));
-
-        if (!length || !this.element.is(':shown')) {
-            return;
-        }
-
-        switch (e.keyCode) {
-            // Cycle upwards (up)
-            case 38:
-                this.index -= (items[this.index - 1] ? 1 : 2); // category check
-
-                if (this.index < 0) {
-                    this.index = length;
-                }
-            break;
-
-            // Cycle downwards (down)
-            case 40:
-                this.index += (items[this.index + 1] ? 1 : 2); // category check
-
-                if (this.index >= length) {
-                    this.index = -1;
-                }
-            break;
-
-            // Select first (tab)
-            case 9:
-                e.preventDefault();
-
-                var i = 0;
-
-                while (!this.items[i]) {
-                    i++;
-                }
-
-                this.index = i;
-                this.hide();
-            break;
-
-            // Select current index (enter)
-            case 13:
-                this.hide();
-            break;
-
-            // Reset (esc)
-            case 27:
-                this.index = -1;
-                this.hide();
-            break;
-
-            // Cancel others
-            default:
-                return;
-        }
-
-        if (this.shadow) {
-            this.shadow.val('');
-        }
-
-        // Select the item
-        this.select(this.index);
-    };
-
-    /**
-     * Lookup items based on the current input value.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    TypeAhead.__lookup = function(e) {
-        if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
-            return; // Handle with _cycle()
-        }
-
-        window.clearTimeout(this.timer);
-
-        var term = this.input.val().trim();
-
-        if (term.length < this.options.minLength) {
-            this.fireEvent('reset');
-            this.hide();
-
-        } else {
+            // Apply the shadow text
             this._shadow();
-            this.lookup(term);
-        }
-    };
 
-    /**
-     * Event handler to select an item from the list.
-     *
-     * @private
-     * @param {Number} index
-     */
-    TypeAhead.__select = function(index) {
-        this.select(index);
-        this.hide();
-    };
+            // Position the list
+            this.position();
+
+            this.fireEvent('show');
+
+            return this;
+        },
+
+        /**
+         * Rewind the cycle pointer to the beginning.
+         *
+         * @returns {Toolkit.TypeAhead}
+         */
+        rewind: function() {
+            this.index = -1;
+            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
+
+            return this;
+        },
+
+        /**
+         * Select an item in the list.
+         *
+         * @param {Number} index
+         * @param {String} event
+         * @returns {Toolkit.TypeAhead}
+         */
+        select: function(index, event) {
+            this.index = index;
+
+            var rows = this.element.find('li');
+
+            rows.removeClass(Toolkit.options.isPrefix + 'active');
+
+            // Select
+            if (index >= 0) {
+                if (this.items[index]) {
+                    var item = this.items[index];
+
+                    rows.item(index).addClass(Toolkit.options.isPrefix + 'active');
+
+                    this.input.val(item.title);
+
+                    this.fireEvent(event || 'select', [item, index]);
+                }
+
+            // Reset
+            } else {
+                this.input.val(this.term);
+
+                this.fireEvent('reset');
+            }
+
+            return this;
+        },
+
+        /**
+         * Sort the items.
+         *
+         * @param {Array} items
+         * @returns {Array}
+         */
+        sort: function(items) {
+            return items.sort(function(a, b) {
+                return a.title.localeCompare(b.title);
+            });
+        },
+
+        /**
+         * Monitor the current input term to determine the shadow text.
+         * Shadow text will reference the term cache.
+         *
+         * @private
+         */
+        _shadow: function() {
+            if (!this.shadow) {
+                return;
+            }
+
+            var term = this.input.val(),
+                termLower = term.toLowerCase(),
+                value = '';
+
+            if (this.cache[termLower] && this.cache[termLower][0]) {
+                var title = this.cache[termLower][0].title;
+
+                if (title.toLowerCase().indexOf(termLower) === 0) {
+                    value = term + title.substr(term.length, (title.length - term.length));
+                }
+            }
+
+            this.shadow.val(value);
+        },
+
+        /**
+         * Cycle through the items in the list when an arrow key, esc or enter is released.
+         *
+         * @private
+         * @param {DOMEvent} e
+         */
+        __cycle: function(e) {
+            var items = this.items,
+                length = Math.min(this.options.itemLimit, Math.max(0, items.length));
+
+            if (!length || !this.element.is(':shown')) {
+                return;
+            }
+
+            switch (e.keyCode) {
+                // Cycle upwards (up)
+                case 38:
+                    this.index -= (items[this.index - 1] ? 1 : 2); // category check
+
+                    if (this.index < 0) {
+                        this.index = length;
+                    }
+                break;
+
+                // Cycle downwards (down)
+                case 40:
+                    this.index += (items[this.index + 1] ? 1 : 2); // category check
+
+                    if (this.index >= length) {
+                        this.index = -1;
+                    }
+                break;
+
+                // Select first (tab)
+                case 9:
+                    e.preventDefault();
+
+                    var i = 0;
+
+                    while (!this.items[i]) {
+                        i++;
+                    }
+
+                    this.index = i;
+                    this.hide();
+                break;
+
+                // Select current index (enter)
+                case 13:
+                    this.hide();
+                break;
+
+                // Reset (esc)
+                case 27:
+                    this.index = -1;
+                    this.hide();
+                break;
+
+                // Cancel others
+                default:
+                    return;
+            }
+
+            if (this.shadow) {
+                this.shadow.val('');
+            }
+
+            // Select the item
+            this.select(this.index);
+        },
+
+        /**
+         * Lookup items based on the current input value.
+         *
+         * @private
+         * @param {DOMEvent} e
+         */
+        __lookup: function(e) {
+            if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
+                return; // Handle with _cycle()
+            }
+
+            clearTimeout(this.timer);
+
+            var term = this.input.val().trim();
+
+            if (term.length < this.options.minLength) {
+                this.fireEvent('reset');
+                this.hide();
+
+            } else {
+                this._shadow();
+                this.lookup(term);
+            }
+        },
+
+        /**
+         * Event handler to select an item from the list.
+         *
+         * @private
+         * @param {Number} index
+         */
+        __select: function(index) {
+            this.select(index);
+            this.hide();
+        }
+
+    }, {
+        className: '',
+        source: [],
+        minLength: 1,
+        itemLimit: 15,
+        throttle: 250,
+        prefetch: false,
+        shadow: false,
+        storage: 'session',
+        query: {},
+        contentElement: '',
+        template: '<div class="type-ahead"></div>',
+
+        // Callbacks
+        sorter: null,
+        matcher: null,
+        builder: null
+    });
 
     /**
      * Defines a component that can be instantiated through typeAhead().

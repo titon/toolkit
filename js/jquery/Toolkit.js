@@ -87,7 +87,12 @@ window.Toolkit = {
                     })());
                 });
             };
-    }
+    },
+
+    /**
+     * Empty class to inherit from.
+     */
+    Class: function() {}
 
 };
 
@@ -404,17 +409,24 @@ $.hyphenate = function(string) {
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
  *
+ * @param {Function} base
+ * @param {Object} properties
+ * @param {Object} options
  * @returns {Function}
  */
-if (!Function.prototype.create) {
-    Function.prototype.create = function(base) {
-        // Extend the prototype else we'll run into weird shared inheritance bugs
-        base.prototype = $.extend({}, this.prototype);
-        base.prototype.constructor = base;
+Function.prototype.create = function(base, properties, options) {
+    $.extend(base.prototype, this.prototype, properties);
 
-        return base;
-    };
-}
+    // Use function a constructor
+    base.prototype.constructor = base;
+
+    // Set default options
+    if (options) {
+        base.options = options;
+    }
+
+    return base;
+};
 
 /**
  * Polyfill for ECMA5 Function.bind().
@@ -427,16 +439,16 @@ if (!Function.prototype.bind) {
     Function.prototype.bind = function(context) {
         var self = this,
             args = [].slice.call(arguments, 1),
-            func = function() {},
+            Func = function() {},
             bound = function() {
                 return self.apply(
-                    (this instanceof func && context) ? this : context,
+                    (this instanceof Func && context) ? this : context,
                     args.concat([].slice.call(arguments))
                 );
             };
 
-        func.prototype = this.prototype;
-        bound.prototype = new func();
+        Func.prototype = this.prototype;
+        bound.prototype = new Func();
 
         return bound;
     };

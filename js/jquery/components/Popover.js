@@ -8,30 +8,39 @@
     'use strict';
 
     Toolkit.Popover = Toolkit.Tooltip.create(function(nodes, options) {
+        var element;
+
         this.component = 'Popover';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Popover.options, options);
+        // Custom options
+        this.options = options = this.setOptions(options);
 
-        /** List of nodes to activate tooltip */
-        this.nodes = $(nodes);
+        // List of nodes to activate tooltip
+        this.nodes = nodes = $(nodes);
 
-        /** Tooltip wrapper */
-        this.element = this.createElement(this.options);
+        // The current node
+        this.node = null;
 
-        /** Inner elements */
-        this.elementHead = null;
-        this.elementBody = null;
+        // Tooltip wrapper
+        this.element = element = this.createElement();
+        this.elementHead = element.find(options.titleElement);
+        this.elementBody = element.find(options.contentElement);
 
-        /** Cached requests */
+        // Cached requests
         this.cache = {};
 
-        this.initialize();
-    });
+        // Add position class
+        element
+            .addClass($.hyphenate(options.position))
+            .clickout(this.hide.bind(this));
 
-    Toolkit.Popover.options = {
-        mode: 'click',
+        // Set events
+        $(options.context || document)
+            .on('click', nodes.selector, this.__show.bind(this));
+
+        this.fireEvent('init');
+    }, {}, {
         ajax: false,
         position: 'topCenter',
         loadingMessage: Toolkit.messages.loading,
@@ -51,7 +60,7 @@
             '</div>' +
             '<div class="popover-arrow"></div>' +
         '</div>'
-    };
+    });
 
     /**
      * Defines a component that can be instantiated through popover().

@@ -8,32 +8,223 @@
     'use strict';
 
     Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
+        var element;
+
         this.component = 'Tooltip';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Tooltip.options, options);
+        // Custom options
+        this.options = options = this.setOptions(options);
 
-        /** List of nodes to activate tooltip */
-        this.nodes = $(nodes);
+        // List of nodes to activate tooltip
+        this.nodes = nodes = $(nodes);
 
-        /** The current node */
+        // The current node
         this.node = null;
 
-        /** Tooltip wrapper */
-        this.element = this.createElement(this.options);
+        // Tooltip wrapper
+        this.element = element = this.createElement();
+        this.elementHead = element.find(options.titleElement);
+        this.elementBody = element.find(options.contentElement);
 
-        /** Inner elements */
-        this.elementHead = null;
-        this.elementBody = null;
-
-        /** Cached requests */
+        // Cached requests
         this.cache = {};
 
-        this.initialize();
-    });
+        // Add position class
+        element.addClass($.hyphenate(options.position));
 
-    Toolkit.Tooltip.options = {
+        // Set events
+        $(options.context || document)
+            .on((options.mode === 'click' ? 'click' : 'mouseover'), nodes.selector, this.__show.bind(this));
+
+        if (options.mode === 'click') {
+            element.clickout(this.hide.bind(this));
+        }
+
+        this.fireEvent('init');
+    }, {
+
+        /**
+         * Hide the tooltip.
+         *
+         * @returns {Toolkit.Tooltip}
+         */
+        hide: function() {
+            this.element.conceal();
+            this.fireEvent('hide');
+
+            return this;
+        },
+
+        /**
+         * Positions the tooltip relative to the current node or the mouse cursor.
+         * Additionally will apply the title/content and hide/show if necessary.
+         *
+         * @param {String|jQuery} [content]
+         * @param {String|jQuery} [title]
+         * @returns {Toolkit.Tooltip}
+         */
+        position: function(content, title) {
+            var options = this.options;
+
+            // AJAX is currently loading
+            if (content === true) {
+                return this;
+            }
+
+            // Set title
+            title = title || this.readValue(this.node, options.getTitle);
+
+            if (title && options.showTitle) {
+                this.elementHead.html(title).show();
+            } else {
+                this.elementHead.hide();
+            }
+
+            // Set body
+            if (content) {
+                this.elementBody.html(content).show();
+            } else {
+                this.elementBody.hide();
+            }
+
+            this.fireEvent('load', content);
+
+            // Follow the mouse
+            if (options.follow) {
+                var follow = this.__follow.bind(this);
+
+                this.node
+                    .off('mousemove', follow)
+                    .on('mousemove', follow);
+
+                this.fireEvent('show');
+
+                // Position accordingly
+            } else {
+                this.element.positionTo(options.position, this.node, {
+                    left: options.xOffset,
+                    top: options.yOffset
+                });
+
+                setTimeout(function() {
+                    this.element.reveal();
+                    this.fireEvent('show');
+                }.bind(this), options.delay || 0);
+            }
+
+            return this;
+        },
+
+        /**
+         * Show the tooltip and determine whether to grab the content from an AJAX call,
+         * a DOM node, or plain text. The content and title can also be passed as arguments.
+         *
+         * @param {jQuery} node
+         * @param {String|jQuery} [content]
+         * @param {String|jQuery} [title]
+         * @returns {Toolkit.Tooltip}
+         */
+        show: function(node, content, title) {
+            var options = this.options;
+
+            if (node) {
+                node = $(node);
+
+                if (options.mode === 'hover') {
+                    node
+                        .off('mouseleave', this.hide.bind(this))
+                        .on('mouseleave', this.hide.bind(this));
+                }
+
+                content = content || this.readValue(node, options.getContent);
+            }
+
+            if (!content) {
+                return this;
+            }
+
+            this.node = node;
+
+            if (options.ajax) {
+                if (this.cache[content]) {
+                    this.position(this.cache[content], title);
+                } else {
+                    if (options.showLoading) {
+                        this.position(options.loadingMessage);
+                    }
+
+                    this.requestData(content);
+                }
+            } else {
+                if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+                    content = $(content).html();
+                }
+
+                this.position(content, title);
+            }
+
+            return this;
+        },
+
+        /**
+         * Event handler for positioning the tooltip by the mouse.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __follow: function(e) {
+            e.preventDefault();
+
+            var options = this.options;
+
+            this.element.positionTo(options.position, e, {
+                left: options.xOffset,
+                top: options.yOffset
+            }, true).reveal();
+        },
+
+        /**
+         * Event handler for showing the tooltip.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __show: function(e) {
+            var node = $(e.target),
+                isNode = (this.node && node[0] === this.node[0]);
+
+            if (this.element.is(':shown')) {
+
+                // Touch devices should pass through on second click
+                if (Toolkit.isTouch) {
+                    if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                        e.preventDefault();
+                    }
+
+                // Non-touch devices
+                } else {
+                    e.preventDefault();
+                }
+
+                // Second click should close it
+                if (this.options.mode === 'click') {
+                    this.hide();
+                }
+
+                // Exit if the same node so it doesn't re-open
+                if (isNode) {
+                    return;
+                }
+
+            } else {
+                e.preventDefault();
+            }
+
+            this.show(node);
+        }
+
+    }, {
         mode: 'hover',
         ajax: false,
         follow: false,
@@ -56,212 +247,7 @@
             '</div>' +
             '<div class="tooltip-arrow"></div>' +
         '</div>'
-    };
-
-    var Tooltip = Toolkit.Tooltip.prototype;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    Tooltip.initialize = function() {
-        var options = this.options;
-
-        this.elementHead = this.element.find(options.titleElement);
-        this.elementBody = this.element.find(options.contentElement);
-
-        // Add position class
-        this.element.addClass($.hyphenate(options.position));
-
-        // Set events
-        $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseover'), this.nodes.selector, this.__show.bind(this));
-
-        if (options.mode === 'click') {
-            this.element.clickout(this.hide.bind(this));
-        }
-
-        this.fireEvent('init');
-    };
-
-    /**
-     * Hide the tooltip.
-     *
-     * @returns {Toolkit.Tooltip}
-     */
-    Tooltip.hide = function() {
-        this.element.conceal();
-        this.fireEvent('hide');
-
-        return this;
-    };
-
-    /**
-     * Positions the tooltip relative to the current node or the mouse cursor.
-     * Additionally will apply the title/content and hide/show if necessary.
-     *
-     * @param {String|jQuery} [content]
-     * @param {String|jQuery} [title]
-     * @returns {Toolkit.Tooltip}
-     */
-    Tooltip.position = function(content, title) {
-        var options = this.options;
-
-        // AJAX is currently loading
-        if (content === true) {
-            return this;
-        }
-
-        // Set title
-        title = title || this.readValue(this.node, options.getTitle);
-
-        if (title && options.showTitle) {
-            this.elementHead.html(title).show();
-        } else {
-            this.elementHead.hide();
-        }
-
-        // Set body
-        if (content) {
-            this.elementBody.html(content).show();
-        } else {
-            this.elementBody.hide();
-        }
-
-        this.fireEvent('load', content);
-
-        // Follow the mouse
-        if (options.follow) {
-            var follow = this.__follow.bind(this);
-
-            this.node
-                .off('mousemove', follow)
-                .on('mousemove', follow);
-
-            this.fireEvent('show');
-
-            // Position accordingly
-        } else {
-            this.element.positionTo(options.position, this.node, {
-                left: options.xOffset,
-                top: options.yOffset
-            });
-
-            window.setTimeout(function() {
-                this.element.reveal();
-                this.fireEvent('show');
-            }.bind(this), options.delay || 0);
-        }
-
-        return this;
-    };
-
-    /**
-     * Show the tooltip and determine whether to grab the content from an AJAX call,
-     * a DOM node, or plain text. The content and title can also be passed as arguments.
-     *
-     * @param {jQuery} node
-     * @param {String|jQuery} [content]
-     * @param {String|jQuery} [title]
-     * @returns {Toolkit.Tooltip}
-     */
-    Tooltip.show = function(node, content, title) {
-        var options = this.options;
-
-        if (node) {
-            node = $(node);
-
-            if (options.mode === 'hover') {
-                node
-                    .off('mouseleave', this.hide.bind(this))
-                    .on('mouseleave', this.hide.bind(this));
-            }
-
-            content = content || this.readValue(node, options.getContent);
-        }
-
-        if (!content) {
-            return this;
-        }
-
-        this.node = node;
-
-        if (options.ajax) {
-            if (this.cache[content]) {
-                this.position(this.cache[content], title);
-            } else {
-                if (options.showLoading) {
-                    this.position(options.loadingMessage);
-                }
-
-                this.requestData(content);
-            }
-        } else {
-            if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-                content = $(content).html();
-            }
-
-            this.position(content, title);
-        }
-
-        return this;
-    };
-
-    /**
-     * Event handler for positioning the tooltip by the mouse.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Tooltip.__follow = function(e) {
-        e.preventDefault();
-
-        var options = this.options;
-
-        this.element.positionTo(options.position, e, {
-            left: options.xOffset,
-            top: options.yOffset
-        }, true).reveal();
-    };
-
-    /**
-     * Event handler for showing the tooltip.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Tooltip.__show = function(e) {
-        var node = $(e.target),
-            isNode = (this.node && node[0] === this.node[0]);
-
-        if (this.element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
-            if (isNode) {
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
-    };
+    });
 
     /**
      * Defines a component that can be instantiated through tooltip().

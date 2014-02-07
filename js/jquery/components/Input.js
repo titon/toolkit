@@ -10,84 +10,65 @@
     Toolkit.Input = Toolkit.Component.create(function(element, options) {
         this.component = 'Input';
         this.version = '0.0.0';
-
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Input.options, options);
-
-        /** List of form elements */
-        this.element = this.setElement(element, this.options);
-
-        this.initialize();
-    });
-
-    Toolkit.Input.options = {
-        checkbox: 'input:checkbox',
-        radio: 'input:radio',
-        select: 'select'
-    };
-
-    var Input = Toolkit.Input.prototype;
-
-    /**
-     * Replace specific form elements with custom replacements.
-     */
-    Input.initialize = function() {
-        if (!this.element) {
-            return;
-        }
-
-        var options = this.options;
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
         if (options.checkbox) {
-            this.element.find(options.checkbox).inputCheckbox(options);
+            element.find(options.checkbox).inputCheckbox(options);
         }
 
         if (options.radio) {
-            this.element.find(options.radio).inputRadio(options);
+            element.find(options.radio).inputRadio(options);
         }
 
         if (options.select) {
-            this.element.find(options.select).inputSelect(options);
+            element.find(options.select).inputSelect(options);
         }
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Build the element to wrap custom inputs with.
-     * Copy over the original class names.
-     *
-     * @returns {jQuery}
-     */
-    Input.buildWrapper = function() {
-        var wrapper = $('<div/>')
-            .addClass(Toolkit.options.vendor + 'custom-input')
-            .insertBefore(this.input)
-            .append(this.input);
+        /**
+         * Build the element to wrap custom inputs with.
+         * Copy over the original class names.
+         *
+         * @returns {jQuery}
+         */
+        buildWrapper: function() {
+            var wrapper = $('<div/>')
+                .addClass(Toolkit.options.vendor + 'custom-input')
+                .insertBefore(this.input)
+                .append(this.input);
 
-        if (this.options.copyClasses) {
-            this.copyClasses(this.input, wrapper);
+            if (this.options.copyClasses) {
+                this.copyClasses(this.input, wrapper);
+            }
+
+            return wrapper;
+        },
+
+        /**
+         * Copy classes from one element to another, but do not copy .input classes.
+         *
+         * @param {jQuery} from
+         * @param {jQuery} to
+         * @returns {Toolkit.Input}
+         */
+        copyClasses: function(from, to) {
+            var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
+
+            if (classes) {
+                $(to).addClass(classes);
+            }
+
+            return this;
         }
 
-        return wrapper;
-    };
-
-    /**
-     * Copy classes from one element to another, but do not copy .input classes.
-     *
-     * @param {jQuery} from
-     * @param {jQuery} to
-     * @returns {Toolkit.Input}
-     */
-    Input.copyClasses = function(from, to) {
-        var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
-
-        if (classes) {
-            $(to).addClass(classes);
-        }
-
-        return this;
-    };
+    }, {
+        checkbox: 'input:checkbox',
+        radio: 'input:radio',
+        select: 'select'
+    });
 
     /**
      * Wraps a checkbox with a custom input.
@@ -97,16 +78,16 @@
         this.component = 'Input.Checkbox';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Input.Checkbox.options, options);
+        // Custom options
+        this.options = this.setOptions(options);
 
-        /** Base input */
+        // Base input
         this.input = $(checkbox);
 
-        /** Wrapping div */
+        // Wrapping div
         this.wrapper = this.buildWrapper();
 
-        /** Custom input */
+        // Custom input
         this.element = this.setElement(
             $('<label/>')
                 .addClass(Toolkit.options.vendor + 'checkbox')
@@ -114,11 +95,10 @@
                 .insertAfter(this.input), this.options);
 
         this.fireEvent('init');
-    });
 
-    Toolkit.Input.Checkbox.options = {
+    }, {}, {
         copyClasses: true
-    };
+    });
 
     /**
      * Wraps a radio with a custom input.
@@ -128,16 +108,16 @@
         this.component = 'Input.Radio';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Input.Radio.options, options);
+        // Custom options
+        this.options = this.setOptions(options);
 
-        /** Base input */
+        // Base input
         this.input = $(radio);
 
-        /** Wrapping div */
+        // Wrapping div
         this.wrapper = this.buildWrapper();
 
-        /** Custom input */
+        // Custom input
         this.element = this.setElement(
             $('<label/>')
                 .addClass(Toolkit.options.vendor + 'radio')
@@ -145,11 +125,10 @@
                 .insertAfter(this.input), this.options);
 
         this.fireEvent('init');
-    });
 
-    Toolkit.Input.Radio.options = {
+    }, {}, {
         copyClasses: true
-    };
+    });
 
     /**
      * Wraps a select dropdown with a custom input.
@@ -159,55 +138,33 @@
         this.component = 'Input.Select';
         this.version = '0.0.0';
 
-        /** Custom options */
-        this.options = this.setOptions(Toolkit.Input.Select.options, options);
+        // Custom options
+        this.options = options = this.setOptions(options);
 
-        /** Base input */
-        this.input = $(select);
+        // Base input
+        this.input = select = $(select);
 
-        /** Is it a multi-select */
-        this.multiple = this.input.prop('multiple');
+        // Is it a multi-select
+        this.multiple = select.prop('multiple');
 
         // Multiple selects must use native controls
-        if (this.multiple && this.options.native) {
+        if (this.multiple && options.native) {
             return;
         }
 
-        /** Wrapping div */
+        // Wrapping div
         this.wrapper = this.buildWrapper();
 
-        /** Custom input */
+        // Custom input
         this.element = this.buildButton();
 
-        /** Custom dropdown */
+        // Custom dropdown
         this.dropdown = null;
 
-        /** Current index while cycling through options */
+        // Current index while cycling through options
         this.currentIndex = 0;
 
-        this.initialize();
-    });
-
-    Toolkit.Input.Select.options = {
-        copyClasses: true,
-        native: false,
-        multipleFormat: 'count', // count, list
-        countMessage: '{count} of {total} selected',
-        listLimit: 3,
-        hideFirst: false,
-        hideSelected: false,
-        arrowContent: '<span class="caret-down"></span>',
-        getDefaultLabel: 'title',
-        getOptionLabel: 'title',
-        getDescription: 'data-description'
-    };
-
-    var Select = Toolkit.Input.Select.prototype;
-
-    /**
-     * Wrap the select with a custom element.
-     */
-    Select.initialize = function() {
+        // Set events
         this.input.change(this.__change.bind(this));
 
         if (!this.options.native) {
@@ -234,359 +191,373 @@
         this.input.change();
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Build the element to represent the select button with label and arrow.
-     *
-     * @returns {jQuery}
-     */
-    Select.buildButton = function() {
-        var vendor = Toolkit.options.vendor,
-            button = $('<div/>')
-                .addClass(vendor + 'select')
-                .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
-                .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.options.loadingMessage) )
-                .css('min-width', this.input.width())
-                .insertAfter(this.input);
+        /**
+         * Build the element to represent the select button with label and arrow.
+         *
+         * @returns {jQuery}
+         */
+        buildButton: function() {
+            var vendor = Toolkit.options.vendor,
+                button = $('<div/>')
+                    .addClass(vendor + 'select')
+                    .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
+                    .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.options.loadingMessage) )
+                    .css('min-width', this.input.width())
+                    .insertAfter(this.input);
 
-        // Hide the options be forcing a height on the select
-        if (this.multiple) {
-            this.input.css('max-height', button.height());
-        }
+            // Hide the options be forcing a height on the select
+            if (this.multiple) {
+                this.input.css('max-height', button.height());
+            }
 
-        return button;
-    };
+            return button;
+        },
 
-    /**
-     * Build the custom dropdown to hold a list of option items.
-     *
-     * @returns {Toolkit.Input.Select}
-     */
-    Select.buildDropdown = function() {
-        var vendor = Toolkit.options.vendor,
-            select = this.input,
-            options = this.options,
-            buildOption = this.buildOption.bind(this),
-            dropdown = $('<div/>').addClass(vendor + 'drop--down').addClass(vendor + 'select-options'),
-            list = $('<ul/>'),
-            index = 0,
-            self = this;
+        /**
+         * Build the custom dropdown to hold a list of option items.
+         *
+         * @returns {Toolkit.Input.Select}
+         */
+        buildDropdown: function() {
+            var vendor = Toolkit.options.vendor,
+                select = this.input,
+                options = this.options,
+                buildOption = this.buildOption.bind(this),
+                dropdown = $('<div/>').addClass(vendor + 'drop--down').addClass(vendor + 'select-options'),
+                list = $('<ul/>'),
+                index = 0,
+                self = this;
 
-        this.dropdown = dropdown;
+            this.dropdown = dropdown;
 
-        select.children().each(function() {
-            var optgroup = $(this);
+            select.children().each(function() {
+                var optgroup = $(this);
 
-            if (optgroup.prop('tagName').toLowerCase() === 'optgroup') {
-                if (index === 0) {
-                    options.hideFirst = false;
-                }
-
-                list.append(
-                    $('<li/>')
-                        .addClass(vendor + 'drop-heading')
-                        .text(optgroup.attr('label'))
-                );
-
-                optgroup.children().each(function() {
-                    var option = $(this);
-
-                    if (optgroup.prop('disabled')) {
-                        option.prop('disabled', true);
+                if (optgroup.prop('tagName').toLowerCase() === 'optgroup') {
+                    if (index === 0) {
+                        options.hideFirst = false;
                     }
 
-                    if (option.prop('selected')) {
+                    list.append(
+                        $('<li/>')
+                            .addClass(vendor + 'drop-heading')
+                            .text(optgroup.attr('label'))
+                    );
+
+                    optgroup.children().each(function() {
+                        var option = $(this);
+
+                        if (optgroup.prop('disabled')) {
+                            option.prop('disabled', true);
+                        }
+
+                        if (option.prop('selected')) {
+                            self.currentIndex = index;
+                        }
+
+                        list.append( buildOption(option, index) );
+                        index++;
+                    });
+                } else {
+                    if (optgroup.prop('selected')) {
                         self.currentIndex = index;
                     }
 
-                    list.append( buildOption(option, index) );
+                    list.append( buildOption(optgroup, index) );
                     index++;
-                });
-            } else {
-                if (optgroup.prop('selected')) {
-                    self.currentIndex = index;
                 }
+            });
 
-                list.append( buildOption(optgroup, index) );
-                index++;
+            if (options.hideSelected && !options.multiple) {
+                dropdown.addClass('hide-selected');
             }
-        });
 
-        if (options.hideSelected && !options.multiple) {
-            dropdown.addClass('hide-selected');
-        }
+            if (options.hideFirst) {
+                dropdown.addClass('hide-first');
+            }
 
-        if (options.hideFirst) {
-            dropdown.addClass('hide-first');
-        }
+            if (this.multiple) {
+                dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
+            }
 
-        if (select.multiple) {
-            dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
-        }
+            this.wrapper.append(dropdown.append(list));
 
-        this.wrapper.append(dropdown.append(list));
+            return this;
+        },
 
-        return this;
-    };
+        /**
+         * Build the list item to represent the select option.
+         *
+         * @param {jQuery} option
+         * @param {Number} index
+         * @returns {jQuery}
+         */
+        buildOption: function(option, index) {
+            var select = this.input,
+                dropdown = this.dropdown,
+                activeClass = Toolkit.options.isPrefix + 'active';
 
-    /**
-     * Build the list item to represent the select option.
-     *
-     * @param {jQuery} option
-     * @param {Number} index
-     * @returns {jQuery}
-     */
-    Select.buildOption = function(option, index) {
-        var select = this.input,
-            dropdown = this.dropdown,
-            activeClass = Toolkit.options.isPrefix + 'active';
+            // Create elements
+            var li = $('<li/>'),
+                content = option.text(),
+                description;
 
-        // Create elements
-        var li = $('<li/>'),
-            content = option.text(),
-            description;
+            if (option.prop('selected')) {
+                li.addClass(activeClass);
+            }
 
-        if (option.prop('selected')) {
-            li.addClass(activeClass);
-        }
+            if (description = this.readValue(option, this.options.getDescription)) {
+                content += ' <span class="' + Toolkit.options.vendor + 'drop-desc">' + description + '</span>';
+            }
 
-        if (description = this.readValue(option, this.options.getDescription)) {
-            content += ' <span class="' + Toolkit.options.vendor + 'drop-desc">' + description + '</span>';
-        }
+            var a = $('<a/>')
+                .html(content)
+                .attr('href', 'javascript:;');
 
-        var a = $('<a/>')
-            .html(content)
-            .attr('href', 'javascript:;');
+            if (this.options.copyClasses) {
+                this.copyClasses(option, li);
+            }
 
-        if (this.options.copyClasses) {
-            this.copyClasses(option, li);
-        }
+            li.append(a);
 
-        li.append(a);
+            // Attach no events for disabled options
+            if (option.prop('disabled')) {
+                li.addClass(Toolkit.options.isPrefix + 'disabled');
 
-        // Attach no events for disabled options
-        if (option.prop('disabled')) {
-            li.addClass(Toolkit.options.isPrefix + 'disabled');
+                return li;
+            }
+
+            // Set events
+            if (this.multiple) {
+                a.click(function() {
+                    if (option.prop('selected')) {
+                        option.prop('selected', false);
+                        $(this).parent().removeClass(activeClass);
+
+                    } else {
+                        option.prop('selected', true);
+                        $(this).parent().addClass(activeClass);
+                    }
+
+                    select.change();
+                });
+
+            } else {
+                var self = this;
+
+                a.click(function() {
+                    dropdown.find('li').removeClass(activeClass);
+                    $(this).parent().addClass(activeClass);
+
+                    self.hide();
+                    self.currentIndex = index;
+
+                    select.val(option.val());
+                    select.change();
+                });
+            }
 
             return li;
-        }
+        },
 
-        // Set events
-        if (this.multiple) {
-            a.click(function() {
-                if (option.prop('selected')) {
-                    option.prop('selected', false);
-                    $(this).parent().removeClass(activeClass);
+        /**
+         * Hide the dropdown and remove active states.
+         *
+         * @returns {Toolkit.Input.Select}
+         */
+        hide: function() {
+            this.element.removeClass(Toolkit.options.isPrefix + 'active');
 
-                } else {
-                    option.prop('selected', true);
-                    $(this).parent().addClass(activeClass);
+            if (this.dropdown) {
+                this.dropdown.conceal();
+            }
+
+            this.fireEvent('hide');
+
+            return this;
+        },
+
+        /**
+         * Show the dropdown and apply active states.
+         *
+         * @returns {Toolkit.Input.Select}
+         */
+        show: function() {
+            this.element.addClass(Toolkit.options.isPrefix + 'active');
+
+            if (this.dropdown) {
+                this.dropdown.reveal();
+            }
+
+            this.fireEvent('show');
+
+            return this;
+        },
+
+        /**
+         * Event handler for select option changing.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __change: function(e) {
+            var select = $(e.target),
+                options = select.find('option'),
+                selected = [],
+                label = [],
+                self = this;
+
+            // Fetch label from selected option
+            options.each(function() {
+                if (this.selected) {
+                    selected.push( this );
+                    label.push( self.readValue(this, self.options.getOptionLabel) || this.textContent );
                 }
-
-                select.change();
             });
 
-        } else {
-            var self = this;
+            // Reformat label if needed
+            if (this.multiple) {
+                var title = this.readValue(select, this.options.getDefaultLabel),
+                    format = this.options.multipleFormat,
+                    count = label.length;
 
-            a.click(function() {
-                dropdown.find('li').removeClass(activeClass);
-                $(this).parent().addClass(activeClass);
+                // Use default title if nothing selected
+                if (!label.length && title) {
+                    label = title;
 
-                self.hide();
-                self.currentIndex = index;
+                    // Display a counter for label
+                } else if (format === 'count') {
+                    label = this.options.countMessage
+                        .replace('{count}', count)
+                        .replace('{total}', options.length);
 
-                select.val(option.val());
-                select.change();
-            });
-        }
+                    // Display options as a list for label
+                } else if (format === 'list') {
+                    var limit = this.options.listLimit;
 
-        return li;
-    };
+                    label = label.splice(0, limit).join(', ');
 
-    /**
-     * Hide the dropdown and remove active states.
-     *
-     * @returns {Toolkit.Input.Select}
-     */
-    Select.hide = function() {
-        this.element.removeClass(Toolkit.options.isPrefix + 'active');
-
-        if (this.dropdown) {
-            this.dropdown.conceal();
-        }
-
-        this.fireEvent('hide');
-
-        return this;
-    };
-
-    /**
-     * Show the dropdown and apply active states.
-     *
-     * @returns {Toolkit.Input.Select}
-     */
-    Select.show = function() {
-        this.element.addClass(Toolkit.options.isPrefix + 'active');
-
-        if (this.dropdown) {
-            this.dropdown.reveal();
-        }
-
-        this.fireEvent('show');
-
-        return this;
-    };
-
-    /**
-     * Event handler for select option changing.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Select.__change = function(e) {
-        var select = $(e.target),
-            options = select.find('option'),
-            selected = [],
-            label = [],
-            self = this;
-
-        // Fetch label from selected option
-        options.each(function() {
-            if (this.selected) {
-                selected.push( this );
-                label.push( self.readValue(this, self.options.getOptionLabel) || this.textContent );
-            }
-        });
-
-        // Reformat label if needed
-        if (this.multiple) {
-            var title = this.readValue(select, this.options.getDefaultLabel),
-                format = this.options.multipleFormat,
-                count = label.length;
-
-            // Use default title if nothing selected
-            if (!label.length && title) {
-                label = title;
-
-                // Display a counter for label
-            } else if (format === 'count') {
-                label = this.options.countMessage
-                    .replace('{count}', count)
-                    .replace('{total}', options.length);
-
-                // Display options as a list for label
-            } else if (format === 'list') {
-                var limit = this.options.listLimit;
-
-                label = label.splice(0, limit).join(', ');
-
-                if (limit < count) {
-                    label += ' ...';
+                    if (limit < count) {
+                        label += ' ...';
+                    }
                 }
+            } else {
+                label = label.join(', ');
             }
-        } else {
-            label = label.join(', ');
-        }
 
-        // Set the label
-        select.parent().find('.' + Toolkit.options.vendor + 'select-label')
-            .text(label);
+            // Set the label
+            select.parent().find('.' + Toolkit.options.vendor + 'select-label')
+                .text(label);
 
-        this.fireEvent('change', [select.get('value'), selected]);
-    };
+            this.fireEvent('change', [select.val(), selected]);
+        },
 
-    /**
-     * Event handler for cycling through options with up and down keys.
-     *
-     * @private
-     * @param {DOMEvent} e
-     */
-    Select.__cycle = function(e) {
-        if (!this.dropdown.is(':shown')) {
-            return;
-        }
+        /**
+         * Event handler for cycling through options with up and down keys.
+         *
+         * @private
+         * @param {DOMEvent} e
+         */
+        __cycle: function(e) {
+            if (!this.dropdown.is(':shown')) {
+                return;
+            }
 
-        if ($.inArray(e.keyCode, [38, 40, 13, 27]) >= 0) {
-            e.preventDefault();
-        } else {
-            return;
-        }
+            if ($.inArray(e.keyCode, [38, 40, 13, 27]) >= 0) {
+                e.preventDefault();
+            } else {
+                return;
+            }
 
-        var options = this.input.find('option'),
-            items = this.dropdown.find('a'),
-            activeClass = Toolkit.options.isPrefix + 'active',
-            index = this.currentIndex;
+            var options = this.input.find('option'),
+                items = this.dropdown.find('a'),
+                activeClass = Toolkit.options.isPrefix + 'active',
+                index = this.currentIndex;
 
-        switch (e.keyCode) {
-            case 13: // enter
-            case 27: // esc
-                this.hide();
-            return;
-            case 38: // up
-                index = this.__loop(index, -1, options);
-            break;
-            case 40: // down
-                index = this.__loop(index, 1, options);
-            break;
-        }
+            switch (e.keyCode) {
+                case 13: // enter
+                case 27: // esc
+                    this.hide();
+                return;
+                case 38: // up
+                    index = this.__loop(index, -1, options);
+                break;
+                case 40: // down
+                    index = this.__loop(index, 1, options);
+                break;
+            }
 
-        options.prop('selected', false);
-        options[index].selected = true;
+            options.prop('selected', false);
+            options[index].selected = true;
 
-        items.parent().removeClass(activeClass);
-        items.item(index).parent().addClass(activeClass);
+            items.parent().removeClass(activeClass);
+            items.item(index).parent().addClass(activeClass);
 
-        this.currentIndex = index;
-        this.input.change();
-    };
+            this.currentIndex = index;
+            this.input.change();
+        },
 
-    /**
-     * Loop through the options and determine the index to select.
-     * Skip over missing options, disabled options, or hidden options.
-     *
-     * @private
-     * @param {Number} index
-     * @param {Number} step
-     * @param {jQuery} options
-     * @returns {Number}
-     */
-    Select.__loop = function(index, step, options) {
-        var hideFirst = this.options.hideFirst;
+        /**
+         * Loop through the options and determine the index to
+         * Skip over missing options, disabled options, or hidden options.
+         *
+         * @private
+         * @param {Number} index
+         * @param {Number} step
+         * @param {jQuery} options
+         * @returns {Number}
+         */
+        __loop: function(index, step, options) {
+            var hideFirst = this.options.hideFirst;
 
-        index += step;
-
-        while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
             index += step;
 
-            if (index >= options.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = options.length - 1;
+            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+                index += step;
+
+                if (index >= options.length) {
+                    index = 0;
+                } else if (index < 0) {
+                    index = options.length - 1;
+                }
+            }
+
+            return index;
+        },
+
+        /**
+         * Event handler for toggling custom dropdown display.
+         *
+         * @private
+         * @param {Event} e
+         */
+        __toggle: function(e) {
+            if (!this.enabled || this.input.prop('disabled')) {
+                return;
+            }
+
+            if (this.dropdown.is(':shown')) {
+                this.hide();
+            } else {
+                this.show();
             }
         }
 
-        return index;
-    };
-
-    /**
-     * Event handler for toggling custom dropdown display.
-     *
-     * @private
-     * @param {Event} e
-     */
-    Select.__toggle = function(e) {
-        if (!this.enabled || this.input.prop('disabled')) {
-            return;
-        }
-
-        if (this.dropdown.is(':shown')) {
-            this.hide();
-        } else {
-            this.show();
-        }
-    };
+    }, {
+        copyClasses: true,
+        native: false,
+        multipleFormat: 'count', // count, list
+        countMessage: '{count} of {total} selected',
+        listLimit: 3,
+        hideFirst: false,
+        hideSelected: false,
+        arrowContent: '<span class="caret-down"></span>',
+        getDefaultLabel: 'title',
+        getOptionLabel: 'title',
+        getDescription: 'data-description'
+    });
 
     /**
      * Define jQuery plugins that can be instantiated through
