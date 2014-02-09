@@ -56,7 +56,6 @@
          *
          * @param {Element} marker
          * @param {Element} target
-         * @returns {Toolkit.Stalker}
          */
         activate: function(marker, target) {
             this.marker = $(marker);
@@ -74,15 +73,12 @@
             }
 
             this.fireEvent('activate', [marker, target]);
-
-            return this;
         },
 
         /**
          * Deactivate the targets.
          *
          * @param {Element} marker
-         * @returns {Toolkit.Stalker}
          */
         deactivate: function(marker) {
             var targets = this.targets;
@@ -96,14 +92,10 @@
             this.marker = null;
             this.target = null;
             this.fireEvent('deactivate', marker);
-
-            return this;
         },
 
         /**
          * Gather the targets and markers used for stalking.
-         *
-         * @returns {Toolkit.Stalker}
          */
         refresh: function() {
             if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
@@ -135,8 +127,6 @@
             });
 
             this.offsets = offsets;
-
-            return this;
         },
 
         /**

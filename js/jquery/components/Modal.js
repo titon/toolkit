@@ -95,8 +95,6 @@
 
         /**
          * Hide the modal and reset relevant values.
-         *
-         * @returns {Toolkit.Modal}
          */
         hide: function() {
             this.element.conceal();
@@ -106,20 +104,17 @@
             }
 
             this.fireEvent('hide');
-
-            return this;
         },
 
         /**
          * Position the modal in the center of the screen.
          *
          * @param {String|jQuery} content
-         * @returns {Toolkit.Modal}
          */
         position: function(content) {
             // AJAX is currently loading
             if (content === true) {
-                return this;
+                return;
             }
 
             this.elementBody.html(content);
@@ -140,8 +135,6 @@
             }
 
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
@@ -151,7 +144,6 @@
          *
          * @param {jQuery} node
          * @param {String} [content]
-         * @returns {Toolkit.Modal}
          */
         show: function(node, content) {
             node = $(node);
@@ -173,7 +165,7 @@
             }
 
             if (!content) {
-                return this;
+                return;
             }
 
             this.node = node;
@@ -196,15 +188,13 @@
             } else {
                 this.position(content);
             }
-
-            return this;
         },
 
         /**
          * Event handler for hide().
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __hide: function(e) {
             e.preventDefault();
@@ -216,23 +206,21 @@
          * Event handler for show().
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             e.preventDefault();
 
-            if (!this.enabled) {
-                return;
+            if (this.enabled) {
+                this.show(e.currentTarget);
             }
-
-            this.show(e.currentTarget);
         },
 
         /**
          * Submit the form within the modal if it exists and re-render the modal with the response.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __submit: function(e) {
             e.preventDefault();

@@ -39,8 +39,6 @@
 
         /**
          * Calculate the dimensions and offsets of the interacting elements.
-         *
-         * @returns {Toolkit.Pin}
          */
         calculate: function() {
             var win = $(window),
@@ -54,8 +52,6 @@
             this.elementHeight = this.element.outerHeight();
             this.parentHeight = parent.outerHeight();
             this.parentTop = parent.offset().top;
-
-            return this;
         },
 
         /**

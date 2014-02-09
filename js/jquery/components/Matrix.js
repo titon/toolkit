@@ -38,7 +38,6 @@
 
         // Set events
         element.addClass(Toolkit.options.vendor + 'matrix');
-        this.items = element.find(options.selector);
 
         // Set events
         $(window).on('resize', $.debounce(this.__resize.bind(this)));
@@ -56,7 +55,6 @@
          * Append an item to the bottom of the
          *
          * @param {jQuery} item
-         * @returns {Toolkit.Matrix}
          */
         append: function(item) {
             $(item)
@@ -64,39 +62,30 @@
                 .appendTo(this.element)
                 .css('opacity', 0);
 
-            return this.refresh();
+            this.refresh();
         },
 
         /**
          * Remove required classes and set items back to defaults.
-         *
-         * @returns {Toolkit.Matrix}
          */
         disable: function() {
             this.enabled = false;
             this.element.removeAttr('style');
             this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
-
-            return this;
         },
 
         /**
          * Add required classes to elements.
-         *
-         * @returns {Toolkit.Matrix}
          */
         enable: function() {
             this.enabled = true;
             this.items.addClass(Toolkit.options.vendor + 'matrix-item');
-
-            return this;
         },
 
         /**
          * Prepend an item to the top of the
          *
          * @param {jQuery} item
-         * @returns {Toolkit.Matrix}
          */
         prepend: function(item) {
             $(item)
@@ -104,25 +93,21 @@
                 .prependTo(this.element)
                 .css('opacity', 0);
 
-            return this.refresh();
+            this.refresh();
         },
 
         /**
          * Fetch new items and re-render the grid.
-         *
-         * @returns {Toolkit.Matrix}
          */
         refresh: function() {
             this.items = this.element.find(this.options.selector);
-
-            return this.render();
+            this.render();
         },
 
         /**
          * Remove an item from the grid (and DOM) and re-render.
          *
          * @param {jQuery} item
-         * @returns {Toolkit.Matrix}
          */
         remove: function(item) {
             item = $(item).get(0);
@@ -138,19 +123,18 @@
                 return true;
             });
 
-            return this.refresh();
+            this.refresh();
         },
 
         /**
          * Calculate and position items in the grid.
-         *
-         * @returns {Toolkit.Matrix}
          */
         render: function() {
             this._calculateColumns();
 
             if (this.items.length < this.colCount) {
-                return this.disable();
+                this.disable();
+                return;
             } else {
                 this.enable();
             }
@@ -167,8 +151,6 @@
             }
 
             this.fireEvent('render');
-
-            return this;
         },
 
         /**
@@ -176,7 +158,6 @@
          * Modify the column width to account for gaps on either side.
          *
          * @private
-         * @returns {Toolkit.Matrix}
          */
         _calculateColumns: function() {
             var wrapperWidth = this.element.outerWidth(),
@@ -200,8 +181,6 @@
             this.wrapperWidth = wrapperWidth;
             this.colWidth = colWidth;
             this.colCount = cols;
-
-            return this;
         },
 
         /**
@@ -210,7 +189,6 @@
          * Uses a src swap trick to force load cached images.
          *
          * @private
-         * @returns {Toolkit.Matrix}
          */
         _deferRender: function() {
             this.imagesLoaded = 0;
@@ -229,8 +207,6 @@
             } else {
                 this.render();
             }
-
-            return this;
         },
 
         /**
@@ -238,7 +214,6 @@
          * If an item spans multiple columns, account for it by filling with an empty space.
          *
          * @private
-         * @returns {Toolkit.Matrix}
          */
         _organizeItems: function() {
             var item,
@@ -281,15 +256,12 @@
                     c = 0;
                 }
             }
-
-            return this;
         },
 
         /**
          * Loop through the items in each column and position them absolutely.
          *
          * @private
-         * @returns {Toolkit.Matrix}
          */
         _positionItems: function() {
             var gutter = this.options.gutter,
@@ -348,8 +320,6 @@
 
             // Set height of wrapper
             this.element.css('height', Math.max.apply(Math, y));
-
-            return this;
         },
 
         /**
@@ -357,7 +327,7 @@
          * Will defer rendering until all inline images are loaded.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __load: function(e) {
             if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
@@ -373,7 +343,7 @@
          * Event handler for browser resizing.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __resize: function(e) {
             if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {

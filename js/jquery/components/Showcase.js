@@ -79,8 +79,6 @@
 
         /**
          * Hide the showcase and reset inner elements.
-         *
-         * @returns {Toolkit.Showcase}
          */
         hide: function() {
             if (this.blackout) {
@@ -92,8 +90,9 @@
             }
 
             if (this.element.is(':shown')) {
-                this.element.conceal();
-                this.element.removeClass(Toolkit.options.isPrefix + 'single');
+                this.element
+                    .conceal()
+                    .removeClass(Toolkit.options.isPrefix + 'single');
 
                 this.items
                     .removeAttr('style')
@@ -101,8 +100,6 @@
 
                 this.fireEvent('hide');
             }
-
-            return this;
         },
 
         /**
@@ -111,7 +108,6 @@
          * If the index is too small, jump to the end.
          *
          * @param {Number} index
-         * @returns {Toolkit.Showcase}
          */
         jump: function(index) {
             if (index >= this.data.length) {
@@ -189,25 +185,17 @@
             }
 
             this.fireEvent('jump', index);
-
-            return this;
         },
 
         /**
          * Go to the next item.
-         *
-         * @returns {Toolkit.Showcase}
          */
         next: function() {
             this.jump(this.currentIndex + 1);
-
-            return this;
         },
 
         /**
          * Position the element in the middle of the screen.
-         *
-         * @returns {Toolkit.Showcase}
          */
         position: function() {
             if (this.blackout) {
@@ -217,19 +205,13 @@
             this.element.reveal();
 
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Go to the previous item.
-         *
-         * @returns {Toolkit.Showcase}
          */
         prev: function() {
             this.jump(this.currentIndex - 1);
-
-            return this;
         },
 
         /**
@@ -238,7 +220,6 @@
          * If a category exists, scrape data from multiple nodes.
          *
          * @param {Element} node
-         * @returns {Toolkit.Showcase}
          */
         show: function(node) {
             this.node = node = $(node);
@@ -288,8 +269,6 @@
 
             this._buildItems(items);
             this.jump(index);
-
-            return this;
         },
 
         /**
@@ -298,7 +277,6 @@
          *
          * @private
          * @param {Array} items
-         * @returns {Toolkit.Showcase}
          */
         _buildItems: function(items) {
             this.data = items;
@@ -323,8 +301,6 @@
             }
 
             this.fireEvent('load', items);
-
-            return this;
         },
 
         /**
@@ -333,7 +309,6 @@
          * @private
          * @param {Number} width
          * @param {Number} height
-         * @return {Toolkit.Showcase}
          */
         _resize: function(width, height) {
             var wWidth = $(window).width(),
@@ -363,8 +338,6 @@
                 width: width,
                 height: height
             });
-
-            return this;
         },
 
         /**
@@ -383,7 +356,7 @@
          * Event handler for show().
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             e.preventDefault();

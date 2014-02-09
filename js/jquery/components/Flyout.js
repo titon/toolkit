@@ -66,26 +66,21 @@
          * Clear a timer by key.
          *
          * @param {String} key
-         * @returns {Toolkit.Flyout}
          */
         clearTimer: function(key) {
             clearTimeout(this.timers[key]);
             delete this.timers[key];
-
-            return this;
         },
 
         /**
          * Hide the currently shown menu.
-         *
-         * @returns {Toolkit.Flyout}
          */
         hide: function() {
             // Must be called even if the menu is hidden
             this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
             if (!this.current || !this.isVisible()) {
-                return this;
+                return;
             }
 
             this.menus[this.current].conceal();
@@ -93,8 +88,6 @@
 
             // Reset last
             this.current = null;
-
-            return this;
         },
 
         /**
@@ -115,7 +108,6 @@
          *
          * @param {Object} data
          * @param {Number} [depth]
-         * @returns {Toolkit.Flyout}
          */
         load: function(data, depth) {
             depth = depth || 0;
@@ -133,21 +125,17 @@
                     this.load(data.children[i], depth + 1);
                 }
             }
-
-            return this;
         },
 
         /**
          * Position the menu below the target node.
-         *
-         * @returns {Toolkit.Flyout}
          */
         position: function() {
             var target = this.current,
                 options = this.options;
 
             if (!this.menus[target]) {
-                return this;
+                return;
             }
 
             var menu = this.menus[target],
@@ -168,15 +156,12 @@
             }).reveal();
 
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Show the menu below the node.
          *
          * @param {jQuery} node
-         * @returns {Toolkit.Flyout}
          */
         show: function(node) {
             var target = this._getTarget(node);
@@ -192,7 +177,7 @@
 
             // Find the menu, else create it
             if (!this._getMenu()) {
-                return this;
+                return;
             }
 
             this.fireEvent('load', node);
@@ -202,8 +187,6 @@
             if (this.options.mode === 'click') {
                 this.position();
             }
-
-            return this;
         },
 
         /**
@@ -211,8 +194,7 @@
          *
          * @param {String} key
          * @param {Number} delay
-         * @param {Array} args
-         * @returns {Toolkit.Flyout}
+         * @param {Array} [args]
          */
         startTimer: function(key, delay, args) {
             this.clearTimer(key);
@@ -230,8 +212,6 @@
                     func.apply(this, args || []);
                 }.bind(this), delay);
             }
-
-            return this;
         },
 
         /**
@@ -383,7 +363,7 @@
          * Get the target URL to determine which menu to show.
          *
          * @private
-         * @param {jQuery} node
+         * @param {jQuery} [node]
          * @returns {String}
          */
         _getTarget: function(node) {
@@ -457,7 +437,7 @@
          * Event handler to show the menu.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             var node = $(e.target),

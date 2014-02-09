@@ -52,7 +52,6 @@
          *
          * @param {jQuery} from
          * @param {jQuery} to
-         * @returns {Toolkit.Input}
          */
         copyClasses: function(from, to) {
             var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
@@ -60,8 +59,6 @@
             if (classes) {
                 $(to).addClass(classes);
             }
-
-            return this;
         }
 
     }, {
@@ -218,7 +215,7 @@
         /**
          * Build the custom dropdown to hold a list of option items.
          *
-         * @returns {Toolkit.Input.Select}
+         * @returns {jQuery}
          */
         buildDropdown: function() {
             var vendor = Toolkit.options.vendor,
@@ -284,7 +281,7 @@
 
             this.wrapper.append(dropdown.append(list));
 
-            return this;
+            return dropdown;
         },
 
         /**
@@ -364,8 +361,6 @@
 
         /**
          * Hide the dropdown and remove active states.
-         *
-         * @returns {Toolkit.Input.Select}
          */
         hide: function() {
             this.element.removeClass(Toolkit.options.isPrefix + 'active');
@@ -375,14 +370,10 @@
             }
 
             this.fireEvent('hide');
-
-            return this;
         },
 
         /**
          * Show the dropdown and apply active states.
-         *
-         * @returns {Toolkit.Input.Select}
          */
         show: function() {
             this.element.addClass(Toolkit.options.isPrefix + 'active');
@@ -392,15 +383,13 @@
             }
 
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Event handler for select option changing.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __change: function(e) {
             var select = $(e.target),
@@ -531,7 +520,7 @@
          * Event handler for toggling custom dropdown display.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __toggle: function(e) {
             if (!this.enabled || this.input.prop('disabled')) {

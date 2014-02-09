@@ -78,29 +78,22 @@
 
         /**
          * Hide all sections.
-         *
-         * @returns {Toolkit.Tabs}
          */
         hide: function() {
             this.sections.conceal();
 
             this.fireEvent('hide', this.node);
-
-            return this;
         },
 
         /**
          * Jump to a specific tab via index.
          *
          * @param {Number} index
-         * @returns {Toolkit.Tabs}
          */
         jump: function(index) {
             if (this.tabs[index]) {
                 this.show(this.tabs[index]);
             }
-
-            return this;
         },
 
         /**
@@ -108,7 +101,6 @@
          * or pass an element object for a tab in the collection.
          *
          * @param {jQuery} tab
-         * @returns {Toolkit.Tabs}
          */
         show: function(tab) {
             tab = $(tab);
@@ -179,26 +171,22 @@
 
             // Set current node
             this.node = tab;
-
-            return this;
         },
 
         /**
          * Event callback for tab element click.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
                 e.preventDefault();
             }
 
-            if (!this.enabled) {
-                return;
+            if (this.enabled) {
+                this.show(e.target);
             }
-
-            this.show(e.target);
         }
 
     }, {

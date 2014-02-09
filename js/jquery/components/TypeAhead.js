@@ -130,8 +130,6 @@
 
         /**
          * Hide the list and reset shadow.
-         *
-         * @returns {Toolkit.TypeAhead}
          */
         hide: function() {
             if (this.shadow) {
@@ -142,8 +140,6 @@
                 this.element.conceal();
                 this.fireEvent('hide');
             }
-
-            return this;
         },
 
         /**
@@ -171,7 +167,6 @@
          * Trigger different actions depending on the type of source.
          *
          * @param {String} term
-         * @returns {Toolkit.TypeAhead}
          */
         lookup: function(term) {
             this.term = term;
@@ -211,8 +206,6 @@
                     throw new Error('Invalid TypeAhead source type');
                 }
             }.bind(this), this.options.throttle);
-
-            return this;
         },
 
         /**
@@ -228,12 +221,11 @@
 
         /**
          * Position the menu below the input.
-         *
-         * @returns {Toolkit.TypeAhead}
          */
         position: function() {
             if (!this.items.length) {
-                return this.hide();
+                this.hide();
+                return;
             }
 
             var iPos = this.input.offset();
@@ -243,19 +235,18 @@
                 top: (iPos.top + this.input.outerHeight())
             }).reveal();
 
-            return this;
+            this.fireEvent('show');
         },
 
         /**
          * Process the list of items be generating new elements and positioning below the input.
          *
          * @param {Array} items
-         * @returns {Toolkit.TypeAhead}
          */
         process: function(items) {
             if (!this.term.length || !items.length) {
                 this.hide();
-                return this;
+                return;
             }
 
             var options = this.options,
@@ -351,30 +342,21 @@
 
             // Position the list
             this.position();
-
-            this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Rewind the cycle pointer to the beginning.
-         *
-         * @returns {Toolkit.TypeAhead}
          */
         rewind: function() {
             this.index = -1;
             this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
-
-            return this;
         },
 
         /**
          * Select an item in the list.
          *
          * @param {Number} index
-         * @param {String} event
-         * @returns {Toolkit.TypeAhead}
+         * @param {String} [event]
          */
         select: function(index, event) {
             this.index = index;
@@ -401,8 +383,6 @@
 
                 this.fireEvent('reset');
             }
-
-            return this;
         },
 
         /**

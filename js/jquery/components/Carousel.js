@@ -103,7 +103,6 @@
          * If the index is too small, jump to the end.
          *
          * @param {Number} index
-         * @returns {Toolkit.Carousel}
          */
         jump: function(index) {
             if (index >= this.items.length) {
@@ -141,72 +140,50 @@
 
             this.reset();
             this.fireEvent('jump', index);
-
-            return this;
         },
 
         /**
          * Go to the next item.
-         *
-         * @returns {Toolkit.Carousel}
          */
         next: function() {
             this.jump(this.currentIndex + 1);
-
-            return this;
         },
 
         /**
          * Go to the previous item.
-         *
-         * @returns {Toolkit.Carousel}
          */
         prev: function() {
             this.jump(this.currentIndex - 1);
-
-            return this;
         },
 
         /**
          * Reset the timer.
-         *
-         * @returns {Toolkit.Carousel}
          */
         reset: function() {
             if (this.options.autoCycle) {
                 clearInterval(this.timer);
                 this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
             }
-
-            return this;
         },
 
         /**
-         * Start the
-         *
-         * @returns {Toolkit.Carousel}
+         * Start the carousel.
          */
         start: function() {
             this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
             this.stopped = false;
 
             this.fireEvent('start');
-
-            return this;
         },
 
         /**
-         * Stop the
-         *
-         * @returns {Toolkit.Carousel}
+         * Stop the carousel.
          */
         stop: function() {
             this.element.addClass(Toolkit.options.isPrefix + 'stopped');
             this.stopped = true;
 
             this.fireEvent('stop');
-
-            return this;
         },
 
         /**
@@ -216,12 +193,7 @@
          * @private
          */
         __cycle: function() {
-            if (!this.enabled) {
-                return;
-            }
-
-            // Don't cycle if the carousel has stopped
-            if (!this.stopped) {
+            if (this.enabled && !this.stopped) {
                 this.fireEvent('cycle');
                 this.next();
             }
@@ -231,16 +203,14 @@
          * Event handler for jumping between items.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __jump: function(e) {
             e.preventDefault();
 
-            if (!this.enabled) {
-                return;
+            if (this.enabled) {
+                this.jump($(e.target).data('index') || 0);
             }
-
-            this.jump($(e.target).data('index') || 0);
         }
 
     }, {

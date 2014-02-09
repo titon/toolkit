@@ -120,7 +120,6 @@
          *
          * @param {jQuery} node
          * @param {Number} index
-         * @returns {Toolkit.LazyLoad}
          */
         show: function(node, index) {
             node = $(node);
@@ -141,15 +140,11 @@
             this.loaded++;
 
             this.fireEvent('show', node);
-
-            return this;
         },
 
         /**
          * When triggered, will shutdown the instance from executing any longer.
          * Any container events will be removed and loading will cease.
-         *
-         * @returns {Toolkit.LazyLoad}
          */
         shutdown: function() {
             this.isLoaded = true;
@@ -160,8 +155,6 @@
             });
 
             this.fireEvent('shutdown');
-
-            return this;
         }
 
     }, {

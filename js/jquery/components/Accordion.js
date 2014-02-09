@@ -59,7 +59,6 @@
          * If the index is too small, jump to the end.
          *
          * @param {Number} index
-         * @returns {Toolkit.Accordion}
          */
         jump: function(index) {
             if (index >= this.headers.length) {
@@ -69,8 +68,7 @@
             }
 
             this.fireEvent('jump', index);
-
-            return this.show(this.headers[index]);
+            this.show(this.headers[index]);
         },
 
         /**
@@ -78,7 +76,6 @@
          * Take into account the multiple and collapsible options.
          *
          * @param {jQuery} node
-         * @returns {Toolkit.Accordion}
          */
         show: function(node) {
             node = $(node);
@@ -107,7 +104,7 @@
 
                 // Exit early so we don't mess with animations
                 if (isNode) {
-                    return this;
+                    return;
                 }
 
                 this.sections.css('max-height', 0).conceal();
@@ -122,15 +119,13 @@
             this.node = node;
 
             this.fireEvent('show', section);
-
-            return this;
         },
 
         /**
          * Event handler for header element click or hover.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             e.preventDefault();

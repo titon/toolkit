@@ -46,14 +46,10 @@
 
         /**
          * Hide the tooltip.
-         *
-         * @returns {Toolkit.Tooltip}
          */
         hide: function() {
             this.element.conceal();
             this.fireEvent('hide');
-
-            return this;
         },
 
         /**
@@ -62,14 +58,13 @@
          *
          * @param {String|jQuery} [content]
          * @param {String|jQuery} [title]
-         * @returns {Toolkit.Tooltip}
          */
         position: function(content, title) {
             var options = this.options;
 
             // AJAX is currently loading
             if (content === true) {
-                return this;
+                return;
             }
 
             // Set title
@@ -112,8 +107,6 @@
                     this.fireEvent('show');
                 }.bind(this), options.delay || 0);
             }
-
-            return this;
         },
 
         /**
@@ -123,7 +116,6 @@
          * @param {jQuery} node
          * @param {String|jQuery} [content]
          * @param {String|jQuery} [title]
-         * @returns {Toolkit.Tooltip}
          */
         show: function(node, content, title) {
             var options = this.options;
@@ -141,7 +133,7 @@
             }
 
             if (!content) {
-                return this;
+                return;
             }
 
             this.node = node;
@@ -163,15 +155,13 @@
 
                 this.position(content, title);
             }
-
-            return this;
         },
 
         /**
          * Event handler for positioning the tooltip by the mouse.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __follow: function(e) {
             e.preventDefault();
@@ -188,7 +178,7 @@
          * Event handler for showing the tooltip.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             var node = $(e.target),

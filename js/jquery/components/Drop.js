@@ -39,8 +39,6 @@
 
         /**
          * Hide the opened element and remove active state.
-         *
-         * @returns {Toolkit.Drop}
          */
         hide: function() {
             if (this.element && this.element.is(':shown')) {
@@ -49,15 +47,12 @@
 
                 this.fireEvent('hide');
             }
-
-            return this;
         },
 
         /**
          * Open the target element and apply active state.
          *
          * @param {jQuery} node
-         * @returns {Toolkit.Drop}
          */
         show: function(node) {
             this.element.reveal();
@@ -66,8 +61,6 @@
             this.node.addClass(Toolkit.options.isPrefix + 'active');
 
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
@@ -75,7 +68,7 @@
          * Validate the target element, then either display or hide.
          *
          * @private
-         * @param {Event} e
+         * @param {jQuery.Event} e
          */
         __show: function(e) {
             e.preventDefault();

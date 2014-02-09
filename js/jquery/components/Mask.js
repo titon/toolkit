@@ -44,15 +44,11 @@
 
         /**
          * Hide the mask and reveal the element.
-         *
-         * @returns {Toolkit.Mask}
          */
         hide: function() {
             this.mask.conceal();
             this.element.removeClass(Toolkit.options.isPrefix + 'masked');
             this.fireEvent('hide');
-
-            return this;
         },
 
         /**
@@ -60,7 +56,6 @@
          * Apply optional classes, events, and styles dependent on implementation.
          *
          * @param {jQuery} element
-         * @returns {Toolkit.Mask}
          */
         setMask: function(element) {
             var options = this.options;
@@ -88,36 +83,33 @@
                     this.message.html(options.messageContent);
                 }
             }
-
-            return this;
         },
 
         /**
          * Show the mask and conceal the element.
          *
          * @param {Element} [node]
-         * @returns {Toolkit.Mask}
          */
         show: function(node) {
             if (!this.enabled) {
-                return this;
+                return;
             }
 
             this.node = node;
             this.mask.reveal();
             this.element.addClass(Toolkit.options.isPrefix + 'masked');
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Toggle between display states,
-         *
-         * @returns {Toolkit.Mask}
          */
         toggle: function() {
-            return this.mask.is(':shown') ? this.hide() : this.show();
+            if (this.mask.is(':shown')) {
+                this.hide();
+            } else {
+                this.show();
+            }
         }
 
     }, {

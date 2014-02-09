@@ -54,9 +54,7 @@
     }, {
 
         /**
-         * Hide the
-         *
-         * @returns {Toolkit.Blackout}
+         * Hide the blackout if count reaches 0.
          */
         hide: function() {
             var count = this.count - 1;
@@ -70,25 +68,17 @@
             }
 
             this.fireEvent('hide', (count <= 0));
-
-            return this;
         },
 
         /**
          * Hide the loader.
-         *
-         * @returns {Toolkit.Blackout}
          */
         hideLoader: function() {
             this.loader.conceal();
-
-            return this;
         },
 
         /**
-         * Show the
-         *
-         * @returns {Toolkit.Blackout}
+         * Show the blackout and increase open count.
          */
         show: function() {
             this.count++;
@@ -96,19 +86,13 @@
 
             this.showLoader();
             this.fireEvent('show');
-
-            return this;
         },
 
         /**
          * Show the loader.
-         *
-         * @returns {Toolkit.Blackout}
          */
         showLoader: function() {
             this.loader.reveal();
-
-            return this;
         }
 
     }, {
