@@ -253,7 +253,8 @@
                 li,
                 tag,
                 target = this.options.contentElement,
-                limit = this.options.itemLimit;
+                limit = this.options.itemLimit,
+                i, l;
 
             if (this.options.className) {
                 menu.addClass(this.options.className);
@@ -264,15 +265,20 @@
             }
 
             if (limit && data.children.length > limit) {
-                groups = $.chunk(data.children, limit);
+                i = 0;
+                l = data.children.length;
+
+                while (i < l) {
+                    groups.push(data.children.slice(i, i += limit));
+                }
             } else {
                 groups.push(data.children);
             }
 
-            for (var g = 0, group; group = groups[g]; g++) {
+            for (var g = 0, group, child; group = groups[g]; g++) {
                 ul = $('<ul/>');
 
-                for (var i = 0, l = group.length, child; i < l; i++) {
+                for (i = 0, l = group.length; i < l; i++) {
                     child = group[i];
                     li = $('<li/>');
 

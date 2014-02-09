@@ -302,12 +302,12 @@ The following methods are available on all class instances, but not all componen
     </thead>
     <tbody>
         <tr>
-            <td>createElement([options])</td>
+            <td>createElement()</td>
             <td>Both</td>
             <td>Create an element from the <code>template</code> or <code>templateFrom</code> options.</td>
         </tr>
         <tr>
-            <td>setElement(element[, options])</td>
+            <td>setElement(element)</td>
             <td>Both</td>
             <td>Set the element to use by the component. Will set class names on the element based on defined options.</td>
         </tr>
@@ -317,7 +317,7 @@ The following methods are available on all class instances, but not all componen
             <td>Parse a template string into a set of DOM elements.</td>
         </tr>
         <tr>
-            <td>setOptions(defaults, options)</td>
+            <td>setOptions(options)</td>
             <td>Both</td>
             <td>
                 Set the options to use in the component.
@@ -594,7 +594,6 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.debounce(func[, threshold[, immediate]])</td>
             <td>jQuery.event.special.clickout</td>
             <td>jQuery</td>
             <td rowspan="2">
@@ -610,7 +609,7 @@ These extensions may even solve a problem in your own codebase.
         <tr>
             <td>jQuery.prototype.clickout(data[, func])</td>
             <td>jQuery</td>
-            <td rowspan="2">
+            <td>
                 A shortcut method for setting a "clickout" event.
                 Follows the same logic as the shortcut click method.
             </td>
@@ -625,7 +624,6 @@ These extensions may even solve a problem in your own codebase.
         </tr>
         <tr>
             <td>Function.prototype.debounce([threshold[, immediate]])</td>
-            <td>Function.prototype.debounce([threshold[, immediate]])</td>
             <td>MooTools</td>
         </tr>
 
@@ -636,6 +634,7 @@ These extensions may even solve a problem in your own codebase.
                 Throttle the execution of a function so it triggers at every delay interval.
             </td>
         </tr>
+
         <tr>
             <td>jQuery.hyphenate(string)</td>
             <td>jQuery</td>
@@ -643,15 +642,11 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.chunk(array, size)</td>
-            <td>jQuery</td>
-            <td rowspan="2">
-                Split an array into multiple chunked arrays.
-            </td>
-        </tr>
-        <tr>
             <td>Array.prototype.chunk(size)</td>
             <td>MooTools</td>
+            <td>
+                Split an array into multiple chunked arrays.
+            </td>
         </tr>
 
         <tr>
@@ -660,15 +655,6 @@ These extensions may even solve a problem in your own codebase.
             <td>
                 Alters the <code>this</code> context of bound functions.
                 A polyfill for ECMA5 functionality.
-            </td>
-        </tr>
-
-        <tr>
-            <td>Function.prototype.create(parent)</td>
-            <td>Both</td>
-            <td>
-                Create a new object and apply the parent as the prototype.
-                Allows for simple class inheritance.
             </td>
         </tr>
     </tbody>

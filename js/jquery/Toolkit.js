@@ -399,25 +399,6 @@ $.expr[':'].shown = function(obj) {
 };
 
 /**
- * Split an array into multiple chunked arrays.
- *
- * @param {Array} array
- * @param {Number} size
- * @returns {Array}
- */
-$.chunk = function(array, size) {
-    var chunks = [],
-        i = 0,
-        n = array.length;
-
-    while (i < n) {
-        chunks.push(array.slice(i, i += size));
-    }
-
-    return chunks;
-};
-
-/**
  * Convert uppercase characters to lower case dashes.
  *
  * @param {String} string
@@ -434,6 +415,7 @@ $.hyphenate = function(string) {
  * Credit to the MDN team for the implementation.
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+ *
  * @returns {Function}
  */
 if (!Function.prototype.bind) {
