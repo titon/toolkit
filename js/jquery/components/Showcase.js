@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Showcase = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         var element;
 
         this.component = 'Showcase';

@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.TypeAhead = Toolkit.Component.create(function(input, options) {
+    Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         var element;
             input = $(input);
 

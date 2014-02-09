@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Pin = Toolkit.Component.create(function(element, options) {
+    Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.component = 'Pin';
         this.version = '0.0.0';
 

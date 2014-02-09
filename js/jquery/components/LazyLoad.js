@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.LazyLoad = Toolkit.Component.create(function(elements, options) {
+    Toolkit.LazyLoad = Toolkit.Component.extend(function(elements, options) {
         this.component = 'LazyLoad';
         this.version = '0.0.0';
 

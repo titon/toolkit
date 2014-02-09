@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Blackout = Toolkit.Component.create(function(options) {
+    Toolkit.Blackout = Toolkit.Component.extend(function(options) {
         this.component = 'Blackout';
         this.version = '0.0.0';
 

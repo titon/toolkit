@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Input = Toolkit.Component.create(function(element, options) {
+    Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         this.component = 'Input';
         this.version = '0.0.0';
         this.options = options = this.setOptions(options);
@@ -74,7 +74,7 @@
      * Wraps a checkbox with a custom input.
      * Uses a label for checkbox toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Checkbox = Toolkit.Input.create(function(checkbox, options) {
+    Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
         this.component = 'Input.Checkbox';
         this.version = '0.0.0';
 
@@ -104,7 +104,7 @@
      * Wraps a radio with a custom input.
      * Uses a label for radio toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Radio = Toolkit.Input.create(function(radio, options) {
+    Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
         this.component = 'Input.Radio';
         this.version = '0.0.0';
 
@@ -134,7 +134,7 @@
      * Wraps a select dropdown with a custom input.
      * Supports native or custom dropdowns.
      */
-    Toolkit.Input.Select = Toolkit.Input.create(function(select, options) {
+    Toolkit.Input.Select = Toolkit.Input.extend(function(select, options) {
         this.component = 'Input.Select';
         this.version = '0.0.0';
 

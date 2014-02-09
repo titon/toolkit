@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Carousel = Toolkit.Component.create(function(element, options) {
+    Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.component = 'Carousel';
         this.version = '0.0.0';
 

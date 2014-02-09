@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Tooltip = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
         var element;
 
         this.component = 'Tooltip';

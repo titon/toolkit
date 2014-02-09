@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Mask = Toolkit.Component.create(function(element, options) {
+    Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.component = 'Mask';
         this.version = '0.0.0';
 

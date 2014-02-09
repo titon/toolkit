@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Modal = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         var element;
 
         this.component = 'Modal';

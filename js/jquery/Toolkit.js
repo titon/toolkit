@@ -97,6 +97,29 @@ window.Toolkit = {
 };
 
 /**
+ * Very basic method for allowing functions to inherit functionality through the prototype.
+ *
+ * @param {Function} base
+ * @param {Object} properties
+ * @param {Object} options
+ * @returns {Function}
+ */
+Toolkit.Class.extend = function(base, properties, options) {
+    $.extend(base.prototype, this.prototype, properties);
+
+    // Use function as constructor
+    base.prototype.constructor = base;
+
+    // Set default options
+    base.options = options || {};
+
+    // Inherit the extend method
+    base.extend = this.extend;
+
+    return base;
+};
+
+/**
  * Fetch the component instance from the jQuery collection.
  *
  * @param {String} component
@@ -178,7 +201,7 @@ $.fn.addData = function(key, value) {
 /**
  * An event that allows the clicking of the document to trigger a callback.
  * However, will only trigger if the element clicked is not in the exclude list or a child of.
- * Useful for closing dropdowns and menus.
+ * Useful for closing drop downs and menus.
  *
  * Based on and credited to http://benalman.com/news/2010/03/jquery-special-events/
  *
@@ -404,28 +427,6 @@ $.hyphenate = function(string) {
     return string.replace(/[A-Z]/g, function(match) {
         return ('-' + match.charAt(0).toLowerCase());
     });
-};
-
-/**
- * Very basic method for allowing functions to inherit functionality through the prototype.
- *
- * @param {Function} base
- * @param {Object} properties
- * @param {Object} options
- * @returns {Function}
- */
-Function.prototype.create = function(base, properties, options) {
-    $.extend(base.prototype, this.prototype, properties);
-
-    // Use function a constructor
-    base.prototype.constructor = base;
-
-    // Set default options
-    if (options) {
-        base.options = options;
-    }
-
-    return base;
 };
 
 /**

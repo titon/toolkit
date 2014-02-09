@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Matrix = Toolkit.Component.create(function(element, options) {
+    Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.component = 'Matrix';
         this.version = '0.0.0';
 

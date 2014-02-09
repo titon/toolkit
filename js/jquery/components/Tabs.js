@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
+    Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         this.component = 'Tabs';
         this.version = '0.0.0';
 

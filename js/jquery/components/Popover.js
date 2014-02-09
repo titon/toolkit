@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Popover = Toolkit.Tooltip.create(function(nodes, options) {
+    Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
         var element;
 
         this.component = 'Popover';

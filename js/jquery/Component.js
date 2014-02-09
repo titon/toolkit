@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Component = Toolkit.Class.create(function() {}, {
+    Toolkit.Component = Toolkit.Class.extend(function() {}, {
         component: 'Component',
         version: '0.0.0',
         enabled: true,

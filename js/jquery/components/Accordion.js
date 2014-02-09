@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
+    Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
         var header, headers, sections;
 
         this.component = 'Accordion';

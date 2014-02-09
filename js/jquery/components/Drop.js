@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Drop = Toolkit.Component.create(function(nodes, options) {
+    Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
         this.component = 'Drop';
         this.version = '0.0.0';
 

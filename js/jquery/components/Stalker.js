@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
+    Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         this.component = 'Stalker';
         this.version = '0.0.0';
 

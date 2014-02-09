@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    Toolkit.Flyout = Toolkit.Component.create(function(nodes, url, options) {
+    Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
         if (!url) {
             throw new Error('Flyout URL required to download sitemap JSON');
         }
