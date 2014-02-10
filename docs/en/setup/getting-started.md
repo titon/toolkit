@@ -20,7 +20,6 @@ After Toolkit has been downloaded, let's open the folder and review the file str
 
 ```
 toolkit/
-├── css/
 ├── demo/
 ├── dist/
 ├── docs/
@@ -31,7 +30,7 @@ toolkit/
 
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
 
-* The `css` and `demo` folders contain files that are used for testing components locally (requires PHP).
+* The `demo` folder contains files that are used for testing components locally (requires PHP).
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.

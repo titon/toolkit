@@ -89,6 +89,15 @@ Support is determined through [caniuse.com](http://caniuse.com/) and can be veri
     If you need to support IE8, quite a bit of manual work will be required to make the components work correctly.
 </div>
 
+However, the following libraries will aide in supporting older Internet Explorer browsers.
+But at what point does this become too much?
+
+* [HTML5 Shiv](https://github.com/aFarkas/html5shiv)
+* [Selectivizr](https://github.com/keithclark/selectivizr)
+* [Modernizr](http://modernizr.com/)
+* [IE8](https://github.com/WebReflection/ie8)
+* [DOM4](https://github.com/WebReflection/dom4)
+
 ### Unsupported Components ###
 
 On top of the features above not being supported, the following Toolkit components are not supported in IE 8.

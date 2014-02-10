@@ -126,7 +126,7 @@ $('.js-tooltip').tooltip({
 
 Similar to native JavaScript events, the component layer has a system for dispatching callbacks at specific events.
 The difference between native events and Toolkit events, is that Toolkit events are set as options through the constructor.
-These events, dubbed "option events", can only be defined once and will be triggered globally.
+These events, dubbed "option events", can only be defined once and will be triggered for all elements in a collection.
 Any option that begins with `on` and defines an anonymous function is considered an event, for example.
 
 ```javascript
@@ -184,7 +184,7 @@ The following events exist in all components, however, each component may have t
 
 #### Namespaced Events ####
 
-If you are using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
+If you're using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
 The difference between element events and option events (above) is the ability to define multiple handlers for element events,
 and to define them outside of the component. Take the following for example.
 
@@ -196,7 +196,7 @@ $('#tabs').tabs({
 });
 
 $('#tabs').on('show.toolkit.tabs', function(e, tab) {
-    e.context.addClass('foobar');
+    e.context.element.addClass('foobar');
 });
 ```
 
@@ -450,7 +450,7 @@ They are represented as an object allowing for easy localization, and can be mod
         <tr>
             <td>error</td>
             <td>An error has occurred!</td>
-            <td>Generic message to display when an AJAX call has failed.</td>
+            <td>Message to display when an AJAX call has failed.</td>
         </tr>
     </tbody>
 </table>
@@ -674,7 +674,6 @@ Methods and Properties
 * Should be prefixed with `_` when used internally and not be publicly available: `_fooBar()`
 
 Methods
-* Should return `this` unless defined as a getter / accessor
 * Should be prefixed with `__` when used as an event handler / callback: `__fooBar(e)`
 * Should, for the most part, be written in verb / action form
 * Getters and setters should be separate

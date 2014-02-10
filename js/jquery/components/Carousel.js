@@ -15,9 +15,6 @@
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
 
-        // Is the carousel stopped?
-        this.stopped = false;
-
         // Items and parent container
         this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
@@ -37,6 +34,9 @@
 
         // Cycle timer
         this.timer = null;
+
+        // Is the carousel stopped?
+        this.stopped = false;
 
         // Disable carousel if too low of items
         if (this.items.length <= 1) {

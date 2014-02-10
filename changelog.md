@@ -8,6 +8,7 @@ Older versions can be found in the documentation changelogs.
 * Added a `clickout` event type that triggers when a click happens outside of an element
 * Added `reset-list()` and `position-center()` mixins
 * Added no conflict resolution through a component creation method
+* Added a `--demo` parameter to Grunt that builds files for demo purposes
 * Improved the Grunt build process
 * Refactored `debounce()` and `throttle()` methods
 * Replaced Toolkit `ie8` and `ie9` flags with `hasTransform` and `hasTransition` feature flags
