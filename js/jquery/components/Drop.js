@@ -9,7 +9,7 @@
 
     Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
         this.component = 'Drop';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Set options
         this.options = options = this.setOptions(options);

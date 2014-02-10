@@ -13,7 +13,7 @@
         }
 
         this.component = 'Flyout';
-        this.version = '0.0.0';
+        this.version = '1.0.0';
 
         // Set options
         this.options = options = this.setOptions(options);

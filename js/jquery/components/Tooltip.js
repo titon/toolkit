@@ -11,7 +11,7 @@
         var element;
 
         this.component = 'Tooltip';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Custom options
         this.options = options = this.setOptions(options);

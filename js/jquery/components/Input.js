@@ -9,7 +9,7 @@
 
     Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         this.component = 'Input';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
 
@@ -73,7 +73,7 @@
      */
     Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
         this.component = 'Input.Checkbox';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Custom options
         this.options = this.setOptions(options);
@@ -103,7 +103,7 @@
      */
     Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
         this.component = 'Input.Radio';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Custom options
         this.options = this.setOptions(options);
@@ -133,7 +133,7 @@
      */
     Toolkit.Input.Select = Toolkit.Input.extend(function(select, options) {
         this.component = 'Input.Select';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Custom options
         this.options = options = this.setOptions(options);

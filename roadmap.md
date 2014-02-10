@@ -28,6 +28,8 @@ All releases will contain bug fixing and polishing for current features.
 * Remove jQuery mobile dependency for touch events.
 * Updated to use AMD.
 * Optimize classes for smaller filesize.
+* Switch to Gulp.
+* Improved event binding within the component class.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

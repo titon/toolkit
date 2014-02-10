@@ -9,7 +9,7 @@
 
     Toolkit.LazyLoad = Toolkit.Component.extend(function(elements, options) {
         this.component = 'LazyLoad';
-        this.version = '0.0.0';
+        this.version = '1.0.0';
 
         // Custom options
         this.options = options = this.setOptions(options);

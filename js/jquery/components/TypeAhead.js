@@ -18,7 +18,7 @@
         }
 
         this.component = 'TypeAhead';
-        this.version = '0.0.0';
+        this.version = '1.1.0';
 
         // Set options and element
         this.options = options = this.setOptions(options);

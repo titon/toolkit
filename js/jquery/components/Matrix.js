@@ -9,7 +9,7 @@
 
     Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.component = 'Matrix';
-        this.version = '0.0.0';
+        this.version = '1.0.1';
 
         // Custom options
         this.options = options = this.setOptions(options);

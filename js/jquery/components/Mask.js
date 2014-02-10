@@ -9,7 +9,7 @@
 
     Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.component = 'Mask';
-        this.version = '0.0.0';
+        this.version = '1.0.0';
 
         // Set options and element
         this.options = this.setOptions(options);

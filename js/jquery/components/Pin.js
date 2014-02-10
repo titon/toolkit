@@ -9,7 +9,7 @@
 
     Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.component = 'Pin';
-        this.version = '0.0.0';
+        this.version = '1.0.0';
 
         // Set options and element
         this.options = options = this.setOptions(options);
