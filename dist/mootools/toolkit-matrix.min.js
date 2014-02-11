@@ -1,5 +1,5 @@
 /*!
- * Titon Toolkit v1.1.0-rc.1
+ * Titon Toolkit v1.1.0-rc.2
  * Copyright 2010-2013, The Titon Project - http://titon.io
  * BSD-2 - https://github.com/titon/toolkit/blob/master/license.md
  */
