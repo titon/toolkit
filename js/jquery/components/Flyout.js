@@ -49,10 +49,12 @@
         if (options.mode === 'hover') {
             $(options.context || document)
                 .on('mouseenter', nodes.selector, function() {
-                    this.clearTimer('hide').startTimer('show', options.showDelay);
+                    this.clearTimer('hide');
+                    this.startTimer('show', options.showDelay);
                 }.bind(this))
                 .on('mouseleave', nodes.selector, function() {
-                    this.clearTimer('show').startTimer('hide', options.showDelay);
+                    this.clearTimer('show');
+                    this.startTimer('hide', options.showDelay);
                 }.bind(this));
         }
 

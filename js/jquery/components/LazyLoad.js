@@ -15,7 +15,10 @@
         this.options = options = this.setOptions(options);
 
         // List of elements to load
-        this.element = this.setElement(elements, this.options);
+        this.elements = this.setElement(elements, this.options);
+
+        // The element being loaded
+        this.element = null;
 
         // Have all elements been force loaded?
         this.isLoaded = false;
@@ -77,13 +80,13 @@
                 return false;
             }
 
-            if (this.loaded === this.element.length) {
+            if (this.loaded === this.elements.length) {
                 this.shutdown();
 
                 return false;
             }
 
-            this.element.each(function(index, node) {
+            this.elements.each(function(index, node) {
                 if (node && this.inViewport(node)) {
                     this.show(node, index);
                 }
@@ -104,7 +107,7 @@
                 return false;
             }
 
-            this.element.each(function(index, node) {
+            this.elements.each(function(index, node) {
                 this.show(node, index);
             }.bind(this));
 
@@ -123,7 +126,7 @@
          */
         show: function(node, index) {
             node = $(node);
-            node.removeClass(this.element.selector.substr(1));
+            node.removeClass(this.elements.selector.substr(1));
 
             // Replace src attributes on images
             node.find('img').each(function() {
@@ -135,8 +138,10 @@
                 }
             });
 
+            this.element = node;
+
             // Replace element with null since removing from the array causes it to break
-            this.element.splice(index, 1, null);
+            this.elements.splice(index, 1, null);
             this.loaded++;
 
             this.fireEvent('show', node);
