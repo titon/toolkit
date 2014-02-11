@@ -53,7 +53,7 @@
             });
 
             document.body.mask({
-                revealOnClick: true
+                revealOnClick: <?php bool('revealOnClick', false); ?>
             });
 
             $$('.button').addEvent('click', function(e) {
@@ -76,7 +76,7 @@
             });
 
             $('body').mask({
-                revealOnClick: true
+                revealOnClick: <?php bool('revealOnClick', false); ?>
             });
 
             $('.button').click(function(e) {

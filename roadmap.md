@@ -11,6 +11,7 @@ All releases will contain bug fixing and polishing for current features.
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
+* Add support for large modals that need to be scrolled.
 
 ### 1.3.0 ###
 * Toast - A component to display toast notifications
@@ -30,6 +31,7 @@ All releases will contain bug fixing and polishing for current features.
 * Optimize classes for smaller filesize.
 * Switch to Gulp.
 * Improved event binding within the component class.
+* Rework cookie management.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

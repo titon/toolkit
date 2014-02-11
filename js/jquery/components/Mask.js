@@ -9,7 +9,7 @@
 
     Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.component = 'Mask';
-        this.version = '1.0.0';
+        this.version = '1.1.0';
 
         // Set options and element
         this.options = this.setOptions(options);
@@ -55,29 +55,29 @@
          * Set the element to use as a mask and append it to the target element.
          * Apply optional classes, events, and styles dependent on implementation.
          *
-         * @param {jQuery} element
+         * @param {jQuery} mask
          */
-        setMask: function(element) {
+        setMask: function(mask) {
             var options = this.options;
 
-            element.addClass('hide').appendTo(this.element);
+            mask.addClass('hide').appendTo(this.element);
 
             if (this.element.is('body')) {
-                element.css('position', 'fixed');
+                mask.css('position', 'fixed');
             }
 
             if (options.revealOnClick) {
-                element.click(this.hide.bind(this));
+                mask.click(this.hide.bind(this));
             }
 
-            this.mask = element;
-            this.message = element.find('> ' + options.messageElement);
+            this.mask = mask;
+            this.message = mask.find('> ' + options.messageElement);
 
             // Create message if it does not exist
             if (!this.message.length) {
                 this.message = $('<div/>')
                     .addClass(options.messageElement.substr(1))
-                    .appendTo(element);
+                    .appendTo(mask);
 
                 if (options.messageContent) {
                     this.message.html(options.messageContent);

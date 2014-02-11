@@ -169,6 +169,8 @@
                     if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
                         if (cache) {
                             this.cache[url] = response;
+                        } else {
+                            delete this.cache[url];
                         }
 
                         this.position(response);
