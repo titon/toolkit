@@ -164,7 +164,8 @@ module.exports = function(grunt) {
                     Timers: true,
                     Cache: true,
                     Jquery: true,
-                    Zepto: true
+                    Zepto: true,
+                    DocumentTouch: true
                 },
                 browser: true,
                 mootools: true,

@@ -43,7 +43,7 @@ window.Toolkit = {
     })(),
 
     /** Detect touch devices */
-    isTouch: !!('ontouchstart' in window),
+    isTouch: !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)),
 
     /**
      * Creates a jQuery plugin by extending the jQuery prototype and defines a method
@@ -199,67 +199,6 @@ $.fn.addData = function(key, value) {
 };
 
 /**
- * An event that allows the clicking of the document to trigger a callback.
- * However, will only trigger if the element clicked is not in the exclude list or a child of.
- * Useful for closing drop downs and menus.
- *
- * Based on and credited to http://benalman.com/news/2010/03/jquery-special-events/
- *
- * @returns {Object}
- */
-$.event.special.clickout = (function() {
-    var elements = $([]),
-        doc = $(document);
-
-    function clickOut(e) {
-        var trigger = true;
-
-        elements.each(function() {
-            if (trigger) {
-                var self = $(this);
-
-                trigger = (!self.is(e.target) && self.has(e.target).length === 0);
-            }
-        });
-
-        if (trigger) {
-            elements.trigger('clickout', [e.target]);
-        }
-    }
-
-    return {
-        setup: function() {
-            elements = elements.add(this);
-
-            if (elements.length === 1) {
-                doc.on('click', clickOut);
-            }
-        },
-        teardown: function() {
-            elements = elements.not(this);
-
-            if (elements.length === 0) {
-                doc.off('click', clickOut);
-            }
-        },
-        add: function(handler) {
-            var oldHandler = handler.handler;
-
-            handler.handler = function(e, el) {
-                e.target = el;
-                oldHandler.apply(this, arguments);
-            };
-        }
-    };
-})();
-
-$.fn.clickout = function(data, fn) {
-    return arguments.length > 0 ?
-        this.on('clickout', null, data, fn) :
-        this.trigger('clickout');
-};
-
-/**
  * Position the element relative to another element in the document, or to the mouse cursor.
  * Determine the offsets through the `relativeTo` argument, which can be an event, or a jQuery element.
  * Optional account for mouse location and base offset coordinates.
@@ -409,6 +348,177 @@ $.hyphenate = function(string) {
         return ('-' + match.charAt(0).toLowerCase());
     });
 };
+
+/**
+ * An event that allows the clicking of the document to trigger a callback.
+ * However, will only trigger if the element clicked is not in the exclude list or a child of.
+ * Useful for closing drop downs and menus.
+ *
+ * Based on and credited to http://benalman.com/news/2010/03/jquery-special-events/
+ *
+ * @returns {Object}
+ */
+if (!$.event.special.clickout) {
+    $.event.special.clickout = (function() {
+        var elements = $([]),
+            doc = $(document);
+
+        function clickOut(e) {
+            var trigger = true;
+
+            elements.each(function() {
+                if (trigger) {
+                    var self = $(this);
+
+                    trigger = (!self.is(e.target) && self.has(e.target).length === 0);
+                }
+            });
+
+            if (trigger) {
+                elements.trigger('clickout', [e.target]);
+            }
+        }
+
+        return {
+            setup: function() {
+                elements = elements.add(this);
+
+                if (elements.length === 1) {
+                    doc.on('click', clickOut);
+                }
+            },
+            teardown: function() {
+                elements = elements.not(this);
+
+                if (elements.length === 0) {
+                    doc.off('click', clickOut);
+                }
+            },
+            add: function(handler) {
+                var oldHandler = handler.handler;
+
+                handler.handler = function(e, el) {
+                    e.target = el;
+                    oldHandler.apply(this, arguments);
+                };
+            }
+        };
+    })();
+
+    $.fn.clickout = function(data, fn) {
+        return arguments.length > 0 ?
+            this.on('clickout', null, data, fn) :
+            this.trigger('clickout');
+    };
+}
+
+/**
+ * An event that triggers when a swipe event occurs over a target element.
+ * Uses touch events for touch devices, and mouse events for non-touch devices.
+ *
+ * Implementation is heavily modified version of the swipe events found in jQuery Mobile.
+ * Credits to the jQuery team for the original implementation.
+ *
+ * @returns {Object}
+ */
+if (!$.event.special.swipe) {
+    $.event.special.swipe = (function() {
+        var isTouch = Toolkit.isTouch,
+            startEvent = isTouch ? 'touchstart' : 'mousedown',
+            moveEvent = isTouch ? 'touchmove' : 'mousemove',
+            stopEvent = isTouch ? 'touchend' : 'mouseup';
+
+        function startStop(e) {
+            var data = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+
+            return {
+                time: (new Date()).getTime(),
+                coords: [ data.pageX, data.pageY ]
+            };
+        }
+
+        function swipe(start, stop, selfTarget, origTarget) {
+            var settings = $.event.special.swipe;
+
+            if (
+                ((stop.time - start.time) < settings.durationThreshold) &&
+                (Math.abs(start.coords[0] - stop.coords[0]) > settings.horizontalDistanceThreshold) &&
+                (Math.abs(start.coords[1] - stop.coords[1]) < settings.verticalDistanceThreshold)
+            ) {
+                var direction = (start.coords[0] > stop.coords[0]) ? 'swipeleft' : 'swiperight',
+                    props = { target: origTarget, swipestart: start, swipestop: stop };
+
+                selfTarget
+                    .trigger($.Event('swipe', props))
+                    .trigger($.Event(direction, props));
+
+                return true;
+            }
+
+            return false;
+        }
+
+        return {
+            scrollSuppressionThreshold: 30,
+            durationThreshold: 1000,
+            horizontalDistanceThreshold: 30,
+            verticalDistanceThreshold: 75,
+
+            setup: function() {
+                var self = $(this);
+
+                self.bind(startEvent, function(e) {
+                    var stop,
+                        start = startStop(e),
+                        target = e.target,
+                        emitted = false;
+
+                    function move(e) {
+                        stop = startStop(e);
+
+                        if (!emitted) {
+                            emitted = swipe(start, stop, self, target);
+                        }
+
+                        // Prevent scrolling
+                        if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+                            e.preventDefault();
+                        }
+                    }
+
+                    self.bind(moveEvent, move).one(stopEvent, function() {
+                        emitted = true;
+                        self.unbind(moveEvent, move);
+                    });
+                });
+            },
+
+            teardown: function() {
+                $(this).unbind(startEvent).unbind(moveEvent).unbind(stopEvent);
+            }
+        };
+    })();
+
+    // Set swipeleft() and swiperight() methods and events
+    $.each(['swipe', 'swipeleft', 'swiperight'], function(i, name) {
+        $.fn[name] = function(data, fn) {
+            return arguments.length > 0 ?
+                this.on(name, null, data, fn) :
+                this.trigger(name);
+        };
+
+        if (name !== 'swipe') {
+            $.event.special[name] = {
+                setup: function() {
+                    $(this).bind('swipe', $.noop);
+                },
+                teardown: function() {
+                    $(this).unbind('swipe');
+                }
+            };
+        }
+    });
+}
 
 /**
  * Polyfill for ECMA5 Function.bind().

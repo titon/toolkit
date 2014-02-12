@@ -43,7 +43,7 @@ window.Toolkit = {
     })(),
 
     /** Detect touch devices */
-    isTouch: !!('ontouchstart' in window),
+    isTouch: !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)),
 
     /**
      * Creates a new component by extending the Element(s) prototype and defines a method

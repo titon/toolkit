@@ -153,10 +153,7 @@ Toolkit.Carousel = new Class({
             .addEvent('swipe', function(e) {
                 if (e.direction === 'left') {
                     this.next();
-                }
-            }.bind(this))
-            .addEvent('swipe', function(e) {
-                if (e.direction === 'right') {
+                } else if (e.direction === 'right') {
                     this.prev();
                 }
             }.bind(this));
