@@ -686,6 +686,18 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
+            <td>jQuery.cookie(key, value[, options])</td>
+            <td>jQuery</td>
+            <td>Set a cookie with a value. Can define optional settings.</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.removeCookie(key[, options])</td>
+            <td>jQuery</td>
+            <td>Remove a cookie defined by key.</td>
+        </tr>
+
+        <tr>
             <td>Array.prototype.chunk(size)</td>
             <td>MooTools</td>
             <td>

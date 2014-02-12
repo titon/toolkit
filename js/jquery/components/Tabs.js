@@ -52,24 +52,15 @@
         var index = options.defaultIndex;
 
         if (options.persistState) {
-            var cookie = 'toolkit.tabs.' + options.cookie,
-                value = document.cookie.match('(?:^|;)\\s*' + cookie.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
-
-            if (value && value.length) {
-                index = decodeURIComponent(value[1]);
-            }
+            index = $.cookie('toolkit.tabs.' + options.cookie);
 
         } else if (options.loadFragment && location.hash) {
-            var tab = this.tabs.filter(function() {
+            index = this.tabs.filter(function() {
                 return ($(this).attr('href') === location.hash);
-            });
-
-            if (tab.length) {
-                index = tab.item(0).data('index');
-            }
+            }).item(0).data('index');
         }
 
-        if (!this.tabs[index]) {
+        if (!index || !this.tabs[index]) {
             index = 0;
         }
 
@@ -107,10 +98,11 @@
 
             var index = tab.data('index'),
                 section = this.sections.item(index),
-                url = this.readValue(tab, this.options.getUrl);
+                url = this.readValue(tab, this.options.getUrl),
+                options = this.options;
 
             // Load content with AJAX
-            if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+            if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
                         section.html(this._loadingTemplate())
@@ -136,7 +128,7 @@
             this.nav.find('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
 
             // Toggle sections
-            if (index === this.currentIndex && this.options.collapsible) {
+            if (index === this.currentIndex && options.collapsible) {
                 if (section.is(':shown')) {
                     section.conceal();
 
@@ -152,15 +144,10 @@
             }
 
             // Persist the state using a cookie
-            if (this.options.persistState) {
-                var cookie = 'toolkit.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
-                var date = new Date();
-                    date.setTime(date.getTime() + this.options.cookieDuration * 24 * 60 * 60 * 1000);
-
-                cookie += '; expires=' + date.toUTCString();
-                cookie += '; path=/';
-
-                document.cookie = cookie;
+            if (options.persistState) {
+                $.cookie('toolkit.tabs.' + options.cookie, index, {
+                    expires: options.cookieDuration
+                });
             }
 
             // Track

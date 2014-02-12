@@ -350,6 +350,73 @@ $.hyphenate = function(string) {
 };
 
 /**
+ * A very lightweight implementation for cookie management.
+ * Will only define if $.cookie() does not exist, which will allow for other third-party code.
+ *
+ * @link https://github.com/carhartl/jquery-cookie
+ */
+if (!$.cookie) {
+
+    /**
+     * Set a cookie.
+     *
+     * @param {String} key
+     * @param {*} value
+     * @param {Object} options
+     * @returns {*}
+     */
+    $.cookie = function(key, value, options) {
+        options = $.extend({
+            expires: null,
+            path: '/',
+            domain: '',
+            secure: false
+        }, options);
+
+        // Set
+        if (typeof value !== 'undefined') {
+            if (typeof options.expires === 'number') {
+                var date = new Date();
+                    date.setTime(date.getTime() + options.expires * 24 * 60 * 60 * 1000);
+
+                options.expires = date.toUTCString();
+            }
+
+            return (document.cookie = [
+                key + '=' + encodeURIComponent(value),
+                options.expires ? '; expires=' + options.expires : '',
+                options.path    ? '; path=' + options.path : '',
+                options.domain  ? '; domain=' + options.domain : '',
+                options.secure  ? '; secure' : ''
+            ].join(''));
+
+        // Get
+        } else {
+            value = document.cookie.match('(?:^|;)\\s*' + key.replace(/[\-\.\+\*]/g, '\\$&') + '=([^;]*)');
+
+            if (value && value.length) {
+                return decodeURIComponent(value[1]);
+            }
+        }
+
+        return null;
+    };
+
+    /**
+     * Remove a cookie by key.
+     *
+     * @param {String} key
+     * @param {Object} options
+     * @returns {bool}
+     */
+    $.removeCookie = function(key, options) {
+        options.expires = -1;
+
+        return $.cookie(key, '', options);
+    };
+}
+
+/**
  * An event that allows the clicking of the document to trigger a callback.
  * However, will only trigger if the element clicked is not in the exclude list or a child of.
  * Useful for closing drop downs and menus.

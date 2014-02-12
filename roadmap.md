@@ -2,11 +2,6 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 1.1.0 ###
-* Mask - A component that will mask a target element with a blackout.
-* Loader - CSS based loaders and spinners.
-* Improvements for Input by adding custom select dropdowns and multi-select support.
-
 ### 1.2.0 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
@@ -26,12 +21,10 @@ All releases will contain bug fixing and polishing for current features.
 * Add deferred/promise integration.
 * Inherit options at runtime through data attributes.
 * Add aria attributes where applicable.
-* Remove jQuery mobile dependency for touch events.
 * Updated to use AMD.
 * Optimize classes for smaller filesize.
 * Switch to Gulp.
 * Improved event binding within the component class.
-* Rework cookie management.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
