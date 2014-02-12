@@ -17,3 +17,7 @@ Mac
 
 Once a PHP web server is running, and the Toolkit repository is located within the web root,
 simply traverse into the `demo` folder located in the repository.
+
+<div class="notice is-info">
+    A temporary online demo can be found at <a href="http://demo.titon.io/">demo.titon.io</a>.
+</div>
