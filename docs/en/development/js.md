@@ -81,7 +81,7 @@ $('.js-modal').modal({
 
 #### Elements as Templates ####
 
-It's also possible to use existing hidden DOM elements as a template.
+It's also possible to use existing DOM elements as a template.
 This is especially useful for components where each instance of the component should use the same DOM element &mdash; blackouts for example.
 Providing an element ID for the `templateFrom` option will attempt to use that element as the template.
 
@@ -89,6 +89,16 @@ Providing an element ID for the `templateFrom` option will attempt to use that e
 {
     templateFrom: '#some-element'
 }
+```
+
+We can also define a template using a script tag.
+
+```html
+<script type="text/html" id="some-element">
+    <div class="modal">
+        <div class="modal-body"></div>
+    </div>
+</script>
 ```
 
 If no element is found, the component will fall back to the `template` option.
@@ -611,8 +621,42 @@ These extensions may even solve a problem in your own codebase.
             <td>jQuery</td>
             <td>
                 A shortcut method for setting a "clickout" event.
-                Follows the same logic as the shortcut click method.
+                If called without any arguments, will trigger the event.
             </td>
+        </tr>
+
+        <tr>
+            <td>jQuery.event.special.swipe</td>
+            <td>jQuery</td>
+            <td rowspan="3">
+                Custom events that emulate swiping on touch devices. If the device is non-touch,
+                standard mouse events are used instead.
+            </td>
+        </tr>
+        <tr>
+            <td>jQuery.event.special.swipeleft</td>
+            <td>jQuery</td>
+        </tr>
+        <tr>
+            <td>jQuery.event.special.swiperight</td>
+            <td>jQuery</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.swipe(data[, func])</td>
+            <td>jQuery</td>
+            <td rowspan="3">
+                Shortcut methods for setting "swipe", "swipeleft", or "swiperight" events.
+                If called without any arguments, will trigger the event.
+            </td>
+        </tr>
+        <tr>
+            <td>jQuery.prototype.swipeleft(data[, func])</td>
+            <td>jQuery</td>
+        </tr>
+        <tr>
+            <td>jQuery.prototype.swiperight(data[, func])</td>
+            <td>jQuery</td>
         </tr>
 
         <tr>
