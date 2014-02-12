@@ -70,9 +70,11 @@
 
         element
             .on('click', options.closeEvent, this.hide.bind(this))
-            .on('click swipeleft', options.nextEvent, this.next.bind(this))
-            .on('click swiperight', options.prevEvent, this.prev.bind(this))
-            .on('click', options.jumpEvent, this.__jump.bind(this));
+            .on('click', options.nextEvent, this.next.bind(this))
+            .on('click', options.prevEvent, this.prev.bind(this))
+            .on('click', options.jumpEvent, this.__jump.bind(this))
+            .on('swipeleft', this.next.bind(this))
+            .on('swiperight', this.prev.bind(this));
 
         this.fireEvent('init');
     }, {
