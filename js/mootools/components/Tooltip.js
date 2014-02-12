@@ -22,6 +22,7 @@ Toolkit.Tooltip = new Class({
         ajax: false,
         follow: false,
         position: 'topCenter',
+        loadingMessage: Toolkit.messages.loading,
         showLoading: true,
         showTitle: true,
         getTitle: 'title',
@@ -61,6 +62,11 @@ Toolkit.Tooltip = new Class({
 
         // Set events
         this.bindEvents();
+
+        if (this.options.mode === 'click') {
+            this.element.addEvent('clickout', this.__hide);
+        }
+
         this.fireEvent('init');
     },
 
@@ -81,6 +87,8 @@ Toolkit.Tooltip = new Class({
         }
 
         // Set title
+        title = title || this.readValue(this.node, options.getTitle);
+
         if (title && options.showTitle) {
             this.elementHead.set('html', title).show();
         } else {
@@ -132,15 +140,16 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     show: function(node, content, title) {
+        var options = this.options;
+
         if (node) {
-            if (this.options.mode === 'hover') {
+            if (options.mode === 'hover') {
                 node
                     .removeEvent('mouseleave', this.__hide)
                     .addEvent('mouseleave', this.__hide);
             }
 
-            title = title || this.readValue(node, this.options.getTitle);
-            content = content || this.readValue(node, this.options.getContent);
+            content = content || this.readValue(node, options.getContent);
         }
 
         if (!content) {
@@ -149,10 +158,14 @@ Toolkit.Tooltip = new Class({
 
         this.node = node;
 
-        if (this.options.ajax) {
+        if (options.ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content], title);
             } else {
+                if (options.showLoading) {
+                    this.position(options.loadingMessage);
+                }
+
                 this.requestData(content);
             }
         } else {
@@ -181,27 +194,11 @@ Toolkit.Tooltip = new Class({
 
 });
 
-/**
- * Enable tooltips on Elements collections by calling tooltip().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $$('.js-tooltip').tooltip({
- *         ajax: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Tooltip}
- */
-Elements.implement('tooltip', function(options) {
-    var tooltip = new Toolkit.Tooltip(this, options);
-
-    return this.each(function(el) {
-        if (!el.$tooltip) {
-            el.$tooltip = tooltip;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through tooltip().
+     */
+    Toolkit.createComponent('tooltip', function(options) {
+        return new Toolkit.Tooltip(this, options);
+    }, true);
 
 })();

@@ -130,22 +130,18 @@ $components = array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'scrollable' => 'Scrollable'))
         )
     ),
-    'dropdown' => array(
-        'title' => 'Dropdown',
-        'css' => array('components/dropdown.css'),
-        'js' => array('components/Dropdown.js'),
+    'drop' => array(
+        'title' => 'Drop',
+        'css' => array('components/drop.css'),
+        'js' => array('components/Drop.js'),
         'filters' => array(
-            'modifier' => array('title' => 'Modifier', 'data' => array(
-                '' => '-- None --',
-                'top' => 'Top Align',
-                'right' => 'Right Align',
-                'left' => 'Left Align'
+            'position' => array('title' => 'Position', 'data' => array(
+                'drop--down' => 'Down (Default)',
+                'drop--up' => 'Up',
+                'drop--right' => 'Right',
+                'drop--left' => 'Left'
             )),
-            'align' => array('title' => 'Alignment', 'data' => array(
-                '' => '-- None --',
-                'push-over' => 'Push Over (Horizontal)',
-                'pull-up' => 'Pull Up (Vertical)'
-            )),
+            'reverse' => array('title' => 'Reverse alignment?', 'type' => 'boolean', 'default' => false),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover')),
             'hideOpened' => array('title' => 'Hide Other Opened?', 'type' => 'boolean', 'default' => true)
         )
@@ -201,6 +197,14 @@ $components = array(
             'checkbox' => array('title' => 'Checkbox?', 'type' => 'boolean', 'default' => true),
             'radio' => array('title' => 'Radio?', 'type' => 'boolean', 'default' => true),
             'select' => array('title' => 'Select?', 'type' => 'boolean', 'default' => true),
+            'native' => array('title' => 'Native select dropdown?', 'type' => 'boolean', 'default' => false),
+            'multipleFormat' => array('title' => 'Multiple label format', 'data' => array(
+                'count' => 'Counter',
+                'list' => 'Option list'
+            )),
+            'listLimit' => array('title' => 'Label list limit', 'type' => 'number', 'default' => 3),
+            'hideFirst' => array('title' => 'Hide first?', 'type' => 'boolean', 'default' => false),
+            'hideSelected' => array('title' => 'Hide selected?', 'type' => 'boolean', 'default' => false),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
         )
     ),
@@ -229,6 +233,18 @@ $components = array(
             'threshold' => array('title' => 'Threshold', 'type' => 'number', 'default' => 150),
             'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
             'forceLoad' => array('title' => 'Force load?', 'type' => 'boolean')
+        )
+    ),
+    'loader' => array(
+        'title' => 'Loader',
+        'css' => array('components/loader.css')
+    ),
+    'mask' => array(
+        'title' => 'Mask',
+        'css' => array('components/mask.css'),
+        'js' => array('components/Mask.js'),
+        'filters' => array(
+            'revealOnClick' => array('title' => 'Reveal on click?', 'type' => 'boolean', 'default' => false)
         )
     ),
     'matrix' => array(
@@ -266,8 +282,8 @@ $components = array(
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
-            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
-            'showLoading' => array('title' => 'Show loading?', 'type' => 'boolean', 'default' => true),
+            'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
+            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true)
         )
     ),
     'notice' => array(
@@ -327,7 +343,7 @@ $components = array(
                 'bottomLeft' => 'Bottom Left',
                 'bottomCenter' => 'Bottom Center',
                 'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topRight'),
+            ), 'default' => 'topCenter'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
@@ -361,8 +377,8 @@ $components = array(
         'filters' => array(
             'className' => array('title' => 'Class', 'type' => 'text'),
             'gutter' => array('title' => 'Gutter Margin', 'type' => 'number', 'default' => 50),
-            'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true),
             'group' => array('title' => 'Grouped?', 'type' => 'boolean', 'default' => true),
+            'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 5)
         )
     ),
@@ -479,7 +495,7 @@ if ($vendor === 'mootools') {
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../css/toolkit.css" rel="stylesheet" type="text/css">
+    <link href="../build/titon-toolkit.min.css" rel="stylesheet" type="text/css">
     <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
@@ -490,29 +506,24 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
+        <script src="../build/titon-toolkit-mootools.min.js"></script>
 
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery-mobile-1.3.2.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
 
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery-mobile-1.3.2.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
+        <script src="../build/titon-toolkit-jquery.min.js"></script>
     <?php } ?>
-
-    <?php if (!empty($component['js'])) { ?>
-        <script src="../js/<?php echo $vendorFolder; ?>/Titon.js"></script>
-        <script src="../js/<?php echo $vendorFolder; ?>/Component.js"></script>
-
-        <?php foreach ((array) $component['js'] as $js) { ?>
-            <script src="../js/<?php echo $vendorFolder; ?>/<?php echo $js; ?>"></script>
-        <?php }
-    } ?>
 
     <!--[if lte IE 8]>
         <script src="js/modernizr-2.6.2.js"></script>

@@ -42,27 +42,11 @@ Toolkit.Popover = new Class({
 
 });
 
-/**
- * Enable popovers on Elements collections by calling popover().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $$('.js-popover').popover({
- *         ajax: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Popover}
- */
-Elements.implement('popover', function(options) {
-    var popover = new Toolkit.Popover(this, options);
-
-    return this.each(function(el) {
-        if (!el.$popover) {
-            el.$popover = popover;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through popover().
+     */
+    Toolkit.createComponent('popover', function(options) {
+        return new Toolkit.Popover(this, options);
+    }, true);
 
 })();

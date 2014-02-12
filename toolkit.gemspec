@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
     gem.name = "titon-toolkit"
-    gem.version = "1.0.5"
+    gem.version = "1.1.0.rc.2"
 
     # Info
     gem.authors = ["Titon", "Miles Johnson"]
@@ -17,4 +17,5 @@ Gem::Specification.new do |gem|
     # Dependencies
     gem.add_dependency("sass", [">= 3.2.0"])
     gem.add_dependency("compass", [">= 0.11"])
+    gem.add_dependency("animation", [">= 0.1.alpha.0"])
 end

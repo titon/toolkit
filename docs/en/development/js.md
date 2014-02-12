@@ -35,7 +35,7 @@ And the components placed in their respective type.
 Do note that it's possible for a component to share functionality from multiple types &mdash; TypeAhead for example.
 
 * Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip, TypeAhead
-* Embedded: Accordion, Carousel, Dropdown, Input, LazyLoad, Matrix, Pin, Stalker, Tabs, TypeAhead
+* Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, Pin, Stalker, Tabs, TypeAhead
 
 ### Templates ###
 
@@ -126,6 +126,7 @@ $('.js-tooltip').tooltip({
 
 Similar to native JavaScript events, the component layer has a system for dispatching callbacks at specific events.
 The difference between native events and Toolkit events, is that Toolkit events are set as options through the constructor.
+These events, dubbed "option events", can only be defined once and will be triggered for all elements in a collection.
 Any option that begins with `on` and defines an anonymous function is considered an event, for example.
 
 ```javascript
@@ -137,7 +138,7 @@ $('#carousel').carousel({
 ```
 
 <div class="notice is-info">
-    The "this" context within event functions will be bound to the component object instance.
+    The "this" context within option event handlers will be bound to the component object instance.
 </div>
 
 The following events exist in all components, however, each component may have their own set of unique events.
@@ -167,14 +168,45 @@ The following events exist in all components, however, each component may have t
         </tr>
         <tr>
             <td>onLoad(response)</td>
-            <td>Triggered after an AJAX call has finished, but before the response is rendered.</td>
+            <td>
+                Triggered after an AJAX call has finished, but before the response is rendered.
+                Only triggers for HTML responses.
+            </td>
+        </tr>
+        <tr>
+            <td>onProcess(response)</td>
+            <td>
+                Triggered after an AJAX call has finished, and only if the response is non-HTML (JSON, XML, etc).
+            </td>
         </tr>
     </tbody>
 </table>
 
-<div class="notice is-warning">
-    The event system will be changing in future versions to support native element events instead of option events.
-    This allows multiples events to be bound and to be bound per element.
+#### Namespaced Events ####
+
+If you're using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
+The difference between element events and option events (above) is the ability to define multiple handlers for element events,
+and to define them outside of the component. Take the following for example.
+
+```javascript
+$('#tabs').tabs({
+    onShow: function(tab) {
+        this.element.addClass('foobar');
+    }
+});
+
+$('#tabs').on('show.toolkit.tabs', function(e, tab) {
+    e.context.element.addClass('foobar');
+});
+```
+
+What we did was attach a namespaced event to the same element in the format of `<event>.toolkit.<component>`
+(no "on" required in the event name). Now anytime a tab is clicked, the `onShow` option event will trigger,
+and all `show.toolkit.tabs` event handlers will trigger.
+
+<div class="notice is-info">
+    The "this" context within element event handlers will be the respective element.
+    The component object instance can be found under the <code>context</code> property in the event object.
 </div>
 
 ### Properties ###
@@ -190,6 +222,20 @@ The following properties are available on all class instances, but not all compo
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>component</td>
+            <td>string</td>
+            <td>
+                The name of the component. This should not be modified.
+            </td>
+        </tr>
+        <tr>
+            <td>version</td>
+            <td>string</td>
+            <td>
+                The last version this component was updated. This should not be modified.
+            </td>
+        </tr>
         <tr>
             <td>enabled</td>
             <td>boolean</td>
@@ -256,12 +302,12 @@ The following methods are available on all class instances, but not all componen
     </thead>
     <tbody>
         <tr>
-            <td>createElement([options])</td>
+            <td>createElement()</td>
             <td>Both</td>
             <td>Create an element from the <code>template</code> or <code>templateFrom</code> options.</td>
         </tr>
         <tr>
-            <td>setElement(element[, options])</td>
+            <td>setElement(element)</td>
             <td>Both</td>
             <td>Set the element to use by the component. Will set class names on the element based on defined options.</td>
         </tr>
@@ -271,7 +317,7 @@ The following methods are available on all class instances, but not all componen
             <td>Parse a template string into a set of DOM elements.</td>
         </tr>
         <tr>
-            <td>setOptions(defaults, options)</td>
+            <td>setOptions(options)</td>
             <td>Both</td>
             <td>
                 Set the options to use in the component.
@@ -302,13 +348,24 @@ The following methods are available on all class instances, but not all componen
             </td>
         </tr>
         <tr>
-            <td>requestData(url[, before[, done[, fail]]])</td>
+            <td>requestData(options[, before[, done[, fail]]])</td>
             <td>Both</td>
             <td>
                 Requests data from a URL using an AJAX call.
                 Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.
+                The first argument can either be a URL, or an object of AJAX options.
                 The <code>before</code>, <code>done</code>, and <code>fail</code> arguments can be set to override the default callbacks.
             </td>
+        </tr>
+        <tr>
+            <td>process(response)</td>
+            <td>Both</td>
+            <td>Handles non-HTML AJAX responses.</td>
+        </tr>
+        <tr>
+            <td>position(response)</td>
+            <td>MooTools</td>
+            <td>Handles HTML AJAX responses. Will re-position the element.</td>
         </tr>
         <tr>
             <td>show([node])</td>
@@ -393,7 +450,7 @@ They are represented as an object allowing for easy localization, and can be mod
         <tr>
             <td>error</td>
             <td>An error has occurred!</td>
-            <td>Generic message to display when an AJAX call has failed.</td>
+            <td>Message to display when an AJAX call has failed.</td>
         </tr>
     </tbody>
 </table>
@@ -413,14 +470,9 @@ Each flag can be found on the `Toolkit` object.
     </thead>
     <tbody>
         <tr>
-            <td>ie8</td>
-            <td>jQuery</td>
-            <td>Is the browser IE8 or lower?</td>
-        </tr>
-        <tr>
-            <td>ie9</td>
-            <td>jQuery</td>
-            <td>Is the browser IE9?</td>
+            <td>hasTransition</td>
+            <td>Both</td>
+            <td>Does the browser support CSS transition?</td>
         </tr>
         <tr>
             <td>isTouch</td>
@@ -511,7 +563,7 @@ These extensions may even solve a problem in your own codebase.
             <td rowspan="2">
                 Determines whether an element is visible or not by checking that <code>visibility</code> is not equal to hidden.
                 Is used in conjunction with <code>conceal()</code> and <code>reveal()</code> for animating.
-                The jQuery version can be called as such: <code>$('.query').is(':shown')</code>
+                The jQuery version can be called as such: <code>$('.query').is(':shown')</code>.
             </td>
         </tr>
         <tr>
@@ -542,14 +594,36 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.debounce(func[, threshold])</td>
+            <td>jQuery.event.special.clickout</td>
+            <td>jQuery</td>
+            <td rowspan="2">
+                A custom event that triggers when a click occurs outside the element that has been bound.
+                Is used by drop downs, dialogs, modals, etc.
+            </td>
+        </tr>
+        <tr>
+            <td>Element.Events.clickout</td>
+            <td>MooTools</td>
+        </tr>
+
+        <tr>
+            <td>jQuery.prototype.clickout(data[, func])</td>
+            <td>jQuery</td>
+            <td>
+                A shortcut method for setting a "clickout" event.
+                Follows the same logic as the shortcut click method.
+            </td>
+        </tr>
+
+        <tr>
+            <td>jQuery.debounce(func[, threshold[, immediate]])</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Delays the execution of a function until the duration has completed.
             </td>
         </tr>
         <tr>
-            <td>Function.prototype.debounce([threshold])</td>
+            <td>Function.prototype.debounce([threshold[, immediate]])</td>
             <td>MooTools</td>
         </tr>
 
@@ -562,8 +636,14 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
+            <td>jQuery.hyphenate(string)</td>
+            <td>jQuery</td>
+            <td>Convert uppercase character strings to a lower case dashed form.</td>
+        </tr>
+
+        <tr>
             <td>Array.prototype.chunk(size)</td>
-            <td>Both</td>
+            <td>MooTools</td>
             <td>
                 Split an array into multiple chunked arrays.
             </td>
@@ -576,21 +656,6 @@ These extensions may even solve a problem in your own codebase.
                 Alters the <code>this</code> context of bound functions.
                 A polyfill for ECMA5 functionality.
             </td>
-        </tr>
-
-        <tr>
-            <td>Function.prototype.create(parent)</td>
-            <td>jQuery</td>
-            <td>
-                Create a new object and apply the parent as the prototype.
-                Allows for simple class inheritance.
-            </td>
-        </tr>
-
-        <tr>
-            <td>String.prototype.hyphenate()</td>
-            <td>jQuery</td>
-            <td>Convert uppercase character strings to a lower case dashed form.</td>
         </tr>
     </tbody>
 </table>
@@ -609,7 +674,6 @@ Methods and Properties
 * Should be prefixed with `_` when used internally and not be publicly available: `_fooBar()`
 
 Methods
-* Should return `this` unless defined as a getter / accessor
 * Should be prefixed with `__` when used as an event handler / callback: `__fooBar(e)`
 * Should, for the most part, be written in verb / action form
 * Getters and setters should be separate

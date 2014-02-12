@@ -27,8 +27,8 @@ Toolkit.Modal = new Class({
         ajax: true,
         draggable: false,
         blackout: true,
-        showLoading: true,
         fullScreen: false,
+        stopScroll: true,
         getContent: 'data-modal',
         contentElement: '.modal-inner',
         closeElement: '.modal-close',
@@ -80,8 +80,15 @@ Toolkit.Modal = new Class({
 
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Toolkit.Blackout();
-            this.blackout.element.addEvent('click', this.__hide);
+            this.blackout = Toolkit.Blackout.factory();
+
+            if (this.options.stopScroll) {
+                this.blackout.addEvent('hide', function(hidden) {
+                    if (hidden) {
+                        document.body.setStyle('overflow', '');
+                    }
+                });
+            }
         }
 
         // Set events
@@ -104,8 +111,12 @@ Toolkit.Modal = new Class({
         }.bind(this));
 
         this.element
+            .addEvent('clickout', this.__hide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.submitEvent + ')', this.__submit);
+
+        this.nodes
+            .addEvent('clickout', this.__hide);
 
         return this;
     },
@@ -116,11 +127,11 @@ Toolkit.Modal = new Class({
      * @returns {Toolkit.Modal}
      */
     hide: function() {
-        return this.parent(function() {
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
-        }.bind(this));
+        if (this.blackout) {
+            this.blackout.hide();
+        }
+
+        return this.parent();
     },
 
     /**
@@ -138,26 +149,18 @@ Toolkit.Modal = new Class({
         this.elementBody.set('html', content);
         this.fireEvent('load', content);
 
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
+        // Hide blackout loading message
+        if (this.blackout) {
+            this.blackout.hideLoader();
+        }
 
-            if (this.options.fullScreen) {
-                this.element.getElement(this.options.contentElement).setStyle('min-height', window.getHeight());
-            }
+        // Reveal modal
+        this.element.reveal();
 
-            this.element.reveal();
-
-            // IE8
-            if (Browser.ie8 && !this.options.fullScreen) {
-                var size = this.element.getSize();
-
-                this.element.setStyles({
-                    'margin-left': -(size.x / 2),
-                    'margin-top': -(size.y / 2)
-                });
-            }
+        // Resize modal
+        if (this.options.fullScreen) {
+            this.element.getElement(this.options.contentElement)
+                .setStyle('min-height', window.getHeight());
         }
 
         this.fireEvent('show');
@@ -176,17 +179,17 @@ Toolkit.Modal = new Class({
      */
     show: function(node, content) {
         var options = this.options,
-            preAjaxValue = options.ajax;
+            ajax = options.ajax;
 
         // Get content
         if (content) {
-            options.ajax = false;
+            ajax = false;
 
         } else if (node) {
             content = this.readValue(node, options.getContent) || node.get('href');
 
-            if (content && content.substr(0, 1) === '#') {
-                options.ajax = false;
+            if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+                ajax = false;
             }
         }
 
@@ -196,7 +199,17 @@ Toolkit.Modal = new Class({
 
         this.node = node;
 
-        if (options.ajax) {
+        // Show blackout
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            document.body.setStyle('overflow', 'hidden');
+        }
+
+        // Fetch content
+        if (ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content]);
             } else {
@@ -205,9 +218,6 @@ Toolkit.Modal = new Class({
         } else {
             this.position(content);
         }
-
-        // Reset back to original state
-        this.options.ajax = preAjaxValue;
 
         return this;
     },
@@ -228,45 +238,29 @@ Toolkit.Modal = new Class({
             return;
         }
 
-        this.fireEvent('submit', button);
+        this.fireEvent('submit', [button, form]);
 
-        new Request({
+        var options = {
             url: form.get('action'),
-            method: form.get('method').toUpperCase(),
-            data: form.toQueryString(),
-            evalScripts: true,
-            onSuccess: function(response) {
-                this.position(response);
-            }.bind(this),
-            onFailure: function() {
-                this.position(this._errorTemplate());
-            }.bind(this)
-        }).send();
+            method: form.get('method').toUpperCase()
+        };
+
+        if (window.FormData) {
+            options.data = new FormData(form);
+        } else {
+            options.data = form.toQueryString();
+        }
+
+        this.requestData(options);
     }
 
 });
 
-/**
- * Enable modals on Elements collections by calling modal().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $$('.js-modal').modal({
- *         draggable: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Modal}
- */
-Elements.implement('modal', function(options) {
-    var modal = new Toolkit.Modal(this, options);
-
-    return this.each(function(el) {
-        if (!el.$modal) {
-            el.$modal = modal;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through modal().
+     */
+    Toolkit.createComponent('modal', function(options) {
+        return new Toolkit.Modal(this, options);
+    }, true);
 
 })();

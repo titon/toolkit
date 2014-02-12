@@ -11,15 +11,12 @@
     margin: $margin 0;
 
     ul, ol {
-        margin: 0;
-        padding: 0;
-
+        @include reset-list;
         @include clear-fix;
     }
 
     li {
         position: relative;
-        list-style: none;
         float: left;
         margin-right: $padding / 2;
 
@@ -53,7 +50,7 @@
         }
     }
 
-    &.round {
+    &.#{$shape-round-class} {
         ul {
             border-radius: $round;
         }

@@ -32,7 +32,6 @@
 
 // Styles for the grid row containing the columns.
 @mixin grid-row($width: $grid-width) {
-    text-align: left;
     width: $width;
     max-width: $width;
 

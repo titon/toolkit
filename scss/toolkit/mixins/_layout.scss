@@ -3,23 +3,31 @@
 @mixin clear-fix {
     &:after {
         content: "";
-        display: block;
-        height: 0;
-        line-height: 0;
+        display: table;
         clear: both;
-        visibility: hidden;
     }
 }
 
 // Reset an inline-block element to defaults
 @mixin reset-inline-block {
     display: inline-block;
-    border: 0;
+    position: relative;
+    vertical-align: middle;
+}
+
+// Reset a list and remove default styles
+@mixin reset-list {
+    list-style: none;
     margin: 0;
     padding: 0;
-    position: relative;
-    text-decoration: none;
-    vertical-align: middle;
+}
+
+// Align an element in the center of another element
+@mixin position-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
 }
 
 // Remove the top and bottom margin from content elements

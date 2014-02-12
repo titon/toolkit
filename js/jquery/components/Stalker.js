@@ -7,225 +7,190 @@
 (function($) {
     'use strict';
 
-Toolkit.Stalker = Toolkit.Component.create(function(element, options) {
+    Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
+        this.component = 'Stalker';
+        this.version = '1.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Stalker.options, options);
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
-    /** Element to scroll */
-    this.element = this.setElement(element, this.options);
-
-    /** Elements to apply active state to */
-    this.target = null;
-    this.targets = [];
-
-    /** Elements that trigger the active state */
-    this.marker = null;
-    this.markers = [];
-
-    /** Offset positioning for markers */
-    this.offsets = [];
-
-    /** Container used for scroll detection */
-    this.container = null;
-
-    /** Is the component enabled? */
-    this.enabled = true;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    this.initialize = function() {
-        if (!this.options.target || !this.options.marker) {
+        if (!options.target || !options.marker) {
             return;
         }
 
-        this.element.addClass(Toolkit.options.vendor + 'stalker');
+        // Elements to apply active state to
+        this.target = null;
+        this.targets = [];
 
-        if (this.element.css('overflow') === 'auto') {
-            this.container = this.element;
+        // Elements that trigger the active state
+        this.marker = null;
+        this.markers = [];
+
+        // Offset positioning for markers
+        this.offsets = [];
+
+        // Container used for scroll detection
+        this.container = null;
+
+        // Set events
+        element.addClass(Toolkit.options.vendor + 'stalker');
+
+        if (element.css('overflow') === 'auto') {
+            this.container = element;
         } else {
             this.container = $(window);
         }
 
         this.refresh();
 
-        this.container.on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
+        this.container.on('scroll', $.throttle(this.__scroll.bind(this), options.throttle));
 
         $(document).ready(this.__scroll.bind(this));
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Activate a target when a marker is triggered.
-     *
-     * @param {Element} marker
-     * @param {Element} target
-     * @returns {Toolkit.Stalker}
-     */
-    this.activate = function(marker, target) {
-        this.marker = $(marker);
-        this.target = target = $(target);
+        /**
+         * Activate a target when a marker is triggered.
+         *
+         * @param {Element} marker
+         * @param {Element} target
+         */
+        activate: function(marker, target) {
+            this.marker = $(marker);
+            this.target = target = $(target);
 
-        var targets = this.targets;
+            var targets = this.targets;
 
-        if (this.options.applyToParent) {
-            targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
-            target.parent().addClass(Toolkit.options.isPrefix + 'active');
+            if (this.options.applyToParent) {
+                targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
+                target.parent().addClass(Toolkit.options.isPrefix + 'active');
 
-        } else {
-            targets.removeClass(Toolkit.options.isPrefix + 'active');
-            target.addClass(Toolkit.options.isPrefix + 'active');
-        }
-
-        this.fireEvent('activate', [marker, target]);
-
-        return this;
-    };
-
-    /**
-     * Deactivate the targets.
-     *
-     * @param {Element} marker
-     * @returns {Toolkit.Stalker}
-     */
-    this.deactivate = function(marker) {
-        var targets = this.targets;
-
-        if (this.options.applyToParent) {
-            targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
-        } else {
-            targets.removeClass(Toolkit.options.isPrefix + 'active');
-        }
-
-        this.marker = null;
-        this.target = null;
-        this.fireEvent('deactivate', marker);
-
-        return this;
-    };
-
-    /**
-     * Gather the targets and markers used for stalking.
-     *
-     * @returns {Toolkit.Stalker}
-     */
-    this.refresh = function() {
-        if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
-            this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
-        }
-
-        this.target = null;
-        this.targets = $(this.options.target);
-        this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
-
-        this.marker = null;
-        this.markers = $(this.options.marker);
-        this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
-
-        var isWindow = this.container.is(window),
-            eTop = this.element.offset().top,
-            offset,
-            offsets = [];
-
-        this.markers.each(function(index, marker) {
-            marker = $(marker);
-            offset = marker.offset();
-
-            if (!isWindow) {
-                offset.top -= eTop;
+            } else {
+                targets.removeClass(Toolkit.options.isPrefix + 'active');
+                target.addClass(Toolkit.options.isPrefix + 'active');
             }
 
-            offsets.push(offset);
-        });
+            this.fireEvent('activate', [marker, target]);
+        },
 
-        this.offsets = offsets;
+        /**
+         * Deactivate the targets.
+         *
+         * @param {Element} marker
+         */
+        deactivate: function(marker) {
+            var targets = this.targets;
 
-        return this;
-    };
+            if (this.options.applyToParent) {
+                targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
+            } else {
+                targets.removeClass(Toolkit.options.isPrefix + 'active');
+            }
 
-    /**
-     * While the element is being scrolled, notify the targets when a marker is reached.
-     *
-     * @private
-     */
-    this.__scroll = function() {
-        if (!this.enabled) {
-            return;
-        }
+            this.marker = null;
+            this.target = null;
+            this.fireEvent('deactivate', marker);
+        },
 
-        var scroll = this.container.scrollTop(),
-            markers = this.markers,
-            targets = this.targets,
-            offsets = this.offsets,
-            onlyWithin = this.options.onlyWithin,
-            threshold = this.options.threshold;
+        /**
+         * Gather the targets and markers used for stalking.
+         */
+        refresh: function() {
+            if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
+                this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
+            }
 
-        markers.each(function(index, marker) {
-            marker = $(marker);
+            this.target = null;
+            this.targets = $(this.options.target)
+                .addClass(Toolkit.options.vendor + 'stalker-target');
 
-            var offset = offsets[index],
-                top = offset.top - threshold,
-                bot = offset.top + marker.height() + threshold,
-                target = [];
+            this.marker = null;
+            this.markers = $(this.options.marker)
+                .addClass(Toolkit.options.vendor + 'stalker-marker');
 
-            // Scroll is within the marker
-            if (
-                (onlyWithin && scroll >= top && scroll <= bot) ||
-                (!onlyWithin && scroll >= top)
-            ) {
-                target = targets.filter(function() {
-                    return ($(this).attr('href') === '#' + marker.attr('id'));
-                });
+            var isWindow = this.container.is(window),
+                eTop = this.element.offset().top,
+                offset,
+                offsets = [];
 
-                if (target.length) {
-                    this.activate(marker, target.item(0));
+            this.markers.each(function(index, marker) {
+                marker = $(marker);
+                offset = marker.offset();
+
+                if (!isWindow) {
+                    offset.top -= eTop;
                 }
 
-            // Scroll went outside the marker
-            } else if (this.marker && this.marker.is(marker)) {
-                this.deactivate(marker);
+                offsets.push(offset);
+            });
+
+            this.offsets = offsets;
+        },
+
+        /**
+         * While the element is being scrolled, notify the targets when a marker is reached.
+         *
+         * @private
+         */
+        __scroll: function() {
+            if (!this.enabled) {
+                return;
             }
 
-        }.bind(this));
+            var scroll = this.container.scrollTop(),
+                markers = this.markers,
+                targets = this.targets,
+                offsets = this.offsets,
+                onlyWithin = this.options.onlyWithin,
+                threshold = this.options.threshold;
 
-        this.fireEvent('scroll');
-    };
+            markers.each(function(index, marker) {
+                marker = $(marker);
 
-    if (this.element.length) {
-        this.initialize();
-    }
-});
+                var offset = offsets[index],
+                    top = offset.top - threshold,
+                    bot = offset.top + marker.height() + threshold,
+                    target = [];
 
-Toolkit.Stalker.options = {
-    target: '',
-    marker: '',
-    threshold: 50,
-    throttle: 50,
-    onlyWithin: true,
-    applyToParent: true
-};
+                // Scroll is within the marker
+                if (
+                    (onlyWithin && scroll >= top && scroll <= bot) ||
+                    (!onlyWithin && scroll >= top)
+                ) {
+                    target = targets.filter(function() {
+                        return ($(this).attr('href') === '#' + marker.attr('id'));
+                    });
 
-/**
- * Enable element scroll stalking by calling stalker().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('stalker-id').stalker({
- *         threshold: 100
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.stalker = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.stalker', function() {
-            return new Toolkit.Stalker(this, options);
-        });
+                    if (target.length) {
+                        this.activate(marker, target.item(0));
+                    }
+
+                // Scroll went outside the marker
+                } else if (this.marker && this.marker.is(marker)) {
+                    this.deactivate(marker);
+                }
+
+            }.bind(this));
+
+            this.fireEvent('scroll');
+        }
+
+    }, {
+        target: '',
+        marker: '',
+        threshold: 50,
+        throttle: 50,
+        onlyWithin: true,
+        applyToParent: true
     });
-};
+
+    /**
+     * Defines a component that can be instantiated through stalker().
+     */
+    Toolkit.createComponent('stalker', function(options) {
+        return new Toolkit.Stalker(this, options);
+    });
 
 })(jQuery);

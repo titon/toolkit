@@ -17,6 +17,11 @@ $state-has-prefix: "has-";
 $size-small-class: "small";
 $size-medium-class: "medium";
 $size-large-class: "large";
+$shape-square-class: "square";
+$shape-round-class: "round";
+$shape-oval-class: "oval";
+$shape-pill-class: "pill";
+$shape-skew-class: "skew";
 
 //-------------------- Colors --------------------//
 
@@ -95,8 +100,9 @@ $skew-reverse: $skew-y $skew-x;
 
 $default-opacity: .5 !default;
 $disabled-opacity: $default-opacity !default;
-$blackout-opacity: $default-opacity !default;
+$blackout-opacity: .85 !default;
 $carousel-opacity: $default-opacity !default;
+$mask-opacity: .85 !default;
 $showcase-opacity: $default-opacity !default;
 
 //-------------------- Transitions --------------------//
@@ -108,6 +114,7 @@ $carousel-transition: 1s !default;
 $dropdown-transition: $default-transition !default;
 $flyout-transition: $default-transition !default;
 $lazyLoad-transition: $default-transition !default;
+$mask-transition: $default-transition !default;
 $matrix-transition: $default-transition !default;
 $modal-transition: $default-transition !default;
 $progress-transition: $default-transition !default;
@@ -137,7 +144,7 @@ $breakpoint-large: 1440px !default;
 //-------------------- Grid --------------------//
 
 $grid-columns-large: 12 !default;
-$grid-columns-medium: 8 !default;
+$grid-columns-medium: 9 !default;
 $grid-columns-small: 6 !default;
 
 $grid-columns-desktop: 12 !default;
@@ -146,6 +153,16 @@ $grid-columns-mobile: 3 !default;
 
 $grid-width: 100% !default;
 $grid-gutter: false !default;
+
+//-------------------- Loader --------------------//
+
+$loader-type: "all" !default;
+$loader-color: #000 !default;
+$loader-wave-count: 10 !default;
+$loader-spinner-count: 5 !default;
+$loader-bar-width: 0.65rem !default;
+$loader-bar-height: 2.5rem !default;
+$loader-bubble-size: 1.5rem !default;
 
 //-------------------- Imports --------------------//
 
@@ -160,3 +177,4 @@ $grid-gutter: false !default;
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 @import "compass/css3/filter";
+@import "animation";

@@ -19,15 +19,23 @@ module.exports = function(grunt) {
      * The --effects parameter can be used to include effects styles
      * The --theme parameter can be used to include a theme
      * The --no-normalize parameter will exclude normalize.css from the output
+     * The --demo parameter will include all files for demo debugging
      */
     var toPackage = grunt.option('components') ? grunt.option('components').split(',') : [],
         useEffects =  grunt.option('effects') ? grunt.option('effects').split(',') : [],
         useTheme = grunt.option('theme') || null,
         categories = ['layout', 'component'];
 
+    if (grunt.option('demo')) {
+        toPackage = [];
+        useEffects = [];
+        useTheme = null;
+        categories.push('effect');
+    }
+
     if (!toPackage.length) {
         _.each(graph.manifest, function(value, key) {
-            if (value.category === 'layout' || value.category === 'component') {
+            if (_.contains(categories, value.category)) {
                 toPackage.push(key);
             }
         });
@@ -145,7 +153,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // Package schema - https://npmjs.org/doc/json.html
         pkg: grunt.file.readJSON('package.json'),
-        buildFile: 'build/<%= pkg.name.toLowerCase() %>-<%= pkg.version %>',
+        buildFile: 'build/<%= pkg.name.toLowerCase() %>',
 
         // 1) Validate the Javascript source directory
         // http://jshint.com/docs/
@@ -278,7 +286,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: 'js/**/*.js',
-                tasks: ['uglify:build']
+                tasks: ['newer:uglify:build', 'concat:build']
             },
             styles: {
                 files: 'scss/**/*.scss',
@@ -295,6 +303,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-newer');
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);

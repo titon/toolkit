@@ -50,6 +50,7 @@ Toolkit.TypeAhead = new Class({
 
         // Events
         onSelect: null,
+        onCycle: null,
         onReset: null
     },
 
@@ -131,13 +132,13 @@ Toolkit.TypeAhead = new Class({
      * @returns {Toolkit.TypeAhead}
      */
     bindEvents: function() {
-        window
-            .addEvent('keydown', function(e) {
-                if (e.key === 'esc' && this.isVisible()) {
-                    this.hide();
-                }
-            }.bind(this))
-            .addEvent('click', this.hide.bind(this));
+        window.addEvent('keydown', function(e) {
+            if (e.key === 'esc' && this.isVisible()) {
+                this.hide();
+            }
+        }.bind(this));
+
+        this.element.addEvent('clickout', this.hide.bind(this));
 
         this.input.addEvents({
             keyup: this.__lookup,
@@ -417,9 +418,10 @@ Toolkit.TypeAhead = new Class({
      * Select an item in the list.
      *
      * @param {Number} index
+     * @param {String} [event]
      * @returns {Toolkit.TypeAhead}
      */
-    select: function(index) {
+    select: function(index, event) {
         this.index = index;
 
         var rows = this.element.getElements('li');
@@ -435,7 +437,7 @@ Toolkit.TypeAhead = new Class({
 
                 this.input.set('value', item.title);
 
-                this.fireEvent('select', [item, index]);
+                this.fireEvent(event || 'select', [item, index]);
             }
 
         // Reset
@@ -557,7 +559,7 @@ Toolkit.TypeAhead = new Class({
         }
 
         // Select the item
-        this.select(this.index);
+        this.select(this.index, 'cycle');
     },
 
     /**
@@ -598,25 +600,11 @@ Toolkit.TypeAhead = new Class({
 
 });
 
-/**
- * Enable a type ahead select system over an input field by calling typeAhead() on an Element.
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('input-id').typeAhead({
- *         shadow: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.TypeAhead}
- */
-Element.implement('typeAhead', function(options) {
-    if (!this.$typeAhead) {
-        this.$typeAhead = new Toolkit.TypeAhead(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through typeAhead().
+     */
+    Toolkit.createComponent('typeAhead', function(options) {
+        return new Toolkit.TypeAhead(this, options);
+    });
 
 })();

@@ -17,7 +17,8 @@ for ($i = 1; $i <= value('count', 5); $i++) {
             $$('.js-showcase').showcase({
                 className: <?php string('className'); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                gutter: <?php number('gutter', 50); ?>
+                gutter: <?php number('gutter', 50); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
         });
     <?php } else { ?>
@@ -25,7 +26,8 @@ for ($i = 1; $i <= value('count', 5); $i++) {
             $('.js-showcase').showcase({
                 className: <?php string('className'); ?>,
                 blackout: <?php bool('blackout', true); ?>,
-                gutter: <?php number('gutter', 50); ?>
+                gutter: <?php number('gutter', 50); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
         });
     <?php } ?>

@@ -5,72 +5,58 @@ if ($mod = value('modifier')) {
     $class = 'is-' . $mod;
 } ?>
 
-<pre<?php if ($class) echo ' class="' . $class . '"'; ?>><code>/**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
- * @link        http://titon.io
- */
+<pre<?php if ($class) echo ' class="' . $class . '"'; ?>><code>window.Toolkit = {
 
-namespace Titon\Model;
+    /** Current version */
+    version: '%version%',
 
-use Titon\Common\Base;
-use Titon\Common\Traits\Attachable;
-use Titon\Model\Relation;
+    /** Build date hash */
+    build: '%build%',
 
-class Model extends Base {
-    use Attachable;
+    /** Options */
+    options: {
+        vendor: '',
+        isPrefix: 'is-',
+        hasPrefix: 'has-'
+    },
 
-    protected $_config = [
-        'connection' =&gt; 'default',
-        'table' =&gt; '',
-        'prefix' =&gt; '',
-        'primaryKey' =&gt; 'id',
-        'displayField' =&gt; ['title', 'name', 'id'],
-        'entity' =&gt; 'Titon\Model\Entity'
-    ];
+    /** Localization messages */
+    messages: {
+        loading: 'Loading...',
+        error: 'An error has occurred!'
+    },
 
-    public function addRelation(Relation $relation) {
-        $this-&gt;_relations[$relation-&gt;getAlias()] = $relation;
+    /** Does the browser support transforms? */
+    hasTransform: (function() {
+        var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' '),
+            style = document.createElement('div').style;
 
-        $this-&gt;attachObject([
-            'alias' =&gt; $relation-&gt;getAlias(),
-            'class' =&gt; $relation-&gt;getModel(),
-            'interface' =&gt; 'Titon\Model\Model'
-        ]);
-
-        return $relation;
-    }
-
-    public function createTable(array $options = [], $temporary = false) {
-        $schema = $this-&gt;getSchema();
-        $schema-&gt;addOptions($options + [
-            Dialect::ENGINE =&gt; 'InnoDB',
-            Dialect::CHARACTER_SET =&gt; $this-&gt;getDriver()-&gt;getEncoding()
-        ]);
-
-        return (bool) $this-&gt;query(Query::CREATE_TABLE)
-            -&gt;attribute('temporary', $temporary)
-            -&gt;schema($schema)
-            -&gt;save();
-    }
-
-    public function getPrimaryKey() {
-        return $this-&gt;cache(__METHOD__, function() {
-            $pk = $this-&gt;config-&gt;primaryKey;
-            $schema = $this-&gt;getSchema();
-
-            if ($schema-&gt;hasColumn($pk)) {
-                return $pk;
+        for (var i = 0; i &lt; prefixes.length; i++) {
+            if (prefixes[i] in style) {
+                return prefixes[i];
             }
+        }
 
-            if ($pk = $schema-&gt;getPrimaryKey()) {
-                return $pk['columns'][0];
+        return false;
+    })(),
+
+    /** Does the browser support transitions? */
+    hasTransition: (function() {
+        var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+            style = document.createElement('div').style;
+
+        for (var i = 0; i &lt; prefixes.length; i++) {
+            if (prefixes[i] in style) {
+                return prefixes[i];
             }
+        }
 
-            return 'id';
-        });
-    }
-}</code></pre>
+        return false;
+    })(),
+
+    /** Detect touch devices */
+    isTouch: !!('ontouchstart' in window)
+};</code></pre>
 
 <div class="example-title">Inline</div>
 

@@ -7,53 +7,35 @@
 (function($) {
     'use strict';
 
-Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
+    Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
+        this.component = 'Tabs';
+        this.version = '1.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Tabs.options, options);
-
-    /** Tabs wrapper */
-    this.element = this.setElement(element, this.options);
-
-    /** Navigation container */
-    this.nav = null;
-
-    /** Collection of content sections */
-    this.sections = [];
-
-    /** Collection of tabs (anchor links) */
-    this.tabs = [];
-
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
-
-    /** Cached requests */
-    this.cache = {};
-
-    /** Is the component enabled? */
-    this.enabled = true;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    this.initialize = function() {
-        var options = this.options;
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
         if (!options.cookie) {
-            this.options.cookie = options.cookie = this.element.attr('id');
+            options.cookie = element.attr('id');
         }
 
-        // Get elements
-        this.nav = this.element.find(options.navElement);
+        // Navigation container
+        this.nav = element.find(options.navElement);
 
-        this.tabs = this.nav.find('ul > li > a');
-        this.tabs.each(function(index) {
+        // Collection of content sections
+        this.sections = element.find(options.sectionsElement).conceal();
+
+        /** Collection of tabs (anchor links) */
+        this.tabs = this.nav.find('ul > li > a').each(function(index) {
             $(this).data('index', index).removeClass(Toolkit.options.isPrefix + 'active');
         });
 
-        this.sections = this.element.find(options.sectionsElement);
-        this.sections.conceal();
+        // The current and previous shown indices
+        this.previousIndex = 0;
+        this.currentIndex = 0;
+
+        // Cached requests
+        this.cache = {};
 
         // Set events
         this.tabs.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
@@ -92,174 +74,141 @@ Toolkit.Tabs = Toolkit.Component.create(function(element, options) {
         }
 
         this.jump(index);
-    };
+    }, {
 
-    /**
-     * Hide all sections.
-     *
-     * @returns {Toolkit.Tabs}
-     */
-    this.hide = function() {
-        this.sections.conceal();
+        /**
+         * Hide all sections.
+         */
+        hide: function() {
+            this.sections.conceal();
 
-        this.fireEvent('hide', this.node);
+            this.fireEvent('hide', this.node);
+        },
 
-        return this;
-    };
+        /**
+         * Jump to a specific tab via index.
+         *
+         * @param {Number} index
+         */
+        jump: function(index) {
+            if (this.tabs[index]) {
+                this.show(this.tabs[index]);
+            }
+        },
 
-    /**
-     * Jump to a specific tab via index.
-     *
-     * @param {Number} index
-     * @returns {Toolkit.Tabs}
-     */
-    this.jump = function(index) {
-        if (this.tabs[index]) {
-            this.show(this.tabs[index]);
-        }
+        /**
+         * Show the content based on the tab. Can either pass an integer as the index in the collection,
+         * or pass an element object for a tab in the collection.
+         *
+         * @param {jQuery} tab
+         */
+        show: function(tab) {
+            tab = $(tab);
 
-        return this;
-    };
+            var index = tab.data('index'),
+                section = this.sections.item(index),
+                url = this.readValue(tab, this.options.getUrl);
 
-    /**
-     * Show the content based on the tab. Can either pass an integer as the index in the collection,
-     * or pass an element object for a tab in the collection.
-     *
-     * @param {jQuery} tab
-     * @returns {Toolkit.Tabs}
-     */
-    this.show = function(tab) {
-        tab = $(tab);
+            // Load content with AJAX
+            if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+                this.requestData(url,
+                    function() {
+                        section.html(this._loadingTemplate())
+                            .addClass(Toolkit.options.isPrefix + 'loading');
+                    },
+                    function(response) {
+                        this.cache[url] = true;
 
-        var index = tab.data('index'),
-            section = this.sections.item(index),
-            url = this.readValue(tab, this.options.getUrl);
+                        section.html(response)
+                            .removeClass(Toolkit.options.isPrefix + 'loading');
 
-        // Load content with AJAX
-        if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
-            this.requestData(
-                'tabs',
-                url,
-                function tabsAjaxBefore() {
-                    section.html(this._loadingTemplate('tabs'))
-                        .addClass(Toolkit.options.isPrefix + 'loading');
-                },
-                function tabsAjaxDone(response) {
-                    this.cache[url] = true;
+                        this.fireEvent('load', response);
+                    },
+                    function() {
+                        section.html(this._errorTemplate())
+                            .removeClass(Toolkit.options.isPrefix + 'loading')
+                            .addClass(Toolkit.options.hasPrefix + 'failed');
+                    }
+                );
+            }
 
-                    section.html(response)
-                        .removeClass(Toolkit.options.isPrefix + 'loading');
+            // Toggle tabs
+            this.nav.find('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
 
-                    this.fireEvent('load', response);
-                },
-                function tabsAjaxFail() {
-                    section.html(this._errorTemplate('tabs'))
-                        .removeClass(Toolkit.options.isPrefix + 'loading')
-                        .addClass(Toolkit.options.hasPrefix + 'failed');
+            // Toggle sections
+            if (index === this.currentIndex && this.options.collapsible) {
+                if (section.is(':shown')) {
+                    section.conceal();
+
+                } else {
+                    tab.parent().addClass(Toolkit.options.isPrefix + 'active');
+                    section.reveal();
                 }
-            );
-        }
-
-        // Toggle tabs
-        this.nav.find('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
-
-        // Toggle sections
-        if (index === this.currentIndex && this.options.collapsible) {
-            if (section.is(':shown')) {
-                section.conceal();
-
             } else {
+                this.hide();
+
                 tab.parent().addClass(Toolkit.options.isPrefix + 'active');
                 section.reveal();
             }
-        } else {
-            this.hide();
 
-            tab.parent().addClass(Toolkit.options.isPrefix + 'active');
-            section.reveal();
+            // Persist the state using a cookie
+            if (this.options.persistState) {
+                var cookie = 'toolkit.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
+                var date = new Date();
+                    date.setTime(date.getTime() + this.options.cookieDuration * 24 * 60 * 60 * 1000);
+
+                cookie += '; expires=' + date.toUTCString();
+                cookie += '; path=/';
+
+                document.cookie = cookie;
+            }
+
+            // Track
+            this.previousIndex = this.currentIndex;
+            this.currentIndex = index;
+
+            this.fireEvent('show', tab);
+
+            // Set current node
+            this.node = tab;
+        },
+
+        /**
+         * Event callback for tab element click.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        __show: function(e) {
+            if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
+                e.preventDefault();
+            }
+
+            if (this.enabled) {
+                this.show(e.target);
+            }
         }
 
-        // Persist the state using a cookie
-        if (this.options.persistState) {
-            var cookie = 'toolkit.tabs.' + this.options.cookie + '=' + encodeURIComponent(index);
-            var date = new Date();
-                date.setTime(date.getTime() + this.options.cookieDuration * 24 * 60 * 60 * 1000);
-
-            cookie += '; expires=' + date.toUTCString();
-            cookie += '; path=/';
-
-            document.cookie = cookie;
-        }
-
-        // Track
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
-
-        this.fireEvent('show', tab);
-
-        // Set current node
-        this.node = tab;
-
-        return this;
-    };
+    }, {
+        mode: 'click',
+        ajax: true,
+        collapsible: false,
+        defaultIndex: 0,
+        persistState: false,
+        preventDefault: true,
+        loadFragment: true,
+        cookie: null,
+        cookieDuration: 30,
+        getUrl: 'href',
+        navElement: '.tabs-nav',
+        sectionsElement: '.tabs-section'
+    });
 
     /**
-     * Event callback for tab element click.
-     *
-     * @private
-     * @param {Event} e
+     * Defines a component that can be instantiated through tabs().
      */
-    this.__show = function(e) {
-        if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
-            e.preventDefault();
-        }
-
-        if (!this.enabled) {
-            return;
-        }
-
-        this.show(e.target);
-    };
-
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Tabs.options = {
-    mode: 'click',
-    ajax: true,
-    collapsible: false,
-    defaultIndex: 0,
-    persistState: false,
-    preventDefault: true,
-    loadFragment: true,
-    cookie: null,
-    cookieDuration: 30,
-    getUrl: 'href',
-    navElement: '.tabs-nav',
-    sectionsElement: '.tabs-section'
-};
-
-/**
- * Enable tabular sections on an Element by calling tabs().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#tabs-id').tabs({
- *         collapsible: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.tabs = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.tabs', function() {
-            return new Toolkit.Tabs(this, options);
-        });
+    Toolkit.createComponent('tabs', function(options) {
+        return new Toolkit.Tabs(this, options);
     });
-};
 
 })(jQuery);

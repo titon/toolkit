@@ -7,51 +7,29 @@
 (function($) {
     'use strict';
 
-Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
+    Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
+        var header, headers, sections;
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Accordion.options, options);
+        this.component = 'Accordion';
+        this.version = '1.0.0';
 
-    /** Primary DOM wrapper */
-    this.element = this.setElement(element, this.options);
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
-    /** List of DOM headers */
-    this.headers = [];
+        // List of headers and sections
+        this.headers = headers = this.element.find(options.headerElement);
+        this.sections = sections = this.element.find(options.contentElement);
 
-    /** List of DOM sections */
-    this.sections = [];
+        // The current and previous shown indices
+        this.previousIndex = 0;
+        this.currentIndex = 0;
 
-    /** The current and previous shown indices */
-    this.previousIndex = 0;
-    this.currentIndex = 0;
-
-    /** Currently active header */
-    this.node = null;
-
-    /** Is the component enabled? */
-    this.enabled = true;
-
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    this.initialize = function() {
-        var options = this.options;
-
-        // Fetch all the sections and headers
-        var sections = this.element.find(options.contentElement),
-            headers = this.element.find(options.headerElement),
-            header = headers.item(0);
-
-        this.headers = headers;
-        this.sections = sections;
-
-        // Fall back to first row if the default doesn't exist
-        if (headers[options.defaultIndex]) {
-            header = headers[options.defaultIndex];
-        }
+        // Currently active header
+        this.node = null;
 
         // Reset the state of every row
-        this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
+        element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
 
         // Store the index
         headers.each(function(index) {
@@ -64,132 +42,111 @@ Toolkit.Accordion = Toolkit.Component.create(function(element, options) {
             section.data('height', section.height()).conceal();
         });
 
-        this.show(header);
-
         // Set events
-        headers.on((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+        headers.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
 
         this.fireEvent('init');
-    };
 
-    /**
-     * Go to the section indicated by the index number.
-     * If the index is too large, jump to the beginning.
-     * If the index is too small, jump to the end.
-     *
-     * @param {Number} index
-     * @returns {Toolkit.Accordion}
-     */
-    this.jump = function(index) {
-        if (index >= this.headers.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = this.headers.length - 1;
-        }
+        // Fall back to first row if the default doesn't exist
+        header = headers[options.defaultIndex] ? headers.item(options.defaultIndex) : headers.item(0);
 
-        this.fireEvent('jump', index);
+        this.show(header);
+    }, {
 
-        return this.show(this.headers[index]);
-    };
+        /**
+         * Go to the section indicated by the index number.
+         * If the index is too large, jump to the beginning.
+         * If the index is too small, jump to the end.
+         *
+         * @param {Number} index
+         */
+        jump: function(index) {
+            if (index >= this.headers.length) {
+                index = 0;
+            } else if (index < 0) {
+                index = this.headers.length - 1;
+            }
 
-    /**
-     * Toggle the section display of a row via the header click/hover event.
-     * Take into account the multiple and collapsible options.
-     *
-     * @param {jQuery} node
-     * @returns {Toolkit.Accordion}
-     */
-    this.show = function(node) {
-        node = $(node);
+            this.fireEvent('jump', index);
+            this.show(this.headers[index]);
+        },
 
-        var options = this.options,
-            parent = node.parent(), // li
-            section = node.next(options.contentElement), // section
-            index = node.data('index'),
-            height = parseInt(section.data('height'), 10),
-            isNode = (this.node && this.node.is(node));
+        /**
+         * Toggle the section display of a row via the header click/hover event.
+         * Take into account the multiple and collapsible options.
+         *
+         * @param {jQuery} node
+         */
+        show: function(node) {
+            node = $(node);
 
-        // Allow simultaneous open and closed sections
-        // Or allow the same section to collapse
-        if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
-            if (section.is(':shown') && this.node) {
-                section.css('max-height', 0).conceal();
-                parent.removeClass(Toolkit.options.isPrefix + 'active');
+            var options = this.options,
+                parent = node.parent(), // li
+                section = node.next(options.contentElement), // section
+                index = node.data('index'),
+                height = parseInt(section.data('height'), 10),
+                isNode = (this.node && this.node.is(node));
 
+            // Allow simultaneous open and closed sections
+            // Or allow the same section to collapse
+            if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
+                if (section.is(':shown') && this.node) {
+                    section.css('max-height', 0).conceal();
+                    parent.removeClass(Toolkit.options.isPrefix + 'active');
+
+                } else {
+                    section.css('max-height', height).reveal();
+                    parent.addClass(Toolkit.options.isPrefix + 'active');
+                }
+
+            // Only one open at a time
             } else {
+
+                // Exit early so we don't mess with animations
+                if (isNode) {
+                    return;
+                }
+
+                this.sections.css('max-height', 0).conceal();
                 section.css('max-height', height).reveal();
+
+                this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
                 parent.addClass(Toolkit.options.isPrefix + 'active');
             }
 
-        // Only one open at a time
-        } else {
+            this.previousIndex = this.currentIndex;
+            this.currentIndex = index;
+            this.node = node;
 
-            // Exit early so we don't mess with animations
-            if (isNode) {
-                return this;
-            }
+            this.fireEvent('show', section);
+        },
 
-            this.sections.css('max-height', 0).conceal();
-            section.css('max-height', height).reveal();
+        /**
+         * Event handler for header element click or hover.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        __show: function(e) {
+            e.preventDefault();
 
-            this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
-            parent.addClass(Toolkit.options.isPrefix + 'active');
+            this.show(e.currentTarget);
         }
 
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
-        this.node = node;
-
-        this.fireEvent('show', section);
-
-        return this;
-    };
+    }, {
+        mode: 'click',
+        defaultIndex: 0,
+        multiple: false,
+        collapsible: false,
+        headerElement: '.accordion-head',
+        contentElement: '.accordion-handle'
+    });
 
     /**
-     * Event handler for header element click or hover.
-     *
-     * @private
-     * @param {Event} e
+     * Defines a component that can be instantiated through accordion().
      */
-    this.__show = function(e) {
-        e.preventDefault();
-
-        this.show(e.currentTarget);
-    };
-
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Accordion.options = {
-    mode: 'click',
-    defaultIndex: 0,
-    multiple: false,
-    collapsible: false,
-    headerElement: '.accordion-head',
-    contentElement: '.accordion-handle'
-};
-
-/**
- * Enable an accordion on an element by calling accordion().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#accordion-id').accordion({
- *         multiple: false
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.accordion = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.accordion', function() {
-            return new Toolkit.Accordion(this, options);
-        });
+    Toolkit.createComponent('accordion', function(options) {
+        return new Toolkit.Accordion(this, options);
     });
-};
 
 })(jQuery);

@@ -12,15 +12,12 @@
     background: $gray;
 
     ul, ol {
-        margin: 0;
-        padding: 0;
-
+        @include reset-list;
         @include clear-fix;
     }
 
     li {
         position: relative;
-        list-style: none;
         float: left;
 
         &:last-child {

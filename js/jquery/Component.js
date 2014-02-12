@@ -7,229 +7,269 @@
 (function($) {
     'use strict';
 
-Toolkit.Component = function() {
+    Toolkit.Component = Toolkit.Class.extend(function() {}, {
+        component: 'Component',
+        version: '0.0.0',
+        enabled: true,
 
-    /**
-     * Create the element from the template.
-     *
-     * @param {Object} options
-     * @returns {jQuery}
-     */
-    this.createElement = function(options) {
-        var template;
+        /**
+         * Create the element from the template.
+         *
+         * @returns {jQuery}
+         */
+        createElement: function() {
+            var template, options = this.options;
 
-        // Use another element as the template
-        if (options.templateFrom) {
-            template = $(options.templateFrom);
-        }
-
-        // From a string
-        if ((!template || !template.length) && options.template) {
-            template = $(options.template);
-
-            if (template.length) {
-                template.conceal().appendTo('body');
+            // Use another element as the template
+            if (options.templateFrom) {
+                template = $(options.templateFrom);
             }
-        }
 
-        // Store it in the DOM
-        if (!template) {
-            throw new Error('Failed to create template element');
-        }
+            // From a string
+            if ((!template || !template.length) && options.template) {
+                template = $(options.template);
 
-        return this.setElement(template, options);
-    };
+                if (template.length) {
+                    template.conceal().appendTo('body');
+                }
+            }
 
-    /**
-     * Disable component.
-     *
-     * @returns {Toolkit.Component}
-     */
-    this.disable = function() {
-        this.enabled = false;
+            // Store it in the DOM
+            if (!template) {
+                throw new Error('Failed to create template element');
+            }
 
-        return this;
-    };
+            return this.setElement(template);
+        },
 
-    /**
-     * Enable component.
-     *
-     * @returns {Toolkit.Component}
-     */
-    this.enable = function() {
-        this.enabled = true;
+        /**
+         * Disable
+         */
+        disable: function() {
+            this.enabled = false;
+        },
 
-        return this;
-    };
+        /**
+         * Enable
+         */
+        enable: function() {
+            this.enabled = true;
+        },
 
-    /**
-     * Trigger an event if it exists.
-     *
-     * @param {String} event
-     * @param {Array} args
-     * @returns {Toolkit.Component}
-     */
-    this.fireEvent = function(event, args) {
-        if (args && !$.isArray(args)) {
-            args = [args];
-        }
+        /**
+         * Trigger an event if it exists.
+         *
+         * @param {String} type
+         * @param {Array} [args]
+         */
+        fireEvent: function(type, args) {
+            if (!$.isArray(args)) {
+                args = [args];
+            }
 
-        if (event.substr(0, 2) !== 'on') {
-            event = 'on' + event.charAt(0).toUpperCase() + event.slice(1);
-        }
+            // Trigger event globally
+            var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
 
-        if (this.options[event]) {
-            this.options[event].apply(this, args || []);
-        }
+            if (this.options[onType]) {
+                this.options[onType].apply(this, args || []);
+            }
 
-        return this;
-    };
+            // Trigger per element
+            if (this.element && this.element.length) {
+                var name = this.component;
+                    name = name.charAt(0).toLowerCase() + name.slice(1);
 
-    /**
-     * Attempt to read a value from an element using the query.
-     * Query can either be an attribute name, or a callback function.
-     *
-     * @param {jQuery} element
-     * @param {String|Function} query
-     * @returns {String}
-     */
-    this.readValue = function(element, query) {
-        if (!query) {
-            return null;
-        }
+                var event = jQuery.Event(type + '.toolkit.' + name);
+                    event.context = this;
 
-        element = $(element);
+                this.element.trigger(event, args || []);
+            }
+        },
 
-        if ($.type(query) === 'function') {
-            return query.call(this, element);
-        }
+        /**
+         * Handle and process non-HTML responses.
+         *
+         * @param {*} content
+         */
+        process: function(content) {
+            this.hide();
 
-        return element.attr(query);
-    };
+            if (content.callback) {
+                var namespaces = content.callback.split('.'),
+                    func = window, prev = func;
 
-    /**
-     * Request data from a URL and handle all the possible scenarios.
-     *
-     * @param {String} type
-     * @param {String} url
-     * @param {Function} before
-     * @param {Function} done
-     * @param {Function} fail
-     * @returns {Toolkit.Component}
-     */
-    this.requestData = function(type, url, before, done, fail) {
-        var ajax = {
-            url: url,
-            type: 'GET',
-            dataType: 'html',
-            context: this,
-            beforeSend: before || function() {
-                this.cache[url] = true;
+                for (var i = 0; i < namespaces.length; i++) {
+                    prev = func;
+                    func = func[namespaces[i]];
+                }
 
-                // Does not apply to all components
-                if (this.options.showLoading) {
+                func.call(prev, content);
+            }
+
+            this.fireEvent('process', content);
+        },
+
+        /**
+         * Attempt to read a value from an element using the query.
+         * Query can either be an attribute name, or a callback function.
+         *
+         * @param {jQuery} element
+         * @param {String|Function} query
+         * @returns {String}
+         */
+        readValue: function(element, query) {
+            if (!query) {
+                return null;
+            }
+
+            element = $(element);
+
+            if ($.type(query) === 'function') {
+                return query.call(this, element);
+            }
+
+            return element.attr(query);
+        },
+
+        /**
+         * Request data from a URL and handle all the possible scenarios.
+         *
+         * @param {Object} options
+         * @param {Function} before
+         * @param {Function} done
+         * @param {Function} fail
+         * @returns {jqXHR}
+         */
+        requestData: function(options, before, done, fail) {
+            var url = options.url || options;
+
+            // Set default options
+            var ajax = $.extend({}, {
+                url: url,
+                type: 'GET',
+                context: this,
+                beforeSend: before || function() {
+                    this.cache[url] = true;
                     this.element.addClass(Toolkit.options.isPrefix + 'loading');
-
-                    this.position(this._loadingTemplate(type));
                 }
+            }, options);
+
+            // Inherit base options
+            if ($.type(this.options.ajax) === 'object') {
+                ajax = $.extend({}, this.options.ajax, ajax);
             }
-        };
 
-        // Inherit custom options
-        if ($.type(this.options.ajax) === 'object') {
-            ajax = $.merge(this.options.ajax, ajax);
-        }
+            var cache = (ajax.type.toUpperCase() === 'GET');
 
-        $.ajax(ajax)
-            .done(done || function(response) {
-                this.cache[url] = response;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
+            return $.ajax(ajax)
+                .done(done || function(response, status, xhr) {
                     this.element.removeClass(Toolkit.options.isPrefix + 'loading');
+
+                    // HTML
+                    if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
+                        if (cache) {
+                            this.cache[url] = response;
+                        } else {
+                            delete this.cache[url];
+                        }
+
+                        this.position(response);
+
+                    // JSON, others
+                    } else {
+                        delete this.cache[url];
+
+                        this.process(response);
+                    }
+                })
+                .fail(fail || function() {
+                    delete this.cache[url];
+
+                    this.element
+                        .removeClass(Toolkit.options.isPrefix + 'loading')
+                        .addClass(Toolkit.options.hasPrefix + 'failed');
+
+                    this.position(this._errorTemplate());
+                });
+        },
+
+        /**
+         * Set the element to use. Apply optional class names if available.
+         *
+         * @param {String|Element|jQuery} element
+         * @returns {jQuery}
+         */
+        setElement: function(element) {
+            var options = this.options;
+                options.template = false;
+
+            element = $(element);
+
+            // Add a class name
+            if (options.className) {
+                element.addClass(options.className);
+            }
+
+            // Enable animations
+            if (options.animation) {
+                element.addClass(options.animation);
+            }
+
+            return element;
+        },
+
+        /**
+         * Set the options by merging with defaults.
+         *
+         * @param {Object} [options]
+         * @returns {Object}
+         */
+        setOptions: function(options) {
+            var defaults = Toolkit,
+                path = this.component;
+
+            // Drill into object to find defaults
+            if (path.indexOf('.') >= 0) {
+                path = path.split('.');
+
+                for (var i = 0; i < path.length; i++) {
+                    defaults = defaults[path[i]];
                 }
+            } else {
+                defaults = defaults[path];
+            }
 
-                this.position(response);
-            })
-            .fail(fail || function() {
-                delete this.cache[url];
+            var opts = $.extend(true, {}, defaults.options, options || {});
 
-                this.element
-                    .removeClass(Toolkit.options.isPrefix + 'loading')
-                    .addClass(Toolkit.options.hasPrefix + 'failed');
+            // Reset for touch devices
+            if (Toolkit.isTouch && opts.mode === 'hover') {
+                opts.mode = 'click';
+            }
 
-                this.position(this._errorTemplate(type));
-            });
+            return opts;
+        },
 
-        return this;
-    };
+        /**
+         * Return a DOM element for error messages.
+         *
+         * @returns {jQuery}
+         */
+        _errorTemplate: function() {
+            return $('<div/>')
+                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-error')
+                .text(Toolkit.messages.error);
+        },
 
-    /**
-     * Set the element to use. Apply optional class names if available.
-     *
-     * @param {String|Element} element
-     * @param {Object} options
-     * @returns {jQuery}
-     */
-    this.setElement = function(element, options) {
-        element = $(element);
-        options.template = false;
-
-        // Add a class name
-        if (options.className) {
-            element.addClass(options.className);
+        /**
+         * Return a DOM element for loading messages.
+         *
+         * @returns {jQuery}
+         */
+        _loadingTemplate: function() {
+            return $('<div/>')
+                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-loading')
+                .text(Toolkit.messages.loading);
         }
-
-        // Enable animations
-        if (options.animation) {
-            element.addClass(options.animation);
-        }
-
-        return element;
-    };
-
-    /**
-     * Set the options by merging with defaults.
-     *
-     * @param {Object} [defaults]
-     * @param {Object} [options]
-     * @returns {Object}
-     */
-    this.setOptions = function(defaults, options) {
-        var opts = $.extend({}, defaults || {}, options || {});
-
-        // Reset for touch devices
-        if (Toolkit.isTouch && opts.mode === 'hover') {
-            opts.mode = 'click';
-        }
-
-        return opts;
-    };
-
-    /**
-     * Return a DOM element for error messages.
-     *
-     * @param {String} component
-     * @returns {jQuery}
-     */
-    this._errorTemplate = function(component) {
-        return $('<div/>')
-            .addClass(Toolkit.options.vendor + component + '-error')
-            .text(Toolkit.messages.error);
-    };
-
-    /**
-     * Return a DOM element for loading messages.
-     *
-     * @param {String} component
-     * @returns {jQuery}
-     */
-    this._loadingTemplate = function(component) {
-        return $('<div/>')
-            .addClass(Toolkit.options.vendor + component + '-loading')
-            .text(Toolkit.messages.loading);
-    };
-
-};
+    });
 
 })(jQuery);

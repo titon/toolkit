@@ -1,5 +1,5 @@
 {
-    "version": "1.0.5",
+    "version": "1.1.0-rc.2",
     "name": "titon-toolkit",
     "description": "A collection of extensible front-end UI components for the responsive web.",
     "keywords": [
@@ -46,6 +46,7 @@
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
         "grunt-string-replace": "*",
+        "grunt-newer": "*",
         "compartment": "*"
     }
 }

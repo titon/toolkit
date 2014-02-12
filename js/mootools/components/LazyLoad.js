@@ -190,27 +190,11 @@ Toolkit.LazyLoad = new Class({
 
 });
 
-/**
- * Enable lazy loading on Elements collections by calling lazyLoad().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $$('.lazy-load').lazyLoad({
- *         forceLoad: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.LazyLoad}
- */
-Elements.implement('lazyLoad', function(options) {
-    var lazyLoad = new Toolkit.LazyLoad(this, options);
-
-    return this.each(function(el) {
-        if (!el.$lazyLoad) {
-            el.$lazyLoad = lazyLoad;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through lazyLoad().
+     */
+    Toolkit.createComponent('lazyLoad', function(options) {
+        return new Toolkit.LazyLoad(this, options);
+    }, true);
 
 })();

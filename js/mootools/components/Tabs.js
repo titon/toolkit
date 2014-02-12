@@ -237,25 +237,11 @@ Toolkit.Tabs = new Class({
 
 });
 
-/**
- * Enable tabular sections on an Element by calling tabs().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('tabs-id').tabs({
- *         collapsible: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Tabs}
- */
-Element.implement('tabs', function(options) {
-    if (!this.$tabs) {
-        this.$tabs = new Toolkit.Tabs(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through tabs().
+     */
+    Toolkit.createComponent('tabs', function(options) {
+        return new Toolkit.Tabs(this, options);
+    });
 
 })();

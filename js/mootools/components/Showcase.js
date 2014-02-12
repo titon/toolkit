@@ -33,6 +33,7 @@ Toolkit.Showcase = new Class({
     options: {
         delegate: '.js-showcase',
         blackout: true,
+        stopScroll: true,
         transition: 300,
         gutter: 50,
         getCategory: 'data-showcase',
@@ -71,8 +72,8 @@ Toolkit.Showcase = new Class({
         this.setNodes(elements);
         this.createElement();
 
-        // Doesn't support animations
-        if (Browser.ie8 || Browser.ie9) {
+        // IE doesn't support animations
+        if (!Toolkit.hasTransition) {
             this.options.transition = 1;
         }
 
@@ -84,10 +85,12 @@ Toolkit.Showcase = new Class({
         this.prevButton = this.element.getElement(options.prevElement);
         this.nextButton = this.element.getElement(options.nextElement);
 
+        // Increase gutter
+        options.gutter += (this.element.getHeight() - this.items.getHeight());
+
         // Blackout
         if (this.options.blackout) {
-            this.blackout = new Toolkit.Blackout();
-            this.blackout.element.addEvent('click', this.__hide);
+            this.blackout = Toolkit.Blackout.factory();
         }
 
         // Set events
@@ -120,6 +123,7 @@ Toolkit.Showcase = new Class({
         }.bind(this));
 
         this.element
+            .addEvent('clickout', this.__hide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
@@ -135,6 +139,9 @@ Toolkit.Showcase = new Class({
                 }
             }.bind(this));
 
+        this.nodes
+            .addEvent('clickout', this.__hide);
+
         return this;
     },
 
@@ -144,11 +151,15 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     hide: function() {
-        this.parent(function() {
-            if (this.options.blackout) {
-                this.blackout.hide();
-            }
+        if (this.blackout) {
+            this.blackout.hide();
+        }
 
+        if (this.options.stopScroll) {
+            document.body.setStyle('overflow', '');
+        }
+
+        this.parent(function() {
             this.element.removeClass(Toolkit.options.isPrefix + 'single');
 
             this.items
@@ -207,7 +218,7 @@ Toolkit.Showcase = new Class({
             // Reveal the image after animation
             setTimeout(function() {
                 listItem.addClass('show');
-                self._reposition();
+                self.position();
             }, options.transition);
 
         // Create image and animate
@@ -236,7 +247,7 @@ Toolkit.Showcase = new Class({
                 setTimeout(function() {
                     element.removeClass(Toolkit.options.isPrefix + 'loading');
                     listItem.addClass('show').grab(img);
-                    self._reposition();
+                    self.position();
                 }, options.transition);
             };
         }
@@ -263,14 +274,11 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     position: function() {
-        if (!this.isVisible()) {
-            if (this.options.blackout) {
-                this.blackout.show();
-            }
-
-            this.element.reveal();
-            this._reposition();
+        if (this.blackout) {
+            this.blackout.hideLoader();
         }
+
+        this.element.reveal();
 
         this.fireEvent('show');
 
@@ -334,8 +342,15 @@ Toolkit.Showcase = new Class({
             });
         }
 
+        if (this.blackout) {
+            this.blackout.show();
+        }
+
+        if (options.stopScroll) {
+            document.body.setStyle('overflow', 'hidden');
+        }
+
         this._buildItems(items);
-        this.position();
         this.jump(index);
 
         return this;
@@ -377,27 +392,6 @@ Toolkit.Showcase = new Class({
     }.protect(),
 
     /**
-     * Re-position the showcase modal for older browsers.
-     *
-     * @private
-     * @return {Toolkit.Showcase}
-     */
-    _reposition: function() {
-        if (!Browser.ie8) {
-            return this;
-        }
-
-        var size = this.element.getSize();
-
-        this.element.setStyles({
-            'margin-left': -(size.x / 2),
-            'margin-top': -(size.y / 2)
-        });
-
-        return this;
-    },
-
-    /**
      * Resize the showcase modal when it is larger than the current viewport.
      *
      * @private
@@ -407,18 +401,19 @@ Toolkit.Showcase = new Class({
      */
     _resize: function(width, height) {
         var size = window.getSize(),
+            gutter = this.options.gutter,
             ratio, diff;
 
-        if (width > size.x) {
-            var newWidth = (size.x - (this.options.gutter * 2)); // leave edge gap
+        if ((width + gutter) > size.x) {
+            var newWidth = (size.x - (gutter * 2)); // leave edge gap
 
             ratio = (width / height);
             diff = (width - newWidth);
             width = newWidth;
             height -= Math.round(diff / ratio);
 
-        } else if (height > size.y) {
-            var newHeight = (size.y - (this.options.gutter * 2)); // leave edge gap
+        } else if ((height + gutter) > size.y) {
+            var newHeight = (size.y - (gutter * 2)); // leave edge gap
 
             ratio = (height / width);
             diff = (height - newHeight);
@@ -449,27 +444,11 @@ Toolkit.Showcase = new Class({
 
 });
 
-/**
- * Enable showcase galleries on Elements collections by calling showcase().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $$('.js-showcase').showcase({
- *         blackout: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Showcase}
- */
-Elements.implement('showcase', function(options) {
-    var showcase = new Toolkit.Showcase(this, options);
-
-    return this.each(function(el) {
-        if (!el.$showcase) {
-            el.$showcase = showcase;
-        }
-    });
-});
+    /**
+     * Defines a component that can be instantiated through showcase().
+     */
+    Toolkit.createComponent('showcase', function(options) {
+        return new Toolkit.Showcase(this, options);
+    }, true);
 
 })();

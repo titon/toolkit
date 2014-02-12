@@ -8,11 +8,11 @@
 
 //-------------------- Button --------------------//
 
-.#{$vendor-prefix}button.pill { border-radius: $pill; }
+.#{$vendor-prefix}button.#{$shape-pill-class} { border-radius: $pill; }
 
 //-------------------- ButtonGroup --------------------//
 
-.#{$vendor-prefix}button-group.pill {
+.#{$vendor-prefix}button-group.#{$shape-pill-class} {
     border-radius: $pill;
 
     > li:first-child .#{$vendor-prefix}button,
@@ -30,7 +30,7 @@
     }
 }
 
-.#{$vendor-prefix}button-group--vertical.pill {
+.#{$vendor-prefix}button-group--vertical.#{$shape-pill-class} {
     border-radius: $pill;
 
     > li:first-child .#{$vendor-prefix}button,
@@ -52,7 +52,7 @@
 
 //-------------------- Pagination --------------------//
 
-.#{$vendor-prefix}pagination--grouped.pill {
+.#{$vendor-prefix}pagination--grouped.#{$shape-pill-class} {
     ul {
         border-radius: $pill;
     }
@@ -70,7 +70,7 @@
 
 //-------------------- Progress --------------------//
 
-.#{$vendor-prefix}progress.pill {
+.#{$vendor-prefix}progress.#{$shape-pill-class} {
     border-radius: $pill;
 
     .#{$vendor-prefix}progress-bar {
@@ -81,7 +81,7 @@
 
 //-------------------- Visual --------------------//
 
-.#{$vendor-prefix}visual-gloss.pill:after {
+.#{$vendor-prefix}visual-gloss.#{$shape-pill-class}:after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;

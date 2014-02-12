@@ -46,7 +46,8 @@ Toolkit.Component = new Class({
         onInit: null,
         onHide: null,
         onShow: null,
-        onLoad: null
+        onLoad: null,
+        onProcess: null
     },
 
     /**
@@ -227,6 +228,32 @@ Toolkit.Component = new Class({
     },
 
     /**
+     * Handle and process non-HTML responses.
+     *
+     * @param {*} content
+     * @returns {Toolkit.Component}
+     */
+    process: function(content) {
+        this.hide();
+
+        if (content.callback) {
+            var namespaces = content.callback.split('.'),
+                func = window, prev = func;
+
+            for (var i = 0; i < namespaces.length; i++) {
+                prev = func;
+                func = func[namespaces[i]];
+            }
+
+            func.call(prev, content);
+        }
+
+        this.fireEvent('process', content);
+
+        return this;
+    },
+
+    /**
      * Attempt to read a value from an element using the query.
      * Query can either be an attribute name, or a callback function.
      *
@@ -249,60 +276,75 @@ Toolkit.Component = new Class({
     /**
      * Request data from a URL and handle all the possible scenarios.
      *
-     * @param {String} url
+     * @param {Object} options
      * @param {Function} before
      * @param {Function} done
      * @param {Function} fail
      * @returns {Toolkit.Component}
      */
-    requestData: function(url, before, done, fail) {
-        if (this.cache[url]) {
-            return this;
-        }
+    requestData: function(options, before, done, fail) {
+        var url = options.url || options;
 
-        var ajax = {
+        // Set default options
+        var ajax = Object.merge({
             url: url,
-            method: 'get',
+            method: 'GET',
             evalScripts: true,
-
             onRequest: before || function() {
                 this.cache[url] = true;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
-
-                    this.position(this._loadingTemplate());
-                }
-            }.bind(this),
-
-            onSuccess: done || function(response) {
-                this.cache[url] = response;
-
-                // Does not apply to all components
-                if (this.options.showLoading) {
-                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
-                }
-
-                this.position(response);
-            }.bind(this),
-
-            onFailure: fail || function() {
-                delete this.cache[url];
-
-                this.element
-                    .removeClass(Toolkit.options.isPrefix + 'loading')
-                    .addClass(Toolkit.options.hasPrefix + 'failed');
-
-                this.position(this._errorTemplate());
+                this.element.addClass(Toolkit.options.isPrefix + 'loading');
             }.bind(this)
-        };
+        }, options);
 
+        // Inherit base options
         if (typeOf(this.options.ajax) === 'object') {
-            ajax = Object.merge(this.options.ajax, ajax);
+            ajax = Object.merge({}, this.options.ajax, ajax);
         }
 
-        new Request(ajax).get();
+        // Set callbacks
+        var self = this,
+            cache = (ajax.method.toUpperCase() === 'GET');
+
+        ajax.onSuccess = done || function(response) {
+            var contentType = this.xhr.getResponseHeader('Content-Type');
+
+            // Does not apply to all components
+            self.element.removeClass(Toolkit.options.isPrefix + 'loading');
+
+            // HTML
+            if (contentType.indexOf('text/html') >= 0) {
+                if (cache) {
+                    self.cache[url] = response;
+                } else {
+                    delete self.cache[url];
+                }
+
+                self.position(response);
+
+                // JSON, others
+            } else {
+                delete self.cache[url];
+
+                // MooTools doesn't auto parse
+                if (contentType === 'application/json') {
+                    response = JSON.parse(response);
+                }
+
+                self.process(response);
+            }
+        };
+
+        ajax.onFailure = fail || function() {
+            delete this.cache[url];
+
+            this.element
+                .removeClass(Toolkit.options.isPrefix + 'loading')
+                .addClass(Toolkit.options.hasPrefix + 'failed');
+
+            this.position(this._errorTemplate());
+        }.bind(this);
+
+        new Request(ajax).send();
 
         return this;
     },
@@ -408,7 +450,7 @@ Toolkit.Component = new Class({
      * @returns {Element}
      */
     _errorTemplate: function() {
-        return new Element('div.' + this.className().toLowerCase() + '-error', {
+        return new Element('div.' + this.className().hyphenate().slice(1) + '-error', {
             text: this.options.errorMessage || Toolkit.messages.error
         });
     }.protect(),
@@ -420,7 +462,7 @@ Toolkit.Component = new Class({
      * @returns {Element}
      */
     _loadingTemplate: function() {
-        return new Element('div.' + this.className().toLowerCase() + '-loading', {
+        return new Element('div.' + this.className().hyphenate().slice(1) + '-loading', {
             text: this.options.loadingMessage || Toolkit.messages.loading
         });
     }.protect(),

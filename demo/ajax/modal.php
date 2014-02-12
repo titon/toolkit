@@ -11,5 +11,6 @@
 </div>
 
 <div class="modal-foot">
+    <a href="ajax/modal-multi.php" class="button js-modal2">Open Second Modal</a>
     <button type="button" class="button modal-event-close">Close</button>
 </div>

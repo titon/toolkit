@@ -71,11 +71,11 @@ Toolkit.Accordion = new Class({
             section.set('data-height', section.getHeight()).conceal();
         });
 
-        this.show(header);
-
         // Set events
         this.bindEvents();
         this.fireEvent('init');
+
+        this.show(header);
     },
 
     /**
@@ -193,25 +193,11 @@ Toolkit.Accordion = new Class({
 
 });
 
-/**
- * Enable an accordion on an element by calling accordion().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('accordion-id').accordion({
- *         multiple: false
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Accordion}
- */
-Element.implement('accordion', function(options) {
-    if (!this.$accordion) {
-        this.$accordion = new Toolkit.Accordion(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through accordion().
+     */
+    Toolkit.createComponent('accordion', function(options) {
+        return new Toolkit.Accordion(this, options);
+    });
 
 })();

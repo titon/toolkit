@@ -51,7 +51,7 @@
 }
 
 // Styles
-.round { border-radius: $round; }
+.#{$shape-round-class} { border-radius: $round; }
 .#{$state-is-prefix}draggable { cursor: move; }
 .#{$state-is-prefix}dragging { cursor: grabbing; }
 .#{$state-is-prefix}disabled,
@@ -93,7 +93,7 @@
 .arrow-right:before {
     display: inline-block;
     position: relative;
-    content: "\025B3"; /* bigtriangleup */
+    content: "\025B4"; /* blacktriangle */
 }
 
 .arrow-right:before { @include transform(rotate(90deg)); }

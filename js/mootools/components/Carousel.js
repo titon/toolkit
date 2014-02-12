@@ -129,6 +129,8 @@ Toolkit.Carousel = new Class({
 
         this.bindEvents();
         this.fireEvent('init');
+
+        this.start().reset();
     },
 
     /**
@@ -170,8 +172,6 @@ Toolkit.Carousel = new Class({
         if (this.prevButton) {
             this.prevButton.addEvent('click', this.prev);
         }
-
-        this.start().reset();
 
         return this;
     },
@@ -325,25 +325,11 @@ Toolkit.Carousel = new Class({
 
 });
 
-/**
- * Allow the carousel to be created on elements by calling carousel().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('carousel-id').carousel({
- *         stopOnHover: true
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Carousel}
- */
-Element.implement('carousel', function(options) {
-    if (!this.$carousel) {
-        this.$carousel = new Toolkit.Carousel(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through carousel().
+     */
+    Toolkit.createComponent('carousel', function(options) {
+        return new Toolkit.Carousel(this, options);
+    });
 
 })();

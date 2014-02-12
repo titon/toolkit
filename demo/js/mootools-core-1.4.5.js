@@ -1,4 +1,5 @@
 /*
+/*
 ---
 MooTools: the javascript framework
 

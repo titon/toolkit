@@ -404,25 +404,11 @@ Toolkit.Matrix = new Class({
 
 });
 
-/**
- * Enable a matrix grid on an element by calling matrix().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('matrix-id').matrix({
- *         width: 200
- *     });
- *
- * @param {Object} [options]
- * @returns {Toolkit.Matrix}
- */
-Element.implement('matrix', function(options) {
-    if (!this.$matrix) {
-        this.$matrix = new Toolkit.Matrix(this, options);
-    }
-
-    return this;
-});
+    /**
+     * Defines a component that can be instantiated through matrix().
+     */
+    Toolkit.createComponent('matrix', function(options) {
+        return new Toolkit.Matrix(this, options);
+    });
 
 })();

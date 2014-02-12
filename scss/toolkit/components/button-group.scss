@@ -24,6 +24,7 @@
 
 .#{$vendor-prefix}button-group {
     @include reset-inline-block;
+    @include reset-list;
     white-space: nowrap;
 
     > li,
@@ -48,7 +49,7 @@
         }
     }
 
-    &.round {
+    &.#{$shape-round-class} {
         border-radius: $round;
 
         @include button-group-first-child {
@@ -88,14 +89,14 @@
         &:hover { z-index: 1; }
     }
 
-    &.round,
-    &.pill,
-    &.skew,
-    &.skew-reverse {
+    &.#{$shape-round-class},
+    &.#{$shape-pill-class},
+    &.#{$shape-skew-class},
+    &.#{$shape-skew-class}-reverse {
         .#{$vendor-prefix}button { border-radius: 0; }
     }
 
-    &.round {
+    &.#{$shape-round-class} {
         @include button-group-first-child {
             border-top-left-radius: $round;
             border-top-right-radius: $round;

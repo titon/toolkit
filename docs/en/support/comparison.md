@@ -46,7 +46,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
-            <td class="is-info">Known as Dimmer</td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Breadcrumb</td>
@@ -152,6 +152,20 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>Loader</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-info">Known as Dimmer</td>
         </tr>
         <tr>
             <td>Matrix</td>
@@ -418,13 +432,6 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td colspan="5">Semantic UI</td>
         </tr>
         <tr>
-            <td>Loader</td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
             <td>Reveal</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
@@ -454,13 +461,6 @@ If a cell is blue, than either partial support is provided, or the item has a di
         </tr>
         <tr>
             <td>Item</td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
-            <td>Dimmer</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
@@ -543,6 +543,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
         </tr>
         <tr>
             <td>MooTools</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>Composer</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>

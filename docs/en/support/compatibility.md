@@ -6,7 +6,9 @@ or by simplifying JavaScript functionality.
 
 ## Supported Browsers ##
 
-For the most part, the following modern browsers are supported.
+For the most part, the latest versions of the following modern browsers are supported.
+We will officially support the last 3 versions of every browser.
+Anything older will not be supported (depending on context and severity of issue).
 
 * Chrome (Windows, Mac, iOS, Android)
 * Firefox (Windows, Mac)
@@ -14,14 +16,14 @@ For the most part, the following modern browsers are supported.
 * Internet Explorer (Windows)
 * Opera (Windows)
 
-While not officially supported, Toolkit will function to some extent in older browsers.
+While older versions are not officially supported, Toolkit will function to some extent.
 The following minimum versions should support most (if not all) of Toolkits functionality.
 
 * Chrome 11+
-* Firefox 4+
-* Safari 5+
-* Internet Explorer 10+
-* Opera 11+
+* Firefox 10+
+* Safari 5.1+
+* Internet Explorer 9+
+* Opera 12+
 
 ## Internet Explorer 8 & 9 ##
 
@@ -56,6 +58,16 @@ Support is determined through [caniuse.com](http://caniuse.com/) and can be veri
             <td class="is-success">&check;</td>
         </tr>
         <tr>
+            <td><a href="http://caniuse.com/#feat=css3-colors">CSS3 Colors</a></td>
+            <td class="is-error">No rgba() or hsla() support</td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td><a href="http://caniuse.com/#feat=css3-sel3">CSS3 Selectors</a></td>
+            <td class="is-error">No advanced selector support</td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
             <td>Em Scaling</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -73,9 +85,22 @@ Support is determined through [caniuse.com](http://caniuse.com/) and can be veri
     </tbody>
 </table>
 
+<div class="notice is-warning">
+    If you need to support IE8, quite a bit of manual work will be required to make the components work correctly.
+</div>
+
+However, the following libraries will aide in supporting older Internet Explorer browsers.
+But at what point does this become too much?
+
+* [HTML5 Shiv](https://github.com/aFarkas/html5shiv)
+* [Selectivizr](https://github.com/keithclark/selectivizr)
+* [Modernizr](http://modernizr.com/)
+* [IE8](https://github.com/WebReflection/ie8)
+* [DOM4](https://github.com/WebReflection/dom4)
+
 ### Unsupported Components ###
 
-On top of the features above not being supported, the following Toolkit components are not supported in IE 8 and 9.
+On top of the features above not being supported, the following Toolkit components are not supported in IE 8.
 
 * [Input](../components/input.md)
 * [Matrix](../components/matrix.md)

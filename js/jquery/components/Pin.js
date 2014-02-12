@@ -7,193 +7,165 @@
 (function($) {
     'use strict';
 
-Toolkit.Pin = Toolkit.Component.create(function(element, options) {
+    Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
+        this.component = 'Pin';
+        this.version = '1.0.0';
 
-    /** Custom options */
-    this.options = this.setOptions(Toolkit.Pin.options, options);
+        // Set options and element
+        this.options = options = this.setOptions(options);
+        this.element = element = this.setElement(element);
 
-    /** Element to pin */
-    this.element = this.setElement(element, this.options);
+        // The current window width and height
+        this.viewport = null;
 
-    /** The current window width and height */
-    this.viewport = null;
+        // Target and container sizes
+        this.elementHeight = null;
+        this.elementTop = parseInt(element.css('top'), 10);
 
-    /** Target and container sizes */
-    this.elementHeight = null;
-    this.elementTop = null;
+        this.parentHeight = null;
+        this.parentTop = null;
 
-    this.parentHeight = null;
-    this.parentTop = null;
+        // Set events
+        element.addClass(Toolkit.options.vendor + 'pin');
 
-    /** Is the component enabled? */
-    this.enabled = true;
+        $(window)
+            .on('scroll', $.throttle(this.__scroll.bind(this), options.throttle))
+            .on('resize', $.throttle(this.__resize.bind(this), options.throttle));
 
-    /**
-     * Initialize the component by fetching elements and binding events.
-     */
-    this.initialize = function() {
-        this.element.addClass(Toolkit.options.vendor + 'pin');
-        this.elementTop = parseInt(this.element.css('top'), 10);
-
-        $(window).on('scroll', $.throttle(this.__scroll.bind(this), this.options.throttle));
-        $(window).on('resize', $.throttle(this.__resize.bind(this), this.options.throttle));
         $(document).ready(this.__resize.bind(this));
 
         this.fireEvent('init');
-    };
+    }, {
 
-    /**
-     * Calculate the dimensions and offsets of the interacting elements.
-     *
-     * @returns {Toolkit.Pin}
-     */
-    this.calculate = function() {
-        var win = $(window),
-            parent = this.element.parents(this.options.context);
+        /**
+         * Calculate the dimensions and offsets of the interacting elements.
+         */
+        calculate: function() {
+            var win = $(window),
+                parent = this.element.parents(this.options.context);
 
-        this.viewport = {
-            width: win.width(),
-            height: win.height()
-        };
+            this.viewport = {
+                width: win.width(),
+                height: win.height()
+            };
 
-        this.elementHeight = this.element.outerHeight();
-        this.parentHeight = parent.outerHeight();
-        this.parentTop = parent.offset().top;
+            this.elementHeight = this.element.outerHeight();
+            this.parentHeight = parent.outerHeight();
+            this.parentTop = parent.offset().top;
+        },
 
-        return this;
-    };
-
-    /**
-     * Determine whether to pin or unpin.
-     *
-     * @private
-     */
-    this.__resize = function() {
-        this.calculate();
-
-        // Enable pin if the parent is larger than the child
-        if (this.parentHeight >= this.elementHeight) {
-            this.enable();
-        } else {
-            this.disable();
-        }
-
-        this.fireEvent('resize');
-    };
-
-    /**
-     * While the viewport is being scrolled, the element should move vertically along with it.
-     * The element should also stay contained within the parent element.
-     *
-     * @private
-     */
-    this.__scroll = function() {
-        if (this.options.calculate) {
+        /**
+         * Determine whether to pin or unpin.
+         *
+         * @private
+         */
+        __resize: function() {
             this.calculate();
-        }
 
-        if (!this.enabled || this.element.is(':hidden')) {
-            return;
-        }
+            // Enable pin if the parent is larger than the child
+            if (this.parentHeight >= this.elementHeight) {
+                this.enable();
+            } else {
+                this.disable();
+            }
 
-        var options = this.options,
-            isFixed = options.fixed,
-            eHeight = this.elementHeight,
-            eTop = this.elementTop,
-            pHeight = this.parentHeight,
-            pTop = this.parentTop,
-            scrollTop = $(window).scrollTop(),
-            pos = {},
-            x = options.xOffset,
-            y = 0;
+            this.fireEvent('resize');
+        },
 
-        // Scroll is above the parent, remove pin inline styles
-        if (scrollTop < pTop) {
+        /**
+         * While the viewport is being scrolled, the element should move vertically along with it.
+         * The element should also stay contained within the parent element.
+         *
+         * @private
+         */
+        __scroll: function() {
+            if (this.options.calculate) {
+                this.calculate();
+            }
+
+            if (!this.enabled || this.element.is(':hidden')) {
+                return;
+            }
+
+            var options = this.options,
+                isFixed = options.fixed,
+                eHeight = this.elementHeight,
+                eTop = this.elementTop,
+                pHeight = this.parentHeight,
+                pTop = this.parentTop,
+                scrollTop = $(window).scrollTop(),
+                pos = {},
+                x = options.xOffset,
+                y = 0;
+
+            // Scroll is above the parent, remove pin inline styles
+            if (scrollTop < pTop) {
+                this.element
+                    .removeAttr('style')
+                    .addClass(Toolkit.options.isPrefix + 'pinned');
+
+                return;
+            }
+
+            // Don't extend out the bottom
+            var elementMaxPos = scrollTop + eHeight,
+                parentMaxHeight = pHeight + pTop;
+
+            // Swap positioning of the fixed menu once it reaches the parent borders
+            if (isFixed) {
+                if (elementMaxPos >= parentMaxHeight) {
+                    y = 'auto';
+
+                    pos.position = 'absolute';
+                    pos.bottom = 0;
+                } else {
+                    pos.position = 'fixed';
+                    pos.bottom = 'auto';
+                }
+
+            // Stop positioning absolute menu once it exits the parent
+            } else {
+                pos.position = 'absolute';
+
+                if (elementMaxPos >= parentMaxHeight) {
+                    y += (pHeight - eHeight);
+
+                } else {
+                    y += (scrollTop - pTop) + options.yOffset;
+                }
+
+                // Don't go lower than default top
+                if (eTop && y < eTop) {
+                    y = eTop;
+                }
+            }
+
+            pos[options.location] = x;
+            pos.top = y;
+
             this.element
-                .removeAttr('style')
+                .css(pos)
                 .addClass(Toolkit.options.isPrefix + 'pinned');
 
-            return;
+            this.fireEvent('scroll');
         }
 
-        // Don't extend out the bottom
-        var elementMaxPos = scrollTop + eHeight,
-            parentMaxHeight = pHeight + pTop;
-
-        // Swap positioning of the fixed menu once it reaches the parent borders
-        if (isFixed) {
-            if (elementMaxPos >= parentMaxHeight) {
-                y = 'auto';
-
-                pos.position = 'absolute';
-                pos.bottom = 0;
-            } else {
-                pos.position = 'fixed';
-                pos.bottom = 'auto';
-            }
-
-        // Stop positioning absolute menu once it exits the parent
-        } else {
-            pos.position = 'absolute';
-
-            if (elementMaxPos >= parentMaxHeight) {
-                y += (pHeight - eHeight);
-
-            } else {
-                y += (scrollTop - pTop) + options.yOffset;
-            }
-
-            // Don't go lower than default top
-            if (eTop && y < eTop) {
-                y = eTop;
-            }
-        }
-
-        pos[options.location] = x;
-        pos.top = y;
-
-        this.element
-            .css(pos)
-            .addClass(Toolkit.options.isPrefix + 'pinned');
-
-        this.fireEvent('scroll');
-    };
-
-    if (this.element.length) {
-        this.initialize();
-    }
-});
-
-Toolkit.Pin.options = {
-    animation: '',
-    location: 'right',
-    xOffset: 0,
-    yOffset: 0,
-    throttle: 50,
-    fixed: false,
-    calculate: false,
-    context: null
-};
-
-/**
- * Enable Element pinning by calling pin().
- * An object of options can be passed as the 1st argument.
- * The class instance will be cached and returned from this function.
- *
- * @example
- *     $('#pin-id').pin({
- *         throttle: 100
- *     });
- *
- * @param {Object} [options]
- * @returns {jQuery}
- */
-$.fn.pin = function(options) {
-    return this.each(function() {
-        $(this).addData('toolkit.pin', function() {
-            return new Toolkit.Pin(this, options);
-        });
+    }, {
+        animation: '',
+        location: 'right',
+        xOffset: 0,
+        yOffset: 0,
+        throttle: 50,
+        fixed: false,
+        calculate: false,
+        context: null
     });
-};
+
+    /**
+     * Defines a component that can be instantiated through pin().
+     */
+    Toolkit.createComponent('pin', function(options) {
+        return new Toolkit.Pin(this, options);
+    });
 
 })(jQuery);
