@@ -85,8 +85,8 @@
         }
 
         this.element
-            .on('swipeleft', this.next.bind(this))
-            .on('swiperight', this.prev.bind(this));
+            .on('swipeleft swipeup', this.next.bind(this))
+            .on('swiperight swipdown', this.prev.bind(this));
 
         this.tabs.on('click', this.__jump.bind(this));
         this.nextButton.on('click', this.next.bind(this));

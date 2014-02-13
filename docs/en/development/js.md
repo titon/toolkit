@@ -628,7 +628,7 @@ These extensions may even solve a problem in your own codebase.
         <tr>
             <td>jQuery.event.special.swipe</td>
             <td>jQuery</td>
-            <td rowspan="3">
+            <td rowspan="5">
                 Custom events that emulate swiping on touch devices. If the device is non-touch,
                 standard mouse events are used instead.
             </td>
@@ -641,12 +641,20 @@ These extensions may even solve a problem in your own codebase.
             <td>jQuery.event.special.swiperight</td>
             <td>jQuery</td>
         </tr>
+        <tr>
+            <td>jQuery.event.special.swipeup</td>
+            <td>jQuery</td>
+        </tr>
+        <tr>
+            <td>jQuery.event.special.swipedown</td>
+            <td>jQuery</td>
+        </tr>
 
         <tr>
             <td>jQuery.prototype.swipe(data[, func])</td>
             <td>jQuery</td>
-            <td rowspan="3">
-                Shortcut methods for setting "swipe", "swipeleft", or "swiperight" events.
+            <td rowspan="5">
+                Shortcut methods for setting "swipe", "swipeleft", "swiperight", "swipeup", or "swipedown" events.
                 If called without any arguments, will trigger the event.
             </td>
         </tr>
@@ -656,6 +664,14 @@ These extensions may even solve a problem in your own codebase.
         </tr>
         <tr>
             <td>jQuery.prototype.swiperight(data[, func])</td>
+            <td>jQuery</td>
+        </tr>
+        <tr>
+            <td>jQuery.prototype.swipeup(data[, func])</td>
+            <td>jQuery</td>
+        </tr>
+        <tr>
+            <td>jQuery.prototype.swipedown(data[, func])</td>
             <td>jQuery</td>
         </tr>
 

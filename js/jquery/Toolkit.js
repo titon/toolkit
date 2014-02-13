@@ -483,7 +483,7 @@ if (!$.event.special.clickout) {
  * An event that triggers when a swipe event occurs over a target element.
  * Uses touch events for touch devices, and mouse events for non-touch devices.
  *
- * Implementation is heavily modified version of the swipe events found in jQuery Mobile.
+ * Implementation is a heavily modified version of the swipe events found in jQuery Mobile.
  * Credits to the jQuery team for the original implementation.
  *
  * @returns {Object}
@@ -496,7 +496,7 @@ if (!$.event.special.swipe) {
             stopEvent = isTouch ? 'touchend' : 'mouseup';
 
         function startStop(e) {
-            var data = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+            var data = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 
             return {
                 time: (new Date()).getTime(),
@@ -505,59 +505,56 @@ if (!$.event.special.swipe) {
         }
 
         function swipe(start, stop, selfTarget, origTarget) {
-            var settings = $.event.special.swipe;
+            var settings = $.event.special.swipe,
+                abs = Math.abs,
+                x = stop.coords[0] - start.coords[0],
+                y = stop.coords[1] - start.coords[1],
+                direction;
 
-            if (
-                ((stop.time - start.time) < settings.durationThreshold) &&
-                (Math.abs(start.coords[0] - stop.coords[0]) > settings.horizontalDistanceThreshold) &&
-                (Math.abs(start.coords[1] - stop.coords[1]) < settings.verticalDistanceThreshold)
-            ) {
-                var direction = (start.coords[0] > stop.coords[0]) ? 'swipeleft' : 'swiperight',
-                    props = { target: origTarget, swipestart: start, swipestop: stop };
+            if ((stop.time - start.time) <= settings.duration) {
+                if (abs(x) >= settings.distance && abs(y) <= settings.restraint) {
+                    direction = (x < 0) ? 'left' : 'right';
+
+                } else if (abs(y) >= settings.distance && abs(x) <= settings.restraint) {
+                    direction = (y < 0) ? 'up' : 'down';
+
+                } else {
+                    return;
+                }
+
+                var props = { target: origTarget, swipestart: start, swipestop: stop };
 
                 selfTarget
                     .trigger($.Event('swipe', props))
-                    .trigger($.Event(direction, props));
-
-                return true;
+                    .trigger($.Event('swipe' + direction, props));
             }
-
-            return false;
         }
 
         return {
-            scrollSuppressionThreshold: 30,
-            durationThreshold: 1000,
-            horizontalDistanceThreshold: 30,
-            verticalDistanceThreshold: 75,
+            duration: 1000, // Maximum time in milliseconds to travel
+            distance: 50, // Minimum distance required to travel
+            restraint: 75, // Maximum distance to travel in the opposite direction
 
             setup: function() {
-                var self = $(this);
+                var self = $(this),
+                    start,
+                    target;
 
-                self.bind(startEvent, function(e) {
-                    var stop,
-                        start = startStop(e),
-                        target = e.target,
-                        emitted = false;
+                self
+                    .bind(startEvent, function(e) {
+                        start = startStop(e);
+                        target = e.target;
 
-                    function move(e) {
-                        stop = startStop(e);
-
-                        if (!emitted) {
-                            emitted = swipe(start, stop, self, target);
-                        }
-
-                        // Prevent scrolling
-                        if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+                        if (startEvent === 'mousedown') {
                             e.preventDefault();
                         }
-                    }
-
-                    self.bind(moveEvent, move).one(stopEvent, function() {
-                        emitted = true;
-                        self.unbind(moveEvent, move);
+                    })
+                    .bind(moveEvent, function(e) {
+                        e.preventDefault();
+                    })
+                    .bind(stopEvent, function(e) {
+                        swipe(start, startStop(e), self, target);
                     });
-                });
             },
 
             teardown: function() {
@@ -566,8 +563,8 @@ if (!$.event.special.swipe) {
         };
     })();
 
-    // Set swipeleft() and swiperight() methods and events
-    $.each(['swipe', 'swipeleft', 'swiperight'], function(i, name) {
+    // Set swipe methods and events
+    $.each('swipe swipeleft swiperight swipeup swipedown'.split(' '), function(i, name) {
         $.fn[name] = function(data, fn) {
             return arguments.length > 0 ?
                 this.on(name, null, data, fn) :

@@ -73,8 +73,8 @@
             .on('click', options.nextEvent, this.next.bind(this))
             .on('click', options.prevEvent, this.prev.bind(this))
             .on('click', options.jumpEvent, this.__jump.bind(this))
-            .on('swipeleft', this.next.bind(this))
-            .on('swiperight', this.prev.bind(this));
+            .on('swipeleft swipeup', this.next.bind(this))
+            .on('swiperight swipedown', this.prev.bind(this));
 
         this.fireEvent('init');
     }, {
