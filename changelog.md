@@ -6,7 +6,6 @@ Older versions can be found in the documentation changelogs.
 * Added a `Loader` component - displays loading animations using purely CSS
 * Added a `Mask` component - masks an element with a transparent overlay
 * Added a `clickout` event type that triggers when a click happens outside of an element
-* Added `swipe`, `swipeleft`, and `swiperight` event types
 * Added `reset-list()` and `position-center()` mixins
 * Added no conflict resolution through a component creation method
 * Added a `--demo` parameter to Grunt that builds files for demo purposes
@@ -18,6 +17,8 @@ Older versions can be found in the documentation changelogs.
     * Prototype inheritance has been rewritten and improved
     * New properties `component` and `version` have been added to all components
     * Namespaced element events are now triggered in the format of `<event>.toolkit.<component>`
+    * Added `$.cookie()` and `$.removeCookie()` methods
+    * Added `swipe`, `swipeleft`, `swiperight`, `swipeup`, and `swipedown` event types for touch devices
 * Component
     * Added `process()` to handle non-HTML AJAX responses
     * Added `onProcess` option event

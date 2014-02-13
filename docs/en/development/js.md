@@ -116,7 +116,7 @@ These options will need to be modified *before* a component is initialized.
 Toolkit.Tooltip.options.position = 'topRight';
 
 // Multiple options
-Toolkit.Tooltip.options = $.extend(Toolkit.Tooltip.options, {
+$.extend(Toolkit.Tooltip.options, {
     position: 'topRight',
     follow: true,
     mouseThrottle: 75
