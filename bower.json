@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0-rc.2",
+    "version": "1.1.0",
     "name": "toolkit",
     "description": "A collection of extensible front-end UI components for the responsive web.",
     "keywords": [
@@ -21,7 +21,7 @@
         "fluid",
         "mobile"
     ],
-    "copyright": "Copyright 2010-2013, The Titon Project",
+    "copyright": "Copyright 2010-2014, The Titon Project",
     "homepage": "http://titon.io",
     "licenses": "https://github.com/titon/toolkit/blob/master/license.md",
     "author": ["Miles Johnson"],

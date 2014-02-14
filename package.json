@@ -1,7 +1,7 @@
 {
-    "version": "1.1.0-rc.2",
+    "version": "1.1.0",
     "name": "titon-toolkit",
-    "description": "A collection of extensible front-end UI components for the responsive web.",
+    "description": "A collection of extensible front-end UI components for the responsive, mobile, and web.",
     "keywords": [
         "titon",
         "toolkit",
@@ -21,7 +21,7 @@
         "fluid",
         "mobile"
     ],
-    "copyright": "Copyright 2010-2013, The Titon Project",
+    "copyright": "Copyright 2010-2014, The Titon Project",
     "homepage": "http://titon.io",
     "licenses": [
         {
