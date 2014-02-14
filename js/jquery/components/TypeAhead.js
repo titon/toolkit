@@ -531,7 +531,6 @@
         }
 
     }, {
-        className: '',
         source: [],
         minLength: 1,
         itemLimit: 15,

@@ -35,8 +35,8 @@ Toolkit.Component = new Class({
         mode: 'click',
 
         // Ajax
-        errorMessage: null,
-        loadingMessage: null,
+        errorMessage: Toolkit.messages.error,
+        loadingMessage: Toolkit.messages.loading,
 
         // Templates
         template: '',
@@ -451,7 +451,7 @@ Toolkit.Component = new Class({
      */
     _errorTemplate: function() {
         return new Element('div.' + this.className().hyphenate().slice(1) + '-error', {
-            text: this.options.errorMessage || Toolkit.messages.error
+            text: this.options.errorMessage
         });
     }.protect(),
 
@@ -463,7 +463,7 @@ Toolkit.Component = new Class({
      */
     _loadingTemplate: function() {
         return new Element('div.' + this.className().hyphenate().slice(1) + '-loading', {
-            text: this.options.loadingMessage || Toolkit.messages.loading
+            text: this.options.loadingMessage
         });
     }.protect(),
 

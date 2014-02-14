@@ -110,8 +110,8 @@ Toolkit.Class.extend = function(base, properties, options) {
     // Use function as constructor
     base.prototype.constructor = base;
 
-    // Set default options
-    base.options = options || {};
+    // Inherit and set default options
+    base.options = $.extend({}, this.options || {}, options || {});
 
     // Inherit the extend method
     base.extend = this.extend;

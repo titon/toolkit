@@ -22,7 +22,6 @@ Toolkit.Blackout = new Class({
     /** Default options */
     options: {
         loader: 'bar-wave',
-        loaderMessage: Toolkit.messages.loading,
         waveCount: 5,
         template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
@@ -68,7 +67,7 @@ Toolkit.Blackout = new Class({
         }
 
         this.message = new Element('div.' + vendor + 'loader-message')
-            .set('html', options.loaderMessage)
+            .set('html', options.loadingMessage)
             .inject(this.loader);
     },
 

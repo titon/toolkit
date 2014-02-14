@@ -22,7 +22,6 @@ Toolkit.Tooltip = new Class({
         ajax: false,
         follow: false,
         position: 'topCenter',
-        loadingMessage: Toolkit.messages.loading,
         showLoading: true,
         showTitle: true,
         getTitle: 'title',

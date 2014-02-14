@@ -151,14 +151,12 @@
         }
 
     }, {
-        animation: '',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
         fixed: false,
-        calculate: false,
-        context: null
+        calculate: false
     });
 
     /**

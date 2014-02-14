@@ -40,18 +40,10 @@
             .on('click', nodes.selector, this.__show.bind(this));
 
         this.fireEvent('init');
-    }, {}, {
-        ajax: false,
-        animation: '',
-        position: 'topCenter',
-        loadingMessage: Toolkit.messages.loading,
-        showLoading: true,
-        showTitle: true,
-        getTitle: 'title',
+    }, {
+    }, {
+        mode: 'click',
         getContent: 'data-popover',
-        xOffset: 0,
-        yOffset: 0,
-        delay: 0,
         titleElement: '.popover-head',
         contentElement: '.popover-body',
         template: '<div class="popover">' +

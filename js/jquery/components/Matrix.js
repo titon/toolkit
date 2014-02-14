@@ -352,13 +352,11 @@
         }
 
     }, {
-        className: '',
         selector: '.matrix-item',
         width: 200,
         gutter: 20,
         rtl: false,
-        defer: true,
-        template: false
+        defer: true
     });
 
     /**

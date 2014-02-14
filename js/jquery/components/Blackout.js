@@ -47,7 +47,7 @@
         // Build the message
         this.message = $('<div/>')
             .addClass(vendor + 'loader-message')
-            .html(options.loaderMessage)
+            .html(options.loadingMessage)
             .appendTo(this.loader);
 
         this.fireEvent('init');
@@ -97,7 +97,6 @@
 
     }, {
         loader: 'bar-wave',
-        loaderMessage: Toolkit.messages.loading,
         waveCount: 5,
         template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'

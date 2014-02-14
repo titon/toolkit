@@ -28,3 +28,4 @@ All releases will contain bug fixing and polishing for current features.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
+* Switch to Less (removes sass/compass/ruby dependencies)

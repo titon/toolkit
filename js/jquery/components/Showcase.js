@@ -367,7 +367,6 @@
         }
 
     }, {
-        className: '',
         blackout: true,
         stopScroll: true,
         transition: 300,

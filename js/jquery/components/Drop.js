@@ -101,7 +101,6 @@
 
     }, {
         mode: 'click',
-        context: null,
         getTarget: 'data-drop',
         hideOpened: true
     });

@@ -252,8 +252,6 @@
 
     }, {
         animation: 'fade',
-        className: '',
-        context: null,
         ajax: true,
         draggable: false,
         blackout: true,

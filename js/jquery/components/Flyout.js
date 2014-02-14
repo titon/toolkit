@@ -476,8 +476,6 @@
         }
 
     }, {
-        className: '',
-        context: null,
         mode: 'hover',
         getUrl: 'href',
         xOffset: 0,

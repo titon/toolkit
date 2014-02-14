@@ -166,8 +166,7 @@
         forceLoad: false,
         delay: 10000,
         threshold: 150,
-        throttle: 50,
-        context: null
+        throttle: 50
     });
 
     /**
