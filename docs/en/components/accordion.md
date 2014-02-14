@@ -53,7 +53,7 @@ $('.accordion').accordion();
 
 ## Options ##
 
-<table class="table config-table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -69,7 +69,7 @@ $('.accordion').accordion();
             <td>click</td>
             <td>
                 The type of interaction for toggling a section.
-                Accepts "click" or "hover".
+                Accepts click or hover.
             </td>
         </tr>
         <tr>
@@ -109,7 +109,7 @@ $('.accordion').accordion();
 
 Inherits all events from the [parent component](../development/js.md#events).
 
-<table class="table config-table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -132,7 +132,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 Inherits all properties from the [parent component](../development/js.md#properties).
 
-<table class="table config-table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -179,7 +179,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 Inherits all methods from the [parent component](../development/js.md#methods).
 
-<table class="table config-table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Method</th>

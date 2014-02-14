@@ -1,42 +1,36 @@
 # Tooltip #
 
-Displays an informative tooltip relative to a target element. The tooltip can be activated through a hover or click event.
+A contextual box displayed relative to a target element while hovering.
 
 ## Usage ##
 
-The tooltip component must be initialized through the `Titon.Tooltip` JavaScript class.
-A target must be defined when initializing the class.
-
-```javascript
-$('.js-tooltip').tooltip();
-```
-
-Any element that has the `js-tooltip` class will now activate and display the tooltip.
-The tooltip will disappear when the element is no longer the target, either through a mouse out or click.
+The tooltip component must be initialized on an element that will trigger the display of the tooltips, for example.
 
 ```html
 <a href="/" class="js-tooltip" data-tooltip="This string of text will be displayed in the tooltip.">Help</a>
 ```
 
-The tooltip instance can be accessed through the `toolkit()` method.
-This instance provides additional properties and methods to manipulate.
-
 ```javascript
-var tooltip = $('.js-tooltip').toolkit('tooltip');
+$('.js-tooltip').tooltip();
 ```
+
+The tooltip will display either through a click, or a hover, depending on the configuration.
+
+<div class="notice is-warning">
+    <h5>Delegation Requirement</h5>
+
+    If you're using the MooTools library, then the <code>delegate</code> option must be defined,
+    and must match the selector that initialized the tooltip.
+</div>
+
+## Notes ##
+
+* A `className` can be added to tooltips during instantiation for different themed tooltips
+* The `position` of the tooltip instance determines the location and arrow placement
 
 ## Options ##
 
-Options can be customized by passing an object of key value pairs to the `tooltip()` method.
-Options can only be set the first time the component is created.
-
-```javascript
-$('.js-tooltip').tooltip({
-    animation: 'fade'
-});
-```
-
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -50,7 +44,7 @@ $('.js-tooltip').tooltip({
             <td>delegate</td>
             <td>string</td>
             <td>.js-tooltip</td>
-            <td>The CSS query to apply event delegation to. (MooTools only)</td>
+            <td>CSS selector to apply event delegation to. (MooTools only)</td>
         </tr>
         <tr>
             <td>context</td>
@@ -80,7 +74,7 @@ $('.js-tooltip').tooltip({
             <td>mode</td>
             <td>string</td>
             <td>hover</td>
-            <td>The type of interaction required to activate the tooltip. Available options are: click, hover.</td>
+            <td>The type of interaction required to activate the tooltip. Accepts click or hover.</td>
         </tr>
         <tr>
             <td>ajax</td>
@@ -96,9 +90,18 @@ $('.js-tooltip').tooltip({
         </tr>
         <tr>
             <td>mouseThrottle</td>
-            <td>number</td>
+            <td>int</td>
             <td>50</td>
             <td>The time in milliseconds to throttle the mouse follow events.</td>
+        </tr>
+        <tr>
+            <td>loadingMessage</td>
+            <td>string</td>
+            <td>Toolkit.messages.loading</td>
+            <td>
+                The message to display in the tooltip while the AJAX is requesting.
+                Only displays if <code>showLoading</code> is true.
+            </td>
         </tr>
         <tr>
             <td>showLoading</td>
@@ -114,7 +117,7 @@ $('.js-tooltip').tooltip({
         </tr>
         <tr>
             <td>getTitle</td>
-            <td>string, function</td>
+            <td>string|function</td>
             <td>title</td>
             <td>
                 If a string is passed, fetch the content from the HTML attribute.
@@ -123,7 +126,7 @@ $('.js-tooltip').tooltip({
         </tr>
         <tr>
             <td>getContent</td>
-            <td>string, function</td>
+            <td>string|function</td>
             <td>data-tooltip</td>
             <td>
                 If a string is passed, fetch the content from the HTML attribute.
@@ -133,19 +136,19 @@ $('.js-tooltip').tooltip({
         </tr>
         <tr>
             <td>xOffset</td>
-            <td>number</td>
+            <td>int</td>
             <td>0</td>
             <td>The offset in pixels to move the tooltip along the X axis.</td>
         </tr>
         <tr>
             <td>yOffset</td>
-            <td>number</td>
+            <td>int</td>
             <td>0</td>
             <td>The offset in pixels to move the tooltip along the Y axis.</td>
         </tr>
         <tr>
             <td>delay</td>
-            <td>number</td>
+            <td>int</td>
             <td>0</td>
             <td>The delay in milliseconds before the tooltip is displayed.</td>
         </tr>
@@ -156,21 +159,30 @@ $('.js-tooltip').tooltip({
             <td>The HTML used to create the tooltip elements.</td>
         </tr>
         <tr>
+            <td>templateFrom</td>
+            <td>string</td>
+            <td></td>
+            <td>The ID of an element to use as the template.</td>
+        </tr>
+        <tr>
             <td>titleElement</td>
             <td>string</td>
             <td>.tooltip-head</td>
-            <td>CSS query for the title element within the tooltip template.</td>
+            <td>CSS selector for the title element within the tooltip template.</td>
         </tr>
         <tr>
             <td>contentElement</td>
             <td>string</td>
             <td>.tooltip-body</td>
-            <td>CSS query for the content element within the tooltip template.</td>
+            <td>CSS selector for the content element within the tooltip template.</td>
         </tr>
     </tbody>
 </table>
 
-#### Template HTML ####
+## Template ##
+
+The following markup is used for the creation of tooltips.
+This structure can be customized through the `template` option.
 
 ```html
 <div class="tooltip">
@@ -184,47 +196,13 @@ $('.js-tooltip').tooltip({
 
 ## Events ##
 
-Events are defined in the same manner as options. Simply place the functions in the same configuration object.
-The `this` context of each event function will reference the component class instance.
-
-```javascript
-$('.js-tooltip').tooltip({
-    onInit: function() {}
-});
-```
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Event</th>
-            <th>Arguments</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>onInit</td>
-            <td></td>
-            <td>Triggered when the component is initialized. Will only trigger once.</td>
-        </tr>
-        <tr>
-            <td>onShow</td>
-            <td></td>
-            <td>Triggered when the tooltip is shown.</td>
-        </tr>
-        <tr>
-            <td>onHide</td>
-            <td></td>
-            <td>Triggered when the tooltip is hidden.</td>
-        </tr>
-    </tbody>
-</table>
+Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-The following properties are available within the tooltip instance.
+Inherits all properties from the [parent component](../development/js.md#properties).
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -234,43 +212,28 @@ The following properties are available within the tooltip instance.
     </thead>
     <tbody>
         <tr>
-            <td>options</td>
-            <td>object</td>
-            <td>An object of key value configuration options.</td>
-        </tr>
-        <tr>
-            <td>element</td>
-            <td>element</td>
-            <td>The element created from the `template` option. Is used to render the tooltip markup.</td>
-        </tr>
-        <tr>
             <td>elementHead</td>
             <td>element</td>
-            <td>The element used for titles. Is found within the `element` element.</td>
+            <td>The element used for titles. Is found within the <code>element</code> element.</td>
         </tr>
         <tr>
             <td>elementBody</td>
             <td>element</td>
-            <td>The element used for content. Is found within the `element` element.</td>
+            <td>The element used for content. Is found within the <code>element</code> element.</td>
         </tr>
         <tr>
-            <td>nodes</td>
-            <td>elements</td>
-            <td>List of elements that were targeted during initialization.</td>
-        </tr>
-        <tr>
-            <td>node</td>
-            <td>element</td>
-            <td>The current element to activate the tooltip.</td>
+            <td>cache</td>
+            <td>object</td>
+            <td>Collection of cached AJAX requests indexed by URL.</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-The following methods are available within the tooltip instance.
+Inherits all methods from the [parent component](../development/js.md#methods).
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Method</th>
@@ -279,23 +242,18 @@ The following methods are available within the tooltip instance.
     </thead>
     <tbody>
         <tr>
-            <td>enable()</td>
-            <td>Enable the component.</td>
-        </tr>
-        <tr>
-            <td>disable()</td>
-            <td>Disable the component.</td>
-        </tr>
-        <tr>
-            <td>show([node[, content[, title]]])</td>
+            <td>position([string:content[, string:title]])</td>
             <td>
-                Display the tooltip relative to the node. If no node is passed, will use the last node.
-                If no content or title is passed, the values will be fetched from the node using the `getContent` and `getTitle` options.
+                Position the content relative to the node and set optional content and title.
+                This method is called automatically by <code>show()</code>.
             </td>
         </tr>
         <tr>
-            <td>hide()</td>
-            <td>Hide the tooltip.</td>
+            <td>show([element:node[, string:content[, string:title]]])</td>
+            <td>
+                Display the tooltip relative to the node. If no node is passed, will use the last node.
+                If no content or title is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
+            </td>
         </tr>
     </tbody>
 </table>

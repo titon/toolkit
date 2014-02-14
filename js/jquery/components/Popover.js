@@ -42,6 +42,7 @@
         this.fireEvent('init');
     }, {}, {
         ajax: false,
+        animation: '',
         position: 'topCenter',
         loadingMessage: Toolkit.messages.loading,
         showLoading: true,

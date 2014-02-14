@@ -216,6 +216,7 @@
 
     }, {
         mode: 'hover',
+        animation: '',
         ajax: false,
         follow: false,
         position: 'topCenter',

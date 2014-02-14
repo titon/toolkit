@@ -180,7 +180,7 @@ and all `show.toolkit.tabs` event handlers will trigger.
 
 The following events exist in all components, however, each component may have their own set of unique events.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -235,7 +235,7 @@ The following events exist in all components, however, each component may have t
 
 The following properties are available on all class instances, but not all components make use of them.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -314,7 +314,7 @@ Either read the source code or the individual documentation for a list of proper
 
 The following methods are available on all class instances, but not all components make use of them.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Method</th>
@@ -422,7 +422,7 @@ Each component class definition can be found on the `Toolkit` object, for exampl
 The following options are used to alter all components and are found under `Toolkit.options`.
 They can be modified in a similar fashion to component options (more information above).
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -459,7 +459,7 @@ They can be modified in a similar fashion to component options (more information
 The following messages are used within AJAX calls and are found under `Toolkit.messages`.
 They are represented as an object allowing for easy localization, and can be modified similar to an options object.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Message</th>
@@ -486,7 +486,7 @@ They are represented as an object allowing for easy localization, and can be mod
 The following flags are used for feature detection within components.
 Each flag can be found on the `Toolkit` object.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Flag</th>
@@ -519,7 +519,7 @@ Well don't worry, that's exactly what Toolkit has done.
 We extended the prototype of each vendor with new functionality that eased component development.
 These extensions may even solve a problem in your own codebase.
 
-<table class="table">
+<table class="table data-table">
     <thead>
         <tr>
             <th>Extension</th>
