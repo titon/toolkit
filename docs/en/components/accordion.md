@@ -1,8 +1,13 @@
 # Accordion #
 
+Allows collapsing and expanding of multiple sections of content.
+
+## Usage ##
+
 An accordion must be structured using an unordered or ordered list.
 Every item in the list should have an accompanying header and section.
-The header will be bound with a click event that toggles its sibling section.
+The header will be bound with a click event that toggles the display of its sibling section,
+while also closing other sections (can be changed through options).
 The markup within each item can be customized to an extent,
 but will require configuration when the JavaScript is initialized.
 

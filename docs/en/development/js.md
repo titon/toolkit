@@ -19,7 +19,7 @@ The ins and outs of the JavaScript layer within Toolkit.
 
 The individual components that make up the Toolkit JavaScript layer are powered by a robust object-oriented class layer.
 This base class that all components extend can be found under the `Toolkit.Component` object.
-The Component class provides common methods, options, and events &mdash; all of which can be found in more detail below.
+The Component class provides common methods, properties, and events &mdash; all of which can be found in more detail below.
 
 Before we learn more about the component system, we must differentiate between the two types of components.
 Every type of component falls into one of the following.
@@ -151,47 +151,6 @@ $('#carousel').carousel({
     The "this" context within option event handlers will be bound to the component object instance.
 </div>
 
-The following events exist in all components, however, each component may have their own set of unique events.
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Event</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>onInit()</td>
-            <td>Triggered immediately after a component has initialized.</td>
-        </tr>
-        <tr>
-            <td>onShow()</td>
-            <td>
-                Triggered when the component element is shown (this can change depending on context),
-                and after an AJAX call has finished.
-            </td>
-        </tr>
-        <tr>
-            <td>onHide()</td>
-            <td>Triggered when the component element is hidden (this also depends on context).</td>
-        </tr>
-        <tr>
-            <td>onLoad(response)</td>
-            <td>
-                Triggered after an AJAX call has finished, but before the response is rendered.
-                Only triggers for HTML responses.
-            </td>
-        </tr>
-        <tr>
-            <td>onProcess(response)</td>
-            <td>
-                Triggered after an AJAX call has finished, and only if the response is non-HTML (JSON, XML, etc).
-            </td>
-        </tr>
-    </tbody>
-</table>
-
 #### Namespaced Events ####
 
 If you're using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
@@ -218,6 +177,59 @@ and all `show.toolkit.tabs` event handlers will trigger.
     The "this" context within element event handlers will be the respective element.
     The component object instance can be found under the <code>context</code> property in the event object.
 </div>
+
+The following events exist in all components, however, each component may have their own set of unique events.
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Option Event</th>
+            <th>Element Event</th>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onInit</td>
+            <td>init.toolkit.{component}</td>
+            <td></td>
+            <td>Triggered immediately after a component has initialized.</td>
+        </tr>
+        <tr>
+            <td>onShow</td>
+            <td>show.toolkit.{component}</td>
+            <td></td>
+            <td>
+                Triggered when the component element is shown (this can change depending on context),
+                and after an AJAX call has finished.
+            </td>
+        </tr>
+        <tr>
+            <td>onHide</td>
+            <td>hide.toolkit.{component}</td>
+            <td></td>
+            <td>Triggered when the component element is hidden (this also depends on context).</td>
+        </tr>
+        <tr>
+            <td>onLoad</td>
+            <td>load.toolkit.{component}</td>
+            <td>string:response</td>
+            <td>
+                Triggered after an AJAX call has finished, but before the response is rendered.
+                Only triggers for HTML responses.
+            </td>
+        </tr>
+        <tr>
+            <td>onProcess</td>
+            <td>process.toolkit.{component}</td>
+            <td>mixed:response</td>
+            <td>
+                Triggered after an AJAX call has finished, and only if the response is non-HTML (JSON, XML, etc).
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### Properties ###
 
@@ -317,17 +329,17 @@ The following methods are available on all class instances, but not all componen
             <td>Create an element from the <code>template</code> or <code>templateFrom</code> options.</td>
         </tr>
         <tr>
-            <td>setElement(element)</td>
+            <td>setElement(element:element)</td>
             <td>Both</td>
             <td>Set the element to use by the component. Will set class names on the element based on defined options.</td>
         </tr>
         <tr>
-            <td>parseTemplate(template)</td>
+            <td>parseTemplate(string:template)</td>
             <td>MooTools</td>
             <td>Parse a template string into a set of DOM elements.</td>
         </tr>
         <tr>
-            <td>setOptions(options)</td>
+            <td>setOptions(object:options)</td>
             <td>Both</td>
             <td>
                 Set the options to use in the component.
@@ -345,12 +357,12 @@ The following methods are available on all class instances, but not all componen
             <td>Disable the component and unbind events.</td>
         </tr>
         <tr>
-            <td>fireEvent(event[, args])</td>
+            <td>fireEvent(string:event[, array:args])</td>
             <td>Both</td>
             <td>Trigger an event with optional arguments to pass. Will find an event within the options object.</td>
         </tr>
         <tr>
-            <td>readValue(element, query)</td>
+            <td>readValue(element:element, mixed:query)</td>
             <td>Both</td>
             <td>
                 Extract a value from an element using a defined query.
@@ -358,7 +370,7 @@ The following methods are available on all class instances, but not all componen
             </td>
         </tr>
         <tr>
-            <td>requestData(options[, before[, done[, fail]]])</td>
+            <td>requestData(object:options[, func:before[, func:done[, func:fail]]])</td>
             <td>Both</td>
             <td>
                 Requests data from a URL using an AJAX call.
@@ -368,22 +380,26 @@ The following methods are available on all class instances, but not all componen
             </td>
         </tr>
         <tr>
-            <td>process(response)</td>
+            <td>process(mixed:response)</td>
             <td>Both</td>
-            <td>Handles non-HTML AJAX responses.</td>
+            <td>
+                Handles non-HTML AJAX responses.
+                If the response is JSON and a <code>callback</code> property exists,
+                the function defined will be triggered (JSONP style).
+            </td>
         </tr>
         <tr>
-            <td>position(response)</td>
+            <td>position(string:response)</td>
             <td>MooTools</td>
             <td>Handles HTML AJAX responses. Will re-position the element.</td>
         </tr>
         <tr>
-            <td>show([node])</td>
+            <td>show([element:node])</td>
             <td>MooTools</td>
             <td>Show the element and set an optional activating node.</td>
         </tr>
         <tr>
-            <td>hide([callback])</td>
+            <td>hide([func:callback])</td>
             <td>MooTools</td>
             <td>Hide the element and trigger an optional callback function.</td>
         </tr>
@@ -513,7 +529,7 @@ These extensions may even solve a problem in your own codebase.
     </thead>
     <tbody>
         <tr>
-            <td>jQuery.prototype.toolkit(component)</td>
+            <td>jQuery.prototype.toolkit(string:component)</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Return an instance of a component if one has been bound on this element.
@@ -521,7 +537,7 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.toolkit(component)</td>
+            <td>Element.prototype.toolkit(string:component)</td>
             <td>MooTools</td>
         </tr>
 
@@ -552,7 +568,7 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.prototype.positionTo(position, relativeTo[, baseOffset[, isMouse]])</td>
+            <td>jQuery.prototype.positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Position the element relative to another element.
@@ -563,7 +579,7 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.positionTo(position, relativeTo[, baseOffset[, isMouse]])</td>
+            <td>Element.prototype.positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
             <td>MooTools</td>
         </tr>
 
@@ -582,7 +598,7 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.prototype.i(index)</td>
+            <td>jQuery.prototype.i(int:index)</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Return a jQuery wrapped value from the current jQuery collection defined by the index number.
@@ -590,12 +606,12 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
         <tr>
-            <td>jQuery.prototype.item(index)</td>
+            <td>jQuery.prototype.item(int:index)</td>
             <td>jQuery</td>
         </tr>
 
         <tr>
-            <td>jQuery.prototype.addData(key, value)</td>
+            <td>jQuery.prototype.addData(string:key, mixed:value)</td>
             <td>jQuery</td>
             <td>
                 Set data if the key does not exist, else return the current value.
@@ -617,7 +633,7 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.prototype.clickout(data[, func])</td>
+            <td>jQuery.prototype.clickout(object:data[, func:func])</td>
             <td>jQuery</td>
             <td>
                 A shortcut method for setting a "clickout" event.
@@ -651,7 +667,7 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.prototype.swipe(data[, func])</td>
+            <td>jQuery.prototype.swipe(object:data[, func:func])</td>
             <td>jQuery</td>
             <td rowspan="5">
                 Shortcut methods for setting "swipe", "swipeleft", "swiperight", "swipeup", or "swipedown" events.
@@ -659,36 +675,36 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
         <tr>
-            <td>jQuery.prototype.swipeleft(data[, func])</td>
+            <td>jQuery.prototype.swipeleft(object:data[, func:func])</td>
             <td>jQuery</td>
         </tr>
         <tr>
-            <td>jQuery.prototype.swiperight(data[, func])</td>
+            <td>jQuery.prototype.swiperight(object:data[, func:func])</td>
             <td>jQuery</td>
         </tr>
         <tr>
-            <td>jQuery.prototype.swipeup(data[, func])</td>
+            <td>jQuery.prototype.swipeup(object:data[, func:func])</td>
             <td>jQuery</td>
         </tr>
         <tr>
-            <td>jQuery.prototype.swipedown(data[, func])</td>
+            <td>jQuery.prototype.swipedown(object:data[, func:func])</td>
             <td>jQuery</td>
         </tr>
 
         <tr>
-            <td>jQuery.debounce(func[, threshold[, immediate]])</td>
+            <td>jQuery.debounce(func:func[, int:threshold[, bool:immediate]])</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Delays the execution of a function until the duration has completed.
             </td>
         </tr>
         <tr>
-            <td>Function.prototype.debounce([threshold[, immediate]])</td>
+            <td>Function.prototype.debounce([int:threshold[, bool:immediate]])</td>
             <td>MooTools</td>
         </tr>
 
         <tr>
-            <td>jQuery.throttle(func[, delay[, args]])</td>
+            <td>jQuery.throttle(func:func[, int:delay[, array:args]])</td>
             <td>jQuery</td>
             <td>
                 Throttle the execution of a function so it triggers at every delay interval.
@@ -696,25 +712,25 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>jQuery.hyphenate(string)</td>
+            <td>jQuery.hyphenate(string:string)</td>
             <td>jQuery</td>
             <td>Convert uppercase character strings to a lower case dashed form.</td>
         </tr>
 
         <tr>
-            <td>jQuery.cookie(key, value[, options])</td>
+            <td>jQuery.cookie(string:key, mixed:value[, object:options])</td>
             <td>jQuery</td>
             <td>Set a cookie with a value. Can define optional settings.</td>
         </tr>
 
         <tr>
-            <td>jQuery.removeCookie(key[, options])</td>
+            <td>jQuery.removeCookie(string:key[, object:options])</td>
             <td>jQuery</td>
             <td>Remove a cookie defined by key.</td>
         </tr>
 
         <tr>
-            <td>Array.prototype.chunk(size)</td>
+            <td>Array.prototype.chunk(int:size)</td>
             <td>MooTools</td>
             <td>
                 Split an array into multiple chunked arrays.
@@ -722,7 +738,7 @@ These extensions may even solve a problem in your own codebase.
         </tr>
 
         <tr>
-            <td>Function.prototype.bind(func)</td>
+            <td>Function.prototype.bind(func:func)</td>
             <td>jQuery</td>
             <td>
                 Alters the <code>this</code> context of bound functions.
