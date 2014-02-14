@@ -25,6 +25,10 @@ Older versions can be found in the documentation changelogs.
     * Updated `requestData()` to call `position()` for HTML responses and `process()` for non-HTML
     * Updated `requestData()` to accept an object of options as the 1st argument
     * Updated `fireEvent()` to trigger namespaced element events (jQuery only)
+* Accordion
+    * Renamed `.accordion-head` to `.accordion-header`
+    * Renamed `.accordion-handle` to `.accordion-section`
+    * Renamed `contentElement` option to `sectionElement`
 * Blackout
     * Rewritten to be a singleton to differ from the new `Mask` component
     * Added `Loader` support for in-between states

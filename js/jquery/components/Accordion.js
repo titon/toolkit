@@ -11,7 +11,7 @@
         var header, headers, sections;
 
         this.component = 'Accordion';
-        this.version = '1.0.0';
+        this.version = '1.1.0';
 
         // Set options and element
         this.options = options = this.setOptions(options);
@@ -19,7 +19,7 @@
 
         // List of headers and sections
         this.headers = headers = this.element.find(options.headerElement);
-        this.sections = sections = this.element.find(options.contentElement);
+        this.sections = sections = this.element.find(options.sectionElement);
 
         // The current and previous shown indices
         this.previousIndex = 0;
@@ -82,7 +82,7 @@
 
             var options = this.options,
                 parent = node.parent(), // li
-                section = node.next(options.contentElement), // section
+                section = node.next(), // section
                 index = node.data('index'),
                 height = parseInt(section.data('height'), 10),
                 isNode = (this.node && this.node.is(node));
@@ -138,8 +138,8 @@
         defaultIndex: 0,
         multiple: false,
         collapsible: false,
-        headerElement: '.accordion-head',
-        contentElement: '.accordion-handle'
+        headerElement: '.accordion-header',
+        sectionElement: '.accordion-section'
     });
 
     /**

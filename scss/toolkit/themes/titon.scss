@@ -32,7 +32,7 @@ mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Accordion --------------------//
 
-.accordion-head {
+.accordion-header {
     border: 1px solid $gray-dark;
     margin: -1px;
     @include transition(all .15s);

@@ -26,8 +26,8 @@ Toolkit.Accordion = new Class({
         defaultIndex: 0,
         multiple: false,
         collapsible: false,
-        headerElement: '.accordion-head',
-        contentElement: '.accordion-handle',
+        headerElement: '.accordion-header',
+        sectionElement: '.accordion-section',
 
         // Events
         onJump: null
@@ -46,7 +46,7 @@ Toolkit.Accordion = new Class({
         options = this.options;
 
         // Fetch all the sections and headers
-        var sections = this.element.getElements(options.contentElement),
+        var sections = this.element.getElements(options.sectionElement),
             headers = this.element.getElements(options.headerElement),
             header = headers[0];
 
@@ -123,7 +123,7 @@ Toolkit.Accordion = new Class({
     show: function(node) {
         var options = this.options,
             parent = node.getParent(), // li
-            section = node.getNext(options.contentElement), // section
+            section = node.getNext(), // section
             index = node.get('data-index'),
             height = section.get('data-height').toInt();
 
@@ -177,10 +177,10 @@ Toolkit.Accordion = new Class({
         }
 
         var target = e.target,
-            headerClass = this.options.headerElement.substr(1);
+            headers = this.headers;
 
         // Fetch the header in case a child is clicked
-        while (target && !target.hasClass(headerClass)) {
+        while (!headers.contains(target)) {
             target = target.getParent();
         }
 
