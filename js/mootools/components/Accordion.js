@@ -88,7 +88,7 @@ Toolkit.Accordion = new Class({
             return this;
         }
 
-        this.headers.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
+        this.headers.addEvent(this.options.mode, this.__show);
 
         return this;
     },

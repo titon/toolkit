@@ -38,9 +38,9 @@
         this.cache = {};
 
         // Set events
-        this.tabs.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+        this.tabs.on(options.mode, this.__show.bind(this));
 
-        if (options.mode === 'hover' && options.preventDefault) {
+        if (options.mode !== 'click' && options.preventDefault) {
             this.tabs.on('click', function(e) {
                 e.preventDefault();
             });

@@ -43,7 +43,7 @@
         });
 
         // Set events
-        headers.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+        headers.on(options.mode, this.__show.bind(this));
 
         this.fireEvent('init');
 

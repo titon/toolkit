@@ -35,7 +35,7 @@
 
         // Set events
         $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseover'), nodes.selector, this.__show.bind(this));
+            .on(options.mode, nodes.selector, this.__show.bind(this));
 
         if (options.mode === 'click') {
             element.clickout(this.hide.bind(this));
@@ -123,7 +123,7 @@
             if (node) {
                 node = $(node);
 
-                if (options.mode === 'hover') {
+                if (options.mode !== 'click') {
                     node
                         .off('mouseleave', this.hide.bind(this))
                         .on('mouseleave', this.hide.bind(this));

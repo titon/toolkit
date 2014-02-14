@@ -103,9 +103,9 @@ Toolkit.Tabs = new Class({
      * @returns {Toolkit.Tabs}
      */
     bindEvents: function() {
-        this.tabs.addEvent((this.options.mode === 'click' ? 'click' : 'mouseover'), this.__show);
+        this.tabs.addEvent(this.options.mode, this.__show);
 
-        if (this.options.mode === 'hover' && this.options.preventDefault) {
+        if (this.options.mode !== 'click' && this.options.preventDefault) {
             this.tabs.addEvent('click', function(e) {
                 e.preventDefault();
             });

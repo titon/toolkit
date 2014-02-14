@@ -46,7 +46,7 @@
         $.getJSON(url, this.load.bind(this));
 
         // Handles keeping menu open even if mouse exits the context
-        if (options.mode === 'hover') {
+        if (options.mode !== 'click') {
             $(options.context || document)
                 .on('mouseenter', nodes.selector, function() {
                     this.clearTimer('hide');
@@ -59,7 +59,7 @@
         }
 
         $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseenter'), nodes.selector, this.__show.bind(this));
+            .on(options.mode, nodes.selector, this.__show.bind(this));
 
         this.fireEvent('init');
     }, {
@@ -341,7 +341,7 @@
 
                 menu.conceal();
 
-                if (this.options.mode === 'hover') {
+                if (this.options.mode !== 'click') {
                     menu.on({
                         mouseenter: function() {
                             this.clearTimer('hide');

@@ -72,7 +72,7 @@ Toolkit.Flyout = new Class({
         // Handles keeping menu open even if mouse exits the context
         options = this.options;
 
-        if (options.mode === 'hover') {
+        if (options.mode !== 'click') {
             document.id(options.context || document.body)
                 .addEvent('mouseenter:relay(' + options.delegate + ')', function() {
                     this.clearTimer('hide').startTimer('show', options.showDelay);
@@ -338,7 +338,7 @@ Toolkit.Flyout = new Class({
 
             menu.conceal();
 
-            if (this.options.mode === 'hover') {
+            if (this.options.mode !== 'click') {
                 menu.addEvents({
                     mouseenter: function() {
                         this.clearTimer('hide');

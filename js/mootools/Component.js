@@ -66,7 +66,7 @@ Toolkit.Component = new Class({
      */
     bindEvents: function() {
         var options = this.options,
-            event = (options.mode === 'click' ? 'click' : 'mouseenter'),
+            event = options.mode,
             context;
 
         // Delegation
@@ -399,9 +399,15 @@ Toolkit.Component = new Class({
     setOptions: function() {
         var options = Object.merge.apply(null, [{}, this.options].append(arguments));
 
-        // Reset for touch devices
-        if (Toolkit.isTouch && options.mode === 'hover') {
-            options.mode = 'click';
+        // Convert hover to mouseenter
+        if (options.mode && options.mode === 'hover') {
+
+            // Reset for touch devices
+            if (Toolkit.isTouch) {
+                options.mode = 'click';
+            } else {
+                options.mode = 'mouseenter';
+            }
         }
 
 		if (this.addEvent) {

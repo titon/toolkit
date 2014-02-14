@@ -142,7 +142,7 @@ Toolkit.Tooltip = new Class({
         var options = this.options;
 
         if (node) {
-            if (options.mode === 'hover') {
+            if (options.mode !== 'click') {
                 node
                     .removeEvent('mouseleave', this.__hide)
                     .addEvent('mouseleave', this.__hide);

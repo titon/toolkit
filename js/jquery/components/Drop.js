@@ -32,7 +32,7 @@
             .clickout(this.hide.bind(this));
 
         $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseenter'), nodes.selector, this.__show.bind(this));
+            .on(options.mode, nodes.selector, this.__show.bind(this));
 
         this.fireEvent('init');
     }, {

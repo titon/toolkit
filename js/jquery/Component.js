@@ -241,9 +241,15 @@
 
             var opts = $.extend(true, {}, defaults.options, options || {});
 
-            // Reset for touch devices
-            if (Toolkit.isTouch && opts.mode === 'hover') {
-                opts.mode = 'click';
+            // Convert hover to mouseenter
+            if (opts.mode && opts.mode === 'hover') {
+
+                // Reset for touch devices
+                if (Toolkit.isTouch) {
+                    opts.mode = 'click';
+                } else {
+                    opts.mode = 'mouseenter';
+                }
             }
 
             return opts;
