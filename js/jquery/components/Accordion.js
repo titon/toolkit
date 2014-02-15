@@ -8,30 +8,20 @@
     'use strict';
 
     Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
-        var header, headers, sections;
+        var headers, sections;
 
         this.component = 'Accordion';
         this.version = '1.1.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // List of headers and sections
+        this.element = this.setElement(element);
         this.headers = headers = this.element.find(options.headerElement);
         this.sections = sections = this.element.find(options.sectionElement);
-
-        // The current and previous shown indices
         this.previousIndex = 0;
         this.currentIndex = 0;
-
-        // Currently active header
         this.node = null;
+        this.events = {};
 
-        // Reset the state of every row
-        element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
-
-        // Store the index
+        // Cache the index of each header
         headers.each(function(index) {
             $(this).data('index', index);
         });
@@ -42,15 +32,14 @@
             section.data('height', section.height()).conceal();
         });
 
-        // Set events
-        headers.on(options.mode, this.__show.bind(this));
+        // Initialize events
+        this.events[options.mode + ' headers'] = '__show';
 
+        this.enable();
         this.fireEvent('init');
 
-        // Fall back to first row if the default doesn't exist
-        header = headers[options.defaultIndex] ? headers.item(options.defaultIndex) : headers.item(0);
-
-        this.show(header);
+        // Jump to the index on page load
+        this.jump(options.defaultIndex);
     }, {
 
         /**
@@ -118,7 +107,7 @@
             this.currentIndex = index;
             this.node = node;
 
-            this.fireEvent('show', section);
+            this.fireEvent('show', [section, node, index]);
         },
 
         /**

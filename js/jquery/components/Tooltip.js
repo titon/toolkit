@@ -12,35 +12,25 @@
 
         this.component = 'Tooltip';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
-
-        // List of nodes to activate tooltip
-        this.nodes = nodes = $(nodes);
-
-        // The current node
-        this.node = null;
-
-        // Tooltip wrapper
         this.element = element = this.createElement();
         this.elementHead = element.find(options.titleElement);
         this.elementBody = element.find(options.contentElement);
-
-        // Cached requests
+        this.nodes = nodes = $(nodes);
+        this.node = null;
         this.cache = {};
 
         // Add position class
         element.addClass($.hyphenate(options.position));
 
-        // Set events
-        $(options.context || document)
-            .on(options.mode, nodes.selector, this.__show.bind(this));
-
+        // Initialize events
         if (options.mode === 'click') {
-            element.clickout(this.hide.bind(this));
+            this.events['clickout element'] = 'hide';
         }
 
+        this.events[options.mode + ' ' + nodes.selector] = '__show';
+
+        this.enable();
         this.fireEvent('init');
     }, {
 

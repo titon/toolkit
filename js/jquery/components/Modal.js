@@ -8,56 +8,24 @@
     'use strict';
 
     Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-        var element;
+        var element, events;
 
         this.component = 'Modal';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
-
-        // List of elements to active modals
-        this.nodes = nodes = $(nodes);
-
-        // Currently active node
-        this.node = null;
-
-        // Modal body element
         this.elementBody = element.find(options.contentElement);
-
-        // Blackout instance if options.blackout is true
+        this.nodes = nodes = $(nodes);
+        this.node = null;
         this.blackout = null;
-
-        // Drag instance if options.draggable is true
         this.drag = null;
-
-        // Cache requests
         this.cache = {};
+        this.events = events = {};
 
         // Fullscreen
         if (options.fullScreen) {
             element.addClass(Toolkit.options.isPrefix + 'fullscreen');
             options.draggable = false;
-        }
-
-        // Draggable
-        if (options.draggable && $.ui && $.ui.draggable) {
-            var isPrefix = Toolkit.options.isPrefix;
-
-            this.drag = element.draggable({
-                appendTo: 'body',
-                containment: 'window',
-                cursor: 'grabbing',
-                start: function(e, ui) {
-                    ui.helper.addClass(isPrefix + 'dragging');
-                },
-                stop: function(e, ui) {
-                    ui.helper.removeClass(isPrefix + 'dragging');
-                }
-            });
-
-            element.addClass(isPrefix + 'draggable');
         }
 
         // Blackout
@@ -73,23 +41,15 @@
             }
         }
 
-        // Set events
-        element.clickout(this.__hide.bind(this));
-        nodes.clickout(this.__hide.bind(this));
+        // Initialize events
+        events['clickout element'] = '__hide';
+        events['clickout nodes'] = '__hide';
+        events['keydown window'] = '__keydown';
+        events['click ' + nodes.selector] = '__show';
+        events['click element ' + options.closeEvent] = '__hide';
+        events['click element ' + options.submitEvent] = '__submit';
 
-        $(options.context || document)
-            .on('click', nodes.selector, this.__show.bind(this));
-
-        $(window).on('keydown', function(e) {
-            if (e.keyCode === 27 /*esc*/ && element.is(':shown')) {
-                this.hide();
-            }
-        }.bind(this));
-
-        element
-            .on('click', options.closeEvent, this.__hide.bind(this))
-            .on('click', options.submitEvent, this.__submit.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -203,6 +163,18 @@
         },
 
         /**
+         * Event handler for closing the modal when esc is pressed.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        __keydown: function(e) {
+            if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
+                this.hide();
+            }
+        },
+
+        /**
          * Event handler for show().
          *
          * @private
@@ -211,9 +183,7 @@
         __show: function(e) {
             e.preventDefault();
 
-            if (this.enabled) {
-                this.show(e.currentTarget);
-            }
+            this.show(e.currentTarget);
         },
 
         /**

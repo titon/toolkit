@@ -10,8 +10,6 @@
     Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         this.component = 'Stalker';
         this.version = '1.0.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
 
@@ -19,35 +17,33 @@
             return;
         }
 
-        // Elements to apply active state to
         this.target = null;
         this.targets = [];
-
-        // Elements that trigger the active state
         this.marker = null;
         this.markers = [];
-
-        // Offset positioning for markers
         this.offsets = [];
-
-        // Container used for scroll detection
         this.container = null;
 
-        // Set events
+        // Add classes to stalker
         element.addClass(Toolkit.options.vendor + 'stalker');
 
+        // Determine the container
         if (element.css('overflow') === 'auto') {
             this.container = element;
         } else {
             this.container = $(window);
         }
 
+        // Gather markets and targets
         this.refresh();
 
-        this.container.on('scroll', $.throttle(this.__scroll.bind(this), options.throttle));
+        // Initialize events
+        this.events = {
+            'scroll container': $.throttle(this.__scroll.bind(this), options.throttle),
+            'ready document': '__scroll'
+        };
 
-        $(document).ready(this.__scroll.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -135,10 +131,6 @@
          * @private
          */
         __scroll: function() {
-            if (!this.enabled) {
-                return;
-            }
-
             var scroll = this.container.scrollTop(),
                 markers = this.markers,
                 targets = this.targets,

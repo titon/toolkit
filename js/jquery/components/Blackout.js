@@ -10,22 +10,17 @@
     Toolkit.Blackout = Toolkit.Component.extend(function(options) {
         this.component = 'Blackout';
         this.version = '1.1.0';
-
-        // Set options and element
         this.options = options = this.setOptions(Toolkit.options, options);
         this.element = this.createElement();
-
-        // How many times the blackout has been opened
         this.count = 0;
 
         // Build the loader
         var vendor = Toolkit.options.vendor,
-            count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount;
-
-        this.loader = $('<div/>')
-            .addClass(vendor + 'loader')
-            .addClass(options.loader)
-            .appendTo(this.element);
+            count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
+            loader = $('<div/>')
+                .addClass(vendor + 'loader')
+                .addClass(options.loader)
+                .appendTo(this.element);
 
         // Create all the spans
         var spans = '', i;
@@ -39,16 +34,18 @@
             $('<div/>')
                 .addClass('spinner')
                 .html(spans)
-                .appendTo(this.loader);
+                .appendTo(loader);
         } else {
-            this.loader.html(spans);
+            loader.html(spans);
         }
+
+        this.loader = loader;
 
         // Build the message
         this.message = $('<div/>')
             .addClass(vendor + 'loader-message')
             .html(options.loadingMessage)
-            .appendTo(this.loader);
+            .appendTo(loader);
 
         this.fireEvent('init');
     }, {
@@ -75,6 +72,7 @@
          */
         hideLoader: function() {
             this.loader.conceal();
+            this.fireEvent('hideLoader');
         },
 
         /**
@@ -93,6 +91,7 @@
          */
         showLoader: function() {
             this.loader.reveal();
+            this.fireEvent('showLoader');
         }
 
     }, {

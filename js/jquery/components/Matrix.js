@@ -10,39 +10,26 @@
     Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.component = 'Matrix';
         this.version = '1.0.1';
-
-        // Custom options
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
-
-        // List of DOM elements for items to position in the grid
         this.items = element.find(options.selector);
-
-        // List of items organized in order with span detection
         this.matrix = [];
-
-        // Current width of the wrapper
         this.wrapperWidth = 0;
-
-        // The final width of each column
         this.colWidth = 0;
-
-        // How many columns to render in the grid
         this.colCount = 0;
-
-        // List of images within the matrix
         this.images = [];
-
-        // How many images have been loaded
         this.imagesLoaded = 0;
 
-        // Set events
-        element.addClass(Toolkit.options.vendor + 'matrix');
+        // Initialize events
+        this.events = {
+            'resize window': $.debounce(this.__resize.bind(this))
+        };
 
-        // Set events
-        $(window).on('resize', $.debounce(this.__resize.bind(this)));
-
+        this.enable();
         this.fireEvent('init');
+
+        // Render the matrix
+        element.addClass(Toolkit.options.vendor + 'matrix');
 
         if (options.defer) {
             this._deferRender();
@@ -72,6 +59,7 @@
             this.enabled = false;
             this.element.removeAttr('style');
             this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
+            this.bindEvents('off');
         },
 
         /**
@@ -80,6 +68,7 @@
         enable: function() {
             this.enabled = true;
             this.items.addClass(Toolkit.options.vendor + 'matrix-item');
+            this.bindEvents('on');
         },
 
         /**
@@ -135,8 +124,6 @@
             if (this.items.length < this.colCount) {
                 this.disable();
                 return;
-            } else {
-                this.enable();
             }
 
             if (this.colCount <= 1) {

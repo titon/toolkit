@@ -10,7 +10,8 @@
     Toolkit.Component = Toolkit.Class.extend(function() {}, {
         component: 'Component',
         version: '0.0.0',
-        enabled: true,
+        enabled: false,
+        events: {},
 
         /**
          * Create the element from the template.
@@ -43,10 +44,74 @@
         },
 
         /**
+         * Loop through the events object map and attach events to the specific selector in the correct context.
+         * Take into account window, document, and delegation.
+         *
+         * @param {String} type
+         */
+        bindEvents: function(type) {
+            var self = this,
+                event,
+                keys,
+                context,
+                selector,
+                funcs,
+                win = $(window),
+                doc = $(document);
+
+            $.each(this.events, function(key, value) {
+                funcs = $.isArray(value) ? value : [value];
+                keys = key.split(' ');
+                event = keys[0];
+                context = keys[1];
+                selector = keys[2] || null;
+
+                // No context defined, so use the context in options
+                // Also clickout events cannot be delegated
+                if ((context.charAt(0) === '.' || context.charAt(0) === '#') && event !== 'clickout') {
+                    selector = context;
+                    context = self.options.context;
+                }
+
+                // The context is a property on the object
+                if (self[context]) {
+                    context = self[context];
+                }
+
+                $.each(funcs, function(i, func) {
+                    if (!$.isFunction(func)) {
+                        func = self[func].bind(self);
+                    }
+
+                    // On window
+                    if (context === 'window') {
+                        win[type](event, func);
+
+                    // On document
+                    } else if (context === 'document') {
+                        if (event === 'ready') {
+                            doc.ready(func);
+                        } else {
+                            doc[type](event, func);
+                        }
+                    // Delegated
+                    } else if (selector) {
+                        $(context || document)[type](event, selector, func);
+
+                    // On element
+                    } else {
+                        $(context)[type](event, func);
+                    }
+                });
+            });
+        },
+
+        /**
          * Disable
          */
         disable: function() {
             this.enabled = false;
+            this.bindEvents('off');
         },
 
         /**
@@ -54,6 +119,7 @@
          */
         enable: function() {
             this.enabled = true;
+            this.bindEvents('on');
         },
 
         /**

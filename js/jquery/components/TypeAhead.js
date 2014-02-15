@@ -8,7 +8,7 @@
     'use strict';
 
     Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
-        var element;
+        var element, self = this;
             input = $(input);
 
         if (input.prop('tagName').toLowerCase() !== 'input') {
@@ -19,30 +19,14 @@
 
         this.component = 'TypeAhead';
         this.version = '1.1.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
-
-        // Input element to display menu against
         this.input = input;
-
-        // Shadow input element
         this.shadow = null;
-
-        // Current active index when cycling through the list
         this.index = -1;
-
-        // List of items to display and match against
         this.items = [];
-
-        // Current term used during lookup and matching
         this.term = '';
-
-        // Throttle timer
         this.timer = null;
-
-        // Cached queries
         this.cache = {};
 
         // Use default callbacks
@@ -54,21 +38,21 @@
             var callback;
 
             if (options[key] === null || $.type(options[key]) !== 'function') {
-                callback = this[fn];
+                callback = self[fn];
             } else {
                 callback = options[key];
             }
 
-            options[key] = callback.bind(this);
-        }.bind(this));
+            options[key] = callback.bind(self);
+        });
 
         // Prefetch source from URL
         if (options.prefetch && $.type(options.source) === 'string') {
             var url = options.source;
 
             $.getJSON(url, options.query, function(items) {
-                this.cache[url] = items;
-            }.bind(this));
+                self.cache[url] = items;
+            });
         }
 
         // Enable shadow inputs
@@ -84,21 +68,14 @@
             this.wrapper.append(this.input).append(this.shadow);
         }
 
-        // Set events
-        this.input.on({
-            keyup: this.__lookup.bind(this),
-            keydown: this.__cycle.bind(this)
-        });
+        // Initialize events
+        this.events = {
+            'keyup input': '__lookup',
+            'keydown input': '__cycle',
+            'clickout element': 'hide'
+        };
 
-        $(window)
-            .on('keydown', function(e) {
-                if (e.keyCode === 27 /*esc*/ && element.is(':shown')) {
-                    this.hide();
-                }
-            }.bind(this));
-
-        element.clickout(this.hide.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -427,7 +404,7 @@
          * Cycle through the items in the list when an arrow key, esc or enter is released.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
         __cycle: function(e) {
             var items = this.items,
@@ -498,7 +475,7 @@
          * Lookup items based on the current input value.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
         __lookup: function(e) {
             if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {

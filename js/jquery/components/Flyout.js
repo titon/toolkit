@@ -14,53 +14,29 @@
 
         this.component = 'Flyout';
         this.version = '1.0.0';
-
-        // Set options
         this.options = options = this.setOptions(options);
-
-        // Nodes to activate menus on
         this.nodes = nodes = $(nodes);
-
-        // Currently active node
         this.node = null;
-
-        // Currently active menu
-        this.element = null;
-
-        // The current menu URL being displayed
-        this.current = null;
-
-        // Collection of menu elements
+        this.element = null; // Current active menu
+        this.current = null; // Current URL
         this.menus = {};
-
-        // Raw data response
         this.data = [];
-
-        // Mapping of data indexed by URL
         this.dataMap = {};
-
-        // Delay timers
         this.timers = {};
+        this.events = {};
 
         // Load data from the URL
         $.getJSON(url, this.load.bind(this));
 
-        // Handles keeping menu open even if mouse exits the context
-        if (options.mode !== 'click') {
-            $(options.context || document)
-                .on('mouseenter', nodes.selector, function() {
-                    this.clearTimer('hide');
-                    this.startTimer('show', options.showDelay);
-                }.bind(this))
-                .on('mouseleave', nodes.selector, function() {
-                    this.clearTimer('show');
-                    this.startTimer('hide', options.showDelay);
-                }.bind(this));
+        // Initialize events
+        if (options.mode === 'click') {
+            this.events['click ' + nodes.selector] = '__show';
+        } else {
+            this.events['mouseenter ' + nodes.selector] = ['__show', '__enter'];
+            this.events['mouseleave ' + nodes.selector] = '__leave';
         }
 
-        $(options.context || document)
-            .on(options.mode, nodes.selector, this.__show.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -375,6 +351,16 @@
         },
 
         /**
+         * Event handle when a mouse enters a node. Will show the menu after the timer.
+         *
+         * @private
+         */
+        __enter: function() {
+            this.clearTimer('hide');
+            this.startTimer('show', this.options.showDelay);
+        },
+
+        /**
          * Event handler to hide the child menu after exiting parent li.
          *
          * @private
@@ -386,6 +372,16 @@
             parent.children(this.options.contentElement).removeAttr('style');
 
             this.fireEvent('hideChild', parent);
+        },
+
+        /**
+         * Event handle when a mouse leaves a node. Will hide the menu after the timer.
+         *
+         * @private
+         */
+        __leave: function() {
+            this.clearTimer('show');
+            this.startTimer('hide', this.options.showDelay);
         },
 
         /**

@@ -10,32 +10,18 @@
     Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.component = 'Carousel';
         this.version = '1.0.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
-
-        // Items and parent container
         this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
         this.items = this.itemsWrapper.find(options.itemElement);
-
-        // Tabs and parent container
         this.tabsWrapper = element.find(options.tabsElement);
         this.tabs = this.tabsWrapper.find(options.tabElement);
-
-        // Previous and next buttons
         this.nextButton = element.find(options.nextElement);
         this.prevButton = element.find(options.prevElement);
-
-        // The current and previous shown indices
         this.previousIndex = 0;
         this.currentIndex = 0;
-
-        // Cycle timer
         this.timer = null;
-
-        // Is the carousel stopped?
         this.stopped = false;
 
         // Disable carousel if too low of items
@@ -47,7 +33,7 @@
             return;
         }
 
-        // Set some sizes for responsiveness
+        // Set sizes for responsiveness
         switch (options.animation) {
             case 'fade':
                 this.items.item(0).reveal();
@@ -58,43 +44,34 @@
             break;
         }
 
-        // Store some data in the elements
+        // Cache the index of tabs
         this.tabs.each(function(index) {
             $(this).data('index', index);
         });
 
-        // Set events
-        $(window)
-            .on('keydown', function(e) {
-                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
-                    e.preventDefault();
-                }
-
-                switch (e.keyCode) {
-                    case 37: this.prev(); break;
-                    case 38: this.jump(0); break;
-                    case 39: this.next(); break;
-                    case 40: this.jump(-1); break;
-                }
-            }.bind(this));
+        // Initialize events
+        this.events = {
+            'keydown window': '__keydown',
+            'swipeleft element': 'next',
+            'swipeup element': 'next',
+            'swiperight element': 'prev',
+            'swipdown element': 'prev',
+            'click tabs': '__jump',
+            'click nextButton': 'next',
+            'click prevButton': 'prev'
+        };
 
         if (options.stopOnHover) {
-            this.element
-                .on('mouseenter', this.stop.bind(this))
-                .on('mouseleave', this.start.bind(this));
+            this.events['mouseenter element'] = 'stop';
+            this.events['mouseleave element'] = 'start';
         }
 
-        this.element
-            .on('swipeleft swipeup', this.next.bind(this))
-            .on('swiperight swipdown', this.prev.bind(this));
-
-        this.tabs.on('click', this.__jump.bind(this));
-        this.nextButton.on('click', this.next.bind(this));
-        this.prevButton.on('click', this.prev.bind(this));
-
+        this.enable();
         this.fireEvent('init');
-        this.start();
+
+        // Start the carousel
         this.reset();
+        this.start();
     }, {
 
         /**
@@ -193,8 +170,8 @@
          * @private
          */
         __cycle: function() {
-            if (this.enabled && !this.stopped) {
-                this.fireEvent('cycle');
+            if (!this.stopped) {
+                this.fireEvent('cycle', this.currentIndex);
                 this.next();
             }
         },
@@ -208,8 +185,27 @@
         __jump: function(e) {
             e.preventDefault();
 
-            if (this.enabled) {
-                this.jump($(e.target).data('index') || 0);
+            this.jump($(e.target).data('index') || 0);
+        },
+
+        /**
+         * Event handle for keyboard events.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        __keydown: function(e) {
+            if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
+                e.preventDefault();
+            } else {
+                return;
+            }
+
+            switch (e.keyCode) {
+                case 37: this.prev(); break;
+                case 38: this.jump(0); break;
+                case 39: this.next(); break;
+                case 40: this.jump(-1); break;
             }
         }
 

@@ -10,30 +10,25 @@
     Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.component = 'Pin';
         this.version = '1.0.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
-
-        // The current window width and height
-        this.viewport = null;
-
-        // Target and container sizes
         this.elementHeight = null;
         this.elementTop = parseInt(element.css('top'), 10);
-
         this.parentHeight = null;
         this.parentTop = null;
+        this.viewport = null;
 
-        // Set events
+        // Mark element as a pin
         element.addClass(Toolkit.options.vendor + 'pin');
 
-        $(window)
-            .on('scroll', $.throttle(this.__scroll.bind(this), options.throttle))
-            .on('resize', $.throttle(this.__resize.bind(this), options.throttle));
+        // Initialize events
+        this.events = {
+            'scroll window': $.throttle(this.__scroll.bind(this), options.throttle),
+            'resize window': $.throttle(this.__resize.bind(this), options.throttle),
+            'ready document': '__resize'
+        };
 
-        $(document).ready(this.__resize.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -63,9 +58,7 @@
             this.calculate();
 
             // Enable pin if the parent is larger than the child
-            if (this.parentHeight >= this.elementHeight) {
-                this.enable();
-            } else {
+            if (this.parentHeight < this.elementHeight) {
                 this.disable();
             }
 
@@ -83,7 +76,7 @@
                 this.calculate();
             }
 
-            if (!this.enabled || this.element.is(':hidden')) {
+            if (this.element.is(':hidden')) {
                 return;
             }
 

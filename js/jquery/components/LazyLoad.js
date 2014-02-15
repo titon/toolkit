@@ -10,27 +10,20 @@
     Toolkit.LazyLoad = Toolkit.Component.extend(function(elements, options) {
         this.component = 'LazyLoad';
         this.version = '1.0.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
-
-        // List of elements to load
         this.elements = this.setElement(elements, this.options);
-
-        // The element being loaded
-        this.element = null;
-
-        // Have all elements been force loaded?
+        this.element = null; // Element being loaded
         this.isLoaded = false;
-
-        // Count of how many have loaded
         this.loaded = 0;
 
-        // Set events
+        // Initialize events
         $(options.context || window).on({
             scroll: $.throttle(this.load.bind(this), options.throttle),
             resize: $.throttle(this.load.bind(this), options.throttle)
         });
+
+        this.enable();
+        this.fireEvent('init');
 
         // Load elements within viewport
         $(function() {
@@ -41,8 +34,6 @@
                 setTimeout(this.loadAll.bind(this), options.delay);
             }
         }.bind(this));
-
-        this.fireEvent('init');
     }, {
 
         /**
@@ -128,6 +119,9 @@
             node = $(node);
             node.removeClass(this.elements.selector.substr(1));
 
+            // Set the element being loaded for events
+            this.element = node;
+
             // Replace src attributes on images
             node.find('img').each(function() {
                 var image = $(this),
@@ -137,8 +131,6 @@
                     image.attr('src', data);
                 }
             });
-
-            this.element = node;
 
             // Replace element with null since removing from the array causes it to break
             this.elements.splice(index, 1, null);

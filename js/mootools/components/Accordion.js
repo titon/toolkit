@@ -47,19 +47,10 @@ Toolkit.Accordion = new Class({
 
         // Fetch all the sections and headers
         var sections = this.element.getElements(options.sectionElement),
-            headers = this.element.getElements(options.headerElement),
-            header = headers[0];
+            headers = this.element.getElements(options.headerElement);
 
         this.headers = headers;
         this.sections = sections;
-
-        // Fall back to first row if the default doesn't exist
-        if (headers[options.defaultIndex]) {
-            header = headers[options.defaultIndex];
-        }
-
-        // Reset the state of every row
-        this.element.getChildren('li').removeClass(Toolkit.options.isPrefix + 'active');
 
         // Store the index
         headers.each(function(header, index) {
@@ -75,7 +66,7 @@ Toolkit.Accordion = new Class({
         this.bindEvents();
         this.fireEvent('init');
 
-        this.show(header);
+        this.jump(options.defaultIndex);
     },
 
     /**

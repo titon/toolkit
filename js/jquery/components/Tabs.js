@@ -8,60 +8,55 @@
     'use strict';
 
     Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
+        var events, tabs, index;
+
         this.component = 'Tabs';
         this.version = '1.0.0';
-
-        // Set options and element
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
+        this.nav = element.find(options.navElement);
+        this.tabs = tabs = this.nav.find('ul > li > a');
+        this.sections = element.find(options.sectionsElement).conceal();
+        this.previousIndex = 0;
+        this.currentIndex = 0;
+        this.cache = {};
+        this.events = events = {};
 
+        // Determine cookie name
         if (!options.cookie) {
             options.cookie = element.attr('id');
         }
 
-        // Navigation container
-        this.nav = element.find(options.navElement);
-
-        // Collection of content sections
-        this.sections = element.find(options.sectionsElement).conceal();
-
-        /** Collection of tabs (anchor links) */
-        this.tabs = this.nav.find('ul > li > a').each(function(index) {
+        // Cache index for tabs
+        tabs.each(function(index) {
             $(this).data('index', index).removeClass(Toolkit.options.isPrefix + 'active');
         });
 
-        // The current and previous shown indices
-        this.previousIndex = 0;
-        this.currentIndex = 0;
-
-        // Cached requests
-        this.cache = {};
-
-        // Set events
-        this.tabs.on(options.mode, this.__show.bind(this));
+        // Initialize events
+        events[options.mode + ' tabs'] = '__show';
 
         if (options.mode !== 'click' && options.preventDefault) {
-            this.tabs.on('click', function(e) {
+            events['click tabs'] = function(e) {
                 e.preventDefault();
-            });
+            };
         }
 
+        this.enable();
         this.fireEvent('init');
 
         // Trigger default tab to display
-        var index = options.defaultIndex;
-
         if (options.persistState) {
             index = $.cookie('toolkit.tabs.' + options.cookie);
+        }
 
-        } else if (options.loadFragment && location.hash) {
-            index = this.tabs.filter(function() {
+        if (!index && options.loadFragment && location.hash) {
+            index = tabs.filter(function() {
                 return ($(this).attr('href') === location.hash);
             }).item(0).data('index');
         }
 
-        if (!index || !this.tabs[index]) {
-            index = 0;
+        if (!index || !tabs[index]) {
+            index = options.defaultIndex;
         }
 
         this.jump(index);
@@ -171,9 +166,7 @@
                 e.preventDefault();
             }
 
-            if (this.enabled) {
-                this.show(e.target);
-            }
+            this.show(e.target);
         }
 
     }, {

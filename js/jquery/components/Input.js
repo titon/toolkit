@@ -25,6 +25,7 @@
             element.find(options.select).inputSelect(options);
         }
 
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -74,26 +75,23 @@
     Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
         this.component = 'Input.Checkbox';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = this.setOptions(options);
-
-        // Base input
         this.input = $(checkbox);
-
-        // Wrapping div
         this.wrapper = this.buildWrapper();
 
-        // Custom input
-        this.element = this.setElement(
-            $('<label/>')
-                .addClass(Toolkit.options.vendor + 'checkbox')
-                .attr('for', this.input.attr('id'))
-                .insertAfter(this.input), this.options);
+        // Create custom input
+        var element = $('<label/>')
+            .addClass(Toolkit.options.vendor + 'checkbox')
+            .attr('for', this.input.attr('id'))
+            .insertAfter(this.input);
 
+        this.element = this.setElement(element);
+
+        // Initialize events
+        this.enable();
         this.fireEvent('init');
-
-    }, {}, {
+    }, {
+    }, {
         copyClasses: true
     });
 
@@ -104,26 +102,23 @@
     Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
         this.component = 'Input.Radio';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = this.setOptions(options);
-
-        // Base input
         this.input = $(radio);
-
-        // Wrapping div
         this.wrapper = this.buildWrapper();
 
-        // Custom input
-        this.element = this.setElement(
-            $('<label/>')
+        // Create custom input
+        var element = $('<label/>')
                 .addClass(Toolkit.options.vendor + 'radio')
                 .attr('for', this.input.attr('id'))
-                .insertAfter(this.input), this.options);
+                .insertAfter(this.input);
 
+        this.element = this.setElement(element);
+
+        // Initialize events
+        this.enable();
         this.fireEvent('init');
-
-    }, {}, {
+    }, {
+    }, {
         copyClasses: true
     });
 
@@ -132,16 +127,12 @@
      * Supports native or custom dropdowns.
      */
     Toolkit.Input.Select = Toolkit.Input.extend(function(select, options) {
+        var events;
+
         this.component = 'Input.Select';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
-
-        // Base input
         this.input = select = $(select);
-
-        // Is it a multi-select
         this.multiple = select.prop('multiple');
 
         // Multiple selects must use native controls
@@ -149,45 +140,39 @@
             return;
         }
 
-        // Wrapping div
         this.wrapper = this.buildWrapper();
-
-        // Custom input
         this.element = this.buildButton();
-
-        // Custom dropdown
         this.dropdown = null;
-
-        // Current index while cycling through options
         this.currentIndex = 0;
 
-        // Set events
-        this.input.change(this.__change.bind(this));
+        // Initialize events
+        this.events = events = {
+            'change input': '__change'
+        };
 
-        if (!this.options.native) {
+        if (!options.native) {
+            events['blur input'] = 'hide';
+            events['clickout dropdown'] = 'hide';
+            events['clickout element'] = 'hide';
+            events['click element'] = '__toggle';
+
+            if (!this.multiple) {
+                events['keydown window'] = '__cycle';
+            }
+
+            // Build custom dropdown when not in native
             this.buildDropdown();
 
             // Cant hide/invisible the real select or we lose focus/blur
             // So place it below .custom-input
-            this.input
-                .css('z-index', 1)
-                .blur(this.hide.bind(this));
-
-            this.dropdown.clickout(this.hide.bind(this));
-
-            this.element
-                .clickout(this.hide.bind(this))
-                .click(this.__toggle.bind(this));
+            this.input.css('z-index', 1);
         }
 
-        if (!this.multiple) {
-            $(window).keydown(this.__cycle.bind(this));
-        }
+        this.enable();
+        this.fireEvent('init');
 
         // Trigger change immediately to update the label
         this.input.change();
-
-        this.fireEvent('init');
     }, {
 
         /**
@@ -447,7 +432,7 @@
          * Event handler for cycling through options with up and down keys.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
         __cycle: function(e) {
             if (!this.dropdown.is(':shown')) {
@@ -523,7 +508,7 @@
          * @param {jQuery.Event} e
          */
         __toggle: function(e) {
-            if (!this.enabled || this.input.prop('disabled')) {
+            if (this.input.prop('disabled')) {
                 return;
             }
 

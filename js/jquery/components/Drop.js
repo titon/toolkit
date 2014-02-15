@@ -8,32 +8,25 @@
     'use strict';
 
     Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
+        var events;
+
         this.component = 'Drop';
         this.version = '1.1.0';
-
-        // Set options
         this.options = options = this.setOptions(options);
-
-        // Element to toggle
-        this.element = null;
-
-        // Currently active node
-        this.node = null;
-
-        // List of elements to active drop
+        this.element = null; // Current drop
+        this.node = null; // Opened the drop
         this.nodes = nodes = $(nodes);
+        this.events = events = {};
 
-        // Set events
-        var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
-            return '.' + Toolkit.options.vendor + 'drop--' + value;
+        // Initialize events
+        $.each(['down', 'up', 'left', 'right'], function(i, value) {
+            events['clickout .' + Toolkit.options.vendor + 'drop--' + value] = 'hide';
         });
 
-        $(nodes.selector + ', ' + selectors.join(', '))
-            .clickout(this.hide.bind(this));
+        events['clickout ' + nodes.selector] = 'hide';
+        events[options.mode + ' ' + nodes.selector] = '__show';
 
-        $(options.context || document)
-            .on(options.mode, nodes.selector, this.__show.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -45,7 +38,7 @@
                 this.element.conceal();
                 this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
-                this.fireEvent('hide');
+                this.fireEvent('hide', [this.element, this.node]);
             }
         },
 
@@ -57,10 +50,10 @@
         show: function(node) {
             this.element.reveal();
 
-            this.node = $(node);
+            this.node = node = $(node);
             this.node.addClass(Toolkit.options.isPrefix + 'active');
 
-            this.fireEvent('show');
+            this.fireEvent('show', [this.element, node]);
         },
 
         /**
@@ -72,10 +65,6 @@
          */
         __show: function(e) {
             e.preventDefault();
-
-            if (!this.enabled) {
-                return;
-            }
 
             var node = $(e.target),
                 target = this.readValue(node, this.options.getTarget);
