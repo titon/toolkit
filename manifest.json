@@ -77,7 +77,7 @@
     },
     "blackout": {
         "name": "Blackout",
-        "description": "Blacks out the viewport while displaying other modules.",
+        "description": "Blacks out the viewport while other components are being displayed.",
         "category": "component",
         "type": "module",
         "priority": 10,

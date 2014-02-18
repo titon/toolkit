@@ -395,12 +395,12 @@ The following methods are available on all class instances, but not all componen
         </tr>
         <tr>
             <td>show([element:node])</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Show the element and set an optional activating node.</td>
         </tr>
         <tr>
             <td>hide([func:callback])</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Hide the element and trigger an optional callback function.</td>
         </tr>
     </tbody>
