@@ -212,3 +212,10 @@
         Desktop: 41%
     </div>
 </div>
+
+<div class="example-title">Ending</div>
+
+<div class="grid example-grid">
+    <div class="col large-5 medium-3 small-2">Left</div>
+    <div class="col large-5 medium-3 small-2 end">Right</div>
+</div>
