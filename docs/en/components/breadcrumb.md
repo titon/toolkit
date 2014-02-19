@@ -10,9 +10,9 @@ Within each list item is a link and an optional caret. The caret in the last ite
 ```html
 <nav class="breadcrumb">
     <ol>
-        <li><a href="/">Top Level Page <span class="caret">/</span></a></li>
         <li><a href="/">Major Page <span class="caret">/</span></a></li>
         <li><a href="/">Minor Page <span class="caret">/</span></a></li>
+        <li><a href="/">Sub Page <span class="caret">/</span></a></li>
     </ol>
 </nav>
 ```
@@ -23,4 +23,6 @@ Applying a `.small` or `.large` class to the `.breadcrumb` element will alter th
 
 ```html
 <nav class="breadcrumb large">
+    ...
+</nav>
 ```

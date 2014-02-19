@@ -30,7 +30,7 @@
     > li,
     > .#{$vendor-prefix}button {
         float: left;
-        margin-left: -1px !important;
+        margin-left: -1px;
         border-radius: 0;
 
         &:first-child { margin-left: 0; }
@@ -81,11 +81,11 @@
     > .#{$vendor-prefix}button {
         float: none;
         display: block;
-        margin: -1px 0 0 0 !important;
+        margin: -1px 0 0 0;
         width: auto;
         max-width: 100%;
 
-        &:first-child { margin-top: 0 !important; }
+        &:first-child { margin-top: 0; }
         &:hover { z-index: 1; }
     }
 
