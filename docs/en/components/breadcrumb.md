@@ -17,7 +17,10 @@ Within each list item is a link and an optional caret. The caret in the last ite
 </nav>
 ```
 
-<div class="notice is-info">
-    Applying a <code>.small</code> or <code>.large</code> class to the <code>nav</code> element
-    will alter the padding and font size of the breadcrumb.
-</div>
+### Sizes ###
+
+Applying a `.small` or `.large` class to the `.breadcrumb` element will alter the padding and font size.
+
+```html
+<nav class="breadcrumb large">
+```
