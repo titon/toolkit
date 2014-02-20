@@ -62,6 +62,7 @@ This allows for styling based on the type of animation used.
 
 <div class="notice is-error">
     <h5>Transitions not supported in legacy browsers</h5>
+
     Toolkit makes use of CSS3 transitions for animation, which older browsers do not support.
     Instead of animations in these browsers, an immediate show or hide will occur.
 </div>

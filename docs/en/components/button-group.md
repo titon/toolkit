@@ -31,7 +31,7 @@ More information on drop menus can be found below.
 </div>
 ```
 
-## Sizes ##
+### Sizes ###
 
 Instead of applying size classes to individual buttons, a `.small` or `.large` class can be applied to the group.
 
@@ -41,7 +41,7 @@ Instead of applying size classes to individual buttons, a `.small` or `.large` c
 </div>
 ```
 
-## Shapes ##
+### Shapes ###
 
 Like size classes, all shape classes can be applied to the group, this includes `.round`, `.pill`, `.oval`, and `.skew`.
 
@@ -56,7 +56,7 @@ Like size classes, all shape classes can be applied to the group, this includes 
     effects extensions, which aren't part of the default build.
 </div>
 
-## Vertical Stacking ##
+### Vertical Stacking ###
 
 To stack buttons vertically instead of horizontally, we can use the `.button-group--vertical` modifier.
 
@@ -66,7 +66,7 @@ To stack buttons vertically instead of horizontally, we can use the `.button-gro
 </div>
 ```
 
-## Justified Alignment ##
+### Justified Alignment ###
 
 To span the button group the width of the parent, and equally scale all buttons within,
 we can use the `.button-group--justified` modifier.
@@ -82,7 +82,7 @@ we can use the `.button-group--justified` modifier.
     Use <code>a</code> elements when using the justified modifier.
 </div>
 
-## Drop Integration ##
+### Drop Integration ###
 
 We can integrate dropdowns, dropups, droplefts, and droprights via the [Drop component](drop.md),
 simply by placing a drop menu within the button group element.
