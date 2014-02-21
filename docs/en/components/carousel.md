@@ -115,8 +115,8 @@ The markup within a caption can be customized extensively and is not enforced by
 
 ## Notes ##
 
-* The currently shown index will have an `.is-active` class applied to the respective tab
-* Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights
+* The currently shown index will have an `.is-active` class applied to the respective tab.
+* Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
 
 ## Options ##
 

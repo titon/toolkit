@@ -35,7 +35,8 @@
 
     // Apply to self
     &,
-    ul {
+    ul,
+    ol {
         @include reset-list;
     }
 

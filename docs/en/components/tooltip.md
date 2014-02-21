@@ -25,8 +25,8 @@ The tooltip will display either through a click, or a hover, depending on the co
 
 ## Notes ##
 
-* A `className` can be added to tooltips during instantiation for different themed tooltips
-* The `position` of the tooltip instance determines the location and arrow placement
+* A `className` can be added to tooltips during instantiation for different themed tooltips.
+* The `position` of the tooltip instance determines the location and arrow placement.
 
 ## Options ##
 

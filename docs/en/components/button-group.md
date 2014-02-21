@@ -88,7 +88,7 @@ We can integrate dropdowns, dropups, droplefts, and droprights via the [Drop com
 simply by placing a drop menu within the button group element.
 
 ```html
-<div class="button-group">
+<div class="button-group" role="menu">
     <button class="button" type="button">Action</button>
     <button class="button" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
@@ -102,7 +102,7 @@ The previous example will open a menu left aligned and below all buttons within 
 If we want the menu to open up below the button that triggered it, we must use a list for the button group.
 
 ```html
-<ul class="button-group">
+<ul class="button-group" role="menu">
     <li><button class="button" type="button">Action</button></li>
     <li>
         <button class="button" type="button" data-drop="#menu"><span class="caret-down"></span></button>

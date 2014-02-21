@@ -47,9 +47,9 @@ $('.accordion').accordion();
 
 ## Notes ##
 
-* The `.accordion-header` will be clickable, no need for anchor tags
-* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations
-* The currently open section will have an `.is-active` class on the parent `li`
+* The `.accordion-header` will be clickable, no need for anchor tags.
+* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations.
+* The currently open section will have an `.is-active` class on the parent `li`.
 
 ## Options ##
 
