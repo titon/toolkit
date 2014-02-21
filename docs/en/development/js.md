@@ -390,7 +390,7 @@ The following methods are available on all class instances, but not all componen
         </tr>
         <tr>
             <td>position(string:response)</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Handles HTML AJAX responses. Will re-position the element.</td>
         </tr>
         <tr>

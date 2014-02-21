@@ -153,18 +153,6 @@ The tooltip will display either through a click, or a hover, depending on the co
             <td>The delay in milliseconds before the tooltip is displayed.</td>
         </tr>
         <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the tooltip elements.</td>
-        </tr>
-        <tr>
-            <td>templateFrom</td>
-            <td>string</td>
-            <td></td>
-            <td>The ID of an element to use as the template.</td>
-        </tr>
-        <tr>
             <td>titleElement</td>
             <td>string</td>
             <td>.tooltip-head</td>
@@ -175,6 +163,18 @@ The tooltip will display either through a click, or a hover, depending on the co
             <td>string</td>
             <td>.tooltip-body</td>
             <td>CSS selector for the content element within the tooltip template.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>(below)</td>
+            <td>The HTML used to create the tooltip elements.</td>
+        </tr>
+        <tr>
+            <td>templateFrom</td>
+            <td>string</td>
+            <td></td>
+            <td>The ID of an element to use as the template.</td>
         </tr>
     </tbody>
 </table>

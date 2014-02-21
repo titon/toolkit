@@ -139,7 +139,9 @@ Toolkit.Flyout = new Class({
         }
 
         // Store the data indexed by URL
-        this.dataMap[data.url] = data;
+        if (data.url) {
+            this.dataMap[data.url] = data;
+        }
 
         if (data.children) {
             for (var i = 0, l = data.children.length; i < l; i++) {
@@ -208,7 +210,6 @@ Toolkit.Flyout = new Class({
             return this;
         }
 
-        this.fireEvent('load', node);
         this.node.addClass(Toolkit.options.isPrefix + 'active');
 
         // Display immediately if click

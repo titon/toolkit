@@ -179,21 +179,3 @@ Inherits all properties from the [parent component](../development/js.md#propert
 ## Methods ##
 
 Inherits all methods from the [parent component](../development/js.md#methods).
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Method</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>show(element:node)</td>
-            <td>
-                Open a drop menu using the node to target with.
-                This method is triggered automatically through click events.
-            </td>
-        </tr>
-    </tbody>
-</table>

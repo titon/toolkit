@@ -157,7 +157,7 @@
     },
     "flyout": {
         "name": "Flyout",
-        "description": "Hierarchical sitemap with nested menus.",
+        "description": "Hierarchical sitemap through nested menus.",
         "category": "component",
         "type": "module",
         "priority": 10,

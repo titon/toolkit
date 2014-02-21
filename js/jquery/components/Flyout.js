@@ -13,7 +13,7 @@
         }
 
         this.component = 'Flyout';
-        this.version = '1.0.0';
+        this.version = '1.1.1';
 
         // Set options
         this.options = options = this.setOptions(options);
@@ -120,7 +120,9 @@
             }
 
             // Store the data indexed by URL
-            this.dataMap[data.url] = data;
+            if (data.url) {
+                this.dataMap[data.url] = data;
+            }
 
             if (data.children) {
                 for (var i = 0, l = data.children.length; i < l; i++) {
@@ -182,7 +184,6 @@
                 return;
             }
 
-            this.fireEvent('load', node);
             this.node.addClass(Toolkit.options.isPrefix + 'active');
 
             // Display immediately if click
@@ -302,7 +303,7 @@
                 }
 
                 if (target) {
-                    if (target.substr(0, 1) === '.' && menu.hasClass(target.substr(1))) {
+                    if (menu.is(target)) {
                         menu.append(ul);
                     } else {
                         menu.find(target).append(ul);
