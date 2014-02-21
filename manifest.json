@@ -44,7 +44,7 @@
     },
     "code": {
         "name": "Code",
-        "description": "Styles for code related HTML tags",
+        "description": "Styles for code related HTML tags.",
         "category": "layout",
         "priority": 4,
         "source": {
