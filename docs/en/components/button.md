@@ -18,9 +18,8 @@ For best practice, we recommend using the `button` and `a` tags whenever possibl
 
 ### Sizes ###
 
-Require larger or smaller buttons? Applying a `.small` or `.large` class to the `.button` element
+Require larger or smaller buttons? Adding a `.small` or `.large` class to the `.button` element
 will alter the padding and font size.
-[These values can be modified through Sass variables](../development/sass.md#variables).
 
 ```html
 <button class="button large" type="button">Large Button</button>
@@ -28,9 +27,8 @@ will alter the padding and font size.
 
 ### Shapes ###
 
-What about changing the border shape? Applying `.square` (default), `.round`, `.pill`, `.oval`,
+What about changing the border shape? Adding `.square` (default), `.round`, `.pill`, `.oval`,
 or `.skew` classes to the `.button` element will change the border radius.
-[These values can be modified through Sass variables](../development/sass.md#variables).
 
 ```html
 <button class="button pill" type="button">Pill Button</button>

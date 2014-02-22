@@ -6,15 +6,13 @@
 
 @import "../common";
 
-form { text-align: left; }
-
 fieldset {
     padding: $padding 0;
     margin: 0;
     border: 0;
     border-top: 1px solid $gray-dark;
 
-    &.#{$state-is-prefix}legendless {
+    &.no-legend {
         border: 0;
         padding: 0;
     }
@@ -53,6 +51,7 @@ label,
 .#{$vendor-prefix}input-radio,
 .#{$vendor-prefix}input-checkbox {
     @include reset-inline-block;
+    line-height: normal;
     border: 1px solid $gray-dark;
     @include size-medium;
 
@@ -86,9 +85,7 @@ label,
     }
 }
 
-.#{$vendor-prefix}input-static,
-.#{$vendor-prefix}input-radio,
-.#{$vendor-prefix}input-checkbox {
+.#{$vendor-prefix}input-static {
     background: transparent;
     border-color: transparent;
     padding-left: 0 !important;
@@ -98,19 +95,21 @@ label,
 .#{$vendor-prefix}input-radio,
 .#{$vendor-prefix}input-checkbox {
     padding: 0;
+    border: 0;
 
     input[type="checkbox"],
     input[type="radio"] {
         vertical-align: middle;
         position: relative;
-        top: -1px;
+        top: -2px;
         margin-right: 5px;
     }
 }
 
 select.#{$vendor-prefix}input {
     -webkit-appearance: none;
-    padding: $medium-padding - .05rem; // fixes vertical alignment
+    -moz-appearance: none;
+    appearance: none;
 }
 
 select.#{$vendor-prefix}input[multiple] {
@@ -190,6 +189,8 @@ textarea.#{$vendor-prefix}input {
 }
 
 .#{$vendor-prefix}form--inline {
+    margin-bottom: -($margin / 2);
+
     .#{$vendor-prefix}field,
     .#{$vendor-prefix}field-label,
     .#{$vendor-prefix}form-actions {

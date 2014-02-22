@@ -13,3 +13,6 @@ Older versions can be found in the documentation changelogs.
 * Flyout
     * Fixed a bug where data items were being mapped with no URL
     * Removed `load` event from `show()` as it was being used incorrectly
+* Form
+    * Renamed `.is-legendless` to `.no-legend`
+    * Cleaned up some basic styles
