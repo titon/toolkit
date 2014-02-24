@@ -6,6 +6,8 @@ Older versions can be found in the documentation changelogs.
 * Blackout
     * Added a `shown` argument to the `show` event
     * Renamed `loaderMessage` option to `loadingMessage`
+* Button
+    * Added outline none to `:focus` styles
 * Button Group
     * Removed `!important` from negative margin properties
 * Drop

@@ -31,7 +31,7 @@ These classes are automatically handled through `conceal()` and `reveal()` withi
 JavaScript layer. Furthermore, these styles should **never** be modified.
 
 For implementing a fade transition on an element, set the initial visibility to hidden,
-opacity to 0, and add the transition properties. Once `.show` is toggle, fading will occur.
+opacity to 0, and add the transition properties. Once `.show` is toggled, fading will occur.
 
 ```css
 .element {
