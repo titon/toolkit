@@ -180,7 +180,7 @@
     },
     "icon": {
         "name": "Icon",
-        "description": "Icon sprite maps and optional icon rotation and animation.",
+        "description": "Image sprite map support with optional rotation.",
         "category": "component",
         "type": "element",
         "priority": 10,
