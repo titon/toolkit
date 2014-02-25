@@ -212,6 +212,7 @@ $components = array(
         'title' => 'Input Group',
         'css' => array('components/input-group.css'),
         'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
             'round' => array('title' => 'Round?', 'type' => 'boolean')
         )
     ),

@@ -23,3 +23,5 @@ This update includes documentation for all components.
 * Input
     * Updated build methods to be private
     * Fixed an issue where select event names were incorrect
+* Input Group
+    * Added small and large size support

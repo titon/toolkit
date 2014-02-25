@@ -256,14 +256,6 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
-//-------------------- InputGroup --------------------//
-
-.input-group {
-    > .input,
-    > .input-addon,
-    > .button,
-    > .button-group .button { height: 46px; }
-}
 
 //-------------------- Label --------------------//
 

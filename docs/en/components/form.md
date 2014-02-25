@@ -95,6 +95,9 @@ class to the `.input`, `.input-radio`, `.input-checkbox`, or `.input-static` ele
 <div class="input-static large">...</div>
 ```
 
+The size class can also be applied to a parent `.field`, which will cascade
+down to all inputs within it.
+
 ### Convenience Elements ###
 
 When you need to use plain text instead of an input field,

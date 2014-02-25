@@ -36,9 +36,11 @@
     border: 1px solid $gray-dark;
     background: $gray;
     vertical-align: middle;
-    padding: $medium-padding;
     line-height: normal;
-    font-size: inherit;
+    @include size-medium;
+
+    @include is-small(false, true) { @include size-small; }
+    @include is-large(false, true) { @include size-large; }
 }
 
 //-------------------- Modifiers --------------------//

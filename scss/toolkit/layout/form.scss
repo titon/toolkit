@@ -55,8 +55,8 @@ label,
     border: 1px solid $gray-dark;
     @include size-medium;
 
-    &.#{$size-small-class} { @include size-small; }
-    &.#{$size-large-class} { @include size-large; }
+    @include is-small(true, true) { @include size-small; }
+    @include is-large(true, true) { @include size-large; }
 }
 
 .#{$vendor-prefix}input {

@@ -104,7 +104,7 @@ Because of this, a custom title, label, and description system has been implemen
 To display a default label in multi-selects when no items are selected, use `getDefaultLabel`.
 
 ```html
-<select name="select" title="-- Choose One --" multiple">
+<select name="select" title="-- Choose One --" multiple>
     ...
 </select>
 ```
