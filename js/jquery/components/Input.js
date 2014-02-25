@@ -34,7 +34,7 @@
          *
          * @returns {jQuery}
          */
-        buildWrapper: function() {
+        _buildWrapper: function() {
             var wrapper = $('<div/>')
                 .addClass(Toolkit.options.vendor + 'custom-input')
                 .insertBefore(this.input)
@@ -82,7 +82,7 @@
         this.input = $(checkbox);
 
         // Wrapping div
-        this.wrapper = this.buildWrapper();
+        this.wrapper = this._buildWrapper();
 
         // Custom input
         this.element = this.setElement(
@@ -112,7 +112,7 @@
         this.input = $(radio);
 
         // Wrapping div
-        this.wrapper = this.buildWrapper();
+        this.wrapper = this._buildWrapper();
 
         // Custom input
         this.element = this.setElement(
@@ -150,10 +150,10 @@
         }
 
         // Wrapping div
-        this.wrapper = this.buildWrapper();
+        this.wrapper = this._buildWrapper();
 
         // Custom input
-        this.element = this.buildButton();
+        this.element = this._buildButton();
 
         // Custom dropdown
         this.dropdown = null;
@@ -165,7 +165,7 @@
         this.input.change(this.__change.bind(this));
 
         if (!this.options.native) {
-            this.buildDropdown();
+            this._buildDropdown();
 
             // Cant hide/invisible the real select or we lose focus/blur
             // So place it below .custom-input
@@ -191,11 +191,37 @@
     }, {
 
         /**
+         * Hide the dropdown and remove active states.
+         */
+        hide: function() {
+            this.element.removeClass(Toolkit.options.isPrefix + 'active');
+
+            if (this.dropdown) {
+                this.dropdown.conceal();
+            }
+
+            this.fireEvent('hide');
+        },
+
+        /**
+         * Show the dropdown and apply active states.
+         */
+        show: function() {
+            this.element.addClass(Toolkit.options.isPrefix + 'active');
+
+            if (this.dropdown) {
+                this.dropdown.reveal();
+            }
+
+            this.fireEvent('show');
+        },
+
+        /**
          * Build the element to represent the select button with label and arrow.
          *
          * @returns {jQuery}
          */
-        buildButton: function() {
+        _buildButton: function() {
             var vendor = Toolkit.options.vendor,
                 button = $('<div/>')
                     .addClass(vendor + 'select')
@@ -217,11 +243,11 @@
          *
          * @returns {jQuery}
          */
-        buildDropdown: function() {
+        _buildDropdown: function() {
             var vendor = Toolkit.options.vendor,
                 select = this.input,
                 options = this.options,
-                buildOption = this.buildOption.bind(this),
+                buildOption = this._buildOption.bind(this),
                 dropdown = $('<div/>').addClass(vendor + 'drop--down').addClass(vendor + 'select-options'),
                 list = $('<ul/>'),
                 index = 0,
@@ -291,7 +317,7 @@
          * @param {Number} index
          * @returns {jQuery}
          */
-        buildOption: function(option, index) {
+        _buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
                 activeClass = Toolkit.options.isPrefix + 'active';
@@ -357,32 +383,6 @@
             }
 
             return li;
-        },
-
-        /**
-         * Hide the dropdown and remove active states.
-         */
-        hide: function() {
-            this.element.removeClass(Toolkit.options.isPrefix + 'active');
-
-            if (this.dropdown) {
-                this.dropdown.conceal();
-            }
-
-            this.fireEvent('hide');
-        },
-
-        /**
-         * Show the dropdown and apply active states.
-         */
-        show: function() {
-            this.element.addClass(Toolkit.options.isPrefix + 'active');
-
-            if (this.dropdown) {
-                this.dropdown.reveal();
-            }
-
-            this.fireEvent('show');
         },
 
         /**

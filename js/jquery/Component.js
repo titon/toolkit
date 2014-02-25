@@ -77,7 +77,9 @@
             // Trigger per element
             if (this.element && this.element.length) {
                 var name = this.component;
-                    name = name.charAt(0).toLowerCase() + name.slice(1);
+                    name = name.split('.').map(function(value) {
+                        return value.charAt(0).toLowerCase() + value.slice(1);
+                    }).join('.');
 
                 var event = jQuery.Event(type + '.toolkit.' + name);
                     event.context = this;

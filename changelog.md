@@ -3,6 +3,8 @@
 Older versions can be found in the documentation changelogs.
 
 ### 1.1.1 ###
+This update includes documentation for all components.
+
 * Blackout
     * Added a `shown` argument to the `show` event
     * Renamed `loaderMessage` option to `loadingMessage`
@@ -18,3 +20,6 @@ Older versions can be found in the documentation changelogs.
 * Form
     * Renamed `.is-legendless` to `.no-legend`
     * Cleaned up some basic styles
+* Input
+    * Updated build methods to be private
+    * Fixed an issue where select event names were incorrect
