@@ -2,7 +2,7 @@
 
 Older versions can be found in the documentation changelogs.
 
-### 1.1.1 ###
+### 1.2.0 ###
 This update includes documentation for all components.
 
 * Blackout
@@ -25,3 +25,5 @@ This update includes documentation for all components.
     * Fixed an issue where select event names were incorrect
 * Input Group
     * Added small and large size support
+* LazyLoad
+    * Fixed a bug where hidden images were being loaded

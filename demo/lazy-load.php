@@ -2,7 +2,7 @@
 <div class="grid">
     <?php $c = time(); ?>
 
-    <div class="col span-6">
+    <div class="col span-4">
         <p style="margin-top: 0">Loads background images.</p>
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
@@ -14,7 +14,7 @@
         <?php $c++; } ?>
     </div>
 
-    <div class="col span-6">
+    <div class="col span-4">
         <p style="margin-top: 0">Loads inline images.</p>
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
@@ -24,6 +24,20 @@
             </div>
 
         <?php $c++; } ?>
+    </div>
+
+    <div class="col span-4">
+        <p style="margin-top: 0">Loads overflown images.</p>
+
+        <div id="overflow" style="height: 400px; overflow: auto;">
+            <?php for ($x = 0; $x <= 10; $x++) { ?>
+
+                <div class="lazy-load example-lazy-load">
+                    <img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+                </div>
+
+            <?php $c++; } ?>
+        </div>
     </div>
 
     <span class="clear"></span>
@@ -36,11 +50,25 @@
             delay: <?php number('delay', 10000); ?>,
             threshold: <?php number('threshold', 150); ?>
         });
+
+        $$('#overflow .lazy-load').lazyLoad({
+            forceLoad: <?php bool('forceLoad', false); ?>,
+            delay: <?php number('delay', 10000); ?>,
+            threshold: <?php number('threshold', 150); ?>,
+            context: '#overflow'
+        });
     <?php } else { ?>
         $('.lazy-load').lazyLoad({
             forceLoad: <?php bool('forceLoad', false); ?>,
             delay: <?php number('delay', 10000); ?>,
             threshold: <?php number('threshold', 150); ?>
+        });
+
+        $('#overflow .lazy-load').lazyLoad({
+            forceLoad: <?php bool('forceLoad', false); ?>,
+            delay: <?php number('delay', 10000); ?>,
+            threshold: <?php number('threshold', 150); ?>,
+            context: '#overflow'
         });
     <?php } ?>
 </script>

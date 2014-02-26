@@ -80,6 +80,8 @@ Toolkit.LazyLoad = new Class({
             nodeOffset = node.getPosition();
 
         return (
+            // Element is not hidden
+            node.isVisible() &&
             // Below the top
             (nodeOffset.y >= (scrollSize.y - threshold)) &&
             // Above the bottom

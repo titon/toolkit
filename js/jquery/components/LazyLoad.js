@@ -59,6 +59,8 @@
                 nodeOffset = $(node).offset();
 
             return (
+                // Element is not hidden
+                $(node).is(':visible') &&
                 // Below the top
                 (nodeOffset.top >= (scrollTop - threshold)) &&
                 // Above the bottom
