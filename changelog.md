@@ -20,6 +20,8 @@ This update includes documentation for all components.
 * Form
     * Renamed `.is-legendless` to `.no-legend`
     * Cleaned up some basic styles
+* Icon
+    * Removed `.icon--rotate`
 * Input
     * Updated build methods to be private
     * Fixed an issue where select event names were incorrect
@@ -27,3 +29,5 @@ This update includes documentation for all components.
     * Added small and large size support
 * LazyLoad
     * Fixed a bug where hidden images were being loaded
+* Loader
+    * Renamed `.spinner` to `.loader-spinner`

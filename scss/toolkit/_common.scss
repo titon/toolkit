@@ -121,10 +121,6 @@ $progress-transition: $default-transition !default;
 $showcase-transition: $default-transition !default;
 $tooltip-transition: $default-transition !default;
 
-//-------------------- Animations --------------------//
-
-$icon-animation: 1.5s !default;
-
 //-------------------- Responsive --------------------//
 
 $responsive-design: "mobile" !default; // mobile, desktop
@@ -158,8 +154,7 @@ $grid-gutter: false !default;
 
 $loader-type: "all" !default;
 $loader-color: #000 !default;
-$loader-wave-count: 10 !default;
-$loader-spinner-count: 5 !default;
+$loader-wave-count: 5 !default;
 $loader-bar-width: 0.65rem !default;
 $loader-bar-height: 2.5rem !default;
 $loader-bubble-size: 1.5rem !default;
