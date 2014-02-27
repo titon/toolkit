@@ -109,6 +109,25 @@ Reverse alignment works for both horizontal and vertical menus.
 
 * The element that targeted and opened the drop menu will have an `.is-active` class.
 
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$drop-transition</td>
+            <td>.3s</td>
+            <td>The transition time for menu fade and nested menu slide animations.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).

@@ -21,6 +21,30 @@ var blackout = Toolkit.Blackout.factory();
 For the most part, the blackout should rarely be interacted with manually.
 Components that integrate the blackout will handle situations accordingly.
 
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$blackout-opacity</td>
+            <td>0.85</td>
+            <td>The alpha transparency for the blackout element.</td>
+        </tr>
+        <tr>
+            <td>$blackout-transition</td>
+            <td>.3s</td>
+            <td>The transition time for fading in and out.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Since the blackout is a singleton, [options will need to be set globally](../development/js.md#options).

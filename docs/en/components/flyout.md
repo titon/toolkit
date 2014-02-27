@@ -123,6 +123,25 @@ The following fields are available for each item in the data set.
 * Nested menus will have an `.has-children` class on the parent `li`.
 * If a menu extends outside the viewport, a `.push-left` class will be applied to shift it in the opposite direction.
 
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$flyout-transition</td>
+            <td>.3s</td>
+            <td>The transition time for menu fade and nested menu slide animations.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).

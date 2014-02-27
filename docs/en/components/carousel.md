@@ -118,6 +118,30 @@ The markup within a caption can be customized extensively and is not enforced by
 * The currently shown index will have an `.is-active` class applied to the respective tab.
 * Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
 
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$carousel-opacity</td>
+            <td>0.50</td>
+            <td>The alpha transparency for the carousel caption element.</td>
+        </tr>
+        <tr>
+            <td>$carousel-transition</td>
+            <td>1s</td>
+            <td>The transition time for all carousel animations.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).
