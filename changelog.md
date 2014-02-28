@@ -31,3 +31,6 @@ This update includes documentation for all components.
     * Fixed a bug where hidden images were being loaded
 * Loader
     * Renamed `.spinner` to `.loader-spinner`
+* Matrix
+    * Replaced `.matrix-item` with `li`
+    * Removed `selector` option

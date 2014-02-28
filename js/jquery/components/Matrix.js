@@ -16,7 +16,7 @@
         this.element = element = this.setElement(element);
 
         // List of DOM elements for items to position in the grid
-        this.items = element.find(options.selector);
+        this.items = element.find('> li');
 
         // List of items organized in order with span detection
         this.matrix = [];
@@ -52,13 +52,12 @@
     }, {
 
         /**
-         * Append an item to the bottom of the
+         * Append an item to the bottom of the matrix.
          *
          * @param {jQuery} item
          */
         append: function(item) {
             $(item)
-                .addClass(Toolkit.options.vendor + 'matrix-item')
                 .appendTo(this.element)
                 .css('opacity', 0);
 
@@ -71,25 +70,15 @@
         disable: function() {
             this.enabled = false;
             this.element.removeAttr('style');
-            this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
         },
 
         /**
-         * Add required classes to elements.
-         */
-        enable: function() {
-            this.enabled = true;
-            this.items.addClass(Toolkit.options.vendor + 'matrix-item');
-        },
-
-        /**
-         * Prepend an item to the top of the
+         * Prepend an item to the top of the matrix.
          *
          * @param {jQuery} item
          */
         prepend: function(item) {
             $(item)
-                .addClass(Toolkit.options.vendor + 'matrix-item')
                 .prependTo(this.element)
                 .css('opacity', 0);
 
@@ -100,7 +89,7 @@
          * Fetch new items and re-render the grid.
          */
         refresh: function() {
-            this.items = this.element.find(this.options.selector);
+            this.items = this.element.find('> li');
             this.render();
         },
 
@@ -352,13 +341,10 @@
         }
 
     }, {
-        className: '',
-        selector: '.matrix-item',
         width: 200,
         gutter: 20,
         rtl: false,
-        defer: true,
-        template: false
+        defer: true
     });
 
     /**

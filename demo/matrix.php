@@ -10,7 +10,7 @@ $mode = value('mode', 'single'); ?>
 <ul id="matrix" class="matrix">
     <?php for ($i = 0, $x = 0; $i <= 25; $i++) { ?>
 
-        <li class="matrix-item">
+        <li>
             <?php if ($mode === 'single') { ?>
                 <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/">
             <?php } else { ?>
@@ -36,9 +36,9 @@ $mode = value('mode', 'single'); ?>
 
     function removeItem() {
         <?php if ($vendor === 'mootools') { ?>
-            $('matrix').toolkit('matrix').remove($$('.matrix-item')[0]);
+            $('matrix').toolkit('matrix').remove($$('.matrix li')[0]);
         <?php } else { ?>
-            $('#matrix').toolkit('matrix').remove($('.matrix-item')[0]);
+            $('#matrix').toolkit('matrix').remove($('.matrix li')[0]);
         <?php } ?>
     }
 

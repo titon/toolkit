@@ -34,7 +34,6 @@ Toolkit.Matrix = new Class({
 
     /** Default options */
     options: {
-        selector: '.matrix-item',
         width: 200,
         gutter: 20,
         rtl: false,
@@ -57,7 +56,7 @@ Toolkit.Matrix = new Class({
 
         // Load elements
         this.element.addClass(Toolkit.options.vendor + 'matrix');
-        this.items = this.element.getElements(this.options.selector);
+        this.items = this.element.getElements('> li');
 
         // Set events
         window.addEvent('resize', this.__resize.debounce());
@@ -83,7 +82,6 @@ Toolkit.Matrix = new Class({
         }
 
         item
-            .addClass(Toolkit.options.vendor + 'matrix-item')
             .inject(this.element, 'bottom')
             .setStyle('opacity', 0);
 
@@ -97,18 +95,6 @@ Toolkit.Matrix = new Class({
      */
     disable: function() {
         this.element.removeProperty('style');
-        this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeProperty('style');
-
-        return this;
-    },
-
-    /**
-     * Add required classes to elements.
-     *
-     * @returns {Toolkit.Matrix}
-     */
-    enable: function() {
-        this.items.addClass(Toolkit.options.vendor + 'matrix-item');
 
         return this;
     },
@@ -125,7 +111,6 @@ Toolkit.Matrix = new Class({
         }
 
         item
-            .addClass(Toolkit.options.vendor + 'matrix-item')
             .inject(this.element, 'top')
             .setStyle('opacity', 0);
 
@@ -138,7 +123,7 @@ Toolkit.Matrix = new Class({
      * @returns {Toolkit.Matrix}
      */
     refresh: function() {
-        this.items = this.element.getElements(this.options.selector);
+        this.items = this.element.getElements('> li');
 
         return this.render();
     },
