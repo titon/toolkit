@@ -78,8 +78,8 @@ we can use the `.button-group--justified` modifier.
 ```
 
 <div class="notice is-warning">
-    Some browsers do not support <code>table-cell</code> display on <code>button</code> elements.
-    Use <code>a</code> elements when using the justified modifier.
+    Some browsers do not support <code>table-cell</code> display on <code>button</code> tags.
+    Use <code>a</code> tags when using the justified modifier.
 </div>
 
 ### Drop Integration ###

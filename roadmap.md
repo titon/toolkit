@@ -25,6 +25,8 @@ All releases will contain bug fixing and polishing for current features.
 * Optimize classes for smaller filesize.
 * Switch to Gulp.
 * Improved event binding within the component class.
+* Switch to LESS.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
+* Implement custom elements / components - http://w3c.github.io/webcomponents/explainer/
