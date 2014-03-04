@@ -42,7 +42,7 @@
          */
         calculate: function() {
             var win = $(window),
-                parent = this.element.parents(this.options.context);
+                parent = this.options.context ? this.element.parents(this.options.context) : this.element.parent();
 
             this.viewport = {
                 width: win.width(),
@@ -102,7 +102,7 @@
             if (scrollTop < pTop) {
                 this.element
                     .removeAttr('style')
-                    .addClass(Toolkit.options.isPrefix + 'pinned');
+                    .removeClass(Toolkit.options.isPrefix + 'pinned');
 
                 return;
             }

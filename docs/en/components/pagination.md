@@ -36,7 +36,13 @@ To group all links into a single solid bar, use the `.pagination--grouped` modif
 </nav>
 ```
 
-Grouped paginations can also make use of [certain effects](effects.md), like round, and pill.
+Grouped paginations can also make use of [certain effects](effects.md), like `.round`, and `.pill`.
+
+```html
+<nav class="pagination--grouped round">
+    ...
+</nav>
+```
 
 ## Notes ##
 
