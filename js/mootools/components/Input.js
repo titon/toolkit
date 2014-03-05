@@ -262,7 +262,7 @@
 
             this.element = new Element('div.' + vendor + 'select')
                 .grab(new Element('div.' + vendor + 'select-arrow').set('html', this.options.arrowContent))
-                .grab(new Element('div.' + vendor + 'select-label').set('text', Toolkit.options.loadingMessage))
+                .grab(new Element('div.' + vendor + 'select-label').set('text', Toolkit.messages.loading))
                 .setStyle('min-width', select.getWidth())
                 .inject(select, 'after');
 

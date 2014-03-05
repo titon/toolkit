@@ -454,6 +454,14 @@ They can be modified in a similar fashion to component options (more information
     </tbody>
 </table>
 
+```javascript
+$.extend(Toolkit.options, {
+    vendor: 'tk-',
+    isPrefix: '',
+    hasPrefix: ''
+});
+```
+
 ### Locale Messages ###
 
 The following messages are used within AJAX calls and are found under `Toolkit.messages`.
@@ -480,6 +488,13 @@ They are represented as an object allowing for easy localization, and can be mod
         </tr>
     </tbody>
 </table>
+
+```javascript
+$.extend(Toolkit.messages, {
+    loading: 'Wait a second!',
+    error: 'Oops, it broke...'
+});
+```
 
 ### Feature Flags ###
 
@@ -762,6 +777,6 @@ Methods and Properties
 * Should be prefixed with `_` when used internally and not be publicly available: `_fooBar()`
 
 Methods
-* Should be prefixed with `__` when used as an event handler / callback: `__fooBar(e)`
+* Should be prefixed with `on` when used as an event handler / callback: `onFooBar(e)`
 * Should, for the most part, be written in verb / action form
 * Getters and setters should be separate

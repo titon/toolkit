@@ -7,8 +7,8 @@ All releases will contain bug fixing and polishing for current features.
 * Build all files without minification (dev version).
 * Optimize classes for smaller filesize.
 * Improved event binding within the component class.
-* Add deferred/promise integration.
 * Inherit options at runtime through data attributes.
+* Clean up loading/error messages.
 
 ### 1.3.0 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
@@ -29,6 +29,7 @@ All releases will contain bug fixing and polishing for current features.
 * Switch to Gulp.
 * Switch to LESS.
 * Refactor events for before/after conditions.
+* Add deferred/promise integration.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

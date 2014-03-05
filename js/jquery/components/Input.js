@@ -226,7 +226,7 @@
                 button = $('<div/>')
                     .addClass(vendor + 'select')
                     .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
-                    .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.options.loadingMessage) )
+                    .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
                     .css('min-width', this.input.width())
                     .insertAfter(this.input);
 
