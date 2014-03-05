@@ -273,7 +273,7 @@
     },
     "modal": {
         "name": "Modal",
-        "description": "Informational window displayed above content and utilized for workflow interactions.",
+        "description": "An informational window displayed above content and utilized for workflow interactions.",
         "category": "component",
         "type": "module",
         "priority": 10,

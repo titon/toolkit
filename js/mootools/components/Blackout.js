@@ -68,7 +68,7 @@ Toolkit.Blackout = new Class({
         }
 
         this.message = new Element('div.' + vendor + 'loader-message')
-            .set('html', options.loaderMessage)
+            .set('html', options.loadingMessage)
             .inject(this.loader);
     },
 

@@ -18,6 +18,8 @@
     max-width: 700px;
     min-width: 350px;
     visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
 
@@ -33,6 +35,8 @@
 
 .#{$vendor-prefix}modal-close {
     position: absolute;
+    background: none;
+    border: 0;
     top: $padding;
     right: $padding;
     line-height: 1rem;

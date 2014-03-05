@@ -34,3 +34,7 @@ This update includes documentation for all components.
 * Matrix
     * Replaced `.matrix-item` with `li`
     * Removed `selector` option
+* Modal
+    * Updated `.modal-close` to use a `button`
+* Pin
+    * Fixed a bug where `.is-pinned` was not being removed
