@@ -28,6 +28,7 @@ All releases will contain bug fixing and polishing for current features.
 * Updated to use AMD.
 * Switch to Gulp.
 * Switch to LESS.
+* Refactor events for before/after conditions.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

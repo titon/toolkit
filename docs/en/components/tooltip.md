@@ -23,13 +23,38 @@ The tooltip will display either through a click, or a hover, depending on the co
     and must match the selector that initialized the tooltip.
 </div>
 
+### Titles & Content ###
+
+The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
+options respectively. The values to use will either be extracted from the defined HTML
+attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
+the contents of that element will be inserted into the tooltip. If `ajax` is enabled,
+then the value will be used as a URL to request, and the response will be inserted as the content.
+
+```html
+<button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
+<button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="#element">DOM</button>
+```
+
+### Mouse Following ###
+
+To force the tooltip to follow the location of the mouse, set `follow` to true.
+
+```javascript
+$('.js-tooltip').tooltip({
+    follow: true
+});
+```
+
 ## Notes ##
 
 * A `className` can be added to tooltips during instantiation for different themed tooltips.
 * The `position` of the tooltip instance determines the location and arrow placement.
-* The `position` and `animation` will be appended as a class names
+* The `position` and `animation` will be appended as a class names.
 
 ## Options ##
+
+Inherits all options from the [parent component](../development/js.md#options).
 
 <table class="table data-table">
     <thead>
@@ -56,7 +81,7 @@ The tooltip will display either through a click, or a hover, depending on the co
         <tr>
             <td>position</td>
             <td>string</td>
-            <td>topRight</td>
+            <td>topCenter</td>
             <td>Where to position the tooltip relative to the target element. Available options are: topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight.</td>
         </tr>
         <tr>
