@@ -16,13 +16,6 @@
         margin: 0;
         padding: 0;
         @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
-
-        img {
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-            display: block;
-        }
     }
 
     &.#{$state-has-prefix}no-columns > li {

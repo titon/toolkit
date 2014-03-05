@@ -12,9 +12,9 @@ $mode = value('mode', 'single'); ?>
 
         <li>
             <?php if ($mode === 'single') { ?>
-                <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/">
+                <img src="http://lorempixel.com/200/<?php echo rand(200, 600); ?>/" class="fluid">
             <?php } else { ?>
-                <img src="http://lorempixel.com/<?php echo rand(200, 600); ?>/<?php echo rand(100, 600); ?>/">
+                <img src="http://lorempixel.com/<?php echo rand(200, 600); ?>/<?php echo rand(100, 600); ?>/" class="fluid">
             <?php } ?>
         </li>
 

@@ -34,6 +34,7 @@ This update includes documentation for all components.
 * Matrix
     * Replaced `.matrix-item` with `li`
     * Removed `selector` option
+    * Removed inline `img` styles, use `.fluid` instead
 * Modal
     * Updated `.modal-close` to use a `button`
 * Pin
@@ -42,3 +43,5 @@ This update includes documentation for all components.
     * Fixed shape issues with multiple bars
     * Removed `.medium` size
     * Refactored state classes
+* Responsive
+    * Added `.fluid` class for images, audio, canvas, etc
