@@ -38,3 +38,7 @@ This update includes documentation for all components.
     * Updated `.modal-close` to use a `button`
 * Pin
     * Fixed a bug where `.is-pinned` was not being removed
+* Progress
+    * Fixed shape issues with multiple bars
+    * Removed `.medium` size
+    * Refactored state classes

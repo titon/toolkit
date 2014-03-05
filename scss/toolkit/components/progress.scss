@@ -19,25 +19,12 @@
         }
     }
 
-    @include is-medium {
-        .#{$vendor-prefix}progress-bar {
-            height: 1.5rem;
-            line-height: 1.5rem;
-            font-size: $medium-size;
-        }
-    }
-
     @include is-large {
         .#{$vendor-prefix}progress-bar {
             height: 2rem;
             line-height: 2rem;
             font-size: $large-size;
         }
-    }
-
-    .#{$vendor-prefix}progress-bar + .#{$vendor-prefix}progress-bar {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
     }
 
     @include clear-fix;
@@ -52,13 +39,13 @@
     font-size: $medium-size;
     background: $gray-darkest;
     float: left;
-    @include transition(width .6s, background $progress-transition);
+    @include transition(width $progress-transition, background $progress-transition);
 }
 
 .#{$vendor-prefix}progress.#{$shape-round-class} {
     border-radius: $round;
 
-    .#{$vendor-prefix}progress-bar {
+    .#{$vendor-prefix}progress-bar:first-child {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }
