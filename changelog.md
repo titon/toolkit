@@ -45,3 +45,5 @@ This update includes documentation for all components.
     * Refactored state classes
 * Responsive
     * Added `.fluid` class for images, audio, canvas, etc
+* Showcase
+    * Replaced `a` with `button`

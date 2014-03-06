@@ -19,7 +19,6 @@
     min-width: 350px;
     visibility: hidden;
     -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
 

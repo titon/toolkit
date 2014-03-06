@@ -387,9 +387,9 @@
             '<div class="showcase-inner">' +
                 '<ul class="showcase-items"></ul>' +
                 '<ol class="showcase-tabs bullets"></ol>' +
-                '<a href="javascript:;" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></a>' +
-                '<a href="javascript:;" class="showcase-next showcase-event-next"><span class="arrow-right"></span></a>' +
-                '<a href="javascript:;" class="showcase-close showcase-event-close"><span class="x"></span></a>' +
+                '<button type="button" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></button>' +
+                '<button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>' +
+                '<button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>' +
             '</div>' +
         '</div>'
     });

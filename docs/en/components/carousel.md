@@ -117,6 +117,7 @@ The markup within a caption can be customized extensively and is not enforced by
 
 * The currently shown index will have an `.is-active` class applied to the respective tab.
 * Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
+* Supports arrow and escape key events.
 
 ## Variables ##
 
@@ -220,7 +221,6 @@ Inherits all options from the [parent component](../development/js.md#options).
         </tr>
     </tbody>
 </table>
-
 
 ## Events ##
 
