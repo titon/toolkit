@@ -8,6 +8,10 @@ if (value('hover')) {
     $classes[] = 'has-hover';
 }
 
+if (value('striped')) {
+    $classes[] = 'is-striped';
+}
+
 if (value('sortable')) {
     $classes[] = 'is-sortable';
 }

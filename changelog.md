@@ -50,3 +50,5 @@ This update includes documentation for all components.
 * Stalker
     * Added nested marker support
     * Removed `marker` and `target` properties
+* Table
+    * Moved zebra-striping into an `.is-striped` class

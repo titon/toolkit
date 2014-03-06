@@ -8,7 +8,7 @@
 
 .#{$vendor-prefix}table {
     width: 100%;
-    background: $gray;
+    background: $gray-lightest;
     border-collapse: collapse;
 
     th, td {
@@ -39,13 +39,8 @@
         th { border-color: $gray-darkest; }
     }
 
-    // Zebra striping
-    tbody tr {
-        background: $gray;
-
-        &:nth-child(odd) { background: $gray-lightest; }
-        &.#{$vendor-prefix}table-divider { background: $gray-dark; }
-    }
+    // Divider
+    tbody tr.#{$vendor-prefix}table-divider { background: $gray-dark !important; }
 }
 
 .#{$vendor-prefix}table-responsive {
@@ -58,6 +53,12 @@
 
 .#{$vendor-prefix}table.#{$state-has-prefix}hover {
     tbody tr:not(.#{$vendor-prefix}table-divider):hover { background: #fff; }
+}
+
+.#{$vendor-prefix}table.#{$state-is-prefix}striped tbody tr {
+    background: $gray;
+
+    &:nth-child(odd) { background: $gray-lightest; }
 }
 
 .#{$vendor-prefix}table.#{$state-is-prefix}sortable {

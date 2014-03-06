@@ -399,6 +399,7 @@ $components = array(
         'filters' => array(
             'size' => array('title' => 'Size', 'data' => $sizes),
             'hover' => array('title' => 'Show hover?', 'type' => 'boolean', 'default' => false),
+            'striped' => array('title' => 'Striped rows?', 'type' => 'boolean', 'default' => false),
             'sortable' => array('title' => 'Sortable headers?', 'type' => 'boolean', 'default' => false),
             'count' => array('title' => 'Count', 'type' => 'number', 'default' => 25)
         )
