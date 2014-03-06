@@ -72,6 +72,7 @@ a:hover { color: #b84374; }
 
 .example-stalker { background: #f8f8f8; padding: 5px; height: 200px; overflow: auto; margin-top: 25px; }
 #stalker-target { position: fixed; right: 20px; top: 60px; }
+#stalker2-target { position: fixed; right: 20px; top: 120px; }
 
 .mask .loader.bar-wave > span { background: #fff; }
 .col.maskable { border-radius: 10px; }

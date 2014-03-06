@@ -47,3 +47,6 @@ This update includes documentation for all components.
     * Added `.fluid` class for images, audio, canvas, etc
 * Showcase
     * Replaced `a` with `button`
+* Stalker
+    * Added nested marker support
+    * Removed `marker` and `target` properties
