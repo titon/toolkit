@@ -50,6 +50,8 @@
                 nodeOffset = $(node).offset();
 
             return (
+                // Element is not hidden
+                $(node).is(':visible') &&
                 // Below the top
                 (nodeOffset.top >= (scrollTop - threshold)) &&
                 // Above the bottom
@@ -124,11 +126,18 @@
 
             // Replace src attributes on images
             node.find('img').each(function() {
-                var image = $(this),
-                    data = image.data('lazyload');
+                var image = $(this), src;
 
-                if (data) {
-                    image.attr('src', data);
+                if (Toolkit.isRetina) {
+                    src = image.data('src-retina');
+                }
+
+                if (!src) {
+                    src = image.data('src');
+                }
+
+                if (src) {
+                    image.attr('src', src);
                 }
             });
 

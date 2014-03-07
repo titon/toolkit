@@ -33,7 +33,7 @@ but will require configuration when the JavaScript is initialized.
 ```
 
 <div class="notice is-warning">
-    <h5>Animation Requirement</h5>
+    <h5>Animation requirement</h5>
 
     The <code>.accordion-section</code> class is required for slide animations.
     Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.
@@ -47,11 +47,32 @@ $('.accordion').accordion();
 
 ## Notes ##
 
-* The `.accordion-header` will be clickable, no need for anchor tags
-* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations
-* The currently open section will have an `.is-active` class on the parent `li`
+* The `.accordion-header` will be clickable, no need for anchor tags.
+* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations.
+* The currently open section will have an `.is-active` class on the parent `li`.
+
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$accordion-transition</td>
+            <td>.3s</td>
+            <td>The transition time for accordion slide animations.</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Options ##
+
+Inherits all options from the [parent component](../development/js.md#options).
 
 <table class="table data-table">
     <thead>

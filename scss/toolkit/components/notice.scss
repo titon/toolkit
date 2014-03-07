@@ -29,6 +29,8 @@
     margin-left: $margin;
     line-height: 1rem;
     padding: 5px;
+    background: none;
+    border: 0;
 
     & ~ p { margin: 0; }
 }

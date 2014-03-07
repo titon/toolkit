@@ -12,11 +12,9 @@ Toolkit.Stalker = new Class({
     Binds: ['__scroll'],
 
     /** Elements to apply active state to */
-    target: null,
     targets: [],
 
     /** Elements that trigger the active state */
-    marker: null,
     markers: [],
 
     /** Offset positioning for markers */
@@ -25,7 +23,9 @@ Toolkit.Stalker = new Class({
     /** Default options */
     options: {
         target: '',
+        targetBy: 'href',
         marker: '',
+        markBy: 'id',
         threshold: 50,
         throttle: 50,
         onlyWithin: true,
@@ -48,7 +48,7 @@ Toolkit.Stalker = new Class({
         this.setElement(element);
 
         if (!this.element || !this.options.target || !this.options.marker) {
-            return;
+            throw new Error('A marker and target is required');
         }
 
         this.element.addClass(Toolkit.options.vendor + 'stalker');
@@ -59,28 +59,13 @@ Toolkit.Stalker = new Class({
     },
 
     /**
-     * Activate a target when a marker is triggered.
+     * Activate a target when a marker is entered.
      *
      * @param {Element} marker
-     * @param {Element} target
      * @returns {Toolkit.Stalker}
      */
-    activate: function(marker, target) {
-        this.marker = marker;
-        this.target = target;
-
-        var targets = this.targets;
-
-        if (this.options.applyToParent) {
-            targets.getParent().removeClass(Toolkit.options.isPrefix + 'active');
-            target.getParent().addClass(Toolkit.options.isPrefix + 'active');
-
-        } else {
-            targets.removeClass(Toolkit.options.isPrefix + 'active');
-            target.addClass(Toolkit.options.isPrefix + 'active');
-        }
-
-        this.fireEvent('activate', [marker, target]);
+    activate: function(marker) {
+        this._stalk(marker, 'activate');
 
         return this;
     },
@@ -100,23 +85,13 @@ Toolkit.Stalker = new Class({
     },
 
     /**
-     * Deactivate the targets.
+     * Deactivate a target when a marker is exited.
      *
      * @param {Element} marker
      * @returns {Toolkit.Stalker}
      */
     deactivate: function(marker) {
-        var targets = this.targets;
-
-        if (this.options.applyToParent) {
-            targets.getParent().removeClass(Toolkit.options.isPrefix + 'active');
-        } else {
-            targets.removeClass(Toolkit.options.isPrefix + 'active');
-        }
-
-        this.marker = null;
-        this.target = null;
-        this.fireEvent('deactivate', marker);
+        this._stalk(marker, 'deactivate');
 
         return this;
     },
@@ -131,17 +106,48 @@ Toolkit.Stalker = new Class({
             this.element.scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.target = null;
         this.targets = $$(this.options.target);
         this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
 
-        this.marker = null;
         this.markers = $$(this.options.marker);
         this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 
         return this;
+    },
+
+    /**
+     * Either active or deactivate a target based on the marker.
+     *
+     * @private
+     * @param {Element} marker
+     * @param {String} type
+     */
+    _stalk: function(marker, type) {
+        var isPrefix = Toolkit.options.isPrefix;
+
+        // Stop all the unnecessary processing
+        if (type === 'activate' && marker.hasClass(isPrefix + 'stalked')) {
+            return;
+        }
+
+        var targetBy = this.options.targetBy,
+            markBy = this.options.markBy,
+            method = (type === 'activate') ? 'addClass' : 'removeClass',
+            target = this.targets.filter(function(item) {
+                return (item.get(targetBy).replace('#', '') === marker.get(markBy));
+            });
+
+        marker[method](isPrefix + 'stalked');
+
+        if (this.options.applyToParent) {
+            target.getParent()[method](isPrefix + 'active');
+        } else {
+            target[method](isPrefix + 'active');
+        }
+
+        this.fireEvent(type, [marker, target]);
     },
 
     /**
@@ -156,7 +162,6 @@ Toolkit.Stalker = new Class({
 
         var scroll = this.element.getScroll().y,
             markers = this.markers,
-            targets = this.targets,
             offsets = this.offsets,
             onlyWithin = this.options.onlyWithin,
             threshold = this.options.threshold;
@@ -164,27 +169,19 @@ Toolkit.Stalker = new Class({
         markers.each(function(marker, index) {
             var coords = offsets[index],
                 top = coords.top - threshold,
-                bot = coords.top + coords.height + threshold,
-                target = [];
+                bot = coords.top + coords.height + threshold;
 
             // Scroll is within the marker
             if (
                 (onlyWithin && scroll >= top && scroll <= bot) ||
                 (!onlyWithin && scroll >= top)
             ) {
-                target = targets.filter(function(item) {
-                    return (item.get('href') === '#' + marker.get('id'));
-                });
-
-                if (target.length) {
-                    this.activate(marker, target[0]);
-                }
+                this.activate(marker);
 
             // Scroll went outside the marker
-            } else if (this.marker === marker) {
+            } else {
                 this.deactivate(marker);
             }
-
         }.bind(this));
 
         this.fireEvent('scroll');

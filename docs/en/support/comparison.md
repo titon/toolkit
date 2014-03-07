@@ -503,14 +503,14 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>Sass</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
         <tr>
             <td>Compass</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
         <tr>

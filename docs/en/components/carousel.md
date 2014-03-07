@@ -1,1 +1,412 @@
 # Carousel #
+
+Cycles through items using a slide or fade animation.
+
+## Usage ##
+
+Manual implementation of the carousel markup is required, as there is no
+automatic generation of elements in the JavaScript layer. The reasoning behind this is simple.
+It allows elements within the carousel to be added or removed easily,
+without having to alter options in JavaScript, or define overrides in CSS.
+The following markup can be used for basic carousel functionality.
+
+```html
+<div class="carousel">
+    <!-- Items to cycle -->
+    <div class="carousel-items">
+        <ul>
+            <li><a href=""><img src="/img/carousel/item-1.png" alt=""></a></li>
+            ...
+        </ul>
+    </div>
+
+    <!-- Tabs for each item -->
+    <div class="carousel-tabs">
+        <ol class="bullets">
+            <li><a href="javascript:;"></a></li>
+            ...
+        </ol>
+    </div>
+
+    <!-- Next and previous arrows -->
+    <a href="javascript:;" class="carousel-prev"></a>
+    <a href="javascript:;" class="carousel-next"></a>
+</div>
+```
+
+If you don't want next and previous arrows, don't add the markup for it.
+If you don't want the tab list, don't add the markup for it.
+If you want additional elements, feel free to add them! So on and so forth.
+The only elements that are required, are the `.carousel` wrapper,
+and the `.carousel-items` list.
+
+Once the markup is in place, a carousel can be initialized.
+
+```javascript
+$('.carousel').carousel();
+```
+
+### Cycle Animation ###
+
+There are 3 kinds of animation, `slide` (default), `slide-up`, and `fade`.
+The type of animation must be passed as an option when the carousel is initialized.
+
+```javascript
+$('.carousel').carousel({
+    animation: 'slide-up'
+});
+```
+
+The `.carousel` element will receive a class with the animation name.
+This allows for styling based on the type of animation used.
+
+<div class="notice is-error">
+    <h5>Transitions not supported in legacy browsers</h5>
+
+    Toolkit makes use of CSS3 transitions for animation, which older browsers do not support.
+    Instead of animations in these browsers, an immediate show or hide will occur.
+</div>
+
+### Aspect Ratios ###
+
+By default the carousel is designed for a 4:3 aspect ratio.
+To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
+
+```html
+<div class="carousel--wide">
+    ...
+<div>
+```
+
+To use a 1:1 (square) aspect ratio, the `.carousel--square` modifier can be used.
+
+```html
+<div class="carousel--square">
+    ...
+<div>
+```
+
+To use a custom aspect ratio, or to use a fixed height, modify the `padding-bottom`
+on `.carousel-items`. For example, the 4:3 has a bottom padding of 75%,
+while the 16:9 has a value of 56.25%, and the 1:1 has a value of 100%.
+This technique allows for automatic height scaling based on the width of the carousel.
+
+### Responsive Support ###
+
+The carousel was designed with responsiveness in mind by utilizing percentages and a fluid structure.
+We suggest using inline images within each carousel item, sized to the correct aspect ratio (above).
+The carousel will take care of everything else.
+
+### Optional Captions ###
+
+Add captions to your carousel by adding a `.carousel-caption` element within each item.
+The markup within a caption can be customized extensively and is not enforced by the carousel.
+
+```html
+<li>
+    <a href=""><img src="/img/carousel/item-1.png" alt=""></a>
+
+    <div class="carousel-caption">
+        <h3>Caption Title</h3>
+        <p>Lipsum dolor sit amet.</p>
+    </div>
+</li>
+```
+
+## Notes ##
+
+* The currently shown index will have an `.is-active` class applied to the respective tab.
+* Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
+* Supports arrow and escape key events.
+
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$carousel-opacity</td>
+            <td>0.50</td>
+            <td>The alpha transparency for the carousel caption element.</td>
+        </tr>
+        <tr>
+            <td>$carousel-transition</td>
+            <td>1s</td>
+            <td>The transition time for all carousel animations.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Options ##
+
+Inherits all options from the [parent component](../development/js.md#options).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>animation</td>
+            <td>string</td>
+            <td>slide</td>
+            <td>
+                The type of animation to use for cycling. Accepts slide, slide-up, and fade.
+            </td>
+        </tr>
+        <tr>
+            <td>duration</td>
+            <td>int</td>
+            <td>5000</td>
+            <td>The time in milliseconds when each cycle occurs.</td>
+        </tr>
+        <tr>
+            <td>autoCycle</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to cycle through items automatically. Makes use of <code>duration</code> for intervals.</td>
+        </tr>
+        <tr>
+            <td>stopOnHover</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
+        </tr>
+        <tr>
+            <td>itemsElement</td>
+            <td>string</td>
+            <td>.carousel-items</td>
+            <td>CSS selector to find the items container element.</td>
+        </tr>
+        <tr>
+            <td>itemElement</td>
+            <td>string</td>
+            <td>li</td>
+            <td>CSS selector to find the individual item within <code>itemsElement</code>.</td>
+        </tr>
+        <tr>
+            <td>tabsElement</td>
+            <td>string</td>
+            <td>.carousel-tabs</td>
+            <td>CSS selector to find the tabs container element (a list of bullets).</td>
+        </tr>
+        <tr>
+            <td>tabElement</td>
+            <td>string</td>
+            <td>a</td>
+            <td>CSS selector to find the individual tab within <code>tabsElement</code>.</td>
+        </tr>
+        <tr>
+            <td>nextElement</td>
+            <td>string</td>
+            <td>.carousel-next</td>
+            <td>CSS selector to find the next item button.</td>
+        </tr>
+        <tr>
+            <td>prevElement</td>
+            <td>string</td>
+            <td>.carousel-prev</td>
+            <td>CSS selector to find the previous item button.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Events ##
+
+Inherits all events from the [parent component](../development/js.md#events).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option Event</th>
+            <th>Element Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onJump</td>
+            <td>jump.toolkit.carousel</td>
+            <td>int:index</td>
+            <td>Triggered after an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+        </tr>
+        <tr>
+            <td>onStart</td>
+            <td>start.toolkit.carousel</td>
+            <td></td>
+            <td>Triggered when the carousel cycle has started. Can be triggered by <code>start()</code> or <code>stopOnHover</code>.</td>
+        </tr>
+        <tr>
+            <td>onStop</td>
+            <td>stop.toolkit.carousel</td>
+            <td></td>
+            <td>Triggered when the carousel cycle has stopped. Can be triggered by <code>stop()</code> or  <code>stopOnHover</code>.</td>
+        </tr>
+        <tr>
+            <td>onCycle</td>
+            <td>cycle.toolkit.carousel</td>
+            <td></td>
+            <td>Triggered when <code>autoCycle</code> is enabled, immediately before the next item is cycled.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Properties ##
+
+Inherits all properties from the [parent component](../development/js.md#properties).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>itemsWrapper</td>
+            <td>element</td>
+            <td>
+                The element that contains all items.
+                This element is found using the <code>itemsElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>itemsList</td>
+            <td>element</td>
+            <td>
+                The <code>ul</code> or <code>ol</code> list found directly within the <code>itemsWrapper</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>items</td>
+            <td>collection</td>
+            <td>
+                A collection of item elements that will be cycled through within the carousel.
+                These elements are found using the <code>itemElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>tabsWrapper</td>
+            <td>element</td>
+            <td>
+                The element that contains all tabs &mdash; the list of bullets to jump between pages.
+                This element is found using the <code>tabsElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>tabs</td>
+            <td>collection</td>
+            <td>
+                A collection of tab elements that can be clicked to jump to items.
+                These elements are found using the <code>tabElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>nextButton</td>
+            <td>element</td>
+            <td>
+                The element that when clicked will jump to the next item.
+                This element is found using the <code>nextElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>prevButton</td>
+            <td>element</td>
+            <td>
+                The element that when clicked will jump to the previous item.
+                This element is found using the <code>prevElement</code> option.
+            </td>
+        </tr>
+        <tr>
+            <td>previousIndex</td>
+            <td>int</td>
+            <td>The index of the previously shown item.</td>
+        </tr>
+        <tr>
+            <td>currentIndex</td>
+            <td>int</td>
+            <td>The index of the currently shown item.</td>
+        </tr>
+        <tr>
+            <td>timer</td>
+            <td>int</td>
+            <td>The automatic cycle timer instance.</td>
+        </tr>
+        <tr>
+            <td>stopped</td>
+            <td>bool</td>
+            <td>Has the carousel stopped cycling.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Methods ##
+
+Inherits all methods from the [parent component](../development/js.md#methods).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>jump(int:index)</td>
+            <td>
+                Show a specific item defined by the index in the collection.
+                If the index is out of range, it will be bounded.
+                This method is triggered automatically when a tab is clicked.
+            </td>
+        </tr>
+        <tr>
+            <td>next()</td>
+            <td>
+                Go to the next item.
+                This method is triggered automatically when the next button is clicked.
+            </td>
+        </tr>
+        <tr>
+            <td>prev()</td>
+            <td>
+                Go to the previous item.
+                This method is triggered automatically when the previous button is clicked.
+            </td>
+        </tr>
+        <tr>
+            <td>start()</td>
+            <td>
+                Start automatic cycling.
+                This method is triggered automatically when <code>stopOnHover</code> is enabled,
+                and the mouse leaves the carousel.
+            </td>
+        </tr>
+        <tr>
+            <td>stop()</td>
+            <td>
+                Stop automatic cycling.
+                This method is triggered automatically when <code>stopOnHover</code> is enabled,
+                and the mouse enters the carousel.
+            </td>
+        </tr>
+        <tr>
+            <td>reset()</td>
+            <td>Reset the cycling timer.</td>
+        </tr>
+    </tbody>
+</table>

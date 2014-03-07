@@ -44,7 +44,7 @@
     },
     "code": {
         "name": "Code",
-        "description": "Styles for code related HTML tags",
+        "description": "Styles for code related HTML tags.",
         "category": "layout",
         "priority": 4,
         "source": {
@@ -77,7 +77,7 @@
     },
     "blackout": {
         "name": "Blackout",
-        "description": "Blacks out the viewport while displaying other modules.",
+        "description": "Blacks out the viewport while other components are being displayed.",
         "category": "component",
         "type": "module",
         "priority": 10,
@@ -157,7 +157,7 @@
     },
     "flyout": {
         "name": "Flyout",
-        "description": "Hierarchical sitemap with nested menus.",
+        "description": "Hierarchical sitemap through nested menus.",
         "category": "component",
         "type": "module",
         "priority": 10,
@@ -180,7 +180,7 @@
     },
     "icon": {
         "name": "Icon",
-        "description": "Icon sprite maps and optional icon rotation and animation.",
+        "description": "Image sprite map support with optional rotation.",
         "category": "component",
         "type": "element",
         "priority": 10,
@@ -273,7 +273,7 @@
     },
     "modal": {
         "name": "Modal",
-        "description": "Informational window displayed above content and utilized for workflow interactions.",
+        "description": "An informational window displayed above content and utilized for workflow interactions.",
         "category": "component",
         "type": "module",
         "priority": 10,

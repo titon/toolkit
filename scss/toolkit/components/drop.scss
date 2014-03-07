@@ -21,7 +21,7 @@
     z-index: 500;
     opacity: 0;
     visibility: hidden;
-    @include transition(opacity .3s);
+    @include transition(opacity $drop-transition);
 
     // Nested
     .#{$vendor-prefix}drop--down,
@@ -30,12 +30,13 @@
         top: 0;
         left: 90%;
         z-index: 510;
-        @include transition(left .3s, opacity .3s);
+        @include transition(left $drop-transition, opacity $drop-transition);
     }
 
     // Apply to self
     &,
-    ul {
+    ul,
+    ol {
         @include reset-list;
     }
 

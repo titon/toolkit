@@ -7,7 +7,6 @@
 @import "../common";
 
 .#{$vendor-prefix}pagination {
-    display: block;
     margin: $margin 0;
 
     ul, ol {

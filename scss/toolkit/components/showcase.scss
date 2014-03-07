@@ -17,6 +17,7 @@
     z-index: 610; // higher than blackout
     opacity: 0;
     visibility: hidden;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     @include transform(translateX(-50%) translateY(-50%));
     @include transition(opacity $showcase-transition, visibility $showcase-transition);
@@ -43,6 +44,8 @@
     right: $padding;
     line-height: 1rem;
     padding: $padding;
+    background: none;
+    border: 0;
 }
 
 .#{$vendor-prefix}showcase-inner {
@@ -107,6 +110,8 @@
     height: auto;
     z-index: 5;
     top: 50%;
+    background: none;
+    border: 0;
     @include transform(translateY(-50%)); // move up 50% of their height
 
     &:focus { outline: none; }

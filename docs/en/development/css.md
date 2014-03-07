@@ -92,9 +92,15 @@ The following classes are reserved by Toolkit:
 * TypeAhead component `.is-shadow` and `.not-shadow` classes
 * Shape classes: `.round`, `.square`, `.pill`, `.oval`, `.skew`, `.skew-reverse`
 * Size classes: `.small`, `.medium`, `.large`
-* Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in`, `.slide-in-top`, `.slide-in-bottom`, `.slide-in-left`, `.slide-in-right`, `.flip`, `.flip-vert`, `.flip-rotate`, `.fade`, `.sticky`, `.sticky-top`, `.sticky-bottom`, `.sticky-left`, `.sticky-right`
-* Positional classes: `.top-left`, `.top-center`, `.top-right`, `.center-left`, `.center-right`, `.bottom-left`, `.bottom-center`, `.bottom-right`
-* State classes: `.info`, `.error`, `.warning`, `.success`, `.active`, `.disabled`, `.open`, `.loading`, `.children`, `.hover`, `.draggable`, `.dragging`, `.fullscreen`, `.single`, `.sortable`, `.scrollable`, `.required`, `.legendless`, `.no-columns`
+* Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in`, `.slide-in-top`,
+    `.slide-in-bottom`, `.slide-in-left`, `.slide-in-right`, `.flip`, `.flip-vert`, `.flip-rotate`,
+    `.fade`, `.sticky`, `.sticky-top`, `.sticky-bottom`, `.sticky-left`, `.sticky-right`
+* Positional classes: `.top-left`, `.top-center`, `.top-right`, `.center-left`, `.center-right`,
+    `.bottom-left`, `.bottom-center`, `.bottom-right`
+* State classes: `.is-info`, `.is-error`, `.is-warning`, `.is-success`, `.is-active`, `.is-disabled`,
+    `.is-open`, `.is-loading`, `.is-children`, `.is-hover`, `.is-draggable`, `.is-dragging`,
+    `.is-fullscreen`, `.is-single`, `.is-sortable`, `.is-scrollable`, `.is-required`,
+    `.no-legend`, `.no-columns`
 
 Some classes make use of [Sass variables](sass.md#variables) for altering the class names.
 This was implemented to avoid collisions of common class names and integration with legacy applications.

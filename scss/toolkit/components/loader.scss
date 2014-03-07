@@ -95,7 +95,7 @@
     }
 
     .#{$vendor-prefix}loader.bubble-spinner {
-        .spinner {
+        .#{$vendor-prefix}loader-spinner {
             width: 100px;
             height: 100px;
             position: relative;

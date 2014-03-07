@@ -73,7 +73,7 @@
 .#{$vendor-prefix}progress.#{$shape-pill-class} {
     border-radius: $pill;
 
-    .#{$vendor-prefix}progress-bar {
+    .#{$vendor-prefix}progress-bar:first-child {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }

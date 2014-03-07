@@ -1,5 +1,9 @@
 <?php
-$class = value('round') ? 'round' : ''; ?>
+$class = value('round') ? 'round' : '';
+
+if ($size = value('size')) {
+    $class .= ' ' . $size;
+} ?>
 
 <form action="" method="get">
     <div class="field">
@@ -7,7 +11,6 @@ $class = value('round') ? 'round' : ''; ?>
         <div class="input-group <?php echo $class; ?>">
             <div class="input-addon">=</div>
             <input id="g1" type="text" class="input" name="text">
-            <span class="clear"></span>
         </div>
     </div>
 

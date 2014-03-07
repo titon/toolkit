@@ -30,12 +30,3 @@
 .icon--270deg { @include transform(rotate(270deg)); }
 .icon--flip { @include transform(rotateY(180deg)); }
 .icon--flip-vert { @include transform(rotateX(180deg)); }
-
-@include keyframes(rotate) {
-    from { @include transform(rotate(0deg)); }
-    to { @include transform(rotate(360deg)); }
-}
-
-.icon--rotate {
-    @include animation(rotate $icon-animation infinite linear);
-}

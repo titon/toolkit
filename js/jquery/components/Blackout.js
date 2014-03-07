@@ -79,11 +79,17 @@
          * Show the blackout and increase open count.
          */
         show: function() {
+            var show = false;
+
             this.count++;
-            this.element.reveal();
+
+            if (this.count === 1) {
+                this.element.reveal();
+                show = true;
+            }
 
             this.showLoader();
-            this.fireEvent('show');
+            this.fireEvent('show', show);
         },
 
         /**

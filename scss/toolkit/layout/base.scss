@@ -29,25 +29,24 @@
 .inline-block { display: inline-block; }
 .hidden { display: none; }
 
-// Positioning
+// Layout
 .relative { position: relative; }
 .absolute { position: absolute; }
 .static { position: static; }
-
-// Layout
-.clear-fix { @include clear-fix; }
-.clear {
-    clear: both;
-    display: block;
-    margin: 0;
-    padding: 0;
-}
 
 .vertical-center {
     position: absolute;
     left: 50%;
     top: 50%;
     @include transform(translate(-50%, -50%));
+}
+
+.clear-fix { @include clear-fix; }
+.clear {
+    clear: both;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 // Styles
@@ -102,10 +101,8 @@
 
 // Bullets
 .bullets {
-    list-style: none;
+    @include reset-list();
     line-height: 100%;
-    margin: 0;
-    padding: 0;
 
     li {
         display: inline-block;

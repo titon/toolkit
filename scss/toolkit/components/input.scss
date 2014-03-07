@@ -31,12 +31,6 @@
     input {
         display: none;
 
-        // Style when the associated label is being hovered
-        &:hover + .#{$vendor-prefix}checkbox,
-        &:hover + .#{$vendor-prefix}radio {
-            border-color: $gray-darkest;
-        }
-
         // Style when the checkbox is checked
         &:checked + .#{$vendor-prefix}checkbox,
         &:checked + .#{$vendor-prefix}radio {

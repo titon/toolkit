@@ -11,20 +11,14 @@
     position: relative;
     @include clear-fix;
 
-    &.#{$state-has-prefix}no-columns .#{$vendor-prefix}matrix-item {
-        position: relative !important;
+    > li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
     }
-}
 
-.#{$vendor-prefix}matrix-item {
-    margin: 0;
-    padding: 0;
-    @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
-
-    img {
-        max-width: 100%;
-        width: 100%;
-        height: auto;
-        display: block;
+    &.#{$state-has-prefix}no-columns > li {
+        position: relative !important;
     }
 }

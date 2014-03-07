@@ -327,46 +327,6 @@ it *does not* provide variables for property styling. This can and should be ach
             <td>$breakpoint-small</td>
             <td>768px</td>
         </tr>
-
-        <tr class="table-divider">
-            <td colspan="3">Grid</td>
-        </tr>
-        <tr>
-            <td>$grid-width</td>
-            <td>100%</td>
-            <td>The width of the grid. The wrapper and columns are fluid by default so percentages are suggested.</td>
-        </tr>
-        <tr>
-            <td>$grid-gutter</td>
-            <td>false</td>
-            <td>The spacing between each column. Can accept any unit type: px, em, rem, %, or false if no gutter is desired.</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-desktop</td>
-            <td>12</td>
-            <td rowspan="3">The number of columns available per device when <code>$responsive-size</code> is <code>device</code>.</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-tablet</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-mobile</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-large</td>
-            <td>12</td>
-            <td rowspan="3">The number of columns available per size when <code>$responsive-size</code> is <code>size</code>.</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-medium</td>
-            <td>9</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-small</td>
-            <td>6</td>
-        </tr>
     </tbody>
 </table>
 

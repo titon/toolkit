@@ -109,11 +109,17 @@ Toolkit.Blackout = new Class({
      * @returns {Toolkit.Blackout}
      */
     show: function() {
+        var show = false;
+
         this.count++;
-        this.element.reveal();
+
+        if (this.count === 1) {
+            this.element.reveal();
+            show = true;
+        }
 
         this.showLoader();
-        this.fireEvent('show');
+        this.fireEvent('show', show);
 
         return this;
     },

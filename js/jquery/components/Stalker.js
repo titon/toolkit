@@ -14,12 +14,10 @@
         this.element = element = this.setElement(element);
 
         if (!options.target || !options.marker) {
-            return;
+            throw new Error('A marker and target is required');
         }
 
-        this.target = null;
         this.targets = [];
-        this.marker = null;
         this.markers = [];
         this.offsets = [];
         this.container = null;
@@ -48,46 +46,21 @@
     }, {
 
         /**
-         * Activate a target when a marker is triggered.
+         * Activate a target when a marker is entered.
          *
          * @param {Element} marker
-         * @param {Element} target
          */
-        activate: function(marker, target) {
-            this.marker = $(marker);
-            this.target = target = $(target);
-
-            var targets = this.targets;
-
-            if (this.options.applyToParent) {
-                targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
-                target.parent().addClass(Toolkit.options.isPrefix + 'active');
-
-            } else {
-                targets.removeClass(Toolkit.options.isPrefix + 'active');
-                target.addClass(Toolkit.options.isPrefix + 'active');
-            }
-
-            this.fireEvent('activate', [marker, target]);
+        activate: function(marker) {
+            this._stalk(marker, 'activate');
         },
 
         /**
-         * Deactivate the targets.
+         * Deactivate a target when a marker is exited.
          *
          * @param {Element} marker
          */
         deactivate: function(marker) {
-            var targets = this.targets;
-
-            if (this.options.applyToParent) {
-                targets.parent().removeClass(Toolkit.options.isPrefix + 'active');
-            } else {
-                targets.removeClass(Toolkit.options.isPrefix + 'active');
-            }
-
-            this.marker = null;
-            this.target = null;
-            this.fireEvent('deactivate', marker);
+            this._stalk(marker, 'deactivate');
         },
 
         /**
@@ -98,11 +71,9 @@
                 this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
             }
 
-            this.target = null;
             this.targets = $(this.options.target)
                 .addClass(Toolkit.options.vendor + 'stalker-target');
 
-            this.marker = null;
             this.markers = $(this.options.marker)
                 .addClass(Toolkit.options.vendor + 'stalker-marker');
 
@@ -126,44 +97,69 @@
         },
 
         /**
+         * Either active or deactivate a target based on the marker.
+         *
+         * @private
+         * @param {Element} marker
+         * @param {String} type
+         */
+        _stalk: function(marker, type) {
+            marker = $(marker);
+
+            var isPrefix = Toolkit.options.isPrefix;
+
+            // Stop all the unnecessary processing
+            if (type === 'activate' && marker.hasClass(isPrefix + 'stalked')) {
+                return;
+            }
+
+            var targetBy = this.options.targetBy,
+                markBy = this.options.markBy,
+                method = (type === 'activate') ? 'addClass' : 'removeClass',
+                target = this.targets.filter(function() {
+                    return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
+                });
+
+            marker[method](isPrefix + 'stalked');
+
+            if (this.options.applyToParent) {
+                target.parent()[method](isPrefix + 'active');
+            } else {
+                target[method](isPrefix + 'active');
+            }
+
+            this.fireEvent(type, [marker, target]);
+        },
+
+        /**
          * While the element is being scrolled, notify the targets when a marker is reached.
          *
          * @private
          */
         __scroll: function() {
             var scroll = this.container.scrollTop(),
-                markers = this.markers,
-                targets = this.targets,
                 offsets = this.offsets,
                 onlyWithin = this.options.onlyWithin,
                 threshold = this.options.threshold;
 
-            markers.each(function(index, marker) {
+            this.markers.each(function(index, marker) {
                 marker = $(marker);
 
                 var offset = offsets[index],
                     top = offset.top - threshold,
-                    bot = offset.top + marker.height() + threshold,
-                    target = [];
+                    bot = offset.top + marker.height() + threshold;
 
                 // Scroll is within the marker
                 if (
                     (onlyWithin && scroll >= top && scroll <= bot) ||
                     (!onlyWithin && scroll >= top)
                 ) {
-                    target = targets.filter(function() {
-                        return ($(this).attr('href') === '#' + marker.attr('id'));
-                    });
-
-                    if (target.length) {
-                        this.activate(marker, target.item(0));
-                    }
+                    this.activate(marker);
 
                 // Scroll went outside the marker
-                } else if (this.marker && this.marker.is(marker)) {
+                } else {
                     this.deactivate(marker);
                 }
-
             }.bind(this));
 
             this.fireEvent('scroll');
@@ -171,7 +167,9 @@
 
     }, {
         target: '',
+        targetBy: 'href',
         marker: '',
+        markBy: 'id',
         threshold: 50,
         throttle: 50,
         onlyWithin: true,

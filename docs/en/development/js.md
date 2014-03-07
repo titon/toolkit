@@ -390,17 +390,17 @@ The following methods are available on all class instances, but not all componen
         </tr>
         <tr>
             <td>position(string:response)</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Handles HTML AJAX responses. Will re-position the element.</td>
         </tr>
         <tr>
             <td>show([element:node])</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Show the element and set an optional activating node.</td>
         </tr>
         <tr>
             <td>hide([func:callback])</td>
-            <td>MooTools</td>
+            <td>Both</td>
             <td>Hide the element and trigger an optional callback function.</td>
         </tr>
     </tbody>
@@ -454,6 +454,14 @@ They can be modified in a similar fashion to component options (more information
     </tbody>
 </table>
 
+```javascript
+$.extend(Toolkit.options, {
+    vendor: 'tk-',
+    isPrefix: '',
+    hasPrefix: ''
+});
+```
+
 ### Locale Messages ###
 
 The following messages are used within AJAX calls and are found under `Toolkit.messages`.
@@ -481,6 +489,13 @@ They are represented as an object allowing for easy localization, and can be mod
     </tbody>
 </table>
 
+```javascript
+$.extend(Toolkit.messages, {
+    loading: 'Wait a second!',
+    error: 'Oops, it broke...'
+});
+```
+
 ### Feature Flags ###
 
 The following flags are used for feature detection within components.
@@ -504,6 +519,11 @@ Each flag can be found on the `Toolkit` object.
             <td>isTouch</td>
             <td>Both</td>
             <td>Does the device support touch capabilities?</td>
+        </tr>
+        <tr>
+            <td>isRetina</td>
+            <td>Both</td>
+            <td>Does the device support HD / retina displays?</td>
         </tr>
     </tbody>
 </table>
@@ -762,6 +782,6 @@ Methods and Properties
 * Should be prefixed with `_` when used internally and not be publicly available: `_fooBar()`
 
 Methods
-* Should be prefixed with `__` when used as an event handler / callback: `__fooBar(e)`
+* Should be prefixed with `on` when used as an event handler / callback: `onFooBar(e)`
 * Should, for the most part, be written in verb / action form
 * Getters and setters should be separate

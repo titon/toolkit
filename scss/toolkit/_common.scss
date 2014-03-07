@@ -111,19 +111,15 @@ $default-transition: .3s !default;
 $accordion-transition: $default-transition !default;
 $blackout-transition: $default-transition !default;
 $carousel-transition: 1s !default;
-$dropdown-transition: $default-transition !default;
+$drop-transition: $default-transition !default;
 $flyout-transition: $default-transition !default;
 $lazyLoad-transition: $default-transition !default;
 $mask-transition: $default-transition !default;
 $matrix-transition: $default-transition !default;
 $modal-transition: $default-transition !default;
-$progress-transition: $default-transition !default;
+$progress-transition: .5s !default;
 $showcase-transition: $default-transition !default;
 $tooltip-transition: $default-transition !default;
-
-//-------------------- Animations --------------------//
-
-$icon-animation: 1.5s !default;
 
 //-------------------- Responsive --------------------//
 
@@ -144,7 +140,7 @@ $breakpoint-large: 1440px !default;
 //-------------------- Grid --------------------//
 
 $grid-columns-large: 12 !default;
-$grid-columns-medium: 9 !default;
+$grid-columns-medium: 12 !default;
 $grid-columns-small: 6 !default;
 
 $grid-columns-desktop: 12 !default;
@@ -153,13 +149,13 @@ $grid-columns-mobile: 3 !default;
 
 $grid-width: 100% !default;
 $grid-gutter: false !default;
+$grid-push-pull: true !default;
 
 //-------------------- Loader --------------------//
 
 $loader-type: "all" !default;
 $loader-color: #000 !default;
-$loader-wave-count: 10 !default;
-$loader-spinner-count: 5 !default;
+$loader-wave-count: 5 !default;
 $loader-bar-width: 0.65rem !default;
 $loader-bar-height: 2.5rem !default;
 $loader-bubble-size: 1.5rem !default;

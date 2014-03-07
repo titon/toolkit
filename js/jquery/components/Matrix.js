@@ -12,7 +12,7 @@
         this.version = '1.0.1';
         this.options = options = this.setOptions(options);
         this.element = element = this.setElement(element);
-        this.items = element.find(options.selector);
+        this.items = element.find('> li');
         this.matrix = [];
         this.wrapperWidth = 0;
         this.colWidth = 0;
@@ -39,13 +39,12 @@
     }, {
 
         /**
-         * Append an item to the bottom of the
+         * Append an item to the bottom of the matrix.
          *
          * @param {jQuery} item
          */
         append: function(item) {
             $(item)
-                .addClass(Toolkit.options.vendor + 'matrix-item')
                 .appendTo(this.element)
                 .css('opacity', 0);
 
@@ -58,7 +57,6 @@
         disable: function() {
             this.enabled = false;
             this.element.removeAttr('style');
-            this.items.removeClass(Toolkit.options.vendor + 'matrix-item').removeAttr('style');
             this.bindEvents('off');
         },
 
@@ -67,18 +65,16 @@
          */
         enable: function() {
             this.enabled = true;
-            this.items.addClass(Toolkit.options.vendor + 'matrix-item');
             this.bindEvents('on');
         },
 
         /**
-         * Prepend an item to the top of the
+         * Prepend an item to the top of the matrix.
          *
          * @param {jQuery} item
          */
         prepend: function(item) {
             $(item)
-                .addClass(Toolkit.options.vendor + 'matrix-item')
                 .prependTo(this.element)
                 .css('opacity', 0);
 
@@ -89,7 +85,7 @@
          * Fetch new items and re-render the grid.
          */
         refresh: function() {
-            this.items = this.element.find(this.options.selector);
+            this.items = this.element.find('> li');
             this.render();
         },
 
@@ -339,7 +335,6 @@
         }
 
     }, {
-        selector: '.matrix-item',
         width: 200,
         gutter: 20,
         rtl: false,

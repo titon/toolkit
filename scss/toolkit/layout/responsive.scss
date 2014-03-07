@@ -6,7 +6,8 @@
 
 @import "../common";
 
-img, video, canvas {
+.fluid {
+    display: block;
     max-width: 100%;
     max-height: auto;
     height: auto;

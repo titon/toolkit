@@ -50,7 +50,7 @@ Toolkit.LazyLoad = new Class({
         }
 
         // Add events
-        document.id(this.options.context || window)
+        (this.options.context ? document.getElement(this.options.context) : window)
             .addEvent('scroll:throttle(' + this.options.throttle + ')', this.load)
             .addEvent('resize:throttle(' + this.options.throttle + ')', this.load);
 
@@ -80,6 +80,8 @@ Toolkit.LazyLoad = new Class({
             nodeOffset = node.getPosition();
 
         return (
+            // Element is not hidden
+            node.isVisible() &&
             // Below the top
             (nodeOffset.y >= (scrollSize.y - threshold)) &&
             // Above the bottom
@@ -153,10 +155,18 @@ Toolkit.LazyLoad = new Class({
 
         // Replace src attributes on images
         node.getElements('img').each(function(image) {
-            var data = image.get('data-lazyload');
+            var src;
 
-            if (data) {
-                image.set('src', data);
+            if (Toolkit.isRetina) {
+                src = image.get('data-src-retina');
+            }
+
+            if (!src) {
+                src = image.get('data-src');
+            }
+
+            if (src) {
+                image.set('src', src);
             }
         });
 
@@ -178,7 +188,7 @@ Toolkit.LazyLoad = new Class({
     shutdown: function() {
         this.isLoaded = true;
 
-        document.id(this.options.context || window).removeEvents({
+        (this.options.context ? document.getElement(this.options.context) : window).removeEvents({
             scroll: this.load,
             resize: this.load
         });

@@ -8,7 +8,7 @@
     'use strict';
 
     Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
-        var events, tabs, index;
+        var events, tabs;
 
         this.component = 'Tabs';
         this.version = '1.0.0';
@@ -16,7 +16,7 @@
         this.element = element = this.setElement(element);
         this.nav = element.find(options.navElement);
         this.tabs = tabs = this.nav.find('ul > li > a');
-        this.sections = element.find(options.sectionsElement).conceal();
+        this.sections = element.find(options.sectionElement).conceal();
         this.previousIndex = 0;
         this.currentIndex = 0;
         this.cache = {};
@@ -45,7 +45,9 @@
         this.fireEvent('init');
 
         // Trigger default tab to display
-        if (options.persistState) {
+        var index = options.defaultIndex;
+
+        if (options.persistState && options.cookie) {
             index = $.cookie('toolkit.tabs.' + options.cookie);
         }
 
@@ -93,34 +95,35 @@
 
             var index = tab.data('index'),
                 section = this.sections.item(index),
-                url = this.readValue(tab, this.options.getUrl),
-                options = this.options;
+                options = this.options,
+                url = this.readValue(tab, options.getUrl),
+                isPrefix = Toolkit.options.isPrefix;
 
             // Load content with AJAX
             if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
                         section.html(this._loadingTemplate())
-                            .addClass(Toolkit.options.isPrefix + 'loading');
+                            .addClass(isPrefix + 'loading');
                     },
                     function(response) {
                         this.cache[url] = true;
 
                         section.html(response)
-                            .removeClass(Toolkit.options.isPrefix + 'loading');
+                            .removeClass(isPrefix + 'loading');
 
                         this.fireEvent('load', response);
                     },
                     function() {
                         section.html(this._errorTemplate())
-                            .removeClass(Toolkit.options.isPrefix + 'loading')
+                            .removeClass(isPrefix + 'loading')
                             .addClass(Toolkit.options.hasPrefix + 'failed');
                     }
                 );
             }
 
             // Toggle tabs
-            this.nav.find('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
+            this.nav.find('ul > li').removeClass(isPrefix + 'active');
 
             // Toggle sections
             if (index === this.currentIndex && options.collapsible) {
@@ -128,13 +131,13 @@
                     section.conceal();
 
                 } else {
-                    tab.parent().addClass(Toolkit.options.isPrefix + 'active');
+                    tab.parent().addClass(isPrefix + 'active');
                     section.reveal();
                 }
             } else {
                 this.hide();
 
-                tab.parent().addClass(Toolkit.options.isPrefix + 'active');
+                tab.parent().addClass(isPrefix + 'active');
                 section.reveal();
             }
 
@@ -162,7 +165,7 @@
          * @param {jQuery.Event} e
          */
         __show: function(e) {
-            if (this.options.preventDefault || (this.options.ajax && $(e.target).attr('href').substr(0, 1) !== '#')) {
+            if (this.options.preventDefault || (this.options.ajax && e.target.href.substr(0, 1) !== '#')) {
                 e.preventDefault();
             }
 
@@ -181,7 +184,7 @@
         cookieDuration: 30,
         getUrl: 'href',
         navElement: '.tabs-nav',
-        sectionsElement: '.tabs-section'
+        sectionElement: '.tabs-section'
     });
 
     /**

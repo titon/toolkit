@@ -181,7 +181,7 @@
     <div class="col desktop-6 desktop-push-2 tablet-3 tablet-push-1 mobile-2">
         Desktop: 50%, 16% push<br>
         Tablet: 50%, 16% push<br>
-        Mobile: 33%, no push
+        Mobile: 66%, no push
     </div>
 </div>
 
@@ -211,4 +211,11 @@
         Global: 58%, 8% push<br>
         Desktop: 41%
     </div>
+</div>
+
+<div class="example-title">Ending</div>
+
+<div class="grid example-grid">
+    <div class="col large-5 medium-3 small-2">Left</div>
+    <div class="col large-5 medium-3 small-2 end">Right</div>
 </div>

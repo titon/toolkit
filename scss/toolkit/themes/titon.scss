@@ -256,14 +256,6 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
-//-------------------- InputGroup --------------------//
-
-.input-group {
-    > .input,
-    > .input-addon,
-    > .button,
-    > .button-group .button { height: 46px; }
-}
 
 //-------------------- Label --------------------//
 
@@ -448,17 +440,17 @@ mark { background: lighten($warning-light, 25%); }
 
 .progress {
     box-shadow: inset 1px 1px 2px $gray-darkest;
-
-    &.is-info .progress-bar { @include progress-style($info, $info-dark); }
-    &.is-error .progress-bar { @include progress-style($error, $error-dark); }
-    &.is-warning .progress-bar { @include progress-style($warning, $warning-dark); }
-    &.is-success .progress-bar { @include progress-style($success, $success-dark); }
 }
 
 .progress-bar {
     color: #fff;
     font-weight: bold;
     @include progress-style($default, $default-dark);
+
+    &.is-info { @include progress-style($info, $info-dark); }
+    &.is-error { @include progress-style($error, $error-dark); }
+    &.is-warning { @include progress-style($warning, $warning-dark); }
+    &.is-success { @include progress-style($success, $success-dark); }
 }
 
 //-------------------- Tooltip --------------------//
