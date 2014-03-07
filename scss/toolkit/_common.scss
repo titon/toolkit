@@ -140,7 +140,7 @@ $breakpoint-large: 1440px !default;
 //-------------------- Grid --------------------//
 
 $grid-columns-large: 12 !default;
-$grid-columns-medium: 9 !default;
+$grid-columns-medium: 12 !default;
 $grid-columns-small: 6 !default;
 
 $grid-columns-desktop: 12 !default;
@@ -149,6 +149,7 @@ $grid-columns-mobile: 3 !default;
 
 $grid-width: 100% !default;
 $grid-gutter: false !default;
+$grid-push-pull: true !default;
 
 //-------------------- Loader --------------------//
 

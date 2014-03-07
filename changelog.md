@@ -21,6 +21,9 @@ This update includes documentation for all components.
 * Form
     * Renamed `.is-legendless` to `.no-legend`
     * Cleaned up some basic styles
+* Grid
+    * Changed `$grid-columns-medium` to 12
+    * Added `$grid-push-pull` to toggle push and pull classes in output
 * Icon
     * Removed `.icon--rotate`
 * Input

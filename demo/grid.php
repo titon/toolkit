@@ -181,7 +181,7 @@
     <div class="col desktop-6 desktop-push-2 tablet-3 tablet-push-1 mobile-2">
         Desktop: 50%, 16% push<br>
         Tablet: 50%, 16% push<br>
-        Mobile: 33%, no push
+        Mobile: 66%, no push
     </div>
 </div>
 
