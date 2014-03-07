@@ -54,7 +54,7 @@ For example, the `.span-*` should equate to 12, where as responsive columns have
 ```
 
 <div class="notice is-info">
-    A <code>.span-*</column> column provides consistent widths
+    A <code>.span-*</code> column provides consistent widths
     for all devices and viewports, and never collapses because of breakpoints.
 </div>
 
