@@ -151,57 +151,59 @@ Toolkit.Tabs = new Class({
     show: function(tab) {
         var index = tab.get('data-index'),
             section = this.sections[index],
-            url = this.readValue(tab, this.options.getUrl);
+            options = this.options,
+            isPrefix = Toolkit.options.isPrefix,
+            url = this.readValue(tab, options.getUrl);
 
         // Load content with AJAX
-        if (this.options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+        if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(
                 url,
-                function tabsAjaxBefore() {
+                function() {
                     section.set('html', this._loadingTemplate())
-                        .addClass(Toolkit.options.isPrefix + 'loading');
+                        .addClass(isPrefix + 'loading');
                 }.bind(this),
 
-                function tabsAjaxDone(response) {
+                function(response) {
                     this.cache[url] = true;
 
                     section.set('html', response)
-                        .removeClass(Toolkit.options.isPrefix + 'loading');
+                        .removeClass(isPrefix + 'loading');
 
                     this.fireEvent('load', response);
                 }.bind(this),
 
-                function tabsAjaxFail() {
+                function() {
                     section.set('html', this._errorTemplate())
-                        .removeClass(Toolkit.options.isPrefix + 'loading')
+                        .removeClass(isPrefix + 'loading')
                         .addClass(Toolkit.options.hasPrefix + 'failed');
                 }.bind(this)
             );
         }
 
         // Toggle tabs
-        this.nav.getElements('ul > li').removeClass(Toolkit.options.isPrefix + 'active');
+        this.nav.getElements('ul > li').removeClass(isPrefix + 'active');
 
         // Toggle sections
-        if (index === this.currentIndex && this.options.collapsible) {
+        if (index === this.currentIndex && options.collapsible) {
             if (section.isVisible()) {
                 section.conceal();
 
             } else {
-                tab.getParent().addClass(Toolkit.options.isPrefix + 'active');
+                tab.getParent().addClass(isPrefix + 'active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.getParent().addClass(Toolkit.options.isPrefix + 'active');
+            tab.getParent().addClass(isPrefix + 'active');
             section.reveal();
         }
 
         // Persist the state using a cookie
-        if (this.options.persistState) {
-            Cookie.write('toolkit.tabs.' + this.options.cookie, index, {
-                duration: this.options.cookieDuration
+        if (options.persistState) {
+            Cookie.write('toolkit.tabs.' + options.cookie, index, {
+                duration: options.cookieDuration
             });
         }
 

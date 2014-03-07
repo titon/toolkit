@@ -52,3 +52,5 @@ This update includes documentation for all components.
     * Removed `marker` and `target` properties
 * Table
     * Moved zebra-striping into an `.is-striped` class
+* Tabs
+    * Renamed `sectionsElement` option to `sectionElement`
