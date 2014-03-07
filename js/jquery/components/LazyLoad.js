@@ -132,11 +132,18 @@
 
             // Replace src attributes on images
             node.find('img').each(function() {
-                var image = $(this),
-                    data = image.data('lazyload');
+                var image = $(this), src;
 
-                if (data) {
-                    image.attr('src', data);
+                if (Toolkit.isRetina) {
+                    src = image.data('src-retina');
+                }
+
+                if (!src) {
+                    src = image.data('src');
+                }
+
+                if (src) {
+                    image.attr('src', src);
                 }
             });
 

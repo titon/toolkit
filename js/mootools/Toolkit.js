@@ -45,6 +45,9 @@ window.Toolkit = {
     /** Detect touch devices */
     isTouch: !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)),
 
+    /** Detect retina displays */
+    isRetina: (window.devicePixelRatio > 1),
+
     /**
      * Creates a new component by extending the Element(s) prototype and defines a method
      * that initializes a component. The component is only initialized if one has not been already.

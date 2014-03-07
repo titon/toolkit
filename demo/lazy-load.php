@@ -20,7 +20,7 @@
         <?php for ($x = 0; $x <= 10; $x++) { ?>
 
             <div class="lazy-load example-lazy-load">
-                <img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+                <img data-src="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
             </div>
 
         <?php $c++; } ?>
@@ -33,7 +33,7 @@
             <?php for ($x = 0; $x <= 10; $x++) { ?>
 
                 <div class="lazy-load example-lazy-load">
-                    <img data-lazyload="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
+                    <img data-src="http://lorempixel.com/200/200/?c=<?php echo $c; ?>">
                 </div>
 
             <?php $c++; } ?>

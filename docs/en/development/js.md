@@ -520,6 +520,11 @@ Each flag can be found on the `Toolkit` object.
             <td>Both</td>
             <td>Does the device support touch capabilities?</td>
         </tr>
+        <tr>
+            <td>isRetina</td>
+            <td>Both</td>
+            <td>Does the device support HD / retina displays?</td>
+        </tr>
     </tbody>
 </table>
 

@@ -5,6 +5,7 @@ Older versions can be found in the documentation changelogs.
 ### 1.2.0 ###
 This update includes documentation for all components.
 
+* Added `isRetina` to the `Toolkit` flags.
 * Blackout
     * Added a `shown` argument to the `show` event
     * Renamed `loaderMessage` option to `loadingMessage`
@@ -29,6 +30,8 @@ This update includes documentation for all components.
     * Added small and large size support
 * LazyLoad
     * Fixed a bug where hidden images were being loaded
+    * Renamed `data-lazyload` to `data-src`
+    * Added `data-src-retina` support
 * Loader
     * Renamed `.spinner` to `.loader-spinner`
 * Matrix
