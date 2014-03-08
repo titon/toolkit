@@ -25,7 +25,17 @@
         this.events = {};
 
         // Add position class
-        element.addClass($.hyphenate(options.position));
+        element.addClass(options.position);
+
+        // Remove title attributes
+        if (options.getTitle === 'title') {
+            options.getTitle = 'data-popover-title';
+
+            this.nodes.each(function(index, node) {
+                node = $(node);
+                node.attr('data-popover-title', node.attr('title')).removeAttr('title');
+            });
+        }
 
         // Initialize events
         this.events['clickout element'] = 'hide';

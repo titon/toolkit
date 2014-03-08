@@ -23,6 +23,16 @@
         // Add position class
         element.addClass(options.position);
 
+        // Remove title attributes
+        if (options.getTitle === 'title') {
+            options.getTitle = 'data-tooltip-title';
+
+            this.nodes.each(function(index, node) {
+                node = $(node);
+                node.attr('data-tooltip-title', node.attr('title')).removeAttr('title');
+            });
+        }
+
         // Initialize events
         if (options.mode === 'click') {
             this.events['clickout element'] = 'hide';

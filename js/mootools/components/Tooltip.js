@@ -59,6 +59,17 @@ Toolkit.Tooltip = new Class({
         // Add position class
         this.element.addClass(this.options.position);
 
+        // Remove title attributes
+        if (this.options.getTitle === 'title') {
+            var title = 'data-' + this.className() + '-title';
+
+            this.options.getTitle = title;
+
+            this.nodes.each(function(node) {
+                node.setProperty(title, node.get('title')).removeProperty('title');
+            });
+        }
+
         // Set events
         this.bindEvents();
 
