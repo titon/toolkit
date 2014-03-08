@@ -27,9 +27,8 @@ Toolkit.Carousel = new Class({
     prevButton: null,
     nextButton: null,
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Cycle timer */
     timer: null,
@@ -189,8 +188,7 @@ Toolkit.Carousel = new Class({
         }
 
         // Save state
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index;
 
         // Update tabs
         if (this.tabs.length) {
@@ -228,7 +226,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     next: function() {
-        this.jump(this.currentIndex + 1);
+        this.jump(this.index + 1);
 
         return this;
     },
@@ -239,7 +237,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     prev: function() {
-        this.jump(this.currentIndex - 1);
+        this.jump(this.index - 1);
 
         return this;
     },

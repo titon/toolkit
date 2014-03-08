@@ -16,9 +16,8 @@ Toolkit.Accordion = new Class({
     /** List of DOM sections */
     sections: [],
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Default options */
     options: {
@@ -145,8 +144,7 @@ Toolkit.Accordion = new Class({
             parent.addClass(Toolkit.options.isPrefix + 'active');
         }
 
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index;
         this.node = node;
 
         this.fireEvent('show', section);

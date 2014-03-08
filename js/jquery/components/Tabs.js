@@ -17,8 +17,7 @@
         this.nav = element.find(options.navElement);
         this.tabs = tabs = this.nav.find('ul > li > a');
         this.sections = element.find(options.sectionElement).conceal();
-        this.previousIndex = 0;
-        this.currentIndex = 0;
+        this.index = 0;
         this.cache = {};
         this.events = events = {};
 
@@ -126,7 +125,7 @@
             this.nav.find('ul > li').removeClass(isPrefix + 'active');
 
             // Toggle sections
-            if (index === this.currentIndex && options.collapsible) {
+            if (index === this.index && options.collapsible) {
                 if (section.is(':shown')) {
                     section.conceal();
 
@@ -149,8 +148,7 @@
             }
 
             // Track
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
 
             this.fireEvent('show', tab);
 

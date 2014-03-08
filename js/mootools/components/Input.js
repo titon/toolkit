@@ -173,7 +173,7 @@
         multiple: false,
 
         /** Current index while cycling through options */
-        currentIndex: 0,
+        index: 0,
 
         /** Default options */
         options: {
@@ -308,7 +308,7 @@
                         }
 
                         if (option.selected) {
-                            this.currentIndex = index;
+                            this.index = index;
                         }
 
                         list.grab( buildOption(option, index) );
@@ -316,7 +316,7 @@
                     }, this);
                 } else {
                     if (optgroup.selected) {
-                        this.currentIndex = index;
+                        this.index = index;
                     }
 
                     list.grab( buildOption(optgroup, index) );
@@ -406,7 +406,7 @@
                     this.getParent().addClass(activeClass);
 
                     self.hide();
-                    self.currentIndex = index;
+                    self.index = index;
 
                     select.set('value', option.value);
                     select.fireEvent('change', { target: select });
@@ -527,7 +527,7 @@
             var options = this.input.getElements('option'),
                 items = this.dropdown.getElements('a'),
                 activeClass = Toolkit.options.isPrefix + 'active',
-                index = this.currentIndex;
+                index = this.index;
 
             switch (e.key) {
                 case 'enter':
@@ -548,7 +548,7 @@
             items.getParent().removeClass(activeClass);
             items[index].getParent().addClass(activeClass);
 
-            this.currentIndex = index;
+            this.index = index;
             this.input.fireEvent('change', { target: this.input });
         },
 

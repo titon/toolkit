@@ -19,8 +19,7 @@
         this.tabs = this.tabsWrapper.find(options.tabElement);
         this.nextButton = element.find(options.nextElement);
         this.prevButton = element.find(options.prevElement);
-        this.previousIndex = 0;
-        this.currentIndex = 0;
+        this.index = 0;
         this.timer = null;
         this.stopped = false;
 
@@ -89,8 +88,7 @@
             }
 
             // Save state
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
 
             // Update tabs
             if (this.tabs.length) {
@@ -123,14 +121,14 @@
          * Go to the next item.
          */
         next: function() {
-            this.jump(this.currentIndex + 1);
+            this.jump(this.index + 1);
         },
 
         /**
          * Go to the previous item.
          */
         prev: function() {
-            this.jump(this.currentIndex - 1);
+            this.jump(this.index - 1);
         },
 
         /**
@@ -171,7 +169,7 @@
          */
         __cycle: function() {
             if (!this.stopped) {
-                this.fireEvent('cycle', this.currentIndex);
+                this.fireEvent('cycle', this.index);
                 this.next();
             }
         },

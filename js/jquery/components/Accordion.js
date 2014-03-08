@@ -16,8 +16,7 @@
         this.element = this.setElement(element);
         this.headers = headers = this.element.find(options.headerElement);
         this.sections = sections = this.element.find(options.sectionElement);
-        this.previousIndex = 0;
-        this.currentIndex = 0;
+        this.index = 0;
         this.node = null;
         this.events = {};
 
@@ -103,8 +102,7 @@
                 parent.addClass(Toolkit.options.isPrefix + 'active');
             }
 
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
             this.node = node;
 
             this.fireEvent('show', [section, node, index]);

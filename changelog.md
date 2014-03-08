@@ -6,6 +6,8 @@ Older versions can be found in the documentation changelogs.
 This update includes documentation for all components.
 
 * Added `isRetina` to the `Toolkit` flags.
+* Replaced `currentIndex` with `index` in all components.
+* Removed global `previousIndex` properties.
 * Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`.
 * Blackout
     * Added a `shown` argument to the `show` event

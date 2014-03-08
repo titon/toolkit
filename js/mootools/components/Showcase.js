@@ -22,9 +22,8 @@ Toolkit.Showcase = new Class({
     /** List of items data to populate the showcase with **/
     data: [],
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -192,8 +191,7 @@ Toolkit.Showcase = new Class({
             item = items[index];
 
         // Save state
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index;
 
         // Update tabs
         if (this.tabs) {
@@ -260,7 +258,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     next: function() {
-        this.jump(this.currentIndex + 1);
+        this.jump(this.index + 1);
 
         return this;
     },
@@ -288,7 +286,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     prev: function() {
-        this.jump(this.currentIndex - 1);
+        this.jump(this.index - 1);
 
         return this;
     },
@@ -303,7 +301,7 @@ Toolkit.Showcase = new Class({
      */
     show: function(node) {
         this.node = node;
-        this.currentIndex = this.previousIndex = 0;
+        this.index = 0;
         this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
         var options = this.options,

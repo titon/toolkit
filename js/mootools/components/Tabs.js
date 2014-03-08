@@ -19,9 +19,8 @@ Toolkit.Tabs = new Class({
     /** Collection of tabs (anchor links) */
     tabs: [],
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Default options */
     options: {
@@ -78,7 +77,7 @@ Toolkit.Tabs = new Class({
         var index = options.defaultIndex;
 
         if (options.persistState) {
-            index = Number.from(Cookie.read('toolkit.tabs.' + options.cookie) || options.defaultIndex);
+            index = Number.from(Cookie.read('toolkit.tabs.' + options.cookie));
 
         } else if (options.loadFragment && location.hash) {
             var tab = this.tabs.filter(function(el) {
@@ -185,7 +184,7 @@ Toolkit.Tabs = new Class({
         this.nav.getElements('ul > li').removeClass(isPrefix + 'active');
 
         // Toggle sections
-        if (index === this.currentIndex && options.collapsible) {
+        if (index === this.index && options.collapsible) {
             if (section.isVisible()) {
                 section.conceal();
 
@@ -208,8 +207,7 @@ Toolkit.Tabs = new Class({
         }
 
         // Track
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index;
 
         this.fireEvent('show', tab);
 

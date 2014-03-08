@@ -143,7 +143,7 @@
         this.wrapper = this._buildWrapper();
         this.element = this._buildButton();
         this.dropdown = null;
-        this.currentIndex = 0;
+        this.index = 0;
 
         // Initialize events
         this.events = events = {
@@ -262,7 +262,7 @@
                         }
 
                         if (option.prop('selected')) {
-                            self.currentIndex = index;
+                            self.index = index;
                         }
 
                         list.append( buildOption(option, index) );
@@ -270,7 +270,7 @@
                     });
                 } else {
                     if (optgroup.prop('selected')) {
-                        self.currentIndex = index;
+                        self.index = index;
                     }
 
                     list.append( buildOption(optgroup, index) );
@@ -360,7 +360,7 @@
                     $(this).parent().addClass(activeClass);
 
                     self.hide();
-                    self.currentIndex = index;
+                    self.index = index;
 
                     select.val(option.val());
                     select.change();
@@ -448,7 +448,7 @@
             var options = this.input.find('option'),
                 items = this.dropdown.find('a'),
                 activeClass = Toolkit.options.isPrefix + 'active',
-                index = this.currentIndex;
+                index = this.index;
 
             switch (e.keyCode) {
                 case 13: // enter
@@ -469,7 +469,7 @@
             items.parent().removeClass(activeClass);
             items.item(index).parent().addClass(activeClass);
 
-            this.currentIndex = index;
+            this.index = index;
             this.input.change();
         },
 

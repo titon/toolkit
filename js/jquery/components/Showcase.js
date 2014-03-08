@@ -25,8 +25,7 @@
         this.prevButton = element.find(options.prevElement);
         this.nextButton = element.find(options.nextElement);
         this.data = [];
-        this.previousIndex = 0;
-        this.currentIndex = 0;
+        this.index = 0;
         this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
         // Increase gutter based on padding
@@ -102,8 +101,7 @@
                 item = items[index];
 
             // Save state
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
 
             // Update tabs
             if (this.tabs) {
@@ -167,7 +165,7 @@
          * Go to the next item.
          */
         next: function() {
-            this.jump(this.currentIndex + 1);
+            this.jump(this.index + 1);
         },
 
         /**
@@ -187,7 +185,7 @@
          * Go to the previous item.
          */
         prev: function() {
-            this.jump(this.currentIndex - 1);
+            this.jump(this.index - 1);
         },
 
         /**
@@ -199,7 +197,7 @@
          */
         show: function(node) {
             this.node = node = $(node);
-            this.currentIndex = this.previousIndex = 0;
+            this.index = 0;
             this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
             var options = this.options,
