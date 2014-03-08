@@ -28,13 +28,12 @@
         element.addClass(options.position);
 
         // Remove title attributes
+        nodes.each(function(i, node) {
+            $(node).attr('data-popover-title', $(node).attr('title')).removeAttr('title');
+        });
+
         if (options.getTitle === 'title') {
             options.getTitle = 'data-popover-title';
-
-            this.nodes.each(function(index, node) {
-                node = $(node);
-                node.attr('data-popover-title', node.attr('title')).removeAttr('title');
-            });
         }
 
         // Initialize events

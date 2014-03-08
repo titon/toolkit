@@ -24,13 +24,12 @@
         element.addClass(options.position);
 
         // Remove title attributes
+        nodes.each(function(i, node) {
+            $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
+        });
+
         if (options.getTitle === 'title') {
             options.getTitle = 'data-tooltip-title';
-
-            this.nodes.each(function(index, node) {
-                node = $(node);
-                node.attr('data-tooltip-title', node.attr('title')).removeAttr('title');
-            });
         }
 
         // Initialize events
