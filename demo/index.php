@@ -518,7 +518,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
-        <script src="js/jquery-ui-1.10.3.custom.js"></script>
+        <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
         <script src="../build/titon-toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {
@@ -529,7 +529,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
-        <script src="js/jquery-ui-1.10.3.custom.js"></script>
+        <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
         <script src="../build/titon-toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {

@@ -2,18 +2,161 @@
 
 The ins and outs of the JavaScript layer within Toolkit.
 
+* [Accessing Components](#accessing-components)
+* [Conflict Resolution](#conflict-resolution)
+* [Toolkit Namespace](#toolkit-namespace)
+    * [Global Options](#global-options)
+    * [Locale Messages](#locale-messages)
+    * [Feature Flags](#feature-flags)
 * [Component System](#component-system)
     * [Templates](#templates)
     * [Options](#options)
     * [Events](#events)
     * [Properties](#properties)
     * [Methods](#methods)
-* [Toolkit Namespace](#toolkit-namespace)
-    * [Global Options](#global-options)
-    * [Locale Messages](#locale-messages)
-    * [Feature Flags](#feature-flags)
 * [Extensions](#extensions)
 * [Conventions](#conventions)
+
+## Accessing Components ##
+
+## Conflict Resolution ##
+
+Toolkit has no concept of `noConflict()` that is found in other libraries.
+Instead it has an automatic conflict resolution, where methods are renamed if one already exists.
+For example, when using the tooltip component as a jQuery plugin under the name `tooltip()`,
+and that name is already taken (by jQuery UI for example), the plugin is renamed to `toolkitTooltip()`.
+
+If for any reason the jQuery plugin is lost, or overridden by another library,
+components can be instantiated manually outside of the jQuery or MooTools syntax.
+
+```javascript
+new Toolkit.Tooltip($('.js-tooltip'), {});
+
+// jQuery equivalent
+$('.js-tooltip').tooltip({});
+```
+
+## Toolkit Namespace ##
+
+The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
+It defines global options, localized messages, feature detection, and device support.
+It also acts as a namespace for components by housing a top level name to avoid global conflicts.
+Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
+
+### Global Options ###
+
+The following options are used to alter all components and are found under `Toolkit.options`.
+They can be modified in a similar fashion to component options (more information above).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>vendor</td>
+            <td></td>
+            <td>
+                The vendor name to prepend to all class names.
+                <a href="sass.md#variables">Learn more about vendor prefixing.</a>
+            </td>
+        </tr>
+        <tr>
+            <td>isPrefix</td>
+            <td>is-</td>
+            <td rowspan="2">
+                The prefix to prepend to certain state classes.
+                <a href="sass.md#variables">Learn more about state prefixing.</a>
+            </td>
+        </tr>
+        <tr>
+            <td>hasPrefix</td>
+            <td>has-</td>
+        </tr>
+    </tbody>
+</table>
+
+```javascript
+$.extend(Toolkit.options, {
+    vendor: 'tk-',
+    isPrefix: '',
+    hasPrefix: ''
+});
+```
+
+### Locale Messages ###
+
+The following messages are used within AJAX calls and are found under `Toolkit.messages`.
+They are represented as an object allowing for easy localization, and can be modified similar to an options object.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Message</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>loading</td>
+            <td>Loading...</td>
+            <td>Message to display while an AJAX request is loading.</td>
+        </tr>
+        <tr>
+            <td>error</td>
+            <td>An error has occurred!</td>
+            <td>Message to display when an AJAX call has failed.</td>
+        </tr>
+    </tbody>
+</table>
+
+```javascript
+$.extend(Toolkit.messages, {
+    loading: 'Wait a second!',
+    error: 'Oops, it broke...'
+});
+```
+
+### Feature Flags ###
+
+The following flags are used for feature detection within components.
+Each flag can be found on the `Toolkit` object.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Flag</th>
+            <th>Vendor</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>hasTransition</td>
+            <td>Both</td>
+            <td>Does the browser support CSS transition?</td>
+        </tr>
+        <tr>
+            <td>isTouch</td>
+            <td>Both</td>
+            <td>Does the device support touch capabilities?</td>
+        </tr>
+        <tr>
+            <td>isRetina</td>
+            <td>Both</td>
+            <td>Does the device support HD / retina displays?</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="notice is-warning">
+    Flags are determined automatically and should not be altered in any way!
+</div>
 
 ## Component System ##
 
@@ -408,128 +551,6 @@ The following methods are available on all class instances, but not all componen
 
 <div class="notice is-warning">
     Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
-</div>
-
-## Toolkit Namespace ##
-
-The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
-It defines global options, localized messages, feature detection, and device support.
-It also acts as a namespace for components by housing a top level name to avoid global conflicts.
-Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
-
-### Global Options ###
-
-The following options are used to alter all components and are found under `Toolkit.options`.
-They can be modified in a similar fashion to component options (more information above).
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Option</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>vendor</td>
-            <td></td>
-            <td>
-                The vendor name to prepend to all class names.
-                <a href="sass.md#variables">Learn more about vendor prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>isPrefix</td>
-            <td>is-</td>
-            <td rowspan="2">
-                The prefix to prepend to certain state classes.
-                <a href="sass.md#variables">Learn more about state prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>hasPrefix</td>
-            <td>has-</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-$.extend(Toolkit.options, {
-    vendor: 'tk-',
-    isPrefix: '',
-    hasPrefix: ''
-});
-```
-
-### Locale Messages ###
-
-The following messages are used within AJAX calls and are found under `Toolkit.messages`.
-They are represented as an object allowing for easy localization, and can be modified similar to an options object.
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Message</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>loading</td>
-            <td>Loading...</td>
-            <td>Message to display while an AJAX request is loading.</td>
-        </tr>
-        <tr>
-            <td>error</td>
-            <td>An error has occurred!</td>
-            <td>Message to display when an AJAX call has failed.</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-$.extend(Toolkit.messages, {
-    loading: 'Wait a second!',
-    error: 'Oops, it broke...'
-});
-```
-
-### Feature Flags ###
-
-The following flags are used for feature detection within components.
-Each flag can be found on the `Toolkit` object.
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Flag</th>
-            <th>Vendor</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>hasTransition</td>
-            <td>Both</td>
-            <td>Does the browser support CSS transition?</td>
-        </tr>
-        <tr>
-            <td>isTouch</td>
-            <td>Both</td>
-            <td>Does the device support touch capabilities?</td>
-        </tr>
-        <tr>
-            <td>isRetina</td>
-            <td>Both</td>
-            <td>Does the device support HD / retina displays?</td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="notice is-warning">
-    Flags are determined automatically and should not be altered in any way!
 </div>
 
 ## Extensions ##
