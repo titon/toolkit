@@ -61,7 +61,7 @@
             }
 
             if (this.options.stopScroll) {
-                $('body').css('overflow', '');
+                $('body').removeClass('no-scroll');
             }
 
             if (this.element.is(':shown')) {
@@ -238,7 +238,7 @@
             }
 
             if (options.stopScroll) {
-                $('body').css('overflow', 'hidden');
+                $('body').addClass('no-scroll');
             }
 
             this._buildItems(items);

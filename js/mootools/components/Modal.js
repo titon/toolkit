@@ -85,7 +85,7 @@ Toolkit.Modal = new Class({
             if (this.options.stopScroll) {
                 this.blackout.addEvent('hide', function(hidden) {
                     if (hidden) {
-                        document.body.setStyle('overflow', '');
+                        document.body.removeClass('no-scroll');
                     }
                 });
             }
@@ -205,7 +205,7 @@ Toolkit.Modal = new Class({
         }
 
         if (options.stopScroll) {
-            document.body.setStyle('overflow', 'hidden');
+            document.body.addClass('no-scroll');
         }
 
         // Fetch content

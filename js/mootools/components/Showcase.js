@@ -152,7 +152,7 @@ Toolkit.Showcase = new Class({
         }
 
         if (this.options.stopScroll) {
-            document.body.setStyle('overflow', '');
+            document.body.removeClass('no-scroll');
         }
 
         this.parent(function() {
@@ -342,7 +342,7 @@ Toolkit.Showcase = new Class({
         }
 
         if (options.stopScroll) {
-            document.body.setStyle('overflow', 'hidden');
+            document.body.addClass('no-scroll');
         }
 
         this._buildItems(items);

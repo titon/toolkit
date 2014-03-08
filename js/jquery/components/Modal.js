@@ -35,7 +35,7 @@
             if (options.stopScroll) {
                 this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
                     if (hidden) {
-                        $('body').css('overflow', '');
+                        $('body').removeClass('no-scroll');
                     }
                 });
             }
@@ -136,7 +136,7 @@
             }
 
             if (options.stopScroll) {
-                $('body').css('overflow', 'hidden');
+                $('body').addClass('no-scroll');
             }
 
             if (ajax) {
