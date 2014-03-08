@@ -9,7 +9,7 @@
 
 Toolkit.Component = new Class({
     Implements: [Events, Options],
-    Binds: ['__show', '__hide', 'position'],
+    Binds: ['onShow', 'onHide', 'position'],
 
     /** Cached data */
     cache: {},
@@ -69,7 +69,7 @@ Toolkit.Component = new Class({
         }
 
         if (context) {
-            context.addEvent(event, this.__show);
+            context.addEvent(event, this.onShow);
         }
 
         return this;
@@ -468,7 +468,7 @@ Toolkit.Component = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __hide: function(e) {
+    onHide: function(e) {
         if (typeOf(e) === 'domevent') {
             e.preventDefault();
         }
@@ -483,7 +483,7 @@ Toolkit.Component = new Class({
      * @param {DOMEvent} e
      * @param {Element} node
      */
-    __show: function(e, node) {
+    onShow: function(e, node) {
         if (!this.enabled) {
             return;
         }

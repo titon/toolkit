@@ -37,8 +37,8 @@
 
         // Initialize events
         this.events = {
-            'scroll container': $.throttle(this.__scroll.bind(this), options.throttle),
-            'ready document': '__scroll'
+            'scroll container': $.throttle(this.onScroll.bind(this), options.throttle),
+            'ready document': 'onScroll'
         };
 
         this.enable();
@@ -136,7 +136,7 @@
          *
          * @private
          */
-        __scroll: function() {
+        onScroll: function() {
             var scroll = this.container.scrollTop(),
                 offsets = this.offsets,
                 onlyWithin = this.options.onlyWithin,

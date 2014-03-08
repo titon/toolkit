@@ -9,7 +9,7 @@
 
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__submit'],
+    Binds: ['onSubmit'],
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -39,10 +39,7 @@ Toolkit.Modal = new Class({
                 '<div class="modal-inner"></div>' +
                 '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
             '</div>' +
-        '</div>',
-
-        // Events
-        onSubmit: null
+        '</div>'
     },
 
     /**
@@ -111,12 +108,12 @@ Toolkit.Modal = new Class({
         }.bind(this));
 
         this.element
-            .addEvent('clickout', this.__hide)
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
-            .addEvent('click:relay(' + this.options.submitEvent + ')', this.__submit);
+            .addEvent('clickout', this.onHide)
+            .addEvent('click:relay(' + this.options.closeEvent + ')', this.onHide)
+            .addEvent('click:relay(' + this.options.submitEvent + ')', this.onSubmit);
 
         this.nodes
-            .addEvent('clickout', this.__hide);
+            .addEvent('clickout', this.onHide);
 
         return this;
     },
@@ -228,7 +225,7 @@ Toolkit.Modal = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __submit: function(e) {
+    onSubmit: function(e) {
         e.preventDefault();
 
         var button = e.target,

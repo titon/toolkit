@@ -42,12 +42,12 @@
         }
 
         // Initialize events
-        events['clickout element'] = '__hide';
-        events['clickout nodes'] = '__hide';
-        events['keydown window'] = '__keydown';
-        events['click ' + nodes.selector] = '__show';
-        events['click element ' + options.closeEvent] = '__hide';
-        events['click element ' + options.submitEvent] = '__submit';
+        events['clickout element'] = 'onHide';
+        events['clickout nodes'] = 'onHide';
+        events['keydown window'] = 'onKeydown';
+        events['click ' + nodes.selector] = 'onShow';
+        events['click element ' + options.closeEvent] = 'onHide';
+        events['click element ' + options.submitEvent] = 'onSubmit';
 
         this.enable();
         this.fireEvent('init');
@@ -156,7 +156,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __hide: function(e) {
+        onHide: function(e) {
             e.preventDefault();
 
             this.hide();
@@ -168,7 +168,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __keydown: function(e) {
+        onKeydown: function(e) {
             if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
                 this.hide();
             }
@@ -180,7 +180,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             this.show(e.currentTarget);
@@ -192,7 +192,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __submit: function(e) {
+        onSubmit: function(e) {
             e.preventDefault();
 
             var button = $(e.target),

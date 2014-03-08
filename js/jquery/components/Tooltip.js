@@ -28,7 +28,7 @@
             this.events['clickout element'] = 'hide';
         }
 
-        this.events[options.mode + ' ' + nodes.selector] = '__show';
+        this.events[options.mode + ' ' + nodes.selector] = 'onShow';
 
         this.enable();
         this.fireEvent('init');
@@ -77,7 +77,7 @@
 
             // Follow the mouse
             if (options.follow) {
-                var follow = this.__follow.bind(this);
+                var follow = this.onFollow.bind(this);
 
                 this.node
                     .off('mousemove', follow)
@@ -153,7 +153,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __follow: function(e) {
+        onFollow: function(e) {
             e.preventDefault();
 
             var options = this.options;
@@ -170,7 +170,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             var node = $(e.target),
                 isNode = (this.node && node[0] === this.node[0]);
 

@@ -164,7 +164,7 @@
      */
     Toolkit.Input.Select = new Class({
         Extends: Toolkit.Input,
-        Binds: ['buildOption', '__change', '__cycle', '__toggle'],
+        Binds: ['buildOption', 'onChange', 'onCycle', 'onToggle'],
 
         /** Custom dropdown */
         dropdown: null,
@@ -218,7 +218,7 @@
                 // So place it below .custom-input
                 select
                     .setStyle('z-index', 1)
-                    .addEvent('blur', this.__hide);
+                    .addEvent('blur', this.onHide);
             }
 
             this.bindEvents();
@@ -231,18 +231,18 @@
          * @returns {Toolkit.Input.Select}
          */
         bindEvents: function() {
-            this.input.addEvent('change', this.__change);
+            this.input.addEvent('change', this.onChange);
 
             if (!this.options.native) {
-                this.dropdown.addEvent('clickout', this.__hide);
+                this.dropdown.addEvent('clickout', this.onHide);
 
                 this.element
-                    .addEvent('clickout', this.__hide)
-                    .addEvent('click', this.__toggle);
+                    .addEvent('clickout', this.onHide)
+                    .addEvent('click', this.onToggle);
             }
 
             if (!this.multiple) {
-                window.addEvent('keydown', this.__cycle);
+                window.addEvent('keydown', this.onCycle);
             }
 
             // Trigger change immediately to update the label
@@ -451,12 +451,40 @@
         },
 
         /**
+         * Loop through the options and determine the index to select.
+         * Skip over missing options, disabled options, or hidden options.
+         *
+         * @private
+         * @param {Number} index
+         * @param {Number} step
+         * @param {jQuery} options
+         * @returns {Number}
+         */
+        _loop: function(index, step, options) {
+            var hideFirst = this.options.hideFirst;
+
+            index += step;
+
+            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+                index += step;
+
+                if (index >= options.length) {
+                    index = 0;
+                } else if (index < 0) {
+                    index = options.length - 1;
+                }
+            }
+
+            return index;
+        },
+
+        /**
          * Event handler for select option changing.
          *
          * @private
          * @param {DOMEvent} e
          */
-        __change: function(e) {
+        onChange: function(e) {
             var select = e.target,
                 options = select.getElements('option'),
                 selected = [],
@@ -513,7 +541,7 @@
          * @private
          * @param {DOMEvent} e
          */
-        __cycle: function(e) {
+        onCycle: function(e) {
             if (!this.dropdown.isVisible()) {
                 return;
             }
@@ -535,10 +563,10 @@
                     this.hide();
                 return;
                 case 'up':
-                    index = this.__loop(index, -1, options);
+                    index = this._loop(index, -1, options);
                 break;
                 case 'down':
-                    index = this.__loop(index, 1, options);
+                    index = this._loop(index, 1, options);
                 break;
             }
 
@@ -553,40 +581,12 @@
         },
 
         /**
-         * Loop through the options and determine the index to select.
-         * Skip over missing options, disabled options, or hidden options.
-         *
-         * @private
-         * @param {Number} index
-         * @param {Number} step
-         * @param {jQuery} options
-         * @returns {Number}
-         */
-        __loop: function(index, step, options) {
-            var hideFirst = this.options.hideFirst;
-
-            index += step;
-
-            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
-                index += step;
-
-                if (index >= options.length) {
-                    index = 0;
-                } else if (index < 0) {
-                    index = options.length - 1;
-                }
-            }
-
-            return index;
-        },
-
-        /**
          * Event handler for toggling custom dropdown display.
          *
          * @private
          * @param {DOMEvent} e
          */
-        __toggle: function(e) {
+        onToggle: function(e) {
             if (!this.enabled || this.input.disabled) {
                 return;
             }

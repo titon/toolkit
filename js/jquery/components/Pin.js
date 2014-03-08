@@ -23,9 +23,9 @@
 
         // Initialize events
         this.events = {
-            'scroll window': $.throttle(this.__scroll.bind(this), options.throttle),
-            'resize window': $.throttle(this.__resize.bind(this), options.throttle),
-            'ready document': '__resize'
+            'scroll window': $.throttle(this.onScroll.bind(this), options.throttle),
+            'resize window': $.throttle(this.onResize.bind(this), options.throttle),
+            'ready document': 'onResize'
         };
 
         this.enable();
@@ -54,7 +54,7 @@
          *
          * @private
          */
-        __resize: function() {
+        onResize: function() {
             this.calculate();
 
             // Enable pin if the parent is larger than the child
@@ -71,7 +71,7 @@
          *
          * @private
          */
-        __scroll: function() {
+        onScroll: function() {
             if (this.options.calculate) {
                 this.calculate();
             }

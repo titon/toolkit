@@ -29,7 +29,7 @@
 
         // Initialize events
         this.events['clickout element'] = 'hide';
-        this.events['click ' + nodes.selector] = '__show';
+        this.events['click ' + nodes.selector] = 'onShow';
 
         this.enable();
         this.fireEvent('init');

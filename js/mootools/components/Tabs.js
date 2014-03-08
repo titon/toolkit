@@ -102,7 +102,7 @@ Toolkit.Tabs = new Class({
      * @returns {Toolkit.Tabs}
      */
     bindEvents: function() {
-        this.tabs.addEvent(this.options.mode, this.__show);
+        this.tabs.addEvent(this.options.mode, this.onShow);
 
         if (this.options.mode !== 'click' && this.options.preventDefault) {
             this.tabs.addEvent('click', function(e) {
@@ -223,7 +223,7 @@ Toolkit.Tabs = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __show: function(e) {
+    onShow: function(e) {
         if (this.options.preventDefault || (this.options.ajax && e.target.get('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }

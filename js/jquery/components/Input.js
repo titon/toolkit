@@ -30,6 +30,20 @@
     }, {
 
         /**
+         * Copy classes from one element to another, but do not copy .input classes.
+         *
+         * @param {jQuery} from
+         * @param {jQuery} to
+         */
+        copyClasses: function(from, to) {
+            var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
+
+            if (classes) {
+                $(to).addClass(classes);
+            }
+        },
+
+        /**
          * Build the element to wrap custom inputs with.
          * Copy over the original class names.
          *
@@ -46,20 +60,6 @@
             }
 
             return wrapper;
-        },
-
-        /**
-         * Copy classes from one element to another, but do not copy .input classes.
-         *
-         * @param {jQuery} from
-         * @param {jQuery} to
-         */
-        copyClasses: function(from, to) {
-            var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
-
-            if (classes) {
-                $(to).addClass(classes);
-            }
         }
 
     }, {
@@ -147,17 +147,17 @@
 
         // Initialize events
         this.events = events = {
-            'change input': '__change'
+            'change input': 'onChange'
         };
 
         if (!options.native) {
             events['blur input'] = 'hide';
             events['clickout dropdown'] = 'hide';
             events['clickout element'] = 'hide';
-            events['click element'] = '__toggle';
+            events['click element'] = 'onToggle';
 
             if (!this.multiple) {
-                events['keydown window'] = '__cycle';
+                events['keydown window'] = 'onCycle';
             }
 
             // Build custom dropdown when not in native
@@ -371,12 +371,40 @@
         },
 
         /**
+         * Loop through the options and determine the index to
+         * Skip over missing options, disabled options, or hidden options.
+         *
+         * @private
+         * @param {Number} index
+         * @param {Number} step
+         * @param {jQuery} options
+         * @returns {Number}
+         */
+        _loop: function(index, step, options) {
+            var hideFirst = this.options.hideFirst;
+
+            index += step;
+
+            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+                index += step;
+
+                if (index >= options.length) {
+                    index = 0;
+                } else if (index < 0) {
+                    index = options.length - 1;
+                }
+            }
+
+            return index;
+        },
+
+        /**
          * Event handler for select option changing.
          *
          * @private
          * @param {jQuery.Event} e
          */
-        __change: function(e) {
+        onChange: function(e) {
             var select = $(e.target),
                 options = select.find('option'),
                 selected = [],
@@ -434,7 +462,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __cycle: function(e) {
+        onCycle: function(e) {
             if (!this.dropdown.is(':shown')) {
                 return;
             }
@@ -456,10 +484,10 @@
                     this.hide();
                 return;
                 case 38: // up
-                    index = this.__loop(index, -1, options);
+                    index = this._loop(index, -1, options);
                 break;
                 case 40: // down
-                    index = this.__loop(index, 1, options);
+                    index = this._loop(index, 1, options);
                 break;
             }
 
@@ -474,40 +502,12 @@
         },
 
         /**
-         * Loop through the options and determine the index to
-         * Skip over missing options, disabled options, or hidden options.
-         *
-         * @private
-         * @param {Number} index
-         * @param {Number} step
-         * @param {jQuery} options
-         * @returns {Number}
-         */
-        __loop: function(index, step, options) {
-            var hideFirst = this.options.hideFirst;
-
-            index += step;
-
-            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
-                index += step;
-
-                if (index >= options.length) {
-                    index = 0;
-                } else if (index < 0) {
-                    index = options.length - 1;
-                }
-            }
-
-            return index;
-        },
-
-        /**
          * Event handler for toggling custom dropdown display.
          *
          * @private
          * @param {jQuery.Event} e
          */
-        __toggle: function(e) {
+        onToggle: function(e) {
             if (this.input.prop('disabled')) {
                 return;
             }

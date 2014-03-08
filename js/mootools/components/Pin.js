@@ -9,7 +9,7 @@
 
 Toolkit.Pin = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__resize', '__scroll'],
+    Binds: ['onResize', 'onScroll'],
 
     /** The current window width and height */
     viewport: null,
@@ -31,11 +31,7 @@ Toolkit.Pin = new Class({
         fixed: false,
         calculate: false,
         context: null,
-        template: false,
-
-        // Events
-        onScroll: null,
-        onResize: null
+        template: false
     },
 
     /**
@@ -68,9 +64,9 @@ Toolkit.Pin = new Class({
      */
     bindEvents: function() {
         window
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll)
-            .addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize)
-            .addEvent('domready', this.__resize);
+            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.onScroll)
+            .addEvent('resize:throttle(' + this.options.throttle + ')', this.onResize)
+            .addEvent('domready', this.onResize);
 
         return this;
     },
@@ -93,7 +89,7 @@ Toolkit.Pin = new Class({
      *
      * @private
      */
-    __resize: function() {
+    onResize: function() {
         this.calculate();
 
         // Enable pin if the parent is larger than the child
@@ -112,7 +108,7 @@ Toolkit.Pin = new Class({
      *
      * @private
      */
-    __scroll: function() {
+    onScroll: function() {
         if (this.options.calculate) {
             this.calculate();
         }

@@ -50,12 +50,12 @@
 
         // Initialize events
         this.events = {
-            'keydown window': '__keydown',
+            'keydown window': 'onKeydown',
             'swipeleft element': 'next',
             'swipeup element': 'next',
             'swiperight element': 'prev',
             'swipdown element': 'prev',
-            'click tabs': '__jump',
+            'click tabs': 'onJump',
             'click nextButton': 'next',
             'click prevButton': 'prev'
         };
@@ -137,7 +137,7 @@
         reset: function() {
             if (this.options.autoCycle) {
                 clearInterval(this.timer);
-                this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
+                this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
             }
         },
 
@@ -167,7 +167,7 @@
          *
          * @private
          */
-        __cycle: function() {
+        onCycle: function() {
             if (!this.stopped) {
                 this.fireEvent('cycle', this.index);
                 this.next();
@@ -180,7 +180,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __jump: function(e) {
+        onJump: function(e) {
             e.preventDefault();
 
             this.jump($(e.target).data('index') || 0);
@@ -192,7 +192,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __keydown: function(e) {
+        onKeydown: function(e) {
             if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
                 e.preventDefault();
             } else {

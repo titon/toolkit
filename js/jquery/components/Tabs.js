@@ -32,7 +32,7 @@
         });
 
         // Initialize events
-        events[options.mode + ' tabs'] = '__show';
+        events[options.mode + ' tabs'] = 'onShow';
 
         if (options.mode !== 'click' && options.preventDefault) {
             events['click tabs'] = function(e) {
@@ -162,7 +162,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             if (this.options.preventDefault || (this.options.ajax && e.target.href.substr(0, 1) !== '#')) {
                 e.preventDefault();
             }

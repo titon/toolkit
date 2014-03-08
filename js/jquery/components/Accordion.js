@@ -32,7 +32,7 @@
         });
 
         // Initialize events
-        this.events[options.mode + ' headers'] = '__show';
+        this.events[options.mode + ' headers'] = 'onShow';
 
         this.enable();
         this.fireEvent('init');
@@ -114,7 +114,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             this.show(e.currentTarget);

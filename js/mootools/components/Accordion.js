@@ -26,10 +26,7 @@ Toolkit.Accordion = new Class({
         multiple: false,
         collapsible: false,
         headerElement: '.accordion-header',
-        sectionElement: '.accordion-section',
-
-        // Events
-        onJump: null
+        sectionElement: '.accordion-section'
     },
 
     /**
@@ -78,7 +75,7 @@ Toolkit.Accordion = new Class({
             return this;
         }
 
-        this.headers.addEvent(this.options.mode, this.__show);
+        this.headers.addEvent(this.options.mode, this.onShow);
 
         return this;
     },
@@ -158,7 +155,7 @@ Toolkit.Accordion = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __show: function(e) {
+    onShow: function(e) {
         e.preventDefault();
 
         if (!this.enabled) {

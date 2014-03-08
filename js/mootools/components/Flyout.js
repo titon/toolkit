@@ -34,11 +34,7 @@ Toolkit.Flyout = new Class({
         hideDelay: 1000,
         itemLimit: 15,
         contentElement: '.flyout',
-        template: '<div class="flyout"></div>',
-
-        // Events
-        onHideChild: null,
-        onShowChild: null
+        template: '<div class="flyout"></div>'
     },
 
     /**
@@ -66,7 +62,7 @@ Toolkit.Flyout = new Class({
         // Set timers
         this.addTimers({
             show: this.position,
-            hide: this.__hide
+            hide: this.onHide
         });
 
         // Handles keeping menu open even if mouse exits the context
@@ -294,8 +290,8 @@ Toolkit.Flyout = new Class({
                     this._buildMenu(li, child);
 
                     li.addClass(Toolkit.options.hasPrefix + 'children')
-                        .addEvent('mouseenter', this.__positionChild.bind(this, li))
-                        .addEvent('mouseleave', this.__hideChild.bind(this, li));
+                        .addEvent('mouseenter', this.onPositionChild.bind(this, li))
+                        .addEvent('mouseleave', this.onHideChild.bind(this, li));
                 }
             }
 
@@ -378,7 +374,7 @@ Toolkit.Flyout = new Class({
      * @private
      * @param {Element} parent
      */
-    __hideChild: function(parent) {
+    onHideChild: function(parent) {
         parent.removeClass(Toolkit.options.isPrefix + 'open');
         parent.getChildren(this.options.contentElement).removeProperty('style');
 
@@ -391,7 +387,7 @@ Toolkit.Flyout = new Class({
      * @private
      * @param {Element} parent
      */
-    __positionChild: function(parent) {
+    onPositionChild: function(parent) {
         var menu = parent.getElement(this.options.contentElement);
 
         if (!menu) {

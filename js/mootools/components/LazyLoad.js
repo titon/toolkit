@@ -24,13 +24,7 @@ Toolkit.LazyLoad = new Class({
         delay: 10000,
         threshold: 150,
         throttle: 50,
-        context: null,
-
-        // Events
-        onLoad: null,
-        onLoadAll: null,
-        onShow: null,
-        onShutdown: null
+        context: null
     },
 
     /**

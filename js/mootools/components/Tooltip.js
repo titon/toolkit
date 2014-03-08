@@ -9,7 +9,7 @@
 
 Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__follow'],
+    Binds: ['onFollow'],
 
     /** Inner elements */
     elementHead: null,
@@ -63,7 +63,7 @@ Toolkit.Tooltip = new Class({
         this.bindEvents();
 
         if (this.options.mode === 'click') {
-            this.element.addEvent('clickout', this.__hide);
+            this.element.addEvent('clickout', this.onHide);
         }
 
         this.fireEvent('init');
@@ -108,8 +108,8 @@ Toolkit.Tooltip = new Class({
             var event = 'mousemove:throttle(' + options.mouseThrottle + ')';
 
             this.node
-                .removeEvent(event, this.__follow)
-                .addEvent(event, this.__follow);
+                .removeEvent(event, this.onFollow)
+                .addEvent(event, this.onFollow);
 
             this.fireEvent('show');
 
@@ -144,8 +144,8 @@ Toolkit.Tooltip = new Class({
         if (node) {
             if (options.mode !== 'click') {
                 node
-                    .removeEvent('mouseleave', this.__hide)
-                    .addEvent('mouseleave', this.__hide);
+                    .removeEvent('mouseleave', this.onHide)
+                    .addEvent('mouseleave', this.onHide);
             }
 
             content = content || this.readValue(node, options.getContent);
@@ -180,7 +180,7 @@ Toolkit.Tooltip = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __follow: function(e) {
+    onFollow: function(e) {
         e.preventDefault();
 
         var options = this.options;

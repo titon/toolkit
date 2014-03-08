@@ -81,7 +81,7 @@ Toolkit.Mask = new Class({
         }
 
         if (options.revealOnClick) {
-            element.addEvent('click', this.__hide);
+            element.addEvent('click', this.onHide);
         }
 
         this.mask = element;

@@ -9,7 +9,7 @@
 
 Toolkit.Stalker = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__scroll'],
+    Binds: ['onScroll'],
 
     /** Elements to apply active state to */
     targets: [],
@@ -29,12 +29,7 @@ Toolkit.Stalker = new Class({
         threshold: 50,
         throttle: 50,
         onlyWithin: true,
-        applyToParent: true,
-
-        // Events
-        onScroll: null,
-        onActivate: null,
-        onDeactivate: null
+        applyToParent: true
     },
 
     /**
@@ -77,9 +72,9 @@ Toolkit.Stalker = new Class({
      */
     bindEvents: function() {
         (this.element.getStyle('overflow') === 'auto' ? this.element : window)
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
+            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.onScroll);
 
-        window.addEvent('domready', this.__scroll);
+        window.addEvent('domready', this.onScroll);
 
         return this;
     },
@@ -155,7 +150,7 @@ Toolkit.Stalker = new Class({
      *
      * @private
      */
-    __scroll: function() {
+    onScroll: function() {
         if (!this.enabled) {
             return;
         }

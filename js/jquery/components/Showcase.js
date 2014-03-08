@@ -39,14 +39,14 @@
             'swipeup element': 'next',
             'swiperight element': 'prev',
             'swipedown element': 'prev',
-            'keydown window': '__keydown'
+            'keydown window': 'onKeydown'
         };
 
-        events['click ' + nodes.selector] = '__show';
+        events['click ' + nodes.selector] = 'onShow';
         events['click ' + options.closeEvent] = 'hide';
         events['click ' + options.nextEvent] = 'next';
         events['click ' + options.prevEvent] = 'prev';
-        events['click ' + options.jumpEvent] = '__jump';
+        events['click ' + options.jumpEvent] = 'onJump';
 
         this.enable();
         this.fireEvent('init');
@@ -320,7 +320,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __jump: function(e) {
+        onJump: function(e) {
             e.preventDefault();
 
             this.jump($(e.target).data('index') || 0);
@@ -332,7 +332,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __keydown: function(e) {
+        onKeydown: function(e) {
             if (this.element.is(':shown')) {
                 if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
                     e.preventDefault();
@@ -354,7 +354,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             this.show(e.currentTarget);

@@ -9,7 +9,7 @@
 
 Toolkit.Showcase = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', '__jump'],
+    Binds: ['next', 'prev', 'onJump'],
 
     /** List elements */
     items: null,
@@ -54,10 +54,7 @@ Toolkit.Showcase = new Class({
                 '<button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>' +
                 '<button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>' +
             '</div>' +
-        '</div>',
-
-        // Events
-        onJump: null
+        '</div>'
     },
 
     /**
@@ -122,11 +119,11 @@ Toolkit.Showcase = new Class({
         }.bind(this));
 
         this.element
-            .addEvent('clickout', this.__hide)
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
+            .addEvent('clickout', this.onHide)
+            .addEvent('click:relay(' + this.options.closeEvent + ')', this.onHide)
             .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
             .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
-            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump)
+            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.onJump)
             .addEvent('swipe', function(e) {
                 if (e.direction === 'left') {
                     this.next();
@@ -136,7 +133,7 @@ Toolkit.Showcase = new Class({
             }.bind(this));
 
         this.nodes
-            .addEvent('clickout', this.__hide);
+            .addEvent('clickout', this.onHide);
 
         return this;
     },
@@ -431,7 +428,7 @@ Toolkit.Showcase = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __jump: function(e) {
+    onJump: function(e) {
         e.preventDefault();
 
         this.jump(e.target.get('data-index') || 0);

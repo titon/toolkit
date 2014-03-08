@@ -24,7 +24,7 @@
         });
 
         events['clickout ' + nodes.selector] = 'hide';
-        events[options.mode + ' ' + nodes.selector] = '__show';
+        events[options.mode + ' ' + nodes.selector] = 'onShow';
 
         this.enable();
         this.fireEvent('init');
@@ -63,7 +63,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             var node = $(e.target),

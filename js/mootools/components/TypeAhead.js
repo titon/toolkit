@@ -10,7 +10,7 @@
 Toolkit.TypeAhead = new Class({
     Extends: Toolkit.Component,
     Implements: [Cache],
-    Binds: ['process', 'rewind', '__cycle', '__lookup'],
+    Binds: ['process', 'rewind', 'onCycle', 'onLookup'],
 
     /** Input element to display menu against */
     input: null,
@@ -46,12 +46,7 @@ Toolkit.TypeAhead = new Class({
         // Callbacks
         sorter: null,
         matcher: null,
-        builder: null,
-
-        // Events
-        onSelect: null,
-        onCycle: null,
-        onReset: null
+        builder: null
     },
 
     /**
@@ -141,8 +136,8 @@ Toolkit.TypeAhead = new Class({
         this.element.addEvent('clickout', this.hide.bind(this));
 
         this.input.addEvents({
-            keyup: this.__lookup,
-            keydown: this.__cycle
+            keyup: this.onLookup,
+            keydown: this.onCycle
         });
 
         return this;
@@ -359,7 +354,7 @@ Toolkit.TypeAhead = new Class({
                 a = options.builder(item);
                 a.addEvents({
                     mouseover: this.rewind,
-                    click: this.__select.pass(results.length, this)
+                    click: this.onSelect.pass(results.length, this)
                 });
 
                 elements.push( new Element('li').grab(a) );
@@ -497,7 +492,7 @@ Toolkit.TypeAhead = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __cycle: function(e) {
+    onCycle: function(e) {
         var items = this.items,
             length =  items.length.limit(0, this.options.itemLimit);
 
@@ -568,7 +563,7 @@ Toolkit.TypeAhead = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __lookup: function(e) {
+    onLookup: function(e) {
         if (['up', 'down', 'esc', 'tab', 'enter'].contains(e.key)) {
             return; // Handle with _cycle()
         }
@@ -593,7 +588,7 @@ Toolkit.TypeAhead = new Class({
      * @private
      * @param {Number} index
      */
-    __select: function(index) {
+    onSelect: function(index) {
         this.select(index);
         this.hide();
     }

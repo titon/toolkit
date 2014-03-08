@@ -9,7 +9,7 @@
 
 Toolkit.Carousel = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', 'start', 'stop', 'resize', '__cycle', '__jump'],
+    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump'],
 
     /** Is the carousel stopped? */
     stopped: false,
@@ -45,13 +45,7 @@ Toolkit.Carousel = new Class({
         tabElement: 'a',
         nextElement: '.carousel-next',
         prevElement: '.carousel-prev',
-        template: false,
-
-        // Events
-        onStart: null,
-        onStop: null,
-        onCycle: null,
-        onJump: null
+        template: false
     },
 
     /**
@@ -158,7 +152,7 @@ Toolkit.Carousel = new Class({
             }.bind(this));
 
         if (this.tabs.length) {
-            this.tabs.addEvent('click', this.__jump);
+            this.tabs.addEvent('click', this.onJump);
         }
 
         if (this.nextButton) {
@@ -250,7 +244,7 @@ Toolkit.Carousel = new Class({
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.__cycle, this.options.duration);
+            this.timer = setInterval(this.onCycle, this.options.duration);
         }
 
         return this;
@@ -290,7 +284,7 @@ Toolkit.Carousel = new Class({
      *
      * @private
      */
-    __cycle: function() {
+    onCycle: function() {
         if (!this.enabled) {
             return;
         }
@@ -308,7 +302,7 @@ Toolkit.Carousel = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __jump: function(e) {
+    onJump: function(e) {
         e.preventDefault();
 
         if (!this.enabled) {

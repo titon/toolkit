@@ -70,8 +70,8 @@
 
         // Initialize events
         this.events = {
-            'keyup input': '__lookup',
-            'keydown input': '__cycle',
+            'keyup input': 'onLookup',
+            'keydown input': 'onCycle',
             'clickout element': 'hide'
         };
 
@@ -282,7 +282,7 @@
                     a = options.builder(item);
                     a.on({
                         mouseover: this.rewind.bind(this),
-                        click: $.proxy(this.__select, this, results.length)
+                        click: $.proxy(this.onSelect, this, results.length)
                     });
 
                     elements.push( $('<li/>').append(a) );
@@ -406,7 +406,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __cycle: function(e) {
+        onCycle: function(e) {
             var items = this.items,
                 length = Math.min(this.options.itemLimit, Math.max(0, items.length));
 
@@ -477,7 +477,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __lookup: function(e) {
+        onLookup: function(e) {
             if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
                 return; // Handle with _cycle()
             }
@@ -502,7 +502,7 @@
          * @private
          * @param {Number} index
          */
-        __select: function(index) {
+        onSelect: function(index) {
             this.select(index);
             this.hide();
         }

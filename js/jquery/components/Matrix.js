@@ -22,7 +22,7 @@
 
         // Initialize events
         this.events = {
-            'resize window': $.debounce(this.__resize.bind(this))
+            'resize window': $.debounce(this.onResize.bind(this))
         };
 
         this.enable();
@@ -182,8 +182,8 @@
                 this.images.each(function(index, image) {
                     var src = image.src;
 
-                    image.onload = this.__load.bind(this);
-                    image.onerror = this.__load.bind(this);
+                    image.onload = this.onLoad.bind(this);
+                    image.onerror = this.onLoad.bind(this);
                     image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                     image.src = src;
                 }.bind(this));
@@ -312,7 +312,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __load: function(e) {
+        onLoad: function(e) {
             if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
                 this.imagesLoaded++; // Continue rendering if load throws an error
             }
@@ -328,7 +328,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __resize: function(e) {
+        onResize: function(e) {
             if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
                 this.refresh();
             }

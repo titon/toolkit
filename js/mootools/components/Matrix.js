@@ -9,7 +9,7 @@
 
 Toolkit.Matrix = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__resize', '__load'],
+    Binds: ['onResize', 'onLoad'],
 
     /** List of DOM elements for items to position in the grid */
     items: [],
@@ -38,10 +38,7 @@ Toolkit.Matrix = new Class({
         gutter: 20,
         rtl: false,
         defer: true,
-        template: false,
-
-        // Events
-        onRender: null
+        template: false
     },
 
     /**
@@ -59,7 +56,7 @@ Toolkit.Matrix = new Class({
         this.items = this.element.getElements('> li');
 
         // Set events
-        window.addEvent('resize', this.__resize.debounce());
+        window.addEvent('resize', this.onResize.debounce());
 
         this.fireEvent('init');
 
@@ -227,8 +224,8 @@ Toolkit.Matrix = new Class({
             this.images.each(function(image) {
                 var src = image.src;
 
-                image.onload = this.__load;
-                image.onerror = this.__load;
+                image.onload = this.onLoad;
+                image.onerror = this.onLoad;
                 image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                 image.src = src;
             }, this);
@@ -365,7 +362,7 @@ Toolkit.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __load: function(e) {
+    onLoad: function(e) {
         if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
@@ -381,7 +378,7 @@ Toolkit.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __resize: function(e) {
+    onResize: function(e) {
         if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
             this.refresh();
         }

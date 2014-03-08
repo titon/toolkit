@@ -69,7 +69,7 @@ Toolkit.Drop = new Class({
      * @param {DOMEvent} e
      * @param {Element} node
      */
-    __show: function(e, node) {
+    onShow: function(e, node) {
         if (typeOf(e) === 'domevent') {
             e.preventDefault();
         }

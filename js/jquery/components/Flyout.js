@@ -31,10 +31,10 @@
 
         // Initialize events
         if (options.mode === 'click') {
-            this.events['click ' + nodes.selector] = '__show';
+            this.events['click ' + nodes.selector] = 'onShow';
         } else {
-            this.events['mouseenter ' + nodes.selector] = ['__show', '__enter'];
-            this.events['mouseleave ' + nodes.selector] = '__leave';
+            this.events['mouseenter ' + nodes.selector] = ['onShow', 'onEnter'];
+            this.events['mouseleave ' + nodes.selector] = 'onLeave';
         }
 
         this.enable();
@@ -274,8 +274,8 @@
                         this._buildMenu(li, child);
 
                         li.addClass(Toolkit.options.hasPrefix + 'children')
-                            .on('mouseenter', this.__positionChild.bind(this, li))
-                            .on('mouseleave', this.__hideChild.bind(this, li));
+                            .on('mouseenter', this.onPositionChild.bind(this, li))
+                            .on('mouseleave', this.onHideChild.bind(this, li));
                     }
                 }
 
@@ -357,7 +357,7 @@
          *
          * @private
          */
-        __enter: function() {
+        onEnter: function() {
             this.clearTimer('hide');
             this.startTimer('show', this.options.showDelay);
         },
@@ -368,7 +368,7 @@
          * @private
          * @param {jQuery} parent
          */
-        __hideChild: function(parent) {
+        onHideChild: function(parent) {
             parent = $(parent);
             parent.removeClass(Toolkit.options.isPrefix + 'open');
             parent.children(this.options.contentElement).removeAttr('style');
@@ -381,7 +381,7 @@
          *
          * @private
          */
-        __leave: function() {
+        onLeave: function() {
             this.clearTimer('show');
             this.startTimer('hide', this.options.showDelay);
         },
@@ -392,7 +392,7 @@
          * @private
          * @param {jQuery} parent
          */
-        __positionChild: function(parent) {
+        onPositionChild: function(parent) {
             var menu = parent.children(this.options.contentElement);
 
             if (!menu) {
@@ -439,7 +439,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             var node = $(e.target),
                 isNode = (this.node && node[0] === this.node[0]);
 
