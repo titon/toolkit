@@ -67,7 +67,7 @@ Toolkit.Blackout = new Class({
         }
 
         this.message = new Element('div.' + vendor + 'loader-message')
-            .set('html', options.loadingMessage)
+            .set('html', Toolkit.messages.loading)
             .inject(this.loader);
     },
 
@@ -99,6 +99,7 @@ Toolkit.Blackout = new Class({
      */
     hideLoader: function() {
         this.loader.conceal();
+        this.fireEvent('hideLoader');
 
         return this;
     },
@@ -131,6 +132,7 @@ Toolkit.Blackout = new Class({
      */
     showLoader: function() {
         this.loader.reveal();
+        this.fireEvent('showLoader');
 
         return this;
     }

@@ -331,7 +331,7 @@
         _errorTemplate: function() {
             return $('<div/>')
                 .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-error')
-                .text(this.options.errorMessage);
+                .text(Toolkit.messages.error);
         },
 
         /**
@@ -342,14 +342,12 @@
         _loadingTemplate: function() {
             return $('<div/>')
                 .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-loading')
-                .text(this.options.loadingMessage);
+                .text(Toolkit.messages.loading);
         }
 
     }, {
         context: null,
         className: '',
-        errorMessage: Toolkit.messages.error,
-        loadingMessage: Toolkit.messages.loading,
         template: '',
         templateFrom: ''
     });

@@ -509,16 +509,34 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
         <script src="../build/titon-toolkit-mootools.min.js"></script>
+        <script>
+            Toolkit.messages = Object.merge(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script>
+            $.extend(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script>
+            $.extend(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>

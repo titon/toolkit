@@ -44,7 +44,7 @@
         // Build the message
         this.message = $('<div/>')
             .addClass(vendor + 'loader-message')
-            .html(options.loadingMessage)
+            .html(Toolkit.messages.loading)
             .appendTo(loader);
 
         this.fireEvent('init');

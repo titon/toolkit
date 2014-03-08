@@ -133,7 +133,7 @@
                     this.position(this.cache[content], title);
                 } else {
                     if (options.showLoading) {
-                        this.position(options.loadingMessage);
+                        this.position(Toolkit.messages.loading);
                     }
 
                     this.requestData(content);
