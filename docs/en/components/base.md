@@ -44,7 +44,6 @@ opacity to 0, and add the transition properties. Once `.show` is toggled, fading
 ### Display ###
 
 To mark an element as display block, use `.shown`, or to hide an element, use `.hidden`.
-Marking an element as inline or inline-block is also possible with `.inline` and `.inline-block`.
 
 ```html
 <div class="hidden">Can't see this!</div>

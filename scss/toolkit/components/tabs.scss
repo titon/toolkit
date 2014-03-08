@@ -6,7 +6,10 @@
 
 @import "../common";
 
-.#{$vendor-prefix}tabs {}
+// Need a property for @extend to work
+.#{$vendor-prefix}tabs {
+    text-align: left;
+}
 
 .#{$vendor-prefix}tabs-nav {
     display: block;

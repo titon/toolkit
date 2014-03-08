@@ -25,15 +25,9 @@
 
 // Display
 .shown { display: block; }
-.inline { display: inline; }
-.inline-block { display: inline-block; }
 .hidden { display: none; }
 
 // Layout
-.relative { position: relative; }
-.absolute { position: absolute; }
-.static { position: static; }
-
 .vertical-center {
     position: absolute;
     left: 50%;

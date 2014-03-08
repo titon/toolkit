@@ -23,11 +23,6 @@
         padding: .2rem .35rem;
     }
 
-    @include is-medium() {
-        font-size: .7rem;
-        padding: .275rem .425rem;
-    }
-
     @include is-large {
         font-size: .8rem;
         padding: .35rem .5rem;
