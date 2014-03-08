@@ -16,7 +16,6 @@
     top: 100%;
     left: 0;
     width: 200px;
-    background: $gray;
     line-height: 100%;
     z-index: 500;
     opacity: 0;
@@ -59,8 +58,6 @@
 
         // Show nested dropdown
         &:hover {
-            > a { background: $gray-lightest; }
-
             .#{$vendor-prefix}drop--down,
             .#{$vendor-prefix}drop--up {
                 visibility: visible;
@@ -78,12 +75,10 @@
 
 .#{$vendor-prefix}drop-divider {
     margin: ($margin / 2) 0;
-    border-top: 1px solid $gray-dark;
 }
 
 .#{$vendor-prefix}drop-heading {
     padding: $small-padding;
-    background-color: $gray-dark;
 }
 
 //-------------------- Modifiers --------------------//

@@ -9,7 +9,6 @@
 .#{$vendor-prefix}breadcrumb {
     text-align: left;
     margin: $margin 0;
-    background: $gray;
 
     ul, ol {
         @include reset-list;
@@ -33,7 +32,6 @@
 
         .caret {
             margin-left: $medium-padding;
-            color: $gray-darkest;
             position: relative;
             left: -1px;
         }

@@ -17,7 +17,6 @@
     line-height: normal;
     white-space: nowrap;
     text-decoration: none;
-    background: $gray;
     @include size-medium;
 
     &:focus { outline: none; }

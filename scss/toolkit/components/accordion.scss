@@ -12,12 +12,7 @@
 
 .#{$vendor-prefix}accordion-header {
     padding: $padding;
-    background: $gray;
     cursor: pointer;
-
-    @include is-active-parent {
-        background: $gray-dark;
-    }
 }
 
 .#{$vendor-prefix}accordion-body {

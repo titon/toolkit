@@ -16,7 +16,6 @@
     z-index: 500;
     max-width: 300px;
     visibility: hidden;
-    background: $gray;
 
     &.center-left .#{$vendor-prefix}popover-arrow,
     &.center-right .#{$vendor-prefix}popover-arrow {

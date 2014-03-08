@@ -33,8 +33,6 @@
 }
 
 .#{$vendor-prefix}input-addon {
-    border: 1px solid $gray-dark;
-    background: $gray;
     vertical-align: middle;
     line-height: normal;
     @include size-medium;
