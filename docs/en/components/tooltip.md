@@ -81,8 +81,11 @@ Inherits all options from the [parent component](../development/js.md#options).
         <tr>
             <td>position</td>
             <td>string</td>
-            <td>topCenter</td>
-            <td>Where to position the tooltip relative to the target element. Available options are: topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight.</td>
+            <td>top-center</td>
+            <td>
+                Where to position the tooltip relative to the target element. Available options are:
+                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
+            </td>
         </tr>
         <tr>
             <td>className</td>

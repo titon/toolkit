@@ -21,7 +21,7 @@ Toolkit.Tooltip = new Class({
         mode: 'hover',
         ajax: false,
         follow: false,
-        position: 'topCenter',
+        position: 'top-center',
         showLoading: true,
         showTitle: true,
         getTitle: 'title',
@@ -57,7 +57,7 @@ Toolkit.Tooltip = new Class({
         this.elementBody = this.element.getElement(this.options.contentElement);
 
         // Add position class
-        this.element.addClass(this.options.position.hyphenate());
+        this.element.addClass(this.options.position);
 
         // Set events
         this.bindEvents();

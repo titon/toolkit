@@ -21,7 +21,7 @@
         this.cache = {};
 
         // Add position class
-        element.addClass($.hyphenate(options.position));
+        element.addClass(options.position);
 
         // Initialize events
         if (options.mode === 'click') {
@@ -209,7 +209,7 @@
         animation: '',
         ajax: false,
         follow: false,
-        position: 'topCenter',
+        position: 'top-center',
         showLoading: true,
         showTitle: true,
         getTitle: 'title',

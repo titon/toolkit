@@ -149,7 +149,7 @@ Element.implement({
      * @returns {Element}
      */
     positionTo: function(position, relativeTo, baseOffset, isMouse) {
-        position = position.hyphenate().split('-');
+        position = position.split('-');
 
         var edge = { y: position[0], x: position[1] },
             offset = baseOffset || { left: 0, top: 0 },

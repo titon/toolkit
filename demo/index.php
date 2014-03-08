@@ -336,15 +336,15 @@ $components = array(
                 'slide-in' => 'Slide In'
             )),
             'position' => array('title' => 'Position', 'data' => array(
-                'topLeft' => 'Top Left',
-                'topCenter' => 'Top Center',
-                'topRight' => 'Top Right',
-                'centerLeft' => 'Center Left',
-                'centerRight' => 'Center Right',
-                'bottomLeft' => 'Bottom Left',
-                'bottomCenter' => 'Bottom Center',
-                'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topCenter'),
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'top-center'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
@@ -435,15 +435,15 @@ $components = array(
                 'slide-in' => 'Slide In'
             )),
             'position' => array('title' => 'Position', 'data' => array(
-                'topLeft' => 'Top Left',
-                'topCenter' => 'Top Center',
-                'topRight' => 'Top Right',
-                'centerLeft' => 'Center Left',
-                'centerRight' => 'Center Right',
-                'bottomLeft' => 'Bottom Left',
-                'bottomCenter' => 'Bottom Center',
-                'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topCenter'),
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'top-center'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
             'mouseThrottle' => array('title' => 'Mouse Throttle', 'type' => 'number', 'default' => 50),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),

@@ -213,7 +213,7 @@ $.fn.addData = function(key, value) {
  * @returns {jQuery}
  */
 $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
-    position = $.hyphenate(position).split('-');
+    position = position.split('-');
 
     var edge = { y: position[0], x: position[1] },
         offset = baseOffset || { left: 0, top: 0 },
