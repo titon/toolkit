@@ -129,7 +129,7 @@
         highlight: function(item) {
             var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
                 callback = function(match) {
-                    return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
+                    return '<mark class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</mark>';
                 };
 
             for (var i = 0, t; t = terms[i]; i++) {

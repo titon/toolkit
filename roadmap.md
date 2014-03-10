@@ -28,12 +28,12 @@ All releases will contain bug fixing and polishing for current features.
 * Add aria attributes where applicable.
 * Updated to use AMD.
 * Switch to Gulp.
-* Switch to LESS.
+* Updated to Sass 3.
 * Refactor events for before/after conditions.
 * Add deferred/promise integration.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
-* Switch to Less (removes sass/compass/ruby dependencies)* Remove jQuery dependency and go straight vanilla?
+* Switch to Less (removes sass/compass/ruby dependencies)
 * Implement custom elements / components - http://w3c.github.io/webcomponents/explainer/
 * Separate component transitions into a stand alone layer that can be used anywhere.

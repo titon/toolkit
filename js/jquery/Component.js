@@ -59,6 +59,12 @@
                 win = $(window),
                 doc = $(document);
 
+            // event window = func          - Bind window event
+            // event document = func        - Bind document event
+            // ready document = func        - Bind DOM ready event
+            // event property = func        - Bind event to collection that matches class property
+            // event .class = func          - Bind delegated events to class on document
+            // event context .class = func  - Bind delegated events to class within context
             $.each(this.events, function(key, value) {
                 funcs = $.isArray(value) ? value : [value];
                 keys = key.split(' ');
@@ -94,6 +100,7 @@
                         } else {
                             doc[type](event, func);
                         }
+
                     // Delegated
                     } else if (selector) {
                         $(context || document)[type](event, selector, func);
