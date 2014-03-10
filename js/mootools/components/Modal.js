@@ -110,6 +110,7 @@ Toolkit.Modal = new Class({
         }.bind(this));
 
         this.element
+            .addEvent('clickout', this.onHide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.onHide)
             .addEvent('click:relay(' + this.options.submitEvent + ')', this.onSubmit);
 
@@ -144,13 +145,13 @@ Toolkit.Modal = new Class({
             return this;
         }
 
-        this.elementBody.set('html', content);
-        this.fireEvent('load', content);
-
         // Hide blackout loading message
         if (this.blackout) {
             this.blackout.hideLoader();
         }
+
+        this.elementBody.set('html', content);
+        this.fireEvent('load', content);
 
         // Reveal modal
         this.element.reveal();

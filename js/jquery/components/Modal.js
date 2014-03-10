@@ -42,6 +42,7 @@
         }
 
         // Initialize events
+        events['clickout element'] = 'onHide';
         events['clickout nodes'] = 'onHide';
         events['keydown window'] = 'onKeydown';
         events['click ' + nodes.selector] = 'onShow';
@@ -76,13 +77,13 @@
                 return;
             }
 
-            this.elementBody.html(content);
-            this.fireEvent('load', content);
-
             // Hide blackout loading message
             if (this.blackout) {
                 this.blackout.hideLoader();
             }
+
+            this.elementBody.html(content);
+            this.fireEvent('load', content);
 
             // Reveal modal
             this.element.reveal();
