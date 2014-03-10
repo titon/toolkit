@@ -276,9 +276,7 @@ $components = array(
                 'sticky-top' => 'Sticky Top',
                 'sticky-right' => 'Sticky Right',
                 'sticky-bottom' => 'Sticky Bottom',
-                'sticky-left' => 'Sticky Left',
-                'flip' => 'Flip',
-                'flip-vert' => 'Flip Vertical'
+                'sticky-left' => 'Sticky Left'
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),

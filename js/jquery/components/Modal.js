@@ -42,7 +42,6 @@
         }
 
         // Initialize events
-        events['clickout element'] = 'onHide';
         events['clickout nodes'] = 'onHide';
         events['keydown window'] = 'onKeydown';
         events['click ' + nodes.selector] = 'onShow';
@@ -233,9 +232,11 @@
         closeEvent: '.modal-event-close',
         submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '<div class="modal-outer">' +
+                '<div class="modal-handle">' +
+                    '<div class="modal-inner"></div>' +
+                    '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '</div>' +
             '</div>' +
         '</div>'
     });

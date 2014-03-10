@@ -35,9 +35,11 @@ Toolkit.Modal = new Class({
         closeEvent: '.modal-event-close',
         submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '<div class="modal-outer">' +
+                '<div class="modal-handle">' +
+                    '<div class="modal-inner"></div>' +
+                    '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '</div>' +
             '</div>' +
         '</div>'
     },
@@ -108,7 +110,6 @@ Toolkit.Modal = new Class({
         }.bind(this));
 
         this.element
-            .addEvent('clickout', this.onHide)
             .addEvent('click:relay(' + this.options.closeEvent + ')', this.onHide)
             .addEvent('click:relay(' + this.options.submitEvent + ')', this.onSubmit);
 

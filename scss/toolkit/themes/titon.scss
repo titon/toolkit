@@ -318,10 +318,6 @@ mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Modal --------------------//
 
-.modal {
-    margin: $margin;
-}
-
 .modal-inner {
     background: $gray;
     border: 1px solid $gray-dark;
