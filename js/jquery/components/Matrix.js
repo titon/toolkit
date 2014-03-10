@@ -10,8 +10,8 @@
     Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.component = 'Matrix';
         this.version = '1.0.1';
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.items = element.find('> li');
         this.matrix = [];
         this.wrapperWidth = 0;

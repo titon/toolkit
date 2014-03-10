@@ -12,8 +12,8 @@
 
         this.component = 'Accordion';
         this.version = '1.1.0';
-        this.options = options = this.setOptions(options);
-        this.element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.headers = headers = this.element.find(options.headerElement);
         this.sections = sections = this.element.find(options.sectionElement);
         this.index = 0;

@@ -40,7 +40,17 @@
                 throw new Error('Failed to create template element');
             }
 
-            return this.setElement(template, true);
+            // Add a class name
+            if (options.className) {
+                template.addClass(options.className);
+            }
+
+            // Enable animations
+            if (options.animation) {
+                template.addClass(options.animation);
+            }
+
+            return template;
         },
 
         /**
@@ -164,21 +174,26 @@
         /**
          * Inherit options from the target elements data attributes.
          *
-         * @param {Element} element
+         * @param {Object} options
+         * @param {jQuery} element
          * @returns {Object}
          */
-        inheritOptions: function(element) {
-            var key, value, options = this.options, obj = {};
+        inheritOptions: function(options, element) {
+            var key, value, obj = {};
 
             for (key in options) {
                 if (key === 'context' || key === 'template') {
                     continue;
                 }
 
-                obj[key] = this.readOption(element, key);
+                value = element.data(this._class() + '-' + key.toLowerCase());
+
+                if ($.type(value) !== 'undefined') {
+                    obj[key] = value;
+                }
             }
 
-            return $.extend({}, options, obj);
+            return $.extend(true, {}, options, obj);
         },
 
         /**
@@ -202,24 +217,6 @@
             }
 
             this.fireEvent('process', content);
-        },
-
-        /**
-         * Read a class option from a data attribute.
-         * If no attribute exists, return the option value.
-         *
-         * @param element
-         * @param key
-         * @returns {*}
-         */
-        readOption: function(element, key) {
-            var value = element.data(this._class() + '-' + key.toLowerCase());
-
-            if ($.type(value) === 'undefined') {
-                value = this.options[key];
-            }
-
-            return value;
         },
 
         /**
@@ -307,46 +304,16 @@
         },
 
         /**
-         * Set the element to use. Apply optional class names if available.
-         *
-         * @param {String|Element|jQuery} element
-         * @param {bool} [dontInherit]
-         * @returns {jQuery}
-         */
-        setElement: function(element, dontInherit) {
-            var options;
-
-            element = $(element);
-
-            // Inherit options from data attributes
-            if (!dontInherit) {
-                this.options = options = this.inheritOptions(element);
-            } else {
-                options = this.options;
-            }
-
-            // Add a class name
-            if (options.className) {
-                element.addClass(options.className);
-            }
-
-            // Enable animations
-            if (options.animation) {
-                element.addClass(options.animation);
-            }
-
-            return element;
-        },
-
-        /**
          * Set the options by merging with defaults.
          *
          * @param {Object} [options]
+         * @param {jQuery} [inheritFrom]
          * @returns {Object}
          */
-        setOptions: function(options) {
+        setOptions: function(options, inheritFrom) {
             var defaults = Toolkit,
-                path = this.component;
+                path = this.component,
+                opts;
 
             // Drill into object to find defaults
             if (path.indexOf('.') >= 0) {
@@ -359,7 +326,12 @@
                 defaults = defaults[path];
             }
 
-            var opts = $.extend(true, {}, defaults.options, options || {});
+            opts = $.extend(true, {}, defaults.options, options || {});
+
+            // Inherit from element data attributes
+            if (inheritFrom) {
+                opts = this.inheritOptions(opts, inheritFrom);
+            }
 
             // Convert hover to mouseenter
             if (opts.mode && opts.mode === 'hover') {

@@ -10,8 +10,8 @@
     Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.component = 'Pin';
         this.version = '1.0.0';
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.elementHeight = null;
         this.elementTop = parseInt(element.css('top'), 10);
         this.parentHeight = null;

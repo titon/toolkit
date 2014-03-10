@@ -10,8 +10,8 @@
     Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         this.component = 'Input';
         this.version = '1.1.0';
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
         if (options.checkbox) {
             element.find(options.checkbox).inputCheckbox(options);
@@ -75,17 +75,15 @@
     Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
         this.component = 'Input.Checkbox';
         this.version = '1.1.0';
-        this.input = $(checkbox);
-        this.options = this.setOptions(options);
+        this.input = checkbox = $(checkbox);
+        this.options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        var element = $('<label/>')
+        this.element = $('<label/>')
             .addClass(Toolkit.options.vendor + 'checkbox')
             .attr('for', this.input.attr('id'))
             .insertAfter(this.input);
-
-        this.element = this.setElement(element, true);
 
         // Initialize events
         this.enable();
@@ -102,17 +100,15 @@
     Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
         this.component = 'Input.Radio';
         this.version = '1.1.0';
-        this.input = $(radio);
-        this.options = this.setOptions(options);
+        this.input = radio = $(radio);
+        this.options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        var element = $('<label/>')
+        this.element = $('<label/>')
                 .addClass(Toolkit.options.vendor + 'radio')
                 .attr('for', this.input.attr('id'))
                 .insertAfter(this.input);
-
-        this.element = this.setElement(element, true);
 
         // Initialize events
         this.enable();
@@ -133,7 +129,7 @@
         this.version = '1.1.0';
         this.input = select = $(select);
         this.multiple = select.prop('multiple');
-        this.options = options = this.setOptions(options);
+        this.options = options = this.setOptions(options, select);
 
         // Multiple selects must use native controls
         if (this.multiple && options.native) {

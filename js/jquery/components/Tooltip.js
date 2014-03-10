@@ -127,7 +127,7 @@
             if (node) {
                 node = $(node);
 
-                this.runtime = options = this.inheritOptions(node);
+                this.runtime = options = this.inheritOptions(this.options, node);
 
                 if (options.mode !== 'click') {
                     node

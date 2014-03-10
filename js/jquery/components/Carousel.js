@@ -10,8 +10,8 @@
     Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.component = 'Carousel';
         this.version = '1.0.0';
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
         this.items = this.itemsWrapper.find(options.itemElement);

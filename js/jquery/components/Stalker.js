@@ -10,8 +10,8 @@
     Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         this.component = 'Stalker';
         this.version = '1.0.0';
+        this.element = element = $(element);
         this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
 
         if (!options.target || !options.marker) {
             throw new Error('A marker and target is required');

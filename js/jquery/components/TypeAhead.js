@@ -18,7 +18,7 @@
 
         this.component = 'TypeAhead';
         this.version = '1.1.0';
-        this.options = options = this.setOptions(options);
+        this.options = options = this.setOptions(options, input);
         this.element = this.createElement();
         this.input = input;
         this.shadow = null;
