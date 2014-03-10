@@ -159,6 +159,13 @@ $loader-bar-width: 0.65rem !default;
 $loader-bar-height: 2.5rem !default;
 $loader-bubble-size: 1.5rem !default;
 
+//-------------------- Modal --------------------//
+
+$modal-animation: (
+    "fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left",
+    "sticky-top", "sticky-right", "sticky-bottom", "sticky-left"
+) !default;
+
 //-------------------- Imports --------------------//
 
 @import "mixins/helper";

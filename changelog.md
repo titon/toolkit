@@ -6,6 +6,7 @@ Older versions can be found in the documentation changelogs.
 This update includes documentation for all components.
 
 * Added `isRetina` to the `Toolkit` flags.
+* Added `join-classes()` mixin
 * Replaced `currentIndex` with `index` in all components.
 * Removed global `previousIndex` properties.
 * Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`.
@@ -46,7 +47,10 @@ This update includes documentation for all components.
     * Removed `selector` option
     * Removed inline `img` styles, use `.fluid` instead
 * Modal
+    * Added `$modal-animation` to filter the animations in the CSS output
     * Updated `.modal-close` to use a `button`
+    * Refactored markup and CSS to support large height modals
+    * Removed `flip` and `flip-vert` animations
 * Pin
     * Fixed a bug where `.is-pinned` was not being removed
 * Progress
