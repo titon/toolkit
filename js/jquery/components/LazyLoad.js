@@ -11,7 +11,7 @@
         this.component = 'LazyLoad';
         this.version = '1.0.0';
         this.options = options = this.setOptions(options);
-        this.elements = this.setElement(elements, this.options);
+        this.elements = $(elements);
         this.element = null; // Element being loaded
         this.isLoaded = false;
         this.loaded = 0;

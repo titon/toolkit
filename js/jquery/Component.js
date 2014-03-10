@@ -40,7 +40,7 @@
                 throw new Error('Failed to create template element');
             }
 
-            return this.setElement(template);
+            return this.setElement(template, true);
         },
 
         /**
@@ -162,6 +162,26 @@
         },
 
         /**
+         * Inherit options from the target elements data attributes.
+         *
+         * @param {Element} element
+         * @returns {Object}
+         */
+        inheritOptions: function(element) {
+            var key, value, options = this.options, obj = {};
+
+            for (key in options) {
+                if (key === 'context' || key === 'template') {
+                    continue;
+                }
+
+                obj[key] = this.readOption(element, key);
+            }
+
+            return $.extend({}, options, obj);
+        },
+
+        /**
          * Handle and process non-HTML responses.
          *
          * @param {*} content
@@ -182,6 +202,24 @@
             }
 
             this.fireEvent('process', content);
+        },
+
+        /**
+         * Read a class option from a data attribute.
+         * If no attribute exists, return the option value.
+         *
+         * @param element
+         * @param key
+         * @returns {*}
+         */
+        readOption: function(element, key) {
+            var value = element.data(this._class() + '-' + key.toLowerCase());
+
+            if ($.type(value) === 'undefined') {
+                value = this.options[key];
+            }
+
+            return value;
         },
 
         /**
@@ -272,13 +310,20 @@
          * Set the element to use. Apply optional class names if available.
          *
          * @param {String|Element|jQuery} element
+         * @param {bool} [dontInherit]
          * @returns {jQuery}
          */
-        setElement: function(element) {
-            var options = this.options;
-                options.template = false;
+        setElement: function(element, dontInherit) {
+            var options;
 
             element = $(element);
+
+            // Inherit options from data attributes
+            if (!dontInherit) {
+                this.options = options = this.inheritOptions(element);
+            } else {
+                options = this.options;
+            }
 
             // Add a class name
             if (options.className) {
@@ -331,24 +376,36 @@
         },
 
         /**
+         * Return the component name hyphenated for use in CSS classes.
+         *
+         * @private
+         * @returns {string}
+         */
+        _class: function() {
+            return $.hyphenate(this.component).slice(1);
+        },
+
+        /**
          * Return a DOM element for error messages.
          *
+         * @private
          * @returns {jQuery}
          */
         _errorTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-error')
+                .addClass(Toolkit.options.vendor + this._class() + '-error')
                 .text(Toolkit.messages.error);
         },
 
         /**
          * Return a DOM element for loading messages.
          *
+         * @private
          * @returns {jQuery}
          */
         _loadingTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-loading')
+                .addClass(Toolkit.options.vendor + this._class() + '-loading')
                 .text(Toolkit.messages.loading);
         }
 

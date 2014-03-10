@@ -19,9 +19,8 @@
         this.nodes = nodes = $(nodes);
         this.node = null;
         this.cache = {};
-
-        // Add position class
-        element.addClass(options.position);
+        this.events = {};
+        this.runtime = {};
 
         // Remove title attributes
         nodes.each(function(i, node) {
@@ -47,7 +46,10 @@
          * Hide the tooltip.
          */
         hide: function() {
-            this.element.conceal();
+            var position = this.runtime.position || this.options.position;
+            this.runtime = {};
+
+            this.element.conceal().removeClass(position);
             this.fireEvent('hide');
         },
 
@@ -59,12 +61,15 @@
          * @param {String|jQuery} [title]
          */
         position: function(content, title) {
-            var options = this.options;
+            var options = this.runtime;
 
             // AJAX is currently loading
             if (content === true) {
                 return;
             }
+
+            // Add position class
+            this.element.addClass(options.position);
 
             // Set title
             title = title || this.readValue(this.node, options.getTitle);
@@ -117,10 +122,12 @@
          * @param {String|jQuery} [title]
          */
         show: function(node, content, title) {
-            var options = this.options;
+            var options;
 
             if (node) {
                 node = $(node);
+
+                this.runtime = options = this.inheritOptions(node);
 
                 if (options.mode !== 'click') {
                     node
@@ -129,6 +136,8 @@
                 }
 
                 content = content || this.readValue(node, options.getContent);
+            } else {
+                this.runtime = options = this.options;
             }
 
             if (!content) {

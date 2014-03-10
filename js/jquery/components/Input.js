@@ -75,8 +75,8 @@
     Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
         this.component = 'Input.Checkbox';
         this.version = '1.1.0';
-        this.options = this.setOptions(options);
         this.input = $(checkbox);
+        this.options = this.setOptions(options);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
@@ -85,7 +85,7 @@
             .attr('for', this.input.attr('id'))
             .insertAfter(this.input);
 
-        this.element = this.setElement(element);
+        this.element = this.setElement(element, true);
 
         // Initialize events
         this.enable();
@@ -102,8 +102,8 @@
     Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
         this.component = 'Input.Radio';
         this.version = '1.1.0';
-        this.options = this.setOptions(options);
         this.input = $(radio);
+        this.options = this.setOptions(options);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
@@ -112,7 +112,7 @@
                 .attr('for', this.input.attr('id'))
                 .insertAfter(this.input);
 
-        this.element = this.setElement(element);
+        this.element = this.setElement(element, true);
 
         // Initialize events
         this.enable();
@@ -131,9 +131,9 @@
 
         this.component = 'Input.Select';
         this.version = '1.1.0';
-        this.options = options = this.setOptions(options);
         this.input = select = $(select);
         this.multiple = select.prop('multiple');
+        this.options = options = this.setOptions(options);
 
         // Multiple selects must use native controls
         if (this.multiple && options.native) {

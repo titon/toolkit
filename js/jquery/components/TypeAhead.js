@@ -8,8 +8,7 @@
     'use strict';
 
     Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
-        var element, self = this;
-            input = $(input);
+        input = $(input);
 
         if (input.prop('tagName').toLowerCase() !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
@@ -20,7 +19,7 @@
         this.component = 'TypeAhead';
         this.version = '1.1.0';
         this.options = options = this.setOptions(options);
-        this.element = element = this.createElement();
+        this.element = this.createElement();
         this.input = input;
         this.shadow = null;
         this.index = -1;
@@ -28,6 +27,8 @@
         this.term = '';
         this.timer = null;
         this.cache = {};
+
+        var self = this;
 
         // Use default callbacks
         $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {

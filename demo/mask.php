@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="col span-3 push-2 js-mask" id="mask-3">
+    <div class="col span-3 push-2 js-mask" id="mask-3" data-mask-messageContent="This message is defined through data attributes.">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris libero purus, aliquet eget ante at, rhoncus aliquet mi.
     </div>
 </div>

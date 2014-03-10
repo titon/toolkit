@@ -23,9 +23,7 @@
         this.node = null;
         this.cache = {};
         this.events = {};
-
-        // Add position class
-        element.addClass(options.position);
+        this.runtime = {};
 
         // Remove title attributes
         nodes.each(function(i, node) {
