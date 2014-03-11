@@ -32,6 +32,9 @@
             return;
         }
 
+        // Set animation
+        element.addClass(options.animation);
+
         // Set sizes for responsiveness
         switch (options.animation) {
             case 'fade':

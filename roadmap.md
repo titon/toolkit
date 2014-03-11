@@ -3,12 +3,8 @@
 All releases will contain bug fixing and polishing for current features.
 
 ### 1.2.0 ###
-* Add support for large modals that need to be scrolled.
 * Build all files without minification (dev version).
 * Optimize classes for smaller filesize.
-* Improved event binding within the component class.
-* Inherit options at runtime through data attributes.
-* Clean up loading/error messages.
 
 ### 1.3.0 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.

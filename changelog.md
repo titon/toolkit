@@ -5,11 +5,12 @@ Older versions can be found in the documentation changelogs.
 ### 1.2.0 ###
 This update includes documentation for all components.
 
-* Added `isRetina` to the `Toolkit` flags.
+* Added `isRetina` to the `Toolkit` flags
 * Added `join-classes()` mixin
-* Replaced `currentIndex` with `index` in all components.
-* Removed global `previousIndex` properties.
-* Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`.
+* Replaced `currentIndex` with `index` in all components
+* Removed global `previousIndex` properties
+* Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`
+* Removed automatic setting of `animation` and `className` classes for embedded elements
 * Blackout
     * Added a `shown` argument to the `show` event
     * Added `showLoader` and `hideLoader` events
@@ -49,6 +50,7 @@ This update includes documentation for all components.
 * Modal
     * Added `$modal-animation` to filter the animations in the CSS output
     * Updated `.modal-close` to use a `button`
+    * Updated `ajax` and `getContent` options to be inheritable at runtime through the activating node
     * Refactored markup and CSS to support large height modals
     * Removed `flip` and `flip-vert` animations
 * Pin
@@ -60,6 +62,7 @@ This update includes documentation for all components.
 * Responsive
     * Added `.fluid` class for images, audio, canvas, etc
 * Showcase
+    * Updated options to be inheritable at runtime through the activating node
     * Replaced `a` with `button`
 * Stalker
     * Added nested marker support
@@ -68,3 +71,7 @@ This update includes documentation for all components.
     * Moved zebra-striping into an `.is-striped` class
 * Tabs
     * Renamed `sectionsElement` option to `sectionElement`
+* Tooltip, Popover
+    * Options `className` and `position` are added and removed dynamically each reveal
+    * Updated options to be inheritable at runtime through the activating node
+    * Removed `slide-in` animation

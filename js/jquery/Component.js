@@ -69,11 +69,11 @@
                 win = $(window),
                 doc = $(document);
 
-            // event window = func          - Bind window event
-            // event document = func        - Bind document event
-            // ready document = func        - Bind DOM ready event
-            // event property = func        - Bind event to collection that matches class property
-            // event .class = func          - Bind delegated events to class on document
+            // event window = func      Bind window event
+            // event document = func    Bind document event
+            // ready document = func    Bind DOM ready event
+            // event property = func    Bind event to collection that matches class property
+            // event .class = func      Bind delegated events to class on document
             // event context .class = func  - Bind delegated events to class within context
             $.each(this.events, function(key, value) {
                 funcs = $.isArray(value) ? value : [value];
@@ -217,6 +217,24 @@
             }
 
             this.fireEvent('process', content);
+        },
+
+        /**
+         * Read a class option from a data attribute.
+         * If no attribute exists, return the option value.
+         *
+         * @param {jQuery} element
+         * @param {String} key
+         * @returns {*}
+         */
+        readOption: function(element, key) {
+            var value = element.data(this._class() + '-' + key.toLowerCase());
+
+            if ($.type(value) === 'undefined') {
+                value = this.options[key];
+            }
+
+            return value;
         },
 
         /**

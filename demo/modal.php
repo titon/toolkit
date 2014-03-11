@@ -3,6 +3,7 @@
     <button type="button" class="button js-modal" data-modal="ajax/modal.php?slow">Open Modal</button>
     <button type="button" class="button js-modal" data-modal="ajax/modal-form.php">Open Modal w/ Form</button>
     <button type="button" class="button js-modal" data-modal="#hidden">Open Modal w/ DOM</button>
+    <button type="button" class="button js-modal" data-modal="ajax/modal.php?slow" data-modal-ajax="true">Open Modal w/ Data Attrs</button>
 
     <p>AJAX responses can also return JSON that can be intercepted and processed by the Modal component (open console).</p>
 

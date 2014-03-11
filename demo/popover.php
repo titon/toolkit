@@ -2,6 +2,7 @@
 <div class="example-center">
     <a href="ajax/popover.php" class="button js-popover" data-popover="This content is read from the data-popover attribute.">Show Popover</a>
     <a href="ajax/popover.php?slow" class="button js-popover" title="Popover Title" data-popover="#hidden">Show Popover w/ Title</a>
+    <a href="ajax/popover.php?slow" class="button js-popover" title="Popover Title" data-popover-getContent="href" data-popover-ajax="true" data-popover-position="bottom-center">Show Popover w/ Data Attrs</a>
 
     <div id="hidden" style="display: none">This content is loaded from a hidden DOM element.</div>
 </div>
@@ -10,6 +11,7 @@
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-popover').popover({
+                className: <?php string('className'); ?>,
                 animation: <?php string('animation'); ?>,
                 ajax: <?php bool('ajax', false); ?>,
                 getContent: '<?php echo value('ajax') ? 'href' : 'data-popover'; ?>',
@@ -24,6 +26,7 @@
     <?php } else { ?>
         $(function() {
             $('.js-popover').popover({
+                className: <?php string('className'); ?>,
                 animation: <?php string('animation'); ?>,
                 ajax: <?php bool('ajax', false); ?>,
                 getContent: '<?php echo value('ajax') ? 'href' : 'data-popover'; ?>',

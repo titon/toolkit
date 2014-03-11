@@ -106,8 +106,6 @@
          * @param {String} [content]
          */
         show: function(node, content) {
-            node = $(node);
-
             var options = this.options,
                 ajax = options.ajax;
 
@@ -116,7 +114,10 @@
                 ajax = false;
 
             } else if (node) {
-                content = this.readValue(node, options.getContent) || node.attr('href');
+                node = $(node);
+
+                ajax = this.readOption(node, 'ajax');
+                content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
 
                 if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                     content = $(content).html();

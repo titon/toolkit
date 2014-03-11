@@ -11,6 +11,7 @@
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.js-tooltip').tooltip({
+                className: <?php string('className'); ?>,
                 animation: <?php string('animation'); ?>,
                 mode: <?php string('mode', 'hover'); ?>,
                 ajax: <?php bool('ajax', false); ?>,
@@ -28,6 +29,7 @@
     <?php } else { ?>
         $(function() {
             $('.js-tooltip').tooltip({
+                className: <?php string('className'); ?>,
                 animation: <?php string('animation'); ?>,
                 mode: <?php string('mode', 'hover'); ?>,
                 ajax: <?php bool('ajax', false); ?>,

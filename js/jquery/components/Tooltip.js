@@ -22,6 +22,9 @@
         this.events = {};
         this.runtime = {};
 
+        // Remove class since were using runtime
+        element.removeClass(options.className);
+
         // Remove title attributes
         nodes.each(function(i, node) {
             $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
@@ -34,6 +37,7 @@
         // Initialize events
         if (options.mode === 'click') {
             this.events['clickout element'] = 'hide';
+            this.events['clickout ' + nodes.selector] = 'hide';
         }
 
         this.events[options.mode + ' ' + nodes.selector] = 'onShow';
@@ -46,10 +50,16 @@
          * Hide the tooltip.
          */
         hide: function() {
-            var position = this.runtime.position || this.options.position;
+            var position = this.runtime.position || this.options.position,
+                className = this.runtime.className || this.options.className;
+
             this.runtime = {};
 
-            this.element.conceal().removeClass(position);
+            this.element
+                .conceal()
+                .removeClass(position)
+                .removeClass(className);
+
             this.fireEvent('hide');
         },
 
@@ -61,7 +71,7 @@
          * @param {String|jQuery} [title]
          */
         position: function(content, title) {
-            var options = this.runtime;
+            var options = this.runtime || this.options;
 
             // AJAX is currently loading
             if (content === true) {
@@ -69,7 +79,9 @@
             }
 
             // Add position class
-            this.element.addClass(options.position);
+            this.element
+                .addClass(options.position)
+                .addClass(options.className);
 
             // Set title
             title = title || this.readValue(this.node, options.getTitle);
@@ -224,7 +236,7 @@
 
     }, {
         mode: 'hover',
-        animation: '',
+        animation: 'fade',
         ajax: false,
         follow: false,
         position: 'top-center',

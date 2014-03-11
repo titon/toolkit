@@ -98,7 +98,8 @@
                 listItems = list.children('li'),
                 listItem = listItems.item(index),
                 items = this.data,
-                item = items[index];
+                item = items[index],
+                isPrefix = Toolkit.options.isPrefix;
 
             // Save state
             this.index = index;
@@ -108,8 +109,8 @@
                 var listTabs = this.tabs.find('a');
 
                 listTabs
-                    .removeClass(Toolkit.options.isPrefix + 'active')
-                    .item(index).addClass(Toolkit.options.isPrefix + 'active');
+                    .removeClass(isPrefix + 'active')
+                    .item(index).addClass(isPrefix + 'active');
             }
 
             // Fade out previous item
@@ -129,7 +130,7 @@
 
             // Create image and animate
             } else {
-                element.addClass(Toolkit.options.isPrefix + 'loading');
+                element.addClass(isPrefix + 'loading');
 
                 // Preload image
                 var img = new Image();
@@ -151,7 +152,7 @@
 
                     // Reveal the image after animation
                     setTimeout(function() {
-                        element.removeClass(Toolkit.options.isPrefix + 'loading');
+                        element.removeClass(isPrefix + 'loading');
                         listItem.addClass('show').append(img);
                         self.position();
                     }, options.transition);
@@ -200,7 +201,7 @@
             this.index = 0;
             this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
-            var options = this.options,
+            var options = this.inheritOptions(this.options, node),
                 read = this.readValue.bind(this),
                 category = read(node, options.getCategory),
                 items = [],

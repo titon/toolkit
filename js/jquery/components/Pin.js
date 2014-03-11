@@ -19,7 +19,9 @@
         this.viewport = null;
 
         // Mark element as a pin
-        element.addClass(Toolkit.options.vendor + 'pin');
+        element
+            .addClass(Toolkit.options.vendor + 'pin')
+            .addClass(options.animation);
 
         // Initialize events
         this.events = {

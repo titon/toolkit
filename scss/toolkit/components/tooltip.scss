@@ -101,19 +101,4 @@
             @include transform(rotate(0deg));
         }
     }
-
-    &.slide-in {
-        @include transition(transform $tooltip-transition);
-
-        &.top-left { @include transform(translate(-25%, -25%)); }
-        &.top-center { @include transform(translateY(-50%)); }
-        &.top-right { @include transform(translate(25%, -25%)); }
-        &.center-left { @include transform(translateX(-25%)); }
-        &.center-right { @include transform(translateX(25%)); }
-        &.bottom-left { @include transform(translate(-25%, 25%)); }
-        &.bottom-center { @include transform(translateY(50%)); }
-        &.bottom-right { @include transform(translate(25%, 25%)); }
-
-        &.show { @include transform(translate(0)); }
-    }
 }

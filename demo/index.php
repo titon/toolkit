@@ -108,7 +108,7 @@ $components = array(
                 'slide' => 'Slide',
                 'slide-up' => 'Slide Up',
                 'fade' => 'Fade'
-            )),
+            ), 'default' => 'slide'),
             'modifier' => array('title' => 'Modifier', 'data' => array(
                 '' => 'Default (4:3)',
                 'wide' => 'Wide (16:9)',
@@ -429,8 +429,7 @@ $components = array(
                 'fade' => 'Fade',
                 'from-above' => 'From Above',
                 'from-below' => 'From Below',
-                'flip-rotate' => 'Flip Rotate',
-                'slide-in' => 'Slide In'
+                'flip-rotate' => 'Flip Rotate'
             )),
             'position' => array('title' => 'Position', 'data' => array(
                 'top-left' => 'Top Left',

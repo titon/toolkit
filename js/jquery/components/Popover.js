@@ -10,9 +10,6 @@
     Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
         var element;
 
-        // Force to click for popovers
-        options.mode = 'click';
-
         this.component = 'Popover';
         this.version = '1.1.0';
         this.options = options = this.setOptions(options);
@@ -25,6 +22,12 @@
         this.events = {};
         this.runtime = {};
 
+        // Force to click for popovers
+        options.mode = 'click';
+
+        // Remove class since were using runtime
+        element.removeClass(options.className);
+
         // Remove title attributes
         nodes.each(function(i, node) {
             $(node).attr('data-popover-title', $(node).attr('title')).removeAttr('title');
@@ -36,6 +39,7 @@
 
         // Initialize events
         this.events['clickout element'] = 'hide';
+        this.events['clickout ' + nodes.selector] = 'hide';
         this.events['click ' + nodes.selector] = 'onShow';
 
         this.enable();
