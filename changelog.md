@@ -9,6 +9,7 @@ This update includes documentation for all components.
 * Added `join-classes()` mixin
 * Updated `$.fn.positionTo()` to re-position if the element falls outside the viewport
 * Replaced `currentIndex` with `index` in all components
+* Removed `content-spacing()` mixin
 * Removed global `previousIndex` properties
 * Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`
 * Removed automatic setting of `animation` and `className` CSS classes for embedded elements

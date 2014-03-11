@@ -30,15 +30,6 @@
     @include transform(translate(-50%, -50%));
 }
 
-// Remove the top and bottom margin from content elements
-// Allows for perfect spacing within content blocks
-@mixin content-spacing {
-    p, ul, ol, hr, blockquote {
-        &:first-child { margin-top: 0; }
-        &:last-child { margin-bottom: 0; }
-    }
-}
-
 @mixin size-small {
     font-size: $small-size;
     padding: $small-padding;

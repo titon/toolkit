@@ -10,6 +10,7 @@
 .#{$vendor-prefix}drop--up,
 .#{$vendor-prefix}drop--left,
 .#{$vendor-prefix}drop--right {
+    @include reset-list;
     display: none;
     text-align: left;
     position: absolute;
@@ -33,7 +34,6 @@
     }
 
     // Apply to self
-    &,
     ul,
     ol {
         @include reset-list;

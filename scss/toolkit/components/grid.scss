@@ -11,11 +11,6 @@
     @include grid-row;
 }
 
-.col.end {
-    margin-right: 0 !important;
-    float: right !important;
-}
-
 // These should be the same for all sizes
 .col[class*="span-"] {
     @include grid-column;
@@ -144,4 +139,9 @@
         }
     }
 
+}
+
+.col.end {
+    margin-right: 0 !important;
+    float: right !important;
 }

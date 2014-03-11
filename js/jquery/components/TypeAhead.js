@@ -460,7 +460,7 @@
                     this.process(cache);
                 } else {
                     var query = options.query;
-                    query.term = term;
+                        query.term = term;
 
                     $.getJSON(url, query, this.process.bind(this));
                 }

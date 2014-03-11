@@ -20,7 +20,9 @@
         font-weight: bold;
     }
 
-    @include content-spacing;
+    p:first-child {
+        margin-top: 0;
+    }
 }
 
 .#{$vendor-prefix}notice-close {

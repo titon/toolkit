@@ -8,7 +8,9 @@
 
 //-------------------- Button --------------------//
 
-.#{$vendor-prefix}button.#{$shape-oval-class} { border-radius: #{$oval-x} / #{$oval-y}; }
+.#{$vendor-prefix}button.#{$shape-oval-class} {
+    border-radius: #{$oval-x} / #{$oval-y};
+}
 
 //-------------------- Pagination --------------------//
 

@@ -63,11 +63,6 @@
     padding: $padding;
 }
 
-// Remove margins from text elements
-.#{$vendor-prefix}modal-body {
-    @include content-spacing;
-}
-
 //-------------------- Modifiers --------------------//
 
 .#{$vendor-prefix}modal.#{$state-is-prefix}fullscreen .#{$vendor-prefix}modal-outer {

@@ -41,12 +41,12 @@
 //-------------------- Modifiers --------------------//
 
 .#{$vendor-prefix}input-group.#{$shape-round-class} {
-    > *:first-child .#{$vendor-prefix}button {
+    > *:first-child {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }
 
-    > *:last-child .#{$vendor-prefix}button {
+    > *:last-child {
         border-top-right-radius: $round;
         border-bottom-right-radius: $round;
     }
