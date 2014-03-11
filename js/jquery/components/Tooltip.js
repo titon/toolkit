@@ -52,15 +52,16 @@
          * Hide the tooltip.
          */
         hide: function() {
-            var position = (this.runtime ? this.runtime.position : '') || this.options.position,
-                className = (this.runtime ? this.runtime.className : '') || this.options.className;
+            var position = this.element.data('new-position') || this.runtime.position || this.options.position,
+                className = this.runtime.className || this.options.className;
 
-            this.runtime = null;
+            this.runtime = {};
 
             this.element
                 .conceal()
                 .removeClass(position)
-                .removeClass(className);
+                .removeClass(className)
+                .removeData('new-position');
 
             this.fireEvent('hide');
         },
@@ -73,7 +74,7 @@
          * @param {String|jQuery} [title]
          */
         position: function(content, title) {
-            var options = this.runtime || this.options;
+            var options = $.isEmptyObject(this.runtime) ? this.options : this.runtime;
 
             // AJAX is currently loading
             if (content === true) {
@@ -179,7 +180,7 @@
         onFollow: function(e) {
             e.preventDefault();
 
-            var options = this.runtime || this.options;
+            var options = this.runtime;
 
             this.element.positionTo(options.position, e, {
                 left: options.xOffset,

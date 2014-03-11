@@ -114,7 +114,7 @@ Toolkit.Class.extend = function(base, properties, options) {
     base.prototype.constructor = base;
 
     // Inherit and set default options
-    base.options = $.extend({}, this.options || {}, options || {});
+    base.options = $.extend(true, {}, this.options || {}, options || {});
 
     // Inherit the extend method
     base.extend = this.extend;
@@ -204,7 +204,8 @@ $.fn.addData = function(key, value) {
 /**
  * Position the element relative to another element in the document, or to the mouse cursor.
  * Determine the offsets through the `relativeTo` argument, which can be an event, or a jQuery element.
- * Optional account for mouse location and base offset coordinates.
+ * Re-position the element if its target coordinates fall outside of the viewport.
+ * Optionally account for mouse location and base offset coordinates.
  *
  * @param {String} position
  * @param {Event|jQuery} relativeTo
@@ -213,10 +214,7 @@ $.fn.addData = function(key, value) {
  * @returns {jQuery}
  */
 $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
-    position = position.split('-');
-
-    var edge = { y: position[0], x: position[1] },
-        offset = baseOffset || { left: 0, top: 0 },
+    var offset = baseOffset || { left: 0, top: 0 },
         relHeight = 0,
         relWidth = 0,
         eHeight = this.outerHeight(true),
@@ -229,15 +227,44 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
 
     // Else position it near the element
     } else {
-        var relOffset = relativeTo.offset();
+        var relOffset = relativeTo.offset(),
+            newPosition = position,
+            win = $(window),
+            wWidth = win.width(),
+            wHeight = win.height(),
+            wsTop = win.scrollTop();
 
         offset.left += relOffset.left;
         offset.top += relOffset.top;
         relHeight = relativeTo.outerHeight();
         relWidth = relativeTo.outerWidth();
+
+        // Re-position element if outside the viewport
+        if ((relOffset.top - eHeight - wsTop) < 0) {
+            newPosition = newPosition.replace('top', 'bottom');
+
+        } else if ((relOffset.top + relHeight + eHeight) > wHeight) {
+            newPosition = newPosition.replace('bottom', 'top');
+        }
+
+        if ((relOffset.left - eWidth) < 0) {
+            newPosition = newPosition.replace('left', 'right');
+
+        } else if ((relOffset.left + relWidth + eWidth) > wWidth) {
+            newPosition = newPosition.replace('right', 'left');
+        }
+
+        this.removeClass(position)
+            .addClass(newPosition)
+            .data('new-position', newPosition);
+
+        position = newPosition;
     }
 
     // Shift around based on edge positioning
+    var parts = position.split('-'),
+        edge = { y: parts[0], x: parts[1] };
+
     if (edge.y === 'top') {
         offset.top -= eHeight;
     } else if (edge.y === 'bottom') {
