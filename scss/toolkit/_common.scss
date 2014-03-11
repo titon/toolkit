@@ -169,6 +169,8 @@ $modal-animation: (
 //-------------------- Popover, Tooltip --------------------//
 
 $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
+$popover-arrow-width: 8 !default;
+$tooltip-arrow-width: 6 !default;
 
 //-------------------- Imports --------------------//
 

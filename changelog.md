@@ -75,6 +75,7 @@ This update includes documentation for all components.
     * Renamed `sectionsElement` option to `sectionElement`
 * Tooltip, Popover
     * Added `$popover-tooltip-animation` to filter the animations in the CSS output
+    * Added `$popover-arrow-width` and `$tooltip-arrow-width` to alter the arrow sizes
     * Fixed a bug where node was being set and used incorrectly
     * Fixed a bug with mouseleave events
     * Options `className` and `position` are added and removed dynamically each reveal

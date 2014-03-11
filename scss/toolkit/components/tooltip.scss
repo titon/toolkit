@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
+
 .#{$vendor-prefix}tooltip {
     position: absolute;
     top: 0;
@@ -23,33 +25,33 @@
     &.center-left .#{$vendor-prefix}tooltip-arrow,
     &.center-right .#{$vendor-prefix}tooltip-arrow {
         top: 50%;
-        margin-top: -6px;
+        margin-top: -#{$tooltip-arrow-width}px;
     }
 
     &.center-left .#{$vendor-prefix}tooltip-arrow {
         border-left-color: #000;
-        right: -12px;
+        right: -#{$tooltip-arrow-width-double}px;
     }
 
     &.center-right .#{$vendor-prefix}tooltip-arrow {
         border-right-color: #000;
-        left: -12px;
+        left: -#{$tooltip-arrow-width-double}px;
     }
 
     &.top-center .#{$vendor-prefix}tooltip-arrow,
     &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         left: 50%;
-        margin-left: -6px;
+        margin-left: -#{$tooltip-arrow-width}px;
     }
 
     &.top-center .#{$vendor-prefix}tooltip-arrow {
         border-top-color: #000;
-        bottom: -12px;
+        bottom: -#{$tooltip-arrow-width-double}px;
     }
 
     &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         border-bottom-color: #000;
-        top: -12px;
+        top: -#{$tooltip-arrow-width-double}px;
     }
 }
 
@@ -57,12 +59,12 @@
 .#{$vendor-prefix}popover-arrow {
     width: 0;
     height: 0;
-    border: 6px solid transparent;
+    border: #{$tooltip-arrow-width}px solid transparent;
     position: absolute;
 
     &:after {
         content: "";
-        border: 4px solid transparent;
+        border: #{($tooltip-arrow-width - 2)}px solid transparent;
         position: absolute;
     }
 }

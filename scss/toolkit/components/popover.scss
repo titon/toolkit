@@ -6,6 +6,9 @@
 
 @import "../common";
 
+$popover-arrow-width-double: ($popover-arrow-width * 2);
+$popover-arrow-width-shadow: ($popover-arrow-width - 2);
+
 .#{$vendor-prefix}popover {
     position: absolute;
     top: 0;
@@ -20,33 +23,33 @@
     &.center-left .#{$vendor-prefix}popover-arrow,
     &.center-right .#{$vendor-prefix}popover-arrow {
         top: 50%;
-        margin-top: -8px;
+        margin-top: -#{$popover-arrow-width}px;
     }
 
     &.center-left .#{$vendor-prefix}popover-arrow {
         border-left-color: $gray;
-        right: -16px;
+        right: -#{$popover-arrow-width-double}px;
     }
 
     &.center-right .#{$vendor-prefix}popover-arrow {
         border-right-color: $gray;
-        left: -16px;
+        left: -#{$popover-arrow-width-double}px;
     }
 
     &.top-center .#{$vendor-prefix}popover-arrow,
     &.bottom-center .#{$vendor-prefix}popover-arrow {
         left: 50%;
-        margin-left: -8px;
+        margin-left: -#{$popover-arrow-width}px;
     }
 
     &.top-center .#{$vendor-prefix}popover-arrow {
         border-top-color: $gray;
-        bottom: -16px;
+        bottom: -#{$popover-arrow-width-double}px;
     }
 
     &.bottom-center .#{$vendor-prefix}popover-arrow {
         border-bottom-color: $gray;
-        top: -16px;
+        top: -#{$popover-arrow-width-double}px;
     }
 }
 
@@ -56,11 +59,11 @@
 }
 
 .#{$vendor-prefix}popover-arrow {
-    border: 8px solid transparent;
+    border: #{$popover-arrow-width}px solid transparent;
 
     &:after {
-        border: 6px solid transparent;
-        top: -6px;
-        left: -6px;
+        border: #{$popover-arrow-width-shadow}px solid transparent;
+        top: -#{$popover-arrow-width-shadow}px;
+        left: -#{$popover-arrow-width-shadow}px;
     }
 }
