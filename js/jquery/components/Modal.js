@@ -114,7 +114,7 @@
                 ajax = false;
 
             } else if (node) {
-                node = $(node);
+                this.node = node = $(node);
 
                 ajax = this.readOption(node, 'ajax');
                 content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
@@ -128,8 +128,6 @@
             if (!content) {
                 return;
             }
-
-            this.node = node;
 
             // Show blackout
             if (this.blackout) {

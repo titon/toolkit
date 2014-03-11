@@ -38,6 +38,8 @@
         if (options.mode === 'click') {
             this.events['clickout element'] = 'hide';
             this.events['clickout ' + nodes.selector] = 'hide';
+        } else {
+            this.events['mouseleave ' + nodes.selector] = 'hide';
         }
 
         this.events[options.mode + ' ' + nodes.selector] = 'onShow';
@@ -50,10 +52,10 @@
          * Hide the tooltip.
          */
         hide: function() {
-            var position = this.runtime.position || this.options.position,
-                className = this.runtime.className || this.options.className;
+            var position = (this.runtime ? this.runtime.position : '') || this.options.position,
+                className = (this.runtime ? this.runtime.className : '') || this.options.className;
 
-            this.runtime = {};
+            this.runtime = null;
 
             this.element
                 .conceal()
@@ -137,15 +139,8 @@
             var options;
 
             if (node) {
-                node = $(node);
-
+                this.node = node = $(node);
                 this.runtime = options = this.inheritOptions(this.options, node);
-
-                if (options.mode !== 'click') {
-                    node
-                        .off('mouseleave', this.hide.bind(this))
-                        .on('mouseleave', this.hide.bind(this));
-                }
 
                 content = content || this.readValue(node, options.getContent);
             } else {
@@ -155,8 +150,6 @@
             if (!content) {
                 return;
             }
-
-            this.node = node;
 
             if (options.ajax) {
                 if (this.cache[content]) {
@@ -186,7 +179,7 @@
         onFollow: function(e) {
             e.preventDefault();
 
-            var options = this.options;
+            var options = this.runtime || this.options;
 
             this.element.positionTo(options.position, e, {
                 left: options.xOffset,
@@ -202,7 +195,7 @@
          */
         onShow: function(e) {
             var node = $(e.target),
-                isNode = (this.node && node[0] === this.node[0]);
+                isNode = (this.node && this.node.is(node));
 
             if (this.element.is(':shown')) {
 
