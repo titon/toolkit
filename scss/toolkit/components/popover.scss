@@ -56,15 +56,10 @@
 }
 
 .#{$vendor-prefix}popover-arrow {
-    width: 0;
-    height: 0;
     border: 8px solid transparent;
-    position: absolute;
 
     &:after {
-        content: "";
         border: 6px solid transparent;
-        position: absolute;
         top: -6px;
         left: -6px;
     }

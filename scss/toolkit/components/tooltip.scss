@@ -53,7 +53,8 @@
     }
 }
 
-.#{$vendor-prefix}tooltip-arrow {
+.#{$vendor-prefix}tooltip-arrow,
+.#{$vendor-prefix}popover-arrow {
     width: 0;
     height: 0;
     border: 6px solid transparent;
@@ -70,35 +71,43 @@
 
 .#{$vendor-prefix}tooltip,
 .#{$vendor-prefix}popover {
-    &.fade {
-        opacity: 0;
-        @include transition(opacity 0.5s);
-    }
-
-    &.from-above {
-        @include transition(transform $tooltip-transition);
-        @include transform(scale(1.2));
-
-        &.show {
-            @include transform(scale(1));
+    @if index($popover-tooltip-animation, "fade") {
+        &.fade {
+            opacity: 0;
+            @include transition(opacity 0.5s);
         }
     }
 
-    &.from-below {
-        @include transition(transform $tooltip-transition);
-        @include transform(scale(0.8));
+    @if index($popover-tooltip-animation, "from-above") {
+        &.from-above {
+            @include transition(transform $tooltip-transition);
+            @include transform(scale(1.2));
 
-        &.show {
-            @include transform(scale(1));
+            &.show {
+                @include transform(scale(1));
+            }
         }
     }
 
-    &.flip-rotate {
-        @include transition(transform $tooltip-transition);
-        @include transform(rotate(-15deg));
+    @if index($popover-tooltip-animation, "from-below") {
+        &.from-below {
+            @include transition(transform $tooltip-transition);
+            @include transform(scale(0.8));
 
-        &.show {
-            @include transform(rotate(0deg));
+            &.show {
+                @include transform(scale(1));
+            }
+        }
+    }
+
+    @if index($popover-tooltip-animation, "flip-rotate") {
+        &.flip-rotate {
+            @include transition(transform $tooltip-transition);
+            @include transform(rotate(-15deg));
+
+            &.show {
+                @include transform(rotate(0deg));
+            }
         }
     }
 }

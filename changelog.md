@@ -10,7 +10,7 @@ This update includes documentation for all components.
 * Replaced `currentIndex` with `index` in all components
 * Removed global `previousIndex` properties
 * Removed global `loadingMessage` and `errorMessage` options. Will all use the messages found in `Toolkit`
-* Removed automatic setting of `animation` and `className` classes for embedded elements
+* Removed automatic setting of `animation` and `className` CSS classes for embedded elements
 * Blackout
     * Added a `shown` argument to the `show` event
     * Added `showLoader` and `hideLoader` events
@@ -72,6 +72,9 @@ This update includes documentation for all components.
 * Tabs
     * Renamed `sectionsElement` option to `sectionElement`
 * Tooltip, Popover
+    * Added `$popover-tooltip-animation` to filter the animations in the CSS output
+    * Fixed a bug where node was being set and used incorrectly
+    * Fixed a bug with mouseleave events
     * Options `className` and `position` are added and removed dynamically each reveal
     * Updated options to be inheritable at runtime through the activating node
     * Removed `slide-in` animation

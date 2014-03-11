@@ -166,6 +166,10 @@ $modal-animation: (
     "sticky-top", "sticky-right", "sticky-bottom", "sticky-left"
 ) !default;
 
+//-------------------- Popover, Tooltip --------------------//
+
+$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
+
 //-------------------- Imports --------------------//
 
 @import "mixins/helper";
