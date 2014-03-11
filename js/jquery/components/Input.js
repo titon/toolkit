@@ -301,7 +301,8 @@
         _buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
-                activeClass = Toolkit.options.isPrefix + 'active';
+                isPrefix = Toolkit.options.isPrefix,
+                activeClass = isPrefix + 'active';
 
             // Create elements
             var li = $('<li/>'),
@@ -328,7 +329,7 @@
 
             // Attach no events for disabled options
             if (option.prop('disabled')) {
-                li.addClass(Toolkit.options.isPrefix + 'disabled');
+                li.addClass(isPrefix + 'disabled');
 
                 return li;
             }
@@ -403,6 +404,7 @@
         onChange: function(e) {
             var select = $(e.target),
                 options = select.find('option'),
+                opts = this.options,
                 selected = [],
                 label = [],
                 self = this;
@@ -411,14 +413,14 @@
             options.each(function() {
                 if (this.selected) {
                     selected.push( this );
-                    label.push( self.readValue(this, self.options.getOptionLabel) || this.textContent );
+                    label.push( self.readValue(this, opts.getOptionLabel) || this.textContent );
                 }
             });
 
             // Reformat label if needed
             if (this.multiple) {
-                var title = this.readValue(select, this.options.getDefaultLabel),
-                    format = this.options.multipleFormat,
+                var title = this.readValue(select, opts.getDefaultLabel),
+                    format = opts.multipleFormat,
                     count = label.length;
 
                 // Use default title if nothing selected
@@ -427,13 +429,13 @@
 
                     // Display a counter for label
                 } else if (format === 'count') {
-                    label = this.options.countMessage
+                    label = opts.countMessage
                         .replace('{count}', count)
                         .replace('{total}', options.length);
 
                     // Display options as a list for label
                 } else if (format === 'list') {
-                    var limit = this.options.listLimit;
+                    var limit = opts.listLimit;
 
                     label = label.splice(0, limit).join(', ');
 
@@ -501,9 +503,8 @@
          * Event handler for toggling custom dropdown display.
          *
          * @private
-         * @param {jQuery.Event} e
          */
-        onToggle: function(e) {
+        onToggle: function() {
             if (this.input.prop('disabled')) {
                 return;
             }

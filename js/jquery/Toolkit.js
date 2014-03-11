@@ -49,6 +49,26 @@ window.Toolkit = {
     isRetina: (window.devicePixelRatio > 1),
 
     /**
+     * Bound a number between a min and max range.
+     *
+     * @param {Number} value
+     * @param {Number} max
+     * @param {Number} min
+     * @returns {Number}
+     */
+    bound: function(value, max, min) {
+        min = min || 0;
+
+        if (value >= max) {
+            value = 0;
+        } else if (value < min) {
+            value = max - 1;
+        }
+
+        return value;
+    },
+
+    /**
      * Creates a jQuery plugin by extending the jQuery prototype and defines a method
      * that initializes a component. The component is only initialized if one has not been already.
      * Components are either defined per element, or on a collection of elements.
@@ -254,11 +274,13 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
             newPosition = newPosition.replace('right', 'left');
         }
 
-        this.removeClass(position)
-            .addClass(newPosition)
-            .data('new-position', newPosition);
+        if (position !== newPosition) {
+            this.removeClass(position)
+                .addClass(newPosition)
+                .data('new-position', newPosition);
 
-        position = newPosition;
+            position = newPosition;
+        }
     }
 
     // Shift around based on edge positioning

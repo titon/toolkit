@@ -11,7 +11,6 @@
         component: 'Component',
         version: '0.0.0',
         enabled: false,
-        events: {},
 
         /**
          * Create the element from the template.
@@ -151,23 +150,23 @@
             }
 
             // Trigger event globally
-            var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
+            var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1),
+                element = this.element;
 
             if (this.options[onType]) {
                 this.options[onType].apply(this, args || []);
             }
 
             // Trigger per element
-            if (this.element && this.element.length) {
-                var name = this.component;
-                    name = name.split('.').map(function(value) {
-                        return value.charAt(0).toLowerCase() + value.slice(1);
-                    }).join('.');
+            if (element && element.length) {
+                var name = this.component.split('.').map(function(value) {
+                    return value.charAt(0).toLowerCase() + value.slice(1);
+                }).join('.');
 
                 var event = jQuery.Event(type + '.toolkit.' + name);
                     event.context = this;
 
-                this.element.trigger(event, args || []);
+                element.trigger(event, args || []);
             }
         },
 

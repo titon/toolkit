@@ -8,13 +8,15 @@
     'use strict';
 
     Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
+        var items;
+
         this.component = 'Carousel';
         this.version = '1.0.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
         this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
-        this.items = this.itemsWrapper.find(options.itemElement);
+        this.items = items = this.itemsWrapper.find(options.itemElement);
         this.tabsWrapper = element.find(options.tabsElement);
         this.tabs = this.tabsWrapper.find(options.tabElement);
         this.nextButton = element.find(options.nextElement);
@@ -38,11 +40,11 @@
         // Set sizes for responsiveness
         switch (options.animation) {
             case 'fade':
-                this.items.item(0).reveal();
+                items.item(0).reveal();
             break;
             case 'slide':
-                this.itemsList.css('width', (this.items.length * 100) + '%');
-                this.items.css('width', (100 / this.items.length) + '%');
+                this.itemsList.css('width', (items.length * 100) + '%');
+                items.css('width', (100 / items.length) + '%');
             break;
         }
 
@@ -84,20 +86,15 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.items.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.items.length - 1;
-            }
-
-            // Save state
-            this.index = index;
+            this.index = index = Toolkit.bound(index, this.items.length);
 
             // Update tabs
             if (this.tabs.length) {
+                var isPrefix = Toolkit.options.isPrefix;
+
                 this.tabs
-                    .removeClass(Toolkit.options.isPrefix + 'active')
-                    .item(index).addClass(Toolkit.options.isPrefix + 'active');
+                    .removeClass(isPrefix + 'active')
+                    .item(index).addClass(isPrefix + 'active');
             }
 
             // Animate!

@@ -34,11 +34,13 @@
          * Hide the opened element and remove active state.
          */
         hide: function() {
-            if (this.element && this.element.is(':shown')) {
-                this.element.conceal();
+            var element = this.element;
+
+            if (element && element.is(':shown')) {
+                element.conceal();
                 this.node.removeClass(Toolkit.options.isPrefix + 'active');
 
-                this.fireEvent('hide', [this.element, this.node]);
+                this.fireEvent('hide', [element, this.node]);
             }
         },
 
@@ -67,14 +69,15 @@
             e.preventDefault();
 
             var node = $(e.target),
-                target = this.readValue(node, this.options.getTarget);
+                options = this.options,
+                target = this.readValue(node, options.getTarget);
 
             if (!target || target.substr(0, 1) !== '#') {
                 return;
             }
 
             // Hide previous drops
-            if (this.options.hideOpened && this.node && !this.node.is(node)) {
+            if (options.hideOpened && this.node && !this.node.is(node)) {
                 this.hide();
             }
 

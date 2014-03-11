@@ -91,13 +91,14 @@
                 scrollTop = $(window).scrollTop(),
                 pos = {},
                 x = options.xOffset,
-                y = 0;
+                y = 0,
+                isPrefix = Toolkit.options.isPrefix;
 
             // Scroll is above the parent, remove pin inline styles
             if (scrollTop < pTop) {
                 this.element
                     .removeAttr('style')
-                    .removeClass(Toolkit.options.isPrefix + 'pinned');
+                    .removeClass(isPrefix + 'pinned');
 
                 return;
             }
@@ -140,7 +141,7 @@
 
             this.element
                 .css(pos)
-                .addClass(Toolkit.options.isPrefix + 'pinned');
+                .addClass(isPrefix + 'pinned');
 
             this.fireEvent('scroll');
         }

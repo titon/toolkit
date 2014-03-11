@@ -67,22 +67,19 @@
          * Gather the targets and markers used for stalking.
          */
         refresh: function() {
-            if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
-                this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
-            }
-
-            this.targets = $(this.options.target)
-                .addClass(Toolkit.options.vendor + 'stalker-target');
-
-            this.markers = $(this.options.marker)
-                .addClass(Toolkit.options.vendor + 'stalker-marker');
-
-            var isWindow = this.container.is(window),
+            var vendor = Toolkit.options.vendor,
+                isWindow = this.container.is(window),
                 eTop = this.element.offset().top,
                 offset,
                 offsets = [];
 
-            this.markers.each(function(index, marker) {
+            if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
+                this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
+            }
+
+            this.targets = $(this.options.target).addClass(vendor + 'stalker-target');
+
+            this.markers = $(this.options.marker).addClass(vendor + 'stalker-marker').each(function(index, marker) {
                 marker = $(marker);
                 offset = marker.offset();
 
@@ -113,8 +110,9 @@
                 return;
             }
 
-            var targetBy = this.options.targetBy,
-                markBy = this.options.markBy,
+            var options = this.options,
+                targetBy = options.targetBy,
+                markBy = options.markBy,
                 method = (type === 'activate') ? 'addClass' : 'removeClass',
                 target = this.targets.filter(function() {
                     return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
@@ -122,7 +120,7 @@
 
             marker[method](isPrefix + 'stalked');
 
-            if (this.options.applyToParent) {
+            if (options.applyToParent) {
                 target.parent()[method](isPrefix + 'active');
             } else {
                 target[method](isPrefix + 'active');

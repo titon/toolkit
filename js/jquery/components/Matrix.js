@@ -326,9 +326,8 @@
          * Event handler for browser resizing.
          *
          * @private
-         * @param {jQuery.Event} e
          */
-        onResize: function(e) {
+        onResize: function() {
             if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
                 this.refresh();
             }

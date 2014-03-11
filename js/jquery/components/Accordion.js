@@ -14,8 +14,8 @@
         this.version = '1.1.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
-        this.headers = headers = this.element.find(options.headerElement);
-        this.sections = sections = this.element.find(options.sectionElement);
+        this.headers = headers = element.find(options.headerElement);
+        this.sections = sections = element.find(options.sectionElement);
         this.index = 0;
         this.node = null;
         this.events = {};
@@ -49,11 +49,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.headers.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.headers.length - 1;
-            }
+            index = Toolkit.bound(index, this.headers.length);
 
             this.fireEvent('jump', index);
             this.show(this.headers[index]);
@@ -73,18 +69,19 @@
                 section = node.next(), // section
                 index = node.data('index'),
                 height = parseInt(section.data('height'), 10),
-                isNode = (this.node && this.node.is(node));
+                isNode = (this.node && this.node.is(node)),
+                isPrefix = Toolkit.options.isPrefix;
 
             // Allow simultaneous open and closed sections
             // Or allow the same section to collapse
             if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
                 if (section.is(':shown') && this.node) {
                     section.css('max-height', 0).conceal();
-                    parent.removeClass(Toolkit.options.isPrefix + 'active');
+                    parent.removeClass(isPrefix + 'active');
 
                 } else {
                     section.css('max-height', height).reveal();
-                    parent.addClass(Toolkit.options.isPrefix + 'active');
+                    parent.addClass(isPrefix + 'active');
                 }
 
             // Only one open at a time
@@ -98,8 +95,8 @@
                 this.sections.css('max-height', 0).conceal();
                 section.css('max-height', height).reveal();
 
-                this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
-                parent.addClass(Toolkit.options.isPrefix + 'active');
+                this.element.children('li').removeClass(isPrefix + 'active');
+                parent.addClass(isPrefix + 'active');
             }
 
             this.index = index;

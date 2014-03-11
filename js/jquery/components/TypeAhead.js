@@ -87,18 +87,19 @@
          * @returns {jQuery}
          */
         build: function(item) {
-            var a = $('<a/>', {
-                href: 'javascript:;'
-            });
+            var vendor = Toolkit.options.vendor,
+                a = $('<a/>', {
+                    href: 'javascript:;'
+                });
 
             a.append( $('<span/>', {
-                'class': Toolkit.options.vendor + 'type-ahead-title',
+                'class': vendor + 'type-ahead-title',
                 html: this.highlight(item.title)
             }) );
 
             if (item.description) {
                 a.append( $('<span/>', {
-                    'class': Toolkit.options.vendor + 'type-ahead-desc',
+                    'class': vendor + 'type-ahead-desc',
                     html: item.description
                 }) );
             }
@@ -148,42 +149,7 @@
          */
         lookup: function(term) {
             this.term = term;
-            this.timer = setTimeout(function() {
-                var options = this.options,
-                    sourceType = $.type(options.source);
-
-                // Check the cache first
-                if (this.cache[term.toLowerCase()]) {
-                    this.process(this.cache[term.toLowerCase()]);
-
-                // Use the response of an AJAX request
-                } else if (sourceType === 'string') {
-                    var url = options.source,
-                        cache = this.cache[url];
-
-                    if (cache) {
-                        this.process(cache);
-                    } else {
-                        var query = options.query;
-                            query.term = term;
-
-                        $.getJSON(url, query, this.process.bind(this));
-                    }
-                // Use a literal array list
-                } else if (sourceType === 'array') {
-                    this.process(options.source);
-
-                // Use the return of a function
-                } else if (sourceType === 'function') {
-                    var response = options.source.call(this);
-
-                    if (response) {
-                        this.process(response);
-                    }
-                } else {
-                    throw new Error('Invalid TypeAhead source type');
-                }
-            }.bind(this), this.options.throttle);
+            this.timer = setTimeout(this.onFind.bind(this), this.options.throttle);
         },
 
         /**
@@ -339,16 +305,17 @@
         select: function(index, event) {
             this.index = index;
 
-            var rows = this.element.find('li');
+            var rows = this.element.find('li'),
+                isPrefix = Toolkit.options.isPrefix;
 
-            rows.removeClass(Toolkit.options.isPrefix + 'active');
+            rows.removeClass(isPrefix + 'active');
 
             // Select
             if (index >= 0) {
                 if (this.items[index]) {
                     var item = this.items[index];
 
-                    rows.item(index).addClass(Toolkit.options.isPrefix + 'active');
+                    rows.item(index).addClass(isPrefix + 'active');
 
                     this.input.val(item.title);
 
@@ -473,6 +440,48 @@
         },
 
         /**
+         * Event handler called for a lookup.
+         */
+        onFind: function() {
+            var term = this.term,
+                options = this.options,
+                sourceType = $.type(options.source);
+
+            // Check the cache first
+            if (this.cache[term.toLowerCase()]) {
+                this.process(this.cache[term.toLowerCase()]);
+
+            // Use the response of an AJAX request
+            } else if (sourceType === 'string') {
+                var url = options.source,
+                    cache = this.cache[url];
+
+                if (cache) {
+                    this.process(cache);
+                } else {
+                    var query = options.query;
+                    query.term = term;
+
+                    $.getJSON(url, query, this.process.bind(this));
+                }
+
+            // Use a literal array list
+            } else if (sourceType === 'array') {
+                this.process(options.source);
+
+            // Use the return of a function
+            } else if (sourceType === 'function') {
+                var response = options.source.call(this);
+
+                if (response) {
+                    this.process(response);
+                }
+            } else {
+                throw new Error('Invalid TypeAhead source type');
+            }
+        },
+
+        /**
          * Lookup items based on the current input value.
          *
          * @private
@@ -480,7 +489,7 @@
          */
         onLookup: function(e) {
             if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
-                return; // Handle with _cycle()
+                return; // Handle with onCycle()
             }
 
             clearTimeout(this.timer);

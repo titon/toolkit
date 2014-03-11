@@ -78,9 +78,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (this.tabs[index]) {
-                this.show(this.tabs[index]);
-            }
+            this.show(this.tabs[Toolkit.bound(index, this.tabs.length)]);
         },
 
         /**

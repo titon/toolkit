@@ -8,7 +8,7 @@
     'use strict';
 
     Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
-        var element;
+        var element, events;
 
         this.component = 'Tooltip';
         this.version = '1.1.0';
@@ -19,7 +19,7 @@
         this.nodes = nodes = $(nodes);
         this.node = null;
         this.cache = {};
-        this.events = {};
+        this.events = events = {};
         this.runtime = {};
 
         // Remove class since were using runtime
@@ -36,13 +36,13 @@
 
         // Initialize events
         if (options.mode === 'click') {
-            this.events['clickout element'] = 'hide';
-            this.events['clickout ' + nodes.selector] = 'hide';
+            events['clickout element'] = 'hide';
+            events['clickout ' + nodes.selector] = 'hide';
         } else {
-            this.events['mouseleave ' + nodes.selector] = 'hide';
+            events['mouseleave ' + nodes.selector] = 'hide';
         }
 
-        this.events[options.mode + ' ' + nodes.selector] = 'onShow';
+        events[options.mode + ' ' + nodes.selector] = 'onShow';
 
         this.enable();
         this.fireEvent('init');

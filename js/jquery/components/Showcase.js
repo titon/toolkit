@@ -85,11 +85,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.data.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.data.length - 1;
-            }
+            index = Toolkit.bound(index, this.data.length);
 
             var self = this,
                 options = this.options,
