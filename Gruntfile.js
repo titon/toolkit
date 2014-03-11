@@ -208,6 +208,11 @@ module.exports = function(grunt) {
                 report: 'min'
             },
             build: {
+                options: {
+                    mangle: false,
+                    compress: false,
+                    beautify: true
+                },
                 files: [jqUglifyPaths, mooUglifyPaths]
             },
             dist: {
@@ -291,7 +296,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['compass:build']
+                tasks: ['compass:build', 'concat:build']
             }
         }
     });
@@ -309,5 +314,6 @@ module.exports = function(grunt) {
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('distribute', ['jshint', 'compass:build', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
+    grunt.registerTask('production', ['jshint', 'compass:build', 'uglify:dist', 'concat:build', 'string-replace:build']);
     grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
 };

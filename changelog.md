@@ -7,6 +7,8 @@ This update includes documentation for all components.
 
 * Added `isRetina` to the `Toolkit` flags
 * Added `join-classes()` mixin
+* Added `grunt production` command to compress for production purposes
+* Updated `grunt` command to not compress for development purposes
 * Updated `$.fn.positionTo()` to re-position if the element falls outside the viewport
 * Replaced `currentIndex` with `index` in all components
 * Removed `content-spacing()` mixin

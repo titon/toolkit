@@ -2,15 +2,10 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 1.2.0 ###
-* Build all files without minification (dev version).
-* Optimize classes for smaller filesize.
-
 ### 1.3.0 ###
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
-* Add support for large modals that need to be scrolled.
 
 ### 1.4.0 ###
 * Toast - A component to display toast notifications
