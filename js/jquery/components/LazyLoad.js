@@ -7,33 +7,29 @@
 (function($) {
     'use strict';
 
-    Toolkit.LazyLoad = Toolkit.Component.extend(function(elements, options) {
+    Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
+        container = $(container);
+
         this.component = 'LazyLoad';
         this.version = '1.0.0';
-        this.options = options = this.setOptions(options);
-        this.elements = $(elements);
+        this.options = options = this.setOptions(options, container);
+        this.container = (container.css('overflow') === 'auto') ? container : $(window);
+        this.elements = container.find('.lazy-load');
         this.element = null; // Element being loaded
         this.isLoaded = false;
         this.loaded = 0;
 
         // Initialize events
-        $(options.context || window).on({
-            scroll: $.throttle(this.load.bind(this), options.throttle),
-            resize: $.throttle(this.load.bind(this), options.throttle)
-        });
+        var callback = $.throttle(this.load.bind(this), options.throttle);
+
+        this.events = {
+            'scroll container': callback,
+            'resize window': callback,
+            'ready document': 'onReady'
+        };
 
         this.enable();
         this.fireEvent('init');
-
-        // Load elements within viewport
-        $(function() {
-            this.load();
-
-            // Set force load on DOM ready
-            if (options.forceLoad) {
-                setTimeout(this.loadAll.bind(this), options.delay);
-            }
-        }.bind(this));
     }, {
 
         /**
@@ -43,40 +39,41 @@
          * @returns {bool}
          */
         inViewport: function(node) {
-            var win = $(window),
+            node = $(node);
+
+            var container = this.container,
                 threshold = this.options.threshold,
-                scrollTop = win.scrollTop(),
-                scrollLeft = win.scrollLeft(),
-                nodeOffset = $(node).offset();
+                conHeight = container.height(),
+                conWidth = container.width(),
+                scrollTop = container.scrollTop(),
+                scrollLeft = container.scrollLeft(),
+                nodeOffset = (container[0] !== window) ? node.position() : node.offset();
 
             return (
                 // Element is not hidden
-                $(node).is(':visible') &&
+                node.is(':visible') &&
                 // Below the top
                 (nodeOffset.top >= (scrollTop - threshold)) &&
                 // Above the bottom
-                (nodeOffset.top <= (scrollTop + win.height() + threshold)) &&
+                (nodeOffset.top <= (scrollTop + conHeight + threshold)) &&
                 // Right of the left
                 (nodeOffset.left >= (scrollLeft - threshold)) &&
                 // Left of the right
-                (nodeOffset.left <= (scrollLeft + win.width() + threshold))
+                (nodeOffset.left <= (scrollLeft + conWidth + threshold))
             );
         },
 
         /**
          * Loop over the lazy loaded elements and verify they are within the viewport.
-         *
-         * @returns {bool}
          */
         load: function() {
             if (this.isLoaded) {
-                return false;
+                return;
             }
 
             if (this.loaded === this.elements.length) {
                 this.shutdown();
-
-                return false;
+                return;
             }
 
             this.elements.each(function(index, node) {
@@ -86,18 +83,14 @@
             }.bind(this));
 
             this.fireEvent('load');
-
-            return true;
         },
 
         /**
          * Load the remaining hidden elements and remove any container events.
-         *
-         * @returns {bool}
          */
         loadAll: function() {
             if (this.isLoaded) {
-                return false;
+                return;
             }
 
             this.elements.each(function(index, node) {
@@ -105,10 +98,7 @@
             }.bind(this));
 
             this.fireEvent('loadAll');
-
             this.shutdown();
-
-            return true;
         },
 
         /**
@@ -119,7 +109,7 @@
          */
         show: function(node, index) {
             node = $(node);
-            node.removeClass(this.elements.selector.substr(1));
+            node.removeClass('lazy-load');
 
             // Set the element being loaded for events
             this.element = node;
@@ -154,13 +144,22 @@
          */
         shutdown: function() {
             this.isLoaded = true;
-
-            $(this.options.context || window).off({
-                scroll: this.load.bind(this),
-                resize: this.load.bind(this)
-            });
-
+            this.disable();
             this.fireEvent('shutdown');
+        },
+
+        /**
+         * Event handler triggered on DOM ready.
+         *
+         * @private
+         */
+        onReady: function() {
+            this.load();
+
+            // Set force load on DOM ready
+            if (this.options.forceLoad) {
+                setTimeout(this.loadAll.bind(this), this.options.delay);
+            }
         }
 
     }, {

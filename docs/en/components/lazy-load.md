@@ -23,10 +23,13 @@ element. Simply place a `.lazy-load` class on the element you want to monitor.
     When lazy loading inline images, use the <code>data-src</code> attribute instead of <code>src</code>.
 </div>
 
-Once elements have been marked, the component can be initialized.
+Once elements have been marked, the component can be initialized on a parent container.
 
 ```javascript
-$('.lazy-load').lazyLoad();
+$('body').lazyLoad();
+
+// Or element with overflow hidden
+$('#overflown').lazyLoad();
 ```
 
 ### Retina Support ###
@@ -46,7 +49,7 @@ When no threshold is set, images will immediately load when they appear on scree
 Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport.
 
 ```javascript
-$('.lazy-load').lazyLoad({
+$('body').lazyLoad({
     threshold: 200 // load images 200px off screen (default is 150)
 });
 ```

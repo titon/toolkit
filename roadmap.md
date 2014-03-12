@@ -10,7 +10,7 @@ All releases will contain bug fixing and polishing for current features.
 * Add destroy method to clean up and remove the component.
 
 ### 1.4.0 ###
-* Toast - A component to display toast notifications
+* Toast - A component to display toast notifications.
 * Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
 * Divider - A component for dividing content horizontally or vertically.
 

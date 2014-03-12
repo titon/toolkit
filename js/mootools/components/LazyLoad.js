@@ -11,6 +11,12 @@ Toolkit.LazyLoad = new Class({
     Extends: Toolkit.Component,
     Binds: ['load', 'loadAll'],
 
+    /** Container to monitor events on */
+    container: null,
+
+    /** List of elements to load */
+    elements: [],
+
     /** Have all elements been force loaded? */
     isLoaded: false,
 
@@ -31,32 +37,20 @@ Toolkit.LazyLoad = new Class({
      * Initialize the component by fetching elements and binding events.
      * Call load() immediately on page load.
      *
-     * @param {Elements} elements
+     * @param {Element} container
      * @param {Object} [options]
      */
-    initialize: function(elements, options) {
+    initialize: function(container, options) {
         this.parent(options);
-        this.element = elements;
+        this.container = (container.getStyle('overflow') === 'auto') ? container : window;
+        this.elements = container.getElements('.lazy-load');
 
-        // Exit if no elements
-        if (!this.element.length) {
-            return;
-        }
-
-        // Add events
-        (this.options.context ? document.getElement(this.options.context) : window)
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.load)
-            .addEvent('resize:throttle(' + this.options.throttle + ')', this.load);
-
-        // Load elements within viewport
-        window.addEvent('domready', function() {
-            this.load();
-
-            // Set force load on DOM ready
-            if (this.options.forceLoad) {
-                window.setTimeout(this.loadAll, this.options.delay);
-            }
-        }.bind(this));
+        // Initialize events
+        this.events = {
+            'scroll container': 'load',
+            'resize window': 'load',
+            'ready document': 'onReady'
+        };
 
         this.enable();
         this.fireEvent('init');
@@ -69,10 +63,11 @@ Toolkit.LazyLoad = new Class({
      * @returns {bool}
      */
     inViewport: function(node) {
-        var threshold = this.options.threshold,
-            scrollSize = window.getScroll(),
-            windowSize = window.getSize(),
-            nodeOffset = node.getPosition();
+        var container = this.container,
+            threshold = this.options.threshold,
+            conSize = container.getSize(),
+            scrollSize = container.getScroll(),
+            nodeOffset = node.getPosition(container);
 
         return (
             // Element is not hidden
@@ -80,11 +75,11 @@ Toolkit.LazyLoad = new Class({
             // Below the top
             (nodeOffset.y >= (scrollSize.y - threshold)) &&
             // Above the bottom
-            (nodeOffset.y <= (scrollSize.y + windowSize.y + threshold)) &&
+            (nodeOffset.y <= (scrollSize.y + conSize.y + threshold)) &&
             // Right of the left
             (nodeOffset.x >= (scrollSize.x - threshold)) &&
             // Left of the right
-            (nodeOffset.x <= (scrollSize.x + windowSize.x + threshold))
+            (nodeOffset.x <= (scrollSize.x + conSize.x + threshold))
         );
     },
 
@@ -146,7 +141,7 @@ Toolkit.LazyLoad = new Class({
      * @returns {Toolkit.LazyLoad}
      */
     show: function(node, index) {
-        node.removeClass(this.options.lazyClass.substr(1));
+        node.removeClass('lazy-load');
 
         // Replace src attributes on images
         node.getElements('img').each(function(image) {
@@ -182,15 +177,24 @@ Toolkit.LazyLoad = new Class({
      */
     shutdown: function() {
         this.isLoaded = true;
-
-        (this.options.context ? document.getElement(this.options.context) : window).removeEvents({
-            scroll: this.load,
-            resize: this.load
-        });
-
+        this.disable();
         this.fireEvent('shutdown');
 
         return this;
+    },
+
+    /**
+     * Event handler triggered on DOM ready.
+     *
+     * @private
+     */
+    onReady: function() {
+        this.load();
+
+        // Set force load on DOM ready
+        if (this.options.forceLoad) {
+            setTimeout(this.loadAll.bind(this), this.options.delay);
+        }
     }
 
 });

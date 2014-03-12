@@ -20,17 +20,10 @@
         this.targets = [];
         this.markers = [];
         this.offsets = [];
-        this.container = null;
+        this.container = (element.css('overflow') === 'auto') ? element : $(window);
 
         // Add classes to stalker
         element.addClass(Toolkit.options.vendor + 'stalker');
-
-        // Determine the container
-        if (element.css('overflow') === 'auto') {
-            this.container = element;
-        } else {
-            this.container = $(window);
-        }
 
         // Gather markets and targets
         this.refresh();

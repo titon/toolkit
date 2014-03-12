@@ -64,6 +64,7 @@ This update includes documentation for all components.
 * Input Group
     * Added small and large size support
 * LazyLoad
+    * Instantiation will need to be set on a container instead of the items being loaded
     * Added `data-src-retina` support
     * Added support for lazy loading within an overflown element
     * Fixed a bug where hidden images were being loaded
