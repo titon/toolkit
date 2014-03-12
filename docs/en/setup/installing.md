@@ -40,7 +40,7 @@ From the project root, run `bower install` to download the package(s). Once down
 <script src="/bower_components/toolkit/dist/toolkit-jquery.min.js"></script>
 ```
 
-<div class="callout is-info">
+<div class="notice is-info">
     It's also possible to include Toolkit components on a case by case basis instead of including the full component list.
     <a href="getting-started.md#distribution-files">Learn more about the distribution file structure</a>.
 </div>

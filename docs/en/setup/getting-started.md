@@ -147,7 +147,7 @@ Let's test our JavaScript components by placing the following code within the `<
 Now comes the fun part, testing the code. Open up the previously created HTML file and hover your mouse over the button in the page.
 If all goes well, you shall see a contextual tooltip appear relative to the button. Pretty awesome right?
 
-<div class="callout is-warning">
+<div class="notice is-warning">
     If no styles have been defined yet, the button and tooltip component will use default styles, which look rather boring.
 </div>
 
