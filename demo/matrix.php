@@ -7,6 +7,8 @@ $mode = value('mode', 'single'); ?>
     <button type="button" onclick="removeItem();" class="button">Remove Item</button>
 </p>
 
+<br>
+
 <ul id="matrix" class="matrix">
     <?php for ($i = 0, $x = 0; $i <= 25; $i++) { ?>
 

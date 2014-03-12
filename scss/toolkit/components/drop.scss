@@ -75,6 +75,7 @@
 
 .#{$vendor-prefix}drop-divider {
     margin: ($margin / 2) 0;
+    border-top: 1px solid $gray-dark;
 }
 
 .#{$vendor-prefix}drop-heading {

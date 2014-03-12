@@ -136,10 +136,11 @@ Toolkit.Tabs = new Class({
             section = this.sections[index],
             options = this.options,
             isPrefix = Toolkit.options.isPrefix,
-            url = this.readValue(tab, options.getUrl);
+            ajax = this.readOption(tab, 'ajax'),
+            url = this.readValue(tab, this.readOption(tab, 'getUrl'));
 
         // Load content with AJAX
-        if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+        if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(
                 url,
                 function() {
@@ -150,10 +151,10 @@ Toolkit.Tabs = new Class({
                 function(response) {
                     this.cache[url] = true;
 
+                    this.fireEvent('load', response);
+
                     section.set('html', response)
                         .removeClass(isPrefix + 'loading');
-
-                    this.fireEvent('load', response);
                 }.bind(this),
 
                 function() {
@@ -190,13 +191,10 @@ Toolkit.Tabs = new Class({
             });
         }
 
-        // Track
         this.index = index;
+        this.node = tab;
 
         this.fireEvent('show', tab);
-
-        // Set current node
-        this.node = tab;
 
         return this;
     },

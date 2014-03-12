@@ -55,12 +55,14 @@ Toolkit.Tooltip = new Class({
         this.nodes = elements;
         this.createElement();
 
+        options = this.options;
+
         // Fetch elements
-        this.elementHead = this.element.getElement(this.options.titleElement);
-        this.elementBody = this.element.getElement(this.options.contentElement);
+        this.elementHead = this.element.getElement(options.titleElement);
+        this.elementBody = this.element.getElement(options.contentElement);
 
         // Add position class
-        this.element.removeClass(this.options.className);
+        this.element.removeClass(options.className);
 
         // Remove title attributes
         var title = 'data-' + this.className() + '-title';
@@ -69,8 +71,8 @@ Toolkit.Tooltip = new Class({
             node.setProperty(title, node.get('title')).removeProperty('title');
         });
 
-        if (this.options.getTitle === 'title') {
-            this.options.getTitle = title;
+        if (options.getTitle === 'title') {
+            options.getTitle = title;
         }
 
         // Initialize events
@@ -78,12 +80,12 @@ Toolkit.Tooltip = new Class({
 
         if (options.mode === 'click') {
             events['clickout element'] = 'hide';
-            events['clickout ' + nodes.selector] = 'hide';
+            events['clickout ' + options.delegate] = 'hide';
         } else {
-            events['mouseleave ' + nodes.selector] = 'hide';
+            events['mouseleave ' + options.delegate] = 'hide';
         }
 
-        events[options.mode + ' ' + nodes.selector] = 'onShow';
+        events[options.mode + ' ' + options.delegate] = 'onShow';
 
         this.events = events;
 

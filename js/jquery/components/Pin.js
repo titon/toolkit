@@ -17,6 +17,7 @@
         this.parentHeight = null;
         this.parentTop = null;
         this.viewport = null;
+        this.active = true;
 
         // Mark element as a pin
         element
@@ -24,10 +25,12 @@
             .addClass(options.animation);
 
         // Initialize events
+        var throttle = options.throttle;
+
         this.events = {
-            'scroll window': $.throttle(this.onScroll.bind(this), options.throttle),
-            'resize window': $.throttle(this.onResize.bind(this), options.throttle),
-            'ready document': 'onResize'
+            'scroll window': throttle ? $.throttle(this.onScroll.bind(this), throttle) : 'onScroll',
+            'resize window': throttle ? $.throttle(this.onResize.bind(this), throttle) : 'onResize',
+            'ready document': 'calculate'
         };
 
         this.enable();
@@ -49,6 +52,9 @@
             this.elementHeight = this.element.outerHeight();
             this.parentHeight = parent.outerHeight();
             this.parentTop = parent.offset().top;
+
+            // Enable pin if the parent is larger than the child
+            this.active = (this.parentHeight > this.elementHeight);
         },
 
         /**
@@ -58,12 +64,6 @@
          */
         onResize: function() {
             this.calculate();
-
-            // Enable pin if the parent is larger than the child
-            if (this.parentHeight < this.elementHeight) {
-                this.disable();
-            }
-
             this.fireEvent('resize');
         },
 
@@ -78,7 +78,7 @@
                 this.calculate();
             }
 
-            if (this.element.is(':hidden')) {
+            if (!this.active || this.element.is(':hidden')) {
                 return;
             }
 

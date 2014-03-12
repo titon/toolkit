@@ -85,17 +85,6 @@ Toolkit.Matrix = new Class({
     },
 
     /**
-     * Remove required classes and set items back to defaults.
-     *
-     * @returns {Toolkit.Matrix}
-     */
-    disable: function() {
-        this.element.removeProperty('style');
-
-        return this;
-    },
-
-    /**
      * Prepend an item to the top of the matrix.
      *
      * @param {Element} item
@@ -147,16 +136,16 @@ Toolkit.Matrix = new Class({
     render: function() {
         this._calculateColumns();
 
+        // Single row, do not render
         if (this.items.length < this.colCount) {
-            return this.disable();
-        } else {
-            this.enable();
-        }
+            this.element.removeProperty('style');
 
-        if (this.colCount <= 1) {
+        // Single column
+        } else if (this.colCount <= 1) {
             this.element.addClass('no-columns');
             this.items.removeProperty('style');
 
+        // Multi column
         } else {
             this.element.removeClass('no-columns');
 
@@ -374,9 +363,7 @@ Toolkit.Matrix = new Class({
      * @param {DOMEvent} e
      */
     onResize: function(e) {
-        if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
-            this.refresh();
-        }
+        this.refresh();
     }
 
 });

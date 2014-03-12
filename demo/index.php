@@ -183,7 +183,6 @@ $components = array(
                 '90deg' => 'Rotate 90',
                 '180deg' => 'Rotate 180',
                 '270deg' => 'Rotate 270',
-                'rotate' => 'Rotate Animation',
                 'flip' => 'Flip Horizontal',
                 'flip-vert' => 'Flip Vertical'
             ))
@@ -279,7 +278,7 @@ $components = array(
                 'sticky-left' => 'Sticky Left'
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
-            'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
+            //'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
             'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true)
@@ -468,8 +467,8 @@ $components = array(
 
 $themes = array(
     'titon' => array(
-        'title' => 'Titon',
-        'css' => 'themes/titon.css'
+        'title' => 'Demo',
+        'css' => 'themes/demo.css'
     )
 );
 

@@ -11,6 +11,7 @@
         component: 'Component',
         version: '0.0.0',
         enabled: false,
+        events: {},
 
         /**
          * Create the element from the template.

@@ -52,23 +52,6 @@
         },
 
         /**
-         * Remove required classes and set items back to defaults.
-         */
-        disable: function() {
-            this.enabled = false;
-            this.element.removeAttr('style');
-            this.bindEvents('off');
-        },
-
-        /**
-         * Add required classes to elements.
-         */
-        enable: function() {
-            this.enabled = true;
-            this.bindEvents('on');
-        },
-
-        /**
          * Prepend an item to the top of the matrix.
          *
          * @param {jQuery} item
@@ -95,12 +78,10 @@
          * @param {jQuery} item
          */
         remove: function(item) {
-            item = $(item).get(0);
-
             this.items.each(function() {
                 var self = $(this);
 
-                if (self.get(0) === item) {
+                if (self.is(item)) {
                     self.remove();
                     return false;
                 }
@@ -117,15 +98,16 @@
         render: function() {
             this._calculateColumns();
 
+            // Single row, do not render
             if (this.items.length < this.colCount) {
-                this.disable();
-                return;
-            }
+                this.element.removeAttr('style');
 
-            if (this.colCount <= 1) {
+            // Single column
+            } else if (this.colCount <= 1) {
                 this.element.addClass('no-columns');
                 this.items.removeAttr('style');
 
+            // Multi column
             } else {
                 this.element.removeClass('no-columns');
 
@@ -175,7 +157,6 @@
          */
         _deferRender: function() {
             this.imagesLoaded = 0;
-
             this.images = this.element.find('img');
 
             if (this.images.length) {
@@ -328,9 +309,7 @@
          * @private
          */
         onResize: function() {
-            if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
-                this.refresh();
-            }
+            this.refresh();
         }
 
     }, {

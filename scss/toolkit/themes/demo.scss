@@ -33,6 +33,7 @@ mark { background: lighten($warning-light, 25%); }
 //-------------------- Accordion --------------------//
 
 .accordion-header {
+    background: $gray;
     border: 1px solid $gray-dark;
     margin: -1px;
     @include transition(all .15s);
@@ -52,6 +53,11 @@ mark { background: lighten($warning-light, 25%); }
 
 .breadcrumb {
     border: 1px solid $gray-dark;
+    background: $gray;
+
+    ul, ol {
+        .caret { color: $gray-darkest; }
+    }
 }
 
 //-------------------- Button --------------------//
@@ -82,6 +88,7 @@ mark { background: lighten($warning-light, 25%); }
 
 .button {
     color: #fff;
+    background: $gray;
     font-weight: bold;
     text-shadow: 1px 1px black(.2);
     @include transition(all .2s);
@@ -143,6 +150,7 @@ mark { background: lighten($warning-light, 25%); }
 .drop--up,
 .drop--right,
 .drop--left {
+    background: $gray;
     border: 1px solid $gray-dark;
     box-shadow: 5px 5px black(.25);
 
@@ -215,6 +223,11 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
+.flyout-heading,
+.type-ahead-heading {
+    background: $gray-dark;
+}
+
 .type-ahead-highlight { background: $warning-light; }
 
 .type-ahead {
@@ -256,6 +269,17 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
+.input-group {
+    > .button { height: 44px; }
+
+    &.small > .button { height: 30px; }
+    &.large > .button { height: 59px; }
+}
+
+.input-addon {
+    background: $gray;
+    border: 1px solid $gray-dark;
+}
 
 //-------------------- Label --------------------//
 
@@ -435,6 +459,7 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .progress {
+    background: $gray;
     box-shadow: inset 1px 1px 2px $gray-darkest;
 }
 
@@ -447,6 +472,13 @@ mark { background: lighten($warning-light, 25%); }
     &.is-error { @include progress-style($error, $error-dark); }
     &.is-warning { @include progress-style($warning, $warning-dark); }
     &.is-success { @include progress-style($success, $success-dark); }
+}
+
+//-------------------- Showcase --------------------//
+
+.showcase-inner {
+    background: $gray;
+    border: 1px solid $gray-dark;
 }
 
 //-------------------- Tooltip --------------------//

@@ -21,6 +21,9 @@ Toolkit.Pin = new Class({
     /** Default values */
     elementTop: null,
 
+    /** Is the pin active? */
+    active: true,
+
     /** Default options */
     options: {
         animation: '',
@@ -52,7 +55,7 @@ Toolkit.Pin = new Class({
         this.events = {
             'scroll window': 'onScroll',
             'resize window': 'onResize',
-            'ready document': 'onResize'
+            'ready document': 'calculate'
         };
 
         this.enable();
@@ -69,6 +72,9 @@ Toolkit.Pin = new Class({
         this.elementSize = this.element.getCoordinates();
         this.parentSize = this.element.getParent(this.options.context).getCoordinates();
 
+        // Enable pin if the parent is larger than the child
+        this.active = (this.parentSize.height > this.elementSize.height);
+
         return this;
     },
 
@@ -79,12 +85,6 @@ Toolkit.Pin = new Class({
      */
     onResize: function() {
         this.calculate();
-
-        // Enable pin if the parent is larger than the child
-        if (this.parentSize.height < this.elementSize.height) {
-            this.disable();
-        }
-
         this.fireEvent('resize');
     },
 
@@ -99,7 +99,7 @@ Toolkit.Pin = new Class({
             this.calculate();
         }
 
-        if (!this.isVisible()) {
+        if (!this.active || !this.isVisible()) {
             return;
         }
 

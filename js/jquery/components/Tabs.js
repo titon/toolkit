@@ -93,11 +93,12 @@
             var index = tab.data('index'),
                 section = this.sections.item(index),
                 options = this.options,
-                url = this.readValue(tab, options.getUrl),
+                ajax = this.readOption(tab, 'ajax'),
+                url = this.readValue(tab, this.readOption(tab, 'getUrl')),
                 isPrefix = Toolkit.options.isPrefix;
 
             // Load content with AJAX
-            if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+            if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
                         section.html(this._loadingTemplate())
@@ -106,10 +107,10 @@
                     function(response) {
                         this.cache[url] = true;
 
+                        this.fireEvent('load', response);
+
                         section.html(response)
                             .removeClass(isPrefix + 'loading');
-
-                        this.fireEvent('load', response);
                     },
                     function() {
                         section.html(this._errorTemplate())
@@ -145,13 +146,10 @@
                 });
             }
 
-            // Track
             this.index = index;
+            this.node = tab;
 
             this.fireEvent('show', tab);
-
-            // Set current node
-            this.node = tab;
         },
 
         /**
@@ -161,7 +159,7 @@
          * @param {jQuery.Event} e
          */
         onShow: function(e) {
-            if (this.options.preventDefault || (this.options.ajax && e.target.href.substr(0, 1) !== '#')) {
+            if (this.options.preventDefault || (this.options.ajax && e.target.getAttribute('href').substr(0, 1) !== '#')) {
                 e.preventDefault();
             }
 
