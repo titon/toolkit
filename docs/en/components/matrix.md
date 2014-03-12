@@ -72,8 +72,8 @@ We suggest adding `.fluid` from the [responsive component](responsive.md) to all
 
 ## Notes ##
 
-* The wrapper will have `.no-columns` added when the viewport is too small for multiple columns
-* The matrix will automatically re-render when the viewport is resized
+* The wrapper will have `.no-columns` added when the viewport is too small for multiple columns.
+* The matrix will automatically re-render when the viewport is resized.
 
 ## Variables ##
 

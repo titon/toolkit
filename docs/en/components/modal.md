@@ -88,9 +88,9 @@ Then the `console.log` function will be triggered with the response passed as th
 
 ## Notes ##
 
-* The `animation` option will be appended as a class name
-* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled
-* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API
+* The `animation` option will be appended as a class name.
+* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled.
+* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API.
 
 ## Variables ##
 

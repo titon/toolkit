@@ -61,8 +61,8 @@ $('.js-mask-toggle').click(function() {
 
 ## Notes ##
 
-* Target elements will have a `.maskable` class applied
-* Target elements will also have `.is-masked` applied when the mask is activated
+* Target elements will have a `.maskable` class applied.
+* Target elements will also have `.is-masked` applied when the mask is activated.
 
 ## Variables ##
 

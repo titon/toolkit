@@ -120,12 +120,12 @@ To include an optional description below the label, use `getDescription`.
 
 ## Notes ##
 
-* Checkboxes and radios use `:checked` on the original input for their active state
-* Selected options will have `.is-active` applied to their parent `li`
-* An `.is-active` class will be added to `.select` when a menu is open
-* An `.is-multiple` class will be added to the multi-select dropdown
-* Optgroups will be converted to `.drop-heading` within the dropdown
-* Adding `disabled` to an option or optgroup will disable all related options
+* Checkboxes and radios use `:checked` on the original input for their active state.
+* Selected options will have `.is-active` applied to their parent `li`.
+* An `.is-active` class will be added to `.select` when a menu is open.
+* An `.is-multiple` class will be added to the multi-select dropdown.
+* Optgroups will be converted to `.drop-heading` within the dropdown.
+* Adding `disabled` to an option or optgroup will disable all related options.
 
 ## Options ##
 

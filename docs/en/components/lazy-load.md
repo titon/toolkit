@@ -63,8 +63,8 @@ either inline or through CSS. You may also define the `src` attribute with a tra
 
 ## Notes ##
 
-* Background images will be overridden by the `.lazy-load` class
-* Elements that have been loaded will have the `.lazy-load` class removed
+* Background images will be overridden by the `.lazy-load` class.
+* Elements that have been loaded will have the `.lazy-load` class removed.
 
 ## Options ##
 

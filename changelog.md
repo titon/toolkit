@@ -41,6 +41,7 @@ This update includes documentation for all components.
     * Renamed `loaderMessage` option to `loadingMessage`
 * Button
     * Added outline none to `:focus` styles
+    * Fixed a bug with `input` buttons
 * Button Group
     * Removed `!important` from negative margin properties
 * Drop
@@ -63,9 +64,10 @@ This update includes documentation for all components.
 * Input Group
     * Added small and large size support
 * LazyLoad
+    * Added `data-src-retina` support
+    * Added support for lazy loading within an overflown element
     * Fixed a bug where hidden images were being loaded
     * Renamed `data-lazyload` to `data-src`
-    * Added `data-src-retina` support
 * Loader
     * Renamed `.spinner` to `.loader-spinner`
 * Matrix
@@ -81,8 +83,18 @@ This update includes documentation for all components.
     * Removed dragging (temporarily)
 * Pin
     * Fixed a bug where `.is-pinned` was not being removed
+* Popover & Tooltip
+    * Added `$popover-tooltip-animation` to filter the animations in the CSS output
+    * Added `$popover-arrow-width` and `$tooltip-arrow-width` to alter the arrow sizes
+    * Added automatic compatibility of `title` attributes
+    * Fixed a bug where node was being set and used incorrectly
+    * Fixed a bug with mouseleave events
+    * Options `className` and `position` are added and removed dynamically each reveal
+    * Updated options to be inheritable at runtime through the activating node
+    * Updated `position` values to be dashed instead of camel case
+    * Removed `slide-in` animation
 * Progress
-    * Fixed shape issues with multiple bars
+    * Added multiple progress bar support
     * Removed `.medium` size
     * Refactored state classes
 * Responsive
@@ -98,13 +110,3 @@ This update includes documentation for all components.
     * Moved zebra-striping into an `.is-striped` class
 * Tabs
     * Renamed `sectionsElement` option to `sectionElement`
-* Tooltip, Popover
-    * Added `$popover-tooltip-animation` to filter the animations in the CSS output
-    * Added `$popover-arrow-width` and `$tooltip-arrow-width` to alter the arrow sizes
-    * Added automatic compatibility of `title` attributes
-    * Fixed a bug where node was being set and used incorrectly
-    * Fixed a bug with mouseleave events
-    * Options `className` and `position` are added and removed dynamically each reveal
-    * Updated options to be inheritable at runtime through the activating node
-    * Updated `position` values to be dashed instead of camel case
-    * Removed `slide-in` animation
