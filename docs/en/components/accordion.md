@@ -146,6 +146,12 @@ Inherits all events from the [parent component](../development/js.md#events).
             <td>int:index</td>
             <td>Triggered when a section is opened manually through the <code>jump()</code> method.</td>
         </tr>
+        <tr>
+            <td>onShow</td>
+            <td>show.toolkit.accordion</td>
+            <td>element:section, element:header, int:index</td>
+            <td>Triggered when a section is shown.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -184,12 +190,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>previousIndex</td>
-            <td>int</td>
-            <td>The index of the previously opened section.</td>
-        </tr>
-        <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The index of the currently opened section.</td>
         </tr>

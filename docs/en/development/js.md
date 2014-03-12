@@ -139,7 +139,7 @@ Each flag can be found on the `Toolkit` object.
         <tr>
             <td>hasTransition</td>
             <td>Both</td>
-            <td>Does the browser support CSS transition?</td>
+            <td>Does the browser support CSS transitions?</td>
         </tr>
         <tr>
             <td>isTouch</td>
@@ -469,12 +469,10 @@ The following methods are available on all class instances, but not all componen
         <tr>
             <td>createElement()</td>
             <td>Both</td>
-            <td>Create an element from the <code>template</code> or <code>templateFrom</code> options.</td>
-        </tr>
-        <tr>
-            <td>setElement(element:element)</td>
-            <td>Both</td>
-            <td>Set the element to use by the component. Will set class names on the element based on defined options.</td>
+            <td>
+                Create an element from the <code>template</code> or <code>templateFrom</code> options.
+                Will set class names on the element based on defined options.
+            </td>
         </tr>
         <tr>
             <td>parseTemplate(string:template)</td>
@@ -482,12 +480,22 @@ The following methods are available on all class instances, but not all componen
             <td>Parse a template string into a set of DOM elements.</td>
         </tr>
         <tr>
-            <td>setOptions(object:options)</td>
+            <td>setOptions(object:options[, element:inheritFrom])</td>
             <td>Both</td>
             <td>
                 Set the options to use in the component.
-                Will alter options based on current device and will automatically bind option <code>on</code> events.
+                Will alter options based on current device and will inherit from data attributes if an element is passed.
             </td>
+        </tr>
+        <tr>
+            <td>inheritOptions(object:options, element:element)</td>
+            <td>Both</td>
+            <td>Inherit and merge options from the target elements data attributes.</td>
+        </tr>
+        <tr>
+            <td>bindEvents(string:type)</td>
+            <td>Both</td>
+            <td>Add or remove events for elements found in the <code>events</code> object mapping.</td>
         </tr>
         <tr>
             <td>enable()</td>
@@ -503,6 +511,11 @@ The following methods are available on all class instances, but not all componen
             <td>fireEvent(string:event[, array:args])</td>
             <td>Both</td>
             <td>Trigger an event with optional arguments to pass. Will find an event within the options object.</td>
+        </tr>
+        <tr>
+            <td>readOption(element:element, string:key)</td>
+            <td>Both</td>
+            <td>Read an option from an elements data attribute, else fallback to the original option.</td>
         </tr>
         <tr>
             <td>readValue(element:element, mixed:query)</td>
@@ -613,10 +626,11 @@ These extensions may even solve a problem in your own codebase.
             <td>jQuery</td>
             <td rowspan="2">
                 Position the element relative to another element.
-                <code>position</code> may be any combination of top, bottom, left, right, and center, in camel case format.
+                <code>position</code> may be any combination of top, bottom, left, right, and center, in dashed format.
                 <code>relativeTo</code> may either be an element or event (used with <code>isMouse</code> for mouse following).
                 <code>baseOffset</code> may be an object with default left and top values.
                 When set to true, <code>isMouse</code> will re-position the element based on mouse cursor dimensions.
+                If the element falls outside of the viewport, it will be re-positioned by altering the position class name.
             </td>
         </tr>
         <tr>
@@ -750,6 +764,12 @@ These extensions may even solve a problem in your own codebase.
             <td>
                 Throttle the execution of a function so it triggers at every delay interval.
             </td>
+        </tr>
+
+        <tr>
+            <td>jQuery.bound(int:value, int:max[, int:min])</td>
+            <td>jQuery</td>
+            <td>Bound a number between a min and max range.</td>
         </tr>
 
         <tr>

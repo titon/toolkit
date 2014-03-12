@@ -68,15 +68,6 @@ These values can be changed through `$h1-size`, `$h2-size`, etc, variables.
 Both paragraphs and lists have been modified with a consistent margin,
 which can be altered through the `$margin` variable.
 
-They can also be paired with [content-spacing()](../development/sass.md#mixins) for consistency.
-This will remove top and bottom margins from first and list children.
-
-```scss
-.element {
-    @include content-spacing();
-}
-```
-
 ### Blockquotes ###
 
 Use a `blockquote` and an optional `cite` for quoting content from external sources.

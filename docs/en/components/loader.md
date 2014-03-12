@@ -45,9 +45,11 @@ The bubble wave is similar to a bar wave, with the only difference being the bar
 </div>
 ```
 
-Each `span` in the examples above represent an individual bar or bubble. By default, animations will
-only occur for `span`s up to 5. To increase or decrease this number, modify the `$loader-wave-count`
-Sass variable.
+<div class="notice is-info">
+    Each <code>span</code> in the examples above represent an individual bar or bubble.
+    By default, animations will only occur for <code>span</code>s up to 5.
+    To increase or decrease this number, modify the <code>$loader-wave-count</code> Sass variable.
+</div>
 
 ### Spinners ###
 

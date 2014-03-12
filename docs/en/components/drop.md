@@ -174,6 +174,31 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 Inherits all events from the [parent component](../development/js.md#events).
 
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option Event</th>
+            <th>Element Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onHide</td>
+            <td>hide.toolkit.drop</td>
+            <td>element:menu, element:node</td>
+            <td>Triggered when a drop menu is hidden.</td>
+        </tr>
+        <tr>
+            <td>onShow</td>
+            <td>show.toolkit.drop</td>
+            <td>element:menu, element:node</td>
+            <td>Triggered when a drop menu is shown.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Properties ##
 
 Inherits all properties from the [parent component](../development/js.md#properties).

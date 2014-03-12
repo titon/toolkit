@@ -86,7 +86,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            this.index = index = Toolkit.bound(index, this.items.length);
+            this.index = index = $.bound(index, this.items.length);
 
             // Update tabs
             if (this.tabs.length) {

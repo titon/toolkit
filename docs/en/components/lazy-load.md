@@ -15,18 +15,29 @@ element. Simply place a `.lazy-load` class on the element you want to monitor.
 
 ```html
 <div class="item lazy-load">
-    <img data-lazyload="/img/image.png" alt="">
+    <img data-src="/img/image.png" alt="">
 </div>
 ```
 
 <div class="notice is-info">
-    When lazy loading inline images, use the <code>data-lazyload</code> attribute instead of <code>src</code>.
+    When lazy loading inline images, use the <code>data-src</code> attribute instead of <code>src</code>.
 </div>
 
 Once elements have been marked, the component can be initialized.
 
 ```javascript
 $('.lazy-load').lazyLoad();
+```
+
+### Retina Support ###
+
+To display a higher quality image for retina/HD displays, use `data-src-retina`.
+If no retina equivalent is found, it will fallback to `data-src`.
+
+```html
+<div class="item lazy-load">
+    <img data-src="/img/image.png" data-src-retina="/img/image-hd.png" alt="">
+</div>
 ```
 
 ### Scrolling Threshold ###
@@ -47,7 +58,7 @@ element shift may occur once the image is loaded. To prevent this, define a widt
 either inline or through CSS. You may also define the `src` attribute with a transparent fill-in image.
 
 ```html
-<img src="/img/fake-image.png" data-lazyload="/img/real-image.png" width="250" height="100">
+<img src="/img/fake-image.png" data-src="/img/real-image.png" width="250" height="100">
 ```
 
 ## Notes ##

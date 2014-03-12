@@ -49,7 +49,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            index = Toolkit.bound(index, this.headers.length);
+            index = $.bound(index, this.headers.length);
 
             this.fireEvent('jump', index);
             this.show(this.headers[index]);

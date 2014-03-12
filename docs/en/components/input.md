@@ -320,7 +320,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>Is the current select element a multi-select.</td>
         </tr>
         <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The current option index when cycling with keyboard events.</td>
         </tr>
