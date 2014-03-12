@@ -49,7 +49,13 @@ Toolkit.Stalker = new Class({
         this.element.addClass(Toolkit.options.vendor + 'stalker');
 
         this.refresh();
-        this.bindEvents();
+
+        // Initialize events
+        this.events = {
+            'ready document': 'onScroll'
+        };
+
+        this.enable();
         this.fireEvent('init');
     },
 
@@ -74,9 +80,7 @@ Toolkit.Stalker = new Class({
         (this.element.getStyle('overflow') === 'auto' ? this.element : window)
             .addEvent('scroll:throttle(' + this.options.throttle + ')', this.onScroll);
 
-        window.addEvent('domready', this.onScroll);
-
-        return this;
+        return this.parent();
     },
 
     /**
@@ -101,11 +105,9 @@ Toolkit.Stalker = new Class({
             this.element.scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.targets = $$(this.options.target);
-        this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
+        this.targets = $$(this.options.target).addClass(Toolkit.options.vendor + 'stalker-target');
 
-        this.markers = $$(this.options.marker);
-        this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
+        this.markers = $$(this.options.marker).addClass(Toolkit.options.vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 

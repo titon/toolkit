@@ -31,7 +31,7 @@ Toolkit.Mask = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
+        this.element = element;
 
         var vendor = Toolkit.options.vendor,
             maskClass = '.' + vendor + 'mask';
@@ -48,6 +48,7 @@ Toolkit.Mask = new Class({
         // Find a mask or create it
         this.setMask(element.getElement('> ' + maskClass) || new Element('div' + maskClass));
 
+        this.enable();
         this.fireEvent('init');
     },
 
@@ -106,10 +107,6 @@ Toolkit.Mask = new Class({
      * @returns {Toolkit.Mask}
      */
     show: function(node) {
-        if (!this.enabled) {
-            return this;
-        }
-
         this.node = node;
         this.mask.reveal();
         this.element.addClass(Toolkit.options.isPrefix + 'masked');

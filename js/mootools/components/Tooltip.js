@@ -41,6 +41,9 @@ Toolkit.Tooltip = new Class({
         '</div>'
     },
 
+    /** Dynamic options during runtime */
+    runtime: {},
+
     /**
      * Initialize the component by fetching elements and binding events.
      *
@@ -49,7 +52,7 @@ Toolkit.Tooltip = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
         this.createElement();
 
         // Fetch elements
@@ -57,7 +60,7 @@ Toolkit.Tooltip = new Class({
         this.elementBody = this.element.getElement(this.options.contentElement);
 
         // Add position class
-        this.element.addClass(this.options.position);
+        this.element.removeClass(this.options.className);
 
         // Remove title attributes
         var title = 'data-' + this.className() + '-title';
@@ -70,14 +73,41 @@ Toolkit.Tooltip = new Class({
             this.options.getTitle = title;
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        var events = {};
 
-        if (this.options.mode === 'click') {
-            this.element.addEvent('clickout', this.onHide);
+        if (options.mode === 'click') {
+            events['clickout element'] = 'hide';
+            events['clickout ' + nodes.selector] = 'hide';
+        } else {
+            events['mouseleave ' + nodes.selector] = 'hide';
         }
 
+        events[options.mode + ' ' + nodes.selector] = 'onShow';
+
+        this.events = events;
+
+        this.enable();
         this.fireEvent('init');
+    },
+
+    /**
+     * Remove dynamic options.
+     *
+     * @returns {Toolkit.Component}
+     */
+    hide: function() {
+        var position = this.element.get('data-new-position') || this.runtime.position || this.options.position,
+            className = this.runtime.className || this.options.className;
+
+        this.runtime = {};
+
+        this.element
+            .removeClass(position)
+            .removeClass(className)
+            .removeProperty('data-mew-position');
+
+        return this.parent();
     },
 
     /**
@@ -89,12 +119,16 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     position: function(content, title) {
-        var options = this.options;
+        var options = (Object.keys(this.runtime).length) ? this.runtime : this.options;
 
         // AJAX is currently loading
         if (content === true) {
             return this;
         }
+
+        this.element
+            .addClass(options.position)
+            .addClass(options.className);
 
         // Set title
         title = title || this.readValue(this.node, options.getTitle);
@@ -150,23 +184,20 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     show: function(node, content, title) {
-        var options = this.options;
+        var options;
 
         if (node) {
-            if (options.mode !== 'click') {
-                node
-                    .removeEvent('mouseleave', this.onHide)
-                    .addEvent('mouseleave', this.onHide);
-            }
+            this.node = node;
+            this.runtime = options = this.inheritOptions(this.options, node);
 
             content = content || this.readValue(node, options.getContent);
+        } else {
+            this.runtime = options = this.options;
         }
 
         if (!content) {
             return this;
         }
-
-        this.node = node;
 
         if (options.ajax) {
             if (this.cache[content]) {
@@ -194,7 +225,7 @@ Toolkit.Tooltip = new Class({
     onFollow: function(e) {
         e.preventDefault();
 
-        var options = this.options;
+        var options = this.runtime;
 
         this.element.positionTo(options.position, e, {
             left: options.xOffset,

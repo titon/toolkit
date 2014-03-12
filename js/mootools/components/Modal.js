@@ -52,36 +52,24 @@ Toolkit.Modal = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
         this.createElement();
 
-        if (this.options.fullScreen) {
+        options = this.options;
+
+        if (options.fullScreen) {
             this.element.addClass(Toolkit.options.isPrefix + 'fullscreen');
-            this.options.draggable = false;
+            options.draggable = false;
         }
 
         // Get elements
-        this.elementBody = this.element.getElement(this.options.contentElement);
-
-        // Draggable
-        if (this.options.draggable) {
-            this.drag = new Drag(this.element, {
-                onStart: function(element) {
-                    element.addClass(Toolkit.options.isPrefix + 'dragging');
-                },
-                onComplete: function(element) {
-                    element.removeClass(Toolkit.options.isPrefix + 'dragging');
-                }
-            });
-
-            this.element.addClass(Toolkit.options.isPrefix + 'draggable');
-        }
+        this.elementBody = this.element.getElement(options.contentElement);
 
         // Blackout
-        if (this.options.blackout) {
+        if (options.blackout) {
             this.blackout = Toolkit.Blackout.factory();
 
-            if (this.options.stopScroll) {
+            if (options.stopScroll) {
                 this.blackout.addEvent('hide', function(hidden) {
                     if (hidden) {
                         document.body.removeClass('no-scroll');
@@ -90,34 +78,19 @@ Toolkit.Modal = new Class({
             }
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        var events = {};
+        events['clickout element'] = 'onHide';
+        events['clickout nodes'] = 'onHide';
+        events['keydown window'] = 'onKeydown';
+        events['click ' + options.delegate] = 'onShow';
+        events['click element ' + options.closeEvent] = 'onHide';
+        events['click element ' + options.submitEvent] = 'onSubmit';
+
+        this.events = events;
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set delegation and window events.
-     *
-     * @returns {Toolkit.Modal}
-     */
-    bindEvents: function() {
-        this.parent();
-
-        window.addEvent('keydown', function(e) {
-            if (e.key === 'esc' && this.isVisible()) {
-                this.hide();
-            }
-        }.bind(this));
-
-        this.element
-            .addEvent('clickout', this.onHide)
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this.onHide)
-            .addEvent('click:relay(' + this.options.submitEvent + ')', this.onSubmit);
-
-        this.nodes
-            .addEvent('clickout', this.onHide);
-
-        return this;
     },
 
     /**
@@ -185,7 +158,10 @@ Toolkit.Modal = new Class({
             ajax = false;
 
         } else if (node) {
-            content = this.readValue(node, options.getContent) || node.get('href');
+            this.node = node;
+
+            ajax = this.readOption(node, 'ajax');
+            content = this.readValue(node, this.readOption(node, 'getContent')) || node.get('href');
 
             if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                 ajax = false;
@@ -195,8 +171,6 @@ Toolkit.Modal = new Class({
         if (!content) {
             return this;
         }
-
-        this.node = node;
 
         // Show blackout
         if (this.blackout) {
@@ -219,6 +193,18 @@ Toolkit.Modal = new Class({
         }
 
         return this;
+    },
+
+    /**
+     * Event handler for closing the modal when esc is pressed.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onKeydown: function(e) {
+        if (e.key === 'esc' && this.element.isShown()) {
+            this.hide();
+        }
     },
 
     /**

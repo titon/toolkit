@@ -14,8 +14,11 @@ Toolkit.Component = new Class({
     /** Cached data */
     cache: {},
 
+    /** Events to bind */
+    events: {},
+
     /** Is class functionality enabled? */
-    enabled: true,
+    enabled: false,
 
     /** The template element or targeted DOM element used for interaction */
     element: null,
@@ -31,8 +34,6 @@ Toolkit.Component = new Class({
         context: null,
         delegate: '',
         className: '',
-        animation: '',
-        mode: 'click',
 
         // Templates
         template: '',
@@ -49,31 +50,79 @@ Toolkit.Component = new Class({
     },
 
     /**
-     * Will either apply events via delegation or directly to an element.
+     * Loop through the events object map and attach events to the specific selector in the correct context.
+     * Take into account window, document, and delegation.
      *
+     * @param {String} type
      * @returns {Toolkit.Component}
      */
-    bindEvents: function() {
-        var options = this.options,
-            event = options.mode,
-            context;
+    bindEvents: function(type) {
+        var self = this,
+            event,
+            keys,
+            context,
+            selector,
+            funcs,
+            win = window,
+            doc = document,
+            method = (type === 'on') ? 'addEvent' : 'removeEvent';
 
-        // Delegation
-        if (options.delegate) {
-            event += ':relay(' + options.delegate + ')';
-            context = document.id(options.context || document.body);
+        // event window = func          Bind window event
+        // event document = func        Bind document event
+        // ready document = func        Bind DOM ready event
+        // event property = func        Bind event to collection that matches class property
+        // event .class = func          Bind delegated events to class on document
+        // event context .class = func  Bind delegated events to class within context
+        Object.each(this.events, function(value, key) {
+            funcs = (typeOf(value) === 'array') ? value : [value];
+            keys = key.split(' ');
+            event = keys[0];
+            context = keys[1];
+            selector = keys[2] || null;
 
-        // Direct
-        } else if (this.element) {
-            context = this.element;
-        }
+            // No context defined, so use the context in options
+            // Also clickout events cannot be delegated
+            if ((context.charAt(0) === '.' || context.charAt(0) === '#') && event !== 'clickout') {
+                selector = context;
+                context = self.options.context;
+            }
 
-        if (context) {
-            context.addEvent(event, this.onShow);
-        }
+            // The context is a property on the object
+            if (self[context]) {
+                context = self[context];
+            }
+
+            funcs.each(function(func) {
+                if (typeOf(func) !== 'function') {
+                    func = self[func].bind(self);
+                }
+
+                // On window
+                if (context === 'window') {
+                    win[method](event, func);
+
+                // On document
+                } else if (context === 'document') {
+                    if (event === 'ready') {
+                        win[method]('domready', func);
+                    } else {
+                        doc[method](event, func);
+                    }
+
+                // Delegated
+                } else if (selector) {
+                    (context || doc)[method](event + ':relay(' + selector + ')', func);
+
+                // On element
+                } else {
+                    context[method](event, func);
+                }
+            });
+        });
 
         return this;
     },
+
 
     /**
      * Return the class name of the current object.
@@ -117,7 +166,18 @@ Toolkit.Component = new Class({
 
         // Store it in the DOM
         if (template) {
-            this.setElement(template);
+
+            // Add a class name
+            if (options.className) {
+                template.addClass(options.className);
+            }
+
+            // Enable animations
+            if (options.animation) {
+                template.addClass(options.animation);
+            }
+
+            this.element = template;
         } else {
             throw new Error(this.className() + ' failed to create template element');
         }
@@ -132,6 +192,7 @@ Toolkit.Component = new Class({
      */
     disable: function() {
         this.enabled = false;
+        this.bindEvents('off');
 
         return this;
     },
@@ -143,6 +204,7 @@ Toolkit.Component = new Class({
      */
     enable: function() {
         this.enabled = true;
+        this.bindEvents('on');
 
         return this;
     },
@@ -165,6 +227,31 @@ Toolkit.Component = new Class({
         }
 
         return this;
+    },
+
+    /**
+     * Inherit options from the target elements data attributes.
+     *
+     * @param {Object} options
+     * @param {Element} element
+     * @returns {Object}
+     */
+    inheritOptions: function(options, element) {
+        var key, value, obj = {};
+
+        for (key in options) {
+            if (key === 'context' || key === 'template') {
+                continue;
+            }
+
+            value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+
+            if (typeOf(value) !== 'null') {
+                obj[key] = value;
+            }
+        }
+
+        return Object.merge({}, options, obj);
     },
 
     /**
@@ -240,6 +327,24 @@ Toolkit.Component = new Class({
         this.fireEvent('process', content);
 
         return this;
+    },
+
+    /**
+     * Read a class option from a data attribute.
+     * If no attribute exists, return the option value.
+     *
+     * @param {Element} element
+     * @param {String} key
+     * @returns {*}
+     */
+    readOption: function(element, key) {
+        var value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+
+        if (typeOf(value) === 'null') {
+            value = this.options[key];
+        }
+
+        return value;
     },
 
     /**
@@ -339,54 +444,19 @@ Toolkit.Component = new Class({
     },
 
     /**
-     * Set the primary element to interact with.
-     * Apply optional class names if available.
-     *
-     * @param {String|Element} element
-     * @returns {Toolkit.Component}
-     */
-    setElement: function(element) {
-        if (typeOf(element) === 'string') {
-            element = document.getElement(element); // Uses #id format
-        }
-
-        this.element = element;
-        this.options.template = false;
-
-        // Add a class name
-        if (this.options.className) {
-            this.element.addClass(this.options.className);
-        }
-
-        // Enable animations
-        if (this.options.animation) {
-            this.element.addClass(this.options.animation);
-        }
-
-        return this;
-    },
-
-    /**
-     * Store the list of elements (referred to as nodes) that will be bound with activation events.
-     * These are usually the elements returned from an Elements constructor.
-     *
-     * @param {Elements} nodes
-     * @returns {Toolkit.Component}
-     */
-    setNodes: function(nodes) {
-        this.nodes = nodes;
-
-        return this;
-    },
-
-    /**
      * Override options when necessary.
      * Code taken from Options class.
      *
+     * @param {Object} options
+     * @param {Element} inheritFrom
      * @returns {Toolkit.Component}
      */
-    setOptions: function() {
-        var options = Object.merge.apply(null, [{}, this.options].append(arguments));
+    setOptions: function(options, inheritFrom) {
+        options = Object.merge({}, this.options, options || {});
+
+        if (inheritFrom) {
+            options = this.inheritOptions(options, inheritFrom);
+        }
 
         // Convert hover to mouseenter
         if (options.mode && options.mode === 'hover') {
@@ -399,7 +469,7 @@ Toolkit.Component = new Class({
             }
         }
 
-		if (this.addEvent) {
+        if (this.addEvent) {
             for (var option in options){
                 if (typeOf(options[option]) !== 'function' || !(/^on[A-Z]/).test(option)) {
                     continue;

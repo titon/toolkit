@@ -10,7 +10,7 @@
 Toolkit.TypeAhead = new Class({
     Extends: Toolkit.Component,
     Implements: [Cache],
-    Binds: ['process', 'rewind', 'onCycle', 'onLookup'],
+    Binds: ['process', 'rewind', 'onCycle', 'onFind', 'onLookup'],
 
     /** Input element to display menu against */
     input: null,
@@ -62,10 +62,10 @@ Toolkit.TypeAhead = new Class({
         // Store the input
         this.input = input;
 
-        if (this.input.get('tag') !== 'input') {
+        if (input.get('tag') !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
         } else {
-            this.input.set('autocomplete', 'off');
+            input.set('autocomplete', 'off');
         }
 
         // Setup state
@@ -116,31 +116,15 @@ Toolkit.TypeAhead = new Class({
             this.input.addClass('not-shadow');
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        this.events = {
+            'keyup input': 'onLookup',
+            'keydown input': 'onCycle',
+            'clickout element': 'hide'
+        };
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set keyboard detection events.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    bindEvents: function() {
-        window.addEvent('keydown', function(e) {
-            if (e.key === 'esc' && this.isVisible()) {
-                this.hide();
-            }
-        }.bind(this));
-
-        this.element.addEvent('clickout', this.hide.bind(this));
-
-        this.input.addEvents({
-            keyup: this.onLookup,
-            keydown: this.onCycle
-        });
-
-        return this;
     },
 
     /**
@@ -209,46 +193,7 @@ Toolkit.TypeAhead = new Class({
      */
     lookup: function(term) {
         this.term = term;
-        this.timer = window.setTimeout(function() {
-            var options = this.options,
-                sourceType = typeOf(options.source);
-
-            // Check the cache first
-            if (this.cache[term.toLowerCase()]) {
-                this.process(this.cache[term.toLowerCase()]);
-
-            // Use the response of an AJAX request
-            } else if (sourceType === 'string') {
-                var url = options.source,
-                    cache = this.getCache(url);
-
-                if (cache) {
-                    this.process(cache);
-                } else {
-                    var query = options.query;
-                        query.term = term;
-
-                    new Request.JSON({
-                        url: url,
-                        data: query,
-                        onSuccess: this.process
-                    }).get();
-                }
-            // Use a literal array list
-            } else if (sourceType === 'array') {
-                this.process(options.source);
-
-            // Use the return of a function
-            } else if (sourceType === 'function') {
-                var response = options.source.attempt([], this);
-
-                if (response) {
-                    this.process(response);
-                }
-            } else {
-                throw new Error('Invalid TypeAhead source type');
-            }
-        }.bind(this), this.options.throttle);
+        this.timer = setTimeout(this.onFind, this.options.throttle);
 
         return this;
     },
@@ -555,6 +500,53 @@ Toolkit.TypeAhead = new Class({
 
         // Select the item
         this.select(this.index, 'cycle');
+    },
+
+    /**
+     * Event handler called for a lookup.
+     *
+     * @private
+     */
+    onFind: function() {
+        var term = this.term,
+            options = this.options,
+            sourceType = typeOf(options.source);
+
+        // Check the cache first
+        if (this.cache[term.toLowerCase()]) {
+            this.process(this.cache[term.toLowerCase()]);
+
+            // Use the response of an AJAX request
+        } else if (sourceType === 'string') {
+            var url = options.source,
+                cache = this.getCache(url);
+
+            if (cache) {
+                this.process(cache);
+            } else {
+                var query = options.query;
+                query.term = term;
+
+                new Request.JSON({
+                    url: url,
+                    data: query,
+                    onSuccess: this.process
+                }).get();
+            }
+            // Use a literal array list
+        } else if (sourceType === 'array') {
+            this.process(options.source);
+
+            // Use the return of a function
+        } else if (sourceType === 'function') {
+            var response = options.source.attempt([], this);
+
+            if (response) {
+                this.process(response);
+            }
+        } else {
+            throw new Error('Invalid TypeAhead source type');
+        }
     },
 
     /**

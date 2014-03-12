@@ -42,33 +42,21 @@ Toolkit.Pin = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
-
-        if (!this.element) {
-            return;
-        }
+        this.element = element;
 
         // Set defaults
         this.element.addClass(Toolkit.options.vendor + 'pin');
         this.elementTop = this.element.getStyle('top').toInt();
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        this.events = {
+            'scroll window': 'onScroll',
+            'resize window': 'onResize',
+            'ready document': 'onResize'
+        };
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set scroll and resize events.
-     *
-     * @returns {Toolkit.Pin}
-     */
-    bindEvents: function() {
-        window
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.onScroll)
-            .addEvent('resize:throttle(' + this.options.throttle + ')', this.onResize)
-            .addEvent('domready', this.onResize);
-
-        return this;
     },
 
     /**
@@ -93,9 +81,7 @@ Toolkit.Pin = new Class({
         this.calculate();
 
         // Enable pin if the parent is larger than the child
-        if (this.parentSize.height > this.elementSize.height) {
-            this.enable();
-        } else {
+        if (this.parentSize.height < this.elementSize.height) {
             this.disable();
         }
 
@@ -113,7 +99,7 @@ Toolkit.Pin = new Class({
             this.calculate();
         }
 
-        if (!this.enabled || !this.isVisible()) {
+        if (!this.isVisible()) {
             return;
         }
 

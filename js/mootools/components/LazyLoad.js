@@ -36,7 +36,7 @@ Toolkit.LazyLoad = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setElement(elements);
+        this.element = elements;
 
         // Exit if no elements
         if (!this.element.length) {
@@ -58,6 +58,7 @@ Toolkit.LazyLoad = new Class({
             }
         }.bind(this));
 
+        this.enable();
         this.fireEvent('init');
     },
 

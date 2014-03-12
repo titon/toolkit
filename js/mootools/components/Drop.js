@@ -25,16 +25,21 @@ Toolkit.Drop = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
 
-        var selectors = ['down', 'up', 'left', 'right'].map(function(value) {
-            return '.' + Toolkit.options.vendor + 'drop--' + value;
+        var events = {}, selector = this.options.delegate;
+
+        // Initialize events
+        ['down', 'up', 'left', 'right'].each(function(value) {
+            events['clickout .' + Toolkit.options.vendor + 'drop--' + value] = 'hide';
         });
 
-        $$(this.options.delegate + ', ' + selectors.join(', '))
-            .addEvent('clickout', this.hide.bind(this));
+        events['clickout ' + selector] = 'hide';
+        events[options.mode + ' ' + selector] = 'onShow';
 
-        this.bindEvents();
+        this.events = events;
+
+        this.enable();
         this.fireEvent('init');
     },
 
@@ -74,10 +79,6 @@ Toolkit.Drop = new Class({
             e.preventDefault();
         }
 
-        if (!this.enabled) {
-            return;
-        }
-
         var target = this.readValue(node, this.options.getTarget);
 
         if (!target || target.substr(0, 1) !== '#') {
@@ -89,7 +90,7 @@ Toolkit.Drop = new Class({
             this.hide();
         }
 
-        this.setElement(target);
+        this.element = target;
         this.node = node;
 
         if (!this.isVisible()) {

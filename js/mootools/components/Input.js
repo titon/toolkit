@@ -32,37 +32,24 @@
          */
         initialize: function(element, options) {
             this.parent(options);
-            this.setElement(element);
+            this.element = element;
 
-            if (!this.element) {
-                return;
-            }
-
-            this.bindEvents();
-            this.fireEvent('init');
-        },
-
-        /**
-         * Replace specific form elements with custom replacements.
-         *
-         * @returns {Toolkit.Input}
-         */
-        bindEvents: function() {
-            var options = this.options;
+            options = this.options;
 
             if (options.checkbox) {
-                this.element.getElements(options.checkbox).inputCheckbox(options);
+                element.getElements(options.checkbox).inputCheckbox(options);
             }
 
             if (options.radio) {
-                this.element.getElements(options.radio).inputRadio(options);
+                element.getElements(options.radio).inputRadio(options);
             }
 
             if (options.select) {
-                this.element.getElements(options.select).inputSelect(options);
+                element.getElements(options.select).inputSelect(options);
             }
 
-            return this;
+            this.enable();
+            this.fireEvent('init');
         },
 
         /**
@@ -115,16 +102,14 @@
          */
         initialize: function(checkbox, options) {
             this.input = checkbox;
-            this.setOptions(options);
-
+            this.setOptions(options, checkbox);
             this.buildWrapper(checkbox);
 
-            this.setElement(
-                new Element('label.' + Toolkit.options.vendor + 'checkbox')
+            this.element = new Element('label.' + Toolkit.options.vendor + 'checkbox')
                     .setProperty('for', checkbox.get('id'))
-                    .inject(checkbox, 'after')
-            );
+                    .inject(checkbox, 'after');
 
+            this.enable();
             this.fireEvent('init');
         }
     });
@@ -144,16 +129,14 @@
          */
         initialize: function(radio, options) {
             this.input = radio;
-            this.setOptions(options);
-
+            this.setOptions(options, radio);
             this.buildWrapper(radio);
 
-            this.setElement(
-                new Element('label.' + Toolkit.options.vendor + 'radio')
+            this.element = new Element('label.' + Toolkit.options.vendor + 'radio')
                     .setProperty('for', radio.get('id'))
-                    .inject(radio, 'after')
-            );
+                    .inject(radio, 'after');
 
+            this.enable();
             this.fireEvent('init');
         }
     });
@@ -197,7 +180,7 @@
          */
         initialize: function(select, options) {
             this.input = select;
-            this.setOptions(options);
+            this.setOptions(options, select);
 
             // Multiple selects must use native controls
             this.multiple = select.multiple;
@@ -206,49 +189,39 @@
                 return;
             }
 
+            var events = {
+                'change input': 'onChange'
+            };
+
             // Create custom elements
             this.buildWrapper(select);
             this.buildButton(select);
 
             // Custom dropdowns
             if (!this.options.native) {
+                events['blur input'] = 'hide';
+                events['clickout dropdown'] = 'hide';
+                events['clickout element'] = 'hide';
+                events['click element'] = 'onToggle';
+
+                if (!this.multiple) {
+                    events['keydown window'] = 'onCycle';
+                }
+
                 this.buildDropdown(select);
 
                 // Cant hide/invisible the real select or we lose focus/blur
                 // So place it below .custom-input
-                select
-                    .setStyle('z-index', 1)
-                    .addEvent('blur', this.onHide);
+                select.setStyle('z-index', 1);
             }
 
-            this.bindEvents();
+            this.events = events;
+
+            this.enable();
             this.fireEvent('init');
-        },
-
-        /**
-         * Bind events.
-         *
-         * @returns {Toolkit.Input.Select}
-         */
-        bindEvents: function() {
-            this.input.addEvent('change', this.onChange);
-
-            if (!this.options.native) {
-                this.dropdown.addEvent('clickout', this.onHide);
-
-                this.element
-                    .addEvent('clickout', this.onHide)
-                    .addEvent('click', this.onToggle);
-            }
-
-            if (!this.multiple) {
-                window.addEvent('keydown', this.onCycle);
-            }
 
             // Trigger change immediately to update the label
-            this.input.fireEvent('change', { target: this.input });
-
-            return this;
+            this.input.fireEvent('change', { target: select });
         },
 
         /**
@@ -587,7 +560,7 @@
          * @param {DOMEvent} e
          */
         onToggle: function(e) {
-            if (!this.enabled || this.input.disabled) {
+            if (this.input.disabled) {
                 return;
             }
 

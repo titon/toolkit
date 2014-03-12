@@ -140,7 +140,8 @@ Element.implement({
     /**
      * Position the element relative to another element in the document, or to the mouse cursor.
      * Determine the offsets through the `relativeTo` argument, which can be an event, or a jQuery element.
-     * Optional account for mouse location and base offset coordinates.
+     * Re-position the element if its target coordinates fall outside of the viewport.
+     * Optionally account for mouse location and base offset coordinates.
      *
      * @param {String} position
      * @param {DOMEvent|Element} relativeTo
@@ -149,10 +150,7 @@ Element.implement({
      * @returns {Element}
      */
     positionTo: function(position, relativeTo, baseOffset, isMouse) {
-        position = position.split('-');
-
-        var edge = { y: position[0], x: position[1] },
-            offset = baseOffset || { left: 0, top: 0 },
+        var offset = baseOffset || { left: 0, top: 0 },
             relHeight = 0,
             relWidth = 0,
             eSize = this.getDimensions({
@@ -167,13 +165,43 @@ Element.implement({
 
         // Else position it near the element
         } else {
-            var relOffset = relativeTo.getPosition();
+            var relOffset = relativeTo.getPosition(),
+                newPosition = position,
+                wSize = window.getSize(),
+                wsTop = window.getScroll().top;
 
             offset.left += relOffset.x;
             offset.top += relOffset.y;
             relHeight = relativeTo.getHeight();
             relWidth = relativeTo.getWidth();
+
+            // Re-position element if outside the viewport
+            if ((relOffset.top - eSize.totalHeight - wsTop) < 0) {
+                newPosition = newPosition.replace('top', 'bottom');
+
+            } else if ((relOffset.top + relHeight + eSize.totalHeight) > wSize.y) {
+                newPosition = newPosition.replace('bottom', 'top');
+            }
+
+            if ((relOffset.left - eSize.totalWidth) < 0) {
+                newPosition = newPosition.replace('left', 'right');
+
+            } else if ((relOffset.left + relWidth + eSize.totalWidth) > wSize.x) {
+                newPosition = newPosition.replace('right', 'left');
+            }
+
+            if (position !== newPosition) {
+                this.removeClass(position)
+                    .addClass(newPosition)
+                    .set('data-new-position', newPosition);
+
+                position = newPosition;
+            }
         }
+
+        // Shift around based on edge positioning
+        var parts = position.split('-'),
+            edge = { y: parts[0], x: parts[1] };
 
         // Shift around based on edge positioning
         if (edge.y === 'top') {

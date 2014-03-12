@@ -49,15 +49,18 @@ Toolkit.Matrix = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
+        this.element = element;
 
         // Load elements
         this.element.addClass(Toolkit.options.vendor + 'matrix');
         this.items = this.element.getElements('> li');
 
         // Set events
-        window.addEvent('resize', this.onResize.debounce());
+        this.events = {
+            'resize window': this.onResize.debounce()
+        };
 
+        this.enable();
         this.fireEvent('init');
 
         if (this.options.defer) {
@@ -74,10 +77,6 @@ Toolkit.Matrix = new Class({
      * @returns {Toolkit.Matrix}
      */
     append: function(item) {
-        if (typeOf(item) !== 'element') {
-            return this;
-        }
-
         item
             .inject(this.element, 'bottom')
             .setStyle('opacity', 0);
@@ -103,10 +102,6 @@ Toolkit.Matrix = new Class({
      * @returns {Toolkit.Matrix}
      */
     prepend: function(item) {
-        if (typeOf(item) !== 'element') {
-            return this;
-        }
-
         item
             .inject(this.element, 'top')
             .setStyle('opacity', 0);

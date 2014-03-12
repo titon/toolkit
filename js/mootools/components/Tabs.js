@@ -34,7 +34,7 @@ Toolkit.Tabs = new Class({
         cookieDuration: 30,
         getUrl: 'href',
         navElement: '.tabs-nav',
-        sectionsElement: '.tabs-section',
+        sectionElement: '.tabs-section',
         template: false
     },
 
@@ -46,11 +46,7 @@ Toolkit.Tabs = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
-
-        if (!this.element) {
-            return;
-        }
+        this.element = element;
 
         if (!this.options.cookie) {
             this.options.cookie = this.element.get('id');
@@ -59,18 +55,26 @@ Toolkit.Tabs = new Class({
         options = this.options;
 
         // Get elements
-        this.nav = this.element.getElement(options.navElement);
+        this.nav = element.getElement(options.navElement);
 
         this.tabs = this.nav.getElements('ul > li > a');
         this.tabs.each(function(tab, index) {
             tab.set('data-index', index).removeClass(Toolkit.options.isPrefix + 'active');
         });
 
-        this.sections = this.element.getElements(options.sectionsElement);
+        this.sections = element.getElements(options.sectionElement);
         this.sections.conceal();
 
         // Set events
-        this.bindEvents();
+        this.events[options.mode + ' tabs'] = 'onShow';
+
+        if (options.mode !== 'click' && options.preventDefault) {
+            this.events['click tabs'] = function(e) {
+                e.preventDefault();
+            };
+        }
+
+        this.enable();
         this.fireEvent('init');
 
         // Trigger default tab to display
@@ -78,8 +82,9 @@ Toolkit.Tabs = new Class({
 
         if (options.persistState) {
             index = Number.from(Cookie.read('toolkit.tabs.' + options.cookie));
+        }
 
-        } else if (options.loadFragment && location.hash) {
+        if (!index && options.loadFragment && location.hash) {
             var tab = this.tabs.filter(function(el) {
                 return (el.get('href') === location.hash);
             });
@@ -89,28 +94,11 @@ Toolkit.Tabs = new Class({
             }
         }
 
-        if (!this.tabs[index]) {
+        if (!index || !this.tabs[index]) {
             index = 0;
         }
 
         this.jump(index);
-    },
-
-    /**
-     * Add events for tab click events.
-     *
-     * @returns {Toolkit.Tabs}
-     */
-    bindEvents: function() {
-        this.tabs.addEvent(this.options.mode, this.onShow);
-
-        if (this.options.mode !== 'click' && this.options.preventDefault) {
-            this.tabs.addEvent('click', function(e) {
-                e.preventDefault();
-            });
-        }
-
-        return this;
     },
 
     /**
@@ -133,11 +121,7 @@ Toolkit.Tabs = new Class({
      * @returns {Toolkit.Tabs}
      */
     jump: function(index) {
-        if (this.tabs[index]) {
-            this.show(this.tabs[index]);
-        }
-
-        return this;
+        return this.show(this.tabs[(index).bound(this.tabs.length)]);
     },
 
     /**
@@ -226,10 +210,6 @@ Toolkit.Tabs = new Class({
     onShow: function(e) {
         if (this.options.preventDefault || (this.options.ajax && e.target.get('href').substr(0, 1) !== '#')) {
             e.preventDefault();
-        }
-
-        if (!this.enabled) {
-            return;
         }
 
         this.show(e.target);

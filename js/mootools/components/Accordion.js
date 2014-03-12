@@ -37,13 +37,12 @@ Toolkit.Accordion = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
-
-        options = this.options;
+        this.element = element;
+        this.options = options = this.inheritOptions(this.options, element);
 
         // Fetch all the sections and headers
-        var sections = this.element.getElements(options.sectionElement),
-            headers = this.element.getElements(options.headerElement);
+        var sections = element.getElements(options.sectionElement),
+            headers = element.getElements(options.headerElement);
 
         this.headers = headers;
         this.sections = sections;
@@ -59,25 +58,12 @@ Toolkit.Accordion = new Class({
         });
 
         // Set events
-        this.bindEvents();
+        this.events[options.mode + ' headers'] = 'onShow';
+
+        this.enable();
         this.fireEvent('init');
 
         this.jump(options.defaultIndex);
-    },
-
-    /**
-     * Attach events to listen for header clicks.
-     *
-     * @returns {Toolkit.Accordion}
-     */
-    bindEvents: function() {
-        if (!this.element) {
-            return this;
-        }
-
-        this.headers.addEvent(this.options.mode, this.onShow);
-
-        return this;
     },
 
     /**
@@ -89,11 +75,7 @@ Toolkit.Accordion = new Class({
      * @returns {Toolkit.Accordion}
      */
     jump: function(index) {
-        if (index >= this.headers.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = this.headers.length - 1;
-        }
+        index = (index).bound(this.headers.length);
 
         this.fireEvent('jump', index);
 
@@ -112,18 +94,19 @@ Toolkit.Accordion = new Class({
             parent = node.getParent(), // li
             section = node.getNext(), // section
             index = node.get('data-index'),
-            height = section.get('data-height').toInt();
+            height = section.get('data-height').toInt(),
+            isPrefix = Toolkit.options.isPrefix;
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node === node))) {
             if (section.isShown() && this.node) {
                 section.setStyle('max-height', 0).conceal();
-                parent.removeClass(Toolkit.options.isPrefix + 'active');
+                parent.removeClass(isPrefix + 'active');
 
             } else {
                 section.setStyle('max-height', height).reveal();
-                parent.addClass(Toolkit.options.isPrefix + 'active');
+                parent.addClass(isPrefix + 'active');
             }
 
         // Only one open at a time
@@ -137,14 +120,14 @@ Toolkit.Accordion = new Class({
             this.sections.setStyle('max-height', 0).conceal();
             section.setStyle('max-height', height).reveal();
 
-            this.element.getChildren('li').removeClass(Toolkit.options.isPrefix + 'active');
-            parent.addClass(Toolkit.options.isPrefix + 'active');
+            this.element.getChildren('li').removeClass(isPrefix + 'active');
+            parent.addClass(isPrefix + 'active');
         }
 
         this.index = index;
         this.node = node;
 
-        this.fireEvent('show', section);
+        this.fireEvent('show', [section, node, index]);
 
         return this;
     },
