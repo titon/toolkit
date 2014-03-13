@@ -626,6 +626,10 @@ The primary focus of these functions is to calculate correctly scaled widths for
 Another useful function is `strip-unit(value)`, which will remove the unit of measurement and return the literal number.
 This function is used heavily in the other conversion functions.
 
+```scss
+strip-unit(15px); // 15
+```
+
 ## Media Queries & Responsiveness ##
 
 Responsive design is the way of the future, as it allows a single website to render differently across multiple devices and resolutions.

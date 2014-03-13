@@ -29,7 +29,7 @@ grunt production
 
 ## Choosing Components ##
 
-When generating a custom build, a whitelist of component names must be defined through the `--components` option in the command line.
+When generating a custom build, a whitelist of component names can be defined through the `--components` option in the command line.
 This option will accept a comma separated list of component names. If no option is defined, all components will be included.
 
 ```bash
@@ -59,7 +59,7 @@ Themes should not be used in production and should be used as a reference for st
 By default no theme is included. To specify a theme, use the `--theme` option in the command line.
 
 ```bash
-grunt --theme=titon
+grunt --theme=demo
 ```
 
 The list of available effects can be found in the `manifest.json` and are prefixed with `theme-`.
@@ -74,5 +74,5 @@ To not include normalize, supply the `--no-normalize` option.
 Like other command line utilities, all options can be used at once, and in any order. Go crazy and customize as you please!
 
 ```bash
-grunt --components=buttonGroup,tooltip --effects=oval --theme=titon --no-normalize
+grunt production --components=buttonGroup,tooltip --effects=oval --theme=titon --no-normalize
 ```

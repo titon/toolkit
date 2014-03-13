@@ -15,7 +15,7 @@ The following markup can be used for basic carousel functionality.
     <!-- Items to cycle -->
     <div class="carousel-items">
         <ul>
-            <li><a href=""><img src="/img/carousel/item-1.png" alt=""></a></li>
+            <li><a href=""><img src="/img/carousel/item-1.png" alt="" class="fluid"></a></li>
             ...
         </ul>
     </div>

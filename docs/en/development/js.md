@@ -2,6 +2,7 @@
 
 The ins and outs of the JavaScript layer within Toolkit.
 
+* [Using Components](#using-components)
 * [Accessing Components](#accessing-components)
 * [Conflict Resolution](#conflict-resolution)
 * [Toolkit Namespace](#toolkit-namespace)
@@ -10,14 +11,67 @@ The ins and outs of the JavaScript layer within Toolkit.
     * [Feature Flags](#feature-flags)
 * [Component System](#component-system)
     * [Templates](#templates)
+        * [Elements As Templates](#elements-as-templates)
     * [Options](#options)
+        * [Data Attribute Inheritance](#data-attribute-inheritance)
+        * [Shared Options](#shared-options)
     * [Events](#events)
+        * [Namespaced Events](#namespaced-events)
+        * [Shared Events](#shared-events)
     * [Properties](#properties)
     * [Methods](#methods)
 * [Extensions](#extensions)
 * [Conventions](#conventions)
 
+## Using Components ##
+
+Using Toolkit components is extremely simple. If you're familiar with jQuery plugins, it's even simpler.
+A component can be initialized with a single line of code.
+
+```javascript
+$('.tabs').tabs();
+```
+
+What this does is initialize a tabs component on the `.tabs` element(s). Easy!
+
 ## Accessing Components ##
+
+To trigger methods, or access properties on a component, the class instance will need to be retrieved.
+This can be achieved through the `toolkit()` method or jQuery's `data()` method.
+The difference between the 2 methods, is that `toolkit()` will return an array of instances for every element
+in the collection (unless it's a single element), while `data()` will return a single instance for the first
+element in the collection. For example, take the following markup.
+
+```html
+<div class="tabs" id="tabs-1">
+    ...
+</div>
+
+<div class="tabs" id="tabs-2">
+    ...
+</div>
+```
+
+And the results of each method call.
+
+```javascript
+$('.tabs').toolkit('tabs'); // array of 2 tab instances
+$('#tabs-1').toolkit('tabs'); // 1 tab instance for #tabs-1
+
+$('.tabs').data('toolkit.tabs'); // 1 tab instance for #tabs-1 (first in the collection)
+$('#tabs-2').data('toolkit.tabs'); // 1 tab instance for #tabs-2
+```
+
+Once you have an instance, methods or properties on the instance can be accessed.
+Each component will have different methods and properties, so check out their individual documentation.
+
+```javascript
+$.each($('.tabs').toolkit('tabs'), function(i, tabs) {
+    tabs.hide();
+});
+
+$('#tabs-1').toolkit('tabs').sections; // collection of section elements
+```
 
 ## Conflict Resolution ##
 
@@ -154,6 +208,12 @@ Each flag can be found on the `Toolkit` object.
     </tbody>
 </table>
 
+```javascript
+if (Toolkit.isTouch) {
+    element.on('swipeleft', callback);
+}
+```
+
 <div class="notice is-warning">
     Flags are determined automatically and should not be altered in any way!
 </div>
@@ -190,9 +250,11 @@ For example, the Modal component uses the following template markup to create th
 ```javascript
 {
     template: '<div class="modal">' +
-        '<div class="modal-handle">' +
-            '<div class="modal-inner"></div>' +
-            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
+        '<div class="modal-outer">' +
+            '<div class="modal-handle">' +
+                '<div class="modal-inner"></div>' +
+                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '</div>' +
         '</div>' +
     '</div>'
 }
@@ -202,7 +264,7 @@ Templates can be customized by overriding the `template` option.
 When customizing however, it's important to associate the custom markup with class mappings.
 These mappings tell the component layer where critical elements within the template can be found.
 
-Continuing with the Modal example, the component must have knowledge of where to place content within the modal.
+Continuing with the Modal example, the component must have knowledge of where to inset content into the modal.
 This is handled by the `contentElement` option, which is set to `.modal-inner` by default.
 Options that end with `Element` are used for template mapping.
 
@@ -222,7 +284,7 @@ $('.js-modal').modal({
     Jump to the individual component documentation for more information.
 </div>
 
-#### Elements as Templates ####
+#### Elements As Templates ####
 
 It's also possible to use existing DOM elements as a template.
 This is especially useful for components where each instance of the component should use the same DOM element &mdash; blackouts for example.
@@ -267,13 +329,107 @@ $.extend(Toolkit.Tooltip.options, {
 ```
 
 Options can also be set on a per instance basis when initializing a component.
-These options will inherit and overwrite the global options.
+These options will inherit and override the global options.
 
 ```javascript
 $('.js-tooltip').tooltip({
     position: 'topRight'
 });
 ```
+
+#### Data Attribute Inheritance ###
+
+At the highest level we have global options. At the middle level we have component options.
+And at the lowest level, the element, we have data attribute options. Data attributes permit
+individual elements to inherit custom options that override the component options.
+
+Each data attribute must be defined in the format of `data-{component}-{option}="{value}"`.
+The component name will be all lowercase in dashed format, while the option will be all lowercase.
+
+Say we have 3 carousels on a page, but we want separate animations for each, and we only
+want to execute the component once. This can easily be solved through data attributes.
+
+```html
+<div class="carousel" data-carousel-animation="slide">
+    ...
+</div>
+
+<div class="carousel" data-carousel-animation="slide-up">
+    ...
+</div>
+
+<div class="carousel" data-carousel-animation="fade">
+    ...
+</div>
+```
+
+```javascript
+$('.carousel').carousel();
+```
+
+The previous example is only possible for embedded components, since they only handle a single element.
+On the other hand, activated components are initialized on a collection of elements,
+so each individual node can define their own options that will inherit at runtime.
+
+```html
+<button type="button" class="js-tooltip" data-tooltip="A message!" data-tooltip-position="top-center">Top Centered</button>
+
+<button type="button" class="js-tooltip" data-tooltip="/load/this" data-tooltip-ajax="true">AJAX</button>
+```
+
+```javascript
+$('.js-tooltip').tooltip({
+    position: 'top-left',
+    ajax: false
+});
+```
+
+#### Shared Options ####
+
+The following options are shared between all components.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>context</td>
+            <td>element</td>
+            <td></td>
+            <td>The element to attach delegated events to, or to use as a parent. Defaults to the document body.</td>
+        </tr>
+        <tr>
+            <td>delegate</td>
+            <td>string</td>
+            <td></td>
+            <td>The CSS selector to bind delegated events to. Is only required for activated components. (MooTools only)</td>
+        </tr>
+        <tr>
+            <td>className</td>
+            <td>string</td>
+            <td></td>
+            <td>Class name to append to the target element. Allows for custom styles.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td></td>
+            <td>The HTML used to create the component element. Is only used by activated components.</td>
+        </tr>
+        <tr>
+            <td>templateFrom</td>
+            <td>string</td>
+            <td></td>
+            <td>The ID of an element to use as the template.</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Events ###
 
@@ -283,7 +439,7 @@ These events, dubbed "option events", can only be defined once and will be trigg
 Any option that begins with `on` and defines an anonymous function is considered an event, for example.
 
 ```javascript
-$('#carousel').carousel({
+$('.carousel').carousel({
     onInit: function() {
         // Do something
     }
@@ -312,7 +468,7 @@ $('#tabs').on('show.toolkit.tabs', function(e, tab) {
 });
 ```
 
-What we did was attach a namespaced event to the same element in the format of `<event>.toolkit.<component>`
+What we did was attach a namespaced event to the same element in the format of `{event}.toolkit.{component}`
 (no "on" required in the event name). Now anytime a tab is clicked, the `onShow` option event will trigger,
 and all `show.toolkit.tabs` event handlers will trigger.
 
@@ -321,7 +477,9 @@ and all `show.toolkit.tabs` event handlers will trigger.
     The component object instance can be found under the <code>context</code> property in the event object.
 </div>
 
-The following events exist in all components, however, each component may have their own set of unique events.
+#### Shared Events ####
+
+The following events are shared between all components.
 
 <table class="table data-table">
     <thead>

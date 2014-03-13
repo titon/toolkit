@@ -3,7 +3,7 @@
 Before you dive into Toolkit, there are some important concepts and conventions that will be necessary to learn.
 Let's quickly setup a new project with Toolkit and discuss these concepts along the way.
 
-### Downloading Toolkit ###
+## Downloading Toolkit ##
 
 Of course the first thing we need to do is acquire the Toolkit files. Let's begin by cloning the repository.
 
@@ -12,9 +12,9 @@ Of course the first thing we need to do is acquire the Toolkit files. Let's begi
 ```
 
 Besides git, there are multiple ways to download Toolkit.
-[Jump to the installation documentation for more approaches.](installing.md)
+[Jump to the installation documentation for more approaches](installing.md).
 
-### Project Structure ###
+## Project Structure ##
 
 After Toolkit has been downloaded, let's open the folder and review the file structure within.
 
@@ -35,7 +35,7 @@ The Toolkit repository is grouped logically into folders depending on the type o
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.
 
-#### Distribution Files ####
+### Distribution Files ###
 
 Files found in the `dist` folder are compressed, minified, and compiled source files ready for production.
 These files are also available through [Bower](http://bower.io).
@@ -67,7 +67,7 @@ When using this approach, the `{vendor}/toolkit.min.js` file is required before 
     The <code>toolkit.min.css</code> will still need to be included.
 </div>
 
-#### Source Files ####
+### Source Files ###
 
 Source files are found in the `js`, `scss`, and `lib` folders.
 This is where all development and engineering is focused.
@@ -98,7 +98,7 @@ Files are organized into folders that represent specific functionality.
 
 * The `components` folder contains source files for individual components.
 * The `effects` folder contains effects that improve components with new aesthetics.
-* The `layout` folder contains styles that alter built-in HTML tags, like forms and text.
+* The `layout` folder contains styles that alter built-in HTML tags, like forms and typography.
 * The `mixins` folder contains mixins and functions for use in Sass files.
 * The `themes` folder contains custom themes built around Toolkit components.
 
@@ -106,7 +106,7 @@ Files are organized into folders that represent specific functionality.
     The <code>lib</code> folder is required by Compass extensions and serves no other purpose.
 </div>
 
-### Boilerplate Template ###
+## Boilerplate Template ##
 
 Now that we have our assets, let's create the HTML template.
 We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://html5boilerplate.com/) as a foundation.

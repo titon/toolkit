@@ -78,12 +78,6 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
             </td>
         </tr>
         <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the blackout element.</td>
-        </tr>
-        <tr>
             <td>templateFrom</td>
             <td>string</td>
             <td>#toolkit-blackout</td>

@@ -211,12 +211,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>.flyout</td>
             <td>CSS selector to place content within the flyout element.</td>
         </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the flyout elements.</td>
-        </tr>
     </tbody>
 </table>
 

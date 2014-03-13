@@ -97,12 +97,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>CSS selector to apply event delegation to. (MooTools only)</td>
         </tr>
         <tr>
-            <td>context</td>
-            <td>object</td>
-            <td>body</td>
-            <td>The element to attach delegated events to.</td>
-        </tr>
-        <tr>
             <td>position</td>
             <td>string</td>
             <td>top-center</td>
@@ -110,12 +104,6 @@ Inherits all options from the [parent component](../development/js.md#options).
                 Where to position the tooltip relative to the target element. Available options are:
                 top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
             </td>
-        </tr>
-        <tr>
-            <td>className</td>
-            <td>string</td>
-            <td></td>
-            <td>Class name to append to the tooltip instance. Allows for custom styles.</td>
         </tr>
         <tr>
             <td>animation</td>
@@ -207,18 +195,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>string</td>
             <td>.tooltip-body</td>
             <td>CSS selector for the content element within the tooltip template.</td>
-        </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the tooltip elements.</td>
-        </tr>
-        <tr>
-            <td>templateFrom</td>
-            <td>string</td>
-            <td></td>
-            <td>The ID of an element to use as the template.</td>
         </tr>
     </tbody>
 </table>

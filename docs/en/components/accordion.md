@@ -33,8 +33,6 @@ but will require configuration when the JavaScript is initialized.
 ```
 
 <div class="notice is-warning">
-    <h5>Animation requirement</h5>
-
     The <code>.accordion-section</code> class is required for slide animations.
     Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.
 </div>
@@ -217,7 +215,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
             </td>
         </tr>
         <tr>
-            <td>show(element:node)</td>
+            <td>show(element:header)</td>
             <td>
                 Open a specific section using the sibling header.
                 This method is triggered automatically through click events.

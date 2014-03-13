@@ -204,12 +204,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>.modal-event-submit</td>
             <td>CSS selector to bind form submit events to.</td>
         </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the modal elements.</td>
-        </tr>
     </tbody>
 </table>
 
