@@ -1,0 +1,32 @@
+{
+    "title": "Documentation",
+    "file": "/index.md",
+    "url": "/",
+    "children": [
+        {
+            "title": "Setup",
+            "file": "/setup/index.md",
+            "url": "/setup",
+            "children": [
+                {
+                    "title": ""
+                }
+            ]
+        }, {
+            "title": "Development",
+            "file": "/development/index.md",
+            "url": "/development",
+            "children": []
+        }, {
+            "title": "Components",
+            "file": "/components/index.md",
+            "url": "/components",
+            "children": []
+        }, {
+            "title": "Support",
+            "file": "/support/index.md",
+            "url": "/support",
+            "children": []
+        }
+    ]
+}
