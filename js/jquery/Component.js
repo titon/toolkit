@@ -160,9 +160,8 @@
 
             // Trigger per element
             if (element && element.length) {
-                var name = this.component.split('.').map(function(value) {
-                    return value.charAt(0).toLowerCase() + value.slice(1);
-                }).join('.');
+                var name = this.component;
+                    name = name.charAt(0).toLowerCase() + name.slice(1);
 
                 var event = jQuery.Event(type + '.toolkit.' + name);
                     event.context = this;
@@ -269,7 +268,8 @@
          * @returns {jqXHR}
          */
         requestData: function(options, before, done, fail) {
-            var url = options.url || options;
+            var url = options.url || options,
+                isPrefix = Toolkit.options.isPrefix;
 
             // Set default options
             var ajax = $.extend({}, {
@@ -278,7 +278,7 @@
                 context: this,
                 beforeSend: before || function() {
                     this.cache[url] = true;
-                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
+                    this.element.addClass(isPrefix + 'loading');
                 }
             }, options);
 
@@ -291,7 +291,7 @@
 
             return $.ajax(ajax)
                 .done(done || function(response, status, xhr) {
-                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
+                    this.element.removeClass(isPrefix + 'loading');
 
                     // HTML
                     if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
@@ -314,7 +314,7 @@
                     delete this.cache[url];
 
                     this.element
-                        .removeClass(Toolkit.options.isPrefix + 'loading')
+                        .removeClass(isPrefix + 'loading')
                         .addClass(Toolkit.options.hasPrefix + 'failed');
 
                     this.position(this._errorTemplate());
@@ -329,22 +329,7 @@
          * @returns {Object}
          */
         setOptions: function(options, inheritFrom) {
-            var defaults = Toolkit,
-                path = this.component,
-                opts;
-
-            // Drill into object to find defaults
-            if (path.indexOf('.') >= 0) {
-                path = path.split('.');
-
-                for (var i = 0; i < path.length; i++) {
-                    defaults = defaults[path[i]];
-                }
-            } else {
-                defaults = defaults[path];
-            }
-
-            opts = $.extend(true, {}, defaults.options, options || {});
+            var opts = $.extend(true, {}, Toolkit[this.component].options, options || {});
 
             // Inherit from element data attributes
             if (inheritFrom) {

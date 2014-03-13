@@ -72,8 +72,8 @@
      * Wraps a checkbox with a custom input.
      * Uses a label for checkbox toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
-        this.component = 'Input.Checkbox';
+    Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
+        this.component = 'InputCheckbox';
         this.version = '1.1.0';
         this.input = checkbox = $(checkbox);
         this.options = this.setOptions(options, checkbox);
@@ -97,8 +97,8 @@
      * Wraps a radio with a custom input.
      * Uses a label for radio toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
-        this.component = 'Input.Radio';
+    Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
+        this.component = 'InputRadio';
         this.version = '1.1.0';
         this.input = radio = $(radio);
         this.options = this.setOptions(options, radio);
@@ -122,10 +122,10 @@
      * Wraps a select dropdown with a custom input.
      * Supports native or custom dropdowns.
      */
-    Toolkit.Input.Select = Toolkit.Input.extend(function(select, options) {
+    Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         var events;
 
-        this.component = 'Input.Select';
+        this.component = 'InputSelect';
         this.version = '1.1.0';
         this.input = select = $(select);
         this.multiple = select.prop('multiple');
@@ -539,15 +539,15 @@
     });
 
     Toolkit.createComponent('inputRadio', function(options) {
-        return new Toolkit.Input.Radio(this, options);
+        return new Toolkit.InputRadio(this, options);
     });
 
     Toolkit.createComponent('inputCheckbox', function(options) {
-        return new Toolkit.Input.Checkbox(this, options);
+        return new Toolkit.InputCheckbox(this, options);
     });
 
     Toolkit.createComponent('inputSelect', function(options) {
-        return new Toolkit.Input.Select(this, options);
+        return new Toolkit.InputSelect(this, options);
     });
 
 })(jQuery);

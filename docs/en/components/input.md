@@ -6,7 +6,7 @@ Replaces selects, checkboxes, and radios with custom elements.
 
 The input component is unique in the fact that it's 4 components bundled together.
 It provides the `Input` class that replaces all selects, checkboxes, and radios in a form.
-It also provides the `Input.Checkbox`, `Input.Radio`, and `Input.Select` classes
+It also provides the `InputCheckbox`, `InputRadio`, and `InputSelect` classes
 that replace their respective individual element.
 
 To replace all selects, checkboxes, and radios in a form, call `input()` on the form.
