@@ -94,7 +94,6 @@ Toolkit.Component = new Class({
 
             // Exit if no context or empty context
             if (typeOf(context) === 'array' && !context.length) {
-                console.log(false);
                 return;
             }
 

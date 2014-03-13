@@ -194,11 +194,19 @@ module.exports = function(grunt) {
             options: {
                 config: 'config.rb',
                 environment: 'production',
-                outputStyle: 'compressed',
-                trace: true
+                trace: true,
+                force: true
             },
-            build: {},
-            dist: {}
+            build: {
+                options: {
+                    outputStyle: 'nested'
+                }
+            },
+            dist: {
+                options: {
+                    outputStyle: 'compressed'
+                }
+            }
         },
 
         // 3) Minify Javascript
@@ -313,7 +321,7 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('distribute', ['jshint', 'compass:build', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
-    grunt.registerTask('production', ['jshint', 'compass:build', 'uglify:dist', 'concat:build', 'string-replace:build']);
+    grunt.registerTask('distribute', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
+    grunt.registerTask('production', ['jshint', 'compass:dist', 'uglify:dist', 'concat:build', 'string-replace:build']);
     grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
 };
