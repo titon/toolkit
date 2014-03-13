@@ -142,7 +142,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     jump: function(index) {
-        index = (index).bound(this.data.length);
+        index = Number.from(index).bound(this.data.length);
 
         var self = this,
             options = this.options,

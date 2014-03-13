@@ -42,6 +42,7 @@ Toolkit.LazyLoad = new Class({
      */
     initialize: function(container, options) {
         this.parent(options);
+        this.options = this.inheritOptions(this.options, container);
         this.container = (container.getStyle('overflow') === 'auto') ? container : window;
         this.elements = container.getElements('.lazy-load');
 
@@ -67,7 +68,7 @@ Toolkit.LazyLoad = new Class({
             threshold = this.options.threshold,
             conSize = container.getSize(),
             scrollSize = container.getScroll(),
-            nodeOffset = node.getPosition(container);
+            nodeOffset = node.getPosition(container === window ? document.body : container);
 
         return (
             // Element is not hidden
@@ -93,13 +94,13 @@ Toolkit.LazyLoad = new Class({
             return false;
         }
 
-        if (this.loaded === this.element.length) {
+        if (this.loaded === this.elements.length) {
             this.shutdown();
 
             return false;
         }
 
-        this.element.each(function(node, index) {
+        this.elements.each(function(node, index) {
             if (node && this.inViewport(node)) {
                 this.show(node, index);
             }
@@ -120,7 +121,7 @@ Toolkit.LazyLoad = new Class({
             return false;
         }
 
-        this.element.each(function(node, index) {
+        this.elements.each(function(node, index) {
             if (node) {
                 this.show(node, index);
             }
@@ -161,7 +162,7 @@ Toolkit.LazyLoad = new Class({
         });
 
         // Replace element with null since removing from the array causes it to break
-        this.element.splice(index, 1, null);
+        this.elements.splice(index, 1, null);
         this.loaded++;
 
         this.fireEvent('show', node);
@@ -204,6 +205,6 @@ Toolkit.LazyLoad = new Class({
      */
     Toolkit.createComponent('lazyLoad', function(options) {
         return new Toolkit.LazyLoad(this, options);
-    }, true);
+    });
 
 })();

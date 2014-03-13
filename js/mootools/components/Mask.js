@@ -32,6 +32,7 @@ Toolkit.Mask = new Class({
     initialize: function(element, options) {
         this.parent(options);
         this.element = element;
+        this.options = this.inheritOptions(this.options, element);
 
         var vendor = Toolkit.options.vendor,
             maskClass = '.' + vendor + 'mask';

@@ -46,10 +46,11 @@ Toolkit.Pin = new Class({
     initialize: function(element, options) {
         this.parent(options);
         this.element = element;
+        this.options = this.inheritOptions(this.options, element);
 
         // Set defaults
-        this.element.addClass(Toolkit.options.vendor + 'pin');
-        this.elementTop = this.element.getStyle('top').toInt();
+        element.addClass(Toolkit.options.vendor + 'pin');
+        this.elementTop = element.getStyle('top').toInt();
 
         // Initialize events
         this.events = {

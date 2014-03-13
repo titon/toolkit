@@ -174,6 +174,6 @@
      */
     Toolkit.createComponent('lazyLoad', function(options) {
         return new Toolkit.LazyLoad(this, options);
-    }, true);
+    });
 
 })(jQuery);

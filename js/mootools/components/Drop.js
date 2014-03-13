@@ -27,15 +27,17 @@ Toolkit.Drop = new Class({
         this.parent(options);
         this.nodes = elements;
 
-        var events = {}, selector = this.options.delegate;
+        var events = {},
+            selector = this.options.delegate,
+            clickout = selector;
 
         // Initialize events
         ['down', 'up', 'left', 'right'].each(function(value) {
-            events['clickout .' + Toolkit.options.vendor + 'drop--' + value] = 'hide';
+            clickout += ',.' + Toolkit.options.vendor + 'drop--' + value;
         });
 
-        events['clickout ' + selector] = 'hide';
-        events[options.mode + ' ' + selector] = 'onShow';
+        events['clickout ' + clickout] = 'hide';
+        events[this.options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
 
@@ -90,7 +92,7 @@ Toolkit.Drop = new Class({
             this.hide();
         }
 
-        this.element = target;
+        this.element = document.id(target.slice(1));
         this.node = node;
 
         if (!this.isVisible()) {

@@ -141,10 +141,6 @@ Toolkit.Accordion = new Class({
     onShow: function(e) {
         e.preventDefault();
 
-        if (!this.enabled) {
-            return;
-        }
-
         var target = e.target,
             headers = this.headers;
 

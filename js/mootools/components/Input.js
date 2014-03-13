@@ -33,8 +33,7 @@
         initialize: function(element, options) {
             this.parent(options);
             this.element = element;
-
-            options = this.options;
+            this.options = options = this.inheritOptions(this.options, element);
 
             if (options.checkbox) {
                 element.getElements(options.checkbox).inputCheckbox(options);
@@ -91,7 +90,7 @@
      * Wraps a checkbox with a custom input.
      * Uses a label for checkbox toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Checkbox = new Class({
+    Toolkit.InputCheckbox = new Class({
         Extends: Toolkit.Input,
 
         /**
@@ -118,7 +117,7 @@
      * Wraps a radio with a custom input.
      * Uses a label for radio toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Radio = new Class({
+    Toolkit.InputRadio = new Class({
         Extends: Toolkit.Input,
 
         /**
@@ -145,7 +144,7 @@
      * Wraps a select dropdown with a custom input.
      * Supports native or custom dropdowns.
      */
-    Toolkit.Input.Select = new Class({
+    Toolkit.InputSelect = new Class({
         Extends: Toolkit.Input,
         Binds: ['buildOption', 'onChange', 'onCycle', 'onToggle'],
 
@@ -581,15 +580,15 @@
     });
 
     Toolkit.createComponent('inputRadio', function(options) {
-        return new Toolkit.Input.Radio(this, options);
+        return new Toolkit.InputRadio(this, options);
     });
 
     Toolkit.createComponent('inputCheckbox', function(options) {
-        return new Toolkit.Input.Checkbox(this, options);
+        return new Toolkit.InputCheckbox(this, options);
     });
 
     Toolkit.createComponent('inputSelect', function(options) {
-        return new Toolkit.Input.Select(this, options);
+        return new Toolkit.InputSelect(this, options);
     });
 
 })();

@@ -47,12 +47,11 @@ Toolkit.Tabs = new Class({
     initialize: function(element, options) {
         this.parent(options);
         this.element = element;
+        this.options = options = this.inheritOptions(this.options, element);
 
-        if (!this.options.cookie) {
-            this.options.cookie = this.element.get('id');
+        if (!options.cookie) {
+            options.cookie = element.get('id');
         }
-
-        options = this.options;
 
         // Get elements
         this.nav = element.getElement(options.navElement);

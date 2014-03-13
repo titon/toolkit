@@ -49,6 +49,29 @@ window.Toolkit = {
     isRetina: (window.devicePixelRatio > 1),
 
     /**
+     * Convert a string value to a scalar equivalent.
+     * This method is used to convert data attribute values into option values.
+     *
+     * @param {*} value
+     * @returns {*}
+     */
+    autobox: function(value) {
+        if (typeOf(value) === 'null') {
+            value = null;
+        } else if (value === 'true') {
+            value = true;
+        } else if (value === 'false') {
+            value = false;
+        } else if (isNaN(value)) {
+            value = String.from(value);
+        } else {
+            value = Number.from(value);
+        }
+
+        return value;
+    },
+
+    /**
      * Creates a new component by extending the Element(s) prototype and defines a method
      * that initializes a component. The component is only initialized if one has not been already.
      * Components are either defined per element, or on a collection of elements.
@@ -91,6 +114,7 @@ window.Toolkit = {
             });
         }
     }
+
 };
 
 /**
@@ -286,6 +310,31 @@ Array.implement({
         return [].concat.apply([], array.map(function(elem, i) {
             return (i % size) ? [] : [ array.slice(i, i + size) ];
         }));
+    }
+
+});
+
+Number.implement({
+
+    /**
+     * Bound a number between a min and max range.
+     *
+     * @param {Number} max
+     * @param {Number} min
+     * @returns {Number}
+     */
+    bound: function(max, min) {
+        var value = this;
+
+        min = min || 0;
+
+        if (value >= max) {
+            value = 0;
+        } else if (value < min) {
+            value = max - 1;
+        }
+
+        return value;
     }
 
 });

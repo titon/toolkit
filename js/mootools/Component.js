@@ -88,8 +88,14 @@ Toolkit.Component = new Class({
             }
 
             // The context is a property on the object
-            if (self[context]) {
+            if (typeof self[context] !== 'undefined') {
                 context = self[context];
+            }
+
+            // Exit if no context or empty context
+            if (typeOf(context) === 'array' && !context.length) {
+                console.log(false);
+                return;
             }
 
             funcs.each(function(func) {
@@ -108,6 +114,10 @@ Toolkit.Component = new Class({
                     } else {
                         doc[method](event, func);
                     }
+
+                // Clickout
+                } else if (event === 'clickout') {
+                    $$(context)[method](event, func);
 
                 // Delegated
                 } else if (selector) {
@@ -247,7 +257,7 @@ Toolkit.Component = new Class({
             value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
 
             if (typeOf(value) !== 'null') {
-                obj[key] = value;
+                obj[key] = Toolkit.autobox(value);
             }
         }
 
@@ -342,6 +352,8 @@ Toolkit.Component = new Class({
 
         if (typeOf(value) === 'null') {
             value = this.options[key];
+        } else {
+            value = Toolkit.autobox(value);
         }
 
         return value;
@@ -448,7 +460,7 @@ Toolkit.Component = new Class({
      * Code taken from Options class.
      *
      * @param {Object} options
-     * @param {Element} inheritFrom
+     * @param {Element} [inheritFrom]
      * @returns {Toolkit.Component}
      */
     setOptions: function(options, inheritFrom) {

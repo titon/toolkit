@@ -58,6 +58,7 @@ Toolkit.TypeAhead = new Class({
     initialize: function(input, options) {
         this.parent(options);
         this.createElement();
+        this.options = options = this.inheritOptions(this.options, input);
 
         // Store the input
         this.input = input;
@@ -69,8 +70,6 @@ Toolkit.TypeAhead = new Class({
         }
 
         // Setup state
-        options = this.options;
-
         this.setStorage(options.storage);
 
         // Use default callbacks
