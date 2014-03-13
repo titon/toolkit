@@ -53,11 +53,15 @@ Toolkit.Pin = new Class({
         this.elementTop = element.getStyle('top').toInt();
 
         // Initialize events
-        this.events = {
-            'scroll window': 'onScroll',
-            'resize window': 'onResize',
+        var events,
+            throttle = this.options.throttle;
+
+        this.events = events = {
             'ready document': 'calculate'
         };
+
+        events['scroll:throttle(' + throttle + ') window'] = 'onScroll';
+        events['resize:throttle(' + throttle + ') window'] = 'onResize';
 
         this.enable();
         this.fireEvent('init');

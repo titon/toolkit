@@ -56,10 +56,13 @@ Toolkit.Stalker = new Class({
         this.refresh();
 
         // Initialize events
-        this.events = {
-            'scroll container': 'onScroll',
+        var events;
+
+        this.events = events = {
             'ready document': 'onScroll'
         };
+
+        events['scroll:throttle(' + this.options.throttle + ') container'] = 'onScroll';
 
         this.enable();
         this.fireEvent('init');

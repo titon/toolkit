@@ -47,11 +47,15 @@ Toolkit.LazyLoad = new Class({
         this.elements = container.getElements('.lazy-load');
 
         // Initialize events
-        this.events = {
-            'scroll container': 'load',
-            'resize window': 'load',
+        var events,
+            throttle = this.options.throttle;
+
+        this.events = events = {
             'ready document': 'onReady'
         };
+
+        events['scroll:throttle(' + throttle + ') container'] = 'load';
+        events['resize:throttle(' + throttle + ') window'] = 'load';
 
         this.enable();
         this.fireEvent('init');
