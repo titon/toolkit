@@ -10,7 +10,7 @@
 Toolkit.TypeAhead = new Class({
     Extends: Toolkit.Component,
     Implements: [Cache],
-    Binds: ['process', 'rewind', 'onCycle', 'onFind', 'onLookup'],
+    Binds: ['source', 'rewind', 'onCycle', 'onFind', 'onLookup'],
 
     /** Input element to display menu against */
     input: null,
@@ -231,12 +231,72 @@ Toolkit.TypeAhead = new Class({
     },
 
     /**
+     * Rewind the cycle pointer to the beginning.
+     *
+     * @returns {Toolkit.TypeAhead}
+     */
+    rewind: function() {
+        this.index = -1;
+        this.element.getElements('li').removeClass(Toolkit.options.isPrefix + 'active');
+
+        return this;
+    },
+
+    /**
+     * Select an item in the list.
+     *
+     * @param {Number} index
+     * @param {String} [event]
+     * @returns {Toolkit.TypeAhead}
+     */
+    select: function(index, event) {
+        this.index = index;
+
+        var rows = this.element.getElements('li');
+
+        rows.removeClass(Toolkit.options.isPrefix + 'active');
+
+        // Select
+        if (index >= 0) {
+            if (this.items[index]) {
+                var item = this.items[index];
+
+                rows[index].addClass(Toolkit.options.isPrefix + 'active');
+
+                this.input.set('value', item.title);
+
+                this.fireEvent(event || 'select', [item, index]);
+            }
+
+        // Reset
+        } else {
+            this.input.set('value', this.term);
+
+            this.fireEvent('reset');
+        }
+
+        return this;
+    },
+
+    /**
+     * Sort the items.
+     *
+     * @param {Array} items
+     * @returns {Array}
+     */
+    sort: function(items) {
+        return items.sort(function(a, b) {
+            return a.title.localeCompare(b.title);
+        });
+    },
+
+    /**
      * Process the list of items be generating new elements and positioning below the input.
      *
      * @param {Array} items
      * @returns {Toolkit.TypeAhead}
      */
-    process: function(items) {
+    source: function(items) {
         if (!this.term.length || !items.length) {
             this.hide();
             return this;
@@ -310,12 +370,10 @@ Toolkit.TypeAhead = new Class({
         }.bind(this));
 
         // Append list
-        this.element.empty();
-
         if (options.contentElement) {
-            this.element.getElement(options.contentElement).grab(list);
+            this.element.getElement(options.contentElement).empty().grab(list);
         } else {
-            this.element.grab(list);
+            this.element.empty().grab(list);
         }
 
         // Set the current result set to the items list
@@ -339,66 +397,6 @@ Toolkit.TypeAhead = new Class({
         this.fireEvent('show');
 
         return this;
-    },
-
-    /**
-     * Rewind the cycle pointer to the beginning.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    rewind: function() {
-        this.index = -1;
-        this.element.getElements('li').removeClass(Toolkit.options.isPrefix + 'active');
-
-        return this;
-    },
-
-    /**
-     * Select an item in the list.
-     *
-     * @param {Number} index
-     * @param {String} [event]
-     * @returns {Toolkit.TypeAhead}
-     */
-    select: function(index, event) {
-        this.index = index;
-
-        var rows = this.element.getElements('li');
-
-        rows.removeClass(Toolkit.options.isPrefix + 'active');
-
-        // Select
-        if (index >= 0) {
-            if (this.items[index]) {
-                var item = this.items[index];
-
-                rows[index].addClass(Toolkit.options.isPrefix + 'active');
-
-                this.input.set('value', item.title);
-
-                this.fireEvent(event || 'select', [item, index]);
-            }
-
-        // Reset
-        } else {
-            this.input.set('value', this.term);
-
-            this.fireEvent('reset');
-        }
-
-        return this;
-    },
-
-    /**
-     * Sort the items.
-     *
-     * @param {Array} items
-     * @returns {Array}
-     */
-    sort: function(items) {
-        return items.sort(function(a, b) {
-            return a.title.localeCompare(b.title);
-        });
     },
 
     /**
@@ -513,7 +511,7 @@ Toolkit.TypeAhead = new Class({
 
         // Check the cache first
         if (this.cache[term.toLowerCase()]) {
-            this.process(this.cache[term.toLowerCase()]);
+            this.source(this.cache[term.toLowerCase()]);
 
             // Use the response of an AJAX request
         } else if (sourceType === 'string') {
@@ -521,7 +519,7 @@ Toolkit.TypeAhead = new Class({
                 cache = this.getCache(url);
 
             if (cache) {
-                this.process(cache);
+                this.source(cache);
             } else {
                 var query = options.query;
                 query.term = term;
@@ -529,19 +527,19 @@ Toolkit.TypeAhead = new Class({
                 new Request.JSON({
                     url: url,
                     data: query,
-                    onSuccess: this.process
+                    onSuccess: this.source
                 }).get();
             }
             // Use a literal array list
         } else if (sourceType === 'array') {
-            this.process(options.source);
+            this.source(options.source);
 
             // Use the return of a function
         } else if (sourceType === 'function') {
             var response = options.source.attempt([], this);
 
             if (response) {
-                this.process(response);
+                this.source(response);
             }
         } else {
             throw new Error('Invalid TypeAhead source type');

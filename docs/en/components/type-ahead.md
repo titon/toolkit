@@ -3,3 +3,423 @@
 Monitors an input field and triggers a lookup of data to render in a clickable menu.
 
 ## Usage ##
+
+A type ahead (also known as an autocomplete) attempts to predict and suggest a list of
+items based on the current input from a user.
+
+A type ahead component must be initialized on an input field, so that key press events can be monitored.
+
+```html
+<input type="text" id="input" class="input" name="term">
+```
+
+```javascript
+$('#input').typeAhead();
+```
+
+A data source must be defined to query against.
+Continue reading for more information on data sources.
+
+### Data Source ###
+
+There are 3 ways to retrieve data for the lookup system.
+The first is through a literal array, which will be used as the data.
+
+```javascript
+$('#input').typeAhead({
+    source: [
+        { title: 'Finn', description: 'Hero' },
+        { title: 'Jake' },
+        { title: 'Princess Bubblegum' }
+    ]
+});
+```
+
+The second is through a function, which should return an array of data.
+
+```javascript
+$('#input').typeAhead({
+    source: function() {
+        return data;
+    }
+});
+```
+
+The third is through a string, which should point to a URL to query against.
+This URL will be requested on every lookup unless `prefetch` is enabled.
+More information on prefetching can be found in the next chapter.
+
+```javascript
+$('#input').typeAhead({
+    source: '/api/search'
+});
+```
+
+<div class="notice is-info">
+    When using the remote HTTP request approach, we suggest that sorting,
+    matching, and filtering should be done on the remote end,
+    and <code>sorter</code> and <code>matcher</code> be set to <code>false</code> on the front end.
+</div>
+
+#### Category Grouping ####
+
+Items can be grouped and rendered into categories by defining the `category`
+field in the data set.
+
+```javascript
+return [
+   { title: 'Finn', category: 'Adventurer', description: 'Hero' },
+   { title: 'Jake', category: 'Adventurer' },
+   { title: 'Princess Bubblegum', category: 'Princess' },
+   { title: 'Lumpy Space Princess', category: 'Princess' },
+]
+```
+
+#### Data Structure ####
+
+The following fields are available for each item in the data set.
+Custom fields can also be defined and used within `builder` callbacks,
+and when an item is selected.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>title</td>
+            <td>string</td>
+            <td></td>
+            <td>The title for the item within the menu.</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>string</td>
+            <td></td>
+            <td>An optional description for the item.</td>
+        </tr>
+        <tr>
+            <td>category</td>
+            <td>string</td>
+            <td></td>
+            <td>An optional category to group items.</td>
+        </tr>
+    </tbody>
+</table>
+
+### Prefetching ###
+
+When `prefetch` is enabled, data will be fetched and processed on initialization,
+which will prevent additional HTTP requests for every lookup.
+Fetching will use the `source` option as the URL to request, and the JSON response as the data.
+
+```javascript
+$('#input').typeAhead({
+    source: '/api/data',
+    prefetch: true
+});
+```
+
+### Shadow Text ###
+
+The shadow text feature will display the title behind the input field,
+for the first item in the data set if it matches the current term.
+For a better understanding of how this works, take a look at Google search.
+
+```javascript
+$('#input').typeAhead({
+    shadow: true
+});
+```
+
+When enabled, the input markup will be changed to the following.
+
+```html
+<div class="type-ahead-shadow">
+    <!-- The original input -->
+    <input type="text" id="input" class="input not-shadow" autocomplete="off">
+    <!-- The shadow input -->
+    <input type="text" class="input is-shadow" autocomplete="off" readonly>
+</div>
+```
+
+<div class="notice is-warning">
+    A height will need to be defined for <code>.type-ahead-shadow</code>.
+    In most cases, the height should match the height of the input fields.
+</div>
+
+### Sorters, Matchers & Builders ###
+
+Custom sorter, matcher, and builder functions can be defined to modify and
+hook into the type ahead process. If no function is defined, it will fall back
+to the class implementation.
+
+The sorter receives an array of items, and should return the array sorted.
+
+```javascript
+function sort(items) {
+    return items.sort();
+}
+```
+
+The matcher receives an item title and the current term, and should return a boolean if a match is found.
+
+```javascript
+function match(item, term) {
+    return (item.indexOf(term) >= 0);
+}
+```
+
+The builder receives an item object, and should return an element to render in the dropdown menu.
+
+```javascript
+function build(item) {
+    return $('<a/>', {
+        href: 'javascript:;',
+        html: this.highlight(item.title)
+    });
+}
+```
+
+Once your functions are defined, pass them through the constructor.
+
+```javascript
+$('#input').typeAhead({
+    sorter: sort,
+    matcher: match,
+    builder: build
+});
+```
+
+<div class="notice is-info">
+    The "this" context for all callbacks point to the type ahead instance.
+</div>
+
+<div class="notice is-info">
+    If <code>false</code> is defined for an option, no callback or fallback will be used.
+    This is useful for data sets that are processed remotely.
+</div>
+
+## Options ##
+
+Inherits all options from the [parent component](../development/js.md#options).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>source</td>
+            <td>array|string|function</td>
+            <td></td>
+            <td>The source data to match and sort against. Learn more about this option in the data source chapter.</td>
+        </tr>
+        <tr>
+            <td>minLength</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The minimum character count to trigger a lookup.</td>
+        </tr>
+        <tr>
+            <td>itemLimit</td>
+            <td>int</td>
+            <td>15</td>
+            <td>The max number of items to display in the type ahead drop down menu.</td>
+        </tr>
+        <tr>
+            <td>throttle</td>
+            <td>int</td>
+            <td>250</td>
+            <td>The time in milliseconds to throttle lookup events.</td>
+        </tr>
+        <tr>
+            <td>prefetch</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Whether to prefetch all data from <code>source</code> on initialization, instead of querying each lookup.</td>
+        </tr>
+        <tr>
+            <td>shadow</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Whether to render shadow text below the input field for the 1st matching item in the menu.</td>
+        </tr>
+        <tr>
+            <td>query</td>
+            <td>object</td>
+            <td></td>
+            <td>An object of key value pairs to include in the query string for AJAX lookups.</td>
+        </tr>
+        <tr>
+            <td>sorter</td>
+            <td>function</td>
+            <td></td>
+            <td>The function to use for sorting results. Will fallback to <code>sort()</code>.</td>
+        </tr>
+        <tr>
+            <td>matcher</td>
+            <td>function</td>
+            <td></td>
+            <td>The function to use for matching results against the keyword. Will fallback to <code>match()</code>.</td>
+        </tr>
+        <tr>
+            <td>builder</td>
+            <td>function</td>
+            <td></td>
+            <td>The function to use for building menu items. Will fallback to <code>build()</code>.</td>
+        </tr>
+        <tr>
+            <td>contentElement</td>
+            <td>string</td>
+            <td></td>
+            <td>CSS selector to insert menu items into. If empty, will append to the wrapper.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Events ##
+
+Inherits all events from the [parent component](../development/js.md#events).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option Event</th>
+            <th>Element Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onCycle</td>
+            <td>cycle.toolkit.typeAhead</td>
+            <td>object:item, int:index</td>
+            <td>Triggered when cycling through the menu items using keyboard events.</td>
+        </tr>
+        <tr>
+            <td>onSelect</td>
+            <td>select.toolkit.typeAhead</td>
+            <td>object:item, int:index</td>
+            <td>Triggered when an item is selected within the menu.</td>
+        </tr>
+        <tr>
+            <td>onReset</td>
+            <td>reset.toolkit.typeAhead</td>
+            <td></td>
+            <td>Triggered when the type ahead is reset, either when the keyword is cleared, or nothing is selected.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Properties ##
+
+Inherits all properties from the [parent component](../development/js.md#properties).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>input</td>
+            <td>element</td>
+            <td>The input element to monitor keyup events on. Is the input passed through the constructor.</td>
+        </tr>
+        <tr>
+            <td>shadow</td>
+            <td>element</td>
+            <td>The shadow text input element when <code>shadow</code> is enabled.</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>int</td>
+            <td>The current item index when cycling with keyboard events.</td>
+        </tr>
+        <tr>
+            <td>items</td>
+            <td>array</td>
+            <td>The list of data returned from <code>source</code>. This data will be sorted and matched against.</td>
+        </tr>
+        <tr>
+            <td>term</td>
+            <td>string</td>
+            <td>The keyword from <code>input</code> to query with.</td>
+        </tr>
+        <tr>
+            <td>cache</td>
+            <td>object</td>
+            <td>A cache of lookups indexed by the term used to query with.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Methods ##
+
+Inherits all methods from the [parent component](../development/js.md#methods).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>build(object:item)</td>
+            <td>
+                Build the anchor link that will be rendered in the drop down menu.
+                By default, will create an <code>a</code> tag with the title and description wrapped in <code>span</code>s.
+            </td>
+        </tr>
+        <tr>
+            <td>highlight(string:title)</td>
+            <td>Highlight all occurrences of the <code>term</code> found within the item title.</td>
+        </tr>
+        <tr>
+            <td>lookup(string:term)</td>
+            <td>Trigger a lookup within the data source using the defined term. Results will be set to <code>items</code>.</td>
+        </tr>
+        <tr>
+            <td>match(string:item, string:term)</td>
+            <td>
+                Return true if the item contains or matches the term.
+                By default, will do a string <code>indexOf()</code> comparison.
+            </td>
+        </tr>
+        <tr>
+            <td>rewind()</td>
+            <td>Rewind the index and cycle pointer to the start.</td>
+        </tr>
+        <tr>
+            <td>sort(array:items)</td>
+            <td>
+                Sort the list of items before matching and processing.
+                By default, will do an array <code>sort()</code> coupled with a string <code>localeCompare()</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>source(array:data)</td>
+            <td>
+                Set the array of data as the list of items to query against.
+                The data will be immediately sorted, matched, categorized, and processed.
+            </td>
+        </tr>
+    </tbody>
+</table>

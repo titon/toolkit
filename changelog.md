@@ -111,3 +111,5 @@ This update includes documentation for all components.
     * Moved zebra-striping into an `.is-striped` class
 * Tabs
     * Renamed `sectionsElement` option to `sectionElement`
+* TypeAhead
+    * Renamed `process()` to `source()`

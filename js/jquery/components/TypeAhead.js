@@ -183,11 +183,65 @@
         },
 
         /**
+         * Rewind the cycle pointer to the beginning.
+         */
+        rewind: function() {
+            this.index = -1;
+            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
+        },
+
+        /**
+         * Select an item in the list.
+         *
+         * @param {Number} index
+         * @param {String} [event]
+         */
+        select: function(index, event) {
+            this.index = index;
+
+            var rows = this.element.find('li'),
+                isPrefix = Toolkit.options.isPrefix;
+
+            rows.removeClass(isPrefix + 'active');
+
+            // Select
+            if (index >= 0) {
+                if (this.items[index]) {
+                    var item = this.items[index];
+
+                    rows.item(index).addClass(isPrefix + 'active');
+
+                    this.input.val(item.title);
+
+                    this.fireEvent(event || 'select', [item, index]);
+                }
+
+            // Reset
+            } else {
+                this.input.val(this.term);
+
+                this.fireEvent('reset');
+            }
+        },
+
+        /**
+         * Sort the items.
+         *
+         * @param {Array} items
+         * @returns {Array}
+         */
+        sort: function(items) {
+            return items.sort(function(a, b) {
+                return a.title.localeCompare(b.title);
+            });
+        },
+
+        /**
          * Process the list of items be generating new elements and positioning below the input.
          *
          * @param {Array} items
          */
-        process: function(items) {
+        source: function(items) {
             if (!this.term.length || !items.length) {
                 this.hide();
                 return;
@@ -261,12 +315,10 @@
             }.bind(this));
 
             // Append list
-            this.element.empty();
-
             if (options.contentElement) {
-                this.element.find(options.contentElement).append(list);
+                this.element.find(options.contentElement).empty().append(list);
             } else {
-                this.element.append(list);
+                this.element.empty().append(list);
             }
 
             // Set the current result set to the items list
@@ -286,60 +338,6 @@
 
             // Position the list
             this.position();
-        },
-
-        /**
-         * Rewind the cycle pointer to the beginning.
-         */
-        rewind: function() {
-            this.index = -1;
-            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
-        },
-
-        /**
-         * Select an item in the list.
-         *
-         * @param {Number} index
-         * @param {String} [event]
-         */
-        select: function(index, event) {
-            this.index = index;
-
-            var rows = this.element.find('li'),
-                isPrefix = Toolkit.options.isPrefix;
-
-            rows.removeClass(isPrefix + 'active');
-
-            // Select
-            if (index >= 0) {
-                if (this.items[index]) {
-                    var item = this.items[index];
-
-                    rows.item(index).addClass(isPrefix + 'active');
-
-                    this.input.val(item.title);
-
-                    this.fireEvent(event || 'select', [item, index]);
-                }
-
-            // Reset
-            } else {
-                this.input.val(this.term);
-
-                this.fireEvent('reset');
-            }
-        },
-
-        /**
-         * Sort the items.
-         *
-         * @param {Array} items
-         * @returns {Array}
-         */
-        sort: function(items) {
-            return items.sort(function(a, b) {
-                return a.title.localeCompare(b.title);
-            });
         },
 
         /**
@@ -449,7 +447,7 @@
 
             // Check the cache first
             if (this.cache[term.toLowerCase()]) {
-                this.process(this.cache[term.toLowerCase()]);
+                this.source(this.cache[term.toLowerCase()]);
 
             // Use the response of an AJAX request
             } else if (sourceType === 'string') {
@@ -457,24 +455,24 @@
                     cache = this.cache[url];
 
                 if (cache) {
-                    this.process(cache);
+                    this.source(cache);
                 } else {
                     var query = options.query;
                         query.term = term;
 
-                    $.getJSON(url, query, this.process.bind(this));
+                    $.getJSON(url, query, this.source.bind(this));
                 }
 
             // Use a literal array list
             } else if (sourceType === 'array') {
-                this.process(options.source);
+                this.source(options.source);
 
             // Use the return of a function
             } else if (sourceType === 'function') {
                 var response = options.source.call(this);
 
                 if (response) {
-                    this.process(response);
+                    this.source(response);
                 }
             } else {
                 throw new Error('Invalid TypeAhead source type');
@@ -524,7 +522,6 @@
         throttle: 250,
         prefetch: false,
         shadow: false,
-        storage: 'session',
         query: {},
         contentElement: '',
         template: '<div class="type-ahead"></div>',
