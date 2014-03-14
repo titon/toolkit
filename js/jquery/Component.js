@@ -356,7 +356,9 @@
          * @returns {string}
          */
         _class: function() {
-            return $.hyphenate(this.component).slice(1);
+            return this.component.replace(/[A-Z]/g, function(match) {
+                return ('-' + match.charAt(0).toLowerCase());
+            }).slice(1);
         }
 
     }, {

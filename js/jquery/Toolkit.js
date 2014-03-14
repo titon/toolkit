@@ -386,18 +386,6 @@ $.bound = function(value, max, min) {
 };
 
 /**
- * Convert uppercase characters to lower case dashes.
- *
- * @param {String} string
- * @returns {String}
- */
-$.hyphenate = function(string) {
-    return string.replace(/[A-Z]/g, function(match) {
-        return ('-' + match.charAt(0).toLowerCase());
-    });
-};
-
-/**
  * A very lightweight implementation for cookie management.
  * Will only define if $.cookie() does not exist, which will allow for other third-party code.
  *
