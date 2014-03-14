@@ -168,7 +168,7 @@
     /**
      * Defines a component that can be instantiated through stalker().
      */
-    Toolkit.createComponent('stalker', function(options) {
+    Toolkit.create('stalker', function(options) {
         return new Toolkit.Stalker(this, options);
     });
 

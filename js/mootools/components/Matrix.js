@@ -372,7 +372,7 @@ Toolkit.Matrix = new Class({
     /**
      * Defines a component that can be instantiated through matrix().
      */
-    Toolkit.createComponent('matrix', function(options) {
+    Toolkit.create('matrix', function(options) {
         return new Toolkit.Matrix(this, options);
     });
 

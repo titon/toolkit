@@ -441,7 +441,7 @@ Toolkit.Showcase = new Class({
     /**
      * Defines a component that can be instantiated through showcase().
      */
-    Toolkit.createComponent('showcase', function(options) {
+    Toolkit.create('showcase', function(options) {
         return new Toolkit.Showcase(this, options);
     }, true);
 

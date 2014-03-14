@@ -172,7 +172,7 @@
     /**
      * Defines a component that can be instantiated through lazyLoad().
      */
-    Toolkit.createComponent('lazyLoad', function(options) {
+    Toolkit.create('lazyLoad', function(options) {
         return new Toolkit.LazyLoad(this, options);
     });
 

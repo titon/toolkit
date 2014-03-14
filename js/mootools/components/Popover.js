@@ -44,7 +44,7 @@ Toolkit.Popover = new Class({
     /**
      * Defines a component that can be instantiated through popover().
      */
-    Toolkit.createComponent('popover', function(options) {
+    Toolkit.create('popover', function(options) {
         return new Toolkit.Popover(this, options);
     }, true);
 

@@ -130,7 +130,7 @@ Toolkit.Mask = new Class({
     /**
      * Defines a component that can be instantiated through mask().
      */
-    Toolkit.createComponent('mask', function(options) {
+    Toolkit.create('mask', function(options) {
         return new Toolkit.Mask(this, options);
     });
 

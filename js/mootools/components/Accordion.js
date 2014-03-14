@@ -160,7 +160,7 @@ Toolkit.Accordion = new Class({
     /**
      * Defines a component that can be instantiated through accordion().
      */
-    Toolkit.createComponent('accordion', function(options) {
+    Toolkit.create('accordion', function(options) {
         return new Toolkit.Accordion(this, options);
     });
 

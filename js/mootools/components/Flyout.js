@@ -446,7 +446,7 @@ Toolkit.Flyout = new Class({
     /**
      * Defines a component that can be instantiated through flyout().
      */
-    Toolkit.createComponent('flyout', function(url, options) {
+    Toolkit.create('flyout', function(url, options) {
         return new Toolkit.Flyout(this, url, options);
     }, true);
 

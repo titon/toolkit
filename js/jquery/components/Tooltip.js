@@ -256,7 +256,7 @@
     /**
      * Defines a component that can be instantiated through tooltip().
      */
-    Toolkit.createComponent('tooltip', function(options) {
+    Toolkit.create('tooltip', function(options) {
         return new Toolkit.Tooltip(this, options);
     }, true);
 

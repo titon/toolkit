@@ -157,7 +157,7 @@
     /**
      * Defines a component that can be instantiated through pin().
      */
-    Toolkit.createComponent('pin', function(options) {
+    Toolkit.create('pin', function(options) {
         return new Toolkit.Pin(this, options);
     });
 

@@ -216,7 +216,7 @@ Toolkit.Tabs = new Class({
     /**
      * Defines a component that can be instantiated through tabs().
      */
-    Toolkit.createComponent('tabs', function(options) {
+    Toolkit.create('tabs', function(options) {
         return new Toolkit.Tabs(this, options);
     });
 

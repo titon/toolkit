@@ -533,19 +533,19 @@
      * Define jQuery plugins that can be instantiated through
      * input() (triggers all 3), inputRadio(), inputCheckbox(), and inputSelect().
      */
-    Toolkit.createComponent('input', function(options) {
+    Toolkit.create('input', function(options) {
         return new Toolkit.Input(this, options);
     });
 
-    Toolkit.createComponent('inputRadio', function(options) {
+    Toolkit.create('inputRadio', function(options) {
         return new Toolkit.InputRadio(this, options);
     });
 
-    Toolkit.createComponent('inputCheckbox', function(options) {
+    Toolkit.create('inputCheckbox', function(options) {
         return new Toolkit.InputCheckbox(this, options);
     });
 
-    Toolkit.createComponent('inputSelect', function(options) {
+    Toolkit.create('inputSelect', function(options) {
         return new Toolkit.InputSelect(this, options);
     });
 

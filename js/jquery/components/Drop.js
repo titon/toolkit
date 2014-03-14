@@ -100,7 +100,7 @@
     /**
      * Defines a component that can be instantiated through drop().
      */
-    Toolkit.createComponent('drop', function(options) {
+    Toolkit.create('drop', function(options) {
         return new Toolkit.Drop(this, options);
     }, true);
 

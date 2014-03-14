@@ -293,7 +293,7 @@ Toolkit.Carousel = new Class({
     /**
      * Defines a component that can be instantiated through carousel().
      */
-    Toolkit.createComponent('carousel', function(options) {
+    Toolkit.create('carousel', function(options) {
         return new Toolkit.Carousel(this, options);
     });
 

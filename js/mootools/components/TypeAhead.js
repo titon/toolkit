@@ -587,7 +587,7 @@ Toolkit.TypeAhead = new Class({
     /**
      * Defines a component that can be instantiated through typeAhead().
      */
-    Toolkit.createComponent('typeAhead', function(options) {
+    Toolkit.create('typeAhead', function(options) {
         return new Toolkit.TypeAhead(this, options);
     });
 

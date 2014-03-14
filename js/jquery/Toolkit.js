@@ -53,7 +53,7 @@ window.Toolkit = {
      * @param {Function} callback
      * @param {bool} collection
      */
-    createComponent: function(component, callback, collection) {
+    create: function(component, callback, collection) {
         var name = component;
 
         // Prefix with toolkit to avoid collisions

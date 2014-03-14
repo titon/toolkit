@@ -244,7 +244,7 @@
     /**
      * Defines a component that can be instantiated through modal().
      */
-    Toolkit.createComponent('modal', function(options) {
+    Toolkit.create('modal', function(options) {
         return new Toolkit.Modal(this, options);
     }, true);
 
