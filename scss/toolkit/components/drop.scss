@@ -52,7 +52,7 @@
             }
         }
 
-        &.#{$state-has-prefix}children {
+        &.has-children {
             > a .caret-right { display: inline-block; }
         }
 

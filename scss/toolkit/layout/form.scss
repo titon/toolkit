@@ -126,13 +126,13 @@ textarea.#{$vendor-prefix}input {
 .#{$vendor-prefix}field {
     margin-bottom: $margin;
 
-    &.#{$state-is-prefix}required {
+    &.is-required {
         .#{$vendor-prefix}field-label { font-weight: bold; }
     }
 }
 
-.#{$vendor-prefix}field:not(.#{$state-is-prefix}disabled) {
-    &.#{$state-is-prefix}error {
+.#{$vendor-prefix}field:not(.is-disabled) {
+    &.is-error {
         .#{$vendor-prefix}input {
             border-color: $error;
 
@@ -145,7 +145,7 @@ textarea.#{$vendor-prefix}input {
         }
     }
 
-    &.#{$state-is-prefix}success {
+    &.is-success {
         .#{$vendor-prefix}input {
             border-color: $success;
 

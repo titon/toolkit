@@ -22,8 +22,8 @@
     @include transform(translateX(-50%) translateY(-50%));
     @include transition(opacity $showcase-transition, visibility $showcase-transition);
 
-    &.#{$state-is-prefix}loading,
-    &.#{$state-is-prefix}single {
+    &.is-loading,
+    &.is-single {
         .#{$vendor-prefix}showcase-prev,
         .#{$vendor-prefix}showcase-next,
         .#{$vendor-prefix}showcase-tabs {
@@ -31,7 +31,7 @@
         }
     }
 
-    &.#{$state-is-prefix}loading {
+    &.is-loading {
         .#{$vendor-prefix}showcase-close {
             display: none !important;
         }

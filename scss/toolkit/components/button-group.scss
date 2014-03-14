@@ -20,7 +20,7 @@
         &:first-child { margin-left: 0; }
 
         &:hover,
-        &.#{$state-is-prefix}active { z-index: 1; }
+        &.is-active { z-index: 1; }
     }
 
     > li {

@@ -18,7 +18,7 @@
         @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
     }
 
-    &.#{$state-has-prefix}no-columns > li {
+    &.has-no-columns > li {
         position: relative !important;
     }
 }

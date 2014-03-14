@@ -23,7 +23,7 @@
             display: block;
         }
 
-        &.#{$state-is-prefix}active {
+        &.is-active {
             z-index: 1;
         }
     }

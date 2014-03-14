@@ -40,9 +40,9 @@
 
 // Styles
 .#{$shape-round-class} { border-radius: $round; }
-.#{$state-is-prefix}draggable { cursor: move; }
-.#{$state-is-prefix}dragging { cursor: grabbing; }
-.#{$state-is-prefix}disabled,
+.is-draggable { cursor: move; }
+.is-dragging { cursor: grabbing; }
+.is-disabled,
 [disabled] { cursor: not-allowed !important; }
 
 // Carets
