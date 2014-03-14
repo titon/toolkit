@@ -6,7 +6,6 @@ All releases will contain bug fixing and polishing for current features.
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
-* Remove is and has state prefixing.
 * Add destroy method to clean up and remove the component.
 * Add aria attributes where applicable.
 * Add deferred/promise integration.

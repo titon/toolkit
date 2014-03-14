@@ -80,6 +80,19 @@ Place multiple bars within a `.progress` to stack them horizontally.
 </div>
 ```
 
+## ARIA Support ##
+
+The `progressbar` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role)
+
+```html
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+        45%
+    </div>
+</div>
+```
+
 ## Variables ##
 
 <table class="table data-table">

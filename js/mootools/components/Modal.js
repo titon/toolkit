@@ -11,6 +11,9 @@ Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
     Binds: ['onSubmit'],
 
+    /** Current count */
+    id: 0,
+
     /** Blackout instance if options.blackout is true */
     blackout: null,
 
@@ -62,6 +65,8 @@ Toolkit.Modal = new Class({
             options.draggable = false;
         }
 
+        this.id = Toolkit.Modal.count += 1;
+
         // Get elements
         this.elementBody = this.element.getElement(options.contentElement);
 
@@ -77,6 +82,12 @@ Toolkit.Modal = new Class({
                 });
             }
         }
+
+        // Add aria attributes
+        this.element
+            .set('role', 'dialog')
+            .set('aria-labelledby', 'toolkit-modal-title-' + this.id)
+            .set('aria-describedby', 'toolkit-modal-content-' + this.id);
 
         // Initialize events
         var events = {};
@@ -240,6 +251,9 @@ Toolkit.Modal = new Class({
     }
 
 });
+
+    /** Total count of modals in the page */
+    Toolkit.Modal.count = 0;
 
     /**
      * Defines a component that can be instantiated through modal().

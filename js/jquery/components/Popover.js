@@ -21,12 +21,16 @@
         this.cache = {};
         this.events = {};
         this.runtime = {};
+        this.id = Toolkit.Popover.count += 1;
 
         // Force to click for popovers
         options.mode = 'click';
 
-        // Remove class since were using runtime
-        element.removeClass(options.className);
+        // Update ARIA and remove class since were using runtime
+        element
+            .attr('id', 'toolkit-popover-' + this.id)
+            .attr('role', 'tooltip')
+            .removeClass(options.className);
 
         // Remove title attributes
         nodes.each(function(i, node) {
@@ -57,6 +61,9 @@
             '<div class="popover-arrow"></div>' +
         '</div>'
     });
+
+    /** Total count of popovers in the page */
+    Toolkit.Popover.count = 0;
 
     /**
      * Defines a component that can be instantiated through popover().

@@ -11,6 +11,9 @@ Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
     Binds: ['onFollow'],
 
+    /** Current count */
+    id: null,
+
     /** Inner elements */
     elementHead: null,
     elementBody: null,
@@ -32,7 +35,7 @@ Toolkit.Tooltip = new Class({
         delay: 0,
         titleElement: '.tooltip-head',
         contentElement: '.tooltip-body',
-        template: '<div class="tooltip">' +
+        template: '<div class="tooltip" role="tooltip">' +
             '<div class="tooltip-inner">' +
                 '<div class="tooltip-head"></div>' +
                 '<div class="tooltip-body"></div>' +
@@ -57,15 +60,23 @@ Toolkit.Tooltip = new Class({
 
         options = this.options;
 
+        if (!this.id) {
+            this.id = Toolkit.Tooltip.count += 1;
+        }
+
+        // Remove title attributes
+        var className = this.className().hyphenate(),
+            title = 'data' + className + '-title';
+
         // Fetch elements
         this.elementHead = this.element.getElement(options.titleElement);
         this.elementBody = this.element.getElement(options.contentElement);
 
         // Add position class
-        this.element.removeClass(options.className);
-
-        // Remove title attributes
-        var title = 'data-' + this.className() + '-title';
+        this.element
+            .set('id', 'toolkit' + className + '-' + this.id)
+            .set('role', 'tooltip')
+            .removeClass(options.className);
 
         this.nodes.each(function(node) {
             node.setProperty(title, node.get('title')).removeProperty('title');
@@ -107,7 +118,11 @@ Toolkit.Tooltip = new Class({
         this.element
             .removeClass(position)
             .removeClass(className)
-            .removeProperty('data-mew-position');
+            .removeProperty('data-new-position');
+
+        if (this.node) {
+            this.node.removeProperty('aria-describedby');
+        }
 
         return this.parent();
     },
@@ -131,6 +146,11 @@ Toolkit.Tooltip = new Class({
         this.element
             .addClass(options.position)
             .addClass(options.className);
+
+        // Set ARIA
+        if (this.node) {
+            this.node.set('aria-describedby', 'toolkit' + this.className().hyphenate() + '-' + this.id);
+        }
 
         // Set title
         title = title || this.readValue(this.node, options.getTitle);
@@ -236,6 +256,9 @@ Toolkit.Tooltip = new Class({
     }
 
 });
+
+    /** Total count of tooltips in the page */
+    Toolkit.Tooltip.count = 0;
 
     /**
      * Defines a component that can be instantiated through tooltip().

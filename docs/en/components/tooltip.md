@@ -39,6 +39,17 @@ $('.js-tooltip').tooltip({
 });
 ```
 
+## ARIA Support ##
+
+The `tooltip` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_tooltip_role)
+
+```html
+<div class="tooltip" role="tooltip">
+    ...
+</div>
+```
+
 ## Notes ##
 
 * A `className` can be added to tooltips during instantiation for different themed tooltips.

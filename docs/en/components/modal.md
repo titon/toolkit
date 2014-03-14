@@ -88,6 +88,33 @@ of the function to call. For example, if the JSON response was.
 
 Then the `console.log` function will be triggered with the response passed as the 1st argument.
 
+## ARIA Support ##
+
+The `dialog` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role)
+
+All required ARIA attributes will be automatically added to the component when initialized,
+which will generate the following markup.
+
+```html
+<div class="modal" role="dialog" aria-labelledby="toolkit-modal-title-1" aria-describedby="toolkit-modal-content-1">
+    ...
+</div>
+```
+
+The only requirement for fully supporting ARIA is adding the appropriate IDs to the content being inserted into the modal.
+We would need to add `toolkit-modal-title-#` and `toolkit-modal-content-#`, where `#` represents the modal instance.
+
+```html
+<div class="modal-head" id="toolkit-modal-title-1">
+    ...
+</div>
+
+<div class="modal-body" id="toolkit-modal-content-1">
+    ...
+</div>
+```
+
 ## Notes ##
 
 * The `animation` option will be appended as a class name.
@@ -215,7 +242,7 @@ The following markup is used for the creation of modals.
 This structure can be customized through the `template` option.
 
 ```html
-<div class="modal">
+<div class="modal" role="dialog">
     <div class="modal-outer">
         <div class="modal-handle">
             <div class="modal-inner"></div>

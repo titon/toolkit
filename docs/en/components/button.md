@@ -8,7 +8,7 @@ The button component provides consistency and normalization of button-like eleme
 The `button`, `a`, and `input` tags are supported &mdash; simply add a `.button` class.
 
 ```html
-<a class="button" href="javascript:;" role="button">Anchor</a>
+<a class="button" href="javascript:;">Anchor</a>
 <button class="button" type="button">Button</button>
 <input class="button" type="button" value="Input">
 <input class="button" type="submit" value="Submit">
@@ -45,7 +45,7 @@ To disable a button, add the `.is-disabled` class &mdash; a `button` tag can sim
 However, do note that adding the class to an anchor tag will not disable it, it only changes its style.
 
 ```html
-<a class="button is-disabled" href="javascript:;" role="button">Disabled Anchor</a>
+<a class="button is-disabled" href="javascript:;">Disabled Anchor</a>
 <button class="button" type="button" disabled>Disabled Button</button>
 ```
 
@@ -85,3 +85,14 @@ effects can be used. These visuals make use of `:after` pseudo elements to apply
 <div class="notice is-warning">
     These classes require the visual effects extension, which isn't part of the default build.
 </div>
+
+## ARIA Support ##
+
+The `button` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role)
+
+```html
+<button class="button" type="button" role="button" aria-pressed="false">Button</button>
+```
+
+JavaScript is required to change the `aria-pressed` value.

@@ -21,9 +21,13 @@
         this.cache = {};
         this.events = events = {};
         this.runtime = {};
+        this.id = Toolkit.Tooltip.count += 1;
 
-        // Remove class since were using runtime
-        element.removeClass(options.className);
+        // Update ARIA and remove class since were using runtime
+        element
+            .attr('id', 'toolkit-tooltip-' + this.id)
+            .attr('role', 'tooltip')
+            .removeClass(options.className);
 
         // Remove title attributes
         nodes.each(function(i, node) {
@@ -63,6 +67,10 @@
                 .removeClass(className)
                 .removeData('new-position');
 
+            if (this.node) {
+                this.node.removeAttr('aria-describedby');
+            }
+
             this.fireEvent('hide');
         },
 
@@ -85,6 +93,11 @@
             this.element
                 .addClass(options.position)
                 .addClass(options.className);
+
+            // Set ARIA
+            if (this.node) {
+                this.node.attr('aria-describedby', 'toolkit-' + this._class() + '-' + this.id);
+            }
 
             // Set title
             title = title || this.readValue(this.node, options.getTitle);
@@ -252,6 +265,9 @@
             '<div class="tooltip-arrow"></div>' +
         '</div>'
     });
+
+    /** Total count of tooltips in the page */
+    Toolkit.Tooltip.count = 0;
 
     /**
      * Defines a component that can be instantiated through tooltip().

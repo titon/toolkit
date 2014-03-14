@@ -21,6 +21,7 @@
         this.drag = null;
         this.cache = {};
         this.events = events = {};
+        this.id = Toolkit.Modal.count += 1;
 
         // Fullscreen
         if (options.fullScreen) {
@@ -40,6 +41,12 @@
                 });
             }
         }
+
+        // Add aria attributes
+        element
+            .attr('role', 'dialog')
+            .attr('aria-labelledby', 'toolkit-modal-title-' + this.id)
+            .attr('aria-describedby', 'toolkit-modal-content-' + this.id);
 
         // Initialize events
         events['clickout element'] = 'onHide';
@@ -240,6 +247,9 @@
             '</div>' +
         '</div>'
     });
+
+    /** Total count of modals in the page */
+    Toolkit.Modal.count = 0;
 
     /**
      * Defines a component that can be instantiated through modal().

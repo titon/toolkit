@@ -36,10 +36,14 @@ Toolkit.Popover = new Class({
         options.mode = 'click';
         options.follow = false;
 
+        this.id = Toolkit.Popover.count += 1;
         this.parent(query, options);
     }
 
 });
+
+    /** Total count of popovers in the page */
+    Toolkit.Popover.count = 0;
 
     /**
      * Defines a component that can be instantiated through popover().

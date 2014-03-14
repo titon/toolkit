@@ -31,6 +31,17 @@ then the value will be used as a URL to request, and the response will be insert
 <button type="button" class="js-popover" title="Popover Title" data-popover="#element">DOM</button>
 ```
 
+## ARIA Support ##
+
+The `tooltip` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_tooltip_role)
+
+```html
+<div class="popover" role="tooltip">
+    ...
+</div>
+```
+
 ## Notes ##
 
 * A `className` can be added to popovers during instantiation for different themed popovers.
