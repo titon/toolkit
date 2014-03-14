@@ -1,32 +1,166 @@
 {
     "title": "Documentation",
-    "file": "/index.md",
     "url": "/",
     "children": [
         {
             "title": "Setup",
-            "file": "/setup/index.md",
             "url": "/setup",
             "children": [
                 {
-                    "title": ""
+                    "title": "Getting Started",
+                    "url": "/setup/getting-started"
+                }, {
+                    "title": "Installing",
+                    "url": "/setup/installing"
+                }, {
+                    "title": "Custom Builds",
+                    "url": "/setup/custom-builds"
+                }, {
+                    "title": "Interactive Demos",
+                    "url": "/setup/demos"
                 }
             ]
         }, {
             "title": "Development",
-            "file": "/development/index.md",
             "url": "/development",
-            "children": []
+            "children": [
+                {
+                    "title": "JavaScript Development",
+                    "url": "/development/js"
+                }, {
+                    "title": "CSS Development",
+                    "url": "/development/css"
+                }, {
+                    "title": "Sass Development",
+                    "url": "/development/sass"
+                }
+            ]
         }, {
             "title": "Components",
-            "file": "/components/index.md",
             "url": "/components",
-            "children": []
+            "children": [
+                {
+                    "title": "Base",
+                    "url": "/components/base"
+                }, {
+                    "title": "Accordion",
+                    "url": "/components/accordion"
+                }, {
+                    "title": "Blackout",
+                    "url": "/components/blackout"
+                }, {
+                    "title": "Breadcrumb",
+                    "url": "/components/breadcrumb"
+                }, {
+                    "title": "Button",
+                    "url": "/components/button"
+                }, {
+                    "title": "Button Group",
+                    "url": "/components/button-group"
+                }, {
+                    "title": "Carousel",
+                    "url": "/components/carousel"
+                }, {
+                    "title": "Code",
+                    "url": "/components/code"
+                }, {
+                    "title": "Drop",
+                    "url": "/components/drop"
+                }, {
+                    "title": "Effects",
+                    "url": "/components/effects"
+                }, {
+                    "title": "Flyout",
+                    "url": "/components/flyout"
+                }, {
+                    "title": "Form",
+                    "url": "/components/form"
+                }, {
+                    "title": "Grid",
+                    "url": "/components/grid"
+                }, {
+                    "title": "Icon",
+                    "url": "/components/icon"
+                }, {
+                    "title": "Input",
+                    "url": "/components/input"
+                }, {
+                    "title": "Input Group",
+                    "url": "/components/input-group"
+                }, {
+                    "title": "Label",
+                    "url": "/components/label"
+                }, {
+                    "title": "Lazy Load",
+                    "url": "/components/lazy-load"
+                }, {
+                    "title": "Loader",
+                    "url": "/components/loader"
+                }, {
+                    "title": "Mask",
+                    "url": "/components/mask"
+                }, {
+                    "title": "Matrix",
+                    "url": "/components/matrix"
+                }, {
+                    "title": "Modal",
+                    "url": "/components/modal"
+                }, {
+                    "title": "Notice",
+                    "url": "/components/notice"
+                }, {
+                    "title": "Pagination",
+                    "url": "/components/pagination"
+                }, {
+                    "title": "Pin",
+                    "url": "/components/pin"
+                }, {
+                    "title": "Popover",
+                    "url": "/components/popover"
+                }, {
+                    "title": "Progress",
+                    "url": "/components/progress"
+                }, {
+                    "title": "Responsive",
+                    "url": "/components/responsive"
+                }, {
+                    "title": "Showcase",
+                    "url": "/components/showcase"
+                }, {
+                    "title": "Stalker",
+                    "url": "/components/stalker"
+                }, {
+                    "title": "Table",
+                    "url": "/components/table"
+                }, {
+                    "title": "Tabs",
+                    "url": "/components/tabs"
+                }, {
+                    "title": "Tooltip",
+                    "url": "/components/tooltip"
+                }, {
+                    "title": "Type Ahead",
+                    "url": "/components/type-ahead"
+                }, {
+                    "title": "Typography",
+                    "url": "/components/typography"
+                }
+            ]
         }, {
             "title": "Support",
-            "file": "/support/index.md",
             "url": "/support",
-            "children": []
+            "children": [
+                {
+                    "title": "Browser Compatibility",
+                    "url": "/support/compatibility"
+                }, {
+                    "title": "Competitor Comparison",
+                    "url": "/support/comparison"
+                }, {
+                    "title": "Changelog",
+                    "url": "/support/changelog"
+                }
+            ]
         }
     ]
 }
