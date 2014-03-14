@@ -8,44 +8,39 @@
     'use strict';
 
     Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
+        var events, tabs;
+
         this.component = 'Tabs';
         this.version = '1.0.0';
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
+        this.nav = element.find(options.navElement);
+        this.tabs = tabs = this.nav.find('ul > li > a');
+        this.sections = element.find(options.sectionElement).conceal();
+        this.index = 0;
+        this.cache = {};
+        this.events = events = {};
 
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
+        // Determine cookie name
         if (!options.cookie) {
             options.cookie = element.attr('id');
         }
 
-        // Navigation container
-        this.nav = element.find(options.navElement);
-
-        // Collection of content sections
-        this.sections = element.find(options.sectionElement).conceal();
-
-        /** Collection of tabs (anchor links) */
-        this.tabs = this.nav.find('ul > li > a').each(function(index) {
+        // Cache index for tabs
+        tabs.each(function(index) {
             $(this).data('index', index).removeClass(Toolkit.options.isPrefix + 'active');
         });
 
-        // The current and previous shown indices
-        this.previousIndex = 0;
-        this.currentIndex = 0;
+        // Initialize events
+        events[options.mode + ' tabs'] = 'onShow';
 
-        // Cached requests
-        this.cache = {};
-
-        // Set events
-        this.tabs.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
-
-        if (options.mode === 'hover' && options.preventDefault) {
-            this.tabs.on('click', function(e) {
+        if (options.mode !== 'click' && options.preventDefault) {
+            events['click tabs'] = function(e) {
                 e.preventDefault();
-            });
+            };
         }
 
+        this.enable();
         this.fireEvent('init');
 
         // Trigger default tab to display
@@ -53,15 +48,16 @@
 
         if (options.persistState && options.cookie) {
             index = $.cookie('toolkit.tabs.' + options.cookie);
+        }
 
-        } else if (options.loadFragment && location.hash) {
-            index = this.tabs.filter(function() {
+        if (!index && options.loadFragment && location.hash) {
+            index = tabs.filter(function() {
                 return ($(this).attr('href') === location.hash);
             }).item(0).data('index');
         }
 
-        if (!index || !this.tabs[index]) {
-            index = 0;
+        if (!index || !tabs[index]) {
+            index = options.defaultIndex;
         }
 
         this.jump(index);
@@ -82,9 +78,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (this.tabs[index]) {
-                this.show(this.tabs[index]);
-            }
+            this.show(this.tabs[$.bound(index, this.tabs.length)]);
         },
 
         /**
@@ -99,11 +93,12 @@
             var index = tab.data('index'),
                 section = this.sections.item(index),
                 options = this.options,
-                url = this.readValue(tab, options.getUrl),
+                ajax = this.readOption(tab, 'ajax'),
+                url = this.readValue(tab, this.readOption(tab, 'getUrl')),
                 isPrefix = Toolkit.options.isPrefix;
 
             // Load content with AJAX
-            if (options.ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+            if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
                         section.html(this._loadingTemplate())
@@ -112,10 +107,10 @@
                     function(response) {
                         this.cache[url] = true;
 
+                        this.fireEvent('load', response);
+
                         section.html(response)
                             .removeClass(isPrefix + 'loading');
-
-                        this.fireEvent('load', response);
                     },
                     function() {
                         section.html(this._errorTemplate())
@@ -129,7 +124,7 @@
             this.nav.find('ul > li').removeClass(isPrefix + 'active');
 
             // Toggle sections
-            if (index === this.currentIndex && options.collapsible) {
+            if (index === this.index && options.collapsible) {
                 if (section.is(':shown')) {
                     section.conceal();
 
@@ -151,14 +146,10 @@
                 });
             }
 
-            // Track
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
+            this.node = tab;
 
             this.fireEvent('show', tab);
-
-            // Set current node
-            this.node = tab;
         },
 
         /**
@@ -167,14 +158,12 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
-            if (this.options.preventDefault || (this.options.ajax && e.target.href.substr(0, 1) !== '#')) {
+        onShow: function(e) {
+            if (this.options.preventDefault || (this.options.ajax && e.target.getAttribute('href').substr(0, 1) !== '#')) {
                 e.preventDefault();
             }
 
-            if (this.enabled) {
-                this.show(e.target);
-            }
+            this.show(e.target);
         }
 
     }, {

@@ -8,74 +8,47 @@
     'use strict';
 
     Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
-        var element;
-
-        this.component = 'Showcase';
-        this.version = '1.1.0';
-
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.createElement();
+        var element, events;
 
         // IE doesn't support animations
         if (!Toolkit.hasTransition) {
             options.transition = 1;
         }
 
-        // List of nodes to activate showcase
+        this.component = 'Showcase';
+        this.version = '1.1.0';
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement();
         this.nodes = nodes = $(nodes);
-
-        // List elements
         this.items = element.find(options.itemsElement);
         this.tabs = element.find(options.tabsElement);
-
-        options.gutter += (element.height() - this.items.height());
-
-        // Previous and next buttons
         this.prevButton = element.find(options.prevElement);
         this.nextButton = element.find(options.nextElement);
-
-        // List of items data to populate the showcase with
         this.data = [];
-
-        // The current and previous shown indices
-        this.previousIndex = 0;
-        this.currentIndex = 0;
-
-        // Blackout instance if options.blackout is true
+        this.index = 0;
         this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
-        // Set events
-        element.clickout(this.hide.bind(this));
-        nodes.clickout(this.hide.bind(this));
+        // Increase gutter based on padding
+        options.gutter += (element.height() - this.items.height());
 
-        $(options.context || document)
-            .on('click', nodes.selector, this.__show.bind(this));
+        // Initialize events
+        this.events = events = {
+            'clickout element': 'hide',
+            'clickout nodes': 'hide',
+            'swipeleft element': 'next',
+            'swipeup element': 'next',
+            'swiperight element': 'prev',
+            'swipedown element': 'prev',
+            'keydown window': 'onKeydown'
+        };
 
-        $(window).on('keydown', function(e) {
-            if (element.is(':shown')) {
-                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
-                    e.preventDefault();
-                }
+        events['click ' + nodes.selector] = 'onShow';
+        events['click ' + options.closeEvent] = 'hide';
+        events['click ' + options.nextEvent] = 'next';
+        events['click ' + options.prevEvent] = 'prev';
+        events['click ' + options.jumpEvent] = 'onJump';
 
-                switch (e.keyCode) {
-                    case 27: this.hide(); break;
-                    case 37: this.prev(); break;
-                    case 38: this.jump(0); break;
-                    case 39: this.next(); break;
-                    case 40: this.jump(-1); break;
-                }
-            }
-        }.bind(this));
-
-        element
-            .on('click', options.closeEvent, this.hide.bind(this))
-            .on('click', options.nextEvent, this.next.bind(this))
-            .on('click', options.prevEvent, this.prev.bind(this))
-            .on('click', options.jumpEvent, this.__jump.bind(this))
-            .on('swipeleft swipeup', this.next.bind(this))
-            .on('swiperight swipedown', this.prev.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -88,7 +61,7 @@
             }
 
             if (this.options.stopScroll) {
-                $('body').css('overflow', '');
+                $('body').removeClass('no-scroll');
             }
 
             if (this.element.is(':shown')) {
@@ -112,11 +85,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.data.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.data.length - 1;
-            }
+            index = $.bound(index, this.data.length);
 
             var self = this,
                 options = this.options,
@@ -125,19 +94,19 @@
                 listItems = list.children('li'),
                 listItem = listItems.item(index),
                 items = this.data,
-                item = items[index];
+                item = items[index],
+                isPrefix = Toolkit.options.isPrefix;
 
             // Save state
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
 
             // Update tabs
             if (this.tabs) {
                 var listTabs = this.tabs.find('a');
 
                 listTabs
-                    .removeClass(Toolkit.options.isPrefix + 'active')
-                    .item(index).addClass(Toolkit.options.isPrefix + 'active');
+                    .removeClass(isPrefix + 'active')
+                    .item(index).addClass(isPrefix + 'active');
             }
 
             // Fade out previous item
@@ -157,7 +126,7 @@
 
             // Create image and animate
             } else {
-                element.addClass(Toolkit.options.isPrefix + 'loading');
+                element.addClass(isPrefix + 'loading');
 
                 // Preload image
                 var img = new Image();
@@ -179,7 +148,7 @@
 
                     // Reveal the image after animation
                     setTimeout(function() {
-                        element.removeClass(Toolkit.options.isPrefix + 'loading');
+                        element.removeClass(isPrefix + 'loading');
                         listItem.addClass('show').append(img);
                         self.position();
                     }, options.transition);
@@ -193,7 +162,7 @@
          * Go to the next item.
          */
         next: function() {
-            this.jump(this.currentIndex + 1);
+            this.jump(this.index + 1);
         },
 
         /**
@@ -213,7 +182,7 @@
          * Go to the previous item.
          */
         prev: function() {
-            this.jump(this.currentIndex - 1);
+            this.jump(this.index - 1);
         },
 
         /**
@@ -225,10 +194,10 @@
          */
         show: function(node) {
             this.node = node = $(node);
-            this.currentIndex = this.previousIndex = 0;
+            this.index = 0;
             this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
-            var options = this.options,
+            var options = this.inheritOptions(this.options, node),
                 read = this.readValue.bind(this),
                 category = read(node, options.getCategory),
                 items = [],
@@ -266,7 +235,7 @@
             }
 
             if (options.stopScroll) {
-                $('body').css('overflow', 'hidden');
+                $('body').addClass('no-scroll');
             }
 
             this._buildItems(items);
@@ -346,12 +315,34 @@
          * Event handler for jumping between items.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
-        __jump: function(e) {
+        onJump: function(e) {
             e.preventDefault();
 
             this.jump($(e.target).data('index') || 0);
+        },
+
+        /**
+         * Event handle for keyboard events.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        onKeydown: function(e) {
+            if (this.element.is(':shown')) {
+                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
+                    e.preventDefault();
+                }
+
+                switch (e.keyCode) {
+                    case 27: this.hide(); break;
+                    case 37: this.prev(); break;
+                    case 38: this.jump(0); break;
+                    case 39: this.next(); break;
+                    case 40: this.jump(-1); break;
+                }
+            }
         },
 
         /**
@@ -360,14 +351,13 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             this.show(e.currentTarget);
         }
 
     }, {
-        className: '',
         blackout: true,
         stopScroll: true,
         transition: 300,

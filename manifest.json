@@ -468,13 +468,13 @@
 
 
 
-    "theme-titon": {
-        "name": "Titon Theme",
+    "theme-demo": {
+        "name": "Demo Theme",
         "description": "Default styles used for demonstration.",
         "category": "theme",
         "priority": 30,
         "source": {
-            "css": ["themes/titon.css"]
+            "css": ["themes/demo.css"]
         }
     }
 }

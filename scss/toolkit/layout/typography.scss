@@ -25,7 +25,15 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
-p, ul, ol, hr {
+p, ul, ol {
+    margin: $margin 0 0 0;
+
+    ul, ol {
+        margin: 0;
+    }
+}
+
+hr {
     margin: $margin 0;
 }
 
@@ -36,8 +44,6 @@ blockquote {
 
     cite { display: block; font-size: $small-size; }
     cite:before { content: "\2014 \00A0"; /* em dash */ }
-
-    @include content-spacing;
 }
 
 mark {

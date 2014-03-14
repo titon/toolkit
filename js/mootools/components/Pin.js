@@ -9,7 +9,7 @@
 
 Toolkit.Pin = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__resize', '__scroll'],
+    Binds: ['onResize', 'onScroll'],
 
     /** The current window width and height */
     viewport: null,
@@ -21,6 +21,9 @@ Toolkit.Pin = new Class({
     /** Default values */
     elementTop: null,
 
+    /** Is the pin active? */
+    active: true,
+
     /** Default options */
     options: {
         animation: '',
@@ -31,11 +34,7 @@ Toolkit.Pin = new Class({
         fixed: false,
         calculate: false,
         context: null,
-        template: false,
-
-        // Events
-        onScroll: null,
-        onResize: null
+        template: false
     },
 
     /**
@@ -46,33 +45,26 @@ Toolkit.Pin = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
-
-        if (!this.element) {
-            return;
-        }
+        this.element = element;
+        this.options = this.inheritOptions(this.options, element);
 
         // Set defaults
-        this.element.addClass(Toolkit.options.vendor + 'pin');
-        this.elementTop = this.element.getStyle('top').toInt();
+        element.addClass(Toolkit.options.vendor + 'pin');
+        this.elementTop = element.getStyle('top').toInt();
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        var events,
+            throttle = this.options.throttle;
+
+        this.events = events = {
+            'ready document': 'calculate'
+        };
+
+        events['scroll:throttle(' + throttle + ') window'] = 'onScroll';
+        events['resize:throttle(' + throttle + ') window'] = 'onResize';
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set scroll and resize events.
-     *
-     * @returns {Toolkit.Pin}
-     */
-    bindEvents: function() {
-        window
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll)
-            .addEvent('resize:throttle(' + this.options.throttle + ')', this.__resize)
-            .addEvent('domready', this.__resize);
-
-        return this;
     },
 
     /**
@@ -85,6 +77,9 @@ Toolkit.Pin = new Class({
         this.elementSize = this.element.getCoordinates();
         this.parentSize = this.element.getParent(this.options.context).getCoordinates();
 
+        // Enable pin if the parent is larger than the child
+        this.active = (this.parentSize.height > this.elementSize.height);
+
         return this;
     },
 
@@ -93,16 +88,8 @@ Toolkit.Pin = new Class({
      *
      * @private
      */
-    __resize: function() {
+    onResize: function() {
         this.calculate();
-
-        // Enable pin if the parent is larger than the child
-        if (this.parentSize.height > this.elementSize.height) {
-            this.enable();
-        } else {
-            this.disable();
-        }
-
         this.fireEvent('resize');
     },
 
@@ -112,12 +99,12 @@ Toolkit.Pin = new Class({
      *
      * @private
      */
-    __scroll: function() {
+    onScroll: function() {
         if (this.options.calculate) {
             this.calculate();
         }
 
-        if (!this.enabled || !this.isVisible()) {
+        if (!this.active || !this.isVisible()) {
             return;
         }
 

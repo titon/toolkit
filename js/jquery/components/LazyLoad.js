@@ -7,41 +7,28 @@
 (function($) {
     'use strict';
 
-    Toolkit.LazyLoad = Toolkit.Component.extend(function(elements, options) {
+    Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
+        container = $(container);
+
         this.component = 'LazyLoad';
         this.version = '1.0.0';
-
-        // Custom options
-        this.options = options = this.setOptions(options);
-
-        // List of elements to load
-        this.elements = this.setElement(elements, this.options);
-
-        // The element being loaded
-        this.element = null;
-
-        // Have all elements been force loaded?
+        this.options = options = this.setOptions(options, container);
+        this.container = (container.css('overflow') === 'auto') ? container : $(window);
+        this.elements = container.find('.lazy-load');
+        this.element = null; // Element being loaded
         this.isLoaded = false;
-
-        // Count of how many have loaded
         this.loaded = 0;
 
-        // Set events
-        $(options.context || window).on({
-            scroll: $.throttle(this.load.bind(this), options.throttle),
-            resize: $.throttle(this.load.bind(this), options.throttle)
-        });
+        // Initialize events
+        var callback = $.throttle(this.load.bind(this), options.throttle);
 
-        // Load elements within viewport
-        $(function() {
-            this.load();
+        this.events = {
+            'scroll container': callback,
+            'resize window': callback,
+            'ready document': 'onReady'
+        };
 
-            // Set force load on DOM ready
-            if (options.forceLoad) {
-                setTimeout(this.loadAll.bind(this), options.delay);
-            }
-        }.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -52,40 +39,41 @@
          * @returns {bool}
          */
         inViewport: function(node) {
-            var win = $(window),
+            node = $(node);
+
+            var container = this.container,
                 threshold = this.options.threshold,
-                scrollTop = win.scrollTop(),
-                scrollLeft = win.scrollLeft(),
-                nodeOffset = $(node).offset();
+                conHeight = container.height(),
+                conWidth = container.width(),
+                scrollTop = container.scrollTop(),
+                scrollLeft = container.scrollLeft(),
+                nodeOffset = (container[0] !== window) ? node.position() : node.offset();
 
             return (
                 // Element is not hidden
-                $(node).is(':visible') &&
+                node.is(':visible') &&
                 // Below the top
                 (nodeOffset.top >= (scrollTop - threshold)) &&
                 // Above the bottom
-                (nodeOffset.top <= (scrollTop + win.height() + threshold)) &&
+                (nodeOffset.top <= (scrollTop + conHeight + threshold)) &&
                 // Right of the left
                 (nodeOffset.left >= (scrollLeft - threshold)) &&
                 // Left of the right
-                (nodeOffset.left <= (scrollLeft + win.width() + threshold))
+                (nodeOffset.left <= (scrollLeft + conWidth + threshold))
             );
         },
 
         /**
          * Loop over the lazy loaded elements and verify they are within the viewport.
-         *
-         * @returns {bool}
          */
         load: function() {
             if (this.isLoaded) {
-                return false;
+                return;
             }
 
             if (this.loaded === this.elements.length) {
                 this.shutdown();
-
-                return false;
+                return;
             }
 
             this.elements.each(function(index, node) {
@@ -95,18 +83,14 @@
             }.bind(this));
 
             this.fireEvent('load');
-
-            return true;
         },
 
         /**
          * Load the remaining hidden elements and remove any container events.
-         *
-         * @returns {bool}
          */
         loadAll: function() {
             if (this.isLoaded) {
-                return false;
+                return;
             }
 
             this.elements.each(function(index, node) {
@@ -114,10 +98,7 @@
             }.bind(this));
 
             this.fireEvent('loadAll');
-
             this.shutdown();
-
-            return true;
         },
 
         /**
@@ -128,7 +109,10 @@
          */
         show: function(node, index) {
             node = $(node);
-            node.removeClass(this.elements.selector.substr(1));
+            node.removeClass('lazy-load');
+
+            // Set the element being loaded for events
+            this.element = node;
 
             // Replace src attributes on images
             node.find('img').each(function() {
@@ -147,8 +131,6 @@
                 }
             });
 
-            this.element = node;
-
             // Replace element with null since removing from the array causes it to break
             this.elements.splice(index, 1, null);
             this.loaded++;
@@ -162,21 +144,29 @@
          */
         shutdown: function() {
             this.isLoaded = true;
-
-            $(this.options.context || window).off({
-                scroll: this.load.bind(this),
-                resize: this.load.bind(this)
-            });
-
+            this.disable();
             this.fireEvent('shutdown');
+        },
+
+        /**
+         * Event handler triggered on DOM ready.
+         *
+         * @private
+         */
+        onReady: function() {
+            this.load();
+
+            // Set force load on DOM ready
+            if (this.options.forceLoad) {
+                setTimeout(this.loadAll.bind(this), this.options.delay);
+            }
         }
 
     }, {
         forceLoad: false,
         delay: 10000,
         threshold: 150,
-        throttle: 50,
-        context: null
+        throttle: 50
     });
 
     /**
@@ -184,6 +174,6 @@
      */
     Toolkit.createComponent('lazyLoad', function(options) {
         return new Toolkit.LazyLoad(this, options);
-    }, true);
+    });
 
 })(jQuery);

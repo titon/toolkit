@@ -6,22 +6,6 @@
 
 @import "../common";
 
-@mixin button-group-first-child {
-    > li:first-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:first-child,
-    > .#{$vendor-prefix}button.first {
-        @content;
-    }
-}
-
-@mixin button-group-last-child {
-    > li:last-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:last-child,
-    > .#{$vendor-prefix}button.last {
-        @content;
-    }
-}
-
 .#{$vendor-prefix}button-group {
     @include reset-inline-block;
     @include reset-list;

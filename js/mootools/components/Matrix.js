@@ -9,7 +9,7 @@
 
 Toolkit.Matrix = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__resize', '__load'],
+    Binds: ['onResize', 'onLoad'],
 
     /** List of DOM elements for items to position in the grid */
     items: [],
@@ -38,10 +38,7 @@ Toolkit.Matrix = new Class({
         gutter: 20,
         rtl: false,
         defer: true,
-        template: false,
-
-        // Events
-        onRender: null
+        template: false
     },
 
     /**
@@ -52,15 +49,19 @@ Toolkit.Matrix = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
+        this.element = element;
+        this.options = this.inheritOptions(this.options, element);
 
         // Load elements
-        this.element.addClass(Toolkit.options.vendor + 'matrix');
-        this.items = this.element.getElements('> li');
+        element.addClass(Toolkit.options.vendor + 'matrix');
+        this.items = element.getElements('> li');
 
         // Set events
-        window.addEvent('resize', this.__resize.debounce());
+        this.events = {
+            'resize window': this.onResize.debounce()
+        };
 
+        this.enable();
         this.fireEvent('init');
 
         if (this.options.defer) {
@@ -77,26 +78,11 @@ Toolkit.Matrix = new Class({
      * @returns {Toolkit.Matrix}
      */
     append: function(item) {
-        if (typeOf(item) !== 'element') {
-            return this;
-        }
-
         item
             .inject(this.element, 'bottom')
             .setStyle('opacity', 0);
 
         return this.refresh();
-    },
-
-    /**
-     * Remove required classes and set items back to defaults.
-     *
-     * @returns {Toolkit.Matrix}
-     */
-    disable: function() {
-        this.element.removeProperty('style');
-
-        return this;
     },
 
     /**
@@ -106,10 +92,6 @@ Toolkit.Matrix = new Class({
      * @returns {Toolkit.Matrix}
      */
     prepend: function(item) {
-        if (typeOf(item) !== 'element') {
-            return this;
-        }
-
         item
             .inject(this.element, 'top')
             .setStyle('opacity', 0);
@@ -155,16 +137,16 @@ Toolkit.Matrix = new Class({
     render: function() {
         this._calculateColumns();
 
+        // Single row, do not render
         if (this.items.length < this.colCount) {
-            return this.disable();
-        } else {
-            this.enable();
-        }
+            this.element.removeProperty('style');
 
-        if (this.colCount <= 1) {
+        // Single column
+        } else if (this.colCount <= 1) {
             this.element.addClass('no-columns');
             this.items.removeProperty('style');
 
+        // Multi column
         } else {
             this.element.removeClass('no-columns');
 
@@ -227,8 +209,8 @@ Toolkit.Matrix = new Class({
             this.images.each(function(image) {
                 var src = image.src;
 
-                image.onload = this.__load;
-                image.onerror = this.__load;
+                image.onload = this.onLoad;
+                image.onerror = this.onLoad;
                 image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                 image.src = src;
             }, this);
@@ -365,7 +347,7 @@ Toolkit.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __load: function(e) {
+    onLoad: function(e) {
         if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
             this.imagesLoaded++; // Continue rendering if load throws an error
         }
@@ -381,10 +363,8 @@ Toolkit.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __resize: function(e) {
-        if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
-            this.refresh();
-        }
+    onResize: function(e) {
+        this.refresh();
     }
 
 });

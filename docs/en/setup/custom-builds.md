@@ -3,16 +3,33 @@
 Customizing a Toolkit build allows for the inclusion or exclusion of components within generated output files.
 This is especially useful for projects where components are needed on a case by case basis.
 
-### Requirements ###
+## Requirements ##
 
 To customize a build, [Node.js](http://nodejs.org/), [NPM](http://nodejs.org/), and [Grunt](http://gruntjs.com/) are required.
-Processing CSS files will also require Ruby, Sass and Compass.
+Processing CSS files will also require [Ruby](https://ruby-lang.org/), [Sass](http://sass-lang.com/) and [Compass](http://compass-style.org/).
 
 Installation of these libraries can be found on their respective websites.
 
-### Choosing Components ###
+## Types of Tasks ##
 
-When generating a custom build, a whitelist of component names must be defined through the `--components` option in the command line.
+When generating a build, there are 2 types of tasks to run. One for development, and one for production.
+The development task will not compress and minify the source code (great for debugging), while the production one will.
+
+To run a development task.
+
+```bash
+grunt
+```
+
+To run a production task.
+
+```bash
+grunt production
+```
+
+## Choosing Components ##
+
+When generating a custom build, a whitelist of component names can be defined through the `--components` option in the command line.
 This option will accept a comma separated list of component names. If no option is defined, all components will be included.
 
 ```bash
@@ -23,7 +40,7 @@ After the command executes, compiled CSS and Javascript files will be written to
 
 The list of available components can be found in the `manifest.json` found within the root of the project (excluding names that start with `theme-` or `effect-`).
 
-### Including Effects ###
+## Including Effects ##
 
 Effects are special components that extend the primary components with additional functionality, like pill rounding, and visual glossing.
 These styles are not included by default and must be defined in the same manner as components by supplying a list to the `--effects` option.
@@ -34,7 +51,7 @@ grunt --effects=oval,pill,visual
 
 The list of available effects can be found in the `manifest.json` and are prefixed with `effect-`.
 
-### Choosing A Theme ###
+## Choosing A Theme ##
 
 Themes provide aesthetic styles for all components and are primarily used for prototyping and scaffolding.
 Themes should not be used in production and should be used as a reference for styling Toolkit.
@@ -42,20 +59,20 @@ Themes should not be used in production and should be used as a reference for st
 By default no theme is included. To specify a theme, use the `--theme` option in the command line.
 
 ```bash
-grunt --theme=titon
+grunt --theme=demo
 ```
 
 The list of available effects can be found in the `manifest.json` and are prefixed with `theme-`.
 
-### Normalize Integration ###
+## Normalize Integration ##
 
 By default, [normalize.css](http://necolas.github.io/normalize.css/) will be included at the top of the generated CSS file.
 To not include normalize, supply the `--no-normalize` option.
 
-### Combining Options ###
+## Combining Options ##
 
 Like other command line utilities, all options can be used at once, and in any order. Go crazy and customize as you please!
 
 ```bash
-grunt --components=buttonGroup,tooltip --effects=oval --theme=titon --no-normalize
+grunt production --components=buttonGroup,tooltip --effects=oval --theme=titon --no-normalize
 ```

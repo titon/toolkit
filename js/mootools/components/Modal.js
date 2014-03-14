@@ -9,7 +9,7 @@
 
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__submit'],
+    Binds: ['onSubmit'],
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -35,14 +35,13 @@ Toolkit.Modal = new Class({
         closeEvent: '.modal-event-close',
         submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '<div class="modal-outer">' +
+                '<div class="modal-handle">' +
+                    '<div class="modal-inner"></div>' +
+                    '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '</div>' +
             '</div>' +
-        '</div>',
-
-        // Events
-        onSubmit: null
+        '</div>'
     },
 
     /**
@@ -53,72 +52,45 @@ Toolkit.Modal = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
         this.createElement();
 
-        if (this.options.fullScreen) {
+        options = this.options;
+
+        if (options.fullScreen) {
             this.element.addClass(Toolkit.options.isPrefix + 'fullscreen');
-            this.options.draggable = false;
+            options.draggable = false;
         }
 
         // Get elements
-        this.elementBody = this.element.getElement(this.options.contentElement);
-
-        // Draggable
-        if (this.options.draggable) {
-            this.drag = new Drag(this.element, {
-                onStart: function(element) {
-                    element.addClass(Toolkit.options.isPrefix + 'dragging');
-                },
-                onComplete: function(element) {
-                    element.removeClass(Toolkit.options.isPrefix + 'dragging');
-                }
-            });
-
-            this.element.addClass(Toolkit.options.isPrefix + 'draggable');
-        }
+        this.elementBody = this.element.getElement(options.contentElement);
 
         // Blackout
-        if (this.options.blackout) {
+        if (options.blackout) {
             this.blackout = Toolkit.Blackout.factory();
 
-            if (this.options.stopScroll) {
+            if (options.stopScroll) {
                 this.blackout.addEvent('hide', function(hidden) {
                     if (hidden) {
-                        document.body.setStyle('overflow', '');
+                        document.body.removeClass('no-scroll');
                     }
                 });
             }
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        var events = {};
+        events['clickout element'] = 'onHide';
+        events['clickout nodes'] = 'onHide';
+        events['keydown window'] = 'onKeydown';
+        events['click ' + options.delegate] = 'onShow';
+        events['click element ' + options.closeEvent] = 'onHide';
+        events['click element ' + options.submitEvent] = 'onSubmit';
+
+        this.events = events;
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set delegation and window events.
-     *
-     * @returns {Toolkit.Modal}
-     */
-    bindEvents: function() {
-        this.parent();
-
-        window.addEvent('keydown', function(e) {
-            if (e.key === 'esc' && this.isVisible()) {
-                this.hide();
-            }
-        }.bind(this));
-
-        this.element
-            .addEvent('clickout', this.__hide)
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
-            .addEvent('click:relay(' + this.options.submitEvent + ')', this.__submit);
-
-        this.nodes
-            .addEvent('clickout', this.__hide);
-
-        return this;
     },
 
     /**
@@ -146,13 +118,13 @@ Toolkit.Modal = new Class({
             return this;
         }
 
-        this.elementBody.set('html', content);
-        this.fireEvent('load', content);
-
         // Hide blackout loading message
         if (this.blackout) {
             this.blackout.hideLoader();
         }
+
+        this.elementBody.set('html', content);
+        this.fireEvent('load', content);
 
         // Reveal modal
         this.element.reveal();
@@ -186,7 +158,10 @@ Toolkit.Modal = new Class({
             ajax = false;
 
         } else if (node) {
-            content = this.readValue(node, options.getContent) || node.get('href');
+            this.node = node;
+
+            ajax = this.readOption(node, 'ajax');
+            content = this.readValue(node, this.readOption(node, 'getContent')) || node.get('href');
 
             if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                 ajax = false;
@@ -197,15 +172,13 @@ Toolkit.Modal = new Class({
             return this;
         }
 
-        this.node = node;
-
         // Show blackout
         if (this.blackout) {
             this.blackout.show();
         }
 
         if (options.stopScroll) {
-            document.body.setStyle('overflow', 'hidden');
+            document.body.addClass('no-scroll');
         }
 
         // Fetch content
@@ -223,12 +196,24 @@ Toolkit.Modal = new Class({
     },
 
     /**
+     * Event handler for closing the modal when esc is pressed.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onKeydown: function(e) {
+        if (e.key === 'esc' && this.element.isShown()) {
+            this.hide();
+        }
+    },
+
+    /**
      * Submit the form within the modal if it exists and re-render the modal with the response.
      *
      * @private
      * @param {DOMEvent} e
      */
-    __submit: function(e) {
+    onSubmit: function(e) {
         e.preventDefault();
 
         var button = e.target,

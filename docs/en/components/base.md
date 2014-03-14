@@ -14,7 +14,7 @@ For text alignment, the `.align-left`, `.align-center`, `.align-right`, and `.al
 classes can be used.
 
 ```html
-<p class="align-center">Lorem ipsum dolor sit amet.</p>
+<p class="align-center">This message is so important, it must be centered!</p>
 ```
 
 For floating an element on a use case basis, the `.float-left`, `.float-right`, and
@@ -28,7 +28,7 @@ For floating an element on a use case basis, the `.float-left`, `.float-right`, 
 
 To trigger CSS transitions or animations, the `.show` and `.hide` classes can be toggled.
 These classes are automatically handled through `conceal()` and `reveal()` within the
-JavaScript layer. Furthermore, these styles should **never** be modified.
+JavaScript layer.
 
 For implementing a fade transition on an element, set the initial visibility to hidden,
 opacity to 0, and add the transition properties. Once `.show` is toggled, fading will occur.
@@ -41,10 +41,13 @@ opacity to 0, and add the transition properties. Once `.show` is toggled, fading
 }
 ```
 
+<div class="notice is-warning">
+    These classes should <b>rarely</b> be modified.
+</div>
+
 ### Display ###
 
 To mark an element as display block, use `.shown`, or to hide an element, use `.hidden`.
-Marking an element as inline or inline-block is also possible with `.inline` and `.inline-block`.
 
 ```html
 <div class="hidden">Can't see this!</div>
@@ -55,10 +58,10 @@ Marking an element as inline or inline-block is also possible with `.inline` and
 To position an element directly in the center, horizontally and vertically, use `.vertical-center`.
 This class requires the parent to have a relative position.
 
-For instances where a parent needs to clear floats dynamically, the `.clear-after` class is available.
+For instances where a parent needs to clear floats dynamically, the `.clear-fix` class is available.
 
 ```html
-<div class="clear-after">
+<div class="clear-fix">
     <div class="float-left">...</div>
     <div class="float-right">...</div>
 </div>
@@ -116,7 +119,7 @@ A character is just that, a character. The only currently supported character is
 to create X's used in close buttons.
 
 ```html
-<span class="x">&times;</span>
+<span class="x"></span>
 ```
 
 ### Bullets ###

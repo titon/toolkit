@@ -2,7 +2,7 @@
 <div class="grid">
     <?php $c = time(); ?>
 
-    <div class="col span-4">
+    <div class="col span-4 lazy-container">
         <p style="margin-top: 0">Loads background images.</p>
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
@@ -14,7 +14,7 @@
         <?php $c++; } ?>
     </div>
 
-    <div class="col span-4">
+    <div class="col span-4 lazy-container">
         <p style="margin-top: 0">Loads inline images.</p>
 
         <?php for ($x = 0; $x <= 10; $x++) { ?>
@@ -45,30 +45,28 @@
 
 <script>
     <?php if ($vendor === 'mootools') { ?>
-        $$('.lazy-load').lazyLoad({
+        $$('.lazy-container').lazyLoad({
             forceLoad: <?php bool('forceLoad', false); ?>,
             delay: <?php number('delay', 10000); ?>,
             threshold: <?php number('threshold', 150); ?>
         });
 
-        $$('#overflow .lazy-load').lazyLoad({
+        $$('#overflow').lazyLoad({
             forceLoad: <?php bool('forceLoad', false); ?>,
             delay: <?php number('delay', 10000); ?>,
-            threshold: <?php number('threshold', 150); ?>,
-            context: '#overflow'
+            threshold: <?php number('threshold', 150); ?>
         });
     <?php } else { ?>
-        $('.lazy-load').lazyLoad({
+        $('.lazy-container').lazyLoad({
             forceLoad: <?php bool('forceLoad', false); ?>,
             delay: <?php number('delay', 10000); ?>,
             threshold: <?php number('threshold', 150); ?>
         });
 
-        $('#overflow .lazy-load').lazyLoad({
+        $('#overflow').lazyLoad({
             forceLoad: <?php bool('forceLoad', false); ?>,
             delay: <?php number('delay', 10000); ?>,
-            threshold: <?php number('threshold', 150); ?>,
-            context: '#overflow'
+            threshold: <?php number('threshold', 150); ?>
         });
     <?php } ?>
 </script>

@@ -119,6 +119,13 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
 </div>
 ```
 
+If the `ajax` option is false, but you still want to load in content for a specific tab,
+override the `ajax` option through data attributes.
+
+```html
+<a href="/load/this" data-tabs-ajax="true">AJAX Override</a>
+```
+
 <div class="notice is-warning">
     Be sure to create empty sections to insert the response into,
     as the component does not automatically create them!
@@ -258,12 +265,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>previousIndex</td>
-            <td>int</td>
-            <td>The index of the previously opened section.</td>
-        </tr>
-        <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The index of the currently opened section.</td>
         </tr>

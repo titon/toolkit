@@ -8,30 +8,19 @@
     'use strict';
 
     Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
-        var header, headers, sections;
+        var headers, sections;
 
         this.component = 'Accordion';
         this.version = '1.1.0';
-
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // List of headers and sections
-        this.headers = headers = this.element.find(options.headerElement);
-        this.sections = sections = this.element.find(options.sectionElement);
-
-        // The current and previous shown indices
-        this.previousIndex = 0;
-        this.currentIndex = 0;
-
-        // Currently active header
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
+        this.headers = headers = element.find(options.headerElement);
+        this.sections = sections = element.find(options.sectionElement);
+        this.index = 0;
         this.node = null;
+        this.events = {};
 
-        // Reset the state of every row
-        element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
-
-        // Store the index
+        // Cache the index of each header
         headers.each(function(index) {
             $(this).data('index', index);
         });
@@ -42,15 +31,14 @@
             section.data('height', section.height()).conceal();
         });
 
-        // Set events
-        headers.on((options.mode === 'click' ? 'click' : 'mouseover'), this.__show.bind(this));
+        // Initialize events
+        this.events[options.mode + ' headers'] = 'onShow';
 
+        this.enable();
         this.fireEvent('init');
 
-        // Fall back to first row if the default doesn't exist
-        header = headers[options.defaultIndex] ? headers.item(options.defaultIndex) : headers.item(0);
-
-        this.show(header);
+        // Jump to the index on page load
+        this.jump(options.defaultIndex);
     }, {
 
         /**
@@ -61,11 +49,7 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.headers.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.headers.length - 1;
-            }
+            index = $.bound(index, this.headers.length);
 
             this.fireEvent('jump', index);
             this.show(this.headers[index]);
@@ -85,18 +69,19 @@
                 section = node.next(), // section
                 index = node.data('index'),
                 height = parseInt(section.data('height'), 10),
-                isNode = (this.node && this.node.is(node));
+                isNode = (this.node && this.node.is(node)),
+                isPrefix = Toolkit.options.isPrefix;
 
             // Allow simultaneous open and closed sections
             // Or allow the same section to collapse
             if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
                 if (section.is(':shown') && this.node) {
                     section.css('max-height', 0).conceal();
-                    parent.removeClass(Toolkit.options.isPrefix + 'active');
+                    parent.removeClass(isPrefix + 'active');
 
                 } else {
                     section.css('max-height', height).reveal();
-                    parent.addClass(Toolkit.options.isPrefix + 'active');
+                    parent.addClass(isPrefix + 'active');
                 }
 
             // Only one open at a time
@@ -110,15 +95,14 @@
                 this.sections.css('max-height', 0).conceal();
                 section.css('max-height', height).reveal();
 
-                this.element.children('li').removeClass(Toolkit.options.isPrefix + 'active');
-                parent.addClass(Toolkit.options.isPrefix + 'active');
+                this.element.children('li').removeClass(isPrefix + 'active');
+                parent.addClass(isPrefix + 'active');
             }
 
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index;
             this.node = node;
 
-            this.fireEvent('show', section);
+            this.fireEvent('show', [section, node, index]);
         },
 
         /**
@@ -127,7 +111,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
             this.show(e.currentTarget);

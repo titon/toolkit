@@ -11,10 +11,7 @@
     vertical-align: middle;
     white-space: nowrap;
 
-    > .#{$vendor-prefix}input,
-    > .#{$vendor-prefix}input-addon,
-    > .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button-group {
+    > * {
         float: left;
         display: inline-block;
         position: relative;
@@ -33,8 +30,6 @@
 }
 
 .#{$vendor-prefix}input-addon {
-    border: 1px solid $gray-dark;
-    background: $gray;
     vertical-align: middle;
     line-height: normal;
     @include size-medium;
@@ -46,18 +41,12 @@
 //-------------------- Modifiers --------------------//
 
 .#{$vendor-prefix}input-group.#{$shape-round-class} {
-    > .#{$vendor-prefix}input:first-child,
-    > .#{$vendor-prefix}input-addon:first-child,
-    > .#{$vendor-prefix}button:first-child,
-    > .#{$vendor-prefix}button-group:first-child .#{$vendor-prefix}button {
+    > *:first-child {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }
 
-    > .#{$vendor-prefix}input:last-child,
-    > .#{$vendor-prefix}input-addon:last-child,
-    > .#{$vendor-prefix}button:last-child,
-    > .#{$vendor-prefix}button-group:last-child .#{$vendor-prefix}button {
+    > *:last-child {
         border-top-right-radius: $round;
         border-bottom-right-radius: $round;
     }

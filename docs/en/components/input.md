@@ -6,7 +6,7 @@ Replaces selects, checkboxes, and radios with custom elements.
 
 The input component is unique in the fact that it's 4 components bundled together.
 It provides the `Input` class that replaces all selects, checkboxes, and radios in a form.
-It also provides the `Input.Checkbox`, `Input.Radio`, and `Input.Select` classes
+It also provides the `InputCheckbox`, `InputRadio`, and `InputSelect` classes
 that replace their respective individual element.
 
 To replace all selects, checkboxes, and radios in a form, call `input()` on the form.
@@ -120,12 +120,12 @@ To include an optional description below the label, use `getDescription`.
 
 ## Notes ##
 
-* Checkboxes and radios use `:checked` on the original input for their active state
-* Selected options will have `.is-active` applied to their parent `li`
-* An `.is-active` class will be added to `.select` when a menu is open
-* An `.is-multiple` class will be added to the multi-select dropdown
-* Optgroups will be converted to `.drop-heading` within the dropdown
-* Adding `disabled` to an option or optgroup will disable all related options
+* Checkboxes and radios use `:checked` on the original input for their active state.
+* Selected options will have `.is-active` applied to their parent `li`.
+* An `.is-active` class will be added to `.select` when a menu is open.
+* An `.is-multiple` class will be added to the multi-select dropdown.
+* Optgroups will be converted to `.drop-heading` within the dropdown.
+* Adding `disabled` to an option or optgroup will disable all related options.
 
 ## Options ##
 
@@ -320,7 +320,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>Is the current select element a multi-select.</td>
         </tr>
         <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The current option index when cycling with keyboard events.</td>
         </tr>

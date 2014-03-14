@@ -34,11 +34,7 @@ Toolkit.Flyout = new Class({
         hideDelay: 1000,
         itemLimit: 15,
         contentElement: '.flyout',
-        template: '<div class="flyout"></div>',
-
-        // Events
-        onHideChild: null,
-        onShowChild: null
+        template: '<div class="flyout"></div>'
     },
 
     /**
@@ -50,11 +46,13 @@ Toolkit.Flyout = new Class({
      */
     initialize: function(elements, url, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
 
         if (!url) {
             throw new Error('Flyout URL required to download sitemap JSON');
         }
+
+        options = this.options;
 
         // Load data from the URL
         new Request.JSON({
@@ -66,23 +64,18 @@ Toolkit.Flyout = new Class({
         // Set timers
         this.addTimers({
             show: this.position,
-            hide: this.__hide
+            hide: this.onHide
         });
 
-        // Handles keeping menu open even if mouse exits the context
-        options = this.options;
-
-        if (options.mode === 'hover') {
-            document.id(options.context || document.body)
-                .addEvent('mouseenter:relay(' + options.delegate + ')', function() {
-                    this.clearTimer('hide').startTimer('show', options.showDelay);
-                }.bind(this))
-                .addEvent('mouseleave:relay(' + options.delegate + ')', function() {
-                    this.clearTimer('show').startTimer('hide', options.showDelay);
-                }.bind(this));
+        // Initialize events
+        if (options.mode === 'click') {
+            this.events['click ' + options.delegate] = 'onShow';
+        } else {
+            this.events['mouseenter ' + options.delegate] = ['onShow', 'onEnter'];
+            this.events['mouseleave ' + options.delegate] = 'onLeave';
         }
 
-        this.bindEvents();
+        this.enable();
         this.fireEvent('init');
     },
 
@@ -294,8 +287,8 @@ Toolkit.Flyout = new Class({
                     this._buildMenu(li, child);
 
                     li.addClass(Toolkit.options.hasPrefix + 'children')
-                        .addEvent('mouseenter', this.__positionChild.bind(this, li))
-                        .addEvent('mouseleave', this.__hideChild.bind(this, li));
+                        .addEvent('mouseenter', this.onPositionChild.bind(this, li))
+                        .addEvent('mouseleave', this.onHideChild.bind(this, li));
                 }
             }
 
@@ -339,7 +332,7 @@ Toolkit.Flyout = new Class({
 
             menu.conceal();
 
-            if (this.options.mode === 'hover') {
+            if (this.options.mode !== 'click') {
                 menu.addEvents({
                     mouseenter: function() {
                         this.clearTimer('hide');
@@ -373,16 +366,34 @@ Toolkit.Flyout = new Class({
     }.protect(),
 
     /**
+     * Event handle when a mouse enters a node. Will show the menu after the timer.
+     *
+     * @private
+     */
+    onEnter: function() {
+        this.clearTimer('hide').startTimer('show', this.options.showDelay);
+    },
+
+    /**
      * Event handler to hide the child menu after exiting parent li.
      *
      * @private
      * @param {Element} parent
      */
-    __hideChild: function(parent) {
+    onHideChild: function(parent) {
         parent.removeClass(Toolkit.options.isPrefix + 'open');
         parent.getChildren(this.options.contentElement).removeProperty('style');
 
         this.fireEvent('hideChild', parent);
+    },
+
+    /**
+     * Event handle when a mouse leaves a node. Will hide the menu after the timer.
+     *
+     * @private
+     */
+    onLeave: function() {
+        this.clearTimer('show').startTimer('hide', this.options.showDelay);
     },
 
     /**
@@ -391,7 +402,7 @@ Toolkit.Flyout = new Class({
      * @private
      * @param {Element} parent
      */
-    __positionChild: function(parent) {
+    onPositionChild: function(parent) {
         var menu = parent.getElement(this.options.contentElement);
 
         if (!menu) {

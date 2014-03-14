@@ -2,18 +2,228 @@
 
 The ins and outs of the JavaScript layer within Toolkit.
 
-* [Component System](#component-system)
-    * [Templates](#templates)
-    * [Options](#options)
-    * [Events](#events)
-    * [Properties](#properties)
-    * [Methods](#methods)
+* [Using Components](#using-components)
+* [Accessing Components](#accessing-components)
+* [Conflict Resolution](#conflict-resolution)
 * [Toolkit Namespace](#toolkit-namespace)
     * [Global Options](#global-options)
     * [Locale Messages](#locale-messages)
     * [Feature Flags](#feature-flags)
+* [Component System](#component-system)
+    * [Templates](#templates)
+        * [Elements As Templates](#elements-as-templates)
+    * [Options](#options)
+        * [Data Attribute Inheritance](#data-attribute-inheritance)
+        * [Shared Options](#shared-options)
+    * [Events](#events)
+        * [Namespaced Events](#namespaced-events)
+        * [Shared Events](#shared-events)
+    * [Properties](#properties)
+    * [Methods](#methods)
 * [Extensions](#extensions)
 * [Conventions](#conventions)
+
+## Using Components ##
+
+Using Toolkit components is extremely simple. If you're familiar with jQuery plugins, it's even simpler.
+A component can be initialized with a single line of code.
+
+```javascript
+$('.tabs').tabs();
+```
+
+What this does is initialize a tabs component on the `.tabs` element(s). Easy!
+
+## Accessing Components ##
+
+To trigger methods, or access properties on a component, the class instance will need to be retrieved.
+This can be achieved through the `toolkit()` method or jQuery's `data()` method.
+The difference between the 2 methods, is that `toolkit()` will return an array of instances for every element
+in the collection (unless it's a single element), while `data()` will return a single instance for the first
+element in the collection. For example, take the following markup.
+
+```html
+<div class="tabs" id="tabs-1">
+    ...
+</div>
+
+<div class="tabs" id="tabs-2">
+    ...
+</div>
+```
+
+And the results of each method call.
+
+```javascript
+$('.tabs').toolkit('tabs'); // array of 2 tab instances
+$('#tabs-1').toolkit('tabs'); // 1 tab instance for #tabs-1
+
+$('.tabs').data('toolkit.tabs'); // 1 tab instance for #tabs-1 (first in the collection)
+$('#tabs-2').data('toolkit.tabs'); // 1 tab instance for #tabs-2
+```
+
+Once you have an instance, methods or properties on the instance can be accessed.
+Each component will have different methods and properties, so check out their individual documentation.
+
+```javascript
+$.each($('.tabs').toolkit('tabs'), function(i, tabs) {
+    tabs.hide();
+});
+
+$('#tabs-1').toolkit('tabs').sections; // collection of section elements
+```
+
+## Conflict Resolution ##
+
+Toolkit has no concept of `noConflict()` that is found in other libraries.
+Instead it has an automatic conflict resolution, where methods are renamed if one already exists.
+For example, when using the tooltip component as a jQuery plugin under the name `tooltip()`,
+and that name is already taken (by jQuery UI for example), the plugin is renamed to `toolkitTooltip()`.
+
+```javascript
+$('.js-tooltip').tooltip();
+
+// Becomes
+$('.js-tooltip').toolkitTooltip();
+```
+
+If for any reason the jQuery plugin is lost, or overridden by another library,
+components can be instantiated manually outside of the jQuery or MooTools syntax.
+
+```javascript
+new Toolkit.Tooltip($('.js-tooltip'), {});
+
+// jQuery equivalent
+$('.js-tooltip').tooltip({});
+```
+
+## Toolkit Namespace ##
+
+The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
+It defines global options, localized messages, feature detection, and device support.
+It also acts as a namespace for components by housing a top level name to avoid global conflicts.
+Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
+
+### Global Options ###
+
+The following options are used to alter all components and are found under `Toolkit.options`.
+They can be modified in a similar fashion to component options (more information above).
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>vendor</td>
+            <td></td>
+            <td>
+                The vendor name to prepend to all class names.
+                <a href="sass.md#variables">Learn more about vendor prefixing.</a>
+            </td>
+        </tr>
+        <tr>
+            <td>isPrefix</td>
+            <td>is-</td>
+            <td rowspan="2">
+                The prefix to prepend to certain state classes.
+                <a href="sass.md#variables">Learn more about state prefixing.</a>
+            </td>
+        </tr>
+        <tr>
+            <td>hasPrefix</td>
+            <td>has-</td>
+        </tr>
+    </tbody>
+</table>
+
+```javascript
+$.extend(Toolkit.options, {
+    vendor: 'tk-',
+    isPrefix: '',
+    hasPrefix: ''
+});
+```
+
+### Locale Messages ###
+
+The following messages are used within AJAX calls and are found under `Toolkit.messages`.
+They are represented as an object allowing for easy localization, and can be modified similar to an options object.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Message</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>loading</td>
+            <td>Loading...</td>
+            <td>Message to display while an AJAX request is loading.</td>
+        </tr>
+        <tr>
+            <td>error</td>
+            <td>An error has occurred!</td>
+            <td>Message to display when an AJAX call has failed.</td>
+        </tr>
+    </tbody>
+</table>
+
+```javascript
+$.extend(Toolkit.messages, {
+    loading: 'Wait a second!',
+    error: 'Oops, it broke...'
+});
+```
+
+### Feature Flags ###
+
+The following flags are used for feature detection within components.
+Each flag can be found on the `Toolkit` object.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Flag</th>
+            <th>Vendor</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>hasTransition</td>
+            <td>Both</td>
+            <td>Does the browser support CSS transitions?</td>
+        </tr>
+        <tr>
+            <td>isTouch</td>
+            <td>Both</td>
+            <td>Does the device support touch capabilities?</td>
+        </tr>
+        <tr>
+            <td>isRetina</td>
+            <td>Both</td>
+            <td>Does the device support HD / retina displays?</td>
+        </tr>
+    </tbody>
+</table>
+
+```javascript
+if (Toolkit.isTouch) {
+    element.on('swipeleft', callback);
+}
+```
+
+<div class="notice is-warning">
+    Flags are determined automatically and should not be altered in any way!
+</div>
 
 ## Component System ##
 
@@ -47,9 +257,11 @@ For example, the Modal component uses the following template markup to create th
 ```javascript
 {
     template: '<div class="modal">' +
-        '<div class="modal-handle">' +
-            '<div class="modal-inner"></div>' +
-            '<a href="javascript:;" class="modal-close modal-event-close"><span class="x"></span></a>' +
+        '<div class="modal-outer">' +
+            '<div class="modal-handle">' +
+                '<div class="modal-inner"></div>' +
+                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '</div>' +
         '</div>' +
     '</div>'
 }
@@ -59,7 +271,7 @@ Templates can be customized by overriding the `template` option.
 When customizing however, it's important to associate the custom markup with class mappings.
 These mappings tell the component layer where critical elements within the template can be found.
 
-Continuing with the Modal example, the component must have knowledge of where to place content within the modal.
+Continuing with the Modal example, the component must have knowledge of where to inset content into the modal.
 This is handled by the `contentElement` option, which is set to `.modal-inner` by default.
 Options that end with `Element` are used for template mapping.
 
@@ -79,7 +291,7 @@ $('.js-modal').modal({
     Jump to the individual component documentation for more information.
 </div>
 
-#### Elements as Templates ####
+#### Elements As Templates ####
 
 It's also possible to use existing DOM elements as a template.
 This is especially useful for components where each instance of the component should use the same DOM element &mdash; blackouts for example.
@@ -113,24 +325,118 @@ These options will need to be modified *before* a component is initialized.
 
 ```javascript
 // Single option
-Toolkit.Tooltip.options.position = 'topRight';
+Toolkit.Tooltip.options.position = 'top-right';
 
 // Multiple options
 $.extend(Toolkit.Tooltip.options, {
-    position: 'topRight',
+    position: 'top-right',
     follow: true,
     mouseThrottle: 75
 });
 ```
 
 Options can also be set on a per instance basis when initializing a component.
-These options will inherit and overwrite the global options.
+These options will inherit and override the global options.
 
 ```javascript
 $('.js-tooltip').tooltip({
-    position: 'topRight'
+    position: 'top-right'
 });
 ```
+
+#### Data Attribute Inheritance ###
+
+At the highest level we have global options. At the middle level we have component options.
+And at the lowest level, the element, we have data attribute options. Data attributes permit
+individual elements to inherit custom options that override the component options.
+
+Each data attribute must be defined in the format of `data-{component}-{option}="{value}"`.
+The component name will be all lowercase in dashed format, while the option will be all lowercase.
+
+Say we have 3 carousels on a page, but we want separate animations for each, and we only
+want to execute the component once. This can easily be solved through data attributes.
+
+```html
+<div class="carousel" data-carousel-animation="slide">
+    ...
+</div>
+
+<div class="carousel" data-carousel-animation="slide-up">
+    ...
+</div>
+
+<div class="carousel" data-carousel-animation="fade">
+    ...
+</div>
+```
+
+```javascript
+$('.carousel').carousel();
+```
+
+The previous example is only possible for embedded components, since they only handle a single element.
+On the other hand, activated components are initialized on a collection of elements,
+so each individual node can define their own options that will inherit at runtime.
+
+```html
+<button type="button" class="js-tooltip" data-tooltip="A message!" data-tooltip-position="top-center">Top Centered</button>
+
+<button type="button" class="js-tooltip" data-tooltip="/load/this" data-tooltip-ajax="true">AJAX</button>
+```
+
+```javascript
+$('.js-tooltip').tooltip({
+    position: 'top-left',
+    ajax: false
+});
+```
+
+#### Shared Options ####
+
+The following options are shared between all components.
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>context</td>
+            <td>element</td>
+            <td></td>
+            <td>The element to attach delegated events to, or to use as a parent. Defaults to the document body.</td>
+        </tr>
+        <tr>
+            <td>delegate</td>
+            <td>string</td>
+            <td></td>
+            <td>The CSS selector to bind delegated events to. Is only required for activated components. (MooTools only)</td>
+        </tr>
+        <tr>
+            <td>className</td>
+            <td>string</td>
+            <td></td>
+            <td>Class name to append to the target element. Allows for custom styles.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td></td>
+            <td>The HTML used to create the component element. Is only used by activated components.</td>
+        </tr>
+        <tr>
+            <td>templateFrom</td>
+            <td>string</td>
+            <td></td>
+            <td>The ID of an element to use as the template.</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Events ###
 
@@ -140,7 +446,7 @@ These events, dubbed "option events", can only be defined once and will be trigg
 Any option that begins with `on` and defines an anonymous function is considered an event, for example.
 
 ```javascript
-$('#carousel').carousel({
+$('.carousel').carousel({
     onInit: function() {
         // Do something
     }
@@ -169,7 +475,7 @@ $('#tabs').on('show.toolkit.tabs', function(e, tab) {
 });
 ```
 
-What we did was attach a namespaced event to the same element in the format of `<event>.toolkit.<component>`
+What we did was attach a namespaced event to the same element in the format of `{event}.toolkit.{component}`
 (no "on" required in the event name). Now anytime a tab is clicked, the `onShow` option event will trigger,
 and all `show.toolkit.tabs` event handlers will trigger.
 
@@ -178,7 +484,9 @@ and all `show.toolkit.tabs` event handlers will trigger.
     The component object instance can be found under the <code>context</code> property in the event object.
 </div>
 
-The following events exist in all components, however, each component may have their own set of unique events.
+#### Shared Events ####
+
+The following events are shared between all components.
 
 <table class="table data-table">
     <thead>
@@ -326,12 +634,10 @@ The following methods are available on all class instances, but not all componen
         <tr>
             <td>createElement()</td>
             <td>Both</td>
-            <td>Create an element from the <code>template</code> or <code>templateFrom</code> options.</td>
-        </tr>
-        <tr>
-            <td>setElement(element:element)</td>
-            <td>Both</td>
-            <td>Set the element to use by the component. Will set class names on the element based on defined options.</td>
+            <td>
+                Create an element from the <code>template</code> or <code>templateFrom</code> options.
+                Will set class names on the element based on defined options.
+            </td>
         </tr>
         <tr>
             <td>parseTemplate(string:template)</td>
@@ -339,12 +645,22 @@ The following methods are available on all class instances, but not all componen
             <td>Parse a template string into a set of DOM elements.</td>
         </tr>
         <tr>
-            <td>setOptions(object:options)</td>
+            <td>setOptions(object:options[, element:inheritFrom])</td>
             <td>Both</td>
             <td>
                 Set the options to use in the component.
-                Will alter options based on current device and will automatically bind option <code>on</code> events.
+                Will alter options based on current device and will inherit from data attributes if an element is passed.
             </td>
+        </tr>
+        <tr>
+            <td>inheritOptions(object:options, element:element)</td>
+            <td>Both</td>
+            <td>Inherit and merge options from the target elements data attributes.</td>
+        </tr>
+        <tr>
+            <td>bindEvents(string:type)</td>
+            <td>Both</td>
+            <td>Add or remove events for elements found in the <code>events</code> object mapping.</td>
         </tr>
         <tr>
             <td>enable()</td>
@@ -360,6 +676,11 @@ The following methods are available on all class instances, but not all componen
             <td>fireEvent(string:event[, array:args])</td>
             <td>Both</td>
             <td>Trigger an event with optional arguments to pass. Will find an event within the options object.</td>
+        </tr>
+        <tr>
+            <td>readOption(element:element, string:key)</td>
+            <td>Both</td>
+            <td>Read an option from an elements data attribute, else fallback to the original option.</td>
         </tr>
         <tr>
             <td>readValue(element:element, mixed:query)</td>
@@ -408,128 +729,6 @@ The following methods are available on all class instances, but not all componen
 
 <div class="notice is-warning">
     Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
-</div>
-
-## Toolkit Namespace ##
-
-The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
-It defines global options, localized messages, feature detection, and device support.
-It also acts as a namespace for components by housing a top level name to avoid global conflicts.
-Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
-
-### Global Options ###
-
-The following options are used to alter all components and are found under `Toolkit.options`.
-They can be modified in a similar fashion to component options (more information above).
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Option</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>vendor</td>
-            <td></td>
-            <td>
-                The vendor name to prepend to all class names.
-                <a href="sass.md#variables">Learn more about vendor prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>isPrefix</td>
-            <td>is-</td>
-            <td rowspan="2">
-                The prefix to prepend to certain state classes.
-                <a href="sass.md#variables">Learn more about state prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>hasPrefix</td>
-            <td>has-</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-$.extend(Toolkit.options, {
-    vendor: 'tk-',
-    isPrefix: '',
-    hasPrefix: ''
-});
-```
-
-### Locale Messages ###
-
-The following messages are used within AJAX calls and are found under `Toolkit.messages`.
-They are represented as an object allowing for easy localization, and can be modified similar to an options object.
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Message</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>loading</td>
-            <td>Loading...</td>
-            <td>Message to display while an AJAX request is loading.</td>
-        </tr>
-        <tr>
-            <td>error</td>
-            <td>An error has occurred!</td>
-            <td>Message to display when an AJAX call has failed.</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-$.extend(Toolkit.messages, {
-    loading: 'Wait a second!',
-    error: 'Oops, it broke...'
-});
-```
-
-### Feature Flags ###
-
-The following flags are used for feature detection within components.
-Each flag can be found on the `Toolkit` object.
-
-<table class="table data-table">
-    <thead>
-        <tr>
-            <th>Flag</th>
-            <th>Vendor</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>hasTransition</td>
-            <td>Both</td>
-            <td>Does the browser support CSS transition?</td>
-        </tr>
-        <tr>
-            <td>isTouch</td>
-            <td>Both</td>
-            <td>Does the device support touch capabilities?</td>
-        </tr>
-        <tr>
-            <td>isRetina</td>
-            <td>Both</td>
-            <td>Does the device support HD / retina displays?</td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="notice is-warning">
-    Flags are determined automatically and should not be altered in any way!
 </div>
 
 ## Extensions ##
@@ -592,10 +791,11 @@ These extensions may even solve a problem in your own codebase.
             <td>jQuery</td>
             <td rowspan="2">
                 Position the element relative to another element.
-                <code>position</code> may be any combination of top, bottom, left, right, and center, in camel case format.
+                <code>position</code> may be any combination of top, bottom, left, right, and center, in dashed format.
                 <code>relativeTo</code> may either be an element or event (used with <code>isMouse</code> for mouse following).
                 <code>baseOffset</code> may be an object with default left and top values.
                 When set to true, <code>isMouse</code> will re-position the element based on mouse cursor dimensions.
+                If the element falls outside of the viewport, it will be re-positioned by altering the position class name.
             </td>
         </tr>
         <tr>
@@ -729,6 +929,12 @@ These extensions may even solve a problem in your own codebase.
             <td>
                 Throttle the execution of a function so it triggers at every delay interval.
             </td>
+        </tr>
+
+        <tr>
+            <td>jQuery.bound(int:value, int:max[, int:min])</td>
+            <td>jQuery</td>
+            <td>Bound a number between a min and max range.</td>
         </tr>
 
         <tr>

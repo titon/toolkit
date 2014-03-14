@@ -15,7 +15,7 @@ The following markup can be used for basic carousel functionality.
     <!-- Items to cycle -->
     <div class="carousel-items">
         <ul>
-            <li><a href=""><img src="/img/carousel/item-1.png" alt=""></a></li>
+            <li><a href=""><img src="/img/carousel/item-1.png" alt="" class="fluid"></a></li>
             ...
         </ul>
     </div>
@@ -332,12 +332,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>previousIndex</td>
-            <td>int</td>
-            <td>The index of the previously shown item.</td>
-        </tr>
-        <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The index of the currently shown item.</td>
         </tr>

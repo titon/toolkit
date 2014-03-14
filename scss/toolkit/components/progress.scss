@@ -9,7 +9,6 @@
 .#{$vendor-prefix}progress {
     overflow: hidden;
     position: relative;
-    background: $gray;
 
     @include is-small {
         .#{$vendor-prefix}progress-bar {
@@ -37,7 +36,6 @@
     position: relative;
     text-align: center;
     font-size: $medium-size;
-    background: $gray-darkest;
     float: left;
     @include transition(width $progress-transition, background $progress-transition);
 }

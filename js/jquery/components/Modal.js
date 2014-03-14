@@ -8,56 +8,24 @@
     'use strict';
 
     Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-        var element;
+        var element, events;
 
         this.component = 'Modal';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
-
-        // List of elements to active modals
-        this.nodes = nodes = $(nodes);
-
-        // Currently active node
-        this.node = null;
-
-        // Modal body element
         this.elementBody = element.find(options.contentElement);
-
-        // Blackout instance if options.blackout is true
+        this.nodes = nodes = $(nodes);
+        this.node = null;
         this.blackout = null;
-
-        // Drag instance if options.draggable is true
         this.drag = null;
-
-        // Cache requests
         this.cache = {};
+        this.events = events = {};
 
         // Fullscreen
         if (options.fullScreen) {
             element.addClass(Toolkit.options.isPrefix + 'fullscreen');
             options.draggable = false;
-        }
-
-        // Draggable
-        if (options.draggable && $.ui && $.ui.draggable) {
-            var isPrefix = Toolkit.options.isPrefix;
-
-            this.drag = element.draggable({
-                appendTo: 'body',
-                containment: 'window',
-                cursor: 'grabbing',
-                start: function(e, ui) {
-                    ui.helper.addClass(isPrefix + 'dragging');
-                },
-                stop: function(e, ui) {
-                    ui.helper.removeClass(isPrefix + 'dragging');
-                }
-            });
-
-            element.addClass(isPrefix + 'draggable');
         }
 
         // Blackout
@@ -67,29 +35,21 @@
             if (options.stopScroll) {
                 this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
                     if (hidden) {
-                        $('body').css('overflow', '');
+                        $('body').removeClass('no-scroll');
                     }
                 });
             }
         }
 
-        // Set events
-        element.clickout(this.__hide.bind(this));
-        nodes.clickout(this.__hide.bind(this));
+        // Initialize events
+        events['clickout element'] = 'onHide';
+        events['clickout nodes'] = 'onHide';
+        events['keydown window'] = 'onKeydown';
+        events['click ' + nodes.selector] = 'onShow';
+        events['click element ' + options.closeEvent] = 'onHide';
+        events['click element ' + options.submitEvent] = 'onSubmit';
 
-        $(options.context || document)
-            .on('click', nodes.selector, this.__show.bind(this));
-
-        $(window).on('keydown', function(e) {
-            if (e.keyCode === 27 /*esc*/ && element.is(':shown')) {
-                this.hide();
-            }
-        }.bind(this));
-
-        element
-            .on('click', options.closeEvent, this.__hide.bind(this))
-            .on('click', options.submitEvent, this.__submit.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -117,13 +77,13 @@
                 return;
             }
 
-            this.elementBody.html(content);
-            this.fireEvent('load', content);
-
             // Hide blackout loading message
             if (this.blackout) {
                 this.blackout.hideLoader();
             }
+
+            this.elementBody.html(content);
+            this.fireEvent('load', content);
 
             // Reveal modal
             this.element.reveal();
@@ -146,8 +106,6 @@
          * @param {String} [content]
          */
         show: function(node, content) {
-            node = $(node);
-
             var options = this.options,
                 ajax = options.ajax;
 
@@ -156,7 +114,10 @@
                 ajax = false;
 
             } else if (node) {
-                content = this.readValue(node, options.getContent) || node.attr('href');
+                this.node = node = $(node);
+
+                ajax = this.readOption(node, 'ajax');
+                content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
 
                 if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
                     content = $(content).html();
@@ -168,15 +129,13 @@
                 return;
             }
 
-            this.node = node;
-
             // Show blackout
             if (this.blackout) {
                 this.blackout.show();
             }
 
             if (options.stopScroll) {
-                $('body').css('overflow', 'hidden');
+                $('body').addClass('no-scroll');
             }
 
             if (ajax) {
@@ -196,10 +155,22 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __hide: function(e) {
+        onHide: function(e) {
             e.preventDefault();
 
             this.hide();
+        },
+
+        /**
+         * Event handler for closing the modal when esc is pressed.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        onKeydown: function(e) {
+            if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
+                this.hide();
+            }
         },
 
         /**
@@ -208,12 +179,10 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             e.preventDefault();
 
-            if (this.enabled) {
-                this.show(e.currentTarget);
-            }
+            this.show(e.currentTarget);
         },
 
         /**
@@ -222,7 +191,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __submit: function(e) {
+        onSubmit: function(e) {
             e.preventDefault();
 
             var button = $(e.target),
@@ -252,8 +221,6 @@
 
     }, {
         animation: 'fade',
-        className: '',
-        context: null,
         ajax: true,
         draggable: false,
         blackout: true,
@@ -265,9 +232,11 @@
         closeEvent: '.modal-event-close',
         submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+            '<div class="modal-outer">' +
+                '<div class="modal-handle">' +
+                    '<div class="modal-inner"></div>' +
+                    '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '</div>' +
             '</div>' +
         '</div>'
     });

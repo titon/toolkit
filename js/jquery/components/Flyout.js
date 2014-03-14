@@ -14,53 +14,29 @@
 
         this.component = 'Flyout';
         this.version = '1.1.1';
-
-        // Set options
         this.options = options = this.setOptions(options);
-
-        // Nodes to activate menus on
         this.nodes = nodes = $(nodes);
-
-        // Currently active node
         this.node = null;
-
-        // Currently active menu
-        this.element = null;
-
-        // The current menu URL being displayed
-        this.current = null;
-
-        // Collection of menu elements
+        this.element = null; // Current active menu
+        this.current = null; // Current URL
         this.menus = {};
-
-        // Raw data response
         this.data = [];
-
-        // Mapping of data indexed by URL
         this.dataMap = {};
-
-        // Delay timers
         this.timers = {};
+        this.events = {};
 
         // Load data from the URL
         $.getJSON(url, this.load.bind(this));
 
-        // Handles keeping menu open even if mouse exits the context
-        if (options.mode === 'hover') {
-            $(options.context || document)
-                .on('mouseenter', nodes.selector, function() {
-                    this.clearTimer('hide');
-                    this.startTimer('show', options.showDelay);
-                }.bind(this))
-                .on('mouseleave', nodes.selector, function() {
-                    this.clearTimer('show');
-                    this.startTimer('hide', options.showDelay);
-                }.bind(this));
+        // Initialize events
+        if (options.mode === 'click') {
+            this.events['click ' + nodes.selector] = 'onShow';
+        } else {
+            this.events['mouseenter ' + nodes.selector] = ['onShow', 'onEnter'];
+            this.events['mouseleave ' + nodes.selector] = 'onLeave';
         }
 
-        $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseenter'), nodes.selector, this.__show.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -297,8 +273,8 @@
                         this._buildMenu(li, child);
 
                         li.addClass(Toolkit.options.hasPrefix + 'children')
-                            .on('mouseenter', this.__positionChild.bind(this, li))
-                            .on('mouseleave', this.__hideChild.bind(this, li));
+                            .on('mouseenter', this.onPositionChild.bind(this, li))
+                            .on('mouseleave', this.onHideChild.bind(this, li));
                     }
                 }
 
@@ -342,7 +318,7 @@
 
                 menu.conceal();
 
-                if (this.options.mode === 'hover') {
+                if (this.options.mode !== 'click') {
                     menu.on({
                         mouseenter: function() {
                             this.clearTimer('hide');
@@ -376,12 +352,22 @@
         },
 
         /**
+         * Event handle when a mouse enters a node. Will show the menu after the timer.
+         *
+         * @private
+         */
+        onEnter: function() {
+            this.clearTimer('hide');
+            this.startTimer('show', this.options.showDelay);
+        },
+
+        /**
          * Event handler to hide the child menu after exiting parent li.
          *
          * @private
          * @param {jQuery} parent
          */
-        __hideChild: function(parent) {
+        onHideChild: function(parent) {
             parent = $(parent);
             parent.removeClass(Toolkit.options.isPrefix + 'open');
             parent.children(this.options.contentElement).removeAttr('style');
@@ -390,12 +376,22 @@
         },
 
         /**
+         * Event handle when a mouse leaves a node. Will hide the menu after the timer.
+         *
+         * @private
+         */
+        onLeave: function() {
+            this.clearTimer('show');
+            this.startTimer('hide', this.options.showDelay);
+        },
+
+        /**
          * Event handler to position the child menu dependent on the position in the page.
          *
          * @private
          * @param {jQuery} parent
          */
-        __positionChild: function(parent) {
+        onPositionChild: function(parent) {
             var menu = parent.children(this.options.contentElement);
 
             if (!menu) {
@@ -442,7 +438,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             var node = $(e.target),
                 isNode = (this.node && node[0] === this.node[0]);
 
@@ -477,8 +473,6 @@
         }
 
     }, {
-        className: '',
-        context: null,
         mode: 'hover',
         getUrl: 'href',
         xOffset: 0,

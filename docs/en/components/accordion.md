@@ -33,8 +33,6 @@ but will require configuration when the JavaScript is initialized.
 ```
 
 <div class="notice is-warning">
-    <h5>Animation requirement</h5>
-
     The <code>.accordion-section</code> class is required for slide animations.
     Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.
 </div>
@@ -146,6 +144,12 @@ Inherits all events from the [parent component](../development/js.md#events).
             <td>int:index</td>
             <td>Triggered when a section is opened manually through the <code>jump()</code> method.</td>
         </tr>
+        <tr>
+            <td>onShow</td>
+            <td>show.toolkit.accordion</td>
+            <td>element:section, element:header, int:index</td>
+            <td>Triggered when a section is shown.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -184,12 +188,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>previousIndex</td>
-            <td>int</td>
-            <td>The index of the previously opened section.</td>
-        </tr>
-        <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The index of the currently opened section.</td>
         </tr>
@@ -216,7 +215,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
             </td>
         </tr>
         <tr>
-            <td>show(element:node)</td>
+            <td>show(element:header)</td>
             <td>
                 Open a specific section using the sibling header.
                 This method is triggered automatically through click events.

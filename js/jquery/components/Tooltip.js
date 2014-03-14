@@ -8,39 +8,43 @@
     'use strict';
 
     Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
-        var element;
+        var element, events;
 
         this.component = 'Tooltip';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
-
-        // List of nodes to activate tooltip
-        this.nodes = nodes = $(nodes);
-
-        // The current node
-        this.node = null;
-
-        // Tooltip wrapper
         this.element = element = this.createElement();
         this.elementHead = element.find(options.titleElement);
         this.elementBody = element.find(options.contentElement);
-
-        // Cached requests
+        this.nodes = nodes = $(nodes);
+        this.node = null;
         this.cache = {};
+        this.events = events = {};
+        this.runtime = {};
 
-        // Add position class
-        element.addClass($.hyphenate(options.position));
+        // Remove class since were using runtime
+        element.removeClass(options.className);
 
-        // Set events
-        $(options.context || document)
-            .on((options.mode === 'click' ? 'click' : 'mouseover'), nodes.selector, this.__show.bind(this));
+        // Remove title attributes
+        nodes.each(function(i, node) {
+            $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
+        });
 
-        if (options.mode === 'click') {
-            element.clickout(this.hide.bind(this));
+        if (options.getTitle === 'title') {
+            options.getTitle = 'data-tooltip-title';
         }
 
+        // Initialize events
+        if (options.mode === 'click') {
+            events['clickout element'] = 'hide';
+            events['clickout ' + nodes.selector] = 'hide';
+        } else {
+            events['mouseleave ' + nodes.selector] = 'hide';
+        }
+
+        events[options.mode + ' ' + nodes.selector] = 'onShow';
+
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -48,7 +52,17 @@
          * Hide the tooltip.
          */
         hide: function() {
-            this.element.conceal();
+            var position = this.element.data('new-position') || this.runtime.position || this.options.position,
+                className = this.runtime.className || this.options.className;
+
+            this.runtime = {};
+
+            this.element
+                .conceal()
+                .removeClass(position)
+                .removeClass(className)
+                .removeData('new-position');
+
             this.fireEvent('hide');
         },
 
@@ -60,12 +74,17 @@
          * @param {String|jQuery} [title]
          */
         position: function(content, title) {
-            var options = this.options;
+            var options = $.isEmptyObject(this.runtime) ? this.options : this.runtime;
 
             // AJAX is currently loading
             if (content === true) {
                 return;
             }
+
+            // Add position class
+            this.element
+                .addClass(options.position)
+                .addClass(options.className);
 
             // Set title
             title = title || this.readValue(this.node, options.getTitle);
@@ -87,7 +106,7 @@
 
             // Follow the mouse
             if (options.follow) {
-                var follow = this.__follow.bind(this);
+                var follow = this.onFollow.bind(this);
 
                 this.node
                     .off('mousemove', follow)
@@ -118,32 +137,27 @@
          * @param {String|jQuery} [title]
          */
         show: function(node, content, title) {
-            var options = this.options;
+            var options;
 
             if (node) {
-                node = $(node);
-
-                if (options.mode === 'hover') {
-                    node
-                        .off('mouseleave', this.hide.bind(this))
-                        .on('mouseleave', this.hide.bind(this));
-                }
+                this.node = node = $(node);
+                this.runtime = options = this.inheritOptions(this.options, node);
 
                 content = content || this.readValue(node, options.getContent);
+            } else {
+                this.runtime = options = this.options;
             }
 
             if (!content) {
                 return;
             }
 
-            this.node = node;
-
             if (options.ajax) {
                 if (this.cache[content]) {
                     this.position(this.cache[content], title);
                 } else {
                     if (options.showLoading) {
-                        this.position(options.loadingMessage);
+                        this.position(Toolkit.messages.loading);
                     }
 
                     this.requestData(content);
@@ -163,10 +177,10 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __follow: function(e) {
+        onFollow: function(e) {
             e.preventDefault();
 
-            var options = this.options;
+            var options = this.runtime;
 
             this.element.positionTo(options.position, e, {
                 left: options.xOffset,
@@ -180,9 +194,9 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __show: function(e) {
+        onShow: function(e) {
             var node = $(e.target),
-                isNode = (this.node && node[0] === this.node[0]);
+                isNode = (this.node && this.node.is(node));
 
             if (this.element.is(':shown')) {
 
@@ -216,11 +230,10 @@
 
     }, {
         mode: 'hover',
-        animation: '',
+        animation: 'fade',
         ajax: false,
         follow: false,
-        position: 'topCenter',
-        loadingMessage: Toolkit.messages.loading,
+        position: 'top-center',
         showLoading: true,
         showTitle: true,
         getTitle: 'title',

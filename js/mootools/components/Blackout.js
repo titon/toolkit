@@ -22,7 +22,6 @@ Toolkit.Blackout = new Class({
     /** Default options */
     options: {
         loader: 'bar-wave',
-        loadingMessage: Toolkit.messages.loading,
         waveCount: 5,
         template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
@@ -68,7 +67,7 @@ Toolkit.Blackout = new Class({
         }
 
         this.message = new Element('div.' + vendor + 'loader-message')
-            .set('html', options.loadingMessage)
+            .set('html', Toolkit.messages.loading)
             .inject(this.loader);
     },
 
@@ -100,6 +99,7 @@ Toolkit.Blackout = new Class({
      */
     hideLoader: function() {
         this.loader.conceal();
+        this.fireEvent('hideLoader');
 
         return this;
     },
@@ -132,6 +132,7 @@ Toolkit.Blackout = new Class({
      */
     showLoader: function() {
         this.loader.reveal();
+        this.fireEvent('showLoader');
 
         return this;
     }

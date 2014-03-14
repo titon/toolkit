@@ -116,7 +116,7 @@ it *does not* provide variables for property styling. This can and should be ach
         <tr>
             <td>$medium-size</td>
             <td>inherit</td>
-            <td>Font size for elements with the <code>.medium</code> class. Is also the default font size for elements.</td>
+            <td>The default font size for elements.</td>
         </tr>
         <tr>
             <td>$large-size</td>
@@ -131,7 +131,7 @@ it *does not* provide variables for property styling. This can and should be ach
         <tr>
             <td>$medium-padding</td>
             <td>.75rem</td>
-            <td>Padding for elements with the <code>.medium</code> class. Is also the default padding for elements.</td>
+            <td>The default padding for elements.</td>
         </tr>
         <tr>
             <td>$large-padding</td>
@@ -360,11 +360,6 @@ that solve everyday problems like grid building, style resets, and media query m
             <td>Resets the styles of a list element by removing margin, padding, and list style.</td>
         </tr>
         <tr>
-            <td>content-spacing()</td>
-            <td></td>
-            <td>Removes top and bottom margin on p, ul, ol, hr, and blockquote child elements.</td>
-        </tr>
-        <tr>
             <td>position-center()</td>
             <td></td>
             <td>Absolutely positions an element in the center of the container. Makes use of the transform translate CSS property.</td>
@@ -568,6 +563,10 @@ and more information on their use can be found below.
             <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
         </tr>
         <tr>
+            <td>join-classes($classes, $inherit)</td>
+            <td>Join a list of classes (without .) as a CSS selector. If inherit is true, inherit from parent with <code>&</code>.</td>
+        </tr>
+        <tr>
             <td>grid-gutter($grid-width, $gutter)</td>
             <td>
                 Calculate the gutter margin between columns as a percentage, using the max width of the grid as a base.
@@ -626,6 +625,10 @@ The primary focus of these functions is to calculate correctly scaled widths for
 
 Another useful function is `strip-unit(value)`, which will remove the unit of measurement and return the literal number.
 This function is used heavily in the other conversion functions.
+
+```scss
+strip-unit(15px); // 15
+```
 
 ## Media Queries & Responsiveness ##
 

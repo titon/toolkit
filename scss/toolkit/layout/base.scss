@@ -25,15 +25,10 @@
 
 // Display
 .shown { display: block; }
-.inline { display: inline; }
-.inline-block { display: inline-block; }
 .hidden { display: none; }
+.no-scroll { overflow: hidden; }
 
 // Layout
-.relative { position: relative; }
-.absolute { position: absolute; }
-.static { position: static; }
-
 .vertical-center {
     position: absolute;
     left: 50%;
@@ -42,12 +37,6 @@
 }
 
 .clear-fix { @include clear-fix; }
-.clear {
-    clear: both;
-    display: block;
-    margin: 0;
-    padding: 0;
-}
 
 // Styles
 .#{$shape-round-class} { border-radius: $round; }

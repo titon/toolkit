@@ -108,7 +108,7 @@ $components = array(
                 'slide' => 'Slide',
                 'slide-up' => 'Slide Up',
                 'fade' => 'Fade'
-            )),
+            ), 'default' => 'slide'),
             'modifier' => array('title' => 'Modifier', 'data' => array(
                 '' => 'Default (4:3)',
                 'wide' => 'Wide (16:9)',
@@ -183,7 +183,6 @@ $components = array(
                 '90deg' => 'Rotate 90',
                 '180deg' => 'Rotate 180',
                 '270deg' => 'Rotate 270',
-                'rotate' => 'Rotate Animation',
                 'flip' => 'Flip Horizontal',
                 'flip-vert' => 'Flip Vertical'
             ))
@@ -276,12 +275,10 @@ $components = array(
                 'sticky-top' => 'Sticky Top',
                 'sticky-right' => 'Sticky Right',
                 'sticky-bottom' => 'Sticky Bottom',
-                'sticky-left' => 'Sticky Left',
-                'flip' => 'Flip',
-                'flip-vert' => 'Flip Vertical'
+                'sticky-left' => 'Sticky Left'
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
-            'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
+            //'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
             'fullScreen' => array('title' => 'Full screen?', 'type' => 'boolean', 'default' => false),
             'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
             'blackout' => array('title' => 'Show blackout?', 'type' => 'boolean', 'default' => true)
@@ -332,19 +329,18 @@ $components = array(
                 'fade' => 'Fade',
                 'from-above' => 'From Above',
                 'from-below' => 'From Below',
-                'flip-rotate' => 'Flip Rotate',
-                'slide-in' => 'Slide In'
+                'flip-rotate' => 'Flip Rotate'
             )),
             'position' => array('title' => 'Position', 'data' => array(
-                'topLeft' => 'Top Left',
-                'topCenter' => 'Top Center',
-                'topRight' => 'Top Right',
-                'centerLeft' => 'Center Left',
-                'centerRight' => 'Center Right',
-                'bottomLeft' => 'Bottom Left',
-                'bottomCenter' => 'Bottom Center',
-                'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topCenter'),
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'top-center'),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'delay' => array('title' => 'Delay', 'type' => 'number', 'default' => 0),
@@ -431,19 +427,18 @@ $components = array(
                 'fade' => 'Fade',
                 'from-above' => 'From Above',
                 'from-below' => 'From Below',
-                'flip-rotate' => 'Flip Rotate',
-                'slide-in' => 'Slide In'
+                'flip-rotate' => 'Flip Rotate'
             )),
             'position' => array('title' => 'Position', 'data' => array(
-                'topLeft' => 'Top Left',
-                'topCenter' => 'Top Center',
-                'topRight' => 'Top Right',
-                'centerLeft' => 'Center Left',
-                'centerRight' => 'Center Right',
-                'bottomLeft' => 'Bottom Left',
-                'bottomCenter' => 'Bottom Center',
-                'bottomRight' => 'Bottom Right'
-            ), 'default' => 'topCenter'),
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'top-center'),
             'mode' => array('title' => 'Mode', 'data' => array('click' => 'Click', 'hover' => 'Hover'), 'default' => 'hover'),
             'mouseThrottle' => array('title' => 'Mouse Throttle', 'type' => 'number', 'default' => 50),
             'xOffset' => array('title' => 'X Offset', 'type' => 'number', 'default' => 0),
@@ -472,8 +467,8 @@ $components = array(
 
 $themes = array(
     'titon' => array(
-        'title' => 'Titon',
-        'css' => 'themes/titon.css'
+        'title' => 'Demo',
+        'css' => 'themes/demo.css'
     )
 );
 
@@ -509,16 +504,34 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
         <script src="../build/titon-toolkit-mootools.min.js"></script>
+        <script>
+            Toolkit.messages = Object.merge(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
-        <script src="js/jquery-ui-1.10.3.custom.js"></script>
+        <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
         <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script>
+            $.extend(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
-        <script src="js/jquery-ui-1.10.3.custom.js"></script>
+        <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
         <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script>
+            $.extend(Toolkit.messages, {
+                loading: '[CUSTOM] Loading...',
+                error: '[CUSTOM] Error!'
+            });
+        </script>
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>

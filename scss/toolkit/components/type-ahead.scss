@@ -13,7 +13,6 @@
     z-index: 500;
     opacity: 0;
     visibility: hidden;
-    background: $gray;
     @include transition(opacity 0.3s);
 
     ul {
@@ -30,9 +29,7 @@
         }
 
         > a:hover,
-        &.#{$state-is-prefix}active a {
-            background: $gray-lightest;
-        }
+        &.#{$state-is-prefix}active a {}
     }
 }
 
@@ -41,16 +38,15 @@
     line-height: 100%;
     display: block;
     text-decoration: none;
-    background: $gray-dark;
 }
 
 .#{$vendor-prefix}type-ahead-highlight {
     background: #fff;
+    padding: 0;
 }
 
 .#{$vendor-prefix}type-ahead-desc {
     display: block;
-    color: $gray-darkest;
     font-size: .7rem;
 }
 

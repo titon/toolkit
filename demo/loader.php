@@ -30,7 +30,7 @@
     <br><br>
 
     <div class="loader bubble-spinner">
-        <div class="spinner">
+        <div class="loader-spinner">
             <span></span>
             <span></span>
             <span></span>

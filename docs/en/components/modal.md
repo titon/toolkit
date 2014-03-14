@@ -88,9 +88,9 @@ Then the `console.log` function will be triggered with the response passed as th
 
 ## Notes ##
 
-* The `animation` option will be appended as a class name
-* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled
-* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API
+* The `animation` option will be appended as a class name.
+* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled.
+* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API.
 
 ## Variables ##
 
@@ -103,6 +103,14 @@ Then the `console.log` function will be triggered with the response passed as th
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$modal-animation</td>
+            <td>
+                ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom",
+                "slide-in-left", "sticky-top", "sticky-right", "sticky-bottom", "sticky-left")
+            </td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
         <tr>
             <td>$modal-transition</td>
             <td>.3s</td>
@@ -131,7 +139,7 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>fade</td>
             <td>
                 The animation to use when displaying the modal.
-                Available options are: fade, from-above, from-below, flip, flip-vert,
+                Available options are: fade, from-above, from-below,
                 slide-in-top, slide-in-right, slide-in-bottom, slide-in-left,
                 sticky-top, sticky-right, sticky-bottom, sticky-left.
             </td>
@@ -196,12 +204,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>.modal-event-submit</td>
             <td>CSS selector to bind form submit events to.</td>
         </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the modal elements.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -212,15 +214,17 @@ This structure can be customized through the `template` option.
 
 ```html
 <div class="modal">
-    <div class="modal-handle">
-        <div class="modal-inner"></div>
-        <button type="button" class="modal-close modal-event-close"><span class="x"></span></button>
+    <div class="modal-outer">
+        <div class="modal-handle">
+            <div class="modal-inner"></div>
+            <button type="button" class="modal-close modal-event-close"><span class="x"></span></button>
+        </div>
     </div>
 </div>
 ```
 
 <div class="notice is-warning">
-    The <code>.modal-handle</code> class is required for animations to work properly.
+    The <code>.modal-outer</code> and <code>.modal-handle</code> classes are required for certain animations to work properly.
 </div>
 
 ## Events ##

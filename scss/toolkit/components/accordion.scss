@@ -12,18 +12,11 @@
 
 .#{$vendor-prefix}accordion-header {
     padding: $padding;
-    background: $gray;
     cursor: pointer;
-
-    @include is-active-parent {
-        background: $gray-dark;
-    }
 }
 
 .#{$vendor-prefix}accordion-body {
     padding: $padding;
-
-    @include content-spacing;
 }
 
 // Handle is used for animations, do not style it!

@@ -57,10 +57,23 @@ li.remove();
 matrix.refresh();
 ```
 
+### Fluid Images ###
+
+When columns are rendered, their widths may fluctuate a few pixels to scale accordingly.
+Because of this, fixed width images may render incorrectly, or just look off.
+We suggest adding `.fluid` from the [responsive component](responsive.md) to all inline images.
+
+```html
+<li>
+    <img src="/img/banner.png" class="fluid">
+    ...
+</li>
+```
+
 ## Notes ##
 
-* The wrapper will have `.no-columns` added when the viewport is too small for multiple columns
-* The matrix will automatically re-render when the viewport is resized
+* The wrapper will have `.no-columns` added when the viewport is too small for multiple columns.
+* The matrix will automatically re-render when the viewport is resized.
 
 ## Variables ##
 

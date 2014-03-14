@@ -19,10 +19,6 @@
 [class*="icon-32"] { width: 32px; height: 32px; }
 [class*="icon-64"] { width: 64px; height: 64px; }
 
-.#{$vendor-prefix}button {
-    [class*="icon-"] { margin-top: -1px; }
-}
-
 //-------------------- Modifiers --------------------//
 
 .icon--90deg { @include transform(rotate(90deg)); }

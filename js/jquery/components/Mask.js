@@ -10,12 +10,8 @@
     Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.component = 'Mask';
         this.version = '1.1.0';
-
-        // Set options and element
-        this.options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // Mask and message elements
+        this.element = element = $(element);
+        this.options = this.setOptions(options, element);
         this.mask = null;
         this.message = null;
 
@@ -39,6 +35,7 @@
         }
 
         this.setMask(mask);
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -91,10 +88,6 @@
          * @param {Element} [node]
          */
         show: function(node) {
-            if (!this.enabled) {
-                return;
-            }
-
             this.node = node;
             this.mask.reveal();
             this.element.addClass(Toolkit.options.isPrefix + 'masked');

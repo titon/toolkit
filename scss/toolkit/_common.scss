@@ -15,7 +15,6 @@ $vendor-prefix: "";
 $state-is-prefix: "is-";
 $state-has-prefix: "has-";
 $size-small-class: "small";
-$size-medium-class: "medium";
 $size-large-class: "large";
 $shape-square-class: "square";
 $shape-round-class: "round";
@@ -160,6 +159,19 @@ $loader-bar-width: 0.65rem !default;
 $loader-bar-height: 2.5rem !default;
 $loader-bubble-size: 1.5rem !default;
 
+//-------------------- Modal --------------------//
+
+$modal-animation: (
+    "fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left",
+    "sticky-top", "sticky-right", "sticky-bottom", "sticky-left"
+) !default;
+
+//-------------------- Popover, Tooltip --------------------//
+
+$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
+$popover-arrow-width: 8 !default;
+$tooltip-arrow-width: 6 !default;
+
 //-------------------- Imports --------------------//
 
 @import "mixins/helper";
@@ -168,6 +180,7 @@ $loader-bubble-size: 1.5rem !default;
 @import "mixins/state";
 @import "mixins/grid";
 @import "mixins/responsive";
+@import "mixins/components";
 @import "compass/css3/box-sizing";
 @import "compass/css3/images";
 @import "compass/css3/transition";

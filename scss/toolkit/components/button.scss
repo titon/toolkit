@@ -17,13 +17,11 @@
     line-height: normal;
     white-space: nowrap;
     text-decoration: none;
-    background: $gray;
     @include size-medium;
 
     &:focus { outline: none; }
 
     @include is-small(true, true) { @include size-small; }
-    @include is-medium(true, true) { @include size-medium; }
     @include is-large(true, true) { @include size-large; }
 
     &.#{$shape-round-class} { border-radius: $round; }

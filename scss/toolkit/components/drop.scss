@@ -10,13 +10,13 @@
 .#{$vendor-prefix}drop--up,
 .#{$vendor-prefix}drop--left,
 .#{$vendor-prefix}drop--right {
+    @include reset-list;
     display: none;
     text-align: left;
     position: absolute;
     top: 100%;
     left: 0;
     width: 200px;
-    background: $gray;
     line-height: 100%;
     z-index: 500;
     opacity: 0;
@@ -34,7 +34,6 @@
     }
 
     // Apply to self
-    &,
     ul,
     ol {
         @include reset-list;
@@ -59,8 +58,6 @@
 
         // Show nested dropdown
         &:hover {
-            > a { background: $gray-lightest; }
-
             .#{$vendor-prefix}drop--down,
             .#{$vendor-prefix}drop--up {
                 visibility: visible;
@@ -83,7 +80,6 @@
 
 .#{$vendor-prefix}drop-heading {
     padding: $small-padding;
-    background-color: $gray-dark;
 }
 
 //-------------------- Modifiers --------------------//

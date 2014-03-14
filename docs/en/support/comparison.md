@@ -6,7 +6,7 @@ The charts demonstrate what features and components are implemented by each vend
 A green cell in the chart denotes support for that item, while red denotes no support.
 If a cell is blue, than either partial support is provided, or the item has a different name.
 
-<div class="callout is-warning">
+<div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
     We will update accordingly.
 </div>
@@ -510,7 +510,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>Compass</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -526,6 +526,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>NPM</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Bower</td>

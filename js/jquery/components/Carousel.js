@@ -8,34 +8,21 @@
     'use strict';
 
     Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
+        var items;
+
         this.component = 'Carousel';
         this.version = '1.0.0';
-
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // Items and parent container
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.itemsWrapper = element.find(options.itemsElement);
         this.itemsList = this.itemsWrapper.children('ul, ol');
-        this.items = this.itemsWrapper.find(options.itemElement);
-
-        // Tabs and parent container
+        this.items = items = this.itemsWrapper.find(options.itemElement);
         this.tabsWrapper = element.find(options.tabsElement);
         this.tabs = this.tabsWrapper.find(options.tabElement);
-
-        // Previous and next buttons
         this.nextButton = element.find(options.nextElement);
         this.prevButton = element.find(options.prevElement);
-
-        // The current and previous shown indices
-        this.previousIndex = 0;
-        this.currentIndex = 0;
-
-        // Cycle timer
+        this.index = 0;
         this.timer = null;
-
-        // Is the carousel stopped?
         this.stopped = false;
 
         // Disable carousel if too low of items
@@ -47,54 +34,48 @@
             return;
         }
 
-        // Set some sizes for responsiveness
+        // Set animation
+        element.addClass(options.animation);
+
+        // Set sizes for responsiveness
         switch (options.animation) {
             case 'fade':
-                this.items.item(0).reveal();
+                items.item(0).reveal();
             break;
             case 'slide':
-                this.itemsList.css('width', (this.items.length * 100) + '%');
-                this.items.css('width', (100 / this.items.length) + '%');
+                this.itemsList.css('width', (items.length * 100) + '%');
+                items.css('width', (100 / items.length) + '%');
             break;
         }
 
-        // Store some data in the elements
+        // Cache the index of tabs
         this.tabs.each(function(index) {
             $(this).data('index', index);
         });
 
-        // Set events
-        $(window)
-            .on('keydown', function(e) {
-                if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
-                    e.preventDefault();
-                }
-
-                switch (e.keyCode) {
-                    case 37: this.prev(); break;
-                    case 38: this.jump(0); break;
-                    case 39: this.next(); break;
-                    case 40: this.jump(-1); break;
-                }
-            }.bind(this));
+        // Initialize events
+        this.events = {
+            'keydown window': 'onKeydown',
+            'swipeleft element': 'next',
+            'swipeup element': 'next',
+            'swiperight element': 'prev',
+            'swipdown element': 'prev',
+            'click tabs': 'onJump',
+            'click nextButton': 'next',
+            'click prevButton': 'prev'
+        };
 
         if (options.stopOnHover) {
-            this.element
-                .on('mouseenter', this.stop.bind(this))
-                .on('mouseleave', this.start.bind(this));
+            this.events['mouseenter element'] = 'stop';
+            this.events['mouseleave element'] = 'start';
         }
 
-        this.element
-            .on('swipeleft swipeup', this.next.bind(this))
-            .on('swiperight swipdown', this.prev.bind(this));
-
-        this.tabs.on('click', this.__jump.bind(this));
-        this.nextButton.on('click', this.next.bind(this));
-        this.prevButton.on('click', this.prev.bind(this));
-
+        this.enable();
         this.fireEvent('init');
-        this.start();
+
+        // Start the carousel
         this.reset();
+        this.start();
     }, {
 
         /**
@@ -105,21 +86,15 @@
          * @param {Number} index
          */
         jump: function(index) {
-            if (index >= this.items.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = this.items.length - 1;
-            }
-
-            // Save state
-            this.previousIndex = this.currentIndex;
-            this.currentIndex = index;
+            this.index = index = $.bound(index, this.items.length);
 
             // Update tabs
             if (this.tabs.length) {
+                var isPrefix = Toolkit.options.isPrefix;
+
                 this.tabs
-                    .removeClass(Toolkit.options.isPrefix + 'active')
-                    .item(index).addClass(Toolkit.options.isPrefix + 'active');
+                    .removeClass(isPrefix + 'active')
+                    .item(index).addClass(isPrefix + 'active');
             }
 
             // Animate!
@@ -146,14 +121,14 @@
          * Go to the next item.
          */
         next: function() {
-            this.jump(this.currentIndex + 1);
+            this.jump(this.index + 1);
         },
 
         /**
          * Go to the previous item.
          */
         prev: function() {
-            this.jump(this.currentIndex - 1);
+            this.jump(this.index - 1);
         },
 
         /**
@@ -162,7 +137,7 @@
         reset: function() {
             if (this.options.autoCycle) {
                 clearInterval(this.timer);
-                this.timer = setInterval(this.__cycle.bind(this), this.options.duration);
+                this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
             }
         },
 
@@ -192,9 +167,9 @@
          *
          * @private
          */
-        __cycle: function() {
-            if (this.enabled && !this.stopped) {
-                this.fireEvent('cycle');
+        onCycle: function() {
+            if (!this.stopped) {
+                this.fireEvent('cycle', this.index);
                 this.next();
             }
         },
@@ -205,11 +180,30 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __jump: function(e) {
+        onJump: function(e) {
             e.preventDefault();
 
-            if (this.enabled) {
-                this.jump($(e.target).data('index') || 0);
+            this.jump($(e.target).data('index') || 0);
+        },
+
+        /**
+         * Event handle for keyboard events.
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        onKeydown: function(e) {
+            if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
+                e.preventDefault();
+            } else {
+                return;
+            }
+
+            switch (e.keyCode) {
+                case 37: this.prev(); break;
+                case 38: this.jump(0); break;
+                case 39: this.next(); break;
+                case 40: this.jump(-1); break;
             }
         }
 

@@ -9,7 +9,7 @@
 
 Toolkit.Carousel = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', 'start', 'stop', 'resize', '__cycle', '__jump'],
+    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump'],
 
     /** Is the carousel stopped? */
     stopped: false,
@@ -27,9 +27,8 @@ Toolkit.Carousel = new Class({
     prevButton: null,
     nextButton: null,
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Cycle timer */
     timer: null,
@@ -46,13 +45,7 @@ Toolkit.Carousel = new Class({
         tabElement: 'a',
         nextElement: '.carousel-next',
         prevElement: '.carousel-prev',
-        template: false,
-
-        // Events
-        onStart: null,
-        onStop: null,
-        onCycle: null,
-        onJump: null
+        template: false
     },
 
     /**
@@ -63,30 +56,25 @@ Toolkit.Carousel = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
-
-        if (!this.element) {
-            return;
-        }
-
-        options = this.options;
+        this.element = element;
+        this.options = options = this.inheritOptions(this.options, element);
 
         // Get elements
-        this.itemsWrapper = this.element.getElement(options.itemsElement);
+        this.itemsWrapper = element.getElement(options.itemsElement);
 
         if (this.itemsWrapper) {
             this.itemsList = this.itemsWrapper.getChildren('ul, ol');
             this.items = this.itemsWrapper.getElements(options.itemElement);
         }
 
-        this.tabsWrapper = this.element.getElement(options.tabsElement);
+        this.tabsWrapper = element.getElement(options.tabsElement);
 
         if (this.tabsWrapper) {
             this.tabs = this.tabsWrapper.getElements(options.tabElement);
         }
 
-        this.nextButton = this.element.getElement(options.nextElement);
-        this.prevButton = this.element.getElement(options.prevElement);
+        this.nextButton = element.getElement(options.nextElement);
+        this.prevButton = element.getElement(options.prevElement);
 
         // Disable carousel if too low of items
         if (this.items.length <= 1) {
@@ -96,6 +84,8 @@ Toolkit.Carousel = new Class({
 
             return;
         }
+
+        element.addClass(options.animation);
 
         // Set some sizes for responsiveness
         switch (options.animation) {
@@ -114,63 +104,23 @@ Toolkit.Carousel = new Class({
         });
 
         // Set events
-        window.addEvent('keydown', function(e) {
-            if (['up', 'down', 'left', 'right'].contains(e.key)) {
-                e.preventDefault();
-            }
+        this.events = {
+            'keydown window': 'onKeydown',
+            'swipe element': 'onSwipe',
+            'click tabs': 'onJump',
+            'click nextButton': 'next',
+            'click prevButton': 'prev'
+        };
 
-            switch (e.key) {
-                case 'up':      this.jump(0); break;
-                case 'down':    this.jump(-1); break;
-                case 'left':    this.prev(); break;
-                case 'right':   this.next(); break;
-            }
-        }.bind(this));
+        if (options.stopOnHover) {
+            this.events['mouseenter element'] = 'stop';
+            this.events['mouseleave element'] = 'start';
+        }
 
-        this.bindEvents();
+        this.enable();
         this.fireEvent('init');
 
-        this.start().reset();
-    },
-
-    /**
-     * Set events for all element interaction.
-     *
-     * @returns {Toolkit.Carousel}
-     */
-    bindEvents: function() {
-        if (!this.element) {
-            return this;
-        }
-
-        if (this.options.stopOnHover) {
-            this.element
-                .addEvent('mouseenter', this.stop)
-                .addEvent('mouseleave', this.start);
-        }
-
-        this.element
-            .addEvent('swipe', function(e) {
-                if (e.direction === 'left') {
-                    this.next();
-                } else if (e.direction === 'right') {
-                    this.prev();
-                }
-            }.bind(this));
-
-        if (this.tabs.length) {
-            this.tabs.addEvent('click', this.__jump);
-        }
-
-        if (this.nextButton) {
-            this.nextButton.addEvent('click', this.next);
-        }
-
-        if (this.prevButton) {
-            this.prevButton.addEvent('click', this.prev);
-        }
-
-        return this;
+        this.reset().start();
     },
 
     /**
@@ -182,15 +132,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     jump: function(index) {
-        if (index >= this.items.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = this.items.length - 1;
-        }
-
-        // Save state
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index = (index).bound(this.items.length);
 
         // Update tabs
         if (this.tabs.length) {
@@ -228,7 +170,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     next: function() {
-        this.jump(this.currentIndex + 1);
+        this.jump(this.index + 1);
 
         return this;
     },
@@ -239,7 +181,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     prev: function() {
-        this.jump(this.currentIndex - 1);
+        this.jump(this.index - 1);
 
         return this;
     },
@@ -252,7 +194,7 @@ Toolkit.Carousel = new Class({
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.__cycle, this.options.duration);
+            this.timer = setInterval(this.onCycle, this.options.duration);
         }
 
         return this;
@@ -292,14 +234,9 @@ Toolkit.Carousel = new Class({
      *
      * @private
      */
-    __cycle: function() {
-        if (!this.enabled) {
-            return;
-        }
-
-        // Don't cycle if the carousel has stopped
+    onCycle: function() {
         if (!this.stopped) {
-            this.fireEvent('cycle');
+            this.fireEvent('cycle', this.index);
             this.next();
         }
     },
@@ -310,14 +247,45 @@ Toolkit.Carousel = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __jump: function(e) {
+    onJump: function(e) {
         e.preventDefault();
 
-        if (!this.enabled) {
+        this.jump(e.target.get('data-index') || 0);
+    },
+
+    /**
+     * Event handle for keyboard events.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onKeydown: function(e) {
+        if (['up', 'down', 'left', 'right'].contains(e.key)) {
+            e.preventDefault();
+        } else {
             return;
         }
 
-        this.jump(e.target.get('data-index') || 0);
+        switch (e.key) {
+            case 'up':      this.jump(0); break;
+            case 'down':    this.jump(-1); break;
+            case 'left':    this.prev(); break;
+            case 'right':   this.next(); break;
+        }
+    },
+
+    /**
+     * Event handler for swiping.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onSwipe: function(e) {
+        if (e.direction === 'left') {
+            this.next();
+        } else if (e.direction === 'right') {
+            this.prev();
+        }
     }
 
 });

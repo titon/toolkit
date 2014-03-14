@@ -10,30 +10,30 @@
     Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.component = 'Pin';
         this.version = '1.0.0';
-
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // The current window width and height
-        this.viewport = null;
-
-        // Target and container sizes
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.elementHeight = null;
         this.elementTop = parseInt(element.css('top'), 10);
-
         this.parentHeight = null;
         this.parentTop = null;
+        this.viewport = null;
+        this.active = true;
 
-        // Set events
-        element.addClass(Toolkit.options.vendor + 'pin');
+        // Mark element as a pin
+        element
+            .addClass(Toolkit.options.vendor + 'pin')
+            .addClass(options.animation);
 
-        $(window)
-            .on('scroll', $.throttle(this.__scroll.bind(this), options.throttle))
-            .on('resize', $.throttle(this.__resize.bind(this), options.throttle));
+        // Initialize events
+        var throttle = options.throttle;
 
-        $(document).ready(this.__resize.bind(this));
+        this.events = {
+            'scroll window': throttle ? $.throttle(this.onScroll.bind(this), throttle) : 'onScroll',
+            'resize window': throttle ? $.throttle(this.onResize.bind(this), throttle) : 'onResize',
+            'ready document': 'calculate'
+        };
 
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -52,6 +52,9 @@
             this.elementHeight = this.element.outerHeight();
             this.parentHeight = parent.outerHeight();
             this.parentTop = parent.offset().top;
+
+            // Enable pin if the parent is larger than the child
+            this.active = (this.parentHeight > this.elementHeight);
         },
 
         /**
@@ -59,16 +62,8 @@
          *
          * @private
          */
-        __resize: function() {
+        onResize: function() {
             this.calculate();
-
-            // Enable pin if the parent is larger than the child
-            if (this.parentHeight >= this.elementHeight) {
-                this.enable();
-            } else {
-                this.disable();
-            }
-
             this.fireEvent('resize');
         },
 
@@ -78,12 +73,12 @@
          *
          * @private
          */
-        __scroll: function() {
+        onScroll: function() {
             if (this.options.calculate) {
                 this.calculate();
             }
 
-            if (!this.enabled || this.element.is(':hidden')) {
+            if (!this.active || this.element.is(':hidden')) {
                 return;
             }
 
@@ -96,13 +91,14 @@
                 scrollTop = $(window).scrollTop(),
                 pos = {},
                 x = options.xOffset,
-                y = 0;
+                y = 0,
+                isPrefix = Toolkit.options.isPrefix;
 
             // Scroll is above the parent, remove pin inline styles
             if (scrollTop < pTop) {
                 this.element
                     .removeAttr('style')
-                    .removeClass(Toolkit.options.isPrefix + 'pinned');
+                    .removeClass(isPrefix + 'pinned');
 
                 return;
             }
@@ -145,20 +141,18 @@
 
             this.element
                 .css(pos)
-                .addClass(Toolkit.options.isPrefix + 'pinned');
+                .addClass(isPrefix + 'pinned');
 
             this.fireEvent('scroll');
         }
 
     }, {
-        animation: '',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
         fixed: false,
-        calculate: false,
-        context: null
+        calculate: false
     });
 
     /**

@@ -12,46 +12,41 @@
 
         this.component = 'Popover';
         this.version = '1.1.0';
-
-        // Custom options
         this.options = options = this.setOptions(options);
-
-        // List of nodes to activate tooltip
-        this.nodes = nodes = $(nodes);
-
-        // The current node
-        this.node = null;
-
-        // Tooltip wrapper
         this.element = element = this.createElement();
         this.elementHead = element.find(options.titleElement);
         this.elementBody = element.find(options.contentElement);
-
-        // Cached requests
+        this.nodes = nodes = $(nodes);
+        this.node = null;
         this.cache = {};
+        this.events = {};
+        this.runtime = {};
 
-        // Add position class
-        element
-            .addClass($.hyphenate(options.position))
-            .clickout(this.hide.bind(this));
+        // Force to click for popovers
+        options.mode = 'click';
 
-        // Set events
-        $(options.context || document)
-            .on('click', nodes.selector, this.__show.bind(this));
+        // Remove class since were using runtime
+        element.removeClass(options.className);
 
+        // Remove title attributes
+        nodes.each(function(i, node) {
+            $(node).attr('data-popover-title', $(node).attr('title')).removeAttr('title');
+        });
+
+        if (options.getTitle === 'title') {
+            options.getTitle = 'data-popover-title';
+        }
+
+        // Initialize events
+        this.events['clickout element'] = 'hide';
+        this.events['clickout ' + nodes.selector] = 'hide';
+        this.events['click ' + nodes.selector] = 'onShow';
+
+        this.enable();
         this.fireEvent('init');
-    }, {}, {
-        ajax: false,
-        animation: '',
-        position: 'topCenter',
-        loadingMessage: Toolkit.messages.loading,
-        showLoading: true,
-        showTitle: true,
-        getTitle: 'title',
+    }, {
+    }, {
         getContent: 'data-popover',
-        xOffset: 0,
-        yOffset: 0,
-        delay: 0,
         titleElement: '.popover-head',
         contentElement: '.popover-body',
         template: '<div class="popover">' +

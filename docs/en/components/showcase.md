@@ -171,12 +171,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>.showcase-event-prev</td>
             <td>CSS selector to bind previous item events to.</td>
         </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the showcase elements.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -272,12 +266,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>previousIndex</td>
-            <td>int</td>
-            <td>The index of the previously shown item.</td>
-        </tr>
-        <tr>
-            <td>currentIndex</td>
+            <td>index</td>
             <td>int</td>
             <td>The index of the currently shown item.</td>
         </tr>

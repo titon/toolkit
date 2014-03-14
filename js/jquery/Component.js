@@ -10,7 +10,8 @@
     Toolkit.Component = Toolkit.Class.extend(function() {}, {
         component: 'Component',
         version: '0.0.0',
-        enabled: true,
+        enabled: false,
+        events: {},
 
         /**
          * Create the element from the template.
@@ -39,21 +40,103 @@
                 throw new Error('Failed to create template element');
             }
 
-            return this.setElement(template);
+            // Add a class name
+            if (options.className) {
+                template.addClass(options.className);
+            }
+
+            // Enable animations
+            if (options.animation) {
+                template.addClass(options.animation);
+            }
+
+            return template;
         },
 
         /**
-         * Disable
+         * Loop through the events object map and attach events to the specific selector in the correct context.
+         * Take into account window, document, and delegation.
+         *
+         * @param {String} type
+         */
+        bindEvents: function(type) {
+            var self = this,
+                event,
+                keys,
+                context,
+                selector,
+                funcs,
+                win = $(window),
+                doc = $(document);
+
+            // event window = func          Bind window event
+            // event document = func        Bind document event
+            // ready document = func        Bind DOM ready event
+            // event property = func        Bind event to collection that matches class property
+            // event .class = func          Bind delegated events to class on document
+            // event context .class = func  Bind delegated events to class within context
+            $.each(this.events, function(key, value) {
+                funcs = $.isArray(value) ? value : [value];
+                keys = key.split(' ');
+                event = keys[0];
+                context = keys[1];
+                selector = keys[2] || null;
+
+                // No context defined, so use the context in options
+                // Also clickout events cannot be delegated
+                if ((context.charAt(0) === '.' || context.charAt(0) === '#') && event !== 'clickout') {
+                    selector = context;
+                    context = self.options.context;
+                }
+
+                // The context is a property on the object
+                if (self[context]) {
+                    context = self[context];
+                }
+
+                $.each(funcs, function(i, func) {
+                    if (!$.isFunction(func)) {
+                        func = self[func].bind(self);
+                    }
+
+                    // On window
+                    if (context === 'window') {
+                        win[type](event, func);
+
+                    // On document
+                    } else if (context === 'document') {
+                        if (event === 'ready') {
+                            doc.ready(func);
+                        } else {
+                            doc[type](event, func);
+                        }
+
+                    // Delegated
+                    } else if (selector) {
+                        $(context || document)[type](event, selector, func);
+
+                    // On element
+                    } else {
+                        $(context)[type](event, func);
+                    }
+                });
+            });
+        },
+
+        /**
+         * Disable the component.
          */
         disable: function() {
             this.enabled = false;
+            this.bindEvents('off');
         },
 
         /**
-         * Enable
+         * Enable the component.
          */
         enable: function() {
             this.enabled = true;
+            this.bindEvents('on');
         },
 
         /**
@@ -68,24 +151,48 @@
             }
 
             // Trigger event globally
-            var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
+            var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1),
+                element = this.element;
 
             if (this.options[onType]) {
                 this.options[onType].apply(this, args || []);
             }
 
             // Trigger per element
-            if (this.element && this.element.length) {
+            if (element && element.length) {
                 var name = this.component;
-                    name = name.split('.').map(function(value) {
-                        return value.charAt(0).toLowerCase() + value.slice(1);
-                    }).join('.');
+                    name = name.charAt(0).toLowerCase() + name.slice(1);
 
                 var event = jQuery.Event(type + '.toolkit.' + name);
                     event.context = this;
 
-                this.element.trigger(event, args || []);
+                element.trigger(event, args || []);
             }
+        },
+
+        /**
+         * Inherit options from the target elements data attributes.
+         *
+         * @param {Object} options
+         * @param {jQuery} element
+         * @returns {Object}
+         */
+        inheritOptions: function(options, element) {
+            var key, value, obj = {};
+
+            for (key in options) {
+                if (key === 'context' || key === 'template') {
+                    continue;
+                }
+
+                value = element.data(this._class() + '-' + key.toLowerCase());
+
+                if ($.type(value) !== 'undefined') {
+                    obj[key] = value;
+                }
+            }
+
+            return $.extend(true, {}, options, obj);
         },
 
         /**
@@ -109,6 +216,24 @@
             }
 
             this.fireEvent('process', content);
+        },
+
+        /**
+         * Read a class option from a data attribute.
+         * If no attribute exists, return the option value.
+         *
+         * @param {jQuery} element
+         * @param {String} key
+         * @returns {*}
+         */
+        readOption: function(element, key) {
+            var value = element.data(this._class() + '-' + key.toLowerCase());
+
+            if ($.type(value) === 'undefined') {
+                value = this.options[key];
+            }
+
+            return value;
         },
 
         /**
@@ -143,7 +268,8 @@
          * @returns {jqXHR}
          */
         requestData: function(options, before, done, fail) {
-            var url = options.url || options;
+            var url = options.url || options,
+                isPrefix = Toolkit.options.isPrefix;
 
             // Set default options
             var ajax = $.extend({}, {
@@ -152,7 +278,7 @@
                 context: this,
                 beforeSend: before || function() {
                     this.cache[url] = true;
-                    this.element.addClass(Toolkit.options.isPrefix + 'loading');
+                    this.element.addClass(isPrefix + 'loading');
                 }
             }, options);
 
@@ -165,7 +291,7 @@
 
             return $.ajax(ajax)
                 .done(done || function(response, status, xhr) {
-                    this.element.removeClass(Toolkit.options.isPrefix + 'loading');
+                    this.element.removeClass(isPrefix + 'loading');
 
                     // HTML
                     if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
@@ -188,7 +314,7 @@
                     delete this.cache[url];
 
                     this.element
-                        .removeClass(Toolkit.options.isPrefix + 'loading')
+                        .removeClass(isPrefix + 'loading')
                         .addClass(Toolkit.options.hasPrefix + 'failed');
 
                     this.position(this._errorTemplate());
@@ -196,82 +322,73 @@
         },
 
         /**
-         * Set the element to use. Apply optional class names if available.
-         *
-         * @param {String|Element|jQuery} element
-         * @returns {jQuery}
-         */
-        setElement: function(element) {
-            var options = this.options;
-                options.template = false;
-
-            element = $(element);
-
-            // Add a class name
-            if (options.className) {
-                element.addClass(options.className);
-            }
-
-            // Enable animations
-            if (options.animation) {
-                element.addClass(options.animation);
-            }
-
-            return element;
-        },
-
-        /**
          * Set the options by merging with defaults.
          *
          * @param {Object} [options]
+         * @param {jQuery} [inheritFrom]
          * @returns {Object}
          */
-        setOptions: function(options) {
-            var defaults = Toolkit,
-                path = this.component;
+        setOptions: function(options, inheritFrom) {
+            var opts = $.extend(true, {}, Toolkit[this.component].options, options || {});
 
-            // Drill into object to find defaults
-            if (path.indexOf('.') >= 0) {
-                path = path.split('.');
-
-                for (var i = 0; i < path.length; i++) {
-                    defaults = defaults[path[i]];
-                }
-            } else {
-                defaults = defaults[path];
+            // Inherit from element data attributes
+            if (inheritFrom) {
+                opts = this.inheritOptions(opts, inheritFrom);
             }
 
-            var opts = $.extend(true, {}, defaults.options, options || {});
+            // Convert hover to mouseenter
+            if (opts.mode && opts.mode === 'hover') {
 
-            // Reset for touch devices
-            if (Toolkit.isTouch && opts.mode === 'hover') {
-                opts.mode = 'click';
+                // Reset for touch devices
+                if (Toolkit.isTouch) {
+                    opts.mode = 'click';
+                } else {
+                    opts.mode = 'mouseenter';
+                }
             }
 
             return opts;
         },
 
         /**
+         * Return the component name hyphenated for use in CSS classes.
+         *
+         * @private
+         * @returns {string}
+         */
+        _class: function() {
+            return $.hyphenate(this.component).slice(1);
+        },
+
+        /**
          * Return a DOM element for error messages.
          *
+         * @private
          * @returns {jQuery}
          */
         _errorTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-error')
+                .addClass(Toolkit.options.vendor + this._class() + '-error')
                 .text(Toolkit.messages.error);
         },
 
         /**
          * Return a DOM element for loading messages.
          *
+         * @private
          * @returns {jQuery}
          */
         _loadingTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + $.hyphenate(this.component).slice(1) + '-loading')
+                .addClass(Toolkit.options.vendor + this._class() + '-loading')
                 .text(Toolkit.messages.loading);
         }
+
+    }, {
+        context: null,
+        className: '',
+        template: '',
+        templateFrom: ''
     });
 
 })(jQuery);

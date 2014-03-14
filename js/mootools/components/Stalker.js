@@ -9,7 +9,10 @@
 
 Toolkit.Stalker = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__scroll'],
+    Binds: ['onScroll'],
+
+    /** Element that contains the elements */
+    container: null,
 
     /** Elements to apply active state to */
     targets: [],
@@ -29,12 +32,7 @@ Toolkit.Stalker = new Class({
         threshold: 50,
         throttle: 50,
         onlyWithin: true,
-        applyToParent: true,
-
-        // Events
-        onScroll: null,
-        onActivate: null,
-        onDeactivate: null
+        applyToParent: true
     },
 
     /**
@@ -45,16 +43,28 @@ Toolkit.Stalker = new Class({
      */
     initialize: function(element, options) {
         this.parent(options);
-        this.setElement(element);
+        this.element = element;
+        this.container = (element.getStyle('overflow') === 'auto') ? element : window;
 
-        if (!this.element || !this.options.target || !this.options.marker) {
+        if (!this.options.target || !this.options.marker) {
             throw new Error('A marker and target is required');
         }
 
-        this.element.addClass(Toolkit.options.vendor + 'stalker');
+        element.addClass(Toolkit.options.vendor + 'stalker');
 
+        // Gather markets and targets
         this.refresh();
-        this.bindEvents();
+
+        // Initialize events
+        var events;
+
+        this.events = events = {
+            'ready document': 'onScroll'
+        };
+
+        events['scroll:throttle(' + this.options.throttle + ') container'] = 'onScroll';
+
+        this.enable();
         this.fireEvent('init');
     },
 
@@ -66,20 +76,6 @@ Toolkit.Stalker = new Class({
      */
     activate: function(marker) {
         this._stalk(marker, 'activate');
-
-        return this;
-    },
-
-    /**
-     * Set scroll events on target element.
-     *
-     * @returns {Toolkit.Stalker}
-     */
-    bindEvents: function() {
-        (this.element.getStyle('overflow') === 'auto' ? this.element : window)
-            .addEvent('scroll:throttle(' + this.options.throttle + ')', this.__scroll);
-
-        window.addEvent('domready', this.__scroll);
 
         return this;
     },
@@ -106,11 +102,9 @@ Toolkit.Stalker = new Class({
             this.element.scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.targets = $$(this.options.target);
-        this.targets.addClass(Toolkit.options.vendor + 'stalker-target');
+        this.targets = $$(this.options.target).addClass(Toolkit.options.vendor + 'stalker-target');
 
-        this.markers = $$(this.options.marker);
-        this.markers.addClass(Toolkit.options.vendor + 'stalker-marker');
+        this.markers = $$(this.options.marker).addClass(Toolkit.options.vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 
@@ -155,12 +149,8 @@ Toolkit.Stalker = new Class({
      *
      * @private
      */
-    __scroll: function() {
-        if (!this.enabled) {
-            return;
-        }
-
-        var scroll = this.element.getScroll().y,
+    onScroll: function() {
+        var scroll = this.container.getScroll().y,
             markers = this.markers,
             offsets = this.offsets,
             onlyWithin = this.options.onlyWithin,

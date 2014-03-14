@@ -9,7 +9,7 @@
 
 Toolkit.Showcase = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', '__jump'],
+    Binds: ['next', 'prev', 'onJump'],
 
     /** List elements */
     items: null,
@@ -22,9 +22,8 @@ Toolkit.Showcase = new Class({
     /** List of items data to populate the showcase with **/
     data: [],
 
-    /** The current and previous shown indices */
-    previousIndex: 0,
-    currentIndex: 0,
+    /** The current index */
+    index: 0,
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -55,10 +54,7 @@ Toolkit.Showcase = new Class({
                 '<button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>' +
                 '<button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>' +
             '</div>' +
-        '</div>',
-
-        // Events
-        onJump: null
+        '</div>'
     },
 
     /**
@@ -69,7 +65,7 @@ Toolkit.Showcase = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
         this.createElement();
 
         // IE doesn't support animations
@@ -93,53 +89,23 @@ Toolkit.Showcase = new Class({
             this.blackout = Toolkit.Blackout.factory();
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        var events = {};
+        this.events = events = {
+            'clickout element': 'hide',
+            'clickout nodes': 'hide',
+            'swipe element': 'onSwipe',
+            'keydown window': 'onKeydown'
+        };
+
+        events['click ' + options.delegate] = 'onShow';
+        events['click ' + options.closeEvent] = 'hide';
+        events['click ' + options.nextEvent] = 'next';
+        events['click ' + options.prevEvent] = 'prev';
+        events['click ' + options.jumpEvent] = 'onJump';
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set navigation events.
-     *
-     * @returns {Toolkit.Showcase}
-     */
-    bindEvents: function() {
-        this.parent();
-
-        window.addEvent('keydown', function(e) {
-            if (this.isVisible()) {
-                if (['up', 'down', 'left', 'right'].contains(e.key)) {
-                    e.preventDefault();
-                }
-
-                switch (e.key) {
-                    case 'esc':   this.hide(); break;
-                    case 'up':    this.jump(0); break;
-                    case 'down':  this.jump(-1); break;
-                    case 'left':  this.prev(); break;
-                    case 'right': this.next(); break;
-                }
-            }
-        }.bind(this));
-
-        this.element
-            .addEvent('clickout', this.__hide)
-            .addEvent('click:relay(' + this.options.closeEvent + ')', this.__hide)
-            .addEvent('click:relay(' + this.options.nextEvent + ')', this.next)
-            .addEvent('click:relay(' + this.options.prevEvent + ')', this.prev)
-            .addEvent('click:relay(' + this.options.jumpEvent + ')', this.__jump)
-            .addEvent('swipe', function(e) {
-                if (e.direction === 'left') {
-                    this.next();
-                } else if (e.direction === 'right') {
-                    this.prev();
-                }
-            }.bind(this));
-
-        this.nodes
-            .addEvent('clickout', this.__hide);
-
-        return this;
     },
 
     /**
@@ -153,7 +119,7 @@ Toolkit.Showcase = new Class({
         }
 
         if (this.options.stopScroll) {
-            document.body.setStyle('overflow', '');
+            document.body.removeClass('no-scroll');
         }
 
         this.parent(function() {
@@ -176,11 +142,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     jump: function(index) {
-        if (index >= this.data.length) {
-            index = 0;
-        } else if (index < 0) {
-            index = this.data.length - 1;
-        }
+        index = Number.from(index).bound(this.data.length);
 
         var self = this,
             options = this.options,
@@ -192,8 +154,7 @@ Toolkit.Showcase = new Class({
             item = items[index];
 
         // Save state
-        this.previousIndex = this.currentIndex;
-        this.currentIndex = index;
+        this.index = index;
 
         // Update tabs
         if (this.tabs) {
@@ -260,7 +221,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     next: function() {
-        this.jump(this.currentIndex + 1);
+        this.jump(this.index + 1);
 
         return this;
     },
@@ -288,7 +249,7 @@ Toolkit.Showcase = new Class({
      * @returns {Toolkit.Showcase}
      */
     prev: function() {
-        this.jump(this.currentIndex - 1);
+        this.jump(this.index - 1);
 
         return this;
     },
@@ -303,10 +264,10 @@ Toolkit.Showcase = new Class({
      */
     show: function(node) {
         this.node = node;
-        this.currentIndex = this.previousIndex = 0;
+        this.index = 0;
         this.element.addClass(Toolkit.options.isPrefix + 'loading');
 
-        var options = this.options,
+        var options = this.inheritOptions(this.options, node),
             read = this.readValue,
             category = read(node, options.getCategory),
             items = [],
@@ -344,7 +305,7 @@ Toolkit.Showcase = new Class({
         }
 
         if (options.stopScroll) {
-            document.body.setStyle('overflow', 'hidden');
+            document.body.addClass('no-scroll');
         }
 
         this._buildItems(items);
@@ -433,10 +394,46 @@ Toolkit.Showcase = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __jump: function(e) {
+    onJump: function(e) {
         e.preventDefault();
 
         this.jump(e.target.get('data-index') || 0);
+    },
+
+    /**
+     * Event handler for keyboard events.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onKeydown: function(e) {
+        if (this.isVisible()) {
+            if (['up', 'down', 'left', 'right'].contains(e.key)) {
+                e.preventDefault();
+            }
+
+            switch (e.key) {
+                case 'esc':   this.hide(); break;
+                case 'up':    this.jump(0); break;
+                case 'down':  this.jump(-1); break;
+                case 'left':  this.prev(); break;
+                case 'right': this.next(); break;
+            }
+        }
+    },
+
+    /**
+     * Event handler for swiping.
+     *
+     * @private
+     * @param {DOMEvent} e
+     */
+    onSwipe: function(e) {
+        if (e.direction === 'left') {
+            this.next();
+        } else if (e.direction === 'right') {
+            this.prev();
+        }
     }
 
 });

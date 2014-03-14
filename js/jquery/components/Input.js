@@ -10,8 +10,8 @@
     Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         this.component = 'Input';
         this.version = '1.1.0';
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
         if (options.checkbox) {
             element.find(options.checkbox).inputCheckbox(options);
@@ -25,8 +25,23 @@
             element.find(options.select).inputSelect(options);
         }
 
+        this.enable();
         this.fireEvent('init');
     }, {
+
+        /**
+         * Copy classes from one element to another, but do not copy .input classes.
+         *
+         * @param {jQuery} from
+         * @param {jQuery} to
+         */
+        copyClasses: function(from, to) {
+            var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
+
+            if (classes) {
+                $(to).addClass(classes);
+            }
+        },
 
         /**
          * Build the element to wrap custom inputs with.
@@ -45,20 +60,6 @@
             }
 
             return wrapper;
-        },
-
-        /**
-         * Copy classes from one element to another, but do not copy .input classes.
-         *
-         * @param {jQuery} from
-         * @param {jQuery} to
-         */
-        copyClasses: function(from, to) {
-            var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
-
-            if (classes) {
-                $(to).addClass(classes);
-            }
         }
 
     }, {
@@ -71,29 +72,24 @@
      * Wraps a checkbox with a custom input.
      * Uses a label for checkbox toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Checkbox = Toolkit.Input.extend(function(checkbox, options) {
-        this.component = 'Input.Checkbox';
+    Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
+        this.component = 'InputCheckbox';
         this.version = '1.1.0';
-
-        // Custom options
-        this.options = this.setOptions(options);
-
-        // Base input
-        this.input = $(checkbox);
-
-        // Wrapping div
+        this.input = checkbox = $(checkbox);
+        this.options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
-        // Custom input
-        this.element = this.setElement(
-            $('<label/>')
-                .addClass(Toolkit.options.vendor + 'checkbox')
-                .attr('for', this.input.attr('id'))
-                .insertAfter(this.input), this.options);
+        // Create custom input
+        this.element = $('<label/>')
+            .addClass(Toolkit.options.vendor + 'checkbox')
+            .attr('for', this.input.attr('id'))
+            .insertAfter(this.input);
 
+        // Initialize events
+        this.enable();
         this.fireEvent('init');
-
-    }, {}, {
+    }, {
+    }, {
         copyClasses: true
     });
 
@@ -101,29 +97,24 @@
      * Wraps a radio with a custom input.
      * Uses a label for radio toggling so no JavaScript events are required.
      */
-    Toolkit.Input.Radio = Toolkit.Input.extend(function(radio, options) {
-        this.component = 'Input.Radio';
+    Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
+        this.component = 'InputRadio';
         this.version = '1.1.0';
-
-        // Custom options
-        this.options = this.setOptions(options);
-
-        // Base input
-        this.input = $(radio);
-
-        // Wrapping div
+        this.input = radio = $(radio);
+        this.options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
-        // Custom input
-        this.element = this.setElement(
-            $('<label/>')
+        // Create custom input
+        this.element = $('<label/>')
                 .addClass(Toolkit.options.vendor + 'radio')
                 .attr('for', this.input.attr('id'))
-                .insertAfter(this.input), this.options);
+                .insertAfter(this.input);
 
+        // Initialize events
+        this.enable();
         this.fireEvent('init');
-
-    }, {}, {
+    }, {
+    }, {
         copyClasses: true
     });
 
@@ -131,63 +122,53 @@
      * Wraps a select dropdown with a custom input.
      * Supports native or custom dropdowns.
      */
-    Toolkit.Input.Select = Toolkit.Input.extend(function(select, options) {
-        this.component = 'Input.Select';
+    Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
+        var events;
+
+        this.component = 'InputSelect';
         this.version = '1.1.0';
-
-        // Custom options
-        this.options = options = this.setOptions(options);
-
-        // Base input
         this.input = select = $(select);
-
-        // Is it a multi-select
         this.multiple = select.prop('multiple');
+        this.options = options = this.setOptions(options, select);
 
         // Multiple selects must use native controls
         if (this.multiple && options.native) {
             return;
         }
 
-        // Wrapping div
         this.wrapper = this._buildWrapper();
-
-        // Custom input
         this.element = this._buildButton();
-
-        // Custom dropdown
         this.dropdown = null;
+        this.index = 0;
 
-        // Current index while cycling through options
-        this.currentIndex = 0;
+        // Initialize events
+        this.events = events = {
+            'change input': 'onChange'
+        };
 
-        // Set events
-        this.input.change(this.__change.bind(this));
+        if (!options.native) {
+            events['blur input'] = 'hide';
+            events['clickout dropdown'] = 'hide';
+            events['clickout element'] = 'hide';
+            events['click element'] = 'onToggle';
 
-        if (!this.options.native) {
+            if (!this.multiple) {
+                events['keydown window'] = 'onCycle';
+            }
+
+            // Build custom dropdown when not in native
             this._buildDropdown();
 
             // Cant hide/invisible the real select or we lose focus/blur
             // So place it below .custom-input
-            this.input
-                .css('z-index', 1)
-                .blur(this.hide.bind(this));
-
-            this.dropdown.clickout(this.hide.bind(this));
-
-            this.element
-                .clickout(this.hide.bind(this))
-                .click(this.__toggle.bind(this));
+            this.input.css('z-index', 1);
         }
 
-        if (!this.multiple) {
-            $(window).keydown(this.__cycle.bind(this));
-        }
+        this.enable();
+        this.fireEvent('init');
 
         // Trigger change immediately to update the label
         this.input.change();
-
-        this.fireEvent('init');
     }, {
 
         /**
@@ -277,7 +258,7 @@
                         }
 
                         if (option.prop('selected')) {
-                            self.currentIndex = index;
+                            self.index = index;
                         }
 
                         list.append( buildOption(option, index) );
@@ -285,7 +266,7 @@
                     });
                 } else {
                     if (optgroup.prop('selected')) {
-                        self.currentIndex = index;
+                        self.index = index;
                     }
 
                     list.append( buildOption(optgroup, index) );
@@ -320,7 +301,8 @@
         _buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
-                activeClass = Toolkit.options.isPrefix + 'active';
+                isPrefix = Toolkit.options.isPrefix,
+                activeClass = isPrefix + 'active';
 
             // Create elements
             var li = $('<li/>'),
@@ -347,7 +329,7 @@
 
             // Attach no events for disabled options
             if (option.prop('disabled')) {
-                li.addClass(Toolkit.options.isPrefix + 'disabled');
+                li.addClass(isPrefix + 'disabled');
 
                 return li;
             }
@@ -375,7 +357,7 @@
                     $(this).parent().addClass(activeClass);
 
                     self.hide();
-                    self.currentIndex = index;
+                    self.index = index;
 
                     select.val(option.val());
                     select.change();
@@ -386,14 +368,43 @@
         },
 
         /**
+         * Loop through the options and determine the index to
+         * Skip over missing options, disabled options, or hidden options.
+         *
+         * @private
+         * @param {Number} index
+         * @param {Number} step
+         * @param {jQuery} options
+         * @returns {Number}
+         */
+        _loop: function(index, step, options) {
+            var hideFirst = this.options.hideFirst;
+
+            index += step;
+
+            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+                index += step;
+
+                if (index >= options.length) {
+                    index = 0;
+                } else if (index < 0) {
+                    index = options.length - 1;
+                }
+            }
+
+            return index;
+        },
+
+        /**
          * Event handler for select option changing.
          *
          * @private
          * @param {jQuery.Event} e
          */
-        __change: function(e) {
+        onChange: function(e) {
             var select = $(e.target),
                 options = select.find('option'),
+                opts = this.options,
                 selected = [],
                 label = [],
                 self = this;
@@ -402,14 +413,14 @@
             options.each(function() {
                 if (this.selected) {
                     selected.push( this );
-                    label.push( self.readValue(this, self.options.getOptionLabel) || this.textContent );
+                    label.push( self.readValue(this, opts.getOptionLabel) || this.textContent );
                 }
             });
 
             // Reformat label if needed
             if (this.multiple) {
-                var title = this.readValue(select, this.options.getDefaultLabel),
-                    format = this.options.multipleFormat,
+                var title = this.readValue(select, opts.getDefaultLabel),
+                    format = opts.multipleFormat,
                     count = label.length;
 
                 // Use default title if nothing selected
@@ -418,13 +429,13 @@
 
                     // Display a counter for label
                 } else if (format === 'count') {
-                    label = this.options.countMessage
+                    label = opts.countMessage
                         .replace('{count}', count)
                         .replace('{total}', options.length);
 
                     // Display options as a list for label
                 } else if (format === 'list') {
-                    var limit = this.options.listLimit;
+                    var limit = opts.listLimit;
 
                     label = label.splice(0, limit).join(', ');
 
@@ -447,9 +458,9 @@
          * Event handler for cycling through options with up and down keys.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
-        __cycle: function(e) {
+        onCycle: function(e) {
             if (!this.dropdown.is(':shown')) {
                 return;
             }
@@ -463,7 +474,7 @@
             var options = this.input.find('option'),
                 items = this.dropdown.find('a'),
                 activeClass = Toolkit.options.isPrefix + 'active',
-                index = this.currentIndex;
+                index = this.index;
 
             switch (e.keyCode) {
                 case 13: // enter
@@ -471,10 +482,10 @@
                     this.hide();
                 return;
                 case 38: // up
-                    index = this.__loop(index, -1, options);
+                    index = this._loop(index, -1, options);
                 break;
                 case 40: // down
-                    index = this.__loop(index, 1, options);
+                    index = this._loop(index, 1, options);
                 break;
             }
 
@@ -484,46 +495,17 @@
             items.parent().removeClass(activeClass);
             items.item(index).parent().addClass(activeClass);
 
-            this.currentIndex = index;
+            this.index = index;
             this.input.change();
-        },
-
-        /**
-         * Loop through the options and determine the index to
-         * Skip over missing options, disabled options, or hidden options.
-         *
-         * @private
-         * @param {Number} index
-         * @param {Number} step
-         * @param {jQuery} options
-         * @returns {Number}
-         */
-        __loop: function(index, step, options) {
-            var hideFirst = this.options.hideFirst;
-
-            index += step;
-
-            while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
-                index += step;
-
-                if (index >= options.length) {
-                    index = 0;
-                } else if (index < 0) {
-                    index = options.length - 1;
-                }
-            }
-
-            return index;
         },
 
         /**
          * Event handler for toggling custom dropdown display.
          *
          * @private
-         * @param {jQuery.Event} e
          */
-        __toggle: function(e) {
-            if (!this.enabled || this.input.prop('disabled')) {
+        onToggle: function() {
+            if (this.input.prop('disabled')) {
                 return;
             }
 
@@ -557,15 +539,15 @@
     });
 
     Toolkit.createComponent('inputRadio', function(options) {
-        return new Toolkit.Input.Radio(this, options);
+        return new Toolkit.InputRadio(this, options);
     });
 
     Toolkit.createComponent('inputCheckbox', function(options) {
-        return new Toolkit.Input.Checkbox(this, options);
+        return new Toolkit.InputCheckbox(this, options);
     });
 
     Toolkit.createComponent('inputSelect', function(options) {
-        return new Toolkit.Input.Select(this, options);
+        return new Toolkit.InputSelect(this, options);
     });
 
 })(jQuery);

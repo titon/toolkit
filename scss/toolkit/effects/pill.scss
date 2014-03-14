@@ -8,23 +8,21 @@
 
 //-------------------- Button --------------------//
 
-.#{$vendor-prefix}button.#{$shape-pill-class} { border-radius: $pill; }
+.#{$vendor-prefix}button.#{$shape-pill-class} {
+    border-radius: $pill;
+}
 
 //-------------------- ButtonGroup --------------------//
 
 .#{$vendor-prefix}button-group.#{$shape-pill-class} {
     border-radius: $pill;
 
-    > li:first-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:first-child,
-    > .#{$vendor-prefix}button.first {
+    @include button-group-first-child {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }
 
-    > li:last-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:last-child,
-    > .#{$vendor-prefix}button.last {
+    @include button-group-last-child {
         border-top-right-radius: $pill;
         border-bottom-right-radius: $pill;
     }
@@ -33,16 +31,14 @@
 .#{$vendor-prefix}button-group--vertical.#{$shape-pill-class} {
     border-radius: $pill;
 
-    > li:first-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:first-child {
+    @include button-group-first-child {
         border-top-left-radius: $pill;
         border-top-right-radius: $pill;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    > li:last-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:last-child {
+    @include button-group-last-child {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-bottom-left-radius: $pill;

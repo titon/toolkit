@@ -10,7 +10,7 @@
 Toolkit.TypeAhead = new Class({
     Extends: Toolkit.Component,
     Implements: [Cache],
-    Binds: ['process', 'rewind', '__cycle', '__lookup'],
+    Binds: ['source', 'rewind', 'onCycle', 'onFind', 'onLookup'],
 
     /** Input element to display menu against */
     input: null,
@@ -46,12 +46,7 @@ Toolkit.TypeAhead = new Class({
         // Callbacks
         sorter: null,
         matcher: null,
-        builder: null,
-
-        // Events
-        onSelect: null,
-        onCycle: null,
-        onReset: null
+        builder: null
     },
 
     /**
@@ -63,19 +58,18 @@ Toolkit.TypeAhead = new Class({
     initialize: function(input, options) {
         this.parent(options);
         this.createElement();
+        this.options = options = this.inheritOptions(this.options, input);
 
         // Store the input
         this.input = input;
 
-        if (this.input.get('tag') !== 'input') {
+        if (input.get('tag') !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
         } else {
-            this.input.set('autocomplete', 'off');
+            input.set('autocomplete', 'off');
         }
 
         // Setup state
-        options = this.options;
-
         this.setStorage(options.storage);
 
         // Use default callbacks
@@ -121,31 +115,15 @@ Toolkit.TypeAhead = new Class({
             this.input.addClass('not-shadow');
         }
 
-        // Set events
-        this.bindEvents();
+        // Initialize events
+        this.events = {
+            'keyup input': 'onLookup',
+            'keydown input': 'onCycle',
+            'clickout element': 'hide'
+        };
+
+        this.enable();
         this.fireEvent('init');
-    },
-
-    /**
-     * Set keyboard detection events.
-     *
-     * @returns {Toolkit.TypeAhead}
-     */
-    bindEvents: function() {
-        window.addEvent('keydown', function(e) {
-            if (e.key === 'esc' && this.isVisible()) {
-                this.hide();
-            }
-        }.bind(this));
-
-        this.element.addEvent('clickout', this.hide.bind(this));
-
-        this.input.addEvents({
-            keyup: this.__lookup,
-            keydown: this.__cycle
-        });
-
-        return this;
     },
 
     /**
@@ -195,7 +173,7 @@ Toolkit.TypeAhead = new Class({
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
+                return '<mark class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</mark>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -214,46 +192,7 @@ Toolkit.TypeAhead = new Class({
      */
     lookup: function(term) {
         this.term = term;
-        this.timer = window.setTimeout(function() {
-            var options = this.options,
-                sourceType = typeOf(options.source);
-
-            // Check the cache first
-            if (this.cache[term.toLowerCase()]) {
-                this.process(this.cache[term.toLowerCase()]);
-
-            // Use the response of an AJAX request
-            } else if (sourceType === 'string') {
-                var url = options.source,
-                    cache = this.getCache(url);
-
-                if (cache) {
-                    this.process(cache);
-                } else {
-                    var query = options.query;
-                        query.term = term;
-
-                    new Request.JSON({
-                        url: url,
-                        data: query,
-                        onSuccess: this.process
-                    }).get();
-                }
-            // Use a literal array list
-            } else if (sourceType === 'array') {
-                this.process(options.source);
-
-            // Use the return of a function
-            } else if (sourceType === 'function') {
-                var response = options.source.attempt([], this);
-
-                if (response) {
-                    this.process(response);
-                }
-            } else {
-                throw new Error('Invalid TypeAhead source type');
-            }
-        }.bind(this), this.options.throttle);
+        this.timer = setTimeout(this.onFind, this.options.throttle);
 
         return this;
     },
@@ -287,117 +226,6 @@ Toolkit.TypeAhead = new Class({
         });
 
         this.element.reveal();
-
-        return this;
-    },
-
-    /**
-     * Process the list of items be generating new elements and positioning below the input.
-     *
-     * @param {Array} items
-     * @returns {Toolkit.TypeAhead}
-     */
-    process: function(items) {
-        if (!this.term.length || !items.length) {
-            this.hide();
-            return this;
-        }
-
-        var options = this.options,
-            categories = { _empty_: [] },
-            item,
-            list = new Element('ul');
-
-        // Reset
-        this.items = [];
-        this.index = -1;
-
-        // Sort and match the list of items
-        if (typeOf(options.sorter) === 'function') {
-            items = options.sorter(items);
-        }
-
-        if (typeOf(options.matcher) === 'function') {
-            items = items.filter(function(item) {
-                return options.matcher(item.title, this.term);
-            }.bind(this));
-        }
-
-        // Group the items into categories
-        for (var i = 0; item = items[i]; i++) {
-            if (item.category) {
-                if (!categories[item.category]) {
-                    categories[item.category] = [];
-                }
-
-                categories[item.category].push(item);
-            } else {
-                categories._empty_.push(item);
-            }
-        }
-
-        // Loop through the items and build the markup
-        var results = [],
-            count = 0;
-
-        Object.each(categories, function(items, category) {
-            var elements = new Elements();
-
-            if (category !== '_empty_') {
-                results.push(null);
-
-                elements.push(
-                    new Element('li').addClass(Toolkit.options.vendor + 'type-ahead-heading').grab(new Element('span', { text: category }))
-                );
-            }
-
-            for (var i = 0, a; item = items[i]; i++) {
-                if (count >= options.itemLimit) {
-                    break;
-                }
-
-                a = options.builder(item);
-                a.addEvents({
-                    mouseover: this.rewind,
-                    click: this.__select.pass(results.length, this)
-                });
-
-                elements.push( new Element('li').grab(a) );
-                results.push(item);
-                count++;
-            }
-
-            elements.inject(list);
-        }.bind(this));
-
-        // Append list
-        this.element.empty();
-
-        if (options.contentElement) {
-            this.element.getElement(options.contentElement).grab(list);
-        } else {
-            this.element.grab(list);
-        }
-
-        // Set the current result set to the items list
-        // This will be used for index cycling
-        this.items = results;
-
-        // Cache the result set to the term
-        // Filter out null categories so that we can re-use the cache
-        this.cache[this.term.toLowerCase()] = results.filter(function(item) {
-            return (item !== null);
-        });
-
-        this.fireEvent('load');
-
-        // Apply the shadow text
-        this._shadow();
-
-        // Position the list
-        this.position();
-
-        this.fireEvent('show');
 
         return this;
     },
@@ -463,6 +291,115 @@ Toolkit.TypeAhead = new Class({
     },
 
     /**
+     * Process the list of items be generating new elements and positioning below the input.
+     *
+     * @param {Array} items
+     * @returns {Toolkit.TypeAhead}
+     */
+    source: function(items) {
+        if (!this.term.length || !items.length) {
+            this.hide();
+            return this;
+        }
+
+        var options = this.options,
+            categories = { _empty_: [] },
+            item,
+            list = new Element('ul');
+
+        // Reset
+        this.items = [];
+        this.index = -1;
+
+        // Sort and match the list of items
+        if (typeOf(options.sorter) === 'function') {
+            items = options.sorter(items);
+        }
+
+        if (typeOf(options.matcher) === 'function') {
+            items = items.filter(function(item) {
+                return options.matcher(item.title, this.term);
+            }.bind(this));
+        }
+
+        // Group the items into categories
+        for (var i = 0; item = items[i]; i++) {
+            if (item.category) {
+                if (!categories[item.category]) {
+                    categories[item.category] = [];
+                }
+
+                categories[item.category].push(item);
+            } else {
+                categories._empty_.push(item);
+            }
+        }
+
+        // Loop through the items and build the markup
+        var results = [],
+            count = 0;
+
+        Object.each(categories, function(items, category) {
+            var elements = new Elements();
+
+            if (category !== '_empty_') {
+                results.push(null);
+
+                elements.push(
+                    new Element('li').addClass(Toolkit.options.vendor + 'type-ahead-heading').grab(new Element('span', { text: category }))
+                );
+            }
+
+            for (var i = 0, a; item = items[i]; i++) {
+                if (count >= options.itemLimit) {
+                    break;
+                }
+
+                a = options.builder(item);
+                a.addEvents({
+                    mouseover: this.rewind,
+                    click: this.onSelect.pass(results.length, this)
+                });
+
+                elements.push( new Element('li').grab(a) );
+                results.push(item);
+                count++;
+            }
+
+            elements.inject(list);
+        }.bind(this));
+
+        // Append list
+        if (options.contentElement) {
+            this.element.getElement(options.contentElement).empty().grab(list);
+        } else {
+            this.element.empty().grab(list);
+        }
+
+        // Set the current result set to the items list
+        // This will be used for index cycling
+        this.items = results;
+
+        // Cache the result set to the term
+        // Filter out null categories so that we can re-use the cache
+        this.cache[this.term.toLowerCase()] = results.filter(function(item) {
+            return (item !== null);
+        });
+
+        this.fireEvent('load');
+
+        // Apply the shadow text
+        this._shadow();
+
+        // Position the list
+        this.position();
+
+        this.fireEvent('show');
+
+        return this;
+    },
+
+    /**
      * Monitor the current input term to determine the shadow text.
      * Shadow text will reference the term cache.
      *
@@ -497,7 +434,7 @@ Toolkit.TypeAhead = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __cycle: function(e) {
+    onCycle: function(e) {
         var items = this.items,
             length =  items.length.limit(0, this.options.itemLimit);
 
@@ -563,12 +500,59 @@ Toolkit.TypeAhead = new Class({
     },
 
     /**
+     * Event handler called for a lookup.
+     *
+     * @private
+     */
+    onFind: function() {
+        var term = this.term,
+            options = this.options,
+            sourceType = typeOf(options.source);
+
+        // Check the cache first
+        if (this.cache[term.toLowerCase()]) {
+            this.source(this.cache[term.toLowerCase()]);
+
+            // Use the response of an AJAX request
+        } else if (sourceType === 'string') {
+            var url = options.source,
+                cache = this.getCache(url);
+
+            if (cache) {
+                this.source(cache);
+            } else {
+                var query = options.query;
+                query.term = term;
+
+                new Request.JSON({
+                    url: url,
+                    data: query,
+                    onSuccess: this.source
+                }).get();
+            }
+            // Use a literal array list
+        } else if (sourceType === 'array') {
+            this.source(options.source);
+
+            // Use the return of a function
+        } else if (sourceType === 'function') {
+            var response = options.source.attempt([], this);
+
+            if (response) {
+                this.source(response);
+            }
+        } else {
+            throw new Error('Invalid TypeAhead source type');
+        }
+    },
+
+    /**
      * Lookup items based on the current input value.
      *
      * @private
      * @param {DOMEvent} e
      */
-    __lookup: function(e) {
+    onLookup: function(e) {
         if (['up', 'down', 'esc', 'tab', 'enter'].contains(e.key)) {
             return; // Handle with _cycle()
         }
@@ -593,7 +577,7 @@ Toolkit.TypeAhead = new Class({
      * @private
      * @param {Number} index
      */
-    __select: function(index) {
+    onSelect: function(index) {
         this.select(index);
         this.hide();
     }

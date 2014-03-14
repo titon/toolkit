@@ -13,7 +13,6 @@
     z-index: 500;
     opacity: 0;
     visibility: hidden;
-    background: $gray;
     @include box-sizing(content-box); // required by MooTools for multi columns
     @include transition(opacity $flyout-transition);
 
@@ -37,9 +36,7 @@
 
         // Hover states
         > a:hover,
-        &.#{$state-is-prefix}open > a {
-            background: $gray-lightest;
-        }
+        &.#{$state-is-prefix}open > a {}
 
         // Display caret arrow
         &.#{$state-has-prefix}children > a .caret-right {
@@ -81,5 +78,4 @@
     line-height: 100%;
     display: block;
     text-decoration: none;
-    background: $gray-dark;
 }

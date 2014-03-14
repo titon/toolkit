@@ -69,14 +69,6 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
             </td>
         </tr>
         <tr>
-            <td>loadingMessage</td>
-            <td>string</td>
-            <td>Toolkit.messages.loading</td>
-            <td>
-                The message to display while other components are loading.
-            </td>
-        </tr>
-        <tr>
             <td>waveCount</td>
             <td>int</td>
             <td>5</td>
@@ -84,12 +76,6 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
                 The number of bars or bubbles to use in the loading animation.
                 If the value is more than 5, the Sass will have to be customized.
             </td>
-        </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the blackout element.</td>
         </tr>
         <tr>
             <td>templateFrom</td>
@@ -136,6 +122,12 @@ Inherits all events from the [parent component](../development/js.md#events).
             </td>
         </tr>
         <tr>
+            <td>onHideLoader</td>
+            <td>hideLoader.toolkit.blackout</td>
+            <td></td>
+            <td>Triggered when the <code>hideLoader()</code> method is called and the loader is hidden.</td>
+        </tr>
+        <tr>
             <td>onShow</td>
             <td>show.toolkit.blackout</td>
             <td>bool:shown</td>
@@ -144,6 +136,12 @@ Inherits all events from the [parent component](../development/js.md#events).
                 The <code>shown</code> argument determines when the blackout is visually shown,
                 instead of simply increasing its display count.
             </td>
+        </tr>
+        <tr>
+            <td>onShowLoader</td>
+            <td>showLoader.toolkit.blackout</td>
+            <td></td>
+            <td>Triggered when the <code>showLoader()</code> method is called and the loader is shown.</td>
         </tr>
     </tbody>
 </table>

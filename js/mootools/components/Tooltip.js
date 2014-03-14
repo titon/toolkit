@@ -9,7 +9,7 @@
 
 Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
-    Binds: ['__follow'],
+    Binds: ['onFollow'],
 
     /** Inner elements */
     elementHead: null,
@@ -21,8 +21,7 @@ Toolkit.Tooltip = new Class({
         mode: 'hover',
         ajax: false,
         follow: false,
-        position: 'topCenter',
-        loadingMessage: Toolkit.messages.loading,
+        position: 'top-center',
         showLoading: true,
         showTitle: true,
         getTitle: 'title',
@@ -42,6 +41,9 @@ Toolkit.Tooltip = new Class({
         '</div>'
     },
 
+    /** Dynamic options during runtime */
+    runtime: {},
+
     /**
      * Initialize the component by fetching elements and binding events.
      *
@@ -50,24 +52,64 @@ Toolkit.Tooltip = new Class({
      */
     initialize: function(elements, options) {
         this.parent(options);
-        this.setNodes(elements);
+        this.nodes = elements;
         this.createElement();
 
+        options = this.options;
+
         // Fetch elements
-        this.elementHead = this.element.getElement(this.options.titleElement);
-        this.elementBody = this.element.getElement(this.options.contentElement);
+        this.elementHead = this.element.getElement(options.titleElement);
+        this.elementBody = this.element.getElement(options.contentElement);
 
         // Add position class
-        this.element.addClass(this.options.position.hyphenate());
+        this.element.removeClass(options.className);
 
-        // Set events
-        this.bindEvents();
+        // Remove title attributes
+        var title = 'data-' + this.className() + '-title';
 
-        if (this.options.mode === 'click') {
-            this.element.addEvent('clickout', this.__hide);
+        this.nodes.each(function(node) {
+            node.setProperty(title, node.get('title')).removeProperty('title');
+        });
+
+        if (options.getTitle === 'title') {
+            options.getTitle = title;
         }
 
+        // Initialize events
+        var events = {};
+
+        if (options.mode === 'click') {
+            events['clickout element'] = 'hide';
+            events['clickout ' + options.delegate] = 'hide';
+        } else {
+            events['mouseleave ' + options.delegate] = 'hide';
+        }
+
+        events[options.mode + ' ' + options.delegate] = 'onShow';
+
+        this.events = events;
+
+        this.enable();
         this.fireEvent('init');
+    },
+
+    /**
+     * Remove dynamic options.
+     *
+     * @returns {Toolkit.Component}
+     */
+    hide: function() {
+        var position = this.element.get('data-new-position') || this.runtime.position || this.options.position,
+            className = this.runtime.className || this.options.className;
+
+        this.runtime = {};
+
+        this.element
+            .removeClass(position)
+            .removeClass(className)
+            .removeProperty('data-mew-position');
+
+        return this.parent();
     },
 
     /**
@@ -79,12 +121,16 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     position: function(content, title) {
-        var options = this.options;
+        var options = (Object.keys(this.runtime).length) ? this.runtime : this.options;
 
         // AJAX is currently loading
         if (content === true) {
             return this;
         }
+
+        this.element
+            .addClass(options.position)
+            .addClass(options.className);
 
         // Set title
         title = title || this.readValue(this.node, options.getTitle);
@@ -109,8 +155,8 @@ Toolkit.Tooltip = new Class({
             var event = 'mousemove:throttle(' + options.mouseThrottle + ')';
 
             this.node
-                .removeEvent(event, this.__follow)
-                .addEvent(event, this.__follow);
+                .removeEvent(event, this.onFollow)
+                .addEvent(event, this.onFollow);
 
             this.fireEvent('show');
 
@@ -140,30 +186,27 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Tooltip}
      */
     show: function(node, content, title) {
-        var options = this.options;
+        var options;
 
         if (node) {
-            if (options.mode === 'hover') {
-                node
-                    .removeEvent('mouseleave', this.__hide)
-                    .addEvent('mouseleave', this.__hide);
-            }
+            this.node = node;
+            this.runtime = options = this.inheritOptions(this.options, node);
 
             content = content || this.readValue(node, options.getContent);
+        } else {
+            this.runtime = options = this.options;
         }
 
         if (!content) {
             return this;
         }
 
-        this.node = node;
-
         if (options.ajax) {
             if (this.cache[content]) {
                 this.position(this.cache[content], title);
             } else {
                 if (options.showLoading) {
-                    this.position(options.loadingMessage);
+                    this.position(Toolkit.messages.loading);
                 }
 
                 this.requestData(content);
@@ -181,10 +224,10 @@ Toolkit.Tooltip = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    __follow: function(e) {
+    onFollow: function(e) {
         e.preventDefault();
 
-        var options = this.options;
+        var options = this.runtime;
 
         this.element.positionTo(options.position, e, {
             left: options.xOffset,

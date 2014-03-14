@@ -10,39 +10,26 @@
     Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.component = 'Matrix';
         this.version = '1.0.1';
-
-        // Custom options
-        this.options = options = this.setOptions(options);
-        this.element = element = this.setElement(element);
-
-        // List of DOM elements for items to position in the grid
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.items = element.find('> li');
-
-        // List of items organized in order with span detection
         this.matrix = [];
-
-        // Current width of the wrapper
         this.wrapperWidth = 0;
-
-        // The final width of each column
         this.colWidth = 0;
-
-        // How many columns to render in the grid
         this.colCount = 0;
-
-        // List of images within the matrix
         this.images = [];
-
-        // How many images have been loaded
         this.imagesLoaded = 0;
 
-        // Set events
-        element.addClass(Toolkit.options.vendor + 'matrix');
+        // Initialize events
+        this.events = {
+            'resize window': $.debounce(this.onResize.bind(this))
+        };
 
-        // Set events
-        $(window).on('resize', $.debounce(this.__resize.bind(this)));
-
+        this.enable();
         this.fireEvent('init');
+
+        // Render the matrix
+        element.addClass(Toolkit.options.vendor + 'matrix');
 
         if (options.defer) {
             this._deferRender();
@@ -62,14 +49,6 @@
                 .css('opacity', 0);
 
             this.refresh();
-        },
-
-        /**
-         * Remove required classes and set items back to defaults.
-         */
-        disable: function() {
-            this.enabled = false;
-            this.element.removeAttr('style');
         },
 
         /**
@@ -99,12 +78,10 @@
          * @param {jQuery} item
          */
         remove: function(item) {
-            item = $(item).get(0);
-
             this.items.each(function() {
                 var self = $(this);
 
-                if (self.get(0) === item) {
+                if (self.is(item)) {
                     self.remove();
                     return false;
                 }
@@ -121,17 +98,16 @@
         render: function() {
             this._calculateColumns();
 
+            // Single row, do not render
             if (this.items.length < this.colCount) {
-                this.disable();
-                return;
-            } else {
-                this.enable();
-            }
+                this.element.removeAttr('style');
 
-            if (this.colCount <= 1) {
+            // Single column
+            } else if (this.colCount <= 1) {
                 this.element.addClass('no-columns');
                 this.items.removeAttr('style');
 
+            // Multi column
             } else {
                 this.element.removeClass('no-columns');
 
@@ -181,15 +157,14 @@
          */
         _deferRender: function() {
             this.imagesLoaded = 0;
-
             this.images = this.element.find('img');
 
             if (this.images.length) {
                 this.images.each(function(index, image) {
                     var src = image.src;
 
-                    image.onload = this.__load.bind(this);
-                    image.onerror = this.__load.bind(this);
+                    image.onload = this.onLoad.bind(this);
+                    image.onerror = this.onLoad.bind(this);
                     image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                     image.src = src;
                 }.bind(this));
@@ -318,7 +293,7 @@
          * @private
          * @param {jQuery.Event} e
          */
-        __load: function(e) {
+        onLoad: function(e) {
             if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
                 this.imagesLoaded++; // Continue rendering if load throws an error
             }
@@ -332,12 +307,9 @@
          * Event handler for browser resizing.
          *
          * @private
-         * @param {jQuery.Event} e
          */
-        __resize: function(e) {
-            if (this.element.hasClass(Toolkit.options.vendor + 'matrix')) {
-                this.refresh();
-            }
+        onResize: function() {
+            this.refresh();
         }
 
     }, {

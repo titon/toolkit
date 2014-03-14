@@ -161,6 +161,11 @@ Inherits all properties from the [parent component](../development/js.md#propert
     </thead>
     <tbody>
         <tr>
+            <td>active</td>
+            <td>bool</td>
+            <td>Will the element be pinned? Depends on the heights of the parent and element.</td>
+        </tr>
+        <tr>
             <td>viewport</td>
             <td>object</td>
             <td>The current width and height of the viewport (window object).</td>

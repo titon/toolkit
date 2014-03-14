@@ -6,6 +6,8 @@
 
 @import "../common";
 
+$tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
+
 .#{$vendor-prefix}tooltip {
     position: absolute;
     top: 0;
@@ -23,45 +25,46 @@
     &.center-left .#{$vendor-prefix}tooltip-arrow,
     &.center-right .#{$vendor-prefix}tooltip-arrow {
         top: 50%;
-        margin-top: -6px;
+        margin-top: -#{$tooltip-arrow-width}px;
     }
 
     &.center-left .#{$vendor-prefix}tooltip-arrow {
         border-left-color: #000;
-        right: -12px;
+        right: -#{$tooltip-arrow-width-double}px;
     }
 
     &.center-right .#{$vendor-prefix}tooltip-arrow {
         border-right-color: #000;
-        left: -12px;
+        left: -#{$tooltip-arrow-width-double}px;
     }
 
     &.top-center .#{$vendor-prefix}tooltip-arrow,
     &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         left: 50%;
-        margin-left: -6px;
+        margin-left: -#{$tooltip-arrow-width}px;
     }
 
     &.top-center .#{$vendor-prefix}tooltip-arrow {
         border-top-color: #000;
-        bottom: -12px;
+        bottom: -#{$tooltip-arrow-width-double}px;
     }
 
     &.bottom-center .#{$vendor-prefix}tooltip-arrow {
         border-bottom-color: #000;
-        top: -12px;
+        top: -#{$tooltip-arrow-width-double}px;
     }
 }
 
-.#{$vendor-prefix}tooltip-arrow {
+.#{$vendor-prefix}tooltip-arrow,
+.#{$vendor-prefix}popover-arrow {
     width: 0;
     height: 0;
-    border: 6px solid transparent;
+    border: #{$tooltip-arrow-width}px solid transparent;
     position: absolute;
 
     &:after {
         content: "";
-        border: 4px solid transparent;
+        border: #{($tooltip-arrow-width - 2)}px solid transparent;
         position: absolute;
     }
 }
@@ -70,50 +73,43 @@
 
 .#{$vendor-prefix}tooltip,
 .#{$vendor-prefix}popover {
-    &.fade {
-        opacity: 0;
-        @include transition(opacity 0.5s);
-    }
-
-    &.from-above {
-        @include transition(transform $tooltip-transition);
-        @include transform(scale(1.2));
-
-        &.show {
-            @include transform(scale(1));
+    @if index($popover-tooltip-animation, "fade") {
+        &.fade {
+            opacity: 0;
+            @include transition(opacity 0.5s);
         }
     }
 
-    &.from-below {
-        @include transition(transform $tooltip-transition);
-        @include transform(scale(0.8));
+    @if index($popover-tooltip-animation, "from-above") {
+        &.from-above {
+            @include transition(transform $tooltip-transition);
+            @include transform(scale(1.2));
 
-        &.show {
-            @include transform(scale(1));
+            &.show {
+                @include transform(scale(1));
+            }
         }
     }
 
-    &.flip-rotate {
-        @include transition(transform $tooltip-transition);
-        @include transform(rotate(-15deg));
+    @if index($popover-tooltip-animation, "from-below") {
+        &.from-below {
+            @include transition(transform $tooltip-transition);
+            @include transform(scale(0.8));
 
-        &.show {
-            @include transform(rotate(0deg));
+            &.show {
+                @include transform(scale(1));
+            }
         }
     }
 
-    &.slide-in {
-        @include transition(transform $tooltip-transition);
+    @if index($popover-tooltip-animation, "flip-rotate") {
+        &.flip-rotate {
+            @include transition(transform $tooltip-transition);
+            @include transform(rotate(-15deg));
 
-        &.top-left { @include transform(translate(-25%, -25%)); }
-        &.top-center { @include transform(translateY(-50%)); }
-        &.top-right { @include transform(translate(25%, -25%)); }
-        &.center-left { @include transform(translateX(-25%)); }
-        &.center-right { @include transform(translateX(25%)); }
-        &.bottom-left { @include transform(translate(-25%, 25%)); }
-        &.bottom-center { @include transform(translateY(50%)); }
-        &.bottom-right { @include transform(translate(25%, 25%)); }
-
-        &.show { @include transform(translate(0)); }
+            &.show {
+                @include transform(rotate(0deg));
+            }
+        }
     }
 }

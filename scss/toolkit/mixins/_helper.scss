@@ -8,3 +8,18 @@
 @function white($opacity){
     @return rgba(255, 255, 255, $opacity);
 }
+
+// Take a list of classes (without .) and generate a selector list
+@function join-classes($classes, $inherit: true) {
+    $selectors: ();
+
+    @each $class in $classes {
+        @if $inherit {
+            $selectors: $selectors, unquote("&." + $class);
+        } @else {
+            $selectors: $selectors, unquote("." + $class);
+        }
+    }
+
+    @return $selectors;
+}

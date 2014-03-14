@@ -8,19 +8,15 @@
 
 .#{$vendor-prefix}modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 50%;
-    height: auto;
-    margin: 0;
-    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 610; // higher than blackout
-    max-width: 700px;
-    min-width: 350px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
     visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    @include transform(translateX(-50%) translateY(-50%));
+    pointer-events: none; // fall through to blackout
 
     &.#{$state-is-prefix}loading {
         .#{$vendor-prefix}modal-close { display: none; }
@@ -45,28 +41,31 @@
     &:hover { opacity: 1; }
 }
 
+.#{$vendor-prefix}modal-outer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: auto;
+    margin: $margin;
+    pointer-events: auto; // allow within modal
+    @include transform(translateX(-50%));
+}
+
 .#{$vendor-prefix}modal-inner {
     position: relative;
     margin: 0 auto;
-    background: $gray;
 }
 
 .#{$vendor-prefix}modal-head,
 .#{$vendor-prefix}modal-body,
-.#{$vendor-prefix}modal-foot,
-.#{$vendor-prefix}modal-loading,
-.#{$vendor-prefix}modal-error {
+.#{$vendor-prefix}modal-foot {
     padding: $padding;
-}
-
-// Remove margins from text elements
-.#{$vendor-prefix}modal-body {
-    @include content-spacing;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}modal.#{$state-is-prefix}fullscreen {
+.#{$vendor-prefix}modal.#{$state-is-prefix}fullscreen .#{$vendor-prefix}modal-outer {
     top: 0;
     left: 0;
     margin: 0;
@@ -80,14 +79,7 @@
 //-------------------- Animations --------------------//
 
 .#{$vendor-prefix}modal {
-    &.from-above,
-    &.from-below,
-    &.slide-in-top,
-    &.slide-in-bottom,
-    &.slide-in-left,
-    &.slide-in-right,
-    &.flip,
-    &.flip-vert {
+    #{join-classes($modal-animation)} {
         .#{$vendor-prefix}modal-handle {
             opacity: 0;
             @include transition(all $modal-transition);
@@ -98,146 +90,143 @@
         }
     }
 
-    &.fade {
-        opacity: 0;
-        @include transition(opacity $modal-transition, visibility $modal-transition);
-    }
+    @if index($modal-animation, "from-above") {
+        &.from-above {
+            .#{$vendor-prefix}modal-handle {
+                @include transform(scale(1.3));
+            }
 
-    &.from-above {
-        .#{$vendor-prefix}modal-handle {
-            @include transform(scale(1.3));
-        }
-
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(scale(1));
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(scale(1));
+            }
         }
     }
 
-    &.from-below {
-        .#{$vendor-prefix}modal-handle {
-            @include transform(scale(0.7));
-        }
+    @if index($modal-animation, "from-below") {
+        &.from-below {
+            .#{$vendor-prefix}modal-handle {
+                @include transform(scale(0.7));
+            }
 
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(scale(1));
-        }
-    }
-
-    &.slide-in-top {
-        .#{$vendor-prefix}modal-handle {
-            @include transform(translateY(-50%));
-        }
-
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(translateY(0));
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(scale(1));
+            }
         }
     }
 
-    &.slide-in-bottom {
-        .#{$vendor-prefix}modal-handle {
-            @include transform(translateY(50%));
-        }
+    @if index($modal-animation, "slide-in-top") {
+        &.slide-in-top {
+            .#{$vendor-prefix}modal-handle {
+                @include transform(translateY(-50%));
+            }
 
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(translateY(0));
-        }
-    }
-
-    &.slide-in-left {
-        .#{$vendor-prefix}modal-handle {
-            @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
-            @include transform(translateX(-50%));
-        }
-
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(translateX(0));
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(translateY(0));
+            }
         }
     }
 
-    &.slide-in-right {
-        .#{$vendor-prefix}modal-handle {
-            @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
-            @include transform(translateX(50%));
-        }
+    @if index($modal-animation, "slide-in-bottom") {
+        &.slide-in-bottom {
+            .#{$vendor-prefix}modal-handle {
+                @include transform(translateY(50%));
+            }
 
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(translateX(0));
-        }
-    }
-
-    &.sticky-top {
-        top: -100%;
-        opacity: 0;
-        @include transition(all $modal-transition);
-        @include transform(translateX(-50%)); // reset to x
-
-        &.show {
-            top: 0;
-            opacity: 1;
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(translateY(0));
+            }
         }
     }
 
-    &.sticky-bottom {
-        top: auto;
-        bottom: -100%;
-        opacity: 0;
-        @include transition(all $modal-transition);
-        @include transform(translateX(-50%)); // reset to x
+    @if index($modal-animation, "slide-in-left") {
+        &.slide-in-left {
+            .#{$vendor-prefix}modal-handle {
+                @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
+                @include transform(translateX(-50%));
+            }
 
-        &.show {
-            bottom: 0;
-            opacity: 1;
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(translateX(0));
+            }
         }
     }
 
-    &.sticky-left {
-        left: -100%;
-        opacity: 0;
-        @include transition(all $modal-transition);
-        @include transform(translate(0, -50%));
+    @if index($modal-animation, "slide-in-right") {
+        &.slide-in-right {
+            .#{$vendor-prefix}modal-handle {
+                @include transition(all $modal-transition cubic-bezier(0.25, 0.5, 0.5, 0.9));
+                @include transform(translateX(50%));
+            }
 
-        &.show {
-            left: 0;
-            opacity: 1;
+            &.show .#{$vendor-prefix}modal-handle {
+                @include transform(translateX(0));
+            }
         }
     }
 
-    &.sticky-right {
-        left: auto;
-        right: -100%;
-        opacity: 0;
-        @include transition(all $modal-transition);
-        @include transform(translate(0, -50%));
+    @if index($modal-animation, "sticky-top") {
+        &.sticky-top {
+            .#{$vendor-prefix}modal-outer {
+                top: -100%;
+                opacity: 0;
+                @include transition(all $modal-transition);
+            }
 
-        &.show {
-            right: 0;
-            opacity: 1;
+            &.show .#{$vendor-prefix}modal-outer {
+                top: 0;
+                opacity: 1;
+            }
         }
     }
 
-    &.flip {
-        @include perspective(1300px);
+    @if index($modal-animation, "sticky-bottom") {
+        &.sticky-bottom {
+            .#{$vendor-prefix}modal-outer {
+                top: auto;
+                bottom: -100%;
+                opacity: 0;
+                @include transition(all $modal-transition);
+            }
 
-        .#{$vendor-prefix}modal-handle {
-            @include transform-style(preserve-3d);
-            @include transform(rotateY(-70deg));
-        }
-
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(rotateY(0deg));
+            &.show .#{$vendor-prefix}modal-outer {
+                bottom: 0;
+                opacity: 1;
+            }
         }
     }
 
-    &.flip-vert {
-        @include perspective(1300px);
+    @if index($modal-animation, "sticky-left") {
+        &.sticky-left {
+            .#{$vendor-prefix}modal-outer {
+                left: -100%;
+                opacity: 0;
+                top: 50%;
+                @include transition(all $modal-transition);
+                @include transform(translate(0, -50%));
+            }
 
-        .#{$vendor-prefix}modal-handle {
-            @include transform-style(preserve-3d);
-            @include transform(rotateX(-70deg));
+            &.show .#{$vendor-prefix}modal-outer {
+                left: 0;
+                opacity: 1;
+            }
         }
+    }
 
-        &.show .#{$vendor-prefix}modal-handle {
-            @include transform(rotateX(0deg));
+    @if index($modal-animation, "sticky-right") {
+        &.sticky-right {
+            .#{$vendor-prefix}modal-outer {
+                left: auto;
+                right: -100%;
+                top: 50%;
+                opacity: 0;
+                @include transition(all $modal-transition);
+                @include transform(translate(0, -50%));
+            }
+
+            &.show .#{$vendor-prefix}modal-outer {
+                right: 0;
+                opacity: 1;
+            }
         }
     }
 }

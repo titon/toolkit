@@ -13,7 +13,6 @@ Toolkit.Popover = new Class({
     /** Default options */
     options: {
         delegate: '.js-popover',
-        position: 'topCenter',
         getContent: 'data-popover',
         titleElement: '.popover-head',
         contentElement: '.popover-body',

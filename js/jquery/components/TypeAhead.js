@@ -8,8 +8,7 @@
     'use strict';
 
     Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
-        var element;
-            input = $(input);
+        input = $(input);
 
         if (input.prop('tagName').toLowerCase() !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
@@ -19,31 +18,17 @@
 
         this.component = 'TypeAhead';
         this.version = '1.1.0';
-
-        // Set options and element
-        this.options = options = this.setOptions(options);
-        this.element = element = this.createElement();
-
-        // Input element to display menu against
+        this.options = options = this.setOptions(options, input);
+        this.element = this.createElement();
         this.input = input;
-
-        // Shadow input element
         this.shadow = null;
-
-        // Current active index when cycling through the list
         this.index = -1;
-
-        // List of items to display and match against
         this.items = [];
-
-        // Current term used during lookup and matching
         this.term = '';
-
-        // Throttle timer
         this.timer = null;
-
-        // Cached queries
         this.cache = {};
+
+        var self = this;
 
         // Use default callbacks
         $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {
@@ -54,21 +39,21 @@
             var callback;
 
             if (options[key] === null || $.type(options[key]) !== 'function') {
-                callback = this[fn];
+                callback = self[fn];
             } else {
                 callback = options[key];
             }
 
-            options[key] = callback.bind(this);
-        }.bind(this));
+            options[key] = callback.bind(self);
+        });
 
         // Prefetch source from URL
         if (options.prefetch && $.type(options.source) === 'string') {
             var url = options.source;
 
             $.getJSON(url, options.query, function(items) {
-                this.cache[url] = items;
-            }.bind(this));
+                self.cache[url] = items;
+            });
         }
 
         // Enable shadow inputs
@@ -84,21 +69,14 @@
             this.wrapper.append(this.input).append(this.shadow);
         }
 
-        // Set events
-        this.input.on({
-            keyup: this.__lookup.bind(this),
-            keydown: this.__cycle.bind(this)
-        });
+        // Initialize events
+        this.events = {
+            'keyup input': 'onLookup',
+            'keydown input': 'onCycle',
+            'clickout element': 'hide'
+        };
 
-        $(window)
-            .on('keydown', function(e) {
-                if (e.keyCode === 27 /*esc*/ && element.is(':shown')) {
-                    this.hide();
-                }
-            }.bind(this));
-
-        element.clickout(this.hide.bind(this));
-
+        this.enable();
         this.fireEvent('init');
     }, {
 
@@ -109,18 +87,19 @@
          * @returns {jQuery}
          */
         build: function(item) {
-            var a = $('<a/>', {
-                href: 'javascript:;'
-            });
+            var vendor = Toolkit.options.vendor,
+                a = $('<a/>', {
+                    href: 'javascript:;'
+                });
 
             a.append( $('<span/>', {
-                'class': Toolkit.options.vendor + 'type-ahead-title',
+                'class': vendor + 'type-ahead-title',
                 html: this.highlight(item.title)
             }) );
 
             if (item.description) {
                 a.append( $('<span/>', {
-                    'class': Toolkit.options.vendor + 'type-ahead-desc',
+                    'class': vendor + 'type-ahead-desc',
                     html: item.description
                 }) );
             }
@@ -152,7 +131,7 @@
         highlight: function(item) {
             var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
                 callback = function(match) {
-                    return '<span class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</span>';
+                    return '<mark class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</mark>';
                 };
 
             for (var i = 0, t; t = terms[i]; i++) {
@@ -170,42 +149,7 @@
          */
         lookup: function(term) {
             this.term = term;
-            this.timer = setTimeout(function() {
-                var options = this.options,
-                    sourceType = $.type(options.source);
-
-                // Check the cache first
-                if (this.cache[term.toLowerCase()]) {
-                    this.process(this.cache[term.toLowerCase()]);
-
-                // Use the response of an AJAX request
-                } else if (sourceType === 'string') {
-                    var url = options.source,
-                        cache = this.cache[url];
-
-                    if (cache) {
-                        this.process(cache);
-                    } else {
-                        var query = options.query;
-                            query.term = term;
-
-                        $.getJSON(url, query, this.process.bind(this));
-                    }
-                // Use a literal array list
-                } else if (sourceType === 'array') {
-                    this.process(options.source);
-
-                // Use the return of a function
-                } else if (sourceType === 'function') {
-                    var response = options.source.call(this);
-
-                    if (response) {
-                        this.process(response);
-                    }
-                } else {
-                    throw new Error('Invalid TypeAhead source type');
-                }
-            }.bind(this), this.options.throttle);
+            this.timer = setTimeout(this.onFind.bind(this), this.options.throttle);
         },
 
         /**
@@ -239,11 +183,65 @@
         },
 
         /**
+         * Rewind the cycle pointer to the beginning.
+         */
+        rewind: function() {
+            this.index = -1;
+            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
+        },
+
+        /**
+         * Select an item in the list.
+         *
+         * @param {Number} index
+         * @param {String} [event]
+         */
+        select: function(index, event) {
+            this.index = index;
+
+            var rows = this.element.find('li'),
+                isPrefix = Toolkit.options.isPrefix;
+
+            rows.removeClass(isPrefix + 'active');
+
+            // Select
+            if (index >= 0) {
+                if (this.items[index]) {
+                    var item = this.items[index];
+
+                    rows.item(index).addClass(isPrefix + 'active');
+
+                    this.input.val(item.title);
+
+                    this.fireEvent(event || 'select', [item, index]);
+                }
+
+            // Reset
+            } else {
+                this.input.val(this.term);
+
+                this.fireEvent('reset');
+            }
+        },
+
+        /**
+         * Sort the items.
+         *
+         * @param {Array} items
+         * @returns {Array}
+         */
+        sort: function(items) {
+            return items.sort(function(a, b) {
+                return a.title.localeCompare(b.title);
+            });
+        },
+
+        /**
          * Process the list of items be generating new elements and positioning below the input.
          *
          * @param {Array} items
          */
-        process: function(items) {
+        source: function(items) {
             if (!this.term.length || !items.length) {
                 this.hide();
                 return;
@@ -305,7 +303,7 @@
                     a = options.builder(item);
                     a.on({
                         mouseover: this.rewind.bind(this),
-                        click: $.proxy(this.__select, this, results.length)
+                        click: $.proxy(this.onSelect, this, results.length)
                     });
 
                     elements.push( $('<li/>').append(a) );
@@ -317,12 +315,10 @@
             }.bind(this));
 
             // Append list
-            this.element.empty();
-
             if (options.contentElement) {
-                this.element.find(options.contentElement).append(list);
+                this.element.find(options.contentElement).empty().append(list);
             } else {
-                this.element.append(list);
+                this.element.empty().append(list);
             }
 
             // Set the current result set to the items list
@@ -342,59 +338,6 @@
 
             // Position the list
             this.position();
-        },
-
-        /**
-         * Rewind the cycle pointer to the beginning.
-         */
-        rewind: function() {
-            this.index = -1;
-            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
-        },
-
-        /**
-         * Select an item in the list.
-         *
-         * @param {Number} index
-         * @param {String} [event]
-         */
-        select: function(index, event) {
-            this.index = index;
-
-            var rows = this.element.find('li');
-
-            rows.removeClass(Toolkit.options.isPrefix + 'active');
-
-            // Select
-            if (index >= 0) {
-                if (this.items[index]) {
-                    var item = this.items[index];
-
-                    rows.item(index).addClass(Toolkit.options.isPrefix + 'active');
-
-                    this.input.val(item.title);
-
-                    this.fireEvent(event || 'select', [item, index]);
-                }
-
-            // Reset
-            } else {
-                this.input.val(this.term);
-
-                this.fireEvent('reset');
-            }
-        },
-
-        /**
-         * Sort the items.
-         *
-         * @param {Array} items
-         * @returns {Array}
-         */
-        sort: function(items) {
-            return items.sort(function(a, b) {
-                return a.title.localeCompare(b.title);
-            });
         },
 
         /**
@@ -427,9 +370,9 @@
          * Cycle through the items in the list when an arrow key, esc or enter is released.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
-        __cycle: function(e) {
+        onCycle: function(e) {
             var items = this.items,
                 length = Math.min(this.options.itemLimit, Math.max(0, items.length));
 
@@ -495,14 +438,56 @@
         },
 
         /**
+         * Event handler called for a lookup.
+         */
+        onFind: function() {
+            var term = this.term,
+                options = this.options,
+                sourceType = $.type(options.source);
+
+            // Check the cache first
+            if (this.cache[term.toLowerCase()]) {
+                this.source(this.cache[term.toLowerCase()]);
+
+            // Use the response of an AJAX request
+            } else if (sourceType === 'string') {
+                var url = options.source,
+                    cache = this.cache[url];
+
+                if (cache) {
+                    this.source(cache);
+                } else {
+                    var query = options.query;
+                        query.term = term;
+
+                    $.getJSON(url, query, this.source.bind(this));
+                }
+
+            // Use a literal array list
+            } else if (sourceType === 'array') {
+                this.source(options.source);
+
+            // Use the return of a function
+            } else if (sourceType === 'function') {
+                var response = options.source.call(this);
+
+                if (response) {
+                    this.source(response);
+                }
+            } else {
+                throw new Error('Invalid TypeAhead source type');
+            }
+        },
+
+        /**
          * Lookup items based on the current input value.
          *
          * @private
-         * @param {DOMEvent} e
+         * @param {jQuery.Event} e
          */
-        __lookup: function(e) {
+        onLookup: function(e) {
             if ($.inArray(e.keyCode, [38, 40, 27, 9, 13]) >= 0) {
-                return; // Handle with _cycle()
+                return; // Handle with onCycle()
             }
 
             clearTimeout(this.timer);
@@ -525,20 +510,18 @@
          * @private
          * @param {Number} index
          */
-        __select: function(index) {
+        onSelect: function(index) {
             this.select(index);
             this.hide();
         }
 
     }, {
-        className: '',
         source: [],
         minLength: 1,
         itemLimit: 15,
         throttle: 250,
         prefetch: false,
         shadow: false,
-        storage: 'session',
         query: {},
         contentElement: '',
         template: '<div class="type-ahead"></div>',

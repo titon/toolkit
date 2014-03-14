@@ -44,6 +44,30 @@ then the value will be used as a URL to request, and the response will be insert
 * The `position` of the popover instance determines the location and arrow placement.
 * The `position` and `animation` will be appended as a class names.
 
+## Variables ##
+
+<table class="table data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$popover-tooltip-animation</td>
+            <td>("fade", "from-above", "from-below", "flip-rotate")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$popover-arrow-width</td>
+            <td>8</td>
+            <td>The border size for popover arrows.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).
@@ -65,43 +89,25 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>CSS selector to apply event delegation to. (MooTools only)</td>
         </tr>
         <tr>
-            <td>context</td>
-            <td>object</td>
-            <td>body</td>
-            <td>The element to attach delegated events to.</td>
-        </tr>
-        <tr>
             <td>position</td>
             <td>string</td>
-            <td>topCenter</td>
-            <td>Where to position the popover relative to the target element. Available options are: topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight.</td>
-        </tr>
-        <tr>
-            <td>className</td>
-            <td>string</td>
-            <td></td>
-            <td>Class name to append to the popover instance. Allows for custom styles.</td>
+            <td>top-center</td>
+            <td>
+                Where to position the tooltip relative to the target element. Available options are:
+                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
+            </td>
         </tr>
         <tr>
             <td>animation</td>
             <td>string</td>
             <td></td>
-            <td>The animation to use when displaying the popover. Available options are: fade, from-above, from-below, flip-rotate, slide-in.</td>
+            <td>The animation to use when displaying the popover. Available options are: fade, from-above, from-below, flip-rotate.</td>
         </tr>
         <tr>
             <td>ajax</td>
             <td>bool</td>
             <td>false</td>
             <td>Determines whether to load the popover content via an AJAX request.</td>
-        </tr>
-        <tr>
-            <td>loadingMessage</td>
-            <td>string</td>
-            <td>Toolkit.messages.loading</td>
-            <td>
-                The message to display in the popover while the AJAX is requesting.
-                Only displays if <code>showLoading</code> is true.
-            </td>
         </tr>
         <tr>
             <td>showLoading</td>
@@ -163,18 +169,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>string</td>
             <td>.popover-body</td>
             <td>CSS selector for the content element within the popover template.</td>
-        </tr>
-        <tr>
-            <td>template</td>
-            <td>string</td>
-            <td>(below)</td>
-            <td>The HTML used to create the popover elements.</td>
-        </tr>
-        <tr>
-            <td>templateFrom</td>
-            <td>string</td>
-            <td></td>
-            <td>The ID of an element to use as the template.</td>
         </tr>
     </tbody>
 </table>
