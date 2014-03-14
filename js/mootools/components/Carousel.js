@@ -132,7 +132,7 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     jump: function(index) {
-        this.index = index = (index).bound(this.items.length);
+        this.index = index = Number.from(index).bound(this.items.length);
 
         // Update tabs
         if (this.tabs.length) {

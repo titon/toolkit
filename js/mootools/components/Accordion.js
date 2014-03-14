@@ -75,7 +75,7 @@ Toolkit.Accordion = new Class({
      * @returns {Toolkit.Accordion}
      */
     jump: function(index) {
-        index = (index).bound(this.headers.length);
+        index = Number.from(index).bound(this.headers.length);
 
         this.fireEvent('jump', index);
 

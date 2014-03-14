@@ -120,7 +120,7 @@ Toolkit.Tabs = new Class({
      * @returns {Toolkit.Tabs}
      */
     jump: function(index) {
-        return this.show(this.tabs[(index).bound(this.tabs.length)]);
+        return this.show(this.tabs[Number.from(index).bound(this.tabs.length)]);
     },
 
     /**
