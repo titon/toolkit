@@ -9,7 +9,7 @@
 
     Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         this.component = 'Input';
-        this.version = '1.1.0';
+        this.version = '1.2.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
 

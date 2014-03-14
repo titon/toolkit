@@ -11,7 +11,7 @@
         var items;
 
         this.component = 'Carousel';
-        this.version = '1.0.0';
+        this.version = '1.2.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
         this.itemsWrapper = element.find(options.itemsElement);

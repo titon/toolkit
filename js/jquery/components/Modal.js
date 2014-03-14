@@ -11,7 +11,7 @@
         var element, events;
 
         this.component = 'Modal';
-        this.version = '1.1.0';
+        this.version = '1.2.0';
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
         this.elementBody = element.find(options.contentElement);

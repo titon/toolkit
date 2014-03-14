@@ -11,7 +11,7 @@
         var events, tabs;
 
         this.component = 'Tabs';
-        this.version = '1.0.0';
+        this.version = '1.2.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
         this.nav = element.find(options.navElement);

@@ -16,7 +16,7 @@
         }
 
         this.component = 'Showcase';
-        this.version = '1.1.0';
+        this.version = '1.2.0';
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
         this.nodes = nodes = $(nodes);

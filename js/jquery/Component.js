@@ -9,7 +9,7 @@
 
     Toolkit.Component = Toolkit.Class.extend(function() {}, {
         component: 'Component',
-        version: '0.0.0',
+        version: '1.2.0',
         enabled: false,
         events: {},
 

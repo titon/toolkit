@@ -11,7 +11,7 @@
         container = $(container);
 
         this.component = 'LazyLoad';
-        this.version = '1.0.0';
+        this.version = '1.2.0';
         this.options = options = this.setOptions(options, container);
         this.container = (container.css('overflow') === 'auto') ? container : $(window);
         this.elements = container.find('.lazy-load');

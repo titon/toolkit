@@ -13,7 +13,7 @@
         }
 
         this.component = 'Flyout';
-        this.version = '1.1.1';
+        this.version = '1.2.0';
         this.options = options = this.setOptions(options);
         this.nodes = nodes = $(nodes);
         this.node = null;

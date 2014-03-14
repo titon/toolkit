@@ -11,7 +11,7 @@
         var headers, sections;
 
         this.component = 'Accordion';
-        this.version = '1.1.0';
+        this.version = '1.2.0';
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
         this.headers = headers = element.find(options.headerElement);
