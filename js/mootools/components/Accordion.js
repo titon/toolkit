@@ -47,14 +47,26 @@ Toolkit.Accordion = new Class({
         this.headers = headers;
         this.sections = sections;
 
+        // ARIA
+        element.set('role', 'tablist');
+
         // Store the index
         headers.each(function(header, index) {
-            header.set('data-index', index);
+            header
+                .set('data-index', index)
+                .set('role', 'tab')
+                .aria({
+                    selected: false,
+                    expanded: false
+                });
         });
 
         // Cache the height so we can use for sliding
         sections.each(function(section) {
-            section.set('data-height', section.getHeight()).conceal();
+            section
+                .set('data-height', section.getHeight())
+                .set('role', 'tabpanel')
+                .conceal();
         });
 
         // Set events
@@ -86,47 +98,54 @@ Toolkit.Accordion = new Class({
      * Toggle the section display of a row via the header click/hover event.
      * Take into account the multiple and collapsible options.
      *
-     * @param {Element} node
+     * @param {Element} header
      * @returns {Toolkit.Accordion}
      */
-    show: function(node) {
+    show: function(header) {
         var options = this.options,
-            parent = node.getParent(), // li
-            section = node.getNext(), // section
-            index = node.get('data-index'),
-            height = section.get('data-height').toInt();
+            parent = header.getParent(), // li
+            section = header.getNext(), // section
+            index = header.get('data-index'),
+            height = section.get('data-height').toInt(),
+            closed = { selected: false, expanded: false },
+            open = { selected: true, expanded: true };
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
-        if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node === node))) {
+        if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node === header))) {
             if (section.isShown() && this.node) {
                 section.setStyle('max-height', 0).conceal();
                 parent.removeClass('is-active');
+                header.aria(closed);
 
             } else {
                 section.setStyle('max-height', height).reveal();
                 parent.addClass('is-active');
+                header.aria(open);
             }
 
         // Only one open at a time
         } else {
 
             // Exit early so we don't mess with animations
-            if (this.node === node) {
+            if (this.node === header) {
                 return this;
             }
 
             this.sections.setStyle('max-height', 0).conceal();
             section.setStyle('max-height', height).reveal();
 
+            this.headers.aria(closed);
+            header.aria(open);
+
             this.element.getChildren('li').removeClass('is-active');
             parent.addClass('is-active');
         }
 
         this.index = index;
-        this.node = node;
+        this.node = header;
 
-        this.fireEvent('show', [section, node, index]);
+        this.fireEvent('show', [section, header, index]);
 
         return this;
     },

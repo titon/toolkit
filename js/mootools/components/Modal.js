@@ -86,8 +86,8 @@ Toolkit.Modal = new Class({
         // Add aria attributes
         this.element
             .set('role', 'dialog')
-            .set('aria-labelledby', 'toolkit-modal-title-' + this.id)
-            .set('aria-describedby', 'toolkit-modal-content-' + this.id);
+            .aria('labelledby', 'toolkit-modal-title-' + this.id)
+            .aria('describedby', 'toolkit-modal-content-' + this.id);
 
         // Initialize events
         var events = {};

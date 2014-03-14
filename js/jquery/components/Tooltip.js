@@ -96,7 +96,7 @@
 
             // Set ARIA
             if (this.node) {
-                this.node.attr('aria-describedby', 'toolkit-' + this._class() + '-' + this.id);
+                this.node.aria('describedby', 'toolkit-' + this._class() + '-' + this.id);
             }
 
             // Set title
@@ -265,9 +265,6 @@
             '<div class="tooltip-arrow"></div>' +
         '</div>'
     });
-
-    /** Total count of tooltips in the page */
-    Toolkit.Tooltip.count = 0;
 
     /**
      * Defines a component that can be instantiated through tooltip().

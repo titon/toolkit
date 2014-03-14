@@ -135,7 +135,7 @@ Element.implement({
      * @returns {Element}
      */
     reveal: function() {
-        return this.swapClass('hide', 'show');
+        return this.swapClass('hide', 'show').aria('hidden', false);
     },
 
     /**
@@ -145,7 +145,7 @@ Element.implement({
      * @returns {Element}
      */
     conceal: function() {
-        return this.swapClass('show', 'hide');
+        return this.swapClass('show', 'hide').aria('hidden', true);
     },
 
     /**
@@ -156,6 +156,24 @@ Element.implement({
     isShown: function() {
         return (this.getStyle('visibility') !== 'hidden');
     },
+
+    /**
+     * A multi-purpose getter and setter for ARIA attributes.
+     * Will prefix attribute names and cast values correctly.
+     *
+     * @param {String} key
+     * @param {*} value
+     * @returns {Element}
+     */
+    aria: function(key, value) {
+        if (value === true) {
+            value = 'true';
+        } else if (value === false) {
+            value = 'false';
+        }
+
+        return this.set('aria-' + key, value);
+    }.overloadSetter(),
 
     /**
      * Position the element relative to another element in the document, or to the mouse cursor.

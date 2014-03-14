@@ -20,15 +20,26 @@
         this.node = null;
         this.events = {};
 
-        // Cache the index of each header
+        // ARIA
+        element.attr('role', 'tablist');
+
+        // Cache the index of each header and set ARIA attributes
         headers.each(function(index) {
-            $(this).data('index', index);
+            $(this)
+                .data('index', index)
+                .attr('role', 'tab')
+                .aria({
+                    selected: false,
+                    expanded: false
+                });
         });
 
-        // Cache the height so we can use for sliding
+        // Cache the height so we can use for sliding and set ARIA attributes
         sections.each(function() {
-            var section = $(this);
-            section.data('height', section.height()).conceal();
+            $(this)
+                .data('height', $(this).height())
+                .attr('role', 'tabpanel')
+                .conceal();
         });
 
         // Initialize events
@@ -59,17 +70,19 @@
          * Toggle the section display of a row via the header click/hover event.
          * Take into account the multiple and collapsible options.
          *
-         * @param {jQuery} node
+         * @param {jQuery} header
          */
-        show: function(node) {
-            node = $(node);
+        show: function(header) {
+            header = $(header);
 
             var options = this.options,
-                parent = node.parent(), // li
-                section = node.next(), // section
-                index = node.data('index'),
+                parent = header.parent(), // li
+                section = header.next(), // section
+                index = header.data('index'),
                 height = parseInt(section.data('height'), 10),
-                isNode = (this.node && this.node.is(node));
+                isNode = (this.node && this.node.is(header)),
+                closed = { selected: false, expanded: false },
+                open = { selected: true, expanded: true };
 
             // Allow simultaneous open and closed sections
             // Or allow the same section to collapse
@@ -77,10 +90,12 @@
                 if (section.is(':shown') && this.node) {
                     section.css('max-height', 0).conceal();
                     parent.removeClass('is-active');
+                    header.aria(closed);
 
                 } else {
                     section.css('max-height', height).reveal();
                     parent.addClass('is-active');
+                    header.aria(open);
                 }
 
             // Only one open at a time
@@ -94,14 +109,17 @@
                 this.sections.css('max-height', 0).conceal();
                 section.css('max-height', height).reveal();
 
+                this.headers.aria(closed);
+                header.aria(open);
+
                 this.element.children('li').removeClass('is-active');
                 parent.addClass('is-active');
             }
 
             this.index = index;
-            this.node = node;
+            this.node = header;
 
-            this.fireEvent('show', [section, node, index]);
+            this.fireEvent('show', [section, header, index]);
         },
 
         /**

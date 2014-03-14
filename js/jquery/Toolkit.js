@@ -115,6 +115,9 @@ Toolkit.Class.extend = function(base, properties, options) {
     // Inherit the extend method
     base.extend = this.extend;
 
+    // Count of total instances
+    base.count = 0;
+
     return base;
 };
 
@@ -149,7 +152,7 @@ $.fn.toolkit = function(component) {
  * @returns {jQuery}
  */
 $.fn.reveal = function() {
-    return this.removeClass('hide').addClass('show');
+    return this.removeClass('hide').addClass('show').aria('hidden', false);
 };
 
 /**
@@ -159,7 +162,7 @@ $.fn.reveal = function() {
  * @returns {jQuery}
  */
 $.fn.conceal = function() {
-    return this.removeClass('show').addClass('hide');
+    return this.removeClass('show').addClass('hide').aria('hidden', true);
 };
 
 /**
@@ -173,6 +176,28 @@ $.fn.i = $.fn.item = function(index) {
 
     return item ? $(item) : null;
 };
+
+/**
+ * A multi-purpose getter and setter for ARIA attributes.
+ * Will prefix attribute names and cast values correctly.
+ *
+ * @param {String} key
+ * @param {*} value
+ * @returns {jQuery}
+ */
+$.fn.aria = (function() {
+    return function(key, value) {
+        return $.access(this, function(element, key, value) {
+            if (value === true) {
+                value = 'true';
+            } else if (value === false) {
+                value = 'false';
+            }
+
+            element.setAttribute('aria-' + key, value);
+        }, key, value, arguments.length > 1);
+    }
+})();
 
 /**
  * Set data if the key does not exist, else return the current value.

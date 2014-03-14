@@ -149,7 +149,7 @@ Toolkit.Tooltip = new Class({
 
         // Set ARIA
         if (this.node) {
-            this.node.set('aria-describedby', 'toolkit' + this.className().hyphenate() + '-' + this.id);
+            this.node.aria('describedby', 'toolkit' + this.className().hyphenate() + '-' + this.id);
         }
 
         // Set title

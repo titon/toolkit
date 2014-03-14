@@ -62,9 +62,6 @@
         '</div>'
     });
 
-    /** Total count of popovers in the page */
-    Toolkit.Popover.count = 0;
-
     /**
      * Defines a component that can be instantiated through popover().
      */
