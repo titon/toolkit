@@ -100,7 +100,7 @@ down to all inputs within it.
 
 ### Convenience Elements ###
 
-When you need to use plain text instead of an input field,
+When we need to use plain text instead of an input field,
 while maintaining the same dimensions and spacing, a static input can be used.
 
 ```html

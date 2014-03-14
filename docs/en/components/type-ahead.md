@@ -190,7 +190,7 @@ function build(item) {
 }
 ```
 
-Once your functions are defined, pass them through the constructor.
+Once our functions are defined, we pass them through the constructor.
 
 ```javascript
 $('#input').typeAhead({

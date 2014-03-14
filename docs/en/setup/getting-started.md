@@ -1,6 +1,6 @@
 # Getting Started #
 
-Before you dive into Toolkit, there are some important concepts and conventions that will be necessary to learn.
+Before we dive into Toolkit, there are some important concepts and conventions that will be necessary to learn.
 Let's quickly setup a new project with Toolkit and discuss these concepts along the way.
 
 ## Downloading Toolkit ##
@@ -145,7 +145,7 @@ Let's test our JavaScript components by placing the following code within the `<
 ```
 
 Now comes the fun part, testing the code. Open up the previously created HTML file and hover your mouse over the button in the page.
-If all goes well, you shall see a contextual tooltip appear relative to the button. Pretty awesome right?
+If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
 
 <div class="notice is-warning">
     If no styles have been defined yet, the button and tooltip component will use default styles, which look rather boring.

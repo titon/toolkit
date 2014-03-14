@@ -119,8 +119,8 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
 </div>
 ```
 
-If the `ajax` option is false, but you still want to load in content for a specific tab,
-override the `ajax` option through data attributes.
+If the `ajax` option is false, but we still want to load in content for a specific tab,
+we can override the `ajax` option through data attributes.
 
 ```html
 <a href="/load/this" data-tabs-ajax="true">AJAX Override</a>

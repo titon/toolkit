@@ -17,7 +17,7 @@ Each link within the pagination should point to a specific page for the list of 
 </nav>
 ```
 
-The links in the pagination can be placed wherever and however you please.
+The links in the pagination can be placed wherever and however we please.
 Require next and previous links? Add them. What about first and last links? Add them also.
 
 <div class="notice is-info">

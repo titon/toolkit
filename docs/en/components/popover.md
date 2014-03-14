@@ -18,13 +18,6 @@ $('.js-popover').popover();
     The popover component requires the tooltip component, and will inherit all functionality from it.
 </div>
 
-<div class="notice is-warning">
-    <h5>Delegation requirement</h5>
-
-    If you're using the MooTools library, then the <code>delegate</code> option must be defined,
-    and must match the selector that initialized the tooltip.
-</div>
-
 ### Titles & Content ###
 
 The titles and content within the popover can be customized through the `getTitle` and `getContent`

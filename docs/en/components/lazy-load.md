@@ -11,7 +11,7 @@ amount of HTTP requests in a given page.
 The difference between this component, and other libraries, is that lazy loading is applied
 to a parent wrapper. There are 2 reasons for this, the first is that it allows deferred loading
 of background images (ones defined in CSS), and the second is bulk loading of `img`s within the
-element. Simply place a `.lazy-load` class on the element you want to monitor.
+element. Simply place a `.lazy-load` class on the element we want to monitor.
 
 ```html
 <div class="item lazy-load">
@@ -58,7 +58,7 @@ $('body').lazyLoad({
 
 By default, all inline images will be collapsed before being loaded. Because of this, a flicker or
 element shift may occur once the image is loaded. To prevent this, define a width and height for the image,
-either inline or through CSS. You may also define the `src` attribute with a transparent fill-in image.
+either inline or through CSS. We may also define the `src` attribute with a transparent fill-in image.
 
 ```html
 <img src="/img/fake-image.png" data-src="/img/real-image.png" width="250" height="100">

@@ -6,7 +6,7 @@ Pin an element within the bounds of its parent and follow the position of the sc
 
 Pinning an element to stay within the viewport or within a parent, during a resize or scroll,
 is especially handy for side navigations, or top bar menus. Simply initialize a pin on the
-element you want pinned.
+element we want pinned.
 
 ```javascript
 $('.pin').pin();

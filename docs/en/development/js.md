@@ -62,7 +62,7 @@ $('.tabs').data('toolkit.tabs'); // 1 tab instance for #tabs-1 (first in the col
 $('#tabs-2').data('toolkit.tabs'); // 1 tab instance for #tabs-2
 ```
 
-Once you have an instance, methods or properties on the instance can be accessed.
+Once we have an instance, methods or properties on the instance can be accessed.
 Each component will have different methods and properties, so check out their individual documentation.
 
 ```javascript

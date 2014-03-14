@@ -257,7 +257,7 @@ To float a column to the right and collapse its margin, add `.end` to the column
 
 ### Extending Styles ###
 
-Instead of placing `.grid` and `.col` classes all over your source code, you can extend them with Sass.
+Instead of placing `.grid` and `.col` classes all over the source code, we can extend them with Sass.
 This requires either the Compass extension to be installed, or the Toolkit CSS in the lookup path.
 
 ```scss
@@ -283,7 +283,7 @@ This requires either the Compass extension to be installed, or the Toolkit CSS i
 </div>
 ```
 
-Or you can [customize your own grids](../development/sass.md#grid-building).
+Or we can [customize our own grids](../development/sass.md#grid-building).
 
 ## Notes ##
 
@@ -318,7 +318,7 @@ Or you can [customize your own grids](../development/sass.md#grid-building).
         <tr>
             <td>$grid-push-pull</td>
             <td>true</td>
-            <td>Includes push and pull classes within the output. Disable to reduce filesize if you aren't using them.</td>
+            <td>Includes push and pull classes within the output. Disable to reduce filesize if we aren't using them.</td>
         </tr>
         <tr>
             <td>$grid-columns-desktop</td>

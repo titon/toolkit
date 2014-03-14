@@ -7,7 +7,7 @@ Conceal an element by masking its content with a transparent overlay.
 A mask can be used for in-between loading states, like waiting for an AJAX request, to conceal the contents of an element.
 The mask element is appended and positioned absolutely within the target.
 
-The mask component must be initialized on the element, the target, that you want to conceal.
+The mask component must be initialized on the element, the target, that we want to conceal.
 
 ```javascript
 $('.js-mask-target').mask();
@@ -31,7 +31,7 @@ var mask = $('.js-mask-target').toolkit('mask');
 
 ### Custom Masks ###
 
-If you want to customize the markup found within a mask, you can manually place the mask element within the target.
+If we want to customize the markup found within a mask, we can manually place the mask element within the target.
 This custom mask will be used instead of creating a new mask.
 
 ```html

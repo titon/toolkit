@@ -714,7 +714,8 @@ so be sure to check those out as well!
 
 ## Grid Building ##
 
-Even though Toolkit comes bundled with a robust responsive Grid component, there may be instances where you want to create your own grids.
+Even though Toolkit comes bundled with a robust responsive [Grid component](../components/grid.md),
+there may be instances where you want to create your own grids.
 This is entirely possible using the grid functions and mixins listed above.
 
 Let's make use of the grid helpers to structure a list with 5 items that should be evenly spaced out.

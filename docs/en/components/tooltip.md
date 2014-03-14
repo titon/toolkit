@@ -16,13 +16,6 @@ $('.js-tooltip').tooltip();
 
 The tooltip will display either through a click, or a hover, depending on the configuration.
 
-<div class="notice is-warning">
-    <h5>Delegation requirement</h5>
-
-    If you're using the MooTools library, then the <code>delegate</code> option must be defined,
-    and must match the selector that initialized the tooltip.
-</div>
-
 ### Titles & Content ###
 
 The titles and content within the tooltip can be customized through the `getTitle` and `getContent`

@@ -26,7 +26,7 @@ To ensure support and adoption on a wide array of devices, Toolkit follows a mob
 This designates mobile devices as first class priority, with CSS and JavaScript focused for mobile first.
 Additional functionality for larger screens will only be loaded through use of media queries.
 
-To ensure proper viewport rendering and touch capabilities on mobile devices, add the appropriate viewport meta tag to your `<head>`.
+To ensure proper viewport rendering and touch capabilities on mobile devices, add the appropriate viewport meta tag to `<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,7 +58,7 @@ When writing our (S)CSS, it can easily be written as such:
 .carousel-next { }
 ```
 
-No nesting required as class names have been namespaced, pretty nice huh? This easily reduces the file size and improves compatibility.
+No nesting required as class names have been namespaced, nice huh? This easily reduces the file size and improves compatibility.
 
 The final paradigm, the "modifier", is used to change the behavior or state of the parent (the "block").
 Continuing with our Carousel example, the default `.carousel` block provides a 4:3 sized carousel. Now what if we want 16:9? Or a 4:4?
@@ -82,7 +82,7 @@ Fantastic! This is all possible due to Sass's built in `@extend` functionality.
 ## Reserved Classes ##
 
 We try to avoid declaring global class names, but usually it can't be helped.
-Just be weary of the following classes while building your application.
+Just be weary of the following classes while building an application.
 
 The following classes are reserved by Toolkit:
 

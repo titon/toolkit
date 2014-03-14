@@ -34,9 +34,9 @@ The following markup can be used for basic carousel functionality.
 </div>
 ```
 
-If you don't want next and previous arrows, don't add the markup for it.
-If you don't want the tab list, don't add the markup for it.
-If you want additional elements, feel free to add them! So on and so forth.
+If we don't want next and previous arrows, don't add the markup for it.
+If we don't want the tab list, don't add the markup for it.
+If we want additional elements, we can freely to add them! So on and so forth.
 The only elements that are required, are the `.carousel` wrapper,
 and the `.carousel-items` list.
 
@@ -99,7 +99,7 @@ The carousel will take care of everything else.
 
 ### Optional Captions ###
 
-Add captions to your carousel by adding a `.carousel-caption` element within each item.
+Add captions to the carousel by adding a `.carousel-caption` element within each item.
 The markup within a caption can be customized extensively and is not enforced by the carousel.
 
 ```html

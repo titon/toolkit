@@ -18,18 +18,20 @@ The value of the `getContent` option (falls back to `href` attribute) determines
 Once a request completes, the AJAX response will be inserted into the `contentElement` element.
 
 To insert non-AJAX content into a modal, the `getContent` value can point to an ID in the page, like so `#some-id`.
-You can also set the content directly through the modal instance.
+We can also set the content directly through the modal instance.
 
 ```javascript
 $('.js-modal').toolkit('modal').show(null, 'This will be inserted into the modal.');
 ```
 
-Or you can trigger the modal by passing in the node to read from.
+Or we can trigger the modal by passing in the node to read from.
 
 ```javascript
 $('.js-modal').toolkit('modal').show($('#add-category'));
 // Loads /categories/add
 ```
+
+[Learn more on accessing component instances.](../development/js.md#accessing-components)
 
 ### Multiple Modals ###
 
@@ -45,7 +47,7 @@ will open one. This even applies to elements loaded in via AJAX, like the conten
 
 ### Form Submitting ###
 
-How useful would a modal be if it didn't support forms? Pretty useless.
+How useful would a modal be if it didn't support forms? Rather useless.
 Using forms in modals is rather simple, simply place the `form` tag and a `.modal-event-submit`
 class on the element that should trigger form submission.
 
