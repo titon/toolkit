@@ -2,8 +2,10 @@
 
 Older versions can be found in the documentation changelogs.
 
-### 1.2.0 ###
-This update includes documentation for all components.
+## 1.2.0 ##
+This minor release includes thorough documentation for all components,
+a refactored event binding and management layer, a data attribute option inheritance layer,
+and an optimization and cleanup pass. Also bug fixes.
 
 * Added `join-classes()` function
 * Added `grunt production` command to compress for production purposes

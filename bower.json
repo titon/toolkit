@@ -1,7 +1,7 @@
 {
     "version": "1.1.0",
     "name": "toolkit",
-    "description": "A collection of extensible front-end UI components for the responsive web.",
+    "description": "A collection of extensible front-end UI components for the responsive and mobile web.",
     "keywords": [
         "titon",
         "toolkit",
@@ -40,7 +40,6 @@
         "js/",
         "lib/",
         "config.rb",
-        "Gemfile",
         "Gruntfile.js",
         "manifest.json",
         "package.json",

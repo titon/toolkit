@@ -5,7 +5,9 @@ Monitors an input field and triggers a lookup of data to render in a clickable m
 ## Usage ##
 
 A type ahead (also known as an autocomplete) attempts to predict and suggest a list of
-items based on the current input from a user.
+items based on the current input from a user. The data used to generate suggestions
+can be packaged in multiple ways, as well as be sorted and grouped.
+
 
 A type ahead component must be initialized on an input field, so that key press events can be monitored.
 
@@ -40,7 +42,9 @@ The second is through a function, which should return an array of data.
 ```javascript
 $('#input').typeAhead({
     source: function() {
-        return data;
+        return [
+            ...
+        ];
     }
 });
 ```
@@ -57,7 +61,7 @@ $('#input').typeAhead({
 
 <div class="notice is-info">
     When using the remote HTTP request approach, we suggest that sorting,
-    matching, and filtering should be done on the remote end,
+    matching, and filtering be done on the remote end,
     and <code>sorter</code> and <code>matcher</code> be set to <code>false</code> on the front end.
 </div>
 

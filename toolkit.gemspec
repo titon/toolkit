@@ -3,8 +3,8 @@ Gem::Specification.new do |gem|
     gem.version = "1.1.0"
 
     # Info
-    gem.authors = ["Titon", "Miles Johnson"]
-    gem.description = "A collection of extensible front-end UI components for the responsive web."
+    gem.authors = ["Project Titon", "Miles Johnson"]
+    gem.description = "A collection of extensible front-end UI components for the responsive, mobile, and web."
     gem.summary = "Provides Titon Toolkit Sass files for use in projects."
     gem.homepage = "http://titon.io"
     gem.license = "BSD-2"

@@ -80,6 +80,13 @@ Instead it has an automatic conflict resolution, where methods are renamed if on
 For example, when using the tooltip component as a jQuery plugin under the name `tooltip()`,
 and that name is already taken (by jQuery UI for example), the plugin is renamed to `toolkitTooltip()`.
 
+```javascript
+$('.js-tooltip').tooltip();
+
+// Becomes
+$('.js-tooltip').toolkitTooltip();
+```
+
 If for any reason the jQuery plugin is lost, or overridden by another library,
 components can be instantiated manually outside of the jQuery or MooTools syntax.
 
@@ -318,11 +325,11 @@ These options will need to be modified *before* a component is initialized.
 
 ```javascript
 // Single option
-Toolkit.Tooltip.options.position = 'topRight';
+Toolkit.Tooltip.options.position = 'top-right';
 
 // Multiple options
 $.extend(Toolkit.Tooltip.options, {
-    position: 'topRight',
+    position: 'top-right',
     follow: true,
     mouseThrottle: 75
 });
@@ -333,7 +340,7 @@ These options will inherit and override the global options.
 
 ```javascript
 $('.js-tooltip').tooltip({
-    position: 'topRight'
+    position: 'top-right'
 });
 ```
 
