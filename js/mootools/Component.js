@@ -397,7 +397,7 @@ Toolkit.Component = new Class({
             evalScripts: true,
             onRequest: before || function() {
                 this.cache[url] = true;
-                this.element.addClass(Toolkit.options.isPrefix + 'loading');
+                this.element.addClass('is-loading');
             }.bind(this)
         }, options);
 
@@ -414,7 +414,7 @@ Toolkit.Component = new Class({
             var contentType = this.xhr.getResponseHeader('Content-Type');
 
             // Does not apply to all components
-            self.element.removeClass(Toolkit.options.isPrefix + 'loading');
+            self.element.removeClass('is-loading');
 
             // HTML
             if (contentType.indexOf('text/html') >= 0) {
@@ -443,8 +443,8 @@ Toolkit.Component = new Class({
             delete this.cache[url];
 
             this.element
-                .removeClass(Toolkit.options.isPrefix + 'loading')
-                .addClass(Toolkit.options.hasPrefix + 'failed');
+                .removeClass('is-loading')
+                .addClass('has-failed');
 
             this.position(this._errorTemplate());
         }.bind(this);

@@ -58,7 +58,7 @@ Toolkit.Modal = new Class({
         options = this.options;
 
         if (options.fullScreen) {
-            this.element.addClass(Toolkit.options.isPrefix + 'fullscreen');
+            this.element.addClass('is-fullscreen');
             options.draggable = false;
         }
 

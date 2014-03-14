@@ -21,7 +21,7 @@
 
         // Mark element as a pin
         element
-            .addClass(Toolkit.options.vendor + 'pin')
+            .addClass(Toolkit.vendor + 'pin')
             .addClass(options.animation);
 
         // Initialize events
@@ -91,14 +91,13 @@
                 scrollTop = $(window).scrollTop(),
                 pos = {},
                 x = options.xOffset,
-                y = 0,
-                isPrefix = Toolkit.options.isPrefix;
+                y = 0;
 
             // Scroll is above the parent, remove pin inline styles
             if (scrollTop < pTop) {
                 this.element
                     .removeAttr('style')
-                    .removeClass(isPrefix + 'pinned');
+                    .removeClass('is-pinned');
 
                 return;
             }
@@ -141,7 +140,7 @@
 
             this.element
                 .css(pos)
-                .addClass(isPrefix + 'pinned');
+                .addClass('is-pinned');
 
             this.fireEvent('scroll');
         }

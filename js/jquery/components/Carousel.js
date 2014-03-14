@@ -90,11 +90,9 @@
 
             // Update tabs
             if (this.tabs.length) {
-                var isPrefix = Toolkit.options.isPrefix;
-
                 this.tabs
-                    .removeClass(isPrefix + 'active')
-                    .item(index).addClass(isPrefix + 'active');
+                    .removeClass('is-active')
+                    .item(index).addClass('is-active');
             }
 
             // Animate!
@@ -145,7 +143,7 @@
          * Start the carousel.
          */
         start: function() {
-            this.element.removeClass(Toolkit.options.isPrefix + 'stopped');
+            this.element.removeClass('is-stopped');
             this.stopped = false;
 
             this.fireEvent('start');
@@ -155,7 +153,7 @@
          * Stop the carousel.
          */
         stop: function() {
-            this.element.addClass(Toolkit.options.isPrefix + 'stopped');
+            this.element.addClass('is-stopped');
             this.stopped = true;
 
             this.fireEvent('stop');

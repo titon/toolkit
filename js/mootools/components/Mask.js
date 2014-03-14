@@ -34,7 +34,7 @@ Toolkit.Mask = new Class({
         this.element = element;
         this.options = this.inheritOptions(this.options, element);
 
-        var vendor = Toolkit.options.vendor,
+        var vendor = Toolkit.vendor,
             maskClass = '.' + vendor + 'mask';
 
         // Only apply to static elements
@@ -60,7 +60,7 @@ Toolkit.Mask = new Class({
      */
     hide: function() {
         this.mask.conceal();
-        this.element.removeClass(Toolkit.options.isPrefix + 'masked');
+        this.element.removeClass('is-masked');
         this.fireEvent('hide');
 
         return this;
@@ -110,7 +110,7 @@ Toolkit.Mask = new Class({
     show: function(node) {
         this.node = node;
         this.mask.reveal();
-        this.element.addClass(Toolkit.options.isPrefix + 'masked');
+        this.element.addClass('is-masked');
         this.fireEvent('show');
 
         return this;

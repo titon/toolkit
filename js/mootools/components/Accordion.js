@@ -94,19 +94,18 @@ Toolkit.Accordion = new Class({
             parent = node.getParent(), // li
             section = node.getNext(), // section
             index = node.get('data-index'),
-            height = section.get('data-height').toInt(),
-            isPrefix = Toolkit.options.isPrefix;
+            height = section.get('data-height').toInt();
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || (options.collapsible && this.node === node))) {
             if (section.isShown() && this.node) {
                 section.setStyle('max-height', 0).conceal();
-                parent.removeClass(isPrefix + 'active');
+                parent.removeClass('is-active');
 
             } else {
                 section.setStyle('max-height', height).reveal();
-                parent.addClass(isPrefix + 'active');
+                parent.addClass('is-active');
             }
 
         // Only one open at a time
@@ -120,8 +119,8 @@ Toolkit.Accordion = new Class({
             this.sections.setStyle('max-height', 0).conceal();
             section.setStyle('max-height', height).reveal();
 
-            this.element.getChildren('li').removeClass(isPrefix + 'active');
-            parent.addClass(isPrefix + 'active');
+            this.element.getChildren('li').removeClass('is-active');
+            parent.addClass('is-active');
         }
 
         this.index = index;

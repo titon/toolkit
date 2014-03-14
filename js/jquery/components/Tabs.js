@@ -28,7 +28,7 @@
 
         // Cache index for tabs
         tabs.each(function(index) {
-            $(this).data('index', index).removeClass(Toolkit.options.isPrefix + 'active');
+            $(this).data('index', index).removeClass('is-active');
         });
 
         // Initialize events
@@ -94,15 +94,14 @@
                 section = this.sections.item(index),
                 options = this.options,
                 ajax = this.readOption(tab, 'ajax'),
-                url = this.readValue(tab, this.readOption(tab, 'getUrl')),
-                isPrefix = Toolkit.options.isPrefix;
+                url = this.readValue(tab, this.readOption(tab, 'getUrl'));
 
             // Load content with AJAX
             if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
                         section.html(this._loadingTemplate())
-                            .addClass(isPrefix + 'loading');
+                            .addClass('is-loading');
                     },
                     function(response) {
                         this.cache[url] = true;
@@ -110,18 +109,18 @@
                         this.fireEvent('load', response);
 
                         section.html(response)
-                            .removeClass(isPrefix + 'loading');
+                            .removeClass('is-loading');
                     },
                     function() {
                         section.html(this._errorTemplate())
-                            .removeClass(isPrefix + 'loading')
-                            .addClass(Toolkit.options.hasPrefix + 'failed');
+                            .removeClass('is-loading')
+                            .addClass('has-failed');
                     }
                 );
             }
 
             // Toggle tabs
-            this.nav.find('ul > li').removeClass(isPrefix + 'active');
+            this.nav.find('ul > li').removeClass('is-active');
 
             // Toggle sections
             if (index === this.index && options.collapsible) {
@@ -129,13 +128,13 @@
                     section.conceal();
 
                 } else {
-                    tab.parent().addClass(isPrefix + 'active');
+                    tab.parent().addClass('is-active');
                     section.reveal();
                 }
             } else {
                 this.hide();
 
-                tab.parent().addClass(isPrefix + 'active');
+                tab.parent().addClass('is-active');
                 section.reveal();
             }
 

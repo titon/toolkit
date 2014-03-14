@@ -16,7 +16,7 @@
         this.message = null;
 
         // Create the mask and message elements
-        var vendor = Toolkit.options.vendor,
+        var vendor = Toolkit.vendor,
             maskClass = vendor + 'mask';
 
         if (!element.is('body')) {
@@ -44,7 +44,7 @@
          */
         hide: function() {
             this.mask.conceal();
-            this.element.removeClass(Toolkit.options.isPrefix + 'masked');
+            this.element.removeClass('is-masked');
             this.fireEvent('hide');
         },
 
@@ -90,7 +90,7 @@
         show: function(node) {
             this.node = node;
             this.mask.reveal();
-            this.element.addClass(Toolkit.options.isPrefix + 'masked');
+            this.element.addClass('is-masked');
             this.fireEvent('show');
         },
 

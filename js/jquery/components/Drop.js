@@ -20,7 +20,7 @@
 
         // Initialize events
         $.each(['down', 'up', 'left', 'right'], function(i, value) {
-            events['clickout .' + Toolkit.options.vendor + 'drop--' + value] = 'hide';
+            events['clickout .' + Toolkit.vendor + 'drop--' + value] = 'hide';
         });
 
         events['clickout ' + nodes.selector] = 'hide';
@@ -38,7 +38,7 @@
 
             if (element && element.is(':shown')) {
                 element.conceal();
-                this.node.removeClass(Toolkit.options.isPrefix + 'active');
+                this.node.removeClass('is-active');
 
                 this.fireEvent('hide', [element, this.node]);
             }
@@ -53,7 +53,7 @@
             this.element.reveal();
 
             this.node = node = $(node);
-            this.node.addClass(Toolkit.options.isPrefix + 'active');
+            this.node.addClass('is-active');
 
             this.fireEvent('show', [this.element, node]);
         },

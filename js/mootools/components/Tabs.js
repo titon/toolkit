@@ -58,7 +58,7 @@ Toolkit.Tabs = new Class({
 
         this.tabs = this.nav.getElements('ul > li > a');
         this.tabs.each(function(tab, index) {
-            tab.set('data-index', index).removeClass(Toolkit.options.isPrefix + 'active');
+            tab.set('data-index', index).removeClass('is-active');
         });
 
         this.sections = element.getElements(options.sectionElement);
@@ -134,7 +134,6 @@ Toolkit.Tabs = new Class({
         var index = tab.get('data-index'),
             section = this.sections[index],
             options = this.options,
-            isPrefix = Toolkit.options.isPrefix,
             ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
 
@@ -144,7 +143,7 @@ Toolkit.Tabs = new Class({
                 url,
                 function() {
                     section.set('html', this._loadingTemplate())
-                        .addClass(isPrefix + 'loading');
+                        .addClass('is-loading');
                 }.bind(this),
 
                 function(response) {
@@ -153,19 +152,19 @@ Toolkit.Tabs = new Class({
                     this.fireEvent('load', response);
 
                     section.set('html', response)
-                        .removeClass(isPrefix + 'loading');
+                        .removeClass('is-loading');
                 }.bind(this),
 
                 function() {
                     section.set('html', this._errorTemplate())
-                        .removeClass(isPrefix + 'loading')
-                        .addClass(Toolkit.options.hasPrefix + 'failed');
+                        .removeClass('is-loading')
+                        .addClass('has-failed');
                 }.bind(this)
             );
         }
 
         // Toggle tabs
-        this.nav.getElements('ul > li').removeClass(isPrefix + 'active');
+        this.nav.getElements('ul > li').removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -173,13 +172,13 @@ Toolkit.Tabs = new Class({
                 section.conceal();
 
             } else {
-                tab.getParent().addClass(isPrefix + 'active');
+                tab.getParent().addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.getParent().addClass(isPrefix + 'active');
+            tab.getParent().addClass('is-active');
             section.reveal();
         }
 

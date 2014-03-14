@@ -69,19 +69,18 @@
                 section = node.next(), // section
                 index = node.data('index'),
                 height = parseInt(section.data('height'), 10),
-                isNode = (this.node && this.node.is(node)),
-                isPrefix = Toolkit.options.isPrefix;
+                isNode = (this.node && this.node.is(node));
 
             // Allow simultaneous open and closed sections
             // Or allow the same section to collapse
             if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
                 if (section.is(':shown') && this.node) {
                     section.css('max-height', 0).conceal();
-                    parent.removeClass(isPrefix + 'active');
+                    parent.removeClass('is-active');
 
                 } else {
                     section.css('max-height', height).reveal();
-                    parent.addClass(isPrefix + 'active');
+                    parent.addClass('is-active');
                 }
 
             // Only one open at a time
@@ -95,8 +94,8 @@
                 this.sections.css('max-height', 0).conceal();
                 section.css('max-height', height).reveal();
 
-                this.element.children('li').removeClass(isPrefix + 'active');
-                parent.addClass(isPrefix + 'active');
+                this.element.children('li').removeClass('is-active');
+                parent.addClass('is-active');
             }
 
             this.index = index;

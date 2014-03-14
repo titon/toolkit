@@ -23,7 +23,7 @@
         this.container = (element.css('overflow') === 'auto') ? element : $(window);
 
         // Add classes to stalker
-        element.addClass(Toolkit.options.vendor + 'stalker');
+        element.addClass(Toolkit.vendor + 'stalker');
 
         // Gather markets and targets
         this.refresh();
@@ -60,7 +60,7 @@
          * Gather the targets and markers used for stalking.
          */
         refresh: function() {
-            var vendor = Toolkit.options.vendor,
+            var vendor = Toolkit.vendor,
                 isWindow = this.container.is(window),
                 eTop = this.element.offset().top,
                 offset,
@@ -96,10 +96,8 @@
         _stalk: function(marker, type) {
             marker = $(marker);
 
-            var isPrefix = Toolkit.options.isPrefix;
-
             // Stop all the unnecessary processing
-            if (type === 'activate' && marker.hasClass(isPrefix + 'stalked')) {
+            if (type === 'activate' && marker.hasClass('is-stalked')) {
                 return;
             }
 
@@ -111,12 +109,12 @@
                     return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
                 });
 
-            marker[method](isPrefix + 'stalked');
+            marker[method]('is-stalked');
 
             if (options.applyToParent) {
-                target.parent()[method](isPrefix + 'active');
+                target.parent()[method]('is-active');
             } else {
-                target[method](isPrefix + 'active');
+                target[method]('is-active');
             }
 
             this.fireEvent(type, [marker, target]);

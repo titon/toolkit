@@ -15,7 +15,7 @@
         this.count = 0;
 
         // Build the loader
-        var vendor = Toolkit.options.vendor,
+        var vendor = Toolkit.vendor,
             count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
             loader = $('<div/>')
                 .addClass(vendor + 'loader')
@@ -103,7 +103,7 @@
     }, {
         loader: 'bar-wave',
         waveCount: 5,
-        template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
+        template: '<div class="' + Toolkit.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
     });
 

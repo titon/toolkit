@@ -55,7 +55,7 @@
          */
         hide: function() {
             // Must be called even if the menu is hidden
-            this.node.removeClass(Toolkit.options.isPrefix + 'active');
+            this.node.removeClass('is-active');
 
             if (!this.current || !this.isVisible()) {
                 return;
@@ -160,7 +160,7 @@
                 return;
             }
 
-            this.node.addClass(Toolkit.options.isPrefix + 'active');
+            this.node.addClass('is-active');
 
             // Display immediately if click
             if (this.options.mode === 'click') {
@@ -220,7 +220,7 @@
             }
 
             if (parent.is('body')) {
-                menu.addClass(Toolkit.options.isPrefix + 'root');
+                menu.addClass('is-root');
             }
 
             if (limit && data.children.length > limit) {
@@ -255,7 +255,7 @@
                             text: child.title
                         });
 
-                        li.addClass(Toolkit.options.vendor + 'flyout-heading');
+                        li.addClass(Toolkit.vendor + 'flyout-heading');
                     }
 
                     if (child.attributes) {
@@ -272,7 +272,7 @@
                     if (child.children && child.children.length) {
                         this._buildMenu(li, child);
 
-                        li.addClass(Toolkit.options.hasPrefix + 'children')
+                        li.addClass('has-children')
                             .on('mouseenter', this.onPositionChild.bind(this, li))
                             .on('mouseleave', this.onHideChild.bind(this, li));
                     }
@@ -369,7 +369,7 @@
          */
         onHideChild: function(parent) {
             parent = $(parent);
-            parent.removeClass(Toolkit.options.isPrefix + 'open');
+            parent.removeClass('is-open');
             parent.children(this.options.contentElement).removeAttr('style');
 
             this.fireEvent('hideChild', parent);
@@ -427,7 +427,7 @@
                 menu.css('top', 0);
             }
 
-            parent.addClass(Toolkit.options.isPrefix + 'open');
+            parent.addClass('is-open');
 
             this.fireEvent('showChild', parent);
         },

@@ -268,8 +268,7 @@
          * @returns {jqXHR}
          */
         requestData: function(options, before, done, fail) {
-            var url = options.url || options,
-                isPrefix = Toolkit.options.isPrefix;
+            var url = options.url || options;
 
             // Set default options
             var ajax = $.extend({}, {
@@ -278,7 +277,7 @@
                 context: this,
                 beforeSend: before || function() {
                     this.cache[url] = true;
-                    this.element.addClass(isPrefix + 'loading');
+                    this.element.addClass('is-loading');
                 }
             }, options);
 
@@ -291,7 +290,7 @@
 
             return $.ajax(ajax)
                 .done(done || function(response, status, xhr) {
-                    this.element.removeClass(isPrefix + 'loading');
+                    this.element.removeClass('is-loading');
 
                     // HTML
                     if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
@@ -314,8 +313,8 @@
                     delete this.cache[url];
 
                     this.element
-                        .removeClass(isPrefix + 'loading')
-                        .addClass(Toolkit.options.hasPrefix + 'failed');
+                        .removeClass('is-loading')
+                        .addClass('has-failed');
 
                     this.position(this._errorTemplate());
                 });
@@ -368,7 +367,7 @@
          */
         _errorTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + this._class() + '-error')
+                .addClass(Toolkit.vendor + this._class() + '-error')
                 .text(Toolkit.messages.error);
         },
 
@@ -380,7 +379,7 @@
          */
         _loadingTemplate: function() {
             return $('<div/>')
-                .addClass(Toolkit.options.vendor + this._class() + '-loading')
+                .addClass(Toolkit.vendor + this._class() + '-loading')
                 .text(Toolkit.messages.loading);
         }
 

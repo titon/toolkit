@@ -51,7 +51,7 @@
          */
         _buildWrapper: function() {
             var wrapper = $('<div/>')
-                .addClass(Toolkit.options.vendor + 'custom-input')
+                .addClass(Toolkit.vendor + 'custom-input')
                 .insertBefore(this.input)
                 .append(this.input);
 
@@ -81,7 +81,7 @@
 
         // Create custom input
         this.element = $('<label/>')
-            .addClass(Toolkit.options.vendor + 'checkbox')
+            .addClass(Toolkit.vendor + 'checkbox')
             .attr('for', this.input.attr('id'))
             .insertAfter(this.input);
 
@@ -106,7 +106,7 @@
 
         // Create custom input
         this.element = $('<label/>')
-                .addClass(Toolkit.options.vendor + 'radio')
+                .addClass(Toolkit.vendor + 'radio')
                 .attr('for', this.input.attr('id'))
                 .insertAfter(this.input);
 
@@ -175,7 +175,7 @@
          * Hide the dropdown and remove active states.
          */
         hide: function() {
-            this.element.removeClass(Toolkit.options.isPrefix + 'active');
+            this.element.removeClass('is-active');
 
             if (this.dropdown) {
                 this.dropdown.conceal();
@@ -188,7 +188,7 @@
          * Show the dropdown and apply active states.
          */
         show: function() {
-            this.element.addClass(Toolkit.options.isPrefix + 'active');
+            this.element.addClass('is-active');
 
             if (this.dropdown) {
                 this.dropdown.reveal();
@@ -203,7 +203,7 @@
          * @returns {jQuery}
          */
         _buildButton: function() {
-            var vendor = Toolkit.options.vendor,
+            var vendor = Toolkit.vendor,
                 button = $('<div/>')
                     .addClass(vendor + 'select')
                     .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
@@ -225,7 +225,7 @@
          * @returns {jQuery}
          */
         _buildDropdown: function() {
-            var vendor = Toolkit.options.vendor,
+            var vendor = Toolkit.vendor,
                 select = this.input,
                 options = this.options,
                 buildOption = this._buildOption.bind(this),
@@ -283,7 +283,7 @@
             }
 
             if (this.multiple) {
-                dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
+                dropdown.addClass('is-multiple');
             }
 
             this.wrapper.append(dropdown.append(list));
@@ -301,8 +301,7 @@
         _buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
-                isPrefix = Toolkit.options.isPrefix,
-                activeClass = isPrefix + 'active';
+                activeClass = 'is-active';
 
             // Create elements
             var li = $('<li/>'),
@@ -314,7 +313,7 @@
             }
 
             if (description = this.readValue(option, this.options.getDescription)) {
-                content += ' <span class="' + Toolkit.options.vendor + 'drop-desc">' + description + '</span>';
+                content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
             }
 
             var a = $('<a/>')
@@ -329,7 +328,7 @@
 
             // Attach no events for disabled options
             if (option.prop('disabled')) {
-                li.addClass(isPrefix + 'disabled');
+                li.addClass('is-disabled');
 
                 return li;
             }
@@ -448,7 +447,7 @@
             }
 
             // Set the label
-            select.parent().find('.' + Toolkit.options.vendor + 'select-label')
+            select.parent().find('.' + Toolkit.vendor + 'select-label')
                 .text(label);
 
             this.fireEvent('change', [select.val(), selected]);
@@ -473,7 +472,7 @@
 
             var options = this.input.find('option'),
                 items = this.dropdown.find('a'),
-                activeClass = Toolkit.options.isPrefix + 'active',
+                activeClass = 'is-active',
                 index = this.index;
 
             switch (e.keyCode) {

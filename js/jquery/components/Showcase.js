@@ -67,7 +67,7 @@
             if (this.element.is(':shown')) {
                 this.element
                     .conceal()
-                    .removeClass(Toolkit.options.isPrefix + 'single');
+                    .removeClass('is-single');
 
                 this.items
                     .removeAttr('style')
@@ -94,8 +94,7 @@
                 listItems = list.children('li'),
                 listItem = listItems.item(index),
                 items = this.data,
-                item = items[index],
-                isPrefix = Toolkit.options.isPrefix;
+                item = items[index];
 
             // Save state
             this.index = index;
@@ -105,8 +104,8 @@
                 var listTabs = this.tabs.find('a');
 
                 listTabs
-                    .removeClass(isPrefix + 'active')
-                    .item(index).addClass(isPrefix + 'active');
+                    .removeClass('is-active')
+                    .item(index).addClass('is-active');
             }
 
             // Fade out previous item
@@ -126,7 +125,7 @@
 
             // Create image and animate
             } else {
-                element.addClass(isPrefix + 'loading');
+                element.addClass('is-loading');
 
                 // Preload image
                 var img = new Image();
@@ -143,12 +142,12 @@
 
                     // Create the caption
                     if (item.title) {
-                        listItem.append($('<div/>').addClass(Toolkit.options.vendor + 'showcase-caption').html(item.title));
+                        listItem.append($('<div/>').addClass(Toolkit.vendor + 'showcase-caption').html(item.title));
                     }
 
                     // Reveal the image after animation
                     setTimeout(function() {
-                        element.removeClass(isPrefix + 'loading');
+                        element.removeClass('is-loading');
                         listItem.addClass('show').append(img);
                         self.position();
                     }, options.transition);
@@ -195,7 +194,7 @@
         show: function(node) {
             this.node = node = $(node);
             this.index = 0;
-            this.element.addClass(Toolkit.options.isPrefix + 'loading');
+            this.element.addClass('is-loading');
 
             var options = this.inheritOptions(this.options, node),
                 read = this.readValue.bind(this),
@@ -268,7 +267,7 @@
             }
 
             if (items.length <= 1) {
-                this.element.addClass(Toolkit.options.isPrefix + 'single');
+                this.element.addClass('is-single');
             }
 
             this.fireEvent('load', items);

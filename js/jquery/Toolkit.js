@@ -15,12 +15,8 @@ window.Toolkit = {
     /** Build date hash */
     build: '%build%',
 
-    /** Options */
-    options: {
-        vendor: '',
-        isPrefix: 'is-',
-        hasPrefix: 'has-'
-    },
+    /** Vendor namespace */
+    vendor: '',
 
     /** Localization messages */
     messages: {

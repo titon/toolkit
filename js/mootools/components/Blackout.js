@@ -23,7 +23,7 @@ Toolkit.Blackout = new Class({
     options: {
         loader: 'bar-wave',
         waveCount: 5,
-        template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
+        template: '<div class="' + Toolkit.vendor + 'blackout" id="toolkit-blackout"></div>',
         templateFrom: '#toolkit-blackout'
     },
 
@@ -44,7 +44,7 @@ Toolkit.Blackout = new Class({
      */
     createLoader: function() {
         var options = this.options,
-            vendor = Toolkit.options.vendor,
+            vendor = Toolkit.vendor,
             count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount;
 
         this.loader = new Element('div.' + vendor + 'loader.' + options.loader)

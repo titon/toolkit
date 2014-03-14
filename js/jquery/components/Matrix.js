@@ -29,7 +29,7 @@
         this.fireEvent('init');
 
         // Render the matrix
-        element.addClass(Toolkit.options.vendor + 'matrix');
+        element.addClass(Toolkit.vendor + 'matrix');
 
         if (options.defer) {
             this._deferRender();

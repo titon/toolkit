@@ -58,10 +58,10 @@
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $('<div/>').addClass(Toolkit.options.vendor + 'type-ahead-shadow');
+            this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
 
             this.shadow = this.input.clone()
-                .addClass(Toolkit.options.isPrefix + 'shadow')
+                .addClass('is-shadow')
                 .removeAttr('id')
                 .prop('readonly', true);
 
@@ -87,7 +87,7 @@
          * @returns {jQuery}
          */
         build: function(item) {
-            var vendor = Toolkit.options.vendor,
+            var vendor = Toolkit.vendor,
                 a = $('<a/>', {
                     href: 'javascript:;'
                 });
@@ -131,7 +131,7 @@
         highlight: function(item) {
             var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
                 callback = function(match) {
-                    return '<mark class="' + Toolkit.options.vendor + 'type-ahead-highlight">' + match + '</mark>';
+                    return '<mark class="' + Toolkit.vendor + 'type-ahead-highlight">' + match + '</mark>';
                 };
 
             for (var i = 0, t; t = terms[i]; i++) {
@@ -187,7 +187,7 @@
          */
         rewind: function() {
             this.index = -1;
-            this.element.find('li').removeClass(Toolkit.options.isPrefix + 'active');
+            this.element.find('li').removeClass('is-active');
         },
 
         /**
@@ -199,17 +199,16 @@
         select: function(index, event) {
             this.index = index;
 
-            var rows = this.element.find('li'),
-                isPrefix = Toolkit.options.isPrefix;
+            var rows = this.element.find('li');
 
-            rows.removeClass(isPrefix + 'active');
+            rows.removeClass('is-active');
 
             // Select
             if (index >= 0) {
                 if (this.items[index]) {
                     var item = this.items[index];
 
-                    rows.item(index).addClass(isPrefix + 'active');
+                    rows.item(index).addClass('is-active');
 
                     this.input.val(item.title);
 
@@ -291,7 +290,7 @@
                     results.push(null);
 
                     elements.push(
-                        $('<li/>').addClass(Toolkit.options.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
+                        $('<li/>').addClass(Toolkit.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
                     );
                 }
 

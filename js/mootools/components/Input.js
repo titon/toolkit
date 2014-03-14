@@ -59,7 +59,7 @@
          * @returns {Toolkit.Input}
          */
         buildWrapper: function(element) {
-            this.wrapper = new Element('div.' + Toolkit.options.vendor +'custom-input').wraps(element);
+            this.wrapper = new Element('div.' + Toolkit.vendor +'custom-input').wraps(element);
 
             if (this.options.copyClasses) {
                 this.copyClasses(element, this.wrapper);
@@ -104,7 +104,7 @@
             this.setOptions(options, checkbox);
             this.buildWrapper(checkbox);
 
-            this.element = new Element('label.' + Toolkit.options.vendor + 'checkbox')
+            this.element = new Element('label.' + Toolkit.vendor + 'checkbox')
                     .setProperty('for', checkbox.get('id'))
                     .inject(checkbox, 'after');
 
@@ -131,7 +131,7 @@
             this.setOptions(options, radio);
             this.buildWrapper(radio);
 
-            this.element = new Element('label.' + Toolkit.options.vendor + 'radio')
+            this.element = new Element('label.' + Toolkit.vendor + 'radio')
                     .setProperty('for', radio.get('id'))
                     .inject(radio, 'after');
 
@@ -230,7 +230,7 @@
          * @returns {Toolkit.Input.Select}
          */
         buildButton: function(select) {
-            var vendor = Toolkit.options.vendor;
+            var vendor = Toolkit.vendor;
 
             this.element = new Element('div.' + vendor + 'select')
                 .grab(new Element('div.' + vendor + 'select-arrow').set('html', this.options.arrowContent))
@@ -253,7 +253,7 @@
          * @returns {Toolkit.Input.Select}
          */
         buildDropdown: function(select) {
-            var vendor = Toolkit.options.vendor,
+            var vendor = Toolkit.vendor,
                 options = this.options,
                 buildOption = this.buildOption,
                 dropdown = new Element('div.' + vendor + 'drop--down.' + vendor + 'select-options'),
@@ -305,7 +305,7 @@
             }
 
             if (select.multiple) {
-                dropdown.addClass(Toolkit.options.isPrefix + 'multiple');
+                dropdown.addClass('is-multiple');
             }
 
             this.wrapper.grab(dropdown.grab(list));
@@ -323,7 +323,7 @@
         buildOption: function(option, index) {
             var select = this.input,
                 dropdown = this.dropdown,
-                activeClass = Toolkit.options.isPrefix + 'active';
+                activeClass = 'is-active';
 
             // Create elements
             var li = new Element('li'),
@@ -335,7 +335,7 @@
             }
 
             if (description = this.readValue(option, this.options.getDescription)) {
-                content += ' <span class="' + Toolkit.options.vendor + 'drop-desc">' + description + '</span>';
+                content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
             }
 
             var a = new Element('a')
@@ -350,7 +350,7 @@
 
             // Attach no events for disabled options
             if (option.disabled) {
-                li.addClass(Toolkit.options.isPrefix + 'disabled');
+                li.addClass('is-disabled');
 
                 return li;
             }
@@ -394,7 +394,7 @@
          * @returns {Toolkit.Input.Select}
          */
         hide: function() {
-            this.element.removeClass(Toolkit.options.isPrefix + 'active');
+            this.element.removeClass('is-active');
 
             if (this.dropdown) {
                 this.dropdown.conceal();
@@ -411,7 +411,7 @@
          * @returns {Toolkit.Input.Select}
          */
         show: function() {
-            this.element.addClass(Toolkit.options.isPrefix + 'active');
+            this.element.addClass('is-active');
 
             if (this.dropdown) {
                 this.dropdown.reveal();
@@ -501,7 +501,7 @@
             }
 
             // Set the label
-            select.getParent().getElement('.' + Toolkit.options.vendor + 'select-label')
+            select.getParent().getElement('.' + Toolkit.vendor + 'select-label')
                 .set('text', label);
 
             this.fireEvent('change', [select.get('value'), selected]);
@@ -526,7 +526,7 @@
 
             var options = this.input.getElements('option'),
                 items = this.dropdown.getElements('a'),
-                activeClass = Toolkit.options.isPrefix + 'active',
+                activeClass = 'is-active',
                 index = this.index;
 
             switch (e.key) {

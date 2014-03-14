@@ -53,7 +53,7 @@ Toolkit.Matrix = new Class({
         this.options = this.inheritOptions(this.options, element);
 
         // Load elements
-        element.addClass(Toolkit.options.vendor + 'matrix');
+        element.addClass(Toolkit.vendor + 'matrix');
         this.items = element.getElements('> li');
 
         // Set events

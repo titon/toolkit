@@ -24,7 +24,7 @@
 
         // Fullscreen
         if (options.fullScreen) {
-            element.addClass(Toolkit.options.isPrefix + 'fullscreen');
+            element.addClass('is-fullscreen');
             options.draggable = false;
         }
 
