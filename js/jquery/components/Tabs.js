@@ -100,7 +100,7 @@
             if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
                 this.requestData(url,
                     function() {
-                        section.html(this._loadingTemplate())
+                        section.html(Toolkit.messages.loading)
                             .addClass('is-loading');
                     },
                     function(response) {
@@ -112,7 +112,7 @@
                             .removeClass('is-loading');
                     },
                     function() {
-                        section.html(this._errorTemplate())
+                        section.html(Toolkit.messages.error)
                             .removeClass('is-loading')
                             .addClass('has-failed');
                     }

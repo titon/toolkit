@@ -142,7 +142,7 @@ Toolkit.Tabs = new Class({
             this.requestData(
                 url,
                 function() {
-                    section.set('html', this._loadingTemplate())
+                    section.set('html', Toolkit.messages.loading)
                         .addClass('is-loading');
                 }.bind(this),
 
@@ -156,7 +156,7 @@ Toolkit.Tabs = new Class({
                 }.bind(this),
 
                 function() {
-                    section.set('html', this._errorTemplate())
+                    section.set('html', Toolkit.messages.error)
                         .removeClass('is-loading')
                         .addClass('has-failed');
                 }.bind(this)

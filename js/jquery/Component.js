@@ -316,7 +316,7 @@
                         .removeClass('is-loading')
                         .addClass('has-failed');
 
-                    this.position(this._errorTemplate());
+                    this.position(Toolkit.messages.error);
                 });
         },
 
@@ -357,30 +357,6 @@
          */
         _class: function() {
             return $.hyphenate(this.component).slice(1);
-        },
-
-        /**
-         * Return a DOM element for error messages.
-         *
-         * @private
-         * @returns {jQuery}
-         */
-        _errorTemplate: function() {
-            return $('<div/>')
-                .addClass(Toolkit.vendor + this._class() + '-error')
-                .text(Toolkit.messages.error);
-        },
-
-        /**
-         * Return a DOM element for loading messages.
-         *
-         * @private
-         * @returns {jQuery}
-         */
-        _loadingTemplate: function() {
-            return $('<div/>')
-                .addClass(Toolkit.vendor + this._class() + '-loading')
-                .text(Toolkit.messages.loading);
         }
 
     }, {

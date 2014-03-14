@@ -446,7 +446,7 @@ Toolkit.Component = new Class({
                 .removeClass('is-loading')
                 .addClass('has-failed');
 
-            this.position(this._errorTemplate());
+            this.position(Toolkit.messages.error);
         }.bind(this);
 
         new Request(ajax).send();
@@ -509,39 +509,6 @@ Toolkit.Component = new Class({
 
         return this;
     },
-
-    /**
-     * Return the element when the class is passed as an argument.
-     *
-     * @returns {Element}
-     */
-    toElement: function() {
-        return this.element;
-    },
-
-    /**
-     * Return a DOM element for error messages.
-     *
-     * @private
-     * @returns {Element}
-     */
-    _errorTemplate: function() {
-        return new Element('div.' + this.className().hyphenate().slice(1) + '-error', {
-            text: Toolkit.messages.error
-        });
-    }.protect(),
-
-    /**
-     * Return a DOM element for loading messages.
-     *
-     * @private
-     * @returns {Element}
-     */
-    _loadingTemplate: function() {
-        return new Element('div.' + this.className().hyphenate().slice(1) + '-loading', {
-            text: Toolkit.messages.loading
-        });
-    }.protect(),
 
     /**
      * Event handler to hide an element.
