@@ -21,7 +21,6 @@
         this.cache = {};
         this.events = events = {};
         this.runtime = {};
-        this.id = Toolkit.Tooltip.count += 1;
 
         // Update ARIA and remove class since were using runtime
         element

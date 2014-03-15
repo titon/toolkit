@@ -21,7 +21,6 @@
         this.cache = {};
         this.events = {};
         this.runtime = {};
-        this.id = Toolkit.Popover.count += 1;
 
         // Force to click for popovers
         options.mode = 'click';

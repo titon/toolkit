@@ -104,21 +104,27 @@ window.Toolkit = {
  * @returns {Function}
  */
 Toolkit.Class.extend = function(base, properties, options) {
-    $.extend(base.prototype, this.prototype, properties);
+    var Class = function() {
+        this.id = Class.count += 1;
+        base.apply(this, arguments);
+    };
 
-    // Use function as constructor
-    base.prototype.constructor = base;
+    // Inherit the prototype and merge properties
+    $.extend(Class.prototype, this.prototype, properties);
 
     // Inherit and set default options
-    base.options = $.extend(true, {}, this.options || {}, options || {});
+    Class.options = $.extend(true, {}, this.options || {}, options || {});
 
     // Inherit the extend method
-    base.extend = this.extend;
+    Class.extend = this.extend;
 
     // Count of total instances
-    base.count = 0;
+    Class.count = 0;
 
-    return base;
+    // Use base as constructor
+    Class.prototype.constructor = base;
+
+    return Class;
 };
 
 /**

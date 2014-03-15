@@ -21,7 +21,6 @@
         this.drag = null;
         this.cache = {};
         this.events = events = {};
-        this.id = Toolkit.Modal.count += 1;
 
         // Fullscreen
         if (options.fullScreen) {
