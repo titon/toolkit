@@ -11,6 +11,9 @@ Toolkit.Component = new Class({
     Implements: [Events, Options],
     Binds: ['onShow', 'onHide', 'position'],
 
+    /** Unique ID for this instance */
+    uid: 0,
+
     /** Cached data */
     cache: {},
 
@@ -47,6 +50,14 @@ Toolkit.Component = new Class({
      */
     initialize: function(options) {
         this.setOptions(options || {});
+
+        // Generate UID and class name
+        var className = this.className();
+
+        Toolkit[className].count = Toolkit[className].count || 0;
+
+        this.uid = Toolkit[className].count += 1;
+        this.cssClass = className.hyphenate().slice(1);
     },
 
     /**
@@ -239,6 +250,18 @@ Toolkit.Component = new Class({
     },
 
     /**
+     * Generate a unique CSS class name for the component and its arguments.
+     *
+     * @returns {String}
+     */
+    id: function() {
+        var list = Array.slice(arguments);
+            list.unshift('toolkit', this.cssClass, this.uid);
+
+        return list.join('-');
+    },
+
+    /**
      * Inherit options from the target elements data attributes.
      *
      * @param {Object} options
@@ -253,7 +276,7 @@ Toolkit.Component = new Class({
                 continue;
             }
 
-            value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+            value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
 
             if (typeOf(value) !== 'null') {
                 obj[key] = Toolkit.autobox(value);
@@ -347,7 +370,7 @@ Toolkit.Component = new Class({
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+        var value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
 
         if (typeOf(value) === 'null') {
             value = this.options[key];

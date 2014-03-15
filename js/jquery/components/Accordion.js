@@ -8,7 +8,7 @@
     'use strict';
 
     Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
-        var headers, sections;
+        var headers, sections, self = this;
 
         this.component = 'Accordion';
         this.version = '1.2.0';
@@ -27,18 +27,26 @@
         headers.each(function(index) {
             $(this)
                 .data('index', index)
-                .attr('role', 'tab')
+                .attr({
+                    role: 'tab',
+                    id: self.id('header', index)
+                })
                 .aria({
+                    controls: self.id('section', index),
                     selected: false,
                     expanded: false
                 });
         });
 
         // Cache the height so we can use for sliding and set ARIA attributes
-        sections.each(function() {
+        sections.each(function(index) {
             $(this)
                 .data('height', $(this).height())
-                .attr('role', 'tabpanel')
+                .attr({
+                    role: 'tabpanel',
+                    id: self.id('section', index)
+                })
+                .aria('labelledby', self.id('header', index))
                 .conceal();
         });
 

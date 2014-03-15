@@ -160,14 +160,31 @@
 
             // Trigger per element
             if (element && element.length) {
-                var name = this.component;
-                    name = name.charAt(0).toLowerCase() + name.slice(1);
+                var name = this.eventClass;
+
+                // Cache the name for future use
+                if (!name) {
+                    name = this.component;
+                    this.eventClass = name = name.charAt(0).toLowerCase() + name.slice(1);
+                }
 
                 var event = jQuery.Event(type + '.toolkit.' + name);
                     event.context = this;
 
                 element.trigger(event, args || []);
             }
+        },
+
+        /**
+         * Generate a unique CSS class name for the component and its arguments.
+         *
+         * @returns {String}
+         */
+        id: function() {
+            var list = $.makeArray(arguments);
+                list.unshift('toolkit', this._class(), this.uid);
+
+            return list.join('-');
         },
 
         /**
@@ -351,12 +368,17 @@
 
         /**
          * Return the component name hyphenated for use in CSS classes.
+         * Cache the result to reduce processing time.
          *
          * @private
          * @returns {string}
          */
         _class: function() {
-            return this.component.replace(/[A-Z]/g, function(match) {
+            if (this.cssClass) {
+                return this.cssClass;
+            }
+
+            return this.cssClass = this.component.replace(/[A-Z]/g, function(match) {
                 return ('-' + match.charAt(0).toLowerCase());
             }).slice(1);
         }

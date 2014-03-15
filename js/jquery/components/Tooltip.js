@@ -24,7 +24,7 @@
 
         // Update ARIA and remove class since were using runtime
         element
-            .attr('id', 'toolkit-tooltip-' + this.id)
+            .attr('id', this.id())
             .attr('role', 'tooltip')
             .removeClass(options.className);
 
@@ -95,7 +95,7 @@
 
             // Set ARIA
             if (this.node) {
-                this.node.aria('describedby', 'toolkit-' + this._class() + '-' + this.id);
+                this.node.aria('describedby', this.id());
             }
 
             // Set title

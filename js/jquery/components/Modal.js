@@ -44,8 +44,8 @@
         // Add aria attributes
         element
             .attr('role', 'dialog')
-            .aria('labelledby', 'toolkit-modal-title-' + this.id)
-            .aria('describedby', 'toolkit-modal-content-' + this.id);
+            .aria('labelledby', this.id('title'))
+            .aria('describedby', this.id('content'));
 
         // Initialize events
         events['clickout element'] = 'onHide';

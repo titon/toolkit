@@ -97,20 +97,20 @@ All required ARIA attributes will be automatically added to the component when i
 which will generate the following markup.
 
 ```html
-<div class="modal" role="dialog" aria-labelledby="toolkit-modal-title-1" aria-describedby="toolkit-modal-content-1">
+<div class="modal" role="dialog" aria-labelledby="toolkit-modal-1-title" aria-describedby="toolkit-modal-1-content">
     ...
 </div>
 ```
 
 The only requirement for fully supporting ARIA is adding the appropriate IDs to the content being inserted into the modal.
-We would need to add `toolkit-modal-title-#` and `toolkit-modal-content-#`, where `#` represents the modal instance.
+We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, where `#` represents the modal unique ID.
 
 ```html
-<div class="modal-head" id="toolkit-modal-title-1">
+<div class="modal-head" id="toolkit-modal-1-title">
     ...
 </div>
 
-<div class="modal-body" id="toolkit-modal-content-1">
+<div class="modal-body" id="toolkit-modal-1-content">
     ...
 </div>
 ```

@@ -172,6 +172,8 @@ Element.implement({
             value = 'false';
         }
 
+        console.log(key, value);
+
         return this.set('aria-' + key, value);
     }.overloadSetter(),
 

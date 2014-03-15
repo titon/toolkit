@@ -11,9 +11,6 @@ Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
     Binds: ['onFollow'],
 
-    /** Current count */
-    id: null,
-
     /** Inner elements */
     elementHead: null,
     elementBody: null,
@@ -60,13 +57,8 @@ Toolkit.Tooltip = new Class({
 
         options = this.options;
 
-        if (!this.id) {
-            this.id = Toolkit.Tooltip.count += 1;
-        }
-
         // Remove title attributes
-        var className = this.className().hyphenate(),
-            title = 'data' + className + '-title';
+        var title = 'data' + this.cssClass + '-title';
 
         // Fetch elements
         this.elementHead = this.element.getElement(options.titleElement);
@@ -74,7 +66,7 @@ Toolkit.Tooltip = new Class({
 
         // Add position class
         this.element
-            .set('id', 'toolkit' + className + '-' + this.id)
+            .set('id', this.id())
             .set('role', 'tooltip')
             .removeClass(options.className);
 
@@ -149,7 +141,7 @@ Toolkit.Tooltip = new Class({
 
         // Set ARIA
         if (this.node) {
-            this.node.aria('describedby', 'toolkit' + this.className().hyphenate() + '-' + this.id);
+            this.node.aria('describedby', this.id());
         }
 
         // Set title
@@ -256,9 +248,6 @@ Toolkit.Tooltip = new Class({
     }
 
 });
-
-    /** Total count of tooltips in the page */
-    Toolkit.Tooltip.count = 0;
 
     /**
      * Defines a component that can be instantiated through tooltip().

@@ -105,7 +105,7 @@ window.Toolkit = {
  */
 Toolkit.Class.extend = function(base, properties, options) {
     var Class = function() {
-        this.id = Class.count += 1;
+        this.uid = Class.count += 1;
         base.apply(this, arguments);
     };
 

@@ -27,7 +27,7 @@
 
         // Update ARIA and remove class since were using runtime
         element
-            .attr('id', 'toolkit-popover-' + this.id)
+            .attr('id', this.id())
             .attr('role', 'tooltip')
             .removeClass(options.className);
 

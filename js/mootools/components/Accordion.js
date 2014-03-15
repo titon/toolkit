@@ -42,7 +42,8 @@ Toolkit.Accordion = new Class({
 
         // Fetch all the sections and headers
         var sections = element.getElements(options.sectionElement),
-            headers = element.getElements(options.headerElement);
+            headers = element.getElements(options.headerElement),
+            self = this;
 
         this.headers = headers;
         this.sections = sections;
@@ -55,17 +56,21 @@ Toolkit.Accordion = new Class({
             header
                 .set('data-index', index)
                 .set('role', 'tab')
+                .set('id', self.id('header', index))
                 .aria({
+                    controls: self.id('section', index),
                     selected: false,
                     expanded: false
                 });
         });
 
         // Cache the height so we can use for sliding
-        sections.each(function(section) {
+        sections.each(function(section, index) {
             section
                 .set('data-height', section.getHeight())
                 .set('role', 'tabpanel')
+                .set('id', self.id('section', index))
+                .aria('labelledby', self.id('header', index))
                 .conceal();
         });
 
