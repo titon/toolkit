@@ -436,7 +436,8 @@ Toolkit.TypeAhead = new Class({
      */
     onCycle: function(e) {
         var items = this.items,
-            length =  items.length.limit(0, this.options.itemLimit);
+            length =  items.length.limit(0, this.options.itemLimit),
+            event = 'cycle';
 
         if (!length || !this.isVisible()) {
             return;
@@ -471,6 +472,7 @@ Toolkit.TypeAhead = new Class({
                     i++;
                 }
 
+                event = 'select';
                 this.index = i;
                 this.hide();
             break;
@@ -479,6 +481,7 @@ Toolkit.TypeAhead = new Class({
             case 'enter':
                 e.preventDefault();
 
+                event = 'select';
                 this.hide();
             break;
 
@@ -498,7 +501,7 @@ Toolkit.TypeAhead = new Class({
         }
 
         // Select the item
-        this.select(this.index, 'cycle');
+        this.select(this.index, event);
     },
 
     /**

@@ -374,7 +374,8 @@
          */
         onCycle: function(e) {
             var items = this.items,
-                length = Math.min(this.options.itemLimit, Math.max(0, items.length));
+                length = Math.min(this.options.itemLimit, Math.max(0, items.length)),
+                event = 'cycle';
 
             if (!length || !this.element.is(':shown')) {
                 return;
@@ -409,6 +410,7 @@
                         i++;
                     }
 
+                    event = 'select';
                     this.index = i;
                     this.hide();
                 break;
@@ -417,6 +419,7 @@
                 case 13:
                     e.preventDefault();
 
+                    event = 'select';
                     this.hide();
                 break;
 
@@ -436,7 +439,7 @@
             }
 
             // Select the item
-            this.select(this.index, 'cycle');
+            this.select(this.index, event);
         },
 
         /**
