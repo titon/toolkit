@@ -2,6 +2,16 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 1.2.1 ##
+* Fixed a bug with `throttle()` when 0 is passed as the delay
+* Pin
+    * Moved `onScroll()` logic into a new `pin()` method
+    * Updated to use `height()` instead of `outerHeight()` to take into account parent padding
+    * Updated to trigger pinning on page load
+* Type Ahead
+    * Added `preventDefault()` when enter is pressed to stop form submissions
+    * Fixed incorrect `cycle` and `select` events being triggered
+
 ## 1.2.0 ##
 This minor release includes thorough documentation for all components,
 a refactored event binding and management layer, a data attribute option inheritance layer,
@@ -65,7 +75,7 @@ and an optimization and cleanup pass. Also bug fixes.
     * Fixed an issue where select event names were incorrect
 * Input Group
     * Added small and large size support
-* LazyLoad
+* Lazy Load
     * Instantiation will need to be set on a container instead of the items being loaded
     * Added `data-src-retina` support
     * Added support for lazy loading within an overflown element
@@ -113,5 +123,5 @@ and an optimization and cleanup pass. Also bug fixes.
     * Moved zebra-striping into an `.is-striped` class
 * Tabs
     * Renamed `sectionsElement` option to `sectionElement`
-* TypeAhead
+* Type Ahead
     * Renamed `process()` to `source()`
