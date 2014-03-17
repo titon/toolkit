@@ -415,6 +415,8 @@
 
                 // Select current index (enter)
                 case 13:
+                    e.preventDefault();
+
                     this.hide();
                 break;
 
@@ -434,7 +436,7 @@
             }
 
             // Select the item
-            this.select(this.index);
+            this.select(this.index, 'cycle');
         },
 
         /**
