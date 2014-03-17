@@ -1,5 +1,15 @@
 # Changelog #
 
+## 1.2.1 ##
+* Fixed a bug with `throttle()` when 0 is passed as the delay
+* Pin
+    * Moved `onScroll()` logic into a new `pin()` method
+    * Updated to use `height()` instead of `outerHeight()` to take into account parent padding
+    * Updated to trigger pinning on page load
+* Type Ahead
+    * Added `preventDefault()` when enter is pressed to stop form submissions
+    * Fixed incorrect `cycle` and `select` events being triggered
+
 ## 1.2.0 ##
 This minor release includes thorough documentation for all components,
 a refactored event binding and management layer, a data attribute option inheritance layer,
