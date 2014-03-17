@@ -28,9 +28,9 @@
         var throttle = options.throttle;
 
         this.events = {
-            'scroll window': throttle ? $.throttle(this.onScroll.bind(this), throttle) : 'onScroll',
-            'resize window': throttle ? $.throttle(this.onResize.bind(this), throttle) : 'onResize',
-            'ready document': 'calculate'
+            'scroll window': $.throttle(this.onScroll.bind(this), throttle),
+            'resize window': $.throttle(this.onResize.bind(this), throttle),
+            'ready document': 'onResize'
         };
 
         this.enable();
@@ -50,40 +50,28 @@
             };
 
             this.elementHeight = this.element.outerHeight();
-            this.parentHeight = parent.outerHeight();
+            this.parentHeight = parent.height();
             this.parentTop = parent.offset().top;
 
             // Enable pin if the parent is larger than the child
-            this.active = (this.parentHeight > this.elementHeight);
+            this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
         },
 
         /**
-         * Determine whether to pin or unpin.
-         *
-         * @private
+         * Pin the element along the vertical axis while staying contained within the parent.
          */
-        onResize: function() {
-            this.calculate();
-            this.fireEvent('resize');
-        },
+        pin: function() {
+            var options = this.options;
 
-        /**
-         * While the viewport is being scrolled, the element should move vertically along with it.
-         * The element should also stay contained within the parent element.
-         *
-         * @private
-         */
-        onScroll: function() {
-            if (this.options.calculate) {
+            if (options.calculate) {
                 this.calculate();
             }
 
-            if (!this.active || this.element.is(':hidden')) {
+            if (!this.active) {
                 return;
             }
 
-            var options = this.options,
-                isFixed = options.fixed,
+            var isFixed = options.fixed,
                 eHeight = this.elementHeight,
                 eTop = this.elementTop,
                 pHeight = this.parentHeight,
@@ -142,7 +130,27 @@
             this.element
                 .css(pos)
                 .addClass(isPrefix + 'pinned');
+        },
 
+        /**
+         * Determine whether to pin or unpin.
+         *
+         * @private
+         */
+        onResize: function() {
+            this.calculate();
+            this.pin();
+            this.fireEvent('resize');
+        },
+
+        /**
+         * While the viewport is being scrolled, the element should move vertically along with it.
+         * The element should also stay contained within the parent element.
+         *
+         * @private
+         */
+        onScroll: function() {
+            this.pin();
             this.fireEvent('scroll');
         }
 

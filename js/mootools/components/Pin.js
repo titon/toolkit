@@ -49,7 +49,10 @@ Toolkit.Pin = new Class({
         this.options = this.inheritOptions(this.options, element);
 
         // Set defaults
-        element.addClass(Toolkit.options.vendor + 'pin');
+        element
+            .addClass(Toolkit.options.vendor + 'pin')
+            .addClass(options.animation);
+
         this.elementTop = element.getStyle('top').toInt();
 
         // Initialize events
@@ -57,7 +60,7 @@ Toolkit.Pin = new Class({
             throttle = this.options.throttle;
 
         this.events = events = {
-            'ready document': 'calculate'
+            'ready document': 'onResize'
         };
 
         events['scroll:throttle(' + throttle + ') window'] = 'onScroll';
@@ -78,33 +81,20 @@ Toolkit.Pin = new Class({
         this.parentSize = this.element.getParent(this.options.context).getCoordinates();
 
         // Enable pin if the parent is larger than the child
-        this.active = (this.parentSize.height > this.elementSize.height);
+        this.active = (this.element.isVisible() && this.parentSize.height > this.elementSize.height);
 
         return this;
     },
 
     /**
-     * Determine whether to pin or unpin.
-     *
-     * @private
+     * Pin the element along the vertical axis while staying contained within the parent.
      */
-    onResize: function() {
-        this.calculate();
-        this.fireEvent('resize');
-    },
-
-    /**
-     * While the viewport is being scrolled, the element should move vertically along with it.
-     * The element should also stay contained within the parent element.
-     *
-     * @private
-     */
-    onScroll: function() {
+    pin: function() {
         if (this.options.calculate) {
             this.calculate();
         }
 
-        if (!this.active || !this.isVisible()) {
+        if (!this.active) {
             return;
         }
 
@@ -143,7 +133,7 @@ Toolkit.Pin = new Class({
                 pos.bottom = 'auto';
             }
 
-        // Stop positioning absolute menu once it exits the parent
+            // Stop positioning absolute menu once it exits the parent
         } else {
             pos.position = 'absolute';
 
@@ -167,6 +157,28 @@ Toolkit.Pin = new Class({
             .setStyles(pos)
             .addClass(Toolkit.options.isPrefix + 'pinned');
 
+        this.fireEvent('scroll');
+    },
+
+    /**
+     * Determine whether to pin or unpin.
+     *
+     * @private
+     */
+    onResize: function() {
+        this.calculate();
+        this.pin();
+        this.fireEvent('resize');
+    },
+
+    /**
+     * While the viewport is being scrolled, the element should move vertically along with it.
+     * The element should also stay contained within the parent element.
+     *
+     * @private
+     */
+    onScroll: function() {
+        this.pin();
         this.fireEvent('scroll');
     }
 
