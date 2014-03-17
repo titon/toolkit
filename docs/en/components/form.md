@@ -21,11 +21,6 @@ This class will style, align and position elements uniformly within a form.
 
 All types of `input` are supported, including the latest HTML5 variants.
 
-<div class="notice is-error">
-    As a side effect in styling selects in WebKit browsers,
-    their arrow will be missing and will have to manually be fixed.
-</div>
-
 Inputs should be paired with `.field` for structuring, and `.field-label` for association.
 Both of which are required for horizontal and inline forms (more on this below).
 
@@ -35,6 +30,11 @@ Both of which are required for horizontal and inline forms (more on this below).
     <input class="input" type="text" name="username" id="username">
 </div>
 ```
+
+<div class="notice is-error">
+    As a side effect in styling selects in WebKit browsers,
+    their arrow will be missing and will have to manually be fixed.
+</div>
 
 ### Radios & Checkboxes ###
 

@@ -142,7 +142,7 @@ Small is designed for all mobile devices and tablets in portrait mode.
 Medium is designed for tablets in landscape mode, and small screened desktops and laptops.
 Large is designed for wide screen desktops and displays.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -198,7 +198,7 @@ Mobile is designed for mobile devices in landscape and portrait.
 Tablet is designed for tablet devices in landscape and portrait.
 Desktop is designed for all devices larger than tablet in landscape.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -296,7 +296,7 @@ Or we can [customize our own grids](../development/sass.md#grid-building).
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>

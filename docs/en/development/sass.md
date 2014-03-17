@@ -1,4 +1,4 @@
-# Sass Development #
+# Sass #
 
 * [Variables](#variables)
 * [Mixins](#mixins)
@@ -12,7 +12,7 @@
 Toolkit provides many variables for adjusting and modifying functionality within the Sass layer &mdash;
 it *does not* provide variables for property styling. This can and should be achieved by writing Sass (or CSS) after installing Toolkit.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
@@ -335,7 +335,7 @@ it *does not* provide variables for property styling. This can and should be ach
 Mixins are a powerful Sass feature that allow for modularity and re-use of code. Toolkit comes bundle with a handful of mixins
 that solve everyday problems like grid building, style resets, and media query management.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Mixin</th>
@@ -546,7 +546,7 @@ that solve everyday problems like grid building, style resets, and media query m
 Like mixins, functions allow re-use of code. The following functions exist within Toolkit,
 and more information on their use can be found below.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Function</th>

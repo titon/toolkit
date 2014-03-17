@@ -1,5 +1,5 @@
 # Development #
 
-* [CSS](css.md)
 * [JavaScript](js.md)
+* [CSS](css.md)
 * [Sass](sass.md)

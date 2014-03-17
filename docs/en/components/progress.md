@@ -82,7 +82,7 @@ Place multiple bars within a `.progress` to stack them horizontally.
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>

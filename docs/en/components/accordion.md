@@ -51,7 +51,7 @@ $('.accordion').accordion();
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
@@ -72,7 +72,7 @@ $('.accordion').accordion();
 
 Inherits all options from the [parent component](../development/js.md#options).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -128,7 +128,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 Inherits all events from the [parent component](../development/js.md#events).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -157,7 +157,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 Inherits all properties from the [parent component](../development/js.md#properties).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -199,7 +199,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 Inherits all methods from the [parent component](../development/js.md#methods).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>

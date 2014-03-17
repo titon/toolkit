@@ -82,7 +82,7 @@ that fluctuate in a clockwise manner.
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>

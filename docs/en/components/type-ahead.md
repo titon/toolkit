@@ -8,7 +8,6 @@ A type ahead (also known as an autocomplete) attempts to predict and suggest a l
 items based on the current input from a user. The data used to generate suggestions
 can be packaged in multiple ways, as well as be sorted and grouped.
 
-
 A type ahead component must be initialized on an input field, so that key press events can be monitored.
 
 ```html
@@ -19,8 +18,10 @@ A type ahead component must be initialized on an input field, so that key press 
 $('#input').typeAhead();
 ```
 
-A data source must be defined to query against.
-Continue reading for more information on data sources.
+<div class="notice is-warning">
+    A data source must be defined to query against.
+    Continue reading for more information on data sources.
+</div>
 
 ### Data Source ###
 
@@ -85,7 +86,7 @@ The following fields are available for each item in the data set.
 Custom fields can also be defined and used within `builder` callbacks,
 and when an item is selected.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Field</th>
@@ -213,7 +214,7 @@ $('#input').typeAhead({
 
 Inherits all options from the [parent component](../development/js.md#options).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -296,7 +297,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 Inherits all events from the [parent component](../development/js.md#events).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -331,7 +332,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 Inherits all properties from the [parent component](../development/js.md#properties).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -377,7 +378,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 Inherits all methods from the [parent component](../development/js.md#methods).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>

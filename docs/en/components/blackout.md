@@ -18,12 +18,14 @@ var blackout = Toolkit.Blackout.factory();
     blackout.show();
 ```
 
-For the most part, the blackout should rarely be interacted with manually.
-Components that integrate the blackout will handle situations accordingly.
+<div class="notice is-info">
+    For the most part, the blackout should rarely be interacted with manually.
+    Components that integrate the blackout will handle situations accordingly.
+</div>
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
@@ -49,7 +51,7 @@ Components that integrate the blackout will handle situations accordingly.
 
 Since the blackout is a singleton, [options will need to be set globally](../development/js.md#options).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -101,7 +103,7 @@ The `{vendor}` value will be replaced with `Toolkit.options.vendor`.
 
 Inherits all events from the [parent component](../development/js.md#events).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -150,7 +152,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 Inherits all properties from the [parent component](../development/js.md#properties).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -184,7 +186,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 Inherits all methods from the [parent component](../development/js.md#methods).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>

@@ -39,7 +39,7 @@ then the value will be used as a URL to request, and the response will be insert
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
@@ -65,7 +65,7 @@ then the value will be used as a URL to request, and the response will be insert
 
 Inherits all options from the [parent component](../development/js.md#options).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>

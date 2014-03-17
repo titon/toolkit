@@ -1,4 +1,4 @@
-# CSS Development #
+# CSS #
 
 A few pointers on using and understanding the CSS behind Toolkit.
 

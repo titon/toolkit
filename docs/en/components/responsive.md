@@ -21,7 +21,7 @@ Very useful for responsive designs!
 
 Use these for toggling content based on the viewport width.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -70,7 +70,7 @@ Use these for toggling content based on the viewport width.
     </tbody>
 </table>
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -128,7 +128,7 @@ Use these for toggling content based on the viewport width.
 
 Use these for toggling content based on device orientation.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -164,7 +164,7 @@ Use these for toggling content based on device orientation.
 
 Use these for toggling content based on screen quality (retina and HD displays).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
@@ -190,7 +190,7 @@ Use these for toggling content based on screen quality (retina and HD displays).
 
 Use these for toggling content for print.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
