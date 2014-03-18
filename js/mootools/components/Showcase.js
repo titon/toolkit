@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Showcase = new Class({
     Extends: Toolkit.Component,
     Binds: ['next', 'prev', 'onJump'],
@@ -438,11 +435,9 @@ Toolkit.Showcase = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through showcase().
-     */
-    Toolkit.create('showcase', function(options) {
-        return new Toolkit.Showcase(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through showcase().
+ */
+Toolkit.create('showcase', function(options) {
+    return new Toolkit.Showcase(this, options);
+}, true);

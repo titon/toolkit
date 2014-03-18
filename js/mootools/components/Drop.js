@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Drop = new Class({
     Extends: Toolkit.Component,
 
@@ -104,11 +101,9 @@ Toolkit.Drop = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through drop().
-     */
-    Toolkit.create('drop', function(options) {
-        return new Toolkit.Drop(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through drop().
+ */
+Toolkit.create('drop', function(options) {
+    return new Toolkit.Drop(this, options);
+}, true);

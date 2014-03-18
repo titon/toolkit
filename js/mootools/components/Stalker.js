@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Stalker = new Class({
     Extends: Toolkit.Component,
     Binds: ['onScroll'],
@@ -177,11 +174,9 @@ Toolkit.Stalker = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through stalker().
-     */
-    Toolkit.create('stalker', function(options) {
-        return new Toolkit.Stalker(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through stalker().
+ */
+Toolkit.create('stalker', function(options) {
+    return new Toolkit.Stalker(this, options);
+});

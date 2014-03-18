@@ -4,10 +4,9 @@
  * @link        http://titon.io
  */
 
-(function(window) {
-    'use strict';
+'use strict';
 
-window.Toolkit = {
+var Toolkit = {
 
     /** Current version */
     version: '%version%',
@@ -94,6 +93,9 @@ window.Toolkit = {
     Class: function() {}
 
 };
+
+// Make it available
+window.Toolkit = Toolkit;
 
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
@@ -202,7 +204,7 @@ $.fn.aria = (function() {
 
             element.setAttribute('aria-' + key, value);
         }, key, value, arguments.length > 1);
-    }
+    };
 })();
 
 /**
@@ -681,5 +683,3 @@ if (!Function.prototype.bind) {
         return bound;
     };
 }
-
-})(window);

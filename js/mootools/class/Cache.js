@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function(window) {
-    'use strict';
-
 window.Cache = new Class({
 
     /** Storage engine */
@@ -157,5 +154,3 @@ window.Cache = new Class({
     }
 
 });
-
-})(window);

@@ -1,0 +1,28 @@
+{
+    "browser": true,
+    "mootools": true,
+    "jquery": true,
+
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": true,
+    "noempty": true,
+    "quotmark": "single",
+    "strict": false,
+    "undef": true,
+    "unused": true,
+
+    "boss": true,
+    "globalstrict": true,
+    "trailing": true,
+    "scripturl": true,
+
+    "globals": {
+        "Toolkit": true,
+        "Timers": true,
+        "Cache": true,
+        "Zepto": true,
+        "DocumentTouch": true
+    }
+}

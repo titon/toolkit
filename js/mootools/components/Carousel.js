@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Carousel = new Class({
     Extends: Toolkit.Component,
     Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump'],
@@ -290,11 +287,9 @@ Toolkit.Carousel = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through carousel().
-     */
-    Toolkit.create('carousel', function(options) {
-        return new Toolkit.Carousel(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through carousel().
+ */
+Toolkit.create('carousel', function(options) {
+    return new Toolkit.Carousel(this, options);
+});

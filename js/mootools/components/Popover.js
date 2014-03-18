@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Popover = new Class({
     Extends: Toolkit.Tooltip,
 
@@ -41,11 +38,9 @@ Toolkit.Popover = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through popover().
-     */
-    Toolkit.create('popover', function(options) {
-        return new Toolkit.Popover(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through popover().
+ */
+Toolkit.create('popover', function(options) {
+    return new Toolkit.Popover(this, options);
+}, true);

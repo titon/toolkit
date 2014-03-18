@@ -82,12 +82,12 @@ module.exports = function(grunt) {
         var mooPath = path.replace('library', 'mootools'),
             jqPath = path.replace('library', 'jquery');
 
-        mooConcatPaths.push('build/' + mooPath);
+        mooConcatPaths.push(mooPath);
         mooUglifyPaths['build/' + mooPath] = mooPath;
 
         // jQuery doesn't have these files
         if (!_.contains(path, 'Cache.js') && !_.contains(path, 'Timers.js')) {
-            jqConcatPaths.push('build/' + jqPath);
+            jqConcatPaths.push(jqPath);
             jqUglifyPaths['build/' + jqPath] = jqPath;
         }
     });
@@ -158,33 +158,7 @@ module.exports = function(grunt) {
         // 1) Validate the Javascript source directory
         // http://jshint.com/docs/
         jshint: {
-            options: {
-                globals: {
-                    Toolkit: true,
-                    Timers: true,
-                    Cache: true,
-                    Jquery: true,
-                    Zepto: true,
-                    DocumentTouch: true
-                },
-                browser: true,
-                mootools: true,
-                jquery: true,
-                // enforcing
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                noempty: true,
-                quotmark: 'single',
-                undef: true,
-                unused: 'vars',
-                strict: true,
-                trailing: true,
-                // relaxing
-                boss: true,
-                scripturl: true
-            },
+            options: grunt.file.readJSON('.jshintrc'),
             files: ['js/**/*.js']
         },
 
@@ -209,30 +183,11 @@ module.exports = function(grunt) {
             }
         },
 
-        // 3) Minify Javascript
-        // http://lisperator.net/uglifyjs/
-        uglify: {
-            options: {
-                report: 'min'
-            },
-            build: {
-                options: {
-                    mangle: false,
-                    compress: false,
-                    beautify: true
-                },
-                files: [jqUglifyPaths, mooUglifyPaths]
-            },
-            dist: {
-                files: [jqUglifyPaths, mooUglifyPaths]
-            }
-        },
-
-        // 4) Combine the JS and CSS components into a single file
-        // https://npmjs.org/package/grunt-contrib-concat
+        // 3) Combine the JS and CSS components into a single file
+        // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
             options: {
-                banner: createBanner(),
+                stripBanners: true,
                 separator: ''
             },
             build: {
@@ -243,10 +198,40 @@ module.exports = function(grunt) {
                 ]
             },
             dist: {
+                files: prepareDistribution(cssPaths, jqConcatPaths, mooConcatPaths)
+            }
+        },
+
+        // 4) Minify Javascript using the concatenated file
+        // http://lisperator.net/uglifyjs/
+        uglify: {
+            options: {
+                report: 'min',
+                enclose: {
+                    window: 'window',
+                    jQuery: '$'
+                }
+            },
+            build: {
+                options: {
+                    mangle: false,
+                    compress: false,
+                    beautify: true,
+                    banner: createBanner()
+                },
+                files: {
+                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
+                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                }
+            },
+            dist: {
                 options: {
                     banner: createBanner(true)
                 },
-                files: prepareDistribution(cssPaths, jqConcatPaths, mooConcatPaths)
+                files: {
+                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
+                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                }
             }
         },
 
@@ -323,5 +308,5 @@ module.exports = function(grunt) {
     grunt.registerTask('validate', ['jshint']);
     grunt.registerTask('distribute', ['jshint', 'compass:dist', 'uglify:dist', 'concat:dist', 'string-replace:dist']);
     grunt.registerTask('production', ['jshint', 'compass:dist', 'uglify:dist', 'concat:build', 'string-replace:build']);
-    grunt.registerTask('default', ['jshint', 'compass:build', 'uglify:build', 'concat:build', 'string-replace:build']);
+    grunt.registerTask('default', ['jshint', 'compass:build', 'concat:build', 'uglify:build', 'string-replace:build']);
 };

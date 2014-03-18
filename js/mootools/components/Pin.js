@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Pin = new Class({
     Extends: Toolkit.Component,
     Binds: ['onResize', 'onScroll'],
@@ -182,11 +179,9 @@ Toolkit.Pin = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through pin().
-     */
-    Toolkit.create('pin', function(options) {
-        return new Toolkit.Pin(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through pin().
+ */
+Toolkit.create('pin', function(options) {
+    return new Toolkit.Pin(this, options);
+});

@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Mask = new Class({
     Extends: Toolkit.Component,
 
@@ -127,11 +124,9 @@ Toolkit.Mask = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through mask().
-     */
-    Toolkit.create('mask', function(options) {
-        return new Toolkit.Mask(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through mask().
+ */
+Toolkit.create('mask', function(options) {
+    return new Toolkit.Mask(this, options);
+});

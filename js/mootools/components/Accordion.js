@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Accordion = new Class({
     Extends: Toolkit.Component,
 
@@ -181,11 +178,9 @@ Toolkit.Accordion = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through accordion().
-     */
-    Toolkit.create('accordion', function(options) {
-        return new Toolkit.Accordion(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through accordion().
+ */
+Toolkit.create('accordion', function(options) {
+    return new Toolkit.Accordion(this, options);
+});

@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Tabs = new Class({
     Extends: Toolkit.Component,
 
@@ -213,11 +210,9 @@ Toolkit.Tabs = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through tabs().
-     */
-    Toolkit.create('tabs', function(options) {
-        return new Toolkit.Tabs(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through tabs().
+ */
+Toolkit.create('tabs', function(options) {
+    return new Toolkit.Tabs(this, options);
+});

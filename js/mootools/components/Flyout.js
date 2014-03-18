@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Flyout = new Class({
     Extends: Toolkit.Component,
     Implements: [Timers],
@@ -443,11 +440,9 @@ Toolkit.Flyout = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through flyout().
-     */
-    Toolkit.create('flyout', function(url, options) {
-        return new Toolkit.Flyout(this, url, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through flyout().
+ */
+Toolkit.create('flyout', function(url, options) {
+    return new Toolkit.Flyout(this, url, options);
+}, true);

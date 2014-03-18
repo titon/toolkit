@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Blackout = new Class({
     Extends: Toolkit.Component,
 
@@ -156,5 +153,3 @@ Toolkit.Blackout.factory = function(options) {
 
     return instance = new Toolkit.Blackout(options);
 };
-
-})();

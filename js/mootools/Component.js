@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Component = new Class({
     Implements: [Events, Options],
     Binds: ['onShow', 'onHide', 'position'],
@@ -592,5 +589,3 @@ Toolkit.Component = new Class({
     }
 
 });
-
-})();

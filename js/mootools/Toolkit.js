@@ -4,10 +4,9 @@
  * @link        http://titon.io
  */
 
-(function(window) {
-    'use strict';
+'use strict';
 
-window.Toolkit = {
+var Toolkit = {
 
     /** Current version */
     version: '%version%',
@@ -112,6 +111,9 @@ window.Toolkit = {
     }
 
 };
+
+// Make it available
+window.Toolkit = Toolkit;
 
 /**
  * Prototype overrides.
@@ -462,6 +464,3 @@ Element.Properties.html.set = function(html) {
 
     return this;
 };
-
-})(window);
-

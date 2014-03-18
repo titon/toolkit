@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
     Binds: ['onFollow'],
@@ -249,11 +246,9 @@ Toolkit.Tooltip = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through tooltip().
-     */
-    Toolkit.create('tooltip', function(options) {
-        return new Toolkit.Tooltip(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through tooltip().
+ */
+Toolkit.create('tooltip', function(options) {
+    return new Toolkit.Tooltip(this, options);
+}, true);

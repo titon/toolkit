@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
     Binds: ['onSubmit'],
@@ -247,11 +244,9 @@ Toolkit.Modal = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through modal().
-     */
-    Toolkit.create('modal', function(options) {
-        return new Toolkit.Modal(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through modal().
+ */
+Toolkit.create('modal', function(options) {
+    return new Toolkit.Modal(this, options);
+}, true);
