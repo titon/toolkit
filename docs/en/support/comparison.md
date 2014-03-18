@@ -13,7 +13,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
 
 ## Components ##
 
-<table class="table comparison-table">
+<table class="table is-striped comparison-table">
     <thead>
         <tr>
             <th>Component</th>
@@ -485,7 +485,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
 
 ## Features ##
 
-<table class="table comparison-table">
+<table class="table is-striped comparison-table">
     <thead>
         <tr>
             <th>Feature</th>
@@ -531,6 +531,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>NPM</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>Ruby Gems</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
@@ -611,6 +618,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>Right-to-Left</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>ARIA</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>

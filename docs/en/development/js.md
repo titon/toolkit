@@ -1,4 +1,4 @@
-# JavaScript Development #
+# JavaScript #
 
 The ins and outs of the JavaScript layer within Toolkit.
 
@@ -77,17 +77,17 @@ $('#tabs-1').toolkit('tabs').sections; // collection of section elements
 
 Toolkit has no concept of `noConflict()` that is found in other libraries.
 Instead it has an automatic conflict resolution, where methods are renamed if one already exists.
-For example, when using the tooltip component as a jQuery plugin under the name `tooltip()`,
-and that name is already taken (by jQuery UI for example), the plugin is renamed to `toolkitTooltip()`.
+For example, when using the tooltip component under the name `tooltip()`,
+and that name is already taken (by jQuery UI for example), the method is renamed to `toolkitTooltip()`.
 
 ```javascript
 $('.js-tooltip').tooltip();
 
-// Becomes
+// Automatically becomes
 $('.js-tooltip').toolkitTooltip();
 ```
 
-If for any reason the jQuery plugin is lost, or overridden by another library,
+If for any reason the Toolkit method is lost, or overridden by another library,
 components can be instantiated manually outside of the jQuery or MooTools syntax.
 
 ```javascript
@@ -109,7 +109,7 @@ Each component class definition can be found on the `Toolkit` object, for exampl
 The following options are used to alter all components and are found under `Toolkit.options`.
 They can be modified in a similar fashion to component options (more information above).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -154,7 +154,7 @@ $.extend(Toolkit.options, {
 The following messages are used within AJAX calls and are found under `Toolkit.messages`.
 They are represented as an object allowing for easy localization, and can be modified similar to an options object.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Message</th>
@@ -188,7 +188,7 @@ $.extend(Toolkit.messages, {
 The following flags are used for feature detection within components.
 Each flag can be found on the `Toolkit` object.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Flag</th>
@@ -395,7 +395,7 @@ $('.js-tooltip').tooltip({
 
 The following options are shared between all components.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>
@@ -488,7 +488,7 @@ and all `show.toolkit.tabs` event handlers will trigger.
 
 The following events are shared between all components.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option Event</th>
@@ -543,7 +543,7 @@ The following events are shared between all components.
 
 The following properties are available on all class instances, but not all components make use of them.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Property</th>
@@ -622,7 +622,7 @@ Either read the source code or the individual documentation for a list of proper
 
 The following methods are available on all class instances, but not all components make use of them.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>
@@ -738,7 +738,7 @@ Well don't worry, that's exactly what Toolkit has done.
 We extended the prototype of each vendor with new functionality that eased component development.
 These extensions may even solve a problem in your own codebase.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Extension</th>
@@ -747,49 +747,37 @@ These extensions may even solve a problem in your own codebase.
         </tr>
     </thead>
     <tbody>
+        <tr class="table-divider">
+            <td colspan="3">Methods</td>
+        </tr>
         <tr>
-            <td>jQuery.prototype.toolkit(string:component)</td>
-            <td>jQuery</td>
-            <td rowspan="2">
+            <td>toolkit(string:component)</td>
+            <td>Both</td>
+            <td>
                 Return an instance of a component if one has been bound on this element.
                 If an array of elements is queried, an array of component instances will be returned.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.toolkit(string:component)</td>
-            <td>MooTools</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.reveal()</td>
-            <td>jQuery</td>
-            <td rowspan="2">
+            <td>reveal()</td>
+            <td>Both</td>
+            <td>
                 Show an element by replacing <code>.hide</code> with <code>.show</code>.
                 Will trigger any animations or transitions.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.reveal()</td>
-            <td>MooTools</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.conceal()</td>
-            <td>jQuery</td>
-            <td rowspan="2">
+            <td>conceal()</td>
+            <td>Both</td>
+            <td>
                 Hide an element by replacing <code>.show</code> with <code>.hide</code>.
                 Will trigger any animations or transitions.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.conceal()</td>
-            <td>MooTools</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
-            <td>jQuery</td>
-            <td rowspan="2">
+            <td>positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
+            <td>Both</td>
+            <td>
                 Position the element relative to another element.
                 <code>position</code> may be any combination of top, bottom, left, right, and center, in dashed format.
                 <code>relativeTo</code> may either be an element or event (used with <code>isMouse</code> for mouse following).
@@ -799,39 +787,27 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
-            <td>MooTools</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.expr[':'].shown</td>
+            <td>is(':shown')</td>
             <td>jQuery</td>
             <td rowspan="2">
                 Determines whether an element is visible or not by checking that <code>visibility</code> is not equal to hidden.
                 Is used in conjunction with <code>conceal()</code> and <code>reveal()</code> for animating.
-                The jQuery version can be called as such: <code>$('.query').is(':shown')</code>.
             </td>
         </tr>
         <tr>
-            <td>Element.prototype.isShown()</td>
+            <td>isShown()</td>
             <td>MooTools</td>
         </tr>
-
         <tr>
-            <td>jQuery.prototype.i(int:index)</td>
+            <td>i(int:index)<br> item(int:index)</td>
             <td>jQuery</td>
-            <td rowspan="2">
+            <td>
                 Return a jQuery wrapped value from the current jQuery collection defined by the index number.
                 This is equivalent to <code>$($('.query')[0])</code> or <code>$($('.query').get(0))</code>.
             </td>
         </tr>
         <tr>
-            <td>jQuery.prototype.item(int:index)</td>
-            <td>jQuery</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.addData(string:key, mixed:value)</td>
+            <td>addData(string:key, mixed:value)</td>
             <td>jQuery</td>
             <td>
                 Set data if the key does not exist, else return the current value.
@@ -839,78 +815,9 @@ These extensions may even solve a problem in your own codebase.
             </td>
         </tr>
 
-        <tr>
-            <td>jQuery.event.special.clickout</td>
-            <td>jQuery</td>
-            <td rowspan="2">
-                A custom event that triggers when a click occurs outside the element that has been bound.
-                Is used by drop downs, dialogs, modals, etc.
-            </td>
+        <tr class="table-divider">
+            <td colspan="3">Functions</td>
         </tr>
-        <tr>
-            <td>Element.Events.clickout</td>
-            <td>MooTools</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.clickout(object:data[, func:func])</td>
-            <td>jQuery</td>
-            <td>
-                A shortcut method for setting a "clickout" event.
-                If called without any arguments, will trigger the event.
-            </td>
-        </tr>
-
-        <tr>
-            <td>jQuery.event.special.swipe</td>
-            <td>jQuery</td>
-            <td rowspan="5">
-                Custom events that emulate swiping on touch devices. If the device is non-touch,
-                standard mouse events are used instead.
-            </td>
-        </tr>
-        <tr>
-            <td>jQuery.event.special.swipeleft</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.event.special.swiperight</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.event.special.swipeup</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.event.special.swipedown</td>
-            <td>jQuery</td>
-        </tr>
-
-        <tr>
-            <td>jQuery.prototype.swipe(object:data[, func:func])</td>
-            <td>jQuery</td>
-            <td rowspan="5">
-                Shortcut methods for setting "swipe", "swipeleft", "swiperight", "swipeup", or "swipedown" events.
-                If called without any arguments, will trigger the event.
-            </td>
-        </tr>
-        <tr>
-            <td>jQuery.prototype.swipeleft(object:data[, func:func])</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.prototype.swiperight(object:data[, func:func])</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.prototype.swipeup(object:data[, func:func])</td>
-            <td>jQuery</td>
-        </tr>
-        <tr>
-            <td>jQuery.prototype.swipedown(object:data[, func:func])</td>
-            <td>jQuery</td>
-        </tr>
-
         <tr>
             <td>jQuery.debounce(func:func[, int:threshold[, bool:immediate]])</td>
             <td>jQuery</td>
@@ -922,7 +829,6 @@ These extensions may even solve a problem in your own codebase.
             <td>Function.prototype.debounce([int:threshold[, bool:immediate]])</td>
             <td>MooTools</td>
         </tr>
-
         <tr>
             <td>jQuery.throttle(func:func[, int:delay[, array:args]])</td>
             <td>jQuery</td>
@@ -930,31 +836,30 @@ These extensions may even solve a problem in your own codebase.
                 Throttle the execution of a function so it triggers at every delay interval.
             </td>
         </tr>
-
         <tr>
             <td>jQuery.bound(int:value, int:max[, int:min])</td>
             <td>jQuery</td>
-            <td>Bound a number between a min and max range.</td>
+            <td rowspan="2">Bound a number between a min and max range.</td>
         </tr>
-
+        <tr>
+            <td>Number.prototype.bound(int:value, int:max[, int:min])</td>
+            <td>MooTools</td>
+        </tr>
         <tr>
             <td>jQuery.hyphenate(string:string)</td>
             <td>jQuery</td>
             <td>Convert uppercase character strings to a lower case dashed form.</td>
         </tr>
-
         <tr>
             <td>jQuery.cookie(string:key, mixed:value[, object:options])</td>
             <td>jQuery</td>
             <td>Set a cookie with a value. Can define optional settings.</td>
         </tr>
-
         <tr>
             <td>jQuery.removeCookie(string:key[, object:options])</td>
             <td>jQuery</td>
             <td>Remove a cookie defined by key.</td>
         </tr>
-
         <tr>
             <td>Array.prototype.chunk(int:size)</td>
             <td>MooTools</td>
@@ -962,13 +867,32 @@ These extensions may even solve a problem in your own codebase.
                 Split an array into multiple chunked arrays.
             </td>
         </tr>
-
         <tr>
             <td>Function.prototype.bind(func:func)</td>
             <td>jQuery</td>
             <td>
                 Alters the <code>this</code> context of bound functions.
                 A polyfill for ECMA5 functionality.
+            </td>
+        </tr>
+
+        <tr class="table-divider">
+            <td colspan="3">Events</td>
+        </tr>
+        <tr>
+            <td>clickout</td>
+            <td>Both</td>
+            <td>
+                A custom event that triggers when a click occurs outside the element that has been bound.
+                Is used by drop downs, dialogs, modals, etc.
+            </td>
+        </tr>
+        <tr>
+            <td>swipe, swipeleft, swiperight, swipeup, swipedown</td>
+            <td>jQuery</td>
+            <td>
+                Custom events that emulate swiping on touch devices. If the device is non-touch,
+                standard mouse events are used instead.
             </td>
         </tr>
     </tbody>

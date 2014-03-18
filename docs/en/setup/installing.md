@@ -2,7 +2,7 @@
 
 There are many ways to get started with Toolkit. Choose the one that's right for you or your project.
 
-### Download ###
+## Download ##
 
 The easiest option would be to download the latest stable version from the official [Toolkit GitHub](https://github.com/titon/toolkit/releases).
 The current version can be found at the top of the tag list, simply click the "zip" icon.
@@ -10,7 +10,7 @@ The current version can be found at the top of the tag list, simply click the "z
 Once downloaded, extract the zip archive and its contents. The production ready CSS and JavaScript files can be found in the `dist` folder.
 Copy these files into a project and you're done!
 
-### Git Clone ###
+## Git Clone ##
 
 The popular option would be to clone the [git repository](https://github.com/titon/toolkit).
 This provides the distribution files and the source files for a more seamless integration.
@@ -21,7 +21,7 @@ Just run the following command to clone the repository.
 [sudo] git clone git@github.com:titon/toolkit.git
 ```
 
-### Bower Dependency ###
+## Bower Dependency ##
 
 Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `toolkit` as a dependency within your project's `bower.json`.
 
@@ -45,7 +45,7 @@ From the project root, run `bower install` to download the package(s). Once down
     <a href="getting-started.md#distribution-files">Learn more about the distribution file structure</a>.
 </div>
 
-### Sass & Compass Integration ###
+## Sass & Compass Integration ##
 
 If you prefer to use the source Sass files directly in a project, this can easily be done through the Toolkit [Compass extension](http://compass-style.org/help/tutorials/extensions/).
 This approach requires Ruby, Ruby Gems, Sass, and Compass to be installed.

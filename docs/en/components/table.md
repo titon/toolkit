@@ -36,7 +36,7 @@ and proper placement of `td`s and `th`s are required.
 To add zebra-striping to all rows in a `tbody`, add `.is-striped`.
 
 ```html
-<table class="table is-striped">
+<table class="table is-striped is-striped">
     ...
 </table>
 ```
@@ -44,7 +44,7 @@ To add zebra-striping to all rows in a `tbody`, add `.is-striped`.
 To add a hover state to all rows in a `tbody`, add `.has-hover`.
 
 ```html
-<table class="table has-hover">
+<table class="table is-striped has-hover">
     ...
 </table>
 ```
@@ -54,7 +54,7 @@ To add a hover state to all rows in a `tbody`, add `.has-hover`.
 Add a `.small` or `.large` class to the `table` to alter the padding of all cells.
 
 ```html
-<table class="table large">
+<table class="table is-striped large">
     ...
 </table>
 ```
@@ -65,7 +65,7 @@ Add an `.is-sortable` class to the `table` to enable sortable headers.
 All columns in a `thead` will need to be wrapped in an `a` or `span`.
 
 ```html
-<table class="table is-sortable">
+<table class="table is-striped is-sortable">
     <thead>
         <tr>
             <th><a href="">Title</a></th>

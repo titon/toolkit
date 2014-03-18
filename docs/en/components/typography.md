@@ -21,7 +21,7 @@ All `h1` through `h6` headings have been styled for consistent presentation.
 This includes removing padding and margin, and re-scaling based on `rem`.
 These values can be changed through `$h1-size`, `$h2-size`, etc, variables.
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Heading</th>

@@ -355,7 +355,7 @@ $.debounce = function(func, threshold, immediate) {
             if (!immediate) {
                 func.apply(context, args);
             }
-        }, threshold || 150);
+        }, threshold);
 
         if (immediate && !timeout)  {
             func.apply(context, args);
@@ -371,6 +371,10 @@ $.debounce = function(func, threshold, immediate) {
  * @returns {Function}
  */
 $.throttle = function(func, delay) {
+    if (!delay) {
+        return func;
+    }
+
     var throttled = false;
 
     return function() {
@@ -382,7 +386,7 @@ $.throttle = function(func, delay) {
             setTimeout(function() {
                 func.apply(context, args);
                 throttled = false;
-            }, delay || 150);
+            }, delay);
         }
     };
 };

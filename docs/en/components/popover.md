@@ -50,7 +50,7 @@ The `tooltip` role is required when supporting ARIA.
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
@@ -76,7 +76,7 @@ The `tooltip` role is required when supporting ARIA.
 
 Inherits all options from the [parent component](../development/js.md#options).
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Option</th>

@@ -1,5 +1,5 @@
 # Support #
 
-* [Competitor Comparison](comparison.md)
 * [Browser Compatibility](compatibility.md)
+* [Competitor Comparison](comparison.md)
 * [Changelog](changelog.md)

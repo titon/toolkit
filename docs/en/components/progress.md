@@ -95,7 +95,7 @@ The `progressbar` role is required when supporting ARIA.
 
 ## Variables ##
 
-<table class="table data-table">
+<table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Variable</th>
