@@ -7,7 +7,7 @@ Fluid grid with multiple column support. Supports different columns for responsi
 Toolkit is bundled with a robust, responsive, mobile first, fluid based, 12 column grid system that
 conveniently collapses and scales based on the device or viewport.
 
-To begin, a grid consists of a `.grid` or `.row` which wraps a collection of columns.
+To begin, a grid consists of a `.grid` which wraps a collection of columns.
 Each column requires a `.col` and either a `.span-*` or one of the responsive column classes
 (more information below). There are 12 span classes, with each number representing the number
 of columns it contains.
@@ -262,16 +262,16 @@ This requires either the Compass extension to be installed, or the Toolkit CSS i
 
 ```scss
 .wrapper {
-    @extend .grid;
+    @extend %row;
 }
 
 .content {
-    @include grid-column;
+    @extend %col;
     @extend .span-9;
 }
 
 .sidebar {
-    @include grid-column;
+    @extend %col;
     @extend .span-3;
 }
 ```
@@ -287,7 +287,7 @@ Or we can [customize our own grids](../development/sass.md#grid-building).
 
 ## Notes ##
 
-* Columns must be wrapped with a `.grid` or `.row` unless created with `grid-row()`.
+* Columns must be wrapped with `.grid` unless created with `grid-row()`.
 * Columns require a `.col` class.
 * Only columns should be immediate children of grid wrappers.
 * Adding a `max-width` to a grid wrapper will restrict its size.

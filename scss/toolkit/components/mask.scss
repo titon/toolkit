@@ -21,11 +21,11 @@
 }
 
 .#{$vendor-prefix}mask-message {
+    @extend .vertical-center;
     text-align: center;
     max-width: 80%;
     opacity: 1;
     transition: all $mask-transition;
-    @include position-center;
 
     &:empty { display: none; }
 }

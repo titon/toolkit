@@ -19,10 +19,10 @@
     transition: all $blackout-transition;
 
     .#{$vendor-prefix}loader {
+        @extend .vertical-center;
         opacity: 1;
         color: #fff;
         transition: all $blackout-transition;
-        @include position-center;
 
         > span,
         .spinner > span { background: #fff !important; }
