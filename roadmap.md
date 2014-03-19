@@ -9,7 +9,6 @@ All releases will contain bug fixing and polishing for current features.
 * Add destroy method to clean up and remove the component.
 * Add aria attributes where applicable.
 * Add deferred/promise integration.
-* Remove wrapping closures around components.
 
 ### 1.4.0 ###
 * Toast - A component to display toast notifications.

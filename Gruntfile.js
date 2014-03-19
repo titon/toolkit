@@ -107,13 +107,30 @@ module.exports = function(grunt) {
 
         // 2) Generate new CSS files before building
         // https://github.com/gruntjs/grunt-sass
-        sass: {
+        /*sass: {
             options: {
                 outputStyle: 'compressed'
             },
             build: {
                 options: {
                     outputStyle: 'nested'
+                },
+                files: scssPaths
+            },
+            dist: {
+                files: scssPaths
+            }
+        },*/
+
+        // https://github.com/gruntjs/grunt-contrib-sass
+        sass: {
+            options: {
+                trace: true,
+                style: 'compressed'
+            },
+            build: {
+                options: {
+                    style: 'nested'
                 },
                 files: scssPaths
             },
@@ -234,7 +251,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['sass:build', 'concat:build']
+                tasks: ['sass:build', 'concat:build', 'autoprefixer:build']
             }
         }
     });
@@ -244,7 +261,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-newer');

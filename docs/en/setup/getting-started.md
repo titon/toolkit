@@ -117,7 +117,7 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
         <title>Titon Toolkit</title>
         <link href="css/toolkit.min.css" rel="stylesheet">
         <link href="css/style.min.css" rel="stylesheet">

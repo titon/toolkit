@@ -9,7 +9,7 @@ Older versions can be found in the documentation changelogs.
 * Removed is and has state prefixing from the CSS and JS layers
 * Removed `$state-is-prefix` and `$state-has-prefix` Sass variables
 * Removed individual JavaScript distribution files
-* Removed Compass dependency in favor of [node-sass](https://github.com/andrew/node-sass)
+* Removed Compass dependency in favor of autoprefixer
 * jQuery
     * Removed `$.hyphenate()`
 * Toolkit

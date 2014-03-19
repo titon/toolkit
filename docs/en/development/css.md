@@ -29,7 +29,7 @@ Additional functionality for larger screens will only be loaded through use of m
 To ensure proper viewport rendering and touch capabilities on mobile devices, add the appropriate viewport meta tag to `<head>`.
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 ```
 
 ## Fluid & Responsiveness ##

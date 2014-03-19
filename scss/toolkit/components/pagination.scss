@@ -50,7 +50,7 @@
     }
 
     &.#{$shape-round-class} {
-        ul {
+        ul, ol {
             border-radius: $round;
         }
 

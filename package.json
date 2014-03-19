@@ -44,7 +44,7 @@
         "grunt-contrib-jshint": "*",
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
-        "grunt-sass": "*",
+        "grunt-contrib-sass": "*",
         "grunt-string-replace": "*",
         "grunt-autoprefixer": "*",
         "grunt-newer": "*",
