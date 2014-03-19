@@ -29,3 +29,6 @@ Older versions can be found in the documentation changelogs.
     * Added `%row` placeholder to extend row styles from
     * Added `%col` placeholder to extend column styles from
     * Removed `.row` (reserved now for another component)
+* Pin
+    * Added `lock` option to disable pinning if element is taller than the viewport
+    * Fixed a bug where the pin element margin was not included in the total height
