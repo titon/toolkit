@@ -25,13 +25,13 @@
             "url": "/development",
             "children": [
                 {
-                    "title": "JavaScript Development",
+                    "title": "JavaScript",
                     "url": "/development/js"
                 }, {
-                    "title": "CSS Development",
+                    "title": "CSS",
                     "url": "/development/css"
                 }, {
-                    "title": "Sass Development",
+                    "title": "Sass",
                     "url": "/development/sass"
                 }
             ]
