@@ -47,8 +47,8 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
             height: win.height()
         };
 
-        this.elementHeight = this.element.outerHeight();
-        this.parentHeight = parent.height();
+        this.elementHeight = this.element.outerHeight(true); // include margin
+        this.parentHeight = parent.height(); // exclude padding
         this.parentTop = parent.offset().top;
 
         // Disable pin if element is larger than the viewport

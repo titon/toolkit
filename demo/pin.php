@@ -1,5 +1,6 @@
 <style type="text/css">
     #pin {
+        margin-bottom: 100px;
         <?php // Can't do inline styles as that attribute is removed
         if ($height = value('height')) echo 'height: ' . $height . 'px;';
         if ($top = value('top')) echo 'top: ' . $top . 'px;'; ?>
