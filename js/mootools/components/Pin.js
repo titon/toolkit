@@ -23,15 +23,13 @@ Toolkit.Pin = new Class({
 
     /** Default options */
     options: {
-        animation: '',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
         fixed: false,
         calculate: false,
-        context: null,
-        template: false
+        lock: true
     },
 
     /**
@@ -73,12 +71,20 @@ Toolkit.Pin = new Class({
      * @returns {Toolkit.Pin}
      */
     calculate: function() {
+        var options = this.options;
+
         this.viewport = window.getSize();
         this.elementSize = this.element.getCoordinates();
-        this.parentSize = this.element.getParent(this.options.context).getCoordinates();
+        this.parentSize = this.element.getParent(options.context).getCoordinates();
+
+        // Disable pin if element is larger than the viewport
+        if (options.lock && this.elementSize.height >= this.viewport.y) {
+            this.active = false;
 
         // Enable pin if the parent is larger than the child
-        this.active = (this.element.isVisible() && this.parentSize.height > this.elementSize.height);
+        } else {
+            this.active = (this.element.isVisible() && this.parentSize.height > this.elementSize.height);
+        }
 
         return this;
     },

@@ -39,7 +39,8 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
      */
     calculate: function() {
         var win = $(window),
-            parent = this.options.context ? this.element.parents(this.options.context) : this.element.parent();
+            options = this.options,
+            parent = options.context ? this.element.parents(options.context) : this.element.parent();
 
         this.viewport = {
             width: win.width(),
@@ -50,8 +51,14 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         this.parentHeight = parent.height();
         this.parentTop = parent.offset().top;
 
+        // Disable pin if element is larger than the viewport
+        if (options.lock && this.elementHeight >= this.viewport.height) {
+            this.active = false;
+
         // Enable pin if the parent is larger than the child
-        this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
+        } else {
+            this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
+        }
     },
 
     /**
@@ -156,7 +163,8 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     yOffset: 0,
     throttle: 50,
     fixed: false,
-    calculate: false
+    calculate: false,
+    lock: true
 });
 
 /**

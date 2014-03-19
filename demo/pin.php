@@ -26,7 +26,8 @@
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,
                 throttle: <?php number('throttle', 50); ?>,
-                fixed: <?php bool('fixed', false); ?>
+                fixed: <?php bool('fixed', false); ?>,
+                lock: <?php bool('lock', true); ?>
             });
         });
     <?php } else { ?>
@@ -37,7 +38,8 @@
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,
                 throttle: <?php number('throttle', 50); ?>,
-                fixed: <?php bool('fixed', false); ?>
+                fixed: <?php bool('fixed', false); ?>,
+                lock: <?php bool('lock', true); ?>
             });
         });
     <?php } ?>
