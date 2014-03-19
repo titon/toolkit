@@ -17,7 +17,7 @@
         top: 1%;
         left: 0;
         border-radius: 0 0 2rem 2rem / 0 0 1rem 1rem;
-        @include background-image(linear-gradient(left, white(.3) 0%, white(0) 50%, white(.3) 100%));
+        background: linear-gradient(to left, white(.3) 0%, white(0) 50%, white(.3) 100%);
     }
 
     &.#{$shape-round-class}:after {
@@ -36,7 +36,7 @@
     height: 50%;
     top: 0;
     left: 0;
-    @include background-image(linear-gradient(top, white(0), white(.3)));
+    background: linear-gradient(to top, white(0), white(.3));
 }
 
 //-------------------- Glare --------------------//
@@ -48,7 +48,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    @include background-image(linear-gradient(160deg, white(.5) 0%, white(.1) 50%, white(0) 50%, white(.3) 100%));
+    background: linear-gradient(160deg, white(.5) 0%, white(.1) 50%, white(0) 50%, white(.3) 100%);
 }
 
 //-------------------- Popout --------------------//

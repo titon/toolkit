@@ -36,7 +36,7 @@ mark { background: lighten($warning-light, 25%); }
     background: $gray;
     border: 1px solid $gray-dark;
     margin: -1px;
-    @include transition(all .15s);
+    transition: all .15s;
 
     &:hover { background-color: $gray-light; }
 
@@ -91,7 +91,7 @@ mark { background: lighten($warning-light, 25%); }
     background: $gray;
     font-weight: bold;
     text-shadow: 1px 1px black(.2);
-    @include transition(all .2s);
+    transition: all .2s;
     @include button-style($default, $default-light, $default-dark);
 
     &:active {
@@ -250,7 +250,7 @@ mark { background: lighten($warning-light, 25%); }
     .checkbox,
     .radio,
     .select {
-        @include transition(all $default-transition);
+        transition: all $default-transition;
     }
 
     input {
@@ -268,7 +268,7 @@ mark { background: lighten($warning-light, 25%); }
     .select.is-active {
         .caret-down {
             top: -5px;
-            @include transform(rotate(-180deg));
+            transform: rotate(-180deg);
         }
     }
 }
@@ -402,7 +402,7 @@ mark { background: lighten($warning-light, 25%); }
 
     &.top-center .popover-arrow {
         border-top-color: black(.25);
-        @include transform(translateY(6px));
+        transform: translateY(6px);
 
         &:after {
             margin-top: -8px;
@@ -412,7 +412,7 @@ mark { background: lighten($warning-light, 25%); }
 
     &.center-left .popover-arrow {
         border-left-color: black(.25);
-        @include transform(translateX(6px));
+        transform: translateX(6px);
 
         &:after {
             margin-left: -8px;

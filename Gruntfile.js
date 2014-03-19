@@ -83,7 +83,14 @@ module.exports = function(grunt) {
             return path.replace('library', 'jquery');
         }).filter(function(path) {
             return !_.contains(path, 'Cache.js') && !_.contains(path, 'Timers.js');
-        });
+        }),
+        scssPaths = [{
+            expand: true,
+            cwd: 'scss/',
+            src: ['**/*.scss'],
+            dest: 'css/',
+            ext: '.css'
+        }];
 
     // Configure
     grunt.initConfig({
@@ -99,23 +106,19 @@ module.exports = function(grunt) {
         },
 
         // 2) Generate new CSS files before building
-        // https://github.com/gruntjs/grunt-contrib-compass
-        compass: {
+        // https://github.com/gruntjs/grunt-sass
+        sass: {
             options: {
-                config: 'config.rb',
-                environment: 'production',
-                trace: true,
-                force: true
+                outputStyle: 'compressed'
             },
             build: {
                 options: {
                     outputStyle: 'nested'
-                }
+                },
+                files: scssPaths
             },
             dist: {
-                options: {
-                    outputStyle: 'compressed'
-                }
+                files: scssPaths
             }
         },
 
@@ -179,14 +182,32 @@ module.exports = function(grunt) {
             }
         },
 
+        // 4) Apply auto prefixing to CSS properties
+        // https://github.com/nDmitry/grunt-autoprefixer
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 versions'],
+                map: false
+            },
+            build: {
+                files: {
+                    '<%= buildFile %>.min.css': '<%= buildFile %>.min.css'
+                }
+            },
+            dist: {
+                files: {
+                    '<%= distFile %>.min.css': '<%= distFile %>.min.css'
+                }
+            }
+        },
+
         // 5) Replace variables in files
         // https://npmjs.org/package/grunt-string-replace
         'string-replace': {
             options: {
                 replacements: [
                     { pattern: '%version%', replacement: '<%= pkg.version %>' },
-                    { pattern: '%build%', replacement: Date.now().toString(36) },
-                    { pattern: /(\r|\n)/g, replacement: "" }
+                    { pattern: '%build%', replacement: Date.now().toString(36) }
                 ]
             },
             build: {
@@ -205,23 +226,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // 6) Archive the files and docs into a zip
-        // https://npmjs.org/package/grunt-contrib-compress
-        compress: {
-            options: {
-                mode: 'zip',
-                pretty: true,
-                archive: '<%= buildFile %>.zip'
-            },
-            build: {
-                files: [
-                    { src: '*.css', dest: 'css/', cwd: 'build/', expand: true },
-                    { src: '*.js', dest: 'js/', cwd: 'build/', expand: true },
-                    { src: '*.md' }
-                ]
-            }
-        },
-
         // Watch for changes
         watch: {
             scripts: {
@@ -230,7 +234,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: 'scss/**/*.scss',
-                tasks: ['compass:build', 'concat:build']
+                tasks: ['sass:build', 'concat:build']
             }
         }
     });
@@ -239,15 +243,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-newer');
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('distribute', ['jshint', 'compass:dist', 'concat:dist', 'uglify:dist', 'string-replace:dist']);
-    grunt.registerTask('production', ['jshint', 'compass:dist', 'concat:build', 'uglify:prod', 'string-replace:build']);
-    grunt.registerTask('default', ['jshint', 'compass:build', 'concat:build', 'uglify:build', 'string-replace:build']);
+    grunt.registerTask('distribute', ['jshint', 'sass:dist', 'concat:dist', 'uglify:dist', 'autoprefixer:dist', 'string-replace:dist']);
+    grunt.registerTask('production', ['jshint', 'sass:dist', 'concat:build', 'uglify:prod', 'autoprefixer:build', 'string-replace:build']);
+    grunt.registerTask('default', ['jshint', 'sass:build', 'concat:build', 'uglify:build', 'autoprefixer:build', 'string-replace:build']);
 };

@@ -42,10 +42,11 @@
         "grunt-contrib-concat": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jshint": "*",
-        "grunt-contrib-compass": "*",
         "grunt-contrib-compress": "*",
         "grunt-contrib-watch": "*",
+        "grunt-sass": "*",
         "grunt-string-replace": "*",
+        "grunt-autoprefixer": "*",
         "grunt-newer": "*",
         "compartment": "*"
     }

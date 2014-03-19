@@ -27,12 +27,12 @@
 //-------------------- Bar Wave --------------------//
 
 @if $loader-type == "bar-wave" or $loader-type == "all" {
-    @include keyframes(bar-wave) {
+    @keyframes bar-wave {
         0%, 50%, 100% {
-            @include transform(scaleY(1.0));
+            transform: scaleY(1.0);
         }
         25% {
-            @include transform(scaleY(2.0));
+            transform: scaleY(2.0);
         }
     }
 
@@ -41,10 +41,10 @@
             background: $loader-color;
             height: $loader-bar-height;
             width: $loader-bar-width;
-            @include animation(bar-wave 1.2s infinite ease-in-out);
+            animation: bar-wave 1.2s infinite ease-in-out;
 
             @for $i from 2 through $loader-wave-count {
-                &:nth-child(#{$i}) { @include animation-delay(-#{(1.3 - ($i * 0.1))}s); }
+                &:nth-child(#{$i}) { animation-delay: -#{(1.3 - ($i * 0.1))}s; }
             }
         }
 
@@ -57,12 +57,12 @@
 //-------------------- Bubble Wave --------------------//
 
 @if $loader-type == "bubble-wave" or $loader-type == "all" {
-    @include keyframes(bubble-wave) {
+    @keyframes bubble-wave {
         0%, 80%, 100% {
-            @include transform(scale(0.0));
+            transform: scale(0.0);
         }
         30% {
-            @include transform(scale(1.0));
+            transform: scale(1.0);
         }
     }
 
@@ -72,11 +72,11 @@
             width: $loader-bubble-size;
             height: $loader-bubble-size;
             border-radius: 100%;
-            @include animation(bubble-wave 1.5s infinite ease-in-out);
-            @include animation-fill-mode(both);
+            animation: bubble-wave 1.5s infinite ease-in-out;
+            animation-fill-mode: both;
 
             @for $i from 2 through $loader-wave-count {
-                &:nth-child(#{$i}) { @include animation-delay(-#{(1.6 - ($i * 0.1))}s); }
+                &:nth-child(#{$i}) { animation-delay: -#{(1.6 - ($i * 0.1))}s; }
             }
         }
     }
@@ -85,12 +85,12 @@
 //-------------------- Bubble Spinner --------------------//
 
 @if $loader-type == "bubble-spinner" or $loader-type == "all" {
-    @include keyframes(bubble-spinner) {
+    @keyframes bubble-spinner {
         0%, 80%, 100% {
-            @include transform(scale(0.0));
+            transform: scale(0.0);
         }
         30% {
-            @include transform(scale(1.3));
+            transform: scale(1.3);
         }
     }
 
@@ -107,55 +107,55 @@
                 height: 14px;
                 position: absolute;
                 border-radius: 100%;
-                @include animation(bubble-spinner 1.6s infinite ease-in-out);
-                @include animation-fill-mode(both);
+                animation: bubble-spinner 1.6s infinite ease-in-out;
+                animation-fill-mode: both;
 
                 &:nth-child(1) {
                     top: 0;
                     left: 43px;
-                    @include animation-delay(-1.4s);
+                    animation-delay: -1.4s;
                 }
 
                 &:nth-child(2) {
                     top: 12px;
                     right: 12px;
-                    @include animation-delay(-1.2s);
+                    animation-delay: -1.2s;
                 }
 
                 &:nth-child(3) {
                     top: 43px;
                     right: 0;
-                    @include animation-delay(-1.0s);
+                    animation-delay: -1.0s;
                 }
 
                 &:nth-child(4) {
                     bottom: 12px;
                     right: 12px;
-                    @include animation-delay(-0.8s);
+                    animation-delay: -0.8s;
                 }
 
                 &:nth-child(5) {
                     bottom: 0;
                     left: 43px;
-                    @include animation-delay(-0.6s);
+                    animation-delay: -0.6s;
                 }
 
                 &:nth-child(6) {
                     bottom: 12px;
                     left: 12px;
-                    @include animation-delay(-0.4s);
+                    animation-delay: -0.4s;
                 }
 
                 &:nth-child(7) {
                     top: 43px;
                     left: 0;
-                    @include animation-delay(-0.2s);
+                    animation-delay: -0.2s;
                 }
 
                 &:nth-child(8) {
                     top: 12px;
                     left: 12px;
-                    @include animation-delay(-0.0s);
+                    animation-delay: -0.0s;
                 }
             }
         }

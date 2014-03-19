@@ -13,7 +13,7 @@
     z-index: 500;
     opacity: 0;
     visibility: hidden;
-    @include transition(opacity 0.3s);
+    transition: opacity 0.3s;
 
     ul {
         @include reset-list;

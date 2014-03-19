@@ -5,9 +5,11 @@ Older versions can be found in the documentation changelogs.
 ## 1.3.0 ##
 
 * Added ARIA support to all components with supported documentation
+* Added CSS vendor prefixing support through [autoprefixer](https://github.com/ai/autoprefixer)
 * Removed is and has state prefixing from the CSS and JS layers
 * Removed `$state-is-prefix` and `$state-has-prefix` Sass variables
 * Removed individual JavaScript distribution files
+* Removed Compass dependency in favor of [node-sass](https://github.com/andrew/node-sass)
 * jQuery
     * Removed `$.hyphenate()`
 * Toolkit

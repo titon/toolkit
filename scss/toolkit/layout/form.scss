@@ -34,7 +34,7 @@ input::-moz-focus-inner {
 
 // Override normalize
 input[type="search"] {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
 }
 
 // Required values to match browser restrictions
@@ -62,7 +62,7 @@ label,
 .#{$vendor-prefix}input {
     background: $gray-lightest;
     border-radius: $round;
-    @include transition(all $default-transition);
+    transition: all $default-transition;
 
     &:hover { border-color: $gray-darkest; }
 

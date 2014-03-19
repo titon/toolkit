@@ -8,5 +8,5 @@
 
 .#{$vendor-prefix}lazy-load {
     background-image: none !important;
-    @include transition(background-image $lazyLoad-transition);
+    transition: background-image $lazyLoad-transition;
 }

@@ -20,7 +20,7 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     visibility: hidden;
     background: #000;
     color: #fff;
-    @include box-sizing(content-box); // Required or else MooTools position() is off
+    box-sizing: content-box; // Required or else MooTools position() is off
 
     &.center-left .#{$vendor-prefix}tooltip-arrow,
     &.center-right .#{$vendor-prefix}tooltip-arrow {
@@ -76,39 +76,39 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     @if index($popover-tooltip-animation, "fade") {
         &.fade {
             opacity: 0;
-            @include transition(opacity 0.5s);
+            transition: opacity 0.5s;
         }
     }
 
     @if index($popover-tooltip-animation, "from-above") {
         &.from-above {
-            @include transition(transform $tooltip-transition);
-            @include transform(scale(1.2));
+            transition: transform $tooltip-transition;
+            transform: scale(1.2);
 
             &.show {
-                @include transform(scale(1));
+                transform: scale(1);
             }
         }
     }
 
     @if index($popover-tooltip-animation, "from-below") {
         &.from-below {
-            @include transition(transform $tooltip-transition);
-            @include transform(scale(0.8));
+            transition: transform $tooltip-transition;
+            transform: scale(0.8);
 
             &.show {
-                @include transform(scale(1));
+                transform: scale(1);
             }
         }
     }
 
     @if index($popover-tooltip-animation, "flip-rotate") {
         &.flip-rotate {
-            @include transition(transform $tooltip-transition);
-            @include transform(rotate(-15deg));
+            transition: transform $tooltip-transition;
+            transform: rotate(-15deg);
 
             &.show {
-                @include transform(rotate(0deg));
+                transform: rotate(0deg);
             }
         }
     }

@@ -37,7 +37,7 @@
     text-align: center;
     font-size: $medium-size;
     float: left;
-    @include transition(width $progress-transition, background $progress-transition);
+    transition: width $progress-transition, background $progress-transition;
 }
 
 .#{$vendor-prefix}progress.#{$shape-round-class} {

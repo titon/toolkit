@@ -9,16 +9,17 @@
 .#{$vendor-prefix}matrix {
     @include reset-list;
     position: relative;
-    @include clear-fix;
 
     > li {
         float: left;
         margin: 0;
         padding: 0;
-        @include transition(top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition);
+        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition;
     }
 
     &.has-no-columns > li {
         position: relative !important;
     }
+
+    @include clear-fix;
 }
