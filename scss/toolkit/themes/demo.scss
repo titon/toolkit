@@ -146,10 +146,7 @@ mark { background: lighten($warning-light, 25%); }
 
 //-------------------- Drop --------------------//
 
-.drop--down,
-.drop--up,
-.drop--right,
-.drop--left {
+.drop {
     background: $gray;
     border: 1px solid $gray-dark;
     box-shadow: 5px 5px black(.25);

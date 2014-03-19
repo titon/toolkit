@@ -253,7 +253,7 @@ Toolkit.InputSelect = new Class({
         var vendor = Toolkit.vendor,
             options = this.options,
             buildOption = this.buildOption,
-            dropdown = new Element('div.' + vendor + 'drop--down.' + vendor + 'select-options'),
+            dropdown = new Element('div.' + vendor + 'drop.' + vendor + 'drop--down.' + vendor + 'select-options'),
             list = new Element('ul'),
             index = 0;
 

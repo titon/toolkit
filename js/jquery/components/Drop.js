@@ -16,11 +16,7 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     this.events = events = {};
 
     // Initialize events
-    $.each(['down', 'up', 'left', 'right'], function(i, value) {
-        events['clickout .' + Toolkit.vendor + 'drop--' + value] = 'hide';
-    });
-
-    events['clickout ' + nodes.selector] = 'hide';
+    events['clickout .' + Toolkit.vendor + 'drop,' + nodes.selector] = 'hide';
     events[options.mode + ' ' + nodes.selector] = 'onShow';
 
     this.enable();

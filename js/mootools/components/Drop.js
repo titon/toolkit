@@ -25,15 +25,10 @@ Toolkit.Drop = new Class({
         this.nodes = elements;
 
         var events = {},
-            selector = this.options.delegate,
-            clickout = selector;
+            selector = this.options.delegate;
 
         // Initialize events
-        ['down', 'up', 'left', 'right'].each(function(value) {
-            clickout += ',.' + Toolkit.vendor + 'drop--' + value;
-        });
-
-        events['clickout ' + clickout] = 'hide';
+        events['clickout .' + Toolkit.vendor + 'drop,' + selector] = 'hide';
         events[this.options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;

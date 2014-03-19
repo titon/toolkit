@@ -5,16 +5,17 @@ A contextual menu that is dropped down (or up, left, right) and displayed relati
 ## Usage ##
 
 Drop menus can be placed anywhere using a `div` with a nested list, or using the list itself as the wrapper.
+Each drop will require a `.drop` class and one of the directional modifiers listed below.
 For the drop to function correctly, the parent will require relative positioning.
 
 ```html
-<div class="drop--down" role="menu">
+<div class="drop drop--down">
     <ul>
         ...
     </ul>
 </div>
 
-<ul class="drop--down" role="menu">
+<ul class="drop drop--down">
     ...
 </ul>
 ```
@@ -26,7 +27,7 @@ an attribute, or using a callback function. Refer to the `getTarget` option belo
 <div class="button-group">
     <button class="button js-drop" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
-    <ul class="drop--down" id="menu" role="menu">
+    <ul class="drop drop--down" id="menu">
         ...
     </ul>
 </div>
@@ -43,10 +44,10 @@ The drop menu will display either through a click, or a hover, depending on the 
 Dropdowns, dropups, droplefts, and droprights are all supported through their respective modifier class.
 
 ```html
-<ul class="drop--down" role="menu">
-<ul class="drop--up" role="menu">
-<ul class="drop--left" role="menu">
-<ul class="drop--right" role="menu">
+<ul class="drop drop--down">...</ul>
+<ul class="drop drop--up">...</ul>
+<ul class="drop drop--left">...</ul>
+<ul class="drop drop--right">...</ul>
 ```
 
 ### Nesting ###
@@ -55,12 +56,12 @@ Drops can be nested by inserting a drop menu within an `li` and applying a `.has
 An optional `.caret-right` can be placed within an anchor link to designate children.
 
 ```html
-<ul class="drop--left" role="menu">
+<ul class="drop drop--left">
     <li>...</li>
     <li class="has-children">
         <a href="#"><span class="caret-right"></span> Action</a>
 
-        <ul class="drop--down" role="menu">
+        <ul class="drop drop--down">
             ...
         </ul>
     </li>
@@ -76,7 +77,7 @@ An optional `.caret-right` can be placed within an anchor link to designate chil
 A divider can be used to split actions into groups.
 
 ```html
-<ul class="drop--up" role="menu">
+<ul class="drop drop--up">
     <li>...</li>
     <li class="drop-divider"></li>
     <li>...</li>
@@ -86,7 +87,7 @@ A divider can be used to split actions into groups.
 And a header can be used for naming groups.
 
 ```html
-<ul class="drop--right" role="menu">
+<ul class="drop drop--right">
     <li class="drop-heading">Group</li>
     <li>...</li>
     <li class="drop-heading">Group</li>
@@ -100,7 +101,7 @@ To align the drop menu against the opposite edge, add a `.reverse-align` class.
 Reverse alignment works for both horizontal and vertical menus.
 
 ```html
-<ul class="drop--down reverse-align" role="menu">
+<ul class="drop drop--down reverse-align">
     ...
 </ul>
 ```

@@ -13,7 +13,7 @@ if (value('reverse')) {
             <span class="caret-down"></span>
         </button>
 
-        <ul class="<?php echo $class; ?>" id="drop-1">
+        <ul class="drop <?php echo $class; ?>" id="drop-1">
             <li><a href="">Some Item</a></li>
             <li><a href="">With A Divider</a></li>
             <li class="drop-divider"></li>
@@ -22,7 +22,7 @@ if (value('reverse')) {
                     <span class="caret-right"></span>
                     Contains Children
                 </a>
-                <ul class="drop--down">
+                <ul class="drop drop--down">
                     <li><a href="">Action</a></li>
                     <li><a href="">Another Action</a></li>
                     <li><a href="">Last Action</a></li>
@@ -38,7 +38,7 @@ if (value('reverse')) {
             <span class="caret-down"></span>
         </button>
 
-        <ul class="<?php echo $class; ?>" id="drop-2">
+        <ul class="drop <?php echo $class; ?>" id="drop-2">
             <li class="drop-heading">Heading</li>
             <li><a href="">Another Item</a></li>
             <li><a href="">Contains Headings</a></li>

@@ -23,6 +23,8 @@ Older versions can be found in the documentation changelogs.
     * Added `cssClass` property that represents the component name in CSS class form
     * Added `id()` method to generate unique CSS class names
     * Removed error and loading template generation from components (wasn't being used)
+* Drop
+    * Added a global `.drop` class that all menus require
 * Grid
     * Added `%row` placeholder to extend row styles from
     * Added `%col` placeholder to extend column styles from
