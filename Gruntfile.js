@@ -170,8 +170,7 @@ module.exports = function(grunt) {
                 preserveComments: false,
                 banner: banner,
                 enclose: {
-                    window: 'window',
-                    jQuery: '$'
+                    window: 'window'
                 }
             },
             build: {
