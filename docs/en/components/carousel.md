@@ -111,6 +111,31 @@ The markup within a caption can be customized extensively and is not enforced by
 </li>
 ```
 
+## ARIA Support ##
+
+The `tab`, `tablist`, and `tabpanel` roles are required when supporting ARIA.
+The appropriate `aria-controls`, `aria-selected`, `aria-expanded`, and `aria-hidden` attributes will also be required.
+
+```html
+<div class="carousel">
+    <div class="carousel-items">
+        <ul>
+            <li role="tabpanel">...</li>
+        </ul>
+    </div>
+
+    <div class="carousel-tabs" role="tablist">
+        <ol class="bullets">
+            <li><a href="javascript:;" role="tab"></a></li>
+        </ol>
+    </div>
+</div>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * The currently shown index will have an `.is-active` class applied to the respective tab.
@@ -184,26 +209,14 @@ Inherits all options from the [parent component](../development/js.md#options).
         <tr>
             <td>itemsElement</td>
             <td>string</td>
-            <td>.carousel-items</td>
-            <td>CSS selector to find the items container element.</td>
-        </tr>
-        <tr>
-            <td>itemElement</td>
-            <td>string</td>
-            <td>li</td>
-            <td>CSS selector to find the individual item within <code>itemsElement</code>.</td>
+            <td>.carousel-items li</td>
+            <td>CSS selector to find the items to cycle.</td>
         </tr>
         <tr>
             <td>tabsElement</td>
             <td>string</td>
-            <td>.carousel-tabs</td>
-            <td>CSS selector to find the tabs container element (a list of bullets).</td>
-        </tr>
-        <tr>
-            <td>tabElement</td>
-            <td>string</td>
-            <td>a</td>
-            <td>CSS selector to find the individual tab within <code>tabsElement</code>.</td>
+            <td>.carousel-tabs a</td>
+            <td>CSS selector to find the tab elements.</td>
         </tr>
         <tr>
             <td>nextElement</td>
@@ -275,34 +288,11 @@ Inherits all properties from the [parent component](../development/js.md#propert
     </thead>
     <tbody>
         <tr>
-            <td>itemsWrapper</td>
-            <td>element</td>
-            <td>
-                The element that contains all items.
-                This element is found using the <code>itemsElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>itemsList</td>
-            <td>element</td>
-            <td>
-                The <code>ul</code> or <code>ol</code> list found directly within the <code>itemsWrapper</code>.
-            </td>
-        </tr>
-        <tr>
             <td>items</td>
             <td>collection</td>
             <td>
                 A collection of item elements that will be cycled through within the carousel.
-                These elements are found using the <code>itemElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>tabsWrapper</td>
-            <td>element</td>
-            <td>
-                The element that contains all tabs &mdash; the list of bullets to jump between pages.
-                This element is found using the <code>tabsElement</code> option.
+                These elements are found using the <code>itemsElement</code> option.
             </td>
         </tr>
         <tr>
@@ -310,7 +300,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>collection</td>
             <td>
                 A collection of tab elements that can be clicked to jump to items.
-                These elements are found using the <code>tabElement</code> option.
+                These elements are found using the <code>tabsElement</code> option.
             </td>
         </tr>
         <tr>

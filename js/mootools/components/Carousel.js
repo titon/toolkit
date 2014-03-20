@@ -36,13 +36,10 @@ Toolkit.Carousel = new Class({
         duration: 5000,
         autoCycle: true,
         stopOnHover: true,
-        itemsElement: '.carousel-items',
-        itemElement: 'li',
-        tabsElement: '.carousel-tabs',
-        tabElement: 'a',
+        itemsElement: '.carousel-items li',
+        tabsElement: '.carousel-tabs a',
         nextElement: '.carousel-next',
-        prevElement: '.carousel-prev',
-        template: false
+        prevElement: '.carousel-prev'
     },
 
     /**
@@ -56,49 +53,51 @@ Toolkit.Carousel = new Class({
         this.element = element;
         this.options = options = this.inheritOptions(this.options, element);
 
+        var items, self = this;
+
         // Get elements
-        this.itemsWrapper = element.getElement(options.itemsElement);
+        this.items = items = element.getElements(options.itemsElement).each(function(item, index) {
+            item
+                .set({
+                    role: 'tabpanel',
+                    id: self.id('item', index)
+                })
+                .aria('hidden', (index > 0));
+        });
 
-        if (this.itemsWrapper) {
-            this.itemsList = this.itemsWrapper.getChildren('ul, ol');
-            this.items = this.itemsWrapper.getElements(options.itemElement);
-        }
-
-        this.tabsWrapper = element.getElement(options.tabsElement);
-
-        if (this.tabsWrapper) {
-            this.tabs = this.tabsWrapper.getElements(options.tabElement);
-        }
+        this.tabs = element.getElements(options.tabsElement).each(function(tab, index) {
+            tab
+                .set({
+                    'data-index': index,
+                    role: 'tab',
+                    id: self.id('tab', index)
+                })
+                .aria({
+                    controls: self.id('item', index),
+                    selected: false,
+                    expanded: false
+                });
+        });
 
         this.nextButton = element.getElement(options.nextElement);
         this.prevButton = element.getElement(options.prevElement);
 
-        // Disable carousel if too low of items
-        if (this.items.length <= 1) {
-            this.tabsWrapper.hide();
-            this.nextButton.hide();
-            this.prevButton.hide();
-
-            return;
-        }
-
-        element.addClass(options.animation);
+        // Set animation and ARIA
+        element
+            .addClass(options.animation)
+            .getElements('.carousel-tabs')
+                .set('role', 'tablist');
 
         // Set some sizes for responsiveness
         switch (options.animation) {
             case 'fade':
-                this.items[0].reveal();
+                items[0].reveal();
             break;
             case 'slide':
-                this.itemsList.setStyle('width', (this.items.length * 100) + '%');
-                this.items.setStyle('width', (100 / this.items.length) + '%');
+                items[0].getParent().setStyle('width', (items.length * 100) + '%');
+                items.setStyle('width', (100 / items.length) + '%');
             break;
         }
-
-        // Store some data in the elements
-        this.tabs.forEach(function(tab, index) {
-            tab.set('data-index', index);
-        });
 
         // Set events
         this.events = {
@@ -132,27 +131,35 @@ Toolkit.Carousel = new Class({
         this.index = index = Number.from(index).bound(this.items.length);
 
         // Update tabs
-        if (this.tabs.length) {
-            this.tabs.removeClass('is-active');
+        this.tabs
+            .removeClass('is-active')
+            .aria({ expanded: false, selected: false });
 
-            if (this.tabs[index]) {
-                this.tabs[index].addClass('is-active');
-            }
+        if (this.tabs[index]) {
+            this.tabs[index]
+                .addClass('is-active')
+                .aria({ expanded: true, selected: true });
+        }
+
+        // Update items
+        this.items
+            .aria('hidden', true);
+
+        if (this.items[index]) {
+            this.items[index].aria('hidden', false);
         }
 
         // Animate!
-        switch (this.options.animation) {
-            case 'fade':
-                // Don't use conceal() as it causes the animation to flicker
-                this.items.removeClass('show');
-                this.items[index].reveal();
-            break;
-            case 'slide-up':
-                this.itemsList.setStyle('top', -(index * 100) + '%');
-            break;
-            default:
-                this.itemsList.setStyle('left', -(index * 100) + '%');
-            break;
+        var animation = this.options.animation;
+
+        // Don't use conceal() as it causes the animation to flicker
+        if (animation === 'fade') {
+            this.items.removeClass('show');
+            this.items[index].reveal();
+
+        } else {
+            this.items.getParent()
+                .setStyle((animation === 'slide-up') ? 'top' : 'left', -(index * 100) + '%');
         }
 
         this.reset();

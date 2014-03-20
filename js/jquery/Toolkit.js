@@ -180,9 +180,7 @@ $.fn.conceal = function() {
  * @returns {jQuery}
  */
 $.fn.i = $.fn.item = function(index) {
-    var item = this.get(index);
-
-    return item ? $(item) : null;
+    return $(this.get(index));
 };
 
 /**

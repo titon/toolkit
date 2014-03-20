@@ -46,6 +46,7 @@ $('.accordion').accordion();
 ## ARIA Support ##
 
 The `tab`, `tablist`, and `tabpanel` roles are required when supporting ARIA.
+The appropriate `aria-controls`, `aria-selected`, `aria-expanded`, and `aria-hidden` attributes will also be required.
 
 ```html
 <ul class="accordion" role="tablist">

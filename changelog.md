@@ -11,6 +11,7 @@ Older versions can be found in the documentation changelogs.
 * Removed individual JavaScript distribution files
 * Removed Compass dependency in favor of autoprefixer
 * jQuery
+    * Updated `$.fn.item()` to return an empty jQuery collection if index out of range
     * Removed `$.hyphenate()`
 * Toolkit
     * Added `aria()` collection method that can set ARIA attributes
@@ -23,6 +24,10 @@ Older versions can be found in the documentation changelogs.
     * Added `cssClass` property that represents the component name in CSS class form
     * Added `id()` method to generate unique CSS class names
     * Removed error and loading template generation from components (wasn't being used)
+* Carousel
+    * Merged `itemsElement` and `itemElement` options
+    * Merged `tabsElement` and `tabElement` options
+    * Removed `itemsWrapper`, `itemsList`, `tabsWrapper` properties
 * Drop
     * Added a global `.drop` class that all menus require
 * Grid

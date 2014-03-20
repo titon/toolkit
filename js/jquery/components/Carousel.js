@@ -5,23 +5,35 @@
  */
 
 Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
-    var items;
+    var items, self = this;
 
     this.component = 'Carousel';
     this.version = '1.2.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
-    this.itemsWrapper = element.find(options.itemsElement);
-    this.itemsList = this.itemsWrapper.children('ul, ol');
-    this.items = items = this.itemsWrapper.find(options.itemElement)
-        .attr('role', 'tabpanel');
+    this.items = items = element.find(options.itemsElement).each(function(index) {
+        $(this)
+            .attr({
+                role: 'tabpanel',
+                id: self.id('item', index)
+            })
+            .aria('hidden', (index > 0));
+    });
 
-    this.tabsWrapper = element.find(options.tabsElement)
-        .attr('role', 'tablist');
-
-    this.tabs = this.tabsWrapper.find(options.tabElement)
-        .attr('role', 'tab');
+    this.tabs = element.find(options.tabsElement).each(function(index) {
+        $(this)
+            .data('index', index)
+            .attr({
+                role: 'tab',
+                id: self.id('tab', index)
+            })
+            .aria({
+                controls: self.id('item', index),
+                selected: false,
+                expanded: false
+            });
+    });
 
     this.nextButton = element.find(options.nextElement);
     this.prevButton = element.find(options.prevElement);
@@ -29,17 +41,11 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     this.timer = null;
     this.stopped = false;
 
-    // Disable carousel if too low of items
-    if (this.items.length <= 1) {
-        this.tabsWrapper.hide();
-        this.nextButton.hide();
-        this.prevButton.hide();
-
-        return;
-    }
-
     // Set animation and ARIA
-    element.addClass(options.animation);
+    element
+        .addClass(options.animation)
+        .find('.carousel-tabs')
+            .attr('role', 'tablist');
 
     // Set sizes for responsiveness
     switch (options.animation) {
@@ -47,15 +53,10 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             items.item(0).reveal();
         break;
         case 'slide':
-            this.itemsList.css('width', (items.length * 100) + '%');
+            items.parent().css('width', (items.length * 100) + '%');
             items.css('width', (100 / items.length) + '%');
         break;
     }
-
-    // Cache the index of tabs
-    this.tabs.each(function(index) {
-        $(this).data('index', index);
-    });
 
     // Initialize events
     this.events = {
@@ -93,26 +94,32 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.index = index = $.bound(index, this.items.length);
 
         // Update tabs
-        if (this.tabs.length) {
-            this.tabs
-                .removeClass('is-active')
-                .item(index).addClass('is-active');
-        }
+        this.tabs
+            .removeClass('is-active')
+            .aria('toggled', false)
+            .item(index)
+                .addClass('is-active')
+                .aria('toggled', true);
+
+        // Update items
+        this.items
+            .aria('hidden', true)
+            .item(index)
+                .aria('hidden', false);
 
         // Animate!
-        switch (this.options.animation) {
-            case 'fade':
-                // Don't use conceal() as it causes the animation to flicker
-                this.items
-                    .removeClass('show')
-                    .item(index).reveal();
-            break;
-            case 'slide-up':
-                this.itemsList.css('top', -(index * 100) + '%');
-            break;
-            default:
-                this.itemsList.css('left', -(index * 100) + '%');
-            break;
+        var animation = this.options.animation;
+
+        // Don't use conceal() as it causes the animation to flicker
+        if (animation === 'fade') {
+            this.items
+                .removeClass('show')
+                .item(index)
+                    .reveal();
+
+        } else {
+            this.items.parent()
+                .css((animation === 'slide-up') ? 'top' : 'left', -(index * 100) + '%');
         }
 
         this.reset();
@@ -214,10 +221,8 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     duration: 5000,
     autoCycle: true,
     stopOnHover: true,
-    itemsElement: '.carousel-items',
-    itemElement: 'li',
-    tabsElement: '.carousel-tabs',
-    tabElement: 'a',
+    itemsElement: '.carousel-items li',
+    tabsElement: '.carousel-tabs a',
     nextElement: '.carousel-next',
     prevElement: '.carousel-prev'
 });
