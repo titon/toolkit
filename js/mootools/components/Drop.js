@@ -44,7 +44,9 @@ Toolkit.Drop = new Class({
      */
     hide: function() {
         return this.parent(function() {
-            this.node.removeClass('is-active');
+            this.node
+                .aria({ selected: false, expanded: false })
+                .removeClass('is-active');
         }.bind(this));
     },
 
@@ -55,7 +57,9 @@ Toolkit.Drop = new Class({
      */
     show: function(node) {
         this.parent(node);
-        this.node.addClass('is-active');
+        this.node
+            .aria({ selected: true, expanded: true })
+            .addClass('is-active');
 
         return this;
     },

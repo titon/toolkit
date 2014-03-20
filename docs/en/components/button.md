@@ -95,4 +95,6 @@ The `button` role is required when supporting ARIA.
 <button class="button" type="button" role="button" aria-pressed="false">Button</button>
 ```
 
-JavaScript is required to change the `aria-pressed` value.
+<div class="notice is-warning">
+    JavaScript will be required to change the <code>aria-pressed</code> value.
+</div>

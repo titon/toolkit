@@ -195,6 +195,11 @@ $.fn.i = $.fn.item = function(index) {
  */
 $.fn.aria = (function() {
     return function(key, value) {
+        if (key === 'toggled') {
+            key = { expanded: value, selected: value };
+            value = null;
+        }
+
         return $.access(this, function(element, key, value) {
             if (value === true) {
                 value = 'true';

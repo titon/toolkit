@@ -85,9 +85,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
             section = header.next(), // section
             index = header.data('index'),
             height = parseInt(section.data('height'), 10),
-            isNode = (this.node && this.node.is(header)),
-            closed = { selected: false, expanded: false },
-            open = { selected: true, expanded: true };
+            isNode = (this.node && this.node.is(header));
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
@@ -95,12 +93,12 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal();
                 parent.removeClass('is-active');
-                header.aria(closed);
+                header.aria('toggled', false);
 
             } else {
                 section.css('max-height', height).reveal();
                 parent.addClass('is-active');
-                header.aria(open);
+                header.aria('toggled', true);
             }
 
         // Only one open at a time
@@ -114,8 +112,8 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
             this.sections.css('max-height', 0).conceal();
             section.css('max-height', height).reveal();
 
-            this.headers.aria(closed);
-            header.aria(open);
+            this.headers.aria('toggled', false);
+            header.aria('toggled', true);
 
             this.element.children('li').removeClass('is-active');
             parent.addClass('is-active');

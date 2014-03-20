@@ -11,11 +11,18 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     this.version = '1.2.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
+
     this.itemsWrapper = element.find(options.itemsElement);
     this.itemsList = this.itemsWrapper.children('ul, ol');
-    this.items = items = this.itemsWrapper.find(options.itemElement);
-    this.tabsWrapper = element.find(options.tabsElement);
-    this.tabs = this.tabsWrapper.find(options.tabElement);
+    this.items = items = this.itemsWrapper.find(options.itemElement)
+        .attr('role', 'tabpanel');
+
+    this.tabsWrapper = element.find(options.tabsElement)
+        .attr('role', 'tablist');
+
+    this.tabs = this.tabsWrapper.find(options.tabElement)
+        .attr('role', 'tab');
+
     this.nextButton = element.find(options.nextElement);
     this.prevButton = element.find(options.prevElement);
     this.index = 0;
@@ -31,7 +38,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         return;
     }
 
-    // Set animation
+    // Set animation and ARIA
     element.addClass(options.animation);
 
     // Set sizes for responsiveness

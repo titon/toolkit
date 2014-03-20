@@ -106,6 +106,31 @@ Reverse alignment works for both horizontal and vertical menus.
 </ul>
 ```
 
+## ARIA Support ##
+
+The `menu` and `menuitem` roles are required when supporting ARIA.
+
+```html
+<ul class="drop drop--down" role="menu" id="menu">
+    <li><a href="" role="menuitem">Item</a></li>
+    ...
+    <li class="has-children" aria-haspopup="true">
+        <a href="" role="menuitem">Item</a>
+
+        <ul class="drop drop--down" role="menu">...</ul>
+    </li>
+</ul>
+```
+
+The element that opens the drop menu will need the `aria-haspopup` and `aria-controls`
+(relates to drop target ID) attributes.
+
+```html
+<button class="button js-drop" type="button" data-drop="#menu" aria-controls="menu" aria-haspopup="true">
+    ...
+</button>
+```
+
 ## Notes ##
 
 * The element that targeted and opened the drop menu will have an `.is-active` class.

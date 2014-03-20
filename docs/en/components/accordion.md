@@ -43,6 +43,23 @@ Once the markup is in place, an accordion can be initialized.
 $('.accordion').accordion();
 ```
 
+## ARIA Support ##
+
+The `tab`, `tablist`, and `tabpanel` roles are required when supporting ARIA.
+
+```html
+<ul class="accordion" role="tablist">
+    <li>
+        <header class="accordion-header" role="tab">...</header>
+        <section class="accordion-section" role="tabpanel">...</section>
+    </li>
+</ul>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * The `.accordion-header` will be clickable, no need for anchor tags.

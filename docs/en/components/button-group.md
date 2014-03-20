@@ -88,11 +88,11 @@ We can integrate dropdowns, dropups, droplefts, and droprights via the [Drop com
 simply by placing a drop menu within the button group element.
 
 ```html
-<div class="button-group" role="menu">
+<div class="button-group">
     <button class="button" type="button">Action</button>
     <button class="button" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
-    <ul class="drop--down" id="menu">
+    <ul class="drop drop--down" id="menu">
         ...
     </ul>
 </div>
@@ -102,12 +102,12 @@ The previous example will open a menu left aligned and below all buttons within 
 If we want the menu to open up below the button that triggered it, we must use a list for the button group.
 
 ```html
-<ul class="button-group" role="menu">
+<ul class="button-group">
     <li><button class="button" type="button">Action</button></li>
     <li>
         <button class="button" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
-        <ul class="drop--down" id="menu">
+        <ul class="drop drop--down" id="menu">
             ...
         </ul>
     </li>
@@ -118,3 +118,21 @@ If we want the menu to open up below the button that triggered it, we must use a
     For drop menus to work, they must be initialized in the JavaScript layer.
     Implementation of the drop component may differ.
 </div>
+
+## ARIA Support ##
+
+The `toolbar` role is required when supporting ARIA.
+
+```html
+<div class="button-group" role="toolbar" aria-label="Toolbar">
+    ...
+</div>
+```
+
+When using the vertical modifier, the `aria-orientation` attribute must be defined.
+
+```html
+<div class="button-group--vertical" role="toolbar" aria-label="Toolbar" aria-orientation="vertical">
+    ...
+</div>
+```
