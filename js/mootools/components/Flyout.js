@@ -223,20 +223,25 @@ Toolkit.Flyout = new Class({
             return null;
         }
 
-        var menu = this.parseTemplate(this.options.template),
+        var options = this.options,
+            menu = this.parseTemplate(options.template),
             groups = [],
             ul,
             li,
             tag,
-            target = this.options.contentElement,
-            limit = this.options.itemLimit;
+            target = options.contentElement,
+            limit = options.itemLimit;
 
-        if (this.options.className) {
-            menu.addClass(this.options.className);
+        menu.set('role', 'menu').aria('hidden', true);
+
+        if (options.className) {
+            menu.addClass(options.className);
         }
 
         if (parent === document.body) {
             menu.addClass('is-root');
+        } else {
+            menu.aria('expanded', false);
         }
 
         if (limit && data.children.length > limit) {
@@ -256,14 +261,16 @@ Toolkit.Flyout = new Class({
                 if (child.url) {
                     tag = new Element('a', {
                         text: child.title,
-                        href: child.url
+                        href: child.url,
+                        role: 'menuitem'
                     });
 
                     // Add icon
                     new Element('span').addClass(child.icon || 'caret-right').inject(tag, 'top');
                 } else {
                     tag = new Element('span', {
-                        text: child.title
+                        text: child.title,
+                        role: 'presentation'
                     });
 
                     li.addClass(Toolkit.vendor + 'flyout-heading');
@@ -284,6 +291,7 @@ Toolkit.Flyout = new Class({
                     this._buildMenu(li, child);
 
                     li.addClass('has-children')
+                        .aria('haspopup', true)
                         .addEvent('mouseenter', this.onPositionChild.bind(this, li))
                         .addEvent('mouseleave', this.onHideChild.bind(this, li));
                 }
@@ -379,7 +387,12 @@ Toolkit.Flyout = new Class({
      */
     onHideChild: function(parent) {
         parent.removeClass('is-open');
-        parent.getChildren(this.options.contentElement).removeProperty('style');
+        parent.getChildren(this.options.contentElement)
+            .removeProperty('style')
+            .aria({
+                expanded: false,
+                hidden: true
+            });
 
         this.fireEvent('hideChild', parent);
     },
@@ -405,6 +418,11 @@ Toolkit.Flyout = new Class({
         if (!menu) {
             return;
         }
+
+        menu.aria({
+            expanded: true,
+            hidden: false
+        });
 
         // Alter width because of columns
         var children = menu.getChildren('ul');

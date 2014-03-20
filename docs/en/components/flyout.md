@@ -117,6 +117,14 @@ The following fields are available for each item in the data set.
     </tbody>
 </table>
 
+## ARIA Support ##
+
+The `menu` and `menuitem` roles are required when supporting ARIA.
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * Top level menus will have an `.is-root` class.

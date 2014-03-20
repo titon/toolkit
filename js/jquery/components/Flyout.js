@@ -203,21 +203,24 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             return null;
         }
 
-        var menu = $(this.options.template),
+        var options = this.options,
+            menu = $(options.template).attr('role', 'menu').aria('hidden', true),
             groups = [],
             ul,
             li,
             tag,
-            target = this.options.contentElement,
-            limit = this.options.itemLimit,
+            target = options.contentElement,
+            limit = options.itemLimit,
             i, l;
 
-        if (this.options.className) {
-            menu.addClass(this.options.className);
+        if (options.className) {
+            menu.addClass(options.className);
         }
 
         if (parent.is('body')) {
             menu.addClass('is-root');
+        } else {
+            menu.aria('expanded', false);
         }
 
         if (limit && data.children.length > limit) {
@@ -242,14 +245,16 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                 if (child.url) {
                     tag = $('<a/>', {
                         text: child.title,
-                        href: child.url
+                        href: child.url,
+                        role: 'menuitem'
                     });
 
                     // Add icon
                     $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
                 } else {
                     tag = $('<span/>', {
-                        text: child.title
+                        text: child.title,
+                        role: 'presentation'
                     });
 
                     li.addClass(Toolkit.vendor + 'flyout-heading');
@@ -270,6 +275,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                     this._buildMenu(li, child);
 
                     li.addClass('has-children')
+                        .aria('haspopup', true)
                         .on('mouseenter', this.onPositionChild.bind(this, li))
                         .on('mouseleave', this.onHideChild.bind(this, li));
                 }
@@ -367,7 +373,12 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children(this.options.contentElement).removeAttr('style');
+        parent.children(this.options.contentElement)
+            .removeAttr('style')
+            .aria({
+                expanded: false,
+                hidden: true
+            });
 
         this.fireEvent('hideChild', parent);
     },
@@ -394,6 +405,11 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
         if (!menu) {
             return;
         }
+
+        menu.aria({
+            expanded: true,
+            hidden: false
+        });
 
         // Alter width because of columns
         var children = menu.children();
