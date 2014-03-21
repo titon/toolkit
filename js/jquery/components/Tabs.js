@@ -5,15 +5,38 @@
  */
 
 Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
-    var events, tabs;
+    var events, sections, tabs, self = this;
 
     this.component = 'Tabs';
     this.version = '1.2.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
-    this.nav = element.find(options.navElement);
-    this.tabs = tabs = this.nav.find('ul > li > a');
-    this.sections = element.find(options.sectionElement).conceal();
+
+    this.sections = sections = element.find(options.sectionElement).each(function(index, section) {
+        section = $(section);
+        section
+            .attr('role', 'tabpanel')
+            .attr('id', section.attr('id') || self.id('section', index))
+            .aria('labelledby', self.id('tab', index))
+            .conceal();
+    });
+
+    this.nav = element.find(options.navElement).attr('role', 'tablist');
+    this.tabs = tabs = this.nav.find('ul > li > a').each(function(index) {
+        $(this)
+            .data('index', index)
+            .attr({
+                role: 'tab',
+                id: self.id('tab', index)
+            })
+            .aria({
+                controls: sections.item(index).attr('id'),
+                selected: false,
+                expanded: false
+            })
+            .removeClass('is-active');
+    });
+
     this.index = 0;
     this.cache = {};
     this.events = events = {};
@@ -22,11 +45,6 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     if (!options.cookie) {
         options.cookie = element.attr('id');
     }
-
-    // Cache index for tabs
-    tabs.each(function(index) {
-        $(this).data('index', index).removeClass('is-active');
-    });
 
     // Initialize events
     events[options.mode + ' tabs'] = 'onShow';
@@ -118,6 +136,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
         // Toggle tabs
         this.nav.find('ul > li').removeClass('is-active');
+        this.tabs.aria('toggled', false);
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -125,13 +144,13 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
                 section.conceal();
 
             } else {
-                tab.parent().addClass('is-active');
+                tab.aria('toggled', true).parent().addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.parent().addClass('is-active');
+            tab.aria('toggled', true).parent().addClass('is-active');
             section.reveal();
         }
 

@@ -51,15 +51,30 @@ Toolkit.Tabs = new Class({
         }
 
         // Get elements
-        this.nav = element.getElement(options.navElement);
+        this.sections = element.getElements(options.sectionElement).each(function(section, index) {
+            section
+                .set('role', 'tabpanel')
+                .set('id', section.get('id') || this.id('section', index))
+                .aria('labelledby', this.id('tab', index))
+                .conceal();
+        }.bind(this));
 
-        this.tabs = this.nav.getElements('ul > li > a');
-        this.tabs.each(function(tab, index) {
-            tab.set('data-index', index).removeClass('is-active');
-        });
+        this.nav = element.getElement(options.navElement).set('role', 'tablist');
 
-        this.sections = element.getElements(options.sectionElement);
-        this.sections.conceal();
+        this.tabs = this.nav.getElements('ul > li > a').each(function(tab, index) {
+            tab
+                .set({
+                    'data-index': index,
+                    role: 'tab',
+                    id: this.id('tab', index)
+                })
+                .aria({
+                    controls: this.sections[index].get('id'),
+                    selected: false,
+                    expanded: false
+                })
+                .removeClass('is-active');
+        }.bind(this));
 
         // Set events
         this.events[options.mode + ' tabs'] = 'onShow';
@@ -162,6 +177,7 @@ Toolkit.Tabs = new Class({
 
         // Toggle tabs
         this.nav.getElements('ul > li').removeClass('is-active');
+        this.tabs.aria({ selected: false, expanded: false });
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -169,13 +185,13 @@ Toolkit.Tabs = new Class({
                 section.conceal();
 
             } else {
-                tab.getParent().addClass('is-active');
+                tab.aria({ selected: true, expanded: true }).getParent().addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.getParent().addClass('is-active');
+            tab.aria({ selected: true, expanded: true }).getParent().addClass('is-active');
             section.reveal();
         }
 

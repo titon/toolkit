@@ -30,6 +30,10 @@ The `tooltip` role is required when supporting ARIA.
 </div>
 ```
 
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * A `className` can be added to popovers during instantiation for different themed popovers.
