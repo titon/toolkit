@@ -47,13 +47,14 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
      * @returns {jQuery}
      */
     _buildWrapper: function() {
-        var wrapper = $('<div/>')
-            .addClass(Toolkit.vendor + 'custom-input')
-            .insertBefore(this.input)
-            .append(this.input);
+        var input = this.input,
+            wrapper = $('<div/>')
+                .addClass(Toolkit.vendor + 'custom-input')
+                .insertBefore(input)
+                .append(input);
 
         if (this.options.copyClasses) {
-            this.copyClasses(this.input, wrapper);
+            this.copyClasses(input, wrapper);
         }
 
         return wrapper;
@@ -79,8 +80,8 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
     // Create custom input
     this.element = $('<label/>')
         .addClass(Toolkit.vendor + 'checkbox')
-        .attr('for', this.input.attr('id'))
-        .insertAfter(this.input);
+        .attr('for', checkbox.attr('id'))
+        .insertAfter(checkbox);
 
     // Initialize events
     this.enable();
@@ -103,9 +104,9 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
 
     // Create custom input
     this.element = $('<label/>')
-            .addClass(Toolkit.vendor + 'radio')
-            .attr('for', this.input.attr('id'))
-            .insertAfter(this.input);
+        .addClass(Toolkit.vendor + 'radio')
+        .attr('for', radio.attr('id'))
+        .insertAfter(radio);
 
     // Initialize events
     this.enable();
@@ -226,7 +227,10 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             select = this.input,
             options = this.options,
             buildOption = this._buildOption.bind(this),
-            dropdown = $('<div/>').addClass(vendor + 'drop ' + vendor + 'drop--down').addClass(vendor + 'select-options'),
+            dropdown = $('<div/>')
+                .addClass(vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options')
+                .attr('role', 'listbox')
+                .aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
@@ -298,6 +302,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     _buildOption: function(option, index) {
         var select = this.input,
             dropdown = this.dropdown,
+            selected = option.prop('selected'),
             activeClass = 'is-active';
 
         // Create elements
@@ -305,7 +310,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             content = option.text(),
             description;
 
-        if (option.prop('selected')) {
+        if (selected) {
             li.addClass(activeClass);
         }
 
@@ -313,9 +318,11 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
         }
 
-        var a = $('<a/>')
-            .html(content)
-            .attr('href', 'javascript:;');
+        var a = $('<a/>', {
+            html: content,
+            href: 'javascript:;',
+            role: 'option'
+        }).aria('selected', selected);
 
         if (this.options.copyClasses) {
             this.copyClasses(option, li);
@@ -326,6 +333,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         // Attach no events for disabled options
         if (option.prop('disabled')) {
             li.addClass('is-disabled');
+            a.aria('disabled', true);
 
             return li;
         }
@@ -333,14 +341,19 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         // Set events
         if (this.multiple) {
             a.click(function() {
+                var self = $(this),
+                    selected = false;
+
                 if (option.prop('selected')) {
-                    option.prop('selected', false);
-                    $(this).parent().removeClass(activeClass);
+                    self.parent().removeClass(activeClass);
 
                 } else {
-                    option.prop('selected', true);
-                    $(this).parent().addClass(activeClass);
+                    selected = true;
+                    self.parent().addClass(activeClass);
                 }
+
+                option.prop('selected', selected);
+                self.aria('selected', selected);
 
                 select.change();
             });
@@ -349,8 +362,13 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             var self = this;
 
             a.click(function() {
-                dropdown.find('li').removeClass(activeClass);
-                $(this).parent().addClass(activeClass);
+                dropdown
+                    .find('li').removeClass(activeClass).end()
+                    .find('a').aria('selected', false);
+
+                $(this)
+                    .aria('selected', true)
+                    .parent().addClass(activeClass);
 
                 self.hide();
                 self.index = index;

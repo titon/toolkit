@@ -102,8 +102,8 @@ Toolkit.InputCheckbox = new Class({
         this.buildWrapper(checkbox);
 
         this.element = new Element('label.' + Toolkit.vendor + 'checkbox')
-                .setProperty('for', checkbox.get('id'))
-                .inject(checkbox, 'after');
+            .set('for', checkbox.get('id'))
+            .inject(checkbox, 'after');
 
         this.enable();
         this.fireEvent('init');
@@ -129,8 +129,8 @@ Toolkit.InputRadio = new Class({
         this.buildWrapper(radio);
 
         this.element = new Element('label.' + Toolkit.vendor + 'radio')
-                .setProperty('for', radio.get('id'))
-                .inject(radio, 'after');
+            .set('for', radio.get('id'))
+            .inject(radio, 'after');
 
         this.enable();
         this.fireEvent('init');
@@ -224,7 +224,7 @@ Toolkit.InputSelect = new Class({
      * Build the element to represent the select button with label and arrow.
      *
      * @param {Element} select
-     * @returns {Toolkit.Input.Select}
+     * @returns {Toolkit.InputSelect}
      */
     buildButton: function(select) {
         var vendor = Toolkit.vendor;
@@ -247,7 +247,7 @@ Toolkit.InputSelect = new Class({
      * Build the custom dropdown to hold a list of option items.
      *
      * @param {Element} select
-     * @returns {Toolkit.Input.Select}
+     * @returns {Toolkit.InputSelect}
      */
     buildDropdown: function(select) {
         var vendor = Toolkit.vendor,
@@ -256,6 +256,8 @@ Toolkit.InputSelect = new Class({
             dropdown = new Element('div.' + vendor + 'drop.' + vendor + 'drop--down.' + vendor + 'select-options'),
             list = new Element('ul'),
             index = 0;
+
+        dropdown.set('role', 'listbox').aria('multiselectable', this.multiple);
 
         this.dropdown = dropdown;
 
@@ -320,14 +322,15 @@ Toolkit.InputSelect = new Class({
     buildOption: function(option, index) {
         var select = this.input,
             dropdown = this.dropdown,
-            activeClass = 'is-active';
+            activeClass = 'is-active',
+            selected = option.selected;
 
         // Create elements
         var li = new Element('li'),
             content = option.textContent,
             description;
 
-        if (option.selected) {
+        if (selected) {
             li.addClass(activeClass);
         }
 
@@ -336,8 +339,12 @@ Toolkit.InputSelect = new Class({
         }
 
         var a = new Element('a')
-            .set('html', content)
-            .set('href', 'javascript:;');
+            .set({
+                html: content,
+                href: 'javascript:;',
+                role: 'option'
+            })
+            .aria('selected', selected);
 
         if (this.options.copyClasses) {
             this.copyClasses(option, li);
@@ -348,6 +355,7 @@ Toolkit.InputSelect = new Class({
         // Attach no events for disabled options
         if (option.disabled) {
             li.addClass('is-disabled');
+            a.aria('disabled', true);
 
             return li;
         }
@@ -355,14 +363,18 @@ Toolkit.InputSelect = new Class({
         // Set events
         if (this.multiple) {
             a.addEvent('click', function() {
+                var selected = false;
+
                 if (option.selected) {
-                    option.selected = false;
                     this.getParent().removeClass(activeClass);
 
                 } else {
-                    option.selected = true;
+                    selected = true;
                     this.getParent().addClass(activeClass);
                 }
+
+                option.selected = selected;
+                this.aria('selected', selected);
 
                 select.fireEvent('change', { target: select });
             });
@@ -372,7 +384,10 @@ Toolkit.InputSelect = new Class({
 
             a.addEvent('click', function() {
                 dropdown.getElements('li').removeClass(activeClass);
+                dropdown.getElements('a').aria('selected', false);
+
                 this.getParent().addClass(activeClass);
+                this.aria('selected', true);
 
                 self.hide();
                 self.index = index;
@@ -388,7 +403,7 @@ Toolkit.InputSelect = new Class({
     /**
      * Hide the dropdown and remove active states.
      *
-     * @returns {Toolkit.Input.Select}
+     * @returns {Toolkit.InputSelect}
      */
     hide: function() {
         this.element.removeClass('is-active');
@@ -405,7 +420,7 @@ Toolkit.InputSelect = new Class({
     /**
      * Show the dropdown and apply active states.
      *
-     * @returns {Toolkit.Input.Select}
+     * @returns {Toolkit.InputSelect}
      */
     show: function() {
         this.element.addClass('is-active');
