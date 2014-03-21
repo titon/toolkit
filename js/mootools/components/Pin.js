@@ -45,6 +45,7 @@ Toolkit.Pin = new Class({
 
         // Set defaults
         element
+            .set('role', 'complementary')
             .addClass(Toolkit.vendor + 'pin')
             .addClass(options.animation);
 

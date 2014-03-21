@@ -18,6 +18,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
 
     // Mark element as a pin
     element
+        .attr('role', 'complementary')
         .addClass(Toolkit.vendor + 'pin')
         .addClass(options.animation);
 

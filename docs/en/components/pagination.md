@@ -44,6 +44,16 @@ Grouped paginations can also make use of [certain effects](effects.md), like `.r
 </nav>
 ```
 
+## ARIA Support ##
+
+The `navigation` role is required when supporting ARIA.
+
+```html
+<nav class="pagination" role="navigation" aria-label="Paged Navigation">
+    ...
+</nav>
+```
+
 ## Notes ##
 
 * The current page in the list should have an `.is-active` on the parent `li`.

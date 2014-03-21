@@ -114,6 +114,8 @@ The `menu` and `menuitem` roles are required when supporting ARIA.
 <ul class="drop drop--down" role="menu" id="menu">
     <li><a href="" role="menuitem">Item</a></li>
     ...
+    <li class="drop-divider" role="separator"></li>
+    ...
     <li class="has-children" aria-haspopup="true">
         <a href="" role="menuitem">Item</a>
 
