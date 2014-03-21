@@ -9,14 +9,14 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
     if (input.prop('tagName').toLowerCase() !== 'input') {
         throw new Error('TypeAhead must be initialized on an input field');
-    } else {
-        input.attr('autocomplete', 'off');
     }
+
+    var element, self = this;
 
     this.component = 'TypeAhead';
     this.version = '1.2.1';
     this.options = options = this.setOptions(options, input);
-    this.element = this.createElement();
+    this.element = element = this.createElement();
     this.input = input;
     this.shadow = null;
     this.index = -1;
@@ -24,8 +24,6 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     this.term = '';
     this.timer = null;
     this.cache = {};
-
-    var self = this;
 
     // Use default callbacks
     $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {
@@ -60,11 +58,28 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         this.shadow = this.input.clone()
             .addClass('is-shadow')
             .removeAttr('id')
-            .prop('readonly', true);
+            .prop('readonly', true)
+            .aria('readonly', true);
 
         this.input.addClass('not-shadow').replaceWith(this.wrapper);
         this.wrapper.append(this.input).append(this.shadow);
     }
+
+    // Set ARIA after shadow so that attributes are not inherited
+    input
+        .attr({
+            autocomplete: 'off',
+            role: 'combobox'
+        })
+        .aria({
+            autocomplete: 'none',
+            owns: element.attr('id'),
+            expanded: false
+        });
+
+    element
+        .attr('role', 'listbox')
+        .aria('multiselectable', false);
 
     // Initialize events
     this.events = {
@@ -86,7 +101,9 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     build: function(item) {
         var vendor = Toolkit.vendor,
             a = $('<a/>', {
-                href: 'javascript:;'
+                href: 'javascript:;',
+                role: 'option',
+                'aria-selected': 'false'
             });
 
         a.append( $('<span/>', {
@@ -112,10 +129,10 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             this.shadow.val('');
         }
 
-        if (this.element.is(':shown')) {
-            this.element.conceal();
-            this.fireEvent('hide');
-        }
+        this.input.aria('expanded', false);
+        this.element.conceal();
+
+        this.fireEvent('hide');
     },
 
     /**
@@ -176,6 +193,8 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             top: (iPos.top + this.input.outerHeight())
         }).reveal();
 
+        this.input.aria('expanded', true);
+
         this.fireEvent('show');
     },
 
@@ -198,14 +217,20 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
         var rows = this.element.find('li');
 
-        rows.removeClass('is-active');
+        rows
+            .removeClass('is-active')
+            .find('a')
+                .aria('selected', false);
 
         // Select
         if (index >= 0) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows.item(index).addClass('is-active');
+                rows.item(index)
+                    .addClass('is-active')
+                    .find('a')
+                        .aria('selected', true);
 
                 this.input.val(item.title);
 

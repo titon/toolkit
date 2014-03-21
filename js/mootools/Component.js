@@ -235,15 +235,13 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     hide: function(callback) {
-        if (this.isVisible()) {
-            this.element.conceal();
+        this.element.conceal();
 
-            if (typeOf(callback) === 'function') {
-                callback();
-            }
-
-            this.fireEvent('hide');
+        if (typeOf(callback) === 'function') {
+            callback();
         }
+
+        this.fireEvent('hide');
 
         return this;
     },

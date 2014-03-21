@@ -62,8 +62,6 @@ Toolkit.TypeAhead = new Class({
 
         if (input.get('tag') !== 'input') {
             throw new Error('TypeAhead must be initialized on an input field');
-        } else {
-            input.set('autocomplete', 'off');
         }
 
         // Setup state
@@ -107,10 +105,27 @@ Toolkit.TypeAhead = new Class({
                 .addClass('is-shadow')
                 .removeProperty('id')
                 .set('readonly', true)
+                .aria('readonly', true)
                 .inject(this.node, 'bottom');
 
             this.input.addClass('not-shadow');
         }
+
+        // Set ARIA after shadow so that attributes are not inherited
+        input
+            .set({
+                autocomplete: 'off',
+                role: 'combobox'
+            })
+            .aria({
+                autocomplete: 'none',
+                owns: this.element.get('id'),
+                expanded: false
+            });
+
+        this.element
+            .set('role', 'listbox')
+            .aria('multiselectable', false);
 
         // Initialize events
         this.events = {
@@ -131,7 +146,9 @@ Toolkit.TypeAhead = new Class({
      */
     build: function(item) {
         var a = new Element('a', {
-            href: 'javascript:;'
+            href: 'javascript:;',
+            role: 'option',
+            'aria-selected': 'false'
         });
 
         a.grab( new Element('span.' + Toolkit.vendor + 'type-ahead-title', {
@@ -156,6 +173,8 @@ Toolkit.TypeAhead = new Class({
         if (this.shadow) {
             this.shadow.set('value', '');
         }
+
+        this.input.aria('expanded', false);
 
         return this.parent();
     },
@@ -220,9 +239,9 @@ Toolkit.TypeAhead = new Class({
         this.element.setPosition({
             x: iPos.left,
             y: (iPos.top + iPos.height)
-        });
+        }).reveal();
 
-        this.element.reveal();
+        this.input.aria('expanded', true);
 
         return this;
     },
@@ -253,12 +272,17 @@ Toolkit.TypeAhead = new Class({
 
         rows.removeClass('is-active');
 
+        this.element.getElements('a').aria('selected', false);
+
         // Select
         if (index >= 0) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows[index].addClass('is-active');
+                rows[index]
+                    .addClass('is-active')
+                    .getElements('a')
+                        .aria('selected', true);
 
                 this.input.set('value', item.title);
 
