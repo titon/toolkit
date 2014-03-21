@@ -16,20 +16,8 @@ $('.js-popover').popover();
 
 <div class="notice is-info">
     The popover component requires the tooltip component, and will inherit all functionality from it.
+    Jump over to the tooltip documentation for more information on how to use this component.
 </div>
-
-### Titles & Content ###
-
-The titles and content within the popover can be customized through the `getTitle` and `getContent`
-options respectively. The values to use will either be extracted from the defined HTML
-attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
-the contents of that element will be inserted into the popover. If `ajax` is enabled,
-then the value will be used as a URL to request, and the response will be inserted as the content.
-
-```html
-<button type="button" class="js-popover" title="Popover Title" data-popover="/help/text">AJAX</button>
-<button type="button" class="js-popover" title="Popover Title" data-popover="#element">DOM</button>
-```
 
 ## ARIA Support ##
 

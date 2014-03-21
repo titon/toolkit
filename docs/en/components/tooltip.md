@@ -21,12 +21,31 @@ The tooltip will display either through a click, or a hover, depending on the co
 The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
 options respectively. The values to use will either be extracted from the defined HTML
 attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
-the contents of that element will be inserted into the tooltip. If `ajax` is enabled,
+the inner HTML of that element will be inserted into the tooltip. If `ajax` is enabled,
 then the value will be used as a URL to request, and the response will be inserted as the content.
 
 ```html
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="#element">DOM</button>
+```
+
+#### Manual Updates ####
+
+To programmatically update the tooltip with JavaScript, the `show()` method on the tooltip instance
+can be used. When calling `show()`, an element can be passed as the 1st argument to position the tooltip
+relative to. If no element is passed, the last element hovered will be used. The 2nd and 3rd arguments
+are the custom content and title respectively.
+
+```javascript
+$('#button').toolkit('tooltip').show(null, 'Custom content', 'Custom title');
+```
+
+If we want to update the node and then trigger the tooltip, something like the following can be used.
+This example assumes that `getContent` is set to `data-tooltip`.
+
+```javascript
+var node = $('#button');
+    node.data('tooltip', 'New content!').toolkit('tooltip').show(node);
 ```
 
 ### Mouse Following ###
