@@ -63,7 +63,6 @@ Toolkit.Tooltip = new Class({
 
         // Add position class
         this.element
-            .set('id', this.id())
             .set('role', 'tooltip')
             .removeClass(options.className);
 

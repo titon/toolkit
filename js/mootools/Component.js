@@ -194,6 +194,8 @@ Toolkit.Component = new Class({
                 template.addClass(options.animation);
             }
 
+            template.set('id', this.id());
+
             this.element = template;
         } else {
             throw new Error(this.className() + ' failed to create template element');

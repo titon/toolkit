@@ -20,8 +20,8 @@ Toolkit.Blackout = new Class({
     options: {
         loader: 'bar-wave',
         waveCount: 5,
-        template: '<div class="' + Toolkit.vendor + 'blackout" id="toolkit-blackout"></div>',
-        templateFrom: '#toolkit-blackout'
+        template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
+        templateFrom: '#toolkit-blackout-1'
     },
 
     /**

@@ -47,7 +47,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             template.addClass(options.animation);
         }
 
-        return template;
+        return template.attr('id', this.id());
     },
 
     /**
