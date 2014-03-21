@@ -118,7 +118,7 @@ To include an optional description below the label, use `getDescription`.
 <option value="1" data-description="Hyper-Text Markup Language">HTML</option>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `listbox` and `option` roles are required for custom select drop menus when supporting ARIA.
 

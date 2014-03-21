@@ -26,7 +26,6 @@ $('.pin').pin({
 A slide animation will slowly animate to the new coordinates. A sticky animation will do the same,
 but will "bounce" before animating.
 
-
 ### Bounding Container ###
 
 A pinned element will be bound within its parent element, which means it wont overflow outside the parent.
@@ -43,7 +42,7 @@ $('.pin').pin({
     The container requires position <code>relative</code>.
 </div>
 
-## ARIA Support ##
+## ARIA ##
 
 The `complementary` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 
@@ -127,6 +126,14 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>
                 Re-calculate offsets, widths, heights, and viewport while scrolling.
                 May slow down the page while active, so trigger <code>calculate()</code> manually when needed.
+            </td>
+        </tr>
+        <tr>
+            <td>lock</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to deactivate pinning if the target element is larger than the viewport.
             </td>
         </tr>
     </tbody>

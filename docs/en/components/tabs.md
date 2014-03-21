@@ -131,7 +131,7 @@ we can override the `ajax` option through data attributes.
     as the component does not automatically create them!
 </div>
 
-## ARIA Support ##
+## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

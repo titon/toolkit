@@ -80,7 +80,7 @@ Place multiple bars within a `.progress` to stack them horizontally.
 </div>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `progressbar` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role)

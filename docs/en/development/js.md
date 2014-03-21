@@ -104,49 +104,14 @@ It defines global options, localized messages, feature detection, and device sup
 It also acts as a namespace for components by housing a top level name to avoid global conflicts.
 Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
 
-### Global Options ###
+### Vendor Namespace ###
 
-The following options are used to alter all components and are found under `Toolkit.options`.
-They can be modified in a similar fashion to component options (more information above).
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Option</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>vendor</td>
-            <td></td>
-            <td>
-                The vendor name to prepend to all class names.
-                <a href="sass.md#variables">Learn more about vendor prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>isPrefix</td>
-            <td>is-</td>
-            <td rowspan="2">
-                The prefix to prepend to certain state classes.
-                <a href="sass.md#variables">Learn more about state prefixing.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>hasPrefix</td>
-            <td>has-</td>
-        </tr>
-    </tbody>
-</table>
+Paired with the [Sass `$vendor-prefix` variable](sass.md#variables), the `Toolkit.vendor` can be defined for
+prefixing within the JavaScript layer. This value will be prepended to all component class names that are
+automatically created with JavaScript.
 
 ```javascript
-$.extend(Toolkit.options, {
-    vendor: 'tk-',
-    isPrefix: '',
-    hasPrefix: ''
-});
+Toolkit.vendor = 'tk-';
 ```
 
 ### Locale Messages ###
@@ -567,6 +532,14 @@ The following properties are available on all class instances, but not all compo
             </td>
         </tr>
         <tr>
+            <td>uid</td>
+            <td>int</td>
+            <td>
+                A unique identifier for the component instance.
+                The value correlates to the number of instances in the page.
+            </td>
+        </tr>
+        <tr>
             <td>enabled</td>
             <td>boolean</td>
             <td>
@@ -724,6 +697,11 @@ The following methods are available on all class instances, but not all componen
             <td>Both</td>
             <td>Hide the element and trigger an optional callback function.</td>
         </tr>
+        <tr>
+            <td>id([string:...args])</td>
+            <td>Both</td>
+            <td>Generate a unique CSS class name using the components name, UID, and defined arguments.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -814,6 +792,14 @@ These extensions may even solve a problem in your own codebase.
                 This is a combination of getting and setting internal jQuery data.
             </td>
         </tr>
+        <tr>
+            <td>aria(string:key, mixed:value)</td>
+            <td>Both</td>
+            <td>
+                Sets ARIA attributes on the target element.
+                Can also accept an object of key value pairs.
+            </td>
+        </tr>
 
         <tr class="table-divider">
             <td colspan="3">Functions</td>
@@ -844,11 +830,6 @@ These extensions may even solve a problem in your own codebase.
         <tr>
             <td>Number.prototype.bound(int:value, int:max[, int:min])</td>
             <td>MooTools</td>
-        </tr>
-        <tr>
-            <td>jQuery.hyphenate(string:string)</td>
-            <td>jQuery</td>
-            <td>Convert uppercase character strings to a lower case dashed form.</td>
         </tr>
         <tr>
             <td>jQuery.cookie(string:key, mixed:value[, object:options])</td>

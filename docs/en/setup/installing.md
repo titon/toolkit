@@ -21,7 +21,7 @@ Just run the following command to clone the repository.
 [sudo] git clone git@github.com:titon/toolkit.git
 ```
 
-## Bower Dependency ##
+## Bower ##
 
 Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `toolkit` as a dependency within your project's `bower.json`.
 
@@ -45,7 +45,7 @@ From the project root, run `bower install` to download the package(s). Once down
     <a href="getting-started.md#distribution-files">Learn more about the distribution file structure</a>.
 </div>
 
-## Sass & Compass Integration ##
+## Sass & Compass ##
 
 If you prefer to use the source Sass files directly in a project, this can easily be done through the Toolkit [Compass extension](http://compass-style.org/help/tutorials/extensions/).
 This approach requires Ruby, Ruby Gems, Sass, and Compass to be installed.
@@ -84,3 +84,17 @@ For example:
 ```
 
 For more information on Sass integration, jump to the [Sass development documentation](../development/sass.md).
+
+## NPM ##
+
+Lastly, Toolkit comes bundled as a [Node.js](https://npmjs.org/) package. Simply add `titon-toolkit` as a dependency within your project's `package.json`.
+
+```javascript
+{
+    "dependencies": {
+        "titon-toolkit": "*"
+    }
+}
+```
+
+Then run `npm install` or `npm update` to download the packages.

@@ -27,7 +27,7 @@ Applying a `.small` or `.large` class to the `.breadcrumb` element will alter th
 </nav>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `navigation` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 

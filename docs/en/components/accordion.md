@@ -43,7 +43,7 @@ Once the markup is in place, an accordion can be initialized.
 $('.accordion').accordion();
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

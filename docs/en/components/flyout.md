@@ -117,7 +117,7 @@ The following fields are available for each item in the data set.
     </tbody>
 </table>
 
-## ARIA Support ##
+## ARIA ##
 
 The `menu` and `menuitem` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

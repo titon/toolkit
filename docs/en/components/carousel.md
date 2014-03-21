@@ -111,7 +111,7 @@ The markup within a caption can be customized extensively and is not enforced by
 </li>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

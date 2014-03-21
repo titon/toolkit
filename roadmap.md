@@ -6,14 +6,13 @@ All releases will contain bug fixing and polishing for current features.
 * Marquee - A component that displays multiple slides at once and allows for cycling through a variable amount. A sister component to the carousel.
 * Step - A component that highlights a step in a series of consecutive steps (represented by an arrow based navigation).
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
-* Add destroy method to clean up and remove the component.
-* Add aria attributes where applicable.
-* Add deferred/promise integration.
 
 ### 1.4.0 ###
 * Toast - A component to display toast notifications.
 * Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
 * Divider - A component for dividing content horizontally or vertically.
+* Add destroy method to clean up and remove the component.
+* Add deferred/promise integration.
 
 ### 2.0.0 ###
 * Remove the MooTools port.
@@ -23,6 +22,7 @@ All releases will contain bug fixing and polishing for current features.
 * Switch to Gulp.
 * Updated to Sass 3.
 * Refactor events for before/after conditions.
+* RTL support.
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

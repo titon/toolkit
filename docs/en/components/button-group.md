@@ -119,7 +119,7 @@ If we want the menu to open up below the button that triggered it, we must use a
     Implementation of the drop component may differ.
 </div>
 
-## ARIA Support ##
+## ARIA ##
 
 The `toolbar` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 

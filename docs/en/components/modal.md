@@ -88,7 +88,7 @@ of the function to call. For example, if the JSON response was.
 
 Then the `console.log` function will be triggered with the response passed as the 1st argument.
 
-## ARIA Support ##
+## ARIA ##
 
 The `dialog` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role)
@@ -246,7 +246,7 @@ The following markup is used for the creation of modals.
 This structure can be customized through the `template` option.
 
 ```html
-<div class="modal" role="dialog">
+<div class="modal">
     <div class="modal-outer">
         <div class="modal-handle">
             <div class="modal-inner"></div>

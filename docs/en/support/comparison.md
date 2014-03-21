@@ -528,6 +528,24 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
         </tr>
         <tr>
+            <td>jQuery</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>MooTools</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+
+        <tr class="table-divider">
+            <td colspan="5">Packagers</td>
+        </tr>
+        <tr>
             <td>NPM</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
@@ -549,26 +567,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>jQuery</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
-            <td>MooTools</td>
-            <td class="is-success">&check;</td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-        </tr>
-        <tr>
             <td>Composer</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
+
         <tr class="table-divider">
             <td colspan="5">Functionality</td>
         </tr>
@@ -623,7 +628,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
         </tr>
         <tr>
             <td>ARIA</td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>

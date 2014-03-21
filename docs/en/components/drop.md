@@ -106,7 +106,7 @@ Reverse alignment works for both horizontal and vertical menus.
 </ul>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `menu`, and `menuitem` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

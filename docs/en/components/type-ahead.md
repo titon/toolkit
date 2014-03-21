@@ -210,7 +210,7 @@ $('#input').typeAhead({
     This is useful for data sets that are processed remotely.
 </div>
 
-## ARIA Support ##
+## ARIA ##
 
 The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.

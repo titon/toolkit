@@ -44,7 +44,7 @@ Grouped paginations can also make use of [certain effects](effects.md), like `.r
 </nav>
 ```
 
-## ARIA Support ##
+## ARIA ##
 
 The `navigation` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 

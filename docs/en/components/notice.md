@@ -71,7 +71,7 @@ Make a notice dismissable by placing a close button.
     Toolkit does not provide any functionality for this.
 </div>
 
-## ARIA Support ##
+## ARIA ##
 
 The `alert` or `status` role is required when supporting ARIA.
 [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role)
