@@ -29,7 +29,7 @@ Applying a `.small` or `.large` class to the `.breadcrumb` element will alter th
 
 ## ARIA Support ##
 
-The `navigation` role is required when supporting ARIA.
+The `navigation` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <nav class="breadcrumb" role="navigation" aria-label="Breadcrumb Navigation">

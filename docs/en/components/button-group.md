@@ -121,7 +121,7 @@ If we want the menu to open up below the button that triggered it, we must use a
 
 ## ARIA Support ##
 
-The `toolbar` role is required when supporting ARIA.
+The `toolbar` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <div class="button-group" role="toolbar" aria-label="Toolbar">

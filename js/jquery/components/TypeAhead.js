@@ -72,7 +72,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             role: 'combobox'
         })
         .aria({
-            autocomplete: 'none',
+            autocomplete: 'list',
             owns: element.attr('id'),
             expanded: false
         });

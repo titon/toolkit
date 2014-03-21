@@ -19,27 +19,6 @@ $('.js-popover').popover();
     Jump over to the tooltip documentation for more information on how to use this component.
 </div>
 
-## ARIA Support ##
-
-The `tooltip` role is required when supporting ARIA.
-[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_tooltip_role)
-
-```html
-<div class="popover" role="tooltip">
-    ...
-</div>
-```
-
-<div class="notice is-info">
-    The JavaScript component will automatically map all ARIA attributes.
-</div>
-
-## Notes ##
-
-* A `className` can be added to popovers during instantiation for different themed popovers.
-* The `position` of the popover instance determines the location and arrow placement.
-* The `position` and `animation` will be appended as a class names.
-
 ## Variables ##
 
 <table class="table is-striped data-table">

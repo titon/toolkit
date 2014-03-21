@@ -377,7 +377,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             .removeAttr('style')
             .aria({
                 expanded: false,
-                hidden: true
+                hidden: false
             });
 
         this.fireEvent('hideChild', parent);
@@ -408,7 +408,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
 
         menu.aria({
             expanded: true,
-            hidden: false
+            hidden: true
         });
 
         // Alter width because of columns

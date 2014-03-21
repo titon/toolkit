@@ -291,7 +291,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             context: this,
             beforeSend: before || function() {
                 this.cache[url] = true;
-                this.element.addClass('is-loading');
+                this.element
+                    .addClass('is-loading')
+                    .aria('busy', true);
             }
         }, options);
 
@@ -304,7 +306,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
         return $.ajax(ajax)
             .done(done || function(response, status, xhr) {
-                this.element.removeClass('is-loading');
+                this.element
+                    .removeClass('is-loading')
+                    .aria('busy', false);
 
                 // HTML
                 if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
@@ -328,7 +332,8 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
                 this.element
                     .removeClass('is-loading')
-                    .addClass('has-failed');
+                    .addClass('has-failed')
+                    .aria('busy', false);
 
                 this.position(Toolkit.messages.error);
             });

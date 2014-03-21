@@ -45,7 +45,7 @@ $('.pin').pin({
 
 ## ARIA Support ##
 
-The `complementary` role is required when supporting ARIA.
+The `complementary` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <aside class="pin" role="complementary">

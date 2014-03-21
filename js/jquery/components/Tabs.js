@@ -115,21 +115,27 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(url,
                 function() {
-                    section.html(Toolkit.messages.loading)
-                        .addClass('is-loading');
+                    section
+                        .html(Toolkit.messages.loading)
+                        .addClass('is-loading')
+                        .aria('busy', true);
                 },
                 function(response) {
                     this.cache[url] = true;
 
                     this.fireEvent('load', response);
 
-                    section.html(response)
-                        .removeClass('is-loading');
+                    section
+                        .html(response)
+                        .removeClass('is-loading')
+                        .aria('busy', false);
                 },
                 function() {
-                    section.html(Toolkit.messages.error)
+                    section
+                        .html(Toolkit.messages.error)
                         .removeClass('is-loading')
-                        .addClass('has-failed');
+                        .addClass('has-failed')
+                        .aria('busy', false);
                 }
             );
         }

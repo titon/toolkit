@@ -88,7 +88,7 @@ effects can be used. These visuals make use of `:after` pseudo elements to apply
 
 ## ARIA Support ##
 
-The `button` role is required when supporting ARIA.
+The `button` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role)
 
 ```html

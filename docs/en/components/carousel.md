@@ -113,8 +113,8 @@ The markup within a caption can be customized extensively and is not enforced by
 
 ## ARIA Support ##
 
-The `tab`, `tablist`, and `tabpanel` roles are required when supporting ARIA.
-The appropriate `aria-controls`, `aria-selected`, `aria-expanded`, and `aria-hidden` attributes will also be required.
+The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
 
 ```html
 <div class="carousel">

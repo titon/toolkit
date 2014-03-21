@@ -119,7 +119,8 @@ The following fields are available for each item in the data set.
 
 ## ARIA Support ##
 
-The `menu` and `menuitem` roles are required when supporting ARIA.
+The `menu` and `menuitem` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
 
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.

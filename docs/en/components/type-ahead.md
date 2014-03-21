@@ -210,6 +210,25 @@ $('#input').typeAhead({
     This is useful for data sets that are processed remotely.
 </div>
 
+## ARIA Support ##
+
+The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
+
+```html
+<input type="text" id="input" class="input" name="term" role="combobox" aria-autocomplete="off">
+
+<div class="type-ahead" role="listbox">
+    <ul>
+        <li><a href="javascript:;" role="option">Item</a></li>
+    </ul>
+</div>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).

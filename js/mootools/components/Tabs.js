@@ -154,8 +154,10 @@ Toolkit.Tabs = new Class({
             this.requestData(
                 url,
                 function() {
-                    section.set('html', Toolkit.messages.loading)
-                        .addClass('is-loading');
+                    section
+                        .set('html', Toolkit.messages.loading)
+                        .addClass('is-loading')
+                        .aria('busy', true);
                 }.bind(this),
 
                 function(response) {
@@ -163,14 +165,18 @@ Toolkit.Tabs = new Class({
 
                     this.fireEvent('load', response);
 
-                    section.set('html', response)
-                        .removeClass('is-loading');
+                    section
+                        .set('html', response)
+                        .removeClass('is-loading')
+                        .aria('busy', false);
                 }.bind(this),
 
                 function() {
-                    section.set('html', Toolkit.messages.error)
+                    section
+                        .set('html', Toolkit.messages.error)
                         .removeClass('is-loading')
-                        .addClass('has-failed');
+                        .addClass('has-failed')
+                        .aria('busy', false);
                 }.bind(this)
             );
         }

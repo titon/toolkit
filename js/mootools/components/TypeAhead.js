@@ -118,7 +118,7 @@ Toolkit.TypeAhead = new Class({
                 role: 'combobox'
             })
             .aria({
-                autocomplete: 'none',
+                autocomplete: 'list',
                 owns: this.element.get('id'),
                 expanded: false
             });

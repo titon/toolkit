@@ -90,7 +90,7 @@ Then the `console.log` function will be triggered with the response passed as th
 
 ## ARIA Support ##
 
-The `dialog` role is required when supporting ARIA.
+The `dialog` role and the appropriate `aria-*` attributes are required when supporting ARIA.
 [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role)
 
 All required ARIA attributes will be automatically added to the component when initialized,
@@ -114,6 +114,10 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
     ...
 </div>
 ```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
 
 ## Notes ##
 

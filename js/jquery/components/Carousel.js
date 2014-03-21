@@ -43,6 +43,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
     // Set animation and ARIA
     element
+        .aria('live', options.autoCycle ? 'assertive' : 'off')
         .addClass(options.animation)
         .find('.carousel-tabs')
             .attr('role', 'tablist');

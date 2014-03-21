@@ -417,7 +417,9 @@ Toolkit.Component = new Class({
             evalScripts: true,
             onRequest: before || function() {
                 this.cache[url] = true;
-                this.element.addClass('is-loading');
+                this.element
+                    .addClass('is-loading')
+                    .aria('busy', true);
             }.bind(this)
         }, options);
 
@@ -434,7 +436,9 @@ Toolkit.Component = new Class({
             var contentType = this.xhr.getResponseHeader('Content-Type');
 
             // Does not apply to all components
-            self.element.removeClass('is-loading');
+            self.element
+                .removeClass('is-loading')
+                .aria('busy', false);
 
             // HTML
             if (contentType.indexOf('text/html') >= 0) {
@@ -464,7 +468,8 @@ Toolkit.Component = new Class({
 
             this.element
                 .removeClass('is-loading')
-                .addClass('has-failed');
+                .addClass('has-failed')
+                .aria('busy', false);
 
             this.position(Toolkit.messages.error);
         }.bind(this);

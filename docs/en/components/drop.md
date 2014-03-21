@@ -108,7 +108,8 @@ Reverse alignment works for both horizontal and vertical menus.
 
 ## ARIA Support ##
 
-The `menu` and `menuitem` roles are required when supporting ARIA.
+The `menu`, and `menuitem` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
 
 ```html
 <ul class="drop drop--down" role="menu" id="menu">
@@ -132,6 +133,10 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
     ...
 </button>
 ```
+
+<div class="notice is-warning">
+    Manual definition of these ARIA attributes will be required.
+</div>
 
 ## Notes ##
 
