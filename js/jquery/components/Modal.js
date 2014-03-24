@@ -8,7 +8,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     var element, events;
 
     this.component = 'Modal';
-    this.version = '1.2.0';
+    this.version = '1.2.2';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
     this.elementBody = element.find(options.contentElement);
@@ -160,6 +160,14 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
      */
     onHide: function(e) {
         e.preventDefault();
+
+        var element = this.element;
+
+        // If the modal is loading (AJAX) or is not shown, exit early
+        // This stops cases where the blackout can be clicked early
+        if (!element.is(':shown') || element.hasClass('is-loading')) {
+            return;
+        }
 
         this.hide();
     },

@@ -12,7 +12,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 610; // higher than blackout
+    z-index: $modal-zindex;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     visibility: hidden;

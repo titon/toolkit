@@ -15,7 +15,7 @@
     left: 0;
     width: 200px;
     line-height: 100%;
-    z-index: 500;
+    z-index: $drop-zindex;
     opacity: 0;
     visibility: hidden;
     transition: opacity $drop-transition;
@@ -25,7 +25,7 @@
         display: block;
         top: 0;
         left: 90%;
-        z-index: 510;
+        z-index: $drop-zindex + 1;
         transition: left $drop-transition, opacity $drop-transition;
     }
 

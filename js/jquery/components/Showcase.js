@@ -13,7 +13,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     }
 
     this.component = 'Showcase';
-    this.version = '1.2.0';
+    this.version = '1.2.2';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
     this.nodes = nodes = $(nodes);
@@ -30,8 +30,8 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
     // Initialize events
     this.events = events = {
-        'clickout element': 'hide',
-        'clickout nodes': 'hide',
+        'clickout element': 'onHide',
+        'clickout nodes': 'onHide',
         'swipeleft element': 'next',
         'swipeup element': 'next',
         'swiperight element': 'prev',
@@ -61,17 +61,15 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             $('body').removeClass('no-scroll');
         }
 
-        if (this.element.is(':shown')) {
-            this.element
-                .conceal()
-                .removeClass('is-single');
+        this.element
+            .conceal()
+            .removeClass('is-single');
 
-            this.items
-                .removeAttr('style')
-                .children('li').removeClass('show');
+        this.items
+            .removeAttr('style')
+            .children('li').removeClass('show');
 
-            this.fireEvent('hide');
-        }
+        this.fireEvent('hide');
     },
 
     /**
@@ -305,6 +303,26 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             width: width,
             height: height
         });
+    },
+
+    /**
+     * Event handler for hide().
+     *
+     * @private
+     * @param {jQuery.Event} e
+     */
+    onHide: function(e) {
+        e.preventDefault();
+
+        var element = this.element;
+
+        // If the showcase is loading (AJAX) or is not shown, exit early
+        // This stops cases where the blackout can be clicked early
+        if (!element.is(':shown') || element.hasClass('is-loading')) {
+            return;
+        }
+
+        this.hide();
     },
 
     /**

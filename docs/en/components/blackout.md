@@ -44,6 +44,11 @@ var blackout = Toolkit.Blackout.factory();
             <td>.3s</td>
             <td>The transition time for fading in and out.</td>
         </tr>
+        <tr>
+            <td>$blackout-zindex</td>
+            <td>600</td>
+            <td>The z-index for the blackout element.</td>
+        </tr>
     </tbody>
 </table>
 

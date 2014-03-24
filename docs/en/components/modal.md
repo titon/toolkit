@@ -149,6 +149,11 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
             <td>.3s</td>
             <td>The transition time for all modal animations.</td>
         </tr>
+        <tr>
+            <td>$modal-zindex</td>
+            <td>610</td>
+            <td>The z-index for the modal element.</td>
+        </tr>
     </tbody>
 </table>
 

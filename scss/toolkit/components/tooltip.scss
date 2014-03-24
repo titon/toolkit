@@ -15,7 +15,7 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     border: none;
     margin: $margin;
     padding: $small-padding;
-    z-index: 500;
+    z-index: $tooltip-zindex;
     max-width: 200px;
     visibility: hidden;
     background: #000;

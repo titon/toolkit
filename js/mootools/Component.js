@@ -90,7 +90,9 @@ Toolkit.Component = new Class({
 
             // No context defined, so use the context in options
             // Also clickout events cannot be delegated
-            if ((context.charAt(0) === '.' || context.charAt(0) === '#') && event !== 'clickout') {
+            var charAt = context.charAt(0);
+
+            if ((charAt === '.' || charAt === '#' || charAt === '[') && event !== 'clickout') {
                 selector = context;
                 context = self.options.context;
             }
@@ -544,6 +546,14 @@ Toolkit.Component = new Class({
     onHide: function(e) {
         if (typeOf(e) === 'domevent') {
             e.preventDefault();
+        }
+
+        var element = this.element;
+
+        // If the element is loading (AJAX) or is not shown, exit early
+        // This stops cases where the blackout can be clicked early
+        if (element && (!element.isShown() || element.hasClass(Toolkit.options.isPrefix + 'loading'))) {
+            return;
         }
 
         this.hide();
