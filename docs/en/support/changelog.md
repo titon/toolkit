@@ -1,5 +1,11 @@
 # Changelog #
 
+## 1.2.2 ##
+* Added z-index variables to all applicable components for easier layering
+* Fixed a bug where data attribute selectors were not being delegated to the document [[#20](https://github.com/titon/toolkit/issues/20)]
+* Fixed a bug where tooltips would not show above modals [[#20](https://github.com/titon/toolkit/issues/20)]
+* Fixed a bug where the blackout could be closed while the modal is loading [[#16](https://github.com/titon/toolkit/issues/16)]
+
 ## 1.2.1 ##
 * Fixed a bug with `throttle()` when 0 is passed as the delay
 * Pin
