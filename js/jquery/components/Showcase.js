@@ -33,8 +33,8 @@
 
         // Initialize events
         this.events = events = {
-            'clickout element': 'hide',
-            'clickout nodes': 'hide',
+            'clickout element': 'onHide',
+            'clickout nodes': 'onHide',
             'swipeleft element': 'next',
             'swipeup element': 'next',
             'swiperight element': 'prev',
@@ -64,17 +64,15 @@
                 $('body').removeClass('no-scroll');
             }
 
-            if (this.element.is(':shown')) {
-                this.element
-                    .conceal()
-                    .removeClass(Toolkit.options.isPrefix + 'single');
+            this.element
+                .conceal()
+                .removeClass(Toolkit.options.isPrefix + 'single');
 
-                this.items
-                    .removeAttr('style')
-                    .children('li').removeClass('show');
+            this.items
+                .removeAttr('style')
+                .children('li').removeClass('show');
 
-                this.fireEvent('hide');
-            }
+            this.fireEvent('hide');
         },
 
         /**
@@ -309,6 +307,26 @@
                 width: width,
                 height: height
             });
+        },
+
+        /**
+         * Event handler for hide().
+         *
+         * @private
+         * @param {jQuery.Event} e
+         */
+        onHide: function(e) {
+            e.preventDefault();
+
+            var element = this.element;
+
+            // If the modal is loading (AJAX) or is not shown, exit early
+            // This stops cases where the blackout can be clicked early
+            if (!element.is(':shown') || element.hasClass(Toolkit.options.isPrefix + 'loading')) {
+                return;
+            }
+
+            this.hide();
         },
 
         /**

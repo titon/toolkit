@@ -158,6 +158,14 @@
         onHide: function(e) {
             e.preventDefault();
 
+            var element = this.element;
+
+            // If the modal is loading (AJAX) or is not shown, exit early
+            // This stops cases where the blackout can be clicked early
+            if (!element.is(':shown') || element.hasClass(Toolkit.options.isPrefix + 'loading')) {
+                return;
+            }
+
             this.hide();
         },
 

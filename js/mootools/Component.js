@@ -554,6 +554,14 @@ Toolkit.Component = new Class({
             e.preventDefault();
         }
 
+        var element = this.element;
+
+        // If the element is loading (AJAX) or is not shown, exit early
+        // This stops cases where the blackout can be clicked early
+        if (element && (!element.isShown() || element.hasClass(Toolkit.options.isPrefix + 'loading'))) {
+            return;
+        }
+
         this.hide();
     },
 
