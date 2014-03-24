@@ -11,7 +11,7 @@ if ($mod = value('modifier')) {
 
 $classes = implode(' ', array_filter($classes)); ?>
 
-<nav class="<?php echo $classes; ?>">
+<nav class="<?php echo $classes; ?>" role="navigation" aria-label="Paged Navigation">
     <ul>
         <li><a href="javascript:;" class="button <?php echo $state; ?>">&laquo;</a></li>
         <?php for ($i = 1; $i <= $count; $i++) { ?>
