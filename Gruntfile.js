@@ -95,8 +95,6 @@ module.exports = function(grunt) {
     // Configure
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        buildFile: 'build/<%= pkg.name.toLowerCase() %>',
-        distFile: 'dist/toolkit',
 
         // 1) Validate the Javascript source directory
         // http://jshint.com/docs/
@@ -148,16 +146,16 @@ module.exports = function(grunt) {
             },
             build: {
                 files: [
-                    { src: cssPaths, dest: '<%= buildFile %>.min.css' },
-                    { src: jqueryPaths, dest: '<%= buildFile %>-jquery.min.js' },
-                    { src: mooPaths, dest: '<%= buildFile %>-mootools.min.js' }
+                    { src: cssPaths, dest: 'build/toolkit.min.css' },
+                    { src: jqueryPaths, dest: 'build/toolkit-jquery.min.js' },
+                    { src: mooPaths, dest: 'build/toolkit-mootools.min.js' }
                 ]
             },
             dist: {
                 files: [
-                    { src: cssPaths, dest: '<%= distFile %>.min.css' },
-                    { src: jqueryPaths, dest: '<%= distFile %>-jquery.min.js' },
-                    { src: mooPaths, dest: '<%= distFile %>-mootools.min.js' }
+                    { src: cssPaths, dest: 'dist/toolkit.min.css' },
+                    { src: jqueryPaths, dest: 'dist/toolkit-jquery.min.js' },
+                    { src: mooPaths, dest: 'dist/toolkit-mootools.min.js' }
                 ]
             }
         },
@@ -180,20 +178,20 @@ module.exports = function(grunt) {
                     beautify: true
                 },
                 files: {
-                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
-                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
+                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
                 }
             },
             prod: {
                 files: {
-                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
-                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
+                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
                 }
             },
             dist: {
                 files: {
-                    '<%= distFile %>-jquery.min.js': '<%= distFile %>-jquery.min.js',
-                    '<%= distFile %>-mootools.min.js': '<%= distFile %>-mootools.min.js'
+                    'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
+                    'dist/toolkit-mootools.min.js': 'dist/toolkit-mootools.min.js'
                 }
             }
         },
@@ -202,17 +200,17 @@ module.exports = function(grunt) {
         // https://github.com/nDmitry/grunt-autoprefixer
         autoprefixer: {
             options: {
-                browsers: ['last 2 versions'],
+                browsers: ['last 3 versions'],
                 map: false
             },
             build: {
                 files: {
-                    '<%= buildFile %>.min.css': '<%= buildFile %>.min.css'
+                    'build/toolkit.min.css': 'build/toolkit.min.css'
                 }
             },
             dist: {
                 files: {
-                    '<%= distFile %>.min.css': '<%= distFile %>.min.css'
+                    'dist/toolkit.min.css': 'dist/toolkit.min.css'
                 }
             }
         },
@@ -228,16 +226,16 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    '<%= buildFile %>.min.css': '<%= buildFile %>.min.css',
-                    '<%= buildFile %>-jquery.min.js': '<%= buildFile %>-jquery.min.js',
-                    '<%= buildFile %>-mootools.min.js': '<%= buildFile %>-mootools.min.js'
+                    'build/toolkit.min.css': 'build/toolkit.min.css',
+                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
+                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
                 }
             },
             dist: {
                 files: {
-                    '<%= distFile %>.min.css': '<%= distFile %>.min.css',
-                    '<%= distFile %>-jquery.min.js': '<%= distFile %>-jquery.min.js',
-                    '<%= distFile %>-mootools.min.js': '<%= distFile %>-mootools.min.js'
+                    'dist/toolkit.min.css': 'dist/toolkit.min.css',
+                    'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
+                    'dist/toolkit-mootools.min.js': 'dist/toolkit-mootools.min.js'
                 }
             }
         },

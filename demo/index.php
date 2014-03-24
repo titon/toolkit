@@ -502,7 +502,7 @@ if ($vendor === 'mootools') {
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../build/titon-toolkit.min.css" rel="stylesheet" type="text/css">
+    <link href="../build/toolkit.min.css" rel="stylesheet" type="text/css">
     <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
@@ -513,7 +513,7 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
-        <script src="../build/titon-toolkit-mootools.min.js"></script>
+        <script src="../build/toolkit-mootools.min.js"></script>
         <script>
             Toolkit.messages = Object.merge(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -524,7 +524,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -535,7 +535,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -545,7 +545,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
     <?php } ?>
 
     <!--[if lte IE 8]>
