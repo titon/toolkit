@@ -66,6 +66,11 @@ $('.js-tooltip').tooltip({
             <td>6</td>
             <td>The border size for tooltip arrows.</td>
         </tr>
+        <tr>
+            <td>$tooltip-zindex</td>
+            <td>700</td>
+            <td>The z-index for the tooltip element.</td>
+        </tr>
     </tbody>
 </table>
 

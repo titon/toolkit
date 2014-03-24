@@ -16,7 +16,7 @@ $popover-arrow-width-shadow: ($popover-arrow-width - 2);
     margin: $margin;
     padding: 0;
     border: 0;
-    z-index: 500;
+    z-index: $popover-zindex;
     max-width: 300px;
     visibility: hidden;
 

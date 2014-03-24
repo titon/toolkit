@@ -125,6 +125,11 @@ Reverse alignment works for both horizontal and vertical menus.
             <td>.3s</td>
             <td>The transition time for menu fade and nested menu slide animations.</td>
         </tr>
+        <tr>
+            <td>$drop-zindex</td>
+            <td>500</td>
+            <td>The z-index for the drop element.</td>
+        </tr>
     </tbody>
 </table>
 

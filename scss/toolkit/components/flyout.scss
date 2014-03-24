@@ -10,7 +10,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 500;
+    z-index: $flyout-zindex;
     opacity: 0;
     visibility: hidden;
     @include box-sizing(content-box); // required by MooTools for multi columns

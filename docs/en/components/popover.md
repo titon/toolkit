@@ -58,6 +58,11 @@ then the value will be used as a URL to request, and the response will be insert
             <td>8</td>
             <td>The border size for popover arrows.</td>
         </tr>
+        <tr>
+            <td>$popover-zindex</td>
+            <td>700</td>
+            <td>The z-index for the popover element.</td>
+        </tr>
     </tbody>
 </table>
 

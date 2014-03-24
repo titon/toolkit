@@ -67,6 +67,11 @@ The value of `getCategory` (defaults to `data-showcase`) will be used for groupi
             <td>.3s</td>
             <td>The transition time for showcase resize animations.</td>
         </tr>
+        <tr>
+            <td>$showcase-zindex</td>
+            <td>610</td>
+            <td>The z-index for the showcase element.</td>
+        </tr>
     </tbody>
 </table>
 

@@ -14,7 +14,7 @@
     height: auto;
     margin: 0;
     padding: 0;
-    z-index: 610; // higher than blackout
+    z-index: $showcase-zindex;
     opacity: 0;
     visibility: hidden;
     -webkit-backface-visibility: hidden;

@@ -139,6 +139,11 @@ The following fields are available for each item in the data set.
             <td>.3s</td>
             <td>The transition time for menu fade and nested menu slide animations.</td>
         </tr>
+        <tr>
+            <td>$flyout-zindex</td>
+            <td>600</td>
+            <td>The z-index for the flyout element.</td>
+        </tr>
     </tbody>
 </table>
 

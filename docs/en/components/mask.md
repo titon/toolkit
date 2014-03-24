@@ -85,6 +85,11 @@ $('.js-mask-toggle').click(function() {
             <td>.3s</td>
             <td>The transition time for fading in and out.</td>
         </tr>
+        <tr>
+            <td>$mask-zindex</td>
+            <td>500</td>
+            <td>The z-index for the mask element.</td>
+        </tr>
     </tbody>
 </table>
 

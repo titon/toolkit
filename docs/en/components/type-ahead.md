@@ -210,6 +210,25 @@ $('#input').typeAhead({
     This is useful for data sets that are processed remotely.
 </div>
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$typeAhead-zindex</td>
+            <td>500</td>
+            <td>The z-index for the type ahead element.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).

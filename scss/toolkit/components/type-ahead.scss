@@ -10,7 +10,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 500;
+    z-index: $typeAhead-zindex;
     opacity: 0;
     visibility: hidden;
     @include transition(opacity 0.3s);
