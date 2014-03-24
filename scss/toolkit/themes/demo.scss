@@ -500,10 +500,12 @@ a.step:hover:after {
     background: $gray-lightest;
 }
 
-a.step.is-complete,
-a.step.is-complete:after {
-    background: $info;
-    color: #fff;
+.steps li.is-complete {
+    a.step,
+    a.step:after {
+        background: $info;
+        color: #fff;
+    }
 }
 
 //-------------------- Tooltip --------------------//

@@ -19,6 +19,7 @@
 * [Notice](notice.md)
 * [Pagination](pagination.md)
 * [Progress](progress.md)
+* [Step](step.md)
 * [Table](table.md)
 
 ### Modules ###

@@ -5,9 +5,9 @@
         $complete = value('complete', 3);
 
         for ($i = 1; $i <= $max; $i++) { ?>
-            <li>
+            <li<?php if ($i <= $complete) echo ' class="is-complete"'; ?>>
                 <a href="?component=step&theme=<?= value('theme'); ?>&vendor=jquery1&size=<?= value('size'); ?>&count=<?= $max; ?>&complete=<?= $i; ?>"
-                   class="step <?= ($i <= $complete) ? 'is-complete' : ''; ?>">
+                   class="step">
                     Step <?= $i; ?>
                 </a>
             </li>
