@@ -482,6 +482,30 @@ mark { background: lighten($warning-light, 25%); }
     border: 1px solid $gray-dark;
 }
 
+//-------------------- Step --------------------//
+
+.steps ol {
+    border: 1px solid $gray-dark;
+    background: $gray;
+}
+
+.step:after {
+    background: $gray;
+    border-right: 1px solid $gray-dark;
+    border-bottom: 1px solid $gray-dark;
+}
+
+a.step:hover,
+a.step:hover:after {
+    background: $gray-lightest;
+}
+
+a.step.is-complete,
+a.step.is-complete:after {
+    background: $info;
+    color: #fff;
+}
+
 //-------------------- Tooltip --------------------//
 
 .tooltip {

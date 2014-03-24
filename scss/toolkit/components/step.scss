@@ -1,0 +1,65 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+.#{$vendor-prefix}steps {
+    margin: $margin 0;
+    font-size: $medium-size;
+
+    ol {
+        @include reset-list;
+        display: inline-block;
+        overflow: hidden;
+        @include clear-fix;
+    }
+
+    // Use em's to scale against the size defined on .steps
+    .#{$vendor-prefix}step {
+        padding: 0 2em 0 3.5em;
+        position: relative;
+        display: block;
+        line-height: 3em;
+        height: 3em;
+
+        // Golden ratio? Seems to work for all font sizes in *most* browsers
+        &:after {
+            height: 2.165em;
+            width: 2.165em;
+            top: 0.425em;
+            right: -1.1em;
+            position: absolute;
+            z-index: 2;
+            content: "";
+            transform: rotate(-45deg);
+        }
+    }
+
+    li {
+        @include reset-inline-block;
+        float: left;
+
+        &:first-child {
+            .#{$vendor-prefix}step {
+                padding-left: 2em;
+            }
+        }
+
+        &:last-child {
+            .#{$vendor-prefix}step {
+                &:after { display: none; }
+            }
+        }
+    }
+
+    @include is-small {
+        font-size: $small-size;
+    }
+
+    @include is-large {
+        font-size: $large-size;
+    }
+}

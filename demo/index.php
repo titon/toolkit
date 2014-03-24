@@ -390,6 +390,15 @@ $components = array(
             'onlyWithin' => array('title' => 'Only within marker?', 'type' => 'boolean', 'default' => true),
         )
     ),
+    'step' => array(
+        'title' => 'Step',
+        'css' => array('layout/step.css'),
+        'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'count' => array('title' => 'Steps', 'type' => 'number', 'default' => 5),
+            'complete' => array('title' => 'Completed', 'type' => 'number', 'default' => 3)
+        )
+    ),
     'table' => array(
         'title' => 'Table',
         'css' => array('layout/table.css'),

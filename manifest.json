@@ -367,6 +367,17 @@
             "moo": ["More/Element.Event.Pseudos"]
         }
     },
+    "step": {
+        "name": "Step",
+        "description": "Navigation grouped into consecutive steps.",
+        "category": "component",
+        "type": "element",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/step.css"]
+        }
+    },
     "table": {
         "name": "Table",
         "description": "Provides styles for tables and their common use cases.",

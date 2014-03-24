@@ -4,6 +4,7 @@ Older versions can be found in the documentation changelogs.
 
 ## 1.3.0 ##
 
+* Added new Step component for steps based navigation
 * Added ARIA support to all components with supported documentation
 * Added CSS vendor prefixing support through [autoprefixer](https://github.com/ai/autoprefixer)
 * Removed is and has state prefixing from the CSS and JS layers
