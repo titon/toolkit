@@ -82,7 +82,9 @@ Toolkit.Component = new Class({
 
             // No context defined, so use the context in options
             // Also clickout events cannot be delegated
-            if ((context.charAt(0) === '.' || context.charAt(0) === '#') && event !== 'clickout') {
+            var charAt = context.charAt(0);
+
+            if ((charAt === '.' || charAt === '#' || charAt === '[') && event !== 'clickout') {
                 selector = context;
                 context = self.options.context;
             }
