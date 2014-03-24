@@ -36,4 +36,5 @@ Older versions can be found in the documentation changelogs.
     * Removed `.row` (reserved now for another component)
 * Pin
     * Added `lock` option to disable pinning if element is taller than the viewport
+    * Added `$pin-transition` variable
     * Fixed a bug where the pin element margin was not included in the total height

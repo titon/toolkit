@@ -60,6 +60,25 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
 
 * An `.is-pinned` class will be toggled when the pinned element re-positions.
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$pin-transition</td>
+            <td>.2s</td>
+            <td>The transition time for pinned element position animations.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js.md#options).
