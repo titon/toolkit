@@ -102,7 +102,8 @@ $('.js-tooltip').tooltip({});
 The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
 It defines global options, localized messages, feature detection, and device support.
 It also acts as a namespace for components by housing a top level name to avoid global conflicts.
-Each component class definition can be found on the `Toolkit` object, for example, the accordion interface is found under `Toolkit.Accordion`.
+Each component class definition can be found on the `Toolkit` object, for example,
+the accordion interface is found under `Toolkit.Accordion`.
 
 ### Vendor Namespace ###
 
@@ -553,7 +554,8 @@ The following properties are available on all class instances, but not all compo
             <td>element</td>
             <td>
                 The primary element used by the component.
-                Is built from the <code>template</code> or <code>templateFrom</code> options.
+                Is built from the <code>template</code> or <code>templateFrom</code> options,
+                or is passed through the constructor.
             </td>
         </tr>
         <tr>

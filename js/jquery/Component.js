@@ -150,27 +150,32 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         // Trigger event globally
-        var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1),
-            element = this.element;
+        var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
 
         if (this.options[onType]) {
             this.options[onType].apply(this, args || []);
         }
 
-        // Trigger per element
+        // Generate the namespaced event
+        var name = this.eventClass,
+            element = this.element,
+            node = this.node;
+
+        if (!name) {
+            name = this.component;
+            this.eventClass = name = name.charAt(0).toLowerCase() + name.slice(1);
+        }
+
+        var event = jQuery.Event(type + '.toolkit.' + name);
+            event.context = this;
+
+        // Trigger event on the element and the node
         if (element && element.length) {
-            var name = this.eventClass;
-
-            // Cache the name for future use
-            if (!name) {
-                name = this.component;
-                this.eventClass = name = name.charAt(0).toLowerCase() + name.slice(1);
-            }
-
-            var event = jQuery.Event(type + '.toolkit.' + name);
-                event.context = this;
-
             element.trigger(event, args || []);
+        }
+
+        if (node && node.length) {
+            node.trigger(event, args || []);
         }
     },
 
