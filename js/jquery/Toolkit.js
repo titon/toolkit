@@ -503,56 +503,58 @@ if (!$.cookie) {
  */
 if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
-        var elements = $([]),
-            doc = $(document);
+        var elements = [];
 
-        function clickOut(e) {
-            var trigger = true;
+        $(document).on('click.toolkit.out', function(e) {
+            if (!elements.length) {
+                return;
+            }
 
-            elements.each(function() {
+            var trigger = true,
+                collection = $(document);
+
+            $.each(elements, function(i, item) {
                 if (trigger) {
-                    var self = $(this);
+                    var self = $(item);
 
-                    trigger = (!self.is(e.target) && self.has(e.target).length === 0);
+                    if (!self.is(e.target) && !self.has(e.target).length) {
+                        collection = collection.add(item);
+                    } else {
+                        trigger = false;
+                    }
                 }
             });
 
             if (trigger) {
-                elements.trigger('clickout', [e.target]);
+                collection.trigger('clickout', [e.target]);
             }
-        }
+        });
 
         return {
-            setup: function() {
-                elements = elements.add(this);
-
-                if (elements.length === 1) {
-                    doc.on('click', clickOut);
-                }
-            },
-            teardown: function() {
-                elements = elements.not(this);
-
-                if (elements.length === 0) {
-                    doc.off('click', clickOut);
-                }
-            },
             add: function(handler) {
-                var oldHandler = handler.handler;
+                var context = this;
 
-                handler.handler = function(e, el) {
-                    e.target = el;
-                    oldHandler.apply(this, arguments);
-                };
+                if (this === document) {
+                    context = handler.selector;
+                }
+
+                if ($.inArray(context, elements) === -1) {
+                    elements.push(context);
+                }
+            },
+            remove: function(handler) {
+                var context = this;
+
+                if (this === document) {
+                    context = handler.selector;
+                }
+
+                elements = $.grep(elements, function(item) {
+                    return (item !== context);
+                });
             }
         };
     })();
-
-    $.fn.clickout = function(data, fn) {
-        return arguments.length > 0 ?
-            this.on('clickout', null, data, fn) :
-            this.trigger('clickout');
-    };
 }
 
 /**
@@ -641,12 +643,6 @@ if (!$.event.special.swipe) {
 
     // Set swipe methods and events
     $.each('swipe swipeleft swiperight swipeup swipedown'.split(' '), function(i, name) {
-        $.fn[name] = function(data, fn) {
-            return arguments.length > 0 ?
-                this.on(name, null, data, fn) :
-                this.trigger(name);
-        };
-
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {

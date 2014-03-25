@@ -46,7 +46,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 
     // Initialize events
     events['clickout element'] = 'onHide';
-    events['clickout nodes'] = 'onHide';
+    events['clickout ' + nodes.selector] = 'onHide';
     events['keydown window'] = 'onKeydown';
     events['click ' + nodes.selector] = 'onShow';
     events['click element ' + options.closeEvent] = 'onHide';

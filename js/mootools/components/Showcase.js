@@ -91,11 +91,11 @@ Toolkit.Showcase = new Class({
 
         this.events = events = {
             'clickout element': 'onHide',
-            'clickout nodes': 'onHide',
             'swipe element': 'onSwipe',
             'keydown window': 'onKeydown'
         };
 
+        events['clickout ' + options.delegate] = 'onHide';
         events['click ' + options.delegate] = 'onShow';
         events['click ' + options.closeEvent] = 'hide';
         events['click ' + options.nextEvent] = 'next';

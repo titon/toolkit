@@ -84,7 +84,7 @@ Toolkit.Modal = new Class({
         // Initialize events
         var events = {};
         events['clickout element'] = 'onHide';
-        events['clickout nodes'] = 'onHide';
+        events['clickout ' + options.delegate] = 'onHide';
         events['keydown window'] = 'onKeydown';
         events['click ' + options.delegate] = 'onShow';
         events['click element ' + options.closeEvent] = 'onHide';

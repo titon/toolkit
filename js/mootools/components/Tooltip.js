@@ -75,16 +75,16 @@ Toolkit.Tooltip = new Class({
         }
 
         // Initialize events
-        var events = {};
+        var events = {}, selector = options.delegate;
 
         if (options.mode === 'click') {
             events['clickout element'] = 'hide';
-            events['clickout ' + options.delegate] = 'hide';
+            events['clickout ' + selector] = 'hide';
         } else {
-            events['mouseleave ' + options.delegate] = 'hide';
+            events['mouseleave ' + selector] = 'hide';
         }
 
-        events[options.mode + ' ' + options.delegate] = 'onShow';
+        events[options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
 

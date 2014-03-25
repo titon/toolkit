@@ -31,7 +31,6 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     // Initialize events
     this.events = events = {
         'clickout element': 'onHide',
-        'clickout nodes': 'onHide',
         'swipeleft element': 'next',
         'swipeup element': 'next',
         'swiperight element': 'prev',
@@ -39,6 +38,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         'keydown window': 'onKeydown'
     };
 
+    events['clickout ' + nodes.selector] = 'onHide';
     events['click ' + nodes.selector] = 'onShow';
     events['click ' + options.closeEvent] = 'hide';
     events['click ' + options.nextEvent] = 'next';

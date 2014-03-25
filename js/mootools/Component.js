@@ -237,7 +237,9 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     hide: function(callback) {
-        this.element.conceal();
+        if (this.element) {
+            this.element.conceal();
+        }
 
         if (typeOf(callback) === 'function') {
             callback();
@@ -552,7 +554,7 @@ Toolkit.Component = new Class({
 
         // If the element is loading (AJAX) or is not shown, exit early
         // This stops cases where the blackout can be clicked early
-        if (element && (!element.isShown() || element.hasClass(Toolkit.options.isPrefix + 'loading'))) {
+        if (element && (!element.isShown() || element.hasClass('is-loading'))) {
             return;
         }
 

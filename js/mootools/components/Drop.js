@@ -28,7 +28,8 @@ Toolkit.Drop = new Class({
             selector = this.options.delegate;
 
         // Initialize events
-        events['clickout .' + Toolkit.vendor + 'drop,' + selector] = 'hide';
+        events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
+        events['clickout ' + selector] = 'hide';
         events[this.options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
@@ -44,9 +45,11 @@ Toolkit.Drop = new Class({
      */
     hide: function() {
         return this.parent(function() {
-            this.node
-                .aria({ selected: false, expanded: false })
-                .removeClass('is-active');
+            if (this.node) {
+                this.node
+                    .aria({ selected: false, expanded: false })
+                    .removeClass('is-active');
+            }
         }.bind(this));
     },
 

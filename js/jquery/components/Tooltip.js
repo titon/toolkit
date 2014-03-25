@@ -34,14 +34,16 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     }
 
     // Initialize events
+    var selector = nodes.selector;
+
     if (options.mode === 'click') {
         events['clickout element'] = 'hide';
-        events['clickout ' + nodes.selector] = 'hide';
+        events['clickout ' + selector] = 'hide';
     } else {
-        events['mouseleave ' + nodes.selector] = 'hide';
+        events['mouseleave ' + selector] = 'hide';
     }
 
-    events[options.mode + ' ' + nodes.selector] = 'onShow';
+    events[options.mode + ' ' + selector] = 'onShow';
 
     this.enable();
     this.fireEvent('init');

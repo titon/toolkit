@@ -146,7 +146,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
 
     if (!options.native) {
         events['blur input'] = 'hide';
-        events['clickout dropdown'] = 'hide';
+        events['clickout .' + Toolkit.vendor + 'drop.select-options'] = 'hide';
         events['clickout element'] = 'hide';
         events['click element'] = 'onToggle';
 

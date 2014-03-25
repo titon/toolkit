@@ -80,10 +80,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             selector = keys[2] || null;
 
             // No context defined, so use the context in options
-            // Also clickout events cannot be delegated
             var charAt = context.charAt(0);
 
-            if ((charAt === '.' || charAt === '#' || charAt === '[') && event !== 'clickout') {
+            if (charAt === '.' || charAt === '#' || charAt === '[') {
                 selector = context;
                 context = self.options.context;
             }
