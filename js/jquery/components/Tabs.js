@@ -121,7 +121,9 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
                         .aria('busy', true);
                 },
                 function(response) {
-                    this.cache[url] = true;
+                    if (options.cache) {
+                        this.cache[url] = true;
+                    }
 
                     this.fireEvent('load', response);
 

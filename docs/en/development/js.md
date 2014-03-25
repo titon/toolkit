@@ -378,6 +378,12 @@ The following options are shared between all components.
             <td>The element to attach delegated events to, or to use as a parent. Defaults to the document body.</td>
         </tr>
         <tr>
+            <td>cache</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to cache the response of AJAX requests.</td>
+        </tr>
+        <tr>
             <td>delegate</td>
             <td>string</td>
             <td></td>

@@ -308,7 +308,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             ajax = $.extend({}, this.options.ajax, ajax);
         }
 
-        var cache = (ajax.type.toUpperCase() === 'GET');
+        var cache = (ajax.type.toUpperCase() === 'GET' && this.options.cache);
 
         return $.ajax(ajax)
             .done(done || function(response, status, xhr) {
@@ -392,6 +392,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     }
 
 }, {
+    cache: true,
     context: null,
     className: '',
     template: '',

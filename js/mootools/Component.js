@@ -31,6 +31,7 @@ Toolkit.Component = new Class({
 
     /** Default options */
     options: {
+        cache: true,
         context: null,
         delegate: '',
         className: '',
@@ -434,7 +435,7 @@ Toolkit.Component = new Class({
 
         // Set callbacks
         var self = this,
-            cache = (ajax.method.toUpperCase() === 'GET');
+            cache = (ajax.method.toUpperCase() === 'GET' && this.options.cache);
 
         ajax.onSuccess = done || function(response) {
             var contentType = this.xhr.getResponseHeader('Content-Type');

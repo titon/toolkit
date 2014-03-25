@@ -161,7 +161,9 @@ Toolkit.Tabs = new Class({
                 }.bind(this),
 
                 function(response) {
-                    this.cache[url] = true;
+                    if (options.cache) {
+                        this.cache[url] = true;
+                    }
 
                     this.fireEvent('load', response);
 
