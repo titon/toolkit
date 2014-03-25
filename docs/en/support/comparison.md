@@ -13,6 +13,8 @@ If a cell is blue, than either partial support is provided, or the item has a di
 
 ## Components ##
 
+The following components are found within Toolkit.
+
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
@@ -24,9 +26,6 @@ If a cell is blue, than either partial support is provided, or the item has a di
         </tr>
     </thead>
     <tbody>
-        <tr class="table-divider">
-            <td colspan="5">Toolkit</td>
-        </tr>
         <tr>
             <td>Accordion</td>
             <td class="is-success">&check;</td>
@@ -109,7 +108,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
+            <td class="is-info">Known as Input</td>
         </tr>
         <tr>
             <td>Grid</td>
@@ -130,14 +129,14 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
-            <td class="is-success">Known as Checkbox, Dropdown</td>
+            <td class="is-info">Known as Checkbox, Dropdown</td>
         </tr>
         <tr>
             <td>Input Group</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">Known as Pre/Postfix</td>
+            <td class="is-info">Known as Pre/Postfix</td>
             <td class="is-success">&check;</td>
-            <td class="is-error"></td>
+            <td class="is-info">Part of Input</td>
         </tr>
         <tr>
             <td>Label</td>
@@ -147,7 +146,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>LazyLoad</td>
+            <td>Lazy Load</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
@@ -238,6 +237,13 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
         </tr>
         <tr>
+            <td>Step</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
             <td>Table</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -262,7 +268,7 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td>Type Ahead</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-info">Known as AutoComplete</td>
+            <td class="is-error"></td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -272,20 +278,39 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
+    </tbody>
+</table>
 
-        <tr class="table-divider">
-            <td colspan="5">Foundation</td>
+The following components are found within Foundation that have not been mentioned previously.
+
+<table class="table is-striped comparison-table">
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Toolkit</th>
+            <th>Foundation</th>
+            <th>Bootstrap</th>
+            <th>Semantic UI</th>
         </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>Abide</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-info">Known as Form</td>
+            <td class="is-info">Known as Form Validation</td>
         </tr>
         <tr>
             <td>Block Grid</td>
             <td class="is-info">Possible with Grid mixins</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>Equalizer</td>
+            <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
@@ -319,6 +344,20 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-info">Known as Sidebar</td>
         </tr>
         <tr>
+            <td>Panels</td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-info">Known as Segment</td>
+        </tr>
+        <tr>
+            <td>Sliders</td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
             <td>Side Nav</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
@@ -332,10 +371,29 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-error"></td>
             <td class="is-info">Part of Menu</td>
         </tr>
-
-        <tr class="table-divider">
-            <td colspan="5">Bootstrap</td>
+        <tr>
+            <td>Top Nav</td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+            <td class="is-info">Known as Navbar</td>
+            <td class="is-info">Possible with Menu</td>
         </tr>
+    </tbody>
+</table>
+
+The following components are found within Bootstrap that have not been mentioned previously.
+
+<table class="table is-striped comparison-table">
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Toolkit</th>
+            <th>Foundation</th>
+            <th>Bootstrap</th>
+            <th>Semantic UI</th>
+        </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>Badge</td>
             <td class="is-info">Part of Label</td>
@@ -427,19 +485,24 @@ If a cell is blue, than either partial support is provided, or the item has a di
             <td class="is-success">&check;</td>
             <td class="is-info">Known as Segment</td>
         </tr>
+    </tbody>
+</table>
 
-        <tr class="table-divider">
-            <td colspan="5">Semantic UI</td>
+The following components are found within Semantic UI that have not been mentioned previously.
+
+<table class="table is-striped comparison-table">
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Toolkit</th>
+            <th>Foundation</th>
+            <th>Bootstrap</th>
+            <th>Semantic UI</th>
         </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>Reveal</td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
-            <td>Step</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
             <td class="is-error"></td>
@@ -580,23 +643,23 @@ If a cell is blue, than either partial support is provided, or the item has a di
         <tr>
             <td>CSS Animations</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
+            <td class="is-info">Partially</td>
+            <td class="is-info">Partially</td>
             <td class="is-info">Partially</td>
         </tr>
         <tr>
             <td>CSS Transitions</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
+            <td class="is-info">Partially</td>
             <td class="is-info">Partially</td>
         </tr>
         <tr>
             <td>Em Scaling</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-info">Partially</td>
+            <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td>Mobile First</td>
