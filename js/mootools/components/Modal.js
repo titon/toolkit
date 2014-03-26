@@ -175,8 +175,9 @@ Toolkit.Modal = new Class({
             return this;
         }
 
-        // Show blackout
-        if (this.blackout) {
+        // Show blackout if the element is hidden
+        // If it is visible, the blackout count will break
+        if (this.blackout && !this.element.isShown()) {
             this.blackout.show();
         }
 

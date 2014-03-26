@@ -132,8 +132,9 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
             return;
         }
 
-        // Show blackout
-        if (this.blackout) {
+        // Show blackout if the element is hidden
+        // If it is visible, the blackout count will break
+        if (this.blackout && !this.element.is(':shown')) {
             this.blackout.show();
         }
 

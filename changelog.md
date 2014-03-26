@@ -38,6 +38,8 @@ Older versions can be found in the documentation changelogs.
     * Added `%row` placeholder to extend row styles from
     * Added `%col` placeholder to extend column styles from
     * Removed `.row` (reserved now for another component)
+* Modal
+    * Fixed a bug where a modal opened on the same modal causes the blackout to persist
 * Pin
     * Added `lock` option to disable pinning if element is taller than the viewport
     * Added `$pin-transition` variable
