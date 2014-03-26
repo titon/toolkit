@@ -378,6 +378,17 @@
             "css": ["components/step.css"]
         }
     },
+    "switch": {
+        "name": "Switch",
+        "description": "Binary switch for on and off states.",
+        "category": "component",
+        "type": "element",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/switch.css"]
+        }
+    },
     "table": {
         "name": "Table",
         "description": "Provides styles for tables and their common use cases.",

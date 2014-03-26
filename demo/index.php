@@ -399,6 +399,18 @@ $components = array(
             'complete' => array('title' => 'Completed', 'type' => 'number', 'default' => 3)
         )
     ),
+    'switch' => array(
+        'title' => 'Switch',
+        'css' => array('layout/switch.css'),
+        'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'round' => array('title' => 'Round?', 'type' => 'boolean'),
+            'modifier' => array('title' => 'Modifier', 'data' => array(
+                '' => '-- None --',
+                'stacked' => 'Stacked Labels'
+            )),
+        )
+    ),
     'table' => array(
         'title' => 'Table',
         'css' => array('layout/table.css'),

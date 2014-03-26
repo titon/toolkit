@@ -508,6 +508,28 @@ a.step:hover:after {
     }
 }
 
+//-------------------- Switch --------------------//
+
+.switch {
+    overflow: hidden;
+    background: $gray-light;
+    border: 1px solid $gray-dark;
+
+    input:checked + .switch-bar {
+        background: $info;
+        color: #fff;
+    }
+}
+
+.switch-toggle {
+    background: #fff;
+}
+
+.switch--stacked input:not(:checked) + .switch-bar:before,
+.switch--stacked input:checked + .switch-bar:after {
+    color: $info-dark;
+}
+
 //-------------------- Tooltip --------------------//
 
 .tooltip {
