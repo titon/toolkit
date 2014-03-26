@@ -20,6 +20,7 @@
 * [Pagination](pagination.md)
 * [Progress](progress.md)
 * [Step](step.md)
+* [Switch](switch.md)
 * [Table](table.md)
 
 ### Modules ###

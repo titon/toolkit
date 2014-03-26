@@ -404,7 +404,11 @@ $components = array(
         'css' => array('layout/switch.css'),
         'filters' => array(
             'size' => array('title' => 'Size', 'data' => $sizes),
-            'round' => array('title' => 'Round?', 'type' => 'boolean'),
+            'shape' => array('title' => 'Shape', 'data' => array(
+                '' => 'Square (Default)',
+                'round' => 'Round',
+                'pill' => 'Pill'
+            )),
             'modifier' => array('title' => 'Modifier', 'data' => array(
                 '' => '-- None --',
                 'stacked' => 'Stacked Labels'

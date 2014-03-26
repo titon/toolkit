@@ -11,7 +11,7 @@ Effects will need to be manually defined during the [Grunt build process](../set
 ### Shapes ###
 
 Applying a shape class to a [button](button.md), [button group](button-group.md), [pagination](pagination.md),
-or [progress bar](progress.md) will alter the border styles to be more aesthetically pleasing.
+[progress bar](progress.md), and [switch](switch.md) will alter the border styles to be more aesthetically pleasing.
 The following shapes are available:
 
 * `.pill` will alter the shape to that of a medicine pill

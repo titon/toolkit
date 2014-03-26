@@ -130,6 +130,12 @@
                     "title": "Stalker",
                     "url": "/components/stalker"
                 }, {
+                    "title": "Step",
+                    "url": "/components/step"
+                }, {
+                    "title": "Switch",
+                    "url": "/components/switch"
+                }, {
                     "title": "Table",
                     "url": "/components/table"
                 }, {

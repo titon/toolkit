@@ -12,6 +12,16 @@
     width: 100px;
     cursor: pointer;
 
+    &.is-disabled {
+        opacity: $disabled-opacity;
+    }
+
+    &.#{$shape-round-class} {
+        .#{$vendor-prefix}switch-toggle {
+            border-radius: $round - 0.02;
+        }
+    }
+
     input {
         display: none;
 

@@ -1,8 +1,8 @@
 <?php
 $class = ['switch'];
 
-if (value('round')) {
-    $class[] = 'round';
+if ($shape = value('shape')) {
+    $class[] = $shape;
 }
 
 if ($size = value('size')) {
@@ -29,12 +29,24 @@ $class = implode(' ', $class); ?>
 
 <br><br>
 
-<label for="switch-3">No Labels</label>
+<label for="switch-2">No Labels</label>
 
-<label for="switch-3" class="<?= $class; ?>">
-    <input type="checkbox" value="1" id="switch-3" name="switch-3">
+<label for="switch-2" class="<?= $class; ?>">
+    <input type="checkbox" value="1" id="switch-2" name="switch-2">
 
     <span class="switch-bar">
+        <span class="switch-toggle"></span>
+    </span>
+</label>
+
+<br><br>
+
+<label for="switch-3">Disabled</label>
+
+<label for="switch-3" class="<?= $class; ?> is-disabled">
+    <input type="checkbox" value="1" id="switch-3" name="switch-3" disabled>
+
+    <span class="switch-bar" data-switch-on="Yes" data-switch-off="No">
         <span class="switch-toggle"></span>
     </span>
 </label>
