@@ -62,7 +62,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             .aria('readonly', true);
 
         this.input.addClass('not-shadow').replaceWith(this.wrapper);
-        this.wrapper.append(this.input).append(this.shadow);
+        this.wrapper.append(this.shadow).append(this.input);
     }
 
     // Set ARIA after shadow so that attributes are not inherited

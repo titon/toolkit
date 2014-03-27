@@ -52,13 +52,6 @@
 
 .#{$vendor-prefix}type-ahead-shadow {
     position: relative;
-    height: 2rem;
-
-    input {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
 
     .is-shadow {
         color: gray;
@@ -66,6 +59,10 @@
 
     .not-shadow {
         background: transparent;
-        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        zoom: 1;
     }
 }

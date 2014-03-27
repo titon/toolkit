@@ -106,7 +106,7 @@ Toolkit.TypeAhead = new Class({
                 .removeProperty('id')
                 .set('readonly', true)
                 .aria('readonly', true)
-                .inject(this.node, 'bottom');
+                .inject(this.node, 'top');
 
             this.input.addClass('not-shadow');
         }

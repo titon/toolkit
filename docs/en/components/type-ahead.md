@@ -146,17 +146,12 @@ When enabled, the input markup will be changed to the following.
 
 ```html
 <div class="type-ahead-shadow">
-    <!-- The original input -->
-    <input type="text" id="input" class="input not-shadow" autocomplete="off">
     <!-- The shadow input -->
     <input type="text" class="input is-shadow" autocomplete="off" readonly>
+    <!-- The original input -->
+    <input type="text" id="input" class="input not-shadow" autocomplete="off">
 </div>
 ```
-
-<div class="notice is-warning">
-    A height will need to be defined for <code>.type-ahead-shadow</code>.
-    In most cases, the height should match the height of the input fields.
-</div>
 
 ### Sorters, Matchers & Builders ###
 
