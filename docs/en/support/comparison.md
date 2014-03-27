@@ -6,10 +6,74 @@ The charts demonstrate what features and components are implemented by each vend
 A green cell in the chart denotes support for that item, while red denotes no support.
 If a cell is blue, than either partial support is provided, or the item has a different name.
 
+The following libraries are being compared:
+
+* Foundation 5.2.1
+* Bootstrap 3.1.1
+* Semantic UI 0.15.1
+
 <div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
     We will update accordingly.
 </div>
+
+## Sizes ##
+
+<table class="table is-striped comparison-table">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Toolkit</th>
+            <th>Foundation</th>
+            <th>Bootstrap</th>
+            <th>Semantic UI</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CSS Components</td>
+            <td>18</td>
+            <td>22</td>
+            <td>29</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>JS + CSS Components</td>
+            <td>17</td>
+            <td>16</td>
+            <td>12</td>
+            <td>19</td>
+        </tr>
+        <tr>
+            <td>CSS Filesize</td>
+            <td>54KB</td>
+            <td>149KB</td>
+            <td>100KB</td>
+            <td>223KB</td>
+        </tr>
+        <tr>
+            <td>JS Filesize</td>
+            <td>55KB</td>
+            <td>88KB</td>
+            <td>29KB</td>
+            <td>136KB</td>
+        </tr>
+        <tr>
+            <td>Images</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>Fonts</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Components ##
 
