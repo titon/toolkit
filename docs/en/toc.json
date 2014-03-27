@@ -163,7 +163,8 @@
                     "url": "/support/compatibility"
                 }, {
                     "title": "Competitor Comparison",
-                    "url": "/support/comparison"
+                    "url": "/support/comparison",
+                    "updated": true
                 }, {
                     "title": "Changelog",
                     "url": "/support/changelog"

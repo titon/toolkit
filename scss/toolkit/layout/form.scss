@@ -26,12 +26,6 @@ legend {
 select[multiple],
 select[size] { height: auto; }
 
-// Reset browser styles
-input::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-}
-
 // Override normalize
 input[type="search"] {
     box-sizing: border-box;

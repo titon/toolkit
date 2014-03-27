@@ -518,7 +518,7 @@ if ($vendor === 'mootools') {
     <meta name="charset" content="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0; minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="../build/toolkit.min.css" rel="stylesheet" type="text/css">
     <link href="css/example.css" rel="stylesheet" type="text/css">

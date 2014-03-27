@@ -47,8 +47,8 @@ The following libraries are being compared:
         <tr>
             <td>CSS Filesize</td>
             <td>54KB</td>
-            <td>149KB</td>
-            <td>100KB</td>
+            <td>157KB</td>
+            <td>113KB</td>
             <td>223KB</td>
         </tr>
         <tr>

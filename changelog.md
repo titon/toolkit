@@ -15,6 +15,7 @@ replacing Compass with autoprefixer, removal of state prefixing, and many more b
 * Removed `$state-is-prefix` and `$state-has-prefix` Sass variables
 * Removed individual JavaScript distribution files
 * Removed Compass dependency in favor of autoprefixer
+* Updated to normalize.css v3.0.1
 * jQuery
     * Updated `$.fn.item()` to return an empty jQuery collection if index out of range
     * Refactored the `clickout` event to support delegated elements

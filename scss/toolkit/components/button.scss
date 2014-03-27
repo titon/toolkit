@@ -31,9 +31,3 @@
         cursor: not-allowed;
     }
 }
-
-// Reset browser styles
-button::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-}

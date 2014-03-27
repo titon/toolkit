@@ -168,7 +168,8 @@ module.exports = function(grunt) {
                 preserveComments: false,
                 banner: banner,
                 enclose: {
-                    window: 'window'
+                    window: 'window',
+                    jQuery: '$'
                 }
             },
             build: {
@@ -218,13 +219,13 @@ module.exports = function(grunt) {
         // 5) Replace variables in files
         // https://npmjs.org/package/grunt-string-replace
         'string-replace': {
-            options: {
-                replacements: [
-                    { pattern: '%version%', replacement: '<%= pkg.version %>' },
-                    { pattern: '%build%', replacement: Date.now().toString(36) }
-                ]
-            },
             build: {
+                options: {
+                    replacements: [
+                        { pattern: '%version%', replacement: '<%= pkg.version %>' },
+                        { pattern: '%build%', replacement: Date.now().toString(36) }
+                    ]
+                },
                 files: {
                     'build/toolkit.min.css': 'build/toolkit.min.css',
                     'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
@@ -232,6 +233,13 @@ module.exports = function(grunt) {
                 }
             },
             dist: {
+                options: {
+                    replacements: [
+                        { pattern: '%version%', replacement: '<%= pkg.version %>' },
+                        { pattern: '%build%', replacement: Date.now().toString(36) },
+                        { pattern: /(\n|\r)/g, replacement: "" }
+                    ]
+                },
                 files: {
                     'dist/toolkit.min.css': 'dist/toolkit.min.css',
                     'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
