@@ -3,8 +3,11 @@
 Older versions can be found in the documentation changelogs.
 
 ## 1.3.0 ##
+This minor release includes 2 new components, automatic ARIA support for all applicable components,
+replacing Compass with autoprefixer, removal of state prefixing, and many more bug fixes and improvements.
 
 * Added new Step component for step based navigation
+* Added new Switch component for visual checkbox switches
 * Added ARIA support to all components with supported documentation
 * Added CSS vendor prefixing support through [autoprefixer](https://github.com/ai/autoprefixer)
 * Added namespace event triggering support to the activating node
