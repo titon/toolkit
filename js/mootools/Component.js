@@ -134,7 +134,7 @@ Toolkit.Component = new Class({
                     (context || doc)[method](event + ':relay(' + selector + ')', func);
 
                 // On element
-                } else {
+                } else if (context) {
                     context[method](event, func);
                 }
             });

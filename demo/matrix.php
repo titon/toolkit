@@ -54,6 +54,7 @@ $mode = value('mode', 'single'); ?>
         <?php } ?>
 
         i.src = 'http://lorempixel.com/' + w + '/' + h + '/';
+        i.className = 'fluid';
         i.onload = function() {
             <?php if ($vendor === 'mootools') { ?>
                 $('matrix').toolkit('matrix')[where](new Element('li').grab(i));

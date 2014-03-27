@@ -25,7 +25,7 @@ $class = implode(' ', $class); ?>
     </span>
 </label>
 
-<input type="text" class="input <?= value('size'); ?>">
+<input type="text" class="input <?= value('size'); ?>" placeholder="Input for scale">
 
 <br><br>
 
