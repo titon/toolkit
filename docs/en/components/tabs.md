@@ -131,6 +131,27 @@ we can override the `ajax` option through data attributes.
     as the component does not automatically create them!
 </div>
 
+## ARIA ##
+
+The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
+
+```html
+<div class="tabs">
+    <nav class="tabs-nav" role="tablist">
+        <ul>
+            <li><a href="#one" role="tab">First</a></li>
+        </ul>
+    </nav>
+
+    <section class="tabs-section" role="tabpanel">...</section>
+</div>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * The `.show` and `.hide` classes will be toggled on the `.tabs-section` to trigger display.

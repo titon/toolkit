@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Drop = new Class({
     Extends: Toolkit.Component,
 
@@ -28,15 +25,11 @@ Toolkit.Drop = new Class({
         this.nodes = elements;
 
         var events = {},
-            selector = this.options.delegate,
-            clickout = selector;
+            selector = this.options.delegate;
 
         // Initialize events
-        ['down', 'up', 'left', 'right'].each(function(value) {
-            clickout += ',.' + Toolkit.options.vendor + 'drop--' + value;
-        });
-
-        events['clickout ' + clickout] = 'hide';
+        events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
+        events['clickout ' + selector] = 'hide';
         events[this.options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
@@ -52,7 +45,11 @@ Toolkit.Drop = new Class({
      */
     hide: function() {
         return this.parent(function() {
-            this.node.removeClass(Toolkit.options.isPrefix + 'active');
+            if (this.node) {
+                this.node
+                    .aria({ selected: false, expanded: false })
+                    .removeClass('is-active');
+            }
         }.bind(this));
     },
 
@@ -63,7 +60,9 @@ Toolkit.Drop = new Class({
      */
     show: function(node) {
         this.parent(node);
-        this.node.addClass(Toolkit.options.isPrefix + 'active');
+        this.node
+            .aria({ selected: true, expanded: true })
+            .addClass('is-active');
 
         return this;
     },
@@ -104,11 +103,9 @@ Toolkit.Drop = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through drop().
-     */
-    Toolkit.createComponent('drop', function(options) {
-        return new Toolkit.Drop(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through drop().
+ */
+Toolkit.create('drop', function(options) {
+    return new Toolkit.Drop(this, options);
+}, true);

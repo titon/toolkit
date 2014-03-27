@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Stalker = new Class({
     Extends: Toolkit.Component,
     Binds: ['onScroll'],
@@ -50,7 +47,7 @@ Toolkit.Stalker = new Class({
             throw new Error('A marker and target is required');
         }
 
-        element.addClass(Toolkit.options.vendor + 'stalker');
+        element.addClass(Toolkit.vendor + 'stalker');
 
         // Gather markets and targets
         this.refresh();
@@ -102,9 +99,9 @@ Toolkit.Stalker = new Class({
             this.element.scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.targets = $$(this.options.target).addClass(Toolkit.options.vendor + 'stalker-target');
+        this.targets = $$(this.options.target).addClass(Toolkit.vendor + 'stalker-target');
 
-        this.markers = $$(this.options.marker).addClass(Toolkit.options.vendor + 'stalker-marker');
+        this.markers = $$(this.options.marker).addClass(Toolkit.vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 
@@ -119,10 +116,8 @@ Toolkit.Stalker = new Class({
      * @param {String} type
      */
     _stalk: function(marker, type) {
-        var isPrefix = Toolkit.options.isPrefix;
-
         // Stop all the unnecessary processing
-        if (type === 'activate' && marker.hasClass(isPrefix + 'stalked')) {
+        if (type === 'activate' && marker.hasClass('is-stalked')) {
             return;
         }
 
@@ -133,12 +128,12 @@ Toolkit.Stalker = new Class({
                 return (item.get(targetBy).replace('#', '') === marker.get(markBy));
             });
 
-        marker[method](isPrefix + 'stalked');
+        marker[method]('is-stalked');
 
         if (this.options.applyToParent) {
-            target.getParent()[method](isPrefix + 'active');
+            target.getParent()[method]('is-active');
         } else {
-            target[method](isPrefix + 'active');
+            target[method]('is-active');
         }
 
         this.fireEvent(type, [marker, target]);
@@ -179,11 +174,9 @@ Toolkit.Stalker = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through stalker().
-     */
-    Toolkit.createComponent('stalker', function(options) {
-        return new Toolkit.Stalker(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through stalker().
+ */
+Toolkit.create('stalker', function(options) {
+    return new Toolkit.Stalker(this, options);
+});

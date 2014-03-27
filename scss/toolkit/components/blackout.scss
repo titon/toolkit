@@ -16,13 +16,13 @@
     opacity: 0;
     visibility: hidden;
     background: black($blackout-opacity);
-    @include transition(all $blackout-transition);
+    transition: all $blackout-transition;
 
     .#{$vendor-prefix}loader {
         opacity: 1;
         color: #fff;
+        transition: all $blackout-transition;
         @include position-center;
-        @include transition(all $blackout-transition);
 
         > span,
         .spinner > span { background: #fff !important; }

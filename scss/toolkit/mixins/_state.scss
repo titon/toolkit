@@ -1,36 +1,36 @@
 
 @mixin is-active {
-    .#{$state-is-prefix}active > &,
-    .#{$state-is-prefix}active > li > &,
-    &.#{$state-is-prefix}active,
-    &.#{$state-is-prefix}active:hover { @content; }
+    .is-active > &,
+    .is-active > li > &,
+    &.is-active,
+    &.is-active:hover { @content; }
 }
 
 @mixin is-active-parent {
-    .#{$state-is-prefix}active & { @content; }
+    .is-active & { @content; }
 }
 
 @mixin is-disabled {
-    .#{$state-is-prefix}disabled > &,
-    .#{$state-is-prefix}disabled > li > &,
-    &.#{$state-is-prefix}disabled,
-    &.#{$state-is-prefix}disabled:hover,
+    .is-disabled > &,
+    .is-disabled > li > &,
+    &.is-disabled,
+    &.is-disabled:hover,
     &[disabled],
     &[disabled]:hover { @content; }
 }
 
 @mixin is-info {
-    &.#{$state-is-prefix}info { @content; }
+    &.is-info { @content; }
 }
 
 @mixin is-error {
-    &.#{$state-is-prefix}error { @content; }
+    &.is-error { @content; }
 }
 
 @mixin is-warning {
-    &.#{$state-is-prefix}warning { @content; }
+    &.is-warning { @content; }
 }
 
 @mixin is-success {
-    &.#{$state-is-prefix}success { @content; }
+    &.is-success { @content; }
 }

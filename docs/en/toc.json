@@ -25,13 +25,13 @@
             "url": "/development",
             "children": [
                 {
-                    "title": "JavaScript Development",
+                    "title": "JavaScript",
                     "url": "/development/js"
                 }, {
-                    "title": "CSS Development",
+                    "title": "CSS",
                     "url": "/development/css"
                 }, {
-                    "title": "Sass Development",
+                    "title": "Sass",
                     "url": "/development/sass"
                 }
             ]
@@ -129,6 +129,14 @@
                 }, {
                     "title": "Stalker",
                     "url": "/components/stalker"
+                }, {
+                    "title": "Step",
+                    "url": "/components/step",
+                    "new": true
+                }, {
+                    "title": "Switch",
+                    "url": "/components/switch",
+                    "new": true
                 }, {
                     "title": "Table",
                     "url": "/components/table"

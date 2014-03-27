@@ -146,17 +146,12 @@ When enabled, the input markup will be changed to the following.
 
 ```html
 <div class="type-ahead-shadow">
-    <!-- The original input -->
-    <input type="text" id="input" class="input not-shadow" autocomplete="off">
     <!-- The shadow input -->
     <input type="text" class="input is-shadow" autocomplete="off" readonly>
+    <!-- The original input -->
+    <input type="text" id="input" class="input not-shadow" autocomplete="off">
 </div>
 ```
-
-<div class="notice is-warning">
-    A height will need to be defined for <code>.type-ahead-shadow</code>.
-    In most cases, the height should match the height of the input fields.
-</div>
 
 ### Sorters, Matchers & Builders ###
 
@@ -208,6 +203,25 @@ $('#input').typeAhead({
 <div class="notice is-info">
     If <code>false</code> is defined for an option, no callback or fallback will be used.
     This is useful for data sets that are processed remotely.
+</div>
+
+## ARIA ##
+
+The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*`
+attributes are required when supporting ARIA.
+
+```html
+<input type="text" id="input" class="input" name="term" role="combobox" aria-autocomplete="off">
+
+<div class="type-ahead" role="listbox">
+    <ul>
+        <li><a href="javascript:;" role="option">Item</a></li>
+    </ul>
+</div>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
 </div>
 
 ## Variables ##

@@ -25,7 +25,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        @include transition(left $carousel-transition, top $carousel-transition);
+        transition: left $carousel-transition, top $carousel-transition;
 
         > li {
             width: 100%;
@@ -65,7 +65,7 @@
     height: auto;
     z-index: 5;
     top: 50%;
-    @include transform(translateY(-50%)); // move up 50% of their height
+    transform: translateY(-50%); // move up 50% of their height
 
     &:focus { outline: none; }
 }
@@ -78,18 +78,18 @@
     top: $padding;
     left: 50%;
     z-index: 5;
-    @include transform(translateX(-50%)); // move left 50% of their width
+    transform: translateX(-50%); // move left 50% of their width
 }
 
 //-------------------- Animations --------------------//
 
 .#{$vendor-prefix}carousel.slide {
     .#{$vendor-prefix}carousel-items ul {
-        @include clear-fix;
-
         > li {
             float: left;
         }
+
+        @include clear-fix;
     }
 }
 
@@ -103,7 +103,7 @@
             left: 0;
             opacity: 0;
             z-index: 1;
-            @include transition(opacity $carousel-transition);
+            transition: opacity $carousel-transition;
 
             &.show { z-index: 5; }
         }

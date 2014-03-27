@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Tooltip = new Class({
     Extends: Toolkit.Component,
     Binds: ['onFollow'],
@@ -57,15 +54,17 @@ Toolkit.Tooltip = new Class({
 
         options = this.options;
 
+        // Remove title attributes
+        var title = 'data' + this.cssClass + '-title';
+
         // Fetch elements
         this.elementHead = this.element.getElement(options.titleElement);
         this.elementBody = this.element.getElement(options.contentElement);
 
         // Add position class
-        this.element.removeClass(options.className);
-
-        // Remove title attributes
-        var title = 'data-' + this.className() + '-title';
+        this.element
+            .set('role', 'tooltip')
+            .removeClass(options.className);
 
         this.nodes.each(function(node) {
             node.setProperty(title, node.get('title')).removeProperty('title');
@@ -76,16 +75,16 @@ Toolkit.Tooltip = new Class({
         }
 
         // Initialize events
-        var events = {};
+        var events = {}, selector = options.delegate;
 
         if (options.mode === 'click') {
             events['clickout element'] = 'hide';
-            events['clickout ' + options.delegate] = 'hide';
+            events['clickout ' + selector] = 'hide';
         } else {
-            events['mouseleave ' + options.delegate] = 'hide';
+            events['mouseleave ' + selector] = 'hide';
         }
 
-        events[options.mode + ' ' + options.delegate] = 'onShow';
+        events[options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
 
@@ -107,7 +106,11 @@ Toolkit.Tooltip = new Class({
         this.element
             .removeClass(position)
             .removeClass(className)
-            .removeProperty('data-mew-position');
+            .removeProperty('data-new-position');
+
+        if (this.node) {
+            this.node.removeProperty('aria-describedby');
+        }
 
         return this.parent();
     },
@@ -131,6 +134,11 @@ Toolkit.Tooltip = new Class({
         this.element
             .addClass(options.position)
             .addClass(options.className);
+
+        // Set ARIA
+        if (this.node) {
+            this.node.aria('describedby', this.id());
+        }
 
         // Set title
         title = title || this.readValue(this.node, options.getTitle);
@@ -237,11 +245,9 @@ Toolkit.Tooltip = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through tooltip().
-     */
-    Toolkit.createComponent('tooltip', function(options) {
-        return new Toolkit.Tooltip(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through tooltip().
+ */
+Toolkit.create('tooltip', function(options) {
+    return new Toolkit.Tooltip(this, options);
+}, true);

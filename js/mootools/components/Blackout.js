@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Blackout = new Class({
     Extends: Toolkit.Component,
 
@@ -23,8 +20,8 @@ Toolkit.Blackout = new Class({
     options: {
         loader: 'bar-wave',
         waveCount: 5,
-        template: '<div class="' + Toolkit.options.vendor + 'blackout" id="toolkit-blackout"></div>',
-        templateFrom: '#toolkit-blackout'
+        template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
+        templateFrom: '#toolkit-blackout-1'
     },
 
     /**
@@ -44,7 +41,7 @@ Toolkit.Blackout = new Class({
      */
     createLoader: function() {
         var options = this.options,
-            vendor = Toolkit.options.vendor,
+            vendor = Toolkit.vendor,
             count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount;
 
         this.loader = new Element('div.' + vendor + 'loader.' + options.loader)
@@ -156,5 +153,3 @@ Toolkit.Blackout.factory = function(options) {
 
     return instance = new Toolkit.Blackout(options);
 };
-
-})();

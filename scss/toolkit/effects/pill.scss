@@ -75,6 +75,16 @@
     }
 }
 
+//-------------------- Switch --------------------//
+
+.#{$vendor-prefix}switch.#{$shape-pill-class} {
+    border-radius: $pill;
+
+    .#{$vendor-prefix}switch-toggle {
+        border-radius: $pill;
+    }
+}
+
 //-------------------- Visual --------------------//
 
 .#{$vendor-prefix}visual-gloss.#{$shape-pill-class}:after {

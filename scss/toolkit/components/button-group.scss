@@ -20,7 +20,7 @@
         &:first-child { margin-left: 0; }
 
         &:hover,
-        &.#{$state-is-prefix}active { z-index: 1; }
+        &.is-active { z-index: 1; }
     }
 
     > li {
@@ -104,6 +104,8 @@
         display: table-cell;
         margin: 0 !important;
     }
+
+    > li .#{$vendor-prefix}button { display: block; }
 
     > li:not(:first-child) .#{$vendor-prefix}button,
     > .#{$vendor-prefix}button:not(:first-child) { border-left: 0; }

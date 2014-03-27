@@ -7,9 +7,9 @@
 @import "../common";
 
 .#{$vendor-prefix}pin.sticky {
-    @include transition(top 1s ease-in-out, right .5s ease-in-out, left .5s ease-in-out);
+    transition: top .6s ease-in-out, right $pin-transition ease-in-out, left $pin-transition ease-in-out;
 }
 
 .#{$vendor-prefix}pin.slide {
-    @include transition(top .5s linear, right .5s linear, left .5s linear);
+    transition: top $pin-transition linear, right $pin-transition linear, left $pin-transition linear;
 }

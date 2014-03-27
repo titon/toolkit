@@ -19,11 +19,11 @@
     visibility: hidden;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    @include transform(translateX(-50%) translateY(-50%));
-    @include transition(opacity $showcase-transition, visibility $showcase-transition);
+    transform: translate(-50%, -50%);
+    transition: opacity $showcase-transition, visibility $showcase-transition;
 
-    &.#{$state-is-prefix}loading,
-    &.#{$state-is-prefix}single {
+    &.is-loading,
+    &.is-single {
         .#{$vendor-prefix}showcase-prev,
         .#{$vendor-prefix}showcase-next,
         .#{$vendor-prefix}showcase-tabs {
@@ -31,7 +31,7 @@
         }
     }
 
-    &.#{$state-is-prefix}loading {
+    &.is-loading {
         .#{$vendor-prefix}showcase-close {
             display: none !important;
         }
@@ -60,14 +60,14 @@
     max-width: 1024px;
     position: relative;
     overflow: hidden;
-    @include transition(width $showcase-transition, height $showcase-transition);
+    transition: width $showcase-transition, height $showcase-transition;
 
     > li {
         position: absolute;
         top: 0;
         left: 0;
         opacity: 0;
-        @include transition(opacity $showcase-transition);
+        transition: opacity $showcase-transition;
 
         > img {
             max-width: 100%;
@@ -110,7 +110,7 @@
     top: 50%;
     background: none;
     border: 0;
-    @include transform(translateY(-50%)); // move up 50% of their height
+    transform: translateY(-50%); // move up 50% of their height
 
     &:focus { outline: none; }
 }
@@ -122,5 +122,5 @@
     position: absolute;
     top: ($padding * 2);
     left: 50%;
-    @include transform(translateX(-50%)); // move left 50% of their width
+    transform: translateX(-50%); // move left 50% of their width
 }

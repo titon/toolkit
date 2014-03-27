@@ -52,17 +52,17 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}table.#{$state-has-prefix}hover {
+.#{$vendor-prefix}table.has-hover {
     tbody tr:not(.#{$vendor-prefix}table-divider):hover { background: #fff; }
 }
 
-.#{$vendor-prefix}table.#{$state-is-prefix}striped tbody tr {
+.#{$vendor-prefix}table.is-striped tbody tr {
     background: $gray;
 
     &:nth-child(odd) { background: $gray-lightest; }
 }
 
-.#{$vendor-prefix}table.#{$state-is-prefix}sortable {
+.#{$vendor-prefix}table.is-sortable {
     thead th {
         padding: 0;
 
@@ -86,7 +86,7 @@
     thead th,
     tbody td { padding: $small-padding; }
 
-    &.#{$state-is-prefix}sortable {
+    &.is-sortable {
         thead th {
             padding: 0;
 
@@ -100,7 +100,7 @@
     thead th,
     tbody td { padding: $large-padding; }
 
-    &.#{$state-is-prefix}sortable {
+    &.is-sortable {
         thead th {
             padding: 0;
 

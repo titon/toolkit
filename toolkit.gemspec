@@ -17,5 +17,4 @@ Gem::Specification.new do |gem|
     # Dependencies
     gem.add_dependency("sass", [">= 3.2.0"])
     gem.add_dependency("compass", [">= 0.11"])
-    gem.add_dependency("animation", [">= 0.1.alpha.0"])
 end

@@ -118,6 +118,14 @@ To include an optional description below the label, use `getDescription`.
 <option value="1" data-description="Hyper-Text Markup Language">HTML</option>
 ```
 
+## ARIA ##
+
+The `listbox` and `option` roles are required for custom select drop menus when supporting ARIA.
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Notes ##
 
 * Checkboxes and radios use `:checked` on the original input for their active state.

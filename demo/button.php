@@ -9,7 +9,7 @@ if (value('active')) {
 
 $classes = implode(' ', array_filter($classes)); ?>
 
-<button type="button" class="button <?php echo $classes; ?>">Button</button>
-<a href="javascript:;" class="button <?php echo $classes; ?>">Anchor</a>
-<input class="button <?php echo $classes; ?>" type="button" value="Input">
-<input class="button <?php echo $classes; ?>" type="submit" value="Submit">
+<button type="button" class="button <?php echo $classes; ?>" role="button">Button</button>
+<a href="javascript:;" class="button <?php echo $classes; ?>" role="button">Anchor</a>
+<input class="button <?php echo $classes; ?>" type="button" role="button" value="Input">
+<input class="button <?php echo $classes; ?>" type="submit" role="button" value="Submit">

@@ -4,12 +4,12 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Component = new Class({
     Implements: [Events, Options],
     Binds: ['onShow', 'onHide', 'position'],
+
+    /** Unique ID for this instance */
+    uid: 0,
 
     /** Cached data */
     cache: {},
@@ -31,6 +31,7 @@ Toolkit.Component = new Class({
 
     /** Default options */
     options: {
+        cache: true,
         context: null,
         delegate: '',
         className: '',
@@ -47,6 +48,14 @@ Toolkit.Component = new Class({
      */
     initialize: function(options) {
         this.setOptions(options || {});
+
+        // Generate UID and class name
+        var className = this.className();
+
+        Toolkit[className].count = Toolkit[className].count || 0;
+
+        this.uid = Toolkit[className].count += 1;
+        this.cssClass = className.hyphenate().slice(1);
     },
 
     /**
@@ -125,7 +134,7 @@ Toolkit.Component = new Class({
                     (context || doc)[method](event + ':relay(' + selector + ')', func);
 
                 // On element
-                } else {
+                } else if (context) {
                     context[method](event, func);
                 }
             });
@@ -188,6 +197,8 @@ Toolkit.Component = new Class({
                 template.addClass(options.animation);
             }
 
+            template.set('id', this.id());
+
             this.element = template;
         } else {
             throw new Error(this.className() + ' failed to create template element');
@@ -227,17 +238,29 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     hide: function(callback) {
-        if (this.isVisible()) {
+        if (this.element) {
             this.element.conceal();
-
-            if (typeOf(callback) === 'function') {
-                callback();
-            }
-
-            this.fireEvent('hide');
         }
 
+        if (typeOf(callback) === 'function') {
+            callback();
+        }
+
+        this.fireEvent('hide');
+
         return this;
+    },
+
+    /**
+     * Generate a unique CSS class name for the component and its arguments.
+     *
+     * @returns {String}
+     */
+    id: function() {
+        var list = Array.slice(arguments);
+            list.unshift('toolkit', this.cssClass, this.uid);
+
+        return list.join('-');
     },
 
     /**
@@ -255,7 +278,7 @@ Toolkit.Component = new Class({
                 continue;
             }
 
-            value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+            value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
 
             if (typeOf(value) !== 'null') {
                 obj[key] = Toolkit.autobox(value);
@@ -349,7 +372,7 @@ Toolkit.Component = new Class({
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.get('data' + this.className().hyphenate() + '-' + key.toLowerCase());
+        var value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
 
         if (typeOf(value) === 'null') {
             value = this.options[key];
@@ -399,7 +422,9 @@ Toolkit.Component = new Class({
             evalScripts: true,
             onRequest: before || function() {
                 this.cache[url] = true;
-                this.element.addClass(Toolkit.options.isPrefix + 'loading');
+                this.element
+                    .addClass('is-loading')
+                    .aria('busy', true);
             }.bind(this)
         }, options);
 
@@ -410,13 +435,15 @@ Toolkit.Component = new Class({
 
         // Set callbacks
         var self = this,
-            cache = (ajax.method.toUpperCase() === 'GET');
+            cache = (ajax.method.toUpperCase() === 'GET' && this.options.cache);
 
         ajax.onSuccess = done || function(response) {
             var contentType = this.xhr.getResponseHeader('Content-Type');
 
             // Does not apply to all components
-            self.element.removeClass(Toolkit.options.isPrefix + 'loading');
+            self.element
+                .removeClass('is-loading')
+                .aria('busy', false);
 
             // HTML
             if (contentType.indexOf('text/html') >= 0) {
@@ -445,10 +472,11 @@ Toolkit.Component = new Class({
             delete this.cache[url];
 
             this.element
-                .removeClass(Toolkit.options.isPrefix + 'loading')
-                .addClass(Toolkit.options.hasPrefix + 'failed');
+                .removeClass('is-loading')
+                .addClass('has-failed')
+                .aria('busy', false);
 
-            this.position(this._errorTemplate());
+            this.position(Toolkit.messages.error);
         }.bind(this);
 
         new Request(ajax).send();
@@ -513,39 +541,6 @@ Toolkit.Component = new Class({
     },
 
     /**
-     * Return the element when the class is passed as an argument.
-     *
-     * @returns {Element}
-     */
-    toElement: function() {
-        return this.element;
-    },
-
-    /**
-     * Return a DOM element for error messages.
-     *
-     * @private
-     * @returns {Element}
-     */
-    _errorTemplate: function() {
-        return new Element('div.' + this.className().hyphenate().slice(1) + '-error', {
-            text: Toolkit.messages.error
-        });
-    }.protect(),
-
-    /**
-     * Return a DOM element for loading messages.
-     *
-     * @private
-     * @returns {Element}
-     */
-    _loadingTemplate: function() {
-        return new Element('div.' + this.className().hyphenate().slice(1) + '-loading', {
-            text: Toolkit.messages.loading
-        });
-    }.protect(),
-
-    /**
      * Event handler to hide an element.
      *
      * @private
@@ -560,7 +555,7 @@ Toolkit.Component = new Class({
 
         // If the element is loading (AJAX) or is not shown, exit early
         // This stops cases where the blackout can be clicked early
-        if (element && (!element.isShown() || element.hasClass(Toolkit.options.isPrefix + 'loading'))) {
+        if (element && (!element.isShown() || element.hasClass('is-loading'))) {
             return;
         }
 
@@ -612,5 +607,3 @@ Toolkit.Component = new Class({
     }
 
 });
-
-})();

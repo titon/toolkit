@@ -138,7 +138,6 @@ Inherits all options from the [parent component](../development/js.md#options).
     </tbody>
 </table>
 
-
 ## Events ##
 
 Inherits all events from the [parent component](../development/js.md#events).

@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Matrix = new Class({
     Extends: Toolkit.Component,
     Binds: ['onResize', 'onLoad'],
@@ -53,7 +50,7 @@ Toolkit.Matrix = new Class({
         this.options = this.inheritOptions(this.options, element);
 
         // Load elements
-        element.addClass(Toolkit.options.vendor + 'matrix');
+        element.addClass(Toolkit.vendor + 'matrix');
         this.items = element.getElements('> li');
 
         // Set events
@@ -363,17 +360,15 @@ Toolkit.Matrix = new Class({
      * @private
      * @param {DOMEvent} e
      */
-    onResize: function(e) {
+    onResize: function() {
         this.refresh();
     }
 
 });
 
-    /**
-     * Defines a component that can be instantiated through matrix().
-     */
-    Toolkit.createComponent('matrix', function(options) {
-        return new Toolkit.Matrix(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through matrix().
+ */
+Toolkit.create('matrix', function(options) {
+    return new Toolkit.Matrix(this, options);
+});

@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.LazyLoad = new Class({
     Extends: Toolkit.Component,
     Binds: ['load', 'loadAll'],
@@ -204,11 +201,9 @@ Toolkit.LazyLoad = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through lazyLoad().
-     */
-    Toolkit.createComponent('lazyLoad', function(options) {
-        return new Toolkit.LazyLoad(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through lazyLoad().
+ */
+Toolkit.create('lazyLoad', function(options) {
+    return new Toolkit.LazyLoad(this, options);
+});

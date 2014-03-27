@@ -42,30 +42,13 @@ These files are also available through [Bower](http://bower.io).
 
 ```
 toolkit/dist/
-├── jquery/
-|   ├── toolkit.min.js
-|   └── toolkit-*.min.js
-├── mootools/
-|   ├── toolkit.min.js
-|   └── toolkit-*.min.js
 ├── toolkit.min.css
 ├── toolkit-jquery.min.js
 └── toolkit-mootools.min.js
 ```
 
-The folder structure is a bit confusing, but trust us, it makes sense.
-
 The files found in the root of the `dist` folder contain the compiled source code for *all* components.
 Simply include the files in your application to gain all of Toolkit's functionality.
-
-The files found in the `jquery` and `mootools` folders contain source code for individual components.
-This allows for the inclusion of components on a case by case basis.
-When using this approach, the `{vendor}/toolkit.min.js` file is required before any component.
-
-<div class="notice is-info">
-    There are no individual CSS files for components, only JavaScript.
-    The <code>toolkit.min.css</code> will still need to be included.
-</div>
 
 ### Source Files ###
 
@@ -117,7 +100,7 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
         <title>Titon Toolkit</title>
         <link href="css/toolkit.min.css" rel="stylesheet">
         <link href="css/style.min.css" rel="stylesheet">

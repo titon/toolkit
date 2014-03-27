@@ -16,13 +16,13 @@ if ($mod) {
                 <?php for ($i = 1; $i <= $count; $i++) { ?>
                     <li>
                         <?php if ($mod === 'wide') { ?>
-                            <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>">
+                            <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>" alt="">
 
                         <?php } else if ($mod === 'square') { ?>
-                            <img src="http://lorempixel.com/500/500/?c=<?php echo $i; ?>">
+                            <img src="http://lorempixel.com/500/500/?c=<?php echo $i; ?>" alt="">
 
                         <?php } else { ?>
-                            <img src="http://lorempixel.com/400/300/?c=<?php echo $i; ?>">
+                            <img src="http://lorempixel.com/400/300/?c=<?php echo $i; ?>" alt="">
                         <?php } ?>
 
                         <?php if (value('captions', true)) { ?>

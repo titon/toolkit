@@ -65,9 +65,6 @@ a:hover { color: #b84374; }
 .carousel--wide { max-width: 640px; }
 .carousel--square { max-width: 500px; }
 
-.type-ahead-shadow { height: 45px; }
-
-.modal-loading,
 .showcase.is-loading .showcase-inner { background-image: url("../img/loader.gif"); background-position: 50% 50%; background-repeat: no-repeat; }
 
 .example-stalker { background: #f8f8f8; padding: 5px; height: 200px; overflow: auto; margin-top: 25px; }

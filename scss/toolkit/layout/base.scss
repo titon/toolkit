@@ -7,7 +7,7 @@
 @import "../common";
 
 // Use border-box for everything
-*, *:after, *:before { @include box-sizing(border-box); }
+*, *:after, *:before { box-sizing: border-box; }
 
 // Alignment
 .align-left { text-align: left; }
@@ -33,16 +33,16 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    @include transform(translate(-50%, -50%));
+    transform: translate(-50%, -50%);
 }
 
 .clear-fix { @include clear-fix; }
 
 // Styles
 .#{$shape-round-class} { border-radius: $round; }
-.#{$state-is-prefix}draggable { cursor: move; }
-.#{$state-is-prefix}dragging { cursor: grabbing; }
-.#{$state-is-prefix}disabled,
+.is-draggable { cursor: move; }
+.is-dragging { cursor: grabbing; }
+.is-disabled,
 [disabled] { cursor: not-allowed !important; }
 
 // Carets
@@ -84,9 +84,9 @@
     content: "\025B4"; /* blacktriangle */
 }
 
-.arrow-right:before { @include transform(rotate(90deg)); }
-.arrow-left:before { @include transform(rotate(-90deg)); }
-.arrow-down:before { @include transform(rotate(180deg)); }
+.arrow-right:before { transform: rotate(90deg); }
+.arrow-left:before { transform: rotate(-90deg); }
+.arrow-down:before { transform: rotate(180deg); }
 
 // Bullets
 .bullets {

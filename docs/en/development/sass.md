@@ -27,15 +27,6 @@ it *does not* provide variables for property styling. This can and should be ach
             <td>Will prefix all top level class names with a vendor or namespace.</td>
         </tr>
         <tr>
-            <td>$state-is-prefix</td>
-            <td>is-</td>
-            <td rowspan="2">Prefix to append to state classes, like active, disabled, failed, and children.</td>
-        </tr>
-        <tr>
-            <td>$state-has-prefix</td>
-            <td>has-</td>
-        </tr>
-        <tr>
             <td>$size-small-class</td>
             <td>small</td>
             <td rowspan="3">Names for global sizing classes.</td>
@@ -115,7 +106,7 @@ it *does not* provide variables for property styling. This can and should be ach
         </tr>
         <tr>
             <td>$medium-size</td>
-            <td>inherit</td>
+            <td>1rem</td>
             <td>The default font size for elements.</td>
         </tr>
         <tr>

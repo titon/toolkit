@@ -85,3 +85,16 @@ effects can be used. These visuals make use of `:after` pseudo elements to apply
 <div class="notice is-warning">
     These classes require the visual effects extension, which isn't part of the default build.
 </div>
+
+## ARIA ##
+
+The `button` role and the appropriate `aria-*` attributes are required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role)
+
+```html
+<button class="button" type="button" role="button" aria-pressed="false">Button</button>
+```
+
+<div class="notice is-warning">
+    JavaScript will be required to change the <code>aria-pressed</code> value.
+</div>

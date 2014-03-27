@@ -70,3 +70,15 @@ Make a notice dismissable by placing a close button.
     The JavaScript for closing notices will need to be custom written.
     Toolkit does not provide any functionality for this.
 </div>
+
+## ARIA ##
+
+The `alert` or `status` role is required when supporting ARIA.
+[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role)
+
+```html
+<div class="notice is-info" role="status">...</div>
+<div class="notice is-success" role="status">...</div>
+<div class="notice is-warning" role="alert">...</div>
+<div class="notice is-error" role="alert">...</div>
+```

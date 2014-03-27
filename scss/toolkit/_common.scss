@@ -1,19 +1,7 @@
 
-//-------------------- Compass --------------------//
-
-$experimental-support-for-mozilla: true !default;
-$experimental-support-for-webkit: true !default;
-$experimental-support-for-opera: false !default;
-$experimental-support-for-microsoft: false !default;
-$experimental-support-for-khtml: false !default;
-
-$support-for-original-webkit-gradients: false !default;
-
 //-------------------- Toolkit --------------------//
 
 $vendor-prefix: "";
-$state-is-prefix: "is-";
-$state-has-prefix: "has-";
 $size-small-class: "small";
 $size-large-class: "large";
 $shape-square-class: "square";
@@ -53,7 +41,7 @@ $margin: 1.25rem !default;
 $small-size: .7rem !default;
 $small-padding: .5rem !default;
 
-$medium-size: inherit !default;
+$medium-size: 1rem !default;
 $medium-padding: $padding !default;
 
 $large-size: 1.3rem !default;
@@ -116,8 +104,10 @@ $lazyLoad-transition: $default-transition !default;
 $mask-transition: $default-transition !default;
 $matrix-transition: $default-transition !default;
 $modal-transition: $default-transition !default;
+$pin-transition: .2s !default;
 $progress-transition: .5s !default;
 $showcase-transition: $default-transition !default;
+$switch-transition: $default-transition !default;
 $tooltip-transition: $default-transition !default;
 
 //-------------------- Z Index --------------------//
@@ -196,9 +186,3 @@ $tooltip-arrow-width: 6 !default;
 @import "mixins/grid";
 @import "mixins/responsive";
 @import "mixins/components";
-@import "compass/css3/box-sizing";
-@import "compass/css3/images";
-@import "compass/css3/transition";
-@import "compass/css3/transform";
-@import "compass/css3/filter";
-@import "animation";

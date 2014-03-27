@@ -314,6 +314,7 @@ $components = array(
             'yOffset' => array('title' => 'Y Offset', 'type' => 'number', 'default' => 0),
             'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
             'fixed' => array('title' => 'Fixed?', 'type' => 'boolean', 'default' => false),
+            'lock' => array('title' => 'Lock if too tall?', 'type' => 'boolean', 'default' => true),
             'height' => array('title' => 'Default Height', 'type' => 'number'),
             'top' => array('title' => 'Default Top', 'type' => 'number')
         )
@@ -387,6 +388,31 @@ $components = array(
             'throttle' => array('title' => 'Throttle', 'type' => 'number', 'default' => 50),
             'applyToParent' => array('title' => 'Apply active to parent?', 'type' => 'boolean', 'default' => true),
             'onlyWithin' => array('title' => 'Only within marker?', 'type' => 'boolean', 'default' => true),
+        )
+    ),
+    'step' => array(
+        'title' => 'Step',
+        'css' => array('layout/step.css'),
+        'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'count' => array('title' => 'Steps', 'type' => 'number', 'default' => 5),
+            'complete' => array('title' => 'Completed', 'type' => 'number', 'default' => 3)
+        )
+    ),
+    'switch' => array(
+        'title' => 'Switch',
+        'css' => array('layout/switch.css'),
+        'filters' => array(
+            'size' => array('title' => 'Size', 'data' => $sizes),
+            'shape' => array('title' => 'Shape', 'data' => array(
+                '' => 'Square (Default)',
+                'round' => 'Round',
+                'pill' => 'Pill'
+            )),
+            'modifier' => array('title' => 'Modifier', 'data' => array(
+                '' => '-- None --',
+                'stacked' => 'Stacked Labels'
+            )),
         )
     ),
     'table' => array(
@@ -489,10 +515,12 @@ if ($vendor === 'mootools') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="charset" content="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../build/titon-toolkit.min.css" rel="stylesheet" type="text/css">
+    <link href="../build/toolkit.min.css" rel="stylesheet" type="text/css">
     <link href="css/example.css" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
@@ -503,7 +531,7 @@ if ($vendor === 'mootools') {
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
-        <script src="../build/titon-toolkit-mootools.min.js"></script>
+        <script src="../build/toolkit-mootools.min.js"></script>
         <script>
             Toolkit.messages = Object.merge(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -514,7 +542,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -525,7 +553,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -535,7 +563,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
-        <script src="../build/titon-toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js"></script>
     <?php } ?>
 
     <!--[if lte IE 8]>

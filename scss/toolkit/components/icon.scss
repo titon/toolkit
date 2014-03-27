@@ -21,8 +21,8 @@
 
 //-------------------- Modifiers --------------------//
 
-.icon--90deg { @include transform(rotate(90deg)); }
-.icon--180deg { @include transform(rotate(180deg)); }
-.icon--270deg { @include transform(rotate(270deg)); }
-.icon--flip { @include transform(rotateY(180deg)); }
-.icon--flip-vert { @include transform(rotateX(180deg)); }
+.icon--90deg { transform: rotate(90deg); }
+.icon--180deg { transform: rotate(180deg); }
+.icon--270deg { transform: rotate(270deg); }
+.icon--flip { transform: rotateY(180deg); }
+.icon--flip-vert { transform: rotateX(180deg); }

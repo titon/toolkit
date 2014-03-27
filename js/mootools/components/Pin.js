@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Pin = new Class({
     Extends: Toolkit.Component,
     Binds: ['onResize', 'onScroll'],
@@ -26,15 +23,13 @@ Toolkit.Pin = new Class({
 
     /** Default options */
     options: {
-        animation: '',
         location: 'right',
         xOffset: 0,
         yOffset: 0,
         throttle: 50,
         fixed: false,
         calculate: false,
-        context: null,
-        template: false
+        lock: true
     },
 
     /**
@@ -50,7 +45,8 @@ Toolkit.Pin = new Class({
 
         // Set defaults
         element
-            .addClass(Toolkit.options.vendor + 'pin')
+            .set('role', 'complementary')
+            .addClass(Toolkit.vendor + 'pin')
             .addClass(options.animation);
 
         this.elementTop = element.getStyle('top').toInt();
@@ -76,12 +72,20 @@ Toolkit.Pin = new Class({
      * @returns {Toolkit.Pin}
      */
     calculate: function() {
+        var options = this.options;
+
         this.viewport = window.getSize();
         this.elementSize = this.element.getCoordinates();
-        this.parentSize = this.element.getParent(this.options.context).getCoordinates();
+        this.parentSize = this.element.getParent(options.context).getCoordinates();
+
+        // Disable pin if element is larger than the viewport
+        if (options.lock && this.elementSize.height >= this.viewport.y) {
+            this.active = false;
 
         // Enable pin if the parent is larger than the child
-        this.active = (this.element.isVisible() && this.parentSize.height > this.elementSize.height);
+        } else {
+            this.active = (this.element.isVisible() && this.parentSize.height > this.elementSize.height);
+        }
 
         return this;
     },
@@ -112,7 +116,7 @@ Toolkit.Pin = new Class({
         if (wScroll.y < pSize.top) {
             this.element
                 .removeProperty('style')
-                .removeClass(Toolkit.options.isPrefix + 'pinned');
+                .removeClass('is-pinned');
 
             return;
         }
@@ -133,7 +137,7 @@ Toolkit.Pin = new Class({
                 pos.bottom = 'auto';
             }
 
-            // Stop positioning absolute menu once it exits the parent
+        // Stop positioning absolute menu once it exits the parent
         } else {
             pos.position = 'absolute';
 
@@ -155,9 +159,7 @@ Toolkit.Pin = new Class({
 
         this.element
             .setStyles(pos)
-            .addClass(Toolkit.options.isPrefix + 'pinned');
-
-        this.fireEvent('scroll');
+            .addClass('is-pinned');
     },
 
     /**
@@ -184,11 +186,9 @@ Toolkit.Pin = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through pin().
-     */
-    Toolkit.createComponent('pin', function(options) {
-        return new Toolkit.Pin(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through pin().
+ */
+Toolkit.create('pin', function(options) {
+    return new Toolkit.Pin(this, options);
+});

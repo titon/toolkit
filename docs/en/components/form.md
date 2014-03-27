@@ -133,7 +133,7 @@ And finally, for wrapping action buttons.
 No extra styles or classes are required by basic forms, simply go ahead and use the `form` tag.
 
 ```html
-<form role="form">
+<form>
     ...
 </form>
 ```
@@ -144,7 +144,7 @@ Fieldsets and legends can be used to group fields. If a fieldset exists without 
 the `.no-legend` class can be used to reset its styles.
 
 ```html
-<form role="form">
+<form>
     <fieldset>
         <legend>Info</legend>
         ...
@@ -163,7 +163,7 @@ Adding `.form--horizontal` to a form will update `.field`s behavior to that of a
 so no need for `.grid`. We can then insert grid `.col` classes for structuring.
 
 ```html
-<form class="form--horizontal" role="form">
+<form class="form--horizontal">
     <div class="field">
         <label class="field-label col span-4" for="username">Username</label>
         <div class="field-col col span-8">
@@ -190,7 +190,14 @@ Adding `.form--inline` to a form will update all `.field`, `.field-label`,
 and `.form-actions` elements to inline block with proper margins.
 
 ```html
-<form class="form--inline" role="form">
+<form class="form--inline">
     ...
 </form>
 ```
+
+## Aria Support #
+
+If you are using semantically correct tags like `form`, `label`, and `input`,
+then implementing ARIA is not required. If you are *not* using them,
+then the following [MDN article on ARIA forms](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/forms/Basic_form_hints)
+may be helpful.

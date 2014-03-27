@@ -6,7 +6,7 @@ This is especially useful for projects where components are needed on a case by 
 ## Requirements ##
 
 To customize a build, [Node.js](http://nodejs.org/), [NPM](http://nodejs.org/), and [Grunt](http://gruntjs.com/) are required.
-Processing CSS files will also require [Ruby](https://ruby-lang.org/), [Sass](http://sass-lang.com/) and [Compass](http://compass-style.org/).
+Processing CSS files will also require [Ruby](https://ruby-lang.org/) and [Sass](http://sass-lang.com/).
 Installation of these libraries can be found on their respective websites.
 
 ## Types of Tasks ##

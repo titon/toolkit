@@ -13,7 +13,7 @@
     z-index: $typeAhead-zindex;
     opacity: 0;
     visibility: hidden;
-    @include transition(opacity 0.3s);
+    transition: opacity 0.3s;
 
     ul {
         @include reset-list;
@@ -29,7 +29,7 @@
         }
 
         > a:hover,
-        &.#{$state-is-prefix}active a {}
+        &.is-active a {}
     }
 }
 
@@ -52,13 +52,6 @@
 
 .#{$vendor-prefix}type-ahead-shadow {
     position: relative;
-    height: 2rem;
-
-    input {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
 
     .is-shadow {
         color: gray;
@@ -66,6 +59,10 @@
 
     .not-shadow {
         background: transparent;
-        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        zoom: 1;
     }
 }

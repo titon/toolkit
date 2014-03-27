@@ -16,7 +16,7 @@
     opacity: 0;
     visibility: hidden;
     background: black($mask-opacity);
-    @include transition(all $mask-transition);
+    transition: all $mask-transition;
     color: #fff;
 }
 
@@ -24,8 +24,8 @@
     text-align: center;
     max-width: 80%;
     opacity: 1;
+    transition: all $mask-transition;
     @include position-center;
-    @include transition(all $mask-transition);
 
     &:empty { display: none; }
 }

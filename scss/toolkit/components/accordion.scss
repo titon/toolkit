@@ -23,7 +23,7 @@
 .#{$vendor-prefix}accordion-section {
     overflow: hidden;
     position: relative;
-    @include transition(all $accordion-transition ease-in-out);
+    transition: all $accordion-transition ease-in-out;
 
     &.hide { max-height: 0; } // don't include on base styles
 }

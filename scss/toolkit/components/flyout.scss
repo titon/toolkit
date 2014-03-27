@@ -13,8 +13,8 @@
     z-index: $flyout-zindex;
     opacity: 0;
     visibility: hidden;
-    @include box-sizing(content-box); // required by MooTools for multi columns
-    @include transition(opacity $flyout-transition);
+    box-sizing: content-box; // required by MooTools for multi columns
+    transition: opacity $flyout-transition;
 
     ul {
         @include reset-list;
@@ -36,10 +36,10 @@
 
         // Hover states
         > a:hover,
-        &.#{$state-is-prefix}open > a {}
+        &.is-open > a {}
 
         // Display caret arrow
-        &.#{$state-has-prefix}children > a .caret-right {
+        &.has-children > a .caret-right {
             float: right;
             display: inline-block; // reveal
             margin-top: 3px;
@@ -48,7 +48,7 @@
         // Nested flyouts
         > .#{$vendor-prefix}flyout {
             left: 90%;
-            @include transition(left $flyout-transition, right $flyout-transition, opacity $flyout-transition);
+            transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition;
 
             // Reverse menu to left side in case it goes outside the viewport
             // Will be set automatically from the Javascript layer
@@ -58,7 +58,7 @@
             }
         }
 
-        &.#{$state-is-prefix}open > .#{$vendor-prefix}flyout {
+        &.is-open > .#{$vendor-prefix}flyout {
             opacity: 1;
             visibility: visible;
             left: 100%;

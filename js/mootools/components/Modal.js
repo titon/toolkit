@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
     Binds: ['onSubmit'],
@@ -58,7 +55,7 @@ Toolkit.Modal = new Class({
         options = this.options;
 
         if (options.fullScreen) {
-            this.element.addClass(Toolkit.options.isPrefix + 'fullscreen');
+            this.element.addClass('is-fullscreen');
             options.draggable = false;
         }
 
@@ -78,10 +75,16 @@ Toolkit.Modal = new Class({
             }
         }
 
+        // Add aria attributes
+        this.element
+            .set('role', 'dialog')
+            .aria('labelledby', this.id())
+            .aria('describedby', this.id());
+
         // Initialize events
         var events = {};
         events['clickout element'] = 'onHide';
-        events['clickout nodes'] = 'onHide';
+        events['clickout ' + options.delegate] = 'onHide';
         events['keydown window'] = 'onKeydown';
         events['click ' + options.delegate] = 'onShow';
         events['click element ' + options.closeEvent] = 'onHide';
@@ -172,8 +175,9 @@ Toolkit.Modal = new Class({
             return this;
         }
 
-        // Show blackout
-        if (this.blackout) {
+        // Show blackout if the element is hidden
+        // If it is visible, the blackout count will break
+        if (this.blackout && !this.element.isShown()) {
             this.blackout.show();
         }
 
@@ -241,11 +245,9 @@ Toolkit.Modal = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through modal().
-     */
-    Toolkit.createComponent('modal', function(options) {
-        return new Toolkit.Modal(this, options);
-    }, true);
-
-})();
+/**
+ * Defines a component that can be instantiated through modal().
+ */
+Toolkit.create('modal', function(options) {
+    return new Toolkit.Modal(this, options);
+}, true);

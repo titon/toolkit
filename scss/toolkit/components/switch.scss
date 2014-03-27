@@ -1,0 +1,123 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+.#{$vendor-prefix}switch {
+    @include reset-inline-block;
+    font-size: 0;
+    width: 100px;
+    cursor: pointer;
+
+    &.is-disabled {
+        opacity: $disabled-opacity;
+    }
+
+    &.#{$shape-round-class} {
+        .#{$vendor-prefix}switch-toggle {
+            border-radius: $round - 0.02;
+        }
+    }
+
+    input {
+        display: none;
+
+        &:checked + .#{$vendor-prefix}switch-bar {
+            .#{$vendor-prefix}switch-toggle {
+                left: 50%;
+            }
+
+            &:before { opacity: 1; }
+            &:after { opacity: 0; }
+        }
+    }
+
+    @include is-small() {
+        width: 70px;
+
+        .#{$vendor-prefix}switch-bar {
+            font-size: $small-size;
+
+            &:before,
+            &:after {
+                padding: $small-padding;
+            }
+        }
+
+        .#{$vendor-prefix}switch-toggle {
+            padding: $small-padding;
+        }
+    }
+
+    @include is-large() {
+        width: 130px;
+
+        .#{$vendor-prefix}switch-bar {
+            font-size: $large-size;
+
+            &:before,
+            &:after {
+                padding: $large-padding;
+            }
+        }
+
+        .#{$vendor-prefix}switch-toggle {
+            padding: $large-padding;
+        }
+    }
+}
+
+.#{$vendor-prefix}switch-bar {
+    display: block;
+    position: relative;
+    font-size: $medium-size;
+    transition: background $switch-transition;
+
+    &:before,
+    &:after {
+        position: absolute;
+        padding: $medium-padding;
+        top: 0;
+        opacity: 1;
+        z-index: 1;
+        transition: opacity $switch-transition;
+    }
+
+    &:before {
+        left: 0;
+        opacity: 0;
+        content: attr(data-switch-on);
+    }
+
+    &:after {
+        right: 0;
+        content: attr(data-switch-off);
+    }
+}
+
+.#{$vendor-prefix}switch-toggle {
+    @include reset-inline-block;
+    padding: $medium-padding;
+    width: 50%;
+    z-index: 2;
+    left: 0;
+    user-select: none;
+    transition: left $switch-transition;
+
+    &:before { content: "\00A0"; } // NBSP
+}
+
+//-------------------- Modifiers --------------------//
+
+.#{$vendor-prefix}switch--stacked {
+    .#{$vendor-prefix}switch-bar {
+        &:before,
+        &:after {
+            z-index: 3;
+            opacity: 1 !important;
+        }
+    }
+}

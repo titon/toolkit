@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function() {
-    'use strict';
-
 Toolkit.Tabs = new Class({
     Extends: Toolkit.Component,
 
@@ -54,15 +51,30 @@ Toolkit.Tabs = new Class({
         }
 
         // Get elements
-        this.nav = element.getElement(options.navElement);
+        this.sections = element.getElements(options.sectionElement).each(function(section, index) {
+            section
+                .set('role', 'tabpanel')
+                .set('id', section.get('id') || this.id('section', index))
+                .aria('labelledby', this.id('tab', index))
+                .conceal();
+        }.bind(this));
 
-        this.tabs = this.nav.getElements('ul > li > a');
-        this.tabs.each(function(tab, index) {
-            tab.set('data-index', index).removeClass(Toolkit.options.isPrefix + 'active');
-        });
+        this.nav = element.getElement(options.navElement).set('role', 'tablist');
 
-        this.sections = element.getElements(options.sectionElement);
-        this.sections.conceal();
+        this.tabs = this.nav.getElements('ul > li > a').each(function(tab, index) {
+            tab
+                .set({
+                    'data-index': index,
+                    role: 'tab',
+                    id: this.id('tab', index)
+                })
+                .aria({
+                    controls: this.sections[index].get('id'),
+                    selected: false,
+                    expanded: false
+                })
+                .removeClass('is-active');
+        }.bind(this));
 
         // Set events
         this.events[options.mode + ' tabs'] = 'onShow';
@@ -134,7 +146,6 @@ Toolkit.Tabs = new Class({
         var index = tab.get('data-index'),
             section = this.sections[index],
             options = this.options,
-            isPrefix = Toolkit.options.isPrefix,
             ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
 
@@ -143,29 +154,38 @@ Toolkit.Tabs = new Class({
             this.requestData(
                 url,
                 function() {
-                    section.set('html', this._loadingTemplate())
-                        .addClass(isPrefix + 'loading');
+                    section
+                        .set('html', Toolkit.messages.loading)
+                        .addClass('is-loading')
+                        .aria('busy', true);
                 }.bind(this),
 
                 function(response) {
-                    this.cache[url] = true;
+                    if (options.cache) {
+                        this.cache[url] = true;
+                    }
 
                     this.fireEvent('load', response);
 
-                    section.set('html', response)
-                        .removeClass(isPrefix + 'loading');
+                    section
+                        .set('html', response)
+                        .removeClass('is-loading')
+                        .aria('busy', false);
                 }.bind(this),
 
                 function() {
-                    section.set('html', this._errorTemplate())
-                        .removeClass(isPrefix + 'loading')
-                        .addClass(Toolkit.options.hasPrefix + 'failed');
+                    section
+                        .set('html', Toolkit.messages.error)
+                        .removeClass('is-loading')
+                        .addClass('has-failed')
+                        .aria('busy', false);
                 }.bind(this)
             );
         }
 
         // Toggle tabs
-        this.nav.getElements('ul > li').removeClass(isPrefix + 'active');
+        this.nav.getElements('ul > li').removeClass('is-active');
+        this.tabs.aria({ selected: false, expanded: false });
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -173,13 +193,13 @@ Toolkit.Tabs = new Class({
                 section.conceal();
 
             } else {
-                tab.getParent().addClass(isPrefix + 'active');
+                tab.aria({ selected: true, expanded: true }).getParent().addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.getParent().addClass(isPrefix + 'active');
+            tab.aria({ selected: true, expanded: true }).getParent().addClass('is-active');
             section.reveal();
         }
 
@@ -214,11 +234,9 @@ Toolkit.Tabs = new Class({
 
 });
 
-    /**
-     * Defines a component that can be instantiated through tabs().
-     */
-    Toolkit.createComponent('tabs', function(options) {
-        return new Toolkit.Tabs(this, options);
-    });
-
-})();
+/**
+ * Defines a component that can be instantiated through tabs().
+ */
+Toolkit.create('tabs', function(options) {
+    return new Toolkit.Tabs(this, options);
+});

@@ -4,9 +4,6 @@
  * @link        http://titon.io
  */
 
-(function(window) {
-    'use strict';
-
 window.Timers = new Class({
 
     /** Collection of timer callback functions */
@@ -146,5 +143,3 @@ window.Timers = new Class({
     }
 
 });
-
-})(window);

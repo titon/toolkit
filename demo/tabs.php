@@ -2,17 +2,17 @@
 <div class="tabs" id="tabs-1">
     <nav class="tabs-nav">
         <ul>
-            <li><a href="#tab-1" class="button">Tab 1 via DOM</a></li>
-            <li><a href="#tab-2" class="button">Tab 2 via DOM</a></li>
+            <li><a href="#section-1" class="button">Tab 1 via DOM</a></li>
+            <li><a href="#section-2" class="button">Tab 2 via DOM</a></li>
             <li><a href="ajax/tab.php" class="button">Tab 3 via AJAX</a></li>
         </ul>
     </nav>
 
-    <section class="tabs-section">
+    <section class="tabs-section" id="section-1">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
     </section>
 
-    <section class="tabs-section">
+    <section class="tabs-section" id="section-2">
         <p>Suspendisse interdum malesuada mi non dictum. Quisque cursus imperdiet lorem, in posuere quam eleifend non. Integer eros libero, lacinia nec fringilla non, vulputate vitae felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis ligula sapien, tristique sit amet tempor id, iaculis vel nisl.</p>
         <p>Maecenas rhoncus facilisis lacus non blandit. Nam quis erat arcu. Suspendisse facilisis venenatis elit, et posuere leo dictum a. Integer at tellus leo, sit amet malesuada orci. Proin placerat nulla vitae diam mattis at volutpat risus pellentesque.</p>
     </section>

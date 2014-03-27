@@ -4,10 +4,9 @@
  * @link        http://titon.io
  */
 
-(function(window) {
-    'use strict';
+'use strict';
 
-window.Toolkit = {
+var Toolkit = {
 
     /** Current version */
     version: '%version%',
@@ -15,12 +14,11 @@ window.Toolkit = {
     /** Build date hash */
     build: '%build%',
 
-    /** Options */
-    options: {
-        vendor: '',
-        isPrefix: 'is-',
-        hasPrefix: 'has-'
-    },
+    /** Vendor namespace */
+    vendor: '',
+
+    /** ARIA support */
+    aria: true,
 
     /** Localization messages */
     messages: {
@@ -57,7 +55,7 @@ window.Toolkit = {
      * @param {Function} callback
      * @param {bool} collection
      */
-    createComponent: function(component, callback, collection) {
+    create: function(component, callback, collection) {
         var name = component;
 
         // Prefix with toolkit to avoid collisions
@@ -99,6 +97,9 @@ window.Toolkit = {
 
 };
 
+// Make it available
+window.Toolkit = Toolkit;
+
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
  *
@@ -108,18 +109,27 @@ window.Toolkit = {
  * @returns {Function}
  */
 Toolkit.Class.extend = function(base, properties, options) {
-    $.extend(base.prototype, this.prototype, properties);
+    var Class = function() {
+        this.uid = Class.count += 1;
+        base.apply(this, arguments);
+    };
 
-    // Use function as constructor
-    base.prototype.constructor = base;
+    // Inherit the prototype and merge properties
+    $.extend(Class.prototype, this.prototype, properties);
 
     // Inherit and set default options
-    base.options = $.extend(true, {}, this.options || {}, options || {});
+    Class.options = $.extend(true, {}, this.options || {}, options || {});
 
     // Inherit the extend method
-    base.extend = this.extend;
+    Class.extend = this.extend;
 
-    return base;
+    // Count of total instances
+    Class.count = 0;
+
+    // Use base as constructor
+    Class.prototype.constructor = base;
+
+    return Class;
 };
 
 /**
@@ -153,7 +163,7 @@ $.fn.toolkit = function(component) {
  * @returns {jQuery}
  */
 $.fn.reveal = function() {
-    return this.removeClass('hide').addClass('show');
+    return this.removeClass('hide').addClass('show').aria('hidden', false);
 };
 
 /**
@@ -163,7 +173,7 @@ $.fn.reveal = function() {
  * @returns {jQuery}
  */
 $.fn.conceal = function() {
-    return this.removeClass('show').addClass('hide');
+    return this.removeClass('show').addClass('hide').aria('hidden', true);
 };
 
 /**
@@ -173,10 +183,39 @@ $.fn.conceal = function() {
  * @returns {jQuery}
  */
 $.fn.i = $.fn.item = function(index) {
-    var item = this.get(index);
-
-    return item ? $(item) : null;
+    return $(this.get(index));
 };
+
+/**
+ * A multi-purpose getter and setter for ARIA attributes.
+ * Will prefix attribute names and cast values correctly.
+ *
+ * @param {String} key
+ * @param {*} value
+ * @returns {jQuery}
+ */
+$.fn.aria = (function() {
+    return function(key, value) {
+        if (!Toolkit.aria) {
+            return this;
+        }
+
+        if (key === 'toggled') {
+            key = { expanded: value, selected: value };
+            value = null;
+        }
+
+        return $.access(this, function(element, key, value) {
+            if (value === true) {
+                value = 'true';
+            } else if (value === false) {
+                value = 'false';
+            }
+
+            element.setAttribute('aria-' + key, value);
+        }, key, value, arguments.length > 1);
+    };
+})();
 
 /**
  * Set data if the key does not exist, else return the current value.
@@ -394,18 +433,6 @@ $.bound = function(value, max, min) {
 };
 
 /**
- * Convert uppercase characters to lower case dashes.
- *
- * @param {String} string
- * @returns {String}
- */
-$.hyphenate = function(string) {
-    return string.replace(/[A-Z]/g, function(match) {
-        return ('-' + match.charAt(0).toLowerCase());
-    });
-};
-
-/**
  * A very lightweight implementation for cookie management.
  * Will only define if $.cookie() does not exist, which will allow for other third-party code.
  *
@@ -483,56 +510,66 @@ if (!$.cookie) {
  */
 if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
-        var elements = $([]),
-            doc = $(document);
+        var elements = [];
 
-        function clickOut(e) {
-            var trigger = true;
+        $(document).on('click.toolkit.out', function(e) {
+            if (!elements.length) {
+                return;
+            }
 
-            elements.each(function() {
+            var trigger = true,
+                collection = $(document),
+                target = $(e.target);
+
+            $.each(elements, function(i, item) {
+                var self = $(item);
+
+                // Test that the delegated selector class matches
+                if ($.type(item) === 'string') {
+                    trigger = (!target.is(item) && !self.has(e.target).length);
+
+                // Else test if the element matches
+                } else {
+                    trigger = (!self.is(e.target) && !self.has(e.target).length);
+                }
+
                 if (trigger) {
-                    var self = $(this);
-
-                    trigger = (!self.is(e.target) && self.has(e.target).length === 0);
+                    collection = collection.add(self);
+                } else {
+                    return false;
                 }
             });
 
             if (trigger) {
-                elements.trigger('clickout', [e.target]);
+                collection.trigger('clickout', [e.target]);
             }
-        }
+        });
 
         return {
-            setup: function() {
-                elements = elements.add(this);
-
-                if (elements.length === 1) {
-                    doc.on('click', clickOut);
-                }
-            },
-            teardown: function() {
-                elements = elements.not(this);
-
-                if (elements.length === 0) {
-                    doc.off('click', clickOut);
-                }
-            },
             add: function(handler) {
-                var oldHandler = handler.handler;
+                var context = this;
 
-                handler.handler = function(e, el) {
-                    e.target = el;
-                    oldHandler.apply(this, arguments);
-                };
+                if (this === document) {
+                    context = handler.selector;
+                }
+
+                if ($.inArray(context, elements) === -1) {
+                    elements.push(context);
+                }
+            },
+            remove: function(handler) {
+                var context = this;
+
+                if (this === document) {
+                    context = handler.selector;
+                }
+
+                elements = $.grep(elements, function(item) {
+                    return (item !== context);
+                });
             }
         };
     })();
-
-    $.fn.clickout = function(data, fn) {
-        return arguments.length > 0 ?
-            this.on('clickout', null, data, fn) :
-            this.trigger('clickout');
-    };
 }
 
 /**
@@ -621,12 +658,6 @@ if (!$.event.special.swipe) {
 
     // Set swipe methods and events
     $.each('swipe swipeleft swiperight swipeup swipedown'.split(' '), function(i, name) {
-        $.fn[name] = function(data, fn) {
-            return arguments.length > 0 ?
-                this.on(name, null, data, fn) :
-                this.trigger(name);
-        };
-
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
@@ -666,5 +697,3 @@ if (!Function.prototype.bind) {
         return bound;
     };
 }
-
-})(window);

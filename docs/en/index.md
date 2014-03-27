@@ -1,8 +1,4 @@
-# Toolkit #
-
-Extensible front-end HTML, CSS, and JavaScript user interface components for the responsive, mobile, and modern web.
-
-## Learn More ##
+# Toolkit Documentation #
 
 Setup
 * [Getting Started](setup/getting-started.md)
@@ -12,9 +8,9 @@ Setup
 * [Components List](components/index.md)
 
 Development
-* [Sass](development/sass.md)
-* [CSS](development/css.md)
 * [JavaScript](development/js.md)
+* [CSS](development/css.md)
+* [Sass](development/sass.md)
 
 Support
 * [Browser Compatibility](support/compatibility.md)

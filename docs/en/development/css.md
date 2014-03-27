@@ -29,7 +29,7 @@ Additional functionality for larger screens will only be loaded through use of m
 To ensure proper viewport rendering and touch capabilities on mobile devices, add the appropriate viewport meta tag to `<head>`.
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 ```
 
 ## Fluid & Responsiveness ##
@@ -88,8 +88,6 @@ The following classes are reserved by Toolkit:
 
 * All the classes within `base.scss`, `responsive.scss`, and `typography.scss`
 * Grid component `.col` class
-* Icon component modifier classes
-* TypeAhead component `.is-shadow` and `.not-shadow` classes
 * Shape classes: `.round`, `.square`, `.pill`, `.oval`, `.skew`, `.skew-reverse`
 * Size classes: `.small`, `.medium`, `.large`
 * Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in-top`,
@@ -97,10 +95,7 @@ The following classes are reserved by Toolkit:
     `.fade`, `.sticky`, `.sticky-top`, `.sticky-bottom`, `.sticky-left`, `.sticky-right`
 * Positional classes: `.top-left`, `.top-center`, `.top-right`, `.center-left`, `.center-right`,
     `.bottom-left`, `.bottom-center`, `.bottom-right`
-* State classes: `.is-info`, `.is-error`, `.is-warning`, `.is-success`, `.is-active`, `.is-disabled`,
-    `.is-open`, `.is-loading`, `.is-children`, `.is-hover`, `.is-draggable`, `.is-dragging`,
-    `.is-fullscreen`, `.is-single`, `.is-sortable`, `.is-scrollable`, `.is-required`,
-    `.no-legend`, `.no-columns`, and many more
+* State classes: `.is-*`, `.has-*`, and many more
 
 Some classes make use of [Sass variables](sass.md#variables) for altering the class names.
 This was implemented to avoid collisions of common class names and integration with legacy applications.
@@ -110,14 +105,12 @@ Continue reading for more information on these variables.
 
 The shape and size class names can be changed through the `$size-*-class` and `$shape-*-class` variables.
 
-### States ###
-
-By default all state classes are prefixed with `is-` or `has-`, so `.active` would be `.is-active` and `.children` would be `.has-children`.
-Prefixes can be changed through the `$state-is-prefix` and `$state-has-prefix` variables.
-
-### Components ###
+### Namespacing Components ###
 
 Component names follow the BEM naming convention mentioned above, so all component class names are also reserved.
 However, Toolkit does support prefixing *ALL* components with a vendor name,
 so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` variable was set to `tk-`.
 This is disabled by default.
+
+* [Learn more on Sass prefixing](sass.md#variables)
+* [Learn more on JS prefixing](js.md#vendor-prefix)

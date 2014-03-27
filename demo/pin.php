@@ -1,5 +1,6 @@
 <style type="text/css">
     #pin {
+        margin-bottom: 100px;
         <?php // Can't do inline styles as that attribute is removed
         if ($height = value('height')) echo 'height: ' . $height . 'px;';
         if ($top = value('top')) echo 'top: ' . $top . 'px;'; ?>
@@ -26,7 +27,8 @@
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,
                 throttle: <?php number('throttle', 50); ?>,
-                fixed: <?php bool('fixed', false); ?>
+                fixed: <?php bool('fixed', false); ?>,
+                lock: <?php bool('lock', true); ?>
             });
         });
     <?php } else { ?>
@@ -37,7 +39,8 @@
                 xOffset: <?php number('xOffset', 0); ?>,
                 yOffset: <?php number('yOffset', 0); ?>,
                 throttle: <?php number('throttle', 50); ?>,
-                fixed: <?php bool('fixed', false); ?>
+                fixed: <?php bool('fixed', false); ?>,
+                lock: <?php bool('lock', true); ?>
             });
         });
     <?php } ?>
