@@ -245,7 +245,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/loader.css"]
-        }
+        },
+        "version": "1.1.0"
     },
     "mask": {
         "name": "Mask",
@@ -257,7 +258,8 @@
         "source": {
             "css": ["components/mask.css"],
             "js": ["components/Mask.js"]
-        }
+        },
+        "version": "1.1.0"
     },
     "matrix": {
         "name": "Matrix",
@@ -376,7 +378,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/step.css"]
-        }
+        },
+        "version": "1.3.0"
     },
     "switch": {
         "name": "Switch",
@@ -387,7 +390,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/switch.css"]
-        }
+        },
+        "version": "1.3.0"
     },
     "table": {
         "name": "Table",

@@ -131,10 +131,12 @@
                     "url": "/components/stalker"
                 }, {
                     "title": "Step",
-                    "url": "/components/step"
+                    "url": "/components/step",
+                    "new": true
                 }, {
                     "title": "Switch",
-                    "url": "/components/switch"
+                    "url": "/components/switch",
+                    "new": true
                 }, {
                     "title": "Table",
                     "url": "/components/table"
