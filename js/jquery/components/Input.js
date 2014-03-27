@@ -124,7 +124,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     var events;
 
     this.component = 'InputSelect';
-    this.version = '1.2.0';
+    this.version = '1.3.0';
     this.input = select = $(select);
     this.multiple = select.prop('multiple');
     this.options = options = this.setOptions(options, select);

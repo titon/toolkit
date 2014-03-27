@@ -14,7 +14,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     var element, self = this;
 
     this.component = 'TypeAhead';
-    this.version = '1.2.1';
+    this.version = '1.3.0';
     this.options = options = this.setOptions(options, input);
     this.element = element = this.createElement();
     this.input = input;

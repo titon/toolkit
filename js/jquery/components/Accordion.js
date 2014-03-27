@@ -8,7 +8,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     var headers, sections, self = this;
 
     this.component = 'Accordion';
-    this.version = '1.2.0';
+    this.version = '1.3.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
     this.headers = headers = element.find(options.headerElement);

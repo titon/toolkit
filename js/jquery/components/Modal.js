@@ -8,7 +8,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     var element, events;
 
     this.component = 'Modal';
-    this.version = '1.2.2';
+    this.version = '1.3.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
     this.elementBody = element.find(options.contentElement);

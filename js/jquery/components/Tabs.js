@@ -8,7 +8,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     var events, sections, tabs, self = this;
 
     this.component = 'Tabs';
-    this.version = '1.2.0';
+    this.version = '1.3.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 

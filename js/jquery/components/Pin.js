@@ -6,7 +6,7 @@
 
 Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.component = 'Pin';
-    this.version = '1.2.1';
+    this.version = '1.3.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
     this.elementHeight = null;
