@@ -6,6 +6,8 @@ The ins and outs of the JavaScript layer within Toolkit.
 * [Accessing Components](#accessing-components)
 * [Conflict Resolution](#conflict-resolution)
 * [Toolkit Namespace](#toolkit-namespace)
+    * [Vendor Prefix](#vendor-prefix)
+    * [ARIA Support](#aria-Support)
     * [Global Options](#global-options)
     * [Locale Messages](#locale-messages)
     * [Feature Flags](#feature-flags)
@@ -105,7 +107,7 @@ It also acts as a namespace for components by housing a top level name to avoid 
 Each component class definition can be found on the `Toolkit` object, for example,
 the accordion interface is found under `Toolkit.Accordion`.
 
-### Vendor Namespace ###
+### Vendor Prefix ###
 
 Paired with the [Sass `$vendor-prefix` variable](sass.md#variables), the `Toolkit.vendor` can be defined for
 prefixing within the JavaScript layer. This value will be prepended to all component class names that are
@@ -114,6 +116,20 @@ automatically created with JavaScript.
 ```javascript
 Toolkit.vendor = 'tk-';
 ```
+
+### ARIA Support ###
+
+[ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable components.
+What this involves is automatic ARIA attribute inclusion and generation for JavaScript modules.
+To disable ARIA support, set the `Toolkit.aria` property to false.
+
+```javascript
+Toolkit.aria = false;
+```
+
+<div class="notice is-warning">
+    Disabling ARIA also disables the <code>aria()</code> method.
+</div>
 
 ### Locale Messages ###
 

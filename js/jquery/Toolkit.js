@@ -17,6 +17,9 @@ var Toolkit = {
     /** Vendor namespace */
     vendor: '',
 
+    /** ARIA support */
+    aria: true,
+
     /** Localization messages */
     messages: {
         loading: 'Loading...',
@@ -193,6 +196,10 @@ $.fn.i = $.fn.item = function(index) {
  */
 $.fn.aria = (function() {
     return function(key, value) {
+        if (!Toolkit.aria) {
+            return this;
+        }
+
         if (key === 'toggled') {
             key = { expanded: value, selected: value };
             value = null;

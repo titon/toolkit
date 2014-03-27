@@ -20,6 +20,7 @@ replacing Compass with autoprefixer, removal of state prefixing, and many more b
     * Updated `$.fn.item()` to return an empty jQuery collection if index out of range
     * Removed `$.hyphenate()`
 * Toolkit
+    * Added `aria` property to toggle support
     * Added `aria()` collection method that can set ARIA attributes
     * Removed `Toolkit.options.isPrefix` and `Toolkit.options.hasPrefix`
     * Renamed `Toolkit.options.vendor` to `Toolkit.vendor`

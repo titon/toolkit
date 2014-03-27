@@ -17,6 +17,9 @@ var Toolkit = {
     /** Vendor namespace */
     vendor: '',
 
+    /** ARIA support */
+    aria: true,
+
     /** Localization messages */
     messages: {
         loading: 'Loading...',
@@ -168,6 +171,10 @@ Element.implement({
      * @returns {Element}
      */
     aria: function(key, value) {
+        if (!Toolkit.aria) {
+            return this;
+        }
+
         if (value === true) {
             value = 'true';
         } else if (value === false) {
