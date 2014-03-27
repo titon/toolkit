@@ -308,6 +308,13 @@ The following components are found within Toolkit.
             <td class="is-success">&check;</td>
         </tr>
         <tr>
+            <td>Switch</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
             <td>Table</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>

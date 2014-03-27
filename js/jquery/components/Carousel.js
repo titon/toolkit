@@ -65,7 +65,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         'swipeleft element': 'next',
         'swipeup element': 'next',
         'swiperight element': 'prev',
-        'swipdown element': 'prev',
+        'swipedown element': 'prev',
         'click tabs': 'onJump',
         'click nextButton': 'next',
         'click prevButton': 'prev'

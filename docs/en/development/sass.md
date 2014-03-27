@@ -106,7 +106,7 @@ it *does not* provide variables for property styling. This can and should be ach
         </tr>
         <tr>
             <td>$medium-size</td>
-            <td>inherit</td>
+            <td>1rem</td>
             <td>The default font size for elements.</td>
         </tr>
         <tr>

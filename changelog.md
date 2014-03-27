@@ -11,14 +11,15 @@ replacing Compass with autoprefixer, removal of state prefixing, and many more b
 * Added ARIA support to all components with supported documentation
 * Added CSS vendor prefixing support through [autoprefixer](https://github.com/ai/autoprefixer)
 * Added namespace event triggering support to the activating node
-* Refactored the `clickout` event to support delegated elements
 * Removed is and has state prefixing from the CSS and JS layers
 * Removed `$state-is-prefix` and `$state-has-prefix` Sass variables
 * Removed individual JavaScript distribution files
 * Removed Compass dependency in favor of autoprefixer
 * jQuery
     * Updated `$.fn.item()` to return an empty jQuery collection if index out of range
+    * Refactored the `clickout` event to support delegated elements
     * Removed `$.hyphenate()`
+    * Removed event helper methods like `clickout()`, `swipeleft()`, etc
 * Toolkit
     * Added `aria` property to toggle support
     * Added `aria()` collection method that can set ARIA attributes
@@ -33,6 +34,7 @@ replacing Compass with autoprefixer, removal of state prefixing, and many more b
     * Added `id()` method to generate unique CSS class names
     * Removed error and loading template generation from components (wasn't being used)
 * Carousel
+    * Fixed a bug where `swipedown` would not trigger
     * Merged `itemsElement` and `itemElement` options
     * Merged `tabsElement` and `tabElement` options
     * Removed `itemsWrapper`, `itemsList`, `tabsWrapper` properties

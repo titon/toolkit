@@ -111,3 +111,6 @@ Component names follow the BEM naming convention mentioned above, so all compone
 However, Toolkit does support prefixing *ALL* components with a vendor name,
 so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` variable was set to `tk-`.
 This is disabled by default.
+
+* [Learn more on Sass prefixing](sass.md#variables)
+* [Learn more on JS prefixing](js.md#vendor-prefix)

@@ -42,30 +42,13 @@ These files are also available through [Bower](http://bower.io).
 
 ```
 toolkit/dist/
-├── jquery/
-|   ├── toolkit.min.js
-|   └── toolkit-*.min.js
-├── mootools/
-|   ├── toolkit.min.js
-|   └── toolkit-*.min.js
 ├── toolkit.min.css
 ├── toolkit-jquery.min.js
 └── toolkit-mootools.min.js
 ```
 
-The folder structure is a bit confusing, but trust us, it makes sense.
-
 The files found in the root of the `dist` folder contain the compiled source code for *all* components.
 Simply include the files in your application to gain all of Toolkit's functionality.
-
-The files found in the `jquery` and `mootools` folders contain source code for individual components.
-This allows for the inclusion of components on a case by case basis.
-When using this approach, the `{vendor}/toolkit.min.js` file is required before any component.
-
-<div class="notice is-info">
-    There are no individual CSS files for components, only JavaScript.
-    The <code>toolkit.min.css</code> will still need to be included.
-</div>
 
 ### Source Files ###
 

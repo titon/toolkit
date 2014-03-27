@@ -29,7 +29,7 @@ Toolkit.Tooltip = new Class({
         delay: 0,
         titleElement: '.tooltip-head',
         contentElement: '.tooltip-body',
-        template: '<div class="tooltip" role="tooltip">' +
+        template: '<div class="tooltip">' +
             '<div class="tooltip-inner">' +
                 '<div class="tooltip-head"></div>' +
                 '<div class="tooltip-body"></div>' +
