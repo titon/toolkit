@@ -10,7 +10,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     }
 
     this.component = 'Flyout';
-    this.version = '1.2.0';
+    this.version = '1.3.1';
     this.options = options = this.setOptions(options);
     this.nodes = nodes = $(nodes);
     this.node = null;

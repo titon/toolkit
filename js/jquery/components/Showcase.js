@@ -13,7 +13,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     }
 
     this.component = 'Showcase';
-    this.version = '1.2.2';
+    this.version = '1.3.1';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
     this.nodes = nodes = $(nodes);

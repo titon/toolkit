@@ -8,7 +8,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     var element, events;
 
     this.component = 'Tooltip';
-    this.version = '1.3.0';
+    this.version = '1.3.1';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
     this.elementHead = element.find(options.titleElement);

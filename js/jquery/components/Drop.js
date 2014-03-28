@@ -8,7 +8,7 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     var events;
 
     this.component = 'Drop';
-    this.version = '1.2.0';
+    this.version = '1.3.1';
     this.options = options = this.setOptions(options);
     this.element = null; // Current drop
     this.node = null; // Opened the drop
