@@ -334,7 +334,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     onJump: function(e) {
         e.preventDefault();
 
-        this.jump($(e.target).data('index') || 0);
+        this.jump($(e.currentTarget).data('index') || 0);
     },
 
     /**

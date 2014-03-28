@@ -2,7 +2,7 @@
 <div class="tabs" id="tabs-1">
     <nav class="tabs-nav">
         <ul>
-            <li><a href="#section-1" class="button">Tab 1 via DOM</a></li>
+            <li><a href="#section-1" class="button"><span>Tab 1 via DOM</span></a></li>
             <li><a href="#section-2" class="button">Tab 2 via DOM</a></li>
             <li><a href="ajax/tab.php" class="button">Tab 3 via AJAX</a></li>
         </ul>

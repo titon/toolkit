@@ -452,7 +452,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        var node = $(e.target),
+        var node = $(e.currentTarget),
             isNode = (this.node && node[0] === this.node[0]);
 
         if (this.isVisible()) {

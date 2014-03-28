@@ -206,7 +206,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     onSubmit: function(e) {
         e.preventDefault();
 
-        var button = $(e.target),
+        var button = $(e.currentTarget),
             form = this.elementBody.find('form:first');
 
         if (!form) {

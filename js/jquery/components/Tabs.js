@@ -182,11 +182,11 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        if (this.options.preventDefault || (this.options.ajax && e.target.getAttribute('href').substr(0, 1) !== '#')) {
+        if (this.options.preventDefault || (this.options.ajax && e.currentTarget.getAttribute('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }
 
-        this.show(e.target);
+        this.show(e.currentTarget);
     }
 
 }, {

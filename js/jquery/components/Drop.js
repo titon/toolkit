@@ -66,7 +66,7 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     onShow: function(e) {
         e.preventDefault();
 
-        var node = $(e.target),
+        var node = $(e.currentTarget),
             options = this.options,
             target = this.readValue(node, options.getTarget);
 
