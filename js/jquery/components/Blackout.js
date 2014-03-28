@@ -9,6 +9,8 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
     this.version = '1.3.0';
     this.options = options = this.setOptions(options);
     this.element = this.createElement();
+
+    // How many times the blackout has been opened while being opened
     this.count = 0;
 
     // Build the loader

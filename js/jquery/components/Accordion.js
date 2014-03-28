@@ -5,23 +5,15 @@
  */
 
 Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
-    var headers, sections, self = this;
+    var self = this;
 
     this.component = 'Accordion';
-    this.version = '1.3.0';
-    this.element = element = $(element);
+    this.version = '1.4.0';
+    this.element = element = $(element).attr('role', 'tablist');
     this.options = options = this.setOptions(options, element);
-    this.headers = headers = element.find(options.headerElement);
-    this.sections = sections = element.find(options.sectionElement);
-    this.index = 0;
-    this.node = null;
-    this.events = {};
 
-    // ARIA
-    element.attr('role', 'tablist');
-
-    // Cache the index of each header and set ARIA attributes
-    headers.each(function(index) {
+    // Find headers and cache the index of each header and set ARIA attributes
+    this.headers = element.find('.accordion-header').each(function(index) {
         $(this)
             .data('index', index)
             .attr({
@@ -35,8 +27,8 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
             });
     });
 
-    // Cache the height so we can use for sliding and set ARIA attributes
-    sections.each(function(index) {
+    // Find sections and cache the height so we can use for sliding and set ARIA attributes
+    this.sections = element.find('.accordion-section').each(function(index) {
         $(this)
             .data('height', $(this).height())
             .attr({
@@ -47,7 +39,14 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
             .conceal();
     });
 
+    // Last opened section index
+    this.index = 0;
+
+    // Last opened header
+    this.node = null;
+
     // Initialize events
+    this.events = {};
     this.events[options.mode + ' headers'] = 'onShow';
 
     this.enable();
@@ -141,14 +140,9 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     mode: 'click',
     defaultIndex: 0,
     multiple: false,
-    collapsible: false,
-    headerElement: '.accordion-header',
-    sectionElement: '.accordion-section'
+    collapsible: false
 });
 
-/**
- * Defines a component that can be instantiated through accordion().
- */
 Toolkit.create('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
 });

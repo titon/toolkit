@@ -5,14 +5,20 @@
  */
 
 Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
-    var events, sections, tabs, self = this;
+    var sections, tabs, self = this;
 
     this.component = 'Tabs';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
-    this.sections = sections = element.find(options.sectionElement).each(function(index, section) {
+    // Determine cookie name
+    if (!options.cookie) {
+        options.cookie = element.attr('id');
+    }
+
+    // Find all the sections and set ARIA attributes
+    this.sections = sections = element.find('.tabs-section').each(function(index, section) {
         section = $(section);
         section
             .attr('role', 'tabpanel')
@@ -21,36 +27,33 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
             .conceal();
     });
 
-    this.nav = element.find(options.navElement).attr('role', 'tablist');
-    this.tabs = tabs = this.nav.find('ul > li > a').each(function(index) {
-        $(this)
-            .data('index', index)
-            .attr({
-                role: 'tab',
-                id: self.id('tab', index)
-            })
-            .aria({
-                controls: sections.item(index).attr('id'),
-                selected: false,
-                expanded: false
-            })
-            .removeClass('is-active');
-    });
+    // Find the nav and the tabs and set ARIA attributes
+    this.tabs = tabs = element.find('.tabs-nav')
+        .attr('role', 'tablist')
+        .find('a').each(function(index) {
+            $(this)
+                .data('index', index)
+                .attr({
+                    role: 'tab',
+                    id: self.id('tab', index)
+                })
+                .aria({
+                    controls: sections.item(index).attr('id'),
+                    selected: false,
+                    expanded: false
+                })
+                .removeClass('is-active');
+        });
 
+    // Index of the section currently displayed
     this.index = 0;
-    this.cache = {};
-    this.events = events = {};
-
-    // Determine cookie name
-    if (!options.cookie) {
-        options.cookie = element.attr('id');
-    }
 
     // Initialize events
-    events[options.mode + ' tabs'] = 'onShow';
+    this.events = {};
+    this.events[options.mode + ' element .tabs-nav a'] = 'onShow';
 
     if (options.mode !== 'click' && options.preventDefault) {
-        events['click tabs'] = function(e) {
+        this.events['click element .tabs-nav a'] = function(e) {
             e.preventDefault();
         };
     }
@@ -143,8 +146,9 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         }
 
         // Toggle tabs
-        this.nav.find('ul > li').removeClass('is-active');
-        this.tabs.aria('toggled', false);
+        this.tabs
+            .aria('toggled', false)
+            .parent().removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -199,9 +203,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     loadFragment: true,
     cookie: null,
     cookieDuration: 30,
-    getUrl: 'href',
-    navElement: '.tabs-nav',
-    sectionElement: '.tabs-section'
+    getUrl: 'href'
 });
 
 /**

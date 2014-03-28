@@ -6,9 +6,19 @@
 
 Toolkit.Component = Toolkit.Class.extend(function() {}, {
     component: 'Component',
-    version: '1.3.0',
+    version: '1.4.0',
+
+    /** Is the component enabled? */
     enabled: false,
+
+    /** Events and functions to bind */
     events: {},
+
+    /** Cached requests by URL */
+    cache: {},
+
+    /** Dynamic options generated at runtime */
+    runtime: {},
 
     /**
      * Create the element from the template.
@@ -75,9 +85,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         $.each(this.events, function(key, value) {
             funcs = $.isArray(value) ? value : [value];
             keys = key.split(' ');
-            event = keys[0];
-            context = keys[1];
-            selector = keys[2] || null;
+            event = keys.shift();
+            context = keys.shift();
+            selector = keys.join(' ');
 
             // No context defined, so use the context in options
             var charAt = context.charAt(0);

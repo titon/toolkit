@@ -10,22 +10,36 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     }
 
     this.component = 'Flyout';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.nodes = nodes = $(nodes);
-    this.node = null;
-    this.element = null; // Current active menu
-    this.current = null; // Current URL
-    this.menus = {};
-    this.data = [];
-    this.dataMap = {};
-    this.timers = {};
-    this.events = {};
 
-    // Load data from the URL
-    $.getJSON(url, this.load.bind(this));
+    // Last opened flyout menu
+    this.element = null;
+
+    // Nodes found in the page on initialization
+    this.nodes = nodes = $(nodes);
+
+    // Last node to open a menu
+    this.node = null;
+
+    // Current URL to relate a flyout menu to
+    this.current = null;
+
+    // Collection of flyout elements indexed by URL
+    this.menus = {};
+
+    // Raw sitemap JSON data
+    this.data = [];
+
+    // Data indexed by URL
+    this.dataMap = {};
+
+    // Show and hide timers
+    this.timers = {};
 
     // Initialize events
+    this.events = {};
+
     if (options.mode === 'click') {
         this.events['click ' + nodes.selector] = 'onShow';
     } else {
@@ -35,6 +49,9 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
 
     this.enable();
     this.fireEvent('init');
+
+    // Load data from the URL
+    $.getJSON(url, this.load.bind(this));
 }, {
 
     /**
@@ -209,7 +226,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             ul,
             li,
             tag,
-            target = options.contentElement,
+            target = '.flyout',
             limit = options.itemLimit,
             i, l;
 
@@ -373,7 +390,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children(this.options.contentElement)
+        parent.children('.flyout')
             .removeAttr('style')
             .aria({
                 expanded: false,
@@ -400,7 +417,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children(this.options.contentElement);
+        var menu = parent.children('.flyout');
 
         if (!menu) {
             return;
@@ -493,7 +510,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    contentElement: '.flyout',
     template: '<div class="flyout"></div>'
 });
 

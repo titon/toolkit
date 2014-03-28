@@ -8,12 +8,19 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     container = $(container);
 
     this.component = 'LazyLoad';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options, container);
+
+    // Container to monitor scroll events on
     this.container = (container.css('overflow') === 'auto') ? container : $(window);
+
+    // Collection of elements to load within the container
     this.elements = container.find('.lazy-load');
-    this.element = null; // Element being loaded
-    this.isLoaded = false;
+
+    // Element currently being loaded, needs to be set for events
+    this.element = null;
+
+    // How many items have been loaded
     this.loaded = 0;
 
     // Initialize events
@@ -64,10 +71,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Loop over the lazy loaded elements and verify they are within the viewport.
      */
     load: function() {
-        if (this.isLoaded) {
-            return;
-        }
-
         if (this.loaded === this.elements.length) {
             this.shutdown();
             return;
@@ -86,10 +89,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Load the remaining hidden elements and remove any container events.
      */
     loadAll: function() {
-        if (this.isLoaded) {
-            return;
-        }
-
         this.elements.each(function(index, node) {
             this.show(node, index);
         }.bind(this));
@@ -140,7 +139,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Any container events will be removed and loading will cease.
      */
     shutdown: function() {
-        this.isLoaded = true;
         this.disable();
         this.fireEvent('shutdown');
     },

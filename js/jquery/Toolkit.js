@@ -115,7 +115,7 @@ Toolkit.Class.extend = function(base, properties, options) {
     };
 
     // Inherit the prototype and merge properties
-    $.extend(Class.prototype, this.prototype, properties);
+    $.extend(Class.prototype, this.prototype, properties || {});
 
     // Inherit and set default options
     Class.options = $.extend(true, {}, this.options || {}, options || {});

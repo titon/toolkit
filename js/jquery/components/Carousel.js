@@ -12,7 +12,13 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
-    this.items = items = element.find(options.itemsElement).each(function(index) {
+    // Set animation and ARIA
+    element
+        .aria('live', options.autoCycle ? 'assertive' : 'off')
+        .addClass(options.animation);
+
+    // Find all the items and set ARIA attributes
+    this.items = items = element.find('.carousel-items li').each(function(index) {
         $(this)
             .attr({
                 role: 'tabpanel',
@@ -21,41 +27,42 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             .aria('hidden', (index > 0));
     });
 
-    this.tabs = element.find(options.tabsElement).each(function(index) {
-        $(this)
-            .data('index', index)
-            .attr({
-                role: 'tab',
-                id: self.id('tab', index)
-            })
-            .aria({
-                controls: self.id('item', index),
-                selected: false,
-                expanded: false
-            });
-    });
+    // Find all tabs and set ARIA attributes
+    this.tabs = element.find('.carousel-tabs')
+        .attr('role', 'tablist')
+        .find('a').each(function(index) {
+            $(this)
+                .data('index', index)
+                .attr({
+                    role: 'tab',
+                    id: self.id('tab', index)
+                })
+                .aria({
+                    controls: self.id('item', index),
+                    selected: false,
+                    expanded: false
+                });
+        });
 
-    this.nextButton = element.find(options.nextElement);
-    this.prevButton = element.find(options.prevElement);
+    // Currently displayed item by index
     this.index = 0;
+
+    // Auto cycle timer
     this.timer = null;
+
+    // Is the carousel stopped or paused?
     this.stopped = false;
 
-    // Set animation and ARIA
-    element
-        .aria('live', options.autoCycle ? 'assertive' : 'off')
-        .addClass(options.animation)
-        .find('.carousel-tabs')
-            .attr('role', 'tablist');
-
-    // Set sizes for responsiveness
+    // Set default positioning for responsiveness
     switch (options.animation) {
         case 'fade':
             items.item(0).reveal();
         break;
         case 'slide':
-            items.parent().css('width', (items.length * 100) + '%');
-            items.css('width', (100 / items.length) + '%');
+            items
+                .css('width', (100 / items.length) + '%')
+                .parent()
+                    .css('width', (items.length * 100) + '%');
         break;
     }
 
@@ -66,9 +73,9 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         'swipeup element': 'next',
         'swiperight element': 'prev',
         'swipedown element': 'prev',
-        'click tabs': 'onJump',
-        'click nextButton': 'next',
-        'click prevButton': 'prev'
+        'click element .carousel-tabs a': 'onJump',
+        'click element .carousel-next': 'next',
+        'click element .carousel-prev': 'prev'
     };
 
     if (options.stopOnHover) {
@@ -221,11 +228,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     animation: 'slide',
     duration: 5000,
     autoCycle: true,
-    stopOnHover: true,
-    itemsElement: '.carousel-items li',
-    tabsElement: '.carousel-tabs a',
-    nextElement: '.carousel-next',
-    prevElement: '.carousel-prev'
+    stopOnHover: true
 });
 
 /**

@@ -9,11 +9,23 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.version = '1.3.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
+
+    // Outer height of the element
     this.elementHeight = null;
+
+    // The initial top value to reset too
     this.elementTop = parseInt(element.css('top'), 10);
+
+    // Inner height of the parent element
     this.parentHeight = null;
+
+    // The top value of the parent to compare against
     this.parentTop = null;
+
+    // The width and height of the viewport, will update on resize
     this.viewport = null;
+
+    // Will the element be pinned?
     this.active = true;
 
     // Mark element as a pin

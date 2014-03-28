@@ -5,38 +5,12 @@
  */
 
 Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-    var element, events;
+    var element;
 
     this.component = 'Modal';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
-    this.elementBody = element.find(options.contentElement);
-    this.nodes = nodes = $(nodes);
-    this.node = null;
-    this.blackout = null;
-    this.drag = null;
-    this.cache = {};
-    this.events = events = {};
-
-    // Fullscreen
-    if (options.fullScreen) {
-        element.addClass('is-fullscreen');
-        options.draggable = false;
-    }
-
-    // Blackout
-    if (options.blackout) {
-        this.blackout = Toolkit.Blackout.factory();
-
-        if (options.stopScroll) {
-            this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
-                if (hidden) {
-                    $('body').removeClass('no-scroll');
-                }
-            });
-        }
-    }
 
     // Add aria attributes
     element
@@ -44,13 +18,38 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         .aria('labelledby', this.id('title'))
         .aria('describedby', this.id('content'));
 
+    // Enable fullscreen
+    if (options.fullScreen) {
+        element.addClass('is-fullscreen');
+    }
+
+    // Nodes found in the page on initialization
+    this.nodes = nodes = $(nodes);
+
+    // Last node to open a modal
+    this.node = null;
+
+    // Blackout element if enabled
+    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
+
+    if (this.blackout && options.stopScroll) {
+        this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
+            if (hidden) {
+                $('body').removeClass('no-scroll');
+            }
+        });
+    }
+
     // Initialize events
-    events['clickout element'] = 'onHide';
-    events['clickout ' + nodes.selector] = 'onHide';
-    events['keydown window'] = 'onKeydown';
-    events['click ' + nodes.selector] = 'onShow';
-    events['click element ' + options.closeEvent] = 'onHide';
-    events['click element ' + options.submitEvent] = 'onSubmit';
+    this.events = {
+        'clickout element': 'onHide',
+        'keydown window': 'onKeydown',
+        'click element .modal-event-close': 'onHide',
+        'click element .modal-event-submit': 'onSubmit'
+    };
+
+    this.events['clickout ' + nodes.selector] = 'onHide';
+    this.events['click ' + nodes.selector] = 'onShow';
 
     this.enable();
     this.fireEvent('init');
@@ -85,7 +84,9 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
             this.blackout.hideLoader();
         }
 
-        this.elementBody.html(content);
+        var body = this.element.find('.modal-inner');
+
+        body.html(content);
         this.fireEvent('load', content);
 
         // Reveal modal
@@ -93,8 +94,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 
         // Resize modal
         if (this.options.fullScreen) {
-            this.element.find(this.options.contentElement)
-                .css('min-height', $(window).height());
+            body.css('min-height', $(window).height());
         }
 
         this.fireEvent('show');
@@ -207,7 +207,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         e.preventDefault();
 
         var button = $(e.target),
-            form = this.elementBody.find('form:first');
+            form = this.element.find('form:first');
 
         if (!form) {
             return;
@@ -239,10 +239,6 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     fullScreen: false,
     stopScroll: true,
     getContent: 'data-modal',
-    contentElement: '.modal-inner',
-    closeElement: '.modal-close',
-    closeEvent: '.modal-event-close',
-    submitEvent: '.modal-event-submit',
     template: '<div class="modal">' +
         '<div class="modal-outer">' +
             '<div class="modal-handle">' +

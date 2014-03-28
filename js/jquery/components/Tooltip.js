@@ -8,32 +8,32 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     var element, events;
 
     this.component = 'Tooltip';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.element = element = this.createElement();
-    this.elementHead = element.find(options.titleElement);
-    this.elementBody = element.find(options.contentElement);
-    this.nodes = nodes = $(nodes);
-    this.node = null;
-    this.cache = {};
-    this.events = events = {};
-    this.runtime = {};
-
-    // Update ARIA and remove class since were using runtime
-    element
+    this.element = element = this.createElement()
         .attr('role', 'tooltip')
         .removeClass(options.className);
 
     // Remove title attributes
-    nodes.each(function(i, node) {
-        $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
-    });
-
     if (options.getTitle === 'title') {
         options.getTitle = 'data-tooltip-title';
     }
 
+    // Elements for the title and content
+    this.elementHead = element.find('.tooltip-head');
+    this.elementBody = element.find('.tooltip-body');
+
+    // Nodes found in the page on initialization, remove title attribute
+    this.nodes = nodes = $(nodes).each(function(i, node) {
+        $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
+    });
+
+    // Last node to open a tooltip
+    this.node = null;
+
     // Initialize events
+    this.events = events = {};
+
     var selector = nodes.selector;
 
     if (options.mode === 'click') {
@@ -252,8 +252,6 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     xOffset: 0,
     yOffset: 0,
     delay: 0,
-    titleElement: '.tooltip-head',
-    contentElement: '.tooltip-body',
     template: '<div class="tooltip">' +
         '<div class="tooltip-inner">' +
             '<div class="tooltip-head"></div>' +

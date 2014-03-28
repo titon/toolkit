@@ -13,20 +13,27 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     }
 
     this.component = 'Showcase';
-    this.version = '1.2.2';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
-    this.nodes = nodes = $(nodes);
-    this.items = element.find(options.itemsElement);
-    this.tabs = element.find(options.tabsElement);
-    this.prevButton = element.find(options.prevElement);
-    this.nextButton = element.find(options.nextElement);
-    this.data = [];
-    this.index = 0;
-    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
-    // Increase gutter based on padding
-    options.gutter += (element.height() - this.items.height());
+    // Nodes found in the page on initialization
+    this.nodes = nodes = $(nodes);
+
+    // The wrapping items element
+    this.items = element.find('.showcase-items');
+
+    // The wrapping tabs element
+    this.tabs = element.find('.showcase-tabs');
+
+    // Items gathered when node was activated
+    this.data = [];
+
+    // Current index of the item being shown
+    this.index = 0;
+
+    // Blackout element if enabled
+    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
     // Initialize events
     this.events = events = {
@@ -40,10 +47,13 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
     events['clickout ' + nodes.selector] = 'onHide';
     events['click ' + nodes.selector] = 'onShow';
-    events['click ' + options.closeEvent] = 'hide';
-    events['click ' + options.nextEvent] = 'next';
-    events['click ' + options.prevEvent] = 'prev';
-    events['click ' + options.jumpEvent] = 'onJump';
+    events['click element .showcase-close'] = 'hide';
+    events['click element .showcase-next'] = 'next';
+    events['click element .showcase-prev'] = 'prev';
+    events['click element .showcase-tabs a'] = 'onJump';
+
+    // Increase gutter based on padding
+    options.gutter += (element.height() - this.items.height());
 
     this.enable();
     this.fireEvent('init');
@@ -253,7 +263,6 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             li.appendTo(this.items);
 
             a = $('<a/>')
-                .addClass(this.options.jumpEvent.substr(1))
                 .attr('href', 'javascript:;')
                 .data('index', i);
 
@@ -379,21 +388,13 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    itemsElement: '.showcase-items',
-    tabsElement: '.showcase-tabs',
-    prevElement: '.showcase-prev',
-    nextElement: '.showcase-next',
-    closeEvent: '.showcase-event-close',
-    jumpEvent: '.showcase-event-jump',
-    prevEvent: '.showcase-event-prev',
-    nextEvent: '.showcase-event-next',
     template: '<div class="showcase">' +
         '<div class="showcase-inner">' +
             '<ul class="showcase-items"></ul>' +
             '<ol class="showcase-tabs bullets"></ol>' +
-            '<button type="button" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></button>' +
-            '<button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>' +
-            '<button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>' +
+            '<button type="button" class="showcase-prev"><span class="arrow-left"></span></button>' +
+            '<button type="button" class="showcase-next"><span class="arrow-right"></span></button>' +
+            '<button type="button" class="showcase-close"><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });

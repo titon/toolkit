@@ -11,18 +11,34 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         throw new Error('TypeAhead must be initialized on an input field');
     }
 
-    var element, self = this;
+    var self = this;
 
     this.component = 'TypeAhead';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options, input);
-    this.element = element = this.createElement();
+    this.element = this.createElement()
+        .attr('role', 'listbox')
+        .aria('multiselectable', false);
+
+    // The input field to listen against
     this.input = input;
+
+    // The shadow input field element
     this.shadow = null;
+
+    // Current index in the drop menu while cycling
     this.index = -1;
+
+    // List of item data to render in the drop menu
     this.items = [];
+
+    // Current term in the input field to match with
     this.term = '';
+
+    // Lookup throttle timer
     this.timer = null;
+
+    // Cached lookup requests
     this.cache = {};
 
     // Use default callbacks
@@ -42,7 +58,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         options[key] = callback.bind(self);
     });
 
-    // Prefetch source from URL
+    // Prefetch source data from URL
     if (options.prefetch && $.type(options.source) === 'string') {
         var url = options.source;
 
@@ -61,8 +77,13 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             .prop('readonly', true)
             .aria('readonly', true);
 
-        this.input.addClass('not-shadow').replaceWith(this.wrapper);
-        this.wrapper.append(this.shadow).append(this.input);
+        this.input
+            .addClass('not-shadow')
+            .replaceWith(this.wrapper);
+
+        this.wrapper
+            .append(this.shadow)
+            .append(this.input);
     }
 
     // Set ARIA after shadow so that attributes are not inherited
@@ -73,13 +94,9 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         })
         .aria({
             autocomplete: 'list',
-            owns: element.attr('id'),
+            owns: this.element.attr('id'),
             expanded: false
         });
-
-    element
-        .attr('role', 'listbox')
-        .aria('multiselectable', false);
 
     // Initialize events
     this.events = {
@@ -336,11 +353,13 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         }.bind(this));
 
         // Append list
-        if (options.contentElement) {
-            this.element.find(options.contentElement).empty().append(list);
-        } else {
-            this.element.empty().append(list);
+        var container = this.element.find('.type-ahead');
+
+        if (!container.length) {
+            container = this.element;
         }
+
+        container.empty().append(list);
 
         // Set the current result set to the items list
         // This will be used for index cycling
@@ -549,7 +568,6 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     prefetch: false,
     shadow: false,
     query: {},
-    contentElement: '',
     template: '<div class="type-ahead"></div>',
 
     // Callbacks

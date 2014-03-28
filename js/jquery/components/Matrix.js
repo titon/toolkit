@@ -7,14 +7,29 @@
 Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
     this.version = '1.2.0';
-    this.element = element = $(element);
+    this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
     this.options = options = this.setOptions(options, element);
+
+    // Items within the matrix
     this.items = element.find('> li');
+
+    // List of items in order and how many columns they span horizontally
     this.matrix = [];
+
+    // Width of the wrapper (target element)
+    // Is recalculated every page resize to determine columns
     this.wrapperWidth = 0;
+
+    // Calculated final width of the column (may differ from width option)
     this.colWidth = 0;
+
+    // How many columns that can fit in the wrapper
     this.colCount = 0;
+
+    // Collection of img elements
     this.images = [];
+
+    // How many images have loaded or tried to load
     this.imagesLoaded = 0;
 
     // Initialize events
@@ -26,8 +41,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.fireEvent('init');
 
     // Render the matrix
-    element.addClass(Toolkit.vendor + 'matrix');
-
     if (options.defer) {
         this._deferRender();
     } else {

@@ -7,23 +7,24 @@
 Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     this.component = 'Stalker';
     this.version = '1.2.0';
-    this.element = element = $(element);
+    this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
     this.options = options = this.setOptions(options);
 
     if (!options.target || !options.marker) {
         throw new Error('A marker and target is required');
     }
 
-    this.targets = [];
-    this.markers = [];
-    this.offsets = [];
+    // Container to monitor scroll events on
     this.container = (element.css('overflow') === 'auto') ? element : $(window);
 
-    // Add classes to stalker
-    element.addClass(Toolkit.vendor + 'stalker');
+    // Targets to active when a marker is reached
+    this.targets = [];
 
-    // Gather markets and targets
-    this.refresh();
+    // Markers to compare against
+    this.markers = [];
+
+    // Top value for all markers
+    this.offsets = [];
 
     // Initialize events
     this.events = {
@@ -33,6 +34,9 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
 
     this.enable();
     this.fireEvent('init');
+
+    // Gather markets and targets
+    this.refresh();
 }, {
 
     /**

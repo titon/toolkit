@@ -61,6 +61,7 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     }
 
 }, {
+    copyClasses: true,
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select'
@@ -86,9 +87,6 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
     // Initialize events
     this.enable();
     this.fireEvent('init');
-}, {
-}, {
-    copyClasses: true
 });
 
 /**
@@ -111,9 +109,6 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
     // Initialize events
     this.enable();
     this.fireEvent('init');
-}, {
-}, {
-    copyClasses: true
 });
 
 /**
@@ -121,7 +116,7 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
  * Supports native or custom dropdowns.
  */
 Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
-    var events;
+    var events = {};
 
     this.component = 'InputSelect';
     this.version = '1.3.0';
@@ -134,15 +129,20 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         return;
     }
 
+    // Wrapping element
     this.wrapper = this._buildWrapper();
+
+    // Button element to open the drop menu
     this.element = this._buildButton();
+
+    // The custom drop menu
     this.dropdown = null;
+
+    // Current option index when cycling with keyboard
     this.index = 0;
 
     // Initialize events
-    this.events = events = {
-        'change input': 'onChange'
-    };
+    events['change input'] = 'onChange';
 
     if (!options.native) {
         events['blur input'] = 'hide';
@@ -161,6 +161,8 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         // So place it below .custom-input
         this.input.css('z-index', 1);
     }
+
+    this.events = events;
 
     this.enable();
     this.fireEvent('init');
@@ -531,7 +533,6 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     }
 
 }, {
-    copyClasses: true,
     native: false,
     multipleFormat: 'count', // count, list
     countMessage: '{count} of {total} selected',

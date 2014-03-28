@@ -6,16 +6,21 @@
 
 Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.component = 'Mask';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.element = element = $(element);
     this.options = this.setOptions(options, element);
+
+    // The mask element to overlay the target element
     this.mask = null;
+
+    // The message element within the mask
     this.message = null;
 
     // Create the mask and message elements
     var vendor = Toolkit.vendor,
         maskClass = vendor + 'mask';
 
+    // Add class and set relative positioning
     if (!element.is('body')) {
         element.addClass(vendor + 'maskable');
 
@@ -52,8 +57,10 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
      * @param {jQuery} mask
      */
     setMask: function(mask) {
-        var options = this.options;
+        var options = this.options,
+            message;
 
+        // Prepare mask
         mask.addClass('hide').appendTo(this.element);
 
         if (this.element.is('body')) {
@@ -65,34 +72,34 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         }
 
         this.mask = mask;
-        this.message = mask.find('> ' + options.messageElement);
 
         // Create message if it does not exist
-        if (!this.message.length) {
-            this.message = $('<div/>')
-                .addClass(options.messageElement.substr(1))
+        message = mask.find('> .mask-message');
+
+        if (!message.length) {
+            message = $('<div/>')
+                .addClass('mask-message')
                 .appendTo(mask);
 
             if (options.messageContent) {
-                this.message.html(options.messageContent);
+                message.html(options.messageContent);
             }
         }
+
+        this.message = message;
     },
 
     /**
      * Show the mask and conceal the element.
-     *
-     * @param {Element} [node]
      */
-    show: function(node) {
-        this.node = node;
+    show: function() {
         this.mask.reveal();
         this.element.addClass('is-masked');
         this.fireEvent('show');
     },
 
     /**
-     * Toggle between display states,
+     * Toggle between display states.
      */
     toggle: function() {
         if (this.mask.is(':shown')) {
@@ -104,8 +111,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
 
 }, {
     revealOnClick: false,
-    messageContent: '',
-    messageElement: '.mask-message'
+    messageContent: ''
 });
 
 /**
