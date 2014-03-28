@@ -18,7 +18,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     }
 
     // Find all the sections and set ARIA attributes
-    this.sections = sections = element.find('.tabs-section').each(function(index, section) {
+    this.sections = sections = element.find('.' + vendor + 'tabs-section').each(function(index, section) {
         section = $(section);
         section
             .attr('role', 'tabpanel')
@@ -28,7 +28,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     });
 
     // Find the nav and the tabs and set ARIA attributes
-    this.tabs = tabs = element.find('.tabs-nav')
+    this.tabs = tabs = element.find('.' + vendor + 'tabs-nav')
         .attr('role', 'tablist')
         .find('a').each(function(index) {
             $(this)
@@ -50,10 +50,10 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     this.events = {};
-    this.events[options.mode + ' element .tabs-nav a'] = 'onShow';
+    this.events[options.mode + ' element .' + vendor + 'tabs-nav a'] = 'onShow';
 
     if (options.mode !== 'click' && options.preventDefault) {
-        this.events['click element .tabs-nav a'] = function(e) {
+        this.events['click element .' + vendor + 'tabs-nav a'] = function(e) {
             e.preventDefault();
         };
     }

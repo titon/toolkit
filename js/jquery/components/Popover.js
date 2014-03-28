@@ -23,8 +23,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     }
 
     // Elements for the title and content
-    this.elementHead = element.find('.popover-head');
-    this.elementBody = element.find('.popover-body');
+    this.elementHead = element.find('.' + vendor + 'popover-head');
+    this.elementBody = element.find('.' + vendor + 'popover-body');
 
     // Nodes found in the page on initialization, remove title attribute
     this.nodes = nodes = $(nodes).each(function(i, node) {

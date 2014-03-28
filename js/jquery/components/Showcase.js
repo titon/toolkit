@@ -21,10 +21,10 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     this.nodes = nodes = $(nodes);
 
     // The wrapping items element
-    this.items = element.find('.showcase-items');
+    this.items = element.find('.' + vendor + 'showcase-items');
 
     // The wrapping tabs element
-    this.tabs = element.find('.showcase-tabs');
+    this.tabs = element.find('.' + vendor + 'showcase-tabs');
 
     // Items gathered when node was activated
     this.data = [];
@@ -47,10 +47,10 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
     events['clickout ' + nodes.selector] = 'onHide';
     events['click ' + nodes.selector] = 'onShow';
-    events['click element .showcase-close'] = 'hide';
-    events['click element .showcase-next'] = 'next';
-    events['click element .showcase-prev'] = 'prev';
-    events['click element .showcase-tabs a'] = 'onJump';
+    events['click element .' + vendor + 'showcase-close'] = 'hide';
+    events['click element .' + vendor + 'showcase-next'] = 'next';
+    events['click element .' + vendor + 'showcase-prev'] = 'prev';
+    events['click element .' + vendor + 'showcase-tabs a'] = 'onJump';
 
     // Increase gutter based on padding
     options.gutter += (element.height() - this.items.height());
@@ -110,7 +110,8 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
             listTabs
                 .removeClass('is-active')
-                .item(index).addClass('is-active');
+                .item(index)
+                    .addClass('is-active');
         }
 
         // Fade out previous item
@@ -147,7 +148,11 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
                 // Create the caption
                 if (item.title) {
-                    listItem.append($('<div/>').addClass(Toolkit.vendor + 'showcase-caption').html(item.title));
+                    listItem.append(
+                        $('<div/>')
+                            .addClass(vendor + 'showcase-caption')
+                            .html(item.title)
+                    );
                 }
 
                 // Reveal the image after animation

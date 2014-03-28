@@ -49,7 +49,7 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     _buildWrapper: function() {
         var input = this.input,
             wrapper = $('<div/>')
-                .addClass(Toolkit.vendor + 'custom-input')
+                .addClass(vendor + 'custom-input')
                 .insertBefore(input)
                 .append(input);
 
@@ -80,7 +80,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
 
     // Create custom input
     this.element = $('<label/>')
-        .addClass(Toolkit.vendor + 'checkbox')
+        .addClass(vendor + 'checkbox')
         .attr('for', checkbox.attr('id'))
         .insertAfter(checkbox);
 
@@ -102,7 +102,7 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
 
     // Create custom input
     this.element = $('<label/>')
-        .addClass(Toolkit.vendor + 'radio')
+        .addClass(vendor + 'radio')
         .attr('for', radio.attr('id'))
         .insertAfter(radio);
 
@@ -146,7 +146,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
 
     if (!options.native) {
         events['blur input'] = 'hide';
-        events['clickout .' + Toolkit.vendor + 'drop.select-options'] = 'hide';
+        events['clickout .' + vendor + 'select-options'] = 'hide';
         events['clickout element'] = 'hide';
         events['click element'] = 'onToggle';
 
@@ -203,8 +203,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      * @returns {jQuery}
      */
     _buildButton: function() {
-        var vendor = Toolkit.vendor,
-            button = $('<div/>')
+        var button = $('<div/>')
                 .addClass(vendor + 'select')
                 .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
                 .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
@@ -225,8 +224,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      * @returns {jQuery}
      */
     _buildDropdown: function() {
-        var vendor = Toolkit.vendor,
-            select = this.input,
+        var select = this.input,
             options = this.options,
             buildOption = this._buildOption.bind(this),
             dropdown = $('<div/>')
@@ -317,7 +315,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         }
 
         if (description = this.readValue(option, this.options.getDescription)) {
-            content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
+            content += ' <span class="' + vendor + 'drop-desc">' + description + '</span>';
         }
 
         var a = $('<a/>', {
@@ -464,7 +462,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         }
 
         // Set the label
-        select.parent().find('.' + Toolkit.vendor + 'select-label')
+        select.parent().find('.' + vendor + 'select-label')
             .text(label);
 
         this.fireEvent('change', [select.val(), selected]);

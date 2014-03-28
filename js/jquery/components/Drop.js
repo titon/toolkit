@@ -21,7 +21,7 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     this.node = null;
 
     // Initialize events
-    events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
+    events['clickout .' + vendor + 'drop'] = 'hide';
     events['clickout ' + nodes.selector] = 'hide';
     events[options.mode + ' ' + nodes.selector] = 'onShow';
 

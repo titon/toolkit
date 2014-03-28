@@ -7,7 +7,7 @@
 Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     this.component = 'Stalker';
     this.version = '1.2.0';
-    this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
+    this.element = element = $(element).addClass(vendor + 'stalker');
     this.options = options = this.setOptions(options);
 
     if (!options.target || !options.marker) {
@@ -61,8 +61,7 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
      * Gather the targets and markers used for stalking.
      */
     refresh: function() {
-        var vendor = Toolkit.vendor,
-            isWindow = this.container.is(window),
+        var isWindow = this.container.is(window),
             eTop = this.element.offset().top,
             offset,
             offsets = [];

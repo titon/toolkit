@@ -226,7 +226,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             ul,
             li,
             tag,
-            target = '.flyout',
+            target = '.' + vendor + 'flyout',
             limit = options.itemLimit,
             i, l;
 
@@ -274,7 +274,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                         role: 'presentation'
                     });
 
-                    li.addClass(Toolkit.vendor + 'flyout-heading');
+                    li.addClass(vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -390,7 +390,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children('.flyout')
+        parent.children('.' + vendor + 'flyout')
             .removeAttr('style')
             .aria({
                 expanded: false,
@@ -417,7 +417,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children('.flyout');
+        var menu = parent.children('.' + vendor + 'flyout');
 
         if (!menu) {
             return;

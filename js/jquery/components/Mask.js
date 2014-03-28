@@ -17,8 +17,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.message = null;
 
     // Create the mask and message elements
-    var vendor = Toolkit.vendor,
-        maskClass = vendor + 'mask';
+    var maskClass = vendor + 'mask';
 
     // Add class and set relative positioning
     if (!element.is('body')) {
@@ -74,11 +73,11 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.mask = mask;
 
         // Create message if it does not exist
-        message = mask.find('> .mask-message');
+        message = mask.find('> .' + vendor + 'mask-message');
 
         if (!message.length) {
             message = $('<div/>')
-                .addClass('mask-message')
+                .addClass(vendor + 'mask-message')
                 .appendTo(mask);
 
             if (options.messageContent) {

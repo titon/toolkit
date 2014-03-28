@@ -5,7 +5,7 @@
  */
 
 Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
-    var items, self = this;
+    var items, events, self = this;
 
     this.component = 'Carousel';
     this.version = '1.3.1';
@@ -18,7 +18,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .addClass(options.animation);
 
     // Find all the items and set ARIA attributes
-    this.items = items = element.find('.carousel-items li').each(function(index) {
+    this.items = items = element.find('.' + vendor + 'carousel-items li').each(function(index) {
         $(this)
             .attr({
                 role: 'tabpanel',
@@ -28,7 +28,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     });
 
     // Find all tabs and set ARIA attributes
-    this.tabs = element.find('.carousel-tabs')
+    this.tabs = element.find('.' + vendor + 'carousel-tabs')
         .attr('role', 'tablist')
         .find('a').each(function(index) {
             $(this)
@@ -67,20 +67,21 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     }
 
     // Initialize events
-    this.events = {
+    this.events = events = {
         'keydown window': 'onKeydown',
         'swipeleft element': 'next',
         'swipeup element': 'next',
         'swiperight element': 'prev',
-        'swipedown element': 'prev',
-        'click element .carousel-tabs a': 'onJump',
-        'click element .carousel-next': 'next',
-        'click element .carousel-prev': 'prev'
+        'swipedown element': 'prev'
     };
 
+    events['click element .' + vendor + 'carousel-tabs a'] = 'onJump';
+    events['click element .' + vendor + 'carousel-next'] = 'next';
+    events['click element .' + vendor + 'carousel-prev'] = 'prev';
+
     if (options.stopOnHover) {
-        this.events['mouseenter element'] = 'stop';
-        this.events['mouseleave element'] = 'start';
+        events['mouseenter element'] = 'stop';
+        events['mouseleave element'] = 'start';
     }
 
     this.enable();

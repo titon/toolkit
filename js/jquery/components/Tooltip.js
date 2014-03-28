@@ -20,8 +20,8 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     }
 
     // Elements for the title and content
-    this.elementHead = element.find('.tooltip-head');
-    this.elementBody = element.find('.tooltip-body');
+    this.elementHead = element.find('.' + vendor + 'tooltip-head');
+    this.elementBody = element.find('.' + vendor + 'tooltip-body');
 
     // Nodes found in the page on initialization, remove title attribute
     this.nodes = nodes = $(nodes).each(function(i, node) {

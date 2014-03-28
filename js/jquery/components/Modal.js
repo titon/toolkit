@@ -10,10 +10,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     this.component = 'Modal';
     this.version = '1.3.0';
     this.options = options = this.setOptions(options);
-    this.element = element = this.createElement();
-
-    // Add aria attributes
-    element
+    this.element = element = this.createElement()
         .attr('role', 'dialog')
         .aria('labelledby', this.id('title'))
         .aria('describedby', this.id('content'));
@@ -32,7 +29,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     // Blackout element if enabled
     this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
-    if (this.blackout && options.stopScroll) {
+    if (options.blackout && options.stopScroll) {
         this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
             if (hidden) {
                 $('body').removeClass('no-scroll');
@@ -84,7 +81,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
             this.blackout.hideLoader();
         }
 
-        var body = this.element.find('.modal-inner');
+        var body = this.element.find('.' + vendor + 'modal-inner');
 
         body.html(content);
         this.fireEvent('load', content);

@@ -69,7 +69,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
     // Enable shadow inputs
     if (options.shadow) {
-        this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
+        this.wrapper = $('<div/>').addClass(vendor + 'type-ahead-shadow');
 
         this.shadow = this.input.clone()
             .addClass('is-shadow')
@@ -116,12 +116,11 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
      * @returns {jQuery}
      */
     build: function(item) {
-        var vendor = Toolkit.vendor,
-            a = $('<a/>', {
-                href: 'javascript:;',
-                role: 'option',
-                'aria-selected': 'false'
-            });
+        var a = $('<a/>', {
+            href: 'javascript:;',
+            role: 'option',
+            'aria-selected': 'false'
+        });
 
         a.append( $('<span/>', {
             'class': vendor + 'type-ahead-title',
@@ -162,7 +161,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<mark class="' + Toolkit.vendor + 'type-ahead-highlight">' + match + '</mark>';
+                return '<mark class="' + vendor + 'type-ahead-highlight">' + match + '</mark>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -329,7 +328,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 results.push(null);
 
                 elements.push(
-                    $('<li/>').addClass(Toolkit.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
+                    $('<li/>').addClass(vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -353,7 +352,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         }.bind(this));
 
         // Append list
-        var container = this.element.find('.type-ahead');
+        var container = this.element.find('.' + vendor + 'type-ahead');
 
         if (!container.length) {
             container = this.element;
