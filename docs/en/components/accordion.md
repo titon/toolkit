@@ -43,6 +43,12 @@ Once the markup is in place, an accordion can be initialized.
 $('.accordion').accordion();
 ```
 
+### Notes ###
+
+* The `.accordion-header` will be clickable, no need for anchor tags.
+* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations.
+* The currently open section will have an `.is-active` class on the parent `li`.
+
 ## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
@@ -60,12 +66,6 @@ attributes are required when supporting ARIA.
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* The `.accordion-header` will be clickable, no need for anchor tags.
-* The `.show` and `.hide` classes will be toggled on the `.accordion-section` to trigger slide animations.
-* The currently open section will have an `.is-active` class on the parent `li`.
 
 ## Variables ##
 

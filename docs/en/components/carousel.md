@@ -111,6 +111,12 @@ The markup within a caption can be customized extensively and is not enforced by
 </li>
 ```
 
+### Notes ###
+
+* The currently shown index will have an `.is-active` class applied to the respective tab.
+* Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
+* Supports arrow and escape key events.
+
 ## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
@@ -135,12 +141,6 @@ attributes are required when supporting ARIA.
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* The currently shown index will have an `.is-active` class applied to the respective tab.
-* Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
-* Supports arrow and escape key events.
 
 ## Variables ##
 

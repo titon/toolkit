@@ -131,6 +131,11 @@ we can override the `ajax` option through data attributes.
     as the component does not automatically create them!
 </div>
 
+### Notes ###
+
+* The `.show` and `.hide` classes will be toggled on the `.tabs-section` to trigger display.
+* The currently open section will have an `.is-active` class on the tabs parent `li`.
+
 ## ARIA ##
 
 The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
@@ -151,11 +156,6 @@ attributes are required when supporting ARIA.
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* The `.show` and `.hide` classes will be toggled on the `.tabs-section` to trigger display.
-* The currently open section will have an `.is-active` class on the tabs parent `li`.
 
 ## Options ##
 

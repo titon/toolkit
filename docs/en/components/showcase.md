@@ -39,7 +39,7 @@ This category will group all images into the same showcase.
 
 The value of `getCategory` (defaults to `data-showcase`) will be used for grouping.
 
-## Notes ##
+### Notes ###
 
 * A `.is-loading` class will be added to the showcase wrapper while images are loading.
 * A `.is-active` class will be added to the currently active tab.

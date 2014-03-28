@@ -117,6 +117,12 @@ The following fields are available for each item in the data set.
     </tbody>
 </table>
 
+### Notes ###
+
+* Top level menus will have an `.is-root` class.
+* Nested menus will have an `.has-children` class on the parent `li`.
+* If a menu extends outside the viewport, a `.push-left` class will be applied to shift it in the opposite direction.
+
 ## ARIA ##
 
 The `menu` and `menuitem` roles, and the appropriate `aria-*`
@@ -125,12 +131,6 @@ attributes are required when supporting ARIA.
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* Top level menus will have an `.is-root` class.
-* Nested menus will have an `.has-children` class on the parent `li`.
-* If a menu extends outside the viewport, a `.push-left` class will be applied to shift it in the opposite direction.
 
 ## Variables ##
 

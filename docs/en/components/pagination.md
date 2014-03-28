@@ -44,6 +44,10 @@ Grouped paginations can also make use of [certain effects](effects.md), like `.r
 </nav>
 ```
 
+### Notes ###
+
+* The current page in the list should have an `.is-active` on the parent `li`.
+
 ## ARIA ##
 
 The `navigation` role and the appropriate `aria-*` attributes are required when supporting ARIA.
@@ -53,7 +57,3 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
     ...
 </nav>
 ```
-
-## Notes ##
-
-* The current page in the list should have an `.is-active` on the parent `li`.

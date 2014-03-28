@@ -34,6 +34,10 @@ An `a` tag can be used in place of a `span` to link steps or trigger JavaScript.
 <li><a href="#review" class="step">Review</a></li>
 ```
 
+### Notes ###
+
+* Style the `ol` instead of the wrapping `.steps` for inline block structuring.
+
 ## ARIA ##
 
 The `navigation` role and the appropriate `aria-*` attributes are required when supporting ARIA.
@@ -43,7 +47,3 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
     ...
 </nav>
 ```
-
-## Notes ##
-
-* Style the `ol` instead of the wrapping `.steps` for inline block structuring.

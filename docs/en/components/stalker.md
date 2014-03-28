@@ -48,7 +48,7 @@ $('#overflown').stalker({
 });
 ```
 
-## Notes ##
+### Notes ###
 
 * The element passed into the constructor will have a `.stalker` class added.
 * Targets will have a `.stalker-target` class added.
