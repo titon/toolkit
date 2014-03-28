@@ -8,7 +8,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     var element;
 
     this.component = 'Modal';
-    this.version = '1.4.0';
+    this.version = '1.3.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
 
@@ -206,7 +206,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     onSubmit: function(e) {
         e.preventDefault();
 
-        var button = $(e.target),
+        var button = $(e.currentTarget),
             form = this.element.find('form:first');
 
         if (!form) {

@@ -205,6 +205,10 @@ $('#input').typeAhead({
     This is useful for data sets that are processed remotely.
 </div>
 
+### Notes ###
+
+* The currently selected item in the list will have an `.is-active` class on the parent `li`.
+
 ## ARIA ##
 
 The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*`

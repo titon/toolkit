@@ -2,6 +2,9 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 1.3.1 ##
+* Updated `event.target` to `event.currentTarget` where applicable
+
 ## 1.3.0 ##
 This minor release includes 2 new components, automatic ARIA support for all applicable components,
 replacing Compass with autoprefixer, removal of state prefixing, and many more bug fixes and improvements.

@@ -38,16 +38,16 @@ The Toolkit repository is grouped logically into folders depending on the type o
 ### Distribution Files ###
 
 Files found in the `dist` folder are compressed, minified, and compiled source files ready for production.
-These files are also available through [Bower](http://bower.io).
+These files are also available through [Bower](http://bower.io). These files include *all* components.
 
 ```
-toolkit/dist/
-├── toolkit.min.css
-├── toolkit-jquery.min.js
-└── toolkit-mootools.min.js
+toolkit/
+└── dist/
+    ├── toolkit.min.css
+    ├── toolkit-jquery.min.js
+    └── toolkit-mootools.min.js
 ```
 
-The files found in the root of the `dist` folder contain the compiled source code for *all* components.
 Simply include the files in your application to gain all of Toolkit's functionality.
 
 ### Source Files ###
@@ -118,11 +118,11 @@ Placing project specific styles after Toolkit allows customization and themeing 
 Let's test our JavaScript components by placing the following code within the `<body>` tags.
 
 ```html
-<button type="button" class="button" data-tooltip="This messages displays on hover.">Click Me!</button>
+<button type="button" class="button js-tooltip" data-tooltip="This messages displays on hover.">Click Me!</button>
 
 <script>
     $(function() {
-        $('[data-tooltip]').tooltip();
+        $('.js-tooltip').tooltip();
     });
 </script>
 ```
@@ -131,7 +131,7 @@ Now comes the fun part, testing the code. Open up the previously created HTML fi
 If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
 
 <div class="notice is-warning">
-    If no styles have been defined yet, the button and tooltip component will use default styles, which look rather boring.
+    If no styles have been defined yet, the button and tooltip components will use default styles, which look rather bland.
 </div>
 
 Getting started with Toolkit was extremely easy, and we can guarantee working in and integrating it is just as easy.

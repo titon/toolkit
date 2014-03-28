@@ -64,7 +64,7 @@ either inline or through CSS. We may also define the `src` attribute with a tran
 <img src="/img/fake-image.png" data-src="/img/real-image.png" width="250" height="100">
 ```
 
-## Notes ##
+### Notes ###
 
 * Background images will be overridden by the `.lazy-load` class.
 * Elements that have been loaded will have the `.lazy-load` class removed.

@@ -42,6 +42,10 @@ $('.pin').pin({
     The container requires position <code>relative</code>.
 </div>
 
+### Notes ###
+
+* An `.is-pinned` class will be toggled when the pinned element re-positions.
+
 ## ARIA ##
 
 The `complementary` role and the appropriate `aria-*` attributes are required when supporting ARIA.
@@ -55,10 +59,6 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* An `.is-pinned` class will be toggled when the pinned element re-positions.
 
 ## Variables ##
 

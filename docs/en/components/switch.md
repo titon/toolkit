@@ -84,7 +84,7 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
     The <code>.pill</code> shape will require the pill effect.
 </div>
 
-## Notes ##
+### Notes ###
 
 * Switches use `:checked` on the original checkbox for their on state.
 

@@ -8,7 +8,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     var items, self = this;
 
     this.component = 'Carousel';
-    this.version = '1.3.0';
+    this.version = '1.3.1';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
@@ -200,7 +200,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     onJump: function(e) {
         e.preventDefault();
 
-        this.jump($(e.target).data('index') || 0);
+        this.jump($(e.currentTarget).data('index') || 0);
     },
 
     /**

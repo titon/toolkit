@@ -106,6 +106,10 @@ Reverse alignment works for both horizontal and vertical menus.
 </ul>
 ```
 
+### Notes ###
+
+* The element that targeted and opened the drop menu will have an `.is-active` class.
+
 ## ARIA ##
 
 The `menu`, and `menuitem` roles, and the appropriate `aria-*`
@@ -137,10 +141,6 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
 <div class="notice is-warning">
     Manual definition of these ARIA attributes will be required.
 </div>
-
-## Notes ##
-
-* The element that targeted and opened the drop menu will have an `.is-active` class.
 
 ## Variables ##
 

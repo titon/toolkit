@@ -88,6 +88,12 @@ of the function to call. For example, if the JSON response was.
 
 Then the `console.log` function will be triggered with the response passed as the 1st argument.
 
+### Notes ###
+
+* The `animation` option will be appended as a class name.
+* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled.
+* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API.
+
 ## ARIA ##
 
 The `dialog` role and the appropriate `aria-*` attributes are required when supporting ARIA.
@@ -118,12 +124,6 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* The `animation` option will be appended as a class name.
-* An `.is-fullscreen` class will be added to the modal when `fullScreen` is enabled.
-* File uploading is enabled if the [browser supports](http://caniuse.com/#feat=xhr2) the `FormData` API.
 
 ## Variables ##
 

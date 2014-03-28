@@ -58,6 +58,12 @@ $('.js-tooltip').tooltip({
 });
 ```
 
+### Notes ###
+
+* A `className` can be added to tooltips during instantiation for different themed tooltips.
+* The `position` of the tooltip instance determines the location and arrow placement.
+* The `position` and `animation` will be appended as a class names.
+
 ## ARIA ##
 
 The `tooltip` role and the appropriate `aria-*` attributes are required when supporting ARIA.
@@ -72,12 +78,6 @@ The `tooltip` role and the appropriate `aria-*` attributes are required when sup
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.
 </div>
-
-## Notes ##
-
-* A `className` can be added to tooltips during instantiation for different themed tooltips.
-* The `position` of the tooltip instance determines the location and arrow placement.
-* The `position` and `animation` will be appended as a class names.
 
 ## Variables ##
 

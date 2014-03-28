@@ -285,7 +285,7 @@ This requires either the Compass extension to be installed, or the Toolkit CSS i
 
 Or we can [customize our own grids](../development/sass.md#grid-building).
 
-## Notes ##
+### Notes ###
 
 * Columns must be wrapped with `.grid` unless created with `grid-row()`.
 * Columns require a `.col` class.

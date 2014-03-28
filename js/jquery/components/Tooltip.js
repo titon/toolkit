@@ -205,7 +205,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        var node = $(e.target),
+        var node = $(e.currentTarget),
             isNode = (this.node && this.node.is(node));
 
         if (this.element.is(':shown')) {

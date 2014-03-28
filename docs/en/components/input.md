@@ -118,15 +118,7 @@ To include an optional description below the label, use `getDescription`.
 <option value="1" data-description="Hyper-Text Markup Language">HTML</option>
 ```
 
-## ARIA ##
-
-The `listbox` and `option` roles are required for custom select drop menus when supporting ARIA.
-
-<div class="notice is-info">
-    The JavaScript component will automatically map all ARIA attributes.
-</div>
-
-## Notes ##
+### Notes ###
 
 * Checkboxes and radios use `:checked` on the original input for their active state.
 * Selected options will have `.is-active` applied to their parent `li`.
@@ -134,6 +126,14 @@ The `listbox` and `option` roles are required for custom select drop menus when 
 * An `.is-multiple` class will be added to the multi-select dropdown.
 * Optgroups will be converted to `.drop-heading` within the dropdown.
 * Adding `disabled` to an option or optgroup will disable all related options.
+
+## ARIA ##
+
+The `listbox` and `option` roles are required for custom select drop menus when supporting ARIA.
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
 
 ## Options ##
 
