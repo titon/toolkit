@@ -96,14 +96,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        // 1) Validate the Javascript source directory
-        // http://jshint.com/docs/
-        jshint: {
-            options: grunt.file.readJSON('.jshintrc'),
-            files: ['js/**/*.js']
-        },
-
-        // 2) Generate new CSS files before building
+        // Generate new CSS files before building
         // https://github.com/gruntjs/grunt-sass
         /*sass: {
             options: {
@@ -137,7 +130,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // 3) Combine the JS and CSS components into a single file
+        // Combine the JS and CSS components into a single file
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
             options: {
@@ -160,7 +153,14 @@ module.exports = function(grunt) {
             }
         },
 
-        // 4) Minify Javascript using the concatenated file
+        // Validate the Javascript source directory
+        // http://jshint.com/docs/
+        jshint: {
+            options: grunt.file.readJSON('.jshintrc'),
+            files: ['build/*.js']
+        },
+
+        // Minify Javascript using the concatenated file
         // http://lisperator.net/uglifyjs/
         uglify: {
             options: {
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // 4) Apply auto prefixing to CSS properties
+        // Apply auto prefixing to CSS properties
         // https://github.com/nDmitry/grunt-autoprefixer
         autoprefixer: {
             options: {
@@ -216,7 +216,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // 5) Replace variables in files
+        // Replace variables in files
         // https://npmjs.org/package/grunt-string-replace
         'string-replace': {
             build: {
@@ -273,7 +273,7 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('distribute', ['jshint', 'sass:dist', 'concat:dist', 'uglify:dist', 'autoprefixer:dist', 'string-replace:dist']);
-    grunt.registerTask('production', ['jshint', 'sass:dist', 'concat:build', 'uglify:prod', 'autoprefixer:build', 'string-replace:build']);
-    grunt.registerTask('default', ['jshint', 'sass:build', 'concat:build', 'uglify:build', 'autoprefixer:build', 'string-replace:build']);
+    grunt.registerTask('distribute', ['sass:dist', 'concat:dist', 'jshint', 'uglify:dist', 'autoprefixer:dist', 'string-replace:dist']);
+    grunt.registerTask('production', ['sass:dist', 'concat:build', 'jshint', 'uglify:prod', 'autoprefixer:build', 'string-replace:build']);
+    grunt.registerTask('default', ['sass:build', 'concat:build', 'jshint', 'uglify:build', 'autoprefixer:build', 'string-replace:build']);
 };
