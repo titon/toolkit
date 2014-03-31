@@ -6,6 +6,10 @@
 
 'use strict';
 
+// Component instances indexed by the selector that activated it
+var instances = {};
+
+// Toolkit namespace
 var Toolkit = {
 
     /** Current version */
@@ -67,7 +71,7 @@ var Toolkit = {
 
             // Apply the instance to a collection of elements
             function() {
-                var instance = callback.apply(this, arguments);
+                var instance = instances[component + '.' + this.selector] = callback.apply(this, arguments);
 
                 return this.each(function() {
                     $(this).addData('toolkit.' + component, instance);
@@ -79,13 +83,7 @@ var Toolkit = {
                 var args = arguments;
 
                 return this.each(function() {
-                    var self = this;
-
-                    $(this).addData('toolkit.' + component, (function() {
-                        return function() {
-                            return callback.apply(self, args);
-                        };
-                    })());
+                    $(this).addData('toolkit.' + component, callback.apply(this, args));
                 });
             };
     },
@@ -137,26 +135,32 @@ Toolkit.Class.extend = function(base, properties, options) {
 
 /**
  * Fetch the component instance from the jQuery collection.
+ * If a method and arguments are defined, trigger a method on the instance.
  *
  * @param {String} component
- * @returns {Array|Function}
+ * @param {String} [method]
+ * @param {Array} [args]
+ * @returns {Function}
  */
-$.fn.toolkit = function(component) {
-    var key = 'toolkit.' + component,
-        data,
-        instances = [];
+$.fn.toolkit = function(component, method, args) {
+    var selector = this.selector,
+        instance = this.data('toolkit.' + component);
 
-    this.each(function() {
-        if (data = $(this).data(key)) {
-            instances.push( data );
-        }
-    });
-
-    if (this.length === 1 && instances[0]) {
-        return instances[0];
+    // Check for the instance within the cache
+    if (!instance && instances[component + '.' + selector]) {
+        instance = instances[component + '.' + selector];
     }
 
-    return instances;
+    if (!instance) {
+        return null;
+    }
+
+    // Trigger a method on the instance of method is defined
+    if (method && instance[method]) {
+        instance[method].apply(instance, $.makeArray(args));
+    }
+
+    return instance;
 };
 
 /**

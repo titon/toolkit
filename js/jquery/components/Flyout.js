@@ -65,11 +65,25 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     },
 
     /**
+     * Remove all the flyout menu elements and timers before destroying.
+     */
+    doDestroy: function() {
+        $.each(this.menus, function(i, menu) {
+            menu.remove();
+        });
+
+        this.clearTimer('show');
+        this.clearTimer('hide');
+    },
+
+    /**
      * Hide the currently shown menu.
      */
     hide: function() {
         // Must be called even if the menu is hidden
-        this.node.removeClass('is-active');
+        if (this.node) {
+            this.node.removeClass('is-active');
+        }
 
         if (!this.current || !this.isVisible()) {
             return;

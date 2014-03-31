@@ -41,6 +41,13 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
 }, {
 
     /**
+     * Remove the mask element before destroying.
+     */
+    doDestroy: function() {
+        this.mask.remove();
+    },
+
+    /**
      * Hide the mask and reveal the element.
      */
     hide: function() {

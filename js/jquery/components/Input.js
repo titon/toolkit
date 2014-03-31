@@ -41,6 +41,13 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Remove the wrapper before destroying.
+     */
+    doDestroy: function() {
+        this.wrapper.replaceWith(this.input);
+    },
+
+    /**
      * Build the element to wrap custom inputs with.
      * Copy over the original class names.
      *

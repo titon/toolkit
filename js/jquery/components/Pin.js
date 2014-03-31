@@ -69,6 +69,15 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.element
+            .removeAttr('style')
+            .removeClass('is-pinned');
+    },
+
+    /**
      * Pin the element along the vertical axis while staying contained within the parent.
      */
     pin: function() {

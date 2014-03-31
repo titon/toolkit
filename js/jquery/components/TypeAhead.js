@@ -138,6 +138,16 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     },
 
     /**
+     * Remove the shadow before destroying.
+     */
+    doDestroy: function() {
+        if (this.shadow) {
+            this.shadow.parent().replaceWith(this.input);
+            this.input.removeClass('not-shadow');
+        }
+    },
+
+    /**
      * Hide the list and reset shadow.
      */
     hide: function() {

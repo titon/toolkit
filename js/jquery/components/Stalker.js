@@ -58,6 +58,14 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Remove classes before destroying.
+     */
+    doDestroy: function() {
+        this.targets.removeClass(vendor + 'stalker-target is-active');
+        this.markers.removeClass(vendor + 'stalker-marker is-stalked');
+    },
+
+    /**
      * Gather the targets and markers used for stalking.
      */
     refresh: function() {
@@ -73,8 +81,7 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         this.targets = $(this.options.target).addClass(vendor + 'stalker-target');
 
         this.markers = $(this.options.marker).addClass(vendor + 'stalker-marker').each(function(index, marker) {
-            marker = $(marker);
-            offset = marker.offset();
+            offset = $(marker).offset();
 
             if (!isWindow) {
                 offset.top -= eTop;

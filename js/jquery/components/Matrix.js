@@ -62,6 +62,14 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.element.removeAttr('style');
+        this.items.removeAttr('style');
+    },
+
+    /**
      * Prepend an item to the top of the matrix.
      *
      * @param {jQuery} item

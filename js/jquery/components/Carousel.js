@@ -92,6 +92,14 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 }, {
 
     /**
+     * Stop the carousel before destroying.
+     */
+    doDestroy: function() {
+        clearInterval(this.timer);
+        this.stop();
+    },
+
+    /**
      * Go to the item indicated by the index number.
      * If the index is too large, jump to the beginning.
      * If the index is too small, jump to the end.

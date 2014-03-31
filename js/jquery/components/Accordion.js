@@ -58,6 +58,14 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
 }, {
 
     /**
+     * Reveal all sections before destroying.
+     */
+    doDestroy: function() {
+        this.headers.parent().removeClass('is-active');
+        this.sections.removeAttr('style').reveal();
+    },
+
+    /**
      * Go to the section indicated by the index number.
      * If the index is too large, jump to the beginning.
      * If the index is too small, jump to the end.

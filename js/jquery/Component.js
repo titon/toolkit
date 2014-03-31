@@ -42,7 +42,6 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             }
         }
 
-        // Store it in the DOM
         if (!template) {
             throw new Error('Failed to create template element');
         }
@@ -56,6 +55,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         if (options.animation) {
             template.addClass(options.animation);
         }
+
+        // Set a flag so we know if the element was created or embedded
+        this.created = true;
 
         return template.attr('id', this.id());
     },
@@ -81,7 +83,6 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         // event document = func        Bind document event
         // ready document = func        Bind DOM ready event
         // event property = func        Bind event to collection that matches class property
-        // event .class = func          Bind delegated events to class on document
         // event context .class = func  Bind delegated events to class within context
         $.each(this.events, function(key, value) {
             funcs = $.isArray(value) ? value : [value];
@@ -124,6 +125,47 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 }
             });
         });
+    },
+
+    /**
+     * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     */
+    destroy: function() {
+        this.fireEvent('destroy');
+
+        // Remove active state
+        if (this.hide) {
+            this.hide();
+        }
+
+        if (this.doDestroy) {
+            this.doDestroy();
+        }
+
+        // Remove events
+        this.disable();
+
+        // Remove element only if it was created
+        if (this.created) {
+            this.element.remove();
+
+        // Or remove attributes
+        // TODO - Remove ARIA attributes
+        } else {
+            this.element.removeAttr('role');
+        }
+
+        // Remove instances
+        // This must be called last or else the previous commands will fail
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + this.eventClass);
+
+            // Remove the cached instance also
+            delete instances[this.eventClass + '.' + this.nodes.selector];
+
+        } else if (this.element) {
+            this.element.removeData('toolkit.' + this.eventClass);
+        }
     },
 
     /**

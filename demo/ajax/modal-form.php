@@ -7,7 +7,7 @@
         <?php if ($_POST) {
             print_r($_POST);
         } else { ?>
-            <p>By adding the class "modal-event-submit" to the submit button of a modal form, the form can be submitted via AJAX.
+            <p>By adding the class "modal-submit" to the submit button of a modal form, the form can be submitted via AJAX.
             The response of the AJAX call will replace the current modal. Give it a try!</p>
 
             <p><label for="name">Name:</label> <input type="text" name="name" id="name"></p>
