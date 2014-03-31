@@ -21,7 +21,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     }
 
     // Nodes found in the page on initialization
-    this.nodes = nodes = $(nodes);
+    this.nodes = $(nodes);
 
     // Last node to open a modal
     this.node = null;
@@ -39,14 +39,13 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 
     // Initialize events
     this.events = {
-        'clickout element': 'onHide',
         'keydown window': 'onKeydown',
-        'click element .modal-event-close': 'onHide',
-        'click element .modal-event-submit': 'onSubmit'
+        'clickout element': 'onHide',
+        'clickout document {selector}': 'onHide',
+        'click document {selector}': 'onShow',
+        'click element .@modal-hide': 'onHide',
+        'click element .@modal-submit': 'onSubmit'
     };
-
-    this.events['clickout ' + nodes.selector] = 'onHide';
-    this.events['click ' + nodes.selector] = 'onShow';
 
     this.enable();
     this.fireEvent('init');
@@ -240,7 +239,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         '<div class="modal-outer">' +
             '<div class="modal-handle">' +
                 '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '<button type="button" class="modal-close modal-hide"><span class="x"></span></button>' +
             '</div>' +
         '</div>' +
     '</div>'

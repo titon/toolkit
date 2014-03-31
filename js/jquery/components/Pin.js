@@ -10,12 +10,6 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
-    // Mark element as a pin
-    element
-        .attr('role', 'complementary')
-        .addClass(vendor + 'pin')
-        .addClass(options.animation);
-
     // Outer height of the element
     this.elementHeight = null;
 

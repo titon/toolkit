@@ -15,7 +15,7 @@
     </div>
 
     <div class="modal-foot">
-        <button type="button" class="button info modal-event-submit">Submit</button>
-        <button type="button" class="button modal-event-close">Close</button>
+        <button type="button" class="button info modal-submit">Submit</button>
+        <button type="button" class="button modal-hide">Close</button>
     </div>
 </form>

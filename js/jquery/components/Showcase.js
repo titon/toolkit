@@ -5,7 +5,7 @@
  */
 
 Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
-    var element, events;
+    var element;
 
     // IE doesn't support animations
     if (!Toolkit.hasTransition) {
@@ -18,7 +18,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     this.element = element = this.createElement();
 
     // Nodes found in the page on initialization
-    this.nodes = nodes = $(nodes);
+    this.nodes = $(nodes);
 
     // The wrapping items element
     this.items = element.find('.' + vendor + 'showcase-items');
@@ -36,21 +36,20 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
     // Initialize events
-    this.events = events = {
+    this.events = {
         'clickout element': 'onHide',
+        'clickout document {selector}': 'onHide',
         'swipeleft element': 'next',
         'swipeup element': 'next',
         'swiperight element': 'prev',
         'swipedown element': 'prev',
-        'keydown window': 'onKeydown'
+        'keydown window': 'onKeydown',
+        'click document {selector}': 'onShow',
+        'click element .@showcase-close': 'hide',
+        'click element .@showcase-next': 'next',
+        'click element .@showcase-prev': 'prev',
+        'click element .@showcase-tabs a': 'onJump'
     };
-
-    events['clickout ' + nodes.selector] = 'onHide';
-    events['click ' + nodes.selector] = 'onShow';
-    events['click element .' + vendor + 'showcase-close'] = 'hide';
-    events['click element .' + vendor + 'showcase-next'] = 'next';
-    events['click element .' + vendor + 'showcase-prev'] = 'prev';
-    events['click element .' + vendor + 'showcase-tabs a'] = 'onJump';
 
     // Increase gutter based on padding
     options.gutter += (element.height() - this.items.height());

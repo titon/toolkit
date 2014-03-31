@@ -68,6 +68,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      */
     bindEvents: function(type) {
         var self = this,
+            options = this.options,
             event,
             keys,
             context,
@@ -84,22 +85,24 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         // event context .class = func  Bind delegated events to class within context
         $.each(this.events, function(key, value) {
             funcs = $.isArray(value) ? value : [value];
+
+            // Replace tokens
+            key = key.replace('{mode}', options.mode);
+            key = key.replace('{selector}', self.nodes ? self.nodes.selector : '');
+
+            // Extract arguments
             keys = key.split(' ');
             event = keys.shift();
             context = keys.shift();
-            selector = keys.join(' ');
+            selector = keys.join(' ').replace('@', vendor);
 
-            // No context defined, so use the context in options
-            var charAt = context.charAt(0);
-
-            if (charAt === '.' || charAt === '#' || charAt === '[') {
-                selector = context;
-                context = self.options.context;
-            }
-
-            // The context is a property on the object
+            // Determine the correct context
             if (self[context]) {
                 context = self[context];
+            } else if (context === 'window') {
+                context = win;
+            } else if (context === 'document') {
+                context = doc;
             }
 
             $.each(funcs, function(i, func) {
@@ -107,23 +110,15 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                     func = self[func].bind(self);
                 }
 
-                // On window
-                if (context === 'window') {
-                    win[type](event, func);
+                // Ready events
+                if (event === 'ready') {
+                    doc.ready(func);
 
-                // On document
-                } else if (context === 'document') {
-                    if (event === 'ready') {
-                        doc.ready(func);
-                    } else {
-                        doc[type](event, func);
-                    }
-
-                // Delegated
+                // Delegated events
                 } else if (selector) {
-                    $(context || document)[type](event, selector, func);
+                    $(context)[type](event, selector, func);
 
-                // On element
+                // Regular events
                 } else {
                     $(context)[type](event, func);
                 }

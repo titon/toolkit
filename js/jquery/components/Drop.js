@@ -5,27 +5,25 @@
  */
 
 Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
-    var events = {};
-
     this.component = 'Drop';
     this.version = '1.3.1';
-    this.options = options = this.setOptions(options);
+    this.options = this.setOptions(options);
 
     // Last opened drop menu
     this.element = null;
 
     // Nodes found in the page on initialization
-    this.nodes = nodes = $(nodes);
+    this.nodes = $(nodes);
 
     // Last node to open a menu
     this.node = null;
 
     // Initialize events
-    events['clickout .' + vendor + 'drop'] = 'hide';
-    events['clickout ' + nodes.selector] = 'hide';
-    events[options.mode + ' ' + nodes.selector] = 'onShow';
-
-    this.events = events;
+    this.events = {
+        'clickout document .@drop': 'hide',
+        'clickout document {selector}': 'hide',
+        '{mode} document {selector}': 'onShow'
+    };
 
     this.enable();
     this.fireEvent('init');

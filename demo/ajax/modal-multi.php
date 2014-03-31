@@ -11,5 +11,5 @@
 </div>
 
 <div class="modal-foot">
-    <button type="button" class="button modal-event-close">Close</button>
+    <button type="button" class="button modal-hide">Close</button>
 </div>

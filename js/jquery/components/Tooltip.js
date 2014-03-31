@@ -5,7 +5,7 @@
  */
 
 Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
-    var element, events;
+    var element;
 
     this.component = 'Tooltip';
     this.version = '1.4.0';
@@ -24,7 +24,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     this.elementBody = element.find('.' + vendor + 'tooltip-body');
 
     // Nodes found in the page on initialization, remove title attribute
-    this.nodes = nodes = $(nodes).each(function(i, node) {
+    this.nodes = $(nodes).each(function(i, node) {
         $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
     });
 
@@ -32,18 +32,16 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     this.node = null;
 
     // Initialize events
-    this.events = events = {};
-
-    var selector = nodes.selector;
+    this.events = {
+        '{mode} document {selector}': 'onShow'
+    };
 
     if (options.mode === 'click') {
-        events['clickout element'] = 'hide';
-        events['clickout ' + selector] = 'hide';
+        this.events['clickout element'] = 'hide';
+        this.events['clickout document {selector}'] = 'hide';
     } else {
-        events['mouseleave ' + selector] = 'hide';
+        this.events['mouseleave document {selector}'] = 'hide';
     }
-
-    events[options.mode + ' ' + selector] = 'onShow';
 
     this.enable();
     this.fireEvent('init');

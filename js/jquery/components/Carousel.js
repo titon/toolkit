@@ -5,7 +5,7 @@
  */
 
 Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
-    var items, events, self = this;
+    var items, self = this;
 
     this.component = 'Carousel';
     this.version = '1.3.1';
@@ -53,6 +53,26 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     // Is the carousel stopped or paused?
     this.stopped = false;
 
+    // Initialize events
+    this.events = {
+        'keydown window': 'onKeydown',
+        'swipeleft element': 'next',
+        'swipeup element': 'next',
+        'swiperight element': 'prev',
+        'swipedown element': 'prev',
+        'click element .@carousel-tabs a': 'onJump',
+        'click element .@carousel-next': 'next',
+        'click element .@carousel-prev': 'prev'
+    };
+
+    if (options.stopOnHover) {
+        this.events['mouseenter element'] = 'stop';
+        this.events['mouseleave element'] = 'start';
+    }
+
+    this.enable();
+    this.fireEvent('init');
+
     // Set default positioning for responsiveness
     switch (options.animation) {
         case 'fade':
@@ -65,27 +85,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                     .css('width', (items.length * 100) + '%');
         break;
     }
-
-    // Initialize events
-    this.events = events = {
-        'keydown window': 'onKeydown',
-        'swipeleft element': 'next',
-        'swipeup element': 'next',
-        'swiperight element': 'prev',
-        'swipedown element': 'prev'
-    };
-
-    events['click element .' + vendor + 'carousel-tabs a'] = 'onJump';
-    events['click element .' + vendor + 'carousel-next'] = 'next';
-    events['click element .' + vendor + 'carousel-prev'] = 'prev';
-
-    if (options.stopOnHover) {
-        events['mouseenter element'] = 'stop';
-        events['mouseleave element'] = 'start';
-    }
-
-    this.enable();
-    this.fireEvent('init');
 
     // Start the carousel
     this.reset();

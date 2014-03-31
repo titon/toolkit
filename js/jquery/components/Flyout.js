@@ -17,7 +17,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     this.element = null;
 
     // Nodes found in the page on initialization
-    this.nodes = nodes = $(nodes);
+    this.nodes = $(nodes);
 
     // Last node to open a menu
     this.node = null;
@@ -41,10 +41,10 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     this.events = {};
 
     if (options.mode === 'click') {
-        this.events['click ' + nodes.selector] = 'onShow';
+        this.events['click document {selector}'] = 'onShow';
     } else {
-        this.events['mouseenter ' + nodes.selector] = ['onShow', 'onEnter'];
-        this.events['mouseleave ' + nodes.selector] = 'onLeave';
+        this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
+        this.events['mouseleave document {selector}'] = 'onLeave';
     }
 
     this.enable();

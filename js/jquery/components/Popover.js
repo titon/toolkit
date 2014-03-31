@@ -27,7 +27,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     this.elementBody = element.find('.' + vendor + 'popover-body');
 
     // Nodes found in the page on initialization, remove title attribute
-    this.nodes = nodes = $(nodes).each(function(i, node) {
+    this.nodes = $(nodes).each(function(i, node) {
         $(node).attr('data-popover-title', $(node).attr('title')).removeAttr('title');
     });
 
@@ -36,11 +36,10 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
 
     // Initialize events
     this.events = {
-        'clickout element': 'hide'
+        'clickout element': 'hide',
+        'clickout document {selector}': 'hide',
+        'click document {selector}': 'onShow'
     };
-
-    this.events['clickout ' + nodes.selector] = 'hide';
-    this.events['click ' + nodes.selector] = 'onShow';
 
     this.enable();
     this.fireEvent('init');

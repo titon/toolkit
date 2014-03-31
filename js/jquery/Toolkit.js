@@ -193,32 +193,32 @@ $.fn.i = $.fn.item = function(index) {
  * A multi-purpose getter and setter for ARIA attributes.
  * Will prefix attribute names and cast values correctly.
  *
- * @param {String} key
+ * @param {Element} element
+ * @param {String|Object} key
  * @param {*} value
- * @returns {jQuery}
  */
-$.fn.aria = (function() {
-    return function(key, value) {
-        if (!Toolkit.aria) {
-            return this;
-        }
+function doAria(element, key, value) {
+    if (value === true) {
+        value = 'true';
+    } else if (value === false) {
+        value = 'false';
+    }
 
-        if (key === 'toggled') {
-            key = { expanded: value, selected: value };
-            value = null;
-        }
+    element.setAttribute('aria-' + key, value);
+}
 
-        return $.access(this, function(element, key, value) {
-            if (value === true) {
-                value = 'true';
-            } else if (value === false) {
-                value = 'false';
-            }
+$.fn.aria = function(key, value) {
+    if (!Toolkit.aria) {
+        return this;
+    }
 
-            element.setAttribute('aria-' + key, value);
-        }, key, value, arguments.length > 1);
-    };
-})();
+    if (key === 'toggled') {
+        key = { expanded: value, selected: value };
+        value = null;
+    }
+
+    return $.access(this, doAria, key, value, arguments.length > 1);
+};
 
 /**
  * Set data if the key does not exist, else return the current value.

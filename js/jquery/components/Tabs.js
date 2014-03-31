@@ -49,11 +49,12 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     this.index = 0;
 
     // Initialize events
-    this.events = {};
-    this.events[options.mode + ' element .' + vendor + 'tabs-nav a'] = 'onShow';
+    this.events = {
+        '{mode} element .@tabs-nav a': 'onShow'
+    };
 
     if (options.mode !== 'click' && options.preventDefault) {
-        this.events['click element .' + vendor + 'tabs-nav a'] = function(e) {
+        this.events['click element .@tabs-nav a'] = function(e) {
             e.preventDefault();
         };
     }

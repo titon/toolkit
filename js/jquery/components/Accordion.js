@@ -46,8 +46,9 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     this.node = null;
 
     // Initialize events
-    this.events = {};
-    this.events[options.mode + ' headers'] = 'onShow';
+    this.events = {
+        '{mode} element .@accordion-header': 'onShow'
+    };
 
     this.enable();
     this.fireEvent('init');
