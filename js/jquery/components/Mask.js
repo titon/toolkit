@@ -36,8 +36,8 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
     this.setMask(mask);
-    this.enable();
-    this.fireEvent('init');
+
+    this.initialize();
 }, {
 
     /**
@@ -74,7 +74,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         }
 
         if (options.revealOnClick) {
-            mask.click(this.hide.bind(this));
+            mask.click(this.hide);
         }
 
         this.mask = mask;

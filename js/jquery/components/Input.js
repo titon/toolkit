@@ -22,8 +22,7 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         element.find(options.select).inputSelect(options);
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -92,8 +91,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
         .insertAfter(checkbox);
 
     // Initialize events
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 });
 
 /**
@@ -114,8 +112,7 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
         .insertAfter(radio);
 
     // Initialize events
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 });
 
 /**
@@ -171,8 +168,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
 
     this.events = events;
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Trigger change immediately to update the label
     this.input.change();
@@ -233,7 +229,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     _buildDropdown: function() {
         var select = this.input,
             options = this.options,
-            buildOption = this._buildOption.bind(this),
+            buildOption = this._buildOption,
             dropdown = $('<div/>')
                 .addClass(vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options')
                 .attr('role', 'listbox')

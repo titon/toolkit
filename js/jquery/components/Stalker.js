@@ -28,12 +28,11 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     this.events = {
-        'scroll container': $.throttle(this.onScroll.bind(this), options.throttle),
+        'scroll container': $.throttle(this.onScroll, options.throttle),
         'ready document': 'onScroll'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Gather markets and targets
     this.refresh();

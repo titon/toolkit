@@ -47,11 +47,10 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
         this.events['mouseleave document {selector}'] = 'onLeave';
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Load data from the URL
-    $.getJSON(url, this.load.bind(this));
+    $.getJSON(url, this.load);
 }, {
 
     /**
@@ -209,9 +208,9 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
         var func;
 
         if (key === 'show') {
-            func = this.position.bind(this);
+            func = this.position;
         } else {
-            func = this.hide.bind(this);
+            func = this.hide;
         }
 
         if (func) {

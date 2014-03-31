@@ -105,8 +105,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         'clickout element': 'hide'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -189,7 +188,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
      */
     lookup: function(term) {
         this.term = term;
-        this.timer = setTimeout(this.onFind.bind(this), this.options.throttle);
+        this.timer = setTimeout(this.onFind, this.options.throttle);
     },
 
     /**
@@ -295,6 +294,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         }
 
         var options = this.options,
+            term = this.term,
             categories = { _empty_: [] },
             item,
             list = $('<ul/>');
@@ -310,8 +310,8 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
         if ($.type(options.matcher) === 'function') {
             items = items.filter(function(item) {
-                return options.matcher(item.title, this.term);
-            }.bind(this));
+                return options.matcher(item.title, term);
+            });
         }
 
         // Group the items into categories
@@ -349,7 +349,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
                 a = options.builder(item);
                 a.on({
-                    mouseover: this.rewind.bind(this),
+                    mouseover: this.rewind,
                     click: $.proxy(this.onSelect, this, results.length)
                 });
 
@@ -370,7 +370,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
         // Cache the result set to the term
         // Filter out null categories so that we can re-use the cache
-        this.cache[this.term.toLowerCase()] = results.filter(function(item) {
+        this.cache[term.toLowerCase()] = results.filter(function(item) {
             return (item !== null);
         });
 
@@ -508,7 +508,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 var query = options.query;
                     query.term = term;
 
-                $.getJSON(url, query, this.source.bind(this));
+                $.getJSON(url, query, this.source);
             }
 
         // Use a literal array list

@@ -34,11 +34,10 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     this.events = {
-        'resize window': $.debounce(this.onResize.bind(this))
+        'resize window': $.debounce(this.onResize)
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Render the matrix
     if (options.defer) {
@@ -181,8 +180,8 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             this.images.each(function(index, image) {
                 var src = image.src;
 
-                image.onload = this.onLoad.bind(this);
-                image.onerror = this.onLoad.bind(this);
+                image.onload = this.onLoad;
+                image.onerror = this.onLoad;
                 image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                 image.src = src;
             }.bind(this));

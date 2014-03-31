@@ -41,8 +41,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
         'click document {selector}': 'onShow'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 }, {
     getContent: 'data-popover',

@@ -54,8 +54,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     // Increase gutter based on padding
     options.gutter += (element.height() - this.items.height());
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -206,7 +205,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         this.element.addClass('is-loading');
 
         var options = this.inheritOptions(this.options, node),
-            read = this.readValue.bind(this),
+            read = this.readValue,
             category = read(node, options.getCategory),
             items = [],
             index = 0;

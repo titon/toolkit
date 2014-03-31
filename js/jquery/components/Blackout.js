@@ -43,7 +43,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
         .html(Toolkit.messages.loading)
         .appendTo(loader);
 
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**

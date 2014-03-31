@@ -70,8 +70,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.events['mouseleave element'] = 'start';
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Set default positioning for responsiveness
     switch (options.animation) {
@@ -162,7 +161,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
+            this.timer = setInterval(this.onCycle, this.options.duration);
         }
     },
 

@@ -24,7 +24,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     this.loaded = 0;
 
     // Initialize events
-    var callback = $.throttle(this.load.bind(this), options.throttle);
+    var callback = $.throttle(this.load, options.throttle);
 
     this.events = {
         'scroll container': callback,
@@ -32,8 +32,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
         'ready document': 'onReady'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -153,7 +152,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            setTimeout(this.loadAll.bind(this), this.options.delay);
+            setTimeout(this.loadAll, this.options.delay);
         }
     }
 

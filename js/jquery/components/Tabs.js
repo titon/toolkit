@@ -59,8 +59,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         };
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Trigger default tab to display
     var index = options.defaultIndex;

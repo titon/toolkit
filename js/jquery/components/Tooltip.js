@@ -43,8 +43,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
         this.events['mouseleave document {selector}'] = 'hide';
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -114,7 +113,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
 
         // Follow the mouse
         if (options.follow) {
-            var follow = this.onFollow.bind(this);
+            var follow = this.onFollow;
 
             this.node
                 .off('mousemove', follow)

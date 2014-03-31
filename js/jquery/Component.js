@@ -108,7 +108,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
             $.each(funcs, function(i, func) {
                 if (!$.isFunction(func)) {
-                    func = self[func].bind(self);
+                    func = self[func];
                 }
 
                 // Ready events
@@ -260,6 +260,14 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         return $.extend(true, {}, options, obj);
+    },
+
+    /**
+     * Enable events and trigger init callback.
+     */
+    initialize: function() {
+        this.enable();
+        this.fireEvent('init');
     },
 
     /**

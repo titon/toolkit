@@ -50,8 +50,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
         '{mode} element .@accordion-header': 'onShow'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Jump to the index on page load
     this.jump(options.defaultIndex);

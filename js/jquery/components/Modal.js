@@ -47,8 +47,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         'click element .@modal-submit': 'onSubmit'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**

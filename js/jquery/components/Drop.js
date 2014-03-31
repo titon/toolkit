@@ -25,8 +25,7 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
         '{mode} document {selector}': 'onShow'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
