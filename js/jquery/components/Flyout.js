@@ -226,7 +226,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             ul,
             li,
             tag,
-            target = '.' + vendor + 'flyout',
             limit = options.itemLimit,
             i, l;
 
@@ -298,15 +297,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                 }
             }
 
-            if (target) {
-                if (menu.is(target)) {
-                    menu.append(ul);
-                } else {
-                    menu.find(target).append(ul);
-                }
-            } else {
-                menu.append(ul);
-            }
+            menu.append(ul);
         }
 
         menu.appendTo(parent);

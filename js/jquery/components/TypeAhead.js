@@ -352,13 +352,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         }.bind(this));
 
         // Append list
-        var container = this.element.find('.' + vendor + 'type-ahead');
-
-        if (!container.length) {
-            container = this.element;
-        }
-
-        container.empty().append(list);
+        this.element.empty().append(list);
 
         // Set the current result set to the items list
         // This will be used for index cycling

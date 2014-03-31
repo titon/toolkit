@@ -204,11 +204,11 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      */
     _buildButton: function() {
         var button = $('<div/>')
-                .addClass(vendor + 'select')
-                .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
-                .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
-                .css('min-width', this.input.width())
-                .insertAfter(this.input);
+            .addClass(vendor + 'select')
+            .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
+            .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
+            .css('min-width', this.input.width())
+            .insertAfter(this.input);
 
         // Hide the options be forcing a height on the select
         if (this.multiple) {
@@ -462,8 +462,9 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         }
 
         // Set the label
-        select.parent().find('.' + vendor + 'select-label')
-            .text(label);
+        select.parent()
+            .find('.' + vendor + 'select-label')
+                .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
     },
