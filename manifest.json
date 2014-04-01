@@ -143,6 +143,16 @@
             "js": ["components/Carousel.js"]
         }
     },
+    "divider": {
+        "name": "Divider",
+        "description": "Separates sections of content.",
+        "category": "component",
+        "type": "element",
+        "priority": 10,
+        "source": {
+            "css": ["components/divider.css"]
+        }
+    },
     "drop": {
         "name": "Drop",
         "description": "A contextual menu that is dropped down (or up, left, right) and displayed relative a target element.",

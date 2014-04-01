@@ -130,6 +130,10 @@ $components = array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'scrollable' => 'Scrollable'))
         )
     ),
+    'divider' => array(
+        'title' => 'Divider',
+        'css' => array('layout/divider.css')
+    ),
     'drop' => array(
         'title' => 'Drop',
         'css' => array('components/drop.css'),

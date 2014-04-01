@@ -64,6 +64,9 @@
                     "title": "Code",
                     "url": "/components/code"
                 }, {
+                    "title": "Divider",
+                    "url": "/components/divider"
+                }, {
                     "title": "Drop",
                     "url": "/components/drop"
                 }, {
