@@ -301,6 +301,8 @@ $components = array(
         'css' => 'components/off-canvas.css',
         'js' => 'components/OffCanvas.js',
         'filters' => array(
+            'overlay' => array('title' => 'Overlay content?', 'type' => 'boolean', 'default' => false),
+            'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false)
         )
     ),
     'pagination' => array(

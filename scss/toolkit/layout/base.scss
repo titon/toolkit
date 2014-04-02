@@ -27,6 +27,7 @@
 .shown { display: block; }
 .hidden { display: none; }
 .no-scroll { overflow: hidden; }
+.no-transition { transition: none !important; }
 
 // Layout
 .vertical-center {

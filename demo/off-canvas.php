@@ -1,7 +1,17 @@
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
 
-<button type="button" onclick="doCanvas('left');">LEFT</button>
-<button type="button" onclick="doCanvas('right');">RIGHT</button>
+<p class="align-center">
+    <button type="button" class="button js-canvas-left">Open Left Sidebar</button>
+    <button type="button" class="button js-canvas-right">Open Right Sidebar</button>
+</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor gravida diam. Donec eget magna nunc. Suspendisse ipsum lacus, pellentesque sit amet lacinia quis, convallis sed ligula. Nullam lobortis sapien et dolor gravida ac convallis erat fermentum. Mauris nec justo lacus. Sed varius varius ligula, sit amet egestas mi blandit dictum. Phasellus sapien tortor, bibendum vitae vehicula a, molestie in odio. Fusce porttitor quam nec libero condimentum eget imperdiet nibh elementum.</p>
 
 <div class="off-canvas--left" id="left-canvas">
     Left Canvas
@@ -12,19 +22,34 @@
 </div>
 
 <script>
-    function doCanvas(side) {
-        var sidebar = $('#' + side + '-canvas');
+    <?php if ($vendor === 'mootools') { ?>
+        window.addEvent('domready', function() {
+            $('left-canvas').offCanvas({
+                selector: '.js-canvas-left',
+                overlay: <?php bool('overlay', false); ?>,
+                openOnLoad: <?php bool('openOnLoad', false); ?>
+            });
 
-        if (sidebar.hasClass('show')) {
-            $('body').css('padding-' + side, 0);
-            sidebar.removeClass('show');
-        } else {
-            $('body').css('padding-' + side, sidebar.width());
-            sidebar.reveal();
-        }
-    }
+            $('right-canvas').offCanvas({
+                selector: '.js-canvas-right',
+                overlay: <?php bool('overlay', false); ?>,
+                openOnLoad: <?php bool('openOnLoad', false); ?>
+            });
+        });
 
-    $(function() {
-        $('body').addClass('off-canvas-container');
-    })
+    <?php } else { ?>
+        $(function() {
+            $('#left-canvas').offCanvas({
+                selector: '.js-canvas-left',
+                overlay: <?php bool('overlay', false); ?>,
+                openOnLoad: <?php bool('openOnLoad', false); ?>
+            });
+
+            $('#right-canvas').offCanvas({
+                selector: '.js-canvas-right',
+                overlay: <?php bool('overlay', false); ?>,
+                openOnLoad: <?php bool('openOnLoad', false); ?>
+            });
+        });
+    <?php } ?>
 </script>

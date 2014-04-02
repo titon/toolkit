@@ -14,10 +14,18 @@
     height: 100%;
     z-index: $offCanvas-zindex;
     transition: margin $offCanvas-transition;
+    -webkit-overflow-scrolling: touch;
 }
 
 .#{$vendor-prefix}off-canvas-container {
     transition: padding $offCanvas-transition;
+
+    &.push-left { padding-right: 20%; }
+    &.push-right { padding-left: 20%; }
+
+    &:not(body) {
+        overflow-x: hidden;
+    }
 }
 
 //-------------------- Modifiers --------------------//
