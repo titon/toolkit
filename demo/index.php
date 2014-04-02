@@ -296,6 +296,13 @@ $components = array(
             'round' => array('title' => 'Round?', 'type' => 'boolean')
         )
     ),
+    'off-canvas' => array(
+        'title' => 'Off Canvas',
+        'css' => 'components/off-canvas.css',
+        'js' => 'components/OffCanvas.js',
+        'filters' => array(
+        )
+    ),
     'pagination' => array(
         'title' => 'Pagination',
         'css' => array('components/button.css', 'components/pagination.css'),

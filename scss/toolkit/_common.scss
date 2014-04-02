@@ -104,6 +104,7 @@ $lazyLoad-transition: $default-transition !default;
 $mask-transition: $default-transition !default;
 $matrix-transition: $default-transition !default;
 $modal-transition: $default-transition !default;
+$offCanvas-transition: .5s !default;
 $pin-transition: .2s !default;
 $progress-transition: .5s !default;
 $showcase-transition: $default-transition !default;
@@ -114,12 +115,14 @@ $tooltip-transition: $default-transition !default;
 
 // 1) Modal and Showcase should be higher than Blackout
 // 2) Tooltip and Popover should be higher than Modals in case they exist within them
+// 3) Off Canvas should be the lowest so everything can display above it
 
 $blackout-zindex: 600;
 $drop-zindex: 500;
 $flyout-zindex: 500;
 $mask-zindex: 500;
 $modal-zindex: 610;
+$offCanvas-zindex: 250;
 $popover-zindex: 700;
 $showcase-zindex: 610;
 $tooltip-zindex: 700;

@@ -1,0 +1,41 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+.#{$vendor-prefix}off-canvas {
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    width: 20%;
+    height: 100%;
+    z-index: $offCanvas-zindex;
+    transition: margin $offCanvas-transition;
+}
+
+.#{$vendor-prefix}off-canvas-container {
+    transition: padding $offCanvas-transition;
+}
+
+//-------------------- Modifiers --------------------//
+
+.#{$vendor-prefix}off-canvas--left {
+    @extend .#{$vendor-prefix}off-canvas;
+
+    left: 0;
+    margin-left: -20%; // Same as width
+
+    &.show { margin-left: 0; }
+}
+
+.#{$vendor-prefix}off-canvas--right {
+    @extend .#{$vendor-prefix}off-canvas;
+
+    right: 0;
+    margin-right: -20%; // Same as width
+
+    &.show { margin-right: 0; }
+}

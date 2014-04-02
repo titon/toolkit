@@ -308,6 +308,18 @@
             "css": ["components/notice.css"]
         }
     },
+    "offCanvas": {
+        "name": "Off Canvas",
+        "description": "Contextual sidebars positioned outside the viewport until activated.",
+        "category": "component",
+        "type": "module",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/off-canvas.css"],
+            "js": ["components/OffCanvas.js"]
+        }
+    },
     "pagination": {
         "name": "Pagination",
         "description": "Divides content into multiple pages through a list of numerical links.",

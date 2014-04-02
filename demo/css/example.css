@@ -74,3 +74,6 @@ a:hover { color: #b84374; }
 
 .mask .loader.bar-wave > span { background: #fff; }
 .col.maskable { border-radius: 10px; }
+
+.off-canvas--left,
+.off-canvas--right { background: #000; color: #fff; }
