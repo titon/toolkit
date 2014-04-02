@@ -30,6 +30,6 @@
     &:empty { display: none; }
 }
 
-.#{$vendor-prefix}maskable {
+.#{$vendor-prefix}mask-target {
     overflow: hidden;
 }

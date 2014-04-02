@@ -10,18 +10,9 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element);
     this.options = this.setOptions(options, element);
 
-    // The mask element to overlay the target element
-    this.mask = null;
-
-    // The message element within the mask
-    this.message = null;
-
-    // Create the mask and message elements
-    var maskClass = vendor + 'mask';
-
     // Add class and set relative positioning
     if (!element.is('body')) {
-        element.addClass(vendor + 'maskable');
+        element.addClass(vendor + 'mask-target');
 
         if (element.css('position') === 'static') {
             element.css('position', 'relative');
@@ -29,13 +20,21 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
     // Find a mask or create it
-    var mask = element.find('> .' + maskClass);
+    var maskClass = vendor + 'mask',
+        mask = element.find('> .' + maskClass);
 
     if (!mask.length) {
         mask = $('<div/>').addClass(maskClass);
     }
 
     this.setMask(mask);
+
+    // Initialize events
+    this.events = {};
+
+    if (options.selector) {
+        this.events['click document ' + options.selector] = 'toggle';
+    }
 
     this.initialize();
 }, {
@@ -116,6 +115,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
 }, {
+    selector: '',
     revealOnClick: false,
     messageContent: ''
 });
