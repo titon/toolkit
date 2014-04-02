@@ -617,6 +617,10 @@ if (!$.event.special.swipe) {
         }
 
         function swipe(start, stop, selfTarget, origTarget) {
+            if (!start || !stop) {
+                return;
+            }
+
             var settings = $.event.special.swipe,
                 abs = Math.abs,
                 x = stop.coords[0] - start.coords[0],
@@ -656,10 +660,6 @@ if (!$.event.special.swipe) {
                     .bind(startEvent, function(e) {
                         start = startStop(e);
                         target = e.target;
-
-                        if (startEvent === 'mousedown') {
-                            e.preventDefault();
-                        }
                     })
                     .bind(moveEvent, function(e) {
                         e.preventDefault();

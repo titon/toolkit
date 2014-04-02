@@ -65,7 +65,8 @@
                     "url": "/components/code"
                 }, {
                     "title": "Divider",
-                    "url": "/components/divider"
+                    "url": "/components/divider",
+                    "new": true
                 }, {
                     "title": "Drop",
                     "url": "/components/drop"
@@ -112,6 +113,10 @@
                     "title": "Notice",
                     "url": "/components/notice"
                 }, {
+                    "title": "Off Canvas",
+                    "url": "/components/off-canvas",
+                    "new": true
+                }, {
                     "title": "Pagination",
                     "url": "/components/pagination"
                 }, {
@@ -134,12 +139,10 @@
                     "url": "/components/stalker"
                 }, {
                     "title": "Step",
-                    "url": "/components/step",
-                    "new": true
+                    "url": "/components/step"
                 }, {
                     "title": "Switch",
-                    "url": "/components/switch",
-                    "new": true
+                    "url": "/components/switch"
                 }, {
                     "title": "Table",
                     "url": "/components/table"

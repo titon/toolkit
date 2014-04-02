@@ -3,7 +3,6 @@
 All releases will contain bug fixing and polishing for current features.
 
 ### 1.4.0 ###
-* Off Canvas - A component for displaying side menus off the canvas (viewport). Useful for sliding mobile navigations.
 * Toast - A component to display toast notifications.
 
 ### 1.5.0 ###

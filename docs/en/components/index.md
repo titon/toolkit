@@ -35,6 +35,7 @@
 * [Mask](mask.md)
 * [Matrix](matrix.md)
 * [Modal](modal.md)
+* [Off Canvas](off-canvas.md)
 * [Pin](pin.md)
 * [Popover](popover.md)
 * [Showcase](showcase.md)

@@ -301,8 +301,13 @@ $components = array(
         'css' => 'components/off-canvas.css',
         'js' => 'components/OffCanvas.js',
         'filters' => array(
+            'parent' => array('title' => 'Parent', 'data' => array(
+                'body' => 'body',
+                '#off-canvas' => '#off-canvas'
+            )),
             'overlay' => array('title' => 'Overlay content?', 'type' => 'boolean', 'default' => false),
-            'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false)
+            'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false),
+            'hideOthers' => array('title' => 'Hide other sidebars?', 'type' => 'boolean', 'default' => true)
         )
     ),
     'pagination' => array(

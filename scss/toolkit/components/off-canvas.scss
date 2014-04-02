@@ -7,10 +7,9 @@
 @import "../common";
 
 .#{$vendor-prefix}off-canvas {
-    position: fixed;
+    position: absolute;
     overflow: auto;
     top: 0;
-    width: 20%;
     height: 100%;
     z-index: $offCanvas-zindex;
     transition: margin $offCanvas-transition;
@@ -18,14 +17,14 @@
 }
 
 .#{$vendor-prefix}off-canvas-container {
-    transition: padding $offCanvas-transition;
+    transition: padding $offCanvas-transition, margin $offCanvas-transition;
+    position: relative;
 
-    &.push-left { padding-right: 20%; }
-    &.push-right { padding-left: 20%; }
+    &.move-left { padding-right: $offCanvas-right-width; }
+    &.move-right { padding-left: $offCanvas-left-width; }
 
-    &:not(body) {
-        overflow-x: hidden;
-    }
+    &.push-left { margin-right: $offCanvas-right-width; }
+    &.push-right { margin-left: $offCanvas-left-width; }
 }
 
 //-------------------- Modifiers --------------------//
@@ -34,7 +33,8 @@
     @extend .#{$vendor-prefix}off-canvas;
 
     left: 0;
-    margin-left: -20%; // Same as width
+    width: $offCanvas-left-width;
+    margin-left: -$offCanvas-left-width;
 
     &.show { margin-left: 0; }
 }
@@ -43,7 +43,8 @@
     @extend .#{$vendor-prefix}off-canvas;
 
     right: 0;
-    margin-right: -20%; // Same as width
+    width: $offCanvas-right-width;
+    margin-right: -$offCanvas-right-width;
 
     &.show { margin-right: 0; }
 }
