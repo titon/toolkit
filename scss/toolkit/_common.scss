@@ -1,14 +1,14 @@
 
 //-------------------- Toolkit --------------------//
 
-$vendor-prefix: "";
-$size-small-class: "small";
-$size-large-class: "large";
-$shape-square-class: "square";
-$shape-round-class: "round";
-$shape-oval-class: "oval";
-$shape-pill-class: "pill";
-$shape-skew-class: "skew";
+$vendor-prefix: "" !default;
+$size-small-class: "small" !default;
+$size-large-class: "large" !default;
+$shape-square-class: "square" !default;
+$shape-round-class: "round" !default;
+$shape-oval-class: "oval" !default;
+$shape-pill-class: "pill" !default;
+$shape-skew-class: "skew" !default;
 
 //-------------------- Colors --------------------//
 
@@ -117,16 +117,16 @@ $tooltip-transition: $default-transition !default;
 // 2) Tooltip and Popover should be higher than Modals in case they exist within them
 // 3) Off Canvas should be the lowest so everything can display above it
 
-$blackout-zindex: 600;
-$drop-zindex: 500;
-$flyout-zindex: 500;
-$mask-zindex: 500;
-$modal-zindex: 610;
-$offCanvas-zindex: 250;
-$popover-zindex: 700;
-$showcase-zindex: 610;
-$tooltip-zindex: 700;
-$typeAhead-zindex: 500;
+$blackout-zindex: 600 !default;
+$drop-zindex: 500 !default;
+$flyout-zindex: 500 !default;
+$mask-zindex: 500 !default;
+$modal-zindex: 610 !default;
+$offCanvas-zindex: 250 !default;
+$popover-zindex: 700 !default;
+$showcase-zindex: 610 !default;
+$tooltip-zindex: 700 !default;
+$typeAhead-zindex: 500 !default;
 
 //-------------------- Responsive --------------------//
 
@@ -178,6 +178,9 @@ $modal-animation: (
 
 $offCanvas-left-width: 20% !default;
 $offCanvas-right-width: 20% !default;
+$offCanvas-left-width-mobile: 90% !default;
+$offCanvas-right-width-mobile: 90% !default;
+$offCanvas-mobile-breakpoint: 550px !default;
 
 //-------------------- Popover, Tooltip --------------------//
 

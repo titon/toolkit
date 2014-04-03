@@ -19,6 +19,7 @@
 // The container (usually the body)
 .#{$vendor-prefix}canvas {
     transition: padding $offCanvas-transition, margin $offCanvas-transition;
+    overflow-x: hidden;
 
     &.move-left { padding-right: $offCanvas-right-width; }
     &.move-right { padding-left: $offCanvas-left-width; }
@@ -47,4 +48,26 @@
     margin-right: -$offCanvas-right-width;
 
     &.show { margin-right: 0; }
+}
+
+//-------------------- Responsive --------------------//
+
+@include if-max($offCanvas-mobile-breakpoint) {
+    .#{$vendor-prefix}off-canvas--left {
+        width: $offCanvas-left-width-mobile;
+        margin-left: -$offCanvas-left-width-mobile;
+    }
+
+    .#{$vendor-prefix}off-canvas--right {
+        width: $offCanvas-right-width-mobile;
+        margin-right: -$offCanvas-right-width-mobile;
+    }
+
+    .#{$vendor-prefix}canvas {
+        &.move-left { padding-right: $offCanvas-right-width-mobile; }
+        &.move-right { padding-left: $offCanvas-left-width-mobile; }
+
+        &.push-left { margin-left: -$offCanvas-right-width-mobile; }
+        &.push-right { margin-left: $offCanvas-left-width-mobile; }
+    }
 }

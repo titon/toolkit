@@ -27,6 +27,10 @@ $('.off-canvas').offCanvas();
     The <code>.off-canvas</code> class is not required, but is useful when initializing multiple instances.
 </div>
 
+<div class="notice is-info">
+    Mobile specific sidebars are supported through CSS media queries and Sass variables.
+</div>
+
 ### Toggle Sidebars ###
 
 When initializing a component, a `selector` option can be defined that will be bound with click toggle events.
@@ -110,32 +114,6 @@ $('.off-canvas').offCanvas({
     Using mis-configured instances will cause unexpected results.
 </div>
 
-### Custom Widths ###
-
-By default, the sidebar is 20% width of the viewport. To use a fixed width, or to change the percentage,
-a few CSS classes will need to be modified.
-
-* First, set the width of the sidebar on the modifier.
-* Then set a negative margin of the same amount. The negative side should equate to the location of the sidebar.
-* Lastly, set the margin or padding of the same amount on the opposite `push-*` and `move-*` container class.
-
-```css
-// Left sidebar
-.off-canvas--left { width: 200px; margin-left: -200px; }
-.off-canvas-container.push-right { margin-left: 200px; }
-.off-canvas-container.move-right { padding-left: 200px; }
-
-// Right sidebar
-.off-canvas--right { width: 15%; margin-right: -15%; }
-.off-canvas-container.push-left { margin-left: -15%; } // Note the negative
-.off-canvas-container.move-left { padding-right: 200px; }
-```
-
-<div class="notice is-info">
-    Sass <code>$offCanvas-left-width</code> and <code>$offCanvas-right-width</code> variables
-    can also be modified to alter these widths.
-</div>
-
 ### Notes ###
 
 * Do not use `conceal()` on the sidebar element as it breaks transitions.
@@ -176,6 +154,21 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
             <td>$offCanvas-right-width</td>
             <td>20%</td>
             <td>The width of the right sidebar, and the amount of padding or margin to slide with.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-left-width-mobile</td>
+            <td>90%</td>
+            <td>The width of the left sidebar for mobile devices.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-right-width-mobile</td>
+            <td>90%</td>
+            <td>The width of the right sidebar for mobile devices.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-mobile-breakpoint</td>
+            <td>550px</td>
+            <td>The break point to apply mobile widths.</td>
         </tr>
         <tr>
             <td>$offCanvas-transition</td>
@@ -246,6 +239,25 @@ Inherits all options from the [parent component](../development/js.md#options).
 ## Events ##
 
 Inherits all events from the [parent component](../development/js.md#events).
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Option Event</th>
+            <th>Element Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onResize</td>
+            <td>resize.toolkit.offCanvas</td>
+            <td></td>
+            <td>Triggered when the browser is resized and on DOM ready.</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Properties ##
 

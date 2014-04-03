@@ -147,6 +147,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         if (this.options.push) {
             this.container.css('width', $(window).width());
         }
+
+        this.fireEvent('resize');
     },
 
     /**
