@@ -16,7 +16,8 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.#{$vendor-prefix}off-canvas-container {
+// The container (usually the body)
+.#{$vendor-prefix}canvas {
     transition: padding $offCanvas-transition, margin $offCanvas-transition;
 
     &.move-left { padding-right: $offCanvas-right-width; }

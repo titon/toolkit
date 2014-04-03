@@ -156,15 +156,17 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         // Remove instances
+        var key = this._keyName();
+
         // This must be called last or else the previous commands will fail
         if (this.nodes) {
-            this.nodes.removeData('toolkit.' + this.eventClass);
+            this.nodes.removeData('toolkit.' + key);
 
             // Remove the cached instance also
-            delete instances[this.eventClass + '.' + this.nodes.selector];
+            delete instances[key + '.' + this.nodes.selector];
 
         } else if (this.element) {
-            this.element.removeData('toolkit.' + this.eventClass);
+            this.element.removeData('toolkit.' + key);
         }
     },
 
@@ -203,16 +205,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         // Generate the namespaced event
-        var name = this.eventClass,
-            element = this.element,
-            node = this.node;
-
-        if (!name) {
-            name = this.component;
-            this.eventClass = name = name.charAt(0).toLowerCase() + name.slice(1);
-        }
-
-        var event = jQuery.Event(type + '.toolkit.' + name);
+        var element = this.element,
+            node = this.node,
+            event = jQuery.Event(type + '.toolkit.' + this._keyName());
             event.context = this;
 
         // Trigger event on the element and the node
@@ -232,7 +227,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      */
     id: function() {
         var list = $.makeArray(arguments);
-            list.unshift('toolkit', this._class(), this.uid);
+            list.unshift('toolkit', this._cssClass(), this.uid);
 
         return list.join('-');
     },
@@ -252,7 +247,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 continue;
             }
 
-            value = element.data(this._class() + '-' + key.toLowerCase());
+            value = element.data((this._keyName() + '-' + key).toLowerCase());
 
             if ($.type(value) !== 'undefined') {
                 obj[key] = value;
@@ -302,7 +297,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.data(this._class() + '-' + key.toLowerCase());
+        var value = element.data((this._keyName() + '-' + key).toLowerCase());
 
         if ($.type(value) === 'undefined') {
             value = this.options[key];
@@ -436,7 +431,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @private
      * @returns {string}
      */
-    _class: function() {
+    _cssClass: function() {
         if (this.cssClass) {
             return this.cssClass;
         }
@@ -444,6 +439,23 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         return this.cssClass = this.component.replace(/[A-Z]/g, function(match) {
             return ('-' + match.charAt(0).toLowerCase());
         }).slice(1);
+    },
+
+    /**
+     * Return the component name with the 1st character lowercase for use in events and attributes.
+     * Cache the result to reduce processing time.
+     *
+     * @private
+     * @returns {string}
+     */
+    _keyName: function() {
+        if (this.keyName) {
+            return this.keyName;
+        }
+
+        var name = this.component;
+
+        return this.keyName = name.charAt(0).toLowerCase() + name.slice(1);
     }
 
 }, {

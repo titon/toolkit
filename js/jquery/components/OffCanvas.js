@@ -18,7 +18,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     }
 
     // Setup container
-    this.container = $('body').addClass(vendor + 'off-canvas-container');
+    this.container = $('body').addClass(vendor + 'canvas');
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
@@ -145,7 +145,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      */
     onResize: function() {
         if (this.options.push) {
-            this.container.css('width', this.container.width());
+            this.container.css('width', $(window).width());
         }
     },
 
