@@ -37,7 +37,7 @@ relative to. If no element is passed, the last element hovered will be used. The
 are the custom content and title respectively.
 
 ```javascript
-$('#button').toolkit('tooltip').show(null, 'Custom content', 'Custom title');
+$('#button').toolkit('tooltip', 'show', [null, 'Custom content', 'Custom title']);
 ```
 
 If we want to update the node and then trigger the tooltip, something like the following can be used.
@@ -45,7 +45,7 @@ This example assumes that `getContent` is set to `data-tooltip`.
 
 ```javascript
 var node = $('#button');
-    node.data('tooltip', 'New content!').toolkit('tooltip').show(node);
+    node.data('tooltip', 'New content!').toolkit('tooltip', 'show', node);
 ```
 
 ### Mouse Following ###

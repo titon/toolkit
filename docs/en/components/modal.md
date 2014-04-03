@@ -21,13 +21,13 @@ To insert non-AJAX content into a modal, the `getContent` value can point to an 
 We can also set the content directly through the modal instance.
 
 ```javascript
-$('.js-modal').toolkit('modal').show(null, 'This will be inserted into the modal.');
+$('.js-modal').toolkit('modal', 'show', [null, 'This will be inserted into the modal.']);
 ```
 
 Or we can trigger the modal by passing in the node to read from.
 
 ```javascript
-$('.js-modal').toolkit('modal').show($('#add-category'));
+$('.js-modal').toolkit('modal', 'show', $('#add-category'));
 // Loads /categories/add
 ```
 

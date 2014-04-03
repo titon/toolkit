@@ -17,7 +17,8 @@ a:hover { color: #b84374; }
 
 .example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 550; }
 .example-form li { display: inline-block; padding: 5px; }
-.example-form input { border: none; border-radius: 2px; padding: 3px; color: #000; }
+.example-form input,
+.example-form select { border: none; border-radius: 2px; padding: 1px; color: #000; }
 .example-form input[type="text"] { width: 6rem; }
 .example-form input[type="number"] { width: 3rem; }
 .example-form button { color: #000; border: 0; border-radius: .2rem; line-height: normal; }

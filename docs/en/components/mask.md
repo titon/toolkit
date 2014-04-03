@@ -17,8 +17,7 @@ The mask will not be shown until `show()` or `toggle()` is called on the mask ob
 The mask object can be retrieved by calling `toolkit('mask')` on the target collection.
 
 ```javascript
-var mask = $('.js-mask-target').toolkit('mask');
-    mask.toggle();
+$('.js-mask-target').toolkit('mask', 'toggle');
 ```
 
 <div class="notice is-info">
@@ -55,7 +54,7 @@ that triggers the toggle.
 
 ```javascript
 $('.js-mask-toggle').click(function() {
-    $('.js-mask-target').toolkit('mask').toggle();
+    $('.js-mask-target').toolkit('mask', 'toggle');
 });
 ```
 
