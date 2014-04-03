@@ -12,19 +12,22 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary');
     this.options = options = this.setOptions(options, element);
 
-    // Setup container
-    this.container = $(options.context || 'body').addClass(vendor + 'off-canvas-container');
-
-    // Body cannot be pushed, so do a move instead
-    if (this.container.is('body')) {
-        options.push = false;
+    // Cannot have multiple sidebars when pushing
+    if (options.push) {
+        options.hideOthers = true;
     }
+
+    // Setup container
+    this.container = $('body').addClass(vendor + 'off-canvas-container');
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
     this.opposite = (this.side === 'left') ? 'right' : 'left';
 
     // Initialize events
+    events['resize window'] = 'onResize';
+    events['ready document'] = 'onReady';
+
     if (this.side === 'left') {
         events['swipeleft element'] = 'hide';
         events['swiperight container'] = 'onSwipe';
@@ -35,10 +38,6 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
     if (options.selector) {
         events['click document ' + options.selector] = 'toggle';
-    }
-
-    if (options.openOnLoad) {
-        events['ready document'] = 'onReady';
     }
 
     this.events = events;
@@ -85,16 +84,12 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         }
 
         if (!options.overlay) {
-            if (options.push) {
-                this.container.addClass('push-' + this.opposite);
-
-            } else {
-                element.reveal();
-                this.container.addClass('move-' + this.opposite);
-            }
+            this.container.addClass((options.push ? 'push' : 'move') + '-' + this.opposite);
         }
 
-        element.aria('expanded', true);
+        element
+            .reveal()
+            .aria('expanded', true);
 
         this.fireEvent('show');
     },
@@ -118,11 +113,17 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * @private
      */
     onReady: function() {
+        this.onResize();
+
         var element = this.element,
             container = this.container,
             options = this.options,
             transClass = 'no-transition',
             oldHide = options.hideOthers;
+
+        if (!options.openOnLoad) {
+            return;
+        }
 
         element.addClass(transClass);
         container.addClass(transClass);
@@ -136,6 +137,16 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             container.removeClass(transClass);
             options.hideOthers = oldHide;
         }, 1);
+    },
+
+    /**
+     * Set the container to its current width.
+     * This allows us to push the content outside the viewport.
+     */
+    onResize: function() {
+        if (this.options.push) {
+            this.container.css('width', this.container.width());
+        }
     },
 
     /**
@@ -159,8 +170,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
 }, {
     selector: '',
-    overlay: false,
     push: true,
+    overlay: false,
     openOnLoad: false,
     hideOthers: true
 });

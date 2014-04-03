@@ -29,6 +29,7 @@
             $('left-canvas').offCanvas({
                 context: <?php string('parent'); ?>,
                 selector: '.js-canvas-left',
+                push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
                 hideOthers: <?php bool('hideOthers', true); ?>
@@ -37,6 +38,7 @@
             $('right-canvas').offCanvas({
                 context: <?php string('parent'); ?>,
                 selector: '.js-canvas-right',
+                push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
                 hideOthers: <?php bool('hideOthers', true); ?>
@@ -48,6 +50,7 @@
             $('#left-canvas').offCanvas({
                 context: <?php string('parent'); ?>,
                 selector: '.js-canvas-left',
+                push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
                 hideOthers: <?php bool('hideOthers', true); ?>
@@ -56,6 +59,7 @@
             $('#right-canvas').offCanvas({
                 context: <?php string('parent'); ?>,
                 selector: '.js-canvas-right',
+                push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
                 hideOthers: <?php bool('hideOthers', true); ?>

@@ -92,6 +92,12 @@ Inherits all options from the [parent component](../development/js.md#options).
             </td>
         </tr>
         <tr>
+            <td>push</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Will push the content outside of the viewport instead of squishing it.</td>
+        </tr>
+        <tr>
             <td>overlay</td>
             <td>bool</td>
             <td>false</td>
