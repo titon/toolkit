@@ -1,0 +1,129 @@
+/**
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+.#{$vendor-prefix}toasts {
+    position: fixed;
+    margin: $margin;
+    width: 20%;
+    z-index: $toast-zindex;
+
+    @if index($toast-position, "top-left") {
+        &.top-left {
+            top: 0;
+            left: 0;
+        }
+    }
+
+    @if index($toast-position, "top-center") {
+        &.top-center {
+            top: 0;
+            left: 50%;
+        }
+    }
+
+    @if index($toast-position, "top-right") {
+        &.top-right {
+            top: 0;
+            right: 0;
+        }
+    }
+
+    @if index($toast-position, "center-left") {
+        &.center-left {
+            top: 50%;
+            left: 0;
+        }
+    }
+
+    @if index($toast-position, "center-right") {
+        &.center-right {
+            top: 50%;
+            right: 0;
+        }
+    }
+
+    @if index($toast-position, "bottom-left") {
+        &.bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    @if index($toast-position, "bottom-center") {
+        &.bottom-center {
+            bottom: 0;
+            left: 50%;
+        }
+    }
+
+    @if index($toast-position, "bottom-right") {
+        &.bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    @if index($toast-position, "top-center") or index($toast-position, "bottom-center") {
+        &.top-center,
+        &.bottom-center {
+            transform: translateX(-50%);
+        }
+    }
+
+    @if index($toast-position, "center-left") or index($toast-position, "center-right") {
+        &.center-left,
+        &.center-right {
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.#{$vendor-prefix}toast {
+    margin-top: 1rem;
+    transition: opacity $toast-transition, visibility $toast-transition, transform $toast-transition;
+    opacity: 0;
+
+    &.show { opacity: 1; }
+    &:first-child { margin-top: 0; }
+}
+
+//-------------------- Animations --------------------//
+
+.#{$vendor-prefix}toast {
+    @if index($toast-animation, "slide-up") {
+        &.slide-up {
+            transform: translateY(50%);
+
+            &.show { transform: translateY(0); }
+        }
+    }
+
+    @if index($toast-animation, "slide-down") {
+        &.slide-down {
+            transform: translateY(-50%);
+
+            &.show { transform: translateY(0); }
+        }
+    }
+
+    @if index($toast-animation, "slide-left") {
+        &.slide-left {
+            transform: translateX(25%);
+
+            &.show { transform: translateX(0); }
+        }
+    }
+
+    @if index($toast-animation, "slide-right") {
+        &.slide-right {
+            transform: translateX(-25%);
+
+            &.show { transform: translateX(0); }
+        }
+    }
+}

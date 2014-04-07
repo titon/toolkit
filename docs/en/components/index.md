@@ -41,6 +41,7 @@
 * [Showcase](showcase.md)
 * [Stalker](stalker.md)
 * [Tabs](tabs.md)
+* [Toast](toast.md)
 * [Tooltip](tooltip.md)
 * [Type Ahead](type-ahead.md)
 

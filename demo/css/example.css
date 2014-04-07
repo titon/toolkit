@@ -78,3 +78,11 @@ a:hover { color: #b84374; }
 
 .off-canvas--left,
 .off-canvas--right { background: #000; color: #fff; }
+
+.toasts.bottom-left,
+.toasts.bottom-center,
+.toasts.bottom-right {
+    bottom: 50px;
+}
+
+.toast { background: #000; color: #fff; padding: 10px; }

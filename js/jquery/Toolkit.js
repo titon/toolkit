@@ -101,6 +101,9 @@ window.Toolkit = Toolkit;
 // Dereference these variables to lower the filesize
 var vendor = Toolkit.vendor;
 
+// Event string for transition end
+var transitionend = 'transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd';
+
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
  *

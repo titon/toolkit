@@ -109,6 +109,7 @@ $pin-transition: .2s !default;
 $progress-transition: .5s !default;
 $showcase-transition: $default-transition !default;
 $switch-transition: $default-transition !default;
+$toast-transition: $default-transition !default;
 $tooltip-transition: $default-transition !default;
 
 //-------------------- Z Index --------------------//
@@ -125,6 +126,7 @@ $modal-zindex: 610 !default;
 $offCanvas-zindex: 250 !default;
 $popover-zindex: 700 !default;
 $showcase-zindex: 610 !default;
+$toast-zindex: 500 !default;
 $tooltip-zindex: 700 !default;
 $typeAhead-zindex: 500 !default;
 
@@ -181,6 +183,14 @@ $offCanvas-right-width: 20% !default;
 $offCanvas-left-width-mobile: 90% !default;
 $offCanvas-right-width-mobile: 90% !default;
 $offCanvas-mobile-breakpoint: 550px !default;
+
+//-------------------- Toast --------------------//
+
+$toast-animation: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
+$toast-position: (
+    "top-left", "top-center", "top-right", "center-left",
+    "center-right", "bottom-left", "bottom-center", "bottom-right"
+) !default;
 
 //-------------------- Popover, Tooltip --------------------//
 

@@ -449,6 +449,18 @@
             "moo": ["Core"]
         }
     },
+    "toast": {
+        "name": "Toast",
+        "description": "Provides feedback about an operation through a timed popup.",
+        "category": "component",
+        "type": "module",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/toast.css"],
+            "js": ["components/Toast.js"]
+        }
+    },
     "tooltip": {
         "name": "Tooltip",
         "description": "Contextual box displayed relative to a target element while hovering.",

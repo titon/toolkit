@@ -150,6 +150,10 @@
                     "title": "Tabs",
                     "url": "/components/tabs"
                 }, {
+                    "title": "Toast",
+                    "url": "/components/toast",
+                    "new": true
+                }, {
                     "title": "Tooltip",
                     "url": "/components/tooltip"
                 }, {

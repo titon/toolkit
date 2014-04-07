@@ -457,6 +457,31 @@ $components = array(
             'preventDefault' => array('title' => 'Prevent default?', 'type' => 'boolean', 'default' => true),
         )
     ),
+    'toast' => array(
+        'title' => 'Toast',
+        'css' => array('components/toast.css'),
+        'js' => array('components/Toast.js'),
+        'filters' => array(
+            'animation' => array('title' => 'Animation', 'data' => array(
+                'fade' => 'Fade',
+                'slide-up' => 'Slide Up',
+                'slide-down' => 'Slide Down',
+                'slide-left' => 'Slide Left',
+                'slide-right' => 'Slide Right',
+            ), 'default' => 'slide-up'),
+            'position' => array('title' => 'Position', 'data' => array(
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'bottom-left'),
+            'duration' => array('title' => 'Duration', 'type' => 'number', 'default' => 5000)
+        )
+    ),
     'tooltip' => array(
         'title' => 'Tooltip',
         'css' => array('components/tooltip.css'),
