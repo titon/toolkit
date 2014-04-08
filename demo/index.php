@@ -573,9 +573,50 @@ if ($vendor === 'mootools') {
 <body class="<?php echo $themeKey; ?>">
     <div id="skeleton" class="skeleton">
         <form action="" method="get">
-            <ul class="example-form example-filters">
-                <?php if (!empty($component['filters'])) {
-                    foreach ($component['filters'] as $name => $filter) {
+            <ul class="example-form example-switcher">
+                <li>
+                    <label for="component">Component</label>
+                    <select name="component" id="component">
+                        <option value="">-- None --</option>
+                        <?php foreach ($components as $key => $value) {
+                            if ($key === 'home') {
+                                continue;
+                            } ?>
+                            <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected'; ?>>
+                                <?php echo $value['title']; ?>
+                                <?php if (!empty($value['js'])) echo '(JS)'; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="theme">Theme</label>
+                    <select name="theme" id="theme">
+                        <option value="">-- None --</option>
+                        <?php foreach ($themes as $key => $value) { ?>
+                            <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected'; ?>><?php echo $value['title']; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="vendor">Vendor</label>
+                    <select name="vendor" id="vendor">
+                        <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected'; ?>>jQuery 1.10</option>
+                        <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected'; ?>>jQuery 2</option>
+                        <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
+                    </select>
+                </li>
+                <li class="resolution">
+                    Resolution <span id="res-width"></span>x<span id="res-height"></span>
+                </li>
+                <li><button type="submit">Switch</button></li>
+            </ul>
+        </form>
+
+        <form action="" method="get">
+            <?php if (!empty($component['filters'])) { ?>
+                <ul class="example-form example-filters">
+                    <?php foreach ($component['filters'] as $name => $filter) {
                         $default = isset($filter['default']) ? $filter['default'] : ''; ?>
 
                         <li>
@@ -610,56 +651,19 @@ if ($vendor === 'mootools') {
                         <input type="hidden" name="vendor" value="<?php echo value('vendor', 'mootools'); ?>">
                         <button type="submit">Filter</button>
                     </li>
-                <?php } ?>
-
-                <li>&nbsp;</li>
-            </ul>
+                </ul>
+            <?php } ?>
         </form>
 
         <div class="example">
-            <?php include sprintf('%s.php', $componentKey ?: 'home'); ?>
-        </div>
+            <?php $path = sprintf('./%s.php', $componentKey ?: 'home');
 
-        <form action="" method="get">
-            <ul class="example-form example-switcher">
-                <li class="resolution">
-                    <span id="res-width"></span>x<span id="res-height"></span>
-                </li>
-                <li>
-                    <label for="component">Component</label>
-                    <select name="component" id="component">
-                        <option value="">-- None --</option>
-                        <?php foreach ($components as $key => $value) {
-                            if ($key === 'home') {
-                                continue;
-                            } ?>
-                            <option value="<?php echo $key; ?>"<?php if ($key === $componentKey) echo ' selected'; ?>>
-                                <?php echo $value['title']; ?>
-                                <?php if (!empty($value['js'])) echo '(JS)'; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </li>
-                <li>
-                    <label for="theme">Theme</label>
-                    <select name="theme" id="theme">
-                        <option value="">-- None --</option>
-                        <?php foreach ($themes as $key => $value) { ?>
-                            <option value="<?php echo $key; ?>"<?php if ($key === $themeKey) echo ' selected'; ?>><?php echo $value['title']; ?></option>
-                        <?php } ?>
-                    </select>
-                </li>
-                <li>
-                    <label for="vendor">Vendor</label>
-                    <select name="vendor" id="vendor">
-                        <option value="jquery1"<?php if ($vendor === 'jquery1') echo ' selected'; ?>>jQuery 1.10</option>
-                        <option value="jquery2"<?php if ($vendor === 'jquery2') echo ' selected'; ?>>jQuery 2</option>
-                        <option value="mootools"<?php if ($vendor === 'mootools') echo ' selected'; ?>>MooTools</option>
-                    </select>
-                </li>
-                <li><button type="submit">Go</button></li>
-            </ul>
-        </form>
+            if (file_exists($path)) {
+                include $path;
+            } else {
+                echo 'No such component ' . $componentKey;
+            } ?>
+        </div>
     </div>
 
     <script>
