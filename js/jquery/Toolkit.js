@@ -512,7 +512,8 @@ if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
         var elements = [];
 
-        $(document).on('click.toolkit.out', function(e) {
+        // Add a tap event instead of touchstart?
+        $(document).on('click.toolkit.out touchstart.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }

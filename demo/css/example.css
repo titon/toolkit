@@ -6,6 +6,7 @@
 
 html { font: normal 16px/1.75rem "Helvetica Neue", Helvetica, Arial, sans-serif; }
 body { padding: 0; }
+html, body { height: 100%; }
 
 @media only screen and (max-width: 480px) {
     html { font-size: 12px !important; }
