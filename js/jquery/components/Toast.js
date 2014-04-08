@@ -8,7 +8,8 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.component = 'Toast';
     this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.element = $('<aside class="toasts"></aside>')
+    this.element = $('<aside/>')
+        .addClass(vendor + 'toasts')
         .addClass(options.position)
         .attr('role', 'log')
         .aria({
@@ -43,13 +44,13 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
         // Set a timeout to trigger show transition
         setTimeout(function() {
             self.show(toast);
-        }, 5);
+        }, 10);
 
         // Set a timeout to remove the toast
         if (options.duration) {
             setTimeout(function() {
                 self.hide(toast);
-            }, options.duration + 5);
+            }, options.duration + 10);
         }
     },
 
