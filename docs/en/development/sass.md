@@ -40,13 +40,9 @@ it *does not* provide variables for property styling. This can and should be ach
             <td>large</td>
         </tr>
         <tr>
-            <td>$shape-square-class</td>
-            <td>square</td>
-            <td rowspan="5">Names for global shape classes.</td>
-        </tr>
-        <tr>
             <td>$shape-round-class</td>
             <td>round</td>
+            <td rowspan="4">Names for global shape classes.</td>
         </tr>
         <tr>
             <td>$shape-oval-class</td>
