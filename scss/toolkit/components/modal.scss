@@ -50,6 +50,13 @@
     margin: $margin;
     pointer-events: auto; // allow within modal
     transform: translateX(-50%);
+
+    @include if-max($breakpoint-mobile-landscape) {
+        width: auto;
+        left: auto;
+        right: auto;
+        transform: translateX(0);
+    }
 }
 
 .#{$vendor-prefix}modal-inner {

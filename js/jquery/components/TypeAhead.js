@@ -90,6 +90,9 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     input
         .attr({
             autocomplete: 'off',
+            autocapitalize: 'off',
+            autocorrect: 'off',
+            spellcheck: 'false',
             role: 'combobox'
         })
         .aria({

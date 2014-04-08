@@ -29,6 +29,7 @@ select[size] { height: auto; }
 // Override normalize
 input[type="search"] {
     box-sizing: border-box;
+    -webkit-appearance: none;
 }
 
 // Required values to match browser restrictions
@@ -47,6 +48,9 @@ label,
     @include reset-inline-block;
     line-height: normal;
     border: 1px solid $gray-dark;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-appearance: none; // Remove inner shadow on iOS
     @include size-medium;
 
     @include is-small(true, true) { @include size-small; }

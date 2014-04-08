@@ -5,33 +5,35 @@
 @viewport           { width: device-width; }
 
 html { font: normal 16px/1.75rem "Helvetica Neue", Helvetica, Arial, sans-serif; }
-body { padding: 0 0 100px 0; }
+body { padding: 0; }
+html, body { height: 100%; }
+
+@media only screen and (max-width: 480px) {
+    html { font-size: 12px !important; }
+}
 
 a { color: #dd6195; text-decoration: none; }
 a:hover { color: #b84374; }
 
 .skeleton { min-height: 100%; }
 
-.example { padding: 25px; }
+.example { padding: 2rem; }
 .example > *:first-child { margin-top: 0; }
 
 .example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 550; }
 .example-form li { display: inline-block; padding: 5px; }
 .example-form input,
-.example-form select { border: none; border-radius: 2px; padding: 1px; color: #000; }
+.example-form select { border: none; border-radius: 2px; padding: 3px; color: #000; }
 .example-form input[type="text"] { width: 6rem; }
 .example-form input[type="number"] { width: 3rem; }
-.example-form button { color: #000; border: 0; border-radius: .2rem; line-height: normal; }
+.example-form button { color: #000; background: #fff; border: 0; padding: 3px 6px; border-radius: .2rem; line-height: normal; }
 
-.example-switcher { position: fixed; bottom: 0; left: 0; }
-.example-switcher .resolution { float: right; }
+.example-header { background: #344a5f; color: #fff; font-size: 3rem; line-height: 2.8rem; padding: 2rem; margin: -2rem !important; margin-bottom: 2rem !important; }
 
-.example-header { background: #344a5f; color: #fff; font-size: 3rem; line-height: 2.8rem; padding: 25px; margin: -25px -25px 35px -25px !important; }
+.example-title { background: #344a5f; color: #fff; margin: 2rem -2rem; padding: 1rem 2rem; font-size: 1.5rem; }
+.example-title:first-child { margin-top: -2rem; }
 
-.example-title { background: #344a5f; color: #fff; margin: 25px -25px; padding: 15px 25px; font-size: 1.5rem; }
-.example-title:first-child { margin-top: -25px; }
-
-.example-center { text-align: center; padding: 100px; }
+.example-center { text-align: center; padding: 100px 0; }
 
 .intro { padding: 0 50px 50px 0; }
 

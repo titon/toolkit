@@ -115,6 +115,9 @@ Toolkit.TypeAhead = new Class({
         input
             .set({
                 autocomplete: 'off',
+                autocapitalize: 'off',
+                autocorrect: 'off',
+                spellcheck: 'false',
                 role: 'combobox'
             })
             .aria({

@@ -79,7 +79,7 @@
                 revealOnClick: <?php bool('revealOnClick', false); ?>
             });
 
-            $('.button').click(function(e) {
+            $('.button').on('click touchstart', function(e) {
                 $($(e.target).data('mask')).toolkit('mask').toggle();
             });
         });
