@@ -175,6 +175,7 @@ $modal-animation: (
     "fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left",
     "sticky-top", "sticky-right", "sticky-bottom", "sticky-left"
 ) !default;
+$modal-mobile-breakpoint: 550px !default;
 
 //-------------------- Off Canvas --------------------//
 

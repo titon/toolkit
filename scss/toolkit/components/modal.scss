@@ -51,7 +51,7 @@
     pointer-events: auto; // allow within modal
     transform: translateX(-50%);
 
-    @include if-max($breakpoint-mobile-landscape) {
+    @include if-max($modal-mobile-breakpoint) {
         width: auto;
         left: auto;
         right: auto;

@@ -145,6 +145,11 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
             <td>A list of all animations to include in the CSS output.</td>
         </tr>
         <tr>
+            <td>$modal-mobile-breakpoint</td>
+            <td>550px</td>
+            <td>The break point to apply mobile widths.</td>
+        </tr>
+        <tr>
             <td>$modal-transition</td>
             <td>.3s</td>
             <td>The transition time for all modal animations.</td>
