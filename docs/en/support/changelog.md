@@ -1,5 +1,14 @@
 # Changelog #
 
+## 1.3.2 ##
+* Updated `clickout` events to trigger for `touchstart` events
+* Button, Form
+    * Reset browser specific styles, specifically in iOS
+* Modal
+    * Added mobile specific styles that span the width of the viewport
+* TypeAhead
+    * Turned off `autocapitalize`, `autocorrect`, and `spellcheck` on the input field
+
 ## 1.3.1 ##
 * Updated `event.target` to `event.currentTarget` where applicable
 
