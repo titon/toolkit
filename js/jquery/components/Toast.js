@@ -61,6 +61,8 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
      * @param {jQuery} element
      */
     hide: function(element) {
+        element = $(element);
+
         this.fireEvent('hide', element); // Must be called first since the element gets removed
 
         element
@@ -79,6 +81,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
      * @param {jQuery} element
      */
     show: function(element) {
+        element = $(element);
         element.reveal();
 
         this.fireEvent('show', element);

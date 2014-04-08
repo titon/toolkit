@@ -17,11 +17,11 @@
                 duration: <?php number('duration', 5000); ?>
             });
 
-            $('toast-text').click(function() {
+            $('toast-text').addEvent('click', function() {
                 document.body.toolkit('toast', 'create', 'This is a string of text!');
             });
 
-            $('toast-html').click(function() {
+            $('toast-html').addEvent('click', function() {
                 document.body.toolkit('toast', 'create', new Element('a').set('html', 'This is an anchor link!'));
             });
         });
@@ -34,11 +34,11 @@
                 duration: <?php number('duration', 5000); ?>
             });
 
-            $('#toast-text').click(function() {
+            $('#toast-text').on('click touchstart', function() {
                 $('body').toolkit('toast', 'create', 'This is a string of text!');
             });
 
-            $('#toast-html').click(function() {
+            $('#toast-html').on('click touchstart', function() {
                 $('body').toolkit('toast', 'create', $('<a/>').html('This is an anchor link!'));
             });
         });
