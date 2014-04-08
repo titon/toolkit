@@ -38,7 +38,7 @@
                 unset($compList['home']);
 
                 foreach (array_chunk($compList, ceil(count($compList) / 3), true) as $comps) { ?>
-                    <ul class="col span-4">
+                    <ul class="col medium-4 large-4">
                         <?php foreach ($comps as $key => $component) { ?>
                             <li>
                                 <a href="?component=<?php echo $key; ?>"><?php echo $component['title']; ?></a>

@@ -22,12 +22,13 @@ a:hover { color: #b84374; }
 
 .example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 550; }
 .example-form li { display: inline-block; padding: 5px; }
-.example-form input { border: none; border-radius: 2px; padding: 3px; color: #000; }
+.example-form input,
+.example-form select { border: none; border-radius: 2px; padding: 3px; color: #000; }
 .example-form input[type="text"] { width: 6rem; }
 .example-form input[type="number"] { width: 3rem; }
 .example-form button { color: #000; background: #fff; border: 0; padding: 3px 6px; border-radius: .2rem; line-height: normal; }
 
-.example-header { background: #344a5f; color: #fff; font-size: 3rem; line-height: 2.8rem; padding: 2rem; margin: -2rem !important; }
+.example-header { background: #344a5f; color: #fff; font-size: 3rem; line-height: 2.8rem; padding: 2rem; margin: -2rem !important; margin-bottom: 2rem !important; }
 
 .example-title { background: #344a5f; color: #fff; margin: 2rem -2rem; padding: 1rem 2rem; font-size: 1.5rem; }
 .example-title:first-child { margin-top: -2rem; }
