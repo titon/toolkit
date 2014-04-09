@@ -49,7 +49,7 @@ var toast = $('body').toolkit('toast');
 var link = $('<a/>')
     .html('This is an important message!')
     .click(function() {
-        toast.hide(this);
+        toast.hide(this.parentNode); // Must be .toast element
     });
 
 // Create the toast

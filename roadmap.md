@@ -2,9 +2,6 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 1.4.0 ###
-* Toast - A component to display toast notifications.
-
 ### 1.5.0 ###
 * Dialog - A component that prompts the user for an action. Sister to the modal component.
 * Guide - A component that displays introduction guides (popovers) in a sequential order. Useful for show casing new features and functionality.
