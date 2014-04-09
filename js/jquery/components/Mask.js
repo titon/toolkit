@@ -120,9 +120,6 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     messageContent: ''
 });
 
-/**
- * Defines a component that can be instantiated through mask().
- */
 Toolkit.create('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });

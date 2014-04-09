@@ -244,9 +244,6 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     '</div>'
 });
 
-/**
- * Defines a component that can be instantiated through modal().
- */
 Toolkit.create('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);

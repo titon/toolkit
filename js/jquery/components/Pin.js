@@ -10,6 +10,12 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
+    // Setup classes and ARIA
+    element
+        .attr('role', 'complementary')
+        .addClass(vendor + 'pin')
+        .addClass(options.animation);
+
     // Outer height of the element
     this.elementHeight = null;
 
@@ -182,9 +188,6 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     lock: true
 });
 
-/**
- * Defines a component that can be instantiated through pin().
- */
 Toolkit.create('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });

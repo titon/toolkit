@@ -171,9 +171,6 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     applyToParent: true
 });
 
-/**
- * Defines a component that can be instantiated through stalker().
- */
 Toolkit.create('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });

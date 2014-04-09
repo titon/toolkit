@@ -163,9 +163,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     throttle: 50
 });
 
-/**
- * Defines a component that can be instantiated through lazyLoad().
- */
 Toolkit.create('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });

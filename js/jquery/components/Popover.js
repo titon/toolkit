@@ -54,9 +54,6 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     '</div>'
 });
 
-/**
- * Defines a component that can be instantiated through popover().
- */
 Toolkit.create('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);

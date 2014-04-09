@@ -547,10 +547,6 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     getDescription: 'data-description'
 });
 
-/**
- * Define jQuery plugins that can be instantiated through
- * input() (triggers all 3), inputRadio(), inputCheckbox(), and inputSelect().
- */
 Toolkit.create('input', function(options) {
     return new Toolkit.Input(this, options);
 });

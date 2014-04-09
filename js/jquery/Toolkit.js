@@ -389,7 +389,7 @@ $.debounce = function(func, threshold, immediate) {
             if (!immediate) {
                 func.apply(context, args);
             }
-        }, threshold);
+        }, threshold || 150);
 
         if (immediate && !timeout)  {
             func.apply(context, args);

@@ -582,9 +582,6 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     builder: null
 });
 
-/**
- * Defines a component that can be instantiated through typeAhead().
- */
 Toolkit.create('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });

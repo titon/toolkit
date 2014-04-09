@@ -258,9 +258,6 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
     '</div>'
 });
 
-/**
- * Defines a component that can be instantiated through tooltip().
- */
 Toolkit.create('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);

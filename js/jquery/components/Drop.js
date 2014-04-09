@@ -99,9 +99,6 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     hideOpened: true
 });
 
-/**
- * Defines a component that can be instantiated through drop().
- */
 Toolkit.create('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);

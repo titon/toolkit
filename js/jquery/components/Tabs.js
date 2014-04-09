@@ -27,23 +27,25 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
             .conceal();
     });
 
-    // Find the nav and the tabs and set ARIA attributes
-    this.tabs = tabs = element.find('.' + vendor + 'tabs-nav')
-        .attr('role', 'tablist')
-        .find('a').each(function(index) {
-            $(this)
-                .data('index', index)
-                .attr({
-                    role: 'tab',
-                    id: self.id('tab', index)
-                })
-                .aria({
-                    controls: sections.item(index).attr('id'),
-                    selected: false,
-                    expanded: false
-                })
-                .removeClass('is-active');
-        });
+    // Find the nav and set ARIA attributes
+    this.nav = element.find('.' + vendor + 'tabs-nav')
+        .attr('role', 'tablist');
+
+    // Find the tabs within the nav and set ARIA attributes
+    this.tabs = this.nav.find('a').each(function(index) {
+        $(this)
+            .data('index', index)
+            .attr({
+                role: 'tab',
+                id: self.id('tab', index)
+            })
+            .aria({
+                controls: sections.item(index).attr('id'),
+                selected: false,
+                expanded: false
+            })
+            .removeClass('is-active');
+    });
 
     // Index of the section currently displayed
     this.index = 0;
@@ -206,9 +208,6 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     getUrl: 'href'
 });
 
-/**
- * Defines a component that can be instantiated through tabs().
- */
 Toolkit.create('tabs', function(options) {
     return new Toolkit.Tabs(this, options);
 });

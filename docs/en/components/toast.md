@@ -56,6 +56,23 @@ var link = $('<a/>')
 toast.create(link, { duration: 0 });
 ```
 
+## Aria ##
+
+The `log` role on the container, and the `note` role on the toast,
+and the appropriate `aria-*` attributes are required when supporting ARIA.
+
+```html
+<aside class="toasts" role="log">
+    <div class="toast" role="note">
+        ...
+    </div>
+</aside>
+```
+
+<div class="notice is-info">
+    The JavaScript component will automatically map all ARIA attributes.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">

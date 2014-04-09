@@ -25,7 +25,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     this.opposite = (this.side === 'left') ? 'right' : 'left';
 
     // Initialize events
-    events['resize window'] = 'onResize';
+    events['resize window'] = $.debounce(this.onResize);
     events['ready document'] = 'onReady';
 
     if (this.side === 'left') {

@@ -45,7 +45,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         'swipedown element': 'prev',
         'keydown window': 'onKeydown',
         'click document {selector}': 'onShow',
-        'click element .@showcase-close': 'hide',
+        'click element .@showcase-hide': 'onHide',
         'click element .@showcase-next': 'next',
         'click element .@showcase-prev': 'prev',
         'click element .@showcase-tabs a': 'onJump'
@@ -397,14 +397,11 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             '<ol class="showcase-tabs bullets"></ol>' +
             '<button type="button" class="showcase-prev"><span class="arrow-left"></span></button>' +
             '<button type="button" class="showcase-next"><span class="arrow-right"></span></button>' +
-            '<button type="button" class="showcase-close"><span class="x"></span></button>' +
+            '<button type="button" class="showcase-close showcase-hide"><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });
 
-/**
- * Defines a component that can be instantiated through showcase().
- */
 Toolkit.create('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);

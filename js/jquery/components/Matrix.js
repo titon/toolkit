@@ -336,9 +336,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     defer: true
 });
 
-/**
- * Defines a component that can be instantiated through matrix().
- */
 Toolkit.create('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });

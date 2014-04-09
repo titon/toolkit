@@ -238,9 +238,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     stopOnHover: true
 });
 
-/**
- * Defines a component that can be instantiated through carousel().
- */
 Toolkit.create('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });

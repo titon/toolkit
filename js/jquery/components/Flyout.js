@@ -517,9 +517,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     template: '<div class="flyout"></div>'
 });
 
-/**
- * Defines a component that can be instantiated through flyout().
- */
 Toolkit.create('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
