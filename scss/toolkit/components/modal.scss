@@ -44,18 +44,17 @@
 .#{$vendor-prefix}modal-outer {
     position: absolute;
     top: 0;
-    left: 50%;
-    width: 50%;
     height: auto;
     margin: $margin;
     pointer-events: auto; // allow within modal
-    transform: translateX(-50%);
+    width: auto;
+    left: auto;
+    right: auto;
 
-    @include if-max($modal-mobile-breakpoint) {
-        width: auto;
-        left: auto;
-        right: auto;
-        transform: translateX(0);
+    @include if-min($modal-mobile-breakpoint) {
+        left: 50%;
+        width: 50%;
+        transform: translateX(-50%);
     }
 }
 

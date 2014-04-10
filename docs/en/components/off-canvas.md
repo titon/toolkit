@@ -28,7 +28,7 @@ $('.off-canvas').offCanvas();
 </div>
 
 <div class="notice is-info">
-    Mobile specific sidebars are supported through CSS media queries and Sass variables.
+    Portrait orientation specific sidebars are supported through CSS media queries and Sass variables.
 </div>
 
 ### Toggle Sidebars ###
@@ -112,6 +112,22 @@ $('.off-canvas').offCanvas({
 <div class="notice is-warning">
     When multiple off canvas sidebars are being used, they must all use the same push and overlay options.
     Using mis-configured instances will cause unexpected results.
+</div>
+
+### Open On Load ###
+
+Sidebars can be opened on page load by setting `openOnLoad` to true.
+
+```javascript
+$('.off-canvas').offCanvas({
+    openOnLoad: true,
+    push: false
+});
+```
+
+<div class="notice is-error">
+    When <code>openOnLoad</code> is enabled, we suggest setting <code>push</code> to false,
+    so that content is not pushed off the screen.
 </div>
 
 ### Notes ###

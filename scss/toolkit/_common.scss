@@ -174,7 +174,7 @@ $modal-animation: (
     "fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left",
     "sticky-top", "sticky-right", "sticky-bottom", "sticky-left"
 ) !default;
-$modal-mobile-breakpoint: 550px !default;
+$modal-mobile-breakpoint: 640px !default; // iOS5
 
 //-------------------- Off Canvas --------------------//
 
@@ -182,7 +182,7 @@ $offCanvas-left-width: 20% !default;
 $offCanvas-right-width: 20% !default;
 $offCanvas-left-width-mobile: 90% !default;
 $offCanvas-right-width-mobile: 90% !default;
-$offCanvas-mobile-breakpoint: 550px !default;
+$offCanvas-mobile-breakpoint: 640px !default; // iOS5
 
 //-------------------- Toast --------------------//
 

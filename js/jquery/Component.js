@@ -97,6 +97,11 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             context = keys.shift();
             selector = keys.join(' ').replace('@', vendor);
 
+            // Is this touch?
+            if (Toolkit.isTouch && event === 'click') {
+                event = 'touchend';
+            }
+
             // Determine the correct context
             if (self[context]) {
                 context = self[context];
@@ -174,16 +179,22 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * Disable the component.
      */
     disable: function() {
+        if (this.enabled) {
+            this.bindEvents('off');
+        }
+
         this.enabled = false;
-        this.bindEvents('off');
     },
 
     /**
      * Enable the component.
      */
     enable: function() {
+        if (!this.enabled) {
+            this.bindEvents('on');
+        }
+
         this.enabled = true;
-        this.bindEvents('on');
     },
 
     /**
@@ -414,6 +425,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         if (opts.mode && opts.mode === 'hover') {
 
             // Reset for touch devices
+            // Click will be replaced with touchend in bindEvents()
             if (Toolkit.isTouch) {
                 opts.mode = 'click';
             } else {

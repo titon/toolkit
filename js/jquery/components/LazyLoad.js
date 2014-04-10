@@ -70,7 +70,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Loop over the lazy loaded elements and verify they are within the viewport.
      */
     load: function() {
-        if (this.loaded === this.elements.length) {
+        if (this.loaded >= this.elements.length) {
             this.shutdown();
             return;
         }
@@ -138,8 +138,10 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Any container events will be removed and loading will cease.
      */
     shutdown: function() {
-        this.disable();
-        this.fireEvent('shutdown');
+        if (this.enabled) {
+            this.disable();
+            this.fireEvent('shutdown');
+        }
     },
 
     /**

@@ -8,7 +8,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.component = 'Mask';
     this.version = '1.4.0';
     this.element = element = $(element);
-    this.options = this.setOptions(options, element);
+    this.options = options = this.setOptions(options, element);
 
     // Add class and set relative positioning
     if (!element.is('body')) {

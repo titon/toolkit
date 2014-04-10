@@ -13,7 +13,9 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     this.options = options = this.setOptions(options, element);
 
     // Cannot have multiple sidebars when pushing
-    if (options.push) {
+    if (options.overlay) {
+        options.push = false;
+    } else if (options.push) {
         options.hideOthers = true;
     }
 

@@ -493,6 +493,12 @@ The following events are shared between all components.
             <td>Triggered immediately after a component has initialized.</td>
         </tr>
         <tr>
+            <td>onDestroy</td>
+            <td>destroy.toolkit.{component}</td>
+            <td></td>
+            <td>Triggered immediately before a component is destroyed.</td>
+        </tr>
+        <tr>
             <td>onShow</td>
             <td>show.toolkit.{component}</td>
             <td></td>
