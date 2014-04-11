@@ -45,11 +45,11 @@
     position: absolute;
     top: 0;
     height: auto;
-    margin: $margin;
-    pointer-events: auto; // allow within modal
     width: auto;
     left: auto;
     right: auto;
+    margin: $margin;
+    pointer-events: auto; // allow within modal
 
     @include if-min($modal-mobile-breakpoint) {
         left: 50%;

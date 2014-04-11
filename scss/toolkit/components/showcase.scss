@@ -14,10 +14,9 @@
     height: auto;
     margin: 0;
     padding: 0;
-    z-index: $showcase-zindex;
     opacity: 0;
+    z-index: $showcase-zindex;
     visibility: hidden;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translate(-50%, -50%);
     transition: opacity $showcase-transition, visibility $showcase-transition;
@@ -39,25 +38,28 @@
 }
 
 .#{$vendor-prefix}showcase-close {
-    position: absolute;
-    top: $padding;
-    right: $padding;
+    float: right;
     line-height: 1rem;
-    padding: $padding;
     background: none;
     border: 0;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+.#{$vendor-prefix}showcase-caption {
+    opacity: 0;
+    transition: opacity $showcase-transition, visibility $showcase-transition;
 }
 
 .#{$vendor-prefix}showcase-inner {
     position: relative;
-    padding: $padding;
+    margin-bottom: $padding;
 }
 
 .#{$vendor-prefix}showcase-items {
     @include reset-list;
     width: 100px;
     height: 100px;
-    max-width: 1024px;
     position: relative;
     overflow: hidden;
     transition: width $showcase-transition, height $showcase-transition;
@@ -75,27 +77,6 @@
             height: auto;
             display: block;
         }
-
-        &.show {
-            .#{$vendor-prefix}showcase-caption {
-                display: block;
-            }
-        }
-    }
-}
-
-.#{$vendor-prefix}showcase-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: $padding;
-    color: #fff;
-    background: black(.70);
-    display: none;
-
-    @include in-small {
-        @include size-small;
     }
 }
 
@@ -103,12 +84,10 @@
 .#{$vendor-prefix}showcase-next {
     display: block;
     position: absolute;
-    padding: $padding;
-    width: auto;
-    height: auto;
     z-index: 5;
     top: 50%;
     background: none;
+    padding: 0;
     border: 0;
     transform: translateY(-50%); // move up 50% of their height
 
@@ -120,7 +99,9 @@
 
 .#{$vendor-prefix}showcase-tabs {
     position: absolute;
-    top: ($padding * 2);
-    left: 50%;
-    transform: translateX(-50%); // move left 50% of their width
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: $padding;
+    text-align: center;
 }

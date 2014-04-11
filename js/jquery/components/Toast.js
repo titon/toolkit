@@ -66,11 +66,8 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
         this.fireEvent('hide', element); // Must be called first since the element gets removed
 
         element
-            .on(transitionend, function(e) {
-                // Do a check since transitionend gets called multiple times
-                if (e.originalEvent.propertyName === 'visibility') {
-                    $(this).remove();
-                }
+            .one(Toolkit.transitionEnd, function() {
+                $(this).remove();
             })
             .conceal();
     },

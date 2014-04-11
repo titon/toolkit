@@ -9,6 +9,20 @@
 // Component instances indexed by the selector that activated it
 var instances = {};
 
+// Check if transitions exist
+var hasTransition = (function() {
+    var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+        style = document.createElement('div').style;
+
+    for (var i = 0; i < prefixes.length; i++) {
+        if (prefixes[i] in style) {
+            return prefixes[i];
+        }
+    }
+
+    return false;
+})();
+
 // Toolkit namespace
 var Toolkit = {
 
@@ -31,17 +45,16 @@ var Toolkit = {
     },
 
     /** Does the browser support transitions? */
-    hasTransition: (function() {
-        var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
-            style = document.createElement('div').style;
+    hasTransition: hasTransition,
 
-        for (var i = 0; i < prefixes.length; i++) {
-            if (prefixes[i] in style) {
-                return prefixes[i];
-            }
-        }
+    /** Event name for transition end */
+    transitionEnd: (function() {
+        var eventMap = {
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd otransitionend'
+        };
 
-        return false;
+        return eventMap[hasTransition] || 'transitionend';
     })(),
 
     /** Detect touch devices */
@@ -100,9 +113,6 @@ window.Toolkit = Toolkit;
 
 // Dereference these variables to lower the filesize
 var vendor = Toolkit.vendor;
-
-// Event string for transition end
-var transitionend = 'transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd';
 
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
@@ -185,7 +195,10 @@ $.fn.toolkit = function(component, method, args) {
  * @returns {jQuery}
  */
 $.fn.reveal = function() {
-    return this.removeClass('hide').addClass('show').aria('hidden', false);
+    return this
+        .removeClass('hide')
+        .addClass('show')
+        .aria('hidden', false);
 };
 
 /**
@@ -195,7 +208,10 @@ $.fn.reveal = function() {
  * @returns {jQuery}
  */
 $.fn.conceal = function() {
-    return this.removeClass('show').addClass('hide').aria('hidden', true);
+    return this
+        .removeClass('show')
+        .addClass('hide')
+        .aria('hidden', true);
 };
 
 /**

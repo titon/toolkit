@@ -586,7 +586,7 @@ Toolkit.TypeAhead = new Class({
             return; // Handle with _cycle()
         }
 
-        window.clearTimeout(this.timer);
+        clearTimeout(this.timer);
 
         var term = this.input.get('value').trim();
 

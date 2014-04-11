@@ -175,7 +175,7 @@ Toolkit.Tooltip = new Class({
                 top: options.yOffset
             });
 
-            window.setTimeout(function() {
+            setTimeout(function() {
                 this.element.reveal();
                 this.fireEvent('show');
             }.bind(this), options.delay || 0);

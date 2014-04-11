@@ -45,12 +45,13 @@ a cleanup of element and event options, and a handful of documentation and optim
 * Popover, Tooltip
     * Removed `titleElement`, `contentElement` options
 * Showcase
+    * Updated with new markup
     * Renamed `.showcase-event-prev` to `.showcase-prev`
     * Renamed `.showcase-event-next` to `.showcase-next`
     * Renamed `.showcase-event-close` to `.showcase-hide`
     * Renamed `.showcase-event-jump` to `.showcase-tabs a`
     * Removed `nextButton`, `prevButton` properties
-    * Removed `itemsElement`, `tabsElement`, `prevElement`, `nextElement`,
+    * Removed `transition`, `itemsElement`, `tabsElement`, `prevElement`, `nextElement`,
         `closeEvent`, `jumpEvent`, `prevEvent`, `nextEvent` options
 * Tabs
     * Removed `navElement`, `sectionElement` options

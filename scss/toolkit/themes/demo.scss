@@ -126,14 +126,6 @@ mark { background: lighten($warning-light, 25%); }
     }
 
     &:hover { opacity: 1; }
-
-    // Large icons for large resolutions
-    @include if-tablet-landscape {
-        .arrow-left,
-        .arrow-right {
-            font-size: 3rem;
-        }
-    }
 }
 
 .showcase-close {
@@ -479,7 +471,18 @@ mark { background: lighten($warning-light, 25%); }
 
 .showcase-inner {
     background: $gray;
-    border: 1px solid $gray-dark;
+    padding: 5px;
+    border-radius: .2rem;
+}
+
+.showcase-caption {
+    color: #fff;
+    line-height: 125%;
+    font-size: .9rem;
+}
+
+.showcase-items {
+    background: #000;
 }
 
 //-------------------- Step --------------------//

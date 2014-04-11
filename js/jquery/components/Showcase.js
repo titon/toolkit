@@ -7,11 +7,6 @@
 Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     var element;
 
-    // IE doesn't support animations
-    if (!Toolkit.hasTransition) {
-        options.transition = 1;
-    }
-
     this.component = 'Showcase';
     this.version = '1.4.0';
     this.options = options = this.setOptions(options);
@@ -26,11 +21,14 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     // The wrapping tabs element
     this.tabs = element.find('.' + vendor + 'showcase-tabs');
 
+    // The caption element
+    this.caption = element.find('.' + vendor + 'showcase-caption');
+
     // Items gathered when node was activated
     this.data = [];
 
     // Current index of the item being shown
-    this.index = 0;
+    this.index = -1;
 
     // Blackout element if enabled
     this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
@@ -50,9 +48,6 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         'click element .@showcase-prev': 'prev',
         'click element .@showcase-tabs a': 'onJump'
     };
-
-    // Increase gutter based on padding
-    options.gutter += (element.height() - this.items.height());
 
     this.initialize();
 }, {
@@ -75,7 +70,8 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
         this.items
             .removeAttr('style')
-            .children('li').removeClass('show');
+            .children('li')
+                .conceal();
 
         this.fireEvent('hide');
     },
@@ -90,77 +86,87 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     jump: function(index) {
         index = $.bound(index, this.data.length);
 
+        // Exit since transitions don't occur
+        if (index === this.index) {
+            return;
+        }
+
         var self = this,
-            options = this.options,
             element = this.element,
+            caption = this.caption,
             list = this.items,
             listItems = list.children('li'),
             listItem = listItems.item(index),
             items = this.data,
             item = items[index];
 
-        // Save state
-        this.index = index;
-
         // Update tabs
-        if (this.tabs) {
-            var listTabs = this.tabs.find('a');
+        this.tabs.find('a')
+            .removeClass('is-active')
+            .item(index)
+                .addClass('is-active');
 
-            listTabs
-                .removeClass('is-active')
-                .item(index)
-                    .addClass('is-active');
-        }
+        // Reset previous styles
+        listItems.conceal();
+        caption.conceal();
 
-        // Fade out previous item
-        listItems.removeClass('show');
+        // Disable bubbling of transitionend
+        listItems.on(Toolkit.transitionEnd, function(e) {
+            e.stopPropagation();
+        });
+
+        // Reveal the image after the transition ends
+        list.one(Toolkit.transitionEnd, function() {
+            caption.html(item.title).reveal();
+            listItem.reveal();
+            self.position();
+        });
 
         // Image already exists
         if (listItem.data('width')) {
-
-            // Resize the showcase to the image size
             this._resize(listItem.data('width'), listItem.data('height'));
-
-            // Reveal the image after animation
-            setTimeout(function() {
-                listItem.addClass('show');
-                self.position();
-            }, options.transition);
 
         // Create image and animate
         } else {
-            element.addClass('is-loading');
+            element
+                .addClass('is-loading')
+                .aria('busy', true);
 
-            // Preload image
             var img = new Image();
                 img.src = item.image;
 
-            // Resize showcase after image loads
+            // Render frame when image load
             img.onload = function() {
-                self._resize(this.width, this.height);
+                self._resize(this.width, this.height); // Must be called 1st or FF fails
 
-                // Cache the width and height
+                element
+                    .removeClass('is-loading')
+                    .aria('busy', false);
+
                 listItem
                     .data('width', this.width)
-                    .data('height', this.height);
-
-                // Create the caption
-                if (item.title) {
-                    listItem.append(
-                        $('<div/>')
-                            .addClass(vendor + 'showcase-caption')
-                            .html(item.title)
-                    );
-                }
-
-                // Reveal the image after animation
-                setTimeout(function() {
-                    element.removeClass('is-loading');
-                    listItem.addClass('show').append(img);
-                    self.position();
-                }, options.transition);
+                    .data('height', this.height)
+                    .append(img);
             };
+
+            // Display error message if load fails
+            img.onerror = function() {
+                element
+                    .removeClass('is-loading')
+                    .addClass('has-failed')
+                    .aria('busy', false);
+
+                listItem
+                    .data('width', 150)
+                    .data('height', 150)
+                    .html(Toolkit.messages.error);
+
+                self._resize(150, 150);
+            }
         }
+
+        // Save state
+        this.index = index;
 
         this.fireEvent('jump', index);
     },
@@ -201,8 +207,10 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
      */
     show: function(node) {
         this.node = node = $(node);
-        this.index = 0;
-        this.element.addClass('is-loading');
+        this.index = -1;
+        this.element
+            .addClass('is-loading')
+            .aria('busy', true);
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,
@@ -288,27 +296,25 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
      * @param {Number} height
      */
     _resize: function(width, height) {
-        var wWidth = $(window).width(),
-            wHeight = $(window).height(),
-            gutter = this.options.gutter,
-            ratio, diff;
+        var gutter = (this.options.gutter * 2),
+            wWidth = $(window).width() - gutter,
+            wHeight = $(window).height() - gutter,
+            ratio,
+            diff;
 
-        if ((width + gutter) > wWidth) {
-            var newWidth = (wWidth - (gutter * 2)); // leave edge gap
-
+        if (width > wWidth) {
             ratio = (width / height);
-            diff = (width - newWidth);
-            width = newWidth;
+            diff = (width - wWidth);
+
+            width = wWidth;
             height -= Math.round(diff / ratio);
 
-        } else if ((height + gutter) > wHeight) {
-            var newHeight = (wHeight - (gutter * 2)); // leave edge gap
-
+        } else if (height > wHeight) {
             ratio = (height / width);
-            diff = (height - newHeight);
+            diff = (height - wHeight);
 
             width -= Math.round(diff / ratio);
-            height = newHeight;
+            height = wHeight;
         }
 
         this.items.css({
@@ -386,7 +392,6 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 }, {
     blackout: true,
     stopScroll: true,
-    transition: 300,
     gutter: 50,
     getCategory: 'data-showcase',
     getImage: 'href',
@@ -395,10 +400,11 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         '<div class="showcase-inner">' +
             '<ul class="showcase-items"></ul>' +
             '<ol class="showcase-tabs bullets"></ol>' +
-            '<button type="button" class="showcase-prev"><span class="arrow-left"></span></button>' +
-            '<button type="button" class="showcase-next"><span class="arrow-right"></span></button>' +
-            '<button type="button" class="showcase-close showcase-hide"><span class="x"></span></button>' +
+            '<button class="showcase-prev"><span class="arrow-left"></span></button>' +
+            '<button class="showcase-next"><span class="arrow-right"></span></button>' +
         '</div>' +
+        '<button class="showcase-close showcase-hide"><span class="x"></span></button>' +
+        '<div class="showcase-caption"></div>' +
     '</div>'
 });
 

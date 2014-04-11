@@ -102,15 +102,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>Whether to remove the scrollbar on the window while the showcase is open.</td>
         </tr>
         <tr>
-            <td>transition</td>
-            <td>int</td>
-            <td>30</td>
-            <td>
-                Transition time in milliseconds to wait between each item load.
-                Should only change if the width and height transition times have changed in CSS.
-            </td>
-        </tr>
-        <tr>
             <td>gutter</td>
             <td>int</td>
             <td>50</td>
@@ -134,48 +125,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>title</td>
             <td>The attribute to read the image title from.</td>
         </tr>
-        <tr>
-            <td>itemsElement</td>
-            <td>string</td>
-            <td>.showcase-items</td>
-            <td>CSS selector to find the items container element.</td>
-        </tr>
-        <tr>
-            <td>tabsElement</td>
-            <td>string</td>
-            <td>.showcase-tabs</td>
-            <td>CSS selector to find the tabs container element (a list of bullets).</td>
-        </tr>
-        <tr>
-            <td>nextElement</td>
-            <td>string</td>
-            <td>.showcase-next</td>
-            <td>CSS selector to find the next item button.</td>
-        </tr>
-        <tr>
-            <td>prevElement</td>
-            <td>string</td>
-            <td>.showcase-prev</td>
-            <td>CSS selector to find the previous item button.</td>
-        </tr>
-        <tr>
-            <td>closeEvent</td>
-            <td>string</td>
-            <td>.showcase-event-close</td>
-            <td>CSS selector to bind close events to.</td>
-        </tr>
-        <tr>
-            <td>nextEvent</td>
-            <td>string</td>
-            <td>.showcase-event-next</td>
-            <td>CSS selector to bind next item events to.</td>
-        </tr>
-        <tr>
-            <td>prevEvent</td>
-            <td>string</td>
-            <td>.showcase-event-prev</td>
-            <td>CSS selector to bind previous item events to.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -190,10 +139,12 @@ This structure can be customized through the `template` option.
         <ul class="showcase-items"></ul>
         <ol class="showcase-tabs bullets"></ol>
 
-        <button type="button" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></button>
-        <button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>
-        <button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>
+        <button class="showcase-prev"><span class="arrow-left"></span></button>
+        <button class="showcase-next"><span class="arrow-right"></span></button>
     </div>
+
+    <button class="showcase-close showcase-hide"><span class="x"></span></button>
+    <div class="showcase-caption"></div>
 </div>
 ```
 
@@ -255,20 +206,9 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>nextButton</td>
+            <td>caption</td>
             <td>element</td>
-            <td>
-                The element that when clicked will jump to the next item.
-                This element is found using the <code>nextElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>prevButton</td>
-            <td>element</td>
-            <td>
-                The element that when clicked will jump to the previous item.
-                This element is found using the <code>prevElement</code> option.
-            </td>
+            <td>The element that contains the current item caption.</td>
         </tr>
         <tr>
             <td>index</td>
