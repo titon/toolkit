@@ -69,7 +69,7 @@
         top: 0;
         left: 0;
         opacity: 0;
-        transition: opacity $showcase-transition;
+        transition: opacity $showcase-transition, visibility $showcase-transition;
 
         > img {
             max-width: 100%;

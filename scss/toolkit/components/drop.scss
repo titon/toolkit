@@ -18,7 +18,7 @@
     z-index: $drop-zindex;
     opacity: 0;
     visibility: hidden;
-    transition: opacity $drop-transition;
+    transition: opacity $drop-transition, visibility $drop-transition;
 
     // Nested
     .#{$vendor-prefix}drop {

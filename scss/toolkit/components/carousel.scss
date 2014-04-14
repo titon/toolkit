@@ -103,7 +103,7 @@
             left: 0;
             opacity: 0;
             z-index: 1;
-            transition: opacity $carousel-transition;
+            transition: opacity $carousel-transition, visibility $carousel-transition;
 
             &.show { z-index: 5; }
         }
