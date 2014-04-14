@@ -473,6 +473,10 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
         var node = $(e.target),
             isNode = (this.node && node[0] === this.node[0]);
 

@@ -123,6 +123,7 @@ $disabled = value('disabled', false); ?>
                 native: <?php bool('native', false); ?>,
                 multipleFormat: <?php string('multipleFormat', 'count'); ?>,
                 listLimit: <?php number('listLimit', 5); ?>,
+                hideOpened: <?php bool('hideOpened', true); ?>,
                 hideFirst: <?php bool('hideFirst', false); ?>,
                 hideSelected: <?php bool('hideSelected', false); ?>
             });
@@ -136,6 +137,7 @@ $disabled = value('disabled', false); ?>
                 native: <?php bool('native', false); ?>,
                 multipleFormat: <?php string('multipleFormat', 'count'); ?>,
                 listLimit: <?php number('listLimit', 5); ?>,
+                hideOpened: <?php bool('hideOpened', true); ?>,
                 hideFirst: <?php bool('hideFirst', false); ?>,
                 hideSelected: <?php bool('hideSelected', false); ?>
            });

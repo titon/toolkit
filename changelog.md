@@ -10,7 +10,8 @@ a cleanup of element and event options, and a handful of documentation and optim
 * Added new Off Canvas component for displaying sidebars outside the viewport
 * Added new Toast component for notifying users with timed messages
 * Added `.no-transition` class
-* Fixed a bug with `swipe` event where select dropdowns would stop working
+* Fixed a bug with `swipe` events where select dropdowns would stop working
+* Fixed a bug with `swipe` events where page scrolling gets disabled
 * Fixed a bug where certain Sass variables were not customizable
 * Removed `$shape-square-class` Sass variable
 * Removed `*Element` options (CSS classes are now hardcoded)
@@ -29,7 +30,10 @@ a cleanup of element and event options, and a handful of documentation and optim
     * Removed `nextButton`, `prevButton` properties
     * Removed `itemsElement`, `tabsElement`, `nextElement`, `prevElement` options
 * Flyout
+    * Disabled automatically for touch devices
     * Removed `contentElement` option
+* Input
+    * Added `hideOpened` option to selects to hide other opened selects
 * Lazy Load
     * Removed `isLoaded` property
 * Mask

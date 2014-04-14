@@ -116,15 +116,22 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         });
 
         // Reveal the image after the transition ends
-        list.one(Toolkit.transitionEnd, function() {
+        var callback = function() {
             caption.html(item.title).reveal();
             listItem.reveal();
             self.position();
-        });
+        };
+
+        list.one(Toolkit.transitionEnd, callback);
 
         // Image already exists
         if (listItem.data('width')) {
             this._resize(listItem.data('width'), listItem.data('height'));
+
+            // IE9
+            if (!Toolkit.hasTransition) {
+                callback();
+            }
 
         // Create image and animate
         } else {
@@ -147,6 +154,11 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
                     .data('width', this.width)
                     .data('height', this.height)
                     .append(img);
+
+                // IE9
+                if (!Toolkit.hasTransition) {
+                    callback();
+                }
             };
 
             // Display error message if load fails
@@ -162,7 +174,12 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
                     .html(Toolkit.messages.error);
 
                 self._resize(150, 150);
-            }
+
+                // IE9
+                if (!Toolkit.hasTransition) {
+                    callback();
+                }
+            };
         }
 
         // Save state

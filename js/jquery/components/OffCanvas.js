@@ -20,7 +20,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     }
 
     // Setup container
-    this.container = $('body').addClass(vendor + 'canvas');
+    this.container = $(options.context || 'body').addClass(vendor + 'canvas');
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';

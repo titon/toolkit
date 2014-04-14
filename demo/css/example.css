@@ -88,3 +88,7 @@ a:hover { color: #b84374; }
 }
 
 .toast { background: #000; color: #fff; padding: 10px; }
+
+@media only screen and (max-width: 640px) {
+    .toasts { width: auto; left: 0 !important; right: 0 !important; }
+}

@@ -550,8 +550,8 @@ if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
         var elements = [];
 
-        // Add a tap event instead of touchend?
-        $(document).on('click.toolkit.out touchend.toolkit.out', function(e) {
+        // Add a tap event instead of touchstart?
+        $(document).on('click.toolkit.out touchstart.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }
@@ -632,7 +632,8 @@ if (!$.event.special.swipe) {
 
             return {
                 time: (new Date()).getTime(),
-                coords: [ data.pageX, data.pageY ]
+                x: data.pageX,
+                y: data.pageY
             };
         }
 
@@ -643,8 +644,8 @@ if (!$.event.special.swipe) {
 
             var settings = $.event.special.swipe,
                 abs = Math.abs,
-                x = stop.coords[0] - start.coords[0],
-                y = stop.coords[1] - start.coords[1],
+                x = stop.x - start.x,
+                y = stop.y - start.y,
                 direction;
 
             if ((stop.time - start.time) <= settings.duration) {
@@ -670,27 +671,39 @@ if (!$.event.special.swipe) {
             duration: 1000, // Maximum time in milliseconds to travel
             distance: 50, // Minimum distance required to travel
             restraint: 75, // Maximum distance to travel in the opposite direction
+            suppression: 30, // Maximum distance before suppressing scrolling
 
             setup: function() {
                 var self = $(this),
                     start,
-                    target;
+                    target,
+                    settings = $.event.special.swipe;
 
                 self
-                    .bind(startEvent, function(e) {
+                    // Touch has started
+                    .on(startEvent, function(e) {
                         start = startStop(e);
                         target = e.target;
+
+                        // Bind move event after touch has started
+                        self.on(moveEvent, function(e) {
+                            if (Math.abs(start.x - startStop(e).x) > settings.suppression) {
+                                e.preventDefault();
+                            }
+                        });
                     })
-                    .bind(moveEvent, function(e) {
-                        e.preventDefault();
-                    })
-                    .bind(stopEvent, function(e) {
+
+                    // Touch has stopped
+                    .on(stopEvent, function(e) {
                         swipe(start, startStop(e), self, target);
+
+                        // Unbind move event
+                        self.off(moveEvent);
                     });
             },
 
             teardown: function() {
-                $(this).unbind(startEvent).unbind(moveEvent).unbind(stopEvent);
+                $(this).off(startEvent).off(moveEvent).off(stopEvent);
             }
         };
     })();
@@ -700,10 +713,10 @@ if (!$.event.special.swipe) {
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
-                    $(this).bind('swipe', $.noop);
+                    $(this).on('swipe', $.noop);
                 },
                 teardown: function() {
-                    $(this).unbind('swipe');
+                    $(this).off('swipe');
                 }
             };
         }

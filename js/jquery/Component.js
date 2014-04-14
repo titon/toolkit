@@ -99,7 +99,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
             // Is this touch?
             if (Toolkit.isTouch && event === 'click') {
-                event = 'touchend';
+                event = 'touchstart';
             }
 
             // Determine the correct context
@@ -425,7 +425,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         if (opts.mode && opts.mode === 'hover') {
 
             // Reset for touch devices
-            // Click will be replaced with touchend in bindEvents()
+            // Click will be replaced with touchstart in bindEvents()
             if (Toolkit.isTouch) {
                 opts.mode = 'click';
             } else {

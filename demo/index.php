@@ -206,6 +206,7 @@ $components = array(
                 'list' => 'Option list'
             )),
             'listLimit' => array('title' => 'Label list limit', 'type' => 'number', 'default' => 3),
+            'hideOpened' => array('title' => 'Hide open selects?', 'type' => 'boolean', 'default' => true),
             'hideFirst' => array('title' => 'Hide first?', 'type' => 'boolean', 'default' => false),
             'hideSelected' => array('title' => 'Hide selected?', 'type' => 'boolean', 'default' => false),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
@@ -550,7 +551,9 @@ if ($vendor === 'mootools') {
     $vendorFolder = 'mootools';
 } else {
     $vendorFolder = 'jquery';
-} ?>
+}
+
+$time = time(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -559,18 +562,18 @@ if ($vendor === 'mootools') {
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../build/toolkit.min.css" rel="stylesheet" type="text/css">
-    <link href="css/example.css" rel="stylesheet" type="text/css">
+    <link href="../build/toolkit.min.css?<?= $time; ?>" rel="stylesheet" type="text/css">
+    <link href="css/example.css?<?= $time; ?>" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
-        <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
+        <link href="../css/toolkit/<?php echo $theme['css']; ?>?<?= $time; ?>" rel="stylesheet" type="text/css">
     <?php } ?>
 
     <?php if ($vendor === 'mootools') { ?>
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
-        <script src="../build/toolkit-mootools.min.js"></script>
+        <script src="../build/toolkit-mootools.min.js?<?= $time; ?>"></script>
         <script>
             Toolkit.messages = Object.merge(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -581,7 +584,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -592,7 +595,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -602,7 +605,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
     <?php } ?>
 
     <!--[if lte IE 8]>

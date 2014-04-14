@@ -191,6 +191,12 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      * Show the dropdown and apply active states.
      */
     show: function() {
+        if (this.options.hideOpened) {
+            $('.' + vendor + 'drop.select-options').each(function() {
+                $(this).siblings('select').toolkit('inputSelect', 'hide');
+            });
+        }
+
         this.element.addClass('is-active');
 
         if (this.dropdown) {
@@ -539,6 +545,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     multipleFormat: 'count', // count, list
     countMessage: '{count} of {total} selected',
     listLimit: 3,
+    hideOpened: true,
     hideFirst: false,
     hideSelected: false,
     arrowContent: '<span class="caret-down"></span>',

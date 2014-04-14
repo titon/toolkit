@@ -44,6 +44,10 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
      */
     doDestroy: function() {
         this.mask.remove();
+        this.element
+            .removeClass(vendor + 'mask-target')
+            .removeClass('is-masked')
+            .css('position', '');
     },
 
     /**

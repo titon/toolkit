@@ -30,6 +30,7 @@
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
             $$('.off-canvas').offCanvas({
+                //context: '#skeleton',
                 push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
@@ -40,6 +41,7 @@
     <?php } else { ?>
         $(function() {
             $('.off-canvas').offCanvas({
+                //context: '#skeleton',
                 push: <?php bool('push', true); ?>,
                 overlay: <?php bool('overlay', false); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,

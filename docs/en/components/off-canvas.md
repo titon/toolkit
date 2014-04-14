@@ -214,6 +214,12 @@ Inherits all options from the [parent component](../development/js.md#options).
     </thead>
     <tbody>
         <tr>
+            <td>context</td>
+            <td>string</td>
+            <td>body</td>
+            <td>CSS selector for the document container, usually the primary wrapper.</td>
+        </tr>
+        <tr>
             <td>selector</td>
             <td>string</td>
             <td></td>

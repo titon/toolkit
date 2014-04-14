@@ -262,12 +262,12 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
-.input-group {
+/*.input-group {
     > .button { height: 44px; }
 
     &.small > .button { height: 30px; }
     &.large > .button { height: 59px; }
-}
+*/
 
 .input-addon {
     background: $gray;

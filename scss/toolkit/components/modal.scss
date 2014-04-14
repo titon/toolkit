@@ -42,12 +42,7 @@
 }
 
 .#{$vendor-prefix}modal-outer {
-    position: absolute;
-    top: 0;
-    height: auto;
-    width: auto;
-    left: auto;
-    right: auto;
+    position: relative;
     margin: $margin;
     pointer-events: auto; // allow within modal
 
@@ -60,7 +55,6 @@
 
 .#{$vendor-prefix}modal-inner {
     position: relative;
-    margin: 0 auto;
 }
 
 .#{$vendor-prefix}modal-head,
