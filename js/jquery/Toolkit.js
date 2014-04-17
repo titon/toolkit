@@ -551,7 +551,7 @@ if (!$.event.special.clickout) {
         var elements = [];
 
         // Add a tap event instead of touchstart?
-        $(document).on('click.toolkit.out touchstart.toolkit.out', function(e) {
+        $(document).on(Toolkit.isTouch ? 'touchstart.toolkit.out' : 'click.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }
@@ -677,17 +677,21 @@ if (!$.event.special.swipe) {
                 var self = $(this),
                     start,
                     target,
-                    settings = $.event.special.swipe;
+                    settings = $.event.special.swipe,
+                    prevented = false;
 
                 self
                     // Touch has started
                     .on(startEvent, function(e) {
                         start = startStop(e);
                         target = e.target;
+                        prevented = false;
 
                         // Bind move event after touch has started
                         self.on(moveEvent, function(e) {
-                            if (Math.abs(start.x - startStop(e).x) > settings.suppression) {
+                            if (!prevented && Math.abs(start.x - startStop(e).x) > settings.suppression) {
+                                prevented = true;
+
                                 e.preventDefault();
                             }
                         });
@@ -713,10 +717,10 @@ if (!$.event.special.swipe) {
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
-                    $(this).on('swipe', $.noop);
+                    $(this).on('swipe.' + name, $.noop);
                 },
                 teardown: function() {
-                    $(this).off('swipe');
+                    $(this).off('swipe.' + name);
                 }
             };
         }

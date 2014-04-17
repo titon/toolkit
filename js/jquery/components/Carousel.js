@@ -106,7 +106,11 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * @param {Number} index
      */
     jump: function(index) {
-        this.index = index = $.bound(index, this.items.length);
+        index = $.bound(index, this.items.length);
+
+        if (index === this.index) {
+            return;
+        }
 
         // Update tabs
         this.tabs
@@ -136,6 +140,8 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             this.items.parent()
                 .css((animation === 'slide-up') ? 'top' : 'left', -(index * 100) + '%');
         }
+
+        this.index = index;
 
         this.reset();
         this.fireEvent('jump', index);

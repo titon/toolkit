@@ -12,10 +12,17 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary');
     this.options = options = this.setOptions(options, element);
 
-    // Cannot have multiple sidebars when pushing
+    // Overlaying should disable pushing
     if (options.overlay) {
         options.push = false;
-    } else if (options.push) {
+
+    // Push needs to be used on touch devices
+    } else if (Toolkit.isTouch) {
+        options.push = true;
+    }
+
+    // Cannot have multiple sidebars when pushing
+    if (options.push) {
         options.hideOthers = true;
     }
 
@@ -58,7 +65,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         }
 
         this.element
-            .removeClass('show') // Using conceal() doesn't trigger the transition
+            .removeClass('show')
+            .removeClass('is-expanded')
             .aria({
                 hidden: true,
                 expanded: false
@@ -79,7 +87,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             $('.' + vendor + 'off-canvas').each(function() {
                 var sidebar = $(this);
 
-                if (!sidebar.is(element) && sidebar.hasClass('show')) {
+                if (!sidebar.is(element) && sidebar.hasClass('is-expanded')) {
                     sidebar.toolkit('offCanvas', 'hide');
                 }
             });
@@ -89,8 +97,13 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             this.container.addClass((options.push ? 'push' : 'move') + '-' + this.opposite);
         }
 
+        // We need .show for non-push and overlay
+        if (!options.push) {
+            element.reveal();
+        }
+
         element
-            .reveal()
+            .addClass('is-expanded')
             .aria('expanded', true);
 
         this.fireEvent('show');
@@ -100,7 +113,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * Toggle between show and hide states.
      */
     toggle: function() {
-        if (this.element.hasClass('show')) {
+        if (this.element.hasClass('is-expanded')) {
             this.hide();
         } else {
             this.show();

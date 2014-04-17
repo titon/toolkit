@@ -47,15 +47,15 @@
                 duration: <?php number('duration', 5000); ?>
             });
 
-            $('#toast-text').on('click touchstart', function() {
+            $('#toast-text').on(Toolkit.isTouch ? 'touchstart' : 'click', function() {
                 $('body').toolkit('toast', 'create', 'This is a string of text!');
             });
 
-            $('#toast-html').on('click touchstart', function() {
+            $('#toast-html').on(Toolkit.isTouch ? 'touchstart' : 'click', function() {
                 $('body').toolkit('toast', 'create', $('<a/>').html('This is an anchor link!'));
             });
 
-            $('#toast-dismiss').on('click touchstart', function() {
+            $('#toast-dismiss').on(Toolkit.isTouch ? 'touchstart' : 'click', function() {
                 var toast = $('body').toolkit('toast'),
                     link = $('<a/>')
                         .attr('href', 'javascript:;')
