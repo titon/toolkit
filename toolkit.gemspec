@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
     gem.description = "A collection of extensible front-end UI components for the responsive and mobile web."
     gem.summary = "Provides Titon Toolkit Sass files for use in projects."
     gem.homepage = "http://titon.io"
-    gem.license = "BSD-2"
+    gem.license = "BSD-3"
 
     # Files
     gem.files = ["lib/titon-toolkit.rb"]

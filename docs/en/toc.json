@@ -178,6 +178,9 @@
                 }, {
                     "title": "Changelog",
                     "url": "/support/changelog"
+                }, {
+                    "title": "License",
+                    "url": "/support/license"
                 }
             ]
         }
