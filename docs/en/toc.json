@@ -176,6 +176,10 @@
                     "url": "/support/comparison",
                     "updated": true
                 }, {
+                    "title": "Contributing",
+                    "url": "/support/contributing",
+                    "new": true
+                }, {
                     "title": "Changelog",
                     "url": "/support/changelog"
                 }, {
