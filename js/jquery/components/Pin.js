@@ -77,9 +77,14 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
      * Remove inline styles before destroying.
      */
     doDestroy: function() {
-        this.element
-            .removeAttr('style')
-            .removeClass('is-pinned');
+        this.active = false;
+
+        // Need to be in a timeout or they won't be removed
+        setTimeout(function() {
+            this.element
+                .removeAttr('style')
+                .removeClass('is-pinned');
+        }.bind(this), 10);
     },
 
     /**

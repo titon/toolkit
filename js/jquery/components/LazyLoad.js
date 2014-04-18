@@ -36,6 +36,13 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
 }, {
 
     /**
+     * Load all images when destroying.
+     */
+    doDestroy: function() {
+        this.loadAll();
+    },
+
+    /**
      * Verify that the element is within the current browser viewport.
      *
      * @param {jQuery} node

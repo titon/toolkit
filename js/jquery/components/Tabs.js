@@ -32,7 +32,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         .attr('role', 'tablist');
 
     // Find the tabs within the nav and set ARIA attributes
-    this.tabs = this.nav.find('a').each(function(index) {
+    this.tabs = tabs = this.nav.find('a').each(function(index) {
         $(this)
             .data('index', index)
             .attr({
@@ -82,6 +82,13 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
     this.jump(index);
 }, {
+
+    /**
+     * Reveal the last section when destroying.
+     */
+    doDestroy: function() {
+        this.sections.item(this.index).reveal();
+    },
 
     /**
      * Hide all sections.

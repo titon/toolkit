@@ -8,8 +8,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.component = 'Toast';
     this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.element = $('<aside/>')
-        .addClass(vendor + 'toasts')
+    this.element = this.createElement()
         .addClass(options.position)
         .attr('role', 'log')
         .aria({
@@ -87,7 +86,8 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
 }, {
     position: 'bottom-left',
     animation: 'slide-up',
-    duration: 5000
+    duration: 5000,
+    template: '<aside class="toasts"></aside>'
 });
 
 Toolkit.create('toast', function(options) {

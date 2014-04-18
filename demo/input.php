@@ -1,7 +1,7 @@
 <?php
 $disabled = value('disabled', false); ?>
 
-<form action="" method="get">
+<form action="" method="get" id="form">
     <div class="field">
         <label class="input-checkbox" for="checkboxes1"><input id="checkboxes1" type="checkbox" name="checkboxes[]" checked <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
         <label class="input-checkbox" for="checkboxes2"><input id="checkboxes2" type="checkbox" class="cb-2" name="checkboxes[]" <?php if ($disabled) echo 'disabled'; ?>> Checkboxes</label>
@@ -11,11 +11,11 @@ $disabled = value('disabled', false); ?>
     </div>
 
     <div class="field">
-        <label class="input-checkbox" for="radios1"><input id="radios1" type="radio" class="radio-1" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
-        <label class="input-checkbox" for="radios2"><input id="radios2" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
-        <label class="input-checkbox" for="radios3"><input id="radios3" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
-        <label class="input-checkbox" for="radios4"><input id="radios4" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
-        <label class="input-checkbox" for="radios5"><input id="radios5" type="radio" class="radio-5" name="radios[]" checked <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
+        <label class="input-radio" for="radios1"><input id="radios1" type="radio" class="radio-1" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
+        <label class="input-radio" for="radios2"><input id="radios2" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
+        <label class="input-radio" for="radios3"><input id="radios3" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
+        <label class="input-radio" for="radios4"><input id="radios4" type="radio" name="radios[]" <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
+        <label class="input-radio" for="radios5"><input id="radios5" type="radio" class="radio-5" name="radios[]" checked <?php if ($disabled) echo 'disabled'; ?>> Radios</label>
     </div>
 
     <div class="field">
@@ -116,7 +116,7 @@ $disabled = value('disabled', false); ?>
 <script>
     <?php if ($vendor === 'mootools') { ?>
         window.addEvent('domready', function() {
-            $$('.example form').input({
+            $('form').input({
                 checkbox: '<?php echo value('checkbox', true) ? 'input[type="checkbox"]' : ''; ?>',
                 radio: '<?php echo value('radio', true) ? 'input[type="radio"]' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',
@@ -130,7 +130,7 @@ $disabled = value('disabled', false); ?>
         });
     <?php } else { ?>
         $(function() {
-            $('.example form').input({
+            $('#form').input({
                 checkbox: '<?php echo value('checkbox', true) ? 'input:checkbox' : ''; ?>',
                 radio: '<?php echo value('radio', true) ? 'input:radio' : ''; ?>',
                 select: '<?php echo value('select', true) ? 'select' : ''; ?>',

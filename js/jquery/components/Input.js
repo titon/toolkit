@@ -43,7 +43,32 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
      * Remove the wrapper before destroying.
      */
     doDestroy: function() {
-        this.wrapper.replaceWith(this.input);
+        var options = this.options,
+            element = this.element;
+
+        if (this.component === 'Input') {
+            if (options.checkbox) {
+                element.find(options.checkbox).each(function() {
+                    $(this).toolkit('inputCheckbox', 'destroy');
+                });
+            }
+
+            if (options.radio) {
+                element.find(options.radio).each(function() {
+                    $(this).toolkit('inputRadio', 'destroy');
+                });
+            }
+
+            if (options.select) {
+                element.find(options.select).each(function() {
+                    $(this).toolkit('inputSelect', 'destroy');
+                });
+            }
+
+        } else {
+            this.wrapper.replaceWith(this.input);
+            this.input.removeAttr('style');
+        }
     },
 
     /**
