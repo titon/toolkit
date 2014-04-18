@@ -5,36 +5,31 @@
  */
 
 Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
-    var events = {};
-
     this.component = 'OffCanvas';
     this.version = '1.4.0';
-    this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary');
+    this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
     this.options = options = this.setOptions(options, element);
 
-    // Overlaying should disable pushing
-    if (options.overlay) {
-        options.push = false;
+    var events = {}, animation = options.animation;
 
-    // Push needs to be used on touch devices
-    } else if (Toolkit.isTouch) {
-        options.push = true;
+    // Touch devices cannot use squish
+    if (Toolkit.isTouch && animation === 'squish') {
+        options.animation = animation = 'push';
     }
 
-    // Cannot have multiple sidebars when pushing
-    if (options.push) {
+    // Cannot have multiple non-overlayed or squished sidebars open
+    if (animation !== 'on-top' && animation !== 'squish') {
         options.hideOthers = true;
     }
 
     // Setup container
-    this.container = $(options.context || 'body').addClass(vendor + 'canvas');
+    this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
     this.opposite = (this.side === 'left') ? 'right' : 'left';
 
     // Initialize events
-    events['resize window'] = $.debounce(this.onResize);
     events['ready document'] = 'onReady';
 
     if (this.side === 'left') {
@@ -58,14 +53,11 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * Hide the sidebar and reset the container.
      */
     hide: function() {
-        var options = this.options;
-
-        if (!options.overlay) {
-            this.container.removeClass((options.push ? 'push' : 'move') + '-' + this.opposite);
-        }
+        this.container
+            .removeClass('move-' + this.opposite);
 
         this.element
-            .removeClass('show')
+            .conceal()
             .removeClass('is-expanded')
             .aria({
                 hidden: true,
@@ -81,10 +73,11 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      */
     show: function() {
         var options = this.options,
-            element = this.element;
+            element = this.element,
+            container = this.container;
 
         if (options.hideOthers) {
-            $('.' + vendor + 'off-canvas').each(function() {
+            container.find('.' + vendor + 'off-canvas').each(function() {
                 var sidebar = $(this);
 
                 if (!sidebar.is(element) && sidebar.hasClass('is-expanded')) {
@@ -93,16 +86,11 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             });
         }
 
-        if (!options.overlay) {
-            this.container.addClass((options.push ? 'push' : 'move') + '-' + this.opposite);
-        }
-
-        // We need .show for non-push and overlay
-        if (!options.push) {
-            element.reveal();
-        }
+        container
+            .addClass('move-' + this.opposite);
 
         element
+            .reveal()
             .addClass('is-expanded')
             .aria('expanded', true);
 
@@ -128,42 +116,24 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * @private
      */
     onReady: function() {
-        this.onResize();
-
-        var element = this.element,
-            container = this.container,
-            options = this.options,
-            transClass = 'no-transition',
-            oldHide = options.hideOthers;
-
-        if (!options.openOnLoad) {
+        if (!this.options.openOnLoad) {
             return;
         }
 
-        element.addClass(transClass);
-        container.addClass(transClass);
-        options.hideOthers = false;
+        var sidebar = this.element,
+            inner = this.container.find('.' + vendor + 'on-canvas'),
+            transClass = 'no-transition';
+
+        sidebar.addClass(transClass);
+        inner.addClass(transClass);
 
         this.show();
 
         // Transitions will still occur unless we place in a timeout
         setTimeout(function() {
-            element.removeClass(transClass);
-            container.removeClass(transClass);
-            options.hideOthers = oldHide;
+            sidebar.removeClass(transClass);
+            inner.removeClass(transClass);
         }, 1);
-    },
-
-    /**
-     * Set the container to its current width.
-     * This allows us to push the content outside the viewport.
-     */
-    onResize: function() {
-        if (this.options.push) {
-            this.container.css('width', $(window).width());
-        }
-
-        this.fireEvent('resize');
     },
 
     /**
@@ -187,8 +157,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
 }, {
     selector: '',
-    push: true,
-    overlay: false,
+    animation: 'push',
     openOnLoad: false,
     hideOthers: true
 });

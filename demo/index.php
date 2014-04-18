@@ -302,8 +302,15 @@ $components = array(
         'css' => 'components/off-canvas.css',
         'js' => 'components/OffCanvas.js',
         'filters' => array(
-            'push' => array('title' => 'Push content?', 'type' => 'boolean', 'default' => true),
-            'overlay' => array('title' => 'Overlay content?', 'type' => 'boolean', 'default' => false),
+            'animation' => array('title' => 'Animation', 'data' => array(
+                'push' => 'Push',
+                'push-down' => 'Push Down',
+                'push-reveal' => 'Push Reveal',
+                'reverse-push' => 'Reverse Push',
+                'reveal' => 'Reveal',
+                'squish' => 'Squish',
+                'on-top' => 'On Top'
+            ), 'default' => 'push'),
             'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false),
             'hideOthers' => array('title' => 'Hide other sidebars?', 'type' => 'boolean', 'default' => true)
         )
