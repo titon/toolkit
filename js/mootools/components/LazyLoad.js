@@ -22,7 +22,6 @@ Toolkit.LazyLoad = new Class({
 
     /** Default options */
     options: {
-        lazyClass: '.lazy-load',
         forceLoad: false,
         delay: 10000,
         threshold: 150,
@@ -59,6 +58,13 @@ Toolkit.LazyLoad = new Class({
     },
 
     /**
+     * Load all images when destroying.
+     */
+    doDestroy: function() {
+        this.loadAll();
+    },
+
+    /**
      * Verify that the element is within the current browser viewport.
      *
      * @param {Element} node
@@ -91,11 +97,7 @@ Toolkit.LazyLoad = new Class({
      * @returns {bool}
      */
     load: function() {
-        if (this.isLoaded) {
-            return false;
-        }
-
-        if (this.loaded === this.elements.length) {
+        if (this.loaded >= this.elements.length) {
             this.shutdown();
 
             return false;
@@ -118,10 +120,6 @@ Toolkit.LazyLoad = new Class({
      * @returns {bool}
      */
     loadAll: function() {
-        if (this.isLoaded) {
-            return false;
-        }
-
         this.elements.each(function(node, index) {
             if (node) {
                 this.show(node, index);
@@ -178,9 +176,10 @@ Toolkit.LazyLoad = new Class({
      * @returns {Toolkit.LazyLoad}
      */
     shutdown: function() {
-        this.isLoaded = true;
-        this.disable();
-        this.fireEvent('shutdown');
+        if (this.enabled) {
+            this.disable();
+            this.fireEvent('shutdown');
+        }
 
         return this;
     },
@@ -201,9 +200,6 @@ Toolkit.LazyLoad = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through lazyLoad().
- */
 Toolkit.create('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });

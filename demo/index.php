@@ -48,6 +48,10 @@ $effects = array(
     'visual-popout' => 'Popout'
 );
 
+$unsupported = array(
+    'mootools' => array('off-canvas', 'toast')
+);
+
 $components = array(
     'home' => array(
         'title' => 'Introduction'
@@ -708,8 +712,12 @@ $time = time(); ?>
         <div class="example">
             <?php $path = sprintf('./%s.php', $componentKey ?: 'home');
 
-            if (file_exists($path)) {
+            if (isset($unsupported[$vendor]) && in_array($componentKey, $unsupported[$vendor])) {
+                include './unsupported.php';
+
+            } else if (file_exists($path)) {
                 include $path;
+
             } else {
                 echo 'No such component ' . $componentKey;
             } ?>

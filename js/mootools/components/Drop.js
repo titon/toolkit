@@ -24,15 +24,11 @@ Toolkit.Drop = new Class({
         this.parent(options);
         this.nodes = elements;
 
-        var events = {},
-            selector = this.options.delegate;
-
-        // Initialize events
-        events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
-        events['clickout ' + selector] = 'hide';
-        events[this.options.mode + ' ' + selector] = 'onShow';
-
-        this.events = events;
+        this.events = {
+            'clickout document .@drop': 'hide',
+            'clickout document {selector}': 'hide',
+            '{mode} document {selector}': 'onShow'
+        };
 
         this.enable();
         this.fireEvent('init');
@@ -103,9 +99,6 @@ Toolkit.Drop = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through drop().
- */
 Toolkit.create('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);

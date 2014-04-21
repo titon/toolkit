@@ -7,6 +7,7 @@ This minor release includes 3 new components, a new `destroy()` method,
 a cleanup of element and event options, and a handful of documentation and optimization improvements.
 
 * Usage license has been updated to BSD-3 from BSD-2
+* MooTools support is slowly being phased out and new components are not supported
 * Added new Divider component for separating content
 * Added new Off Canvas component for displaying sidebars outside the viewport
 * Added new Toast component for notifying users with timed messages

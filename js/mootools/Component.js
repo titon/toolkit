@@ -41,6 +41,9 @@ Toolkit.Component = new Class({
         templateFrom: ''
     },
 
+    /** Dynamic options generated at runtime */
+    runtime: {},
+
     /**
      * Set options.
      *
@@ -56,6 +59,7 @@ Toolkit.Component = new Class({
 
         this.uid = Toolkit[className].count += 1;
         this.cssClass = className.hyphenate().slice(1);
+        this.keyName = className.charAt(0).toLowerCase() + className.slice(1);
     },
 
     /**
@@ -67,6 +71,7 @@ Toolkit.Component = new Class({
      */
     bindEvents: function(type) {
         var self = this,
+            options = this.options,
             event,
             keys,
             context,
@@ -80,27 +85,32 @@ Toolkit.Component = new Class({
         // event document = func        Bind document event
         // ready document = func        Bind DOM ready event
         // event property = func        Bind event to collection that matches class property
-        // event .class = func          Bind delegated events to class on document
         // event context .class = func  Bind delegated events to class within context
         Object.each(this.events, function(value, key) {
             funcs = (typeOf(value) === 'array') ? value : [value];
+
+            // Replace tokens
+            key = key.replace('{mode}', options.mode);
+            key = key.replace('{selector}', options.delegate || '');
+
+            // Extract arguments
             keys = key.split(' ');
-            event = keys[0];
-            context = keys[1];
-            selector = keys[2] || null;
+            event = keys.shift();
+            context = keys.shift();
+            selector = keys.join(' ').replace('@', vendor);
 
-            // No context defined, so use the context in options
-            // Also clickout events cannot be delegated
-            var charAt = context.charAt(0);
-
-            if ((charAt === '.' || charAt === '#' || charAt === '[') && event !== 'clickout') {
-                selector = context;
-                context = self.options.context;
+            // Is this touch?
+            if (Toolkit.isTouch && event === 'click') {
+                event = 'touchstart';
             }
 
-            // The context is a property on the object
+            // Determine the correct context
             if (typeof self[context] !== 'undefined') {
                 context = self[context];
+            } else if (context === 'window') {
+                context = win;
+            } else if (context === 'document') {
+                context = doc;
             }
 
             // Exit if no context or empty context
@@ -113,28 +123,16 @@ Toolkit.Component = new Class({
                     func = self[func].bind(self);
                 }
 
-                // On window
-                if (context === 'window') {
-                    win[method](event, func);
+                // Ready events
+                if (event === 'ready') {
+                    win[method]('domready', func);
 
-                // On document
-                } else if (context === 'document') {
-                    if (event === 'ready') {
-                        win[method]('domready', func);
-                    } else {
-                        doc[method](event, func);
-                    }
-
-                // Clickout
-                } else if (event === 'clickout') {
-                    $$(context)[method](event, func);
-
-                // Delegated
+                // Delegated events
                 } else if (selector) {
-                    (context || doc)[method](event + ':relay(' + selector + ')', func);
+                    context[method](event + ':relay(' + selector + ')', func);
 
-                // On element
-                } else if (context) {
+                // Regular events
+                } else {
                     context[method](event, func);
                 }
             });
@@ -142,7 +140,6 @@ Toolkit.Component = new Class({
 
         return this;
     },
-
 
     /**
      * Return the class name of the current object.
@@ -204,7 +201,41 @@ Toolkit.Component = new Class({
             throw new Error(this.className() + ' failed to create template element');
         }
 
+        // Set a flag so we know if the element was created or embedded
+        this.created = true;
+
         return this;
+    },
+
+    /**
+     * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     */
+    destroy: function() {
+        this.fireEvent('destroy');
+
+        // Remove active state
+        this.hide();
+
+        if (this.doDestroy) {
+            this.doDestroy();
+        }
+
+        // Remove events
+        this.disable();
+
+        // Remove element only if it was created
+        if (this.created) {
+            this.element.dispose();
+        }
+
+        // Remove instances
+        // This must be called last or else the previous commands will fail
+        if (this.nodes) {
+            this.nodes.removeProperty('$' + this.keyName);
+
+        } else if (this.element) {
+            this.element.removeProperty('$' + this.keyName);
+        }
     },
 
     /**
@@ -213,8 +244,11 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     disable: function() {
+        if (this.enabled) {
+            this.bindEvents('off');
+        }
+
         this.enabled = false;
-        this.bindEvents('off');
 
         return this;
     },
@@ -225,8 +259,11 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     enable: function() {
+        if (!this.enabled) {
+            this.bindEvents('on');
+        }
+
         this.enabled = true;
-        this.bindEvents('on');
 
         return this;
     },
@@ -278,7 +315,7 @@ Toolkit.Component = new Class({
                 continue;
             }
 
-            value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
+            value = element.get(('data-' + this.keyName + '-' + key).toLowerCase());
 
             if (typeOf(value) !== 'null') {
                 obj[key] = Toolkit.autobox(value);
@@ -372,7 +409,7 @@ Toolkit.Component = new Class({
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.get('data-' + this.cssClass + '-' + key.toLowerCase());
+        var value = element.get(('data-' + this.keyName + '-' + key).toLowerCase());
 
         if (typeOf(value) === 'null') {
             value = this.options[key];
@@ -455,7 +492,7 @@ Toolkit.Component = new Class({
 
                 self.position(response);
 
-                // JSON, others
+            // JSON, others
             } else {
                 delete self.cache[url];
 
@@ -503,6 +540,7 @@ Toolkit.Component = new Class({
         if (options.mode && options.mode === 'hover') {
 
             // Reset for touch devices
+            // Click will be replaced with touchstart in bindEvents()
             if (Toolkit.isTouch) {
                 options.mode = 'click';
             } else {

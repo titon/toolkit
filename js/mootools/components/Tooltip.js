@@ -27,8 +27,6 @@ Toolkit.Tooltip = new Class({
         xOffset: 0,
         yOffset: 0,
         delay: 0,
-        titleElement: '.tooltip-head',
-        contentElement: '.tooltip-body',
         template: '<div class="tooltip">' +
             '<div class="tooltip-inner">' +
                 '<div class="tooltip-head"></div>' +
@@ -58,8 +56,8 @@ Toolkit.Tooltip = new Class({
         var title = 'data' + this.cssClass + '-title';
 
         // Fetch elements
-        this.elementHead = this.element.getElement(options.titleElement);
-        this.elementBody = this.element.getElement(options.contentElement);
+        this.elementHead = this.element.getElement('.' + vendor + this.cssClass + '-head');
+        this.elementBody = this.element.getElement('.' + vendor + this.cssClass + '-body');
 
         // Add position class
         this.element
@@ -75,16 +73,16 @@ Toolkit.Tooltip = new Class({
         }
 
         // Initialize events
-        var events = {}, selector = options.delegate;
+        var events = {
+            '{mode} document {selector}': 'onShow'
+        };
 
         if (options.mode === 'click') {
             events['clickout element'] = 'hide';
-            events['clickout ' + selector] = 'hide';
+            events['clickout document {selector}'] = 'hide';
         } else {
-            events['mouseleave ' + selector] = 'hide';
+            events['mouseleave document {selector}'] = 'hide';
         }
-
-        events[options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
 
@@ -245,9 +243,6 @@ Toolkit.Tooltip = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through tooltip().
- */
 Toolkit.create('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);

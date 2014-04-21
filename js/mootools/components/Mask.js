@@ -15,9 +15,9 @@ Toolkit.Mask = new Class({
 
     /** Default options */
     options: {
+        selector: '',
         revealOnClick: false,
-        messageContent: '',
-        messageElement: '.mask-message'
+        messageContent: ''
     },
 
     /**
@@ -29,14 +29,13 @@ Toolkit.Mask = new Class({
     initialize: function(element, options) {
         this.parent(options);
         this.element = element;
-        this.options = this.inheritOptions(this.options, element);
+        this.options = options = this.inheritOptions(this.options, element);
 
-        var vendor = Toolkit.vendor,
-            maskClass = '.' + vendor + 'mask';
+        var maskClass = '.' + vendor + 'mask';
 
         // Only apply to static elements
         if (element !== document.body) {
-            element.addClass(vendor + 'maskable');
+            element.addClass(vendor + 'mask-target');
 
             if (element.getStyle('position') === 'static') {
                 element.setStyle('position', 'relative');
@@ -46,8 +45,24 @@ Toolkit.Mask = new Class({
         // Find a mask or create it
         this.setMask(element.getElement('> ' + maskClass) || new Element('div' + maskClass));
 
+        if (options.selector) {
+            this.events = {};
+            this.events['click document ' + options.selector] = 'toggle';
+        }
+
         this.enable();
         this.fireEvent('init');
+    },
+
+    /**
+     * Remove the mask element before destroying.
+     */
+    doDestroy: function() {
+        this.mask.dispose();
+        this.element
+            .removeClass(vendor + 'mask-target')
+            .removeClass('is-masked')
+            .setStyle('position', '');
     },
 
     /**
@@ -84,11 +99,11 @@ Toolkit.Mask = new Class({
         }
 
         this.mask = element;
-        this.message = element.getElement('> ' + options.messageElement);
+        this.message = element.getElement('> .' + vendor + 'mask-message');
 
         // Create message if it does not exist
         if (!this.message) {
-            this.message = new Element('div' + options.messageElement).inject(element, 'bottom');
+            this.message = new Element('div.' + vendor + 'mask-message').inject(element, 'bottom');
 
             if (options.messageContent) {
                 this.message.set('html', options.messageContent);
@@ -114,7 +129,7 @@ Toolkit.Mask = new Class({
     },
 
     /**
-     * Toggle between display states,
+     * Toggle between display states.
      *
      * @returns {Toolkit.Mask}
      */
@@ -124,9 +139,6 @@ Toolkit.Mask = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through mask().
- */
 Toolkit.create('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });

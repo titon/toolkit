@@ -153,11 +153,6 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         // Remove element only if it was created
         if (this.created) {
             this.element.remove();
-
-        // Or remove attributes
-        // TODO - Remove ARIA attributes
-        } else {
-            this.element.removeAttr('role');
         }
 
         // Remove instances

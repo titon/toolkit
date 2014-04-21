@@ -238,7 +238,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         '<div class="modal-outer">' +
             '<div class="modal-handle">' +
                 '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-hide"><span class="x"></span></button>' +
+                '<button class="modal-close modal-hide"><span class="x"></span></button>' +
             '</div>' +
         '</div>' +
     '</div>'

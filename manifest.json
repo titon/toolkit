@@ -376,7 +376,8 @@
         "require": ["base", "blackout"],
         "source": {
             "css": ["components/showcase.css"],
-            "js": ["components/Showcase.js"]
+            "js": ["components/Showcase.js"],
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "stalker": {

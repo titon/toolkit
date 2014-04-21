@@ -50,7 +50,7 @@ Toolkit.Matrix = new Class({
         this.options = this.inheritOptions(this.options, element);
 
         // Load elements
-        element.addClass(Toolkit.vendor + 'matrix');
+        element.addClass(vendor + 'matrix');
         this.items = element.getElements('> li');
 
         // Set events
@@ -80,6 +80,14 @@ Toolkit.Matrix = new Class({
             .setStyle('opacity', 0);
 
         return this.refresh();
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.element.removeProperty('style');
+        this.items.removeProperty('style');
     },
 
     /**
@@ -366,9 +374,6 @@ Toolkit.Matrix = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through matrix().
- */
 Toolkit.create('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });

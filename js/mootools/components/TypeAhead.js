@@ -37,7 +37,6 @@ Toolkit.TypeAhead = new Class({
         shadow: false,
         storage: 'session',
         query: {},
-        contentElement: '',
         template: '<div class="type-ahead"></div>',
 
         // Callbacks
@@ -99,7 +98,7 @@ Toolkit.TypeAhead = new Class({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.node = new Element('div.' + Toolkit.vendor + 'type-ahead-shadow').wraps(this.input);
+            this.node = new Element('div.' + vendor + 'type-ahead-shadow').wraps(this.input);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -154,17 +153,27 @@ Toolkit.TypeAhead = new Class({
             'aria-selected': 'false'
         });
 
-        a.grab( new Element('span.' + Toolkit.vendor + 'type-ahead-title', {
+        a.grab( new Element('span.' + vendor + 'type-ahead-title', {
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
-            a.grab( new Element('span.' + Toolkit.vendor + 'type-ahead-desc', {
+            a.grab( new Element('span.' + vendor + 'type-ahead-desc', {
                 html: item.description
             }) );
         }
 
         return a;
+    },
+
+    /**
+     * Remove the shadow before destroying.
+     */
+    doDestroy: function() {
+        if (this.shadow) {
+            this.shadow.getParent().replaceWith(this.input);
+            this.input.removeClass('not-shadow');
+        }
     },
 
     /**
@@ -192,7 +201,7 @@ Toolkit.TypeAhead = new Class({
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<mark class="' + Toolkit.vendor + 'type-ahead-highlight">' + match + '</mark>';
+                return '<mark class="' + vendor + 'type-ahead-highlight">' + match + '</mark>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -370,7 +379,7 @@ Toolkit.TypeAhead = new Class({
                 results.push(null);
 
                 elements.push(
-                    new Element('li').addClass(Toolkit.vendor + 'type-ahead-heading').grab(new Element('span', { text: category }))
+                    new Element('li').addClass(vendor + 'type-ahead-heading').grab(new Element('span', { text: category }))
                 );
             }
 
@@ -394,11 +403,7 @@ Toolkit.TypeAhead = new Class({
         }.bind(this));
 
         // Append list
-        if (options.contentElement) {
-            this.element.getElement(options.contentElement).empty().grab(list);
-        } else {
-            this.element.empty().grab(list);
-        }
+        this.element.empty().grab(list);
 
         // Set the current result set to the items list
         // This will be used for index cycling
@@ -613,9 +618,6 @@ Toolkit.TypeAhead = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through typeAhead().
- */
 Toolkit.create('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });

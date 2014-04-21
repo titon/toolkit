@@ -46,7 +46,7 @@ Toolkit.Pin = new Class({
         // Set defaults
         element
             .set('role', 'complementary')
-            .addClass(Toolkit.vendor + 'pin')
+            .addClass(vendor + 'pin')
             .addClass(options.animation);
 
         this.elementTop = element.getStyle('top').toInt();
@@ -88,6 +88,20 @@ Toolkit.Pin = new Class({
         }
 
         return this;
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.active = false;
+
+        // Need to be in a timeout or they won't be removed
+        setTimeout(function() {
+            this.element
+                .removeProperty('style')
+                .removeClass('is-pinned');
+        }.bind(this), 10);
     },
 
     /**
@@ -186,9 +200,6 @@ Toolkit.Pin = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through pin().
- */
 Toolkit.create('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });

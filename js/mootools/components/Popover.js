@@ -11,8 +11,6 @@ Toolkit.Popover = new Class({
     options: {
         delegate: '.js-popover',
         getContent: 'data-popover',
-        titleElement: '.popover-head',
-        contentElement: '.popover-body',
         template: '<div class="popover">' +
             '<div class="popover-inner">' +
                 '<div class="popover-head"></div>' +
@@ -38,9 +36,6 @@ Toolkit.Popover = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through popover().
- */
 Toolkit.create('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);

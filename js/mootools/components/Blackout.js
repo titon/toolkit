@@ -20,7 +20,7 @@ Toolkit.Blackout = new Class({
     options: {
         loader: 'bar-wave',
         waveCount: 5,
-        template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
+        template: '<div class="' + vendor + 'blackout"></div>',
         templateFrom: '#toolkit-blackout-1'
     },
 
@@ -41,7 +41,6 @@ Toolkit.Blackout = new Class({
      */
     createLoader: function() {
         var options = this.options,
-            vendor = Toolkit.vendor,
             count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount;
 
         this.loader = new Element('div.' + vendor + 'loader.' + options.loader)
@@ -56,7 +55,7 @@ Toolkit.Blackout = new Class({
 
         // Append to the loader
         if (options.loader === 'bubble-spinner') {
-            new Element('div.spinner')
+            new Element('div.' + vendor + 'loader-spinner')
                 .set('html', spans)
                 .inject(this.loader);
         } else {
@@ -137,7 +136,7 @@ Toolkit.Blackout = new Class({
 });
 
 /** Has the blackout been created already? */
-var instance = null;
+var blackout = null;
 
 /**
  * Only one instance of Blackout should exist,
@@ -147,9 +146,9 @@ var instance = null;
  * @returns {Toolkit.Blackout}
  */
 Toolkit.Blackout.factory = function(options) {
-    if (instance) {
-        return instance;
+    if (blackout) {
+        return blackout;
     }
 
-    return instance = new Toolkit.Blackout(options);
+    return blackout = new Toolkit.Blackout(options);
 };

@@ -30,8 +30,6 @@ Toolkit.Tabs = new Class({
         cookie: null,
         cookieDuration: 30,
         getUrl: 'href',
-        navElement: '.tabs-nav',
-        sectionElement: '.tabs-section',
         template: false
     },
 
@@ -51,7 +49,7 @@ Toolkit.Tabs = new Class({
         }
 
         // Get elements
-        this.sections = element.getElements(options.sectionElement).each(function(section, index) {
+        this.sections = element.getElements('.' + vendor + 'tabs-section').each(function(section, index) {
             section
                 .set('role', 'tabpanel')
                 .set('id', section.get('id') || this.id('section', index))
@@ -59,9 +57,9 @@ Toolkit.Tabs = new Class({
                 .conceal();
         }.bind(this));
 
-        this.nav = element.getElement(options.navElement).set('role', 'tablist');
+        this.nav = element.getElement('.' + vendor + 'tabs-nav').set('role', 'tablist');
 
-        this.tabs = this.nav.getElements('ul > li > a').each(function(tab, index) {
+        this.tabs = this.nav.getElements('a').each(function(tab, index) {
             tab
                 .set({
                     'data-index': index,
@@ -77,10 +75,11 @@ Toolkit.Tabs = new Class({
         }.bind(this));
 
         // Set events
-        this.events[options.mode + ' tabs'] = 'onShow';
+        this.events = {};
+        this.events['{mode} element .@tabs-nav a'] = 'onShow';
 
         if (options.mode !== 'click' && options.preventDefault) {
-            this.events['click tabs'] = function(e) {
+            this.events['click element .@tabs-nav a'] = function(e) {
                 e.preventDefault();
             };
         }
@@ -110,6 +109,13 @@ Toolkit.Tabs = new Class({
         }
 
         this.jump(index);
+    },
+
+    /**
+     * Reveal the last section when destroying.
+     */
+    doDestroy: function() {
+        this.sections[this.index].reveal();
     },
 
     /**
@@ -184,8 +190,9 @@ Toolkit.Tabs = new Class({
         }
 
         // Toggle tabs
-        this.nav.getElements('ul > li').removeClass('is-active');
-        this.tabs.aria({ selected: false, expanded: false });
+        this.tabs
+            .aria({ selected: false, expanded: false })
+            .getParent().removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -223,20 +230,18 @@ Toolkit.Tabs = new Class({
      *
      * @private
      * @param {DOMEvent} e
+     * @param {Element} node
      */
-    onShow: function(e) {
+    onShow: function(e, node) {
         if (this.options.preventDefault || (this.options.ajax && e.target.get('href').substr(0, 1) !== '#')) {
             e.preventDefault();
         }
 
-        this.show(e.target);
+        this.show(node);
     }
 
 });
 
-/**
- * Defines a component that can be instantiated through tabs().
- */
 Toolkit.create('tabs', function(options) {
     return new Toolkit.Tabs(this, options);
 });
