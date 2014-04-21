@@ -83,6 +83,7 @@ Toolkit.Accordion = new Class({
      * Reveal all sections before destroying.
      */
     doDestroy: function() {
+        this.element.reveal();
         this.headers.getParent().removeClass('is-active');
         this.sections.removeProperty('style').reveal();
     },

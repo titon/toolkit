@@ -25,8 +25,8 @@ Toolkit.Drop = new Class({
         this.nodes = elements;
 
         this.events = {
-            'clickout document .@drop': 'hide',
-            'clickout document {selector}': 'hide',
+            'clickout document .@drop': 'onHide',
+            'clickout document {selector}': 'onHide',
             '{mode} document {selector}': 'onShow'
         };
 

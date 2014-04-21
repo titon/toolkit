@@ -6,6 +6,7 @@
 
 Toolkit.Flyout = new Class({
     Extends: Toolkit.Component,
+    Binds: ['onEnter', 'onLeave'],
     Implements: [Timers],
 
     /** The current menu URL being displayed */

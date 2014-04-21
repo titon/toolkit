@@ -6,7 +6,7 @@
 
 Toolkit.Showcase = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', 'onJump'],
+    Binds: ['next', 'prev', 'onJump', 'onSwipe', 'onKeydown'],
 
     /** Items elements */
     items: null,

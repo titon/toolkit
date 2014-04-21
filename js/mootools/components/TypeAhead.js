@@ -133,7 +133,7 @@ Toolkit.TypeAhead = new Class({
         this.events = {
             'keyup input': 'onLookup',
             'keydown input': 'onCycle',
-            'clickout element': 'hide'
+            'clickout element': 'onHide'
         };
 
         this.enable();
@@ -171,8 +171,9 @@ Toolkit.TypeAhead = new Class({
      */
     doDestroy: function() {
         if (this.shadow) {
-            this.shadow.getParent().replaceWith(this.input);
-            this.input.removeClass('not-shadow');
+            this.input
+                .replaces(this.shadow.getParent())
+                .removeClass('not-shadow');
         }
     },
 

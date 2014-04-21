@@ -95,6 +95,7 @@ Toolkit.Pin = new Class({
      */
     doDestroy: function() {
         this.active = false;
+        this.element.reveal();
 
         // Need to be in a timeout or they won't be removed
         setTimeout(function() {

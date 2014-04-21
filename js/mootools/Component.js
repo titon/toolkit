@@ -120,7 +120,7 @@ Toolkit.Component = new Class({
 
             funcs.each(function(func) {
                 if (typeOf(func) !== 'function') {
-                    func = self[func].bind(self);
+                    func = self[func];
                 }
 
                 // Ready events
@@ -209,6 +209,8 @@ Toolkit.Component = new Class({
 
     /**
      * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     *
+     * @returns {Toolkit.Component}
      */
     destroy: function() {
         this.fireEvent('destroy');
@@ -229,13 +231,19 @@ Toolkit.Component = new Class({
         }
 
         // Remove instances
+        var key = this.keyName;
+
         // This must be called last or else the previous commands will fail
         if (this.nodes) {
-            this.nodes.removeProperty('$' + this.keyName);
+            this.nodes.each(function(node) {
+                delete node['$' + key];
+            });
 
         } else if (this.element) {
-            this.element.removeProperty('$' + this.keyName);
+            delete this.element['$' + key];
         }
+
+        return this;
     },
 
     /**
@@ -275,7 +283,7 @@ Toolkit.Component = new Class({
      * @returns {Toolkit.Component}
      */
     hide: function(callback) {
-        if (this.element) {
+        if (this.element && this.element !== document.body) {
             this.element.conceal();
         }
 

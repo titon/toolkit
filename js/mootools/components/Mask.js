@@ -6,6 +6,7 @@
 
 Toolkit.Mask = new Class({
     Extends: Toolkit.Component,
+    Binds: ['toggle'],
 
     /** The transparent mask that covers the element */
     mask: null,

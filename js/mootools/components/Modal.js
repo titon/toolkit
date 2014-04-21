@@ -6,7 +6,7 @@
 
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
-    Binds: ['onSubmit'],
+    Binds: ['onSubmit', 'onKeydown'],
 
     /** Blackout instance if options.blackout is true */
     blackout: null,

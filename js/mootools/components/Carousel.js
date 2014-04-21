@@ -6,7 +6,7 @@
 
 Toolkit.Carousel = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump'],
+    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump', 'onKeydown', 'onSwipe'],
 
     /** Is the carousel stopped? */
     stopped: false,
@@ -119,6 +119,7 @@ Toolkit.Carousel = new Class({
     doDestroy: function() {
         clearInterval(this.timer);
         this.stop();
+        this.element.reveal();
     },
 
     /**

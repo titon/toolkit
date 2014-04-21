@@ -89,7 +89,9 @@ Toolkit.Input = new Class({
         var options = this.options,
             element = this.element;
 
-        if (this.component === 'Input') {
+        if (this.className() === 'Input') {
+            this.element.reveal();
+
             if (options.checkbox) {
                 element.getElements(options.checkbox).each(function(el) {
                     el.toolkit('inputCheckbox', 'destroy');
@@ -109,8 +111,9 @@ Toolkit.Input = new Class({
             }
 
         } else {
-            this.wrapper.replaceWith(this.input);
-            this.input.removeProperty('style');
+            this.input
+                .replaces(this.wrapper)
+                .removeProperty('style');
         }
     }
 
@@ -605,7 +608,6 @@ Toolkit.InputSelect = new Class({
      * Event handler for toggling custom dropdown display.
      *
      * @private
-     * @param {DOMEvent} e
      */
     onToggle: function() {
         if (this.input.disabled) {

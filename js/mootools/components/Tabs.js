@@ -115,6 +115,7 @@ Toolkit.Tabs = new Class({
      * Reveal the last section when destroying.
      */
     doDestroy: function() {
+        this.element.reveal();
         this.sections[this.index].reveal();
     },
 

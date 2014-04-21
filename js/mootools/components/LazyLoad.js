@@ -6,7 +6,7 @@
 
 Toolkit.LazyLoad = new Class({
     Extends: Toolkit.Component,
-    Binds: ['load', 'loadAll'],
+    Binds: ['load', 'loadAll', 'onReady'],
 
     /** Container to monitor events on */
     container: null,
