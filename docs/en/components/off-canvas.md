@@ -132,9 +132,7 @@ $('.off-canvas').offCanvas({
 
 ### Notes ###
 
-* Do not use `conceal()` on the sidebar element as it breaks transitions.
-* A `.canvas` class will be appended to the container.
-* When a sidebar is open, the container will have a `.push-*` or `.move-*` class added (only if `overlay` is disabled).
+* When a sidebar is open, a `.is-expanded` class will be added.
 
 ## ARIA ##
 
@@ -214,31 +212,19 @@ Inherits all options from the [parent component](../development/js.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>context</td>
-            <td>string</td>
-            <td>body</td>
-            <td>CSS selector for the document container, usually the primary wrapper.</td>
-        </tr>
-        <tr>
             <td>selector</td>
             <td>string</td>
             <td></td>
-            <td>
-                CSS selector to bind click toggle events to.
-                This toggle event will open and close the sidebar.
-            </td>
+            <td>CSS selector to bind click toggle events to.</td>
         </tr>
         <tr>
+            <td>animation</td>
+            <td>string</td>
             <td>push</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Will push the content outside of the viewport instead of squishing it.</td>
-        </tr>
-        <tr>
-            <td>overlay</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Will display the sidebar over the content, instead of pushing the content.</td>
+            <td>
+                Animation to use when displaying the sidebar.
+                Accepts push, push-reveal, push-down, reverse-push, reveal, squish, on-top.
+            </td>
         </tr>
         <tr>
             <td>openOnLoad</td>
@@ -276,7 +262,7 @@ Inherits all events from the [parent component](../development/js.md#events).
             <td>onResize</td>
             <td>resize.toolkit.offCanvas</td>
             <td></td>
-            <td>Triggered when the browser is resized and on DOM ready.</td>
+            <td>Triggered when the browser is resized.</td>
         </tr>
     </tbody>
 </table>
@@ -291,26 +277,27 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>container</td>
             <td>element</td>
-            <td>The parent element that contains the sidebar. Is usually the body.</td>
+            <td>The parent element that contains the sidebar.</td>
+            <td>.canvas</td>
         </tr>
         <tr>
             <td>side</td>
             <td>string</td>
             <td>The side where the sidebar is positioned. Will either be left or right.</td>
+            <td></td>
         </tr>
         <tr>
             <td>opposite</td>
             <td>string</td>
-            <td>
-                The opposite of <code>side</code>.
-                Is used for setting <code>push-*</code> and <code>move-*</code> classes on the container.
-            </td>
+            <td>The opposite of <code>side</code>.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -324,15 +311,14 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>toggle()</td>
-            <td>
-                Toggle the display of the sidebar.
-                This method is triggered automatically through click events when <code>selector</code> is defined.
-            </td>
+            <td>Toggle the display of the sidebar.</td>
+            <td><code>selector</code> option</td>
         </tr>
     </tbody>
 </table>

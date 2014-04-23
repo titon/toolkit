@@ -141,6 +141,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -148,11 +149,13 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>mask</td>
             <td>element</td>
             <td>The mask element that covers the target element. Can be found as a child within the target element.</td>
+            <td>.mask</td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The message element found within the center of the mask element.</td>
+            <td>.mask-message</td>
         </tr>
     </tbody>
 </table>
@@ -166,12 +169,14 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>toggle()</td>
             <td>Toggle the display of the mask.</td>
+            <td><code>selector</code> option</td>
         </tr>
     </tbody>
 </table>

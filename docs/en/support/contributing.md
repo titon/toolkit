@@ -26,5 +26,5 @@ the following guidelines must be followed.
 
 ## Contributors ##
 
-Individuals who helped in the growth of Toolkit by fixing a bug or adding new features are listed below.
+Individuals who helped in the growth of Toolkit by fixing a major issue or adding new features are listed below.
 Why not be the first?

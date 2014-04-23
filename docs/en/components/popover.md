@@ -19,6 +19,25 @@ $('.js-popover').popover();
     Jump over to the tooltip documentation for more information on how to use this component.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of popovers.
+This structure can be customized through the `template` option.
+
+```html
+<div class="popover">
+    <div class="popover-inner">
+        <div class="popover-head"></div>
+        <div class="popover-body"></div>
+    </div>
+    <div class="popover-arrow"></div>
+</div>
+```
+
+<div class="notice is-info">
+    The <code>.popover-head</code> and <code>.popover-body</code> elements are required for inserting content into.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -138,35 +157,8 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>0</td>
             <td>The delay in milliseconds before the popover is displayed.</td>
         </tr>
-        <tr>
-            <td>titleElement</td>
-            <td>string</td>
-            <td>.popover-head</td>
-            <td>CSS selector for the title element within the popover template.</td>
-        </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.popover-body</td>
-            <td>CSS selector for the content element within the popover template.</td>
-        </tr>
     </tbody>
 </table>
-
-## Template ##
-
-The following markup is used for the creation of popovers.
-This structure can be customized through the `template` option.
-
-```html
-<div class="popover">
-    <div class="popover-inner">
-        <div class="popover-head"></div>
-        <div class="popover-body"></div>
-    </div>
-    <div class="popover-arrow"></div>
-</div>
-```
 
 ## Events ##
 

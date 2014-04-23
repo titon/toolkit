@@ -159,7 +159,7 @@ Inherits all options from the [parent component](../development/js.md#options).
             </td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Inputs</td>
+            <td colspan="4">Input</td>
         </tr>
         <tr>
             <td>radio</td>
@@ -180,13 +180,19 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>CSS selector to find selects within the current element.</td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Selects</td>
+            <td colspan="4">InputSelect</td>
         </tr>
         <tr>
             <td>native</td>
             <td>bool</td>
             <td>false</td>
             <td>Use native browser dropdowns instead of custom dropdowns.</td>
+        </tr>
+        <tr>
+            <td>hideOpened</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Hide all other opened select menus.</td>
         </tr>
         <tr>
             <td>hideFirst</td>
@@ -315,7 +321,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>The select, checkbox, or radio element.</td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Selects</td>
+            <td colspan="4">InputSelect</td>
         </tr>
         <tr>
             <td>dropdown</td>

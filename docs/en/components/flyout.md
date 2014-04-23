@@ -132,6 +132,17 @@ attributes are required when supporting ARIA.
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of flyouts.
+This structure can be customized through the `template` option.
+
+```html
+<div class="flyout"></div>
+```
+
+An unordered list will be placed within each flyout.
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -219,25 +230,8 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>1000</td>
             <td>The delay in milliseconds before the flyout is hidden.</td>
         </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.flyout</td>
-            <td>CSS selector to place content within the flyout element.</td>
-        </tr>
     </tbody>
 </table>
-
-## Template ##
-
-The following markup is used for the creation of flyouts.
-This structure can be customized through the `template` option.
-
-```html
-<div class="flyout"></div>
-```
-
-An unordered list will be placed within each flyout.
 
 ## Events ##
 
@@ -323,12 +317,14 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>isVisible()</td>
             <td>Is the flyout menu defined by <code>current</code>, created and visible?</td>
+            <td></td>
         </tr>
         <tr>
             <td>load(data)</td>
@@ -336,6 +332,12 @@ Inherits all methods from the [parent component](../development/js.md#methods).
                 Load data into the flyout and create a mapping by URL.
                 This method is automatically triggered through the initial AJAX request.
             </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>show()</td>
+            <td>Show the flyout defined by the current node URL.</td>
+            <td><code>selector</code></td>
         </tr>
     </tbody>
 </table>

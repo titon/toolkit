@@ -178,11 +178,6 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>isLoaded</td>
-            <td>bool</td>
-            <td>Whether all elements have been loaded.</td>
-        </tr>
-        <tr>
             <td>loaded</td>
             <td>int</td>
             <td>A count of how many elements have been loaded.</td>

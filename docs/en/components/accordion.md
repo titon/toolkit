@@ -127,18 +127,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>false</td>
             <td>Allows the open section to be closed, without having to open another section.</td>
         </tr>
-        <tr>
-            <td>headerElement</td>
-            <td>string</td>
-            <td>.accordion-header</td>
-            <td>CSS selector to find all header elements within the accordion.</td>
-        </tr>
-        <tr>
-            <td>sectionElement</td>
-            <td>string</td>
-            <td>.accordion-section</td>
-            <td>CSS selector to find all section elements within the accordion.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -181,34 +169,33 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>node</td>
             <td>element</td>
-            <td>The header element of the currently open section. Is automatically set through click events.</td>
+            <td>The header element of the currently open section.</td>
+            <td></td>
         </tr>
         <tr>
             <td>headers</td>
             <td>collection</td>
-            <td>
-                A collection of header elements within the accordion.
-                These elements are found using the <code>headerElement</code> option.
-            </td>
+            <td>A collection of header elements within the accordion.</td>
+            <td>.accordion-header</td>
         </tr>
         <tr>
             <td>sections</td>
             <td>collection</td>
-            <td>
-                A collection of section elements within the accordion.
-                These elements are found using the <code>sectionElement</code> option.
-            </td>
+            <td>A collection of section elements within the accordion.</td>
+            <td>.accordion-section</td>
         </tr>
         <tr>
             <td>index</td>
             <td>int</td>
             <td>The index of the currently opened section.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -222,22 +209,19 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>jump(int:index)</td>
-            <td>
-                Open a specific section using the index in the collection.
-                If the index is out of range, it will be bounded.
-            </td>
+            <td>Open a specific section using the index in the collection.</td>
+            <td></td>
         </tr>
         <tr>
             <td>show(element:header)</td>
-            <td>
-                Open a specific section using the sibling header.
-                This method is triggered automatically through click events.
-            </td>
+            <td>Open a specific section using the sibling header.</td>
+            <td>.accordion-header</td>
         </tr>
     </tbody>
 </table>

@@ -206,30 +206,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>true</td>
             <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
         </tr>
-        <tr>
-            <td>itemsElement</td>
-            <td>string</td>
-            <td>.carousel-items li</td>
-            <td>CSS selector to find the items to cycle.</td>
-        </tr>
-        <tr>
-            <td>tabsElement</td>
-            <td>string</td>
-            <td>.carousel-tabs a</td>
-            <td>CSS selector to find the tab elements.</td>
-        </tr>
-        <tr>
-            <td>nextElement</td>
-            <td>string</td>
-            <td>.carousel-next</td>
-            <td>CSS selector to find the next item button.</td>
-        </tr>
-        <tr>
-            <td>prevElement</td>
-            <td>string</td>
-            <td>.carousel-prev</td>
-            <td>CSS selector to find the previous item button.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -284,55 +260,39 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>items</td>
             <td>collection</td>
-            <td>
-                A collection of item elements that will be cycled through within the carousel.
-                These elements are found using the <code>itemsElement</code> option.
-            </td>
+            <td>A collection of item elements that will be cycled through.</td>
+            <td>.carousel-items li</td>
         </tr>
         <tr>
             <td>tabs</td>
             <td>collection</td>
-            <td>
-                A collection of tab elements that can be clicked to jump to items.
-                These elements are found using the <code>tabsElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>nextButton</td>
-            <td>element</td>
-            <td>
-                The element that when clicked will jump to the next item.
-                This element is found using the <code>nextElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>prevButton</td>
-            <td>element</td>
-            <td>
-                The element that when clicked will jump to the previous item.
-                This element is found using the <code>prevElement</code> option.
-            </td>
+            <td>A collection of tab elements that can be clicked to jump to items.</td>
+            <td>.carousel-tabs a</td>
         </tr>
         <tr>
             <td>index</td>
             <td>int</td>
             <td>The index of the currently shown item.</td>
+            <td></td>
         </tr>
         <tr>
             <td>timer</td>
             <td>int</td>
             <td>The automatic cycle timer instance.</td>
+            <td></td>
         </tr>
         <tr>
             <td>stopped</td>
             <td>bool</td>
             <td>Has the carousel stopped cycling.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -346,30 +306,24 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>jump(int:index)</td>
-            <td>
-                Show a specific item defined by the index in the collection.
-                If the index is out of range, it will be bounded.
-                This method is triggered automatically when a tab is clicked.
-            </td>
+            <td>Go to a specific item defined by the index in the collection.</td>
+            <td>.carousel-tabs a</td>
         </tr>
         <tr>
             <td>next()</td>
-            <td>
-                Go to the next item.
-                This method is triggered automatically when the next button is clicked.
-            </td>
+            <td>Go to the next item.</td>
+            <td>.carousel-next</td>
         </tr>
         <tr>
             <td>prev()</td>
-            <td>
-                Go to the previous item.
-                This method is triggered automatically when the previous button is clicked.
-            </td>
+            <td>Go to the previous item.</td>
+            <td>.carousel-prev</td>
         </tr>
         <tr>
             <td>start()</td>
@@ -378,6 +332,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
                 This method is triggered automatically when <code>stopOnHover</code> is enabled,
                 and the mouse leaves the carousel.
             </td>
+            <td></td>
         </tr>
         <tr>
             <td>stop()</td>
@@ -386,10 +341,12 @@ Inherits all methods from the [parent component](../development/js.md#methods).
                 This method is triggered automatically when <code>stopOnHover</code> is enabled,
                 and the mouse enters the carousel.
             </td>
+            <td></td>
         </tr>
         <tr>
             <td>reset()</td>
             <td>Reset the cycling timer.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>

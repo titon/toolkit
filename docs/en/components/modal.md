@@ -125,6 +125,26 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of modals.
+This structure can be customized through the `template` option.
+
+```html
+<div class="modal">
+    <div class="modal-outer">
+        <div class="modal-handle">
+            <div class="modal-inner"></div>
+            <button type="button" class="modal-close modal-hide"><span class="x"></span></button>
+        </div>
+    </div>
+</div>
+```
+
+<div class="notice is-warning">
+    The <code>.modal-outer</code> and <code>.modal-handle</code> classes are required for certain animations to work properly.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -223,52 +243,8 @@ Inherits all options from the [parent component](../development/js.md#options).
                 The URL will be requested via AJAX for the content.
             </td>
         </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.modal-inner</td>
-            <td>CSS selector for the content element within the modal template.</td>
-        </tr>
-        <tr>
-            <td>closeElement</td>
-            <td>string</td>
-            <td>.modal-close</td>
-            <td>CSS selector for the close button within the modal template.</td>
-        </tr>
-        <tr>
-            <td>closeEvent</td>
-            <td>string</td>
-            <td>.modal-event-close</td>
-            <td>CSS selector to bind close events to.</td>
-        </tr>
-        <tr>
-            <td>submitEvent</td>
-            <td>string</td>
-            <td>.modal-event-submit</td>
-            <td>CSS selector to bind form submit events to.</td>
-        </tr>
     </tbody>
 </table>
-
-## Template ##
-
-The following markup is used for the creation of modals.
-This structure can be customized through the `template` option.
-
-```html
-<div class="modal">
-    <div class="modal-outer">
-        <div class="modal-handle">
-            <div class="modal-inner"></div>
-            <button type="button" class="modal-close modal-event-close"><span class="x"></span></button>
-        </div>
-    </div>
-</div>
-```
-
-<div class="notice is-warning">
-    The <code>.modal-outer</code> and <code>.modal-handle</code> classes are required for certain animations to work properly.
-</div>
 
 ## Events ##
 
@@ -287,7 +263,7 @@ Inherits all events from the [parent component](../development/js.md#events).
         <tr>
             <td>onSubmit</td>
             <td>submit.toolkit.modal</td>
-            <td>element:button, element:form</td>
+            <td>element:form</td>
             <td>Triggered when a form submit has been clicked, but before the AJAX call is requested.</td>
         </tr>
     </tbody>
@@ -306,11 +282,6 @@ Inherits all properties from the [parent component](../development/js.md#propert
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>elementBody</td>
-            <td>element</td>
-            <td>The element used to place content in. Is found within the <code>element</code> element.</td>
-        </tr>
         <tr>
             <td>cache</td>
             <td>object</td>
@@ -333,15 +304,27 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>hide()</td>
+            <td>Hide the modal.</td>
+            <td>.modal-hide</td>
+        </tr>
         <tr>
             <td>show([element:node[, string:content]])</td>
             <td>
                 Display the modal. If a node is passed, extract the URL to request, or the content to use.
                 If the content argument is passed, use that as the content.
             </td>
+            <td><code>selector</code></td>
+        </tr>
+        <tr>
+            <td>submit()</td>
+            <td>Submit a form found within the modal using an AJAX call.</td>
+            <td>.modal-submit</td>
         </tr>
     </tbody>
 </table>

@@ -237,18 +237,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>url</td>
             <td>The HTML attribute on the tab to get the URL for AJAX requests.</td>
         </tr>
-        <tr>
-            <td>navElement</td>
-            <td>string</td>
-            <td>.tabs-nav</td>
-            <td>CSS selector to find the navigation element within the tab wrapper.</td>
-        </tr>
-        <tr>
-            <td>sectionElement</td>
-            <td>string</td>
-            <td>.tabs-section</td>
-            <td>CSS selector to find all section elements within the tab wrapper.</td>
-        </tr>
     </tbody>
 </table>
 
@@ -266,34 +254,39 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>nav</td>
             <td>element</td>
-            <td>
-                The element containing the navigation links (the tabs).
-                This element is found using the <code>navElement</code> option.
-            </td>
+            <td>The element containing the navigation links (the tabs).</td>
+            <td>.tabs-nav</td>
+        </tr>
+        <tr>
+            <td>tabs</td>
+            <td>collection</td>
+            <td>A collection of tab elements within the nav.</td>
+            <td>.tabs-nav a</td>
         </tr>
         <tr>
             <td>sections</td>
             <td>collection</td>
-            <td>
-                A collection of section elements within the tab wrapper.
-                These elements are found using the <code>sectionElement</code> option.
-            </td>
+            <td>A collection of section elements within the tab wrapper.</td>
+            <td>.tabs-section</td>
         </tr>
         <tr>
             <td>index</td>
             <td>int</td>
             <td>The index of the currently opened section.</td>
+            <td></td>
         </tr>
         <tr>
             <td>cache</td>
             <td>object</td>
             <td>Collection of cached AJAX requests indexed by URL.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -307,12 +300,19 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>jump(int:index)</td>
             <td>Open a specific section using the index in the collection.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>show(element:tab)</td>
+            <td>Open a specific section using the related tab element.</td>
+            <td>.tabs-nav a</td>
         </tr>
     </tbody>
 </table>

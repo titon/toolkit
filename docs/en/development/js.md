@@ -3,7 +3,7 @@
 The ins and outs of the JavaScript layer within Toolkit.
 
 * [Using Components](#using-components)
-* [Accessing Components](#accessing-components)
+    * [Accessing Instances](#accessing-components)
 * [Conflict Resolution](#conflict-resolution)
 * [Toolkit Namespace](#toolkit-namespace)
     * [Vendor Prefix](#vendor-prefix)
@@ -31,49 +31,45 @@ Using Toolkit components is extremely simple. If you're familiar with jQuery plu
 A component can be initialized with a single line of code.
 
 ```javascript
-$('.tabs').tabs();
+$('#tabs').tabs();
 ```
 
-What this does is initialize a tabs component on the `.tabs` element(s). Easy!
+What this does is initialize a [Tabs component](../components/tabs.md) on the `#tabs` element,
+and stores the component instance within memory. Can't get easier then that!
 
-## Accessing Components ##
+### Accessing Instances ###
 
-To trigger methods, or access properties on a component, the class instance will need to be retrieved.
-This can be achieved through the `toolkit()` method or jQuery's `data()` method.
-The difference between the 2 methods, is that `toolkit()` will return an array of instances for every element
-in the collection (unless it's a single element), while `data()` will return a single instance for the first
-element in the collection. For example, take the following markup.
-
-```html
-<div class="tabs" id="tabs-1">
-    ...
-</div>
-
-<div class="tabs" id="tabs-2">
-    ...
-</div>
-```
-
-And the results of each method call.
+To access methods or properties on a component, the component instance will need to be retrieved.
+This can be achieved through the `toolkit()` method by passing the name of the component as the 1st argument.
 
 ```javascript
-$('.tabs').toolkit('tabs'); // array of 2 tab instances
-$('#tabs-1').toolkit('tabs'); // 1 tab instance for #tabs-1
-
-$('.tabs').data('toolkit.tabs'); // 1 tab instance for #tabs-1 (first in the collection)
-$('#tabs-2').data('toolkit.tabs'); // 1 tab instance for #tabs-2
+var tabs = $('#tabs').toolkit('tabs');
 ```
 
 Once we have an instance, methods or properties on the instance can be accessed.
-Each component will have different methods and properties, so check out their individual documentation.
 
 ```javascript
-$.each($('.tabs').toolkit('tabs'), function(i, tabs) {
-    tabs.hide();
-});
-
-$('#tabs-1').toolkit('tabs').sections; // collection of section elements
+tabs.sections; // Collection of section elements
+tabs.jump(1); // Jump to a section
 ```
+
+<div class="notice is-warning">
+    The <code>toolkit()</code> method will return <code>null</code> when no instance is found.
+</div>
+
+### Triggering Methods ###
+
+Since retrieving an instance can return `null`, and having to check the return value before triggering
+methods can be quite tedious, we rolled all this functionality into `toolkit()`.
+To trigger methods on the component instance, pass the method name as the 2nd argument,
+and an array of arguments to pass to the method as the 3rd argument.
+
+```javascript
+$('#tabs').toolkit('tabs', 'jump', [1]);
+```
+
+If an instance is found, the method will automatically be called, else nothing will happen.
+This allows for seamless error free integration.
 
 ## Conflict Resolution ##
 
@@ -554,16 +550,12 @@ The following properties are available on all class instances, but not all compo
         <tr>
             <td>component</td>
             <td>string</td>
-            <td>
-                The name of the component. This should not be modified.
-            </td>
+            <td>The name of the component. This should not be modified.</td>
         </tr>
         <tr>
             <td>version</td>
             <td>string</td>
-            <td>
-                The last version this component was updated. This should not be modified.
-            </td>
+            <td>The last version this component was updated. This should not be modified.</td>
         </tr>
         <tr>
             <td>uid</td>
@@ -616,9 +608,12 @@ The following properties are available on all class instances, but not all compo
         <tr>
             <td>options</td>
             <td>object</td>
-            <td>
-                Configurable options. More information can be found above.
-            </td>
+            <td>Configurable options. More information can be found above.</td>
+        </tr>
+        <tr>
+            <td>runtime</td>
+            <td>object</td>
+            <td>Options that are inherited at runtime dynamically per element through data attributes.</td>
         </tr>
     </tbody>
 </table>
@@ -679,6 +674,11 @@ The following methods are available on all class instances, but not all componen
             <td>disable()</td>
             <td>Both</td>
             <td>Disable the component and unbind events.</td>
+        </tr>
+        <tr>
+            <td>destroy()</td>
+            <td>Both</td>
+            <td>Disable the component, unbind events, remove elements, and delete the instance.</td>
         </tr>
         <tr>
             <td>fireEvent(string:event[, array:args])</td>
@@ -764,11 +764,11 @@ These extensions may even solve a problem in your own codebase.
             <td colspan="3">Methods</td>
         </tr>
         <tr>
-            <td>toolkit(string:component)</td>
+            <td>toolkit(string:component[, string:method[, array:args]])</td>
             <td>Both</td>
             <td>
-                Return an instance of a component if one has been bound on this element.
-                If an array of elements is queried, an array of component instances will be returned.
+                Return a component instance if one has been initialized on this element.
+                If a method is defined, trigger the method on the instance and pass the arguments.
             </td>
         </tr>
         <tr>

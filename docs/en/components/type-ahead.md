@@ -321,12 +321,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td></td>
             <td>The function to use for building menu items. Will fallback to <code>build()</code>.</td>
         </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td></td>
-            <td>CSS selector to insert menu items into. If empty, will append to the wrapper.</td>
-        </tr>
     </tbody>
 </table>
 

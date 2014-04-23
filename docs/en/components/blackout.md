@@ -23,6 +23,19 @@ var blackout = Toolkit.Blackout.factory();
     Components that integrate the blackout will handle situations accordingly.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of the blackout element.
+This structure can be customized through the `template` option.
+
+```html
+<div class="{vendor}blackout" id="toolkit-blackout"></div>
+```
+
+<div class="notice is-info">
+    The <code>{vendor}</code> value will be replaced with <code>Toolkit.vendor</code>.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -92,17 +105,6 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
         </tr>
     </tbody>
 </table>
-
-## Template ##
-
-The following markup is used for the creation of the blackout element.
-This structure can be customized through the `template` option.
-
-```html
-<div class="{vendor}blackout" id="toolkit-blackout"></div>
-```
-
-The `{vendor}` value will be replaced with `Toolkit.options.vendor`.
 
 ## Events ##
 

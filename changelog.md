@@ -44,6 +44,7 @@ a cleanup of element and event options, and a handful of documentation and optim
     * Removed `messageElement` option
 * Modal
     * Added `$modal-mobile-breakpoint` to apply mobile widths to the modal
+    * Added `submit()` method for submitting forms
     * Renamed `.modal-event-submit` to `.modal-submit`
     * Renamed `.modal-event-close` to `.modal-hide`
     * Removed `elementBody` property

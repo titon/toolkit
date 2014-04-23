@@ -79,6 +79,25 @@ The `tooltip` role and the appropriate `aria-*` attributes are required when sup
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of tooltips.
+This structure can be customized through the `template` option.
+
+```html
+<div class="tooltip">
+    <div class="tooltip-inner">
+        <div class="tooltip-head"></div>
+        <div class="tooltip-body"></div>
+    </div>
+    <div class="tooltip-arrow"></div>
+</div>
+```
+
+<div class="notice is-info">
+    The <code>.tooltip-head</code> and <code>.tooltip-body</code> elements are required for inserting content into.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -216,35 +235,8 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>0</td>
             <td>The delay in milliseconds before the tooltip is displayed.</td>
         </tr>
-        <tr>
-            <td>titleElement</td>
-            <td>string</td>
-            <td>.tooltip-head</td>
-            <td>CSS selector for the title element within the tooltip template.</td>
-        </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.tooltip-body</td>
-            <td>CSS selector for the content element within the tooltip template.</td>
-        </tr>
     </tbody>
 </table>
-
-## Template ##
-
-The following markup is used for the creation of tooltips.
-This structure can be customized through the `template` option.
-
-```html
-<div class="tooltip">
-    <div class="tooltip-inner">
-        <div class="tooltip-head"></div>
-        <div class="tooltip-body"></div>
-    </div>
-    <div class="tooltip-arrow"></div>
-</div>
-```
 
 ## Events ##
 
@@ -260,23 +252,27 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>elementHead</td>
             <td>element</td>
-            <td>The element used for titles. Is found within the <code>element</code> element.</td>
+            <td>The element used for titles.</td>
+            <td>.tooltip-head</td>
         </tr>
         <tr>
             <td>elementBody</td>
             <td>element</td>
-            <td>The element used for content. Is found within the <code>element</code> element.</td>
+            <td>The element used for content.</td>
+            <td>.tooltip-body</td>
         </tr>
         <tr>
             <td>cache</td>
             <td>object</td>
             <td>Collection of cached AJAX requests indexed by URL.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -290,6 +286,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
@@ -299,6 +296,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
                 Position the content relative to the node and set optional content and title.
                 This method is called automatically by <code>show()</code>.
             </td>
+            <td></td>
         </tr>
         <tr>
             <td>show([element:node[, string:content[, string:title]]])</td>
@@ -306,6 +304,7 @@ Inherits all methods from the [parent component](../development/js.md#methods).
                 Display the tooltip relative to the node. If no node is passed, will use the last node.
                 If no content or title is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
             </td>
+            <td><code>selector</code></td>
         </tr>
     </tbody>
 </table>
