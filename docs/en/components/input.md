@@ -326,7 +326,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
         <tr>
             <td>dropdown</td>
             <td>element</td>
-            <td>The custom dropdown (uses the drop component).</td>
+            <td>The custom dropdown (uses the Drop component).</td>
         </tr>
         <tr>
             <td>multiple</td>

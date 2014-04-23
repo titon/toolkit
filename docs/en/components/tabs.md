@@ -46,7 +46,7 @@ $('.tabs').tabs();
 ### Horizontal Tabs ###
 
 To display tabs horizontally alongside sections, and to update all navigation items to a vertical layout,
-use `.tabs--horizontal`. We suggest pairing this with the [grid component](grid.md).
+use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.md).
 
 ```html
 <div class="tabs--horizontal grid">

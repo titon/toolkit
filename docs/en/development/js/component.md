@@ -1,214 +1,4 @@
-# JavaScript #
-
-The ins and outs of the JavaScript layer within Toolkit.
-
-* [Using Components](#using-components)
-    * [Accessing Instances](#accessing-components)
-* [Conflict Resolution](#conflict-resolution)
-* [Toolkit Namespace](#toolkit-namespace)
-    * [Vendor Prefix](#vendor-prefix)
-    * [ARIA Support](#aria-Support)
-    * [Global Options](#global-options)
-    * [Locale Messages](#locale-messages)
-    * [Feature Flags](#feature-flags)
-* [Component System](#component-system)
-    * [Templates](#templates)
-        * [Elements As Templates](#elements-as-templates)
-    * [Options](#options)
-        * [Data Attribute Inheritance](#data-attribute-inheritance)
-        * [Shared Options](#shared-options)
-    * [Events](#events)
-        * [Namespaced Events](#namespaced-events)
-        * [Shared Events](#shared-events)
-    * [Properties](#properties)
-    * [Methods](#methods)
-* [Extensions](#extensions)
-* [Conventions](#conventions)
-
-## Using Components ##
-
-Using Toolkit components is extremely simple. If you're familiar with jQuery plugins, it's even simpler.
-A component can be initialized with a single line of code.
-
-```javascript
-$('#tabs').tabs();
-```
-
-What this does is initialize a [Tabs component](../components/tabs.md) on the `#tabs` element,
-and stores the component instance within memory. Can't get easier then that!
-
-### Accessing Instances ###
-
-To access methods or properties on a component, the component instance will need to be retrieved.
-This can be achieved through the `toolkit()` method by passing the name of the component as the 1st argument.
-
-```javascript
-var tabs = $('#tabs').toolkit('tabs');
-```
-
-Once we have an instance, methods or properties on the instance can be accessed.
-
-```javascript
-tabs.sections; // Collection of section elements
-tabs.jump(1); // Jump to a section
-```
-
-<div class="notice is-warning">
-    The <code>toolkit()</code> method will return <code>null</code> when no instance is found.
-</div>
-
-### Triggering Methods ###
-
-Since retrieving an instance can return `null`, and having to check the return value before triggering
-methods can be quite tedious, we rolled all this functionality into `toolkit()`.
-To trigger methods on the component instance, pass the method name as the 2nd argument,
-and an array of arguments to pass to the method as the 3rd argument.
-
-```javascript
-$('#tabs').toolkit('tabs', 'jump', [1]);
-```
-
-If an instance is found, the method will automatically be called, else nothing will happen.
-This allows for seamless error free integration.
-
-## Conflict Resolution ##
-
-Toolkit has no concept of `noConflict()` that is found in other libraries.
-Instead it has an automatic conflict resolution, where methods are renamed if one already exists.
-For example, when using the tooltip component under the name `tooltip()`,
-and that name is already taken (by jQuery UI for example), the method is renamed to `toolkitTooltip()`.
-
-```javascript
-$('.js-tooltip').tooltip();
-
-// Automatically becomes
-$('.js-tooltip').toolkitTooltip();
-```
-
-If for any reason the Toolkit method is lost, or overridden by another library,
-components can be instantiated manually outside of the jQuery or MooTools syntax.
-
-```javascript
-new Toolkit.Tooltip($('.js-tooltip'), {});
-
-// jQuery equivalent
-$('.js-tooltip').tooltip({});
-```
-
-## Toolkit Namespace ##
-
-The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
-It defines global options, localized messages, feature detection, and device support.
-It also acts as a namespace for components by housing a top level name to avoid global conflicts.
-Each component class definition can be found on the `Toolkit` object, for example,
-the accordion interface is found under `Toolkit.Accordion`.
-
-### Vendor Prefix ###
-
-Paired with the [Sass `$vendor-prefix` variable](sass.md#variables), the `Toolkit.vendor` can be defined for
-prefixing within the JavaScript layer. This value will be prepended to all component class names that are
-automatically created with JavaScript.
-
-```javascript
-Toolkit.vendor = 'tk-';
-```
-
-### ARIA Support ###
-
-[ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable components.
-What this involves is automatic ARIA attribute inclusion and generation for JavaScript modules.
-To disable ARIA support, set the `Toolkit.aria` property to false.
-
-```javascript
-Toolkit.aria = false;
-```
-
-<div class="notice is-warning">
-    Disabling ARIA also disables the <code>aria()</code> method.
-</div>
-
-### Locale Messages ###
-
-The following messages are used within AJAX calls and are found under `Toolkit.messages`.
-They are represented as an object allowing for easy localization, and can be modified similar to an options object.
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Message</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>loading</td>
-            <td>Loading...</td>
-            <td>Message to display while an AJAX request is loading.</td>
-        </tr>
-        <tr>
-            <td>error</td>
-            <td>An error has occurred!</td>
-            <td>Message to display when an AJAX call has failed.</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-$.extend(Toolkit.messages, {
-    loading: 'Wait a second!',
-    error: 'Oops, it broke...'
-});
-```
-
-### Feature Flags ###
-
-The following flags are used for feature detection within components.
-Each flag can be found on the `Toolkit` object.
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Flag</th>
-            <th>Vendor</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>hasTransition</td>
-            <td>Both</td>
-            <td>Does the browser support CSS transitions?</td>
-        </tr>
-        <tr>
-            <td>isTouch</td>
-            <td>Both</td>
-            <td>Does the device support touch capabilities?</td>
-        </tr>
-        <tr>
-            <td>isRetina</td>
-            <td>Both</td>
-            <td>Does the device support HD / retina displays?</td>
-        </tr>
-        <tr>
-            <td>transitionEnd</td>
-            <td>Both</td>
-            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
-        </tr>
-    </tbody>
-</table>
-
-```javascript
-if (Toolkit.isTouch) {
-    element.on('swipeleft', callback);
-}
-```
-
-<div class="notice is-warning">
-    Flags are determined automatically and should not be altered in any way!
-</div>
-
-## Component System ##
+# Component System #
 
 The individual components that make up the Toolkit JavaScript layer are powered by a robust object-oriented class layer.
 This base class that all components extend can be found under the `Toolkit.Component` object.
@@ -230,12 +20,13 @@ Do note that it's possible for a component to share functionality from multiple 
 * Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip, TypeAhead
 * Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, Pin, Stalker, Tabs, TypeAhead
 
-### Templates ###
+## Templates ##
 
 Templates are strings of HTML markup used for the creation of DOM elements, and are represented by the `template` option.
 They are primarily used by activated components as the main element for interaction.
 
-For example, the Modal component uses the following template markup to create the elements that are used in the page.
+For example, the [Modal component](../../components/modal.md) uses the following template markup
+to create the elements that are used in the page.
 
 ```javascript
 {
@@ -274,7 +65,7 @@ $('.js-modal').modal({
     Jump to the individual component documentation for more information.
 </div>
 
-#### Elements As Templates ####
+### Elements As Templates ###
 
 It's also possible to use existing DOM elements as a template.
 This is especially useful for components where each instance of the component should use the same DOM element &mdash; blackouts for example.
@@ -298,7 +89,7 @@ We can also define a template using a script tag.
 
 If no element is found, the component will fall back to the `template` option.
 
-### Options ###
+## Options ##
 
 Extensibility of components can be achieved through customizable options.
 Each component has a different set of options, and these options can be used to toggle functionality.
@@ -327,7 +118,7 @@ $('.js-tooltip').tooltip({
 });
 ```
 
-#### Data Attribute Inheritance ###
+### Data Attribute Inheritance ##
 
 At the highest level we have global options. At the middle level we have component options.
 And at the lowest level, the element, we have data attribute options. Data attributes permit
@@ -374,7 +165,7 @@ $('.js-tooltip').tooltip({
 });
 ```
 
-#### Shared Options ####
+### Shared Options ###
 
 The following options are shared between all components.
 
@@ -427,7 +218,7 @@ The following options are shared between all components.
     </tbody>
 </table>
 
-### Events ###
+## Events ##
 
 Similar to native JavaScript events, the component layer has a system for dispatching callbacks at specific events.
 The difference between native events and Toolkit events, is that Toolkit events are set as options through the constructor.
@@ -446,7 +237,7 @@ $('.carousel').carousel({
     The "this" context within option event handlers will be bound to the component object instance.
 </div>
 
-#### Namespaced Events ####
+### Namespaced Events ###
 
 If you're using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
 The difference between element events and option events (above) is the ability to define multiple handlers for element events,
@@ -473,7 +264,7 @@ and all `show.toolkit.tabs` event handlers will trigger.
     The component object instance can be found under the <code>context</code> property in the event object.
 </div>
 
-#### Shared Events ####
+### Shared Events ###
 
 The following events are shared between all components.
 
@@ -534,7 +325,7 @@ The following events are shared between all components.
     </tbody>
 </table>
 
-### Properties ###
+## Properties ##
 
 The following properties are available on all class instances, but not all components make use of them.
 
@@ -621,7 +412,7 @@ The following properties are available on all class instances, but not all compo
 Additional properties are found within each component.
 Either read the source code or the individual documentation for a list of properties.
 
-### Methods ###
+## Methods ##
 
 The following methods are available on all class instances, but not all components make use of them.
 
@@ -743,191 +534,3 @@ The following methods are available on all class instances, but not all componen
 <div class="notice is-warning">
     Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
 </div>
-
-## Extensions ##
-
-Why stop at components? Why not extend jQuery and MooTools directly with new functionality?
-Well don't worry, that's exactly what Toolkit has done.
-We extended the prototype of each vendor with new functionality that eased component development.
-These extensions may even solve a problem in your own codebase.
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Extension</th>
-            <th>Vendor</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="table-divider">
-            <td colspan="3">Methods</td>
-        </tr>
-        <tr>
-            <td>toolkit(string:component[, string:method[, array:args]])</td>
-            <td>Both</td>
-            <td>
-                Return a component instance if one has been initialized on this element.
-                If a method is defined, trigger the method on the instance and pass the arguments.
-            </td>
-        </tr>
-        <tr>
-            <td>reveal()</td>
-            <td>Both</td>
-            <td>
-                Show an element by replacing <code>.hide</code> with <code>.show</code>.
-                Will trigger any animations or transitions.
-            </td>
-        </tr>
-        <tr>
-            <td>conceal()</td>
-            <td>Both</td>
-            <td>
-                Hide an element by replacing <code>.show</code> with <code>.hide</code>.
-                Will trigger any animations or transitions.
-            </td>
-        </tr>
-        <tr>
-            <td>positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]])</td>
-            <td>Both</td>
-            <td>
-                Position the element relative to another element.
-                <code>position</code> may be any combination of top, bottom, left, right, and center, in dashed format.
-                <code>relativeTo</code> may either be an element or event (used with <code>isMouse</code> for mouse following).
-                <code>baseOffset</code> may be an object with default left and top values.
-                When set to true, <code>isMouse</code> will re-position the element based on mouse cursor dimensions.
-                If the element falls outside of the viewport, it will be re-positioned by altering the position class name.
-            </td>
-        </tr>
-        <tr>
-            <td>is(':shown')</td>
-            <td>jQuery</td>
-            <td rowspan="2">
-                Determines whether an element is visible or not by checking that <code>visibility</code> is not equal to hidden.
-                Is used in conjunction with <code>conceal()</code> and <code>reveal()</code> for animating.
-            </td>
-        </tr>
-        <tr>
-            <td>isShown()</td>
-            <td>MooTools</td>
-        </tr>
-        <tr>
-            <td>i(int:index)<br> item(int:index)</td>
-            <td>jQuery</td>
-            <td>
-                Return a jQuery wrapped value from the current jQuery collection defined by the index number.
-                This is equivalent to <code>$($('.query')[0])</code> or <code>$($('.query').get(0))</code>.
-            </td>
-        </tr>
-        <tr>
-            <td>addData(string:key, mixed:value)</td>
-            <td>jQuery</td>
-            <td>
-                Set data if the key does not exist, else return the current value.
-                This is a combination of getting and setting internal jQuery data.
-            </td>
-        </tr>
-        <tr>
-            <td>aria(string:key, mixed:value)</td>
-            <td>Both</td>
-            <td>
-                Sets ARIA attributes on the target element.
-                Can also accept an object of key value pairs.
-            </td>
-        </tr>
-
-        <tr class="table-divider">
-            <td colspan="3">Functions</td>
-        </tr>
-        <tr>
-            <td>jQuery.debounce(func:func[, int:threshold[, bool:immediate]])</td>
-            <td>jQuery</td>
-            <td rowspan="2">
-                Delays the execution of a function until the duration has completed.
-            </td>
-        </tr>
-        <tr>
-            <td>Function.prototype.debounce([int:threshold[, bool:immediate]])</td>
-            <td>MooTools</td>
-        </tr>
-        <tr>
-            <td>jQuery.throttle(func:func[, int:delay[, array:args]])</td>
-            <td>jQuery</td>
-            <td>
-                Throttle the execution of a function so it triggers at every delay interval.
-            </td>
-        </tr>
-        <tr>
-            <td>jQuery.bound(int:value, int:max[, int:min])</td>
-            <td>jQuery</td>
-            <td rowspan="2">Bound a number between a min and max range.</td>
-        </tr>
-        <tr>
-            <td>Number.prototype.bound(int:value, int:max[, int:min])</td>
-            <td>MooTools</td>
-        </tr>
-        <tr>
-            <td>jQuery.cookie(string:key, mixed:value[, object:options])</td>
-            <td>jQuery</td>
-            <td>Set a cookie with a value. Can define optional settings.</td>
-        </tr>
-        <tr>
-            <td>jQuery.removeCookie(string:key[, object:options])</td>
-            <td>jQuery</td>
-            <td>Remove a cookie defined by key.</td>
-        </tr>
-        <tr>
-            <td>Array.prototype.chunk(int:size)</td>
-            <td>MooTools</td>
-            <td>
-                Split an array into multiple chunked arrays.
-            </td>
-        </tr>
-        <tr>
-            <td>Function.prototype.bind(func:func)</td>
-            <td>jQuery</td>
-            <td>
-                Alters the <code>this</code> context of bound functions.
-                A polyfill for ECMA5 functionality.
-            </td>
-        </tr>
-
-        <tr class="table-divider">
-            <td colspan="3">Events</td>
-        </tr>
-        <tr>
-            <td>clickout</td>
-            <td>Both</td>
-            <td>
-                A custom event that triggers when a click occurs outside the element that has been bound.
-                Is used by drop downs, dialogs, modals, etc.
-            </td>
-        </tr>
-        <tr>
-            <td>swipe, swipeleft, swiperight, swipeup, swipedown</td>
-            <td>jQuery</td>
-            <td>
-                Custom events that emulate swiping on touch devices. If the device is non-touch,
-                standard mouse events are used instead.
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-## Conventions ##
-
-While the Sass/CSS layer uses the BEM naming convention, the JavaScript layer adheres to the following conventions.
-These conventions should be abided by when submitting pull requests.
-
-Classes
-* Should be in capitalized camel case form: `FooBar`
-* Should extend the `Toolkit.Component` prototype
-
-Methods and Properties
-* Should be in camel case form: `fooBar()`
-* Should be prefixed with `_` when used internally and not be publicly available: `_fooBar()`
-
-Methods
-* Should be prefixed with `on` when used as an event handler / callback: `onFooBar(e)`
-* Should, for the most part, be written in verb / action form
-* Getters and setters should be separate

@@ -116,7 +116,7 @@ If we want the menu to open up below the button that triggered it, we must use a
 
 <div class="notice is-info">
     For drop menus to work, they must be initialized in the JavaScript layer.
-    Implementation of the drop component may differ.
+    Implementation of the Drop component may differ.
 </div>
 
 ## ARIA ##
