@@ -23,13 +23,28 @@ var blackout = Toolkit.Blackout.factory();
     Components that integrate the blackout will handle situations accordingly.
 </div>
 
+### Loading Animation ###
+
+A loading animation can be inserted within the center of the blackout by defining the `loader` option.
+This animation makes use of the [Loader component](loader.md), and the `loader` values must related to
+the types found within the Loader component.
+
+When defining hte animation, the options must be set globally on the Blackout component.
+
+```javascript
+$.extend(Toolkit.Blackout.options, {
+    loader: 'bubble-wave',
+    waveCount: 3
+});
+```
+
 ## Template ##
 
 The following markup is used for the creation of the blackout element.
 This structure can be customized through the `template` option.
 
 ```html
-<div class="{vendor}blackout" id="toolkit-blackout"></div>
+<div class="{vendor}blackout"></div>
 ```
 
 <div class="notice is-info">
@@ -67,7 +82,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Since the blackout is a singleton, [options will need to be set globally](../development/js.md#options).
+Since the blackout is a singleton, [options will need to be set globally](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -100,7 +115,7 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
         <tr>
             <td>templateFrom</td>
             <td>string</td>
-            <td>#toolkit-blackout</td>
+            <td>#toolkit-blackout-1</td>
             <td>The ID of an element to use as the template.</td>
         </tr>
     </tbody>
@@ -108,7 +123,7 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -157,7 +172,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -191,7 +206,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

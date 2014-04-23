@@ -8,8 +8,6 @@ An accordion must be structured using an unordered or ordered list.
 Every item in the list should have an accompanying header and section.
 The header will be bound with a click event that toggles the display of its sibling section,
 while also closing other sections (can be changed through options).
-The markup within each item can be customized to an extent,
-but will require configuration when the JavaScript is initialized.
 
 ```html
 <ul class="accordion">
@@ -88,7 +86,7 @@ attributes are required when supporting ARIA.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -132,7 +130,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -161,7 +159,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -202,7 +200,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

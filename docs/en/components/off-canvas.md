@@ -7,17 +7,24 @@ Contextual sidebars positioned outside the viewport until activated.
 Off canvas provides a mechanism for positioning contextual sidebars outside of the viewport (on the left or right),
 which can then be slid into view when activated. Supporting off canvas sidebars is relatively easy.
 
-The only requirement is to create sidebars with either the `.off-canvas--left` or `.off-canvas--right`
-modifier classes. These classes determine the side to position the sidebar on. The sidebars use `fixed`
-positioning and can be placed anywhere in the source code, but we suggest placing them in the `body`.
+The first thing we need to do is place a `.canvas` wrapper within the `body`, and within that an `.on-canvas`
+element where all site content should reside. Lastly, we place the `.off-canvas` sidebars within the wrapper.
 
 ```html
-<aside class="off-canvas off-canvas--left" id="left-sidebar">
-    ...
-</aside>
+<body>
+    <div class="canvas">
+        <main class="on-canvas">
+            ... Primary content ...
+        </main>
+
+        <aside class="off-canvas off-canvas--left" id="left-sidebar">
+            ... Sidebar content ...
+        </aside>
+    </div>
+</body>
 ```
 
-Once we have our markup, the component can be initialized.
+Once we have our markup, the component can be initialized on the sidebars.
 
 ```javascript
 $('.off-canvas').offCanvas();
@@ -28,7 +35,7 @@ $('.off-canvas').offCanvas();
 </div>
 
 <div class="notice is-info">
-    Portrait orientation specific sidebars are supported through CSS media queries and Sass variables.
+    Mobile specific sidebars are supported through CSS media queries and Sass variables.
 </div>
 
 ### Toggle Sidebars ###
@@ -57,62 +64,26 @@ for each side.
 <aside class="off-canvas off-canvas--right" id="right-sidebar">...</aside>
 ```
 
-```javascript
-$('.off-canvas').offCanvas();
-```
-
-The component also supports multiple sidebars on the same side. However, when using this approach,
-the `push` or `overlay` option must be used, as the move (squishing) pattern is not supported.
+The component also supports multiple sidebars on the same side.
+However, be weary of this approach and the animations being used as it might run into weirdness.
 
 ```html
 <aside class="off-canvas off-canvas--left" id="primary-sidebar">...</aside>
 <aside class="off-canvas off-canvas--left" id="secondary-sidebar">...</aside>
 ```
 
-```javascript
-$('.off-canvas').offCanvas({
-    push: true
-});
-```
+### Animations ###
 
-### Overlaying, Pushing, & Moving ###
+There are 7 types of animations that can be used for displaying a sidebar,
+each with their own unique presentation.
 
-There are 3 possible patterns for displaying a sidebar, the first which overlays the document,
-the second which pushes the document outside the viewport, and the third which squishes the content
-within the document to make room for the sidebar.
-
-Overlaying, which is disabled by default, takes the highest precedence when enabled.
-To enable overlaying, set `overlay` to true.
-
-```javascript
-$('.off-canvas').offCanvas({
-    overlay: true
-});
-```
-
-Pushing, which is enabled by default, will automatically set `hideOthers` to true, as 2 sidebars
-cannot push the content at the same time.
-
-```javascript
-$('.off-canvas').offCanvas({
-    push: true
-});
-```
-
-When pushing is disabled, the fallback moving pattern will be used. This pattern will squish the
-content (applies a padding on the body) to make room for the sidebar. To enable moving,
-set `push` to false.
-
-```javascript
-$('.off-canvas').offCanvas({
-    push: false
-});
-```
-
-<div class="notice is-warning">
-    When multiple off canvas sidebars are being used, they must all use the same push and overlay options.
-    Using mis-configured instances will cause unexpected results.
-</div>
+* `push` - Pushes the content off the screen to make room for the sidebar.
+* `push-reveal` - A combination of the push and reveal animation.
+* `push-down` - Pushes the content off the screen while the sidebar slides down from above.
+* `reverse-push` - Similar to the push animation, but the sidebar slides in from the opposite side.
+* `reveal` - The content slides off the screen to reveal the sidebar beneath it.
+* `squish` - The content stays on screen, but is squished via padding to make room for the sidebar.
+* `on-top` - The sidebar slides over the content.
 
 ### Open On Load ###
 
@@ -120,19 +91,18 @@ Sidebars can be opened on page load by setting `openOnLoad` to true.
 
 ```javascript
 $('.off-canvas').offCanvas({
-    openOnLoad: true,
-    push: false
+    openOnLoad: true
 });
 ```
 
 <div class="notice is-error">
-    When <code>openOnLoad</code> is enabled, we suggest setting <code>push</code> to false,
-    so that content is not pushed off the screen.
+    We suggest using this with the <code>on-top</code> or <code>squish</code> animations.
 </div>
 
 ### Notes ###
 
-* When a sidebar is open, a `.is-expanded` class will be added.
+* When a sidebar is open, an `.is-expanded` class will be added to the sidebar.
+* When a sidebar is open, a `.move-left` or `.move-right` class will be added to the `.canvas`.
 
 ## ARIA ##
 
@@ -199,7 +169,7 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -246,7 +216,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -269,7 +239,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -304,7 +274,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

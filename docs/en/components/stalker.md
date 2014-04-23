@@ -59,7 +59,7 @@ $('#overflown').stalker({
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -129,7 +129,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -164,7 +164,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -172,6 +172,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -179,16 +180,19 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>targets</td>
             <td>collection</td>
             <td>A collection of target elements to activate.</td>
+            <td><code>target</code> option</td>
         </tr>
         <tr>
             <td>markers</td>
             <td>collection</td>
             <td>A collection of marker elements to monitor and notify against.</td>
+            <td><code>marker</code> option</td>
         </tr>
         <tr>
             <td>offsets</td>
             <td>array</td>
             <td>A list of top and left offsets for all markers. These offsets are used for monitoring the scroll.</td>
+            <td></td>
         </tr>
         <tr>
             <td>container</td>
@@ -197,13 +201,14 @@ Inherits all properties from the [parent component](../development/js.md#propert
                 The element to monitor scroll events on.
                 If the element has overflow auto, it will be the constructor element, else it will be the window.
             </td>
+            <td></td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

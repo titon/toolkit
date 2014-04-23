@@ -36,7 +36,7 @@ The following markup can be used for basic carousel functionality.
 
 If we don't want next and previous arrows, don't add the markup for it.
 If we don't want the tab list, don't add the markup for it.
-If we want additional elements, we can freely to add them! So on and so forth.
+If we want additional elements, we can freely add them! So on and so forth.
 The only elements that are required, are the `.carousel` wrapper,
 and the `.carousel-items` list.
 
@@ -168,7 +168,7 @@ attributes are required when supporting ARIA.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -211,7 +211,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -252,7 +252,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -299,7 +299,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

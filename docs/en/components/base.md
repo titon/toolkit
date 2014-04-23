@@ -5,7 +5,7 @@ Defines styles and helper classes for CSS, and a robust component system for Jav
 ## Usage ##
 
 The base component is required by all other components, as it provides base CSS styles and
-the [JavaScript Component layer](../development/js.md). In regards to CSS, the following
+the [JavaScript Component layer](../development/js/component.md). In regards to CSS, the following
 global classes are available for use.
 
 ### Alignment ###

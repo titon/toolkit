@@ -15,7 +15,7 @@ $('.js-modal').modal();
 ```
 
 The value of the `getContent` option (falls back to `href` attribute) determines the URL to request for modal content.
-Once a request completes, the AJAX response will be inserted into the `contentElement` element.
+Once a request completes, the AJAX response will be inserted into the `.modal-inner` element.
 
 To insert non-AJAX content into a modal, the `getContent` value can point to an ID in the page, like so `#some-id`.
 We can also set the content directly through the modal instance.
@@ -31,11 +31,11 @@ $('.js-modal').toolkit('modal', 'show', $('#add-category'));
 // Loads /categories/add
 ```
 
-[Learn more on accessing component instances.](../development/js.md#accessing-components)
+[Learn more on accessing component instances.](../development/js/usage.md)
 
 ### Multiple Modals ###
 
-Displaying multiple modals at the same time is possible, but requires multiple modal instances.
+Displaying multiple modals at the same time is possible, but will require multiple modal instances.
 
 ```javascript
 $('.js-modal-1').modal();
@@ -43,19 +43,19 @@ $('.js-modal-2').modal();
 ```
 
 Activating modals use event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere
-will open one. This even applies to elements loaded in via AJAX, like the content of a modal.
+will open one. This even applies to elements loaded in via AJAX, like within the content of a modal.
 
 ### Form Submitting ###
 
 How useful would a modal be if it didn't support forms? Rather useless.
-Using forms in modals is rather simple, simply place the `form` tag and a `.modal-event-submit`
+Using forms in modals is rather simple, simply place the `form` tag and a `.modal-submit`
 class on the element that should trigger form submission.
 
 ```html
 <form action="/url/to/post/to" method="post">
     ...
 
-    <button type="button" class="modal-event-submit">Submit</button>
+    <button type="button" class="modal-submit">Submit</button>
 </form>
 ```
 
@@ -69,7 +69,7 @@ If the AJAX response is non-HTML, then continue reading.
 </div>
 
 <div class="notice is-error">
-    Do not use normal submit buttons within a modal form, use <code>.modal-event-submit</code> instead.
+    Do not use normal submit buttons within a modal form, use <code>.modal-submit</code> instead.
 </div>
 
 ### Non-HTML Responses ###
@@ -184,7 +184,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -248,7 +248,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -271,7 +271,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -297,7 +297,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
