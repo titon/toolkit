@@ -8,11 +8,9 @@
     * [Extensions](js/extensions.md)
     * [Conventions](js/conventions.md)
 * CSS
-    * [Normalize Integration](css/#normalize-integration)
-    * [Mobile First](css/#mobile-first)
-    * [Fluid & Responsiveness](css/#fluid--responsiveness)
-    * [Block-Element-Modifier Methodology](css/#block-element-modifier-methodology)
-    * [Reserved Classes](css/#reserved-classes)
+    * [Philosophies](css/philosophies.md)
+    * [Block-Element-Modifier Methodology](css/bem.md)
+    * [Reserved Classes](css/reserved.md)
 * Sass
     * [Usage](sass/usage.md)
     * [Variables](sass/variables.md)
