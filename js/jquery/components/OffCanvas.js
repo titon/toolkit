@@ -31,6 +31,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     events['ready document'] = 'onReady';
+    events['resize window'] = 'onResize';
 
     if (this.side === 'left') {
         events['swipeleft element'] = 'hide';
@@ -134,6 +135,15 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             sidebar.removeClass(transClass);
             inner.removeClass(transClass);
         }, 1);
+    },
+
+    /**
+     * Triggered when the page is resized.
+     *
+     * @private
+     */
+    onResize: function() {
+        this.fireEvent('resize');
     },
 
     /**

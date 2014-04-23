@@ -149,6 +149,34 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     },
 
     /**
+     * Submit the form found within the modal.
+     */
+    submit: function() {
+        var form = this.element.find('form:first');
+
+        if (!form) {
+            return;
+        }
+
+        this.fireEvent('submit', [form]);
+
+        var options = {
+            url: form.attr('action'),
+            type: (form.attr('method') || 'post').toUpperCase()
+        };
+
+        if (window.FormData) {
+            options.processData = false;
+            options.contentType = false;
+            options.data = new FormData(form[0]);
+        } else {
+            options.data = form.serialize();
+        }
+
+        this.requestData(options);
+    },
+
+    /**
      * Event handler for hide().
      *
      * @private
@@ -201,29 +229,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     onSubmit: function(e) {
         e.preventDefault();
 
-        var button = $(e.currentTarget),
-            form = this.element.find('form:first');
-
-        if (!form) {
-            return;
-        }
-
-        this.fireEvent('submit', [button, form]);
-
-        var options = {
-            url: form.attr('action'),
-            type: (form.attr('method') || 'post').toUpperCase()
-        };
-
-        if (window.FormData) {
-            options.processData = false;
-            options.contentType = false;
-            options.data = new FormData(form[0]);
-        } else {
-            options.data = form.serialize();
-        }
-
-        this.requestData(options);
+        this.submit();
     }
 
 }, {
