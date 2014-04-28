@@ -27,8 +27,9 @@ The following minimum versions should support most (if not all) of Toolkits func
 
 ## Internet Explorer 8 & 9 ##
 
-Although IE 8 and 9 are partially supported, they do not support many of the features implemented by modern browsers, which is represented in the table below.
-Support is determined through [caniuse.com](http://caniuse.com/) and can be verified by clicking on the table row titles.
+Although IE 8 and 9 are partially supported, they do not support many of the features implemented by modern browsers,
+which is represented in the table below. Support is determined through [caniuse.com](http://caniuse.com/)
+and can be verified by clicking on the table row titles.
 
 <table class="table is-striped compatibility-table">
     <thead>
@@ -41,12 +42,17 @@ Support is determined through [caniuse.com](http://caniuse.com/) and can be veri
     <tbody>
         <tr>
             <td><a href="http://caniuse.com/#feat=html5semantic">HTML5 Elements</a></td>
-            <td class="is-error">Can be enabled with <a href="http://modernizr.com">modernizr</a> or <a href="http://necolas.github.io/normalize.css/">normalize.css</a></td>
+            <td class="is-error">
+                Can be enabled with <a href="http://modernizr.com">modernizr</a> or
+                <a href="http://necolas.github.io/normalize.css/">normalize.css</a>
+            </td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
             <td><a href="http://caniuse.com/#feat=css-animation">CSS3 Animations</a></td>
-            <td class="is-error" colspan="2">Falls back to element display toggling as the JavaScript layer does not use animations</td>
+            <td class="is-error" colspan="2">
+                Falls back to element display toggling as the JavaScript layer does not use animations
+            </td>
         </tr>
         <tr>
             <td><a href="http://caniuse.com/#feat=css-transitions">CSS3 Transitions</a></td>

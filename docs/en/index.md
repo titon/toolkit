@@ -15,4 +15,6 @@ Development
 Support
 * [Browser Compatibility](support/compatibility.md)
 * [Competitor Comparison](support/comparison.md)
+* [Contributing](support/contributing.md)
 * [Changelog](support/changelog.md)
+* [License](support/license.md)

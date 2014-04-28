@@ -30,17 +30,8 @@ Now what if we want 16:9? Or a 4:4? This can be achieved through modifiers,
 ala `.carousel--wide` and `.carousel--square`.
 A modifier can be easily recognized by a `--` between the block and modifier name.
 
-Modifiers in the Toolkit world are used to replace blocks within the HTML markup,
-all the while inheriting the same functionality. So basically...
-
 ```html
 <div class="carousel carousel--wide">
+    ...
+</div>
 ```
-
-Can be written as...
-
-```html
-<div class="carousel--wide">
-```
-
-Fantastic! This is all possible due to Sass's built in `@extend` functionality.

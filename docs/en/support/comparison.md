@@ -4,13 +4,13 @@ The following charts provide a comparison of Toolkit to other popular front-end 
 The charts demonstrate what features and components are implemented by each vendor.
 
 A green cell in the chart denotes support for that item, while red denotes no support.
-If a cell is blue, than either partial support is provided, or the item has a different name.
+If a cell is blue, than either partial support is provided, or the component has a different name.
 
 The following libraries are being compared:
 
-* Foundation 5.2.1
+* Foundation 5.2.2
 * Bootstrap 3.1.1
-* Semantic UI 0.15.1
+* Semantic UI 0.16.1
 
 <div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
@@ -32,29 +32,29 @@ The following libraries are being compared:
     <tbody>
         <tr>
             <td>CSS Components</td>
-            <td>18</td>
+            <td>19</td>
             <td>22</td>
             <td>29</td>
             <td>24</td>
         </tr>
         <tr>
             <td>JS + CSS Components</td>
-            <td>17</td>
+            <td>19</td>
             <td>16</td>
             <td>12</td>
             <td>19</td>
         </tr>
         <tr>
             <td>CSS Filesize</td>
-            <td>54KB</td>
-            <td>157KB</td>
+            <td>60KB</td>
+            <td>117KB</td>
             <td>113KB</td>
-            <td>223KB</td>
+            <td>233KB</td>
         </tr>
         <tr>
             <td>JS Filesize</td>
-            <td>55KB</td>
-            <td>88KB</td>
+            <td>59KB</td>
+            <td>91KB</td>
             <td>29KB</td>
             <td>136KB</td>
         </tr>
@@ -91,17 +91,17 @@ The following components are found within Toolkit.
     </thead>
     <tbody>
         <tr>
-            <td>Accordion</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-info">Known as Collapse</td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
             <td>Base (Helpers)</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Accordion</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-info">Known as Collapse</td>
             <td class="is-success">&check;</td>
         </tr>
         <tr>
@@ -154,7 +154,14 @@ The following components are found within Toolkit.
             <td class="is-error"></td>
         </tr>
         <tr>
-            <td>Dropdown</td>
+            <td>Divider</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Drop (Dropdown)</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -250,6 +257,13 @@ The following components are found within Toolkit.
             <td class="is-info">Known as Alert</td>
             <td class="is-info">Known as Alert</td>
             <td class="is-info">Known as Message</td>
+        </tr>
+        <tr>
+            <td>Off Canvas</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-info">Known as Sidebar</td>
         </tr>
         <tr>
             <td>Pagination</td>
@@ -406,13 +420,6 @@ The following components are found within Foundation that have not been mentione
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>
-        </tr>
-        <tr>
-            <td>Off Canvas</td>
-            <td class="is-error"></td>
-            <td class="is-success">&check;</td>
-            <td class="is-error"></td>
-            <td class="is-info">Known as Sidebar</td>
         </tr>
         <tr>
             <td>Panels</td>
