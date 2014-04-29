@@ -1,14 +1,14 @@
 # Toolkit Namespace #
 
-The global `Toolkit` object found on the `window` object is used extensively by and created for the component system.
+The global `Toolkit` object is used extensively by and created for the component system.
 It defines global options, localized messages, feature detection, and device support.
 It also acts as a namespace for components by housing a top level name to avoid global conflicts.
 Each component class definition can be found on the `Toolkit` object, for example,
-the accordion interface is found under `Toolkit.Accordion`.
+the accordion class is found under `Toolkit.Accordion`.
 
 ## Vendor Prefix ##
 
-Paired with the [Sass `$vendor-prefix` variable](sass.md#variables), the `Toolkit.vendor` can be defined for
+Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
 prefixing within the JavaScript layer. This value will be prepended to all component class names that are
 automatically created with JavaScript.
 

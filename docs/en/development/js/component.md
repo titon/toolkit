@@ -1,7 +1,7 @@
 # Component System #
 
 The individual components that make up the Toolkit JavaScript layer are powered by a robust object-oriented class layer.
-This base class that all components extend can be found under the `Toolkit.Component` object.
+This base class that all components extend from can be found under the `Toolkit.Component` object.
 The Component class provides common methods, properties, and events &mdash; all of which can be found in more detail below.
 
 Before we learn more about the component system, we must differentiate between the two types of components.
@@ -9,7 +9,7 @@ Every type of component falls into one of the following.
 
 * Activated
     * Component class is initialized on an element that actives the component.
-    * Component element is created with JavaScript (can be customized through options).
+    * Component element is created with JavaScript through a template option.
 * Embedded
     * Component class is initialized on an existing element in the DOM.
     * Component element is the target element from the DOM.
@@ -18,7 +18,7 @@ And the components placed in their respective type.
 Do note that it's possible for a component to share functionality from multiple types &mdash; TypeAhead for example.
 
 * Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip, TypeAhead
-* Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, Pin, Stalker, Tabs, TypeAhead
+* Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, OffCanvas, Pin, Stalker, Tabs, TypeAhead
 
 ## Templates ##
 
@@ -34,7 +34,7 @@ to create the elements that are used in the page.
         '<div class="modal-outer">' +
             '<div class="modal-handle">' +
                 '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
+                '<button class="modal-close modal-hide"><span class="x"></span></button>' +
             '</div>' +
         '</div>' +
     '</div>'
@@ -43,32 +43,14 @@ to create the elements that are used in the page.
 
 Templates can be customized by overriding the `template` option.
 When customizing however, it's important to associate the custom markup with class mappings.
-These mappings tell the component layer where critical elements within the template can be found.
-
-Continuing with the Modal example, the component must have knowledge of where to inset content into the modal.
-This is handled by the `contentElement` option, which is set to `.modal-inner` by default.
-Options that end with `Element` are used for template mapping.
-
-And for a more concrete, albeit simple, example of customizing.
-
-```javascript
-$('.js-modal').modal({
-    contentElement: '.modal-body',
-    template: '<div class="modal">' +
-        '<div class="modal-body"></div>' +
-    '</div>'
-});
-```
-
-<div class="notice is-info">
-    Every component that supports templates will have different option mappings and requirements.
-    Jump to the individual component documentation for more information.
-</div>
+To map where elements are found, the classes under the "Found With" properties table column should be used.
+To map where events are bound, the classes under the "Bound To" methods table column should be used.
+These tables can be found under the documentation for each component.
 
 ### Elements As Templates ###
 
-It's also possible to use existing DOM elements as a template.
-This is especially useful for components where each instance of the component should use the same DOM element &mdash; blackouts for example.
+It's also possible to use existing DOM elements as a template. This is especially useful for components
+where each instance of the component should use the same DOM element &mdash; blackouts for example.
 Providing an element ID for the `templateFrom` option will attempt to use that element as the template.
 
 ```javascript
@@ -92,7 +74,7 @@ If no element is found, the component will fall back to the `template` option.
 ## Options ##
 
 Extensibility of components can be achieved through customizable options.
-Each component has a different set of options, and these options can be used to toggle functionality.
+Each component has a different set of options, and these options can be used to alter functionality.
 
 Options can be set globally by modifying the `options` object on the component class.
 These options will need to be modified *before* a component is initialized.
@@ -120,15 +102,15 @@ $('.js-tooltip').tooltip({
 
 ### Data Attribute Inheritance ##
 
-At the highest level we have global options. At the middle level we have component options.
+At the highest level we have global options. At the middle level we have constructor options.
 And at the lowest level, the element, we have data attribute options. Data attributes permit
-individual elements to inherit custom options that override the component options.
+individual elements to inherit custom options that override all other options.
 
 Each data attribute must be defined in the format of `data-{component}-{option}="{value}"`.
-The component name will be all lowercase in dashed format, while the option will be all lowercase.
+The component and option names will be in all lowercase format.
 
 Say we have 3 carousels on a page, but we want separate animations for each, and we only
-want to execute the component once. This can easily be solved through data attributes.
+want to initialize the component once. This can easily be solved through data attributes.
 
 ```html
 <div class="carousel" data-carousel-animation="slide">
@@ -327,7 +309,7 @@ The following events are shared between all components.
 
 ## Properties ##
 
-The following properties are available on all class instances, but not all components make use of them.
+The following properties are available on all class instances.
 
 <table class="table is-striped data-table">
     <thead>
@@ -409,12 +391,14 @@ The following properties are available on all class instances, but not all compo
     </tbody>
 </table>
 
-Additional properties are found within each component.
-Either read the source code or the individual documentation for a list of properties.
+<div class="notice is-info">
+    Additional properties are found within each component.
+    Either read the source code or the individual documentation for a list of properties.
+</div>
 
 ## Methods ##
 
-The following methods are available on all class instances, but not all components make use of them.
+The following methods are available on all class instances.
 
 <table class="table is-striped data-table">
     <thead>

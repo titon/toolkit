@@ -11,6 +11,7 @@ All releases will contain bug fixing and polishing for current features.
 * Add deferred/promise integration.
 * Make nested menus expandable on touch devices (drop).
 * Rename Tabs to Tab.
+* Remove cookie dependency.
 
 ### 2.0.0 ###
 * Remove the MooTools port.
@@ -25,7 +26,6 @@ All releases will contain bug fixing and polishing for current features.
 * Updated to Sass 3.3 (maps for settings).
 * Refactor events for before/after conditions.
 * RTL support.
-* Remove cookie dependency?
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?

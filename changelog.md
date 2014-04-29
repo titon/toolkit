@@ -4,7 +4,7 @@ Older versions can be found in the documentation changelogs.
 
 ## 1.4.0 ##
 This minor release includes 3 new components, a new `destroy()` method,
-a cleanup of element and event options, and a handful of documentation and optimization improvements.
+a cleanup of element and event options, expanded documentation, and a handful of optimization improvements.
 
 * Usage license has been updated to BSD-3 from BSD-2
 * MooTools support is slowly being phased out and new components are not supported
@@ -21,7 +21,7 @@ a cleanup of element and event options, and a handful of documentation and optim
 * Toolkit
     * Added `toolkit(component, method, args)` support for triggering methods on the class instance
     * Refactored `toolkit()` to return a single instance instead of multiple instances
-    * Removed `i()` and `item()` jQuery collection method
+    * Removed `i()` and `item()` jQuery collection methods
 * Component
     * Added a `initialize()` method that is triggered within all constructors
     * Added a `destroy()` method that will unbind all events, remove elements, and delete the instance

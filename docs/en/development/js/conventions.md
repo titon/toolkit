@@ -5,7 +5,7 @@ These conventions should be abided by when submitting pull requests.
 
 Classes
 * Should be in capitalized camel case form: `FooBar`
-* Should extend the `Toolkit.Component` prototype
+* Should extend the `Toolkit.Class` prototype (or a sub-class)
 
 Methods and Properties
 * Should be in camel case form: `fooBar()`
