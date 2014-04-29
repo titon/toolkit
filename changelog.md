@@ -21,6 +21,7 @@ a cleanup of element and event options, and a handful of documentation and optim
 * Toolkit
     * Added `toolkit(component, method, args)` support for triggering methods on the class instance
     * Refactored `toolkit()` to return a single instance instead of multiple instances
+    * Removed `i()` and `item()` jQuery collection method
 * Component
     * Added a `initialize()` method that is triggered within all constructors
     * Added a `destroy()` method that will unbind all events, remove elements, and delete the instance

@@ -75,7 +75,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     // Set default positioning for responsiveness
     switch (options.animation) {
         case 'fade':
-            items.item(0).reveal();
+            items.eq(0).reveal();
         break;
         case 'slide':
             items
@@ -116,14 +116,14 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.tabs
             .removeClass('is-active')
             .aria('toggled', false)
-            .item(index)
+            .eq(index)
                 .addClass('is-active')
                 .aria('toggled', true);
 
         // Update items
         this.items
             .aria('hidden', true)
-            .item(index)
+            .eq(index)
                 .aria('hidden', false);
 
         // Animate!
@@ -133,7 +133,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         if (animation === 'fade') {
             this.items
                 .removeClass('show')
-                .item(index)
+                .eq(index)
                     .reveal();
 
         } else {

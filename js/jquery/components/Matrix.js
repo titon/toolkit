@@ -206,7 +206,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.matrix = [];
 
         for (var i = 0; i < l; i++) {
-            item = this.items.item(i);
+            item = this.items.eq(i);
             size = item.outerWidth();
 
             // How many columns does this item span?

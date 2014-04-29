@@ -542,7 +542,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         options[index].selected = true;
 
         items.parent().removeClass(activeClass);
-        items.item(index).parent().addClass(activeClass);
+        items.eq(index).parent().addClass(activeClass);
 
         this.index = index;
         this.input.change();

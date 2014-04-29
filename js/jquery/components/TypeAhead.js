@@ -255,7 +255,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
             if (this.items[index]) {
                 var item = this.items[index];
 
-                rows.item(index)
+                rows.eq(index)
                     .addClass('is-active')
                     .find('a')
                         .aria('selected', true);

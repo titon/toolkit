@@ -215,16 +215,6 @@ $.fn.conceal = function() {
 };
 
 /**
- * Return a jQuery instance for the item in the collection defined by the index.
- *
- * @param {Number} index
- * @returns {jQuery}
- */
-$.fn.i = $.fn.item = function(index) {
-    return $(this.get(index));
-};
-
-/**
  * A multi-purpose getter and setter for ARIA attributes.
  * Will prefix attribute names and cast values correctly.
  *
@@ -531,6 +521,7 @@ if (!$.cookie) {
      * @returns {bool}
      */
     $.removeCookie = function(key, options) {
+        options = options || {};
         options.expires = -1;
 
         return $.cookie(key, '', options);

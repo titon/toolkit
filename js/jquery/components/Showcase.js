@@ -96,14 +96,14 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             caption = this.caption,
             list = this.items,
             listItems = list.children('li'),
-            listItem = listItems.item(index),
+            listItem = listItems.eq(index),
             items = this.data,
             item = items[index];
 
         // Update tabs
         this.tabs.find('a')
             .removeClass('is-active')
-            .item(index)
+            .eq(index)
                 .addClass('is-active');
 
         // Reset previous styles

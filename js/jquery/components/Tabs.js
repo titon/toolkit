@@ -40,7 +40,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
                 id: self.id('tab', index)
             })
             .aria({
-                controls: sections.item(index).attr('id'),
+                controls: sections.eq(index).attr('id'),
                 selected: false,
                 expanded: false
             })
@@ -73,7 +73,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     if (!index && options.loadFragment && location.hash) {
         index = tabs.filter(function() {
             return ($(this).attr('href') === location.hash);
-        }).item(0).data('index');
+        }).eq(0).data('index');
     }
 
     if (!index || !tabs[index]) {
@@ -87,7 +87,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
      * Reveal the last section when destroying.
      */
     doDestroy: function() {
-        this.sections.item(this.index).reveal();
+        this.sections.eq(this.index).reveal();
     },
 
     /**
@@ -118,7 +118,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         tab = $(tab);
 
         var index = tab.data('index'),
-            section = this.sections.item(index),
+            section = this.sections.eq(index),
             options = this.options,
             ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
