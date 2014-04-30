@@ -19,6 +19,7 @@ a:hover { color: #b84374; }
 
 .example { padding: 2rem; }
 .example > *:first-child { margin-top: 0; }
+.example img { max-width: 100%; }
 
 .example-form { margin: 0; padding: 0; list-style: none; background: #283442; color: #ebe8dd; width: 100%; z-index: 550; }
 .example-form li { display: inline-block; padding: 5px; }

@@ -11,15 +11,19 @@ a cleanup of element and event options, expanded documentation, and a handful of
 * Added new Divider component for separating content
 * Added new Off Canvas component for displaying sidebars outside the viewport
 * Added new Toast component for notifying users with timed messages
-* Added `.no-transition` class
+* Added `.no-transition` class to disable transitions
+* Added `.sr-only` class for screen readers
+* Added `suppression` setting for swipe events
 * Fixed a bug with `swipe` events where select dropdowns would stop working
 * Fixed a bug with `swipe` events where page scrolling gets disabled
+* Fixed a bug with certain fade animations
 * Fixed a bug where certain Sass variables were not customizable
 * Removed `$shape-square-class` Sass variable
 * Removed `*Element` options (CSS classes are now hardcoded)
 * Removed `*Event` options (CSS classes are now hardcoded)
 * Toolkit
     * Added `toolkit(component, method, args)` support for triggering methods on the class instance
+    * Added `transitionEnd` flag
     * Refactored `toolkit()` to return a single instance instead of multiple instances
     * Removed `i()` and `item()` jQuery collection methods
 * Component
@@ -29,9 +33,13 @@ a cleanup of element and event options, expanded documentation, and a handful of
     * Refactored `bindEvents()` with an easier lightweight syntax
 * Accordion
     * Removed `headerElement`, `sectionElement` options
+* Blackout
+    * Fixed incorrect `.loader-spinner` class
 * Carousel
     * Removed `nextButton`, `prevButton` properties
     * Removed `itemsElement`, `tabsElement`, `nextElement`, `prevElement` options
+* Code
+    * Added overflow scrolling for touch devices
 * Flyout
     * Disabled automatically for touch devices
     * Removed `contentElement` option

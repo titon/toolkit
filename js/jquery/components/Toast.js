@@ -15,7 +15,8 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
             relevant: 'additions',
             hidden: 'false'
         })
-        .appendTo(element);
+        .appendTo(element)
+        .reveal();
 
     this.initialize();
 }, {

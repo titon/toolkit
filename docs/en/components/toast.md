@@ -85,6 +85,16 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$toast-animation</td>
+            <td>("fade", "slide-up", "slide-down", "slide-left", "slide-right")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$toast-position</td>
+            <td>("top-left", "top-center", "top-right", "center-left", "center-right", "bottom-left", "bottom-center", "bottom-right")</td>
+            <td>A list of all positions to include in the CSS output.</td>
+        </tr>
+        <tr>
             <td>$toast-transition</td>
             <td>.3s</td>
             <td>The transition time for toast reveal animations.</td>

@@ -8,7 +8,7 @@
 
 .#{$vendor-prefix}off-canvas {
     visibility: visible;
-    position: absolute;
+    position: fixed;
     overflow: auto;
     top: 0;
     height: 100%;

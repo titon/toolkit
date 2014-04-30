@@ -151,7 +151,8 @@
         "priority": 10,
         "source": {
             "css": ["components/divider.css"]
-        }
+        },
+        "version": "1.4.0"
     },
     "drop": {
         "name": "Drop",
@@ -318,7 +319,8 @@
         "source": {
             "css": ["components/off-canvas.css"],
             "js": ["components/OffCanvas.js"]
-        }
+        },
+        "version": "1.4.0"
     },
     "pagination": {
         "name": "Pagination",
@@ -460,7 +462,8 @@
         "source": {
             "css": ["components/toast.css"],
             "js": ["components/Toast.js"]
-        }
+        },
+        "version": "1.4.0"
     },
     "tooltip": {
         "name": "Tooltip",

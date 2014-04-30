@@ -17,7 +17,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         options.animation = animation = 'push';
     }
 
-    // Cannot have multiple non-overlayed or squished sidebars open
+    // Cannot have multiple non-overlayed or non-squished sidebars open
     if (animation !== 'on-top' && animation !== 'squish') {
         options.hideOthers = true;
     }
