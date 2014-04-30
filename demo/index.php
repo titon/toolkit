@@ -280,11 +280,7 @@ $components = array(
                 'slide-in-top' => 'Slide In Top',
                 'slide-in-right' => 'Slide In Right',
                 'slide-in-bottom' => 'Slide In Bottom',
-                'slide-in-left' => 'Slide In Left',
-                'sticky-top' => 'Sticky Top',
-                'sticky-right' => 'Sticky Right',
-                'sticky-bottom' => 'Sticky Bottom',
-                'sticky-left' => 'Sticky Left'
+                'slide-in-left' => 'Slide In Left'
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             //'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),

@@ -133,16 +133,14 @@ This structure can be customized through the `template` option.
 ```html
 <div class="modal">
     <div class="modal-outer">
-        <div class="modal-handle">
-            <div class="modal-inner"></div>
-            <button type="button" class="modal-close modal-hide"><span class="x"></span></button>
-        </div>
+        <div class="modal-inner"></div>
+        <button class="modal-close modal-hide"><span class="x"></span></button>
     </div>
 </div>
 ```
 
 <div class="notice is-warning">
-    The <code>.modal-outer</code> and <code>.modal-handle</code> classes are required for certain animations to work properly.
+    The <code>.modal-outer</code> class is required for animations to work properly.
 </div>
 
 ## Variables ##
@@ -158,10 +156,7 @@ This structure can be customized through the `template` option.
     <tbody>
         <tr>
             <td>$modal-animation</td>
-            <td>
-                ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom",
-                "slide-in-left", "sticky-top", "sticky-right", "sticky-bottom", "sticky-left")
-            </td>
+            <td>("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left")</td>
             <td>A list of all animations to include in the CSS output.</td>
         </tr>
         <tr>
@@ -203,8 +198,7 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>
                 The animation to use when displaying the modal.
                 Available options are: fade, from-above, from-below,
-                slide-in-top, slide-in-right, slide-in-bottom, slide-in-left,
-                sticky-top, sticky-right, sticky-bottom, sticky-left.
+                slide-in-top, slide-in-right, slide-in-bottom, slide-in-left.
             </td>
         </tr>
         <tr>

@@ -242,10 +242,8 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     getContent: 'data-modal',
     template: '<div class="modal">' +
         '<div class="modal-outer">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button class="modal-close modal-hide"><span class="x"></span></button>' +
-            '</div>' +
+            '<div class="modal-inner"></div>' +
+            '<button class="modal-close modal-hide"><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });

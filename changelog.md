@@ -54,10 +54,13 @@ a cleanup of element and event options, expanded documentation, and a handful of
 * Modal
     * Added `$modal-mobile-breakpoint` to apply mobile widths to the modal
     * Added `submit()` method for submitting forms
+    * Updated with new markup
     * Renamed `.modal-event-submit` to `.modal-submit`
     * Renamed `.modal-event-close` to `.modal-hide`
+    * Removed `.modal-handle` within the template
     * Removed `elementBody` property
     * Removed `contentElement`, `closeElement`, `closeEvent`, `submitEvent` options
+    * Removed `sticky-*` animations
 * Popover, Tooltip
     * Removed `titleElement`, `contentElement` options
 * Showcase

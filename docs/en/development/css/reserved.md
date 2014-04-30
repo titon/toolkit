@@ -11,9 +11,8 @@ The following classes are reserved by Toolkit:
 * Size classes: `.small`, `.large`
 * Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in-top`,
     `.slide-in-bottom`, `.slide-in-left`, `.slide-in-right`, `.flip-rotate`,
-    `.fade`, `.sticky`, `.sticky-top`, `.sticky-bottom`, `.sticky-left`, `.sticky-right`,
-    `.push`, `.push-reveal`, `.push-down`, `.reverse-push`, `.reveal`, `.squish`, `.on-top`,
-    and many more
+    `.fade`, `.sticky`, `.push`, `.push-reveal`, `.push-down`, `.reverse-push`,
+    `.reveal`, `.squish`, `.on-top`, and many more
 * Positional classes: `.top-left`, `.top-center`, `.top-right`, `.center-left`, `.center-right`,
     `.bottom-left`, `.bottom-center`, `.bottom-right`
 * State classes: `.is-*`, `.has-*`, and many more
