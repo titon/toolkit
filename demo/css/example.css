@@ -77,7 +77,7 @@ a:hover { color: #b84374; }
 #stalker2-target { position: fixed; right: 20px; top: 120px; }
 
 .mask .loader.bar-wave > span { background: #fff; }
-.col.maskable { border-radius: 10px; }
+.col.mask-target { border-radius: 10px; }
 
 .on-canvas { background: #fff; }
 .off-canvas--left,
@@ -94,3 +94,6 @@ a:hover { color: #b84374; }
 @media only screen and (max-width: 640px) {
     .toasts { width: auto; left: 0 !important; right: 0 !important; }
 }
+
+.canvas,
+.on-canvas { height: 100%; }

@@ -91,7 +91,7 @@ mark { background: lighten($warning-light, 25%); }
     background: $gray;
     font-weight: bold;
     text-shadow: 1px 1px black(.2);
-    transition: all .2s;
+    transition: color .2s, border .2s, background .2s;
     @include button-style($default, $default-light, $default-dark);
 
     &:active {
