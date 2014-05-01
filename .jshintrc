@@ -22,6 +22,7 @@
         "Toolkit": true,
         "Timers": true,
         "Cache": true,
+
         "Zepto": true,
         "DocumentTouch": true
     }

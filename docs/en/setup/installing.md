@@ -4,10 +4,12 @@ There are many ways to get started with Toolkit. Choose the one that's right for
 
 ## Download ##
 
-The easiest option would be to download the latest stable version from the official [Toolkit GitHub](https://github.com/titon/toolkit/releases).
+The easiest option would be to download the latest stable version from the official
+[Toolkit GitHub](https://github.com/titon/toolkit/releases).
 The current version can be found at the top of the tag list, simply click the "zip" icon.
 
-Once downloaded, extract the zip archive and its contents. The production ready CSS and JavaScript files can be found in the `dist` folder.
+Once downloaded, extract the zip archive and its contents.
+The production ready CSS and JavaScript files can be found in the `dist` folder.
 Copy these files into a project and you're done!
 
 ## Git Clone ##
@@ -23,7 +25,8 @@ Just run the following command to clone the repository.
 
 ## Bower ##
 
-Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `toolkit` as a dependency within your project's `bower.json`.
+Toolkit also comes bundled as a [Bower](http://bower.io/) package.
+Simply add `toolkit` as a dependency within your project's `bower.json`.
 
 ```javascript
 {
@@ -33,7 +36,8 @@ Toolkit also comes bundled as a [Bower](http://bower.io/) package. Simply add `t
 }
 ```
 
-From the project root, run `bower install` to download the package(s). Once downloaded, include the assets in your project.
+From the project root, run `bower install` to download the package(s).
+Once downloaded, include the assets in your project.
 
 ```html
 <link href="/bower_components/toolkit/dist/toolkit.min.css" rel="stylesheet">
@@ -47,7 +51,8 @@ From the project root, run `bower install` to download the package(s). Once down
 
 ## Sass & Compass ##
 
-If you prefer to use the source Sass files directly in a project, this can easily be done through the Toolkit [Compass extension](http://compass-style.org/help/tutorials/extensions/).
+If you prefer to use the source Sass files directly in a project,
+this can easily be done through the Toolkit [Compass extension](http://compass-style.org/help/tutorials/extensions/).
 This approach requires Ruby, Ruby Gems, Sass, and Compass to be installed.
 
 ```bash
@@ -87,7 +92,8 @@ For more information on Sass integration, jump to the [Sass development document
 
 ## NPM ##
 
-Lastly, Toolkit comes bundled as a [Node.js](https://npmjs.org/) package. Simply add `titon-toolkit` as a dependency within your project's `package.json`.
+Lastly, Toolkit comes bundled as a [Node.js](https://npmjs.org/) package.
+Simply add `titon-toolkit` as a dependency within your project's `package.json`.
 
 ```javascript
 {

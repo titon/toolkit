@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -10,31 +10,47 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     }
 
     this.component = 'Flyout';
-    this.version = '1.3.1';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.nodes = nodes = $(nodes);
-    this.node = null;
-    this.element = null; // Current active menu
-    this.current = null; // Current URL
-    this.menus = {};
-    this.data = [];
-    this.dataMap = {};
-    this.timers = {};
-    this.events = {};
 
-    // Load data from the URL
-    $.getJSON(url, this.load.bind(this));
+    // Last opened flyout menu
+    this.element = null;
+
+    // Nodes found in the page on initialization
+    this.nodes = $(nodes);
+
+    // Last node to open a menu
+    this.node = null;
+
+    // Current URL to relate a flyout menu to
+    this.current = null;
+
+    // Collection of flyout elements indexed by URL
+    this.menus = {};
+
+    // Raw sitemap JSON data
+    this.data = [];
+
+    // Data indexed by URL
+    this.dataMap = {};
+
+    // Show and hide timers
+    this.timers = {};
 
     // Initialize events
+    this.events = {};
+
     if (options.mode === 'click') {
-        this.events['click ' + nodes.selector] = 'onShow';
+        this.events['click document {selector}'] = 'onShow';
     } else {
-        this.events['mouseenter ' + nodes.selector] = ['onShow', 'onEnter'];
-        this.events['mouseleave ' + nodes.selector] = 'onLeave';
+        this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
+        this.events['mouseleave document {selector}'] = 'onLeave';
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
+
+    // Load data from the URL
+    $.getJSON(url, this.load);
 }, {
 
     /**
@@ -48,11 +64,25 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     },
 
     /**
+     * Remove all the flyout menu elements and timers before destroying.
+     */
+    doDestroy: function() {
+        $.each(this.menus, function(i, menu) {
+            menu.remove();
+        });
+
+        this.clearTimer('show');
+        this.clearTimer('hide');
+    },
+
+    /**
      * Hide the currently shown menu.
      */
     hide: function() {
         // Must be called even if the menu is hidden
-        this.node.removeClass('is-active');
+        if (this.node) {
+            this.node.removeClass('is-active');
+        }
 
         if (!this.current || !this.isVisible()) {
             return;
@@ -178,9 +208,9 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
         var func;
 
         if (key === 'show') {
-            func = this.position.bind(this);
+            func = this.position;
         } else {
-            func = this.hide.bind(this);
+            func = this.hide;
         }
 
         if (func) {
@@ -209,7 +239,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
             ul,
             li,
             tag,
-            target = options.contentElement,
             limit = options.itemLimit,
             i, l;
 
@@ -257,7 +286,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                         role: 'presentation'
                     });
 
-                    li.addClass(Toolkit.vendor + 'flyout-heading');
+                    li.addClass(vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -281,15 +310,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                 }
             }
 
-            if (target) {
-                if (menu.is(target)) {
-                    menu.append(ul);
-                } else {
-                    menu.find(target).append(ul);
-                }
-            } else {
-                menu.append(ul);
-            }
+            menu.append(ul);
         }
 
         menu.appendTo(parent);
@@ -373,7 +394,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children(this.options.contentElement)
+        parent.children('.' + vendor + 'flyout')
             .removeAttr('style')
             .aria({
                 expanded: false,
@@ -400,7 +421,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children(this.options.contentElement);
+        var menu = parent.children('.' + vendor + 'flyout');
 
         if (!menu) {
             return;
@@ -452,7 +473,11 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        var node = $(e.currentTarget),
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
+        var node = $(e.target),
             isNode = (this.node && node[0] === this.node[0]);
 
         if (this.isVisible()) {
@@ -493,13 +518,9 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    contentElement: '.flyout',
     template: '<div class="flyout"></div>'
 });
 
-/**
- * Defines a component that can be instantiated through flyout().
- */
 Toolkit.create('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);

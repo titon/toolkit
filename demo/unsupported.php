@@ -1,0 +1,1 @@
+The <b><?php echo ucfirst(value('component')); ?></b> component is not supported for <b><?php echo ucfirst(value('vendor')); ?></b>.

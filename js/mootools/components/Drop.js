@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -24,15 +24,11 @@ Toolkit.Drop = new Class({
         this.parent(options);
         this.nodes = elements;
 
-        var events = {},
-            selector = this.options.delegate;
-
-        // Initialize events
-        events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
-        events['clickout ' + selector] = 'hide';
-        events[this.options.mode + ' ' + selector] = 'onShow';
-
-        this.events = events;
+        this.events = {
+            'clickout document .@drop': 'onHide',
+            'clickout document {selector}': 'onHide',
+            '{mode} document {selector}': 'onShow'
+        };
 
         this.enable();
         this.fireEvent('init');
@@ -103,9 +99,6 @@ Toolkit.Drop = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through drop().
- */
 Toolkit.create('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);

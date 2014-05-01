@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -76,7 +76,7 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     @if index($popover-tooltip-animation, "fade") {
         &.fade {
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity $tooltip-transition, visibility $tooltip-transition;
         }
     }
 

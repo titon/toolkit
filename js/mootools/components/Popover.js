@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -11,8 +11,6 @@ Toolkit.Popover = new Class({
     options: {
         delegate: '.js-popover',
         getContent: 'data-popover',
-        titleElement: '.popover-head',
-        contentElement: '.popover-body',
         template: '<div class="popover">' +
             '<div class="popover-inner">' +
                 '<div class="popover-head"></div>' +
@@ -38,9 +36,6 @@ Toolkit.Popover = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through popover().
- */
 Toolkit.create('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);

@@ -187,7 +187,7 @@
 
 <p>For large, medium and small!</p>
 
-<div class="row example-grid">
+<div class="grid example-grid">
     <div class="col large-4 medium-3 small-2">
         Large: 33%<br>
         Medium: 37%<br>

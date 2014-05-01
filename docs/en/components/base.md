@@ -5,7 +5,7 @@ Defines styles and helper classes for CSS, and a robust component system for Jav
 ## Usage ##
 
 The base component is required by all other components, as it provides base CSS styles and
-the [JavaScript Component layer](../development/js.md). In regards to CSS, the following
+the [JavaScript Component layer](../development/js/component.md). In regards to CSS, the following
 global classes are available for use.
 
 ### Alignment ###
@@ -45,12 +45,25 @@ opacity to 0, and add the transition properties. Once `.show` is toggled, fading
     These classes should <b>rarely</b> be modified.
 </div>
 
+To disable transitions programmatically on an element, add `.no-transition` to the element.
+
+```html
+<div class="element no-transition">Transitions are now disabled.</div>
+```
+
 ### Display ###
 
 To mark an element as display block, use `.shown`, or to hide an element, use `.hidden`.
 
 ```html
 <div class="hidden">Can't see this!</div>
+```
+
+To hide an element but make it readable by screen readers, add `.sr-only`.
+Can also add `.is-focusable` to the element to make it revealable.
+
+```html
+<div class="sr-only">Only screen readers can see this!</div>
 ```
 
 ### Layout ###

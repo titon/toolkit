@@ -28,7 +28,7 @@ Once elements have been marked, the component can be initialized on a parent con
 ```javascript
 $('body').lazyLoad();
 
-// Or element with overflow hidden
+// Or an element with overflow hidden
 $('#overflown').lazyLoad();
 ```
 
@@ -71,7 +71,7 @@ either inline or through CSS. We may also define the `src` attribute with a tran
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -112,7 +112,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -153,7 +153,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -178,11 +178,6 @@ Inherits all properties from the [parent component](../development/js.md#propert
             </td>
         </tr>
         <tr>
-            <td>isLoaded</td>
-            <td>bool</td>
-            <td>Whether all elements have been loaded.</td>
-        </tr>
-        <tr>
             <td>loaded</td>
             <td>int</td>
             <td>A count of how many elements have been loaded.</td>
@@ -192,7 +187,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -27,8 +27,6 @@ Toolkit.Tooltip = new Class({
         xOffset: 0,
         yOffset: 0,
         delay: 0,
-        titleElement: '.tooltip-head',
-        contentElement: '.tooltip-body',
         template: '<div class="tooltip">' +
             '<div class="tooltip-inner">' +
                 '<div class="tooltip-head"></div>' +
@@ -58,8 +56,8 @@ Toolkit.Tooltip = new Class({
         var title = 'data' + this.cssClass + '-title';
 
         // Fetch elements
-        this.elementHead = this.element.getElement(options.titleElement);
-        this.elementBody = this.element.getElement(options.contentElement);
+        this.elementHead = this.element.getElement('.' + vendor + this.cssClass + '-head');
+        this.elementBody = this.element.getElement('.' + vendor + this.cssClass + '-body');
 
         // Add position class
         this.element
@@ -75,16 +73,16 @@ Toolkit.Tooltip = new Class({
         }
 
         // Initialize events
-        var events = {}, selector = options.delegate;
+        var events = {
+            '{mode} document {selector}': 'onShow'
+        };
 
         if (options.mode === 'click') {
-            events['clickout element'] = 'hide';
-            events['clickout ' + selector] = 'hide';
+            events['clickout element'] = 'onHide';
+            events['clickout document {selector}'] = 'onHide';
         } else {
-            events['mouseleave ' + selector] = 'hide';
+            events['mouseleave document {selector}'] = 'onHide';
         }
-
-        events[options.mode + ' ' + selector] = 'onShow';
 
         this.events = events;
 
@@ -175,7 +173,7 @@ Toolkit.Tooltip = new Class({
                 top: options.yOffset
             });
 
-            window.setTimeout(function() {
+            setTimeout(function() {
                 this.element.reveal();
                 this.fireEvent('show');
             }.bind(this), options.delay || 0);
@@ -245,9 +243,6 @@ Toolkit.Tooltip = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through tooltip().
- */
 Toolkit.create('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);

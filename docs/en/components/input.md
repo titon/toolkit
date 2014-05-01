@@ -137,7 +137,7 @@ The `listbox` and `option` roles are required for custom select drop menus when 
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -159,7 +159,7 @@ Inherits all options from the [parent component](../development/js.md#options).
             </td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Inputs</td>
+            <td colspan="4">Input</td>
         </tr>
         <tr>
             <td>radio</td>
@@ -180,13 +180,19 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>CSS selector to find selects within the current element.</td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Selects</td>
+            <td colspan="4">InputSelect</td>
         </tr>
         <tr>
             <td>native</td>
             <td>bool</td>
             <td>false</td>
             <td>Use native browser dropdowns instead of custom dropdowns.</td>
+        </tr>
+        <tr>
+            <td>hideOpened</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Hide all other opened select menus.</td>
         </tr>
         <tr>
             <td>hideFirst</td>
@@ -261,7 +267,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -288,7 +294,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -315,12 +321,12 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>The select, checkbox, or radio element.</td>
         </tr>
         <tr class="table-divider">
-            <td colspan="4">Selects</td>
+            <td colspan="4">InputSelect</td>
         </tr>
         <tr>
             <td>dropdown</td>
             <td>element</td>
-            <td>The custom dropdown (uses the drop component).</td>
+            <td>The custom dropdown (uses the Drop component).</td>
         </tr>
         <tr>
             <td>multiple</td>
@@ -337,4 +343,4 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).

@@ -6,7 +6,7 @@
 
         for ($i = 1; $i <= $max; $i++) { ?>
             <li<?php if ($i <= $complete) echo ' class="is-complete"'; ?>>
-                <a href="?component=step&theme=<?= value('theme'); ?>&vendor=jquery1&size=<?= value('size'); ?>&count=<?= $max; ?>&complete=<?= $i; ?>"
+                <a href="?component=step&theme=<?= value('theme', 'titon'); ?>&vendor=jquery1&size=<?= value('size'); ?>&count=<?= $max; ?>&complete=<?= $i; ?>"
                    class="step">
                     Step <?= $i; ?>
                 </a>

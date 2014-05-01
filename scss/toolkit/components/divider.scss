@@ -1,0 +1,46 @@
+/**
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+.#{$vendor-prefix}divider {
+    position: relative;
+    text-align: center;
+    margin: $margin 0;
+    user-select: none;
+    overflow: hidden;
+    clear: both;
+    min-height: 2px;
+
+    &:after,
+    &:before {
+        position: absolute;
+        content: " ";
+        width: 50%;
+        top: 50%;
+        margin-top: -1px;
+        border-top: 1px solid black(.1);
+        border-bottom: 1px solid white(.75);
+    }
+
+    &:before {
+        left: 0;
+        margin-left: -1.5rem;
+    }
+
+    &:after {
+        right: 0;
+        margin-right: -1.5rem;
+    }
+
+    // Collapse the middle when there is no content
+    &:empty {
+        &:before,
+        &:after {
+            margin: -1px 0 0 0 !important;
+        }
+    }
+}

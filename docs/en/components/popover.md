@@ -15,8 +15,27 @@ $('.js-popover').popover();
 ```
 
 <div class="notice is-info">
-    The popover component requires the tooltip component, and will inherit all functionality from it.
+    The Popover component requires the Tooltip component, and will inherit all functionality from it.
     Jump over to the tooltip documentation for more information on how to use this component.
+</div>
+
+## Template ##
+
+The following markup is used for the creation of popovers.
+This structure can be customized through the `template` option.
+
+```html
+<div class="popover">
+    <div class="popover-inner">
+        <div class="popover-head"></div>
+        <div class="popover-body"></div>
+    </div>
+    <div class="popover-arrow"></div>
+</div>
+```
+
+<div class="notice is-info">
+    The <code>.popover-head</code> and <code>.popover-body</code> elements are required for inserting content into.
 </div>
 
 ## Variables ##
@@ -50,7 +69,7 @@ $('.js-popover').popover();
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -138,45 +157,18 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>0</td>
             <td>The delay in milliseconds before the popover is displayed.</td>
         </tr>
-        <tr>
-            <td>titleElement</td>
-            <td>string</td>
-            <td>.popover-head</td>
-            <td>CSS selector for the title element within the popover template.</td>
-        </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.popover-body</td>
-            <td>CSS selector for the content element within the popover template.</td>
-        </tr>
     </tbody>
 </table>
 
-## Template ##
-
-The following markup is used for the creation of popovers.
-This structure can be customized through the `template` option.
-
-```html
-<div class="popover">
-    <div class="popover-inner">
-        <div class="popover-head"></div>
-        <div class="popover-body"></div>
-    </div>
-    <div class="popover-arrow"></div>
-</div>
-```
-
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events) and the [tooltip component](tooltip.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events) and the [Tooltip component](tooltip.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties) and the [tooltip component](tooltip.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties) and the [Tooltip component](tooltip.md#properties).
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods) and the [tooltip component](tooltip.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods) and the [Tooltip component](tooltip.md#methods).
 

@@ -48,6 +48,10 @@ $effects = array(
     'visual-popout' => 'Popout'
 );
 
+$unsupported = array(
+    'mootools' => array('off-canvas', 'toast')
+);
+
 $components = array(
     'home' => array(
         'title' => 'Introduction'
@@ -130,6 +134,10 @@ $components = array(
             'modifier' => array('title' => 'Modifier', 'data' => array('' => '-- None --', 'scrollable' => 'Scrollable'))
         )
     ),
+    'divider' => array(
+        'title' => 'Divider',
+        'css' => array('layout/divider.css')
+    ),
     'drop' => array(
         'title' => 'Drop',
         'css' => array('components/drop.css'),
@@ -202,6 +210,7 @@ $components = array(
                 'list' => 'Option list'
             )),
             'listLimit' => array('title' => 'Label list limit', 'type' => 'number', 'default' => 3),
+            'hideOpened' => array('title' => 'Hide open selects?', 'type' => 'boolean', 'default' => true),
             'hideFirst' => array('title' => 'Hide first?', 'type' => 'boolean', 'default' => false),
             'hideSelected' => array('title' => 'Hide selected?', 'type' => 'boolean', 'default' => false),
             'disabled' => array('title' => 'Disabled?', 'type' => 'boolean', 'default' => false)
@@ -271,11 +280,7 @@ $components = array(
                 'slide-in-top' => 'Slide In Top',
                 'slide-in-right' => 'Slide In Right',
                 'slide-in-bottom' => 'Slide In Bottom',
-                'slide-in-left' => 'Slide In Left',
-                'sticky-top' => 'Sticky Top',
-                'sticky-right' => 'Sticky Right',
-                'sticky-bottom' => 'Sticky Bottom',
-                'sticky-left' => 'Sticky Left'
+                'slide-in-left' => 'Slide In Left'
             )),
             'ajax' => array('title' => 'Is AJAX?', 'type' => 'boolean', 'default' => true),
             //'draggable' => array('title' => 'Is draggable?', 'type' => 'boolean', 'default' => false),
@@ -290,6 +295,24 @@ $components = array(
         'filters' => array(
             'state' => array('title' => 'State', 'data' => $states),
             'round' => array('title' => 'Round?', 'type' => 'boolean')
+        )
+    ),
+    'off-canvas' => array(
+        'title' => 'Off Canvas',
+        'css' => 'components/off-canvas.css',
+        'js' => 'components/OffCanvas.js',
+        'filters' => array(
+            'animation' => array('title' => 'Animation', 'data' => array(
+                'push' => 'Push',
+                'push-down' => 'Push Down',
+                'push-reveal' => 'Push Reveal',
+                'reverse-push' => 'Reverse Push',
+                'reveal' => 'Reveal',
+                'squish' => 'Squish',
+                'on-top' => 'On Top'
+            ), 'default' => 'push'),
+            'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false),
+            'hideOthers' => array('title' => 'Hide other sidebars?', 'type' => 'boolean', 'default' => true)
         )
     ),
     'pagination' => array(
@@ -442,6 +465,31 @@ $components = array(
             'preventDefault' => array('title' => 'Prevent default?', 'type' => 'boolean', 'default' => true),
         )
     ),
+    'toast' => array(
+        'title' => 'Toast',
+        'css' => array('components/toast.css'),
+        'js' => array('components/Toast.js'),
+        'filters' => array(
+            'animation' => array('title' => 'Animation', 'data' => array(
+                'fade' => 'Fade',
+                'slide-up' => 'Slide Up',
+                'slide-down' => 'Slide Down',
+                'slide-left' => 'Slide Left',
+                'slide-right' => 'Slide Right',
+            ), 'default' => 'slide-up'),
+            'position' => array('title' => 'Position', 'data' => array(
+                'top-left' => 'Top Left',
+                'top-center' => 'Top Center',
+                'top-right' => 'Top Right',
+                'center-left' => 'Center Left',
+                'center-right' => 'Center Right',
+                'bottom-left' => 'Bottom Left',
+                'bottom-center' => 'Bottom Center',
+                'bottom-right' => 'Bottom Right'
+            ), 'default' => 'bottom-left'),
+            'duration' => array('title' => 'Duration', 'type' => 'number', 'default' => 5000)
+        )
+    ),
     'tooltip' => array(
         'title' => 'Tooltip',
         'css' => array('components/tooltip.css'),
@@ -510,7 +558,9 @@ if ($vendor === 'mootools') {
     $vendorFolder = 'mootools';
 } else {
     $vendorFolder = 'jquery';
-} ?>
+}
+
+$time = time(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -519,18 +569,18 @@ if ($vendor === 'mootools') {
     <title>Titon - Toolkit - <?php echo $component['title']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../build/toolkit.min.css" rel="stylesheet" type="text/css">
-    <link href="css/example.css" rel="stylesheet" type="text/css">
+    <link href="../build/toolkit.min.css?<?= $time; ?>" rel="stylesheet" type="text/css">
+    <link href="css/example.css?<?= $time; ?>" rel="stylesheet" type="text/css">
 
     <?php if (!empty($theme)) { ?>
-        <link href="../css/toolkit/<?php echo $theme['css']; ?>" rel="stylesheet" type="text/css">
+        <link href="../css/toolkit/<?php echo $theme['css']; ?>?<?= $time; ?>" rel="stylesheet" type="text/css">
     <?php } ?>
 
     <?php if ($vendor === 'mootools') { ?>
         <script src="js/mootools-core-1.4.5.js"></script>
         <script src="js/mootools-more-1.4.0.1.js"></script>
         <script src="js/mootools-touch.js"></script>
-        <script src="../build/toolkit-mootools.min.js"></script>
+        <script src="../build/toolkit-mootools.min.js?<?= $time; ?>"></script>
         <script>
             Toolkit.messages = Object.merge(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -541,7 +591,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery2') { ?>
         <script src="js/jquery-2.0.3.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -552,7 +602,7 @@ if ($vendor === 'mootools') {
     <?php } else if ($vendor === 'jquery1') { ?>
         <script src="js/jquery-1.10.2.js"></script>
         <!--<script src="js/jquery-ui-1.10.4.js"></script>-->
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
         <script>
             $.extend(Toolkit.messages, {
                 loading: '[CUSTOM] Loading...',
@@ -562,7 +612,7 @@ if ($vendor === 'mootools') {
 
     <?php } else if ($vendor === 'zepto') { ?>
         <script src="js/zepto-1.0.1.js"></script>
-        <script src="../build/toolkit-jquery.min.js"></script>
+        <script src="../build/toolkit-jquery.min.js?<?= $time; ?>"></script>
     <?php } ?>
 
     <!--[if lte IE 8]>
@@ -658,8 +708,12 @@ if ($vendor === 'mootools') {
         <div class="example">
             <?php $path = sprintf('./%s.php', $componentKey ?: 'home');
 
-            if (file_exists($path)) {
+            if (isset($unsupported[$vendor]) && in_array($componentKey, $unsupported[$vendor])) {
+                include './unsupported.php';
+
+            } else if (file_exists($path)) {
                 include $path;
+
             } else {
                 echo 'No such component ' . $componentKey;
             } ?>

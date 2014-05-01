@@ -1,18 +1,24 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
-    var events, sections, tabs, self = this;
+    var sections, tabs, self = this;
 
     this.component = 'Tabs';
-    this.version = '1.3.1';
+    this.version = '1.4.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
-    this.sections = sections = element.find(options.sectionElement).each(function(index, section) {
+    // Determine cookie name
+    if (!options.cookie) {
+        options.cookie = element.attr('id');
+    }
+
+    // Find all the sections and set ARIA attributes
+    this.sections = sections = element.find('.' + vendor + 'tabs-section').each(function(index, section) {
         section = $(section);
         section
             .attr('role', 'tabpanel')
@@ -21,8 +27,12 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
             .conceal();
     });
 
-    this.nav = element.find(options.navElement).attr('role', 'tablist');
-    this.tabs = tabs = this.nav.find('ul > li > a').each(function(index) {
+    // Find the nav and set ARIA attributes
+    this.nav = element.find('.' + vendor + 'tabs-nav')
+        .attr('role', 'tablist');
+
+    // Find the tabs within the nav and set ARIA attributes
+    this.tabs = tabs = this.nav.find('a').each(function(index) {
         $(this)
             .data('index', index)
             .attr({
@@ -30,33 +40,28 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
                 id: self.id('tab', index)
             })
             .aria({
-                controls: sections.item(index).attr('id'),
+                controls: sections.eq(index).attr('id'),
                 selected: false,
                 expanded: false
             })
             .removeClass('is-active');
     });
 
+    // Index of the section currently displayed
     this.index = 0;
-    this.cache = {};
-    this.events = events = {};
-
-    // Determine cookie name
-    if (!options.cookie) {
-        options.cookie = element.attr('id');
-    }
 
     // Initialize events
-    events[options.mode + ' tabs'] = 'onShow';
+    this.events = {
+        '{mode} element .@tabs-nav a': 'onShow'
+    };
 
     if (options.mode !== 'click' && options.preventDefault) {
-        events['click tabs'] = function(e) {
+        this.events['click element .@tabs-nav a'] = function(e) {
             e.preventDefault();
         };
     }
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Trigger default tab to display
     var index = options.defaultIndex;
@@ -68,7 +73,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     if (!index && options.loadFragment && location.hash) {
         index = tabs.filter(function() {
             return ($(this).attr('href') === location.hash);
-        }).item(0).data('index');
+        }).eq(0).data('index');
     }
 
     if (!index || !tabs[index]) {
@@ -77,6 +82,13 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
     this.jump(index);
 }, {
+
+    /**
+     * Reveal the last section when destroying.
+     */
+    doDestroy: function() {
+        this.sections.eq(this.index).reveal();
+    },
 
     /**
      * Hide all sections.
@@ -106,7 +118,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         tab = $(tab);
 
         var index = tab.data('index'),
-            section = this.sections.item(index),
+            section = this.sections.eq(index),
             options = this.options,
             ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
@@ -143,8 +155,9 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         }
 
         // Toggle tabs
-        this.nav.find('ul > li').removeClass('is-active');
-        this.tabs.aria('toggled', false);
+        this.tabs
+            .aria('toggled', false)
+            .parent().removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -199,14 +212,9 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     loadFragment: true,
     cookie: null,
     cookieDuration: 30,
-    getUrl: 'href',
-    navElement: '.tabs-nav',
-    sectionElement: '.tabs-section'
+    getUrl: 'href'
 });
 
-/**
- * Defines a component that can be instantiated through tabs().
- */
 Toolkit.create('tabs', function(options) {
     return new Toolkit.Tabs(this, options);
 });

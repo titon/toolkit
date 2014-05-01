@@ -15,27 +15,27 @@ $('.js-modal').modal();
 ```
 
 The value of the `getContent` option (falls back to `href` attribute) determines the URL to request for modal content.
-Once a request completes, the AJAX response will be inserted into the `contentElement` element.
+Once a request completes, the AJAX response will be inserted into the `.modal-inner` element.
 
 To insert non-AJAX content into a modal, the `getContent` value can point to an ID in the page, like so `#some-id`.
 We can also set the content directly through the modal instance.
 
 ```javascript
-$('.js-modal').toolkit('modal').show(null, 'This will be inserted into the modal.');
+$('.js-modal').toolkit('modal', 'show', [null, 'This will be inserted into the modal.']);
 ```
 
 Or we can trigger the modal by passing in the node to read from.
 
 ```javascript
-$('.js-modal').toolkit('modal').show($('#add-category'));
+$('.js-modal').toolkit('modal', 'show', $('#add-category'));
 // Loads /categories/add
 ```
 
-[Learn more on accessing component instances.](../development/js.md#accessing-components)
+[Learn more on accessing component instances.](../development/js/usage.md)
 
 ### Multiple Modals ###
 
-Displaying multiple modals at the same time is possible, but requires multiple modal instances.
+Displaying multiple modals at the same time is possible, but will require multiple modal instances.
 
 ```javascript
 $('.js-modal-1').modal();
@@ -43,19 +43,19 @@ $('.js-modal-2').modal();
 ```
 
 Activating modals use event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere
-will open one. This even applies to elements loaded in via AJAX, like the content of a modal.
+will open one. This even applies to elements loaded in via AJAX, like within the content of a modal.
 
 ### Form Submitting ###
 
 How useful would a modal be if it didn't support forms? Rather useless.
-Using forms in modals is rather simple, simply place the `form` tag and a `.modal-event-submit`
+Using forms in modals is rather simple, simply place the `form` tag and a `.modal-submit`
 class on the element that should trigger form submission.
 
 ```html
 <form action="/url/to/post/to" method="post">
     ...
 
-    <button type="button" class="modal-event-submit">Submit</button>
+    <button type="button" class="modal-submit">Submit</button>
 </form>
 ```
 
@@ -69,7 +69,7 @@ If the AJAX response is non-HTML, then continue reading.
 </div>
 
 <div class="notice is-error">
-    Do not use normal submit buttons within a modal form, use <code>.modal-event-submit</code> instead.
+    Do not use normal submit buttons within a modal form, use <code>.modal-submit</code> instead.
 </div>
 
 ### Non-HTML Responses ###
@@ -125,6 +125,24 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Template ##
+
+The following markup is used for the creation of modals.
+This structure can be customized through the `template` option.
+
+```html
+<div class="modal">
+    <div class="modal-outer">
+        <div class="modal-inner"></div>
+        <button class="modal-close modal-hide"><span class="x"></span></button>
+    </div>
+</div>
+```
+
+<div class="notice is-warning">
+    The <code>.modal-outer</code> class is required for animations to work properly.
+</div>
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -138,11 +156,13 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
     <tbody>
         <tr>
             <td>$modal-animation</td>
-            <td>
-                ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom",
-                "slide-in-left", "sticky-top", "sticky-right", "sticky-bottom", "sticky-left")
-            </td>
+            <td>("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left")</td>
             <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$modal-mobile-breakpoint</td>
+            <td>550px</td>
+            <td>The break point to apply mobile widths.</td>
         </tr>
         <tr>
             <td>$modal-transition</td>
@@ -159,7 +179,7 @@ We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, wher
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -178,8 +198,7 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>
                 The animation to use when displaying the modal.
                 Available options are: fade, from-above, from-below,
-                slide-in-top, slide-in-right, slide-in-bottom, slide-in-left,
-                sticky-top, sticky-right, sticky-bottom, sticky-left.
+                slide-in-top, slide-in-right, slide-in-bottom, slide-in-left.
             </td>
         </tr>
         <tr>
@@ -218,56 +237,12 @@ Inherits all options from the [parent component](../development/js.md#options).
                 The URL will be requested via AJAX for the content.
             </td>
         </tr>
-        <tr>
-            <td>contentElement</td>
-            <td>string</td>
-            <td>.modal-inner</td>
-            <td>CSS selector for the content element within the modal template.</td>
-        </tr>
-        <tr>
-            <td>closeElement</td>
-            <td>string</td>
-            <td>.modal-close</td>
-            <td>CSS selector for the close button within the modal template.</td>
-        </tr>
-        <tr>
-            <td>closeEvent</td>
-            <td>string</td>
-            <td>.modal-event-close</td>
-            <td>CSS selector to bind close events to.</td>
-        </tr>
-        <tr>
-            <td>submitEvent</td>
-            <td>string</td>
-            <td>.modal-event-submit</td>
-            <td>CSS selector to bind form submit events to.</td>
-        </tr>
     </tbody>
 </table>
 
-## Template ##
-
-The following markup is used for the creation of modals.
-This structure can be customized through the `template` option.
-
-```html
-<div class="modal">
-    <div class="modal-outer">
-        <div class="modal-handle">
-            <div class="modal-inner"></div>
-            <button type="button" class="modal-close modal-event-close"><span class="x"></span></button>
-        </div>
-    </div>
-</div>
-```
-
-<div class="notice is-warning">
-    The <code>.modal-outer</code> and <code>.modal-handle</code> classes are required for certain animations to work properly.
-</div>
-
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -282,7 +257,7 @@ Inherits all events from the [parent component](../development/js.md#events).
         <tr>
             <td>onSubmit</td>
             <td>submit.toolkit.modal</td>
-            <td>element:button, element:form</td>
+            <td>element:form</td>
             <td>Triggered when a form submit has been clicked, but before the AJAX call is requested.</td>
         </tr>
     </tbody>
@@ -290,7 +265,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -301,11 +276,6 @@ Inherits all properties from the [parent component](../development/js.md#propert
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>elementBody</td>
-            <td>element</td>
-            <td>The element used to place content in. Is found within the <code>element</code> element.</td>
-        </tr>
         <tr>
             <td>cache</td>
             <td>object</td>
@@ -321,22 +291,34 @@ Inherits all properties from the [parent component](../development/js.md#propert
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>hide()</td>
+            <td>Hide the modal.</td>
+            <td>.modal-hide</td>
+        </tr>
         <tr>
             <td>show([element:node[, string:content]])</td>
             <td>
                 Display the modal. If a node is passed, extract the URL to request, or the content to use.
                 If the content argument is passed, use that as the content.
             </td>
+            <td><code>selector</code></td>
+        </tr>
+        <tr>
+            <td>submit()</td>
+            <td>Submit a form found within the modal using an AJAX call.</td>
+            <td>.modal-submit</td>
         </tr>
     </tbody>
 </table>

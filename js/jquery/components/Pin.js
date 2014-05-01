@@ -1,38 +1,49 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.component = 'Pin';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
-    this.elementHeight = null;
-    this.elementTop = parseInt(element.css('top'), 10);
-    this.parentHeight = null;
-    this.parentTop = null;
-    this.viewport = null;
-    this.active = true;
 
-    // Mark element as a pin
+    // Setup classes and ARIA
     element
         .attr('role', 'complementary')
-        .addClass(Toolkit.vendor + 'pin')
+        .addClass(vendor + 'pin')
         .addClass(options.animation);
+
+    // Outer height of the element
+    this.elementHeight = null;
+
+    // The initial top value to reset too
+    this.elementTop = parseInt(element.css('top'), 10);
+
+    // Inner height of the parent element
+    this.parentHeight = null;
+
+    // The top value of the parent to compare against
+    this.parentTop = null;
+
+    // The width and height of the viewport, will update on resize
+    this.viewport = null;
+
+    // Will the element be pinned?
+    this.active = true;
 
     // Initialize events
     var throttle = options.throttle;
 
     this.events = {
-        'scroll window': $.throttle(this.onScroll.bind(this), throttle),
-        'resize window': $.throttle(this.onResize.bind(this), throttle),
+        'scroll window': $.throttle(this.onScroll, throttle),
+        'resize window': $.throttle(this.onResize, throttle),
         'ready document': 'onResize'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -60,6 +71,20 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         } else {
             this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
         }
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.active = false;
+
+        // Need to be in a timeout or they won't be removed
+        setTimeout(function() {
+            this.element
+                .removeAttr('style')
+                .removeClass('is-pinned');
+        }.bind(this), 10);
     },
 
     /**
@@ -168,9 +193,6 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     lock: true
 });
 
-/**
- * Defines a component that can be instantiated through pin().
- */
 Toolkit.create('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });

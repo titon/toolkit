@@ -17,8 +17,7 @@ The mask will not be shown until `show()` or `toggle()` is called on the mask ob
 The mask object can be retrieved by calling `toolkit('mask')` on the target collection.
 
 ```javascript
-var mask = $('.js-mask-target').toolkit('mask');
-    mask.toggle();
+$('.js-mask-target').toolkit('mask', 'toggle');
 ```
 
 <div class="notice is-info">
@@ -47,21 +46,17 @@ This custom mask will be used instead of creating a new mask.
 ### Automatic Toggling ###
 
 Instead of toggling the display manually through the mask object, we can bind a click event to a button or element
-that triggers the toggle.
-
-```html
-<button type="button" class="button js-mask-toggle">Refresh</button>
-```
+that triggers the toggle by defining the `selector` option.
 
 ```javascript
-$('.js-mask-toggle').click(function() {
-    $('.js-mask-target').toolkit('mask').toggle();
+$('.js-mask-target').mask({
+    selector: '.js-mask-toggle'
 });
 ```
 
 ### Notes ###
 
-* Target elements will have a `.maskable` class applied.
+* Target elements will have a `.mask-target` class applied.
 * Target elements will also have `.is-masked` applied when the mask is activated.
 
 ## Variables ##
@@ -95,7 +90,7 @@ $('.js-mask-toggle').click(function() {
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -119,22 +114,16 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td></td>
             <td>The content to use as the message that appears in the center of the mask.</td>
         </tr>
-        <tr>
-            <td>messageElement</td>
-            <td>string</td>
-            <td>.mask-message</td>
-            <td>CSS selector to find the message element within the mask, or to use when creating the message.</td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -142,6 +131,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -149,30 +139,34 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>mask</td>
             <td>element</td>
             <td>The mask element that covers the target element. Can be found as a child within the target element.</td>
+            <td>.mask</td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The message element found within the center of the mask element.</td>
+            <td>.mask-message</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>toggle()</td>
             <td>Toggle the display of the mask.</td>
+            <td><code>selector</code> option</td>
         </tr>
     </tbody>
 </table>

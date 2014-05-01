@@ -46,6 +46,26 @@ The value of `getCategory` (defaults to `data-showcase`) will be used for groupi
 * A `.show` class will be added to the `li` for the item currently being show.
 * Supports arrow and escape key events.
 
+## Template ##
+
+The following markup is used for the creation of showcases.
+This structure can be customized through the `template` option.
+
+```html
+<div class="showcase">
+    <div class="showcase-inner">
+        <ul class="showcase-items"></ul>
+        <ol class="showcase-tabs bullets"></ol>
+
+        <button class="showcase-prev"><span class="arrow-left"></span></button>
+        <button class="showcase-next"><span class="arrow-right"></span></button>
+    </div>
+
+    <button class="showcase-close showcase-hide"><span class="x"></span></button>
+    <div class="showcase-caption"></div>
+</div>
+```
+
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -77,7 +97,7 @@ The value of `getCategory` (defaults to `data-showcase`) will be used for groupi
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -100,15 +120,6 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>bool</td>
             <td>true</td>
             <td>Whether to remove the scrollbar on the window while the showcase is open.</td>
-        </tr>
-        <tr>
-            <td>transition</td>
-            <td>int</td>
-            <td>30</td>
-            <td>
-                Transition time in milliseconds to wait between each item load.
-                Should only change if the width and height transition times have changed in CSS.
-            </td>
         </tr>
         <tr>
             <td>gutter</td>
@@ -134,72 +145,12 @@ Inherits all options from the [parent component](../development/js.md#options).
             <td>title</td>
             <td>The attribute to read the image title from.</td>
         </tr>
-        <tr>
-            <td>itemsElement</td>
-            <td>string</td>
-            <td>.showcase-items</td>
-            <td>CSS selector to find the items container element.</td>
-        </tr>
-        <tr>
-            <td>tabsElement</td>
-            <td>string</td>
-            <td>.showcase-tabs</td>
-            <td>CSS selector to find the tabs container element (a list of bullets).</td>
-        </tr>
-        <tr>
-            <td>nextElement</td>
-            <td>string</td>
-            <td>.showcase-next</td>
-            <td>CSS selector to find the next item button.</td>
-        </tr>
-        <tr>
-            <td>prevElement</td>
-            <td>string</td>
-            <td>.showcase-prev</td>
-            <td>CSS selector to find the previous item button.</td>
-        </tr>
-        <tr>
-            <td>closeEvent</td>
-            <td>string</td>
-            <td>.showcase-event-close</td>
-            <td>CSS selector to bind close events to.</td>
-        </tr>
-        <tr>
-            <td>nextEvent</td>
-            <td>string</td>
-            <td>.showcase-event-next</td>
-            <td>CSS selector to bind next item events to.</td>
-        </tr>
-        <tr>
-            <td>prevEvent</td>
-            <td>string</td>
-            <td>.showcase-event-prev</td>
-            <td>CSS selector to bind previous item events to.</td>
-        </tr>
     </tbody>
 </table>
 
-## Template ##
-
-The following markup is used for the creation of showcases.
-This structure can be customized through the `template` option.
-
-```html
-<div class="showcase">
-    <div class="showcase-inner">
-        <ul class="showcase-items"></ul>
-        <ol class="showcase-tabs bullets"></ol>
-
-        <button type="button" class="showcase-prev showcase-event-prev"><span class="arrow-left"></span></button>
-        <button type="button" class="showcase-next showcase-event-next"><span class="arrow-right"></span></button>
-        <button type="button" class="showcase-close showcase-event-close"><span class="x"></span></button>
-    </div>
-</div>
-```
-
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -222,7 +173,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -230,6 +181,7 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -237,85 +189,78 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <td>data</td>
             <td>array</td>
             <td>A list of data for titles, images, and categories. This list changes each time the showcase opens.</td>
+            <td></td>
         </tr>
         <tr>
             <td>items</td>
             <td>element</td>
-            <td>
-                The element that contains all items.
-                This element is found using the <code>itemsElement</code> option.
-            </td>
+            <td>The element that contains all items.</td>
+            <td>.showcase-items</td>
         </tr>
         <tr>
             <td>tabs</td>
             <td>element</td>
-            <td>
-                The element that contains all tabs &mdash; the list of bullets to jump between pages.
-                This element is found using the <code>tabsElement</code> option.
-            </td>
+            <td>The element that contains all tabs &mdash; the list of bullets to jump between pages.</td>
+            <td>.showcase-tabs</td>
         </tr>
         <tr>
-            <td>nextButton</td>
+            <td>caption</td>
             <td>element</td>
-            <td>
-                The element that when clicked will jump to the next item.
-                This element is found using the <code>nextElement</code> option.
-            </td>
-        </tr>
-        <tr>
-            <td>prevButton</td>
-            <td>element</td>
-            <td>
-                The element that when clicked will jump to the previous item.
-                This element is found using the <code>prevElement</code> option.
-            </td>
+            <td>The element that contains the current item caption.</td>
+            <td>.showcase-caption</td>
         </tr>
         <tr>
             <td>index</td>
             <td>int</td>
             <td>The index of the currently shown item.</td>
+            <td></td>
         </tr>
         <tr>
             <td>blackout</td>
             <td>object</td>
             <td>The <code>Toolkit.Blackout</code> instance when <code>blackout</code> is enabled.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
             <th>Method</th>
             <th>Description</th>
+            <th>Bound To</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td>hide()</td>
+            <td>Hide the showcase.</td>
+            <td>.showcase-hide</td>
+        </tr>
+        <tr>
             <td>jump(int:index)</td>
-            <td>
-                Show a specific item defined by the index in the collection.
-                If the index is out of range, it will be bounded.
-                This method is triggered automatically when a tab is clicked.
-            </td>
+            <td>Show a specific item defined by the index in the collection.</td>
+            <td>.showcase-tabs a</td>
         </tr>
         <tr>
             <td>next()</td>
-            <td>
-                Go to the next item.
-                This method is triggered automatically when the next button is clicked.
-            </td>
+            <td>Go to the next item.</td>
+            <td>.showcase-next</td>
         </tr>
         <tr>
             <td>prev()</td>
-            <td>
-                Go to the previous item.
-                This method is triggered automatically when the previous button is clicked.
-            </td>
+            <td>Go to the previous item.</td>
+            <td>.showcase-prev</td>
+        </tr>
+        <tr>
+            <td>show(element:node)</td>
+            <td>Show the showcase and gather items based on the clicked node.</td>
+            <td><code>selector</code></td>
         </tr>
     </tbody>
 </table>

@@ -18,7 +18,7 @@
             <p>Vivamus consectetur lorem at lobortis elementum. Etiam laoreet et lectus vel egestas. Integer egestas lacus tempor ante iaculis feugiat. Integer sem justo, auctor vel augue ut, pellentesque accumsan quam. Suspendisse eget feugiat ante. Vestibulum tempus metus vitae massa fringilla euismod. Nulla id sem libero. Quisque molestie ipsum non neque pellentesque, vel aliquam ante pretium. Donec et magna euismod, porttitor purus non, tempor lacus. Vestibulum laoreet mauris non nibh cursus eleifend. Proin ac tempor lorem, vel semper tellus. Donec at vestibulum dolor, sit amet eleifend mi. Nulla auctor massa nec tempus gravida.</p>
         </div>
         <div class="modal-foot">
-            <button type="button" class="button modal-event-close">Close</button>
+            <button type="button" class="button modal-hide">Close</button>
         </div>
     </div>
 </div>

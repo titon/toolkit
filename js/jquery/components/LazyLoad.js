@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -8,16 +8,23 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     container = $(container);
 
     this.component = 'LazyLoad';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options, container);
+
+    // Container to monitor scroll events on
     this.container = (container.css('overflow') === 'auto') ? container : $(window);
+
+    // Collection of elements to load within the container
     this.elements = container.find('.lazy-load');
-    this.element = null; // Element being loaded
-    this.isLoaded = false;
+
+    // Element currently being loaded, needs to be set for events
+    this.element = null;
+
+    // How many items have been loaded
     this.loaded = 0;
 
     // Initialize events
-    var callback = $.throttle(this.load.bind(this), options.throttle);
+    var callback = $.throttle(this.load, options.throttle);
 
     this.events = {
         'scroll container': callback,
@@ -25,9 +32,15 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
         'ready document': 'onReady'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
+
+    /**
+     * Load all images when destroying.
+     */
+    doDestroy: function() {
+        this.loadAll();
+    },
 
     /**
      * Verify that the element is within the current browser viewport.
@@ -64,11 +77,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Loop over the lazy loaded elements and verify they are within the viewport.
      */
     load: function() {
-        if (this.isLoaded) {
-            return;
-        }
-
-        if (this.loaded === this.elements.length) {
+        if (this.loaded >= this.elements.length) {
             this.shutdown();
             return;
         }
@@ -86,10 +95,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Load the remaining hidden elements and remove any container events.
      */
     loadAll: function() {
-        if (this.isLoaded) {
-            return;
-        }
-
         this.elements.each(function(index, node) {
             this.show(node, index);
         }.bind(this));
@@ -140,9 +145,10 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
      * Any container events will be removed and loading will cease.
      */
     shutdown: function() {
-        this.isLoaded = true;
-        this.disable();
-        this.fireEvent('shutdown');
+        if (this.enabled) {
+            this.disable();
+            this.fireEvent('shutdown');
+        }
     },
 
     /**
@@ -155,7 +161,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            setTimeout(this.loadAll.bind(this), this.options.delay);
+            setTimeout(this.loadAll, this.options.delay);
         }
     }
 
@@ -166,9 +172,6 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     throttle: 50
 });
 
-/**
- * Defines a component that can be instantiated through lazyLoad().
- */
 Toolkit.create('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });

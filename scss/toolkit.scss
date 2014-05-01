@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -18,6 +18,7 @@
 @import "toolkit/components/breadcrumb";
 @import "toolkit/components/button";
 @import "toolkit/components/button-group";
+@import "toolkit/components/divider";
 @import "toolkit/components/drop";
 @import "toolkit/components/icon";
 @import "toolkit/components/input";
@@ -40,10 +41,12 @@
 @import "toolkit/components/matrix";
 @import "toolkit/components/mask";
 @import "toolkit/components/modal";
+@import "toolkit/components/off-canvas";
 @import "toolkit/components/pin";
 @import "toolkit/components/popover";
 @import "toolkit/components/showcase";
 @import "toolkit/components/tabs";
+@import "toolkit/components/toast";
 @import "toolkit/components/tooltip";
 @import "toolkit/components/type-ahead";
 

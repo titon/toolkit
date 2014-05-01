@@ -1,11 +1,26 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 'use strict';
 
+// Check if transitions exist
+var hasTransition = (function() {
+    var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+        style = document.createElement('div').style;
+
+    for (var i = 0; i < prefixes.length; i++) {
+        if (prefixes[i] in style) {
+            return prefixes[i];
+        }
+    }
+
+    return false;
+})();
+
+// Toolkit namespace
 var Toolkit = {
 
     /** Current version */
@@ -27,17 +42,16 @@ var Toolkit = {
     },
 
     /** Does the browser support transitions? */
-    hasTransition: (function() {
-        var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
-            style = document.createElement('div').style;
+    hasTransition: hasTransition,
 
-        for (var i = 0; i < prefixes.length; i++) {
-            if (prefixes[i] in style) {
-                return prefixes[i];
-            }
-        }
+    /** Event name for transition end */
+    transitionEnd: (function() {
+        var eventMap = {
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd otransitionend'
+        };
 
-        return false;
+        return eventMap[hasTransition] || 'transitionend';
     })(),
 
     /** Detect touch devices */
@@ -118,6 +132,9 @@ var Toolkit = {
 // Make it available
 window.Toolkit = Toolkit;
 
+// Dereference these variables to lower the filesize
+var vendor = Toolkit.vendor;
+
 /**
  * Prototype overrides.
  */
@@ -127,10 +144,23 @@ Element.implement({
      * Fetch the component instance from the element.
      *
      * @param {String} component
+     * @param {String} method
+     * @param {Array} [args]
      * @returns {Function}
      */
-    toolkit: function(component) {
-        return this['$' + component] || null;
+    toolkit: function(component, method, args) {
+        var instance = this['$' + component];
+
+        if (!instance) {
+            return null;
+        }
+
+        // Trigger a method on the instance of method is defined
+        if (method && instance[method]) {
+            instance[method].apply(instance, Array.from(args));
+        }
+
+        return instance;
     },
 
     /**
@@ -292,33 +322,6 @@ Element.implement({
 
 });
 
-Elements.implement({
-
-    /**
-     * Fetch the component instance from the elements collection.
-     *
-     * @param {String} component
-     * @returns {Array|Function}
-     */
-    toolkit: function(component) {
-        var key = '$' + component,
-            instances = [];
-
-        this.each(function(el) {
-            if (el[key]) {
-                instances.push( el[key] );
-            }
-        });
-
-        if (instances.length === 1 && instances[0]) {
-            return instances[0];
-        }
-
-        return instances;
-    }
-
-});
-
 Array.implement({
 
     /**
@@ -471,3 +474,6 @@ Element.Properties.html.set = function(html) {
 
     return this;
 };
+
+// Enable transitionend events
+Element.NativeEvents.transitionend = 2;

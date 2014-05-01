@@ -1,59 +1,53 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-    var element, events;
+    var element;
 
     this.component = 'Modal';
-    this.version = '1.3.1';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
-    this.element = element = this.createElement();
-    this.elementBody = element.find(options.contentElement);
-    this.nodes = nodes = $(nodes);
-    this.node = null;
-    this.blackout = null;
-    this.drag = null;
-    this.cache = {};
-    this.events = events = {};
-
-    // Fullscreen
-    if (options.fullScreen) {
-        element.addClass('is-fullscreen');
-        options.draggable = false;
-    }
-
-    // Blackout
-    if (options.blackout) {
-        this.blackout = Toolkit.Blackout.factory();
-
-        if (options.stopScroll) {
-            this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
-                if (hidden) {
-                    $('body').removeClass('no-scroll');
-                }
-            });
-        }
-    }
-
-    // Add aria attributes
-    element
+    this.element = element = this.createElement()
         .attr('role', 'dialog')
         .aria('labelledby', this.id('title'))
         .aria('describedby', this.id('content'));
 
-    // Initialize events
-    events['clickout element'] = 'onHide';
-    events['clickout ' + nodes.selector] = 'onHide';
-    events['keydown window'] = 'onKeydown';
-    events['click ' + nodes.selector] = 'onShow';
-    events['click element ' + options.closeEvent] = 'onHide';
-    events['click element ' + options.submitEvent] = 'onSubmit';
+    // Enable fullscreen
+    if (options.fullScreen) {
+        element.addClass('is-fullscreen');
+    }
 
-    this.enable();
-    this.fireEvent('init');
+    // Nodes found in the page on initialization
+    this.nodes = $(nodes);
+
+    // Last node to open a modal
+    this.node = null;
+
+    // Blackout element if enabled
+    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
+
+    if (options.blackout && options.stopScroll) {
+        this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
+            if (hidden) {
+                $('body').removeClass('no-scroll');
+            }
+        });
+    }
+
+    // Initialize events
+    this.events = {
+        'keydown window': 'onKeydown',
+        'clickout element': 'onHide',
+        'clickout document {selector}': 'onHide',
+        'click document {selector}': 'onShow',
+        'click element .@modal-hide': 'onHide',
+        'click element .@modal-submit': 'onSubmit'
+    };
+
+    this.initialize();
 }, {
 
     /**
@@ -85,7 +79,9 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
             this.blackout.hideLoader();
         }
 
-        this.elementBody.html(content);
+        var body = this.element.find('.' + vendor + 'modal-inner');
+
+        body.html(content);
         this.fireEvent('load', content);
 
         // Reveal modal
@@ -93,8 +89,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 
         // Resize modal
         if (this.options.fullScreen) {
-            this.element.find(this.options.contentElement)
-                .css('min-height', $(window).height());
+            body.css('min-height', $(window).height());
         }
 
         this.fireEvent('show');
@@ -154,6 +149,34 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     },
 
     /**
+     * Submit the form found within the modal.
+     */
+    submit: function() {
+        var form = this.element.find('form:first');
+
+        if (!form) {
+            return;
+        }
+
+        this.fireEvent('submit', [form]);
+
+        var options = {
+            url: form.attr('action'),
+            type: (form.attr('method') || 'post').toUpperCase()
+        };
+
+        if (window.FormData) {
+            options.processData = false;
+            options.contentType = false;
+            options.data = new FormData(form[0]);
+        } else {
+            options.data = form.serialize();
+        }
+
+        this.requestData(options);
+    },
+
+    /**
      * Event handler for hide().
      *
      * @private
@@ -206,29 +229,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     onSubmit: function(e) {
         e.preventDefault();
 
-        var button = $(e.currentTarget),
-            form = this.elementBody.find('form:first');
-
-        if (!form) {
-            return;
-        }
-
-        this.fireEvent('submit', [button, form]);
-
-        var options = {
-            url: form.attr('action'),
-            type: (form.attr('method') || 'post').toUpperCase()
-        };
-
-        if (window.FormData) {
-            options.processData = false;
-            options.contentType = false;
-            options.data = new FormData(form[0]);
-        } else {
-            options.data = form.serialize();
-        }
-
-        this.requestData(options);
+        this.submit();
     }
 
 }, {
@@ -239,23 +240,14 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     fullScreen: false,
     stopScroll: true,
     getContent: 'data-modal',
-    contentElement: '.modal-inner',
-    closeElement: '.modal-close',
-    closeEvent: '.modal-event-close',
-    submitEvent: '.modal-event-submit',
     template: '<div class="modal">' +
         '<div class="modal-outer">' +
-            '<div class="modal-handle">' +
-                '<div class="modal-inner"></div>' +
-                '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
-            '</div>' +
+            '<div class="modal-inner"></div>' +
+            '<button class="modal-close modal-hide"><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });
 
-/**
- * Defines a component that can be instantiated through modal().
- */
 Toolkit.create('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);

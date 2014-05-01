@@ -53,8 +53,7 @@ Simply include the files in your application to gain all of Toolkit's functional
 ### Source Files ###
 
 Source files are found in the `js`, `scss`, and `lib` folders.
-This is where all development and engineering is focused.
-These files will later be processed for distribution.
+This is where all development and engineering is focused. These files will later be processed for distribution.
 
 ```
 toolkit/
@@ -112,7 +111,8 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
 </html>
 ```
 
-You'll notice that we placed `toolkit.min.css` before `style.min.css`. This allows for helper classes and component styles to be inherited first.
+You'll notice that we placed `toolkit.min.css` before `style.min.css`.
+This allows for helper classes and component styles to be inherited first.
 Placing project specific styles after Toolkit allows customization and themeing of components.
 
 Let's test our JavaScript components by placing the following code within the `<body>` tags.

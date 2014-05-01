@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -91,7 +91,7 @@ mark { background: lighten($warning-light, 25%); }
     background: $gray;
     font-weight: bold;
     text-shadow: 1px 1px black(.2);
-    transition: all .2s;
+    transition: color .2s, border .2s, background .2s;
     @include button-style($default, $default-light, $default-dark);
 
     &:active {
@@ -126,14 +126,6 @@ mark { background: lighten($warning-light, 25%); }
     }
 
     &:hover { opacity: 1; }
-
-    // Large icons for large resolutions
-    @include if-tablet-landscape {
-        .arrow-left,
-        .arrow-right {
-            font-size: 3rem;
-        }
-    }
 }
 
 .showcase-close {
@@ -270,12 +262,12 @@ mark { background: lighten($warning-light, 25%); }
     }
 }
 
-.input-group {
+/*.input-group {
     > .button { height: 44px; }
 
     &.small > .button { height: 30px; }
     &.large > .button { height: 59px; }
-}
+*/
 
 .input-addon {
     background: $gray;
@@ -479,7 +471,18 @@ mark { background: lighten($warning-light, 25%); }
 
 .showcase-inner {
     background: $gray;
-    border: 1px solid $gray-dark;
+    padding: 5px;
+    border-radius: .2rem;
+}
+
+.showcase-caption {
+    color: #fff;
+    line-height: 125%;
+    font-size: .9rem;
+}
+
+.showcase-items {
+    background: #000;
 }
 
 //-------------------- Step --------------------//

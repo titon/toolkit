@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -47,10 +47,7 @@ Toolkit.Stalker = new Class({
             throw new Error('A marker and target is required');
         }
 
-        element.addClass(Toolkit.vendor + 'stalker');
-
-        // Gather markets and targets
-        this.refresh();
+        element.addClass(vendor + 'stalker');
 
         // Initialize events
         var events;
@@ -63,6 +60,9 @@ Toolkit.Stalker = new Class({
 
         this.enable();
         this.fireEvent('init');
+
+        // Gather markets and targets
+        this.refresh();
     },
 
     /**
@@ -90,6 +90,25 @@ Toolkit.Stalker = new Class({
     },
 
     /**
+     * Remove classes before destroying.
+     */
+    doDestroy: function() {
+        var targets = this.targets,
+            markers = this.markers;
+
+        targets.removeClass(vendor + 'stalker-target');
+        markers.removeClass(vendor + 'stalker-marker');
+
+        if (this.options.applyToParent) {
+            targets.getParent().removeClass('is-active');
+            markers.getParent().removeClass('is-marked');
+        } else {
+            targets.removeClass('is-active');
+            markers.removeClass('is-marked');
+        }
+    },
+
+    /**
      * Gather the targets and markers used for stalking.
      *
      * @returns {Toolkit.Stalker}
@@ -99,9 +118,9 @@ Toolkit.Stalker = new Class({
             this.element.scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.targets = $$(this.options.target).addClass(Toolkit.vendor + 'stalker-target');
+        this.targets = $$(this.options.target).addClass(vendor + 'stalker-target');
 
-        this.markers = $$(this.options.marker).addClass(Toolkit.vendor + 'stalker-marker');
+        this.markers = $$(this.options.marker).addClass(vendor + 'stalker-marker');
 
         this.offsets = this.markers.getCoordinates(this.element);
 
@@ -174,9 +193,6 @@ Toolkit.Stalker = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through stalker().
- */
 Toolkit.create('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });

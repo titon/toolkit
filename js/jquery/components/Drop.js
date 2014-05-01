@@ -1,27 +1,31 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
-    var events;
-
     this.component = 'Drop';
-    this.version = '1.3.1';
-    this.options = options = this.setOptions(options);
-    this.element = null; // Current drop
-    this.node = null; // Opened the drop
-    this.nodes = nodes = $(nodes);
-    this.events = events = {};
+    this.version = '1.4.0';
+    this.options = this.setOptions(options);
+
+    // Last opened drop menu
+    this.element = null;
+
+    // Nodes found in the page on initialization
+    this.nodes = $(nodes);
+
+    // Last node to open a menu
+    this.node = null;
 
     // Initialize events
-    events['clickout .' + Toolkit.vendor + 'drop'] = 'hide';
-    events['clickout ' + nodes.selector] = 'hide';
-    events[options.mode + ' ' + nodes.selector] = 'onShow';
+    this.events = {
+        'clickout document .@drop': 'hide',
+        'clickout document {selector}': 'hide',
+        '{mode} document {selector}': 'onShow'
+    };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -95,9 +99,6 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     hideOpened: true
 });
 
-/**
- * Defines a component that can be instantiated through drop().
- */
 Toolkit.create('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);

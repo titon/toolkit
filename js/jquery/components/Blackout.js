@@ -1,35 +1,34 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Blackout = Toolkit.Component.extend(function(options) {
     this.component = 'Blackout';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = this.createElement();
+
+    // How many times the blackout has been opened while being opened
     this.count = 0;
 
     // Build the loader
-    var vendor = Toolkit.vendor,
-        count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
+    var count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
         loader = $('<div/>')
             .addClass(vendor + 'loader')
             .addClass(options.loader)
             .appendTo(this.element);
 
-    // Create all the spans
     var spans = '', i;
 
     for (i = 0; i < count; i++) {
         spans += '<span></span>';
     }
 
-    // Append to the loader
     if (options.loader === 'bubble-spinner') {
         $('<div/>')
-            .addClass('spinner')
+            .addClass(vendor + 'loader-spinner')
             .html(spans)
             .appendTo(loader);
     } else {
@@ -44,7 +43,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
         .html(Toolkit.messages.loading)
         .appendTo(loader);
 
-    this.fireEvent('init');
+    this.initialize();
 }, {
 
     /**
@@ -100,12 +99,12 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
 }, {
     loader: 'bar-wave',
     waveCount: 5,
-    template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
+    template: '<div class="' + vendor + 'blackout"></div>',
     templateFrom: '#toolkit-blackout-1'
 });
 
 /** Has the blackout been created already? */
-var instance = null;
+var blackout = null;
 
 /**
  * Only one instance of Blackout should exist,
@@ -115,9 +114,9 @@ var instance = null;
  * @returns {Toolkit.Blackout}
  */
 Toolkit.Blackout.factory = function(options) {
-    if (instance) {
-        return instance;
+    if (blackout) {
+        return blackout;
     }
 
-    return instance = new Toolkit.Blackout(options);
+    return blackout = new Toolkit.Blackout(options);
 };

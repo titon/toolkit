@@ -1,13 +1,13 @@
 Gem::Specification.new do |gem|
     gem.name = "titon-toolkit"
-    gem.version = "1.3.2"
+    gem.version = "1.4.0"
 
     # Info
     gem.authors = ["Project Titon", "Miles Johnson"]
     gem.description = "A collection of extensible front-end UI components for the responsive and mobile web."
     gem.summary = "Provides Titon Toolkit Sass files for use in projects."
     gem.homepage = "http://titon.io"
-    gem.license = "BSD-2"
+    gem.license = "BSD-3"
 
     # Files
     gem.files = ["lib/titon-toolkit.rb"]

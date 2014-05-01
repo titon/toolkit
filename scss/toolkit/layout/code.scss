@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -33,6 +33,7 @@ pre {
     word-spacing: normal;
     font-size: .9rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 
     code {
         padding: 0;

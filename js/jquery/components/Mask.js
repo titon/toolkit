@@ -1,23 +1,18 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.component = 'Mask';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.element = element = $(element);
-    this.options = this.setOptions(options, element);
-    this.mask = null;
-    this.message = null;
+    this.options = options = this.setOptions(options, element);
 
-    // Create the mask and message elements
-    var vendor = Toolkit.vendor,
-        maskClass = vendor + 'mask';
-
+    // Add class and set relative positioning
     if (!element.is('body')) {
-        element.addClass(vendor + 'maskable');
+        element.addClass(vendor + 'mask-target');
 
         if (element.css('position') === 'static') {
             element.css('position', 'relative');
@@ -25,16 +20,35 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
     // Find a mask or create it
-    var mask = element.find('> .' + maskClass);
+    var maskClass = vendor + 'mask',
+        mask = element.find('> .' + maskClass);
 
     if (!mask.length) {
         mask = $('<div/>').addClass(maskClass);
     }
 
     this.setMask(mask);
-    this.enable();
-    this.fireEvent('init');
+
+    // Initialize events
+    this.events = {};
+
+    if (options.selector) {
+        this.events['click document ' + options.selector] = 'toggle';
+    }
+
+    this.initialize();
 }, {
+
+    /**
+     * Remove the mask element before destroying.
+     */
+    doDestroy: function() {
+        this.mask.remove();
+        this.element
+            .removeClass(vendor + 'mask-target')
+            .removeClass('is-masked')
+            .css('position', '');
+    },
 
     /**
      * Hide the mask and reveal the element.
@@ -52,8 +66,10 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
      * @param {jQuery} mask
      */
     setMask: function(mask) {
-        var options = this.options;
+        var options = this.options,
+            message;
 
+        // Prepare mask
         mask.addClass('hide').appendTo(this.element);
 
         if (this.element.is('body')) {
@@ -61,38 +77,38 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         }
 
         if (options.revealOnClick) {
-            mask.click(this.hide.bind(this));
+            mask.click(this.hide);
         }
 
         this.mask = mask;
-        this.message = mask.find('> ' + options.messageElement);
 
         // Create message if it does not exist
-        if (!this.message.length) {
-            this.message = $('<div/>')
-                .addClass(options.messageElement.substr(1))
+        message = mask.find('> .' + vendor + 'mask-message');
+
+        if (!message.length) {
+            message = $('<div/>')
+                .addClass(vendor + 'mask-message')
                 .appendTo(mask);
 
             if (options.messageContent) {
-                this.message.html(options.messageContent);
+                message.html(options.messageContent);
             }
         }
+
+        this.message = message;
     },
 
     /**
      * Show the mask and conceal the element.
-     *
-     * @param {Element} [node]
      */
-    show: function(node) {
-        this.node = node;
+    show: function() {
         this.mask.reveal();
         this.element.addClass('is-masked');
         this.fireEvent('show');
     },
 
     /**
-     * Toggle between display states,
+     * Toggle between display states.
      */
     toggle: function() {
         if (this.mask.is(':shown')) {
@@ -103,14 +119,11 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
 }, {
+    selector: '',
     revealOnClick: false,
-    messageContent: '',
-    messageElement: '.mask-message'
+    messageContent: ''
 });
 
-/**
- * Defines a component that can be instantiated through mask().
- */
 Toolkit.create('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });

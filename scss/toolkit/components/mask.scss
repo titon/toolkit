@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -18,18 +18,21 @@
     background: black($mask-opacity);
     transition: all $mask-transition;
     color: #fff;
+    user-select: none;
 }
 
 .#{$vendor-prefix}mask-message {
     text-align: center;
     max-width: 80%;
-    opacity: 1;
-    transition: all $mask-transition;
     @include position-center;
 
     &:empty { display: none; }
 }
 
-.#{$vendor-prefix}maskable {
+.#{$vendor-prefix}mask-target {
     overflow: hidden;
+
+    // Fixes issues where mask does not display in iOS
+    // Kind of hacky? Other solutions?
+    transform: translate3d(0, 0, 0);
 }

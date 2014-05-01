@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Carousel = new Class({
     Extends: Toolkit.Component,
-    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump'],
+    Binds: ['next', 'prev', 'start', 'stop', 'resize', 'onCycle', 'onJump', 'onKeydown', 'onSwipe'],
 
     /** Is the carousel stopped? */
     stopped: false,
@@ -35,11 +35,7 @@ Toolkit.Carousel = new Class({
         animation: 'slide',
         duration: 5000,
         autoCycle: true,
-        stopOnHover: true,
-        itemsElement: '.carousel-items li',
-        tabsElement: '.carousel-tabs a',
-        nextElement: '.carousel-next',
-        prevElement: '.carousel-prev'
+        stopOnHover: true
     },
 
     /**
@@ -56,7 +52,7 @@ Toolkit.Carousel = new Class({
         var items, self = this;
 
         // Get elements
-        this.items = items = element.getElements(options.itemsElement).each(function(item, index) {
+        this.items = items = element.getElements('.' + vendor + 'carousel-items li').each(function(item, index) {
             item
                 .set({
                     role: 'tabpanel',
@@ -65,7 +61,9 @@ Toolkit.Carousel = new Class({
                 .aria('hidden', (index > 0));
         });
 
-        this.tabs = element.getElements(options.tabsElement).each(function(tab, index) {
+        element.getElements('.' + vendor + 'carousel-tabs').set('role', 'tablist');
+
+        this.tabs = element.getElements('.' + vendor + 'carousel-tabs a').each(function(tab, index) {
             tab
                 .set({
                     'data-index': index,
@@ -79,15 +77,27 @@ Toolkit.Carousel = new Class({
                 });
         });
 
-        this.nextButton = element.getElement(options.nextElement);
-        this.prevButton = element.getElement(options.prevElement);
-
         // Set animation and ARIA
         element
             .aria('live', options.autoCycle ? 'assertive' : 'off')
-            .addClass(options.animation)
-            .getElements('.carousel-tabs')
-                .set('role', 'tablist');
+            .addClass(options.animation);
+
+        // Set events
+        this.events = {
+            'keydown window': 'onKeydown',
+            'swipe element': 'onSwipe',
+            'click element .@carousel-tabs a': 'onJump',
+            'click element .@carousel-next': 'next',
+            'click element .@carousel-prev': 'prev'
+        };
+
+        if (options.stopOnHover) {
+            this.events['mouseenter element'] = 'stop';
+            this.events['mouseleave element'] = 'start';
+        }
+
+        this.enable();
+        this.fireEvent('init');
 
         // Set some sizes for responsiveness
         switch (options.animation) {
@@ -100,24 +110,16 @@ Toolkit.Carousel = new Class({
             break;
         }
 
-        // Set events
-        this.events = {
-            'keydown window': 'onKeydown',
-            'swipe element': 'onSwipe',
-            'click tabs': 'onJump',
-            'click nextButton': 'next',
-            'click prevButton': 'prev'
-        };
-
-        if (options.stopOnHover) {
-            this.events['mouseenter element'] = 'stop';
-            this.events['mouseleave element'] = 'start';
-        }
-
-        this.enable();
-        this.fireEvent('init');
-
         this.reset().start();
+    },
+
+    /**
+     * Stop the carousel before destroying.
+     */
+    doDestroy: function() {
+        clearInterval(this.timer);
+        this.stop();
+        this.element.reveal();
     },
 
     /**
@@ -129,7 +131,11 @@ Toolkit.Carousel = new Class({
      * @returns {Toolkit.Carousel}
      */
     jump: function(index) {
-        this.index = index = Number.from(index).bound(this.items.length);
+        index = Number.from(index).bound(this.items.length);
+
+        if (index === this.index) {
+            return this;
+        }
 
         // Update tabs
         this.tabs
@@ -162,6 +168,8 @@ Toolkit.Carousel = new Class({
             this.items.getParent()
                 .setStyle((animation === 'slide-up') ? 'top' : 'left', -(index * 100) + '%');
         }
+
+        this.index = index;
 
         this.reset();
         this.fireEvent('jump', index);
@@ -295,9 +303,6 @@ Toolkit.Carousel = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through carousel().
- */
 Toolkit.create('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });

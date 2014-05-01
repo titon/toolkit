@@ -1,38 +1,41 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     this.component = 'Stalker';
-    this.version = '1.2.0';
-    this.element = element = $(element);
+    this.version = '1.4.0';
+    this.element = element = $(element).addClass(vendor + 'stalker');
     this.options = options = this.setOptions(options);
 
     if (!options.target || !options.marker) {
         throw new Error('A marker and target is required');
     }
 
-    this.targets = [];
-    this.markers = [];
-    this.offsets = [];
+    // Container to monitor scroll events on
     this.container = (element.css('overflow') === 'auto') ? element : $(window);
 
-    // Add classes to stalker
-    element.addClass(Toolkit.vendor + 'stalker');
+    // Targets to active when a marker is reached
+    this.targets = [];
 
-    // Gather markets and targets
-    this.refresh();
+    // Markers to compare against
+    this.markers = [];
+
+    // Top value for all markers
+    this.offsets = [];
 
     // Initialize events
     this.events = {
-        'scroll container': $.throttle(this.onScroll.bind(this), options.throttle),
+        'scroll container': $.throttle(this.onScroll, options.throttle),
         'ready document': 'onScroll'
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
+
+    // Gather markets and targets
+    this.refresh();
 }, {
 
     /**
@@ -54,11 +57,29 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Remove classes before destroying.
+     */
+    doDestroy: function() {
+        var targets = this.targets,
+            markers = this.markers;
+
+        targets.removeClass(vendor + 'stalker-target');
+        markers.removeClass(vendor + 'stalker-marker');
+
+        if (this.options.applyToParent) {
+            targets.parent().removeClass('is-active');
+            markers.parent().removeClass('is-marked');
+        } else {
+            targets.removeClass('is-active');
+            markers.removeClass('is-marked');
+        }
+    },
+
+    /**
      * Gather the targets and markers used for stalking.
      */
     refresh: function() {
-        var vendor = Toolkit.vendor,
-            isWindow = this.container.is(window),
+        var isWindow = this.container.is(window),
             eTop = this.element.offset().top,
             offset,
             offsets = [];
@@ -70,8 +91,7 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         this.targets = $(this.options.target).addClass(vendor + 'stalker-target');
 
         this.markers = $(this.options.marker).addClass(vendor + 'stalker-marker').each(function(index, marker) {
-            marker = $(marker);
-            offset = marker.offset();
+            offset = $(marker).offset();
 
             if (!isWindow) {
                 offset.top -= eTop;
@@ -162,9 +182,6 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     applyToParent: true
 });
 
-/**
- * Defines a component that can be instantiated through stalker().
- */
 Toolkit.create('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });

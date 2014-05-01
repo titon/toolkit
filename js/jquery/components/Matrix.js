@@ -1,33 +1,45 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
-    this.version = '1.2.0';
-    this.element = element = $(element);
+    this.version = '1.4.0';
+    this.element = element = $(element).addClass(vendor + 'matrix');
     this.options = options = this.setOptions(options, element);
+
+    // Items within the matrix
     this.items = element.find('> li');
+
+    // List of items in order and how many columns they span horizontally
     this.matrix = [];
+
+    // Width of the wrapper (target element)
+    // Is recalculated every page resize to determine columns
     this.wrapperWidth = 0;
+
+    // Calculated final width of the column (may differ from width option)
     this.colWidth = 0;
+
+    // How many columns that can fit in the wrapper
     this.colCount = 0;
+
+    // Collection of img elements
     this.images = [];
+
+    // How many images have loaded or tried to load
     this.imagesLoaded = 0;
 
     // Initialize events
     this.events = {
-        'resize window': $.debounce(this.onResize.bind(this))
+        'resize window': $.debounce(this.onResize)
     };
 
-    this.enable();
-    this.fireEvent('init');
+    this.initialize();
 
     // Render the matrix
-    element.addClass(Toolkit.vendor + 'matrix');
-
     if (options.defer) {
         this._deferRender();
     } else {
@@ -46,6 +58,14 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             .css('opacity', 0);
 
         this.refresh();
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    doDestroy: function() {
+        this.element.removeAttr('style');
+        this.items.removeAttr('style');
     },
 
     /**
@@ -160,8 +180,8 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             this.images.each(function(index, image) {
                 var src = image.src;
 
-                image.onload = this.onLoad.bind(this);
-                image.onerror = this.onLoad.bind(this);
+                image.onload = this.onLoad;
+                image.onerror = this.onLoad;
                 image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
                 image.src = src;
             }.bind(this));
@@ -186,7 +206,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         this.matrix = [];
 
         for (var i = 0; i < l; i++) {
-            item = this.items.item(i);
+            item = this.items.eq(i);
             size = item.outerWidth();
 
             // How many columns does this item span?
@@ -316,9 +336,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     defer: true
 });
 
-/**
- * Defines a component that can be instantiated through matrix().
- */
 Toolkit.create('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });

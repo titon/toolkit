@@ -283,7 +283,7 @@ This requires either the Compass extension to be installed, or the Toolkit CSS i
 </div>
 ```
 
-Or we can [customize our own grids](../development/sass.md#grid-building).
+Or we can [customize our own grids](../development/sass/usage.md#grid-building).
 
 ### Notes ###
 

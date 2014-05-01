@@ -1,11 +1,29 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 'use strict';
 
+// Component instances indexed by the selector that activated it
+var instances = {};
+
+// Check if transitions exist
+var hasTransition = (function() {
+    var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+        style = document.createElement('div').style;
+
+    for (var i = 0; i < prefixes.length; i++) {
+        if (prefixes[i] in style) {
+            return prefixes[i];
+        }
+    }
+
+    return false;
+})();
+
+// Toolkit namespace
 var Toolkit = {
 
     /** Current version */
@@ -27,17 +45,16 @@ var Toolkit = {
     },
 
     /** Does the browser support transitions? */
-    hasTransition: (function() {
-        var prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
-            style = document.createElement('div').style;
+    hasTransition: hasTransition,
 
-        for (var i = 0; i < prefixes.length; i++) {
-            if (prefixes[i] in style) {
-                return prefixes[i];
-            }
-        }
+    /** Event name for transition end */
+    transitionEnd: (function() {
+        var eventMap = {
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd otransitionend'
+        };
 
-        return false;
+        return eventMap[hasTransition] || 'transitionend';
     })(),
 
     /** Detect touch devices */
@@ -67,7 +84,7 @@ var Toolkit = {
 
             // Apply the instance to a collection of elements
             function() {
-                var instance = callback.apply(this, arguments);
+                var instance = instances[component + '.' + this.selector] = callback.apply(this, arguments);
 
                 return this.each(function() {
                     $(this).addData('toolkit.' + component, instance);
@@ -79,13 +96,7 @@ var Toolkit = {
                 var args = arguments;
 
                 return this.each(function() {
-                    var self = this;
-
-                    $(this).addData('toolkit.' + component, (function() {
-                        return function() {
-                            return callback.apply(self, args);
-                        };
-                    })());
+                    $(this).addData('toolkit.' + component, callback.apply(this, args));
                 });
             };
     },
@@ -100,6 +111,9 @@ var Toolkit = {
 // Make it available
 window.Toolkit = Toolkit;
 
+// Dereference these variables to lower the filesize
+var vendor = Toolkit.vendor;
+
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
  *
@@ -110,12 +124,24 @@ window.Toolkit = Toolkit;
  */
 Toolkit.Class.extend = function(base, properties, options) {
     var Class = function() {
+        // Bind all methods with the class context
+        // - Allows event listeners to work automatically without having to bind() them
+        // - Fixes issues with bindEvents() where events cant be turned off
+        for (var key in this) {
+            if (typeof this[key] === 'function') {
+                this[key] = this[key].bind(this);
+            }
+        }
+
+        // Set the UID and increase global count
         this.uid = Class.count += 1;
+
+        // Trigger constructor
         base.apply(this, arguments);
     };
 
     // Inherit the prototype and merge properties
-    $.extend(Class.prototype, this.prototype, properties);
+    $.extend(Class.prototype, this.prototype, properties || {});
 
     // Inherit and set default options
     Class.options = $.extend(true, {}, this.options || {}, options || {});
@@ -134,26 +160,32 @@ Toolkit.Class.extend = function(base, properties, options) {
 
 /**
  * Fetch the component instance from the jQuery collection.
+ * If a method and arguments are defined, trigger a method on the instance.
  *
  * @param {String} component
- * @returns {Array|Function}
+ * @param {String} [method]
+ * @param {Array} [args]
+ * @returns {Function}
  */
-$.fn.toolkit = function(component) {
-    var key = 'toolkit.' + component,
-        data,
-        instances = [];
+$.fn.toolkit = function(component, method, args) {
+    var selector = this.selector,
+        instance = this.data('toolkit.' + component);
 
-    this.each(function() {
-        if (data = $(this).data(key)) {
-            instances.push( data );
-        }
-    });
-
-    if (this.length === 1 && instances[0]) {
-        return instances[0];
+    // Check for the instance within the cache
+    if (!instance && instances[component + '.' + selector]) {
+        instance = instances[component + '.' + selector];
     }
 
-    return instances;
+    if (!instance) {
+        return null;
+    }
+
+    // Trigger a method on the instance of method is defined
+    if (method && instance[method]) {
+        instance[method].apply(instance, $.makeArray(args));
+    }
+
+    return instance;
 };
 
 /**
@@ -163,7 +195,10 @@ $.fn.toolkit = function(component) {
  * @returns {jQuery}
  */
 $.fn.reveal = function() {
-    return this.removeClass('hide').addClass('show').aria('hidden', false);
+    return this
+        .removeClass('hide')
+        .addClass('show')
+        .aria('hidden', false);
 };
 
 /**
@@ -173,49 +208,42 @@ $.fn.reveal = function() {
  * @returns {jQuery}
  */
 $.fn.conceal = function() {
-    return this.removeClass('show').addClass('hide').aria('hidden', true);
-};
-
-/**
- * Return a jQuery instance for the item in the collection defined by the index.
- *
- * @param {Number} index
- * @returns {jQuery}
- */
-$.fn.i = $.fn.item = function(index) {
-    return $(this.get(index));
+    return this
+        .removeClass('show')
+        .addClass('hide')
+        .aria('hidden', true);
 };
 
 /**
  * A multi-purpose getter and setter for ARIA attributes.
  * Will prefix attribute names and cast values correctly.
  *
- * @param {String} key
+ * @param {Element} element
+ * @param {String|Object} key
  * @param {*} value
- * @returns {jQuery}
  */
-$.fn.aria = (function() {
-    return function(key, value) {
-        if (!Toolkit.aria) {
-            return this;
-        }
+function doAria(element, key, value) {
+    if (value === true) {
+        value = 'true';
+    } else if (value === false) {
+        value = 'false';
+    }
 
-        if (key === 'toggled') {
-            key = { expanded: value, selected: value };
-            value = null;
-        }
+    element.setAttribute('aria-' + key, value);
+}
 
-        return $.access(this, function(element, key, value) {
-            if (value === true) {
-                value = 'true';
-            } else if (value === false) {
-                value = 'false';
-            }
+$.fn.aria = function(key, value) {
+    if (!Toolkit.aria) {
+        return this;
+    }
 
-            element.setAttribute('aria-' + key, value);
-        }, key, value, arguments.length > 1);
-    };
-})();
+    if (key === 'toggled') {
+        key = { expanded: value, selected: value };
+        value = null;
+    }
+
+    return $.access(this, doAria, key, value, arguments.length > 1);
+};
 
 /**
  * Set data if the key does not exist, else return the current value.
@@ -367,7 +395,7 @@ $.debounce = function(func, threshold, immediate) {
             if (!immediate) {
                 func.apply(context, args);
             }
-        }, threshold);
+        }, threshold || 150);
 
         if (immediate && !timeout)  {
             func.apply(context, args);
@@ -493,6 +521,7 @@ if (!$.cookie) {
      * @returns {bool}
      */
     $.removeCookie = function(key, options) {
+        options = options || {};
         options.expires = -1;
 
         return $.cookie(key, '', options);
@@ -513,7 +542,7 @@ if (!$.event.special.clickout) {
         var elements = [];
 
         // Add a tap event instead of touchstart?
-        $(document).on('click.toolkit.out touchstart.toolkit.out', function(e) {
+        $(document).on(Toolkit.isTouch ? 'touchstart.toolkit.out' : 'click.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }
@@ -594,15 +623,20 @@ if (!$.event.special.swipe) {
 
             return {
                 time: (new Date()).getTime(),
-                coords: [ data.pageX, data.pageY ]
+                x: data.pageX,
+                y: data.pageY
             };
         }
 
         function swipe(start, stop, selfTarget, origTarget) {
+            if (!start || !stop) {
+                return;
+            }
+
             var settings = $.event.special.swipe,
                 abs = Math.abs,
-                x = stop.coords[0] - start.coords[0],
-                y = stop.coords[1] - start.coords[1],
+                x = stop.x - start.x,
+                y = stop.y - start.y,
                 direction;
 
             if ((stop.time - start.time) <= settings.duration) {
@@ -628,31 +662,43 @@ if (!$.event.special.swipe) {
             duration: 1000, // Maximum time in milliseconds to travel
             distance: 50, // Minimum distance required to travel
             restraint: 75, // Maximum distance to travel in the opposite direction
+            suppression: 30, // Maximum distance before suppressing scrolling
 
             setup: function() {
                 var self = $(this),
                     start,
-                    target;
+                    target,
+                    settings = $.event.special.swipe,
+                    prevented = false;
 
                 self
-                    .bind(startEvent, function(e) {
+                    // Touch has started
+                    .on(startEvent, function(e) {
                         start = startStop(e);
                         target = e.target;
+                        prevented = false;
 
-                        if (startEvent === 'mousedown') {
-                            e.preventDefault();
-                        }
+                        // Bind move event after touch has started
+                        self.on(moveEvent, function(e) {
+                            if (!prevented && Math.abs(start.x - startStop(e).x) > settings.suppression) {
+                                prevented = true;
+
+                                e.preventDefault();
+                            }
+                        });
                     })
-                    .bind(moveEvent, function(e) {
-                        e.preventDefault();
-                    })
-                    .bind(stopEvent, function(e) {
+
+                    // Touch has stopped
+                    .on(stopEvent, function(e) {
                         swipe(start, startStop(e), self, target);
+
+                        // Unbind move event
+                        self.off(moveEvent);
                     });
             },
 
             teardown: function() {
-                $(this).unbind(startEvent).unbind(moveEvent).unbind(stopEvent);
+                $(this).off(startEvent).off(moveEvent).off(stopEvent);
             }
         };
     })();
@@ -662,10 +708,10 @@ if (!$.event.special.swipe) {
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
-                    $(this).bind('swipe', $.noop);
+                    $(this).on('swipe.' + name, $.noop);
                 },
                 teardown: function() {
-                    $(this).unbind('swipe');
+                    $(this).off('swipe.' + name);
                 }
             };
         }

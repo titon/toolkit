@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Modal = new Class({
     Extends: Toolkit.Component,
-    Binds: ['onSubmit'],
+    Binds: ['onSubmit', 'onKeydown'],
 
     /** Blackout instance if options.blackout is true */
     blackout: null,
@@ -22,21 +22,14 @@ Toolkit.Modal = new Class({
         delegate: '.js-modal',
         animation: 'fade',
         ajax: true,
-        draggable: false,
         blackout: true,
         fullScreen: false,
         stopScroll: true,
         getContent: 'data-modal',
-        contentElement: '.modal-inner',
-        closeElement: '.modal-close',
-        closeEvent: '.modal-event-close',
-        submitEvent: '.modal-event-submit',
         template: '<div class="modal">' +
             '<div class="modal-outer">' +
-                '<div class="modal-handle">' +
-                    '<div class="modal-inner"></div>' +
-                    '<button type="button" class="modal-close modal-event-close"><span class="x"></span></button>' +
-                '</div>' +
+                '<div class="modal-inner"></div>' +
+                '<button class="modal-close modal-hide"><span class="x"></span></button>' +
             '</div>' +
         '</div>'
     },
@@ -56,11 +49,7 @@ Toolkit.Modal = new Class({
 
         if (options.fullScreen) {
             this.element.addClass('is-fullscreen');
-            options.draggable = false;
         }
-
-        // Get elements
-        this.elementBody = this.element.getElement(options.contentElement);
 
         // Blackout
         if (options.blackout) {
@@ -81,16 +70,14 @@ Toolkit.Modal = new Class({
             .aria('labelledby', this.id())
             .aria('describedby', this.id());
 
-        // Initialize events
-        var events = {};
-        events['clickout element'] = 'onHide';
-        events['clickout ' + options.delegate] = 'onHide';
-        events['keydown window'] = 'onKeydown';
-        events['click ' + options.delegate] = 'onShow';
-        events['click element ' + options.closeEvent] = 'onHide';
-        events['click element ' + options.submitEvent] = 'onSubmit';
-
-        this.events = events;
+        this.events = {
+            'keydown window': 'onKeydown',
+            'clickout element': 'onHide',
+            'clickout document {selector}': 'onHide',
+            'click document {selector}': 'onShow',
+            'click element .@modal-hide': 'onHide',
+            'click element .@modal-submit': 'onSubmit'
+        };
 
         this.enable();
         this.fireEvent('init');
@@ -126,7 +113,9 @@ Toolkit.Modal = new Class({
             this.blackout.hideLoader();
         }
 
-        this.elementBody.set('html', content);
+        var body = this.element.getElement('.' + vendor + 'modal-inner');
+
+        body.set('html', content);
         this.fireEvent('load', content);
 
         // Reveal modal
@@ -134,8 +123,7 @@ Toolkit.Modal = new Class({
 
         // Resize modal
         if (this.options.fullScreen) {
-            this.element.getElement(this.options.contentElement)
-                .setStyle('min-height', window.getHeight());
+            body.setStyle('min-height', window.getHeight());
         }
 
         this.fireEvent('show');
@@ -221,7 +209,7 @@ Toolkit.Modal = new Class({
         e.preventDefault();
 
         var button = e.target,
-            form = this.elementBody.getElement('form');
+            form = this.element.getElement('form');
 
         if (!form) {
             return;
@@ -245,9 +233,6 @@ Toolkit.Modal = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through modal().
- */
 Toolkit.create('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);

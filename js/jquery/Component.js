@@ -1,14 +1,24 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Component = Toolkit.Class.extend(function() {}, {
     component: 'Component',
-    version: '1.3.0',
+    version: '1.4.0',
+
+    /** Is the component enabled? */
     enabled: false,
+
+    /** Events and functions to bind */
     events: {},
+
+    /** Cached requests by URL */
+    cache: {},
+
+    /** Dynamic options generated at runtime */
+    runtime: {},
 
     /**
      * Create the element from the template.
@@ -32,7 +42,6 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             }
         }
 
-        // Store it in the DOM
         if (!template) {
             throw new Error('Failed to create template element');
         }
@@ -47,6 +56,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             template.addClass(options.animation);
         }
 
+        // Set a flag so we know if the element was created or embedded
+        this.created = true;
+
         return template.attr('id', this.id());
     },
 
@@ -58,6 +70,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      */
     bindEvents: function(type) {
         var self = this,
+            options = this.options,
             event,
             keys,
             context,
@@ -70,50 +83,48 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         // event document = func        Bind document event
         // ready document = func        Bind DOM ready event
         // event property = func        Bind event to collection that matches class property
-        // event .class = func          Bind delegated events to class on document
         // event context .class = func  Bind delegated events to class within context
         $.each(this.events, function(key, value) {
             funcs = $.isArray(value) ? value : [value];
+
+            // Replace tokens
+            key = key.replace('{mode}', options.mode);
+            key = key.replace('{selector}', self.nodes ? self.nodes.selector : '');
+
+            // Extract arguments
             keys = key.split(' ');
-            event = keys[0];
-            context = keys[1];
-            selector = keys[2] || null;
+            event = keys.shift();
+            context = keys.shift();
+            selector = keys.join(' ').replace('@', vendor);
 
-            // No context defined, so use the context in options
-            var charAt = context.charAt(0);
-
-            if (charAt === '.' || charAt === '#' || charAt === '[') {
-                selector = context;
-                context = self.options.context;
+            // Is this touch?
+            if (Toolkit.isTouch && event === 'click') {
+                event = 'touchstart';
             }
 
-            // The context is a property on the object
+            // Determine the correct context
             if (self[context]) {
                 context = self[context];
+            } else if (context === 'window') {
+                context = win;
+            } else if (context === 'document') {
+                context = doc;
             }
 
             $.each(funcs, function(i, func) {
                 if (!$.isFunction(func)) {
-                    func = self[func].bind(self);
+                    func = self[func];
                 }
 
-                // On window
-                if (context === 'window') {
-                    win[type](event, func);
+                // Ready events
+                if (event === 'ready') {
+                    doc.ready(func);
 
-                // On document
-                } else if (context === 'document') {
-                    if (event === 'ready') {
-                        doc.ready(func);
-                    } else {
-                        doc[type](event, func);
-                    }
-
-                // Delegated
+                // Delegated events
                 } else if (selector) {
-                    $(context || document)[type](event, selector, func);
+                    $(context)[type](event, selector, func);
 
-                // On element
+                // Regular events
                 } else {
                     $(context)[type](event, func);
                 }
@@ -122,19 +133,63 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
+     * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     */
+    destroy: function() {
+        this.fireEvent('destroy');
+
+        // Remove active state
+        if (this.hide) {
+            this.hide();
+        }
+
+        if (this.doDestroy) {
+            this.doDestroy();
+        }
+
+        // Remove events
+        this.disable();
+
+        // Remove element only if it was created
+        if (this.created) {
+            this.element.remove();
+        }
+
+        // Remove instances
+        var key = this._keyName();
+
+        // This must be called last or else the previous commands will fail
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + key);
+
+            // Remove the cached instance also
+            delete instances[key + '.' + this.nodes.selector];
+
+        } else if (this.element) {
+            this.element.removeData('toolkit.' + key);
+        }
+    },
+
+    /**
      * Disable the component.
      */
     disable: function() {
+        if (this.enabled) {
+            this.bindEvents('off');
+        }
+
         this.enabled = false;
-        this.bindEvents('off');
     },
 
     /**
      * Enable the component.
      */
     enable: function() {
+        if (!this.enabled) {
+            this.bindEvents('on');
+        }
+
         this.enabled = true;
-        this.bindEvents('on');
     },
 
     /**
@@ -156,16 +211,9 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         // Generate the namespaced event
-        var name = this.eventClass,
-            element = this.element,
-            node = this.node;
-
-        if (!name) {
-            name = this.component;
-            this.eventClass = name = name.charAt(0).toLowerCase() + name.slice(1);
-        }
-
-        var event = jQuery.Event(type + '.toolkit.' + name);
+        var element = this.element,
+            node = this.node,
+            event = jQuery.Event(type + '.toolkit.' + this._keyName());
             event.context = this;
 
         // Trigger event on the element and the node
@@ -185,7 +233,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      */
     id: function() {
         var list = $.makeArray(arguments);
-            list.unshift('toolkit', this._class(), this.uid);
+            list.unshift('toolkit', this._cssClass(), this.uid);
 
         return list.join('-');
     },
@@ -205,7 +253,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 continue;
             }
 
-            value = element.data(this._class() + '-' + key.toLowerCase());
+            value = element.data((this._keyName() + '-' + key).toLowerCase());
 
             if ($.type(value) !== 'undefined') {
                 obj[key] = value;
@@ -213,6 +261,14 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         return $.extend(true, {}, options, obj);
+    },
+
+    /**
+     * Enable events and trigger init callback.
+     */
+    initialize: function() {
+        this.enable();
+        this.fireEvent('init');
     },
 
     /**
@@ -247,7 +303,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.data(this._class() + '-' + key.toLowerCase());
+        var value = element.data((this._keyName() + '-' + key).toLowerCase());
 
         if ($.type(value) === 'undefined') {
             value = this.options[key];
@@ -364,6 +420,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         if (opts.mode && opts.mode === 'hover') {
 
             // Reset for touch devices
+            // Click will be replaced with touchstart in bindEvents()
             if (Toolkit.isTouch) {
                 opts.mode = 'click';
             } else {
@@ -381,7 +438,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @private
      * @returns {string}
      */
-    _class: function() {
+    _cssClass: function() {
         if (this.cssClass) {
             return this.cssClass;
         }
@@ -389,6 +446,23 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         return this.cssClass = this.component.replace(/[A-Z]/g, function(match) {
             return ('-' + match.charAt(0).toLowerCase());
         }).slice(1);
+    },
+
+    /**
+     * Return the component name with the 1st character lowercase for use in events and attributes.
+     * Cache the result to reduce processing time.
+     *
+     * @private
+     * @returns {string}
+     */
+    _keyName: function() {
+        if (this.keyName) {
+            return this.keyName;
+        }
+
+        var name = this.component;
+
+        return this.keyName = name.charAt(0).toLowerCase() + name.slice(1);
     }
 
 }, {

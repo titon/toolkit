@@ -61,7 +61,7 @@ matrix.refresh();
 
 When columns are rendered, their widths may fluctuate a few pixels to scale accordingly.
 Because of this, fixed width images may render incorrectly, or just look off.
-We suggest adding `.fluid` from the [responsive component](responsive.md) to all inline images.
+We suggest adding `.fluid` from the [Responsive component](responsive.md) to all inline images.
 
 ```html
 <li>
@@ -96,7 +96,7 @@ We suggest adding `.fluid` from the [responsive component](responsive.md) to all
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js.md#options).
+Inherits all options from the [parent component](../development/js/component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -140,7 +140,7 @@ Inherits all options from the [parent component](../development/js.md#options).
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js.md#events).
+Inherits all events from the [parent component](../development/js/component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -166,7 +166,7 @@ Inherits all events from the [parent component](../development/js.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js.md#properties).
+Inherits all properties from the [parent component](../development/js/component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -174,50 +174,58 @@ Inherits all properties from the [parent component](../development/js.md#propert
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>items</td>
             <td>collection</td>
-            <td>A collection of elements (the <code>li</code>) to position in the grid.</td>
+            <td>A collection of elements to position in the grid.</td>
+            <td>&gt; li</td>
         </tr>
         <tr>
             <td>matrix</td>
             <td>array</td>
             <td>List of items organized in render order with column span detection flags.</td>
+            <td></td>
         </tr>
         <tr>
             <td>wrapperWidth</td>
             <td>int</td>
             <td>The width of the matrix wrapper.</td>
+            <td></td>
         </tr>
         <tr>
             <td>colWidth</td>
             <td>int</td>
             <td>The calculated width of each column based on the <code>width</code> option.</td>
+            <td></td>
         </tr>
         <tr>
             <td>colCount</td>
             <td>int</td>
             <td>The number of columns that can fit within the current wrapper width.</td>
+            <td></td>
         </tr>
         <tr>
             <td>images</td>
             <td>collection</td>
             <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
+            <td>img</td>
         </tr>
         <tr>
             <td>imagesLoaded</td>
             <td>int</td>
             <td>A count of how many images have loaded.</td>
+            <td></td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js.md#methods).
+Inherits all methods from the [parent component](../development/js/component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

@@ -1,11 +1,12 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 Toolkit.Flyout = new Class({
     Extends: Toolkit.Component,
+    Binds: ['onEnter', 'onLeave'],
     Implements: [Timers],
 
     /** The current menu URL being displayed */
@@ -30,7 +31,6 @@ Toolkit.Flyout = new Class({
         showDelay: 350,
         hideDelay: 1000,
         itemLimit: 15,
-        contentElement: '.flyout',
         template: '<div class="flyout"></div>'
     },
 
@@ -42,6 +42,10 @@ Toolkit.Flyout = new Class({
      * @param {Object} [options]
      */
     initialize: function(elements, url, options) {
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
         this.parent(options);
         this.nodes = elements;
 
@@ -51,13 +55,6 @@ Toolkit.Flyout = new Class({
 
         options = this.options;
 
-        // Load data from the URL
-        new Request.JSON({
-            url: url,
-            secure: true,
-            onSuccess: this.load.bind(this)
-        }).get();
-
         // Set timers
         this.addTimers({
             show: this.position,
@@ -66,14 +63,33 @@ Toolkit.Flyout = new Class({
 
         // Initialize events
         if (options.mode === 'click') {
-            this.events['click ' + options.delegate] = 'onShow';
+            this.events['click document {selector}'] = 'onShow';
         } else {
-            this.events['mouseenter ' + options.delegate] = ['onShow', 'onEnter'];
-            this.events['mouseleave ' + options.delegate] = 'onLeave';
+            this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
+            this.events['mouseleave document {selector}'] = 'onLeave';
         }
 
         this.enable();
         this.fireEvent('init');
+
+        // Load data from the URL
+        new Request.JSON({
+            url: url,
+            secure: true,
+            onSuccess: this.load.bind(this)
+        }).get();
+    },
+
+    /**
+     * Remove all the flyout menu elements and timers before destroying.
+     */
+    doDestroy: function() {
+        Object.each(this.menus, function(menu) {
+            menu.dispose();
+        });
+
+        this.clearTimer('show');
+        this.clearTimer('hide');
     },
 
     /**
@@ -85,7 +101,9 @@ Toolkit.Flyout = new Class({
         this.clearTimers();
 
         // Must be called even if the menu is hidden
-        this.node.removeClass('is-active');
+        if (this.node) {
+            this.node.removeClass('is-active');
+        }
 
         if (!this.current || !this.isVisible()) {
             return this;
@@ -229,7 +247,6 @@ Toolkit.Flyout = new Class({
             ul,
             li,
             tag,
-            target = options.contentElement,
             limit = options.itemLimit;
 
         menu.set('role', 'menu').aria('hidden', true);
@@ -273,7 +290,7 @@ Toolkit.Flyout = new Class({
                         role: 'presentation'
                     });
 
-                    li.addClass(Toolkit.vendor + 'flyout-heading');
+                    li.addClass(vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -297,15 +314,7 @@ Toolkit.Flyout = new Class({
                 }
             }
 
-            if (target) {
-                if (target.substr(0, 1) === '.' && menu.hasClass(target.substr(1))) {
-                    menu.grab(ul);
-                } else {
-                    menu.getElement(target).grab(ul);
-                }
-            } else {
-                menu.grab(ul);
-            }
+            menu.grab(ul);
         }
 
         menu.inject(parent);
@@ -387,7 +396,7 @@ Toolkit.Flyout = new Class({
      */
     onHideChild: function(parent) {
         parent.removeClass('is-open');
-        parent.getChildren(this.options.contentElement)
+        parent.getChildren('.' + vendor + 'flyout')
             .removeProperty('style')
             .aria({
                 expanded: false,
@@ -413,7 +422,7 @@ Toolkit.Flyout = new Class({
      * @param {Element} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.getElement(this.options.contentElement);
+        var menu = parent.getElement('.' + vendor + 'flyout');
 
         if (!menu) {
             return;
@@ -458,9 +467,6 @@ Toolkit.Flyout = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through flyout().
- */
 Toolkit.create('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);

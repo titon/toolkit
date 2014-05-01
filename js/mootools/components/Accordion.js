@@ -1,6 +1,6 @@
 /**
- * @copyright   2010-2013, The Titon Project
- * @license     http://opensource.org/licenses/bsd-license.php
+ * @copyright   2010-2014, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
@@ -21,9 +21,7 @@ Toolkit.Accordion = new Class({
         mode: 'click',
         defaultIndex: 0,
         multiple: false,
-        collapsible: false,
-        headerElement: '.accordion-header',
-        sectionElement: '.accordion-section'
+        collapsible: false
     },
 
     /**
@@ -38,8 +36,8 @@ Toolkit.Accordion = new Class({
         this.options = options = this.inheritOptions(this.options, element);
 
         // Fetch all the sections and headers
-        var sections = element.getElements(options.sectionElement),
-            headers = element.getElements(options.headerElement),
+        var sections = element.getElements('.' + vendor + 'accordion-section'),
+            headers = element.getElements('.' + vendor + 'accordion-header'),
             self = this;
 
         this.headers = headers;
@@ -71,13 +69,23 @@ Toolkit.Accordion = new Class({
                 .conceal();
         });
 
-        // Set events
-        this.events[options.mode + ' headers'] = 'onShow';
+        this.events = {
+            '{mode} element .@accordion-header': 'onShow'
+        };
 
         this.enable();
         this.fireEvent('init');
 
         this.jump(options.defaultIndex);
+    },
+
+    /**
+     * Reveal all sections before destroying.
+     */
+    doDestroy: function() {
+        this.element.reveal();
+        this.headers.getParent().removeClass('is-active');
+        this.sections.removeProperty('style').reveal();
     },
 
     /**
@@ -178,9 +186,6 @@ Toolkit.Accordion = new Class({
 
 });
 
-/**
- * Defines a component that can be instantiated through accordion().
- */
 Toolkit.create('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
 });

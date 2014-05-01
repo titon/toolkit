@@ -143,6 +143,17 @@
             "js": ["components/Carousel.js"]
         }
     },
+    "divider": {
+        "name": "Divider",
+        "description": "Separates sections of content.",
+        "category": "component",
+        "type": "element",
+        "priority": 10,
+        "source": {
+            "css": ["components/divider.css"]
+        },
+        "version": "1.4.0"
+    },
     "drop": {
         "name": "Drop",
         "description": "A contextual menu that is dropped down (or up, left, right) and displayed relative a target element.",
@@ -298,6 +309,19 @@
             "css": ["components/notice.css"]
         }
     },
+    "offCanvas": {
+        "name": "Off Canvas",
+        "description": "Contextual sidebars positioned outside the viewport until activated.",
+        "category": "component",
+        "type": "module",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/off-canvas.css"],
+            "js": ["components/OffCanvas.js"]
+        },
+        "version": "1.4.0"
+    },
     "pagination": {
         "name": "Pagination",
         "description": "Divides content into multiple pages through a list of numerical links.",
@@ -354,7 +378,8 @@
         "require": ["base", "blackout"],
         "source": {
             "css": ["components/showcase.css"],
-            "js": ["components/Showcase.js"]
+            "js": ["components/Showcase.js"],
+            "moo": ["More/Element.Event.Pseudos"]
         }
     },
     "stalker": {
@@ -426,6 +451,19 @@
             "js": ["class/Timers.js"],
             "moo": ["Core"]
         }
+    },
+    "toast": {
+        "name": "Toast",
+        "description": "Provides feedback about an operation through a timed popup.",
+        "category": "component",
+        "type": "module",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/toast.css"],
+            "js": ["components/Toast.js"]
+        },
+        "version": "1.4.0"
     },
     "tooltip": {
         "name": "Tooltip",
