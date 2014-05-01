@@ -44,3 +44,4 @@ All releases will contain bug fixing and polishing for current features.
 * Form Validator - Provides form validation.
 * Data Binding - Provides 2 way data binding.
 * Drag & Drop - Provides a drag and drop system.
+* Move Lazy Load to behaviors.

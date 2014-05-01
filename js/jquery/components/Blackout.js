@@ -6,7 +6,7 @@
 
 Toolkit.Blackout = Toolkit.Component.extend(function(options) {
     this.component = 'Blackout';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = this.createElement();
 

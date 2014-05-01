@@ -6,7 +6,7 @@
 
 Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     this.component = 'Stalker';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.element = element = $(element).addClass(vendor + 'stalker');
     this.options = options = this.setOptions(options);
 

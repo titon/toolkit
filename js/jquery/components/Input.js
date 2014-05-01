@@ -6,7 +6,7 @@
 
 Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     this.component = 'Input';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
@@ -104,7 +104,7 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
  */
 Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
     this.component = 'InputCheckbox';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.input = checkbox = $(checkbox);
     this.options = this.setOptions(options, checkbox);
     this.wrapper = this._buildWrapper();
@@ -125,7 +125,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
  */
 Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
     this.component = 'InputRadio';
-    this.version = '1.2.0';
+    this.version = '1.4.0';
     this.input = radio = $(radio);
     this.options = this.setOptions(options, radio);
     this.wrapper = this._buildWrapper();
@@ -148,7 +148,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     var events = {};
 
     this.component = 'InputSelect';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.input = select = $(select);
     this.multiple = select.prop('multiple');
     this.options = options = this.setOptions(options, select);

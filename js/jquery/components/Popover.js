@@ -11,7 +11,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     options.mode = 'click';
 
     this.component = 'Popover';
-    this.version = '1.3.0';
+    this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement()
         .attr('role', 'tooltip')

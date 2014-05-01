@@ -6,7 +6,7 @@
 
 Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     this.component = 'Drop';
-    this.version = '1.3.1';
+    this.version = '1.4.0';
     this.options = this.setOptions(options);
 
     // Last opened drop menu
