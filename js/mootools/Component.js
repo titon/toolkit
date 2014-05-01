@@ -127,6 +127,10 @@ Toolkit.Component = new Class({
                 if (event === 'ready') {
                     win[method]('domready', func);
 
+                // Clickout events cannot be delegated
+                } else if (event === 'clickout') {
+                    $$(selector || context)[method](event, func);
+
                 // Delegated events
                 } else if (selector) {
                     context[method](event + ':relay(' + selector + ')', func);

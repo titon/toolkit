@@ -566,7 +566,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
     }
 
 }, {
-    native: false,
+    native: Toolkit.isTouch,
     multipleFormat: 'count', // count, list
     countMessage: '{count} of {total} selected',
     listLimit: 3,

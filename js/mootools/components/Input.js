@@ -192,7 +192,7 @@ Toolkit.InputSelect = new Class({
 
     /** Default options */
     options: {
-        native: false,
+        native: Toolkit.isTouch,
         multipleFormat: 'count', // count, list
         countMessage: '{count} of {total} selected',
         listLimit: 3,
@@ -440,7 +440,9 @@ Toolkit.InputSelect = new Class({
      * @returns {Toolkit.InputSelect}
      */
     hide: function() {
-        this.element.removeClass('is-active');
+        if (this.element) {
+            this.element.removeClass('is-active');
+        }
 
         if (this.dropdown) {
             this.dropdown.conceal();

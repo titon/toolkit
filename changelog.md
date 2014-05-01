@@ -45,6 +45,7 @@ a cleanup of element and event options, expanded documentation, and a handful of
     * Removed `contentElement` option
 * Input
     * Added `hideOpened` option to selects to hide other opened selects
+    * Updated `native` option value to be `Toolkit.isTouch` by default
 * Lazy Load
     * Removed `isLoaded` property
 * Mask
