@@ -541,8 +541,7 @@ if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
         var elements = [];
 
-        // Add a tap event instead of touchstart?
-        $(document).on(Toolkit.isTouch ? 'touchstart.toolkit.out' : 'click.toolkit.out', function(e) {
+        $(document).on('click.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }
@@ -616,7 +615,11 @@ if (!$.event.special.swipe) {
         var isTouch = Toolkit.isTouch,
             startEvent = isTouch ? 'touchstart' : 'mousedown',
             moveEvent = isTouch ? 'touchmove' : 'mousemove',
-            stopEvent = isTouch ? 'touchend' : 'mouseup';
+            stopEvent = isTouch ? 'touchend' : 'mouseup',
+            scrollEvent = isTouch ? 'touchmove' : 'scroll',
+
+            // Flag For ensuring a single swipe at a time
+            swiping = false;
 
         function startStop(e) {
             var data = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
@@ -668,32 +671,55 @@ if (!$.event.special.swipe) {
                 var self = $(this),
                     start,
                     target,
-                    settings = $.event.special.swipe,
-                    prevented = false;
+                    settings = $.event.special.swipe;
 
-                self
-                    // Touch has started
-                    .on(startEvent, function(e) {
-                        start = startStop(e);
-                        target = e.target;
-                        prevented = false;
+                /**
+                 * There's a major bug in Android devices where `touchend` events do not fire.
+                 * Because of this, we have to hack-ily implement functionality into `touchmove`.
+                 * We also can't use `touchcancel` as that fires prematurely and unbinds our move event.
+                 * More information on these bugs can be found here:
+                 *
+                 * https://code.google.com/p/android/issues/detail?id=19827
+                 * https://code.google.com/p/chromium/issues/detail?id=260732
+                 *
+                 * Using `touchcancel` is also rather unpredictable, as described here:
+                 *
+                 * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
+                 */
+                self.on(startEvent, function(e) {
+                    start = startStop(e);
+                    target = e.target;
 
-                        // Bind move event after touch has started
-                        self.on(moveEvent, function(e) {
-                            if (!prevented && Math.abs(start.x - startStop(e).x) > settings.suppression) {
-                                prevented = true;
+                    // Stop browser from dragging the element
+                    if (!isTouch) {
+                        e.preventDefault();
+                    }
 
-                                e.preventDefault();
-                            }
-                        });
-                    })
+                    console.log('swipe start');
+
+                    // Bind move event after touch has started
+                    self.on(moveEvent + '.ns', function(e) {
+                        if (Math.abs(start.x - startStop(e).x) > settings.suppression) {
+                            e.preventDefault();
+                            console.log('PREVENTED');
+                        }
+
+                        console.log('swipe move');
+                    });
+                })
 
                     // Touch has stopped
                     .on(stopEvent, function(e) {
+                        console.log('swipe stop', e.type);
+
                         swipe(start, startStop(e), self, target);
 
                         // Unbind move event
-                        self.off(moveEvent);
+                        self.off(moveEvent + '.ns');
+                    })
+
+                    .on('touchcancel', function(e) {
+                        console.log('cancel');
                     });
             },
 
@@ -708,10 +734,10 @@ if (!$.event.special.swipe) {
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
-                    $(this).on('swipe.' + name, $.noop);
+                    $(this).on('swipe', $.noop);
                 },
                 teardown: function() {
-                    $(this).off('swipe.' + name);
+                    $(this).off('swipe');
                 }
             };
         }
