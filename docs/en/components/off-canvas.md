@@ -85,6 +85,12 @@ each with their own unique presentation.
 * `squish` - The content stays on screen, but is squished via padding to make room for the sidebar.
 * `on-top` - The sidebar slides over the content.
 
+```javascript
+$('.off-canvas').offCanvas({
+    animation: 'reverse-push'
+});
+```
+
 ### Open On Load ###
 
 Sidebars can be opened on page load by setting `openOnLoad` to true.
@@ -132,12 +138,12 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
         <tr>
             <td>$offCanvas-left-width</td>
             <td>20%</td>
-            <td>The width of the left sidebar, and the amount of padding or margin to slide with.</td>
+            <td>The width of the left sidebar.</td>
         </tr>
         <tr>
             <td>$offCanvas-right-width</td>
             <td>20%</td>
-            <td>The width of the right sidebar, and the amount of padding or margin to slide with.</td>
+            <td>The width of the right sidebar.</td>
         </tr>
         <tr>
             <td>$offCanvas-left-width-mobile</td>
@@ -151,7 +157,7 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
         </tr>
         <tr>
             <td>$offCanvas-mobile-breakpoint</td>
-            <td>550px</td>
+            <td>640px</td>
             <td>The break point to apply mobile widths.</td>
         </tr>
         <tr>

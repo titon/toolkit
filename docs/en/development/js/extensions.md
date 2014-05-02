@@ -9,11 +9,11 @@ These extensions may even solve a problem in your own codebase.
 
 These methods can be found on a jQuery collection.
 
-### toolkit(string:component[, string:method[, array:args]]) ###
+### toolkit(`string:component`[, `string:method`[, `array:args`]]) ###
 
 Return a component instance if one has been initialized on this element.
 If a method is defined, trigger the method on the instance and pass the arguments.
-[Learn more about accessing components.](usage.md)
+[Learn more about accessing components.](usage.md#accessing-instances)
 
 ```javascript
 var typeAhead = $('#input').toolkit('typeAhead');
@@ -37,7 +37,7 @@ By swapping classes, this should trigger any animations or transitions.
 $('#element').conceal();
 ```
 
-### positionTo(string:position, element|event:relativeTo[, object:baseOffset[, bool:isMouse]]) ###
+### positionTo(`string:position`, `element|event:relativeTo`[, `object:baseOffset`[, `bool:isMouse`]]) ###
 
 Position the element relative to another element.
 The `position` argument may be any combination of top, bottom, left, right, and center, in dashed format.
@@ -53,24 +53,24 @@ $('#element').positionTo('top-left', $('#relative-to'));
 $('#element').positionTo('bottom-right', event, { left: 10, top: 10 }, true);
 ```
 
-### addData(string:key, mixed:value) ###
+### addData(`string:key`, `mixed:value`) ###
 
 Set and return data if the key does not exist, else return the current value.
 This is a combination of getting and setting internal jQuery data.
 
 ```javascript
-$('#element').addData('foo', 'bar'); // bar
-$('#element').addData('foo', 'baz'); // baz
+var value = $('#element').addData('foo', 'bar'); // bar
+var value = $('#element').addData('foo', '123'); // bar
 ```
 
-### aria(string:key, mixed:value) ###
+### aria(`string:key`, `mixed:value`) ###
 
 Sets ARIA attributes on the target element. Works in a similar fashion to `attr()`.
 Can also accept an object of key value pairs. Can be disabled by toggling `Toolkit.aria`.
 
 ```javascript
-// aria-hidden="false"
-$('#element').aria('hidden', false);
+// aria-live="off"
+$('#element').aria('live', 'off');
 
 // aria-expanded="false" aria-selected="true"
 $('#element').aria({
@@ -96,7 +96,7 @@ $('#element').is(':shown');
 
 These functions can be found on the jQuery object.
 
-### debounce(func:func[, int:threshold[, bool:immediate]]) ###
+### debounce(`func:func`[, `int:threshold`[, `bool:immediate`]]) ###
 
 Delays the execution of a function until the duration has completed.
 If `immediate` is true, then the callback will be triggered immediately.
@@ -105,7 +105,7 @@ If `immediate` is true, then the callback will be triggered immediately.
 $.debounce(function() {}, 150);
 ```
 
-### throttle(func:func[, int:delay[, array:args]]) ###
+### throttle(`func:func`[, `int:delay`[, `array:args`]]) ###
 
 Throttle the execution of a function so it triggers at every delay interval.
 Can optionally define an array of arguments that will be passed to the callback.
@@ -117,7 +117,7 @@ $.throttle(function() {}, 150);
 $.throttle(function() {}, 150, ['foo', 'bar']);
 ```
 
-### bound(int:value, int:max[, int:min]) ###
+### bound(`int:value`, `int:max`[, `int:min`]) ###
 
 Bound a number between a min and max range, using a 0 based indexing.
 If the number is too high, return 0, else if it's too low, return the max number - 1.
@@ -131,7 +131,7 @@ var data = [1, 2, 3, 4, 5];
 $.bound(-1, data.length); // 4
 ```
 
-### cookie(string:key, mixed:value[, object:options]) ###
+### cookie(`string:key`, `mixed:value`[, `object:options`]) ###
 
 Set a cookie with optional configuration settings. The following settings are available:
 `expires` (a number in hours), `path`, `domain`, and `secure`.
@@ -143,7 +143,7 @@ $.cookie('foo', 'bar', {
 });
 ```
 
-### removeCookie(string:key[, object:options]) ###
+### removeCookie(`string:key`[, `object:options`]) ###
 
 Remove a cookie defined by key. Will require the same settings that were used for creation.
 

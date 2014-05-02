@@ -31,7 +31,7 @@ $('.js-modal').toolkit('modal', 'show', $('#add-category'));
 // Loads /categories/add
 ```
 
-[Learn more on accessing component instances.](../development/js/usage.md)
+[Learn more on accessing component instances.](../development/js/usage.md#accessing-instances)
 
 ### Multiple Modals ###
 
@@ -161,7 +161,7 @@ This structure can be customized through the `template` option.
         </tr>
         <tr>
             <td>$modal-mobile-breakpoint</td>
-            <td>550px</td>
+            <td>640px</td>
             <td>The break point to apply mobile widths.</td>
         </tr>
         <tr>

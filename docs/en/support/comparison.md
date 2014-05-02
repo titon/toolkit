@@ -19,6 +19,8 @@ The following libraries are being compared:
 
 ## Sizes ##
 
+The following table represents the minified un-gzipped distribution files for each library.
+
 <table class="table is-striped comparison-table">
     <thead>
         <tr>

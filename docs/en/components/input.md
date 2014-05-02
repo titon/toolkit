@@ -185,7 +185,7 @@ Inherits all options from the [parent component](../development/js/component.md#
         <tr>
             <td>native</td>
             <td>bool</td>
-            <td>false</td>
+            <td>Toolkit.isTouch</td>
             <td>Use native browser dropdowns instead of custom dropdowns.</td>
         </tr>
         <tr>

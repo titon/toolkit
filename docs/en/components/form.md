@@ -195,7 +195,7 @@ and `.form-actions` elements to inline block with proper margins.
 </form>
 ```
 
-## Aria Support #
+## ARIA ##
 
 If you are using semantically correct tags like `form`, `label`, and `input`,
 then implementing ARIA is not required. If you are *not* using them,

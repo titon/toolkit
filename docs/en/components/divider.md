@@ -11,7 +11,7 @@ A divider can be used to separate sections of content, and can also be used for 
 ```
 
 <div class="notice is-info">
-    When no content is defined, an empty tag is required for correct border spacing.
+    The divider requires no whitespace for proper border collapsing, unless content is inserted (below).
 </div>
 
 Small blurbs of text can be inserted within the divider, which will be horizontally centered.

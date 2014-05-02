@@ -10,7 +10,7 @@
 * CSS
     * [Philosophies](css/philosophies.md)
     * [Block-Element-Modifier Methodology](css/bem.md)
-    * [Vendor Prefixing](prefixing.md)
+    * [Vendor Prefixing](css/prefixing.md)
     * [Reserved Classes](css/reserved.md)
 * Sass
     * [Usage](sass/usage.md)

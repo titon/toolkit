@@ -49,14 +49,14 @@ var toast = $('body').toolkit('toast');
 var link = $('<a/>')
     .html('This is an important message!')
     .click(function() {
-        toast.hide(this.parentNode); // Must be .toast element
+        toast.hide(this.parentNode); // Argument passed must be a .toast element
     });
 
 // Create the toast
 toast.create(link, { duration: 0 });
 ```
 
-## Aria ##
+## ARIA ##
 
 The `log` role on the container, and the `note` role on the toast,
 and the appropriate `aria-*` attributes are required when supporting ARIA.

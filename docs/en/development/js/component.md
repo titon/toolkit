@@ -62,7 +62,7 @@ We can also define a template using a script tag.
 ```html
 <script type="text/html" id="some-element">
     <div class="modal">
-        <div class="modal-body"></div>
+        <div class="modal-inner"></div>
     </div>
 </script>
 ```

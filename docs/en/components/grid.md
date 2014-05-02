@@ -59,7 +59,7 @@ For example, the `.span-*` should equate to 12, where as responsive columns have
 </div>
 
 <div class="notice is-info">
-    All grids are 100% width unless capped manually with <code>max-width</code>.
+    All grid rows are 100% width unless manually capped with <code>max-width</code>.
 </div>
 
 ### Push & Pull ###

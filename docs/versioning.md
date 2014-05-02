@@ -1,6 +1,7 @@
 # Versioning #
 
-Steps for tagging new releases. These docs are for internal use only.
+Steps for tagging a new release that should be followed after a feature branch has merged into master.
+These docs are for internal use only.
 
 * Update normalize.css
 * Test code with `grunt production`

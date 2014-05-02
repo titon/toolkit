@@ -44,11 +44,6 @@ Once downloaded, include the assets in your project.
 <script src="/bower_components/toolkit/dist/toolkit-jquery.min.js"></script>
 ```
 
-<div class="notice is-info">
-    It's also possible to include Toolkit components on a case by case basis instead of including the full component list.
-    <a href="getting-started.md#distribution-files">Learn more about the distribution file structure</a>.
-</div>
-
 ## Sass & Compass ##
 
 If you prefer to use the source Sass files directly in a project,

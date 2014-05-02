@@ -1,6 +1,6 @@
-# Block-Element-Modifier Methodology #
+# BEM Methodology #
 
-Toolkit utilizes a variation of the [BEM methodology](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/),
+Toolkit utilizes a variation of the [Block-Element-Modifier Methodology](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/),
 which is a convention for naming classes in an organized fashion.
 In simple terms, BEM stands for block-element-modifier, where `block` is the high level component,
 the `element` is a child of the parent, and `modifier` alters the state or behavior of the parent.
@@ -9,7 +9,7 @@ For example, instead of `.block__element`, it would simply be `.block-element`.
 
 Using the Carousel component as an example, our high level class name (the "block") would be `.carousel`.
 Any child (the "element") that is found within `.carousel` and directly relates to the
-[Carousel component](../components/carousel.md) would be prefixed with `.carousel-`.
+[Carousel component](../../components/carousel.md) would be prefixed with `.carousel-`.
 This provides us with elements like `.carousel-items` (the slides),
 `.carousel-next`, and `.carousel-prev` (the navigation buttons).
 When writing our (S)CSS, it can easily be written as such:
