@@ -687,11 +687,11 @@ if (!$.event.special.swipe) {
                  * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
                  */
                 function move(e) {
-                    var move = coords(e);
+                    var to = coords(e);
 
                     // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
                     // If we `preventDefault()` while scrolling vertically, the window will not scroll.
-                    if (abs(start.x - move.x) > abs(start.y - move.y)) {
+                    if (abs(start.x - to.x) > abs(start.y - to.y)) {
                         e.preventDefault();
                     }
                 }
@@ -700,7 +700,7 @@ if (!$.event.special.swipe) {
                  * When `touchend` or `touchcancel` is triggered, clean up the swipe state.
                  * Also unbind `touchmove` events until another swipe occurs.
                  */
-                function cleanup(e) {
+                function cleanup() {
                     start = target = null;
                     swiping = false;
 
@@ -734,7 +734,7 @@ if (!$.event.special.swipe) {
                 // Trigger the swipe event when the touch finishes
                 self.on(stopEvent, function(e) {
                     swipe(start, coords(e), self, target);
-                    cleanup(e);
+                    cleanup();
                 });
 
                 // Reset the state when the touch is cancelled

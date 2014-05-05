@@ -32,7 +32,8 @@
             $('.off-canvas').offCanvas({
                 animation: <?php string('animation', 'push'); ?>,
                 openOnLoad: <?php bool('openOnLoad', false); ?>,
-                hideOthers: <?php bool('hideOthers', true); ?>
+                hideOthers: <?php bool('hideOthers', true); ?>,
+                stopScroll: <?php bool('stopScroll', true); ?>
             });
         });
     <?php } ?>
