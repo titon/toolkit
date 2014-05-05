@@ -26,6 +26,7 @@ All releases will contain bug fixing and polishing for current features.
 * Updated to Sass 3.3 (maps for settings).
 * Refactor events for before/after conditions.
 * RTL support.
+* Add debug option.
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
 
 ### 3.0.0 ###

@@ -58,7 +58,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             .removeClass('move-' + this.opposite);
 
         this.element
-            .conceal()
+            .removeClass('show') // Don't use conceal() because of visibility hidden property
             .removeClass('is-expanded')
             .aria({
                 hidden: true,

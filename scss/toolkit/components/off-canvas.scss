@@ -7,13 +7,12 @@
 @import "../common";
 
 .#{$vendor-prefix}off-canvas {
-    visibility: visible;
     position: fixed;
     overflow: auto;
     top: 0;
     height: 100%;
     z-index: 1;
-    transition: transform $offCanvas-transition, visibility $offCanvas-transition;
+    transition: transform $offCanvas-transition;
     -webkit-overflow-scrolling: touch;
 }
 
