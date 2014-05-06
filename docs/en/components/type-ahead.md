@@ -240,6 +240,11 @@ attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$typeAhead-transition</td>
+            <td>.3s</td>
+            <td>The transition time for all type ahead animations.</td>
+        </tr>
+        <tr>
             <td>$typeAhead-zindex</td>
             <td>500</td>
             <td>The z-index for the type ahead element.</td>
