@@ -96,15 +96,24 @@ Toolkit.Tooltip = new Class({
      * @returns {Toolkit.Component}
      */
     hide: function() {
-        var position = this.element.get('data-new-position') || this.runtime.position || this.options.position,
-            className = this.runtime.className || this.options.className;
+        var options = this.options,
+            element = this.element,
+            position = element.get('data-new-position') || this.runtime.position || options.position,
+            className = this.runtime.className || options.className,
+            callback = function() {
+                element
+                    .removeClass(position)
+                    .removeClass(className)
+                    .removeProperty('data-new-position');
+            };
 
         this.runtime = {};
 
-        this.element
-            .removeClass(position)
-            .removeClass(className)
-            .removeProperty('data-new-position');
+        if (options.animation) {
+            element.one(Toolkit.transitionEnd, callback);
+        } else {
+            callback();
+        }
 
         if (this.node) {
             this.node.removeProperty('aria-describedby');

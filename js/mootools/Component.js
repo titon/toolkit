@@ -99,11 +99,6 @@ Toolkit.Component = new Class({
             context = keys.shift();
             selector = keys.join(' ').replace('@', vendor);
 
-            // Is this touch?
-            if (Toolkit.isTouch && event === 'click') {
-                event = 'touchstart';
-            }
-
             // Determine the correct context
             if (typeof self[context] !== 'undefined') {
                 context = self[context];
@@ -552,7 +547,6 @@ Toolkit.Component = new Class({
         if (options.mode && options.mode === 'hover') {
 
             // Reset for touch devices
-            // Click will be replaced with touchstart in bindEvents()
             if (Toolkit.isTouch) {
                 options.mode = 'click';
             } else {
