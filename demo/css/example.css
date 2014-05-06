@@ -83,8 +83,6 @@ a:hover { color: #b84374; }
 .on-canvas { background: #fff; }
 .off-canvas { background: #000; color: #fff; padding: 1rem; }
 .off-canvas p:first-child { margin-top: 0; }
-.canvas,
-.on-canvas { height: 100%; }
 
 .toasts.bottom-left,
 .toasts.bottom-center,

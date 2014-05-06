@@ -26,7 +26,7 @@
 // Display
 .shown { display: block; }
 .hidden { display: none; }
-.no-scroll { overflow-y: hidden !important; }
+.no-scroll { overflow: hidden !important; }
 .no-transition { transition: none !important; }
 
 .sr-only {

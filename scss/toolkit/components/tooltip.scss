@@ -73,16 +73,16 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
 .#{$vendor-prefix}tooltip,
 .#{$vendor-prefix}popover {
+    transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
+
     @if index($popover-tooltip-animation, "fade") {
         &.fade {
             opacity: 0;
-            transition: opacity $tooltip-transition, visibility $tooltip-transition;
         }
     }
 
     @if index($popover-tooltip-animation, "from-above") {
         &.from-above {
-            transition: transform $tooltip-transition;
             transform: scale(1.2);
 
             &.show {
@@ -93,7 +93,6 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
     @if index($popover-tooltip-animation, "from-below") {
         &.from-below {
-            transition: transform $tooltip-transition;
             transform: scale(0.8);
 
             &.show {
@@ -104,7 +103,6 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
     @if index($popover-tooltip-animation, "flip-rotate") {
         &.flip-rotate {
-            transition: transform $tooltip-transition;
             transform: rotate(-15deg);
 
             &.show {

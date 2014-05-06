@@ -712,7 +712,7 @@ if (!$.event.special.swipe) {
 
                     // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc)
                     // So only do it on an `img` element so it cannot be dragged
-                    if (!isTouch && e.target.tagName === 'IMG') {
+                    if (!isTouch && e.target.tagName.toLowerCase() === 'img') {
                         e.preventDefault();
                     }
 
