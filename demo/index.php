@@ -312,7 +312,8 @@ $components = array(
                 'on-top' => 'On Top'
             ), 'default' => 'push'),
             'openOnLoad' => array('title' => 'Open on page load?', 'type' => 'boolean', 'default' => false),
-            'hideOthers' => array('title' => 'Hide other sidebars?', 'type' => 'boolean', 'default' => true)
+            'hideOthers' => array('title' => 'Hide other sidebars?', 'type' => 'boolean', 'default' => true),
+            'stopScroll' => array('title' => 'Stop scroll?', 'type' => 'boolean', 'default' => true),
         )
     ),
     'pagination' => array(

@@ -13,6 +13,13 @@ with the following information included.
 * The browser, the device, the OS, and their versions
 * The version of Toolkit and jQuery being used
 
+### Known Issues ###
+
+* [Firefox #625289](https://bugzilla.mozilla.org/show_bug.cgi?id=625289) -
+    Adding `.no-scroll` (overflow hidden) on a parent element breaks transitions on child elements
+* [Android #19827](https://code.google.com/p/android/issues/detail?id=19827) -
+    Touch `touchend` events are not triggered unless `preventDefault()` is called during `touchstart` or `touchmove` *(Temporarily patched)*
+
 ## Submitting A Pull Request ##
 
 Fixed a bug or added new functionality? Submit a pull request on the

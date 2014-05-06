@@ -541,8 +541,7 @@ if (!$.event.special.clickout) {
     $.event.special.clickout = (function() {
         var elements = [];
 
-        // Add a tap event instead of touchstart?
-        $(document).on(Toolkit.isTouch ? 'touchstart.toolkit.out' : 'click.toolkit.out', function(e) {
+        $(document).on('click.toolkit.out', function(e) {
             if (!elements.length) {
                 return;
             }
@@ -616,9 +615,11 @@ if (!$.event.special.swipe) {
         var isTouch = Toolkit.isTouch,
             startEvent = isTouch ? 'touchstart' : 'mousedown',
             moveEvent = isTouch ? 'touchmove' : 'mousemove',
-            stopEvent = isTouch ? 'touchend' : 'mouseup';
+            stopEvent = isTouch ? 'touchend' : 'mouseup',
+            swiping = false, // Flag For ensuring a single swipe at a time
+            abs = Math.abs;
 
-        function startStop(e) {
+        function coords(e) {
             var data = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 
             return {
@@ -634,7 +635,6 @@ if (!$.event.special.swipe) {
             }
 
             var settings = $.event.special.swipe,
-                abs = Math.abs,
                 x = stop.x - start.x,
                 y = stop.y - start.y,
                 direction;
@@ -650,7 +650,11 @@ if (!$.event.special.swipe) {
                     return;
                 }
 
-                var props = { target: origTarget, swipestart: start, swipestop: stop };
+                var props = {
+                    target: origTarget,
+                    swipestart: start,
+                    swipestop: stop
+                };
 
                 selfTarget
                     .trigger($.Event('swipe', props))
@@ -660,45 +664,85 @@ if (!$.event.special.swipe) {
 
         return {
             duration: 1000, // Maximum time in milliseconds to travel
-            distance: 50, // Minimum distance required to travel
-            restraint: 75, // Maximum distance to travel in the opposite direction
-            suppression: 30, // Maximum distance before suppressing scrolling
+            distance: 50,   // Minimum distance required to travel
+            restraint: 75,  // Maximum distance to travel in the opposite direction
 
             setup: function() {
                 var self = $(this),
                     start,
-                    target,
-                    settings = $.event.special.swipe,
-                    prevented = false;
+                    target;
 
-                self
-                    // Touch has started
-                    .on(startEvent, function(e) {
-                        start = startStop(e);
-                        target = e.target;
-                        prevented = false;
+                /**
+                 * There's a major bug in Android devices where `touchend` events do not fire
+                 * without calling `preventDefault()` in `touchstart` or `touchmove`.
+                 * Because of this, we have to hack-ily implement functionality into `touchmove`.
+                 * We also can't use `touchcancel` as that fires prematurely and unbinds our move event.
+                 * More information on these bugs can be found here:
+                 *
+                 * https://code.google.com/p/android/issues/detail?id=19827
+                 * https://code.google.com/p/chromium/issues/detail?id=260732
+                 *
+                 * Using `touchcancel` is also rather unpredictable, as described here:
+                 *
+                 * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
+                 */
+                function move(e) {
+                    var to = coords(e);
 
-                        // Bind move event after touch has started
-                        self.on(moveEvent, function(e) {
-                            if (!prevented && Math.abs(start.x - startStop(e).x) > settings.suppression) {
-                                prevented = true;
+                    // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
+                    // If we `preventDefault()` while scrolling vertically, the window will not scroll.
+                    if (abs(start.x - to.x) > abs(start.y - to.y)) {
+                        e.preventDefault();
+                    }
+                }
 
-                                e.preventDefault();
-                            }
-                        });
-                    })
+                /**
+                 * When `touchend` or `touchcancel` is triggered, clean up the swipe state.
+                 * Also unbind `touchmove` events until another swipe occurs.
+                 */
+                function cleanup() {
+                    start = target = null;
+                    swiping = false;
 
-                    // Touch has stopped
-                    .on(stopEvent, function(e) {
-                        swipe(start, startStop(e), self, target);
+                    self.off(moveEvent, move);
+                }
 
-                        // Unbind move event
-                        self.off(moveEvent);
-                    });
+                // Initialize the state when a touch occurs
+                self.on(startEvent, function(e) {
+
+                    // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc)
+                    // So only do it on an `img` element so it cannot be dragged
+                    if (!isTouch && e.target.tagName === 'IMG') {
+                        e.preventDefault();
+                    }
+
+                    // Exit early if another swipe is occurring
+                    if (swiping) {
+                        return;
+                    }
+
+                    start = coords(e);
+                    target = e.target;
+                    swiping = true;
+
+                    // Non-touch devices don't make use of the move event
+                    if (isTouch) {
+                        self.on(moveEvent, move);
+                    }
+                });
+
+                // Trigger the swipe event when the touch finishes
+                self.on(stopEvent, function(e) {
+                    swipe(start, coords(e), self, target);
+                    cleanup();
+                });
+
+                // Reset the state when the touch is cancelled
+                self.on('touchcancel', cleanup);
             },
 
             teardown: function() {
-                $(this).off(startEvent).off(moveEvent).off(stopEvent);
+                $(this).off(startEvent).off(moveEvent).off(stopEvent).off('touchcancel');
             }
         };
     })();
@@ -708,10 +752,10 @@ if (!$.event.special.swipe) {
         if (name !== 'swipe') {
             $.event.special[name] = {
                 setup: function() {
-                    $(this).on('swipe.' + name, $.noop);
+                    $(this).on('swipe', $.noop);
                 },
                 teardown: function() {
-                    $(this).off('swipe.' + name);
+                    $(this).off('swipe');
                 }
             };
         }

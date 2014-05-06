@@ -50,16 +50,26 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
      * Hide the tooltip.
      */
     hide: function() {
-        var position = this.element.data('new-position') || this.runtime.position || this.options.position,
-            className = this.runtime.className || this.options.className;
+        var options = this.options,
+            element = this.element,
+            position = element.data('new-position') || this.runtime.position || options.position,
+            className = this.runtime.className || options.className,
+            callback = function() {
+                element
+                    .removeClass(position)
+                    .removeClass(className)
+                    .removeData('new-position');
+            };
 
         this.runtime = {};
 
-        this.element
-            .conceal()
-            .removeClass(position)
-            .removeClass(className)
-            .removeData('new-position');
+        if (options.animation) {
+            element.one(Toolkit.transitionEnd, callback);
+        } else {
+            callback();
+        }
+
+        element.conceal();
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');

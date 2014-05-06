@@ -1,5 +1,18 @@
 # Changelog #
 
+## 1.4.1 ##
+* Added `opacity: 0` to `.hide` for easier fade transitions
+* Improved fade transitions within all components
+* Fixed a bug with swipe not working on Android
+* Fixed a bug with certain elements not showing in iOS
+* OffCanvas
+    * Added `primary` and `secondary` properties
+    * Added `stopScroll` option
+* Popover, Tooltip
+    * Fixed a bug where the arrow was being removed before the transition ended
+* Type Ahead
+    * Added `$typeAhead-transition`
+
 ## 1.4.0 ##
 This minor release includes 3 new components, a new `destroy()` method,
 a cleanup of element and event options, expanded documentation, and a handful of optimization improvements.

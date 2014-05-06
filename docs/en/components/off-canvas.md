@@ -217,6 +217,12 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>true</td>
             <td>Will hide all other sidebars when opening a sidebar.</td>
         </tr>
+        <tr>
+            <td>stopScroll</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to remove the scrollbar on the window while the sidebar is open.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -262,6 +268,18 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>element</td>
             <td>The parent element that contains the sidebar.</td>
             <td>.canvas</td>
+        </tr>
+        <tr>
+            <td>primary</td>
+            <td>element</td>
+            <td>The primary element that contains the content.</td>
+            <td>.on-canvas</td>
+        </tr>
+        <tr>
+            <td>secondary</td>
+            <td>element</td>
+            <td>The other sidebars within the canvas.</td>
+            <td>.off-canvas</td>
         </tr>
         <tr>
             <td>side</td>

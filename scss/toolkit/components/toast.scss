@@ -87,6 +87,7 @@
     margin-top: 1rem;
     transition: opacity $toast-transition, visibility $toast-transition, transform $toast-transition;
     opacity: 0;
+    visibility: hidden;
 
     &.show { opacity: 1; }
     &:first-child { margin-top: 0; }

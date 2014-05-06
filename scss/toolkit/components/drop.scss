@@ -8,7 +8,6 @@
 
 .#{$vendor-prefix}drop {
     @include reset-list;
-    display: none;
     text-align: left;
     position: absolute;
     top: 100%;
@@ -18,7 +17,7 @@
     z-index: $drop-zindex;
     opacity: 0;
     visibility: hidden;
-    transition: opacity $drop-transition, visibility $drop-transition;
+    transition: left $drop-transition, opacity $drop-transition, visibility $drop-transition;
 
     // Nested
     .#{$vendor-prefix}drop {
@@ -26,7 +25,6 @@
         top: 0;
         left: 90%;
         z-index: $drop-zindex + 1;
-        transition: left $drop-transition, opacity $drop-transition;
     }
 
     // Apply to self
@@ -60,11 +58,6 @@
                 left: 100%;
             }
         }
-    }
-
-    // Force display
-    &.show {
-        display: block;
     }
 }
 
