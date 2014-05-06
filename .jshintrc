@@ -8,7 +8,7 @@
     "immed": true,
     "latedef": true,
     "noempty": true,
-    "quotmark": "single",
+    "quotmark": false,
     "strict": false,
     "undef": true,
     "unused": true,

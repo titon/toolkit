@@ -135,7 +135,8 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 banner: banner,
-                separator: ''
+                separator: '',
+                process: false
             },
             build: {
                 files: [
@@ -157,7 +158,7 @@ module.exports = function(grunt) {
         // http://jshint.com/docs/
         jshint: {
             options: grunt.file.readJSON('.jshintrc'),
-            files: ['build/*.js']
+            files: ['build/*.js', 'dist/*.js']
         },
 
         // Minify Javascript using the concatenated file

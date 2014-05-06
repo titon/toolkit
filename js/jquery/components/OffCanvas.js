@@ -6,7 +6,7 @@
 
 Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     this.component = 'OffCanvas';
-    this.version = '1.4.0';
+    this.version = '1.4.1';
     this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
     this.options = options = this.setOptions(options, element);
 
