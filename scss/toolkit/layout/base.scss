@@ -21,12 +21,12 @@
 
 // Animations
 .show { opacity: 1 !important; visibility: visible !important; }
-.hide { visibility: hidden !important; }
+.hide { opacity: 0 !important; visibility: hidden !important; }
 
 // Display
 .shown { display: block; }
 .hidden { display: none; }
-.no-scroll { overflow: hidden; }
+.no-scroll { overflow-y: hidden !important; }
 .no-transition { transition: none !important; }
 
 .sr-only {

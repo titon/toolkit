@@ -24,6 +24,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
     // Setup container
     this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
+    this.primary = element.siblings('.' + vendor + 'on-canvas');
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
@@ -54,14 +55,11 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * Hide the sidebar and reset the container.
      */
     hide: function() {
-        var container = this.container;
-
         if (this.options.stopScroll) {
-            container.removeClass('no-scroll');
+            this.primary.removeClass('no-scroll');
         }
 
-        container
-            .removeClass('move-' + this.opposite);
+        this.container.removeClass('move-' + this.opposite);
 
         this.element
             .removeClass('show') // Don't use conceal() because of visibility hidden property
@@ -102,7 +100,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
             .aria('expanded', true);
 
         if (options.stopScroll) {
-            container.addClass('no-scroll');
+            this.primary.addClass('no-scroll');
         }
 
         this.fireEvent('show');
@@ -132,7 +130,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         }
 
         var sidebar = this.element,
-            inner = this.container.find('.' + vendor + 'on-canvas'),
+            inner = this.primary,
             transClass = 'no-transition';
 
         sidebar.addClass(transClass);
