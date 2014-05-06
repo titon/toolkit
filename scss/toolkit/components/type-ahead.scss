@@ -15,6 +15,10 @@
     visibility: hidden;
     transition: opacity $typeAhead-transition, visibility $typeAhead-transition;
 
+    // Fixes issues where menu does not display in iOS
+    // Kind of hacky? Other solutions?
+    -webkit-backface-visibility: hidden;
+
     ul {
         @include reset-list;
         min-width: 200px;
