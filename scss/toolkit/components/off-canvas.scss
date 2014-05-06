@@ -12,7 +12,9 @@
     top: 0;
     height: 100%;
     z-index: 1;
-    transition: transform $offCanvas-transition;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform $offCanvas-transition, opacity $offCanvas-transition, visibility $offCanvas-transition;
     -webkit-overflow-scrolling: touch;
 }
 

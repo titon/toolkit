@@ -25,6 +25,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
     // Setup container
     this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
     this.primary = element.siblings('.' + vendor + 'on-canvas');
+    this.secondary = element.siblings('.' + vendor + 'off-canvas');
 
     // Determine the side
     this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
@@ -55,19 +56,16 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * Hide the sidebar and reset the container.
      */
     hide: function() {
-        if (this.options.stopScroll) {
-            this.primary.removeClass('no-scroll');
-        }
-
         this.container.removeClass('move-' + this.opposite);
 
         this.element
-            .removeClass('show') // Don't use conceal() because of visibility hidden property
+            .conceal()
             .removeClass('is-expanded')
-            .aria({
-                hidden: true,
-                expanded: false
-            });
+            .aria('expanded', false);
+
+        if (this.options.stopScroll) {
+            $('body').removeClass('no-scroll');
+        }
 
         this.fireEvent('hide');
     },
@@ -77,30 +75,27 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
      * If hideOthers is true, hide other open sidebars.
      */
     show: function() {
-        var options = this.options,
-            element = this.element,
-            container = this.container;
+        var options = this.options;
 
         if (options.hideOthers) {
-            container.find('.' + vendor + 'off-canvas').each(function() {
+            this.secondary.each(function() {
                 var sidebar = $(this);
 
-                if (!sidebar.is(element) && sidebar.hasClass('is-expanded')) {
+                if (sidebar.hasClass('is-expanded')) {
                     sidebar.toolkit('offCanvas', 'hide');
                 }
             });
         }
 
-        container
-            .addClass('move-' + this.opposite);
+        this.container.addClass('move-' + this.opposite);
 
-        element
+        this.element
             .reveal()
             .addClass('is-expanded')
             .aria('expanded', true);
 
         if (options.stopScroll) {
-            this.primary.addClass('no-scroll');
+            $('body').addClass('no-scroll');
         }
 
         this.fireEvent('show');
