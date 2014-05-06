@@ -12,11 +12,13 @@
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: 0;
+    visibility: hidden;
     z-index: $modal-zindex;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    visibility: hidden;
+    transition: opacity $modal-transition, visibility $modal-transition;
     pointer-events: none; // fall through to blackout
+    -webkit-overflow-scrolling: touch;
 
     &.is-loading {
         .#{$vendor-prefix}modal-close { display: none; }
@@ -45,6 +47,7 @@
     position: relative;
     margin: $margin;
     pointer-events: auto; // allow within modal
+    transition: transform $modal-transition;
 
     @include if-min($modal-mobile-breakpoint) {
         width: 50%;
@@ -78,17 +81,6 @@
 //-------------------- Animations --------------------//
 
 .#{$vendor-prefix}modal {
-    #{join-classes($modal-animation)} {
-        .#{$vendor-prefix}modal-outer {
-            opacity: 0;
-            transition: all $modal-transition;
-        }
-
-        &.show .#{$vendor-prefix}modal-outer {
-            opacity: 1;
-        }
-    }
-
     @if index($modal-animation, "from-above") {
         &.from-above {
             .#{$vendor-prefix}modal-outer {

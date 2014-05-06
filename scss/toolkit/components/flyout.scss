@@ -48,7 +48,7 @@
         // Nested flyouts
         > .#{$vendor-prefix}flyout {
             left: 90%;
-            transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition;
+            transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition, visibility $flyout-transition;
 
             // Reverse menu to left side in case it goes outside the viewport
             // Will be set automatically from the Javascript layer

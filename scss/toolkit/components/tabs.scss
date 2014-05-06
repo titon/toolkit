@@ -23,7 +23,7 @@
     @include clear-fix;
 }
 
-// Display none on sections since visibility takes up DOM space
+// Add display none on sections since visibility takes up DOM space
 .#{$vendor-prefix}tabs-section.hide {
     display: none;
 }
