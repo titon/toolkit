@@ -10,8 +10,6 @@ All releases will contain bug fixing and polishing for current features.
     * Add support for infinite scrolling (move items around).
 * Add deferred/promise integration.
 * Make nested menus expandable on touch devices (drop).
-* Rename Tabs to Tab.
-* Remove cookie dependency.
 
 ### 2.0.0 ###
 * Remove the MooTools port.
@@ -27,6 +25,8 @@ All releases will contain bug fixing and polishing for current features.
 * Refactor events for before/after conditions.
 * RTL support.
 * Add debug option.
+* Rename Tabs to Tab.
+* Remove cookie dependency.
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
 
 ### 3.0.0 ###

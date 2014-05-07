@@ -374,6 +374,30 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
 };
 
 /**
+ * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
+ *
+ * @param {Object} data
+ * @param {Function} fn
+ * @returns {jQuery}
+ */
+$.fn.transitionend = function(data, fn) {
+    var name = Toolkit.transitionEnd;
+
+    if (arguments.length > 0) {
+        this.one(name, null, data, fn);
+
+        // No transition defined so trigger callback immediately
+        if (this.css('transition-duration') === '0s') {
+            this.trigger(name);
+        }
+    } else {
+        this.trigger(name);
+    }
+
+    return this;
+};
+
+/**
  * Delays the execution of a function till the duration has completed.
  *
  * @param {Function} func

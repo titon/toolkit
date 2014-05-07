@@ -53,23 +53,16 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
         var options = this.options,
             element = this.element,
             position = element.data('new-position') || this.runtime.position || options.position,
-            className = this.runtime.className || options.className,
-            callback = function() {
-                element
-                    .removeClass(position)
-                    .removeClass(className)
-                    .removeData('new-position');
-            };
+            className = this.runtime.className || options.className;
 
         this.runtime = {};
 
-        if (options.animation) {
-            element.one(Toolkit.transitionEnd, callback);
-        } else {
-            callback();
-        }
-
-        element.conceal();
+        element.transitionend(function() {
+            element
+                .removeClass(position)
+                .removeClass(className)
+                .removeData('new-position');
+        }).conceal();
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');
