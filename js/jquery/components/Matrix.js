@@ -29,9 +29,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     // Collection of img elements
     this.images = [];
 
-    // How many images have loaded or tried to load
-    this.imagesLoaded = 0;
-
     // Initialize events
     this.events = {
         'resize window': $.debounce(this.onResize)
@@ -173,21 +170,21 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
      * @private
      */
     _deferRender: function() {
-        this.imagesLoaded = 0;
-        this.images = this.element.find('img');
+        var promises = [];
 
-        if (this.images.length) {
-            this.images.each(function(index, image) {
-                var src = image.src;
+        this.images = this.element.find('img').each(function(index, image) {
+            var src = image.src,
+                def = $.Deferred();
 
-                image.onload = this.onLoad;
-                image.onerror = this.onLoad;
-                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                image.src = src;
-            }.bind(this));
-        } else {
-            this.render();
-        }
+            image.onload = def.resolve;
+            image.onerror = image.onabort = def.reject;
+            image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+            image.src = src;
+
+            promises.push(def.promise());
+        });
+
+        $.when.apply($, promises).always(this.render);
     },
 
     /**
@@ -301,23 +298,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
         // Set height of wrapper
         this.element.css('height', Math.max.apply(Math, y));
-    },
-
-    /**
-     * Event handler for image loading.
-     * Will defer rendering until all inline images are loaded.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onLoad: function(e) {
-        if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
-            this.imagesLoaded++; // Continue rendering if load throws an error
-        }
-
-        if (this.imagesLoaded === this.images.length) {
-            this.render();
-        }
     },
 
     /**
