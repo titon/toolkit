@@ -45,7 +45,10 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         });
 
     // Currently displayed item by index
-    this.index = 0;
+    this.index = -1;
+
+    // The size (width or height) to cycle with
+    this.cycleSize = 0;
 
     // Auto cycle timer
     this.timer = null;
@@ -55,6 +58,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     this.events = {
+        'resize window': $.throttle(this.calculate, 50),
         'keydown window': 'onKeydown',
         'swipeleft element': 'next',
         'swipeup element': 'next',
@@ -72,30 +76,49 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
     this.initialize();
 
-    // Set default positioning for responsiveness
-    switch (options.animation) {
-        case 'fade':
-            items.eq(0).reveal();
-        break;
-        case 'slide':
-            items
-                .css('width', (100 / items.length) + '%')
-                .parent()
-                    .css('width', (items.length * 100) + '%');
-        break;
+    // Fade animations can only display 1 at a time
+    if (options.animation === 'fade') {
+        options.itemsToShow = options.itemsToCycle = 1;
     }
 
     // Start the carousel
-    this.reset();
+    this.calculate();
     this.start();
+    this.jump(options.defaultIndex);
 }, {
+
+    /**
+     * Calculate the widths or heights for the items, the wrapper, and the cycle.
+     */
+    calculate: function() {
+        var animation = this.options.animation;
+
+        // Fade doesn't need to calculate anything
+        if (animation === 'fade') {
+            return;
+        }
+
+        var dimension = (animation === 'slide-up') ? 'height' : 'width',
+            wrapperWidth = this.element[dimension](),
+            items = this.items,
+            itemsToShow = this.options.itemsToShow;
+
+        this.cycleSize = wrapperWidth / itemsToShow;
+
+        // Set the item width and fit the proper amount based on itemCount
+        items.css(dimension, this.cycleSize);
+
+        // Set the wrapper width based on the outer wrapper and item count
+        items.parent().css(dimension, wrapperWidth * (items.length / itemsToShow));
+    },
 
     /**
      * Stop the carousel before destroying.
      */
     doDestroy: function() {
-        clearInterval(this.timer);
+        this.jump(0);
         this.stop();
+        clearInterval(this.timer);
     },
 
     /**
@@ -106,42 +129,58 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * @param {Number} index
      */
     jump: function(index) {
-        index = $.bound(index, this.items.length);
+        var options = this.options,
+            literalIndex = index, // The unbounded index
+            totalItems = this.items.length, // Total items in the list
+            maxIndex = totalItems - options.itemsToShow; // Max index to cycle to
+
+        // If index is higher than the total, reset to 0
+        if (index >= totalItems) {
+            index = literalIndex = $.bound(index, this.items.length);
+
+        // If index is higher than the max, reset to max
+        } else if (index >= maxIndex) {
+            index = maxIndex;
+
+            // Increase the literal index so that it resets on the next cycle
+            literalIndex = index + options.itemsToShow;
+        }
 
         if (index === this.index) {
             return;
         }
 
+        var toIndex = index + options.itemsToShow;
+
         // Update tabs
         this.tabs
             .removeClass('is-active')
             .aria('toggled', false)
-            .eq(index)
+            .slice(index, toIndex)
                 .addClass('is-active')
-                .aria('toggled', true);
+                .aria('toggled', false);
 
         // Update items
         this.items
+            .removeClass('is-active')
             .aria('hidden', true)
-            .eq(index)
+            .slice(index, toIndex)
+                .addClass('is-active')
                 .aria('hidden', false);
 
         // Animate!
-        var animation = this.options.animation;
+        var animation = options.animation;
 
-        // Don't use conceal() as it causes the animation to flicker
         if (animation === 'fade') {
-            this.items
-                .removeClass('show')
-                .eq(index)
-                    .reveal();
+            this.items.conceal()
+                .eq(index).reveal();
 
         } else {
             this.items.parent()
-                .css((animation === 'slide-up') ? 'top' : 'left', -(index * 100) + '%');
+                .css(animation === 'slide-up' ? 'top' : 'left', -(index * this.cycleSize));
         }
 
-        this.index = index;
+        this.index = literalIndex;
 
         this.reset();
         this.fireEvent('jump', index);
@@ -151,14 +190,14 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * Go to the next item.
      */
     next: function() {
-        this.jump(this.index + 1);
+        this.jump(this.index + this.options.itemsToCycle);
     },
 
     /**
      * Go to the previous item.
      */
     prev: function() {
-        this.jump(this.index - 1);
+        this.jump(this.index - this.options.itemsToCycle);
     },
 
     /**
@@ -241,7 +280,10 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     animation: 'slide',
     duration: 5000,
     autoCycle: true,
-    stopOnHover: true
+    stopOnHover: true,
+    itemsToShow: 1,
+    itemsToCycle: 1,
+    defaultIndex: 0
 });
 
 Toolkit.create('carousel', function(options) {

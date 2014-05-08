@@ -1,5 +1,7 @@
 <?php
-$count = (int) value('count', 3);
+$count = (int) value('count', 6);
+$animation = value('animation', '');
+$toShow = (int) value('itemsToShow', 1);
 $mod = value('modifier', '');
 $class = '';
 
@@ -7,6 +9,30 @@ if ($mod) {
     $class = 'carousel--' . $mod;
 } else {
     $class = 'carousel';
+}
+
+if ($animation === 'fade') {
+    $toShow = 1;
+}
+
+if ($mod === 'wide') {
+    if ($animation === 'slide') {
+        $dims = [round(640 / $toShow), 360];
+    } else {
+        $dims = [640, round(360 / $toShow)];
+    }
+} else if ($mod === 'square') {
+    if ($animation === 'slide') {
+        $dims = [round(500 / $toShow), 500];
+    } else {
+        $dims = [500, round(500 / $toShow)];
+    }
+} else {
+    if ($animation === 'slide') {
+        $dims = [round(400 / $toShow), 300];
+    } else {
+        $dims = [400, round(300 / $toShow)];
+    }
 } ?>
 
 <div class="example-carousel">
@@ -15,15 +41,7 @@ if ($mod) {
             <ul>
                 <?php for ($i = 1; $i <= $count; $i++) { ?>
                     <li>
-                        <?php if ($mod === 'wide') { ?>
-                            <img src="http://lorempixel.com/640/360/?c=<?php echo $i; ?>" alt="">
-
-                        <?php } else if ($mod === 'square') { ?>
-                            <img src="http://lorempixel.com/500/500/?c=<?php echo $i; ?>" alt="">
-
-                        <?php } else { ?>
-                            <img src="http://lorempixel.com/400/300/?c=<?php echo $i; ?>" alt="">
-                        <?php } ?>
+                        <img src="http://lorempixel.com/<?= $dims[0]; ?>/<?= $dims[1]; ?>/?c=<?= $i; ?>" alt="">
 
                         <?php if (value('captions', true)) { ?>
                             <div class="carousel-caption">
@@ -64,6 +82,9 @@ if ($mod) {
             $('carousel').carousel({
                 animation: <?php string('animation', 'slide'); ?>,
                 duration: <?php number('duration', 5000); ?>,
+                itemsToShow: <?php number('itemsToShow', 1); ?>,
+                itemsToCycle: <?php number('itemsToCycle', 1); ?>,
+                defaultIndex: <?php number('defaultIndex', 0); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
                 stopOnHover: <?php bool('stopOnHover', true); ?>
             });
@@ -73,6 +94,9 @@ if ($mod) {
             $('#carousel').carousel({
                 animation: <?php string('animation', 'slide'); ?>,
                 duration: <?php number('duration', 5000); ?>,
+                itemsToShow: <?php number('itemsToShow', 1); ?>,
+                itemsToCycle: <?php number('itemsToCycle', 1); ?>,
+                defaultIndex: <?php number('defaultIndex', 0); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
                 stopOnHover: <?php bool('stopOnHover', true); ?>
             });

@@ -4,11 +4,7 @@ All releases will contain bug fixing and polishing for current features.
 
 ### 1.5.0 ###
 * Add more features support to Carousel.
-    * Use pixels instead of percentages for transitions.
-    * Add support for multiple items displayed at once.
-    * Add support for variable amount of items being cycled at once.
     * Add support for infinite scrolling (move items around).
-* Add deferred/promise integration.
 * Make nested menus expandable on touch devices (drop).
 
 ### 2.0.0 ###

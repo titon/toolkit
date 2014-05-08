@@ -119,9 +119,12 @@ $components = array(
                 'square' => 'Square (1:1)'
             ), 'default' => ''),
             'duration' => array('title' => 'Duration', 'type' => 'number', 'default' => 5000),
+            'itemsToShow' => array('title' => 'Items To Show', 'type' => 'number', 'default' => 1),
+            'itemsToCycle' => array('title' => 'Items To Cycle', 'type' => 'number', 'default' => 1),
+            'defaultIndex' => array('title' => 'Default Index', 'type' => 'number', 'default' => 0),
             'autoCycle' => array('title' => 'Auto Cycle?', 'type' => 'boolean', 'default' => true),
             'stopOnHover' => array('title' => 'Stop On Hover?', 'type' => 'boolean', 'default' => true),
-            'count' => array('title' => 'Count', 'type' => 'number', 'default' => 3),
+            'count' => array('title' => 'Item Count', 'type' => 'number', 'default' => 6),
             'tabs' => array('title' => 'Show Tabs?', 'type' => 'boolean', 'default' => true),
             'arrows' => array('title' => 'Show Arrows?', 'type' => 'boolean', 'default' => true),
             'captions' => array('title' => 'Show Captions?', 'type' => 'boolean', 'default' => true)
