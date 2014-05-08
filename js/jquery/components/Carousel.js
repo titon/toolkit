@@ -79,6 +79,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     // Fade animations can only display 1 at a time
     if (options.animation === 'fade') {
         options.itemsToShow = options.itemsToCycle = 1;
+        options.infinite = true;
     }
 
     // Start the carousel
@@ -130,29 +131,25 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      */
     jump: function(index) {
         var options = this.options,
-            literalIndex = index, // The unbounded index
-            totalItems = this.items.length, // Total items in the list
-            maxIndex = totalItems - options.itemsToShow; // Max index to cycle to
+            maxIndex = this.items.length - options.itemsToShow;
 
-        // If index is higher than the total, reset to 0
-        if (index >= totalItems) {
-            index = literalIndex = $.bound(index, this.items.length);
-
-        // If index is higher than the max, reset to max
-        } else if (index >= maxIndex) {
-            index = maxIndex;
-
-            // Increase the literal index so that it resets on the next cycle
-            literalIndex = index + options.itemsToShow;
+        if (options.infinite) {
+            index = $.bound(index, this.items.length);
+        } else {
+            if (index >= maxIndex) {
+                index = maxIndex;
+            } else if (index < 0) {
+                index = 0;
+            }
         }
 
         if (index === this.index) {
             return;
         }
 
+        // Update tabs and items state
         var toIndex = index + options.itemsToShow;
 
-        // Update tabs
         this.tabs
             .removeClass('is-active')
             .aria('toggled', false)
@@ -160,7 +157,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 .addClass('is-active')
                 .aria('toggled', false);
 
-        // Update items
         this.items
             .removeClass('is-active')
             .aria('hidden', true)
@@ -168,7 +164,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 .addClass('is-active')
                 .aria('hidden', false);
 
-        // Animate!
+        // Animate and move the items
         var animation = options.animation;
 
         if (animation === 'fade') {
@@ -176,11 +172,42 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 .eq(index).reveal();
 
         } else {
-            this.items.parent()
-                .css(animation === 'slide-up' ? 'top' : 'left', -(index * this.cycleSize));
+            var wrapper = this.items.parent(),
+                dimension = (animation === 'slide-up') ? 'top' : 'left',
+                cycleSize = 0;
+
+            // If we are infinite scrolling, reposition the item
+            if (options.infinite) {
+
+                // Reposition the item to the end of the list once the transition is complete
+                // Don't set this callback on initial page load
+                if (this.index !== -1) {
+                    wrapper.transitionend(function() {
+                        wrapper
+                            .addClass('no-transition')
+                            .css(dimension, 0)
+                            .find('li:first')
+                                .detach()
+                                .appendTo(wrapper);
+
+                        // Must be set in a timeout or else the transition will still occur
+                        setTimeout(function() {
+                            wrapper.removeClass('no-transition');
+                        }, 10);
+                    });
+
+                    cycleSize = -this.cycleSize;
+                }
+
+            // Move the items over equal to the amount of indexes
+            } else {
+                cycleSize = -(index * this.cycleSize);
+            }
+
+            wrapper.css(dimension, cycleSize);
         }
 
-        this.index = literalIndex;
+        this.index = index;
 
         this.reset();
         this.fireEvent('jump', index);
@@ -281,6 +308,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     duration: 5000,
     autoCycle: true,
     stopOnHover: true,
+    infinite: true,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0

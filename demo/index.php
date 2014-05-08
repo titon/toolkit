@@ -122,6 +122,7 @@ $components = array(
             'itemsToShow' => array('title' => 'Items To Show', 'type' => 'number', 'default' => 1),
             'itemsToCycle' => array('title' => 'Items To Cycle', 'type' => 'number', 'default' => 1),
             'defaultIndex' => array('title' => 'Default Index', 'type' => 'number', 'default' => 0),
+            'infinite' => array('title' => 'Infinite Scrolling?', 'type' => 'boolean', 'default' => true),
             'autoCycle' => array('title' => 'Auto Cycle?', 'type' => 'boolean', 'default' => true),
             'stopOnHover' => array('title' => 'Stop On Hover?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Item Count', 'type' => 'number', 'default' => 6),

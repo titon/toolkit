@@ -85,6 +85,7 @@ if ($mod === 'wide') {
                 itemsToShow: <?php number('itemsToShow', 1); ?>,
                 itemsToCycle: <?php number('itemsToCycle', 1); ?>,
                 defaultIndex: <?php number('defaultIndex', 0); ?>,
+                infinite: <?php bool('infinite', true); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
                 stopOnHover: <?php bool('stopOnHover', true); ?>
             });
@@ -97,6 +98,7 @@ if ($mod === 'wide') {
                 itemsToShow: <?php number('itemsToShow', 1); ?>,
                 itemsToCycle: <?php number('itemsToCycle', 1); ?>,
                 defaultIndex: <?php number('defaultIndex', 0); ?>,
+                infinite: <?php bool('infinite', true); ?>,
                 autoCycle: <?php bool('autoCycle', true); ?>,
                 stopOnHover: <?php bool('stopOnHover', true); ?>
             });
