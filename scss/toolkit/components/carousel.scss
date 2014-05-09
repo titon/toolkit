@@ -10,6 +10,9 @@
     margin: 0 auto;
     text-align: left;
     position: relative;
+
+    &.no-next .#{$vendor-prefix}carousel-next { display: none; }
+    &.no-prev .#{$vendor-prefix}carousel-prev { display: none; }
 }
 
 .#{$vendor-prefix}carousel-items {

@@ -130,26 +130,17 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * @param {Number} index
      */
     jump: function(index) {
-        var options = this.options,
-            maxIndex = this.items.length - options.itemsToShow;
-
-        if (options.infinite) {
-            index = $.bound(index, this.items.length);
-        } else {
-            if (index >= maxIndex) {
-                index = maxIndex;
-            } else if (index < 0) {
-                index = 0;
-            }
-        }
+        index = this._getIndex(index);
 
         if (index === this.index) {
             return;
         }
 
-        // Update tabs and items state
-        var toIndex = index + options.itemsToShow;
+        var options = this.options,
+            toIndex = index + options.itemsToShow,
+            animation = options.animation;
 
+        // Update tabs and items state
         this.tabs
             .removeClass('is-active')
             .aria('toggled', false)
@@ -165,8 +156,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 .aria('hidden', false);
 
         // Animate and move the items
-        var animation = options.animation;
-
         if (animation === 'fade') {
             this.items.conceal()
                 .eq(index).reveal();
@@ -258,6 +247,53 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
+     * Determine the index to jump to while taking options into account.
+     *
+     * @param {Number} index
+     * @returns {Number}
+     * @private
+     */
+    _getIndex: function(index) {
+        var options = this.options,
+            element = this.element,
+            maxIndex = this.items.length - options.itemsToShow;
+
+        // Infinite scrolling should reset between 0 and total
+        if (options.infinite) {
+            index = $.bound(index, this.items.length);
+
+        // Regular scrolling should stop at 0 or the max
+        // Unless `loop` is true in which it will rewind to the opposite end
+        } else {
+            element.removeClass('no-next no-prev');
+
+            if (index >= maxIndex) {
+                index = maxIndex;
+
+                if (options.loop) {
+                    if (index == this.index && this.index === maxIndex) {
+                        index = 0;
+                    }
+                } else {
+                    element.addClass('no-next');
+                }
+            } else if (index <= 0) {
+                index = 0;
+
+                if (options.loop) {
+                    if (index == this.index && this.index === 0) {
+                        index = maxIndex;
+                    }
+                } else {
+                    element.addClass('no-prev');
+                }
+            }
+        }
+
+        return index;
+    },
+
+    /**
      * Event handler for cycling between items.
      * Will stop cycling if carousel is stopped.
      *
@@ -308,7 +344,8 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     duration: 5000,
     autoCycle: true,
     stopOnHover: true,
-    infinite: true,
+    infinite: false,
+    loop: true,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0
