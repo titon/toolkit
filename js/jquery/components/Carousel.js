@@ -18,12 +18,16 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .addClass(options.animation);
 
     // Find all the items and set ARIA attributes
-    this.items = items = element.find('.' + vendor + 'carousel-items li').each(function(index) {
+    this.container = element.find('.' + vendor + 'carousel-items ul')
+        .addClass('no-transition');
+
+    this.items = items = this.container.find('li').each(function(index) {
         $(this)
             .attr({
                 role: 'tabpanel',
                 id: self.id('item', index)
             })
+            .data('carousel-index', index)
             .aria('hidden', (index > 0));
     });
 
@@ -32,7 +36,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .attr('role', 'tablist')
         .find('a').each(function(index) {
             $(this)
-                .data('index', index)
+                .data('carousel-index', index)
                 .attr({
                     role: 'tab',
                     id: self.id('tab', index)
@@ -47,14 +51,26 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     // Currently displayed item by index
     this.index = -1;
 
-    // The size (width or height) to cycle with
-    this.cycleSize = 0;
-
     // Auto cycle timer
     this.timer = null;
 
     // Is the carousel stopped or paused?
     this.stopped = false;
+
+    // Is the carousel currently animating?
+    this.animating = false;
+
+    // The dimension (width or height) to read sizes from
+    this._dimension = null;
+
+    // The position (left or top) to modify for cycling
+    this._position = null;
+
+    // The size to cycle with
+    this._size = 0;
+
+    // The index to reset to while infinite scrolling
+    this._resetTo = null;
 
     // Initialize events
     this.events = {
@@ -76,11 +92,9 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
     this.initialize();
 
-    // Fade animations can only display 1 at a time
-    if (options.animation === 'fade') {
-        options.itemsToShow = options.itemsToCycle = 1;
-        options.infinite = true;
-    }
+    // Prepare the carousel
+    this._setupState();
+    this._buildClones();
 
     // Start the carousel
     this.calculate();
@@ -92,25 +106,20 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * Calculate the widths or heights for the items, the wrapper, and the cycle.
      */
     calculate: function() {
-        var animation = this.options.animation;
-
-        // Fade doesn't need to calculate anything
-        if (animation === 'fade') {
+        if (this.options.animation === 'fade') {
             return;
         }
 
-        var dimension = (animation === 'slide-up') ? 'height' : 'width',
-            wrapperWidth = this.element[dimension](),
-            items = this.items,
-            itemsToShow = this.options.itemsToShow;
+        var dimension = this._dimension, // height or width
+            size;
 
-        this.cycleSize = wrapperWidth / itemsToShow;
+        this._size = size = this.element[dimension]() / this.options.itemsToShow;
 
         // Set the item width and fit the proper amount based on itemCount
-        items.css(dimension, this.cycleSize);
+        var items = this.items.css(dimension, size);
 
         // Set the wrapper width based on the outer wrapper and item count
-        items.parent().css(dimension, wrapperWidth * (items.length / itemsToShow));
+        this.container.css(dimension, size * items.length);
     },
 
     /**
@@ -124,82 +133,39 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
     /**
      * Go to the item indicated by the index number.
-     * If the index is too large, jump to the beginning.
-     * If the index is too small, jump to the end.
      *
      * @param {Number} index
      */
     jump: function(index) {
-        index = this._getIndex(index);
-
-        if (index === this.index) {
+        if (this.animating) {
             return;
         }
 
-        var options = this.options,
-            toIndex = index + options.itemsToShow,
-            animation = options.animation;
+        var indexes = this._getIndex(index),
+            cloneIndex = indexes[0], // The index including clones
+            visualIndex = indexes[1]; // The index excluding clones
 
-        // Update tabs and items state
-        this.tabs
-            .removeClass('is-active')
-            .aria('toggled', false)
-            .slice(index, toIndex)
-                .addClass('is-active')
-                .aria('toggled', false);
-
-        this.items
-            .removeClass('is-active')
-            .aria('hidden', true)
-            .slice(index, toIndex)
-                .addClass('is-active')
-                .aria('hidden', false);
-
-        // Animate and move the items
-        if (animation === 'fade') {
-            this.items.conceal()
-                .eq(index).reveal();
-
-        } else {
-            var wrapper = this.items.parent(),
-                dimension = (animation === 'slide-up') ? 'top' : 'left',
-                cycleSize = 0;
-
-            // If we are infinite scrolling, reposition the item
-            if (options.infinite) {
-
-                // Reposition the item to the end of the list once the transition is complete
-                // Don't set this callback on initial page load
-                if (this.index !== -1) {
-                    wrapper.transitionend(function() {
-                        wrapper
-                            .addClass('no-transition')
-                            .css(dimension, 0)
-                            .find('li:first')
-                                .detach()
-                                .appendTo(wrapper);
-
-                        // Must be set in a timeout or else the transition will still occur
-                        setTimeout(function() {
-                            wrapper.removeClass('no-transition');
-                        }, 10);
-                    });
-
-                    cycleSize = -this.cycleSize;
-                }
-
-            // Move the items over equal to the amount of indexes
-            } else {
-                cycleSize = -(index * this.cycleSize);
-            }
-
-            wrapper.css(dimension, cycleSize);
+        // Exit early if jumping to same index
+        if (visualIndex === this.index) {
+            return;
         }
 
-        this.index = index;
+        // Update tabs and items state
+        this._updateTabs(visualIndex);
+        this._updateItems(cloneIndex);
+
+        // Animate and move the items
+        this._beforeCycle();
+
+        this.container
+            .transitionend(this._afterCycle)
+            .css(this._position, -(cloneIndex * this._size));
+
+        // Store the index
+        this.index = visualIndex;
 
         this.reset();
-        this.fireEvent('jump', index);
+        this.fireEvent('jump', visualIndex);
     },
 
     /**
@@ -247,50 +213,212 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     },
 
     /**
-     * Determine the index to jump to while taking options into account.
+     * Functionality to trigger after a cycle transition has ended.
+     * Will set animating to false and re-enable jumping.
+     *
+     * If `resetTo` is set, then reset the internal DOM index for infinite scrolling.
+     * Also clean-up the `no-transition` class from the container.
+     *
+     * @private
+     */
+    _afterCycle: function() {
+        this.animating = false;
+
+        var container = this.container,
+            resetTo = this._resetTo;
+
+        // Reset the currently shown item to a specific index
+        // This achieves the circular infinite scrolling effect
+        if (resetTo !== null) {
+            container
+                .addClass('no-transition')
+                .css(this._position, -(resetTo * this._size));
+
+            this._updateItems(resetTo);
+            this._resetTo = null;
+        }
+
+        // Set in a timeout or transition will still occur
+        setTimeout(function() {
+            container.removeClass('no-transition');
+        }, 10);
+    },
+
+    /**
+     * Functionality to trigger before a cycle transition begins.
+     * Will set the animating flag to true so that jumping is disabled.
+     *
+     * @private
+     */
+    _beforeCycle: function() {
+        this.animating = true;
+    },
+
+    /**
+     * Create clones to support infinite scrolling.
+     * The beginning set of cloned items should be appended to the end,
+     * while the end set of cloned items should be prepended to the beginning.
+     *
+     * @private
+     */
+    _buildClones: function() {
+        var options = this.options,
+            items = this.items,
+            container = this.container,
+            itemsToShow = options.itemsToShow;
+
+        if (!options.infinite) {
+            return;
+        }
+
+        // Append the first items
+        items.slice(0, itemsToShow)
+            .clone()
+            .addClass('is-cloned')
+            .removeAttr('id')
+            .appendTo(container);
+
+        // Prepend the last items
+        items.slice(-itemsToShow)
+            .clone()
+            .addClass('is-cloned')
+            .removeAttr('id')
+            .prependTo(container);
+
+        // Refresh items list
+        this.items = container.find('li');
+    },
+
+    /**
+     * Determine the index to jump to while taking cloned elements and infinite scrolling into account.
+     * Will return an array for the DOM element index (including clones) and the visual indication index
+     * for active states.
      *
      * @param {Number} index
-     * @returns {Number}
+     * @returns {Array}
      * @private
      */
     _getIndex: function(index) {
         var options = this.options,
-            element = this.element,
-            maxIndex = this.items.length - options.itemsToShow;
+            itemsToShow = options.itemsToShow,
+            itemsToCycle = options.itemsToCycle,
+            lengthWithClones = this.items.length,
+            lengthWithoutClones = lengthWithClones - (itemsToShow * 2),
+            visualIndex,
+            cloneIndex;
 
-        // Infinite scrolling should reset between 0 and total
-        if (options.infinite) {
-            index = $.bound(index, this.items.length);
+        // If the cycle reaches the clone past the end
+        if (index >= lengthWithoutClones) {
+            console.log('end');
+            this._resetTo = 0 + itemsToShow;
 
-        // Regular scrolling should stop at 0 or the max
-        // Unless `loop` is true in which it will rewind to the opposite end
+            // Set the literal index to the clone on the end
+            cloneIndex = index + itemsToShow;
+
+            // Reset the visual index to 0
+            visualIndex = 0;
+
+        // If cycle reaches the clone past the beginning
+        } else if (index <= (0 - itemsToShow)) {
+            this._resetTo = lengthWithoutClones;
+
+            // Set the literal index to the clone on the beginning
+            cloneIndex = itemsToShow - index;
+
+            // Reset the visual index to the last
+            visualIndex = lengthWithoutClones - index;
+
+        // If cycle is within the normal range
         } else {
-            element.removeClass('no-next no-prev');
+            this._resetTo = null;
 
-            if (index >= maxIndex) {
-                index = maxIndex;
-
-                if (options.loop) {
-                    if (index == this.index && this.index === maxIndex) {
-                        index = 0;
-                    }
-                } else {
-                    element.addClass('no-next');
-                }
-            } else if (index <= 0) {
-                index = 0;
-
-                if (options.loop) {
-                    if (index == this.index && this.index === 0) {
-                        index = maxIndex;
-                    }
-                } else {
-                    element.addClass('no-prev');
-                }
-            }
+            // We need to alter the actual index to account for the clones
+            visualIndex = index;
+            cloneIndex = index + itemsToShow;
         }
 
-        return index;
+        return [cloneIndex, visualIndex];
+    },
+
+    /**
+     * Setup the carousel state to introspecting property values and resetting options.
+     *
+     * @private
+     */
+    _setupState: function() {
+        var options = this.options,
+            animation = options.animation;
+
+        // Cycling more than the show amount causes unexpected issues
+        if (options.itemsToCycle > options.itemsToShow) {
+            options.itemsToCycle = options.itemsToShow;
+        }
+
+        // Fade animations can only display 1 at a time
+        if (animation === 'fade') {
+            options.itemsToShow = options.itemsToCycle = 1;
+            options.infinite = true;
+        }
+
+        // Determine the dimension and position based on animation
+        if (animation === 'slide-up') {
+            this._dimension = 'height';
+            this._position = 'top';
+
+        } else if (animation === 'slide') {
+            this._dimension = 'width';
+            this._position = 'left';
+        }
+    },
+
+    /**
+     * Update the active state for the items while taking into account cloned elements.
+     *
+     * @param {Number} index
+     * @private
+     */
+    _updateItems: function(index) {
+        this.items
+            .removeClass('is-active')
+            .aria('hidden', true)
+            .slice(index, index + this.options.itemsToShow)
+                .addClass('is-active')
+                .aria('hidden', false);
+    },
+
+    /**
+     * Update the active state for the tab indicators.
+     *
+     * @param {Number} start
+     * @private
+     */
+    _updateTabs: function(start) {
+        var itemsToShow = this.options.itemsToShow,
+            stop = start + itemsToShow,
+            tabs = this.tabs
+                .removeClass('is-active')
+                .aria('toggled', false);
+
+        // Indicators can wrap on the sides so we need to filter based on index
+        if (this.options.infinite) {
+            var length = this.items.length - (itemsToShow * 2),
+                diff = -1;
+
+            if (stop > length) {
+                diff = stop - length;
+            }
+
+            tabs = tabs.filter(function(i) {
+                return (i >= start && i < stop) || (i < diff);
+            });
+
+        } else {
+            tabs = tabs.slice(start, stop);
+        }
+
+        tabs
+            .addClass('is-active')
+            .aria('toggled', false);
     },
 
     /**
@@ -315,7 +443,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     onJump: function(e) {
         e.preventDefault();
 
-        this.jump($(e.currentTarget).data('index') || 0);
+        this.jump($(e.currentTarget).data('carousel-index') || 0);
     },
 
     /**
@@ -344,7 +472,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     duration: 5000,
     autoCycle: true,
     stopOnHover: true,
-    infinite: false,
+    infinite: true,
     loop: true,
     itemsToShow: 1,
     itemsToCycle: 1,
