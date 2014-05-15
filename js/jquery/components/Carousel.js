@@ -276,6 +276,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             .clone()
             .addClass('is-cloned')
             .removeAttr('id')
+            .removeAttr('role')
             .appendTo(container);
 
         // Prepend the last items
@@ -283,6 +284,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             .clone()
             .addClass('is-cloned')
             .removeAttr('id')
+            .removeAttr('role')
             .prependTo(container);
 
         // Refresh items list
@@ -294,7 +296,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      * Will return an array for the DOM element index (including clones) and the visual indication index
      * for active states.
      *
-     * @param {Number} index
+     * @param {Number} index    The visual index (not the clone index)
      * @returns {Array}
      * @private
      */
@@ -309,24 +311,23 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
         // If the cycle reaches the clone past the end
         if (index >= lengthWithoutClones) {
-            console.log('end');
             this._resetTo = 0 + itemsToShow;
 
             // Set the literal index to the clone on the end
-            cloneIndex = index + itemsToShow;
+            cloneIndex = lengthWithClones - itemsToShow;
 
             // Reset the visual index to 0
             visualIndex = 0;
 
         // If cycle reaches the clone past the beginning
-        } else if (index <= (0 - itemsToShow)) {
+        } else if (index <= -itemsToShow) {
             this._resetTo = lengthWithoutClones;
 
             // Set the literal index to the clone on the beginning
-            cloneIndex = itemsToShow - index;
+            cloneIndex = 0;
 
             // Reset the visual index to the last
-            visualIndex = lengthWithoutClones - index;
+            visualIndex = lengthWithoutClones - itemsToShow;
 
         // If cycle is within the normal range
         } else {
@@ -394,29 +395,29 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      */
     _updateTabs: function(start) {
         var itemsToShow = this.options.itemsToShow,
+            length = this.items.length,
             stop = start + itemsToShow,
+            set = $([]),
             tabs = this.tabs
                 .removeClass('is-active')
                 .aria('toggled', false);
 
-        // Indicators can wrap on the sides so we need to filter based on index
         if (this.options.infinite) {
-            var length = this.items.length - (itemsToShow * 2),
-                diff = -1;
-
-            if (stop > length) {
-                diff = stop - length;
-            }
-
-            tabs = tabs.filter(function(i) {
-                return (i >= start && i < stop) || (i < diff);
-            });
-
-        } else {
-            tabs = tabs.slice(start, stop);
+            length = length - (itemsToShow * 2);
         }
 
-        tabs
+        if (start >= 0) {
+            set = set.add(tabs.slice(start, stop));
+        } else {
+            set = set.add(tabs.slice(0, stop));
+            set = set.add(tabs.slice(start));
+        }
+
+        if (stop > length) {
+            set = set.add(tabs.slice(0, stop - length));
+        }
+
+        set
             .addClass('is-active')
             .aria('toggled', false);
     },
