@@ -2,9 +2,6 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 1.5.0 ###
-* Make nested menus expandable on touch devices (drop).
-
 ### 2.0.0 ###
 * Remove the MooTools port.
 * Remove CSS dependencies from the JS layer, use the DOM (classes vs attributes, semantic tags).
