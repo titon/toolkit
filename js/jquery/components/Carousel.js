@@ -83,7 +83,9 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         'swipedown element': 'prev',
         'click element .@carousel-tabs a': 'onJump',
         'click element .@carousel-next': 'next',
-        'click element .@carousel-prev': 'prev'
+        'click element .@carousel-prev': 'prev',
+        'click element .@carousel-start': 'start',
+        'click element .@carousel-stop': 'stop'
     };
 
     if (options.stopOnHover) {
