@@ -33,6 +33,9 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     // Blackout element if enabled
     this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
+    // Is the showcase currently animating?
+    this.animating = false;
+
     // Initialize events
     this.events = {
         'clickout element': 'onHide',
@@ -87,6 +90,10 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
      * @param {Number} index
      */
     jump: function(index) {
+        if (this.animating) {
+            return;
+        }
+
         index = $.bound(index, this.data.length);
 
         // Exit since transitions don't occur
@@ -118,11 +125,14 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             .aria('busy', true);
 
         // Setup deferred callbacks
+        this.animating = true;
+
         deferred.always(function(width, height) {
             list.transitionend(function() {
                 caption.html(item.title).reveal();
                 listItem.reveal();
                 self.position();
+                self.animating = false;
             });
 
             self._resize(width, height);
