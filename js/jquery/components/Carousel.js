@@ -128,8 +128,18 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      */
     doDestroy: function() {
         this.jump(0);
-        this.stop();
+
+        // Remove timers
         clearInterval(this.timer);
+
+        // Remove clones
+        this.container.transitionend(function() {
+            $(this)
+                .addClass('no-transition')
+                .css('left', 0)
+                .find('li.is-cloned')
+                    .remove();
+        });
     },
 
     /**
@@ -402,7 +412,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         if (animation === 'fade') {
             options.itemsToShow = options.itemsToCycle = 1;
             options.infinite = false;
-            options.loop = true;
         }
 
         // Determine the dimension and position based on animation
