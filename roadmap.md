@@ -3,8 +3,6 @@
 All releases will contain bug fixing and polishing for current features.
 
 ### 1.5.0 ###
-* Add more features support to Carousel.
-    * Add support for infinite scrolling (move items around).
 * Make nested menus expandable on touch devices (drop).
 
 ### 2.0.0 ###

@@ -17,10 +17,11 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .aria('live', options.autoCycle ? 'assertive' : 'off')
         .addClass(options.animation);
 
-    // Find all the items and set ARIA attributes
+    // Find the item container and disable transitions for initial load
     this.container = element.find('.' + vendor + 'carousel-items ul')
         .addClass('no-transition');
 
+    // Find all the items and set ARIA attributes
     this.items = items = this.container.find('li').each(function(index) {
         $(this)
             .attr({
@@ -157,9 +158,18 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         // Animate and move the items
         this._beforeCycle();
 
-        this.container
-            .transitionend(this._afterCycle)
-            .css(this._position, -(cloneIndex * this._size));
+        if (this.options.animation === 'fade') {
+            this.items
+                .conceal()
+                .eq(visualIndex)
+                    .transitionend(this._afterCycle)
+                    .reveal();
+
+        } else {
+            this.container
+                .transitionend(this._afterCycle)
+                .css(this._position, -(cloneIndex * this._size));
+        }
 
         // Store the index
         this.index = visualIndex;
@@ -303,39 +313,72 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     _getIndex: function(index) {
         var options = this.options,
             itemsToShow = options.itemsToShow,
-            itemsToCycle = options.itemsToCycle,
-            lengthWithClones = this.items.length,
-            lengthWithoutClones = lengthWithClones - (itemsToShow * 2),
             visualIndex,
             cloneIndex;
 
-        // If the cycle reaches the clone past the end
-        if (index >= lengthWithoutClones) {
-            this._resetTo = 0 + itemsToShow;
+        if (options.infinite) {
+            var lengthWithClones = this.items.length,
+                lengthWithoutClones = lengthWithClones - (itemsToShow * 2);
 
-            // Set the literal index to the clone on the end
-            cloneIndex = lengthWithClones - itemsToShow;
+            // If the cycle reaches the clone past the end
+            if (index >= lengthWithoutClones) {
+                this._resetTo = 0 + itemsToShow;
 
-            // Reset the visual index to 0
-            visualIndex = 0;
+                // Set the literal index to the clone on the end
+                cloneIndex = lengthWithClones - itemsToShow;
 
-        // If cycle reaches the clone past the beginning
-        } else if (index <= -itemsToShow) {
-            this._resetTo = lengthWithoutClones;
+                // Reset the visual index to 0
+                visualIndex = 0;
 
-            // Set the literal index to the clone on the beginning
-            cloneIndex = 0;
+            // If cycle reaches the clone past the beginning
+            } else if (index <= -itemsToShow) {
+                this._resetTo = lengthWithoutClones;
 
-            // Reset the visual index to the last
-            visualIndex = lengthWithoutClones - itemsToShow;
+                // Set the literal index to the clone on the beginning
+                cloneIndex = 0;
 
-        // If cycle is within the normal range
+                // Reset the visual index to the last
+                visualIndex = lengthWithoutClones - itemsToShow;
+
+            // If cycle is within the normal range
+            } else {
+                this._resetTo = null;
+
+                // We need to alter the actual index to account for the clones
+                visualIndex = index;
+                cloneIndex = index + itemsToShow;
+            }
+
         } else {
-            this._resetTo = null;
+            var element = this.element.removeClass('no-next no-prev'),
+                maxIndex = this.items.length - itemsToShow;
 
-            // We need to alter the actual index to account for the clones
-            visualIndex = index;
-            cloneIndex = index + itemsToShow;
+            // If cycle reaches the last visible item, remove the next button or rewind
+            if (index >= maxIndex) {
+                index = maxIndex;
+
+                if (options.loop) {
+                    if (index == this.index && this.index === maxIndex) {
+                        index = 0;
+                    }
+                } else {
+                    element.addClass('no-next');
+                }
+
+            // If cycle reaches the first visible item, remove prev button or fast forward
+            } else if (index <= 0) {
+                index = 0;
+
+                if (options.loop) {
+                    if (index == this.index && this.index === 0) {
+                        index = maxIndex;
+                    }
+                } else {
+                    element.addClass('no-prev');
+                }
+            }
+
+            cloneIndex = visualIndex = index;
         }
 
         return [cloneIndex, visualIndex];
@@ -358,7 +401,8 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         // Fade animations can only display 1 at a time
         if (animation === 'fade') {
             options.itemsToShow = options.itemsToCycle = 1;
-            options.infinite = true;
+            options.infinite = false;
+            options.loop = true;
         }
 
         // Determine the dimension and position based on animation
