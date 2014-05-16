@@ -88,6 +88,10 @@ and can be verified by clicking on the table row titles.
             <td class="is-error">Can be enabled with <a href="https://github.com/scottjehl/Respond">respond.js</a></td>
             <td class="is-success">&check;</td>
         </tr>
+        <tr>
+            <td><a href="http://caniuse.com/#search=matchMedia">matchMedia()</a></td>
+            <td class="is-error" colspan="2">Can be enabled with <a href="https://github.com/paulirish/matchMedia.js/">matchMedia</a> polyfill</td>
+        </tr>
     </tbody>
 </table>
 

@@ -79,6 +79,17 @@ $('#element').aria({
 });
 ```
 
+### transitionend(`func:func`) ###
+
+Sets a callback function as a `transitionend` event that will only be triggered once.
+If the element does not have a CSS transition property defined, the callback will be executed immediately.
+This is handy for chaining methods and supporting browsers that don't have transitions.
+
+```javascript
+$('#element').transitionend(function() {
+    // Do something
+}).reveal();
+
 ## Selectors ##
 
 These selectors can be used for DOM querying.

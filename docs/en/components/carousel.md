@@ -206,6 +206,42 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>true</td>
             <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
         </tr>
+        <tr>
+            <td>infinite</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Allows for infinite cycling in either direction.</td>
+        </tr>
+        <tr>
+            <td>loop</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Will rewind the cycle pointer when the last item is reached (only applies when <code>infinite</code> is disabled).</td>
+        </tr>
+        <tr>
+            <td>reverse</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Will reverse the direction for automatic cycling.</td>
+        </tr>
+        <tr>
+            <td>itemsToShow</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to display in the carousel at the same time.</td>
+        </tr>
+        <tr>
+            <td>itemsToCycle</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to move when cycling.</td>
+        </tr>
+        <tr>
+            <td>defaultIndex</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The item to display on initial page load.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -265,10 +301,16 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
+            <td>container</td>
+            <td>element</td>
+            <td>The parent element for all item elements.</td>
+            <td>.carousel-items ul</td>
+        </tr>
+        <tr>
             <td>items</td>
             <td>collection</td>
             <td>A collection of item elements that will be cycled through.</td>
-            <td>.carousel-items li</td>
+            <td><code>container</code> li</td>
         </tr>
         <tr>
             <td>tabs</td>
@@ -294,6 +336,12 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>Has the carousel stopped cycling.</td>
             <td></td>
         </tr>
+        <tr>
+            <td>animating</td>
+            <td>bool</td>
+            <td>Is the carousel currently animating.</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
@@ -311,6 +359,11 @@ Inherits all methods from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
+            <td>calculate()</td>
+            <td>Calculate the sizes of the wrapper and items based on browser width and defined options.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>jump(int:index)</td>
             <td>Go to a specific item defined by the index in the collection.</td>
             <td>.carousel-tabs a</td>
@@ -327,21 +380,13 @@ Inherits all methods from the [parent component](../development/js/component.md#
         </tr>
         <tr>
             <td>start()</td>
-            <td>
-                Start automatic cycling.
-                This method is triggered automatically when <code>stopOnHover</code> is enabled,
-                and the mouse leaves the carousel.
-            </td>
-            <td></td>
+            <td>Start automatic cycling.</td>
+            <td>.carousel-start</td>
         </tr>
         <tr>
             <td>stop()</td>
-            <td>
-                Stop automatic cycling.
-                This method is triggered automatically when <code>stopOnHover</code> is enabled,
-                and the mouse enters the carousel.
-            </td>
-            <td></td>
+            <td>Stop automatic cycling.</td>
+            <td>.carousel-stop</td>
         </tr>
         <tr>
             <td>reset()</td>

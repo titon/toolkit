@@ -8,7 +8,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     var element;
 
     this.component = 'Showcase';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
 

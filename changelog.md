@@ -2,91 +2,31 @@
 
 Older versions can be found in the documentation changelogs.
 
-## 1.4.1 ##
-* Added `opacity: 0` to `.hide` for easier fade transitions
-* Improved fade transitions within all components
-* Fixed a bug with swipe not working on Android
-* Fixed a bug with certain elements not showing in iOS
-* OffCanvas
-    * Added `primary` and `secondary` properties
-    * Added `stopScroll` option
-* Popover, Tooltip
-    * Fixed a bug where the arrow was being removed before the transition ended
-* Type Ahead
-    * Added `$typeAhead-transition`
+## 1.5.0 ##
+This minor release includes a new responsive option, and a major overhaul of the Carousel component,
+and a complete refactor of the demo system. It also marks the final minor release before the 2.0 major version.
 
-## 1.4.0 ##
-This minor release includes 3 new components, a new `destroy()` method,
-a cleanup of element and event options, expanded documentation, and a handful of optimization improvements.
-
-* Usage license has been updated to BSD-3 from BSD-2
-* MooTools support is slowly being phased out and new components are not supported
-* Added new Divider component for separating content
-* Added new Off Canvas component for displaying sidebars outside the viewport
-* Added new Toast component for notifying users with timed messages
-* Added `.no-transition` class to disable transitions
-* Added `.sr-only` class for screen readers
-* Added `suppression` setting for swipe events
-* Fixed a bug with `swipe` events where select dropdowns would stop working
-* Fixed a bug with `swipe` events where page scrolling gets disabled
-* Fixed a bug with certain fade animations
-* Fixed a bug where certain Sass variables were not customizable
-* Removed `$shape-square-class` Sass variable
-* Removed `*Element` options (CSS classes are now hardcoded)
-* Removed `*Event` options (CSS classes are now hardcoded)
-* Toolkit
-    * Added `toolkit(component, method, args)` support for triggering methods on the class instance
-    * Added `transitionEnd` flag
-    * Refactored `toolkit()` to return a single instance instead of multiple instances
-    * Removed `i()` and `item()` jQuery collection methods
-* Component
-    * Added a `initialize()` method that is triggered within all constructors
-    * Added a `destroy()` method that will unbind all events, remove elements, and delete the instance
-    * Added automatic `this` scope binding to all methods on a class instance
-    * Refactored `bindEvents()` with an easier lightweight syntax
-* Accordion
-    * Removed `headerElement`, `sectionElement` options
-* Blackout
-    * Fixed incorrect `.loader-spinner` class
+* MooTools support is slowly being phased out and JavaScript changes have not been ported
+* Added `$.fn.transitionend()` which will set a `transitionend` event if transitions have been defined on the element,
+    else it will execute the callback immediately
+* Added a global `responsive` component option that allows for different options to be set depending on breakpoints
 * Carousel
-    * Removed `nextButton`, `prevButton` properties
-    * Removed `itemsElement`, `tabsElement`, `nextElement`, `prevElement` options
-* Code
-    * Added overflow scrolling for touch devices
-* Flyout
-    * Disabled automatically for touch devices
-    * Removed `contentElement` option
-* Input
-    * Added `hideOpened` option to selects to hide other opened selects
-    * Updated `native` option value to be `Toolkit.isTouch` by default
-* Lazy Load
-    * Removed `isLoaded` property
-* Mask
-    * Added `selector` option to bind toggle events to
-    * Renamed `.maskable` to `.mask-target`
-    * Removed `messageElement` option
-* Modal
-    * Added `$modal-mobile-breakpoint` to apply mobile widths to the modal
-    * Added `submit()` method for submitting forms
-    * Updated with new markup
-    * Renamed `.modal-event-submit` to `.modal-submit`
-    * Renamed `.modal-event-close` to `.modal-hide`
-    * Removed `.modal-handle` within the template
-    * Removed `elementBody` property
-    * Removed `contentElement`, `closeElement`, `closeEvent`, `submitEvent` options
-    * Removed `sticky-*` animations
-* Popover, Tooltip
-    * Removed `titleElement`, `contentElement` options
+    * Added a `container` property which is the parent element for `items`
+    * Added a `animating` property that represents whether the items are currently animating
+    * Added a `calculate()` method that resizes the carousel based on the window size and defined options
+    * Added a `infinite` option which allows for infinite cycling in either direction
+    * Added a `loop` option which rewinds the cycle pointer to the beginning or end when the opposite edge is reached
+        (only applicable when `infinite` is disabled)
+    * Added a `reverse` option to reverse the automatic cycle direction
+    * Added a `itemsToShow` option which is used for displaying a specific number of items at once
+    * Added a `itemsToCycle` option which is used as the number of items to move when a cycle occurs
+    * Added a `defaultIndex` option which displays that item on initial page load
+    * Added `.no-next` and `.no-prev` classes to the component to hide navigation buttons
+    * Added `.carousel-stop` and `.carousel-start` as elements to delegate events to
+* Matrix
+    * Updated image pre-loading to use deferred promises
+    * Removed `imagesLoaded` property
+    * Removed `onLoad` method
 * Showcase
-    * Updated with new markup
-    * Renamed `.showcase-event-prev` to `.showcase-prev`
-    * Renamed `.showcase-event-next` to `.showcase-next`
-    * Renamed `.showcase-event-close` to `.showcase-hide`
-    * Renamed `.showcase-event-jump` to `.showcase-tabs a`
-    * Removed `nextButton`, `prevButton` properties
-    * Removed `transition`, `itemsElement`, `tabsElement`, `prevElement`, `nextElement`,
-        `closeEvent`, `jumpEvent`, `prevEvent`, `nextEvent` options
-* Tabs
-    * Removed `navElement`, `sectionElement` options
-* Type Ahead
-    * Removed `contentElement` option
+    * Updated item cycling to use deferred promises
+    * Added a `animating` property that represents whether the items are currently animating
