@@ -457,6 +457,10 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 .removeClass('is-active')
                 .aria('toggled', false);
 
+        if (!tabs.length) {
+            return;
+        }
+
         if (this.options.infinite) {
             length = length - (itemsToShow * 2);
         }
@@ -486,7 +490,12 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     onCycle: function() {
         if (!this.stopped) {
             this.fireEvent('cycle', this.index);
-            this.next();
+
+            if (this.options.reverse) {
+                this.prev();
+            } else {
+                this.next();
+            }
         }
     },
 
@@ -530,6 +539,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     stopOnHover: true,
     infinite: true,
     loop: true,
+    reverse: false,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0

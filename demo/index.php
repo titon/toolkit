@@ -124,6 +124,7 @@ $components = array(
             'defaultIndex' => array('title' => 'Default Index', 'type' => 'number', 'default' => 0),
             'loop' => array('title' => 'Loop Items?', 'type' => 'boolean', 'default' => true),
             'infinite' => array('title' => 'Infinite Scrolling?', 'type' => 'boolean', 'default' => true),
+            'reverse' => array('title' => 'Reverse Direction?', 'type' => 'boolean', 'default' => false),
             'autoCycle' => array('title' => 'Auto Cycle?', 'type' => 'boolean', 'default' => true),
             'stopOnHover' => array('title' => 'Stop On Hover?', 'type' => 'boolean', 'default' => true),
             'count' => array('title' => 'Item Count', 'type' => 'number', 'default' => 6),
