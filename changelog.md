@@ -10,6 +10,8 @@ and a complete refactor of the demo system. It also marks the final minor releas
 * Added `$.fn.transitionend()` which will set a `transitionend` event if transitions have been defined on the element,
     else it will execute the callback immediately
 * Added a global `responsive` component option that allows for different options to be set depending on breakpoints
+* Button Group
+    * Fixed a bug with incorrect button widths when the `vertical` modifier is used
 * Carousel
     * Added a `container` property which is the parent element for `items`
     * Added a `animating` property that represents whether the items are currently animating

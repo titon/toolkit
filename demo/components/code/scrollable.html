@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Code</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<pre class="is-scrollable"><code>var Toolkit = {
+
+    /** Current version */
+    version: '%version%',
+
+    /** Build date hash */
+    build: '%build%',
+
+    /** Vendor namespace */
+    vendor: '',
+
+    /** ARIA support */
+    aria: true,
+
+    /** Localization messages */
+    messages: {
+        loading: 'Loading...',
+        error: 'An error has occurred!'
+    },
+
+    /** Does the browser support transitions? */
+    hasTransition: hasTransition,
+
+    /** Event name for transition end */
+    transitionEnd: (function() {
+        var eventMap = {
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd otransitionend'
+        };
+
+        return eventMap[hasTransition] || 'transitionend';
+    })(),
+
+    /** Detect touch devices */
+    isTouch: !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)),
+
+    /** Detect retina displays */
+    isRetina: (window.devicePixelRatio > 1),
+
+    /**
+     * Creates a jQuery plugin by extending the jQuery prototype and defines a method
+     * that initializes a component. The component is only initialized if one has not been already.
+     * Components are either defined per element, or on a collection of elements.
+     *
+     * @param {String} component
+     * @param {Function} callback
+     * @param {bool} collection
+     */
+    create: function(component, callback, collection) {
+        var name = component;
+
+        // Prefix with toolkit to avoid collisions
+        if ($.fn[name]) {
+            name = 'toolkit' + name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        $.fn[name] = collection ?
+
+        // Apply the instance to a collection of elements
+        function() {
+            var instance = instances[component + '.' + this.selector] = callback.apply(this, arguments);
+
+            return this.each(function() {
+                $(this).addData('toolkit.' + component, instance);
+            });
+        } :
+
+        // Apply the instance per element
+        function() {
+            var args = arguments;
+
+            return this.each(function() {
+                $(this).addData('toolkit.' + component, callback.apply(this, args));
+            });
+        };
+    },
+
+    /**
+    * Empty class to inherit from.
+    */
+    Class: function() {}
+
+};</code></pre>
+
+</body>
+</html>
