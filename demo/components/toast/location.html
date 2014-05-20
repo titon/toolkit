@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Toast</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<button type="button" class="button" id="toast-text">Create Text Toast</button>
+
+<button type="button" class="button" id="toast-html">Create HTML Toast</button>
+
+<button type="button" class="button" id="toast-dismiss">Create Dismissable Toast</button>
+
+<script>
+    $(function() {
+        var toast = $('body').toast({
+            position: 'center-right',
+            animation: 'slide-right'
+        }).toolkit('toast');
+
+        $('#toast-text').click(function() {
+            toast.create('This is a string of text!');
+        });
+
+        $('#toast-html').click(function() {
+            toast.create($('<a/>').html('This is an anchor link!'));
+        });
+
+        $('#toast-dismiss').click(function() {
+            var link = $('<a/>')
+                .attr('href', 'javascript:;')
+                .html('This message will persist until dismissed.')
+                .click(function() {
+                    toast.hide(this.parentNode);
+                });
+
+            toast.create(link, { duration: 0 });
+        });
+    });
+</script>
+
+</body>
+</html>

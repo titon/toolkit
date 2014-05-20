@@ -25,6 +25,8 @@ and a complete refactor of the demo system. It also marks the final minor releas
     * Added a `defaultIndex` option which displays that item on initial page load
     * Added `.no-next` and `.no-prev` classes to the component to hide navigation buttons
     * Added `.carousel-stop` and `.carousel-start` as elements to delegate events to
+* Form
+    * Added `.fields` which can be coupled with list elements to mimic `.field`
 * Matrix
     * Updated image pre-loading to use deferred promises
     * Removed `imagesLoaded` property

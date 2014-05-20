@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Input Group</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<form action="" method="get" id="form">
+    <div class="field">
+        <label class="field-label" for="value">Search</label>
+        <div class="input-group">
+            <input id="value" type="text" class="input" name="value">
+
+            <div class="button-group">
+                <button type="button" class="button" data-drop="#types">Type</button>
+
+                <ul class="drop drop--down" id="types">
+                    <li><a href="">Titan</a></li>
+                    <li><a href="">Olympian</a></li>
+                    <li><a href="">Muse</a></li>
+                    <li><a href="">Nymph</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function() {
+        $('[data-drop]').drop();
+    });
+</script>
+
+</body>
+</html>

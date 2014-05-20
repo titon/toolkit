@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Input</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<form action="" method="get" id="form">
+    <div class="field">
+        <label class="field-label" for="titans">Titans</label>
+        <select id="titans" class="input" name="titans">
+            <option value="Cronus" title="King of the Titans">Cronus</option>
+            <option value="Rhea" title="Titaness of Fertility" disabled>Rhea</option>
+            <option value="Oceanus" title="Titan of the Earth-river">Oceanus</option>
+            <option value="Tethys" title="Titaness of Water">Tethys</option>
+            <option value="Hyperion" title="Titan of Light">Hyperion</option>
+            <option value="Theia" title="Titaness of Sight">Theia</option>
+            <option value="Coeus" title="Titan of Intelligence">Coeus</option>
+            <option value="Phoebe" title="Titaness of the Moon">Phoebe</option>
+            <option value="Mnemosyne" title="Titaness of Memory">Mnemosyne</option>
+            <option value="Themis" title="Titaness of Justice">Themis</option>
+            <option value="Crius" title="Titan of the Heavens">Crius</option>
+            <option value="Iapetus" title="Titan of Mortality">Iapetus</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="olympians">Olympians</label>
+        <select id="olympians" class="input" name="olympians">
+            <option value="Zeus" title="God of the Sky">Zeus</option>
+            <option value="Hera" title="Goddess of Women">Hera</option>
+            <option value="Poseidon" title="God of the Sea">Poseidon</option>
+            <option value="Demeter" title="Goddess of Agriculture" disabled>Demeter</option>
+            <option value="Athena" title="Goddess of Wisdom">Athena</option>
+            <option value="Apollo" title="God of Music and Art">Apollo</option>
+            <option value="Artemis" title="Goddess of the Hunt">Artemis</option>
+            <option value="Ares" title="God of War">Ares</option>
+            <option value="Aphrodite" title="Goddess of Love">Aphrodite</option>
+            <option value="Hephaestus" title="God of the Forge">Hephaestus</option>
+            <option value="Hermes" title="God of Trade">Hermes</option>
+            <option value="Hestia" title="Goddess of the Hearth">Hestia</option>
+            <option value="Dionysus" title="God of Wine">Dionysus</option>
+        </select>
+    </div>
+</form>
+
+<script>
+    $(function() {
+        $('#form').input();
+    });
+</script>
+
+</body>
+</html>

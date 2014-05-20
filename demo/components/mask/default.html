@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Mask</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<button class="button" id="mask-content">Mask Content</button>
+<button class="button" id="mask-document">Mask Document</button>
+
+<hr class="demo-spacer">
+
+<div id="titans" class="js-mask">
+    <p>In Greek mythology, the Titans were a primeval race of powerful deities,
+        descendants of Gaia (Earth) and Uranus (Sky), that ruled during the legendary Golden Age.
+        They were immortal giants of incredible strength and were also the first pantheon of Greek gods and goddesses.</p>
+
+    <p>In the first generation of twelve Titans, the males were Oceanus, Hyperion, Coeus, Cronus, Crius,
+        and Iapetus and the females—the Titanesses or Titanides—were Mnemosyne, Tethys, Theia, Phoebe, Rhea, and Themis.
+        The second generation of Titans consisted of Hyperion's children Helios, Selene and Eos;
+        Coeus's daughters Leto and Asteria; Iapetus's children Atlas, Prometheus, Epimetheus, and Menoetius;
+        Oceanus' daughter Metis; and Crius' sons Astraeus, Pallas, and Perses.</p>
+
+    <p>The Titans were overthrown by a race of younger gods, the Olympians, in the Titanomachy ("War of the Titans").
+        The Greeks may have borrowed this mytheme from the Ancient Near East.</p>
+
+    <div class="mask hide">
+        <div class="mask-message">This message is defined in the source.</div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('.js-mask').mask({
+            selector: '#mask-content'
+        });
+
+        $('body').mask({
+            revealOnClick: true,
+            selector: '#mask-document',
+            messageContent: 'This message is defined through options.'
+        });
+    });
+</script>
+
+</body>
+</html>

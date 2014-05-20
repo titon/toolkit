@@ -10,6 +10,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.options = options = this.setOptions(options);
     this.element = this.createElement()
         .addClass(options.position)
+        .removeClass(options.animation)
         .attr('role', 'log')
         .aria({
             relevant: 'additions',

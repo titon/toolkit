@@ -121,38 +121,43 @@ textarea.#{$vendor-prefix}input {
 
 //-------------------- Fields, Labels --------------------//
 
-.#{$vendor-prefix}field {
+.#{$vendor-prefix}fields {
+    @include reset-list;
+}
+
+.#{$vendor-prefix}field,
+.#{$vendor-prefix}fields li {
     margin-bottom: $margin;
 
     &.is-required {
         .#{$vendor-prefix}field-label { font-weight: bold; }
     }
-}
 
-.#{$vendor-prefix}field:not(.is-disabled) {
-    &.is-error {
-        .#{$vendor-prefix}input {
-            border-color: $error;
+    &:not(.is-disabled) {
+        &.is-error {
+            .#{$vendor-prefix}input {
+                border-color: $error;
 
-            &:focus { box-shadow: 0 0 5px $error-light; }
+                &:focus { box-shadow: 0 0 5px $error-light; }
+            }
+
+            .#{$vendor-prefix}input-radio,
+            .#{$vendor-prefix}input-checkbox {
+                color: $error-dark;
+            }
         }
 
-        .#{$vendor-prefix}input-radio,
-        .#{$vendor-prefix}input-checkbox {
-            color: $error-dark;
-        }
-    }
+        &.is-success {
+            .#{$vendor-prefix}input {
+                border-color: $success;
 
-    &.is-success {
-        .#{$vendor-prefix}input {
-            border-color: $success;
+                &:focus { box-shadow: 0 0 5px $success-light; }
+            }
 
-            &:focus { box-shadow: 0 0 5px $success-light; }
-        }
-
-        .#{$vendor-prefix}input-radio,
-        .#{$vendor-prefix}input-checkbox {
-            color: $success-dark;
+            .#{$vendor-prefix}input-radio,
+            .#{$vendor-prefix}input-checkbox {
+                color: $success-dark;
+            }
         }
     }
 }
@@ -175,7 +180,8 @@ textarea.#{$vendor-prefix}input {
 //-------------------- Modifiers --------------------//
 
 .#{$vendor-prefix}form--horizontal {
-    .#{$vendor-prefix}field { @include grid-row; }
+    .#{$vendor-prefix}field,
+    .#{$vendor-prefix}fields li { @include grid-row; }
 
     .#{$vendor-prefix}field-label {
         text-align: right;
@@ -190,6 +196,7 @@ textarea.#{$vendor-prefix}input {
     margin-bottom: -($margin / 2);
 
     .#{$vendor-prefix}field,
+    .#{$vendor-prefix}fields li,
     .#{$vendor-prefix}field-label,
     .#{$vendor-prefix}form-actions {
         display: inline-block;
