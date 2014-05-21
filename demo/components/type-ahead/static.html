@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Type Ahead</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<p>Start typing to initiate lookup.</p>
+
+<input type="text" class="input" id="lookup">
+
+<script>
+    $(function() {
+        $('#lookup').typeAhead({
+            source: [
+                { "title": "Chaos", "description": "Void", "category": "Primordial" },
+                { "title": "Erebus", "description": "Darkness", "category": "Primordial" },
+                { "title": "Nyx", "description": "Night", "category": "Primordial" },
+                { "title": "Aether", "description": "Light", "category": "Primordial" },
+                { "title": "Hemera", "description": "Day", "category": "Primordial" },
+                { "title": "Gaia", "description": "Earth", "category": "Primordial" },
+                { "title": "Uranus", "description": "Heaven", "category": "Primordial" },
+                { "title": "Ourea", "description": "Mountains", "category": "Primordial" },
+                { "title": "Pontus", "description": "Sea", "category": "Primordial" },
+                { "title": "Tartarus", "description": "Underworld", "category": "Primordial" },
+                { "title": "Eros", "description": "Procreation", "category": "Primordial" },
+
+                { "title": "Cronus", "description": "King of the Titans", "category": "Titan" },
+                { "title": "Rhea", "description": "Titaness of Fertility", "category": "Titan" },
+                { "title": "Oceanus", "description": "Titan of the Earth-river", "category": "Titan" },
+                { "title": "Tethys", "description": "Titaness of Water", "category": "Titan" },
+                { "title": "Hyperion", "description": "Titan of Light", "category": "Titan" },
+                { "title": "Theia", "description": "Titaness of Sight", "category": "Titan" },
+                { "title": "Coeus", "description": "Titan of Intelligence", "category": "Titan" },
+                { "title": "Phoebe", "description": "Titaness of the Moon", "category": "Titan" },
+                { "title": "Mnemosyne", "description": "Titaness of Memory", "category": "Titan" },
+                { "title": "Themis", "description": "Titaness of Justice", "category": "Titan" },
+                { "title": "Crius", "description": "Titan of the Heavens", "category": "Titan" },
+                { "title": "Iapetus", "description": "Titan of Mortality", "category": "Titan" },
+
+                { "title": "Zeus", "description": "God of the Sky", "category": "Olympian" },
+                { "title": "Hera", "description": "Goddess of Women", "category": "Olympian" },
+                { "title": "Poseidon", "description": "God of the Sea", "category": "Olympian" },
+                { "title": "Demeter", "description": "Goddess of Agriculture", "category": "Olympian" },
+                { "title": "Athena", "description": "Goddess of Wisdom", "category": "Olympian" },
+                { "title": "Apollo", "description": "God of Music and Art", "category": "Olympian" },
+                { "title": "Artemis", "description": "Goddess of the Hunt", "category": "Olympian" },
+                { "title": "Ares", "description": "God of War", "category": "Olympian" },
+                { "title": "Aphrodite", "description": "Goddess of Love", "category": "Olympian" },
+                { "title": "Hephaestus", "description": "God of the Forge", "category": "Olympian" },
+                { "title": "Hermes", "description": "God of Trade", "category": "Olympian" },
+                { "title": "Hestia", "description": "Goddess of the Hearth", "category": "Olympian" },
+                { "title": "Dionysus", "description": "God of Wine", "category": "Olympian" },
+
+                { "title": "Muses" },
+                { "title": "Nymphs "}
+            ],
+            itemLimit: 10
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+{
+    "url": "/",
+    "title": "Deities",
+    "children": [
+        {
+            "url": "/primordial",
+            "title": "Primordial",
+            "children": [
+                {
+                    "url": "/primordial/chaos",
+                    "title": "Chaos",
+                    "children": [
+                        {
+                            "url": "/primordial/chaos/erebus",
+                            "title": "Erebus"
+                        }, {
+                            "url": "/primordial/chaos/nyx",
+                            "title": "Nyx"
+                        }, {
+                            "url": "/primordial/chaos/aether",
+                            "title": "Aether"
+                        }, {
+                            "url": "/primordial/chaos/hemera",
+                            "title": "Hemera"
+                        }
+                    ]
+                }, {
+                    "url": "/primordial/gaia",
+                    "title": "Gaia",
+                    "children": [
+                        {
+                            "url": "/primordial/gaia/uranus",
+                            "title": "Uranus"
+                        }, {
+                            "url": "/primordial/gaia/ourea",
+                            "title": "Ourea"
+                        }, {
+                            "url": "/primordial/gaia/pontus",
+                            "title": "Pontus"
+                        }
+                    ]
+                }, {
+                    "url": "/primordial/tartarus",
+                    "title": "Tartarus"
+                }, {
+                    "url": "/primordial/eros",
+                    "title": "Eros"
+                }, {
+                    "title": "Secondary"
+                }, {
+                    "url": "/primordial/ananke",
+                    "title": "Ananke"
+                }, {
+                    "url": "/primordial/chronos",
+                    "title": "Chronos"
+                }, {
+                    "url": "/primordial/hydros",
+                    "title": "Hydros"
+                }, {
+                    "url": "/primordial/thesis",
+                    "title": "Thesis"
+                }, {
+                    "url": "/primordial/phanes",
+                    "title": "Phanes"
+                }, {
+                    "url": "/primordial/physis",
+                    "title": "Physis"
+                }, {
+                    "url": "/primordial/nesoi",
+                    "title": "Nesoi"
+                }, {
+                    "url": "/primordial/thalassa",
+                    "title": "Thalassa"
+                }, {
+                    "url": "/primordial/ophion",
+                    "title": "Ophion"
+                }
+            ]
+        }, {
+            "url": "/titans",
+            "title": "Titans",
+            "children": [
+                {
+                    "url": "/titans/oceanus",
+                    "title": "Oceanus"
+                }, {
+                    "url": "/titans/hyperion",
+                    "title": "Hyperion"
+                }, {
+                    "url": "/titans/coeus",
+                    "title": "Coeus"
+                }, {
+                    "url": "/titans/cronus",
+                    "title": "Cronus"
+                }, {
+                    "url": "/titans/crius",
+                    "title": "Crius"
+                }, {
+                    "url": "/titans/iapetus",
+                    "title": "Iapetus"
+                }, {
+                    "url": "/titans/mnemosyne",
+                    "title": "Mnemosyne"
+                }, {
+                    "url": "/titans/tethys",
+                    "title": "Tethys"
+                }, {
+                    "url": "/titans/theia",
+                    "title": "Theia"
+                }, {
+                    "url": "/titans/phoebe",
+                    "title": "Phoebe"
+                }, {
+                    "url": "/titans/rhea",
+                    "title": "Rhea"
+                }, {
+                    "url": "/titans/themis",
+                    "title": "Themis"
+                }
+            ]
+        }, {
+            "url": "/olympians",
+            "title": "Olympians",
+            "children": [
+                {
+                    "url": "/olympians/zeus",
+                    "title": "Zeus"
+                }, {
+                    "url": "/olympians/hera",
+                    "title": "Hera"
+                }, {
+                    "url": "/olympians/poseidon",
+                    "title": "Poseidon"
+                }, {
+                    "url": "/olympians/demeter",
+                    "title": "Demeter"
+                }, {
+                    "url": "/olympians/athena",
+                    "title": "Athena"
+                }, {
+                    "url": "/olympians/apollo",
+                    "title": "Apollo"
+                }, {
+                    "url": "/olympians/artemis",
+                    "title": "Artemis"
+                }, {
+                    "url": "/olympians/ares",
+                    "title": "Ares"
+                }, {
+                    "url": "/olympians/aphrodite",
+                    "title": "Aphrodite"
+                }, {
+                    "url": "/olympians/hephaestus",
+                    "title": "Hephaestus"
+                }, {
+                    "url": "/olympians/hermes",
+                    "title": "Hera"
+                }, {
+                    "url": "/olympians/hestia",
+                    "title": "Hestia"
+                }, {
+                    "url": "/olympians/dionysus",
+                    "title": "Dionysus"
+                }
+            ]
+        }
+    ]
+}
