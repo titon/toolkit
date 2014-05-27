@@ -281,53 +281,57 @@ $.fn.addData = function(key, value) {
  * @returns {jQuery}
  */
 $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
-    var offset = baseOffset || { left: 0, top: 0 },
+    if (!position) {
+        return this;
+    }
+
+    var newPosition = position,
+        offset = baseOffset || { left: 0, top: 0 },
+        relOffset,
         relHeight = 0,
         relWidth = 0,
         eHeight = this.outerHeight(true),
-        eWidth = this.outerWidth(true);
+        eWidth = this.outerWidth(true),
+        win = $(window),
+        wWidth = win.width(),
+        wHeight = win.height(),
+        wsTop = win.scrollTop();
 
     // If an event is used, position it near the mouse
     if (relativeTo.preventDefault) {
-        offset.left += relativeTo.pageX;
-        offset.top += relativeTo.pageY;
+        relOffset = { left: relativeTo.pageX, top: relativeTo.pageY };
 
     // Else position it near the element
     } else {
-        var relOffset = relativeTo.offset(),
-            newPosition = position,
-            win = $(window),
-            wWidth = win.width(),
-            wHeight = win.height(),
-            wsTop = win.scrollTop();
-
-        offset.left += relOffset.left;
-        offset.top += relOffset.top;
+        relOffset = relativeTo.offset();
         relHeight = relativeTo.outerHeight();
         relWidth = relativeTo.outerWidth();
+    }
 
-        // Re-position element if outside the viewport
-        if ((relOffset.top - eHeight - wsTop) < 0) {
-            newPosition = newPosition.replace('top', 'bottom');
+    // Re-position element if outside the viewport
+    offset.left += relOffset.left;
+    offset.top += relOffset.top;
 
-        } else if ((relOffset.top + relHeight + eHeight) > wHeight) {
-            newPosition = newPosition.replace('bottom', 'top');
-        }
+    if ((relOffset.top - eHeight - wsTop) < 0) {
+        newPosition = newPosition.replace('top', 'bottom');
 
-        if ((relOffset.left - eWidth) < 0) {
-            newPosition = newPosition.replace('left', 'right');
+    } else if ((relOffset.top + relHeight + eHeight) > wHeight) {
+        newPosition = newPosition.replace('bottom', 'top');
+    }
 
-        } else if ((relOffset.left + relWidth + eWidth) > wWidth) {
-            newPosition = newPosition.replace('right', 'left');
-        }
+    if ((relOffset.left - eWidth) < 0) {
+        newPosition = newPosition.replace('left', 'right');
 
-        if (position !== newPosition) {
-            this.removeClass(position)
-                .addClass(newPosition)
-                .data('new-position', newPosition);
+    } else if ((relOffset.left + relWidth + eWidth) > wWidth) {
+        newPosition = newPosition.replace('right', 'left');
+    }
 
-            position = newPosition;
-        }
+    if (position !== newPosition) {
+        this.removeClass(position)
+            .addClass(newPosition)
+            .data('new-position', newPosition);
+
+        position = newPosition;
     }
 
     // Shift around based on edge positioning
@@ -365,7 +369,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
             if (edge.y === 'top') {
                 offset.top -= 10;
             } else if (edge.y === 'bottom') {
-                offset.top += 20;
+                offset.top += 10;
             }
         }
     }

@@ -13,7 +13,7 @@
     }();
     var Toolkit = {
         version: "1.4.1",
-        build: "hva5153u",
+        build: "hvpkm0xh",
         vendor: "",
         aria: true,
         messages: {
@@ -119,33 +119,38 @@
         return value;
     };
     $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
-        var offset = baseOffset || {
+        if (!position) {
+            return this;
+        }
+        var newPosition = position, offset = baseOffset || {
             left: 0,
             top: 0
-        }, relHeight = 0, relWidth = 0, eHeight = this.outerHeight(true), eWidth = this.outerWidth(true);
+        }, relOffset, relHeight = 0, relWidth = 0, eHeight = this.outerHeight(true), eWidth = this.outerWidth(true), win = $(window), wWidth = win.width(), wHeight = win.height(), wsTop = win.scrollTop();
         if (relativeTo.preventDefault) {
-            offset.left += relativeTo.pageX;
-            offset.top += relativeTo.pageY;
+            relOffset = {
+                left: relativeTo.pageX,
+                top: relativeTo.pageY
+            };
         } else {
-            var relOffset = relativeTo.offset(), newPosition = position, win = $(window), wWidth = win.width(), wHeight = win.height(), wsTop = win.scrollTop();
-            offset.left += relOffset.left;
-            offset.top += relOffset.top;
+            relOffset = relativeTo.offset();
             relHeight = relativeTo.outerHeight();
             relWidth = relativeTo.outerWidth();
-            if (relOffset.top - eHeight - wsTop < 0) {
-                newPosition = newPosition.replace("top", "bottom");
-            } else if (relOffset.top + relHeight + eHeight > wHeight) {
-                newPosition = newPosition.replace("bottom", "top");
-            }
-            if (relOffset.left - eWidth < 0) {
-                newPosition = newPosition.replace("left", "right");
-            } else if (relOffset.left + relWidth + eWidth > wWidth) {
-                newPosition = newPosition.replace("right", "left");
-            }
-            if (position !== newPosition) {
-                this.removeClass(position).addClass(newPosition).data("new-position", newPosition);
-                position = newPosition;
-            }
+        }
+        offset.left += relOffset.left;
+        offset.top += relOffset.top;
+        if (relOffset.top - eHeight - wsTop < 0) {
+            newPosition = newPosition.replace("top", "bottom");
+        } else if (relOffset.top + relHeight + eHeight > wHeight) {
+            newPosition = newPosition.replace("bottom", "top");
+        }
+        if (relOffset.left - eWidth < 0) {
+            newPosition = newPosition.replace("left", "right");
+        } else if (relOffset.left + relWidth + eWidth > wWidth) {
+            newPosition = newPosition.replace("right", "left");
+        }
+        if (position !== newPosition) {
+            this.removeClass(position).addClass(newPosition).data("new-position", newPosition);
+            position = newPosition;
         }
         var parts = position.split("-"), edge = {
             y: parts[0],
@@ -177,7 +182,7 @@
                 if (edge.y === "top") {
                     offset.top -= 10;
                 } else if (edge.y === "bottom") {
-                    offset.top += 20;
+                    offset.top += 10;
                 }
             }
         }
@@ -589,23 +594,23 @@
             }
             var cache = ajax.type.toUpperCase() === "GET" && this.options.cache;
             return $.ajax(ajax).done(done || function(response, status, xhr) {
-                this.element.removeClass("is-loading").aria("busy", false);
-                if (xhr.getResponseHeader("Content-Type").indexOf("text/html") >= 0) {
-                    if (cache) {
-                        this.cache[url] = response;
+                    this.element.removeClass("is-loading").aria("busy", false);
+                    if (xhr.getResponseHeader("Content-Type").indexOf("text/html") >= 0) {
+                        if (cache) {
+                            this.cache[url] = response;
+                        } else {
+                            delete this.cache[url];
+                        }
+                        this.position(response);
                     } else {
                         delete this.cache[url];
+                        this.process(response);
                     }
-                    this.position(response);
-                } else {
+                }).fail(fail || function() {
                     delete this.cache[url];
-                    this.process(response);
-                }
-            }).fail(fail || function() {
-                delete this.cache[url];
-                this.element.removeClass("is-loading").addClass("has-failed").aria("busy", false);
-                this.position(Toolkit.messages.error);
-            });
+                    this.element.removeClass("is-loading").addClass("has-failed").aria("busy", false);
+                    this.position(Toolkit.messages.error);
+                });
         },
         setOptions: function(options, inheritFrom) {
             var opts = $.extend(true, {}, Toolkit[this.component].options, options || {});
@@ -1033,21 +1038,21 @@
                 return;
             }
             switch (e.keyCode) {
-              case 37:
-                this.prev();
-                break;
+                case 37:
+                    this.prev();
+                    break;
 
-              case 38:
-                this.jump(0);
-                break;
+                case 38:
+                    this.jump(0);
+                    break;
 
-              case 39:
-                this.next();
-                break;
+                case 39:
+                    this.next();
+                    break;
 
-              case 40:
-                this.jump(-1);
-                break;
+                case 40:
+                    this.jump(-1);
+                    break;
             }
         }
     }, {
@@ -1671,18 +1676,18 @@
             }
             var options = this.input.find("option"), items = this.dropdown.find("a"), activeClass = "is-active", index = this.index;
             switch (e.keyCode) {
-              case 13:
-              case 27:
-                this.hide();
-                return;
+                case 13:
+                case 27:
+                    this.hide();
+                    return;
 
-              case 38:
-                index = this._loop(index, -1, options);
-                break;
+                case 38:
+                    index = this._loop(index, -1, options);
+                    break;
 
-              case 40:
-                index = this._loop(index, 1, options);
-                break;
+                case 40:
+                    index = this._loop(index, 1, options);
+                    break;
             }
             options.prop("selected", false);
             options[index].selected = true;
@@ -2409,9 +2414,7 @@
         hide: function() {
             var options = this.options, element = this.element, position = element.data("new-position") || this.runtime.position || options.position, className = this.runtime.className || options.className;
             this.runtime = {};
-            element.transitionend(function() {
-                element.removeClass(position).removeClass(className).removeData("new-position");
-            }).conceal();
+            element.removeClass(position).removeClass(className).removeData("new-position").conceal();
             if (this.node) {
                 this.node.removeAttr("aria-describedby");
             }
@@ -2745,25 +2748,25 @@
                     e.preventDefault();
                 }
                 switch (e.keyCode) {
-                  case 27:
-                    this.hide();
-                    break;
+                    case 27:
+                        this.hide();
+                        break;
 
-                  case 37:
-                    this.prev();
-                    break;
+                    case 37:
+                        this.prev();
+                        break;
 
-                  case 38:
-                    this.jump(0);
-                    break;
+                    case 38:
+                        this.jump(0);
+                        break;
 
-                  case 39:
-                    this.next();
-                    break;
+                    case 39:
+                        this.next();
+                        break;
 
-                  case 40:
-                    this.jump(-1);
-                    break;
+                    case 40:
+                        this.jump(-1);
+                        break;
                 }
             }
         },
@@ -2998,7 +3001,7 @@
         this.component = "Toast";
         this.version = "1.4.0";
         this.options = options = this.setOptions(options);
-        this.element = this.createElement().addClass(options.position).attr("role", "log").aria({
+        this.element = this.createElement().addClass(options.position).removeClass(options.animation).attr("role", "log").aria({
             relevant: "additions",
             hidden: "false"
         }).appendTo(element).reveal();
@@ -3267,44 +3270,44 @@
                 return;
             }
             switch (e.keyCode) {
-              case 38:
-                this.index -= items[this.index - 1] ? 1 : 2;
-                if (this.index < 0) {
-                    this.index = length;
-                }
-                break;
+                case 38:
+                    this.index -= items[this.index - 1] ? 1 : 2;
+                    if (this.index < 0) {
+                        this.index = length;
+                    }
+                    break;
 
-              case 40:
-                this.index += items[this.index + 1] ? 1 : 2;
-                if (this.index >= length) {
+                case 40:
+                    this.index += items[this.index + 1] ? 1 : 2;
+                    if (this.index >= length) {
+                        this.index = -1;
+                    }
+                    break;
+
+                case 9:
+                    e.preventDefault();
+                    var i = 0;
+                    while (!this.items[i]) {
+                        i++;
+                    }
+                    event = "select";
+                    this.index = i;
+                    this.hide();
+                    break;
+
+                case 13:
+                    e.preventDefault();
+                    event = "select";
+                    this.hide();
+                    break;
+
+                case 27:
                     this.index = -1;
-                }
-                break;
+                    this.hide();
+                    break;
 
-              case 9:
-                e.preventDefault();
-                var i = 0;
-                while (!this.items[i]) {
-                    i++;
-                }
-                event = "select";
-                this.index = i;
-                this.hide();
-                break;
-
-              case 13:
-                e.preventDefault();
-                event = "select";
-                this.hide();
-                break;
-
-              case 27:
-                this.index = -1;
-                this.hide();
-                break;
-
-              default:
-                return;
+                default:
+                    return;
             }
             if (this.shadow) {
                 this.shadow.val("");

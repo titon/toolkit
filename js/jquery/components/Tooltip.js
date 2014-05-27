@@ -57,12 +57,11 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
 
         this.runtime = {};
 
-        element.transitionend(function() {
-            element
-                .removeClass(position)
-                .removeClass(className)
-                .removeData('new-position');
-        }).conceal();
+        element
+            .removeClass(position)
+            .removeClass(className)
+            .removeData('new-position')
+            .conceal();
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');
