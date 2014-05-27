@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Popover</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+    <style>[data-popover] { text-decoration: underline; cursor: pointer; }</style>
+</head>
+<body>
+
+<p>Titans were a primeval race of powerful deities, descendants of Gaia (Earth) and Uranus (Sky),
+    that ruled during the legendary Golden Age. They were immortal giants of incredible strength and
+    were also the first <span title="Greek Pantheon" data-popover="ajax/pantheon.html" data-popover-ajax="true" data-popover-position="bottom-center">pantheon</span>
+    of Greek gods and goddesses.</p>
+
+<p>In the first generation of twelve Titans, the males were
+    <span data-popover="Titan of the Earth-river" data-popover-position="top-left">Oceanus</span>,
+    <span data-popover="Titan of Light" data-popover-position="top-center">Hyperion</span>,
+    <span data-popover="Titan of Intelligence" data-popover-position="top-right">Coeus</span>,
+    <span data-popover="King of the Titans" data-popover-position="bottom-left">Cronus</span>,
+    <span data-popover="Titan of the Heavens" data-popover-position="bottom-center">Crius</span>,
+    and <span data-popover="Titan of Mortality" data-popover-position="bottom-right">Iapetus</span>
+    and the females—the Titanesses or Titanides—were
+    <span data-popover="Titaness of Memory" data-popover-position="top-left">Mnemosyne</span>,
+    <span data-popover="Titaness of Water" data-popover-position="top-center">Tethys</span>,
+    <span data-popover="Titaness of Sight" data-popover-position="top-right">Theia</span>,
+    <span data-popover="Titaness of the Moon" data-popover-position="bottom-left">Phoebe</span>,
+    <span data-popover="Titaness of Fertility" data-popover-position="bottom-center">Rhea</span>,
+    and <span data-popover="Titaness of Justice" data-popover-position="bottom-right">Themis</span>.
+    The second generation of Titans consisted of Hyperion's children Helios, Selene and Eos;
+    Coeus's daughters Leto and Asteria; Iapetus's children Atlas, Prometheus, Epimetheus, and Menoetius;
+    Oceanus' daughter Metis; and Crius' sons Astraeus, Pallas, and Perses.</p>
+
+<p>The Titans were overthrown by a race of younger gods, the
+    <span title="Olympians" data-popover="ajax/olympians.html" data-popover-ajax="true" data-popover-position="center-left">Olympians</span>,
+    in the <span title="Titanomachy" data-popover="ajax/titanomachy.html" data-popover-ajax="true" data-popover-position="center-right">Titanomachy</span>.
+    The Greeks may have borrowed this mytheme from the Ancient Near East.</p>
+
+<script>
+    $(function() {
+        $('[data-popover]').popover({
+            animation: 'from-above'
+        });
+    });
+</script>
+
+</body>
+</html>

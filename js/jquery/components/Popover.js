@@ -7,15 +7,15 @@
 Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     var element;
 
-    // Force to click for popovers
-    options.mode = 'click';
-
     this.component = 'Popover';
     this.version = '1.4.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement()
         .attr('role', 'tooltip')
         .removeClass(options.className);
+
+    // Force to click for popovers
+    options.mode = 'click';
 
     // Remove title attributes
     if (options.getTitle === 'title') {

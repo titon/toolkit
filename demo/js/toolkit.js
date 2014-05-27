@@ -2534,11 +2534,11 @@
     }, true);
     Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
         var element;
-        options.mode = "click";
         this.component = "Popover";
         this.version = "1.4.0";
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement().attr("role", "tooltip").removeClass(options.className);
+        options.mode = "click";
         if (options.getTitle === "title") {
             options.getTitle = "data-popover-title";
         }
