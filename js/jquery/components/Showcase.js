@@ -305,14 +305,17 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             ratio,
             diff;
 
+        // Resize if the width is larger
         if (width > wWidth) {
             ratio = (width / height);
             diff = (width - wWidth);
 
             width = wWidth;
             height -= Math.round(diff / ratio);
+        }
 
-        } else if (height > wHeight) {
+        // Resize again if the height is larger
+        if (height > wHeight) {
             ratio = (height / width);
             diff = (height - wHeight);
 

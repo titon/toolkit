@@ -38,3 +38,4 @@ and a complete refactor of the demo system. It also marks the final minor releas
 * Showcase
     * Updated item cycling to use deferred promises
     * Added a `animating` property that represents whether the items are currently animating
+    * Fixed a bug where gutter was not being applied correctly

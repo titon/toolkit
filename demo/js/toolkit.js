@@ -13,7 +13,7 @@
     }();
     var Toolkit = {
         version: "1.4.1",
-        build: "hvpkm0xh",
+        build: "hvqzq67i",
         vendor: "",
         aria: true,
         messages: {
@@ -2719,7 +2719,8 @@
                 diff = width - wWidth;
                 width = wWidth;
                 height -= Math.round(diff / ratio);
-            } else if (height > wHeight) {
+            }
+            if (height > wHeight) {
                 ratio = height / width;
                 diff = height - wHeight;
                 width -= Math.round(diff / ratio);
