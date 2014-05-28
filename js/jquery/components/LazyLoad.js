@@ -57,19 +57,30 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
             conWidth = container.width(),
             scrollTop = container.scrollTop(),
             scrollLeft = container.scrollLeft(),
-            nodeOffset = (container[0] !== window) ? node.position() : node.offset();
+            nodeOffset = node.offset(),
+            left = nodeOffset.left,
+            top = nodeOffset.top;
+
+        // Re-adjust the offset to match the parent container
+        // is() fails when checking against window
+        if (container[0] !== window) {
+            var conOffset = container.offset();
+
+            left -= conOffset.left;
+            top -= conOffset.top;
+        }
 
         return (
             // Element is not hidden
             node.is(':visible') &&
             // Below the top
-            (nodeOffset.top >= (scrollTop - threshold)) &&
+            (top >= (scrollTop - threshold)) &&
             // Above the bottom
-            (nodeOffset.top <= (scrollTop + conHeight + threshold)) &&
+            (top <= (scrollTop + conHeight + threshold)) &&
             // Right of the left
-            (nodeOffset.left >= (scrollLeft - threshold)) &&
+            (left >= (scrollLeft - threshold)) &&
             // Left of the right
-            (nodeOffset.left <= (scrollLeft + conWidth + threshold))
+            (left <= (scrollLeft + conWidth + threshold))
         );
     },
 

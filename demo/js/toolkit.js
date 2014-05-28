@@ -13,7 +13,7 @@
     }();
     var Toolkit = {
         version: "1.4.1",
-        build: "hvqzq67i",
+        build: "hvr3mqd9",
         vendor: "",
         aria: true,
         messages: {
@@ -1753,8 +1753,13 @@
         },
         inViewport: function(node) {
             node = $(node);
-            var container = this.container, threshold = this.options.threshold, conHeight = container.height(), conWidth = container.width(), scrollTop = container.scrollTop(), scrollLeft = container.scrollLeft(), nodeOffset = container[0] !== window ? node.position() : node.offset();
-            return node.is(":visible") && nodeOffset.top >= scrollTop - threshold && nodeOffset.top <= scrollTop + conHeight + threshold && nodeOffset.left >= scrollLeft - threshold && nodeOffset.left <= scrollLeft + conWidth + threshold;
+            var container = this.container, threshold = this.options.threshold, conHeight = container.height(), conWidth = container.width(), scrollTop = container.scrollTop(), scrollLeft = container.scrollLeft(), nodeOffset = node.offset(), left = nodeOffset.left, top = nodeOffset.top;
+            if (container[0] !== window) {
+                var conOffset = container.offset();
+                left -= conOffset.left;
+                top -= conOffset.top;
+            }
+            return node.is(":visible") && top >= scrollTop - threshold && top <= scrollTop + conHeight + threshold && left >= scrollLeft - threshold && left <= scrollLeft + conWidth + threshold;
         },
         load: function() {
             if (this.loaded >= this.elements.length) {
