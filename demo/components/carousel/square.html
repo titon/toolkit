@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Carousel</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<div class="carousel carousel--square">
+    <div class="carousel-items">
+        <ul>
+            <li><img src="http://placehold.it/800x800/4c6278/ffffff&text=1:1" alt=""></li>
+            <li><img src="http://placehold.it/800x800/42586e/ffffff&text=1:1" alt=""></li>
+            <li><img src="http://placehold.it/800x800/344a5f/ffffff&text=1:1" alt=""></li>
+            <li><img src="http://placehold.it/800x800/293f54/ffffff&text=1:1" alt=""></li>
+            <li><img src="http://placehold.it/800x800/283442/ffffff&text=1:1" alt=""></li>
+        </ul>
+    </div>
+
+    <div class="carousel-tabs">
+        <ol class="bullets">
+            <li><a href="javascript:;"></a></li>
+            <li><a href="javascript:;"></a></li>
+            <li><a href="javascript:;"></a></li>
+            <li><a href="javascript:;"></a></li>
+            <li><a href="javascript:;"></a></li>
+        </ol>
+    </div>
+
+    <a href="javascript:;" class="carousel-prev"><span class="arrow-left"></span></a>
+    <a href="javascript:;" class="carousel-next"><span class="arrow-right"></span></a>
+</div>
+
+<script>
+    $(function() {
+        $('.carousel').carousel();
+    });
+</script>
+
+</body>
+</html>

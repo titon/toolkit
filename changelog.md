@@ -3,7 +3,7 @@
 Older versions can be found in the documentation changelogs.
 
 ## 1.5.0 ##
-This minor release includes a new responsive option, and a major overhaul of the Carousel component,
+This minor release includes a new responsive option, a major overhaul of the Carousel component,
 and a complete refactor of the demo system. It also marks the final minor release before the 2.0 major version.
 
 * MooTools support is slowly being phased out and JavaScript changes have not been ported
@@ -26,6 +26,7 @@ and a complete refactor of the demo system. It also marks the final minor releas
     * Added a `defaultIndex` option which displays that item on initial page load
     * Added `.no-next` and `.no-prev` classes to the component to hide navigation buttons
     * Added `.carousel-stop` and `.carousel-start` as elements to delegate events to
+    * Removed `.carousel-caption` styles
 * Form
     * Added `.fields` which can be coupled with list elements to mimic `.field`
 * Matrix

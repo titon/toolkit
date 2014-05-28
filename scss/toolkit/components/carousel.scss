@@ -45,20 +45,6 @@
     }
 }
 
-.#{$vendor-prefix}carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: $padding;
-    color: #fff;
-    background: black(.7);
-
-    @include in-small {
-        @include size-small;
-    }
-}
-
 .#{$vendor-prefix}carousel-prev,
 .#{$vendor-prefix}carousel-next {
     display: block;

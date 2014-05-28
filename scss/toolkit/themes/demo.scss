@@ -136,6 +136,20 @@ mark { background: lighten($warning-light, 25%); }
     &:hover { opacity: 1; }
 }
 
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: $padding;
+    color: #fff;
+    background: black(.7);
+
+    @include in-small {
+        @include size-small;
+    }
+}
+
 //-------------------- Drop --------------------//
 
 .drop {
