@@ -2351,6 +2351,7 @@
                     pos.position = "absolute";
                     pos.bottom = 0;
                 } else {
+                    y = options.yOffset;
                     pos.position = "fixed";
                     pos.bottom = "auto";
                 }

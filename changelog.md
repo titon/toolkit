@@ -35,6 +35,8 @@ and a complete refactor of the demo system. It also marks the final minor releas
     * Updated image pre-loading to use deferred promises
     * Removed `imagesLoaded` property
     * Removed `onLoad` method
+* Pin
+    * Fixed a bug where `yOffset` was not being applied for `fixed` pins
 * Popover
     * Fixed a bug when no options were passed to the constructor
 * Showcase
