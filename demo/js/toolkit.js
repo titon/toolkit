@@ -13,7 +13,7 @@
     }();
     var Toolkit = {
         version: "1.4.1",
-        build: "hvr3mqd9",
+        build: "hvsd55um",
         vendor: "",
         aria: true,
         messages: {
@@ -2674,7 +2674,7 @@
             if (category) {
                 for (var i = 0, x = 0, n; n = this.nodes[i]; i++) {
                     if (read(n, options.getCategory) === category) {
-                        if (n === node) {
+                        if (node.is(n)) {
                             index = x;
                         }
                         items.push({

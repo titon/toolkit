@@ -225,7 +225,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         if (category) {
             for (var i = 0, x = 0, n; n = this.nodes[i]; i++) {
                 if (read(n, options.getCategory) === category) {
-                    if (n === node) {
+                    if (node.is(n)) {
                         index = x;
                     }
 

@@ -41,3 +41,4 @@ and a complete refactor of the demo system. It also marks the final minor releas
     * Updated item cycling to use deferred promises
     * Added a `animating` property that represents whether the items are currently animating
     * Fixed a bug where gutter was not being applied correctly
+    * Fixed a bug where the incorrect item was being opened when a grouping is used
