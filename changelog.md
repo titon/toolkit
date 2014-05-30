@@ -32,6 +32,7 @@ and a complete refactor of the demo system. It also marks the final minor releas
 * Lazy Load
     * Fixed a bug where offsets were incorrect when the parent with overflow was not the direct parent
 * Matrix
+    * Fixed a bug where multiple spanning items break when the span is larger than the column count
     * Updated image pre-loading to use deferred promises
     * Removed `imagesLoaded` property
     * Removed `onLoad` method
