@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Titon Toolkit - Modal</title>
+    <link href="../../css/toolkit.css" rel="stylesheet">
+    <link href="../../css/demo.css" rel="stylesheet">
+    <script src="../../js/jquery-2.0.3.js"></script>
+    <script src="../../js/toolkit.js"></script>
+</head>
+<body>
+
+<a href="#dom" class="button js-modal">Open DOM Modal</a>
+<a href="ajax/default.html" class="button js-modal">Open AJAX Modal</a>
+
+<div id="dom" class="hidden">
+    <div class="modal-head">
+        <h4>DOM Modal</h4>
+    </div>
+
+    <div class="modal-body">
+        The content of this modal was loaded through a hidden DOM element and inserted into the modal template.
+    </div>
+
+    <div class="modal-foot">
+        <button type="button" class="button modal-hide">Close</button>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('.js-modal').modal();
+    });
+</script>
+
+</body>
+</html>

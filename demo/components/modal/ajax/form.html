@@ -1,0 +1,22 @@
+<form action="ajax/form.html" method="post" enctype="multipart/form-data">
+    <div class="modal-head">
+        <h4>Form Handling</h4>
+    </div>
+
+    <div class="modal-body">
+        <p>By wrapping the modal content in a form, and adding the <code>.modal-submit</code> class to a submit button,
+        the modal form can be submitted through an AJAX call. Files can also be posted if the browser supports
+        the <code>FormData</code> API. Inspect the develop console and give it a try!</p>
+
+        <hr class="demo-spacer">
+
+        <p><label for="name">Name:</label> <input type="text" name="name" id="name"></p>
+
+        <p><label for="file">File:</label> <input type="file" name="file" id="file"></p>
+    </div>
+
+    <div class="modal-foot">
+        <button type="button" class="button modal-submit">Submit</button>
+        <button type="button" class="button modal-hide">Close</button>
+    </div>
+</form>
