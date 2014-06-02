@@ -8,7 +8,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     container = $(container);
 
     this.component = 'LazyLoad';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.options = options = this.setOptions(options, container);
 
     // Container to monitor scroll events on

@@ -158,13 +158,13 @@ The default options will apply to all devices not found in the breakpoints.
 $('.carousel').carousel({
     itemsToShow: 3,
     responsive: {
-        mobile: {
-            breakpoint: '(max-width: 480px)',
-            itemsToShow: 1
-        },
         tablet: {
             breakpoint: '(min-width: 768px) and (max-width: 1024px)',
             itemsToShow: 2
+        },
+        mobile: {
+            breakpoint: '(max-width: 480px)',
+            itemsToShow: 1
         }
     }
 });
@@ -173,6 +173,11 @@ $('.carousel').carousel({
 <div class="notice is-info">
     Breakpoint detection uses the built in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia()</a> function.
     All breakpoint definitions should follow the media query specification.
+</div>
+
+<div class="notice is-warning">
+    Breakpoint detection only triggers on the initial page load, and will not trigger if you resize your browser
+    manually by resizing the OS window.
 </div>
 
 <div class="notice is-error">

@@ -149,22 +149,6 @@ The carousel was designed with responsiveness in mind by utilizing percentages a
 We suggest using inline images within each carousel item, sized to the correct aspect ratio (above).
 The carousel will take care of everything else.
 
-### Optional Captions ###
-
-Add captions to the carousel by adding a `.carousel-caption` element within each item.
-The markup within a caption can be customized extensively and is not enforced by the carousel.
-
-```html
-<li>
-    <a href=""><img src="/img/carousel/item-1.png" alt=""></a>
-
-    <div class="carousel-caption">
-        <h3>Caption Title</h3>
-        <p>Lipsum dolor sit amet.</p>
-    </div>
-</li>
-```
-
 ### Notes ###
 
 * The currently shown index will have an `.is-active` class applied to the respective tab.
