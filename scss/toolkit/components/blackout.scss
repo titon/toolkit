@@ -21,7 +21,6 @@
     .#{$vendor-prefix}loader {
         opacity: 1;
         color: #fff;
-        transition: all $blackout-transition;
         @include position-center;
 
         > span,

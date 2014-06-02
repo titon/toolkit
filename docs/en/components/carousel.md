@@ -71,7 +71,7 @@ By default the carousel is designed for a 4:3 aspect ratio.
 To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
 
 ```html
-<div class="carousel--wide">
+<div class="carousel carousel--wide">
     ...
 <div>
 ```
@@ -79,7 +79,7 @@ To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
 To use a 1:1 (square) aspect ratio, the `.carousel--square` modifier can be used.
 
 ```html
-<div class="carousel--square">
+<div class="carousel carousel--square">
     ...
 <div>
 ```
@@ -88,6 +88,60 @@ To use a custom aspect ratio, or to use a fixed height, modify the `padding-bott
 on `.carousel-items`. For example, the 4:3 has a bottom padding of 75%,
 while the 16:9 has a value of 56.25%, and the 1:1 has a value of 100%.
 This technique allows for automatic height scaling based on the width of the carousel.
+
+### Scrolling Mechanisms ###
+
+There are 3 types of scrolling offered by the carousel: infinite scrolling (default),
+looped scrolling, and one-way scrolling.
+
+Infinite scrolling will allow the next and previous buttons to continuously cycle
+through all items without a visual break. This can be toggled through the `infinite` option (default true).
+
+```javascript
+$('.carousel').carousel({
+    infinite: true
+});
+```
+
+Looped scrolling will rewind the items to the beginning of the list when the last item is reached,
+and vice versa. This can be toggled through the `loop` option (default true).
+
+```javascript
+$('.carousel').carousel({
+    infinite: false,
+    loop: true
+});
+```
+
+One-way scrolling will stop cycling when the first or last item is reached.
+This is the fallback option when both `infinite` and `loop` are disabled.
+
+```javascript
+$('.carousel').carousel({
+    infinite: false,
+    loop: false
+});
+```
+
+### Multiple Items ###
+
+Modify the `itemsToShow` option to display multiple items at a single time in the carousel viewport.
+This option will automatically calculate the correct widths and percentages and apply them to the list items.
+
+```javascript
+$('.carousel').carousel({
+    itemsToShow: 3
+});
+```
+
+We can also change the number of items to move when cycling occurs by modifying the `itemsToCycle` option.
+
+```javascript
+$('.carousel').carousel({
+    itemsToShow: 3,
+    itemsToCycle: 3
+});
+```
 
 ### Responsive Support ###
 
@@ -114,6 +168,7 @@ The markup within a caption can be customized extensively and is not enforced by
 ### Notes ###
 
 * The currently shown index will have an `.is-active` class applied to the respective tab.
+* A `.no-next` and `.no-prev` class is added to the carousel to hide next and previous buttons.
 * Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
 * Supports arrow and escape key events.
 

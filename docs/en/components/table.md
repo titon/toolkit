@@ -79,7 +79,7 @@ All columns in a `thead` will need to be wrapped in an `a` or `span`.
 </table>
 ```
 
-Use `.sorter` from the [base component](base.md#sorter) for ascending and descending arrows.
+Use `.sorter` from the [Base component](base.md#sorter) for ascending and descending arrows.
 
 ```html
 <th>
@@ -91,6 +91,19 @@ Use `.sorter` from the [base component](base.md#sorter) for ascending and descen
         </span>
     </a>
 </th>
+```
+
+### Dividers ###
+
+Add a `.table-divider` to a `tbody tr` to separate rows.
+
+```html
+<tbody>
+    <tr class="table-divider">
+        <td colspan="5">Groups</td>
+    </tr>
+    ...
+</tbody>
 ```
 
 ### Responsive Tables ###

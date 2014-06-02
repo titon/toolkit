@@ -112,9 +112,13 @@ $('.off-canvas').offCanvas({
 
 ## ARIA ##
 
-The `complementary` role and the appropriate `aria-*` attributes are required when supporting ARIA.
+The `main` and `complementary` roles and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
+<main class="on-canvas" role="main">
+    ...
+</main>
+
 <aside class="off-canvas off-canvas--left" role="complementary">
     ...
 </aside>

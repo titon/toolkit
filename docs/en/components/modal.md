@@ -27,11 +27,8 @@ $('.js-modal').toolkit('modal', 'show', [null, 'This will be inserted into the m
 Or we can trigger the modal by passing in the node to read from.
 
 ```javascript
-$('.js-modal').toolkit('modal', 'show', $('#add-category'));
-// Loads /categories/add
+$('.js-modal').toolkit('modal', 'show', $('#add-category')); // Loads /categories/add
 ```
-
-[Learn more on accessing component instances.](../development/js/usage.md#accessing-instances)
 
 ### Multiple Modals ###
 

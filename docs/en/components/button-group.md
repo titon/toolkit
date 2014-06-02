@@ -61,7 +61,7 @@ Like size classes, all shape classes can be applied to the group, this includes 
 To stack buttons vertically instead of horizontally, we can use the `.button-group--vertical` modifier.
 
 ```html
-<div class="button-group--vertical">
+<div class="button-group button-group--vertical">
     ...
 </div>
 ```
@@ -69,10 +69,10 @@ To stack buttons vertically instead of horizontally, we can use the `.button-gro
 ### Justified Alignment ###
 
 To span the button group the width of the parent, and equally scale all buttons within,
-we can use the `.button-group--justified` modifier.
+we can add the `.button-group--justified` modifier.
 
 ```html
-<div class="button-group--justified">
+<div class="button-group button-group--justified">
     ...
 </div>
 ```
@@ -132,7 +132,7 @@ The `toolbar` role and the appropriate `aria-*` attributes are required when sup
 When using the vertical modifier, the `aria-orientation` attribute must be defined.
 
 ```html
-<div class="button-group--vertical" role="toolbar" aria-label="Toolbar" aria-orientation="vertical">
+<div class="button-group button-group--vertical" role="toolbar" aria-label="Toolbar" aria-orientation="vertical">
     ...
 </div>
 ```
