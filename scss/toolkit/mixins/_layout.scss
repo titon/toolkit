@@ -1,7 +1,7 @@
 
 // Container clear fix for floats
 @mixin clear-fix {
-    &:after {
+    &::after {
         content: "";
         display: table;
         clear: both;

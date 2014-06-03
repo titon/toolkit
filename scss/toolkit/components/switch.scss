@@ -30,8 +30,8 @@
                 left: 50%;
             }
 
-            &:before { opacity: 1; }
-            &:after { opacity: 0; }
+            &::before { opacity: 1; }
+            &::after { opacity: 0; }
         }
     }
 
@@ -41,8 +41,8 @@
         .#{$vendor-prefix}switch-bar {
             font-size: $small-size;
 
-            &:before,
-            &:after {
+            &::before,
+            &::after {
                 padding: $small-padding;
             }
         }
@@ -58,8 +58,8 @@
         .#{$vendor-prefix}switch-bar {
             font-size: $large-size;
 
-            &:before,
-            &:after {
+            &::before,
+            &::after {
                 padding: $large-padding;
             }
         }
@@ -76,8 +76,8 @@
     font-size: $medium-size;
     transition: background $switch-transition;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         position: absolute;
         padding: $medium-padding;
         top: 0;
@@ -86,13 +86,13 @@
         transition: opacity $switch-transition;
     }
 
-    &:before {
+    &::before {
         left: 0;
         opacity: 0;
         content: attr(data-switch-on);
     }
 
-    &:after {
+    &::after {
         right: 0;
         content: attr(data-switch-off);
     }
@@ -107,15 +107,15 @@
     user-select: none;
     transition: left $switch-transition;
 
-    &:before { content: "\00A0"; } // NBSP
+    &::before { content: "\00A0"; } // NBSP
 }
 
 //-------------------- Modifiers --------------------//
 
 .#{$vendor-prefix}switch--stacked {
     .#{$vendor-prefix}switch-bar {
-        &:before,
-        &:after {
+        &::before,
+        &::after {
             z-index: 3;
             opacity: 1 !important;
         }

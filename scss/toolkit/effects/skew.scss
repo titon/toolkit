@@ -78,7 +78,7 @@
 
 //-------------------- Visual --------------------//
 
-.#{$vendor-prefix}visual-gloss.#{$shape-skew-class}:after {
+.#{$vendor-prefix}visual-gloss.#{$shape-skew-class}::after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem;

@@ -61,7 +61,7 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     border: #{$tooltip-arrow-width}px solid transparent;
     position: absolute;
 
-    &:after {
+    &::after {
         content: "";
         border: #{($tooltip-arrow-width - 2)}px solid transparent;
         position: absolute;

@@ -45,7 +45,7 @@ The following visuals are available:
 ```
 
 <div class="notice is-info">
-    Visual effects make use of <code>:after</code> pseudo elements,
+    Visual effects make use of <code>::after</code> pseudo elements,
     so implementation requires the targeted element to not use pseudos.
 </div>
 

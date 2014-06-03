@@ -87,7 +87,7 @@
 
 //-------------------- Visual --------------------//
 
-.#{$vendor-prefix}visual-gloss.#{$shape-pill-class}:after {
+.#{$vendor-prefix}visual-gloss.#{$shape-pill-class}::after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;

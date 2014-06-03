@@ -80,7 +80,7 @@ and `.is-error` classes can be used.
 ### Effects ###
 
 For fancy visual aesthetics, the `.visual-gloss`, `.visual-reflect`, `.visual-glare`, and `.visual-popout`
-effects can be used. These visuals make use of `:after` pseudo elements to apply their effect.
+effects can be used. These visuals make use of `::after` pseudo elements to apply their effect.
 
 <div class="notice is-warning">
     These classes require the visual effects extension, which isn't part of the default build.

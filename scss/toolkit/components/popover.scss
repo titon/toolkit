@@ -61,7 +61,7 @@ $popover-arrow-width-shadow: ($popover-arrow-width - 2);
 .#{$vendor-prefix}popover-arrow {
     border: #{$popover-arrow-width}px solid transparent;
 
-    &:after {
+    &::after {
         border: #{$popover-arrow-width-shadow}px solid transparent;
         top: -#{$popover-arrow-width-shadow}px;
         left: -#{$popover-arrow-width-shadow}px;

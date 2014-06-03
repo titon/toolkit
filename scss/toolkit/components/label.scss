@@ -30,7 +30,7 @@
 
     &:empty { display: none; }
 
-    &:after {
+    &::after {
         content: "";
         height: 0;
         width: 0;
@@ -54,15 +54,15 @@
     padding-left: 2px;
     margin-left: 10px;
 
-    &:after {
+    &::after {
         top: 0;
         right: 100%;
         border: .65rem solid transparent;
         border-right-color: $gray-dark;
     }
 
-    &.#{$size-small-class}:after { border-width: .5rem; }
-    &.#{$size-large-class}:after { border-width: .75rem; }
+    &.#{$size-small-class}::after { border-width: .5rem; }
+    &.#{$size-large-class}::after { border-width: .75rem; }
 }
 
 .#{$vendor-prefix}label--arrow-right {
@@ -73,15 +73,15 @@
     padding-right: 2px;
     margin-right: 10px;
 
-    &:after {
+    &::after {
         top: 0;
         left: 100%;
         border: .65rem solid transparent;
         border-left-color: $gray-dark;
     }
 
-    &.#{$size-small-class}:after { border-width: .5rem; }
-    &.#{$size-large-class}:after { border-width: .75rem; }
+    &.#{$size-small-class}::after { border-width: .5rem; }
+    &.#{$size-large-class}::after { border-width: .75rem; }
 }
 
 .#{$vendor-prefix}label--ribbon-left {
@@ -90,7 +90,7 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 
-    &:after {
+    &::after {
         top: 100%;
         left: 0;
         border: 1em solid transparent;
@@ -106,7 +106,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 
-    &:after {
+    &::after {
         top: 100%;
         right: 0;
         border: 1em solid transparent;

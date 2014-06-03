@@ -26,7 +26,7 @@
         height: 3em;
 
         // Golden ratio? Seems to work for all font sizes in *most* browsers
-        &:after {
+        &::after {
             height: 2.165em;
             width: 2.165em;
             top: 0.425em;
@@ -50,7 +50,7 @@
 
         &:last-child {
             .#{$vendor-prefix}step {
-                &:after { display: none; }
+                &::after { display: none; }
             }
         }
     }

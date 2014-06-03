@@ -310,41 +310,41 @@ mark { background: lighten($warning-light, 25%); }
 .label--arrow-left {
     @extend .label;
 
-    &:after { border-right-color: $default-light; }
-    &.is-info:after { border-right-color: $info-light; }
-    &.is-error:after { border-right-color: $error-light; }
-    &.is-warning:after { border-right-color: $warning-light; }
-    &.is-success:after { border-right-color: $success-light; }
+    &::after { border-right-color: $default-light; }
+    &.is-info::after { border-right-color: $info-light; }
+    &.is-error::after { border-right-color: $error-light; }
+    &.is-warning::after { border-right-color: $warning-light; }
+    &.is-success::after { border-right-color: $success-light; }
 }
 
 .label--arrow-right {
     @extend .label;
 
-    &:after { border-left-color: $default-light; }
-    &.is-info:after { border-left-color: $info-light; }
-    &.is-error:after { border-left-color: $error-light; }
-    &.is-warning:after { border-left-color: $warning-light; }
-    &.is-success:after { border-left-color: $success-light; }
+    &::after { border-left-color: $default-light; }
+    &.is-info::after { border-left-color: $info-light; }
+    &.is-error::after { border-left-color: $error-light; }
+    &.is-warning::after { border-left-color: $warning-light; }
+    &.is-success::after { border-left-color: $success-light; }
 }
 
 .label--ribbon-left {
     @extend .label;
 
-    &:after { border-right-color: darken($default, 15%); }
-    &.is-info:after { border-right-color: darken($info-light, 15%); }
-    &.is-error:after { border-right-color: darken($error-light, 15%); }
-    &.is-warning:after { border-right-color: darken($warning-light, 15%); }
-    &.is-success:after { border-right-color: darken($success-light, 15%); }
+    &::after { border-right-color: darken($default, 15%); }
+    &.is-info::after { border-right-color: darken($info-light, 15%); }
+    &.is-error::after { border-right-color: darken($error-light, 15%); }
+    &.is-warning::after { border-right-color: darken($warning-light, 15%); }
+    &.is-success::after { border-right-color: darken($success-light, 15%); }
 }
 
 .label--ribbon-right {
     @extend .label;
 
-    &:after { border-left-color: darken($default, 15%); }
-    &.is-info:after { border-left-color: darken($info-light, 15%); }
-    &.is-error:after { border-left-color: darken($error-light, 15%); }
-    &.is-warning:after { border-left-color: darken($warning-light, 15%); }
-    &.is-success:after { border-left-color: darken($success-light, 15%); }
+    &::after { border-left-color: darken($default, 15%); }
+    &.is-info::after { border-left-color: darken($info-light, 15%); }
+    &.is-error::after { border-left-color: darken($error-light, 15%); }
+    &.is-warning::after { border-left-color: darken($warning-light, 15%); }
+    &.is-success::after { border-left-color: darken($success-light, 15%); }
 }
 
 //-------------------- Modal --------------------//
@@ -407,7 +407,7 @@ mark { background: lighten($warning-light, 25%); }
         border-top-color: black(.25);
         transform: translateY(6px);
 
-        &:after {
+        &::after {
             margin-top: -8px;
             border-top: 8px solid #fff;
         }
@@ -417,7 +417,7 @@ mark { background: lighten($warning-light, 25%); }
         border-left-color: black(.25);
         transform: translateX(6px);
 
-        &:after {
+        &::after {
             margin-left: -8px;
             border-left: 8px solid #fff;
         }
@@ -426,7 +426,7 @@ mark { background: lighten($warning-light, 25%); }
     &.center-right .popover-arrow {
         border-right-color: $gray-dark;
 
-        &:after {
+        &::after {
             margin-left: 2px;
             border-right-color: #fff;
         }
@@ -435,7 +435,7 @@ mark { background: lighten($warning-light, 25%); }
     &.bottom-center .popover-arrow {
         border-bottom-color: $gray-dark;
 
-        &:after {
+        &::after {
             margin-top: 2px;
             border-bottom-color: #fff;
         }
@@ -506,20 +506,20 @@ mark { background: lighten($warning-light, 25%); }
     background: $gray;
 }
 
-.step:after {
+.step::after {
     background: $gray;
     border-right: 1px solid $gray-dark;
     border-bottom: 1px solid $gray-dark;
 }
 
 a.step:hover,
-a.step:hover:after {
+a.step:hover::after {
     background: $gray-lightest;
 }
 
 .steps li.is-complete {
     a.step,
-    a.step:after {
+    a.step::after {
         background: $info;
         color: #fff;
     }
@@ -542,8 +542,8 @@ a.step:hover:after {
     background: #fff;
 }
 
-.switch--stacked input:not(:checked) + .switch-bar:before,
-.switch--stacked input:checked + .switch-bar:after {
+.switch--stacked input:not(:checked) + .switch-bar::before,
+.switch--stacked input:checked + .switch-bar::after {
     color: $foreground-color;
 }
 
