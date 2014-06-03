@@ -78,6 +78,10 @@ $('.tabs').tabs({
 });
 ```
 
+<div class="notice is-info">
+    When using cookies, a <code>$.cookie()</code> method needs to exist on the jQuery object.
+</div>
+
 The second is through the hash fragment in the URL.
 We can either update the hash manually when a tab is clicked,
 or disable `preventDefault` and set the `href` to IDs.

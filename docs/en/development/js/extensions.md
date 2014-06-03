@@ -142,26 +142,6 @@ var data = [1, 2, 3, 4, 5];
 $.bound(-1, data.length); // 4
 ```
 
-### cookie(`string:key`, `mixed:value`[, `object:options`]) ###
-
-Set a cookie with optional configuration settings. The following settings are available:
-`expires` (a number in hours), `path`, `domain`, and `secure`.
-
-```javascript
-$.cookie('foo', 'bar', {
-    expires: 24, // expires in 24 hours
-    secure: true
-});
-```
-
-### removeCookie(`string:key`[, `object:options`]) ###
-
-Remove a cookie defined by key. Will require the same settings that were used for creation.
-
-```javascript
-$.removeCookie('foo');
-```
-
 ## Events ##
 
 These custom events can be used for common functionality.

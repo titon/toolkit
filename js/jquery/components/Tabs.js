@@ -66,7 +66,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     // Trigger default tab to display
     var index = options.defaultIndex;
 
-    if (options.persistState && options.cookie) {
+    if (options.persistState && options.cookie && $.cookie) {
         index = $.cookie('toolkit.tabs.' + options.cookie);
     }
 
@@ -176,7 +176,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
         }
 
         // Persist the state using a cookie
-        if (options.persistState) {
+        if (options.persistState && $.cookie) {
             $.cookie('toolkit.tabs.' + options.cookie, index, {
                 expires: options.cookieDuration
             });
