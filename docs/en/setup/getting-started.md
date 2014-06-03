@@ -44,8 +44,7 @@ These files are also available through [Bower](http://bower.io). These files inc
 toolkit/
 └── dist/
     ├── toolkit.min.css
-    ├── toolkit-jquery.min.js
-    └── toolkit-mootools.min.js
+    └── toolkit.min.js
 ```
 
 Simply include the files in your application to gain all of Toolkit's functionality.
@@ -58,7 +57,7 @@ This is where all development and engineering is focused. These files will later
 ```
 toolkit/
 ├── js/
-|   └── jquery|mootools/
+|   └── jquery/
 |       ├── components/
 |       ├── Component.js
 |       └── Toolkit.js
@@ -104,7 +103,7 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
         <link href="css/toolkit.min.css" rel="stylesheet">
         <link href="css/style.min.css" rel="stylesheet">
         <script src="js/jquery.min.js"></script>
-        <script src="js/toolkit-jquery.min.js"></script>
+        <script src="js/toolkit.min.js"></script>
     </head>
     <body>
     </body>

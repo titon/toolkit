@@ -3,7 +3,7 @@
     "name": "toolkit",
     "description": "A collection of extensible front-end UI components for the responsive and mobile web.",
     "keywords": [
-        "titon", "toolkit", "css", "sass", "scss", "mootools", "jquery", "javascript", "ui", "interface",
+        "titon", "toolkit", "css", "sass", "scss", "jquery", "javascript", "ui", "interface",
         "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile"
     ],
     "copyright": "Copyright 2010-2014, The Titon Project",
@@ -12,8 +12,7 @@
     "author": ["Miles Johnson"],
     "main": [
         "dist/toolkit.min.css",
-        "dist/toolkit-jquery.min.js",
-        "dist/toolkit-mootools.min.js"
+        "dist/toolkit.min.js"
     ],
     "ignore": [
         ".*",

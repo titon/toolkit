@@ -1,16 +1,14 @@
-var compartment = require('compartment');
+var Compartment = require('compartment');
 
 module.exports = function(grunt) {
     var _ = grunt.util._,
-        graph = new compartment(),
+        graph = new Compartment(),
         banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage %> */\n";
 
     graph.loadManifest(__dirname + '/manifest.json');
     graph.addTypes({
-        js: 'js/library/',
-        css: 'css/toolkit/',
-        moo: '',
-        jquery: ''
+        js: 'js/jquery/',
+        css: 'css/toolkit/'
     });
 
     /**
@@ -76,14 +74,6 @@ module.exports = function(grunt) {
 
     var jsPaths = graph.getPaths('js'),
         cssPaths = graph.getPaths('css'),
-        mooPaths = jsPaths.map(function(path) {
-            return path.replace('library', 'mootools');
-        }),
-        jqueryPaths = jsPaths.map(function(path) {
-            return path.replace('library', 'jquery');
-        }).filter(function(path) {
-            return !_.contains(path, 'Cache.js') && !_.contains(path, 'Timers.js');
-        }),
         scssPaths = [{
             expand: true,
             cwd: 'scss/',
@@ -141,15 +131,13 @@ module.exports = function(grunt) {
             build: {
                 files: [
                     { src: cssPaths, dest: 'build/toolkit.min.css' },
-                    { src: jqueryPaths, dest: 'build/toolkit-jquery.min.js' },
-                    { src: mooPaths, dest: 'build/toolkit-mootools.min.js' }
+                    { src: jsPaths, dest: 'build/toolkit.min.js' }
                 ]
             },
             dist: {
                 files: [
                     { src: cssPaths, dest: 'dist/toolkit.min.css' },
-                    { src: jqueryPaths, dest: 'dist/toolkit-jquery.min.js' },
-                    { src: mooPaths, dest: 'dist/toolkit-mootools.min.js' }
+                    { src: jsPaths, dest: 'dist/toolkit.min.js' }
                 ]
             }
         },
@@ -180,20 +168,17 @@ module.exports = function(grunt) {
                     beautify: true
                 },
                 files: {
-                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
-                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
+                    'build/toolkit.min.js': 'build/toolkit.min.js'
                 }
             },
             prod: {
                 files: {
-                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
-                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
+                    'build/toolkit.min.js': 'build/toolkit.min.js'
                 }
             },
             dist: {
                 files: {
-                    'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
-                    'dist/toolkit-mootools.min.js': 'dist/toolkit-mootools.min.js'
+                    'dist/toolkit.min.js': 'dist/toolkit.min.js'
                 }
             }
         },
@@ -229,8 +214,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'build/toolkit.min.css': 'build/toolkit.min.css',
-                    'build/toolkit-jquery.min.js': 'build/toolkit-jquery.min.js',
-                    'build/toolkit-mootools.min.js': 'build/toolkit-mootools.min.js'
+                    'build/toolkit.min.js': 'build/toolkit.min.js'
                 }
             },
             dist: {
@@ -243,8 +227,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/toolkit.min.css': 'dist/toolkit.min.css',
-                    'dist/toolkit-jquery.min.js': 'dist/toolkit-jquery.min.js',
-                    'dist/toolkit-mootools.min.js': 'dist/toolkit-mootools.min.js'
+                    'dist/toolkit.min.js': 'dist/toolkit.min.js'
                 }
             }
         },

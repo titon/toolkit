@@ -211,12 +211,6 @@ The following options are shared between all components.
             <td>Whether to cache the response of AJAX requests.</td>
         </tr>
         <tr>
-            <td>delegate</td>
-            <td>string</td>
-            <td></td>
-            <td>The CSS selector to bind delegated events to. Is only required for activated components. (MooTools only)</td>
-        </tr>
-        <tr>
             <td>className</td>
             <td>string</td>
             <td></td>
@@ -258,7 +252,7 @@ $('.carousel').carousel({
 
 ### Namespaced Events ###
 
-If you're using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
+When using jQuery, you have the option of attaching namespaced events to the element that was initialized by a component.
 The difference between element events and option events (above) is the ability to define multiple handlers for element events,
 and to define them outside of the component. Take the following for example.
 
@@ -441,27 +435,19 @@ The following methods are available on all class instances.
     <thead>
         <tr>
             <th>Method</th>
-            <th>Vendor</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>createElement()</td>
-            <td>Both</td>
             <td>
                 Create an element from the <code>template</code> or <code>templateFrom</code> options.
                 Will set class names on the element based on defined options.
             </td>
         </tr>
         <tr>
-            <td>parseTemplate(string:template)</td>
-            <td>MooTools</td>
-            <td>Parse a template string into a set of DOM elements.</td>
-        </tr>
-        <tr>
             <td>setOptions(object:options[, element:inheritFrom])</td>
-            <td>Both</td>
             <td>
                 Set the options to use in the component.
                 Will alter options based on current device and will inherit from data attributes if an element is passed.
@@ -469,42 +455,34 @@ The following methods are available on all class instances.
         </tr>
         <tr>
             <td>inheritOptions(object:options, element:element)</td>
-            <td>Both</td>
             <td>Inherit and merge options from the target elements data attributes.</td>
         </tr>
         <tr>
             <td>bindEvents(string:type)</td>
-            <td>Both</td>
             <td>Add or remove events for elements found in the <code>events</code> object mapping.</td>
         </tr>
         <tr>
             <td>enable()</td>
-            <td>Both</td>
             <td>Enable the component and bind events.</td>
         </tr>
         <tr>
             <td>disable()</td>
-            <td>Both</td>
             <td>Disable the component and unbind events.</td>
         </tr>
         <tr>
             <td>destroy()</td>
-            <td>Both</td>
             <td>Disable the component, unbind events, remove elements, and delete the instance.</td>
         </tr>
         <tr>
             <td>fireEvent(string:event[, array:args])</td>
-            <td>Both</td>
             <td>Trigger an event with optional arguments to pass. Will find an event within the options object.</td>
         </tr>
         <tr>
             <td>readOption(element:element, string:key)</td>
-            <td>Both</td>
             <td>Read an option from an elements data attribute, else fallback to the original option.</td>
         </tr>
         <tr>
             <td>readValue(element:element, mixed:query)</td>
-            <td>Both</td>
             <td>
                 Extract a value from an element using a defined query.
                 The query may be an element property, attribute, or function callback.
@@ -512,7 +490,6 @@ The following methods are available on all class instances.
         </tr>
         <tr>
             <td>requestData(object:options[, func:before[, func:done[, func:fail]]])</td>
-            <td>Both</td>
             <td>
                 Requests data from a URL using an AJAX call.
                 Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.
@@ -522,7 +499,6 @@ The following methods are available on all class instances.
         </tr>
         <tr>
             <td>process(mixed:response)</td>
-            <td>Both</td>
             <td>
                 Handles non-HTML AJAX responses.
                 If the response is JSON and a <code>callback</code> property exists,
@@ -531,27 +507,19 @@ The following methods are available on all class instances.
         </tr>
         <tr>
             <td>position(string:response)</td>
-            <td>Both</td>
             <td>Handles HTML AJAX responses. Will re-position the element.</td>
         </tr>
         <tr>
             <td>show([element:node])</td>
-            <td>Both</td>
             <td>Show the element and set an optional activating node.</td>
         </tr>
         <tr>
             <td>hide([func:callback])</td>
-            <td>Both</td>
             <td>Hide the element and trigger an optional callback function.</td>
         </tr>
         <tr>
             <td>id([string:...args])</td>
-            <td>Both</td>
             <td>Generate a unique CSS class name using the components name, UID, and defined arguments.</td>
         </tr>
     </tbody>
 </table>
-
-<div class="notice is-warning">
-    Method availability, functionality, and argument ordering may differ between the jQuery and MooTools versions.
-</div>

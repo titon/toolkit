@@ -13,7 +13,7 @@ $('.js-tooltip').toolkitTooltip();
 ```
 
 If for any reason the Toolkit method is lost, or overridden by another library,
-components can be instantiated manually outside of the jQuery or MooTools syntax.
+components can be instantiated manually outside of the jQuery syntax.
 
 ```javascript
 new Toolkit.Tooltip($('.js-tooltip'), {});

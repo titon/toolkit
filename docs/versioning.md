@@ -18,7 +18,6 @@ These docs are for internal use only.
 * Update `changelog.md` and the changelog found in docs
 * Prepare release with `grunt distribute`
     * Fix the comment docblocks
-    * Remove `$` and `jQuery` from the MooTools compiled file
     * Remove `http://` from URLs
 * Quick tests with the distribution files
 * Verify changes with `git diff`

@@ -20,7 +20,6 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     visibility: hidden;
     background: #000;
     color: #fff;
-    box-sizing: content-box; // Required or else MooTools position() is off
 
     &.center-left .#{$vendor-prefix}tooltip-arrow,
     &.center-right .#{$vendor-prefix}tooltip-arrow {

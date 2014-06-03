@@ -13,7 +13,6 @@
     z-index: $flyout-zindex;
     opacity: 0;
     visibility: hidden;
-    box-sizing: content-box; // required by MooTools for multi columns
     transition: opacity $flyout-transition, visibility $flyout-transition;
 
     ul {

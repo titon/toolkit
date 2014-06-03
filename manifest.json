@@ -18,9 +18,7 @@
         "priority": 1,
         "source": {
             "css": ["layout/base.css"],
-            "js": ["Toolkit.js", "Component.js"],
-            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"],
-            "jquery": ["Core"]
+            "js": ["Toolkit.js", "Component.js"]
         }
     },
     "typography": {
@@ -120,17 +118,6 @@
             "css": ["components/button-group.css"]
         }
     },
-    "cache": {
-        "name": "Cache",
-        "description": "A MooTools class for caching data within the class layer.",
-        "category": "component",
-        "type": "class",
-        "priority": 10,
-        "source": {
-            "js": ["class/Cache.js"],
-            "moo": ["Core"]
-        }
-    },
     "carousel": {
         "name": "Carousel",
         "description": "Cycles through items using a slide or fade animation.",
@@ -172,7 +159,7 @@
         "category": "component",
         "type": "module",
         "priority": 10,
-        "require": ["base", "timers"],
+        "require": ["base"],
         "source": {
             "css": ["components/flyout.css"],
             "js": ["components/Flyout.js"]
@@ -243,8 +230,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/lazy-load.css"],
-            "js": ["components/LazyLoad.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/LazyLoad.js"]
         }
     },
     "loader": {
@@ -293,9 +279,7 @@
         "require": ["base", "blackout"],
         "source": {
             "css": ["components/modal.css"],
-            "js": ["components/Modal.js"],
-            "moo": ["More/Drag"],
-            "jquery": ["UI/Draggable"]
+            "js": ["components/Modal.js"]
         }
     },
     "notice": {
@@ -342,8 +326,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/pin.css"],
-            "js": ["components/Pin.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/Pin.js"]
         }
     },
     "popover": {
@@ -378,8 +361,7 @@
         "require": ["base", "blackout"],
         "source": {
             "css": ["components/showcase.css"],
-            "js": ["components/Showcase.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/Showcase.js"]
         }
     },
     "stalker": {
@@ -390,8 +372,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "js": ["components/Stalker.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/Stalker.js"]
         }
     },
     "step": {
@@ -441,17 +422,6 @@
             "js": ["components/Tabs.js"]
         }
     },
-    "timers": {
-        "name": "Timers",
-        "description": "A MooTools class for handling timeouts within the class layer.",
-        "category": "component",
-        "type": "class",
-        "priority": 10,
-        "source": {
-            "js": ["class/Timers.js"],
-            "moo": ["Core"]
-        }
-    },
     "toast": {
         "name": "Toast",
         "description": "Provides feedback about an operation through a timed popup.",
@@ -474,8 +444,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/tooltip.css"],
-            "js": ["components/Tooltip.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/Tooltip.js"]
         }
     },
     "typeAhead": {
@@ -484,7 +453,7 @@
         "category": "component",
         "type": "module",
         "priority": 10,
-        "require": ["base", "cache"],
+        "require": ["base"],
         "source": {
             "css": ["components/type-ahead.css"],
             "js": ["components/TypeAhead.js"]

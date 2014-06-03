@@ -142,12 +142,6 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>delegate</td>
-            <td>string</td>
-            <td>.js-tooltip</td>
-            <td>CSS selector to apply event delegation to. (MooTools only)</td>
-        </tr>
-        <tr>
             <td>position</td>
             <td>string</td>
             <td>top-center</td>

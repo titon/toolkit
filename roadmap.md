@@ -3,7 +3,6 @@
 All releases will contain bug fixing and polishing for current features.
 
 ### 2.0.0 ###
-* Remove the MooTools port.
 * Remove CSS dependencies from the JS layer, use the DOM (classes vs attributes, semantic tags).
 * Make CSS class names customizable.
 * Move CSS component styles into mixins, that are inherited into classes.

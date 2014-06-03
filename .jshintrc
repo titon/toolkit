@@ -1,6 +1,5 @@
 {
     "browser": true,
-    "mootools": true,
     "jquery": true,
 
     "curly": true,
