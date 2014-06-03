@@ -391,7 +391,9 @@ $.fn.transitionend = function(data, fn) {
         this.one(name, null, data, fn);
 
         // No transition defined so trigger callback immediately
-        if (this.css('transition-duration') === '0s') {
+        var duration = this.css("transition-duration");
+
+        if (duration === "0s" || typeof duration === 'undefined') {
             this.trigger(name);
         }
     } else {

@@ -45,13 +45,13 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
         // Set a timeout to trigger show transition
         setTimeout(function() {
             self.show(toast);
-        }, 10);
+        }, 15); // IE needs a minimum of 15
 
         // Set a timeout to remove the toast
         if (options.duration) {
             setTimeout(function() {
                 self.hide(toast);
-            }, options.duration + 10);
+            }, options.duration + 15);
         }
     },
 

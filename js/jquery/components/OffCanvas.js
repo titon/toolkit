@@ -137,7 +137,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         setTimeout(function() {
             sidebar.removeClass(transClass);
             inner.removeClass(transClass);
-        }, 1);
+        }, 15); // IE needs a minimum of 15
     },
 
     /**

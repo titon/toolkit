@@ -84,7 +84,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
             this.element
                 .removeAttr('style')
                 .removeClass('is-pinned');
-        }.bind(this), 10);
+        }.bind(this), 15);
     },
 
     /**

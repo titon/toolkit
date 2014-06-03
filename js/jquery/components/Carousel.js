@@ -263,7 +263,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         // Set in a timeout or transition will still occur
         setTimeout(function() {
             container.removeClass('no-transition');
-        }, 10);
+        }, 15); // IE needs a minimum of 15
     },
 
     /**
