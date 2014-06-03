@@ -6,7 +6,7 @@
 
 Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.component = 'Toast';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.options = options = this.setOptions(options);
     this.element = this.createElement()
         .addClass(options.position)

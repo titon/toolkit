@@ -8,9 +8,9 @@ If a cell is blue, than either partial support is provided, or the component has
 
 The following libraries are being compared:
 
-* Foundation 5.2.2
+* Foundation 5.2.3
 * Bootstrap 3.1.1
-* Semantic UI 0.16.1
+* Semantic UI 0.17.0
 
 <div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
@@ -48,17 +48,17 @@ The following table represents the minified un-gzipped distribution files for ea
         </tr>
         <tr>
             <td>CSS Filesize</td>
-            <td>60KB</td>
-            <td>117KB</td>
+            <td>58KB</td>
+            <td>123KB</td>
             <td>113KB</td>
-            <td>233KB</td>
+            <td>234KB</td>
         </tr>
         <tr>
             <td>JS Filesize</td>
-            <td>59KB</td>
-            <td>91KB</td>
+            <td>62KB</td>
+            <td>93KB</td>
             <td>29KB</td>
-            <td>136KB</td>
+            <td>137KB</td>
         </tr>
         <tr>
             <td>Images</td>

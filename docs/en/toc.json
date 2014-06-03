@@ -47,8 +47,7 @@
                             "title": "Conventions",
                             "url": "/development/js/conventions"
                         }
-                    ],
-                    "updated": true
+                    ]
                 }, {
                     "title": "CSS",
                     "url": "/development/css",
@@ -66,8 +65,7 @@
                             "title": "Reserved Classes",
                             "url": "/development/css/reserved"
                         }
-                    ],
-                    "updated": true
+                    ]
                 }, {
                     "title": "Sass",
                     "url": "/development/sass",
@@ -85,8 +83,7 @@
                             "title": "Functions",
                             "url": "/development/sass/functions"
                         }
-                    ],
-                    "updated": true
+                    ]
                 }
             ]
         }, {
@@ -113,14 +110,14 @@
                     "url": "/components/button-group"
                 }, {
                     "title": "Carousel",
-                    "url": "/components/carousel"
+                    "url": "/components/carousel",
+                    "updated": true
                 }, {
                     "title": "Code",
                     "url": "/components/code"
                 }, {
                     "title": "Divider",
-                    "url": "/components/divider",
-                    "new": true
+                    "url": "/components/divider"
                 }, {
                     "title": "Drop",
                     "url": "/components/drop"
@@ -168,8 +165,7 @@
                     "url": "/components/notice"
                 }, {
                     "title": "Off Canvas",
-                    "url": "/components/off-canvas",
-                    "new": true
+                    "url": "/components/off-canvas"
                 }, {
                     "title": "Pagination",
                     "url": "/components/pagination"
@@ -205,8 +201,7 @@
                     "url": "/components/tabs"
                 }, {
                     "title": "Toast",
-                    "url": "/components/toast",
-                    "new": true
+                    "url": "/components/toast"
                 }, {
                     "title": "Tooltip",
                     "url": "/components/tooltip"
@@ -231,8 +226,7 @@
                     "updated": true
                 }, {
                     "title": "Contributing",
-                    "url": "/support/contributing",
-                    "new": true
+                    "url": "/support/contributing"
                 }, {
                     "title": "Changelog",
                     "url": "/support/changelog"
