@@ -10,6 +10,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.options = options = this.setOptions(options);
     this.element = this.createElement()
         .addClass(options.position)
+        .removeClass(options.animation)
         .attr('role', 'log')
         .aria({
             relevant: 'additions',
@@ -44,13 +45,13 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
         // Set a timeout to trigger show transition
         setTimeout(function() {
             self.show(toast);
-        }, 10);
+        }, 15); // IE needs a minimum of 15
 
         // Set a timeout to remove the toast
         if (options.duration) {
             setTimeout(function() {
                 self.hide(toast);
-            }, options.duration + 10);
+            }, options.duration + 15);
         }
     },
 
@@ -65,7 +66,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
 
         this.fireEvent('hide', element); // Must be called first since the element gets removed
 
-        element.one(Toolkit.transitionEnd, function() {
+        element.transitionend(function() {
             $(this).remove();
         }).conceal();
     },

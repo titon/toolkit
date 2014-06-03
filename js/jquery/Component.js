@@ -411,6 +411,16 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             opts = this.inheritOptions(opts, inheritFrom);
         }
 
+        // Inherit options based on responsive media queries
+        if (opts.responsive && window.matchMedia) {
+            $.each(opts.responsive, function(key, resOpts) {
+                if (matchMedia(resOpts.breakpoint).matches) {
+                    $.extend(opts, resOpts);
+                    return false;
+                }
+            });
+        }
+
         // Convert hover to mouseenter
         if (opts.mode && opts.mode === 'hover') {
 

@@ -2,17 +2,6 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 1.5.0 ###
-* Add more features support to Carousel.
-    * Use pixels instead of percentages for transitions.
-    * Add support for multiple items displayed at once.
-    * Add support for variable amount of items being cycled at once.
-    * Add support for infinite scrolling (move items around).
-* Add deferred/promise integration.
-* Make nested menus expandable on touch devices (drop).
-* Rename Tabs to Tab.
-* Remove cookie dependency.
-
 ### 2.0.0 ###
 * Remove the MooTools port.
 * Remove CSS dependencies from the JS layer, use the DOM (classes vs attributes, semantic tags).
@@ -27,6 +16,8 @@ All releases will contain bug fixing and polishing for current features.
 * Refactor events for before/after conditions.
 * RTL support.
 * Add debug option.
+* Rename Tabs to Tab.
+* Remove cookie dependency.
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
 
 ### 3.0.0 ###

@@ -24,7 +24,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
     // Setup container
     this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
-    this.primary = element.siblings('.' + vendor + 'on-canvas');
+    this.primary = element.siblings('.' + vendor + 'on-canvas').attr('role', 'main');
     this.secondary = element.siblings('.' + vendor + 'off-canvas');
 
     // Determine the side
@@ -137,7 +137,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         setTimeout(function() {
             sidebar.removeClass(transClass);
             inner.removeClass(transClass);
-        }, 1);
+        }, 15); // IE needs a minimum of 15
     },
 
     /**

@@ -1,0 +1,94 @@
+<ul class="demo--lazy-load">
+    <li>
+        <div class="demo-image lazy-load" style="background-image: url('http://placehold.it/200x200/4c6278/ffffff');">
+        </div>
+
+        <h3>Primordials</h3>
+
+        <p>In Greek mythology the primordial deities are the first entities or beings that come into existence.
+            These deities are a group of gods from which all the other gods descend. They preceded the Titans,
+            the descendants of Gaia and Uranus.</p>
+
+        <p>The primordial gods are depicted as places or realms. A common example is Tartarus,
+            who is depicted as the Underworld, Hell, and a bottomless abyss. His sibling, Erebus,
+            is also depicted as a place of pitch-black darkness or a vast emptiness of space.
+            Their mother, Chaos, is depicted as an empty void. Other siblings that include Gaia are depicted
+            as Mother Nature or the Earth. Pontus or Hydros are depicted as the oceans, lakes, and rivers.
+            Chronos is depicted as time and of eternity.</p>
+    </li>
+
+    <li>
+        <div class="demo-image lazy-load" style="background-image: url('http://placehold.it/200x200/42586e/ffffff');">
+        </div>
+
+        <h3>Titans</h3>
+
+        <p>Titans were a primeval race of powerful deities, descendants of Gaia (Earth) and Uranus (Sky),
+            that ruled during the legendary Golden Age. They were immortal giants of incredible strength and
+            were also the first pantheon of Greek gods and goddesses.</p>
+
+        <p>In the first generation of twelve Titans, the males were Oceanus, Hyperion, Coeus, Cronus, Crius,
+            and Iapetus and the females—the Titanesses or Titanides—were Mnemosyne, Tethys, Theia, Phoebe, Rhea,
+            and Themis. The second generation of Titans consisted of Hyperion's children Helios, Selene and Eos;
+            Coeus's daughters Leto and Asteria; Iapetus's children Atlas, Prometheus, Epimetheus, and Menoetius;
+            Oceanus' daughter Metis; and Crius' sons Astraeus, Pallas, and Perses.</p>
+    </li>
+
+    <li>
+        <div class="demo-image lazy-load" style="background-image: url('http://placehold.it/200x200/344a5f/ffffff');">
+        </div>
+
+        <h3>Olympians</h3>
+
+        <p>In the ancient Greek religion, the Twelve Olympians are the major deities of the Greek pantheon,
+            commonly considered to be Zeus, Hera, Poseidon, Demeter, Athena, Apollo, Artemis, Ares, Aphrodite,
+            Hephaestus, Hermes and either Hestia, or Dionysus. Hades and Persephone were sometimes included as
+            part of the twelve Olympians (primarily due to the influence of the Eleusinian Mysteries),
+            although in general Hades was excluded, because he resided permanently in the underworld and never
+            visited Mount Olympus. Heracles and Asclepius were sometimes included as well.</p>
+    </li>
+
+    <li>
+        <div class="demo-image lazy-load" style="background-image: url('http://placehold.it/200x200/293f54/ffffff');">
+        </div>
+
+        <h3>Muses</h3>
+
+        <p>The Muses, in Greek mythology, poetry and literature, are the goddesses of the inspiration of literature,
+            science and the arts. They were considered the source of the knowledge, related orally for centuries in
+            the ancient culture, that was contained in poetic lyrics and myths.</p>
+
+        <p>The Muses were both the embodiments and sponsors of performed metrical speech:
+            mousike was just "one of the arts of the Muses". Others included Science, Geography, Mathematics,
+            Philosophy, and especially Art, Drama, and inspiration. Some authors invoke Muses when writing poetry,
+            hymns or epic history. The invocation typically occurs at or near the beginning, and calls for help or
+            inspiration, or simply invites the Muse to sing through the author. </p>
+    </li>
+
+    <li>
+        <div class="demo-image lazy-load" style="background-image: url('http://placehold.it/200x200/283442/ffffff');">
+        </div>
+
+        <h3>Nymphs</h3>
+
+        <p>A nymph in Greek mythology and in Latin mythology is a minor female nature deity typically associated
+            with a particular location or landform. Different from goddesses, nymphs are generally regarded as
+            divine spirits who animate nature, and are usually depicted as beautiful, young nubile maidens who
+            love to dance and sing; their amorous freedom sets them apart from the restricted and chaste wives
+            and daughters of the Greek polis. They are believed to dwell in mountains and groves, by springs
+            and rivers, and also in trees and in valleys and cool grottoes. Although they would never die of
+            old age nor illness, and could give birth to fully immortal children if mated to a god, they
+            themselves were not necessarily immortal, and could be beholden to death in various forms.
+            Charybdis and Scylla were once nymphs.</p>
+    </li>
+</ul>
+
+<script>
+    $(function() {
+        $('.lazy-load').each(function() {
+            $(this).attr('style', $(this).attr('style').replace("');", '?' + Date.now() + "');")); // Cache busting
+        });
+
+        $('.demo--lazy-load').lazyLoad();
+    });
+</script>

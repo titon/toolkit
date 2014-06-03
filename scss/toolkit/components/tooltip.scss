@@ -73,7 +73,9 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
 .#{$vendor-prefix}tooltip,
 .#{$vendor-prefix}popover {
-    transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
+    #{join-classes($popover-tooltip-animation)} {
+        transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
+    }
 
     @if index($popover-tooltip-animation, "fade") {
         &.fade {

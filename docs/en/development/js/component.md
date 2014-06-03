@@ -145,6 +145,45 @@ $('.js-tooltip').tooltip({
 });
 ```
 
+### Responsive Options ###
+
+For situations where component options need to change depending on the size of the device, the `responsive` option
+can be used (this option can be used by *all* components). This option should define an object of settings,
+with each setting having a `breakpoint` to compare against, and the custom options to override with.
+
+For example, our carousel should have different item counts depending on device size.
+The default options will apply to all devices not found in the breakpoints.
+
+```javascript
+$('.carousel').carousel({
+    itemsToShow: 3,
+    responsive: {
+        tablet: {
+            breakpoint: '(min-width: 768px) and (max-width: 1024px)',
+            itemsToShow: 2
+        },
+        mobile: {
+            breakpoint: '(max-width: 480px)',
+            itemsToShow: 1
+        }
+    }
+});
+```
+
+<div class="notice is-info">
+    Breakpoint detection uses the built in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia()</a> function.
+    All breakpoint definitions should follow the media query specification.
+</div>
+
+<div class="notice is-warning">
+    Breakpoint detection only triggers on the initial page load, and will not trigger if you resize your browser
+    manually by resizing the OS window.
+</div>
+
+<div class="notice is-error">
+    The <code>matchMedia()</code> function is not available in IE9 and below, and will require a polyfill.
+</div>
+
 ### Shared Options ###
 
 The following options are shared between all components.

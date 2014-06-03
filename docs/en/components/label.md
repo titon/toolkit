@@ -22,7 +22,7 @@ Highlight new or unread notifications by using a `.label--badge`.
 A badge is represented with a circular shape.
 
 ```html
-<a href="/messages">Inbox <span class="label--badge">26</span></a>
+<a href="/messages">Inbox <span class="label label--badge">26</span></a>
 ```
 
 ### Arrows ###
@@ -31,7 +31,7 @@ Attract attention to an item by using `.label--arrow-left` or `.label--arrow-rig
 An arrow looks like a regular label, with one side pointing in a direction.
 
 ```html
-<a href="/archives">Archives <span class="label--arrow-right">View</span></a>
+<a href="/archives">Archives <span class="label label--arrow-right">View</span></a>
 ```
 
 ### Ribbons ###
@@ -41,5 +41,13 @@ Improve the aesthetics of a label by wrapping it around another element using
 with one side folding down as if it's wrapping an element.
 
 ```html
-<span class="label--ribbon-left">Task List</span>
+<span class="label label--ribbon-left">Task List</span>
+```
+
+### Sizes ###
+
+Adding a `.small` or `.large` class to the `.label` element will alter the padding and font size.
+
+```html
+<span class="label small">Small Label</span>
 ```

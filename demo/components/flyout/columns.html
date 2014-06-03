@@ -1,0 +1,23 @@
+<p>Click links for flyout menu.</p>
+
+<nav class="breadcrumb" role="navigation" aria-label="Flyout Navigation">
+    <ol>
+        <li><a href="/" class="js-flyout">Deities <span class="caret">/</span></a></li>
+        <li><a href="/primordial" class="js-flyout">Primordial <span class="caret">/</span></a></li>
+        <li><a href="/primordial/gaia" class="js-flyout">Gaia <span class="caret">/</span></a></li>
+        <li><a href="/primordial/gaia/uranus" class="js-flyout">Uranus <span class="caret">/</span></a></li>
+    </ol>
+</nav>
+
+<script>
+    $(function() {
+        $(document).on('click', 'a', function(e) {
+            e.preventDefault(); // Disable link clicking in demo
+        });
+
+        $('.js-flyout').flyout('ajax/data.json', {
+            mode: 'click',
+            itemLimit: 5
+        });
+    });
+</script>

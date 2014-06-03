@@ -1,0 +1,44 @@
+<form action="" method="get" id="form">
+    <div class="field">
+        <label class="field-label" for="titans">Titans</label>
+        <select id="titans" class="input" name="titans">
+            <option value="Cronus">Cronus</option>
+            <option value="Rhea" disabled>Rhea</option>
+            <option value="Oceanus">Oceanus</option>
+            <option value="Tethys">Tethys</option>
+            <option value="Hyperion">Hyperion</option>
+            <option value="Theia">Theia</option>
+            <option value="Coeus">Coeus</option>
+            <option value="Phoebe">Phoebe</option>
+            <option value="Mnemosyne">Mnemosyne</option>
+            <option value="Themis">Themis</option>
+            <option value="Crius">Crius</option>
+            <option value="Iapetus">Iapetus</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label class="field-label" for="olympians">Olympians</label>
+        <select id="olympians" class="input" name="olympians">
+            <option value="Zeus">Zeus</option>
+            <option value="Hera">Hera</option>
+            <option value="Poseidon">Poseidon</option>
+            <option value="Demeter" disabled>Demeter</option>
+            <option value="Athena">Athena</option>
+            <option value="Apollo">Apollo</option>
+            <option value="Artemis">Artemis</option>
+            <option value="Ares">Ares</option>
+            <option value="Aphrodite">Aphrodite</option>
+            <option value="Hephaestus">Hephaestus</option>
+            <option value="Hermes">Hermes</option>
+            <option value="Hestia">Hestia</option>
+            <option value="Dionysus">Dionysus</option>
+        </select>
+    </div>
+</form>
+
+<script>
+    $(function() {
+        $('#form').input();
+    });
+</script>

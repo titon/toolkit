@@ -136,6 +136,20 @@ mark { background: lighten($warning-light, 25%); }
     &:hover { opacity: 1; }
 }
 
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: $padding;
+    color: #fff;
+    background: black(.7);
+
+    @include in-small {
+        @include size-small;
+    }
+}
+
 //-------------------- Drop --------------------//
 
 .drop {
@@ -482,7 +496,7 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .showcase-items {
-    background: #000;
+    background: $gray;
 }
 
 //-------------------- Step --------------------//
@@ -536,7 +550,7 @@ a.step:hover:after {
 //-------------------- Tooltip --------------------//
 
 .tooltip {
-    background: black(.70);
+    background: black(.85);
     color: #fff;
     border-radius: $round;
     margin: 10px;

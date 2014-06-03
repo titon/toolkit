@@ -34,6 +34,16 @@ An `a` tag can be used in place of a `span` to link steps or trigger JavaScript.
 <li><a href="#review" class="step">Review</a></li>
 ```
 
+### Sizes ###
+
+Adding a `.small` or `.large` class to the `.steps` element will alter the font size.
+
+```html
+<nav class="steps large">
+    ...
+</nav>
+```
+
 ### Notes ###
 
 * Style the `ol` instead of the wrapping `.steps` for inline block structuring.

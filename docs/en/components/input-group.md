@@ -37,7 +37,7 @@ And lastly, it can be used as the last element.
 </div>
 ```
 
-### Sizing ###
+### Sizes ###
 
 Adding `.small` or `.large` to the `.input-group` will resize the inner inputs, addons, and
 buttons accordingly.

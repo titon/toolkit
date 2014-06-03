@@ -29,7 +29,7 @@ A loading animation can be inserted within the center of the blackout by definin
 This animation makes use of the [Loader component](loader.md), and the `loader` values must related to
 the types found within the Loader component.
 
-When defining hte animation, the options must be set globally on the Blackout component.
+When defining the animation, the options must be set globally on the Blackout component.
 
 ```javascript
 $.extend(Toolkit.Blackout.options, {

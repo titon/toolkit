@@ -102,7 +102,7 @@ Toolkit.Pin = new Class({
             this.element
                 .removeProperty('style')
                 .removeClass('is-pinned');
-        }.bind(this), 10);
+        }.bind(this), 15);
     },
 
     /**

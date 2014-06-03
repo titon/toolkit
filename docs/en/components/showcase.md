@@ -221,6 +221,12 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The <code>Toolkit.Blackout</code> instance when <code>blackout</code> is enabled.</td>
             <td></td>
         </tr>
+        <tr>
+            <td>animating</td>
+            <td>bool</td>
+            <td>Is the showcase currently animating.</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 

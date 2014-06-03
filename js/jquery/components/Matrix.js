@@ -6,12 +6,12 @@
 
 Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.element = element = $(element).addClass(vendor + 'matrix');
     this.options = options = this.setOptions(options, element);
 
     // Items within the matrix
-    this.items = element.find('> li');
+    this.items = [];
 
     // List of items in order and how many columns they span horizontally
     this.matrix = [];
@@ -29,9 +29,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     // Collection of img elements
     this.images = [];
 
-    // How many images have loaded or tried to load
-    this.imagesLoaded = 0;
-
     // Initialize events
     this.events = {
         'resize window': $.debounce(this.onResize)
@@ -43,7 +40,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     if (options.defer) {
         this._deferRender();
     } else {
-        this.render();
+        this.refresh();
     }
 }, {
 
@@ -85,7 +82,13 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
      * Fetch new items and re-render the grid.
      */
     refresh: function() {
-        this.items = this.element.find('> li');
+        this.items = this.element.find('> li').each(function() {
+            var self = $(this);
+
+            // Cache the initial column width
+            self.addData('matrix-column-width', self.outerWidth());
+        });
+
         this.render();
     },
 
@@ -115,18 +118,21 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     render: function() {
         this._calculateColumns();
 
-        // Single row, do not render
-        if (this.items.length < this.colCount) {
-            this.element.removeAttr('style');
+        var element = this.element,
+            items = this.items;
+
+        // No items
+        if (!items.length) {
+            element.removeAttr('style');
 
         // Single column
         } else if (this.colCount <= 1) {
-            this.element.addClass('no-columns');
-            this.items.removeAttr('style');
+            element.addClass('no-columns');
+            items.removeAttr('style');
 
         // Multi column
         } else {
-            this.element.removeClass('no-columns');
+            element.removeClass('no-columns');
 
             this._organizeItems();
             this._positionItems();
@@ -173,21 +179,21 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
      * @private
      */
     _deferRender: function() {
-        this.imagesLoaded = 0;
-        this.images = this.element.find('img');
+        var promises = [];
 
-        if (this.images.length) {
-            this.images.each(function(index, image) {
-                var src = image.src;
+        this.images = this.element.find('img').each(function(index, image) {
+            var src = image.src,
+                def = $.Deferred();
 
-                image.onload = this.onLoad;
-                image.onerror = this.onLoad;
-                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                image.src = src;
-            }.bind(this));
-        } else {
-            this.render();
-        }
+            image.onload = def.resolve;
+            image.onerror = image.onabort = def.reject;
+            image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+            image.src = src;
+
+            promises.push(def.promise());
+        });
+
+        $.when.apply($, promises).always(this.refresh);
     },
 
     /**
@@ -200,17 +206,21 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         var item,
             span,
             size,
-            c = 0,
             l = this.items.length;
 
         this.matrix = [];
 
         for (var i = 0; i < l; i++) {
             item = this.items.eq(i);
-            size = item.outerWidth();
+            size = item.data('matrix-column-width');
 
             // How many columns does this item span?
             span = Math.max(Math.round(size / this.colWidth), 1);
+
+            // Span cannot be larger than the total number of columns
+            if (span > this.colCount) {
+                span = this.colCount;
+            }
 
             this.matrix.push({
                 item: item,
@@ -220,8 +230,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             // Multiple columns
             if (span > 1) {
                 for (var s = 1; s < span; s++) {
-                    c++;
-
                     if (this.matrix) {
                         this.matrix.push({
                             item: item,
@@ -229,12 +237,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
                         });
                     }
                 }
-            }
-
-            c++;
-
-            if (c >= this.colCount) {
-                c = 0;
             }
         }
     },
@@ -250,8 +252,13 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             item,
             span,
             dir = this.options.rtl ? 'right' : 'left',
-            x = 0, y = [], top,
-            c = 0, i, l, s,
+            x = 0, // The left or right position value
+            y = [], // The top position values indexed by column
+            c = 0, // Current column in the loop
+            i, // Items loop counter
+            l, // Items length
+            s, // Current span column in the loop
+            top,
             pos = { margin: 0, position: 'absolute' };
 
         for (i = 0; i < this.colCount; i++) {
@@ -301,23 +308,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
         // Set height of wrapper
         this.element.css('height', Math.max.apply(Math, y));
-    },
-
-    /**
-     * Event handler for image loading.
-     * Will defer rendering until all inline images are loaded.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onLoad: function(e) {
-        if (!e || (e.type === 'load' && e.target.complete) || (e.type === 'error' && !e.target.complete)) {
-            this.imagesLoaded++; // Continue rendering if load throws an error
-        }
-
-        if (this.imagesLoaded === this.images.length) {
-            this.render();
-        }
     },
 
     /**

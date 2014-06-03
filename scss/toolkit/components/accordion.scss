@@ -25,5 +25,5 @@
     position: relative;
     transition: all $accordion-transition ease-in-out;
 
-    &.hide { max-height: 0; } // don't include on base styles
+    &.hide { max-height: 0; } // Don't include on base styles
 }

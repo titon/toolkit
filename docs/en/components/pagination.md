@@ -31,7 +31,7 @@ By default, all links in a pagination list will be spaced out evenly.
 To group all links into a single solid bar, use the `.pagination--grouped` modifier.
 
 ```html
-<nav class="pagination--grouped">
+<nav class="pagination pagination--grouped">
     ...
 </nav>
 ```
@@ -39,7 +39,7 @@ To group all links into a single solid bar, use the `.pagination--grouped` modif
 Grouped paginations can also make use of [certain effects](effects.md), like `.round`, and `.pill`.
 
 ```html
-<nav class="pagination--grouped round">
+<nav class="pagination pagination--grouped round">
     ...
 </nav>
 ```

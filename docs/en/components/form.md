@@ -31,6 +31,21 @@ Both of which are required for horizontal and inline forms (more on this below).
 </div>
 ```
 
+Alternatively, you can wrap all your inputs in a `.fields` list.
+We suggest using this approach for most use cases.
+
+```html
+<ul class="fields">
+    <li>
+        <label class="field-label" for="username">Username</label>
+        <input class="input" type="text" name="username" id="username">
+    </li>
+    <li>
+        ...
+    </li>
+</ul>
+```
+
 <div class="notice is-error">
     As a side effect in styling selects in WebKit browsers,
     their arrow will be missing and will have to manually be fixed.
@@ -64,7 +79,7 @@ or add the `readonly` attribute to mark an input as read only.
 ```
 
 To represent success or error states during validation,
-add the `.is-success` and `.is-error` classes to the parent `.field`.
+add the `.is-success` and `.is-error` classes to the parent `.field` or `li`.
 
 ```html
 <div class="field is-error">
@@ -73,7 +88,7 @@ add the `.is-success` and `.is-error` classes to the parent `.field`.
 ```
 
 When a field is required before submission, add the `.is-required`
-class to the parent `.field`, and add the `required` attribute to the input.
+class to the parent `.field` or `li`, and add the `required` attribute to the input.
 
 ```html
 <div class="field is-required">
@@ -95,7 +110,7 @@ class to the `.input`, `.input-radio`, `.input-checkbox`, or `.input-static` ele
 <div class="input-static large">...</div>
 ```
 
-The size class can also be applied to a parent `.field`, which will cascade
+The size class can also be applied to a parent `.field` or `li`, which will cascade
 down to all inputs within it.
 
 ### Convenience Elements ###
@@ -164,23 +179,25 @@ so no need for `.grid`. We can then insert grid `.col` classes for structuring.
 
 ```html
 <form class="form--horizontal">
-    <div class="field">
-        <label class="field-label col span-4" for="username">Username</label>
-        <div class="field-col col span-8">
-            <input class="input" type="text" name="username" id="username">
-        </div>
-    </div>
+    <ul class="fields">
+        <li>
+            <label class="field-label col span-4" for="username">Username</label>
+            <div class="field-col col span-8">
+                <input class="input" type="text" name="username" id="username">
+            </div>
+        </li>
 
-    <div class="field">
-        <label class="field-label col span-4">Email</label>
-        <div class="field-col col span-8">
-            <div class="input-static">email@domain.com</div>
-        </div>
-    </div>
+        <li>
+            <label class="field-label col span-4">Email</label>
+            <div class="field-col col span-8">
+                <div class="input-static">email@domain.com</div>
+            </div>
+        </li>
 
-    <div class="form-actions">
-        <button type="submit" class="button">Save</button>
-    </div>
+        <li class="form-actions">
+            <button type="submit" class="button">Save</button>
+        </li>
+    </ul>
 </form>
 ```
 

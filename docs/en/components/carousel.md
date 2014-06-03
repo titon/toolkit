@@ -71,7 +71,7 @@ By default the carousel is designed for a 4:3 aspect ratio.
 To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
 
 ```html
-<div class="carousel--wide">
+<div class="carousel carousel--wide">
     ...
 <div>
 ```
@@ -79,7 +79,7 @@ To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
 To use a 1:1 (square) aspect ratio, the `.carousel--square` modifier can be used.
 
 ```html
-<div class="carousel--square">
+<div class="carousel carousel--square">
     ...
 <div>
 ```
@@ -89,31 +89,70 @@ on `.carousel-items`. For example, the 4:3 has a bottom padding of 75%,
 while the 16:9 has a value of 56.25%, and the 1:1 has a value of 100%.
 This technique allows for automatic height scaling based on the width of the carousel.
 
+### Scrolling Mechanisms ###
+
+There are 3 types of scrolling offered by the carousel: infinite scrolling (default),
+looped scrolling, and one-way scrolling.
+
+Infinite scrolling will allow the next and previous buttons to continuously cycle
+through all items without a visual break. This can be toggled through the `infinite` option (default true).
+
+```javascript
+$('.carousel').carousel({
+    infinite: true
+});
+```
+
+Looped scrolling will rewind the items to the beginning of the list when the last item is reached,
+and vice versa. This can be toggled through the `loop` option (default true).
+
+```javascript
+$('.carousel').carousel({
+    infinite: false,
+    loop: true
+});
+```
+
+One-way scrolling will stop cycling when the first or last item is reached.
+This is the fallback option when both `infinite` and `loop` are disabled.
+
+```javascript
+$('.carousel').carousel({
+    infinite: false,
+    loop: false
+});
+```
+
+### Multiple Items ###
+
+Modify the `itemsToShow` option to display multiple items at a single time in the carousel viewport.
+This option will automatically calculate the correct widths and percentages and apply them to the list items.
+
+```javascript
+$('.carousel').carousel({
+    itemsToShow: 3
+});
+```
+
+We can also change the number of items to move when cycling occurs by modifying the `itemsToCycle` option.
+
+```javascript
+$('.carousel').carousel({
+    itemsToShow: 3,
+    itemsToCycle: 3
+});
+```
+
 ### Responsive Support ###
 
 The carousel was designed with responsiveness in mind by utilizing percentages and a fluid structure.
 We suggest using inline images within each carousel item, sized to the correct aspect ratio (above).
 The carousel will take care of everything else.
 
-### Optional Captions ###
-
-Add captions to the carousel by adding a `.carousel-caption` element within each item.
-The markup within a caption can be customized extensively and is not enforced by the carousel.
-
-```html
-<li>
-    <a href=""><img src="/img/carousel/item-1.png" alt=""></a>
-
-    <div class="carousel-caption">
-        <h3>Caption Title</h3>
-        <p>Lipsum dolor sit amet.</p>
-    </div>
-</li>
-```
-
 ### Notes ###
 
 * The currently shown index will have an `.is-active` class applied to the respective tab.
+* A `.no-next` and `.no-prev` class is added to the carousel to hide next and previous buttons.
 * Modifying `padding-bottom` on `.carousel-items` allows for fixed or custom heights.
 * Supports arrow and escape key events.
 
@@ -206,6 +245,42 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>true</td>
             <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
         </tr>
+        <tr>
+            <td>infinite</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Allows for infinite cycling in either direction.</td>
+        </tr>
+        <tr>
+            <td>loop</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Will rewind the cycle pointer when the last item is reached (only applies when <code>infinite</code> is disabled).</td>
+        </tr>
+        <tr>
+            <td>reverse</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Will reverse the direction for automatic cycling.</td>
+        </tr>
+        <tr>
+            <td>itemsToShow</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to display in the carousel at the same time.</td>
+        </tr>
+        <tr>
+            <td>itemsToCycle</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to move when cycling.</td>
+        </tr>
+        <tr>
+            <td>defaultIndex</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The item to display on initial page load.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -265,10 +340,16 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
+            <td>container</td>
+            <td>element</td>
+            <td>The parent element for all item elements.</td>
+            <td>.carousel-items ul</td>
+        </tr>
+        <tr>
             <td>items</td>
             <td>collection</td>
             <td>A collection of item elements that will be cycled through.</td>
-            <td>.carousel-items li</td>
+            <td><code>container</code> li</td>
         </tr>
         <tr>
             <td>tabs</td>
@@ -294,6 +375,12 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>Has the carousel stopped cycling.</td>
             <td></td>
         </tr>
+        <tr>
+            <td>animating</td>
+            <td>bool</td>
+            <td>Is the carousel currently animating.</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
@@ -311,6 +398,11 @@ Inherits all methods from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
+            <td>calculate()</td>
+            <td>Calculate the sizes of the wrapper and items based on browser width and defined options.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>jump(int:index)</td>
             <td>Go to a specific item defined by the index in the collection.</td>
             <td>.carousel-tabs a</td>
@@ -327,21 +419,13 @@ Inherits all methods from the [parent component](../development/js/component.md#
         </tr>
         <tr>
             <td>start()</td>
-            <td>
-                Start automatic cycling.
-                This method is triggered automatically when <code>stopOnHover</code> is enabled,
-                and the mouse leaves the carousel.
-            </td>
-            <td></td>
+            <td>Start automatic cycling.</td>
+            <td>.carousel-start</td>
         </tr>
         <tr>
             <td>stop()</td>
-            <td>
-                Stop automatic cycling.
-                This method is triggered automatically when <code>stopOnHover</code> is enabled,
-                and the mouse enters the carousel.
-            </td>
-            <td></td>
+            <td>Stop automatic cycling.</td>
+            <td>.carousel-stop</td>
         </tr>
         <tr>
             <td>reset()</td>

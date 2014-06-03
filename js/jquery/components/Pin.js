@@ -6,7 +6,7 @@
 
 Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.component = 'Pin';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
 
@@ -84,7 +84,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
             this.element
                 .removeAttr('style')
                 .removeClass('is-pinned');
-        }.bind(this), 10);
+        }.bind(this), 15);
     },
 
     /**
@@ -131,7 +131,10 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
 
                 pos.position = 'absolute';
                 pos.bottom = 0;
+
             } else {
+                y = options.yOffset;
+
                 pos.position = 'fixed';
                 pos.bottom = 'auto';
             }

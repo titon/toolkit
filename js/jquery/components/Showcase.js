@@ -8,7 +8,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     var element;
 
     this.component = 'Showcase';
-    this.version = '1.4.0';
+    this.version = '1.5.0';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement();
 
@@ -33,6 +33,9 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     // Blackout element if enabled
     this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
 
+    // Is the showcase currently animating?
+    this.animating = false;
+
     // Initialize events
     this.events = {
         'clickout element': 'onHide',
@@ -45,6 +48,11 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         'click element .@showcase-next': 'next',
         'click element .@showcase-prev': 'prev',
         'click element .@showcase-tabs a': 'onJump'
+    };
+
+    // Stop `transitionend` events from bubbling up when the showcase is resized
+    this.events[Toolkit.transitionEnd + ' element .showcase-items'] = function(e) {
+        e.stopPropagation();
     };
 
     this.initialize();
@@ -82,6 +90,10 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
      * @param {Number} index
      */
     jump: function(index) {
+        if (this.animating) {
+            return;
+        }
+
         index = $.bound(index, this.data.length);
 
         // Exit since transitions don't occur
@@ -96,7 +108,8 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             listItems = list.children('li'),
             listItem = listItems.eq(index),
             items = this.data,
-            item = items[index];
+            item = items[index],
+            deferred = $.Deferred();
 
         // Update tabs
         this.tabs.find('a')
@@ -107,77 +120,52 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         // Reset previous styles
         listItems.conceal();
         caption.conceal();
+        element
+            .addClass('is-loading')
+            .aria('busy', true);
 
-        // Disable bubbling of transitionend
-        listItems.on(Toolkit.transitionEnd, function(e) {
-            e.stopPropagation();
+        // Setup deferred callbacks
+        this.animating = true;
+
+        deferred.always(function(width, height) {
+            list.transitionend(function() {
+                caption.html(item.title).reveal();
+                listItem.reveal();
+                self.position();
+                self.animating = false;
+            });
+
+            self._resize(width, height);
+
+            element
+                .removeClass('is-loading')
+                .aria('busy', false);
+
+            listItem
+                .data('width', width)
+                .data('height', height);
         });
 
-        // Reveal the image after the transition ends
-        var callback = function() {
-            caption.html(item.title).reveal();
-            listItem.reveal();
-            self.position();
-        };
-
-        list.one(Toolkit.transitionEnd, callback);
+        deferred.fail(function() {
+            element.addClass('has-failed');
+            listItem.html(Toolkit.messages.error);
+        });
 
         // Image already exists
         if (listItem.data('width')) {
-            this._resize(listItem.data('width'), listItem.data('height'));
-
-            // IE9
-            if (!Toolkit.hasTransition) {
-                callback();
-            }
+            deferred.resolve(listItem.data('width'), listItem.data('height'));
 
         // Create image and animate
         } else {
-            element
-                .addClass('is-loading')
-                .aria('busy', true);
-
             var img = new Image();
                 img.src = item.image;
-
-            // Render frame when image load
-            img.onload = function() {
-                self._resize(this.width, this.height); // Must be called 1st or FF fails
-
-                element
-                    .removeClass('is-loading')
-                    .aria('busy', false);
-
-                listItem
-                    .data('width', this.width)
-                    .data('height', this.height)
-                    .append(img);
-
-                // IE9
-                if (!Toolkit.hasTransition) {
-                    callback();
-                }
-            };
-
-            // Display error message if load fails
-            img.onerror = function() {
-                element
-                    .removeClass('is-loading')
-                    .addClass('has-failed')
-                    .aria('busy', false);
-
-                listItem
-                    .data('width', 150)
-                    .data('height', 150)
-                    .html(Toolkit.messages.error);
-
-                self._resize(150, 150);
-
-                // IE9
-                if (!Toolkit.hasTransition) {
-                    callback();
-                }
-            };
+                img.onerror = function() {
+                    deferred.reject(150, 150);
+                };
+                img.onload = function() {
+                    deferred.resolve(this.width, this.height);
+                    listItem.append(img);
+                };
         }
 
         // Save state
@@ -237,7 +225,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         if (category) {
             for (var i = 0, x = 0, n; n = this.nodes[i]; i++) {
                 if (read(n, options.getCategory) === category) {
-                    if (n === node) {
+                    if (node.is(n)) {
                         index = x;
                     }
 
@@ -317,14 +305,17 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             ratio,
             diff;
 
+        // Resize if the width is larger
         if (width > wWidth) {
             ratio = (width / height);
             diff = (width - wWidth);
 
             width = wWidth;
             height -= Math.round(diff / ratio);
+        }
 
-        } else if (height > wHeight) {
+        // Resize again if the height is larger
+        if (height > wHeight) {
             ratio = (height / width);
             diff = (height - wHeight);
 

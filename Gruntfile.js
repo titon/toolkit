@@ -274,7 +274,7 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('validate', ['jshint']);
-    grunt.registerTask('distribute', ['sass:dist', 'concat:dist', 'jshint', 'uglify:dist', 'autoprefixer:dist', 'string-replace:dist']);
-    grunt.registerTask('production', ['sass:dist', 'concat:build', 'jshint', 'uglify:prod', 'autoprefixer:build', 'string-replace:build']);
-    grunt.registerTask('default', ['sass:build', 'concat:build', 'jshint', 'uglify:build', 'autoprefixer:build', 'string-replace:build']);
+    grunt.registerTask('distribute', ['sass:dist', 'concat:dist', 'uglify:dist', 'autoprefixer:dist', 'string-replace:dist']);
+    grunt.registerTask('production', ['sass:dist', 'concat:build', 'uglify:prod', 'autoprefixer:build', 'string-replace:build']);
+    grunt.registerTask('default', ['sass:build', 'concat:build', 'uglify:build', 'autoprefixer:build', 'string-replace:build']);
 };

@@ -49,7 +49,7 @@ To display tabs horizontally alongside sections, and to update all navigation it
 use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.md).
 
 ```html
-<div class="tabs--horizontal grid">
+<div class="tabs tabs--horizontal grid">
     <nav class="tabs-nav col span-4">
         <ul>
             <li><a href="#one">First</a></li>

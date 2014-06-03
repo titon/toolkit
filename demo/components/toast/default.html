@@ -1,0 +1,30 @@
+<button type="button" class="button" id="toast-text">Create Text Toast</button>
+
+<button type="button" class="button" id="toast-html">Create HTML Toast</button>
+
+<button type="button" class="button" id="toast-dismiss">Create Dismissable Toast</button>
+
+<script>
+    $(function() {
+        var toast = $('body').toast().toolkit('toast');
+
+        $('#toast-text').click(function() {
+            toast.create('This is a string of text!');
+        });
+
+        $('#toast-html').click(function() {
+            toast.create($('<a/>').html('This is an anchor link!'));
+        });
+
+        $('#toast-dismiss').click(function() {
+            var link = $('<a/>')
+                .attr('href', 'javascript:;')
+                .html('This message will persist until dismissed.')
+                .click(function() {
+                    toast.hide(this.parentNode);
+                });
+
+            toast.create(link, { duration: 0 });
+        });
+    });
+</script>

@@ -214,12 +214,6 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
             <td>img</td>
         </tr>
-        <tr>
-            <td>imagesLoaded</td>
-            <td>int</td>
-            <td>A count of how many images have loaded.</td>
-            <td></td>
-        </tr>
     </tbody>
 </table>
 
