@@ -51,57 +51,12 @@ style resets, and media query management.
         <tr>
             <td>is-small($self, $parent)</td>
             <td>Yes</td>
-            <td rowspan="3">
+            <td rowspan="2">
                 Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
             </td>
         </tr>
         <tr>
-            <td>is-medium($self, $parent)</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
             <td>is-large($self, $parent)</td>
-            <td>Yes</td>
-        </tr>
-    </tbody>
-</table>
-
-## States ##
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Mixin</th>
-            <th>Nestable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>is-active()</td>
-            <td>Yes</td>
-            <td>Defines styles for the active class on the current element, and for being a child of an active parent.</td>
-        </tr>
-        <tr>
-            <td>is-disabled()</td>
-            <td>Yes</td>
-            <td>Defines styles for the disabled class on the current element, and for being a child of a disabled parent.</td>
-        </tr>
-        <tr>
-            <td>is-info()</td>
-            <td>Yes</td>
-            <td rowspan="4">Defines styles for the respective state class on the current element.</td>
-        </tr>
-        <tr>
-            <td>is-error()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>is-warning()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>is-success()</td>
             <td>Yes</td>
         </tr>
     </tbody>

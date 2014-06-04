@@ -27,7 +27,8 @@
 
     &#{$shape-round-class} { border-radius: $round; }
 
-    @include is-disabled {
+    &.is-disabled,
+    &[disabled] {
         cursor: not-allowed;
     }
 }

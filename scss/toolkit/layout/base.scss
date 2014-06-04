@@ -130,7 +130,7 @@
         background: black(0);
 
         &:hover { opacity: 1; border-width: 2px; }
-        @include is-active { background: #fff; }
+        &.is-active { background: #fff; }
     }
 
     &:empty { display: none; }

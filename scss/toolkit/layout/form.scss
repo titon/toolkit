@@ -76,7 +76,8 @@ label,
         box-shadow: none;
     }
 
-    @include is-disabled {
+    &.is-disabled,
+    &[disabled] {
         cursor: not-allowed;
         color: $gray-darkest;
         border-color: $gray;

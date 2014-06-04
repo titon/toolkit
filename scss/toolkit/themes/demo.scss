@@ -71,14 +71,17 @@ mark { background: lighten($warning-light, 25%); }
         background-color: lighten($base, 5%);
     }
 
-    @include is-active {
+    .is-active > &,
+    .is-active > li > &,
+    &.is-active {
         color: #fff;
         background-color: darken($base, 20%);
         text-shadow: 1px 1px $dark;
         border-color: darken($base, 30%);
     }
 
-    @include is-disabled {
+    &.is-disabled,
+    [disabled] {
         background: $base;
         border-color: $base;
     }
@@ -98,7 +101,8 @@ mark { background: lighten($warning-light, 25%); }
         top: 1px;
     }
 
-    @include is-disabled {
+    &.is-disabled,
+    &[disabled] {
         box-shadow: none;
         text-shadow: none;
         top: 0;
