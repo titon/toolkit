@@ -77,6 +77,26 @@ attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$accordion-class</td>
+            <td>.accordion</td>
+            <td>CSS class name for the accordion wrapper.</td>
+        </tr>
+        <tr>
+            <td>$accordion-class-header</td>
+            <td>.accordion-header</td>
+            <td>CSS class name for the accordion header.</td>
+        </tr>
+        <tr>
+            <td>$accordion-class-section</td>
+            <td>.accordion-section</td>
+            <td>CSS class name for the accordion section.</td>
+        </tr>
+        <tr>
+            <td>$accordion-class-body</td>
+            <td>.accordion-body</td>
+            <td>CSS class name for the accordion section inner body.</td>
+        </tr>
+        <tr>
             <td>$accordion-transition</td>
             <td>.3s</td>
             <td>The transition time for accordion slide animations.</td>

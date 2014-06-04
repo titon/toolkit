@@ -154,6 +154,41 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
     </thead>
     <tbody>
         <tr>
+            <td>$drop-class</td>
+            <td>.drop</td>
+            <td>CSS class name for the drop wrapper.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-divider</td>
+            <td>.drop-divider</td>
+            <td>CSS class name for the drop divider element.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-heading</td>
+            <td>.drop-heading</td>
+            <td>CSS class name for the drop heading element.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifier-down</td>
+            <td>down</td>
+            <td>Name of the down modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifier-up</td>
+            <td>up</td>
+            <td>Name of the up modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifier-left</td>
+            <td>left</td>
+            <td>Name of the left modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifier-right</td>
+            <td>right</td>
+            <td>Name of the right modifier to append to drop classes.</td>
+        </tr>
+        <tr>
             <td>$drop-transition</td>
             <td>.3s</td>
             <td>The transition time for menu fade and nested menu slide animations.</td>

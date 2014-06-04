@@ -92,6 +92,21 @@ that fluctuate in a clockwise manner.
     </thead>
     <tbody>
         <tr>
+            <td>$loader-class</td>
+            <td>.loader</td>
+            <td>CSS class name for the loader wrapper.</td>
+        </tr>
+        <tr>
+            <td>$loader-class-message</td>
+            <td>.loader-message</td>
+            <td>CSS class name for the loader message.</td>
+        </tr>
+        <tr>
+            <td>$loader-class-spinner</td>
+            <td>.loader-spinner</td>
+            <td>CSS class name for the loader spinner wrapper.</td>
+        </tr>
+        <tr>
             <td>$loader-type</td>
             <td>all</td>
             <td>The type of loader to include in the CSS output. Accepts all, bar-wave, bubble-wave, and bubble-spinner.</td>

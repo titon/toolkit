@@ -161,6 +161,40 @@ attributes are required when supporting ARIA.
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$tab-class</td>
+            <td>.tabs</td>
+            <td>CSS class name for the tabs wrapper.</td>
+        </tr>
+        <tr>
+            <td>$tab-class-nav</td>
+            <td>.tab-nav</td>
+            <td>CSS class name for the tabs navigation wrapper.</td>
+        </tr>
+        <tr>
+            <td>$tab-class-section</td>
+            <td>.tab-section</td>
+            <td>CSS class name for the individual tab section.</td>
+        </tr>
+        <tr>
+            <td>$tab-modifier-horizontal</td>
+            <td>horizontal</td>
+            <td>Name of the horizontal modifier to append to tabs classes.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js/component.md#options).

@@ -240,6 +240,31 @@ attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$typeAhead-class</td>
+            <td>.type-ahead</td>
+            <td>CSS class name for the type ahead wrapper.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-highlight</td>
+            <td>.type-ahead-highlight</td>
+            <td>CSS class name for the highlighted term in the type ahead list.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-heading</td>
+            <td>.type-ahead-heading</td>
+            <td>CSS class name for the type ahead heading element.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-description</td>
+            <td>.type-ahead-desc</td>
+            <td>CSS class name for the type ahead item description element.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-shadow</td>
+            <td>.type-ahead-shadow</td>
+            <td>CSS class name for the type ahead shadow text wrapper.</td>
+        </tr>
+        <tr>
             <td>$typeAhead-transition</td>
             <td>.3s</td>
             <td>The transition time for all type ahead animations.</td>

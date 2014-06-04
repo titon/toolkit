@@ -135,6 +135,55 @@ The `listbox` and `option` roles are required for custom select drop menus when 
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$input-class</td>
+            <td>.custom-input</td>
+            <td>CSS class name for the custom input wrapper.</td>
+        </tr>
+        <tr>
+            <td>$input-class-checkbox</td>
+            <td>.checkbox</td>
+            <td>CSS class name for the custom checkbox.</td>
+        </tr>
+        <tr>
+            <td>$input-class-radio</td>
+            <td>.radio</td>
+            <td>CSS class name for the custom radio.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select</td>
+            <td>.select</td>
+            <td>CSS class name for the custom select.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-label</td>
+            <td>.select-label</td>
+            <td>CSS class name for the custom select label.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-arrow</td>
+            <td>.select-arrow</td>
+            <td>CSS class name for the custom select arrow.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-options</td>
+            <td>.select-options</td>
+            <td>CSS class name for the custom select options drop list.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js/component.md#options).

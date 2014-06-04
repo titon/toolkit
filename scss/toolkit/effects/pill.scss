@@ -8,13 +8,13 @@
 
 //-------------------- Button --------------------//
 
-.#{$vendor-prefix}button.#{$shape-pill-class} {
+#{$button-class}#{$shape-pill-class} {
     border-radius: $pill;
 }
 
 //-------------------- ButtonGroup --------------------//
 
-.#{$vendor-prefix}button-group.#{$shape-pill-class} {
+#{$buttonGroup-class}#{$shape-pill-class} {
     border-radius: $pill;
 
     @include button-group-first-child {
@@ -28,7 +28,7 @@
     }
 }
 
-.#{$vendor-prefix}button-group--vertical.#{$shape-pill-class} {
+#{$buttonGroup-class}#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical}#{$shape-pill-class} {
     border-radius: $pill;
 
     @include button-group-first-child {
@@ -48,7 +48,7 @@
 
 //-------------------- Pagination --------------------//
 
-.#{$vendor-prefix}pagination--grouped.#{$shape-pill-class} {
+#{$pagination-class}#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-pill-class} {
     ul {
         border-radius: $pill;
     }
@@ -66,10 +66,10 @@
 
 //-------------------- Progress --------------------//
 
-.#{$vendor-prefix}progress.#{$shape-pill-class} {
+#{$progress-class}#{$shape-pill-class} {
     border-radius: $pill;
 
-    .#{$vendor-prefix}progress-bar:first-child {
+    #{$progress-class-bar}:first-child {
         border-top-left-radius: $pill;
         border-bottom-left-radius: $pill;
     }
@@ -77,17 +77,17 @@
 
 //-------------------- Switch --------------------//
 
-.#{$vendor-prefix}switch.#{$shape-pill-class} {
+#{$switch-class}#{$shape-pill-class} {
     border-radius: $pill;
 
-    .#{$vendor-prefix}switch-toggle {
+    #{$switch-class-toggle} {
         border-radius: $pill;
     }
 }
 
 //-------------------- Visual --------------------//
 
-.#{$vendor-prefix}visual-gloss.#{$shape-pill-class}::after {
+.visual-gloss#{$shape-pill-class}::after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;

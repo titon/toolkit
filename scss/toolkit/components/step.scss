@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}steps {
+#{$step-class-wrapper} {
     margin: $margin 0;
     font-size: $medium-size;
 
@@ -18,7 +18,7 @@
     }
 
     // Use em's to scale against the size defined on .steps
-    .#{$vendor-prefix}step {
+    #{$step-class} {
         padding: 0 2em 0 3.5em;
         position: relative;
         display: block;
@@ -43,13 +43,13 @@
         float: left;
 
         &:first-child {
-            .#{$vendor-prefix}step {
+            #{$step-class} {
                 padding-left: 2em;
             }
         }
 
         &:last-child {
-            .#{$vendor-prefix}step {
+            #{$step-class} {
                 &::after { display: none; }
             }
         }

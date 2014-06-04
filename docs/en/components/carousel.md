@@ -193,6 +193,41 @@ attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$carousel-class</td>
+            <td>.carousel</td>
+            <td>CSS class name for the carousel wrapper.</td>
+        </tr>
+        <tr>
+            <td>$carousel-class-items</td>
+            <td>.carousel-items</td>
+            <td>CSS class name for the carousel items list.</td>
+        </tr>
+        <tr>
+            <td>$carousel-class-tabs</td>
+            <td>.carousel-tabs</td>
+            <td>CSS class name for the carousel tabs list.</td>
+        </tr>
+        <tr>
+            <td>$carousel-class-next</td>
+            <td>.carousel-next</td>
+            <td>CSS class name for the carousel next button.</td>
+        </tr>
+        <tr>
+            <td>$carousel-class-prev</td>
+            <td>.carousel-prev</td>
+            <td>CSS class name for the carousel previous button.</td>
+        </tr>
+        <tr>
+            <td>$carousel-modifier-wide</td>
+            <td>wide</td>
+            <td>Name of the wide modifier to append to carousel classes.</td>
+        </tr>
+        <tr>
+            <td>$carousel-modifier-square</td>
+            <td>square</td>
+            <td>Name of the square modifier to append to carousel classes.</td>
+        </tr>
+        <tr>
             <td>$carousel-opacity</td>
             <td>0.50</td>
             <td>The alpha transparency for the carousel caption element.</td>

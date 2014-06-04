@@ -9,15 +9,15 @@
     @return rgba(255, 255, 255, $opacity);
 }
 
-// Take a list of classes (without .) and generate a selector list
+// Take a list of classes and generate a selector list
 @function join-classes($classes, $inherit: true) {
     $selectors: ();
 
     @each $class in $classes {
         @if $inherit {
-            $selectors: $selectors, unquote("&." + $class);
+            $selectors: $selectors, unquote("&" + $class);
         } @else {
-            $selectors: $selectors, unquote("." + $class);
+            $selectors: $selectors, unquote($class);
         }
     }
 

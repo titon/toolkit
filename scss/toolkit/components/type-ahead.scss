@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}type-ahead {
+#{$typeAhead-class} {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,24 +37,24 @@
     }
 }
 
-.#{$vendor-prefix}type-ahead-heading {
+#{$typeAhead-class-heading} {
     padding: $small-padding;
     line-height: 100%;
     display: block;
     text-decoration: none;
 }
 
-.#{$vendor-prefix}type-ahead-highlight {
+#{$typeAhead-class-highlight} {
     background: #fff;
     padding: 0;
 }
 
-.#{$vendor-prefix}type-ahead-desc {
+#{$typeAhead-class-description} {
     display: block;
     font-size: .7rem;
 }
 
-.#{$vendor-prefix}type-ahead-shadow {
+#{$typeAhead-class-shadow} {
     position: relative;
 
     .is-shadow {

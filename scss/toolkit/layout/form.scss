@@ -34,17 +34,17 @@ input[type="search"] {
 
 // Required values to match browser restrictions
 label,
-.#{$vendor-prefix}input-static {
+#{$form-class-input-static} {
     font-size: inherit;
     line-height: normal;
 }
 
 //-------------------- Inputs --------------------//
 
-.#{$vendor-prefix}input,
-.#{$vendor-prefix}input-static,
-.#{$vendor-prefix}input-radio,
-.#{$vendor-prefix}input-checkbox {
+#{$form-class-input},
+#{$form-class-input-static},
+#{$form-class-input-radio},
+#{$form-class-input-checkbox} {
     @include reset-inline-block;
     line-height: normal;
     border: 1px solid $gray-dark;
@@ -57,7 +57,7 @@ label,
     @include is-large(true, true) { @include size-large; }
 }
 
-.#{$vendor-prefix}input {
+#{$form-class-input} {
     background: $gray-lightest;
     border-radius: $round;
     transition: all $default-transition;
@@ -83,15 +83,15 @@ label,
     }
 }
 
-.#{$vendor-prefix}input-static {
+#{$form-class-input-static} {
     background: transparent;
     border-color: transparent;
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
 
-.#{$vendor-prefix}input-radio,
-.#{$vendor-prefix}input-checkbox {
+#{$form-class-input-radio},
+#{$form-class-input-checkbox} {
     padding: 0;
     border: 0;
 
@@ -104,101 +104,101 @@ label,
     }
 }
 
-select.#{$vendor-prefix}input {
+select#{$form-class-input} {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
-select.#{$vendor-prefix}input[multiple] {
+select#{$form-class-input}[multiple] {
     max-height: 500px;
 }
 
-textarea.#{$vendor-prefix}input {
+textarea#{$form-class-input} {
     line-height: 135%;
     min-height: 150px;
 }
 
 //-------------------- Fields, Labels --------------------//
 
-.#{$vendor-prefix}fields {
+#{$form-class-fields} {
     @include reset-list;
 }
 
-.#{$vendor-prefix}field,
-.#{$vendor-prefix}fields li {
+#{$form-class-field},
+#{$form-class-fields} li {
     margin-bottom: $margin;
 
     &.is-required {
-        .#{$vendor-prefix}field-label { font-weight: bold; }
+        #{$form-class-field-label} { font-weight: bold; }
     }
 
     &:not(.is-disabled) {
         &.is-error {
-            .#{$vendor-prefix}input {
+            #{$form-class-input} {
                 border-color: $error;
 
                 &:focus { box-shadow: 0 0 5px $error-light; }
             }
 
-            .#{$vendor-prefix}input-radio,
-            .#{$vendor-prefix}input-checkbox {
+            #{$form-class-input-radio},
+            #{$form-class-input-checkbox} {
                 color: $error-dark;
             }
         }
 
         &.is-success {
-            .#{$vendor-prefix}input {
+            #{$form-class-input} {
                 border-color: $success;
 
                 &:focus { box-shadow: 0 0 5px $success-light; }
             }
 
-            .#{$vendor-prefix}input-radio,
-            .#{$vendor-prefix}input-checkbox {
+            #{$form-class-input-radio},
+            #{$form-class-input-checkbox} {
                 color: $success-dark;
             }
         }
     }
 }
 
-.#{$vendor-prefix}field-label {
+#{$form-class-field-label} {
     display: block;
     vertical-align: middle;
     margin-bottom: .5em;
 }
 
-.#{$vendor-prefix}field-help {
+#{$form-class-field-help} {
     margin-top: .5em;
     font-size: $small-size;
 }
 
-.#{$vendor-prefix}form-actions {
+#{$form-class-actions} {
     text-align: center;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}form--horizontal {
-    .#{$vendor-prefix}field,
-    .#{$vendor-prefix}fields li { @include grid-row; }
+#{$form-class}--#{$form-modifier-horizontal} {
+    #{$form-class-field},
+    #{$form-class-fields} li { @include grid-row; }
 
-    .#{$vendor-prefix}field-label {
+    #{$form-class-field-label} {
         text-align: right;
         border: 1px solid transparent; // matches input sizes
         padding-top: $medium-padding;
     }
 
-    .#{$vendor-prefix}field-col { padding-left: $margin; }
+    #{$form-class-field-column} { padding-left: $margin; }
 }
 
-.#{$vendor-prefix}form--inline {
+#{$form-class}--#{$form-modifier-inline} {
     margin-bottom: -($margin / 2);
 
-    .#{$vendor-prefix}field,
-    .#{$vendor-prefix}fields li,
-    .#{$vendor-prefix}field-label,
-    .#{$vendor-prefix}form-actions {
+    #{$form-class-field},
+    #{$form-class-fields} li,
+    #{$form-class-field-label},
+    #{$form-class-actions} {
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
@@ -206,11 +206,11 @@ textarea.#{$vendor-prefix}input {
         margin-bottom: $margin / 2;
     }
 
-    .#{$vendor-prefix}field-label { margin: 0 ($margin / 2) 0 0; }
-    .#{$vendor-prefix}field-help { display: none; }
+    #{$form-class-field-label} { margin: 0 ($margin / 2) 0 0; }
+    #{$form-class-field-help} { display: none; }
 
-    .#{$vendor-prefix}input-radio,
-    .#{$vendor-prefix}input-checkbox {
+    #{$form-class-input-radio},
+    #{$form-class-input-checkbox} {
         padding: $medium-padding 0;
     }
 }

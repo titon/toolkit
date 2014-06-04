@@ -18,37 +18,33 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
         <tr>
             <td>$vendor-prefix</td>
             <td></td>
-            <td>Will prefix all top level class names with a vendor or namespace.</td>
+            <td>Will prefix all top level class names with a vendor or namespace (do not include a .).</td>
         </tr>
         <tr>
             <td>$size-small-class</td>
-            <td>small</td>
-            <td rowspan="3">Names for global sizing classes.</td>
-        </tr>
-        <tr>
-            <td>$size-medium-class</td>
-            <td>medium</td>
+            <td>.small</td>
+            <td rowspan="2">Names for global sizing classes.</td>
         </tr>
         <tr>
             <td>$size-large-class</td>
-            <td>large</td>
+            <td>.large</td>
         </tr>
         <tr>
             <td>$shape-round-class</td>
-            <td>round</td>
+            <td>.round</td>
             <td rowspan="4">Names for global shape classes.</td>
         </tr>
         <tr>
             <td>$shape-oval-class</td>
-            <td>oval</td>
+            <td>.oval</td>
         </tr>
         <tr>
             <td>$shape-pill-class</td>
-            <td>pill</td>
+            <td>.pill</td>
         </tr>
         <tr>
             <td>$shape-skew-class</td>
-            <td>skew</td>
+            <td>.skew</td>
         </tr>
     </tbody>
 </table>
@@ -73,31 +69,6 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
             <td>$base-line-height</td>
             <td>1.25em</td>
             <td>Base document line height.</td>
-        </tr>
-        <tr>
-            <td>$h1-size</td>
-            <td>3rem</td>
-            <td rowspan="6">Heading font sizes. Uses rem scaling by default to scale based on the html font size.</td>
-        </tr>
-        <tr>
-            <td>$h2-size</td>
-            <td>2.5rem</td>
-        </tr>
-        <tr>
-            <td>$h3-size</td>
-            <td>2.1rem</td>
-        </tr>
-        <tr>
-            <td>$h4-size</td>
-            <td>1.8rem</td>
-        </tr>
-        <tr>
-            <td>$h5-size</td>
-            <td>1.5rem</td>
-        </tr>
-        <tr>
-            <td>$h6-size</td>
-            <td>1.2rem</td>
         </tr>
         <tr>
             <td>$small-size</td>
@@ -285,25 +256,6 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>$responsive-design</td>
-            <td>mobile</td>
-            <td>
-                Determines which type of device to target; accepts <code>mobile</code> or <code>desktop</code>.
-                If <code>mobile</code> is used, responsive mixins will use <code>min-width</code> breakpoints in media queries.
-                If <code>desktop</code> is used, then <code>max-width</code> breakpoints are used.
-            </td>
-        </tr>
-        <tr>
-            <td>$responsive-size</td>
-            <td>both</td>
-            <td>
-                Determines which responsive columns are generated within the Grid component; accepts <code>device</code>, <code>size</code>, or <code>both</code>.
-                If <code>device</code> is used, than mobile, tablet, and desktop classes are available for the <code>.col</code> class.
-                If <code>size</code> is used, than small, medium, and large classes are available. If <code>both</code> is used, then all classes are available.
-                The breakpoint variables below are used to determine the media query breakpoints per column class.
-            </td>
-        </tr>
         <tr>
             <td>$breakpoint-desktop</td>
             <td>1440px</td>

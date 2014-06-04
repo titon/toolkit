@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}modal {
+#{$modal-class} {
     position: fixed;
     top: 0;
     left: 0;
@@ -21,16 +21,16 @@
     -webkit-overflow-scrolling: touch;
 
     &.is-loading {
-        .#{$vendor-prefix}modal-close { display: none; }
+        [data-modal-close] { display: none; }
     }
 
     &.is-draggable {
-        .#{$vendor-prefix}modal-inner { cursor: default; }
-        .#{$vendor-prefix}modal-head { cursor: move; }
+        #{$modal-class-inner} { cursor: default; }
+        #{$modal-class-head} { cursor: move; }
     }
 }
 
-.#{$vendor-prefix}modal-close {
+#{$modal-class} [data-modal-close] {
     position: absolute;
     background: none;
     border: 0;
@@ -43,7 +43,7 @@
     &:hover { opacity: 1; }
 }
 
-.#{$vendor-prefix}modal-outer {
+#{$modal-class-outer} {
     position: relative;
     margin: $margin;
     pointer-events: auto; // allow within modal
@@ -55,19 +55,19 @@
     }
 }
 
-.#{$vendor-prefix}modal-inner {
+#{$modal-class-inner} {
     position: relative;
 }
 
-.#{$vendor-prefix}modal-head,
-.#{$vendor-prefix}modal-body,
-.#{$vendor-prefix}modal-foot {
+#{$modal-class-head},
+#{$modal-class-body},
+#{$modal-class-foot} {
     padding: $padding;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}modal.is-fullscreen .#{$vendor-prefix}modal-outer {
+#{$modal-class}.is-fullscreen #{$modal-class-outer} {
     top: 0;
     left: 0;
     margin: 0;
@@ -80,14 +80,14 @@
 
 //-------------------- Animations --------------------//
 
-.#{$vendor-prefix}modal {
+#{$modal-class} {
     @if index($modal-animation, "from-above") {
         &.from-above {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: scale(1.3);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: scale(1);
             }
         }
@@ -95,11 +95,11 @@
 
     @if index($modal-animation, "from-below") {
         &.from-below {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: scale(0.7);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: scale(1);
             }
         }
@@ -107,11 +107,11 @@
 
     @if index($modal-animation, "slide-in-top") {
         &.slide-in-top {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: translateY(-50%);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: translateY(0);
             }
         }
@@ -119,11 +119,11 @@
 
     @if index($modal-animation, "slide-in-bottom") {
         &.slide-in-bottom {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: translateY(50%);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: translateY(0);
             }
         }
@@ -131,11 +131,11 @@
 
     @if index($modal-animation, "slide-in-left") {
         &.slide-in-left {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: translateX(-25%);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: translateX(0);
             }
         }
@@ -143,11 +143,11 @@
 
     @if index($modal-animation, "slide-in-right") {
         &.slide-in-right {
-            .#{$vendor-prefix}modal-outer {
+            #{$modal-class-outer} {
                 transform: translateX(25%);
             }
 
-            &.show .#{$vendor-prefix}modal-outer {
+            &.show #{$modal-class-outer} {
                 transform: translateX(0);
             }
         }

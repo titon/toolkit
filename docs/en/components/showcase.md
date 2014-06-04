@@ -78,6 +78,46 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
+            <td>$showcase-class</td>
+            <td>.showcase</td>
+            <td>CSS class name for the showcase wrapper.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-inner</td>
+            <td>.showcase-inner</td>
+            <td>CSS class name for the inner showcase wrapper.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-items</td>
+            <td>.showcase-items</td>
+            <td>CSS class name for the showcase items list.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-tabs</td>
+            <td>.showcase-tabs</td>
+            <td>CSS class name for the showcase tabs list.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-next</td>
+            <td>.showcase-next</td>
+            <td>CSS class name for the showcase next button.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-prev</td>
+            <td>.showcase-prev</td>
+            <td>CSS class name for the showcase previous button.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-caption</td>
+            <td>.showcase-caption</td>
+            <td>CSS class name for the showcase caption.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-close</td>
+            <td>.showcase-close</td>
+            <td>CSS class name for the showcase close button.</td>
+        </tr>
+        <tr>
             <td>$showcase-opacity</td>
             <td>0.50</td>
             <td>The alpha transparency for the showcase caption element.</td>

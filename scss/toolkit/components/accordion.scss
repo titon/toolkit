@@ -6,21 +6,21 @@
 
 @import "../common";
 
-.#{$vendor-prefix}accordion {
+#{$accordion-class} {
     @include reset-list;
 }
 
-.#{$vendor-prefix}accordion-header {
+#{$accordion-class-header} {
     padding: $padding;
     cursor: pointer;
 }
 
-.#{$vendor-prefix}accordion-body {
+#{$accordion-class-body} {
     padding: $padding;
 }
 
 // Handle is used for animations, do not style it!
-.#{$vendor-prefix}accordion-section {
+#{$accordion-class-section} {
     overflow: hidden;
     position: relative;
     transition: all $accordion-transition ease-in-out;

@@ -98,3 +98,22 @@ The `button` role and the appropriate `aria-*` attributes are required when supp
 <div class="notice is-warning">
     JavaScript will be required to change the <code>aria-pressed</code> value.
 </div>
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$button-class</td>
+            <td>.button</td>
+            <td>CSS class name for the button element.</td>
+        </tr>
+    </tbody>
+</table>

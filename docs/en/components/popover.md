@@ -50,6 +50,26 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
+            <td>$popover-class</td>
+            <td>.popover</td>
+            <td>CSS class name for the popover wrapper.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-arrow</td>
+            <td>.popover-arrow</td>
+            <td>CSS class name for the popover arrow.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-head</td>
+            <td>.popover-head</td>
+            <td>CSS class name for the popover header element.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-body</td>
+            <td>.popover-body</td>
+            <td>CSS class name for the popover body element.</td>
+        </tr>
+        <tr>
             <td>$popover-tooltip-animation</td>
             <td>("fade", "from-above", "from-below", "flip-rotate")</td>
             <td>A list of all animations to include in the CSS output.</td>

@@ -100,6 +100,26 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
     </thead>
     <tbody>
         <tr>
+            <td>$switch-class</td>
+            <td>.switch</td>
+            <td>CSS class name for the switch element.</td>
+        </tr>
+        <tr>
+            <td>$switch-class-bar</td>
+            <td>.switch-bar</td>
+            <td>CSS class name for the switch bar that wraps the toggle.</td>
+        </tr>
+        <tr>
+            <td>$switch-class-toggle</td>
+            <td>.switch-toggle</td>
+            <td>CSS class name for the switch toggle button.</td>
+        </tr>
+        <tr>
+            <td>$switch-modifier-stacked</td>
+            <td>stacked</td>
+            <td>Name of the stacked modifier to append to switch classes.</td>
+        </tr>
+        <tr>
             <td>$switch-transition</td>
             <td>.3s</td>
             <td>The transition time for toggle sliding and switch fading.</td>

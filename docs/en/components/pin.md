@@ -72,6 +72,11 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
     </thead>
     <tbody>
         <tr>
+            <td>$pin-class</td>
+            <td>.pin</td>
+            <td>CSS class name for the pinned element.</td>
+        </tr>
+        <tr>
             <td>$pin-transition</td>
             <td>.2s</td>
             <td>The transition time for pinned element position animations.</td>

@@ -69,6 +69,30 @@ either inline or through CSS. We may also define the `src` attribute with a tran
 * Background images will be overridden by the `.lazy-load` class.
 * Elements that have been loaded will have the `.lazy-load` class removed.
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$lazyLoad-class</td>
+            <td>.lazy-load</td>
+            <td>CSS class name for the individual lazy load element.</td>
+        </tr>
+        <tr>
+            <td>$lazyLoad-transition</td>
+            <td>.3s</td>
+            <td>The transition time for fading background images in and out.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
 Inherits all options from the [parent component](../development/js/component.md#options).

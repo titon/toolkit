@@ -155,6 +155,16 @@ An unordered list will be placed within each flyout.
     </thead>
     <tbody>
         <tr>
+            <td>$flyout-class</td>
+            <td>.flyout</td>
+            <td>CSS class name for the flyout wrapper.</td>
+        </tr>
+        <tr>
+            <td>$flyout-class-heading</td>
+            <td>.flyout-heading</td>
+            <td>CSS class name for the flyout heading element.</td>
+        </tr>
+        <tr>
             <td>$flyout-transition</td>
             <td>.3s</td>
             <td>The transition time for menu fade and nested menu slide animations.</td>

@@ -69,3 +69,22 @@ All of these are possible using the icon modifiers `.icon--90deg`, `.icon--180de
     These modifier classes will transform all elements, not just elements with icon classes.
     Be careful which elements you apply these classes to.
 </div>
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$icon-class-name</td>
+            <td>icon</td>
+            <td>Name of the icon CSS class without the period.</td>
+        </tr>
+    </tbody>
+</table>

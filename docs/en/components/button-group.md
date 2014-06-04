@@ -136,3 +136,32 @@ When using the vertical modifier, the `aria-orientation` attribute must be defin
     ...
 </div>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$buttonGroup-class</td>
+            <td>.button-group</td>
+            <td>CSS class name for the button group element.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-modifier-vertical</td>
+            <td>vertical</td>
+            <td>Name of the vertical modifier to append to button group classes.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-modifier-justified</td>
+            <td>justified</td>
+            <td>Name of the justified modifier to append to button group classes.</td>
+        </tr>
+    </tbody>
+</table>

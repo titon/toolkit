@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}matrix {
+#{$matrix-class} {
     @include reset-list;
     position: relative;
 

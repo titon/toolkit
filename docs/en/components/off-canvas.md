@@ -140,6 +140,31 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
     </thead>
     <tbody>
         <tr>
+            <td>$offCanvas-class</td>
+            <td>.off-canvas</td>
+            <td>CSS class name for the off canvas sidebar.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-content</td>
+            <td>.on-canvas</td>
+            <td>CSS class name for the off canvas primary content wrapper.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-wrapper</td>
+            <td>.canvas</td>
+            <td>CSS class name for the off canvas parent wrapper.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-modifier-left</td>
+            <td>left</td>
+            <td>Name of the left modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-modifier-right</td>
+            <td>right</td>
+            <td>Name of the right modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
             <td>$offCanvas-left-width</td>
             <td>20%</td>
             <td>The width of the left sidebar.</td>

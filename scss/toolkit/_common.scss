@@ -2,12 +2,12 @@
 //-------------------- Toolkit --------------------//
 
 $vendor-prefix: "" !default;
-$size-small-class: "small" !default;
-$size-large-class: "large" !default;
-$shape-round-class: "round" !default;
-$shape-oval-class: "oval" !default;
-$shape-pill-class: "pill" !default;
-$shape-skew-class: "skew" !default;
+$size-small-class: ".small" !default;
+$size-large-class: ".large" !default;
+$shape-round-class: ".round" !default;
+$shape-oval-class: ".oval" !default;
+$shape-pill-class: ".pill" !default;
+$shape-skew-class: ".skew" !default;
 
 //-------------------- Colors --------------------//
 
@@ -20,17 +20,14 @@ $gray-darkest: #c2c2c2 !default;
 $background-color: #fff !default;
 $foreground-color: #2d2d2d !default;
 
-//-------------------- Sizes --------------------//
+//-------------------- Settings --------------------//
 
 $base-size: 14px !default;
 $base-line-height: 1.25em !default;
 
-$h1-size: 3rem !default;
-$h2-size: 2.5rem !default;
-$h3-size: 2.1rem !default;
-$h4-size: 1.8rem !default;
-$h5-size: 1.5rem !default;
-$h6-size: 1.2rem !default;
+$default-opacity: .5 !default;
+$disabled-opacity: $default-opacity !default;
+$default-transition: .3s !default;
 
 //-------------------- Spacing --------------------//
 
@@ -82,36 +79,6 @@ $skew-y: 3rem !default;
 $skew: $skew-x $skew-y;
 $skew-reverse: $skew-y $skew-x;
 
-//-------------------- Opacity --------------------//
-
-$default-opacity: .5 !default;
-$disabled-opacity: $default-opacity !default;
-$blackout-opacity: .85 !default;
-$carousel-opacity: $default-opacity !default;
-$mask-opacity: .85 !default;
-$showcase-opacity: $default-opacity !default;
-
-//-------------------- Transitions --------------------//
-
-$default-transition: .3s !default;
-$accordion-transition: $default-transition !default;
-$blackout-transition: $default-transition !default;
-$carousel-transition: 1s !default;
-$drop-transition: $default-transition !default;
-$flyout-transition: $default-transition !default;
-$lazyLoad-transition: $default-transition !default;
-$mask-transition: $default-transition !default;
-$matrix-transition: $default-transition !default;
-$modal-transition: $default-transition !default;
-$offCanvas-transition: .5s !default;
-$pin-transition: .2s !default;
-$progress-transition: .5s !default;
-$showcase-transition: $default-transition !default;
-$switch-transition: $default-transition !default;
-$toast-transition: $default-transition !default;
-$tooltip-transition: .15s !default;
-$typeAhead-transition: $default-transition !default;
-
 //-------------------- Z Index --------------------//
 
 // 1) Modal and Showcase should be higher than Blackout
@@ -130,6 +97,236 @@ $toast-zindex: 500 !default;
 $tooltip-zindex: 700 !default;
 $typeAhead-zindex: 500 !default;
 
+//-------------------- Accordion --------------------//
+
+$accordion-class: "." + $vendor-prefix + "accordion" !default;
+$accordion-class-header: $accordion-class + "-header" !default;
+$accordion-class-section: $accordion-class + "-section" !default;
+$accordion-class-body: $accordion-class + "-body" !default;
+
+$accordion-transition: $default-transition !default;
+
+//-------------------- Blackout --------------------//
+
+$blackout-class: "." + $vendor-prefix + "blackout" !default;
+
+$blackout-transition: $default-transition !default;
+$blackout-opacity: .85 !default;
+
+//-------------------- Breadcrumb --------------------//
+
+$breadcrumb-class: "." + $vendor-prefix + "breadcrumb" !default;
+
+//-------------------- Button --------------------//
+
+$button-class: "." + $vendor-prefix + "button" !default;
+
+//-------------------- Button Group --------------------//
+
+$buttonGroup-class: "." + $vendor-prefix + "button-group" !default;
+
+$buttonGroup-modifier-vertical: "vertical" !default;
+$buttonGroup-modifier-justified: "justified" !default;
+
+//-------------------- Carousel --------------------//
+
+$carousel-class: "." + $vendor-prefix + "carousel" !default;
+$carousel-class-items: $carousel-class + "-items" !default;
+$carousel-class-tabs: $carousel-class + "-tabs" !default;
+$carousel-class-next: $carousel-class + "-next" !default;
+$carousel-class-prev: $carousel-class + "-prev" !default;
+
+$carousel-modifier-wide: "wide" !default;
+$carousel-modifier-square: "square" !default;
+
+$carousel-opacity: $default-opacity !default;
+$carousel-transition: 1s !default;
+
+//-------------------- Divider --------------------//
+
+$divider-class: "." + $vendor-prefix + "divider" !default;
+
+//-------------------- Drop --------------------//
+
+$drop-class: "." + $vendor-prefix + "drop" !default;
+$drop-class-divider: $drop-class + "-divider" !default;
+$drop-class-heading: $drop-class + "-heading" !default;
+
+$drop-modifier-down: "down" !default;
+$drop-modifier-up: "up" !default;
+$drop-modifier-left: "left" !default;
+$drop-modifier-right: "right" !default;
+
+$drop-transition: $default-transition !default;
+
+//-------------------- Flyout --------------------//
+
+$flyout-class: "." + $vendor-prefix + "flyout" !default;
+$flyout-class-heading: $flyout-class + "-heading" !default;
+
+$flyout-transition: $default-transition !default;
+
+//-------------------- Form --------------------//
+
+$form-class: "." + $vendor-prefix + "form" !default;
+$form-class-actions: $form-class + "-actions" !default;
+$form-class-input: "." + $vendor-prefix + "input" !default;
+$form-class-input-static: $form-class-input + "-static" !default;
+$form-class-input-radio: $form-class-input + "-radio" !default;
+$form-class-input-checkbox: $form-class-input + "-checkbox" !default;
+$form-class-fields: "." + $vendor-prefix + "fields" !default;
+$form-class-field: "." + $vendor-prefix + "field" !default;
+$form-class-field-help: $form-class-field + "-help" !default;
+$form-class-field-label: $form-class-field + "-label" !default;
+$form-class-field-column: $form-class-field + "-col" !default;
+
+$form-modifier-inline: "inline" !default;
+$form-modifier-horizontal: "horizontal" !default;
+
+//-------------------- Grid --------------------//
+
+$grid-class: "." + $vendor-prefix + "grid" !default;
+$grid-class-column: ".col" !default;
+
+$grid-columns-large: 12 !default;
+$grid-columns-medium: 12 !default;
+$grid-columns-small: 6 !default;
+
+$grid-columns-desktop: 12 !default;
+$grid-columns-tablet: 6 !default;
+$grid-columns-mobile: 3 !default;
+
+$grid-width: 100% !default;
+$grid-gutter: false !default;
+$grid-push-pull: true !default;
+
+//-------------------- Icon --------------------//
+
+$icon-class-name: "icon" !default; // Without the .
+
+//-------------------- Input --------------------//
+
+$input-class: "." + $vendor-prefix + "custom-input" !default;
+$input-class-checkbox: ".checkbox" !default;
+$input-class-radio: ".radio" !default;
+$input-class-select: ".select" !default;
+$input-class-select-label: $input-class-select + "-label" !default;
+$input-class-select-arrow: $input-class-select + "-arrow" !default;
+$input-class-select-options: $input-class-select + "-options" !default;
+
+//-------------------- Input Group --------------------//
+
+$inputGroup-class: "." + $vendor-prefix + "input-group" !default;
+$inputGroup-class-addon: "." + $vendor-prefix + "input-addon" !default;
+
+//-------------------- Label --------------------//
+
+$label-class: "." + $vendor-prefix + "label" !default;
+
+$label-modifier-badge: "badge" !default;
+$label-modifier-ribbon-left: "ribbon-left" !default;
+$label-modifier-ribbon-right: "ribbon-right" !default;
+$label-modifier-arrow-left: "arrow-left" !default;
+$label-modifier-arrow-right: "arrow-right" !default;
+
+//-------------------- Lazy Load --------------------//
+
+$lazyLoad-class: "." + $vendor-prefix + "lazy-load" !default;
+
+$lazyLoad-transition: $default-transition !default;
+
+//-------------------- Loader --------------------//
+
+$loader-class: "." + $vendor-prefix + "loader" !default;
+$loader-class-message: $loader-class + "-message" !default;
+$loader-class-spinner: $loader-class + "-spinner" !default;
+
+$loader-type: "all" !default;
+$loader-color: #000 !default;
+$loader-wave-count: 5 !default;
+$loader-bar-width: 0.65rem !default;
+$loader-bar-height: 2.5rem !default;
+$loader-bubble-size: 1.5rem !default;
+
+//-------------------- Mask --------------------//
+
+$mask-class: "." + $vendor-prefix + "mask" !default;
+$mask-class-message: $mask-class + "-message" !default;
+$mask-class-target: $mask-class + "-target" !default;
+
+$mask-opacity: .85 !default;
+$mask-transition: $default-transition !default;
+
+//-------------------- Matrix --------------------//
+
+$matrix-class: "." + $vendor-prefix + "matrix" !default;
+
+$matrix-transition: $default-transition !default;
+
+//-------------------- Modal --------------------//
+
+$modal-class: "." + $vendor-prefix + "modal" !default;
+$modal-class-outer: $modal-class + "-outer" !default;
+$modal-class-inner: $modal-class + "-inner" !default;
+$modal-class-head: $modal-class + "-head" !default;
+$modal-class-body: $modal-class + "-body" !default;
+$modal-class-foot: $modal-class + "-foot" !default;
+
+$modal-animation: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
+$modal-mobile-breakpoint: 640px !default; // iOS5
+$modal-transition: $default-transition !default;
+
+//-------------------- Notice --------------------//
+
+$notice-class: "." + $vendor-prefix + "notice" !default;
+$notice-class-close: $notice-class + "-close" !default;
+$notice-class-title: $notice-class + "-title" !default;
+
+//-------------------- Off Canvas --------------------//
+
+$offCanvas-class: "." + $vendor-prefix + "off-canvas" !default;
+$offCanvas-class-content: "." + $vendor-prefix + "on-canvas" !default;
+$offCanvas-class-wrapper: "." + $vendor-prefix + "canvas" !default;
+
+$offCanvas-modifier-left: "left" !default;
+$offCanvas-modifier-right: "right" !default;
+
+$offCanvas-left-width: 20% !default;
+$offCanvas-right-width: 20% !default;
+$offCanvas-left-width-mobile: 90% !default;
+$offCanvas-right-width-mobile: 90% !default;
+$offCanvas-mobile-breakpoint: 640px !default; // iOS5
+$offCanvas-transition: .5s !default;
+
+//-------------------- Pagination --------------------//
+
+$pagination-class: "." + $vendor-prefix + "pagination" !default;
+
+$pagination-modifier-grouped: "grouped" !default;
+
+//-------------------- Pin --------------------//
+
+$pin-class: "." + $vendor-prefix + "pin" !default;
+
+$pin-transition: .2s !default;
+
+//-------------------- Popover --------------------//
+
+$popover-class: "." + $vendor-prefix + "popover" !default;
+$popover-class-head: $popover-class + "-head" !default;
+$popover-class-body: $popover-class + "-body" !default;
+$popover-class-arrow: $popover-class + "-arrow" !default;
+
+$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
+$popover-arrow-width: 8 !default;
+
+//-------------------- Progress --------------------//
+
+$progress-class: "." + $vendor-prefix + "progress" !default;
+$progress-class-bar: $progress-class + "-bar" !default;
+
+$progress-transition: .5s !default;
+
 //-------------------- Responsive --------------------//
 
 $responsive-design: "mobile" !default; // mobile, desktop
@@ -146,55 +343,89 @@ $breakpoint-small: 768px !default;
 $breakpoint-medium: 1280px !default;
 $breakpoint-large: 1440px !default;
 
-//-------------------- Grid --------------------//
+//-------------------- Showcase --------------------//
 
-$grid-columns-large: 12 !default;
-$grid-columns-medium: 12 !default;
-$grid-columns-small: 6 !default;
+$showcase-class: "." + $vendor-prefix + "showcase" !default;
+$showcase-class-inner: $showcase-class + "-inner" !default;
+$showcase-class-items: $showcase-class + "-items" !default;
+$showcase-class-close: $showcase-class + "-close" !default;
+$showcase-class-next: $showcase-class + "-next" !default;
+$showcase-class-prev: $showcase-class + "-prev" !default;
+$showcase-class-tabs: $showcase-class + "-tabs" !default;
+$showcase-class-caption: $showcase-class + "-caption" !default;
 
-$grid-columns-desktop: 12 !default;
-$grid-columns-tablet: 6 !default;
-$grid-columns-mobile: 3 !default;
+$showcase-opacity: $default-opacity !default;
+$showcase-transition: $default-transition !default;
 
-$grid-width: 100% !default;
-$grid-gutter: false !default;
-$grid-push-pull: true !default;
+//-------------------- Step --------------------//
 
-//-------------------- Loader --------------------//
+$step-class: "." + $vendor-prefix + "step" !default;
+$step-class-wrapper: "." + $vendor-prefix + "steps" !default;
 
-$loader-type: "all" !default;
-$loader-color: #000 !default;
-$loader-wave-count: 5 !default;
-$loader-bar-width: 0.65rem !default;
-$loader-bar-height: 2.5rem !default;
-$loader-bubble-size: 1.5rem !default;
+//-------------------- Switch --------------------//
 
-//-------------------- Modal --------------------//
+$switch-class: "." + $vendor-prefix + "switch" !default;
+$switch-class-bar: $switch-class + "-bar" !default;
+$switch-class-toggle: $switch-class + "-toggle" !default;
 
-$modal-animation: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
-$modal-mobile-breakpoint: 640px !default; // iOS5
+$switch-modifier-stacked: "stacked" !default;
 
-//-------------------- Off Canvas --------------------//
+$switch-transition: $default-transition !default;
 
-$offCanvas-left-width: 20% !default;
-$offCanvas-right-width: 20% !default;
-$offCanvas-left-width-mobile: 90% !default;
-$offCanvas-right-width-mobile: 90% !default;
-$offCanvas-mobile-breakpoint: 640px !default; // iOS5
+//-------------------- Table --------------------//
+
+$table-class: "." + $vendor-prefix + "table" !default;
+$table-class-divider: $table-class + "-divider" !default;
+$table-class-responsive: $table-class + "-responsive" !default;
+
+//-------------------- Tab --------------------//
+
+$tab-class: "." + $vendor-prefix + "tabs" !default;
+$tab-class-nav: "." + $vendor-prefix + "tab-nav" !default;
+$tab-class-section: "." + $vendor-prefix + "tab-section" !default;
+
+$tab-modifier-horizontal: "horizontal" !default;
 
 //-------------------- Toast --------------------//
+
+$toast-class: "." + $vendor-prefix + "toast" !default;
+$toast-class-wrapper: "." + $vendor-prefix + "toasts" !default;
 
 $toast-animation: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
 $toast-position: (
     "top-left", "top-center", "top-right", "center-left",
     "center-right", "bottom-left", "bottom-center", "bottom-right"
 ) !default;
+$toast-transition: $default-transition !default;
 
-//-------------------- Popover, Tooltip --------------------//
+//-------------------- Tooltip --------------------//
 
-$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
-$popover-arrow-width: 8 !default;
+$tooltip-class: "." + $vendor-prefix + "tooltip" !default;
+$tooltip-class-head: $tooltip-class + "-head" !default;
+$tooltip-class-body: $tooltip-class + "-body" !default;
+$tooltip-class-arrow: $tooltip-class + "-arrow" !default;
+
 $tooltip-arrow-width: 6 !default;
+$tooltip-transition: .15s !default;
+
+//-------------------- Type Ahead --------------------//
+
+$typeAhead-class: "." + $vendor-prefix + "type-ahead" !default;
+$typeAhead-class-heading: $typeAhead-class + "-heading" !default;
+$typeAhead-class-highlight: $typeAhead-class + "-highlight" !default;
+$typeAhead-class-description: $typeAhead-class + "-desc" !default;
+$typeAhead-class-shadow: $typeAhead-class + "-shadow" !default;
+
+$typeAhead-transition: $default-transition !default;
+
+//-------------------- Typography --------------------//
+
+$h1-size: 3rem !default;
+$h2-size: 2.5rem !default;
+$h3-size: 2.1rem !default;
+$h4-size: 1.8rem !default;
+$h5-size: 1.5rem !default;
+$h6-size: 1.2rem !default;
 
 //-------------------- Imports --------------------//
 

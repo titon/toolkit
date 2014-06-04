@@ -110,7 +110,27 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
-            <td>$popover-tooltip-animation</td>
+            <td>$tooltip-class</td>
+            <td>.tooltip</td>
+            <td>CSS class name for the tooltip wrapper.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-arrow</td>
+            <td>.tooltip-arrow</td>
+            <td>CSS class name for the tooltip arrow.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-head</td>
+            <td>.tooltip-head</td>
+            <td>CSS class name for the tooltip header element.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-body</td>
+            <td>.tooltip-body</td>
+            <td>CSS class name for the tooltip body element.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-tooltip-animation</td>
             <td>("fade", "from-above", "from-below", "flip-rotate")</td>
             <td>A list of all animations to include in the CSS output.</td>
         </tr>

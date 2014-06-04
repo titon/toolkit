@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}notice {
+#{$notice-class} {
     margin: $margin 0;
     padding: $padding;
     text-align: left;
@@ -25,7 +25,7 @@
     }
 }
 
-.#{$vendor-prefix}notice-close {
+#{$notice-class-close} {
     float: right;
     margin-left: $margin;
     line-height: 1rem;
@@ -36,6 +36,6 @@
     & ~ p { margin: 0; }
 }
 
-.#{$vendor-prefix}notice-title {
+#{$notice-class-title} {
     margin: 0 0 ($margin / 2) 0;
 }

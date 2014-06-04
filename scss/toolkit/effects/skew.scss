@@ -8,13 +8,13 @@
 
 //-------------------- Button --------------------//
 
-.#{$vendor-prefix}button.#{$shape-skew-class} {
+#{$button-class}#{$shape-skew-class} {
     border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
 }
 
 //-------------------- ButtonGroup --------------------//
 
-.#{$vendor-prefix}button-group.#{$shape-skew-class} {
+#{$buttonGroup-class}#{$shape-skew-class} {
     border-top-left-radius: $skew;
     border-top-right-radius: $skew;
     border-bottom-left-radius: 0;
@@ -31,8 +31,8 @@
     }
 }
 
-.#{$vendor-prefix}button-group--vertical {
-    &.#{$shape-skew-class} {
+#{$buttonGroup-class}#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
+    &#{$shape-skew-class} {
         border-top-left-radius: $skew-y 1.5rem;
         border-bottom-left-radius: $skew-y 1.5rem;
 
@@ -46,7 +46,7 @@
         }
     }
 
-    &.#{$shape-skew-class}-reverse {
+    &#{$shape-skew-class}-reverse {
         border-top-right-radius: $skew-y 1.25rem;
         border-bottom-right-radius: $skew-y 1.25rem;
 
@@ -62,7 +62,7 @@
 
 //-------------------- Pagination --------------------//
 
-.#{$vendor-prefix}pagination--grouped.#{$shape-skew-class} {
+#{$pagination-class}#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-skew-class} {
     ul {
         border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
     }
@@ -78,7 +78,7 @@
 
 //-------------------- Visual --------------------//
 
-.#{$vendor-prefix}visual-gloss.#{$shape-skew-class}::after {
+.visual-gloss#{$shape-skew-class}::after {
     width: 90%;
     left: 5.5%;
     border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem;

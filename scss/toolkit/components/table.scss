@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}table {
+#{$table-class} {
     width: 100%;
     margin-top: $margin;
     background: $gray-lightest;
@@ -41,10 +41,10 @@
     }
 
     // Divider
-    tbody tr.#{$vendor-prefix}table-divider { background: $gray-dark !important; }
+    tbody tr#{$table-class-divider} { background: $gray-dark !important; }
 }
 
-.#{$vendor-prefix}table-responsive {
+#{$table-class-responsive} {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
@@ -52,17 +52,17 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}table.has-hover {
-    tbody tr:not(.#{$vendor-prefix}table-divider):hover { background: #fff; }
+#{$table-class}.has-hover {
+    tbody tr:not(#{$table-class-divider}):hover { background: #fff; }
 }
 
-.#{$vendor-prefix}table.is-striped tbody tr {
+#{$table-class}.is-striped tbody tr {
     background: $gray;
 
     &:nth-child(odd) { background: $gray-lightest; }
 }
 
-.#{$vendor-prefix}table.is-sortable {
+#{$table-class}.is-sortable {
     thead th {
         padding: 0;
 
@@ -82,7 +82,7 @@
 
 //-------------------- Sizes --------------------//
 
-.#{$vendor-prefix}table.#{$size-small-class} {
+#{$table-class}#{$size-small-class} {
     thead th,
     tbody td { padding: $small-padding; }
 
@@ -96,7 +96,7 @@
     }
 }
 
-.#{$vendor-prefix}table.#{$size-large-class} {
+#{$table-class}#{$size-large-class} {
     thead th,
     tbody td { padding: $large-padding; }
 

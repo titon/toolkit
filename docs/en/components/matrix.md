@@ -87,6 +87,11 @@ We suggest adding `.fluid` from the [Responsive component](responsive.md) to all
     </thead>
     <tbody>
         <tr>
+            <td>$matrix-class</td>
+            <td>.matrix</td>
+            <td>CSS class name for the matrix list.</td>
+        </tr>
+        <tr>
             <td>$matrix-transition</td>
             <td>.3s</td>
             <td>The transition time for matrix item position animations.</td>

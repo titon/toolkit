@@ -6,5 +6,7 @@ Older versions can be found in the documentation changelogs.
 
 * Dropped MooTools support
 * Dropped IE8 support
+* Updated all component CSS class names to use Sass variables for more configuration control
 * Updated `:before` and `:after` pseudo elements to use double colon `::` syntax
+* Updated `$size-*` and `$shape-*` variables to be prefixed by default with a `.`
 * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)

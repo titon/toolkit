@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}blackout {
+#{$blackout-class} {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,12 +18,12 @@
     background: black($blackout-opacity);
     transition: all $blackout-transition;
 
-    .#{$vendor-prefix}loader {
+    #{$loader-class} {
         opacity: 1;
         color: #fff;
         @include position-center;
 
         > span,
-        .spinner > span { background: #fff !important; }
+        #{$loader-class-spinner} > span { background: #fff !important; }
     }
 }

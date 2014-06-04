@@ -211,3 +211,36 @@ Use these for toggling content for print.
         </tr>
     </tbody>
 </table>
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$responsive-design</td>
+            <td>mobile</td>
+            <td>
+                Determines which type of device to target; accepts <code>mobile</code> or <code>desktop</code>.
+                If <code>mobile</code> is used, responsive mixins will use <code>min-width</code> breakpoints in media queries.
+                If <code>desktop</code> is used, then <code>max-width</code> breakpoints are used.
+            </td>
+        </tr>
+        <tr>
+            <td>$responsive-size</td>
+            <td>both</td>
+            <td>
+                Determines which responsive columns are generated within the Grid component; accepts <code>device</code>, <code>size</code>, or <code>both</code>.
+                If <code>device</code> is used, than mobile, tablet, and desktop classes are available for the <code>.col</code> class.
+                If <code>size</code> is used, than small, medium, and large classes are available. If <code>both</code> is used, then all classes are available.
+                The breakpoint variables below are used to determine the media query breakpoints per column class.
+            </td>
+        </tr>
+    </tbody>
+</table>

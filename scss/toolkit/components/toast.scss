@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}toasts {
+#{$toast-class-wrapper} {
     position: fixed;
     margin: $margin;
     width: 20%;
@@ -83,7 +83,7 @@
     }
 }
 
-.#{$vendor-prefix}toast {
+#{$toast-class} {
     margin-top: 1rem;
     transition: opacity $toast-transition, visibility $toast-transition, transform $toast-transition;
     opacity: 0;
@@ -95,7 +95,7 @@
 
 //-------------------- Animations --------------------//
 
-.#{$vendor-prefix}toast {
+#{$toast-class} {
     @if index($toast-animation, "slide-up") {
         &.slide-up {
             transform: translateY(50%);

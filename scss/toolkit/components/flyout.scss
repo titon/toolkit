@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}flyout {
+#{$flyout-class} {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,7 +45,7 @@
         }
 
         // Nested flyouts
-        > .#{$vendor-prefix}flyout {
+        > #{$flyout-class} {
             left: 90%;
             transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition, visibility $flyout-transition;
 
@@ -57,7 +57,7 @@
             }
         }
 
-        &.is-open > .#{$vendor-prefix}flyout {
+        &.is-open > #{$flyout-class} {
             opacity: 1;
             visibility: visible;
             left: 100%;
@@ -72,7 +72,7 @@
     @include clear-fix;
 }
 
-.#{$vendor-prefix}flyout-heading {
+#{$flyout-class-heading} {
     padding: $small-padding;
     line-height: 100%;
     display: block;

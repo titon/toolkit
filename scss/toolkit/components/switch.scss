@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}switch {
+#{$switch-class} {
     @include reset-inline-block;
     font-size: 0;
     width: 100px;
@@ -16,8 +16,8 @@
         opacity: $disabled-opacity;
     }
 
-    &.#{$shape-round-class} {
-        .#{$vendor-prefix}switch-toggle {
+    &#{$shape-round-class} {
+        #{$switch-class-toggle} {
             border-radius: $round - 0.02;
         }
     }
@@ -25,8 +25,8 @@
     input {
         display: none;
 
-        &:checked + .#{$vendor-prefix}switch-bar {
-            .#{$vendor-prefix}switch-toggle {
+        &:checked + #{$switch-class-bar} {
+            #{$switch-class-toggle} {
                 left: 50%;
             }
 
@@ -38,7 +38,7 @@
     @include is-small() {
         width: 70px;
 
-        .#{$vendor-prefix}switch-bar {
+        #{$switch-class-bar} {
             font-size: $small-size;
 
             &::before,
@@ -47,7 +47,7 @@
             }
         }
 
-        .#{$vendor-prefix}switch-toggle {
+        #{$switch-class-toggle} {
             padding: $small-padding;
         }
     }
@@ -55,7 +55,7 @@
     @include is-large() {
         width: 130px;
 
-        .#{$vendor-prefix}switch-bar {
+        #{$switch-class-bar} {
             font-size: $large-size;
 
             &::before,
@@ -64,13 +64,13 @@
             }
         }
 
-        .#{$vendor-prefix}switch-toggle {
+        #{$switch-class-toggle} {
             padding: $large-padding;
         }
     }
 }
 
-.#{$vendor-prefix}switch-bar {
+#{$switch-class-bar} {
     display: block;
     position: relative;
     font-size: $medium-size;
@@ -98,7 +98,7 @@
     }
 }
 
-.#{$vendor-prefix}switch-toggle {
+#{$switch-class-toggle} {
     @include reset-inline-block;
     padding: $medium-padding;
     width: 50%;
@@ -112,8 +112,8 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}switch--stacked {
-    .#{$vendor-prefix}switch-bar {
+#{$switch-class}#{$switch-class}--#{$switch-modifier-stacked} {
+    #{$switch-class-bar} {
         &::before,
         &::after {
             z-index: 3;

@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}divider {
+#{$divider-class} {
     position: relative;
     text-align: center;
     margin: $margin 0;

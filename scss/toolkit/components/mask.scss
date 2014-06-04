@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}mask {
+#{$mask-class} {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +21,7 @@
     user-select: none;
 }
 
-.#{$vendor-prefix}mask-message {
+#{$mask-class-message} {
     text-align: center;
     max-width: 80%;
     @include position-center;
@@ -29,7 +29,7 @@
     &:empty { display: none; }
 }
 
-.#{$vendor-prefix}mask-target {
+#{$mask-class-target} {
     overflow: hidden;
 
     // Fixes issues where mask does not display in iOS

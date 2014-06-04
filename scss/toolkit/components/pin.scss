@@ -6,10 +6,10 @@
 
 @import "../common";
 
-.#{$vendor-prefix}pin.sticky {
+#{$pin-class}.sticky {
     transition: top .6s ease-in-out, right $pin-transition ease-in-out, left $pin-transition ease-in-out;
 }
 
-.#{$vendor-prefix}pin.slide {
+#{$pin-class}.slide {
     transition: top $pin-transition linear, right $pin-transition linear, left $pin-transition linear;
 }

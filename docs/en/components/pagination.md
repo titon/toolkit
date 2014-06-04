@@ -57,3 +57,27 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
     ...
 </nav>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$pagination-class</td>
+            <td>.pagination</td>
+            <td>CSS class name for the pagination list.</td>
+        </tr>
+        <tr>
+            <td>$pagination-modifier-grouped</td>
+            <td>grouped</td>
+            <td>Name of the grouped modifier to append to pagination classes.</td>
+        </tr>
+    </tbody>
+</table>

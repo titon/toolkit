@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}input-group {
+#{$inputGroup-class} {
     display: inline-block;
     vertical-align: middle;
     white-space: nowrap;
@@ -29,7 +29,7 @@
     @include clear-fix;
 }
 
-.#{$vendor-prefix}input-addon {
+#{$inputGroup-class-addon} {
     vertical-align: middle;
     line-height: normal;
     @include size-medium;
@@ -40,7 +40,7 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}input-group.#{$shape-round-class} {
+#{$inputGroup-class}#{$shape-round-class} {
     > *:first-child {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;

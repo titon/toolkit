@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}drop {
+#{$drop-class} {
     @include reset-list;
     text-align: left;
     position: absolute;
@@ -20,7 +20,7 @@
     transition: left $drop-transition, opacity $drop-transition, visibility $drop-transition;
 
     // Nested
-    .#{$vendor-prefix}drop {
+    #{$drop-class} {
         display: block;
         top: 0;
         left: 90%;
@@ -52,7 +52,7 @@
 
         // Show nested dropdown
         &:hover {
-            .#{$vendor-prefix}drop {
+            #{$drop-class} {
                 visibility: visible;
                 opacity: 1;
                 left: 100%;
@@ -61,42 +61,42 @@
     }
 }
 
-.#{$vendor-prefix}drop-divider {
+#{$drop-class-divider} {
     margin: ($margin / 2) 0;
     border-top: 1px solid $gray-dark;
 }
 
-.#{$vendor-prefix}drop-heading {
+#{$drop-class-heading} {
     padding: $small-padding;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--up {
+#{$drop-class}#{$drop-class}--#{$drop-modifier-up} {
     top: auto;
     bottom: 100%;
 }
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--right {
+#{$drop-class}#{$drop-class}--#{$drop-modifier-right} {
     top: auto;
     left: 100%;
 }
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--left {
+#{$drop-class}#{$drop-class}--#{$drop-modifier-left} {
     top: auto;
     left: auto;
     right: 100%;
 }
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--right,
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--left {
+#{$drop-class}#{$drop-class}--#{$drop-modifier-right},
+#{$drop-class}#{$drop-class}--#{$drop-modifier-left} {
     &.reverse-align {
         bottom: 0;
     }
 }
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--down,
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--up {
+#{$drop-class}#{$drop-class}--#{$drop-modifier-down},
+#{$drop-class}#{$drop-class}--#{$drop-modifier-up} {
     &.reverse-align {
         left: auto;
         right: 0;

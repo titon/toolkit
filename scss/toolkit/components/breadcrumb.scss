@@ -6,7 +6,7 @@
 
 @import "../common";
 
-.#{$vendor-prefix}breadcrumb {
+#{$breadcrumb-class} {
     text-align: left;
     margin: $margin 0;
 

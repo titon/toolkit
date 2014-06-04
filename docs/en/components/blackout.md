@@ -63,6 +63,11 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
+            <td>$blackout-class</td>
+            <td>.blackout</td>
+            <td>CSS class name for the blackout element.</td>
+        </tr>
+        <tr>
             <td>$blackout-opacity</td>
             <td>0.85</td>
             <td>The alpha transparency for the blackout element.</td>

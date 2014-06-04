@@ -118,3 +118,32 @@ tables to scroll horizontally when bleeding out of the viewport or their contain
     </table>
 </div>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$table-class</td>
+            <td>.table</td>
+            <td>CSS class name for the table element.</td>
+        </tr>
+        <tr>
+            <td>$table-class-divider</td>
+            <td>.table-divider</td>
+            <td>CSS class name for the table row divider.</td>
+        </tr>
+        <tr>
+            <td>$table-class-responsive</td>
+            <td>.table-responsive</td>
+            <td>CSS class name for the responsive table wrapper.</td>
+        </tr>
+    </tbody>
+</table>

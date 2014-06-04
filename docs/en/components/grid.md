@@ -306,6 +306,16 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
     </thead>
     <tbody>
         <tr>
+            <td>$grid-class</td>
+            <td>.grid</td>
+            <td>CSS class name for the grid row.</td>
+        </tr>
+        <tr>
+            <td>$grid-class-column</td>
+            <td>.col</td>
+            <td>CSS class name for the grid column.</td>
+        </tr>
+        <tr>
             <td>$grid-width</td>
             <td>100%</td>
             <td>The width of the grid. The wrapper and columns are fluid by default so percentages are suggested.</td>

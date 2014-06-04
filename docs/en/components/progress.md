@@ -105,6 +105,16 @@ The `progressbar` role and the appropriate `aria-*` attributes are required when
     </thead>
     <tbody>
         <tr>
+            <td>$progress-class</td>
+            <td>.progress</td>
+            <td>CSS class name for the progress wrapper.</td>
+        </tr>
+        <tr>
+            <td>$progress-class-bar</td>
+            <td>.progress-bar</td>
+            <td>CSS class name for the progress bar element.</td>
+        </tr>
+        <tr>
             <td>$progress-transition</td>
             <td>.5s</td>
             <td>The transition time for progress bar with and background animations.</td>

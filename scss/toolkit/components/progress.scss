@@ -6,12 +6,12 @@
 
 @import "../common";
 
-.#{$vendor-prefix}progress {
+#{$progress-class} {
     overflow: hidden;
     position: relative;
 
     @include is-small {
-        .#{$vendor-prefix}progress-bar {
+        #{$progress-class-bar} {
             height: 1rem;
             line-height: 1rem;
             font-size: $small-size;
@@ -19,7 +19,7 @@
     }
 
     @include is-large {
-        .#{$vendor-prefix}progress-bar {
+        #{$progress-class-bar} {
             height: 2rem;
             line-height: 2rem;
             font-size: $large-size;
@@ -29,7 +29,7 @@
     @include clear-fix;
 }
 
-.#{$vendor-prefix}progress-bar {
+#{$progress-class-bar} {
     height: 1.5rem;
     line-height: 1.5rem;
     overflow: hidden;
@@ -40,10 +40,10 @@
     transition: width $progress-transition, background $progress-transition;
 }
 
-.#{$vendor-prefix}progress.#{$shape-round-class} {
+#{$progress-class}#{$shape-round-class} {
     border-radius: $round;
 
-    .#{$vendor-prefix}progress-bar:first-child {
+    #{$progress-class-bar}:first-child {
         border-top-left-radius: $round;
         border-bottom-left-radius: $round;
     }

@@ -152,6 +152,36 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
+            <td>$modal-class</td>
+            <td>.modal</td>
+            <td>CSS class name for the modal wrapper.</td>
+        </tr>
+        <tr>
+            <td>$modal-class-outer</td>
+            <td>.modal-outer</td>
+            <td>CSS class name for the outer modal element.</td>
+        </tr>
+        <tr>
+            <td>$modal-class-inner</td>
+            <td>.modal-inner</td>
+            <td>CSS class name for the inner modal element.</td>
+        </tr>
+        <tr>
+            <td>$modal-class-head</td>
+            <td>.modal-head</td>
+            <td>CSS class name for the modal header element.</td>
+        </tr>
+        <tr>
+            <td>$modal-class-body</td>
+            <td>.modal-body</td>
+            <td>CSS class name for the modal body element.</td>
+        </tr>
+        <tr>
+            <td>$modal-class-foot</td>
+            <td>.modal-foot</td>
+            <td>CSS class name for the modal footer element.</td>
+        </tr>
+        <tr>
             <td>$modal-animation</td>
             <td>("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left")</td>
             <td>A list of all animations to include in the CSS output.</td>

@@ -71,6 +71,21 @@ $('.js-mask-target').mask({
     </thead>
     <tbody>
         <tr>
+            <td>$mask-class</td>
+            <td>.mask</td>
+            <td>CSS class name for the mask element.</td>
+        </tr>
+        <tr>
+            <td>$mask-class-message</td>
+            <td>.mask-message</td>
+            <td>CSS class name for the mask message.</td>
+        </tr>
+        <tr>
+            <td>$mask-class-target</td>
+            <td>.mask-target</td>
+            <td>CSS class name for the mask target.</td>
+        </tr>
+        <tr>
             <td>$mask-opacity</td>
             <td>0.85</td>
             <td>The alpha transparency for the masking element.</td>

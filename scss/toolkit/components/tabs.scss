@@ -7,11 +7,11 @@
 @import "../common";
 
 // Need a property for @extend to work
-.#{$vendor-prefix}tabs {
+#{$tab-class} {
     text-align: left;
 }
 
-.#{$vendor-prefix}tabs-nav {
+#{$tab-class-nav} {
     display: block;
     margin-bottom: $margin;
 
@@ -24,16 +24,16 @@
 }
 
 // Add display none on sections since visibility takes up DOM space
-.#{$vendor-prefix}tabs-section.hide {
+#{$tab-class-section}.hide {
     display: none;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}tabs--horizontal {
-    @extend .#{$vendor-prefix}tabs;
+#{$tab-class}--#{$tab-modifier-horizontal} {
+    @extend #{$tab-class};
 
-    .#{$vendor-prefix}tabs-nav {
+    #{$tab-class-nav} {
         ul, ol, li, a, button {
             display: block;
             float: none;

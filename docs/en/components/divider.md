@@ -48,3 +48,22 @@ The `separator` role is required when supporting ARIA.
 ```html
 <div class="divider" role="separator"></div>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$divider-class</td>
+            <td>.divider</td>
+            <td>CSS class name for the divider element.</td>
+        </tr>
+    </tbody>
+</table>
