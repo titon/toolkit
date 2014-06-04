@@ -102,8 +102,6 @@
 //-------------------- Modifiers --------------------//
 
 #{$carousel-class}--#{$carousel-modifier-wide} {
-    @extend #{$carousel-class};
-
     #{$carousel-class-items} {
         /* 16:9 ratio */
         padding-bottom: 56.25%;
@@ -111,8 +109,6 @@
 }
 
 #{$carousel-class}--#{$carousel-modifier-square} {
-    @extend #{$carousel-class};
-
     #{$carousel-class-items} {
         /* 1:1 ratio */
         padding-bottom: 100%;

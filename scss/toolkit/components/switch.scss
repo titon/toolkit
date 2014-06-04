@@ -112,7 +112,7 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$switch-class}#{$switch-class}--#{$switch-modifier-stacked} {
+#{$switch-class}--#{$switch-modifier-stacked} {
     #{$switch-class-bar} {
         &::before,
         &::after {

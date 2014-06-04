@@ -50,3 +50,6 @@
         &:last-child { margin-right: 0; }
     }
 }
+
+%row { @include grid-row; }
+%col { @include grid-column; }

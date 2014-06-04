@@ -41,14 +41,10 @@
 //-------------------- Modifiers --------------------//
 
 #{$label-class}--#{$label-modifier-badge} {
-    @extend #{$label-class};
-
     border-radius: 1rem;
 }
 
 #{$label-class}--#{$label-modifier-arrow-left} {
-    @extend #{$label-class};
-
     border-top-left-radius: 1px;
     border-bottom-left-radius: 1px;
     padding-left: 2px;
@@ -66,8 +62,6 @@
 }
 
 #{$label-class}--#{$label-modifier-arrow-right} {
-    @extend #{$label-class};
-
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
     padding-right: 2px;
@@ -85,8 +79,6 @@
 }
 
 #{$label-class}--#{$label-modifier-ribbon-left} {
-    @extend #{$label-class};
-
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 
@@ -101,8 +93,6 @@
 }
 
 #{$label-class}--#{$label-modifier-ribbon-right} {
-    @extend #{$label-class};
-
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 

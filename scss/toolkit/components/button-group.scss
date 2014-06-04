@@ -58,7 +58,6 @@
 //-------------------- Modifiers --------------------//
 
 #{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
-    @extend #{$buttonGroup-class};
     vertical-align: top;
 
     > li,
@@ -94,7 +93,6 @@
 }
 
 #{$buttonGroup-class}--#{$buttonGroup-modifier-justified} {
-    @extend #{$buttonGroup-class};
     display: table;
     width: 100%;
 

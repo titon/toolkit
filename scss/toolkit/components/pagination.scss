@@ -32,8 +32,6 @@
 //-------------------- Modifiers --------------------//
 
 #{$pagination-class}--#{$pagination-modifier-grouped} {
-    @extend #{$pagination-class};
-
     li {
         margin-left: -1px;
         margin-right: 0;

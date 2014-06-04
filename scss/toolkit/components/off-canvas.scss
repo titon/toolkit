@@ -34,8 +34,6 @@
 //-------------------- Modifiers --------------------//
 
 #{$offCanvas-class}--#{$offCanvas-modifier-left} {
-    @extend #{$offCanvas-class};
-
     left: 0;
     width: $offCanvas-left-width;
     transform: translate3d(-100%, 0, 0);
@@ -44,8 +42,6 @@
 }
 
 #{$offCanvas-class}--#{$offCanvas-modifier-right} {
-    @extend #{$offCanvas-class};
-
     right: 0;
     width: $offCanvas-right-width;
     transform: translate3d(100%, 0, 0);

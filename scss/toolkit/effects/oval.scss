@@ -14,7 +14,7 @@
 
 //-------------------- Pagination --------------------//
 
-#{$pagination-class}#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-oval-class} {
+#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-oval-class} {
     ul {
         border-radius: #{$oval-x} / #{$oval-y};
     }

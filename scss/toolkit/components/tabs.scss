@@ -6,7 +6,6 @@
 
 @import "../common";
 
-// Need a property for @extend to work
 #{$tab-class} {
     text-align: left;
 }
@@ -23,7 +22,7 @@
     @include clear-fix;
 }
 
-// Add display none on sections since visibility takes up DOM space
+// Add display none on sections since visibility property takes up DOM space
 #{$tab-class-section}.hide {
     display: none;
 }
@@ -31,8 +30,6 @@
 //-------------------- Modifiers --------------------//
 
 #{$tab-class}--#{$tab-modifier-horizontal} {
-    @extend #{$tab-class};
-
     #{$tab-class-nav} {
         ul, ol, li, a, button {
             display: block;

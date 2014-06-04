@@ -308,8 +308,6 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .label--arrow-left {
-    @extend .label;
-
     &::after { border-right-color: $default-light; }
     &.is-info::after { border-right-color: $info-light; }
     &.is-error::after { border-right-color: $error-light; }
@@ -318,8 +316,6 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .label--arrow-right {
-    @extend .label;
-
     &::after { border-left-color: $default-light; }
     &.is-info::after { border-left-color: $info-light; }
     &.is-error::after { border-left-color: $error-light; }
@@ -328,8 +324,6 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .label--ribbon-left {
-    @extend .label;
-
     &::after { border-right-color: darken($default, 15%); }
     &.is-info::after { border-right-color: darken($info-light, 15%); }
     &.is-error::after { border-right-color: darken($error-light, 15%); }
@@ -338,8 +332,6 @@ mark { background: lighten($warning-light, 25%); }
 }
 
 .label--ribbon-right {
-    @extend .label;
-
     &::after { border-left-color: darken($default, 15%); }
     &.is-info::after { border-left-color: darken($info-light, 15%); }
     &.is-error::after { border-left-color: darken($error-light, 15%); }

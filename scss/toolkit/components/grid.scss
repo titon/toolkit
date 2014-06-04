@@ -6,9 +6,6 @@
 
 @import "../common";
 
-%row { @include grid-row; }
-%col { @include grid-column; }
-
 // Row wrapper
 #{$grid-class} {
     @extend %row;

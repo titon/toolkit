@@ -31,7 +31,7 @@
     }
 }
 
-#{$buttonGroup-class}#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
+#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
     &#{$shape-skew-class} {
         border-top-left-radius: $skew-y 1.5rem;
         border-bottom-left-radius: $skew-y 1.5rem;
@@ -62,7 +62,7 @@
 
 //-------------------- Pagination --------------------//
 
-#{$pagination-class}#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-skew-class} {
+#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-skew-class} {
     ul {
         border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
     }

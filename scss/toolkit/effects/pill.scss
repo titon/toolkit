@@ -28,7 +28,7 @@
     }
 }
 
-#{$buttonGroup-class}#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical}#{$shape-pill-class} {
+#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical}#{$shape-pill-class} {
     border-radius: $pill;
 
     @include button-group-first-child {
@@ -48,7 +48,7 @@
 
 //-------------------- Pagination --------------------//
 
-#{$pagination-class}#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-pill-class} {
+#{$pagination-class}--#{$pagination-modifier-grouped}#{$shape-pill-class} {
     ul {
         border-radius: $pill;
     }
