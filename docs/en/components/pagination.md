@@ -36,13 +36,18 @@ To group all links into a single solid bar, use the `.pagination--grouped` modif
 </nav>
 ```
 
-Grouped paginations can also make use of [certain effects](effects.md), like `.round`, and `.pill`.
+Grouped paginations can also make use of certain effects, like `.round`, `.pill`, `.oval`, and `.skew`.
 
 ```html
 <nav class="pagination pagination--grouped round">
     ...
 </nav>
 ```
+
+<div class="notice is-warning">
+    All effects (excluding round) are disabled by default.
+    Modify the <code>$pagination-effects</code> Sass variable to enable them.
+</div>
 
 ### Notes ###
 
@@ -78,6 +83,11 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
             <td>$pagination-modifier-grouped</td>
             <td>grouped</td>
             <td>Name of the grouped modifier to append to pagination classes.</td>
+        </tr>
+        <tr>
+            <td>$pagination-effects</td>
+            <td>()</td>
+            <td>List of effects to include in the CSS output. Accepts oval, pill, and skew.</td>
         </tr>
     </tbody>
 </table>

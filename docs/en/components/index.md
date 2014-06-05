@@ -44,9 +44,3 @@
 * [Toast](toast.md)
 * [Tooltip](tooltip.md)
 * [Type Ahead](type-ahead.md)
-
-### Effects ###
-* [Oval](effects.md)
-* [Pill](effects.md)
-* [Skew](effects.md)
-* [Visual](effects.md)

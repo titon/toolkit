@@ -16,12 +16,6 @@
         opacity: $disabled-opacity;
     }
 
-    &#{$shape-round-class} {
-        #{$switch-class-toggle} {
-            border-radius: $round - 0.02;
-        }
-    }
-
     input {
         display: none;
 
@@ -66,6 +60,24 @@
 
         #{$switch-class-toggle} {
             padding: $large-padding;
+        }
+    }
+
+    //----- Effects -----//
+
+    &#{$shape-round-class} {
+        #{$switch-class-toggle} {
+            border-radius: $round - 0.02;
+        }
+    }
+
+    @if index($switch-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            #{$switch-class-toggle} {
+                border-radius: $pill;
+            }
         }
     }
 }

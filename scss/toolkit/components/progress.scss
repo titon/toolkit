@@ -27,6 +27,26 @@
     }
 
     @include clear-fix;
+
+    //----- Effects ------//
+
+    &#{$shape-round-class} {
+        #{$progress-class-bar}:first-child {
+            border-top-left-radius: $round;
+            border-bottom-left-radius: $round;
+        }
+    }
+
+    @if index($progress-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            #{$progress-class-bar}:first-child {
+                border-top-left-radius: $pill;
+                border-bottom-left-radius: $pill;
+            }
+        }
+    }
 }
 
 #{$progress-class-bar} {
@@ -38,13 +58,4 @@
     font-size: $medium-size;
     float: left;
     transition: width $progress-transition, background $progress-transition;
-}
-
-#{$progress-class}#{$shape-round-class} {
-    border-radius: $round;
-
-    #{$progress-class-bar}:first-child {
-        border-top-left-radius: $round;
-        border-bottom-left-radius: $round;
-    }
 }

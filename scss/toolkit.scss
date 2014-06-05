@@ -50,11 +50,5 @@
 @import "toolkit/components/tooltip";
 @import "toolkit/components/type-ahead";
 
-// And visual effects very last
-@import "toolkit/effects/visual";
-@import "toolkit/effects/pill";
-@import "toolkit/effects/oval";
-@import "toolkit/effects/skew";
-
 // Place it last so it overrides other elements
 @import "toolkit/layout/responsive";

@@ -7,7 +7,7 @@ The following classes are reserved by Toolkit:
 
 * All the classes within `base.scss`, `responsive.scss`, and `typography.scss`
 * Grid component `.col` class
-* Shape classes: `.round`, `.square`, `.pill`, `.oval`, `.skew`, `.skew-reverse`
+* Shape classes: `.round`, `.pill`, `.oval`, `.skew`, `.skew-reverse`
 * Size classes: `.small`, `.large`
 * Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in-top`,
     `.slide-in-bottom`, `.slide-in-left`, `.slide-in-right`, `.flip-rotate`,

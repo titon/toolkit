@@ -121,12 +121,19 @@ $breadcrumb-class: "." + $vendor-prefix + "breadcrumb" !default;
 
 $button-class: "." + $vendor-prefix + "button" !default;
 
+$button-modifiers: () !default; // Nothing by default
+
+$button-effects: () !default; // Nothing by default
+
 //-------------------- Button Group --------------------//
 
 $buttonGroup-class: "." + $vendor-prefix + "button-group" !default;
 
+$buttonGroup-modifiers: ("vertical", "justified") !default;
 $buttonGroup-modifier-vertical: "vertical" !default;
 $buttonGroup-modifier-justified: "justified" !default;
+
+$buttonGroup-effects: () !default; // Nothing by default
 
 //-------------------- Carousel --------------------//
 
@@ -304,6 +311,8 @@ $pagination-class: "." + $vendor-prefix + "pagination" !default;
 
 $pagination-modifier-grouped: "grouped" !default;
 
+$pagination-effects: () !default; // Nothing by default
+
 //-------------------- Pin --------------------//
 
 $pin-class: "." + $vendor-prefix + "pin" !default;
@@ -326,6 +335,8 @@ $progress-class: "." + $vendor-prefix + "progress" !default;
 $progress-class-bar: $progress-class + "-bar" !default;
 
 $progress-transition: .5s !default;
+
+$progress-effects: ("pill") !default;
 
 //-------------------- Responsive --------------------//
 
@@ -371,6 +382,8 @@ $switch-class-toggle: $switch-class + "-toggle" !default;
 $switch-modifier-stacked: "stacked" !default;
 
 $switch-transition: $default-transition !default;
+
+$switch-effects: ("pill") !default;
 
 //-------------------- Table --------------------//
 

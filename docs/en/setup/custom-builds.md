@@ -38,18 +38,7 @@ grunt --components=tooltip,modal,buttonGroup
 After the command executes, compiled CSS and Javascript files will be written to the `build` folder. It's as simple as that.
 
 The list of available components can be found in the `manifest.json` found within the root of the project
-(excluding names that start with `theme-` or `effect-`).
-
-## Including Effects ##
-
-Effects are special components that extend the primary components with additional functionality, like pill rounding, and visual glossing.
-These styles are not included by default and must be defined in the same manner as components by supplying a list to the `--effects` option.
-
-```bash
-grunt --effects=oval,pill,visual
-```
-
-The list of available effects can be found in the `manifest.json` and are prefixed with `effect-`.
+(excluding names that start with `theme-`).
 
 ## Normalize Integration ##
 
@@ -61,5 +50,5 @@ To not include normalize, supply the `--no-normalize` option.
 Like other command line utilities, all options can be used at once, and in any order. Go crazy and customize as you please!
 
 ```bash
-grunt production --components=buttonGroup,tooltip --effects=oval --no-normalize
+grunt production --components=buttonGroup,tooltip --no-normalize
 ```

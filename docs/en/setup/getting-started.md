@@ -66,7 +66,6 @@ toolkit/
 └── scss/
     ├── toolkit/
     |   ├── components/
-    |   ├── effects/
     |   ├── layout/
     |   ├── mixins/
     |   ├── themes/
@@ -78,7 +77,6 @@ toolkit/
 Files are organized into folders that represent specific functionality.
 
 * The `components` folder contains source files for individual components.
-* The `effects` folder contains effects that improve components with new aesthetics.
 * The `layout` folder contains styles that alter built-in HTML tags, like forms and typography.
 * The `mixins` folder contains mixins and functions for use in Sass files.
 * The `themes` folder contains custom themes built around Toolkit components.

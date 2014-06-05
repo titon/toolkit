@@ -460,47 +460,6 @@
         }
     },
 
-
-
-    "effect-visual": {
-        "name": "Visual",
-        "description": "Visual element styles like glare, reflection, gloss, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/visual.css"]
-        }
-    },
-    "effect-oval": {
-        "name": "Oval",
-        "description": "Oval shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/oval.css"]
-        }
-    },
-    "effect-pill": {
-        "name": "Pill",
-        "description": "Pill shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/pill.css"]
-        }
-    },
-    "effect-skew": {
-        "name": "Skew",
-        "description": "Skewed shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/skew.css"]
-        }
-    },
-
-
-
     "theme-demo": {
         "name": "Demo Theme",
         "description": "Default styles used for demonstration.",

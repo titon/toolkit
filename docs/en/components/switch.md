@@ -80,10 +80,6 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
 </label>
 ```
 
-<div class="notice is-warning">
-    The <code>.pill</code> shape will require the pill effect.
-</div>
-
 ### Notes ###
 
 * Switches use `:checked` on the original checkbox for their on state.
@@ -118,6 +114,11 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
             <td>$switch-modifier-stacked</td>
             <td>stacked</td>
             <td>Name of the stacked modifier to append to switch classes.</td>
+        </tr>
+        <tr>
+            <td>$switch-effects</td>
+            <td>("pill")</td>
+            <td>List of effects to include in the CSS output. Accepts pill.</td>
         </tr>
         <tr>
             <td>$switch-transition</td>

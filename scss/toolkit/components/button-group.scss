@@ -9,6 +9,7 @@
 #{$buttonGroup-class} {
     @include reset-inline-block;
     @include reset-list;
+    @include clear-fix;
     white-space: nowrap;
 
     > li,
@@ -33,9 +34,9 @@
         }
     }
 
-    &#{$shape-round-class} {
-        border-radius: $round;
+    //----- Effects -----//
 
+    &#{$shape-round-class} {
         @include button-group-first-child {
             border-top-left-radius: $round;
             border-bottom-left-radius: $round;
@@ -47,7 +48,40 @@
         }
     }
 
-    @include clear-fix;
+    @if index($buttonGroup-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            @include button-group-first-child {
+                border-top-left-radius: $pill;
+                border-bottom-left-radius: $pill;
+            }
+
+            @include button-group-last-child {
+                border-top-right-radius: $pill;
+                border-bottom-right-radius: $pill;
+            }
+        }
+    }
+
+    @if index($buttonGroup-effects, "skew") {
+        &#{$shape-skew-class} {
+            border-top-left-radius: $skew;
+            border-top-right-radius: $skew;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            @include button-group-first-child {
+                border-top-left-radius: $skew;
+                border-bottom-left-radius: 0;
+            }
+
+            @include button-group-last-child {
+                border-top-right-radius: $skew;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
 }
 
 // Space out groups
@@ -79,6 +113,8 @@
         #{$button-class} { border-radius: 0; }
     }
 
+    //----- Effects -----//
+
     &#{$shape-round-class} {
         @include button-group-first-child {
             border-top-left-radius: $round;
@@ -88,6 +124,55 @@
         @include button-group-last-child {
             border-bottom-left-radius: $round;
             border-bottom-right-radius: $round;
+        }
+    }
+
+    @if index($buttonGroup-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            @include button-group-first-child {
+                border-top-left-radius: $pill;
+                border-top-right-radius: $pill;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            @include button-group-last-child {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: $pill;
+                border-bottom-right-radius: $pill;
+            }
+        }
+    }
+
+    @if index($buttonGroup-effects, "skew") {
+        &#{$shape-skew-class} {
+            border-top-left-radius: $skew-y 1.5rem;
+            border-bottom-left-radius: $skew-y 1.5rem;
+
+            @include button-group-first-child {
+                border-top-left-radius: $skew-reverse;
+            }
+
+            @include button-group-last-child {
+                border-bottom-left-radius: $skew-reverse;
+                border-top-right-radius: 0;
+            }
+        }
+
+        &#{$shape-skew-class}-reverse {
+            border-top-right-radius: $skew-y 1.25rem;
+            border-bottom-right-radius: $skew-y 1.25rem;
+
+            @include button-group-first-child {
+                border-top-right-radius: $skew-reverse;
+            }
+
+            @include button-group-last-child {
+                border-bottom-right-radius: $skew-reverse;
+            }
         }
     }
 }
