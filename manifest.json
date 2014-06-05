@@ -17,7 +17,7 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["layout/base.css"],
+            "css": ["components/base.css"],
             "js": ["Toolkit.js", "Component.js"]
         }
     },
@@ -27,7 +27,7 @@
         "category": "layout",
         "priority": 2,
         "source": {
-            "css": ["layout/typography.css"]
+            "css": ["components/typography.css"]
         }
     },
     "form": {
@@ -37,7 +37,7 @@
         "priority": 3,
         "require": ["grid"],
         "source": {
-            "css": ["layout/form.css"]
+            "css": ["components/form.css"]
         }
     },
     "code": {
@@ -46,7 +46,7 @@
         "category": "layout",
         "priority": 4,
         "source": {
-            "css": ["layout/code.css"]
+            "css": ["components/code.css"]
         }
     },
     "responsive": {
@@ -55,7 +55,7 @@
         "category": "layout",
         "priority": 100,
         "source": {
-            "css": ["layout/responsive.css"]
+            "css": ["components/responsive.css"]
         }
     },
 

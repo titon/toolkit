@@ -7,19 +7,19 @@
 @import "normalize";
 @import "toolkit/common";
 
-// Basic layout styles should come first
-@import "toolkit/layout/base";
-@import "toolkit/layout/typography";
-@import "toolkit/layout/form";
-@import "toolkit/layout/code";
+// Shared layout styles
+@import "toolkit/components/base";
+@import "toolkit/components/typography";
+@import "toolkit/components/form";
+@import "toolkit/components/code";
 
-// Then basic UI styles
-@import "toolkit/components/grid";
+// Basic UI styles
 @import "toolkit/components/breadcrumb";
 @import "toolkit/components/button";
 @import "toolkit/components/button-group";
 @import "toolkit/components/divider";
 @import "toolkit/components/drop";
+@import "toolkit/components/grid";
 @import "toolkit/components/icon";
 @import "toolkit/components/input";
 @import "toolkit/components/input-group";
@@ -32,7 +32,7 @@
 @import "toolkit/components/switch";
 @import "toolkit/components/table";
 
-// And more advanced UI styles last
+// Advanced UI styles
 @import "toolkit/components/accordion";
 @import "toolkit/components/blackout";
 @import "toolkit/components/carousel";
@@ -50,5 +50,5 @@
 @import "toolkit/components/tooltip";
 @import "toolkit/components/type-ahead";
 
-// Place it last so it overrides other elements
-@import "toolkit/layout/responsive";
+// Responsive should be last to override previous styles
+@import "toolkit/components/responsive";
