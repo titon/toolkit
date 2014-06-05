@@ -33,6 +33,9 @@
         "grunt-string-replace": "*",
         "grunt-autoprefixer": "*",
         "grunt-newer": "*",
-        "compartment": "*"
+        "compartment": "*",
+
+        "gulp": "*",
+        "gulp-ruby-sass": "*"
     }
 }
