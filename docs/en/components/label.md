@@ -69,6 +69,11 @@ Adding a `.small` or `.large` class to the `.label` element will alter the paddi
             <td>CSS class name for the label element.</td>
         </tr>
         <tr>
+            <td>$label-modifiers</td>
+            <td>("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right")</td>
+            <td>List of modifiers to include in the CSS output. Accepts badge, ribbon-left, ribbon-right, arrow-left, and arrow-right.</td>
+        </tr>
+        <tr>
             <td>$label-modifier-badge</td>
             <td>badge</td>
             <td>Name of the badge modifier to append to label classes.</td>

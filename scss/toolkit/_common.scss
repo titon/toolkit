@@ -143,6 +143,7 @@ $carousel-class-tabs: $carousel-class + "-tabs" !default;
 $carousel-class-next: $carousel-class + "-next" !default;
 $carousel-class-prev: $carousel-class + "-prev" !default;
 
+$carousel-modifiers: ("wide", "square") !default;
 $carousel-modifier-wide: "wide" !default;
 $carousel-modifier-square: "square" !default;
 
@@ -159,6 +160,7 @@ $drop-class: "." + $vendor-prefix + "drop" !default;
 $drop-class-divider: $drop-class + "-divider" !default;
 $drop-class-heading: $drop-class + "-heading" !default;
 
+$drop-modifiers: ("down", "up", "left", "right") !default;
 $drop-modifier-down: "down" !default;
 $drop-modifier-up: "up" !default;
 $drop-modifier-left: "left" !default;
@@ -187,6 +189,7 @@ $form-class-field-help: $form-class-field + "-help" !default;
 $form-class-field-label: $form-class-field + "-label" !default;
 $form-class-field-column: $form-class-field + "-col" !default;
 
+$form-modifiers: ("inline", "horizontal") !default;
 $form-modifier-inline: "inline" !default;
 $form-modifier-horizontal: "horizontal" !default;
 
@@ -211,6 +214,10 @@ $grid-push-pull: true !default;
 
 $icon-class-name: "icon" !default; // Without the .
 
+$icon-sizes: (12, 16, 24, 32, 64) !default;
+
+$icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !default;
+
 //-------------------- Input --------------------//
 
 $input-class: "." + $vendor-prefix + "custom-input" !default;
@@ -230,6 +237,7 @@ $inputGroup-class-addon: "." + $vendor-prefix + "input-addon" !default;
 
 $label-class: "." + $vendor-prefix + "label" !default;
 
+$label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !default;
 $label-modifier-badge: "badge" !default;
 $label-modifier-ribbon-left: "ribbon-left" !default;
 $label-modifier-ribbon-right: "ribbon-right" !default;
@@ -309,6 +317,7 @@ $offCanvas-transition: .5s !default;
 
 $pagination-class: "." + $vendor-prefix + "pagination" !default;
 
+$pagination-modifiers: ("grouped") !default;
 $pagination-modifier-grouped: "grouped" !default;
 
 $pagination-effects: () !default; // Nothing by default
@@ -379,6 +388,7 @@ $switch-class: "." + $vendor-prefix + "switch" !default;
 $switch-class-bar: $switch-class + "-bar" !default;
 $switch-class-toggle: $switch-class + "-toggle" !default;
 
+$switch-modifiers: ("stacked") !default;
 $switch-modifier-stacked: "stacked" !default;
 
 $switch-transition: $default-transition !default;
@@ -397,6 +407,7 @@ $tab-class: "." + $vendor-prefix + "tabs" !default;
 $tab-class-nav: "." + $vendor-prefix + "tab-nav" !default;
 $tab-class-section: "." + $vendor-prefix + "tab-section" !default;
 
+$tab-modifiers: ("horizontal") !default;
 $tab-modifier-horizontal: "horizontal" !default;
 
 //-------------------- Toast --------------------//

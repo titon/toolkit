@@ -91,105 +91,109 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
-    vertical-align: top;
+@if index($buttonGroup-modifiers, "vertical") {
+    #{$buttonGroup-class}--#{$buttonGroup-modifier-vertical} {
+        vertical-align: top;
 
-    > li,
-    > #{$button-class} {
-        float: none;
-        display: block;
-        margin: -1px 0 0 0;
-        width: 100%;
-        max-width: 100%;
+        > li,
+        > #{$button-class} {
+            float: none;
+            display: block;
+            margin: -1px 0 0 0;
+            width: 100%;
+            max-width: 100%;
 
-        &:first-child { margin-top: 0; }
-        &:hover { z-index: 1; }
-    }
-
-    &#{$shape-round-class},
-    &#{$shape-pill-class},
-    &#{$shape-skew-class},
-    &#{$shape-skew-class}-reverse {
-        #{$button-class} { border-radius: 0; }
-    }
-
-    //----- Effects -----//
-
-    &#{$shape-round-class} {
-        @include button-group-first-child {
-            border-top-left-radius: $round;
-            border-top-right-radius: $round;
+            &:first-child { margin-top: 0; }
+            &:hover { z-index: 1; }
         }
 
-        @include button-group-last-child {
-            border-bottom-left-radius: $round;
-            border-bottom-right-radius: $round;
-        }
-    }
-
-    @if index($buttonGroup-effects, "pill") {
-        &#{$shape-pill-class} {
-            border-radius: $pill;
-
-            @include button-group-first-child {
-                border-top-left-radius: $pill;
-                border-top-right-radius: $pill;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
-
-            @include button-group-last-child {
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-                border-bottom-left-radius: $pill;
-                border-bottom-right-radius: $pill;
-            }
-        }
-    }
-
-    @if index($buttonGroup-effects, "skew") {
-        &#{$shape-skew-class} {
-            border-top-left-radius: $skew-y 1.5rem;
-            border-bottom-left-radius: $skew-y 1.5rem;
-
-            @include button-group-first-child {
-                border-top-left-radius: $skew-reverse;
-            }
-
-            @include button-group-last-child {
-                border-bottom-left-radius: $skew-reverse;
-                border-top-right-radius: 0;
-            }
-        }
-
+        &#{$shape-round-class},
+        &#{$shape-pill-class},
+        &#{$shape-skew-class},
         &#{$shape-skew-class}-reverse {
-            border-top-right-radius: $skew-y 1.25rem;
-            border-bottom-right-radius: $skew-y 1.25rem;
+            #{$button-class} { border-radius: 0; }
+        }
 
+        //----- Effects -----//
+
+        &#{$shape-round-class} {
             @include button-group-first-child {
-                border-top-right-radius: $skew-reverse;
+                border-top-left-radius: $round;
+                border-top-right-radius: $round;
             }
 
             @include button-group-last-child {
-                border-bottom-right-radius: $skew-reverse;
+                border-bottom-left-radius: $round;
+                border-bottom-right-radius: $round;
+            }
+        }
+
+        @if index($buttonGroup-effects, "pill") {
+            &#{$shape-pill-class} {
+                border-radius: $pill;
+
+                @include button-group-first-child {
+                    border-top-left-radius: $pill;
+                    border-top-right-radius: $pill;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                @include button-group-last-child {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    border-bottom-left-radius: $pill;
+                    border-bottom-right-radius: $pill;
+                }
+            }
+        }
+
+        @if index($buttonGroup-effects, "skew") {
+            &#{$shape-skew-class} {
+                border-top-left-radius: $skew-y 1.5rem;
+                border-bottom-left-radius: $skew-y 1.5rem;
+
+                @include button-group-first-child {
+                    border-top-left-radius: $skew-reverse;
+                }
+
+                @include button-group-last-child {
+                    border-bottom-left-radius: $skew-reverse;
+                    border-top-right-radius: 0;
+                }
+            }
+
+            &#{$shape-skew-class}-reverse {
+                border-top-right-radius: $skew-y 1.25rem;
+                border-bottom-right-radius: $skew-y 1.25rem;
+
+                @include button-group-first-child {
+                    border-top-right-radius: $skew-reverse;
+                }
+
+                @include button-group-last-child {
+                    border-bottom-right-radius: $skew-reverse;
+                }
             }
         }
     }
 }
 
-#{$buttonGroup-class}--#{$buttonGroup-modifier-justified} {
-    display: table;
-    width: 100%;
+@if index($buttonGroup-modifiers, "justified") {
+    #{$buttonGroup-class}--#{$buttonGroup-modifier-justified} {
+        display: table;
+        width: 100%;
 
-    > li,
-    > #{$button-class} {
-        float: none;
-        display: table-cell;
-        margin: 0 !important;
+        > li,
+        > #{$button-class} {
+            float: none;
+            display: table-cell;
+            margin: 0 !important;
+        }
+
+        > li #{$button-class} { display: block; }
+
+        > li:not(:first-child) #{$button-class},
+        > #{$button-class}:not(:first-child) { border-left: 0; }
     }
-
-    > li #{$button-class} { display: block; }
-
-    > li:not(:first-child) #{$button-class},
-    > #{$button-class}:not(:first-child) { border-left: 0; }
 }

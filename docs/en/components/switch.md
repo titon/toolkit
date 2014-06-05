@@ -111,6 +111,11 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
             <td>CSS class name for the switch toggle button.</td>
         </tr>
         <tr>
+            <td>$switch-modifiers</td>
+            <td>("stacked")</td>
+            <td>List of modifiers to include in the CSS output. Accepts stacked.</td>
+        </tr>
+        <tr>
             <td>$switch-modifier-stacked</td>
             <td>stacked</td>
             <td>Name of the stacked modifier to append to switch classes.</td>

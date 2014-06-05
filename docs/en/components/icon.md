@@ -86,5 +86,15 @@ All of these are possible using the icon modifiers `.icon--90deg`, `.icon--180de
             <td>icon</td>
             <td>Name of the icon CSS class without the period.</td>
         </tr>
+        <tr>
+            <td>$icon-modifiers</td>
+            <td>("90deg", "180deg", "270deg", "flip", "flip-vert")</td>
+            <td>List of modifiers to include in the CSS output. Accepts 90deg, 180deg, 270deg, flip, and flip-vert.</td>
+        </tr>
+        <tr>
+            <td>$icon-sizes</td>
+            <td>(12, 16, 24, 32, 64)</td>
+            <td>List of sizes to generate icon maps for.</td>
+        </tr>
     </tbody>
 </table>

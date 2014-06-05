@@ -29,12 +29,14 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$tab-class}--#{$tab-modifier-horizontal} {
-    #{$tab-class-nav} {
-        ul, ol, li, a, button {
-            display: block;
-            float: none;
-            text-align: left;
+@if index($tab-modifiers, "horizontal") {
+    #{$tab-class}--#{$tab-modifier-horizontal} {
+        #{$tab-class-nav} {
+            ul, ol, li, a, button {
+                display: block;
+                float: none;
+                text-align: left;
+            }
         }
     }
 }

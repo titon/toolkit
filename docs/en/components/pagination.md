@@ -80,6 +80,11 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
             <td>CSS class name for the pagination list.</td>
         </tr>
         <tr>
+            <td>$pagination-modifiers</td>
+            <td>("grouped")</td>
+            <td>List of modifiers to include in the CSS output. Accepts grouped.</td>
+        </tr>
+        <tr>
             <td>$pagination-modifier-grouped</td>
             <td>grouped</td>
             <td>Name of the grouped modifier to append to pagination classes.</td>

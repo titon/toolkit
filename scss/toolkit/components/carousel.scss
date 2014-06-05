@@ -101,16 +101,18 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$carousel-class}--#{$carousel-modifier-wide} {
-    #{$carousel-class-items} {
-        /* 16:9 ratio */
-        padding-bottom: 56.25%;
+@if index($carousel-modifiers, "wide") {
+    #{$carousel-class}--#{$carousel-modifier-wide} {
+        #{$carousel-class-items} {
+            padding-bottom: 56.25%; // 16:9 ratio
+        }
     }
 }
 
-#{$carousel-class}--#{$carousel-modifier-square} {
-    #{$carousel-class-items} {
-        /* 1:1 ratio */
-        padding-bottom: 100%;
+@if index($carousel-modifiers, "square") {
+    #{$carousel-class}--#{$carousel-modifier-square} {
+        #{$carousel-class-items} {
+            padding-bottom: 100%; // 1:1 ratio
+        }
     }
 }

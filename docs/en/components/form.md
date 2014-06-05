@@ -286,6 +286,11 @@ may be helpful.
             <td>CSS class name for the field column (used for horizontal layouts).</td>
         </tr>
         <tr>
+            <td>$form-modifiers</td>
+            <td>("inline", "horizontal")</td>
+            <td>List of modifiers to include in the CSS output. Accepts inline and horizontal.</td>
+        </tr>
+        <tr>
             <td>$form-modifier-inline</td>
             <td>inline</td>
             <td>Name of the inline modifier to append to form classes.</td>

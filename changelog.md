@@ -8,9 +8,13 @@ Older versions can be found in the documentation changelogs.
 * Dropped IE8 support
 * Updated all component CSS class names to use Sass variables for more configuration control
 * Updated all CSS modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)
+* Updated all CSS modifiers to be toggleable through Sass variables
 * Updated `:before` and `:after` pseudo elements to use double colon `::` syntax
 * Updated `$size-*` and `$shape-*` variables to be prefixed by default with a `.`
 * Refactored effects into their respective components that can be toggled through Sass variables
 * Refactored the visual effects into modifiers for the Button component
 * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
 * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
+* Components
+    * Icon
+        * Added a `$icon-sizes` list variable to control the CSS output

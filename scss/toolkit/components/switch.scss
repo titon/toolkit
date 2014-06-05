@@ -124,12 +124,14 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$switch-class}--#{$switch-modifier-stacked} {
-    #{$switch-class-bar} {
-        &::before,
-        &::after {
-            z-index: 3;
-            opacity: 1 !important;
+@if index($switch-modifiers, "stacked") {
+    #{$switch-class}--#{$switch-modifier-stacked} {
+        #{$switch-class-bar} {
+            &::before,
+            &::after {
+                z-index: 3;
+                opacity: 1 !important;
+            }
         }
     }
 }

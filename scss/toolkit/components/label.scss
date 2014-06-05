@@ -40,68 +40,78 @@
 
 //-------------------- Modifiers --------------------//
 
-#{$label-class}--#{$label-modifier-badge} {
-    border-radius: 1rem;
-}
-
-#{$label-class}--#{$label-modifier-arrow-left} {
-    border-top-left-radius: 1px;
-    border-bottom-left-radius: 1px;
-    padding-left: 2px;
-    margin-left: 10px;
-
-    &::after {
-        top: 0;
-        right: 100%;
-        border: .65rem solid transparent;
-        border-right-color: $gray-dark;
-    }
-
-    &#{$size-small-class}::after { border-width: .5rem; }
-    &#{$size-large-class}::after { border-width: .75rem; }
-}
-
-#{$label-class}--#{$label-modifier-arrow-right} {
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
-    padding-right: 2px;
-    margin-right: 10px;
-
-    &::after {
-        top: 0;
-        left: 100%;
-        border: .65rem solid transparent;
-        border-left-color: $gray-dark;
-    }
-
-    &#{$size-small-class}::after { border-width: .5rem; }
-    &#{$size-large-class}::after { border-width: .75rem; }
-}
-
-#{$label-class}--#{$label-modifier-ribbon-left} {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-
-    &::after {
-        top: 100%;
-        left: 0;
-        border: 1em solid transparent;
-        border-top-width: 0 !important;
-        border-left-width: 0 !important;
-        border-right-color: $gray-darkest;
+@if index($label-modifiers, "badge") {
+    #{$label-class}--#{$label-modifier-badge} {
+        border-radius: 1rem;
     }
 }
 
-#{$label-class}--#{$label-modifier-ribbon-right} {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+@if index($label-modifiers, "arrow-left") {
+    #{$label-class}--#{$label-modifier-arrow-left} {
+        border-top-left-radius: 1px;
+        border-bottom-left-radius: 1px;
+        padding-left: 2px;
+        margin-left: 10px;
 
-    &::after {
-        top: 100%;
-        right: 0;
-        border: 1em solid transparent;
-        border-top-width: 0 !important;
-        border-right-width: 0 !important;
-        border-left-color: $gray-darkest;
+        &::after {
+            top: 0;
+            right: 100%;
+            border: .65rem solid transparent;
+            border-right-color: $gray-dark;
+        }
+
+        &#{$size-small-class}::after { border-width: .5rem; }
+        &#{$size-large-class}::after { border-width: .75rem; }
     }
- }
+}
+
+@if index($label-modifiers, "arrow-right") {
+    #{$label-class}--#{$label-modifier-arrow-right} {
+        border-top-right-radius: 1px;
+        border-bottom-right-radius: 1px;
+        padding-right: 2px;
+        margin-right: 10px;
+
+        &::after {
+            top: 0;
+            left: 100%;
+            border: .65rem solid transparent;
+            border-left-color: $gray-dark;
+        }
+
+        &#{$size-small-class}::after { border-width: .5rem; }
+        &#{$size-large-class}::after { border-width: .75rem; }
+    }
+}
+
+@if index($label-modifiers, "ribbon-left") {
+    #{$label-class}--#{$label-modifier-ribbon-left} {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &::after {
+            top: 100%;
+            left: 0;
+            border: 1em solid transparent;
+            border-top-width: 0 !important;
+            border-left-width: 0 !important;
+            border-right-color: $gray-darkest;
+        }
+    }
+}
+
+@if index($label-modifiers, "ribbon-right") {
+    #{$label-class}--#{$label-modifier-ribbon-right} {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        &::after {
+            top: 100%;
+            right: 0;
+            border: 1em solid transparent;
+            border-top-width: 0 !important;
+            border-right-width: 0 !important;
+            border-left-color: $gray-darkest;
+        }
+    }
+}

@@ -13,16 +13,28 @@
     &.is-disabled { opacity: $disabled-opacity; }
 }
 
-[class*="#{$icon-class-name}-12"] { width: 12px; height: 12px; }
-[class*="#{$icon-class-name}-16"] { width: 16px; height: 16px; }
-[class*="#{$icon-class-name}-24"] { width: 24px; height: 24px; }
-[class*="#{$icon-class-name}-32"] { width: 32px; height: 32px; }
-[class*="#{$icon-class-name}-64"] { width: 64px; height: 64px; }
+@each $size in $icon-sizes {
+    [class*="#{$icon-class-name}-#{$size}"] { width: #{$size}px; height: #{$size}px; }
+}
 
 //-------------------- Modifiers --------------------//
 
-.#{$icon-class-name}--90deg { transform: rotate(90deg); }
-.#{$icon-class-name}--180deg { transform: rotate(180deg); }
-.#{$icon-class-name}--270deg { transform: rotate(270deg); }
-.#{$icon-class-name}--flip { transform: rotateY(180deg); }
-.#{$icon-class-name}--flip-vert { transform: rotateX(180deg); }
+@if index($icon-modifiers, "90deg") {
+    .#{$icon-class-name}--90deg { transform: rotate(90deg); }
+}
+
+@if index($icon-modifiers, "180deg") {
+    .#{$icon-class-name}--180deg { transform: rotate(180deg); }
+}
+
+@if index($icon-modifiers, "270deg") {
+    .#{$icon-class-name}--270deg { transform: rotate(270deg); }
+}
+
+@if index($icon-modifiers, "flip") {
+    .#{$icon-class-name}--flip { transform: rotateY(180deg); }
+}
+
+@if index($icon-modifiers, "flip-vert") {
+    .#{$icon-class-name}--flip-vert { transform: rotateX(180deg); }
+}

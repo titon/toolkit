@@ -188,6 +188,11 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the individual tab section.</td>
         </tr>
         <tr>
+            <td>$tab-modifiers</td>
+            <td>("horizontal")</td>
+            <td>List of modifiers to include in the CSS output. Accepts horizontal.</td>
+        </tr>
+        <tr>
             <td>$tab-modifier-horizontal</td>
             <td>horizontal</td>
             <td>Name of the horizontal modifier to append to tabs classes.</td>

@@ -218,6 +218,11 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the carousel previous button.</td>
         </tr>
         <tr>
+            <td>$carousel-modifiers</td>
+            <td>("wide", "square")</td>
+            <td>List of modifiers to include in the CSS output. Accepts wide and square.</td>
+        </tr>
+        <tr>
             <td>$carousel-modifier-wide</td>
             <td>wide</td>
             <td>Name of the wide modifier to append to carousel classes.</td>
