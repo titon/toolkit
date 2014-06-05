@@ -16,12 +16,13 @@
     @extend %col;
 }
 
-@for $i from 1 through 12 {
-    $span: grid-span($i, 12);
+@if $grid-push-pull {
+    @for $i from 1 through 12 {
+        $span: grid-span($i, 12);
 
-    .span-#{$i} { width: $span; }
-    .push-#{$i} { left: $span; }
-    .pull-#{$i} { right: $span; }
+        .push-#{$i} { left: $span; }
+        .pull-#{$i} { right: $span; }
+    }
 }
 
 // Determine which grid to use

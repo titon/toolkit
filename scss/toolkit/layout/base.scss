@@ -150,3 +150,8 @@
     &.desc .caret-up,
     &.asc .caret-down { opacity: 1; }
 }
+
+// Sizes
+@for $i from 1 through 12 {
+    .span-#{$i} { width: grid-span($i, 12); }
+}

@@ -9,8 +9,7 @@ conveniently collapses and scales based on the device or viewport.
 
 To begin, a grid consists of a `.grid` which wraps a collection of columns.
 Each column requires a `.col` and either a `.span-*` or one of the responsive column classes
-(more information below). There are 12 span classes, with each number representing the number
-of columns it contains.
+(more information below). There are 12 span classes which originate from the [Base component](base.md).
 
 When placing columns, the number of columns should equal the max amount allowed in the grid.
 For example, the `.span-*` should equate to 12, where as responsive columns have different caps.
@@ -54,7 +53,7 @@ For example, the `.span-*` should equate to 12, where as responsive columns have
 ```
 
 <div class="notice is-info">
-    A <code>.span-*</code> column provides consistent widths
+    A <code>.span-*</code> provides consistent widths
     for all devices and viewports, and never collapses because of breakpoints.
 </div>
 
