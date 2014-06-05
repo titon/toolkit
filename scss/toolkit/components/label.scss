@@ -60,8 +60,13 @@
             border-right-color: $gray-dark;
         }
 
-        &#{$size-small-class}::after { border-width: .5rem; }
-        &#{$size-large-class}::after { border-width: .75rem; }
+        @include is-small {
+            &::after { border-width: .5rem; }
+        }
+
+        @include is-large {
+            &::after { border-width: .75rem; }
+        }
     }
 }
 
@@ -79,8 +84,13 @@
             border-left-color: $gray-dark;
         }
 
-        &#{$size-small-class}::after { border-width: .5rem; }
-        &#{$size-large-class}::after { border-width: .75rem; }
+        @include is-small {
+            &::after { border-width: .5rem; }
+        }
+
+        @include is-large {
+            &::after { border-width: .75rem; }
+        }
     }
 }
 

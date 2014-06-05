@@ -82,30 +82,32 @@
 
 //-------------------- Sizes --------------------//
 
-#{$table-class}#{$size-small-class} {
-    thead th,
-    tbody td { padding: $small-padding; }
+#{$table-class} {
+    @include is-small {
+        thead th,
+        tbody td { padding: $small-padding; }
 
-    &.is-sortable {
-        thead th {
-            padding: 0;
+        &.is-sortable {
+            thead th {
+                padding: 0;
 
-            > a,
-            > span { padding: $small-padding; }
+                > a,
+                > span { padding: $small-padding; }
+            }
         }
     }
-}
 
-#{$table-class}#{$size-large-class} {
-    thead th,
-    tbody td { padding: $large-padding; }
+    @include is-large {
+        thead th,
+        tbody td { padding: $large-padding; }
 
-    &.is-sortable {
-        thead th {
-            padding: 0;
+        &.is-sortable {
+            thead th {
+                padding: 0;
 
-            > a,
-            > span { padding: $large-padding; }
+                > a,
+                > span { padding: $large-padding; }
+            }
         }
     }
 }

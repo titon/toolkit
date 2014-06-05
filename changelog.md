@@ -7,6 +7,7 @@ Older versions can be found in the documentation changelogs.
 * Dropped MooTools support
 * Dropped IE8 support
 * Sass
+    * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Moved `.span-*` classes from the Grid component into the shared base file
     * Updated all component CSS class names to use Sass variables for more configuration control
     * Updated all modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)
