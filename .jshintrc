@@ -19,8 +19,8 @@
 
     "globals": {
         "Toolkit": true,
-        "Timers": true,
-        "Cache": true,
+        "vendor": true,
+        "instances": true,
 
         "Zepto": true,
         "DocumentTouch": true

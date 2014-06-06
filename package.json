@@ -35,7 +35,17 @@
         "grunt-newer": "*",
         "compartment": "*",
 
+        "minimist": "*",
+        "lodash": "*",
         "gulp": "*",
-        "gulp-ruby-sass": "*"
+        "gulp-frep": "*",
+        "gulp-rename": "*",
+        "gulp-concat": "*",
+        "gulp-clean": "*",
+        "gulp-ruby-sass": "*",
+        "gulp-minify-css": "*",
+        "gulp-autoprefixer": "*",
+        "gulp-jshint": "*",
+        "gulp-uglify": "*"
     }
 }

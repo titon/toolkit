@@ -328,6 +328,8 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             visualIndex,
             cloneIndex;
 
+        index = parseInt(index, 10);
+
         if (options.infinite) {
             var lengthWithClones = this.items.length,
                 lengthWithoutClones = lengthWithClones - (itemsToShow * 2);
@@ -370,7 +372,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 index = maxIndex;
 
                 if (options.loop) {
-                    if (index == this.index && this.index === maxIndex) {
+                    if (index === this.index && this.index === maxIndex) {
                         index = 0;
                     }
                 } else {
@@ -382,7 +384,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 index = 0;
 
                 if (options.loop) {
-                    if (index == this.index && this.index === 0) {
+                    if (index === this.index && this.index === 0) {
                         index = maxIndex;
                     }
                 } else {
