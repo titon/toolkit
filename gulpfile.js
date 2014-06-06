@@ -3,7 +3,9 @@
 var pkg = require('./package.json'),
     gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
+    wrap = require('gulp-wrap'),
     clean = require('gulp-clean'),
+    header = require('gulp-header'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     minify = require('gulp-minify-css'),
@@ -12,16 +14,14 @@ var pkg = require('./package.json'),
     replace = require('gulp-frep'),
     prefixer = require('gulp-autoprefixer'),
     compartment = require('compartment'),
-    options = require('minimist')(process.argv.slice(2), {  default: { normalize: true } }),
-    _ = require('lodash');
-
-var banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage %> */\n";
+    options = require('minimist')(process.argv.slice(2), {  default: { normalize: true, dist: false } }),
+    banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage %> */\n";
 
 /**
  * Determine which components we should package.
  *
  * The --components parameter can be used to filter down components
- * The --no-normalize parameter will exclude normalize.css from the output
+ * The --[no-]normalize parameter will include or exclude normalize.css from the output
  */
 
 var graph = new compartment();
@@ -31,7 +31,6 @@ var graph = new compartment();
         css: './scss/toolkit/'
     });
 
-// If --components is passed, whitelist the package
 var toPackage = [],
     categories = ['layout', 'component'];
 
@@ -39,68 +38,85 @@ if (options.components) {
     toPackage = options.components.split(',');
 
 } else {
-    _.each(graph.manifest, function(value, key) {
-        if (_.contains(categories, value.category)) {
+    Object.keys(graph.manifest).forEach(function(key) {
+        if (key === 'normalize') {
+            return;
+        }
+
+        if (categories.indexOf(graph.manifest[key].category) >= 0) {
             toPackage.push(key);
         }
     });
 }
 
-// If --no-normalize is passed, include or remove normalize from the output
-var hasNormalize = _.contains(toPackage, 'normalize');
-
-if (!options.normalize) {
-    if (!hasNormalize) {
-        toPackage.unshift('normalize');
-    }
-} else if (hasNormalize)  {
-    toPackage = _.without(toPackage, 'normalize');
+if (options.normalize) {
+    toPackage.unshift('normalize');
 }
 
 // Build the chain and generate all the paths we will need.
 graph.buildChain(toPackage, categories);
 
 var jsPaths = graph.getPaths('js'),
-    cssPaths = graph.getPaths('css');
+    cssPaths = graph.getPaths('css'),
+    buildPath = options.dist ? './dist' : './build';
 
 /**
  * Tasks to compile CSS and JavaScript files.
  */
 
-var BUILD = './build';
-
 gulp.task('clean', function () {
-    return gulp.src(BUILD, { read: false })
+    return gulp.src(buildPath, { read: false })
         .pipe(clean());
 });
 
 gulp.task('css', function() {
     return gulp.src(cssPaths)
+
+        // Unminified
         .pipe(sass({
-            style: 'nested',
+            style: 'expanded',
             loadPath: ['./scss/', './scss/toolkit/', './scss/toolkit/mixins/']
         }))
         .pipe(concat('toolkit.css'))
         .pipe(prefixer('last 3 versions'))
-        .pipe(gulp.dest(BUILD))
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(gulp.dest(buildPath))
+
+        // Minified
         .pipe(rename({ suffix: '.min' }))
         .pipe(minify())
-        .pipe(gulp.dest(BUILD));
+        .pipe(gulp.dest(buildPath));
 });
 
 gulp.task('js', function() {
     return gulp.src(jsPaths)
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
+
+        // Unminified
         .pipe(concat('toolkit.js'))
         .pipe(replace([
             { pattern: '%version%', replacement: pkg.version },
             { pattern: '%build%', replacement: Date.now().toString(36) }
         ]))
-        .pipe(gulp.dest(BUILD))
+        .pipe(wrap("(function($) {\n<%= contents %>\n}(jQuery));"))
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(gulp.dest(buildPath))
+
+        // Minified
         .pipe(rename({ suffix: '.min' }))
-        .pipe(uglify())
-        .pipe(gulp.dest(BUILD));
+        .pipe(uglify({
+            // `some` includes more than just ! comments
+            preserveComments: function(node, comment) {
+                return comment.value.match(/^!/);
+            }
+        }))
+        .pipe(gulp.dest(buildPath));
 });
 
 gulp.task('default', ['css', 'js']);
+
+gulp.task('watch', function() {
+    gulp.watch('./js/**/*.js', ['js']);
+    gulp.watch('./scss/**/*.scss', ['css']);
+});

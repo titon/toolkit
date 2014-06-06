@@ -664,15 +664,15 @@ The following components are found within Semantic UI that have not been mention
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>Grunt</td>
+            <td>Gulp</td>
             <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
-            <td>jQuery</td>
-            <td class="is-success">&check;</td>
+            <td>Grunt</td>
+            <td class="is-error"></td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>

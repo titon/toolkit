@@ -23,20 +23,8 @@
         "url": "https://github.com/titon/toolkit"
     },
     "devDependencies": {
-        "grunt": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-compress": "*",
-        "grunt-contrib-watch": "*",
-        "grunt-contrib-sass": "*",
-        "grunt-string-replace": "*",
-        "grunt-autoprefixer": "*",
-        "grunt-newer": "*",
         "compartment": "*",
-
         "minimist": "*",
-        "lodash": "*",
         "gulp": "*",
         "gulp-frep": "*",
         "gulp-rename": "*",
@@ -46,6 +34,8 @@
         "gulp-minify-css": "*",
         "gulp-autoprefixer": "*",
         "gulp-jshint": "*",
-        "gulp-uglify": "*"
+        "gulp-uglify": "*",
+        "gulp-wrap": "*",
+        "gulp-header": "*"
     }
 }

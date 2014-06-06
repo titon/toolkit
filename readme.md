@@ -13,7 +13,7 @@ for the responsive, mobile, and modern web. Each component represents encapsulat
 and JavaScript functionality for role specific page elements.
 
 Toolkit makes use of the latest and greatest technology. This includes HTML5 for semantics,
-CSS3 for animations and styles, Sass for CSS pre-processing, Grunt for task and package management,
+CSS3 for animations and styles, Sass for CSS pre-processing, Gulp for task and package management,
 and powerful new browser APIs for the JavaScript layer.
 
 * [Official Website](http://titon.io/toolkit)
