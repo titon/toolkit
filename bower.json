@@ -24,7 +24,7 @@
         "js/",
         "lib/",
         "config.rb",
-        "Gruntfile.js",
+        "gulpfile.js",
         "manifest.json",
         "package.json",
         "toolkit.gemspec"

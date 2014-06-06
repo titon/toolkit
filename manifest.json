@@ -5,7 +5,7 @@
         "category": "layout",
         "priority": -1,
         "source": {
-            "css": ["../normalize.css"]
+            "css": ["../normalize.scss"]
         }
     },
 
@@ -17,7 +17,7 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["components/base.css"],
+            "css": ["components/base.scss"],
             "js": ["Toolkit.js", "Component.js"]
         }
     },
@@ -27,7 +27,7 @@
         "category": "layout",
         "priority": 2,
         "source": {
-            "css": ["components/typography.css"]
+            "css": ["components/typography.scss"]
         }
     },
     "form": {
@@ -37,7 +37,7 @@
         "priority": 3,
         "require": ["grid"],
         "source": {
-            "css": ["components/form.css"]
+            "css": ["components/form.scss"]
         }
     },
     "code": {
@@ -46,7 +46,7 @@
         "category": "layout",
         "priority": 4,
         "source": {
-            "css": ["components/code.css"]
+            "css": ["components/code.scss"]
         }
     },
     "responsive": {
@@ -55,7 +55,7 @@
         "category": "layout",
         "priority": 100,
         "source": {
-            "css": ["components/responsive.css"]
+            "css": ["components/responsive.scss"]
         }
     },
 
@@ -69,7 +69,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/accordion.css"],
+            "css": ["components/accordion.scss"],
             "js": ["components/Accordion.js"]
         }
     },
@@ -81,7 +81,7 @@
         "priority": 10,
         "require": ["base", "loader"],
         "source": {
-            "css": ["components/blackout.css"],
+            "css": ["components/blackout.scss"],
             "js": ["components/Blackout.js"]
         }
     },
@@ -93,7 +93,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/breadcrumb.css"]
+            "css": ["components/breadcrumb.scss"]
         }
     },
     "button": {
@@ -104,7 +104,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/button.css"]
+            "css": ["components/button.scss"]
         }
     },
     "buttonGroup": {
@@ -115,7 +115,7 @@
         "priority": 10,
         "require": ["base", "button"],
         "source": {
-            "css": ["components/button-group.css"]
+            "css": ["components/button-group.scss"]
         }
     },
     "carousel": {
@@ -126,7 +126,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/carousel.css"],
+            "css": ["components/carousel.scss"],
             "js": ["components/Carousel.js"]
         }
     },
@@ -137,7 +137,7 @@
         "type": "element",
         "priority": 10,
         "source": {
-            "css": ["components/divider.css"]
+            "css": ["components/divider.scss"]
         },
         "version": "1.4.0"
     },
@@ -149,7 +149,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/drop.css"],
+            "css": ["components/drop.scss"],
             "js": ["components/Drop.js"]
         }
     },
@@ -161,7 +161,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/flyout.css"],
+            "css": ["components/flyout.scss"],
             "js": ["components/Flyout.js"]
         }
     },
@@ -173,7 +173,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/grid.css"]
+            "css": ["components/grid.scss"]
         }
     },
     "icon": {
@@ -184,7 +184,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/icon.css"]
+            "css": ["components/icon.scss"]
         }
     },
     "input": {
@@ -195,7 +195,7 @@
         "priority": 10,
         "require": ["base", "drop"],
         "source": {
-            "css": ["components/input.css"],
+            "css": ["components/input.scss"],
             "js": ["components/Input.js"]
         }
     },
@@ -207,7 +207,7 @@
         "priority": 10,
         "require": ["base", "form"],
         "source": {
-            "css": ["components/input-group.css"]
+            "css": ["components/input-group.scss"]
         }
     },
     "label": {
@@ -218,7 +218,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/label.css"]
+            "css": ["components/label.scss"]
         }
     },
     "lazyLoad": {
@@ -229,7 +229,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/lazy-load.css"],
+            "css": ["components/lazy-load.scss"],
             "js": ["components/LazyLoad.js"]
         }
     },
@@ -241,7 +241,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/loader.css"]
+            "css": ["components/loader.scss"]
         },
         "version": "1.1.0"
     },
@@ -253,7 +253,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/mask.css"],
+            "css": ["components/mask.scss"],
             "js": ["components/Mask.js"]
         },
         "version": "1.1.0"
@@ -266,7 +266,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/matrix.css"],
+            "css": ["components/matrix.scss"],
             "js": ["components/Matrix.js"]
         }
     },
@@ -278,7 +278,7 @@
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
-            "css": ["components/modal.css"],
+            "css": ["components/modal.scss"],
             "js": ["components/Modal.js"]
         }
     },
@@ -290,7 +290,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/notice.css"]
+            "css": ["components/notice.scss"]
         }
     },
     "offCanvas": {
@@ -301,7 +301,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/off-canvas.css"],
+            "css": ["components/off-canvas.scss"],
             "js": ["components/OffCanvas.js"]
         },
         "version": "1.4.0"
@@ -314,7 +314,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/pagination.css"]
+            "css": ["components/pagination.scss"]
         }
     },
     "pin": {
@@ -325,7 +325,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/pin.css"],
+            "css": ["components/pin.scss"],
             "js": ["components/Pin.js"]
         }
     },
@@ -337,7 +337,7 @@
         "priority": 10,
         "require": ["base", "tooltip"],
         "source": {
-            "css": ["components/popover.css"],
+            "css": ["components/popover.scss"],
             "js": ["components/Popover.js"]
         }
     },
@@ -349,7 +349,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/progress.css"]
+            "css": ["components/progress.scss"]
         }
     },
     "showcase": {
@@ -360,7 +360,7 @@
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
-            "css": ["components/showcase.css"],
+            "css": ["components/showcase.scss"],
             "js": ["components/Showcase.js"]
         }
     },
@@ -383,7 +383,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/step.css"]
+            "css": ["components/step.scss"]
         },
         "version": "1.3.0"
     },
@@ -395,7 +395,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/switch.css"]
+            "css": ["components/switch.scss"]
         },
         "version": "1.3.0"
     },
@@ -407,7 +407,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/table.css"]
+            "css": ["components/table.scss"]
         }
     },
     "tabs": {
@@ -418,7 +418,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/tabs.css"],
+            "css": ["components/tabs.scss"],
             "js": ["components/Tabs.js"]
         }
     },
@@ -430,7 +430,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/toast.css"],
+            "css": ["components/toast.scss"],
             "js": ["components/Toast.js"]
         },
         "version": "1.4.0"
@@ -443,7 +443,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/tooltip.css"],
+            "css": ["components/tooltip.scss"],
             "js": ["components/Tooltip.js"]
         }
     },
@@ -455,7 +455,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/type-ahead.css"],
+            "css": ["components/type-ahead.scss"],
             "js": ["components/TypeAhead.js"]
         }
     },
@@ -466,7 +466,7 @@
         "category": "theme",
         "priority": 30,
         "source": {
-            "css": ["themes/demo.css"]
+            "css": ["themes/demo.scss"]
         }
     }
 }

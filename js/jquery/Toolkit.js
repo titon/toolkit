@@ -112,6 +112,7 @@ var Toolkit = {
 window.Toolkit = Toolkit;
 
 // Dereference these variables to lower the filesize
+/* jshint unused: false */
 var vendor = Toolkit.vendor;
 
 /**
