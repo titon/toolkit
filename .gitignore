@@ -4,7 +4,6 @@
 node_modules/
 build/
 npm-debug.log
-*.css
 *.gem
 Gemfile.lock
 

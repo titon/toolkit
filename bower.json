@@ -23,7 +23,6 @@
         "img/",
         "js/",
         "lib/",
-        "config.rb",
         "gulpfile.js",
         "manifest.json",
         "package.json",
