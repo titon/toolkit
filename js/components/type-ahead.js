@@ -1,8 +1,8 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     input = $(input);
@@ -69,7 +69,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
     // Enable shadow inputs
     if (options.shadow) {
-        this.wrapper = $('<div/>').addClass(vendor + 'type-ahead-shadow');
+        this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
 
         this.shadow = this.input.clone()
             .addClass('is-shadow')
@@ -125,13 +125,13 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         });
 
         a.append( $('<span/>', {
-            'class': vendor + 'type-ahead-title',
+            'class': Toolkit.vendor + 'type-ahead-title',
             html: this.highlight(item.title)
         }) );
 
         if (item.description) {
             a.append( $('<span/>', {
-                'class': vendor + 'type-ahead-desc',
+                'class': Toolkit.vendor + 'type-ahead-desc',
                 html: item.description
             }) );
         }
@@ -173,7 +173,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             callback = function(match) {
-                return '<mark class="' + vendor + 'type-ahead-highlight">' + match + '</mark>';
+                return '<mark class="' + Toolkit.vendor + 'type-ahead-highlight">' + match + '</mark>';
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -248,7 +248,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         rows
             .removeClass('is-active')
             .find('a')
-                .aria('selected', false);
+            .aria('selected', false);
 
         // Select
         if (index >= 0) {
@@ -258,14 +258,14 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 rows.eq(index)
                     .addClass('is-active')
                     .find('a')
-                        .aria('selected', true);
+                    .aria('selected', true);
 
                 this.input.val(item.title);
 
                 this.fireEvent(event || 'select', [item, index]);
             }
 
-        // Reset
+            // Reset
         } else {
             this.input.val(this.term);
 
@@ -341,7 +341,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 results.push(null);
 
                 elements.push(
-                    $('<li/>').addClass(vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
+                    $('<li/>').addClass(Toolkit.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -435,7 +435,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 if (this.index < 0) {
                     this.index = length;
                 }
-            break;
+                break;
 
             // Cycle downwards (down)
             case 40:
@@ -444,7 +444,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 if (this.index >= length) {
                     this.index = -1;
                 }
-            break;
+                break;
 
             // Select first (tab)
             case 9:
@@ -459,7 +459,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 event = 'select';
                 this.index = i;
                 this.hide();
-            break;
+                break;
 
             // Select current index (enter)
             case 13:
@@ -467,13 +467,13 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
                 event = 'select';
                 this.hide();
-            break;
+                break;
 
             // Reset (esc)
             case 27:
                 this.index = -1;
                 this.hide();
-            break;
+                break;
 
             // Cancel others
             default:
@@ -500,7 +500,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         if (this.cache[term.toLowerCase()]) {
             this.source(this.cache[term.toLowerCase()]);
 
-        // Use the response of an AJAX request
+            // Use the response of an AJAX request
         } else if (sourceType === 'string') {
             var url = options.source,
                 cache = this.cache[url];
@@ -509,16 +509,16 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 this.source(cache);
             } else {
                 var query = options.query;
-                    query.term = term;
+                query.term = term;
 
                 $.getJSON(url, query, this.source);
             }
 
-        // Use a literal array list
+            // Use a literal array list
         } else if (sourceType === 'array') {
             this.source(options.source);
 
-        // Use the return of a function
+            // Use the return of a function
         } else if (sourceType === 'function') {
             var response = options.source.call(this);
 
@@ -584,4 +584,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
 Toolkit.create('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
+});
+
+return Toolkit;
 });

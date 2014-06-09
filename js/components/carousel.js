@@ -1,8 +1,9 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/swipe',
+    '../extensions/transitionend',
+    '../extensions/throttle'
+], function(Toolkit) {
 
 Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     var items, self = this;
@@ -18,7 +19,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .addClass(options.animation);
 
     // Find the item container and disable transitions for initial load
-    this.container = element.find('.' + vendor + 'carousel-items ul')
+    this.container = element.find('.' + Toolkit.vendor + 'carousel-items ul')
         .addClass('no-transition');
 
     // Find all the items and set ARIA attributes
@@ -33,7 +34,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
     });
 
     // Find all tabs and set ARIA attributes
-    this.tabs = element.find('.' + vendor + 'carousel-tabs')
+    this.tabs = element.find('.' + Toolkit.vendor + 'carousel-tabs')
         .attr('role', 'tablist')
         .find('a').each(function(index) {
             $(this)
@@ -180,7 +181,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         } else {
             this.container
                 .transitionend(this._afterCycle)
-                .css(this._position, -(cloneIndex * this._size));
+                    .css(this._position, -(cloneIndex * this._size));
         }
 
         // Store the index
@@ -344,7 +345,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 // Reset the visual index to 0
                 visualIndex = 0;
 
-            // If cycle reaches the clone past the beginning
+                // If cycle reaches the clone past the beginning
             } else if (index <= -itemsToShow) {
                 this._resetTo = lengthWithoutClones;
 
@@ -354,7 +355,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 // Reset the visual index to the last
                 visualIndex = lengthWithoutClones - itemsToShow;
 
-            // If cycle is within the normal range
+                // If cycle is within the normal range
             } else {
                 this._resetTo = null;
 
@@ -379,7 +380,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                     element.addClass('no-next');
                 }
 
-            // If cycle reaches the first visible item, remove prev button or fast forward
+                // If cycle reaches the first visible item, remove prev button or fast forward
             } else if (index <= 0) {
                 index = 0;
 
@@ -549,4 +550,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
+});
+
+return Toolkit;
 });

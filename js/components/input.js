@@ -1,8 +1,8 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     this.component = 'Input';
@@ -80,7 +80,7 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
     _buildWrapper: function() {
         var input = this.input,
             wrapper = $('<div/>')
-                .addClass(vendor + 'custom-input')
+                .addClass(Toolkit.vendor + 'custom-input')
                 .insertBefore(input)
                 .append(input);
 
@@ -111,7 +111,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
 
     // Create custom input
     this.element = $('<label/>')
-        .addClass(vendor + 'checkbox')
+        .addClass(Toolkit.vendor + 'checkbox')
         .attr('for', checkbox.attr('id'))
         .insertAfter(checkbox);
 
@@ -132,7 +132,7 @@ Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
 
     // Create custom input
     this.element = $('<label/>')
-        .addClass(vendor + 'radio')
+        .addClass(Toolkit.vendor + 'radio')
         .attr('for', radio.attr('id'))
         .insertAfter(radio);
 
@@ -217,7 +217,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      */
     show: function() {
         if (this.options.hideOpened) {
-            $('.' + vendor + 'drop.select-options').each(function() {
+            $('.' + Toolkit.vendor + 'drop.select-options').each(function() {
                 $(this).siblings('select').toolkit('inputSelect', 'hide');
             });
         }
@@ -237,12 +237,13 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
      * @returns {jQuery}
      */
     _buildButton: function() {
-        var button = $('<div/>')
-            .addClass(vendor + 'select')
-            .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
-            .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
-            .css('min-width', this.input.width())
-            .insertAfter(this.input);
+        var vendor = Toolkit.vendor,
+            button = $('<div/>')
+                .addClass(vendor + 'select')
+                .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
+                .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
+                .css('min-width', this.input.width())
+                .insertAfter(this.input);
 
         // Hide the options be forcing a height on the select
         if (this.multiple) {
@@ -261,6 +262,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         var select = this.input,
             options = this.options,
             buildOption = this._buildOption,
+            vendor = Toolkit.vendor,
             dropdown = $('<div/>')
                 .addClass(vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options')
                 .attr('role', 'listbox')
@@ -349,7 +351,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         }
 
         if (description = this.readValue(option, this.options.getDescription)) {
-            content += ' <span class="' + vendor + 'drop-desc">' + description + '</span>';
+            content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
         }
 
         var a = $('<a/>', {
@@ -497,8 +499,8 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
 
         // Set the label
         select.parent()
-            .find('.' + vendor + 'select-label')
-                .text(label);
+            .find('.' + Toolkit.vendor + 'select-label')
+            .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
     },
@@ -529,13 +531,13 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             case 13: // enter
             case 27: // esc
                 this.hide();
-            return;
+                return;
             case 38: // up
                 index = this._loop(index, -1, options);
-            break;
+                break;
             case 40: // down
                 index = this._loop(index, 1, options);
-            break;
+                break;
         }
 
         options.prop('selected', false);
@@ -593,4 +595,7 @@ Toolkit.create('inputCheckbox', function(options) {
 
 Toolkit.create('inputSelect', function(options) {
     return new Toolkit.InputSelect(this, options);
+});
+
+return Toolkit;
 });

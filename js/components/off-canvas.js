@@ -1,16 +1,17 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/swipe'
+], function(Toolkit) {
 
 Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
+    var events = {}, vendor = Toolkit.vendor;
+
     this.component = 'OffCanvas';
     this.version = '1.5.0';
     this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
     this.options = options = this.setOptions(options, element);
 
-    var events = {}, animation = options.animation;
+    var animation = options.animation;
 
     // Touch devices cannot use squish
     if (Toolkit.isTouch && animation === 'squish') {
@@ -159,7 +160,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
         e.preventDefault();
 
         var target = $(e.target),
-            sideClass = '.' + vendor + 'off-canvas';
+            sideClass = '.' + Toolkit.vendor + 'off-canvas';
 
         if (target.is(sideClass) || target.parents(sideClass).length) {
             return;
@@ -178,4 +179,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('offCanvas', function(options) {
     return new Toolkit.OffCanvas(this, options);
+});
+
+return Toolkit;
 });

@@ -27,7 +27,7 @@ var pkg = require('./package.json'),
 var graph = new compartment();
     graph.loadManifest('./manifest.json');
     graph.addTypes({
-        js: './js/jquery/',
+        js: './js/',
         css: './scss/toolkit/'
     });
 

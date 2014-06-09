@@ -1,8 +1,8 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     var element;
@@ -27,7 +27,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     this.node = null;
 
     // Blackout element if enabled
-    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
+    this.blackout = options.blackout ? Toolkit.Blackout.instance() : null;
 
     if (options.blackout && options.stopScroll) {
         this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
@@ -79,7 +79,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
             this.blackout.hideLoader();
         }
 
-        var body = this.element.find('.' + vendor + 'modal-inner');
+        var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
 
         body.html(content);
         this.fireEvent('load', content);
@@ -251,3 +251,6 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 Toolkit.create('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);
+
+return Toolkit;
+});

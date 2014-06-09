@@ -1,8 +1,8 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/bound',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     var self = this;
@@ -13,7 +13,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     this.options = options = this.setOptions(options, element);
 
     // Find headers and cache the index of each header and set ARIA attributes
-    this.headers = element.find('.' + vendor + 'accordion-header').each(function(index) {
+    this.headers = element.find('.' + Toolkit.vendor + 'accordion-header').each(function(index) {
         $(this)
             .data('index', index)
             .attr({
@@ -28,7 +28,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     });
 
     // Find sections and cache the height so we can use for sliding and set ARIA attributes
-    this.sections = element.find('.' + vendor + 'accordion-section').each(function(index) {
+    this.sections = element.find('.' + Toolkit.vendor + 'accordion-section').each(function(index) {
         $(this)
             .data('height', $(this).height())
             .attr({
@@ -153,4 +153,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
+});
+
+return Toolkit;
 });

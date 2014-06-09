@@ -1,8 +1,10 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    '../class',
+    '../extensions/aria',
+    '../extensions/conceal',
+    '../extensions/reveal',
+    '../extensions/toolkit'
+], function(Toolkit) {
 
 Toolkit.Component = Toolkit.Class.extend(function() {}, {
     component: 'Component',
@@ -95,7 +97,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             keys = key.split(' ');
             event = keys.shift();
             context = keys.shift();
-            selector = keys.join(' ').replace('@', vendor);
+            selector = keys.join(' ').replace('@', Toolkit.vendor);
 
             // Determine the correct context
             if (self[context]) {
@@ -115,11 +117,11 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 if (event === 'ready') {
                     doc.ready(func);
 
-                // Delegated events
+                    // Delegated events
                 } else if (selector) {
                     $(context)[type](event, selector, func);
 
-                // Regular events
+                    // Regular events
                 } else {
                     $(context)[type](event, func);
                 }
@@ -158,7 +160,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             this.nodes.removeData('toolkit.' + key);
 
             // Remove the cached instance also
-            delete instances[key + '.' + this.nodes.selector];
+            delete Toolkit.cache[key + '.' + this.nodes.selector];
 
         } else if (this.element) {
             this.element.removeData('toolkit.' + key);
@@ -377,7 +379,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
                     this.position(response);
 
-                // JSON, others
+                    // JSON, others
                 } else {
                     delete this.cache[url];
 
@@ -475,4 +477,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     className: '',
     template: '',
     templateFrom: ''
+});
+
+return Toolkit;
 });

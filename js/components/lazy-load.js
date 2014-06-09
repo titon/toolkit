@@ -1,8 +1,7 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/throttle'
+], function(Toolkit) {
 
 Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
     container = $(container);
@@ -73,15 +72,15 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
         return (
             // Element is not hidden
             node.is(':visible') &&
-            // Below the top
-            (top >= (scrollTop - threshold)) &&
-            // Above the bottom
-            (top <= (scrollTop + conHeight + threshold)) &&
-            // Right of the left
-            (left >= (scrollLeft - threshold)) &&
-            // Left of the right
-            (left <= (scrollLeft + conWidth + threshold))
-        );
+                // Below the top
+                (top >= (scrollTop - threshold)) &&
+                // Above the bottom
+                (top <= (scrollTop + conHeight + threshold)) &&
+                // Right of the left
+                (left >= (scrollLeft - threshold)) &&
+                // Left of the right
+                (left <= (scrollLeft + conWidth + threshold))
+            );
     },
 
     /**
@@ -185,4 +184,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
 
 Toolkit.create('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
+});
+
+return Toolkit;
 });

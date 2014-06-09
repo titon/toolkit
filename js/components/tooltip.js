@@ -1,11 +1,12 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../extensions/position-to',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
-    var element;
+    var element, vendor = Toolkit.vendor;
 
     this.component = 'Tooltip';
     this.version = '1.5.0';
@@ -215,7 +216,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
                     e.preventDefault();
                 }
 
-            // Non-touch devices
+                // Non-touch devices
             } else {
                 e.preventDefault();
             }
@@ -263,3 +264,6 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
 Toolkit.create('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
+
+return Toolkit;
+});

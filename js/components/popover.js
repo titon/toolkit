@@ -1,8 +1,6 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component'
+], function(Toolkit) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     var element;
@@ -23,8 +21,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
     }
 
     // Elements for the title and content
-    this.elementHead = element.find('.' + vendor + 'popover-head');
-    this.elementBody = element.find('.' + vendor + 'popover-body');
+    this.elementHead = element.find('.' + Toolkit.vendor + 'popover-head');
+    this.elementBody = element.find('.' + Toolkit.vendor + 'popover-body');
 
     // Nodes found in the page on initialization, remove title attribute
     this.nodes = $(nodes).each(function(i, node) {
@@ -57,3 +55,6 @@ Toolkit.Popover = Toolkit.Tooltip.extend(function(nodes, options) {
 Toolkit.create('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
+
+return Toolkit;
+});

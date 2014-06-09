@@ -1,8 +1,7 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/transitionend'
+], function(Toolkit) {
 
 Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     this.component = 'Toast';
@@ -33,7 +32,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
 
         var self = this,
             toast = $('<div/>')
-                .addClass(vendor + 'toast')
+                .addClass(Toolkit.vendor + 'toast')
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
@@ -92,4 +91,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('toast', function(options) {
     return new Toolkit.Toast(this, options);
+});
+
+return Toolkit;
 });

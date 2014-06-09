@@ -20,8 +20,11 @@ Older versions can be found in the documentation changelogs.
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
 * JavaScript
+    * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
 * Components
+    * Blackout
+        * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Grid
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon

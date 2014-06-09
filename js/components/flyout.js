@@ -1,8 +1,7 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     if (!url) {
@@ -488,7 +487,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                     e.preventDefault();
                 }
 
-            // Non-touch devices
+                // Non-touch devices
             } else {
                 e.preventDefault();
             }
@@ -524,3 +523,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
 Toolkit.create('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
+
+return Toolkit;
+});

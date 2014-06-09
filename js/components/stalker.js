@@ -1,13 +1,12 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/throttle'
+], function(Toolkit) {
 
 Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
     this.component = 'Stalker';
     this.version = '1.4.0';
-    this.element = element = $(element).addClass(vendor + 'stalker');
+    this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
     this.options = options = this.setOptions(options);
 
     if (!options.target || !options.marker) {
@@ -61,7 +60,8 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
      */
     doDestroy: function() {
         var targets = this.targets,
-            markers = this.markers;
+            markers = this.markers,
+            vendor = Toolkit.vendor;
 
         targets.removeClass(vendor + 'stalker-target');
         markers.removeClass(vendor + 'stalker-marker');
@@ -82,7 +82,8 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         var isWindow = this.container.is(window),
             eTop = this.element.offset().top,
             offset,
-            offsets = [];
+            offsets = [],
+            vendor = Toolkit.vendor;
 
         if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
             this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
@@ -158,11 +159,11 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
             // Scroll is within the marker
             if (
                 (onlyWithin && scroll >= top && scroll <= bot) ||
-                (!onlyWithin && scroll >= top)
-            ) {
+                    (!onlyWithin && scroll >= top)
+                ) {
                 this.activate(marker);
 
-            // Scroll went outside the marker
+                // Scroll went outside the marker
             } else {
                 this.deactivate(marker);
             }
@@ -184,4 +185,7 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
+});
+
+return Toolkit;
 });

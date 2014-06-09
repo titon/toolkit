@@ -1,8 +1,7 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     this.component = 'Mask';
@@ -12,7 +11,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
 
     // Add class and set relative positioning
     if (!element.is('body')) {
-        element.addClass(vendor + 'mask-target');
+        element.addClass(Toolkit.vendor + 'mask-target');
 
         if (element.css('position') === 'static') {
             element.css('position', 'relative');
@@ -20,7 +19,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     }
 
     // Find a mask or create it
-    var maskClass = vendor + 'mask',
+    var maskClass = Toolkit.vendor + 'mask',
         mask = element.find('> .' + maskClass);
 
     if (!mask.length) {
@@ -45,7 +44,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
     doDestroy: function() {
         this.mask.remove();
         this.element
-            .removeClass(vendor + 'mask-target')
+            .removeClass(Toolkit.vendor + 'mask-target')
             .removeClass('is-masked')
             .css('position', '');
     },
@@ -83,11 +82,11 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
         this.mask = mask;
 
         // Create message if it does not exist
-        message = mask.find('> .' + vendor + 'mask-message');
+        message = mask.find('> .' + Toolkit.vendor + 'mask-message');
 
         if (!message.length) {
             message = $('<div/>')
-                .addClass(vendor + 'mask-message')
+                .addClass(Toolkit.vendor + 'mask-message')
                 .appendTo(mask);
 
             if (options.messageContent) {
@@ -126,4 +125,7 @@ Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('mask', function(options) {
     return new Toolkit.Mask(this, options);
+});
+
+return Toolkit;
 });

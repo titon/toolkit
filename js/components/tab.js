@@ -1,11 +1,11 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/bound',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
-    var sections, tabs, self = this;
+    var sections, tabs, self = this, vendor = Toolkit.vendor;
 
     this.component = 'Tab';
     this.version = '1.4.0';
@@ -217,4 +217,7 @@ Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('tab', function(options) {
     return new Toolkit.Tab(this, options);
+});
+
+return Toolkit;
 });

@@ -1,8 +1,6 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component'
+], function(Toolkit) {
 
 Toolkit.Blackout = Toolkit.Component.extend(function(options) {
     this.component = 'Blackout';
@@ -16,7 +14,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
     // Build the loader
     var count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
         loader = $('<div/>')
-            .addClass(vendor + 'loader')
+            .addClass(Toolkit.vendor + 'loader')
             .addClass(options.loader)
             .appendTo(this.element);
 
@@ -28,7 +26,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
 
     if (options.loader === 'bubble-spinner') {
         $('<div/>')
-            .addClass(vendor + 'loader-spinner')
+            .addClass(Toolkit.vendor + 'loader-spinner')
             .html(spans)
             .appendTo(loader);
     } else {
@@ -39,7 +37,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
 
     // Build the message
     this.message = $('<div/>')
-        .addClass(vendor + 'loader-message')
+        .addClass(Toolkit.vendor + 'loader-message')
         .html(Toolkit.messages.loading)
         .appendTo(loader);
 
@@ -99,7 +97,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
 }, {
     loader: 'bar-wave',
     waveCount: 5,
-    template: '<div class="' + vendor + 'blackout"></div>',
+    template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
     templateFrom: '#toolkit-blackout-1'
 });
 
@@ -113,10 +111,13 @@ var blackout = null;
  * @param {Object} [options]
  * @returns {Toolkit.Blackout}
  */
-Toolkit.Blackout.factory = function(options) {
+Toolkit.Blackout.instance = function(options) {
     if (blackout) {
         return blackout;
     }
 
     return blackout = new Toolkit.Blackout(options);
 };
+
+return Toolkit;
+});

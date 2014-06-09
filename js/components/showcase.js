@@ -1,11 +1,14 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../events/swipe',
+    '../extensions/bound',
+    '../extensions/shown-selector',
+    '../extensions/transitionend'
+], function(Toolkit) {
 
 Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
-    var element;
+    var element, vendor = Toolkit.vendor;
 
     this.component = 'Showcase';
     this.version = '1.5.0';
@@ -77,7 +80,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         this.items
             .removeAttr('style')
             .children('li')
-                .conceal();
+            .conceal();
 
         this.fireEvent('hide');
     },
@@ -115,7 +118,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         this.tabs.find('a')
             .removeClass('is-active')
             .eq(index)
-                .addClass('is-active');
+            .addClass('is-active');
 
         // Reset previous styles
         listItems.conceal();
@@ -155,17 +158,17 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         if (listItem.data('width')) {
             deferred.resolve(listItem.data('width'), listItem.data('height'));
 
-        // Create image and animate
+            // Create image and animate
         } else {
             var img = new Image();
-                img.src = item.image;
-                img.onerror = function() {
-                    deferred.reject(150, 150);
-                };
-                img.onload = function() {
-                    deferred.resolve(this.width, this.height);
-                    listItem.append(img);
-                };
+            img.src = item.image;
+            img.onerror = function() {
+                deferred.reject(150, 150);
+            };
+            img.onload = function() {
+                deferred.resolve(this.width, this.height);
+                listItem.append(img);
+            };
         }
 
         // Save state
@@ -239,7 +242,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
                 }
             }
 
-        // Single item
+            // Single item
         } else {
             items.push({
                 title: read(node, options.getTitle),
@@ -417,3 +420,6 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 Toolkit.create('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
+
+return Toolkit;
+});

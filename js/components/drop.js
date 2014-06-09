@@ -1,8 +1,8 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../events/clickout',
+    '../extensions/shown-selector'
+], function(Toolkit) {
 
 Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
     this.component = 'Drop';
@@ -102,3 +102,6 @@ Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
 Toolkit.create('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);
+
+return Toolkit;
+});

@@ -1,8 +1,7 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/throttle'
+], function(Toolkit) {
 
 Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     this.component = 'Pin';
@@ -13,7 +12,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
     // Setup classes and ARIA
     element
         .attr('role', 'complementary')
-        .addClass(vendor + 'pin')
+        .addClass(Toolkit.vendor + 'pin')
         .addClass(options.animation);
 
     // Outer height of the element
@@ -67,7 +66,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         if (options.lock && this.elementHeight >= this.viewport.height) {
             this.active = false;
 
-        // Enable pin if the parent is larger than the child
+            // Enable pin if the parent is larger than the child
         } else {
             this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
         }
@@ -139,7 +138,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
                 pos.bottom = 'auto';
             }
 
-        // Stop positioning absolute menu once it exits the parent
+            // Stop positioning absolute menu once it exits the parent
         } else {
             pos.position = 'absolute';
 
@@ -198,4 +197,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('pin', function(options) {
     return new Toolkit.Pin(this, options);
+});
+
+return Toolkit;
 });

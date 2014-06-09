@@ -23,6 +23,7 @@
         "url": "https://github.com/titon/toolkit"
     },
     "devDependencies": {
+        "requirejs": "*",
         "compartment": "*",
         "minimist": "*",
         "gulp": "*",

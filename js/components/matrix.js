@@ -1,13 +1,13 @@
-/**
- * @copyright   2010-2014, The Titon Project
- * @license     http://opensource.org/licenses/BSD-3-Clause
- * @link        http://titon.io
- */
+define([
+    './component',
+    '../extensions/cache',
+    '../extensions/debounce'
+], function(Toolkit) {
 
 Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
     this.version = '1.5.0';
-    this.element = element = $(element).addClass(vendor + 'matrix');
+    this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
     this.options = options = this.setOptions(options, element);
 
     // Items within the matrix
@@ -86,7 +86,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             var self = $(this);
 
             // Cache the initial column width
-            self.addData('matrix-column-width', self.outerWidth());
+            self.cache('matrix-column-width', self.outerWidth());
         });
 
         this.render();
@@ -125,12 +125,12 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         if (!items.length) {
             element.removeAttr('style');
 
-        // Single column
+            // Single column
         } else if (this.colCount <= 1) {
             element.addClass('no-columns');
             items.removeAttr('style');
 
-        // Multi column
+            // Multi column
         } else {
             element.removeClass('no-columns');
 
@@ -328,4 +328,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
 Toolkit.create('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
+});
+
+return Toolkit;
 });
