@@ -40,7 +40,7 @@
 * [Popover](popover.md)
 * [Showcase](showcase.md)
 * [Stalker](stalker.md)
-* [Tabs](tabs.md)
+* [Tab](tab.md)
 * [Toast](toast.md)
 * [Tooltip](tooltip.md)
 * [Type Ahead](type-ahead.md)

@@ -1,18 +1,19 @@
-# Tabs #
+# Tab #
 
 Organizes multiple sections of content into toggleable tabs.
 
 ## Usage ##
 
-The tabs component is primarily used in the display of multiple sections of content,
+The tab component is primarily used in the display of multiple sections of content,
 with only a single section open at any time, all toggled through a navigation of tabbed links.
 
-The tabs that make up the component should be wrapped in a `.tabs-nav` and structured with
-a required `ul` list. The sections that associate to tabs should be created with `.tabs-section`.
+The tabs that make up the component should be wrapped in a `.tab-nav` and structured with
+a required `ul` list. The sections that associate to tabs should be created with `.tab-section`.
+Both of which can be wrapped by a `.tabs` element.
 
 ```html
 <div class="tabs">
-    <nav class="tabs-nav">
+    <nav class="tab-nav">
         <ul>
             <li><a href="#one">First</a></li>
             <li><a href="#two">Second</a></li>
@@ -20,16 +21,16 @@ a required `ul` list. The sections that associate to tabs should be created with
         </ul>
     </nav>
 
-    <section class="tabs-section">...</section>
-    <section class="tabs-section">...</section>
-    <section class="tabs-section">...</section>
+    <section class="tab-section">...</section>
+    <section class="tab-section">...</section>
+    <section class="tab-section">...</section>
 </div>
 ```
 
 The component should be initialized on an element that wraps both the navigation and the sections.
 
 ```javascript
-$('.tabs').tabs();
+$('.tabs').tab();
 ```
 
 <div class="notice is-info">
@@ -50,7 +51,7 @@ use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.
 
 ```html
 <div class="tabs tabs--horizontal grid">
-    <nav class="tabs-nav col span-4">
+    <nav class="tab-nav col span-4">
         <ul>
             <li><a href="#one">First</a></li>
             <li><a href="#two">Second</a></li>
@@ -59,9 +60,9 @@ use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.
     </nav>
 
     <div class="col span-8">
-        <section class="tabs-section">...</section>
-        <section class="tabs-section">...</section>
-        <section class="tabs-section">...</section>
+        <section class="tab-section">...</section>
+        <section class="tab-section">...</section>
+        <section class="tab-section">...</section>
     </div>
 </div>
 ```
@@ -72,7 +73,7 @@ There are 2 ways to persist the open section between requests.
 The first, which also takes highest priority, is through cookies.
 
 ```javascript
-$('.tabs').tabs({
+$('.tabs').tab({
     persistState: true,
     cookie: 'foobar'
 });
@@ -87,7 +88,7 @@ We can either update the hash manually when a tab is clicked,
 or disable `preventDefault` and set the `href` to IDs.
 
 ```javascript
-$('.tabs').tabs({
+$('.tabs').tab({
     loadFragment: true,
     preventDefault: false
 });
@@ -100,7 +101,7 @@ Lastly, if neither of those states are persisted, then the `defaultIndex` will b
 Loading in sections through AJAX is extremely easy, simply enable the `ajax` option (is enabled by default).
 
 ```javascript
-$('.tabs').tabs({
+$('.tabs').tab({
     ajax: true
 });
 ```
@@ -109,7 +110,7 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
 
 ```html
 <div class="tabs">
-    <nav class="tabs-nav">
+    <nav class="tab-nav">
         <ul>
             <li><a href="/load/this">AJAX 1st</a></li>
             <li><a href="/load/that">AJAX 2nd</a></li>
@@ -117,9 +118,9 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
         </ul>
     </nav>
 
-    <section class="tabs-section"></section>
-    <section class="tabs-section"></section>
-    <section class="tabs-section">...</section>
+    <section class="tab-section"></section>
+    <section class="tab-section"></section>
+    <section class="tab-section">...</section>
 </div>
 ```
 
@@ -127,7 +128,7 @@ If the `ajax` option is false, but we still want to load in content for a specif
 we can override the `ajax` option through data attributes.
 
 ```html
-<a href="/load/this" data-tabs-ajax="true">AJAX Override</a>
+<a href="/load/this" data-tab-ajax="true">AJAX Override</a>
 ```
 
 <div class="notice is-warning">
@@ -137,7 +138,7 @@ we can override the `ajax` option through data attributes.
 
 ### Notes ###
 
-* The `.show` and `.hide` classes will be toggled on the `.tabs-section` to trigger display.
+* The `.show` and `.hide` classes will be toggled on the `.tab-section` to trigger display.
 * The currently open section will have an `.is-active` class on the tabs parent `li`.
 
 ## ARIA ##
@@ -147,13 +148,13 @@ attributes are required when supporting ARIA.
 
 ```html
 <div class="tabs">
-    <nav class="tabs-nav" role="tablist">
+    <nav class="tab-nav" role="tablist">
         <ul>
             <li><a href="#one" role="tab">First</a></li>
         </ul>
     </nav>
 
-    <section class="tabs-section" role="tabpanel">...</section>
+    <section class="tab-section" role="tabpanel">...</section>
 </div>
 ```
 
@@ -305,19 +306,19 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>nav</td>
             <td>element</td>
             <td>The element containing the navigation links (the tabs).</td>
-            <td>.tabs-nav</td>
+            <td>.tab-nav</td>
         </tr>
         <tr>
             <td>tabs</td>
             <td>collection</td>
             <td>A collection of tab elements within the nav.</td>
-            <td>.tabs-nav a</td>
+            <td>.tab-nav a</td>
         </tr>
         <tr>
             <td>sections</td>
             <td>collection</td>
             <td>A collection of section elements within the tab wrapper.</td>
-            <td>.tabs-section</td>
+            <td>.tab-section</td>
         </tr>
         <tr>
             <td>index</td>
@@ -355,7 +356,7 @@ Inherits all methods from the [parent component](../development/js/component.md#
         <tr>
             <td>show(element:tab)</td>
             <td>Open a specific section using the related tab element.</td>
-            <td>.tabs-nav a</td>
+            <td>.tab-nav a</td>
         </tr>
     </tbody>
 </table>

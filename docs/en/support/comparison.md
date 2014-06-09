@@ -338,7 +338,7 @@ The following components are found within Toolkit.
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>Tabs</td>
+            <td>Tab</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>

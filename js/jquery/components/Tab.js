@@ -4,10 +4,10 @@
  * @link        http://titon.io
  */
 
-Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
+Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
     var sections, tabs, self = this;
 
-    this.component = 'Tabs';
+    this.component = 'Tab';
     this.version = '1.4.0';
     this.element = element = $(element);
     this.options = options = this.setOptions(options, element);
@@ -18,7 +18,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     }
 
     // Find all the sections and set ARIA attributes
-    this.sections = sections = element.find('.' + vendor + 'tabs-section').each(function(index, section) {
+    this.sections = sections = element.find('.' + vendor + 'tab-section').each(function(index, section) {
         section = $(section);
         section
             .attr('role', 'tabpanel')
@@ -28,7 +28,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     });
 
     // Find the nav and set ARIA attributes
-    this.nav = element.find('.' + vendor + 'tabs-nav')
+    this.nav = element.find('.' + vendor + 'tab-nav')
         .attr('role', 'tablist');
 
     // Find the tabs within the nav and set ARIA attributes
@@ -52,11 +52,11 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
     // Initialize events
     this.events = {
-        '{mode} element .@tabs-nav a': 'onShow'
+        '{mode} element .@tab-nav a': 'onShow'
     };
 
     if (options.mode !== 'click' && options.preventDefault) {
-        this.events['click element .@tabs-nav a'] = function(e) {
+        this.events['click element .@tab-nav a'] = function(e) {
             e.preventDefault();
         };
     }
@@ -67,7 +67,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     var index = options.defaultIndex;
 
     if (options.persistState && options.cookie && $.cookie) {
-        index = $.cookie('toolkit.tabs.' + options.cookie);
+        index = $.cookie('toolkit.tab.' + options.cookie);
     }
 
     if (!index && options.loadFragment && location.hash) {
@@ -177,7 +177,7 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
 
         // Persist the state using a cookie
         if (options.persistState && $.cookie) {
-            $.cookie('toolkit.tabs.' + options.cookie, index, {
+            $.cookie('toolkit.tab.' + options.cookie, index, {
                 expires: options.cookieDuration
             });
         }
@@ -215,6 +215,6 @@ Toolkit.Tabs = Toolkit.Component.extend(function(element, options) {
     getUrl: 'href'
 });
 
-Toolkit.create('tabs', function(options) {
-    return new Toolkit.Tabs(this, options);
+Toolkit.create('tab', function(options) {
+    return new Toolkit.Tab(this, options);
 });

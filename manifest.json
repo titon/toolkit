@@ -410,16 +410,16 @@
             "css": ["components/table.scss"]
         }
     },
-    "tabs": {
-        "name": "Tabs",
+    "tab": {
+        "name": "Tab",
         "description": "Organizes multiple sections of content into toggleable tabs.",
         "category": "component",
         "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/tabs.scss"],
-            "js": ["components/Tabs.js"]
+            "css": ["components/tab.scss"],
+            "js": ["components/Tab.js"]
         }
     },
     "toast": {

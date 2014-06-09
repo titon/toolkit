@@ -18,7 +18,7 @@ And the components placed in their respective type.
 Do note that it's possible for a component to share functionality from multiple types &mdash; TypeAhead for example.
 
 * Activated: Blackout, Flyout, Modal, Popover, Showcase, Tooltip, TypeAhead
-* Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, OffCanvas, Pin, Stalker, Tabs, TypeAhead
+* Embedded: Accordion, Carousel, Drop, Input, LazyLoad, Mask, Matrix, OffCanvas, Pin, Stalker, Tab, TypeAhead
 
 ## Templates ##
 
@@ -257,20 +257,20 @@ The difference between element events and option events (above) is the ability t
 and to define them outside of the component. Take the following for example.
 
 ```javascript
-$('#tabs').tabs({
+$('#tabs').tab({
     onShow: function(tab) {
         this.element.addClass('foobar');
     }
 });
 
-$('#tabs').on('show.toolkit.tabs', function(e, tab) {
+$('#tabs').on('show.toolkit.tab', function(e, tab) {
     e.context.element.addClass('foobar');
 });
 ```
 
 What we did was attach a namespaced event to the same element in the format of `{event}.toolkit.{component}`
 (no "on" required in the event name). Now anytime a tab is clicked, the `onShow` option event will trigger,
-and all `show.toolkit.tabs` event handlers will trigger.
+and all `show.toolkit.tab` event handlers will trigger.
 
 <div class="notice is-info">
     The "this" context within element event handlers will be the respective element.

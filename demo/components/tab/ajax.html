@@ -1,5 +1,5 @@
 <div class="tabs" id="tabs">
-    <nav class="tabs-nav">
+    <nav class="tab-nav">
         <ul>
             <li><a href="ajax/titans.html" class="button">Titans</a></li>
             <li><a href="ajax/olympians.html" class="button">Olympians</a></li>
@@ -7,14 +7,14 @@
         </ul>
     </nav>
 
-    <section class="tabs-section" id="titans"></section>
-    <section class="tabs-section" id="olympians"></section>
-    <section class="tabs-section" id="muses"></section>
+    <section class="tab-section" id="titans"></section>
+    <section class="tab-section" id="olympians"></section>
+    <section class="tab-section" id="muses"></section>
 </div>
 
 <script>
     $(function() {
-        $('#tabs').tabs({
+        $('#tabs').tab({
             ajax: true
         });
     });

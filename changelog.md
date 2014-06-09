@@ -26,3 +26,5 @@ Older versions can be found in the documentation changelogs.
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
+    * Tabs
+        * Has been renamed to `Tab` and all files and references have been changed

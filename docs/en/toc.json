@@ -194,8 +194,8 @@
                     "title": "Table",
                     "url": "/components/table"
                 }, {
-                    "title": "Tabs",
-                    "url": "/components/tabs"
+                    "title": "Tab",
+                    "url": "/components/tab"
                 }, {
                     "title": "Toast",
                     "url": "/components/toast"
