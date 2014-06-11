@@ -22,6 +22,7 @@ var pkg = require('./package.json'),
  *
  * The --components parameter can be used to filter down components
  * The --[no-]normalize parameter will include or exclude normalize.css from the output
+ * The --dist parameter will determine which folder to build to: build, or dist
  */
 
 var graph = new compartment();

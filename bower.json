@@ -11,21 +11,20 @@
     "licenses": "https://github.com/titon/toolkit/blob/master/license.md",
     "author": ["Miles Johnson"],
     "main": [
+        "dist/toolkit.css",
+        "dist/toolkit.js",
         "dist/toolkit.min.css",
         "dist/toolkit.min.js"
     ],
     "ignore": [
         ".*",
         "build/",
-        "css/",
-        "docs/",
         "demo/",
-        "img/",
+        "docs/",
         "js/",
         "lib/",
+        "*.json",
         "gulpfile.js",
-        "manifest.json",
-        "package.json",
         "toolkit.gemspec"
     ]
 }

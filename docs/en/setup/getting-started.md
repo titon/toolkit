@@ -20,6 +20,7 @@ After Toolkit has been downloaded, let's open the folder and review the file str
 
 ```
 toolkit/
+├── build/
 ├── demo/
 ├── dist/
 ├── docs/
@@ -30,6 +31,7 @@ toolkit/
 
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
 
+* The `build` folder contains custom Gulp plugins as well as being the target location for Gulp builds
 * The `demo` folder contains files that are used for testing components locally (requires PHP).
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
@@ -37,12 +39,14 @@ The Toolkit repository is grouped logically into folders depending on the type o
 
 ### Distribution Files ###
 
-Files found in the `dist` folder are compressed, minified, and compiled source files ready for production.
+Files found in the `dist` folder are minified and unminified files ready for production.
 These files are also available through [Bower](http://bower.io). These files include *all* components.
 
 ```
 toolkit/
 └── dist/
+    ├── toolkit.css
+    ├── toolkit.js
     ├── toolkit.min.css
     └── toolkit.min.js
 ```
@@ -57,27 +61,22 @@ This is where all development and engineering is focused. These files will later
 ```
 toolkit/
 ├── js/
-|   └── jquery/
-|       ├── components/
-|       ├── Component.js
-|       └── Toolkit.js
+|   ├── components/
+|   ├── events/
+|   ├── extensions/
+|   └── flags/
 ├── lib/
 |   └── titon-toolkit.rb
 └── scss/
     ├── toolkit/
     |   ├── components/
     |   ├── mixins/
-    |   ├── themes/
-    |   └── _common.scss
+    |   └── themes/
     ├── normalize.scss
     └── toolkit.scss
 ```
 
 Files are organized into folders that represent specific functionality.
-
-* The `components` folder contains source files for individual components.
-* The `mixins` folder contains mixins and functions for use in Sass files.
-* The `themes` folder contains custom themes built around Toolkit components.
 
 <div class="notice is-info">
     The <code>lib</code> folder is required by Compass extensions and serves no other purpose.

@@ -21,9 +21,11 @@ module.exports = function(paths, options) {
             }));
 
             // Now we can resume the stream
+            // We need to do this or else the Gulp chain will break
             stream.resume();
 
             // And end it before passing it on
+            // And we need to do this so that task_stop events are triggered
             stream.end();
         },
         baseUrl: './js/',
@@ -43,7 +45,7 @@ module.exports = function(paths, options) {
                 contents = contents.replace('%build%', Date.now().toString(36)); // Add unique build hash
             }
 
-            gutil.log("\t" + gutil.colors.green(module));
+            gutil.log("\t" + gutil.colors.green(module.replace('.js', '')));
 
             return contents;
         }

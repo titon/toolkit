@@ -8,6 +8,7 @@ Older versions can be found in the documentation changelogs.
 * Dropped IE8 support
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
+* Upgraded to RequireJS for JS dependency management and compilation
 * Sass
     * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Moved `.span-*` classes from the Grid component into the shared base file

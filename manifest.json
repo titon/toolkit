@@ -14,7 +14,8 @@
     "base": {
         "name": "Base",
         "description": "Defines styles and helper classes for CSS, and a robust component system for JavaScript.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 1,
         "source": {
             "css": ["components/base.scss"]
@@ -23,7 +24,8 @@
     "typography": {
         "name": "Typography",
         "description": "Variable font scaling and text styling for headers, paragraphs, lists, and other text based elements.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 2,
         "source": {
             "css": ["components/typography.scss"]
@@ -32,7 +34,8 @@
     "form": {
         "name": "Form",
         "description": "Classes for input fields and form structuring.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 3,
         "require": ["grid"],
         "source": {
@@ -42,7 +45,8 @@
     "code": {
         "name": "Code",
         "description": "Styles for code related HTML tags.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 4,
         "source": {
             "css": ["components/code.scss"]
@@ -51,7 +55,8 @@
     "responsive": {
         "name": "Responsive",
         "description": "Responsive classes for mobile, tablet and desktop resolutions.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 100,
         "source": {
             "css": ["components/responsive.scss"]
