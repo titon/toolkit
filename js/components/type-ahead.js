@@ -248,7 +248,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         rows
             .removeClass('is-active')
             .find('a')
-            .aria('selected', false);
+                .aria('selected', false);
 
         // Select
         if (index >= 0) {
@@ -258,14 +258,14 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 rows.eq(index)
                     .addClass('is-active')
                     .find('a')
-                    .aria('selected', true);
+                        .aria('selected', true);
 
                 this.input.val(item.title);
 
                 this.fireEvent(event || 'select', [item, index]);
             }
 
-            // Reset
+        // Reset
         } else {
             this.input.val(this.term);
 
@@ -435,7 +435,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 if (this.index < 0) {
                     this.index = length;
                 }
-                break;
+            break;
 
             // Cycle downwards (down)
             case 40:
@@ -444,7 +444,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 if (this.index >= length) {
                     this.index = -1;
                 }
-                break;
+            break;
 
             // Select first (tab)
             case 9:
@@ -459,7 +459,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 event = 'select';
                 this.index = i;
                 this.hide();
-                break;
+            break;
 
             // Select current index (enter)
             case 13:
@@ -467,17 +467,17 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
 
                 event = 'select';
                 this.hide();
-                break;
+            break;
 
             // Reset (esc)
             case 27:
                 this.index = -1;
                 this.hide();
-                break;
+            break;
 
             // Cancel others
             default:
-                return;
+            return;
         }
 
         if (this.shadow) {
@@ -500,7 +500,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         if (this.cache[term.toLowerCase()]) {
             this.source(this.cache[term.toLowerCase()]);
 
-            // Use the response of an AJAX request
+        // Use the response of an AJAX request
         } else if (sourceType === 'string') {
             var url = options.source,
                 cache = this.cache[url];
@@ -514,11 +514,11 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
                 $.getJSON(url, query, this.source);
             }
 
-            // Use a literal array list
+        // Use a literal array list
         } else if (sourceType === 'array') {
             this.source(options.source);
 
-            // Use the return of a function
+        // Use the return of a function
         } else if (sourceType === 'function') {
             var response = options.source.call(this);
 

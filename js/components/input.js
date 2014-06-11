@@ -500,7 +500,7 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
         // Set the label
         select.parent()
             .find('.' + Toolkit.vendor + 'select-label')
-            .text(label);
+                .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
     },
@@ -531,13 +531,13 @@ Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
             case 13: // enter
             case 27: // esc
                 this.hide();
-                return;
+            return;
             case 38: // up
                 index = this._loop(index, -1, options);
-                break;
+            break;
             case 40: // down
                 index = this._loop(index, 1, options);
-                break;
+            break;
         }
 
         options.prop('selected', false);

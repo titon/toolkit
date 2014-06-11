@@ -159,11 +159,11 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
             // Scroll is within the marker
             if (
                 (onlyWithin && scroll >= top && scroll <= bot) ||
-                    (!onlyWithin && scroll >= top)
-                ) {
+                (!onlyWithin && scroll >= top)
+            ) {
                 this.activate(marker);
 
-                // Scroll went outside the marker
+            // Scroll went outside the marker
             } else {
                 this.deactivate(marker);
             }

@@ -181,7 +181,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         } else {
             this.container
                 .transitionend(this._afterCycle)
-                    .css(this._position, -(cloneIndex * this._size));
+                .css(this._position, -(cloneIndex * this._size));
         }
 
         // Store the index
@@ -345,7 +345,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 // Reset the visual index to 0
                 visualIndex = 0;
 
-                // If cycle reaches the clone past the beginning
+            // If cycle reaches the clone past the beginning
             } else if (index <= -itemsToShow) {
                 this._resetTo = lengthWithoutClones;
 
@@ -355,7 +355,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                 // Reset the visual index to the last
                 visualIndex = lengthWithoutClones - itemsToShow;
 
-                // If cycle is within the normal range
+            // If cycle is within the normal range
             } else {
                 this._resetTo = null;
 
@@ -380,7 +380,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
                     element.addClass('no-next');
                 }
 
-                // If cycle reaches the first visible item, remove prev button or fast forward
+            // If cycle reaches the first visible item, remove prev button or fast forward
             } else if (index <= 0) {
                 index = 0;
 

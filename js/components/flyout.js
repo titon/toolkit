@@ -487,7 +487,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                     e.preventDefault();
                 }
 
-                // Non-touch devices
+            // Non-touch devices
             } else {
                 e.preventDefault();
             }

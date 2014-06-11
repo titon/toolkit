@@ -66,7 +66,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         if (options.lock && this.elementHeight >= this.viewport.height) {
             this.active = false;
 
-            // Enable pin if the parent is larger than the child
+        // Enable pin if the parent is larger than the child
         } else {
             this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
         }
@@ -138,7 +138,7 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
                 pos.bottom = 'auto';
             }
 
-            // Stop positioning absolute menu once it exits the parent
+        // Stop positioning absolute menu once it exits the parent
         } else {
             pos.position = 'absolute';
 

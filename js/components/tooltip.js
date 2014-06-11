@@ -216,7 +216,7 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
                     e.preventDefault();
                 }
 
-                // Non-touch devices
+            // Non-touch devices
             } else {
                 e.preventDefault();
             }

@@ -34,7 +34,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
     this.index = -1;
 
     // Blackout element if enabled
-    this.blackout = options.blackout ? Toolkit.Blackout.factory() : null;
+    this.blackout = options.blackout ? Toolkit.Blackout.instance() : null;
 
     // Is the showcase currently animating?
     this.animating = false;
@@ -75,12 +75,12 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
 
         this.element
             .conceal()
-            .removeClass('is-single');
+                .removeClass('is-single');
 
         this.items
             .removeAttr('style')
             .children('li')
-            .conceal();
+                .conceal();
 
         this.fireEvent('hide');
     },
@@ -158,17 +158,17 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         if (listItem.data('width')) {
             deferred.resolve(listItem.data('width'), listItem.data('height'));
 
-            // Create image and animate
+        // Create image and animate
         } else {
             var img = new Image();
-            img.src = item.image;
-            img.onerror = function() {
-                deferred.reject(150, 150);
-            };
-            img.onload = function() {
-                deferred.resolve(this.width, this.height);
-                listItem.append(img);
-            };
+                img.src = item.image;
+                img.onerror = function() {
+                    deferred.reject(150, 150);
+                };
+                img.onload = function() {
+                    deferred.resolve(this.width, this.height);
+                    listItem.append(img);
+                };
         }
 
         // Save state
@@ -242,7 +242,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
                 }
             }
 
-            // Single item
+        // Single item
         } else {
             items.push({
                 title: read(node, options.getTitle),

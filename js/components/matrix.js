@@ -125,12 +125,12 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         if (!items.length) {
             element.removeAttr('style');
 
-            // Single column
+        // Single column
         } else if (this.colCount <= 1) {
             element.addClass('no-columns');
             items.removeAttr('style');
 
-            // Multi column
+        // Multi column
         } else {
             element.removeClass('no-columns');
 

@@ -117,11 +117,11 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 if (event === 'ready') {
                     doc.ready(func);
 
-                    // Delegated events
+                // Delegated events
                 } else if (selector) {
                     $(context)[type](event, selector, func);
 
-                    // Regular events
+                // Regular events
                 } else {
                     $(context)[type](event, func);
                 }
@@ -379,7 +379,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
 
                     this.position(response);
 
-                    // JSON, others
+                // JSON, others
                 } else {
                     delete this.cache[url];
 
