@@ -9,68 +9,66 @@ define(function() {
  *
  * @returns {Object}
  */
-if (!$.event.special.clickout) {
-    $.event.special.clickout = (function() {
-        var elements = [];
+$.event.special.clickout = (function() {
+    var elements = [];
 
-        $(document).on('click.toolkit.out', function(e) {
-            if (!elements.length) {
-                return;
+    $(document).on('click.toolkit.out', function(e) {
+        if (!elements.length) {
+            return;
+        }
+
+        var trigger = true,
+            collection = $(document),
+            target = $(e.target);
+
+        $.each(elements, function(i, item) {
+            var self = $(item);
+
+            // Test that the delegated selector class matches
+            if ($.type(item) === 'string') {
+                trigger = (!target.is(item) && !self.has(e.target).length);
+
+                // Else test if the element matches
+            } else {
+                trigger = (!self.is(e.target) && !self.has(e.target).length);
             }
 
-            var trigger = true,
-                collection = $(document),
-                target = $(e.target);
-
-            $.each(elements, function(i, item) {
-                var self = $(item);
-
-                // Test that the delegated selector class matches
-                if ($.type(item) === 'string') {
-                    trigger = (!target.is(item) && !self.has(e.target).length);
-
-                    // Else test if the element matches
-                } else {
-                    trigger = (!self.is(e.target) && !self.has(e.target).length);
-                }
-
-                if (trigger) {
-                    collection = collection.add(self);
-                } else {
-                    return false;
-                }
-            });
-
             if (trigger) {
-                collection.trigger('clickout', [e.target]);
+                collection = collection.add(self);
+            } else {
+                return false;
             }
         });
 
-        return {
-            add: function(handler) {
-                var context = this;
+        if (trigger) {
+            collection.trigger('clickout', [e.target]);
+        }
+    });
 
-                if (this === document) {
-                    context = handler.selector;
-                }
+    return {
+        add: function(handler) {
+            var context = this;
 
-                if ($.inArray(context, elements) === -1) {
-                    elements.push(context);
-                }
-            },
-            remove: function(handler) {
-                var context = this;
-
-                if (this === document) {
-                    context = handler.selector;
-                }
-
-                elements = $.grep(elements, function(item) {
-                    return (item !== context);
-                });
+            if (this === document) {
+                context = handler.selector;
             }
-        };
-    })();
-}
+
+            if ($.inArray(context, elements) === -1) {
+                elements.push(context);
+            }
+        },
+        remove: function(handler) {
+            var context = this;
+
+            if (this === document) {
+                context = handler.selector;
+            }
+
+            elements = $.grep(elements, function(item) {
+                return (item !== context);
+            });
+        }
+    };
+})();
 
 });
