@@ -17,8 +17,7 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["components/base.scss"],
-            "js": ["core.js", "components/component.js"]
+            "css": ["components/base.scss"]
         }
     },
     "typography": {
