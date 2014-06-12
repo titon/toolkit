@@ -10,6 +10,8 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     component: 'Component',
     version: '1.4.1',
 
+    options: {},
+
     /** Is the component enabled? */
     enabled: false,
 

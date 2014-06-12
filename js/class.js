@@ -8,13 +8,20 @@ Toolkit.Class = function() {};
 /**
  * Very basic method for allowing functions to inherit functionality through the prototype.
  *
- * @param {Function} base
  * @param {Object} properties
  * @param {Object} options
  * @returns {Function}
  */
-Toolkit.Class.extend = function(base, properties, options) {
+Toolkit.Class.extend = function(properties, options) {
+    var initializing = false;
+
     var Class = function() {
+
+        // Exit constructing if being applied as prototype
+        if (initializing) {
+            return;
+        }
+
         // Bind all methods with the class context
         // - Allows event listeners to work automatically without having to bind() them
         // - Fixes issues with bindEvents() where events cant be turned off
@@ -28,11 +35,19 @@ Toolkit.Class.extend = function(base, properties, options) {
         this.uid = Class.count += 1;
 
         // Trigger constructor
-        base.apply(this, arguments);
+        if (properties.constructor) {
+            properties.constructor.apply(this, arguments);
+        }
     };
 
     // Inherit the prototype and merge properties
-    $.extend(Class.prototype, this.prototype, properties || {});
+    initializing = true;
+    Class.prototope = new this();
+    initializing = false;
+
+    if (properties) {
+        $.extend(Class.prototype, properties);
+    }
 
     // Inherit and set default options
     Class.options = $.extend(true, {}, this.options || {}, options || {});
@@ -44,7 +59,7 @@ Toolkit.Class.extend = function(base, properties, options) {
     Class.count = 0;
 
     // Use base as constructor
-    Class.prototype.constructor = base;
+    Class.prototype.constructor = Class;
 
     return Class;
 };
