@@ -2,7 +2,7 @@
 .idea/
 .sass-cache/
 node_modules/
-build/
+build/toolkit.*
 npm-debug.log
 *.gem
 Gemfile.lock

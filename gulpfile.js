@@ -1,9 +1,10 @@
 'use strict';
 
 var pkg = require('./package.json'),
+    rjs = require('./build/plugins/requirejs'),
     gulp = require('gulp'),
+    gutil = require('gulp-util'),
     sass = require('gulp-ruby-sass'),
-    wrap = require('gulp-wrap'),
     clean = require('gulp-clean'),
     header = require('gulp-header'),
     rename = require('gulp-rename'),
@@ -11,23 +12,23 @@ var pkg = require('./package.json'),
     minify = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
-    replace = require('gulp-frep'),
     prefixer = require('gulp-autoprefixer'),
     compartment = require('compartment'),
-    options = require('minimist')(process.argv.slice(2), {  default: { normalize: true, dist: false } }),
-    banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage %> */\n";
+    options = gutil.env,
+    banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage.replace('http://', '') %> */\n";
 
 /**
  * Determine which components we should package.
  *
  * The --components parameter can be used to filter down components
  * The --[no-]normalize parameter will include or exclude normalize.css from the output
+ * The --dist parameter will determine which folder to build to: build, or dist
  */
 
 var graph = new compartment();
     graph.loadManifest('./manifest.json');
     graph.addTypes({
-        js: './js/jquery/',
+        js: '', // Handled by RequireJS
         css: './scss/toolkit/'
     });
 
@@ -49,7 +50,7 @@ if (options.components) {
     });
 }
 
-if (options.normalize) {
+if (options.normalize || !('normalize' in options)) {
     toPackage.unshift('normalize');
 }
 
@@ -63,11 +64,6 @@ var jsPaths = graph.getPaths('js'),
 /**
  * Tasks to compile CSS and JavaScript files.
  */
-
-gulp.task('clean', function () {
-    return gulp.src(buildPath, { read: false })
-        .pipe(clean());
-});
 
 gulp.task('css', function() {
     return gulp.src(cssPaths)
@@ -89,17 +85,11 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-    return gulp.src(jsPaths)
+    return rjs(jsPaths, { version: pkg.version })
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
 
         // Unminified
-        .pipe(concat('toolkit.js'))
-        .pipe(replace([
-            { pattern: '%version%', replacement: pkg.version },
-            { pattern: '%build%', replacement: Date.now().toString(36) }
-        ]))
-        .pipe(wrap("(function($) {\n<%= contents %>\n}(jQuery));"))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(gulp.dest(buildPath))
 

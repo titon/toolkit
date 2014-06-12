@@ -8,6 +8,7 @@ Older versions can be found in the documentation changelogs.
 * Dropped IE8 support
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
+* Upgraded to RequireJS for JS dependency management and compilation
 * Sass
     * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Moved `.span-*` classes from the Grid component into the shared base file
@@ -20,8 +21,11 @@ Older versions can be found in the documentation changelogs.
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
 * JavaScript
+    * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
 * Components
+    * Blackout
+        * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Grid
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon

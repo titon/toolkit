@@ -24,9 +24,10 @@
     },
     "devDependencies": {
         "compartment": "*",
-        "minimist": "*",
+        "requirejs": "*",
+        "through": "*",
         "gulp": "*",
-        "gulp-frep": "*",
+        "gulp-util": "*",
         "gulp-rename": "*",
         "gulp-concat": "*",
         "gulp-clean": "*",
@@ -35,7 +36,6 @@
         "gulp-autoprefixer": "*",
         "gulp-jshint": "*",
         "gulp-uglify": "*",
-        "gulp-wrap": "*",
         "gulp-header": "*"
     }
 }

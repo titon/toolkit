@@ -18,7 +18,6 @@ These docs are for internal use only.
 * Update `changelog.md` and the changelog found in docs
 * Prepare release with `gulp --dist`
     * Fix the comment docblocks
-    * Remove `http://` from URLs
 * Quick tests with the distribution files
 * Verify changes with `git diff`
 * Publish changes
