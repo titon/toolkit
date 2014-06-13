@@ -3,41 +3,43 @@ define([
     '../extensions/throttle'
 ], function(Toolkit) {
 
-Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
-    container = $(container);
-
-    this.component = 'LazyLoad';
-    this.version = '1.5.0';
-    this.options = options = this.setOptions(options, container);
-
-    // Container to monitor scroll events on
-    this.container = (container.css('overflow') === 'auto') ? container : $(window);
-
-    // Collection of elements to load within the container
-    this.elements = container.find('.lazy-load');
+Toolkit.LazyLoad = Toolkit.Component.extend({
+    name: 'LazyLoad',
+    version: '1.5.0',
 
     // Element currently being loaded, needs to be set for events
-    this.element = null;
+    element: null,
 
     // How many items have been loaded
-    this.loaded = 0;
+    loaded: 0,
 
-    // Initialize events
-    var callback = $.throttle(this.load, options.throttle);
+    constructor: function(container, options) {
+        container = $(container);
 
-    this.events = {
-        'scroll container': callback,
-        'resize window': callback,
-        'ready document': 'onReady'
-    };
+        this.options = options = this.setOptions(options, container);
 
-    this.initialize();
-}, {
+        // Container to monitor scroll events on
+        this.container = (container.css('overflow') === 'auto') ? container : $(window);
+
+        // Collection of elements to load within the container
+        this.elements = container.find('.lazy-load');
+
+        // Initialize events
+        var callback = $.throttle(this.load, options.throttle);
+
+        this.events = {
+            'scroll container': callback,
+            'resize window': callback,
+            'ready document': 'onReady'
+        };
+
+        this.initialize();
+    },
 
     /**
      * Load all images when destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         this.loadAll();
     },
 
@@ -147,7 +149,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
         this.elements.splice(index, 1, null);
         this.loaded++;
 
-        this.fireEvent('show', node);
+        this.fireEvent('show', [node]);
     },
 
     /**

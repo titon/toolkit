@@ -1,7 +1,8 @@
 define([
     './flags/touch',
     './flags/retina',
-    './flags/transition'
+    './flags/transition',
+    './extensions/cache'
 ], function(isTouch, isRetina, hasTransition) {
 
 var Toolkit = {

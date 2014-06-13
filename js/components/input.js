@@ -4,49 +4,37 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Input = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Input';
-    this.version = '1.4.0';
-    this.element = element = $(element);
-    this.options = options = this.setOptions(options, element);
+Toolkit.Input = Toolkit.Component.extend({
+    name: 'Input',
+    version: '1.4.0',
 
-    if (options.checkbox) {
-        element.find(options.checkbox).inputCheckbox(options);
-    }
+    constructor: function(element, options) {
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
-    if (options.radio) {
-        element.find(options.radio).inputRadio(options);
-    }
-
-    if (options.select) {
-        element.find(options.select).inputSelect(options);
-    }
-
-    this.initialize();
-}, {
-
-    /**
-     * Copy classes from one element to another, but do not copy .input classes.
-     *
-     * @param {jQuery} from
-     * @param {jQuery} to
-     */
-    copyClasses: function(from, to) {
-        var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
-
-        if (classes) {
-            $(to).addClass(classes);
+        if (options.checkbox) {
+            element.find(options.checkbox).inputCheckbox(options);
         }
+
+        if (options.radio) {
+            element.find(options.radio).inputRadio(options);
+        }
+
+        if (options.select) {
+            element.find(options.select).inputSelect(options);
+        }
+
+        this.initialize();
     },
 
     /**
      * Remove the wrapper before destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         var options = this.options,
             element = this.element;
 
-        if (this.component === 'Input') {
+        if (this.name === 'Input') {
             if (options.checkbox) {
                 element.find(options.checkbox).each(function() {
                     $(this).toolkit('inputCheckbox', 'destroy');
@@ -68,6 +56,20 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
         } else {
             this.wrapper.replaceWith(this.input);
             this.input.removeAttr('style');
+        }
+    },
+
+    /**
+     * Copy classes from one element to another, but do not copy .input classes.
+     *
+     * @param {jQuery} from
+     * @param {jQuery} to
+     */
+    copyClasses: function(from, to) {
+        var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
+
+        if (classes) {
+            $(to).addClass(classes);
         }
     },
 
@@ -102,102 +104,112 @@ Toolkit.Input = Toolkit.Component.extend(function(element, options) {
  * Wraps a checkbox with a custom input.
  * Uses a label for checkbox toggling so no JavaScript events are required.
  */
-Toolkit.InputCheckbox = Toolkit.Input.extend(function(checkbox, options) {
-    this.component = 'InputCheckbox';
-    this.version = '1.4.0';
-    this.input = checkbox = $(checkbox);
-    this.options = this.setOptions(options, checkbox);
-    this.wrapper = this._buildWrapper();
+Toolkit.InputCheckbox = Toolkit.Input.extend({
+    name: 'InputCheckbox',
+    version: '1.4.0',
 
-    // Create custom input
-    this.element = $('<label/>')
-        .addClass(Toolkit.vendor + 'checkbox')
-        .attr('for', checkbox.attr('id'))
-        .insertAfter(checkbox);
+    constructor: function(checkbox, options) {
+        this.input = checkbox = $(checkbox);
+        this.options = this.setOptions(options, checkbox);
+        this.wrapper = this._buildWrapper();
 
-    // Initialize events
-    this.initialize();
+        // Create custom input
+        this.element = $('<label/>')
+            .addClass(Toolkit.vendor + 'checkbox')
+            .attr('for', checkbox.attr('id'))
+            .insertAfter(checkbox);
+
+        // Initialize events
+        this.initialize();
+    }
+
 });
 
 /**
  * Wraps a radio with a custom input.
  * Uses a label for radio toggling so no JavaScript events are required.
  */
-Toolkit.InputRadio = Toolkit.Input.extend(function(radio, options) {
-    this.component = 'InputRadio';
-    this.version = '1.4.0';
-    this.input = radio = $(radio);
-    this.options = this.setOptions(options, radio);
-    this.wrapper = this._buildWrapper();
+Toolkit.InputRadio = Toolkit.Input.extend({
+    name: 'InputRadio',
+    version: '1.4.0',
 
-    // Create custom input
-    this.element = $('<label/>')
-        .addClass(Toolkit.vendor + 'radio')
-        .attr('for', radio.attr('id'))
-        .insertAfter(radio);
+    constructor: function(radio, options) {
+        this.input = radio = $(radio);
+        this.options = this.setOptions(options, radio);
+        this.wrapper = this._buildWrapper();
 
-    // Initialize events
-    this.initialize();
+        // Create custom input
+        this.element = $('<label/>')
+            .addClass(Toolkit.vendor + 'radio')
+            .attr('for', radio.attr('id'))
+            .insertAfter(radio);
+
+        // Initialize events
+        this.initialize();
+    }
+
 });
 
 /**
  * Wraps a select dropdown with a custom input.
  * Supports native or custom dropdowns.
  */
-Toolkit.InputSelect = Toolkit.Input.extend(function(select, options) {
-    var events = {};
-
-    this.component = 'InputSelect';
-    this.version = '1.4.0';
-    this.input = select = $(select);
-    this.multiple = select.prop('multiple');
-    this.options = options = this.setOptions(options, select);
-
-    // Multiple selects must use native controls
-    if (this.multiple && options.native) {
-        return;
-    }
-
-    // Wrapping element
-    this.wrapper = this._buildWrapper();
-
-    // Button element to open the drop menu
-    this.element = this._buildButton();
+Toolkit.InputSelect = Toolkit.Input.extend({
+    name: 'InputSelect',
+    version: '1.4.0',
 
     // The custom drop menu
-    this.dropdown = null;
+    dropdown: null,
 
     // Current option index when cycling with keyboard
-    this.index = 0;
+    index: 0,
 
-    // Initialize events
-    events['change input'] = 'onChange';
+    constructor: function(select, options) {
+        var events = {};
 
-    if (!options.native) {
-        events['blur input'] = 'hide';
-        events['clickout document .@select-options'] = 'hide';
-        events['clickout element'] = 'hide';
-        events['click element'] = 'onToggle';
+        this.input = select = $(select);
+        this.multiple = select.prop('multiple');
+        this.options = options = this.setOptions(options, select);
 
-        if (!this.multiple) {
-            events['keydown window'] = 'onCycle';
+        // Multiple selects must use native controls
+        if (this.multiple && options.native) {
+            return;
         }
 
-        // Build custom dropdown when not in native
-        this._buildDropdown();
+        // Wrapping element
+        this.wrapper = this._buildWrapper();
 
-        // Cant hide/invisible the real select or we lose focus/blur
-        // So place it below .custom-input
-        this.input.css('z-index', 1);
-    }
+        // Button element to open the drop menu
+        this.element = this._buildButton();
 
-    this.events = events;
+        // Initialize events
+        events['change input'] = 'onChange';
 
-    this.initialize();
+        if (!options.native) {
+            events['blur input'] = 'hide';
+            events['clickout document .@select-options'] = 'hide';
+            events['clickout element'] = 'hide';
+            events['click element'] = 'onToggle';
 
-    // Trigger change immediately to update the label
-    this.input.change();
-}, {
+            if (!this.multiple) {
+                events['keydown window'] = 'onCycle';
+            }
+
+            // Build custom dropdown when not in native
+            this._buildDropdown();
+
+            // Cant hide/invisible the real select or we lose focus/blur
+            // So place it below .custom-input
+            this.input.css('z-index', 1);
+        }
+
+        this.events = events;
+
+        this.initialize();
+
+        // Trigger change immediately to update the label
+        this.input.change();
+    },
 
     /**
      * Hide the dropdown and remove active states.

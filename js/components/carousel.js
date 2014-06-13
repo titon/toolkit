@@ -5,106 +5,127 @@ define([
     '../extensions/throttle'
 ], function(Toolkit) {
 
-Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
-    var items, self = this;
-
-    this.component = 'Carousel';
-    this.version = '1.5.0';
-    this.element = element = $(element);
-    this.options = options = this.setOptions(options, element);
-
-    // Set animation and ARIA
-    element
-        .aria('live', options.autoCycle ? 'assertive' : 'off')
-        .addClass(options.animation);
-
-    // Find the item container and disable transitions for initial load
-    this.container = element.find('.' + Toolkit.vendor + 'carousel-items ul')
-        .addClass('no-transition');
-
-    // Find all the items and set ARIA attributes
-    this.items = items = this.container.find('li').each(function(index) {
-        $(this)
-            .attr({
-                role: 'tabpanel',
-                id: self.id('item', index)
-            })
-            .data('carousel-index', index)
-            .aria('hidden', (index > 0));
-    });
-
-    // Find all tabs and set ARIA attributes
-    this.tabs = element.find('.' + Toolkit.vendor + 'carousel-tabs')
-        .attr('role', 'tablist')
-        .find('a').each(function(index) {
-            $(this)
-                .data('carousel-index', index)
-                .attr({
-                    role: 'tab',
-                    id: self.id('tab', index)
-                })
-                .aria({
-                    controls: self.id('item', index),
-                    selected: false,
-                    expanded: false
-                });
-        });
+Toolkit.Carousel = Toolkit.Component.extend({
+    name: 'Carousel',
+    version: '1.5.0',
 
     // Currently displayed item by index
-    this.index = -1;
+    index: -1,
 
     // Auto cycle timer
-    this.timer = null;
+    timer: null,
 
     // Is the carousel stopped or paused?
-    this.stopped = false;
+    stopped: false,
 
     // Is the carousel currently animating?
-    this.animating = false;
+    animating: false,
 
     // The dimension (width or height) to read sizes from
-    this._dimension = null;
+    _dimension: null,
 
     // The position (left or top) to modify for cycling
-    this._position = null;
+    _position: null,
 
     // The size to cycle with
-    this._size = 0;
+    _size: 0,
 
     // The index to reset to while infinite scrolling
-    this._resetTo = null;
+    _resetTo: null,
 
-    // Initialize events
-    this.events = {
-        'resize window': $.throttle(this.calculate, 50),
-        'keydown window': 'onKeydown',
-        'swipeleft element': 'next',
-        'swipeup element': 'next',
-        'swiperight element': 'prev',
-        'swipedown element': 'prev',
-        'click element .@carousel-tabs a': 'onJump',
-        'click element .@carousel-next': 'next',
-        'click element .@carousel-prev': 'prev',
-        'click element .@carousel-start': 'start',
-        'click element .@carousel-stop': 'stop'
-    };
+    constructor: function(element, options) {
+        var items, self = this;
 
-    if (options.stopOnHover) {
-        this.events['mouseenter element'] = 'stop';
-        this.events['mouseleave element'] = 'start';
-    }
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
-    this.initialize();
+        // Set animation and ARIA
+        element
+            .aria('live', options.autoCycle ? 'assertive' : 'off')
+            .addClass(options.animation);
 
-    // Prepare the carousel
-    this._setupState();
-    this._buildClones();
+        // Find the item container and disable transitions for initial load
+        this.container = element.find('.' + Toolkit.vendor + 'carousel-items ul')
+            .addClass('no-transition');
 
-    // Start the carousel
-    this.calculate();
-    this.start();
-    this.jump(options.defaultIndex);
-}, {
+        // Find all the items and set ARIA attributes
+        this.items = items = this.container.find('li').each(function(index) {
+            $(this)
+                .attr({
+                    role: 'tabpanel',
+                    id: self.id('item', index)
+                })
+                .data('carousel-index', index)
+                .aria('hidden', (index > 0));
+        });
+
+        // Find all tabs and set ARIA attributes
+        this.tabs = element.find('.' + Toolkit.vendor + 'carousel-tabs')
+            .attr('role', 'tablist')
+            .find('a').each(function(index) {
+                $(this)
+                    .data('carousel-index', index)
+                    .attr({
+                        role: 'tab',
+                        id: self.id('tab', index)
+                    })
+                    .aria({
+                        controls: self.id('item', index),
+                        selected: false,
+                        expanded: false
+                    });
+            });
+
+        // Initialize events
+        this.events = {
+            'resize window': $.throttle(this.calculate, 50),
+            'keydown window': 'onKeydown',
+            'swipeleft element': 'next',
+            'swipeup element': 'next',
+            'swiperight element': 'prev',
+            'swipedown element': 'prev',
+            'click element .@carousel-tabs a': 'onJump',
+            'click element .@carousel-next': 'next',
+            'click element .@carousel-prev': 'prev',
+            'click element .@carousel-start': 'start',
+            'click element .@carousel-stop': 'stop'
+        };
+
+        if (options.stopOnHover) {
+            this.events['mouseenter element'] = 'stop';
+            this.events['mouseleave element'] = 'start';
+        }
+
+        this.initialize();
+
+        // Prepare the carousel
+        this._setupState();
+        this._buildClones();
+
+        // Start the carousel
+        this.calculate();
+        this.start();
+        this.jump(options.defaultIndex);
+    },
+
+    /**
+     * Stop the carousel before destroying.
+     */
+    destructor: function() {
+        this.jump(0);
+
+        // Remove timers
+        clearInterval(this.timer);
+
+        // Remove clones
+        this.container.transitionend(function() {
+            $(this)
+                .addClass('no-transition')
+                .css('left', 0)
+                .find('li.is-cloned')
+                .remove();
+        });
+    },
 
     /**
      * Calculate the widths or heights for the items, the wrapper, and the cycle.
@@ -124,25 +145,6 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
 
         // Set the wrapper width based on the outer wrapper and item count
         this.container.css(dimension, size * items.length);
-    },
-
-    /**
-     * Stop the carousel before destroying.
-     */
-    doDestroy: function() {
-        this.jump(0);
-
-        // Remove timers
-        clearInterval(this.timer);
-
-        // Remove clones
-        this.container.transitionend(function() {
-            $(this)
-                .addClass('no-transition')
-                .css('left', 0)
-                .find('li.is-cloned')
-                    .remove();
-        });
     },
 
     /**
@@ -188,7 +190,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         this.index = visualIndex;
 
         this.reset();
-        this.fireEvent('jump', visualIndex);
+        this.fireEvent('jump', [visualIndex]);
     },
 
     /**
@@ -492,7 +494,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
      */
     onCycle: function() {
         if (!this.stopped) {
-            this.fireEvent('cycle', this.index);
+            this.fireEvent('cycle', [this.index]);
 
             if (this.options.reverse) {
                 this.prev();

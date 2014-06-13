@@ -4,89 +4,91 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
-    var sections, tabs, self = this, vendor = Toolkit.vendor;
-
-    this.component = 'Tab';
-    this.version = '1.4.0';
-    this.element = element = $(element);
-    this.options = options = this.setOptions(options, element);
-
-    // Determine cookie name
-    if (!options.cookie) {
-        options.cookie = element.attr('id');
-    }
-
-    // Find all the sections and set ARIA attributes
-    this.sections = sections = element.find('.' + vendor + 'tab-section').each(function(index, section) {
-        section = $(section);
-        section
-            .attr('role', 'tabpanel')
-            .attr('id', section.attr('id') || self.id('section', index))
-            .aria('labelledby', self.id('tab', index))
-            .conceal();
-    });
-
-    // Find the nav and set ARIA attributes
-    this.nav = element.find('.' + vendor + 'tab-nav')
-        .attr('role', 'tablist');
-
-    // Find the tabs within the nav and set ARIA attributes
-    this.tabs = tabs = this.nav.find('a').each(function(index) {
-        $(this)
-            .data('index', index)
-            .attr({
-                role: 'tab',
-                id: self.id('tab', index)
-            })
-            .aria({
-                controls: sections.eq(index).attr('id'),
-                selected: false,
-                expanded: false
-            })
-            .removeClass('is-active');
-    });
+Toolkit.Tab = Toolkit.Component.extend({
+    name: 'Tab',
+    version: '1.4.0',
 
     // Index of the section currently displayed
-    this.index = 0;
+    index: 0,
 
-    // Initialize events
-    this.events = {
-        '{mode} element .@tab-nav a': 'onShow'
-    };
+    constructor: function(element, options) {
+        var sections, tabs, self = this, vendor = Toolkit.vendor;
 
-    if (options.mode !== 'click' && options.preventDefault) {
-        this.events['click element .@tab-nav a'] = function(e) {
-            e.preventDefault();
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
+
+        // Determine cookie name
+        if (!options.cookie) {
+            options.cookie = element.attr('id');
+        }
+
+        // Find all the sections and set ARIA attributes
+        this.sections = sections = element.find('.' + vendor + 'tab-section').each(function(index, section) {
+            section = $(section);
+            section
+                .attr('role', 'tabpanel')
+                .attr('id', section.attr('id') || self.id('section', index))
+                .aria('labelledby', self.id('tab', index))
+                .conceal();
+        });
+
+        // Find the nav and set ARIA attributes
+        this.nav = element.find('.' + vendor + 'tab-nav')
+            .attr('role', 'tablist');
+
+        // Find the tabs within the nav and set ARIA attributes
+        this.tabs = tabs = this.nav.find('a').each(function(index) {
+            $(this)
+                .data('index', index)
+                .attr({
+                    role: 'tab',
+                    id: self.id('tab', index)
+                })
+                .aria({
+                    controls: sections.eq(index).attr('id'),
+                    selected: false,
+                    expanded: false
+                })
+                .removeClass('is-active');
+        });
+
+        // Initialize events
+        this.events = {
+            '{mode} element .@tab-nav a': 'onShow'
         };
-    }
 
-    this.initialize();
+        if (options.mode !== 'click' && options.preventDefault) {
+            this.events['click element .@tab-nav a'] = function(e) {
+                e.preventDefault();
+            };
+        }
 
-    // Trigger default tab to display
-    var index = options.defaultIndex;
+        this.initialize();
 
-    if (options.persistState && options.cookie && $.cookie) {
-        index = $.cookie('toolkit.tab.' + options.cookie);
-    }
+        // Trigger default tab to display
+        var index = options.defaultIndex;
 
-    if (!index && options.loadFragment && location.hash) {
-        index = tabs.filter(function() {
-            return ($(this).attr('href') === location.hash);
-        }).eq(0).data('index');
-    }
+        if (options.persistState && options.cookie && $.cookie) {
+            index = $.cookie('toolkit.tab.' + options.cookie);
+        }
 
-    if (!index || !tabs[index]) {
-        index = options.defaultIndex;
-    }
+        if (!index && options.loadFragment && location.hash) {
+            index = tabs.filter(function() {
+                return ($(this).attr('href') === location.hash);
+            }).eq(0).data('index');
+        }
 
-    this.jump(index);
-}, {
+        if (!index || !tabs[index]) {
+            index = options.defaultIndex;
+        }
+
+        this.jump(index);
+    },
 
     /**
      * Reveal the last section when destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         this.sections.eq(this.index).reveal();
     },
 
@@ -96,7 +98,7 @@ Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
     hide: function() {
         this.sections.conceal();
 
-        this.fireEvent('hide', this.node);
+        this.fireEvent('hide', [this.node]);
     },
 
     /**
@@ -137,7 +139,7 @@ Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
                         this.cache[url] = true;
                     }
 
-                    this.fireEvent('load', response);
+                    this.fireEvent('load', [response]);
 
                     section
                         .html(response)
@@ -185,7 +187,7 @@ Toolkit.Tab = Toolkit.Component.extend(function(element, options) {
         this.index = index;
         this.node = tab;
 
-        this.fireEvent('show', tab);
+        this.fireEvent('show', [tab]);
     },
 
     /**

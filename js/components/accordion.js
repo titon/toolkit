@@ -4,62 +4,68 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
-    var self = this;
-
-    this.component = 'Accordion';
-    this.version = '1.4.0';
-    this.element = element = $(element).attr('role', 'tablist');
-    this.options = options = this.setOptions(options, element);
-
-    // Find headers and cache the index of each header and set ARIA attributes
-    this.headers = element.find('.' + Toolkit.vendor + 'accordion-header').each(function(index) {
-        $(this)
-            .data('index', index)
-            .attr({
-                role: 'tab',
-                id: self.id('header', index)
-            })
-            .aria({
-                controls: self.id('section', index),
-                selected: false,
-                expanded: false
-            });
-    });
-
-    // Find sections and cache the height so we can use for sliding and set ARIA attributes
-    this.sections = element.find('.' + Toolkit.vendor + 'accordion-section').each(function(index) {
-        $(this)
-            .data('height', $(this).height())
-            .attr({
-                role: 'tabpanel',
-                id: self.id('section', index)
-            })
-            .aria('labelledby', self.id('header', index))
-            .conceal();
-    });
+Toolkit.Accordion = Toolkit.Component.extend({
+    name: 'Accordion',
+    version: '1.4.0',
 
     // Last opened section index
-    this.index = 0;
+    index: 0,
 
     // Last opened header
-    this.node = null;
+    node: null,
 
-    // Initialize events
-    this.events = {
-        '{mode} element .@accordion-header': 'onShow'
-    };
+    headers: [],
 
-    this.initialize();
+    sections: [],
 
-    // Jump to the index on page load
-    this.jump(options.defaultIndex);
-}, {
+    constructor: function(element, options) {
+        var self = this;
+
+        this.element = element = $(element).attr('role', 'tablist');
+        this.options = options = this.setOptions(options, element);
+
+        // Find headers and cache the index of each header and set ARIA attributes
+        this.headers = element.find('.' + Toolkit.vendor + 'accordion-header').each(function(index) {
+            $(this)
+                .data('index', index)
+                .attr({
+                    role: 'tab',
+                    id: self.id('header', index)
+                })
+                .aria({
+                    controls: self.id('section', index),
+                    selected: false,
+                    expanded: false
+                });
+        });
+
+        // Find sections and cache the height so we can use for sliding and set ARIA attributes
+        this.sections = element.find('.' + Toolkit.vendor + 'accordion-section').each(function(index) {
+            $(this)
+                .data('height', $(this).height())
+                .attr({
+                    role: 'tabpanel',
+                    id: self.id('section', index)
+                })
+                .aria('labelledby', self.id('header', index))
+                .conceal();
+        });
+
+        // Initialize events
+        this.events = {
+            '{mode} element .@accordion-header': 'onShow'
+        };
+
+        this.initialize();
+
+        // Jump to the index on page load
+        this.jump(options.defaultIndex);
+    },
 
     /**
      * Reveal all sections before destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         this.headers.parent().removeClass('is-active');
         this.sections.removeAttr('style').reveal();
     },
@@ -74,7 +80,7 @@ Toolkit.Accordion = Toolkit.Component.extend(function(element, options) {
     jump: function(index) {
         index = $.bound(index, this.headers.length);
 
-        this.fireEvent('jump', index);
+        this.fireEvent('jump', [index]);
         this.show(this.headers[index]);
     },
 

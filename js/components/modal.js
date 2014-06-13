@@ -4,51 +4,60 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-    var element;
-
-    this.component = 'Modal';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options);
-    this.element = element = this.createElement()
-        .attr('role', 'dialog')
-        .aria('labelledby', this.id('title'))
-        .aria('describedby', this.id('content'));
-
-    // Enable fullscreen
-    if (options.fullScreen) {
-        element.addClass('is-fullscreen');
-    }
+Toolkit.Modal = Toolkit.Component.extend({
+    name: 'Modal',
+    version: '1.4.0',
 
     // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+    nodes: null,
 
     // Last node to open a modal
-    this.node = null;
+    node: null,
 
     // Blackout element if enabled
-    this.blackout = options.blackout ? Toolkit.Blackout.instance() : null;
+    blackout: null,
 
-    if (options.blackout && options.stopScroll) {
-        this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
-            if (hidden) {
-                $('body').removeClass('no-scroll');
-            }
-        });
-    }
+    constructor: function(nodes, options) {
+        var element;
 
-    // Initialize events
-    this.events = {
-        'keydown window': 'onKeydown',
-        'clickout element': 'onHide',
-        'clickout document {selector}': 'onHide',
-        'click document {selector}': 'onShow',
-        'click element .@modal-hide': 'onHide',
-        'click element .@modal-submit': 'onSubmit'
-    };
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement()
+            .attr('role', 'dialog')
+            .aria('labelledby', this.id('title'))
+            .aria('describedby', this.id('content'));
 
-    this.initialize();
-}, {
+        // Enable fullscreen
+        if (options.fullScreen) {
+            element.addClass('is-fullscreen');
+        }
+
+        // Nodes found in the page on initialization
+        this.nodes = $(nodes);
+
+        if (options.blackout) {
+            this.blackout = Toolkit.Blackout.instance();
+        }
+
+        if (options.blackout && options.stopScroll) {
+            this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
+                if (hidden) {
+                    $('body').removeClass('no-scroll');
+                }
+            });
+        }
+
+        // Initialize events
+        this.events = {
+            'keydown window': 'onKeydown',
+            'clickout element': 'onHide',
+            'clickout document {selector}': 'onHide',
+            'click document {selector}': 'onShow',
+            'click element .@modal-hide': 'onHide',
+            'click element .@modal-submit': 'onSubmit'
+        };
+
+        this.initialize();
+    },
 
     /**
      * Hide the modal and reset relevant values.
@@ -82,7 +91,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
 
         body.html(content);
-        this.fireEvent('load', content);
+        this.fireEvent('load', [content]);
 
         // Reveal modal
         this.element.reveal();

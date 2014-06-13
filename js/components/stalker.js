@@ -3,39 +3,65 @@ define([
     '../extensions/throttle'
 ], function(Toolkit) {
 
-Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Stalker';
-    this.version = '1.4.0';
-    this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
-    this.options = options = this.setOptions(options);
-
-    if (!options.target || !options.marker) {
-        throw new Error('A marker and target is required');
-    }
+Toolkit.Stalker = Toolkit.Component.extend({
+    name: 'Stalker',
+    version: '1.4.0',
 
     // Container to monitor scroll events on
-    this.container = (element.css('overflow') === 'auto') ? element : $(window);
+    container: $(window),
 
     // Targets to active when a marker is reached
-    this.targets = [];
+    targets: [],
 
     // Markers to compare against
-    this.markers = [];
+    markers: [],
 
     // Top value for all markers
-    this.offsets = [];
+    offsets: [],
 
-    // Initialize events
-    this.events = {
-        'scroll container': $.throttle(this.onScroll, options.throttle),
-        'ready document': 'onScroll'
-    };
+    constructor: function(element, options) {
+        this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
+        this.options = options = this.setOptions(options);
 
-    this.initialize();
+        if (!options.target || !options.marker) {
+            throw new Error('A marker and target is required');
+        }
 
-    // Gather markets and targets
-    this.refresh();
-}, {
+        if (element.css('overflow') === 'auto') {
+            this.container = element;
+        }
+
+        // Initialize events
+        this.events = {
+            'scroll container': $.throttle(this.onScroll, options.throttle),
+            'ready document': 'onScroll'
+        };
+
+        this.initialize();
+
+        // Gather markets and targets
+        this.refresh();
+    },
+
+    /**
+     * Remove classes before destroying.
+     */
+    destructor: function() {
+        var targets = this.targets,
+            markers = this.markers,
+            vendor = Toolkit.vendor;
+
+        targets.removeClass(vendor + 'stalker-target');
+        markers.removeClass(vendor + 'stalker-marker');
+
+        if (this.options.applyToParent) {
+            targets.parent().removeClass('is-active');
+            markers.parent().removeClass('is-marked');
+        } else {
+            targets.removeClass('is-active');
+            markers.removeClass('is-marked');
+        }
+    },
 
     /**
      * Activate a target when a marker is entered.
@@ -53,26 +79,6 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
      */
     deactivate: function(marker) {
         this._stalk(marker, 'deactivate');
-    },
-
-    /**
-     * Remove classes before destroying.
-     */
-    doDestroy: function() {
-        var targets = this.targets,
-            markers = this.markers,
-            vendor = Toolkit.vendor;
-
-        targets.removeClass(vendor + 'stalker-target');
-        markers.removeClass(vendor + 'stalker-marker');
-
-        if (this.options.applyToParent) {
-            targets.parent().removeClass('is-active');
-            markers.parent().removeClass('is-marked');
-        } else {
-            targets.removeClass('is-active');
-            markers.removeClass('is-marked');
-        }
     },
 
     /**

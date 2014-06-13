@@ -4,29 +4,32 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Drop = Toolkit.Component.extend(function(nodes, options) {
-    this.component = 'Drop';
-    this.version = '1.4.0';
-    this.options = this.setOptions(options);
+Toolkit.Drop = Toolkit.Component.extend({
+    name: 'Drop',
+    version: '1.4.0',
 
     // Last opened drop menu
-    this.element = null;
+    element: null,
 
     // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+    nodes: null,
 
     // Last node to open a menu
-    this.node = null;
+    node: null,
 
-    // Initialize events
-    this.events = {
-        'clickout document .@drop': 'hide',
-        'clickout document {selector}': 'hide',
-        '{mode} document {selector}': 'onShow'
-    };
+    constructor: function(nodes, options) {
+        this.nodes = $(nodes);
+        this.options = this.setOptions(options);
 
-    this.initialize();
-}, {
+        // Initialize events
+        this.events = {
+            'clickout document .@drop': 'hide',
+            'clickout document {selector}': 'hide',
+            '{mode} document {selector}': 'onShow'
+        };
+
+        this.initialize();
+    },
 
     /**
      * Hide the opened element and remove active state.

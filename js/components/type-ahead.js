@@ -4,112 +4,124 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
-    input = $(input);
-
-    if (input.prop('tagName').toLowerCase() !== 'input') {
-        throw new Error('TypeAhead must be initialized on an input field');
-    }
-
-    var self = this;
-
-    this.component = 'TypeAhead';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options, input);
-    this.element = this.createElement()
-        .attr('role', 'listbox')
-        .aria('multiselectable', false);
+Toolkit.TypeAhead = Toolkit.Component.extend({
+    name: 'TypeAhead',
+    version: '1.4.0',
 
     // The input field to listen against
-    this.input = input;
+    input: null,
 
     // The shadow input field element
-    this.shadow = null;
+    shadow: null,
 
     // Current index in the drop menu while cycling
-    this.index = -1;
+    index: -1,
 
     // List of item data to render in the drop menu
-    this.items = [];
+    items: [],
 
     // Current term in the input field to match with
-    this.term = '';
+    term: '',
 
     // Lookup throttle timer
-    this.timer = null;
+    timer: null,
 
-    // Cached lookup requests
-    this.cache = {};
+    constructor: function(input, options) {
+        input = $(input);
 
-    // Use default callbacks
-    $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {
-        if (options[key] === false) {
-            return;
+        if (input.prop('tagName').toLowerCase() !== 'input') {
+            throw new Error('TypeAhead must be initialized on an input field');
         }
 
-        var callback;
+        var self = this;
 
-        if (options[key] === null || $.type(options[key]) !== 'function') {
-            callback = self[fn];
-        } else {
-            callback = options[key];
+        this.options = options = this.setOptions(options, input);
+        this.element = this.createElement()
+            .attr('role', 'listbox')
+            .aria('multiselectable', false);
+
+        // The input field to listen against
+        this.input = input;
+
+        // Use default callbacks
+        $.each({ sorter: 'sort', matcher: 'match', builder: 'build' }, function(key, fn) {
+            if (options[key] === false) {
+                return;
+            }
+
+            var callback;
+
+            if (options[key] === null || $.type(options[key]) !== 'function') {
+                callback = self[fn];
+            } else {
+                callback = options[key];
+            }
+
+            options[key] = callback.bind(self);
+        });
+
+        // Prefetch source data from URL
+        if (options.prefetch && $.type(options.source) === 'string') {
+            var url = options.source;
+
+            $.getJSON(url, options.query, function(items) {
+                self.cache[url] = items;
+            });
         }
 
-        options[key] = callback.bind(self);
-    });
+        // Enable shadow inputs
+        if (options.shadow) {
+            this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
 
-    // Prefetch source data from URL
-    if (options.prefetch && $.type(options.source) === 'string') {
-        var url = options.source;
+            this.shadow = this.input.clone()
+                .addClass('is-shadow')
+                .removeAttr('id')
+                .prop('readonly', true)
+                .aria('readonly', true);
 
-        $.getJSON(url, options.query, function(items) {
-            self.cache[url] = items;
-        });
-    }
+            this.input
+                .addClass('not-shadow')
+                .replaceWith(this.wrapper);
 
-    // Enable shadow inputs
-    if (options.shadow) {
-        this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
+            this.wrapper
+                .append(this.shadow)
+                .append(this.input);
+        }
 
-        this.shadow = this.input.clone()
-            .addClass('is-shadow')
-            .removeAttr('id')
-            .prop('readonly', true)
-            .aria('readonly', true);
+        // Set ARIA after shadow so that attributes are not inherited
+        input
+            .attr({
+                autocomplete: 'off',
+                autocapitalize: 'off',
+                autocorrect: 'off',
+                spellcheck: 'false',
+                role: 'combobox'
+            })
+            .aria({
+                autocomplete: 'list',
+                owns: this.element.attr('id'),
+                expanded: false
+            });
 
-        this.input
-            .addClass('not-shadow')
-            .replaceWith(this.wrapper);
+        // Initialize events
+        this.events = {
+            'keyup input': 'onLookup',
+            'keydown input': 'onCycle',
+            'clickout element': 'hide'
+        };
 
-        this.wrapper
-            .append(this.shadow)
-            .append(this.input);
-    }
+        this.initialize();
+    },
 
-    // Set ARIA after shadow so that attributes are not inherited
-    input
-        .attr({
-            autocomplete: 'off',
-            autocapitalize: 'off',
-            autocorrect: 'off',
-            spellcheck: 'false',
-            role: 'combobox'
-        })
-        .aria({
-            autocomplete: 'list',
-            owns: this.element.attr('id'),
-            expanded: false
-        });
-
-    // Initialize events
-    this.events = {
-        'keyup input': 'onLookup',
-        'keydown input': 'onCycle',
-        'clickout element': 'hide'
-    };
-
-    this.initialize();
-}, {
+    /**
+     * Remove the shadow before destroying.
+     */
+    destructor: function() {
+        if (this.shadow) {
+            this.shadow.parent().replaceWith(this.input);
+            this.input.removeClass('not-shadow');
+        }
+    },
 
     /**
      * Build the anchor link that will be used in the list.
@@ -137,16 +149,6 @@ Toolkit.TypeAhead = Toolkit.Component.extend(function(input, options) {
         }
 
         return a;
-    },
-
-    /**
-     * Remove the shadow before destroying.
-     */
-    doDestroy: function() {
-        if (this.shadow) {
-            this.shadow.parent().replaceWith(this.input);
-            this.input.removeClass('not-shadow');
-        }
     },
 
     /**

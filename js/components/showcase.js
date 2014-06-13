@@ -7,59 +7,78 @@ define([
     '../extensions/transitionend'
 ], function(Toolkit) {
 
-Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
-    var element, vendor = Toolkit.vendor;
-
-    this.component = 'Showcase';
-    this.version = '1.5.0';
-    this.options = options = this.setOptions(options);
-    this.element = element = this.createElement();
+Toolkit.Showcase = Toolkit.Component.extend({
+    name: 'Showcase',
+    version: '1.5.0',
 
     // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+    nodes: null,
 
     // The wrapping items element
-    this.items = element.find('.' + vendor + 'showcase-items');
+    items: null,
 
     // The wrapping tabs element
-    this.tabs = element.find('.' + vendor + 'showcase-tabs');
+    tabs: null,
 
     // The caption element
-    this.caption = element.find('.' + vendor + 'showcase-caption');
+    caption: null,
 
     // Items gathered when node was activated
-    this.data = [];
+    data: [],
 
     // Current index of the item being shown
-    this.index = -1;
+    index: -1,
 
     // Blackout element if enabled
-    this.blackout = options.blackout ? Toolkit.Blackout.instance() : null;
+    blackout: null,
 
     // Is the showcase currently animating?
-    this.animating = false;
+    animating: false,
 
-    // Initialize events
-    this.events = {
-        'clickout element': 'onHide',
-        'clickout document {selector}': 'onHide',
-        'swipeleft element': 'next',
-        'swiperight element': 'prev',
-        'keydown window': 'onKeydown',
-        'click document {selector}': 'onShow',
-        'click element .@showcase-hide': 'onHide',
-        'click element .@showcase-next': 'next',
-        'click element .@showcase-prev': 'prev',
-        'click element .@showcase-tabs a': 'onJump'
-    };
+    constructor: function(nodes, options) {
+        var element, vendor = Toolkit.vendor;
 
-    // Stop `transitionend` events from bubbling up when the showcase is resized
-    this.events[Toolkit.transitionEnd + ' element .showcase-items'] = function(e) {
-        e.stopPropagation();
-    };
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement();
 
-    this.initialize();
-}, {
+        // Nodes found in the page on initialization
+        this.nodes = $(nodes);
+
+        // The wrapping items element
+        this.items = element.find('.' + vendor + 'showcase-items');
+
+        // The wrapping tabs element
+        this.tabs = element.find('.' + vendor + 'showcase-tabs');
+
+        // The caption element
+        this.caption = element.find('.' + vendor + 'showcase-caption');
+
+        // Blackout element if enabled
+        if (options.blackout) {
+            this.blackout = Toolkit.Blackout.instance();
+        }
+
+        // Initialize events
+        this.events = {
+            'clickout element': 'onHide',
+            'clickout document {selector}': 'onHide',
+            'swipeleft element': 'next',
+            'swiperight element': 'prev',
+            'keydown window': 'onKeydown',
+            'click document {selector}': 'onShow',
+            'click element .@showcase-hide': 'onHide',
+            'click element .@showcase-next': 'next',
+            'click element .@showcase-prev': 'prev',
+            'click element .@showcase-tabs a': 'onJump'
+        };
+
+        // Stop `transitionend` events from bubbling up when the showcase is resized
+        this.events[Toolkit.transitionEnd + ' element .showcase-items'] = function(e) {
+            e.stopPropagation();
+        };
+
+        this.initialize();
+    },
 
     /**
      * Hide the showcase and reset inner elements.
@@ -174,7 +193,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
         // Save state
         this.index = index;
 
-        this.fireEvent('jump', index);
+        this.fireEvent('jump', [index]);
     },
 
     /**
@@ -291,7 +310,7 @@ Toolkit.Showcase = Toolkit.Component.extend(function(nodes, options) {
             this.element.addClass('is-single');
         }
 
-        this.fireEvent('load', items);
+        this.fireEvent('load', [items]);
     },
 
     /**

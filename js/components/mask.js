@@ -3,45 +3,44 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Mask = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Mask';
-    this.version = '1.4.0';
-    this.element = element = $(element);
-    this.options = options = this.setOptions(options, element);
+Toolkit.Mask = Toolkit.Component.extend({
+    name: 'Mask',
+    version: '1.4.0',
 
-    // Add class and set relative positioning
-    if (!element.is('body')) {
-        element.addClass(Toolkit.vendor + 'mask-target');
+    constructor: function(element, options) {
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
-        if (element.css('position') === 'static') {
-            element.css('position', 'relative');
+        // Add class and set relative positioning
+        if (!element.is('body')) {
+            element.addClass(Toolkit.vendor + 'mask-target');
+
+            if (element.css('position') === 'static') {
+                element.css('position', 'relative');
+            }
         }
-    }
 
-    // Find a mask or create it
-    var maskClass = Toolkit.vendor + 'mask',
-        mask = element.find('> .' + maskClass);
+        // Find a mask or create it
+        var maskClass = Toolkit.vendor + 'mask',
+            mask = element.find('> .' + maskClass);
 
-    if (!mask.length) {
-        mask = $('<div/>').addClass(maskClass);
-    }
+        if (!mask.length) {
+            mask = $('<div/>').addClass(maskClass);
+        }
 
-    this.setMask(mask);
+        this.setMask(mask);
 
-    // Initialize events
-    this.events = {};
+        if (options.selector) {
+            this.events['click document ' + options.selector] = 'toggle';
+        }
 
-    if (options.selector) {
-        this.events['click document ' + options.selector] = 'toggle';
-    }
-
-    this.initialize();
-}, {
+        this.initialize();
+    },
 
     /**
      * Remove the mask element before destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         this.mask.remove();
         this.element
             .removeClass(Toolkit.vendor + 'mask-target')

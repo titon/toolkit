@@ -3,54 +3,68 @@ define([
     '../extensions/shown-selector'
 ], function(Toolkit) {
 
-Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
-    if (!url) {
-        throw new Error('Flyout URL required to download sitemap JSON');
-    }
-
-    this.component = 'Flyout';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options);
+Toolkit.Flyout = Toolkit.Component.extend({
+    name: 'Flyout',
+    version: '1.4.0',
 
     // Last opened flyout menu
-    this.element = null;
+    element: null,
 
     // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+    nodes: null,
 
     // Last node to open a menu
-    this.node = null;
+    node: null,
 
     // Current URL to relate a flyout menu to
-    this.current = null;
+    current: null,
 
     // Collection of flyout elements indexed by URL
-    this.menus = {};
+    menus: {},
 
     // Raw sitemap JSON data
-    this.data = [];
+    data: [],
 
     // Data indexed by URL
-    this.dataMap = {};
+    dataMap: {},
 
     // Show and hide timers
-    this.timers = {};
+    timers: {},
 
-    // Initialize events
-    this.events = {};
+    constructor: function(nodes, url, options) {
+        if (!url) {
+            throw new Error('Flyout URL required to download sitemap JSON');
+        }
 
-    if (options.mode === 'click') {
-        this.events['click document {selector}'] = 'onShow';
-    } else {
-        this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
-        this.events['mouseleave document {selector}'] = 'onLeave';
-    }
+        this.options = options = this.setOptions(options);
 
-    this.initialize();
+        // Nodes found in the page on initialization
+        this.nodes = $(nodes);
 
-    // Load data from the URL
-    $.getJSON(url, this.load);
-}, {
+        if (options.mode === 'click') {
+            this.events['click document {selector}'] = 'onShow';
+        } else {
+            this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
+            this.events['mouseleave document {selector}'] = 'onLeave';
+        }
+
+        this.initialize();
+
+        // Load data from the URL
+        $.getJSON(url, this.load);
+    },
+
+    /**
+     * Remove all the flyout menu elements and timers before destroying.
+     */
+    destructor: function() {
+        $.each(this.menus, function(i, menu) {
+            menu.remove();
+        });
+
+        this.clearTimer('show');
+        this.clearTimer('hide');
+    },
 
     /**
      * Clear a timer by key.
@@ -60,18 +74,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     clearTimer: function(key) {
         clearTimeout(this.timers[key]);
         delete this.timers[key];
-    },
-
-    /**
-     * Remove all the flyout menu elements and timers before destroying.
-     */
-    doDestroy: function() {
-        $.each(this.menus, function(i, menu) {
-            menu.remove();
-        });
-
-        this.clearTimer('show');
-        this.clearTimer('hide');
     },
 
     /**
@@ -400,7 +402,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                 hidden: false
             });
 
-        this.fireEvent('hideChild', parent);
+        this.fireEvent('hideChild', [parent]);
     },
 
     /**
@@ -462,7 +464,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
 
         parent.addClass('is-open');
 
-        this.fireEvent('showChild', parent);
+        this.fireEvent('showChild', [parent]);
     },
 
     /**

@@ -4,45 +4,55 @@ define([
     '../extensions/debounce'
 ], function(Toolkit) {
 
-Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Matrix';
-    this.version = '1.5.0';
-    this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
-    this.options = options = this.setOptions(options, element);
+Toolkit.Matrix = Toolkit.Component.extend({
+    name: 'Matrix',
+    version: '1.5.0',
 
     // Items within the matrix
-    this.items = [];
+    items: [],
 
     // List of items in order and how many columns they span horizontally
-    this.matrix = [];
+    matrix: [],
 
     // Width of the wrapper (target element)
     // Is recalculated every page resize to determine columns
-    this.wrapperWidth = 0;
+    wrapperWidth: 0,
 
     // Calculated final width of the column (may differ from width option)
-    this.colWidth = 0;
+    colWidth: 0,
 
     // How many columns that can fit in the wrapper
-    this.colCount = 0;
+    colCount: 0,
 
     // Collection of img elements
-    this.images = [];
+    images: [],
 
-    // Initialize events
-    this.events = {
-        'resize window': $.debounce(this.onResize)
-    };
+    constructor: function(element, options) {
+        this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
+        this.options = options = this.setOptions(options, element);
 
-    this.initialize();
+        // Initialize events
+        this.events = {
+            'resize window': $.debounce(this.onResize)
+        };
 
-    // Render the matrix
-    if (options.defer) {
-        this._deferRender();
-    } else {
-        this.refresh();
-    }
-}, {
+        this.initialize();
+
+        // Render the matrix
+        if (options.defer) {
+            this._deferRender();
+        } else {
+            this.refresh();
+        }
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    destructor: function() {
+        this.element.removeAttr('style');
+        this.items.removeAttr('style');
+    },
 
     /**
      * Append an item to the bottom of the matrix.
@@ -55,14 +65,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             .css('opacity', 0);
 
         this.refresh();
-    },
-
-    /**
-     * Remove inline styles before destroying.
-     */
-    doDestroy: function() {
-        this.element.removeAttr('style');
-        this.items.removeAttr('style');
     },
 
     /**

@@ -1,31 +1,23 @@
 define([
-    '../class',
+    '../base',
     '../extensions/aria',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
 ], function(Toolkit) {
 
-Toolkit.Component = Toolkit.Class.extend(function() {}, {
-    component: 'Component',
+Toolkit.Component = Toolkit.Base.extend({
+    name: 'Component',
     version: '1.4.1',
 
-    options: {},
+    /** Whether the element was created automatically or not. */
+    created: false,
 
-    /** Is the component enabled? */
-    enabled: false,
-
-    /** Events and functions to bind */
-    events: {},
-
-    /** Cached requests by URL */
-    cache: {},
-
-    /** Dynamic options generated at runtime */
-    runtime: {},
+    /** The target element. Either created through a template, or embedded in the DOM. */
+    element: null,
 
     /**
-     * Create the element from the template.
+     * Create an element from the `template` or `templateFrom` option.
      *
      * @returns {jQuery}
      */
@@ -67,97 +59,19 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Loop through the events object map and attach events to the specific selector in the correct context.
-     * Take into account window, document, and delegation.
-     *
-     * @param {String} type
-     */
-    bindEvents: function(type) {
-        var self = this,
-            options = this.options,
-            event,
-            keys,
-            context,
-            selector,
-            funcs,
-            win = $(window),
-            doc = $(document);
-
-        // event window = func          Bind window event
-        // event document = func        Bind document event
-        // ready document = func        Bind DOM ready event
-        // event property = func        Bind event to collection that matches class property
-        // event context .class = func  Bind delegated events to class within context
-        $.each(this.events, function(key, value) {
-            funcs = $.isArray(value) ? value : [value];
-
-            // Replace tokens
-            key = key.replace('{mode}', options.mode);
-            key = key.replace('{selector}', self.nodes ? self.nodes.selector : '');
-
-            // Extract arguments
-            keys = key.split(' ');
-            event = keys.shift();
-            context = keys.shift();
-            selector = keys.join(' ').replace('@', Toolkit.vendor);
-
-            // Determine the correct context
-            if (self[context]) {
-                context = self[context];
-            } else if (context === 'window') {
-                context = win;
-            } else if (context === 'document') {
-                context = doc;
-            }
-
-            $.each(funcs, function(i, func) {
-                if (!$.isFunction(func)) {
-                    func = self[func];
-                }
-
-                // Ready events
-                if (event === 'ready') {
-                    doc.ready(func);
-
-                // Delegated events
-                } else if (selector) {
-                    $(context)[type](event, selector, func);
-
-                // Regular events
-                } else {
-                    $(context)[type](event, func);
-                }
-            });
-        });
-    },
-
-    /**
-     * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     * {@inheritdoc}
      */
     destroy: function() {
-        this.fireEvent('destroy');
-
-        // Remove active state
-        if (this.hide) {
-            this.hide();
-        }
-
-        if (this.doDestroy) {
-            this.doDestroy();
-        }
-
-        // Remove events
-        this.disable();
+        Toolkit.Base.prototype.destroy.call(this);
 
         // Remove element only if it was created
         if (this.created) {
             this.element.remove();
         }
 
-        // Remove instances
-        var key = this._keyName();
+        // Remove instances last or else the previous commands will fail
+        var key = this.keyName;
 
-        // This must be called last or else the previous commands will fail
         if (this.nodes) {
             this.nodes.removeData('toolkit.' + key);
 
@@ -170,69 +84,13 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Disable the component.
-     */
-    disable: function() {
-        if (this.enabled) {
-            this.bindEvents('off');
-        }
-
-        this.enabled = false;
-    },
-
-    /**
-     * Enable the component.
-     */
-    enable: function() {
-        if (!this.enabled) {
-            this.bindEvents('on');
-        }
-
-        this.enabled = true;
-    },
-
-    /**
-     * Trigger an event if it exists.
-     *
-     * @param {String} type
-     * @param {Array} [args]
-     */
-    fireEvent: function(type, args) {
-        if (!$.isArray(args)) {
-            args = [args];
-        }
-
-        // Trigger event globally
-        var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
-
-        if (this.options[onType]) {
-            this.options[onType].apply(this, args || []);
-        }
-
-        // Generate the namespaced event
-        var element = this.element,
-            node = this.node,
-            event = jQuery.Event(type + '.toolkit.' + this._keyName());
-            event.context = this;
-
-        // Trigger event on the element and the node
-        if (element && element.length) {
-            element.trigger(event, args || []);
-        }
-
-        if (node && node.length) {
-            node.trigger(event, args || []);
-        }
-    },
-
-    /**
      * Generate a unique CSS class name for the component and its arguments.
      *
      * @returns {String}
      */
     id: function() {
         var list = $.makeArray(arguments);
-            list.unshift('toolkit', this._cssClass(), this.uid);
+            list.unshift('toolkit', this.cssClass, this.uid);
 
         return list.join('-');
     },
@@ -252,7 +110,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 continue;
             }
 
-            value = element.data((this._keyName() + '-' + key).toLowerCase());
+            value = element.data((this.keyName + '-' + key).toLowerCase());
 
             if ($.type(value) !== 'undefined') {
                 obj[key] = value;
@@ -260,14 +118,6 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
         }
 
         return $.extend(true, {}, options, obj);
-    },
-
-    /**
-     * Enable events and trigger init callback.
-     */
-    initialize: function() {
-        this.enable();
-        this.fireEvent('init');
     },
 
     /**
@@ -290,7 +140,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             func.call(prev, content);
         }
 
-        this.fireEvent('process', content);
+        this.fireEvent('process', [content]);
     },
 
     /**
@@ -302,7 +152,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.data((this._keyName() + '-' + key).toLowerCase());
+        var value = element.data((this.keyName + '-' + key).toLowerCase());
 
         if ($.type(value) === 'undefined') {
             value = this.options[key];
@@ -401,76 +251,27 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Set the options by merging with defaults.
+     * After merging options with the default options,
+     * inherit options from an elements data attributes.
      *
      * @param {Object} [options]
      * @param {jQuery} [inheritFrom]
      * @returns {Object}
      */
     setOptions: function(options, inheritFrom) {
-        var opts = $.extend(true, {}, Toolkit[this.component].options, options || {});
+        var opts = Toolkit.Base.prototype.setOptions.call(this, options);
 
         // Inherit from element data attributes
         if (inheritFrom) {
             opts = this.inheritOptions(opts, inheritFrom);
         }
 
-        // Inherit options based on responsive media queries
-        if (opts.responsive && window.matchMedia) {
-            $.each(opts.responsive, function(key, resOpts) {
-                if (matchMedia(resOpts.breakpoint).matches) {
-                    $.extend(opts, resOpts);
-                    return false;
-                }
-            });
-        }
-
         // Convert hover to mouseenter
         if (opts.mode && opts.mode === 'hover') {
-
-            // Reset for touch devices
-            if (Toolkit.isTouch) {
-                opts.mode = 'click';
-            } else {
-                opts.mode = 'mouseenter';
-            }
+            opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
         }
 
         return opts;
-    },
-
-    /**
-     * Return the component name hyphenated for use in CSS classes.
-     * Cache the result to reduce processing time.
-     *
-     * @private
-     * @returns {string}
-     */
-    _cssClass: function() {
-        if (this.cssClass) {
-            return this.cssClass;
-        }
-
-        return this.cssClass = this.component.replace(/[A-Z]/g, function(match) {
-            return ('-' + match.charAt(0).toLowerCase());
-        }).slice(1);
-    },
-
-    /**
-     * Return the component name with the 1st character lowercase for use in events and attributes.
-     * Cache the result to reduce processing time.
-     *
-     * @private
-     * @returns {string}
-     */
-    _keyName: function() {
-        if (this.keyName) {
-            return this.keyName;
-        }
-
-        var name = this.component;
-
-        return this.keyName = name.charAt(0).toLowerCase() + name.slice(1);
     }
 
 }, {

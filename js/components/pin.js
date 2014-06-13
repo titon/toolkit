@@ -3,47 +3,65 @@ define([
     '../extensions/throttle'
 ], function(Toolkit) {
 
-Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Pin';
-    this.version = '1.5.0';
-    this.element = element = $(element);
-    this.options = options = this.setOptions(options, element);
-
-    // Setup classes and ARIA
-    element
-        .attr('role', 'complementary')
-        .addClass(Toolkit.vendor + 'pin')
-        .addClass(options.animation);
+Toolkit.Pin = Toolkit.Component.extend({
+    name: 'Pin',
+    version: '1.5.0',
 
     // Outer height of the element
-    this.elementHeight = null;
+    elementHeight: null,
 
     // The initial top value to reset too
-    this.elementTop = parseInt(element.css('top'), 10);
+    elementTop: 0,
 
     // Inner height of the parent element
-    this.parentHeight = null;
+    parentHeight: null,
 
     // The top value of the parent to compare against
-    this.parentTop = null;
+    parentTop: null,
 
     // The width and height of the viewport, will update on resize
-    this.viewport = null;
+    viewport: null,
 
     // Will the element be pinned?
-    this.active = true;
+    active: true,
 
-    // Initialize events
-    var throttle = options.throttle;
+    constructor: function(element, options) {
+        this.element = element = $(element);
+        this.options = options = this.setOptions(options, element);
 
-    this.events = {
-        'scroll window': $.throttle(this.onScroll, throttle),
-        'resize window': $.throttle(this.onResize, throttle),
-        'ready document': 'onResize'
-    };
+        // Setup classes and ARIA
+        element
+            .attr('role', 'complementary')
+            .addClass(Toolkit.vendor + 'pin')
+            .addClass(options.animation);
 
-    this.initialize();
-}, {
+        this.elementTop = parseInt(element.css('top'), 10);
+
+        // Initialize events
+        var throttle = options.throttle;
+
+        this.events = {
+            'scroll window': $.throttle(this.onScroll, throttle),
+            'resize window': $.throttle(this.onResize, throttle),
+            'ready document': 'onResize'
+        };
+
+        this.initialize();
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    destructor: function() {
+        this.active = false;
+
+        // Need to be in a timeout or they won't be removed
+        setTimeout(function() {
+            this.element
+                .removeAttr('style')
+                .removeClass('is-pinned');
+        }.bind(this), 15);
+    },
 
     /**
      * Calculate the dimensions and offsets of the interacting elements.
@@ -70,20 +88,6 @@ Toolkit.Pin = Toolkit.Component.extend(function(element, options) {
         } else {
             this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
         }
-    },
-
-    /**
-     * Remove inline styles before destroying.
-     */
-    doDestroy: function() {
-        this.active = false;
-
-        // Need to be in a timeout or they won't be removed
-        setTimeout(function() {
-            this.element
-                .removeAttr('style')
-                .removeClass('is-pinned');
-        }.bind(this), 15);
     },
 
     /**

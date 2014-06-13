@@ -2,47 +2,49 @@ define([
     './component'
 ], function(Toolkit) {
 
-Toolkit.Blackout = Toolkit.Component.extend(function(options) {
-    this.component = 'Blackout';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options);
-    this.element = this.createElement();
+Toolkit.Blackout = Toolkit.Component.extend({
+    name: 'Blackout',
+    version: '1.4.0',
 
     // How many times the blackout has been opened while being opened
-    this.count = 0;
+    count: 0,
 
-    // Build the loader
-    var count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
-        loader = $('<div/>')
-            .addClass(Toolkit.vendor + 'loader')
-            .addClass(options.loader)
-            .appendTo(this.element);
+    constructor: function(options) {
+        this.options = options = this.setOptions(options);
+        this.element = this.createElement();
 
-    var spans = '', i;
+        // Build the loader
+        var count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
+            loader = $('<div/>')
+                .addClass(Toolkit.vendor + 'loader')
+                .addClass(options.loader)
+                .appendTo(this.element);
 
-    for (i = 0; i < count; i++) {
-        spans += '<span></span>';
-    }
+        var spans = '', i;
 
-    if (options.loader === 'bubble-spinner') {
-        $('<div/>')
-            .addClass(Toolkit.vendor + 'loader-spinner')
-            .html(spans)
+        for (i = 0; i < count; i++) {
+            spans += '<span></span>';
+        }
+
+        if (options.loader === 'bubble-spinner') {
+            $('<div/>')
+                .addClass(Toolkit.vendor + 'loader-spinner')
+                .html(spans)
+                .appendTo(loader);
+        } else {
+            loader.html(spans);
+        }
+
+        this.loader = loader;
+
+        // Build the message
+        this.message = $('<div/>')
+            .addClass(Toolkit.vendor + 'loader-message')
+            .html(Toolkit.messages.loading)
             .appendTo(loader);
-    } else {
-        loader.html(spans);
-    }
 
-    this.loader = loader;
-
-    // Build the message
-    this.message = $('<div/>')
-        .addClass(Toolkit.vendor + 'loader-message')
-        .html(Toolkit.messages.loading)
-        .appendTo(loader);
-
-    this.initialize();
-}, {
+        this.initialize();
+    },
 
     /**
      * Hide the blackout if count reaches 0.
@@ -58,7 +60,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
             this.count = count;
         }
 
-        this.fireEvent('hide', (count <= 0));
+        this.fireEvent('hide', [(count <= 0)]);
     },
 
     /**
@@ -83,7 +85,7 @@ Toolkit.Blackout = Toolkit.Component.extend(function(options) {
         }
 
         this.showLoader();
-        this.fireEvent('show', show);
+        this.fireEvent('show', [show]);
     },
 
     /**

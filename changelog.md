@@ -21,8 +21,11 @@ Older versions can be found in the documentation changelogs.
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
 * JavaScript
+    * Added a `Base` class that both `Component` and `Behavior` extend
     * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
+    * Component
+        * Renamed the `component` property to `name`
 * Components
     * Blackout
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
