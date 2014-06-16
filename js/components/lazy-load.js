@@ -7,24 +7,25 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     name: 'LazyLoad',
     version: '1.5.0',
 
-    // Element currently being loaded, needs to be set for events
-    element: null,
+    /** Container to monitor scroll events on. */
+    container: null,
 
-    // How many items have been loaded
+    /** How many items have been loaded. */
     loaded: 0,
 
+    /**
+     * Initialize the lazy load.
+     *
+     * @param {jQuery} container
+     * @param {Object} [options]
+     */
     constructor: function(container, options) {
         container = $(container);
 
         this.options = options = this.setOptions(options, container);
-
-        // Container to monitor scroll events on
         this.container = (container.css('overflow') === 'auto') ? container : $(window);
-
-        // Collection of elements to load within the container
         this.elements = container.find('.lazy-load');
 
-        // Initialize events
         var callback = $.throttle(this.load, options.throttle);
 
         this.events = {

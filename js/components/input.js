@@ -8,6 +8,18 @@ Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
     version: '1.4.0',
 
+    /** The original input element. */
+    input: null,
+
+    /** The element that wraps the custom input. */
+    wrapper: null,
+
+    /**
+     * Initialize the input.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
@@ -108,6 +120,12 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
     name: 'InputCheckbox',
     version: '1.4.0',
 
+    /**
+     * Initialize the checkbox.
+     *
+     * @param {jQuery} checkbox
+     * @param {Object} [options]
+     */
     constructor: function(checkbox, options) {
         this.input = checkbox = $(checkbox);
         this.options = this.setOptions(options, checkbox);
@@ -133,6 +151,12 @@ Toolkit.InputRadio = Toolkit.Input.extend({
     name: 'InputRadio',
     version: '1.4.0',
 
+    /**
+     * Initialize the radio.
+     *
+     * @param {jQuery} radio
+     * @param {Object} [options]
+     */
     constructor: function(radio, options) {
         this.input = radio = $(radio);
         this.options = this.setOptions(options, radio);
@@ -158,12 +182,21 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     name: 'InputSelect',
     version: '1.4.0',
 
-    // The custom drop menu
+    /** The custom drop element. */
     dropdown: null,
 
-    // Current option index when cycling with keyboard
+    /** Current option index when cycling with keyboard. */
     index: 0,
 
+    /** Is the select a multiple choice? */
+    multiple: false,
+
+    /**
+     * Initialize the select.
+     *
+     * @param {jQuery} select
+     * @param {Object} [options]
+     */
     constructor: function(select, options) {
         var events = {};
 

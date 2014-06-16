@@ -7,18 +7,24 @@ Toolkit.Stalker = Toolkit.Component.extend({
     name: 'Stalker',
     version: '1.4.0',
 
-    // Container to monitor scroll events on
+    /** Container to monitor scroll events on. */
     container: $(window),
 
-    // Targets to active when a marker is reached
+    /** Targets to active when a marker is reached. */
     targets: [],
 
-    // Markers to compare against
+    /** Markers to compare against. */
     markers: [],
 
-    // Top value for all markers
+    /** Top value for all markers. */
     offsets: [],
 
+    /**
+     * Initialize the stalker.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
         this.options = options = this.setOptions(options);

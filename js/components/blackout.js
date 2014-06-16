@@ -6,9 +6,20 @@ Toolkit.Blackout = Toolkit.Component.extend({
     name: 'Blackout',
     version: '1.4.0',
 
-    // How many times the blackout has been opened while being opened
+    /** How many times the blackout has been opened while being opened. */
     count: 0,
 
+    /** The loader animation element. */
+    loader: null,
+
+    /** The message element. */
+    message: null,
+
+    /**
+     * Create the blackout and loader elements.
+     *
+     * @param {Object} [options]
+     */
     constructor: function(options) {
         this.options = options = this.setOptions(options);
         this.element = this.createElement();
@@ -43,6 +54,7 @@ Toolkit.Blackout = Toolkit.Component.extend({
             .html(Toolkit.messages.loading)
             .appendTo(loader);
 
+        // Initialize
         this.initialize();
     },
 

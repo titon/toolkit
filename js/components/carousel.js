@@ -9,30 +9,45 @@ Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
     version: '1.5.0',
 
-    // Currently displayed item by index
-    index: -1,
-
-    // Auto cycle timer
-    timer: null,
-
-    // Is the carousel stopped or paused?
-    stopped: false,
-
-    // Is the carousel currently animating?
+    /** Is the carousel currently animating? */
     animating: false,
 
-    // The dimension (width or height) to read sizes from
+    /** The parent list that contains the items. */
+    container: null,
+
+    /** Currently displayed item by index. */
+    index: -1,
+
+    /** Collection of items to display in the carousel. */
+    items: [],
+
+    /** Is the carousel stopped or paused? */
+    stopped: false,
+
+    /** Collection of tabs to use for jumping to items. */
+    tabs: [],
+
+    /** Cycle timer. */
+    timer: null,
+
+    /** The dimension (width or height) to read sizes from. */
     _dimension: null,
 
-    // The position (left or top) to modify for cycling
+    /** The position (left or top) to modify for cycling. */
     _position: null,
 
-    // The size to cycle with
+    /** The size to cycle with. */
     _size: 0,
 
-    // The index to reset to while infinite scrolling
+    /** The index to reset to while infinite scrolling. */
     _resetTo: null,
 
+    /**
+     * Initialize the carousel.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         var items, self = this;
 
@@ -76,7 +91,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
                     });
             });
 
-        // Initialize events
+        // Set events
         this.events = {
             'resize window': $.throttle(this.calculate, 50),
             'keydown window': 'onKeydown',
@@ -96,6 +111,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             this.events['mouseleave element'] = 'start';
         }
 
+        // Initialize
         this.initialize();
 
         // Prepare the carousel
@@ -123,7 +139,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
                 .addClass('no-transition')
                 .css('left', 0)
                 .find('li.is-cloned')
-                .remove();
+                    .remove();
         });
     },
 

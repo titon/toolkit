@@ -7,6 +7,18 @@ Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',
     version: '1.4.0',
 
+    /** Mask element used for overlaying. */
+    mask: null,
+
+    /** Message element found within the mask. */
+    message: null,
+
+    /**
+     * Initialize the mask.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);

@@ -8,16 +8,21 @@ Toolkit.Accordion = Toolkit.Component.extend({
     name: 'Accordion',
     version: '1.4.0',
 
-    // Last opened section index
-    index: 0,
-
-    // Last opened header
-    node: null,
-
+    /** Collection of header elements. */
     headers: [],
 
+    /* Last opened section index. */
+    index: 0,
+
+    /** Collection of section elements. */
     sections: [],
 
+    /**
+     * Initialize the accordion.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         var self = this;
 
@@ -27,7 +32,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         // Find headers and cache the index of each header and set ARIA attributes
         this.headers = element.find('.' + Toolkit.vendor + 'accordion-header').each(function(index) {
             $(this)
-                .data('index', index)
+                .data('accordion-index', index)
                 .attr({
                     role: 'tab',
                     id: self.id('header', index)
@@ -51,11 +56,12 @@ Toolkit.Accordion = Toolkit.Component.extend({
                 .conceal();
         });
 
-        // Initialize events
+        // Set events
         this.events = {
             '{mode} element .@accordion-header': 'onShow'
         };
 
+        // Initialize
         this.initialize();
 
         // Jump to the index on page load
@@ -81,6 +87,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         index = $.bound(index, this.headers.length);
 
         this.fireEvent('jump', [index]);
+
         this.show(this.headers[index]);
     },
 
@@ -96,7 +103,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         var options = this.options,
             parent = header.parent(), // li
             section = header.next(), // section
-            index = header.data('index'),
+            index = header.data('accordion-index'),
             height = parseInt(section.data('height'), 10),
             isNode = (this.node && this.node.is(header));
 
@@ -136,18 +143,6 @@ Toolkit.Accordion = Toolkit.Component.extend({
         this.node = header;
 
         this.fireEvent('show', [section, header, index]);
-    },
-
-    /**
-     * Event handler for header element click or hover.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        e.preventDefault();
-
-        this.show(e.currentTarget);
     }
 
 }, {

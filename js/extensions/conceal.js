@@ -1,4 +1,6 @@
-define(function() {
+define([
+    './aria'
+], function() {
 
 /**
  * Conceal the element by applying the hide class.

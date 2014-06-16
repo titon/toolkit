@@ -4,7 +4,14 @@ define([
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
 
+    /**
+     * Initialize the popover.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
     constructor: function(nodes, options) {
+        options = this.setOptions(options);
         options.mode = 'click';
 
         Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);

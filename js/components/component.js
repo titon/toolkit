@@ -16,6 +16,15 @@ Toolkit.Component = Toolkit.Base.extend({
     /** The target element. Either created through a template, or embedded in the DOM. */
     element: null,
 
+    /** Collection of elements related to the component. */
+    elements: [],
+
+    /** The element that activated the component. */
+    node: null,
+
+    /** Collection of nodes. */
+    nodes: [],
+
     /**
      * Create an element from the `template` or `templateFrom` option.
      *
@@ -81,6 +90,15 @@ Toolkit.Component = Toolkit.Base.extend({
         } else if (this.element) {
             this.element.removeData('toolkit.' + key);
         }
+    },
+
+    /**
+     * Hide the primary element.
+     */
+    hide: function() {
+        this.element.conceal();
+
+        this.fireEvent('hide');
     },
 
     /**
@@ -272,6 +290,73 @@ Toolkit.Component = Toolkit.Base.extend({
         }
 
         return opts;
+    },
+
+    /**
+     * Show the element and optionally set the activating node.
+     *
+     * @param {jQuery} [node]
+     */
+    show: function(node) {
+        if (node) {
+            this.node = $(node);
+        }
+
+        this.element.reveal();
+
+        this.fireEvent('show');
+    },
+
+    /**
+     * Event handler for `show` clicks or hovers.
+     *
+     * @param {jQuery.Event} e
+     * @private
+     */
+    onShow: function(e) {
+        e.preventDefault();
+
+        this.show(e.currentTarget);
+    },
+
+    /**
+     * Event handler for toggling an element through click or hover events.
+     *
+     * @param {jQuery.Event} e
+     * @private
+     */
+    onShowToggle: function(e) {
+        var node = $(e.currentTarget),
+            isNode = (this.node && node[0] === this.node[0]);
+
+        if (this.element.is(':shown')) {
+
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
+                e.preventDefault();
+            }
+
+            // Second click should close it
+            if (this.options.mode === 'click') {
+                this.hide();
+            }
+
+            // Exit if the same node so it doesn't re-open
+            if (isNode) {
+                return;
+            }
+
+        } else {
+            e.preventDefault();
+        }
+
+        this.show(node);
     }
 
 }, {

@@ -7,6 +7,27 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     name: 'OffCanvas',
     version: '1.5.0',
 
+    /** The parent container. */
+    container: null,
+
+    /** The primary content wrapper. */
+    primary: null,
+
+    /** Secondary sibling sidebars. */
+    secondary: null,
+
+    /** The side the primary sidebar is located. */
+    side: 'left',
+
+    /** The opposite of `side`. */
+    opposite: 'right',
+
+    /**
+     * Initialize off canvas.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         var events = {}, vendor = Toolkit.vendor;
 

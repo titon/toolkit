@@ -7,44 +7,40 @@ Toolkit.Flyout = Toolkit.Component.extend({
     name: 'Flyout',
     version: '1.4.0',
 
-    // Last opened flyout menu
-    element: null,
-
-    // Nodes found in the page on initialization
-    nodes: null,
-
-    // Last node to open a menu
-    node: null,
-
-    // Current URL to relate a flyout menu to
+    /** Current URL to generate a flyout menu for. */
     current: null,
 
-    // Collection of flyout elements indexed by URL
+    /** Collection of flyout elements indexed by URL. */
     menus: {},
 
-    // Raw sitemap JSON data
+    /** Raw sitemap JSON data. */
     data: [],
 
-    // Data indexed by URL
+    /** Data indexed by URL. */
     dataMap: {},
 
-    // Show and hide timers
+    /** Show and hide timers. */
     timers: {},
 
+    /**
+     * Initialize the flyout. A URL is required during construction.
+     *
+     * @param {jQuery} nodes
+     * @param {String} url
+     * @param {Object} [options]
+     */
     constructor: function(nodes, url, options) {
         if (!url) {
             throw new Error('Flyout URL required to download sitemap JSON');
         }
 
+        this.nodes = $(nodes);
         this.options = options = this.setOptions(options);
 
-        // Nodes found in the page on initialization
-        this.nodes = $(nodes);
-
         if (options.mode === 'click') {
-            this.events['click document {selector}'] = 'onShow';
+            this.events['click document {selector}'] = 'onShowToggle';
         } else {
-            this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
+            this.events['mouseenter document {selector}'] = ['onShowToggle', 'onEnter'];
             this.events['mouseleave document {selector}'] = 'onLeave';
         }
 
@@ -470,45 +466,21 @@ Toolkit.Flyout = Toolkit.Component.extend({
     /**
      * Event handler to show the menu.
      *
-     * @private
      * @param {jQuery.Event} e
+     * @private
      */
-    onShow: function(e) {
+    onShowToggle: function(e) {
+
+        // Flyouts shouldn't be usable on touch devices
         if (Toolkit.isTouch) {
-            return; // Flyouts shouldn't be usable on touch devices
+            return;
         }
 
-        var node = $(e.target),
-            isNode = (this.node && node[0] === this.node[0]);
+        // Set the current element
+        this.isVisible();
 
-        if (this.isVisible()) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
-            if (isNode) {
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
+        // Trigger the parent
+        Toolkit.Component.prototype.onShowToggle.call(this, e);
     }
 
 }, {

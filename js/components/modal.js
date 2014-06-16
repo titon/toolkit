@@ -8,15 +8,15 @@ Toolkit.Modal = Toolkit.Component.extend({
     name: 'Modal',
     version: '1.4.0',
 
-    // Nodes found in the page on initialization
-    nodes: null,
-
-    // Last node to open a modal
-    node: null,
-
-    // Blackout element if enabled
+    /** Blackout element if enabled. */
     blackout: null,
 
+    /**
+     * Initialize the modal.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
     constructor: function(nodes, options) {
         var element;
 
@@ -215,18 +215,6 @@ Toolkit.Modal = Toolkit.Component.extend({
         if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
             this.hide();
         }
-    },
-
-    /**
-     * Event handler for show().
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        e.preventDefault();
-
-        this.show(e.currentTarget);
     },
 
     /**

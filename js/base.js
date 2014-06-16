@@ -112,7 +112,7 @@ Toolkit.Base = Toolkit.Class.extend({
     destroy: function() {
         this.fireEvent('destroy');
 
-        // Remove active state
+        // Hide and remove active state
         if (this.hide) {
             this.hide();
         }

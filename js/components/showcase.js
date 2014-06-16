@@ -11,30 +11,33 @@ Toolkit.Showcase = Toolkit.Component.extend({
     name: 'Showcase',
     version: '1.5.0',
 
-    // Nodes found in the page on initialization
-    nodes: null,
-
-    // The wrapping items element
-    items: null,
-
-    // The wrapping tabs element
-    tabs: null,
-
-    // The caption element
-    caption: null,
-
-    // Items gathered when node was activated
-    data: [],
-
-    // Current index of the item being shown
-    index: -1,
-
-    // Blackout element if enabled
-    blackout: null,
-
-    // Is the showcase currently animating?
+    /** Is the showcase currently animating? */
     animating: false,
 
+    /** Blackout instance if enabled. */
+    blackout: null,
+
+    /** The caption element. */
+    caption: null,
+
+    /** Items gathered when node is activated. */
+    data: [],
+
+    /** Current index of the item being shown. */
+    index: -1,
+
+    /** The wrapping items element. */
+    items: [],
+
+    /** The wrapping tabs element. */
+    tabs: [],
+
+    /**
+     * Initialize the showcase.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
     constructor: function(nodes, options) {
         var element, vendor = Toolkit.vendor;
 
@@ -403,18 +406,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
                 case 40: this.jump(-1); break;
             }
         }
-    },
-
-    /**
-     * Event handler for show().
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        e.preventDefault();
-
-        this.show(e.currentTarget);
     }
 
 }, {

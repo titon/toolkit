@@ -8,26 +8,22 @@ Toolkit.Drop = Toolkit.Component.extend({
     name: 'Drop',
     version: '1.4.0',
 
-    // Last opened drop menu
-    element: null,
-
-    // Nodes found in the page on initialization
-    nodes: null,
-
-    // Last node to open a menu
-    node: null,
-
+    /**
+     * Initialize the drop.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
         this.options = this.setOptions(options);
-
-        // Initialize events
         this.events = {
             'clickout document .@drop': 'hide',
             'clickout document {selector}': 'hide',
             '{mode} document {selector}': 'onShow'
         };
 
+        // Initialize
         this.initialize();
     },
 
@@ -67,8 +63,8 @@ Toolkit.Drop = Toolkit.Component.extend({
      * When a node is clicked, grab the target from the attribute.
      * Validate the target element, then either display or hide.
      *
-     * @private
      * @param {jQuery.Event} e
+     * @private
      */
     onShow: function(e) {
         e.preventDefault();

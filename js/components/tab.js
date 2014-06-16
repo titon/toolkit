@@ -8,9 +8,24 @@ Toolkit.Tab = Toolkit.Component.extend({
     name: 'Tab',
     version: '1.4.0',
 
-    // Index of the section currently displayed
+    /** Index of the section currently displayed. */
     index: 0,
 
+    /** Navigation element that contains the tabs. */
+    nav: null,
+
+    /** Collection of sections to toggle. */
+    sections: [],
+
+    /** Collection of tabs to trigger toggle. */
+    tabs: [],
+
+    /**
+     * Initialize the tab.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         var sections, tabs, self = this, vendor = Toolkit.vendor;
 

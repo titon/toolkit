@@ -9,9 +9,18 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     name: 'Tooltip',
     version: '1.5.0',
 
-    // Last node to open a tooltip
-    node: null,
+    /** The element to insert the title. */
+    elementHead: null,
 
+    /** The element to insert the content. */
+    elementBody: null,
+
+    /**
+     * Initialize the tooltip.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
     constructor: function(nodes, options) {
         var element, vendor = Toolkit.vendor, key = this.keyName;
 
@@ -198,46 +207,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
             left: options.xOffset,
             top: options.yOffset
         }, true).reveal();
-    },
-
-    /**
-     * Event handler for showing the tooltip.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        var node = $(e.currentTarget),
-            isNode = (this.node && this.node.is(node));
-
-        if (this.element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
-            if (isNode) {
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
     }
 
 }, {

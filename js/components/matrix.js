@@ -8,25 +8,30 @@ Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
     version: '1.5.0',
 
-    // Items within the matrix
-    items: [],
-
-    // List of items in order and how many columns they span horizontally
-    matrix: [],
-
-    // Width of the wrapper (target element)
-    // Is recalculated every page resize to determine columns
-    wrapperWidth: 0,
-
-    // Calculated final width of the column (may differ from width option)
+    /** Calculated final width of the column (may differ from width option). */
     colWidth: 0,
 
-    // How many columns that can fit in the wrapper
+    /** How many columns that can fit in the wrapper. */
     colCount: 0,
 
-    // Collection of img elements
+    /** Collection of items within the matrix. */
+    items: [],
+
+    /** Collection of img elements. */
     images: [],
 
+    /** List of items in order and how many columns they span horizontally. */
+    matrix: [],
+
+    /** Width of the wrapper. Is recalculated every page resize to determine column count. */
+    wrapperWidth: 0,
+
+    /**
+     * Initialize the matrix.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
         this.options = options = this.setOptions(options, element);

@@ -1,4 +1,6 @@
-define(function() {
+define([
+    './aria'
+], function() {
 
 /**
  * Reveal the element by applying the show class.

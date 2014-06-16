@@ -7,6 +7,12 @@ Toolkit.Toast = Toolkit.Component.extend({
     name: 'Toast',
     version: '1.5.0',
 
+    /**
+     * Initialize the toast.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.options = options = this.setOptions(options);
         this.element = this.createElement()

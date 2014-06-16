@@ -8,24 +8,33 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     name: 'TypeAhead',
     version: '1.4.0',
 
-    // The input field to listen against
-    input: null,
-
-    // The shadow input field element
-    shadow: null,
-
-    // Current index in the drop menu while cycling
+    /** Current index in the drop menu while cycling. */
     index: -1,
 
-    // List of item data to render in the drop menu
+    /** The input field to listen against. */
+    input: null,
+
+    /** List of item data to render in the drop menu. */
     items: [],
 
-    // Current term in the input field to match with
+    /** The shadow input field. */
+    shadow: null,
+
+    /** Current term in the input field to match against. */
     term: '',
 
-    // Lookup throttle timer
+    /** Lookup throttle timer. */
     timer: null,
 
+    /** The element that wraps the input when `shadow` is enabled. */
+    wrapper: null,
+
+    /**
+     * Initialize the type ahead.
+     *
+     * @param {jQuery} input
+     * @param {Object} [options]
+     */
     constructor: function(input, options) {
         input = $(input);
 

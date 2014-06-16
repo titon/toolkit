@@ -7,24 +7,30 @@ Toolkit.Pin = Toolkit.Component.extend({
     name: 'Pin',
     version: '1.5.0',
 
-    // Outer height of the element
-    elementHeight: null,
-
-    // The initial top value to reset too
-    elementTop: 0,
-
-    // Inner height of the parent element
-    parentHeight: null,
-
-    // The top value of the parent to compare against
-    parentTop: null,
-
-    // The width and height of the viewport, will update on resize
-    viewport: null,
-
-    // Will the element be pinned?
+    /** Will the element be pinned? */
     active: true,
 
+    /** Outer height of the element. */
+    elementHeight: null,
+
+    /** The initial top value to reset to. */
+    elementTop: 0,
+
+    /** Inner height of the parent element. */
+    parentHeight: null,
+
+    /** The top value of the parent to compare against. */
+    parentTop: null,
+
+    /** The width and height of the viewport. Will update on resize. */
+    viewport: {},
+
+    /**
+     * Initialize the pin.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
     constructor: function(element, options) {
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
