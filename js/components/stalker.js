@@ -39,7 +39,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
 
         // Initialize events
         this.events = {
-            'scroll container': $.throttle(this.onScroll, options.throttle),
+            'scroll container': $.throttle(this.onScroll.bind(this), options.throttle),
             'ready document': 'onScroll'
         };
 

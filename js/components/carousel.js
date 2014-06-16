@@ -93,7 +93,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         // Set events
         this.events = {
-            'resize window': $.throttle(this.calculate, 50),
+            'resize window': $.throttle(this.calculate.bind(this), 50),
             'keydown window': 'onKeydown',
             'swipeleft element': 'next',
             'swipeup element': 'next',
@@ -193,12 +193,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
             this.items
                 .conceal()
                 .eq(visualIndex)
-                    .transitionend(this._afterCycle)
+                    .transitionend(this._afterCycle.bind(this))
                     .reveal();
 
         } else {
             this.container
-                .transitionend(this._afterCycle)
+                .transitionend(this._afterCycle.bind(this))
                 .css(this._position, -(cloneIndex * this._size));
         }
 
@@ -229,7 +229,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.onCycle, this.options.duration);
+            this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
         }
     },
 

@@ -1,8 +1,10 @@
 define([
-    './component'
+    './tooltip'
 ], function(Toolkit) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
+    name: 'Popover',
+    version: '1.5.0',
 
     /**
      * Initialize the popover.
@@ -11,8 +13,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        options = this.setOptions(options);
-        options.mode = 'click';
+        options = options || {};
+        options.mode = 'click'; // Click only
 
         Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
     }

@@ -329,7 +329,7 @@ Toolkit.Component = Toolkit.Base.extend({
         var node = $(e.currentTarget),
             isNode = (this.node && node[0] === this.node[0]);
 
-        if (this.element.is(':shown')) {
+        if (this.element && this.element.is(':shown')) {
 
             // Touch devices should pass through on second click
             if (Toolkit.isTouch) {

@@ -72,7 +72,7 @@ Toolkit.Input = Toolkit.Component.extend({
     },
 
     /**
-     * Copy classes from one element to another, but do not copy .input classes.
+     * Copy classes from one element to another, but do not copy `.input` classes.
      *
      * @param {jQuery} from
      * @param {jQuery} to
@@ -306,7 +306,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildDropdown: function() {
         var select = this.input,
             options = this.options,
-            buildOption = this._buildOption,
+            buildOption = this._buildOption.bind(this),
             vendor = Toolkit.vendor,
             dropdown = $('<div/>')
                 .addClass(vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options')

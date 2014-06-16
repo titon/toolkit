@@ -127,7 +127,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Follow the mouse
         if (options.follow) {
-            var follow = this.onFollow;
+            var follow = this.onFollow.bind(this);
 
             this.node
                 .off('mousemove', follow)

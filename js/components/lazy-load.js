@@ -8,7 +8,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     version: '1.5.0',
 
     /** Container to monitor scroll events on. */
-    container: null,
+    container: $(window),
 
     /** How many items have been loaded. */
     loaded: 0,
@@ -23,10 +23,13 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
         container = $(container);
 
         this.options = options = this.setOptions(options, container);
-        this.container = (container.css('overflow') === 'auto') ? container : $(window);
         this.elements = container.find('.lazy-load');
 
-        var callback = $.throttle(this.load, options.throttle);
+        if (container.css('overflow') === 'auto') {
+            this.container = container;
+        }
+
+        var callback = $.throttle(this.load.bind(this), options.throttle);
 
         this.events = {
             'scroll container': callback,
@@ -174,7 +177,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            setTimeout(this.loadAll, this.options.delay);
+            setTimeout(this.loadAll.bind(this), this.options.delay);
         }
     }
 

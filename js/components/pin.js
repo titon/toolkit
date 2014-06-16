@@ -47,8 +47,8 @@ Toolkit.Pin = Toolkit.Component.extend({
         var throttle = options.throttle;
 
         this.events = {
-            'scroll window': $.throttle(this.onScroll, throttle),
-            'resize window': $.throttle(this.onResize, throttle),
+            'scroll window': $.throttle(this.onScroll.bind(this), throttle),
+            'resize window': $.throttle(this.onResize.bind(this), throttle),
             'ready document': 'onResize'
         };
 
