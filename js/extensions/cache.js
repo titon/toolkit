@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Set data if the key does not exist, else return the current value.

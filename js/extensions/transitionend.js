@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.

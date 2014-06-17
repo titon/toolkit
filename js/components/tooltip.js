@@ -1,9 +1,10 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Tooltip = Toolkit.Component.extend({
     name: 'Tooltip',

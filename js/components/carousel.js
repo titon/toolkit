@@ -1,9 +1,10 @@
 define([
+    'jquery',
     './component',
     '../events/swipe',
     '../extensions/transitionend',
     '../extensions/throttle'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',

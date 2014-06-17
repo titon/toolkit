@@ -1,10 +1,11 @@
 define([
+    'jquery',
     '../base',
     '../extensions/aria',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',

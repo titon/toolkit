@@ -1,8 +1,9 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Drop = Toolkit.Component.extend({
     name: 'Drop',

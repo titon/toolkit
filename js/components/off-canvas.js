@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../events/swipe'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.OffCanvas = Toolkit.Component.extend({
     name: 'OffCanvas',

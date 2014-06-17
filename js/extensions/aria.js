@@ -1,6 +1,7 @@
 define([
+    'jquery',
     '../core'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 /**
  * A multi-purpose getter and setter for ARIA attributes.

@@ -1,11 +1,12 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Showcase = Toolkit.Component.extend({
     name: 'Showcase',

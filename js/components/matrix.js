@@ -1,8 +1,9 @@
 define([
+    'jquery',
     './component',
     '../extensions/cache',
     '../extensions/debounce'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',

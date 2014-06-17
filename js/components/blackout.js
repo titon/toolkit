@@ -1,6 +1,7 @@
 define([
+    'jquery',
     './component'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Blackout = Toolkit.Component.extend({
     name: 'Blackout',

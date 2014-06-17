@@ -1,6 +1,7 @@
 define([
+    'jquery',
     '../flags/touch'
-], function(isTouch) {
+], function($, isTouch) {
 
 /**
  * An event that triggers when a swipe event occurs over a target element.

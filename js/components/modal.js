@@ -1,8 +1,9 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Modal = Toolkit.Component.extend({
     name: 'Modal',
@@ -36,14 +37,14 @@ Toolkit.Modal = Toolkit.Component.extend({
 
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.instance();
-        }
 
-        if (options.blackout && options.stopScroll) {
-            this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
-                if (hidden) {
-                    $('body').removeClass('no-scroll');
-                }
-            });
+            if (options.stopScroll) {
+                this.blackout.addHook('hide', function(hidden) {
+                    if (hidden) {
+                        $('body').removeClass('no-scroll');
+                    }
+                });
+            }
         }
 
         // Initialize events

@@ -1,6 +1,7 @@
 define([
+    'jquery',
     './core'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 // Empty class to extend from
 Toolkit.Class = function() {};

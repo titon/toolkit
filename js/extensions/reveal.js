@@ -1,6 +1,7 @@
 define([
+    'jquery',
     './aria'
-], function() {
+], function($) {
 
 /**
  * Reveal the element by applying the show class.

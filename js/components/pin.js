@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../extensions/throttle'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Pin = Toolkit.Component.extend({
     name: 'Pin',

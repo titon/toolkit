@@ -38,7 +38,7 @@ module.exports = function(paths, options) {
         },
         onBuildWrite: function(module, path, contents) {
             contents = contents.replace(/^define\([^{]*?\{\n/, ''); // Remove opening define() statement
-            contents = contents.replace(/\n\n(return [a-zA-Z]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
+            contents = contents.replace(/\n{1,2}(return [a-zA-Z]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
 
             if (module === 'core') {
                 contents = contents.replace('%version%', options.version); // Add version
@@ -50,6 +50,7 @@ module.exports = function(paths, options) {
             return contents;
         }
     }, null, function() {
+        console.log(arguments);
         throw new gutil.PluginError(PLUGIN_NAME, 'Failed to compile RequireJS optimized file');
     });
 

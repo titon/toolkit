@@ -1,8 +1,9 @@
 define([
+    'jquery',
     './component',
     '../extensions/bound',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Accordion = Toolkit.Component.extend({
     name: 'Accordion',

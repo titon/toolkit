@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../extensions/transitionend'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Toast = Toolkit.Component.extend({
     name: 'Toast',

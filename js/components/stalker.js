@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../extensions/throttle'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Stalker = Toolkit.Component.extend({
     name: 'Stalker',

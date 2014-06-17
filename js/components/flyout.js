@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Flyout = Toolkit.Component.extend({
     name: 'Flyout',

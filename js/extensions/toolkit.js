@@ -1,6 +1,7 @@
 define([
+    'jquery',
     '../core'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 /**
  * Fetch the component instance from the jQuery collection.

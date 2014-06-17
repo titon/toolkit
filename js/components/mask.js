@@ -1,7 +1,8 @@
 define([
+    'jquery',
     './component',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',

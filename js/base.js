@@ -1,6 +1,7 @@
 define([
+    'jquery',
     './class'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 Toolkit.Base = Toolkit.Class.extend({
 

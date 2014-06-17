@@ -1,9 +1,10 @@
 define([
+    'jquery',
     './flags/touch',
     './flags/retina',
     './flags/transition',
     './extensions/cache'
-], function(isTouch, isRetina, hasTransition) {
+], function($, isTouch, isRetina, hasTransition) {
 
 var Toolkit = {
 
