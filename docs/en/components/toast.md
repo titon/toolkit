@@ -95,7 +95,7 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
             <td>CSS class name for the toasts wrapper.</td>
         </tr>
         <tr>
-            <td>$toast-animation</td>
+            <td>$toast-animations</td>
             <td>("fade", "slide-up", "slide-down", "slide-left", "slide-right")</td>
             <td>A list of all animations to include in the CSS output.</td>
         </tr>

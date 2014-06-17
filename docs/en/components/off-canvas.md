@@ -155,6 +155,11 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
             <td>CSS class name for the off canvas parent wrapper.</td>
         </tr>
         <tr>
+            <td>$offCanvas-animations</td>
+            <td>("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
             <td>$offCanvas-modifier-left</td>
             <td>left</td>
             <td>Name of the left modifier to append to off canvas sidebars.</td>

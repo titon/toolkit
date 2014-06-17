@@ -49,6 +49,45 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
     </tbody>
 </table>
 
+## Feature Enabling ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default Value</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$enable-small-size</td>
+            <td>true</td>
+            <td>Include <code>.small</code> class sizing in CSS output.</td>
+        </tr>
+        <tr>
+            <td>$enable-large-size</td>
+            <td>true</td>
+            <td>Include <code>.large</code> class sizing in CSS output.</td>
+        </tr>
+        <tr>
+            <td>$enable-all-effects</td>
+            <td>false</td>
+            <td>Enable all effects for all plugins and include in CSS output.</td>
+        </tr>
+        <tr>
+            <td>$enable-all-modifiers</td>
+            <td>false</td>
+            <td>Enable all modifiers for all plugins and include in CSS output.</td>
+        </tr>
+        <tr>
+            <td>$enable-all-animations</td>
+            <td>false</td>
+            <td>Enable all animations for all plugins and include in CSS output.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Sizing & Spacing ##
 
 <table class="table is-striped data-table">

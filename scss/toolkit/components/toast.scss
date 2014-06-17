@@ -96,7 +96,7 @@
 //-------------------- Animations --------------------//
 
 #{$toast-class} {
-    @if index($toast-animation, "slide-up") {
+    @if index($toast-animations, "slide-up") {
         &.slide-up {
             transform: translateY(50%);
 
@@ -104,7 +104,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-down") {
+    @if index($toast-animations, "slide-down") {
         &.slide-down {
             transform: translateY(-50%);
 
@@ -112,7 +112,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-left") {
+    @if index($toast-animations, "slide-left") {
         &.slide-left {
             transform: translateX(25%);
 
@@ -120,7 +120,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-right") {
+    @if index($toast-animations, "slide-right") {
         &.slide-right {
             transform: translateX(-25%);
 
