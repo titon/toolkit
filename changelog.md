@@ -24,6 +24,7 @@ Older versions can be found in the documentation changelogs.
     * Added a `Base` class that both `Component` and `Behavior` extend
     * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
+    * Removed `Toolkit.transitionEnd` flag
     * Component
         * Renamed the `component` property to `name`
 * Components

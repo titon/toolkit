@@ -1,6 +1,17 @@
 define([
-    'jquery'
-], function($) {
+    'jquery',
+    '../flags/transition'
+], function($, hasTransition) {
+
+// Store the event name in a variable
+var transitionEnd = (function() {
+    var eventMap = {
+        WebkitTransition: 'webkitTransitionEnd',
+        OTransition: 'oTransitionEnd otransitionend'
+    };
+
+    return eventMap[hasTransition] || 'transitionend';
+})();
 
 /**
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
@@ -10,19 +21,17 @@ define([
  * @returns {jQuery}
  */
 $.fn.transitionend = function(data, fn) {
-    var name = Toolkit.transitionEnd;
-
     if (arguments.length > 0) {
-        this.one(name, null, data, fn);
+        this.one(transitionEnd, null, data, fn);
 
         // No transition defined so trigger callback immediately
         var duration = this.css("transition-duration");
 
         if (duration === "0s" || typeof duration === 'undefined') {
-            this.trigger(name);
+            this.trigger(transitionEnd);
         }
     } else {
-        this.trigger(name);
+        this.trigger(transitionEnd);
     }
 
     return this;

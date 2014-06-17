@@ -93,11 +93,6 @@ Each flag can be found on the `Toolkit` object.
             <td>Both</td>
             <td>Does the device support HD / retina displays?</td>
         </tr>
-        <tr>
-            <td>transitionEnd</td>
-            <td>Both</td>
-            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
-        </tr>
     </tbody>
 </table>
 
