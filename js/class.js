@@ -44,20 +44,24 @@ Toolkit.Class.extend = function(properties, options) {
                 this[key] = $.extend(true, {}, value); // Clone object
 
             } else if (type === 'function') {
-                //this[key] = this[key].bind(this);
+                //this[key] = value.bind(this);
             }
         }
 
         // Set the UID and increase global count
         this.uid = Class.count += 1;
 
-        // Generate the CSS class named based off the plugin name
-        this.cssClass = this.name.replace(/[A-Z]/g, function(match) {
-            return ('-' + match.charAt(0).toLowerCase());
-        }).slice(1);
+        // Generate the CSS class name and attribute/event name based off the plugin name
+        var name = this.name;
 
-        // Generate an attribute and event key name based off the plugin name
-        this.keyName = this.name.charAt(0).toLowerCase() + this.name.slice(1);
+        if (name) {
+            this.cssClass = name.replace(/[A-Z]/g, function(match) {
+                return ('-' + match.charAt(0).toLowerCase());
+            }).slice(1);
+
+            // Generate an attribute and event key name based off the plugin name
+            this.keyName = name.charAt(0).toLowerCase() + name.slice(1);
+        }
 
         // Trigger constructor
         if (properties.constructor) {
