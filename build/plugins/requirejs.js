@@ -50,7 +50,6 @@ module.exports = function(paths, options) {
             return contents;
         }
     }, null, function() {
-        console.log(arguments);
         throw new gutil.PluginError(PLUGIN_NAME, 'Failed to compile RequireJS optimized file');
     });
 
