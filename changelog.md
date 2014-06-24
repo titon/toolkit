@@ -30,9 +30,14 @@ Older versions can be found in the documentation changelogs.
 * Components
     * Blackout
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
+    * Form
+        * Improved disabled state across inputs
+        * Normalized `fieldset` and `legend` when used in an inline form
     * Grid
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
+    * Matrix
+        * Improved the deferred image rendering process
     * Tabs
         * Has been renamed to `Tab` and all files and references have been changed

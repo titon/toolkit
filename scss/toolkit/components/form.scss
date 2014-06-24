@@ -52,7 +52,6 @@ label,
     box-shadow: none;
     -webkit-appearance: none; // Remove inner shadow on iOS
     @include size-medium;
-
     @include is-small(true, true) { @include size-small; }
     @include is-large(true, true) { @include size-large; }
 }
@@ -77,8 +76,9 @@ label,
     }
 
     &.is-disabled,
-    &[disabled] {
-        cursor: not-allowed;
+    &[disabled],
+    option[disabled],
+    optgroup[disabled] {
         color: $gray-darkest;
         border-color: $gray;
     }
@@ -93,7 +93,8 @@ label,
 
 #{$form-class-input-radio},
 #{$form-class-input-checkbox} {
-    padding: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     border: 0;
 
     input[type="checkbox"],
@@ -103,16 +104,20 @@ label,
         top: -2px;
         margin-right: 5px;
     }
+
+    &.is-disabled {
+        color: $gray-darkest;
+    }
 }
 
 select#{$form-class-input} {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-}
 
-select#{$form-class-input}[multiple] {
-    max-height: 500px;
+    &[multiple] {
+        max-height: 500px;
+    }
 }
 
 textarea#{$form-class-input} {
@@ -202,7 +207,8 @@ textarea#{$form-class-input} {
         #{$form-class-field},
         #{$form-class-fields} li,
         #{$form-class-field-label},
-        #{$form-class-actions} {
+        #{$form-class-actions},
+        fieldset {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
@@ -210,12 +216,15 @@ textarea#{$form-class-input} {
             margin-bottom: $margin / 2;
         }
 
-        #{$form-class-field-label} { margin: 0 ($margin / 2) 0 0; }
-        #{$form-class-field-help} { display: none; }
-
-        #{$form-class-input-radio},
-        #{$form-class-input-checkbox} {
-            padding: $medium-padding 0;
+        fieldset {
+            border: 0;
+            margin: 0;
+            padding: 0;
         }
+
+        #{$form-class-field-label} { margin: 0 ($margin / 2) 0 0; }
+
+        legend,
+        #{$form-class-field-help} { display: none; }
     }
 }

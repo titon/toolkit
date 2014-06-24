@@ -32,6 +32,11 @@ $('body').lazyLoad();
 $('#overflown').lazyLoad();
 ```
 
+<div class="notice is-info">
+    Lazy loading should be initialized without DOM ready, but after lazy elements have been declared,
+    so that images don't flicker.
+</div>
+
 ### Retina Support ###
 
 To display a higher quality image for retina/HD displays, use `data-src-retina`.

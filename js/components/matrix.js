@@ -44,12 +44,13 @@ Toolkit.Matrix = Toolkit.Component.extend({
 
         this.initialize();
 
-        // Render the matrix
-        if (options.defer) {
-            this._deferRender();
-        } else {
+        // If defer is disabled, render immediately, and again later
+        if (!options.defer) {
             this.refresh();
         }
+
+        // Always re-render once images are loaded
+        this._deferRender();
     },
 
     /**
