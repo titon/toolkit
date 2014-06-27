@@ -126,15 +126,14 @@ Toolkit.Modal = Toolkit.Component.extend({
 
             ajax = this.readOption(node, 'ajax');
             content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
-
-            if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-                content = $(content).html();
-                ajax = false;
-            }
         }
 
         if (!content) {
             return;
+
+        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+            content = $(content).html();
+            ajax = false;
         }
 
         // Show blackout if the element is hidden

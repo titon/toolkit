@@ -39,5 +39,10 @@ Older versions can be found in the documentation changelogs.
         * Added a `$icon-sizes` list variable to control the CSS output
     * Matrix
         * Improved the deferred image rendering process
+    * Modal
+        * IDs can now be passed as the 2nd argument to `show()`
     * Tabs
         * Has been renamed to `Tab` and all files and references have been changed
+        * `preventDefault` now applies to both cookie and fragment persistence
+        * `ajax` has changed to `false` by default
+        * Fixed a bug trying to determine the index to show on load

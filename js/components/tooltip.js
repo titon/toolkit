@@ -172,6 +172,10 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         if (!content) {
             return;
+
+        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+            content = $(content).html();
+            options.ajax = false;
         }
 
         if (options.ajax) {
@@ -185,10 +189,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
                 this.requestData(content);
             }
         } else {
-            if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-                content = $(content).html();
-            }
-
             this.position(content, title);
         }
     },

@@ -82,19 +82,21 @@ Toolkit.Tab = Toolkit.Component.extend({
         this.initialize();
 
         // Trigger default tab to display
-        var index = options.defaultIndex;
+        var index = null;
 
-        if (options.persistState && options.cookie && $.cookie) {
-            index = $.cookie('toolkit.tab.' + options.cookie);
+        if (options.persistState) {
+            if (options.cookie && $.cookie) {
+                index = $.cookie('toolkit.tab.' + options.cookie);
+            }
+
+            if (index === null && options.loadFragment && location.hash) {
+                index = tabs.filter(function() {
+                    return ($(this).attr('href') === location.hash);
+                }).eq(0).data('index');
+            }
         }
 
-        if (!index && options.loadFragment && location.hash) {
-            index = tabs.filter(function() {
-                return ($(this).attr('href') === location.hash);
-            }).eq(0).data('index');
-        }
-
-        if (!index || !tabs[index]) {
+        if (!tabs[index]) {
             index = options.defaultIndex;
         }
 
@@ -222,7 +224,7 @@ Toolkit.Tab = Toolkit.Component.extend({
 
 }, {
     mode: 'click',
-    ajax: true,
+    ajax: false,
     collapsible: false,
     defaultIndex: 0,
     persistState: false,
