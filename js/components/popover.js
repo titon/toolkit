@@ -15,6 +15,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
     constructor: function(nodes, options) {
         options = options || {};
         options.mode = 'click'; // Click only
+        options.follow = false; // Disable mouse follow
 
         Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
     }

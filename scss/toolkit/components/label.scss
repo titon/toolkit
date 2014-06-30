@@ -48,8 +48,8 @@
 
 @if index($label-modifiers, "arrow-left") {
     #{$label-class}--#{$label-modifier-arrow-left} {
-        border-top-left-radius: 1px;
-        border-bottom-left-radius: 1px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         padding-left: 2px;
         margin-left: 10px;
 
@@ -72,8 +72,8 @@
 
 @if index($label-modifiers, "arrow-right") {
     #{$label-class}--#{$label-modifier-arrow-right} {
-        border-top-right-radius: 1px;
-        border-bottom-right-radius: 1px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         padding-right: 2px;
         margin-right: 10px;
 

@@ -209,12 +209,12 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     /**
      * Match an item if it contains the term.
      *
-     * @param {String} item
+     * @param {Object} item
      * @param {String} term
      * @returns {bool}
      */
     match: function(item, term) {
-        return (item.toLowerCase().indexOf(term.toLowerCase()) >= 0);
+        return (item.title.toLowerCase().indexOf(term.toLowerCase()) >= 0);
     },
 
     /**
@@ -325,7 +325,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         if ($.type(options.matcher) === 'function') {
             items = items.filter(function(item) {
-                return options.matcher(item.title, term);
+                return options.matcher(item, term);
             });
         }
 

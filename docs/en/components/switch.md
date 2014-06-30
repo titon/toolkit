@@ -72,11 +72,13 @@ Adding `.small` or `.large` to the `.switch` will alter the font size, padding, 
 
 ### Shapes ###
 
-Adding `.round` or `.pill` to the `.switch` will alter the border radius.
+Adding `.round` or `.pill` to the `.switch-bar` will alter the border radius.
 
 ```html
-<label class="switch pill">
+<label class="switch">
     ...
+
+    <div class="switch-bar pill">...</div>
 </label>
 ```
 

@@ -41,8 +41,14 @@ Older versions can be found in the documentation changelogs.
         * Improved the deferred image rendering process
     * Modal
         * IDs can now be passed as the 2nd argument to `show()`
+    * Popover
+        * The `follow` attribute is now forced to `false`
+    * Switch
+        * The `.pill` and `.round` classes have moved to `.switch-bar` from `.switch`
     * Tabs
         * Has been renamed to `Tab` and all files and references have been changed
         * `preventDefault` now applies to both cookie and fragment persistence
         * `ajax` has changed to `false` by default
         * Fixed a bug trying to determine the index to show on load
+    * Type Ahead
+        * The `matcher` function now accepts the item object as the 1st argument
