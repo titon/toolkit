@@ -227,7 +227,7 @@ Inherits all options from the [parent component](../development/js/component.md#
         <tr>
             <td>ajax</td>
             <td>bool</td>
-            <td>true</td>
+            <td>false</td>
             <td>Support loading in sections through AJAX calls.</td>
         </tr>
         <tr>

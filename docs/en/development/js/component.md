@@ -303,38 +303,6 @@ The following events are shared between all components.
             <td></td>
             <td>Triggered immediately before a component is destroyed.</td>
         </tr>
-        <tr>
-            <td>onShow</td>
-            <td>show.toolkit.{component}</td>
-            <td></td>
-            <td>
-                Triggered when the component element is shown (this can change depending on context),
-                and after an AJAX call has finished.
-            </td>
-        </tr>
-        <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.{component}</td>
-            <td></td>
-            <td>Triggered when the component element is hidden (this also depends on context).</td>
-        </tr>
-        <tr>
-            <td>onLoad</td>
-            <td>load.toolkit.{component}</td>
-            <td>string:response</td>
-            <td>
-                Triggered after an AJAX call has finished, but before the response is rendered.
-                Only triggers for HTML responses.
-            </td>
-        </tr>
-        <tr>
-            <td>onProcess</td>
-            <td>process.toolkit.{component}</td>
-            <td>mixed:response</td>
-            <td>
-                Triggered after an AJAX call has finished, and only if the response is non-HTML (JSON, XML, etc).
-            </td>
-        </tr>
     </tbody>
 </table>
 
@@ -379,37 +347,6 @@ The following properties are available on all class instances.
             </td>
         </tr>
         <tr>
-            <td>element</td>
-            <td>element</td>
-            <td>
-                The primary element used by the component.
-                Is built from the <code>template</code> or <code>templateFrom</code> options,
-                or is passed through the constructor.
-            </td>
-        </tr>
-        <tr>
-            <td>elements</td>
-            <td>collection</td>
-            <td>
-                A collection of elements used by the component.
-            </td>
-        </tr>
-        <tr>
-            <td>node</td>
-            <td>element</td>
-            <td>
-                The element that currently activated the component.
-                Primarily used by activated components.
-            </td>
-        </tr>
-        <tr>
-            <td>nodes</td>
-            <td>collection</td>
-            <td>
-                A collection of elements that are used for activating the component.
-            </td>
-        </tr>
-        <tr>
             <td>options</td>
             <td>object</td>
             <td>Configurable options. More information can be found above.</td>
@@ -421,11 +358,6 @@ The following properties are available on all class instances.
         </tr>
     </tbody>
 </table>
-
-<div class="notice is-info">
-    Additional properties are found within each component.
-    Either read the source code or the individual documentation for a list of properties.
-</div>
 
 ## Methods ##
 
@@ -439,24 +371,6 @@ The following methods are available on all class instances.
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>createElement()</td>
-            <td>
-                Create an element from the <code>template</code> or <code>templateFrom</code> options.
-                Will set class names on the element based on defined options.
-            </td>
-        </tr>
-        <tr>
-            <td>setOptions(object:options[, element:inheritFrom])</td>
-            <td>
-                Set the options to use in the component.
-                Will alter options based on current device and will inherit from data attributes if an element is passed.
-            </td>
-        </tr>
-        <tr>
-            <td>inheritOptions(object:options, element:element)</td>
-            <td>Inherit and merge options from the target elements data attributes.</td>
-        </tr>
         <tr>
             <td>bindEvents(string:type)</td>
             <td>Add or remove events for elements found in the <code>events</code> object mapping.</td>
@@ -476,50 +390,6 @@ The following methods are available on all class instances.
         <tr>
             <td>fireEvent(string:event[, array:args])</td>
             <td>Trigger an event with optional arguments to pass. Will find an event within the options object.</td>
-        </tr>
-        <tr>
-            <td>readOption(element:element, string:key)</td>
-            <td>Read an option from an elements data attribute, else fallback to the original option.</td>
-        </tr>
-        <tr>
-            <td>readValue(element:element, mixed:query)</td>
-            <td>
-                Extract a value from an element using a defined query.
-                The query may be an element property, attribute, or function callback.
-            </td>
-        </tr>
-        <tr>
-            <td>requestData(object:options[, func:before[, func:done[, func:fail]]])</td>
-            <td>
-                Requests data from a URL using an AJAX call.
-                Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.
-                The first argument can either be a URL, or an object of AJAX options.
-                The <code>before</code>, <code>done</code>, and <code>fail</code> arguments can be set to override the default callbacks.
-            </td>
-        </tr>
-        <tr>
-            <td>process(mixed:response)</td>
-            <td>
-                Handles non-HTML AJAX responses.
-                If the response is JSON and a <code>callback</code> property exists,
-                the function defined will be triggered (JSONP style).
-            </td>
-        </tr>
-        <tr>
-            <td>position(string:response)</td>
-            <td>Handles HTML AJAX responses. Will re-position the element.</td>
-        </tr>
-        <tr>
-            <td>show([element:node])</td>
-            <td>Show the element and set an optional activating node.</td>
-        </tr>
-        <tr>
-            <td>hide([func:callback])</td>
-            <td>Hide the element and trigger an optional callback function.</td>
-        </tr>
-        <tr>
-            <td>id([string:...args])</td>
-            <td>Generate a unique CSS class name using the components name, UID, and defined arguments.</td>
         </tr>
     </tbody>
 </table>

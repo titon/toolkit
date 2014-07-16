@@ -194,6 +194,11 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
+            <td>container</td>
+            <td>element</td>
+            <td>The element to monitor scroll events on.</td>
+        </tr>
+        <tr>
             <td>element</td>
             <td>element</td>
             <td>The element currently being loaded.</td>

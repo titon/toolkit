@@ -30,7 +30,7 @@ $.event.special.clickout = (function() {
             if ($.type(item) === 'string') {
                 trigger = (!target.is(item) && !self.has(e.target).length);
 
-                // Else test if the element matches
+            // Else test if the element matches
             } else {
                 trigger = (!self.is(e.target) && !self.has(e.target).length);
             }

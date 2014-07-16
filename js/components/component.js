@@ -27,6 +27,17 @@ Toolkit.Component = Toolkit.Base.extend({
     nodes: [],
 
     /**
+     * A basic constructor that sets an element and its options.
+     *
+     * @param {Element} element
+     * @param {Object} [options]
+     */
+    constructor: function(element, options) {
+        this.element = $(element);
+        this.options = this.setOptions(options, element);
+    },
+
+    /**
      * Create an element from the `template` or `templateFrom` option.
      *
      * @returns {jQuery}
@@ -137,6 +148,15 @@ Toolkit.Component = Toolkit.Base.extend({
         }
 
         return $.extend(true, {}, options, obj);
+    },
+
+    /**
+     * Handle and process HTML responses.
+     *
+     * @param {*} content
+     */
+    position: function(content) {
+        this.fireEvent('load', [content]);
     },
 
     /**

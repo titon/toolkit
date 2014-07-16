@@ -37,4 +37,5 @@ $.fn.transitionend = function(data, fn) {
     return this;
 };
 
+return transitionEnd;
 });

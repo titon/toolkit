@@ -171,7 +171,7 @@ The matcher receives an item title and the current term, and should return a boo
 
 ```javascript
 function match(item, term) {
-    return (item.indexOf(term) >= 0);
+    return (item.title.indexOf(term) >= 0);
 }
 ```
 
@@ -411,6 +411,11 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>shadow</td>
             <td>element</td>
             <td>The shadow text input element when <code>shadow</code> is enabled.</td>
+        </tr>
+        <tr>
+            <td>wrapper</td>
+            <td>element</td>
+            <td>The element that wraps the inputs when <code>shadow</code> is enabled.</td>
         </tr>
         <tr>
             <td>index</td>

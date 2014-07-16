@@ -76,7 +76,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Element} marker
      */
     activate: function(marker) {
-        this._stalk(marker, 'activate');
+        this.stalk(marker, 'activate');
     },
 
     /**
@@ -85,7 +85,40 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Element} marker
      */
     deactivate: function(marker) {
-        this._stalk(marker, 'deactivate');
+        this.stalk(marker, 'deactivate');
+    },
+
+    /**
+     * Either active or deactivate a target based on the marker.
+     *
+     * @param {Element} marker
+     * @param {String} type
+     */
+    stalk: function(marker, type) {
+        marker = $(marker);
+
+        // Stop all the unnecessary processing
+        if (type === 'activate' && marker.hasClass('is-stalked')) {
+            return;
+        }
+
+        var options = this.options,
+            targetBy = options.targetBy,
+            markBy = options.markBy,
+            method = (type === 'activate') ? 'addClass' : 'removeClass',
+            target = this.targets.filter(function() {
+                return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
+            });
+
+        marker[method]('is-stalked');
+
+        if (options.applyToParent) {
+            target.parent()[method]('is-active');
+        } else {
+            target[method]('is-active');
+        }
+
+        this.fireEvent(type, [marker, target]);
     },
 
     /**
@@ -115,40 +148,6 @@ Toolkit.Stalker = Toolkit.Component.extend({
         });
 
         this.offsets = offsets;
-    },
-
-    /**
-     * Either active or deactivate a target based on the marker.
-     *
-     * @private
-     * @param {Element} marker
-     * @param {String} type
-     */
-    _stalk: function(marker, type) {
-        marker = $(marker);
-
-        // Stop all the unnecessary processing
-        if (type === 'activate' && marker.hasClass('is-stalked')) {
-            return;
-        }
-
-        var options = this.options,
-            targetBy = options.targetBy,
-            markBy = options.markBy,
-            method = (type === 'activate') ? 'addClass' : 'removeClass',
-            target = this.targets.filter(function() {
-                return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
-            });
-
-        marker[method]('is-stalked');
-
-        if (options.applyToParent) {
-            target.parent()[method]('is-active');
-        } else {
-            target[method]('is-active');
-        }
-
-        this.fireEvent(type, [marker, target]);
     },
 
     /**
