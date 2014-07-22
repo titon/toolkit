@@ -9,6 +9,10 @@ Older versions can be found in the documentation changelogs.
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
 * Upgraded to RequireJS for JS dependency management and compilation
+* Renamed most instances of the word "component" to "plugin" to differentiate between components and behaviors,
+    with plugins being a top-level grouping of everything
+* Renamed `--components` to `--plugins` in the Gulp command line
+* Removed themes
 * Sass
     * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Added `$enable-all-effects`, `$enable-all-modifiers`, and `$enable-all-animations` for easier styling

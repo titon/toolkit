@@ -1,8 +1,8 @@
 # Interactive Demos #
 
 A powerful interactive demo is available within the Toolkit repository. This demo provides an interface
-for testing each component individually through an extensible filter system.
-Each filter represents a configurable option or feature within a JavaScript component.
+for testing each plugin individually through an extensible filter system.
+Each filter represents a configurable option or feature within a JavaScript plugin.
 
 Demo testing requires a running PHP web server, as the functionality is easily built and maintained with PHP.
 Pre-built PHP environments are available depending on your OS &mdash; simply follow their installation.

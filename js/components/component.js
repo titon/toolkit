@@ -33,7 +33,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = $(element);
+        this.element = element = $(element);
         this.options = this.setOptions(options, element);
     },
 
@@ -381,7 +381,6 @@ Toolkit.Component = Toolkit.Base.extend({
     }
 
 }, {
-    cache: true,
     context: null,
     className: '',
     template: '',

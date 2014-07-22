@@ -79,7 +79,7 @@ All columns in a `thead` will need to be wrapped in an `a` or `span`.
 </table>
 ```
 
-Use `.sorter` from the [Base component](base.md#sorter) for ascending and descending arrows.
+Use `.sorter` from the [base CSS](../development/css/base.md#sorter) for ascending and descending arrows.
 
 ```html
 <th>

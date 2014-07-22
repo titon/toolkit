@@ -14,13 +14,15 @@
     "base": {
         "name": "Base",
         "description": "Defines styles and helper classes for CSS, and a robust component system for JavaScript.",
-        "category": "component",
-        "type": "layout",
+        "category": "layout",
         "priority": 1,
         "source": {
             "css": ["components/base.scss"]
         }
     },
+
+
+
     "typography": {
         "name": "Typography",
         "description": "Variable font scaling and text styling for headers, paragraphs, lists, and other text based elements.",
@@ -62,9 +64,6 @@
             "css": ["components/responsive.scss"]
         }
     },
-
-
-
     "accordion": {
         "name": "Accordion",
         "description": "Allows collapsing and expanding of multiple sections of content.",
@@ -461,16 +460,6 @@
         "source": {
             "css": ["components/type-ahead.scss"],
             "js": ["components/type-ahead.js"]
-        }
-    },
-
-    "theme-demo": {
-        "name": "Demo Theme",
-        "description": "Default styles used for demonstration.",
-        "category": "theme",
-        "priority": 30,
-        "source": {
-            "css": ["themes/demo.scss"]
         }
     }
 }

@@ -32,7 +32,7 @@ toolkit/
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
 
 * The `build` folder contains custom Gulp plugins as well as being the target location for Gulp builds
-* The `demo` folder contains files that are used for testing components locally (requires PHP).
+* The `demo` folder contains files that are used for testing plugins locally.
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.
@@ -40,7 +40,7 @@ The Toolkit repository is grouped logically into folders depending on the type o
 ### Distribution Files ###
 
 Files found in the `dist` folder are minified and unminified files ready for production.
-These files are also available through [Bower](http://bower.io). These files include *all* components.
+These files are also available through [Bower](http://bower.io). These files include *all* plugins.
 
 ```
 toolkit/
@@ -106,10 +106,10 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
 ```
 
 You'll notice that we placed `toolkit.min.css` before `style.min.css`.
-This allows for helper classes and component styles to be inherited first.
-Placing project specific styles after Toolkit allows customization and themeing of components.
+This allows for helper classes and plugin styles to be inherited first.
+Placing project specific styles after Toolkit allows customization and themeing of plugins.
 
-Let's test our JavaScript components by placing the following code within the `<body>` tags.
+Let's test our JavaScript plugins by placing the following code within the `<body>` tags.
 
 ```html
 <button type="button" class="button js-tooltip" data-tooltip="This messages displays on hover.">Click Me!</button>
@@ -125,7 +125,7 @@ Now comes the fun part, testing the code. Open up the previously created HTML fi
 If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
 
 <div class="notice is-warning">
-    If no styles have been defined yet, the button and tooltip components will use default styles, which look rather bland.
+    If no styles have been defined yet, the button and tooltip plugins will use default styles, which look rather bland.
 </div>
 
 Getting started with Toolkit was extremely easy, and we can guarantee working in and integrating it is just as easy.

@@ -18,9 +18,9 @@ var pkg = require('./package.json'),
     banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage.replace('http://', '') %> */\n";
 
 /**
- * Determine which components we should package.
+ * Determine which plugins we should package.
  *
- * The --components parameter can be used to filter down components
+ * The --plugins parameter can be used to filter down plugins
  * The --[no-]normalize parameter will include or exclude normalize.css from the output
  * The --dist parameter will determine which folder to build to: build, or dist
  */
@@ -35,8 +35,8 @@ var graph = new compartment();
 var toPackage = [],
     categories = ['layout', 'component'];
 
-if (options.components) {
-    toPackage = options.components.split(',');
+if (options.plugins) {
+    toPackage = options.plugins.split(',');
 
 } else {
     Object.keys(graph.manifest).forEach(function(key) {

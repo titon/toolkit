@@ -1,29 +1,11 @@
 # Component #
 
 The parent class that all components extend from.
-This class also extends functionality from the [Base class](../development/js/base-class.md).
-
-## Usage ##
-
-The Component class should never be used directly and should only be extended from.
-Extending permits child classes to inherit all of Component's functionality and is as easy as the following.
-
-```javascript
-var AudioPlayer = Toolkit.Component.extend({
-    playing: false,
-    play: function() {
-        this.playing = true;
-        this.element[0].play();
-    }
-}, {
-    preload: false
-});
-
-var player = new AudioPlayer($('#player'), { preload: true });
-    player.play();
-```
+This class also extends functionality from the [Base class](../development/js/base.md).
 
 ## Options ##
+
+Inherits all options from the [Base class](../development/js/base.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -35,12 +17,6 @@ var player = new AudioPlayer($('#player'), { preload: true });
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>cache</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Whether to cache the response of AJAX requests.</td>
-        </tr>
         <tr>
             <td>className</td>
             <td>string</td>
@@ -57,7 +33,7 @@ var player = new AudioPlayer($('#player'), { preload: true });
             <td>template</td>
             <td>string</td>
             <td></td>
-            <td>The HTML used to create the component element. Is only used by activated components.</td>
+            <td>The HTML used to create the component element. Is only used by "created" components.</td>
         </tr>
         <tr>
             <td>templateFrom</td>
@@ -70,7 +46,7 @@ var player = new AudioPlayer($('#player'), { preload: true });
 
 ## Events ##
 
-Inherits all events from the [Base class](../development/js/base-class.md#events).
+Inherits all events from the [Base class](../development/js/base.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -114,7 +90,7 @@ Inherits all events from the [Base class](../development/js/base-class.md#events
 
 ## Properties ##
 
-Inherits all properties from the [Base class](../development/js/base-class.md#properties).
+Inherits all properties from the [Base class](../development/js/base.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -149,7 +125,7 @@ Inherits all properties from the [Base class](../development/js/base-class.md#pr
             <td>element</td>
             <td>
                 The element that currently activated the component.
-                Primarily used by activated components.
+                Primarily used by "created" components.
             </td>
         </tr>
         <tr>
@@ -160,14 +136,9 @@ Inherits all properties from the [Base class](../development/js/base-class.md#pr
     </tbody>
 </table>
 
-<div class="notice is-info">
-    Additional properties are found within each component.
-    Either read the source code or the individual documentation for a list of properties.
-</div>
-
 ## Methods ##
 
-Inherits all methods from the [Base class](../development/js/base-class.md#methods).
+Inherits all methods from the [Base class](../development/js/base.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

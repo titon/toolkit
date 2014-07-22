@@ -1,7 +1,7 @@
 # Browser Compatibility #
 
 Toolkit was engineered for latest in mobile and desktop browsers, but this doesn't stop it from degrading gracefully for older browsers.
-Degrading allows for components in older browsers to function as normal by removing animations, reducing the amount of CSS styles being used,
+Degrading allows for plugins in older browsers to function as normal by removing animations, reducing the amount of CSS styles being used,
 or by simplifying JavaScript functionality.
 
 ## Supported Browsers ##
@@ -108,9 +108,9 @@ We highly suggest not supporting IE8, as it is a 5 year old browser that will si
 * [IE8](https://github.com/WebReflection/ie8)
 * [DOM4](https://github.com/WebReflection/dom4)
 
-### Unsupported Components ###
+### Unsupported Plugins ###
 
-On top of the features above not being supported, the following Toolkit components are not supported in IE 8.
+On top of the features above not being supported, the following Toolkit plugins are not supported in IE 8.
 
 * [Input](../components/input.md)
 * [Matrix](../components/matrix.md)

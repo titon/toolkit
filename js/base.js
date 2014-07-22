@@ -230,6 +230,8 @@ Toolkit.Base = Toolkit.Class.extend({
         return opts;
     }
 
+}, {
+    cache: true
 });
 
 return Toolkit;

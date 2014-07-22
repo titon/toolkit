@@ -35,8 +35,17 @@
                             "title": "Toolkit Namespace",
                             "url": "/development/js/toolkit"
                         }, {
+                            "title": "Class System",
+                            "url": "/development/js/class",
+                            "new": true
+                        },  {
+                            "title": "Base Class",
+                            "url": "/development/js/base",
+                            "new": true
+                        }, {
                             "title": "Component System",
-                            "url": "/development/js/component"
+                            "url": "/development/js/component",
+                            "updated": true
                         }, {
                             "title": "Conflict Resolution",
                             "url": "/development/js/no-conflict"
@@ -53,6 +62,10 @@
                     "url": "/development/css",
                     "children": [
                         {
+                            "title": "Base Styles",
+                            "url": "/development/css/base",
+                            "new": true
+                        }, {
                             "title": "Philosophies",
                             "url": "/development/css/philosophies"
                         }, {
@@ -91,8 +104,11 @@
             "url": "/components",
             "children": [
                 {
-                    "title": "Base",
-                    "url": "/components/base"
+                    "title": "Component",
+                    "url": "/components/component",
+                    "new": true
+                }, {
+                    "divider": true
                 }, {
                     "title": "Accordion",
                     "url": "/components/accordion"
@@ -110,8 +126,7 @@
                     "url": "/components/button-group"
                 }, {
                     "title": "Carousel",
-                    "url": "/components/carousel",
-                    "updated": true
+                    "url": "/components/carousel"
                 }, {
                     "title": "Code",
                     "url": "/components/code"
@@ -219,8 +234,7 @@
                     "url": "/support/compatibility"
                 }, {
                     "title": "Competitor Comparison",
-                    "url": "/support/comparison",
-                    "updated": true
+                    "url": "/support/comparison"
                 }, {
                     "title": "Contributing",
                     "url": "/support/contributing"

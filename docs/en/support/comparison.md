@@ -1,10 +1,10 @@
 # Competitor Comparison #
 
 The following charts provide a comparison of Toolkit to other popular front-end libraries.
-The charts demonstrate what features and components are implemented by each vendor.
+The charts demonstrate what features and plugins are implemented by each vendor.
 
 A green cell in the chart denotes support for that item, while red denotes no support.
-If a cell is blue, than either partial support is provided, or the component has a different name.
+If a cell is blue, than either partial support is provided, or the plugin has a different name.
 
 The following libraries are being compared:
 
@@ -40,7 +40,7 @@ The following table represents the minified un-gzipped distribution files for ea
             <td>24</td>
         </tr>
         <tr>
-            <td>JS + CSS Components</td>
+            <td>JS + CSS Plugins</td>
             <td>19</td>
             <td>16</td>
             <td>12</td>
@@ -77,14 +77,14 @@ The following table represents the minified un-gzipped distribution files for ea
     </tbody>
 </table>
 
-## Components ##
+## Plugins ##
 
-The following components are found within Toolkit.
+The following plugins (components and behaviors) are found within Toolkit.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -368,12 +368,12 @@ The following components are found within Toolkit.
     </tbody>
 </table>
 
-The following components are found within Foundation that have not been mentioned previously.
+The following plugins are found within Foundation that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -461,12 +461,12 @@ The following components are found within Foundation that have not been mentione
     </tbody>
 </table>
 
-The following components are found within Bootstrap that have not been mentioned previously.
+The following plugins are found within Bootstrap that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -568,12 +568,12 @@ The following components are found within Bootstrap that have not been mentioned
     </tbody>
 </table>
 
-The following components are found within Semantic UI that have not been mentioned previously.
+The following plugins are found within Semantic UI that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
