@@ -1,14 +1,8 @@
 # Base #
 
-Defines styles and helper classes for CSS, and a robust component system for JavaScript.
+Defines CSS styles and helper classes.
 
-## Usage ##
-
-The base component is required by all other components, as it provides base CSS styles and
-the [JavaScript Component layer](../development/js/component.md). In regards to CSS, the following
-global classes are available for use.
-
-### Alignment ###
+## Alignment ##
 
 For text alignment, the `.align-left`, `.align-center`, `.align-right`, and `.align-justify`
 classes can be used.
@@ -24,7 +18,7 @@ For floating an element on a use case basis, the `.float-left`, `.float-right`, 
 <time class="float-right">Feb 26th</time>
 ```
 
-### Animation ###
+## Animation ##
 
 To trigger CSS transitions or animations, the `.show` and `.hide` classes can be toggled.
 These classes are automatically handled through `conceal()` and `reveal()` within the
@@ -51,7 +45,7 @@ To disable transitions programmatically on an element, add `.no-transition` to t
 <div class="element no-transition">Transitions are now disabled.</div>
 ```
 
-### Display ###
+## Display ##
 
 To mark an element as display block, use `.shown`, or to hide an element, use `.hidden`.
 
@@ -66,7 +60,7 @@ Can also add `.is-focusable` to the element to make it revealable.
 <div class="sr-only">Only screen readers can see this!</div>
 ```
 
-### Layout ###
+## Layout ##
 
 To position an element directly in the center, horizontally and vertically, use `.vertical-center`.
 This class requires the parent to have a relative position.
@@ -80,7 +74,7 @@ For instances where a parent needs to clear floats dynamically, the `.clear-fix`
 </div>
 ```
 
-### States ###
+## States ##
 
 When an item is marked as disabled, either through the `.is-disabled` class, or the `disabled` property,
 the cursor will be changed to `not-allowed`.
@@ -92,7 +86,7 @@ the cursor will be changed to `not-allowed`.
 Or when an element is being dragged, the `.is-draggable` and `.is-dragging` classes will apply `move`
 and `dragging` cursors respectively.
 
-### Carets ###
+## Carets ##
 
 Carets are tiny directional arrows used by many components, like [Input](input.md) selects, [Drops](drop.md),
 and [Flyouts](flyout.md). They make use of border styles to create their arrow effect. The following carets exist:
@@ -102,7 +96,7 @@ and [Flyouts](flyout.md). They make use of border styles to create their arrow e
 <a href="#">View More <span class="caret-right"></span></a>
 ```
 
-### Sorter ###
+## Sorter ##
 
 A sorter is a stacking of `.caret-up` and `.caret-down` elements to create an ascending and descending sorter,
 most commonly used in table headers. Applying an `.asc` or `.desc` class to the sorter will update styles accordingly.
@@ -114,7 +108,7 @@ most commonly used in table headers. Applying an `.asc` or `.desc` class to the 
 </span>
 ```
 
-### Arrows ###
+## Arrows ##
 
 Similar to carets, arrows are used as directional indicators. The difference between carets and arrows, is that arrows
 use the `&blacktriangle;` HTML5 entity (not all browsers support this). Arrows are much larger than carets, as they
@@ -126,7 +120,7 @@ The following arrows exist: `.arrow-up`, `.arrow-right`, `.arrow-down`, and `.ar
 <span class="arrow-left"></span>
 ```
 
-### Characters ###
+## Characters ##
 
 A character is just that, a character. The only currently supported character is `.x`, which uses the `&times;` entity
 to create X's used in close buttons.
@@ -135,7 +129,7 @@ to create X's used in close buttons.
 <span class="x"></span>
 ```
 
-### Bullets ###
+## Bullets ##
 
 Bullets are an inline horizontal list that use tiny circles as indicators. A bullet list is used in the
 [Carousel](carousel.md) and [Showcase](showcase.md) for indicating the number of items in the component.
@@ -148,7 +142,7 @@ Bullets are an inline horizontal list that use tiny circles as indicators. A bul
 </ol>
 ```
 
-### Sizes ###
+## Sizes ##
 
 A `.span-*` class can be used to force a percentage based width on an element. There are 12 spans,
 with the lowest span equating to 8.3% and the highest span equating to 100%.

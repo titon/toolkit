@@ -1,4 +1,7 @@
-define(function() {
+define([
+    'jquery',
+    './aria'
+], function($) {
 
 /**
  * Conceal the element by applying the hide class.

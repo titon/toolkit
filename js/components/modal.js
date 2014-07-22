@@ -1,54 +1,64 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
-    var element;
+Toolkit.Modal = Toolkit.Component.extend({
+    name: 'Modal',
+    version: '1.4.0',
 
-    this.component = 'Modal';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options);
-    this.element = element = this.createElement()
-        .attr('role', 'dialog')
-        .aria('labelledby', this.id('title'))
-        .aria('describedby', this.id('content'));
+    /** Blackout element if enabled. */
+    blackout: null,
 
-    // Enable fullscreen
-    if (options.fullScreen) {
-        element.addClass('is-fullscreen');
-    }
+    /**
+     * Initialize the modal.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
+    constructor: function(nodes, options) {
+        var element;
 
-    // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement()
+            .attr('role', 'dialog')
+            .aria('labelledby', this.id('title'))
+            .aria('describedby', this.id('content'));
 
-    // Last node to open a modal
-    this.node = null;
+        // Enable fullscreen
+        if (options.fullScreen) {
+            element.addClass('is-fullscreen');
+        }
 
-    // Blackout element if enabled
-    this.blackout = options.blackout ? Toolkit.Blackout.instance() : null;
+        // Nodes found in the page on initialization
+        this.nodes = $(nodes);
 
-    if (options.blackout && options.stopScroll) {
-        this.blackout.element.on('hide.toolkit.blackout', function(e, hidden) {
-            if (hidden) {
-                $('body').removeClass('no-scroll');
+        if (options.blackout) {
+            this.blackout = Toolkit.Blackout.instance();
+
+            if (options.stopScroll) {
+                this.blackout.addHook('hide', function(hidden) {
+                    if (hidden) {
+                        $('body').removeClass('no-scroll');
+                    }
+                });
             }
-        });
-    }
+        }
 
-    // Initialize events
-    this.events = {
-        'keydown window': 'onKeydown',
-        'clickout element': 'onHide',
-        'clickout document {selector}': 'onHide',
-        'click document {selector}': 'onShow',
-        'click element .@modal-hide': 'onHide',
-        'click element .@modal-submit': 'onSubmit'
-    };
+        // Initialize events
+        this.events = {
+            'keydown window': 'onKeydown',
+            'clickout element': 'onHide',
+            'clickout document {selector}': 'onHide',
+            'click document {selector}': 'onShow',
+            'click element .@modal-hide': 'onHide',
+            'click element .@modal-submit': 'onSubmit'
+        };
 
-    this.initialize();
-}, {
+        this.initialize();
+    },
 
     /**
      * Hide the modal and reset relevant values.
@@ -82,7 +92,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
 
         body.html(content);
-        this.fireEvent('load', content);
+        this.fireEvent('load', [content]);
 
         // Reveal modal
         this.element.reveal();
@@ -116,15 +126,14 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
 
             ajax = this.readOption(node, 'ajax');
             content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
-
-            if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-                content = $(content).html();
-                ajax = false;
-            }
         }
 
         if (!content) {
             return;
+
+        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+            content = $(content).html();
+            ajax = false;
         }
 
         // Show blackout if the element is hidden
@@ -206,18 +215,6 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         if (e.keyCode === 27 /*esc*/ && this.element.is(':shown')) {
             this.hide();
         }
-    },
-
-    /**
-     * Event handler for show().
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        e.preventDefault();
-
-        this.show(e.currentTarget);
     },
 
     /**

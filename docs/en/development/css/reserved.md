@@ -17,14 +17,14 @@ The following classes are reserved by Toolkit:
     `.bottom-left`, `.bottom-center`, `.bottom-right`
 * State classes: `.is-*`, `.has-*`, and many more
 
-Some classes make use of [Sass variables](../sass/variables.md) for altering the class names.
+Some classes make use of [Sass variables](../sass/variables.md) for altering their names.
 This was implemented to avoid collisions of common class names and integration with legacy applications.
 Continue reading for more information on these variables.
 
-## Namespacing Components ##
+## Namespacing Classes ##
 
-Component names follow the [BEM naming convention](bem.md), so all component class names are also reserved.
-However, Toolkit does support prefixing *ALL* components with a vendor name,
+Plugin class names follow the [BEM naming convention](bem.md), so all plugin class names are also reserved.
+However, Toolkit does support prefixing *ALL* plugins with a vendor name,
 so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` variable was set to `tk-`.
 This is disabled by default.
 

@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Bound a number between a min and max range.

@@ -1,48 +1,65 @@
 define([
+    'jquery',
     './component',
     '../extensions/cache',
     '../extensions/debounce'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Matrix';
-    this.version = '1.5.0';
-    this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
-    this.options = options = this.setOptions(options, element);
+Toolkit.Matrix = Toolkit.Component.extend({
+    name: 'Matrix',
+    version: '1.5.0',
 
-    // Items within the matrix
-    this.items = [];
+    /** Calculated final width of the column (may differ from width option). */
+    colWidth: 0,
 
-    // List of items in order and how many columns they span horizontally
-    this.matrix = [];
+    /** How many columns that can fit in the wrapper. */
+    colCount: 0,
 
-    // Width of the wrapper (target element)
-    // Is recalculated every page resize to determine columns
-    this.wrapperWidth = 0;
+    /** Collection of items within the matrix. */
+    items: [],
 
-    // Calculated final width of the column (may differ from width option)
-    this.colWidth = 0;
+    /** Collection of img elements. */
+    images: [],
 
-    // How many columns that can fit in the wrapper
-    this.colCount = 0;
+    /** List of items in order and how many columns they span horizontally. */
+    matrix: [],
 
-    // Collection of img elements
-    this.images = [];
+    /** Width of the wrapper. Is recalculated every page resize to determine column count. */
+    wrapperWidth: 0,
 
-    // Initialize events
-    this.events = {
-        'resize window': $.debounce(this.onResize)
-    };
+    /**
+     * Initialize the matrix.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
+    constructor: function(element, options) {
+        this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
+        this.options = options = this.setOptions(options, element);
 
-    this.initialize();
+        // Initialize events
+        this.events = {
+            'resize window': $.debounce(this.onResize.bind(this))
+        };
 
-    // Render the matrix
-    if (options.defer) {
+        this.initialize();
+
+        // If defer is disabled, render immediately, and again later
+        if (!options.defer) {
+            this.refresh();
+        }
+
+        // Always re-render once images are loaded
         this._deferRender();
-    } else {
-        this.refresh();
-    }
-}, {
+    },
+
+    /**
+     * Remove inline styles before destroying.
+     */
+    destructor: function() {
+        this.element.removeAttr('style');
+        this.items.removeAttr('style');
+    },
 
     /**
      * Append an item to the bottom of the matrix.
@@ -55,14 +72,6 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             .css('opacity', 0);
 
         this.refresh();
-    },
-
-    /**
-     * Remove inline styles before destroying.
-     */
-    doDestroy: function() {
-        this.element.removeAttr('style');
-        this.items.removeAttr('style');
     },
 
     /**
@@ -193,7 +202,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.refresh);
+        $.when.apply($, promises).always(this.refresh.bind(this));
     },
 
     /**

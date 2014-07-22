@@ -1,51 +1,63 @@
 define([
+    'jquery',
     './component',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
-    var element, vendor = Toolkit.vendor;
+Toolkit.Tooltip = Toolkit.Component.extend({
+    name: 'Tooltip',
+    version: '1.5.0',
 
-    this.component = 'Tooltip';
-    this.version = '1.5.0';
-    this.options = options = this.setOptions(options);
-    this.element = element = this.createElement()
-        .attr('role', 'tooltip')
-        .removeClass(options.className);
+    /** The element to insert the title. */
+    elementHead: null,
 
-    // Remove title attributes
-    if (options.getTitle === 'title') {
-        options.getTitle = 'data-tooltip-title';
-    }
+    /** The element to insert the content. */
+    elementBody: null,
 
-    // Elements for the title and content
-    this.elementHead = element.find('.' + vendor + 'tooltip-head');
-    this.elementBody = element.find('.' + vendor + 'tooltip-body');
+    /**
+     * Initialize the tooltip.
+     *
+     * @param {jQuery} nodes
+     * @param {Object} [options]
+     */
+    constructor: function(nodes, options) {
+        var element, vendor = Toolkit.vendor, key = this.keyName;
 
-    // Nodes found in the page on initialization, remove title attribute
-    this.nodes = $(nodes).each(function(i, node) {
-        $(node).attr('data-tooltip-title', $(node).attr('title')).removeAttr('title');
-    });
+        this.options = options = this.setOptions(options);
+        this.element = element = this.createElement()
+            .attr('role', 'tooltip')
+            .removeClass(options.className);
 
-    // Last node to open a tooltip
-    this.node = null;
+        // Remove title attributes
+        if (options.getTitle === 'title') {
+            options.getTitle = 'data-' + key + '-title';
+        }
 
-    // Initialize events
-    this.events = {
-        '{mode} document {selector}': 'onShow'
-    };
+        // Elements for the title and content
+        this.elementHead = element.find('.' + vendor + key + '-head');
+        this.elementBody = element.find('.' + vendor + key + '-body');
 
-    if (options.mode === 'click') {
-        this.events['clickout element'] = 'hide';
-        this.events['clickout document {selector}'] = 'hide';
-    } else {
-        this.events['mouseleave document {selector}'] = 'hide';
-    }
+        // Nodes found in the page on initialization, remove title attribute
+        this.nodes = $(nodes).each(function(i, node) {
+            $(node).attr('data-' + key + '-title', $(node).attr('title')).removeAttr('title');
+        });
 
-    this.initialize();
-}, {
+        // Initialize events
+        this.events = {
+            '{mode} document {selector}': 'onShow'
+        };
+
+        if (options.mode === 'click') {
+            this.events['clickout element'] = 'hide';
+            this.events['clickout document {selector}'] = 'hide';
+        } else {
+            this.events['mouseleave document {selector}'] = 'hide';
+        }
+
+        this.initialize();
+    },
 
     /**
      * Hide the tooltip.
@@ -112,11 +124,11 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
             this.elementBody.hide();
         }
 
-        this.fireEvent('load', content);
+        this.fireEvent('load', [content]);
 
         // Follow the mouse
         if (options.follow) {
-            var follow = this.onFollow;
+            var follow = this.onFollow.bind(this);
 
             this.node
                 .off('mousemove', follow)
@@ -160,6 +172,10 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
 
         if (!content) {
             return;
+
+        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+            content = $(content).html();
+            options.ajax = false;
         }
 
         if (options.ajax) {
@@ -173,10 +189,6 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
                 this.requestData(content);
             }
         } else {
-            if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-                content = $(content).html();
-            }
-
             this.position(content, title);
         }
     },
@@ -196,46 +208,6 @@ Toolkit.Tooltip = Toolkit.Component.extend(function(nodes, options) {
             left: options.xOffset,
             top: options.yOffset
         }, true).reveal();
-    },
-
-    /**
-     * Event handler for showing the tooltip.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onShow: function(e) {
-        var node = $(e.currentTarget),
-            isNode = (this.node && this.node.is(node));
-
-        if (this.element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
-            if (isNode) {
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
     }
 
 }, {

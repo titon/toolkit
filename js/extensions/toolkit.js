@@ -1,23 +1,24 @@
 define([
+    'jquery',
     '../core'
-], function(Toolkit) {
+], function($, Toolkit) {
 
 /**
- * Fetch the component instance from the jQuery collection.
+ * Fetch the plugin instance from the jQuery collection.
  * If a method and arguments are defined, trigger a method on the instance.
  *
- * @param {String} component
+ * @param {String} plugin
  * @param {String} [method]
  * @param {Array} [args]
  * @returns {Function}
  */
-$.fn.toolkit = function(component, method, args) {
+$.fn.toolkit = function(plugin, method, args) {
     var selector = this.selector,
-        instance = this.data('toolkit.' + component);
+        instance = this.data('toolkit.' + plugin);
 
     // Check for the instance within the cache
-    if (!instance && Toolkit.cache[component + '.' + selector]) {
-        instance = Toolkit.cache[component + '.' + selector];
+    if (!instance && Toolkit.cache[plugin + '.' + selector]) {
+        instance = Toolkit.cache[plugin + '.' + selector];
     }
 
     if (!instance) {

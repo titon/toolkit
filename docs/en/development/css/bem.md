@@ -26,8 +26,7 @@ This easily reduces the file size and improves compatibility.
 
 The final paradigm, the "modifier", is used to change the behavior or state of the parent (the "block").
 Continuing with our Carousel example, the default `.carousel` block provides a 4:3 sized carousel.
-Now what if we want 16:9? Or a 4:4? This can be achieved through modifiers,
-ala `.carousel--wide` and `.carousel--square`.
+Now what if we want 16:9? Or a 4:4? This can be achieved through modifiers, ala `.carousel--wide` and `.carousel--square`.
 A modifier can be easily recognized by a `--` between the block and modifier name.
 
 ```html

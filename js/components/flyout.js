@@ -1,56 +1,67 @@
 define([
+    'jquery',
     './component',
     '../extensions/shown-selector'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
-    if (!url) {
-        throw new Error('Flyout URL required to download sitemap JSON');
-    }
+Toolkit.Flyout = Toolkit.Component.extend({
+    name: 'Flyout',
+    version: '1.4.0',
 
-    this.component = 'Flyout';
-    this.version = '1.4.0';
-    this.options = options = this.setOptions(options);
+    /** Current URL to generate a flyout menu for. */
+    current: null,
 
-    // Last opened flyout menu
-    this.element = null;
+    /** Collection of flyout elements indexed by URL. */
+    menus: {},
 
-    // Nodes found in the page on initialization
-    this.nodes = $(nodes);
+    /** Raw sitemap JSON data. */
+    data: [],
 
-    // Last node to open a menu
-    this.node = null;
+    /** Data indexed by URL. */
+    dataMap: {},
 
-    // Current URL to relate a flyout menu to
-    this.current = null;
+    /** Show and hide timers. */
+    timers: {},
 
-    // Collection of flyout elements indexed by URL
-    this.menus = {};
+    /**
+     * Initialize the flyout. A URL is required during construction.
+     *
+     * @param {jQuery} nodes
+     * @param {String} url
+     * @param {Object} [options]
+     */
+    constructor: function(nodes, url, options) {
+        if (!url) {
+            throw new Error('Flyout URL required to download sitemap JSON');
+        }
 
-    // Raw sitemap JSON data
-    this.data = [];
+        this.nodes = $(nodes);
+        this.options = options = this.setOptions(options);
 
-    // Data indexed by URL
-    this.dataMap = {};
+        if (options.mode === 'click') {
+            this.events['click document {selector}'] = 'onShowToggle';
+        } else {
+            this.events['mouseenter document {selector}'] = ['onShowToggle', 'onEnter'];
+            this.events['mouseleave document {selector}'] = 'onLeave';
+        }
 
-    // Show and hide timers
-    this.timers = {};
+        this.initialize();
 
-    // Initialize events
-    this.events = {};
+        // Load data from the URL
+        $.getJSON(url, this.load.bind(this));
+    },
 
-    if (options.mode === 'click') {
-        this.events['click document {selector}'] = 'onShow';
-    } else {
-        this.events['mouseenter document {selector}'] = ['onShow', 'onEnter'];
-        this.events['mouseleave document {selector}'] = 'onLeave';
-    }
+    /**
+     * Remove all the flyout menu elements and timers before destroying.
+     */
+    destructor: function() {
+        $.each(this.menus, function(i, menu) {
+            menu.remove();
+        });
 
-    this.initialize();
-
-    // Load data from the URL
-    $.getJSON(url, this.load);
-}, {
+        this.clearTimer('show');
+        this.clearTimer('hide');
+    },
 
     /**
      * Clear a timer by key.
@@ -60,18 +71,6 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
     clearTimer: function(key) {
         clearTimeout(this.timers[key]);
         delete this.timers[key];
-    },
-
-    /**
-     * Remove all the flyout menu elements and timers before destroying.
-     */
-    doDestroy: function() {
-        $.each(this.menus, function(i, menu) {
-            menu.remove();
-        });
-
-        this.clearTimer('show');
-        this.clearTimer('hide');
     },
 
     /**
@@ -400,7 +399,7 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
                 hidden: false
             });
 
-        this.fireEvent('hideChild', parent);
+        this.fireEvent('hideChild', [parent]);
     },
 
     /**
@@ -462,51 +461,27 @@ Toolkit.Flyout = Toolkit.Component.extend(function(nodes, url, options) {
 
         parent.addClass('is-open');
 
-        this.fireEvent('showChild', parent);
+        this.fireEvent('showChild', [parent]);
     },
 
     /**
      * Event handler to show the menu.
      *
-     * @private
      * @param {jQuery.Event} e
+     * @private
      */
-    onShow: function(e) {
+    onShowToggle: function(e) {
+
+        // Flyouts shouldn't be usable on touch devices
         if (Toolkit.isTouch) {
-            return; // Flyouts shouldn't be usable on touch devices
+            return;
         }
 
-        var node = $(e.target),
-            isNode = (this.node && node[0] === this.node[0]);
+        // Set the current element
+        this.isVisible();
 
-        if (this.isVisible()) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
-            if (isNode) {
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
+        // Trigger the parent
+        Toolkit.Component.prototype.onShowToggle.call(this, e);
     }
 
 }, {

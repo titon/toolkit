@@ -1,29 +1,44 @@
 define([
-    '../class',
+    'jquery',
+    '../base',
     '../extensions/aria',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Component = Toolkit.Class.extend(function() {}, {
-    component: 'Component',
+Toolkit.Component = Toolkit.Base.extend({
+    name: 'Component',
     version: '1.4.1',
 
-    /** Is the component enabled? */
-    enabled: false,
+    /** Whether the element was created automatically or not. */
+    created: false,
 
-    /** Events and functions to bind */
-    events: {},
+    /** The target element. Either created through a template, or embedded in the DOM. */
+    element: null,
 
-    /** Cached requests by URL */
-    cache: {},
+    /** Collection of elements related to the component. */
+    elements: [],
 
-    /** Dynamic options generated at runtime */
-    runtime: {},
+    /** The element that activated the component. */
+    node: null,
+
+    /** Collection of nodes. */
+    nodes: [],
 
     /**
-     * Create the element from the template.
+     * A basic constructor that sets an element and its options.
+     *
+     * @param {Element} element
+     * @param {Object} [options]
+     */
+    constructor: function(element, options) {
+        this.element = element = $(element);
+        this.options = this.setOptions(options, element);
+    },
+
+    /**
+     * Create an element from the `template` or `templateFrom` option.
      *
      * @returns {jQuery}
      */
@@ -65,97 +80,19 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Loop through the events object map and attach events to the specific selector in the correct context.
-     * Take into account window, document, and delegation.
-     *
-     * @param {String} type
-     */
-    bindEvents: function(type) {
-        var self = this,
-            options = this.options,
-            event,
-            keys,
-            context,
-            selector,
-            funcs,
-            win = $(window),
-            doc = $(document);
-
-        // event window = func          Bind window event
-        // event document = func        Bind document event
-        // ready document = func        Bind DOM ready event
-        // event property = func        Bind event to collection that matches class property
-        // event context .class = func  Bind delegated events to class within context
-        $.each(this.events, function(key, value) {
-            funcs = $.isArray(value) ? value : [value];
-
-            // Replace tokens
-            key = key.replace('{mode}', options.mode);
-            key = key.replace('{selector}', self.nodes ? self.nodes.selector : '');
-
-            // Extract arguments
-            keys = key.split(' ');
-            event = keys.shift();
-            context = keys.shift();
-            selector = keys.join(' ').replace('@', Toolkit.vendor);
-
-            // Determine the correct context
-            if (self[context]) {
-                context = self[context];
-            } else if (context === 'window') {
-                context = win;
-            } else if (context === 'document') {
-                context = doc;
-            }
-
-            $.each(funcs, function(i, func) {
-                if (!$.isFunction(func)) {
-                    func = self[func];
-                }
-
-                // Ready events
-                if (event === 'ready') {
-                    doc.ready(func);
-
-                // Delegated events
-                } else if (selector) {
-                    $(context)[type](event, selector, func);
-
-                // Regular events
-                } else {
-                    $(context)[type](event, func);
-                }
-            });
-        });
-    },
-
-    /**
-     * Destroy the component by disabling events, removing elements, and deleting the component instance.
+     * {@inheritdoc}
      */
     destroy: function() {
-        this.fireEvent('destroy');
-
-        // Remove active state
-        if (this.hide) {
-            this.hide();
-        }
-
-        if (this.doDestroy) {
-            this.doDestroy();
-        }
-
-        // Remove events
-        this.disable();
+        Toolkit.Base.prototype.destroy.call(this);
 
         // Remove element only if it was created
         if (this.created) {
             this.element.remove();
         }
 
-        // Remove instances
-        var key = this._keyName();
+        // Remove instances last or else the previous commands will fail
+        var key = this.keyName;
 
-        // This must be called last or else the previous commands will fail
         if (this.nodes) {
             this.nodes.removeData('toolkit.' + key);
 
@@ -168,49 +105,17 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Disable the component.
-     */
-    disable: function() {
-        if (this.enabled) {
-            this.bindEvents('off');
-        }
-
-        this.enabled = false;
-    },
-
-    /**
-     * Enable the component.
-     */
-    enable: function() {
-        if (!this.enabled) {
-            this.bindEvents('on');
-        }
-
-        this.enabled = true;
-    },
-
-    /**
-     * Trigger an event if it exists.
+     * Trigger all hooks and any DOM events attached to the `element` or `node`.
      *
      * @param {String} type
      * @param {Array} [args]
      */
     fireEvent: function(type, args) {
-        if (!$.isArray(args)) {
-            args = [args];
-        }
+        Toolkit.Base.prototype.fireEvent.call(this, type, args);
 
-        // Trigger event globally
-        var onType = 'on' + type.charAt(0).toUpperCase() + type.slice(1);
-
-        if (this.options[onType]) {
-            this.options[onType].apply(this, args || []);
-        }
-
-        // Generate the namespaced event
         var element = this.element,
             node = this.node,
-            event = jQuery.Event(type + '.toolkit.' + this._keyName());
+            event = $.Event(type + '.toolkit.' + this.keyName);
             event.context = this;
 
         // Trigger event on the element and the node
@@ -224,13 +129,22 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
+     * Hide the primary element.
+     */
+    hide: function() {
+        this.element.conceal();
+
+        this.fireEvent('hide');
+    },
+
+    /**
      * Generate a unique CSS class name for the component and its arguments.
      *
      * @returns {String}
      */
     id: function() {
         var list = $.makeArray(arguments);
-            list.unshift('toolkit', this._cssClass(), this.uid);
+            list.unshift('toolkit', this.cssClass, this.uid);
 
         return list.join('-');
     },
@@ -250,7 +164,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
                 continue;
             }
 
-            value = element.data((this._keyName() + '-' + key).toLowerCase());
+            value = element.data((this.keyName + '-' + key).toLowerCase());
 
             if ($.type(value) !== 'undefined') {
                 obj[key] = value;
@@ -261,11 +175,12 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Enable events and trigger init callback.
+     * Handle and process HTML responses.
+     *
+     * @param {*} content
      */
-    initialize: function() {
-        this.enable();
-        this.fireEvent('init');
+    position: function(content) {
+        this.fireEvent('load', [content]);
     },
 
     /**
@@ -288,7 +203,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
             func.call(prev, content);
         }
 
-        this.fireEvent('process', content);
+        this.fireEvent('process', [content]);
     },
 
     /**
@@ -300,7 +215,7 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
      * @returns {*}
      */
     readOption: function(element, key) {
-        var value = element.data((this._keyName() + '-' + key).toLowerCase());
+        var value = element.data((this.keyName + '-' + key).toLowerCase());
 
         if ($.type(value) === 'undefined') {
             value = this.options[key];
@@ -399,80 +314,97 @@ Toolkit.Component = Toolkit.Class.extend(function() {}, {
     },
 
     /**
-     * Set the options by merging with defaults.
+     * After merging options with the default options,
+     * inherit options from an elements data attributes.
      *
      * @param {Object} [options]
      * @param {jQuery} [inheritFrom]
      * @returns {Object}
      */
     setOptions: function(options, inheritFrom) {
-        var opts = $.extend(true, {}, Toolkit[this.component].options, options || {});
+        var opts = Toolkit.Base.prototype.setOptions.call(this, options);
 
         // Inherit from element data attributes
         if (inheritFrom) {
             opts = this.inheritOptions(opts, inheritFrom);
         }
 
-        // Inherit options based on responsive media queries
-        if (opts.responsive && window.matchMedia) {
-            $.each(opts.responsive, function(key, resOpts) {
-                if (matchMedia(resOpts.breakpoint).matches) {
-                    $.extend(opts, resOpts);
-                    return false;
-                }
-            });
-        }
-
         // Convert hover to mouseenter
         if (opts.mode && opts.mode === 'hover') {
-
-            // Reset for touch devices
-            if (Toolkit.isTouch) {
-                opts.mode = 'click';
-            } else {
-                opts.mode = 'mouseenter';
-            }
+            opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
         }
 
         return opts;
     },
 
     /**
-     * Return the component name hyphenated for use in CSS classes.
-     * Cache the result to reduce processing time.
+     * Show the element and optionally set the activating node.
      *
-     * @private
-     * @returns {string}
+     * @param {jQuery} [node]
      */
-    _cssClass: function() {
-        if (this.cssClass) {
-            return this.cssClass;
+    show: function(node) {
+        if (node) {
+            this.node = $(node);
         }
 
-        return this.cssClass = this.component.replace(/[A-Z]/g, function(match) {
-            return ('-' + match.charAt(0).toLowerCase());
-        }).slice(1);
+        this.element.reveal();
+
+        this.fireEvent('show');
     },
 
     /**
-     * Return the component name with the 1st character lowercase for use in events and attributes.
-     * Cache the result to reduce processing time.
+     * Event handler for `show` clicks or hovers.
      *
+     * @param {jQuery.Event} e
      * @private
-     * @returns {string}
      */
-    _keyName: function() {
-        if (this.keyName) {
-            return this.keyName;
+    onShow: function(e) {
+        e.preventDefault();
+
+        this.show(e.currentTarget);
+    },
+
+    /**
+     * Event handler for toggling an element through click or hover events.
+     *
+     * @param {jQuery.Event} e
+     * @private
+     */
+    onShowToggle: function(e) {
+        var node = $(e.currentTarget),
+            isNode = (this.node && node[0] === this.node[0]);
+
+        if (this.element && this.element.is(':shown')) {
+
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
+                e.preventDefault();
+            }
+
+            // Second click should close it
+            if (this.options.mode === 'click') {
+                this.hide();
+            }
+
+            // Exit if the same node so it doesn't re-open
+            if (isNode) {
+                return;
+            }
+
+        } else {
+            e.preventDefault();
         }
 
-        var name = this.component;
-
-        return this.keyName = name.charAt(0).toLowerCase() + name.slice(1);
+        this.show(node);
     }
 
 }, {
-    cache: true,
     context: null,
     className: '',
     template: '',

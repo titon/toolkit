@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Position the element relative to another element in the document, or to the mouse cursor.

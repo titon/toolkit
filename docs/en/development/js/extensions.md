@@ -53,14 +53,14 @@ $('#element').positionTo('top-left', $('#relative-to'));
 $('#element').positionTo('bottom-right', event, { left: 10, top: 10 }, true);
 ```
 
-### addData(`string:key`, `mixed:value`) ###
+### cache(`string:key`, `mixed:value`) ###
 
 Set and return data if the key does not exist, else return the current value.
 This is a combination of getting and setting internal jQuery data.
 
 ```javascript
-var value = $('#element').addData('foo', 'bar'); // bar
-var value = $('#element').addData('foo', '123'); // bar
+var value = $('#element').cache('foo', 'bar'); // bar
+var value = $('#element').cache('foo', '123'); // bar
 ```
 
 ### aria(`string:key`, `mixed:value`) ###

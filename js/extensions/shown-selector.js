@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Used for CSS animations and transitions.

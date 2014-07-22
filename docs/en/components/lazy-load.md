@@ -32,6 +32,11 @@ $('body').lazyLoad();
 $('#overflown').lazyLoad();
 ```
 
+<div class="notice is-info">
+    Lazy loading should be initialized without DOM ready, but after lazy elements have been declared,
+    so that images don't flicker.
+</div>
+
 ### Retina Support ###
 
 To display a higher quality image for retina/HD displays, use `data-src-retina`.
@@ -95,7 +100,7 @@ either inline or through CSS. We may also define the `src` attribute with a tran
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -136,7 +141,7 @@ Inherits all options from the [parent component](../development/js/component.md#
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
@@ -177,7 +182,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -188,6 +193,11 @@ Inherits all properties from the [parent component](../development/js/component.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>container</td>
+            <td>element</td>
+            <td>The element to monitor scroll events on.</td>
+        </tr>
         <tr>
             <td>element</td>
             <td>element</td>
@@ -211,7 +221,7 @@ Inherits all properties from the [parent component](../development/js/component.
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

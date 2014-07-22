@@ -1,57 +1,81 @@
 define([
+    'jquery',
     './component',
     '../events/swipe'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.OffCanvas = Toolkit.Component.extend(function(element, options) {
-    var events = {}, vendor = Toolkit.vendor;
+Toolkit.OffCanvas = Toolkit.Component.extend({
+    name: 'OffCanvas',
+    version: '1.5.0',
 
-    this.component = 'OffCanvas';
-    this.version = '1.5.0';
-    this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
-    this.options = options = this.setOptions(options, element);
+    /** The parent container. */
+    container: null,
 
-    var animation = options.animation;
+    /** The primary content wrapper. */
+    primary: null,
 
-    // Touch devices cannot use squish
-    if (Toolkit.isTouch && animation === 'squish') {
-        options.animation = animation = 'push';
-    }
+    /** Secondary sibling sidebars. */
+    secondary: null,
 
-    // Cannot have multiple non-overlayed or non-squished sidebars open
-    if (animation !== 'on-top' && animation !== 'squish') {
-        options.hideOthers = true;
-    }
+    /** The side the primary sidebar is located. */
+    side: 'left',
 
-    // Setup container
-    this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
-    this.primary = element.siblings('.' + vendor + 'on-canvas').attr('role', 'main');
-    this.secondary = element.siblings('.' + vendor + 'off-canvas');
+    /** The opposite of `side`. */
+    opposite: 'right',
 
-    // Determine the side
-    this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
-    this.opposite = (this.side === 'left') ? 'right' : 'left';
+    /**
+     * Initialize off canvas.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
+    constructor: function(element, options) {
+        var events = {}, vendor = Toolkit.vendor;
 
-    // Initialize events
-    events['ready document'] = 'onReady';
-    events['resize window'] = 'onResize';
+        this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
+        this.options = options = this.setOptions(options, element);
 
-    if (this.side === 'left') {
-        events['swipeleft element'] = 'hide';
-        events['swiperight container'] = 'onSwipe';
-    } else {
-        events['swipeleft container'] = 'onSwipe';
-        events['swiperight element'] = 'hide';
-    }
+        var animation = options.animation;
 
-    if (options.selector) {
-        events['click document ' + options.selector] = 'toggle';
-    }
+        // Touch devices cannot use squish
+        if (Toolkit.isTouch && animation === 'squish') {
+            options.animation = animation = 'push';
+        }
 
-    this.events = events;
+        // Cannot have multiple non-overlayed or non-squished sidebars open
+        if (animation !== 'on-top' && animation !== 'squish') {
+            options.hideOthers = true;
+        }
 
-    this.initialize();
-}, {
+        // Setup container
+        this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
+        this.primary = element.siblings('.' + vendor + 'on-canvas').attr('role', 'main');
+        this.secondary = element.siblings('.' + vendor + 'off-canvas');
+
+        // Determine the side
+        this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
+        this.opposite = (this.side === 'left') ? 'right' : 'left';
+
+        // Initialize events
+        events['ready document'] = 'onReady';
+        events['resize window'] = 'onResize';
+
+        if (this.side === 'left') {
+            events['swipeleft element'] = 'hide';
+            events['swiperight container'] = 'onSwipe';
+        } else {
+            events['swipeleft container'] = 'onSwipe';
+            events['swiperight element'] = 'hide';
+        }
+
+        if (options.selector) {
+            events['click document ' + options.selector] = 'toggle';
+        }
+
+        this.events = events;
+
+        this.initialize();
+    },
 
     /**
      * Hide the sidebar and reset the container.

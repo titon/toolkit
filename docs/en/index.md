@@ -5,7 +5,10 @@ Setup
 * [Installing](setup/installing.md)
 * [Custom Builds](setup/custom-builds.md)
 * [Interactive Demos](setup/demos.md)
-* [Components List](components/index.md)
+
+Plugins
+* [Components](components/index.md)
+* [Behaviors](behaviors/index.md)
 
 Development
 * [JavaScript](development/js/index.md)

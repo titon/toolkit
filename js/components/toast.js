@@ -1,25 +1,34 @@
 define([
+    'jquery',
     './component',
     '../extensions/transitionend'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Toast';
-    this.version = '1.5.0';
-    this.options = options = this.setOptions(options);
-    this.element = this.createElement()
-        .addClass(options.position)
-        .removeClass(options.animation)
-        .attr('role', 'log')
-        .aria({
-            relevant: 'additions',
-            hidden: 'false'
-        })
-        .appendTo(element)
-        .reveal();
+Toolkit.Toast = Toolkit.Component.extend({
+    name: 'Toast',
+    version: '1.5.0',
 
-    this.initialize();
-}, {
+    /**
+     * Initialize the toast.
+     *
+     * @param {jQuery} element
+     * @param {Object} [options]
+     */
+    constructor: function(element, options) {
+        this.options = options = this.setOptions(options);
+        this.element = this.createElement()
+            .addClass(options.position)
+            .removeClass(options.animation)
+            .attr('role', 'log')
+            .aria({
+                relevant: 'additions',
+                hidden: 'false'
+            })
+            .appendTo(element)
+            .reveal();
+
+        this.initialize();
+    },
 
     /**
      * Create a toast element, insert content into it, and append it to the container.
@@ -39,7 +48,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
                 .conceal()
                 .prependTo(this.element);
 
-        this.fireEvent('create', toast);
+        this.fireEvent('create', [toast]);
 
         // Set a timeout to trigger show transition
         setTimeout(function() {
@@ -63,7 +72,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
     hide: function(element) {
         element = $(element);
 
-        this.fireEvent('hide', element); // Must be called first since the element gets removed
+        this.fireEvent('hide', [element]); // Must be called first since the element gets removed
 
         element.transitionend(function() {
             $(this).remove();
@@ -79,7 +88,7 @@ Toolkit.Toast = Toolkit.Component.extend(function(element, options) {
         element = $(element);
         element.reveal();
 
-        this.fireEvent('show', element);
+        this.fireEvent('show', [element]);
     }
 
 }, {

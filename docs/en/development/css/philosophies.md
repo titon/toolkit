@@ -30,8 +30,8 @@ add the appropriate viewport meta tag to `<head>`.
 ## Fluid & Responsiveness ##
 
 Being mobile friendly and being responsive go hand in hand. To further support this philosophy,
-all components (especially the grid) make use of fluid layouts, ala percentages for widths.
-This allows components to scale and reposition automatically based on the device viewport &mdash;
+all plugins (especially the grid) make use of fluid layouts, ala percentages for widths.
+This allows plugins to scale and reposition automatically based on the device viewport &mdash;
 which in turn, reduces the codebase.
 
 Responsive websites require media query support within the browser &mdash;

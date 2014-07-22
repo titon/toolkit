@@ -81,7 +81,7 @@
 //-------------------- Animations --------------------//
 
 #{$modal-class} {
-    @if index($modal-animation, "from-above") {
+    @if index($modal-animations, "from-above") {
         &.from-above {
             #{$modal-class-outer} {
                 transform: scale(1.3);
@@ -93,7 +93,7 @@
         }
     }
 
-    @if index($modal-animation, "from-below") {
+    @if index($modal-animations, "from-below") {
         &.from-below {
             #{$modal-class-outer} {
                 transform: scale(0.7);
@@ -105,7 +105,7 @@
         }
     }
 
-    @if index($modal-animation, "slide-in-top") {
+    @if index($modal-animations, "slide-in-top") {
         &.slide-in-top {
             #{$modal-class-outer} {
                 transform: translateY(-50%);
@@ -117,7 +117,7 @@
         }
     }
 
-    @if index($modal-animation, "slide-in-bottom") {
+    @if index($modal-animations, "slide-in-bottom") {
         &.slide-in-bottom {
             #{$modal-class-outer} {
                 transform: translateY(50%);
@@ -129,7 +129,7 @@
         }
     }
 
-    @if index($modal-animation, "slide-in-left") {
+    @if index($modal-animations, "slide-in-left") {
         &.slide-in-left {
             #{$modal-class-outer} {
                 transform: translateX(-25%);
@@ -141,7 +141,7 @@
         }
     }
 
-    @if index($modal-animation, "slide-in-right") {
+    @if index($modal-animations, "slide-in-right") {
         &.slide-in-right {
             #{$modal-class-outer} {
                 transform: translateX(25%);

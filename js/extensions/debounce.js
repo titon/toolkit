@@ -1,4 +1,6 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
 
 /**
  * Delays the execution of a function till the duration has completed.

@@ -1,43 +1,50 @@
 define([
+    'jquery',
     './component',
     '../extensions/throttle'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
-    container = $(container);
+Toolkit.LazyLoad = Toolkit.Component.extend({
+    name: 'LazyLoad',
+    version: '1.5.0',
 
-    this.component = 'LazyLoad';
-    this.version = '1.5.0';
-    this.options = options = this.setOptions(options, container);
+    /** Container to monitor scroll events on. */
+    container: $(window),
 
-    // Container to monitor scroll events on
-    this.container = (container.css('overflow') === 'auto') ? container : $(window);
+    /** How many items have been loaded. */
+    loaded: 0,
 
-    // Collection of elements to load within the container
-    this.elements = container.find('.lazy-load');
+    /**
+     * Initialize the lazy load.
+     *
+     * @param {jQuery} container
+     * @param {Object} [options]
+     */
+    constructor: function(container, options) {
+        container = $(container);
 
-    // Element currently being loaded, needs to be set for events
-    this.element = null;
+        this.options = options = this.setOptions(options, container);
+        this.elements = container.find('.lazy-load');
 
-    // How many items have been loaded
-    this.loaded = 0;
+        if (container.css('overflow') === 'auto') {
+            this.container = container;
+        }
 
-    // Initialize events
-    var callback = $.throttle(this.load, options.throttle);
+        var callback = $.throttle(this.load.bind(this), options.throttle);
 
-    this.events = {
-        'scroll container': callback,
-        'resize window': callback,
-        'ready document': 'onReady'
-    };
+        this.events = {
+            'scroll container': callback,
+            'resize window': callback,
+            'ready document': 'onReady'
+        };
 
-    this.initialize();
-}, {
+        this.initialize();
+    },
 
     /**
      * Load all images when destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         this.loadAll();
     },
 
@@ -147,7 +154,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
         this.elements.splice(index, 1, null);
         this.loaded++;
 
-        this.fireEvent('show', node);
+        this.fireEvent('show', [node]);
     },
 
     /**
@@ -171,7 +178,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend(function(container, options) {
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            setTimeout(this.loadAll, this.options.delay);
+            setTimeout(this.loadAll.bind(this), this.options.delay);
         }
     }
 

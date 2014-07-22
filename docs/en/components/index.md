@@ -1,7 +1,8 @@
 # Components #
 
+* [Component](component.md)
+
 ### Layout ###
-* [Base](base.md)
 * [Code](code.md)
 * [Form](form.md)
 * [Typography](typography.md)

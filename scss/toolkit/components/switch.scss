@@ -62,24 +62,6 @@
             padding: $large-padding;
         }
     }
-
-    //----- Effects -----//
-
-    &#{$shape-round-class} {
-        #{$switch-class-toggle} {
-            border-radius: $round - 0.02;
-        }
-    }
-
-    @if index($switch-effects, "pill") {
-        &#{$shape-pill-class} {
-            border-radius: $pill;
-
-            #{$switch-class-toggle} {
-                border-radius: $pill;
-            }
-        }
-    }
 }
 
 #{$switch-class-bar} {
@@ -107,6 +89,24 @@
     &::after {
         right: 0;
         content: attr(data-switch-off);
+    }
+
+    //----- Effects -----//
+
+    &#{$shape-round-class} {
+        #{$switch-class-toggle} {
+            border-radius: $round - 0.02;
+        }
+    }
+
+    @if index($switch-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            #{$switch-class-toggle} {
+                border-radius: $pill;
+            }
+        }
     }
 }
 

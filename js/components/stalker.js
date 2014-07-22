@@ -1,64 +1,59 @@
 define([
+    'jquery',
     './component',
     '../extensions/throttle'
-], function(Toolkit) {
+], function($, Toolkit) {
 
-Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
-    this.component = 'Stalker';
-    this.version = '1.4.0';
-    this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
-    this.options = options = this.setOptions(options);
+Toolkit.Stalker = Toolkit.Component.extend({
+    name: 'Stalker',
+    version: '1.4.0',
 
-    if (!options.target || !options.marker) {
-        throw new Error('A marker and target is required');
-    }
+    /** Container to monitor scroll events on. */
+    container: $(window),
 
-    // Container to monitor scroll events on
-    this.container = (element.css('overflow') === 'auto') ? element : $(window);
+    /** Targets to active when a marker is reached. */
+    targets: [],
 
-    // Targets to active when a marker is reached
-    this.targets = [];
+    /** Markers to compare against. */
+    markers: [],
 
-    // Markers to compare against
-    this.markers = [];
-
-    // Top value for all markers
-    this.offsets = [];
-
-    // Initialize events
-    this.events = {
-        'scroll container': $.throttle(this.onScroll, options.throttle),
-        'ready document': 'onScroll'
-    };
-
-    this.initialize();
-
-    // Gather markets and targets
-    this.refresh();
-}, {
+    /** Top value for all markers. */
+    offsets: [],
 
     /**
-     * Activate a target when a marker is entered.
+     * Initialize the stalker.
      *
-     * @param {Element} marker
+     * @param {jQuery} element
+     * @param {Object} [options]
      */
-    activate: function(marker) {
-        this._stalk(marker, 'activate');
-    },
+    constructor: function(element, options) {
+        this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
+        this.options = options = this.setOptions(options);
 
-    /**
-     * Deactivate a target when a marker is exited.
-     *
-     * @param {Element} marker
-     */
-    deactivate: function(marker) {
-        this._stalk(marker, 'deactivate');
+        if (!options.target || !options.marker) {
+            throw new Error('A marker and target is required');
+        }
+
+        if (element.css('overflow') === 'auto') {
+            this.container = element;
+        }
+
+        // Initialize events
+        this.events = {
+            'scroll container': $.throttle(this.onScroll.bind(this), options.throttle),
+            'ready document': 'onScroll'
+        };
+
+        this.initialize();
+
+        // Gather markets and targets
+        this.refresh();
     },
 
     /**
      * Remove classes before destroying.
      */
-    doDestroy: function() {
+    destructor: function() {
         var targets = this.targets,
             markers = this.markers,
             vendor = Toolkit.vendor;
@@ -73,6 +68,57 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
             targets.removeClass('is-active');
             markers.removeClass('is-marked');
         }
+    },
+
+    /**
+     * Activate a target when a marker is entered.
+     *
+     * @param {Element} marker
+     */
+    activate: function(marker) {
+        this.stalk(marker, 'activate');
+    },
+
+    /**
+     * Deactivate a target when a marker is exited.
+     *
+     * @param {Element} marker
+     */
+    deactivate: function(marker) {
+        this.stalk(marker, 'deactivate');
+    },
+
+    /**
+     * Either active or deactivate a target based on the marker.
+     *
+     * @param {Element} marker
+     * @param {String} type
+     */
+    stalk: function(marker, type) {
+        marker = $(marker);
+
+        // Stop all the unnecessary processing
+        if (type === 'activate' && marker.hasClass('is-stalked')) {
+            return;
+        }
+
+        var options = this.options,
+            targetBy = options.targetBy,
+            markBy = options.markBy,
+            method = (type === 'activate') ? 'addClass' : 'removeClass',
+            target = this.targets.filter(function() {
+                return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
+            });
+
+        marker[method]('is-stalked');
+
+        if (options.applyToParent) {
+            target.parent()[method]('is-active');
+        } else {
+            target[method]('is-active');
+        }
+
+        this.fireEvent(type, [marker, target]);
     },
 
     /**
@@ -102,40 +148,6 @@ Toolkit.Stalker = Toolkit.Component.extend(function(element, options) {
         });
 
         this.offsets = offsets;
-    },
-
-    /**
-     * Either active or deactivate a target based on the marker.
-     *
-     * @private
-     * @param {Element} marker
-     * @param {String} type
-     */
-    _stalk: function(marker, type) {
-        marker = $(marker);
-
-        // Stop all the unnecessary processing
-        if (type === 'activate' && marker.hasClass('is-stalked')) {
-            return;
-        }
-
-        var options = this.options,
-            targetBy = options.targetBy,
-            markBy = options.markBy,
-            method = (type === 'activate') ? 'addClass' : 'removeClass',
-            target = this.targets.filter(function() {
-                return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
-            });
-
-        marker[method]('is-stalked');
-
-        if (options.applyToParent) {
-            target.parent()[method]('is-active');
-        } else {
-            target[method]('is-active');
-        }
-
-        this.fireEvent(type, [marker, target]);
     },
 
     /**

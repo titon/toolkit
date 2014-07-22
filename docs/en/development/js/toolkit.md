@@ -1,15 +1,15 @@
 # Toolkit Namespace #
 
-The global `Toolkit` object is used extensively by and created for the component system.
+The global `Toolkit` object is used extensively by and created for the plugin system.
 It defines global options, localized messages, feature detection, and device support.
-It also acts as a namespace for components by housing a top level name to avoid global conflicts.
-Each component class definition can be found on the `Toolkit` object, for example,
+It also acts as a namespace for plugins by housing a top level name to avoid global conflicts.
+Each plugin class definition can be found on the `Toolkit` object, for example,
 the accordion class is found under `Toolkit.Accordion`.
 
 ## Vendor Prefix ##
 
 Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
-prefixing within the JavaScript layer. This value will be prepended to all component class names that are
+prefixing within the JavaScript layer. This value will be prepended to all plugin class names that are
 automatically created with JavaScript.
 
 ```javascript
@@ -18,7 +18,7 @@ Toolkit.vendor = 'tk-';
 
 ## ARIA Support ##
 
-[ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable components.
+[ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable plugins.
 What this involves is automatic ARIA attribute inclusion and generation for JavaScript modules.
 To disable ARIA support, set the `Toolkit.aria` property to false.
 
@@ -66,7 +66,7 @@ $.extend(Toolkit.messages, {
 
 ## Feature Flags ##
 
-The following flags are used for feature detection within components.
+The following flags are used for feature detection within plugins.
 Each flag can be found on the `Toolkit` object.
 
 <table class="table is-striped data-table">
@@ -92,11 +92,6 @@ Each flag can be found on the `Toolkit` object.
             <td>isRetina</td>
             <td>Both</td>
             <td>Does the device support HD / retina displays?</td>
-        </tr>
-        <tr>
-            <td>transitionEnd</td>
-            <td>Both</td>
-            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
         </tr>
     </tbody>
 </table>
