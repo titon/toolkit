@@ -105,6 +105,30 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Trigger all hooks and any DOM events attached to the `element` or `node`.
+     *
+     * @param {String} type
+     * @param {Array} [args]
+     */
+    fireEvent: function(type, args) {
+        Toolkit.Base.prototype.fireEvent.call(this, type, args);
+
+        var element = this.element,
+            node = this.node,
+            event = $.Event(type + '.toolkit.' + this.keyName);
+            event.context = this;
+
+        // Trigger event on the element and the node
+        if (element && element.length) {
+            element.trigger(event, args || []);
+        }
+
+        if (node && node.length) {
+            node.trigger(event, args || []);
+        }
+    },
+
+    /**
      * Hide the primary element.
      */
     hide: function() {
