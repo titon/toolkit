@@ -132,9 +132,11 @@ Toolkit.Component = Toolkit.Base.extend({
      * Hide the primary element.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.element.conceal();
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -347,9 +349,11 @@ Toolkit.Component = Toolkit.Base.extend({
             this.node = $(node);
         }
 
+        this.fireEvent('showing');
+
         this.element.reveal();
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

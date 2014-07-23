@@ -146,34 +146,39 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onLoad</td>
-            <td>load.toolkit.lazyLoad</td>
+            <td>loading</td>
             <td></td>
-            <td>Triggered while scrolling or resizing to check for elements to load.</td>
+            <td>Triggered before scrolling or resizing to check for elements to load.</td>
         </tr>
         <tr>
-            <td>onLoadAll</td>
-            <td>loadAll.toolkit.lazyLoad</td>
+            <td>loaded</td>
+            <td></td>
+            <td>Triggered after scrolling or resizing to check for elements to load.</td>
+        </tr>
+        <tr>
+            <td>loadAll</td>
             <td></td>
             <td>Triggered when elements have been force loaded.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.lazyLoad</td>
+            <td>showing</td>
             <td>element:element</td>
-            <td>Triggered when an element (that may contain images) is loaded.</td>
+            <td>Triggered before an element (that may contain images) is lazy loaded.</td>
         </tr>
         <tr>
-            <td>onShutdown</td>
-            <td>shutdown.toolkit.lazyLoad</td>
+            <td>shown</td>
+            <td>element:element</td>
+            <td>Triggered after an element is lazy loaded.</td>
+        </tr>
+        <tr>
+            <td>shutdown</td>
             <td></td>
             <td>Triggered when all elements have been loaded, or when <code>shutdown()</code> is called.</td>
         </tr>

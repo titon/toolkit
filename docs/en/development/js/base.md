@@ -78,10 +78,10 @@ $('.carousel').carousel({
 
 Similar to native DOM events, the class layer has a system for dispatching callbacks at specific events called hooks.
 The difference between DOM events and hooks is that hooks are set as options through the class constructor
-or manually added through the `addHook()` method. When setting through options, any option that begins with `on`
-and defines an anonymous function is considered a hook.
+or manually added through the `addHook()` method. When setting through options, any option that begins with `on`,
+is named after an event, and defines an anonymous function is considered a hook.
 
-All hooks for a specific event will be triggered when `fireEvent()` is called.
+Now anytime `fireEvent()` is called, all attached hooks will also be triggered.
 
 ```javascript
 // Set through options
@@ -99,6 +99,10 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
 
 <div class="notice is-info">
     The "this" context within hooks will be bound to the class instance.
+</div>
+
+<div class="notice is-info">
+    Hooks are triggered *before* native DOM events.
 </div>
 
 ## Options ##
@@ -127,24 +131,26 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onInit</td>
-            <td>init.toolkit.{component}</td>
+            <td>init</td>
             <td></td>
-            <td>Triggered after a component has initialized.</td>
+            <td>Triggered after a plugin has initialized.</td>
         </tr>
         <tr>
-            <td>onDestroy</td>
-            <td>destroy.toolkit.{component}</td>
+            <td>destroying</td>
             <td></td>
-            <td>Triggered before a component is destroyed.</td>
+            <td>Triggered before a plugin is destroyed.</td>
+        </tr>
+        <tr>
+            <td>destroyed</td>
+            <td></td>
+            <td>Triggered after a plugin is destroyed.</td>
         </tr>
     </tbody>
 </table>

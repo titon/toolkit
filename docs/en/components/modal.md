@@ -73,7 +73,7 @@ If the AJAX response is non-HTML, then continue reading.
 
 If an AJAX request returns a non-HTML response, say JSON or XML, the modal will not be shown.
 Instead of `position()` being called on the instance, `process()` will be called,
-which will fire the `onProcess` event.
+which will fire the `process` event.
 
 The `process()` method can also trigger a callback automatically if the response is JSON.
 Simply return an index in the JSON response with the key `callback` and the value the name
@@ -274,18 +274,16 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onSubmit</td>
-            <td>submit.toolkit.modal</td>
+            <td>submit</td>
             <td>element:form</td>
-            <td>Triggered when a form submit has been clicked, but before the AJAX call is requested.</td>
+            <td>Triggered after a form submit has been clicked but before the AJAX request is posted.</td>
         </tr>
     </tbody>
 </table>

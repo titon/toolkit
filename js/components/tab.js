@@ -114,9 +114,11 @@ Toolkit.Tab = Toolkit.Component.extend({
      * Hide all sections.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.sections.conceal();
 
-        this.fireEvent('hide', [this.node]);
+        this.fireEvent('hidden');
     },
 
     /**
@@ -142,6 +144,8 @@ Toolkit.Tab = Toolkit.Component.extend({
             options = this.options,
             ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
+
+        this.fireEvent('showing', [this.index]);
 
         // Load content with AJAX
         if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
@@ -205,7 +209,7 @@ Toolkit.Tab = Toolkit.Component.extend({
         this.index = index;
         this.node = tab;
 
-        this.fireEvent('show', [tab]);
+        this.fireEvent('shown', [index]);
     },
 
     /**

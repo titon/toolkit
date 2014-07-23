@@ -331,36 +331,41 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onJump</td>
-            <td>jump.toolkit.carousel</td>
-            <td>int:index</td>
+            <td>cycling</td>
+            <td></td>
+            <td>Triggered before the item cycle animation begins.</td>
+        </tr>
+        <tr>
+            <td>cycled</td>
+            <td></td>
+            <td>Triggered after the item cycle animation finishes.</td>
+        </tr>
+        <tr>
+            <td>jumping</td>
+            <td>int:oldIndex</td>
+            <td>Triggered before an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+        </tr>
+        <tr>
+            <td>jumped</td>
+            <td>int:newIndex</td>
             <td>Triggered after an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
         </tr>
         <tr>
-            <td>onStart</td>
-            <td>start.toolkit.carousel</td>
+            <td>start</td>
             <td></td>
             <td>Triggered when the carousel cycle has started. Can be triggered by <code>start()</code> or <code>stopOnHover</code>.</td>
         </tr>
         <tr>
-            <td>onStop</td>
-            <td>stop.toolkit.carousel</td>
+            <td>stop</td>
             <td></td>
             <td>Triggered when the carousel cycle has stopped. Can be triggered by <code>stop()</code> or  <code>stopOnHover</code>.</td>
-        </tr>
-        <tr>
-            <td>onCycle</td>
-            <td>cycle.toolkit.carousel</td>
-            <td></td>
-            <td>Triggered when <code>autoCycle</code> is enabled, immediately before the next item is cycled.</td>
         </tr>
     </tbody>
 </table>

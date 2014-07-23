@@ -267,16 +267,14 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onResize</td>
-            <td>resize.toolkit.offCanvas</td>
+            <td>resize</td>
             <td></td>
             <td>Triggered when the browser is resized.</td>
         </tr>

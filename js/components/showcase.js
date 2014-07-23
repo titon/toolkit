@@ -88,6 +88,8 @@ Toolkit.Showcase = Toolkit.Component.extend({
      * Hide the showcase and reset inner elements.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         if (this.blackout) {
             this.blackout.hide();
         }
@@ -105,7 +107,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
             .children('li')
                 .conceal();
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -136,6 +138,8 @@ Toolkit.Showcase = Toolkit.Component.extend({
             items = this.data,
             item = items[index],
             deferred = $.Deferred();
+
+        this.fireEvent('jumping', [this.index]);
 
         // Update tabs
         this.tabs.find('a')
@@ -197,7 +201,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
         // Save state
         this.index = index;
 
-        this.fireEvent('jump', [index]);
+        this.fireEvent('jumped', [index]);
     },
 
     /**
@@ -211,13 +215,15 @@ Toolkit.Showcase = Toolkit.Component.extend({
      * Position the element in the middle of the screen.
      */
     position: function() {
+        this.fireEvent('showing');
+
         if (this.blackout) {
             this.blackout.hideLoader();
         }
 
         this.element.reveal();
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

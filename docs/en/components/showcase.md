@@ -195,18 +195,26 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onJump</td>
-            <td>jump.toolkit.showcase</td>
-            <td>int:index</td>
-            <td>Triggered after an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+            <td>jumping</td>
+            <td>int:oldIndex</td>
+            <td>Triggered before an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+        </tr>
+        <tr>
+            <td>jumped</td>
+            <td>int:newIndex</td>
+            <td>Triggered after an item is cycled into view.</td>
+        </tr>
+        <tr>
+            <td>load</td>
+            <td>collection:items</td>
+            <td>Triggered after the items have been gathered and created in the showcase.</td>
         </tr>
     </tbody>
 </table>

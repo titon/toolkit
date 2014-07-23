@@ -81,6 +81,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * Hide the sidebar and reset the container.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.container.removeClass('move-' + this.opposite);
 
         this.element
@@ -92,7 +94,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
             $('body').removeClass('no-scroll');
         }
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -112,6 +114,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
             });
         }
 
+        this.fireEvent('showing');
+
         this.container.addClass('move-' + this.opposite);
 
         this.element
@@ -123,7 +127,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
             $('body').addClass('no-scroll');
         }
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

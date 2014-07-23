@@ -256,6 +256,23 @@ Inherits all options from the [parent Component](component.md#options).
 
 Inherits all events from the [parent Component](component.md#events).
 
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>load</td>
+            <td>mixed:content</td>
+            <td>Triggered after the tooltip content has been set but before it is shown.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Properties ##
 
 Inherits all properties from the [parent Component](component.md#properties).

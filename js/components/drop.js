@@ -35,13 +35,15 @@ Toolkit.Drop = Toolkit.Component.extend({
         var element = this.element;
 
         if (element && element.is(':shown')) {
+            this.fireEvent('hiding');
+
             element.conceal();
 
             this.node
                 .aria('toggled', false)
                 .removeClass('is-active');
 
-            this.fireEvent('hide', [element, this.node]);
+            this.fireEvent('hidden', [element, this.node]);
         }
     },
 
@@ -51,13 +53,15 @@ Toolkit.Drop = Toolkit.Component.extend({
      * @param {jQuery} node
      */
     show: function(node) {
+        this.fireEvent('showing');
+
         this.element.reveal();
 
         this.node = node = $(node)
             .aria('toggled', true)
             .addClass('is-active');
 
-        this.fireEvent('show', [this.element, node]);
+        this.fireEvent('shown', [this.element, node]);
     },
 
     /**

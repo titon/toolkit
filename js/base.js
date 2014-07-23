@@ -111,7 +111,7 @@ Toolkit.Base = Toolkit.Class.extend({
      * Destroy the plugin by disabling events, removing elements, and deleting the instance.
      */
     destroy: function() {
-        this.fireEvent('destroy');
+        this.fireEvent('destroying');
 
         // Hide and remove active state
         if (this.hide) {
@@ -125,6 +125,8 @@ Toolkit.Base = Toolkit.Class.extend({
 
         // Remove events
         this.disable();
+
+        this.fireEvent('destroyed');
     },
 
     /**

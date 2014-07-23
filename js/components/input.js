@@ -249,19 +249,23 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * Hide the dropdown and remove active states.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.element.removeClass('is-active');
 
         if (this.dropdown) {
             this.dropdown.conceal();
         }
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
      * Show the dropdown and apply active states.
      */
     show: function() {
+        this.fireEvent('showing');
+
         if (this.options.hideOpened) {
             $('.' + Toolkit.vendor + 'drop.select-options').each(function() {
                 $(this).siblings('select').toolkit('inputSelect', 'hide');
@@ -274,7 +278,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             this.dropdown.reveal();
         }
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

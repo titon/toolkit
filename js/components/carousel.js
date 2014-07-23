@@ -183,6 +183,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
             return;
         }
 
+        this.fireEvent('jumping', [this.index]);
+
         // Update tabs and items state
         this._updateTabs(visualIndex);
         this._updateItems(cloneIndex);
@@ -207,7 +209,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.index = visualIndex;
 
         this.reset();
-        this.fireEvent('jump', [visualIndex]);
+        this.fireEvent('jumped', [visualIndex]);
     },
 
     /**
@@ -283,7 +285,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
         // Set in a timeout or transition will still occur
         setTimeout(function() {
             container.removeClass('no-transition');
-        }, 15); // IE needs a minimum of 15
+            this.fireEvent('cycled');
+        }.bind(this), 15); // IE needs a minimum of 15
     },
 
     /**
@@ -294,6 +297,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
      */
     _beforeCycle: function() {
         this.animating = true;
+        this.fireEvent('cycling');
     },
 
     /**
@@ -511,8 +515,6 @@ Toolkit.Carousel = Toolkit.Component.extend({
      */
     onCycle: function() {
         if (!this.stopped) {
-            this.fireEvent('cycle', [this.index]);
-
             if (this.options.reverse) {
                 this.prev();
             } else {

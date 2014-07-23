@@ -288,6 +288,33 @@ Inherits all options from the [parent Component](component.md#options).
 
 Inherits all events from the [parent Component](component.md#events).
 
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>load</td>
+            <td>string:response</td>
+            <td>Triggered when a section is loaded via AJAX.</td>
+        </tr>
+        <tr>
+            <td>showing</td>
+            <td>int:oldIndex</td>
+            <td>Triggered before the section is shown.</td>
+        </tr>
+        <tr>
+            <td>shown</td>
+            <td>int:newIndex</td>
+            <td>Triggered after the section is shown.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Properties ##
 
 Inherits all properties from the [parent Component](component.md#properties).

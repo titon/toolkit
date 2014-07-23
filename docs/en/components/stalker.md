@@ -134,28 +134,34 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onActivate</td>
-            <td>activate.toolkit.stalker</td>
+            <td>activating</td>
             <td>element:marker, element:target</td>
-            <td>Triggered when a marker is entered and a target is activated.</td>
+            <td>Triggered before a marker is entered and a target is activated.</td>
         </tr>
         <tr>
-            <td>onDeactivate</td>
-            <td>deactivate.toolkit.stalker</td>
+            <td>activated</td>
             <td>element:marker, element:target</td>
-            <td>Triggered when a marker is exited and a target is deactivated.</td>
+            <td>Triggered after a marker is entered and a target is activated.</td>
         </tr>
         <tr>
-            <td>onScroll</td>
-            <td>scroll.toolkit.stalker</td>
+            <td>deactivating</td>
+            <td>element:marker, element:target</td>
+            <td>Triggered before a marker is exited and a target is deactivated.</td>
+        </tr>
+        <tr>
+            <td>deactivated</td>
+            <td>element:marker, element:target</td>
+            <td>Triggered after a marker is exited and a target is deactivated.</td>
+        </tr>
+        <tr>
+            <td>scroll</td>
             <td></td>
             <td>Triggered every page scroll after markers have been processed.</td>
         </tr>

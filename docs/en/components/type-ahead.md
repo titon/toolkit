@@ -361,28 +361,24 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onCycle</td>
-            <td>cycle.toolkit.typeAhead</td>
+            <td>cycle</td>
             <td>object:item, int:index</td>
             <td>Triggered when cycling through the menu items using keyboard events.</td>
         </tr>
         <tr>
-            <td>onSelect</td>
-            <td>select.toolkit.typeAhead</td>
+            <td>select</td>
             <td>object:item, int:index</td>
             <td>Triggered when an item is selected within the menu.</td>
         </tr>
         <tr>
-            <td>onReset</td>
-            <td>reset.toolkit.typeAhead</td>
+            <td>reset</td>
             <td></td>
             <td>Triggered when the type ahead is reset, either when the keyword is cleared, or nothing is selected.</td>
         </tr>

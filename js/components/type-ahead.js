@@ -165,6 +165,8 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
      * Hide the list and reset shadow.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         if (this.shadow) {
             this.shadow.val('');
         }
@@ -172,7 +174,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
         this.input.aria('expanded', false);
         this.element.conceal();
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -226,6 +228,8 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
             return;
         }
 
+        this.fireEvent('showing');
+
         var iPos = this.input.offset();
 
         this.element.css({
@@ -235,7 +239,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         this.input.aria('expanded', true);
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**
