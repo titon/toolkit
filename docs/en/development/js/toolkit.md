@@ -30,6 +30,28 @@ Toolkit.aria = false;
     Disabling ARIA also disables the <code>aria()</code> method.
 </div>
 
+## Debugging ##
+
+Debugging problems and solving issues can always be a headache, and because of this,
+Toolkit provides an easy low-level debugging system. When the debugger is enabled,
+all events triggered through `fireEvent()` will be logged to the console.
+
+There are 2 ways to enable debugging. First, globally.
+
+```javascript
+Toolkit.debug = true;
+```
+
+Or passed individually to a plugin.
+
+```javascript
+$('.carousel').carousel({ debug: true });
+```
+
+<div class="notice is-info">
+    Passing "verbose" instead of a boolean will log additional information to the console.
+</div>
+
 ## Locale Messages ##
 
 The following messages are used within AJAX calls and are found under `Toolkit.messages`.

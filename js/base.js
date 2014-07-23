@@ -158,6 +158,16 @@ Toolkit.Base = Toolkit.Class.extend({
      * @param {Array} [args]
      */
     fireEvent: function(type, args) {
+        var debug = this.options.debug || Toolkit.debug;
+
+        if (debug) {
+            console.log(this.name + '#' + this.uid, type, args || []);
+
+            if (debug === 'verbose') {
+                console.dir(this);
+            }
+        }
+
         var hooks = this.__hooks[type];
 
         if (hooks) {
@@ -233,7 +243,8 @@ Toolkit.Base = Toolkit.Class.extend({
     }
 
 }, {
-    cache: true
+    cache: true,
+    debug: false
 });
 
 return Toolkit;

@@ -20,6 +20,9 @@ var Toolkit = {
     /** ARIA support */
     aria: true,
 
+    /** Global debugging */
+    debug: false,
+
     /** Localization messages */
     messages: {
         loading: 'Loading...',

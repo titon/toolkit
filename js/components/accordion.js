@@ -143,7 +143,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         this.index = index;
         this.node = header;
 
-        this.fireEvent('show', [section, header, index]);
+        this.fireEvent('shown', [section, header, index]);
     }
 
 }, {
