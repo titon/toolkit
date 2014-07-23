@@ -123,26 +123,26 @@ plugging into the rendering cycle.
 ### Namespaced Events ###
 
 Attaching namespaced events to the element that was initialized on by a component allows those events to be triggered
-when `fireEvent()` is called. This technique allows for per-element events while hooks apply to all elements of the component.
+when `fireEvent()` is called. This technique allows for per-element events within a component while hooks apply to all.
 The following example shows how to attach these events.
 
 ```javascript
 // Hooks
 $('#tabs').tab({
-    onShow: function(tab) {
+    onShown: function() {
         this.element.addClass('foobar');
     }
 });
 
 // Events
-$('#tabs').on('show.toolkit.tab', function(e, tab) {
+$('#tabs').on('shown.toolkit.tab', function(e) {
     e.context.element.addClass('foobar');
 });
 ```
 
 What we did was attach a namespaced event to the same element in the format of `{event}.toolkit.{component}`
-(no "on" required in the event name). Now anytime a tab is clicked, the `onShow` hook will trigger,
-and all `show.toolkit.tab` event handlers will trigger.
+(no "on" required in the event name). Now anytime a tab is clicked, the `onShown` hook will trigger,
+and all `shown.toolkit.tab` event handlers will trigger.
 
 <div class="notice is-info">
     The "this" context within event handlers will be the respective element.

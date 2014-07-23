@@ -73,7 +73,7 @@ If the AJAX response is non-HTML, then continue reading.
 
 If an AJAX request returns a non-HTML response, say JSON or XML, the modal will not be shown.
 Instead of `position()` being called on the instance, `process()` will be called,
-which will fire the `onProcess` event.
+which will fire the `process` event.
 
 The `process()` method can also trigger a callback automatically if the response is JSON.
 Simply return an index in the JSON response with the key `callback` and the value the name
