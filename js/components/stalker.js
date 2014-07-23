@@ -105,10 +105,24 @@ Toolkit.Stalker = Toolkit.Component.extend({
         var options = this.options,
             targetBy = options.targetBy,
             markBy = options.markBy,
-            method = (type === 'activate') ? 'addClass' : 'removeClass',
             target = this.targets.filter(function() {
                 return $(this).attr(targetBy).replace('#', '') === marker.attr(markBy);
-            });
+            }),
+            before,
+            after,
+            method;
+
+        if (type === 'activate') {
+            before = 'activating';
+            after = 'activated';
+            method = 'addClass';
+        } else {
+            before = 'deactivating';
+            after = 'deactivated';
+            method = 'removeClass';
+        }
+
+        this.fireEvent(before, [marker, target]);
 
         marker[method]('is-stalked');
 
@@ -118,7 +132,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
             target[method]('is-active');
         }
 
-        this.fireEvent(type, [marker, target]);
+        this.fireEvent(after, [marker, target]);
     },
 
     /**

@@ -127,24 +127,26 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onInit</td>
-            <td>init.toolkit.{component}</td>
+            <td>init</td>
             <td></td>
-            <td>Triggered after a component has initialized.</td>
+            <td>Triggered after a plugin has initialized.</td>
         </tr>
         <tr>
-            <td>onDestroy</td>
-            <td>destroy.toolkit.{component}</td>
+            <td>destroying</td>
             <td></td>
-            <td>Triggered before a component is destroyed.</td>
+            <td>Triggered before a plugin is destroyed.</td>
+        </tr>
+        <tr>
+            <td>destroyed</td>
+            <td></td>
+            <td>Triggered after a plugin is destroyed.</td>
         </tr>
     </tbody>
 </table>

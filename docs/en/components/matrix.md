@@ -150,21 +150,39 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onRender</td>
-            <td>render.toolkit.matrix</td>
+            <td>append</td>
+            <td>element:item</td>
+            <td>Triggered before an element is appended to the matrix.</td>
+        </tr>
+        <tr>
+            <td>prepend</td>
+            <td>element:item</td>
+            <td>Triggered before an element is prepended to the matrix.</td>
+        </tr>
+        <tr>
+            <td>remove</td>
+            <td>element:item</td>
+            <td>Triggered before an element is removed from the matrix.</td>
+        </tr>
+        <tr>
+            <td>rendering</td>
             <td></td>
             <td>
-                Triggered when the matrix is rendered.
+                Triggered before the matrix is rendered.
                 This can happen on initialization, refresh, or appending, prepending, and removing of items.
             </td>
+        </tr>
+        <tr>
+            <td>rendered</td>
+            <td></td>
+            <td>Triggered after the matrix is rendered.</td>
         </tr>
     </tbody>
 </table>

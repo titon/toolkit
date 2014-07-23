@@ -274,18 +274,16 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onSubmit</td>
-            <td>submit.toolkit.modal</td>
+            <td>submit</td>
             <td>element:form</td>
-            <td>Triggered when a form submit has been clicked, but before the AJAX call is requested.</td>
+            <td>Triggered after a form submit has been clicked but before the AJAX request is posted.</td>
         </tr>
     </tbody>
 </table>

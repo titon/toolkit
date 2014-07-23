@@ -133,44 +133,39 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.blackout</td>
+            <td>hiding</td>
+            <td></td>
+            <td>Triggered before the blackout is hidden.</td>
+        </tr>
+        <tr>
+            <td>hidden</td>
             <td>bool:hidden</td>
             <td>
-                Triggered when the <code>hide()</code> method is called.
+                Triggered after the blackout is hidden (may not actually conceal it).
                 The <code>hidden</code> argument determines when the blackout is visually hidden,
                 instead of simply decreasing its display count.
             </td>
         </tr>
         <tr>
-            <td>onHideLoader</td>
-            <td>hideLoader.toolkit.blackout</td>
+            <td>showing</td>
             <td></td>
-            <td>Triggered when the <code>hideLoader()</code> method is called and the loader is hidden.</td>
+            <td>Triggered before the blackout is shown.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.blackout</td>
+            <td>shown</td>
             <td>bool:shown</td>
             <td>
-                Triggered when the <code>show()</code> method is called.
+                Triggered after the blackout is shown (may not actually reveal it).
                 The <code>shown</code> argument determines when the blackout is visually shown,
                 instead of simply increasing its display count.
             </td>
-        </tr>
-        <tr>
-            <td>onShowLoader</td>
-            <td>showLoader.toolkit.blackout</td>
-            <td></td>
-            <td>Triggered when the <code>showLoader()</code> method is called and the loader is shown.</td>
         </tr>
     </tbody>
 </table>

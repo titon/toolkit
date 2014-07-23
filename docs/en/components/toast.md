@@ -165,30 +165,31 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onCreate</td>
-            <td>create.toolkit.toast</td>
+            <td>create</td>
             <td>element:toast</td>
-            <td>Triggered after a toast is created, but before it is shown.</td>
+            <td>Triggered after a toast is created but before it is shown.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.toast</td>
-            <td>element:toast</td>
-            <td>Triggered after a toast is shown.</td>
-        </tr>
-        <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.toast</td>
+            <td>hiding</td>
             <td>element:toast</td>
             <td>Triggered before a toast is hidden.</td>
+        </tr>
+        <tr>
+            <td>showing</td>
+            <td>element:toast</td>
+            <td>Triggered before a toast is shown.</td>
+        </tr>
+        <tr>
+            <td>shown</td>
+            <td>element:toast</td>
+            <td>Triggered after a toast is shown.</td>
         </tr>
     </tbody>
 </table>

@@ -63,6 +63,8 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Hide the blackout if count reaches 0.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         var count = this.count - 1;
 
         if (count <= 0) {
@@ -73,7 +75,7 @@ Toolkit.Blackout = Toolkit.Component.extend({
             this.count = count;
         }
 
-        this.fireEvent('hide', [(count <= 0)]);
+        this.fireEvent('hidden', [(count <= 0)]);
     },
 
     /**
@@ -81,13 +83,14 @@ Toolkit.Blackout = Toolkit.Component.extend({
      */
     hideLoader: function() {
         this.loader.conceal();
-        this.fireEvent('hideLoader');
     },
 
     /**
      * Show the blackout and increase open count.
      */
     show: function() {
+        this.fireEvent('showing');
+
         var show = false;
 
         this.count++;
@@ -98,7 +101,8 @@ Toolkit.Blackout = Toolkit.Component.extend({
         }
 
         this.showLoader();
-        this.fireEvent('show', [show]);
+
+        this.fireEvent('shown', [show]);
     },
 
     /**
@@ -106,7 +110,6 @@ Toolkit.Blackout = Toolkit.Component.extend({
      */
     showLoader: function() {
         this.loader.reveal();
-        this.fireEvent('showLoader');
     }
 
 }, {

@@ -64,13 +64,15 @@ Toolkit.Modal = Toolkit.Component.extend({
      * Hide the modal and reset relevant values.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.element.conceal();
 
         if (this.blackout) {
             this.blackout.hide();
         }
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -89,9 +91,11 @@ Toolkit.Modal = Toolkit.Component.extend({
             this.blackout.hideLoader();
         }
 
-        var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
+        this.fireEvent('showing');
 
-        body.html(content);
+        var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
+            body.html(content);
+
         this.fireEvent('load', [content]);
 
         // Reveal modal
@@ -102,7 +106,7 @@ Toolkit.Modal = Toolkit.Component.extend({
             body.css('min-height', $(window).height());
         }
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

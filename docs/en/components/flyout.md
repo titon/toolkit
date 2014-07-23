@@ -250,22 +250,18 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHideChild</td>
-            <td>hideChild.toolkit.flyout</td>
+            <td>hideChild</td>
             <td>element:parent</td>
             <td>Triggered when a nested flyout menu is hidden. The parent <code>li</code> is passed as an argument.</td>
         </tr>
         <tr>
-            <td>onShowChild</td>
-            <td>showChild.toolkit.flyout</td>
+            <td>showChild</td>
             <td>element:parent</td>
             <td>Triggered when a nested flyout menu is shown. The parent <code>li</code> is passed as an argument.</td>
         </tr>

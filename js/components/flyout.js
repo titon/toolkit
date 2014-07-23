@@ -86,8 +86,11 @@ Toolkit.Flyout = Toolkit.Component.extend({
             return;
         }
 
+        this.fireEvent('hiding');
+
         this.menus[this.current].conceal();
-        this.fireEvent('hide');
+
+        this.fireEvent('hidden');
 
         // Reset last
         this.current = null;
@@ -143,6 +146,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
             return;
         }
 
+        this.fireEvent('showing');
+
         var menu = this.menus[target],
             height = menu.outerHeight(),
             coords = this.node.offset(),
@@ -160,7 +165,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
             top: y
         }).reveal();
 
-        this.fireEvent('show');
+        this.fireEvent('shown');
     },
 
     /**

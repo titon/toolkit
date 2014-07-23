@@ -155,24 +155,21 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onJump</td>
-            <td>jump.toolkit.accordion</td>
-            <td>int:index</td>
-            <td>Triggered when a section is opened manually through the <code>jump()</code> method.</td>
+            <td>showing</td>
+            <td>element:section, element:header, int:oldIndex</td>
+            <td>Triggered before a section is shown.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.accordion</td>
-            <td>element:section, element:header, int:index</td>
-            <td>Triggered when a section is shown.</td>
+            <td>shown</td>
+            <td>element:section, element:header, int:newIndex</td>
+            <td>Triggered after a section is shown.</td>
         </tr>
     </tbody>
 </table>

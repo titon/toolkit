@@ -65,9 +65,12 @@ Toolkit.Mask = Toolkit.Component.extend({
      * Hide the mask and reveal the element.
      */
     hide: function() {
+        this.fireEvent('hiding');
+
         this.mask.conceal();
         this.element.removeClass('is-masked');
-        this.fireEvent('hide');
+
+        this.fireEvent('hidden');
     },
 
     /**
@@ -113,9 +116,12 @@ Toolkit.Mask = Toolkit.Component.extend({
      * Show the mask and conceal the element.
      */
     show: function() {
+        this.fireEvent('showing');
+
         this.mask.reveal();
         this.element.addClass('is-masked');
-        this.fireEvent('show');
+
+        this.fireEvent('shown');
     },
 
     /**

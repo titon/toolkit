@@ -51,22 +51,24 @@ Inherits all events from the [Base class](../development/js/base.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.{component}</td>
+            <td>hiding</td>
             <td></td>
-            <td>Triggered after the element is hidden with <code>hide()</code>.</td>
+            <td>Triggered before the element is hidden.</td>
         </tr>
         <tr>
-            <td>onLoad</td>
-            <td>load.toolkit.{component}</td>
+            <td>hidden</td>
+            <td></td>
+            <td>Triggered after the element is hidden.</td>
+        </tr>
+        <tr>
+            <td>load</td>
             <td>string:response</td>
             <td>
                 Triggered after an AJAX call has finished but before the response is rendered.
@@ -74,16 +76,19 @@ Inherits all events from the [Base class](../development/js/base.md#events).
             </td>
         </tr>
         <tr>
-            <td>onProcess</td>
-            <td>process.toolkit.{component}</td>
+            <td>process</td>
             <td>mixed:response</td>
             <td>Triggered after an AJAX call has finished and only if the response is non-HTML (JSON, XML, etc).</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.{component}</td>
+            <td>showing</td>
             <td></td>
-            <td>Triggered after the element is shown with <code>show()</code>.</td>
+            <td>Triggered before the element is shown.</td>
+        </tr>
+        <tr>
+            <td>shown</td>
+            <td></td>
+            <td>Triggered after the element is shown.</td>
         </tr>
     </tbody>
 </table>

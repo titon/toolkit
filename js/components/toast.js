@@ -72,11 +72,13 @@ Toolkit.Toast = Toolkit.Component.extend({
     hide: function(element) {
         element = $(element);
 
-        this.fireEvent('hide', [element]); // Must be called first since the element gets removed
+        // Pass the element since it gets removed
+        this.fireEvent('hiding', [element]);
 
         element.transitionend(function() {
-            $(this).remove();
-        }).conceal();
+            element.remove();
+            this.fireEvent('hidden');
+        }.bind(this)).conceal();
     },
 
     /**
@@ -86,9 +88,12 @@ Toolkit.Toast = Toolkit.Component.extend({
      */
     show: function(element) {
         element = $(element);
+
+        this.fireEvent('showing', [element]);
+
         element.reveal();
 
-        this.fireEvent('show', [element]);
+        this.fireEvent('shown', [element]);
     }
 
 }, {

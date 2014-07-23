@@ -321,19 +321,17 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onChange</td>
-            <td>change.toolkit.input.select</td>
+            <td>change</td>
             <td>mixed:value, collection:selected</td>
             <td>
-                Triggered when an option is selected in a custom select dropdown.
+                Triggered when an option is selected in a custom select drop down.
                 The 1st argument will be the result of <code>val()</code>,
                 while the 2nd argument is a list of all select option elements.
             </td>

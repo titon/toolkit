@@ -87,8 +87,6 @@ Toolkit.Accordion = Toolkit.Component.extend({
     jump: function(index) {
         index = $.bound(index, this.headers.length);
 
-        this.fireEvent('jump', [index]);
-
         this.show(this.headers[index]);
     },
 
@@ -107,6 +105,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
             index = header.data('accordion-index'),
             height = parseInt(section.data('height'), 10),
             isNode = (this.node && this.node.is(header));
+
+        this.fireEvent('showing', [section, header, this.index]);
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse

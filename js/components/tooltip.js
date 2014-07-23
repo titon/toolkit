@@ -70,6 +70,8 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         this.runtime = {};
 
+        this.fireEvent('hiding');
+
         element
             .removeClass(position)
             .removeClass(className)
@@ -80,7 +82,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
             this.node.removeAttr('aria-describedby');
         }
 
-        this.fireEvent('hide');
+        this.fireEvent('hidden');
     },
 
     /**
@@ -97,6 +99,8 @@ Toolkit.Tooltip = Toolkit.Component.extend({
         if (content === true) {
             return;
         }
+
+        this.fireEvent('showing');
 
         // Add position class
         this.element
@@ -134,7 +138,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
                 .off('mousemove', follow)
                 .on('mousemove', follow);
 
-            this.fireEvent('show');
+            this.fireEvent('shown');
 
             // Position accordingly
         } else {
@@ -145,7 +149,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
             setTimeout(function() {
                 this.element.reveal();
-                this.fireEvent('show');
+                this.fireEvent('shown');
             }.bind(this), options.delay || 0);
         }
     },

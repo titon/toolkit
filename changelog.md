@@ -35,13 +35,22 @@ Older versions can be found in the documentation changelogs.
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
     * Removed `Toolkit.transitionEnd` flag
     * Component
+        * Added `hiding`, `showing`, and `destroying` events
+        * Renamed the `hide` event to `hidden`
+        * Renamed the `show` event to `shown`
+        * Renamed the `destroy` event to `destroyed`
         * Renamed the `component` property to `name`
         * Renamed the `doDestroy` method to `destructor`
 * Components
+    * Accordion
+        * Removed the `jump` event
     * Blackout
+        * Removed `hideLoader` and `showLoader` events
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Carousel
         * Added a `calculate()` method that triggers on load/resize to determine carousel dimensions
+        * Added `cycling`, `cycled`, `jumping` and `jumped` events
+        * Removed `cycle` and `jump` events
     * Form
         * Improved disabled state across inputs
         * Normalized `fieldset` and `legend` when used in an inline form
@@ -49,12 +58,23 @@ Older versions can be found in the documentation changelogs.
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
+    * Lazy Load
+        * Added `loading` and `loaded` events
+        * Removed `load` event
     * Matrix
+        * Added `append`, `prepend`, `remove`, `rendering`, and `rendered` events
         * Improved the deferred image rendering process
+        * Removed `render` event
     * Modal
         * IDs can now be passed as the 2nd argument to `show()`
     * Popover
         * The `follow` attribute is now forced to `false`
+    * Showcase
+        * Added `jumping` and `jumped` events
+        * Removed `jump` event
+    * Stalker
+        * Added `activating`, `activated`, `deactivating`, and `deactivated` events
+        * Removed `activate` and `deactivate` events
     * Switch
         * The `.pill` and `.round` classes have moved to `.switch-bar` from `.switch`
     * Tabs

@@ -67,9 +67,11 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {jQuery} item
      */
     append: function(item) {
-        $(item)
+        item = $(item)
             .appendTo(this.element)
             .css('opacity', 0);
+
+        this.fireEvent('append', [item]);
 
         this.refresh();
     },
@@ -80,9 +82,11 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {jQuery} item
      */
     prepend: function(item) {
-        $(item)
+        item = $(item)
             .prependTo(this.element)
             .css('opacity', 0);
+
+        this.fireEvent('prepend', [item]);
 
         this.refresh();
     },
@@ -107,6 +111,10 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {jQuery} item
      */
     remove: function(item) {
+        item = $(item);
+
+        this.fireEvent('remove', [item]);
+
         this.items.each(function() {
             var self = $(this);
 
@@ -126,6 +134,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      */
     render: function() {
         this._calculateColumns();
+
+        this.fireEvent('rendering');
 
         var element = this.element,
             items = this.items;
@@ -147,7 +157,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             this._positionItems();
         }
 
-        this.fireEvent('render');
+        this.fireEvent('rendered');
     },
 
     /**

@@ -99,13 +99,15 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
             return;
         }
 
+        this.fireEvent('loading');
+
         this.elements.each(function(index, node) {
             if (node && this.inViewport(node)) {
                 this.show(node, index);
             }
         }.bind(this));
 
-        this.fireEvent('load');
+        this.fireEvent('loaded');
     },
 
     /**
@@ -128,6 +130,9 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
      */
     show: function(node, index) {
         node = $(node);
+
+        this.fireEvent('showing', [node]);
+
         node.removeClass('lazy-load');
 
         // Set the element being loaded for events
@@ -154,7 +159,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
         this.elements.splice(index, 1, null);
         this.loaded++;
 
-        this.fireEvent('show', [node]);
+        this.fireEvent('shown', [node]);
     },
 
     /**
