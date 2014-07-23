@@ -102,7 +102,7 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
 </div>
 
 <div class="notice is-info">
-    Hooks are triggered *before* native DOM events.
+    Hooks are triggered <i>before</i> native DOM events.
 </div>
 
 ## Options ##
@@ -122,6 +122,12 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             <td>bool</td>
             <td>true</td>
             <td>Whether to cache internal data or the response of AJAX requests.</td>
+        </tr>
+        <tr>
+            <td>debug</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Whether to enable debugging for this class.</td>
         </tr>
     </tbody>
 </table>
@@ -246,6 +252,7 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             <td>
                 Trigger an event with optional arguments to pass.
                 Will execute all hooks for the defined type and any DOM events that are attached to related elements.
+                Will also log to console if debugging is enabled.
             </td>
         </tr>
         <tr>

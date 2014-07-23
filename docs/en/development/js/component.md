@@ -63,12 +63,7 @@ We can also define a template using a script tag.
 
 If no element is found, the component will fall back to the `template` option.
 
-## Options ##
-
-Alongside functionality inherited from the [Base class](../development/js/base.md#options),
-the component system adds further extensibility for options.
-
-### Data Attribute Inheritance ##
+## Data Attribute Options ##
 
 At the highest level we have global options. At the middle level we have constructor options.
 And at the lowest level, the element, we have data attribute options. Data attributes permit
@@ -115,12 +110,7 @@ $('.js-tooltip').tooltip({
 });
 ```
 
-## Events ##
-
-Similar to hooks in the [Base class](../development/js/base.md#hooks), the events layer in components provides a way of
-plugging into the rendering cycle.
-
-### Namespaced Events ###
+## Namespaced Events ##
 
 Attaching namespaced events to the element that was initialized on by a component allows those events to be triggered
 when `fireEvent()` is called. This technique allows for per-element events within a component while hooks apply to all.
