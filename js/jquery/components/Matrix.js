@@ -23,6 +23,9 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     // Calculated final width of the column (may differ from width option)
     this.colWidth = 0;
 
+    // Height of each column
+    this.colHeights = [];
+
     // How many columns that can fit in the wrapper
     this.colCount = 0;
 
@@ -127,7 +130,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
         // Single column
         } else if (this.colCount <= 1) {
-            element.addClass('no-columns');
+            element.removeAttr('style').addClass('no-columns');
             items.removeAttr('style');
 
         // Multi column
@@ -252,9 +255,9 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             item,
             span,
             dir = this.options.rtl ? 'right' : 'left',
-            x = 0, // The left or right position value
             y = [], // The top position values indexed by column
             c = 0, // Current column in the loop
+            h = 0, // Smallest height column
             i, // Items loop counter
             l, // Items length
             s, // Current span column in the loop
@@ -269,11 +272,20 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             item = items[i];
             span = item.span;
 
+            // Place the item in the smallest column
+            h = -1;
+
+            for (s = 0; s < this.colCount; s++) {
+                if (h === -1 || y[s] < h) {
+                    h = y[s];
+                    c = s;
+                }
+            }
+
             // If the item extends too far out, move it to the next column
             // Or if the last column has been reached
             if ((c >= this.colCount) || ((span + c) > this.colCount)) {
                 c = 0;
-                x = 0;
             }
 
             // Item spans a column or multiple columns
@@ -290,7 +302,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
 
                 // Position the item
                 pos.top = top;
-                pos[dir] = x;
+                pos[dir] = (this.colWidth + gutter) * c;
                 pos.width = ((this.colWidth + gutter) * span) - gutter;
 
                 item.item.css(pos).reveal();
@@ -302,7 +314,8 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
                 }
             }
 
-            x += (this.colWidth + gutter);
+            this.colHeights[c] = y[c];
+
             c++;
         }
 

@@ -203,6 +203,12 @@ Inherits all properties from the [parent component](../development/js/component.
             <td></td>
         </tr>
         <tr>
+            <td>colHeights</td>
+            <td>array</td>
+            <td>The current height of each column.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>colCount</td>
             <td>int</td>
             <td>The number of columns that can fit within the current wrapper width.</td>
