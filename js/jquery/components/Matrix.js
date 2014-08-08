@@ -8,7 +8,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
     this.version = '1.5.1';
     this.element = element = $(element).addClass(vendor + 'matrix');
-    this.options = options = this.setOptions(options, element);
+    this.options = this.setOptions(options, element);
 
     // Items within the matrix
     this.items = [];
@@ -40,11 +40,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.initialize();
 
     // Render the matrix
-    if (options.defer) {
-        this._deferRender();
-    } else {
-        this.refresh();
-    }
+    this.refresh();
 }, {
 
     /**
@@ -92,7 +88,11 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             self.addData('matrix-column-width', self.outerWidth());
         });
 
-        this.render();
+        if (this.options.defer) {
+            this._deferRender();
+        } else {
+            this.render();
+        }
     },
 
     /**
@@ -185,6 +185,10 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
         var promises = [];
 
         this.images = this.element.find('img').each(function(index, image) {
+            if (image.complete) {
+                return; // Already loaded
+            }
+
             var src = image.src,
                 def = $.Deferred();
 
@@ -196,7 +200,7 @@ Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.refresh);
+        $.when.apply($, promises).always(this.render);
     },
 
     /**
