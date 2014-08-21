@@ -43,7 +43,8 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
         'clickout element': 'onHide',
         'clickout document {selector}': 'onHide',
         'click document {selector}': 'onShow',
-        'click element .@modal-hide': 'onHide',
+        'click element': 'onHide',
+        'click element .@modal-hide': 'hide',
         'click element .@modal-submit': 'onSubmit'
     };
 
@@ -182,9 +183,16 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
      * @param {jQuery.Event} e
      */
     onHide: function(e) {
-        e.preventDefault();
-
         var element = this.element;
+
+        // Since the modal element covers the entire viewport, we can't trigger the `clickout` event
+        // So instead we have to bind a click event to the outer modal element to hide it
+        // This should not trigger if a child element is clicked
+        if (e.type === 'click' && !$(e.target).is(element)) {
+            return;
+        }
+
+        e.preventDefault();
 
         // If the modal is loading (AJAX) or is not shown, exit early
         // This stops cases where the blackout can be clicked early
