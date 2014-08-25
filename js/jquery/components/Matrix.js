@@ -6,7 +6,7 @@
 
 Toolkit.Matrix = Toolkit.Component.extend(function(element, options) {
     this.component = 'Matrix';
-    this.version = '1.5.1';
+    this.version = '1.5.2';
     this.element = element = $(element).addClass(vendor + 'matrix');
     this.options = this.setOptions(options, element);
 

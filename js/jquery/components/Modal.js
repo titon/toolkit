@@ -8,7 +8,7 @@ Toolkit.Modal = Toolkit.Component.extend(function(nodes, options) {
     var element;
 
     this.component = 'Modal';
-    this.version = '1.4.0';
+    this.version = '1.5.2';
     this.options = options = this.setOptions(options);
     this.element = element = this.createElement()
         .attr('role', 'dialog')

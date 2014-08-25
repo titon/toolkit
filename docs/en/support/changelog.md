@@ -1,5 +1,13 @@
 # Changelog #
 
+## 1.5.2 ##
+* Matrix
+    * Added defer rendering support to items either appended or prepended
+* Modal
+    * Fixed a bug where DOM IDs passed to `show()` as an argument did not work
+    * Removed `pointer-events` from the CSS as it caused weirdness on touch devices
+    * Refactored events to handle click to close
+
 ## 1.5.1 ##
 * Matrix
     * Added a `colHeights` property to track the height of each column
