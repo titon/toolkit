@@ -20,7 +20,7 @@
     -webkit-overflow-scrolling: touch;
 
     &.is-loading {
-        [data-modal-close] { display: none; }
+        #{$modal-class-close} { display: none; }
     }
 
     &.is-draggable {
@@ -29,7 +29,7 @@
     }
 }
 
-#{$modal-class} [data-modal-close] {
+#{$modal-class-close} {
     position: absolute;
     background: none;
     border: 0;

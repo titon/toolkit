@@ -4,8 +4,6 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
-// @todo - Remove hardcoded classes
-
 Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',
     version: '1.4.0',

@@ -75,6 +75,7 @@ Toolkit.Base = Toolkit.Class.extend({
             keys = key.split(' ');
             event = keys.shift();
             context = keys.shift();
+            selector = keys.join(' ');
 
             // Determine the correct context
             if (self[context]) {
@@ -160,7 +161,7 @@ Toolkit.Base = Toolkit.Class.extend({
         var debug = this.options.debug || Toolkit.debug;
 
         if (debug) {
-            console.log(this.name + '#' + this.uid, type, args || []);
+            console.log(this.name + '#' + this.uid, new Date().getMilliseconds(), type, args || []);
 
             if (debug === 'verbose') {
                 console.dir(this);

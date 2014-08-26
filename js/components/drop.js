@@ -19,7 +19,7 @@ Toolkit.Drop = Toolkit.Component.extend({
         this.nodes = $(nodes);
         this.options = this.setOptions(options);
         this.events = {
-            'clickout document [data-drop]': 'hide',
+            'clickout document [data-drop-menu]': 'hide',
             'clickout document {selector}': 'hide',
             '{mode} document {selector}': 'onShow'
         };

@@ -68,8 +68,8 @@
 
     @if index($offCanvas-animations, "reverse-push") {
         &.reverse-push {
-            #{$offCanvas-class}--#{$offCanvas-modifier-left} { transform: translate3d(100%, 0, 0); }
-            #{$offCanvas-class}--#{$offCanvas-modifier-right} { transform: translate3d(-100%, 0, 0); }
+            #{$offCanvas-class}--#{$offCanvas-modifier-left} { transform: translate3d(50%, 0, 0); }
+            #{$offCanvas-class}--#{$offCanvas-modifier-right} { transform: translate3d(-50%, 0, 0); }
         }
     }
 

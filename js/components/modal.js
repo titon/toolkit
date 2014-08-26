@@ -39,7 +39,7 @@ Toolkit.Modal = Toolkit.Component.extend({
             this.blackout = Toolkit.Blackout.instance();
 
             if (options.stopScroll) {
-                this.blackout.addHook('hide', function(hidden) {
+                this.blackout.addHook('hidden', function(hidden) {
                     if (hidden) {
                         $('body').removeClass('no-scroll');
                     }

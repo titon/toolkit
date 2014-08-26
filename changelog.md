@@ -59,6 +59,8 @@ Older versions can be found in the documentation changelogs.
         * Removed `cycle` and `jump` events
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
             `[data-carousel-items]`, `[data-carousel-tabs]`, `[data-carousel-next]`, `[data-carousel-prev]`, `[data-carousel-start]`, `[data-carousel-stop]`
+    * Drop
+        * All drop menus will now require a `data-drop-menu` attribute
     * Flyout
         * Added `headingTemplate` option
         * Renamed selectors `.flyout` to `[data-flyout]`
@@ -83,7 +85,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed `.mask-target` to `.is-maskable`
         * Renamed selectors `.mask`, `.mask-message` to `[data-mask]`, `[data-mask-message]`
     * Matrix
-        * Added `append`, `prepend`, `remove`, `rendering`, and `rendered` events
+        * Added `appending`, `prepending`, `removing`, `rendering`, and `rendered` events
         * Improved the deferred image rendering process
         * Removed `render` event
         * Updated to no longer automatically set `.matrix` on the container

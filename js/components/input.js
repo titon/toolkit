@@ -5,8 +5,6 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
-// @todo - Remove hardcoded classes
-
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
     version: '1.4.0',

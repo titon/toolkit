@@ -309,7 +309,7 @@ $loader-bubble-size: 1.5rem !default;
 
 $mask-class: "." + $vendor-prefix + "mask" !default;
 $mask-class-message: $mask-class + "-message" !default;
-$mask-class-target: $mask-class + "-target" !default;
+$mask-class-target: ".is-maskable" !default;
 
 $mask-opacity: .85 !default;
 $mask-transition: $default-transition !default;
@@ -323,6 +323,7 @@ $matrix-transition: $default-transition !default;
 //-------------------- Modal --------------------//
 
 $modal-class: "." + $vendor-prefix + "modal" !default;
+$modal-class-close: $modal-class + "-close" !default;
 $modal-class-outer: $modal-class + "-outer" !default;
 $modal-class-inner: $modal-class + "-inner" !default;
 $modal-class-head: $modal-class + "-head" !default;
