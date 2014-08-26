@@ -17,7 +17,6 @@
     z-index: $modal-zindex;
     overflow: auto;
     transition: opacity $modal-transition, visibility $modal-transition;
-    pointer-events: none; // fall through to blackout
     -webkit-overflow-scrolling: touch;
 
     &.is-loading {
@@ -46,7 +45,6 @@
 #{$modal-class-outer} {
     position: relative;
     margin: $margin;
-    pointer-events: auto; // allow within modal
     transition: transform $modal-transition;
 
     @include if-min($modal-mobile-breakpoint) {

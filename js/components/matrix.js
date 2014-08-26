@@ -7,13 +7,16 @@ define([
 
 Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
-    version: '1.5.0',
-
-    /** Calculated final width of the column (may differ from width option). */
-    colWidth: 0,
+    version: '1.5.2',
 
     /** How many columns that can fit in the wrapper. */
     colCount: 0,
+
+    /** Height of each column. */
+    colHeights: [],
+
+    /** Calculated final width of the column (may differ from width option). */
+    colWidth: 0,
 
     /** Collection of items within the matrix. */
     items: [],
@@ -35,7 +38,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
      */
     constructor: function(element, options) {
         this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
-        this.options = options = this.setOptions(options, element);
+        this.options = this.setOptions(options, element);
 
         // Initialize events
         this.events = {
@@ -44,13 +47,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
 
         this.initialize();
 
-        // If defer is disabled, render immediately, and again later
-        if (!options.defer) {
-            this.refresh();
-        }
-
-        // Always re-render once images are loaded
-        this._deferRender();
+        // Render the matrix
+        this.refresh();
     },
 
     /**
@@ -102,7 +100,11 @@ Toolkit.Matrix = Toolkit.Component.extend({
             self.cache('matrix-column-width', self.outerWidth());
         });
 
-        this.render();
+        if (this.options.defer) {
+            this._deferRender();
+        } else {
+            this.render();
+        }
     },
 
     /**
@@ -146,7 +148,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 
         // Single column
         } else if (this.colCount <= 1) {
-            element.addClass('no-columns');
+            element.removeAttr('style').addClass('no-columns');
             items.removeAttr('style');
 
         // Multi column
@@ -201,6 +203,10 @@ Toolkit.Matrix = Toolkit.Component.extend({
         var promises = [];
 
         this.images = this.element.find('img').each(function(index, image) {
+            if (image.complete) {
+                return; // Already loaded
+            }
+
             var src = image.src,
                 def = $.Deferred();
 
@@ -212,7 +218,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.refresh.bind(this));
+        $.when.apply($, promises).always(this.render);
     },
 
     /**
@@ -271,9 +277,9 @@ Toolkit.Matrix = Toolkit.Component.extend({
             item,
             span,
             dir = this.options.rtl ? 'right' : 'left',
-            x = 0, // The left or right position value
             y = [], // The top position values indexed by column
             c = 0, // Current column in the loop
+            h = 0, // Smallest height column
             i, // Items loop counter
             l, // Items length
             s, // Current span column in the loop
@@ -288,11 +294,20 @@ Toolkit.Matrix = Toolkit.Component.extend({
             item = items[i];
             span = item.span;
 
+            // Place the item in the smallest column
+            h = -1;
+
+            for (s = 0; s < this.colCount; s++) {
+                if (h === -1 || y[s] < h) {
+                    h = y[s];
+                    c = s;
+                }
+            }
+
             // If the item extends too far out, move it to the next column
             // Or if the last column has been reached
             if ((c >= this.colCount) || ((span + c) > this.colCount)) {
                 c = 0;
-                x = 0;
             }
 
             // Item spans a column or multiple columns
@@ -309,7 +324,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 
                 // Position the item
                 pos.top = top;
-                pos[dir] = x;
+                pos[dir] = (this.colWidth + gutter) * c;
                 pos.width = ((this.colWidth + gutter) * span) - gutter;
 
                 item.item.css(pos).reveal();
@@ -321,7 +336,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
                 }
             }
 
-            x += (this.colWidth + gutter);
+            this.colHeights[c] = y[c];
+
             c++;
         }
 

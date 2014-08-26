@@ -37,6 +37,7 @@ module.exports = function(paths, options) {
             end: "\n})(jQuery);"
         },
         onBuildWrite: function(module, path, contents) {
+            contents = contents.trim(); // Remove wrapping white space
             contents = contents.replace(/^define\([^{]*?\{\n/, ''); // Remove opening define() statement
             contents = contents.replace(/\n{1,2}(return [a-zA-Z]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
 

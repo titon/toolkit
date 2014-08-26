@@ -20,6 +20,7 @@
     "globals": {
         "Toolkit": true,
         "Zepto": true,
-        "DocumentTouch": true
+        "DocumentTouch": true,
+        "console": true
     }
 }

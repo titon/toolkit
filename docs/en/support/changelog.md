@@ -1,5 +1,19 @@
 # Changelog #
 
+## 1.5.2 ##
+* Matrix
+    * Added defer rendering support to items either appended or prepended
+* Modal
+    * Fixed a bug where DOM IDs passed to `show()` as an argument did not work
+    * Removed `pointer-events` from the CSS as it caused weirdness on touch devices
+    * Refactored events to handle click to close
+
+## 1.5.1 ##
+* Matrix
+    * Added a `colHeights` property to track the height of each column
+    * Fixed a bug where the height style was not removed when columns are reduced to 1
+    * Refactored so that items are placed in the smallest height column first, instead of the next column
+
 ## 1.5.0 ##
 This minor release includes a new responsive option, a major overhaul of the Carousel component,
 and a complete refactor of the demo system. It also marks the final minor release before the 2.0 major version.
