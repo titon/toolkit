@@ -3,24 +3,25 @@ define([
     './flags/touch',
     './flags/retina',
     './flags/transition',
+    './flags/transitionend',
     './extensions/cache'
-], function($, isTouch, isRetina, hasTransition) {
+], function($, isTouch, isRetina, hasTransition, transitionEnd) {
 
 var Toolkit = {
 
-    /** Current version */
+    /** Current version. */
     version: '%version%',
 
-    /** Build date hash */
+    /** Build date hash. */
     build: '%build%',
 
-    /** ARIA support */
+    /** ARIA support. */
     aria: true,
 
-    /** Global debugging */
+    /** Global debugging. */
     debug: false,
 
-    /** Localization messages */
+    /** Localization messages. */
     messages: {
         loading: 'Loading...',
         error: 'An error has occurred!'
@@ -29,13 +30,16 @@ var Toolkit = {
     /** Does the browser support transitions? */
     hasTransition: hasTransition,
 
-    /** Detect touch devices */
+    /** Detect touch devices. */
     isTouch: isTouch,
 
-    /** Detect retina displays */
+    /** Detect retina displays. */
     isRetina: isRetina,
 
-    /** Plugin instances indexed by the selector that activated it */
+    /** Name of the `transitionend` event. */
+    transitionEnd: transitionEnd,
+
+    /** Plugin instances indexed by the selector that activated it. */
     cache: {},
 
     /**
@@ -59,7 +63,7 @@ var Toolkit = {
 
             // Apply the instance to a collection of elements
             function() {
-                var instance = Toolkit.cache[plugin + '.' + this.selector] = callback.apply(this, arguments);
+                var instance = Toolkit.cache[plugin + ':' + this.selector] = callback.apply(this, arguments);
 
                 return this.each(function() {
                     $(this).cache('toolkit.' + plugin, instance);
