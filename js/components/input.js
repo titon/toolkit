@@ -5,6 +5,8 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
+// @todo - Remove hardcoded classes
+
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
     version: '1.4.0',
@@ -94,8 +96,7 @@ Toolkit.Input = Toolkit.Component.extend({
      */
     _buildWrapper: function() {
         var input = this.input,
-            wrapper = $('<div/>')
-                .addClass(Toolkit.vendor + 'custom-input')
+            wrapper = $(this.options.template)
                 .insertBefore(input)
                 .append(input);
 
@@ -110,7 +111,8 @@ Toolkit.Input = Toolkit.Component.extend({
     copyClasses: true,
     checkbox: 'input:checkbox',
     radio: 'input:radio',
-    select: 'select'
+    select: 'select',
+    template: '<div class="custom-input"></div>'
 });
 
 /**
@@ -129,12 +131,11 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
      */
     constructor: function(checkbox, options) {
         this.input = checkbox = $(checkbox);
-        this.options = this.setOptions(options, checkbox);
+        this.options = options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.element = $('<label/>')
-            .addClass(Toolkit.vendor + 'checkbox')
+        this.element = $(options.checkboxTemplate)
             .attr('for', checkbox.attr('id'))
             .insertAfter(checkbox);
 
@@ -142,6 +143,8 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
         this.initialize();
     }
 
+}, {
+    checkboxTemplate: '<label class="checkbox"></label>'
 });
 
 /**
@@ -160,12 +163,11 @@ Toolkit.InputRadio = Toolkit.Input.extend({
      */
     constructor: function(radio, options) {
         this.input = radio = $(radio);
-        this.options = this.setOptions(options, radio);
+        this.options = options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.element = $('<label/>')
-            .addClass(Toolkit.vendor + 'radio')
+        this.element = $(options.radioTemplate)
             .attr('for', radio.attr('id'))
             .insertAfter(radio);
 
@@ -173,6 +175,8 @@ Toolkit.InputRadio = Toolkit.Input.extend({
         this.initialize();
     }
 
+}, {
+    radioTemplate: '<label class="radio"></label>'
 });
 
 /**
@@ -221,7 +225,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         if (!options.native) {
             events['blur input'] = 'hide';
-            events['clickout document .@select-options'] = 'hide';
+            events['clickout document [data-select-options]'] = 'hide';
             events['clickout element'] = 'hide';
             events['click element'] = 'onToggle';
 
@@ -267,7 +271,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.fireEvent('showing');
 
         if (this.options.hideOpened) {
-            $('.' + Toolkit.vendor + 'drop.select-options').each(function() {
+            $('[data-select-options]').each(function() {
                 $(this).siblings('select').toolkit('inputSelect', 'hide');
             });
         }
@@ -287,11 +291,10 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @returns {jQuery}
      */
     _buildButton: function() {
-        var vendor = Toolkit.vendor,
-            button = $('<div/>')
-                .addClass(vendor + 'select')
-                .append( $('<div/>').addClass(vendor + 'select-arrow').html(this.options.arrowContent) )
-                .append( $('<div/>').addClass(vendor + 'select-label').html(Toolkit.messages.loading) )
+        var options = this.options,
+            button = $(options.selectTemplate)
+                .find('[data-select-arrow]').html(options.arrowTemplate).end()
+                .find('[data-select-label]').html(Toolkit.messages.loading).end()
                 .css('min-width', this.input.width())
                 .insertAfter(this.input);
 
@@ -312,11 +315,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         var select = this.input,
             options = this.options,
             buildOption = this._buildOption.bind(this),
-            vendor = Toolkit.vendor,
-            dropdown = $('<div/>')
-                .addClass(vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options')
-                .attr('role', 'listbox')
-                .aria('multiselectable', this.multiple),
+            dropdown = $(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
@@ -332,9 +331,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 }
 
                 list.append(
-                    $('<li/>')
-                        .addClass(vendor + 'drop-heading')
-                        .text(optgroup.attr('label'))
+                    $(options.headingTemplate).text(optgroup.attr('label'))
                 );
 
                 optgroup.children().each(function() {
@@ -388,6 +385,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildOption: function(option, index) {
         var select = this.input,
             dropdown = this.dropdown,
+            options = this.options,
             selected = option.prop('selected'),
             activeClass = 'is-active';
 
@@ -400,8 +398,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             li.addClass(activeClass);
         }
 
-        if (description = this.readValue(option, this.options.getDescription)) {
-            content += ' <span class="' + Toolkit.vendor + 'drop-desc">' + description + '</span>';
+        if (description = this.readValue(option, options.getDescription)) {
+            content += $(options.descTemplate).html(description).prop('outerHTML');
         }
 
         var a = $('<a/>', {
@@ -454,7 +452,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
                 $(this)
                     .aria('selected', true)
-                    .parent().addClass(activeClass);
+                    .parent()
+                        .addClass(activeClass);
 
                 self.hide();
                 self.index = index;
@@ -527,13 +526,13 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             if (!label.length && title) {
                 label = title;
 
-                // Display a counter for label
+            // Display a counter for label
             } else if (format === 'count') {
                 label = opts.countMessage
                     .replace('{count}', count)
                     .replace('{total}', options.length);
 
-                // Display options as a list for label
+            // Display options as a list for label
             } else if (format === 'list') {
                 var limit = opts.listLimit;
 
@@ -549,7 +548,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         // Set the label
         select.parent()
-            .find('.' + Toolkit.vendor + 'select-label')
+            .find('[data-select-label]')
                 .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
@@ -625,10 +624,17 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     hideOpened: true,
     hideFirst: false,
     hideSelected: false,
-    arrowContent: '<span class="caret-down"></span>',
     getDefaultLabel: 'title',
     getOptionLabel: 'title',
-    getDescription: 'data-description'
+    getDescription: 'data-description',
+    selectTemplate: '<div class="select" data-select>' +
+        '<div class="select-arrow" data-select-arrow></div>' +
+        '<div class="select-label" data-select-label></div>' +
+    '</div>',
+    arrowTemplate: '<span class="caret-down"></span>',
+    optionsTemplate: '<div class="drop drop--down select-options" data-select-options></div>',
+    headingTemplate: '<li class="drop-heading"></li>',
+    descTemplate: '<span class="drop-desc"></span>'
 });
 
 Toolkit.create('input', function(options) {

@@ -271,10 +271,10 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
             for (i = 0, l = group.length; i < l; i++) {
                 child = group[i];
-                li = $('<li/>');
 
                 // Build tag
                 if (child.url) {
+                    li = $('<li/>');
                     tag = $('<a/>', {
                         text: child.title,
                         href: child.url,
@@ -283,13 +283,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
                     // Add icon
                     $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
+
                 } else {
+                    li = $(options.headingTemplate);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
                     });
-
-                    li.addClass(Toolkit.vendor + 'flyout-heading');
                 }
 
                 if (child.attributes) {
@@ -397,7 +397,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children('.' + Toolkit.vendor + 'flyout')
+        parent.children('[data-flyout]')
             .removeAttr('style')
             .aria({
                 expanded: false,
@@ -424,7 +424,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children('.' + Toolkit.vendor + 'flyout');
+        var menu = parent.children('[data-flyout]');
 
         if (!menu) {
             return;
@@ -497,7 +497,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    template: '<div class="flyout"></div>'
+    template: '<div class="flyout" data-flyout></div>',
+    headingTemplate: '<li class="flyout-heading"></li>'
 });
 
 Toolkit.create('flyout', function(url, options) {

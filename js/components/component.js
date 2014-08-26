@@ -90,7 +90,7 @@ Toolkit.Component = Toolkit.Base.extend({
             this.element.remove();
         }
 
-        // Remove instances last or else the previous commands will fail
+        // Remove instances or else the previous commands will fail
         var key = this.keyName;
 
         if (this.nodes) {

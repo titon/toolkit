@@ -24,8 +24,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
     getContent: 'data-popover',
     template: '<div class="popover">' +
         '<div class="popover-inner">' +
-            '<div class="popover-head"></div>' +
-            '<div class="popover-body"></div>' +
+            '<div class="popover-head" data-popover-header></div>' +
+            '<div class="popover-body" data-popover-content></div>' +
         '</div>' +
         '<div class="popover-arrow"></div>' +
     '</div>'

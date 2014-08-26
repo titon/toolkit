@@ -24,7 +24,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
         container = $(container);
 
         this.options = options = this.setOptions(options, container);
-        this.elements = container.find('.lazy-load');
+        this.elements = container.find(this.options.lazyClass);
 
         if (container.css('overflow') === 'auto') {
             this.container = container;
@@ -133,7 +133,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 
         this.fireEvent('showing', [node]);
 
-        node.removeClass('lazy-load');
+        node.removeClass(this.options.lazyClass.substr(1));
 
         // Set the element being loaded for events
         this.element = node;
@@ -191,7 +191,8 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     forceLoad: false,
     delay: 10000,
     threshold: 150,
-    throttle: 50
+    throttle: 50,
+    lazyClass: '.lazy-load'
 });
 
 Toolkit.create('lazyLoad', function(options) {

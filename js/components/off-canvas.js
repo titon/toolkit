@@ -30,9 +30,9 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        var events = {}, vendor = Toolkit.vendor;
+        var events = {};
 
-        this.element = element = $(element).addClass(vendor + 'off-canvas').attr('role', 'complementary').conceal();
+        this.element = element = $(element).attr('role', 'complementary').conceal();
         this.options = options = this.setOptions(options, element);
 
         var animation = options.animation;
@@ -48,12 +48,12 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         }
 
         // Setup container
-        this.container = element.parents('.' + vendor + 'canvas').addClass(animation);
-        this.primary = element.siblings('.' + vendor + 'on-canvas').attr('role', 'main');
-        this.secondary = element.siblings('.' + vendor + 'off-canvas');
+        this.container = element.parent().addClass(animation);
+        this.primary = element.siblings('[data-offcanvas-content]').attr('role', 'main');
+        this.secondary = element.siblings('[data-offcanvas-sidebar]');
 
         // Determine the side
-        this.side = element.hasClass(vendor + 'off-canvas--left') ? 'left' : 'right';
+        this.side = element.data('offcanvas-sidebar') || 'left';
         this.opposite = (this.side === 'left') ? 'right' : 'left';
 
         // Initialize events
@@ -188,9 +188,9 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         e.preventDefault();
 
         var target = $(e.target),
-            sideClass = '.' + Toolkit.vendor + 'off-canvas';
+            selector = '[data-offcanvas-sidebar]';
 
-        if (target.is(sideClass) || target.parents(sideClass).length) {
+        if (target.is(selector) || target.parents(selector).length) {
             return;
         }
 

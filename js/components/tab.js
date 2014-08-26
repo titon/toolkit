@@ -28,7 +28,7 @@ Toolkit.Tab = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        var sections, tabs, self = this, vendor = Toolkit.vendor;
+        var sections, tabs, self = this;
 
         this.element = element = $(element);
         this.options = options = this.setOptions(options, element);
@@ -39,7 +39,7 @@ Toolkit.Tab = Toolkit.Component.extend({
         }
 
         // Find all the sections and set ARIA attributes
-        this.sections = sections = element.find('.' + vendor + 'tab-section').each(function(index, section) {
+        this.sections = sections = element.find('[data-tab-section]').each(function(index, section) {
             section = $(section);
             section
                 .attr('role', 'tabpanel')
@@ -49,13 +49,13 @@ Toolkit.Tab = Toolkit.Component.extend({
         });
 
         // Find the nav and set ARIA attributes
-        this.nav = element.find('.' + vendor + 'tab-nav')
+        this.nav = element.find('[data-tab-nav]')
             .attr('role', 'tablist');
 
         // Find the tabs within the nav and set ARIA attributes
         this.tabs = tabs = this.nav.find('a').each(function(index) {
             $(this)
-                .data('index', index)
+                .data('tab-index', index)
                 .attr({
                     role: 'tab',
                     id: self.id('tab', index)
@@ -70,11 +70,11 @@ Toolkit.Tab = Toolkit.Component.extend({
 
         // Initialize events
         this.events = {
-            '{mode} element .@tab-nav a': 'onShow'
+            '{mode} element [data-tab-nav] a': 'onShow'
         };
 
         if (options.mode !== 'click' && options.preventDefault) {
-            this.events['click element .@tab-nav a'] = function(e) {
+            this.events['click element [data-tab-nav] a'] = function(e) {
                 e.preventDefault();
             };
         }
@@ -92,7 +92,7 @@ Toolkit.Tab = Toolkit.Component.extend({
             if (index === null && options.loadFragment && location.hash) {
                 index = tabs.filter(function() {
                     return ($(this).attr('href') === location.hash);
-                }).eq(0).data('index');
+                }).eq(0).data('tab-index');
             }
         }
 
@@ -139,7 +139,7 @@ Toolkit.Tab = Toolkit.Component.extend({
     show: function(tab) {
         tab = $(tab);
 
-        var index = tab.data('index'),
+        var index = tab.data('tab-index'),
             section = this.sections.eq(index),
             options = this.options,
             ajax = this.readOption(tab, 'ajax'),
@@ -181,7 +181,8 @@ Toolkit.Tab = Toolkit.Component.extend({
         // Toggle tabs
         this.tabs
             .aria('toggled', false)
-            .parent().removeClass('is-active');
+            .parent()
+                .removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {

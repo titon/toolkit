@@ -75,7 +75,6 @@ Toolkit.Base = Toolkit.Class.extend({
             keys = key.split(' ');
             event = keys.shift();
             context = keys.shift();
-            selector = keys.join(' ').replace('@', Toolkit.vendor);
 
             // Determine the correct context
             if (self[context]) {

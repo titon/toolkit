@@ -54,8 +54,8 @@ Toolkit.Modal = Toolkit.Component.extend({
             'clickout document {selector}': 'onHide',
             'click document {selector}': 'onShow',
             'click element': 'onHide',
-            'click element .@modal-hide': 'hide',
-            'click element .@modal-submit': 'onSubmit'
+            'click element [data-modal-close]': 'hide',
+            'click element [data-modal-submit]': 'onSubmit'
         };
 
         this.initialize();
@@ -94,7 +94,7 @@ Toolkit.Modal = Toolkit.Component.extend({
 
         this.fireEvent('showing');
 
-        var body = this.element.find('.' + Toolkit.vendor + 'modal-inner');
+        var body = this.element.find('[data-modal-content]');
             body.html(content);
 
         this.fireEvent('load', [content]);
@@ -251,8 +251,8 @@ Toolkit.Modal = Toolkit.Component.extend({
     getContent: 'data-modal',
     template: '<div class="modal">' +
         '<div class="modal-outer">' +
-            '<div class="modal-inner"></div>' +
-            '<button class="modal-close modal-hide"><span class="x"></span></button>' +
+            '<div class="modal-inner" data-modal-content></div>' +
+            '<button class="modal-close" data-modal-close><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });

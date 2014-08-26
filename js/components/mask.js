@@ -4,6 +4,8 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
+// @todo - Remove hardcoded classes
+
 Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',
     version: '1.4.0',
@@ -26,7 +28,7 @@ Toolkit.Mask = Toolkit.Component.extend({
 
         // Add class and set relative positioning
         if (!element.is('body')) {
-            element.addClass(Toolkit.vendor + 'mask-target');
+            element.addClass('is-maskable');
 
             if (element.css('position') === 'static') {
                 element.css('position', 'relative');
@@ -34,11 +36,10 @@ Toolkit.Mask = Toolkit.Component.extend({
         }
 
         // Find a mask or create it
-        var maskClass = Toolkit.vendor + 'mask',
-            mask = element.find('> .' + maskClass);
+        var mask = element.find('> [data-mask]');
 
         if (!mask.length) {
-            mask = $('<div/>').addClass(maskClass);
+            mask = $(options.maskTemplate);
         }
 
         this.setMask(mask);
@@ -56,7 +57,7 @@ Toolkit.Mask = Toolkit.Component.extend({
     destructor: function() {
         this.mask.remove();
         this.element
-            .removeClass(Toolkit.vendor + 'mask-target')
+            .removeClass('is-maskable')
             .removeClass('is-masked')
             .css('position', '');
     },
@@ -97,16 +98,12 @@ Toolkit.Mask = Toolkit.Component.extend({
         this.mask = mask;
 
         // Create message if it does not exist
-        message = mask.find('> .' + Toolkit.vendor + 'mask-message');
+        message = mask.find('[data-mask-message]');
 
-        if (!message.length) {
-            message = $('<div/>')
-                .addClass(Toolkit.vendor + 'mask-message')
+        if (!message.length && options.messageContent) {
+            message = $(options.messageTemplate)
+                .html(options.messageContent)
                 .appendTo(mask);
-
-            if (options.messageContent) {
-                message.html(options.messageContent);
-            }
         }
 
         this.message = message;
@@ -138,7 +135,9 @@ Toolkit.Mask = Toolkit.Component.extend({
 }, {
     selector: '',
     revealOnClick: false,
-    messageContent: ''
+    messageContent: '',
+    maskTemplate: '<div class="mask" data-mask></div>',
+    messageTemplate: '<div class="mask-message" data-mask-message></div>'
 });
 
 Toolkit.create('mask', function(options) {

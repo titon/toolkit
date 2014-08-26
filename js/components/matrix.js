@@ -37,7 +37,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
+        this.element = element = $(element);
         this.options = this.setOptions(options, element);
 
         // Initialize events

@@ -81,7 +81,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $('<div/>').addClass(Toolkit.vendor + 'type-ahead-shadow');
+            this.wrapper = $(this.options.shadowTemplate);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -146,16 +146,10 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
             'aria-selected': 'false'
         });
 
-        a.append( $('<span/>', {
-            'class': Toolkit.vendor + 'type-ahead-title',
-            html: this.highlight(item.title)
-        }) );
+        a.append( $(this.options.titleTemplate).html(this.highlight(item.title)) );
 
         if (item.description) {
-            a.append( $('<span/>', {
-                'class': Toolkit.vendor + 'type-ahead-desc',
-                html: item.description
-            }) );
+            a.append( $(this.options.descTemplate).html(item.description) );
         }
 
         return a;
@@ -186,8 +180,9 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
      */
     highlight: function(item) {
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
+            options = this.options,
             callback = function(match) {
-                return '<mark class="' + Toolkit.vendor + 'type-ahead-highlight">' + match + '</mark>';
+                return $(options.highlightTemplate).html(match).prop('outerHTML');
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -357,7 +352,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
                 results.push(null);
 
                 elements.push(
-                    $('<li/>').addClass(Toolkit.vendor + 'type-ahead-heading').append( $('<span/>', { text: category }) )
+                    $(options.headingTemplate).append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -591,6 +586,11 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     shadow: false,
     query: {},
     template: '<div class="type-ahead"></div>',
+    shadowTemplate: '<div class="type-ahead-shadow"></div>',
+    titleTemplate: '<span class="type-ahead-title"></span>',
+    descTemplate: '<span class="type-ahead-desc"></span>',
+    highlightTemplate: '<mark class="type-ahead-highlight"></mark>',
+    headingTemplate: '<li class="type-ahead-heading"></li>',
 
     // Callbacks
     sorter: null,
