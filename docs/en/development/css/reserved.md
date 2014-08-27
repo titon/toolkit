@@ -29,4 +29,3 @@ so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` var
 This is disabled by default.
 
 * [Learn more on Sass prefixing](../sass/variables.md)
-* [Learn more on JS prefixing](../js/toolkit.md)

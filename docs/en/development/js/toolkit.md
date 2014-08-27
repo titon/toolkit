@@ -57,14 +57,14 @@ They are represented as an object allowing for easy localization, and can be mod
     </thead>
     <tbody>
         <tr>
-            <td>loading</td>
-            <td>Loading...</td>
-            <td>Message to display while an AJAX request is loading.</td>
-        </tr>
-        <tr>
             <td>error</td>
             <td>An error has occurred!</td>
             <td>Message to display when an AJAX call has failed.</td>
+        </tr>
+        <tr>
+            <td>loading</td>
+            <td>Loading...</td>
+            <td>Message to display while an AJAX request is loading.</td>
         </tr>
     </tbody>
 </table>
