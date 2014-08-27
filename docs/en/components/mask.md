@@ -37,11 +37,18 @@ This custom mask will be used instead of creating a new mask.
 <div class="article js-mask-target">
     ...
 
-    <div class="mask hide">
-        <!-- Custom markup -->
+    <div class="mask hide" data-mask>
+        <div class="mask-message" data-mask-message">
+            <!-- Custom markup -->
+        </div>
     </div>
 </div>
 ```
+
+<div class="notice is-info">
+    The <code>data-mask-*</code> attributes are required so that the JavaScript layer
+    can find or bind elements in the DOM.
+</div>
 
 ### Automatic Toggling ###
 
@@ -56,7 +63,7 @@ $('.js-mask-target').mask({
 
 ### Notes ###
 
-* Target elements will have a `.mask-target` class applied.
+* Target elements will have a `.is-maskable` class applied.
 * Target elements will also have `.is-masked` applied when the mask is activated.
 
 ## Variables ##
@@ -82,7 +89,7 @@ $('.js-mask-target').mask({
         </tr>
         <tr>
             <td>$mask-class-target</td>
-            <td>.mask-target</td>
+            <td>.is-maskable</td>
             <td>CSS class name for the mask target.</td>
         </tr>
         <tr>
@@ -118,16 +125,32 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>revealOnClick</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Reveal the content and remove the mask when the mask is clicked.</td>
+            <td>messageTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="mask-message" data-mask-message&gt;&lt;/div&gt;
+            </td>
+            <td>The loading message markup. The <code>data-mask-message</code> is required.</td>
         </tr>
         <tr>
             <td>messageContent</td>
             <td>string</td>
             <td></td>
             <td>The content to use as the message that appears in the center of the mask.</td>
+        </tr>
+        <tr>
+            <td>revealOnClick</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Reveal the content and remove the mask when the mask is clicked.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="mask" data-mask&gt;&lt;/div&gt;
+            </td>
+            <td>The mask markup. The <code>data-mask</code> is required.</td>
         </tr>
     </tbody>
 </table>
@@ -154,13 +177,13 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>mask</td>
             <td>element</td>
             <td>The mask element that covers the target element. Can be found as a child within the target element.</td>
-            <td>.mask</td>
+            <td>[data-mask]</td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The message element found within the center of the mask element.</td>
-            <td>.mask-message</td>
+            <td>[data-mask-message]</td>
         </tr>
     </tbody>
 </table>

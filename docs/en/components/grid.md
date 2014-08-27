@@ -315,21 +315,6 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
             <td>CSS class name for the grid column.</td>
         </tr>
         <tr>
-            <td>$grid-width</td>
-            <td>100%</td>
-            <td>The width of the grid. The wrapper and columns are fluid by default so percentages are suggested.</td>
-        </tr>
-        <tr>
-            <td>$grid-gutter</td>
-            <td>false</td>
-            <td>The spacing between each column. Can accept any unit type: px, em, rem, %, or false if no gutter is desired.</td>
-        </tr>
-        <tr>
-            <td>$grid-push-pull</td>
-            <td>true</td>
-            <td>Includes push and pull classes within the output. Disable to reduce filesize if we aren't using them.</td>
-        </tr>
-        <tr>
             <td>$grid-columns-desktop</td>
             <td>12</td>
             <td rowspan="3">The number of columns available per device when <code>$responsive-size</code> is <code>device</code>.</td>
@@ -354,6 +339,21 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
         <tr>
             <td>$grid-columns-small</td>
             <td>6</td>
+        </tr>
+        <tr>
+            <td>$grid-gutter</td>
+            <td>false</td>
+            <td>The spacing between each column. Can accept any unit type: px, em, rem, %, or false if no gutter is desired.</td>
+        </tr>
+        <tr>
+            <td>$grid-push-pull</td>
+            <td>true</td>
+            <td>Includes push and pull classes within the output. Disable to reduce filesize if we aren't using them.</td>
+        </tr>
+        <tr>
+            <td>$grid-width</td>
+            <td>100%</td>
+            <td>The width of the grid. The wrapper and columns are fluid by default so percentages are suggested.</td>
         </tr>
     </tbody>
 </table>

@@ -131,14 +131,14 @@ The `button` role and the appropriate `aria-*` attributes are required when supp
             <td>CSS class name for the button element.</td>
         </tr>
         <tr>
-            <td>$button-modifiers</td>
-            <td>()</td>
-            <td>List of modifiers to include in the CSS output. Accepts gloss, reflect, glare, and popout.</td>
-        </tr>
-        <tr>
             <td>$button-effects</td>
             <td>()</td>
             <td>List of effects to include in the CSS output. Accepts oval, pill, and skew.</td>
+        </tr>
+        <tr>
+            <td>$button-modifiers</td>
+            <td>()</td>
+            <td>List of modifiers to include in the CSS output. Accepts gloss, reflect, glare, and popout.</td>
         </tr>
     </tbody>
 </table>

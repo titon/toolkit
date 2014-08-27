@@ -138,14 +138,9 @@ Use these for toggling content based on device orientation.
     </thead>
     <tbody>
         <tr>
-            <td>.show-portrait</td>
+            <td>.hide-landscape</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-landscape</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
         </tr>
         <tr>
             <td>.hide-portrait</td>
@@ -153,7 +148,12 @@ Use these for toggling content based on device orientation.
             <td class="is-success">Visible</td>
         </tr>
         <tr>
-            <td>.hide-landscape</td>
+            <td>.show-landscape</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+        </tr>
+        <tr>
+            <td>.show-portrait</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
         </tr>
@@ -174,14 +174,14 @@ Use these for toggling content based on screen quality (retina and HD displays).
     </thead>
     <tbody>
         <tr>
-            <td>.show-retina</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
             <td>.hide-retina</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-retina</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
         </tr>
     </tbody>
 </table>
@@ -200,14 +200,14 @@ Use these for toggling content for print.
     </thead>
     <tbody>
         <tr>
-            <td>.show-print</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
             <td>.hide-print</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-print</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
         </tr>
     </tbody>
 </table>

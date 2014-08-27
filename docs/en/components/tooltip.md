@@ -79,25 +79,6 @@ The `tooltip` role and the appropriate `aria-*` attributes are required when sup
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
-## Template ##
-
-The following markup is used for the creation of tooltips.
-This structure can be customized through the `template` option.
-
-```html
-<div class="tooltip">
-    <div class="tooltip-inner">
-        <div class="tooltip-head"></div>
-        <div class="tooltip-body"></div>
-    </div>
-    <div class="tooltip-arrow"></div>
-</div>
-```
-
-<div class="notice is-info">
-    The <code>.tooltip-head</code> and <code>.tooltip-body</code> elements are required for inserting content into.
-</div>
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -109,6 +90,16 @@ This structure can be customized through the `template` option.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$tooltip-tooltip-animations</td>
+            <td>("fade", "from-above", "from-below", "flip-rotate")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-arrow-width</td>
+            <td>6</td>
+            <td>The border size for tooltip arrows.</td>
+        </tr>
         <tr>
             <td>$tooltip-class</td>
             <td>.tooltip</td>
@@ -128,16 +119,6 @@ This structure can be customized through the `template` option.
             <td>$tooltip-class-body</td>
             <td>.tooltip-body</td>
             <td>CSS class name for the tooltip body element.</td>
-        </tr>
-        <tr>
-            <td>$popover-tooltip-animations</td>
-            <td>("fade", "from-above", "from-below", "flip-rotate")</td>
-            <td>A list of all animations to include in the CSS output.</td>
-        </tr>
-        <tr>
-            <td>$tooltip-arrow-width</td>
-            <td>6</td>
-            <td>The border size for tooltip arrows.</td>
         </tr>
         <tr>
             <td>$tooltip-zindex</td>
@@ -162,13 +143,10 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>position</td>
-            <td>string</td>
-            <td>top-center</td>
-            <td>
-                Where to position the tooltip relative to the target element. Available options are:
-                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
-            </td>
+            <td>ajax</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Determines whether to load the tooltip content via an AJAX request.</td>
         </tr>
         <tr>
             <td>animation</td>
@@ -177,16 +155,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The animation to use when displaying the tooltip. Available options are: fade, from-above, from-below, flip-rotate.</td>
         </tr>
         <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>hover</td>
-            <td>The type of interaction required to activate the tooltip. Accepts click or hover.</td>
-        </tr>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the tooltip content via an AJAX request.</td>
+            <td>delay</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The delay in milliseconds before the tooltip is displayed.</td>
         </tr>
         <tr>
             <td>follow</td>
@@ -195,10 +167,44 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Will position the tooltip relative to the mouse cursor instead of the target element.</td>
         </tr>
         <tr>
+            <td>getContent</td>
+            <td>string|function</td>
+            <td>data-tooltip</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a string is passed in #id format, fetch the content from the HTML of the element.
+                If a function is passed, use the return value as the content.
+            </td>
+        </tr>
+        <tr>
+            <td>getTitle</td>
+            <td>string|function</td>
+            <td>title</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a function is passed, use the return value as the content.
+            </td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>hover</td>
+            <td>The type of interaction required to activate the tooltip. Accepts click or hover.</td>
+        </tr>
+        <tr>
             <td>mouseThrottle</td>
             <td>int</td>
             <td>50</td>
             <td>The time in milliseconds to throttle the mouse follow events.</td>
+        </tr>
+        <tr>
+            <td>position</td>
+            <td>string</td>
+            <td>top-center</td>
+            <td>
+                Where to position the tooltip relative to the target element. Available options are:
+                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
+            </td>
         </tr>
         <tr>
             <td>showLoading</td>
@@ -213,23 +219,18 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Show the tooltip title alongside the content if available.</td>
         </tr>
         <tr>
-            <td>getTitle</td>
-            <td>string|function</td>
-            <td>title</td>
+            <td>template</td>
+            <td>string</td>
             <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a function is passed, use the return value as the content.
+                &lt;div class="tooltip"&gt;<br>
+                    &lt;div class="tooltip-inner"&gt;<br>
+                        &lt;div class="tooltip-head" data-tooltip-header&gt;&lt;/div&gt;<br>
+                        &lt;div class="tooltip-body" data-tooltip-content&gt;&lt;/div&gt;<br>
+                    &lt;/div&gt;<br>
+                    &lt;div class="tooltip-arrow"&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
             </td>
-        </tr>
-        <tr>
-            <td>getContent</td>
-            <td>string|function</td>
-            <td>data-tooltip</td>
-            <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a string is passed in #id format, fetch the content from the HTML of the element.
-                If a function is passed, use the return value as the content.
-            </td>
+            <td>The tooltip markup. The <code>data-tooltip-*</code> attributes are required.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -242,12 +243,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>int</td>
             <td>0</td>
             <td>The offset in pixels to move the tooltip along the Y axis.</td>
-        </tr>
-        <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The delay in milliseconds before the tooltip is displayed.</td>
         </tr>
     </tbody>
 </table>
@@ -288,16 +283,16 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
-            <td>elementHead</td>
-            <td>element</td>
-            <td>The element used for titles.</td>
-            <td>.tooltip-head</td>
-        </tr>
-        <tr>
             <td>elementBody</td>
             <td>element</td>
             <td>The element used for content.</td>
-            <td>.tooltip-body</td>
+            <td>[data-tooltip-content]</td>
+        </tr>
+        <tr>
+            <td>elementHead</td>
+            <td>element</td>
+            <td>The element used for titles.</td>
+            <td>[data-tooltip-header]</td>
         </tr>
         <tr>
             <td>cache</td>

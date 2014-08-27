@@ -26,6 +26,10 @@ $('.pin').pin({
 A slide animation will slowly animate to the new coordinates. A sticky animation will do the same,
 but will "bounce" before animating.
 
+<div class="notice is-info">
+    The <code>.pin</code> class is required for animations to work correctly.
+</div>
+
 ### Bounding Container ###
 
 A pinned element will be bound within its parent element, which means it wont overflow outside the parent.
@@ -108,6 +112,24 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
         </tr>
         <tr>
+            <td>calculate</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>
+                Re-calculate offsets, widths, heights, and viewport while scrolling.
+                May slow down the page while active, so trigger <code>calculate()</code> manually when needed.
+            </td>
+        </tr>
+        <tr>
+            <td>fixed</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>
+                Whether to use position fixed or not while scrolling.
+                Fixed pins will not animate.
+            </td>
+        </tr>
+        <tr>
             <td>location</td>
             <td>string</td>
             <td>right</td>
@@ -115,6 +137,20 @@ Inherits all options from the [parent Component](component.md#options).
                 The horizontal location to use when positioning.
                 Accepts left or right.
             </td>
+        </tr>
+        <tr>
+            <td>lock</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to deactivate pinning if the target element is larger than the viewport.
+            </td>
+        </tr>
+        <tr>
+            <td>throttle</td>
+            <td>int</td>
+            <td>50</td>
+            <td>The time in milliseconds to throttle the page scroll events.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -127,38 +163,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>int</td>
             <td>0</td>
             <td>The offset in pixels to move the pin along the Y axis.</td>
-        </tr>
-        <tr>
-            <td>throttle</td>
-            <td>int</td>
-            <td>50</td>
-            <td>The time in milliseconds to throttle the page scroll events.</td>
-        </tr>
-        <tr>
-            <td>fixed</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>
-                Whether to use position fixed or not while scrolling.
-                Fixed pins will not animate.
-            </td>
-        </tr>
-        <tr>
-            <td>calculate</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>
-                Re-calculate offsets, widths, heights, and viewport while scrolling.
-                May slow down the page while active, so trigger <code>calculate()</code> manually when needed.
-            </td>
-        </tr>
-        <tr>
-            <td>lock</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to deactivate pinning if the target element is larger than the viewport.
-            </td>
         </tr>
     </tbody>
 </table>
@@ -208,11 +212,6 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>Will the element be pinned? Depends on the heights of the parent and element.</td>
         </tr>
         <tr>
-            <td>viewport</td>
-            <td>object</td>
-            <td>The current width and height of the viewport (window object).</td>
-        </tr>
-        <tr>
             <td>elementHeight</td>
             <td>int</td>
             <td>The height of the pinned element.</td>
@@ -231,6 +230,11 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>parentTop</td>
             <td>int</td>
             <td>The initial top value of the parent element.</td>
+        </tr>
+        <tr>
+            <td>viewport</td>
+            <td>object</td>
+            <td>The current width and height of the viewport (window object).</td>
         </tr>
     </tbody>
 </table>

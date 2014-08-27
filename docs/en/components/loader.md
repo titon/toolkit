@@ -92,6 +92,21 @@ that fluctuate in a clockwise manner.
     </thead>
     <tbody>
         <tr>
+            <td>$loader-bar-height</td>
+            <td>2.5rem</td>
+            <td>The height of a bar.</td>
+        </tr>
+        <tr>
+            <td>$loader-bar-width</td>
+            <td>0.65rem</td>
+            <td>The width of a bar.</td>
+        </tr>
+        <tr>
+            <td>$loader-bubble-size</td>
+            <td>1.5rem</td>
+            <td>The radius of a bubble.</td>
+        </tr>
+        <tr>
             <td>$loader-class</td>
             <td>.loader</td>
             <td>CSS class name for the loader wrapper.</td>
@@ -107,34 +122,19 @@ that fluctuate in a clockwise manner.
             <td>CSS class name for the loader spinner wrapper.</td>
         </tr>
         <tr>
-            <td>$loader-type</td>
-            <td>all</td>
-            <td>The type of loader to include in the CSS output. Accepts all, bar-wave, bubble-wave, and bubble-spinner.</td>
-        </tr>
-        <tr>
             <td>$loader-color</td>
             <td>#000</td>
             <td>The color of the bars and bubbles.</td>
         </tr>
         <tr>
+            <td>$loader-type</td>
+            <td>all</td>
+            <td>The type of loader to include in the CSS output. Accepts all, bar-wave, bubble-wave, and bubble-spinner.</td>
+        </tr>
+        <tr>
             <td>$loader-wave-count</td>
             <td>5</td>
             <td>The number of items in a wave to generate animations for.</td>
-        </tr>
-        <tr>
-            <td>$loader-bar-width</td>
-            <td>0.65rem</td>
-            <td>The width of a bar.</td>
-        </tr>
-        <tr>
-            <td>$loader-bar-height</td>
-            <td>2.5rem</td>
-            <td>The height of a bar.</td>
-        </tr>
-        <tr>
-            <td>$loader-bubble-size</td>
-            <td>1.5rem</td>
-            <td>The radius of a bubble.</td>
         </tr>
     </tbody>
 </table>

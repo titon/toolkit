@@ -37,7 +37,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         var mask = element.find('> [data-mask]');
 
         if (!mask.length) {
-            mask = $(options.maskTemplate);
+            mask = $(options.template);
         }
 
         this.setMask(mask);
@@ -134,7 +134,7 @@ Toolkit.Mask = Toolkit.Component.extend({
     selector: '',
     revealOnClick: false,
     messageContent: '',
-    maskTemplate: '<div class="mask" data-mask></div>',
+    template: '<div class="mask" data-mask></div>',
     messageTemplate: '<div class="mask-message" data-mask-message></div>'
 });
 

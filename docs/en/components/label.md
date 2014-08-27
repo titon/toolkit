@@ -74,6 +74,16 @@ Adding a `.small` or `.large` class to the `.label` element will alter the paddi
             <td>List of modifiers to include in the CSS output. Accepts badge, ribbon-left, ribbon-right, arrow-left, and arrow-right.</td>
         </tr>
         <tr>
+            <td>$label-modifier-arrow-left</td>
+            <td>arrow-left</td>
+            <td>Name of the left arrow modifier to append to label classes.</td>
+        </tr>
+        <tr>
+            <td>$label-modifier-arrow-right</td>
+            <td>arrow-right</td>
+            <td>Name of the right arrow modifier to append to label classes.</td>
+        </tr>
+        <tr>
             <td>$label-modifier-badge</td>
             <td>badge</td>
             <td>Name of the badge modifier to append to label classes.</td>
@@ -87,16 +97,6 @@ Adding a `.small` or `.large` class to the `.label` element will alter the paddi
             <td>$label-modifier-ribbon-right</td>
             <td>ribbon-right</td>
             <td>Name of the right ribbon modifier to append to label classes.</td>
-        </tr>
-        <tr>
-            <td>$label-modifier-arrow-left</td>
-            <td>arrow-left</td>
-            <td>Name of the left arrow modifier to append to label classes.</td>
-        </tr>
-        <tr>
-            <td>$label-modifier-arrow-right</td>
-            <td>arrow-right</td>
-            <td>Name of the right arrow modifier to append to label classes.</td>
         </tr>
     </tbody>
 </table>

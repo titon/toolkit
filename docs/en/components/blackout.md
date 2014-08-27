@@ -11,44 +11,16 @@ A single blackout instance solves this problem by recording a count of how many 
 and decreases that count each time it is closed. The blackout element is shown on the 1st count, and
 hidden once the count reaches 0.
 
-The blackout instance can be retrieved using the `factory()` method.
+The blackout instance can be retrieved using the `instance()` method.
 
 ```javascript
-var blackout = Toolkit.Blackout.factory();
+var blackout = Toolkit.Blackout.instance();
     blackout.show();
 ```
 
 <div class="notice is-info">
     For the most part, the blackout should rarely be interacted with manually.
     Components that integrate the blackout will handle situations accordingly.
-</div>
-
-### Loading Animation ###
-
-A loading animation can be inserted within the center of the blackout by defining the `loader` option.
-This animation makes use of the [Loader component](loader.md), and the `loader` values must related to
-the types found within the Loader component.
-
-When defining the animation, the options must be set globally on the Blackout component.
-
-```javascript
-$.extend(Toolkit.Blackout.options, {
-    loader: 'bubble-wave',
-    waveCount: 3
-});
-```
-
-## Template ##
-
-The following markup is used for the creation of the blackout element.
-This structure can be customized through the `template` option.
-
-```html
-<div class="{vendor}blackout"></div>
-```
-
-<div class="notice is-info">
-    The <code>{vendor}</code> value will be replaced with <code>Toolkit.vendor</code>.
 </div>
 
 ## Variables ##
@@ -100,22 +72,29 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
     </thead>
     <tbody>
         <tr>
-            <td>loader</td>
+            <td>loaderTemplate</td>
             <td>string</td>
-            <td>bar-wave</td>
             <td>
-                The type of animation to use while other components are loading.
-                The value must equate to a class name from the <code>Loader</code> component.
+                &lt;div class="loader bar-wave"&gt;<br>
+                    &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;<br>
+                    &lt;div class="loader-message" data-loader-message&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
             </td>
+            <td>The loader markup to be inserted into the blackout.</td>
         </tr>
         <tr>
-            <td>waveCount</td>
-            <td>int</td>
-            <td>5</td>
+            <td>showLoading</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>If true, will insert <code>Toolkit.messages.loading</code> into the <code>[data-loader-message]</code> element.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
             <td>
-                The number of bars or bubbles to use in the loading animation.
-                If the value is more than 5, the Sass will have to be customized.
+                &lt;div class="blackout"&gt;&lt;/div&gt;
             </td>
+            <td>The blackout markup.</td>
         </tr>
         <tr>
             <td>templateFrom</td>
@@ -180,6 +159,7 @@ Inherits all properties from the [parent Component](component.md#properties).
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -190,16 +170,19 @@ Inherits all properties from the [parent Component](component.md#properties).
                 A count of many times the blackout has been opened by components.
                 Determines whether to show or hide the element.
             </td>
+            <td></td>
         </tr>
         <tr>
             <td>loader</td>
             <td>element</td>
-            <td>The loading animation element that's based off the <code>Loader</code> component.</td>
+            <td>The loading animation element.</td>
+            <td></td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The loading message element located within the loader element.</td>
+            <td>[data-loader-message]</td>
         </tr>
     </tbody>
 </table>

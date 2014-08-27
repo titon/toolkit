@@ -63,7 +63,7 @@ Older versions can be found in the documentation changelogs.
         * All drop menus will now require a `data-drop-menu` attribute
     * Flyout
         * Added `headingTemplate` option
-        * Renamed selectors `.flyout` to `[data-flyout]`
+        * Renamed selectors `.flyout` to `[data-flyout-menu]`
     * Form
         * Improved disabled state across inputs
         * Normalized `fieldset` and `legend` when used in an inline form
@@ -81,7 +81,7 @@ Older versions can be found in the documentation changelogs.
         * Added a `lazyClass` option that defaults to `.lazy-load`
         * Removed `load` event
     * Mask
-        * Added `maskTemplate` and `messageTemplate` options
+        * Added `template` and `messageTemplate` options
         * Renamed `.mask-target` to `.is-maskable`
         * Renamed selectors `.mask`, `.mask-message` to `[data-mask]`, `[data-mask-message]`
     * Matrix
