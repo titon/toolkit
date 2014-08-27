@@ -9,6 +9,8 @@ Older versions can be found in the documentation changelogs.
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
 * Upgraded to RequireJS for JS dependency management and compilation
+* Decoupled the CSS and JS layers so that CSS classes (excluding states) are no longer hardcoded
+* Refactored components to make more use of templates for DOM building
 * Renamed most instances of the word "component" to "plugin" to differentiate between components and behaviors,
     with plugins being a top-level grouping of everything
 * Renamed `--components` to `--plugins` in the Gulp command line
@@ -33,7 +35,8 @@ Older versions can be found in the documentation changelogs.
     * Refactored so that class properties are passed through an object instead of set through the constructor
     * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
-    * Removed `Toolkit.transitionEnd` flag
+    * Toolkit
+        * Removed `vendor` property
     * Component
         * Added `hiding`, `showing`, and `destroying` events
         * Renamed the `hide` event to `hidden`
@@ -44,13 +47,23 @@ Older versions can be found in the documentation changelogs.
 * Components
     * Accordion
         * Removed the `jump` event
+        * Renamed selectors `.accordion-header`, `.accordion-section` to `[data-accordion-header]`, `[data-accordion-section]`
     * Blackout
+        * Added `loaderTemplate` and `showLoading` options for generating loader markup
         * Removed `hideLoader` and `showLoader` events
+        * Removed `loader` and `waveCount` options in favor of `loaderTemplate`
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Carousel
         * Added a `calculate()` method that triggers on load/resize to determine carousel dimensions
         * Added `cycling`, `cycled`, `jumping` and `jumped` events
         * Removed `cycle` and `jump` events
+        * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
+            `[data-carousel-items]`, `[data-carousel-tabs]`, `[data-carousel-next]`, `[data-carousel-prev]`, `[data-carousel-start]`, `[data-carousel-stop]`
+    * Drop
+        * All drop menus will now require a `data-drop-menu` attribute
+    * Flyout
+        * Added `headingTemplate` option
+        * Renamed selectors `.flyout` to `[data-flyout-menu]`
     * Form
         * Improved disabled state across inputs
         * Normalized `fieldset` and `legend` when used in an inline form
@@ -58,23 +71,46 @@ Older versions can be found in the documentation changelogs.
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
+    * Input
+        * Added `template`, `checkboxTemplate`, `radioTemplate`, `selectTemplate`, `optionsTemplate`, `headingTemplate`, and `descTemplate`
+        * Renamed `arrowContent` to `arrowTemplate`
+        * Renamed selectors `.select-options`, `.select-label`, `.select-arrow` to
+            `[data-select-options]`, `[data-select-label]`, `[data-select-arrow]`
     * Lazy Load
         * Added `loading` and `loaded` events
+        * Added a `lazyClass` option that defaults to `.lazy-load`
         * Removed `load` event
+    * Mask
+        * Added `template` and `messageTemplate` options
+        * Renamed `.mask-target` to `.is-maskable`
+        * Renamed selectors `.mask`, `.mask-message` to `[data-mask]`, `[data-mask-message]`
     * Matrix
-        * Added `append`, `prepend`, `remove`, `rendering`, and `rendered` events
+        * Added `appending`, `prepending`, `removing`, `rendering`, and `rendered` events
         * Improved the deferred image rendering process
         * Removed `render` event
+        * Updated to no longer automatically set `.matrix` on the container
     * Modal
         * IDs can now be passed as the 2nd argument to `show()`
+        * Renamed selectors `.modal-inner`, `.modal-hide`, `.modal-submit` to
+            `[data-modal-content]`, `[data-modal-close]`, `[data-modal-submit]`
+    * Off Canvas
+        * Renamed selectors `.on-canvas`, `.off-canvas` to `[data-offcanvas-content]`, `[data-offcanvas-sidebar]`
+        * Updated so that `[data-offcanvas-sidebar]` defines the default side orientation
+        * Updated to no longer automatically set `.off-canvas` on the sidebar
+    * Pin
+        * Updated to no longer automatically set `.pin` on the element
     * Popover
         * The `follow` attribute is now forced to `false`
+        * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Showcase
         * Added `jumping` and `jumped` events
         * Removed `jump` event
+        * Renamed selectors `.showcase-items`, `.showcase-tabs`, `.showcase-next`, `.showcase-prev`, `.showcase-hide`, `.showcase-caption` to
+            `[data-showcase-items]`, `[data-showcase-tabs]`, `[data-showcase-next]`, `[data-showcase-prev]`, `[data-showcase-close]`, `[data-showcase-caption]`
     * Stalker
         * Added `activating`, `activated`, `deactivating`, and `deactivated` events
         * Removed `activate` and `deactivate` events
+        * Updated to no longer automatically set `.stalker`, `.stalker-target`, and `.stalker-marker`
     * Switch
         * The `.pill` and `.round` classes have moved to `.switch-bar` from `.switch`
     * Tabs
@@ -82,5 +118,11 @@ Older versions can be found in the documentation changelogs.
         * `preventDefault` now applies to both cookie and fragment persistence
         * `ajax` has changed to `false` by default
         * Fixed a bug trying to determine the index to show on load
+        * Renamed selectors `.tab-nav`, `.tab-section` to `[data-tab-nav]`, `[data-tab-section]`
+    * Toast
+        * Added a `toastTemplate` property
+    * Tooltip
+        * Renamed selectors `.tooltip-head`, `.tooltip-body` to `[data-tooltip-header]`, `[data-tooltip-content]`
     * Type Ahead
+        * Added `shadowTemplate`, `titleTemplate`, `descTemplate`, `highlightTemplate`, and `headingTemplate` options
         * The `matcher` function now accepts the item object as the 1st argument

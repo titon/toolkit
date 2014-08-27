@@ -6,16 +6,6 @@ It also acts as a namespace for plugins by housing a top level name to avoid glo
 Each plugin class definition can be found on the `Toolkit` object, for example,
 the accordion class is found under `Toolkit.Accordion`.
 
-## Vendor Prefix ##
-
-Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
-prefixing within the JavaScript layer. This value will be prepended to all plugin class names that are
-automatically created with JavaScript.
-
-```javascript
-Toolkit.vendor = 'tk-';
-```
-
 ## ARIA Support ##
 
 [ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable plugins.
@@ -67,14 +57,14 @@ They are represented as an object allowing for easy localization, and can be mod
     </thead>
     <tbody>
         <tr>
-            <td>loading</td>
-            <td>Loading...</td>
-            <td>Message to display while an AJAX request is loading.</td>
-        </tr>
-        <tr>
             <td>error</td>
             <td>An error has occurred!</td>
             <td>Message to display when an AJAX call has failed.</td>
+        </tr>
+        <tr>
+            <td>loading</td>
+            <td>Loading...</td>
+            <td>Message to display while an AJAX request is loading.</td>
         </tr>
     </tbody>
 </table>
@@ -102,18 +92,19 @@ Each flag can be found on the `Toolkit` object.
     <tbody>
         <tr>
             <td>hasTransition</td>
-            <td>Both</td>
             <td>Does the browser support CSS transitions?</td>
         </tr>
         <tr>
             <td>isTouch</td>
-            <td>Both</td>
             <td>Does the device support touch capabilities?</td>
         </tr>
         <tr>
             <td>isRetina</td>
-            <td>Both</td>
             <td>Does the device support HD / retina displays?</td>
+        </tr>
+        <tr>
+            <td>transitionEnd</td>
+            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
         </tr>
     </tbody>
 </table>

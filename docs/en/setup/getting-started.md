@@ -70,8 +70,7 @@ toolkit/
 └── scss/
     ├── toolkit/
     |   ├── components/
-    |   ├── mixins/
-    |   └── themes/
+    |   └── mixins/
     ├── normalize.scss
     └── toolkit.scss
 ```

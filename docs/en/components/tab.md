@@ -7,13 +7,13 @@ Organizes multiple sections of content into toggleable tabs.
 The tab component is primarily used in the display of multiple sections of content,
 with only a single section open at any time, all toggled through a navigation of tabbed links.
 
-The tabs that make up the component should be wrapped in a `.tab-nav` and structured with
-a required `ul` list. The sections that associate to tabs should be created with `.tab-section`.
+The tabs that make up the component should be wrapped in a `.tab-nav` (with `data-tab-nav`) and structured with
+a `ul` list. The sections that associate to tabs should be created with `.tab-section` and `data-tab-section`.
 Both of which can be wrapped by a `.tabs` element.
 
 ```html
 <div class="tabs">
-    <nav class="tab-nav">
+    <nav class="tab-nav" data-tab-nav>
         <ul>
             <li><a href="#one">First</a></li>
             <li><a href="#two">Second</a></li>
@@ -21,9 +21,9 @@ Both of which can be wrapped by a `.tabs` element.
         </ul>
     </nav>
 
-    <section class="tab-section">...</section>
-    <section class="tab-section">...</section>
-    <section class="tab-section">...</section>
+    <section class="tab-section" data-tab-section>...</section>
+    <section class="tab-section" data-tab-section>...</section>
+    <section class="tab-section" data-tab-section>...</section>
 </div>
 ```
 
@@ -32,6 +32,11 @@ The component should be initialized on an element that wraps both the navigation
 ```javascript
 $('.tabs').tab();
 ```
+
+<div class="notice is-info">
+    The <code>data-tab-*</code> attributes are required so that the JavaScript layer
+    can find or bind elements in the DOM.
+</div>
 
 <div class="notice is-info">
     The markup for tabs can be customized and re-arranged extensively.
@@ -51,7 +56,7 @@ use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.
 
 ```html
 <div class="tabs tabs--horizontal grid">
-    <nav class="tab-nav col span-4">
+    <nav class="tab-nav col span-4" data-tab-nav>
         <ul>
             <li><a href="#one">First</a></li>
             <li><a href="#two">Second</a></li>
@@ -60,9 +65,9 @@ use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.
     </nav>
 
     <div class="col span-8">
-        <section class="tab-section">...</section>
-        <section class="tab-section">...</section>
-        <section class="tab-section">...</section>
+        <section class="tab-section" data-tab-section>...</section>
+        <section class="tab-section" data-tab-section>...</section>
+        <section class="tab-section" data-tab-section>...</section>
     </div>
 </div>
 ```
@@ -110,7 +115,7 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
 
 ```html
 <div class="tabs">
-    <nav class="tab-nav">
+    <nav class="tab-nav" data-tab-nav>
         <ul>
             <li><a href="/load/this">AJAX 1st</a></li>
             <li><a href="/load/that">AJAX 2nd</a></li>
@@ -118,9 +123,9 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
         </ul>
     </nav>
 
-    <section class="tab-section"></section>
-    <section class="tab-section"></section>
-    <section class="tab-section">...</section>
+    <section class="tab-section" data-tab-section></section>
+    <section class="tab-section" data-tab-section></section>
+    <section class="tab-section" data-tab-section>...</section>
 </div>
 ```
 
@@ -148,13 +153,13 @@ attributes are required when supporting ARIA.
 
 ```html
 <div class="tabs">
-    <nav class="tab-nav" role="tablist">
+    <nav class="tab-nav" role="tablist" data-tab-nav>
         <ul>
             <li><a href="#one" role="tab">First</a></li>
         </ul>
     </nav>
 
-    <section class="tab-section" role="tabpanel">...</section>
+    <section class="tab-section" role="tabpanel" data-tab-section>...</section>
 </div>
 ```
 
@@ -216,15 +221,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>click</td>
-            <td>
-                The type of interaction for toggling a section.
-                Accepts click or hover.
-            </td>
-        </tr>
-        <tr>
             <td>ajax</td>
             <td>bool</td>
             <td>false</td>
@@ -235,33 +231,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>false</td>
             <td>Allows the open section to be closed, without having to open another section.</td>
-        </tr>
-        <tr>
-            <td>defaultIndex</td>
-            <td>int</td>
-            <td>0</td>
-            <td>
-                The index of the section to open on page load.
-                Can be overridden by a fragment or cookie.
-            </td>
-        </tr>
-        <tr>
-            <td>persistState</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Persist the open tab between requests through cookies.</td>
-        </tr>
-        <tr>
-            <td>preventDefault</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Prevent the default action on navigation tabs.</td>
-        </tr>
-        <tr>
-            <td>loadFragment</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Open the section that matches the current hash fragment.</td>
         </tr>
         <tr>
             <td>cookie</td>
@@ -276,10 +245,46 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The duration in days to store the cookie.</td>
         </tr>
         <tr>
+            <td>defaultIndex</td>
+            <td>int</td>
+            <td>0</td>
+            <td>
+                The index of the section to open on page load.
+                Can be overridden by a fragment or cookie.
+            </td>
+        </tr>
+        <tr>
             <td>getUrl</td>
             <td>string</td>
             <td>url</td>
             <td>The HTML attribute on the tab to get the URL for AJAX requests.</td>
+        </tr>
+        <tr>
+            <td>loadFragment</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Open the section that matches the current hash fragment.</td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>click</td>
+            <td>
+                The type of interaction for toggling a section.
+                Accepts click or hover.
+            </td>
+        </tr>
+        <tr>
+            <td>persistState</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Persist the open tab between requests through cookies.</td>
+        </tr>
+        <tr>
+            <td>preventDefault</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Prevent the default action on navigation tabs.</td>
         </tr>
     </tbody>
 </table>
@@ -330,22 +335,10 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
-            <td>nav</td>
-            <td>element</td>
-            <td>The element containing the navigation links (the tabs).</td>
-            <td>.tab-nav</td>
-        </tr>
-        <tr>
-            <td>tabs</td>
-            <td>collection</td>
-            <td>A collection of tab elements within the nav.</td>
-            <td>.tab-nav a</td>
-        </tr>
-        <tr>
-            <td>sections</td>
-            <td>collection</td>
-            <td>A collection of section elements within the tab wrapper.</td>
-            <td>.tab-section</td>
+            <td>cache</td>
+            <td>object</td>
+            <td>Collection of cached AJAX requests indexed by URL.</td>
+            <td></td>
         </tr>
         <tr>
             <td>index</td>
@@ -354,10 +347,22 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td></td>
         </tr>
         <tr>
-            <td>cache</td>
-            <td>object</td>
-            <td>Collection of cached AJAX requests indexed by URL.</td>
-            <td></td>
+            <td>nav</td>
+            <td>element</td>
+            <td>The element containing the navigation links (the tabs).</td>
+            <td>[data-tab-nav]</td>
+        </tr>
+        <tr>
+            <td>sections</td>
+            <td>collection</td>
+            <td>A collection of section elements within the tab wrapper.</td>
+            <td>[data-tab-section]</td>
+        </tr>
+        <tr>
+            <td>tabs</td>
+            <td>collection</td>
+            <td>A collection of tab elements within the nav.</td>
+            <td>[data-tab-nav] a</td>
         </tr>
     </tbody>
 </table>
@@ -383,7 +388,7 @@ Inherits all methods from the [parent Component](component.md#methods).
         <tr>
             <td>show(element:tab)</td>
             <td>Open a specific section using the related tab element.</td>
-            <td>.tab-nav a</td>
+            <td>[data-tab-nav] a</td>
         </tr>
     </tbody>
 </table>

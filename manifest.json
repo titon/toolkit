@@ -17,7 +17,7 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["components/base.scss"]
+            "css": ["base.scss"]
         }
     },
 

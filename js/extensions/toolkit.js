@@ -14,12 +14,7 @@ define([
  */
 $.fn.toolkit = function(plugin, method, args) {
     var selector = this.selector,
-        instance = this.data('toolkit.' + plugin);
-
-    // Check for the instance within the cache
-    if (!instance && Toolkit.cache[plugin + '.' + selector]) {
-        instance = Toolkit.cache[plugin + '.' + selector];
-    }
+        instance = this.data('toolkit.' + plugin) || Toolkit.cache[plugin + ':' + selector] || null;
 
     if (!instance) {
         return null;

@@ -17,12 +17,12 @@ Like mixins, functions allow for re-use of code. The following functions exist w
             <td>Output a black background with alpha transparency using <code>rgba()</code>.</td>
         </tr>
         <tr>
-            <td>white($opacity)</td>
-            <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
-        </tr>
-        <tr>
             <td>join-classes($classes, $inherit)</td>
             <td>Join a list of classes (without .) as a CSS selector. If inherit is true, inherit from parent with <code>&</code>.</td>
+        </tr>
+        <tr>
+            <td>white($opacity)</td>
+            <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
         </tr>
     </tbody>
 </table>

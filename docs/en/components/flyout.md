@@ -132,17 +132,6 @@ attributes are required when supporting ARIA.
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
-## Template ##
-
-The following markup is used for the creation of flyouts.
-This structure can be customized through the `template` option.
-
-```html
-<div class="flyout"></div>
-```
-
-An unordered list will be placed within each flyout.
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -192,15 +181,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>hover</td>
-            <td>
-                The type of interaction for displaying a flyout.
-                Accepts click or hover.
-            </td>
-        </tr>
-        <tr>
             <td>getUrl</td>
             <td>string|function</td>
             <td>href</td>
@@ -211,10 +191,47 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
         </tr>
         <tr>
+            <td>headingTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;li class="flyout-heading"&gt;&lt;/li&gt;
+            </td>
+            <td>The heading markup for list items.</td>
+        </tr>
+        <tr>
+            <td>hideDelay</td>
+            <td>int</td>
+            <td>1000</td>
+            <td>The delay in milliseconds before the flyout is hidden.</td>
+        </tr>
+        <tr>
             <td>itemLimit</td>
             <td>int</td>
             <td>15</td>
             <td>The number of items per list in a flyout menu.</td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>hover</td>
+            <td>
+                The type of interaction for displaying a flyout.
+                Accepts click or hover.
+            </td>
+        </tr>
+        <tr>
+            <td>showDelay</td>
+            <td>int</td>
+            <td>350</td>
+            <td>The delay in milliseconds before the flyout is displayed.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="flyout" data-flyout-menu&gt;&lt;/div&gt;
+            </td>
+            <td>The flyout markup. The <code>data-flyout-menu</code> is required.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -227,18 +244,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>int</td>
             <td>0</td>
             <td>The offset in pixels to move the flyout along the Y axis.</td>
-        </tr>
-        <tr>
-            <td>showDelay</td>
-            <td>int</td>
-            <td>350</td>
-            <td>The delay in milliseconds before the flyout is displayed.</td>
-        </tr>
-        <tr>
-            <td>hideDelay</td>
-            <td>int</td>
-            <td>1000</td>
-            <td>The delay in milliseconds before the flyout is hidden.</td>
         </tr>
     </tbody>
 </table>
@@ -287,16 +292,6 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>The current URL being used for display.</td>
         </tr>
         <tr>
-            <td>element</td>
-            <td>element</td>
-            <td>The flyout menu currently being displayed.</td>
-        </tr>
-        <tr>
-            <td>menus</td>
-            <td>object</td>
-            <td>A cache of flyout menu elements indexed by URL.</td>
-        </tr>
-        <tr>
             <td>data</td>
             <td>json</td>
             <td>The raw JSON response from the initial AJAX request.</td>
@@ -305,6 +300,16 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>dataMap</td>
             <td>object</td>
             <td>A mapping of data objects indexed by URL.</td>
+        </tr>
+        <tr>
+            <td>element</td>
+            <td>element</td>
+            <td>The flyout menu currently being displayed.</td>
+        </tr>
+        <tr>
+            <td>menus</td>
+            <td>object</td>
+            <td>A cache of flyout menu elements indexed by URL.</td>
         </tr>
         <tr>
             <td>timers</td>

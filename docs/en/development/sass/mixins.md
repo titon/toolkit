@@ -21,6 +21,17 @@ style resets, and media query management.
             <td>Provides <code>::after</code> styles on the parent for clearing child floats.</td>
         </tr>
         <tr>
+            <td>is-small($self, $parent)</td>
+            <td>Yes</td>
+            <td rowspan="2">
+                Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
+            </td>
+        </tr>
+        <tr>
+            <td>is-large($self, $parent)</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
             <td>reset-inline-block()</td>
             <td></td>
             <td>Resets the styles of an element to inline-block, aligns vertically in the middle, and resets margin, padding, etc.</td>
@@ -47,17 +58,6 @@ style resets, and media query management.
         <tr>
             <td>size-large()</td>
             <td></td>
-        </tr>
-        <tr>
-            <td>is-small($self, $parent)</td>
-            <td>Yes</td>
-            <td rowspan="2">
-                Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
-            </td>
-        </tr>
-        <tr>
-            <td>is-large($self, $parent)</td>
-            <td>Yes</td>
         </tr>
     </tbody>
 </table>
@@ -185,14 +185,14 @@ style resets, and media query management.
     </thead>
     <tbody>
         <tr>
-            <td>grid-row($width)</td>
-            <td></td>
-            <td>Defines width and wrapper styles for a row in a grid.</td>
-        </tr>
-        <tr>
             <td>grid-column($width, $gutter)</td>
             <td></td>
             <td>Defines width, margin, and gutter styles for a column in a grid.</td>
+        </tr>
+        <tr>
+            <td>grid-row($width)</td>
+            <td></td>
+            <td>Defines width and wrapper styles for a row in a grid.</td>
         </tr>
     </tbody>
 </table>

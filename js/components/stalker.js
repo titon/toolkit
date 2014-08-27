@@ -27,7 +27,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element).addClass(Toolkit.vendor + 'stalker');
+        this.element = element = $(element);
         this.options = options = this.setOptions(options);
 
         if (!options.target || !options.marker) {
@@ -55,11 +55,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
      */
     destructor: function() {
         var targets = this.targets,
-            markers = this.markers,
-            vendor = Toolkit.vendor;
-
-        targets.removeClass(vendor + 'stalker-target');
-        markers.removeClass(vendor + 'stalker-marker');
+            markers = this.markers;
 
         if (this.options.applyToParent) {
             targets.parent().removeClass('is-active');
@@ -142,16 +138,15 @@ Toolkit.Stalker = Toolkit.Component.extend({
         var isWindow = this.container.is(window),
             eTop = this.element.offset().top,
             offset,
-            offsets = [],
-            vendor = Toolkit.vendor;
+            offsets = [];
 
         if (this.element.css('overflow') === 'auto' && !this.element.is('body')) {
             this.element[0].scrollTop = 0; // Set scroll to top so offsets are correct
         }
 
-        this.targets = $(this.options.target).addClass(vendor + 'stalker-target');
+        this.targets = $(this.options.target);
 
-        this.markers = $(this.options.marker).addClass(vendor + 'stalker-marker').each(function(index, marker) {
+        this.markers = $(this.options.marker).each(function(index, marker) {
             offset = $(marker).offset();
 
             if (!isWindow) {

@@ -11,7 +11,7 @@ amount of HTTP requests in a given page.
 The difference between this component, and other libraries, is that lazy loading is applied
 to a parent wrapper. There are 2 reasons for this, the first is that it allows deferred loading
 of background images (ones defined in CSS), and the second is bulk loading of `img`s within the
-element. Simply place a `.lazy-load` class on the element we want to monitor.
+element. Simply place a `.lazy-load` (or the value of `lazyClass`) class on the element we want to monitor.
 
 ```html
 <div class="item lazy-load">
@@ -113,16 +113,22 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
+            <td>delay</td>
+            <td>int</td>
+            <td>10000</td>
+            <td>The number of milliseconds to wait before force loading all images.</td>
+        </tr>
+        <tr>
             <td>forceLoad</td>
             <td>bool</td>
             <td>false</td>
             <td>Force the loading of all images once the <code>delay</code> has passed.</td>
         </tr>
         <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>10000</td>
-            <td>The number of milliseconds to wait before force loading all images.</td>
+            <td>lazyClass</td>
+            <td>string</td>
+            <td>.lazy-load</td>
+            <td>The class name to search for and to remove while loading.</td>
         </tr>
         <tr>
             <td>threshold</td>

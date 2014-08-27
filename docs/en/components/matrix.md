@@ -114,10 +114,13 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>width</td>
-            <td>int</td>
-            <td>200</td>
-            <td>The virtual column width to align all items against. Larger items may span multiple columns.</td>
+            <td>defer</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Defer positioning of items until all images within the items have loaded.
+                If this is false, items may overlap once images load after the fact.
+            </td>
         </tr>
         <tr>
             <td>gutter</td>
@@ -132,13 +135,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Render items in reverse right-to-left format instead of left-to-right.</td>
         </tr>
         <tr>
-            <td>defer</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Defer positioning of items until all images within the items have loaded.
-                If this is false, items may overlap once images load after the fact.
-            </td>
+            <td>width</td>
+            <td>int</td>
+            <td>200</td>
+            <td>The virtual column width to align all items against. Larger items may span multiple columns.</td>
         </tr>
     </tbody>
 </table>
@@ -157,17 +157,17 @@ Inherits all events from the [parent Component](component.md#events).
     </thead>
     <tbody>
         <tr>
-            <td>append</td>
+            <td>appending</td>
             <td>element:item</td>
             <td>Triggered before an element is appended to the matrix.</td>
         </tr>
         <tr>
-            <td>prepend</td>
+            <td>prepending</td>
             <td>element:item</td>
             <td>Triggered before an element is prepended to the matrix.</td>
         </tr>
         <tr>
-            <td>remove</td>
+            <td>removing</td>
             <td>element:item</td>
             <td>Triggered before an element is removed from the matrix.</td>
         </tr>
@@ -202,6 +202,30 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
+            <td>colCount</td>
+            <td>int</td>
+            <td>The number of columns that can fit within the current wrapper width.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>colHeights</td>
+            <td>array</td>
+            <td>The current height of each column.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>colWidth</td>
+            <td>int</td>
+            <td>The calculated width of each column based on the <code>width</code> option.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>images</td>
+            <td>collection</td>
+            <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
+            <td>img</td>
+        </tr>
+        <tr>
             <td>items</td>
             <td>collection</td>
             <td>A collection of elements to position in the grid.</td>
@@ -218,30 +242,6 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>int</td>
             <td>The width of the matrix wrapper.</td>
             <td></td>
-        </tr>
-        <tr>
-            <td>colWidth</td>
-            <td>int</td>
-            <td>The calculated width of each column based on the <code>width</code> option.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>colHeights</td>
-            <td>array</td>
-            <td>The current height of each column.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>colCount</td>
-            <td>int</td>
-            <td>The number of columns that can fit within the current wrapper width.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>images</td>
-            <td>collection</td>
-            <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
-            <td>img</td>
         </tr>
     </tbody>
 </table>
@@ -267,15 +267,15 @@ Inherits all methods from the [parent Component](component.md#methods).
             <td>Prepend an item to the matrix and re-render. The item must be an <code>li</code>.</td>
         </tr>
         <tr>
-            <td>remove(element:item)</td>
-            <td>Remove an item from the matrix and re-render. The element must match an existing item in the matrix.</td>
-        </tr>
-        <tr>
             <td>refresh()</td>
             <td>
                 Refresh the <code>items</code> list and re-render.
                 This method is automatically called from other methods.
             </td>
+        </tr>
+        <tr>
+            <td>remove(element:item)</td>
+            <td>Remove an item from the matrix and re-render. The element must match an existing item in the matrix.</td>
         </tr>
         <tr>
             <td>render()</td>

@@ -23,7 +23,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element, vendor = Toolkit.vendor, key = this.keyName;
+        var element, key = this.keyName;
 
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement()
@@ -36,8 +36,8 @@ Toolkit.Tooltip = Toolkit.Component.extend({
         }
 
         // Elements for the title and content
-        this.elementHead = element.find('.' + vendor + key + '-head');
-        this.elementBody = element.find('.' + vendor + key + '-body');
+        this.elementHead = element.find('[data-' + key + '-header]');
+        this.elementBody = element.find('[data-' + key + '-content]');
 
         // Nodes found in the page on initialization, remove title attribute
         this.nodes = $(nodes).each(function(i, node) {
@@ -230,8 +230,8 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     delay: 0,
     template: '<div class="tooltip">' +
         '<div class="tooltip-inner">' +
-            '<div class="tooltip-head"></div>' +
-            '<div class="tooltip-body"></div>' +
+            '<div class="tooltip-head" data-tooltip-header></div>' +
+            '<div class="tooltip-body" data-tooltip-content></div>' +
         '</div>' +
         '<div class="tooltip-arrow"></div>' +
     '</div>'

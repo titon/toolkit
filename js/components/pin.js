@@ -39,7 +39,6 @@ Toolkit.Pin = Toolkit.Component.extend({
         // Setup classes and ARIA
         element
             .attr('role', 'complementary')
-            .addClass(Toolkit.vendor + 'pin')
             .addClass(options.animation);
 
         this.elementTop = parseInt(element.css('top'), 10);

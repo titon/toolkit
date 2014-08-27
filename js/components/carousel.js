@@ -61,7 +61,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             .addClass(options.animation);
 
         // Find the item container and disable transitions for initial load
-        this.container = element.find('.' + Toolkit.vendor + 'carousel-items ul')
+        this.container = element.find('[data-carousel-items]')
             .addClass('no-transition');
 
         // Find all the items and set ARIA attributes
@@ -76,7 +76,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         });
 
         // Find all tabs and set ARIA attributes
-        this.tabs = element.find('.' + Toolkit.vendor + 'carousel-tabs')
+        this.tabs = element.find('[data-carousel-tabs]')
             .attr('role', 'tablist')
             .find('a').each(function(index) {
                 $(this)
@@ -100,11 +100,11 @@ Toolkit.Carousel = Toolkit.Component.extend({
             'swipeup element': 'next',
             'swiperight element': 'prev',
             'swipedown element': 'prev',
-            'click element .@carousel-tabs a': 'onJump',
-            'click element .@carousel-next': 'next',
-            'click element .@carousel-prev': 'prev',
-            'click element .@carousel-start': 'start',
-            'click element .@carousel-stop': 'stop'
+            'click element [data-carousel-tabs] a': 'onJump',
+            'click element [data-carousel-next]': 'next',
+            'click element [data-carousel-prev]': 'prev',
+            'click element [data-carousel-start]': 'start',
+            'click element [data-carousel-stop]': 'stop'
         };
 
         if (options.stopOnHover) {

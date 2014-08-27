@@ -80,6 +80,11 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
             <td>CSS class name for the pagination list.</td>
         </tr>
         <tr>
+            <td>$pagination-effects</td>
+            <td>()</td>
+            <td>List of effects to include in the CSS output. Accepts oval, pill, and skew.</td>
+        </tr>
+        <tr>
             <td>$pagination-modifiers</td>
             <td>("grouped")</td>
             <td>List of modifiers to include in the CSS output. Accepts grouped.</td>
@@ -88,11 +93,6 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
             <td>$pagination-modifier-grouped</td>
             <td>grouped</td>
             <td>Name of the grouped modifier to append to pagination classes.</td>
-        </tr>
-        <tr>
-            <td>$pagination-effects</td>
-            <td>()</td>
-            <td>List of effects to include in the CSS output. Accepts oval, pill, and skew.</td>
         </tr>
     </tbody>
 </table>

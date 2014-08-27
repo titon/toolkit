@@ -25,35 +25,13 @@ Toolkit.Blackout = Toolkit.Component.extend({
         this.options = options = this.setOptions(options);
         this.element = this.createElement();
 
-        // Build the loader
-        var count = (options.loader === 'bubble-spinner') ? 8 : options.waveCount,
-            loader = $('<div/>')
-                .addClass(Toolkit.vendor + 'loader')
-                .addClass(options.loader)
-                .appendTo(this.element);
+        // Generate loader elements
+        this.loader = $(options.loaderTemplate);
+        this.message = this.loader.find('[data-loader-message]');
 
-        var spans = '', i;
-
-        for (i = 0; i < count; i++) {
-            spans += '<span></span>';
+        if (options.showLoading) {
+            this.message.html(Toolkit.messages.loading);
         }
-
-        if (options.loader === 'bubble-spinner') {
-            $('<div/>')
-                .addClass(Toolkit.vendor + 'loader-spinner')
-                .html(spans)
-                .appendTo(loader);
-        } else {
-            loader.html(spans);
-        }
-
-        this.loader = loader;
-
-        // Build the message
-        this.message = $('<div/>')
-            .addClass(Toolkit.vendor + 'loader-message')
-            .html(Toolkit.messages.loading)
-            .appendTo(loader);
 
         // Initialize
         this.initialize();
@@ -113,10 +91,13 @@ Toolkit.Blackout = Toolkit.Component.extend({
     }
 
 }, {
-    loader: 'bar-wave',
-    waveCount: 5,
-    template: '<div class="' + Toolkit.vendor + 'blackout"></div>',
-    templateFrom: '#toolkit-blackout-1'
+    showLoading: true,
+    template: '<div class="blackout"></div>',
+    templateFrom: '#toolkit-blackout-1',
+    loaderTemplate: '<div class="loader bar-wave">' +
+        '<span></span><span></span><span></span><span></span><span></span>' +
+        '<div class="loader-message" data-loader-message></div>' +
+    '</div>'
 });
 
 /** Has the blackout been created already? */

@@ -14,7 +14,7 @@ The following markup can be used for basic carousel functionality.
 <div class="carousel">
     <!-- Items to cycle -->
     <div class="carousel-items">
-        <ul>
+        <ul data-carousel-items>
             <li><a href=""><img src="/img/carousel/item-1.png" alt="" class="fluid"></a></li>
             ...
         </ul>
@@ -22,15 +22,15 @@ The following markup can be used for basic carousel functionality.
 
     <!-- Tabs for each item -->
     <div class="carousel-tabs">
-        <ol class="bullets">
+        <ol class="bullets" data-carousel-tabs>
             <li><a href="javascript:;"></a></li>
             ...
         </ol>
     </div>
 
     <!-- Next and previous arrows -->
-    <a href="javascript:;" class="carousel-prev"></a>
-    <a href="javascript:;" class="carousel-next"></a>
+    <a href="javascript:;" class="carousel-prev" data-carousel-prev></a>
+    <a href="javascript:;" class="carousel-next" data-carousel-next></a>
 </div>
 ```
 
@@ -45,6 +45,11 @@ Once the markup is in place, a carousel can be initialized.
 ```javascript
 $('.carousel').carousel();
 ```
+
+<div class="notice is-info">
+    The <code>data-carousel-*</code> attributes are required so that the JavaScript layer
+    can find or bind elements in the DOM.
+</div>
 
 ### Cycle Animation ###
 
@@ -164,13 +169,13 @@ attributes are required when supporting ARIA.
 ```html
 <div class="carousel">
     <div class="carousel-items">
-        <ul>
+        <ul data-carousel-items>
             <li role="tabpanel">...</li>
         </ul>
     </div>
 
     <div class="carousel-tabs" role="tablist">
-        <ol class="bullets">
+        <ol class="bullets" data-carousel-tabs>
             <li><a href="javascript:;" role="tab"></a></li>
         </ol>
     </div>
@@ -203,11 +208,6 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the carousel items list.</td>
         </tr>
         <tr>
-            <td>$carousel-class-tabs</td>
-            <td>.carousel-tabs</td>
-            <td>CSS class name for the carousel tabs list.</td>
-        </tr>
-        <tr>
             <td>$carousel-class-next</td>
             <td>.carousel-next</td>
             <td>CSS class name for the carousel next button.</td>
@@ -218,19 +218,24 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the carousel previous button.</td>
         </tr>
         <tr>
+            <td>$carousel-class-tabs</td>
+            <td>.carousel-tabs</td>
+            <td>CSS class name for the carousel tabs list.</td>
+        </tr>
+        <tr>
             <td>$carousel-modifiers</td>
             <td>("wide", "square")</td>
             <td>List of modifiers to include in the CSS output. Accepts wide and square.</td>
         </tr>
         <tr>
-            <td>$carousel-modifier-wide</td>
-            <td>wide</td>
-            <td>Name of the wide modifier to append to carousel classes.</td>
-        </tr>
-        <tr>
             <td>$carousel-modifier-square</td>
             <td>square</td>
             <td>Name of the square modifier to append to carousel classes.</td>
+        </tr>
+        <tr>
+            <td>$carousel-modifier-wide</td>
+            <td>wide</td>
+            <td>Name of the wide modifier to append to carousel classes.</td>
         </tr>
         <tr>
             <td>$carousel-opacity</td>
@@ -268,28 +273,40 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
         </tr>
         <tr>
-            <td>duration</td>
-            <td>int</td>
-            <td>5000</td>
-            <td>The time in milliseconds when each cycle occurs.</td>
-        </tr>
-        <tr>
             <td>autoCycle</td>
             <td>bool</td>
             <td>true</td>
             <td>Whether to cycle through items automatically. Makes use of <code>duration</code> for intervals.</td>
         </tr>
         <tr>
-            <td>stopOnHover</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
+            <td>defaultIndex</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The item to display on initial page load.</td>
+        </tr>
+        <tr>
+            <td>duration</td>
+            <td>int</td>
+            <td>5000</td>
+            <td>The time in milliseconds when each cycle occurs.</td>
         </tr>
         <tr>
             <td>infinite</td>
             <td>bool</td>
             <td>true</td>
             <td>Allows for infinite cycling in either direction.</td>
+        </tr>
+        <tr>
+            <td>itemsToCycle</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to move when cycling.</td>
+        </tr>
+        <tr>
+            <td>itemsToShow</td>
+            <td>int</td>
+            <td>1</td>
+            <td>The number of items to display in the carousel at the same time.</td>
         </tr>
         <tr>
             <td>loop</td>
@@ -304,22 +321,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Will reverse the direction for automatic cycling.</td>
         </tr>
         <tr>
-            <td>itemsToShow</td>
-            <td>int</td>
-            <td>1</td>
-            <td>The number of items to display in the carousel at the same time.</td>
-        </tr>
-        <tr>
-            <td>itemsToCycle</td>
-            <td>int</td>
-            <td>1</td>
-            <td>The number of items to move when cycling.</td>
-        </tr>
-        <tr>
-            <td>defaultIndex</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The item to display on initial page load.</td>
+            <td>stopOnHover</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to pause the automatic cycling while hovering over the carousel.</td>
         </tr>
     </tbody>
 </table>
@@ -385,22 +390,16 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
+            <td>animating</td>
+            <td>bool</td>
+            <td>Is the carousel currently animating.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>container</td>
             <td>element</td>
             <td>The parent element for all item elements.</td>
-            <td>.carousel-items ul</td>
-        </tr>
-        <tr>
-            <td>items</td>
-            <td>collection</td>
-            <td>A collection of item elements that will be cycled through.</td>
-            <td><code>container</code> li</td>
-        </tr>
-        <tr>
-            <td>tabs</td>
-            <td>collection</td>
-            <td>A collection of tab elements that can be clicked to jump to items.</td>
-            <td>.carousel-tabs a</td>
+            <td>[data-carousel-items]</td>
         </tr>
         <tr>
             <td>index</td>
@@ -409,10 +408,10 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td></td>
         </tr>
         <tr>
-            <td>timer</td>
-            <td>int</td>
-            <td>The automatic cycle timer instance.</td>
-            <td></td>
+            <td>items</td>
+            <td>collection</td>
+            <td>A collection of item elements that will be cycled through.</td>
+            <td>[data-carousel-items] li</td>
         </tr>
         <tr>
             <td>stopped</td>
@@ -421,9 +420,15 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td></td>
         </tr>
         <tr>
-            <td>animating</td>
-            <td>bool</td>
-            <td>Is the carousel currently animating.</td>
+            <td>tabs</td>
+            <td>collection</td>
+            <td>A collection of tab elements that can be clicked to jump to items.</td>
+            <td>[data-carousel-tabs] a</td>
+        </tr>
+        <tr>
+            <td>timer</td>
+            <td>int</td>
+            <td>The automatic cycle timer instance.</td>
             <td></td>
         </tr>
     </tbody>
@@ -450,27 +455,27 @@ Inherits all methods from the [parent Component](component.md#methods).
         <tr>
             <td>jump(int:index)</td>
             <td>Go to a specific item defined by the index in the collection.</td>
-            <td>.carousel-tabs a</td>
+            <td>[data-carousel-tabs] a</td>
         </tr>
         <tr>
             <td>next()</td>
             <td>Go to the next item.</td>
-            <td>.carousel-next</td>
+            <td>[data-carousel-next]</td>
         </tr>
         <tr>
             <td>prev()</td>
             <td>Go to the previous item.</td>
-            <td>.carousel-prev</td>
+            <td>[data-carousel-prev]</td>
         </tr>
         <tr>
             <td>start()</td>
             <td>Start automatic cycling.</td>
-            <td>.carousel-start</td>
+            <td>[data-carousel-start]</td>
         </tr>
         <tr>
             <td>stop()</td>
             <td>Stop automatic cycling.</td>
-            <td>.carousel-stop</td>
+            <td>[data-carousel-stop]</td>
         </tr>
         <tr>
             <td>reset()</td>

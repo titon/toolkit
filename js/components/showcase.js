@@ -40,7 +40,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element, vendor = Toolkit.vendor;
+        var element;
 
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement();
@@ -49,13 +49,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.nodes = $(nodes);
 
         // The wrapping items element
-        this.items = element.find('.' + vendor + 'showcase-items');
+        this.items = element.find('[data-showcase-items]');
 
         // The wrapping tabs element
-        this.tabs = element.find('.' + vendor + 'showcase-tabs');
+        this.tabs = element.find('[data-showcase-tabs]');
 
         // The caption element
-        this.caption = element.find('.' + vendor + 'showcase-caption');
+        this.caption = element.find('[data-showcase-caption]');
 
         // Blackout element if enabled
         if (options.blackout) {
@@ -70,14 +70,14 @@ Toolkit.Showcase = Toolkit.Component.extend({
             'swiperight element': 'prev',
             'keydown window': 'onKeydown',
             'click document {selector}': 'onShow',
-            'click element .@showcase-hide': 'onHide',
-            'click element .@showcase-next': 'next',
-            'click element .@showcase-prev': 'prev',
-            'click element .@showcase-tabs a': 'onJump'
+            'click element [data-showcase-close]': 'hide',
+            'click element [data-showcase-next]': 'next',
+            'click element [data-showcase-prev]': 'prev',
+            'click element [data-showcase-tabs] a': 'onJump'
         };
 
         // Stop `transitionend` events from bubbling up when the showcase is resized
-        this.events[Toolkit.transitionEnd + ' element .showcase-items'] = function(e) {
+        this.events[Toolkit.transitionEnd + ' element [data-showcase-items]'] = function(e) {
             e.stopPropagation();
         };
 
@@ -424,13 +424,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
     getTitle: 'title',
     template: '<div class="showcase">' +
         '<div class="showcase-inner">' +
-            '<ul class="showcase-items"></ul>' +
-            '<ol class="showcase-tabs bullets"></ol>' +
-            '<button class="showcase-prev"><span class="arrow-left"></span></button>' +
-            '<button class="showcase-next"><span class="arrow-right"></span></button>' +
+            '<ul class="showcase-items" data-showcase-items></ul>' +
+            '<ol class="showcase-tabs bullets" data-showcase-tabs></ol>' +
+            '<button class="showcase-prev" data-showcase-prev><span class="arrow-left"></span></button>' +
+            '<button class="showcase-next" data-showcase-next><span class="arrow-right"></span></button>' +
         '</div>' +
-        '<button class="showcase-close showcase-hide"><span class="x"></span></button>' +
-        '<div class="showcase-caption"></div>' +
+        '<button class="showcase-close" data-showcase-close><span class="x"></span></button>' +
+        '<div class="showcase-caption" data-showcase-caption></div>' +
     '</div>'
 });
 

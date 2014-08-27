@@ -37,7 +37,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element).addClass(Toolkit.vendor + 'matrix');
+        this.element = element = $(element);
         this.options = this.setOptions(options, element);
 
         // Initialize events
@@ -69,7 +69,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             .appendTo(this.element)
             .css('opacity', 0);
 
-        this.fireEvent('append', [item]);
+        this.fireEvent('appending', [item]);
 
         this.refresh();
     },
@@ -84,7 +84,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             .prependTo(this.element)
             .css('opacity', 0);
 
-        this.fireEvent('prepend', [item]);
+        this.fireEvent('prepending', [item]);
 
         this.refresh();
     },
@@ -115,7 +115,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
     remove: function(item) {
         item = $(item);
 
-        this.fireEvent('remove', [item]);
+        // Using event `remove` will cause the DOM element to delete itself
+        this.fireEvent('removing', [item]);
 
         this.items.each(function() {
             var self = $(this);
@@ -218,7 +219,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.render);
+        $.when.apply($, promises).always(this.render.bind(this));
     },
 
     /**

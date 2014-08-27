@@ -16,8 +16,8 @@ Every type of component falls into one of the following.
 
 ## Templates ##
 
-Templates are strings of HTML markup used for the creation of DOM elements and are represented by the `template` option.
-They are primarily used by "created" components as the main element for interaction.
+Templates are strings of HTML markup used for the creation of DOM elements and are represented by the `template` option,
+or by an option that ends in `Template`. They are primarily used by "created" components as the main element for interaction.
 
 For example, the [Modal component](../../components/modal.md) uses the following template markup
 to create the elements that are used in the page.

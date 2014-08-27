@@ -85,6 +85,11 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$toast-animations</td>
+            <td>("fade", "slide-up", "slide-down", "slide-left", "slide-right")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
             <td>$toast-class</td>
             <td>.toast</td>
             <td>CSS class name for the toast element.</td>
@@ -93,11 +98,6 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
             <td>$toast-class-wrapper</td>
             <td>.toasts</td>
             <td>CSS class name for the toasts wrapper.</td>
-        </tr>
-        <tr>
-            <td>$toast-animations</td>
-            <td>("fade", "slide-up", "slide-down", "slide-left", "slide-right")</td>
-            <td>A list of all animations to include in the CSS output.</td>
         </tr>
         <tr>
             <td>$toast-position</td>
@@ -132,15 +132,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>position</td>
-            <td>string</td>
-            <td>bottom-left</td>
-            <td>
-                Where to position the toasts container. Available options are:
-                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
-            </td>
-        </tr>
-        <tr>
             <td>animation</td>
             <td>string</td>
             <td>slide-up</td>
@@ -154,6 +145,31 @@ Inherits all options from the [parent Component](component.md#options).
             <td>int</td>
             <td>5000</td>
             <td>The number in milliseconds before a toast disappears.</td>
+        </tr>
+        <tr>
+            <td>position</td>
+            <td>string</td>
+            <td>bottom-left</td>
+            <td>
+                Where to position the toasts container. Available options are:
+                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
+            </td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;aside class="toasts"&gt;&lt;/aside&gt;
+            </td>
+            <td>The outer wrapping markup.</td>
+        </tr>
+        <tr>
+            <td>toastTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="toast"&gt;&lt;/div&gt;
+            </td>
+            <td>The individual toast markup.</td>
         </tr>
     </tbody>
 </table>
@@ -180,6 +196,11 @@ Inherits all events from the [parent Component](component.md#events).
             <td>hiding</td>
             <td>element:toast</td>
             <td>Triggered before a toast is hidden.</td>
+        </tr>
+        <tr>
+            <td>hidden</td>
+            <td></td>
+            <td>Triggered after a toast is hidden.</td>
         </tr>
         <tr>
             <td>showing</td>
@@ -210,7 +231,7 @@ Inherits all properties from the [parent Component](component.md#properties).
         <tr>
             <td>element</td>
             <td>element</td>
-            <td>The container element that all toasts are prepended to. Is fixed within the body.</td>
+            <td>The container element that all toasts are prepended to. It is fixed within the body.</td>
         </tr>
     </tbody>
 </table>

@@ -9,13 +9,13 @@ Each drop will require a `.drop` class and one of the directional modifiers list
 For the drop to function correctly, the parent will require relative positioning.
 
 ```html
-<div class="drop drop--down">
+<div class="drop drop--down" data-drop-menu>
     <ul>
         ...
     </ul>
 </div>
 
-<ul class="drop drop--up">
+<ul class="drop drop--up" data-drop-menu>
     ...
 </ul>
 ```
@@ -27,7 +27,7 @@ an attribute, or using a callback function. Refer to the `getTarget` option belo
 <div class="button-group">
     <button class="button js-drop" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
-    <ul class="drop drop--down" id="menu">
+    <ul class="drop drop--down" id="menu" data-drop-menu>
         ...
     </ul>
 </div>
@@ -39,15 +39,19 @@ $('.js-drop').drop();
 
 The drop menu will display either through a click, or a hover, depending on the configuration.
 
+<div class="notice is-info">
+    The <code>data-drop-menu</code> attribute is required for automatic hiding when <code>hideOpened</code> is enabled.
+</div>
+
 ### Positioning ###
 
 Dropdowns, dropups, droplefts, and droprights are all supported through their respective modifier class.
 
 ```html
-<ul class="drop drop--down">...</ul>
-<ul class="drop drop--up">...</ul>
-<ul class="drop drop--left">...</ul>
-<ul class="drop drop--right">...</ul>
+<ul class="drop drop--down" data-drop-menu>...</ul>
+<ul class="drop drop--up" data-drop-menu>...</ul>
+<ul class="drop drop--left" data-drop-menu>...</ul>
+<ul class="drop drop--right" data-drop-menu>...</ul>
 ```
 
 ### Nesting ###
@@ -56,7 +60,7 @@ Drops can be nested by inserting a drop menu within an `li` and applying a `.has
 An optional `.caret-right` can be placed within an anchor link to designate children.
 
 ```html
-<ul class="drop drop--left">
+<ul class="drop drop--left" data-drop-menu>
     <li>...</li>
     <li class="has-children">
         <a href="#"><span class="caret-right"></span> Action</a>
@@ -77,7 +81,7 @@ An optional `.caret-right` can be placed within an anchor link to designate chil
 A divider can be used to split actions into groups.
 
 ```html
-<ul class="drop drop--up">
+<ul class="drop drop--up" data-drop-menu>
     <li>...</li>
     <li class="drop-divider"></li>
     <li>...</li>
@@ -87,7 +91,7 @@ A divider can be used to split actions into groups.
 And a header can be used for naming groups.
 
 ```html
-<ul class="drop drop--right">
+<ul class="drop drop--right" data-drop-menu>
     <li class="drop-heading">Group</li>
     <li>...</li>
     <li class="drop-heading">Group</li>
@@ -101,7 +105,7 @@ To align the drop menu against the opposite edge, add a `.reverse-align` class.
 Reverse alignment works for both horizontal and vertical menus.
 
 ```html
-<ul class="drop drop--down reverse-align">
+<ul class="drop drop--down reverse-align" data-drop-menu>
     ...
 </ul>
 ```
@@ -116,7 +120,7 @@ The `menu`, and `menuitem` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.
 
 ```html
-<ul class="drop drop--down" role="menu" id="menu">
+<ul class="drop drop--down" role="menu" id="menu" data-drop-menu>
     <li><a href="" role="menuitem">Item</a></li>
     ...
     <li class="drop-divider" role="separator"></li>
@@ -221,15 +225,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>click</td>
-            <td>
-                The type of interaction for toggling a drop.
-                Accepts click or hover.
-            </td>
-        </tr>
-        <tr>
             <td>getTarget</td>
             <td>string|function</td>
             <td>data-drop</td>
@@ -244,6 +239,15 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>true</td>
             <td>Hides the previously opened drop menu.</td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>click</td>
+            <td>
+                The type of interaction for toggling a drop.
+                Accepts click or hover.
+            </td>
         </tr>
     </tbody>
 </table>

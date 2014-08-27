@@ -50,9 +50,6 @@ $('#overflown').stalker({
 
 ### Notes ###
 
-* The element passed into the constructor will have a `.stalker` class added.
-* Targets will have a `.stalker-target` class added.
-* Markers will have a `.stalker-marker` class added.
 * The active target will have an `.is-active` class added.
 * The marker in view will have an `.is-stalked` class added.
 * Markers and targets can be placed anywhere in the page.
@@ -72,16 +69,21 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>target</td>
-            <td>string</td>
-            <td></td>
-            <td>CSS selector for elements to update when a marker is reached.</td>
+            <td>applyToParent</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to apply the active class to the target parent, or to the target.
+            </td>
         </tr>
         <tr>
-            <td>targetBy</td>
-            <td>string</td>
-            <td>href</td>
-            <td>The HTML attribute on the target to match against the marker.</td>
+            <td>onlyWithin</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to activate or deactivate a target while within a marker.
+                If disabled, the target will stay activated even after leaving the marker.
+            </td>
         </tr>
         <tr>
             <td>marker</td>
@@ -96,6 +98,18 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The HTML attribute on the marker to match against the target.</td>
         </tr>
         <tr>
+            <td>target</td>
+            <td>string</td>
+            <td></td>
+            <td>CSS selector for elements to update when a marker is reached.</td>
+        </tr>
+        <tr>
+            <td>targetBy</td>
+            <td>string</td>
+            <td>href</td>
+            <td>The HTML attribute on the target to match against the marker.</td>
+        </tr>
+        <tr>
             <td>threshold</td>
             <td>int</td>
             <td>50</td>
@@ -106,23 +120,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>int</td>
             <td>50</td>
             <td>The number of milliseconds to throttle all scrolling events.</td>
-        </tr>
-        <tr>
-            <td>onlyWithin</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to activate or deactivate a target while within a marker.
-                If disabled, the target will stay activated even after leaving the marker.
-            </td>
-        </tr>
-        <tr>
-            <td>applyToParent</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to apply the active class to the target parent, or to the target.
-            </td>
         </tr>
     </tbody>
 </table>
@@ -183,10 +180,13 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
-            <td>targets</td>
-            <td>collection</td>
-            <td>A collection of target elements to activate.</td>
-            <td><code>target</code> option</td>
+            <td>container</td>
+            <td>element</td>
+            <td>
+                The element to monitor scroll events on.
+                If the element has overflow auto, it will be the constructor element, else it will be the window.
+            </td>
+            <td></td>
         </tr>
         <tr>
             <td>markers</td>
@@ -201,13 +201,10 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td></td>
         </tr>
         <tr>
-            <td>container</td>
-            <td>element</td>
-            <td>
-                The element to monitor scroll events on.
-                If the element has overflow auto, it will be the constructor element, else it will be the window.
-            </td>
-            <td></td>
+            <td>targets</td>
+            <td>collection</td>
+            <td>A collection of target elements to activate.</td>
+            <td><code>target</code> option</td>
         </tr>
     </tbody>
 </table>
