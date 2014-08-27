@@ -223,8 +223,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         if (!options.native) {
             events['blur input'] = 'hide';
-            events['clickout document [data-select-options]'] = 'hide';
-            events['clickout element'] = 'hide';
+            events['clickout dropdown'] = 'hide';
             events['click element'] = 'onToggle';
 
             if (!this.multiple) {
@@ -251,6 +250,10 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * Hide the dropdown and remove active states.
      */
     hide: function() {
+        if (!this.dropdown.is(':shown')) {
+            return; // Vastly speeds up page time since click/out events aren't running
+        }
+
         this.fireEvent('hiding');
 
         this.element.removeClass('is-active');
@@ -296,10 +299,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 .css('min-width', this.input.width())
                 .insertAfter(this.input);
 
-        // Hide the options be forcing a height on the select
-        if (this.multiple) {
-            this.input.css('max-height', button.height());
-        }
+        // Update the height of the native select input
+        this.input.css('min-height', button.outerHeight());
 
         return button;
     },
