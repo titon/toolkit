@@ -426,8 +426,8 @@ Toolkit.Showcase = Toolkit.Component.extend({
         '<div class="showcase-inner">' +
             '<ul class="showcase-items" data-showcase-items></ul>' +
             '<ol class="showcase-tabs bullets" data-showcase-tabs></ol>' +
-            '<button class="showcase-prev" data-showcase-prev><span class="arrow-left"></span></button>' +
-            '<button class="showcase-next" data-showcase-next><span class="arrow-right"></span></button>' +
+            '<button class="showcase-prev" data-showcase-prev></button>' +
+            '<button class="showcase-next" data-showcase-next></button>' +
         '</div>' +
         '<button class="showcase-close" data-showcase-close><span class="x"></span></button>' +
         '<div class="showcase-caption" data-showcase-caption></div>' +

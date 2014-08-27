@@ -108,18 +108,6 @@ most commonly used in table headers. Applying an `.asc` or `.desc` class to the 
 </span>
 ```
 
-## Arrows ##
-
-Similar to carets, arrows are used as directional indicators. The difference between carets and arrows, is that arrows
-use the `&blacktriangle;` HTML5 entity (not all browsers support this). Arrows are much larger than carets, as they
-scale automatically with font sizes. However, arrow classes may be removed in future versions as their use is limited.
-
-The following arrows exist: `.arrow-up`, `.arrow-right`, `.arrow-down`, and `.arrow-left`.
-
-```html
-<span class="arrow-left"></span>
-```
-
 ## Characters ##
 
 A character is just that, a character. The only currently supported character is `.x`, which uses the `&times;` entity

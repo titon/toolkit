@@ -84,31 +84,14 @@
 .caret-left { border-right-color: inherit; }
 .caret-right { border-left-color: inherit; }
 
-// Arrows, Characters
-.x,
-.arrow-up,
-.arrow-down,
-.arrow-left,
-.arrow-right {
+//, Characters
+.x {
     @include reset-inline-block;
     font: bold 1.5rem/1rem Arial, sans-serif;
     text-transform: uppercase;
+
+    &::before { content: "\00D7"; /* times */ }
 }
-
-.x::before { content: "\00D7"; /* times */ }
-
-.arrow-up::before,
-.arrow-left::before,
-.arrow-down::before,
-.arrow-right::before {
-    display: inline-block;
-    position: relative;
-    content: "\025B4"; /* blacktriangle */
-}
-
-.arrow-right::before { transform: rotate(90deg); }
-.arrow-left::before { transform: rotate(-90deg); }
-.arrow-down::before { transform: rotate(180deg); }
 
 // Bullets
 .bullets {

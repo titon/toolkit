@@ -27,6 +27,7 @@ Older versions can be found in the documentation changelogs.
     * Refactored effects into their respective components that can be toggled through Sass variables
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
+    * Removed `.arrow-*` classes
 * JavaScript
     * Added a `Base` class layer that both `Component` and `Behavior` extend
     * Added a new hook layer to `Base` that replaces the instance event layer
