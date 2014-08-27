@@ -27,7 +27,6 @@
         z-index: $drop-zindex + 1;
     }
 
-    // Apply to self
     ul,
     ol {
         @include reset-list;

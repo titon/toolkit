@@ -17,7 +17,7 @@
         transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition;
     }
 
-    &.has-no-columns > li {
+    &.no-columns > li {
         position: relative !important;
     }
 

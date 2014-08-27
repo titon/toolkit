@@ -45,31 +45,6 @@
     }
 }
 
-#{$carousel-class-prev},
-#{$carousel-class-next} {
-    display: block;
-    position: absolute;
-    padding: $padding;
-    width: auto;
-    height: auto;
-    z-index: 5;
-    top: 50%;
-    transform: translateY(-50%); // move up 50% of their height
-
-    &:focus { outline: none; }
-}
-
-#{$carousel-class-prev} { left: 0; }
-#{$carousel-class-next} { right: 0; }
-
-#{$carousel-class-tabs} {
-    position: absolute;
-    top: $padding;
-    left: 50%;
-    z-index: 5;
-    transform: translateX(-50%); // move left 50% of their width
-}
-
 //-------------------- Animations --------------------//
 
 #{$carousel-class}.slide {

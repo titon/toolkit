@@ -79,29 +79,3 @@
         }
     }
 }
-
-#{$showcase-class-prev},
-#{$showcase-class-next} {
-    display: block;
-    position: absolute;
-    z-index: 5;
-    top: 50%;
-    background: none;
-    padding: 0;
-    border: 0;
-    transform: translateY(-50%); // move up 50% of their height
-
-    &:focus { outline: none; }
-}
-
-#{$showcase-class-prev} { left: $padding; }
-#{$showcase-class-next} { right: $padding; }
-
-#{$showcase-class-tabs} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: $padding;
-    text-align: center;
-}

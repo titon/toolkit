@@ -60,6 +60,7 @@ Older versions can be found in the documentation changelogs.
         * Removed `cycle` and `jump` events
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
             `[data-carousel-items]`, `[data-carousel-tabs]`, `[data-carousel-next]`, `[data-carousel-prev]`, `[data-carousel-start]`, `[data-carousel-stop]`
+        * Removed `.carousel-prev`, `.carousel-next`, and `.carousel-tabs` styles
     * Drop
         * All drop menus will now require a `data-drop-menu` attribute
     * Flyout
@@ -106,6 +107,7 @@ Older versions can be found in the documentation changelogs.
     * Showcase
         * Added `jumping` and `jumped` events
         * Removed `jump` event
+        * Removed `.showcase-prev`, `.showcase-next`, and `.showcase-tabs` styles
         * Renamed selectors `.showcase-items`, `.showcase-tabs`, `.showcase-next`, `.showcase-prev`, `.showcase-hide`, `.showcase-caption` to
             `[data-showcase-items]`, `[data-showcase-tabs]`, `[data-showcase-next]`, `[data-showcase-prev]`, `[data-showcase-close]`, `[data-showcase-caption]`
     * Stalker

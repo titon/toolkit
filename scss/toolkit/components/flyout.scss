@@ -33,10 +33,6 @@
             .caret-right { display: none; }
         }
 
-        // Hover states
-        > a:hover,
-        &.is-open > a {}
-
         // Display caret arrow
         &.has-children > a .caret-right {
             float: right;
