@@ -105,7 +105,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.items
             .removeAttr('style')
             .children('li')
-                .conceal();
+                .conceal(true);
 
         this.fireEvent('hidden');
     },
@@ -148,7 +148,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
             .addClass('is-active');
 
         // Reset previous styles
-        listItems.conceal();
+        listItems.conceal(true);
         caption.conceal();
         element
             .addClass('is-loading')
@@ -160,7 +160,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
         deferred.always(function(width, height) {
             list.transitionend(function() {
                 caption.html(item.title).reveal();
-                listItem.reveal();
+                listItem.reveal(true);
                 self.position();
                 self.animating = false;
             });
@@ -245,7 +245,8 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.index = -1;
         this.element
             .addClass('is-loading')
-            .aria('busy', true);
+            .aria('busy', true)
+            .reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,

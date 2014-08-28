@@ -55,7 +55,7 @@ Toolkit.Component = Toolkit.Base.extend({
             template = $(options.template);
 
             if (template.length) {
-                template.conceal().appendTo('body');
+                template.hide().addClass('hide').appendTo('body');
             }
         }
 

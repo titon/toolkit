@@ -194,10 +194,10 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         if (this.options.animation === 'fade') {
             this.items
-                .conceal()
+                .conceal(true)
                 .eq(visualIndex)
                     .transitionend(this._afterCycle.bind(this))
-                    .reveal();
+                    .reveal(true);
 
         } else {
             this.container

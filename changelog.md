@@ -34,8 +34,10 @@ Older versions can be found in the documentation changelogs.
     * Improved the prototype inheritance layer by initializing a new class instead of extending objects
     * Refactored the class layer so that constructors are passed as a property instead of an argument
     * Refactored so that class properties are passed through an object instead of set through the constructor
-    * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Removed `$.cookie()` and `$.removeCookie()` methods (use a third-party instead)
+    * Renamed `$.fn.addData()` to `$.fn.cache()`
+    * Updated `$.fn.conceal()` to set the element to display none when the transitions is complete
+    * Updated `$.fn.reveal()` to set the element to display block (or similar) before transitions occur
     * Toolkit
         * Removed `vendor` property
     * Component

@@ -19,23 +19,41 @@ If a method is defined, trigger the method on the instance and pass the argument
 var typeAhead = $('#input').toolkit('typeAhead');
 ```
 
-### reveal() ###
+### reveal(`bool:dontShow`) ###
 
 Show an element by replacing <code>.hide</code> with <code>.show</code>.
 By swapping classes, this should trigger any animations or transitions.
+Before transitions occur, the element will be displayed.
 
 ```javascript
-$('#element').reveal();
+$('#element').reveal(); // shown and visible
 ```
 
-### conceal() ###
+If a boolean is passed as the 1st argument, the element's display property will not be modified.
+
+```javascript
+$('#element').reveal(true); // not shown but visible
+```
+
+### conceal(`bool:dontHide`) ###
 
 Hide an element by replacing <code>.show</code> with <code>.hide</code>.
 By swapping classes, this should trigger any animations or transitions.
+Once the transition is complete, the element will be set to display none.
 
 ```javascript
-$('#element').conceal();
+$('#element').conceal(); // hidden and invisible
 ```
+
+If a boolean is passed as the 1st argument, the element's display property will not be modified.
+
+```javascript
+$('#element').conceal(true); // not hidden but invisible
+```
+
+<div class="notice is-info">
+    The display will only be set to none if the element had <code>.show</code> applied once <code>conceal()</code> was called.
+</div>
 
 ### positionTo(`string:position`, `element|event:relativeTo`[, `object:baseOffset`[, `bool:isMouse`]]) ###
 

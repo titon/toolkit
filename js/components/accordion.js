@@ -112,12 +112,12 @@ Toolkit.Accordion = Toolkit.Component.extend({
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.is(':shown') && this.node) {
-                section.css('max-height', 0).conceal();
+                section.css('max-height', 0).conceal(true);
                 parent.removeClass('is-active');
                 header.aria('toggled', false);
 
             } else {
-                section.css('max-height', height).reveal();
+                section.css('max-height', height).reveal(true);
                 parent.addClass('is-active');
                 header.aria('toggled', true);
             }
@@ -130,8 +130,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
                 return;
             }
 
-            this.sections.css('max-height', 0).conceal();
-            section.css('max-height', height).reveal();
+            this.sections.css('max-height', 0).conceal(true);
+            section.css('max-height', height).reveal(true);
 
             this.headers.aria('toggled', false);
             header.aria('toggled', true);

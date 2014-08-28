@@ -237,7 +237,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         }
 
         var options = this.options,
-            menu = $(options.template).attr('role', 'menu').aria('hidden', true),
+            menu = $(options.template).attr('role', 'menu'),
             groups = [],
             ul,
             li,
