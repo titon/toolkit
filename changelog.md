@@ -18,6 +18,7 @@ Older versions can be found in the documentation changelogs.
 * Sass
     * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Added `$enable-all-effects`, `$enable-all-modifiers`, and `$enable-all-animations` for easier styling
+    * Added `full-screen()` mixin for full screen fixed positioning
     * Moved `.span-*` classes from the Grid component into the shared base file
     * Updated all component CSS class names to use Sass variables for more configuration control
     * Updated all modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)

@@ -7,11 +7,7 @@
 @import "../common";
 
 #{$blackout-class} {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    @include full-screen();
     z-index: $blackout-zindex;
     opacity: 0;
     visibility: hidden;

@@ -22,6 +22,17 @@
     padding: 0;
 }
 
+// Position an element to take up the whole screen
+@mixin full-screen($position: fixed) {
+    @if ($position != "") {
+        position: $position;
+    }
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
 // Align an element in the center of another element
 @mixin position-center {
     position: absolute;

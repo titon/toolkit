@@ -21,6 +21,11 @@ style resets, and media query management.
             <td>Provides <code>::after</code> styles on the parent for clearing child floats.</td>
         </tr>
         <tr>
+            <td>full-screen($position)</td>
+            <td></td>
+            <td>Positions an element across the entire viewport horizontally and vertically.</td>
+        </tr>
+        <tr>
             <td>is-small($self, $parent)</td>
             <td>Yes</td>
             <td rowspan="2">
