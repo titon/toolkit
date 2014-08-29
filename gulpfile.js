@@ -4,8 +4,8 @@ var pkg = require('./package.json'),
     rjs = require('./build/plugins/requirejs'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
-    sass = require('gulp-ruby-sass'),
-    clean = require('gulp-clean'),
+    //libsass = require('gulp-sass'),
+    sass = require('gulp-ruby-sass'), // Use v0.5.0 as later versions sort the src array
     header = require('gulp-header'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -69,10 +69,7 @@ gulp.task('css', function() {
     return gulp.src(cssPaths)
 
         // Unminified
-        .pipe(sass({
-            style: 'expanded',
-            loadPath: ['./scss/', './scss/toolkit/', './scss/toolkit/mixins/']
-        }))
+        .pipe(sass({ style: 'expanded' }))
         .pipe(concat('toolkit.css'))
         .pipe(prefixer('last 3 versions'))
         .pipe(header(banner, { pkg: pkg }))

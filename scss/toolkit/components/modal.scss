@@ -64,6 +64,7 @@
 #{$modal-class}.is-fullscreen #{$modal-class-outer} {
     @include full-screen("");
     margin: 0;
+    max-width: 100%;
     max-height: auto;
     border-radius: 0;
     transform: translate(0, 0);

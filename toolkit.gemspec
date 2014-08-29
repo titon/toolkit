@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
 
     # Dependencies
     gem.add_dependency("sass", [">= 3.3.0"])
-    gem.add_dependency("compass", [">= 0.12"])
+    gem.add_dependency("compass", [">= 1.0.0"])
 end

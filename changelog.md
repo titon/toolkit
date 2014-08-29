@@ -8,6 +8,7 @@ Older versions can be found in the documentation changelogs.
 * Dropped IE8 support
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
+* Upgraded to Sass 3.3 and Compass 1.0
 * Upgraded to RequireJS for JS dependency management and compilation
 * Decoupled the CSS and JS layers so that CSS classes (excluding states) are no longer hardcoded
 * Refactored components to make more use of templates for DOM building

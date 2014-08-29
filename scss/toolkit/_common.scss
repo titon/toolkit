@@ -130,13 +130,13 @@ $button-class: "." + $vendor-prefix + "button" !default;
 $button-modifiers: () !default; // Nothing by default
 
 @if ($enable-all-modifiers) {
-    $button-modifiers: ("glare", "reflect", "gloss", "popout");
+    $button-modifiers: ("glare", "reflect", "gloss", "popout") !global;
 }
 
 $button-effects: () !default; // Nothing by default
 
 @if ($enable-all-effects) {
-    $button-effects: ("oval", "pill", "skew");
+    $button-effects: ("oval", "pill", "skew") !global;
 }
 
 //-------------------- Button Group --------------------//
@@ -148,13 +148,13 @@ $buttonGroup-modifier-vertical: "vertical" !default;
 $buttonGroup-modifier-justified: "justified" !default;
 
 @if ($enable-all-modifiers) {
-    $buttonGroup-modifiers: ("vertical", "justified");
+    $buttonGroup-modifiers: ("vertical", "justified") !global;
 }
 
 $buttonGroup-effects: () !default; // Nothing by default
 
 @if ($enable-all-effects) {
-    $buttonGroup-effects: ("pill", "skew");
+    $buttonGroup-effects: ("pill", "skew") !global;
 }
 
 //-------------------- Carousel --------------------//
@@ -170,7 +170,7 @@ $carousel-modifier-wide: "wide" !default;
 $carousel-modifier-square: "square" !default;
 
 @if ($enable-all-modifiers) {
-    $carousel-modifiers: ("wide", "square");
+    $carousel-modifiers: ("wide", "square") !global;
 }
 
 $carousel-opacity: $default-opacity !default;
@@ -193,7 +193,7 @@ $drop-modifier-left: "left" !default;
 $drop-modifier-right: "right" !default;
 
 @if ($enable-all-modifiers) {
-    $drop-modifiers: ("down", "up", "left", "right");
+    $drop-modifiers: ("down", "up", "left", "right") !global;
 }
 
 $drop-transition: $default-transition !default;
@@ -224,7 +224,7 @@ $form-modifier-inline: "inline" !default;
 $form-modifier-horizontal: "horizontal" !default;
 
 @if ($enable-all-modifiers) {
-    $form-modifiers: ("inline", "horizontal");
+    $form-modifiers: ("inline", "horizontal") !global;
 }
 
 //-------------------- Grid --------------------//
@@ -253,7 +253,7 @@ $icon-sizes: (12, 16, 24, 32, 64) !default;
 $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !default;
 
 @if ($enable-all-modifiers) {
-    $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert");
+    $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !global;
 }
 
 //-------------------- Input --------------------//
@@ -283,7 +283,7 @@ $label-modifier-arrow-left: "arrow-left" !default;
 $label-modifier-arrow-right: "arrow-right" !default;
 
 @if ($enable-all-modifiers) {
-    $label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right");
+    $label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !global;
 }
 
 //-------------------- Lazy Load --------------------//
@@ -333,7 +333,7 @@ $modal-class-foot: $modal-class + "-foot" !default;
 $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
 
 @if ($enable-all-animations) {
-    $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left");
+    $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !global;
 }
 
 $modal-mobile-breakpoint: 640px !default; // iOS5
@@ -354,7 +354,7 @@ $offCanvas-class-wrapper: "." + $vendor-prefix + "canvas" !default;
 $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !default;
 
 @if ($enable-all-animations) {
-    $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish");
+    $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !global;
 }
 
 $offCanvas-modifier-left: "left" !default;
@@ -375,13 +375,13 @@ $pagination-modifiers: ("grouped") !default;
 $pagination-modifier-grouped: "grouped" !default;
 
 @if ($enable-all-modifiers) {
-    $pagination-modifiers: ("grouped");
+    $pagination-modifiers: ("grouped") !global;
 }
 
 $pagination-effects: () !default; // Nothing by default
 
 @if ($enable-all-effects) {
-    $pagination-effects: ("oval", "pill", "skew");
+    $pagination-effects: ("oval", "pill", "skew") !global;
 }
 
 //-------------------- Pin --------------------//
@@ -400,7 +400,7 @@ $popover-class-arrow: $popover-class + "-arrow" !default;
 $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
 
 @if ($enable-all-animations) {
-    $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate");
+    $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !global;
 }
 
 $popover-arrow-width: 8 !default;
@@ -415,7 +415,7 @@ $progress-transition: .5s !default;
 $progress-effects: ("pill") !default;
 
 @if ($enable-all-effects) {
-    $progress-effects: ("pill");
+    $progress-effects: ("pill") !global;
 }
 
 //-------------------- Responsive --------------------//
@@ -463,7 +463,7 @@ $switch-modifiers: ("stacked") !default;
 $switch-modifier-stacked: "stacked" !default;
 
 @if ($enable-all-modifiers) {
-    $switch-modifiers: ("stacked");
+    $switch-modifiers: ("stacked") !global;
 }
 
 $switch-transition: $default-transition !default;
@@ -471,7 +471,7 @@ $switch-transition: $default-transition !default;
 $switch-effects: ("pill") !default;
 
 @if ($enable-all-effects) {
-    $switch-effects: ("pill");
+    $switch-effects: ("pill") !global;
 }
 
 //-------------------- Tab --------------------//
@@ -484,7 +484,7 @@ $tab-modifiers: ("horizontal") !default;
 $tab-modifier-horizontal: "horizontal" !default;
 
 @if ($enable-all-modifiers) {
-    $tab-modifiers: ("horizontal");
+    $tab-modifiers: ("horizontal") !global;
 }
 
 //-------------------- Table --------------------//
@@ -501,7 +501,7 @@ $toast-class-wrapper: "." + $vendor-prefix + "toasts" !default;
 $toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
 
 @if ($enable-all-animations) {
-    $toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right");
+    $toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !global;
 }
 
 $toast-position: ("top-left", "top-center", "top-right", "center-left", "center-right", "bottom-left", "bottom-center", "bottom-right") !default;
