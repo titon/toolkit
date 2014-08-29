@@ -29,6 +29,16 @@ Toolkit.Drop = Toolkit.Component.extend({
     },
 
     /**
+     * Hide element when destroying.
+     */
+    destructor: function() {
+        this.hide();
+
+        // Hide all other menus as well
+        $('[data-drop-menu]').conceal();
+    },
+
+    /**
      * Hide the opened element and remove active state.
      */
     hide: function() {

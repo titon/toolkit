@@ -15,7 +15,8 @@ Toolkit.Toast = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.options = options = this.setOptions(options);
+        this.nodes = element = $(element);
+        this.options = options = this.setOptions(options, element);
         this.element = this.createElement()
             .addClass(options.position)
             .removeClass(options.animation)

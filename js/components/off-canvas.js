@@ -23,6 +23,9 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     /** The opposite of `side`. */
     opposite: 'right',
 
+    /** Will be true once document ready has triggered. We must use a flag as it can be called multiple times. */
+    _loaded: false,
+
     /**
      * Initialize off canvas.
      *
@@ -75,6 +78,13 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         this.events = events;
 
         this.initialize();
+    },
+
+    /**
+     * Hide sidebar when destroying.
+     */
+    destructor: function() {
+        this.hide();
     },
 
     /**
@@ -149,7 +159,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @private
      */
     onReady: function() {
-        if (!this.options.openOnLoad) {
+        if (!this.options.openOnLoad || this._loaded) {
             return;
         }
 
@@ -167,6 +177,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
             sidebar.removeClass(transClass);
             inner.removeClass(transClass);
         }, 15); // IE needs a minimum of 15
+
+        this._loaded = true;
     },
 
     /**

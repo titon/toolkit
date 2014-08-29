@@ -104,10 +104,10 @@ Toolkit.Tab = Toolkit.Component.extend({
     },
 
     /**
-     * Reveal the last section when destroying.
+     * Reveal the first section when destroying.
      */
     destructor: function() {
-        this.sections.eq(this.index).reveal();
+        this.jump(0);
     },
 
     /**

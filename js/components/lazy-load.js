@@ -14,6 +14,9 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     /** How many items have been loaded. */
     loaded: 0,
 
+    /** Force load all timer. */
+    timer: null,
+
     /**
      * Initialize the lazy load.
      *
@@ -45,6 +48,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
      * Load all images when destroying.
      */
     destructor: function() {
+        clearTimeout(this.timer);
         this.loadAll();
     },
 
@@ -114,12 +118,15 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
      * Load the remaining hidden elements and remove any container events.
      */
     loadAll: function() {
+        if (this.loaded >= this.elements.length) {
+            return;
+        }
+
+        this.fireEvent('loadAll');
+
         this.elements.each(function(index, node) {
             this.show(node, index);
         }.bind(this));
-
-        this.fireEvent('loadAll');
-        this.shutdown();
     },
 
     /**
@@ -183,7 +190,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            setTimeout(this.loadAll, this.options.delay);
+            this.timer = setTimeout(this.loadAll, this.options.delay);
         }
     }
 

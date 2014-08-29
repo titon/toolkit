@@ -129,10 +129,11 @@ Toolkit.Carousel = Toolkit.Component.extend({
      * Stop the carousel before destroying.
      */
     destructor: function() {
-        this.jump(0);
-
         // Remove timers
         clearInterval(this.timer);
+
+        // Go to first item
+        this.jump(0);
 
         // Remove clones
         this.container.transitionend(function() {

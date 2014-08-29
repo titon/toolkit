@@ -85,6 +85,8 @@ Older versions can be found in the documentation changelogs.
     * Lazy Load
         * Added `loading` and `loaded` events
         * Added a `lazyClass` option that defaults to `.lazy-load`
+        * Added a `timer` property
+        * Fixed a bug where `shutdown` event was being called twice
         * Removed `load` event
     * Mask
         * Added `template` and `messageTemplate` options

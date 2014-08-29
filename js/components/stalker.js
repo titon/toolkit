@@ -96,6 +96,8 @@ Toolkit.Stalker = Toolkit.Component.extend({
         // Stop all the unnecessary processing
         if (type === 'activate' && marker.hasClass('is-stalked')) {
             return;
+        } else if (type === 'deactivate' && !marker.hasClass('is-stalked')) {
+            return;
         }
 
         var options = this.options,

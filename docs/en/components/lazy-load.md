@@ -227,6 +227,11 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>int</td>
             <td>A count of how many elements have been loaded.</td>
         </tr>
+        <tr>
+            <td>timer</td>
+            <td>int</td>
+            <td>The load all timer.</td>
+        </tr>
     </tbody>
 </table>
 
