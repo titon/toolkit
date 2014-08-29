@@ -96,13 +96,14 @@ Toolkit.Component = Toolkit.Base.extend({
             this.element.removeData('toolkit.' + key);
         }
 
+        // Trigger destructors
+        Toolkit.Base.prototype.destroy.call(this);
+
         // Remove element and state only if it was created
         if (this.created) {
             this.hide();
             this.element.remove();
         }
-
-        Toolkit.Base.prototype.destroy.call(this);
     },
 
     /**

@@ -208,6 +208,14 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
         </tr>
         <tr>
+            <td>filterClasses</td>
+            <td>regex</td>
+            <td>/\binput\b/</td>
+            <td>
+                Filter out classes during the copy process using a regex pattern.
+            </td>
+        </tr>
+        <tr>
             <td>template</td>
             <td>string</td>
             <td>

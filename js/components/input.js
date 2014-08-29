@@ -9,7 +9,7 @@ Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
     version: '1.4.0',
 
-    /** The original input element. */
+    /** The custom input element. */
     input: null,
 
     /** The element that wraps the custom input. */
@@ -66,9 +66,11 @@ Toolkit.Input = Toolkit.Component.extend({
                 });
             }
 
-        } else {
-            this.wrapper.replaceWith(this.input);
-            this.input.removeAttr('style');
+        // Check for the wrapper as some inputs may be initialized but not used.
+        // Multi-selects using native controls for example.
+        } else if (this.wrapper) {
+            this.wrapper.replaceWith(element);
+            element.removeAttr('style');
         }
     },
 
@@ -79,7 +81,7 @@ Toolkit.Input = Toolkit.Component.extend({
      * @param {jQuery} to
      */
     copyClasses: function(from, to) {
-        var classes = ($(from).attr('class') || '').replace(/\binput\b/, '').trim();
+        var classes = ($(from).attr('class') || '').replace(this.options.filterClasses, '').trim();
 
         if (classes) {
             $(to).addClass(classes);
@@ -93,7 +95,7 @@ Toolkit.Input = Toolkit.Component.extend({
      * @returns {jQuery}
      */
     _buildWrapper: function() {
-        var input = this.input,
+        var input = this.element,
             wrapper = $(this.options.template)
                 .insertBefore(input)
                 .append(input);
@@ -107,6 +109,7 @@ Toolkit.Input = Toolkit.Component.extend({
 
 }, {
     copyClasses: true,
+    filterClasses: /\binput\b/,
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select',
@@ -128,12 +131,12 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
      * @param {Object} [options]
      */
     constructor: function(checkbox, options) {
-        this.input = checkbox = $(checkbox);
+        this.element = checkbox = $(checkbox);
         this.options = options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.element = $(options.checkboxTemplate)
+        this.input = $(options.checkboxTemplate)
             .attr('for', checkbox.attr('id'))
             .insertAfter(checkbox);
 
@@ -160,12 +163,12 @@ Toolkit.InputRadio = Toolkit.Input.extend({
      * @param {Object} [options]
      */
     constructor: function(radio, options) {
-        this.input = radio = $(radio);
+        this.element = radio = $(radio);
         this.options = options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.element = $(options.radioTemplate)
+        this.input = $(options.radioTemplate)
             .attr('for', radio.attr('id'))
             .insertAfter(radio);
 
@@ -203,9 +206,9 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     constructor: function(select, options) {
         var events = {};
 
-        this.input = select = $(select);
-        this.multiple = select.prop('multiple');
+        this.element = select = $(select);
         this.options = options = this.setOptions(options, select);
+        this.multiple = select.prop('multiple');
 
         // Multiple selects must use native controls
         if (this.multiple && options.native) {
@@ -216,26 +219,26 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.wrapper = this._buildWrapper();
 
         // Button element to open the drop menu
-        this.element = this._buildButton();
+        this.input = this._buildButton();
 
         // Initialize events
-        events['change input'] = 'onChange';
+        events['change element'] = 'onChange';
 
         if (!options.native) {
-            events['blur input'] = 'hide';
+            events['blur element'] = 'hide';
             events['clickout dropdown'] = 'hide';
-            events['click element'] = 'onToggle';
+            events['click input'] = 'onToggle';
 
             if (!this.multiple) {
                 events['keydown window'] = 'onCycle';
             }
 
             // Build custom dropdown when not in native
-            this._buildDropdown();
+            this.dropdown = this._buildDropdown();
 
             // Cant hide/invisible the real select or we lose focus/blur
             // So place it below .custom-input
-            this.input.css('z-index', 1);
+            this.element.css('z-index', 1);
         }
 
         this.events = events;
@@ -243,7 +246,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.initialize();
 
         // Trigger change immediately to update the label
-        this.input.change();
+        this.element.change();
     },
 
     /**
@@ -256,7 +259,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         this.fireEvent('hiding');
 
-        this.element.removeClass('is-active');
+        this.input.removeClass('is-active');
 
         if (this.dropdown) {
             this.dropdown.conceal();
@@ -277,7 +280,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             });
         }
 
-        this.element.addClass('is-active');
+        this.input.addClass('is-active');
 
         if (this.dropdown) {
             this.dropdown.reveal();
@@ -296,11 +299,11 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             button = $(options.selectTemplate)
                 .find('[data-select-arrow]').html(options.arrowTemplate).end()
                 .find('[data-select-label]').html(Toolkit.messages.loading).end()
-                .css('min-width', this.input.width())
-                .insertAfter(this.input);
+                .css('min-width', this.element.width())
+                .insertAfter(this.element);
 
         // Update the height of the native select input
-        this.input.css('min-height', button.outerHeight());
+        this.element.css('min-height', button.outerHeight());
 
         return button;
     },
@@ -311,15 +314,13 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @returns {jQuery}
      */
     _buildDropdown: function() {
-        var select = this.input,
+        var select = this.element,
             options = this.options,
             buildOption = this._buildOption,
             dropdown = $(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
-
-        this.dropdown = dropdown;
 
         select.children().each(function() {
             var optgroup = $(this);
@@ -382,7 +383,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @returns {jQuery}
      */
     _buildOption: function(option, index) {
-        var select = this.input,
+        var select = this.element,
             dropdown = this.dropdown,
             options = this.options,
             selected = option.prop('selected'),
@@ -570,7 +571,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             return;
         }
 
-        var options = this.input.find('option'),
+        var options = this.element.find('option'),
             items = this.dropdown.find('a'),
             activeClass = 'is-active',
             index = this.index;
@@ -595,7 +596,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         items.eq(index).parent().addClass(activeClass);
 
         this.index = index;
-        this.input.change();
+        this.element.change();
     },
 
     /**
@@ -604,7 +605,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @private
      */
     onToggle: function() {
-        if (this.input.prop('disabled')) {
+        if (this.element.prop('disabled')) {
             return;
         }
 

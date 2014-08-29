@@ -78,6 +78,7 @@ Older versions can be found in the documentation changelogs.
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
     * Input
+        * Added a `filterClasses` option which can be used in conjunction with `copyClasses`
         * Added `template`, `checkboxTemplate`, `radioTemplate`, `selectTemplate`, `optionsTemplate`, `headingTemplate`, and `descTemplate`
         * Renamed `arrowContent` to `arrowTemplate`
         * Renamed selectors `.select-options`, `.select-label`, `.select-arrow` to
