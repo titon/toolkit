@@ -42,7 +42,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 
         // Initialize events
         this.events = {
-            'resize window': $.debounce(this.onResize.bind(this))
+            'resize window': $.debounce(this.onResize)
         };
 
         this.initialize();
@@ -219,7 +219,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.render.bind(this));
+        $.when.apply($, promises).always(this.render);
     },
 
     /**

@@ -48,7 +48,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         this.initialize();
 
         // Load data from the URL
-        $.getJSON(url, this.load.bind(this));
+        $.getJSON(url, this.load);
     },
 
     /**

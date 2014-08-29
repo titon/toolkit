@@ -88,7 +88,7 @@ Toolkit.Base = Toolkit.Class.extend({
 
             $.each(funcs, function(i, func) {
                 if (!$.isFunction(func)) {
-                    func = self[func].bind(self);
+                    func = self[func];
                 }
 
                 // Ready events
@@ -112,11 +112,6 @@ Toolkit.Base = Toolkit.Class.extend({
      */
     destroy: function() {
         this.fireEvent('destroying');
-
-        // Hide and remove active state
-        if (this.hide) {
-            this.hide();
-        }
 
         // Trigger destructor
         if (this.destructor) {

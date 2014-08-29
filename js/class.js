@@ -43,8 +43,8 @@ Toolkit.Class.extend = function(properties, options) {
             } else if (type === 'object') {
                 this[key] = $.extend(true, {}, value); // Clone object
 
-            //} else if (type === 'function') {
-            //    this[key] = value.bind(this);
+            } else if (type === 'function') {
+                this[key] = value.bind(this); // Required for bindEvents()
             }
         }
 

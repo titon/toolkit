@@ -85,21 +85,22 @@ Toolkit.Component = Toolkit.Base.extend({
     destroy: function() {
         Toolkit.Base.prototype.destroy.call(this);
 
-        // Remove element only if it was created
+        // Remove element and state only if it was created
         if (this.created) {
+            this.hide();
             this.element.remove();
         }
 
-        // Remove instances or else the previous commands will fail
+        // Remove cached plugin instances
         var key = this.keyName;
 
-        if (this.nodes) {
+        if (this.nodes.length) {
             this.nodes.removeData('toolkit.' + key);
 
             // Remove the cached instance also
             delete Toolkit.cache[key + '.' + this.nodes.selector];
 
-        } else if (this.element) {
+        } else if (this.element.length) {
             this.element.removeData('toolkit.' + key);
         }
     },

@@ -200,7 +200,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
      */
     lookup: function(term) {
         this.term = term;
-        this.timer = setTimeout(this.onFind.bind(this), this.options.throttle);
+        this.timer = setTimeout(this.onFind, this.options.throttle);
     },
 
     /**
@@ -363,7 +363,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
                 a = options.builder(item);
                 a.on({
-                    mouseover: this.rewind.bind(this),
+                    mouseover: this.rewind,
                     click: $.proxy(this.onSelect, this, results.length)
                 });
 
@@ -522,7 +522,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
                 var query = options.query;
                 query.term = term;
 
-                $.getJSON(url, query, this.source.bind(this));
+                $.getJSON(url, query, this.source);
             }
 
         // Use a literal array list

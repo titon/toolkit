@@ -90,7 +90,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         }
 
         if (options.revealOnClick) {
-            mask.click(this.hide.bind(this));
+            mask.click(this.hide);
         }
 
         this.mask = mask;
