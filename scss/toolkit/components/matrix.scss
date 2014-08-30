@@ -14,7 +14,7 @@
         float: left;
         margin: 0;
         padding: 0;
-        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition;
+        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition, visibility $matrix-transition;
     }
 
     &.no-columns > li {

@@ -66,8 +66,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      */
     append: function(item) {
         item = $(item)
-            .appendTo(this.element)
-            .css('opacity', 0);
+            .addClass('hide')
+            .appendTo(this.element);
 
         this.fireEvent('appending', [item]);
 
@@ -81,8 +81,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      */
     prepend: function(item) {
         item = $(item)
-            .prependTo(this.element)
-            .css('opacity', 0);
+            .addClass('hide')
+            .prependTo(this.element);
 
         this.fireEvent('prepending', [item]);
 

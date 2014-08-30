@@ -95,7 +95,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.mask`, `.mask-message` to `[data-mask]`, `[data-mask-message]`
     * Matrix
         * Added `appending`, `prepending`, `removing`, `rendering`, and `rendered` events
-        * Improved the deferred image rendering process
+        * Improved the deferred image rendering process and item fade in animation
         * Removed `render` event
         * Updated to no longer automatically set `.matrix` on the container
     * Modal
