@@ -299,8 +299,7 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
             <td>$breakpoint-desktop</td>
             <td>1440px</td>
             <td rowspan="6">
-                Breakpoints used when <code>$responsive-size</code> is <code>device</code>.
-                Also used as <code>min/max-width</code> in responsive mixins.
+                Breakpoints for common device screen resolutions.
             </td>
         </tr>
         <tr>
@@ -324,20 +323,27 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
             <td>320px</td>
         </tr>
         <tr>
-            <td>$breakpoint-large</td>
-            <td>1440px</td>
-            <td rowspan="3">
-                Breakpoints used when <code>$responsive-size</code> is <code>size</code>.
-                Also used as <code>min/max-width</code> in responsive mixins.
+            <td>$breakpoint-range-xsmall</td>
+            <td>(null, 640px)</td>
+            <td rowspan="5">
+                Breakpoint ranges for the Grid and responsive mixins.
             </td>
         </tr>
         <tr>
-            <td>$breakpoint-medium</td>
-            <td>1280px</td>
+            <td>$breakpoint-range-small</td>
+            <td>(641px, 1024px)</td>
         </tr>
         <tr>
-            <td>$breakpoint-small</td>
-            <td>768px</td>
+            <td>$breakpoint-range-medium</td>
+            <td>(1025px, 1440px)</td>
+        </tr>
+        <tr>
+            <td>$breakpoint-range-large</td>
+            <td>(1441px, 1680px)</td>
+        </tr>
+        <tr>
+            <td>$breakpoint-range-xlarge</td>
+            <td>(1681px, null)</td>
         </tr>
     </tbody>
 </table>

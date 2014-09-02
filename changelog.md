@@ -19,7 +19,12 @@ Older versions can be found in the documentation changelogs.
 * Sass
     * Added `$enable-small-size` and `$enable-large-size` to toggle size classes in CSS output
     * Added `$enable-all-effects`, `$enable-all-modifiers`, and `$enable-all-animations` for easier styling
+    * Added `$breakpoint-range-xsmall`, `$breakpoint-range-small`, `$breakpoint-range-medium`, `$breakpoint-range-large`,
+        and `$breakpoint-range-xlarge` for responsive range breakpoints
     * Added `full-screen()` mixin for full screen fixed positioning
+    * Added `in-range($range)` mixin that will accept a range of breakpoints and output the correct min/max width media query
+    * Added `in-xsmall()`, `in-xlarge()`, `in-mobile-landscape()`, `in-mobile-portrait()`,
+        `in-tablet-landscape()`, `in-tablet-portrait()`, `if-xsmall()`, and `if-xlarge()` responsive mixins
     * Moved `.span-*` classes from the Grid component into the shared base file
     * Updated all component CSS class names to use Sass variables for more configuration control
     * Updated all modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)
@@ -30,6 +35,7 @@ Older versions can be found in the documentation changelogs.
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
     * Removed `.arrow-*` classes
+    * Removed `$breakpoint-small`, `$breakpoint-medium`, and `$breakpoint-large` variables
 * JavaScript
     * Added a `Base` class layer that both `Component` and `Behavior` extend
     * Added a new hook layer to `Base` that replaces the instance event layer
@@ -74,7 +80,13 @@ Older versions can be found in the documentation changelogs.
         * Improved disabled state across inputs
         * Normalized `fieldset` and `legend` when used in an inline form
     * Grid
+        * Added new `xsmall` and `xlarge` (disabled by default) column sizes
+        * Added `$grid-sizes` map for associating sizes to breakpoints and column counts
+        * Added `$grid-columns-xsmall` and `$grid-columns-xlarge` for new column counts
+        * Changed `$grid-columns-small` from `6` to `12`
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
+        * Removed the `mobile`, `tablet`, and `desktop` column sizes
+        * Removed `$grid-columns-desktop`, `$grid-columns-tablet`, and `$grid-columns-mobile`
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
     * Input
@@ -111,6 +123,9 @@ Older versions can be found in the documentation changelogs.
     * Popover
         * The `follow` attribute is now forced to `false`
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
+    * Responsive
+        * Added `.show-xlarge`, `.show-xsmall`, `.hide-xlarge`, and `.hide-xsmall` support
+        * Removed `$responsive-size` variable
     * Showcase
         * Added `jumping` and `jumped` events
         * Removed `jump` event

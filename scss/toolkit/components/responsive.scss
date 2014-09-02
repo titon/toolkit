@@ -17,11 +17,11 @@
 .show-retina,
 .show-print { display: none !important; }
 
-// Desktop states
-@include in-desktop {
+// Mobile states
+@include in-mobile  {
+    .show-desktop,
     .show-tablet,
-    .show-mobile,
-    .hide-desktop { display: none !important; }
+    .hide-mobile { display: none !important; }
 }
 
 // Tablet states
@@ -31,32 +31,56 @@
     .hide-tablet { display: none !important; }
 }
 
-// Mobile states
-@include in-mobile  {
-    .show-desktop,
+// Desktop states
+@include in-desktop {
     .show-tablet,
-    .hide-mobile { display: none !important; }
+    .show-mobile,
+    .hide-desktop { display: none !important; }
 }
 
-// Large states
-@include in-large {
+// Extra small states
+@include in-xsmall  {
+    .show-xlarge,
+    .show-large,
     .show-medium,
     .show-small,
-    .hide-large { display: none !important; }
-}
-
-// Medium states
-@include in-medium {
-    .show-large,
-    .show-small,
-    .hide-medium { display: none !important; }
+    .hide-xsmall { display: none !important; }
 }
 
 // Small states
 @include in-small  {
+    .show-xlarge,
     .show-large,
     .show-medium,
+    .show-xsmall,
     .hide-small { display: none !important; }
+}
+
+// Medium states
+@include in-medium {
+    .show-xlarge,
+    .show-large,
+    .show-small,
+    .show-xsmall,
+    .hide-medium { display: none !important; }
+}
+
+// Large states
+@include in-large {
+    .show-xlarge,
+    .show-medium,
+    .show-small,
+    .show-xsmall,
+    .hide-large { display: none !important; }
+}
+
+// Extra large states
+@include in-xlarge {
+    .show-large,
+    .show-medium,
+    .show-small,
+    .show-xsmall,
+    .hide-xlarge { display: none !important; }
 }
 
 // Orientation states
@@ -73,18 +97,10 @@
 // Type states
 @include if-retina {
     .hide-retina { display: none !important; }
-    .show-retina { display: block !important; }
-    table.show-retina { display: table !important; }
-    tr.show-retina { display: table-row !important; }
-    td.show-retina,
-    th.show-retina { display: table-cell !important; }
+    @include responsive-display-block(".show-retina");
 }
 
 @media print {
     .hide-print { display: none !important; }
-    .show-print { display: block !important; }
-    table.show-print { display: table !important; }
-    tr.show-print { display: table-row !important; }
-    td.show-print,
-    th.show-print { display: table-cell !important; }
+    @include responsive-display-block(".show-print");
 }

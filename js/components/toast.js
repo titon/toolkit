@@ -15,7 +15,7 @@ Toolkit.Toast = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.nodes = element = $(element);
+        this.nodes = element = $(element); // Set to nodes so instances are unset during destroy()
         this.options = options = this.setOptions(options, element);
         this.element = this.createElement()
             .addClass(options.position)

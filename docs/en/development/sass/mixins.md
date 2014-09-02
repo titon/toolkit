@@ -110,9 +110,9 @@ style resets, and media query management.
         <tr>
             <td>if-desktop()</td>
             <td>Yes</td>
-            <td rowspan="8">
+            <td rowspan="10">
                 Generates media queries that apply styles when the current device being used falls under a breakpoint threshold.
-                Uses the breakpoint variables (above) as the ranges for detection.
+                Uses the breakpoint variables as the ranges for detection.
                 The value of <code>$responsive-design</code> determines whether <code>min-width</code>
                 or <code>max-width</code> features are used in media queries.
                 <b>Properties defined within these mixins will cascade and override where applicable.</b>
@@ -135,6 +135,10 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
+            <td>if-xlarge()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
             <td>if-large()</td>
             <td>Yes</td>
         </tr>
@@ -147,20 +151,52 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
+            <td>if-xsmall()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-range($range)</td>
+            <td>Yes</td>
+            <td>
+                Generates media queries within a certain range. Requires a list of 2 items for the min and max breakpoint.
+                Passing <code>null</code> for a breakpoint will alter the type of media query used.
+            </td>
+        </tr>
+        <tr>
             <td>in-desktop()</td>
             <td>Yes</td>
-            <td rowspan="6">
+            <td rowspan="12">
                 Generates media queries that apply styles when the current device being used falls within a certain breakpoint range.
-                Uses the breakpoint variables (above) and <code>min-width</code> coupled with <code>max-width</code> for range detection.
+                Uses the breakpoint variables and <code>min-width</code> coupled with <code>max-width</code> for range detection.
                 <b>Properties defined within these mixins will not cascade and will only apply within certain ranges.</b>
             </td>
+        </tr>
+        <tr>
+            <td>in-tablet-landscape()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-tablet-portrait()</td>
+            <td>Yes</td>
         </tr>
         <tr>
             <td>in-tablet()</td>
             <td>Yes</td>
         </tr>
         <tr>
+            <td>in-mobile-landscape()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-mobile-portrait()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
             <td>in-mobile()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-xlarge()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -173,6 +209,10 @@ style resets, and media query management.
         </tr>
         <tr>
             <td>in-small()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-xsmall()</td>
             <td>Yes</td>
         </tr>
     </tbody>
