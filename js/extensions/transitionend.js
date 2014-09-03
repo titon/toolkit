@@ -7,7 +7,7 @@ define([
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
  *
  * @param {Object} data
- * @param {Function} fn
+ * @param {Function} [fn]
  * @returns {jQuery}
  */
 $.fn.transitionend = function(data, fn) {

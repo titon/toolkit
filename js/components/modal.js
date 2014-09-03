@@ -122,7 +122,6 @@ Toolkit.Modal = Toolkit.Component.extend({
         var options = this.options,
             ajax = options.ajax;
 
-        // Get content
         if (content) {
             ajax = false;
 
@@ -136,7 +135,7 @@ Toolkit.Modal = Toolkit.Component.extend({
         if (!content) {
             return;
 
-        } else if (content && content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
             content = $(content).html();
             ajax = false;
         }

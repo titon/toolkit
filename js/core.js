@@ -49,7 +49,7 @@ var Toolkit = {
      *
      * @param {String} plugin
      * @param {Function} callback
-     * @param {bool} collection
+     * @param {bool} [collection]
      */
     create: function(plugin, callback, collection) {
         var name = plugin;

@@ -7,7 +7,7 @@ define([
  *
  * @param {Number} value
  * @param {Number} max
- * @param {Number} min
+ * @param {Number} [min]
  * @returns {Number}
  */
 $.bound = function(value, max, min) {

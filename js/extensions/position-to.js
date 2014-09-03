@@ -10,8 +10,8 @@ define([
  *
  * @param {String} position
  * @param {Event|jQuery} relativeTo
- * @param {Object} baseOffset
- * @param {bool} isMouse
+ * @param {Object} [baseOffset]
+ * @param {bool} [isMouse]
  * @returns {jQuery}
  */
 $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {

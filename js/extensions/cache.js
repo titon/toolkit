@@ -7,7 +7,7 @@ define([
  * If the value is a function, it will be executed to extract a value.
  *
  * @param {String} key
- * @param {*} value
+ * @param {*} [value]
  * @returns {*}
  */
 $.fn.cache = function(key, value) {
