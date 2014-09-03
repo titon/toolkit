@@ -334,11 +334,11 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
         </tr>
         <tr>
             <td>$grid-sizes</td>
-            <td>(xsmall: (), small: (), medium: (), large: ())</td>
+            <td>(xsmall: (...), small: (...), medium: (...), large: (...))</td>
             <td>
                 A mapping of grid sizes to column counts and breakpoints ranges.
                 Each size accepts a list with the 1st item a column count, and the 2nd item a list of min and max ranges.
-                View the docs for more on altering this variable.
+                View the docs above for more on altering this variable.
             </td>
         </tr>
         <tr>

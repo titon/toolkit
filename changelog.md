@@ -87,7 +87,7 @@ Older versions can be found in the documentation changelogs.
         * Changed `$grid-columns-small` from `6` to `12`
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
         * Removed the `mobile`, `tablet`, and `desktop` column sizes
-        * Removed `$grid-columns-desktop`, `$grid-columns-tablet`, and `$grid-columns-mobile`
+        * Removed `$grid-columns-mobile`, `$grid-columns-tablet`, and `$grid-columns-desktop`
     * Icon
         * Added a `$icon-sizes` list variable to control the CSS output
     * Input
@@ -125,7 +125,7 @@ Older versions can be found in the documentation changelogs.
         * The `follow` attribute is now forced to `false`
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
-        * Added `.show-xlarge`, `.show-xsmall`, `.hide-xlarge`, and `.hide-xsmall` support
+        * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` support
         * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase

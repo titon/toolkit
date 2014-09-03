@@ -34,46 +34,6 @@ Use these for toggling content based on the viewport width.
     </thead>
     <tbody>
         <tr>
-            <td>.show-xsmall</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-small</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-medium</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-large</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-xlarge</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
             <td>.hide-xsmall</td>
             <td>Hidden</td>
             <td class="is-success">Visible</td>
@@ -112,6 +72,46 @@ Use these for toggling content based on the viewport width.
             <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-xsmall</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-small</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-medium</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-large</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-xlarge</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
         </tr>
     </tbody>
 </table>
