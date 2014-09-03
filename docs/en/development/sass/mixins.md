@@ -108,9 +108,9 @@ style resets, and media query management.
             <td>Generates media queries for high resolution displays.</td>
         </tr>
         <tr>
-            <td>if-desktop()</td>
+            <td>if-xsmall()</td>
             <td>Yes</td>
-            <td rowspan="10">
+            <td rowspan="5">
                 Generates media queries that apply styles when the current device being used falls under a breakpoint threshold.
                 Uses the breakpoint variables as the ranges for detection.
                 The value of <code>$responsive-design</code> determines whether <code>min-width</code>
@@ -119,27 +119,7 @@ style resets, and media query management.
             </td>
         </tr>
         <tr>
-            <td>if-tablet-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-tablet-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-mobile-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-mobile-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-xlarge()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-large()</td>
+            <td>if-small()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -147,11 +127,11 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
-            <td>if-small()</td>
+            <td>if-large()</td>
             <td>Yes</td>
         </tr>
         <tr>
-            <td>if-xsmall()</td>
+            <td>if-xlarge()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -163,44 +143,16 @@ style resets, and media query management.
             </td>
         </tr>
         <tr>
-            <td>in-desktop()</td>
+            <td>in-xsmall()</td>
             <td>Yes</td>
-            <td rowspan="12">
+            <td rowspan="5">
                 Generates media queries that apply styles when the current device being used falls within a certain breakpoint range.
                 Uses the breakpoint variables and <code>min-width</code> coupled with <code>max-width</code> for range detection.
                 <b>Properties defined within these mixins will not cascade and will only apply within certain ranges.</b>
             </td>
         </tr>
         <tr>
-            <td>in-tablet-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-tablet-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-tablet()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-mobile-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-mobile-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-mobile()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-xlarge()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-large()</td>
+            <td>in-small()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -208,11 +160,11 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
-            <td>in-small()</td>
+            <td>in-large()</td>
             <td>Yes</td>
         </tr>
         <tr>
-            <td>in-xsmall()</td>
+            <td>in-xlarge()</td>
             <td>Yes</td>
         </tr>
     </tbody>

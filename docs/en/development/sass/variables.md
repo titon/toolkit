@@ -296,33 +296,6 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
     </thead>
     <tbody>
         <tr>
-            <td>$breakpoint-desktop</td>
-            <td>1440px</td>
-            <td rowspan="6">
-                Breakpoints for common device screen resolutions.
-            </td>
-        </tr>
-        <tr>
-            <td>$breakpoint-laptop</td>
-            <td>1280px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-tablet-landscape</td>
-            <td>1024px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-tablet-portrait</td>
-            <td>768px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-mobile-landscape</td>
-            <td>480px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-mobile-portrait</td>
-            <td>320px</td>
-        </tr>
-        <tr>
             <td>$breakpoint-range-xsmall</td>
             <td>(null, 640px)</td>
             <td rowspan="5">

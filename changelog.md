@@ -23,8 +23,7 @@ Older versions can be found in the documentation changelogs.
         and `$breakpoint-range-xlarge` for responsive range breakpoints
     * Added `full-screen()` mixin for full screen fixed positioning
     * Added `in-range($range)` mixin that will accept a range of breakpoints and output the correct min/max width media query
-    * Added `in-xsmall()`, `in-xlarge()`, `in-mobile-landscape()`, `in-mobile-portrait()`,
-        `in-tablet-landscape()`, `in-tablet-portrait()`, `if-xsmall()`, and `if-xlarge()` responsive mixins
+    * Added `in-xsmall()`, `in-xlarge()`, `if-xsmall()`, and `if-xlarge()` responsive mixins
     * Moved `.span-*` classes from the Grid component into the shared base file
     * Updated all component CSS class names to use Sass variables for more configuration control
     * Updated all modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)
@@ -34,8 +33,9 @@ Older versions can be found in the documentation changelogs.
     * Refactored effects into their respective components that can be toggled through Sass variables
     * Refactored the visual effects into modifiers for the Button component
     * Removed `is-active()`, `is-disabled()`, and `is-*()` state mixins
+    * Removed `in-mobile()`, `in-tablet()`, `in-desktop()`, `if-mobile()`, `if-tablet()`, and `if-desktop()` responsive mixins
     * Removed `.arrow-*` classes
-    * Removed `$breakpoint-small`, `$breakpoint-medium`, and `$breakpoint-large` variables
+    * Removed `$breakpoint-*` variables and replaced with with range list variables
 * JavaScript
     * Added a `Base` class layer that both `Component` and `Behavior` extend
     * Added a new hook layer to `Base` that replaces the instance event layer
@@ -126,6 +126,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
         * Added `.show-xlarge`, `.show-xsmall`, `.hide-xlarge`, and `.hide-xsmall` support
+        * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase
         * Added `jumping` and `jumped` events

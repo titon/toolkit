@@ -116,58 +116,9 @@ Use these for toggling content based on the viewport width.
     </tbody>
 </table>
 
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th> </th>
-            <th>Mobile Devices (0px-480px)</th>
-            <th>Tablet Devices (481px-1024px)</th>
-            <th>Desktop Devices (1024px+)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>.show-mobile</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-tablet</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-        </tr>
-        <tr>
-            <td>.show-desktop</td>
-            <td>Hidden</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
-            <td>.hide-mobile</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
-            <td>.hide-tablet</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-            <td class="is-success">Visible</td>
-        </tr>
-        <tr>
-            <td>.hide-desktop</td>
-            <td class="is-success">Visible</td>
-            <td class="is-success">Visible</td>
-            <td>Hidden</td>
-        </tr>
-    </tbody>
-</table>
-
 <div class="notice is-info">
     The breakpoints for these responsive display classes
-    can be altered through the <code>$breakpoint</code> Sass variables.
+    can be altered through the <code>$breakpoint-range-*</code> Sass variables.
 </div>
 
 ### Orientation Classes ###

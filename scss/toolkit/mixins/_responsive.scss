@@ -67,37 +67,6 @@
 
 //-------------------- Breakpoints --------------------//
 
-// Uses min or max
-@mixin if-desktop {
-    @include do-responsive(null, $breakpoint-tablet-landscape) {
-        @content;
-    }
-}
-
-@mixin if-tablet-landscape {
-    @include do-responsive($breakpoint-tablet-landscape, $breakpoint-tablet-portrait) {
-        @content;
-    }
-}
-
-@mixin if-tablet-portrait {
-    @include do-responsive($breakpoint-tablet-portrait, $breakpoint-mobile-landscape) {
-        @content;
-    }
-}
-
-@mixin if-mobile-landscape {
-    @include do-responsive($breakpoint-mobile-landscape, $breakpoint-mobile-portrait) {
-        @content;
-    }
-}
-
-@mixin if-mobile-portrait {
-    @include do-responsive($breakpoint-mobile-portrait, null) {
-        @content;
-    }
-}
-
 @mixin if-xlarge() {
     @include do-responsive(nth($breakpoint-range-xlarge, 2), nth($breakpoint-range-xlarge, 1)) {
         @content;
@@ -151,48 +120,6 @@
         @include if-max($max) {
             @content;
         }
-    }
-}
-
-@mixin in-desktop {
-    @include in-range(($breakpoint-tablet-landscape + 1, null)) {
-        @content;
-    }
-}
-
-@mixin in-tablet-landscape {
-    @include in-range(($breakpoint-tablet-portrait + 1, $breakpoint-tablet-landscape)) {
-        @content;
-    }
-}
-
-@mixin in-tablet-portrait {
-    @include in-range(($breakpoint-mobile-landscape + 1, $breakpoint-tablet-portrait)) {
-        @content;
-    }
-}
-
-@mixin in-tablet {
-    @include in-range(($breakpoint-mobile-landscape + 1, $breakpoint-tablet-landscape)) {
-        @content;
-    }
-}
-
-@mixin in-mobile-landscape {
-    @include in-range(($breakpoint-mobile-portrait + 1, $breakpoint-mobile-landscape)) {
-        @content;
-    }
-}
-
-@mixin in-mobile-portrait {
-    @include in-range((null, $breakpoint-mobile-portrait))  {
-        @content;
-    }
-}
-
-@mixin in-mobile {
-    @include in-range((null, $breakpoint-mobile-landscape))  {
-        @content;
     }
 }
 

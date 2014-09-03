@@ -220,7 +220,7 @@ $grid-sizes: (
 );
 ```
 
-Alternatively, you could modify the `$breakpoint-range-*` variables to alter breakpoints as the Grid
+Alternatively, you could modify the `$breakpoint-range-*` variables to alter the breakpoints as the Grid
 inherits these values.
 
 <div class="notice is-info">
