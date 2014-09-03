@@ -107,6 +107,15 @@ This is handy for chaining methods and supporting browsers that don't have trans
 $('#element').transitionend(function() {
     // Do something
 }).reveal();
+```
+
+### toString() ###
+
+Returns the elements markup as a string. If the collection contains multiple elements, only the 1st element will be used.
+
+```javascript
+$('#element').toString(); // Markup as a string
+```
 
 ## Selectors ##
 

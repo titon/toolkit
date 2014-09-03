@@ -2,7 +2,8 @@ define([
     'jquery',
     './component',
     '../events/clickout',
-    '../extensions/shown-selector'
+    '../extensions/shown-selector',
+    '../extensions/to-string'
 ], function($, Toolkit) {
 
 Toolkit.Input = Toolkit.Component.extend({
@@ -398,7 +399,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         }
 
         if (description = this.readValue(option, options.getDescription)) {
-            content += $(options.descTemplate).html(description).prop('outerHTML');
+            content += $(options.descTemplate).html(description).toString();
         }
 
         var a = $('<a/>', {

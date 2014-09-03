@@ -2,7 +2,8 @@ define([
     'jquery',
     './component',
     '../events/clickout',
-    '../extensions/shown-selector'
+    '../extensions/shown-selector',
+    '../extensions/to-string'
 ], function($, Toolkit) {
 
 Toolkit.TypeAhead = Toolkit.Component.extend({
@@ -182,7 +183,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             options = this.options,
             callback = function(match) {
-                return $(options.highlightTemplate).html(match).prop('outerHTML');
+                return $(options.highlightTemplate).html(match).toString();
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
