@@ -11,9 +11,9 @@ $shape-skew-class: ".skew" !default;
 
 $enable-small-size: true !default;
 $enable-large-size: true !default;
-$enable-all-effects: false !default;
-$enable-all-modifiers: false !default;
-$enable-all-animations: false !default;
+$enable-all-effects: true !default;
+$enable-all-modifiers: true !default;
+$enable-all-animations: true !default;
 
 //-------------------- Colors --------------------//
 
@@ -102,6 +102,14 @@ $showcase-zindex: 610 !default;
 $toast-zindex: 500 !default;
 $tooltip-zindex: 700 !default;
 $typeAhead-zindex: 500 !default;
+
+//-------------------- Breakpoints --------------------//
+
+$breakpoint-range-xsmall: (null, 640px) !default;
+$breakpoint-range-small: (641px, 960px) !default;
+$breakpoint-range-medium: (961px, 1280px) !default;
+$breakpoint-range-large: (1281px, 1680px) !default;
+$breakpoint-range-xlarge: (1681px, null) !default;
 
 //-------------------- Accordion --------------------//
 
@@ -231,18 +239,25 @@ $form-modifier-horizontal: "horizontal" !default;
 
 $grid-class: "." + $vendor-prefix + "grid" !default;
 $grid-class-column: ".col" !default;
+$grid-class-end: ".end" !default;
 
-$grid-columns-large: 12 !default;
+$grid-columns-xsmall: 6 !default;
+$grid-columns-small: 12 !default;
 $grid-columns-medium: 12 !default;
-$grid-columns-small: 6 !default;
-
-$grid-columns-desktop: 12 !default;
-$grid-columns-tablet: 6 !default;
-$grid-columns-mobile: 3 !default;
+$grid-columns-large: 12 !default;
+$grid-columns-xlarge: 18 !default;
 
 $grid-width: 100% !default;
 $grid-gutter: false !default;
 $grid-push-pull: true !default;
+
+$grid-sizes: (
+    xsmall: ($grid-columns-xsmall, $breakpoint-range-xsmall),
+    small:  ($grid-columns-small, $breakpoint-range-small),
+    medium: ($grid-columns-medium, $breakpoint-range-medium),
+    // Remove the max as we have no xlarge size and want the large value to be open ended
+    large:  ($grid-columns-large, (nth($breakpoint-range-large, 1), null)),
+) !default;
 
 //-------------------- Icon --------------------//
 
@@ -336,7 +351,7 @@ $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-i
     $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !global;
 }
 
-$modal-mobile-breakpoint: 640px !default; // iOS5
+$modal-mobile-breakpoint: nth($breakpoint-range-xsmall, 2) !default; // iOS5
 $modal-transition: $default-transition !default;
 
 //-------------------- Notice --------------------//
@@ -364,7 +379,7 @@ $offCanvas-left-width: 20% !default;
 $offCanvas-right-width: 20% !default;
 $offCanvas-left-width-mobile: 90% !default;
 $offCanvas-right-width-mobile: 90% !default;
-$offCanvas-mobile-breakpoint: 640px !default; // iOS5
+$offCanvas-mobile-breakpoint: nth($breakpoint-range-xsmall, 2) !default; // iOS5
 $offCanvas-transition: .5s !default;
 
 //-------------------- Pagination --------------------//
@@ -421,18 +436,6 @@ $progress-effects: ("pill") !default;
 //-------------------- Responsive --------------------//
 
 $responsive-design: "mobile" !default; // mobile, desktop
-$responsive-size: "both" !default; // device, size, both
-
-$breakpoint-desktop: 1440px !default;
-$breakpoint-laptop: 1280px !default;
-$breakpoint-tablet-landscape: 1024px !default;
-$breakpoint-tablet-portrait: 768px !default;
-$breakpoint-mobile-landscape: 480px !default;
-$breakpoint-mobile-portrait: 320px !default;
-
-$breakpoint-small: 768px !default;
-$breakpoint-medium: 1280px !default;
-$breakpoint-large: 1440px !default;
 
 //-------------------- Showcase --------------------//
 

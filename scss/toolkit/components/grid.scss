@@ -16,6 +16,7 @@
     @extend %col;
 }
 
+// Global Push and pull classes
 @if $grid-push-pull {
     @for $i from 1 through 12 {
         $span: grid-span($i, 12);
@@ -25,124 +26,30 @@
     }
 }
 
-// Determine which grid to use
-@if $responsive-size == "device" or $responsive-size == "both" {
+// Grid sizes
+@each $size, $options in $grid-sizes {
+    $size-columns: nth($options, 1);
 
-    // Mobile supports 3 columns
-    @include in-mobile {
-        #{$grid-class-column}[class*="mobile-"] {
+    @include in-range(nth($options, 2)) {
+        #{$grid-class-column}[class*="#{$size}-"] {
             @include grid-column;
         }
 
-        @for $i from 1 through $grid-columns-mobile {
-            $span: grid-span($i, $grid-columns-mobile);
+        @for $i from 1 through $size-columns {
+            $span: grid-span($i, $size-columns);
 
-            #{$grid-class-column}.mobile-#{$i} { width: $span; }
+            #{$grid-class-column}.#{$size}-#{$i} { width: $span; }
 
             @if $grid-push-pull {
-                #{$grid-class-column}.mobile-push-#{$i} { left: $span; }
-                #{$grid-class-column}.mobile-pull-#{$i} { right: $span; }
+                #{$grid-class-column}.#{$size}-push-#{$i} { left: $span; }
+                #{$grid-class-column}.#{$size}-pull-#{$i} { right: $span; }
             }
         }
     }
-
-    // Tablet supports 6 columns
-    @include in-tablet {
-        #{$grid-class-column}[class*="tablet-"] {
-            @include grid-column;
-        }
-
-        @for $i from 1 through $grid-columns-tablet {
-            $span: grid-span($i, $grid-columns-tablet);
-
-            #{$grid-class-column}.tablet-#{$i} { width: $span; }
-
-            @if $grid-push-pull {
-                #{$grid-class-column}.tablet-push-#{$i} { left: $span; }
-                #{$grid-class-column}.tablet-pull-#{$i} { right: $span; }
-            }
-        }
-    }
-
-    // Desktop supports 12 columns
-    @include in-desktop {
-        #{$grid-class-column}[class*="desktop-"] {
-            @include grid-column;
-        }
-
-        @for $i from 1 through $grid-columns-desktop {
-            $span: grid-span($i, $grid-columns-desktop);
-
-            #{$grid-class-column}.desktop-#{$i} { width: $span; }
-
-            @if $grid-push-pull {
-                #{$grid-class-column}.desktop-push-#{$i} { left: $span; }
-                #{$grid-class-column}.desktop-pull-#{$i} { right: $span; }
-            }
-        }
-    }
-
 }
 
-@if $responsive-size == "size" or $responsive-size == "both" {
-
-    // Small supports 6 columns
-    @include in-small {
-        #{$grid-class-column}[class*="small-"] {
-            @include grid-column;
-        }
-
-        @for $i from 1 through $grid-columns-small {
-            $span: grid-span($i, $grid-columns-small);
-
-            #{$grid-class-column}.small-#{$i} { width: $span; }
-
-            @if $grid-push-pull {
-                #{$grid-class-column}.small-push-#{$i} { left: $span; }
-                #{$grid-class-column}.small-pull-#{$i} { right: $span; }
-            }
-        }
-    }
-
-    // Medium supports 8 columns
-    @include in-medium {
-        #{$grid-class-column}[class*="medium-"] {
-            @include grid-column;
-        }
-
-        @for $i from 1 through $grid-columns-medium {
-            $span: grid-span($i, $grid-columns-medium);
-
-            #{$grid-class-column}.medium-#{$i} { width: $span; }
-
-            @if $grid-push-pull {
-                #{$grid-class-column}.medium-push-#{$i} { left: $span; }
-                #{$grid-class-column}.medium-pull-#{$i} { right: $span; }
-            }
-        }
-    }
-
-    // Large supports 12 columns
-    @include in-large {
-        #{$grid-class-column}[class*="large-"] {
-            @include grid-column;
-        }
-
-        @for $i from 1 through $grid-columns-large {
-            $span: grid-span($i, $grid-columns-large);
-
-            #{$grid-class-column}.large-#{$i} { width: $span; }
-
-            @if $grid-push-pull {
-                #{$grid-class-column}.large-push-#{$i} { left: $span; }
-                #{$grid-class-column}.large-pull-#{$i} { right: $span; }
-            }
-        }
-    }
-
-}
-
-#{$grid-class-column}.end {
+// End capping
+#{$grid-class-column}#{$grid-class-end} {
     margin-right: 0 !important;
     float: right !important;
 }

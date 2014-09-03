@@ -296,48 +296,27 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
     </thead>
     <tbody>
         <tr>
-            <td>$breakpoint-desktop</td>
-            <td>1440px</td>
-            <td rowspan="6">
-                Breakpoints used when <code>$responsive-size</code> is <code>device</code>.
-                Also used as <code>min/max-width</code> in responsive mixins.
+            <td>$breakpoint-range-xsmall</td>
+            <td>(null, 640px)</td>
+            <td rowspan="5">
+                Breakpoint ranges for the Grid and responsive mixins.
             </td>
         </tr>
         <tr>
-            <td>$breakpoint-laptop</td>
-            <td>1280px</td>
+            <td>$breakpoint-range-small</td>
+            <td>(641px, 960px)</td>
         </tr>
         <tr>
-            <td>$breakpoint-tablet-landscape</td>
-            <td>1024px</td>
+            <td>$breakpoint-range-medium</td>
+            <td>(961px, 1280px)</td>
         </tr>
         <tr>
-            <td>$breakpoint-tablet-portrait</td>
-            <td>768px</td>
+            <td>$breakpoint-range-large</td>
+            <td>(1281px, 1680px)</td>
         </tr>
         <tr>
-            <td>$breakpoint-mobile-landscape</td>
-            <td>480px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-mobile-portrait</td>
-            <td>320px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-large</td>
-            <td>1440px</td>
-            <td rowspan="3">
-                Breakpoints used when <code>$responsive-size</code> is <code>size</code>.
-                Also used as <code>min/max-width</code> in responsive mixins.
-            </td>
-        </tr>
-        <tr>
-            <td>$breakpoint-medium</td>
-            <td>1280px</td>
-        </tr>
-        <tr>
-            <td>$breakpoint-small</td>
-            <td>768px</td>
+            <td>$breakpoint-range-xlarge</td>
+            <td>(1681px, null)</td>
         </tr>
     </tbody>
 </table>
