@@ -246,6 +246,7 @@ $form-modifier-horizontal: "horizontal" !default;
 
 $grid-class: "." + $vendor-prefix + "grid" !default;
 $grid-class-column: ".col" !default;
+$grid-class-end: ".end" !default;
 
 $grid-columns-xsmall: 6 !default;
 $grid-columns-small: 12 !default;

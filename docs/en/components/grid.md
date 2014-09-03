@@ -12,7 +12,7 @@ Each column requires a `.col` and either a `.span-*` or one of the responsive co
 (more information below). There are 12 span classes which originate from the [base CSS](../development/css/base.md).
 
 When placing columns, the number of columns should equal the max amount allowed in the grid.
-For example, the `.span-*` should equate to 12, where as responsive columns have different caps.
+For example, the `.span-*` should equate to 12, where as responsive columns could have different caps.
 
 ```html
 <!-- 12 columns -->
@@ -112,39 +112,36 @@ Be sure that all columns add up to the max amount of columns.
 ### Responsive Columns ###
 
 On top of providing `.span-*` columns that work the same on all viewports,
-Toolkit comes bundled with 2 responsive based systems. Both systems are enabled by default,
-but can be toggled through the `$responsive-size` variable, in an effort to reduce filesize.
-
-Responsive grids are designed in such a way that certain columns only activate within
-certain breakpoints. If the viewport is outside of that breakpoint, columns will collapse
-to their standard block display at 100% width, which is perfect for small mobile devices.
-Take the following for example, which is using the `device` based responsive system.
+Toolkit comes bundled with a responsive based grid. Responsive grids are designed in such a way that
+certain columns only activate within specific breakpoints. If the viewport is outside of that breakpoint,
+columns will collapse to their standard block display at 100% width, which is perfect for small mobile devices.
 
 ```html
 <div class="grid">
-    <div class="col tablet-3 desktop-4">
-        Collapses to 100% width on mobile devices.
-        Is 50% width on tablets, and 33.3% on desktop and above.
+    <div class="col medium-6 large-4">
+        Collapses to 100% width on small devices.
+        Is 50% width on medium devices, and 33.3% on large devices and above.
     </div>
 
-    <div class="col tablet-3 desktop-8">
-        Also collapses to 100% on mobile devices.
-        Tablet width is still 50%, but desktop width is 66.6%.
+    <div class="col medium-6 large-8">
+        Also collapses to 100% on small devices.
+        Medium width is still 50%, but large width is 66.6%.
     </div>
 </div>
 ```
 
-#### Size Based ####
+#### Size Chart ####
 
-The following classes are available when `$responsive-size` is set to `size` or `both`.
-Small is designed for all mobile devices and tablets in portrait mode.
-Medium is designed for tablets in landscape mode, and small screened desktops and laptops.
-Large is designed for wide screen desktops and displays.
+Extra small is designed for mobile devices with low resolution screens.
+Small is designed for mobile devices in portrait mode.
+Medium is designed for mobile devices in landscape mode, tablets in portrait mode and small screened desktops and laptops.
+Large is designed for mobile/tablets in landscape mode and wide screen desktops, laptops, and displays.
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
             <th> </th>
+            <th>Extra Small</th>
             <th>Small</th>
             <th>Medium</th>
             <th>Large</th>
@@ -152,19 +149,29 @@ Large is designed for wide screen desktops and displays.
     </thead>
     <tbody>
         <tr>
+            <td>Breakpoint</td>
+            <td>0-640px</td>
+            <td>641px-960px</td>
+            <td>961px-1280px</td>
+            <td>1280px+</td>
+        </tr>
+        <tr>
             <td>Base Class</td>
+            <td>.xsmall-*</td>
             <td>.small-*</td>
             <td>.medium-*</td>
             <td>.large-*</td>
         </tr>
         <tr>
             <td>Push Class</td>
+            <td>.xsmall-push-*</td>
             <td>.small-push-*</td>
             <td>.medium-push-*</td>
             <td>.large-push-*</td>
         </tr>
         <tr>
             <td>Pull Class</td>
+            <td>.xsmall-pull-*</td>
             <td>.small-pull-*</td>
             <td>.medium-pull-*</td>
             <td>.large-pull-*</td>
@@ -174,77 +181,52 @@ Large is designed for wide screen desktops and displays.
             <td>6</td>
             <td>12</td>
             <td>12</td>
-        </tr>
-        <tr>
-            <td>Column Width</td>
-            <td>16.6%</td>
-            <td>8.3%</td>
-            <td>8.3%</td>
-        </tr>
-        <tr>
-            <td>Breakpoints</td>
-            <td>0-768px</td>
-            <td>769px-1280px</td>
-            <td>1281px+</td>
-        </tr>
-    </tbody>
-</table>
-
-#### Device Based ####
-
-The following classes are available when `$responsive-size` is set to `device` or `both`.
-Mobile is designed for mobile devices in landscape and portrait.
-Tablet is designed for tablet devices in landscape and portrait.
-Desktop is designed for all devices larger than tablet in landscape.
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th> </th>
-            <th>Mobile</th>
-            <th>Tablet</th>
-            <th>Desktop</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Base Class</td>
-            <td>.mobile-*</td>
-            <td>.tablet-*</td>
-            <td>.desktop-*</td>
-        </tr>
-        <tr>
-            <td>Push Class</td>
-            <td>.mobile-push-*</td>
-            <td>.tablet-push-*</td>
-            <td>.desktop-push-*</td>
-        </tr>
-        <tr>
-            <td>Pull Class</td>
-            <td>.mobile-pull-*</td>
-            <td>.tablet-pull-*</td>
-            <td>.desktop-pull-*</td>
-        </tr>
-        <tr>
-            <td>Column Count</td>
-            <td>3</td>
-            <td>6</td>
             <td>12</td>
         </tr>
         <tr>
             <td>Column Width</td>
-            <td>33.3%</td>
             <td>16.6%</td>
+            <td>8.3%</td>
+            <td>8.3%</td>
             <td>8.3%</td>
         </tr>
         <tr>
-            <td>Breakpoints</td>
-            <td>0-480px</td>
-            <td>481px-1024px</td>
-            <td>1025px+</td>
+            <td>Devices</td>
+            <td>iPhone 4/5 (P)</td>
+            <td>iPhone 4 (L), iPad 2 (P), Galaxy S3 (P), Moto X (P)</td>
+            <td>iPhone 5 (L), iPad 2 (L), Nexus 5 (P), Galaxy S3 (L), Galaxy Note (P), HTC One (P), Moto X (L)</td>
+            <td>Laptops, Desktops, iPad 3/4 (P, L), Nexus 5 (L), Galaxy Note (L), HTC One (L)</td>
         </tr>
     </tbody>
 </table>
+
+<div class="notice is-info">
+    The (P) and (L) in the chart above stand for portrait and landscape respectively.
+</div>
+
+### Custom Sizes ###
+
+Want to customize the grid sizes and their breakpoints? Well it couldn't be easier.
+Simply set the `$grid-sizes` map with your new settings. Each key in the map is the name of the size,
+and the value is a list with the column count and the breakpoint range list.
+
+Let's recreate the common mobile, tablet, and desktop sizes.
+
+```scss
+$grid-sizes: (
+    mobile: (6, (null, 640px)),
+    tablet: (12, (641px, 1024px)),
+    desktop: (12, (1025px, null))
+);
+```
+
+Alternatively, you could modify the `$breakpoint-range-*` variables to alter breakpoints as the Grid
+inherits these values.
+
+<div class="notice is-info">
+    Null values can be used in the breakpoint range to create an open ended range in either direction.
+    This should only be used on the first and last items in the map.
+</div>
 
 ### End Capping ###
 
@@ -315,22 +297,18 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
             <td>CSS class name for the grid column.</td>
         </tr>
         <tr>
-            <td>$grid-columns-desktop</td>
-            <td>12</td>
-            <td rowspan="3">The number of columns available per device when <code>$responsive-size</code> is <code>device</code>.</td>
+            <td>$grid-class-end</td>
+            <td>.end</td>
+            <td>CSS class name for the end cap.</td>
         </tr>
         <tr>
-            <td>$grid-columns-tablet</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>$grid-columns-mobile</td>
-            <td>3</td>
+            <td>$grid-columns-xlarge</td>
+            <td>18</td>
+            <td rowspan="5">The number of columns available per size.</td>
         </tr>
         <tr>
             <td>$grid-columns-large</td>
             <td>12</td>
-            <td rowspan="3">The number of columns available per size when <code>$responsive-size</code> is <code>size</code>.</td>
         </tr>
         <tr>
             <td>$grid-columns-medium</td>
@@ -338,6 +316,10 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
         </tr>
         <tr>
             <td>$grid-columns-small</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>$grid-columns-xsmall</td>
             <td>6</td>
         </tr>
         <tr>
@@ -349,6 +331,15 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
             <td>$grid-push-pull</td>
             <td>true</td>
             <td>Includes push and pull classes within the output. Disable to reduce filesize if we aren't using them.</td>
+        </tr>
+        <tr>
+            <td>$grid-sizes</td>
+            <td>(xsmall: (), small: (), medium: (), large: ())</td>
+            <td>
+                A mapping of grid sizes to column counts and breakpoints ranges.
+                Each size accepts a list with the 1st item a column count, and the 2nd item a list of min and max ranges.
+                View the docs for more on altering this variable.
+            </td>
         </tr>
         <tr>
             <td>$grid-width</td>

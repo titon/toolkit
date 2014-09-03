@@ -331,15 +331,15 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
         </tr>
         <tr>
             <td>$breakpoint-range-small</td>
-            <td>(641px, 1024px)</td>
+            <td>(641px, 960px)</td>
         </tr>
         <tr>
             <td>$breakpoint-range-medium</td>
-            <td>(1025px, 1440px)</td>
+            <td>(961px, 1280px)</td>
         </tr>
         <tr>
             <td>$breakpoint-range-large</td>
-            <td>(1441px, 1680px)</td>
+            <td>(1281px, 1680px)</td>
         </tr>
         <tr>
             <td>$breakpoint-range-xlarge</td>

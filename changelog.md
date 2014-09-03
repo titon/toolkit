@@ -83,6 +83,7 @@ Older versions can be found in the documentation changelogs.
         * Added new `xsmall` and `xlarge` (disabled by default) column sizes
         * Added `$grid-sizes` map for associating sizes to breakpoints and column counts
         * Added `$grid-columns-xsmall` and `$grid-columns-xlarge` for new column counts
+        * Added `$grid-class-end` to change the `.end` class
         * Changed `$grid-columns-small` from `6` to `12`
         * Fixed a bug where `.push-*` and `.pull-*` classes were being generated if `$grid-push-pull` was disabled
         * Removed the `mobile`, `tablet`, and `desktop` column sizes

@@ -49,7 +49,7 @@
 }
 
 // End capping
-#{$grid-class-column}.end {
+#{$grid-class-column}#{$grid-class-end} {
     margin-right: 0 !important;
     float: right !important;
 }

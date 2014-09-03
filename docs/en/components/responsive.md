@@ -25,44 +25,90 @@ Use these for toggling content based on the viewport width.
     <thead>
         <tr>
             <th> </th>
-            <th>Small Devices (0px-768px)</th>
-            <th>Medium Devices (769px-1280px)</th>
-            <th>Large Devices (1280px+)</th>
+            <th>Extra Small (0px-640px)</th>
+            <th>Small (641px-960px)</th>
+            <th>Medium (961px-1280px)</th>
+            <th>Large (1281px-1680px)</th>
+            <th>Extra Large (1680px+)</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>.show-small</td>
+            <td>.show-xsmall</td>
             <td class="is-success">Visible</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-small</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
             <td>Hidden</td>
             <td>Hidden</td>
         </tr>
         <tr>
             <td>.show-medium</td>
             <td>Hidden</td>
+            <td>Hidden</td>
             <td class="is-success">Visible</td>
+            <td>Hidden</td>
             <td>Hidden</td>
         </tr>
         <tr>
             <td>.show-large</td>
             <td>Hidden</td>
             <td>Hidden</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+        </tr>
+        <tr>
+            <td>.show-xlarge</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+        </tr>
+        <tr>
+            <td>.hide-xsmall</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
         </tr>
         <tr>
             <td>.hide-small</td>
+            <td class="is-success">Visible</td>
             <td>Hidden</td>
+            <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
         </tr>
         <tr>
             <td>.hide-medium</td>
             <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
             <td>Hidden</td>
+            <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
         </tr>
         <tr>
             <td>.hide-large</td>
+            <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
+            <td>Hidden</td>
+            <td class="is-success">Visible</td>
+        </tr>
+        <tr>
+            <td>.hide-xlarge</td>
+            <td class="is-success">Visible</td>
+            <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
             <td class="is-success">Visible</td>
             <td>Hidden</td>
@@ -230,16 +276,6 @@ Use these for toggling content for print.
                 Determines which type of device to target; accepts <code>mobile</code> or <code>desktop</code>.
                 If <code>mobile</code> is used, responsive mixins will use <code>min-width</code> breakpoints in media queries.
                 If <code>desktop</code> is used, then <code>max-width</code> breakpoints are used.
-            </td>
-        </tr>
-        <tr>
-            <td>$responsive-size</td>
-            <td>both</td>
-            <td>
-                Determines which responsive columns are generated within the Grid component; accepts <code>device</code>, <code>size</code>, or <code>both</code>.
-                If <code>device</code> is used, than mobile, tablet, and desktop classes are available for the <code>.col</code> class.
-                If <code>size</code> is used, than small, medium, and large classes are available. If <code>both</code> is used, then all classes are available.
-                The breakpoint variables below are used to determine the media query breakpoints per column class.
             </td>
         </tr>
     </tbody>
