@@ -14,6 +14,10 @@
     $selectors: ();
 
     @each $class in $classes {
+        @if str-index($class, ".") != 0 {
+            $class: "." + $class;
+        }
+
         @if $inherit {
             $selectors: $selectors, unquote("&" + $class);
         } @else {

@@ -24,6 +24,7 @@ Older versions can be found in the documentation changelogs.
     * Added `full-screen()` mixin for full screen fixed positioning
     * Added `in-range($range)` mixin that will accept a range of breakpoints and output the correct min/max width media query
     * Added `in-xsmall()`, `in-xlarge()`, `if-xsmall()`, and `if-xlarge()` responsive mixins
+    * Fixed a bug in `join-classes()` when a class name doesn't start with a period
     * Moved `.span-*` classes from the Grid component into the shared base file
     * Updated all component CSS class names to use Sass variables for more configuration control
     * Updated all modifiers to not use `@extend` to reduce CSS output (requires full class declarations now)
@@ -122,7 +123,8 @@ Older versions can be found in the documentation changelogs.
     * Pin
         * Updated to no longer automatically set `.pin` on the element
     * Popover
-        * The `follow` attribute is now forced to `false`
+        * Updated so that an `.is-active` class is toggled on the target node
+        * Updated the `follow` attribute to `false` always
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
         * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` support
@@ -148,6 +150,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.tab-nav`, `.tab-section` to `[data-tab-nav]`, `[data-tab-section]`
     * Toast
         * Added a `toastTemplate` property
+        * Added a `reset()` method to reset the tooltip state
     * Tooltip
         * Renamed selectors `.tooltip-head`, `.tooltip-body` to `[data-tooltip-header]`, `[data-tooltip-content]`
     * Type Ahead

@@ -325,6 +325,11 @@ Inherits all methods from the [parent Component](component.md#methods).
             <td></td>
         </tr>
         <tr>
+            <td>reset()</td>
+            <td>Resets the tooltip state by removing position and custom classes from the element, and clearing the runtime options.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>show([element:node[, string:content[, string:title]]])</td>
             <td>
                 Display the tooltip relative to the node. If no node is passed, will use the last node.

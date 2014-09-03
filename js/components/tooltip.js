@@ -46,7 +46,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Initialize events
         this.events = {
-            '{mode} document {selector}': 'onShow'
+            '{mode} document {selector}': 'onShowToggle'
         };
 
         if (options.mode === 'click') {
@@ -63,20 +63,11 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * Hide the tooltip.
      */
     hide: function() {
-        var options = this.options,
-            element = this.element,
-            position = element.data('new-position') || this.runtime.position || options.position,
-            className = this.runtime.className || options.className;
-
-        this.runtime = {};
-
         this.fireEvent('hiding');
 
-        element
-            .removeClass(position)
-            .removeClass(className)
-            .removeData('new-position')
-            .conceal();
+        this.reset();
+
+        this.element.conceal();
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');
@@ -155,6 +146,23 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     },
 
     /**
+     * Reset the current tooltip state by removing position and custom classes.
+     */
+    reset: function() {
+        var options = this.options,
+            element = this.element,
+            position = element.data('new-position') || this.runtime.position || options.position,
+            className = this.runtime.className || options.className;
+
+        this.runtime = {};
+
+        element
+            .removeClass(position)
+            .removeClass(className)
+            .removeData('new-position');
+    },
+
+    /**
      * Show the tooltip and determine whether to grab the content from an AJAX call,
      * a DOM node, or plain text. The content and title can also be passed as arguments.
      *
@@ -164,6 +172,8 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      */
     show: function(node, content, title) {
         var options;
+
+        this.reset();
 
         if (node) {
             this.node = node = $(node);

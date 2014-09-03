@@ -8,7 +8,7 @@ define([
  * Conceal the element by applying the hide class.
  * Should be used to trigger transitions and animations.
  *
- * @param {bool} dontHide
+ * @param {bool} [dontHide]
  * @returns {jQuery}
  */
 $.fn.conceal = function(dontHide) {

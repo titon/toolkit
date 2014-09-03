@@ -7,7 +7,7 @@ define([
  * Reveal the element by applying the show class.
  * Should be used to trigger transitions and animations.
  *
- * @param {bool} dontShow
+ * @param {bool} [dontShow]
  * @returns {jQuery}
  */
 $.fn.reveal = function(dontShow) {

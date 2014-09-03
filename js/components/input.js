@@ -261,9 +261,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         this.input.removeClass('is-active');
 
-        if (this.dropdown) {
-            this.dropdown.conceal();
-        }
+        this.dropdown.conceal();
 
         this.fireEvent('hidden');
     },
@@ -282,9 +280,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         this.input.addClass('is-active');
 
-        if (this.dropdown) {
-            this.dropdown.reveal();
-        }
+        this.dropdown.reveal();
 
         this.fireEvent('shown');
     },
@@ -321,6 +317,9 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             list = $('<ul/>'),
             index = 0,
             self = this;
+
+        // Must be set for `_buildOption()`
+        this.dropdown = dropdown;
 
         select.children().each(function() {
             var optgroup = $(this);

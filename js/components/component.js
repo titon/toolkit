@@ -254,9 +254,9 @@ Toolkit.Component = Toolkit.Base.extend({
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
-     * @param {Function} before
-     * @param {Function} done
-     * @param {Function} fail
+     * @param {Function} [before]
+     * @param {Function} [done]
+     * @param {Function} [fail]
      * @returns {jqXHR}
      */
     requestData: function(options, before, done, fail) {
@@ -393,13 +393,13 @@ Toolkit.Component = Toolkit.Base.extend({
                 e.preventDefault();
             }
 
-            // Second click should close it
-            if (this.options.mode === 'click') {
-                this.hide();
-            }
-
-            // Exit if the same node so it doesn't re-open
             if (isNode) {
+                // Second click should close it
+                if (this.options.mode === 'click') {
+                    this.hide();
+                }
+
+                // Exit if the same node so it doesn't re-open
                 return;
             }
 
