@@ -24,6 +24,9 @@ Toolkit.Class.extend = function(properties, options) {
     // Inherit the prototype and merge properties
     $.extend(prototype, properties);
 
+    // Fetch the constructor function before setting the prototype
+    var constructor = prototype.constructor;
+
     // Class interface
     function Class() {
 
@@ -64,14 +67,14 @@ Toolkit.Class.extend = function(properties, options) {
         }
 
         // Trigger constructor
-        if (properties.constructor) {
-            properties.constructor.apply(this, arguments);
+        if (constructor) {
+            constructor.apply(this, arguments);
         }
     }
 
     // Inherit the prototype
     Class.prototype = prototype;
-    Class.prototype.constructor = Class;
+    Class.prototype.constructor = constructor || Class;
 
     // Inherit and set default options
     Class.options = $.extend(true, {}, this.options || {}, options || {});
