@@ -406,7 +406,7 @@ The following components are found within Foundation that have not been mentione
             <td>Flex Video</td>
             <td class="is-error"></td>
             <td class="is-success">&check;</td>
-            <td class="is-error"></td>
+            <td class="is-info">Known as Responsive Embed</td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -692,14 +692,14 @@ The following components are found within Semantic UI that have not been mention
             <td>NPM</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
         <tr>
             <td>Ruby Gems</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
-            <td class="is-error"></td>
+            <td class="is-info">Sass version only</td>
             <td class="is-error"></td>
         </tr>
         <tr>
@@ -713,7 +713,7 @@ The following components are found within Semantic UI that have not been mention
             <td>Composer</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-error"></td>
         </tr>
 
