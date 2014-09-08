@@ -21,6 +21,14 @@
         "Toolkit": true,
         "Zepto": true,
         "DocumentTouch": true,
-        "console": true
+        "console": true,
+
+        "define": true,
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "before": true,
+        "after": true,
+        "require": true
     }
 }

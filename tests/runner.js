@@ -24,10 +24,11 @@ define(function(require) {
     // Run the tests
     require([
         'tests/core',
-        'tests/class'
+        'tests/class',
+        'tests/base'
     ], function() {
         if (window.mochaPhantomJS) {
-            mochaPhantomJS.run();
+            window.mochaPhantomJS.run();
         } else {
             mocha.run();
         }

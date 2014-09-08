@@ -101,6 +101,12 @@ gulp.task('js', function() {
         .pipe(gulp.dest(buildPath));
 });
 
+gulp.task('test', function() {
+    return gulp.src('./tests/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
 gulp.task('default', ['css', 'js']);
 
 gulp.task('watch', function() {

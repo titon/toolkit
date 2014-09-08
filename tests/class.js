@@ -18,14 +18,14 @@ describe('Toolkit.Class', function() {
         name: 'Child',
         object: { bar: 'baz' },
         constructor: function(key) { this.key = key + ':override'; },
-        child: function() { return 'child' }
+        child: function() { return 'child'; }
     }, {
         bar: 'baz'
     });
 
     var GrandChild = Child.extend({
         name: 'GrandChild',
-        child: function() { return 'child:override' },
+        child: function() { return 'child:override'; },
         grandChild: function() { return 'grandChild'; }
     }, {
         baz: 'foo'
