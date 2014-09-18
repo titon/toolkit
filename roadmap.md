@@ -19,6 +19,7 @@ All releases will contain bug fixing and polishing for current features.
 * Rename Tabs to Tab.
 * Remove cookie dependency.
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
+* Gracefully handle situations where components are nested within the same component. How to handle event delegation?
 
 ### 3.0.0 ###
 * Remove jQuery dependency and go straight vanilla?
