@@ -343,13 +343,13 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>container</td>
             <td>element</td>
             <td>The parent element for all item elements.</td>
-            <td>.carousel-items ul</td>
+            <td>.carousel-items > ul</td>
         </tr>
         <tr>
             <td>items</td>
             <td>collection</td>
             <td>A collection of item elements that will be cycled through.</td>
-            <td><code>container</code> li</td>
+            <td><code>container</code> > li</td>
         </tr>
         <tr>
             <td>tabs</td>

@@ -18,11 +18,11 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
         .addClass(options.animation);
 
     // Find the item container and disable transitions for initial load
-    this.container = element.find('.' + vendor + 'carousel-items ul')
+    this.container = element.find('.' + vendor + 'carousel-items > ul')
         .addClass('no-transition');
 
     // Find all the items and set ARIA attributes
-    this.items = items = this.container.find('li').each(function(index) {
+    this.items = items = this.container.find('> li').each(function(index) {
         $(this)
             .attr({
                 role: 'tabpanel',
@@ -310,7 +310,7 @@ Toolkit.Carousel = Toolkit.Component.extend(function(element, options) {
             .prependTo(container);
 
         // Refresh items list
-        this.items = container.find('li');
+        this.items = container.find('> li');
     },
 
     /**

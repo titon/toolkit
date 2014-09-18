@@ -23,7 +23,7 @@
     overflow: hidden;
     position: relative;
 
-    ul {
+    > ul {
         @include reset-list;
         position: absolute;
         top: 0;
@@ -73,7 +73,7 @@
 //-------------------- Animations --------------------//
 
 .#{$vendor-prefix}carousel.slide {
-    .#{$vendor-prefix}carousel-items ul {
+    .#{$vendor-prefix}carousel-items > ul {
         > li {
             float: left;
         }
@@ -83,7 +83,7 @@
 }
 
 .#{$vendor-prefix}carousel.fade {
-    .#{$vendor-prefix}carousel-items ul {
+    .#{$vendor-prefix}carousel-items > ul {
         position: relative;
 
         > li {
