@@ -1,8 +1,9 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Flyout = Toolkit.Component.extend({
     name: 'Flyout',
@@ -497,8 +498,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    template: '<div class="flyout" data-flyout-menu></div>',
-    headingTemplate: '<li class="flyout-heading"></li>'
+    template: '<div class="' + vendor + 'flyout" data-flyout-menu></div>',
+    headingTemplate: '<li class="' + vendor + 'flyout-heading"></li>'
 });
 
 Toolkit.create('flyout', function(url, options) {

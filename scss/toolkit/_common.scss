@@ -274,9 +274,9 @@ $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !default;
 //-------------------- Input --------------------//
 
 $input-class: "." + $vendor-prefix + "custom-input" !default;
-$input-class-checkbox: ".checkbox" !default;
-$input-class-radio: ".radio" !default;
-$input-class-select: ".select" !default;
+$input-class-checkbox: "." + $vendor-prefix + "checkbox" !default;
+$input-class-radio: "." + $vendor-prefix + "radio" !default;
+$input-class-select: "." + $vendor-prefix + "select" !default;
 $input-class-select-label: $input-class-select + "-label" !default;
 $input-class-select-arrow: $input-class-select + "-arrow" !default;
 $input-class-select-options: $input-class-select + "-options" !default;

@@ -15,6 +15,9 @@ var Toolkit = {
     /** Build date hash. */
     build: '%build%',
 
+    /** Vendor namespace. */
+    vendor: '',
+
     /** ARIA support. */
     aria: true,
 

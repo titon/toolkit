@@ -1,7 +1,8 @@
 define([
     'jquery',
-    './component'
-], function($, Toolkit) {
+    './component',
+    '../flags/vendor'
+], function($, Toolkit, vendor) {
 
 Toolkit.Blackout = Toolkit.Component.extend({
     name: 'Blackout',
@@ -92,11 +93,11 @@ Toolkit.Blackout = Toolkit.Component.extend({
 
 }, {
     showLoading: true,
-    template: '<div class="blackout"></div>',
+    template: '<div class="' + vendor + 'blackout"></div>',
     templateFrom: '#toolkit-blackout-1',
-    loaderTemplate: '<div class="loader bar-wave">' +
+    loaderTemplate: '<div class="' + vendor + 'loader bar-wave">' +
         '<span></span><span></span><span></span><span></span><span></span>' +
-        '<div class="loader-message" data-loader-message></div>' +
+        '<div class="' + vendor + 'loader-message" data-loader-message></div>' +
     '</div>'
 });
 

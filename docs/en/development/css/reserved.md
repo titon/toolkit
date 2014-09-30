@@ -28,4 +28,5 @@ However, Toolkit does support prefixing *ALL* plugins with a vendor name,
 so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` variable was set to `tk-`.
 This is disabled by default.
 
-* [Learn more on Sass prefixing](../sass/variables.md)
+* [Learn more on CSS/Sass prefixing](../sass/variables.md)
+* [Learn more on JavaScript prefixing](../js/toolkit.md#vendor-prefix)

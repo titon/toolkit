@@ -1,10 +1,11 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
@@ -114,7 +115,7 @@ Toolkit.Input = Toolkit.Component.extend({
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select',
-    template: '<div class="custom-input"></div>'
+    template: '<div class="' + vendor + 'custom-input"></div>'
 });
 
 /**
@@ -146,7 +147,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
     }
 
 }, {
-    checkboxTemplate: '<label class="checkbox"></label>'
+    checkboxTemplate: '<label class="' + vendor + 'checkbox"></label>'
 });
 
 /**
@@ -178,7 +179,7 @@ Toolkit.InputRadio = Toolkit.Input.extend({
     }
 
 }, {
-    radioTemplate: '<label class="radio"></label>'
+    radioTemplate: '<label class="' + vendor + 'radio"></label>'
 });
 
 /**
@@ -627,14 +628,14 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     getDefaultLabel: 'title',
     getOptionLabel: 'title',
     getDescription: 'data-description',
-    selectTemplate: '<div class="select" data-select>' +
-        '<div class="select-arrow" data-select-arrow></div>' +
-        '<div class="select-label" data-select-label></div>' +
+    selectTemplate: '<div class="' + vendor + 'select" data-select>' +
+        '<div class="' + vendor + 'select-arrow" data-select-arrow></div>' +
+        '<div class="' + vendor + 'select-label" data-select-label></div>' +
     '</div>',
     arrowTemplate: '<span class="caret-down"></span>',
-    optionsTemplate: '<div class="drop drop--down select-options" data-select-options></div>',
-    headingTemplate: '<li class="drop-heading"></li>',
-    descTemplate: '<span class="drop-desc"></span>'
+    optionsTemplate: '<div class="' + vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options" data-select-options></div>',
+    headingTemplate: '<li class="' + vendor + 'drop-heading"></li>',
+    descTemplate: '<span class="' + vendor + 'drop-desc"></span>'
 });
 
 Toolkit.create('input', function(options) {
