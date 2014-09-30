@@ -23,7 +23,7 @@
     overflow: hidden;
     position: relative;
 
-    ul {
+    > ul {
         @include reset-list;
         position: absolute;
         top: 0;
@@ -48,7 +48,7 @@
 //-------------------- Animations --------------------//
 
 #{$carousel-class}.slide {
-    #{$carousel-class-items} ul {
+    #{$carousel-class-items} > ul {
         > li {
             float: left;
         }
@@ -58,7 +58,7 @@
 }
 
 #{$carousel-class}.fade {
-    #{$carousel-class-items} ul {
+    #{$carousel-class-items} > ul {
         position: relative;
 
         > li {

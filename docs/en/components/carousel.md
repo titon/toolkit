@@ -411,7 +411,7 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>items</td>
             <td>collection</td>
             <td>A collection of item elements that will be cycled through.</td>
-            <td>[data-carousel-items] li</td>
+            <td>[data-carousel-items] > li</td>
         </tr>
         <tr>
             <td>stopped</td>
