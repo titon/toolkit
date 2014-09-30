@@ -48,7 +48,6 @@ Toolkit.Accordion = Toolkit.Component.extend({
         // Find sections and cache the height so we can use for sliding and set ARIA attributes
         this.sections = element.find('[data-accordion-section]').each(function(index) {
             $(this)
-                .data('height', $(this).height())
                 .attr({
                     role: 'tabpanel',
                     id: self.id('section', index)
@@ -66,6 +65,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         this.initialize();
 
         // Jump to the index on page load
+        this.calculate();
         this.jump(options.defaultIndex);
     },
 
@@ -75,6 +75,39 @@ Toolkit.Accordion = Toolkit.Component.extend({
     destructor: function() {
         this.headers.parent().removeClass('is-active');
         this.sections.removeAttr('style').reveal();
+    },
+
+    /**
+     * Loop through each section and calculate/cache it's current height.
+     * An optional callback can be defined that will be used for height calculation.
+     *
+     * @param {Function} [callback]
+     */
+    calculate: function(callback) {
+        if (typeof callback !== 'function') {
+            callback = function(section) {
+                var className = section.hasClass('hide') ? 'hide' : 'show';
+
+                section.addClass('no-transition').removeClass(className);
+
+                var height = section.height();
+
+                section.addClass(className).removeClass('no-transition');
+
+                return height;
+            };
+        }
+
+        this.sections.each(function() {
+            var self = $(this),
+                height = callback.call(this, self);
+
+            self.data('accordion-height', height);
+
+            if (self.hasClass('show')) {
+                self.css('max-height', height);
+            }
+        });
     },
 
     /**
@@ -103,7 +136,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
             parent = header.parent(), // li
             section = header.next(), // section
             index = header.data('accordion-index'),
-            height = parseInt(section.data('height'), 10),
+            height = parseInt(section.data('accordion-height'), 10),
             isNode = (this.node && this.node.is(header));
 
         this.fireEvent('showing', [section, header, this.index]);

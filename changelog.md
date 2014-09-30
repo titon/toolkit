@@ -59,6 +59,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed the `doDestroy` method to `destructor`
 * Components
     * Accordion
+        * Added `calculate()` method for determining section heights
         * Removed the `jump` event
         * Renamed selectors `.accordion-header`, `.accordion-section` to `[data-accordion-header]`, `[data-accordion-section]`
     * Blackout

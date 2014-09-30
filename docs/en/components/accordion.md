@@ -234,6 +234,11 @@ Inherits all methods from the [parent Component](component.md#methods).
     </thead>
     <tbody>
         <tr>
+            <td>calculate([func:callback])</td>
+            <td>Calculate and cache the heights of each section. An optional callback can be passed to fetch the height.</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>jump(int:index)</td>
             <td>Open a specific section using the index in the collection.</td>
             <td></td>
