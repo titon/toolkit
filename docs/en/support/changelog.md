@@ -1,5 +1,10 @@
 # Changelog #
 
+## 1.5.3 ##
+* Updated the competitor comparison
+* Carousel
+    * Fixed an issue where direct descendants were not being used and `ul li`s were conflicting with nested lists
+
 ## 1.5.2 ##
 * Matrix
     * Added defer rendering support to items either appended or prepended
