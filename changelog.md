@@ -48,8 +48,6 @@ Older versions can be found in the documentation changelogs.
     * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Updated `$.fn.conceal()` to set the element to display none when the transitions is complete
     * Updated `$.fn.reveal()` to set the element to display block (or similar) before transitions occur
-    * Toolkit
-        * Removed `vendor` property
     * Component
         * Added `hiding`, `showing`, and `destroying` events
         * Renamed the `hide` event to `hidden`
@@ -59,6 +57,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed the `doDestroy` method to `destructor`
 * Components
     * Accordion
+        * Added `calculate()` method for determining section heights
         * Removed the `jump` event
         * Renamed selectors `.accordion-header`, `.accordion-section` to `[data-accordion-header]`, `[data-accordion-section]`
     * Blackout

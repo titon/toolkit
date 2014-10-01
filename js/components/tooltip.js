@@ -1,10 +1,11 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Tooltip = Toolkit.Component.extend({
     name: 'Tooltip',
@@ -238,12 +239,12 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     xOffset: 0,
     yOffset: 0,
     delay: 0,
-    template: '<div class="tooltip">' +
-        '<div class="tooltip-inner">' +
-            '<div class="tooltip-head" data-tooltip-header></div>' +
-            '<div class="tooltip-body" data-tooltip-content></div>' +
+    template: '<div class="' + vendor + 'tooltip">' +
+        '<div class="' + vendor + 'tooltip-inner">' +
+            '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +
+            '<div class="' + vendor + 'tooltip-body" data-tooltip-content></div>' +
         '</div>' +
-        '<div class="tooltip-arrow"></div>' +
+        '<div class="' + vendor + 'tooltip-arrow"></div>' +
     '</div>'
 });
 

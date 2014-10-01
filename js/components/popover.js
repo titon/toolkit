@@ -1,6 +1,8 @@
 define([
-    './tooltip'
-], function(Toolkit) {
+    'jquery',
+    './tooltip',
+    '../flags/vendor'
+], function($, Toolkit, vendor) {
 
 var TooltipPrototype = Toolkit.Tooltip.prototype;
 
@@ -46,12 +48,12 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 
 }, {
     getContent: 'data-popover',
-    template: '<div class="popover">' +
-        '<div class="popover-inner">' +
-            '<div class="popover-head" data-popover-header></div>' +
-            '<div class="popover-body" data-popover-content></div>' +
+    template: '<div class="' + vendor + 'popover">' +
+        '<div class="' + vendor + 'popover-inner">' +
+            '<div class="' + vendor + 'popover-head" data-popover-header></div>' +
+            '<div class="' + vendor + 'popover-body" data-popover-content></div>' +
         '</div>' +
-        '<div class="popover-arrow"></div>' +
+        '<div class="' + vendor + 'popover-arrow"></div>' +
     '</div>'
 });
 

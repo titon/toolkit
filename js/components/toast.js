@@ -1,8 +1,9 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../extensions/transitionend'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Toast = Toolkit.Component.extend({
     name: 'Toast',
@@ -100,8 +101,8 @@ Toolkit.Toast = Toolkit.Component.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    template: '<aside class="toasts"></aside>',
-    toastTemplate: '<div class="toast"></div>'
+    template: '<aside class="' + vendor + 'toasts"></aside>',
+    toastTemplate: '<div class="' + vendor + 'toast"></div>'
 });
 
 Toolkit.create('toast', function(options) {

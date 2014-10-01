@@ -1,9 +1,10 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../events/clickout',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Modal = Toolkit.Component.extend({
     name: 'Modal',
@@ -248,10 +249,10 @@ Toolkit.Modal = Toolkit.Component.extend({
     fullScreen: false,
     stopScroll: true,
     getContent: 'data-modal',
-    template: '<div class="modal">' +
-        '<div class="modal-outer">' +
-            '<div class="modal-inner" data-modal-content></div>' +
-            '<button class="modal-close" data-modal-close><span class="x"></span></button>' +
+    template: '<div class="' + vendor + 'modal">' +
+        '<div class="' + vendor + 'modal-outer">' +
+            '<div class="' + vendor + 'modal-inner" data-modal-content></div>' +
+            '<button class="' + vendor + 'modal-close" data-modal-close><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 });

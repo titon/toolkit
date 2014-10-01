@@ -8,7 +8,7 @@ define([
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
-    version: '1.5.0',
+    version: '1.5.3',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -65,7 +65,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             .addClass('no-transition');
 
         // Find all the items and set ARIA attributes
-        this.items = items = this.container.find('li').each(function(index) {
+        this.items = items = this.container.find('> li').each(function(index) {
             $(this)
                 .attr({
                     role: 'tabpanel',
@@ -335,7 +335,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             .prependTo(container);
 
         // Refresh items list
-        this.items = container.find('li');
+        this.items = container.find('> li');
     },
 
     /**

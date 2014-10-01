@@ -1,8 +1,9 @@
 define([
     'jquery',
     './component',
+    '../flags/vendor',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, vendor) {
 
 Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',
@@ -134,8 +135,8 @@ Toolkit.Mask = Toolkit.Component.extend({
     selector: '',
     revealOnClick: false,
     messageContent: '',
-    template: '<div class="mask" data-mask></div>',
-    messageTemplate: '<div class="mask-message" data-mask-message></div>'
+    template: '<div class="' + vendor + 'mask" data-mask></div>',
+    messageTemplate: '<div class="' + vendor + 'mask-message" data-mask-message></div>'
 });
 
 Toolkit.create('mask', function(options) {

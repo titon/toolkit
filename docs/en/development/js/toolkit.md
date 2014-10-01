@@ -6,6 +6,16 @@ It also acts as a namespace for plugins by housing a top level name to avoid glo
 Each plugin class definition can be found on the `Toolkit` object, for example,
 the accordion class is found under `Toolkit.Accordion`.
 
+## Vendor Prefix ##
+
+Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
+prefixing within the JavaScript layer. This value will be prepended to all component class names that are
+embedded in templates and created with JavaScript.
+
+```javascript
+Toolkit.vendor = 'tk-';
+```
+
 ## ARIA Support ##
 
 [ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable plugins.
