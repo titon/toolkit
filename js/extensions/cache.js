@@ -13,7 +13,7 @@ define([
 $.fn.cache = function(key, value) {
     var data = this.data(key);
 
-    if (data) {
+    if (typeof data !== 'undefined' && data !== null) {
         return data;
 
     } else if (typeof value === 'function') {

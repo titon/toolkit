@@ -25,7 +25,8 @@ define(function(require) {
     require([
         'tests/core',
         'tests/class',
-        'tests/base'
+        'tests/base',
+        'tests/extensions'
     ], function() {
         if (window.mochaPhantomJS) {
             window.mochaPhantomJS.run();

@@ -4,6 +4,8 @@ define([
 
 /**
  * Bound a number between a min and max range.
+ * If the number is greater than or equal to the max, reset to min (or 0).
+ * If the number is less than the min, reset to the max - 1.
  *
  * @param {Number} value
  * @param {Number} max
@@ -14,7 +16,7 @@ $.bound = function(value, max, min) {
     min = min || 0;
 
     if (value >= max) {
-        value = 0;
+        value = min;
     } else if (value < min) {
         value = max - 1;
     }
