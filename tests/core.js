@@ -5,7 +5,7 @@ define([
 
 describe('Toolkit', function() {
     it('should be available on the window object', function() {
-        expect(window.Toolkit).to.not.be.undefined;
+        expect(window).to.have.property('Toolkit');
     });
 
     describe('create()', function() {
@@ -19,7 +19,7 @@ describe('Toolkit', function() {
         });
 
         it('should extend the jQuery prototype', function() {
-            expect($.fn.single).to.not.be.undefined;
+            expect($.fn).to.have.property('single');
         });
 
         it('should create a single instance for each element when not a collection', function() {
@@ -45,8 +45,8 @@ describe('Toolkit', function() {
         it('should rename method when a collision occurs', function() {
             Toolkit.create('single', function() {});
 
-            expect($.fn.single).to.not.be.undefined;
-            expect($.fn.toolkitSingle).to.not.be.undefined;
+            expect($.fn).to.have.property('single');
+            expect($.fn).to.have.property('toolkitSingle');
             expect($.fn.single).to.not.equal($.fn.toolkitSingle);
         });
 

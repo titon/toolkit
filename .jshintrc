@@ -11,6 +11,7 @@
     "strict": false,
     "undef": true,
     "unused": true,
+    "expr": true,
 
     "boss": true,
     "globalstrict": true,
@@ -28,7 +29,9 @@
         "it": true,
         "expect": true,
         "before": true,
+        "beforeEach": true,
         "after": true,
+        "afterEach": true,
         "require": true
     }
 }

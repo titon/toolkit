@@ -10,7 +10,7 @@ describe('Toolkit.Base', function() {
             fn2 = function() {};
 
         it('should create a map if it doesn\'t exist', function() {
-            expect(a.__hooks.foo).to.be.undefined;
+            expect(a.__hooks).to.not.have.property('foo');
 
             a.addHook('foo', fn1);
 

@@ -66,8 +66,8 @@ describe('Toolkit.Class', function() {
     });
 
     it('should merge properties and methods into the prototype', function() {
-        expect(a.child).to.be.undefined;
-        expect(b.grandChild).to.be.undefined;
+        expect(a).to.not.have.property('child');
+        expect(b).to.not.have.property('grandChild');
         expect(b.name).to.equal('Child');
     });
 
