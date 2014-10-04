@@ -12,6 +12,10 @@ define([
  * @param {*} value
  */
 function doAria(element, key, value) {
+    if ($.type(value) === 'undefined') {
+        return element.getAttribute('aria-' + key);
+    }
+
     if (value === true) {
         value = 'true';
     } else if (value === false) {
@@ -22,7 +26,7 @@ function doAria(element, key, value) {
 }
 
 $.fn.aria = function(key, value) {
-    if (!Toolkit.aria) {
+    if (!Toolkit.aria && $.type(value) === 'undefined') {
         return this;
     }
 

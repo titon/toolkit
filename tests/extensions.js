@@ -37,6 +37,10 @@ describe('Extensions', function() {
             Toolkit.aria = true;
             expect($('<span/>').aria('live', 'off').toString()).to.equal('<span aria-live="off"></span>');
         });
+
+        it('should get aria-* attributes', function() {
+            expect($('<span/>').aria('live', 'off').aria('live')).to.equal('off');
+        });
     });
 
     describe('bound()', function() {

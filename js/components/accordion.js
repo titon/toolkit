@@ -74,7 +74,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
      */
     destructor: function() {
         this.headers.parent().removeClass('is-active');
-        this.sections.removeAttr('style').reveal();
+        this.sections.attr('style', '').reveal();
     },
 
     /**
@@ -86,22 +86,25 @@ Toolkit.Accordion = Toolkit.Component.extend({
     calculate: function(callback) {
         if (typeof callback !== 'function') {
             callback = function(section) {
-                var className = section.hasClass('hide') ? 'hide' : 'show';
-
-                section.addClass('no-transition').removeClass(className);
-
-                var height = section.height();
-
-                section.addClass(className).removeClass('no-transition');
-
-                return height;
+                return section.outerHeight();
             };
         }
 
         this.sections.each(function() {
             var self = $(this),
-                height = callback.call(this, self);
+                className = self.hasClass('hide') ? 'hide' : 'show',
+                maxHeight = self.css('max-height');
 
+            // Make section visible
+            self.addClass('no-transition').removeClass(className).css('max-height', '');
+
+            // Get the height
+            var height = callback.call(this, self);
+
+            // Set section back to previous state
+            self.addClass(className).css('max-height', maxHeight).removeClass('no-transition');
+
+            // Set the height
             self.data('accordion-height', height);
 
             if (self.hasClass('show')) {
@@ -118,9 +121,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * @param {Number} index
      */
     jump: function(index) {
-        index = $.bound(index, this.headers.length);
-
-        this.show(this.headers[index]);
+        this.show(this.headers[$.bound(index, this.headers.length)]);
     },
 
     /**
