@@ -1,7 +1,7 @@
 define([
     'jquery',
     '../../js/components/accordion'
-], function($, Toolkit) {
+], function($) {
 
 describe('Toolkit.Accordion', function() {
     var element,
@@ -204,7 +204,7 @@ describe('Toolkit.Accordion', function() {
                     done();
                 }, 10);
             }, 10);
-        })
+        });
     });
 
     describe('destroy()', function() {

@@ -27,7 +27,7 @@ Toolkit.Blackout = Toolkit.Component.extend({
         this.element = this.createElement();
 
         // Generate loader elements
-        this.loader = $(options.loaderTemplate);
+        this.loader = $(options.loaderTemplate).appendTo(this.element);
         this.message = this.loader.find('[data-loader-message]');
 
         if (options.showLoading) {
@@ -36,6 +36,14 @@ Toolkit.Blackout = Toolkit.Component.extend({
 
         // Initialize
         this.initialize();
+    },
+
+    /**
+     * Remove the blackout element and reset instance.
+     */
+    destructor: function() {
+        this.element.remove();
+        blackout = null;
     },
 
     /**
