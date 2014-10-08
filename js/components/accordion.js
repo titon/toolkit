@@ -73,7 +73,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * Reveal all sections before destroying.
      */
     destructor: function() {
-        this.headers.parent().removeClass('is-active');
+        this.headers.addClass('is-active').attr('toggled', true);
         this.sections.attr('style', '').reveal();
     },
 
@@ -134,7 +134,6 @@ Toolkit.Accordion = Toolkit.Component.extend({
         header = $(header);
 
         var options = this.options,
-            parent = header.parent(), // li
             section = header.next(), // section
             index = header.data('accordion-index'),
             height = parseInt(section.data('accordion-height'), 10),
@@ -147,13 +146,11 @@ Toolkit.Accordion = Toolkit.Component.extend({
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal(true);
-                parent.removeClass('is-active');
-                header.aria('toggled', false);
+                header.aria('toggled', false).removeClass('is-active');
 
             } else {
                 section.css('max-height', height).reveal(true);
-                parent.addClass('is-active');
-                header.aria('toggled', true);
+                header.aria('toggled', true).addClass('is-active');
             }
 
         // Only one open at a time
@@ -167,11 +164,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
             this.sections.css('max-height', 0).conceal(true);
             section.css('max-height', height).reveal(true);
 
-            this.headers.aria('toggled', false);
-            header.aria('toggled', true);
-
-            this.element.children('li').removeClass('is-active');
-            parent.addClass('is-active');
+            this.headers.aria('toggled', false).removeClass('is-active');
+            header.aria('toggled', true).addClass('is-active');
         }
 
         this.index = index;

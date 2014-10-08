@@ -351,10 +351,12 @@ describe('Extensions', function() {
             element = $('<span/>')
                 .appendTo('body')
                 .css('color', 'black')
-                .css('transition', 'color 250ms')
                 .on(Toolkit.transitionEnd, function() {
                     count += 1;
                 });
+
+            // We must set directly since jQuery doesn't support !important
+            element[0].style.setProperty('transition', 'color 250ms', 'important');
         });
 
         afterEach(function() {
@@ -387,7 +389,9 @@ describe('Extensions', function() {
         it('should trigger the callback immediately if no transition exists', function() {
             expect(count).to.equal(1);
 
-            element.css('transition', 'color 0s').transitionend(function() {
+            element[0].style.setProperty('transition', 'color 0s', 'important');
+
+            element.transitionend(function() {
                 count += 1;
             }).css('color', 'red');
 

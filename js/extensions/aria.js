@@ -26,7 +26,7 @@ function doAria(element, key, value) {
 }
 
 $.fn.aria = function(key, value) {
-    if (!Toolkit.aria && $.type(value) === 'undefined') {
+    if (!Toolkit.aria) {
         return this;
     }
 

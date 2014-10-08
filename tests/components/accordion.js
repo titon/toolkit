@@ -36,7 +36,7 @@ describe('Toolkit.Accordion', function() {
     });
 
     after(function() {
-        //element.remove();
+        element.remove();
     });
 
     describe('constructor()', function() {
@@ -111,43 +111,47 @@ describe('Toolkit.Accordion', function() {
         });
 
         it('should toggle ARIA attributes', function(done) {
-            accordion.jump(0);
+            accordion.jump(2);
 
             setTimeout(function() {
-                expect(accordion.headers.eq(0).aria('expanded')).to.equal('true');
+                expect(accordion.headers.eq(0).aria('expanded')).to.equal('false');
                 expect(accordion.headers.eq(1).aria('expanded')).to.equal('false');
-                expect(accordion.headers.eq(2).aria('expanded')).to.equal('false');
+                expect(accordion.headers.eq(2).aria('expanded')).to.equal('true');
 
-                expect(accordion.sections.eq(0).aria('hidden')).to.equal('false');
+                expect(accordion.sections.eq(0).aria('hidden')).to.equal('true');
                 expect(accordion.sections.eq(1).aria('hidden')).to.equal('true');
-                expect(accordion.sections.eq(2).aria('hidden')).to.equal('true');
+                expect(accordion.sections.eq(2).aria('hidden')).to.equal('false');
 
                 done();
             }, 10);
         });
 
         it('should update the index', function() {
+            expect(accordion.index).to.equal(2);
+
+            accordion.jump(0);
+
             expect(accordion.index).to.equal(0);
-
-            accordion.jump(1);
-
-            expect(accordion.index).to.equal(1);
         });
 
         it('should update the node with the shown header', function() {
+            expect(accordion.node[0]).to.equal(accordion.headers[0]);
+
+            accordion.jump(1);
+
             expect(accordion.node[0]).to.equal(accordion.headers[1]);
-
-            accordion.jump(2);
-
-            expect(accordion.node[0]).to.equal(accordion.headers[2]);
         });
 
-        it('should set and remove active states from the parent', function() {
+        it('should set and remove active states from the header', function(done) {
             accordion.jump(2);
 
-            expect(accordion.sections.eq(0).parent().hasClass('is-active')).to.be.false;
-            expect(accordion.sections.eq(1).parent().hasClass('is-active')).to.be.false;
-            expect(accordion.sections.eq(2).parent().hasClass('is-active')).to.be.true;
+            setTimeout(function() {
+                expect(accordion.headers.eq(0).hasClass('is-active')).to.be.false;
+                expect(accordion.headers.eq(1).hasClass('is-active')).to.be.false;
+                expect(accordion.headers.eq(2).hasClass('is-active')).to.be.true;
+
+                done();
+            }, 10);
         });
     });
 
@@ -179,8 +183,28 @@ describe('Toolkit.Accordion', function() {
 
     describe('show(): multiple', function() {
         before(function() {
-            //accordion.options.multiple = true;
+            accordion.options.multiple = true;
         });
+
+        it('should allow multiple sections to be opened at once', function(done) {
+            accordion.jump(1);
+
+            setTimeout(function() {
+                expect(accordion.sections.eq(0).hasClass('show')).to.be.false;
+                expect(accordion.sections.eq(1).hasClass('show')).to.be.true;
+                expect(accordion.sections.eq(2).hasClass('show')).to.be.false;
+
+                accordion.jump(2);
+
+                setTimeout(function() {
+                    expect(accordion.sections.eq(0).hasClass('show')).to.be.false;
+                    expect(accordion.sections.eq(1).hasClass('show')).to.be.true;
+                    expect(accordion.sections.eq(2).hasClass('show')).to.be.true;
+
+                    done();
+                }, 10);
+            }, 10);
+        })
     });
 
     describe('destroy()', function() {

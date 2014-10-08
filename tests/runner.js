@@ -14,7 +14,7 @@ define(function(require) {
 
     // Hacky way to setup the mocha object
     // But the mocha object was not returned from the require() call as we are using the browser version
-    window.mocha.setup('bdd');
+    mocha.setup('bdd');
 
     // The same applies to chai, but it works, so whatever!
     window.expect = require('chai').expect;
@@ -29,9 +29,9 @@ define(function(require) {
         'tests/components/accordion'
     ], function() {
         if (window.mochaPhantomJS) {
-            window.mochaPhantomJS.run();
+            mochaPhantomJS.run();
         } else {
-            window.mocha.run();
+            mocha.run();
         }
     });
 });
