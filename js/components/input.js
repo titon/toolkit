@@ -482,7 +482,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         index += step;
 
-        while ((typeof options[index] === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
+        while (($.type(options[index]) === 'undefined') || options[index].disabled || (index === 0 && hideFirst)) {
             index += step;
 
             if (index >= options.length) {

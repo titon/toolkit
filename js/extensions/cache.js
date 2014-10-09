@@ -11,12 +11,13 @@ define([
  * @returns {*}
  */
 $.fn.cache = function(key, value) {
-    var data = this.data(key);
+    var data = this.data(key),
+        type = $.type(data);
 
-    if (typeof data !== 'undefined' && data !== null) {
+    if (type !== 'undefined' && type !== 'null') {
         return data;
 
-    } else if (typeof value === 'function') {
+    } else if ($.type(value) === 'function') {
         value = value.call(this);
     }
 

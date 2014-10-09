@@ -52,11 +52,7 @@ Toolkit.Component = Toolkit.Base.extend({
 
         // From a string
         if ((!template || !template.length) && options.template) {
-            template = $(options.template);
-
-            if (template.length) {
-                template.hide().addClass('hide').appendTo('body');
-            }
+            template = $(options.template).hide().addClass('hide').appendTo('body');
         }
 
         if (!template) {
@@ -90,7 +86,7 @@ Toolkit.Component = Toolkit.Base.extend({
         if (this.nodes.length) {
             this.nodes.removeData('toolkit.' + key);
 
-            delete Toolkit.cache[key + '.' + this.nodes.selector];
+            delete Toolkit.cache[key + ':' + this.nodes.selector];
 
         } else if (this.element.length) {
             this.element.removeData('toolkit.' + key);

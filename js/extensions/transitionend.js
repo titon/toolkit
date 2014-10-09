@@ -17,7 +17,7 @@ $.fn.transitionend = function(data, fn) {
         // No transition defined so trigger callback immediately
         var duration = this.css("transition-duration");
 
-        if (duration === "0s" || typeof duration === 'undefined') {
+        if (duration === "0s" || $.type(duration) === 'undefined') {
             this.trigger(transitionEnd);
         }
     } else {

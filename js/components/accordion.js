@@ -84,7 +84,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * @param {Function} [callback]
      */
     calculate: function(callback) {
-        if (typeof callback !== 'function') {
+        if ($.type(callback) !== 'function') {
             callback = function(section) {
                 return section.outerHeight();
             };

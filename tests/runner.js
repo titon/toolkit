@@ -26,6 +26,7 @@ define(function(require) {
         'tests/base',
         'tests/events',
         'tests/extensions',
+        'tests/components/component',
         'tests/components/accordion',
         'tests/components/blackout'
     ], function() {
