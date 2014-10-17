@@ -50,6 +50,10 @@ Older versions can be found in the documentation changelogs.
     * Updated `$.fn.reveal()` to set the element to display block (or similar) before transitions occur
     * Component
         * Added `hiding`, `showing`, and `destroying` events
+        * Refactored the `requestData()` method
+            * Added `url`, `cache` (whether to cache in the class), and `settings` (AJAX settings) to the XHR object used by jQuery
+            * Removed the `before`, `done`, and `fail` arguments
+            * Moved the callbacks into `onRequestBefore`, `onRequestDone`, and `onRequestFail` methods
         * Renamed the `hide` event to `hidden`
         * Renamed the `show` event to `shown`
         * Renamed the `destroy` event to `destroyed`

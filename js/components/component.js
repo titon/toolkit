@@ -250,67 +250,40 @@ Toolkit.Component = Toolkit.Base.extend({
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
-     * @param {Function} [before]
-     * @param {Function} [done]
-     * @param {Function} [fail]
-     * @returns {jqXHR}
+     * @returns {jQuery.ajax}
      */
-    requestData: function(options, before, done, fail) {
-        var url = options.url || options;
+    requestData: function(options) {
+        var ajax = {};
 
-        // Set default options
-        var ajax = $.extend({}, {
-            url: url,
-            type: 'GET',
-            context: this,
-            beforeSend: before || function() {
-                this.cache[url] = true;
-                this.element
-                    .addClass('is-loading')
-                    .aria('busy', true);
-            }
-        }, options);
-
-        // Inherit base options
+        // Determine base options
         if ($.type(this.options.ajax) === 'object') {
-            ajax = $.extend({}, this.options.ajax, ajax);
+            ajax = this.options.ajax;
         }
 
-        var cache = (ajax.type.toUpperCase() === 'GET' && this.options.cache);
+        // Set default options
+        if ($.type(options) === 'string') {
+            ajax.url = options;
+
+        } else {
+            $.extend(ajax, options);
+        }
+
+        // Determine response caching
+        var cache = ((!ajax.type || ajax.type.toUpperCase() === 'GET') && this.options.cache);
+
+        // Prepare XHR object
+        ajax.context = this;
+        ajax.beforeSend = function(xhr) {
+            xhr.url = ajax.url;
+            xhr.cache = cache;
+            xhr.settings = ajax;
+
+            this.onRequestBefore.call(this, xhr);
+        };
 
         return $.ajax(ajax)
-            .done(done || function(response, status, xhr) {
-                this.element
-                    .removeClass('is-loading')
-                    .aria('busy', false);
-
-                // HTML
-                if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
-                    if (cache) {
-                        this.cache[url] = response;
-                    } else {
-                        delete this.cache[url];
-                    }
-
-                    this.position(response);
-
-                // JSON, others
-                } else {
-                    delete this.cache[url];
-
-                    this.process(response);
-                }
-            })
-            .fail(fail || function() {
-                delete this.cache[url];
-
-                this.element
-                    .removeClass('is-loading')
-                    .addClass('has-failed')
-                    .aria('busy', false);
-
-                this.position(Toolkit.messages.error);
-            });
+            .done(this.onRequestDone)
+            .fail(this.onRequestFail);
     },
 
     /**
@@ -352,6 +325,71 @@ Toolkit.Component = Toolkit.Base.extend({
         this.element.reveal();
 
         this.fireEvent('shown');
+    },
+
+    /**
+     * Event handler for AJAX `before` events when called through `requestData()`.
+     *
+     * @param {jQuery.ajax} xhr
+     */
+    onRequestBefore: function(xhr) {
+        this.cache[xhr.url] = true;
+
+        // Set loading state
+        this.element
+            .addClass('is-loading')
+            .aria('busy', true);
+    },
+
+    /**
+     * Event handler for AJAX `done` events when called through `requestData()`.
+     *
+     * @param {String} response
+     * @param {String} status
+     * @param {jQuery.ajax} xhr
+     */
+    onRequestDone: function(response, status, xhr) {
+        var url = xhr.url;
+
+        // Remove loading state
+        this.element
+            .removeClass('is-loading')
+            .aria('busy', false);
+
+        // Clear cache
+        delete this.cache[url];
+
+        // HTML
+        if (xhr.getResponseHeader('Content-Type').indexOf('text/html') >= 0) {
+            if (xhr.cache) {
+                this.cache[url] = response;
+            }
+
+            this.position(response);
+
+        // JSON, others
+        } else {
+            this.process(response);
+        }
+    },
+
+    /**
+     * Event handler for AJAX `fail` events when called through `requestData()`.
+     *
+     * @param {jQuery.ajax} xhr
+     * @param {String} status
+     * @param {String} error
+     */
+    onRequestFail: function(xhr, status, error) {
+        delete this.cache[xhr.url];
+
+        // Remove loading state
+        this.element
+            .removeClass('is-loading')
+            .addClass('has-failed')
+            .aria('busy', false);
+
+        this.position(Toolkit.messages.error);
     },
 
     /**
