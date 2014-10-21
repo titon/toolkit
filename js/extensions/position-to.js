@@ -35,7 +35,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
     if (relativeTo.preventDefault) {
         relOffset = { left: relativeTo.pageX, top: relativeTo.pageY };
 
-        // Else position it near the element
+    // Else position it near the element
     } else {
         relOffset = relativeTo.offset();
         relHeight = relativeTo.outerHeight();

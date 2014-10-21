@@ -4,71 +4,79 @@ define([
 ], function($, Toolkit) {
 
 describe('Toolkit.Component', function () {
-    var element, node,
+    var element, component;
+
+    before(function() {
         component = new Toolkit.Component();
+        component.element = $('<span/>').addClass('show').appendTo('body');
+        component.node = $('<span/>').appendTo('body');
+        component.created = true;
+    });
 
     describe('createElement()', function() {
-        var el;
+        var comp;
 
-        afterEach(function() {
-            if (el) {
-                el.remove();
-                el = null;
-            }
+        before(function() {
+            comp = new Toolkit.Component();
         });
 
         after(function() {
-            component.element = element = $('<span/>').addClass('show').appendTo('body');
-            component.node = node = $('<span/>').appendTo('body');
-            component.created = true;
+            comp = null;
+        });
+
+        afterEach(function() {
+            if (element) {
+                element.remove();
+                element = null;
+            }
         });
 
         it('should throw an error if no template', function() {
-            expect(component.createElement).to.throw(Error);
+            expect(comp.createElement).to.throw(Error);
         });
 
         it('should create the element from `template`', function() {
-            component.options.template = '<b></b>';
+            comp.options.template = '<b></b>';
 
-            el = component.createElement();
+            element = comp.createElement();
 
-            expect(el.prop('tagName')).to.equal('B');
+            expect(element.prop('tagName')).to.equal('B');
         });
 
         it('should use the element from `templateFrom`', function() {
             var from = $('<i></i>').attr('id', 'component-test').appendTo('body');
 
-            component.options.templateFrom = '#component-test';
+            comp.options.templateFrom = '#component-test';
 
-            el = component.createElement();
+            element = comp.createElement();
 
-            expect(el.prop('tagName')).to.equal('I');
+            expect(element.prop('tagName')).to.equal('I');
 
             from.remove();
         });
 
         it('should set the `className` and `animation` classes', function() {
-            component.options.className = 'foo';
-            component.options.animation = 'slide';
+            comp.options.className = 'foo';
+            comp.options.animation = 'slide';
 
-            el = component.createElement();
+            element = comp.createElement();
 
-            expect(el.hasClass('foo')).to.be.true;
-            expect(el.hasClass('slide')).to.be.true;
+            expect(element.hasClass('foo')).to.be.true;
+            expect(element.hasClass('slide')).to.be.true;
         });
 
         it('should set the `created` flag', function() {
-            component.created = false;
+            comp.created = false;
 
-            el = component.createElement();
+            element = comp.createElement();
 
-            expect(component.created).to.be.true;
+            expect(comp.created).to.be.true;
         });
 
         it('should set an id attribute', function() {
-            el = component.createElement();
+            element = comp.createElement();
 
-            expect(el.attr('id')).to.equal('toolkit-component-2');
+            expect(element.attr('id')).to.equal('toolkit-component-3');
         });
     });
 
@@ -98,7 +106,7 @@ describe('Toolkit.Component', function () {
                 count += 1;
             });
 
-            element.on('foo.toolkit.component', function() {
+            component.element.on('foo.toolkit.component', function() {
                 count += 2;
             });
 
@@ -110,7 +118,7 @@ describe('Toolkit.Component', function () {
         it('should fire events bound on the active node', function() {
             expect(count).to.equal(0);
 
-            node.on('baz.toolkit.component', function() {
+            component.node.on('baz.toolkit.component', function() {
                 count += 3;
             });
 
@@ -122,7 +130,7 @@ describe('Toolkit.Component', function () {
         it('should set the event context to the objects `this`', function() {
             var instance;
 
-            element.on('foo.toolkit.component', function(e) {
+            component.element.on('foo.toolkit.component', function(e) {
                 instance = e.context;
             });
 
@@ -138,7 +146,7 @@ describe('Toolkit.Component', function () {
                 args.push([a * 2, b]);
             });
 
-            element.on('baz.toolkit.component', function(e, a, b) {
+            component.element.on('baz.toolkit.component', function(e, a, b) {
                 args.push([a * 3, b * 2]);
             });
 
@@ -153,12 +161,12 @@ describe('Toolkit.Component', function () {
 
     describe('hide()', function() {
         it('should hide the element', function(done) {
-            expect(element.css('display')).to.equal('inline');
+            expect(component.element.css('display')).to.equal('inline');
 
             component.hide();
 
             setTimeout(function() {
-                expect(element.css('display')).to.equal('none');
+                expect(component.element.css('display')).to.equal('none');
 
                 done();
             }, 10);
@@ -197,8 +205,283 @@ describe('Toolkit.Component', function () {
         });
     });
 
-    describe('destroy()', function() {
+    describe('process()', function() {
+        it('should trigger a function if `callback` is defined', function() {
+            var count = 0;
 
+            Toolkit.testProcess = function() {
+                count = 5;
+            };
+
+            component.process({ foo: 'bar' });
+
+            expect(count).to.equal(0);
+
+            component.process({ foo: 'bar', callback: 'Toolkit.testProcess' });
+
+            expect(count).to.equal(5);
+
+            delete Toolkit.testProcess;
+        });
+    });
+
+    describe('readOption()', function() {
+        it('should read from a data attribute if it exists', function() {
+            component.options.foo = 'baz';
+
+            expect(component.readOption($('<span/>').attr('data-component-foo', 'bar'), 'foo')).to.equal('bar');
+        });
+
+        it('should fallback to the class options if a data attribute does not exist', function() {
+            component.options.foo = 'bar';
+
+            expect(component.readOption($('<span/>'), 'foo')).to.equal('bar');
+        });
+    });
+
+    describe('readValue()', function() {
+        it('should return null if no query is defined', function() {
+            expect(component.readValue($('<span/>'))).to.be.null;
+        });
+
+        it('should read from any attribute', function() {
+            element = $('<span/>')
+                .addClass('foo bar')
+                .attr('id', 'baz')
+                .attr('title', 'Test');
+
+            expect(component.readValue(element, 'class')).to.equal('foo bar');
+            expect(component.readValue(element, 'id')).to.equal('baz');
+            expect(component.readValue(element, 'title')).to.equal('Test');
+            expect(component.readValue(element, 'href')).to.be.undefined;
+
+            element.remove();
+        });
+
+        it('should allow a callback to be used for querying', function() {
+            element = $('<span/>')
+                .addClass('foo bar')
+                .attr('id', 'baz')
+                .attr('title', 'Test');
+
+            expect(component.readValue(element, function(el) {
+                return el.prop('tagName') + '#' + el.attr('id');
+            })).to.equal('SPAN#baz');
+
+            element.remove();
+        });
+    });
+
+    describe('requestData()', function() {
+        it('todo');
+    });
+
+    describe('setOptions()', function() {
+        var opts;
+
+        it('should inherit options from an element', function() {
+            element = $('<span/>').attr('data-component-classname', 'foo');
+            opts = component.setOptions({ className: 'bar' }, element);
+
+            expect(opts.className).to.equal('foo');
+            expect(opts).to.deep.equal({
+                cache: true,
+                debug: false,
+                context: null,
+                className: 'foo',
+                template: '',
+                templateFrom: ''
+            });
+
+            element.remove();
+        });
+
+        it('should convert hover `mode` to mouseenter', function() {
+            opts = component.setOptions({ mode: 'hover' });
+
+            expect(opts.mode).to.equal('mouseenter');
+            expect(opts).to.deep.equal({
+                cache: true,
+                debug: false,
+                context: null,
+                className: '',
+                template: '',
+                templateFrom: '',
+                mode: 'mouseenter'
+            });
+        });
+
+        it('should convert hover to click for touch devices', function() {
+            opts = component.setOptions({ mode: 'hover' });
+
+            expect(opts.mode).to.equal('mouseenter');
+
+            Toolkit.isTouch = true;
+
+            opts = component.setOptions({ mode: 'hover' });
+
+            expect(opts.mode).to.equal('click');
+
+            Toolkit.isTouch = false;
+        });
+    });
+
+    describe('show()', function() {
+        it('should show the element', function(done) {
+            component.hide();
+
+            expect(component.element.css('display')).to.equal('none');
+
+            component.show();
+
+            setTimeout(function() {
+                expect(component.element.css('display')).to.equal('inline');
+
+                done();
+            }, 10);
+        });
+
+        it('should optionally set a node', function() {
+            var oldNode = component.node,
+                newNode = $('<a/>');
+
+            expect(component.node.is(oldNode)).to.be.true;
+
+            component.show(newNode);
+
+            expect(component.node.is(oldNode)).to.be.false;
+            expect(component.node.is(newNode)).to.be.true;
+
+            component.node = oldNode;
+            newNode.remove();
+        });
+    });
+
+    describe('onRequestBefore()', function() {
+        afterEach(function() {
+            delete component.cache['/url'];
+
+            component.element
+                .removeClass('is-loading')
+                .aria('busy', false);
+        });
+
+        it('should set a cache value for the loading state', function() {
+            expect(component.cache).to.not.have.property('/url');
+
+            component.onRequestBefore({ url: '/url' });
+
+            expect(component.cache).to.have.property('/url');
+        });
+
+        it('should set the loading state on the element', function() {
+            expect(component.element.hasClass('is-loading')).to.be.false;
+            expect(component.element.aria('busy')).to.equal('false');
+
+            component.onRequestBefore({ url: '/url' });
+
+            expect(component.element.hasClass('is-loading')).to.be.true;
+            expect(component.element.aria('busy')).to.equal('true');
+        });
+    });
+
+    describe('onRequestDone()', function() {
+        var xhr = {
+            url: '/url',
+            cache: true,
+            getResponseHeader: function() {
+                return 'text/html';
+            }
+        };
+
+        beforeEach(function() {
+            component.cache['/url'] = true;
+
+            component.element
+                .addClass('is-loading')
+                .aria('busy', true);
+        });
+
+        it('should remove the loading cached state', function() {
+            xhr.cache = false;
+
+            expect(component.cache).to.have.property('/url');
+
+            component.onRequestDone('foo', 'success', xhr);
+
+            expect(component.cache).to.not.have.property('/url');
+
+            xhr.cache = true;
+        });
+
+        it('should set a new cache value if `xhr.cache` is true', function() {
+            expect(component.cache['/url']).to.equal(true);
+
+            component.onRequestDone('foo', 'success', xhr);
+
+            expect(component.cache['/url']).to.equal('foo');
+
+            // With another content type
+            xhr.getResponseHeader = function() {
+                return 'text/javascript';
+            };
+
+            component.onRequestDone('bar', 'success', xhr);
+
+            expect(component.cache['/url']).to.be.undefined;
+        });
+
+        it('should remove the loading state on the element', function() {
+            expect(component.element.hasClass('is-loading')).to.be.true;
+            expect(component.element.aria('busy')).to.equal('true');
+
+            component.onRequestDone('foo', 'success', xhr);
+
+            expect(component.element.hasClass('is-loading')).to.be.false;
+            expect(component.element.aria('busy')).to.equal('false');
+        });
+    });
+
+    describe('onRequestFail()', function() {
+        beforeEach(function () {
+            component.cache['/url'] = true;
+
+            component.element
+                .addClass('is-loading')
+                .aria('busy', true);
+        });
+
+        after(function() {
+            component.element
+                .removeClass('is-loading')
+                .removeClass('has-failed')
+                .aria('busy', false);
+        });
+
+        it('should remove the loading cached state', function() {
+            expect(component.cache).to.have.property('/url');
+
+            component.onRequestFail({ url: '/url' });
+
+            expect(component.cache).to.not.have.property('/url');
+        });
+
+        it('should set the error state on the element', function() {
+            expect(component.element.hasClass('is-loading')).to.be.true;
+            expect(component.element.aria('busy')).to.equal('true');
+
+            component.onRequestFail({ url: '/url' });
+
+            expect(component.element.hasClass('is-loading')).to.be.false;
+            expect(component.element.hasClass('has-failed')).to.be.true;
+            expect(component.element.aria('busy')).to.equal('false');
+        });
+    });
+
+    describe('destroy()', function() {
+        before(function() {
+            component.destroy();
+        });
     });
 });
 

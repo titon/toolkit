@@ -268,14 +268,11 @@ Toolkit.Component = Toolkit.Base.extend({
             $.extend(ajax, options);
         }
 
-        // Determine response caching
-        var cache = ((!ajax.type || ajax.type.toUpperCase() === 'GET') && this.options.cache);
-
         // Prepare XHR object
         ajax.context = this;
         ajax.beforeSend = function(xhr) {
             xhr.url = ajax.url;
-            xhr.cache = cache;
+            xhr.cache = ((!ajax.type || ajax.type.toUpperCase() === 'GET') && this.options.cache);
             xhr.settings = ajax;
 
             this.onRequestBefore.call(this, xhr);
@@ -333,7 +330,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {jQuery.ajax} xhr
      */
     onRequestBefore: function(xhr) {
-        this.cache[xhr.url] = true;
+        this.cache[xhr.url] = true; // True means that we are fetching the data
 
         // Set loading state
         this.element
