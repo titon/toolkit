@@ -272,10 +272,6 @@ describe('Toolkit.Component', function () {
         });
     });
 
-    describe('requestData()', function() {
-        it('todo');
-    });
-
     describe('setOptions()', function() {
         var opts;
 
