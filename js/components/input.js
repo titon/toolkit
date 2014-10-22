@@ -77,7 +77,7 @@ Toolkit.Input = Toolkit.Component.extend({
     },
 
     /**
-     * Copy classes from one element to another, but do not copy `.input` classes.
+     * Copy classes from one element to another, but do not copy `filterClasses` classes.
      *
      * @param {jQuery} from
      * @param {jQuery} to
@@ -256,7 +256,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      */
     hide: function() {
         if (!this.dropdown.is(':shown')) {
-            return; // Vastly speeds up page time since click/out events aren't running
+            return; // Vastly speeds up rendering time since click/out events aren't running
         }
 
         this.fireEvent('hiding');

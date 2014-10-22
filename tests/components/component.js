@@ -13,6 +13,11 @@ describe('Toolkit.Component', function () {
         component.created = true;
     });
 
+    after(function() {
+        component.element.remove();
+        component.node.remove();
+    });
+
     describe('createElement()', function() {
         var comp;
 
