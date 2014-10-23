@@ -3,7 +3,7 @@ define([
     '../../js/components/mask'
 ], function($) {
 
-describe('Toolkit.Mask', function () {
+describe('Toolkit.Mask', function() {
     var element, mask;
 
     before(function() {

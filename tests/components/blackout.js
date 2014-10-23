@@ -3,7 +3,7 @@ define([
     '../../js/components/blackout'
 ], function($, Toolkit) {
 
-describe('Toolkit.Blackout', function () {
+describe('Toolkit.Blackout', function() {
     var element,
         blackout;
 

@@ -3,7 +3,7 @@ define([
     '../../js/components/component'
 ], function($, Toolkit) {
 
-describe('Toolkit.Component', function () {
+describe('Toolkit.Component', function() {
     var element, component;
 
     before(function() {
@@ -444,7 +444,7 @@ describe('Toolkit.Component', function () {
     });
 
     describe('onRequestFail()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
             component.cache['/url'] = true;
 
             component.element

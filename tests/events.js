@@ -5,7 +5,7 @@ define([
 ], function($) {
 
 describe('Events', function() {
-    describe('clickout', function () {
+    describe('clickout', function() {
         it('should be defined as a jQuery event', function() {
             expect($.event.special).to.have.property('clickout');
         });

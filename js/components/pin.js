@@ -82,8 +82,8 @@ Toolkit.Pin = Toolkit.Component.extend({
             height: win.height()
         };
 
-        this.elementHeight = this.element.outerHeight(true); // include margin
-        this.parentHeight = parent.height(); // exclude padding
+        this.elementHeight = this.element.outerHeight(true); // Include margin
+        this.parentHeight = parent.height(); // Exclude padding
         this.parentTop = parent.offset().top;
 
         // Disable pin if element is larger than the viewport
@@ -110,8 +110,7 @@ Toolkit.Pin = Toolkit.Component.extend({
             return;
         }
 
-        var isFixed = options.fixed,
-            eHeight = this.elementHeight,
+        var eHeight = this.elementHeight,
             eTop = this.elementTop,
             pHeight = this.parentHeight,
             pTop = this.parentTop,
@@ -134,7 +133,7 @@ Toolkit.Pin = Toolkit.Component.extend({
             parentMaxHeight = pHeight + pTop;
 
         // Swap positioning of the fixed menu once it reaches the parent borders
-        if (isFixed) {
+        if (options.fixed) {
             if (elementMaxPos >= parentMaxHeight) {
                 y = 'auto';
 

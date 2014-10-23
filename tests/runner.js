@@ -40,7 +40,7 @@ define(function(require) {
         //'tests/components/matrix',
         //'tests/components/modal',
         //'tests/components/off-canvas',
-        //'tests/components/pin',
+        'tests/components/pin',
         //'tests/components/popover',
         //'tests/components/showcase',
         //'tests/components/stalker',
