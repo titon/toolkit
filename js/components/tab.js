@@ -149,33 +149,7 @@ Toolkit.Tab = Toolkit.Component.extend({
 
         // Load content with AJAX
         if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
-            this.requestData(url,
-                function() {
-                    section
-                        .html(Toolkit.messages.loading)
-                        .addClass('is-loading')
-                        .aria('busy', true);
-                },
-                function(response) {
-                    if (options.cache) {
-                        this.cache[url] = true;
-                    }
-
-                    this.fireEvent('load', [response]);
-
-                    section
-                        .html(response)
-                        .removeClass('is-loading')
-                        .aria('busy', false);
-                },
-                function() {
-                    section
-                        .html(Toolkit.messages.error)
-                        .removeClass('is-loading')
-                        .addClass('has-failed')
-                        .aria('busy', false);
-                }
-            );
+            this.requestData(url, { section: section });
         }
 
         // Toggle tabs
@@ -211,6 +185,43 @@ Toolkit.Tab = Toolkit.Component.extend({
         this.node = tab;
 
         this.fireEvent('shown', [index]);
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    onRequestBefore: function(xhr) {
+        xhr.params.section
+            .html(Toolkit.messages.loading)
+            .addClass('is-loading')
+            .aria('busy', true);
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    onRequestDone: function(response, status, xhr) {
+        if (xhr.cache) {
+            this.cache[xhr.url] = response;
+        }
+
+        this.fireEvent('load', [response]);
+
+        xhr.params.section
+            .html(response)
+            .removeClass('is-loading')
+            .aria('busy', false);
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    onRequestFail: function(xhr) {
+        xhr.params.section
+            .html(Toolkit.messages.error)
+            .removeClass('is-loading')
+            .addClass('has-failed')
+            .aria('busy', false);
     },
 
     /**

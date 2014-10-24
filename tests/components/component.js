@@ -359,20 +359,12 @@ describe('Toolkit.Component', function() {
     });
 
     describe('onRequestBefore()', function() {
-        afterEach(function() {
+        beforeEach(function() {
             delete component.cache['/url'];
 
             component.element
                 .removeClass('is-loading')
                 .aria('busy', false);
-        });
-
-        it('should set a cache value for the loading state', function() {
-            expect(component.cache).to.not.have.property('/url');
-
-            component.onRequestBefore({ url: '/url' });
-
-            expect(component.cache).to.have.property('/url');
         });
 
         it('should set the loading state on the element', function() {

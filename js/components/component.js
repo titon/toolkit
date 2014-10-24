@@ -250,9 +250,10 @@ Toolkit.Component = Toolkit.Base.extend({
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
+     * @param {Object} params
      * @returns {jQuery.ajax}
      */
-    requestData: function(options) {
+    requestData: function(options, params) {
         var ajax = {};
 
         // Determine base options
@@ -274,6 +275,7 @@ Toolkit.Component = Toolkit.Base.extend({
             xhr.url = ajax.url;
             xhr.cache = ((!ajax.type || ajax.type.toUpperCase() === 'GET') && this.options.cache);
             xhr.settings = ajax;
+            xhr.params = params || {};
 
             this.onRequestBefore.call(this, xhr);
         };

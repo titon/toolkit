@@ -33,12 +33,10 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        var events = {};
-
         this.element = element = $(element).attr('role', 'complementary').conceal();
         this.options = options = this.setOptions(options, element);
 
-        var animation = options.animation;
+        var events = {}, animation = options.animation;
 
         // Touch devices cannot use squish
         if (Toolkit.isTouch && animation === 'squish') {

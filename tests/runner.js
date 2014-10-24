@@ -44,7 +44,7 @@ define(function(require) {
         //'tests/components/popover',
         //'tests/components/showcase',
         //'tests/components/stalker',
-        //'tests/components/tab',
+        'tests/components/tab',
         //'tests/components/toast',
         //'tests/components/tooltip',
         //'tests/components/type-ahead',
