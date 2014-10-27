@@ -37,7 +37,7 @@ define(function(require) {
         'tests/components/input',
         //'tests/components/lazy-load',
         'tests/components/mask',
-        //'tests/components/matrix',
+        'tests/components/matrix',
         //'tests/components/modal',
         //'tests/components/off-canvas',
         'tests/components/pin',
