@@ -114,7 +114,7 @@ describe('Toolkit.Matrix', function() {
         });
 
         it('should remove inline styles from the container', function() {
-            expect(element.attr('style')).to.be.undefined;
+            expect(element.attr('style')).to.equal('');
         });
 
         it('should remove inline styles from each item', function() {

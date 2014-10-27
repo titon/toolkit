@@ -32,10 +32,6 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, url, options) {
-        if (!url) {
-            throw new Error('Flyout URL required to download sitemap JSON');
-        }
-
         this.nodes = $(nodes);
         this.options = options = this.setOptions(options);
 
@@ -49,7 +45,9 @@ Toolkit.Flyout = Toolkit.Component.extend({
         this.initialize();
 
         // Load data from the URL
-        $.getJSON(url, this.load);
+        if (url) {
+            $.getJSON(url, this.load);
+        }
     },
 
     /**
@@ -317,7 +315,18 @@ Toolkit.Flyout = Toolkit.Component.extend({
             menu.append(ul);
         }
 
-        menu.appendTo(parent);
+        menu.appendTo(parent).conceal();
+
+        if (options.mode !== 'click') {
+            menu.on({
+                mouseenter: function() {
+                    this.clearTimer('hide');
+                }.bind(this),
+                mouseleave: function() {
+                    this.startTimer('hide', options.hideDelay);
+                }.bind(this)
+            });
+        }
 
         return menu;
     },
@@ -331,9 +340,9 @@ Toolkit.Flyout = Toolkit.Component.extend({
     _getMenu: function() {
         var target = this._getTarget();
 
-        if (this.menus[target]) {
-            this.current = target;
+        this.current = target;
 
+        if (this.menus[target]) {
             return this.menus[target];
         }
 
@@ -344,23 +353,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
                 return null;
             }
 
-            menu.conceal();
-
-            if (this.options.mode !== 'click') {
-                menu.on({
-                    mouseenter: function() {
-                        this.clearTimer('hide');
-                    }.bind(this),
-                    mouseleave: function() {
-                        this.startTimer('hide', this.options.hideDelay);
-                    }.bind(this)
-                });
-            }
-
-            this.current = target;
-            this.menus[target] = menu;
-
-            return this.menus[target];
+            return this.menus[target] = menu;
         }
 
         return null;

@@ -33,7 +33,7 @@ define(function(require) {
         'tests/components/blackout',
         //'tests/components/carousel',
         //'tests/components/drop',
-        //'tests/components/flyout',
+        'tests/components/flyout',
         'tests/components/input',
         //'tests/components/lazy-load',
         'tests/components/mask',
