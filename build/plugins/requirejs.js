@@ -33,8 +33,8 @@ module.exports = function(paths, options) {
         optimize: 'none',
         useStrict: true,
         wrap: {
-            start: "(function($) {\n'use strict';\n",
-            end: "\n})(jQuery);"
+            start: "(function($, window, document) {\n'use strict';\n",
+            end: "\n})(jQuery, window, document);"
         },
         onBuildWrite: function(module, path, contents) {
             contents = contents.trim(); // Remove wrapping white space
