@@ -42,7 +42,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Nodes found in the page on initialization, remove title attribute
         this.nodes = $(nodes).each(function(i, node) {
-            $(node).attr('data-' + key + '-title', $(node).attr('title')).removeAttr('title');
+            $(node).attr(options.getTitle, $(node).attr('title')).removeAttr('title');
         });
 
         // Initialize events

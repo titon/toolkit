@@ -46,7 +46,7 @@ define(function(require) {
         //'tests/components/stalker',
         'tests/components/tab',
         'tests/components/toast',
-        //'tests/components/tooltip',
+        'tests/components/tooltip',
         //'tests/components/type-ahead',
     ], function() {
         if (window.mochaPhantomJS) {
