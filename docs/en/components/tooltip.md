@@ -155,12 +155,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The animation to use when displaying the tooltip. Available options are: fade, from-above, from-below, flip-rotate.</td>
         </tr>
         <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The delay in milliseconds before the tooltip is displayed.</td>
-        </tr>
-        <tr>
             <td>follow</td>
             <td>bool</td>
             <td>false</td>

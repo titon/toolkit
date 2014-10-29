@@ -41,7 +41,7 @@ define(function(require) {
         //'tests/components/modal',
         //'tests/components/off-canvas',
         'tests/components/pin',
-        //'tests/components/popover',
+        'tests/components/popover',
         //'tests/components/showcase',
         //'tests/components/stalker',
         'tests/components/tab',

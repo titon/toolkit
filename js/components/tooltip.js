@@ -132,17 +132,14 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
             this.fireEvent('shown');
 
-            // Position accordingly
+        // Position accordingly
         } else {
             this.element.positionTo(options.position, this.node, {
                 left: options.xOffset,
                 top: options.yOffset
-            });
+            }).reveal();
 
-            setTimeout(function() {
-                this.element.reveal();
-                this.fireEvent('shown');
-            }.bind(this), options.delay || 0);
+            this.fireEvent('shown');
         }
     },
 
@@ -238,7 +235,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    delay: 0,
     template: '<div class="' + vendor + 'tooltip">' +
         '<div class="' + vendor + 'tooltip-inner">' +
             '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +

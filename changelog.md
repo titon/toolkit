@@ -130,6 +130,7 @@ Older versions can be found in the documentation changelogs.
     * Popover
         * Updated so that an `.is-active` class is toggled on the target node
         * Updated the `follow` attribute to `false` always
+        * Removed the `delay` option
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
         * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` support
@@ -157,6 +158,7 @@ Older versions can be found in the documentation changelogs.
         * Added a `toastTemplate` property
         * Added a `reset()` method to reset the tooltip state
     * Tooltip
+        * Removed the `delay` option
         * Renamed selectors `.tooltip-head`, `.tooltip-body` to `[data-tooltip-header]`, `[data-tooltip-content]`
     * Type Ahead
         * Added `shadowTemplate`, `titleTemplate`, `descTemplate`, `highlightTemplate`, and `headingTemplate` options
