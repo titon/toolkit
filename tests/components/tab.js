@@ -126,7 +126,7 @@ describe('Toolkit.Tab', function() {
     });
 
     describe('show(): collapsible', function() {
-        before(function () {
+        before(function() {
             tab.options.collapsible = true;
         });
 
@@ -152,7 +152,7 @@ describe('Toolkit.Tab', function() {
     });
 
     describe('destroy()', function() {
-        before(function () {
+        before(function() {
             tab.destroy();
         });
 

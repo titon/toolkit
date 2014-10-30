@@ -39,7 +39,7 @@ define(function(require) {
         'tests/components/mask',
         'tests/components/matrix',
         //'tests/components/modal',
-        //'tests/components/off-canvas',
+        'tests/components/off-canvas',
         'tests/components/pin',
         'tests/components/popover',
         //'tests/components/showcase',

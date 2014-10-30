@@ -10,7 +10,7 @@
     "quotmark": false,
     "strict": false,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "expr": true,
 
     "boss": true,
