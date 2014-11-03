@@ -101,7 +101,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
         this.element
             .conceal()
-                .removeClass('is-single');
+            .removeClass('is-single');
 
         this.items
             .removeAttr('style')
@@ -244,10 +244,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
     show: function(node) {
         this.node = node = $(node);
         this.index = -1;
-        this.element
-            .addClass('is-loading')
-            .aria('busy', true)
-            .reveal();
+        this.element.reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,
@@ -312,7 +309,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
             a = $('<a/>')
                 .attr('href', 'javascript:;')
-                .data('index', i);
+                .data('showcase-index', i);
 
             li = $('<li/>');
             li.appendTo(this.tabs).append(a);
@@ -392,7 +389,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
     onJump: function(e) {
         e.preventDefault();
 
-        this.jump($(e.target).data('index') || 0);
+        this.jump($(e.target).data('showcase-index') || 0);
     },
 
     /**

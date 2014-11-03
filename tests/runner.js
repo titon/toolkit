@@ -35,15 +35,15 @@ define(function(require) {
         //'tests/components/drop',
         'tests/components/flyout',
         'tests/components/input',
-        //'tests/components/lazy-load',
+        //'tests/components/lazy-load', // Untestable
         'tests/components/mask',
         'tests/components/matrix',
         //'tests/components/modal',
         'tests/components/off-canvas',
         'tests/components/pin',
         'tests/components/popover',
-        //'tests/components/showcase',
-        //'tests/components/stalker',
+        'tests/components/showcase',
+        //'tests/components/stalker',  // Untestable
         'tests/components/tab',
         'tests/components/toast',
         'tests/components/tooltip',
