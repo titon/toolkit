@@ -31,7 +31,7 @@ define(function(require) {
         'tests/components/component',
         'tests/components/accordion',
         'tests/components/blackout',
-        //'tests/components/carousel',
+        'tests/components/carousel',
         //'tests/components/drop',
         'tests/components/flyout',
         'tests/components/input',

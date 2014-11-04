@@ -127,7 +127,7 @@ describe('Toolkit.Showcase', function() {
                     expect(showcase.items.find('li:eq(4)').text()).to.equal('An error has occurred!');
 
                     done();
-                }, 200);
+                }, 500);
             }, 100);
         });
     });
