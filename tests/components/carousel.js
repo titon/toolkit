@@ -47,41 +47,41 @@ describe('Toolkit.Carousel', function() {
     });
 
     describe('constructor()', function() {
-        it('should set the animation class', function () {
+        it('should set the animation class', function() {
             expect(element.hasClass('slide')).to.be.true;
         });
 
-        it('should find the items container', function () {
+        it('should find the items container', function() {
             expect(carousel.container.length).to.equal(1);
         });
 
-        it('should find the items', function () {
+        it('should find the items', function() {
             expect(carousel.items.length).to.equal(5);
         });
 
-        it('should find the tabs', function () {
+        it('should find the tabs', function() {
             expect(carousel.tabs.length).to.equal(5);
         });
 
-        it('should set ARIA attributes', function () {
+        it('should set ARIA attributes', function() {
             expect(element.aria('live')).to.equal('off');
         });
 
-        it('should set required attributes on items', function () {
+        it('should set required attributes on items', function() {
             expect(carousel.items.eq(0).attr('role')).to.equal('tabpanel');
             expect(carousel.items.eq(1).attr('id')).to.equal('toolkit-carousel-1-item-1');
             expect(carousel.items.eq(2).data('carousel-index')).to.equal(2);
             expect(carousel.items.eq(3).aria('hidden')).to.equal('true');
         });
 
-        it('should set required attributes on tabs', function () {
+        it('should set required attributes on tabs', function() {
             expect(carousel.tabs.eq(0).attr('role')).to.equal('tab');
             expect(carousel.tabs.eq(1).attr('id')).to.equal('toolkit-carousel-1-tab-1');
             expect(carousel.tabs.eq(2).data('carousel-index')).to.equal(2);
             expect(carousel.tabs.eq(3).aria('controls')).to.equal('toolkit-carousel-1-item-3');
         });
 
-        it('should determine the correct dimension and position for `slide` animation', function () {
+        it('should determine the correct dimension and position for `slide` animation', function() {
             expect(carousel._dimension).to.equal('width');
             expect(carousel._position).to.equal('left');
         });
@@ -238,7 +238,7 @@ describe('Toolkit.Carousel: infinite', function() {
     var element,
         carousel;
 
-    before(function () {
+    before(function() {
         element = createCarousel({
             autoCycle: false, // Don't auto cycle during tests
             infinite: true,
@@ -253,21 +253,21 @@ describe('Toolkit.Carousel: infinite', function() {
         element.remove();
     });
 
-    describe('constructor()', function () {
-        it('should set the animation class', function () {
+    describe('constructor()', function() {
+        it('should set the animation class', function() {
             expect(element.hasClass('slide-up')).to.be.true;
         });
 
-        it('should find the items with clones', function () {
+        it('should find the items with clones', function() {
             expect(carousel.items.length).to.equal(7);
         });
 
-        it('should create clone items', function () {
+        it('should create clone items', function() {
             expect(carousel.container.find('li.is-cloned').length).to.equal(2);
             expect(carousel.container.find('li:not(.is-cloned)').length).to.equal(5);
         });
 
-        it('should determine the correct dimension and position for `slide-up` animation', function () {
+        it('should determine the correct dimension and position for `slide-up` animation', function() {
             expect(carousel._dimension).to.equal('height');
             expect(carousel._position).to.equal('top');
         });
@@ -303,7 +303,7 @@ describe('Toolkit.Carousel: loop', function() {
     var element,
         carousel;
 
-    before(function () {
+    before(function() {
         element = createCarousel({
             autoCycle: false, // Don't auto cycle during tests
             infinite: true, // Toggled automatically
@@ -316,13 +316,13 @@ describe('Toolkit.Carousel: loop', function() {
         carousel = element.toolkit('carousel');
     });
 
-    after(function () {
+    after(function() {
         carousel.destroy();
         element.remove();
     });
 
-    describe('constructor()', function () {
-        it('should set the animation class', function () {
+    describe('constructor()', function() {
+        it('should set the animation class', function() {
             expect(element.hasClass('fade')).to.be.true;
         });
 
@@ -335,7 +335,7 @@ describe('Toolkit.Carousel: loop', function() {
             expect(carousel.options.itemsToCycle).to.equal(1);
         });
 
-        it('should set no dimension and position for `fade` animation', function () {
+        it('should set no dimension and position for `fade` animation', function() {
             expect(carousel._dimension).to.equal(null);
             expect(carousel._position).to.equal(null);
         });

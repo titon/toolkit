@@ -548,7 +548,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             case 38: this.jump(0); break;
             case 39: this.next(); break;
             case 40: this.jump(-1); break;
-            default: return; break;
+            default: return;
         }
 
         e.preventDefault();

@@ -133,7 +133,7 @@ describe('Toolkit.Showcase', function() {
     });
 
     describe('show()', function() {
-        var node, undefined;
+        var node, undef;
 
         before(function() {
             element.find('a').removeAttr('data-showcase');
@@ -173,7 +173,7 @@ describe('Toolkit.Showcase', function() {
             showcase.show(node);
 
             expect(showcase.data).to.deep.equal([
-                { category: undefined, title: 'Foobar', image: 'http://placehold.it/500x500/4c6278/ffffff' }
+                { category: undef, title: 'Foobar', image: 'http://placehold.it/500x500/4c6278/ffffff' }
             ]);
         });
 
@@ -192,7 +192,7 @@ describe('Toolkit.Showcase', function() {
     });
 
     describe('show(): grouped', function() {
-        var node, undefined;
+        var node, undef;
 
         before(function() {
             element.find('a').attr('data-showcase', 'group');
@@ -209,10 +209,10 @@ describe('Toolkit.Showcase', function() {
 
             expect(showcase.data).to.deep.equal([
                 { category: 'group', title: 'Foobar', image: 'http://placehold.it/500x500/4c6278/ffffff' },
-                { category: 'group', title: undefined, image: 'http://placehold.it/400x300/42586e/ffffff' },
-                { category: 'group', title: undefined, image: 'http://placehold.it/1600x900/344a5f/ffffff' },
-                { category: 'group', title: undefined, image: 'http://placehold.it/1500x500/293f54/ffffff' },
-                { category: 'group', title: undefined, image: 'http://broken.url' }
+                { category: 'group', title: undef, image: 'http://placehold.it/400x300/42586e/ffffff' },
+                { category: 'group', title: undef, image: 'http://placehold.it/1600x900/344a5f/ffffff' },
+                { category: 'group', title: undef, image: 'http://placehold.it/1500x500/293f54/ffffff' },
+                { category: 'group', title: undef, image: 'http://broken.url' }
             ]);
         });
 
