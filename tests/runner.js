@@ -32,7 +32,7 @@ define(function(require) {
         'tests/components/accordion',
         'tests/components/blackout',
         'tests/components/carousel',
-        //'tests/components/drop',
+        'tests/components/drop',
         'tests/components/flyout',
         'tests/components/input',
         //'tests/components/lazy-load', // Untestable
@@ -47,7 +47,7 @@ define(function(require) {
         'tests/components/tab',
         'tests/components/toast',
         'tests/components/tooltip',
-        //'tests/components/type-ahead',
+        //'tests/components/type-ahead', // Untestable
     ], function() {
         if (window.mochaPhantomJS) {
             window.mochaPhantomJS.run();
