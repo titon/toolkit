@@ -7,10 +7,9 @@ define([
  *
  * @param {Function} func
  * @param {Number} [threshold]
- * @param {bool} [immediate]
  * @returns {Function}
  */
-$.debounce = function(func, threshold, immediate) {
+$.debounce = function(func, threshold) {
     var timeout;
 
     return function() {
@@ -21,14 +20,8 @@ $.debounce = function(func, threshold, immediate) {
         timeout = setTimeout(function() {
             timeout = null;
 
-            if (!immediate) {
-                func.apply(context, args);
-            }
-        }, threshold || 150);
-
-        if (immediate && !timeout)  {
             func.apply(context, args);
-        }
+        }, threshold || 150);
     };
 };
 

@@ -10,7 +10,8 @@
     "quotmark": false,
     "strict": false,
     "undef": true,
-    "unused": true,
+    "unused": false,
+    "expr": true,
 
     "boss": true,
     "globalstrict": true,
@@ -21,6 +22,16 @@
         "Toolkit": true,
         "Zepto": true,
         "DocumentTouch": true,
-        "console": true
+        "console": true,
+
+        "define": true,
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "require": true
     }
 }

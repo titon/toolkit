@@ -1,0 +1,116 @@
+define([
+    'jquery',
+    '../../js/components/toast'
+], function($) {
+
+describe('Toolkit.Toast', function() {
+    var element,
+        toast;
+
+    before(function() {
+        toast = $('body').toast({
+            duration: 1000
+        }).toolkit('toast');
+
+        toast.addHook('create', function(toast) {
+            element = toast;
+        });
+    });
+
+    describe('constructor()', function() {
+        it('should create the toasts container', function() {
+            expect($('body').find('> .toasts').length).to.equal(1);
+        });
+
+        it('should set the position as a class name', function() {
+            expect(toast.element.hasClass('bottom-left')).to.be.true;
+        });
+
+        it('should set ARIA attributes', function() {
+            expect(toast.element.attr('role')).to.equal('log');
+            expect(toast.element.aria('relevant')).to.equal('additions');
+        });
+    });
+
+    describe('create()', function() {
+        it('should create a toast within the container', function() {
+            toast.create('Foo');
+
+            expect(element.toString()).to.equal('<div class="toast slide-up hide" role="note" aria-hidden="true">Foo</div>');
+            expect($.contains(toast.element[0], element[0])).to.be.true;
+        });
+
+        it('should set the animation class name', function() {
+            toast.create('Bar');
+
+            expect(element.hasClass('slide-up')).to.be.true;
+        });
+
+        it('should set ARIA attributes', function() {
+            toast.create('Baz');
+
+            expect(element.attr('role')).to.equal('note');
+        });
+
+        it('should allow custom options to be set', function() {
+            toast.create('Foo', {
+                animation: 'slide-left',
+                toastTemplate: '<section class="toast"></section>'
+            });
+
+            expect(element.toString()).to.equal('<section class="toast slide-left hide" role="note" aria-hidden="true">Foo</section>');
+        });
+
+        it('should allow HTML to be set', function() {
+            toast.create('<b>Bar</b>');
+
+            expect(element.html()).to.equal('<b>Bar</b>');
+        });
+
+        it('should allow DOM nodes to be set', function() {
+            toast.create($('<i/>').html('Baz'));
+
+            expect(element.html()).to.equal('<i>Baz</i>');
+        });
+    });
+
+    describe('hide()', function() {
+        it('should remove the toast after the duration', function(done) {
+            toast.create('Foo');
+
+            expect($.contains(toast.element[0], element[0])).to.be.true;
+
+            setTimeout(function() {
+                expect($.contains(toast.element[0], element[0])).to.be.false;
+
+                done();
+            }, 1100);
+        });
+    });
+
+    describe('show()', function() {
+        it('should show the toast after a small delay', function(done) {
+            toast.create('Foo');
+
+            expect(element.hasClass('hide')).to.be.true;
+
+            setTimeout(function() {
+                expect(element.hasClass('hide')).to.be.false;
+
+                done();
+            }, 100);
+        });
+    });
+
+    describe('destroy()', function() {
+        before(function() {
+            toast.destroy();
+        });
+
+        it('should remove the toasts container', function() {
+            expect($('body').find('> .toasts').length).to.equal(0);
+        });
+    });
+});
+
+});

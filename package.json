@@ -40,6 +40,8 @@
         "gulp-header": "1.0.*",
         "mocha": "1.21.*",
         "mocha-phantomjs": "3.5.*",
-        "chai": "1.9.*"
+        "chai": "1.9.*",
+        "phantomjs": "1.9.*",
+        "sinon": "1.10.*"
     }
 }

@@ -101,6 +101,18 @@ gulp.task('js', function() {
         .pipe(gulp.dest(buildPath));
 });
 
+gulp.task('test', function() {
+    /*var scriptPath = lookup('mocha-phantomjs/lib/mocha-phantomjs.coffee');
+
+    if (!scriptPath) {
+        throw new gutil.PluginError('Toolkit', 'mocha-phantomjs not found');
+    }*/
+
+    return gulp.src('./tests/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
 gulp.task('default', ['css', 'js']);
 
 gulp.task('watch', function() {

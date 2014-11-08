@@ -18,14 +18,14 @@ describe('Toolkit.Class', function() {
         name: 'Child',
         object: { bar: 'baz' },
         constructor: function(key) { this.key = key + ':override'; },
-        child: function() { return 'child' }
+        child: function() { return 'child'; }
     }, {
         bar: 'baz'
     });
 
     var GrandChild = Child.extend({
         name: 'GrandChild',
-        child: function() { return 'child:override' },
+        child: function() { return 'child:override'; },
         grandChild: function() { return 'grandChild'; }
     }, {
         baz: 'foo'
@@ -66,8 +66,8 @@ describe('Toolkit.Class', function() {
     });
 
     it('should merge properties and methods into the prototype', function() {
-        expect(a.child).to.be.undefined;
-        expect(b.grandChild).to.be.undefined;
+        expect(a).to.not.have.property('child');
+        expect(b).to.not.have.property('grandChild');
         expect(b.name).to.equal('Child');
     });
 

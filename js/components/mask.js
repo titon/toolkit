@@ -29,7 +29,9 @@ Toolkit.Mask = Toolkit.Component.extend({
         if (!element.is('body')) {
             element.addClass('is-maskable');
 
-            if (element.css('position') === 'static') {
+            var position = element.css('position');
+
+            if (!position || position === 'static') {
                 element.css('position', 'relative');
             }
         }

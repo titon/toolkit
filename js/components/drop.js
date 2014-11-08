@@ -58,20 +58,21 @@ Toolkit.Drop = Toolkit.Component.extend({
     },
 
     /**
-     * Open the target element and apply active state.
+     * Open the target menu and apply active state.
      *
+     * @param {jQuery} menu
      * @param {jQuery} node
      */
-    show: function(node) {
+    show: function(menu, node) {
         this.fireEvent('showing');
 
-        this.element.reveal();
+        this.element = menu = $(menu).reveal();
 
         this.node = node = $(node)
             .aria('toggled', true)
             .addClass('is-active');
 
-        this.fireEvent('shown', [this.element, node]);
+        this.fireEvent('shown', [menu, node]);
     },
 
     /**
@@ -97,11 +98,8 @@ Toolkit.Drop = Toolkit.Component.extend({
             this.hide();
         }
 
-        this.element = $(target);
-        this.node = node;
-
-        if (!this.element.is(':shown')) {
-            this.show(node);
+        if (!$(target).is(':shown')) {
+            this.show(target, node);
         } else {
             this.hide();
         }

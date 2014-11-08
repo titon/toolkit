@@ -73,8 +73,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * Reveal all sections before destroying.
      */
     destructor: function() {
-        this.headers.parent().removeClass('is-active');
-        this.sections.removeAttr('style').reveal();
+        this.headers.addClass('is-active').attr('toggled', true);
+        this.sections.attr('style', '').reveal();
     },
 
     /**
@@ -84,24 +84,27 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * @param {Function} [callback]
      */
     calculate: function(callback) {
-        if (typeof callback !== 'function') {
+        if ($.type(callback) !== 'function') {
             callback = function(section) {
-                var className = section.hasClass('hide') ? 'hide' : 'show';
-
-                section.addClass('no-transition').removeClass(className);
-
-                var height = section.height();
-
-                section.addClass(className).removeClass('no-transition');
-
-                return height;
+                return section.outerHeight();
             };
         }
 
         this.sections.each(function() {
             var self = $(this),
-                height = callback.call(this, self);
+                className = self.hasClass('hide') ? 'hide' : 'show',
+                maxHeight = self.css('max-height');
 
+            // Make section visible
+            self.addClass('no-transition').removeClass(className).css('max-height', '');
+
+            // Get the height
+            var height = callback.call(this, self);
+
+            // Set section back to previous state
+            self.addClass(className).css('max-height', maxHeight).removeClass('no-transition');
+
+            // Set the height
             self.data('accordion-height', height);
 
             if (self.hasClass('show')) {
@@ -118,9 +121,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
      * @param {Number} index
      */
     jump: function(index) {
-        index = $.bound(index, this.headers.length);
-
-        this.show(this.headers[index]);
+        this.show(this.headers[$.bound(index, this.headers.length)]);
     },
 
     /**
@@ -133,7 +134,6 @@ Toolkit.Accordion = Toolkit.Component.extend({
         header = $(header);
 
         var options = this.options,
-            parent = header.parent(), // li
             section = header.next(), // section
             index = header.data('accordion-index'),
             height = parseInt(section.data('accordion-height'), 10),
@@ -146,13 +146,11 @@ Toolkit.Accordion = Toolkit.Component.extend({
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.is(':shown') && this.node) {
                 section.css('max-height', 0).conceal(true);
-                parent.removeClass('is-active');
-                header.aria('toggled', false);
+                header.aria('toggled', false).removeClass('is-active');
 
             } else {
                 section.css('max-height', height).reveal(true);
-                parent.addClass('is-active');
-                header.aria('toggled', true);
+                header.aria('toggled', true).addClass('is-active');
             }
 
         // Only one open at a time
@@ -166,11 +164,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
             this.sections.css('max-height', 0).conceal(true);
             section.css('max-height', height).reveal(true);
 
-            this.headers.aria('toggled', false);
-            header.aria('toggled', true);
-
-            this.element.children('li').removeClass('is-active');
-            parent.addClass('is-active');
+            this.headers.aria('toggled', false).removeClass('is-active');
+            header.aria('toggled', true).addClass('is-active');
         }
 
         this.index = index;

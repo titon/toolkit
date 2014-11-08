@@ -48,10 +48,12 @@ Older versions can be found in the documentation changelogs.
     * Renamed `$.fn.addData()` to `$.fn.cache()`
     * Updated `$.fn.conceal()` to set the element to display none when the transitions is complete
     * Updated `$.fn.reveal()` to set the element to display block (or similar) before transitions occur
-    * Toolkit
-        * Removed `vendor` property
     * Component
         * Added `hiding`, `showing`, and `destroying` events
+        * Refactored the `requestData()` method
+            * Added `url`, `cache` (whether to cache in the class), and `settings` (AJAX settings) to the XHR object used by jQuery
+            * Removed the `before`, `done`, and `fail` arguments
+            * Moved the callbacks into `onRequestBefore`, `onRequestDone`, and `onRequestFail` methods
         * Renamed the `hide` event to `hidden`
         * Renamed the `show` event to `shown`
         * Renamed the `destroy` event to `destroyed`
@@ -59,6 +61,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed the `doDestroy` method to `destructor`
 * Components
     * Accordion
+        * The active class is now applied to the header instead of the parent `li`
         * Added `calculate()` method for determining section heights
         * Removed the `jump` event
         * Renamed selectors `.accordion-header`, `.accordion-section` to `[data-accordion-header]`, `[data-accordion-section]`
@@ -127,6 +130,7 @@ Older versions can be found in the documentation changelogs.
     * Popover
         * Updated so that an `.is-active` class is toggled on the target node
         * Updated the `follow` attribute to `false` always
+        * Removed the `delay` option
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
         * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` support
@@ -154,6 +158,7 @@ Older versions can be found in the documentation changelogs.
         * Added a `toastTemplate` property
         * Added a `reset()` method to reset the tooltip state
     * Tooltip
+        * Removed the `delay` option
         * Renamed selectors `.tooltip-head`, `.tooltip-body` to `[data-tooltip-header]`, `[data-tooltip-content]`
     * Type Ahead
         * Added `shadowTemplate`, `titleTemplate`, `descTemplate`, `highlightTemplate`, and `headingTemplate` options

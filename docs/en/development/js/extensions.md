@@ -134,7 +134,7 @@ $('#element').is(':shown');
 
 These functions can be found on the jQuery object.
 
-### debounce(`func:func`[, `int:threshold`[, `bool:immediate`]]) ###
+### debounce(`func:func`[, `int:threshold`]) ###
 
 Delays the execution of a function until the duration has completed.
 If `immediate` is true, then the callback will be triggered immediately.

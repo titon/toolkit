@@ -118,16 +118,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
         // Using event `remove` will cause the DOM element to delete itself
         this.fireEvent('removing', [item]);
 
-        this.items.each(function() {
-            var self = $(this);
-
-            if (self.is(item)) {
-                self.remove();
-                return false;
-            }
-
-            return true;
-        });
+        this.items.filter(item).remove();
 
         this.refresh();
     },

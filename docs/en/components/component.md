@@ -196,12 +196,11 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             </td>
         </tr>
         <tr>
-            <td>requestData(object:options[, func:before[, func:done[, func:fail]]])</td>
+            <td>requestData(string|object:options)</td>
             <td>
                 Requests data from a URL using an AJAX call.
                 Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.
                 The first argument can either be a URL or an object of AJAX options.
-                The <code>before</code>, <code>done</code>, and <code>fail</code> arguments can be set to override the default callbacks.
             </td>
         </tr>
         <tr>

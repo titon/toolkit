@@ -505,7 +505,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         set
             .addClass('is-active')
-            .aria('toggled', false);
+            .aria('toggled', true);
     },
 
     /**
@@ -543,18 +543,15 @@ Toolkit.Carousel = Toolkit.Component.extend({
      * @param {jQuery.Event} e
      */
     onKeydown: function(e) {
-        if ($.inArray(e.keyCode, [37, 38, 39, 40]) >= 0) {
-            e.preventDefault();
-        } else {
-            return;
-        }
-
         switch (e.keyCode) {
             case 37: this.prev(); break;
             case 38: this.jump(0); break;
             case 39: this.next(); break;
             case 40: this.jump(-1); break;
+            default: return;
         }
+
+        e.preventDefault();
     }
 
 }, {

@@ -220,7 +220,6 @@ Toolkit.Base = Toolkit.Class.extend({
             $.each(opts.responsive, function(key, resOpts) {
                 if (matchMedia(resOpts.breakpoint).matches) {
                     $.extend(opts, resOpts);
-                    return false;
                 }
             });
         }
