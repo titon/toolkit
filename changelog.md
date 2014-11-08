@@ -147,16 +147,18 @@ Older versions can be found in the documentation changelogs.
             `[data-showcase-items]`, `[data-showcase-tabs]`, `[data-showcase-next]`, `[data-showcase-prev]`, `[data-showcase-close]`, `[data-showcase-caption]`
     * Stalker
         * Added `activating`, `activated`, `deactivating`, and `deactivated` events
+        * Removed the `applyToParent` option
         * Removed `activate` and `deactivate` events
         * Updated to no longer automatically set `.stalker`, `.stalker-target`, and `.stalker-marker`
     * Switch
         * The `.pill` and `.round` classes have moved to `.switch-bar` from `.switch`
     * Tabs
         * Has been renamed to `Tab` and all files and references have been changed
-        * `preventDefault` now applies to both cookie and fragment persistence
-        * `ajax` has changed to `false` by default
+        * Option `preventDefault` now applies to both cookie and fragment persistence
+        * Option `ajax` has changed to `false` by default
         * Fixed a bug trying to determine the index to show on load
         * Renamed selectors `.tab-nav`, `.tab-section` to `[data-tab-nav]`, `[data-tab-section]`
+        * Updated the `is-active` state to be set on the tab, instead of the parent `li`
     * Toast
         * Added a `toastTemplate` property
         * Added a `reset()` method to reset the tooltip state

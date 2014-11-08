@@ -54,16 +54,8 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * Remove classes before destroying.
      */
     destructor: function() {
-        var targets = this.targets,
-            markers = this.markers;
-
-        if (this.options.applyToParent) {
-            targets.parent().removeClass('is-active');
-            markers.parent().removeClass('is-marked');
-        } else {
-            targets.removeClass('is-active');
-            markers.removeClass('is-marked');
-        }
+        this.targets.removeClass('is-active');
+        this.markers.removeClass('is-marked');
     },
 
     /**
@@ -123,12 +115,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
         this.fireEvent(before, [marker, target]);
 
         marker[method]('is-stalked');
-
-        if (options.applyToParent) {
-            target.parent()[method]('is-active');
-        } else {
-            target[method]('is-active');
-        }
+        target[method]('is-active');
 
         this.fireEvent(after, [marker, target]);
     },

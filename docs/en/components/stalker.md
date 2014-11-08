@@ -69,14 +69,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>applyToParent</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to apply the active class to the target parent, or to the target.
-            </td>
-        </tr>
-        <tr>
             <td>onlyWithin</td>
             <td>bool</td>
             <td>true</td>

@@ -151,7 +151,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.tabs.find('a')
             .removeClass('is-active')
             .eq(index)
-            .addClass('is-active');
+                .addClass('is-active');
 
         // Reset previous styles
         listItems.conceal(true);

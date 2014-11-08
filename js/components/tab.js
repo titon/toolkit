@@ -155,8 +155,7 @@ Toolkit.Tab = Toolkit.Component.extend({
         // Toggle tabs
         this.tabs
             .aria('toggled', false)
-            .parent()
-                .removeClass('is-active');
+            .removeClass('is-active');
 
         // Toggle sections
         if (index === this.index && options.collapsible) {
@@ -164,13 +163,13 @@ Toolkit.Tab = Toolkit.Component.extend({
                 section.conceal();
 
             } else {
-                tab.aria('toggled', true).parent().addClass('is-active');
+                tab.aria('toggled', true).addClass('is-active');
                 section.reveal();
             }
         } else {
             this.hide();
 
-            tab.aria('toggled', true).parent().addClass('is-active');
+            tab.aria('toggled', true).addClass('is-active');
             section.reveal();
         }
 
