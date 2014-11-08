@@ -72,6 +72,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Carousel
         * Added a `calculate()` method that triggers on load/resize to determine carousel dimensions
+        * Added a `swipe` option
         * Added `cycling`, `cycled`, `jumping` and `jumped` events
         * Removed `cycle` and `jump` events
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
@@ -122,6 +123,7 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.modal-inner`, `.modal-hide`, `.modal-submit` to
             `[data-modal-content]`, `[data-modal-close]`, `[data-modal-submit]`
     * Off Canvas
+        * Added a `swipe` option
         * Renamed selectors `.on-canvas`, `.off-canvas` to `[data-offcanvas-content]`, `[data-offcanvas-sidebar]`
         * Updated so that `[data-offcanvas-sidebar]` defines the default side orientation
         * Updated to no longer automatically set `.off-canvas` on the sidebar
@@ -137,6 +139,7 @@ Older versions can be found in the documentation changelogs.
         * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase
+        * Added a `swipe` option
         * Added `jumping` and `jumped` events
         * Removed `jump` event
         * Removed `.showcase-prev`, `.showcase-next`, and `.showcase-tabs` styles

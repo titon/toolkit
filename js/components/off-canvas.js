@@ -61,12 +61,14 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         events['ready document'] = 'onReady';
         events['resize window'] = 'onResize';
 
-        if (this.side === 'left') {
-            events['swipeleft element'] = 'hide';
-            events['swiperight container'] = 'onSwipe';
-        } else {
-            events['swipeleft container'] = 'onSwipe';
-            events['swiperight element'] = 'hide';
+        if (options.swipe) {
+            if (this.side === 'left') {
+                events['swipeleft element'] = 'hide';
+                events['swiperight container'] = 'onSwipe';
+            } else {
+                events['swipeleft container'] = 'onSwipe';
+                events['swiperight element'] = 'hide';
+            }
         }
 
         if (options.selector) {
@@ -212,7 +214,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     animation: 'push',
     openOnLoad: false,
     hideOthers: true,
-    stopScroll: true
+    stopScroll: true,
+    swipe: Toolkit.isTouch
 });
 
 Toolkit.create('offCanvas', function(options) {

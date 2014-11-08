@@ -96,10 +96,6 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.events = {
             'resize window': $.throttle(this.calculate, 50),
             'keydown window': 'onKeydown',
-            'swipeleft element': 'next',
-            'swipeup element': 'next',
-            'swiperight element': 'prev',
-            'swipedown element': 'prev',
             'click element [data-carousel-tabs] a': 'onJump',
             'click element [data-carousel-next]': 'next',
             'click element [data-carousel-prev]': 'prev',
@@ -107,9 +103,20 @@ Toolkit.Carousel = Toolkit.Component.extend({
             'click element [data-carousel-stop]': 'stop'
         };
 
+        if (options.swipe) {
+            $.extend(this.events, {
+                'swipeleft element': 'next',
+                'swipeup element': 'next',
+                'swiperight element': 'prev',
+                'swipedown element': 'prev'
+            });
+        }
+
         if (options.stopOnHover) {
-            this.events['mouseenter element'] = 'stop';
-            this.events['mouseleave element'] = 'start';
+            $.extend(this.events, {
+                'mouseenter element': 'stop',
+                'mouseleave element': 'start'
+            });
         }
 
         // Initialize
@@ -562,6 +569,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
+    swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0

@@ -262,6 +262,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>true</td>
             <td>Whether to remove the scrollbar on the window while the sidebar is open.</td>
         </tr>
+        <tr>
+            <td>swipe</td>
+            <td>bool</td>
+            <td>Toolkit.isTouch</td>
+            <td>Will bind swipe events. If this is true on non-touch devices, it will bind equivalent mouse events.</td>
+        </tr>
     </tbody>
 </table>
 

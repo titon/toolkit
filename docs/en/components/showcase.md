@@ -182,6 +182,12 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
             <td>The showcase markup. The <code>data-showcase-*</code> attributes are required.</td>
         </tr>
+        <tr>
+            <td>swipe</td>
+            <td>bool</td>
+            <td>Toolkit.isTouch</td>
+            <td>Will bind swipe events. If this is true on non-touch devices, it will bind equivalent mouse events.</td>
+        </tr>
     </tbody>
 </table>
 

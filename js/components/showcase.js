@@ -67,8 +67,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.events = {
             'clickout element': 'onHide',
             'clickout document {selector}': 'onHide',
-            'swipeleft element': 'next',
-            'swiperight element': 'prev',
             'keydown window': 'onKeydown',
             'click document {selector}': 'onShow',
             'click element [data-showcase-close]': 'hide',
@@ -76,6 +74,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
             'click element [data-showcase-prev]': 'prev',
             'click element [data-showcase-tabs] a': 'onJump'
         };
+
+        if (options.swipe) {
+            $.extend(this.events, {
+                'swipeleft element': 'next',
+                'swiperight element': 'prev'
+            });
+        }
 
         // Stop `transitionend` events from bubbling up when the showcase is resized
         this.events[Toolkit.transitionEnd + ' element [data-showcase-items]'] = function(e) {
@@ -417,6 +422,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
 }, {
     blackout: true,
     stopScroll: true,
+    swipe: Toolkit.isTouch,
     gutter: 50,
     getCategory: 'data-showcase',
     getImage: 'href',
