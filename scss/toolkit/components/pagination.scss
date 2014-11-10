@@ -32,7 +32,7 @@
 //-------------------- Modifiers --------------------//
 
 @if index($pagination-modifiers, "grouped") {
-    #{$pagination-class}--#{$pagination-modifier-grouped} {
+    #{bem($pagination-class, "", $pagination-modifier-grouped)} {
         li {
             margin: 0;
 

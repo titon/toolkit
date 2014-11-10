@@ -83,8 +83,8 @@ All of these are possible using the icon modifiers `.icon--90deg`, `.icon--180de
     <tbody>
         <tr>
             <td>$icon-class-name</td>
-            <td>icon</td>
-            <td>Name of the icon CSS class without the period.</td>
+            <td>.icon</td>
+            <td>Name of the icon CSS class.</td>
         </tr>
         <tr>
             <td>$icon-modifiers</td>

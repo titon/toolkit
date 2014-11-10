@@ -41,13 +41,13 @@
 //-------------------- Modifiers --------------------//
 
 @if index($label-modifiers, "badge") {
-    #{$label-class}--#{$label-modifier-badge} {
+    #{bem($label-class, "", $label-modifier-badge)} {
         border-radius: 1rem;
     }
 }
 
 @if index($label-modifiers, "arrow-left") {
-    #{$label-class}--#{$label-modifier-arrow-left} {
+    #{bem($label-class, "", $label-modifier-arrow-left)} {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         padding-left: 2px;
@@ -71,7 +71,7 @@
 }
 
 @if index($label-modifiers, "arrow-right") {
-    #{$label-class}--#{$label-modifier-arrow-right} {
+    #{bem($label-class, "", $label-modifier-arrow-right)} {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         padding-right: 2px;
@@ -95,7 +95,7 @@
 }
 
 @if index($label-modifiers, "ribbon-left") {
-    #{$label-class}--#{$label-modifier-ribbon-left} {
+    #{bem($label-class, "", $label-modifier-ribbon-left)} {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
 
@@ -111,7 +111,7 @@
 }
 
 @if index($label-modifiers, "ribbon-right") {
-    #{$label-class}--#{$label-modifier-ribbon-right} {
+    #{bem($label-class, "", $label-modifier-ribbon-right)} {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
 

@@ -1,3 +1,4 @@
+@import "mixins/helper";
 
 //-------------------- Toolkit --------------------//
 
@@ -34,6 +35,9 @@ $base-line-height: 1.25em !default;
 $default-opacity: .5 !default;
 $disabled-opacity: $default-opacity !default;
 $default-transition: .3s !default;
+
+$bem-element-separator: "__" !default;
+$bem-modifier-separator: "--" !default;
 
 //-------------------- Spacing --------------------//
 
@@ -114,9 +118,9 @@ $breakpoint-range-xlarge: (1681px, null) !default;
 //-------------------- Accordion --------------------//
 
 $accordion-class: "." + $vendor-prefix + "accordion" !default;
-$accordion-class-header: $accordion-class + "-header" !default;
-$accordion-class-section: $accordion-class + "-section" !default;
-$accordion-class-body: $accordion-class + "-body" !default;
+$accordion-class-header: bem($accordion-class, "header") !default;
+$accordion-class-section: bem($accordion-class, "section") !default;
+$accordion-class-body: bem($accordion-class, "body") !default;
 
 $accordion-transition: $default-transition !default;
 
@@ -168,10 +172,10 @@ $buttonGroup-effects: () !default; // Nothing by default
 //-------------------- Carousel --------------------//
 
 $carousel-class: "." + $vendor-prefix + "carousel" !default;
-$carousel-class-items: $carousel-class + "-items" !default;
-$carousel-class-tabs: $carousel-class + "-tabs" !default;
-$carousel-class-next: $carousel-class + "-next" !default;
-$carousel-class-prev: $carousel-class + "-prev" !default;
+$carousel-class-items: bem($carousel-class, "items") !default;
+$carousel-class-tabs: bem($carousel-class, "tabs") !default;
+$carousel-class-next: bem($carousel-class, "next") !default;
+$carousel-class-prev: bem($carousel-class, "prev") !default;
 
 $carousel-modifiers: ("wide", "square") !default;
 $carousel-modifier-wide: "wide" !default;
@@ -191,8 +195,8 @@ $divider-class: "." + $vendor-prefix + "divider" !default;
 //-------------------- Drop --------------------//
 
 $drop-class: "." + $vendor-prefix + "drop" !default;
-$drop-class-divider: $drop-class + "-divider" !default;
-$drop-class-heading: $drop-class + "-heading" !default;
+$drop-class-divider: bem($drop-class, "divider") !default;
+$drop-class-heading: bem($drop-class, "heading") !default;
 
 $drop-modifiers: ("down", "up", "left", "right") !default;
 $drop-modifier-down: "down" !default;
@@ -209,23 +213,23 @@ $drop-transition: $default-transition !default;
 //-------------------- Flyout --------------------//
 
 $flyout-class: "." + $vendor-prefix + "flyout" !default;
-$flyout-class-heading: $flyout-class + "-heading" !default;
+$flyout-class-heading: bem($flyout-class, "heading") !default;
 
 $flyout-transition: $default-transition !default;
 
 //-------------------- Form --------------------//
 
 $form-class: "." + $vendor-prefix + "form" !default;
-$form-class-actions: $form-class + "-actions" !default;
+$form-class-actions: bem($form-class, "actions") !default;
 $form-class-input: "." + $vendor-prefix + "input" !default;
-$form-class-input-static: $form-class-input + "-static" !default;
-$form-class-input-radio: $form-class-input + "-radio" !default;
-$form-class-input-checkbox: $form-class-input + "-checkbox" !default;
+$form-class-input-static: bem($form-class-input, "static") !default;
+$form-class-input-radio: bem($form-class-input, "radio") !default;
+$form-class-input-checkbox: bem($form-class-input, "checkbox") !default;
 $form-class-fields: "." + $vendor-prefix + "fields" !default;
 $form-class-field: "." + $vendor-prefix + "field" !default;
-$form-class-field-help: $form-class-field + "-help" !default;
-$form-class-field-label: $form-class-field + "-label" !default;
-$form-class-field-column: $form-class-field + "-col" !default;
+$form-class-field-help: bem($form-class-field, "help") !default;
+$form-class-field-label: bem($form-class-field, "label") !default;
+$form-class-field-column: bem($form-class-field, "col") !default;
 
 $form-modifiers: ("inline", "horizontal") !default;
 $form-modifier-inline: "inline" !default;
@@ -261,7 +265,7 @@ $grid-sizes: (
 
 //-------------------- Icon --------------------//
 
-$icon-class-name: "icon" !default; // Without the .
+$icon-class-name: ".icon" !default;
 
 $icon-sizes: (12, 16, 24, 32, 64) !default;
 
@@ -277,9 +281,9 @@ $input-class: "." + $vendor-prefix + "custom-input" !default;
 $input-class-checkbox: "." + $vendor-prefix + "checkbox" !default;
 $input-class-radio: "." + $vendor-prefix + "radio" !default;
 $input-class-select: "." + $vendor-prefix + "select" !default;
-$input-class-select-label: $input-class-select + "-label" !default;
-$input-class-select-arrow: $input-class-select + "-arrow" !default;
-$input-class-select-options: $input-class-select + "-options" !default;
+$input-class-select-label: bem($input-class-select, "label") !default;
+$input-class-select-arrow: bem($input-class-select, "arrow") !default;
+$input-class-select-options: bem($input-class-select, "options") !default;
 
 //-------------------- Input Group --------------------//
 
@@ -310,8 +314,8 @@ $lazyLoad-transition: $default-transition !default;
 //-------------------- Loader --------------------//
 
 $loader-class: "." + $vendor-prefix + "loader" !default;
-$loader-class-message: $loader-class + "-message" !default;
-$loader-class-spinner: $loader-class + "-spinner" !default;
+$loader-class-message: bem($loader-class, "message") !default;
+$loader-class-spinner: bem($loader-class, "spinner") !default;
 
 $loader-type: "all" !default;
 $loader-color: #000 !default;
@@ -323,7 +327,7 @@ $loader-bubble-size: 1.5rem !default;
 //-------------------- Mask --------------------//
 
 $mask-class: "." + $vendor-prefix + "mask" !default;
-$mask-class-message: $mask-class + "-message" !default;
+$mask-class-message: bem($mask-class, "message") !default;
 $mask-class-target: ".is-maskable" !default;
 
 $mask-opacity: .85 !default;
@@ -338,12 +342,12 @@ $matrix-transition: $default-transition !default;
 //-------------------- Modal --------------------//
 
 $modal-class: "." + $vendor-prefix + "modal" !default;
-$modal-class-close: $modal-class + "-close" !default;
-$modal-class-outer: $modal-class + "-outer" !default;
-$modal-class-inner: $modal-class + "-inner" !default;
-$modal-class-head: $modal-class + "-head" !default;
-$modal-class-body: $modal-class + "-body" !default;
-$modal-class-foot: $modal-class + "-foot" !default;
+$modal-class-close: bem($modal-class, "close") !default;
+$modal-class-outer: bem($modal-class, "outer") !default;
+$modal-class-inner: bem($modal-class, "inner") !default;
+$modal-class-head: bem($modal-class, "head") !default;
+$modal-class-body: bem($modal-class, "body") !default;
+$modal-class-foot: bem($modal-class, "foot") !default;
 
 $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
 
@@ -357,8 +361,8 @@ $modal-transition: $default-transition !default;
 //-------------------- Notice --------------------//
 
 $notice-class: "." + $vendor-prefix + "notice" !default;
-$notice-class-close: $notice-class + "-close" !default;
-$notice-class-title: $notice-class + "-title" !default;
+$notice-class-close: bem($notice-class, "close") !default;
+$notice-class-title: bem($notice-class, "title") !default;
 
 //-------------------- Off Canvas --------------------//
 
@@ -408,9 +412,9 @@ $pin-transition: .2s !default;
 //-------------------- Popover --------------------//
 
 $popover-class: "." + $vendor-prefix + "popover" !default;
-$popover-class-head: $popover-class + "-head" !default;
-$popover-class-body: $popover-class + "-body" !default;
-$popover-class-arrow: $popover-class + "-arrow" !default;
+$popover-class-head: bem($popover-class, "head") !default;
+$popover-class-body: bem($popover-class, "body") !default;
+$popover-class-arrow: bem($popover-class, "arrow") !default;
 
 $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
 
@@ -423,7 +427,7 @@ $popover-arrow-width: 8 !default;
 //-------------------- Progress --------------------//
 
 $progress-class: "." + $vendor-prefix + "progress" !default;
-$progress-class-bar: $progress-class + "-bar" !default;
+$progress-class-bar: bem($progress-class, "bar") !default;
 
 $progress-transition: .5s !default;
 
@@ -440,13 +444,13 @@ $responsive-design: "mobile" !default; // mobile, desktop
 //-------------------- Showcase --------------------//
 
 $showcase-class: "." + $vendor-prefix + "showcase" !default;
-$showcase-class-inner: $showcase-class + "-inner" !default;
-$showcase-class-items: $showcase-class + "-items" !default;
-$showcase-class-close: $showcase-class + "-close" !default;
-$showcase-class-next: $showcase-class + "-next" !default;
-$showcase-class-prev: $showcase-class + "-prev" !default;
-$showcase-class-tabs: $showcase-class + "-tabs" !default;
-$showcase-class-caption: $showcase-class + "-caption" !default;
+$showcase-class-inner: bem($showcase-class, "inner") !default;
+$showcase-class-items: bem($showcase-class, "items") !default;
+$showcase-class-close: bem($showcase-class, "close") !default;
+$showcase-class-next: bem($showcase-class, "next") !default;
+$showcase-class-prev: bem($showcase-class, "prev") !default;
+$showcase-class-tabs: bem($showcase-class, "tabs") !default;
+$showcase-class-caption: bem($showcase-class, "caption") !default;
 
 $showcase-opacity: $default-opacity !default;
 $showcase-transition: $default-transition !default;
@@ -459,8 +463,8 @@ $step-class-wrapper: "." + $vendor-prefix + "steps" !default;
 //-------------------- Switch --------------------//
 
 $switch-class: "." + $vendor-prefix + "switch" !default;
-$switch-class-bar: $switch-class + "-bar" !default;
-$switch-class-toggle: $switch-class + "-toggle" !default;
+$switch-class-bar: bem($switch-class, "bar") !default;
+$switch-class-toggle: bem($switch-class, "toggle") !default;
 
 $switch-modifiers: ("stacked") !default;
 $switch-modifier-stacked: "stacked" !default;
@@ -480,8 +484,8 @@ $switch-effects: ("pill") !default;
 //-------------------- Tab --------------------//
 
 $tab-class: "." + $vendor-prefix + "tabs" !default;
-$tab-class-nav: "." + $vendor-prefix + "tab-nav" !default;
-$tab-class-section: "." + $vendor-prefix + "tab-section" !default;
+$tab-class-nav: bem("." + $vendor-prefix + "tab", "nav") !default;
+$tab-class-section: bem("." + $vendor-prefix + "tab", "section") !default;
 
 $tab-modifiers: ("horizontal") !default;
 $tab-modifier-horizontal: "horizontal" !default;
@@ -493,8 +497,8 @@ $tab-modifier-horizontal: "horizontal" !default;
 //-------------------- Table --------------------//
 
 $table-class: "." + $vendor-prefix + "table" !default;
-$table-class-divider: $table-class + "-divider" !default;
-$table-class-responsive: $table-class + "-responsive" !default;
+$table-class-divider: bem($table-class, "divider") !default;
+$table-class-responsive: bem($table-class, "responsive") !default;
 
 //-------------------- Toast --------------------//
 
@@ -513,9 +517,9 @@ $toast-transition: $default-transition !default;
 //-------------------- Tooltip --------------------//
 
 $tooltip-class: "." + $vendor-prefix + "tooltip" !default;
-$tooltip-class-head: $tooltip-class + "-head" !default;
-$tooltip-class-body: $tooltip-class + "-body" !default;
-$tooltip-class-arrow: $tooltip-class + "-arrow" !default;
+$tooltip-class-head: bem($tooltip-class, "head") !default;
+$tooltip-class-body: bem($tooltip-class, "body") !default;
+$tooltip-class-arrow: bem($tooltip-class, "arrow") !default;
 
 $tooltip-arrow-width: 6 !default;
 $tooltip-transition: .15s !default;
@@ -523,10 +527,10 @@ $tooltip-transition: .15s !default;
 //-------------------- Type Ahead --------------------//
 
 $typeAhead-class: "." + $vendor-prefix + "type-ahead" !default;
-$typeAhead-class-heading: $typeAhead-class + "-heading" !default;
-$typeAhead-class-highlight: $typeAhead-class + "-highlight" !default;
-$typeAhead-class-description: $typeAhead-class + "-desc" !default;
-$typeAhead-class-shadow: $typeAhead-class + "-shadow" !default;
+$typeAhead-class-heading: bem($typeAhead-class, "heading") !default;
+$typeAhead-class-highlight: bem($typeAhead-class, "highlight") !default;
+$typeAhead-class-description: bem($typeAhead-class, "desc") !default;
+$typeAhead-class-shadow: bem($typeAhead-class, "shadow") !default;
 
 $typeAhead-transition: $default-transition !default;
 
@@ -541,7 +545,6 @@ $h6-size: 1.2rem !default;
 
 //-------------------- Imports --------------------//
 
-@import "mixins/helper";
 @import "mixins/unit";
 @import "mixins/layout";
 @import "mixins/grid";

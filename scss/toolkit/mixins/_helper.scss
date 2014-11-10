@@ -27,3 +27,18 @@
 
     @return $selectors;
 }
+
+// Format a class name into the BEM format
+@function bem($block: "", $element: "", $modifier: "", $element-separator: $bem-element-separator, $modifier-separator: $bem-modifier-separator) {
+    $name: $block;
+
+    @if $element != "" {
+        $name: $name + $element-separator + $element;
+    }
+
+    @if $modifier != "" {
+        $name: $name + $modifier-separator + $modifier;
+    }
+
+    @return $name;
+}

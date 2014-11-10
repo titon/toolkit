@@ -24,6 +24,10 @@ Like mixins, functions allow for re-use of code. The following functions exist w
             <td>white($opacity)</td>
             <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
         </tr>
+        <tr>
+            <td>bem($block, $element, $modifier, $element-separator: "-", $modifier-separator: "--")</td>
+            <td>Output a CSS class name in the BEM (block-element-modifier) format.</td>
+        </tr>
     </tbody>
 </table>
 

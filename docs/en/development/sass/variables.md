@@ -21,6 +21,16 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
             <td>Will prefix all top level class names with a vendor or namespace (do not include a .).</td>
         </tr>
         <tr>
+            <td>$bem-element-separator</td>
+            <td>-</td>
+            <td>The separator to use between the block and element in the BEM naming convention.</td>
+        </tr>
+        <tr>
+            <td>$bem-modifier-separator</td>
+            <td>--</td>
+            <td>The separator to use between the block/element and modifier in the BEM naming convention.</td>
+        </tr>
+        <tr>
             <td>$size-small-class</td>
             <td>.small</td>
             <td rowspan="2">Names for global sizing classes.</td>

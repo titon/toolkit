@@ -186,7 +186,7 @@ textarea#{$form-class-input} {
 //-------------------- Modifiers --------------------//
 
 @if index($form-modifiers, "horizontal") {
-    #{$form-class}--#{$form-modifier-horizontal} {
+    #{bem($form-class, "", $form-modifier-horizontal)} {
         #{$form-class-field},
         #{$form-class-fields} li { @include grid-row; }
 
@@ -201,7 +201,7 @@ textarea#{$form-class-input} {
 }
 
 @if index($form-modifiers, "inline") {
-    #{$form-class}--#{$form-modifier-inline} {
+    #{bem($form-class, "", $form-modifier-inline)} {
         margin-bottom: -($margin / 2);
 
         #{$form-class-field},
