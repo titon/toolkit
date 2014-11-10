@@ -278,7 +278,79 @@ describe('Toolkit.Component', function() {
     });
 
     describe('setOptions()', function() {
-        var opts;
+        var opts, baseOpts;
+
+        beforeEach(function() {
+            opts = {};
+            baseOpts = {
+                className: '',
+                cache: true,
+                debug: true,
+                groups: {
+                    foo: {
+                        className: 'foo',
+                        cache: false
+                    },
+                    bar: {
+                        className: 'bar',
+                        debug: false,
+                        responsive: {
+                            breakpoint: '(media-query)',
+                            cache: false
+                        }
+                    }
+                }
+            };
+        });
+
+        it('should inherit group options', function() {
+            element = $('<span/>').attr('data-component-group', 'foo');
+            opts = component.setOptions(baseOpts, element);
+            delete opts.groups;
+
+            expect(opts).to.deep.equal({
+                cache: false,
+                debug: true,
+                context: null,
+                className: 'foo',
+                template: '',
+                templateFrom: ''
+            });
+        });
+
+        it('should inherit group options and persist `responsive` options', function() {
+            element = $('<span/>').attr('data-component-group', 'bar');
+            opts = component.setOptions(baseOpts, element);
+            delete opts.groups;
+
+            expect(opts).to.deep.equal({
+                cache: true,
+                debug: false,
+                context: null,
+                className: 'bar',
+                template: '',
+                templateFrom: '',
+                responsive: {
+                    breakpoint: '(media-query)',
+                    cache: false
+                }
+            });
+        });
+
+        it('should not inherit group options if the key doesn\'t exist', function() {
+            element = $('<span/>').attr('data-component-group', 'baz');
+            opts = component.setOptions(baseOpts, element);
+            delete opts.groups;
+
+            expect(opts).to.deep.equal({
+                cache: true,
+                debug: true,
+                context: null,
+                className: '',
+                template: '',
+                templateFrom: ''
+            });
+        });
 
         it('should inherit options from an element', function() {
             element = $('<span/>').attr('data-component-classname', 'foo');

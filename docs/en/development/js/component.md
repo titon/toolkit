@@ -63,7 +63,11 @@ We can also define a template using a script tag.
 
 If no element is found, the component will fall back to the `template` option.
 
-## Data Attribute Options ##
+## Options ##
+
+The component layer adds more functionality to options compared to its base counter-part.
+
+### Data Attribute Options ###
 
 At the highest level we have global options. At the middle level we have constructor options.
 And at the lowest level, the element, we have data attribute options. Data attributes permit
@@ -109,6 +113,38 @@ $('.js-tooltip').tooltip({
     ajax: false
 });
 ```
+
+### Option Groups ###
+
+When individual data attributes become to cumbersome, the option groups system comes into play. 
+This system allows multiple options to be grouped and aliased by a unique key. Simple define a `groups` object in the options object.
+
+```javascript
+$('.js-modal').modal({
+    animation: 'slide-in-top',
+    groups: {
+        static: {
+            ajax: false
+        },
+        dynamic: {
+            ajax: true,
+            fullScreen: true
+        }
+    }
+});
+```
+
+To inherit the group options, set a group data attribute on the element in the format of `data-{component}-group="{key}"`.
+
+```html
+<a href="#static" class="js-modal" data-modal-group="static">Static Modal</a>
+
+<a href="/load/this/url" class="js-modal" data-modal-group="dynamic">Dynamic Modal</a>
+```
+
+<div class="notice is-info">
+    Responsive options can be defined in option groups.
+</div>
 
 ## Namespaced Events ##
 

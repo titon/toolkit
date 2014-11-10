@@ -81,7 +81,7 @@ var value = $('#element').cache('foo', 'bar'); // bar
 var value = $('#element').cache('foo', '123'); // bar
 ```
 
-### aria(`string:key`, `mixed:value`) ###
+### aria(`string:key`[, `mixed:value`]) ###
 
 Sets ARIA attributes on the target element. Works in a similar fashion to `attr()`.
 Can also accept an object of key value pairs. Can be disabled by toggling `Toolkit.aria`.
@@ -95,6 +95,12 @@ $('#element').aria({
     expanded: false,
     selected: true
 });
+```
+
+You can also use the method to return a value for an ARIA attribute.
+
+```javascript
+$('#element').aria('live'); // off
 ```
 
 ### transitionend(`func:func`) ###

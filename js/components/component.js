@@ -294,9 +294,20 @@ Toolkit.Component = Toolkit.Base.extend({
      * @returns {Object}
      */
     setOptions: function(options, inheritFrom) {
+
+        // Inherit options from a group if the data attribute exists
+        // Do this first so responsive options can be triggered afterwards
+        if (inheritFrom) {
+            var group = this.readOption(inheritFrom, 'group');
+
+            if (group && options.groups[group]) {
+                $.extend(options, options.groups[group]);
+            }
+        }
+
         var opts = Toolkit.Base.prototype.setOptions.call(this, options);
 
-        // Inherit from element data attributes
+        // Inherit options from element data attributes
         if (inheritFrom) {
             opts = this.inheritOptions(opts, inheritFrom);
         }
