@@ -1,16 +1,14 @@
 
 @mixin button-group-first-child {
     > li:first-child #{$button-class},
-    > #{$button-class}:first-child,
-    > #{$button-class}.first {
+    > #{$button-class}:first-child {
         @content;
     }
 }
 
 @mixin button-group-last-child {
     > li:last-child #{$button-class},
-    > #{$button-class}:last-child,
-    > #{$button-class}.last {
+    > #{$button-class}:last-child {
         @content;
     }
 }

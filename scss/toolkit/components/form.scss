@@ -49,7 +49,6 @@ label,
     line-height: normal;
     border: 1px solid $gray-dark;
     border-radius: 0;
-    box-shadow: none;
     -webkit-appearance: none; // Remove inner shadow on iOS
     @include size-medium;
     @include is-small(true, true) { @include size-small; }
@@ -65,14 +64,12 @@ label,
 
     &:focus {
         border-color: $info;
-        box-shadow: 0 0 5px $info-light;
         outline: none;
     }
 
     &[readonly] {
         color: $gray-darkest;
         border: 1px solid $gray-dark;
-        box-shadow: none;
     }
 
     &.is-disabled,
@@ -143,8 +140,6 @@ textarea#{$form-class-input} {
         &.is-error {
             #{$form-class-input} {
                 border-color: $error;
-
-                &:focus { box-shadow: 0 0 5px $error-light; }
             }
 
             #{$form-class-input-radio},
@@ -156,8 +151,6 @@ textarea#{$form-class-input} {
         &.is-success {
             #{$form-class-input} {
                 border-color: $success;
-
-                &:focus { box-shadow: 0 0 5px $success-light; }
             }
 
             #{$form-class-input-radio},
