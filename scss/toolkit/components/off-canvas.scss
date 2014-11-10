@@ -33,7 +33,7 @@
 
 //-------------------- Modifiers --------------------//
 
-#{bem($offCanvas-class, "", $offCanvas-modifier-left)} {
+#{$offCanvas-class-modifier-left} {
     left: 0;
     width: $offCanvas-left-width;
     transform: translate3d(-100%, 0, 0);
@@ -41,7 +41,7 @@
     &.show { transform: translate3d(0, 0, 0) !important; }
 }
 
-#{bem($offCanvas-class, "", $offCanvas-modifier-right)} {
+#{$offCanvas-class-modifier-right} {
     right: 0;
     width: $offCanvas-right-width;
     transform: translate3d(100%, 0, 0);
@@ -61,15 +61,15 @@
 
     @if index($offCanvas-animations, "push-reveal") {
         &.push-reveal {
-            #{bem($offCanvas-class, "", $offCanvas-modifier-left)} { transform: translate3d(-50%, 0, 0); }
-            #{bem($offCanvas-class, "", $offCanvas-modifier-right)} { transform: translate3d(50%, 0, 0); }
+            #{$offCanvas-class-modifier-left} { transform: translate3d(-50%, 0, 0); }
+            #{$offCanvas-class-modifier-right} { transform: translate3d(50%, 0, 0); }
         }
     }
 
     @if index($offCanvas-animations, "reverse-push") {
         &.reverse-push {
-            #{bem($offCanvas-class, "", $offCanvas-modifier-left)} { transform: translate3d(50%, 0, 0); }
-            #{bem($offCanvas-class, "", $offCanvas-modifier-right)} { transform: translate3d(-50%, 0, 0); }
+            #{$offCanvas-class-modifier-left} { transform: translate3d(50%, 0, 0); }
+            #{$offCanvas-class-modifier-right} { transform: translate3d(-50%, 0, 0); }
         }
     }
 
@@ -81,8 +81,8 @@
 
     @if index($offCanvas-animations, "push-down") {
         &.push-down {
-            #{bem($offCanvas-class, "", $offCanvas-modifier-left)},
-            #{bem($offCanvas-class, "", $offCanvas-modifier-right)} { transform: translate3d(0, -100%, 0); }
+            #{$offCanvas-class-modifier-left},
+            #{$offCanvas-class-modifier-right} { transform: translate3d(0, -100%, 0); }
         }
     }
 
@@ -130,11 +130,11 @@
 //-------------------- Responsive --------------------//
 
 @include if-max($offCanvas-mobile-breakpoint) {
-    #{bem($offCanvas-class, "", $offCanvas-modifier-left)} {
+    #{$offCanvas-class-modifier-left} {
         width: $offCanvas-left-width-mobile;
     }
 
-    #{bem($offCanvas-class, "", $offCanvas-modifier-right)} {
+    #{$offCanvas-class-modifier-right} {
         width: $offCanvas-right-width-mobile;
     }
 

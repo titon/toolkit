@@ -165,6 +165,16 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
             <td>CSS class name for the off canvas parent wrapper.</td>
         </tr>
         <tr>
+            <td>$offCanvas-class-modifier-left</td>
+            <td>.off-canvas--left</td>
+            <td>Name of the left modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-modifier-right</td>
+            <td>.off-canvas--right</td>
+            <td>Name of the right modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
             <td>$offCanvas-left-width</td>
             <td>20%</td>
             <td>The width of the left sidebar.</td>
@@ -178,16 +188,6 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
             <td>$offCanvas-mobile-breakpoint</td>
             <td>640px</td>
             <td>The break point to apply mobile widths.</td>
-        </tr>
-        <tr>
-            <td>$offCanvas-modifier-left</td>
-            <td>left</td>
-            <td>Name of the left modifier to append to off canvas sidebars.</td>
-        </tr>
-        <tr>
-            <td>$offCanvas-modifier-right</td>
-            <td>right</td>
-            <td>Name of the right modifier to append to off canvas sidebars.</td>
         </tr>
         <tr>
             <td>$offCanvas-right-width</td>

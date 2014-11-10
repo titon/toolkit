@@ -184,6 +184,11 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the tabs wrapper.</td>
         </tr>
         <tr>
+            <td>$tab-class-modifier-horizontal</td>
+            <td>.tabs--horizontal</td>
+            <td>Name of the horizontal modifier to append to tabs classes.</td>
+        </tr>
+        <tr>
             <td>$tab-class-nav</td>
             <td>.tab-nav</td>
             <td>CSS class name for the tabs navigation wrapper.</td>
@@ -197,11 +202,6 @@ attributes are required when supporting ARIA.
             <td>$tab-modifiers</td>
             <td>("horizontal")</td>
             <td>List of modifiers to include in the CSS output. Accepts horizontal.</td>
-        </tr>
-        <tr>
-            <td>$tab-modifier-horizontal</td>
-            <td>horizontal</td>
-            <td>Name of the horizontal modifier to append to tabs classes.</td>
         </tr>
     </tbody>
 </table>

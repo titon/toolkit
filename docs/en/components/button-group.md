@@ -154,6 +154,16 @@ When using the vertical modifier, the `aria-orientation` attribute must be defin
             <td>CSS class name for the button group element.</td>
         </tr>
         <tr>
+            <td>$buttonGroup-class-modifier-justified</td>
+            <td>.button-group--justified</td>
+            <td>Name of the justified modifier to append to button group classes.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-class-modifier-vertical</td>
+            <td>.button-group--vertical</td>
+            <td>Name of the vertical modifier to append to button group classes.</td>
+        </tr>
+        <tr>
             <td>$buttonGroup-effects</td>
             <td>()</td>
             <td>List of effects to include in the CSS output. Accepts pill and skew.</td>
@@ -162,16 +172,6 @@ When using the vertical modifier, the `aria-orientation` attribute must be defin
             <td>$buttonGroup-modifiers</td>
             <td>("vertical", "justified")</td>
             <td>List of modifiers to include in the CSS output. Accepts vertical and justified.</td>
-        </tr>
-        <tr>
-            <td>$buttonGroup-modifier-justified</td>
-            <td>justified</td>
-            <td>Name of the justified modifier to append to button group classes.</td>
-        </tr>
-        <tr>
-            <td>$buttonGroup-modifier-vertical</td>
-            <td>vertical</td>
-            <td>Name of the vertical modifier to append to button group classes.</td>
         </tr>
     </tbody>
 </table>

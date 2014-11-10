@@ -30,7 +30,7 @@
 //-------------------- Modifiers --------------------//
 
 @if index($tab-modifiers, "horizontal") {
-    #{bem($tab-class, "", $tab-modifier-horizontal)} {
+    #{$tab-class-modifier-horizontal} {
         #{$tab-class-nav} {
             ul, ol, li, a, button {
                 display: block;

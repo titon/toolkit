@@ -28,6 +28,26 @@
     @return $selectors;
 }
 
+// Remove the first selector character (#, ., etc) from the class name or ID
+@function remove-selector-char($selector) {
+    @return str-slice($selector, 2, str-length($selector));
+}
+
+// Generate a class name and apply an optional prefix
+@function class-name($class, $prefix: $vendor-prefix, $selector: ".") {
+    $name: $class;
+
+    @if str_slice($class, 1, 1) == $selector {
+        $name: remove-selector-char($name);
+    }
+
+    @if $prefix != "" {
+        $name: $prefix + $name;
+    }
+
+    @return $selector + $name;
+}
+
 // Format a class name into the BEM format
 @function bem($block: "", $element: "", $modifier: "", $element-separator: $bem-element-separator, $modifier-separator: $bem-modifier-separator) {
     $name: $block;

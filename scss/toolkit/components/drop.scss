@@ -72,21 +72,21 @@
 //-------------------- Modifiers --------------------//
 
 @if index($drop-modifiers, "up") {
-    #{bem($drop-class, "", $drop-modifier-up)} {
+    #{$drop-class-modifier-up} {
         top: auto;
         bottom: 100%;
     }
 }
 
 @if index($drop-modifiers, "right") {
-    #{bem($drop-class, "", $drop-modifier-right)} {
+    #{$drop-class-modifier-right} {
         top: auto;
         left: 100%;
     }
 }
 
 @if index($drop-modifiers, "left") {
-    #{bem($drop-class, "", $drop-modifier-left)} {
+    #{$drop-class-modifier-left} {
         top: auto;
         left: auto;
         right: 100%;
@@ -94,8 +94,8 @@
 }
 
 @if index($drop-modifiers, "right") or index($drop-modifiers, "left") {
-    #{bem($drop-class, "", $drop-modifier-right)},
-    #{bem($drop-class, "", $drop-modifier-left)} {
+    #{$drop-class-modifier-right},
+    #{$drop-class-modifier-left} {
         &.reverse-align {
             bottom: 0;
         }
@@ -103,8 +103,8 @@
 }
 
 @if index($drop-modifiers, "down") or index($drop-modifiers, "up") {
-    #{bem($drop-class, "", $drop-modifier-down)},
-    #{bem($drop-class, "", $drop-modifier-up)} {
+    #{$drop-class-modifier-down},
+    #{$drop-class-modifier-up} {
         &.reverse-align {
             left: auto;
             right: 0;

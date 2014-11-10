@@ -77,7 +77,7 @@
 //-------------------- Modifiers --------------------//
 
 @if index($carousel-modifiers, "wide") {
-    #{bem($carousel-class, "", $carousel-modifier-wide)} {
+    #{$carousel-class-modifier-wide} {
         #{$carousel-class-items} {
             padding-bottom: 56.25%; // 16:9 ratio
         }
@@ -85,7 +85,7 @@
 }
 
 @if index($carousel-modifiers, "square") {
-    #{bem($carousel-class, "", $carousel-modifier-square)} {
+    #{$carousel-class-modifier-square} {
         #{$carousel-class-items} {
             padding-bottom: 100%; // 1:1 ratio
         }

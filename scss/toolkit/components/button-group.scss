@@ -89,7 +89,7 @@
 //-------------------- Modifiers --------------------//
 
 @if index($buttonGroup-modifiers, "vertical") {
-    #{bem($buttonGroup-class, "", $buttonGroup-modifier-vertical)} {
+    #{$buttonGroup-class-modifier-vertical} {
         vertical-align: top;
 
         > li,
@@ -178,7 +178,7 @@
 }
 
 @if index($buttonGroup-modifiers, "justified") {
-    #{bem($buttonGroup-class, "", $buttonGroup-modifier-justified)} {
+    #{$buttonGroup-class-modifier-justified} {
         display: table;
         width: 100%;
 

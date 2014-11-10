@@ -223,19 +223,19 @@ attributes are required when supporting ARIA.
             <td>CSS class name for the carousel tabs list.</td>
         </tr>
         <tr>
-            <td>$carousel-modifiers</td>
-            <td>("wide", "square")</td>
-            <td>List of modifiers to include in the CSS output. Accepts wide and square.</td>
-        </tr>
-        <tr>
-            <td>$carousel-modifier-square</td>
-            <td>square</td>
+            <td>$carousel-class-modifier-square</td>
+            <td>.carousel--square</td>
             <td>Name of the square modifier to append to carousel classes.</td>
         </tr>
         <tr>
-            <td>$carousel-modifier-wide</td>
-            <td>wide</td>
+            <td>$carousel-class-modifier-wide</td>
+            <td>.carousel--wide</td>
             <td>Name of the wide modifier to append to carousel classes.</td>
+        </tr>
+        <tr>
+            <td>$carousel-modifiers</td>
+            <td>("wide", "square")</td>
+            <td>List of modifiers to include in the CSS output. Accepts wide and square.</td>
         </tr>
         <tr>
             <td>$carousel-opacity</td>

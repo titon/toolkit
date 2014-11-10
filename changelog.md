@@ -21,6 +21,8 @@ Older versions can be found in the documentation changelogs.
     * Added `$enable-all-effects`, `$enable-all-modifiers`, and `$enable-all-animations` for easier styling
     * Added `$breakpoint-range-xsmall`, `$breakpoint-range-small`, `$breakpoint-range-medium`, `$breakpoint-range-large`,
         and `$breakpoint-range-xlarge` for responsive range breakpoints
+    * Added `$bem-element-separator` and `$bem-modifier-separator` to control the BEM class conventions
+    * Added `class-name()` and `bem()` for building CSS class names
     * Added `full-screen()` mixin for full screen fixed positioning
     * Added `in-range($range)` mixin that will accept a range of breakpoints and output the correct min/max width media query
     * Added `in-xsmall()`, `in-xlarge()`, `if-xsmall()`, and `if-xlarge()` responsive mixins
@@ -50,6 +52,7 @@ Older versions can be found in the documentation changelogs.
     * Updated `$.fn.reveal()` to set the element to display block (or similar) before transitions occur
     * Component
         * Added `hiding`, `showing`, and `destroying` events
+        * Added option groups
         * Refactored the `requestData()` method
             * Added `url`, `cache` (whether to cache in the class), and `settings` (AJAX settings) to the XHR object used by jQuery
             * Removed the `before`, `done`, and `fail` arguments

@@ -36,7 +36,7 @@ $default-opacity: .5 !default;
 $disabled-opacity: $default-opacity !default;
 $default-transition: .3s !default;
 
-$bem-element-separator: "__" !default;
+$bem-element-separator: "-" !default;
 $bem-modifier-separator: "--" !default;
 
 //-------------------- Spacing --------------------//
@@ -117,7 +117,7 @@ $breakpoint-range-xlarge: (1681px, null) !default;
 
 //-------------------- Accordion --------------------//
 
-$accordion-class: "." + $vendor-prefix + "accordion" !default;
+$accordion-class: class-name("accordion") !default;
 $accordion-class-header: bem($accordion-class, "header") !default;
 $accordion-class-section: bem($accordion-class, "section") !default;
 $accordion-class-body: bem($accordion-class, "body") !default;
@@ -126,18 +126,22 @@ $accordion-transition: $default-transition !default;
 
 //-------------------- Blackout --------------------//
 
-$blackout-class: "." + $vendor-prefix + "blackout" !default;
+$blackout-class: class-name("blackout") !default;
 
 $blackout-transition: $default-transition !default;
 $blackout-opacity: .85 !default;
 
 //-------------------- Breadcrumb --------------------//
 
-$breadcrumb-class: "." + $vendor-prefix + "breadcrumb" !default;
+$breadcrumb-class: class-name("breadcrumb") !default;
 
 //-------------------- Button --------------------//
 
-$button-class: "." + $vendor-prefix + "button" !default;
+$button-class: class-name("button") !default;
+$button-class-modifier-gloss: bem($button-class, "", "gloss") !default;
+$button-class-modifier-reflect: bem($button-class, "", "reflect") !default;
+$button-class-modifier-glare: bem($button-class, "", "glare") !default;
+$button-class-modifier-popout: bem($button-class, "", "popout") !default;
 
 $button-modifiers: () !default; // Nothing by default
 
@@ -153,11 +157,11 @@ $button-effects: () !default; // Nothing by default
 
 //-------------------- Button Group --------------------//
 
-$buttonGroup-class: "." + $vendor-prefix + "button-group" !default;
+$buttonGroup-class: class-name("button-group") !default;
+$buttonGroup-class-modifier-vertical: bem($buttonGroup-class, "", "vertical") !default;
+$buttonGroup-class-modifier-justified: bem($buttonGroup-class, "", "justified") !default;
 
 $buttonGroup-modifiers: ("vertical", "justified") !default;
-$buttonGroup-modifier-vertical: "vertical" !default;
-$buttonGroup-modifier-justified: "justified" !default;
 
 @if ($enable-all-modifiers) {
     $buttonGroup-modifiers: ("vertical", "justified") !global;
@@ -171,15 +175,15 @@ $buttonGroup-effects: () !default; // Nothing by default
 
 //-------------------- Carousel --------------------//
 
-$carousel-class: "." + $vendor-prefix + "carousel" !default;
+$carousel-class: class-name("carousel") !default;
 $carousel-class-items: bem($carousel-class, "items") !default;
 $carousel-class-tabs: bem($carousel-class, "tabs") !default;
 $carousel-class-next: bem($carousel-class, "next") !default;
 $carousel-class-prev: bem($carousel-class, "prev") !default;
+$carousel-class-modifier-wide: bem($carousel-class, "", "wide") !default;
+$carousel-class-modifier-square: bem($carousel-class, "", "square") !default;
 
 $carousel-modifiers: ("wide", "square") !default;
-$carousel-modifier-wide: "wide" !default;
-$carousel-modifier-square: "square" !default;
 
 @if ($enable-all-modifiers) {
     $carousel-modifiers: ("wide", "square") !global;
@@ -190,19 +194,19 @@ $carousel-transition: 1s !default;
 
 //-------------------- Divider --------------------//
 
-$divider-class: "." + $vendor-prefix + "divider" !default;
+$divider-class: class-name("divider") !default;
 
 //-------------------- Drop --------------------//
 
-$drop-class: "." + $vendor-prefix + "drop" !default;
+$drop-class: class-name("drop") !default;
 $drop-class-divider: bem($drop-class, "divider") !default;
 $drop-class-heading: bem($drop-class, "heading") !default;
+$drop-class-modifier-down: bem($drop-class, "", "down") !default;
+$drop-class-modifier-up: bem($drop-class, "", "up") !default;
+$drop-class-modifier-left: bem($drop-class, "", "left") !default;
+$drop-class-modifier-right: bem($drop-class, "", "right") !default;
 
 $drop-modifiers: ("down", "up", "left", "right") !default;
-$drop-modifier-down: "down" !default;
-$drop-modifier-up: "up" !default;
-$drop-modifier-left: "left" !default;
-$drop-modifier-right: "right" !default;
 
 @if ($enable-all-modifiers) {
     $drop-modifiers: ("down", "up", "left", "right") !global;
@@ -212,28 +216,28 @@ $drop-transition: $default-transition !default;
 
 //-------------------- Flyout --------------------//
 
-$flyout-class: "." + $vendor-prefix + "flyout" !default;
+$flyout-class: class-name("flyout") !default;
 $flyout-class-heading: bem($flyout-class, "heading") !default;
 
 $flyout-transition: $default-transition !default;
 
 //-------------------- Form --------------------//
 
-$form-class: "." + $vendor-prefix + "form" !default;
+$form-class: class-name("form") !default;
 $form-class-actions: bem($form-class, "actions") !default;
-$form-class-input: "." + $vendor-prefix + "input" !default;
+$form-class-input: class-name("input") !default;
 $form-class-input-static: bem($form-class-input, "static") !default;
 $form-class-input-radio: bem($form-class-input, "radio") !default;
 $form-class-input-checkbox: bem($form-class-input, "checkbox") !default;
-$form-class-fields: "." + $vendor-prefix + "fields" !default;
-$form-class-field: "." + $vendor-prefix + "field" !default;
+$form-class-fields: class-name("fields") !default;
+$form-class-field: class-name("field") !default;
 $form-class-field-help: bem($form-class-field, "help") !default;
 $form-class-field-label: bem($form-class-field, "label") !default;
 $form-class-field-column: bem($form-class-field, "col") !default;
+$form-class-modifier-inline: bem($form-class-field, "", "inline") !default;
+$form-class-modifier-horizontal: bem($form-class-field, "", "horizontal") !default;
 
 $form-modifiers: ("inline", "horizontal") !default;
-$form-modifier-inline: "inline" !default;
-$form-modifier-horizontal: "horizontal" !default;
 
 @if ($enable-all-modifiers) {
     $form-modifiers: ("inline", "horizontal") !global;
@@ -241,9 +245,9 @@ $form-modifier-horizontal: "horizontal" !default;
 
 //-------------------- Grid --------------------//
 
-$grid-class: "." + $vendor-prefix + "grid" !default;
-$grid-class-column: ".col" !default;
-$grid-class-end: ".end" !default;
+$grid-class: class-name("grid") !default;
+$grid-class-column: class-name("col", "") !default;
+$grid-class-end: class-name("end", "") !default;
 
 $grid-columns-xsmall: 6 !default;
 $grid-columns-small: 12 !default;
@@ -265,7 +269,12 @@ $grid-sizes: (
 
 //-------------------- Icon --------------------//
 
-$icon-class-name: ".icon" !default;
+$icon-class: class-name("icon", "") !default;
+$icon-class-modifier-90deg: bem($icon-class, "", "90deg") !default;
+$icon-class-modifier-180deg: bem($icon-class, "", "180deg") !default;
+$icon-class-modifier-270deg: bem($icon-class, "", "270deg") !default;
+$icon-class-modifier-flip: bem($icon-class, "", "flip") !default;
+$icon-class-modifier-flip-vert: bem($icon-class, "", "flip-vert") !default;
 
 $icon-sizes: (12, 16, 24, 32, 64) !default;
 
@@ -277,29 +286,29 @@ $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !default;
 
 //-------------------- Input --------------------//
 
-$input-class: "." + $vendor-prefix + "custom-input" !default;
-$input-class-checkbox: "." + $vendor-prefix + "checkbox" !default;
-$input-class-radio: "." + $vendor-prefix + "radio" !default;
-$input-class-select: "." + $vendor-prefix + "select" !default;
+$input-class: class-name("custom-input") !default;
+$input-class-checkbox: class-name("checkbox") !default;
+$input-class-radio: class-name("radio") !default;
+$input-class-select: class-name("select") !default;
 $input-class-select-label: bem($input-class-select, "label") !default;
 $input-class-select-arrow: bem($input-class-select, "arrow") !default;
 $input-class-select-options: bem($input-class-select, "options") !default;
 
 //-------------------- Input Group --------------------//
 
-$inputGroup-class: "." + $vendor-prefix + "input-group" !default;
-$inputGroup-class-addon: "." + $vendor-prefix + "input-addon" !default;
+$inputGroup-class: class-name("input-group") !default;
+$inputGroup-class-addon: class-name("input-addon") !default;
 
 //-------------------- Label --------------------//
 
-$label-class: "." + $vendor-prefix + "label" !default;
+$label-class: class-name("label") !default;
+$label-class-modifier-badge: bem($label-class, "", "badge") !default;
+$label-class-modifier-ribbon-left: bem($label-class, "", "ribbon-left") !default;
+$label-class-modifier-ribbon-right: bem($label-class, "", "ribbon-right") !default;
+$label-class-modifier-arrow-left: bem($label-class, "", "arrow-left") !default;
+$label-class-modifier-arrow-right: bem($label-class, "", "arrow-right") !default;
 
 $label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !default;
-$label-modifier-badge: "badge" !default;
-$label-modifier-ribbon-left: "ribbon-left" !default;
-$label-modifier-ribbon-right: "ribbon-right" !default;
-$label-modifier-arrow-left: "arrow-left" !default;
-$label-modifier-arrow-right: "arrow-right" !default;
 
 @if ($enable-all-modifiers) {
     $label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !global;
@@ -307,13 +316,13 @@ $label-modifier-arrow-right: "arrow-right" !default;
 
 //-------------------- Lazy Load --------------------//
 
-$lazyLoad-class: "." + $vendor-prefix + "lazy-load" !default;
+$lazyLoad-class: class-name("lazy-load") !default;
 
 $lazyLoad-transition: $default-transition !default;
 
 //-------------------- Loader --------------------//
 
-$loader-class: "." + $vendor-prefix + "loader" !default;
+$loader-class: class-name("loader") !default;
 $loader-class-message: bem($loader-class, "message") !default;
 $loader-class-spinner: bem($loader-class, "spinner") !default;
 
@@ -326,7 +335,7 @@ $loader-bubble-size: 1.5rem !default;
 
 //-------------------- Mask --------------------//
 
-$mask-class: "." + $vendor-prefix + "mask" !default;
+$mask-class: class-name("mask") !default;
 $mask-class-message: bem($mask-class, "message") !default;
 $mask-class-target: ".is-maskable" !default;
 
@@ -335,13 +344,13 @@ $mask-transition: $default-transition !default;
 
 //-------------------- Matrix --------------------//
 
-$matrix-class: "." + $vendor-prefix + "matrix" !default;
+$matrix-class: class-name("matrix") !default;
 
 $matrix-transition: $default-transition !default;
 
 //-------------------- Modal --------------------//
 
-$modal-class: "." + $vendor-prefix + "modal" !default;
+$modal-class: class-name("modal") !default;
 $modal-class-close: bem($modal-class, "close") !default;
 $modal-class-outer: bem($modal-class, "outer") !default;
 $modal-class-inner: bem($modal-class, "inner") !default;
@@ -360,24 +369,23 @@ $modal-transition: $default-transition !default;
 
 //-------------------- Notice --------------------//
 
-$notice-class: "." + $vendor-prefix + "notice" !default;
+$notice-class: class-name("notice") !default;
 $notice-class-close: bem($notice-class, "close") !default;
 $notice-class-title: bem($notice-class, "title") !default;
 
 //-------------------- Off Canvas --------------------//
 
-$offCanvas-class: "." + $vendor-prefix + "off-canvas" !default;
-$offCanvas-class-content: "." + $vendor-prefix + "on-canvas" !default;
-$offCanvas-class-wrapper: "." + $vendor-prefix + "canvas" !default;
+$offCanvas-class: class-name("off-canvas") !default;
+$offCanvas-class-content: class-name("on-canvas") !default;
+$offCanvas-class-wrapper: class-name("canvas") !default;
+$offCanvas-class-modifier-left: bem($offCanvas-class, "", "left") !default;
+$offCanvas-class-modifier-right: bem($offCanvas-class, "", "right") !default;
 
 $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !default;
 
 @if ($enable-all-animations) {
     $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !global;
 }
-
-$offCanvas-modifier-left: "left" !default;
-$offCanvas-modifier-right: "right" !default;
 
 $offCanvas-left-width: 20% !default;
 $offCanvas-right-width: 20% !default;
@@ -388,10 +396,10 @@ $offCanvas-transition: .5s !default;
 
 //-------------------- Pagination --------------------//
 
-$pagination-class: "." + $vendor-prefix + "pagination" !default;
+$pagination-class: class-name("pagination") !default;
+$pagination-class-modifier-grouped: bem($pagination-class, "", "grouped") !default;
 
 $pagination-modifiers: ("grouped") !default;
-$pagination-modifier-grouped: "grouped" !default;
 
 @if ($enable-all-modifiers) {
     $pagination-modifiers: ("grouped") !global;
@@ -405,13 +413,13 @@ $pagination-effects: () !default; // Nothing by default
 
 //-------------------- Pin --------------------//
 
-$pin-class: "." + $vendor-prefix + "pin" !default;
+$pin-class: class-name("pin") !default;
 
 $pin-transition: .2s !default;
 
 //-------------------- Popover --------------------//
 
-$popover-class: "." + $vendor-prefix + "popover" !default;
+$popover-class: class-name("popover") !default;
 $popover-class-head: bem($popover-class, "head") !default;
 $popover-class-body: bem($popover-class, "body") !default;
 $popover-class-arrow: bem($popover-class, "arrow") !default;
@@ -426,7 +434,7 @@ $popover-arrow-width: 8 !default;
 
 //-------------------- Progress --------------------//
 
-$progress-class: "." + $vendor-prefix + "progress" !default;
+$progress-class: class-name("progress") !default;
 $progress-class-bar: bem($progress-class, "bar") !default;
 
 $progress-transition: .5s !default;
@@ -443,7 +451,7 @@ $responsive-design: "mobile" !default; // mobile, desktop
 
 //-------------------- Showcase --------------------//
 
-$showcase-class: "." + $vendor-prefix + "showcase" !default;
+$showcase-class: class-name("showcase") !default;
 $showcase-class-inner: bem($showcase-class, "inner") !default;
 $showcase-class-items: bem($showcase-class, "items") !default;
 $showcase-class-close: bem($showcase-class, "close") !default;
@@ -457,23 +465,21 @@ $showcase-transition: $default-transition !default;
 
 //-------------------- Step --------------------//
 
-$step-class: "." + $vendor-prefix + "step" !default;
-$step-class-wrapper: "." + $vendor-prefix + "steps" !default;
+$step-class: class-name("step") !default;
+$step-class-wrapper: class-name("steps") !default;
 
 //-------------------- Switch --------------------//
 
-$switch-class: "." + $vendor-prefix + "switch" !default;
+$switch-class: class-name("switch") !default;
 $switch-class-bar: bem($switch-class, "bar") !default;
 $switch-class-toggle: bem($switch-class, "toggle") !default;
+$switch-class-modifier-stacked: bem($switch-class, "", "stacked") !default;
 
 $switch-modifiers: ("stacked") !default;
-$switch-modifier-stacked: "stacked" !default;
 
 @if ($enable-all-modifiers) {
     $switch-modifiers: ("stacked") !global;
 }
-
-$switch-transition: $default-transition !default;
 
 $switch-effects: ("pill") !default;
 
@@ -481,14 +487,16 @@ $switch-effects: ("pill") !default;
     $switch-effects: ("pill") !global;
 }
 
+$switch-transition: $default-transition !default;
+
 //-------------------- Tab --------------------//
 
-$tab-class: "." + $vendor-prefix + "tabs" !default;
-$tab-class-nav: bem("." + $vendor-prefix + "tab", "nav") !default;
-$tab-class-section: bem("." + $vendor-prefix + "tab", "section") !default;
+$tab-class: class-name("tabs") !default;
+$tab-class-nav: bem(class-name("tab"), "nav") !default;
+$tab-class-section: bem(class-name("tab"), "section") !default;
+$tab-class-modifier-horizontal: bem($tab-class, "", "horizontal") !default;
 
 $tab-modifiers: ("horizontal") !default;
-$tab-modifier-horizontal: "horizontal" !default;
 
 @if ($enable-all-modifiers) {
     $tab-modifiers: ("horizontal") !global;
@@ -496,14 +504,14 @@ $tab-modifier-horizontal: "horizontal" !default;
 
 //-------------------- Table --------------------//
 
-$table-class: "." + $vendor-prefix + "table" !default;
+$table-class: class-name("table") !default;
 $table-class-divider: bem($table-class, "divider") !default;
 $table-class-responsive: bem($table-class, "responsive") !default;
 
 //-------------------- Toast --------------------//
 
-$toast-class: "." + $vendor-prefix + "toast" !default;
-$toast-class-wrapper: "." + $vendor-prefix + "toasts" !default;
+$toast-class: class-name("toast") !default;
+$toast-class-wrapper: class-name("toasts") !default;
 
 $toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
 
@@ -516,7 +524,7 @@ $toast-transition: $default-transition !default;
 
 //-------------------- Tooltip --------------------//
 
-$tooltip-class: "." + $vendor-prefix + "tooltip" !default;
+$tooltip-class: class-name("tooltip") !default;
 $tooltip-class-head: bem($tooltip-class, "head") !default;
 $tooltip-class-body: bem($tooltip-class, "body") !default;
 $tooltip-class-arrow: bem($tooltip-class, "arrow") !default;
@@ -526,7 +534,7 @@ $tooltip-transition: .15s !default;
 
 //-------------------- Type Ahead --------------------//
 
-$typeAhead-class: "." + $vendor-prefix + "type-ahead" !default;
+$typeAhead-class: class-name("type-ahead") !default;
 $typeAhead-class-heading: bem($typeAhead-class, "heading") !default;
 $typeAhead-class-highlight: bem($typeAhead-class, "highlight") !default;
 $typeAhead-class-description: bem($typeAhead-class, "desc") !default;

@@ -241,6 +241,16 @@ may be helpful.
             <td>CSS class name for the form actions (submit buttons, ec) wrapper.</td>
         </tr>
         <tr>
+            <td>$form-class-modifier-inline</td>
+            <td>.form--inline</td>
+            <td>Name of the inline modifier to append to form classes.</td>
+        </tr>
+        <tr>
+            <td>$form-class-modifier-horizontal</td>
+            <td>.form--horizontal</td>
+            <td>Name of the horizontal modifier to append to form classes.</td>
+        </tr>
+        <tr>
             <td>$form-class-input</td>
             <td>.input</td>
             <td>CSS class name for the input, select, and textarea elements.</td>
@@ -289,16 +299,6 @@ may be helpful.
             <td>$form-modifiers</td>
             <td>("inline", "horizontal")</td>
             <td>List of modifiers to include in the CSS output. Accepts inline and horizontal.</td>
-        </tr>
-        <tr>
-            <td>$form-modifier-inline</td>
-            <td>inline</td>
-            <td>Name of the inline modifier to append to form classes.</td>
-        </tr>
-        <tr>
-            <td>$form-modifier-horizontal</td>
-            <td>horizontal</td>
-            <td>Name of the horizontal modifier to append to form classes.</td>
         </tr>
     </tbody>
 </table>

@@ -173,29 +173,29 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
             <td>CSS class name for the drop heading element.</td>
         </tr>
         <tr>
-            <td>$drop-modifiers</td>
-            <td>("down", "up", "left", "right")</td>
-            <td>List of modifiers to include in the CSS output. Accepts down, up, left, and right.</td>
-        </tr>
-        <tr>
-            <td>$drop-modifier-down</td>
-            <td>down</td>
+            <td>$drop-class-modifier-down</td>
+            <td>.drop--down</td>
             <td>Name of the down modifier to append to drop classes.</td>
         </tr>
         <tr>
-            <td>$drop-modifier-up</td>
-            <td>up</td>
+            <td>$drop-class-modifier-up</td>
+            <td>.drop--up</td>
             <td>Name of the up modifier to append to drop classes.</td>
         </tr>
         <tr>
-            <td>$drop-modifier-left</td>
-            <td>left</td>
+            <td>$drop-class-modifier-left</td>
+            <td>.drop--left</td>
             <td>Name of the left modifier to append to drop classes.</td>
         </tr>
         <tr>
-            <td>$drop-modifier-right</td>
-            <td>right</td>
+            <td>$drop-class-modifier-right</td>
+            <td>.drop--right</td>
             <td>Name of the right modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifiers</td>
+            <td>("down", "up", "left", "right")</td>
+            <td>List of modifiers to include in the CSS output. Accepts down, up, left, and right.</td>
         </tr>
         <tr>
             <td>$drop-transition</td>

@@ -125,7 +125,7 @@
 //-------------------- Modifiers --------------------//
 
 @if index($switch-modifiers, "stacked") {
-    #{bem($switch-class, "", $switch-modifier-stacked)} {
+    #{$switch-class-modifier-stacked} {
         #{$switch-class-bar} {
             &::before,
             &::after {
