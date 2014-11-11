@@ -46,15 +46,15 @@ Toolkit.Tooltip = Toolkit.Component.extend({
         });
 
         // Initialize events
-        this.events = {
-            '{mode} document {selector}': 'onShowToggle'
-        };
+        this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
 
         if (options.mode === 'click') {
-            this.events['clickout element'] = 'hide';
-            this.events['clickout document {selector}'] = 'hide';
+            this.addEvents([
+                ['clickout', 'element', 'hide'],
+                ['clickout', 'document', 'hide', '{selector}']
+            ]);
         } else {
-            this.events['mouseleave document {selector}'] = 'hide';
+            this.addEvent('mouseleave', 'document', 'hide', '{selector}');
         }
 
         this.initialize();

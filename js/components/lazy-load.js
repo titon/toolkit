@@ -33,13 +33,14 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
             this.container = container;
         }
 
-        var callback = $.throttle(this.load, options.throttle);
+        var callback = $.throttle(this.load.bind(this), options.throttle);
 
-        this.events = {
-            'scroll container': callback,
-            'resize window': callback,
-            'ready document': 'onReady'
-        };
+        // Set events
+        this.addEvents([
+            ['scroll', 'container', callback],
+            ['resize', 'window', callback],
+            ['ready', 'document', 'onReady']
+        ]);
 
         this.initialize();
     },

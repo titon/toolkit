@@ -47,15 +47,15 @@ Toolkit.Modal = Toolkit.Component.extend({
         }
 
         // Initialize events
-        this.events = {
-            'keydown window': 'onKeydown',
-            'clickout element': 'onHide',
-            'clickout document {selector}': 'onHide',
-            'click document {selector}': 'onShow',
-            'click element': 'onHide',
-            'click element [data-modal-close]': 'hide',
-            'click element [data-modal-submit]': 'onSubmit'
-        };
+        this.addEvents([
+            ['keydown', 'window', 'onKeydown'],
+            ['clickout', 'element', 'onHide'],
+            ['clickout', 'document', 'onHide', '{selector}'],
+            ['click', 'document', 'onShow', '{selector}'],
+            ['click', 'element', 'onHide'],
+            ['click', 'element', 'hide', this.ns('close')],
+            ['click', 'element', 'onSubmit', this.ns('submit')]
+        ]);
 
         this.initialize();
     },

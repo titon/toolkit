@@ -116,11 +116,11 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
             });
 
         // Initialize events
-        this.events = {
-            'keyup input': 'onLookup',
-            'keydown input': 'onCycle',
-            'clickout element': 'hide'
-        };
+        this.addEvents([
+            ['keyup', 'input', 'onLookup'],
+            ['keydown', 'input', 'onCycle'],
+            ['clickout', 'element', 'hide']
+        ]);
 
         this.initialize();
     },

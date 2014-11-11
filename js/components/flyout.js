@@ -36,10 +36,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
         this.options = options = this.setOptions(options);
 
         if (options.mode === 'click') {
-            this.events['click document {selector}'] = 'onShowToggle';
+            this.addEvent('click', 'document', 'onShowToggle', '{selector}');
         } else {
-            this.events['mouseenter document {selector}'] = ['onShowToggle', 'onEnter'];
-            this.events['mouseleave document {selector}'] = 'onLeave';
+            this.addEvents([
+                ['mouseenter', 'document', 'onShowToggle', '{selector}'],
+                ['mouseenter', 'document', 'onEnter', '{selector}'],
+                ['mouseleave', 'document', 'onLeave', '{selector}']
+            ]);
         }
 
         this.initialize();

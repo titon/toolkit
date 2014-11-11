@@ -206,8 +206,6 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @param {Object} [options]
      */
     constructor: function(select, options) {
-        var events = {};
-
         this.element = select = $(select);
         this.options = options = this.setOptions(options, select);
         this.multiple = select.prop('multiple');
@@ -224,15 +222,17 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.input = this._buildButton();
 
         // Initialize events
-        events['change element'] = 'onChange';
+        this.addEvent('change', 'element', 'onChange');
 
         if (!options.native) {
-            events['blur element'] = 'hide';
-            events['clickout dropdown'] = 'hide';
-            events['click input'] = 'onToggle';
+            this.addEvents([
+                ['blur', 'element', 'hide'],
+                ['clickout', 'dropdown', 'hide'],
+                ['click', 'input', 'onToggle']
+            ]);
 
             if (!this.multiple) {
-                events['keydown window'] = 'onCycle';
+                this.addEvent('keydown', 'window', 'onCycle');
             }
 
             // Build custom dropdown when not in native
@@ -242,8 +242,6 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             // So place it below .custom-input
             this.element.css('z-index', 1);
         }
-
-        this.events = events;
 
         this.initialize();
 

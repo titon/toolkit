@@ -93,30 +93,30 @@ Toolkit.Carousel = Toolkit.Component.extend({
             });
 
         // Set events
-        this.events = {
-            'resize window': $.throttle(this.calculate, 50),
-            'keydown window': 'onKeydown',
-            'click element [data-carousel-tabs] a': 'onJump',
-            'click element [data-carousel-next]': 'next',
-            'click element [data-carousel-prev]': 'prev',
-            'click element [data-carousel-start]': 'start',
-            'click element [data-carousel-stop]': 'stop'
-        };
+        this.addEvents([
+            ['resize', 'window', $.throttle(this.calculate.bind(this), 50)],
+            ['keydown', 'window', 'onKeydown'],
+            ['click', 'element', 'onJump', this.ns('tabs') + ' a'],
+            ['click', 'element', 'next', this.ns('next')],
+            ['click', 'element', 'prev', this.ns('prev')],
+            ['click', 'element', 'start', this.ns('start')],
+            ['click', 'element', 'stop', this.ns('stop')]
+        ]);
 
         if (options.swipe) {
-            $.extend(this.events, {
-                'swipeleft element': 'next',
-                'swipeup element': 'next',
-                'swiperight element': 'prev',
-                'swipedown element': 'prev'
-            });
+            this.addEvents([
+                ['swipeleft', 'element', 'next'],
+                ['swipeup', 'element', 'next'],
+                ['swiperight', 'element', 'prev'],
+                ['swipedown', 'element', 'prev']
+            ]);
         }
 
         if (options.stopOnHover) {
-            $.extend(this.events, {
-                'mouseenter element': 'stop',
-                'mouseleave element': 'start'
-            });
+            this.addEvents([
+                ['mouseenter', 'element', 'stop'],
+                ['mouseleave', 'element', 'start']
+            ]);
         }
 
         // Initialize

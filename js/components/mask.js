@@ -46,7 +46,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         this.setMask(mask);
 
         if (options.selector) {
-            this.events['click document ' + options.selector] = 'toggle';
+            this.addEvent('click', 'document', 'toggle', options.selector);
         }
 
         this.initialize();

@@ -40,10 +40,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
         this.element = this.setElement(element);
         this.options = this.setOptions(options, this.element);
 
-        // Initialize events
-        this.events = {
-            'resize window': $.debounce(this.onResize)
-        };
+        // Set events
+        this.addEvent('resize', 'window', $.debounce(this.onResize.bind(this)));
 
         this.initialize();
 

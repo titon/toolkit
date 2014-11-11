@@ -57,9 +57,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         });
 
         // Set events
-        this.events = {
-            '{mode} element [data-accordion-header]': 'onShow'
-        };
+        this.addEvent('{mode}', 'element', 'onShow', this.ns('header'));
 
         // Initialize
         this.initialize();

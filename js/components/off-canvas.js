@@ -36,7 +36,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         this.element = element = this.setElement(element).attr('role', 'complementary').conceal();
         this.options = options = this.setOptions(options, element);
 
-        var events = {}, animation = options.animation;
+        var animation = options.animation;
 
         // Touch devices cannot use squish
         if (Toolkit.isTouch && animation === 'squish') {
@@ -58,24 +58,28 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         this.opposite = (this.side === 'left') ? 'right' : 'left';
 
         // Initialize events
-        events['ready document'] = 'onReady';
-        events['resize window'] = 'onResize';
+        this.addEvent([
+            ['ready', 'document', 'onReady'],
+            ['resize', 'window', 'onResize']
+        ]);
 
         if (options.swipe) {
             if (this.side === 'left') {
-                events['swipeleft element'] = 'hide';
-                events['swiperight container'] = 'onSwipe';
+                this.addEvent([
+                    ['swipeleft', 'element', 'hide'],
+                    ['swiperight', 'container', 'onSwipe']
+                ]);
             } else {
-                events['swipeleft container'] = 'onSwipe';
-                events['swiperight element'] = 'hide';
+                this.addEvent([
+                    ['swipeleft', 'container', 'onSwipe'],
+                    ['swiperight', 'element', 'hide']
+                ]);
             }
         }
 
         if (options.selector) {
-            events['click document ' + options.selector] = 'toggle';
+            this.addEvent('click', 'document', 'toggle', options.selector);
         }
-
-        this.events = events;
 
         this.initialize();
     },

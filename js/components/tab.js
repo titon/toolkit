@@ -69,14 +69,12 @@ Toolkit.Tab = Toolkit.Component.extend({
         });
 
         // Initialize events
-        this.events = {
-            '{mode} element [data-tab-nav] a': 'onShow'
-        };
+        this.addEvent('{mode}', 'element', 'onShow', this.ns('nav') + ' a');
 
         if (options.mode !== 'click' && options.preventDefault) {
-            this.events['click element [data-tab-nav] a'] = function(e) {
+            this.addEvent('click', 'element', function(e) {
                 e.preventDefault();
-            };
+            }, this.ns('nav') + ' a');
         }
 
         this.initialize();

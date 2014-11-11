@@ -351,7 +351,7 @@ Toolkit.Component = Toolkit.Base.extend({
         element = $(element);
 
         // Find a namespace
-        this.namespace = element.data(this.keyName);
+        this.namespace = element.data(this.keyName) || null;
 
         return element;
     },
