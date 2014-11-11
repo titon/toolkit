@@ -4,7 +4,7 @@ Divides content into multiple pages through a list of numerical links.
 
 ## Usage ##
 
-The pagination markup makes use of `nav`, `ul`, and `ol` elements for semantic structuring.
+The pagination markup makes use of `nav` and `ol` elements for semantic structuring.
 Each link within the pagination should point to a specific page for the list of results.
 
 ```html

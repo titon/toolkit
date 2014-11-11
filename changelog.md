@@ -130,6 +130,8 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.on-canvas`, `.off-canvas` to `[data-offcanvas-content]`, `[data-offcanvas-sidebar]`
         * Updated so that `[data-offcanvas-sidebar]` defines the default side orientation
         * Updated to no longer automatically set `.off-canvas` on the sidebar
+    * Pagination
+        * Updated to only support `ol` lists
     * Pin
         * Updated to no longer automatically set `.pin` on the element
     * Popover
