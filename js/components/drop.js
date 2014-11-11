@@ -35,7 +35,7 @@ Toolkit.Drop = Toolkit.Component.extend({
         this.hide();
 
         // Hide all other menus as well
-        $('[data-drop-menu]').conceal();
+        $(this.ns('menu')).conceal();
     },
 
     /**

@@ -391,7 +391,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children('[data-flyout-menu]')
+        parent.children(this.ns('menu'))
             .removeAttr('style')
             .aria({
                 expanded: false,
@@ -418,7 +418,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children('[data-flyout-menu]');
+        var menu = parent.children(this.ns('menu'));
 
         if (!menu) {
             return;

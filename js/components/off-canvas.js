@@ -33,7 +33,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element).attr('role', 'complementary').conceal();
+        this.element = element = this.setElement(element).attr('role', 'complementary').conceal();
         this.options = options = this.setOptions(options, element);
 
         var events = {}, animation = options.animation;

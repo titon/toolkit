@@ -52,7 +52,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     constructor: function(element, options) {
         var items, self = this;
 
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         // Set animation and ARIA
@@ -61,7 +61,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             .addClass(options.animation);
 
         // Find the item container and disable transitions for initial load
-        this.container = element.find('[data-carousel-items]')
+        this.container = element.find(this.ns('items'))
             .addClass('no-transition');
 
         // Find all the items and set ARIA attributes
@@ -76,7 +76,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         });
 
         // Find all tabs and set ARIA attributes
-        this.tabs = element.find('[data-carousel-tabs]')
+        this.tabs = element.find(this.ns('tabs'))
             .attr('role', 'tablist')
             .find('a').each(function(index) {
                 $(this)

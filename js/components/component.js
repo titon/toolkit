@@ -20,6 +20,9 @@ Toolkit.Component = Toolkit.Base.extend({
     /** Collection of elements related to the component. */
     elements: [],
 
+    /** The namespace to find children elements in. */
+    namespace: '',
+
     /** The element that activated the component. */
     node: null,
 
@@ -33,8 +36,8 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
-        this.options = this.setOptions(options, element);
+        this.element = this.setElement(element);
+        this.options = this.setOptions(options, this.element);
     },
 
     /**
@@ -207,6 +210,27 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Generate a valid data attribute selector based on the current component name and namespace.
+     *
+     * @param {String} [element]
+     * @param {String} [block]
+     * @returns {string}
+     */
+    ns: function(element, block) {
+        var selector = 'data-' + (block || this.keyName);
+
+        if (element) {
+            selector += '-' + element;
+        }
+
+        if (this.namespace) {
+            selector += '="' + this.namespace + '"';
+        }
+
+        return '[' + selector + ']';
+    },
+
+    /**
      * Handle and process HTML responses.
      *
      * @param {*} content
@@ -315,6 +339,21 @@ Toolkit.Component = Toolkit.Base.extend({
         return $.ajax(ajax)
             .done(this.onRequestDone)
             .fail(this.onRequestFail);
+    },
+
+    /**
+     * Set the component element and extract the optional namespace.
+     *
+     * @param {*} element
+     * @returns {jQuery}
+     */
+    setElement: function(element) {
+        element = $(element);
+
+        // Find a namespace
+        this.namespace = element.data(this.keyName);
+
+        return element;
     },
 
     /**

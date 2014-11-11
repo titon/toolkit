@@ -24,7 +24,7 @@ Toolkit.Input = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         if (options.checkbox) {
@@ -275,7 +275,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.fireEvent('showing');
 
         if (this.options.hideOpened) {
-            $('[data-select-options]').each(function() {
+            $(this.ns('options', 'select')).each(function() {
                 $(this).siblings('select').toolkit('inputSelect', 'hide');
             });
         }
@@ -295,8 +295,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildButton: function() {
         var options = this.options,
             button = $(options.selectTemplate)
-                .find('[data-select-arrow]').html(options.arrowTemplate).end()
-                .find('[data-select-label]').html(Toolkit.messages.loading).end()
+                .find(this.ns('arrow', 'select')).html(options.arrowTemplate).end()
+                .find(this.ns('label', 'select')).html(Toolkit.messages.loading).end()
                 .css('min-width', this.element.width())
                 .insertAfter(this.element);
 
@@ -549,7 +549,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         // Set the label
         select.parent()
-            .find('[data-select-label]')
+            .find(this.ns('label', 'select'))
                 .text(label);
 
         this.fireEvent('change', [select.val(), selected]);

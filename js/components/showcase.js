@@ -50,13 +50,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.nodes = $(nodes);
 
         // The wrapping items element
-        this.items = element.find('[data-showcase-items]');
+        this.items = element.find(this.ns('items'));
 
         // The wrapping tabs element
-        this.tabs = element.find('[data-showcase-tabs]');
+        this.tabs = element.find(this.ns('tabs'));
 
         // The caption element
-        this.caption = element.find('[data-showcase-caption]');
+        this.caption = element.find(this.ns('caption'));
 
         // Blackout element if enabled
         if (options.blackout) {

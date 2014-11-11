@@ -37,8 +37,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
-        this.options = this.setOptions(options, element);
+        this.element = this.setElement(element);
+        this.options = this.setOptions(options, this.element);
 
         // Initialize events
         this.events = {

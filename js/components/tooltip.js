@@ -24,7 +24,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element, key = this.keyName;
+        var element;
 
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement()
@@ -33,12 +33,12 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Remove title attributes
         if (options.getTitle === 'title') {
-            options.getTitle = 'data-' + key + '-title';
+            options.getTitle = 'data-' + this.keyName + '-title';
         }
 
         // Elements for the title and content
-        this.elementHead = element.find('[data-' + key + '-header]');
-        this.elementBody = element.find('[data-' + key + '-content]');
+        this.elementHead = element.find(this.ns('header'));
+        this.elementBody = element.find(this.ns('content'));
 
         // Nodes found in the page on initialization, remove title attribute
         this.nodes = $(nodes).each(function(i, node) {

@@ -22,7 +22,7 @@ Toolkit.Mask = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         // Add class and set relative positioning
@@ -37,7 +37,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         }
 
         // Find a mask or create it
-        var mask = element.find('> [data-mask]');
+        var mask = element.find('> ' + this.ns());
 
         if (!mask.length) {
             mask = $(options.template);
@@ -99,7 +99,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         this.mask = mask;
 
         // Create message if it does not exist
-        message = mask.find('[data-mask-message]');
+        message = mask.find(this.ns('message'));
 
         if (!message.length && options.messageContent) {
             message = $(options.messageTemplate)
