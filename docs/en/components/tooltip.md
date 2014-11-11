@@ -37,7 +37,7 @@ relative to. If no element is passed, the last element hovered will be used. The
 are the custom content and title respectively.
 
 ```javascript
-$('#button').toolkit('tooltip', 'show', [null, 'Custom content', 'Custom title']);
+$('#button').toolkit('tooltip', 'show', [null, 'Custom content']);
 ```
 
 If we want to update the node and then trigger the tooltip, something like the following can be used.
@@ -324,10 +324,10 @@ Inherits all methods from the [parent Component](component.md#methods).
             <td></td>
         </tr>
         <tr>
-            <td>show([element:node[, string:content[, string:title]]])</td>
+            <td>show([element:node[, string:content]])</td>
             <td>
                 Display the tooltip relative to the node. If no node is passed, will use the last node.
-                If no content or title is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
+                If no content is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
             </td>
             <td><code>selector</code></td>
         </tr>

@@ -142,13 +142,12 @@ Toolkit.Tab = Toolkit.Component.extend({
         var index = tab.data('tab-index'),
             section = this.sections.eq(index),
             options = this.options,
-            ajax = this.readOption(tab, 'ajax'),
             url = this.readValue(tab, this.readOption(tab, 'getUrl'));
 
         this.fireEvent('showing', [this.index]);
 
         // Load content with AJAX
-        if (ajax && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
+        if (this.readOption(tab, 'ajax') && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
             this.requestData(url, { section: section });
         }
 

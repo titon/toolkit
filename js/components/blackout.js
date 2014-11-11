@@ -4,6 +4,9 @@ define([
     '../flags/vendor'
 ], function($, Toolkit, vendor) {
 
+/** Has the blackout been created already? */
+var blackout = null;
+
 Toolkit.Blackout = Toolkit.Component.extend({
     name: 'Blackout',
     version: '1.4.0',
@@ -108,9 +111,6 @@ Toolkit.Blackout = Toolkit.Component.extend({
         '<div class="' + vendor + 'loader-message" data-loader-message></div>' +
     '</div>'
 });
-
-/** Has the blackout been created already? */
-var blackout = null;
 
 /**
  * Only one instance of Blackout should exist,

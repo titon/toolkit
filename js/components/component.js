@@ -175,6 +175,38 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Attempt to load content from different formats and set it using `position()`.
+     * If the content is an element ID (#hash), fetch the inner contents from the element.
+     * If the content is a string that looks like a URL, fetch the content using an AJAX request.
+     * If the content is a literal string, set it directly.
+     *
+     * @param {String} content
+     */
+    loadContent: function(content) {
+        var ajax = false;
+
+        // Load content from an element matching ID
+        if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+            content = $(content).html();
+
+        // Load content from an AJAX request
+        // Matches http://, https://, /url, and many others
+        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/?[\w\-\.\/]+$/i)) {
+            ajax = true;
+        }
+
+        if (this.cache[content]) {
+            this.position(this.cache[content]);
+
+        } else if (ajax) {
+            this.requestData(content);
+
+        } else {
+            this.position(content);
+        }
+    },
+
+    /**
      * Handle and process HTML responses.
      *
      * @param {*} content
@@ -250,7 +282,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
-     * @param {Object} params
+     * @param {Object} [params]
      * @returns {jQuery.ajax}
      */
     requestData: function(options, params) {

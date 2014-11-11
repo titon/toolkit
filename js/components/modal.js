@@ -112,33 +112,18 @@ Toolkit.Modal = Toolkit.Component.extend({
     },
 
     /**
-     * Show the modal with the specific content.
-     * If a node is passed, grab the modal AJAX URL or target element.
-     * If content is passed, display it immediately.
+     * Show the modal with the specified content.
      *
      * @param {jQuery} node
      * @param {String} [content]
      */
     show: function(node, content) {
-        var options = this.options,
-            ajax = options.ajax;
-
-        if (content) {
-            ajax = false;
-
-        } else if (node) {
+        if (node) {
             this.node = node = $(node);
 
-            ajax = this.readOption(node, 'ajax');
-            content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
-        }
-
-        if (!content) {
-            return;
-
-        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-            content = $(content).html();
-            ajax = false;
+            if (!content) {
+                content = this.readValue(node, this.readOption(node, 'getContent')) || node.attr('href');
+            }
         }
 
         // Show blackout if the element is hidden
@@ -147,19 +132,12 @@ Toolkit.Modal = Toolkit.Component.extend({
             this.blackout.show();
         }
 
-        if (options.stopScroll) {
+        // Restrict scrolling
+        if (this.options.stopScroll) {
             $('body').addClass('no-scroll');
         }
 
-        if (ajax) {
-            if (this.cache[content]) {
-                this.position(this.cache[content]);
-            } else {
-                this.requestData(content);
-            }
-        } else {
-            this.position(content);
-        }
+        this.loadContent(content);
     },
 
     /**

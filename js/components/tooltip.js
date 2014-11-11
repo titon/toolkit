@@ -100,9 +100,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
             .addClass(options.className);
 
         // Set ARIA
-        if (this.node) {
-            this.node.aria('describedby', this.id());
-        }
+        this.node.aria('describedby', this.id());
 
         // Set title
         title = title || this.readValue(this.node, options.getTitle);
@@ -166,43 +164,14 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      *
      * @param {jQuery} node
      * @param {String|jQuery} [content]
-     * @param {String|jQuery} [title]
      */
-    show: function(node, content, title) {
-        var options;
-
+    show: function(node, content) {
         this.reset();
 
-        if (node) {
-            this.node = node = $(node);
-            this.runtime = options = this.inheritOptions(this.options, node);
+        this.node = node = $(node);
+        this.runtime = this.inheritOptions(this.options, node);
 
-            content = content || this.readValue(node, options.getContent);
-        } else {
-            this.runtime = options = this.options;
-        }
-
-        if (!content) {
-            return;
-
-        } else if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-            content = $(content).html();
-            options.ajax = false;
-        }
-
-        if (options.ajax) {
-            if (this.cache[content]) {
-                this.position(this.cache[content], title);
-            } else {
-                if (options.showLoading) {
-                    this.position(Toolkit.messages.loading);
-                }
-
-                this.requestData(content);
-            }
-        } else {
-            this.position(content, title);
-        }
+        this.loadContent(content || this.readValue(node, this.runtime.getContent));
     },
 
     /**
@@ -220,6 +189,17 @@ Toolkit.Tooltip = Toolkit.Component.extend({
             left: options.xOffset,
             top: options.yOffset
         }, true).reveal();
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    onRequestBefore: function(xhr) {
+        Toolkit.Component.prototype.onRequestBefore.call(this, xhr);
+
+        if (this.options.showLoading) {
+            this.position(Toolkit.messages.loading);
+        }
     }
 
 }, {

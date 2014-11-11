@@ -173,6 +173,14 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             <td>Inherit and merge options from the target elements data attributes.</td>
         </tr>
         <tr>
+            <td>loadContent(string:content)</td>
+            <td>
+                Attempts to load content and then <code>position()</code> it.
+                If the content is a URL, request it. If the content is an ID, fetch it. 
+                If the content is a literal string, use it.
+            </td>
+        </tr>
+        <tr>
             <td>position(string:response)</td>
             <td>Handles HTML AJAX responses. Will re-position the element depending on the component.</td>
         </tr>
