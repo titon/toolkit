@@ -146,7 +146,11 @@ To inherit the group options, set a group data attribute on the element in the f
     Responsive options can be defined in option groups.
 </div>
 
-## Namespaced Events ##
+## Events ##
+
+Of course the component system improves events.
+
+### Namespaced Events ###
 
 Attaching namespaced events to the element that was initialized on by a component allows those events to be triggered
 when `fireEvent()` is called. This technique allows for per-element events within a component while hooks apply to all.
@@ -174,3 +178,44 @@ and all `shown.toolkit.tab` event handlers will trigger.
     The "this" context within event handlers will be the respective element.
     The component instance can be found under the <code>context</code> property in the event object.
 </div>
+
+## Namespaces ##
+
+By default, components *can not* be nested within each other, as DOM traversal and event binding get confused on 
+who the parent is, and who the children are. However! To solve this problem, Toolkit provides a concept of namespacing, 
+which is handled through data attributes. Each element that is being found through traversal, or being bound with events, 
+should define data attributes that match the parents data attribute. 
+
+An example might clear any confusion. Say we have a tabs system, and inside one of the tab sections, 
+we have another tabs system. We can easily error-proof this by filling in the data attributes.
+
+```html
+<div class="tabs" data-tab="foo">
+    <nav class="tab-nav" data-tab-nav="foo">
+        <ul>
+            <li><a href="javascript:;" class="button">Tab 1</a></li>
+            <li><a href="javascript:;" class="button">Tab 2</a></li>
+        </ul>
+    </nav>
+
+    <section class="tab-section" data-tab-section="foo"></section>
+    <section class="tab-section" data-tab-section="foo">
+
+        <div class="tabs" data-tab="bar">
+            <nav class="tab-nav" data-tab-nav="bar">
+                <ul>
+                    <li><a href="javascript:;" class="button">Tab 1</a></li>
+                    <li><a href="javascript:;" class="button">Tab 2</a></li>
+                </ul>
+            </nav>
+
+            <section class="tab-section" data-tab-section="bar"></section>
+            <section class="tab-section" data-tab-section="bar"></section>
+        </div>
+        
+    </section>
+</div>
+```
+
+As you can see above, all elements that belong to the parent have a namespace of `foo`, while all children have `bar`. 
+That's all there is to it!

@@ -78,8 +78,8 @@ $('.carousel').carousel({
 
 Similar to native DOM events, the class layer has a system for dispatching callbacks at specific events called hooks.
 The difference between DOM events and hooks is that hooks are set as options through the class constructor
-or manually added through the `addHook()` method. When setting through options, any option that begins with `on`,
-is named after an event, and defines an anonymous function is considered a hook.
+or manually added through the `addHook()` and `addHooks()` methods. When setting through options, any option that begins with `on`,
+is named after an event, and defines an anonymous function, is considered a hook.
 
 Now anytime `fireEvent()` is called, all attached hooks will also be triggered.
 
@@ -182,11 +182,6 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             </td>
         </tr>
         <tr>
-            <td>events</td>
-            <td>object</td>
-            <td>Event mappings to bind during <code>bindEvents()</code>. More information can be found above.</td>
-        </tr>
-        <tr>
             <td>name</td>
             <td>string</td>
             <td>The name of the class. This should not be modified.</td>
@@ -228,12 +223,32 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
     </thead>
     <tbody>
         <tr>
+            <td>addEvent(string:event, string:context, string|func:callback[, string:selector])</td>
+            <td>
+                Add an event that will be bound during <code>bindEvents()</code>. 
+                The context should be the name of a class property, or the document, or the window. 
+                The callback should be the name of a class function, or a function itself. 
+                The selector can optionally be defined to apply delegation.
+            </td>
+        </tr>
+        <tr>
+            <td>addEvents(array:events)</td>
+            <td>
+                Add multiple events. Each item in the array should be an array with 3-4 items, 
+                with each index representing an argument of <code>addEvent()</code>.
+            </td>
+        </tr>
+        <tr>
             <td>addHook(string:type, func:callback)</td>
             <td>Add a hook callback that will be executed during specific events.</td>
         </tr>
         <tr>
+            <td>addHooks(string:type, array:callbacks)</td>
+            <td>Add multiple hooks. The callbacks should be an array of functions.</td>
+        </tr>
+        <tr>
             <td>bindEvents(string:type)</td>
-            <td>Add or remove events for elements found in the <code>events</code> object mapping.</td>
+            <td>Bind or unbind events for elements found in the events mapping. The type should either be "on" or "off".</td>
         </tr>
         <tr>
             <td>destroy()</td>

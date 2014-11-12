@@ -126,6 +126,11 @@ Inherits all properties from the [Base class](../development/js/base.md#properti
             <td>A collection of elements used by the component.</td>
         </tr>
         <tr>
+            <td>namespace</td>
+            <td>string</td>
+            <td>The namespace for the current instance. The namespace is extracted from a data attribute on the primary element.</td>
+        </tr>
+        <tr>
             <td>node</td>
             <td>element</td>
             <td>
@@ -181,6 +186,10 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             </td>
         </tr>
         <tr>
+            <td>ns([string:element[, string:block]])</td>
+            <td>Generate a unique CSS data attribute selector based off the component and the namespace.</td>
+        </tr>
+        <tr>
             <td>position(string:response)</td>
             <td>Handles HTML AJAX responses. Will re-position the element depending on the component.</td>
         </tr>
@@ -210,6 +219,10 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
                 Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.
                 The first argument can either be a URL or an object of AJAX options.
             </td>
+        </tr>
+        <tr>
+            <td>setElement(element:element)</td>
+            <td>Set the primary element and extract a namespace.</td>
         </tr>
         <tr>
             <td>setOptions(object:options[, element:inheritFrom])</td>
