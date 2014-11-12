@@ -4,56 +4,82 @@ define([
 ], function($, Toolkit) {
 
 describe('Toolkit.Base', function() {
-    describe('addHook()', function() {
-        var a = new Toolkit.Base(),
-            fn1 = function() {},
-            fn2 = function() {};
+    var base, undef;
 
-        it('should create a map if it doesn\'t exist', function() {
-            expect(a.__hooks).to.not.have.property('foo');
+    beforeEach(function() {
+        base = new Toolkit.Base();
+    });
 
-            a.addHook('foo', fn1);
+    describe('addEvent()', function() {
+        it('should append to the list', function() {
+            expect(base.__events).to.deep.equal([]);
 
-            expect(a.__hooks.foo).to.deep.equal([fn1]);
+            base.addEvent('click', 'element', base.initialize);
+
+            expect(base.__events).to.deep.equal([
+                ['click', 'element', base.initialize, undef]
+            ]);
         });
 
-        it('should append to an existing map', function() {
-            expect(a.__hooks.foo).to.deep.equal([fn1]);
+        it('should replace tokens', function() {
+            base.options.mode = 'click';
 
-            a.addHook('foo', fn2);
+            base.addEvent('{mode}', 'element', base.initialize, '{selector}');
 
-            expect(a.__hooks.foo).to.deep.equal([fn1, fn2]);
+            expect(base.__events[0]).to.deep.equal(['click', 'element', base.initialize, '']);
+        });
+
+        it('should convert string callbacks to a function', function() {
+            base.addEvent('click', 'element', 'initialize');
+
+            expect(base.__events[0][2]).to.be.a.function;
         });
     });
 
-    describe('bindEvents()', function() {
-        it('should bind and unbind events in the mapping', function() {
-            var element = $('<a/>'),
-                count = 0,
-                a = new Toolkit.Base();
+    describe('addEvents()', function() {
+        it('should add multiple events', function() {
+            expect(base.__events.length).to.equal(0);
 
-            a.element = element;
-            a.events = { 'click element': function() { count++; } };
+            base.addEvents([
+                ['click', 'element'],
+                ['mouseenter', 'window'],
+                ['ready', 'document']
+            ]);
 
-            element.click();
+            expect(base.__events.length).to.equal(3);
+        });
+    });
 
-            expect(count).to.equal(0);
+    describe('addHook()', function() {
+        var fn1 = function() {},
+            fn2 = function() {};
 
-            a.bindEvents('on');
-            element.click();
+        it('should create a map if it doesn\'t exist', function() {
+            expect(base.__hooks).to.not.have.property('foo');
 
-            expect(count).to.equal(1);
+            base.addHook('foo', fn1);
 
-            element.click();
-            element.click();
+            expect(base.__hooks.foo).to.deep.equal([fn1]);
+        });
 
-            expect(count).to.equal(3);
+        it('should append to an existing map', function() {
+            base.addHook('foo', fn1);
 
-            a.bindEvents('off');
-            element.click();
-            element.click();
+            expect(base.__hooks.foo).to.deep.equal([fn1]);
 
-            expect(count).to.equal(3);
+            base.addHook('foo', fn2);
+
+            expect(base.__hooks.foo).to.deep.equal([fn1, fn2]);
+        });
+    });
+
+    describe('addHooks()', function() {
+        it('should add multiple hooks', function() {
+            expect(base.__hooks).to.not.have.property('foo');
+
+            base.addHooks('foo', [function() {}, function() {}]);
+
+            expect(base.__hooks.foo.length).to.equal(2);
         });
     });
 
@@ -66,129 +92,127 @@ describe('Toolkit.Base', function() {
         });
 
         it('should trigger disable()', function() {
-            var a = new Base();
+            var temp = new Base();
 
-            expect(a.enabled).to.be.true;
+            expect(temp.enabled).to.be.true;
 
-            a.destroy();
+            temp.destroy();
 
-            expect(a.enabled).to.be.false;
+            expect(temp.enabled).to.be.false;
         });
 
         it('should trigger destructor()', function() {
-            var a = new Base();
+            var temp = new Base();
 
-            expect(a.destroyed).to.be.undefined;
+            expect(temp.destroyed).to.be.undefined;
 
-            a.destroy();
+            temp.destroy();
 
-            expect(a.destroyed).to.be.true;
+            expect(temp.destroyed).to.be.true;
         });
     });
 
     describe('disable()', function() {
         it('should disable the plugin', function() {
-            var a = new Toolkit.Base();
-                a.enabled = true;
+            base.enabled = true;
 
-            expect(a.enabled).to.be.true;
+            expect(base.enabled).to.be.true;
 
-            a.disable();
+            base.disable();
 
-            expect(a.enabled).to.be.false;
+            expect(base.enabled).to.be.false;
         });
     });
 
     describe('enable()', function() {
         it('should enable the plugin', function() {
-            var a = new Toolkit.Base();
-                a.enabled = false;
+            base.enabled = false;
 
-            expect(a.enabled).to.be.false;
+            expect(base.enabled).to.be.false;
 
-            a.enable();
+            base.enable();
 
-            expect(a.enabled).to.be.true;
+            expect(base.enabled).to.be.true;
         });
     });
 
     describe('fireEvent()', function() {
-        var expected = [],
-            a = new Toolkit.Base();
+        var expected = [];
 
-        a.addHook('foo', function(multiplier) {
-            expected.push(1 * (multiplier || 1));
-        });
+        beforeEach(function() {
+            base.addHook('foo', function (multiplier) {
+                expected.push(1 * (multiplier || 1));
+            });
 
-        a.addHook('foo', function(multiplier) {
-            expected.push(2 * (multiplier || 1));
+            base.addHook('foo', function (multiplier) {
+                expected.push(2 * (multiplier || 1));
+            });
         });
 
         it('should trigger all hooks by type', function() {
             expected = [];
-            a.fireEvent('foo');
+            base.fireEvent('foo');
 
             expect(expected).to.deep.equal([1, 2]);
         });
 
         it('should pass arguments to each hook', function() {
             expected = [];
-            a.fireEvent('foo', [3]);
+            base.fireEvent('foo', [3]);
 
             expect(expected).to.deep.equal([3, 6]);
         });
     });
 
     describe('removeHook()', function() {
-        var a = new Toolkit.Base(),
-            fn1 = function() {},
+        var fn1 = function() {},
             fn2 = function() {};
 
-        a.addHook('foo', fn1);
-        a.addHook('foo', fn2);
-        a.addHook('bar', fn1);
-        a.addHook('bar', fn2);
+        beforeEach(function() {
+            base.addHook('foo', fn1);
+            base.addHook('foo', fn2);
+            base.addHook('bar', fn1);
+            base.addHook('bar', fn2);
+        });
 
         it('should remove a hook by function reference', function() {
-            expect(a.__hooks.foo).to.deep.equal([fn1, fn2]);
+            expect(base.__hooks.foo).to.deep.equal([fn1, fn2]);
 
-            a.removeHook('foo', fn1);
+            base.removeHook('foo', fn1);
 
-            expect(a.__hooks.foo).to.deep.equal([fn2]);
+            expect(base.__hooks.foo).to.deep.equal([fn2]);
         });
 
         it('should remove all hooks if no function passed', function() {
-            expect(a.__hooks.bar).to.deep.equal([fn1, fn2]);
+            expect(base.__hooks.bar).to.deep.equal([fn1, fn2]);
 
-            a.removeHook('bar');
+            base.removeHook('bar');
 
-            expect(a.__hooks.bar).to.be.undefined;
+            expect(base.__hooks.bar).to.be.undefined;
         });
     });
 
     describe('setOptions()', function() {
-        var a = new Toolkit.Base();
-
         it('should merge with the parent classes static options', function() {
-            var opts = a.setOptions({ foo: 'bar' });
+            var opts = base.setOptions({ foo: 'bar' });
 
             expect(opts).to.deep.equal({ foo: 'bar', cache: true, debug: false });
         });
 
         it('should override the parent options', function() {
-            var opts = a.setOptions({ debug: true });
+            var opts = base.setOptions({ debug: true });
 
             expect(opts).to.deep.equal({ cache: true, debug: true });
         });
 
         it('should auto-wire hooks if the option starts with `on`', function() {
-            expect(a.__hooks.foo).to.be.undefined;
+            expect(base.__hooks.foo).to.be.undefined;
 
             var fn = function() {},
-                opts = a.setOptions({ foo: 'bar', onFoo: fn });
+                opts = base.setOptions({ foo: 'bar', onFoo: fn });
 
             expect(opts).to.deep.equal({ foo: 'bar', cache: true, debug: false });
-            expect(a.__hooks.foo).to.be.deep.equal([fn]);
+            expect(base.__hooks.foo).to.be.deep.equal([fn]);
         });
     });
 });

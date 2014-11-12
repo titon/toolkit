@@ -208,7 +208,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
             promises.push(def.promise());
         });
 
-        $.when.apply($, promises).always(this.render);
+        $.when.apply($, promises).always(this.render.bind(this));
     },
 
     /**

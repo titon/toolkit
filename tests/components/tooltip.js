@@ -106,11 +106,10 @@ describe('Toolkit.Tooltip', function() {
             }, 10);
         });
 
-        it('should allow a custom title and content', function(done) {
-            tooltip.show(element, 'Foo', 'Bar');
+        it('should allow custom content', function(done) {
+            tooltip.show(element, 'Foo');
 
             setTimeout(function() {
-                expect(tooltip.elementHead.html()).to.equal('Bar');
                 expect(tooltip.elementBody.html()).to.equal('Foo');
 
                 done();

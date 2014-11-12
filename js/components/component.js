@@ -194,7 +194,7 @@ Toolkit.Component = Toolkit.Base.extend({
 
         // Load content from an AJAX request
         // Matches http://, https://, /url, and many others
-        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/?[\w\-\.\/]+$/i)) {
+        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+$/i)) {
             ajax = true;
         }
 
@@ -351,7 +351,7 @@ Toolkit.Component = Toolkit.Base.extend({
         element = $(element);
 
         // Find a namespace
-        this.namespace = element.data(this.keyName) || null;
+        this.namespace = element.data(this.keyName) || '';
 
         return element;
     },

@@ -61,10 +61,6 @@ describe('Toolkit.Class', function() {
         delete c.object.type;
     });
 
-    it('should auto-bind methods with the "this" context', function() {
-        expect(c.grandChild).to.not.equal(c2.grandChild);
-    });
-
     it('should merge properties and methods into the prototype', function() {
         expect(a).to.not.have.property('child');
         expect(b).to.not.have.property('grandChild');

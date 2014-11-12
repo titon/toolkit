@@ -106,11 +106,10 @@ describe('Toolkit.Popover', function() {
             }, 10);
         });
 
-        it('should allow a custom title and content', function(done) {
-            popover.show(element, 'Foo', 'Bar');
+        it('should allow custom content', function(done) {
+            popover.show(element, 'Foo');
 
             setTimeout(function() {
-                expect(popover.elementHead.html()).to.equal('Bar');
                 expect(popover.elementBody.html()).to.equal('Foo');
 
                 done();

@@ -210,6 +210,30 @@ describe('Toolkit.Component', function() {
         });
     });
 
+    describe('ns()', function() {
+        it('should create a basic selector', function() {
+            expect(component.ns()).to.equal('[data-component]');
+        });
+
+        it('should be able to change the block', function() {
+            expect(component.ns('', 'block')).to.equal('[data-block]');
+        });
+
+        it('should append an element', function() {
+            expect(component.ns('body')).to.equal('[data-component-body]');
+        });
+
+        it('should filter by namespace', function() {
+            expect(component.ns('body')).to.equal('[data-component-body]');
+
+            component.namespace = 'foo';
+
+            expect(component.ns('body')).to.equal('[data-component-body="foo"]');
+
+            component.namespace = '';
+        });
+    });
+
     describe('process()', function() {
         it('should trigger a function if `callback` is defined', function() {
             var count = 0;
@@ -274,6 +298,16 @@ describe('Toolkit.Component', function() {
             })).to.equal('SPAN#baz');
 
             element.remove();
+        });
+    });
+
+    describe('setElement()', function() {
+        it('should extract the namespace from the data attribute', function() {
+            expect(component.namespace).to.equal('');
+
+            component.setElement($('<span data-component="foobar"></span>'));
+
+            expect(component.namespace).to.equal('foobar');
         });
     });
 

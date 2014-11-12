@@ -204,12 +204,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
             this.items
                 .conceal(true)
                 .eq(visualIndex)
-                    .transitionend(this._afterCycle)
+                    .transitionend(this._afterCycle.bind(this))
                     .reveal(true);
 
         } else {
             this.container
-                .transitionend(this._afterCycle)
+                .transitionend(this._afterCycle.bind(this))
                 .css(this._position, -(cloneIndex * this._size));
         }
 
@@ -240,7 +240,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.onCycle, this.options.duration);
+            this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
         }
     },
 

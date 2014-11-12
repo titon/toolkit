@@ -312,7 +312,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildDropdown: function() {
         var select = this.element,
             options = this.options,
-            buildOption = this._buildOption,
+            buildOption = this._buildOption.bind(this),
             dropdown = $(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
