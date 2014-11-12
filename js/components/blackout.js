@@ -31,7 +31,7 @@ Toolkit.Blackout = Toolkit.Component.extend({
 
         // Generate loader elements
         this.loader = $(options.loaderTemplate).appendTo(this.element);
-        this.message = this.loader.find('[data-loader-message]');
+        this.message = this.loader.find(this.ns('message', 'loader'));
 
         if (options.showLoading) {
             this.message.html(Toolkit.messages.loading);

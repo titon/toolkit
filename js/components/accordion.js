@@ -27,11 +27,11 @@ Toolkit.Accordion = Toolkit.Component.extend({
     constructor: function(element, options) {
         var self = this;
 
-        this.element = element = $(element).attr('role', 'tablist');
+        this.element = element = this.setElement(element).attr('role', 'tablist');
         this.options = options = this.setOptions(options, element);
 
         // Find headers and cache the index of each header and set ARIA attributes
-        this.headers = element.find('[data-accordion-header]').each(function(index) {
+        this.headers = element.find(this.ns('header')).each(function(index) {
             $(this)
                 .data('accordion-index', index)
                 .attr({
@@ -46,7 +46,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         });
 
         // Find sections and cache the height so we can use for sliding and set ARIA attributes
-        this.sections = element.find('[data-accordion-section]').each(function(index) {
+        this.sections = element.find(this.ns('section')).each(function(index) {
             $(this)
                 .attr({
                     role: 'tabpanel',
@@ -57,9 +57,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
         });
 
         // Set events
-        this.events = {
-            '{mode} element [data-accordion-header]': 'onShow'
-        };
+        this.addEvent('{mode}', 'element', 'onShow', this.ns('header'));
 
         // Initialize
         this.initialize();

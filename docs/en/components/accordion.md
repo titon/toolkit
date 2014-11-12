@@ -41,6 +41,10 @@ $('.accordion').accordion();
     can find or bind elements in the DOM.
 </div>
 
+<div class="notice is-info">
+    Accordions can be nested by <a href="../development/js/component.md#namespaces">utilizing namespaces</a>.
+</div>
+
 <div class="notice is-warning">
     The <code>.accordion-section</code> class is required for slide animations.
     Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.

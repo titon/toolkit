@@ -36,17 +36,20 @@ Toolkit.Flyout = Toolkit.Component.extend({
         this.options = options = this.setOptions(options);
 
         if (options.mode === 'click') {
-            this.events['click document {selector}'] = 'onShowToggle';
+            this.addEvent('click', 'document', 'onShowToggle', '{selector}');
         } else {
-            this.events['mouseenter document {selector}'] = ['onShowToggle', 'onEnter'];
-            this.events['mouseleave document {selector}'] = 'onLeave';
+            this.addEvents([
+                ['mouseenter', 'document', 'onShowToggle', '{selector}'],
+                ['mouseenter', 'document', 'onEnter', '{selector}'],
+                ['mouseleave', 'document', 'onLeave', '{selector}']
+            ]);
         }
 
         this.initialize();
 
         // Load data from the URL
         if (url) {
-            $.getJSON(url, this.load);
+            $.getJSON(url, this.load.bind(this));
         }
     },
 
@@ -317,7 +320,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
         menu.appendTo(parent).conceal();
 
-        if (options.mode !== 'click') {
+        // Only monitor top level menu
+        if (options.mode !== 'click' && parent.is('body')) {
             menu.on({
                 mouseenter: function() {
                     this.clearTimer('hide');
@@ -391,12 +395,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
     onHideChild: function(parent) {
         parent = $(parent);
         parent.removeClass('is-open');
-        parent.children('[data-flyout-menu]')
+        parent.children(this.ns('menu'))
             .removeAttr('style')
             .aria({
                 expanded: false,
                 hidden: false
-            });
+            })
+            .conceal();
 
         this.fireEvent('hideChild', [parent]);
     },
@@ -418,7 +423,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {jQuery} parent
      */
     onPositionChild: function(parent) {
-        var menu = parent.children('[data-flyout-menu]');
+        var menu = parent.children(this.ns('menu'));
 
         if (!menu) {
             return;
@@ -459,6 +464,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         }
 
         parent.addClass('is-open');
+        menu.reveal();
 
         this.fireEvent('showChild', [parent]);
     },

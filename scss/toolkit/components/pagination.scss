@@ -32,8 +32,8 @@
 //-------------------- Modifiers --------------------//
 
 @if index($pagination-modifiers, "grouped") {
-    #{$pagination-class-modifier-grouped} ol {
-        > li {
+    #{$pagination-class-modifier-grouped} {
+        ol > li {
             margin: 0;
 
             &:hover,
@@ -47,7 +47,7 @@
 
         //----- Effects -----//
 
-        &#{$shape-round-class} {
+        &#{$shape-round-class} ol {
             border-radius: $round;
 
             > li:first-child > a {
@@ -62,7 +62,7 @@
         }
 
         @if index($pagination-effects, "oval") {
-            &#{$shape-oval-class} {
+            &#{$shape-oval-class} ol {
                 border-radius: #{$oval-x} / #{$oval-y};
 
                 > li:first-child a {
@@ -76,7 +76,7 @@
         }
 
         @if index($pagination-effects, "pill") {
-            &#{$shape-pill-class} {
+            &#{$shape-pill-class} ol {
                 border-radius: $pill;
 
                 > li:first-child a {
@@ -92,7 +92,7 @@
         }
 
         @if index($pagination-effects, "skew") {
-            &#{$shape-skew-class} {
+            &#{$shape-skew-class} ol {
                 border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
 
                 > li:first-child a {

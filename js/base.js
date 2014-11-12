@@ -17,17 +17,56 @@ Toolkit.Base = Toolkit.Class.extend({
     /** Is the plugin enabled? */
     enabled: false,
 
-    /** Events and functions to bind. */
-    events: {},
-
     /** Static options defined during construction. */
     options: {},
 
     /** Dynamic options generated at runtime. */
     runtime: {},
 
+    /** Events and functions to bind. */
+    __events: [],
+
     /** List of hooks grouped by type. */
     __hooks: {},
+
+    /**
+     * Add an event to bind.
+     *
+     * @param {String} event
+     * @param {String} context
+     * @param {String|Function} callback
+     * @param {String} selector
+     */
+    addEvent: function(event, context, callback, selector) {
+        var options = this.options;
+
+        // Replace tokens
+        if (event === '{mode}') {
+            event = options.mode;
+        }
+
+        if (selector === '{selector}') {
+            selector = this.nodes ? this.nodes.selector : '';
+        }
+
+        // Find and bind the function
+        if ($.type(callback) === 'string') {
+            callback = this[callback].bind(this);
+        }
+
+        this.__events.push([event, context, callback, selector]);
+    },
+
+    /**
+     * Add multiple events.
+     *
+     * @param {Array} events
+     */
+    addEvents: function(events) {
+        $.each(events, function(i, event) {
+            this.addEvent.apply(this, event);
+        }.bind(this));
+    },
 
     /**
      * Add a hook to a specific event type.
@@ -43,6 +82,18 @@ Toolkit.Base = Toolkit.Class.extend({
     },
 
     /**
+     * Add multiple hooks for a type.
+     *
+     * @param {String} type
+     * @param {Array} callbacks
+     */
+    addHooks: function(type, callbacks) {
+        $.each(callbacks, function(i, callback) {
+            this.addHook(type, callback);
+        }.bind(this));
+    },
+
+    /**
      * Loop through the events object and attach events to the specified selector in the correct context.
      * Take into account window, document, and delegation.
      *
@@ -50,60 +101,42 @@ Toolkit.Base = Toolkit.Class.extend({
      */
     bindEvents: function(type) {
         var self = this,
-            options = this.options,
             event,
-            keys,
             context,
+            func,
             selector,
-            funcs,
             win = $(window),
             doc = $(document);
 
-        // event window = func          Bind window event
-        // event document = func        Bind document event
-        // ready document = func        Bind DOM ready event
-        // event property = func        Bind event to collection that matches class property
-        // event context .class = func  Bind delegated events to class within context
-        $.each(this.events, function(key, value) {
-            funcs = $.isArray(value) ? value : [value];
-
-            // Replace tokens
-            key = key.replace('{mode}', options.mode);
-            key = key.replace('{selector}', self.nodes ? self.nodes.selector : '');
-
-            // Extract arguments
-            keys = key.split(' ');
-            event = keys.shift();
-            context = keys.shift();
-            selector = keys.join(' ');
+        $.each(this.__events, function(i, value) {
+            event = value[0];
+            context = value[1];
+            func = value[2];
+            selector = value[3];
 
             // Determine the correct context
             if (self[context]) {
                 context = self[context];
+
             } else if (context === 'window') {
                 context = win;
+
             } else if (context === 'document') {
                 context = doc;
             }
 
-            $.each(funcs, function(i, func) {
-                if (!$.isFunction(func)) {
-                    func = self[func];
-                }
+            // Ready events
+            if (event === 'ready') {
+                doc.ready(func);
 
-                // Ready events
-                if (event === 'ready') {
-                    doc.ready(func);
+            // Delegated events
+            } else if (selector) {
+                $(context)[type](event, selector, func);
 
-                // Delegated events
-                } else if (selector) {
-                    $(context)[type](event, selector, func);
-
-                // Regular events
-                } else {
-                    $(context)[type](event, func);
-                }
-            });
+            // Regular events
+            } else {
+                $(context)[type](event, func);
+            }
         });
     },
 

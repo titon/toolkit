@@ -30,7 +30,7 @@ Toolkit.Tab = Toolkit.Component.extend({
     constructor: function(element, options) {
         var sections, tabs, self = this;
 
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         // Determine cookie name
@@ -39,7 +39,7 @@ Toolkit.Tab = Toolkit.Component.extend({
         }
 
         // Find all the sections and set ARIA attributes
-        this.sections = sections = element.find('[data-tab-section]').each(function(index, section) {
+        this.sections = sections = element.find(this.ns('section')).each(function(index, section) {
             section = $(section);
             section
                 .attr('role', 'tabpanel')
@@ -49,7 +49,7 @@ Toolkit.Tab = Toolkit.Component.extend({
         });
 
         // Find the nav and set ARIA attributes
-        this.nav = element.find('[data-tab-nav]')
+        this.nav = element.find(this.ns('nav'))
             .attr('role', 'tablist');
 
         // Find the tabs within the nav and set ARIA attributes
@@ -69,14 +69,12 @@ Toolkit.Tab = Toolkit.Component.extend({
         });
 
         // Initialize events
-        this.events = {
-            '{mode} element [data-tab-nav] a': 'onShow'
-        };
+        this.addEvent('{mode}', 'element', 'onShow', this.ns('nav') + ' a');
 
         if (options.mode !== 'click' && options.preventDefault) {
-            this.events['click element [data-tab-nav] a'] = function(e) {
+            this.addEvent('click', 'element', function(e) {
                 e.preventDefault();
-            };
+            }, this.ns('nav') + ' a');
         }
 
         this.initialize();

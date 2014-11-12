@@ -24,7 +24,7 @@ Toolkit.Input = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         if (options.checkbox) {
@@ -206,8 +206,6 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      * @param {Object} [options]
      */
     constructor: function(select, options) {
-        var events = {};
-
         this.element = select = $(select);
         this.options = options = this.setOptions(options, select);
         this.multiple = select.prop('multiple');
@@ -224,15 +222,17 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.input = this._buildButton();
 
         // Initialize events
-        events['change element'] = 'onChange';
+        this.addEvent('change', 'element', 'onChange');
 
         if (!options.native) {
-            events['blur element'] = 'hide';
-            events['clickout dropdown'] = 'hide';
-            events['click input'] = 'onToggle';
+            this.addEvents([
+                ['blur', 'element', 'hide'],
+                ['clickout', 'dropdown', 'hide'],
+                ['click', 'input', 'onToggle']
+            ]);
 
             if (!this.multiple) {
-                events['keydown window'] = 'onCycle';
+                this.addEvent('keydown', 'window', 'onCycle');
             }
 
             // Build custom dropdown when not in native
@@ -242,8 +242,6 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             // So place it below .custom-input
             this.element.css('z-index', 1);
         }
-
-        this.events = events;
 
         this.initialize();
 
@@ -275,7 +273,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         this.fireEvent('showing');
 
         if (this.options.hideOpened) {
-            $('[data-select-options]').each(function() {
+            $(this.ns('options', 'select')).each(function() {
                 $(this).siblings('select').toolkit('inputSelect', 'hide');
             });
         }
@@ -295,8 +293,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildButton: function() {
         var options = this.options,
             button = $(options.selectTemplate)
-                .find('[data-select-arrow]').html(options.arrowTemplate).end()
-                .find('[data-select-label]').html(Toolkit.messages.loading).end()
+                .find(this.ns('arrow', 'select')).html(options.arrowTemplate).end()
+                .find(this.ns('label', 'select')).html(Toolkit.messages.loading).end()
                 .css('min-width', this.element.width())
                 .insertAfter(this.element);
 
@@ -314,7 +312,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     _buildDropdown: function() {
         var select = this.element,
             options = this.options,
-            buildOption = this._buildOption,
+            buildOption = this._buildOption.bind(this),
             dropdown = $(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
@@ -549,7 +547,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
 
         // Set the label
         select.parent()
-            .find('[data-select-label]')
+            .find(this.ns('label', 'select'))
                 .text(label);
 
         this.fireEvent('change', [select.val(), selected]);

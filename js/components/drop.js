@@ -18,11 +18,13 @@ Toolkit.Drop = Toolkit.Component.extend({
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
         this.options = this.setOptions(options);
-        this.events = {
-            'clickout document [data-drop-menu]': 'hide',
-            'clickout document {selector}': 'hide',
-            '{mode} document {selector}': 'onShow'
-        };
+
+        // Set events
+        this.addEvents([
+            ['clickout', 'document', 'hide', this.ns('menu')],
+            ['clickout', 'document', 'hide', '{selector}'],
+            ['{mode}', 'document', 'onShow', '{selector}']
+        ]);
 
         // Initialize
         this.initialize();
@@ -35,7 +37,7 @@ Toolkit.Drop = Toolkit.Component.extend({
         this.hide();
 
         // Hide all other menus as well
-        $('[data-drop-menu]').conceal();
+        $(this.ns('menu')).conceal();
     },
 
     /**
@@ -98,9 +100,13 @@ Toolkit.Drop = Toolkit.Component.extend({
             this.hide();
         }
 
-        if (!$(target).is(':shown')) {
-            this.show(target, node);
+        var menu = $(target);
+
+        if (!menu.is(':shown')) {
+            this.show(menu, node);
+
         } else {
+            this.element = menu;
             this.hide();
         }
     }

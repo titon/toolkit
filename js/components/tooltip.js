@@ -24,21 +24,22 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element, key = this.keyName;
+        var element;
 
         this.options = options = this.setOptions(options);
         this.element = element = this.createElement()
             .attr('role', 'tooltip')
-            .removeClass(options.className);
+            .removeClass(options.className)
+            .css('display', ''); // Remove display none
 
         // Remove title attributes
         if (options.getTitle === 'title') {
-            options.getTitle = 'data-' + key + '-title';
+            options.getTitle = 'data-' + this.keyName + '-title';
         }
 
         // Elements for the title and content
-        this.elementHead = element.find('[data-' + key + '-header]');
-        this.elementBody = element.find('[data-' + key + '-content]');
+        this.elementHead = element.find(this.ns('header'));
+        this.elementBody = element.find(this.ns('content'));
 
         // Nodes found in the page on initialization, remove title attribute
         this.nodes = $(nodes).each(function(i, node) {
@@ -46,15 +47,15 @@ Toolkit.Tooltip = Toolkit.Component.extend({
         });
 
         // Initialize events
-        this.events = {
-            '{mode} document {selector}': 'onShowToggle'
-        };
+        this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
 
         if (options.mode === 'click') {
-            this.events['clickout element'] = 'hide';
-            this.events['clickout document {selector}'] = 'hide';
+            this.addEvents([
+                ['clickout', 'element', 'hide'],
+                ['clickout', 'document', 'hide', '{selector}']
+            ]);
         } else {
-            this.events['mouseleave document {selector}'] = 'hide';
+            this.addEvent('mouseleave', 'document', 'hide', '{selector}');
         }
 
         this.initialize();
@@ -68,7 +69,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         this.reset();
 
-        this.element.conceal();
+        this.element.conceal(true);
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');
@@ -122,7 +123,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Follow the mouse
         if (options.follow) {
-            var follow = this.onFollow;
+            var follow = this.onFollow.bind(this);
 
             this.node
                 .off('mousemove', follow)
@@ -135,7 +136,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
             this.element.positionTo(options.position, this.node, {
                 left: options.xOffset,
                 top: options.yOffset
-            }).reveal();
+            }).reveal(true);
 
             this.fireEvent('shown');
         }
@@ -188,7 +189,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
         this.element.positionTo(options.position, e, {
             left: options.xOffset,
             top: options.yOffset
-        }, true).reveal();
+        }, true).reveal(true);
     },
 
     /**

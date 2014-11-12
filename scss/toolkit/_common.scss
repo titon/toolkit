@@ -234,8 +234,8 @@ $form-class-field: class-name("field") !default;
 $form-class-field-help: bem($form-class-field, "help") !default;
 $form-class-field-label: bem($form-class-field, "label") !default;
 $form-class-field-column: bem($form-class-field, "col") !default;
-$form-class-modifier-inline: bem($form-class-field, "", "inline") !default;
-$form-class-modifier-horizontal: bem($form-class-field, "", "horizontal") !default;
+$form-class-modifier-inline: bem($form-class, "", "inline") !default;
+$form-class-modifier-horizontal: bem($form-class, "", "horizontal") !default;
 
 $form-modifiers: ("inline", "horizontal") !default;
 

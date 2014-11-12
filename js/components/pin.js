@@ -33,7 +33,7 @@ Toolkit.Pin = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         // Setup classes and ARIA
@@ -46,11 +46,11 @@ Toolkit.Pin = Toolkit.Component.extend({
         // Initialize events
         var throttle = options.throttle;
 
-        this.events = {
-            'scroll window': $.throttle(this.onScroll, throttle),
-            'resize window': $.throttle(this.onResize, throttle),
-            'ready document': 'onResize'
-        };
+        this.addEvents([
+            ['scroll', 'window', $.throttle(this.onScroll.bind(this), throttle)],
+            ['resize', 'window', $.throttle(this.onResize.bind(this), throttle)],
+            ['ready', 'document', 'onResize']
+        ]);
 
         this.initialize();
     },

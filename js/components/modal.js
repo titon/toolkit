@@ -20,17 +20,15 @@ Toolkit.Modal = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element;
-
         this.options = options = this.setOptions(options);
-        this.element = element = this.createElement()
+        this.element = this.createElement()
             .attr('role', 'dialog')
             .aria('labelledby', this.id('title'))
             .aria('describedby', this.id('content'));
 
         // Enable fullscreen
         if (options.fullScreen) {
-            element.addClass('is-fullscreen');
+            this.element.addClass('is-fullscreen');
         }
 
         // Nodes found in the page on initialization
@@ -49,15 +47,15 @@ Toolkit.Modal = Toolkit.Component.extend({
         }
 
         // Initialize events
-        this.events = {
-            'keydown window': 'onKeydown',
-            'clickout element': 'onHide',
-            'clickout document {selector}': 'onHide',
-            'click document {selector}': 'onShow',
-            'click element': 'onHide',
-            'click element [data-modal-close]': 'hide',
-            'click element [data-modal-submit]': 'onSubmit'
-        };
+        this.addEvents([
+            ['keydown', 'window', 'onKeydown'],
+            ['clickout', 'element', 'onHide'],
+            ['clickout', 'document', 'onHide', '{selector}'],
+            ['click', 'document', 'onShow', '{selector}'],
+            ['click', 'element', 'onHide'],
+            ['click', 'element', 'hide', this.ns('close')],
+            ['click', 'element', 'onSubmit', this.ns('submit')]
+        ]);
 
         this.initialize();
     },
@@ -95,7 +93,7 @@ Toolkit.Modal = Toolkit.Component.extend({
 
         this.fireEvent('showing');
 
-        var body = this.element.find('[data-modal-content]');
+        var body = this.element.find(this.ns('content'));
             body.html(content);
 
         this.fireEvent('load', [content]);

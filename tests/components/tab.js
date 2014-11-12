@@ -116,9 +116,9 @@ describe('Toolkit.Tab', function() {
             tab.jump(2);
 
             setTimeout(function() {
-                expect(tab.tabs.eq(0).parent().hasClass('is-active')).to.be.false;
-                expect(tab.tabs.eq(1).parent().hasClass('is-active')).to.be.false;
-                expect(tab.tabs.eq(2).parent().hasClass('is-active')).to.be.true;
+                expect(tab.tabs.eq(0).hasClass('is-active')).to.be.false;
+                expect(tab.tabs.eq(1).hasClass('is-active')).to.be.false;
+                expect(tab.tabs.eq(2).hasClass('is-active')).to.be.true;
 
                 done();
             }, 10);

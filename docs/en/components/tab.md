@@ -39,6 +39,10 @@ $('.tabs').tab();
 </div>
 
 <div class="notice is-info">
+    Tabs can be nested by <a href="../development/js/component.md#namespaces">utilizing namespaces</a>.
+</div>
+
+<div class="notice is-info">
     The markup for tabs can be customized and re-arranged extensively.
     The only requirements are the inclusion of tab classes.
 </div>

@@ -50,13 +50,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
         this.nodes = $(nodes);
 
         // The wrapping items element
-        this.items = element.find('[data-showcase-items]');
+        this.items = element.find(this.ns('items'));
 
         // The wrapping tabs element
-        this.tabs = element.find('[data-showcase-tabs]');
+        this.tabs = element.find(this.ns('tabs'));
 
         // The caption element
-        this.caption = element.find('[data-showcase-caption]');
+        this.caption = element.find(this.ns('caption'));
 
         // Blackout element if enabled
         if (options.blackout) {
@@ -64,28 +64,28 @@ Toolkit.Showcase = Toolkit.Component.extend({
         }
 
         // Initialize events
-        this.events = {
-            'clickout element': 'onHide',
-            'clickout document {selector}': 'onHide',
-            'keydown window': 'onKeydown',
-            'click document {selector}': 'onShow',
-            'click element [data-showcase-close]': 'hide',
-            'click element [data-showcase-next]': 'next',
-            'click element [data-showcase-prev]': 'prev',
-            'click element [data-showcase-tabs] a': 'onJump'
-        };
+        this.addEvents([
+            ['clickout', 'element', 'onHide'],
+            ['clickout', 'document', 'onHide', '{selector}'],
+            ['keydown', 'window', 'onKeydown'],
+            ['click', 'document', 'onShow', '{selector}'],
+            ['click', 'element', 'hide', this.ns('close')],
+            ['click', 'element', 'next', this.ns('next')],
+            ['click', 'element', 'prev', this.ns('prev')],
+            ['click', 'element', 'onJump', this.ns('tabs') + ' a']
+        ]);
 
         if (options.swipe) {
-            $.extend(this.events, {
-                'swipeleft element': 'next',
-                'swiperight element': 'prev'
-            });
+            this.addEvents([
+                ['swipeleft', 'element', 'next'],
+                ['swiperight', 'element', 'prev']
+            ]);
         }
 
         // Stop `transitionend` events from bubbling up when the showcase is resized
-        this.events[Toolkit.transitionEnd + ' element [data-showcase-items]'] = function(e) {
+        this.addEvent(Toolkit.transitionEnd, 'element', function(e) {
             e.stopPropagation();
-        };
+        }, this.ns('items'));
 
         this.initialize();
     },

@@ -27,7 +27,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options);
 
         if (!options.target || !options.marker) {
@@ -39,10 +39,10 @@ Toolkit.Stalker = Toolkit.Component.extend({
         }
 
         // Initialize events
-        this.events = {
-            'scroll container': $.throttle(this.onScroll, options.throttle),
-            'ready document': 'onScroll'
-        };
+        this.addEvents([
+            ['scroll', 'container', $.throttle(this.onScroll.bind(this), options.throttle)],
+            ['ready', 'document', 'onScroll']
+        ]);
 
         this.initialize();
 

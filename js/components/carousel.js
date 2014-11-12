@@ -52,7 +52,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     constructor: function(element, options) {
         var items, self = this;
 
-        this.element = element = $(element);
+        this.element = element = this.setElement(element);
         this.options = options = this.setOptions(options, element);
 
         // Set animation and ARIA
@@ -61,7 +61,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
             .addClass(options.animation);
 
         // Find the item container and disable transitions for initial load
-        this.container = element.find('[data-carousel-items]')
+        this.container = element.find(this.ns('items'))
             .addClass('no-transition');
 
         // Find all the items and set ARIA attributes
@@ -76,7 +76,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         });
 
         // Find all tabs and set ARIA attributes
-        this.tabs = element.find('[data-carousel-tabs]')
+        this.tabs = element.find(this.ns('tabs'))
             .attr('role', 'tablist')
             .find('a').each(function(index) {
                 $(this)
@@ -93,30 +93,30 @@ Toolkit.Carousel = Toolkit.Component.extend({
             });
 
         // Set events
-        this.events = {
-            'resize window': $.throttle(this.calculate, 50),
-            'keydown window': 'onKeydown',
-            'click element [data-carousel-tabs] a': 'onJump',
-            'click element [data-carousel-next]': 'next',
-            'click element [data-carousel-prev]': 'prev',
-            'click element [data-carousel-start]': 'start',
-            'click element [data-carousel-stop]': 'stop'
-        };
+        this.addEvents([
+            ['resize', 'window', $.throttle(this.calculate.bind(this), 50)],
+            ['keydown', 'window', 'onKeydown'],
+            ['click', 'element', 'onJump', this.ns('tabs') + ' a'],
+            ['click', 'element', 'next', this.ns('next')],
+            ['click', 'element', 'prev', this.ns('prev')],
+            ['click', 'element', 'start', this.ns('start')],
+            ['click', 'element', 'stop', this.ns('stop')]
+        ]);
 
         if (options.swipe) {
-            $.extend(this.events, {
-                'swipeleft element': 'next',
-                'swipeup element': 'next',
-                'swiperight element': 'prev',
-                'swipedown element': 'prev'
-            });
+            this.addEvents([
+                ['swipeleft', 'element', 'next'],
+                ['swipeup', 'element', 'next'],
+                ['swiperight', 'element', 'prev'],
+                ['swipedown', 'element', 'prev']
+            ]);
         }
 
         if (options.stopOnHover) {
-            $.extend(this.events, {
-                'mouseenter element': 'stop',
-                'mouseleave element': 'start'
-            });
+            this.addEvents([
+                ['mouseenter', 'element', 'stop'],
+                ['mouseleave', 'element', 'start']
+            ]);
         }
 
         // Initialize
@@ -136,8 +136,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
      * Stop the carousel before destroying.
      */
     destructor: function() {
-        // Remove timers
-        clearInterval(this.timer);
+        this.stop();
 
         // Go to first item
         this.jump(0);
@@ -204,12 +203,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
             this.items
                 .conceal(true)
                 .eq(visualIndex)
-                    .transitionend(this._afterCycle)
+                    .transitionend(this._afterCycle.bind(this))
                     .reveal(true);
 
         } else {
             this.container
-                .transitionend(this._afterCycle)
+                .transitionend(this._afterCycle.bind(this))
                 .css(this._position, -(cloneIndex * this._size));
         }
 
@@ -240,7 +239,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     reset: function() {
         if (this.options.autoCycle) {
             clearInterval(this.timer);
-            this.timer = setInterval(this.onCycle, this.options.duration);
+            this.timer = setInterval(this.onCycle.bind(this), this.options.duration);
         }
     },
 
@@ -260,6 +259,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     stop: function() {
         this.element.addClass('is-stopped');
         this.stopped = true;
+
+        clearInterval(this.timer);
 
         this.fireEvent('stop');
     },
