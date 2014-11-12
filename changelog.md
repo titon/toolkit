@@ -84,6 +84,8 @@ Older versions can be found in the documentation changelogs.
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
             `[data-carousel-items]`, `[data-carousel-tabs]`, `[data-carousel-next]`, `[data-carousel-prev]`, `[data-carousel-start]`, `[data-carousel-stop]`
         * Removed `.carousel-prev`, `.carousel-next`, and `.carousel-tabs` styles
+    * Divider
+        * Improved the divider to support longer strings of text and multiline text
     * Drop
         * All drop menus will now require a `data-drop-menu` attribute
     * Flyout

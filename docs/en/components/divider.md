@@ -14,18 +14,22 @@ A divider can be used to separate sections of content, and can also be used for 
     The divider requires no whitespace for proper border collapsing, unless content is inserted (below).
 </div>
 
-Small blurbs of text can be inserted within the divider, which will be horizontally centered.
+Strings of text can be inserted within the divider, which will be horizontally centered.
 
 ```html
 <div class="divider">OR</div>
 ```
 
+If the text is really long, or spans multiple lines, wrap the text in a `span`.
+
+```html
+<div class="divider"><span>Chapter 4<br>Page 45</span></div>
+```
+
 Icons can also be inserted within the divider.
 
 ```html
-<div class="divider">
-    <span class="icon-16-star"></span>
-</div>
+<div class="divider"><span class="icon-16-star"></span></div>
 ```
 
 ### Styling ###

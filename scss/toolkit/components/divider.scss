@@ -9,38 +9,40 @@
 #{$divider-class} {
     position: relative;
     text-align: center;
-    margin: $margin 0;
-    user-select: none;
     overflow: hidden;
-    clear: both;
-    min-height: 2px;
 
     &::after,
     &::before {
-        position: absolute;
-        content: " ";
-        width: 50%;
-        top: 50%;
-        margin-top: -1px;
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 100%;
         border-top: 1px solid black(.1);
         border-bottom: 1px solid white(.75);
     }
 
     &::before {
-        left: 0;
-        margin-left: -1.5rem;
+        margin-left: -100%;
+        left: -$margin;
     }
 
     &::after {
-        right: 0;
-        margin-right: -1.5rem;
+        margin-right: -100%;
+        right: -$margin;
     }
 
     // Collapse the middle when there is no content
     &:empty {
         &::before,
         &::after {
-            margin: -1px 0 0 0 !important;
+            right: 0;
+            left: 0;
         }
+    }
+
+    > span {
+        display: inline-block;
+        vertical-align: middle;
     }
 }
