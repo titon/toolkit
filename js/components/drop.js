@@ -100,9 +100,13 @@ Toolkit.Drop = Toolkit.Component.extend({
             this.hide();
         }
 
-        if (!$(target).is(':shown')) {
-            this.show(target, node);
+        var menu = $(target);
+
+        if (!menu.is(':shown')) {
+            this.show(menu, node);
+
         } else {
+            this.element = menu;
             this.hide();
         }
     }

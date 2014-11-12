@@ -136,8 +136,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
      * Stop the carousel before destroying.
      */
     destructor: function() {
-        // Remove timers
-        clearInterval(this.timer);
+        this.stop();
 
         // Go to first item
         this.jump(0);
@@ -260,6 +259,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     stop: function() {
         this.element.addClass('is-stopped');
         this.stopped = true;
+
+        clearInterval(this.timer);
 
         this.fireEvent('stop');
     },

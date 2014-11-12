@@ -49,7 +49,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
         // Load data from the URL
         if (url) {
-            $.getJSON(url, this.load);
+            $.getJSON(url, this.load.bind(this));
         }
     },
 
@@ -320,7 +320,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
         menu.appendTo(parent).conceal();
 
-        if (options.mode !== 'click') {
+        // Only monitor top level menu
+        if (options.mode !== 'click' && parent.is('body')) {
             menu.on({
                 mouseenter: function() {
                     this.clearTimer('hide');
@@ -399,7 +400,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
             .aria({
                 expanded: false,
                 hidden: false
-            });
+            })
+            .conceal();
 
         this.fireEvent('hideChild', [parent]);
     },
@@ -462,6 +464,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         }
 
         parent.addClass('is-open');
+        menu.reveal();
 
         this.fireEvent('showChild', [parent]);
     },

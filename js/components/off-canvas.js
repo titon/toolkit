@@ -58,19 +58,19 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         this.opposite = (this.side === 'left') ? 'right' : 'left';
 
         // Initialize events
-        this.addEvent([
+        this.addEvents([
             ['ready', 'document', 'onReady'],
             ['resize', 'window', 'onResize']
         ]);
 
         if (options.swipe) {
             if (this.side === 'left') {
-                this.addEvent([
+                this.addEvents([
                     ['swipeleft', 'element', 'hide'],
                     ['swiperight', 'container', 'onSwipe']
                 ]);
             } else {
-                this.addEvent([
+                this.addEvents([
                     ['swipeleft', 'container', 'onSwipe'],
                     ['swiperight', 'element', 'hide']
                 ]);
