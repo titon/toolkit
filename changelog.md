@@ -8,8 +8,9 @@ Older versions can be found in the documentation changelogs.
 * Dropped IE8 support
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
-* Upgraded to Sass 3.3 and Compass 1.0
+* Upgraded to Sass 3.4 and Compass 1.0
 * Upgraded to RequireJS for JS dependency management and compilation
+* Added a robust namespacing system which allows components to be nested within each other
 * Decoupled the CSS and JS layers so that CSS classes (excluding states) are no longer hardcoded
 * Refactored components to make more use of templates for DOM building
 * Renamed most instances of the word "component" to "plugin" to differentiate between components and behaviors,
@@ -53,6 +54,8 @@ Older versions can be found in the documentation changelogs.
     * Component
         * Added `hiding`, `showing`, and `destroying` events
         * Added option groups
+        * Added `namespace` property
+        * Added `ns()` method for generating namespace selectors
         * Refactored the `requestData()` method
             * Added `url`, `cache` (whether to cache in the class), and `settings` (AJAX settings) to the XHR object used by jQuery
             * Removed the `before`, `done`, and `fail` arguments
