@@ -57,7 +57,10 @@ Toolkit.Accordion = Toolkit.Component.extend({
         });
 
         // Set events
-        this.addEvent('{mode}', 'element', 'onShow', this.ns('header'));
+        this.addEvents([
+            ['resize', 'window', $.debounce(this.calculate.bind(this))],
+            ['{mode}', 'element', 'onShow', this.ns('header')]
+        ]);
 
         // Initialize
         this.initialize();

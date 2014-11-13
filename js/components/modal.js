@@ -49,8 +49,8 @@ Toolkit.Modal = Toolkit.Component.extend({
         // Initialize events
         this.addEvents([
             ['keydown', 'window', 'onKeydown'],
-            ['clickout', 'element', 'onHide'],
-            ['clickout', 'document', 'onHide', '{selector}'],
+            //['clickout', 'element', 'onHide'],
+            //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'onHide'],
             ['click', 'element', 'hide', this.ns('close')],
