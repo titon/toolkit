@@ -73,7 +73,10 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Hide the loader.
      */
     hideLoader: function() {
-        this.loader.conceal();
+
+        // There's an issue on Chrome where calling conceal() here doesn't work
+        // when the blackout is being transitioned. So just change it's display.
+        this.loader.hide();
     },
 
     /**
@@ -100,7 +103,9 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Show the loader.
      */
     showLoader: function() {
-        this.loader.reveal();
+
+        // The same problem for hide() applies here, so just change the display.
+        this.loader.show();
     }
 
 }, {

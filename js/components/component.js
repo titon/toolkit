@@ -86,12 +86,12 @@ Toolkit.Component = Toolkit.Base.extend({
         // Remove cached plugin instances
         var key = this.keyName;
 
-        if (this.nodes.length) {
+        if (this.nodes && this.nodes.length) {
             this.nodes.removeData('toolkit.' + key);
 
             delete Toolkit.cache[key + ':' + this.nodes.selector];
 
-        } else if (this.element.length) {
+        } else if (this.element && this.element.length) {
             this.element.removeData('toolkit.' + key);
         }
 
@@ -245,8 +245,6 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {*} content
      */
     process: function(content) {
-        this.hide();
-
         if (content.callback) {
             var namespaces = content.callback.split('.'),
                 func = window, prev = func;
@@ -260,6 +258,8 @@ Toolkit.Component = Toolkit.Base.extend({
         }
 
         this.fireEvent('process', [content]);
+
+        this.hide();
     },
 
     /**

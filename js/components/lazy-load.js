@@ -191,7 +191,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 
         // Set force load on DOM ready
         if (this.options.forceLoad) {
-            this.timer = setTimeout(this.loadAll, this.options.delay);
+            this.timer = setTimeout(this.loadAll.bind(this), this.options.delay);
         }
     }
 
