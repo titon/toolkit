@@ -180,7 +180,7 @@ Toolkit.Component = Toolkit.Base.extend({
     /**
      * Attempt to load content from different formats and set it using `position()`.
      * If the content is an element ID (#hash), fetch the inner contents from the element.
-     * If the content is a string that looks like a URL, fetch the content using an AJAX request.
+     * If the content is a string that looks like an absolute URL, fetch the content using an AJAX request.
      * If the content is a literal string, set it directly.
      *
      * @param {String} content

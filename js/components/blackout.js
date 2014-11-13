@@ -60,10 +60,11 @@ Toolkit.Blackout = Toolkit.Component.extend({
         if (count <= 0) {
             this.count = 0;
             this.element.conceal();
-            this.hideLoader();
         } else {
             this.count = count;
         }
+
+        this.hideLoader();
 
         this.fireEvent('hidden', [(count <= 0)]);
     },
