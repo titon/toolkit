@@ -1,17 +1,14 @@
 const PLUGIN_NAME = 'toolkit-requirejs';
 
 var gutil = require('gulp-util'),
+    through = require('through2'),
     rjs = require('requirejs'),
-    through = require('through'),
     buffer = require('buffer');
 
 module.exports = function(paths, options) {
-    var stream = through();
+    gutil.log(gutil.colors.yellow('Compiling JS...'));
 
-    gutil.log('Compiling...');
-
-    // Pause the stream and wait for the file to be created
-    stream.pause();
+    var stream = through.obj();
 
     rjs.optimize({
         out: function(response) {
@@ -20,12 +17,6 @@ module.exports = function(paths, options) {
                 contents: new buffer.Buffer(response)
             }));
 
-            // Now we can resume the stream
-            // We need to do this or else the Gulp chain will break
-            stream.resume();
-
-            // And end it before passing it on
-            // And we need to do this so that task_stop events are triggered
             stream.end();
         },
         baseUrl: './js/',

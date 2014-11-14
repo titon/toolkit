@@ -2,10 +2,9 @@
 
 var pkg = require('./package.json'),
     rjs = require('./build/plugins/requirejs'),
+    sass = require('./build/plugins/sass'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
-    //libsass = require('gulp-sass'),
-    sass = require('gulp-ruby-sass'), // Use v0.5.0 as later versions sort the src array
     header = require('gulp-header'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -113,7 +112,7 @@ gulp.task('test', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', ['css', 'js']);
+gulp.task('default', ['js', 'css']);
 
 gulp.task('watch', function() {
     gulp.watch('./js/**/*.js', ['js']);
