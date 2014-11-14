@@ -2,6 +2,7 @@
 
 var pkg = require('./package.json'),
     rjs = require('./build/plugins/requirejs'),
+    pjs = require('./build/plugins/phantomjs'),
     sass = require('./build/plugins/sass'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
@@ -101,15 +102,10 @@ gulp.task('js', function() {
 });
 
 gulp.task('test', function() {
-    /*var scriptPath = lookup('mocha-phantomjs/lib/mocha-phantomjs.coffee');
-
-    if (!scriptPath) {
-        throw new gutil.PluginError('Toolkit', 'mocha-phantomjs not found');
-    }*/
-
     return gulp.src('./tests/**/*.js')
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter('default'))
+        .pipe(pjs({ reporter: 'dot' }));
 });
 
 gulp.task('default', ['js', 'css']);

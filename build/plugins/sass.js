@@ -14,7 +14,7 @@ module.exports = function(options) {
             inputPath = file.path,
             outputPath = inputPath.replace('.scss', '.css');
 
-        // Output sass to a temp file
+        // Output Sass to a temp file
         var sass = spawn('sass', [
             inputPath,
             outputPath,

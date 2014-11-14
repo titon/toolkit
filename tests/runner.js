@@ -5,14 +5,14 @@ require.config({
         jquery: 'node_modules/jquery/dist/jquery',
         mocha:  'node_modules/mocha/mocha',
         chai:   'node_modules/chai/chai',
-        sinon:  'node_modules/sinon/lib/sinon'
+        //sinon:  'node_modules/sinon/lib/sinon'
     }
 });
 
 define(function(require) {
     require('jquery');
     require('mocha');
-    require('sinon');
+    //require('sinon');
 
     // Hacky way to setup the mocha object
     // But the mocha object was not returned from the require() call as we are using the browser version
