@@ -36,7 +36,8 @@ describe('Toolkit.Toast', function() {
         it('should create a toast within the container', function() {
             toast.create('Foo');
 
-            expect(element.toString()).to.equal('<div class="toast slide-up hide" role="note" aria-hidden="true">Foo</div>');
+            expect(element.hasClass('toast')).to.be.true;
+            expect(element.text()).to.equal('Foo');
             expect($.contains(toast.element[0], element[0])).to.be.true;
         });
 
@@ -58,7 +59,8 @@ describe('Toolkit.Toast', function() {
                 toastTemplate: '<section class="toast"></section>'
             });
 
-            expect(element.toString()).to.equal('<section class="toast slide-left hide" role="note" aria-hidden="true">Foo</section>');
+            expect(element.prop('tagName').toLowerCase()).to.equal('section');
+            expect(element.hasClass('slide-left')).to.be.true;
         });
 
         it('should allow HTML to be set', function() {

@@ -9,11 +9,11 @@ describe('Toolkit.Showcase', function() {
 
     before(function() {
         element = $('<div/>').html(
-            '<a href="http://placehold.it/500x500/4c6278/ffffff" class="js-showcase" title="Foobar"><img src="http://placehold.it/200x150/4c6278/ffffff" alt=""></a>' +
-            '<a href="http://placehold.it/400x300/42586e/ffffff" class="js-showcase"><img src="http://placehold.it/200x150/42586e/ffffff" alt=""></a>' +
-            '<a href="http://placehold.it/1600x900/344a5f/ffffff" class="js-showcase"><img src="http://placehold.it/200x150/344a5f/ffffff" alt=""></a>' +
-            '<a href="http://placehold.it/1500x500/293f54/ffffff" class="js-showcase"><img src="http://placehold.it/200x150/293f54/ffffff" alt=""></a>' +
-            '<a href="http://broken.url" class="js-showcase"><img src="http://broken.url" alt=""></a>'
+            '<a href="images/showcase-1.png" class="js-showcase" title="Foobar"><img src="images/showcase-1.png" alt=""></a>' +
+            '<a href="images/showcase-2.png" class="js-showcase"><img src="images/showcase-2.png" alt=""></a>' +
+            '<a href="images/showcase-3.png" class="js-showcase"><img src="images/showcase-3.png" alt=""></a>' +
+            '<a href="images/showcase-4.png" class="js-showcase"><img src="images/showcase-4.png" alt=""></a>' +
+            '<a href="images/showcase-broken.png" class="js-showcase"><img src="images/showcase-broken.png" alt=""></a>'
         ).appendTo('body');
 
         showcase = $('.js-showcase').showcase().toolkit('showcase');
@@ -81,7 +81,7 @@ describe('Toolkit.Showcase', function() {
                 expect(showcase.tabs.find('a:eq(4)').hasClass('is-active')).to.be.false;
 
                 done();
-            }, 100);
+            }, 250); // Gotta load images
         });
 
         it('should set the index', function(done) {
@@ -93,7 +93,7 @@ describe('Toolkit.Showcase', function() {
                 expect(showcase.index).to.equal(2);
 
                 done();
-            }, 100);
+            }, 250); // Gotta load images
         });
 
         it('should set the loading state on the element', function(done) {
@@ -104,18 +104,20 @@ describe('Toolkit.Showcase', function() {
                 expect(showcase.element.aria('busy')).to.equal('true');
 
                 done();
-            }, 100);
+            }, 250); // Gotta load images
         });
 
         it('should set the caption and image', function(done) {
             setTimeout(function() {
                 showcase.jump(0);
 
-                expect(showcase.items.find('li:eq(0) img').attr('src')).to.equal('http://placehold.it/500x500/4c6278/ffffff');
-                expect(showcase.caption.text()).to.equal('Foobar');
+                setTimeout(function() {
+                    expect(showcase.items.find('li:eq(0) img').attr('src')).to.equal('images/showcase-1.png');
+                    expect(showcase.caption.text()).to.equal('Foobar');
 
-                done();
-            }, 100);
+                    done();
+                }, 100);
+            }, 250); // Gotta load images
         });
 
         it('should handle images that fail to load', function(done) {
@@ -127,8 +129,8 @@ describe('Toolkit.Showcase', function() {
                     expect(showcase.items.find('li:eq(4)').text()).to.equal('An error has occurred!');
 
                     done();
-                }, 500);
-            }, 100);
+                }, 100);
+            }, 250);
         });
     });
 
@@ -173,7 +175,7 @@ describe('Toolkit.Showcase', function() {
             showcase.show(node);
 
             expect(showcase.data).to.deep.equal([
-                { category: undef, title: 'Foobar', image: 'http://placehold.it/500x500/4c6278/ffffff' }
+                { category: undef, title: 'Foobar', image: 'images/showcase-1.png' }
             ]);
         });
 
@@ -208,11 +210,11 @@ describe('Toolkit.Showcase', function() {
             showcase.show(node);
 
             expect(showcase.data).to.deep.equal([
-                { category: 'group', title: 'Foobar', image: 'http://placehold.it/500x500/4c6278/ffffff' },
-                { category: 'group', title: undef, image: 'http://placehold.it/400x300/42586e/ffffff' },
-                { category: 'group', title: undef, image: 'http://placehold.it/1600x900/344a5f/ffffff' },
-                { category: 'group', title: undef, image: 'http://placehold.it/1500x500/293f54/ffffff' },
-                { category: 'group', title: undef, image: 'http://broken.url' }
+                { category: 'group', title: 'Foobar', image: 'images/showcase-1.png' },
+                { category: 'group', title: undef, image: 'images/showcase-2.png' },
+                { category: 'group', title: undef, image: 'images/showcase-3.png' },
+                { category: 'group', title: undef, image: 'images/showcase-4.png' },
+                { category: 'group', title: undef, image: 'images/showcase-broken.png' }
             ]);
         });
 

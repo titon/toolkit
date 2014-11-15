@@ -7,11 +7,11 @@ function createCarousel(options) {
     return $('<div class="carousel"></div>').html(
         '<div class="carousel-items">' +
             '<ul data-carousel-items>' +
-                '<li><img src="http://placehold.it/1200x900/4c6278/ffffff&text=4:3" alt=""></li>' +
-                '<li><img src="http://placehold.it/1200x900/42586e/ffffff&text=4:3" alt=""></li>' +
-                '<li><img src="http://placehold.it/1200x900/344a5f/ffffff&text=4:3" alt=""></li>' +
-                '<li><img src="http://placehold.it/1200x900/293f54/ffffff&text=4:3" alt=""></li>' +
-                '<li><img src="http://placehold.it/1200x900/283442/ffffff&text=4:3" alt=""></li>' +
+                '<li><img src="images/carousel-1.png" alt=""></li>' +
+                '<li><img src="images/carousel-2.png" alt=""></li>' +
+                '<li><img src="images/carousel-3.png" alt=""></li>' +
+                '<li><img src="images/carousel-4.png" alt=""></li>' +
+                '<li><img src="images/carousel-5.png" alt=""></li>' +
             '</ul>' +
         '</div>' +
         '<div class="carousel-tabs">' +

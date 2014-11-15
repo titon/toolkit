@@ -404,6 +404,8 @@ describe('Toolkit.Component', function() {
         });
 
         it('should convert hover `mode` to mouseenter', function() {
+            Toolkit.isTouch = false;
+
             opts = component.setOptions({ mode: 'hover' });
 
             expect(opts.mode).to.equal('mouseenter');
@@ -419,6 +421,8 @@ describe('Toolkit.Component', function() {
         });
 
         it('should convert hover to click for touch devices', function() {
+            Toolkit.isTouch = false;
+
             opts = component.setOptions({ mode: 'hover' });
 
             expect(opts.mode).to.equal('mouseenter');

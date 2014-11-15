@@ -4,15 +4,7 @@ define([
 ], function($) {
 
 describe('Toolkit.Input', function() {
-    var element, form,
-        expected = '<form action="" method="post">' +
-            '<div class="custom-input"><input type="checkbox" name="foo" id="foo"><label class="checkbox" for="foo"></label></div>' +
-            '<div class="custom-input"><input type="radio" name="bar" id="bar"><label class="radio" for="bar"></label></div>' +
-            '<div class="custom-input"><select name="baz" id="baz" style="min-height: 39px; z-index: 1;"><option value="">Option</option></select>' +
-                '<div class="select" data-select="" style="min-width: 0px;"><div class="select-arrow" data-select-arrow=""><span class="caret-down"></span></div><div class="select-label" data-select-label="">Option</div></div>' +
-                '<div class="drop drop--down select-options" data-select-options="" role="listbox" aria-multiselectable="false"><ul><li class="is-active"><a href="javascript:;" role="option" aria-selected="true">Option</a></li></ul></div>' +
-            '</div>' +
-        '</form>';
+    var element, form;
 
     before(function() {
         element = $('<div/>').appendTo('body');
@@ -29,11 +21,11 @@ describe('Toolkit.Input', function() {
 
     describe('constructor()', function() {
         it('should wrap all checkboxes, radios, and selects', function() {
-            expect(form.toString()).to.equal('<form action="" method="post"><input type="checkbox" name="foo" id="foo"><input type="radio" name="bar" id="bar"><select name="baz" id="baz"><option value="">Option</option></select></form>');
+            expect(form.find('.custom-input').length).to.equal(0);
 
             form.input();
 
-            expect(form.toString()).to.equal(expected);
+            expect(form.find('.custom-input').length).to.equal(3);
         });
     });
 
@@ -69,11 +61,11 @@ describe('Toolkit.Input', function() {
 
     describe('destroy()', function() {
         it('should unwrap all checkboxes, radios, and selects', function() {
-            expect(form.toString()).to.equal(expected);
+            expect(form.find('.custom-input').length).to.equal(3);
 
             form.toolkit('input', 'destroy');
 
-            expect(form.toString()).to.equal('<form action="" method="post"><input type="checkbox" name="foo" id="foo"><input type="radio" name="bar" id="bar"><select name="baz" id="baz"><option value="">Option</option></select></form>');
+            expect(form.find('.custom-input').length).to.equal(0);
         });
     });
 });
@@ -92,21 +84,21 @@ describe('Toolkit.InputCheckbox', function() {
 
     describe('constructor()', function() {
         it('should wrap the checkbox', function() {
-            expect(element.toString()).to.equal('<div><input type="checkbox" name="foo" id="bar"></div>');
+            expect(element.find('> .custom-input').length).to.equal(0);
 
             checkbox.inputCheckbox();
 
-            expect(element.toString()).to.equal('<div><div class="custom-input"><input type="checkbox" name="foo" id="bar"><label class="checkbox" for="bar"></label></div></div>');
+            expect(element.find('> .custom-input').length).to.equal(1);
         });
     });
 
     describe('destroy()', function() {
         it('should unwrap the checkbox', function() {
-            expect(element.toString()).to.equal('<div><div class="custom-input"><input type="checkbox" name="foo" id="bar"><label class="checkbox" for="bar"></label></div></div>');
+            expect(element.find('> .custom-input').length).to.equal(1);
 
             checkbox.toolkit('inputCheckbox', 'destroy');
 
-            expect(element.toString()).to.equal('<div><input type="checkbox" name="foo" id="bar"></div>');
+            expect(element.find('> .custom-input').length).to.equal(0);
         });
     });
 });
@@ -125,21 +117,21 @@ describe('Toolkit.InputRadio', function() {
 
     describe('constructor()', function() {
         it('should wrap the radio', function() {
-            expect(element.toString()).to.equal('<div><input type="radio" name="foo" id="bar"></div>');
+            expect(element.find('> .custom-input').length).to.equal(0);
 
             radio.inputRadio();
 
-            expect(element.toString()).to.equal('<div><div class="custom-input"><input type="radio" name="foo" id="bar"><label class="radio" for="bar"></label></div></div>');
+            expect(element.find('> .custom-input').length).to.equal(1);
         });
     });
 
     describe('destroy()', function() {
         it('should unwrap the radio', function() {
-            expect(element.toString()).to.equal('<div><div class="custom-input"><input type="radio" name="foo" id="bar"><label class="radio" for="bar"></label></div></div>');
+            expect(element.find('> .custom-input').length).to.equal(1);
 
             radio.toolkit('inputRadio', 'destroy');
 
-            expect(element.toString()).to.equal('<div><input type="radio" name="foo" id="bar"></div>');
+            expect(element.find('> .custom-input').length).to.equal(0);
         });
     });
 });
@@ -164,11 +156,11 @@ describe('Toolkit.InputSelect', function() {
         it('should wrap the select', function() {
             select = $('<select name="foo"></select>').appendTo(element);
 
-            expect(element.toString()).to.equal('<div><select name="foo"></select></div>');
+            expect(element.find('> .custom-input').length).to.equal(0);
 
             select.inputSelect({ native: true });
 
-            expect(element.toString()).to.equal('<div><div class="custom-input"><select name="foo" style="min-height: 39px;"></select><div class="select" data-select="" style="min-width: 0px;"><div class="select-arrow" data-select-arrow=""><span class="caret-down"></span></div><div class="select-label" data-select-label=""></div></div></div></div>');
+            expect(element.find('> .custom-input').length).to.equal(1);
         });
 
         it('should not wrap if multi-select and `native` is enabled', function() {
@@ -278,14 +270,18 @@ describe('Toolkit.InputSelect', function() {
             select = $('<select name="foo"><option value="1">Foo</option><option value="2">Bar</option></select>').appendTo(element).inputSelect();
             input = select.toolkit('inputSelect');
 
-            expect(input.dropdown.html()).to.equal('<ul><li class="is-active"><a href="javascript:;" role="option" aria-selected="true">Foo</a></li><li><a href="javascript:;" role="option" aria-selected="false">Bar</a></li></ul>');
+            expect(input.dropdown.find('li').length).to.equal(2);
+            expect(input.dropdown.find('li:first').text()).to.equal('Foo');
+            expect(input.dropdown.find('li:last').text()).to.equal('Bar');
         });
 
         it('should convert optgroups to list dividers', function() {
             select = $('<select name="foo"><optgroup label="Group"><option value="1">Foo</option><option value="2">Bar</option></optgroup></select>').appendTo(element).inputSelect();
             input = select.toolkit('inputSelect');
 
-            expect(input.dropdown.html()).to.equal('<ul><li class="drop-heading">Group</li><li class="is-active"><a href="javascript:;" role="option" aria-selected="true">Foo</a></li><li><a href="javascript:;" role="option" aria-selected="false">Bar</a></li></ul>');
+            expect(input.dropdown.find('li').length).to.equal(3);
+            expect(input.dropdown.find('li:first').text()).to.equal('Group');
+            expect(input.dropdown.find('li:last').text()).to.equal('Bar');
         });
     });
 
@@ -301,19 +297,27 @@ describe('Toolkit.InputSelect', function() {
         });
 
         it('should convert an option to a list item', function() {
-            expect(input._buildOption($('<option value="1">Foo</option>')).toString()).to.equal('<li><a href="javascript:;" role="option" aria-selected="false">Foo</a></li>');
+            expect(input._buildOption($('<option value="1">Foo</option>')).prop('tagName').toLowerCase()).to.equal('li');
         });
 
         it('should represent a selected state', function() {
-            expect(input._buildOption($('<option value="1" selected>Foo</option>')).toString()).to.equal('<li class="is-active"><a href="javascript:;" role="option" aria-selected="true">Foo</a></li>');
+            var el = input._buildOption($('<option value="1" selected>Foo</option>'));
+
+            expect(el.hasClass('is-active')).to.be.true;
+            expect(el.find('a').aria('selected')).to.equal('true');
         });
 
         it('should represent a disabled state', function() {
-            expect(input._buildOption($('<option value="1" disabled>Foo</option>')).toString()).to.equal('<li class="is-disabled"><a href="javascript:;" role="option" aria-selected="false" aria-disabled="true">Foo</a></li>');
+            var el = input._buildOption($('<option value="1" disabled>Foo</option>'));
+
+            expect(el.hasClass('is-disabled')).to.be.true;
+            expect(el.find('a').aria('disabled')).to.equal('true');
         });
 
         it('should render custom descriptions', function() {
-            expect(input._buildOption($('<option value="1" data-description="Lorem ipsum.">Foo</option>')).toString()).to.equal('<li><a href="javascript:;" role="option" aria-selected="false">Foo<span class="drop-desc">Lorem ipsum.</span></a></li>');
+            var el = input._buildOption($('<option value="1" data-description="Lorem ipsum.">Foo</option>'));
+
+            expect(el.find('.drop-desc').text()).to.equal('Lorem ipsum.');
         });
     });
 

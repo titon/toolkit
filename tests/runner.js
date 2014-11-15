@@ -21,6 +21,9 @@ define(function(require) {
     // The same applies to chai, but it works, so whatever!
     window.expect = require('chai').expect;
 
+    // Set some checks that we will need
+    window.isFirefox = /firefox/i.test(navigator.userAgent);
+
     // Run the tests
     require([
         'tests/core',

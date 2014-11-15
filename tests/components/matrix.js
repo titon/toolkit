@@ -23,7 +23,7 @@ describe('Toolkit.Matrix', function() {
 
     describe('constructor()', function() {
         it('should immediately organize items into the grid', function() {
-            expect(element.css('height')).to.equal('37px');
+            expect(element.css('height')).to.not.be.undefined;
 
             expect(matrix.items.eq(0).css('position')).to.equal('absolute');
             expect(matrix.items.eq(1).css('position')).to.equal('absolute');

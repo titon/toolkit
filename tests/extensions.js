@@ -27,7 +27,10 @@ describe('Extensions', function() {
         });
 
         it('should set the custom `toggled` property', function() {
-            expect($('<span/>').aria('toggled', true).toString()).to.equal('<span aria-expanded="true" aria-selected="true"></span>');
+            var el = $('<span/>').aria('toggled', true);
+
+            expect(el.aria('expanded')).to.equal('true');
+            expect(el.aria('selected')).to.equal('true');
         });
 
         it('should not be set if `Toolkit.aria` is false', function() {
@@ -302,13 +305,21 @@ describe('Extensions', function() {
         var element = $('<span/>').addClass('foo bar').attr('id', 'baz').text('Element');
 
         it('should return the element markup as a string', function() {
-            expect(element.toString()).to.equal('<span class="foo bar" id="baz">Element</span>');
+            if (window.isFirefox) {
+                expect(element.toString()).to.equal('<span id="baz" class="foo bar">Element</span>');
+            } else {
+                expect(element.toString()).to.equal('<span class="foo bar" id="baz">Element</span>');
+            }
         });
 
         it('should return nested elements as well', function() {
             element.html('<b>Element</b>');
 
-            expect(element.toString()).to.equal('<span class="foo bar" id="baz"><b>Element</b></span>');
+            if (window.isFirefox) {
+                expect(element.toString()).to.equal('<span id="baz" class="foo bar"><b>Element</b></span>');
+            } else {
+                expect(element.toString()).to.equal('<span class="foo bar" id="baz"><b>Element</b></span>');
+            }
         });
     });
 

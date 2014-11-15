@@ -63,10 +63,8 @@ describe('Toolkit.Accordion', function() {
         it('should calculate and cache the heights of each section', function() {
             accordion.calculate();
 
-            var heights = [38, 55, 72];
-
             accordion.sections.each(function(i) {
-                expect( $(this).data('accordion-height') ).to.equal(heights[i]);
+                expect( $(this).data('accordion-height') ).to.be.above(30 + (i * 20));
             });
         });
 
@@ -75,10 +73,8 @@ describe('Toolkit.Accordion', function() {
                 return section.outerHeight() * 2;
             });
 
-            var heights = [76, 110, 144];
-
             accordion.sections.each(function(i) {
-                expect( $(this).data('accordion-height') ).to.equal(heights[i]);
+                expect( $(this).data('accordion-height') ).to.be.above(70 + (i * 20));
             });
         });
     });
@@ -100,10 +96,14 @@ describe('Toolkit.Accordion', function() {
             accordion.jump(1);
 
             setTimeout(function() {
-                var heights = [0, 110, 0];
-
                 accordion.sections.each(function(i) {
-                    expect(Math.ceil(parseInt($(this).css('max-height'), 10))).to.equal(heights[i]);
+                    var height = Math.ceil(parseInt($(this).css('max-height'), 10));
+
+                    if (i == 1) {
+                        expect(height).to.be.above(0);
+                    } else {
+                        expect(height).to.equal(0);
+                    }
                 });
 
                 done();
