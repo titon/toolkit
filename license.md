@@ -1,4 +1,4 @@
-Copyright (c) 2010-2014, The Titon Project, Miles Johnson.
+Copyright (c) 2010-2015, The Titon Project, Miles Johnson.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
