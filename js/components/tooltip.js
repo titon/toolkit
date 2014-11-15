@@ -9,7 +9,7 @@ define([
 
 Toolkit.Tooltip = Toolkit.Component.extend({
     name: 'Tooltip',
-    version: '1.5.0',
+    version: '2.0.0',
 
     /** The element to insert the title. */
     elementHead: null,

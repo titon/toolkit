@@ -8,7 +8,7 @@ var TooltipPrototype = Toolkit.Tooltip.prototype;
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
-    version: '1.5.0',
+    version: '2.0.0',
 
     /**
      * Initialize the popover.

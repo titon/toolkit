@@ -6,7 +6,7 @@ define([
 
 Toolkit.LazyLoad = Toolkit.Component.extend({
     name: 'LazyLoad',
-    version: '1.5.0',
+    version: '2.0.0',
 
     /** Container to monitor scroll events on. */
     container: $(window),

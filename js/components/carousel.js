@@ -8,7 +8,7 @@ define([
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
-    version: '1.5.3',
+    version: '2.0.0',
 
     /** Is the carousel currently animating? */
     animating: false,

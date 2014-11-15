@@ -6,7 +6,7 @@ define([
 
 Toolkit.Pin = Toolkit.Component.extend({
     name: 'Pin',
-    version: '1.5.0',
+    version: '2.0.0',
 
     /** Will the element be pinned? */
     active: true,

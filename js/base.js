@@ -9,7 +9,7 @@ Toolkit.Base = Toolkit.Class.extend({
     name: 'Base',
 
     /** Current version of the plugin. */
-    version: '1.5.0',
+    version: '2.0.0',
 
     /** Cached data and AJAX requests. */
     cache: {},

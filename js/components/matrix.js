@@ -7,7 +7,7 @@ define([
 
 Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
-    version: '1.5.2',
+    version: '2.0.0',
 
     /** How many columns that can fit in the wrapper. */
     colCount: 0,

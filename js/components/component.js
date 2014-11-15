@@ -9,7 +9,7 @@ define([
 
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',
-    version: '1.4.1',
+    version: '2.0.0',
 
     /** Whether the element was created automatically or not. */
     created: false,

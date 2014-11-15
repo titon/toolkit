@@ -2,13 +2,11 @@
 
 All releases will contain bug fixing and polishing for current features.
 
-### 2.0.0 ###
-* Replace examples with unit tests.
+### 2.x ###
 * RTL support.
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
-* Gracefully handle situations where components are nested within the same component. How to handle event delegation?
 
-### 3.0.0 ###
+### 3.x ###
 * Remove jQuery dependency and go straight vanilla?
 * Switch to Less (removes sass/compass/ruby dependencies).
 * Implement custom elements / components - http://w3c.github.io/webcomponents/explainer/

@@ -9,7 +9,7 @@ var blackout = null;
 
 Toolkit.Blackout = Toolkit.Component.extend({
     name: 'Blackout',
-    version: '1.4.0',
+    version: '2.0.0',
 
     /** How many times the blackout has been opened while being opened. */
     count: 0,

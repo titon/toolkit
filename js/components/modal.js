@@ -8,7 +8,7 @@ define([
 
 Toolkit.Modal = Toolkit.Component.extend({
     name: 'Modal',
-    version: '1.5.2',
+    version: '2.0.0',
 
     /** Blackout element if enabled. */
     blackout: null,

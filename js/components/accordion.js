@@ -7,7 +7,7 @@ define([
 
 Toolkit.Accordion = Toolkit.Component.extend({
     name: 'Accordion',
-    version: '1.4.0',
+    version: '2.0.0',
 
     /** Collection of header elements. */
     headers: [],

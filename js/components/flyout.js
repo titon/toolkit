@@ -7,7 +7,7 @@ define([
 
 Toolkit.Flyout = Toolkit.Component.extend({
     name: 'Flyout',
-    version: '1.4.0',
+    version: '2.0.0',
 
     /** Current URL to generate a flyout menu for. */
     current: null,
