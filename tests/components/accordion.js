@@ -99,7 +99,7 @@ describe('Toolkit.Accordion', function() {
                 accordion.sections.each(function(i) {
                     var height = Math.ceil(parseInt($(this).css('max-height'), 10));
 
-                    if (i == 1) {
+                    if (i === 1) {
                         expect(height).to.be.above(0);
                     } else {
                         expect(height).to.equal(0);

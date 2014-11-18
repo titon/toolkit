@@ -22,6 +22,7 @@ define(function(require) {
     window.expect = require('chai').expect;
 
     // Set some checks that we will need
+    window.isPhantom = !!window.callPhantom;
     window.isFirefox = /firefox/i.test(navigator.userAgent);
     window.isSafari = /safari/i.test(navigator.userAgent);
 

@@ -94,8 +94,9 @@ describe('Toolkit.Carousel', function() {
             var size = element.width() / carousel.options.itemsToShow;
 
             expect(carousel._size).to.equal(size);
-            expect(carousel.container.attr('style')).to.equal('width: ' + (size * 5) + 'px; left: 0px;');
-            expect(carousel.items.eq(0).attr('style')).to.equal('width: ' + size + 'px;');
+            expect(carousel.container.css('width')).to.equal((size * 5) + 'px');
+            expect(carousel.container.css('left')).to.equal('0px');
+            expect(carousel.items.eq(0).css('width')).to.equal(size + 'px');
         });
     });
 
@@ -282,9 +283,10 @@ describe('Toolkit.Carousel: infinite', function() {
             expect(carousel._size).to.equal(size);
 
             // Include clones in height. Top is negative to hide the leading clones.
-            expect(carousel.container.attr('style')).to.equal('height: ' + (size * 7) + 'px; top: -' + size + 'px;');
+            expect(carousel.container.css('height')).to.equal((size * 7) + 'px');
+            expect(carousel.container.css('top')).to.equal('-' + size + 'px');
 
-            expect(carousel.items.eq(0).attr('style')).to.equal('height: ' + size + 'px;');
+            expect(carousel.items.eq(0).css('height')).to.equal(size + 'px');
         });
     });
 

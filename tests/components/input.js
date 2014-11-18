@@ -287,7 +287,7 @@ describe('Toolkit.InputSelect', function() {
 
     describe('_buildOption()', function() {
         before(function() {
-            select = $('<select name="foo"></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
         });
 
