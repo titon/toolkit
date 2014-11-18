@@ -119,9 +119,9 @@ describe('Toolkit.Matrix', function() {
         });*/
 
         it('should remove inline styles from each item', function() {
-            expect(matrix.items.eq(0).attr('style')).to.be.undefined;
-            expect(matrix.items.eq(1).attr('style')).to.be.undefined;
-            expect(matrix.items.eq(2).attr('style')).to.be.undefined;
+            expect(matrix.items.eq(0).attr('style')).to.not.be.ok;
+            expect(matrix.items.eq(1).attr('style')).to.not.be.ok;
+            expect(matrix.items.eq(2).attr('style')).to.not.be.ok;
         });
     });
 

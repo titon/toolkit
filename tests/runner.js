@@ -23,6 +23,7 @@ define(function(require) {
 
     // Set some checks that we will need
     window.isFirefox = /firefox/i.test(navigator.userAgent);
+    window.isSafari = /safari/i.test(navigator.userAgent);
 
     // Run the tests
     require([

@@ -285,7 +285,7 @@ describe('Extensions', function() {
             }, 75);
 
             setTimeout(function() {
-                expect(count).to.equal(8);
+                expect(count).to.be.within(7, 8);
                 done();
             }, 1800);
         });
@@ -393,6 +393,7 @@ describe('Extensions', function() {
 
             setTimeout(function() {
                 expect(count).to.equal(3);
+
                 done();
             }, 275);
         });

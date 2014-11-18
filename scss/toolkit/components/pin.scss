@@ -6,6 +6,10 @@
 
 @import "../common";
 
+#{$pin-class} {
+    position: absolute;
+}
+
 #{$pin-class}.sticky {
     transition: top .6s ease-in-out, right $pin-transition ease-in-out, left $pin-transition ease-in-out;
 }

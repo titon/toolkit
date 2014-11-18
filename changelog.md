@@ -139,6 +139,7 @@ Older versions can be found in the documentation changelogs.
     * Pagination
         * Updated to only support `ol` lists
     * Pin
+        * Updated to have position absolute by default for `.pin`
         * Updated to no longer automatically set `.pin` on the element
     * Popover
         * Updated so that an `.is-active` class is toggled on the target node
