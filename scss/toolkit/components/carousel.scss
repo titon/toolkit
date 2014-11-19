@@ -10,6 +10,7 @@
     margin: 0 auto;
     text-align: left;
     position: relative;
+    max-width: 100%;
 
     &.no-next #{$carousel-class-next} { display: none; }
     &.no-prev #{$carousel-class-prev} { display: none; }

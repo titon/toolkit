@@ -8,9 +8,13 @@
 
 #{$toast-class-wrapper} {
     position: fixed;
-    margin: $margin;
+    padding: $margin;
     width: 20%;
     z-index: $toast-zindex;
+
+    @include if-max(nth($breakpoint-range-small, 1)) {
+        width: 100%;
+    }
 
     @if index($toast-position, "top-left") {
         &.top-left {
