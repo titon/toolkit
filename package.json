@@ -31,6 +31,7 @@
         "mocha-phantomjs": "~3",
         "phantomjs": "~1",
         "chai": "~1",
+        "which": "~1",
         "gulp": "~3",
         "gulp-util": "~3",
         "gulp-rename": "~1",

@@ -1,6 +1,7 @@
 .DS_Store
 .idea/
 .sass-cache/
+css/
 node_modules/
 build/toolkit.*
 npm-debug.log
