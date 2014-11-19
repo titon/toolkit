@@ -8,9 +8,9 @@ If a cell is blue, than either partial support is provided, or the plugin has a 
 
 The following libraries are being compared:
 
-* Foundation 5.2.3
-* Bootstrap 3.1.1
-* Semantic UI 0.17.0
+* Foundation 5.4.7
+* Bootstrap 3.3.1
+* Semantic UI 0.19.3
 
 <div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
@@ -35,8 +35,8 @@ The following table represents the minified un-gzipped distribution files for ea
         <tr>
             <td>CSS Components</td>
             <td>19</td>
-            <td>22</td>
-            <td>29</td>
+            <td>23</td>
+            <td>23</td>
             <td>24</td>
         </tr>
         <tr>
@@ -48,24 +48,24 @@ The following table represents the minified un-gzipped distribution files for ea
         </tr>
         <tr>
             <td>CSS Filesize</td>
-            <td>58KB</td>
-            <td>123KB</td>
-            <td>113KB</td>
-            <td>234KB</td>
+            <td class="is-success">54KB</td>
+            <td>148KB</td>
+            <td>113KB, 20KB (theme)</td>
+            <td class="is-error">237KB</td>
         </tr>
         <tr>
             <td>JS Filesize</td>
-            <td>62KB</td>
-            <td>93KB</td>
-            <td>29KB</td>
-            <td>137KB</td>
+            <td>66KB</td>
+            <td class="is-error">187KB</td>
+            <td class="is-success">36KB</td>
+            <td>138KB</td>
         </tr>
         <tr>
             <td>Images</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
-            <td>8</td>
+            <td class="is-error">8</td>
         </tr>
         <tr>
             <td>Fonts</td>
