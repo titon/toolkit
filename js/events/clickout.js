@@ -5,8 +5,9 @@
  */
 
 define([
-    'jquery'
-], function($) {
+    'jquery',
+    '../flags/touch'
+], function($, isTouch) {
 
 /**
  * An event that allows the clicking of the document to trigger a callback.
@@ -20,7 +21,7 @@ define([
 $.event.special.clickout = (function() {
     var elements = [];
 
-    $(document).on('click.toolkit.out', function(e) {
+    $(document).on(isTouch ? 'touchend' : 'click', function(e) {
         if (!elements.length) {
             return;
         }
