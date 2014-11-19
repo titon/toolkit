@@ -21,3 +21,9 @@ Support
 * [Contributing](support/contributing.md)
 * [Changelog](support/changelog.md)
 * [License](support/license.md)
+
+Releases
+* [2.0 - Gallant Golem](releases/20.md)
+
+Migrations
+* [Migrating to 2.0](migrations/20.md)
