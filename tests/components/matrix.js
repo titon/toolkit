@@ -113,10 +113,9 @@ describe('Toolkit.Matrix', function() {
             matrix.destroy();
         });
 
-        // This test seems to jump between true and false, not sure why.
-        it('should remove inline styles from the container');/*, function() {
-            expect(element[0].hasAttribute('style')).to.be.false;
-        });*/
+        it('should remove inline styles from the container', function() {
+            expect(element.attr('style')).to.not.be.ok;
+        });
 
         it('should remove inline styles from each item', function() {
             expect(matrix.items.eq(0).attr('style')).to.not.be.ok;

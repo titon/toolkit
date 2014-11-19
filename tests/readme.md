@@ -22,3 +22,10 @@ The following browsers have been tested.
 * Mac Chrome 38.0 - 100%
 * Mac Firefox 33.1 - 100%
 * Mac Safari 8.0 - 100%
+* Windows Chrome 38.0 - 100%
+* Windows Firefox 33.1 - 100%
+* Windows Opera 25.0 - 100%
+* Windows IE 11 - 100%
+* Windows IE 10 - 100%
+* Windows IE 9 - 99%
+    * `transitionend()` won't work as IE9 doesn't support transitions.

@@ -224,7 +224,7 @@ describe('Toolkit.Accordion', function() {
 
         it('should remove inline styles from sections', function() {
             accordion.sections.each(function() {
-                expect( $(this).attr('style') ).to.equal('');
+                expect( $(this).attr('style') ).to.not.be.ok;
             });
         });
 
