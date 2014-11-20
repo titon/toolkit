@@ -82,3 +82,32 @@ The `alert` or `status` role is required when supporting ARIA.
 <div class="notice is-warning" role="alert">...</div>
 <div class="notice is-error" role="alert">...</div>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$notice-class</td>
+            <td>.notice</td>
+            <td>CSS class name for the notice wrapper.</td>
+        </tr>
+        <tr>
+            <td>$notice-class-close</td>
+            <td>.notice-close</td>
+            <td>CSS class name for the notice close button.</td>
+        </tr>
+        <tr>
+            <td>$notice-class-title</td>
+            <td>.notice-title</td>
+            <td>CSS class name for the notice title.</td>
+        </tr>
+    </tbody>
+</table>

@@ -11,7 +11,7 @@ amount of HTTP requests in a given page.
 The difference between this component, and other libraries, is that lazy loading is applied
 to a parent wrapper. There are 2 reasons for this, the first is that it allows deferred loading
 of background images (ones defined in CSS), and the second is bulk loading of `img`s within the
-element. Simply place a `.lazy-load` class on the element we want to monitor.
+element. Simply place a `.lazy-load` (or the value of `lazyClass`) class on the element we want to monitor.
 
 ```html
 <div class="item lazy-load">
@@ -31,6 +31,11 @@ $('body').lazyLoad();
 // Or an element with overflow hidden
 $('#overflown').lazyLoad();
 ```
+
+<div class="notice is-info">
+    Lazy loading should be initialized without DOM ready, but after lazy elements have been declared,
+    so that images don't flicker.
+</div>
 
 ### Retina Support ###
 
@@ -69,9 +74,33 @@ either inline or through CSS. We may also define the `src` attribute with a tran
 * Background images will be overridden by the `.lazy-load` class.
 * Elements that have been loaded will have the `.lazy-load` class removed.
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$lazyLoad-class</td>
+            <td>.lazy-load</td>
+            <td>CSS class name for the individual lazy load element.</td>
+        </tr>
+        <tr>
+            <td>$lazyLoad-transition</td>
+            <td>.3s</td>
+            <td>The transition time for fading background images in and out.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -84,16 +113,22 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
+            <td>delay</td>
+            <td>int</td>
+            <td>10000</td>
+            <td>The number of milliseconds to wait before force loading all images.</td>
+        </tr>
+        <tr>
             <td>forceLoad</td>
             <td>bool</td>
             <td>false</td>
             <td>Force the loading of all images once the <code>delay</code> has passed.</td>
         </tr>
         <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>10000</td>
-            <td>The number of milliseconds to wait before force loading all images.</td>
+            <td>lazyClass</td>
+            <td>string</td>
+            <td>.lazy-load</td>
+            <td>The class name to search for and to remove while loading.</td>
         </tr>
         <tr>
             <td>threshold</td>
@@ -112,39 +147,44 @@ Inherits all options from the [parent component](../development/js/component.md#
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onLoad</td>
-            <td>load.toolkit.lazyLoad</td>
+            <td>loading</td>
             <td></td>
-            <td>Triggered while scrolling or resizing to check for elements to load.</td>
+            <td>Triggered before scrolling or resizing to check for elements to load.</td>
         </tr>
         <tr>
-            <td>onLoadAll</td>
-            <td>loadAll.toolkit.lazyLoad</td>
+            <td>loaded</td>
+            <td></td>
+            <td>Triggered after scrolling or resizing to check for elements to load.</td>
+        </tr>
+        <tr>
+            <td>loadAll</td>
             <td></td>
             <td>Triggered when elements have been force loaded.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.lazyLoad</td>
+            <td>showing</td>
             <td>element:element</td>
-            <td>Triggered when an element (that may contain images) is loaded.</td>
+            <td>Triggered before an element (that may contain images) is lazy loaded.</td>
         </tr>
         <tr>
-            <td>onShutdown</td>
-            <td>shutdown.toolkit.lazyLoad</td>
+            <td>shown</td>
+            <td>element:element</td>
+            <td>Triggered after an element is lazy loaded.</td>
+        </tr>
+        <tr>
+            <td>shutdown</td>
             <td></td>
             <td>Triggered when all elements have been loaded, or when <code>shutdown()</code> is called.</td>
         </tr>
@@ -153,7 +193,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -164,6 +204,11 @@ Inherits all properties from the [parent component](../development/js/component.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>container</td>
+            <td>element</td>
+            <td>The element to monitor scroll events on.</td>
+        </tr>
         <tr>
             <td>element</td>
             <td>element</td>
@@ -182,12 +227,17 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>int</td>
             <td>A count of how many elements have been loaded.</td>
         </tr>
+        <tr>
+            <td>timer</td>
+            <td>int</td>
+            <td>The load all timer.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

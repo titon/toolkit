@@ -4,7 +4,7 @@ Steps for tagging a new release that should be followed after a feature branch h
 These docs are for internal use only.
 
 * Update normalize.css
-* Test code with `grunt production`
+* Test code with `gulp`
     * Regression testing on all components with the compiled code
     * Find any issues, fix them and restart version process
 * Update version numbers
@@ -16,10 +16,8 @@ These docs are for internal use only.
     * Update dependencies
 * Verify documentation `toc.json` matches the current docs structure
 * Update `changelog.md` and the changelog found in docs
-* Prepare release with `grunt distribute`
+* Prepare release with `gulp --dist`
     * Fix the comment docblocks
-    * Remove `$` and `jQuery` from the MooTools compiled file
-    * Remove `http://` from URLs
 * Quick tests with the distribution files
 * Verify changes with `git diff`
 * Publish changes

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Titon Toolkit - Unit Tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+    <link rel="stylesheet" href="../build/toolkit.css">
+    <style>
+        /* Remove transitions as it makes it much easier to test */
+        *, *::after, *::before {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -o-transition: none !important;
+            -ms-transition: none !important;
+            transition: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="mocha"></div>
+    <script data-main="runner.js" src="../node_modules/requirejs/require.js"></script>
+</body>
+</html>

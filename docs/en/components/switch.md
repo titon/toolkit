@@ -72,17 +72,15 @@ Adding `.small` or `.large` to the `.switch` will alter the font size, padding, 
 
 ### Shapes ###
 
-Adding `.round` or `.pill` to the `.switch` will alter the border radius.
+Adding `.round` or `.pill` to the `.switch-bar` will alter the border radius.
 
 ```html
-<label class="switch pill">
+<label class="switch">
     ...
+
+    <div class="switch-bar pill">...</div>
 </label>
 ```
-
-<div class="notice is-warning">
-    The <code>.pill</code> shape will require the pill effect.
-</div>
 
 ### Notes ###
 
@@ -99,6 +97,36 @@ Adding `.round` or `.pill` to the `.switch` will alter the border radius.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$switch-class</td>
+            <td>.switch</td>
+            <td>CSS class name for the switch element.</td>
+        </tr>
+        <tr>
+            <td>$switch-class-bar</td>
+            <td>.switch-bar</td>
+            <td>CSS class name for the switch bar that wraps the toggle.</td>
+        </tr>
+        <tr>
+            <td>$switch-class-toggle</td>
+            <td>.switch-toggle</td>
+            <td>CSS class name for the switch toggle button.</td>
+        </tr>
+        <tr>
+            <td>$switch-class-modifier-stacked</td>
+            <td>.switch--stacked</td>
+            <td>Name of the stacked modifier to append to switch classes.</td>
+        </tr>
+        <tr>
+            <td>$switch-effects</td>
+            <td>("pill")</td>
+            <td>List of effects to include in the CSS output. Accepts pill.</td>
+        </tr>
+        <tr>
+            <td>$switch-modifiers</td>
+            <td>("stacked")</td>
+            <td>List of modifiers to include in the CSS output. Accepts stacked.</td>
+        </tr>
         <tr>
             <td>$switch-transition</td>
             <td>.3s</td>

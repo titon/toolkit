@@ -21,6 +21,22 @@ style resets, and media query management.
             <td>Provides <code>::after</code> styles on the parent for clearing child floats.</td>
         </tr>
         <tr>
+            <td>full-screen($position)</td>
+            <td></td>
+            <td>Positions an element across the entire viewport horizontally and vertically.</td>
+        </tr>
+        <tr>
+            <td>is-small($self, $parent)</td>
+            <td>Yes</td>
+            <td rowspan="2">
+                Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
+            </td>
+        </tr>
+        <tr>
+            <td>is-large($self, $parent)</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
             <td>reset-inline-block()</td>
             <td></td>
             <td>Resets the styles of an element to inline-block, aligns vertically in the middle, and resets margin, padding, etc.</td>
@@ -47,62 +63,6 @@ style resets, and media query management.
         <tr>
             <td>size-large()</td>
             <td></td>
-        </tr>
-        <tr>
-            <td>is-small($self, $parent)</td>
-            <td>Yes</td>
-            <td rowspan="3">
-                Programmatically sets size classes on either the current element, or the parent element, or both, depending on arguments.
-            </td>
-        </tr>
-        <tr>
-            <td>is-medium($self, $parent)</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>is-large($self, $parent)</td>
-            <td>Yes</td>
-        </tr>
-    </tbody>
-</table>
-
-## States ##
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Mixin</th>
-            <th>Nestable</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>is-active()</td>
-            <td>Yes</td>
-            <td>Defines styles for the active class on the current element, and for being a child of an active parent.</td>
-        </tr>
-        <tr>
-            <td>is-disabled()</td>
-            <td>Yes</td>
-            <td>Defines styles for the disabled class on the current element, and for being a child of a disabled parent.</td>
-        </tr>
-        <tr>
-            <td>is-info()</td>
-            <td>Yes</td>
-            <td rowspan="4">Defines styles for the respective state class on the current element.</td>
-        </tr>
-        <tr>
-            <td>is-error()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>is-warning()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>is-success()</td>
-            <td>Yes</td>
         </tr>
     </tbody>
 </table>
@@ -148,34 +108,18 @@ style resets, and media query management.
             <td>Generates media queries for high resolution displays.</td>
         </tr>
         <tr>
-            <td>if-desktop()</td>
+            <td>if-xsmall()</td>
             <td>Yes</td>
-            <td rowspan="8">
+            <td rowspan="5">
                 Generates media queries that apply styles when the current device being used falls under a breakpoint threshold.
-                Uses the breakpoint variables (above) as the ranges for detection.
+                Uses the breakpoint variables as the ranges for detection.
                 The value of <code>$responsive-design</code> determines whether <code>min-width</code>
                 or <code>max-width</code> features are used in media queries.
                 <b>Properties defined within these mixins will cascade and override where applicable.</b>
             </td>
         </tr>
         <tr>
-            <td>if-tablet-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-tablet-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-mobile-landscape()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-mobile-portrait()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>if-large()</td>
+            <td>if-small()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -183,28 +127,32 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
-            <td>if-small()</td>
+            <td>if-large()</td>
             <td>Yes</td>
         </tr>
         <tr>
-            <td>in-desktop()</td>
+            <td>if-xlarge()</td>
             <td>Yes</td>
-            <td rowspan="6">
+        </tr>
+        <tr>
+            <td>in-range($range)</td>
+            <td>Yes</td>
+            <td>
+                Generates media queries within a certain range. Requires a list of 2 items for the min and max breakpoint.
+                Passing <code>null</code> for a breakpoint will alter the type of media query used.
+            </td>
+        </tr>
+        <tr>
+            <td>in-xsmall()</td>
+            <td>Yes</td>
+            <td rowspan="5">
                 Generates media queries that apply styles when the current device being used falls within a certain breakpoint range.
-                Uses the breakpoint variables (above) and <code>min-width</code> coupled with <code>max-width</code> for range detection.
+                Uses the breakpoint variables and <code>min-width</code> coupled with <code>max-width</code> for range detection.
                 <b>Properties defined within these mixins will not cascade and will only apply within certain ranges.</b>
             </td>
         </tr>
         <tr>
-            <td>in-tablet()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-mobile()</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>in-large()</td>
+            <td>in-small()</td>
             <td>Yes</td>
         </tr>
         <tr>
@@ -212,7 +160,11 @@ style resets, and media query management.
             <td>Yes</td>
         </tr>
         <tr>
-            <td>in-small()</td>
+            <td>in-large()</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>in-xlarge()</td>
             <td>Yes</td>
         </tr>
     </tbody>
@@ -230,14 +182,14 @@ style resets, and media query management.
     </thead>
     <tbody>
         <tr>
-            <td>grid-row($width)</td>
-            <td></td>
-            <td>Defines width and wrapper styles for a row in a grid.</td>
-        </tr>
-        <tr>
             <td>grid-column($width, $gutter)</td>
             <td></td>
             <td>Defines width, margin, and gutter styles for a column in a grid.</td>
+        </tr>
+        <tr>
+            <td>grid-row($width)</td>
+            <td></td>
+            <td>Defines width and wrapper styles for a row in a grid.</td>
         </tr>
     </tbody>
 </table>

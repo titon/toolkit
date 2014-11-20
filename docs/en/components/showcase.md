@@ -46,26 +46,6 @@ The value of `getCategory` (defaults to `data-showcase`) will be used for groupi
 * A `.show` class will be added to the `li` for the item currently being show.
 * Supports arrow and escape key events.
 
-## Template ##
-
-The following markup is used for the creation of showcases.
-This structure can be customized through the `template` option.
-
-```html
-<div class="showcase">
-    <div class="showcase-inner">
-        <ul class="showcase-items"></ul>
-        <ol class="showcase-tabs bullets"></ol>
-
-        <button class="showcase-prev"><span class="arrow-left"></span></button>
-        <button class="showcase-next"><span class="arrow-right"></span></button>
-    </div>
-
-    <button class="showcase-close showcase-hide"><span class="x"></span></button>
-    <div class="showcase-caption"></div>
-</div>
-```
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -77,6 +57,46 @@ This structure can be customized through the `template` option.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$showcase-class</td>
+            <td>.showcase</td>
+            <td>CSS class name for the showcase wrapper.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-caption</td>
+            <td>.showcase-caption</td>
+            <td>CSS class name for the showcase caption.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-close</td>
+            <td>.showcase-close</td>
+            <td>CSS class name for the showcase close button.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-inner</td>
+            <td>.showcase-inner</td>
+            <td>CSS class name for the inner showcase wrapper.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-items</td>
+            <td>.showcase-items</td>
+            <td>CSS class name for the showcase items list.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-tabs</td>
+            <td>.showcase-tabs</td>
+            <td>CSS class name for the showcase tabs list.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-next</td>
+            <td>.showcase-next</td>
+            <td>CSS class name for the showcase next button.</td>
+        </tr>
+        <tr>
+            <td>$showcase-class-prev</td>
+            <td>.showcase-prev</td>
+            <td>CSS class name for the showcase previous button.</td>
+        </tr>
         <tr>
             <td>$showcase-opacity</td>
             <td>0.50</td>
@@ -97,7 +117,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -114,18 +134,6 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>bool</td>
             <td>true</td>
             <td>Whether to display a blackout when a showcase is open.</td>
-        </tr>
-        <tr>
-            <td>stopScroll</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Whether to remove the scrollbar on the window while the showcase is open.</td>
-        </tr>
-        <tr>
-            <td>gutter</td>
-            <td>int</td>
-            <td>50</td>
-            <td>The margin in pixels to leave between the showcase and viewport edge.</td>
         </tr>
         <tr>
             <td>getCategory</td>
@@ -145,35 +153,78 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>title</td>
             <td>The attribute to read the image title from.</td>
         </tr>
+        <tr>
+            <td>gutter</td>
+            <td>int</td>
+            <td>50</td>
+            <td>The margin in pixels to leave between the showcase and viewport edge.</td>
+        </tr>
+        <tr>
+            <td>stopScroll</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to remove the scrollbar on the window while the showcase is open.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="showcase"&gt;<br>
+                    &lt;div class="showcase-inner"&gt;<br>
+                        &lt;ul class="showcase-items" data-showcase-items&gt;&lt;/ul&gt;<br>
+                        &lt;ol class="showcase-tabs bullets" data-showcase-tabs&gt;&lt;/ol&gt;<br>
+                        &lt;button class="showcase-prev" data-showcase-prev&gt;&lt;/button&gt;<br>
+                        &lt;button class="showcase-next" data-showcase-next&gt;&lt;/button&gt;<br>
+                    &lt;/div&gt;<br>
+                    &lt;button class="showcase-close" data-showcase-close&gt;&lt;span class="x"&gt;&lt;/span&gt;&lt;/button&gt;<br>
+                    &lt;div class="showcase-caption" data-showcase-caption&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
+            </td>
+            <td>The showcase markup. The <code>data-showcase-*</code> attributes are required.</td>
+        </tr>
+        <tr>
+            <td>swipe</td>
+            <td>bool</td>
+            <td>Toolkit.isTouch</td>
+            <td>Will bind swipe events. If this is true on non-touch devices, it will bind equivalent mouse events.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onJump</td>
-            <td>jump.toolkit.showcase</td>
-            <td>int:index</td>
-            <td>Triggered after an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+            <td>jumping</td>
+            <td>int:oldIndex</td>
+            <td>Triggered before an item is cycled into view. Applies to all next, previous, and cycle calls.</td>
+        </tr>
+        <tr>
+            <td>jumped</td>
+            <td>int:newIndex</td>
+            <td>Triggered after an item is cycled into view.</td>
+        </tr>
+        <tr>
+            <td>load</td>
+            <td>collection:items</td>
+            <td>Triggered after the items have been gathered and created in the showcase.</td>
         </tr>
     </tbody>
 </table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -186,33 +237,9 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
-            <td>data</td>
-            <td>array</td>
-            <td>A list of data for titles, images, and categories. This list changes each time the showcase opens.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>items</td>
-            <td>element</td>
-            <td>The element that contains all items.</td>
-            <td>.showcase-items</td>
-        </tr>
-        <tr>
-            <td>tabs</td>
-            <td>element</td>
-            <td>The element that contains all tabs &mdash; the list of bullets to jump between pages.</td>
-            <td>.showcase-tabs</td>
-        </tr>
-        <tr>
-            <td>caption</td>
-            <td>element</td>
-            <td>The element that contains the current item caption.</td>
-            <td>.showcase-caption</td>
-        </tr>
-        <tr>
-            <td>index</td>
-            <td>int</td>
-            <td>The index of the currently shown item.</td>
+            <td>animating</td>
+            <td>bool</td>
+            <td>Is the showcase currently animating.</td>
             <td></td>
         </tr>
         <tr>
@@ -222,17 +249,41 @@ Inherits all properties from the [parent component](../development/js/component.
             <td></td>
         </tr>
         <tr>
-            <td>animating</td>
-            <td>bool</td>
-            <td>Is the showcase currently animating.</td>
+            <td>caption</td>
+            <td>element</td>
+            <td>The element that contains the current item caption.</td>
+            <td>[data-showcase-caption]</td>
+        </tr>
+        <tr>
+            <td>data</td>
+            <td>array</td>
+            <td>A list of data for titles, images, and categories. This list changes each time the showcase opens.</td>
             <td></td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>int</td>
+            <td>The index of the currently shown item.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>items</td>
+            <td>element</td>
+            <td>The element that contains all items.</td>
+            <td>[data-showcase-items]</td>
+        </tr>
+        <tr>
+            <td>tabs</td>
+            <td>element</td>
+            <td>The element that contains all tabs &mdash; the list of bullets to jump between pages.</td>
+            <td>[data-showcase-tabs]</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
@@ -246,22 +297,22 @@ Inherits all methods from the [parent component](../development/js/component.md#
         <tr>
             <td>hide()</td>
             <td>Hide the showcase.</td>
-            <td>.showcase-hide</td>
+            <td>[data-showcase-close]</td>
         </tr>
         <tr>
             <td>jump(int:index)</td>
             <td>Show a specific item defined by the index in the collection.</td>
-            <td>.showcase-tabs a</td>
+            <td>[data-showcase-tabs] a</td>
         </tr>
         <tr>
             <td>next()</td>
             <td>Go to the next item.</td>
-            <td>.showcase-next</td>
+            <td>[data-showcase-next]</td>
         </tr>
         <tr>
             <td>prev()</td>
             <td>Go to the previous item.</td>
-            <td>.showcase-prev</td>
+            <td>[data-showcase-prev]</td>
         </tr>
         <tr>
             <td>show(element:node)</td>

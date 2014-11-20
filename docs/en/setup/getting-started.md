@@ -20,6 +20,7 @@ After Toolkit has been downloaded, let's open the folder and review the file str
 
 ```
 toolkit/
+├── build/
 ├── demo/
 ├── dist/
 ├── docs/
@@ -30,22 +31,24 @@ toolkit/
 
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
 
-* The `demo` folder contains files that are used for testing components locally (requires PHP).
+* The `build` folder contains custom Gulp plugins as well as being the target location for Gulp builds
+* The `demo` folder contains files that are used for testing plugins locally.
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.
 
 ### Distribution Files ###
 
-Files found in the `dist` folder are compressed, minified, and compiled source files ready for production.
-These files are also available through [Bower](http://bower.io). These files include *all* components.
+Files found in the `dist` folder are minified and unminified files ready for production.
+These files are also available through [Bower](http://bower.io). These files include *all* plugins.
 
 ```
 toolkit/
 └── dist/
+    ├── toolkit.css
+    ├── toolkit.js
     ├── toolkit.min.css
-    ├── toolkit-jquery.min.js
-    └── toolkit-mootools.min.js
+    └── toolkit.min.js
 ```
 
 Simply include the files in your application to gain all of Toolkit's functionality.
@@ -58,31 +61,21 @@ This is where all development and engineering is focused. These files will later
 ```
 toolkit/
 ├── js/
-|   └── jquery|mootools/
-|       ├── components/
-|       ├── Component.js
-|       └── Toolkit.js
+|   ├── components/
+|   ├── events/
+|   ├── extensions/
+|   └── flags/
 ├── lib/
 |   └── titon-toolkit.rb
 └── scss/
     ├── toolkit/
     |   ├── components/
-    |   ├── effects/
-    |   ├── layout/
-    |   ├── mixins/
-    |   ├── themes/
-    |   └── _common.scss
+    |   └── mixins/
     ├── normalize.scss
     └── toolkit.scss
 ```
 
 Files are organized into folders that represent specific functionality.
-
-* The `components` folder contains source files for individual components.
-* The `effects` folder contains effects that improve components with new aesthetics.
-* The `layout` folder contains styles that alter built-in HTML tags, like forms and typography.
-* The `mixins` folder contains mixins and functions for use in Sass files.
-* The `themes` folder contains custom themes built around Toolkit components.
 
 <div class="notice is-info">
     The <code>lib</code> folder is required by Compass extensions and serves no other purpose.
@@ -99,12 +92,12 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
         <title>Titon Toolkit</title>
         <link href="css/toolkit.min.css" rel="stylesheet">
         <link href="css/style.min.css" rel="stylesheet">
         <script src="js/jquery.min.js"></script>
-        <script src="js/toolkit-jquery.min.js"></script>
+        <script src="js/toolkit.min.js"></script>
     </head>
     <body>
     </body>
@@ -112,10 +105,10 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
 ```
 
 You'll notice that we placed `toolkit.min.css` before `style.min.css`.
-This allows for helper classes and component styles to be inherited first.
-Placing project specific styles after Toolkit allows customization and themeing of components.
+This allows for helper classes and plugin styles to be inherited first.
+Placing project specific styles after Toolkit allows customization and themeing of plugins.
 
-Let's test our JavaScript components by placing the following code within the `<body>` tags.
+Let's test our JavaScript plugins by placing the following code within the `<body>` tags.
 
 ```html
 <button type="button" class="button js-tooltip" data-tooltip="This messages displays on hover.">Click Me!</button>
@@ -131,7 +124,7 @@ Now comes the fun part, testing the code. Open up the previously created HTML fi
 If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
 
 <div class="notice is-warning">
-    If no styles have been defined yet, the button and tooltip components will use default styles, which look rather bland.
+    If no styles have been defined yet, the button and tooltip plugins will use default styles, which look rather bland.
 </div>
 
 Getting started with Toolkit was extremely easy, and we can guarantee working in and integrating it is just as easy.

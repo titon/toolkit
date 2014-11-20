@@ -1,16 +1,22 @@
 
 @mixin button-group-first-child {
-    > li:first-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:first-child,
-    > .#{$vendor-prefix}button.first {
+    > li:first-child #{$button-class},
+    > #{$button-class}:first-child {
         @content;
     }
 }
 
 @mixin button-group-last-child {
-    > li:last-child .#{$vendor-prefix}button,
-    > .#{$vendor-prefix}button:last-child,
-    > .#{$vendor-prefix}button.last {
+    > li:last-child #{$button-class},
+    > #{$button-class}:last-child {
         @content;
     }
+}
+
+@mixin responsive-display-block($class) {
+    #{$class} { display: block !important; }
+    table#{$class} { display: table !important; }
+    tr#{$class} { display: table-row !important; }
+    td#{$class},
+    th#{$class} { display: table-cell !important; }
 }

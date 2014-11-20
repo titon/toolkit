@@ -81,3 +81,27 @@ buttons with a drop menu of actions.
     a fixed height may need to be applied as line heights, paddings, and font sizes
     differ between browsers, which makes it rather complicated to align correctly.
 </div>
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$inputGroup-class</td>
+            <td>.input-group</td>
+            <td>CSS class name for the input group wrapper.</td>
+        </tr>
+        <tr>
+            <td>$inputGroup-class-addon</td>
+            <td>.input-addon</td>
+            <td>CSS class name for the input group addon element.</td>
+        </tr>
+    </tbody>
+</table>

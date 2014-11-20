@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}switch {
+#{$switch-class} {
     @include reset-inline-block;
     font-size: 0;
     width: 100px;
@@ -16,38 +16,32 @@
         opacity: $disabled-opacity;
     }
 
-    &.#{$shape-round-class} {
-        .#{$vendor-prefix}switch-toggle {
-            border-radius: $round - 0.02;
-        }
-    }
-
     input {
         display: none;
 
-        &:checked + .#{$vendor-prefix}switch-bar {
-            .#{$vendor-prefix}switch-toggle {
+        &:checked + #{$switch-class-bar} {
+            #{$switch-class-toggle} {
                 left: 50%;
             }
 
-            &:before { opacity: 1; }
-            &:after { opacity: 0; }
+            &::before { opacity: 1; }
+            &::after { opacity: 0; }
         }
     }
 
     @include is-small() {
         width: 70px;
 
-        .#{$vendor-prefix}switch-bar {
+        #{$switch-class-bar} {
             font-size: $small-size;
 
-            &:before,
-            &:after {
+            &::before,
+            &::after {
                 padding: $small-padding;
             }
         }
 
-        .#{$vendor-prefix}switch-toggle {
+        #{$switch-class-toggle} {
             padding: $small-padding;
         }
     }
@@ -55,29 +49,29 @@
     @include is-large() {
         width: 130px;
 
-        .#{$vendor-prefix}switch-bar {
+        #{$switch-class-bar} {
             font-size: $large-size;
 
-            &:before,
-            &:after {
+            &::before,
+            &::after {
                 padding: $large-padding;
             }
         }
 
-        .#{$vendor-prefix}switch-toggle {
+        #{$switch-class-toggle} {
             padding: $large-padding;
         }
     }
 }
 
-.#{$vendor-prefix}switch-bar {
+#{$switch-class-bar} {
     display: block;
     position: relative;
     font-size: $medium-size;
     transition: background $switch-transition;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         position: absolute;
         padding: $medium-padding;
         top: 0;
@@ -86,19 +80,37 @@
         transition: opacity $switch-transition;
     }
 
-    &:before {
+    &::before {
         left: 0;
         opacity: 0;
         content: attr(data-switch-on);
     }
 
-    &:after {
+    &::after {
         right: 0;
         content: attr(data-switch-off);
     }
+
+    //----- Effects -----//
+
+    &#{$shape-round-class} {
+        #{$switch-class-toggle} {
+            border-radius: $round - 0.02;
+        }
+    }
+
+    @if index($switch-effects, "pill") {
+        &#{$shape-pill-class} {
+            border-radius: $pill;
+
+            #{$switch-class-toggle} {
+                border-radius: $pill;
+            }
+        }
+    }
 }
 
-.#{$vendor-prefix}switch-toggle {
+#{$switch-class-toggle} {
     @include reset-inline-block;
     padding: $medium-padding;
     width: 50%;
@@ -107,17 +119,19 @@
     user-select: none;
     transition: left $switch-transition;
 
-    &:before { content: "\00A0"; } // NBSP
+    &::before { content: "\00A0"; } // NBSP
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}switch--stacked {
-    .#{$vendor-prefix}switch-bar {
-        &:before,
-        &:after {
-            z-index: 3;
-            opacity: 1 !important;
+@if index($switch-modifiers, "stacked") {
+    #{$switch-class-modifier-stacked} {
+        #{$switch-class-bar} {
+            &::before,
+            &::after {
+                z-index: 3;
+                opacity: 1 !important;
+            }
         }
     }
 }

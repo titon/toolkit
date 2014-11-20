@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}matrix {
+#{$matrix-class} {
     @include reset-list;
     position: relative;
 
@@ -14,10 +14,10 @@
         float: left;
         margin: 0;
         padding: 0;
-        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition;
+        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition, visibility $matrix-transition;
     }
 
-    &.has-no-columns > li {
+    &.no-columns > li {
         position: relative !important;
     }
 

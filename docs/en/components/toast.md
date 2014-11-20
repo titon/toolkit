@@ -85,9 +85,19 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
-            <td>$toast-animation</td>
+            <td>$toast-animations</td>
             <td>("fade", "slide-up", "slide-down", "slide-left", "slide-right")</td>
             <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$toast-class</td>
+            <td>.toast</td>
+            <td>CSS class name for the toast element.</td>
+        </tr>
+        <tr>
+            <td>$toast-class-wrapper</td>
+            <td>.toasts</td>
+            <td>CSS class name for the toasts wrapper.</td>
         </tr>
         <tr>
             <td>$toast-position</td>
@@ -109,7 +119,7 @@ and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -121,15 +131,6 @@ Inherits all options from the [parent component](../development/js/component.md#
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>position</td>
-            <td>string</td>
-            <td>bottom-left</td>
-            <td>
-                Where to position the toasts container. Available options are:
-                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
-            </td>
-        </tr>
         <tr>
             <td>animation</td>
             <td>string</td>
@@ -145,47 +146,78 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>5000</td>
             <td>The number in milliseconds before a toast disappears.</td>
         </tr>
+        <tr>
+            <td>position</td>
+            <td>string</td>
+            <td>bottom-left</td>
+            <td>
+                Where to position the toasts container. Available options are:
+                top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
+            </td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;aside class="toasts"&gt;&lt;/aside&gt;
+            </td>
+            <td>The outer wrapping markup.</td>
+        </tr>
+        <tr>
+            <td>toastTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="toast"&gt;&lt;/div&gt;
+            </td>
+            <td>The individual toast markup.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onCreate</td>
-            <td>create.toolkit.toast</td>
+            <td>create</td>
             <td>element:toast</td>
-            <td>Triggered after a toast is created, but before it is shown.</td>
+            <td>Triggered after a toast is created but before it is shown.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.toast</td>
-            <td>element:toast</td>
-            <td>Triggered after a toast is shown.</td>
-        </tr>
-        <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.toast</td>
+            <td>hiding</td>
             <td>element:toast</td>
             <td>Triggered before a toast is hidden.</td>
+        </tr>
+        <tr>
+            <td>hidden</td>
+            <td></td>
+            <td>Triggered after a toast is hidden.</td>
+        </tr>
+        <tr>
+            <td>showing</td>
+            <td>element:toast</td>
+            <td>Triggered before a toast is shown.</td>
+        </tr>
+        <tr>
+            <td>shown</td>
+            <td>element:toast</td>
+            <td>Triggered after a toast is shown.</td>
         </tr>
     </tbody>
 </table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -199,14 +231,14 @@ Inherits all properties from the [parent component](../development/js/component.
         <tr>
             <td>element</td>
             <td>element</td>
-            <td>The container element that all toasts are prepended to. Is fixed within the body.</td>
+            <td>The container element that all toasts are prepended to. It is fixed within the body.</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

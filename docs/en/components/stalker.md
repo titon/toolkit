@@ -50,16 +50,13 @@ $('#overflown').stalker({
 
 ### Notes ###
 
-* The element passed into the constructor will have a `.stalker` class added.
-* Targets will have a `.stalker-target` class added.
-* Markers will have a `.stalker-marker` class added.
 * The active target will have an `.is-active` class added.
 * The marker in view will have an `.is-stalked` class added.
 * Markers and targets can be placed anywhere in the page.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -72,16 +69,13 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>target</td>
-            <td>string</td>
-            <td></td>
-            <td>CSS selector for elements to update when a marker is reached.</td>
-        </tr>
-        <tr>
-            <td>targetBy</td>
-            <td>string</td>
-            <td>href</td>
-            <td>The HTML attribute on the target to match against the marker.</td>
+            <td>onlyWithin</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to activate or deactivate a target while within a marker.
+                If disabled, the target will stay activated even after leaving the marker.
+            </td>
         </tr>
         <tr>
             <td>marker</td>
@@ -96,6 +90,18 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>The HTML attribute on the marker to match against the target.</td>
         </tr>
         <tr>
+            <td>target</td>
+            <td>string</td>
+            <td></td>
+            <td>CSS selector for elements to update when a marker is reached.</td>
+        </tr>
+        <tr>
+            <td>targetBy</td>
+            <td>string</td>
+            <td>href</td>
+            <td>The HTML attribute on the target to match against the marker.</td>
+        </tr>
+        <tr>
             <td>threshold</td>
             <td>int</td>
             <td>50</td>
@@ -107,55 +113,44 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>50</td>
             <td>The number of milliseconds to throttle all scrolling events.</td>
         </tr>
-        <tr>
-            <td>onlyWithin</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to activate or deactivate a target while within a marker.
-                If disabled, the target will stay activated even after leaving the marker.
-            </td>
-        </tr>
-        <tr>
-            <td>applyToParent</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to apply the active class to the target parent, or to the target.
-            </td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onActivate</td>
-            <td>activate.toolkit.stalker</td>
+            <td>activating</td>
             <td>element:marker, element:target</td>
-            <td>Triggered when a marker is entered and a target is activated.</td>
+            <td>Triggered before a marker is entered and a target is activated.</td>
         </tr>
         <tr>
-            <td>onDeactivate</td>
-            <td>deactivate.toolkit.stalker</td>
+            <td>activated</td>
             <td>element:marker, element:target</td>
-            <td>Triggered when a marker is exited and a target is deactivated.</td>
+            <td>Triggered after a marker is entered and a target is activated.</td>
         </tr>
         <tr>
-            <td>onScroll</td>
-            <td>scroll.toolkit.stalker</td>
+            <td>deactivating</td>
+            <td>element:marker, element:target</td>
+            <td>Triggered before a marker is exited and a target is deactivated.</td>
+        </tr>
+        <tr>
+            <td>deactivated</td>
+            <td>element:marker, element:target</td>
+            <td>Triggered after a marker is exited and a target is deactivated.</td>
+        </tr>
+        <tr>
+            <td>scroll</td>
             <td></td>
             <td>Triggered every page scroll after markers have been processed.</td>
         </tr>
@@ -164,7 +159,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -177,10 +172,13 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
-            <td>targets</td>
-            <td>collection</td>
-            <td>A collection of target elements to activate.</td>
-            <td><code>target</code> option</td>
+            <td>container</td>
+            <td>element</td>
+            <td>
+                The element to monitor scroll events on.
+                If the element has overflow auto, it will be the constructor element, else it will be the window.
+            </td>
+            <td></td>
         </tr>
         <tr>
             <td>markers</td>
@@ -195,20 +193,17 @@ Inherits all properties from the [parent component](../development/js/component.
             <td></td>
         </tr>
         <tr>
-            <td>container</td>
-            <td>element</td>
-            <td>
-                The element to monitor scroll events on.
-                If the element has overflow auto, it will be the constructor element, else it will be the window.
-            </td>
-            <td></td>
+            <td>targets</td>
+            <td>collection</td>
+            <td>A collection of target elements to activate.</td>
+            <td><code>target</code> option</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

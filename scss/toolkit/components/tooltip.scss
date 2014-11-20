@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -8,7 +8,7 @@
 
 $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
-.#{$vendor-prefix}tooltip {
+#{$tooltip-class} {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,49 +20,48 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
     visibility: hidden;
     background: #000;
     color: #fff;
-    box-sizing: content-box; // Required or else MooTools position() is off
 
-    &.center-left .#{$vendor-prefix}tooltip-arrow,
-    &.center-right .#{$vendor-prefix}tooltip-arrow {
+    &.center-left #{$tooltip-class-arrow},
+    &.center-right #{$tooltip-class-arrow} {
         top: 50%;
         margin-top: -#{$tooltip-arrow-width}px;
     }
 
-    &.center-left .#{$vendor-prefix}tooltip-arrow {
+    &.center-left #{$tooltip-class-arrow} {
         border-left-color: #000;
         right: -#{$tooltip-arrow-width-double}px;
     }
 
-    &.center-right .#{$vendor-prefix}tooltip-arrow {
+    &.center-right #{$tooltip-class-arrow} {
         border-right-color: #000;
         left: -#{$tooltip-arrow-width-double}px;
     }
 
-    &.top-center .#{$vendor-prefix}tooltip-arrow,
-    &.bottom-center .#{$vendor-prefix}tooltip-arrow {
+    &.top-center #{$tooltip-class-arrow},
+    &.bottom-center #{$tooltip-class-arrow} {
         left: 50%;
         margin-left: -#{$tooltip-arrow-width}px;
     }
 
-    &.top-center .#{$vendor-prefix}tooltip-arrow {
+    &.top-center #{$tooltip-class-arrow} {
         border-top-color: #000;
         bottom: -#{$tooltip-arrow-width-double}px;
     }
 
-    &.bottom-center .#{$vendor-prefix}tooltip-arrow {
+    &.bottom-center #{$tooltip-class-arrow} {
         border-bottom-color: #000;
         top: -#{$tooltip-arrow-width-double}px;
     }
 }
 
-.#{$vendor-prefix}tooltip-arrow,
-.#{$vendor-prefix}popover-arrow {
+#{$tooltip-class-arrow},
+#{$popover-class-arrow} {
     width: 0;
     height: 0;
     border: #{$tooltip-arrow-width}px solid transparent;
     position: absolute;
 
-    &:after {
+    &::after {
         content: "";
         border: #{($tooltip-arrow-width - 2)}px solid transparent;
         position: absolute;
@@ -71,8 +70,8 @@ $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
 //-------------------- Animations --------------------//
 
-.#{$vendor-prefix}tooltip,
-.#{$vendor-prefix}popover {
+#{$tooltip-class},
+#{$popover-class} {
     #{join-classes($popover-tooltip-animation)} {
         transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
     }

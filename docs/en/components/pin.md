@@ -26,6 +26,10 @@ $('.pin').pin({
 A slide animation will slowly animate to the new coordinates. A sticky animation will do the same,
 but will "bounce" before animating.
 
+<div class="notice is-info">
+    The <code>.pin</code> class is required for animations to work correctly.
+</div>
+
 ### Bounding Container ###
 
 A pinned element will be bound within its parent element, which means it wont overflow outside the parent.
@@ -72,6 +76,11 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
     </thead>
     <tbody>
         <tr>
+            <td>$pin-class</td>
+            <td>.pin</td>
+            <td>CSS class name for the pinned element.</td>
+        </tr>
+        <tr>
             <td>$pin-transition</td>
             <td>.2s</td>
             <td>The transition time for pinned element position animations.</td>
@@ -81,7 +90,7 @@ The `complementary` role and the appropriate `aria-*` attributes are required wh
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -103,6 +112,24 @@ Inherits all options from the [parent component](../development/js/component.md#
             </td>
         </tr>
         <tr>
+            <td>calculate</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>
+                Re-calculate offsets, widths, heights, and viewport while scrolling.
+                May slow down the page while active, so trigger <code>calculate()</code> manually when needed.
+            </td>
+        </tr>
+        <tr>
+            <td>fixed</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>
+                Whether to use position fixed or not while scrolling.
+                Fixed pins will not animate.
+            </td>
+        </tr>
+        <tr>
             <td>location</td>
             <td>string</td>
             <td>right</td>
@@ -110,6 +137,20 @@ Inherits all options from the [parent component](../development/js/component.md#
                 The horizontal location to use when positioning.
                 Accepts left or right.
             </td>
+        </tr>
+        <tr>
+            <td>lock</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Whether to deactivate pinning if the target element is larger than the viewport.
+            </td>
+        </tr>
+        <tr>
+            <td>throttle</td>
+            <td>int</td>
+            <td>50</td>
+            <td>The time in milliseconds to throttle the page scroll events.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -123,64 +164,29 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>0</td>
             <td>The offset in pixels to move the pin along the Y axis.</td>
         </tr>
-        <tr>
-            <td>throttle</td>
-            <td>int</td>
-            <td>50</td>
-            <td>The time in milliseconds to throttle the page scroll events.</td>
-        </tr>
-        <tr>
-            <td>fixed</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>
-                Whether to use position fixed or not while scrolling.
-                Fixed pins will not animate.
-            </td>
-        </tr>
-        <tr>
-            <td>calculate</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>
-                Re-calculate offsets, widths, heights, and viewport while scrolling.
-                May slow down the page while active, so trigger <code>calculate()</code> manually when needed.
-            </td>
-        </tr>
-        <tr>
-            <td>lock</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Whether to deactivate pinning if the target element is larger than the viewport.
-            </td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onResize</td>
-            <td>resize.toolkit.pin</td>
+            <td>resize</td>
             <td></td>
             <td>Triggered when the page is resized, and after calculations have been executed.</td>
         </tr>
         <tr>
-            <td>onScroll</td>
-            <td>scroll.toolkit.pin</td>
+            <td>scroll</td>
             <td></td>
             <td>Triggered when the page is scrolled, and after the pin has been positioned.</td>
         </tr>
@@ -189,7 +195,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -204,11 +210,6 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>active</td>
             <td>bool</td>
             <td>Will the element be pinned? Depends on the heights of the parent and element.</td>
-        </tr>
-        <tr>
-            <td>viewport</td>
-            <td>object</td>
-            <td>The current width and height of the viewport (window object).</td>
         </tr>
         <tr>
             <td>elementHeight</td>
@@ -230,12 +231,17 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>int</td>
             <td>The initial top value of the parent element.</td>
         </tr>
+        <tr>
+            <td>viewport</td>
+            <td>object</td>
+            <td>The current width and height of the viewport (window object).</td>
+        </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

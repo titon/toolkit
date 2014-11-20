@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -9,7 +9,7 @@
 // Based on SpinKit
 // http://tobiasahlin.com/spinkit/
 
-.#{$vendor-prefix}loader {
+#{$loader-class} {
     @include reset-inline-block;
     margin: 0 auto;
     text-align: center;
@@ -20,7 +20,7 @@
     }
 }
 
-.#{$vendor-prefix}loader-message {
+#{$loader-class-message} {
     margin-top: 1rem;
 }
 
@@ -36,7 +36,7 @@
         }
     }
 
-    .#{$vendor-prefix}loader.bar-wave {
+    #{$loader-class}.bar-wave {
         > span {
             background: $loader-color;
             height: $loader-bar-height;
@@ -48,7 +48,7 @@
             }
         }
 
-        .#{$vendor-prefix}loader-message {
+        #{$loader-class-message} {
             margin-top: 1.5rem;
         }
     }
@@ -66,7 +66,7 @@
         }
     }
 
-    .#{$vendor-prefix}loader.bubble-wave {
+    #{$loader-class}.bubble-wave {
         > span {
             background: $loader-color;
             width: $loader-bubble-size;
@@ -94,8 +94,8 @@
         }
     }
 
-    .#{$vendor-prefix}loader.bubble-spinner {
-        .#{$vendor-prefix}loader-spinner {
+    #{$loader-class}.bubble-spinner {
+        #{$loader-class-spinner} {
             width: 100px;
             height: 100px;
             position: relative;

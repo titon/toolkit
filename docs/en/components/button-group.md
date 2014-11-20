@@ -52,8 +52,8 @@ Like size classes, all shape classes can be applied to the group, this includes 
 ```
 
 <div class="notice is-warning">
-    The <code>.pill</code>, <code>.oval</code>, and <code>.skew</code> classes will require
-    effects extensions, which aren't part of the default build.
+    All effects (excluding round) are disabled by default.
+    Modify the <code>$buttonGroup-effects</code> Sass variable to enable them.
 </div>
 
 ### Vertical Stacking ###
@@ -136,3 +136,42 @@ When using the vertical modifier, the `aria-orientation` attribute must be defin
     ...
 </div>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$buttonGroup-class</td>
+            <td>.button-group</td>
+            <td>CSS class name for the button group element.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-class-modifier-justified</td>
+            <td>.button-group--justified</td>
+            <td>Name of the justified modifier to append to button group classes.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-class-modifier-vertical</td>
+            <td>.button-group--vertical</td>
+            <td>Name of the vertical modifier to append to button group classes.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-effects</td>
+            <td>()</td>
+            <td>List of effects to include in the CSS output. Accepts pill and skew.</td>
+        </tr>
+        <tr>
+            <td>$buttonGroup-modifiers</td>
+            <td>("vertical", "justified")</td>
+            <td>List of modifiers to include in the CSS output. Accepts vertical and justified.</td>
+        </tr>
+    </tbody>
+</table>

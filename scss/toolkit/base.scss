@@ -1,0 +1,140 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@import "common";
+
+// Use border-box for everything
+*, *::after, *::before { box-sizing: border-box; }
+
+// Alignment
+.align-left { text-align: left; }
+.align-center { text-align: center; }
+.align-right { text-align: right; }
+.align-justify { text-align: justify; }
+
+.float-left { float: left; }
+.float-right { float: right; }
+.float-none { float: none; }
+
+// Animations
+.show { opacity: 1 !important; visibility: visible !important; }
+.hide { opacity: 0 !important; visibility: hidden !important; }
+
+// Display
+.shown { display: block; }
+.hidden { display: none; }
+.no-scroll { overflow: hidden !important; }
+.no-transition { transition: none !important; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    &.is-focusable:active,
+    &.is-focusable:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+    }
+}
+
+// Layout
+.vertical-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clear-fix { @include clear-fix; }
+
+// Styles
+#{$shape-round-class} { border-radius: $round; }
+.is-draggable { cursor: move; }
+.is-dragging { cursor: grabbing; }
+.is-disabled,
+[disabled] { cursor: not-allowed !important; }
+
+// Carets
+.caret-up,
+.caret-down,
+.caret-left,
+.caret-right {
+    @include reset-inline-block;
+    border: 5px solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+}
+
+.caret-up { border-bottom-color: inherit; top: -2px; }
+.caret-down { border-top-color: inherit; bottom: -2px; }
+.caret-left { border-right-color: inherit; }
+.caret-right { border-left-color: inherit; }
+
+//, Characters
+.x {
+    @include reset-inline-block;
+    font: bold 1.5rem/1rem Arial, sans-serif;
+    text-transform: uppercase;
+
+    &::before { content: "\00D7"; /* times */ }
+}
+
+// Bullets
+.bullets {
+    @include reset-list();
+    line-height: 100%;
+
+    li {
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+    a {
+        display: inline-block;
+        border: 3px solid #fff;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        opacity: $default-opacity;
+        background: black(0);
+
+        &:hover { opacity: 1; border-width: 2px; }
+        &.is-active { background: #fff; }
+    }
+
+    &:empty { display: none; }
+}
+
+// Sorter
+.sorter {
+    @include reset-inline-block;
+    max-width: 10px;
+    line-height: 5px;
+    top: -1px;
+    margin: 0 .25rem;
+
+    .caret-up,
+    .caret-down { opacity: .25; }
+
+    &.desc .caret-up,
+    &.asc .caret-down { opacity: 1; }
+}
+
+// Sizes
+@for $i from 1 through 12 {
+    .span-#{$i} { width: grid-span($i, 12); }
+}

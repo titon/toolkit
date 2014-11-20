@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -9,7 +9,7 @@
 $popover-arrow-width-double: ($popover-arrow-width * 2);
 $popover-arrow-width-shadow: ($popover-arrow-width - 2);
 
-.#{$vendor-prefix}popover {
+#{$popover-class} {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,48 +20,48 @@ $popover-arrow-width-shadow: ($popover-arrow-width - 2);
     max-width: 300px;
     visibility: hidden;
 
-    &.center-left .#{$vendor-prefix}popover-arrow,
-    &.center-right .#{$vendor-prefix}popover-arrow {
+    &.center-left #{$popover-class-arrow},
+    &.center-right #{$popover-class-arrow} {
         top: 50%;
         margin-top: -#{$popover-arrow-width}px;
     }
 
-    &.center-left .#{$vendor-prefix}popover-arrow {
+    &.center-left #{$popover-class-arrow} {
         border-left-color: $gray;
         right: -#{$popover-arrow-width-double}px;
     }
 
-    &.center-right .#{$vendor-prefix}popover-arrow {
+    &.center-right #{$popover-class-arrow} {
         border-right-color: $gray;
         left: -#{$popover-arrow-width-double}px;
     }
 
-    &.top-center .#{$vendor-prefix}popover-arrow,
-    &.bottom-center .#{$vendor-prefix}popover-arrow {
+    &.top-center #{$popover-class-arrow},
+    &.bottom-center #{$popover-class-arrow} {
         left: 50%;
         margin-left: -#{$popover-arrow-width}px;
     }
 
-    &.top-center .#{$vendor-prefix}popover-arrow {
+    &.top-center #{$popover-class-arrow} {
         border-top-color: $gray;
         bottom: -#{$popover-arrow-width-double}px;
     }
 
-    &.bottom-center .#{$vendor-prefix}popover-arrow {
+    &.bottom-center #{$popover-class-arrow} {
         border-bottom-color: $gray;
         top: -#{$popover-arrow-width-double}px;
     }
 }
 
-.#{$vendor-prefix}popover-head,
-.#{$vendor-prefix}popover-body {
+#{$popover-class-head},
+#{$popover-class-body} {
     padding: $small-padding;
 }
 
-.#{$vendor-prefix}popover-arrow {
+#{$popover-class-arrow} {
     border: #{$popover-arrow-width}px solid transparent;
 
-    &:after {
+    &::after {
         border: #{$popover-arrow-width-shadow}px solid transparent;
         top: -#{$popover-arrow-width-shadow}px;
         left: -#{$popover-arrow-width-shadow}px;

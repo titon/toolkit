@@ -5,7 +5,7 @@
         "category": "layout",
         "priority": -1,
         "source": {
-            "css": ["../normalize.css"]
+            "css": ["../normalize.scss"]
         }
     },
 
@@ -17,52 +17,53 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["layout/base.css"],
-            "js": ["Toolkit.js", "Component.js"],
-            "moo": ["Core", "More/Class.Binds", "More/Elements.From", "More/Element.Measure", "More/Element.Shortcuts"],
-            "jquery": ["Core"]
+            "css": ["base.scss"]
         }
     },
+
+
+
     "typography": {
         "name": "Typography",
         "description": "Variable font scaling and text styling for headers, paragraphs, lists, and other text based elements.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 2,
         "source": {
-            "css": ["layout/typography.css"]
+            "css": ["components/typography.scss"]
         }
     },
     "form": {
         "name": "Form",
         "description": "Classes for input fields and form structuring.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 3,
         "require": ["grid"],
         "source": {
-            "css": ["layout/form.css"]
+            "css": ["components/form.scss"]
         }
     },
     "code": {
         "name": "Code",
         "description": "Styles for code related HTML tags.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 4,
         "source": {
-            "css": ["layout/code.css"]
+            "css": ["components/code.scss"]
         }
     },
     "responsive": {
         "name": "Responsive",
         "description": "Responsive classes for mobile, tablet and desktop resolutions.",
-        "category": "layout",
+        "category": "component",
+        "type": "layout",
         "priority": 100,
         "source": {
-            "css": ["layout/responsive.css"]
+            "css": ["components/responsive.scss"]
         }
     },
-
-
-
     "accordion": {
         "name": "Accordion",
         "description": "Allows collapsing and expanding of multiple sections of content.",
@@ -71,8 +72,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/accordion.css"],
-            "js": ["components/Accordion.js"]
+            "css": ["components/accordion.scss"],
+            "js": ["components/accordion.js"]
         }
     },
     "blackout": {
@@ -83,8 +84,8 @@
         "priority": 10,
         "require": ["base", "loader"],
         "source": {
-            "css": ["components/blackout.css"],
-            "js": ["components/Blackout.js"]
+            "css": ["components/blackout.scss"],
+            "js": ["components/blackout.js"]
         }
     },
     "breadcrumb": {
@@ -95,7 +96,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/breadcrumb.css"]
+            "css": ["components/breadcrumb.scss"]
         }
     },
     "button": {
@@ -106,7 +107,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/button.css"]
+            "css": ["components/button.scss"]
         }
     },
     "buttonGroup": {
@@ -117,18 +118,7 @@
         "priority": 10,
         "require": ["base", "button"],
         "source": {
-            "css": ["components/button-group.css"]
-        }
-    },
-    "cache": {
-        "name": "Cache",
-        "description": "A MooTools class for caching data within the class layer.",
-        "category": "component",
-        "type": "class",
-        "priority": 10,
-        "source": {
-            "js": ["class/Cache.js"],
-            "moo": ["Core"]
+            "css": ["components/button-group.scss"]
         }
     },
     "carousel": {
@@ -139,8 +129,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/carousel.css"],
-            "js": ["components/Carousel.js"]
+            "css": ["components/carousel.scss"],
+            "js": ["components/carousel.js"]
         }
     },
     "divider": {
@@ -150,7 +140,7 @@
         "type": "element",
         "priority": 10,
         "source": {
-            "css": ["components/divider.css"]
+            "css": ["components/divider.scss"]
         },
         "version": "1.4.0"
     },
@@ -162,8 +152,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/drop.css"],
-            "js": ["components/Drop.js"]
+            "css": ["components/drop.scss"],
+            "js": ["components/drop.js"]
         }
     },
     "flyout": {
@@ -172,10 +162,10 @@
         "category": "component",
         "type": "module",
         "priority": 10,
-        "require": ["base", "timers"],
+        "require": ["base"],
         "source": {
-            "css": ["components/flyout.css"],
-            "js": ["components/Flyout.js"]
+            "css": ["components/flyout.scss"],
+            "js": ["components/flyout.js"]
         }
     },
     "grid": {
@@ -186,7 +176,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/grid.css"]
+            "css": ["components/grid.scss"]
         }
     },
     "icon": {
@@ -195,9 +185,9 @@
         "category": "component",
         "type": "element",
         "priority": 10,
-        "require": ["base"],
+        "require": [],
         "source": {
-            "css": ["components/icon.css"]
+            "css": ["components/icon.scss"]
         }
     },
     "input": {
@@ -208,8 +198,8 @@
         "priority": 10,
         "require": ["base", "drop"],
         "source": {
-            "css": ["components/input.css"],
-            "js": ["components/Input.js"]
+            "css": ["components/input.scss"],
+            "js": ["components/input.js"]
         }
     },
     "inputGroup": {
@@ -220,7 +210,7 @@
         "priority": 10,
         "require": ["base", "form"],
         "source": {
-            "css": ["components/input-group.css"]
+            "css": ["components/input-group.scss"]
         }
     },
     "label": {
@@ -231,7 +221,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/label.css"]
+            "css": ["components/label.scss"]
         }
     },
     "lazyLoad": {
@@ -242,9 +232,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/lazy-load.css"],
-            "js": ["components/LazyLoad.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "css": ["components/lazy-load.scss"],
+            "js": ["components/lazy-load.js"]
         }
     },
     "loader": {
@@ -255,7 +244,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/loader.css"]
+            "css": ["components/loader.scss"]
         },
         "version": "1.1.0"
     },
@@ -267,8 +256,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/mask.css"],
-            "js": ["components/Mask.js"]
+            "css": ["components/mask.scss"],
+            "js": ["components/mask.js"]
         },
         "version": "1.1.0"
     },
@@ -280,8 +269,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/matrix.css"],
-            "js": ["components/Matrix.js"]
+            "css": ["components/matrix.scss"],
+            "js": ["components/matrix.js"]
         }
     },
     "modal": {
@@ -292,10 +281,8 @@
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
-            "css": ["components/modal.css"],
-            "js": ["components/Modal.js"],
-            "moo": ["More/Drag"],
-            "jquery": ["UI/Draggable"]
+            "css": ["components/modal.scss"],
+            "js": ["components/modal.js"]
         }
     },
     "notice": {
@@ -306,7 +293,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/notice.css"]
+            "css": ["components/notice.scss"]
         }
     },
     "offCanvas": {
@@ -317,8 +304,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/off-canvas.css"],
-            "js": ["components/OffCanvas.js"]
+            "css": ["components/off-canvas.scss"],
+            "js": ["components/off-canvas.js"]
         },
         "version": "1.4.0"
     },
@@ -330,7 +317,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/pagination.css"]
+            "css": ["components/pagination.scss"]
         }
     },
     "pin": {
@@ -341,9 +328,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/pin.css"],
-            "js": ["components/Pin.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "css": ["components/pin.scss"],
+            "js": ["components/pin.js"]
         }
     },
     "popover": {
@@ -354,8 +340,8 @@
         "priority": 10,
         "require": ["base", "tooltip"],
         "source": {
-            "css": ["components/popover.css"],
-            "js": ["components/Popover.js"]
+            "css": ["components/popover.scss"],
+            "js": ["components/popover.js"]
         }
     },
     "progress": {
@@ -366,7 +352,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/progress.css"]
+            "css": ["components/progress.scss"]
         }
     },
     "showcase": {
@@ -377,9 +363,8 @@
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
-            "css": ["components/showcase.css"],
-            "js": ["components/Showcase.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "css": ["components/showcase.scss"],
+            "js": ["components/showcase.js"]
         }
     },
     "stalker": {
@@ -390,8 +375,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "js": ["components/Stalker.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "js": ["components/stalker.js"]
         }
     },
     "step": {
@@ -402,7 +386,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/step.css"]
+            "css": ["components/step.scss"]
         },
         "version": "1.3.0"
     },
@@ -414,7 +398,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/switch.css"]
+            "css": ["components/switch.scss"]
         },
         "version": "1.3.0"
     },
@@ -426,30 +410,19 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/table.css"]
+            "css": ["components/table.scss"]
         }
     },
-    "tabs": {
-        "name": "Tabs",
+    "tab": {
+        "name": "Tab",
         "description": "Organizes multiple sections of content into toggleable tabs.",
         "category": "component",
         "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/tabs.css"],
-            "js": ["components/Tabs.js"]
-        }
-    },
-    "timers": {
-        "name": "Timers",
-        "description": "A MooTools class for handling timeouts within the class layer.",
-        "category": "component",
-        "type": "class",
-        "priority": 10,
-        "source": {
-            "js": ["class/Timers.js"],
-            "moo": ["Core"]
+            "css": ["components/tab.scss"],
+            "js": ["components/tab.js"]
         }
     },
     "toast": {
@@ -460,8 +433,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/toast.css"],
-            "js": ["components/Toast.js"]
+            "css": ["components/toast.scss"],
+            "js": ["components/toast.js"]
         },
         "version": "1.4.0"
     },
@@ -473,9 +446,8 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/tooltip.css"],
-            "js": ["components/Tooltip.js"],
-            "moo": ["More/Element.Event.Pseudos"]
+            "css": ["components/tooltip.scss"],
+            "js": ["components/tooltip.js"]
         }
     },
     "typeAhead": {
@@ -484,61 +456,10 @@
         "category": "component",
         "type": "module",
         "priority": 10,
-        "require": ["base", "cache"],
+        "require": ["base"],
         "source": {
-            "css": ["components/type-ahead.css"],
-            "js": ["components/TypeAhead.js"]
-        }
-    },
-
-
-
-    "effect-visual": {
-        "name": "Visual",
-        "description": "Visual element styles like glare, reflection, gloss, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/visual.css"]
-        }
-    },
-    "effect-oval": {
-        "name": "Oval",
-        "description": "Oval shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/oval.css"]
-        }
-    },
-    "effect-pill": {
-        "name": "Pill",
-        "description": "Pill shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/pill.css"]
-        }
-    },
-    "effect-skew": {
-        "name": "Skew",
-        "description": "Skewed shaping for buttons, pagination, and more.",
-        "category": "effect",
-        "priority": 20,
-        "source": {
-            "css": ["effects/skew.css"]
-        }
-    },
-
-
-
-    "theme-demo": {
-        "name": "Demo Theme",
-        "description": "Default styles used for demonstration.",
-        "category": "theme",
-        "priority": 30,
-        "source": {
-            "css": ["themes/demo.css"]
+            "css": ["components/type-ahead.scss"],
+            "js": ["components/type-ahead.js"]
         }
     }
 }

@@ -50,3 +50,7 @@
         &:last-child { margin-right: 0; }
     }
 }
+
+// Placeholder styles to extend from
+%row { @include grid-row; }
+%col { @include grid-column; }

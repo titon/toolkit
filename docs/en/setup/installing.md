@@ -41,7 +41,7 @@ Once downloaded, include the assets in your project.
 
 ```html
 <link href="/bower_components/toolkit/dist/toolkit.min.css" rel="stylesheet">
-<script src="/bower_components/toolkit/dist/toolkit-jquery.min.js"></script>
+<script src="/bower_components/toolkit/dist/toolkit.min.js"></script>
 ```
 
 ## Sass & Compass ##

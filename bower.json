@@ -1,33 +1,30 @@
 {
-    "version": "1.5.3",
+    "version": "2.0.0-rc.1",
     "name": "toolkit",
-    "description": "A collection of extensible front-end UI components for the responsive and mobile web.",
+    "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
     "keywords": [
-        "titon", "toolkit", "css", "sass", "scss", "mootools", "jquery", "javascript", "ui", "interface",
-        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile"
+        "titon", "toolkit", "css", "sass", "scss", "jquery", "javascript", "ui", "interface",
+        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile", "behavior"
     ],
-    "copyright": "Copyright 2010-2014, The Titon Project",
+    "copyright": "Copyright 2010-2015, The Titon Project",
     "homepage": "http://titon.io",
     "licenses": "https://github.com/titon/toolkit/blob/master/license.md",
     "author": ["Miles Johnson"],
     "main": [
+        "dist/toolkit.css",
+        "dist/toolkit.js",
         "dist/toolkit.min.css",
-        "dist/toolkit-jquery.min.js",
-        "dist/toolkit-mootools.min.js"
+        "dist/toolkit.min.js"
     ],
     "ignore": [
         ".*",
         "build/",
-        "css/",
-        "docs/",
         "demo/",
-        "img/",
+        "docs/",
         "js/",
         "lib/",
-        "config.rb",
-        "Gruntfile.js",
-        "manifest.json",
-        "package.json",
+        "*.json",
+        "gulpfile.js",
         "toolkit.gemspec"
     ]
 }

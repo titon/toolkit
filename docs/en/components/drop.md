@@ -9,13 +9,13 @@ Each drop will require a `.drop` class and one of the directional modifiers list
 For the drop to function correctly, the parent will require relative positioning.
 
 ```html
-<div class="drop drop--down">
+<div class="drop drop--down" data-drop-menu>
     <ul>
         ...
     </ul>
 </div>
 
-<ul class="drop drop--up">
+<ul class="drop drop--up" data-drop-menu>
     ...
 </ul>
 ```
@@ -27,7 +27,7 @@ an attribute, or using a callback function. Refer to the `getTarget` option belo
 <div class="button-group">
     <button class="button js-drop" type="button" data-drop="#menu"><span class="caret-down"></span></button>
 
-    <ul class="drop drop--down" id="menu">
+    <ul class="drop drop--down" id="menu" data-drop-menu>
         ...
     </ul>
 </div>
@@ -39,15 +39,19 @@ $('.js-drop').drop();
 
 The drop menu will display either through a click, or a hover, depending on the configuration.
 
+<div class="notice is-info">
+    The <code>data-drop-menu</code> attribute is required for automatic hiding when <code>hideOpened</code> is enabled.
+</div>
+
 ### Positioning ###
 
 Dropdowns, dropups, droplefts, and droprights are all supported through their respective modifier class.
 
 ```html
-<ul class="drop drop--down">...</ul>
-<ul class="drop drop--up">...</ul>
-<ul class="drop drop--left">...</ul>
-<ul class="drop drop--right">...</ul>
+<ul class="drop drop--down" data-drop-menu>...</ul>
+<ul class="drop drop--up" data-drop-menu>...</ul>
+<ul class="drop drop--left" data-drop-menu>...</ul>
+<ul class="drop drop--right" data-drop-menu>...</ul>
 ```
 
 ### Nesting ###
@@ -56,7 +60,7 @@ Drops can be nested by inserting a drop menu within an `li` and applying a `.has
 An optional `.caret-right` can be placed within an anchor link to designate children.
 
 ```html
-<ul class="drop drop--left">
+<ul class="drop drop--left" data-drop-menu>
     <li>...</li>
     <li class="has-children">
         <a href="#"><span class="caret-right"></span> Action</a>
@@ -77,7 +81,7 @@ An optional `.caret-right` can be placed within an anchor link to designate chil
 A divider can be used to split actions into groups.
 
 ```html
-<ul class="drop drop--up">
+<ul class="drop drop--up" data-drop-menu>
     <li>...</li>
     <li class="drop-divider"></li>
     <li>...</li>
@@ -87,7 +91,7 @@ A divider can be used to split actions into groups.
 And a header can be used for naming groups.
 
 ```html
-<ul class="drop drop--right">
+<ul class="drop drop--right" data-drop-menu>
     <li class="drop-heading">Group</li>
     <li>...</li>
     <li class="drop-heading">Group</li>
@@ -101,7 +105,7 @@ To align the drop menu against the opposite edge, add a `.reverse-align` class.
 Reverse alignment works for both horizontal and vertical menus.
 
 ```html
-<ul class="drop drop--down reverse-align">
+<ul class="drop drop--down reverse-align" data-drop-menu>
     ...
 </ul>
 ```
@@ -116,7 +120,7 @@ The `menu`, and `menuitem` roles, and the appropriate `aria-*`
 attributes are required when supporting ARIA.
 
 ```html
-<ul class="drop drop--down" role="menu" id="menu">
+<ul class="drop drop--down" role="menu" id="menu" data-drop-menu>
     <li><a href="" role="menuitem">Item</a></li>
     ...
     <li class="drop-divider" role="separator"></li>
@@ -154,6 +158,46 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
     </thead>
     <tbody>
         <tr>
+            <td>$drop-class</td>
+            <td>.drop</td>
+            <td>CSS class name for the drop wrapper.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-divider</td>
+            <td>.drop-divider</td>
+            <td>CSS class name for the drop divider element.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-heading</td>
+            <td>.drop-heading</td>
+            <td>CSS class name for the drop heading element.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-modifier-down</td>
+            <td>.drop--down</td>
+            <td>Name of the down modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-modifier-up</td>
+            <td>.drop--up</td>
+            <td>Name of the up modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-modifier-left</td>
+            <td>.drop--left</td>
+            <td>Name of the left modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-class-modifier-right</td>
+            <td>.drop--right</td>
+            <td>Name of the right modifier to append to drop classes.</td>
+        </tr>
+        <tr>
+            <td>$drop-modifiers</td>
+            <td>("down", "up", "left", "right")</td>
+            <td>List of modifiers to include in the CSS output. Accepts down, up, left, and right.</td>
+        </tr>
+        <tr>
             <td>$drop-transition</td>
             <td>.3s</td>
             <td>The transition time for menu fade and nested menu slide animations.</td>
@@ -168,7 +212,7 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -180,15 +224,6 @@ Inherits all options from the [parent component](../development/js/component.md#
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>click</td>
-            <td>
-                The type of interaction for toggling a drop.
-                Accepts click or hover.
-            </td>
-        </tr>
         <tr>
             <td>getTarget</td>
             <td>string|function</td>
@@ -205,41 +240,47 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>true</td>
             <td>Hides the previously opened drop menu.</td>
         </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>click</td>
+            <td>
+                The type of interaction for toggling a drop.
+                Accepts click or hover.
+            </td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.drop</td>
+            <td>hidden</td>
             <td>element:menu, element:node</td>
-            <td>Triggered when a drop menu is hidden.</td>
+            <td>Triggered after a drop menu is hidden.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.drop</td>
+            <td>shown</td>
             <td>element:menu, element:node</td>
-            <td>Triggered when a drop menu is shown.</td>
+            <td>Triggered after a drop menu is shown.</td>
         </tr>
     </tbody>
 </table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -260,4 +301,4 @@ Inherits all properties from the [parent component](../development/js/component.
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).

@@ -1,7 +1,7 @@
 
 // Container clear fix for floats
 @mixin clear-fix {
-    &:after {
+    &::after {
         content: "";
         display: table;
         clear: both;
@@ -20,6 +20,17 @@
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+// Position an element to take up the whole screen
+@mixin full-screen($position: fixed) {
+    @if ($position != "") {
+        position: $position;
+    }
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
 
 // Align an element in the center of another element
@@ -50,11 +61,11 @@
     $selectors: ();
 
     @if $self {
-        $selectors: $selectors, unquote("&." + $size);
+        $selectors: $selectors, unquote("&" + $size);
     }
 
     @if $parent {
-        $selectors: $selectors, unquote("." + $size + " &");
+        $selectors: $selectors, unquote($size + " &");
     }
 
     #{$selectors} {
@@ -63,19 +74,17 @@
 }
 
 @mixin is-small($self: true, $parent: false) {
-    @include is-size($size-small-class, $self, $parent) {
-        @content;
-    }
-}
-
-@mixin is-medium($self: true, $parent: false) {
-    @include is-size($size-medium-class, $self, $parent) {
-        @content;
+    @if $enable-small-size {
+        @include is-size($size-small-class, $self, $parent) {
+            @content;
+        }
     }
 }
 
 @mixin is-large($self: true, $parent: false) {
-    @include is-size($size-large-class, $self, $parent) {
-        @content;
+    @if $enable-large-size {
+        @include is-size($size-large-class, $self, $parent) {
+            @content;
+        }
     }
 }

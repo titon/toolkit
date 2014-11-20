@@ -37,11 +37,18 @@ This custom mask will be used instead of creating a new mask.
 <div class="article js-mask-target">
     ...
 
-    <div class="mask hide">
-        <!-- Custom markup -->
+    <div class="mask hide" data-mask>
+        <div class="mask-message" data-mask-message">
+            <!-- Custom markup -->
+        </div>
     </div>
 </div>
 ```
+
+<div class="notice is-info">
+    The <code>data-mask-*</code> attributes are required so that the JavaScript layer
+    can find or bind elements in the DOM.
+</div>
 
 ### Automatic Toggling ###
 
@@ -56,7 +63,7 @@ $('.js-mask-target').mask({
 
 ### Notes ###
 
-* Target elements will have a `.mask-target` class applied.
+* Target elements will have a `.is-maskable` class applied.
 * Target elements will also have `.is-masked` applied when the mask is activated.
 
 ## Variables ##
@@ -70,6 +77,21 @@ $('.js-mask-target').mask({
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$mask-class</td>
+            <td>.mask</td>
+            <td>CSS class name for the mask element.</td>
+        </tr>
+        <tr>
+            <td>$mask-class-message</td>
+            <td>.mask-message</td>
+            <td>CSS class name for the mask message.</td>
+        </tr>
+        <tr>
+            <td>$mask-class-target</td>
+            <td>.is-maskable</td>
+            <td>CSS class name for the mask target.</td>
+        </tr>
         <tr>
             <td>$mask-opacity</td>
             <td>0.85</td>
@@ -90,7 +112,7 @@ $('.js-mask-target').mask({
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -103,10 +125,12 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>revealOnClick</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Reveal the content and remove the mask when the mask is clicked.</td>
+            <td>messageTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="mask-message" data-mask-message&gt;&lt;/div&gt;
+            </td>
+            <td>The loading message markup. The <code>data-mask-message</code> is required.</td>
         </tr>
         <tr>
             <td>messageContent</td>
@@ -114,16 +138,30 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td></td>
             <td>The content to use as the message that appears in the center of the mask.</td>
         </tr>
+        <tr>
+            <td>revealOnClick</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Reveal the content and remove the mask when the mask is clicked.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="mask" data-mask&gt;&lt;/div&gt;
+            </td>
+            <td>The mask markup. The <code>data-mask</code> is required.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -139,20 +177,20 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>mask</td>
             <td>element</td>
             <td>The mask element that covers the target element. Can be found as a child within the target element.</td>
-            <td>.mask</td>
+            <td>[data-mask]</td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The message element found within the center of the mask element.</td>
-            <td>.mask-message</td>
+            <td>[data-mask-message]</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

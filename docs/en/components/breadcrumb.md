@@ -36,3 +36,22 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
     ...
 </nav>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$breadcrumb-class</td>
+            <td>.breadcrumb</td>
+            <td>CSS class name for the breadcrumb element.</td>
+        </tr>
+    </tbody>
+</table>

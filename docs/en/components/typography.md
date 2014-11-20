@@ -90,3 +90,42 @@ Improve copy by altering the meaning through coloring. Each class represents a d
 <p class="text-warning">...</p>
 <p class="text-error">...</p>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$h1-size</td>
+            <td>3rem</td>
+            <td rowspan="6">Heading font sizes. Uses rem scaling by default to scale based on the html font size.</td>
+        </tr>
+        <tr>
+            <td>$h2-size</td>
+            <td>2.5rem</td>
+        </tr>
+        <tr>
+            <td>$h3-size</td>
+            <td>2.1rem</td>
+        </tr>
+        <tr>
+            <td>$h4-size</td>
+            <td>1.8rem</td>
+        </tr>
+        <tr>
+            <td>$h5-size</td>
+            <td>1.5rem</td>
+        </tr>
+        <tr>
+            <td>$h6-size</td>
+            <td>1.2rem</td>
+        </tr>
+    </tbody>
+</table>

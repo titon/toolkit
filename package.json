@@ -1,12 +1,12 @@
 {
-    "version": "1.5.3",
+    "version": "2.0.0-rc.1",
     "name": "titon-toolkit",
-    "description": "A collection of extensible front-end UI components for the responsive and mobile web.",
+    "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
     "keywords": [
-        "titon", "toolkit", "css", "sass", "scss", "mootools", "jquery", "javascript", "ui", "interface",
-        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile"
+        "titon", "toolkit", "css", "sass", "scss", "jquery", "javascript", "ui", "interface",
+        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile", "behavior"
     ],
-    "copyright": "Copyright 2010-2014, The Titon Project",
+    "copyright": "Copyright 2010-2015, The Titon Project",
     "homepage": "http://titon.io",
     "licenses": [
         {
@@ -23,16 +23,23 @@
         "url": "https://github.com/titon/toolkit"
     },
     "devDependencies": {
-        "grunt": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-compress": "*",
-        "grunt-contrib-watch": "*",
-        "grunt-contrib-sass": "*",
-        "grunt-string-replace": "*",
-        "grunt-autoprefixer": "*",
-        "grunt-newer": "*",
-        "compartment": "*"
+        "jquery": "~2",
+        "compartment": "~0",
+        "requirejs": "~2",
+        "through2": "~1",
+        "mocha": "~2",
+        "mocha-phantomjs": "~3",
+        "phantomjs": "~1",
+        "chai": "~1",
+        "which": "~1",
+        "gulp": "~3",
+        "gulp-util": "~3",
+        "gulp-rename": "~1",
+        "gulp-concat": "~2",
+        "gulp-minify-css": "~0",
+        "gulp-autoprefixer": "~1",
+        "gulp-jshint": "~1",
+        "gulp-uglify": "~1",
+        "gulp-header": "~1"
     }
 }

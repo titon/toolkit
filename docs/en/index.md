@@ -5,7 +5,10 @@ Setup
 * [Installing](setup/installing.md)
 * [Custom Builds](setup/custom-builds.md)
 * [Interactive Demos](setup/demos.md)
-* [Components List](components/index.md)
+
+Plugins
+* [Components](components/index.md)
+* [Behaviors](behaviors/index.md)
 
 Development
 * [JavaScript](development/js/index.md)
@@ -18,3 +21,9 @@ Support
 * [Contributing](support/contributing.md)
 * [Changelog](support/changelog.md)
 * [License](support/license.md)
+
+Releases
+* [2.0 - Gallant Golem](releases/2.0.md)
+
+Migrations
+* [Migrating to 2.0](migrations/2.0.md)

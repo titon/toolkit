@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}drop {
+#{$drop-class} {
     @include reset-list;
     text-align: left;
     position: absolute;
@@ -20,14 +20,13 @@
     transition: left $drop-transition, opacity $drop-transition, visibility $drop-transition;
 
     // Nested
-    .#{$vendor-prefix}drop {
+    #{$drop-class} {
         display: block;
         top: 0;
         left: 90%;
         z-index: $drop-zindex + 1;
     }
 
-    // Apply to self
     ul,
     ol {
         @include reset-list;
@@ -52,7 +51,7 @@
 
         // Show nested dropdown
         &:hover {
-            .#{$vendor-prefix}drop {
+            #{$drop-class} {
                 visibility: visible;
                 opacity: 1;
                 left: 100%;
@@ -61,44 +60,54 @@
     }
 }
 
-.#{$vendor-prefix}drop-divider {
+#{$drop-class-divider} {
     margin: ($margin / 2) 0;
     border-top: 1px solid $gray-dark;
 }
 
-.#{$vendor-prefix}drop-heading {
+#{$drop-class-heading} {
     padding: $small-padding;
 }
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--up {
-    top: auto;
-    bottom: 100%;
-}
-
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--right {
-    top: auto;
-    left: 100%;
-}
-
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--left {
-    top: auto;
-    left: auto;
-    right: 100%;
-}
-
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--right,
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--left {
-    &.reverse-align {
-        bottom: 0;
+@if index($drop-modifiers, "up") {
+    #{$drop-class-modifier-up} {
+        top: auto;
+        bottom: 100%;
     }
 }
 
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--down,
-.#{$vendor-prefix}drop.#{$vendor-prefix}drop--up {
-    &.reverse-align {
+@if index($drop-modifiers, "right") {
+    #{$drop-class-modifier-right} {
+        top: auto;
+        left: 100%;
+    }
+}
+
+@if index($drop-modifiers, "left") {
+    #{$drop-class-modifier-left} {
+        top: auto;
         left: auto;
-        right: 0;
+        right: 100%;
+    }
+}
+
+@if index($drop-modifiers, "right") or index($drop-modifiers, "left") {
+    #{$drop-class-modifier-right},
+    #{$drop-class-modifier-left} {
+        &.reverse-align {
+            bottom: 0;
+        }
+    }
+}
+
+@if index($drop-modifiers, "down") or index($drop-modifiers, "up") {
+    #{$drop-class-modifier-down},
+    #{$drop-class-modifier-up} {
+        &.reverse-align {
+            left: auto;
+            right: 0;
+        }
     }
 }

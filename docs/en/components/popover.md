@@ -19,25 +19,6 @@ $('.js-popover').popover();
     Jump over to the tooltip documentation for more information on how to use this component.
 </div>
 
-## Template ##
-
-The following markup is used for the creation of popovers.
-This structure can be customized through the `template` option.
-
-```html
-<div class="popover">
-    <div class="popover-inner">
-        <div class="popover-head"></div>
-        <div class="popover-body"></div>
-    </div>
-    <div class="popover-arrow"></div>
-</div>
-```
-
-<div class="notice is-info">
-    The <code>.popover-head</code> and <code>.popover-body</code> elements are required for inserting content into.
-</div>
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -50,14 +31,34 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
-            <td>$popover-tooltip-animation</td>
+            <td>$popover-arrow-width</td>
+            <td>8</td>
+            <td>The border size for popover arrows.</td>
+        </tr>
+        <tr>
+            <td>$popover-tooltip-animations</td>
             <td>("fade", "from-above", "from-below", "flip-rotate")</td>
             <td>A list of all animations to include in the CSS output.</td>
         </tr>
         <tr>
-            <td>$popover-arrow-width</td>
-            <td>8</td>
-            <td>The border size for popover arrows.</td>
+            <td>$popover-class</td>
+            <td>.popover</td>
+            <td>CSS class name for the popover wrapper.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-arrow</td>
+            <td>.popover-arrow</td>
+            <td>CSS class name for the popover arrow.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-head</td>
+            <td>.popover-head</td>
+            <td>CSS class name for the popover header element.</td>
+        </tr>
+        <tr>
+            <td>$popover-class-body</td>
+            <td>.popover-body</td>
+            <td>CSS class name for the popover body element.</td>
         </tr>
         <tr>
             <td>$popover-zindex</td>
@@ -69,7 +70,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -82,10 +83,35 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>delegate</td>
+            <td>ajax</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Determines whether to load the popover content via an AJAX request.</td>
+        </tr>
+        <tr>
+            <td>animation</td>
             <td>string</td>
-            <td>.js-popover</td>
-            <td>CSS selector to apply event delegation to. (MooTools only)</td>
+            <td></td>
+            <td>The animation to use when displaying the popover. Available options are: fade, from-above, from-below, flip-rotate.</td>
+        </tr>
+        <tr>
+            <td>getContent</td>
+            <td>string|function</td>
+            <td>data-popover</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a string is passed in #id format, fetch the content from the HTML of the element.
+                If a function is passed, use the return value as the content.
+            </td>
+        </tr>
+        <tr>
+            <td>getTitle</td>
+            <td>string|function</td>
+            <td>title</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a function is passed, use the return value as the content.
+            </td>
         </tr>
         <tr>
             <td>position</td>
@@ -95,18 +121,6 @@ Inherits all options from the [parent component](../development/js/component.md#
                 Where to position the tooltip relative to the target element. Available options are:
                 top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
             </td>
-        </tr>
-        <tr>
-            <td>animation</td>
-            <td>string</td>
-            <td></td>
-            <td>The animation to use when displaying the popover. Available options are: fade, from-above, from-below, flip-rotate.</td>
-        </tr>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the popover content via an AJAX request.</td>
         </tr>
         <tr>
             <td>showLoading</td>
@@ -121,23 +135,18 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>Show the popover title alongside the content if available.</td>
         </tr>
         <tr>
-            <td>getTitle</td>
-            <td>string|function</td>
-            <td>title</td>
+            <td>template</td>
+            <td>string</td>
             <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a function is passed, use the return value as the content.
+                &lt;div class="popover"&gt;<br>
+                    &lt;div class="popover-inner"&gt;<br>
+                        &lt;div class="popover-head" data-popover-header&gt;&lt;/div&gt;<br>
+                        &lt;div class="popover-body" data-popover-content&gt;&lt;/div&gt;<br>
+                    &lt;/div&gt;<br>
+                    &lt;div class="popover-arrow"&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
             </td>
-        </tr>
-        <tr>
-            <td>getContent</td>
-            <td>string|function</td>
-            <td>data-popover</td>
-            <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a string is passed in #id format, fetch the content from the HTML of the element.
-                If a function is passed, use the return value as the content.
-            </td>
+            <td>The popover markup. The <code>data-popover-*</code> attributes are required.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -151,24 +160,43 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>0</td>
             <td>The offset in pixels to move the popover along the Y axis.</td>
         </tr>
-        <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The delay in milliseconds before the popover is displayed.</td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events) and the [Tooltip component](tooltip.md#events).
+Inherits all events from the [parent Component](component.md#events) and the [Tooltip component](tooltip.md#events).
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties) and the [Tooltip component](tooltip.md#properties).
+Inherits all properties from the [parent Component](component.md#properties) and the [Tooltip component](tooltip.md#properties).
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Found With</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>elementBody</td>
+            <td>element</td>
+            <td>The element used for content.</td>
+            <td>[data-popover-content]</td>
+        </tr>
+        <tr>
+            <td>elementHead</td>
+            <td>element</td>
+            <td>The element used for titles.</td>
+            <td>[data-popover-header]</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods) and the [Tooltip component](tooltip.md#methods).
+Inherits all methods from the [parent Component](component.md#methods) and the [Tooltip component](tooltip.md#methods).
 

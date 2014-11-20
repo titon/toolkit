@@ -11,44 +11,16 @@ A single blackout instance solves this problem by recording a count of how many 
 and decreases that count each time it is closed. The blackout element is shown on the 1st count, and
 hidden once the count reaches 0.
 
-The blackout instance can be retrieved using the `factory()` method.
+The blackout instance can be retrieved using the `instance()` method.
 
 ```javascript
-var blackout = Toolkit.Blackout.factory();
+var blackout = Toolkit.Blackout.instance();
     blackout.show();
 ```
 
 <div class="notice is-info">
     For the most part, the blackout should rarely be interacted with manually.
     Components that integrate the blackout will handle situations accordingly.
-</div>
-
-### Loading Animation ###
-
-A loading animation can be inserted within the center of the blackout by defining the `loader` option.
-This animation makes use of the [Loader component](loader.md), and the `loader` values must related to
-the types found within the Loader component.
-
-When defining the animation, the options must be set globally on the Blackout component.
-
-```javascript
-$.extend(Toolkit.Blackout.options, {
-    loader: 'bubble-wave',
-    waveCount: 3
-});
-```
-
-## Template ##
-
-The following markup is used for the creation of the blackout element.
-This structure can be customized through the `template` option.
-
-```html
-<div class="{vendor}blackout"></div>
-```
-
-<div class="notice is-info">
-    The <code>{vendor}</code> value will be replaced with <code>Toolkit.vendor</code>.
 </div>
 
 ## Variables ##
@@ -62,6 +34,11 @@ This structure can be customized through the `template` option.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$blackout-class</td>
+            <td>.blackout</td>
+            <td>CSS class name for the blackout element.</td>
+        </tr>
         <tr>
             <td>$blackout-opacity</td>
             <td>0.85</td>
@@ -82,7 +59,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Since the blackout is a singleton, [options will need to be set globally](../development/js/component.md#options).
+Since the blackout is a singleton, [options will need to be set globally](../development/js/base.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -95,22 +72,29 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
     </thead>
     <tbody>
         <tr>
-            <td>loader</td>
+            <td>loaderTemplate</td>
             <td>string</td>
-            <td>bar-wave</td>
             <td>
-                The type of animation to use while other components are loading.
-                The value must equate to a class name from the <code>Loader</code> component.
+                &lt;div class="loader bar-wave"&gt;<br>
+                    &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;<br>
+                    &lt;div class="loader-message" data-loader-message&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
             </td>
+            <td>The loader markup to be inserted into the blackout.</td>
         </tr>
         <tr>
-            <td>waveCount</td>
-            <td>int</td>
-            <td>5</td>
+            <td>showLoading</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>If true, will insert <code>Toolkit.messages.loading</code> into the <code>[data-loader-message]</code> element.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
             <td>
-                The number of bars or bubbles to use in the loading animation.
-                If the value is more than 5, the Sass will have to be customized.
+                &lt;div class="blackout"&gt;&lt;/div&gt;
             </td>
+            <td>The blackout markup.</td>
         </tr>
         <tr>
             <td>templateFrom</td>
@@ -123,56 +107,51 @@ Since the blackout is a singleton, [options will need to be set globally](../dev
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHide</td>
-            <td>hide.toolkit.blackout</td>
+            <td>hiding</td>
+            <td></td>
+            <td>Triggered before the blackout is hidden.</td>
+        </tr>
+        <tr>
+            <td>hidden</td>
             <td>bool:hidden</td>
             <td>
-                Triggered when the <code>hide()</code> method is called.
+                Triggered after the blackout is hidden (may not actually conceal it).
                 The <code>hidden</code> argument determines when the blackout is visually hidden,
                 instead of simply decreasing its display count.
             </td>
         </tr>
         <tr>
-            <td>onHideLoader</td>
-            <td>hideLoader.toolkit.blackout</td>
+            <td>showing</td>
             <td></td>
-            <td>Triggered when the <code>hideLoader()</code> method is called and the loader is hidden.</td>
+            <td>Triggered before the blackout is shown.</td>
         </tr>
         <tr>
-            <td>onShow</td>
-            <td>show.toolkit.blackout</td>
+            <td>shown</td>
             <td>bool:shown</td>
             <td>
-                Triggered when the <code>show()</code> method is called.
+                Triggered after the blackout is shown (may not actually reveal it).
                 The <code>shown</code> argument determines when the blackout is visually shown,
                 instead of simply increasing its display count.
             </td>
-        </tr>
-        <tr>
-            <td>onShowLoader</td>
-            <td>showLoader.toolkit.blackout</td>
-            <td></td>
-            <td>Triggered when the <code>showLoader()</code> method is called and the loader is shown.</td>
         </tr>
     </tbody>
 </table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -180,6 +159,7 @@ Inherits all properties from the [parent component](../development/js/component.
             <th>Property</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Found With</th>
         </tr>
     </thead>
     <tbody>
@@ -190,23 +170,26 @@ Inherits all properties from the [parent component](../development/js/component.
                 A count of many times the blackout has been opened by components.
                 Determines whether to show or hide the element.
             </td>
+            <td></td>
         </tr>
         <tr>
             <td>loader</td>
             <td>element</td>
-            <td>The loading animation element that's based off the <code>Loader</code> component.</td>
+            <td>The loading animation element.</td>
+            <td></td>
         </tr>
         <tr>
             <td>message</td>
             <td>element</td>
             <td>The loading message element located within the loader element.</td>
+            <td>[data-loader-message]</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

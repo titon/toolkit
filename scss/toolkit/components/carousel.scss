@@ -1,21 +1,22 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}carousel {
+#{$carousel-class} {
     margin: 0 auto;
     text-align: left;
     position: relative;
+    max-width: 100%;
 
-    &.no-next .#{$vendor-prefix}carousel-next { display: none; }
-    &.no-prev .#{$vendor-prefix}carousel-prev { display: none; }
+    &.no-next #{$carousel-class-next} { display: none; }
+    &.no-prev #{$carousel-class-prev} { display: none; }
 }
 
-.#{$vendor-prefix}carousel-items {
+#{$carousel-class-items} {
     /* 4:3 ratio */
     padding-bottom: 75%;
     width: 100%;
@@ -45,35 +46,10 @@
     }
 }
 
-.#{$vendor-prefix}carousel-prev,
-.#{$vendor-prefix}carousel-next {
-    display: block;
-    position: absolute;
-    padding: $padding;
-    width: auto;
-    height: auto;
-    z-index: 5;
-    top: 50%;
-    transform: translateY(-50%); // move up 50% of their height
-
-    &:focus { outline: none; }
-}
-
-.#{$vendor-prefix}carousel-prev { left: 0; }
-.#{$vendor-prefix}carousel-next { right: 0; }
-
-.#{$vendor-prefix}carousel-tabs {
-    position: absolute;
-    top: $padding;
-    left: 50%;
-    z-index: 5;
-    transform: translateX(-50%); // move left 50% of their width
-}
-
 //-------------------- Animations --------------------//
 
-.#{$vendor-prefix}carousel.slide {
-    .#{$vendor-prefix}carousel-items > ul {
+#{$carousel-class}.slide {
+    #{$carousel-class-items} > ul {
         > li {
             float: left;
         }
@@ -82,8 +58,8 @@
     }
 }
 
-.#{$vendor-prefix}carousel.fade {
-    .#{$vendor-prefix}carousel-items > ul {
+#{$carousel-class}.fade {
+    #{$carousel-class-items} > ul {
         position: relative;
 
         > li {
@@ -101,20 +77,18 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}carousel--wide {
-    @extend .#{$vendor-prefix}carousel;
-
-    .#{$vendor-prefix}carousel-items {
-        /* 16:9 ratio */
-        padding-bottom: 56.25%;
+@if index($carousel-modifiers, "wide") {
+    #{$carousel-class-modifier-wide} {
+        #{$carousel-class-items} {
+            padding-bottom: 56.25%; // 16:9 ratio
+        }
     }
 }
 
-.#{$vendor-prefix}carousel--square {
-    @extend .#{$vendor-prefix}carousel;
-
-    .#{$vendor-prefix}carousel-items {
-        /* 1:1 ratio */
-        padding-bottom: 100%;
+@if index($carousel-modifiers, "square") {
+    #{$carousel-class-modifier-square} {
+        #{$carousel-class-items} {
+            padding-bottom: 100%; // 1:1 ratio
+        }
     }
 }

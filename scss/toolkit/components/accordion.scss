@@ -1,26 +1,26 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}accordion {
+#{$accordion-class} {
     @include reset-list;
 }
 
-.#{$vendor-prefix}accordion-header {
+#{$accordion-class-header} {
     padding: $padding;
     cursor: pointer;
 }
 
-.#{$vendor-prefix}accordion-body {
+#{$accordion-class-body} {
     padding: $padding;
 }
 
-// Handle is used for animations, do not style it!
-.#{$vendor-prefix}accordion-section {
+// Section is used for animations, do not style it!
+#{$accordion-class-section} {
     overflow: hidden;
     position: relative;
     transition: all $accordion-transition ease-in-out;

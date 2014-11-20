@@ -1,7 +1,8 @@
 # Components #
 
+* [Component](component.md)
+
 ### Layout ###
-* [Base](base.md)
 * [Code](code.md)
 * [Form](form.md)
 * [Typography](typography.md)
@@ -40,13 +41,7 @@
 * [Popover](popover.md)
 * [Showcase](showcase.md)
 * [Stalker](stalker.md)
-* [Tabs](tabs.md)
+* [Tab](tab.md)
 * [Toast](toast.md)
 * [Tooltip](tooltip.md)
 * [Type Ahead](type-ahead.md)
-
-### Effects ###
-* [Oval](effects.md)
-* [Pill](effects.md)
-* [Skew](effects.md)
-* [Visual](effects.md)

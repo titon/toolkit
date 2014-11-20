@@ -57,3 +57,27 @@ The `navigation` role and the appropriate `aria-*` attributes are required when 
     ...
 </nav>
 ```
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$step-class</td>
+            <td>.step</td>
+            <td>CSS class name for the individual step element.</td>
+        </tr>
+        <tr>
+            <td>$step-class-wrapper</td>
+            <td>.steps</td>
+            <td>CSS class name for the steps list wrapper.</td>
+        </tr>
+    </tbody>
+</table>

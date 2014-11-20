@@ -1,6 +1,6 @@
 # Extensions #
 
-Why stop at components? Why not extend jQuery and MooTools directly with new functionality?
+Why stop at components? Why not extend jQuery directly with new functionality?
 Well don't worry, that's exactly what Toolkit has done.
 We extended the prototype of each vendor with new functionality that eased component development.
 These extensions may even solve a problem in your own codebase.
@@ -19,23 +19,41 @@ If a method is defined, trigger the method on the instance and pass the argument
 var typeAhead = $('#input').toolkit('typeAhead');
 ```
 
-### reveal() ###
+### reveal(`bool:dontShow`) ###
 
 Show an element by replacing <code>.hide</code> with <code>.show</code>.
 By swapping classes, this should trigger any animations or transitions.
+Before transitions occur, the element will be displayed.
 
 ```javascript
-$('#element').reveal();
+$('#element').reveal(); // shown and visible
 ```
 
-### conceal() ###
+If a boolean is passed as the 1st argument, the element's display property will not be modified.
+
+```javascript
+$('#element').reveal(true); // not shown but visible
+```
+
+### conceal(`bool:dontHide`) ###
 
 Hide an element by replacing <code>.show</code> with <code>.hide</code>.
 By swapping classes, this should trigger any animations or transitions.
+Once the transition is complete, the element will be set to display none.
 
 ```javascript
-$('#element').conceal();
+$('#element').conceal(); // hidden and invisible
 ```
+
+If a boolean is passed as the 1st argument, the element's display property will not be modified.
+
+```javascript
+$('#element').conceal(true); // not hidden but invisible
+```
+
+<div class="notice is-info">
+    The display will only be set to none if the element had <code>.show</code> applied once <code>conceal()</code> was called.
+</div>
 
 ### positionTo(`string:position`, `element|event:relativeTo`[, `object:baseOffset`[, `bool:isMouse`]]) ###
 
@@ -53,17 +71,17 @@ $('#element').positionTo('top-left', $('#relative-to'));
 $('#element').positionTo('bottom-right', event, { left: 10, top: 10 }, true);
 ```
 
-### addData(`string:key`, `mixed:value`) ###
+### cache(`string:key`, `mixed:value`) ###
 
 Set and return data if the key does not exist, else return the current value.
 This is a combination of getting and setting internal jQuery data.
 
 ```javascript
-var value = $('#element').addData('foo', 'bar'); // bar
-var value = $('#element').addData('foo', '123'); // bar
+var value = $('#element').cache('foo', 'bar'); // bar
+var value = $('#element').cache('foo', '123'); // bar
 ```
 
-### aria(`string:key`, `mixed:value`) ###
+### aria(`string:key`[, `mixed:value`]) ###
 
 Sets ARIA attributes on the target element. Works in a similar fashion to `attr()`.
 Can also accept an object of key value pairs. Can be disabled by toggling `Toolkit.aria`.
@@ -79,6 +97,12 @@ $('#element').aria({
 });
 ```
 
+You can also use the method to return a value for an ARIA attribute.
+
+```javascript
+$('#element').aria('live'); // off
+```
+
 ### transitionend(`func:func`) ###
 
 Sets a callback function as a `transitionend` event that will only be triggered once.
@@ -89,6 +113,15 @@ This is handy for chaining methods and supporting browsers that don't have trans
 $('#element').transitionend(function() {
     // Do something
 }).reveal();
+```
+
+### toString() ###
+
+Returns the elements markup as a string. If the collection contains multiple elements, only the 1st element will be used.
+
+```javascript
+$('#element').toString(); // Markup as a string
+```
 
 ## Selectors ##
 
@@ -107,7 +140,7 @@ $('#element').is(':shown');
 
 These functions can be found on the jQuery object.
 
-### debounce(`func:func`[, `int:threshold`[, `bool:immediate`]]) ###
+### debounce(`func:func`[, `int:threshold`]) ###
 
 Delays the execution of a function until the duration has completed.
 If `immediate` is true, then the callback will be triggered immediately.
@@ -140,26 +173,6 @@ $.bound(12, 10); // 0
 var data = [1, 2, 3, 4, 5];
 
 $.bound(-1, data.length); // 4
-```
-
-### cookie(`string:key`, `mixed:value`[, `object:options`]) ###
-
-Set a cookie with optional configuration settings. The following settings are available:
-`expires` (a number in hours), `path`, `domain`, and `secure`.
-
-```javascript
-$.cookie('foo', 'bar', {
-    expires: 24, // expires in 24 hours
-    secure: true
-});
-```
-
-### removeCookie(`string:key`[, `object:options`]) ###
-
-Remove a cookie defined by key. Will require the same settings that were used for creation.
-
-```javascript
-$.removeCookie('foo');
 ```
 
 ## Events ##

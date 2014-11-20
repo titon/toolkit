@@ -27,7 +27,7 @@ will alter the padding and font size.
 
 ### Shapes ###
 
-What about changing the border shape? Adding `.square` (default), `.round`, `.pill`, `.oval`,
+What about changing the border shape? Adding `.round`, `.pill`, `.oval`,
 or `.skew` classes to the `.button` element will change the border radius.
 
 ```html
@@ -35,8 +35,8 @@ or `.skew` classes to the `.button` element will change the border radius.
 ```
 
 <div class="notice is-warning">
-    The <code>.pill</code>, <code>.oval</code>, and <code>.skew</code> classes will require
-    effects extensions, which aren't part of the default build.
+    All effects (excluding round) are disabled by default.
+    Modify the <code>$button-effects</code> Sass variable to enable them.
 </div>
 
 ### States ###
@@ -77,13 +77,28 @@ and `.is-error` classes can be used.
     The classes simply exist for semantic and structuring reasons.
 </div>
 
-### Effects ###
+### Modifiers ###
 
-For fancy visual aesthetics, the `.visual-gloss`, `.visual-reflect`, `.visual-glare`, and `.visual-popout`
-effects can be used. These visuals make use of `:after` pseudo elements to apply their effect.
+A modifier can be paired with a button to provide enhanced visual aesthetics.
+The following visuals are available:
+
+* `.button--gloss` will apply a rounded glossy effect in the upper half of the button
+* `.button--reflect` will apply a horizontal reflection with the upper half being masked
+* `.button--glare` will apply a diagonal reflection with both halves fading into masks
+* `.button--popout` will apply a border style that pops up the button, and pushes down when clicked
+
+```html
+<button type="button" class="button button--glare">Glared Button</button>
+```
+
+<div class="notice is-info">
+    Visual modifiers make use of <code>::after</code> pseudo elements,
+    so implementation requires the targeted element to not use pseudos.
+</div>
 
 <div class="notice is-warning">
-    These classes require the visual effects extension, which isn't part of the default build.
+    All modifiers are disabled by default. Modify the <code>$button-modifiers</code> Sass
+    variable to enable them.
 </div>
 
 ## ARIA ##
@@ -98,3 +113,32 @@ The `button` role and the appropriate `aria-*` attributes are required when supp
 <div class="notice is-warning">
     JavaScript will be required to change the <code>aria-pressed</code> value.
 </div>
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$button-class</td>
+            <td>.button</td>
+            <td>CSS class name for the button element.</td>
+        </tr>
+        <tr>
+            <td>$button-effects</td>
+            <td>()</td>
+            <td>List of effects to include in the CSS output. Accepts oval, pill, and skew.</td>
+        </tr>
+        <tr>
+            <td>$button-modifiers</td>
+            <td>()</td>
+            <td>List of modifiers to include in the CSS output. Accepts gloss, reflect, glare, and popout.</td>
+        </tr>
+    </tbody>
+</table>

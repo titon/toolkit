@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}showcase {
+#{$showcase-class} {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -23,21 +23,21 @@
 
     &.is-loading,
     &.is-single {
-        .#{$vendor-prefix}showcase-prev,
-        .#{$vendor-prefix}showcase-next,
-        .#{$vendor-prefix}showcase-tabs {
+        #{$showcase-class-prev},
+        #{$showcase-class-next},
+        #{$showcase-class-tabs} {
             display: none !important;
         }
     }
 
     &.is-loading {
-        .#{$vendor-prefix}showcase-close {
+        #{$showcase-class-close} {
             display: none !important;
         }
     }
 }
 
-.#{$vendor-prefix}showcase-close {
+#{$showcase-class-close} {
     float: right;
     line-height: 1rem;
     background: none;
@@ -46,17 +46,17 @@
     margin-left: 1rem;
 }
 
-.#{$vendor-prefix}showcase-caption {
+#{$showcase-class-caption} {
     opacity: 0;
     transition: opacity $showcase-transition, visibility $showcase-transition;
 }
 
-.#{$vendor-prefix}showcase-inner {
+#{$showcase-class-inner} {
     position: relative;
     margin-bottom: $padding;
 }
 
-.#{$vendor-prefix}showcase-items {
+#{$showcase-class-items} {
     @include reset-list;
     width: 100px;
     height: 100px;
@@ -78,30 +78,4 @@
             display: block;
         }
     }
-}
-
-.#{$vendor-prefix}showcase-prev,
-.#{$vendor-prefix}showcase-next {
-    display: block;
-    position: absolute;
-    z-index: 5;
-    top: 50%;
-    background: none;
-    padding: 0;
-    border: 0;
-    transform: translateY(-50%); // move up 50% of their height
-
-    &:focus { outline: none; }
-}
-
-.#{$vendor-prefix}showcase-prev { left: $padding; }
-.#{$vendor-prefix}showcase-next { right: $padding; }
-
-.#{$vendor-prefix}showcase-tabs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: $padding;
-    text-align: center;
 }

@@ -38,10 +38,6 @@ Re-shape the outer edges of a progress bar by adding `.round` or `.pill` effects
 </div>
 ```
 
-<div class="notice is-warning">
-    The <code>.pill</code> class requires the pill effect, which isn't part of the default build.
-</div>
-
 ### States ###
 
 Provide contextual feedback on the type of progress by using the global state classes.
@@ -104,6 +100,21 @@ The `progressbar` role and the appropriate `aria-*` attributes are required when
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$progress-class</td>
+            <td>.progress</td>
+            <td>CSS class name for the progress wrapper.</td>
+        </tr>
+        <tr>
+            <td>$progress-class-bar</td>
+            <td>.progress-bar</td>
+            <td>CSS class name for the progress bar element.</td>
+        </tr>
+        <tr>
+            <td>$progress-effects</td>
+            <td>("pill")</td>
+            <td>List of effects to include in the CSS output. Accepts pill.</td>
+        </tr>
         <tr>
             <td>$progress-transition</td>
             <td>.5s</td>

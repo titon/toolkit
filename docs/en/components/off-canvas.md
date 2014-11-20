@@ -13,11 +13,11 @@ element where all site content should reside. Lastly, we place the `.off-canvas`
 ```html
 <body>
     <div class="canvas">
-        <main class="on-canvas">
+        <main class="on-canvas" data-offcanvas-content>
             ... Primary content ...
         </main>
 
-        <aside class="off-canvas off-canvas--left" id="left-sidebar">
+        <aside class="off-canvas off-canvas--left" id="left-sidebar" data-offcanvas-sidebar="left">
             ... Sidebar content ...
         </aside>
     </div>
@@ -31,7 +31,12 @@ $('.off-canvas').offCanvas();
 ```
 
 <div class="notice is-info">
-    The <code>.off-canvas</code> class is not required, but is useful when initializing multiple instances.
+   The <code>data-offcanvas-*</code> attributes are required so that the JavaScript layer
+   can find or bind elements in the DOM.
+</div>
+
+<div class="notice is-info">
+    The <code>data-offcanvas-sidebar</code> attribute must be set to either "left" or "right".
 </div>
 
 <div class="notice is-info">
@@ -60,16 +65,16 @@ Supporting left and right sidebars is extremely easy. Simply duplicate the marku
 for each side.
 
 ```html
-<aside class="off-canvas off-canvas--left" id="left-sidebar">...</aside>
-<aside class="off-canvas off-canvas--right" id="right-sidebar">...</aside>
+<aside class="off-canvas off-canvas--left" id="left-sidebar" data-offcanvas-sidebar="left">...</aside>
+<aside class="off-canvas off-canvas--right" id="right-sidebar" data-offcanvas-sidebar="right">...</aside>
 ```
 
 The component also supports multiple sidebars on the same side.
 However, be weary of this approach and the animations being used as it might run into weirdness.
 
 ```html
-<aside class="off-canvas off-canvas--left" id="primary-sidebar">...</aside>
-<aside class="off-canvas off-canvas--left" id="secondary-sidebar">...</aside>
+<aside class="off-canvas off-canvas--left" id="primary-sidebar" data-offcanvas-sidebar="left">...</aside>
+<aside class="off-canvas off-canvas--left" id="secondary-sidebar" data-offcanvas-sidebar="left">...</aside>
 ```
 
 ### Animations ###
@@ -101,7 +106,7 @@ $('.off-canvas').offCanvas({
 });
 ```
 
-<div class="notice is-error">
+<div class="notice is-info">
     We suggest using this with the <code>on-top</code> or <code>squish</code> animations.
 </div>
 
@@ -115,11 +120,11 @@ $('.off-canvas').offCanvas({
 The `main` and `complementary` roles and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
-<main class="on-canvas" role="main">
+<main class="on-canvas" role="main" data-offcanvas-content>
     ...
 </main>
 
-<aside class="off-canvas off-canvas--left" role="complementary">
+<aside class="off-canvas off-canvas--left" role="complementary" data-offcanvas-sidebar="left">
     ...
 </aside>
 ```
@@ -140,14 +145,39 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
     </thead>
     <tbody>
         <tr>
+            <td>$offCanvas-animations</td>
+            <td>("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish")</td>
+            <td>A list of all animations to include in the CSS output.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class</td>
+            <td>.off-canvas</td>
+            <td>CSS class name for the off canvas sidebar.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-content</td>
+            <td>.on-canvas</td>
+            <td>CSS class name for the off canvas primary content wrapper.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-wrapper</td>
+            <td>.canvas</td>
+            <td>CSS class name for the off canvas parent wrapper.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-modifier-left</td>
+            <td>.off-canvas--left</td>
+            <td>Name of the left modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-class-modifier-right</td>
+            <td>.off-canvas--right</td>
+            <td>Name of the right modifier to append to off canvas sidebars.</td>
+        </tr>
+        <tr>
             <td>$offCanvas-left-width</td>
             <td>20%</td>
             <td>The width of the left sidebar.</td>
-        </tr>
-        <tr>
-            <td>$offCanvas-right-width</td>
-            <td>20%</td>
-            <td>The width of the right sidebar.</td>
         </tr>
         <tr>
             <td>$offCanvas-left-width-mobile</td>
@@ -155,14 +185,19 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
             <td>The width of the left sidebar for mobile devices.</td>
         </tr>
         <tr>
-            <td>$offCanvas-right-width-mobile</td>
-            <td>90%</td>
-            <td>The width of the right sidebar for mobile devices.</td>
-        </tr>
-        <tr>
             <td>$offCanvas-mobile-breakpoint</td>
             <td>640px</td>
             <td>The break point to apply mobile widths.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-right-width</td>
+            <td>20%</td>
+            <td>The width of the right sidebar.</td>
+        </tr>
+        <tr>
+            <td>$offCanvas-right-width-mobile</td>
+            <td>90%</td>
+            <td>The width of the right sidebar for mobile devices.</td>
         </tr>
         <tr>
             <td>$offCanvas-transition</td>
@@ -179,7 +214,7 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -192,12 +227,6 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>selector</td>
-            <td>string</td>
-            <td></td>
-            <td>CSS selector to bind click toggle events to.</td>
-        </tr>
-        <tr>
             <td>animation</td>
             <td>string</td>
             <td>push</td>
@@ -205,6 +234,12 @@ Inherits all options from the [parent component](../development/js/component.md#
                 Animation to use when displaying the sidebar.
                 Accepts push, push-reveal, push-down, reverse-push, reveal, squish, on-top.
             </td>
+        </tr>
+        <tr>
+            <td>hideOthers</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Will hide all other sidebars when opening a sidebar.</td>
         </tr>
         <tr>
             <td>openOnLoad</td>
@@ -216,10 +251,10 @@ Inherits all options from the [parent component](../development/js/component.md#
             </td>
         </tr>
         <tr>
-            <td>hideOthers</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Will hide all other sidebars when opening a sidebar.</td>
+            <td>selector</td>
+            <td>string</td>
+            <td></td>
+            <td>CSS selector to bind click toggle events to.</td>
         </tr>
         <tr>
             <td>stopScroll</td>
@@ -227,26 +262,30 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>true</td>
             <td>Whether to remove the scrollbar on the window while the sidebar is open.</td>
         </tr>
+        <tr>
+            <td>swipe</td>
+            <td>bool</td>
+            <td>Toolkit.isTouch</td>
+            <td>Will bind swipe events. If this is true on non-touch devices, it will bind equivalent mouse events.</td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onResize</td>
-            <td>resize.toolkit.offCanvas</td>
+            <td>resize</td>
             <td></td>
             <td>Triggered when the browser is resized.</td>
         </tr>
@@ -255,7 +294,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -271,25 +310,7 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>container</td>
             <td>element</td>
             <td>The parent element that contains the sidebar.</td>
-            <td>.canvas</td>
-        </tr>
-        <tr>
-            <td>primary</td>
-            <td>element</td>
-            <td>The primary element that contains the content.</td>
-            <td>.on-canvas</td>
-        </tr>
-        <tr>
-            <td>secondary</td>
-            <td>element</td>
-            <td>The other sidebars within the canvas.</td>
-            <td>.off-canvas</td>
-        </tr>
-        <tr>
-            <td>side</td>
-            <td>string</td>
-            <td>The side where the sidebar is positioned. Will either be left or right.</td>
-            <td></td>
+            <td><code>parent</code></td>
         </tr>
         <tr>
             <td>opposite</td>
@@ -297,12 +318,30 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The opposite of <code>side</code>.</td>
             <td></td>
         </tr>
+        <tr>
+            <td>primary</td>
+            <td>element</td>
+            <td>The primary element that contains the content.</td>
+            <td>[data-offcanvas-content]</td>
+        </tr>
+        <tr>
+            <td>secondary</td>
+            <td>element</td>
+            <td>The other sidebars within the canvas.</td>
+            <td>[data-offcanvas-sidebar]</td>
+        </tr>
+        <tr>
+            <td>side</td>
+            <td>string</td>
+            <td>The side where the sidebar is positioned. Will either be left or right.</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

@@ -87,6 +87,11 @@ We suggest adding `.fluid` from the [Responsive component](responsive.md) to all
     </thead>
     <tbody>
         <tr>
+            <td>$matrix-class</td>
+            <td>.matrix</td>
+            <td>CSS class name for the matrix list.</td>
+        </tr>
+        <tr>
             <td>$matrix-transition</td>
             <td>.3s</td>
             <td>The transition time for matrix item position animations.</td>
@@ -96,7 +101,7 @@ We suggest adding `.fluid` from the [Responsive component](responsive.md) to all
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -109,10 +114,13 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>width</td>
-            <td>int</td>
-            <td>200</td>
-            <td>The virtual column width to align all items against. Larger items may span multiple columns.</td>
+            <td>defer</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>
+                Defer positioning of items until all images within the items have loaded.
+                If this is false, items may overlap once images load after the fact.
+            </td>
         </tr>
         <tr>
             <td>gutter</td>
@@ -127,46 +135,61 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>Render items in reverse right-to-left format instead of left-to-right.</td>
         </tr>
         <tr>
-            <td>defer</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>
-                Defer positioning of items until all images within the items have loaded.
-                If this is false, items may overlap once images load after the fact.
-            </td>
+            <td>width</td>
+            <td>int</td>
+            <td>200</td>
+            <td>The virtual column width to align all items against. Larger items may span multiple columns.</td>
         </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onRender</td>
-            <td>render.toolkit.matrix</td>
+            <td>appending</td>
+            <td>element:item</td>
+            <td>Triggered before an element is appended to the matrix.</td>
+        </tr>
+        <tr>
+            <td>prepending</td>
+            <td>element:item</td>
+            <td>Triggered before an element is prepended to the matrix.</td>
+        </tr>
+        <tr>
+            <td>removing</td>
+            <td>element:item</td>
+            <td>Triggered before an element is removed from the matrix.</td>
+        </tr>
+        <tr>
+            <td>rendering</td>
             <td></td>
             <td>
-                Triggered when the matrix is rendered.
+                Triggered before the matrix is rendered.
                 This can happen on initialization, refresh, or appending, prepending, and removing of items.
             </td>
+        </tr>
+        <tr>
+            <td>rendered</td>
+            <td></td>
+            <td>Triggered after the matrix is rendered.</td>
         </tr>
     </tbody>
 </table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -178,6 +201,30 @@ Inherits all properties from the [parent component](../development/js/component.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>colCount</td>
+            <td>int</td>
+            <td>The number of columns that can fit within the current wrapper width.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>colHeights</td>
+            <td>array</td>
+            <td>The current height of each column.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>colWidth</td>
+            <td>int</td>
+            <td>The calculated width of each column based on the <code>width</code> option.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>images</td>
+            <td>collection</td>
+            <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
+            <td>img</td>
+        </tr>
         <tr>
             <td>items</td>
             <td>collection</td>
@@ -196,36 +243,12 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The width of the matrix wrapper.</td>
             <td></td>
         </tr>
-        <tr>
-            <td>colWidth</td>
-            <td>int</td>
-            <td>The calculated width of each column based on the <code>width</code> option.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>colHeights</td>
-            <td>array</td>
-            <td>The current height of each column.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>colCount</td>
-            <td>int</td>
-            <td>The number of columns that can fit within the current wrapper width.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>images</td>
-            <td>collection</td>
-            <td>A collection of <code>img</code>s found within matrix items. Is used for deferred loading.</td>
-            <td>img</td>
-        </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
@@ -244,15 +267,15 @@ Inherits all methods from the [parent component](../development/js/component.md#
             <td>Prepend an item to the matrix and re-render. The item must be an <code>li</code>.</td>
         </tr>
         <tr>
-            <td>remove(element:item)</td>
-            <td>Remove an item from the matrix and re-render. The element must match an existing item in the matrix.</td>
-        </tr>
-        <tr>
             <td>refresh()</td>
             <td>
                 Refresh the <code>items</code> list and re-render.
                 This method is automatically called from other methods.
             </td>
+        </tr>
+        <tr>
+            <td>remove(element:item)</td>
+            <td>Remove an item from the matrix and re-render. The element must match an existing item in the matrix.</td>
         </tr>
         <tr>
             <td>render()</td>

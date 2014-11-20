@@ -218,3 +218,87 @@ If you are using semantically correct tags like `form`, `label`, and `input`,
 then implementing ARIA is not required. If you are *not* using them,
 then the following [MDN article on ARIA forms](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/forms/Basic_form_hints)
 may be helpful.
+
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$form-class</td>
+            <td>.form</td>
+            <td>CSS class name for the form element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-actions</td>
+            <td>.form-actions</td>
+            <td>CSS class name for the form actions (submit buttons, ec) wrapper.</td>
+        </tr>
+        <tr>
+            <td>$form-class-modifier-inline</td>
+            <td>.form--inline</td>
+            <td>Name of the inline modifier to append to form classes.</td>
+        </tr>
+        <tr>
+            <td>$form-class-modifier-horizontal</td>
+            <td>.form--horizontal</td>
+            <td>Name of the horizontal modifier to append to form classes.</td>
+        </tr>
+        <tr>
+            <td>$form-class-input</td>
+            <td>.input</td>
+            <td>CSS class name for the input, select, and textarea elements.</td>
+        </tr>
+        <tr>
+            <td>$form-class-input-static</td>
+            <td>.input-static</td>
+            <td>CSS class name for the static input element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-input-radio</td>
+            <td>.input-radio</td>
+            <td>CSS class name for the radio input wrapper element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-input-checkbox</td>
+            <td>.input-checkbox</td>
+            <td>CSS class name for the checkbox input wrapper element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-fields</td>
+            <td>.fields</td>
+            <td>CSS class name for the fields list element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-field</td>
+            <td>.field</td>
+            <td>CSS class name for the individual field element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-field-help</td>
+            <td>.field-help</td>
+            <td>CSS class name for the field help message element.</td>
+        </tr>
+        <tr>
+            <td>$form-class-field-label</td>
+            <td>.field-label</td>
+            <td>CSS class name for the field label.</td>
+        </tr>
+        <tr>
+            <td>$form-class-field-column</td>
+            <td>.field-col</td>
+            <td>CSS class name for the field column (used for horizontal layouts).</td>
+        </tr>
+        <tr>
+            <td>$form-modifiers</td>
+            <td>("inline", "horizontal")</td>
+            <td>List of modifiers to include in the CSS output. Accepts inline and horizontal.</td>
+        </tr>
+    </tbody>
+</table>

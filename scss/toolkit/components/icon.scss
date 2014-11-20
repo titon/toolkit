@@ -1,28 +1,42 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-[class*="icon-"] {
+$icon-class-without-dot: remove-selector-char($icon-class);
+
+[class*="#{$icon-class-without-dot}-"] {
     @include reset-inline-block;
     background-repeat: no-repeat;
 
-    @include is-disabled { opacity: $disabled-opacity; }
+    &.is-disabled { opacity: $disabled-opacity; }
 }
 
-[class*="icon-12"] { width: 12px; height: 12px; }
-[class*="icon-16"] { width: 16px; height: 16px; }
-[class*="icon-24"] { width: 24px; height: 24px; }
-[class*="icon-32"] { width: 32px; height: 32px; }
-[class*="icon-64"] { width: 64px; height: 64px; }
+@each $size in $icon-sizes {
+    [class*="#{$icon-class-without-dot}-#{$size}"] { width: #{$size}px; height: #{$size}px; }
+}
 
 //-------------------- Modifiers --------------------//
 
-.icon--90deg { transform: rotate(90deg); }
-.icon--180deg { transform: rotate(180deg); }
-.icon--270deg { transform: rotate(270deg); }
-.icon--flip { transform: rotateY(180deg); }
-.icon--flip-vert { transform: rotateX(180deg); }
+@if index($icon-modifiers, "90deg") {
+    #{$icon-class-modifier-90deg} { transform: rotate(90deg); }
+}
+
+@if index($icon-modifiers, "180deg") {
+    #{$icon-class-modifier-180deg} { transform: rotate(180deg); }
+}
+
+@if index($icon-modifiers, "270deg") {
+    #{$icon-class-modifier-270deg} { transform: rotate(270deg); }
+}
+
+@if index($icon-modifiers, "flip") {
+    #{$icon-class-modifier-flip} { transform: rotateY(180deg); }
+}
+
+@if index($icon-modifiers, "flip-vert") {
+    #{$icon-class-modifier-flip-vert} { transform: rotateX(180deg); }
+}

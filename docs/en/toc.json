@@ -35,14 +35,24 @@
                             "title": "Toolkit Namespace",
                             "url": "/development/js/toolkit"
                         }, {
+                            "title": "Class System",
+                            "url": "/development/js/class",
+                            "new": true
+                        },  {
+                            "title": "Base Class",
+                            "url": "/development/js/base",
+                            "new": true
+                        }, {
                             "title": "Component System",
-                            "url": "/development/js/component"
+                            "url": "/development/js/component",
+                            "updated": true
                         }, {
                             "title": "Conflict Resolution",
                             "url": "/development/js/no-conflict"
                         }, {
                             "title": "Extensions",
-                            "url": "/development/js/extensions"
+                            "url": "/development/js/extensions",
+                            "updated": true
                         }, {
                             "title": "Conventions",
                             "url": "/development/js/conventions"
@@ -53,6 +63,10 @@
                     "url": "/development/css",
                     "children": [
                         {
+                            "title": "Base Styles",
+                            "url": "/development/css/base",
+                            "new": true
+                        }, {
                             "title": "Philosophies",
                             "url": "/development/css/philosophies"
                         }, {
@@ -91,8 +105,11 @@
             "url": "/components",
             "children": [
                 {
-                    "title": "Base",
-                    "url": "/components/base"
+                    "title": "Component",
+                    "url": "/components/component",
+                    "new": true
+                }, {
+                    "divider": true
                 }, {
                     "title": "Accordion",
                     "url": "/components/accordion"
@@ -110,8 +127,7 @@
                     "url": "/components/button-group"
                 }, {
                     "title": "Carousel",
-                    "url": "/components/carousel",
-                    "updated": true
+                    "url": "/components/carousel"
                 }, {
                     "title": "Code",
                     "url": "/components/code"
@@ -121,9 +137,6 @@
                 }, {
                     "title": "Drop",
                     "url": "/components/drop"
-                }, {
-                    "title": "Effects",
-                    "url": "/components/effects"
                 }, {
                     "title": "Flyout",
                     "url": "/components/flyout"
@@ -197,8 +210,8 @@
                     "title": "Table",
                     "url": "/components/table"
                 }, {
-                    "title": "Tabs",
-                    "url": "/components/tabs"
+                    "title": "Tab",
+                    "url": "/components/tab"
                 }, {
                     "title": "Toast",
                     "url": "/components/toast"
@@ -222,8 +235,7 @@
                     "url": "/support/compatibility"
                 }, {
                     "title": "Competitor Comparison",
-                    "url": "/support/comparison",
-                    "updated": true
+                    "url": "/support/comparison"
                 }, {
                     "title": "Contributing",
                     "url": "/support/contributing"
@@ -233,6 +245,26 @@
                 }, {
                     "title": "License",
                     "url": "/support/license"
+                }
+            ]
+        }, {
+            "title": "Releases",
+            "url": "/releases",
+            "new": true,
+            "children": [
+                {
+                    "title": "2.0 - Gallant Golem",
+                    "url": "/releases/2.0"
+                }
+            ]
+        }, {
+            "title": "Migrations",
+            "url": "/migrations",
+            "new": true,
+            "children": [
+                {
+                    "title": "Migrating to 2.0",
+                    "url": "/migrations/2.0"
                 }
             ]
         }

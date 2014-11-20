@@ -1,23 +1,19 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}notice {
+#{$notice-class} {
     margin: $margin 0;
     padding: $padding;
     text-align: left;
 
     hr {
         border: 0;
-        border-top: 1px solid transparent;
-    }
-
-    a {
-        font-weight: bold;
+        border-top: 1px solid white(.15);
     }
 
     p:first-child {
@@ -25,7 +21,7 @@
     }
 }
 
-.#{$vendor-prefix}notice-close {
+#{$notice-class-close} {
     float: right;
     margin-left: $margin;
     line-height: 1rem;
@@ -36,6 +32,6 @@
     & ~ p { margin: 0; }
 }
 
-.#{$vendor-prefix}notice-title {
+#{$notice-class-title} {
     margin: 0 0 ($margin / 2) 0;
 }

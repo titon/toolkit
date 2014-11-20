@@ -37,7 +37,7 @@ relative to. If no element is passed, the last element hovered will be used. The
 are the custom content and title respectively.
 
 ```javascript
-$('#button').toolkit('tooltip', 'show', [null, 'Custom content', 'Custom title']);
+$('#button').toolkit('tooltip', 'show', [null, 'Custom content']);
 ```
 
 If we want to update the node and then trigger the tooltip, something like the following can be used.
@@ -79,25 +79,6 @@ The `tooltip` role and the appropriate `aria-*` attributes are required when sup
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
-## Template ##
-
-The following markup is used for the creation of tooltips.
-This structure can be customized through the `template` option.
-
-```html
-<div class="tooltip">
-    <div class="tooltip-inner">
-        <div class="tooltip-head"></div>
-        <div class="tooltip-body"></div>
-    </div>
-    <div class="tooltip-arrow"></div>
-</div>
-```
-
-<div class="notice is-info">
-    The <code>.tooltip-head</code> and <code>.tooltip-body</code> elements are required for inserting content into.
-</div>
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -110,7 +91,7 @@ This structure can be customized through the `template` option.
     </thead>
     <tbody>
         <tr>
-            <td>$popover-tooltip-animation</td>
+            <td>$tooltip-tooltip-animations</td>
             <td>("fade", "from-above", "from-below", "flip-rotate")</td>
             <td>A list of all animations to include in the CSS output.</td>
         </tr>
@@ -118,6 +99,26 @@ This structure can be customized through the `template` option.
             <td>$tooltip-arrow-width</td>
             <td>6</td>
             <td>The border size for tooltip arrows.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class</td>
+            <td>.tooltip</td>
+            <td>CSS class name for the tooltip wrapper.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-arrow</td>
+            <td>.tooltip-arrow</td>
+            <td>CSS class name for the tooltip arrow.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-head</td>
+            <td>.tooltip-head</td>
+            <td>CSS class name for the tooltip header element.</td>
+        </tr>
+        <tr>
+            <td>$tooltip-class-body</td>
+            <td>.tooltip-body</td>
+            <td>CSS class name for the tooltip body element.</td>
         </tr>
         <tr>
             <td>$tooltip-zindex</td>
@@ -129,7 +130,7 @@ This structure can be customized through the `template` option.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -142,10 +143,53 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>delegate</td>
+            <td>ajax</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Determines whether to load the tooltip content via an AJAX request.</td>
+        </tr>
+        <tr>
+            <td>animation</td>
             <td>string</td>
-            <td>.js-tooltip</td>
-            <td>CSS selector to apply event delegation to. (MooTools only)</td>
+            <td></td>
+            <td>The animation to use when displaying the tooltip. Available options are: fade, from-above, from-below, flip-rotate.</td>
+        </tr>
+        <tr>
+            <td>follow</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Will position the tooltip relative to the mouse cursor instead of the target element.</td>
+        </tr>
+        <tr>
+            <td>getContent</td>
+            <td>string|function</td>
+            <td>data-tooltip</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a string is passed in #id format, fetch the content from the HTML of the element.
+                If a function is passed, use the return value as the content.
+            </td>
+        </tr>
+        <tr>
+            <td>getTitle</td>
+            <td>string|function</td>
+            <td>title</td>
+            <td>
+                If a string is passed, fetch the content from the HTML attribute.
+                If a function is passed, use the return value as the content.
+            </td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>hover</td>
+            <td>The type of interaction required to activate the tooltip. Accepts click or hover.</td>
+        </tr>
+        <tr>
+            <td>mouseThrottle</td>
+            <td>int</td>
+            <td>50</td>
+            <td>The time in milliseconds to throttle the mouse follow events.</td>
         </tr>
         <tr>
             <td>position</td>
@@ -155,36 +199,6 @@ Inherits all options from the [parent component](../development/js/component.md#
                 Where to position the tooltip relative to the target element. Available options are:
                 top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right.
             </td>
-        </tr>
-        <tr>
-            <td>animation</td>
-            <td>string</td>
-            <td></td>
-            <td>The animation to use when displaying the tooltip. Available options are: fade, from-above, from-below, flip-rotate.</td>
-        </tr>
-        <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>hover</td>
-            <td>The type of interaction required to activate the tooltip. Accepts click or hover.</td>
-        </tr>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the tooltip content via an AJAX request.</td>
-        </tr>
-        <tr>
-            <td>follow</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Will position the tooltip relative to the mouse cursor instead of the target element.</td>
-        </tr>
-        <tr>
-            <td>mouseThrottle</td>
-            <td>int</td>
-            <td>50</td>
-            <td>The time in milliseconds to throttle the mouse follow events.</td>
         </tr>
         <tr>
             <td>showLoading</td>
@@ -199,23 +213,18 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>Show the tooltip title alongside the content if available.</td>
         </tr>
         <tr>
-            <td>getTitle</td>
-            <td>string|function</td>
-            <td>title</td>
+            <td>template</td>
+            <td>string</td>
             <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a function is passed, use the return value as the content.
+                &lt;div class="tooltip"&gt;<br>
+                    &lt;div class="tooltip-inner"&gt;<br>
+                        &lt;div class="tooltip-head" data-tooltip-header&gt;&lt;/div&gt;<br>
+                        &lt;div class="tooltip-body" data-tooltip-content&gt;&lt;/div&gt;<br>
+                    &lt;/div&gt;<br>
+                    &lt;div class="tooltip-arrow"&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
             </td>
-        </tr>
-        <tr>
-            <td>getContent</td>
-            <td>string|function</td>
-            <td>data-tooltip</td>
-            <td>
-                If a string is passed, fetch the content from the HTML attribute.
-                If a string is passed in #id format, fetch the content from the HTML of the element.
-                If a function is passed, use the return value as the content.
-            </td>
+            <td>The tooltip markup. The <code>data-tooltip-*</code> attributes are required.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -229,22 +238,33 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>0</td>
             <td>The offset in pixels to move the tooltip along the Y axis.</td>
         </tr>
-        <tr>
-            <td>delay</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The delay in milliseconds before the tooltip is displayed.</td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Event</td>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>load</td>
+            <td>mixed:content</td>
+            <td>Triggered after the tooltip content has been set but before it is shown.</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -257,16 +277,16 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
-            <td>elementHead</td>
-            <td>element</td>
-            <td>The element used for titles.</td>
-            <td>.tooltip-head</td>
-        </tr>
-        <tr>
             <td>elementBody</td>
             <td>element</td>
             <td>The element used for content.</td>
-            <td>.tooltip-body</td>
+            <td>[data-tooltip-content]</td>
+        </tr>
+        <tr>
+            <td>elementHead</td>
+            <td>element</td>
+            <td>The element used for titles.</td>
+            <td>[data-tooltip-header]</td>
         </tr>
         <tr>
             <td>cache</td>
@@ -279,7 +299,7 @@ Inherits all properties from the [parent component](../development/js/component.
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>
@@ -299,10 +319,15 @@ Inherits all methods from the [parent component](../development/js/component.md#
             <td></td>
         </tr>
         <tr>
-            <td>show([element:node[, string:content[, string:title]]])</td>
+            <td>reset()</td>
+            <td>Resets the tooltip state by removing position and custom classes from the element, and clearing the runtime options.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>show([element:node[, string:content]])</td>
             <td>
                 Display the tooltip relative to the node. If no node is passed, will use the last node.
-                If no content or title is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
+                If no content is passed, the values will be fetched from the node using the <code>getContent</code> and <code>getTitle</code> options.
             </td>
             <td><code>selector</code></td>
         </tr>

@@ -1,13 +1,20 @@
+@import "mixins/helper";
 
 //-------------------- Toolkit --------------------//
 
 $vendor-prefix: "" !default;
-$size-small-class: "small" !default;
-$size-large-class: "large" !default;
-$shape-round-class: "round" !default;
-$shape-oval-class: "oval" !default;
-$shape-pill-class: "pill" !default;
-$shape-skew-class: "skew" !default;
+$size-small-class: ".small" !default;
+$size-large-class: ".large" !default;
+$shape-round-class: ".round" !default;
+$shape-oval-class: ".oval" !default;
+$shape-pill-class: ".pill" !default;
+$shape-skew-class: ".skew" !default;
+
+$enable-small-size: true !default;
+$enable-large-size: true !default;
+$enable-all-effects: true !default;
+$enable-all-modifiers: true !default;
+$enable-all-animations: true !default;
 
 //-------------------- Colors --------------------//
 
@@ -20,17 +27,17 @@ $gray-darkest: #c2c2c2 !default;
 $background-color: #fff !default;
 $foreground-color: #2d2d2d !default;
 
-//-------------------- Sizes --------------------//
+//-------------------- Settings --------------------//
 
 $base-size: 14px !default;
 $base-line-height: 1.25em !default;
 
-$h1-size: 3rem !default;
-$h2-size: 2.5rem !default;
-$h3-size: 2.1rem !default;
-$h4-size: 1.8rem !default;
-$h5-size: 1.5rem !default;
-$h6-size: 1.2rem !default;
+$default-opacity: .5 !default;
+$disabled-opacity: $default-opacity !default;
+$default-transition: .3s !default;
+
+$bem-element-separator: "-" !default;
+$bem-modifier-separator: "--" !default;
 
 //-------------------- Spacing --------------------//
 
@@ -82,36 +89,6 @@ $skew-y: 3rem !default;
 $skew: $skew-x $skew-y;
 $skew-reverse: $skew-y $skew-x;
 
-//-------------------- Opacity --------------------//
-
-$default-opacity: .5 !default;
-$disabled-opacity: $default-opacity !default;
-$blackout-opacity: .85 !default;
-$carousel-opacity: $default-opacity !default;
-$mask-opacity: .85 !default;
-$showcase-opacity: $default-opacity !default;
-
-//-------------------- Transitions --------------------//
-
-$default-transition: .3s !default;
-$accordion-transition: $default-transition !default;
-$blackout-transition: $default-transition !default;
-$carousel-transition: 1s !default;
-$drop-transition: $default-transition !default;
-$flyout-transition: $default-transition !default;
-$lazyLoad-transition: $default-transition !default;
-$mask-transition: $default-transition !default;
-$matrix-transition: $default-transition !default;
-$modal-transition: $default-transition !default;
-$offCanvas-transition: .5s !default;
-$pin-transition: .2s !default;
-$progress-transition: .5s !default;
-$showcase-transition: $default-transition !default;
-$switch-transition: $default-transition !default;
-$toast-transition: $default-transition !default;
-$tooltip-transition: .15s !default;
-$typeAhead-transition: $default-transition !default;
-
 //-------------------- Z Index --------------------//
 
 // 1) Modal and Showcase should be higher than Blackout
@@ -130,37 +107,224 @@ $toast-zindex: 500 !default;
 $tooltip-zindex: 700 !default;
 $typeAhead-zindex: 500 !default;
 
-//-------------------- Responsive --------------------//
+//-------------------- Breakpoints --------------------//
 
-$responsive-design: "mobile" !default; // mobile, desktop
-$responsive-size: "both" !default; // device, size, both
+$breakpoint-range-xsmall: (null, 640px) !default;
+$breakpoint-range-small: (641px, 960px) !default;
+$breakpoint-range-medium: (961px, 1280px) !default;
+$breakpoint-range-large: (1281px, 1680px) !default;
+$breakpoint-range-xlarge: (1681px, null) !default;
 
-$breakpoint-desktop: 1440px !default;
-$breakpoint-laptop: 1280px !default;
-$breakpoint-tablet-landscape: 1024px !default;
-$breakpoint-tablet-portrait: 768px !default;
-$breakpoint-mobile-landscape: 480px !default;
-$breakpoint-mobile-portrait: 320px !default;
+//-------------------- Accordion --------------------//
 
-$breakpoint-small: 768px !default;
-$breakpoint-medium: 1280px !default;
-$breakpoint-large: 1440px !default;
+$accordion-class: class-name("accordion") !default;
+$accordion-class-header: bem($accordion-class, "header") !default;
+$accordion-class-section: bem($accordion-class, "section") !default;
+$accordion-class-body: bem($accordion-class, "body") !default;
+
+$accordion-transition: $default-transition !default;
+
+//-------------------- Blackout --------------------//
+
+$blackout-class: class-name("blackout") !default;
+
+$blackout-transition: $default-transition !default;
+$blackout-opacity: .85 !default;
+
+//-------------------- Breadcrumb --------------------//
+
+$breadcrumb-class: class-name("breadcrumb") !default;
+
+//-------------------- Button --------------------//
+
+$button-class: class-name("button") !default;
+$button-class-modifier-gloss: bem($button-class, "", "gloss") !default;
+$button-class-modifier-reflect: bem($button-class, "", "reflect") !default;
+$button-class-modifier-glare: bem($button-class, "", "glare") !default;
+$button-class-modifier-popout: bem($button-class, "", "popout") !default;
+
+$button-modifiers: () !default; // Nothing by default
+
+@if ($enable-all-modifiers) {
+    $button-modifiers: ("glare", "reflect", "gloss", "popout") !global;
+}
+
+$button-effects: () !default; // Nothing by default
+
+@if ($enable-all-effects) {
+    $button-effects: ("oval", "pill", "skew") !global;
+}
+
+//-------------------- Button Group --------------------//
+
+$buttonGroup-class: class-name("button-group") !default;
+$buttonGroup-class-modifier-vertical: bem($buttonGroup-class, "", "vertical") !default;
+$buttonGroup-class-modifier-justified: bem($buttonGroup-class, "", "justified") !default;
+
+$buttonGroup-modifiers: ("vertical", "justified") !default;
+
+@if ($enable-all-modifiers) {
+    $buttonGroup-modifiers: ("vertical", "justified") !global;
+}
+
+$buttonGroup-effects: () !default; // Nothing by default
+
+@if ($enable-all-effects) {
+    $buttonGroup-effects: ("pill", "skew") !global;
+}
+
+//-------------------- Carousel --------------------//
+
+$carousel-class: class-name("carousel") !default;
+$carousel-class-items: bem($carousel-class, "items") !default;
+$carousel-class-tabs: bem($carousel-class, "tabs") !default;
+$carousel-class-next: bem($carousel-class, "next") !default;
+$carousel-class-prev: bem($carousel-class, "prev") !default;
+$carousel-class-modifier-wide: bem($carousel-class, "", "wide") !default;
+$carousel-class-modifier-square: bem($carousel-class, "", "square") !default;
+
+$carousel-modifiers: ("wide", "square") !default;
+
+@if ($enable-all-modifiers) {
+    $carousel-modifiers: ("wide", "square") !global;
+}
+
+$carousel-opacity: $default-opacity !default;
+$carousel-transition: 1s !default;
+
+//-------------------- Divider --------------------//
+
+$divider-class: class-name("divider") !default;
+
+//-------------------- Drop --------------------//
+
+$drop-class: class-name("drop") !default;
+$drop-class-divider: bem($drop-class, "divider") !default;
+$drop-class-heading: bem($drop-class, "heading") !default;
+$drop-class-modifier-down: bem($drop-class, "", "down") !default;
+$drop-class-modifier-up: bem($drop-class, "", "up") !default;
+$drop-class-modifier-left: bem($drop-class, "", "left") !default;
+$drop-class-modifier-right: bem($drop-class, "", "right") !default;
+
+$drop-modifiers: ("down", "up", "left", "right") !default;
+
+@if ($enable-all-modifiers) {
+    $drop-modifiers: ("down", "up", "left", "right") !global;
+}
+
+$drop-transition: $default-transition !default;
+
+//-------------------- Flyout --------------------//
+
+$flyout-class: class-name("flyout") !default;
+$flyout-class-heading: bem($flyout-class, "heading") !default;
+
+$flyout-transition: $default-transition !default;
+
+//-------------------- Form --------------------//
+
+$form-class: class-name("form") !default;
+$form-class-actions: bem($form-class, "actions") !default;
+$form-class-input: class-name("input") !default;
+$form-class-input-static: bem($form-class-input, "static") !default;
+$form-class-input-radio: bem($form-class-input, "radio") !default;
+$form-class-input-checkbox: bem($form-class-input, "checkbox") !default;
+$form-class-fields: class-name("fields") !default;
+$form-class-field: class-name("field") !default;
+$form-class-field-help: bem($form-class-field, "help") !default;
+$form-class-field-label: bem($form-class-field, "label") !default;
+$form-class-field-column: bem($form-class-field, "col") !default;
+$form-class-modifier-inline: bem($form-class, "", "inline") !default;
+$form-class-modifier-horizontal: bem($form-class, "", "horizontal") !default;
+
+$form-modifiers: ("inline", "horizontal") !default;
+
+@if ($enable-all-modifiers) {
+    $form-modifiers: ("inline", "horizontal") !global;
+}
 
 //-------------------- Grid --------------------//
 
-$grid-columns-large: 12 !default;
-$grid-columns-medium: 12 !default;
-$grid-columns-small: 6 !default;
+$grid-class: class-name("grid") !default;
+$grid-class-column: class-name("col", "") !default;
+$grid-class-end: class-name("end", "") !default;
 
-$grid-columns-desktop: 12 !default;
-$grid-columns-tablet: 6 !default;
-$grid-columns-mobile: 3 !default;
+$grid-columns-xsmall: 6 !default;
+$grid-columns-small: 12 !default;
+$grid-columns-medium: 12 !default;
+$grid-columns-large: 12 !default;
+$grid-columns-xlarge: 18 !default;
 
 $grid-width: 100% !default;
 $grid-gutter: false !default;
 $grid-push-pull: true !default;
 
+$grid-sizes: (
+    xsmall: ($grid-columns-xsmall, $breakpoint-range-xsmall),
+    small:  ($grid-columns-small, $breakpoint-range-small),
+    medium: ($grid-columns-medium, $breakpoint-range-medium),
+    // Remove the max as we have no xlarge size and want the large value to be open ended
+    large:  ($grid-columns-large, (nth($breakpoint-range-large, 1), null)),
+) !default;
+
+//-------------------- Icon --------------------//
+
+$icon-class: class-name("icon", "") !default;
+$icon-class-modifier-90deg: bem($icon-class, "", "90deg") !default;
+$icon-class-modifier-180deg: bem($icon-class, "", "180deg") !default;
+$icon-class-modifier-270deg: bem($icon-class, "", "270deg") !default;
+$icon-class-modifier-flip: bem($icon-class, "", "flip") !default;
+$icon-class-modifier-flip-vert: bem($icon-class, "", "flip-vert") !default;
+
+$icon-sizes: (12, 16, 24, 32, 64) !default;
+
+$icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !default;
+
+@if ($enable-all-modifiers) {
+    $icon-modifiers: ("90deg", "180deg", "270deg", "flip", "flip-vert") !global;
+}
+
+//-------------------- Input --------------------//
+
+$input-class: class-name("custom-input") !default;
+$input-class-checkbox: class-name("checkbox") !default;
+$input-class-radio: class-name("radio") !default;
+$input-class-select: class-name("select") !default;
+$input-class-select-label: bem($input-class-select, "label") !default;
+$input-class-select-arrow: bem($input-class-select, "arrow") !default;
+$input-class-select-options: bem($input-class-select, "options") !default;
+
+//-------------------- Input Group --------------------//
+
+$inputGroup-class: class-name("input-group") !default;
+$inputGroup-class-addon: class-name("input-addon") !default;
+
+//-------------------- Label --------------------//
+
+$label-class: class-name("label") !default;
+$label-class-modifier-badge: bem($label-class, "", "badge") !default;
+$label-class-modifier-ribbon-left: bem($label-class, "", "ribbon-left") !default;
+$label-class-modifier-ribbon-right: bem($label-class, "", "ribbon-right") !default;
+$label-class-modifier-arrow-left: bem($label-class, "", "arrow-left") !default;
+$label-class-modifier-arrow-right: bem($label-class, "", "arrow-right") !default;
+
+$label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !default;
+
+@if ($enable-all-modifiers) {
+    $label-modifiers: ("badge", "ribbon-left", "ribbon-right", "arrow-left", "arrow-right") !global;
+}
+
+//-------------------- Lazy Load --------------------//
+
+$lazyLoad-class: class-name("lazy-load") !default;
+
+$lazyLoad-transition: $default-transition !default;
+
 //-------------------- Loader --------------------//
+
+$loader-class: class-name("loader") !default;
+$loader-class-message: bem($loader-class, "message") !default;
+$loader-class-spinner: bem($loader-class, "spinner") !default;
 
 $loader-type: "all" !default;
 $loader-color: #000 !default;
@@ -169,39 +333,228 @@ $loader-bar-width: 0.65rem !default;
 $loader-bar-height: 2.5rem !default;
 $loader-bubble-size: 1.5rem !default;
 
+//-------------------- Mask --------------------//
+
+$mask-class: class-name("mask") !default;
+$mask-class-message: bem($mask-class, "message") !default;
+$mask-class-target: ".is-maskable" !default;
+
+$mask-opacity: .85 !default;
+$mask-transition: $default-transition !default;
+
+//-------------------- Matrix --------------------//
+
+$matrix-class: class-name("matrix") !default;
+
+$matrix-transition: $default-transition !default;
+
 //-------------------- Modal --------------------//
 
-$modal-animation: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
-$modal-mobile-breakpoint: 640px !default; // iOS5
+$modal-class: class-name("modal") !default;
+$modal-class-close: bem($modal-class, "close") !default;
+$modal-class-outer: bem($modal-class, "outer") !default;
+$modal-class-inner: bem($modal-class, "inner") !default;
+$modal-class-head: bem($modal-class, "head") !default;
+$modal-class-body: bem($modal-class, "body") !default;
+$modal-class-foot: bem($modal-class, "foot") !default;
+
+$modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !default;
+
+@if ($enable-all-animations) {
+    $modal-animations: ("fade", "from-above", "from-below", "slide-in-top", "slide-in-right", "slide-in-bottom", "slide-in-left") !global;
+}
+
+$modal-mobile-breakpoint: nth($breakpoint-range-xsmall, 2) !default; // iOS5
+$modal-transition: $default-transition !default;
+
+//-------------------- Notice --------------------//
+
+$notice-class: class-name("notice") !default;
+$notice-class-close: bem($notice-class, "close") !default;
+$notice-class-title: bem($notice-class, "title") !default;
 
 //-------------------- Off Canvas --------------------//
+
+$offCanvas-class: class-name("off-canvas") !default;
+$offCanvas-class-content: class-name("on-canvas") !default;
+$offCanvas-class-wrapper: class-name("canvas") !default;
+$offCanvas-class-modifier-left: bem($offCanvas-class, "", "left") !default;
+$offCanvas-class-modifier-right: bem($offCanvas-class, "", "right") !default;
+
+$offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !default;
+
+@if ($enable-all-animations) {
+    $offCanvas-animations: ("push", "push-reveal", "push-down", "reverse-push", "reveal", "on-top", "squish") !global;
+}
 
 $offCanvas-left-width: 20% !default;
 $offCanvas-right-width: 20% !default;
 $offCanvas-left-width-mobile: 90% !default;
 $offCanvas-right-width-mobile: 90% !default;
-$offCanvas-mobile-breakpoint: 640px !default; // iOS5
+$offCanvas-mobile-breakpoint: nth($breakpoint-range-xsmall, 2) !default; // iOS5
+$offCanvas-transition: .5s !default;
+
+//-------------------- Pagination --------------------//
+
+$pagination-class: class-name("pagination") !default;
+$pagination-class-modifier-grouped: bem($pagination-class, "", "grouped") !default;
+
+$pagination-modifiers: ("grouped") !default;
+
+@if ($enable-all-modifiers) {
+    $pagination-modifiers: ("grouped") !global;
+}
+
+$pagination-effects: () !default; // Nothing by default
+
+@if ($enable-all-effects) {
+    $pagination-effects: ("oval", "pill", "skew") !global;
+}
+
+//-------------------- Pin --------------------//
+
+$pin-class: class-name("pin") !default;
+
+$pin-transition: .2s !default;
+
+//-------------------- Popover --------------------//
+
+$popover-class: class-name("popover") !default;
+$popover-class-head: bem($popover-class, "head") !default;
+$popover-class-body: bem($popover-class, "body") !default;
+$popover-class-arrow: bem($popover-class, "arrow") !default;
+
+$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
+
+@if ($enable-all-animations) {
+    $popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !global;
+}
+
+$popover-arrow-width: 8 !default;
+
+//-------------------- Progress --------------------//
+
+$progress-class: class-name("progress") !default;
+$progress-class-bar: bem($progress-class, "bar") !default;
+
+$progress-transition: .5s !default;
+
+$progress-effects: ("pill") !default;
+
+@if ($enable-all-effects) {
+    $progress-effects: ("pill") !global;
+}
+
+//-------------------- Responsive --------------------//
+
+$responsive-design: "mobile" !default; // mobile, desktop
+
+//-------------------- Showcase --------------------//
+
+$showcase-class: class-name("showcase") !default;
+$showcase-class-inner: bem($showcase-class, "inner") !default;
+$showcase-class-items: bem($showcase-class, "items") !default;
+$showcase-class-close: bem($showcase-class, "close") !default;
+$showcase-class-next: bem($showcase-class, "next") !default;
+$showcase-class-prev: bem($showcase-class, "prev") !default;
+$showcase-class-tabs: bem($showcase-class, "tabs") !default;
+$showcase-class-caption: bem($showcase-class, "caption") !default;
+
+$showcase-opacity: $default-opacity !default;
+$showcase-transition: $default-transition !default;
+
+//-------------------- Step --------------------//
+
+$step-class: class-name("step") !default;
+$step-class-wrapper: class-name("steps") !default;
+
+//-------------------- Switch --------------------//
+
+$switch-class: class-name("switch") !default;
+$switch-class-bar: bem($switch-class, "bar") !default;
+$switch-class-toggle: bem($switch-class, "toggle") !default;
+$switch-class-modifier-stacked: bem($switch-class, "", "stacked") !default;
+
+$switch-modifiers: ("stacked") !default;
+
+@if ($enable-all-modifiers) {
+    $switch-modifiers: ("stacked") !global;
+}
+
+$switch-effects: ("pill") !default;
+
+@if ($enable-all-effects) {
+    $switch-effects: ("pill") !global;
+}
+
+$switch-transition: $default-transition !default;
+
+//-------------------- Tab --------------------//
+
+$tab-class: class-name("tabs") !default;
+$tab-class-nav: bem(class-name("tab"), "nav") !default;
+$tab-class-section: bem(class-name("tab"), "section") !default;
+$tab-class-modifier-horizontal: bem($tab-class, "", "horizontal") !default;
+
+$tab-modifiers: ("horizontal") !default;
+
+@if ($enable-all-modifiers) {
+    $tab-modifiers: ("horizontal") !global;
+}
+
+//-------------------- Table --------------------//
+
+$table-class: class-name("table") !default;
+$table-class-divider: bem($table-class, "divider") !default;
+$table-class-responsive: bem($table-class, "responsive") !default;
 
 //-------------------- Toast --------------------//
 
-$toast-animation: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
-$toast-position: (
-    "top-left", "top-center", "top-right", "center-left",
-    "center-right", "bottom-left", "bottom-center", "bottom-right"
-) !default;
+$toast-class: class-name("toast") !default;
+$toast-class-wrapper: class-name("toasts") !default;
 
-//-------------------- Popover, Tooltip --------------------//
+$toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !default;
 
-$popover-tooltip-animation: ("fade", "from-above", "from-below", "flip-rotate") !default;
-$popover-arrow-width: 8 !default;
+@if ($enable-all-animations) {
+    $toast-animations: ("fade", "slide-up", "slide-down", "slide-left", "slide-right") !global;
+}
+
+$toast-position: ("top-left", "top-center", "top-right", "center-left", "center-right", "bottom-left", "bottom-center", "bottom-right") !default;
+$toast-transition: $default-transition !default;
+
+//-------------------- Tooltip --------------------//
+
+$tooltip-class: class-name("tooltip") !default;
+$tooltip-class-head: bem($tooltip-class, "head") !default;
+$tooltip-class-body: bem($tooltip-class, "body") !default;
+$tooltip-class-arrow: bem($tooltip-class, "arrow") !default;
+
 $tooltip-arrow-width: 6 !default;
+$tooltip-transition: .15s !default;
+
+//-------------------- Type Ahead --------------------//
+
+$typeAhead-class: class-name("type-ahead") !default;
+$typeAhead-class-heading: bem($typeAhead-class, "heading") !default;
+$typeAhead-class-highlight: bem($typeAhead-class, "highlight") !default;
+$typeAhead-class-description: bem($typeAhead-class, "desc") !default;
+$typeAhead-class-shadow: bem($typeAhead-class, "shadow") !default;
+
+$typeAhead-transition: $default-transition !default;
+
+//-------------------- Typography --------------------//
+
+$h1-size: 3rem !default;
+$h2-size: 2.5rem !default;
+$h3-size: 2.1rem !default;
+$h4-size: 1.8rem !default;
+$h5-size: 1.5rem !default;
+$h6-size: 1.2rem !default;
 
 //-------------------- Imports --------------------//
 
-@import "mixins/helper";
 @import "mixins/unit";
 @import "mixins/layout";
-@import "mixins/state";
 @import "mixins/grid";
 @import "mixins/responsive";
 @import "mixins/components";

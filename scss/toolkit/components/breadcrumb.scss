@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}breadcrumb {
+#{$breadcrumb-class} {
     text-align: left;
     margin: $margin 0;
 

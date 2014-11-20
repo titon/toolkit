@@ -1,16 +1,20 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}toasts {
+#{$toast-class-wrapper} {
     position: fixed;
-    margin: $margin;
+    padding: $margin;
     width: 20%;
     z-index: $toast-zindex;
+
+    @include if-max(nth($breakpoint-range-small, 1)) {
+        width: 100%;
+    }
 
     @if index($toast-position, "top-left") {
         &.top-left {
@@ -83,7 +87,7 @@
     }
 }
 
-.#{$vendor-prefix}toast {
+#{$toast-class} {
     margin-top: 1rem;
     transition: opacity $toast-transition, visibility $toast-transition, transform $toast-transition;
     opacity: 0;
@@ -95,8 +99,8 @@
 
 //-------------------- Animations --------------------//
 
-.#{$vendor-prefix}toast {
-    @if index($toast-animation, "slide-up") {
+#{$toast-class} {
+    @if index($toast-animations, "slide-up") {
         &.slide-up {
             transform: translateY(50%);
 
@@ -104,7 +108,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-down") {
+    @if index($toast-animations, "slide-down") {
         &.slide-down {
             transform: translateY(-50%);
 
@@ -112,7 +116,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-left") {
+    @if index($toast-animations, "slide-left") {
         &.slide-left {
             transform: translateX(25%);
 
@@ -120,7 +124,7 @@
         }
     }
 
-    @if index($toast-animation, "slide-right") {
+    @if index($toast-animations, "slide-right") {
         &.slide-right {
             transform: translateX(-25%);
 

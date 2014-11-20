@@ -1,29 +1,31 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}blackout {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+#{$blackout-class} {
+    @include full-screen();
     z-index: $blackout-zindex;
     opacity: 0;
     visibility: hidden;
     background: black($blackout-opacity);
-    transition: all $blackout-transition;
 
-    .#{$vendor-prefix}loader {
+    // Using visibility transition also causes weirdness
+    transition: opacity $blackout-transition;
+
+    // This fixes issues in Chrome where the blackout properties are visible/block
+    // But the blackout is still not visible by the client IRL
+    -webkit-backface-visibility: hidden;
+
+    #{$loader-class} {
+        @include position-center;
         opacity: 1;
         color: #fff;
-        @include position-center;
 
         > span,
-        .spinner > span { background: #fff !important; }
+        #{$loader-class-spinner} > span { background: #fff !important; }
     }
 }

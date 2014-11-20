@@ -1,13 +1,12 @@
 # Browser Compatibility #
 
 Toolkit was engineered for latest in mobile and desktop browsers, but this doesn't stop it from degrading gracefully for older browsers.
-Degrading allows for components in older browsers to function as normal by removing animations, reducing the amount of CSS styles being used,
+Degrading allows for plugins in older browsers to function as normal by removing animations, reducing the amount of CSS styles being used,
 or by simplifying JavaScript functionality.
 
 ## Supported Browsers ##
 
-For the most part, the latest versions of the following modern browsers are supported.
-We will officially support the last 3 versions of every browser.
+For the most part, the latest 3 versions of the following modern browsers are officially supported.
 Anything older will not be supported (depending on context and severity of issue).
 
 * Chrome (Windows, Mac, iOS, Android)
@@ -25,9 +24,9 @@ The following minimum versions should support most (if not all) of Toolkits func
 * Internet Explorer 9+
 * Opera 12+
 
-## Internet Explorer 8 & 9 ##
+## Internet Explorer 9 ##
 
-Although IE 8 and 9 are partially supported, they do not support many of the features implemented by modern browsers,
+Although IE9 is supported, it does not support many of the features implemented by modern browsers,
 which is represented in the table below. Support is determined through [caniuse.com](http://caniuse.com/)
 and can be verified by clicking on the table row titles.
 
@@ -95,27 +94,21 @@ and can be verified by clicking on the table row titles.
     </tbody>
 </table>
 
-<div class="notice is-warning">
-    If you need to support IE8, quite a bit of manual work will be required to make the components work correctly.
-</div>
+## Internet Explorer 8 ##
 
-However, the following libraries will aide in supporting older Internet Explorer browsers.
-But at what point does this become too much?
+IE8 is not supported in any form for Toolkit 2, and any integration and bug fixing is on you, the developer.
+However, IE8 does work to some extent in Toolkit 1, but any of the new features in Toolkit 2 are not backported.
 
+If you really need to support IE8, the following libraries will aid in that effort.
+We highly suggest not supporting IE8, as it is a 5 year old browser that will simply increase technical debt.
+
+* [Modernizr](http://modernizr.com/)
 * [HTML5 Shiv](https://github.com/aFarkas/html5shiv)
 * [Selectivizr](https://github.com/keithclark/selectivizr)
-* [Modernizr](http://modernizr.com/)
 * [IE8](https://github.com/WebReflection/ie8)
 * [DOM4](https://github.com/WebReflection/dom4)
 
-### Unsupported Components ###
-
-On top of the features above not being supported, the following Toolkit components are not supported in IE 8.
-
-* [Input](../components/input.md)
-* [Matrix](../components/matrix.md)
-
-### Compatibility Mode ###
+## Compatibility Mode ##
 
 Toolkit is not supported in older Internet Explorer compatibility modes.
 Be sure that the latest rendering mode for IE is being used by including the following meta tag in your page.

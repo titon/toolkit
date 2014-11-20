@@ -171,7 +171,7 @@ The matcher receives an item title and the current term, and should return a boo
 
 ```javascript
 function match(item, term) {
-    return (item.indexOf(term) >= 0);
+    return (item.title.indexOf(term) >= 0);
 }
 ```
 
@@ -240,6 +240,31 @@ attributes are required when supporting ARIA.
     </thead>
     <tbody>
         <tr>
+            <td>$typeAhead-class</td>
+            <td>.type-ahead</td>
+            <td>CSS class name for the type ahead wrapper.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-description</td>
+            <td>.type-ahead-desc</td>
+            <td>CSS class name for the type ahead item description element.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-highlight</td>
+            <td>.type-ahead-highlight</td>
+            <td>CSS class name for the highlighted term in the type ahead list.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-heading</td>
+            <td>.type-ahead-heading</td>
+            <td>CSS class name for the type ahead heading element.</td>
+        </tr>
+        <tr>
+            <td>$typeAhead-class-shadow</td>
+            <td>.type-ahead-shadow</td>
+            <td>CSS class name for the type ahead shadow text wrapper.</td>
+        </tr>
+        <tr>
             <td>$typeAhead-transition</td>
             <td>.3s</td>
             <td>The transition time for all type ahead animations.</td>
@@ -254,7 +279,7 @@ attributes are required when supporting ARIA.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -267,16 +292,34 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>source</td>
-            <td>array|string|function</td>
+            <td>builder</td>
+            <td>function</td>
             <td></td>
-            <td>The source data to match and sort against. Learn more about this option in the data source chapter.</td>
+            <td>The function to use for building menu items. Will fallback to <code>build()</code>.</td>
         </tr>
         <tr>
-            <td>minLength</td>
-            <td>int</td>
-            <td>1</td>
-            <td>The minimum character count to trigger a lookup.</td>
+            <td>descTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;span class="type-ahead-desc"&gt;&lt;/span&gt;
+            </td>
+            <td>The list item description markup.</td>
+        </tr>
+        <tr>
+            <td>headingTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;li class="type-ahead-heading"&gt;&lt;/li&gt;
+            </td>
+            <td>The heading markup for list items.</td>
+        </tr>
+        <tr>
+            <td>highlightTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;mark class="type-ahead-highlight"&gt;&lt;/mark&gt;
+            </td>
+            <td>The highlighted term markup.</td>
         </tr>
         <tr>
             <td>itemLimit</td>
@@ -285,10 +328,16 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>The max number of items to display in the type ahead drop down menu.</td>
         </tr>
         <tr>
-            <td>throttle</td>
+            <td>matcher</td>
+            <td>function</td>
+            <td></td>
+            <td>The function to use for matching results against the keyword. Will fallback to <code>match()</code>.</td>
+        </tr>
+        <tr>
+            <td>minLength</td>
             <td>int</td>
-            <td>250</td>
-            <td>The time in milliseconds to throttle lookup events.</td>
+            <td>1</td>
+            <td>The minimum character count to trigger a lookup.</td>
         </tr>
         <tr>
             <td>prefetch</td>
@@ -297,16 +346,24 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>Whether to prefetch all data from <code>source</code> on initialization, instead of querying each lookup.</td>
         </tr>
         <tr>
+            <td>query</td>
+            <td>object</td>
+            <td></td>
+            <td>An object of key value pairs to include in the query string for AJAX lookups.</td>
+        </tr>
+        <tr>
             <td>shadow</td>
             <td>bool</td>
             <td>false</td>
             <td>Whether to render shadow text below the input field for the 1st matching item in the menu.</td>
         </tr>
         <tr>
-            <td>query</td>
-            <td>object</td>
-            <td></td>
-            <td>An object of key value pairs to include in the query string for AJAX lookups.</td>
+            <td>shadowTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="type-ahead-shadow"&gt;&lt;/div&gt;
+            </td>
+            <td>The shadow input wrapping markup.</td>
         </tr>
         <tr>
             <td>sorter</td>
@@ -315,49 +372,61 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>The function to use for sorting results. Will fallback to <code>sort()</code>.</td>
         </tr>
         <tr>
-            <td>matcher</td>
-            <td>function</td>
+            <td>source</td>
+            <td>array|string|function</td>
             <td></td>
-            <td>The function to use for matching results against the keyword. Will fallback to <code>match()</code>.</td>
+            <td>The source data to match and sort against. Learn more about this option in the data source chapter.</td>
         </tr>
         <tr>
-            <td>builder</td>
-            <td>function</td>
-            <td></td>
-            <td>The function to use for building menu items. Will fallback to <code>build()</code>.</td>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="type-ahead"&gt;&lt;/div&gt;
+            </td>
+            <td>The type ahead drop menu markup.</td>
+        </tr>
+        <tr>
+            <td>titleTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;span class="type-ahead-title"&gt;&lt;/span&gt;
+            </td>
+            <td>The list item title markup.</td>
+        </tr>
+        <tr>
+            <td>throttle</td>
+            <td>int</td>
+            <td>250</td>
+            <td>The time in milliseconds to throttle lookup events.</td>
         </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onCycle</td>
-            <td>cycle.toolkit.typeAhead</td>
+            <td>cycle</td>
             <td>object:item, int:index</td>
             <td>Triggered when cycling through the menu items using keyboard events.</td>
         </tr>
         <tr>
-            <td>onSelect</td>
-            <td>select.toolkit.typeAhead</td>
+            <td>select</td>
             <td>object:item, int:index</td>
             <td>Triggered when an item is selected within the menu.</td>
         </tr>
         <tr>
-            <td>onReset</td>
-            <td>reset.toolkit.typeAhead</td>
+            <td>reset</td>
             <td></td>
             <td>Triggered when the type ahead is reset, either when the keyword is cleared, or nothing is selected.</td>
         </tr>
@@ -366,7 +435,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -378,14 +447,9 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
-            <td>input</td>
-            <td>element</td>
-            <td>The input element to monitor keyup events on. Is the input passed through the constructor.</td>
-        </tr>
-        <tr>
-            <td>shadow</td>
-            <td>element</td>
-            <td>The shadow text input element when <code>shadow</code> is enabled.</td>
+            <td>cache</td>
+            <td>object</td>
+            <td>A cache of lookups indexed by the term used to query with.</td>
         </tr>
         <tr>
             <td>index</td>
@@ -393,9 +457,19 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The current item index when cycling with keyboard events.</td>
         </tr>
         <tr>
+            <td>input</td>
+            <td>element</td>
+            <td>The input element to monitor keyup events on. Is the input passed through the constructor.</td>
+        </tr>
+        <tr>
             <td>items</td>
             <td>array</td>
             <td>The list of data returned from <code>source</code>. This data will be sorted and matched against.</td>
+        </tr>
+        <tr>
+            <td>shadow</td>
+            <td>element</td>
+            <td>The shadow text input element when <code>shadow</code> is enabled.</td>
         </tr>
         <tr>
             <td>term</td>
@@ -403,16 +477,16 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The keyword from <code>input</code> to query with.</td>
         </tr>
         <tr>
-            <td>cache</td>
-            <td>object</td>
-            <td>A cache of lookups indexed by the term used to query with.</td>
+            <td>wrapper</td>
+            <td>element</td>
+            <td>The element that wraps the inputs when <code>shadow</code> is enabled.</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

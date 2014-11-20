@@ -132,17 +132,6 @@ attributes are required when supporting ARIA.
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
-## Template ##
-
-The following markup is used for the creation of flyouts.
-This structure can be customized through the `template` option.
-
-```html
-<div class="flyout"></div>
-```
-
-An unordered list will be placed within each flyout.
-
 ## Variables ##
 
 <table class="table is-striped data-table">
@@ -154,6 +143,16 @@ An unordered list will be placed within each flyout.
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$flyout-class</td>
+            <td>.flyout</td>
+            <td>CSS class name for the flyout wrapper.</td>
+        </tr>
+        <tr>
+            <td>$flyout-class-heading</td>
+            <td>.flyout-heading</td>
+            <td>CSS class name for the flyout heading element.</td>
+        </tr>
         <tr>
             <td>$flyout-transition</td>
             <td>.3s</td>
@@ -169,7 +168,7 @@ An unordered list will be placed within each flyout.
 
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -182,15 +181,6 @@ Inherits all options from the [parent component](../development/js/component.md#
     </thead>
     <tbody>
         <tr>
-            <td>mode</td>
-            <td>string</td>
-            <td>hover</td>
-            <td>
-                The type of interaction for displaying a flyout.
-                Accepts click or hover.
-            </td>
-        </tr>
-        <tr>
             <td>getUrl</td>
             <td>string|function</td>
             <td>href</td>
@@ -201,10 +191,47 @@ Inherits all options from the [parent component](../development/js/component.md#
             </td>
         </tr>
         <tr>
+            <td>headingTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;li class="flyout-heading"&gt;&lt;/li&gt;
+            </td>
+            <td>The heading markup for list items.</td>
+        </tr>
+        <tr>
+            <td>hideDelay</td>
+            <td>int</td>
+            <td>1000</td>
+            <td>The delay in milliseconds before the flyout is hidden.</td>
+        </tr>
+        <tr>
             <td>itemLimit</td>
             <td>int</td>
             <td>15</td>
             <td>The number of items per list in a flyout menu.</td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td>string</td>
+            <td>hover</td>
+            <td>
+                The type of interaction for displaying a flyout.
+                Accepts click or hover.
+            </td>
+        </tr>
+        <tr>
+            <td>showDelay</td>
+            <td>int</td>
+            <td>350</td>
+            <td>The delay in milliseconds before the flyout is displayed.</td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="flyout" data-flyout-menu&gt;&lt;/div&gt;
+            </td>
+            <td>The flyout markup. The <code>data-flyout-menu</code> is required.</td>
         </tr>
         <tr>
             <td>xOffset</td>
@@ -218,44 +245,28 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>0</td>
             <td>The offset in pixels to move the flyout along the Y axis.</td>
         </tr>
-        <tr>
-            <td>showDelay</td>
-            <td>int</td>
-            <td>350</td>
-            <td>The delay in milliseconds before the flyout is displayed.</td>
-        </tr>
-        <tr>
-            <td>hideDelay</td>
-            <td>int</td>
-            <td>1000</td>
-            <td>The delay in milliseconds before the flyout is hidden.</td>
-        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onHideChild</td>
-            <td>hideChild.toolkit.flyout</td>
+            <td>hideChild</td>
             <td>element:parent</td>
             <td>Triggered when a nested flyout menu is hidden. The parent <code>li</code> is passed as an argument.</td>
         </tr>
         <tr>
-            <td>onShowChild</td>
-            <td>showChild.toolkit.flyout</td>
+            <td>showChild</td>
             <td>element:parent</td>
             <td>Triggered when a nested flyout menu is shown. The parent <code>li</code> is passed as an argument.</td>
         </tr>
@@ -264,7 +275,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -281,16 +292,6 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The current URL being used for display.</td>
         </tr>
         <tr>
-            <td>element</td>
-            <td>element</td>
-            <td>The flyout menu currently being displayed.</td>
-        </tr>
-        <tr>
-            <td>menus</td>
-            <td>object</td>
-            <td>A cache of flyout menu elements indexed by URL.</td>
-        </tr>
-        <tr>
             <td>data</td>
             <td>json</td>
             <td>The raw JSON response from the initial AJAX request.</td>
@@ -299,6 +300,16 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>dataMap</td>
             <td>object</td>
             <td>A mapping of data objects indexed by URL.</td>
+        </tr>
+        <tr>
+            <td>element</td>
+            <td>element</td>
+            <td>The flyout menu currently being displayed.</td>
+        </tr>
+        <tr>
+            <td>menus</td>
+            <td>object</td>
+            <td>A cache of flyout menu elements indexed by URL.</td>
         </tr>
         <tr>
             <td>timers</td>
@@ -310,7 +321,7 @@ Inherits all properties from the [parent component](../development/js/component.
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).
 
 <table class="table is-striped data-table">
     <thead>

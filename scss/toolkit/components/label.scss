@@ -1,12 +1,12 @@
 /**
- * @copyright   2010-2014, The Titon Project
+ * @copyright   2010-2015, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
 @import "../common";
 
-.#{$vendor-prefix}label {
+#{$label-class} {
     @include reset-inline-block;
     font-size: .7rem;
     line-height: 100%;
@@ -30,7 +30,7 @@
 
     &:empty { display: none; }
 
-    &:after {
+    &::after {
         content: "";
         height: 0;
         width: 0;
@@ -40,78 +40,88 @@
 
 //-------------------- Modifiers --------------------//
 
-.#{$vendor-prefix}label--badge {
-    @extend .#{$vendor-prefix}label;
-
-    border-radius: 1rem;
-}
-
-.#{$vendor-prefix}label--arrow-left {
-    @extend .#{$vendor-prefix}label;
-
-    border-top-left-radius: 1px;
-    border-bottom-left-radius: 1px;
-    padding-left: 2px;
-    margin-left: 10px;
-
-    &:after {
-        top: 0;
-        right: 100%;
-        border: .65rem solid transparent;
-        border-right-color: $gray-dark;
-    }
-
-    &.#{$size-small-class}:after { border-width: .5rem; }
-    &.#{$size-large-class}:after { border-width: .75rem; }
-}
-
-.#{$vendor-prefix}label--arrow-right {
-    @extend .#{$vendor-prefix}label;
-
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
-    padding-right: 2px;
-    margin-right: 10px;
-
-    &:after {
-        top: 0;
-        left: 100%;
-        border: .65rem solid transparent;
-        border-left-color: $gray-dark;
-    }
-
-    &.#{$size-small-class}:after { border-width: .5rem; }
-    &.#{$size-large-class}:after { border-width: .75rem; }
-}
-
-.#{$vendor-prefix}label--ribbon-left {
-    @extend .#{$vendor-prefix}label;
-
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-
-    &:after {
-        top: 100%;
-        left: 0;
-        border: 1em solid transparent;
-        border-top-width: 0 !important;
-        border-left-width: 0 !important;
-        border-right-color: $gray-darkest;
+@if index($label-modifiers, "badge") {
+    #{$label-class-modifier-badge} {
+        border-radius: 1rem;
     }
 }
 
-.#{$vendor-prefix}label--ribbon-right {
-    @extend .#{$vendor-prefix}label;
+@if index($label-modifiers, "arrow-left") {
+    #{$label-class-modifier-arrow-left} {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding-left: 2px;
+        margin-left: 10px;
 
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+        &::after {
+            top: 0;
+            right: 100%;
+            border: .65rem solid transparent;
+            border-right-color: $gray-dark;
+        }
 
-    &:after {
-        top: 100%;
-        right: 0;
-        border: 1em solid transparent;
-        border-top-width: 0 !important;
-        border-right-width: 0 !important;
-        border-left-color: $gray-darkest;
+        @include is-small {
+            &::after { border-width: .5rem; }
+        }
+
+        @include is-large {
+            &::after { border-width: .75rem; }
+        }
     }
- }
+}
+
+@if index($label-modifiers, "arrow-right") {
+    #{$label-class-modifier-arrow-right} {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        padding-right: 2px;
+        margin-right: 10px;
+
+        &::after {
+            top: 0;
+            left: 100%;
+            border: .65rem solid transparent;
+            border-left-color: $gray-dark;
+        }
+
+        @include is-small {
+            &::after { border-width: .5rem; }
+        }
+
+        @include is-large {
+            &::after { border-width: .75rem; }
+        }
+    }
+}
+
+@if index($label-modifiers, "ribbon-left") {
+    #{$label-class-modifier-ribbon-left} {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &::after {
+            top: 100%;
+            left: 0;
+            border: 1em solid transparent;
+            border-top-width: 0 !important;
+            border-left-width: 0 !important;
+            border-right-color: $gray-darkest;
+        }
+    }
+}
+
+@if index($label-modifiers, "ribbon-right") {
+    #{$label-class-modifier-ribbon-right} {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        &::after {
+            top: 100%;
+            right: 0;
+            border: 1em solid transparent;
+            border-top-width: 0 !important;
+            border-right-width: 0 !important;
+            border-left-color: $gray-darkest;
+        }
+    }
+}

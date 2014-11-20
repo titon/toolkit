@@ -1,16 +1,16 @@
 # Competitor Comparison #
 
 The following charts provide a comparison of Toolkit to other popular front-end libraries.
-The charts demonstrate what features and components are implemented by each vendor.
+The charts demonstrate what features and plugins are implemented by each vendor.
 
 A green cell in the chart denotes support for that item, while red denotes no support.
-If a cell is blue, than either partial support is provided, or the component has a different name.
+If a cell is blue, than either partial support is provided, or the plugin has a different name.
 
 The following libraries are being compared:
 
-* Foundation 5.2.3
-* Bootstrap 3.1.1
-* Semantic UI 0.17.0
+* Foundation 5.4.7
+* Bootstrap 3.3.1
+* Semantic UI 0.19.3
 
 <div class="notice is-warning">
     Please submit a pull request or contact us if any information in this chart is incorrect.
@@ -35,12 +35,12 @@ The following table represents the minified un-gzipped distribution files for ea
         <tr>
             <td>CSS Components</td>
             <td>19</td>
-            <td>22</td>
-            <td>29</td>
+            <td>23</td>
+            <td>23</td>
             <td>24</td>
         </tr>
         <tr>
-            <td>JS + CSS Components</td>
+            <td>JS + CSS Plugins</td>
             <td>19</td>
             <td>16</td>
             <td>12</td>
@@ -48,24 +48,24 @@ The following table represents the minified un-gzipped distribution files for ea
         </tr>
         <tr>
             <td>CSS Filesize</td>
-            <td>58KB</td>
-            <td>123KB</td>
-            <td>113KB</td>
-            <td>234KB</td>
+            <td class="is-success">54KB</td>
+            <td>148KB</td>
+            <td>113KB, 20KB (theme)</td>
+            <td class="is-error">237KB</td>
         </tr>
         <tr>
             <td>JS Filesize</td>
-            <td>62KB</td>
-            <td>93KB</td>
-            <td>29KB</td>
-            <td>137KB</td>
+            <td>66KB</td>
+            <td class="is-error">187KB</td>
+            <td class="is-success">36KB</td>
+            <td>138KB</td>
         </tr>
         <tr>
             <td>Images</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
-            <td>8</td>
+            <td class="is-error">8</td>
         </tr>
         <tr>
             <td>Fonts</td>
@@ -77,14 +77,14 @@ The following table represents the minified un-gzipped distribution files for ea
     </tbody>
 </table>
 
-## Components ##
+## Plugins ##
 
-The following components are found within Toolkit.
+The following plugins (components and behaviors) are found within Toolkit.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -338,7 +338,7 @@ The following components are found within Toolkit.
             <td class="is-success">&check;</td>
         </tr>
         <tr>
-            <td>Tabs</td>
+            <td>Tab</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
@@ -368,12 +368,12 @@ The following components are found within Toolkit.
     </tbody>
 </table>
 
-The following components are found within Foundation that have not been mentioned previously.
+The following plugins are found within Foundation that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -461,12 +461,12 @@ The following components are found within Foundation that have not been mentione
     </tbody>
 </table>
 
-The following components are found within Bootstrap that have not been mentioned previously.
+The following plugins are found within Bootstrap that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -568,12 +568,12 @@ The following components are found within Bootstrap that have not been mentioned
     </tbody>
 </table>
 
-The following components are found within Semantic UI that have not been mentioned previously.
+The following plugins are found within Semantic UI that have not been mentioned previously.
 
 <table class="table is-striped comparison-table">
     <thead>
         <tr>
-            <th>Component</th>
+            <th>Plugin</th>
             <th>Toolkit</th>
             <th>Foundation</th>
             <th>Bootstrap</th>
@@ -664,25 +664,18 @@ The following components are found within Semantic UI that have not been mention
             <td class="is-success">&check;</td>
         </tr>
         <tr>
+            <td>Gulp</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
             <td>Grunt</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
-            <td>jQuery</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-            <td class="is-success">&check;</td>
-        </tr>
-        <tr>
-            <td>MooTools</td>
-            <td class="is-success">&check;</td>
             <td class="is-error"></td>
-            <td class="is-error"></td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
+            <td class="is-success">&check;</td>
         </tr>
 
         <tr class="table-divider">

@@ -84,13 +84,13 @@ All selects will be replaced with the following markup.
     <!-- The original select that gets wrapped -->
     <select>...</select>
 
-    <div class="select">
-        <div class="select-arrow"><span class="caret-down"></span></div>
-        <div class="select-label">...</div>
+    <div class="select" data-select>
+        <div class="select-arrow" data-select-arrow><span class="caret-down"></span></div>
+        <div class="select-label" data-select-label>...</div>
     </div>
 
     <!-- The custom dropdown if native is false -->
-    <div class="drop--down select-options">
+    <div class="drop--down select-options" data-select-options>
         <ul>...</ul>
     </div>
 </div>
@@ -135,9 +135,58 @@ The `listbox` and `option` roles are required for custom select drop menus when 
     The JavaScript component will automatically map all ARIA attributes.
 </div>
 
+## Variables ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>$input-class</td>
+            <td>.custom-input</td>
+            <td>CSS class name for the custom input wrapper.</td>
+        </tr>
+        <tr>
+            <td>$input-class-checkbox</td>
+            <td>.checkbox</td>
+            <td>CSS class name for the custom checkbox.</td>
+        </tr>
+        <tr>
+            <td>$input-class-radio</td>
+            <td>.radio</td>
+            <td>CSS class name for the custom radio.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select</td>
+            <td>.select</td>
+            <td>CSS class name for the custom select.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-arrow</td>
+            <td>.select-arrow</td>
+            <td>CSS class name for the custom select arrow.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-label</td>
+            <td>.select-label</td>
+            <td>CSS class name for the custom select label.</td>
+        </tr>
+        <tr>
+            <td>$input-class-select-options</td>
+            <td>.select-options</td>
+            <td>CSS class name for the custom select options drop list.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Options ##
 
-Inherits all options from the [parent component](../development/js/component.md#options).
+Inherits all options from the [parent Component](component.md#options).
 
 <table class="table is-striped data-table">
     <thead>
@@ -157,6 +206,22 @@ Inherits all options from the [parent component](../development/js/component.md#
                 Copy over classes from the original element to the custom element.
                 Will not copy over <code>.input</code> classes.
             </td>
+        </tr>
+        <tr>
+            <td>filterClasses</td>
+            <td>regex</td>
+            <td>/\binput\b/</td>
+            <td>
+                Filter out classes during the copy process using a regex pattern.
+            </td>
+        </tr>
+        <tr>
+            <td>template</td>
+            <td>string</td>
+            <td>
+                &lt;div class="custom-input"&gt;&lt;/div&gt;
+            </td>
+            <td>The outer wrapping markup.</td>
         </tr>
         <tr class="table-divider">
             <td colspan="4">Input</td>
@@ -180,41 +245,37 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>CSS selector to find selects within the current element.</td>
         </tr>
         <tr class="table-divider">
+            <td colspan="4">InputCheckbox</td>
+        </tr>
+        <tr>
+            <td>checkboxTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;label class="checkbox"&gt;&lt;/label&gt;
+            </td>
+            <td>The custom checkbox markup.</td>
+        </tr>
+        <tr class="table-divider">
+            <td colspan="4">InputRadio</td>
+        </tr>
+        <tr>
+            <td>radioTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;label class="radio"&gt;&lt;/label&gt;
+            </td>
+            <td>The custom radio markup.</td>
+        </tr>
+        <tr class="table-divider">
             <td colspan="4">InputSelect</td>
         </tr>
         <tr>
-            <td>native</td>
-            <td>bool</td>
-            <td>Toolkit.isTouch</td>
-            <td>Use native browser dropdowns instead of custom dropdowns.</td>
-        </tr>
-        <tr>
-            <td>hideOpened</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Hide all other opened select menus.</td>
-        </tr>
-        <tr>
-            <td>hideFirst</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Hide the first item in the menu.</td>
-        </tr>
-        <tr>
-            <td>hideSelected</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Hide the selected item in the menu.</td>
-        </tr>
-        <tr>
-            <td>multipleFormat</td>
+            <td>arrowTemplate</td>
             <td>string</td>
-            <td>count</td>
             <td>
-                The label format for multi-selects, accepts count or list.
-                Count will display a message similar to "1 of 10 selected",
-                while list will list out the labels of the items selected.
+                &lt;span class="caret-down"&gt;&lt;/span&gt;
             </td>
+            <td>The markup to insert as the custom select arrow.</td>
         </tr>
         <tr>
             <td>countMessage</td>
@@ -223,16 +284,12 @@ Inherits all options from the [parent component](../development/js/component.md#
             <td>The message to use when <code>multipleFormat</code> is set to <code>count</code>.</td>
         </tr>
         <tr>
-            <td>listLimit</td>
-            <td>int</td>
-            <td>3</td>
-            <td>The max limit of labels to display when <code>multipleFormat</code> is set to <code>list</code>.</td>
-        </tr>
-        <tr>
-            <td>arrowContent</td>
+            <td>descTemplate</td>
             <td>string</td>
-            <td>&lt;span class="caret-down"&gt;&lt;/span&gt;</td>
-            <td>The content or markup to insert as the custom select arrow.</td>
+            <td>
+                &lt;span class="drop-desc"&gt;&lt;/span&gt;
+            </td>
+            <td>The item description markup.</td>
         </tr>
         <tr>
             <td>getDefaultLabel</td>
@@ -262,29 +319,94 @@ Inherits all options from the [parent component](../development/js/component.md#
                 The custom description will be inserted after the label within a custom dropdown.
             </td>
         </tr>
+        <tr>
+            <td>headingTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;li class="drop-heading"&gt;&lt;/li&gt;
+            </td>
+            <td>The heading markup for list items.</td>
+        </tr>
+        <tr>
+            <td>hideFirst</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Hide the first item in the menu.</td>
+        </tr>
+        <tr>
+            <td>hideOpened</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Hide all other opened select menus.</td>
+        </tr>
+        <tr>
+            <td>hideSelected</td>
+            <td>bool</td>
+            <td>false</td>
+            <td>Hide the selected item in the menu.</td>
+        </tr>
+        <tr>
+            <td>listLimit</td>
+            <td>int</td>
+            <td>3</td>
+            <td>The max limit of labels to display when <code>multipleFormat</code> is set to <code>list</code>.</td>
+        </tr>
+        <tr>
+            <td>multipleFormat</td>
+            <td>string</td>
+            <td>count</td>
+            <td>
+                The label format for multi-selects, accepts count or list.
+                Count will display a message similar to "1 of 10 selected",
+                while list will list out the labels of the items selected.
+            </td>
+        </tr>
+        <tr>
+            <td>native</td>
+            <td>bool</td>
+            <td>Toolkit.isTouch</td>
+            <td>Use native browser dropdowns instead of custom dropdowns.</td>
+        </tr>
+        <tr>
+            <td>optionsTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="drop drop--down select-options" data-select-options&gt;&lt;/div&gt;
+            </td>
+            <td>The options drop menu markup. The <code>data-select-options</code> is required. </td>
+        </tr>
+        <tr>
+            <td>selectTemplate</td>
+            <td>string</td>
+            <td>
+                &lt;div class="select" data-select&gt;<br>
+                    &lt;div class="select-arrow" data-select-arrow&gt;&lt;/div&gt;<br>
+                    &lt;div class="select-label" data-select-label&gt;&lt;/div&gt;<br>
+                &lt;/div&gt;
+            </td>
+            <td>The custom select button markup. The <code>data-select-*</code> attributes are required. </td>
+        </tr>
     </tbody>
 </table>
 
 ## Events ##
 
-Inherits all events from the [parent component](../development/js/component.md#events).
+Inherits all events from the [parent Component](component.md#events).
 
 <table class="table is-striped data-table">
     <thead>
         <tr>
-            <th>Option Event</th>
-            <th>Element Event</td>
+            <th>Event</td>
             <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>onChange</td>
-            <td>change.toolkit.input.select</td>
+            <td>change</td>
             <td>mixed:value, collection:selected</td>
             <td>
-                Triggered when an option is selected in a custom select dropdown.
+                Triggered when an option is selected in a custom select drop down.
                 The 1st argument will be the result of <code>val()</code>,
                 while the 2nd argument is a list of all select option elements.
             </td>
@@ -294,7 +416,7 @@ Inherits all events from the [parent component](../development/js/component.md#e
 
 ## Properties ##
 
-Inherits all properties from the [parent component](../development/js/component.md#properties).
+Inherits all properties from the [parent Component](component.md#properties).
 
 <table class="table is-striped data-table">
     <thead>
@@ -306,11 +428,6 @@ Inherits all properties from the [parent component](../development/js/component.
     </thead>
     <tbody>
         <tr>
-            <td>wrapper</td>
-            <td>element</td>
-            <td>The custom input wrapper.</td>
-        </tr>
-        <tr>
             <td>element</td>
             <td>element</td>
             <td>The custom input replacement.</td>
@@ -319,6 +436,11 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>input</td>
             <td>element</td>
             <td>The select, checkbox, or radio element.</td>
+        </tr>
+        <tr>
+            <td>wrapper</td>
+            <td>element</td>
+            <td>The custom input wrapper.</td>
         </tr>
         <tr class="table-divider">
             <td colspan="4">InputSelect</td>
@@ -329,18 +451,18 @@ Inherits all properties from the [parent component](../development/js/component.
             <td>The custom dropdown (uses the Drop component).</td>
         </tr>
         <tr>
-            <td>multiple</td>
-            <td>bool</td>
-            <td>Is the current select element a multi-select.</td>
-        </tr>
-        <tr>
             <td>index</td>
             <td>int</td>
             <td>The current option index when cycling with keyboard events.</td>
+        </tr>
+        <tr>
+            <td>multiple</td>
+            <td>bool</td>
+            <td>Is the current select element a multi-select.</td>
         </tr>
     </tbody>
 </table>
 
 ## Methods ##
 
-Inherits all methods from the [parent component](../development/js/component.md#methods).
+Inherits all methods from the [parent Component](component.md#methods).

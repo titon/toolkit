@@ -1,19 +1,19 @@
 ```
-                       ______  ______  ______  __      __  __   __  ______
-                      /\__  _\/\  __ \/\  __ \/\ \    /\ \/ /_ /\ \/\__  _\
-                      \/_/\ \/\ \ \/\ \ \ \/\ \ \ \___\ \  _  \\ \ \/_/\ \/
-                         \ \_\ \ \_____\ \_____\ \_____\ \_\ \_\\ \_\ \ \_\
-                          \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
+ ______  ______  ______  __      __  __   __  ______
+/\__  _\/\  __ \/\  __ \/\ \    /\ \/ /_ /\ \/\__  _\
+\/_/\ \/\ \ \/\ \ \ \/\ \ \ \___\ \  _  \\ \ \/_/\ \/
+   \ \_\ \ \_____\ \_____\ \_____\ \_\ \_\\ \_\ \ \_\
+    \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
 ```
 
-# Toolkit v1.5.3 #
+# Toolkit v2.0.0 RC1 #
 
 Titon Toolkit is a collection of very powerful user interface components and utility classes
 for the responsive, mobile, and modern web. Each component represents encapsulated HTML, CSS,
 and JavaScript functionality for role specific page elements.
 
 Toolkit makes use of the latest and greatest technology. This includes HTML5 for semantics,
-CSS3 for animations and styles, Sass for CSS pre-processing, Grunt for task and package management,
+CSS3 for animations and styles, Sass for CSS pre-processing, Gulp for task and package management,
 and powerful new browser APIs for the JavaScript layer.
 
 * [Official Website](http://titon.io/toolkit)
