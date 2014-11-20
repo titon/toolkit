@@ -3,6 +3,9 @@
 Older versions can be found in the documentation changelogs.
 
 ## 2.0.0 ##
+This major release includes a rewritten class, event, hooks, and component layer. 
+It improves overall tooling, drops out dated technologies, introduces new concepts, and more. 
+Check out the release update for more information.
 
 * Dropped MooTools support
 * Dropped IE8 support
