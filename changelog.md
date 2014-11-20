@@ -147,7 +147,7 @@ Older versions can be found in the documentation changelogs.
         * Removed the `delay` option
         * Renamed selectors `.popover-head`, `.popover-body` to `[data-popover-header]`, `[data-popover-content]`
     * Responsive
-        * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` support
+        * Added `.show-xsmall`, `.show-xlarge`, `.hide-xsmall`, and `.hide-xlarge` classes
         * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase

@@ -51,7 +51,8 @@
                             "url": "/development/js/no-conflict"
                         }, {
                             "title": "Extensions",
-                            "url": "/development/js/extensions"
+                            "url": "/development/js/extensions",
+                            "updated": true
                         }, {
                             "title": "Conventions",
                             "url": "/development/js/conventions"
@@ -244,6 +245,26 @@
                 }, {
                     "title": "License",
                     "url": "/support/license"
+                }
+            ]
+        }, {
+            "title": "Releases",
+            "url": "/releases",
+            "new": true,
+            "children": [
+                {
+                    "title": "2.0 - Gallant Golem",
+                    "url": "/releases/2.0"
+                }
+            ]
+        }, {
+            "title": "Migrations",
+            "url": "/migrations",
+            "new": true,
+            "children": [
+                {
+                    "title": "Migrating to 2.0",
+                    "url": "/migrations/2.0"
                 }
             ]
         }

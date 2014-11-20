@@ -6,4 +6,4 @@
 * 1.3 - Diligent Dragon
 * 1.4 - Evasive Elf
 * 1.5 - Fabulous Fairy
-* [2.0 - Gallant Golem](20.md)
+* [2.0 - Gallant Golem](2.0.md)
