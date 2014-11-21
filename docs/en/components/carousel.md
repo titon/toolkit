@@ -11,7 +11,7 @@ without having to alter options in JavaScript, or define overrides in CSS.
 The following markup can be used for basic carousel functionality.
 
 ```html
-<div class="carousel">
+<div class="carousel" data-carousel>
     <!-- Items to cycle -->
     <div class="carousel-items">
         <ul data-carousel-items>

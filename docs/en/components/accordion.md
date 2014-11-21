@@ -10,7 +10,7 @@ The header will be bound with a click event that toggles the display of its sibl
 while also closing other sections (can be changed through options).
 
 ```html
-<ul class="accordion">
+<ul class="accordion" data-accordion> 
     <li>
         <header class="accordion-header" data-accordion-header>
             Section Header
