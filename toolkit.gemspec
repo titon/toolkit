@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
     gem.files += Dir.glob("*.md")
 
     # Dependencies
-    gem.add_dependency("sass", [">= 3.4.0"])
-    gem.add_dependency("compass", [">= 1.0.0"])
+    gem.add_dependency("sass", ["~> 3.4"])
+    gem.add_dependency("compass", ["~> 1.0"])
 end

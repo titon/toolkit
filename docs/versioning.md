@@ -10,6 +10,7 @@ These docs are for internal use only.
 * Update version numbers
     * `bower.json`, `package.json`, `readme.md`, `toolkit.gemspec`, `version.md`
     * Update `version` property for JS components that have been modified
+* Disable all Sass effects, modifiers, and animations
 * Verify `manifest.json` changes
     * Add new components
     * Add `version` field for new components
