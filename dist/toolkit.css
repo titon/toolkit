@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.0.0 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.0.0-rc.1 | BSD-3 License | titon.io */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -2289,6 +2289,7 @@ kbd {
   margin: 0 auto;
   text-align: left;
   position: relative;
+  max-width: 100%;
 }
 .carousel.no-next .carousel-next {
   display: none;
@@ -3351,6 +3352,10 @@ kbd {
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
+.pin {
+  position: absolute;
+}
+
 .pin.sticky {
   -webkit-transition: top 0.6s ease-in-out, right 0.2s ease-in-out, left 0.2s ease-in-out;
           transition: top 0.6s ease-in-out, right 0.2s ease-in-out, left 0.2s ease-in-out;
@@ -3958,9 +3963,14 @@ kbd {
  */
 .toasts {
   position: fixed;
-  margin: 1.25rem;
+  padding: 1.25rem;
   width: 20%;
   z-index: 500;
+}
+@media only screen and (max-width: 641px) {
+  .toasts {
+    width: 100%;
+  }
 }
 .toasts.top-left {
   top: 0;

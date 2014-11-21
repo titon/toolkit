@@ -108,13 +108,6 @@ We highly suggest not supporting IE8, as it is a 5 year old browser that will si
 * [IE8](https://github.com/WebReflection/ie8)
 * [DOM4](https://github.com/WebReflection/dom4)
 
-### Unsupported Plugins ###
-
-On top of the features above not being supported, the following Toolkit plugins are not supported in IE 8.
-
-* [Input](../components/input.md)
-* [Matrix](../components/matrix.md)
-
 ## Compatibility Mode ##
 
 Toolkit is not supported in older Internet Explorer compatibility modes.

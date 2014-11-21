@@ -185,7 +185,7 @@
         "category": "component",
         "type": "element",
         "priority": 10,
-        "require": ["base"],
+        "require": [],
         "source": {
             "css": ["components/icon.scss"]
         }

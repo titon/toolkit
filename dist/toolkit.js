@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.0.0 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.0.0-rc.1 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -61,10 +61,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.0.0',
+    version: '2.0.0-rc.1',
 
     /** Build date hash. */
-    build: 'i2ibr8nh',
+    build: 'i2phjsg9',
 
     /** Vendor namespace. */
     vendor: '',
@@ -2259,7 +2259,7 @@ Toolkit.create('carousel', function(options) {
 $.event.special.clickout = (function() {
     var elements = [];
 
-    $(document).on('click.toolkit.out', function(e) {
+    $(document).on(isTouch ? 'touchend' : 'click', function(e) {
         if (!elements.length) {
             return;
         }

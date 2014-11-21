@@ -6,7 +6,7 @@
     \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
 ```
 
-# Toolkit v2.0.0 #
+# Toolkit v2.0.0 - Gallant Golem #
 
 Titon Toolkit is a collection of very powerful user interface components and utility classes
 for the responsive, mobile, and modern web. Each component represents encapsulated HTML, CSS,
@@ -16,6 +16,7 @@ Toolkit makes use of the latest and greatest technology. This includes HTML5 for
 CSS3 for animations and styles, Sass for CSS pre-processing, Gulp for task and package management,
 and powerful new browser APIs for the JavaScript layer.
 
+* [Release Notes](https://github.com/titon/toolkit/blob/master/docs/en/releases/2.0.md)
 * [Official Website](http://titon.io/toolkit)
 * [Features](http://titon.io/toolkit#features)
 * [Components](http://titon.io/toolkit#components)
