@@ -24,7 +24,7 @@ To ensure proper viewport rendering and touch capabilities on mobile devices,
 add the appropriate viewport meta tag to `<head>`.
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 ```
 
 ## Fluid & Responsiveness ##
