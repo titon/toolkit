@@ -15,6 +15,7 @@ Check out the release update for more information.
 * Upgraded to RequireJS for JS dependency management and compilation
 * Added a robust namespacing system which allows components to be nested within each other
 * Added unit tests for all components through Mocha, Chai, and PhantomJS
+* Added new `horizontalresize` and `verticalresize` events
 * Decoupled the CSS and JS layers so that CSS classes (excluding states) are no longer hardcoded
 * Refactored components to make more use of templates for DOM building
 * Renamed most instances of the word "component" to "plugin" to differentiate between components and behaviors,

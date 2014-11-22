@@ -9,21 +9,21 @@ define([
 ], function($) {
 
 /**
- * An event that triggers when a horizontal browser window resize occurs.
+ * An event that triggers when a vertical browser window resize occurs.
  *
  * @returns {Object}
  */
-$.event.special.horizontalresize = (function() {
+$.event.special.verticalresize = (function() {
     var win = $(window),
-        lastWidth = win.width();
+        lastHeight = win.height();
 
     function handleResize(e) {
-        var currentWidth = win.width();
+        var currentHeight = win.height();
 
-        if (currentWidth !== lastWidth) {
-            lastWidth = currentWidth;
+        if (currentHeight !== lastHeight) {
+            lastHeight = currentHeight;
 
-            $(e.target).trigger('horizontalresize');
+            $(e.target).trigger('verticalresize');
         }
     }
 
@@ -34,7 +34,7 @@ $.event.special.horizontalresize = (function() {
         teardown: function() {
             win.off('resize', handleResize);
         }
-    }
-});
+    };
+})();
 
 });

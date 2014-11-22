@@ -4,7 +4,24 @@
  * @link        http://titon.io
  */
 
-define(function() {
-    // Include an empty jQuery file so that we can setup local dependencies
-    // It also allows the files to be included externally in other projects
+define([
+    './events/clickout',
+    './events/horizontal-resize',
+    './events/swipe',
+    './events/vertical-resize',
+    './extensions/aria',
+    './extensions/bound',
+    './extensions/cache',
+    './extensions/conceal',
+    './extensions/debounce',
+    './extensions/position-to',
+    './extensions/reveal',
+    './extensions/shown-selector',
+    './extensions/throttle',
+    './extensions/to-string',
+    './extensions/toolkit',
+    './extensions/transitionend'
+], function() {
+    // An empty file that includes all event and extension dependencies.
+    // This should make these always available, even if the build is customized.
 });

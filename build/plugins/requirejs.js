@@ -10,6 +10,9 @@ module.exports = function(paths, options) {
 
     var stream = through.obj();
 
+    // Include the API in the build
+    paths.push('api');
+
     rjs.optimize({
         out: function(response) {
             stream.write(new gutil.File({
