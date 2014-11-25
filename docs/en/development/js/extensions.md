@@ -193,9 +193,9 @@ $('#element').on('clickout', function() {
 $(document).on('clickout', '.elements', function() {});
 ```
 
-### swipe, swipeleft, swiperight, swipeup, swipedown ###
+### swipe ###
 
-Custom events that emulate swiping on touch devices.
+Custom events that emulate swiping on touch devices. The available events are `swipeleft`, `swiperight`, `swipeup`, and `swipedown`.
 If the device is non-touch, standard mouse events are used instead.
 
 ```javascript

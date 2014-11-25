@@ -1,4 +1,4 @@
-# CSS Philosophies #
+# Philosophies #
 
 The major philosophies and design decisions behind Toolkit's CSS.
 
