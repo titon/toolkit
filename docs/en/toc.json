@@ -1,272 +1,2414 @@
 {
-    "title": "Documentation",
+    "title": "Toolkit Documentation",
     "url": "/",
+    "order": 50,
     "children": [
         {
             "title": "Setup",
             "url": "/setup",
+            "order": 1,
             "children": [
                 {
                     "title": "Getting Started",
-                    "url": "/setup/getting-started"
-                }, {
+                    "url": "/setup/getting-started",
+                    "order": 1,
+                    "chapters": [
+                        {
+                            "title": "Downloading Toolkit",
+                            "url": "/setup/getting-started#downloading-toolkit"
+                        },
+                        {
+                            "title": "Project Structure",
+                            "url": "/setup/getting-started#project-structure"
+                        },
+                        {
+                            "title": "  Distribution Files",
+                            "url": "/setup/getting-started#distribution-files"
+                        },
+                        {
+                            "title": "  Source Files",
+                            "url": "/setup/getting-started#source-files"
+                        },
+                        {
+                            "title": "Boilerplate Template",
+                            "url": "/setup/getting-started#boilerplate-template"
+                        }
+                    ]
+                },
+                {
                     "title": "Installing",
-                    "url": "/setup/installing"
-                }, {
+                    "url": "/setup/installing",
+                    "order": 2,
+                    "chapters": [
+                        {
+                            "title": "Download",
+                            "url": "/setup/installing#download"
+                        },
+                        {
+                            "title": "Git Clone",
+                            "url": "/setup/installing#git-clone"
+                        },
+                        {
+                            "title": "Bower",
+                            "url": "/setup/installing#bower"
+                        },
+                        {
+                            "title": "Sass and Compass",
+                            "url": "/setup/installing#sass-and-compass"
+                        },
+                        {
+                            "title": "NPM",
+                            "url": "/setup/installing#npm"
+                        }
+                    ]
+                },
+                {
                     "title": "Custom Builds",
-                    "url": "/setup/custom-builds"
-                }, {
+                    "url": "/setup/custom-builds",
+                    "order": 3,
+                    "chapters": [
+                        {
+                            "title": "Requirements",
+                            "url": "/setup/custom-builds#requirements"
+                        },
+                        {
+                            "title": "Choosing Plugins",
+                            "url": "/setup/custom-builds#choosing-plugins"
+                        },
+                        {
+                            "title": "Normalize Integration",
+                            "url": "/setup/custom-builds#normalize-integration"
+                        },
+                        {
+                            "title": "Combining Options",
+                            "url": "/setup/custom-builds#combining-options"
+                        }
+                    ]
+                },
+                {
                     "title": "Interactive Demos",
-                    "url": "/setup/demos"
+                    "url": "/setup/demos",
+                    "order": 4,
+                    "chapters": []
                 }
             ]
-        }, {
+        },
+        {
             "title": "Development",
             "url": "/development",
+            "order": 2,
             "children": [
                 {
                     "title": "JavaScript",
                     "url": "/development/js",
+                    "order": 1,
                     "children": [
                         {
-                            "title": "Usage",
-                            "url": "/development/js/usage"
-                        }, {
+                            "title": "Using Plugins",
+                            "url": "/development/js/usage",
+                            "order": 1,
+                            "chapters": [
+                                {
+                                    "title": "Accessing Instances",
+                                    "url": "/development/js/usage#accessing-instances"
+                                },
+                                {
+                                    "title": "Triggering Methods",
+                                    "url": "/development/js/usage#triggering-methods"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Toolkit Namespace",
-                            "url": "/development/js/toolkit"
-                        }, {
+                            "url": "/development/js/toolkit",
+                            "order": 2,
+                            "chapters": [
+                                {
+                                    "title": "Vendor Prefix",
+                                    "url": "/development/js/toolkit#vendor-prefix"
+                                },
+                                {
+                                    "title": "ARIA Support",
+                                    "url": "/development/js/toolkit#aria-support"
+                                },
+                                {
+                                    "title": "Debugging",
+                                    "url": "/development/js/toolkit#debugging"
+                                },
+                                {
+                                    "title": "Locale Messages",
+                                    "url": "/development/js/toolkit#locale-messages"
+                                },
+                                {
+                                    "title": "Feature Flags",
+                                    "url": "/development/js/toolkit#feature-flags"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Class System",
                             "url": "/development/js/class",
-                            "new": true
-                        },  {
+                            "order": 3,
+                            "new": true,
+                            "chapters": [
+                                {
+                                    "title": "Creating A Class",
+                                    "url": "/development/js/class#creating-a-class"
+                                },
+                                {
+                                    "title": "  Extending Classes",
+                                    "url": "/development/js/class#extending-classes"
+                                },
+                                {
+                                    "title": "Custom Constructors",
+                                    "url": "/development/js/class#custom-constructors"
+                                },
+                                {
+                                    "title": "  Prototype Override",
+                                    "url": "/development/js/class#prototype-override"
+                                },
+                                {
+                                    "title": "Super Methods",
+                                    "url": "/development/js/class#super-methods"
+                                },
+                                {
+                                    "title": "Static Options",
+                                    "url": "/development/js/class#static-options"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Base Class",
                             "url": "/development/js/base",
-                            "new": true
-                        }, {
+                            "order": 4,
+                            "new": true,
+                            "chapters": [
+                                {
+                                    "title": "Usage",
+                                    "url": "/development/js/base#usage"
+                                },
+                                {
+                                    "title": "  Options",
+                                    "url": "/development/js/base#options"
+                                },
+                                {
+                                    "title": "    Responsive Options",
+                                    "url": "/development/js/base#responsive-options"
+                                },
+                                {
+                                    "title": "  Hooks",
+                                    "url": "/development/js/base#hooks"
+                                },
+                                {
+                                    "title": "Options",
+                                    "url": "/development/js/base#options"
+                                },
+                                {
+                                    "title": "Events",
+                                    "url": "/development/js/base#events"
+                                },
+                                {
+                                    "title": "Properties",
+                                    "url": "/development/js/base#properties"
+                                },
+                                {
+                                    "title": "Methods",
+                                    "url": "/development/js/base#methods"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Component System",
                             "url": "/development/js/component",
-                            "updated": true
-                        }, {
+                            "order": 5,
+                            "updated": true,
+                            "chapters": [
+                                {
+                                    "title": "Templates",
+                                    "url": "/development/js/component#templates"
+                                },
+                                {
+                                    "title": "  Elements As Templates",
+                                    "url": "/development/js/component#elements-as-templates"
+                                },
+                                {
+                                    "title": "Options",
+                                    "url": "/development/js/component#options"
+                                },
+                                {
+                                    "title": "  Data Attribute Options",
+                                    "url": "/development/js/component#data-attribute-options"
+                                },
+                                {
+                                    "title": "  Option Groups",
+                                    "url": "/development/js/component#option-groups"
+                                },
+                                {
+                                    "title": "Events",
+                                    "url": "/development/js/component#events"
+                                },
+                                {
+                                    "title": "  Namespaced Events",
+                                    "url": "/development/js/component#namespaced-events"
+                                },
+                                {
+                                    "title": "Namespaces",
+                                    "url": "/development/js/component#namespaces"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Conflict Resolution",
-                            "url": "/development/js/no-conflict"
-                        }, {
+                            "url": "/development/js/no-conflict",
+                            "order": 6,
+                            "chapters": []
+                        },
+                        {
                             "title": "Extensions",
                             "url": "/development/js/extensions",
-                            "updated": true
-                        }, {
+                            "order": 7,
+                            "updated": true,
+                            "chapters": [
+                                {
+                                    "title": "Methods",
+                                    "url": "/development/js/extensions#methods"
+                                },
+                                {
+                                    "title": "  toolkit()",
+                                    "url": "/development/js/extensions#toolkit"
+                                },
+                                {
+                                    "title": "  reveal()",
+                                    "url": "/development/js/extensions#reveal"
+                                },
+                                {
+                                    "title": "  conceal()",
+                                    "url": "/development/js/extensions#conceal"
+                                },
+                                {
+                                    "title": "  positionTo()",
+                                    "url": "/development/js/extensions#positionto"
+                                },
+                                {
+                                    "title": "  cache()",
+                                    "url": "/development/js/extensions#cache"
+                                },
+                                {
+                                    "title": "  aria()",
+                                    "url": "/development/js/extensions#aria"
+                                },
+                                {
+                                    "title": "  transitionend()",
+                                    "url": "/development/js/extensions#transitionend"
+                                },
+                                {
+                                    "title": "  toString()",
+                                    "url": "/development/js/extensions#tostring"
+                                },
+                                {
+                                    "title": "Selectors",
+                                    "url": "/development/js/extensions#selectors"
+                                },
+                                {
+                                    "title": "  :shown",
+                                    "url": "/development/js/extensions#shown"
+                                },
+                                {
+                                    "title": "Functions",
+                                    "url": "/development/js/extensions#functions"
+                                },
+                                {
+                                    "title": "  debounce()",
+                                    "url": "/development/js/extensions#debounce"
+                                },
+                                {
+                                    "title": "  throttle()",
+                                    "url": "/development/js/extensions#throttle"
+                                },
+                                {
+                                    "title": "  bound()",
+                                    "url": "/development/js/extensions#bound"
+                                },
+                                {
+                                    "title": "Events",
+                                    "url": "/development/js/extensions#events"
+                                },
+                                {
+                                    "title": "  clickout",
+                                    "url": "/development/js/extensions#clickout"
+                                },
+                                {
+                                    "title": "  swipe",
+                                    "url": "/development/js/extensions#swipe"
+                                },
+                                {
+                                    "title": "  horizontalresize",
+                                    "url": "/development/js/extensions#horizontalresize"
+                                },
+                                {
+                                    "title": "  verticalresize",
+                                    "url": "/development/js/extensions#verticalresize"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Conventions",
-                            "url": "/development/js/conventions"
+                            "url": "/development/js/conventions",
+                            "order": 8,
+                            "chapters": []
                         }
                     ]
-                }, {
+                },
+                {
                     "title": "CSS",
                     "url": "/development/css",
+                    "order": 2,
                     "children": [
                         {
                             "title": "Base Styles",
                             "url": "/development/css/base",
-                            "new": true
-                        }, {
+                            "order": 1,
+                            "new": true,
+                            "chapters": [
+                                {
+                                    "title": "Alignment",
+                                    "url": "/development/css/base#alignment"
+                                },
+                                {
+                                    "title": "Animation",
+                                    "url": "/development/css/base#animation"
+                                },
+                                {
+                                    "title": "Display",
+                                    "url": "/development/css/base#display"
+                                },
+                                {
+                                    "title": "Layout",
+                                    "url": "/development/css/base#layout"
+                                },
+                                {
+                                    "title": "States",
+                                    "url": "/development/css/base#states"
+                                },
+                                {
+                                    "title": "Carets",
+                                    "url": "/development/css/base#carets"
+                                },
+                                {
+                                    "title": "Sorter",
+                                    "url": "/development/css/base#sorter"
+                                },
+                                {
+                                    "title": "Characters",
+                                    "url": "/development/css/base#characters"
+                                },
+                                {
+                                    "title": "Bullets",
+                                    "url": "/development/css/base#bullets"
+                                },
+                                {
+                                    "title": "Sizes",
+                                    "url": "/development/css/base#sizes"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Philosophies",
-                            "url": "/development/css/philosophies"
-                        }, {
+                            "url": "/development/css/philosophies",
+                            "order": 2,
+                            "chapters": [
+                                {
+                                    "title": "Normalize Integration",
+                                    "url": "/development/css/philosophies#normalize-integration"
+                                },
+                                {
+                                    "title": "Mobile First",
+                                    "url": "/development/css/philosophies#mobile-first"
+                                },
+                                {
+                                    "title": "Fluid and Responsiveness",
+                                    "url": "/development/css/philosophies#fluid-and-responsiveness"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Block-Element-Modifier Methodology",
-                            "url": "/development/css/bem"
-                        }, {
+                            "url": "/development/css/bem",
+                            "order": 3,
+                            "chapters": []
+                        },
+                        {
                             "title": "Vendor Prefixing",
-                            "url": "/development/css/prefixing"
-                        }, {
+                            "url": "/development/css/prefixing",
+                            "order": 4,
+                            "chapters": []
+                        },
+                        {
                             "title": "Reserved Classes",
-                            "url": "/development/css/reserved"
+                            "url": "/development/css/reserved",
+                            "order": 5,
+                            "chapters": [
+                                {
+                                    "title": "Namespacing Classes",
+                                    "url": "/development/css/reserved#namespacing-classes"
+                                }
+                            ]
                         }
                     ]
-                }, {
+                },
+                {
                     "title": "Sass",
                     "url": "/development/sass",
+                    "order": 3,
                     "children": [
                         {
                             "title": "Usage",
-                            "url": "/development/sass/usage"
-                        }, {
+                            "url": "/development/sass/usage",
+                            "order": 1,
+                            "chapters": [
+                                {
+                                    "title": "Unit Conversion",
+                                    "url": "/development/sass/usage#unit-conversion"
+                                },
+                                {
+                                    "title": "Media Queries and Responsiveness",
+                                    "url": "/development/sass/usage#media-queries-and-responsiveness"
+                                },
+                                {
+                                    "title": "Grid Building",
+                                    "url": "/development/sass/usage#grid-building"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Variables",
-                            "url": "/development/sass/variables"
-                        }, {
+                            "url": "/development/sass/variables",
+                            "order": 2,
+                            "chapters": [
+                                {
+                                    "title": "Class Naming",
+                                    "url": "/development/sass/variables#class-naming"
+                                },
+                                {
+                                    "title": "Feature Enabling",
+                                    "url": "/development/sass/variables#feature-enabling"
+                                },
+                                {
+                                    "title": "Sizing and Spacing",
+                                    "url": "/development/sass/variables#sizing-and-spacing"
+                                },
+                                {
+                                    "title": "Border Styles",
+                                    "url": "/development/sass/variables#border-styles"
+                                },
+                                {
+                                    "title": "State Colors",
+                                    "url": "/development/sass/variables#state-colors"
+                                },
+                                {
+                                    "title": "Responsive Breakpoints",
+                                    "url": "/development/sass/variables#responsive-breakpoints"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Mixins",
-                            "url": "/development/sass/mixins"
-                        }, {
+                            "url": "/development/sass/mixins",
+                            "order": 3,
+                            "chapters": [
+                                {
+                                    "title": "Layout",
+                                    "url": "/development/sass/mixins#layout"
+                                },
+                                {
+                                    "title": "Responsive",
+                                    "url": "/development/sass/mixins#responsive"
+                                },
+                                {
+                                    "title": "Grids",
+                                    "url": "/development/sass/mixins#grids"
+                                }
+                            ]
+                        },
+                        {
                             "title": "Functions",
-                            "url": "/development/sass/functions"
+                            "url": "/development/sass/functions",
+                            "order": 4,
+                            "chapters": [
+                                {
+                                    "title": "Utility",
+                                    "url": "/development/sass/functions#utility"
+                                },
+                                {
+                                    "title": "Grids",
+                                    "url": "/development/sass/functions#grids"
+                                },
+                                {
+                                    "title": "Type Conversion",
+                                    "url": "/development/sass/functions#type-conversion"
+                                }
+                            ]
                         }
                     ]
                 }
             ]
-        }, {
+        },
+        {
             "title": "Components",
             "url": "/components",
+            "order": 3,
+            "updated": true,
             "children": [
                 {
                     "title": "Component",
                     "url": "/components/component",
-                    "new": true
-                }, {
+                    "order": 1,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Options",
+                            "url": "/components/component#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/component#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/component#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/component#methods"
+                        }
+                    ]
+                },
+                {
                     "divider": true
-                }, {
+                },
+                {
                     "title": "Accordion",
-                    "url": "/components/accordion"
-                }, {
+                    "url": "/components/accordion",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/accordion#usage"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/accordion#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/accordion#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/accordion#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/accordion#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/accordion#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/accordion#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/accordion#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Blackout",
-                    "url": "/components/blackout"
-                }, {
+                    "url": "/components/blackout",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/blackout#usage"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/blackout#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/blackout#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/blackout#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/blackout#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/blackout#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Breadcrumb",
-                    "url": "/components/breadcrumb"
-                }, {
+                    "url": "/components/breadcrumb",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/breadcrumb#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/breadcrumb#sizes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/breadcrumb#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/breadcrumb#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Button",
-                    "url": "/components/button"
-                }, {
+                    "url": "/components/button",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/button#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/button#sizes"
+                        },
+                        {
+                            "title": "  Shapes",
+                            "url": "/components/button#shapes"
+                        },
+                        {
+                            "title": "  States",
+                            "url": "/components/button#states"
+                        },
+                        {
+                            "title": "  Modifiers",
+                            "url": "/components/button#modifiers"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/button#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/button#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Button Group",
-                    "url": "/components/button-group"
-                }, {
+                    "url": "/components/button-group",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/button-group#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/button-group#sizes"
+                        },
+                        {
+                            "title": "  Shapes",
+                            "url": "/components/button-group#shapes"
+                        },
+                        {
+                            "title": "  Vertical Stacking",
+                            "url": "/components/button-group#vertical-stacking"
+                        },
+                        {
+                            "title": "  Justified Alignment",
+                            "url": "/components/button-group#justified-alignment"
+                        },
+                        {
+                            "title": "  Drop Integration",
+                            "url": "/components/button-group#drop-integration"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/button-group#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/button-group#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Carousel",
-                    "url": "/components/carousel"
-                }, {
+                    "url": "/components/carousel",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/carousel#usage"
+                        },
+                        {
+                            "title": "  Cycle Animation",
+                            "url": "/components/carousel#cycle-animation"
+                        },
+                        {
+                            "title": "  Aspect Ratios",
+                            "url": "/components/carousel#aspect-ratios"
+                        },
+                        {
+                            "title": "  Scrolling Mechanisms",
+                            "url": "/components/carousel#scrolling-mechanisms"
+                        },
+                        {
+                            "title": "  Multiple Items",
+                            "url": "/components/carousel#multiple-items"
+                        },
+                        {
+                            "title": "  Responsive Support",
+                            "url": "/components/carousel#responsive-support"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/carousel#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/carousel#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/carousel#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/carousel#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/carousel#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/carousel#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/carousel#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Code",
-                    "url": "/components/code"
-                }, {
+                    "url": "/components/code",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/code#usage"
+                        },
+                        {
+                            "title": "  Scrollable Blocks",
+                            "url": "/components/code#scrollable-blocks"
+                        }
+                    ]
+                },
+                {
                     "title": "Divider",
-                    "url": "/components/divider"
-                }, {
+                    "url": "/components/divider",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/divider#usage"
+                        },
+                        {
+                            "title": "  Styling",
+                            "url": "/components/divider#styling"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/divider#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/divider#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Drop",
-                    "url": "/components/drop"
-                }, {
+                    "url": "/components/drop",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/drop#usage"
+                        },
+                        {
+                            "title": "  Positioning",
+                            "url": "/components/drop#positioning"
+                        },
+                        {
+                            "title": "  Nesting",
+                            "url": "/components/drop#nesting"
+                        },
+                        {
+                            "title": "  Headers and Dividers",
+                            "url": "/components/drop#headers-and-dividers"
+                        },
+                        {
+                            "title": "  Alignment",
+                            "url": "/components/drop#alignment"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/drop#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/drop#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/drop#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/drop#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/drop#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/drop#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/drop#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Flyout",
-                    "url": "/components/flyout"
-                }, {
+                    "url": "/components/flyout",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/flyout#usage"
+                        },
+                        {
+                            "title": "  Headers",
+                            "url": "/components/flyout#headers"
+                        },
+                        {
+                            "title": "  Data Structure",
+                            "url": "/components/flyout#data-structure"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/flyout#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/flyout#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/flyout#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/flyout#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/flyout#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/flyout#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/flyout#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Form",
-                    "url": "/components/form"
-                }, {
+                    "url": "/components/form",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/form#usage"
+                        },
+                        {
+                            "title": "  Radios and Checkboxes",
+                            "url": "/components/form#radios-and-checkboxes"
+                        },
+                        {
+                            "title": "  States",
+                            "url": "/components/form#states"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/form#sizes"
+                        },
+                        {
+                            "title": "  Convenience Elements",
+                            "url": "/components/form#convenience-elements"
+                        },
+                        {
+                            "title": "Forms",
+                            "url": "/components/form#forms"
+                        },
+                        {
+                            "title": "  Fieldsets and Legends",
+                            "url": "/components/form#fieldsets-and-legends"
+                        },
+                        {
+                            "title": "  Horizontal Forms",
+                            "url": "/components/form#horizontal-forms"
+                        },
+                        {
+                            "title": "  Inline Forms",
+                            "url": "/components/form#inline-forms"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/form#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/form#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Grid",
-                    "url": "/components/grid"
-                }, {
+                    "url": "/components/grid",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/grid#usage"
+                        },
+                        {
+                            "title": "  Push and Pull",
+                            "url": "/components/grid#push-and-pull"
+                        },
+                        {
+                            "title": "  Nesting Grids",
+                            "url": "/components/grid#nesting-grids"
+                        },
+                        {
+                            "title": "  Responsive Columns",
+                            "url": "/components/grid#responsive-columns"
+                        },
+                        {
+                            "title": "    Size Chart",
+                            "url": "/components/grid#size-chart"
+                        },
+                        {
+                            "title": "  Custom Sizes",
+                            "url": "/components/grid#custom-sizes"
+                        },
+                        {
+                            "title": "  End Capping",
+                            "url": "/components/grid#end-capping"
+                        },
+                        {
+                            "title": "  Extending Styles",
+                            "url": "/components/grid#extending-styles"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/grid#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/grid#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Icon",
-                    "url": "/components/icon"
-                }, {
+                    "url": "/components/icon",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/icon#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/icon#sizes"
+                        },
+                        {
+                            "title": "  Mapping",
+                            "url": "/components/icon#mapping"
+                        },
+                        {
+                            "title": "  Rotation",
+                            "url": "/components/icon#rotation"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/icon#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Input",
-                    "url": "/components/input"
-                }, {
+                    "url": "/components/input",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/input#usage"
+                        },
+                        {
+                            "title": "  Checkboxes and Radios",
+                            "url": "/components/input#checkboxes-and-radios"
+                        },
+                        {
+                            "title": "  Selects",
+                            "url": "/components/input#selects"
+                        },
+                        {
+                            "title": "    Labels and Descriptions",
+                            "url": "/components/input#labels-and-descriptions"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/input#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/input#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/input#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/input#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/input#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/input#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/input#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Input Group",
-                    "url": "/components/input-group"
-                }, {
+                    "url": "/components/input-group",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/input-group#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/input-group#sizes"
+                        },
+                        {
+                            "title": "  Button Integration",
+                            "url": "/components/input-group#button-integration"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/input-group#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Label",
-                    "url": "/components/label"
-                }, {
+                    "url": "/components/label",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/label#usage"
+                        },
+                        {
+                            "title": "  Badges",
+                            "url": "/components/label#badges"
+                        },
+                        {
+                            "title": "  Arrows",
+                            "url": "/components/label#arrows"
+                        },
+                        {
+                            "title": "  Ribbons",
+                            "url": "/components/label#ribbons"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/label#sizes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/label#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Lazy Load",
-                    "url": "/components/lazy-load"
-                }, {
+                    "url": "/components/lazy-load",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/lazy-load#usage"
+                        },
+                        {
+                            "title": "  Retina Support",
+                            "url": "/components/lazy-load#retina-support"
+                        },
+                        {
+                            "title": "  Scrolling Threshold",
+                            "url": "/components/lazy-load#scrolling-threshold"
+                        },
+                        {
+                            "title": "  Flicker Prevention",
+                            "url": "/components/lazy-load#flicker-prevention"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/lazy-load#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/lazy-load#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/lazy-load#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/lazy-load#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/lazy-load#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/lazy-load#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Loader",
-                    "url": "/components/loader"
-                }, {
+                    "url": "/components/loader",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/loader#usage"
+                        },
+                        {
+                            "title": "  Waves",
+                            "url": "/components/loader#waves"
+                        },
+                        {
+                            "title": "  Spinners",
+                            "url": "/components/loader#spinners"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/loader#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Mask",
-                    "url": "/components/mask"
-                }, {
+                    "url": "/components/mask",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/mask#usage"
+                        },
+                        {
+                            "title": "  Custom Masks",
+                            "url": "/components/mask#custom-masks"
+                        },
+                        {
+                            "title": "  Automatic Toggling",
+                            "url": "/components/mask#automatic-toggling"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/mask#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/mask#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/mask#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/mask#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/mask#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/mask#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Matrix",
-                    "url": "/components/matrix"
-                }, {
+                    "url": "/components/matrix",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/matrix#usage"
+                        },
+                        {
+                            "title": "  Adding and Removing Items",
+                            "url": "/components/matrix#adding-and-removing-items"
+                        },
+                        {
+                            "title": "  Fluid Images",
+                            "url": "/components/matrix#fluid-images"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/matrix#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/matrix#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/matrix#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/matrix#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/matrix#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/matrix#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Modal",
-                    "url": "/components/modal"
-                }, {
+                    "url": "/components/modal",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/modal#usage"
+                        },
+                        {
+                            "title": "  Multiple Modals",
+                            "url": "/components/modal#multiple-modals"
+                        },
+                        {
+                            "title": "  Form Submitting",
+                            "url": "/components/modal#form-submitting"
+                        },
+                        {
+                            "title": "  Non-HTML Responses",
+                            "url": "/components/modal#non-html-responses"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/modal#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/modal#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/modal#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/modal#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/modal#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/modal#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/modal#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Notice",
-                    "url": "/components/notice"
-                }, {
+                    "url": "/components/notice",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/notice#usage"
+                        },
+                        {
+                            "title": "  Custom Markup",
+                            "url": "/components/notice#custom-markup"
+                        },
+                        {
+                            "title": "  Closing Notices",
+                            "url": "/components/notice#closing-notices"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/notice#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/notice#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Off Canvas",
-                    "url": "/components/off-canvas"
-                }, {
+                    "url": "/components/off-canvas",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/off-canvas#usage"
+                        },
+                        {
+                            "title": "  Toggle Sidebars",
+                            "url": "/components/off-canvas#toggle-sidebars"
+                        },
+                        {
+                            "title": "  Multiple Sidebars",
+                            "url": "/components/off-canvas#multiple-sidebars"
+                        },
+                        {
+                            "title": "  Animations",
+                            "url": "/components/off-canvas#animations"
+                        },
+                        {
+                            "title": "  Open On Load",
+                            "url": "/components/off-canvas#open-on-load"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/off-canvas#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/off-canvas#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/off-canvas#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/off-canvas#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/off-canvas#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/off-canvas#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/off-canvas#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Pagination",
-                    "url": "/components/pagination"
-                }, {
+                    "url": "/components/pagination",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/pagination#usage"
+                        },
+                        {
+                            "title": "  Grouped Links",
+                            "url": "/components/pagination#grouped-links"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/pagination#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/pagination#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/pagination#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Pin",
-                    "url": "/components/pin"
-                }, {
+                    "url": "/components/pin",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/pin#usage"
+                        },
+                        {
+                            "title": "  Animations",
+                            "url": "/components/pin#animations"
+                        },
+                        {
+                            "title": "  Bounding Container",
+                            "url": "/components/pin#bounding-container"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/pin#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/pin#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/pin#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/pin#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/pin#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/pin#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/pin#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Popover",
-                    "url": "/components/popover"
-                }, {
+                    "url": "/components/popover",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/popover#usage"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/popover#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/popover#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/popover#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/popover#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/popover#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Progress",
-                    "url": "/components/progress"
-                }, {
+                    "url": "/components/progress",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/progress#usage"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/progress#sizes"
+                        },
+                        {
+                            "title": "  Shapes",
+                            "url": "/components/progress#shapes"
+                        },
+                        {
+                            "title": "  States",
+                            "url": "/components/progress#states"
+                        },
+                        {
+                            "title": "  Stacked Bars",
+                            "url": "/components/progress#stacked-bars"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/progress#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/progress#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Responsive",
-                    "url": "/components/responsive"
-                }, {
+                    "url": "/components/responsive",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/responsive#usage"
+                        },
+                        {
+                            "title": "  Display Classes",
+                            "url": "/components/responsive#display-classes"
+                        },
+                        {
+                            "title": "  Orientation Classes",
+                            "url": "/components/responsive#orientation-classes"
+                        },
+                        {
+                            "title": "  Retina Classes",
+                            "url": "/components/responsive#retina-classes"
+                        },
+                        {
+                            "title": "  Print Classes",
+                            "url": "/components/responsive#print-classes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/responsive#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Showcase",
-                    "url": "/components/showcase"
-                }, {
+                    "url": "/components/showcase",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/showcase#usage"
+                        },
+                        {
+                            "title": "  Category Grouping",
+                            "url": "/components/showcase#category-grouping"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/showcase#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/showcase#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/showcase#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/showcase#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/showcase#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/showcase#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Stalker",
-                    "url": "/components/stalker"
-                }, {
+                    "url": "/components/stalker",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/stalker#usage"
+                        },
+                        {
+                            "title": "  Overflow Containers",
+                            "url": "/components/stalker#overflow-containers"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/stalker#notes"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/stalker#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/stalker#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/stalker#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/stalker#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Step",
-                    "url": "/components/step"
-                }, {
+                    "url": "/components/step",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/step#usage"
+                        },
+                        {
+                            "title": "  Completed Steps",
+                            "url": "/components/step#completed-steps"
+                        },
+                        {
+                            "title": "  Linking Steps",
+                            "url": "/components/step#linking-steps"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/step#sizes"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/step#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/step#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/step#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Switch",
-                    "url": "/components/switch"
-                }, {
-                    "title": "Table",
-                    "url": "/components/table"
-                }, {
+                    "url": "/components/switch",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/switch#usage"
+                        },
+                        {
+                            "title": "  Disabled Switch",
+                            "url": "/components/switch#disabled-switch"
+                        },
+                        {
+                            "title": "  Custom Labels",
+                            "url": "/components/switch#custom-labels"
+                        },
+                        {
+                            "title": "  Stacked Labels",
+                            "url": "/components/switch#stacked-labels"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/switch#sizes"
+                        },
+                        {
+                            "title": "  Shapes",
+                            "url": "/components/switch#shapes"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/switch#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/switch#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Tab",
-                    "url": "/components/tab"
-                }, {
+                    "url": "/components/tab",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/tab#usage"
+                        },
+                        {
+                            "title": "  Horizontal Tabs",
+                            "url": "/components/tab#horizontal-tabs"
+                        },
+                        {
+                            "title": "  Persist State",
+                            "url": "/components/tab#persist-state"
+                        },
+                        {
+                            "title": "  AJAX Loading",
+                            "url": "/components/tab#ajax-loading"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/tab#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/tab#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/tab#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/tab#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/tab#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/tab#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/tab#methods"
+                        }
+                    ]
+                },
+                {
+                    "title": "Table",
+                    "url": "/components/table",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/table#usage"
+                        },
+                        {
+                            "title": "  Modifiers",
+                            "url": "/components/table#modifiers"
+                        },
+                        {
+                            "title": "  Sizes",
+                            "url": "/components/table#sizes"
+                        },
+                        {
+                            "title": "  Sortable Headers",
+                            "url": "/components/table#sortable-headers"
+                        },
+                        {
+                            "title": "  Dividers",
+                            "url": "/components/table#dividers"
+                        },
+                        {
+                            "title": "  Responsive Tables",
+                            "url": "/components/table#responsive-tables"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/table#variables"
+                        }
+                    ]
+                },
+                {
                     "title": "Toast",
-                    "url": "/components/toast"
-                }, {
+                    "url": "/components/toast",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/toast#usage"
+                        },
+                        {
+                            "title": "  Creating Toasts",
+                            "url": "/components/toast#creating-toasts"
+                        },
+                        {
+                            "title": "  Dismissable Toasts",
+                            "url": "/components/toast#dismissable-toasts"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/toast#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/toast#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/toast#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/toast#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/toast#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/toast#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Tooltip",
-                    "url": "/components/tooltip"
-                }, {
+                    "url": "/components/tooltip",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/tooltip#usage"
+                        },
+                        {
+                            "title": "  Titles and Content",
+                            "url": "/components/tooltip#titles-and-content"
+                        },
+                        {
+                            "title": "    Manual Updates",
+                            "url": "/components/tooltip#manual-updates"
+                        },
+                        {
+                            "title": "  Mouse Following",
+                            "url": "/components/tooltip#mouse-following"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/tooltip#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/tooltip#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/tooltip#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/tooltip#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/tooltip#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/tooltip#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/tooltip#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Type Ahead",
-                    "url": "/components/type-ahead"
-                }, {
+                    "url": "/components/type-ahead",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/type-ahead#usage"
+                        },
+                        {
+                            "title": "  Data Source",
+                            "url": "/components/type-ahead#data-source"
+                        },
+                        {
+                            "title": "    Category Grouping",
+                            "url": "/components/type-ahead#category-grouping"
+                        },
+                        {
+                            "title": "    Data Structure",
+                            "url": "/components/type-ahead#data-structure"
+                        },
+                        {
+                            "title": "  Prefetching",
+                            "url": "/components/type-ahead#prefetching"
+                        },
+                        {
+                            "title": "  Shadow Text",
+                            "url": "/components/type-ahead#shadow-text"
+                        },
+                        {
+                            "title": "  Sorters, Matchers and Builders",
+                            "url": "/components/type-ahead#sorters-matchers-and-builders"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/type-ahead#notes"
+                        },
+                        {
+                            "title": "ARIA",
+                            "url": "/components/type-ahead#aria"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/type-ahead#variables"
+                        },
+                        {
+                            "title": "Options",
+                            "url": "/components/type-ahead#options"
+                        },
+                        {
+                            "title": "Events",
+                            "url": "/components/type-ahead#events"
+                        },
+                        {
+                            "title": "Properties",
+                            "url": "/components/type-ahead#properties"
+                        },
+                        {
+                            "title": "Methods",
+                            "url": "/components/type-ahead#methods"
+                        }
+                    ]
+                },
+                {
                     "title": "Typography",
-                    "url": "/components/typography"
+                    "url": "/components/typography",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/typography#usage"
+                        },
+                        {
+                            "title": "  Headings",
+                            "url": "/components/typography#headings"
+                        },
+                        {
+                            "title": "  Paragraphs and Lists",
+                            "url": "/components/typography#paragraphs-and-lists"
+                        },
+                        {
+                            "title": "  Blockquotes",
+                            "url": "/components/typography#blockquotes"
+                        },
+                        {
+                            "title": "  Contextual Copy",
+                            "url": "/components/typography#contextual-copy"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/typography#variables"
+                        }
+                    ]
                 }
             ]
-        }, {
+        },
+        {
             "title": "Support",
             "url": "/support",
+            "order": 4,
             "children": [
                 {
                     "title": "Browser Compatibility",
-                    "url": "/support/compatibility"
-                }, {
-                    "title": "Competitor Comparison",
-                    "url": "/support/comparison"
-                }, {
-                    "title": "Contributing",
-                    "url": "/support/contributing"
-                }, {
+                    "url": "/support/compatibility",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Supported Browsers",
+                            "url": "/support/compatibility#supported-browsers"
+                        },
+                        {
+                            "title": "Internet Explorer 9",
+                            "url": "/support/compatibility#internet-explorer-9"
+                        },
+                        {
+                            "title": "Internet Explorer 8",
+                            "url": "/support/compatibility#internet-explorer-8"
+                        },
+                        {
+                            "title": "Compatibility Mode",
+                            "url": "/support/compatibility#compatibility-mode"
+                        }
+                    ]
+                },
+                {
                     "title": "Changelog",
-                    "url": "/support/changelog"
-                }, {
+                    "url": "/support/changelog",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "2.0.0",
+                            "url": "/support/changelog#200"
+                        },
+                        {
+                            "title": "1.5.3",
+                            "url": "/support/changelog#153"
+                        },
+                        {
+                            "title": "1.5.2",
+                            "url": "/support/changelog#152"
+                        },
+                        {
+                            "title": "1.5.1",
+                            "url": "/support/changelog#151"
+                        },
+                        {
+                            "title": "1.5.0",
+                            "url": "/support/changelog#150"
+                        },
+                        {
+                            "title": "1.4.1",
+                            "url": "/support/changelog#141"
+                        },
+                        {
+                            "title": "1.4.0",
+                            "url": "/support/changelog#140"
+                        },
+                        {
+                            "title": "1.3.2",
+                            "url": "/support/changelog#132"
+                        },
+                        {
+                            "title": "1.3.1",
+                            "url": "/support/changelog#131"
+                        },
+                        {
+                            "title": "1.3.0",
+                            "url": "/support/changelog#130"
+                        },
+                        {
+                            "title": "1.2.2",
+                            "url": "/support/changelog#122"
+                        },
+                        {
+                            "title": "1.2.1",
+                            "url": "/support/changelog#121"
+                        },
+                        {
+                            "title": "1.2.0",
+                            "url": "/support/changelog#120"
+                        },
+                        {
+                            "title": "1.1.0",
+                            "url": "/support/changelog#110"
+                        },
+                        {
+                            "title": "1.0.5",
+                            "url": "/support/changelog#105"
+                        },
+                        {
+                            "title": "1.0.4",
+                            "url": "/support/changelog#104"
+                        },
+                        {
+                            "title": "1.0.3",
+                            "url": "/support/changelog#103"
+                        },
+                        {
+                            "title": "1.0.2",
+                            "url": "/support/changelog#102"
+                        },
+                        {
+                            "title": "1.0.1",
+                            "url": "/support/changelog#101"
+                        },
+                        {
+                            "title": "1.0.0",
+                            "url": "/support/changelog#100"
+                        }
+                    ]
+                },
+                {
+                    "title": "Competitor Comparison",
+                    "url": "/support/comparison",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Sizes",
+                            "url": "/support/comparison#sizes"
+                        },
+                        {
+                            "title": "Plugins",
+                            "url": "/support/comparison#plugins"
+                        },
+                        {
+                            "title": "Features",
+                            "url": "/support/comparison#features"
+                        }
+                    ]
+                },
+                {
+                    "title": "Contributing",
+                    "url": "/support/contributing",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Reporting A Bug",
+                            "url": "/support/contributing#reporting-a-bug"
+                        },
+                        {
+                            "title": "  Known Issues",
+                            "url": "/support/contributing#known-issues"
+                        },
+                        {
+                            "title": "Submitting A Pull Request",
+                            "url": "/support/contributing#submitting-a-pull-request"
+                        },
+                        {
+                            "title": "Contributors",
+                            "url": "/support/contributing#contributors"
+                        }
+                    ]
+                },
+                {
                     "title": "License",
-                    "url": "/support/license"
+                    "url": "/support/license",
+                    "order": 100,
+                    "chapters": []
                 }
             ]
-        }, {
+        },
+        {
             "title": "Releases",
             "url": "/releases",
+            "order": 5,
             "new": true,
             "children": [
                 {
                     "title": "2.0 - Gallant Golem",
-                    "url": "/releases/2.0"
+                    "url": "/releases/2.0",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Unsupported and dropped features",
+                            "url": "/releases/2.0#unsupported-and-dropped-features"
+                        },
+                        {
+                            "title": "Improved tooling",
+                            "url": "/releases/2.0#improved-tooling"
+                        },
+                        {
+                            "title": "Testing suite",
+                            "url": "/releases/2.0#testing-suite"
+                        },
+                        {
+                            "title": "Themeless",
+                            "url": "/releases/2.0#themeless"
+                        },
+                        {
+                            "title": "Customizable class names",
+                            "url": "/releases/2.0#customizable-class-names"
+                        },
+                        {
+                            "title": "Decoupled CSS and JS",
+                            "url": "/releases/2.0#decoupled-css-and-js"
+                        },
+                        {
+                            "title": "Automatic class prefixing",
+                            "url": "/releases/2.0#automatic-class-prefixing"
+                        },
+                        {
+                            "title": "Component namespacing",
+                            "url": "/releases/2.0#component-namespacing"
+                        },
+                        {
+                            "title": "Option groups",
+                            "url": "/releases/2.0#option-groups"
+                        },
+                        {
+                            "title": "Robust class layer",
+                            "url": "/releases/2.0#robust-class-layer"
+                        },
+                        {
+                            "title": "Hook into components",
+                            "url": "/releases/2.0#hook-into-components"
+                        },
+                        {
+                            "title": "New DOM events",
+                            "url": "/releases/2.0#new-dom-events"
+                        },
+                        {
+                            "title": "Easier templating",
+                            "url": "/releases/2.0#easier-templating"
+                        },
+                        {
+                            "title": "Updated grid breakpoints",
+                            "url": "/releases/2.0#updated-grid-breakpoints"
+                        },
+                        {
+                            "title": "Changelog",
+                            "url": "/releases/2.0#changelog"
+                        }
+                    ]
                 }
             ]
-        }, {
+        },
+        {
             "title": "Migrations",
             "url": "/migrations",
+            "order": 6,
             "new": true,
             "children": [
                 {
                     "title": "Migrating to 2.0",
-                    "url": "/migrations/2.0"
+                    "url": "/migrations/2.0",
+                    "order": 100,
+                    "chapters": [
+                        {
+                            "title": "Sass",
+                            "url": "/migrations/2.0#sass"
+                        },
+                        {
+                            "title": "JavaScript",
+                            "url": "/migrations/2.0#javascript"
+                        },
+                        {
+                            "title": "Components",
+                            "url": "/migrations/2.0#components"
+                        },
+                        {
+                            "title": "  Accordion",
+                            "url": "/migrations/2.0#accordion"
+                        },
+                        {
+                            "title": "  Blackout",
+                            "url": "/migrations/2.0#blackout"
+                        },
+                        {
+                            "title": "  Carousel",
+                            "url": "/migrations/2.0#carousel"
+                        },
+                        {
+                            "title": "  Divider",
+                            "url": "/migrations/2.0#divider"
+                        },
+                        {
+                            "title": "  Drop",
+                            "url": "/migrations/2.0#drop"
+                        },
+                        {
+                            "title": "  Grid",
+                            "url": "/migrations/2.0#grid"
+                        },
+                        {
+                            "title": "  Input",
+                            "url": "/migrations/2.0#input"
+                        },
+                        {
+                            "title": "  Lazy Load",
+                            "url": "/migrations/2.0#lazy-load"
+                        },
+                        {
+                            "title": "  Mask",
+                            "url": "/migrations/2.0#mask"
+                        },
+                        {
+                            "title": "  Matrix",
+                            "url": "/migrations/2.0#matrix"
+                        },
+                        {
+                            "title": "  Off Canvas",
+                            "url": "/migrations/2.0#off-canvas"
+                        },
+                        {
+                            "title": "  Pagination",
+                            "url": "/migrations/2.0#pagination"
+                        },
+                        {
+                            "title": "  Pin",
+                            "url": "/migrations/2.0#pin"
+                        },
+                        {
+                            "title": "  Responsive",
+                            "url": "/migrations/2.0#responsive"
+                        },
+                        {
+                            "title": "  Showcase",
+                            "url": "/migrations/2.0#showcase"
+                        },
+                        {
+                            "title": "  Stalker",
+                            "url": "/migrations/2.0#stalker"
+                        },
+                        {
+                            "title": "  Switch",
+                            "url": "/migrations/2.0#switch"
+                        },
+                        {
+                            "title": "  Tab",
+                            "url": "/migrations/2.0#tab"
+                        },
+                        {
+                            "title": "  Type Ahead",
+                            "url": "/migrations/2.0#type-ahead"
+                        }
+                    ]
                 }
             ]
         }
-    ]
+    ],
+    "locale": "en"
 }
