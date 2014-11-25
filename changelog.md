@@ -83,7 +83,7 @@ Check out the release update for more information.
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Carousel
         * Added a `calculate()` method that triggers on load/resize to determine carousel dimensions
-        * Added a `swipe` option
+        * Added a `swipe` option for toggling swipe events
         * Added `cycling`, `cycled`, `jumping` and `jumped` events
         * Removed `cycle` and `jump` events
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
@@ -132,6 +132,7 @@ Check out the release update for more information.
         * Removed `render` event
         * Updated to no longer automatically set `.matrix` on the container
     * Modal
+        * Added a `clickout` option for toggling clickout events
         * IDs can now be passed as the 2nd argument to `show()`
         * Renamed selectors `.modal-inner`, `.modal-hide`, `.modal-submit` to
             `[data-modal-content]`, `[data-modal-close]`, `[data-modal-submit]`
@@ -155,7 +156,8 @@ Check out the release update for more information.
         * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase
-        * Added a `swipe` option
+        * Added a `swipe` option for toggling swipe events
+        * Added a `clickout` option for toggling clickout events
         * Added `jumping` and `jumped` events
         * Removed `jump` event
         * Removed `.showcase-prev`, `.showcase-next`, and `.showcase-tabs` styles

@@ -227,6 +227,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Whether to display a blackout when a modal is open.</td>
         </tr>
         <tr>
+            <td>clickout</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to hide the modal when the blackout is clicked.</td>
+        </tr>
+        <tr>
             <td>fullScreen</td>
             <td>bool</td>
             <td>false</td>

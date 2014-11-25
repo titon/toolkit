@@ -58,10 +58,13 @@ Toolkit.Modal = Toolkit.Component.extend({
             //['clickout', 'element', 'onHide'],
             //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
-            ['click', 'element', 'onHide'],
             ['click', 'element', 'hide', this.ns('close')],
             ['click', 'element', 'onSubmit', this.ns('submit')]
         ]);
+
+        if (options.clickout) {
+            this.addEvent('click', 'element', 'onHide');
+        }
 
         this.initialize();
     },
@@ -229,6 +232,7 @@ Toolkit.Modal = Toolkit.Component.extend({
     blackout: true,
     fullScreen: false,
     stopScroll: true,
+    clickout: true,
     getContent: 'data-modal',
     template: '<div class="' + vendor + 'modal">' +
         '<div class="' + vendor + 'modal-outer">' +
