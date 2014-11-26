@@ -12,9 +12,9 @@ $shape-skew-class: ".skew" !default;
 
 $enable-small-size: true !default;
 $enable-large-size: true !default;
-$enable-all-effects: true !default;
-$enable-all-modifiers: true !default;
-$enable-all-animations: true !default;
+$enable-all-effects: false !default;
+$enable-all-modifiers: false !default;
+$enable-all-animations: false !default;
 
 //-------------------- Colors --------------------//
 
