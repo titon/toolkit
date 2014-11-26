@@ -136,6 +136,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Whether to display a blackout when a showcase is open.</td>
         </tr>
         <tr>
+            <td>clickout</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to hide the showcase when the blackout is clicked.</td>
+        </tr>
+        <tr>
             <td>getCategory</td>
             <td>string</td>
             <td>data-showcase</td>

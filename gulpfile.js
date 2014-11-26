@@ -4,6 +4,7 @@ var pkg = require('./package.json'),
     rjs = require('./build/plugins/requirejs'),
     pjs = require('./build/plugins/phantomjs'),
     sass = require('./build/plugins/sass'),
+    toc = require('./build/plugins/toc'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     header = require('gulp-header'),
@@ -106,6 +107,11 @@ gulp.task('test', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(pjs({ reporter: 'dot' }));
+});
+
+gulp.task('docs', function() {
+    return gulp.src('./docs/*')
+        .pipe(toc());
 });
 
 gulp.task('default', ['js', 'css']);

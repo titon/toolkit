@@ -1,4 +1,4 @@
-# Base #
+# Base Styles #
 
 Defines CSS styles and helper classes.
 

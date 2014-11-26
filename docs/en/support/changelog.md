@@ -13,6 +13,7 @@ Check out the release update for more information.
 * Upgraded to RequireJS for JS dependency management and compilation
 * Added a robust namespacing system which allows components to be nested within each other
 * Added unit tests for all components through Mocha, Chai, and PhantomJS
+* Added new `horizontalresize` and `verticalresize` events
 * Decoupled the CSS and JS layers so that CSS classes (excluding states) are no longer hardcoded
 * Refactored components to make more use of templates for DOM building
 * Renamed most instances of the word "component" to "plugin" to differentiate between components and behaviors,
@@ -58,6 +59,7 @@ Check out the release update for more information.
         * Added option groups
         * Added `namespace` property
         * Added `ns()` method for generating namespace selectors
+        * Updated the `ajax` option to only be used for setting jQuery AJAX options
         * Refactored the `requestData()` method
             * Added `url`, `cache` (whether to cache in the class), and `settings` (AJAX settings) to the XHR object used by jQuery
             * Removed the `before`, `done`, and `fail` arguments
@@ -80,7 +82,7 @@ Check out the release update for more information.
         * Renamed `Toolkit.Blackout.factory()` to `Toolkit.Blackout.instance()`
     * Carousel
         * Added a `calculate()` method that triggers on load/resize to determine carousel dimensions
-        * Added a `swipe` option
+        * Added a `swipe` option for toggling swipe events
         * Added `cycling`, `cycled`, `jumping` and `jumped` events
         * Removed `cycle` and `jump` events
         * Renamed selectors `.carousel-items ul`, `.carousel-tabs`, `.carousel-next`, `.carousel-prev`, `.carousel-start`, `.carousel-stop` to
@@ -129,7 +131,9 @@ Check out the release update for more information.
         * Removed `render` event
         * Updated to no longer automatically set `.matrix` on the container
     * Modal
+        * Added a `clickout` option for toggling clickout events
         * IDs can now be passed as the 2nd argument to `show()`
+        * Removed the `ajax` option (handled by `loadContent()`)
         * Renamed selectors `.modal-inner`, `.modal-hide`, `.modal-submit` to
             `[data-modal-content]`, `[data-modal-close]`, `[data-modal-submit]`
     * Off Canvas
@@ -152,7 +156,8 @@ Check out the release update for more information.
         * Removed `.show-mobile`, `.show-tablet`, `.show-desktop`, `.hide-mobile`, `.hide-tablet`, and `.hide-desktop` classes
         * Removed `$responsive-size` variable
     * Showcase
-        * Added a `swipe` option
+        * Added a `swipe` option for toggling swipe events
+        * Added a `clickout` option for toggling clickout events
         * Added `jumping` and `jumped` events
         * Removed `jump` event
         * Removed `.showcase-prev`, `.showcase-next`, and `.showcase-tabs` styles
@@ -176,6 +181,7 @@ Check out the release update for more information.
         * Added a `toastTemplate` property
         * Added a `reset()` method to reset the tooltip state
     * Tooltip
+        * Removed the `ajax` option (handled by `loadContent()`)
         * Removed the `delay` option
         * Renamed selectors `.tooltip-head`, `.tooltip-body` to `[data-tooltip-header]`, `[data-tooltip-content]`
     * Type Ahead

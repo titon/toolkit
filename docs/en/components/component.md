@@ -18,6 +18,12 @@ Inherits all options from the [Base class](../development/js/base.md#options).
     </thead>
     <tbody>
         <tr>
+            <td>ajax</td>
+            <td>object</td>
+            <td></td>
+            <td>Object of options to pass to <code>$.ajax()</code>. These will be overridden if necessary.</td>
+        </tr>
+        <tr>
             <td>className</td>
             <td>string</td>
             <td></td>
@@ -178,11 +184,12 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             <td>Inherit and merge options from the target elements data attributes.</td>
         </tr>
         <tr>
-            <td>loadContent(string:content)</td>
+            <td>loadContent(string:content[, object:params])</td>
             <td>
                 Attempts to load content and then <code>position()</code> it.
                 If the content is a URL, request it. If the content is an ID, fetch it. 
-                If the content is a literal string, use it.
+                If the content is a literal string, use it. 
+                Params will be passed as a 2nd argument to <code>requestData()</code>.
             </td>
         </tr>
         <tr>
@@ -213,7 +220,7 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             </td>
         </tr>
         <tr>
-            <td>requestData(string|object:options)</td>
+            <td>requestData(string|object:options[, object:params])</td>
             <td>
                 Requests data from a URL using an AJAX call.
                 Will automatically prepare an XHR object and inherit settings from <code>options.ajax</code>.

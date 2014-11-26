@@ -190,8 +190,9 @@ Toolkit.Component = Toolkit.Base.extend({
      * If the content is a literal string, set it directly.
      *
      * @param {String} content
+     * @param {Object} [params]
      */
-    loadContent: function(content) {
+    loadContent: function(content, params) {
         var ajax = false;
 
         // Load content from an element matching ID
@@ -200,7 +201,7 @@ Toolkit.Component = Toolkit.Base.extend({
 
         // Load content from an AJAX request
         // Matches http://, https://, /url, and many others
-        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+$/i)) {
+        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
             ajax = true;
         }
 
@@ -208,7 +209,7 @@ Toolkit.Component = Toolkit.Base.extend({
             this.position(this.cache[content]);
 
         } else if (ajax) {
-            this.requestData(content);
+            this.requestData(content, params);
 
         } else {
             this.position(content);
@@ -532,6 +533,7 @@ Toolkit.Component = Toolkit.Base.extend({
     }
 
 }, {
+    ajax: {},
     context: null,
     className: '',
     template: '',

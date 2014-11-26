@@ -343,6 +343,7 @@ describe('Toolkit.Component', function() {
             delete opts.groups;
 
             expect(opts).to.deep.equal({
+                ajax: {},
                 cache: false,
                 debug: true,
                 context: null,
@@ -358,6 +359,7 @@ describe('Toolkit.Component', function() {
             delete opts.groups;
 
             expect(opts).to.deep.equal({
+                ajax: {},
                 cache: true,
                 debug: false,
                 context: null,
@@ -377,6 +379,7 @@ describe('Toolkit.Component', function() {
             delete opts.groups;
 
             expect(opts).to.deep.equal({
+                ajax: {},
                 cache: true,
                 debug: true,
                 context: null,
@@ -392,6 +395,7 @@ describe('Toolkit.Component', function() {
 
             expect(opts.className).to.equal('foo');
             expect(opts).to.deep.equal({
+                ajax: {},
                 cache: true,
                 debug: false,
                 context: null,
@@ -410,6 +414,7 @@ describe('Toolkit.Component', function() {
 
             expect(opts.mode).to.equal('mouseenter');
             expect(opts).to.deep.equal({
+                ajax: {},
                 cache: true,
                 debug: false,
                 context: null,

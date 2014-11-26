@@ -1,4 +1,4 @@
-# BEM Methodology #
+# Block-Element-Modifier Methodology #
 
 Toolkit utilizes a variation of the [Block-Element-Modifier Methodology](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/),
 which is a convention for naming classes in an organized fashion.

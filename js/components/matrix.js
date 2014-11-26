@@ -8,7 +8,8 @@ define([
     'jquery',
     './component',
     '../extensions/cache',
-    '../extensions/debounce'
+    '../extensions/debounce',
+    '../events/horizontal-resize'
 ], function($, Toolkit) {
 
 Toolkit.Matrix = Toolkit.Component.extend({
@@ -47,7 +48,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
         this.options = this.setOptions(options, this.element);
 
         // Set events
-        this.addEvent('resize', 'window', $.debounce(this.onResize.bind(this)));
+        this.addEvent('horizontalresize', 'window', $.debounce(this.onResize.bind(this)));
 
         this.initialize();
 

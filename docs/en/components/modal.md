@@ -30,6 +30,10 @@ Or we can trigger the modal by passing in the node to read from.
 $('.js-modal').toolkit('modal', 'show', $('#add-category')); // Loads /categories/add
 ```
 
+<div class="notice is-info">
+    Really tall modals fail to scroll in Chrome when <code>stopScroll</code> is true.
+</div>
+
 ### Multiple Modals ###
 
 Displaying multiple modals at the same time is possible, but will require multiple modal instances.
@@ -221,6 +225,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>true</td>
             <td>Whether to display a blackout when a modal is open.</td>
+        </tr>
+        <tr>
+            <td>clickout</td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Whether to hide the modal when the blackout is clicked.</td>
         </tr>
         <tr>
             <td>fullScreen</td>

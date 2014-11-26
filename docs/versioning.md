@@ -4,6 +4,7 @@ Steps for tagging a new release that should be followed after a feature branch h
 These docs are for internal use only.
 
 * Update normalize.css
+* Disable all Sass effects, modifiers, and animations
 * Test code with `gulp`
     * Regression testing on all components with the compiled code
     * Find any issues, fix them and restart version process
@@ -14,8 +15,9 @@ These docs are for internal use only.
     * Add new components
     * Add `version` field for new components
     * Update dependencies
-* Verify documentation `toc.json` matches the current docs structure
 * Update `changelog.md` and the changelog found in docs
+* Generate new documentation TOC with `gulp docs`
+    * Add any `new` or `updated` flags to TOC
 * Prepare release with `gulp --dist`
     * Fix the comment docblocks
 * Quick tests with the distribution files

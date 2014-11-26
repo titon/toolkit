@@ -8,7 +8,8 @@ define([
     'jquery',
     './component',
     '../extensions/bound',
-    '../extensions/shown-selector'
+    '../extensions/shown-selector',
+    '../events/horizontal-resize'
 ], function($, Toolkit) {
 
 Toolkit.Accordion = Toolkit.Component.extend({
@@ -64,7 +65,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
 
         // Set events
         this.addEvents([
-            ['resize', 'window', $.debounce(this.calculate.bind(this))],
+            ['horizontalresize', 'window', $.debounce(this.calculate.bind(this))],
             ['{mode}', 'element', 'onShow', this.ns('header')]
         ]);
 

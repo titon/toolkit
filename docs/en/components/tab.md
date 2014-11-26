@@ -12,7 +12,7 @@ a `ul` list. The sections that associate to tabs should be created with `.tab-se
 Both of which can be wrapped by a `.tabs` element.
 
 ```html
-<div class="tabs">
+<div class="tabs" data-tab>
     <nav class="tab-nav" data-tab-nav>
         <ul>
             <li><a href="#one">First</a></li>

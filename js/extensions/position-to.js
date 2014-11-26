@@ -25,8 +25,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
         return this;
     }
 
-    var newPosition = position,
-        offset = baseOffset || { left: 0, top: 0 },
+    var offset = baseOffset || { left: 0, top: 0 },
         relOffset,
         relHeight = 0,
         relWidth = 0,
@@ -48,50 +47,49 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
         relWidth = relativeTo.outerWidth();
     }
 
-    // Re-position element if outside the viewport
     offset.left += relOffset.left;
     offset.top += relOffset.top;
 
-    if ((relOffset.top - eHeight - wsTop) < 0) {
-        newPosition = newPosition.replace('top', 'bottom');
-
-    } else if ((relOffset.top + relHeight + eHeight) > wHeight) {
-        newPosition = newPosition.replace('bottom', 'top');
-    }
-
-    if ((relOffset.left - eWidth) < 0) {
-        newPosition = newPosition.replace('left', 'right');
-
-    } else if ((relOffset.left + relWidth + eWidth) > wWidth) {
-        newPosition = newPosition.replace('right', 'left');
-    }
-
-    if (position !== newPosition) {
-        this.removeClass(position)
-            .addClass(newPosition)
-            .data('new-position', newPosition);
-
-        position = newPosition;
-    }
+    var top = offset.top,
+        left = offset.left;
 
     // Shift around based on edge positioning
     var parts = position.split('-'),
         edge = { y: parts[0], x: parts[1] };
 
     if (edge.y === 'top') {
-        offset.top -= eHeight;
+        top -= eHeight;
+
     } else if (edge.y === 'bottom') {
-        offset.top += relHeight;
+        top += relHeight;
+
     } else if (edge.y === 'center') {
-        offset.top -= Math.round((eHeight / 2) - (relHeight / 2));
+        top -= Math.round((eHeight / 2) - (relHeight / 2));
     }
 
     if (edge.x === 'left') {
-        offset.left -= eWidth;
+        left -= eWidth;
+
     } else if (edge.x === 'right') {
-        offset.left += relWidth;
+        left += relWidth;
+
     } else if (edge.x === 'center') {
-        offset.left -= Math.round((eWidth / 2) - (relWidth / 2));
+        left -= Math.round((eWidth / 2) - (relWidth / 2));
+    }
+
+    // Shift again to keep it within the viewport
+    if (left < 0) {
+        left = 0;
+
+    } else if ((left + eWidth) > wWidth) {
+        left = wWidth - eWidth;
+    }
+
+    if (top < 0) {
+        top = 0;
+
+    } else if ((top + eHeight) > (wHeight + wsTop)) {
+        top = relOffset.top - eHeight;
     }
 
     // Increase the offset in case we are following the mouse cursor
@@ -99,22 +97,25 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
     if (isMouse) {
         if (edge.y === 'center') {
             if (edge.x === 'left') {
-                offset.left -= 15;
+                left -= 15;
             } else if (edge.x === 'right') {
-                offset.left += 15;
+                left += 15;
             }
         }
 
         if (edge.x === 'center') {
             if (edge.y === 'top') {
-                offset.top -= 10;
+                top -= 10;
             } else if (edge.y === 'bottom') {
-                offset.top += 10;
+                top += 10;
             }
         }
     }
 
-    return this.css(offset);
+    return this.css({
+        left: left,
+        top: top
+    });
 };
 
 });

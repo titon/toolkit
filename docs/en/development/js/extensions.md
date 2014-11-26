@@ -193,9 +193,9 @@ $('#element').on('clickout', function() {
 $(document).on('clickout', '.elements', function() {});
 ```
 
-### swipe, swipeleft, swiperight, swipeup, swipedown ###
+### swipe ###
 
-Custom events that emulate swiping on touch devices.
+Custom events that emulate swiping on touch devices. The available events are `swipeleft`, `swiperight`, `swipeup`, and `swipedown`.
 If the device is non-touch, standard mouse events are used instead.
 
 ```javascript
@@ -210,3 +210,23 @@ A few options can be customized on the `$.event.special.swipe` object to alter s
 * `distance` (50) - Minimum distance required to travel
 * `restraint` (75) - Maximum distance to travel in the opposite direction
 * `suppression` (30) - Maximum distance before suppressing scrolling
+
+### horizontalresize ###
+
+A custom event that triggers when a horizontal browser resize occurs.
+
+```javascript
+$(window).on('horizontalresize', function() {
+    // Browser was resized horizontally
+});
+```
+
+### verticalresize ###
+
+A custom event that triggers when a vertical browser resize occurs.
+
+```javascript
+$(window).on('verticalresize', function() {
+    // Browser was resized vertically
+});
+```

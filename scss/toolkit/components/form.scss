@@ -115,6 +115,10 @@ select#{$form-class-input} {
     &[multiple] {
         max-height: 500px;
     }
+
+    &::-ms-expand {
+        display: none;
+    }
 }
 
 textarea#{$form-class-input} {

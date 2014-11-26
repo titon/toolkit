@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.0.0-rc.1 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.0.0-rc.2 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -61,10 +61,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.0.0-rc.1',
+    version: '2.0.0-rc.2',
 
     /** Build date hash. */
-    build: 'i2phjsg9',
+    build: 'i2xz42cr',
 
     /** Vendor namespace. */
     vendor: '',
@@ -794,8 +794,9 @@ Toolkit.Component = Toolkit.Base.extend({
      * If the content is a literal string, set it directly.
      *
      * @param {String} content
+     * @param {Object} [params]
      */
-    loadContent: function(content) {
+    loadContent: function(content, params) {
         var ajax = false;
 
         // Load content from an element matching ID
@@ -804,7 +805,7 @@ Toolkit.Component = Toolkit.Base.extend({
 
         // Load content from an AJAX request
         // Matches http://, https://, /url, and many others
-        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+$/i)) {
+        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
             ajax = true;
         }
 
@@ -812,7 +813,7 @@ Toolkit.Component = Toolkit.Base.extend({
             this.position(this.cache[content]);
 
         } else if (ajax) {
-            this.requestData(content);
+            this.requestData(content, params);
 
         } else {
             this.position(content);
@@ -1136,6 +1137,7 @@ Toolkit.Component = Toolkit.Base.extend({
     }
 
 }, {
+    ajax: {},
     context: null,
     className: '',
     template: '',
@@ -1173,6 +1175,35 @@ $.bound = function(value, max, min) {
 $.expr[':'].shown = function(obj) {
     return ($(obj).css('visibility') !== 'hidden');
 };
+
+/**
+ * An event that triggers when a horizontal browser window resize occurs.
+ *
+ * @returns {Object}
+ */
+$.event.special.horizontalresize = (function() {
+    var win = $(window),
+        lastWidth = win.width();
+
+    function handleResize(e) {
+        var currentWidth = win.width();
+
+        if (currentWidth !== lastWidth) {
+            lastWidth = currentWidth;
+
+            $(e.target).trigger('horizontalresize');
+        }
+    }
+
+    return {
+        setup: function() {
+            win.on('resize', handleResize);
+        },
+        teardown: function() {
+            win.off('resize', handleResize);
+        }
+    };
+})();
 
 Toolkit.Accordion = Toolkit.Component.extend({
     name: 'Accordion',
@@ -1227,7 +1258,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
 
         // Set events
         this.addEvents([
-            ['resize', 'window', $.debounce(this.calculate.bind(this))],
+            ['horizontalresize', 'window', $.debounce(this.calculate.bind(this))],
             ['{mode}', 'element', 'onShow', this.ns('header')]
         ]);
 
@@ -3990,7 +4021,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
         this.options = this.setOptions(options, this.element);
 
         // Set events
-        this.addEvent('resize', 'window', $.debounce(this.onResize.bind(this)));
+        this.addEvent('horizontalresize', 'window', $.debounce(this.onResize.bind(this)));
 
         this.initialize();
 
@@ -4350,10 +4381,13 @@ Toolkit.Modal = Toolkit.Component.extend({
             //['clickout', 'element', 'onHide'],
             //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
-            ['click', 'element', 'onHide'],
             ['click', 'element', 'hide', this.ns('close')],
             ['click', 'element', 'onSubmit', this.ns('submit')]
         ]);
+
+        if (options.clickout) {
+            this.addEvent('click', 'element', 'onHide');
+        }
 
         this.initialize();
     },
@@ -4517,10 +4551,10 @@ Toolkit.Modal = Toolkit.Component.extend({
 
 }, {
     animation: 'fade',
-    ajax: true,
     blackout: true,
     fullScreen: false,
     stopScroll: true,
+    clickout: true,
     getContent: 'data-modal',
     template: '<div class="' + vendor + 'modal">' +
         '<div class="' + vendor + 'modal-outer">' +
@@ -4977,8 +5011,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
         return this;
     }
 
-    var newPosition = position,
-        offset = baseOffset || { left: 0, top: 0 },
+    var offset = baseOffset || { left: 0, top: 0 },
         relOffset,
         relHeight = 0,
         relWidth = 0,
@@ -5000,50 +5033,49 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
         relWidth = relativeTo.outerWidth();
     }
 
-    // Re-position element if outside the viewport
     offset.left += relOffset.left;
     offset.top += relOffset.top;
 
-    if ((relOffset.top - eHeight - wsTop) < 0) {
-        newPosition = newPosition.replace('top', 'bottom');
-
-    } else if ((relOffset.top + relHeight + eHeight) > wHeight) {
-        newPosition = newPosition.replace('bottom', 'top');
-    }
-
-    if ((relOffset.left - eWidth) < 0) {
-        newPosition = newPosition.replace('left', 'right');
-
-    } else if ((relOffset.left + relWidth + eWidth) > wWidth) {
-        newPosition = newPosition.replace('right', 'left');
-    }
-
-    if (position !== newPosition) {
-        this.removeClass(position)
-            .addClass(newPosition)
-            .data('new-position', newPosition);
-
-        position = newPosition;
-    }
+    var top = offset.top,
+        left = offset.left;
 
     // Shift around based on edge positioning
     var parts = position.split('-'),
         edge = { y: parts[0], x: parts[1] };
 
     if (edge.y === 'top') {
-        offset.top -= eHeight;
+        top -= eHeight;
+
     } else if (edge.y === 'bottom') {
-        offset.top += relHeight;
+        top += relHeight;
+
     } else if (edge.y === 'center') {
-        offset.top -= Math.round((eHeight / 2) - (relHeight / 2));
+        top -= Math.round((eHeight / 2) - (relHeight / 2));
     }
 
     if (edge.x === 'left') {
-        offset.left -= eWidth;
+        left -= eWidth;
+
     } else if (edge.x === 'right') {
-        offset.left += relWidth;
+        left += relWidth;
+
     } else if (edge.x === 'center') {
-        offset.left -= Math.round((eWidth / 2) - (relWidth / 2));
+        left -= Math.round((eWidth / 2) - (relWidth / 2));
+    }
+
+    // Shift again to keep it within the viewport
+    if (left < 0) {
+        left = 0;
+
+    } else if ((left + eWidth) > wWidth) {
+        left = wWidth - eWidth;
+    }
+
+    if (top < 0) {
+        top = 0;
+
+    } else if ((top + eHeight) > (wHeight + wsTop)) {
+        top = relOffset.top - eHeight;
     }
 
     // Increase the offset in case we are following the mouse cursor
@@ -5051,22 +5083,25 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
     if (isMouse) {
         if (edge.y === 'center') {
             if (edge.x === 'left') {
-                offset.left -= 15;
+                left -= 15;
             } else if (edge.x === 'right') {
-                offset.left += 15;
+                left += 15;
             }
         }
 
         if (edge.x === 'center') {
             if (edge.y === 'top') {
-                offset.top -= 10;
+                top -= 10;
             } else if (edge.y === 'bottom') {
-                offset.top += 10;
+                top += 10;
             }
         }
     }
 
-    return this.css(offset);
+    return this.css({
+        left: left,
+        top: top
+    });
 };
 
 Toolkit.Tooltip = Toolkit.Component.extend({
@@ -5195,10 +5230,10 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Position accordingly
         } else {
-            this.element.positionTo(options.position, this.node, {
+            this.element.reveal(true).positionTo(options.position, this.node, {
                 left: options.xOffset,
                 top: options.yOffset
-            }).reveal(true);
+            });
 
             this.fireEvent('shown');
         }
@@ -5210,15 +5245,14 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     reset: function() {
         var options = this.options,
             element = this.element,
-            position = element.data('new-position') || this.runtime.position || options.position,
+            position = this.runtime.position || options.position,
             className = this.runtime.className || options.className;
 
         this.runtime = {};
 
         element
             .removeClass(position)
-            .removeClass(className)
-            .removeData('new-position');
+            .removeClass(className);
     },
 
     /**
@@ -5248,10 +5282,10 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         var options = this.runtime;
 
-        this.element.positionTo(options.position, e, {
+        this.element.reveal(true).positionTo(options.position, e, {
             left: options.xOffset,
             top: options.yOffset
-        }, true).reveal(true);
+        }, true);
     },
 
     /**
@@ -5268,7 +5302,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 }, {
     mode: 'hover',
     animation: 'fade',
-    ajax: false,
     follow: false,
     position: 'top-center',
     showLoading: true,
@@ -5404,8 +5437,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
         // Initialize events
         this.addEvents([
-            ['clickout', 'element', 'onHide'],
-            ['clickout', 'document', 'onHide', '{selector}'],
             ['keydown', 'window', 'onKeydown'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'hide', this.ns('close')],
@@ -5413,6 +5444,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
             ['click', 'element', 'prev', this.ns('prev')],
             ['click', 'element', 'onJump', this.ns('tabs') + ' a']
         ]);
+
+        if (options.clickout) {
+            this.addEvents([
+                ['clickout', 'document', 'onHide', '{selector}'],
+                ['clickout', 'element', 'onHide']
+            ]);
+        }
 
         if (options.swipe) {
             this.addEvents([
@@ -5761,6 +5799,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
 }, {
     blackout: true,
     stopScroll: true,
+    clickout: true,
     swipe: Toolkit.isTouch,
     gutter: 50,
     getCategory: 'data-showcase',
@@ -6114,9 +6153,9 @@ Toolkit.Tab = Toolkit.Component.extend({
 
         this.fireEvent('showing', [this.index]);
 
-        // Load content with AJAX
-        if (this.readOption(tab, 'ajax') && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
-            this.requestData(url, { section: section });
+        // Load content for AJAX requests
+        if (url.substr(0, 10) !== 'javascript' && url.substr(0, 1) !== '#') {
+            this.loadContent(url, { section: section });
         }
 
         // Toggle tabs
@@ -6197,7 +6236,7 @@ Toolkit.Tab = Toolkit.Component.extend({
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        if (this.options.preventDefault || (this.options.ajax && e.currentTarget.getAttribute('href').substr(0, 1) !== '#')) {
+        if (this.options.preventDefault || e.currentTarget.getAttribute('href').substr(0, 1) !== '#') {
             e.preventDefault();
         }
 
@@ -6206,7 +6245,6 @@ Toolkit.Tab = Toolkit.Component.extend({
 
 }, {
     mode: 'click',
-    ajax: false,
     collapsible: false,
     defaultIndex: 0,
     persistState: false,
@@ -6921,5 +6959,36 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 Toolkit.create('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
+
+/**
+ * An event that triggers when a vertical browser window resize occurs.
+ *
+ * @returns {Object}
+ */
+$.event.special.verticalresize = (function() {
+    var win = $(window),
+        lastHeight = win.height();
+
+    function handleResize(e) {
+        var currentHeight = win.height();
+
+        if (currentHeight !== lastHeight) {
+            lastHeight = currentHeight;
+
+            $(e.target).trigger('verticalresize');
+        }
+    }
+
+    return {
+        setup: function() {
+            win.on('resize', handleResize);
+        },
+        teardown: function() {
+            win.off('resize', handleResize);
+        }
+    };
+})();
+    // An empty file that includes all event and extension dependencies.
+    // This should make these always available, even if the build is customized.;
 
 })(jQuery, window, document);

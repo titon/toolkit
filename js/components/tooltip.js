@@ -139,10 +139,10 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         // Position accordingly
         } else {
-            this.element.positionTo(options.position, this.node, {
+            this.element.reveal(true).positionTo(options.position, this.node, {
                 left: options.xOffset,
                 top: options.yOffset
-            }).reveal(true);
+            });
 
             this.fireEvent('shown');
         }
@@ -154,15 +154,14 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     reset: function() {
         var options = this.options,
             element = this.element,
-            position = element.data('new-position') || this.runtime.position || options.position,
+            position = this.runtime.position || options.position,
             className = this.runtime.className || options.className;
 
         this.runtime = {};
 
         element
             .removeClass(position)
-            .removeClass(className)
-            .removeData('new-position');
+            .removeClass(className);
     },
 
     /**
@@ -192,10 +191,10 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 
         var options = this.runtime;
 
-        this.element.positionTo(options.position, e, {
+        this.element.reveal(true).positionTo(options.position, e, {
             left: options.xOffset,
             top: options.yOffset
-        }, true).reveal(true);
+        }, true);
     },
 
     /**
@@ -212,7 +211,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 }, {
     mode: 'hover',
     animation: 'fade',
-    ajax: false,
     follow: false,
     position: 'top-center',
     showLoading: true,

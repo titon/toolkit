@@ -71,8 +71,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
         // Initialize events
         this.addEvents([
-            ['clickout', 'element', 'onHide'],
-            ['clickout', 'document', 'onHide', '{selector}'],
             ['keydown', 'window', 'onKeydown'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'hide', this.ns('close')],
@@ -80,6 +78,13 @@ Toolkit.Showcase = Toolkit.Component.extend({
             ['click', 'element', 'prev', this.ns('prev')],
             ['click', 'element', 'onJump', this.ns('tabs') + ' a']
         ]);
+
+        if (options.clickout) {
+            this.addEvents([
+                ['clickout', 'document', 'onHide', '{selector}'],
+                ['clickout', 'element', 'onHide']
+            ]);
+        }
 
         if (options.swipe) {
             this.addEvents([
@@ -428,6 +433,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
 }, {
     blackout: true,
     stopScroll: true,
+    clickout: true,
     swipe: Toolkit.isTouch,
     gutter: 50,
     getCategory: 'data-showcase',

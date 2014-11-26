@@ -12,7 +12,7 @@ element where all site content should reside. Lastly, we place the `.off-canvas`
 
 ```html
 <body>
-    <div class="canvas">
+    <div class="canvas" data-offcanvas>
         <main class="on-canvas" data-offcanvas-content>
             ... Primary content ...
         </main>
@@ -41,6 +41,10 @@ $('.off-canvas').offCanvas();
 
 <div class="notice is-info">
     Mobile specific sidebars are supported through CSS media queries and Sass variables.
+</div>
+
+<div class="notice is-error">
+    Off Canvas does not work in IE9.
 </div>
 
 ### Toggle Sidebars ###
