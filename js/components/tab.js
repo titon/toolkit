@@ -150,9 +150,9 @@ Toolkit.Tab = Toolkit.Component.extend({
 
         this.fireEvent('showing', [this.index]);
 
-        // Load content with AJAX
-        if (this.readOption(tab, 'ajax') && url && url.substr(0, 1) !== '#' && !this.cache[url]) {
-            this.requestData(url, { section: section });
+        // Load content for AJAX requests
+        if (url.substr(0, 10) !== 'javascript' && url.substr(0, 1) !== '#') {
+            this.loadContent(url, { section: section });
         }
 
         // Toggle tabs
@@ -233,7 +233,7 @@ Toolkit.Tab = Toolkit.Component.extend({
      * @param {jQuery.Event} e
      */
     onShow: function(e) {
-        if (this.options.preventDefault || (this.options.ajax && e.currentTarget.getAttribute('href').substr(0, 1) !== '#')) {
+        if (this.options.preventDefault || e.currentTarget.getAttribute('href').substr(0, 1) !== '#') {
             e.preventDefault();
         }
 
@@ -242,7 +242,6 @@ Toolkit.Tab = Toolkit.Component.extend({
 
 }, {
     mode: 'click',
-    ajax: false,
     collapsible: false,
     defaultIndex: 0,
     persistState: false,

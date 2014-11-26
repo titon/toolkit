@@ -228,7 +228,6 @@ Toolkit.Modal = Toolkit.Component.extend({
 
 }, {
     animation: 'fade',
-    ajax: true,
     blackout: true,
     fullScreen: false,
     stopScroll: true,

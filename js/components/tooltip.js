@@ -211,7 +211,6 @@ Toolkit.Tooltip = Toolkit.Component.extend({
 }, {
     mode: 'hover',
     animation: 'fade',
-    ajax: false,
     follow: false,
     position: 'top-center',
     showLoading: true,
