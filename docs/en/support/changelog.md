@@ -9,6 +9,7 @@ Check out the release update for more information.
 * Dropped IE8 support
 * Upgraded to jQuery 2
 * Upgraded to Gulp from Grunt
+* Upgraded to libsass over Ruby Sass
 * Upgraded to Sass 3.4 and Compass 1.0
 * Upgraded to RequireJS for JS dependency management and compilation
 * Added a robust namespacing system which allows components to be nested within each other
