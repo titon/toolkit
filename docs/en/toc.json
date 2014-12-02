@@ -584,9 +584,6 @@
                     ]
                 },
                 {
-                    "divider": true
-                },
-                {
                     "title": "Accordion",
                     "url": "/components/accordion",
                     "order": 100,

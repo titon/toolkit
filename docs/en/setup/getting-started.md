@@ -26,7 +26,8 @@ toolkit/
 ├── docs/
 ├── js/
 ├── lib/
-└── scss/
+├── scss/
+└── tests/
 ```
 
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
@@ -36,6 +37,7 @@ The Toolkit repository is grouped logically into folders depending on the type o
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.
+* The `tests` folder contains all our unit tests.
 
 ### Distribution Files ###
 

@@ -19,7 +19,7 @@ If a method is defined, trigger the method on the instance and pass the argument
 var typeAhead = $('#input').toolkit('typeAhead');
 ```
 
-### reveal(`bool:dontShow`) ###
+### reveal([`bool:dontShow`]) ###
 
 Show an element by replacing <code>.hide</code> with <code>.show</code>.
 By swapping classes, this should trigger any animations or transitions.
@@ -35,7 +35,7 @@ If a boolean is passed as the 1st argument, the element's display property will 
 $('#element').reveal(true); // not shown but visible
 ```
 
-### conceal(`bool:dontHide`) ###
+### conceal([`bool:dontHide`]) ###
 
 Hide an element by replacing <code>.show</code> with <code>.hide</code>.
 By swapping classes, this should trigger any animations or transitions.
@@ -71,7 +71,7 @@ $('#element').positionTo('top-left', $('#relative-to'));
 $('#element').positionTo('bottom-right', event, { left: 10, top: 10 }, true);
 ```
 
-### cache(`string:key`, `mixed:value`) ###
+### cache(`string:key`[, `mixed:value`]) ###
 
 Set and return data if the key does not exist, else return the current value.
 This is a combination of getting and setting internal jQuery data.

@@ -182,6 +182,11 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             </td>
         </tr>
         <tr>
+            <td>cache</td>
+            <td>object</td>
+            <td>Cached data by key.</td>
+        </tr>
+        <tr>
             <td>name</td>
             <td>string</td>
             <td>The name of the class. This should not be modified.</td>
