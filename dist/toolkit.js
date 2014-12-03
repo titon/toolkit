@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.0.0-rc.2 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.0.0 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -61,10 +61,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.0.0-rc.2',
+    version: '2.0.0',
 
     /** Build date hash. */
-    build: 'i2xz42cr',
+    build: 'i3937naa',
 
     /** Vendor namespace. */
     vendor: '',
@@ -2544,18 +2544,18 @@ Toolkit.Flyout = Toolkit.Component.extend({
             this.node.removeClass('is-active');
         }
 
-        if (!this.current || !this.isVisible()) {
+        if (!this.isVisible()) {
             return;
         }
 
         this.fireEvent('hiding');
 
-        this.menus[this.current].conceal();
+        this.element.conceal();
 
         this.fireEvent('hidden');
 
         // Reset last
-        this.current = null;
+        this.element = this.current = null;
     },
 
     /**
