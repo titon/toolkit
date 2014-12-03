@@ -50,6 +50,7 @@ Check out the release update for more information.
     * Added a `Base` class layer that both `Component` and `Behavior` extend
     * Added a new hook layer to `Base` that replaces the instance event layer
     * Added `$.fn.toString()` which returns the elements markup as a string
+    * Added a debugging layer and a new `debug` option
     * Improved the prototype inheritance layer by initializing a new class instead of extending objects
     * Refactored the class layer so that constructors are passed as a property instead of an argument
     * Refactored so that class properties are passed through an object instead of set through the constructor
