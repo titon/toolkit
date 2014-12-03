@@ -2,9 +2,8 @@ const PLUGIN_NAME = 'toolkit-sass';
 
 var gutil = require('gulp-util'),
     through = require('through2'),
-    fs = require('fs'),
-    spawn = require('child_process').spawn,
-    which = require('which');
+    sass = require('node-sass'),
+    buffer = require('buffer');
 
 module.exports = function(options) {
     gutil.log(gutil.colors.yellow('Transpiling CSS...'));
@@ -14,45 +13,31 @@ module.exports = function(options) {
             inputPath = file.path,
             outputPath = inputPath.replace('.scss', '.css');
 
-        // Output Sass to a temp file
-        var sass = spawn(which.sync('sass'), [
-            inputPath,
-            outputPath,
-            '--style=' + options.style,
-            '--sourcemap=none',
-            '--load-path=' + file.base,
-            '--scss',
-            '--unix-newlines'
-        ]);
+        sass.render({
+            file: inputPath,
+            outputStyle: options.style,
+            sourceComments: false,
+            sourceMap: false,
+            success: function(response) {
+                gutil.log("\t" + gutil.colors.blue(inputPath
+                    .replace(file.cwd, '') // Remove base folder from path
+                    .replace(/\\/g, '/') // Fix Windows paths
+                    .replace('/scss/', '') // And the scss folder for normalize
+                    .replace('toolkit/', '') // And the toolkit folder for everything else
+                    .replace('.scss', '')));
 
-        gutil.log("\t" + gutil.colors.blue(inputPath
-            .replace(file.cwd, '') // Remove base folder from path
-            .replace(/\\/g, '/') // Fix Windows paths
-            .replace('/scss/', '') // And the scss folder for normalize
-            .replace('toolkit/', '') // And the toolkit folder for everything else
-            .replace('.scss', '')));
+                // Read the temp file contents
+                self.push(new gutil.File({
+                    base: file.base,
+                    path: outputPath,
+                    contents: new buffer.Buffer(response)
+                }));
 
-        sass.on('error', function(error) {
-            self.emit('error', new gutil.PluginError(PLUGIN_NAME, error));
-        });
-
-        sass.on('close', function(code) {
-            if (code > 0) {
-                self.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Exited with error code ' + code));
-                return;
+                done();
+            },
+            error: function(error) {
+                throw new gutil.PluginError(PLUGIN_NAME, error);
             }
-
-            // Read the temp file contents
-            self.push(new gutil.File({
-                base: file.base,
-                path: outputPath,
-                contents: fs.readFileSync(outputPath)
-            }));
-
-            // And then delete it
-            fs.unlink(outputPath);
-
-            done();
         });
     });
 };

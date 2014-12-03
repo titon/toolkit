@@ -73,6 +73,9 @@ Use these for toggling content based on the viewport width.
             <td class="is-success">Visible</td>
             <td>Hidden</td>
         </tr>
+        <tr class="table-divider">
+            <td colspan="6"></td>
+        </tr>
         <tr>
             <td>.show-xsmall</td>
             <td class="is-success">Visible</td>

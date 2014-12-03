@@ -90,18 +90,18 @@ Toolkit.Flyout = Toolkit.Component.extend({
             this.node.removeClass('is-active');
         }
 
-        if (!this.current || !this.isVisible()) {
+        if (!this.isVisible()) {
             return;
         }
 
         this.fireEvent('hiding');
 
-        this.menus[this.current].conceal();
+        this.element.conceal();
 
         this.fireEvent('hidden');
 
         // Reset last
-        this.current = null;
+        this.element = this.current = null;
     },
 
     /**

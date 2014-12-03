@@ -95,7 +95,6 @@ Each flag can be found on the `Toolkit` object.
     <thead>
         <tr>
             <th>Flag</th>
-            <th>Vendor</th>
             <th>Description</th>
         </tr>
     </thead>

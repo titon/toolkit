@@ -26,8 +26,8 @@ to create the elements that are used in the page.
 {
     template: '<div class="modal">' +
         '<div class="modal-outer">' +
-            '<div class="modal-inner"></div>' +
-            '<button class="modal-close modal-hide"><span class="x"></span></button>' +
+            '<div class="modal-inner" data-modal-content></div>' +
+            '<button class="modal-close" data-modal-close><span class="x"></span></button>' +
         '</div>' +
     '</div>'
 }
@@ -56,7 +56,7 @@ We can also define a template using a script tag.
 ```html
 <script type="text/html" id="some-element">
     <div class="modal">
-        <div class="modal-inner"></div>
+        <div class="modal-inner" data-modal-content></div>
     </div>
 </script>
 ```

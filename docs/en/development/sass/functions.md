@@ -13,28 +13,28 @@ Like mixins, functions allow for re-use of code. The following functions exist w
     </thead>
     <tbody>
         <tr>
+            <td>bem($block, $element, $modifier, $element-separator: "-", $modifier-separator: "--")</td>
+            <td>Output a CSS class name in the BEM (block-element-modifier) format.</td>
+        </tr>
+        <tr>
             <td>black($opacity)</td>
             <td>Output a black background with alpha transparency using <code>rgba()</code>.</td>
-        </tr>
-        <tr>
-            <td>join-classes($classes, $inherit)</td>
-            <td>Join a list of classes (without .) as a CSS selector. If inherit is true, inherit from parent with <code>&</code>.</td>
-        </tr>
-        <tr>
-            <td>white($opacity)</td>
-            <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
-        </tr>
-        <tr>
-            <td>remove-selector-char($selector)</td>
-            <td>Removes the first character selector from a CSS class name or ID.</td>
         </tr>
         <tr>
             <td>class-name($class, $prefix: "", $selector: ".")</td>
             <td>Output a CSS class name and apply an optional prefix.</td>
         </tr>
         <tr>
-            <td>bem($block, $element, $modifier, $element-separator: "-", $modifier-separator: "--")</td>
-            <td>Output a CSS class name in the BEM (block-element-modifier) format.</td>
+            <td>join-classes($classes, $inherit)</td>
+            <td>Join a list of classes (without .) as a CSS selector. If inherit is true, inherit from parent with <code>&</code>.</td>
+        </tr>
+        <tr>
+            <td>remove-selector-char($selector)</td>
+            <td>Removes the first character selector from a CSS class name or ID.</td>
+        </tr>
+        <tr>
+            <td>white($opacity)</td>
+            <td>Output a white background with alpha transparency using <code>rgba()</code>.</td>
         </tr>
     </tbody>
 </table>

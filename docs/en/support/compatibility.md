@@ -1,6 +1,6 @@
 # Browser Compatibility #
 
-Toolkit was engineered for latest in mobile and desktop browsers, but this doesn't stop it from degrading gracefully for older browsers.
+Toolkit was engineered for the latest in mobile and desktop browsers, but this doesn't stop it from degrading gracefully for older browsers.
 Degrading allows for plugins in older browsers to function as normal by removing animations, reducing the amount of CSS styles being used,
 or by simplifying JavaScript functionality.
 

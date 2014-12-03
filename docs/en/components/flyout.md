@@ -255,6 +255,7 @@ Inherits all events from the [parent Component](component.md#events).
 <table class="table is-striped data-table">
     <thead>
         <tr>
+            <th>Event</th>
             <th>Arguments</th>
             <th>Description</th>
         </tr>

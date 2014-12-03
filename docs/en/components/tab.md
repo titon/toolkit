@@ -44,7 +44,7 @@ $('.tabs').tab();
 
 <div class="notice is-info">
     The markup for tabs can be customized and re-arranged extensively.
-    The only requirements are the inclusion of tab classes.
+    The only requirements are the inclusion of tab data attributes.
 </div>
 
 <div class="notice is-warning">
@@ -107,15 +107,7 @@ Lastly, if neither of those states are persisted, then the `defaultIndex` will b
 
 ### AJAX Loading ###
 
-Loading in sections through AJAX is extremely easy, simply enable the `ajax` option (is enabled by default).
-
-```javascript
-$('.tabs').tab({
-    ajax: true
-});
-```
-
-Then replace the `href` on the tabs with the URL we want to request via AJAX.
+Loading in sections through AJAX is extremely easy, simple set the `href` on the tabs with the URL we want to request via AJAX.
 
 ```html
 <div class="tabs">
@@ -131,13 +123,6 @@ Then replace the `href` on the tabs with the URL we want to request via AJAX.
     <section class="tab-section" data-tab-section></section>
     <section class="tab-section" data-tab-section>...</section>
 </div>
-```
-
-If the `ajax` option is false, but we still want to load in content for a specific tab,
-we can override the `ajax` option through data attributes.
-
-```html
-<a href="/load/this" data-tab-ajax="true">AJAX Override</a>
 ```
 
 <div class="notice is-warning">

@@ -1,4 +1,4 @@
-# Toolkit Documentation #
+# Documentation #
 
 Setup
 * [Getting Started](setup/getting-started.md)

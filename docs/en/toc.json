@@ -1,5 +1,5 @@
 {
-    "title": "Toolkit Documentation",
+    "title": "Documentation",
     "url": "/",
     "order": 50,
     "children": [
@@ -432,7 +432,7 @@
                             ]
                         },
                         {
-                            "title": "Block-Element-Modifier Methodology",
+                            "title": "BEM Methodology",
                             "url": "/development/css/bem",
                             "order": 3,
                             "chapters": []
@@ -582,9 +582,6 @@
                             "url": "/components/component#methods"
                         }
                     ]
-                },
-                {
-                    "divider": true
                 },
                 {
                     "title": "Accordion",
@@ -2289,6 +2286,10 @@
                         {
                             "title": "New DOM events",
                             "url": "/releases/2.0#new-dom-events"
+                        },
+                        {
+                            "title": "Integrated debugging",
+                            "url": "/releases/2.0#integrated-debugging"
                         },
                         {
                             "title": "Easier templating",
