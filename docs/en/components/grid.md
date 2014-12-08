@@ -243,16 +243,16 @@ This requires either the Compass extension to be installed, or the Toolkit CSS i
 
 ```scss
 .wrapper {
-    @extend %row;
+    @include grid-row();
 }
 
 .content {
-    @extend %col;
+    @include grid-column();
     @extend .span-9;
 }
 
 .sidebar {
-    @extend %col;
+    @include grid-column();
     @extend .span-3;
 }
 ```

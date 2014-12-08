@@ -39,7 +39,6 @@
         "category": "component",
         "type": "layout",
         "priority": 3,
-        "require": ["grid"],
         "source": {
             "css": ["components/form.scss"]
         }
