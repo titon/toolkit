@@ -11,7 +11,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Flyout = Toolkit.Component.extend({
+Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
     version: '2.0.0',
 
@@ -503,6 +503,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
+    wrapperClass: vendor + 'flyouts',
     template: '<div class="' + vendor + 'flyout" data-flyout-menu></div>',
     headingTemplate: '<li class="' + vendor + 'flyout-heading"></li>'
 });

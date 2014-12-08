@@ -12,7 +12,7 @@ define([
     '../extensions/throttle'
 ], function($, Toolkit) {
 
-Toolkit.Carousel = Toolkit.Component.extend({
+Toolkit.Carousel = Toolkit.EmbeddedComponent.extend({
     name: 'Carousel',
     version: '2.0.0',
 

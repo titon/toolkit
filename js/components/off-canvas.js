@@ -10,7 +10,7 @@ define([
     '../events/swipe'
 ], function($, Toolkit) {
 
-Toolkit.OffCanvas = Toolkit.Component.extend({
+Toolkit.OffCanvas = Toolkit.EmbeddedComponent.extend({
     name: 'OffCanvas',
     version: '2.0.0',
 

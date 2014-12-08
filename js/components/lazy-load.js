@@ -10,7 +10,7 @@ define([
     '../extensions/throttle'
 ], function($, Toolkit) {
 
-Toolkit.LazyLoad = Toolkit.Component.extend({
+Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
     name: 'LazyLoad',
     version: '2.0.0',
 

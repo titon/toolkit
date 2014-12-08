@@ -11,7 +11,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
-Toolkit.Tab = Toolkit.Component.extend({
+Toolkit.Tab = Toolkit.EmbeddedComponent.extend({
     name: 'Tab',
     version: '2.0.0',
 

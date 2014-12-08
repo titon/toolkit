@@ -13,7 +13,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Tooltip = Toolkit.Component.extend({
+Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
     version: '2.0.0',
 
@@ -220,6 +220,7 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
+    wrapperClass: vendor + 'tooltips',
     template: '<div class="' + vendor + 'tooltip">' +
         '<div class="' + vendor + 'tooltip-inner">' +
             '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +

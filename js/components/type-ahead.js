@@ -13,7 +13,7 @@ define([
     '../extensions/to-string'
 ], function($, Toolkit, vendor) {
 
-Toolkit.TypeAhead = Toolkit.Component.extend({
+Toolkit.TypeAhead = Toolkit.CompositeComponent.extend({
     name: 'TypeAhead',
     version: '2.0.0',
 
@@ -593,6 +593,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     prefetch: false,
     shadow: false,
     query: {},
+    wrapperClass: vendor + 'type-aheads',
     template: '<div class="' + vendor + 'type-ahead"></div>',
     shadowTemplate: '<div class="' + vendor + 'type-ahead-shadow"></div>',
     titleTemplate: '<span class="' + vendor + 'type-ahead-title"></span>',

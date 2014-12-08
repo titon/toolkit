@@ -12,7 +12,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Modal = Toolkit.Component.extend({
+Toolkit.Modal = Toolkit.CompositeComponent.extend({
     name: 'Modal',
     version: '2.0.0',
 
@@ -233,6 +233,7 @@ Toolkit.Modal = Toolkit.Component.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
+    wrapperClass: vendor + 'modals',
     template: '<div class="' + vendor + 'modal">' +
         '<div class="' + vendor + 'modal-outer">' +
             '<div class="' + vendor + 'modal-inner" data-modal-content></div>' +

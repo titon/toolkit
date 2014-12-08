@@ -11,7 +11,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
-Toolkit.Drop = Toolkit.Component.extend({
+Toolkit.Drop = Toolkit.CompositeComponent.extend({
     name: 'Drop',
     version: '2.0.0',
 

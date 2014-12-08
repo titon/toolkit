@@ -11,7 +11,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Mask = Toolkit.Component.extend({
+Toolkit.Mask = Toolkit.EmbeddedComponent.extend({
     name: 'Mask',
     version: '2.0.0',
 

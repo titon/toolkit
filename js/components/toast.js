@@ -11,7 +11,7 @@ define([
     '../extensions/transitionend'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Toast = Toolkit.Component.extend({
+Toolkit.Toast = Toolkit.CompositeComponent.extend({
     name: 'Toast',
     version: '2.0.0',
 
@@ -107,7 +107,7 @@ Toolkit.Toast = Toolkit.Component.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    template: '<aside class="' + vendor + 'toasts"></aside>',
+    wrapperClass: vendor + 'toasts',
     toastTemplate: '<div class="' + vendor + 'toast"></div>'
 });
 

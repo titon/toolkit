@@ -15,7 +15,7 @@ define([
     '../extensions/transitionend'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Showcase = Toolkit.Component.extend({
+Toolkit.Showcase = Toolkit.CompositeComponent.extend({
     name: 'Showcase',
     version: '2.0.0',
 
@@ -439,6 +439,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
+    wrapperClass: vendor + 'showcases',
     template: '<div class="' + vendor + 'showcase">' +
         '<div class="' + vendor + 'showcase-inner">' +
             '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +

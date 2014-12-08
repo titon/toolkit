@@ -10,7 +10,7 @@ define([
     '../extensions/throttle'
 ], function($, Toolkit) {
 
-Toolkit.Pin = Toolkit.Component.extend({
+Toolkit.Pin = Toolkit.EmbeddedComponent.extend({
     name: 'Pin',
     version: '2.0.0',
 

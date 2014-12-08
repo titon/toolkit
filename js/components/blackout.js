@@ -13,7 +13,7 @@ define([
 /** Has the blackout been created already? */
 var blackout = null;
 
-Toolkit.Blackout = Toolkit.Component.extend({
+Toolkit.Blackout = Toolkit.CompositeComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
