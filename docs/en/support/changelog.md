@@ -1,5 +1,9 @@
 # Changelog #
 
+## 2.0.1 ##
+* Removed the grid placeholders `%row` and `%col` as they would be included in the CSS output multiple times (use the mixins instead)
+* Removed `grid` as a dependency for the `form` component
+
 ## 2.0.0 ##
 This major release includes a rewritten class, event, hooks, and component layer. 
 It improves overall tooling, drops out dated technologies, introduces new concepts, and more. 

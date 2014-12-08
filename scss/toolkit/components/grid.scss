@@ -8,12 +8,12 @@
 
 // Row wrapper
 #{$grid-class} {
-    @extend %row;
+    @include grid-row();
 }
 
 // These should be the same for all sizes
 #{$grid-class-column}[class*="span-"] {
-    @extend %col;
+    @include grid-column();
 }
 
 // Global Push and pull classes
