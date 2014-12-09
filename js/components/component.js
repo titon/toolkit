@@ -573,7 +573,9 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
         } else {
             el = elements[id] = this.createElement(node);
 
-            callback.call(this, el);
+            if ($.type(callback) === 'function') {
+                callback.call(this, el);
+            }
         }
 
         return this.element = el;

@@ -38,10 +38,10 @@ Toolkit.Carousel = Toolkit.EmbeddedComponent.extend({
     timer: null,
 
     /** The dimension (width or height) to read sizes from. */
-    _dimension: null,
+    _dimension: '',
 
     /** The position (left or top) to modify for cycling. */
-    _position: null,
+    _position: '',
 
     /** The size to cycle with. */
     _size: 0,
