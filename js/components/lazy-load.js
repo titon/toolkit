@@ -10,12 +10,15 @@ define([
     '../extensions/throttle'
 ], function($, Toolkit) {
 
-Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
+Toolkit.LazyLoad = Toolkit.EmbeddedComponent.extend({
     name: 'LazyLoad',
     version: '2.0.0',
 
     /** Container to monitor scroll events on. */
     container: $(window),
+
+    /** Collection of items to load. */
+    items: [],
 
     /** How many items have been loaded. */
     loaded: 0,
@@ -33,7 +36,7 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
         container = $(container);
 
         this.options = options = this.setOptions(options, container);
-        this.elements = container.find(this.options.lazyClass);
+        this.items = container.find(this.options.lazyClass);
 
         if (container.css('overflow') === 'auto') {
             this.container = container;
@@ -60,7 +63,7 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
     },
 
     /**
-     * Verify that the element is within the current browser viewport.
+     * Verify that the item is within the current browser viewport.
      *
      * @param {jQuery} node
      * @returns {bool}
@@ -102,19 +105,19 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
     },
 
     /**
-     * Loop over the lazy loaded elements and verify they are within the viewport.
+     * Loop over the lazy loaded items and verify they are within the viewport.
      */
     load: function() {
-        if (this.loaded >= this.elements.length) {
+        if (this.loaded >= this.items.length) {
             this.shutdown();
             return;
         }
 
         this.fireEvent('loading');
 
-        this.elements.each(function(index, node) {
-            if (node && this.inViewport(node)) {
-                this.show(node, index);
+        this.items.each(function(index, item) {
+            if (item && this.inViewport(item)) {
+                this.show(item, index);
             }
         }.bind(this));
 
@@ -122,22 +125,22 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
     },
 
     /**
-     * Load the remaining hidden elements and remove any container events.
+     * Load the remaining hidden items and remove any container events.
      */
     loadAll: function() {
-        if (this.loaded >= this.elements.length) {
+        if (this.loaded >= this.items.length) {
             return;
         }
 
         this.fireEvent('loadAll');
 
-        this.elements.each(function(index, node) {
-            this.show(node, index);
+        this.items.each(function(index, item) {
+            this.show(item, index);
         }.bind(this));
     },
 
     /**
-     * Show the element by removing the lazy load class.
+     * Show the item by removing the lazy load class.
      *
      * @param {jQuery} node
      * @param {Number} index
@@ -147,10 +150,8 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
 
         this.fireEvent('showing', [node]);
 
-        node.removeClass(this.options.lazyClass.substr(1));
-
-        // Set the element being loaded for events
-        this.element = node;
+        // Set the item being loaded for so that events can be fired
+        this.element = node.removeClass(this.options.lazyClass.substr(1));
 
         // Replace src attributes on images
         node.find('img').each(function() {
@@ -169,8 +170,8 @@ Toolkit.LazyLoad = Toolkit.CompositeComponent.extend({
             }
         });
 
-        // Replace element with null since removing from the array causes it to break
-        this.elements.splice(index, 1, null);
+        // Replace item with null since removing from the array causes it to break
+        this.items.splice(index, 1, null);
         this.loaded++;
 
         this.fireEvent('shown', [node]);
