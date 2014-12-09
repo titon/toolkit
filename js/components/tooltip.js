@@ -41,10 +41,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
         this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
 
         if (options.mode === 'click') {
-            this.addEvents([
-                ['clickout', 'element', 'hide'],
-                ['clickout', 'document', 'hideElements', '{selector}']
-            ]);
+            this.addEvent('clickout', 'document', 'hide');
         } else {
             this.addEvent('mouseleave', 'document', 'hide', '{selector}');
         }
@@ -58,9 +55,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     hide: function() {
         this.fireEvent('hiding');
 
-        if (this.element) {
-            this.element.conceal();
-        }
+        this.hideElements();
 
         if (this.node) {
             this.node.removeAttr('aria-describedby');
@@ -131,7 +126,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     show: function(node, content) {
         this.node = node = $(node);
 
-        // Load the element
+        // Load the new element
         this.loadElement(node, function(tooltip) {
             tooltip
                 .addClass(this.readOption(node, 'position'))

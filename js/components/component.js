@@ -8,6 +8,7 @@ define([
     'jquery',
     '../base',
     '../extensions/aria',
+    '../extensions/cache',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
@@ -426,7 +427,7 @@ Toolkit.Component = Toolkit.Base.extend({
      */
     onShowToggle: function(e) {
         var node = $(e.currentTarget),
-            isNode = (this.node && node[0] === this.node[0]);
+            isNode = (this.node && this.node.is(node));
 
         if (this.element && this.element.is(':shown')) {
 
@@ -472,12 +473,10 @@ Toolkit.EmbeddedComponent = Toolkit.Component.extend({
     /**
      * {@inheritdoc}
      */
-    destroy: function() {
+    doDestroy: function() {
         if (this.element) {
             this.element.removeData('toolkit.' + this.keyName);
         }
-
-        Toolkit.Base.prototype.destroy.call(this);
     }
 
 });
@@ -497,7 +496,7 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
     wrapper: null,
 
     /**
-     * Create an element from the `template` option.
+     * Create an element from the `template` or `templateFrom` options.
      *
      * @param {jQuery} node
      * @returns {jQuery}
@@ -508,9 +507,13 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
             id = node.data('toolkit.cid');
 
         // Create template
-        var template = $(options.template)
+        var template = $(options.templateFrom || options.template)
             .conceal()
             .appendTo(wrapper || 'body');
+
+        if (!template.length) {
+            throw new Error('Failed to parse template');
+        }
 
         // Add a class name
         if (options.className) {
@@ -542,29 +545,6 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
     },
 
     /**
-     * {@inheritdoc}
-     */
-    destroy: function() {
-        var key = this.keyName;
-
-        if (this.nodes) {
-            this.nodes.removeData('toolkit.' + key);
-
-            delete Toolkit.cache[key + ':' + this.nodes.selector];
-        }
-
-        // Trigger destructors
-        Toolkit.Base.prototype.destroy.call(this);
-
-        // Remove element(s) and reset state
-        this.hideElements();
-
-        if (this.wrapper) {
-            this.wrapper.remove();
-        }
-    },
-
-    /**
      * Hide all the cached and built elements.
      */
     hideElements: function() {
@@ -578,7 +558,7 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
      * Each element is unique per node. If the element does not exist, create it.
      *
      * @param {jQuery} node
-     * @param {Function} callback   - Callback to trigger once an element is created
+     * @param {Function} [callback]   - Callback to trigger once an element is created
      * @returns {jQuery}
      */
     loadElement: function(node, callback) {
@@ -597,10 +577,33 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
         }
 
         return this.element = el;
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        var key = this.keyName;
+
+        // Remove instances
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + key);
+
+            delete Toolkit.cache[key + ':' + this.nodes.selector];
+        }
+
+        // Hide elements
+        this.hideElements();
+
+        // Remove wrapper
+        if (this.wrapper) {
+            this.wrapper.remove();
+        }
     }
 
 }, {
     template: '',
+    templateFrom: '',
     wrapperClass: '',
     wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });

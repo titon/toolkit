@@ -149,9 +149,14 @@ Toolkit.Base = Toolkit.Class.extend({
     destroy: function() {
         this.fireEvent('destroying');
 
-        // Trigger destructor
+        // Trigger child destructor
         if (this.destructor) {
             this.destructor();
+        }
+
+        // Trigger base destructor
+        if (this.doDestroy) {
+            this.doDestroy();
         }
 
         // Remove events
