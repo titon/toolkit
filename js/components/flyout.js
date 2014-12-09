@@ -16,12 +16,9 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     version: '2.0.0',
 
     /** Current URL to generate a flyout menu for. */
-    current: null,
+    url: '',
 
-    /** Collection of flyout elements indexed by URL. */
-    menus: {},
-
-    /** Raw sitemap JSON data. */
+    /** Raw JSON data. */
     data: [],
 
     /** Data indexed by URL. */
@@ -38,8 +35,13 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, url, options) {
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
         this.nodes = $(nodes);
         this.options = options = this.setOptions(options);
+        this.createWrapper();
 
         if (options.mode === 'click') {
             this.addEvent('click', 'document', 'onShowToggle', '{selector}');
@@ -55,18 +57,16 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 
         // Load data from the URL
         if (url) {
-            $.getJSON(url, this.load.bind(this));
+            $.getJSON(url, function(response) {
+                this.load(response);
+            }.bind(this));
         }
     },
 
     /**
-     * Remove all the flyout menu elements and timers before destroying.
+     * Remove timers before destroying.
      */
     destructor: function() {
-        $.each(this.menus, function(i, menu) {
-            menu.remove();
-        });
-
         this.clearTimer('show');
         this.clearTimer('hide');
     },
@@ -85,36 +85,13 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * Hide the currently shown menu.
      */
     hide: function() {
-        // Must be called even if the menu is hidden
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-
-        if (!this.isVisible()) {
-            return;
-        }
-
         this.fireEvent('hiding');
 
         this.element.conceal();
 
+        this.node.removeClass('is-active');
+
         this.fireEvent('hidden');
-
-        // Reset last
-        this.element = this.current = null;
-    },
-
-    /**
-     * Return true if the current menu exists and is visible.
-     *
-     * @returns {bool}
-     */
-    isVisible: function() {
-        if (this.current && this.menus[this.current]) {
-            this.element = this.menus[this.current];
-        }
-
-        return (this.element && this.element.is(':shown'));
     },
 
     /**
@@ -127,7 +104,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         depth = depth || 0;
 
         // If root, store the data
-        if (depth === 0) {
+        if (!depth) {
             this.data = data;
         }
 
@@ -147,20 +124,19 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * Position the menu below the target node.
      */
     position: function() {
-        var target = this.current,
-            options = this.options;
+        var options = this.options,
+            node = this.node,
+            element = this.loadElement(node);
 
-        if (!this.menus[target]) {
+        // Only position if the menu has children
+        if (!element.children().length) {
             return;
         }
 
-        this.fireEvent('showing');
-
-        var menu = this.menus[target],
-            height = menu.outerHeight(),
-            coords = this.node.offset(),
+        var height = element.outerHeight(),
+            coords = node.offset(),
             x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + this.node.outerHeight(),
+            y = coords.top + options.yOffset + node.outerHeight(),
             windowScroll = $(window).height();
 
         // If menu goes below half page, position it above
@@ -168,7 +144,9 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             y = coords.top - options.yOffset - height;
         }
 
-        menu.css({
+        this.fireEvent('showing');
+
+        element.css({
             left: x,
             top: y
         }).reveal();
@@ -182,23 +160,29 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * @param {jQuery} node
      */
     show: function(node) {
-        var target = this._getTarget(node);
+        node = $(node);
+
+        var target = this.readValue(node, this.options.getUrl) || node.attr('href');
 
         // When jumping from one node to another
         // Immediately hide the other menu and start the timer for the current one
-        if (this.current && target !== this.current) {
+        if (this.url && target !== this.url) {
             this.hide();
             this.startTimer('show', this.options.showDelay);
         }
 
-        this.node = $(node);
+        // Set the state
+        this.url = target;
+        this.node = node.addClass('is-active');
 
-        // Find the menu, else create it
-        if (!this._getMenu()) {
-            return;
-        }
+        // Load the menu
+        this.loadElement(node, function(flyout) {
+            flyout.addClass('is-root');
 
-        this.node.addClass('is-active');
+            if (this.dataMap[target]) {
+                this._buildMenu(flyout, this.dataMap[target]);
+            }
+        });
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -235,17 +219,15 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * Build a nested list menu using the data object.
      *
      * @private
-     * @param {jQuery} parent
+     * @param {jQuery} menu
      * @param {Object} data
-     * @returns {jQuery}
      */
-    _buildMenu: function(parent, data) {
+    _buildMenu: function(menu, data) {
         if (!data.children || !data.children.length) {
-            return null;
+            return;
         }
 
         var options = this.options,
-            menu = $(options.template).attr('role', 'menu'),
             groups = [],
             ul,
             li,
@@ -257,11 +239,9 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             menu.addClass(options.className);
         }
 
-        if (parent.is('body')) {
-            menu.addClass('is-root');
-        } else {
-            menu.aria('expanded', false);
-        }
+        menu
+            .aria('expanded', false)
+            .attr('role', 'menu');
 
         if (limit && data.children.length > limit) {
             i = 0;
@@ -312,7 +292,11 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    this._buildMenu(li, child);
+                    var childMenu = $(options.template)
+                        .conceal()
+                        .appendTo(li);
+
+                    this._buildMenu(childMenu, child);
 
                     li.addClass('has-children')
                         .aria('haspopup', true)
@@ -324,10 +308,8 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             menu.append(ul);
         }
 
-        menu.appendTo(parent).conceal();
-
         // Only monitor top level menu
-        if (options.mode !== 'click' && parent.is('body')) {
+        if (options.mode !== 'click' && menu.hasClass('is-root')) {
             menu.on({
                 mouseenter: function() {
                     this.clearTimer('hide');
@@ -337,49 +319,6 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                 }.bind(this)
             });
         }
-
-        return menu;
-    },
-
-    /**
-     * Get the menu if it exists, else build it and set events.
-     *
-     * @private
-     * @returns {jQuery}
-     */
-    _getMenu: function() {
-        var target = this._getTarget();
-
-        this.current = target;
-
-        if (this.menus[target]) {
-            return this.menus[target];
-        }
-
-        if (this.dataMap[target]) {
-            var menu = this._buildMenu($('body'), this.dataMap[target]);
-
-            if (!menu) {
-                return null;
-            }
-
-            return this.menus[target] = menu;
-        }
-
-        return null;
-    },
-
-    /**
-     * Get the target URL to determine which menu to show.
-     *
-     * @private
-     * @param {jQuery} [node]
-     * @returns {String}
-     */
-    _getTarget: function(node) {
-        node = $(node || this.node);
-
-        return this.readValue(node, this.options.getUrl) || node.attr('href');
     },
 
     /**
@@ -473,26 +412,6 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         menu.reveal();
 
         this.fireEvent('showChild', [parent]);
-    },
-
-    /**
-     * Event handler to show the menu.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-
-        // Flyouts shouldn't be usable on touch devices
-        if (Toolkit.isTouch) {
-            return;
-        }
-
-        // Set the current element
-        this.isVisible();
-
-        // Trigger the parent
-        Toolkit.Component.prototype.onShowToggle.call(this, e);
     }
 
 }, {

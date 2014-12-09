@@ -417,46 +417,6 @@ Toolkit.Component = Toolkit.Base.extend({
         e.preventDefault();
 
         this.show(e.currentTarget);
-    },
-
-    /**
-     * Event handler for toggling an element through click or hover events.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-        var node = $(e.currentTarget),
-            isNode = (this.node && this.node.is(node));
-
-        if (this.element && this.element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            if (isNode) {
-                // Second click should close it
-                if (this.options.mode === 'click') {
-                    this.hide();
-                }
-
-                // Exit if the same node so it doesn't re-open
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
     }
 
 }, {
@@ -601,6 +561,55 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
         if (this.wrapper) {
             this.wrapper.remove();
         }
+    },
+
+    /**
+     * Event handler for toggling an element through click or hover events.
+     *
+     * @param {jQuery.Event} e
+     * @private
+     */
+    onShowToggle: function(e) {
+        var node = $(e.currentTarget),
+            element,
+            isNode = (this.node && this.node.is(node)),
+            cid = node.data('toolkit.cid');
+
+        // Set the current element based on the nodes composite ID
+        if (cid && this.elements[cid]) {
+            element = this.elements[cid];
+        } else {
+            element = this.element;
+        }
+
+        if (element && element.is(':shown')) {
+
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                    e.preventDefault();
+                }
+
+            // Non-touch devices
+            } else {
+                e.preventDefault();
+            }
+
+            if (isNode) {
+                // Second click should close it
+                if (this.options.mode === 'click') {
+                    this.hide();
+                }
+
+                // Exit if the same node so it doesn't re-open
+                return;
+            }
+
+        } else {
+            e.preventDefault();
+        }
+
+        this.show(node);
     }
 
 }, {
