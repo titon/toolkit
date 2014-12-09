@@ -10,8 +10,6 @@ define([
     '../flags/vendor'
 ], function($, Toolkit, vendor) {
 
-var TooltipPrototype = Toolkit.Tooltip.prototype;
-
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
     version: '2.0.0',
@@ -27,29 +25,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
         options.mode = 'click'; // Click only
         options.follow = false; // Disable mouse follow
 
-        TooltipPrototype.constructor.call(this, nodes, options);
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    hide: function() {
-        TooltipPrototype.hide.call(this);
-
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    show: function() {
-        TooltipPrototype.show.apply(this, arguments);
-
-        if (this.node) {
-            this.node.addClass('is-active');
-        }
+        Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
     }
 
 }, {

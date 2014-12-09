@@ -58,7 +58,9 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
         this.hideElements();
 
         if (this.node) {
-            this.node.removeAttr('aria-describedby');
+            this.node
+                .removeAttr('aria-describedby')
+                .removeClass('is-active');
         }
 
         this.fireEvent('hidden');
@@ -124,7 +126,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
      * @param {String|jQuery} [content]
      */
     show: function(node, content) {
-        this.node = node = $(node);
+        this.node = node = $(node).addClass('is-active');
 
         // Load the new element
         this.loadElement(node, function(tooltip) {
