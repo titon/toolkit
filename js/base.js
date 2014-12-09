@@ -26,9 +26,6 @@ Toolkit.Base = Toolkit.Class.extend({
     /** Static options defined during construction. */
     options: {},
 
-    /** Dynamic options generated at runtime. */
-    runtime: {},
-
     /** Events and functions to bind. */
     __events: [],
 

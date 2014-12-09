@@ -33,8 +33,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
     /**
      * {@inheritdoc}
      */
-    reset: function() {
-        TooltipPrototype.reset.call(this);
+    hide: function() {
+        TooltipPrototype.hide.call(this);
 
         if (this.node) {
             this.node.removeClass('is-active');
@@ -54,6 +54,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 
 }, {
     getContent: 'data-popover',
+    wrapperClass: vendor + 'popovers',
     template: '<div class="' + vendor + 'popover">' +
         '<div class="' + vendor + 'popover-inner">' +
             '<div class="' + vendor + 'popover-head" data-popover-header></div>' +

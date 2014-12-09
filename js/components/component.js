@@ -18,13 +18,13 @@ Toolkit.Component = Toolkit.Base.extend({
     version: '2.0.0',
 
     /** The target element. Either the embedded element, or the current element in the composite layer. */
-    element: [],
+    element: null,
 
     /** The namespace to find child elements in. */
     namespace: '',
 
     /** The element that activated the component. */
-    node: [],
+    node: null,
 
     /**
      * A basic constructor that sets an element and its options.
@@ -52,11 +52,11 @@ Toolkit.Component = Toolkit.Base.extend({
             event.context = this;
 
         // Trigger event on the element and the node
-        if (element.length) {
+        if (element) {
             element.trigger(event, args || []);
         }
 
-        if (node.length) {
+        if (node) {
             node.trigger(event, args || []);
         }
     },
@@ -426,9 +426,9 @@ Toolkit.Component = Toolkit.Base.extend({
      */
     onShowToggle: function(e) {
         var node = $(e.currentTarget),
-            isNode = (this.node.length && node[0] === this.node[0]);
+            isNode = (this.node && node[0] === this.node[0]);
 
-        if (this.element.length && this.element.is(':shown')) {
+        if (this.element && this.element.is(':shown')) {
 
             // Touch devices should pass through on second click
             if (Toolkit.isTouch) {
@@ -473,7 +473,7 @@ Toolkit.EmbeddedComponent = Toolkit.Component.extend({
      * {@inheritdoc}
      */
     destroy: function() {
-        if (this.element.length) {
+        if (this.element) {
             this.element.removeData('toolkit.' + this.keyName);
         }
 
@@ -487,48 +487,44 @@ Toolkit.EmbeddedComponent = Toolkit.Component.extend({
  */
 Toolkit.CompositeComponent = Toolkit.Component.extend({
 
-    /** Collection of elements related to the component. */
+    /** Cache of elements related to the component. */
     elements: {},
 
     /** Collection of nodes. */
-    nodes: [],
+    nodes: null,
 
     /** The container that holds each individual dynamic element. */
-    wrapper: [],
+    wrapper: null,
 
     /**
-     * Create an element from the `template` or `templateFrom` option.
+     * Create an element from the `template` option.
      *
+     * @param {jQuery} node
      * @returns {jQuery}
      */
-    createElement: function() {
-        var template = [], options = this.options;
+    createElement: function(node) {
+        var options = this.inheritOptions(this.options, node),
+            wrapper = this.wrapper,
+            id = node.data('toolkit.cid');
 
-        // Use another element as the template
-        if (options.templateFrom) {
-            template = $(options.templateFrom);
-        }
-
-        // From a string
-        if (!template.length && options.template) {
-            template = $(options.template).hide().addClass('hide').appendTo('body');
-        }
-
-        if (!template.length) {
-            throw new Error('Failed to create template element');
-        }
+        // Create template
+        var template = $(options.template)
+            .conceal()
+            .appendTo(wrapper || 'body');
 
         // Add a class name
         if (options.className) {
             template.addClass(options.className);
         }
 
-        // Enable animations
+        // Add animation class
         if (options.animation) {
             template.addClass(options.animation);
         }
 
-        return template.attr('id', this.id());
+        return template
+            .attr('id', this.id(id))
+            .data('toolkit.cid', id);
     },
 
     /**
@@ -542,8 +538,7 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
         this.wrapper = $(options.wrapperTemplate)
             .addClass(options.wrapperClass)
             .attr('id', this.id('wrapper'))
-            .appendTo('body')
-            .conceal();
+            .appendTo('body');
     },
 
     /**
@@ -552,7 +547,7 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
     destroy: function() {
         var key = this.keyName;
 
-        if (this.nodes.length) {
+        if (this.nodes) {
             this.nodes.removeData('toolkit.' + key);
 
             delete Toolkit.cache[key + ':' + this.nodes.selector];
@@ -561,14 +556,51 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
         // Trigger destructors
         Toolkit.Base.prototype.destroy.call(this);
 
-        // Remove element and state
-        this.hide();
-        this.element.remove();
+        // Remove element(s) and reset state
+        this.hideElements();
+
+        if (this.wrapper) {
+            this.wrapper.remove();
+        }
+    },
+
+    /**
+     * Hide all the cached and built elements.
+     */
+    hideElements: function() {
+        $.each(this.elements, function(i, el) {
+            $(el).conceal();
+        });
+    },
+
+    /**
+     * Attempt to find and return an element by a unique composite ID.
+     * Each element is unique per node. If the element does not exist, create it.
+     *
+     * @param {jQuery} node
+     * @param {Function} callback   - Callback to trigger once an element is created
+     * @returns {jQuery}
+     */
+    loadElement: function(node, callback) {
+        var elements = this.elements,
+            el,
+            id = $(node).cache('toolkit.cid', function() {
+                return Math.random().toString(32).substr(2);
+            });
+
+        if (elements[id]) {
+            el = elements[id];
+        } else {
+            el = elements[id] = this.createElement(node);
+
+            callback.call(this, el);
+        }
+
+        return this.element = el;
     }
 
 }, {
     template: '',
-    templateFrom: '',
     wrapperClass: '',
     wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
