@@ -498,7 +498,7 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
     createWrapper: function() {
         var options = this.options;
 
-        this.wrapper = $(options.wrapperTemplate)
+        return this.wrapper = $(options.wrapperTemplate)
             .addClass(options.wrapperClass)
             .attr('id', this.id('wrapper'))
             .appendTo('body');

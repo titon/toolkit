@@ -24,16 +24,15 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     constructor: function(element, options) {
         this.nodes = element = $(element); // Set to nodes so instances are unset during destroy()
         this.options = options = this.setOptions(options, element);
-        this.element = this.createElement()
+
+        // Create the toasts wrapper
+        this.createWrapper()
             .addClass(options.position)
-            .removeClass(options.animation)
             .attr('role', 'log')
             .aria({
                 relevant: 'additions',
                 hidden: 'false'
-            })
-            .appendTo(element)
-            .reveal();
+            });
 
         this.initialize();
     },
@@ -48,12 +47,12 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
         options = $.extend({}, this.options, options || {});
 
         var self = this,
-            toast = $(options.toastTemplate)
+            toast = $(options.template)
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
                 .conceal()
-                .prependTo(this.element);
+                .prependTo(this.wrapper);
 
         this.fireEvent('create', [toast]);
 
@@ -108,7 +107,7 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     animation: 'slide-up',
     duration: 5000,
     wrapperClass: vendor + 'toasts',
-    toastTemplate: '<div class="' + vendor + 'toast"></div>'
+    template: '<div class="' + vendor + 'toast"></div>'
 });
 
 Toolkit.create('toast', function(options) {
