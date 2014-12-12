@@ -10,7 +10,7 @@ define([
     '../extensions/throttle'
 ], function($, Toolkit) {
 
-Toolkit.Stalker = Toolkit.EmbeddedComponent.extend({
+Toolkit.Stalker = Toolkit.Component.extend({
     name: 'Stalker',
     version: '2.0.0',
 

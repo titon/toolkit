@@ -12,7 +12,7 @@ define([
     '../events/horizontal-resize'
 ], function($, Toolkit) {
 
-Toolkit.Accordion = Toolkit.EmbeddedComponent.extend({
+Toolkit.Accordion = Toolkit.Component.extend({
     name: 'Accordion',
     version: '2.0.0',
 

@@ -12,7 +12,7 @@ define([
     '../events/horizontal-resize'
 ], function($, Toolkit) {
 
-Toolkit.Matrix = Toolkit.EmbeddedComponent.extend({
+Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
     version: '2.0.0',
 

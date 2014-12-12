@@ -14,6 +14,9 @@ define([
     '../extensions/toolkit'
 ], function($, Toolkit) {
 
+/**
+ * Class for elements already embedded in the page.
+ */
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',
     version: '2.0.0',
@@ -343,6 +346,15 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        if (this.element) {
+            this.element.removeData('toolkit.' + this.keyName);
+        }
+    },
+
+    /**
      * Event handler for AJAX `before` events when called through `requestData()`.
      *
      * @param {jQuery.ajax} xhr
@@ -426,25 +438,52 @@ Toolkit.Component = Toolkit.Base.extend({
 });
 
 /**
- * Class for elements that are embedded in the page.
+ * Class for elements that are rendered through templates.
  */
-Toolkit.EmbeddedComponent = Toolkit.Component.extend({
+Toolkit.TemplateComponent = Toolkit.Component.extend({
 
     /**
-     * {@inheritdoc}
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
      */
-    doDestroy: function() {
-        if (this.element) {
-            this.element.removeData('toolkit.' + this.keyName);
+    createElement: function(options) {
+        options = options || this.options;
+
+        // Create template
+        var template = $(options.templateFrom);
+
+        if (!template.length) {
+            template = $(options.template);
         }
+
+        if (!template.length) {
+            throw new Error('Failed to render template');
+        }
+
+        // Add a class name
+        if (options.className) {
+            template.addClass(options.className);
+        }
+
+        // Add animation class
+        if (options.animation) {
+            template.addClass(options.animation);
+        }
+
+        return template
+            .attr('id', this.id())
+            .conceal()
+            .appendTo('body');
     }
 
 });
 
 /**
- * Class for elements that are generated dynamically, or for grouping of multiple elements.
+ * Class for managing multiple elements that are rendered through templates.
  */
-Toolkit.CompositeComponent = Toolkit.Component.extend({
+Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
 
     /** Cache of elements related to the component. */
     elements: {},
@@ -459,31 +498,21 @@ Toolkit.CompositeComponent = Toolkit.Component.extend({
      * Create an element from the `template` or `templateFrom` options.
      *
      * @param {jQuery} node
+     * @param {Object} [options]
      * @returns {jQuery}
      */
-    createElement: function(node) {
-        var options = this.inheritOptions(this.options, node),
-            wrapper = this.wrapper,
-            id = node.data('toolkit.cid');
+    createElement: function(node, options) {
+        options = this.inheritOptions(options || this.options, node);
 
         // Create template
-        var template = $(options.templateFrom || options.template)
-            .conceal()
-            .appendTo(wrapper || 'body');
+        var template = Toolkit.TemplateComponent.prototype.createElement.call(this, options);
 
-        if (!template.length) {
-            throw new Error('Failed to parse template');
+        // Move to wrapper
+        if (this.wrapper) {
+            template.appendTo(this.wrapper);
         }
 
-        // Add a class name
-        if (options.className) {
-            template.addClass(options.className);
-        }
-
-        // Add animation class
-        if (options.animation) {
-            template.addClass(options.animation);
-        }
+        var id = node.data('toolkit.cid');
 
         return template
             .attr('id', this.id(id))

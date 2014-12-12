@@ -13,7 +13,7 @@ define([
     '../extensions/to-string'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Input = Toolkit.EmbeddedComponent.extend({
+Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
     version: '2.0.0',
 
