@@ -13,7 +13,7 @@ define([
     '../extensions/to-string'
 ], function($, Toolkit, vendor) {
 
-Toolkit.TypeAhead = Toolkit.Component.extend({
+Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
     version: '2.0.0',
 

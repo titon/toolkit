@@ -13,7 +13,7 @@ define([
 /** Has the blackout been created already? */
 var blackout = null;
 
-Toolkit.Blackout = Toolkit.CompositeComponent.extend({
+Toolkit.Blackout = Toolkit.TemplateComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
@@ -79,7 +79,6 @@ Toolkit.Blackout = Toolkit.CompositeComponent.extend({
      * Hide the loader.
      */
     hideLoader: function() {
-
         // There's an issue on Chrome where calling conceal() here doesn't work
         // when the blackout is being transitioned. So just change it's display.
         this.loader.hide();
@@ -109,7 +108,6 @@ Toolkit.Blackout = Toolkit.CompositeComponent.extend({
      * Show the loader.
      */
     showLoader: function() {
-
         // The same problem for hide() applies here, so just change the display.
         this.loader.show();
     }

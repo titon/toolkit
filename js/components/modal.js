@@ -12,7 +12,7 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Modal = Toolkit.CompositeComponent.extend({
+Toolkit.Modal = Toolkit.TemplateComponent.extend({
     name: 'Modal',
     version: '2.0.0',
 
@@ -26,8 +26,9 @@ Toolkit.Modal = Toolkit.CompositeComponent.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
+        this.nodes = $(nodes);
         this.options = options = this.setOptions(options);
-        this.createWrapper()
+        this.element = this.createElement()
             .attr('role', 'dialog')
             .aria('labelledby', this.id('title'))
             .aria('describedby', this.id('content'));
@@ -37,26 +38,14 @@ Toolkit.Modal = Toolkit.CompositeComponent.extend({
             this.element.addClass('is-fullscreen');
         }
 
-        // Nodes found in the page on initialization
-        this.nodes = $(nodes);
-
+        // Setup blackout
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.instance();
-
-            if (options.stopScroll) {
-                this.blackout.addHook('hidden', function(hidden) {
-                    if (hidden) {
-                        $('body').removeClass('no-scroll');
-                    }
-                });
-            }
         }
 
         // Initialize events
         this.addEvents([
             ['keydown', 'window', 'onKeydown'],
-            //['clickout', 'element', 'onHide'],
-            //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'hide', this.ns('close')],
             ['click', 'element', 'onSubmit', this.ns('submit')]
@@ -79,6 +68,10 @@ Toolkit.Modal = Toolkit.CompositeComponent.extend({
 
         if (this.blackout) {
             this.blackout.hide();
+        }
+
+        if (this.options.stopScroll) {
+            $('body').removeClass('no-scroll');
         }
 
         this.fireEvent('hidden');

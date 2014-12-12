@@ -15,7 +15,7 @@ define([
     '../extensions/transitionend'
 ], function($, Toolkit, vendor) {
 
-Toolkit.Showcase = Toolkit.CompositeComponent.extend({
+Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
     version: '2.0.0',
 
