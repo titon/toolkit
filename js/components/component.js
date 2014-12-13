@@ -478,6 +478,9 @@ Toolkit.TemplateComponent = Toolkit.Component.extend({
             .appendTo('body');
     }
 
+}, {
+    template: '',
+    templateFrom: ''
 });
 
 /**
@@ -642,8 +645,6 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
     }
 
 }, {
-    template: '',
-    templateFrom: '',
     wrapperClass: '',
     wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });

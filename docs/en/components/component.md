@@ -35,17 +35,35 @@ Inherits all options from the [Base class](../development/js/base.md#options).
             <td></td>
             <td>The element to attach delegated events to, or to use as a parent. Defaults to the document body.</td>
         </tr>
+        <tr class="table-divider">
+            <td colspan="4">TemplateComponent</td>
+        </tr>
         <tr>
             <td>template</td>
             <td>string</td>
             <td></td>
-            <td>The HTML used to create the component element. Is only used by "created" components.</td>
+            <td>The HTML used to create the component element.</td>
         </tr>
         <tr>
             <td>templateFrom</td>
             <td>string</td>
             <td></td>
             <td>The ID of an element to use as the template.</td>
+        </tr>
+        <tr class="table-divider">
+            <td colspan="4">CompositeComponent</td>
+        </tr>
+        <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td></td>
+            <td>The class name to set on the composite wrapper.</td>
+        </tr>
+        <tr>
+            <td>wrapperTemplate</td>
+            <td>string</td>
+            <td>&lt;div class="toolkit-plugin"&gt;&lt;/div&gt;</td>
+            <td>The HTML used to create the wrapper element.</td>
         </tr>
     </tbody>
 </table>
@@ -113,11 +131,6 @@ Inherits all properties from the [Base class](../development/js/base.md#properti
     </thead>
     <tbody>
         <tr>
-            <td>created</td>
-            <td>bool</td>
-            <td>A flag representing whether the element was created from a template.</td>
-        </tr>
-        <tr>
             <td>element</td>
             <td>element</td>
             <td>
@@ -125,11 +138,6 @@ Inherits all properties from the [Base class](../development/js/base.md#properti
                 Is built from the <code>template</code> or <code>templateFrom</code> options,
                 or is passed through the constructor.
             </td>
-        </tr>
-        <tr>
-            <td>elements</td>
-            <td>collection</td>
-            <td>A collection of elements used by the component.</td>
         </tr>
         <tr>
             <td>namespace</td>
@@ -144,10 +152,23 @@ Inherits all properties from the [Base class](../development/js/base.md#properti
                 Primarily used by "created" components.
             </td>
         </tr>
+        <tr class="table-divider">
+            <td colspan="4">CompositeComponent</td>
+        </tr>
+        <tr>
+            <td>elements</td>
+            <td>collection</td>
+            <td>A collection of elements used by the component.</td>
+        </tr>
         <tr>
             <td>nodes</td>
             <td>collection</td>
             <td>A collection of elements that are used for activating the component.</td>
+        </tr>
+        <tr>
+            <td>wrapper</td>
+            <td>element</td>
+            <td>The wrapping element that contains all the individual elements.</td>
         </tr>
     </tbody>
 </table>
@@ -164,13 +185,6 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>createElement()</td>
-            <td>
-                Create an element from the <code>template</code> or <code>templateFrom</code> options.
-                Will set class names on the element based on defined options.
-            </td>
-        </tr>
         <tr>
             <td>hide()</td>
             <td>Hide the element.</td>
@@ -241,6 +255,38 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
         <tr>
             <td>show([element:node])</td>
             <td>Show the element and set an optional activating node.</td>
+        </tr>
+        <tr class="table-divider">
+            <td colspan="4">TemplateComponent</td>
+        </tr>
+        <tr>
+            <td>createElement([object:options])</td>
+            <td>
+                Create an element from the <code>template</code> or <code>templateFrom</code> options.
+                Will set class names on the element based on defined options.
+            </td>
+        </tr>
+        <tr class="table-divider">
+            <td colspan="4">CompositeComponent</td>
+        </tr>
+        <tr>
+            <td>createElement(element:node[, object:options])</td>
+            <td>Works exactly like the parent method but will extract custom options from the node.</td>
+        </tr>
+        <tr>
+            <td>createWrapper()</td>
+            <td>Create the wrapper element from the <code>wrapperTemplate</code> option.</td>
+        </tr>
+        <tr>
+            <td>hideElements()</td>
+            <td>Hide all elements within the wrapper.</td>
+        </tr>
+        <tr>
+            <td>loadElement(element:node[, func:callback])</td>
+            <td>
+                Find and return an element that is tied to the node. If no element exists, create it, 
+                assign a unique ID, and cache it. An optional callback can be defined to modify the element when it's created.
+            </td>
         </tr>
     </tbody>
 </table>

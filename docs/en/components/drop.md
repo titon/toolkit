@@ -235,12 +235,6 @@ Inherits all options from the [parent Component](component.md#options).
             </td>
         </tr>
         <tr>
-            <td>hideOpened</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Hides the previously opened drop menu.</td>
-        </tr>
-        <tr>
             <td>mode</td>
             <td>string</td>
             <td>click</td>
@@ -266,9 +260,19 @@ Inherits all events from the [parent Component](component.md#events).
     </thead>
     <tbody>
         <tr>
+            <td>hiding</td>
+            <td>element:menu, element:node</td>
+            <td>Triggered before a drop menu is hidden.</td>
+        </tr>
+        <tr>
             <td>hidden</td>
             <td>element:menu, element:node</td>
             <td>Triggered after a drop menu is hidden.</td>
+        </tr>
+        <tr>
+            <td>showing</td>
+            <td>element:menu, element:node</td>
+            <td>Triggered before a drop menu is shown.</td>
         </tr>
         <tr>
             <td>shown</td>

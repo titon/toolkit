@@ -109,8 +109,7 @@ so each individual node can define their own options that will inherit at runtim
 
 ```javascript
 $('.js-tooltip').tooltip({
-    position: 'top-left',
-    ajax: false
+    position: 'top-left'
 });
 ```
 
@@ -124,10 +123,9 @@ $('.js-modal').modal({
     animation: 'slide-in-top',
     groups: {
         static: {
-            ajax: false
+            fullScreen: false
         },
         dynamic: {
-            ajax: true,
             fullScreen: true
         }
     }

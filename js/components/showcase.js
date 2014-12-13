@@ -439,7 +439,6 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    wrapperClass: vendor + 'showcases',
     template: '<div class="' + vendor + 'showcase">' +
         '<div class="' + vendor + 'showcase-inner">' +
             '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +

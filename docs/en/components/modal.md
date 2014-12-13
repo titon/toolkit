@@ -205,12 +205,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Whether to load the modal content via an AJAX request.</td>
-        </tr>
-        <tr>
             <td>animation</td>
             <td>string</td>
             <td>fade</td>

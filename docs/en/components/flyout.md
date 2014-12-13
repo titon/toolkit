@@ -234,6 +234,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The flyout markup. The <code>data-flyout-menu</code> is required.</td>
         </tr>
         <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td>flyouts</td>
+            <td>The class name to set on the composite wrapper.</td>
+        </tr>
+        <tr>
             <td>xOffset</td>
             <td>int</td>
             <td>0</td>
@@ -288,11 +294,6 @@ Inherits all properties from the [parent Component](component.md#properties).
     </thead>
     <tbody>
         <tr>
-            <td>current</td>
-            <td>string</td>
-            <td>The current URL being used for display.</td>
-        </tr>
-        <tr>
             <td>data</td>
             <td>json</td>
             <td>The raw JSON response from the initial AJAX request.</td>
@@ -303,19 +304,14 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>A mapping of data objects indexed by URL.</td>
         </tr>
         <tr>
-            <td>element</td>
-            <td>element</td>
-            <td>The flyout menu currently being displayed.</td>
-        </tr>
-        <tr>
-            <td>menus</td>
-            <td>object</td>
-            <td>A cache of flyout menu elements indexed by URL.</td>
-        </tr>
-        <tr>
             <td>timers</td>
             <td>object</td>
             <td>A mapping of show and hide timers.</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>string</td>
+            <td>The current URL being used for display.</td>
         </tr>
     </tbody>
 </table>
@@ -333,11 +329,6 @@ Inherits all methods from the [parent Component](component.md#methods).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>isVisible()</td>
-            <td>Is the flyout menu defined by <code>current</code>, created and visible?</td>
-            <td></td>
-        </tr>
         <tr>
             <td>load(data)</td>
             <td>

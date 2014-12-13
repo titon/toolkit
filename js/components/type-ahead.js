@@ -593,7 +593,6 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     prefetch: false,
     shadow: false,
     query: {},
-    wrapperClass: vendor + 'type-aheads',
     template: '<div class="' + vendor + 'type-ahead"></div>',
     shadowTemplate: '<div class="' + vendor + 'type-ahead-shadow"></div>',
     titleTemplate: '<span class="' + vendor + 'type-ahead-title"></span>',

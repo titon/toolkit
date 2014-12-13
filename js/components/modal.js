@@ -226,7 +226,6 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
-    wrapperClass: vendor + 'modals',
     template: '<div class="' + vendor + 'modal">' +
         '<div class="' + vendor + 'modal-outer">' +
             '<div class="' + vendor + 'modal-inner" data-modal-content></div>' +

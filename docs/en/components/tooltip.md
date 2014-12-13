@@ -21,8 +21,8 @@ The tooltip will display either through a click, or a hover, depending on the co
 The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
 options respectively. The values to use will either be extracted from the defined HTML
 attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
-the inner HTML of that element will be inserted into the tooltip. If `ajax` is enabled,
-then the value will be used as a URL to request, and the response will be inserted as the content.
+the inner HTML of that element will be inserted into the tooltip. If the value is a URL it will be 
+requested and the response will be inserted as the content.
 
 ```html
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
@@ -143,12 +143,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the tooltip content via an AJAX request.</td>
-        </tr>
-        <tr>
             <td>animation</td>
             <td>string</td>
             <td></td>
@@ -227,6 +221,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The tooltip markup. The <code>data-tooltip-*</code> attributes are required.</td>
         </tr>
         <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td>tooltips</td>
+            <td>The class name to set on the composite wrapper.</td>
+        </tr>
+        <tr>
             <td>xOffset</td>
             <td>int</td>
             <td>0</td>
@@ -256,7 +256,7 @@ Inherits all events from the [parent Component](component.md#events).
     <tbody>
         <tr>
             <td>load</td>
-            <td>mixed:content</td>
+            <td>mixed:content, mixed:title</td>
             <td>Triggered after the tooltip content has been set but before it is shown.</td>
         </tr>
     </tbody>
@@ -265,37 +265,6 @@ Inherits all events from the [parent Component](component.md#events).
 ## Properties ##
 
 Inherits all properties from the [parent Component](component.md#properties).
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Found With</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>elementBody</td>
-            <td>element</td>
-            <td>The element used for content.</td>
-            <td>[data-tooltip-content]</td>
-        </tr>
-        <tr>
-            <td>elementHead</td>
-            <td>element</td>
-            <td>The element used for titles.</td>
-            <td>[data-tooltip-header]</td>
-        </tr>
-        <tr>
-            <td>cache</td>
-            <td>object</td>
-            <td>Collection of cached AJAX requests indexed by URL.</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
 
 ## Methods ##
 
@@ -311,16 +280,11 @@ Inherits all methods from the [parent Component](component.md#methods).
     </thead>
     <tbody>
         <tr>
-            <td>position([string:content[, string:title]])</td>
+            <td>position(string:content[, string:title])</td>
             <td>
                 Position the content relative to the node and set optional content and title.
                 This method is called automatically by <code>show()</code>.
             </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>reset()</td>
-            <td>Resets the tooltip state by removing position and custom classes from the element, and clearing the runtime options.</td>
             <td></td>
         </tr>
         <tr>
