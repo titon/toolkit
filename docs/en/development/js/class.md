@@ -80,7 +80,7 @@ var beast = new Animal('Fenrir');
 
 ### Prototype Override ###
 
-It's also possible to alter a previously set constructor by modifying the classes prototype.
+It's also possible to alter a previously set constructor by modifying the class's prototype.
 
 ```javascript
 Animal.prototype.constructor = function(name) {
