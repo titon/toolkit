@@ -116,7 +116,7 @@ $('.js-tooltip').tooltip({
 
 ### Option Groups ###
 
-When individual data attributes become to cumbersome, the option groups system comes into play. 
+When individual data attributes become too cumbersome, the option groups system comes into play. 
 This system allows multiple options to be grouped and aliased by a unique key. Simple define a `groups` object in the options object.
 
 ```javascript
