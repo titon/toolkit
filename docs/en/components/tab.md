@@ -210,12 +210,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Support loading in sections through AJAX calls.</td>
-        </tr>
-        <tr>
             <td>collapsible</td>
             <td>bool</td>
             <td>false</td>

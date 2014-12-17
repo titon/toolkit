@@ -21,8 +21,8 @@ The tooltip will display either through a click, or a hover, depending on the co
 The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
 options respectively. The values to use will either be extracted from the defined HTML
 attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
-the inner HTML of that element will be inserted into the tooltip. If `ajax` is enabled,
-then the value will be used as a URL to request, and the response will be inserted as the content.
+the inner HTML of that element will be inserted into the tooltip. 
+If the value is a URL it will be requested and the response will be inserted as the content.
 
 ```html
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
@@ -142,12 +142,6 @@ Inherits all options from the [parent Component](component.md#options).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the tooltip content via an AJAX request.</td>
-        </tr>
         <tr>
             <td>animation</td>
             <td>string</td>

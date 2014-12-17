@@ -83,12 +83,6 @@ Inherits all options from the [parent Component](component.md#options).
     </thead>
     <tbody>
         <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the popover content via an AJAX request.</td>
-        </tr>
-        <tr>
             <td>animation</td>
             <td>string</td>
             <td></td>
