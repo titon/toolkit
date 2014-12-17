@@ -43,3 +43,43 @@ $('#tabs').toolkit('tab', 'jump', [1]);
 
 If an instance is found, the method will automatically be called, else nothing will happen.
 This allows for seamless error free integration.
+
+## Dynamic Content Loading ##
+
+A handful of plugins use a concept we like to call, dynamic content loading. This concept will determine 
+a type of dynamic content based on a parameter and the load the content automatically. 
+Most of this functionality is handled through the `loadContent()` method in the [Component](component.md) class.
+The following formats are currently supported, listed in the order of detection.
+
+### DOM Loading ###
+
+If a DOM ID is passed in the format of `#id`, the inner HTML of the element will be used as the content.
+
+```html
+<div id="element" style="display: none">This content is hidden, but is usable.</div>
+```
+
+```javascript
+component.loadContent('#element'); // This content is hidden, but is usable.
+```
+
+### AJAX Loading ###
+
+If an HTTP URL or an absolute URL for the current domain is passed, then the content will be requested 
+from the URL as an AJAX request.
+
+```javascript
+component.loadContent('/some/url'); // The response from the /some/url AJAX request.
+component.loadContent('http://domain.com'); // The response from the http://domain.com AJAX request (if allowed).
+```
+
+This does not work on relative URLs. All absolute domain URLs will require a prefixed forward slash.
+
+### Literal Content ###
+
+If the content does not match a DOM ID or a URL, then the content will be set literally.
+
+```javascript
+component.loadContent('Foobar'); // Foobar
+component.loadContent(data); // The value of the data variable.
+```

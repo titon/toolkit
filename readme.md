@@ -6,7 +6,7 @@
     \/_/  \/_____/\/_____/\/_____/\/_/\/_/ \/_/  \/_/
 ```
 
-# Toolkit v2.0.1 - Gallant Golem #
+# Toolkit v2.0.2 - Gallant Golem #
 
 Titon Toolkit is a collection of very powerful user interface components and utility classes
 for the responsive, mobile, and modern web. Each component represents encapsulated HTML, CSS,

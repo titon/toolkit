@@ -104,7 +104,7 @@ so each individual node can define their own options that will inherit at runtim
 ```html
 <button type="button" class="js-tooltip" data-tooltip="A message!" data-tooltip-position="top-center">Top Centered</button>
 
-<button type="button" class="js-tooltip" data-tooltip="/load/this" data-tooltip-ajax="true">AJAX</button>
+<button type="button" class="js-tooltip" data-tooltip="/load/this">AJAX</button>
 ```
 
 ```javascript
@@ -115,7 +115,7 @@ $('.js-tooltip').tooltip({
 
 ### Option Groups ###
 
-When individual data attributes become to cumbersome, the option groups system comes into play. 
+When individual data attributes become too cumbersome, the option groups system comes into play. 
 This system allows multiple options to be grouped and aliased by a unique key. Simple define a `groups` object in the options object.
 
 ```javascript
