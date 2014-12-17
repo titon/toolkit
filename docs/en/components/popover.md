@@ -16,7 +16,7 @@ $('.js-popover').popover();
 
 <div class="notice is-info">
     The Popover component requires the Tooltip component, and will inherit all functionality from it.
-    Jump over to the tooltip documentation for more information on how to use this component.
+    Jump over to the Tooltip documentation for more information on how to use this component.
 </div>
 
 ## Variables ##
@@ -82,12 +82,6 @@ Inherits all options from the [parent Component](component.md#options).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the popover content via an AJAX request.</td>
-        </tr>
         <tr>
             <td>animation</td>
             <td>string</td>

@@ -349,7 +349,7 @@ Inherits all options from the [parent Component](component.md#options).
             <td>query</td>
             <td>object</td>
             <td></td>
-            <td>An object of key value pairs to include in the query string for AJAX lookups.</td>
+            <td>An object of key value pairs to include in the query string for AJAX requests.</td>
         </tr>
         <tr>
             <td>shadow</td>

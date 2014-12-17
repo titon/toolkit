@@ -130,7 +130,7 @@ function parseFile(path, url) {
 
                 chapters.push({
                     title: indent + header,
-                    url: url + '#' + header.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-_]+/ig, '')
+                    url: url + formatHash(header)
                 });
             }
         }
@@ -142,6 +142,16 @@ function parseFile(path, url) {
         order: ORDER_MAP[url] || 100,
         chapters: chapters
     };
+}
+
+function formatHash(hash) {
+    hash = hash.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-_]+/ig, '');
+
+    if (/^\d$/.test(hash.charAt(0))) {
+        hash = 'no-' + hash;
+    }
+
+    return '#' + hash;
 }
 
 module.exports = function() {

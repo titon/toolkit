@@ -21,7 +21,7 @@ To insert non-AJAX content into a modal, the `getContent` value can point to an 
 We can also set the content directly through the modal instance.
 
 ```javascript
-$('.js-modal').toolkit('modal', 'show', [null, 'This will be inserted into the modal.']);
+$('.js-modal').toolkit('modal', 'show', [$('#add-category'), 'This will be inserted into the modal.']);
 ```
 
 Or we can trigger the modal by passing in the node to read from.
@@ -34,6 +34,13 @@ $('.js-modal').toolkit('modal', 'show', $('#add-category')); // Loads /categorie
     Really tall modals fail to scroll in Chrome when <code>stopScroll</code> is true.
 </div>
 
+### Dynamic Content Loading ###
+
+Briefly mentioned above, modals use a form of dynamic content loading. This allows the body of the modal to be 
+loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
+
+* [Learn more about dynamic content loading.](../development/js/usage.md#dynamic-content-loading)
+
 ### Multiple Modals ###
 
 Displaying multiple modals at the same time is possible, but will require multiple modal instances.
@@ -43,8 +50,8 @@ $('.js-modal-1').modal();
 $('.js-modal-2').modal();
 ```
 
-Activating modals use event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere
-will open one. This even applies to elements loaded in via AJAX, like within the content of a modal.
+Activating the modal uses event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere
+will open it. This even applies to elements loaded in via AJAX, like within the body of another modal.
 
 ### Form Submitting ###
 
@@ -204,12 +211,6 @@ Inherits all options from the [parent Component](component.md#options).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>true</td>
-            <td>Whether to load the modal content via an AJAX request.</td>
-        </tr>
         <tr>
             <td>animation</td>
             <td>string</td>

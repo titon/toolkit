@@ -16,25 +16,31 @@ $('.js-tooltip').tooltip();
 
 The tooltip will display either through a click, or a hover, depending on the configuration.
 
+### Dynamic Content Loading ###
+
+Tooltips use a form of dynamic content loading. This allows the body of the tooltip to be 
+loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
+
+* [Learn more about dynamic content loading.](../development/js/usage.md#dynamic-content-loading)
+
 ### Titles & Content ###
 
 The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
 options respectively. The values to use will either be extracted from the defined HTML
-attribute, or through a callback function. If an ID of an element is passed, ala `#element`, then
-the inner HTML of that element will be inserted into the tooltip. If `ajax` is enabled,
-then the value will be used as a URL to request, and the response will be inserted as the content.
+attribute, or through a callback function.
 
 ```html
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="#element">DOM</button>
 ```
 
+These values use the dynamic content loading mentioned above.
+
 #### Manual Updates ####
 
 To programmatically update the tooltip with JavaScript, the `show()` method on the tooltip instance
 can be used. When calling `show()`, an element can be passed as the 1st argument to position the tooltip
-relative to. If no element is passed, the last element hovered will be used. The 2nd and 3rd arguments
-are the custom content and title respectively.
+relative to. If no element is passed, the last element hovered will be used. The 2nd argument is the custom content.
 
 ```javascript
 $('#button').toolkit('tooltip', 'show', [null, 'Custom content']);
@@ -142,12 +148,6 @@ Inherits all options from the [parent Component](component.md#options).
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>ajax</td>
-            <td>bool</td>
-            <td>false</td>
-            <td>Determines whether to load the tooltip content via an AJAX request.</td>
-        </tr>
         <tr>
             <td>animation</td>
             <td>string</td>

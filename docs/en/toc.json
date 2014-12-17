@@ -115,6 +115,22 @@
                                 {
                                     "title": "Triggering Methods",
                                     "url": "/development/js/usage#triggering-methods"
+                                },
+                                {
+                                    "title": "Dynamic Content Loading",
+                                    "url": "/development/js/usage#dynamic-content-loading"
+                                },
+                                {
+                                    "title": "  DOM Loading",
+                                    "url": "/development/js/usage#dom-loading"
+                                },
+                                {
+                                    "title": "  AJAX Loading",
+                                    "url": "/development/js/usage#ajax-loading"
+                                },
+                                {
+                                    "title": "  Literal Content",
+                                    "url": "/development/js/usage#literal-content"
                                 }
                             ]
                         },
@@ -1345,6 +1361,10 @@
                             "url": "/components/modal#usage"
                         },
                         {
+                            "title": "  Dynamic Content Loading",
+                            "url": "/components/modal#dynamic-content-loading"
+                        },
+                        {
                             "title": "  Multiple Modals",
                             "url": "/components/modal#multiple-modals"
                         },
@@ -1926,6 +1946,10 @@
                             "url": "/components/tooltip#usage"
                         },
                         {
+                            "title": "  Dynamic Content Loading",
+                            "url": "/components/tooltip#dynamic-content-loading"
+                        },
+                        {
                             "title": "  Titles and Content",
                             "url": "/components/tooltip#titles-and-content"
                         },
@@ -2097,84 +2121,92 @@
                     "order": 100,
                     "chapters": [
                         {
+                            "title": "2.0.2",
+                            "url": "/support/changelog#no-202"
+                        },
+                        {
+                            "title": "2.0.1",
+                            "url": "/support/changelog#no-201"
+                        },
+                        {
                             "title": "2.0.0",
-                            "url": "/support/changelog#200"
+                            "url": "/support/changelog#no-200"
                         },
                         {
                             "title": "1.5.3",
-                            "url": "/support/changelog#153"
+                            "url": "/support/changelog#no-153"
                         },
                         {
                             "title": "1.5.2",
-                            "url": "/support/changelog#152"
+                            "url": "/support/changelog#no-152"
                         },
                         {
                             "title": "1.5.1",
-                            "url": "/support/changelog#151"
+                            "url": "/support/changelog#no-151"
                         },
                         {
                             "title": "1.5.0",
-                            "url": "/support/changelog#150"
+                            "url": "/support/changelog#no-150"
                         },
                         {
                             "title": "1.4.1",
-                            "url": "/support/changelog#141"
+                            "url": "/support/changelog#no-141"
                         },
                         {
                             "title": "1.4.0",
-                            "url": "/support/changelog#140"
+                            "url": "/support/changelog#no-140"
                         },
                         {
                             "title": "1.3.2",
-                            "url": "/support/changelog#132"
+                            "url": "/support/changelog#no-132"
                         },
                         {
                             "title": "1.3.1",
-                            "url": "/support/changelog#131"
+                            "url": "/support/changelog#no-131"
                         },
                         {
                             "title": "1.3.0",
-                            "url": "/support/changelog#130"
+                            "url": "/support/changelog#no-130"
                         },
                         {
                             "title": "1.2.2",
-                            "url": "/support/changelog#122"
+                            "url": "/support/changelog#no-122"
                         },
                         {
                             "title": "1.2.1",
-                            "url": "/support/changelog#121"
+                            "url": "/support/changelog#no-121"
                         },
                         {
                             "title": "1.2.0",
-                            "url": "/support/changelog#120"
+                            "url": "/support/changelog#no-120"
                         },
                         {
                             "title": "1.1.0",
-                            "url": "/support/changelog#110"
+                            "url": "/support/changelog#no-110"
                         },
                         {
                             "title": "1.0.5",
-                            "url": "/support/changelog#105"
+                            "url": "/support/changelog#no-105"
                         },
                         {
                             "title": "1.0.4",
-                            "url": "/support/changelog#104"
+                            "url": "/support/changelog#no-104"
                         },
                         {
                             "title": "1.0.3",
-                            "url": "/support/changelog#103"
+                            "url": "/support/changelog#no-103"
                         },
                         {
                             "title": "1.0.2",
-                            "url": "/support/changelog#102"
+                            "url": "/support/changelog#no-102"
                         },
                         {
                             "title": "1.0.1",
-                            "url": "/support/changelog#101"
+                            "url": "/support/changelog#no-101"
                         },
                         {
                             "title": "1.0.0",
-                            "url": "/support/changelog#100"
+                            "url": "/support/changelog#no-100"
                         }
                     ]
                 },
