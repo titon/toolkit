@@ -476,8 +476,18 @@ Toolkit.TemplateComponent = Toolkit.Component.extend({
 
         return template
             .attr('id', this.id())
-            .conceal()
+            .conceal(true) // Add hide class
+            .hide() // Set display to none
             .appendTo('body');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        Toolkit.Component.prototype.doDestroy.call(this);
+
+        this.element.remove();
     }
 
 }, {

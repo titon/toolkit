@@ -4,85 +4,18 @@ define([
 ], function($, Toolkit) {
 
 describe('Toolkit.Component', function() {
-    var element, component;
+    var element, component, baseElement;
 
     before(function() {
         component = new Toolkit.Component();
-        component.element = $('<span/>').addClass('show').appendTo('body');
-        component.node = $('<span/>').appendTo('body');
+        component.element = baseElement = $('<div/>').addClass('show').appendTo('body');
+        component.node = $('<div/>').appendTo('body');
         component.created = true;
     });
 
     after(function() {
         component.element.remove();
         component.node.remove();
-    });
-
-    describe('createElement()', function() {
-        var comp;
-
-        before(function() {
-            comp = new Toolkit.Component();
-        });
-
-        after(function() {
-            comp = null;
-        });
-
-        afterEach(function() {
-            if (element) {
-                element.remove();
-                element = null;
-            }
-        });
-
-        it('should throw an error if no template', function() {
-            expect(comp.createElement).to.throw(Error);
-        });
-
-        it('should create the element from `template`', function() {
-            comp.options.template = '<b></b>';
-
-            element = comp.createElement();
-
-            expect(element.prop('tagName')).to.equal('B');
-        });
-
-        it('should use the element from `templateFrom`', function() {
-            var from = $('<i></i>').attr('id', 'component-test').appendTo('body');
-
-            comp.options.templateFrom = '#component-test';
-
-            element = comp.createElement();
-
-            expect(element.prop('tagName')).to.equal('I');
-
-            from.remove();
-        });
-
-        it('should set the `className` and `animation` classes', function() {
-            comp.options.className = 'foo';
-            comp.options.animation = 'slide';
-
-            element = comp.createElement();
-
-            expect(element.hasClass('foo')).to.be.true;
-            expect(element.hasClass('slide')).to.be.true;
-        });
-
-        it('should set the `created` flag', function() {
-            comp.created = false;
-
-            element = comp.createElement();
-
-            expect(comp.created).to.be.true;
-        });
-
-        it('should set an id attribute', function() {
-            element = comp.createElement();
-
-            expect(element.attr('id')).to.equal('toolkit-component-3');
-        });
     });
 
     describe('fireEvent()', function() {
@@ -166,7 +99,7 @@ describe('Toolkit.Component', function() {
 
     describe('hide()', function() {
         it('should hide the element', function(done) {
-            expect(component.element.css('display')).to.equal('inline');
+            expect(component.element.css('display')).to.equal('block');
 
             component.hide();
 
@@ -305,9 +238,11 @@ describe('Toolkit.Component', function() {
         it('should extract the namespace from the data attribute', function() {
             expect(component.namespace).to.equal('');
 
-            component.setElement($('<span data-component="foobar"></span>'));
+            component.setElement($('<div data-component="foobar"></div>'));
 
             expect(component.namespace).to.equal('foobar');
+
+            component.element = baseElement;
         });
     });
 
@@ -347,9 +282,7 @@ describe('Toolkit.Component', function() {
                 cache: false,
                 debug: true,
                 context: null,
-                className: 'foo',
-                template: '',
-                templateFrom: ''
+                className: 'foo'
             });
         });
 
@@ -364,8 +297,6 @@ describe('Toolkit.Component', function() {
                 debug: false,
                 context: null,
                 className: 'bar',
-                template: '',
-                templateFrom: '',
                 responsive: {
                     breakpoint: '(media-query)',
                     cache: false
@@ -383,9 +314,7 @@ describe('Toolkit.Component', function() {
                 cache: true,
                 debug: true,
                 context: null,
-                className: '',
-                template: '',
-                templateFrom: ''
+                className: ''
             });
         });
 
@@ -399,9 +328,7 @@ describe('Toolkit.Component', function() {
                 cache: true,
                 debug: false,
                 context: null,
-                className: 'foo',
-                template: '',
-                templateFrom: ''
+                className: 'foo'
             });
 
             element.remove();
@@ -419,8 +346,6 @@ describe('Toolkit.Component', function() {
                 debug: false,
                 context: null,
                 className: '',
-                template: '',
-                templateFrom: '',
                 mode: 'mouseenter'
             });
         });
@@ -446,14 +371,14 @@ describe('Toolkit.Component', function() {
         it('should show the element', function(done) {
             component.hide();
 
-            expect(component.element.css('display')).to.equal('none');
-
-            component.show();
-
             setTimeout(function() {
-                expect(component.element.css('display')).to.equal('inline');
+                component.show();
 
-                done();
+                setTimeout(function () {
+                    expect(component.element.css('display')).to.equal('block');
+
+                    done();
+                }, 10);
             }, 10);
         });
 
@@ -589,6 +514,81 @@ describe('Toolkit.Component', function() {
     describe('destroy()', function() {
         before(function() {
             component.destroy();
+        });
+    });
+});
+
+describe('Toolkit.TemplateComponent', function() {
+    var element, component;
+
+    before(function () {
+        component = new Toolkit.TemplateComponent();
+        component.element = $('<span/>').addClass('show').appendTo('body');
+        component.node = $('<span/>').appendTo('body');
+        component.created = true;
+    });
+
+    after(function () {
+        component.element.remove();
+        component.node.remove();
+    });
+
+    describe('createElement()', function () {
+        var comp;
+
+        before(function () {
+            comp = new Toolkit.TemplateComponent();
+        });
+
+        after(function () {
+            comp = null;
+        });
+
+        afterEach(function () {
+            if (element) {
+                element.remove();
+                element = null;
+            }
+        });
+
+        it('should throw an error if no template', function () {
+            expect(comp.createElement).to.throw(Error);
+        });
+
+        it('should create the element from `template`', function () {
+            comp.options.template = '<b></b>';
+
+            element = comp.createElement();
+
+            expect(element.prop('tagName')).to.equal('B');
+        });
+
+        it('should use the element from `templateFrom`', function () {
+            var from = $('<i></i>').attr('id', 'component-test').appendTo('body');
+
+            comp.options.templateFrom = '#component-test';
+
+            element = comp.createElement();
+
+            expect(element.prop('tagName')).to.equal('I');
+
+            from.remove();
+        });
+
+        it('should set the `className` and `animation` classes', function () {
+            comp.options.className = 'foo';
+            comp.options.animation = 'slide';
+
+            element = comp.createElement();
+
+            expect(element.hasClass('foo')).to.be.true;
+            expect(element.hasClass('slide')).to.be.true;
+        });
+
+        it('should set an id attribute', function () {
+            element = comp.createElement();
+
+            expect(element.attr('id')).to.equal('toolkit-component-2');
         });
     });
 });

@@ -338,8 +338,8 @@ describe('Toolkit.Carousel: loop', function() {
         });
 
         it('should set no dimension and position for `fade` animation', function() {
-            expect(carousel._dimension).to.equal(null);
-            expect(carousel._position).to.equal(null);
+            expect(carousel._dimension).to.equal('');
+            expect(carousel._position).to.equal('');
         });
     });
 

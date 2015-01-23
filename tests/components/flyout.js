@@ -109,19 +109,19 @@ describe('Toolkit.Flyout', function() {
 
     describe('show()', function() {
         it('should create a menu if it doesn\'t exist', function() {
-            expect(flyout.menus).to.not.have.property('/1');
+            expect(Object.keys(flyout.elements)).to.have.length(0);
 
             element.attr('href', '/1').click();
 
-            expect(flyout.menus).to.have.property('/1');
+            expect(Object.keys(flyout.elements)).to.have.length(1);
         });
 
         it('should not create a menu if there are no children', function() {
-            expect(flyout.menus).to.not.have.property('/5');
+            expect(Object.keys(flyout.elements)).to.have.length(1);
 
             element.attr('href', '/5').click();
 
-            expect(flyout.menus).to.not.have.property('/5');
+            expect(Object.keys(flyout.elements)).to.have.length(1);
         });
     });
 
@@ -129,7 +129,9 @@ describe('Toolkit.Flyout', function() {
         var menu, lis;
 
         before(function() {
-            menu = flyout.menus['/1'];
+            var keys = Object.keys(flyout.elements);
+
+            menu = flyout.elements[keys[0]];
             lis = menu.find('> ul > li');
         });
 

@@ -4,11 +4,12 @@ define([
 ], function($) {
 
 describe('Toolkit.Tooltip', function() {
-    var element,
+    var node,
+        element,
         tooltip;
 
     before(function() {
-        element = $('<a/>')
+        node = $('<a/>')
             .addClass('js-tooltip')
             .attr('title', 'Title')
             .attr('data-tooltip', 'Content')
@@ -17,67 +18,61 @@ describe('Toolkit.Tooltip', function() {
             .appendTo('body');
 
         tooltip = $('.js-tooltip').tooltip().toolkit('tooltip');
+
+        tooltip.addHook('shown', function() {
+            element = this.elements[this.node.cache('toolkit.cid')];
+        });
     });
 
     after(function() {
-        element.remove();
+        node.remove();
     });
 
     describe('constructor()', function() {
-        it('should create the tooltip markup', function() {
-            expect($('body').find('> .tooltip').length).to.equal(1);
+        it('should create the tooltip wrapper', function() {
+            expect($('body').find('> .tooltips').length).to.equal(1);
 
-            expect(tooltip.element.attr('id')).to.equal('toolkit-tooltip-1');
-        });
-
-        it('should set ARIA attributes', function() {
-            expect(tooltip.element.attr('role')).to.equal('tooltip');
+            expect(tooltip.wrapper.attr('id')).to.equal('toolkit-tooltip-1-wrapper');
         });
 
         it('should convert the title attribute on nodes', function() {
-            expect(element.attr('title')).to.be.undefined;
-            expect(element.data('tooltip-title')).to.equal('Title');
+            expect(node.attr('title')).to.be.undefined;
+            expect(node.data('tooltip-title')).to.equal('Title');
+        });
+
+        it('should create the tooltip on demand', function() {
+            expect(Object.keys(tooltip.elements)).to.have.length(0);
+
+            tooltip.show(node);
+
+            expect(Object.keys(tooltip.elements)).to.have.length(1);
         });
     });
 
     describe('hide()', function() {
         it('should hide the tooltip', function(done) {
-            tooltip.show(element);
+            tooltip.show(node);
 
             setTimeout(function() {
-                expect(tooltip.element.hasClass('show')).to.be.true;
+                expect(element.hasClass('show')).to.be.true;
 
                 tooltip.hide();
 
-                expect(tooltip.element.hasClass('show')).to.be.false;
-
-                done();
-            }, 10);
-        });
-
-        it('should reset runtime options', function(done) {
-            tooltip.show(element);
-
-            setTimeout(function() {
-                expect(tooltip.element.hasClass('foobar')).to.be.true;
-
-                tooltip.hide();
-
-                expect(tooltip.element.hasClass('foobar')).to.be.false;
+                expect(element.hasClass('show')).to.be.false;
 
                 done();
             }, 10);
         });
 
         it('should remove ARIA attributes from the node', function(done) {
-            tooltip.show(element);
+            tooltip.show(node);
 
             setTimeout(function() {
-                expect(element.attr('aria-describedby')).to.equal('toolkit-tooltip-1');
+                expect(node.attr('aria-describedby')).to.equal('toolkit-tooltip-1');
 
                 tooltip.hide();
 
-                expect(element.attr('aria-describedby')).to.be.undefined;
+                expect(node.attr('aria-describedby')).to.be.undefined;
 
                 done();
             }, 10);
@@ -86,51 +81,57 @@ describe('Toolkit.Tooltip', function() {
 
     describe('show()', function() {
         it('should show the tooltip', function(done) {
-            tooltip.show(element);
+            tooltip.show(node);
 
             setTimeout(function() {
-                expect(tooltip.element.hasClass('show')).to.be.true;
+                expect(element.hasClass('show')).to.be.true;
 
                 done();
             }, 15);
         });
 
+        it('should set ARIA attributes', function() {
+            tooltip.show(node);
+
+            expect(element.attr('role')).to.equal('tooltip');
+        });
+
         it('should inherit the title and content from attributes', function(done) {
-            tooltip.show(element);
+            tooltip.show(node);
 
             setTimeout(function() {
-                expect(tooltip.elementHead.html()).to.equal('Title');
-                expect(tooltip.elementBody.html()).to.equal('Content');
+                expect(element.find('[data-tooltip-header]').html()).to.equal('Title');
+                expect(element.find('[data-tooltip-content]').html()).to.equal('Content');
 
                 done();
             }, 10);
         });
 
         it('should allow custom content', function(done) {
-            tooltip.show(element, 'Foo');
+            tooltip.show(node, 'Foo');
 
             setTimeout(function() {
-                expect(tooltip.elementBody.html()).to.equal('Foo');
+                expect(element.find('[data-tooltip-content]').html()).to.equal('Foo');
 
                 done();
             }, 10);
         });
 
         it('should set the `position` and `className` runtime classes', function(done) {
-            tooltip.show(element);
+            tooltip.show(node);
 
             setTimeout(function() {
-                expect(tooltip.element.hasClass('top-center')).to.be.true;
-                expect(tooltip.element.hasClass('foobar')).to.be.true;
+                expect(element.hasClass('top-center')).to.be.true;
+                expect(element.hasClass('foobar')).to.be.true;
 
                 done();
             }, 10);
         });
 
         it('should set ARIA attributes on the node', function() {
-            tooltip.show(element);
+            tooltip.show(node);
 
-            expect(element.attr('aria-describedby')).to.equal('toolkit-tooltip-1');
+            expect(node.attr('aria-describedby')).to.equal('toolkit-tooltip-1');
         });
     });
 
@@ -139,8 +140,8 @@ describe('Toolkit.Tooltip', function() {
             tooltip.destroy();
         });
 
-        it('should remove the element', function() {
-            expect($('body').find('> .tooltip').length).to.equal(0);
+        it('should remove the wrapper', function() {
+            expect($('body').find('> .tooltips').length).to.equal(0);
         });
     });
 
