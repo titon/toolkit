@@ -58,8 +58,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     constructor: function(element, options) {
         var items, self = this;
 
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Set animation and ARIA
         element

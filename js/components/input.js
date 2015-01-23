@@ -30,8 +30,8 @@ Toolkit.Input = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         if (options.checkbox) {
             element.find(options.checkbox).inputCheckbox(options);
@@ -140,7 +140,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
      */
     constructor: function(checkbox, options) {
         this.element = checkbox = $(checkbox);
-        this.options = options = this.setOptions(options, checkbox);
+        options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
@@ -172,7 +172,7 @@ Toolkit.InputRadio = Toolkit.Input.extend({
      */
     constructor: function(radio, options) {
         this.element = radio = $(radio);
-        this.options = options = this.setOptions(options, radio);
+        options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
@@ -213,7 +213,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      */
     constructor: function(select, options) {
         this.element = select = $(select);
-        this.options = options = this.setOptions(options, select);
+        options = this.setOptions(options, select);
         this.multiple = select.prop('multiple');
 
         // Multiple selects must use native controls

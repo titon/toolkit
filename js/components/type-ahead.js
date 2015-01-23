@@ -53,7 +53,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         var self = this;
 
-        this.options = options = this.setOptions(options, input);
+        options = this.setOptions(options, input);
         this.element = this.createElement()
             .attr('role', 'listbox')
             .aria('multiselectable', false);

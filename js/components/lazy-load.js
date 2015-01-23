@@ -35,7 +35,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     constructor: function(container, options) {
         container = $(container);
 
-        this.options = options = this.setOptions(options, container);
+        options = this.setOptions(options, container);
         this.items = container.find(this.options.lazyClass);
 
         if (container.css('overflow') === 'auto') {

@@ -34,8 +34,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
     constructor: function(element, options) {
         var self = this;
 
-        this.element = element = this.setElement(element).attr('role', 'tablist');
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element).attr('role', 'tablist');
+        options = this.setOptions(options, element);
 
         // Find headers and cache the index of each header and set ARIA attributes
         this.headers = element.find(this.ns('header')).each(function(index) {

@@ -27,7 +27,7 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
      */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = this.createElement()
             .attr('role', 'dialog')
             .aria('labelledby', this.id('title'))

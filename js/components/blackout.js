@@ -32,7 +32,7 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
      * @param {Object} [options]
      */
     constructor: function(options) {
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = this.createElement();
 
         // Generate loader elements

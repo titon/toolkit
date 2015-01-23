@@ -37,8 +37,8 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = this.setElement(element);
-        this.options = this.setOptions(options, this.element);
+        this.setElement(element);
+        this.setOptions(options, this.element);
     },
 
     /**
@@ -285,7 +285,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @returns {jQuery}
      */
     setElement: function(element) {
-        element = $(element);
+        this.element = element = $(element);
 
         // Find a namespace
         this.namespace = element.data(this.keyName) || '';
@@ -324,6 +324,8 @@ Toolkit.Component = Toolkit.Base.extend({
         if (opts.mode && opts.mode === 'hover') {
             opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
         }
+
+        this.options = opts;
 
         return opts;
     },

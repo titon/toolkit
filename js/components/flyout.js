@@ -40,7 +40,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         }
 
         this.nodes = $(nodes);
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.createWrapper();
 
         if (options.mode === 'click') {

@@ -23,7 +23,7 @@ Toolkit.Drop = Toolkit.CompositeComponent.extend({
      */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
-        this.options = this.setOptions(options);
+        this.setOptions(options);
 
         // Set events
         this.addEvents([

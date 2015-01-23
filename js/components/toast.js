@@ -23,7 +23,7 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
      */
     constructor: function(element, options) {
         this.nodes = element = $(element); // Set to nodes so instances are unset during destroy()
-        this.options = options = this.setOptions(options, element);
+        options = this.setOptions(options, element);
 
         // Create the toasts wrapper
         this.createWrapper()

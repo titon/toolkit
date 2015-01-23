@@ -39,8 +39,8 @@ Toolkit.Pin = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Setup classes and ARIA
         element

@@ -49,7 +49,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     constructor: function(nodes, options) {
         var element;
 
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = element = this.createElement();
 
         // Nodes found in the page on initialization

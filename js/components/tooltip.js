@@ -25,7 +25,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
      */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.createWrapper();
 
         // Remove title attributes

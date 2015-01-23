@@ -274,6 +274,8 @@ Toolkit.Base = Toolkit.Class.extend({
             }
         }
 
+        this.options = opts;
+
         return opts;
     }
 
