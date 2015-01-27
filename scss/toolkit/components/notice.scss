@@ -9,7 +9,6 @@
 #{$notice-class} {
     margin: $margin 0;
     padding: $padding;
-    text-align: left;
 
     hr {
         border: 0;
@@ -22,7 +21,7 @@
 }
 
 #{$notice-class-close} {
-    float: right;
+    float: $align-opposite-direction;
     margin-left: $margin;
     line-height: 1rem;
     padding: 5px;

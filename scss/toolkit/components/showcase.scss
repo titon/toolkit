@@ -38,7 +38,7 @@
 }
 
 #{$showcase-class-close} {
-    float: right;
+    float: $align-opposite-direction;
     line-height: 1rem;
     background: none;
     border: 0;

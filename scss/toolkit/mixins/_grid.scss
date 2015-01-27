@@ -1,4 +1,3 @@
-
 @import "layout";
 
 // Calculate the gutter spacing as a percentage.
@@ -42,7 +41,7 @@
 @mixin grid-column($width: $grid-width, $gutter: $grid-gutter) {
     position: relative;
     min-height: 1px;
-    float: left;
+    float: $align-direction;
 
     @if $gutter {
         margin-right: grid-gutter($width, $gutter);

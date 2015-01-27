@@ -27,8 +27,8 @@ pre {
     margin: $margin 0 0 0;
     background: $gray-light;
     border: 1px solid $gray-dark;
-    text-align: left;
-    direction: ltr;
+    text-align: $align-direction;
+    direction: $text-direction;
     white-space: pre;
     word-spacing: normal;
     font-size: .9rem;

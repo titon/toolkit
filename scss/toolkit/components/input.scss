@@ -73,7 +73,7 @@
     }
 
     #{$input-class-select-arrow} {
-        float: right;
+        float: $align-opposite-direction;
 
         .caret-down { border-top-color: #000; }
     }

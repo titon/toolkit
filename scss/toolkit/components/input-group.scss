@@ -12,7 +12,7 @@
     white-space: nowrap;
 
     > * {
-        float: left;
+        float: $align-direction;
         display: inline-block;
         position: relative;
         border-radius: 0;

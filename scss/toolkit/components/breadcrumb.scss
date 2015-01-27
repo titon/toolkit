@@ -7,7 +7,6 @@
 @import "../common";
 
 #{$breadcrumb-class} {
-    text-align: left;
     margin: $margin 0;
 
     ul, ol {
@@ -17,7 +16,7 @@
 
     li {
         position: relative;
-        float: left;
+        float: $align-direction;
 
         &:last-child {
             .caret { display: none; }

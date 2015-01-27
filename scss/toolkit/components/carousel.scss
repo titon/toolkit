@@ -8,7 +8,6 @@
 
 #{$carousel-class} {
     margin: 0 auto;
-    text-align: left;
     position: relative;
     max-width: 100%;
 
@@ -51,7 +50,7 @@
 #{$carousel-class}.slide {
     #{$carousel-class-items} > ul {
         > li {
-            float: left;
+            float: $align-direction;
         }
 
         @include clear-fix;

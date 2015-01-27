@@ -8,7 +8,6 @@
 
 #{$drop-class} {
     @include reset-list;
-    text-align: left;
     position: absolute;
     top: 100%;
     left: 0;
@@ -40,7 +39,7 @@
             display: block;
 
             .caret-right {
-                float: right;
+                float: $align-opposite-direction;
                 display: none;
             }
         }

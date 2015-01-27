@@ -14,7 +14,7 @@
 
     > li,
     > #{$button-class} {
-        float: left;
+        float: $align-direction;
         border-radius: 0;
 
         &:hover,

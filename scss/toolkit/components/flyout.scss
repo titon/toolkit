@@ -17,7 +17,7 @@
 
     ul {
         @include reset-list;
-        float: left;
+        float: $align-direction;
         width: 200px;
     }
 
@@ -35,7 +35,7 @@
 
         // Display caret arrow
         &.has-children > a .caret-right {
-            float: right;
+            float: $align-opposite-direction;
             display: inline-block; // reveal
             margin-top: 3px;
         }

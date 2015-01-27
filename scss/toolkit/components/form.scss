@@ -188,7 +188,7 @@ textarea#{$form-class-input} {
         #{$form-class-fields} li { @include grid-row; }
 
         #{$form-class-field-label} {
-            text-align: right;
+            text-align: $align-opposite-direction;
             border: 1px solid transparent; // matches input sizes
             padding-top: $medium-padding;
         }

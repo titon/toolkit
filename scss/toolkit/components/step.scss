@@ -40,7 +40,7 @@
 
     li {
         @include reset-inline-block;
-        float: left;
+        float: $align-direction;
 
         &:first-child {
             #{$step-class} {

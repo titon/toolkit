@@ -56,6 +56,6 @@
     position: relative;
     text-align: center;
     font-size: $medium-size;
-    float: left;
+    float: $align-direction;
     transition: width $progress-transition, background $progress-transition;
 }
