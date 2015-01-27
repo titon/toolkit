@@ -117,7 +117,7 @@
     z-index: 2;
     #{$align-direction}: 0;
     user-select: none;
-    transition: left $switch-transition;
+    transition: $align-direction $switch-transition;
 
     &::before { content: "\00A0"; } // NBSP
 }

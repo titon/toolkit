@@ -195,6 +195,7 @@ textarea#{$form-class-input} {
 
         #{$form-class-field-column} {
             padding-#{$align-direction}: $margin;
+            text-align: $align-direction;
         }
     }
 }

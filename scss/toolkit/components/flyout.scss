@@ -7,6 +7,7 @@
 @import "../common";
 
 #{$flyout-class} {
+    text-align: $align-direction;
     position: absolute;
     top: 0;
     left: 0;

@@ -28,7 +28,7 @@
         position: absolute;
         top: 0;
         #{$align-direction}: 0;
-        transition: left $carousel-transition, top $carousel-transition;
+        transition: left $carousel-transition, top $carousel-transition, right $carousel-transition;
 
         > li {
             width: 100%;

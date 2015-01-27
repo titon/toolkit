@@ -35,7 +35,11 @@
             position: absolute;
             z-index: 2;
             content: "";
-            transform: rotate(-45deg);
+            @if $text-direction == ltr {
+                transform: rotate(-45deg);
+            } @else {
+                transform: rotate(-225deg);
+            }
         }
     }
 

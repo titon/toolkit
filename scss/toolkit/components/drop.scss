@@ -8,6 +8,7 @@
 
 #{$drop-class} {
     @include reset-list;
+    text-align: $align-direction;
     position: absolute;
     top: 100%;
     left: 0;
