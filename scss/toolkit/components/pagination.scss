@@ -16,7 +16,7 @@
         > li {
             position: relative;
             float: $align-direction;
-            margin-right: $padding / 2;
+            margin-#{$align-opposite-direction}: $padding / 2;
 
             > a {
                 display: block;
@@ -51,13 +51,13 @@
             border-radius: $round;
 
             > li:first-child > a {
-                border-top-left-radius: $round;
-                border-bottom-left-radius: $round;
+                border-top-#{$align-direction}-radius: $round;
+                border-bottom-#{$align-direction}-radius: $round;
             }
 
             > li:last-child > a {
-                border-top-right-radius: $round;
-                border-bottom-right-radius: $round;
+                border-top-#{$align-opposite-direction}-radius: $round;
+                border-bottom-#{$align-opposite-direction}-radius: $round;
             }
         }
 
@@ -80,13 +80,13 @@
                 border-radius: $pill;
 
                 > li:first-child a {
-                    border-top-left-radius: $pill;
-                    border-bottom-left-radius: $pill;
+                    border-top-#{$align-direction}-radius: $pill;
+                    border-bottom-#{$align-direction}-radius: $pill;
                 }
 
                 > li:last-child a {
-                    border-top-right-radius: $pill;
-                    border-bottom-right-radius: $pill;
+                    border-top-#{$align-opposite-direction}-radius: $pill;
+                    border-bottom-#{$align-opposite-direction}-radius: $pill;
                 }
             }
         }

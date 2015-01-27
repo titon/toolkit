@@ -21,8 +21,8 @@
     @for $i from 1 through 12 {
         $span: grid-span($i, 12);
 
-        .push-#{$i} { left: $span; }
-        .pull-#{$i} { right: $span; }
+        .push-#{$i} { #{$align-direction}: $span; }
+        .pull-#{$i} { #{$align-opposite-direction}: $span; }
     }
 }
 
@@ -41,8 +41,8 @@
             #{$grid-class-column}.#{$size}-#{$i} { width: $span; }
 
             @if $grid-push-pull {
-                #{$grid-class-column}.#{$size}-push-#{$i} { left: $span; }
-                #{$grid-class-column}.#{$size}-pull-#{$i} { right: $span; }
+                #{$grid-class-column}.#{$size}-push-#{$i} { #{$align-direction}: $span; }
+                #{$grid-class-column}.#{$size}-pull-#{$i} { #{$align-opposite-direction}: $span; }
             }
         }
     }
@@ -50,6 +50,6 @@
 
 // End capping
 #{$grid-class-column}#{$grid-class-end} {
-    margin-right: 0 !important;
+    margin-#{$align-opposite-direction}: 0 !important;
     float: $align-opposite-direction !important;
 }

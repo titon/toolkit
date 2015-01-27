@@ -38,14 +38,16 @@
             padding: $small-padding;
             display: block;
 
-            .caret-right {
+            .caret-right,
+            .caret-left {
                 float: $align-opposite-direction;
                 display: none;
             }
         }
 
         &.has-children {
-            > a .caret-right { display: inline-block; }
+            > a .caret-right,
+            > a .caret-left { display: inline-block; }
         }
 
         // Show nested dropdown

@@ -21,7 +21,7 @@
 
         &:checked + #{$switch-class-bar} {
             #{$switch-class-toggle} {
-                left: 50%;
+                #{$align-direction}: 50%;
             }
 
             &::before { opacity: 1; }
@@ -81,13 +81,13 @@
     }
 
     &::before {
-        left: 0;
+        #{$align-direction}: 0;
         opacity: 0;
         content: attr(data-switch-on);
     }
 
     &::after {
-        right: 0;
+        #{$align-opposite-direction}: 0;
         content: attr(data-switch-off);
     }
 
@@ -115,7 +115,7 @@
     padding: $medium-padding;
     width: 50%;
     z-index: 2;
-    left: 0;
+    #{$align-direction}: 0;
     user-select: none;
     transition: left $switch-transition;
 

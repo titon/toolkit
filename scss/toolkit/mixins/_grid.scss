@@ -44,8 +44,8 @@
     float: $align-direction;
 
     @if $gutter {
-        margin-right: grid-gutter($width, $gutter);
+        margin-#{$align-opposite-direction}: grid-gutter($width, $gutter);
 
-        &:last-child { margin-right: 0; }
+        &:last-child { margin-#{$align-opposite-direction}: 0; }
     }
 }

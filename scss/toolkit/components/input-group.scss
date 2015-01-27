@@ -40,12 +40,12 @@
 
 #{$inputGroup-class}#{$shape-round-class} {
     > *:first-child {
-        border-top-left-radius: $round;
-        border-bottom-left-radius: $round;
+        border-top-#{$align-direction}-radius: $round;
+        border-bottom-#{$align-direction}-radius: $round;
     }
 
     > *:last-child {
-        border-top-right-radius: $round;
-        border-bottom-right-radius: $round;
+        border-top-#{$align-opposite-direction}-radius: $round;
+        border-bottom-#{$align-opposite-direction}-radius: $round;
     }
 }

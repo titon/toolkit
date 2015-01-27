@@ -20,7 +20,7 @@ fieldset {
 
 legend {
     font-size: 1.3rem;
-    padding-right: $padding;
+    padding-#{$align-opposite-direction}: $padding;
 }
 
 select[multiple],
@@ -84,14 +84,14 @@ label,
 #{$form-class-input-static} {
     background: transparent;
     border-color: transparent;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-#{$align-direction}: 0 !important;
+    padding-#{$align-opposite-direction}: 0 !important;
 }
 
 #{$form-class-input-radio},
 #{$form-class-input-checkbox} {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-#{$align-direction}: 0 !important;
+    padding-#{$align-opposite-direction}: 0 !important;
     border: 0;
 
     input[type="checkbox"],
@@ -99,7 +99,7 @@ label,
         vertical-align: middle;
         position: relative;
         top: -2px;
-        margin-right: 5px;
+        margin-#{$align-opposite-direction}: 5px;
     }
 
     &.is-disabled {
@@ -193,7 +193,9 @@ textarea#{$form-class-input} {
             padding-top: $medium-padding;
         }
 
-        #{$form-class-field-column} { padding-left: $margin; }
+        #{$form-class-field-column} {
+            padding-#{$align-direction}: $margin;
+        }
     }
 }
 
@@ -209,7 +211,7 @@ textarea#{$form-class-input} {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
-            margin-right: $margin;
+            margin-#{$align-opposite-direction}: $margin;
             margin-bottom: $margin / 2;
         }
 
@@ -219,7 +221,10 @@ textarea#{$form-class-input} {
             padding: 0;
         }
 
-        #{$form-class-field-label} { margin: 0 ($margin / 2) 0 0; }
+        #{$form-class-field-label} {
+            margin: 0;
+            margin-#{$align-opposite-direction}: ($margin / 2);
+        }
 
         legend,
         #{$form-class-field-help} { display: none; }

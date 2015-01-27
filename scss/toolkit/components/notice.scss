@@ -22,7 +22,7 @@
 
 #{$notice-class-close} {
     float: $align-opposite-direction;
-    margin-left: $margin;
+    margin-#{$align-direction}: $margin;
     line-height: 1rem;
     padding: 5px;
     background: none;

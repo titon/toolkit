@@ -27,30 +27,30 @@
         @include size-medium;
         display: block;
         line-height: 100%;
-        padding-right: 0;
+        padding-#{$align-opposite-direction}: 0;
 
         .caret {
-            margin-left: $medium-padding;
+            margin-#{$align-direction}: $medium-padding;
             position: relative;
-            left: -1px;
+            #{$align-direction}: -1px;
         }
     }
 
     @include is-small {
         a {
             @include size-small;
-            padding-right: 0;
+            padding-#{$align-opposite-direction}: 0;
 
-            .caret { margin-left: $small-padding; }
+            .caret { margin-#{$align-direction}: $small-padding; }
         }
     }
 
     @include is-large {
         a {
             @include size-large;
-            padding-right: 0;
+            padding-#{$align-opposite-direction}: 0;
 
-            .caret { margin-left: $large-padding; }
+            .caret { margin-#{$align-direction}: $large-padding; }
         }
     }
 }

@@ -35,13 +35,13 @@
 
     &#{$shape-round-class} {
         @include button-group-first-child {
-            border-top-left-radius: $round;
-            border-bottom-left-radius: $round;
+            border-top-#{$align-direction}-radius: $round;
+            border-bottom-#{$align-direction}-radius: $round;
         }
 
         @include button-group-last-child {
-            border-top-right-radius: $round;
-            border-bottom-right-radius: $round;
+            border-top-#{$align-opposite-direction}-radius: $round;
+            border-bottom-#{$align-opposite-direction}-radius: $round;
         }
     }
 
@@ -50,32 +50,32 @@
             border-radius: $pill;
 
             @include button-group-first-child {
-                border-top-left-radius: $pill;
-                border-bottom-left-radius: $pill;
+                border-top-#{$align-direction}-radius: $pill;
+                border-bottom-#{$align-direction}-radius: $pill;
             }
 
             @include button-group-last-child {
-                border-top-right-radius: $pill;
-                border-bottom-right-radius: $pill;
+                border-top-#{$align-opposite-direction}-radius: $pill;
+                border-bottom-#{$align-opposite-direction}-radius: $pill;
             }
         }
     }
 
     @if index($buttonGroup-effects, "skew") {
         &#{$shape-skew-class} {
-            border-top-left-radius: $skew;
-            border-top-right-radius: $skew;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+            border-top-#{$align-direction}-radius: $skew;
+            border-top-#{$align-opposite-direction}-radius: $skew;
+            border-bottom-#{$align-direction}-radius: 0;
+            border-bottom-#{$align-opposite-direction}-radius: 0;
 
             @include button-group-first-child {
-                border-top-left-radius: $skew;
-                border-bottom-left-radius: 0;
+                border-top-#{$align-direction}-radius: $skew;
+                border-bottom-#{$align-direction}-radius: 0;
             }
 
             @include button-group-last-child {
-                border-top-right-radius: $skew;
-                border-bottom-right-radius: 0;
+                border-top-#{$align-opposite-direction}-radius: $skew;
+                border-bottom-#{$align-opposite-direction}-radius: 0;
             }
         }
     }
@@ -83,7 +83,7 @@
 
 // Space out groups
 #{$buttonGroup-class} + #{$buttonGroup-class} {
-    margin-left: $margin;
+    margin-#{$align-direction}: $margin;
 }
 
 //-------------------- Modifiers --------------------//
@@ -116,13 +116,13 @@
             #{$button-class}:last-child { border-radius: 0; }
 
             @include button-group-first-child {
-                border-top-left-radius: $round;
-                border-top-right-radius: $round;
+                border-top-#{$align-direction}-radius: $round;
+                border-top-#{$align-opposite-direction}-radius: $round;
             }
 
             @include button-group-last-child {
-                border-bottom-left-radius: $round;
-                border-bottom-right-radius: $round;
+                border-bottom-#{$align-direction}-radius: $round;
+                border-bottom-#{$align-opposite-direction}-radius: $round;
             }
         }
 
@@ -131,46 +131,46 @@
                 border-radius: $pill;
 
                 @include button-group-first-child {
-                    border-top-left-radius: $pill;
-                    border-top-right-radius: $pill;
-                    border-bottom-left-radius: 0;
-                    border-bottom-right-radius: 0;
+                    border-top-#{$align-direction}-radius: $pill;
+                    border-top-#{$align-opposite-direction}-radius: $pill;
+                    border-bottom-#{$align-direction}-radius: 0;
+                    border-bottom-#{$align-opposite-direction}-radius: 0;
                 }
 
                 @include button-group-last-child {
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                    border-bottom-left-radius: $pill;
-                    border-bottom-right-radius: $pill;
+                    border-top-#{$align-direction}-radius: 0;
+                    border-top-#{$align-opposite-direction}-radius: 0;
+                    border-bottom-#{$align-direction}-radius: $pill;
+                    border-bottom-#{$align-opposite-direction}-radius: $pill;
                 }
             }
         }
 
         @if index($buttonGroup-effects, "skew") {
             &#{$shape-skew-class} {
-                border-top-left-radius: $skew-y 1.5rem;
-                border-bottom-left-radius: $skew-y 1.5rem;
+                border-top-#{$align-direction}-radius: $skew-y 1.5rem;
+                border-bottom-#{$align-direction}-radius: $skew-y 1.5rem;
 
                 @include button-group-first-child {
-                    border-top-left-radius: $skew-reverse;
+                    border-top-#{$align-direction}-radius: $skew-reverse;
                 }
 
                 @include button-group-last-child {
-                    border-bottom-left-radius: $skew-reverse;
-                    border-top-right-radius: 0;
+                    border-bottom-#{$align-direction}-radius: $skew-reverse;
+                    border-top-#{$align-opposite-direction}-radius: 0;
                 }
             }
 
             &#{$shape-skew-class}-reverse {
-                border-top-right-radius: $skew-y 1.25rem;
-                border-bottom-right-radius: $skew-y 1.25rem;
+                border-top-#{$align-opposite-direction}-radius: $skew-y 1.25rem;
+                border-bottom-#{$align-opposite-direction}-radius: $skew-y 1.25rem;
 
                 @include button-group-first-child {
-                    border-top-right-radius: $skew-reverse;
+                    border-top-#{$align-opposite-direction}-radius: $skew-reverse;
                 }
 
                 @include button-group-last-child {
-                    border-bottom-right-radius: $skew-reverse;
+                    border-bottom-#{$align-opposite-direction}-radius: $skew-reverse;
                 }
             }
         }

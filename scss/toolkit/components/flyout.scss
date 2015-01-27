@@ -30,14 +30,18 @@
             display: block;
             text-decoration: none;
 
-            .caret-right { display: none; }
+            .caret-right,
+            .caret-left { display: none; }
         }
 
         // Display caret arrow
-        &.has-children > a .caret-right {
-            float: $align-opposite-direction;
-            display: inline-block; // reveal
-            margin-top: 3px;
+        &.has-children > a {
+            .caret-right,
+            .caret-left {
+                float: $align-opposite-direction;
+                display: inline-block; // reveal
+                margin-top: 3px;
+            }
         }
 
         // Nested flyouts

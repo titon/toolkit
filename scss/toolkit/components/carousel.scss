@@ -27,7 +27,7 @@
         @include reset-list;
         position: absolute;
         top: 0;
-        left: 0;
+        #{$align-direction}: 0;
         transition: left $carousel-transition, top $carousel-transition;
 
         > li {
@@ -64,7 +64,7 @@
         > li {
             position: absolute;
             top: 0;
-            left: 0;
+            #{$align-direction}: 0;
             opacity: 0;
             z-index: 1;
             transition: opacity $carousel-transition, visibility $carousel-transition;
