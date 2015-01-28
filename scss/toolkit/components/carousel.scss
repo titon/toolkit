@@ -7,11 +7,10 @@
 @import "../common";
 
 #{$carousel-class} {
-    margin: 0 auto;
     position: relative;
     max-width: 100%;
 
-    &.no-next #{$carousel-class-next} { display: none; }
+    &.no-next #{$carousel-class-next},
     &.no-prev #{$carousel-class-prev} { display: none; }
 }
 

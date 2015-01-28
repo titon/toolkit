@@ -8,7 +8,6 @@
 
 #{$drop-class} {
     @include reset-list;
-    text-align: $align-direction;
     position: absolute;
     top: 100%;
     left: 0;
@@ -17,13 +16,13 @@
     z-index: $drop-zindex;
     opacity: 0;
     visibility: hidden;
-    transition: left $drop-transition, opacity $drop-transition, visibility $drop-transition;
+    transition: left $drop-transition, right $drop-transition, opacity $drop-transition, visibility $drop-transition;
 
     // Nested
     #{$drop-class} {
         display: block;
         top: 0;
-        left: 90%;
+        #{$align-direction}: 90%;
         z-index: $drop-zindex + 1;
     }
 
@@ -56,7 +55,7 @@
             #{$drop-class} {
                 visibility: visible;
                 opacity: 1;
-                left: 100%;
+                #{$align-direction}: 100%;
             }
         }
     }

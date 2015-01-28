@@ -464,7 +464,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         } else if (animation === 'slide') {
             this._dimension = 'width';
-            this._position = 'left';
+            this._position = Toolkit.rtl ? 'right' : 'left';
         }
     },
 

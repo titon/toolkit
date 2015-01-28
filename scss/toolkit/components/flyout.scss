@@ -7,10 +7,9 @@
 @import "../common";
 
 #{$flyout-class} {
-    text-align: $align-direction;
     position: absolute;
     top: 0;
-    left: 0;
+    #{$align-direction}: 0;
     z-index: $flyout-zindex;
     opacity: 0;
     visibility: hidden;
@@ -47,25 +46,25 @@
 
         // Nested flyouts
         > #{$flyout-class} {
-            left: 90%;
+            #{$align-direction}: 90%;
             transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition, visibility $flyout-transition;
 
             // Reverse menu to left side in case it goes outside the viewport
             // Will be set automatically from the Javascript layer
-            &.push-left {
-                left: auto;
-                right: 90%;
+            &.push-opposite {
+                #{$align-direction}: auto;
+                #{$align-opposite-direction}: 90%;
             }
         }
 
         &.is-open > #{$flyout-class} {
             opacity: 1;
             visibility: visible;
-            left: 100%;
+            #{$align-direction}: 100%;
 
-            &.push-left {
-                left: auto;
-                right: 100%;
+            &.push-opposite {
+                #{$align-direction}: auto;
+                #{$align-opposite-direction}: 100%;
             }
         }
     }

@@ -186,7 +186,8 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 
             element
                 .removeClass('is-loading')
-                .aria('busy', false);
+                .aria('busy', false)
+                .reveal();
 
             listItem
                 .data('width', width)
@@ -260,7 +261,6 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     show: function(node) {
         this.node = node = $(node);
         this.index = -1;
-        this.element.reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,

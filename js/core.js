@@ -27,6 +27,9 @@ var Toolkit = {
     /** ARIA support. */
     aria: true,
 
+    /** Right-to-left support. */
+    rtl: false,
+
     /** Global debugging. */
     debug: false,
 

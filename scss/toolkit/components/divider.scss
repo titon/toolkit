@@ -22,13 +22,13 @@
     }
 
     &::before {
-        margin-left: -100%;
-        left: -$margin;
+        margin-#{$align-direction}: -100%;
+        #{$align-direction}: -$margin;
     }
 
     &::after {
-        margin-right: -100%;
-        right: -$margin;
+        margin-#{$align-opposite-direction}: -100%;
+        #{$align-opposite-direction}: -$margin;
     }
 
     // Collapse the middle when there is no content

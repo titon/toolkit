@@ -65,12 +65,23 @@
             &#{$shape-oval-class} ol {
                 border-radius: #{$oval-x} / #{$oval-y};
 
-                > li:first-child a {
-                    border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
-                }
+                @if $text-direction == rtl {
+                    > li:first-child a {
+                        border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                    }
 
-                > li:last-child a {
-                    border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                    > li:last-child a {
+                        border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
+                    }
+
+                } @else {
+                    > li:first-child a {
+                        border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
+                    }
+
+                    > li:last-child a {
+                        border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                    }
                 }
             }
         }
@@ -95,12 +106,23 @@
             &#{$shape-skew-class} ol {
                 border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
 
-                > li:first-child a {
-                    border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
-                }
+                @if $text-direction == rtl {
+                    > li:first-child a {
+                        border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+                    }
 
-                > li:last-child a {
-                    border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+                    > li:last-child a {
+                        border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
+                    }
+
+                } @else {
+                    > li:first-child a {
+                        border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
+                    }
+
+                    > li:last-child a {
+                        border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+                    }
                 }
             }
         }

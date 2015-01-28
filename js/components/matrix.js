@@ -354,7 +354,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 }, {
     width: 200,
     gutter: 20,
-    rtl: false,
+    rtl: Toolkit.rtl,
     defer: true
 });
 

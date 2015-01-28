@@ -111,6 +111,7 @@
     #{$input-class-select-options} {
         max-height: 300px;
         overflow: auto;
+        z-index: 5;
 
         li.is-disabled {
             > a,

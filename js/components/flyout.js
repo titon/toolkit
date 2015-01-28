@@ -396,9 +396,9 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         var hWidth = parentRight + menu.outerWidth();
 
         if (hWidth >= winWidth) {
-            menu.addClass('push-left');
+            menu.addClass('push-opposite');
         } else {
-            menu.removeClass('push-left');
+            menu.removeClass('push-opposite');
         }
 
         // Reverse menu vertically if below half way fold
