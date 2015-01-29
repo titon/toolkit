@@ -133,22 +133,29 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             return;
         }
 
+        this.fireEvent('showing');
+
         var height = element.outerHeight(),
             coords = node.offset(),
             x = coords.left + options.xOffset,
             y = coords.top + options.yOffset + node.outerHeight(),
-            windowScroll = $(window).height();
+            windowScroll = $(window).height(),
+            dir = 'left';
 
         // If menu goes below half page, position it above
         if (y > (windowScroll / 2)) {
             y = coords.top - options.yOffset - height;
         }
 
-        this.fireEvent('showing');
+        // Change position for RTL
+        if (Toolkit.rtl) {
+            x = $(window).width() - coords.left - node.outerWidth();
+            dir = 'right';
+        }
 
         element
             .css('top', y)
-            .css(Toolkit.rtl ? 'right' : 'left', x)
+            .css(dir, x)
             .reveal();
 
         this.fireEvent('shown');
@@ -389,22 +396,27 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         // Get sizes after menu positioning
         var win = $(window),
             winHeight = win.height() + win.scrollTop(),
-            winWidth = win.width(),
-            parentTop = parent.offset().top,
+            parentOffset = parent.offset(),
             parentHeight = parent.outerHeight(),
-            parentRight = parent.offset().left + parent.outerWidth();
+            oppositeClass = 'push-opposite';
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        var hWidth = parentRight + menu.outerWidth();
-
-        if (hWidth >= winWidth) {
-            menu.addClass('push-opposite');
+        if (Toolkit.rtl) {
+            if ((parentOffset.left - menu.outerWidth()) < 0) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         } else {
-            menu.removeClass('push-opposite');
+            if ((parentOffset.left + parent.outerWidth() + menu.outerWidth()) >= win.width()) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         }
 
         // Reverse menu vertically if below half way fold
-        if (parentTop > (winHeight / 2)) {
+        if (parentOffset.top > (winHeight / 2)) {
             menu.css('top', '-' + (menu.outerHeight() - parentHeight) + 'px');
         } else {
             menu.css('top', 0);
