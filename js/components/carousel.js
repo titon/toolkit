@@ -151,7 +151,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.container.transitionend(function() {
             $(this)
                 .addClass('no-transition')
-                .css('left', 0)
+                .css(this._position, 0)
                 .find('li.is-cloned')
                     .remove();
         });
@@ -464,7 +464,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         } else if (animation === 'slide') {
             this._dimension = 'width';
-            this._position = Toolkit.rtl ? 'right' : 'left';
+            this._position = options.rtl ? 'right' : 'left';
         }
     },
 
@@ -576,6 +576,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
+    rtl: Toolkit.rtl,
     swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,

@@ -146,10 +146,10 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 
         this.fireEvent('showing');
 
-        element.css({
-            left: x,
-            top: y
-        }).reveal();
+        element
+            .css('top', y)
+            .css(Toolkit.rtl ? 'right' : 'left', x)
+            .reveal();
 
         this.fireEvent('shown');
     },
@@ -270,7 +270,9 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                     });
 
                     // Add icon
-                    $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
+                    $('<span/>')
+                        .addClass(child.icon || (Toolkit.rtl ? 'caret-left' : 'caret-right'))
+                        .prependTo(tag);
 
                 } else {
                     li = $(options.headingTemplate);

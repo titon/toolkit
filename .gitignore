@@ -3,7 +3,7 @@
 .sass-cache/
 css/
 node_modules/
-build/toolkit.*
+build/toolkit*
 npm-debug.log
 *.gem
 Gemfile.lock

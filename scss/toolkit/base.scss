@@ -10,7 +10,7 @@
 *, *::after, *::before { box-sizing: border-box; }
 
 // RTL
-*[dir="rtl"] { direction: rtl; unicode-bidi: embed; }
+*[dir="rtl"], .rtl { direction: rtl; unicode-bidi: embed; }
 bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 
 // Alignment
