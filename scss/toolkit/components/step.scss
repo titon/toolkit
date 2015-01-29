@@ -36,9 +36,9 @@
             z-index: 2;
             content: "";
             @if $text-direction == ltr {
-                transform: rotate(-45deg);
+                transform: rotate(315deg);
             } @else {
-                transform: rotate(-225deg);
+                transform: rotate(135deg);
             }
         }
     }

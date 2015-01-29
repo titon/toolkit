@@ -148,7 +148,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         }
 
         // Change position for RTL
-        if (Toolkit.rtl) {
+        if (Toolkit.isRTL) {
             x = $(window).width() - coords.left - node.outerWidth();
             dir = 'right';
         }
@@ -278,7 +278,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 
                     // Add icon
                     $('<span/>')
-                        .addClass(child.icon || (Toolkit.rtl ? 'caret-left' : 'caret-right'))
+                        .addClass(child.icon || (Toolkit.isRTL ? 'caret-left' : 'caret-right'))
                         .prependTo(tag);
 
                 } else {
@@ -401,7 +401,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             oppositeClass = 'push-opposite';
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        if (Toolkit.rtl) {
+        if (Toolkit.isRTL) {
             if ((parentOffset.left - menu.outerWidth()) < 0) {
                 menu.addClass(oppositeClass);
             } else {

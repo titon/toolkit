@@ -8,10 +8,11 @@ define([
     'jquery',
     './flags/touch',
     './flags/retina',
+    './flags/rtl',
     './flags/transition',
     './flags/transitionend',
     './extensions/cache'
-], function($, isTouch, isRetina, hasTransition, transitionEnd) {
+], function($, isTouch, isRetina, isRTL, hasTransition, transitionEnd) {
 
 var Toolkit = {
 
@@ -26,9 +27,6 @@ var Toolkit = {
 
     /** ARIA support. */
     aria: true,
-
-    /** Right-to-left support. */
-    rtl: false,
 
     /** Global debugging. */
     debug: false,
@@ -47,6 +45,9 @@ var Toolkit = {
 
     /** Detect retina displays. */
     isRetina: isRetina,
+
+    /** Detect right-to-left support. */
+    isRTL: isRTL,
 
     /** Name of the `transitionend` event. */
     transitionEnd: transitionEnd,

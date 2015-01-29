@@ -237,7 +237,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         this.element
             .css('top', iPos.top + this.input.outerHeight())
-            .css(Toolkit.rtl ? 'right' : 'left', iPos.left)
+            .css(Toolkit.isRTL ? 'right' : 'left', iPos.left)
             .reveal();
 
         this.input.aria('expanded', true);

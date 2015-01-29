@@ -40,7 +40,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     /** The dimension (width or height) to read sizes from. */
     _dimension: '',
 
-    /** The position (left or top) to modify for cycling. */
+    /** The position (left, right, or top) to modify for cycling. */
     _position: '',
 
     /** The size to cycle with. */
@@ -148,10 +148,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.jump(0);
 
         // Remove clones
+        var dir = this._position;
+
         this.container.transitionend(function() {
             $(this)
                 .addClass('no-transition')
-                .css(this._position, 0)
+                .css(dir, 0)
                 .find('li.is-cloned')
                     .remove();
         });
@@ -576,7 +578,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
-    rtl: Toolkit.rtl,
+    rtl: Toolkit.isRTL,
     swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
