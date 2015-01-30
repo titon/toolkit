@@ -7,6 +7,13 @@
 ```
 
 # Toolkit v2.0.2 - Gallant Golem #
+[![Project Titon](https://img.shields.io/badge/project-titon-82667d.svg?style=flat)](http://titon.io)
+[![Build Status](https://img.shields.io/travis/titon/toolkit.svg?style=flat)](https://travis-ci.org/titon/toolkit)
+[![Latest Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
+[![Total Downloads](https://img.shields.io/npm/dm/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
+[![Latest Version](https://img.shields.io/gem/v/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
+[![Total Downloads](https://img.shields.io/gem/dt/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
+[![License](https://img.shields.io/packagist/l/titon/toolkit.svg?style=flat)](https://github.com/titon/toolkit/blob/master/license.md)
 
 Titon Toolkit is a collection of very powerful user interface components and utility classes
 for the responsive, mobile, and modern web. Each component represents encapsulated HTML, CSS,
