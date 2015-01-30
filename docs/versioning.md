@@ -20,6 +20,9 @@ These docs are for internal use only.
     * Add any `new` or `updated` flags to TOC
 * Prepare release with `gulp --dist`
     * Fix the comment docblocks
+* Prepare RTL release with `gulp --dist --rtl`
+    * Change `$text-direction` in Sass to `rtl` first
+    * Fix the comment docblocks
 * Quick tests with the distribution files
 * Verify changes with `git diff`
 * Publish changes

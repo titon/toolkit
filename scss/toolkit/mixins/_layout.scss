@@ -88,3 +88,16 @@
         }
     }
 }
+
+// Generate code blocks for LTR and RTL styles.
+@mixin ltr() {
+    &[dir="ltr"] {
+        @content;
+    }
+}
+
+@mixin rtl() {
+    &[dir="rtl"] {
+        @content;
+    }
+}

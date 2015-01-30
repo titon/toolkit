@@ -69,6 +69,7 @@
     position: relative;
     font-size: $medium-size;
     transition: background $switch-transition;
+    text-align: left;
 
     &::before,
     &::after {

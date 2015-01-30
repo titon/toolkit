@@ -32,8 +32,8 @@
 
     &#{$shape-round-class} {
         #{$progress-class-bar}:first-child {
-            border-top-left-radius: $round;
-            border-bottom-left-radius: $round;
+            border-top-#{$align-direction}-radius: $round;
+            border-bottom-#{$align-direction}-radius: $round;
         }
     }
 
@@ -42,8 +42,8 @@
             border-radius: $pill;
 
             #{$progress-class-bar}:first-child {
-                border-top-left-radius: $pill;
-                border-bottom-left-radius: $pill;
+                border-top-#{$align-direction}-radius: $pill;
+                border-bottom-#{$align-direction}-radius: $pill;
             }
         }
     }
@@ -56,6 +56,6 @@
     position: relative;
     text-align: center;
     font-size: $medium-size;
-    float: left;
+    float: $align-direction;
     transition: width $progress-transition, background $progress-transition;
 }

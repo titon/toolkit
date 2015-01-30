@@ -6,9 +6,7 @@
 
 @import "../common";
 
-#{$tab-class} {
-    text-align: left;
-}
+#{$tab-class} { }
 
 #{$tab-class-nav} {
     display: block;
@@ -35,7 +33,7 @@
             ul, ol, li, a, button {
                 display: block;
                 float: none;
-                text-align: left;
+                text-align: $align-direction;
             }
         }
     }

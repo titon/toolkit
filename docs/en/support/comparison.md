@@ -757,7 +757,7 @@ The following plugins are found within Semantic UI that have not been mentioned 
         </tr>
         <tr>
             <td>Right-to-Left</td>
-            <td class="is-error"></td>
+            <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>

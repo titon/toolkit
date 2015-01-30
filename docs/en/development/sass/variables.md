@@ -71,6 +71,11 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
     </thead>
     <tbody>
         <tr>
+            <td>$text-direction</td>
+            <td>ltr</td>
+            <td>Outputs CSS in either LTR (left-to-right) or RTL (right-to-left) format.</td>
+        </tr>
+        <tr>
             <td>$enable-small-size</td>
             <td>true</td>
             <td>Include <code>.small</code> class sizing in CSS output.</td>

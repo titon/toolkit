@@ -29,6 +29,11 @@ The list of available plugins can be found in the `manifest.json` found within t
 By default, [normalize.css](http://necolas.github.io/normalize.css/) will be included at the top of the generated CSS file.
 To not include normalize, supply the `--no-normalize` option.
 
+## Right-To-Left Support ##
+
+When passing the `--rtl` option, the compiled CSS file name will be appended with `-rtl`. 
+This does not actually trigger RTL styles, that will require modifying [Sass variables](rtl.md).
+
 ## Combining Options ##
 
 Like other command line utilities, all options can be used at once, and in any order. Go crazy and customize as you please!

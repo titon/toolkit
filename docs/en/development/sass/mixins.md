@@ -64,6 +64,16 @@ style resets, and media query management.
             <td>size-large()</td>
             <td></td>
         </tr>
+        <tr>
+            <td>ltr()</td>
+            <td>Yes</td>
+            <td>Provides styles for elements that have the attribute <code>dir="ltr"</code>.</td>
+        </tr>
+        <tr>
+            <td>rtl()</td>
+            <td>Yes</td>
+            <td>Provides styles for elements that have the attribute <code>dir="rtl"</code>.</td>
+        </tr>
     </tbody>
 </table>
 

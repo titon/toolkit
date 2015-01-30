@@ -30,7 +30,7 @@
     background: none;
     border: 0;
     top: $padding;
-    right: $padding;
+    #{$align-opposite-direction}: $padding;
     line-height: 1rem;
     opacity: $default-opacity;
     padding: 5px;

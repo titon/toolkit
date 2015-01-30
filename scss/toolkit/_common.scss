@@ -12,9 +12,9 @@ $shape-skew-class: ".skew" !default;
 
 $enable-small-size: true !default;
 $enable-large-size: true !default;
-$enable-all-effects: false !default;
-$enable-all-modifiers: false !default;
-$enable-all-animations: false !default;
+$enable-all-effects: true !default;
+$enable-all-modifiers: true !default;
+$enable-all-animations: true !default;
 
 //-------------------- Colors --------------------//
 
@@ -38,6 +38,17 @@ $default-transition: .3s !default;
 
 $bem-element-separator: "-" !default;
 $bem-modifier-separator: "--" !default;
+
+//-------------------- Text Direction --------------------//
+
+$text-direction: ltr !default;
+$align-direction: left;
+$align-opposite-direction: right;
+
+@if ($text-direction == rtl) {
+    $align-direction: right;
+    $align-opposite-direction: left;
+}
 
 //-------------------- Spacing --------------------//
 

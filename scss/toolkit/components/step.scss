@@ -19,7 +19,8 @@
 
     // Use em's to scale against the size defined on .steps
     #{$step-class} {
-        padding: 0 2em 0 3.5em;
+        padding-#{$align-direction}: 3.5em;
+        padding-#{$align-opposite-direction}: 2em;
         position: relative;
         display: block;
         line-height: 3em;
@@ -30,21 +31,25 @@
             height: 2.165em;
             width: 2.165em;
             top: 0.425em;
-            right: -1.1em;
+            #{$align-opposite-direction}: -1.1em;
             position: absolute;
             z-index: 2;
             content: "";
-            transform: rotate(-45deg);
+            @if $text-direction == ltr {
+                transform: rotate(315deg);
+            } @else {
+                transform: rotate(135deg);
+            }
         }
     }
 
     li {
         @include reset-inline-block;
-        float: left;
+        float: $align-direction;
 
         &:first-child {
             #{$step-class} {
-                padding-left: 2em;
+                padding-#{$align-direction}: 2em;
             }
         }
 

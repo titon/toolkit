@@ -38,12 +38,12 @@
 }
 
 #{$showcase-class-close} {
-    float: right;
+    float: $align-opposite-direction;
     line-height: 1rem;
     background: none;
     border: 0;
     padding: 0;
-    margin-left: 1rem;
+    margin-#{$align-direction}: 1rem;
 }
 
 #{$showcase-class-caption} {
@@ -67,7 +67,7 @@
     > li {
         position: absolute;
         top: 0;
-        left: 0;
+        #{$align-direction}: 0;
         opacity: 0;
         transition: opacity $showcase-transition, visibility $showcase-transition;
 

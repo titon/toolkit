@@ -166,17 +166,18 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 
         // Reset previous styles
         listItems.conceal(true);
-        caption.conceal();
+        caption.conceal(true);
         element
             .addClass('is-loading')
-            .aria('busy', true);
+            .aria('busy', true)
+            .reveal();
 
         // Setup deferred callbacks
         this.animating = true;
 
         deferred.always(function(width, height) {
             list.transitionend(function() {
-                caption.html(item.title).reveal();
+                caption.html(item.title).reveal(true);
                 listItem.reveal(true);
                 self.position();
                 self.animating = false;
@@ -213,6 +214,11 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
                     deferred.resolve(this.width, this.height);
                     listItem.append(img);
                 };
+        }
+
+        // Hide loader
+        if (this.blackout) {
+            this.blackout.hideLoader();
         }
 
         // Save state
@@ -260,7 +266,6 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     show: function(node) {
         this.node = node = $(node);
         this.index = -1;
-        this.element.reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,

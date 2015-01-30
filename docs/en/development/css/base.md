@@ -139,3 +139,12 @@ These spans are handy when controlling input sizes, or building columns with the
 ```html
 <input type="text" class="input span-6" name="name">
 ```
+
+## RTL ##
+
+Adding `dir="rtl"` or `.rtl` to an element will enable RTL reading mode. We suggest adding this attribute to
+the base `<html>` tag. [Learn more about RTL languages.](../../setup/rtl.md)
+
+```html
+<html lang="ar" dir="rtl">
+```
