@@ -1,18 +1,19 @@
 ```
- ______  ______   ______   __       __  __   __   ______
-/\__  _\/\  __ \ /\  __ \ /\ \     /\ \/ /_ /\ \ /\__  _\
-\/_/\ \/\ \ \/\ \\ \ \/\ \\ \ \____\ \  _  \\ \ \\/_/\ \/
-   \ \_\ \ \_____\\ \_____\\ \_____\\ \_\ \_\\ \_\  \ \_\
-    \/_/  \/_____/ \/_____/ \/_____/ \/_/\/_/ \/_/   \/_/
+ ______   ______   ______   __       __  __   __   ______
+/\__  _\ /\  __ \ /\  __ \ /\ \     /\ \/ /_ /\ \ /\__  _\
+\/_/\ \/ \ \ \/\ \\ \ \/\ \\ \ \____\ \  _  \\ \ \\/_/\ \/
+   \ \_\  \ \_____\\ \_____\\ \_____\\ \_\ \_\\ \_\  \ \_\
+    \/_/   \/_____/ \/_____/ \/_____/ \/_/\/_/ \/_/   \/_/
 ```
 
 # Toolkit v2.0.2 - Gallant Golem #
 [![Project Titon](https://img.shields.io/badge/project-titon-82667d.svg?style=flat)](http://titon.io)
 [![Build Status](https://img.shields.io/travis/titon/toolkit.svg?style=flat)](https://travis-ci.org/titon/toolkit)
-[![Latest Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
+[![NPM Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
 [![Total Downloads](https://img.shields.io/npm/dm/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
-[![Latest Version](https://img.shields.io/gem/v/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
+[![Gem Version](https://img.shields.io/gem/v/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
 [![Total Downloads](https://img.shields.io/gem/dt/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
+[![Bower Version](https://img.shields.io/bower/v/toolkit.svg?style=flat)](http://bower.io/search/?q=toolkit)
 [![License](https://img.shields.io/packagist/l/titon/toolkit.svg?style=flat)](https://github.com/titon/toolkit/blob/master/license.md)
 
 Titon Toolkit is a collection of very powerful user interface components and utility classes
