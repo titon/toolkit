@@ -148,7 +148,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.jump(0);
 
         // Remove clones
-        var dir = this._position;
+        var dir = this._position || 'left';
 
         this.container.transitionend(function() {
             $(this)
