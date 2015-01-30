@@ -5,11 +5,12 @@ Older versions can be found in the documentation changelogs.
 ## 2.1.0 ##
 
 * Added right-to-left (RTL) support for all CSS and JS components
+* Added Travis CI integration for automatic build and testing
 * JavaScript
-    * Base
-        * Removed the `runtime` property
     * Toolkit
         * Added a new `isRTL` flag for detecting RTL support
+    * Base
+        * Removed the `runtime` property
 * Components
     * Component
         * Split the `Component` class into 3 classes with different roles: 
