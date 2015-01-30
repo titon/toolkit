@@ -321,6 +321,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>Will reverse the direction for automatic cycling.</td>
         </tr>
         <tr>
+            <td>rtl</td>
+            <td>bool</td>
+            <td>Toolkit.isRTL</td>
+            <td>Will reverse the carousel for right-to-left languages.</td>
+        </tr>
+        <tr>
             <td>stopOnHover</td>
             <td>bool</td>
             <td>true</td>

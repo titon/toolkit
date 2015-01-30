@@ -4,9 +4,12 @@ Older versions can be found in the documentation changelogs.
 
 ## 2.1.0 ##
 
+* Added right-to-left (RTL) support for all CSS and JS components
 * JavaScript
     * Base
         * Removed the `runtime` property
+    * Toolkit
+        * Added a new `isRTL` flag for detecting RTL support
 * Components
     * Component
         * Split the `Component` class into 3 classes with different roles: 
@@ -24,6 +27,7 @@ Older versions can be found in the documentation changelogs.
         * Added a `wrapperClass` option
         * Renamed the `current` property to `url`
         * Renamed the `menus` property to `elements`
+        * Renamed the `.push-left` class to `.push-opposite`
         * Refactored `_buildMenu()` to handle the composite functionality
         * Removed the `isVisible()`, `_getMenu()`, and `_getTarget()` methods
     * LazyLoad  
@@ -34,6 +38,8 @@ Older versions can be found in the documentation changelogs.
         * Added a `wrapperClass` option
     * Showcase
         * Updated to extend the `TemplateComponent`
+        * Fixed a bug where captions would disappear
+        * Fixed a bug where the blackout loader would not disappear
     * Toast
         * Updated to extend the `CompositeComponent`
         * Added a `wrapperClass` option
