@@ -98,10 +98,11 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
         <title>Titon Toolkit</title>
         <link href="css/toolkit.min.css" rel="stylesheet">
         <link href="css/style.min.css" rel="stylesheet">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/toolkit.min.js"></script>
     </head>
     <body>
+        <!-- JS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/toolkit.min.js"></script>
     </body>
 </html>
 ```
