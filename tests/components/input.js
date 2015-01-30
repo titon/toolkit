@@ -188,7 +188,7 @@ describe('Toolkit.InputSelect', function() {
 
     describe('hide()', function() {
         it('should hide the drop down', function(done) {
-            select = $('<select name="foo"></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             input.show();
@@ -211,7 +211,7 @@ describe('Toolkit.InputSelect', function() {
 
     describe('show()', function() {
         it('should show the drop down', function(done) {
-            select = $('<select name="foo"></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             input.hide();
@@ -239,7 +239,7 @@ describe('Toolkit.InputSelect', function() {
         });
 
         it('should set ARIA attributes', function() {
-            select = $('<select name="foo"></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             expect(input.dropdown.attr('role')).to.equal('listbox');
@@ -247,7 +247,7 @@ describe('Toolkit.InputSelect', function() {
         });
 
         it('should set classes and state for multi-selects', function() {
-            select = $('<select name="foo" multiple></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo" multiple></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             expect(input.dropdown.hasClass('is-multiple')).to.be.true;
@@ -257,7 +257,8 @@ describe('Toolkit.InputSelect', function() {
         it('should set `hideFirst` and `hideSelected` classes', function() {
             select = $('<select name="foo"></select>').appendTo(element).inputSelect({
                 hideFirst: true,
-                hideSelected: true
+                hideSelected: true,
+                native: false
             });
 
             input = select.toolkit('inputSelect');
@@ -267,7 +268,7 @@ describe('Toolkit.InputSelect', function() {
         });
 
         it('should convert options to list items', function() {
-            select = $('<select name="foo"><option value="1">Foo</option><option value="2">Bar</option></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"><option value="1">Foo</option><option value="2">Bar</option></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             expect(input.dropdown.find('li').length).to.equal(2);
@@ -276,7 +277,7 @@ describe('Toolkit.InputSelect', function() {
         });
 
         it('should convert optgroups to list dividers', function() {
-            select = $('<select name="foo"><optgroup label="Group"><option value="1">Foo</option><option value="2">Bar</option></optgroup></select>').appendTo(element).inputSelect();
+            select = $('<select name="foo"><optgroup label="Group"><option value="1">Foo</option><option value="2">Bar</option></optgroup></select>').appendTo(element).inputSelect({ native: false });
             input = select.toolkit('inputSelect');
 
             expect(input.dropdown.find('li').length).to.equal(3);

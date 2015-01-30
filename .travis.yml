@@ -5,7 +5,7 @@ node_js:
 
 matrix:
   allow_failures:
-    - node_js: 0.10
+    #- node_js: 0.10
 
 before_script:
   - npm install -g gulp
