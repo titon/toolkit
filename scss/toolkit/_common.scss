@@ -225,6 +225,11 @@ $drop-modifiers: ("down", "up", "left", "right") !default;
 
 $drop-transition: $default-transition !default;
 
+//-------------------- Flex --------------------//
+
+$flex-class: class-name("flex") !default;
+$flex-class-block: class-name("block", "") !default;
+
 //-------------------- Flyout --------------------//
 
 $flyout-class: class-name("flyout") !default;
