@@ -37,6 +37,9 @@ var Toolkit = {
         error: 'An error has occurred!'
     },
 
+    /** BEM class name separators. */
+    bemSeparators: ['-', '--'],
+
     /** Does the browser support transitions? */
     hasTransition: hasTransition,
 
@@ -54,6 +57,28 @@ var Toolkit = {
 
     /** Plugin instances indexed by the selector that activated it. */
     cache: {},
+
+    /**
+     * Generate a BEM (block-element-modifier) valid CSS class name.
+     *
+     * @param {String} block
+     * @param {String} element
+     * @param {String} modifier
+     * @returns {String}
+     */
+    bem: function(block, element, modifier) {
+        var seps = Toolkit.bemSeparators;
+
+        if (element) {
+            block += seps[0] + element;
+        }
+
+        if (modifier) {
+            block += seps[1] + modifier;
+        }
+
+        return '.' + Toolkit.namespace + block;
+    },
 
     /**
      * Creates a jQuery plugin by extending the jQuery prototype with a method definition.
@@ -102,7 +127,7 @@ var Toolkit = {
      */
     renderTemplate: function(template) {
         if (typeof template === 'function') {
-            template = template.call();
+            template = template.call(null, Toolkit.bem, Toolkit.namespace);
         }
 
         return $(template + '');
