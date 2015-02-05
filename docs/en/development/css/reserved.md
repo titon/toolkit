@@ -23,9 +23,7 @@ Continue reading for more information on these variables.
 
 ## Namespacing Classes ##
 
-Toolkit supports prefixing of *ALL* plugins with a vendor name, 
-so that `.tooltip` would be renamed to `.tk-tooltip` if the `$vendor-prefix` variable was set to `tk-`.
-This is disabled by default.
+Toolkit supports prefixing of *ALL* plugins with a namespace. For example, `.tooltip` would be renamed to `.tk-tooltip` if the `$namespace` variable was set to `tk-`. This is disabled by default.
 
 * [Learn more on CSS/Sass prefixing](../sass/variables.md)
-* [Learn more on JavaScript prefixing](../js/toolkit.md#vendor-prefix)
+* [Learn more on JavaScript prefixing](../js/toolkit.md#css-namespace)

@@ -1,9 +1,6 @@
 # Extensions #
 
-Why stop at components? Why not extend jQuery directly with new functionality?
-Well don't worry, that's exactly what Toolkit has done.
-We extended the prototype of each vendor with new functionality that eased component development.
-These extensions may even solve a problem in your own codebase.
+Why stop at components? Why not extend jQuery directly with new functionality? Well don't worry, that's exactly what Toolkit has done. We extended the prototype with new functionality that eased component development. These extensions may even solve a problem in your own codebase.
 
 ## Methods ##
 

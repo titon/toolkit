@@ -246,7 +246,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @returns {jQuery}
      */
     render: function(template) {
-        return $(Toolkit.parseTemplate(template));
+        return $(Toolkit.buildTemplate(template));
     },
 
     /**
@@ -553,7 +553,7 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
         var options = this.options;
 
         return this.wrapper = this.render(options.wrapperTemplate)
-            .addClass(Toolkit.parseTemplate(options.wrapperClass))
+            .addClass(Toolkit.buildTemplate(options.wrapperClass))
             .attr('id', this.id('wrapper'))
             .appendTo('body');
     },

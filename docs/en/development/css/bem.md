@@ -37,5 +37,5 @@ A modifier can be easily recognized by a `--` between the block and modifier nam
 ```
 
 <div class="notice is-info">
-    The BEM separators in class names can be configured through Sass variables.
+    The BEM separators in class names can be configured through Sass variables and the <code>Toolkit.bemSeparators</code> JavaScript property.
 </div>
