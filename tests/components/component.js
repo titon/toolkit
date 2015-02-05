@@ -10,7 +10,6 @@ describe('Toolkit.Component', function() {
         component = new Toolkit.Component();
         component.element = baseElement = $('<div/>').addClass('show').appendTo('body');
         component.node = $('<div/>').appendTo('body');
-        component.created = true;
     });
 
     after(function() {
@@ -525,7 +524,6 @@ describe('Toolkit.TemplateComponent', function() {
         component = new Toolkit.TemplateComponent();
         component.element = $('<span/>').addClass('show').appendTo('body');
         component.node = $('<span/>').appendTo('body');
-        component.created = true;
     });
 
     after(function () {

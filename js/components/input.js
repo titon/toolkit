@@ -324,7 +324,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         var select = this.element,
             options = this.options,
             buildOption = this._buildOption.bind(this),
-            dropdown = this.render(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
+            renderTemplate = this.render.bind(this),
+            dropdown = renderTemplate(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
@@ -341,7 +342,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 }
 
                 list.append(
-                    this.render(options.headingTemplate).text(optgroup.attr('label'))
+                    renderTemplate(options.headingTemplate).text(optgroup.attr('label'))
                 );
 
                 optgroup.children().each(function() {

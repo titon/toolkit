@@ -62,8 +62,8 @@ var Toolkit = {
      * Generate a BEM (block-element-modifier) valid CSS class name.
      *
      * @param {String} block
-     * @param {String} element
-     * @param {String} modifier
+     * @param {String} [element]
+     * @param {String} [modifier]
      * @returns {String}
      */
     bem: function(block, element, modifier) {
@@ -120,8 +120,8 @@ var Toolkit = {
 
     /**
      * Parse a template and convert it to a string.
-     * If the template is a function, execute it before hand and pass the `bem()` function,
-     * and the current namespace.
+     * If the template is a function, execute it and pass the `bem()` function,
+     * and the current namespace as arguments.
      *
      * @param {String|Function} template
      * @returns {String}

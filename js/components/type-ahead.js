@@ -190,7 +190,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
             options = this.options,
             callback = function(match) {
                 return this.render(options.highlightTemplate).html(match).toString();
-            };
+            }.bind(this);
 
         for (var i = 0, t; t = terms[i]; i++) {
             item = item.replace(new RegExp(t, 'ig'), callback);
