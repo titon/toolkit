@@ -7,11 +7,10 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
@@ -89,7 +88,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $(this.options.shadowTemplate);
+            this.wrapper = this.render(this.options.shadowTemplate);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -154,10 +153,10 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
             'aria-selected': 'false'
         });
 
-        a.append( $(this.options.titleTemplate).html(this.highlight(item.title)) );
+        a.append( this.render(this.options.titleTemplate).html(this.highlight(item.title)) );
 
         if (item.description) {
-            a.append( $(this.options.descTemplate).html(item.description) );
+            a.append( this.render(this.options.descTemplate).html(item.description) );
         }
 
         return a;
@@ -190,8 +189,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             options = this.options,
             callback = function(match) {
-                return $(options.highlightTemplate).html(match).toString();
-            };
+                return this.render(options.highlightTemplate).html(match).toString();
+            }.bind(this);
 
         for (var i = 0, t; t = terms[i]; i++) {
             item = item.replace(new RegExp(t, 'ig'), callback);
@@ -360,7 +359,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
                 results.push(null);
 
                 elements.push(
-                    $(options.headingTemplate).append( $('<span/>', { text: category }) )
+                    this.render(options.headingTemplate).append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -593,12 +592,24 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     prefetch: false,
     shadow: false,
     query: {},
-    template: '<div class="' + vendor + 'type-ahead"></div>',
-    shadowTemplate: '<div class="' + vendor + 'type-ahead-shadow"></div>',
-    titleTemplate: '<span class="' + vendor + 'type-ahead-title"></span>',
-    descTemplate: '<span class="' + vendor + 'type-ahead-desc"></span>',
-    highlightTemplate: '<mark class="' + vendor + 'type-ahead-highlight"></mark>',
-    headingTemplate: '<li class="' + vendor + 'type-ahead-heading"></li>',
+    template: function(bem) {
+        return '<div class="' + bem('type-ahead') + '"></div>';
+    },
+    shadowTemplate: function(bem) {
+        return '<div class="' + bem('type-ahead', 'shadow') + '"></div>';
+    },
+    titleTemplate: function(bem) {
+        return '<span class="' + bem('type-ahead', 'title') + '"></span>';
+    },
+    descTemplate: function(bem) {
+        return '<span class="' + bem('type-ahead', 'desc') + '"></span>';
+    },
+    highlightTemplate: function(bem) {
+        return '<mark class="' + bem('type-ahead', 'highlight') + '"></mark>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('type-ahead', 'heading') + '"></li>';
+    },
 
     // Callbacks
     sorter: null,
@@ -606,7 +617,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     builder: null
 });
 
-Toolkit.create('typeAhead', function(options) {
+Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
 

@@ -1,7 +1,6 @@
 # Component #
 
-The parent class that all components extend from.
-This class also extends functionality from the [Base class](../development/js/base.md).
+The parent class that all components extend from. This class also extends functionality from the [Base class](../development/js/base.md).
 
 ## Options ##
 
@@ -231,6 +230,12 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             <td>
                 Extract a value from an element using a defined query.
                 The query may be an element property, attribute, or function callback.
+            </td>
+        </tr>
+        <tr>
+            <td>render(mixed:template)</td>
+            <td>
+                Render a template and return a jQuery element.
             </td>
         </tr>
         <tr>

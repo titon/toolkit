@@ -29,7 +29,7 @@ Like mixins, functions allow for re-use of code. The following functions exist w
             <td>Join a list of classes (without .) as a CSS selector. If inherit is true, inherit from parent with <code>&</code>.</td>
         </tr>
         <tr>
-            <td>remove-selector-char($selector)</td>
+            <td>remove-selector($selector)</td>
             <td>Removes the first character selector from a CSS class name or ID.</td>
         </tr>
         <tr>

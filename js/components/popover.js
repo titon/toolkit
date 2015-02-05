@@ -6,9 +6,8 @@
 
 define([
     'jquery',
-    './tooltip',
-    '../flags/vendor'
-], function($, Toolkit, vendor) {
+    './tooltip'
+], function($, Toolkit) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
@@ -30,17 +29,21 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 
 }, {
     getContent: 'data-popover',
-    wrapperClass: vendor + 'popovers',
-    template: '<div class="' + vendor + 'popover">' +
-        '<div class="' + vendor + 'popover-inner">' +
-            '<div class="' + vendor + 'popover-head" data-popover-header></div>' +
-            '<div class="' + vendor + 'popover-body" data-popover-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'popover-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('popovers');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('popover') + '">' +
+            '<div class="' + bem('popover', 'inner') + '">' +
+                '<div class="' + bem('popover', 'head') + '" data-popover-header></div>' +
+                '<div class="' + bem('popover', 'body') + '" data-popover-content></div>' +
+            '</div>' +
+            '<div class="' + bem('popover', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('popover', function(options) {
+Toolkit.createPlugin('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
 

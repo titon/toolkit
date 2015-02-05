@@ -7,11 +7,10 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
@@ -179,17 +178,21 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    wrapperClass: vendor + 'tooltips',
-    template: '<div class="' + vendor + 'tooltip">' +
-        '<div class="' + vendor + 'tooltip-inner">' +
-            '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +
-            '<div class="' + vendor + 'tooltip-body" data-tooltip-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'tooltip-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('tooltips');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('tooltip') + '">' +
+            '<div class="' + bem('tooltip', 'inner') + '">' +
+                '<div class="' + bem('tooltip', 'head') + '" data-tooltip-header></div>' +
+                '<div class="' + bem('tooltip', 'body') + '" data-tooltip-content></div>' +
+            '</div>' +
+            '<div class="' + bem('tooltip', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('tooltip', function(options) {
+Toolkit.createPlugin('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
 

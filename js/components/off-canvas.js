@@ -228,7 +228,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     swipe: Toolkit.isTouch
 });
 
-Toolkit.create('offCanvas', function(options) {
+Toolkit.createPlugin('offCanvas', function(options) {
     return new Toolkit.OffCanvas(this, options);
 });
 

@@ -199,7 +199,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
     applyToParent: true
 });
 
-Toolkit.create('stalker', function(options) {
+Toolkit.createPlugin('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });
 

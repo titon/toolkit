@@ -6,14 +6,30 @@ It also acts as a namespace for plugins by housing a top level name to avoid glo
 Each plugin class definition can be found on the `Toolkit` object, for example,
 the accordion class is found under `Toolkit.Accordion`.
 
-## Vendor Prefix ##
+## CSS Namespace ##
 
-Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
+Paired with the [Sass `$namespace` variable](../sass/variables.md), the `Toolkit.namespace` can be defined for
 prefixing within the JavaScript layer. This value will be prepended to all component class names that are
 embedded in templates and created with JavaScript.
 
 ```javascript
-Toolkit.vendor = 'tk-';
+Toolkit.namespace = 'tk-';
+```
+
+## BEM Classes ##
+
+All component classes (in templates, etc) are generated in [BEM](../css/bem.md) format using the `Toolkit.bem()` function. This function accepts a block, element, and modifier for each class part.
+
+```javascript
+Toolkit.bem('foo'); // foo
+Toolkit.bem('foo', 'bar', 'baz'); // foo-bar--baz
+```
+
+To customize the separators between each part, override the `Toolkit.bemSeparators` property. This property accepts an array of 2 values, 1 for each separator.
+
+```javascript
+Toolkit.bemSeparators = ['__', '--'];
+Toolkit.bem('foo', 'bar', 'baz'); // foo__bar--baz
 ```
 
 ## ARIA Support ##
@@ -112,8 +128,12 @@ Each flag can be found on the `Toolkit` object.
             <td>Does the device support HD / retina displays?</td>
         </tr>
         <tr>
+            <td>isRTL</td>
+            <td>Is the current language in right-to-left mode?</td>
+        </tr>
+        <tr>
             <td>transitionEnd</td>
-            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
+            <td>The vendor prefixed name for the <code>transitionend</code> event.</td>
         </tr>
     </tbody>
 </table>

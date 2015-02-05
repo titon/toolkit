@@ -22,8 +22,8 @@ var Toolkit = {
     /** Build date hash. */
     build: '%build%',
 
-    /** Vendor namespace. */
-    vendor: '',
+    /** CSS namespace. */
+    namespace: '',
 
     /** ARIA support. */
     aria: true,
@@ -36,6 +36,9 @@ var Toolkit = {
         loading: 'Loading...',
         error: 'An error has occurred!'
     },
+
+    /** BEM class name separators. */
+    bemSeparators: ['-', '--'],
 
     /** Does the browser support transitions? */
     hasTransition: hasTransition,
@@ -56,6 +59,44 @@ var Toolkit = {
     cache: {},
 
     /**
+     * Generate a BEM (block-element-modifier) valid CSS class name.
+     *
+     * @param {String} block
+     * @param {String} [element]
+     * @param {String} [modifier]
+     * @returns {String}
+     */
+    bem: function(block, element, modifier) {
+        var seps = Toolkit.bemSeparators;
+
+        if (element) {
+            block += seps[0] + element;
+        }
+
+        if (modifier) {
+            block += seps[1] + modifier;
+        }
+
+        return Toolkit.namespace + block;
+    },
+
+    /**
+     * Parse a template and convert it to a string.
+     * If the template is a function, execute it and pass the `bem()` function,
+     * and the current namespace as arguments.
+     *
+     * @param {String|Function} template
+     * @returns {String}
+     */
+    buildTemplate: function(template) {
+        if (typeof template === 'function') {
+            template = template.call(null, Toolkit.bem, Toolkit.namespace);
+        }
+
+        return template + '';
+    },
+
+    /**
      * Creates a jQuery plugin by extending the jQuery prototype with a method definition.
      * The Toolkit plugin is only initialized if one has not been already.
      * Plugins are either defined per element, or on a collection of elements.
@@ -64,7 +105,7 @@ var Toolkit = {
      * @param {Function} callback
      * @param {bool} [collection]
      */
-    create: function(plugin, callback, collection) {
+    createPlugin: function(plugin, callback, collection) {
         var name = plugin;
 
         // Prefix with toolkit to avoid collisions
@@ -92,6 +133,7 @@ var Toolkit = {
                 });
             };
     }
+
 };
 
 // Make it available

@@ -210,7 +210,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     lazyClass: '.lazy-load'
 });
 
-Toolkit.create('lazyLoad', function(options) {
+Toolkit.createPlugin('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });
 

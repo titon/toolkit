@@ -135,7 +135,7 @@ Toolkit.Drop = Toolkit.CompositeComponent.extend({
     getTarget: 'data-drop'
 });
 
-Toolkit.create('drop', function(options) {
+Toolkit.createPlugin('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);
 

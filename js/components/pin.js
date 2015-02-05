@@ -210,7 +210,7 @@ Toolkit.Pin = Toolkit.Component.extend({
     lock: true
 });
 
-Toolkit.create('pin', function(options) {
+Toolkit.createPlugin('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });
 

@@ -252,7 +252,7 @@ Toolkit.Tab = Toolkit.Component.extend({
     getUrl: 'href'
 });
 
-Toolkit.create('tab', function(options) {
+Toolkit.createPlugin('tab', function(options) {
     return new Toolkit.Tab(this, options);
 });
 

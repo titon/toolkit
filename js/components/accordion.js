@@ -189,7 +189,7 @@ Toolkit.Accordion = Toolkit.Component.extend({
     collapsible: false
 });
 
-Toolkit.create('accordion', function(options) {
+Toolkit.createPlugin('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
 });
 
