@@ -91,7 +91,23 @@ var Toolkit = {
                     $(this).cache('toolkit.' + plugin, callback.apply(this, args));
                 });
             };
+    },
+
+    /**
+     * Convert a template string into a jQuery element.
+     * If the template is a function, execute it before hand.
+     *
+     * @param {String} template
+     * @returns {jQuery}
+     */
+    renderTemplate: function(template) {
+        if (typeof template === 'function') {
+            template = template.call();
+        }
+
+        return $(template + '');
     }
+
 };
 
 // Make it available

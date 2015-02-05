@@ -89,7 +89,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $(this.options.shadowTemplate);
+            this.wrapper = Toolkit.renderTemplate(this.options.shadowTemplate);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -154,10 +154,10 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
             'aria-selected': 'false'
         });
 
-        a.append( $(this.options.titleTemplate).html(this.highlight(item.title)) );
+        a.append( Toolkit.renderTemplate(this.options.titleTemplate).html(this.highlight(item.title)) );
 
         if (item.description) {
-            a.append( $(this.options.descTemplate).html(item.description) );
+            a.append( Toolkit.renderTemplate(this.options.descTemplate).html(item.description) );
         }
 
         return a;
@@ -190,7 +190,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             options = this.options,
             callback = function(match) {
-                return $(options.highlightTemplate).html(match).toString();
+                return Toolkit.renderTemplate(options.highlightTemplate).html(match).toString();
             };
 
         for (var i = 0, t; t = terms[i]; i++) {
@@ -360,7 +360,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
                 results.push(null);
 
                 elements.push(
-                    $(options.headingTemplate).append( $('<span/>', { text: category }) )
+                    Toolkit.renderTemplate(options.headingTemplate).append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -593,12 +593,24 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     prefetch: false,
     shadow: false,
     query: {},
-    template: '<div class="' + namespace + 'type-ahead"></div>',
-    shadowTemplate: '<div class="' + namespace + 'type-ahead-shadow"></div>',
-    titleTemplate: '<span class="' + namespace + 'type-ahead-title"></span>',
-    descTemplate: '<span class="' + namespace + 'type-ahead-desc"></span>',
-    highlightTemplate: '<mark class="' + namespace + 'type-ahead-highlight"></mark>',
-    headingTemplate: '<li class="' + namespace + 'type-ahead-heading"></li>',
+    template: function() {
+        return '<div class="' + namespace + 'type-ahead"></div>';
+    },
+    shadowTemplate: function() {
+        return '<div class="' + namespace + 'type-ahead-shadow"></div>';
+    },
+    titleTemplate: function() {
+        return '<span class="' + namespace + 'type-ahead-title"></span>';
+    },
+    descTemplate: function() {
+        return '<span class="' + namespace + 'type-ahead-desc"></span>';
+    },
+    highlightTemplate: function() {
+        return '<mark class="' + namespace + 'type-ahead-highlight"></mark>';
+    },
+    headingTemplate: function() {
+        return '<li class="' + namespace + 'type-ahead-heading"></li>';
+    },
 
     // Callbacks
     sorter: null,

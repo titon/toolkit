@@ -36,7 +36,7 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
         this.element = this.createElement();
 
         // Generate loader elements
-        this.loader = $(options.loaderTemplate).appendTo(this.element);
+        this.loader = Toolkit.renderTemplate(options.loaderTemplate).appendTo(this.element);
         this.message = this.loader.find(this.ns('message', 'loader'));
 
         if (options.showLoading) {
@@ -114,12 +114,16 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
 
 }, {
     showLoading: true,
-    template: '<div class="' + namespace + 'blackout"></div>',
+    template: function() {
+        return '<div class="' + namespace + 'blackout"></div>';
+    },
     templateFrom: '#toolkit-blackout-1',
-    loaderTemplate: '<div class="' + namespace + 'loader bar-wave">' +
-        '<span></span><span></span><span></span><span></span><span></span>' +
-        '<div class="' + namespace + 'loader-message" data-loader-message></div>' +
-    '</div>'
+    loaderTemplate: function() {
+        return '<div class="' + namespace + 'loader bar-wave">' +
+            '<span></span><span></span><span></span><span></span><span></span>' +
+            '<div class="' + namespace + 'loader-message" data-loader-message></div>' +
+        '</div>';
+    }
 });
 
 /**

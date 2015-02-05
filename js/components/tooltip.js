@@ -179,14 +179,18 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    wrapperClass: namespace + 'tooltips',
-    template: '<div class="' + namespace + 'tooltip">' +
-        '<div class="' + namespace + 'tooltip-inner">' +
-            '<div class="' + namespace + 'tooltip-head" data-tooltip-header></div>' +
-            '<div class="' + namespace + 'tooltip-body" data-tooltip-content></div>' +
-        '</div>' +
-        '<div class="' + namespace + 'tooltip-arrow"></div>' +
-    '</div>'
+    wrapperClass: function() {
+        return namespace + 'tooltips';
+    },
+    template: function() {
+        return '<div class="' + namespace + 'tooltip">' +
+            '<div class="' + namespace + 'tooltip-inner">' +
+                '<div class="' + namespace + 'tooltip-head" data-tooltip-header></div>' +
+                '<div class="' + namespace + 'tooltip-body" data-tooltip-content></div>' +
+            '</div>' +
+            '<div class="' + namespace + 'tooltip-arrow"></div>' +
+        '</div>';
+    }
 });
 
 Toolkit.create('tooltip', function(options) {

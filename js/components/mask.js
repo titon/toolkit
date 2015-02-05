@@ -46,7 +46,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         var mask = element.find('> ' + this.ns());
 
         if (!mask.length) {
-            mask = $(options.template);
+            mask = Toolkit.renderTemplate(options.template);
         }
 
         this.setMask(mask);
@@ -108,7 +108,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         message = mask.find(this.ns('message'));
 
         if (!message.length && options.messageContent) {
-            message = $(options.messageTemplate)
+            message = Toolkit.renderTemplate(options.messageTemplate)
                 .html(options.messageContent)
                 .appendTo(mask);
         }
@@ -143,8 +143,12 @@ Toolkit.Mask = Toolkit.Component.extend({
     selector: '',
     revealOnClick: false,
     messageContent: '',
-    template: '<div class="' + namespace + 'mask" data-mask></div>',
-    messageTemplate: '<div class="' + namespace + 'mask-message" data-mask-message></div>'
+    template: function() {
+        return '<div class="' + namespace + 'mask" data-mask></div>';
+    },
+    messageTemplate: function() {
+        return '<div class="' + namespace + 'mask-message" data-mask-message></div>';
+    }
 });
 
 Toolkit.create('mask', function(options) {

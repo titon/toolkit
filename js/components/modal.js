@@ -226,12 +226,14 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
-    template: '<div class="' + namespace + 'modal">' +
-        '<div class="' + namespace + 'modal-outer">' +
-            '<div class="' + namespace + 'modal-inner" data-modal-content></div>' +
-            '<button class="' + namespace + 'modal-close" data-modal-close><span class="x"></span></button>' +
-        '</div>' +
-    '</div>'
+    template: function() {
+        return '<div class="' + namespace + 'modal">' +
+            '<div class="' + namespace + 'modal-outer">' +
+                '<div class="' + namespace + 'modal-inner" data-modal-content></div>' +
+                '<button class="' + namespace + 'modal-close" data-modal-close><span class="x"></span></button>' +
+            '</div>' +
+        '</div>';
+    }
 });
 
 Toolkit.create('modal', function(options) {

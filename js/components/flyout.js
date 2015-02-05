@@ -282,7 +282,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                         .prependTo(tag);
 
                 } else {
-                    li = $(options.headingTemplate);
+                    li = Toolkit.renderTemplate(options.template);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
@@ -301,7 +301,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    var childMenu = $(options.template)
+                    var childMenu = Toolkit.renderTemplate(options.template)
                         .conceal()
                         .appendTo(li);
 
@@ -436,9 +436,15 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    wrapperClass: namespace + 'flyouts',
-    template: '<div class="' + namespace + 'flyout" data-flyout-menu></div>',
-    headingTemplate: '<li class="' + namespace + 'flyout-heading"></li>'
+    wrapperClass: function() {
+        return namespace + 'flyouts';
+    },
+    template: function() {
+        return '<div class="' + namespace + 'flyout" data-flyout-menu></div>';
+    },
+    headingTemplate: function() {
+        return '<li class="' + namespace + 'flyout-heading"></li>';
+    }
 });
 
 Toolkit.create('flyout', function(url, options) {

@@ -47,7 +47,7 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
         options = $.extend({}, this.options, options || {});
 
         var self = this,
-            toast = $(options.template)
+            toast = Toolkit.renderTemplate(options.template)
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
@@ -106,8 +106,12 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    wrapperClass: namespace + 'toasts',
-    template: '<div class="' + namespace + 'toast"></div>'
+    wrapperClass: function() {
+        return namespace + 'toasts';
+    },
+    template: function() {
+        return '<div class="' + namespace + 'toast"></div>';
+    }
 });
 
 Toolkit.create('toast', function(options) {

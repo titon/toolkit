@@ -30,14 +30,18 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 
 }, {
     getContent: 'data-popover',
-    wrapperClass: namespace + 'popovers',
-    template: '<div class="' + namespace + 'popover">' +
-        '<div class="' + namespace + 'popover-inner">' +
-            '<div class="' + namespace + 'popover-head" data-popover-header></div>' +
-            '<div class="' + namespace + 'popover-body" data-popover-content></div>' +
-        '</div>' +
-        '<div class="' + namespace + 'popover-arrow"></div>' +
-    '</div>'
+    wrapperClass: function() {
+        return namespace + 'popovers';
+    },
+    template: function() {
+        return '<div class="' + namespace + 'popover">' +
+            '<div class="' + namespace + 'popover-inner">' +
+                '<div class="' + namespace + 'popover-head" data-popover-header></div>' +
+                '<div class="' + namespace + 'popover-body" data-popover-content></div>' +
+            '</div>' +
+            '<div class="' + namespace + 'popover-arrow"></div>' +
+        '</div>';
+    }
 });
 
 Toolkit.create('popover', function(options) {

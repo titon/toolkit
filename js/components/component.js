@@ -457,7 +457,7 @@ Toolkit.TemplateComponent = Toolkit.Component.extend({
         var template = $(options.templateFrom);
 
         if (!template.length) {
-            template = $(options.template);
+            template = Toolkit.renderTemplate(options.template);
         }
 
         if (!template.length) {
@@ -540,10 +540,15 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
      * @return {jQuery}
      */
     createWrapper: function() {
-        var options = this.options;
+        var options = this.options,
+            className = options.wrapperClass;
 
-        return this.wrapper = $(options.wrapperTemplate)
-            .addClass(options.wrapperClass)
+        if (typeof className === 'function') {
+            className = className.call();
+        }
+
+        return this.wrapper = Toolkit.renderTemplate(options.wrapperTemplate)
+            .addClass(className)
             .attr('id', this.id('wrapper'))
             .appendTo('body');
     },
