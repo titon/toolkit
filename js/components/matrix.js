@@ -358,7 +358,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
     defer: true
 });
 
-Toolkit.create('matrix', function(options) {
+Toolkit.createPlugin('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });
 

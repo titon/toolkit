@@ -618,7 +618,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     builder: null
 });
 
-Toolkit.create('typeAhead', function(options) {
+Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
 

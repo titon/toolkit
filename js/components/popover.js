@@ -44,7 +44,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
     }
 });
 
-Toolkit.create('popover', function(options) {
+Toolkit.createPlugin('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
 

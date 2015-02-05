@@ -458,7 +458,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     }
 });
 
-Toolkit.create('showcase', function(options) {
+Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 

@@ -585,7 +585,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
     defaultIndex: 0
 });
 
-Toolkit.create('carousel', function(options) {
+Toolkit.createPlugin('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });
 

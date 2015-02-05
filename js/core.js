@@ -64,7 +64,7 @@ var Toolkit = {
      * @param {Function} callback
      * @param {bool} [collection]
      */
-    create: function(plugin, callback, collection) {
+    createPlugin: function(plugin, callback, collection) {
         var name = plugin;
 
         // Prefix with toolkit to avoid collisions

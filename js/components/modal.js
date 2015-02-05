@@ -236,7 +236,7 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
     }
 });
 
-Toolkit.create('modal', function(options) {
+Toolkit.createPlugin('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);
 

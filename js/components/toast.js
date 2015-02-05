@@ -114,7 +114,7 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     }
 });
 
-Toolkit.create('toast', function(options) {
+Toolkit.createPlugin('toast', function(options) {
     return new Toolkit.Toast(this, options);
 });
 

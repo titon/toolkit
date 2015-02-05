@@ -656,19 +656,19 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     }
 });
 
-Toolkit.create('input', function(options) {
+Toolkit.createPlugin('input', function(options) {
     return new Toolkit.Input(this, options);
 });
 
-Toolkit.create('inputRadio', function(options) {
+Toolkit.createPlugin('inputRadio', function(options) {
     return new Toolkit.InputRadio(this, options);
 });
 
-Toolkit.create('inputCheckbox', function(options) {
+Toolkit.createPlugin('inputCheckbox', function(options) {
     return new Toolkit.InputCheckbox(this, options);
 });
 
-Toolkit.create('inputSelect', function(options) {
+Toolkit.createPlugin('inputSelect', function(options) {
     return new Toolkit.InputSelect(this, options);
 });
 

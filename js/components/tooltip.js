@@ -193,7 +193,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     }
 });
 
-Toolkit.create('tooltip', function(options) {
+Toolkit.createPlugin('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
 

@@ -151,7 +151,7 @@ Toolkit.Mask = Toolkit.Component.extend({
     }
 });
 
-Toolkit.create('mask', function(options) {
+Toolkit.createPlugin('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });
 

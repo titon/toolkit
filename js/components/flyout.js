@@ -447,7 +447,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     }
 });
 
-Toolkit.create('flyout', function(url, options) {
+Toolkit.createPlugin('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
 
