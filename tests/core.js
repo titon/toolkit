@@ -87,20 +87,20 @@ describe('Toolkit', function() {
         });
     });
 
-    describe('parseTemplate()', function() {
+    describe('buildTemplate()', function() {
         it('should return a string', function() {
-            expect(Toolkit.parseTemplate('foo')).to.equal('foo');
-            expect(Toolkit.parseTemplate(123)).to.equal('123');
+            expect(Toolkit.buildTemplate('foo')).to.equal('foo');
+            expect(Toolkit.buildTemplate(123)).to.equal('123');
         });
 
         it('should execute a function if passed', function() {
-            expect(Toolkit.parseTemplate(function() {
+            expect(Toolkit.buildTemplate(function() {
                 return 'foo';
             })).to.equal('foo');
         });
 
         it('should pass `bem()` to the function', function() {
-            expect(Toolkit.parseTemplate(function(bem) {
+            expect(Toolkit.buildTemplate(function(bem) {
                 return bem('b', 'e', 'm');
             })).to.equal('b-e--m');
         });
@@ -108,7 +108,7 @@ describe('Toolkit', function() {
         it('should pass `namespace` to the function', function() {
             Toolkit.namespace = 'tk-';
 
-            expect(Toolkit.parseTemplate(function(bem, namespace) {
+            expect(Toolkit.buildTemplate(function(bem, namespace) {
                 return namespace + 'foo';
             })).to.equal('tk-foo');
 
