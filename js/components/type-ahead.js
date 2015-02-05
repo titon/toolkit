@@ -7,11 +7,11 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
+    '../flags/namespace',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit, vendor) {
+], function($, Toolkit, namespace) {
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
@@ -593,12 +593,12 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     prefetch: false,
     shadow: false,
     query: {},
-    template: '<div class="' + vendor + 'type-ahead"></div>',
-    shadowTemplate: '<div class="' + vendor + 'type-ahead-shadow"></div>',
-    titleTemplate: '<span class="' + vendor + 'type-ahead-title"></span>',
-    descTemplate: '<span class="' + vendor + 'type-ahead-desc"></span>',
-    highlightTemplate: '<mark class="' + vendor + 'type-ahead-highlight"></mark>',
-    headingTemplate: '<li class="' + vendor + 'type-ahead-heading"></li>',
+    template: '<div class="' + namespace + 'type-ahead"></div>',
+    shadowTemplate: '<div class="' + namespace + 'type-ahead-shadow"></div>',
+    titleTemplate: '<span class="' + namespace + 'type-ahead-title"></span>',
+    descTemplate: '<span class="' + namespace + 'type-ahead-desc"></span>',
+    highlightTemplate: '<mark class="' + namespace + 'type-ahead-highlight"></mark>',
+    headingTemplate: '<li class="' + namespace + 'type-ahead-heading"></li>',
 
     // Callbacks
     sorter: null,

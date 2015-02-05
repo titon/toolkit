@@ -7,13 +7,13 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
+    '../flags/namespace',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit, vendor) {
+], function($, Toolkit, namespace) {
 
 Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
@@ -444,15 +444,15 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    template: '<div class="' + vendor + 'showcase">' +
-        '<div class="' + vendor + 'showcase-inner">' +
-            '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +
-            '<ol class="' + vendor + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
-            '<button class="' + vendor + 'showcase-prev" data-showcase-prev></button>' +
-            '<button class="' + vendor + 'showcase-next" data-showcase-next></button>' +
+    template: '<div class="' + namespace + 'showcase">' +
+        '<div class="' + namespace + 'showcase-inner">' +
+            '<ul class="' + namespace + 'showcase-items" data-showcase-items></ul>' +
+            '<ol class="' + namespace + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
+            '<button class="' + namespace + 'showcase-prev" data-showcase-prev></button>' +
+            '<button class="' + namespace + 'showcase-next" data-showcase-next></button>' +
         '</div>' +
-        '<button class="' + vendor + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
-        '<div class="' + vendor + 'showcase-caption" data-showcase-caption></div>' +
+        '<button class="' + namespace + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
+        '<div class="' + namespace + 'showcase-caption" data-showcase-caption></div>' +
     '</div>'
 });
 

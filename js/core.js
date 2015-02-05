@@ -22,8 +22,8 @@ var Toolkit = {
     /** Build date hash. */
     build: '%build%',
 
-    /** Vendor namespace. */
-    vendor: '',
+    /** CSS namespace. */
+    namespace: '',
 
     /** ARIA support. */
     aria: true,

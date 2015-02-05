@@ -7,11 +7,11 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
+    '../flags/namespace',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit, namespace) {
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
@@ -179,13 +179,13 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    wrapperClass: vendor + 'tooltips',
-    template: '<div class="' + vendor + 'tooltip">' +
-        '<div class="' + vendor + 'tooltip-inner">' +
-            '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +
-            '<div class="' + vendor + 'tooltip-body" data-tooltip-content></div>' +
+    wrapperClass: namespace + 'tooltips',
+    template: '<div class="' + namespace + 'tooltip">' +
+        '<div class="' + namespace + 'tooltip-inner">' +
+            '<div class="' + namespace + 'tooltip-head" data-tooltip-header></div>' +
+            '<div class="' + namespace + 'tooltip-body" data-tooltip-content></div>' +
         '</div>' +
-        '<div class="' + vendor + 'tooltip-arrow"></div>' +
+        '<div class="' + namespace + 'tooltip-arrow"></div>' +
     '</div>'
 });
 

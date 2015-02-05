@@ -2,7 +2,7 @@
 
 //-------------------- Toolkit --------------------//
 
-$vendor-prefix: "" !default;
+$namespace: "" !default;
 $size-small-class: ".small" !default;
 $size-large-class: ".large" !default;
 $shape-round-class: ".round" !default;
@@ -12,9 +12,9 @@ $shape-skew-class: ".skew" !default;
 
 $enable-small-size: true !default;
 $enable-large-size: true !default;
-$enable-all-effects: true !default;
-$enable-all-modifiers: true !default;
-$enable-all-animations: true !default;
+$enable-all-effects: false !default;
+$enable-all-modifiers: false !default;
+$enable-all-animations: false !default;
 
 //-------------------- Colors --------------------//
 

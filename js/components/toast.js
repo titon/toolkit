@@ -7,9 +7,9 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
+    '../flags/namespace',
     '../extensions/transitionend'
-], function($, Toolkit, vendor) {
+], function($, Toolkit, namespace) {
 
 Toolkit.Toast = Toolkit.CompositeComponent.extend({
     name: 'Toast',
@@ -106,8 +106,8 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    wrapperClass: vendor + 'toasts',
-    template: '<div class="' + vendor + 'toast"></div>'
+    wrapperClass: namespace + 'toasts',
+    template: '<div class="' + namespace + 'toast"></div>'
 });
 
 Toolkit.create('toast', function(options) {
