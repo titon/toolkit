@@ -7,11 +7,10 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
@@ -179,16 +178,16 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    wrapperClass: function() {
-        return namespace + 'tooltips';
+    wrapperClass: function(bem) {
+        return bem('tooltips');
     },
-    template: function() {
-        return '<div class="' + namespace + 'tooltip">' +
-            '<div class="' + namespace + 'tooltip-inner">' +
-                '<div class="' + namespace + 'tooltip-head" data-tooltip-header></div>' +
-                '<div class="' + namespace + 'tooltip-body" data-tooltip-content></div>' +
+    template: function(bem) {
+        return '<div class="' + bem('tooltip') + '">' +
+            '<div class="' + bem('tooltip', 'inner') + '">' +
+                '<div class="' + bem('tooltip', 'head') + '" data-tooltip-header></div>' +
+                '<div class="' + bem('tooltip', 'body') + '" data-tooltip-content></div>' +
             '</div>' +
-            '<div class="' + namespace + 'tooltip-arrow"></div>' +
+            '<div class="' + bem('tooltip', 'arrow') + '"></div>' +
         '</div>';
     }
 });

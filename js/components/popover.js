@@ -6,9 +6,8 @@
 
 define([
     'jquery',
-    './tooltip',
-    '../flags/namespace'
-], function($, Toolkit, namespace) {
+    './tooltip'
+], function($, Toolkit) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
@@ -30,16 +29,16 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 
 }, {
     getContent: 'data-popover',
-    wrapperClass: function() {
-        return namespace + 'popovers';
+    wrapperClass: function(bem) {
+        return bem('popovers');
     },
-    template: function() {
-        return '<div class="' + namespace + 'popover">' +
-            '<div class="' + namespace + 'popover-inner">' +
-                '<div class="' + namespace + 'popover-head" data-popover-header></div>' +
-                '<div class="' + namespace + 'popover-body" data-popover-content></div>' +
+    template: function(bem) {
+        return '<div class="' + bem('popover') + '">' +
+            '<div class="' + bem('popover', 'inner') + '">' +
+                '<div class="' + bem('popover', 'head') + '" data-popover-header></div>' +
+                '<div class="' + bem('popover', 'body') + '" data-popover-content></div>' +
             '</div>' +
-            '<div class="' + namespace + 'popover-arrow"></div>' +
+            '<div class="' + bem('popover', 'arrow') + '"></div>' +
         '</div>';
     }
 });

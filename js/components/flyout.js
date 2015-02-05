@@ -7,9 +7,8 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../extensions/shown-selector'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
@@ -282,7 +281,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                         .prependTo(tag);
 
                 } else {
-                    li = Toolkit.renderTemplate(options.template);
+                    li = this.render(options.template);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
@@ -301,7 +300,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    var childMenu = Toolkit.renderTemplate(options.template)
+                    var childMenu = this.render(options.template)
                         .conceal()
                         .appendTo(li);
 
@@ -436,14 +435,14 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    wrapperClass: function() {
-        return namespace + 'flyouts';
+    wrapperClass: function(bem) {
+        return bem('flyouts');
     },
-    template: function() {
-        return '<div class="' + namespace + 'flyout" data-flyout-menu></div>';
+    template: function(bem) {
+        return '<div class="' + bem('flyout') + '" data-flyout-menu></div>';
     },
-    headingTemplate: function() {
-        return '<li class="' + namespace + 'flyout-heading"></li>';
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('flyout', 'heading') + '"></li>';
     }
 });
 

@@ -240,6 +240,16 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Render a template and return a jQuery element.
+     *
+     * @param {String|Function} template
+     * @returns {jQuery}
+     */
+    render: function(template) {
+        return $(Toolkit.parseTemplate(template));
+    },
+
+    /**
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
@@ -457,7 +467,7 @@ Toolkit.TemplateComponent = Toolkit.Component.extend({
         var template = $(options.templateFrom);
 
         if (!template.length) {
-            template = Toolkit.renderTemplate(options.template);
+            template = this.render(options.template);
         }
 
         if (!template.length) {
@@ -540,15 +550,10 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
      * @return {jQuery}
      */
     createWrapper: function() {
-        var options = this.options,
-            className = options.wrapperClass;
+        var options = this.options;
 
-        if (typeof className === 'function') {
-            className = className.call();
-        }
-
-        return this.wrapper = Toolkit.renderTemplate(options.wrapperTemplate)
-            .addClass(className)
+        return this.wrapper = this.render(options.wrapperTemplate)
+            .addClass(Toolkit.parseTemplate(options.wrapperClass))
             .attr('id', this.id('wrapper'))
             .appendTo('body');
     },

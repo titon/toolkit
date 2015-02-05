@@ -7,9 +7,8 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../extensions/transitionend'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Toast = Toolkit.CompositeComponent.extend({
     name: 'Toast',
@@ -47,7 +46,7 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
         options = $.extend({}, this.options, options || {});
 
         var self = this,
-            toast = Toolkit.renderTemplate(options.template)
+            toast = this.render(options.template)
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
@@ -106,11 +105,11 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    wrapperClass: function() {
-        return namespace + 'toasts';
+    wrapperClass: function(bem) {
+        return bem('toasts');
     },
-    template: function() {
-        return '<div class="' + namespace + 'toast"></div>';
+    template: function(bem) {
+        return '<div class="' + bem('toast') + '"></div>';
     }
 });
 

@@ -7,13 +7,12 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
@@ -444,16 +443,16 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    template: function() {
-        return '<div class="' + namespace + 'showcase">' +
-            '<div class="' + namespace + 'showcase-inner">' +
-                '<ul class="' + namespace + 'showcase-items" data-showcase-items></ul>' +
-                '<ol class="' + namespace + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
-                '<button class="' + namespace + 'showcase-prev" data-showcase-prev></button>' +
-                '<button class="' + namespace + 'showcase-next" data-showcase-next></button>' +
+    template: function(bem) {
+        return '<div class="' + bem('showcase') + '">' +
+            '<div class="' + bem('showcase', 'inner') + '">' +
+                '<ul class="' + bem('showcase', 'items') + '" data-showcase-items></ul>' +
+                '<ol class="' + bem('showcase', 'tabs') + ' bullets" data-showcase-tabs></ol>' +
+                '<button class="' + bem('showcase', 'prev') + '" data-showcase-prev></button>' +
+                '<button class="' + bem('showcase', 'next') + '" data-showcase-next></button>' +
             '</div>' +
-            '<button class="' + namespace + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
-            '<div class="' + namespace + 'showcase-caption" data-showcase-caption></div>' +
+            '<button class="' + bem('showcase', 'close') + '" data-showcase-close><span class="x"></span></button>' +
+            '<div class="' + bem('showcase', 'caption') + '" data-showcase-caption></div>' +
         '</div>';
     }
 });

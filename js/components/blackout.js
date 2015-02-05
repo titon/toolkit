@@ -6,9 +6,8 @@
 
 define([
     'jquery',
-    './component',
-    '../flags/namespace'
-], function($, Toolkit, namespace) {
+    './component'
+], function($, Toolkit) {
 
 /** Has the blackout been created already? */
 var blackout = null;
@@ -36,7 +35,7 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
         this.element = this.createElement();
 
         // Generate loader elements
-        this.loader = Toolkit.renderTemplate(options.loaderTemplate).appendTo(this.element);
+        this.loader = this.render(options.loaderTemplate).appendTo(this.element);
         this.message = this.loader.find(this.ns('message', 'loader'));
 
         if (options.showLoading) {
@@ -114,14 +113,14 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
 
 }, {
     showLoading: true,
-    template: function() {
-        return '<div class="' + namespace + 'blackout"></div>';
+    template: function(bem) {
+        return '<div class="' + bem('blackout') + '"></div>';
     },
     templateFrom: '#toolkit-blackout-1',
-    loaderTemplate: function() {
-        return '<div class="' + namespace + 'loader bar-wave">' +
+    loaderTemplate: function(bem) {
+        return '<div class="' + bem('loader') + ' bar-wave">' +
             '<span></span><span></span><span></span><span></span><span></span>' +
-            '<div class="' + namespace + 'loader-message" data-loader-message></div>' +
+            '<div class="' + bem('loader', 'message') + '" data-loader-message></div>' +
         '</div>';
     }
 });

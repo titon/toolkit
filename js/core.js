@@ -77,7 +77,7 @@ var Toolkit = {
             block += seps[1] + modifier;
         }
 
-        return '.' + Toolkit.namespace + block;
+        return Toolkit.namespace + block;
     },
 
     /**
@@ -119,18 +119,19 @@ var Toolkit = {
     },
 
     /**
-     * Convert a template string into a jQuery element.
-     * If the template is a function, execute it before hand.
+     * Parse a template and convert it to a string.
+     * If the template is a function, execute it before hand and pass the `bem()` function,
+     * and the current namespace.
      *
-     * @param {String} template
-     * @returns {jQuery}
+     * @param {String|Function} template
+     * @returns {String}
      */
-    renderTemplate: function(template) {
+    parseTemplate: function(template) {
         if (typeof template === 'function') {
             template = template.call(null, Toolkit.bem, Toolkit.namespace);
         }
 
-        return $(template + '');
+        return template + '';
     }
 
 };

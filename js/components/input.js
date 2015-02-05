@@ -7,11 +7,10 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
@@ -104,7 +103,7 @@ Toolkit.Input = Toolkit.Component.extend({
      */
     _buildWrapper: function() {
         var input = this.element,
-            wrapper = Toolkit.renderTemplate(this.options.template)
+            wrapper = this.render(this.options.template)
                 .insertBefore(input)
                 .append(input);
 
@@ -121,8 +120,8 @@ Toolkit.Input = Toolkit.Component.extend({
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select',
-    template: function() {
-        return '<div class="' + namespace + 'custom-input"></div>';
+    template: function(bem) {
+        return '<div class="' + bem('custom-input') + '"></div>';
     }
 });
 
@@ -146,7 +145,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.input = Toolkit.renderTemplate(options.checkboxTemplate)
+        this.input = this.render(options.checkboxTemplate)
             .attr('for', checkbox.attr('id'))
             .insertAfter(checkbox);
 
@@ -155,8 +154,8 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
     }
 
 }, {
-    checkboxTemplate: function() {
-        return '<label class="' + namespace + 'checkbox"></label>';
+    checkboxTemplate: function(bem) {
+        return '<label class="' + bem('checkbox') + '"></label>';
     }
 });
 
@@ -180,7 +179,7 @@ Toolkit.InputRadio = Toolkit.Input.extend({
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.input = Toolkit.renderTemplate(options.radioTemplate)
+        this.input = this.render(options.radioTemplate)
             .attr('for', radio.attr('id'))
             .insertAfter(radio);
 
@@ -189,8 +188,8 @@ Toolkit.InputRadio = Toolkit.Input.extend({
     }
 
 }, {
-    radioTemplate: function() {
-        return '<label class="' + namespace + 'radio"></label>';
+    radioTemplate: function(bem) {
+        return '<label class="' + bem('radio') + '"></label>';
     }
 });
 
@@ -304,8 +303,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      */
     _buildButton: function() {
         var options = this.options,
-            button = Toolkit.renderTemplate(options.selectTemplate)
-                .find(this.ns('arrow', 'select')).html(Toolkit.renderTemplate(options.arrowTemplate)).end()
+            button = this.render(options.selectTemplate)
+                .find(this.ns('arrow', 'select')).html(this.render(options.arrowTemplate)).end()
                 .find(this.ns('label', 'select')).html(Toolkit.messages.loading).end()
                 .css('min-width', this.element.width())
                 .insertAfter(this.element);
@@ -325,7 +324,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         var select = this.element,
             options = this.options,
             buildOption = this._buildOption.bind(this),
-            dropdown = Toolkit.renderTemplate(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
+            dropdown = this.render(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
@@ -342,7 +341,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 }
 
                 list.append(
-                    Toolkit.renderTemplate(options.headingTemplate).text(optgroup.attr('label'))
+                    this.render(options.headingTemplate).text(optgroup.attr('label'))
                 );
 
                 optgroup.children().each(function() {
@@ -410,7 +409,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         }
 
         if (description = this.readValue(option, options.getDescription)) {
-            content += Toolkit.renderTemplate(options.descTemplate).html(description).toString();
+            content += this.render(options.descTemplate).html(description).toString();
         }
 
         var a = $('<a/>', {
@@ -638,21 +637,21 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     getDefaultLabel: 'title',
     getOptionLabel: 'title',
     getDescription: 'data-description',
-    selectTemplate: function() {
-        return '<div class="' + namespace + 'select" data-select>' +
-            '<div class="' + namespace + 'select-arrow" data-select-arrow></div>' +
-            '<div class="' + namespace + 'select-label" data-select-label></div>' +
+    selectTemplate: function(bem) {
+        return '<div class="' + bem('select') + '" data-select>' +
+            '<div class="' + bem('select', 'arrow') + '" data-select-arrow></div>' +
+            '<div class="' + bem('select', 'label') + '" data-select-label></div>' +
         '</div>';
     },
     arrowTemplate: '<span class="caret-down"></span>',
-    optionsTemplate: function() {
-        return '<div class="' + namespace + 'drop ' + namespace + 'drop--down ' + namespace + 'select-options" data-select-options></div>';
+    optionsTemplate: function(bem) {
+        return '<div class="' + bem('drop') + ' ' + bem('drop', '', 'down') + ' ' + bem('select', 'options') + '" data-select-options></div>';
     },
-    headingTemplate: function() {
-        return '<li class="' + namespace + 'drop-heading"></li>';
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('drop', 'heading') + '"></li>';
     },
-    descTemplate: function() {
-        return '<span class="' + namespace + 'drop-desc"></span>';
+    descTemplate: function(bem) {
+        return '<span class="' + bem('drop', 'desc') + '"></span>';
     }
 });
 

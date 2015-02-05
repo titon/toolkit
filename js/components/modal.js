@@ -7,10 +7,9 @@
 define([
     'jquery',
     './component',
-    '../flags/namespace',
     '../events/clickout',
     '../extensions/shown-selector'
-], function($, Toolkit, namespace) {
+], function($, Toolkit) {
 
 Toolkit.Modal = Toolkit.TemplateComponent.extend({
     name: 'Modal',
@@ -226,11 +225,11 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
-    template: function() {
-        return '<div class="' + namespace + 'modal">' +
-            '<div class="' + namespace + 'modal-outer">' +
-                '<div class="' + namespace + 'modal-inner" data-modal-content></div>' +
-                '<button class="' + namespace + 'modal-close" data-modal-close><span class="x"></span></button>' +
+    template: function(bem) {
+        return '<div class="' + bem('modal') + '">' +
+            '<div class="' + bem('modal', 'outer') + '">' +
+                '<div class="' + bem('modal', 'inner') + '" data-modal-content></div>' +
+                '<button class="' + bem('modal', 'close') + '" data-modal-close><span class="x"></span></button>' +
             '</div>' +
         '</div>';
     }
