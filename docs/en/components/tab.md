@@ -39,7 +39,7 @@ $('.tabs').tab();
 </div>
 
 <div class="notice is-info">
-    Tabs can be nested by <a href="../development/js/component.md#namespaces">utilizing namespaces</a>.
+    Tabs can be nested by <a href="../development/js/component.md#namespaces">utilizing component namespaces</a>.
 </div>
 
 <div class="notice is-info">

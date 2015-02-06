@@ -7,13 +7,12 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
 Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
@@ -444,19 +443,21 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    template: '<div class="' + vendor + 'showcase">' +
-        '<div class="' + vendor + 'showcase-inner">' +
-            '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +
-            '<ol class="' + vendor + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
-            '<button class="' + vendor + 'showcase-prev" data-showcase-prev></button>' +
-            '<button class="' + vendor + 'showcase-next" data-showcase-next></button>' +
-        '</div>' +
-        '<button class="' + vendor + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
-        '<div class="' + vendor + 'showcase-caption" data-showcase-caption></div>' +
-    '</div>'
+    template: function(bem) {
+        return '<div class="' + bem('showcase') + '">' +
+            '<div class="' + bem('showcase', 'inner') + '">' +
+                '<ul class="' + bem('showcase', 'items') + '" data-showcase-items></ul>' +
+                '<ol class="' + bem('showcase', 'tabs') + ' bullets" data-showcase-tabs></ol>' +
+                '<button class="' + bem('showcase', 'prev') + '" data-showcase-prev></button>' +
+                '<button class="' + bem('showcase', 'next') + '" data-showcase-next></button>' +
+            '</div>' +
+            '<button class="' + bem('showcase', 'close') + '" data-showcase-close><span class="x"></span></button>' +
+            '<div class="' + bem('showcase', 'caption') + '" data-showcase-caption></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('showcase', function(options) {
+Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 

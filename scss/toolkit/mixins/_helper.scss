@@ -29,16 +29,16 @@
 }
 
 // Remove the first selector character (#, ., etc) from the class name or ID
-@function remove-selector-char($selector) {
+@function remove-selector($selector) {
     @return str-slice($selector, 2, str-length($selector));
 }
 
 // Generate a class name and apply an optional prefix
-@function class-name($class, $prefix: $vendor-prefix, $selector: ".") {
+@function class-name($class, $prefix: $namespace, $selector: ".") {
     $name: $class;
 
     @if str_slice($class, 1, 1) == $selector {
-        $name: remove-selector-char($name);
+        $name: remove-selector($name);
     }
 
     @if $prefix != "" {

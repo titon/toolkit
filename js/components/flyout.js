@@ -7,9 +7,8 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
@@ -282,7 +281,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                         .prependTo(tag);
 
                 } else {
-                    li = $(options.headingTemplate);
+                    li = this.render(options.template);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
@@ -301,7 +300,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    var childMenu = $(options.template)
+                    var childMenu = this.render(options.template)
                         .conceal()
                         .appendTo(li);
 
@@ -436,12 +435,18 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    wrapperClass: vendor + 'flyouts',
-    template: '<div class="' + vendor + 'flyout" data-flyout-menu></div>',
-    headingTemplate: '<li class="' + vendor + 'flyout-heading"></li>'
+    wrapperClass: function(bem) {
+        return bem('flyouts');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('flyout') + '" data-flyout-menu></div>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('flyout', 'heading') + '"></li>';
+    }
 });
 
-Toolkit.create('flyout', function(url, options) {
+Toolkit.createPlugin('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
 

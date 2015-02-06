@@ -6,9 +6,21 @@ Older versions can be found in the documentation changelogs.
 
 * Added right-to-left (RTL) support for all CSS and JS components
 * Added Travis CI integration for automatic build and testing
+* Added BEM support to all JS components
+* Updated all JS templates to support functions for on-demand rendering
+* Sass
+    * Added `$text-direction` variable
+    * Added `ltr()` and `rtl()` mixins
+    * Renamed `$vendor-prefix` to `$namespace`
+    * Renamed `remove-selector-char()` to `remove-selector()`
 * JavaScript
     * Toolkit
-        * Added a new `isRTL` flag for detecting RTL support
+        * Added `isRTL` flag for detecting RTL support
+        * Added `bemSeparators` property for customizing BEM separators
+        * Added `bem()` function for generating BEM CSS class names
+        * Added `buildTemplate()` function for converting strings into usable templates
+        * Renamed `create()` to `createPlugin()`
+        * Renamed `vendor` to `namespace`
     * Base
         * Removed the `runtime` property
 * Components
@@ -17,7 +29,8 @@ Older versions can be found in the documentation changelogs.
             `Component` for embedded elements, `TemplateComponent` for templates rendered into elements, 
             and `CompositeComponent` which is a collection of rendered elements
         * Moved `elements` and `nodes` properties to `CompositeComponent`
-        * Moved `createElement` method to `TemplateComponent`
+        * Moved `createElement()` method to `TemplateComponent`
+        * Added `render()` for converting templates into elements
         * Removed the `created` property
     * Drop
         * Updated to extend the `CompositeComponent`

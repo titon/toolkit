@@ -7,9 +7,8 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
 Toolkit.Mask = Toolkit.Component.extend({
     name: 'Mask',
@@ -46,7 +45,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         var mask = element.find('> ' + this.ns());
 
         if (!mask.length) {
-            mask = $(options.template);
+            mask = this.render(options.template);
         }
 
         this.setMask(mask);
@@ -108,7 +107,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         message = mask.find(this.ns('message'));
 
         if (!message.length && options.messageContent) {
-            message = $(options.messageTemplate)
+            message = this.render(options.messageTemplate)
                 .html(options.messageContent)
                 .appendTo(mask);
         }
@@ -143,11 +142,15 @@ Toolkit.Mask = Toolkit.Component.extend({
     selector: '',
     revealOnClick: false,
     messageContent: '',
-    template: '<div class="' + vendor + 'mask" data-mask></div>',
-    messageTemplate: '<div class="' + vendor + 'mask-message" data-mask-message></div>'
+    template: function(bem) {
+        return '<div class="' + bem('mask') + '" data-mask></div>';
+    },
+    messageTemplate: function(bem) {
+        return '<div class="' + bem('mask', 'message') + '" data-mask-message></div>';
+    }
 });
 
-Toolkit.create('mask', function(options) {
+Toolkit.createPlugin('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });
 

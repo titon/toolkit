@@ -6,7 +6,7 @@
 
 @import "../common";
 
-$icon-class-without-dot: remove-selector-char($icon-class);
+$icon-class-without-dot: remove-selector($icon-class);
 
 [class*="#{$icon-class-without-dot}-"] {
     @include reset-inline-block;

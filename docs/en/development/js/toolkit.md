@@ -1,34 +1,10 @@
-# Toolkit Namespace #
+# Toolkit Object #
 
 The global `Toolkit` object is used extensively by and created for the plugin system.
 It defines global options, localized messages, feature detection, and device support.
 It also acts as a namespace for plugins by housing a top level name to avoid global conflicts.
 Each plugin class definition can be found on the `Toolkit` object, for example,
 the accordion class is found under `Toolkit.Accordion`.
-
-## Vendor Prefix ##
-
-Paired with the [Sass `$vendor-prefix` variable](../sass/variables.md), the `Toolkit.vendor` can be defined for
-prefixing within the JavaScript layer. This value will be prepended to all component class names that are
-embedded in templates and created with JavaScript.
-
-```javascript
-Toolkit.vendor = 'tk-';
-```
-
-## ARIA Support ##
-
-[ARIA](http://www.w3.org/TR/wai-aria/) is enabled by default for all applicable plugins.
-What this involves is automatic ARIA attribute inclusion and generation for JavaScript modules.
-To disable ARIA support, set the `Toolkit.aria` property to false.
-
-```javascript
-Toolkit.aria = false;
-```
-
-<div class="notice is-warning">
-    Disabling ARIA also disables the <code>aria()</code> method.
-</div>
 
 ## Debugging ##
 
@@ -112,8 +88,12 @@ Each flag can be found on the `Toolkit` object.
             <td>Does the device support HD / retina displays?</td>
         </tr>
         <tr>
+            <td>isRTL</td>
+            <td>Is the current language in right-to-left mode?</td>
+        </tr>
+        <tr>
             <td>transitionEnd</td>
-            <td>The correct vendor prefixed name for the <code>transitionend</code> event.</td>
+            <td>The vendor prefixed name for the <code>transitionend</code> event.</td>
         </tr>
     </tbody>
 </table>
@@ -127,3 +107,37 @@ if (Toolkit.isTouch) {
 <div class="notice is-warning">
     Flags are determined automatically and should not be altered in any way!
 </div>
+
+
+## Methods ##
+
+The following methods are available on the `Toolkit` object.
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>bem(string:block[, string:element[, string:modifier]])</td>
+            <td>
+                Generate a BEM (block-element-modifier) valid CSS class name.
+                Uses <code>Toolkit.bemSeparators</code> as separating characters.
+            </td>
+        </tr>
+        <tr>
+            <td>buildTemplate(mixed:template)</td>
+            <td>Parse a value and convert it to a template string.</td>
+        </tr>
+        <tr>
+            <td>createPlugin(string:name[, func:callback[, bool:collection]])</td>
+            <td>
+                Define a new jQuery plugin using the callback as a factory.
+                If the plugin is meant for multiple elements at once, pass true as the 3rd argument.
+            </td>
+        </tr>
+    </tbody>
+</table>
