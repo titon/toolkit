@@ -227,8 +227,15 @@ $drop-transition: $default-transition !default;
 
 //-------------------- Flex --------------------//
 
-$flex-class: class-name("flex") !default;
-$flex-class-block: class-name("block", "") !default;
+$flex-class-region: class-name("region") !default;
+$flex-class-block: class-name("block") !default;
+$flex-class-modifier-grid: bem($flex-class-region, "", "grid") !default;
+$flex-class-modifier-wrap: bem($flex-class-region, "", "wrap") !default;
+$flex-class-modifier-vertical: bem($flex-class-region, "", "vertical") !default;
+
+$flex-modifiers: ("vertical", "wrap", "grid") !default;
+
+$flex-grid-gutter: 1rem !default;
 
 //-------------------- Flyout --------------------//
 
@@ -262,8 +269,8 @@ $form-modifiers: ("inline", "horizontal") !default;
 //-------------------- Grid --------------------//
 
 $grid-class: class-name("grid") !default;
-$grid-class-column: class-name("col", "") !default;
-$grid-class-end: class-name("end", "") !default;
+$grid-class-column: class-name("col") !default;
+$grid-class-end: class-name("end") !default;
 
 $grid-columns-xsmall: 6 !default;
 $grid-columns-small: 12 !default;
@@ -572,5 +579,6 @@ $h6-size: 1.2rem !default;
 @import "mixins/unit";
 @import "mixins/layout";
 @import "mixins/grid";
+@import "mixins/flex";
 @import "mixins/responsive";
 @import "mixins/components";

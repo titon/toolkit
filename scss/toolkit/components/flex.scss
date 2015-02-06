@@ -6,24 +6,69 @@
 
 @import "../common";
 
-// Wrapper
-#{$flex-class} {
-    display: flex;
-    align-items: stretch;
-    align-content: stretch;
-    justify-content: space-between
+#{$flex-class-region} {
+    @include flex-region();
+
+    // Alignment
+    &.flow-top,
+    &.flow-left { @include flex-region-align(left); }
+    &.flow-bottom,
+    &.flow-right { @include flex-region-align(right); }
+    &.flow-center { @include flex-region-align(center); }
+    &.flow-between { @include flex-region-align(between); }
+    &.flow-around { @include flex-region-align(around); }
+
+    // Support RTL
+    @if $text-direction == rtl {
+        writing-mode: vertical-rl;
+    }
 }
 
 #{$flex-class-block} {
-    display: flex;
-}
+    @include flex-block();
+    @include flex-block-order();
 
+    // Override parent alignment
+    &.self-top,
+    &.self-left { @include flex-block-align(top); }
+    &.self-bottom,
+    &.self-right { @include flex-block-align(bottom); }
+    &.self-center { @include flex-block-align(center); }
+    &.self-baseline { @include flex-block-align(baseline); }
+    &.self-stretch { @include flex-block-align(stretch); }
+}
 
 //-------------------- Modifiers --------------------//
 
-.flex--stretch {
+// Generate a grid of blocks with equal spacing between
+@if index($flex-modifiers, "grid") {
+    #{$flex-class-modifier-grid} {
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+
+        @if $flex-grid-gutter {
+            margin-top: -$flex-grid-gutter;
+            margin-left: -$flex-grid-gutter;
+        }
+
+        > #{$flex-class-block} {
+            margin-top: $flex-grid-gutter;
+            margin-left: $flex-grid-gutter;
+        }
+    }
 }
 
-.flex--wrap {
-    flex-wrap: wrap;
+// Display blocks vertically instead of horizontally
+@if index($flex-modifiers, "vertical") {
+    #{$flex-class-modifier-vertical} {
+        @include flex-region-orientation(vertical);
+    }
+}
+
+// Wrap blocks onto the next line instead of trying to squish into 1 line
+@if index($flex-modifiers, "wrap") {
+    #{$flex-class-modifier-wrap} {
+        @include flex-region-wrap();
+    }
 }

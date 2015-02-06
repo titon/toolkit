@@ -155,6 +155,17 @@
             "js": ["components/drop.js"]
         }
     },
+    "flex": {
+        "name": "Flex",
+        "description": "Flexbox based grid and layout. Responsive support through different block sizes.",
+        "category": "component",
+        "type": "element",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/flex.scss"]
+        }
+    },
     "flyout": {
         "name": "Flyout",
         "description": "Hierarchical sitemap through nested menus.",
@@ -169,7 +180,7 @@
     },
     "grid": {
         "name": "Grid",
-        "description": "Fluid grid with multiple column support. Supports different columns for responsive sizes.",
+        "description": "Fluid grid with multiple column support. Responsive support through different column sizes.",
         "category": "component",
         "type": "element",
         "priority": 10,
