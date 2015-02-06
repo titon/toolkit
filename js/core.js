@@ -81,7 +81,7 @@ var Toolkit = {
     },
 
     /**
-     * Parse a template and convert it to a string.
+     * Parse a value and convert it to a template string.
      * If the template is a function, execute it and pass the `bem()` function,
      * and the current namespace as arguments.
      *

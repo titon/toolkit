@@ -29,7 +29,7 @@ Older versions can be found in the documentation changelogs.
             `Component` for embedded elements, `TemplateComponent` for templates rendered into elements, 
             and `CompositeComponent` which is a collection of rendered elements
         * Moved `elements` and `nodes` properties to `CompositeComponent`
-        * Moved `createElement` method to `TemplateComponent`
+        * Moved `createElement()` method to `TemplateComponent`
         * Added `render()` for converting templates into elements
         * Removed the `created` property
     * Drop
