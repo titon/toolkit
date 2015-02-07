@@ -225,12 +225,12 @@ attributes are required when supporting ARIA.
         <tr>
             <td>$carousel-class-modifier-square</td>
             <td>.carousel--square</td>
-            <td>Name of the square modifier to append to carousel classes.</td>
+            <td>CSS class name for the carousel square modifier.</td>
         </tr>
         <tr>
             <td>$carousel-class-modifier-wide</td>
             <td>.carousel--wide</td>
-            <td>Name of the wide modifier to append to carousel classes.</td>
+            <td>CSS class name for the carousel wide modifier.</td>
         </tr>
         <tr>
             <td>$carousel-modifiers</td>

@@ -175,22 +175,22 @@ The element that opens the drop menu will need the `aria-haspopup` and `aria-con
         <tr>
             <td>$drop-class-modifier-down</td>
             <td>.drop--down</td>
-            <td>Name of the down modifier to append to drop classes.</td>
+            <td>CSS class name for the drop down modifier.</td>
         </tr>
         <tr>
             <td>$drop-class-modifier-up</td>
             <td>.drop--up</td>
-            <td>Name of the up modifier to append to drop classes.</td>
+            <td>CSS class name for the drop up modifier.</td>
         </tr>
         <tr>
             <td>$drop-class-modifier-left</td>
             <td>.drop--left</td>
-            <td>Name of the left modifier to append to drop classes.</td>
+            <td>CSS class name for the drop left modifier.</td>
         </tr>
         <tr>
             <td>$drop-class-modifier-right</td>
             <td>.drop--right</td>
-            <td>Name of the right modifier to append to drop classes.</td>
+            <td>CSS class name for the drop right modifier.</td>
         </tr>
         <tr>
             <td>$drop-modifiers</td>

@@ -4,13 +4,15 @@ Older versions can be found in the documentation changelogs.
 
 ## 2.1.0 ##
 
+* Added the Flex component which supports flexbox based grids and layouts
 * Added right-to-left (RTL) support for all CSS and JS components
 * Added Travis CI integration for automatic build and testing
-* Added BEM support to all JS components
+* Improved BEM support on all JS components
 * Updated all JS templates to support functions for on-demand rendering
 * Sass
     * Added `$text-direction` variable
     * Added `ltr()` and `rtl()` mixins
+    * Added `gutter()` and `span-width()` functions
     * Renamed `$vendor-prefix` to `$namespace`
     * Renamed `remove-selector-char()` to `remove-selector()`
 * JavaScript
@@ -36,6 +38,10 @@ Older versions can be found in the documentation changelogs.
         * Updated to extend the `CompositeComponent`
         * Added the menu and node as arguments to the `hiding` and `showing` events
         * Removed the `hideOpened` option (will happen automatically now)
+    * Flex
+        * Added `flex-span()` function
+        * Added `flex-region()`, `flex-region-align()`, `flex-region-orientation()`, `flex-region-wrap()`, `flex-block()`, `flex-block-align()`, `flex-block-order()`, `flex-block-grow()`, and `flex-block-shrink()` mixins
+        * Added 17 `$flex-*` variables
     * Flyout
         * Updated to extend the `CompositeComponent`
         * Added a `wrapperClass` option
@@ -44,6 +50,8 @@ Older versions can be found in the documentation changelogs.
         * Renamed the `.push-left` class to `.push-opposite`
         * Refactored `_buildMenu()` to handle the composite functionality
         * Removed the `isVisible()`, `_getMenu()`, and `_getTarget()` methods
+    * Grid
+        * Renamed `grid-gutter()` to `gutter()`
     * LazyLoad  
         * Renamed the `elements` property to `items`
     * Modal

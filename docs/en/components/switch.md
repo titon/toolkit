@@ -115,7 +115,7 @@ Adding `.round` or `.pill` to the `.switch-bar` will alter the border radius.
         <tr>
             <td>$switch-class-modifier-stacked</td>
             <td>.switch--stacked</td>
-            <td>Name of the stacked modifier to append to switch classes.</td>
+            <td>CSS class name for the switch stacked modifier.</td>
         </tr>
         <tr>
             <td>$switch-effects</td>
