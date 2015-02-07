@@ -1,4 +1,5 @@
 @import "layout";
+@import "helper";
 
 $flex-align-map: (
     top: flex-start,
@@ -16,9 +17,16 @@ $flex-align-map: (
 // align-content - Align blocks/lines on cross axis. This is the opposite of justify-content.
 // align-items - Align blocks within a line on the cross axis when each block has a variable height.
 
+// Calculate the width of an individual flex block.
+// Take into account max widths and gutters.
+@function flex-span($n, $columns, $width: $flex-width, $gutter: $flex-gutter) {
+    @return span-width($n, $columns, $width, $gutter);
+}
+
 // Styles for the region that contains blocks.
-@mixin flex-region() {
+@mixin flex-region($width: $flex-width) {
     display: flex;
+    max-width: $width;
 }
 
 // Align the blocks within a region horizontally or vertically.

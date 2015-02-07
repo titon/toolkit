@@ -38,6 +38,27 @@
     &.self-stretch { @include flex-block-align(stretch); }
 }
 
+// Global ordering
+@for $i from 1 through $flex-order-count {
+    .order-#{$i} { @include flex-block-order($i); }
+}
+
+// Responsive sizes
+@each $size, $options in $flex-sizes {
+    $size-columns: nth($options, 1);
+
+    @include in-range(nth($options, 2)) {
+        @for $i from 1 through $size-columns {
+            #{$flex-class-block}.#{$size}-#{$i} { flex-basis: flex-span($i, $size-columns); }
+        }
+
+        // Responsive ordering
+        @for $i from 1 through $flex-order-count {
+            .#{$size}-order-#{$i} { @include flex-block-order($i); }
+        }
+    }
+}
+
 //-------------------- Modifiers --------------------//
 
 // Generate a grid of blocks with equal spacing between
@@ -59,7 +80,13 @@
     }
 }
 
-// Display blocks vertically instead of horizontally
+// Display blocks vertically or horizontally regardless of orientation
+@if index($flex-modifiers, "horizontal") {
+    #{$flex-class-modifier-horizontal} {
+        @include flex-region-orientation(horizontal);
+    }
+}
+
 @if index($flex-modifiers, "vertical") {
     #{$flex-class-modifier-vertical} {
         @include flex-region-orientation(vertical);
