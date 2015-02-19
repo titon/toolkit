@@ -1,10 +1,10 @@
 'use strict';
 
 var pkg = require('./package.json'),
-    rjs = require('./build/plugins/requirejs'),
-    pjs = require('./build/plugins/phantomjs'),
-    sass = require('./build/plugins/sass'),
-    toc = require('./build/plugins/toc'),
+    rjs = require('./gulp/requirejs'),
+    pjs = require('./gulp/phantomjs'),
+    sass = require('./gulp/sass'),
+    toc = require('./gulp/toc'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     header = require('gulp-header'),
