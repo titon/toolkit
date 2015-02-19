@@ -62,3 +62,32 @@
 
     @return $name;
 }
+
+// Calculate the gutter spacing as a percentage.
+// Use the max width of the grid to calculate against.
+@function gutter($width, $gutter) {
+    @return if($gutter, ((to-pixel($gutter) / to-pixel($width)) * 100 * 1%), 0%);
+}
+
+// Calculate the width of an individual element within a row.
+// Take into account max widths and gutters.
+@function span-width($n, $columns, $width, $gutter) {
+    $row-width: 100%;
+    $gutter-width: 0%;
+
+    // If a gutter is set, remove width based on the sum of the gutter columns
+    @if $gutter {
+        $gutter-width: gutter($width, $gutter);
+        $row-width: $row-width - ($gutter-width * ($columns - 1));
+    }
+
+    // The column width should span a division of the total width
+    $span-width: ($row-width / $columns) * $n;
+
+    // If a gutter is set, increase the column width to fill in the missing gaps
+    @if $gutter and $n > 1 {
+        $span-width: $span-width + (($n - 1) * $gutter-width);
+    }
+
+    @return $span-width;
+}

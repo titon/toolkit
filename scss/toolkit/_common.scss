@@ -225,6 +225,36 @@ $drop-modifiers: ("down", "up", "left", "right") !default;
 
 $drop-transition: $default-transition !default;
 
+//-------------------- Flex --------------------//
+
+$flex-class-region: class-name("region") !default;
+$flex-class-block: class-name("block") !default;
+$flex-class-modifier-grid: bem($flex-class-region, "", "grid") !default;
+$flex-class-modifier-wrap: bem($flex-class-region, "", "wrap") !default;
+$flex-class-modifier-horizontal: bem($flex-class-region, "", "horizontal") !default;
+$flex-class-modifier-vertical: bem($flex-class-region, "", "vertical") !default;
+
+$flex-modifiers: ("horizontal", "vertical", "wrap", "grid") !default;
+
+$flex-width: 100% !default;
+$flex-gutter: false !default;
+$flex-grid-gutter: 1rem !default;
+$flex-order-count: 6 !default;
+
+$flex-blocks-xsmall: 6 !default;
+$flex-blocks-small: 12 !default;
+$flex-blocks-medium: 12 !default;
+$flex-blocks-large: 12 !default;
+$flex-blocks-xlarge: 18 !default;
+
+$flex-sizes: (
+    xsmall: ($flex-blocks-xsmall, $breakpoint-range-xsmall),
+    small:  ($flex-blocks-small, $breakpoint-range-small),
+    medium: ($flex-blocks-medium, $breakpoint-range-medium),
+    // Remove the max as we have no xlarge size and want the large value to be open ended
+    large:  ($flex-blocks-large, (nth($breakpoint-range-large, 1), null)),
+) !default;
+
 //-------------------- Flyout --------------------//
 
 $flyout-class: class-name("flyout") !default;
@@ -257,8 +287,8 @@ $form-modifiers: ("inline", "horizontal") !default;
 //-------------------- Grid --------------------//
 
 $grid-class: class-name("grid") !default;
-$grid-class-column: class-name("col", "") !default;
-$grid-class-end: class-name("end", "") !default;
+$grid-class-column: class-name("col") !default;
+$grid-class-end: class-name("end") !default;
 
 $grid-columns-xsmall: 6 !default;
 $grid-columns-small: 12 !default;
@@ -567,5 +597,6 @@ $h6-size: 1.2rem !default;
 @import "mixins/unit";
 @import "mixins/layout";
 @import "mixins/grid";
+@import "mixins/flex";
 @import "mixins/responsive";
 @import "mixins/components";

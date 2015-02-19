@@ -180,6 +180,50 @@ style resets, and media query management.
     </tbody>
 </table>
 
+## Flexbox ##
+
+<table class="table is-striped data-table">
+    <thead>
+        <tr>
+            <th>Mixin</th>
+            <th>Nestable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>flex-region($width)</td>
+            <td></td>
+            <td>Sets the max width and display to <code>flex</code> for an element.</td>
+        </tr>
+        <tr>
+            <td>flex-region-align($align)</td>
+            <td></td>
+            <td>Align blocks within a region along the main axis using <code>justify-content</code>.</td>
+        </tr>
+        <tr>
+            <td>flex-region-orientation($orientation)</td>
+            <td></td>
+            <td>Set the blocks direction using <code>flex-direction</code>.</td>
+        </tr>
+        <tr>
+            <td>flex-region-wrap($wrap)</td>
+            <td></td>
+            <td>Enable or disable wrapping for a region using <code>flex-wrap</code>.</td>
+        </tr>
+        <tr>
+            <td>flex-block($width, $grow, $shrink)</td>
+            <td></td>
+            <td>Set the width, grow, and shrink flex parameters using <code>flex</code>.</td>
+        </tr>
+        <tr>
+            <td>flex-block-align($align)</td>
+            <td></td>
+            <td>Override a blocks alignment using <code>align-self</code>.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Grids ##
 
 <table class="table is-striped data-table">
@@ -203,3 +247,4 @@ style resets, and media query management.
         </tr>
     </tbody>
 </table>
+

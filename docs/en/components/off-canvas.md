@@ -171,12 +171,12 @@ The `main` and `complementary` roles and the appropriate `aria-*` attributes are
         <tr>
             <td>$offCanvas-class-modifier-left</td>
             <td>.off-canvas--left</td>
-            <td>Name of the left modifier to append to off canvas sidebars.</td>
+            <td>CSS class name for the off canvas left modifier.</td>
         </tr>
         <tr>
             <td>$offCanvas-class-modifier-right</td>
             <td>.off-canvas--right</td>
-            <td>Name of the right modifier to append to off canvas sidebars.</td>
+            <td>CSS class name for the off canvas right modifier.</td>
         </tr>
         <tr>
             <td>$offCanvas-left-width</td>

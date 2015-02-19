@@ -23,7 +23,7 @@ Support
 * [License](support/license.md)
 
 Releases
-* [2.0 - Gallant Golem](releases/2.0.md)
+* [2.0](releases/2.0.md)
 
 Migrations
 * [Migrating to 2.0](migrations/2.0.md)

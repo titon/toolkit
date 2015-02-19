@@ -71,27 +71,27 @@ Adding a `.small` or `.large` class to the `.label` element will alter the paddi
         <tr>
             <td>$label-class-modifier-arrow-left</td>
             <td>.label--arrow-left</td>
-            <td>Name of the left arrow modifier to append to label classes.</td>
+            <td>CSS class name for the label left arrow modifier.</td>
         </tr>
         <tr>
             <td>$label-class-modifier-arrow-right</td>
             <td>.label--arrow-right</td>
-            <td>Name of the right arrow modifier to append to label classes.</td>
+            <td>CSS class name for the label right arrow modifier.</td>
         </tr>
         <tr>
             <td>$label-class-modifier-badge</td>
             <td>.label--badge</td>
-            <td>Name of the badge modifier to append to label classes.</td>
+            <td>CSS class name for the label badge modifier.</td>
         </tr>
         <tr>
             <td>$label-class-modifier-ribbon-left</td>
             <td>.label--ribbon-left</td>
-            <td>Name of the left ribbon modifier to append to label classes.</td>
+            <td>CSS class name for the label left ribbon modifier.</td>
         </tr>
         <tr>
             <td>$label-class-modifier-ribbon-right</td>
             <td>.label--ribbon-right</td>
-            <td>Name of the right ribbon modifier to append to label classes.</td>
+            <td>CSS class name for the label right ribbon modifier.</td>
         </tr>
         <tr>
             <td>$label-modifiers</td>

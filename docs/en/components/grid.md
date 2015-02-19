@@ -1,6 +1,6 @@
 # Grid #
 
-Fluid grid with multiple column support. Supports different columns for responsive sizes.
+Fluid grid with multiple column support. Supports different responsive sizes for columns.
 
 ## Usage ##
 
@@ -132,10 +132,7 @@ columns will collapse to their standard block display at 100% width, which is pe
 
 #### Size Chart ####
 
-Extra small is designed for mobile devices with low resolution screens.
-Small is designed for mobile devices in portrait mode.
-Medium is designed for mobile devices in landscape mode, tablets in portrait mode and small screened desktops and laptops.
-Large is designed for mobile/tablets in landscape mode and wide screen desktops, laptops, and displays.
+Extra small is designed for mobile devices with low resolution screens. Small is designed for mobile devices in portrait mode. Medium is designed for mobile devices in landscape mode, tablets in portrait mode, and small screened desktops and laptops. Large is designed for mobile/tablets in landscape mode and wide screen desktops, laptops, and displays.
 
 <table class="table is-striped data-table">
     <thead>
@@ -304,7 +301,7 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
         <tr>
             <td>$grid-columns-xlarge</td>
             <td>18</td>
-            <td rowspan="5">The number of columns available per size.</td>
+            <td rowspan="5">The number of columns available per responsive breakpoint.</td>
         </tr>
         <tr>
             <td>$grid-columns-large</td>
@@ -337,7 +334,7 @@ Or we can [customize our own grids](../development/sass/usage.md#grid-building).
             <td>(xsmall: (...), small: (...), medium: (...), large: (...))</td>
             <td>
                 A mapping of grid sizes to column counts and breakpoints ranges.
-                Each size accepts a list with the 1st item a column count, and the 2nd item a list of min and max ranges.
+                Each size accepts a list with the 1st item being a column count, and the 2nd item being a list of min and max ranges.
                 View the docs above for more on altering this variable.
             </td>
         </tr>

@@ -26,7 +26,7 @@
     }
 }
 
-// Grid sizes
+// Responsive sizes
 @each $size, $options in $grid-sizes {
     $size-columns: nth($options, 1);
 
@@ -41,8 +41,8 @@
             #{$grid-class-column}.#{$size}-#{$i} { width: $span; }
 
             @if $grid-push-pull {
-                #{$grid-class-column}.#{$size}-push-#{$i} { #{$align-direction}: $span; }
-                #{$grid-class-column}.#{$size}-pull-#{$i} { #{$align-opposite-direction}: $span; }
+                .#{$size}-push-#{$i} { #{$align-direction}: $span; }
+                .#{$size}-pull-#{$i} { #{$align-opposite-direction}: $span; }
             }
         }
     }

@@ -7,13 +7,14 @@
 * [Form](form.md)
 * [Typography](typography.md)
 * [Responsive](responsive.md)
+* [Flex](flex.md)
+* [Grid](grid.md)
 
 ### Elements ###
 * [Breadcrumb](breadcrumb.md)
 * [Button](button.md)
 * [Button Group](button-group.md)
 * [Divider](divider.md)
-* [Grid](grid.md)
 * [Icon](icon.md)
 * [Input Group](input-group.md)
 * [Label](label.md)
