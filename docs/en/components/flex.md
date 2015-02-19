@@ -95,7 +95,7 @@ To set the grow or shrink factor higher than 1 will require custom CSS.
 
 ### Ordering ###
 
-The initial order of a block is set to 100. Why 100? Because it allows custom orders to be used without any chance of collision. Ordering can either be set using the `.order-*` classes, or through custom CSS.
+The initial order of a block is set to 100. Why 100? Because it allows custom orders to be used without any chance of collision. Ordering can either be set using the `.order-*` classes or through custom CSS.
 
 ```html
 <div class="region">
@@ -111,7 +111,7 @@ The initial order of a block is set to 100. Why 100? Because it allows custom or
 
 ### Wrapping ###
 
-A block within a row (or column) will *not* wrap to the next line and instead will continue to squeeze (grow or shrink) to make room for other blocks. To allow wrapping of blocks, the `.region--wrap` modified can be used.
+A block within a row (or column) will *not* wrap to the next line and instead will continue to squeeze (grow or shrink) to make room for other blocks. To allow wrapping of blocks, the `.region--wrap` modifier can be used.
 
 ```html
 <div class="region region--wrap" id="wrap">
@@ -123,7 +123,7 @@ A block within a row (or column) will *not* wrap to the next line and instead wi
 </div>
 ```
 
-An custom width must also be applied to each block or else the wrapping will not occur as their scaling is automatic. Let's apply a base width of 33.3% which will allow for 3 blocks per row.
+A custom width must also be applied to each block or else the wrapping will not occur as their scaling is automatic. Let's apply a base width of 33.3% which will allow for 3 blocks per row.
 
 ```css
 #wrap .block { flex-basis: 33.3%; }
@@ -163,7 +163,7 @@ Blocks and rendered across the main-axis, which is horizontally, as we read from
 
 ### Grids ###
 
-A grid will render blocks so that a gutter is evenly distributed between, heights stay consistent between rows, and edges are flush against their container. A grid can be enabled using `.region--grid` and setting a basis on the blocks.
+A grid will render blocks so that a gutter is evenly distributed between, heights stay consistent between rows, and edges are flush against their container. A grid can be enabled using `.region--grid` and setting a base width on the blocks.
 
 ```html
 <div class="region region--grid" id="grid">
