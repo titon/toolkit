@@ -11,6 +11,7 @@ $icon-class-without-dot: remove-selector($icon-class);
 [class*="#{$icon-class-without-dot}-"] {
     @include reset-inline-block;
     background-repeat: no-repeat;
+    speak: none;
 
     &.is-disabled { opacity: $disabled-opacity; }
 }
