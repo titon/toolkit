@@ -73,6 +73,7 @@
         flex-flow: row wrap;
         justify-content: flex-start;
         align-content: flex-start;
+        max-width: none;
 
         @if $flex-grid-gutter {
             margin-top: -$flex-grid-gutter;

@@ -132,10 +132,7 @@ columns will collapse to their standard block display at 100% width, which is pe
 
 #### Size Chart ####
 
-Extra small is designed for mobile devices with low resolution screens.
-Small is designed for mobile devices in portrait mode.
-Medium is designed for mobile devices in landscape mode, tablets in portrait mode and small screened desktops and laptops.
-Large is designed for mobile/tablets in landscape mode and wide screen desktops, laptops, and displays.
+Extra small is designed for mobile devices with low resolution screens. Small is designed for mobile devices in portrait mode. Medium is designed for mobile devices in landscape mode, tablets in portrait mode, and small screened desktops and laptops. Large is designed for mobile/tablets in landscape mode and wide screen desktops, laptops, and displays.
 
 <table class="table is-striped data-table">
     <thead>
