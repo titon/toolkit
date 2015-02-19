@@ -8,7 +8,7 @@ Older versions can be found in the documentation changelogs.
 * Added right-to-left (RTL) support for all CSS and JS components
 * Added Travis CI integration for automatic build and testing
 * Improved BEM support on all JS components
-* Updated all JS templates to support functions for on-demand rendering
+* Updated all JS templates to support functions for lazy-loaded rendering
 * Sass
     * Added `$text-direction` variable
     * Added `ltr()` and `rtl()` mixins
@@ -21,8 +21,9 @@ Older versions can be found in the documentation changelogs.
         * Added `bemSeparators` property for customizing BEM separators
         * Added `bem()` function for generating BEM CSS class names
         * Added `buildTemplate()` function for converting strings into usable templates
-        * Renamed `create()` to `createPlugin()`
-        * Renamed `vendor` to `namespace`
+        * Added `wrapperTemplate` option
+        * Renamed `create()` function to `createPlugin()`
+        * Renamed `vendor` property to `namespace`
     * Base
         * Removed the `runtime` property
 * Components
@@ -58,6 +59,7 @@ Older versions can be found in the documentation changelogs.
         * Updated to extend the `TemplateComponent`
     * Popover
         * Added a `wrapperClass` option
+        * Removed the `elementHead` and `elementBody` properties
     * Showcase
         * Updated to extend the `TemplateComponent`
         * Fixed a bug where captions would disappear

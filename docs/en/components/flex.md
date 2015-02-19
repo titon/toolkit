@@ -236,14 +236,14 @@ Extra small is designed for mobile devices with low resolution screens. Small is
             <td>.large-*</td>
         </tr>
         <tr>
-            <td>Column Count</td>
+            <td>Block Count</td>
             <td>6</td>
             <td>12</td>
             <td>12</td>
             <td>12</td>
         </tr>
         <tr>
-            <td>Column Width</td>
+            <td>Block Width</td>
             <td>16.6%</td>
             <td>8.3%</td>
             <td>8.3%</td>
@@ -262,6 +262,18 @@ Extra small is designed for mobile devices with low resolution screens. Small is
 <div class="notice is-info">
     The (P) and (L) in the chart above stand for portrait and landscape respectively.
 </div>
+
+#### Ordering ####
+
+The ordering of blocks can also be responsive through the use of responsive order classes. These classes make use of the sizes and and block counts mentioned previously.
+
+```html
+<div class="region">
+    <div class="block small-order-2 large-order-1">...</div>
+    <div class="block small-order-3 large-order-3">...</div>
+    <div class="block small-order-1 large-order-2">...</div>
+</div>
+```
 
 #### Mobile Row Collapsing ####
 

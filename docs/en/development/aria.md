@@ -18,7 +18,7 @@ To this.
 
 ## Using ##
 
-To manually set ARIA attributes with JavaScript, a jQuery method named `aria()` is available. [Learn more about this method.](js/extensions.md#aria).
+To manually set ARIA attributes with JavaScript, a jQuery method named `aria()` is available. [Learn more about this method.](js/extensions.md#aria)
 
 ## Disabling ##
 

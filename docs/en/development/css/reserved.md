@@ -6,7 +6,6 @@ Just be weary of the following classes while building an application.
 The following classes are reserved by Toolkit:
 
 * All the classes within `base.scss`, `responsive.scss`, and `typography.scss`
-* Grid component `.col` and `.end` class
 * Shape classes: `.round`, `.pill`, `.oval`, `.skew`, `.skew-reverse`
 * Size classes: `.small`, `.large`
 * Animation classes: `.from-above`, `.from-below`, `.slide`, `.slide-up`, `.slide-in-top`,
@@ -16,6 +15,7 @@ The following classes are reserved by Toolkit:
 * Positional classes: `.top-left`, `.top-center`, `.top-right`, `.center-left`, `.center-right`,
     `.bottom-left`, `.bottom-center`, `.bottom-right`
 * State classes: `.is-*`, `.has-*`, `.no-*`, and many more
+* Grid and flex components: `.col`, `.end`, `.region`, `.block`
 
 Some classes make use of [Sass variables](../sass/variables.md) for altering their names.
 This was implemented to avoid collisions of common class names and integration with legacy applications.
