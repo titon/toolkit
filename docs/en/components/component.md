@@ -1,6 +1,8 @@
 # Component #
 
-The parent class that all components extend from. This class also extends functionality from the [Base class](../development/js/base.md).
+The component layer is composed of 3 distinct classes -- `Component`, `TemplateComponent`, and `CompositeComponent` -- all of which support their own unique methods, properties, and options. These classes also extend functionality from the [Base class](../development/js/base.md).
+
+More information on these classes can be found in the [component system documentation](../development/js/component.md).
 
 ## Options ##
 
