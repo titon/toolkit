@@ -6,20 +6,22 @@
 
 @import "../common";
 
-#{$matrix-class} {
-    @include reset-list;
-    position: relative;
+@include export("matrix") {
+    #{$matrix-class} {
+        @include reset-list;
+        position: relative;
 
-    > li {
-        float: $align-direction;
-        margin: 0;
-        padding: 0;
-        transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition, visibility $matrix-transition;
+        > li {
+            float: $align-direction;
+            margin: 0;
+            padding: 0;
+            transition: top $matrix-transition, left $matrix-transition, bottom $matrix-transition, right $matrix-transition, opacity $matrix-transition, visibility $matrix-transition;
+        }
+
+        &.no-columns > li {
+            position: relative !important;
+        }
+
+        @include clear-fix;
     }
-
-    &.no-columns > li {
-        position: relative !important;
-    }
-
-    @include clear-fix;
 }

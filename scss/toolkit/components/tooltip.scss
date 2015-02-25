@@ -6,108 +6,110 @@
 
 @import "../common";
 
-$tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
+@include export("tooltip") {
+    $tooltip-arrow-width-double: ($tooltip-arrow-width * 2);
 
-#{$tooltip-class} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: none;
-    margin: $margin;
-    padding: $small-padding;
-    z-index: $tooltip-zindex;
-    max-width: 200px;
-    visibility: hidden;
-    background: #000;
-    color: #fff;
-
-    &.center-left #{$tooltip-class-arrow},
-    &.center-right #{$tooltip-class-arrow} {
-        top: 50%;
-        margin-top: -#{$tooltip-arrow-width}px;
-    }
-
-    &.center-left #{$tooltip-class-arrow} {
-        border-left-color: #000;
-        right: -#{$tooltip-arrow-width-double}px;
-    }
-
-    &.center-right #{$tooltip-class-arrow} {
-        border-right-color: #000;
-        left: -#{$tooltip-arrow-width-double}px;
-    }
-
-    &.top-center #{$tooltip-class-arrow},
-    &.bottom-center #{$tooltip-class-arrow} {
-        left: 50%;
-        margin-left: -#{$tooltip-arrow-width}px;
-    }
-
-    &.top-center #{$tooltip-class-arrow} {
-        border-top-color: #000;
-        bottom: -#{$tooltip-arrow-width-double}px;
-    }
-
-    &.bottom-center #{$tooltip-class-arrow} {
-        border-bottom-color: #000;
-        top: -#{$tooltip-arrow-width-double}px;
-    }
-}
-
-#{$tooltip-class-arrow},
-#{$popover-class-arrow} {
-    width: 0;
-    height: 0;
-    border: #{$tooltip-arrow-width}px solid transparent;
-    position: absolute;
-
-    &::after {
-        content: "";
-        border: #{($tooltip-arrow-width - 2)}px solid transparent;
+    #{$tooltip-class} {
         position: absolute;
-    }
-}
+        top: 0;
+        left: 0;
+        border: none;
+        margin: $margin;
+        padding: $small-padding;
+        z-index: $tooltip-zindex;
+        max-width: 200px;
+        visibility: hidden;
+        background: #000;
+        color: #fff;
 
-//-------------------- Animations --------------------//
+        &.center-left #{$tooltip-class-arrow},
+        &.center-right #{$tooltip-class-arrow} {
+            top: 50%;
+            margin-top: -#{$tooltip-arrow-width}px;
+        }
 
-#{$tooltip-class},
-#{$popover-class} {
-    #{join-classes($popover-tooltip-animation)} {
-        transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
-    }
+        &.center-left #{$tooltip-class-arrow} {
+            border-left-color: #000;
+            right: -#{$tooltip-arrow-width-double}px;
+        }
 
-    @if index($popover-tooltip-animation, "fade") {
-        &.fade {
-            opacity: 0;
+        &.center-right #{$tooltip-class-arrow} {
+            border-right-color: #000;
+            left: -#{$tooltip-arrow-width-double}px;
+        }
+
+        &.top-center #{$tooltip-class-arrow},
+        &.bottom-center #{$tooltip-class-arrow} {
+            left: 50%;
+            margin-left: -#{$tooltip-arrow-width}px;
+        }
+
+        &.top-center #{$tooltip-class-arrow} {
+            border-top-color: #000;
+            bottom: -#{$tooltip-arrow-width-double}px;
+        }
+
+        &.bottom-center #{$tooltip-class-arrow} {
+            border-bottom-color: #000;
+            top: -#{$tooltip-arrow-width-double}px;
         }
     }
 
-    @if index($popover-tooltip-animation, "from-above") {
-        &.from-above {
-            transform: scale(1.2);
+    #{$tooltip-class-arrow},
+    #{$popover-class-arrow} {
+        width: 0;
+        height: 0;
+        border: #{$tooltip-arrow-width}px solid transparent;
+        position: absolute;
 
-            &.show {
-                transform: scale(1);
+        &::after {
+            content: "";
+            border: #{($tooltip-arrow-width - 2)}px solid transparent;
+            position: absolute;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{$tooltip-class},
+    #{$popover-class} {
+        #{join-classes($popover-tooltip-animation)} {
+            transition: opacity $tooltip-transition, visibility $tooltip-transition, transform $tooltip-transition;
+        }
+
+        @if index($popover-tooltip-animation, "fade") {
+            &.fade {
+                opacity: 0;
             }
         }
-    }
 
-    @if index($popover-tooltip-animation, "from-below") {
-        &.from-below {
-            transform: scale(0.8);
+        @if index($popover-tooltip-animation, "from-above") {
+            &.from-above {
+                transform: scale(1.2);
 
-            &.show {
-                transform: scale(1);
+                &.show {
+                    transform: scale(1);
+                }
             }
         }
-    }
 
-    @if index($popover-tooltip-animation, "flip-rotate") {
-        &.flip-rotate {
-            transform: rotate(-15deg);
+        @if index($popover-tooltip-animation, "from-below") {
+            &.from-below {
+                transform: scale(0.8);
 
-            &.show {
-                transform: rotate(0deg);
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if index($popover-tooltip-animation, "flip-rotate") {
+            &.flip-rotate {
+                transform: rotate(-15deg);
+
+                &.show {
+                    transform: rotate(0deg);
+                }
             }
         }
     }

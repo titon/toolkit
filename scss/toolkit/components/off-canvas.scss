@@ -6,144 +6,92 @@
 
 @import "../common";
 
-#{$offCanvas-class} {
-    position: fixed;
-    overflow: auto;
-    top: 0;
-    height: 100%;
-    z-index: 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: transform $offCanvas-transition, opacity $offCanvas-transition, visibility $offCanvas-transition;
-    -webkit-overflow-scrolling: touch;
-}
-
-#{$offCanvas-class-content} {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    z-index: 2;
-    transition: transform $offCanvas-transition, padding $offCanvas-transition;
-}
-
-#{$offCanvas-class-wrapper} {
-    position: relative;
-    overflow-x: hidden;
-}
-
-//-------------------- Modifiers --------------------//
-
-#{$offCanvas-class-modifier-left} {
-    left: 0;
-    width: $offCanvas-left-width;
-    transform: translate3d(-100%, 0, 0);
-
-    &.show { transform: translate3d(0, 0, 0) !important; }
-}
-
-#{$offCanvas-class-modifier-right} {
-    right: 0;
-    width: $offCanvas-right-width;
-    transform: translate3d(100%, 0, 0);
-
-    &.show { transform: translate3d(0, 0, 0) !important; }
-}
-
-//-------------------- Animations --------------------//
-
-#{$offCanvas-class-wrapper} {
-    @if index($offCanvas-animations, "on-top") or index($offCanvas-animations, "squish") {
-        &.on-top,
-        &.squish {
-            #{$offCanvas-class} { z-index: 3; }
-        }
+@include export("off-canvas") {
+    #{$offCanvas-class} {
+        position: fixed;
+        overflow: auto;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform $offCanvas-transition, opacity $offCanvas-transition, visibility $offCanvas-transition;
+        -webkit-overflow-scrolling: touch;
     }
 
-    @if index($offCanvas-animations, "push-reveal") {
-        &.push-reveal {
-            #{$offCanvas-class-modifier-left} { transform: translate3d(-50%, 0, 0); }
-            #{$offCanvas-class-modifier-right} { transform: translate3d(50%, 0, 0); }
-        }
+    #{$offCanvas-class-content} {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        z-index: 2;
+        transition: transform $offCanvas-transition, padding $offCanvas-transition;
     }
 
-    @if index($offCanvas-animations, "reverse-push") {
-        &.reverse-push {
-            #{$offCanvas-class-modifier-left} { transform: translate3d(50%, 0, 0); }
-            #{$offCanvas-class-modifier-right} { transform: translate3d(-50%, 0, 0); }
-        }
+    #{$offCanvas-class-wrapper} {
+        position: relative;
+        overflow-x: hidden;
     }
 
-    @if index($offCanvas-animations, "reveal") {
-        &.reveal {
-            #{$offCanvas-class} { transform: translate3d(0, 0, 0); }
-        }
-    }
+    //-------------------- Modifiers --------------------//
 
-    @if index($offCanvas-animations, "push-down") {
-        &.push-down {
-            #{$offCanvas-class-modifier-left},
-            #{$offCanvas-class-modifier-right} { transform: translate3d(0, -100%, 0); }
-        }
-    }
-
-    @if index($offCanvas-animations, "push") or
-        index($offCanvas-animations, "push-reveal") or
-        index($offCanvas-animations, "push-down") or
-        index($offCanvas-animations, "reverse-push") or
-        index($offCanvas-animations, "reveal") {
-        &.push,
-        &.push-reveal,
-        &.push-down,
-        &.reverse-push,
-        &.reveal {
-            &.move-left {
-                #{$offCanvas-class-content} {
-                    transform: translate3d(-$offCanvas-right-width, 0, 0);
-                }
-            }
-
-            &.move-right {
-                #{$offCanvas-class-content} {
-                    transform: translate3d($offCanvas-left-width, 0, 0);
-                }
-            }
-        }
-    }
-
-    @if index($offCanvas-animations, "squish") {
-        &.squish {
-            &.move-left {
-                #{$offCanvas-class-content} {
-                    padding-right: $offCanvas-right-width;
-                }
-            }
-
-            &.move-right {
-                #{$offCanvas-class-content} {
-                    padding-left: $offCanvas-left-width;
-                }
-            }
-        }
-    }
-}
-
-//-------------------- Responsive --------------------//
-
-@include if-max($offCanvas-mobile-breakpoint) {
     #{$offCanvas-class-modifier-left} {
-        width: $offCanvas-left-width-mobile;
+        left: 0;
+        width: $offCanvas-left-width;
+        transform: translate3d(-100%, 0, 0);
+
+        &.show { transform: translate3d(0, 0, 0) !important; }
     }
 
     #{$offCanvas-class-modifier-right} {
-        width: $offCanvas-right-width-mobile;
+        right: 0;
+        width: $offCanvas-right-width;
+        transform: translate3d(100%, 0, 0);
+
+        &.show { transform: translate3d(0, 0, 0) !important; }
     }
 
-    @if index($offCanvas-animations, "push") or
-        index($offCanvas-animations, "push-reveal") or
-        index($offCanvas-animations, "push-down") or
-        index($offCanvas-animations, "reverse-push") or
-        index($offCanvas-animations, "reveal") {
-        #{$offCanvas-class-wrapper} {
+    //-------------------- Animations --------------------//
+
+    #{$offCanvas-class-wrapper} {
+        @if index($offCanvas-animations, "on-top") or index($offCanvas-animations, "squish") {
+            &.on-top,
+            &.squish {
+                #{$offCanvas-class} { z-index: 3; }
+            }
+        }
+
+        @if index($offCanvas-animations, "push-reveal") {
+            &.push-reveal {
+                #{$offCanvas-class-modifier-left} { transform: translate3d(-50%, 0, 0); }
+                #{$offCanvas-class-modifier-right} { transform: translate3d(50%, 0, 0); }
+            }
+        }
+
+        @if index($offCanvas-animations, "reverse-push") {
+            &.reverse-push {
+                #{$offCanvas-class-modifier-left} { transform: translate3d(50%, 0, 0); }
+                #{$offCanvas-class-modifier-right} { transform: translate3d(-50%, 0, 0); }
+            }
+        }
+
+        @if index($offCanvas-animations, "reveal") {
+            &.reveal {
+                #{$offCanvas-class} { transform: translate3d(0, 0, 0); }
+            }
+        }
+
+        @if index($offCanvas-animations, "push-down") {
+            &.push-down {
+                #{$offCanvas-class-modifier-left},
+                #{$offCanvas-class-modifier-right} { transform: translate3d(0, -100%, 0); }
+            }
+        }
+
+        @if index($offCanvas-animations, "push") or
+            index($offCanvas-animations, "push-reveal") or
+            index($offCanvas-animations, "push-down") or
+            index($offCanvas-animations, "reverse-push") or
+            index($offCanvas-animations, "reveal") {
             &.push,
             &.push-reveal,
             &.push-down,
@@ -151,13 +99,67 @@
             &.reveal {
                 &.move-left {
                     #{$offCanvas-class-content} {
-                        transform: translate3d(-$offCanvas-right-width-mobile, 0, 0);
+                        transform: translate3d(-$offCanvas-right-width, 0, 0);
                     }
                 }
 
                 &.move-right {
                     #{$offCanvas-class-content} {
-                        transform: translate3d($offCanvas-left-width-mobile, 0, 0);
+                        transform: translate3d($offCanvas-left-width, 0, 0);
+                    }
+                }
+            }
+        }
+
+        @if index($offCanvas-animations, "squish") {
+            &.squish {
+                &.move-left {
+                    #{$offCanvas-class-content} {
+                        padding-right: $offCanvas-right-width;
+                    }
+                }
+
+                &.move-right {
+                    #{$offCanvas-class-content} {
+                        padding-left: $offCanvas-left-width;
+                    }
+                }
+            }
+        }
+    }
+
+    //-------------------- Responsive --------------------//
+
+    @include if-max($offCanvas-mobile-breakpoint) {
+        #{$offCanvas-class-modifier-left} {
+            width: $offCanvas-left-width-mobile;
+        }
+
+        #{$offCanvas-class-modifier-right} {
+            width: $offCanvas-right-width-mobile;
+        }
+
+        @if index($offCanvas-animations, "push") or
+            index($offCanvas-animations, "push-reveal") or
+            index($offCanvas-animations, "push-down") or
+            index($offCanvas-animations, "reverse-push") or
+            index($offCanvas-animations, "reveal") {
+            #{$offCanvas-class-wrapper} {
+                &.push,
+                &.push-reveal,
+                &.push-down,
+                &.reverse-push,
+                &.reveal {
+                    &.move-left {
+                        #{$offCanvas-class-content} {
+                            transform: translate3d(-$offCanvas-right-width-mobile, 0, 0);
+                        }
+                    }
+
+                    &.move-right {
+                        #{$offCanvas-class-content} {
+                            transform: translate3d($offCanvas-left-width-mobile, 0, 0);
+                        }
                     }
                 }
             }

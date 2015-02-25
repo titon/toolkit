@@ -6,65 +6,67 @@
 
 @import "../common";
 
-#{$step-class-wrapper} {
-    margin: $margin 0;
-    font-size: $medium-size;
+@include export("step") {
+    #{$step-class-wrapper} {
+        margin: $margin 0;
+        font-size: $medium-size;
 
-    ol {
-        @include reset-list;
-        display: inline-block;
-        overflow: hidden;
-        @include clear-fix;
-    }
-
-    // Use em's to scale against the size defined on .steps
-    #{$step-class} {
-        padding-#{$align-direction}: 3.5em;
-        padding-#{$align-opposite-direction}: 2em;
-        position: relative;
-        display: block;
-        line-height: 3em;
-        height: 3em;
-
-        // Golden ratio? Seems to work for all font sizes in *most* browsers
-        &::after {
-            height: 2.165em;
-            width: 2.165em;
-            top: 0.425em;
-            #{$align-opposite-direction}: -1.1em;
-            position: absolute;
-            z-index: 2;
-            content: "";
-            @if $text-direction == ltr {
-                transform: rotate(315deg);
-            } @else {
-                transform: rotate(135deg);
-            }
+        ol {
+            @include reset-list;
+            display: inline-block;
+            overflow: hidden;
+            @include clear-fix;
         }
-    }
 
-    li {
-        @include reset-inline-block;
-        float: $align-direction;
+        // Use em's to scale against the size defined on .steps
+        #{$step-class} {
+            padding-#{$align-direction}: 3.5em;
+            padding-#{$align-opposite-direction}: 2em;
+            position: relative;
+            display: block;
+            line-height: 3em;
+            height: 3em;
 
-        &:first-child {
-            #{$step-class} {
-                padding-#{$align-direction}: 2em;
+            // Golden ratio? Seems to work for all font sizes in *most* browsers
+            &::after {
+                height: 2.165em;
+                width: 2.165em;
+                top: 0.425em;
+                #{$align-opposite-direction}: -1.1em;
+                position: absolute;
+                z-index: 2;
+                content: "";
+                @if $text-direction == ltr {
+                    transform: rotate(315deg);
+                } @else {
+                    transform: rotate(135deg);
+                }
             }
         }
 
-        &:last-child {
-            #{$step-class} {
-                &::after { display: none; }
+        li {
+            @include reset-inline-block;
+            float: $align-direction;
+
+            &:first-child {
+                #{$step-class} {
+                    padding-#{$align-direction}: 2em;
+                }
+            }
+
+            &:last-child {
+                #{$step-class} {
+                    &::after { display: none; }
+                }
             }
         }
-    }
 
-    @include is-small {
-        font-size: $small-size;
-    }
+        @include is-small {
+            font-size: $small-size;
+        }
 
-    @include is-large {
-        font-size: $large-size;
+        @include is-large {
+            font-size: $large-size;
+        }
     }
 }

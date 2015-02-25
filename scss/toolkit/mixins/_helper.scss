@@ -1,3 +1,19 @@
+$modules-excluded: ("flex") !default;
+$modules-exported: () !global;
+
+// Export a component into the compiled output only once
+// Also check to see if it has been excluded from the output all together
+@mixin export($module) {
+    // Module is excluded, so do nothing
+    @if (index($modules-excluded, $module) != null) {
+
+    // Module hasn't been exported yet, so export it and log usage
+    } @else if (index($modules-exported, $module) == null) {
+        $modules-exported: append($modules-exported, $module) !global;
+
+        @content;
+    }
+}
 
 // Black transparent background
 @function black($opacity){

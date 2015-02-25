@@ -6,34 +6,36 @@
 
 @import "../common";
 
-#{$tab-class} { }
+@include export("tab") {
+    #{$tab-class} { }
 
-#{$tab-class-nav} {
-    display: block;
-    margin-bottom: $margin;
+    #{$tab-class-nav} {
+        display: block;
+        margin-bottom: $margin;
 
-    ul, ol, li {
-        @include reset-list;
-        display: inline-block;
+        ul, ol, li {
+            @include reset-list;
+            display: inline-block;
+        }
+
+        @include clear-fix;
     }
 
-    @include clear-fix;
-}
+    // Add display none on sections since visibility property takes up DOM space
+    #{$tab-class-section}.hide {
+        display: none;
+    }
 
-// Add display none on sections since visibility property takes up DOM space
-#{$tab-class-section}.hide {
-    display: none;
-}
+    //-------------------- Modifiers --------------------//
 
-//-------------------- Modifiers --------------------//
-
-@if index($tab-modifiers, "horizontal") {
-    #{$tab-class-modifier-horizontal} {
-        #{$tab-class-nav} {
-            ul, ol, li, a, button {
-                display: block;
-                float: none;
-                text-align: $align-direction;
+    @if index($tab-modifiers, "horizontal") {
+        #{$tab-class-modifier-horizontal} {
+            #{$tab-class-nav} {
+                ul, ol, li, a, button {
+                    display: block;
+                    float: none;
+                    text-align: $align-direction;
+                }
             }
         }
     }

@@ -6,79 +6,81 @@
 
 @import "../common";
 
-.fluid {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-}
+@include export("responsive") {
+    .fluid {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
 
-.show-retina,
-.show-print { display: none !important; }
+    .show-retina,
+    .show-print { display: none !important; }
 
-// Extra small states
-@include in-xsmall  {
-    .show-xlarge,
-    .show-large,
-    .show-medium,
-    .show-small,
-    .hide-xsmall { display: none !important; }
-}
+    // Extra small states
+    @include in-xsmall  {
+        .show-xlarge,
+        .show-large,
+        .show-medium,
+        .show-small,
+        .hide-xsmall { display: none !important; }
+    }
 
-// Small states
-@include in-small  {
-    .show-xlarge,
-    .show-large,
-    .show-medium,
-    .show-xsmall,
-    .hide-small { display: none !important; }
-}
+    // Small states
+    @include in-small  {
+        .show-xlarge,
+        .show-large,
+        .show-medium,
+        .show-xsmall,
+        .hide-small { display: none !important; }
+    }
 
-// Medium states
-@include in-medium {
-    .show-xlarge,
-    .show-large,
-    .show-small,
-    .show-xsmall,
-    .hide-medium { display: none !important; }
-}
+    // Medium states
+    @include in-medium {
+        .show-xlarge,
+        .show-large,
+        .show-small,
+        .show-xsmall,
+        .hide-medium { display: none !important; }
+    }
 
-// Large states
-@include in-large {
-    .show-xlarge,
-    .show-medium,
-    .show-small,
-    .show-xsmall,
-    .hide-large { display: none !important; }
-}
+    // Large states
+    @include in-large {
+        .show-xlarge,
+        .show-medium,
+        .show-small,
+        .show-xsmall,
+        .hide-large { display: none !important; }
+    }
 
-// Extra large states
-@include in-xlarge {
-    .show-large,
-    .show-medium,
-    .show-small,
-    .show-xsmall,
-    .hide-xlarge { display: none !important; }
-}
+    // Extra large states
+    @include in-xlarge {
+        .show-large,
+        .show-medium,
+        .show-small,
+        .show-xsmall,
+        .hide-xlarge { display: none !important; }
+    }
 
-// Orientation states
-@include if-portrait {
-    .show-landscape,
-    .hide-portrait { display: none !important; }
-}
+    // Orientation states
+    @include if-portrait {
+        .show-landscape,
+        .hide-portrait { display: none !important; }
+    }
 
-@include if-landscape {
-    .show-portrait,
-    .hide-landscape { display: none !important; }
-}
+    @include if-landscape {
+        .show-portrait,
+        .hide-landscape { display: none !important; }
+    }
 
-// Type states
-@include if-retina {
-    .hide-retina { display: none !important; }
-    @include responsive-display-block(".show-retina");
-}
+    // Type states
+    @include if-retina {
+        .hide-retina { display: none !important; }
+        @include responsive-display-block(".show-retina");
+    }
 
-@media print {
-    .hide-print { display: none !important; }
-    @include responsive-display-block(".show-print");
+    @media print {
+        .hide-print { display: none !important; }
+        @include responsive-display-block(".show-print");
+    }
 }

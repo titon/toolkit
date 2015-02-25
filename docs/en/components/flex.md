@@ -2,6 +2,10 @@
 
 Layouts based on the flexbox specification. Supports different responsive sizes for blocks.
 
+<div class="notice is-error">
+    This component is not available in the distribution files and must be manually enabled in the Sass layer by removing "flex" from the <code>$modules-excluded</code> Sass variable.x         
+</div>
+
 ## Usage ##
 
 While a grid is represented by rows and columns, flex is represented by regions and blocks. A region is an object that contains blocks, or other regions, and enables flexbox functionality. A region is analogous to rows in a grid. A block however, is an object that contains content and is positioned either horizontally, vertically, or in a grid, depending on the state of the parent region. A block is analogous to columns in a grid but with much more flexibility (get it?).

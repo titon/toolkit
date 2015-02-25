@@ -6,46 +6,48 @@
 
 @import "../common";
 
-#{$inputGroup-class} {
-    display: inline-block;
-    vertical-align: middle;
-    white-space: nowrap;
-
-    > * {
-        float: $align-direction;
+@include export("input-group") {
+    #{$inputGroup-class} {
         display: inline-block;
-        position: relative;
-        border-radius: 0;
-        white-space: nowrap;
-        height: auto;
         vertical-align: middle;
+        white-space: nowrap;
 
-        &:hover { z-index: 1; }
-        &:focus { z-index: 2; }
+        > * {
+            float: $align-direction;
+            display: inline-block;
+            position: relative;
+            border-radius: 0;
+            white-space: nowrap;
+            height: auto;
+            vertical-align: middle;
+
+            &:hover { z-index: 1; }
+            &:focus { z-index: 2; }
+        }
+
+        @include clear-fix;
     }
 
-    @include clear-fix;
-}
+    #{$inputGroup-class-addon} {
+        vertical-align: middle;
+        line-height: normal;
+        @include size-medium;
 
-#{$inputGroup-class-addon} {
-    vertical-align: middle;
-    line-height: normal;
-    @include size-medium;
-
-    @include is-small(false, true) { @include size-small; }
-    @include is-large(false, true) { @include size-large; }
-}
-
-//-------------------- Modifiers --------------------//
-
-#{$inputGroup-class}#{$shape-round-class} {
-    > *:first-child {
-        border-top-#{$align-direction}-radius: $round;
-        border-bottom-#{$align-direction}-radius: $round;
+        @include is-small(false, true) { @include size-small; }
+        @include is-large(false, true) { @include size-large; }
     }
 
-    > *:last-child {
-        border-top-#{$align-opposite-direction}-radius: $round;
-        border-bottom-#{$align-opposite-direction}-radius: $round;
+    //-------------------- Modifiers --------------------//
+
+    #{$inputGroup-class}#{$shape-round-class} {
+        > *:first-child {
+            border-top-#{$align-direction}-radius: $round;
+            border-bottom-#{$align-direction}-radius: $round;
+        }
+
+        > *:last-child {
+            border-top-#{$align-opposite-direction}-radius: $round;
+            border-bottom-#{$align-opposite-direction}-radius: $round;
+        }
     }
 }

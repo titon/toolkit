@@ -6,51 +6,53 @@
 
 @import "../common";
 
-#{$breadcrumb-class} {
-    margin: $margin 0;
+@include export("breadcrumb") {
+    #{$breadcrumb-class} {
+        margin: $margin 0;
 
-    ul, ol {
-        @include reset-list;
-        @include clear-fix;
-    }
-
-    li {
-        position: relative;
-        float: $align-direction;
-
-        &:last-child {
-            .caret { display: none; }
+        ul, ol {
+            @include reset-list;
+            @include clear-fix;
         }
-    }
 
-    a {
-        @include size-medium;
-        display: block;
-        line-height: 100%;
-        padding-#{$align-opposite-direction}: 0;
-
-        .caret {
-            margin-#{$align-direction}: $medium-padding;
+        li {
             position: relative;
-            #{$align-direction}: -1px;
-        }
-    }
+            float: $align-direction;
 
-    @include is-small {
+            &:last-child {
+                .caret { display: none; }
+            }
+        }
+
         a {
-            @include size-small;
+            @include size-medium;
+            display: block;
+            line-height: 100%;
             padding-#{$align-opposite-direction}: 0;
 
-            .caret { margin-#{$align-direction}: $small-padding; }
+            .caret {
+                margin-#{$align-direction}: $medium-padding;
+                position: relative;
+                #{$align-direction}: -1px;
+            }
         }
-    }
 
-    @include is-large {
-        a {
-            @include size-large;
-            padding-#{$align-opposite-direction}: 0;
+        @include is-small {
+            a {
+                @include size-small;
+                padding-#{$align-opposite-direction}: 0;
 
-            .caret { margin-#{$align-direction}: $large-padding; }
+                .caret { margin-#{$align-direction}: $small-padding; }
+            }
+        }
+
+        @include is-large {
+            a {
+                @include size-large;
+                padding-#{$align-opposite-direction}: 0;
+
+                .caret { margin-#{$align-direction}: $large-padding; }
+            }
         }
     }
 }

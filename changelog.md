@@ -7,11 +7,12 @@ Older versions can be found in the documentation changelogs.
 * Added the Flex component which supports flexbox based grids and layouts
 * Added right-to-left (RTL) support for all CSS and JS components
 * Added Travis CI integration for automatic build and testing
+* Added a Sass module exporting system
 * Improved BEM support on all JS components
 * Updated all JS templates to support functions for lazy-loaded rendering
 * Sass
     * Added `$text-direction` variable
-    * Added `ltr()` and `rtl()` mixins
+    * Added `export()`, `ltr()`, and `rtl()` mixins
     * Added `gutter()` and `span-width()` functions
     * Renamed `$vendor-prefix` to `$namespace`
     * Renamed `remove-selector-char()` to `remove-selector()`

@@ -6,42 +6,44 @@
 
 @import "../common";
 
-#{$divider-class} {
-    text-align: center;
-    overflow: hidden;
+@include export("divider") {
+    #{$divider-class} {
+        text-align: center;
+        overflow: hidden;
 
-    &::after,
-    &::before {
-        content: "";
-        display: inline-block;
-        vertical-align: middle;
-        position: relative;
-        width: 100%;
-        border-top: 1px solid black(.1);
-        border-bottom: 1px solid white(.75);
-    }
-
-    &::before {
-        margin-#{$align-direction}: -100%;
-        #{$align-direction}: -$margin;
-    }
-
-    &::after {
-        margin-#{$align-opposite-direction}: -100%;
-        #{$align-opposite-direction}: -$margin;
-    }
-
-    // Collapse the middle when there is no content
-    &:empty {
-        &::before,
-        &::after {
-            right: 0;
-            left: 0;
+        &::after,
+        &::before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            width: 100%;
+            border-top: 1px solid black(.1);
+            border-bottom: 1px solid white(.75);
         }
-    }
 
-    > span {
-        display: inline-block;
-        vertical-align: middle;
+        &::before {
+            margin-#{$align-direction}: -100%;
+            #{$align-direction}: -$margin;
+        }
+
+        &::after {
+            margin-#{$align-opposite-direction}: -100%;
+            #{$align-opposite-direction}: -$margin;
+        }
+
+        // Collapse the middle when there is no content
+        &:empty {
+            &::before,
+            &::after {
+                right: 0;
+                left: 0;
+            }
+        }
+
+        > span {
+            display: inline-block;
+            vertical-align: middle;
+        }
     }
 }
