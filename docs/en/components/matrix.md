@@ -61,7 +61,7 @@ matrix.refresh();
 
 When columns are rendered, their widths may fluctuate a few pixels to scale accordingly.
 Because of this, fixed width images may render incorrectly, or just look off.
-We suggest adding `.fluid` from the [Responsive component](responsive.md) to all inline images.
+We suggest adding `.fluid` from the [base CSS](../development/css/base.md) to all inline images.
 
 ```html
 <li>

@@ -61,6 +61,8 @@ Older versions can be found in the documentation changelogs.
     * Popover
         * Added a `wrapperClass` option
         * Removed the `elementHead` and `elementBody` properties
+    * Responsive
+        * Moved the `.fluid` class to the base CSS
     * Showcase
         * Updated to extend the `TemplateComponent`
         * Fixed a bug where captions would disappear

@@ -60,6 +60,8 @@ This minor release includes flexbox functionality, RTL integration, improved BEM
     * Popover
         * Added a `wrapperClass` option
         * Removed the `elementHead` and `elementBody` properties
+    * Responsive
+        * Moved the `.fluid` class to the base CSS
     * Showcase
         * Updated to extend the `TemplateComponent`
         * Fixed a bug where captions would disappear
