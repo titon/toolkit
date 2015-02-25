@@ -2,7 +2,7 @@
 
 //-------------------- Toolkit --------------------//
 
-$namespace: "" !default;
+$namespace: "" !default; // Without "."
 $size-small-class: ".small" !default;
 $size-large-class: ".large" !default;
 $shape-round-class: ".round" !default;
@@ -15,6 +15,14 @@ $enable-large-size: true !default;
 $enable-all-effects: false !default;
 $enable-all-modifiers: false !default;
 $enable-all-animations: false !default;
+$enable-all-modules: false !default;
+
+$modules-excluded: ("flex") !default;
+$modules-exported: () !global;
+
+@if ($enable-all-modules) {
+    $modules-excluded: ();
+}
 
 //-------------------- Colors --------------------//
 
