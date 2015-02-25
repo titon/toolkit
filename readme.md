@@ -24,7 +24,8 @@ Toolkit makes use of the latest and greatest technology. This includes HTML5 for
 CSS3 for animations and styles, Sass for CSS pre-processing, Gulp for task and package management,
 and powerful new browser APIs for the JavaScript layer.
 
-* [Release Notes](https://github.com/titon/toolkit/blob/master/docs/en/releases/2.0.md)
+* [Release Notes - 2.1](https://github.com/titon/toolkit/blob/master/docs/en/releases/2.1.md)
+* [Migration Guide - 2.1](https://github.com/titon/toolkit/blob/master/docs/en/migrations/2.1.md)
 * [Official Website](http://titon.io/toolkit)
 * [Features](http://titon.io/toolkit#features)
 * [Components](http://titon.io/toolkit#components)
