@@ -13,7 +13,7 @@ define([
 
 Toolkit.Drop = Toolkit.CompositeComponent.extend({
     name: 'Drop',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the drop.

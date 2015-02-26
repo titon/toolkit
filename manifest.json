@@ -62,7 +62,8 @@
         "require": ["base"],
         "source": {
             "css": ["components/flex.scss"]
-        }
+        },
+        "version": "2.1.0"
     },
     "grid": {
         "name": "Grid",

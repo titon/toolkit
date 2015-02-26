@@ -14,7 +14,7 @@ define([
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** The custom input element. */
     input: null,
@@ -131,7 +131,7 @@ Toolkit.Input = Toolkit.Component.extend({
  */
 Toolkit.InputCheckbox = Toolkit.Input.extend({
     name: 'InputCheckbox',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the checkbox.
@@ -165,7 +165,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
  */
 Toolkit.InputRadio = Toolkit.Input.extend({
     name: 'InputRadio',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the radio.
@@ -199,7 +199,7 @@ Toolkit.InputRadio = Toolkit.Input.extend({
  */
 Toolkit.InputSelect = Toolkit.Input.extend({
     name: 'InputSelect',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** The custom drop element. */
     dropdown: null,

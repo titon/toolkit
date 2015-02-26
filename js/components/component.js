@@ -19,7 +19,7 @@ define([
  */
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** The target element. Either the embedded element, or the current element in the composite layer. */
     element: null,

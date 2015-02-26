@@ -13,7 +13,7 @@ define([
 
 Toolkit.Modal = Toolkit.TemplateComponent.extend({
     name: 'Modal',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Blackout element if enabled. */
     blackout: null,
