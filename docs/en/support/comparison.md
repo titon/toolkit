@@ -34,7 +34,7 @@ The following table represents the minified un-gzipped distribution files for ea
     <tbody>
         <tr>
             <td>CSS Components</td>
-            <td>19</td>
+            <td>20</td>
             <td>23</td>
             <td>23</td>
             <td>24</td>
@@ -48,14 +48,14 @@ The following table represents the minified un-gzipped distribution files for ea
         </tr>
         <tr>
             <td>CSS Filesize</td>
-            <td class="is-success">54KB</td>
+            <td class="is-success">49KB</td>
             <td>148KB</td>
             <td>113KB, 20KB (theme)</td>
             <td class="is-error">237KB</td>
         </tr>
         <tr>
             <td>JS Filesize</td>
-            <td>66KB</td>
+            <td>67KB</td>
             <td class="is-error">187KB</td>
             <td class="is-success">36KB</td>
             <td>138KB</td>
@@ -168,6 +168,13 @@ The following plugins (components and behaviors) are found within Toolkit.
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
+        </tr>
+        <tr>
+            <td>Flex (Flexbox)</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
         </tr>
         <tr>
             <td>Flyout</td>
@@ -728,7 +735,7 @@ The following plugins are found within Semantic UI that have not been mentioned 
             <td class="is-info">Partially</td>
         </tr>
         <tr>
-            <td>Em Scaling</td>
+            <td>Rem Scaling</td>
             <td class="is-success">&check;</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
@@ -764,6 +771,13 @@ The following plugins are found within Semantic UI that have not been mentioned 
         </tr>
         <tr>
             <td>ARIA</td>
+            <td class="is-success">&check;</td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+            <td class="is-error"></td>
+        </tr>
+        <tr>
+            <td>Flexbox</td>
             <td class="is-success">&check;</td>
             <td class="is-error"></td>
             <td class="is-error"></td>

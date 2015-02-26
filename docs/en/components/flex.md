@@ -118,7 +118,7 @@ The initial order of a block is set to 100. Why 100? Because it allows custom or
 A block within a row (or column) will *not* wrap to the next line and instead will continue to squeeze (grow or shrink) to make room for other blocks. To allow wrapping of blocks, the `.region--wrap` modifier can be used.
 
 ```html
-<div class="region region--wrap" id="wrap">
+<div class="region region--wrap">
     <div class="block">...</div>
     <div class="block">...</div>
     <div class="block">...</div>
@@ -130,7 +130,7 @@ A block within a row (or column) will *not* wrap to the next line and instead wi
 A custom width must also be applied to each block or else the wrapping will not occur as their scaling is automatic. Let's apply a base width of 33.3% which will allow for 3 blocks per row.
 
 ```css
-#wrap .block { flex-basis: 33.3%; }
+.region--wrap .block { flex-basis: 33.3%; }
 ```
 
 <div class="notice is-warning">
@@ -170,7 +170,7 @@ Blocks and rendered across the main-axis, which is horizontally, as we read from
 A grid will render blocks so that a gutter is evenly distributed between, heights stay consistent between rows, and edges are flush against their container. A grid can be enabled using `.region--grid` and setting a base width on the blocks.
 
 ```html
-<div class="region region--grid" id="grid">
+<div class="region region--grid">
     <div class="block">...</div>
     <div class="block">...</div>
     <div class="block">...</div>
@@ -185,7 +185,7 @@ A grid will render blocks so that a gutter is evenly distributed between, height
 Let's apply a base width of 20% which will allow for 5 blocks per row.
 
 ```css
-#grid .block { flex-basis: 20%; }
+.region--grid .block { flex-basis: 20%; }
 ```
 
 <div class="notice is-warning">

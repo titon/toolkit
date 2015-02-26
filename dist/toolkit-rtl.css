@@ -574,7 +574,7 @@ hr {
 blockquote {
   margin: 1.25rem;
   padding: 0 0.75rem;
-  border-left: 5px solid #f5f5f5; }
+  border-right: 5px solid #f5f5f5; }
   blockquote cite {
     display: block;
     font-size: 0.7rem; }
@@ -619,7 +619,7 @@ fieldset {
 
 legend {
   font-size: 1.3rem;
-  padding-right: 0.75rem; }
+  padding-left: 0.75rem; }
 
 select[multiple], select[size] {
   height: auto; }
@@ -668,18 +668,18 @@ label, .input-static {
 .input-static {
   background: transparent;
   border-color: transparent;
-  padding-left: 0 !important;
-  padding-right: 0 !important; }
+  padding-right: 0 !important;
+  padding-left: 0 !important; }
 
 .input-radio, .input-checkbox {
-  padding-left: 0 !important;
   padding-right: 0 !important;
+  padding-left: 0 !important;
   border: 0; }
   .input-radio input[type="checkbox"], .input-radio input[type="radio"], .input-checkbox input[type="checkbox"], .input-checkbox input[type="radio"] {
     vertical-align: middle;
     position: relative;
     top: -2px;
-    margin-right: 5px; }
+    margin-left: 5px; }
   .input-radio.is-disabled, .input-checkbox.is-disabled {
     color: #c2c2c2; }
 
@@ -734,12 +734,12 @@ textarea.input {
     display: table;
     clear: both; }
 .form--horizontal .field-label {
-  text-align: right;
+  text-align: left;
   border: 1px solid transparent;
   padding-top: 0.75rem; }
 .form--horizontal .field-col {
-  padding-left: 1.25rem;
-  text-align: left; }
+  padding-right: 1.25rem;
+  text-align: right; }
 
 .form--inline {
   margin-bottom: -0.625rem; }
@@ -747,7 +747,7 @@ textarea.input {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
-    margin-right: 1.25rem;
+    margin-left: 1.25rem;
     margin-bottom: 0.625rem; }
   .form--inline fieldset {
     border: 0;
@@ -755,7 +755,7 @@ textarea.input {
     padding: 0; }
   .form--inline .field-label {
     margin: 0;
-    margin-right: 0.625rem; }
+    margin-left: 0.625rem; }
   .form--inline legend, .form--inline .field-help {
     display: none; }
 
@@ -778,8 +778,8 @@ pre {
   margin: 1.25rem 0 0 0;
   background: #f8f8f8;
   border: 1px solid #e5e5e5;
-  text-align: left;
-  direction: ltr;
+  text-align: right;
+  direction: rtl;
   white-space: pre;
   word-spacing: normal;
   font-size: 0.9rem;
@@ -827,489 +827,489 @@ kbd {
 .col[class*="span-"] {
   position: relative;
   min-height: 1px;
-  float: left; }
+  float: right; }
 
 .push-1 {
-  left: 8.33333%; }
-
-.pull-1 {
   right: 8.33333%; }
 
-.push-2 {
-  left: 16.66667%; }
+.pull-1 {
+  left: 8.33333%; }
 
-.pull-2 {
+.push-2 {
   right: 16.66667%; }
 
-.push-3 {
-  left: 25%; }
+.pull-2 {
+  left: 16.66667%; }
 
-.pull-3 {
+.push-3 {
   right: 25%; }
 
-.push-4 {
-  left: 33.33333%; }
+.pull-3 {
+  left: 25%; }
 
-.pull-4 {
+.push-4 {
   right: 33.33333%; }
 
-.push-5 {
-  left: 41.66667%; }
+.pull-4 {
+  left: 33.33333%; }
 
-.pull-5 {
+.push-5 {
   right: 41.66667%; }
 
-.push-6 {
-  left: 50%; }
+.pull-5 {
+  left: 41.66667%; }
 
-.pull-6 {
+.push-6 {
   right: 50%; }
 
-.push-7 {
-  left: 58.33333%; }
+.pull-6 {
+  left: 50%; }
 
-.pull-7 {
+.push-7 {
   right: 58.33333%; }
 
-.push-8 {
-  left: 66.66667%; }
+.pull-7 {
+  left: 58.33333%; }
 
-.pull-8 {
+.push-8 {
   right: 66.66667%; }
 
-.push-9 {
-  left: 75%; }
+.pull-8 {
+  left: 66.66667%; }
 
-.pull-9 {
+.push-9 {
   right: 75%; }
 
-.push-10 {
-  left: 83.33333%; }
+.pull-9 {
+  left: 75%; }
 
-.pull-10 {
+.push-10 {
   right: 83.33333%; }
 
-.push-11 {
-  left: 91.66667%; }
+.pull-10 {
+  left: 83.33333%; }
 
-.pull-11 {
+.push-11 {
   right: 91.66667%; }
 
+.pull-11 {
+  left: 91.66667%; }
+
 .push-12 {
-  left: 100%; }
+  right: 100%; }
 
 .pull-12 {
-  right: 100%; }
+  left: 100%; }
 
 @media only screen and (max-width: 640px) {
   .col[class*="xsmall-"] {
     position: relative;
     min-height: 1px;
-    float: left; }
+    float: right; }
 
   .col.xsmall-1 {
     width: 16.66667%; }
 
   .xsmall-push-1 {
-    left: 16.66667%; }
+    right: 16.66667%; }
 
   .xsmall-pull-1 {
-    right: 16.66667%; }
+    left: 16.66667%; }
 
   .col.xsmall-2 {
     width: 33.33333%; }
 
   .xsmall-push-2 {
-    left: 33.33333%; }
+    right: 33.33333%; }
 
   .xsmall-pull-2 {
-    right: 33.33333%; }
+    left: 33.33333%; }
 
   .col.xsmall-3 {
     width: 50%; }
 
   .xsmall-push-3 {
-    left: 50%; }
+    right: 50%; }
 
   .xsmall-pull-3 {
-    right: 50%; }
+    left: 50%; }
 
   .col.xsmall-4 {
     width: 66.66667%; }
 
   .xsmall-push-4 {
-    left: 66.66667%; }
+    right: 66.66667%; }
 
   .xsmall-pull-4 {
-    right: 66.66667%; }
+    left: 66.66667%; }
 
   .col.xsmall-5 {
     width: 83.33333%; }
 
   .xsmall-push-5 {
-    left: 83.33333%; }
+    right: 83.33333%; }
 
   .xsmall-pull-5 {
-    right: 83.33333%; }
+    left: 83.33333%; }
 
   .col.xsmall-6 {
     width: 100%; }
 
   .xsmall-push-6 {
-    left: 100%; }
+    right: 100%; }
 
   .xsmall-pull-6 {
-    right: 100%; }
+    left: 100%; }
  }
 
 @media only screen and (min-width: 641px) and (max-width: 960px) {
   .col[class*="small-"] {
     position: relative;
     min-height: 1px;
-    float: left; }
+    float: right; }
 
   .col.small-1 {
     width: 8.33333%; }
 
   .small-push-1 {
-    left: 8.33333%; }
+    right: 8.33333%; }
 
   .small-pull-1 {
-    right: 8.33333%; }
+    left: 8.33333%; }
 
   .col.small-2 {
     width: 16.66667%; }
 
   .small-push-2 {
-    left: 16.66667%; }
+    right: 16.66667%; }
 
   .small-pull-2 {
-    right: 16.66667%; }
+    left: 16.66667%; }
 
   .col.small-3 {
     width: 25%; }
 
   .small-push-3 {
-    left: 25%; }
+    right: 25%; }
 
   .small-pull-3 {
-    right: 25%; }
+    left: 25%; }
 
   .col.small-4 {
     width: 33.33333%; }
 
   .small-push-4 {
-    left: 33.33333%; }
+    right: 33.33333%; }
 
   .small-pull-4 {
-    right: 33.33333%; }
+    left: 33.33333%; }
 
   .col.small-5 {
     width: 41.66667%; }
 
   .small-push-5 {
-    left: 41.66667%; }
+    right: 41.66667%; }
 
   .small-pull-5 {
-    right: 41.66667%; }
+    left: 41.66667%; }
 
   .col.small-6 {
     width: 50%; }
 
   .small-push-6 {
-    left: 50%; }
+    right: 50%; }
 
   .small-pull-6 {
-    right: 50%; }
+    left: 50%; }
 
   .col.small-7 {
     width: 58.33333%; }
 
   .small-push-7 {
-    left: 58.33333%; }
+    right: 58.33333%; }
 
   .small-pull-7 {
-    right: 58.33333%; }
+    left: 58.33333%; }
 
   .col.small-8 {
     width: 66.66667%; }
 
   .small-push-8 {
-    left: 66.66667%; }
+    right: 66.66667%; }
 
   .small-pull-8 {
-    right: 66.66667%; }
+    left: 66.66667%; }
 
   .col.small-9 {
     width: 75%; }
 
   .small-push-9 {
-    left: 75%; }
+    right: 75%; }
 
   .small-pull-9 {
-    right: 75%; }
+    left: 75%; }
 
   .col.small-10 {
     width: 83.33333%; }
 
   .small-push-10 {
-    left: 83.33333%; }
+    right: 83.33333%; }
 
   .small-pull-10 {
-    right: 83.33333%; }
+    left: 83.33333%; }
 
   .col.small-11 {
     width: 91.66667%; }
 
   .small-push-11 {
-    left: 91.66667%; }
+    right: 91.66667%; }
 
   .small-pull-11 {
-    right: 91.66667%; }
+    left: 91.66667%; }
 
   .col.small-12 {
     width: 100%; }
 
   .small-push-12 {
-    left: 100%; }
+    right: 100%; }
 
   .small-pull-12 {
-    right: 100%; }
+    left: 100%; }
  }
 
 @media only screen and (min-width: 961px) and (max-width: 1280px) {
   .col[class*="medium-"] {
     position: relative;
     min-height: 1px;
-    float: left; }
+    float: right; }
 
   .col.medium-1 {
     width: 8.33333%; }
 
   .medium-push-1 {
-    left: 8.33333%; }
+    right: 8.33333%; }
 
   .medium-pull-1 {
-    right: 8.33333%; }
+    left: 8.33333%; }
 
   .col.medium-2 {
     width: 16.66667%; }
 
   .medium-push-2 {
-    left: 16.66667%; }
+    right: 16.66667%; }
 
   .medium-pull-2 {
-    right: 16.66667%; }
+    left: 16.66667%; }
 
   .col.medium-3 {
     width: 25%; }
 
   .medium-push-3 {
-    left: 25%; }
+    right: 25%; }
 
   .medium-pull-3 {
-    right: 25%; }
+    left: 25%; }
 
   .col.medium-4 {
     width: 33.33333%; }
 
   .medium-push-4 {
-    left: 33.33333%; }
+    right: 33.33333%; }
 
   .medium-pull-4 {
-    right: 33.33333%; }
+    left: 33.33333%; }
 
   .col.medium-5 {
     width: 41.66667%; }
 
   .medium-push-5 {
-    left: 41.66667%; }
+    right: 41.66667%; }
 
   .medium-pull-5 {
-    right: 41.66667%; }
+    left: 41.66667%; }
 
   .col.medium-6 {
     width: 50%; }
 
   .medium-push-6 {
-    left: 50%; }
+    right: 50%; }
 
   .medium-pull-6 {
-    right: 50%; }
+    left: 50%; }
 
   .col.medium-7 {
     width: 58.33333%; }
 
   .medium-push-7 {
-    left: 58.33333%; }
+    right: 58.33333%; }
 
   .medium-pull-7 {
-    right: 58.33333%; }
+    left: 58.33333%; }
 
   .col.medium-8 {
     width: 66.66667%; }
 
   .medium-push-8 {
-    left: 66.66667%; }
+    right: 66.66667%; }
 
   .medium-pull-8 {
-    right: 66.66667%; }
+    left: 66.66667%; }
 
   .col.medium-9 {
     width: 75%; }
 
   .medium-push-9 {
-    left: 75%; }
+    right: 75%; }
 
   .medium-pull-9 {
-    right: 75%; }
+    left: 75%; }
 
   .col.medium-10 {
     width: 83.33333%; }
 
   .medium-push-10 {
-    left: 83.33333%; }
+    right: 83.33333%; }
 
   .medium-pull-10 {
-    right: 83.33333%; }
+    left: 83.33333%; }
 
   .col.medium-11 {
     width: 91.66667%; }
 
   .medium-push-11 {
-    left: 91.66667%; }
+    right: 91.66667%; }
 
   .medium-pull-11 {
-    right: 91.66667%; }
+    left: 91.66667%; }
 
   .col.medium-12 {
     width: 100%; }
 
   .medium-push-12 {
-    left: 100%; }
+    right: 100%; }
 
   .medium-pull-12 {
-    right: 100%; }
+    left: 100%; }
  }
 
 @media only screen and (min-width: 1281px) {
   .col[class*="large-"] {
     position: relative;
     min-height: 1px;
-    float: left; }
+    float: right; }
 
   .col.large-1 {
     width: 8.33333%; }
 
   .large-push-1 {
-    left: 8.33333%; }
+    right: 8.33333%; }
 
   .large-pull-1 {
-    right: 8.33333%; }
+    left: 8.33333%; }
 
   .col.large-2 {
     width: 16.66667%; }
 
   .large-push-2 {
-    left: 16.66667%; }
+    right: 16.66667%; }
 
   .large-pull-2 {
-    right: 16.66667%; }
+    left: 16.66667%; }
 
   .col.large-3 {
     width: 25%; }
 
   .large-push-3 {
-    left: 25%; }
+    right: 25%; }
 
   .large-pull-3 {
-    right: 25%; }
+    left: 25%; }
 
   .col.large-4 {
     width: 33.33333%; }
 
   .large-push-4 {
-    left: 33.33333%; }
+    right: 33.33333%; }
 
   .large-pull-4 {
-    right: 33.33333%; }
+    left: 33.33333%; }
 
   .col.large-5 {
     width: 41.66667%; }
 
   .large-push-5 {
-    left: 41.66667%; }
+    right: 41.66667%; }
 
   .large-pull-5 {
-    right: 41.66667%; }
+    left: 41.66667%; }
 
   .col.large-6 {
     width: 50%; }
 
   .large-push-6 {
-    left: 50%; }
+    right: 50%; }
 
   .large-pull-6 {
-    right: 50%; }
+    left: 50%; }
 
   .col.large-7 {
     width: 58.33333%; }
 
   .large-push-7 {
-    left: 58.33333%; }
+    right: 58.33333%; }
 
   .large-pull-7 {
-    right: 58.33333%; }
+    left: 58.33333%; }
 
   .col.large-8 {
     width: 66.66667%; }
 
   .large-push-8 {
-    left: 66.66667%; }
+    right: 66.66667%; }
 
   .large-pull-8 {
-    right: 66.66667%; }
+    left: 66.66667%; }
 
   .col.large-9 {
     width: 75%; }
 
   .large-push-9 {
-    left: 75%; }
+    right: 75%; }
 
   .large-pull-9 {
-    right: 75%; }
+    left: 75%; }
 
   .col.large-10 {
     width: 83.33333%; }
 
   .large-push-10 {
-    left: 83.33333%; }
+    right: 83.33333%; }
 
   .large-pull-10 {
-    right: 83.33333%; }
+    left: 83.33333%; }
 
   .col.large-11 {
     width: 91.66667%; }
 
   .large-push-11 {
-    left: 91.66667%; }
+    right: 91.66667%; }
 
   .large-pull-11 {
-    right: 91.66667%; }
+    left: 91.66667%; }
 
   .col.large-12 {
     width: 100%; }
 
   .large-push-12 {
-    left: 100%; }
+    right: 100%; }
 
   .large-pull-12 {
-    right: 100%; }
+    left: 100%; }
  }
 
 .col.end {
-  margin-right: 0 !important;
-  float: right !important; }
+  margin-left: 0 !important;
+  float: left !important; }
 
 /**
  * @copyright   2010-2015, The Titon Project
@@ -1552,7 +1552,7 @@ kbd {
       clear: both; }
   .breadcrumb li {
     position: relative;
-    float: left; }
+    float: right; }
     .breadcrumb li:last-child .caret {
       display: none; }
   .breadcrumb a {
@@ -1560,23 +1560,23 @@ kbd {
     padding: 0.75rem;
     display: block;
     line-height: 100%;
-    padding-right: 0; }
+    padding-left: 0; }
     .breadcrumb a .caret {
-      margin-left: 0.75rem;
+      margin-right: 0.75rem;
       position: relative;
-      left: -1px; }
+      right: -1px; }
   .breadcrumb.small a {
     font-size: 0.7rem;
     padding: 0.5rem;
-    padding-right: 0; }
+    padding-left: 0; }
     .breadcrumb.small a .caret {
-      margin-left: 0.5rem; }
+      margin-right: 0.5rem; }
   .breadcrumb.large a {
     font-size: 1.3rem;
     padding: 1rem;
-    padding-right: 0; }
+    padding-left: 0; }
     .breadcrumb.large a .caret {
-      margin-left: 1rem; }
+      margin-right: 1rem; }
 
 /**
  * @copyright   2010-2015, The Titon Project
@@ -1626,7 +1626,7 @@ kbd {
     display: table;
     clear: both; }
   .button-group > li, .button-group > .button {
-    float: left;
+    float: right;
     border-radius: 0; }
     .button-group > li:hover, .button-group > li.is-active, .button-group > .button:hover, .button-group > .button.is-active {
       z-index: 1; }
@@ -1637,14 +1637,14 @@ kbd {
       display: block;
       border-radius: 0; }
   .button-group.round > li:first-child .button, .button-group.round > .button:first-child {
-    border-top-left-radius: 0.2rem;
-    border-bottom-left-radius: 0.2rem; }
-  .button-group.round > li:last-child .button, .button-group.round > .button:last-child {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
+  .button-group.round > li:last-child .button, .button-group.round > .button:last-child {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem; }
 
 .button-group + .button-group {
-  margin-left: 1.25rem; }
+  margin-right: 1.25rem; }
 
 .button-group--vertical {
   vertical-align: top; }
@@ -1660,11 +1660,11 @@ kbd {
   .button-group--vertical.round .button:first-child, .button-group--vertical.round .button:last-child {
     border-radius: 0; }
   .button-group--vertical.round > li:first-child .button, .button-group--vertical.round > .button:first-child {
-    border-top-left-radius: 0.2rem;
-    border-top-right-radius: 0.2rem; }
+    border-top-right-radius: 0.2rem;
+    border-top-left-radius: 0.2rem; }
   .button-group--vertical.round > li:last-child .button, .button-group--vertical.round > .button:last-child {
-    border-bottom-left-radius: 0.2rem;
-    border-bottom-right-radius: 0.2rem; }
+    border-bottom-right-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem; }
 
 .button-group--justified {
   display: table;
@@ -1697,7 +1697,7 @@ kbd {
     padding: 0;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     transition: left 1s, top 1s, right 1s; }
     .carousel-items > ul > li {
       width: 100%;
@@ -1710,7 +1710,7 @@ kbd {
         height: auto; }
 
 .carousel.slide .carousel-items > ul > li {
-  float: left; }
+  float: right; }
 .carousel.slide .carousel-items > ul::after {
   content: "";
   display: table;
@@ -1721,7 +1721,7 @@ kbd {
   .carousel.fade .carousel-items > ul > li {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     opacity: 0;
     z-index: 1;
     transition: opacity 1s, visibility 1s; }
@@ -1751,11 +1751,11 @@ kbd {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.75); }
   .divider::before {
-    margin-left: -100%;
-    left: -1.25rem; }
-  .divider::after {
     margin-right: -100%;
     right: -1.25rem; }
+  .divider::after {
+    margin-left: -100%;
+    left: -1.25rem; }
   .divider:empty::before, .divider:empty::after {
     right: 0;
     left: 0; }
@@ -1784,7 +1784,7 @@ kbd {
   .drop .drop {
     display: block;
     top: 0;
-    left: 90%;
+    right: 90%;
     z-index: 501; }
   .drop ul, .drop ol {
     list-style: none;
@@ -1796,14 +1796,14 @@ kbd {
       padding: 0.5rem;
       display: block; }
       .drop li > a .caret-right, .drop li > a .caret-left {
-        float: right;
+        float: left;
         display: none; }
     .drop li.has-children > a .caret-right, .drop li.has-children > a .caret-left {
       display: inline-block; }
     .drop li:hover .drop {
       visibility: visible;
       opacity: 1;
-      left: 100%; }
+      right: 100%; }
 
 .drop-divider {
   margin: 0.625rem 0;
@@ -1840,7 +1840,7 @@ kbd {
 .flyout {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: 500;
   opacity: 0;
   visibility: hidden;
@@ -1849,7 +1849,7 @@ kbd {
     list-style: none;
     margin: 0;
     padding: 0;
-    float: left;
+    float: right;
     width: 200px; }
   .flyout li {
     position: relative; }
@@ -1861,22 +1861,22 @@ kbd {
       .flyout li > a .caret-right, .flyout li > a .caret-left {
         display: none; }
     .flyout li.has-children > a .caret-right, .flyout li.has-children > a .caret-left {
-      float: right;
+      float: left;
       display: inline-block;
       margin-top: 3px; }
     .flyout li > .flyout {
-      left: 90%;
+      right: 90%;
       transition: left 0.3s, right 0.3s, opacity 0.3s, visibility 0.3s; }
       .flyout li > .flyout.push-opposite {
-        left: auto;
-        right: 90%; }
+        right: auto;
+        left: 90%; }
     .flyout li.is-open > .flyout {
       opacity: 1;
       visibility: visible;
-      left: 100%; }
+      right: 100%; }
       .flyout li.is-open > .flyout.push-opposite {
-        left: auto;
-        right: 100%; }
+        right: auto;
+        left: 100%; }
   .flyout::after {
     content: "";
     display: table;
@@ -1999,7 +1999,7 @@ kbd {
   font-size: 1rem;
   padding: 0.75rem; }
 .custom-input .select-arrow {
-  float: right; }
+  float: left; }
   .custom-input .select-arrow .caret-down {
     border-top-color: #000; }
 .custom-input select {
@@ -2042,7 +2042,7 @@ kbd {
   vertical-align: middle;
   white-space: nowrap; }
   .input-group > * {
-    float: left;
+    float: right;
     display: inline-block;
     position: relative;
     border-radius: 0;
@@ -2071,11 +2071,11 @@ kbd {
     padding: 1rem; }
 
 .input-group.round > *:first-child {
-  border-top-left-radius: 0.2rem;
-  border-bottom-left-radius: 0.2rem; }
-.input-group.round > *:last-child {
   border-top-right-radius: 0.2rem;
   border-bottom-right-radius: 0.2rem; }
+.input-group.round > *:last-child {
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem; }
 
 /**
  * @copyright   2010-2015, The Titon Project
@@ -2222,7 +2222,7 @@ kbd {
   padding: 0;
   position: relative; }
   .matrix > li {
-    float: left;
+    float: right;
     margin: 0;
     padding: 0;
     transition: top 0.3s, left 0.3s, bottom 0.3s, right 0.3s, opacity 0.3s, visibility 0.3s; }
@@ -2262,7 +2262,7 @@ kbd {
   background: none;
   border: 0;
   top: 0.75rem;
-  right: 0.75rem;
+  left: 0.75rem;
   line-height: 1rem;
   opacity: 0.5;
   padding: 5px; }
@@ -2361,8 +2361,8 @@ kbd {
     margin-top: 0; }
 
 .notice-close {
-  float: right;
-  margin-left: 1.25rem;
+  float: left;
+  margin-right: 1.25rem;
   line-height: 1rem;
   padding: 5px;
   background: none;
@@ -2483,8 +2483,8 @@ kbd {
       clear: both; }
     .pagination ol > li {
       position: relative;
-      float: left;
-      margin-right: 0.375rem; }
+      float: right;
+      margin-left: 0.375rem; }
       .pagination ol > li > a {
         display: block; }
       .pagination ol > li.is-active {
@@ -2500,11 +2500,11 @@ kbd {
 .pagination--grouped.round ol {
   border-radius: 0.2rem; }
   .pagination--grouped.round ol > li:first-child > a {
-    border-top-left-radius: 0.2rem;
-    border-bottom-left-radius: 0.2rem; }
-  .pagination--grouped.round ol > li:last-child > a {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
+  .pagination--grouped.round ol > li:last-child > a {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem; }
 
 /**
  * @copyright   2010-2015, The Titon Project
@@ -2661,13 +2661,13 @@ kbd {
     display: table;
     clear: both; }
   .progress.round .progress-bar:first-child {
-    border-top-left-radius: 0.2rem;
-    border-bottom-left-radius: 0.2rem; }
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem; }
   .progress.pill {
     border-radius: 2rem; }
     .progress.pill .progress-bar:first-child {
-      border-top-left-radius: 2rem;
-      border-bottom-left-radius: 2rem; }
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem; }
 
 .progress-bar {
   height: 1.5rem;
@@ -2676,7 +2676,7 @@ kbd {
   position: relative;
   text-align: center;
   font-size: 1rem;
-  float: left;
+  float: right;
   transition: width 0.5s, background 0.5s; }
 
 /**
@@ -2707,12 +2707,12 @@ kbd {
     display: none !important; }
 
 .showcase-close {
-  float: right;
+  float: left;
   line-height: 1rem;
   background: none;
   border: 0;
   padding: 0;
-  margin-left: 1rem; }
+  margin-right: 1rem; }
 
 .showcase-caption {
   opacity: 0;
@@ -2734,7 +2734,7 @@ kbd {
   .showcase-items > li {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     opacity: 0;
     transition: opacity 0.3s, visibility 0.3s; }
     .showcase-items > li > img {
@@ -2762,8 +2762,8 @@ kbd {
       display: table;
       clear: both; }
   .steps .step {
-    padding-left: 3.5em;
-    padding-right: 2em;
+    padding-right: 3.5em;
+    padding-left: 2em;
     position: relative;
     display: block;
     line-height: 3em;
@@ -2772,20 +2772,20 @@ kbd {
       height: 2.165em;
       width: 2.165em;
       top: 0.425em;
-      right: -1.1em;
+      left: -1.1em;
       position: absolute;
       z-index: 2;
       content: "";
-      -webkit-transform: rotate(315deg);
-          -ms-transform: rotate(315deg);
-              transform: rotate(315deg); }
+      -webkit-transform: rotate(135deg);
+          -ms-transform: rotate(135deg);
+              transform: rotate(135deg); }
   .steps li {
     display: inline-block;
     position: relative;
     vertical-align: middle;
-    float: left; }
+    float: right; }
     .steps li:first-child .step {
-      padding-left: 2em; }
+      padding-right: 2em; }
     .steps li:last-child .step::after {
       display: none; }
   .steps.small {
@@ -2903,7 +2903,7 @@ kbd {
 .tabs--horizontal .tab-nav ul, .tabs--horizontal .tab-nav ol, .tabs--horizontal .tab-nav li, .tabs--horizontal .tab-nav a, .tabs--horizontal .tab-nav button {
   display: block;
   float: none;
-  text-align: left; }
+  text-align: right; }
 
 /**
  * @copyright   2010-2015, The Titon Project

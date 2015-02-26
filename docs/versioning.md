@@ -25,9 +25,11 @@ The following are steps for tagging a new release. These steps are for internal 
 * Disable all Sass effects, modifiers, animations, and modules in `_common.scss`
 * Set `$text-direction` to `ltr`
 * Build distribution files with `gulp --dist`
-* Set `$text-direction` to `ltr`
+* Set `$text-direction` to `rtl`
 * Build RTL files with `gulp --dist --rtl`
 * Fix the comment docblocks
+    * Place Normalize above Toolkit in the CSS
+    * Remove any unnecessary newlines
 
 ## 3) Documenting ##
 

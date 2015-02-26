@@ -80,6 +80,10 @@
                             "url": "/setup/custom-builds#normalize-integration"
                         },
                         {
+                            "title": "Right-To-Left Support",
+                            "url": "/setup/custom-builds#right-to-left-support"
+                        },
+                        {
                             "title": "Combining Options",
                             "url": "/setup/custom-builds#combining-options"
                         }
@@ -135,18 +139,11 @@
                             ]
                         },
                         {
-                            "title": "Toolkit Namespace",
+                            "title": "Toolkit Object",
                             "url": "/development/js/toolkit",
                             "order": 2,
+                            "updated": true,
                             "chapters": [
-                                {
-                                    "title": "Vendor Prefix",
-                                    "url": "/development/js/toolkit#vendor-prefix"
-                                },
-                                {
-                                    "title": "ARIA Support",
-                                    "url": "/development/js/toolkit#aria-support"
-                                },
                                 {
                                     "title": "Debugging",
                                     "url": "/development/js/toolkit#debugging"
@@ -158,6 +155,10 @@
                                 {
                                     "title": "Feature Flags",
                                     "url": "/development/js/toolkit#feature-flags"
+                                },
+                                {
+                                    "title": "Methods",
+                                    "url": "/development/js/toolkit#methods"
                                 }
                             ]
                         },
@@ -165,7 +166,6 @@
                             "title": "Class System",
                             "url": "/development/js/class",
                             "order": 3,
-                            "new": true,
                             "chapters": [
                                 {
                                     "title": "Creating A Class",
@@ -176,8 +176,8 @@
                                     "url": "/development/js/class#extending-classes"
                                 },
                                 {
-                                    "title": "Custom Constructors",
-                                    "url": "/development/js/class#custom-constructors"
+                                    "title": "Custom Constructors and Destructors",
+                                    "url": "/development/js/class#custom-constructors-and-destructors"
                                 },
                                 {
                                     "title": "  Prototype Override",
@@ -197,7 +197,6 @@
                             "title": "Base Class",
                             "url": "/development/js/base",
                             "order": 4,
-                            "new": true,
                             "chapters": [
                                 {
                                     "title": "Usage",
@@ -244,6 +243,10 @@
                                     "url": "/development/js/component#templates"
                                 },
                                 {
+                                    "title": "  Lazy-loaded Templates",
+                                    "url": "/development/js/component#lazy-loaded-templates"
+                                },
+                                {
                                     "title": "  Elements As Templates",
                                     "url": "/development/js/component#elements-as-templates"
                                 },
@@ -283,7 +286,6 @@
                             "title": "Extensions",
                             "url": "/development/js/extensions",
                             "order": 7,
-                            "updated": true,
                             "chapters": [
                                 {
                                     "title": "Methods",
@@ -384,7 +386,6 @@
                             "title": "Base Styles",
                             "url": "/development/css/base",
                             "order": 1,
-                            "new": true,
                             "chapters": [
                                 {
                                     "title": "Alignment",
@@ -425,6 +426,10 @@
                                 {
                                     "title": "Sizes",
                                     "url": "/development/css/base#sizes"
+                                },
+                                {
+                                    "title": "RTL",
+                                    "url": "/development/css/base#rtl"
                                 }
                             ]
                         },
@@ -448,16 +453,15 @@
                             ]
                         },
                         {
-                            "title": "BEM Methodology",
-                            "url": "/development/css/bem",
-                            "order": 3,
-                            "chapters": []
-                        },
-                        {
                             "title": "Vendor Prefixing",
                             "url": "/development/css/prefixing",
                             "order": 4,
-                            "chapters": []
+                            "chapters": [
+                                {
+                                    "title": "External Integration",
+                                    "url": "/development/css/prefixing#external-integration"
+                                }
+                            ]
                         },
                         {
                             "title": "Reserved Classes",
@@ -541,6 +545,10 @@
                                     "url": "/development/sass/mixins#responsive"
                                 },
                                 {
+                                    "title": "Flexbox",
+                                    "url": "/development/sass/mixins#flexbox"
+                                },
+                                {
                                     "title": "Grids",
                                     "url": "/development/sass/mixins#grids"
                                 }
@@ -556,6 +564,10 @@
                                     "url": "/development/sass/functions#utility"
                                 },
                                 {
+                                    "title": "Flexbox",
+                                    "url": "/development/sass/functions#flexbox"
+                                },
+                                {
                                     "title": "Grids",
                                     "url": "/development/sass/functions#grids"
                                 },
@@ -566,6 +578,94 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "title": "ARIA Support",
+                    "url": "/development/aria",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Using",
+                            "url": "/development/aria#using"
+                        },
+                        {
+                            "title": "Disabling",
+                            "url": "/development/aria#disabling"
+                        }
+                    ]
+                },
+                {
+                    "title": "BEM CSS Classes",
+                    "url": "/development/bem",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Customizing Separators",
+                            "url": "/development/bem#customizing-separators"
+                        },
+                        {
+                            "title": "  In Sass",
+                            "url": "/development/bem#in-sass"
+                        },
+                        {
+                            "title": "  In JavaScript",
+                            "url": "/development/bem#in-javascript"
+                        }
+                    ]
+                },
+                {
+                    "title": "CSS Namespacing",
+                    "url": "/development/namespace",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Customizing",
+                            "url": "/development/namespace#customizing"
+                        },
+                        {
+                            "title": "  In Sass",
+                            "url": "/development/namespace#in-sass"
+                        },
+                        {
+                            "title": "  In JavaScript",
+                            "url": "/development/namespace#in-javascript"
+                        }
+                    ]
+                },
+                {
+                    "title": "RTL Support",
+                    "url": "/development/rtl",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Direction Attribute",
+                            "url": "/development/rtl#direction-attribute"
+                        },
+                        {
+                            "title": "Language Attribute",
+                            "url": "/development/rtl#language-attribute"
+                        },
+                        {
+                            "title": "Integrating CSS",
+                            "url": "/development/rtl#integrating-css"
+                        },
+                        {
+                            "title": "  Distribution",
+                            "url": "/development/rtl#distribution"
+                        },
+                        {
+                            "title": "  Sass",
+                            "url": "/development/rtl#sass"
+                        },
+                        {
+                            "title": "Integrating JavaScript",
+                            "url": "/development/rtl#integrating-javascript"
+                        }
+                    ]
                 }
             ]
         },
@@ -573,13 +673,11 @@
             "title": "Components",
             "url": "/components",
             "order": 3,
-            "updated": true,
             "children": [
                 {
                     "title": "Component",
                     "url": "/components/component",
                     "order": 1,
-                    "new": true,
                     "chapters": [
                         {
                             "title": "Options",
@@ -915,6 +1013,74 @@
                         {
                             "title": "Methods",
                             "url": "/components/drop#methods"
+                        }
+                    ]
+                },
+                {
+                    "title": "Flex",
+                    "url": "/components/flex",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Usage",
+                            "url": "/components/flex#usage"
+                        },
+                        {
+                            "title": "  Alignment",
+                            "url": "/components/flex#alignment"
+                        },
+                        {
+                            "title": "    Block Overrides",
+                            "url": "/components/flex#block-overrides"
+                        },
+                        {
+                            "title": "  Shrinking and Growing",
+                            "url": "/components/flex#shrinking-and-growing"
+                        },
+                        {
+                            "title": "  Ordering",
+                            "url": "/components/flex#ordering"
+                        },
+                        {
+                            "title": "  Wrapping",
+                            "url": "/components/flex#wrapping"
+                        },
+                        {
+                            "title": "  Nesting",
+                            "url": "/components/flex#nesting"
+                        },
+                        {
+                            "title": "  Horizontal and Vertical",
+                            "url": "/components/flex#horizontal-and-vertical"
+                        },
+                        {
+                            "title": "  Grids",
+                            "url": "/components/flex#grids"
+                        },
+                        {
+                            "title": "  Responsive Blocks",
+                            "url": "/components/flex#responsive-blocks"
+                        },
+                        {
+                            "title": "    Size Chart",
+                            "url": "/components/flex#size-chart"
+                        },
+                        {
+                            "title": "    Ordering",
+                            "url": "/components/flex#ordering"
+                        },
+                        {
+                            "title": "    Mobile Row Collapsing",
+                            "url": "/components/flex#mobile-row-collapsing"
+                        },
+                        {
+                            "title": "  Notes",
+                            "url": "/components/flex#notes"
+                        },
+                        {
+                            "title": "Variables",
+                            "url": "/components/flex#variables"
                         }
                     ]
                 },
@@ -2121,6 +2287,10 @@
                     "order": 100,
                     "chapters": [
                         {
+                            "title": "2.1.0",
+                            "url": "/support/changelog#no-210"
+                        },
+                        {
                             "title": "2.0.2",
                             "url": "/support/changelog#no-202"
                         },
@@ -2264,10 +2434,9 @@
             "title": "Releases",
             "url": "/releases",
             "order": 5,
-            "new": true,
             "children": [
                 {
-                    "title": "2.0 - Gallant Golem",
+                    "title": "2.0 Release",
                     "url": "/releases/2.0",
                     "order": 100,
                     "chapters": [
@@ -2336,6 +2505,38 @@
                             "url": "/releases/2.0#changelog"
                         }
                     ]
+                },
+                {
+                    "title": "2.1 Release",
+                    "url": "/releases/2.1",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Flexbox support",
+                            "url": "/releases/2.1#flexbox-support"
+                        },
+                        {
+                            "title": "RTL support",
+                            "url": "/releases/2.1#rtl-support"
+                        },
+                        {
+                            "title": "Component class split",
+                            "url": "/releases/2.1#component-class-split"
+                        },
+                        {
+                            "title": "Updated CSS namespacing",
+                            "url": "/releases/2.1#updated-css-namespacing"
+                        },
+                        {
+                            "title": "Integrated BEM naming",
+                            "url": "/releases/2.1#integrated-bem-naming"
+                        },
+                        {
+                            "title": "Lazy-loaded templates",
+                            "url": "/releases/2.1#lazy-loaded-templates"
+                        }
+                    ]
                 }
             ]
         },
@@ -2343,7 +2544,6 @@
             "title": "Migrations",
             "url": "/migrations",
             "order": 6,
-            "new": true,
             "children": [
                 {
                     "title": "Migrating to 2.0",
@@ -2437,6 +2637,50 @@
                         {
                             "title": "  Type Ahead",
                             "url": "/migrations/2.0#type-ahead"
+                        }
+                    ]
+                },
+                {
+                    "title": "Migrating to 2.1",
+                    "url": "/migrations/2.1",
+                    "order": 100,
+                    "new": true,
+                    "chapters": [
+                        {
+                            "title": "Sass",
+                            "url": "/migrations/2.1#sass"
+                        },
+                        {
+                            "title": "JavaScript",
+                            "url": "/migrations/2.1#javascript"
+                        },
+                        {
+                            "title": "Components",
+                            "url": "/migrations/2.1#components"
+                        },
+                        {
+                            "title": "  Drop",
+                            "url": "/migrations/2.1#drop"
+                        },
+                        {
+                            "title": "  Flyout",
+                            "url": "/migrations/2.1#flyout"
+                        },
+                        {
+                            "title": "  Lazy Load",
+                            "url": "/migrations/2.1#lazy-load"
+                        },
+                        {
+                            "title": "  Popover",
+                            "url": "/migrations/2.1#popover"
+                        },
+                        {
+                            "title": "  Toast",
+                            "url": "/migrations/2.1#toast"
+                        },
+                        {
+                            "title": "  Tooltip",
+                            "url": "/migrations/2.1#tooltip"
                         }
                     ]
                 }

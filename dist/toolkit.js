@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.0.2 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.1.0 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -9,6 +9,9 @@ var isTouch = !!(('ontouchstart' in window) || (window.DocumentTouch && document
 
 // Does the device support retina display
 var isRetina = (window.devicePixelRatio > 1);
+
+// Is the HTML document currently set to RTL mode?
+var isRTL = (document.documentElement.dir === 'rtl');
 
 // Check if transitions exist
 var hasTransition = (function() {
@@ -61,13 +64,13 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.0.2',
+    version: '2.1.0',
 
     /** Build date hash. */
-    build: 'i3t61jgw',
+    build: 'i6ml3uwd',
 
-    /** Vendor namespace. */
-    vendor: '',
+    /** CSS namespace. */
+    namespace: '',
 
     /** ARIA support. */
     aria: true,
@@ -81,6 +84,9 @@ var Toolkit = {
         error: 'An error has occurred!'
     },
 
+    /** BEM class name separators. */
+    bemSeparators: ['-', '--'],
+
     /** Does the browser support transitions? */
     hasTransition: hasTransition,
 
@@ -90,11 +96,52 @@ var Toolkit = {
     /** Detect retina displays. */
     isRetina: isRetina,
 
+    /** Detect right-to-left support. */
+    isRTL: isRTL,
+
     /** Name of the `transitionend` event. */
     transitionEnd: transitionEnd,
 
     /** Plugin instances indexed by the selector that activated it. */
     cache: {},
+
+    /**
+     * Generate a BEM (block-element-modifier) valid CSS class name.
+     *
+     * @param {String} block
+     * @param {String} [element]
+     * @param {String} [modifier]
+     * @returns {String}
+     */
+    bem: function(block, element, modifier) {
+        var seps = Toolkit.bemSeparators;
+
+        if (element) {
+            block += seps[0] + element;
+        }
+
+        if (modifier) {
+            block += seps[1] + modifier;
+        }
+
+        return Toolkit.namespace + block;
+    },
+
+    /**
+     * Parse a value and convert it to a template string.
+     * If the template is a function, execute it and pass the `bem()` function,
+     * and the current namespace as arguments.
+     *
+     * @param {String|Function} template
+     * @returns {String}
+     */
+    buildTemplate: function(template) {
+        if (typeof template === 'function') {
+            template = template.call(null, Toolkit.bem, Toolkit.namespace);
+        }
+
+        return template + '';
+    },
 
     /**
      * Creates a jQuery plugin by extending the jQuery prototype with a method definition.
@@ -105,7 +152,7 @@ var Toolkit = {
      * @param {Function} callback
      * @param {bool} [collection]
      */
-    create: function(plugin, callback, collection) {
+    createPlugin: function(plugin, callback, collection) {
         var name = plugin;
 
         // Prefix with toolkit to avoid collisions
@@ -133,6 +180,7 @@ var Toolkit = {
                 });
             };
     }
+
 };
 
 // Make it available
@@ -236,9 +284,6 @@ Toolkit.Base = Toolkit.Class.extend({
 
     /** Static options defined during construction. */
     options: {},
-
-    /** Dynamic options generated at runtime. */
-    runtime: {},
 
     /** Events and functions to bind. */
     __events: [],
@@ -363,9 +408,14 @@ Toolkit.Base = Toolkit.Class.extend({
     destroy: function() {
         this.fireEvent('destroying');
 
-        // Trigger destructor
+        // Trigger child destructor
         if (this.destructor) {
             this.destructor();
+        }
+
+        // Trigger base destructor
+        if (this.doDestroy) {
+            this.doDestroy();
         }
 
         // Remove events
@@ -482,6 +532,8 @@ Toolkit.Base = Toolkit.Class.extend({
                 delete opts[key];
             }
         }
+
+        this.options = opts;
 
         return opts;
     }
@@ -617,27 +669,21 @@ $.fn.toolkit = function(plugin, method, args) {
     return instance;
 };
 
+/**
+ * Class for elements already embedded in the page.
+ */
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',
-    version: '2.0.0',
+    version: '2.1.0',
 
-    /** Whether the element was created automatically or not. */
-    created: false,
-
-    /** The target element. Either created through a template, or embedded in the DOM. */
+    /** The target element. Either the embedded element, or the current element in the composite layer. */
     element: null,
 
-    /** Collection of elements related to the component. */
-    elements: [],
-
-    /** The namespace to find children elements in. */
+    /** The namespace to find child elements in. */
     namespace: '',
 
     /** The element that activated the component. */
     node: null,
-
-    /** Collection of nodes. */
-    nodes: [],
 
     /**
      * A basic constructor that sets an element and its options.
@@ -646,73 +692,8 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = this.setElement(element);
-        this.options = this.setOptions(options, this.element);
-    },
-
-    /**
-     * Create an element from the `template` or `templateFrom` option.
-     *
-     * @returns {jQuery}
-     */
-    createElement: function() {
-        var template, options = this.options;
-
-        // Use another element as the template
-        if (options.templateFrom) {
-            template = $(options.templateFrom);
-        }
-
-        // From a string
-        if ((!template || !template.length) && options.template) {
-            template = $(options.template).hide().addClass('hide').appendTo('body');
-        }
-
-        if (!template) {
-            throw new Error('Failed to create template element');
-        }
-
-        // Add a class name
-        if (options.className) {
-            template.addClass(options.className);
-        }
-
-        // Enable animations
-        if (options.animation) {
-            template.addClass(options.animation);
-        }
-
-        // Set a flag so we know if the element was created or embedded
-        this.created = true;
-
-        return template.attr('id', this.id());
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    destroy: function() {
-
-        // Remove cached plugin instances
-        var key = this.keyName;
-
-        if (this.nodes && this.nodes.length) {
-            this.nodes.removeData('toolkit.' + key);
-
-            delete Toolkit.cache[key + ':' + this.nodes.selector];
-
-        } else if (this.element && this.element.length) {
-            this.element.removeData('toolkit.' + key);
-        }
-
-        // Trigger destructors
-        Toolkit.Base.prototype.destroy.call(this);
-
-        // Remove element and state only if it was created
-        if (this.created) {
-            this.hide();
-            this.element.remove();
-        }
+        this.setElement(element);
+        this.setOptions(options, this.element);
     },
 
     /**
@@ -730,11 +711,11 @@ Toolkit.Component = Toolkit.Base.extend({
             event.context = this;
 
         // Trigger event on the element and the node
-        if (element && element.length) {
+        if (element) {
             element.trigger(event, args || []);
         }
 
-        if (node && node.length) {
+        if (node) {
             node.trigger(event, args || []);
         }
     },
@@ -914,6 +895,16 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Render a template and return a jQuery element.
+     *
+     * @param {String|Function} template
+     * @returns {jQuery}
+     */
+    render: function(template) {
+        return $(Toolkit.buildTemplate(template));
+    },
+
+    /**
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
@@ -959,7 +950,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @returns {jQuery}
      */
     setElement: function(element) {
-        element = $(element);
+        this.element = element = $(element);
 
         // Find a namespace
         this.namespace = element.data(this.keyName) || '';
@@ -999,6 +990,8 @@ Toolkit.Component = Toolkit.Base.extend({
             opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
         }
 
+        this.options = opts;
+
         return opts;
     },
 
@@ -1017,6 +1010,15 @@ Toolkit.Component = Toolkit.Base.extend({
         this.element.reveal();
 
         this.fireEvent('shown');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        if (this.element) {
+            this.element.removeData('toolkit.' + this.keyName);
+        }
     },
 
     /**
@@ -1094,6 +1096,180 @@ Toolkit.Component = Toolkit.Base.extend({
         e.preventDefault();
 
         this.show(e.currentTarget);
+    }
+
+}, {
+    ajax: {},
+    context: null,
+    className: ''
+});
+
+/**
+ * Class for elements that are rendered through templates.
+ */
+Toolkit.TemplateComponent = Toolkit.Component.extend({
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(options) {
+        options = options || this.options;
+
+        // Create template
+        var template = $(options.templateFrom);
+
+        if (!template.length) {
+            template = this.render(options.template);
+        }
+
+        if (!template.length) {
+            throw new Error('Failed to render template');
+        }
+
+        // Add a class name
+        if (options.className) {
+            template.addClass(options.className);
+        }
+
+        // Add animation class
+        if (options.animation) {
+            template.addClass(options.animation);
+        }
+
+        return template
+            .attr('id', this.id())
+            .conceal(true) // Add hide class
+            .hide() // Set display to none
+            .appendTo('body');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        Toolkit.Component.prototype.doDestroy.call(this);
+
+        this.element.remove();
+    }
+
+}, {
+    template: '',
+    templateFrom: ''
+});
+
+/**
+ * Class for managing multiple elements that are rendered through templates.
+ */
+Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
+
+    /** Cache of elements related to the component. */
+    elements: {},
+
+    /** Collection of nodes. */
+    nodes: null,
+
+    /** The container that holds each individual dynamic element. */
+    wrapper: null,
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {jQuery} node
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(node, options) {
+        options = this.inheritOptions(options || this.options, node);
+
+        // Create template
+        var template = Toolkit.TemplateComponent.prototype.createElement.call(this, options);
+
+        // Move to wrapper
+        if (this.wrapper) {
+            template.appendTo(this.wrapper);
+        }
+
+        var id = node.data('toolkit.cid');
+
+        return template
+            .attr('id', this.id(id))
+            .data('toolkit.cid', id);
+    },
+
+    /**
+     * Create the elements wrapper.
+     *
+     * @return {jQuery}
+     */
+    createWrapper: function() {
+        var options = this.options;
+
+        return this.wrapper = this.render(options.wrapperTemplate)
+            .addClass(Toolkit.buildTemplate(options.wrapperClass))
+            .attr('id', this.id('wrapper'))
+            .appendTo('body');
+    },
+
+    /**
+     * Hide all the cached and built elements.
+     */
+    hideElements: function() {
+        $.each(this.elements, function(i, el) {
+            $(el).conceal();
+        });
+    },
+
+    /**
+     * Attempt to find and return an element by a unique composite ID.
+     * Each element is unique per node. If the element does not exist, create it.
+     *
+     * @param {jQuery} node
+     * @param {Function} [callback]   - Callback to trigger once an element is created
+     * @returns {jQuery}
+     */
+    loadElement: function(node, callback) {
+        var elements = this.elements,
+            el,
+            id = $(node).cache('toolkit.cid', function() {
+                return Math.random().toString(32).substr(2);
+            });
+
+        if (elements[id]) {
+            el = elements[id];
+        } else {
+            el = elements[id] = this.createElement(node);
+
+            if ($.type(callback) === 'function') {
+                callback.call(this, el);
+            }
+        }
+
+        return this.element = el;
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        var key = this.keyName;
+
+        // Remove instances
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + key);
+
+            delete Toolkit.cache[key + ':' + this.nodes.selector];
+        }
+
+        // Hide elements
+        this.hideElements();
+
+        // Remove wrapper
+        if (this.wrapper) {
+            this.wrapper.remove();
+        }
     },
 
     /**
@@ -1104,9 +1280,18 @@ Toolkit.Component = Toolkit.Base.extend({
      */
     onShowToggle: function(e) {
         var node = $(e.currentTarget),
-            isNode = (this.node && node[0] === this.node[0]);
+            element,
+            isNode = (this.node && this.node.is(node)),
+            cid = node.data('toolkit.cid');
 
-        if (this.element && this.element.is(':shown')) {
+        // Set the current element based on the nodes composite ID
+        if (cid && this.elements[cid]) {
+            element = this.elements[cid];
+        } else {
+            element = this.element;
+        }
+
+        if (element && element.is(':shown')) {
 
             // Touch devices should pass through on second click
             if (Toolkit.isTouch) {
@@ -1137,11 +1322,8 @@ Toolkit.Component = Toolkit.Base.extend({
     }
 
 }, {
-    ajax: {},
-    context: null,
-    className: '',
-    template: '',
-    templateFrom: ''
+    wrapperClass: '',
+    wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
 
 /**
@@ -1227,8 +1409,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
     constructor: function(element, options) {
         var self = this;
 
-        this.element = element = this.setElement(element).attr('role', 'tablist');
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element).attr('role', 'tablist');
+        options = this.setOptions(options, element);
 
         // Find headers and cache the index of each header and set ARIA attributes
         this.headers = element.find(this.ns('header')).each(function(index) {
@@ -1382,17 +1564,14 @@ Toolkit.Accordion = Toolkit.Component.extend({
     collapsible: false
 });
 
-Toolkit.create('accordion', function(options) {
+Toolkit.createPlugin('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
 });
-
-// Dereference the vendor property
-var vendor = Toolkit.vendor;
 
 /** Has the blackout been created already? */
 var blackout = null;
 
-Toolkit.Blackout = Toolkit.Component.extend({
+Toolkit.Blackout = Toolkit.TemplateComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
@@ -1411,11 +1590,11 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(options) {
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = this.createElement();
 
         // Generate loader elements
-        this.loader = $(options.loaderTemplate).appendTo(this.element);
+        this.loader = this.render(options.loaderTemplate).appendTo(this.element);
         this.message = this.loader.find(this.ns('message', 'loader'));
 
         if (options.showLoading) {
@@ -1458,7 +1637,6 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Hide the loader.
      */
     hideLoader: function() {
-
         // There's an issue on Chrome where calling conceal() here doesn't work
         // when the blackout is being transitioned. So just change it's display.
         this.loader.hide();
@@ -1488,19 +1666,22 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Show the loader.
      */
     showLoader: function() {
-
         // The same problem for hide() applies here, so just change the display.
         this.loader.show();
     }
 
 }, {
     showLoading: true,
-    template: '<div class="' + vendor + 'blackout"></div>',
+    template: function(bem) {
+        return '<div class="' + bem('blackout') + '"></div>';
+    },
     templateFrom: '#toolkit-blackout-1',
-    loaderTemplate: '<div class="' + vendor + 'loader bar-wave">' +
-        '<span></span><span></span><span></span><span></span><span></span>' +
-        '<div class="' + vendor + 'loader-message" data-loader-message></div>' +
-    '</div>'
+    loaderTemplate: function(bem) {
+        return '<div class="' + bem('loader') + ' bar-wave">' +
+            '<span></span><span></span><span></span><span></span><span></span>' +
+            '<div class="' + bem('loader', 'message') + '" data-loader-message></div>' +
+        '</div>';
+    }
 });
 
 /**
@@ -1706,7 +1887,7 @@ $.throttle = function(func, delay) {
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -1730,10 +1911,10 @@ Toolkit.Carousel = Toolkit.Component.extend({
     timer: null,
 
     /** The dimension (width or height) to read sizes from. */
-    _dimension: null,
+    _dimension: '',
 
-    /** The position (left or top) to modify for cycling. */
-    _position: null,
+    /** The position (left, right, or top) to modify for cycling. */
+    _position: '',
 
     /** The size to cycle with. */
     _size: 0,
@@ -1750,8 +1931,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     constructor: function(element, options) {
         var items, self = this;
 
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Set animation and ARIA
         element
@@ -1840,10 +2021,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.jump(0);
 
         // Remove clones
+        var dir = this._position || 'left';
+
         this.container.transitionend(function() {
             $(this)
                 .addClass('no-transition')
-                .css('left', 0)
+                .css(dir, 0)
                 .find('li.is-cloned')
                     .remove();
         });
@@ -2156,7 +2339,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         } else if (animation === 'slide') {
             this._dimension = 'width';
-            this._position = 'left';
+            this._position = options.rtl ? 'right' : 'left';
         }
     },
 
@@ -2268,13 +2451,14 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
+    rtl: Toolkit.isRTL,
     swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0
 });
 
-Toolkit.create('carousel', function(options) {
+Toolkit.createPlugin('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });
 
@@ -2349,9 +2533,9 @@ $.event.special.clickout = (function() {
     };
 })();
 
-Toolkit.Drop = Toolkit.Component.extend({
+Toolkit.Drop = Toolkit.CompositeComponent.extend({
     name: 'Drop',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the drop.
@@ -2361,7 +2545,7 @@ Toolkit.Drop = Toolkit.Component.extend({
      */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
-        this.options = this.setOptions(options);
+        this.setOptions(options);
 
         // Set events
         this.addEvents([
@@ -2385,40 +2569,62 @@ Toolkit.Drop = Toolkit.Component.extend({
     },
 
     /**
-     * Hide the opened element and remove active state.
+     * Find the menu for the current node.
+     *
+     * @param {jQuery} node
      */
-    hide: function() {
-        var element = this.element;
+    createElement: function(node) {
+        var target = this.readValue(node, this.options.getTarget);
 
-        if (element && element.is(':shown')) {
-            this.fireEvent('hiding');
-
-            element.conceal();
-
-            this.node
-                .aria('toggled', false)
-                .removeClass('is-active');
-
-            this.fireEvent('hidden', [element, this.node]);
+        if (!target || target.substr(0, 1) !== '#') {
+            throw new Error('Drop menu ' + target + ' does not exist');
         }
+
+        return $(target);
     },
 
     /**
-     * Open the target menu and apply active state.
+     * Hide the opened menu and reset the nodes active state.
+     */
+    hide: function() {
+        var element = this.element,
+            node = this.node;
+
+        // Clickout check
+        if (!element && !node) {
+            return;
+        }
+
+        this.fireEvent('hiding', [element, node]);
+
+        element.conceal();
+
+        node
+            .aria('toggled', false)
+            .removeClass('is-active');
+
+        this.fireEvent('hidden', [element, node]);
+    },
+
+    /**
+     * Open the target menu and apply active state to the node.
      *
-     * @param {jQuery} menu
      * @param {jQuery} node
      */
-    show: function(menu, node) {
-        this.fireEvent('showing');
+    show: function(node) {
+        this.node = node = $(node);
 
-        this.element = menu = $(menu).reveal();
+        var element = this.loadElement(node);
 
-        this.node = node = $(node)
+        this.fireEvent('showing', [element, node]);
+
+        element.reveal();
+
+        node
             .aria('toggled', true)
             .addClass('is-active');
 
-        this.fireEvent('shown', [menu, node]);
+        this.fireEvent('shown', [element, node]);
     },
 
     /**
@@ -2431,51 +2637,38 @@ Toolkit.Drop = Toolkit.Component.extend({
     onShow: function(e) {
         e.preventDefault();
 
-        var node = $(e.currentTarget),
-            options = this.options,
-            target = this.readValue(node, options.getTarget);
-
-        if (!target || target.substr(0, 1) !== '#') {
-            return;
-        }
-
         // Hide previous drops
-        if (options.hideOpened && this.node && !this.node.is(node)) {
-            this.hide();
-        }
+        this.hide();
 
-        var menu = $(target);
+        // Toggle the menu
+        var node = $(e.currentTarget),
+            menu = this.loadElement(node);
 
         if (!menu.is(':shown')) {
-            this.show(menu, node);
+            this.show(node);
 
         } else {
-            this.element = menu;
             this.hide();
         }
     }
 
 }, {
     mode: 'click',
-    getTarget: 'data-drop',
-    hideOpened: true
+    getTarget: 'data-drop'
 });
 
-Toolkit.create('drop', function(options) {
+Toolkit.createPlugin('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);
 
-Toolkit.Flyout = Toolkit.Component.extend({
+Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Current URL to generate a flyout menu for. */
-    current: null,
+    url: '',
 
-    /** Collection of flyout elements indexed by URL. */
-    menus: {},
-
-    /** Raw sitemap JSON data. */
+    /** Raw JSON data. */
     data: [],
 
     /** Data indexed by URL. */
@@ -2492,8 +2685,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, url, options) {
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
         this.nodes = $(nodes);
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
+        this.createWrapper();
 
         if (options.mode === 'click') {
             this.addEvent('click', 'document', 'onShowToggle', '{selector}');
@@ -2509,18 +2707,16 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
         // Load data from the URL
         if (url) {
-            $.getJSON(url, this.load.bind(this));
+            $.getJSON(url, function(response) {
+                this.load(response);
+            }.bind(this));
         }
     },
 
     /**
-     * Remove all the flyout menu elements and timers before destroying.
+     * Remove timers before destroying.
      */
     destructor: function() {
-        $.each(this.menus, function(i, menu) {
-            menu.remove();
-        });
-
         this.clearTimer('show');
         this.clearTimer('hide');
     },
@@ -2539,36 +2735,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Hide the currently shown menu.
      */
     hide: function() {
-        // Must be called even if the menu is hidden
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-
-        if (!this.isVisible()) {
-            return;
-        }
-
         this.fireEvent('hiding');
 
         this.element.conceal();
 
+        this.node.removeClass('is-active');
+
         this.fireEvent('hidden');
-
-        // Reset last
-        this.element = this.current = null;
-    },
-
-    /**
-     * Return true if the current menu exists and is visible.
-     *
-     * @returns {bool}
-     */
-    isVisible: function() {
-        if (this.current && this.menus[this.current]) {
-            this.element = this.menus[this.current];
-        }
-
-        return (this.element && this.element.is(':shown'));
     },
 
     /**
@@ -2581,7 +2754,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         depth = depth || 0;
 
         // If root, store the data
-        if (depth === 0) {
+        if (!depth) {
             this.data = data;
         }
 
@@ -2601,31 +2774,39 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Position the menu below the target node.
      */
     position: function() {
-        var target = this.current,
-            options = this.options;
+        var options = this.options,
+            node = this.node,
+            element = this.loadElement(node);
 
-        if (!this.menus[target]) {
+        // Only position if the menu has children
+        if (!element.children().length) {
             return;
         }
 
         this.fireEvent('showing');
 
-        var menu = this.menus[target],
-            height = menu.outerHeight(),
-            coords = this.node.offset(),
+        var height = element.outerHeight(),
+            coords = node.offset(),
             x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + this.node.outerHeight(),
-            windowScroll = $(window).height();
+            y = coords.top + options.yOffset + node.outerHeight(),
+            windowScroll = $(window).height(),
+            dir = 'left';
 
         // If menu goes below half page, position it above
         if (y > (windowScroll / 2)) {
             y = coords.top - options.yOffset - height;
         }
 
-        menu.css({
-            left: x,
-            top: y
-        }).reveal();
+        // Change position for RTL
+        if (Toolkit.isRTL) {
+            x = $(window).width() - coords.left - node.outerWidth();
+            dir = 'right';
+        }
+
+        element
+            .css('top', y)
+            .css(dir, x)
+            .reveal();
 
         this.fireEvent('shown');
     },
@@ -2636,23 +2817,29 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {jQuery} node
      */
     show: function(node) {
-        var target = this._getTarget(node);
+        node = $(node);
+
+        var target = this.readValue(node, this.options.getUrl) || node.attr('href');
 
         // When jumping from one node to another
         // Immediately hide the other menu and start the timer for the current one
-        if (this.current && target !== this.current) {
+        if (this.url && target !== this.url) {
             this.hide();
             this.startTimer('show', this.options.showDelay);
         }
 
-        this.node = $(node);
+        // Set the state
+        this.url = target;
+        this.node = node.addClass('is-active');
 
-        // Find the menu, else create it
-        if (!this._getMenu()) {
-            return;
-        }
+        // Load the menu
+        this.loadElement(node, function(flyout) {
+            flyout.addClass('is-root');
 
-        this.node.addClass('is-active');
+            if (this.dataMap[target]) {
+                this._buildMenu(flyout, this.dataMap[target]);
+            }
+        });
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -2689,17 +2876,15 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Build a nested list menu using the data object.
      *
      * @private
-     * @param {jQuery} parent
+     * @param {jQuery} menu
      * @param {Object} data
-     * @returns {jQuery}
      */
-    _buildMenu: function(parent, data) {
+    _buildMenu: function(menu, data) {
         if (!data.children || !data.children.length) {
-            return null;
+            return;
         }
 
         var options = this.options,
-            menu = $(options.template).attr('role', 'menu'),
             groups = [],
             ul,
             li,
@@ -2711,11 +2896,9 @@ Toolkit.Flyout = Toolkit.Component.extend({
             menu.addClass(options.className);
         }
 
-        if (parent.is('body')) {
-            menu.addClass('is-root');
-        } else {
-            menu.aria('expanded', false);
-        }
+        menu
+            .aria('expanded', false)
+            .attr('role', 'menu');
 
         if (limit && data.children.length > limit) {
             i = 0;
@@ -2744,10 +2927,12 @@ Toolkit.Flyout = Toolkit.Component.extend({
                     });
 
                     // Add icon
-                    $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
+                    $('<span/>')
+                        .addClass(child.icon || (Toolkit.isRTL ? 'caret-left' : 'caret-right'))
+                        .prependTo(tag);
 
                 } else {
-                    li = $(options.headingTemplate);
+                    li = this.render(options.template);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
@@ -2766,7 +2951,11 @@ Toolkit.Flyout = Toolkit.Component.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    this._buildMenu(li, child);
+                    var childMenu = this.render(options.template)
+                        .conceal()
+                        .appendTo(li);
+
+                    this._buildMenu(childMenu, child);
 
                     li.addClass('has-children')
                         .aria('haspopup', true)
@@ -2778,10 +2967,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
             menu.append(ul);
         }
 
-        menu.appendTo(parent).conceal();
-
         // Only monitor top level menu
-        if (options.mode !== 'click' && parent.is('body')) {
+        if (options.mode !== 'click' && menu.hasClass('is-root')) {
             menu.on({
                 mouseenter: function() {
                     this.clearTimer('hide');
@@ -2791,49 +2978,6 @@ Toolkit.Flyout = Toolkit.Component.extend({
                 }.bind(this)
             });
         }
-
-        return menu;
-    },
-
-    /**
-     * Get the menu if it exists, else build it and set events.
-     *
-     * @private
-     * @returns {jQuery}
-     */
-    _getMenu: function() {
-        var target = this._getTarget();
-
-        this.current = target;
-
-        if (this.menus[target]) {
-            return this.menus[target];
-        }
-
-        if (this.dataMap[target]) {
-            var menu = this._buildMenu($('body'), this.dataMap[target]);
-
-            if (!menu) {
-                return null;
-            }
-
-            return this.menus[target] = menu;
-        }
-
-        return null;
-    },
-
-    /**
-     * Get the target URL to determine which menu to show.
-     *
-     * @private
-     * @param {jQuery} [node]
-     * @returns {String}
-     */
-    _getTarget: function(node) {
-        node = $(node || this.node);
-
-        return this.readValue(node, this.options.getUrl) || node.attr('href');
     },
 
     /**
@@ -2902,22 +3046,27 @@ Toolkit.Flyout = Toolkit.Component.extend({
         // Get sizes after menu positioning
         var win = $(window),
             winHeight = win.height() + win.scrollTop(),
-            winWidth = win.width(),
-            parentTop = parent.offset().top,
+            parentOffset = parent.offset(),
             parentHeight = parent.outerHeight(),
-            parentRight = parent.offset().left + parent.outerWidth();
+            oppositeClass = 'push-opposite';
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        var hWidth = parentRight + menu.outerWidth();
-
-        if (hWidth >= winWidth) {
-            menu.addClass('push-left');
+        if (Toolkit.isRTL) {
+            if ((parentOffset.left - menu.outerWidth()) < 0) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         } else {
-            menu.removeClass('push-left');
+            if ((parentOffset.left + parent.outerWidth() + menu.outerWidth()) >= win.width()) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         }
 
         // Reverse menu vertically if below half way fold
-        if (parentTop > (winHeight / 2)) {
+        if (parentOffset.top > (winHeight / 2)) {
             menu.css('top', '-' + (menu.outerHeight() - parentHeight) + 'px');
         } else {
             menu.css('top', 0);
@@ -2927,26 +3076,6 @@ Toolkit.Flyout = Toolkit.Component.extend({
         menu.reveal();
 
         this.fireEvent('showChild', [parent]);
-    },
-
-    /**
-     * Event handler to show the menu.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-
-        // Flyouts shouldn't be usable on touch devices
-        if (Toolkit.isTouch) {
-            return;
-        }
-
-        // Set the current element
-        this.isVisible();
-
-        // Trigger the parent
-        Toolkit.Component.prototype.onShowToggle.call(this, e);
     }
 
 }, {
@@ -2957,11 +3086,18 @@ Toolkit.Flyout = Toolkit.Component.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    template: '<div class="' + vendor + 'flyout" data-flyout-menu></div>',
-    headingTemplate: '<li class="' + vendor + 'flyout-heading"></li>'
+    wrapperClass: function(bem) {
+        return bem('flyouts');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('flyout') + '" data-flyout-menu></div>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('flyout', 'heading') + '"></li>';
+    }
 });
 
-Toolkit.create('flyout', function(url, options) {
+Toolkit.createPlugin('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
 
@@ -2976,7 +3112,7 @@ $.fn.toString = function() {
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** The custom input element. */
     input: null,
@@ -2991,8 +3127,8 @@ Toolkit.Input = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         if (options.checkbox) {
             element.find(options.checkbox).inputCheckbox(options);
@@ -3065,7 +3201,7 @@ Toolkit.Input = Toolkit.Component.extend({
      */
     _buildWrapper: function() {
         var input = this.element,
-            wrapper = $(this.options.template)
+            wrapper = this.render(this.options.template)
                 .insertBefore(input)
                 .append(input);
 
@@ -3082,7 +3218,9 @@ Toolkit.Input = Toolkit.Component.extend({
     checkbox: 'input:checkbox',
     radio: 'input:radio',
     select: 'select',
-    template: '<div class="' + vendor + 'custom-input"></div>'
+    template: function(bem) {
+        return '<div class="' + bem('custom-input') + '"></div>';
+    }
 });
 
 /**
@@ -3091,7 +3229,7 @@ Toolkit.Input = Toolkit.Component.extend({
  */
 Toolkit.InputCheckbox = Toolkit.Input.extend({
     name: 'InputCheckbox',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the checkbox.
@@ -3101,11 +3239,11 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
      */
     constructor: function(checkbox, options) {
         this.element = checkbox = $(checkbox);
-        this.options = options = this.setOptions(options, checkbox);
+        options = this.setOptions(options, checkbox);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.input = $(options.checkboxTemplate)
+        this.input = this.render(options.checkboxTemplate)
             .attr('for', checkbox.attr('id'))
             .insertAfter(checkbox);
 
@@ -3114,7 +3252,9 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
     }
 
 }, {
-    checkboxTemplate: '<label class="' + vendor + 'checkbox"></label>'
+    checkboxTemplate: function(bem) {
+        return '<label class="' + bem('checkbox') + '"></label>';
+    }
 });
 
 /**
@@ -3123,7 +3263,7 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
  */
 Toolkit.InputRadio = Toolkit.Input.extend({
     name: 'InputRadio',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the radio.
@@ -3133,11 +3273,11 @@ Toolkit.InputRadio = Toolkit.Input.extend({
      */
     constructor: function(radio, options) {
         this.element = radio = $(radio);
-        this.options = options = this.setOptions(options, radio);
+        options = this.setOptions(options, radio);
         this.wrapper = this._buildWrapper();
 
         // Create custom input
-        this.input = $(options.radioTemplate)
+        this.input = this.render(options.radioTemplate)
             .attr('for', radio.attr('id'))
             .insertAfter(radio);
 
@@ -3146,7 +3286,9 @@ Toolkit.InputRadio = Toolkit.Input.extend({
     }
 
 }, {
-    radioTemplate: '<label class="' + vendor + 'radio"></label>'
+    radioTemplate: function(bem) {
+        return '<label class="' + bem('radio') + '"></label>';
+    }
 });
 
 /**
@@ -3155,7 +3297,7 @@ Toolkit.InputRadio = Toolkit.Input.extend({
  */
 Toolkit.InputSelect = Toolkit.Input.extend({
     name: 'InputSelect',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** The custom drop element. */
     dropdown: null,
@@ -3174,7 +3316,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      */
     constructor: function(select, options) {
         this.element = select = $(select);
-        this.options = options = this.setOptions(options, select);
+        options = this.setOptions(options, select);
         this.multiple = select.prop('multiple');
 
         // Multiple selects must use native controls
@@ -3259,8 +3401,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
      */
     _buildButton: function() {
         var options = this.options,
-            button = $(options.selectTemplate)
-                .find(this.ns('arrow', 'select')).html(options.arrowTemplate).end()
+            button = this.render(options.selectTemplate)
+                .find(this.ns('arrow', 'select')).html(this.render(options.arrowTemplate)).end()
                 .find(this.ns('label', 'select')).html(Toolkit.messages.loading).end()
                 .css('min-width', this.element.width())
                 .insertAfter(this.element);
@@ -3280,7 +3422,8 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         var select = this.element,
             options = this.options,
             buildOption = this._buildOption.bind(this),
-            dropdown = $(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
+            renderTemplate = this.render.bind(this),
+            dropdown = renderTemplate(options.optionsTemplate).attr('role', 'listbox').aria('multiselectable', this.multiple),
             list = $('<ul/>'),
             index = 0,
             self = this;
@@ -3297,7 +3440,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 }
 
                 list.append(
-                    $(options.headingTemplate).text(optgroup.attr('label'))
+                    renderTemplate(options.headingTemplate).text(optgroup.attr('label'))
                 );
 
                 optgroup.children().each(function() {
@@ -3365,7 +3508,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         }
 
         if (description = this.readValue(option, options.getDescription)) {
-            content += $(options.descTemplate).html(description).toString();
+            content += this.render(options.descTemplate).html(description).toString();
         }
 
         var a = $('<a/>', {
@@ -3593,38 +3736,49 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     getDefaultLabel: 'title',
     getOptionLabel: 'title',
     getDescription: 'data-description',
-    selectTemplate: '<div class="' + vendor + 'select" data-select>' +
-        '<div class="' + vendor + 'select-arrow" data-select-arrow></div>' +
-        '<div class="' + vendor + 'select-label" data-select-label></div>' +
-    '</div>',
+    selectTemplate: function(bem) {
+        return '<div class="' + bem('select') + '" data-select>' +
+            '<div class="' + bem('select', 'arrow') + '" data-select-arrow></div>' +
+            '<div class="' + bem('select', 'label') + '" data-select-label></div>' +
+        '</div>';
+    },
     arrowTemplate: '<span class="caret-down"></span>',
-    optionsTemplate: '<div class="' + vendor + 'drop ' + vendor + 'drop--down ' + vendor + 'select-options" data-select-options></div>',
-    headingTemplate: '<li class="' + vendor + 'drop-heading"></li>',
-    descTemplate: '<span class="' + vendor + 'drop-desc"></span>'
+    optionsTemplate: function(bem) {
+        return '<div class="' + bem('drop') + ' ' + bem('drop', '', 'down') + ' ' + bem('select', 'options') + '" data-select-options></div>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('drop', 'heading') + '"></li>';
+    },
+    descTemplate: function(bem) {
+        return '<span class="' + bem('drop', 'desc') + '"></span>';
+    }
 });
 
-Toolkit.create('input', function(options) {
+Toolkit.createPlugin('input', function(options) {
     return new Toolkit.Input(this, options);
 });
 
-Toolkit.create('inputRadio', function(options) {
+Toolkit.createPlugin('inputRadio', function(options) {
     return new Toolkit.InputRadio(this, options);
 });
 
-Toolkit.create('inputCheckbox', function(options) {
+Toolkit.createPlugin('inputCheckbox', function(options) {
     return new Toolkit.InputCheckbox(this, options);
 });
 
-Toolkit.create('inputSelect', function(options) {
+Toolkit.createPlugin('inputSelect', function(options) {
     return new Toolkit.InputSelect(this, options);
 });
 
 Toolkit.LazyLoad = Toolkit.Component.extend({
     name: 'LazyLoad',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Container to monitor scroll events on. */
     container: $(window),
+
+    /** Collection of items to load. */
+    items: [],
 
     /** How many items have been loaded. */
     loaded: 0,
@@ -3641,8 +3795,8 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     constructor: function(container, options) {
         container = $(container);
 
-        this.options = options = this.setOptions(options, container);
-        this.elements = container.find(this.options.lazyClass);
+        options = this.setOptions(options, container);
+        this.items = container.find(this.options.lazyClass);
 
         if (container.css('overflow') === 'auto') {
             this.container = container;
@@ -3669,7 +3823,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     },
 
     /**
-     * Verify that the element is within the current browser viewport.
+     * Verify that the item is within the current browser viewport.
      *
      * @param {jQuery} node
      * @returns {bool}
@@ -3711,19 +3865,19 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     },
 
     /**
-     * Loop over the lazy loaded elements and verify they are within the viewport.
+     * Loop over the lazy loaded items and verify they are within the viewport.
      */
     load: function() {
-        if (this.loaded >= this.elements.length) {
+        if (this.loaded >= this.items.length) {
             this.shutdown();
             return;
         }
 
         this.fireEvent('loading');
 
-        this.elements.each(function(index, node) {
-            if (node && this.inViewport(node)) {
-                this.show(node, index);
+        this.items.each(function(index, item) {
+            if (item && this.inViewport(item)) {
+                this.show(item, index);
             }
         }.bind(this));
 
@@ -3731,22 +3885,22 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     },
 
     /**
-     * Load the remaining hidden elements and remove any container events.
+     * Load the remaining hidden items and remove any container events.
      */
     loadAll: function() {
-        if (this.loaded >= this.elements.length) {
+        if (this.loaded >= this.items.length) {
             return;
         }
 
         this.fireEvent('loadAll');
 
-        this.elements.each(function(index, node) {
-            this.show(node, index);
+        this.items.each(function(index, item) {
+            this.show(item, index);
         }.bind(this));
     },
 
     /**
-     * Show the element by removing the lazy load class.
+     * Show the item by removing the lazy load class.
      *
      * @param {jQuery} node
      * @param {Number} index
@@ -3756,10 +3910,8 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 
         this.fireEvent('showing', [node]);
 
-        node.removeClass(this.options.lazyClass.substr(1));
-
-        // Set the element being loaded for events
-        this.element = node;
+        // Set the item being loaded for so that events can be fired
+        this.element = node.removeClass(this.options.lazyClass.substr(1));
 
         // Replace src attributes on images
         node.find('img').each(function() {
@@ -3778,8 +3930,8 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
             }
         });
 
-        // Replace element with null since removing from the array causes it to break
-        this.elements.splice(index, 1, null);
+        // Replace item with null since removing from the array causes it to break
+        this.items.splice(index, 1, null);
         this.loaded++;
 
         this.fireEvent('shown', [node]);
@@ -3818,7 +3970,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
     lazyClass: '.lazy-load'
 });
 
-Toolkit.create('lazyLoad', function(options) {
+Toolkit.createPlugin('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });
 
@@ -3839,8 +3991,8 @@ Toolkit.Mask = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Add class and set relative positioning
         if (!element.is('body')) {
@@ -3857,7 +4009,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         var mask = element.find('> ' + this.ns());
 
         if (!mask.length) {
-            mask = $(options.template);
+            mask = this.render(options.template);
         }
 
         this.setMask(mask);
@@ -3919,7 +4071,7 @@ Toolkit.Mask = Toolkit.Component.extend({
         message = mask.find(this.ns('message'));
 
         if (!message.length && options.messageContent) {
-            message = $(options.messageTemplate)
+            message = this.render(options.messageTemplate)
                 .html(options.messageContent)
                 .appendTo(mask);
         }
@@ -3954,11 +4106,15 @@ Toolkit.Mask = Toolkit.Component.extend({
     selector: '',
     revealOnClick: false,
     messageContent: '',
-    template: '<div class="' + vendor + 'mask" data-mask></div>',
-    messageTemplate: '<div class="' + vendor + 'mask-message" data-mask-message></div>'
+    template: function(bem) {
+        return '<div class="' + bem('mask') + '" data-mask></div>';
+    },
+    messageTemplate: function(bem) {
+        return '<div class="' + bem('mask', 'message') + '" data-mask-message></div>';
+    }
 });
 
-Toolkit.create('mask', function(options) {
+Toolkit.createPlugin('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });
 
@@ -4017,8 +4173,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = this.setElement(element);
-        this.options = this.setOptions(options, this.element);
+        this.setElement(element);
+        this.setOptions(options, this.element);
 
         // Set events
         this.addEvent('horizontalresize', 'window', $.debounce(this.onResize.bind(this)));
@@ -4327,17 +4483,17 @@ Toolkit.Matrix = Toolkit.Component.extend({
 }, {
     width: 200,
     gutter: 20,
-    rtl: false,
+    rtl: Toolkit.isRTL,
     defer: true
 });
 
-Toolkit.create('matrix', function(options) {
+Toolkit.createPlugin('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });
 
-Toolkit.Modal = Toolkit.Component.extend({
+Toolkit.Modal = Toolkit.TemplateComponent.extend({
     name: 'Modal',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Blackout element if enabled. */
     blackout: null,
@@ -4349,7 +4505,8 @@ Toolkit.Modal = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        this.options = options = this.setOptions(options);
+        this.nodes = $(nodes);
+        options = this.setOptions(options);
         this.element = this.createElement()
             .attr('role', 'dialog')
             .aria('labelledby', this.id('title'))
@@ -4360,26 +4517,14 @@ Toolkit.Modal = Toolkit.Component.extend({
             this.element.addClass('is-fullscreen');
         }
 
-        // Nodes found in the page on initialization
-        this.nodes = $(nodes);
-
+        // Setup blackout
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.instance();
-
-            if (options.stopScroll) {
-                this.blackout.addHook('hidden', function(hidden) {
-                    if (hidden) {
-                        $('body').removeClass('no-scroll');
-                    }
-                });
-            }
         }
 
         // Initialize events
         this.addEvents([
             ['keydown', 'window', 'onKeydown'],
-            //['clickout', 'element', 'onHide'],
-            //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'hide', this.ns('close')],
             ['click', 'element', 'onSubmit', this.ns('submit')]
@@ -4402,6 +4547,10 @@ Toolkit.Modal = Toolkit.Component.extend({
 
         if (this.blackout) {
             this.blackout.hide();
+        }
+
+        if (this.options.stopScroll) {
+            $('body').removeClass('no-scroll');
         }
 
         this.fireEvent('hidden');
@@ -4556,15 +4705,17 @@ Toolkit.Modal = Toolkit.Component.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
-    template: '<div class="' + vendor + 'modal">' +
-        '<div class="' + vendor + 'modal-outer">' +
-            '<div class="' + vendor + 'modal-inner" data-modal-content></div>' +
-            '<button class="' + vendor + 'modal-close" data-modal-close><span class="x"></span></button>' +
-        '</div>' +
-    '</div>'
+    template: function(bem) {
+        return '<div class="' + bem('modal') + '">' +
+            '<div class="' + bem('modal', 'outer') + '">' +
+                '<div class="' + bem('modal', 'inner') + '" data-modal-content></div>' +
+                '<button class="' + bem('modal', 'close') + '" data-modal-close><span class="x"></span></button>' +
+            '</div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('modal', function(options) {
+Toolkit.createPlugin('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);
 
@@ -4597,8 +4748,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element).attr('role', 'complementary').conceal();
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element).attr('role', 'complementary').conceal();
+        options = this.setOptions(options, element);
 
         var animation = options.animation;
 
@@ -4786,7 +4937,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     swipe: Toolkit.isTouch
 });
 
-Toolkit.create('offCanvas', function(options) {
+Toolkit.createPlugin('offCanvas', function(options) {
     return new Toolkit.OffCanvas(this, options);
 });
 
@@ -4819,8 +4970,8 @@ Toolkit.Pin = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Setup classes and ARIA
         element
@@ -4990,7 +5141,7 @@ Toolkit.Pin = Toolkit.Component.extend({
     lock: true
 });
 
-Toolkit.create('pin', function(options) {
+Toolkit.createPlugin('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });
 
@@ -5104,15 +5255,9 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
     });
 };
 
-Toolkit.Tooltip = Toolkit.Component.extend({
+Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
-    version: '2.0.0',
-
-    /** The element to insert the title. */
-    elementHead: null,
-
-    /** The element to insert the content. */
-    elementBody: null,
+    version: '2.1.0',
 
     /**
      * Initialize the tooltip.
@@ -5121,36 +5266,24 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element;
-
-        this.options = options = this.setOptions(options);
-        this.element = element = this.createElement()
-            .attr('role', 'tooltip')
-            .removeClass(options.className)
-            .css('display', ''); // Remove display none
+        this.nodes = $(nodes);
+        options = this.setOptions(options);
+        this.createWrapper();
 
         // Remove title attributes
         if (options.getTitle === 'title') {
             options.getTitle = 'data-' + this.keyName + '-title';
+
+            this.nodes.each(function(i, node) {
+                $(node).attr(options.getTitle, $(node).attr('title')).removeAttr('title');
+            });
         }
-
-        // Elements for the title and content
-        this.elementHead = element.find(this.ns('header'));
-        this.elementBody = element.find(this.ns('content'));
-
-        // Nodes found in the page on initialization, remove title attribute
-        this.nodes = $(nodes).each(function(i, node) {
-            $(node).attr(options.getTitle, $(node).attr('title')).removeAttr('title');
-        });
 
         // Initialize events
         this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
 
         if (options.mode === 'click') {
-            this.addEvents([
-                ['clickout', 'element', 'hide'],
-                ['clickout', 'document', 'hide', '{selector}']
-            ]);
+            this.addEvent('clickout', 'document', 'hide');
         } else {
             this.addEvent('mouseleave', 'document', 'hide', '{selector}');
         }
@@ -5164,12 +5297,12 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     hide: function() {
         this.fireEvent('hiding');
 
-        this.reset();
-
-        this.element.conceal(true);
+        this.hideElements();
 
         if (this.node) {
-            this.node.removeAttr('aria-describedby');
+            this.node
+                .removeAttr('aria-describedby')
+                .removeClass('is-active');
         }
 
         this.fireEvent('hidden');
@@ -5179,96 +5312,73 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * Positions the tooltip relative to the current node or the mouse cursor.
      * Additionally will apply the title/content and hide/show if necessary.
      *
-     * @param {String|jQuery} [content]
+     * @param {String|jQuery} content
      * @param {String|jQuery} [title]
      */
     position: function(content, title) {
-        var options = $.isEmptyObject(this.runtime) ? this.options : this.runtime;
-
-        // AJAX is currently loading
         if (content === true) {
-            return;
+            return; // AJAX is currently loading
         }
 
         this.fireEvent('showing');
 
-        // Add position class
-        this.element
-            .addClass(options.position)
-            .addClass(options.className);
+        // Set the node state
+        var node = this.node.aria('describedby', this.id());
 
-        // Set ARIA
-        this.node.aria('describedby', this.id());
+        // Load runtime options
+        var options = this.inheritOptions(this.options, node);
 
-        // Set title
-        title = title || this.readValue(this.node, options.getTitle);
+        // Load the element
+        var element = this.loadElement(node);
 
-        if (title && options.showTitle) {
-            this.elementHead.html(title).show();
-        } else {
-            this.elementHead.hide();
-        }
+        // Set the title and content
+        title = title || this.readValue(node, options.getTitle);
 
-        // Set body
-        if (content) {
-            this.elementBody.html(content).show();
-        } else {
-            this.elementBody.hide();
-        }
+        element
+            .find(this.ns('header'))
+                .html(title).toggle(Boolean(title) && options.showTitle)
+            .end()
+            .find(this.ns('content'))
+                .html(content);
 
-        this.fireEvent('load', [content]);
+        this.fireEvent('load', [content, title]);
 
         // Follow the mouse
         if (options.follow) {
             var follow = this.onFollow.bind(this);
 
-            this.node
-                .off('mousemove', follow)
-                .on('mousemove', follow);
+            node.off('mousemove', follow).on('mousemove', follow);
 
-            this.fireEvent('shown');
-
-        // Position accordingly
+        // Position offset node
         } else {
-            this.element.reveal(true).positionTo(options.position, this.node, {
+            element.reveal().positionTo(options.position, node, {
                 left: options.xOffset,
                 top: options.yOffset
             });
-
-            this.fireEvent('shown');
         }
-    },
 
-    /**
-     * Reset the current tooltip state by removing position and custom classes.
-     */
-    reset: function() {
-        var options = this.options,
-            element = this.element,
-            position = this.runtime.position || options.position,
-            className = this.runtime.className || options.className;
-
-        this.runtime = {};
-
-        element
-            .removeClass(position)
-            .removeClass(className);
+        this.fireEvent('shown');
     },
 
     /**
      * Show the tooltip and determine whether to grab the content from an AJAX call,
-     * a DOM node, or plain text. The content and title can also be passed as arguments.
+     * a DOM node, or plain text. The content can also be passed as an argument.
      *
      * @param {jQuery} node
      * @param {String|jQuery} [content]
      */
     show: function(node, content) {
-        this.reset();
+        this.node = node = $(node).addClass('is-active');
 
-        this.node = node = $(node);
-        this.runtime = this.inheritOptions(this.options, node);
+        // Load the new element
+        this.loadElement(node, function(tooltip) {
+            tooltip
+                .addClass(this.readOption(node, 'position'))
+                .attr('role', 'tooltip');
+        });
 
-        this.loadContent(content || this.readValue(node, this.runtime.getContent));
+        // Load the content
+        this.loadContent(content || this.readValue(node, this.readOption(node, 'getContent')));
     },
 
     /**
@@ -5280,9 +5390,9 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     onFollow: function(e) {
         e.preventDefault();
 
-        var options = this.runtime;
+        var options = this.options;
 
-        this.element.reveal(true).positionTo(options.position, e, {
+        this.element.reveal().positionTo(options.position, e, {
             left: options.xOffset,
             top: options.yOffset
         }, true);
@@ -5311,20 +5421,23 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    template: '<div class="' + vendor + 'tooltip">' +
-        '<div class="' + vendor + 'tooltip-inner">' +
-            '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +
-            '<div class="' + vendor + 'tooltip-body" data-tooltip-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'tooltip-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('tooltips');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('tooltip') + '">' +
+            '<div class="' + bem('tooltip', 'inner') + '">' +
+                '<div class="' + bem('tooltip', 'head') + '" data-tooltip-header></div>' +
+                '<div class="' + bem('tooltip', 'body') + '" data-tooltip-content></div>' +
+            '</div>' +
+            '<div class="' + bem('tooltip', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('tooltip', function(options) {
+Toolkit.createPlugin('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
-
-var TooltipPrototype = Toolkit.Tooltip.prototype;
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
@@ -5341,49 +5454,32 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
         options.mode = 'click'; // Click only
         options.follow = false; // Disable mouse follow
 
-        TooltipPrototype.constructor.call(this, nodes, options);
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    reset: function() {
-        TooltipPrototype.reset.call(this);
-
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    show: function() {
-        TooltipPrototype.show.apply(this, arguments);
-
-        if (this.node) {
-            this.node.addClass('is-active');
-        }
+        Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
     }
 
 }, {
     getContent: 'data-popover',
-    template: '<div class="' + vendor + 'popover">' +
-        '<div class="' + vendor + 'popover-inner">' +
-            '<div class="' + vendor + 'popover-head" data-popover-header></div>' +
-            '<div class="' + vendor + 'popover-body" data-popover-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'popover-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('popovers');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('popover') + '">' +
+            '<div class="' + bem('popover', 'inner') + '">' +
+                '<div class="' + bem('popover', 'head') + '" data-popover-header></div>' +
+                '<div class="' + bem('popover', 'body') + '" data-popover-content></div>' +
+            '</div>' +
+            '<div class="' + bem('popover', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('popover', function(options) {
+Toolkit.createPlugin('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
 
-Toolkit.Showcase = Toolkit.Component.extend({
+Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Is the showcase currently animating? */
     animating: false,
@@ -5415,7 +5511,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
     constructor: function(nodes, options) {
         var element;
 
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = element = this.createElement();
 
         // Nodes found in the page on initialization
@@ -5532,17 +5628,18 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
         // Reset previous styles
         listItems.conceal(true);
-        caption.conceal();
+        caption.conceal(true);
         element
             .addClass('is-loading')
-            .aria('busy', true);
+            .aria('busy', true)
+            .reveal();
 
         // Setup deferred callbacks
         this.animating = true;
 
         deferred.always(function(width, height) {
             list.transitionend(function() {
-                caption.html(item.title).reveal();
+                caption.html(item.title).reveal(true);
                 listItem.reveal(true);
                 self.position();
                 self.animating = false;
@@ -5579,6 +5676,11 @@ Toolkit.Showcase = Toolkit.Component.extend({
                     deferred.resolve(this.width, this.height);
                     listItem.append(img);
                 };
+        }
+
+        // Hide loader
+        if (this.blackout) {
+            this.blackout.hideLoader();
         }
 
         // Save state
@@ -5626,7 +5728,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
     show: function(node) {
         this.node = node = $(node);
         this.index = -1;
-        this.element.reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,
@@ -5805,19 +5906,21 @@ Toolkit.Showcase = Toolkit.Component.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    template: '<div class="' + vendor + 'showcase">' +
-        '<div class="' + vendor + 'showcase-inner">' +
-            '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +
-            '<ol class="' + vendor + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
-            '<button class="' + vendor + 'showcase-prev" data-showcase-prev></button>' +
-            '<button class="' + vendor + 'showcase-next" data-showcase-next></button>' +
-        '</div>' +
-        '<button class="' + vendor + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
-        '<div class="' + vendor + 'showcase-caption" data-showcase-caption></div>' +
-    '</div>'
+    template: function(bem) {
+        return '<div class="' + bem('showcase') + '">' +
+            '<div class="' + bem('showcase', 'inner') + '">' +
+                '<ul class="' + bem('showcase', 'items') + '" data-showcase-items></ul>' +
+                '<ol class="' + bem('showcase', 'tabs') + ' bullets" data-showcase-tabs></ol>' +
+                '<button class="' + bem('showcase', 'prev') + '" data-showcase-prev></button>' +
+                '<button class="' + bem('showcase', 'next') + '" data-showcase-next></button>' +
+            '</div>' +
+            '<button class="' + bem('showcase', 'close') + '" data-showcase-close><span class="x"></span></button>' +
+            '<div class="' + bem('showcase', 'caption') + '" data-showcase-caption></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('showcase', function(options) {
+Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 
@@ -5844,8 +5947,8 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options);
+        element = this.setElement(element);
+        options = this.setOptions(options);
 
         if (!options.target || !options.marker) {
             throw new Error('A marker and target is required');
@@ -6010,7 +6113,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
     applyToParent: true
 });
 
-Toolkit.create('stalker', function(options) {
+Toolkit.createPlugin('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });
 
@@ -6039,8 +6142,8 @@ Toolkit.Tab = Toolkit.Component.extend({
     constructor: function(element, options) {
         var sections, tabs, self = this;
 
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Determine cookie name
         if (!options.cookie) {
@@ -6255,13 +6358,13 @@ Toolkit.Tab = Toolkit.Component.extend({
     getUrl: 'href'
 });
 
-Toolkit.create('tab', function(options) {
+Toolkit.createPlugin('tab', function(options) {
     return new Toolkit.Tab(this, options);
 });
 
-Toolkit.Toast = Toolkit.Component.extend({
+Toolkit.Toast = Toolkit.CompositeComponent.extend({
     name: 'Toast',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the toast.
@@ -6271,17 +6374,16 @@ Toolkit.Toast = Toolkit.Component.extend({
      */
     constructor: function(element, options) {
         this.nodes = element = $(element); // Set to nodes so instances are unset during destroy()
-        this.options = options = this.setOptions(options, element);
-        this.element = this.createElement()
+        options = this.setOptions(options, element);
+
+        // Create the toasts wrapper
+        this.createWrapper()
             .addClass(options.position)
-            .removeClass(options.animation)
             .attr('role', 'log')
             .aria({
                 relevant: 'additions',
                 hidden: 'false'
-            })
-            .appendTo(element)
-            .reveal();
+            });
 
         this.initialize();
     },
@@ -6296,12 +6398,12 @@ Toolkit.Toast = Toolkit.Component.extend({
         options = $.extend({}, this.options, options || {});
 
         var self = this,
-            toast = $(options.toastTemplate)
+            toast = this.render(options.template)
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
                 .conceal()
-                .prependTo(this.element);
+                .prependTo(this.wrapper);
 
         this.fireEvent('create', [toast]);
 
@@ -6355,15 +6457,19 @@ Toolkit.Toast = Toolkit.Component.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    template: '<aside class="' + vendor + 'toasts"></aside>',
-    toastTemplate: '<div class="' + vendor + 'toast"></div>'
+    wrapperClass: function(bem) {
+        return bem('toasts');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('toast') + '"></div>';
+    }
 });
 
-Toolkit.create('toast', function(options) {
+Toolkit.createPlugin('toast', function(options) {
     return new Toolkit.Toast(this, options);
 });
 
-Toolkit.TypeAhead = Toolkit.Component.extend({
+Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
     version: '2.0.0',
 
@@ -6403,7 +6509,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         var self = this;
 
-        this.options = options = this.setOptions(options, input);
+        options = this.setOptions(options, input);
         this.element = this.createElement()
             .attr('role', 'listbox')
             .aria('multiselectable', false);
@@ -6439,7 +6545,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         // Enable shadow inputs
         if (options.shadow) {
-            this.wrapper = $(this.options.shadowTemplate);
+            this.wrapper = this.render(this.options.shadowTemplate);
 
             this.shadow = this.input.clone()
                 .addClass('is-shadow')
@@ -6504,10 +6610,10 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
             'aria-selected': 'false'
         });
 
-        a.append( $(this.options.titleTemplate).html(this.highlight(item.title)) );
+        a.append( this.render(this.options.titleTemplate).html(this.highlight(item.title)) );
 
         if (item.description) {
-            a.append( $(this.options.descTemplate).html(item.description) );
+            a.append( this.render(this.options.descTemplate).html(item.description) );
         }
 
         return a;
@@ -6540,8 +6646,8 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
         var terms = this.term.replace(/[\-\[\]\{\}()*+?.,\\^$|#]/g, '\\$&').split(' '),
             options = this.options,
             callback = function(match) {
-                return $(options.highlightTemplate).html(match).toString();
-            };
+                return this.render(options.highlightTemplate).html(match).toString();
+            }.bind(this);
 
         for (var i = 0, t; t = terms[i]; i++) {
             item = item.replace(new RegExp(t, 'ig'), callback);
@@ -6585,10 +6691,10 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
 
         var iPos = this.input.offset();
 
-        this.element.css({
-            left: iPos.left,
-            top: (iPos.top + this.input.outerHeight())
-        }).reveal();
+        this.element
+            .css('top', iPos.top + this.input.outerHeight())
+            .css(Toolkit.isRTL ? 'right' : 'left', iPos.left)
+            .reveal();
 
         this.input.aria('expanded', true);
 
@@ -6710,7 +6816,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
                 results.push(null);
 
                 elements.push(
-                    $(options.headingTemplate).append( $('<span/>', { text: category }) )
+                    this.render(options.headingTemplate).append( $('<span/>', { text: category }) )
                 );
             }
 
@@ -6943,12 +7049,24 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     prefetch: false,
     shadow: false,
     query: {},
-    template: '<div class="' + vendor + 'type-ahead"></div>',
-    shadowTemplate: '<div class="' + vendor + 'type-ahead-shadow"></div>',
-    titleTemplate: '<span class="' + vendor + 'type-ahead-title"></span>',
-    descTemplate: '<span class="' + vendor + 'type-ahead-desc"></span>',
-    highlightTemplate: '<mark class="' + vendor + 'type-ahead-highlight"></mark>',
-    headingTemplate: '<li class="' + vendor + 'type-ahead-heading"></li>',
+    template: function(bem) {
+        return '<div class="' + bem('type-ahead') + '"></div>';
+    },
+    shadowTemplate: function(bem) {
+        return '<div class="' + bem('type-ahead', 'shadow') + '"></div>';
+    },
+    titleTemplate: function(bem) {
+        return '<span class="' + bem('type-ahead', 'title') + '"></span>';
+    },
+    descTemplate: function(bem) {
+        return '<span class="' + bem('type-ahead', 'desc') + '"></span>';
+    },
+    highlightTemplate: function(bem) {
+        return '<mark class="' + bem('type-ahead', 'highlight') + '"></mark>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('type-ahead', 'heading') + '"></li>';
+    },
 
     // Callbacks
     sorter: null,
@@ -6956,7 +7074,7 @@ Toolkit.TypeAhead = Toolkit.Component.extend({
     builder: null
 });
 
-Toolkit.create('typeAhead', function(options) {
+Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
 

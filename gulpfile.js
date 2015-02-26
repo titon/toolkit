@@ -84,7 +84,7 @@ gulp.task('css', function() {
         .pipe(gulp.dest(buildPath))
 
         // Minified
-        .pipe(minify())
+        .pipe(minify({ advanced: false }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath));
 });
