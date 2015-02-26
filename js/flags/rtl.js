@@ -4,12 +4,10 @@
  * @link        http://titon.io
  */
 
-define([
-    '../core'
-], function(Toolkit) {
+define(function() {
 
-// Dereference the vendor property
-var vendor = Toolkit.vendor;
+// Is the HTML document currently set to RTL mode?
+var isRTL = (document.documentElement.dir === 'rtl');
 
-return vendor;
+return isRTL;
 });

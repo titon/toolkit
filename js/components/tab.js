@@ -36,8 +36,8 @@ Toolkit.Tab = Toolkit.Component.extend({
     constructor: function(element, options) {
         var sections, tabs, self = this;
 
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Determine cookie name
         if (!options.cookie) {
@@ -252,7 +252,7 @@ Toolkit.Tab = Toolkit.Component.extend({
     getUrl: 'href'
 });
 
-Toolkit.create('tab', function(options) {
+Toolkit.createPlugin('tab', function(options) {
     return new Toolkit.Tab(this, options);
 });
 

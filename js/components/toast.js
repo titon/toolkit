@@ -7,13 +7,12 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../extensions/transitionend'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
-Toolkit.Toast = Toolkit.Component.extend({
+Toolkit.Toast = Toolkit.CompositeComponent.extend({
     name: 'Toast',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the toast.
@@ -23,17 +22,16 @@ Toolkit.Toast = Toolkit.Component.extend({
      */
     constructor: function(element, options) {
         this.nodes = element = $(element); // Set to nodes so instances are unset during destroy()
-        this.options = options = this.setOptions(options, element);
-        this.element = this.createElement()
+        options = this.setOptions(options, element);
+
+        // Create the toasts wrapper
+        this.createWrapper()
             .addClass(options.position)
-            .removeClass(options.animation)
             .attr('role', 'log')
             .aria({
                 relevant: 'additions',
                 hidden: 'false'
-            })
-            .appendTo(element)
-            .reveal();
+            });
 
         this.initialize();
     },
@@ -48,12 +46,12 @@ Toolkit.Toast = Toolkit.Component.extend({
         options = $.extend({}, this.options, options || {});
 
         var self = this,
-            toast = $(options.toastTemplate)
+            toast = this.render(options.template)
                 .addClass(options.animation)
                 .attr('role', 'note')
                 .html(content)
                 .conceal()
-                .prependTo(this.element);
+                .prependTo(this.wrapper);
 
         this.fireEvent('create', [toast]);
 
@@ -107,11 +105,15 @@ Toolkit.Toast = Toolkit.Component.extend({
     position: 'bottom-left',
     animation: 'slide-up',
     duration: 5000,
-    template: '<aside class="' + vendor + 'toasts"></aside>',
-    toastTemplate: '<div class="' + vendor + 'toast"></div>'
+    wrapperClass: function(bem) {
+        return bem('toasts');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('toast') + '"></div>';
+    }
 });
 
-Toolkit.create('toast', function(options) {
+Toolkit.createPlugin('toast', function(options) {
     return new Toolkit.Toast(this, options);
 });
 

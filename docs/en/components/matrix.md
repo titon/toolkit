@@ -61,7 +61,7 @@ matrix.refresh();
 
 When columns are rendered, their widths may fluctuate a few pixels to scale accordingly.
 Because of this, fixed width images may render incorrectly, or just look off.
-We suggest adding `.fluid` from the [Responsive component](responsive.md) to all inline images.
+We suggest adding `.fluid` from the [base CSS](../development/css/base.md) to all inline images.
 
 ```html
 <li>
@@ -131,8 +131,8 @@ Inherits all options from the [parent Component](component.md#options).
         <tr>
             <td>rtl</td>
             <td>bool</td>
-            <td>false</td>
-            <td>Render items in reverse right-to-left format instead of left-to-right.</td>
+            <td>Toolkit.isRTL</td>
+            <td>Render items in reverse order for right-to-left languages.</td>
         </tr>
         <tr>
             <td>width</td>

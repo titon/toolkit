@@ -7,14 +7,13 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
-Toolkit.Modal = Toolkit.Component.extend({
+Toolkit.Modal = Toolkit.TemplateComponent.extend({
     name: 'Modal',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Blackout element if enabled. */
     blackout: null,
@@ -26,7 +25,8 @@ Toolkit.Modal = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        this.options = options = this.setOptions(options);
+        this.nodes = $(nodes);
+        options = this.setOptions(options);
         this.element = this.createElement()
             .attr('role', 'dialog')
             .aria('labelledby', this.id('title'))
@@ -37,26 +37,14 @@ Toolkit.Modal = Toolkit.Component.extend({
             this.element.addClass('is-fullscreen');
         }
 
-        // Nodes found in the page on initialization
-        this.nodes = $(nodes);
-
+        // Setup blackout
         if (options.blackout) {
             this.blackout = Toolkit.Blackout.instance();
-
-            if (options.stopScroll) {
-                this.blackout.addHook('hidden', function(hidden) {
-                    if (hidden) {
-                        $('body').removeClass('no-scroll');
-                    }
-                });
-            }
         }
 
         // Initialize events
         this.addEvents([
             ['keydown', 'window', 'onKeydown'],
-            //['clickout', 'element', 'onHide'],
-            //['clickout', 'document', 'onHide', '{selector}'],
             ['click', 'document', 'onShow', '{selector}'],
             ['click', 'element', 'hide', this.ns('close')],
             ['click', 'element', 'onSubmit', this.ns('submit')]
@@ -79,6 +67,10 @@ Toolkit.Modal = Toolkit.Component.extend({
 
         if (this.blackout) {
             this.blackout.hide();
+        }
+
+        if (this.options.stopScroll) {
+            $('body').removeClass('no-scroll');
         }
 
         this.fireEvent('hidden');
@@ -233,15 +225,17 @@ Toolkit.Modal = Toolkit.Component.extend({
     stopScroll: true,
     clickout: true,
     getContent: 'data-modal',
-    template: '<div class="' + vendor + 'modal">' +
-        '<div class="' + vendor + 'modal-outer">' +
-            '<div class="' + vendor + 'modal-inner" data-modal-content></div>' +
-            '<button class="' + vendor + 'modal-close" data-modal-close><span class="x"></span></button>' +
-        '</div>' +
-    '</div>'
+    template: function(bem) {
+        return '<div class="' + bem('modal') + '">' +
+            '<div class="' + bem('modal', 'outer') + '">' +
+                '<div class="' + bem('modal', 'inner') + '" data-modal-content></div>' +
+                '<button class="' + bem('modal', 'close') + '" data-modal-close><span class="x"></span></button>' +
+            '</div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('modal', function(options) {
+Toolkit.createPlugin('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);
 

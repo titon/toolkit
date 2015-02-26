@@ -14,7 +14,7 @@ define([
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -38,10 +38,10 @@ Toolkit.Carousel = Toolkit.Component.extend({
     timer: null,
 
     /** The dimension (width or height) to read sizes from. */
-    _dimension: null,
+    _dimension: '',
 
-    /** The position (left or top) to modify for cycling. */
-    _position: null,
+    /** The position (left, right, or top) to modify for cycling. */
+    _position: '',
 
     /** The size to cycle with. */
     _size: 0,
@@ -58,8 +58,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     constructor: function(element, options) {
         var items, self = this;
 
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element);
+        options = this.setOptions(options, element);
 
         // Set animation and ARIA
         element
@@ -148,10 +148,12 @@ Toolkit.Carousel = Toolkit.Component.extend({
         this.jump(0);
 
         // Remove clones
+        var dir = this._position || 'left';
+
         this.container.transitionend(function() {
             $(this)
                 .addClass('no-transition')
-                .css('left', 0)
+                .css(dir, 0)
                 .find('li.is-cloned')
                     .remove();
         });
@@ -464,7 +466,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         } else if (animation === 'slide') {
             this._dimension = 'width';
-            this._position = 'left';
+            this._position = options.rtl ? 'right' : 'left';
         }
     },
 
@@ -576,13 +578,14 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
+    rtl: Toolkit.isRTL,
     swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0
 });
 
-Toolkit.create('carousel', function(options) {
+Toolkit.createPlugin('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });
 

@@ -16,9 +16,9 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
     </thead>
     <tbody>
         <tr>
-            <td>$vendor-prefix</td>
+            <td>$namespace</td>
             <td></td>
-            <td>Will prefix all top level class names with a vendor or namespace (do not include a .).</td>
+            <td>Will prefix all top level class names with a namespace (do not include a .).</td>
         </tr>
         <tr>
             <td>$bem-element-separator</td>
@@ -70,6 +70,11 @@ This can and should be achieved by writing Sass (or CSS) after installing Toolki
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>$text-direction</td>
+            <td>ltr</td>
+            <td>Outputs CSS in either LTR (left-to-right) or RTL (right-to-left) format.</td>
+        </tr>
         <tr>
             <td>$enable-small-size</td>
             <td>true</td>

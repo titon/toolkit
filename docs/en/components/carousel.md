@@ -225,12 +225,12 @@ attributes are required when supporting ARIA.
         <tr>
             <td>$carousel-class-modifier-square</td>
             <td>.carousel--square</td>
-            <td>Name of the square modifier to append to carousel classes.</td>
+            <td>CSS class name for the carousel square modifier.</td>
         </tr>
         <tr>
             <td>$carousel-class-modifier-wide</td>
             <td>.carousel--wide</td>
-            <td>Name of the wide modifier to append to carousel classes.</td>
+            <td>CSS class name for the carousel wide modifier.</td>
         </tr>
         <tr>
             <td>$carousel-modifiers</td>
@@ -319,6 +319,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>false</td>
             <td>Will reverse the direction for automatic cycling.</td>
+        </tr>
+        <tr>
+            <td>rtl</td>
+            <td>bool</td>
+            <td>Toolkit.isRTL</td>
+            <td>Will reverse the carousel for right-to-left languages.</td>
         </tr>
         <tr>
             <td>stopOnHover</td>

@@ -39,7 +39,7 @@ $('.tabs').tab();
 </div>
 
 <div class="notice is-info">
-    Tabs can be nested by <a href="../development/js/component.md#namespaces">utilizing namespaces</a>.
+    Tabs can be nested by <a href="../development/js/component.md#namespaces">utilizing component namespaces</a>.
 </div>
 
 <div class="notice is-info">
@@ -175,7 +175,7 @@ attributes are required when supporting ARIA.
         <tr>
             <td>$tab-class-modifier-horizontal</td>
             <td>.tabs--horizontal</td>
-            <td>Name of the horizontal modifier to append to tabs classes.</td>
+            <td>CSS class name for the tabs horizontal modifier.</td>
         </tr>
         <tr>
             <td>$tab-class-nav</td>

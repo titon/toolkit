@@ -6,29 +6,31 @@
 
 @import "../common";
 
-#{$mask-class} {
-    @include full-screen(absolute);
-    z-index: $mask-zindex;
-    opacity: 0;
-    visibility: hidden;
-    background: black($mask-opacity);
-    transition: all $mask-transition;
-    color: #fff;
-    user-select: none;
-}
+@include export("mask") {
+    #{$mask-class} {
+        @include full-screen(absolute);
+        z-index: $mask-zindex;
+        opacity: 0;
+        visibility: hidden;
+        background: black($mask-opacity);
+        transition: all $mask-transition;
+        color: #fff;
+        user-select: none;
+    }
 
-#{$mask-class-message} {
-    text-align: center;
-    max-width: 80%;
-    @include position-center;
+    #{$mask-class-message} {
+        text-align: center;
+        max-width: 80%;
+        @include position-center;
 
-    &:empty { display: none; }
-}
+        &:empty { display: none; }
+    }
 
-#{$mask-class-target} {
-    overflow: hidden;
+    #{$mask-class-target} {
+        overflow: hidden;
 
-    // Fixes issues where mask does not display in iOS
-    // Kind of hacky? Other solutions?
-    -webkit-backface-visibility: hidden;
+        // Fixes issues where mask does not display in iOS
+        // Kind of hacky? Other solutions?
+        -webkit-backface-visibility: hidden;
+    }
 }

@@ -6,26 +6,28 @@
 
 @import "../common";
 
-#{$blackout-class} {
-    @include full-screen();
-    z-index: $blackout-zindex;
-    opacity: 0;
-    visibility: hidden;
-    background: black($blackout-opacity);
+@include export("blackout") {
+    #{$blackout-class} {
+        @include full-screen();
+        z-index: $blackout-zindex;
+        opacity: 0;
+        visibility: hidden;
+        background: black($blackout-opacity);
 
-    // Using visibility transition also causes weirdness
-    transition: opacity $blackout-transition;
+        // Using visibility transition also causes weirdness
+        transition: opacity $blackout-transition;
 
-    // This fixes issues in Chrome where the blackout properties are visible/block
-    // But the blackout is still not visible by the client IRL
-    -webkit-backface-visibility: hidden;
+        // This fixes issues in Chrome where the blackout properties are visible/block
+        // But the blackout is still not visible by the client IRL
+        -webkit-backface-visibility: hidden;
 
-    #{$loader-class} {
-        @include position-center;
-        opacity: 1;
-        color: #fff;
+        #{$loader-class} {
+            @include position-center;
+            opacity: 1;
+            color: #fff;
 
-        > span,
-        #{$loader-class-spinner} > span { background: #fff !important; }
+            > span,
+            #{$loader-class-spinner} > span { background: #fff !important; }
+        }
     }
 }

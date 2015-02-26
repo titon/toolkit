@@ -18,17 +18,17 @@ describe('Toolkit.Toast', function() {
     });
 
     describe('constructor()', function() {
-        it('should create the toasts container', function() {
+        it('should create the toasts wrapper', function() {
             expect($('body').find('> .toasts').length).to.equal(1);
         });
 
         it('should set the position as a class name', function() {
-            expect(toast.element.hasClass('bottom-left')).to.be.true;
+            expect(toast.wrapper.hasClass('bottom-left')).to.be.true;
         });
 
         it('should set ARIA attributes', function() {
-            expect(toast.element.attr('role')).to.equal('log');
-            expect(toast.element.aria('relevant')).to.equal('additions');
+            expect(toast.wrapper.attr('role')).to.equal('log');
+            expect(toast.wrapper.aria('relevant')).to.equal('additions');
         });
     });
 
@@ -38,7 +38,7 @@ describe('Toolkit.Toast', function() {
 
             expect(element.hasClass('toast')).to.be.true;
             expect(element.text()).to.equal('Foo');
-            expect($.contains(toast.element[0], element[0])).to.be.true;
+            expect($.contains(toast.wrapper[0], element[0])).to.be.true;
         });
 
         it('should set the animation class name', function() {
@@ -56,7 +56,7 @@ describe('Toolkit.Toast', function() {
         it('should allow custom options to be set', function() {
             toast.create('Foo', {
                 animation: 'slide-left',
-                toastTemplate: '<section class="toast"></section>'
+                template: '<section class="toast"></section>'
             });
 
             expect(element.prop('tagName').toLowerCase()).to.equal('section');
@@ -80,10 +80,10 @@ describe('Toolkit.Toast', function() {
         it('should remove the toast after the duration', function(done) {
             toast.create('Foo');
 
-            expect($.contains(toast.element[0], element[0])).to.be.true;
+            expect($.contains(toast.wrapper[0], element[0])).to.be.true;
 
             setTimeout(function() {
-                expect($.contains(toast.element[0], element[0])).to.be.false;
+                expect($.contains(toast.wrapper[0], element[0])).to.be.false;
 
                 done();
             }, 1100);

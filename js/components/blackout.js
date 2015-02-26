@@ -6,14 +6,13 @@
 
 define([
     'jquery',
-    './component',
-    '../flags/vendor'
-], function($, Toolkit, vendor) {
+    './component'
+], function($, Toolkit) {
 
 /** Has the blackout been created already? */
 var blackout = null;
 
-Toolkit.Blackout = Toolkit.Component.extend({
+Toolkit.Blackout = Toolkit.TemplateComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
@@ -32,11 +31,11 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(options) {
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = this.createElement();
 
         // Generate loader elements
-        this.loader = $(options.loaderTemplate).appendTo(this.element);
+        this.loader = this.render(options.loaderTemplate).appendTo(this.element);
         this.message = this.loader.find(this.ns('message', 'loader'));
 
         if (options.showLoading) {
@@ -79,7 +78,6 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Hide the loader.
      */
     hideLoader: function() {
-
         // There's an issue on Chrome where calling conceal() here doesn't work
         // when the blackout is being transitioned. So just change it's display.
         this.loader.hide();
@@ -109,19 +107,22 @@ Toolkit.Blackout = Toolkit.Component.extend({
      * Show the loader.
      */
     showLoader: function() {
-
         // The same problem for hide() applies here, so just change the display.
         this.loader.show();
     }
 
 }, {
     showLoading: true,
-    template: '<div class="' + vendor + 'blackout"></div>',
+    template: function(bem) {
+        return '<div class="' + bem('blackout') + '"></div>';
+    },
     templateFrom: '#toolkit-blackout-1',
-    loaderTemplate: '<div class="' + vendor + 'loader bar-wave">' +
-        '<span></span><span></span><span></span><span></span><span></span>' +
-        '<div class="' + vendor + 'loader-message" data-loader-message></div>' +
-    '</div>'
+    loaderTemplate: function(bem) {
+        return '<div class="' + bem('loader') + ' bar-wave">' +
+            '<span></span><span></span><span></span><span></span><span></span>' +
+            '<div class="' + bem('loader', 'message') + '" data-loader-message></div>' +
+        '</div>';
+    }
 });
 
 /**

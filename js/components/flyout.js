@@ -7,21 +7,17 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
-Toolkit.Flyout = Toolkit.Component.extend({
+Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Current URL to generate a flyout menu for. */
-    current: null,
+    url: '',
 
-    /** Collection of flyout elements indexed by URL. */
-    menus: {},
-
-    /** Raw sitemap JSON data. */
+    /** Raw JSON data. */
     data: [],
 
     /** Data indexed by URL. */
@@ -38,8 +34,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, url, options) {
+        if (Toolkit.isTouch) {
+            return; // Flyouts shouldn't be usable on touch devices
+        }
+
         this.nodes = $(nodes);
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
+        this.createWrapper();
 
         if (options.mode === 'click') {
             this.addEvent('click', 'document', 'onShowToggle', '{selector}');
@@ -55,18 +56,16 @@ Toolkit.Flyout = Toolkit.Component.extend({
 
         // Load data from the URL
         if (url) {
-            $.getJSON(url, this.load.bind(this));
+            $.getJSON(url, function(response) {
+                this.load(response);
+            }.bind(this));
         }
     },
 
     /**
-     * Remove all the flyout menu elements and timers before destroying.
+     * Remove timers before destroying.
      */
     destructor: function() {
-        $.each(this.menus, function(i, menu) {
-            menu.remove();
-        });
-
         this.clearTimer('show');
         this.clearTimer('hide');
     },
@@ -85,36 +84,13 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Hide the currently shown menu.
      */
     hide: function() {
-        // Must be called even if the menu is hidden
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-
-        if (!this.isVisible()) {
-            return;
-        }
-
         this.fireEvent('hiding');
 
         this.element.conceal();
 
+        this.node.removeClass('is-active');
+
         this.fireEvent('hidden');
-
-        // Reset last
-        this.element = this.current = null;
-    },
-
-    /**
-     * Return true if the current menu exists and is visible.
-     *
-     * @returns {bool}
-     */
-    isVisible: function() {
-        if (this.current && this.menus[this.current]) {
-            this.element = this.menus[this.current];
-        }
-
-        return (this.element && this.element.is(':shown'));
     },
 
     /**
@@ -127,7 +103,7 @@ Toolkit.Flyout = Toolkit.Component.extend({
         depth = depth || 0;
 
         // If root, store the data
-        if (depth === 0) {
+        if (!depth) {
             this.data = data;
         }
 
@@ -147,31 +123,39 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Position the menu below the target node.
      */
     position: function() {
-        var target = this.current,
-            options = this.options;
+        var options = this.options,
+            node = this.node,
+            element = this.loadElement(node);
 
-        if (!this.menus[target]) {
+        // Only position if the menu has children
+        if (!element.children().length) {
             return;
         }
 
         this.fireEvent('showing');
 
-        var menu = this.menus[target],
-            height = menu.outerHeight(),
-            coords = this.node.offset(),
+        var height = element.outerHeight(),
+            coords = node.offset(),
             x = coords.left + options.xOffset,
-            y = coords.top + options.yOffset + this.node.outerHeight(),
-            windowScroll = $(window).height();
+            y = coords.top + options.yOffset + node.outerHeight(),
+            windowScroll = $(window).height(),
+            dir = 'left';
 
         // If menu goes below half page, position it above
         if (y > (windowScroll / 2)) {
             y = coords.top - options.yOffset - height;
         }
 
-        menu.css({
-            left: x,
-            top: y
-        }).reveal();
+        // Change position for RTL
+        if (Toolkit.isRTL) {
+            x = $(window).width() - coords.left - node.outerWidth();
+            dir = 'right';
+        }
+
+        element
+            .css('top', y)
+            .css(dir, x)
+            .reveal();
 
         this.fireEvent('shown');
     },
@@ -182,23 +166,29 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * @param {jQuery} node
      */
     show: function(node) {
-        var target = this._getTarget(node);
+        node = $(node);
+
+        var target = this.readValue(node, this.options.getUrl) || node.attr('href');
 
         // When jumping from one node to another
         // Immediately hide the other menu and start the timer for the current one
-        if (this.current && target !== this.current) {
+        if (this.url && target !== this.url) {
             this.hide();
             this.startTimer('show', this.options.showDelay);
         }
 
-        this.node = $(node);
+        // Set the state
+        this.url = target;
+        this.node = node.addClass('is-active');
 
-        // Find the menu, else create it
-        if (!this._getMenu()) {
-            return;
-        }
+        // Load the menu
+        this.loadElement(node, function(flyout) {
+            flyout.addClass('is-root');
 
-        this.node.addClass('is-active');
+            if (this.dataMap[target]) {
+                this._buildMenu(flyout, this.dataMap[target]);
+            }
+        });
 
         // Display immediately if click
         if (this.options.mode === 'click') {
@@ -235,17 +225,15 @@ Toolkit.Flyout = Toolkit.Component.extend({
      * Build a nested list menu using the data object.
      *
      * @private
-     * @param {jQuery} parent
+     * @param {jQuery} menu
      * @param {Object} data
-     * @returns {jQuery}
      */
-    _buildMenu: function(parent, data) {
+    _buildMenu: function(menu, data) {
         if (!data.children || !data.children.length) {
-            return null;
+            return;
         }
 
         var options = this.options,
-            menu = $(options.template).attr('role', 'menu'),
             groups = [],
             ul,
             li,
@@ -257,11 +245,9 @@ Toolkit.Flyout = Toolkit.Component.extend({
             menu.addClass(options.className);
         }
 
-        if (parent.is('body')) {
-            menu.addClass('is-root');
-        } else {
-            menu.aria('expanded', false);
-        }
+        menu
+            .aria('expanded', false)
+            .attr('role', 'menu');
 
         if (limit && data.children.length > limit) {
             i = 0;
@@ -290,10 +276,12 @@ Toolkit.Flyout = Toolkit.Component.extend({
                     });
 
                     // Add icon
-                    $('<span/>').addClass(child.icon || 'caret-right').prependTo(tag);
+                    $('<span/>')
+                        .addClass(child.icon || (Toolkit.isRTL ? 'caret-left' : 'caret-right'))
+                        .prependTo(tag);
 
                 } else {
-                    li = $(options.headingTemplate);
+                    li = this.render(options.template);
                     tag = $('<span/>', {
                         text: child.title,
                         role: 'presentation'
@@ -312,7 +300,11 @@ Toolkit.Flyout = Toolkit.Component.extend({
                 li.append(tag).appendTo(ul);
 
                 if (child.children && child.children.length) {
-                    this._buildMenu(li, child);
+                    var childMenu = this.render(options.template)
+                        .conceal()
+                        .appendTo(li);
+
+                    this._buildMenu(childMenu, child);
 
                     li.addClass('has-children')
                         .aria('haspopup', true)
@@ -324,10 +316,8 @@ Toolkit.Flyout = Toolkit.Component.extend({
             menu.append(ul);
         }
 
-        menu.appendTo(parent).conceal();
-
         // Only monitor top level menu
-        if (options.mode !== 'click' && parent.is('body')) {
+        if (options.mode !== 'click' && menu.hasClass('is-root')) {
             menu.on({
                 mouseenter: function() {
                     this.clearTimer('hide');
@@ -337,49 +327,6 @@ Toolkit.Flyout = Toolkit.Component.extend({
                 }.bind(this)
             });
         }
-
-        return menu;
-    },
-
-    /**
-     * Get the menu if it exists, else build it and set events.
-     *
-     * @private
-     * @returns {jQuery}
-     */
-    _getMenu: function() {
-        var target = this._getTarget();
-
-        this.current = target;
-
-        if (this.menus[target]) {
-            return this.menus[target];
-        }
-
-        if (this.dataMap[target]) {
-            var menu = this._buildMenu($('body'), this.dataMap[target]);
-
-            if (!menu) {
-                return null;
-            }
-
-            return this.menus[target] = menu;
-        }
-
-        return null;
-    },
-
-    /**
-     * Get the target URL to determine which menu to show.
-     *
-     * @private
-     * @param {jQuery} [node]
-     * @returns {String}
-     */
-    _getTarget: function(node) {
-        node = $(node || this.node);
-
-        return this.readValue(node, this.options.getUrl) || node.attr('href');
     },
 
     /**
@@ -448,22 +395,27 @@ Toolkit.Flyout = Toolkit.Component.extend({
         // Get sizes after menu positioning
         var win = $(window),
             winHeight = win.height() + win.scrollTop(),
-            winWidth = win.width(),
-            parentTop = parent.offset().top,
+            parentOffset = parent.offset(),
             parentHeight = parent.outerHeight(),
-            parentRight = parent.offset().left + parent.outerWidth();
+            oppositeClass = 'push-opposite';
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        var hWidth = parentRight + menu.outerWidth();
-
-        if (hWidth >= winWidth) {
-            menu.addClass('push-left');
+        if (Toolkit.isRTL) {
+            if ((parentOffset.left - menu.outerWidth()) < 0) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         } else {
-            menu.removeClass('push-left');
+            if ((parentOffset.left + parent.outerWidth() + menu.outerWidth()) >= win.width()) {
+                menu.addClass(oppositeClass);
+            } else {
+                menu.removeClass(oppositeClass);
+            }
         }
 
         // Reverse menu vertically if below half way fold
-        if (parentTop > (winHeight / 2)) {
+        if (parentOffset.top > (winHeight / 2)) {
             menu.css('top', '-' + (menu.outerHeight() - parentHeight) + 'px');
         } else {
             menu.css('top', 0);
@@ -473,26 +425,6 @@ Toolkit.Flyout = Toolkit.Component.extend({
         menu.reveal();
 
         this.fireEvent('showChild', [parent]);
-    },
-
-    /**
-     * Event handler to show the menu.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-
-        // Flyouts shouldn't be usable on touch devices
-        if (Toolkit.isTouch) {
-            return;
-        }
-
-        // Set the current element
-        this.isVisible();
-
-        // Trigger the parent
-        Toolkit.Component.prototype.onShowToggle.call(this, e);
     }
 
 }, {
@@ -503,11 +435,18 @@ Toolkit.Flyout = Toolkit.Component.extend({
     showDelay: 350,
     hideDelay: 1000,
     itemLimit: 15,
-    template: '<div class="' + vendor + 'flyout" data-flyout-menu></div>',
-    headingTemplate: '<li class="' + vendor + 'flyout-heading"></li>'
+    wrapperClass: function(bem) {
+        return bem('flyouts');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('flyout') + '" data-flyout-menu></div>';
+    },
+    headingTemplate: function(bem) {
+        return '<li class="' + bem('flyout', 'heading') + '"></li>';
+    }
 });
 
-Toolkit.create('flyout', function(url, options) {
+Toolkit.createPlugin('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
 

@@ -159,17 +159,15 @@ Inherits all options from the [parent Component](component.md#options).
             <td>template</td>
             <td>string</td>
             <td>
-                &lt;aside class="toasts"&gt;&lt;/aside&gt;
-            </td>
-            <td>The outer wrapping markup.</td>
-        </tr>
-        <tr>
-            <td>toastTemplate</td>
-            <td>string</td>
-            <td>
                 &lt;div class="toast"&gt;&lt;/div&gt;
             </td>
-            <td>The individual toast markup.</td>
+            <td>The toast markup.</td>
+        </tr>
+        <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td>toasts</td>
+            <td>The class name to set on the composite wrapper.</td>
         </tr>
     </tbody>
 </table>

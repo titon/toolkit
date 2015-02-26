@@ -215,7 +215,7 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>The element currently being loaded.</td>
         </tr>
         <tr>
-            <td>elements</td>
+            <td>items</td>
             <td>collection</td>
             <td>
                 A collection of elements to load.

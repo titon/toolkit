@@ -53,6 +53,29 @@
             "css": ["components/code.scss"]
         }
     },
+    "flex": {
+        "name": "Flex",
+        "description": "Flexbox based grid and layout. Responsive support through different block sizes.",
+        "category": "component",
+        "type": "layout",
+        "priority": 5,
+        "require": ["base"],
+        "source": {
+            "css": ["components/flex.scss"]
+        },
+        "version": "2.1.0"
+    },
+    "grid": {
+        "name": "Grid",
+        "description": "Fluid float based grid with multiple column support. Responsive support through different column sizes.",
+        "category": "component",
+        "type": "layout",
+        "priority": 6,
+        "require": ["base"],
+        "source": {
+            "css": ["components/grid.scss"]
+        }
+    },
     "responsive": {
         "name": "Responsive",
         "description": "Responsive classes for mobile, tablet and desktop resolutions.",
@@ -63,6 +86,9 @@
             "css": ["components/responsive.scss"]
         }
     },
+
+
+
     "accordion": {
         "name": "Accordion",
         "description": "Allows collapsing and expanding of multiple sections of content.",
@@ -165,17 +191,6 @@
         "source": {
             "css": ["components/flyout.scss"],
             "js": ["components/flyout.js"]
-        }
-    },
-    "grid": {
-        "name": "Grid",
-        "description": "Fluid grid with multiple column support. Supports different columns for responsive sizes.",
-        "category": "component",
-        "type": "element",
-        "priority": 10,
-        "require": ["base"],
-        "source": {
-            "css": ["components/grid.scss"]
         }
     },
     "icon": {

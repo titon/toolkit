@@ -90,7 +90,7 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
 
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

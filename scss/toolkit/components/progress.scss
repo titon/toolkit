@@ -6,56 +6,58 @@
 
 @import "../common";
 
-#{$progress-class} {
-    overflow: hidden;
-    position: relative;
+@include export("progress") {
+    #{$progress-class} {
+        overflow: hidden;
+        position: relative;
 
-    @include is-small {
-        #{$progress-class-bar} {
-            height: 1rem;
-            line-height: 1rem;
-            font-size: $small-size;
+        @include is-small {
+            #{$progress-class-bar} {
+                height: 1rem;
+                line-height: 1rem;
+                font-size: $small-size;
+            }
         }
-    }
 
-    @include is-large {
-        #{$progress-class-bar} {
-            height: 2rem;
-            line-height: 2rem;
-            font-size: $large-size;
+        @include is-large {
+            #{$progress-class-bar} {
+                height: 2rem;
+                line-height: 2rem;
+                font-size: $large-size;
+            }
         }
-    }
 
-    @include clear-fix;
+        @include clear-fix;
 
-    //----- Effects ------//
+        //----- Effects ------//
 
-    &#{$shape-round-class} {
-        #{$progress-class-bar}:first-child {
-            border-top-left-radius: $round;
-            border-bottom-left-radius: $round;
-        }
-    }
-
-    @if index($progress-effects, "pill") {
-        &#{$shape-pill-class} {
-            border-radius: $pill;
-
+        &#{$shape-round-class} {
             #{$progress-class-bar}:first-child {
-                border-top-left-radius: $pill;
-                border-bottom-left-radius: $pill;
+                border-top-#{$align-direction}-radius: $round;
+                border-bottom-#{$align-direction}-radius: $round;
+            }
+        }
+
+        @if index($progress-effects, "pill") {
+            &#{$shape-pill-class} {
+                border-radius: $pill;
+
+                #{$progress-class-bar}:first-child {
+                    border-top-#{$align-direction}-radius: $pill;
+                    border-bottom-#{$align-direction}-radius: $pill;
+                }
             }
         }
     }
-}
 
-#{$progress-class-bar} {
-    height: 1.5rem;
-    line-height: 1.5rem;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    font-size: $medium-size;
-    float: left;
-    transition: width $progress-transition, background $progress-transition;
+    #{$progress-class-bar} {
+        height: 1.5rem;
+        line-height: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        font-size: $medium-size;
+        float: $align-direction;
+        transition: width $progress-transition, background $progress-transition;
+    }
 }

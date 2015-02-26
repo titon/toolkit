@@ -6,50 +6,52 @@
 
 @import "../common";
 
-// Row wrapper
-#{$grid-class} {
-    @include grid-row();
-}
-
-// These should be the same for all sizes
-#{$grid-class-column}[class*="span-"] {
-    @include grid-column();
-}
-
-// Global Push and pull classes
-@if $grid-push-pull {
-    @for $i from 1 through 12 {
-        $span: grid-span($i, 12);
-
-        .push-#{$i} { left: $span; }
-        .pull-#{$i} { right: $span; }
+@include export("grid") {
+    // Row wrapper
+    #{$grid-class} {
+        @include grid-row();
     }
-}
 
-// Grid sizes
-@each $size, $options in $grid-sizes {
-    $size-columns: nth($options, 1);
+    // These should be the same for all sizes
+    #{$grid-class-column}[class*="span-"] {
+        @include grid-column();
+    }
 
-    @include in-range(nth($options, 2)) {
-        #{$grid-class-column}[class*="#{$size}-"] {
-            @include grid-column;
+    // Global Push and pull classes
+    @if $grid-push-pull {
+        @for $i from 1 through 12 {
+            $span: grid-span($i, 12);
+
+            .push-#{$i} { #{$align-direction}: $span; }
+            .pull-#{$i} { #{$align-opposite-direction}: $span; }
         }
+    }
 
-        @for $i from 1 through $size-columns {
-            $span: grid-span($i, $size-columns);
+    // Responsive sizes
+    @each $size, $options in $grid-sizes {
+        $size-columns: nth($options, 1);
 
-            #{$grid-class-column}.#{$size}-#{$i} { width: $span; }
+        @include in-range(nth($options, 2)) {
+            #{$grid-class-column}[class*="#{$size}-"] {
+                @include grid-column;
+            }
 
-            @if $grid-push-pull {
-                #{$grid-class-column}.#{$size}-push-#{$i} { left: $span; }
-                #{$grid-class-column}.#{$size}-pull-#{$i} { right: $span; }
+            @for $i from 1 through $size-columns {
+                $span: grid-span($i, $size-columns);
+
+                #{$grid-class-column}.#{$size}-#{$i} { width: $span; }
+
+                @if $grid-push-pull {
+                    .#{$size}-push-#{$i} { #{$align-direction}: $span; }
+                    .#{$size}-pull-#{$i} { #{$align-opposite-direction}: $span; }
+                }
             }
         }
     }
-}
 
-// End capping
-#{$grid-class-column}#{$grid-class-end} {
-    margin-right: 0 !important;
-    float: right !important;
+    // End capping
+    #{$grid-class-column}#{$grid-class-end} {
+        margin-#{$align-opposite-direction}: 0 !important;
+        float: $align-opposite-direction !important;
+    }
 }

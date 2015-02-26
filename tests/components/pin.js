@@ -36,8 +36,12 @@ describe('Toolkit.Pin', function() {
             pin.destroy();
         });
 
-        it('should remove the pinned classes', function() {
-            expect(element.hasClass('is-pinned')).to.be.false;
+        it('should remove the pinned classes', function(done) {
+            setTimeout(function() {
+                expect(element.hasClass('is-pinned')).to.be.false;
+
+                done();
+            }, 25);
         });
     });
 });

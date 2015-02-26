@@ -7,17 +7,16 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
-Toolkit.Showcase = Toolkit.Component.extend({
+Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /** Is the showcase currently animating? */
     animating: false,
@@ -49,7 +48,7 @@ Toolkit.Showcase = Toolkit.Component.extend({
     constructor: function(nodes, options) {
         var element;
 
-        this.options = options = this.setOptions(options);
+        options = this.setOptions(options);
         this.element = element = this.createElement();
 
         // Nodes found in the page on initialization
@@ -166,17 +165,18 @@ Toolkit.Showcase = Toolkit.Component.extend({
 
         // Reset previous styles
         listItems.conceal(true);
-        caption.conceal();
+        caption.conceal(true);
         element
             .addClass('is-loading')
-            .aria('busy', true);
+            .aria('busy', true)
+            .reveal();
 
         // Setup deferred callbacks
         this.animating = true;
 
         deferred.always(function(width, height) {
             list.transitionend(function() {
-                caption.html(item.title).reveal();
+                caption.html(item.title).reveal(true);
                 listItem.reveal(true);
                 self.position();
                 self.animating = false;
@@ -213,6 +213,11 @@ Toolkit.Showcase = Toolkit.Component.extend({
                     deferred.resolve(this.width, this.height);
                     listItem.append(img);
                 };
+        }
+
+        // Hide loader
+        if (this.blackout) {
+            this.blackout.hideLoader();
         }
 
         // Save state
@@ -260,7 +265,6 @@ Toolkit.Showcase = Toolkit.Component.extend({
     show: function(node) {
         this.node = node = $(node);
         this.index = -1;
-        this.element.reveal();
 
         var options = this.inheritOptions(this.options, node),
             read = this.readValue,
@@ -439,19 +443,21 @@ Toolkit.Showcase = Toolkit.Component.extend({
     getCategory: 'data-showcase',
     getImage: 'href',
     getTitle: 'title',
-    template: '<div class="' + vendor + 'showcase">' +
-        '<div class="' + vendor + 'showcase-inner">' +
-            '<ul class="' + vendor + 'showcase-items" data-showcase-items></ul>' +
-            '<ol class="' + vendor + 'showcase-tabs bullets" data-showcase-tabs></ol>' +
-            '<button class="' + vendor + 'showcase-prev" data-showcase-prev></button>' +
-            '<button class="' + vendor + 'showcase-next" data-showcase-next></button>' +
-        '</div>' +
-        '<button class="' + vendor + 'showcase-close" data-showcase-close><span class="x"></span></button>' +
-        '<div class="' + vendor + 'showcase-caption" data-showcase-caption></div>' +
-    '</div>'
+    template: function(bem) {
+        return '<div class="' + bem('showcase') + '">' +
+            '<div class="' + bem('showcase', 'inner') + '">' +
+                '<ul class="' + bem('showcase', 'items') + '" data-showcase-items></ul>' +
+                '<ol class="' + bem('showcase', 'tabs') + ' bullets" data-showcase-tabs></ol>' +
+                '<button class="' + bem('showcase', 'prev') + '" data-showcase-prev></button>' +
+                '<button class="' + bem('showcase', 'next') + '" data-showcase-next></button>' +
+            '</div>' +
+            '<button class="' + bem('showcase', 'close') + '" data-showcase-close><span class="x"></span></button>' +
+            '<div class="' + bem('showcase', 'caption') + '" data-showcase-caption></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('showcase', function(options) {
+Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 

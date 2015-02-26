@@ -6,7 +6,9 @@
 
 @import "../common";
 
-#{$lazyLoad-class} {
-    background-image: none !important;
-    transition: background-image $lazyLoad-transition;
+@include export("lazy-load") {
+    #{$lazyLoad-class} {
+        background-image: none !important;
+        transition: background-image $lazyLoad-transition;
+    }
 }

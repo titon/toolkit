@@ -156,12 +156,12 @@ When using the vertical modifier, the `aria-orientation` attribute must be defin
         <tr>
             <td>$buttonGroup-class-modifier-justified</td>
             <td>.button-group--justified</td>
-            <td>Name of the justified modifier to append to button group classes.</td>
+            <td>CSS class name for the button group justified modifier.</td>
         </tr>
         <tr>
             <td>$buttonGroup-class-modifier-vertical</td>
             <td>.button-group--vertical</td>
-            <td>Name of the vertical modifier to append to button group classes.</td>
+            <td>CSS class name for the button group vertical modifier.</td>
         </tr>
         <tr>
             <td>$buttonGroup-effects</td>

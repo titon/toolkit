@@ -7,21 +7,14 @@
 define([
     'jquery',
     './component',
-    '../flags/vendor',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit, vendor) {
+], function($, Toolkit) {
 
-Toolkit.Tooltip = Toolkit.Component.extend({
+Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
-    version: '2.0.0',
-
-    /** The element to insert the title. */
-    elementHead: null,
-
-    /** The element to insert the content. */
-    elementBody: null,
+    version: '2.1.0',
 
     /**
      * Initialize the tooltip.
@@ -30,36 +23,24 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, options) {
-        var element;
-
-        this.options = options = this.setOptions(options);
-        this.element = element = this.createElement()
-            .attr('role', 'tooltip')
-            .removeClass(options.className)
-            .css('display', ''); // Remove display none
+        this.nodes = $(nodes);
+        options = this.setOptions(options);
+        this.createWrapper();
 
         // Remove title attributes
         if (options.getTitle === 'title') {
             options.getTitle = 'data-' + this.keyName + '-title';
+
+            this.nodes.each(function(i, node) {
+                $(node).attr(options.getTitle, $(node).attr('title')).removeAttr('title');
+            });
         }
-
-        // Elements for the title and content
-        this.elementHead = element.find(this.ns('header'));
-        this.elementBody = element.find(this.ns('content'));
-
-        // Nodes found in the page on initialization, remove title attribute
-        this.nodes = $(nodes).each(function(i, node) {
-            $(node).attr(options.getTitle, $(node).attr('title')).removeAttr('title');
-        });
 
         // Initialize events
         this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
 
         if (options.mode === 'click') {
-            this.addEvents([
-                ['clickout', 'element', 'hide'],
-                ['clickout', 'document', 'hide', '{selector}']
-            ]);
+            this.addEvent('clickout', 'document', 'hide');
         } else {
             this.addEvent('mouseleave', 'document', 'hide', '{selector}');
         }
@@ -73,12 +54,12 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     hide: function() {
         this.fireEvent('hiding');
 
-        this.reset();
-
-        this.element.conceal(true);
+        this.hideElements();
 
         if (this.node) {
-            this.node.removeAttr('aria-describedby');
+            this.node
+                .removeAttr('aria-describedby')
+                .removeClass('is-active');
         }
 
         this.fireEvent('hidden');
@@ -88,96 +69,73 @@ Toolkit.Tooltip = Toolkit.Component.extend({
      * Positions the tooltip relative to the current node or the mouse cursor.
      * Additionally will apply the title/content and hide/show if necessary.
      *
-     * @param {String|jQuery} [content]
+     * @param {String|jQuery} content
      * @param {String|jQuery} [title]
      */
     position: function(content, title) {
-        var options = $.isEmptyObject(this.runtime) ? this.options : this.runtime;
-
-        // AJAX is currently loading
         if (content === true) {
-            return;
+            return; // AJAX is currently loading
         }
 
         this.fireEvent('showing');
 
-        // Add position class
-        this.element
-            .addClass(options.position)
-            .addClass(options.className);
+        // Set the node state
+        var node = this.node.aria('describedby', this.id());
 
-        // Set ARIA
-        this.node.aria('describedby', this.id());
+        // Load runtime options
+        var options = this.inheritOptions(this.options, node);
 
-        // Set title
-        title = title || this.readValue(this.node, options.getTitle);
+        // Load the element
+        var element = this.loadElement(node);
 
-        if (title && options.showTitle) {
-            this.elementHead.html(title).show();
-        } else {
-            this.elementHead.hide();
-        }
+        // Set the title and content
+        title = title || this.readValue(node, options.getTitle);
 
-        // Set body
-        if (content) {
-            this.elementBody.html(content).show();
-        } else {
-            this.elementBody.hide();
-        }
+        element
+            .find(this.ns('header'))
+                .html(title).toggle(Boolean(title) && options.showTitle)
+            .end()
+            .find(this.ns('content'))
+                .html(content);
 
-        this.fireEvent('load', [content]);
+        this.fireEvent('load', [content, title]);
 
         // Follow the mouse
         if (options.follow) {
             var follow = this.onFollow.bind(this);
 
-            this.node
-                .off('mousemove', follow)
-                .on('mousemove', follow);
+            node.off('mousemove', follow).on('mousemove', follow);
 
-            this.fireEvent('shown');
-
-        // Position accordingly
+        // Position offset node
         } else {
-            this.element.reveal(true).positionTo(options.position, this.node, {
+            element.reveal().positionTo(options.position, node, {
                 left: options.xOffset,
                 top: options.yOffset
             });
-
-            this.fireEvent('shown');
         }
-    },
 
-    /**
-     * Reset the current tooltip state by removing position and custom classes.
-     */
-    reset: function() {
-        var options = this.options,
-            element = this.element,
-            position = this.runtime.position || options.position,
-            className = this.runtime.className || options.className;
-
-        this.runtime = {};
-
-        element
-            .removeClass(position)
-            .removeClass(className);
+        this.fireEvent('shown');
     },
 
     /**
      * Show the tooltip and determine whether to grab the content from an AJAX call,
-     * a DOM node, or plain text. The content and title can also be passed as arguments.
+     * a DOM node, or plain text. The content can also be passed as an argument.
      *
      * @param {jQuery} node
      * @param {String|jQuery} [content]
      */
     show: function(node, content) {
-        this.reset();
+        this.node = node = $(node).addClass('is-active');
 
-        this.node = node = $(node);
-        this.runtime = this.inheritOptions(this.options, node);
+        // Load the new element
+        this.loadElement(node, function(tooltip) {
+            tooltip
+                .addClass(this.readOption(node, 'position'))
+                .attr('role', 'tooltip');
+        });
 
-        this.loadContent(content || this.readValue(node, this.runtime.getContent));
+        // Load the content
+        this.loadContent(content || this.readValue(node, this.readOption(node, 'getContent')));
     },
 
     /**
@@ -189,9 +147,9 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     onFollow: function(e) {
         e.preventDefault();
 
-        var options = this.runtime;
+        var options = this.options;
 
-        this.element.reveal(true).positionTo(options.position, e, {
+        this.element.reveal().positionTo(options.position, e, {
             left: options.xOffset,
             top: options.yOffset
         }, true);
@@ -220,16 +178,21 @@ Toolkit.Tooltip = Toolkit.Component.extend({
     mouseThrottle: 50,
     xOffset: 0,
     yOffset: 0,
-    template: '<div class="' + vendor + 'tooltip">' +
-        '<div class="' + vendor + 'tooltip-inner">' +
-            '<div class="' + vendor + 'tooltip-head" data-tooltip-header></div>' +
-            '<div class="' + vendor + 'tooltip-body" data-tooltip-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'tooltip-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('tooltips');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('tooltip') + '">' +
+            '<div class="' + bem('tooltip', 'inner') + '">' +
+                '<div class="' + bem('tooltip', 'head') + '" data-tooltip-header></div>' +
+                '<div class="' + bem('tooltip', 'body') + '" data-tooltip-content></div>' +
+            '</div>' +
+            '<div class="' + bem('tooltip', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('tooltip', function(options) {
+Toolkit.createPlugin('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
 

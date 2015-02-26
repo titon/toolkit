@@ -243,12 +243,12 @@ may be helpful.
         <tr>
             <td>$form-class-modifier-inline</td>
             <td>.form--inline</td>
-            <td>Name of the inline modifier to append to form classes.</td>
+            <td>CSS class name for the form inline modifier.</td>
         </tr>
         <tr>
             <td>$form-class-modifier-horizontal</td>
             <td>.form--horizontal</td>
-            <td>Name of the horizontal modifier to append to form classes.</td>
+            <td>CSS class name for the form horizontal modifier.</td>
         </tr>
         <tr>
             <td>$form-class-input</td>

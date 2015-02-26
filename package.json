@@ -1,5 +1,5 @@
 {
-    "version": "2.0.2",
+    "version": "2.1.0",
     "name": "titon-toolkit",
     "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
     "keywords": [
@@ -31,7 +31,6 @@
         "mocha-phantomjs": "~3",
         "phantomjs": "~1",
         "chai": "~1",
-        "which": "~1",
         "node-sass": "~1",
         "gulp": "~3",
         "gulp-util": "~3",

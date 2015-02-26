@@ -227,6 +227,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The tooltip markup. The <code>data-tooltip-*</code> attributes are required.</td>
         </tr>
         <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td>tooltips</td>
+            <td>The class name to set on the composite wrapper.</td>
+        </tr>
+        <tr>
             <td>xOffset</td>
             <td>int</td>
             <td>0</td>
@@ -256,7 +262,7 @@ Inherits all events from the [parent Component](component.md#events).
     <tbody>
         <tr>
             <td>load</td>
-            <td>mixed:content</td>
+            <td>mixed:content, mixed:title</td>
             <td>Triggered after the tooltip content has been set but before it is shown.</td>
         </tr>
     </tbody>
@@ -265,37 +271,6 @@ Inherits all events from the [parent Component](component.md#events).
 ## Properties ##
 
 Inherits all properties from the [parent Component](component.md#properties).
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Found With</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>elementBody</td>
-            <td>element</td>
-            <td>The element used for content.</td>
-            <td>[data-tooltip-content]</td>
-        </tr>
-        <tr>
-            <td>elementHead</td>
-            <td>element</td>
-            <td>The element used for titles.</td>
-            <td>[data-tooltip-header]</td>
-        </tr>
-        <tr>
-            <td>cache</td>
-            <td>object</td>
-            <td>Collection of cached AJAX requests indexed by URL.</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
 
 ## Methods ##
 
@@ -311,16 +286,11 @@ Inherits all methods from the [parent Component](component.md#methods).
     </thead>
     <tbody>
         <tr>
-            <td>position([string:content[, string:title]])</td>
+            <td>position(string:content[, string:title])</td>
             <td>
                 Position the content relative to the node and set optional content and title.
                 This method is called automatically by <code>show()</code>.
             </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>reset()</td>
-            <td>Resets the tooltip state by removing position and custom classes from the element, and clearing the runtime options.</td>
             <td></td>
         </tr>
         <tr>

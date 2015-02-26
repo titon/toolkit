@@ -6,32 +6,33 @@
 
 @import "../common";
 
-#{$notice-class} {
-    margin: $margin 0;
-    padding: $padding;
-    text-align: left;
+@include export("notice") {
+    #{$notice-class} {
+        margin: $margin 0;
+        padding: $padding;
 
-    hr {
+        hr {
+            border: 0;
+            border-top: 1px solid white(.15);
+        }
+
+        p:first-child {
+            margin-top: 0;
+        }
+    }
+
+    #{$notice-class-close} {
+        float: $align-opposite-direction;
+        margin-#{$align-direction}: $margin;
+        line-height: 1rem;
+        padding: 5px;
+        background: none;
         border: 0;
-        border-top: 1px solid white(.15);
+
+        & ~ p { margin: 0; }
     }
 
-    p:first-child {
-        margin-top: 0;
+    #{$notice-class-title} {
+        margin: 0 0 ($margin / 2) 0;
     }
-}
-
-#{$notice-class-close} {
-    float: right;
-    margin-left: $margin;
-    line-height: 1rem;
-    padding: 5px;
-    background: none;
-    border: 0;
-
-    & ~ p { margin: 0; }
-}
-
-#{$notice-class-title} {
-    margin: 0 0 ($margin / 2) 0;
 }

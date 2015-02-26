@@ -33,8 +33,8 @@ Toolkit.Stalker = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element);
-        this.options = options = this.setOptions(options);
+        element = this.setElement(element);
+        options = this.setOptions(options);
 
         if (!options.target || !options.marker) {
             throw new Error('A marker and target is required');
@@ -199,7 +199,7 @@ Toolkit.Stalker = Toolkit.Component.extend({
     applyToParent: true
 });
 
-Toolkit.create('stalker', function(options) {
+Toolkit.createPlugin('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });
 

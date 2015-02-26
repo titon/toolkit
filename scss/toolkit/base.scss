@@ -9,6 +9,10 @@
 // Use border-box for everything
 *, *::after, *::before { box-sizing: border-box; }
 
+// RTL
+*[dir="rtl"], .rtl { direction: rtl; unicode-bidi: embed; }
+bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
+
 // Alignment
 .align-left { text-align: left; }
 .align-center { text-align: center; }
@@ -28,6 +32,13 @@
 .hidden { display: none; }
 .no-scroll { overflow: hidden !important; }
 .no-transition { transition: none !important; }
+
+.fluid {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
 
 .sr-only {
     position: absolute;

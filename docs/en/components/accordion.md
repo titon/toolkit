@@ -42,7 +42,7 @@ $('.accordion').accordion();
 </div>
 
 <div class="notice is-info">
-    Accordions can be nested by <a href="../development/js/component.md#namespaces">utilizing namespaces</a>.
+    Accordions can be nested by <a href="../development/js/component.md#namespaces">utilizing component namespaces</a>.
 </div>
 
 <div class="notice is-warning">

@@ -39,8 +39,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = element = this.setElement(element).attr('role', 'complementary').conceal();
-        this.options = options = this.setOptions(options, element);
+        element = this.setElement(element).attr('role', 'complementary').conceal();
+        options = this.setOptions(options, element);
 
         var animation = options.animation;
 
@@ -228,7 +228,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     swipe: Toolkit.isTouch
 });
 
-Toolkit.create('offCanvas', function(options) {
+Toolkit.createPlugin('offCanvas', function(options) {
     return new Toolkit.OffCanvas(this, options);
 });
 

@@ -2,8 +2,7 @@ const PLUGIN_NAME = 'toolkit-phantomjs';
 
 var gutil = require('gulp-util'),
     through = require('through2'),
-    spawn = require('child_process').spawn,
-    which = require('which');
+    spawn = require('child_process').spawn
 
 module.exports = function(options) {
     gutil.log(gutil.colors.yellow('Running PhantomJS...'));
@@ -12,7 +11,7 @@ module.exports = function(options) {
     var stream = through.obj();
 
     // Run Mocha + PhantomJS
-    var phantom = spawn(which.sync('mocha-phantomjs'), [
+    var phantom = spawn('./node_modules/.bin/mocha-phantomjs', [
         '--reporter=' + options.reporter,
         './tests/runner.html'
     ]);

@@ -26,9 +26,6 @@ Toolkit.Base = Toolkit.Class.extend({
     /** Static options defined during construction. */
     options: {},
 
-    /** Dynamic options generated at runtime. */
-    runtime: {},
-
     /** Events and functions to bind. */
     __events: [],
 
@@ -152,9 +149,14 @@ Toolkit.Base = Toolkit.Class.extend({
     destroy: function() {
         this.fireEvent('destroying');
 
-        // Trigger destructor
+        // Trigger child destructor
         if (this.destructor) {
             this.destructor();
+        }
+
+        // Trigger base destructor
+        if (this.doDestroy) {
+            this.doDestroy();
         }
 
         // Remove events
@@ -271,6 +273,8 @@ Toolkit.Base = Toolkit.Class.extend({
                 delete opts[key];
             }
         }
+
+        this.options = opts;
 
         return opts;
     }

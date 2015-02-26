@@ -44,8 +44,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = this.setElement(element);
-        this.options = this.setOptions(options, this.element);
+        this.setElement(element);
+        this.setOptions(options, this.element);
 
         // Set events
         this.addEvent('horizontalresize', 'window', $.debounce(this.onResize.bind(this)));
@@ -354,11 +354,11 @@ Toolkit.Matrix = Toolkit.Component.extend({
 }, {
     width: 200,
     gutter: 20,
-    rtl: false,
+    rtl: Toolkit.isRTL,
     defer: true
 });
 
-Toolkit.create('matrix', function(options) {
+Toolkit.createPlugin('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });
 

@@ -197,11 +197,6 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             <td>Configurable options. More information can be found above.</td>
         </tr>
         <tr>
-            <td>runtime</td>
-            <td>object</td>
-            <td>Options that are inherited at runtime dynamically per element through data attributes.</td>
-        </tr>
-        <tr>
             <td>uid</td>
             <td>int</td>
             <td>

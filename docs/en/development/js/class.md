@@ -59,9 +59,9 @@ var legs = new Mammal();
     legs.run(); // running = true
 ```
 
-## Custom Constructors ##
+## Custom Constructors & Destructors ##
 
-An optional `constructor` property can be defined to bootstrap the class on instantiation.
+An optional `constructor` function can be defined to bootstrap the class on instantiation.
 The arguments passed to the object during instantiation will also be passed to the constructor.
 
 Using our first example, let's set a name from the constructor.
@@ -76,6 +76,16 @@ var Animal = Toolkit.Class.extend({
 
 var beast = new Animal('Fenrir');
     beast.name; // Fenrir
+```
+
+Likewise, an optional `destructor` function can be defined that will be called anytime the class is `destroy()`ed. This functionality is only available when extending the [base class](base.md).
+
+```javascript
+var Animal = Toolkit.Class.extend({
+    destructor: function() {
+        // Cleanup
+    }
+});
 ```
 
 ### Prototype Override ###

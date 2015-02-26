@@ -1,10 +1,10 @@
 'use strict';
 
 var pkg = require('./package.json'),
-    rjs = require('./build/plugins/requirejs'),
-    pjs = require('./build/plugins/phantomjs'),
-    sass = require('./build/plugins/sass'),
-    toc = require('./build/plugins/toc'),
+    rjs = require('./gulp/requirejs'),
+    pjs = require('./gulp/phantomjs'),
+    sass = require('./gulp/sass'),
+    toc = require('./gulp/toc'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     header = require('gulp-header'),
@@ -24,6 +24,7 @@ var pkg = require('./package.json'),
  * The --plugins parameter can be used to filter down plugins
  * The --[no-]normalize parameter will include or exclude normalize.css from the output
  * The --dist parameter will determine which folder to build to: build, or dist
+ * The --rtl parameter will append a `-rtl` to the CSS filename
  */
 
 var graph = new compartment();
@@ -51,6 +52,7 @@ if (options.plugins) {
     });
 }
 
+// Include normalize first
 if (options.normalize || !('normalize' in options)) {
     toPackage.unshift('normalize');
 }
@@ -74,11 +76,16 @@ gulp.task('css', function() {
         .pipe(concat('toolkit.css'))
         .pipe(prefixer('last 3 versions'))
         .pipe(header(banner, { pkg: pkg }))
+        .pipe(rename(function(path) {
+            if (options.rtl) {
+                path.basename += '-rtl';
+            }
+        }))
         .pipe(gulp.dest(buildPath))
 
         // Minified
-        .pipe(rename({ suffix: '.min' }))
         .pipe(minify())
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath));
 });
 
@@ -92,13 +99,13 @@ gulp.task('js', function() {
         .pipe(gulp.dest(buildPath))
 
         // Minified
-        .pipe(rename({ suffix: '.min' }))
         .pipe(uglify({
             // `some` includes more than just ! comments
             preserveComments: function(node, comment) {
                 return comment.value.match(/^!/);
             }
         }))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath));
 });
 

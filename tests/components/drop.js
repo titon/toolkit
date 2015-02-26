@@ -9,7 +9,7 @@ describe('Toolkit.Drop', function() {
         drop;
 
     before(function() {
-        element = $('<button/>').addClass('js-drop').text('Foobar').data('drop', 'drop').appendTo('body');
+        element = $('<button/>').addClass('js-drop').text('Foobar').attr('data-drop', '#drop').appendTo('body');
 
         menu = $('<ul class="drop drop--down" data-drop-menu></ul>').attr('id', 'drop').html('<li>Item</li>').appendTo('body');
 
@@ -23,7 +23,7 @@ describe('Toolkit.Drop', function() {
 
     describe('hide()', function() {
         it('should hide the menu', function(done) {
-            drop.show(menu, element);
+            drop.show(element);
 
             setTimeout(function() {
                 expect(menu.hasClass('show')).to.be.true;
@@ -37,7 +37,7 @@ describe('Toolkit.Drop', function() {
         });
 
         it('should remove the active state on the node', function(done) {
-            drop.show(menu, element);
+            drop.show(element);
 
             setTimeout(function() {
                 expect(element.hasClass('is-active')).to.be.true;
@@ -57,7 +57,7 @@ describe('Toolkit.Drop', function() {
         it('should show the menu', function(done) {
             expect(menu.hasClass('show')).to.be.false;
 
-            drop.show(menu, element);
+            drop.show(element);
 
             setTimeout(function() {
                 expect(menu.hasClass('show')).to.be.true;
@@ -72,7 +72,7 @@ describe('Toolkit.Drop', function() {
             expect(element.hasClass('is-active')).to.be.false;
             expect(element.aria('expanded')).to.equal('false');
 
-            drop.show(menu, element);
+            drop.show(element);
 
             setTimeout(function() {
                 expect(element.hasClass('is-active')).to.be.true;
@@ -87,7 +87,7 @@ describe('Toolkit.Drop', function() {
 
     describe('destroy()', function() {
         before(function() {
-            drop.show(menu, element);
+            drop.show(element);
             drop.destroy();
         });
 

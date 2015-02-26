@@ -6,11 +6,8 @@
 
 define([
     'jquery',
-    './tooltip',
-    '../flags/vendor'
-], function($, Toolkit, vendor) {
-
-var TooltipPrototype = Toolkit.Tooltip.prototype;
+    './tooltip'
+], function($, Toolkit) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
@@ -27,43 +24,26 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
         options.mode = 'click'; // Click only
         options.follow = false; // Disable mouse follow
 
-        TooltipPrototype.constructor.call(this, nodes, options);
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    reset: function() {
-        TooltipPrototype.reset.call(this);
-
-        if (this.node) {
-            this.node.removeClass('is-active');
-        }
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    show: function() {
-        TooltipPrototype.show.apply(this, arguments);
-
-        if (this.node) {
-            this.node.addClass('is-active');
-        }
+        Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
     }
 
 }, {
     getContent: 'data-popover',
-    template: '<div class="' + vendor + 'popover">' +
-        '<div class="' + vendor + 'popover-inner">' +
-            '<div class="' + vendor + 'popover-head" data-popover-header></div>' +
-            '<div class="' + vendor + 'popover-body" data-popover-content></div>' +
-        '</div>' +
-        '<div class="' + vendor + 'popover-arrow"></div>' +
-    '</div>'
+    wrapperClass: function(bem) {
+        return bem('popovers');
+    },
+    template: function(bem) {
+        return '<div class="' + bem('popover') + '">' +
+            '<div class="' + bem('popover', 'inner') + '">' +
+                '<div class="' + bem('popover', 'head') + '" data-popover-header></div>' +
+                '<div class="' + bem('popover', 'body') + '" data-popover-content></div>' +
+            '</div>' +
+            '<div class="' + bem('popover', 'arrow') + '"></div>' +
+        '</div>';
+    }
 });
 
-Toolkit.create('popover', function(options) {
+Toolkit.createPlugin('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
 

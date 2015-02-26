@@ -11,9 +11,9 @@ define([
     '../extensions/shown-selector'
 ], function($, Toolkit) {
 
-Toolkit.Drop = Toolkit.Component.extend({
+Toolkit.Drop = Toolkit.CompositeComponent.extend({
     name: 'Drop',
-    version: '2.0.0',
+    version: '2.1.0',
 
     /**
      * Initialize the drop.
@@ -23,7 +23,7 @@ Toolkit.Drop = Toolkit.Component.extend({
      */
     constructor: function(nodes, options) {
         this.nodes = $(nodes);
-        this.options = this.setOptions(options);
+        this.setOptions(options);
 
         // Set events
         this.addEvents([
@@ -47,40 +47,62 @@ Toolkit.Drop = Toolkit.Component.extend({
     },
 
     /**
-     * Hide the opened element and remove active state.
+     * Find the menu for the current node.
+     *
+     * @param {jQuery} node
      */
-    hide: function() {
-        var element = this.element;
+    createElement: function(node) {
+        var target = this.readValue(node, this.options.getTarget);
 
-        if (element && element.is(':shown')) {
-            this.fireEvent('hiding');
-
-            element.conceal();
-
-            this.node
-                .aria('toggled', false)
-                .removeClass('is-active');
-
-            this.fireEvent('hidden', [element, this.node]);
+        if (!target || target.substr(0, 1) !== '#') {
+            throw new Error('Drop menu ' + target + ' does not exist');
         }
+
+        return $(target);
     },
 
     /**
-     * Open the target menu and apply active state.
+     * Hide the opened menu and reset the nodes active state.
+     */
+    hide: function() {
+        var element = this.element,
+            node = this.node;
+
+        // Clickout check
+        if (!element && !node) {
+            return;
+        }
+
+        this.fireEvent('hiding', [element, node]);
+
+        element.conceal();
+
+        node
+            .aria('toggled', false)
+            .removeClass('is-active');
+
+        this.fireEvent('hidden', [element, node]);
+    },
+
+    /**
+     * Open the target menu and apply active state to the node.
      *
-     * @param {jQuery} menu
      * @param {jQuery} node
      */
-    show: function(menu, node) {
-        this.fireEvent('showing');
+    show: function(node) {
+        this.node = node = $(node);
 
-        this.element = menu = $(menu).reveal();
+        var element = this.loadElement(node);
 
-        this.node = node = $(node)
+        this.fireEvent('showing', [element, node]);
+
+        element.reveal();
+
+        node
             .aria('toggled', true)
             .addClass('is-active');
 
-        this.fireEvent('shown', [menu, node]);
+        this.fireEvent('shown', [element, node]);
     },
 
     /**
@@ -93,37 +115,27 @@ Toolkit.Drop = Toolkit.Component.extend({
     onShow: function(e) {
         e.preventDefault();
 
-        var node = $(e.currentTarget),
-            options = this.options,
-            target = this.readValue(node, options.getTarget);
-
-        if (!target || target.substr(0, 1) !== '#') {
-            return;
-        }
-
         // Hide previous drops
-        if (options.hideOpened && this.node && !this.node.is(node)) {
-            this.hide();
-        }
+        this.hide();
 
-        var menu = $(target);
+        // Toggle the menu
+        var node = $(e.currentTarget),
+            menu = this.loadElement(node);
 
         if (!menu.is(':shown')) {
-            this.show(menu, node);
+            this.show(node);
 
         } else {
-            this.element = menu;
             this.hide();
         }
     }
 
 }, {
     mode: 'click',
-    getTarget: 'data-drop',
-    hideOpened: true
+    getTarget: 'data-drop'
 });
 
-Toolkit.create('drop', function(options) {
+Toolkit.createPlugin('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);
 

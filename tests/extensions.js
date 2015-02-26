@@ -21,7 +21,7 @@ describe('Extensions', function() {
             expect($('<span/>').aria('live', 'off').toString()).to.equal('<span aria-live="off"></span>');
         });
 
-        it('should autobox true and false booleans', function() {
+        it('should box true and false booleans', function() {
             expect($('<span/>').aria('expanded', true).toString()).to.equal('<span aria-expanded="true"></span>');
             expect($('<span/>').aria('expanded', false).toString()).to.equal('<span aria-expanded="false"></span>');
         });
@@ -383,6 +383,11 @@ describe('Extensions', function() {
         });
 
         it('should trigger the callback when the transition is complete', function(done) {
+            if (window.isPhantom) {
+                done();
+                return; // PhantomJS doesn't want to respect the transition settings
+            }
+
             expect(count).to.equal(1);
 
             element.transitionend(function() {
@@ -395,7 +400,7 @@ describe('Extensions', function() {
                 expect(count).to.equal(3);
 
                 done();
-            }, 275);
+            }, 300);
         });
 
         it('should trigger the callback immediately if no transition exists', function() {

@@ -8,14 +8,42 @@ describe('Toolkit', function() {
         expect(window).to.have.property('Toolkit');
     });
 
-    describe('create()', function() {
+    describe('bem()', function() {
+        it('should generate a class name', function() {
+            expect(Toolkit.bem('foo')).to.equal('foo');
+            expect(Toolkit.bem('foo', 'bar')).to.equal('foo-bar');
+            expect(Toolkit.bem('foo', 'bar', 'baz')).to.equal('foo-bar--baz');
+            expect(Toolkit.bem('foo', '', 'baz')).to.equal('foo--baz');
+        });
+
+        it('should be able to customize separators', function() {
+            Toolkit.bemSeparators = ['__', '---'];
+
+            expect(Toolkit.bem('foo')).to.equal('foo');
+            expect(Toolkit.bem('foo', 'bar')).to.equal('foo__bar');
+            expect(Toolkit.bem('foo', 'bar', 'baz')).to.equal('foo__bar---baz');
+            expect(Toolkit.bem('foo', '', 'baz')).to.equal('foo---baz');
+
+            Toolkit.bemSeparators = ['-', '--'];
+        });
+
+        it('should prepend the `namespace`', function() {
+            Toolkit.namespace = 'tk-';
+
+            expect(Toolkit.bem('foo', 'bar')).to.equal('tk-foo-bar');
+
+            Toolkit.namespace = '';
+        });
+    });
+
+    describe('createPlugin()', function() {
         function Stub(value) {
             this.value = value;
         }
 
         before(function() {
-            Toolkit.create('single', function() { return new Stub('single'); });
-            Toolkit.create('multiple', function() { return new Stub('multiple'); }, true);
+            Toolkit.createPlugin('single', function() { return new Stub('single'); });
+            Toolkit.createPlugin('multiple', function() { return new Stub('multiple'); }, true);
         });
 
         it('should extend the jQuery prototype', function() {
@@ -43,7 +71,7 @@ describe('Toolkit', function() {
         });
 
         it('should rename method when a collision occurs', function() {
-            Toolkit.create('single', function() {});
+            Toolkit.createPlugin('single', function() {});
 
             expect($.fn).to.have.property('single');
             expect($.fn).to.have.property('toolkitSingle');
@@ -56,6 +84,35 @@ describe('Toolkit', function() {
             delete $.fn.toolkitSingle;
 
             Toolkit.cache = {};
+        });
+    });
+
+    describe('buildTemplate()', function() {
+        it('should return a string', function() {
+            expect(Toolkit.buildTemplate('foo')).to.equal('foo');
+            expect(Toolkit.buildTemplate(123)).to.equal('123');
+        });
+
+        it('should execute a function if passed', function() {
+            expect(Toolkit.buildTemplate(function() {
+                return 'foo';
+            })).to.equal('foo');
+        });
+
+        it('should pass `bem()` to the function', function() {
+            expect(Toolkit.buildTemplate(function(bem) {
+                return bem('b', 'e', 'm');
+            })).to.equal('b-e--m');
+        });
+
+        it('should pass `namespace` to the function', function() {
+            Toolkit.namespace = 'tk-';
+
+            expect(Toolkit.buildTemplate(function(bem, namespace) {
+                return namespace + 'foo';
+            })).to.equal('tk-foo');
+
+            Toolkit.namespace = '';
         });
     });
 });

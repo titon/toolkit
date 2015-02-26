@@ -6,71 +6,77 @@
 
 @import "../common";
 
-#{$flyout-class} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: $flyout-zindex;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity $flyout-transition, visibility $flyout-transition;
+@include export("flyout") {
+    #{$flyout-class} {
+        position: absolute;
+        top: 0;
+        #{$align-direction}: 0;
+        z-index: $flyout-zindex;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $flyout-transition, visibility $flyout-transition;
 
-    ul {
-        @include reset-list;
-        float: left;
-        width: 200px;
-    }
-
-    li {
-        position: relative;
-
-        > a {
-            padding: $small-padding;
-            line-height: 100%;
-            display: block;
-            text-decoration: none;
-
-            .caret-right { display: none; }
+        ul {
+            @include reset-list;
+            float: $align-direction;
+            width: 200px;
         }
 
-        // Display caret arrow
-        &.has-children > a .caret-right {
-            float: right;
-            display: inline-block; // reveal
-            margin-top: 3px;
-        }
+        li {
+            position: relative;
 
-        // Nested flyouts
-        > #{$flyout-class} {
-            left: 90%;
-            transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition, visibility $flyout-transition;
+            > a {
+                padding: $small-padding;
+                line-height: 100%;
+                display: block;
+                text-decoration: none;
 
-            // Reverse menu to left side in case it goes outside the viewport
-            // Will be set automatically from the Javascript layer
-            &.push-left {
-                left: auto;
-                right: 90%;
+                .caret-right,
+                .caret-left { display: none; }
+            }
+
+            // Display caret arrow
+            &.has-children > a {
+                .caret-right,
+                .caret-left {
+                    float: $align-opposite-direction;
+                    display: inline-block; // reveal
+                    margin-top: 3px;
+                }
+            }
+
+            // Nested flyouts
+            > #{$flyout-class} {
+                #{$align-direction}: 90%;
+                transition: left $flyout-transition, right $flyout-transition, opacity $flyout-transition, visibility $flyout-transition;
+
+                // Reverse menu to left side in case it goes outside the viewport
+                // Will be set automatically from the Javascript layer
+                &.push-opposite {
+                    #{$align-direction}: auto;
+                    #{$align-opposite-direction}: 90%;
+                }
+            }
+
+            &.is-open > #{$flyout-class} {
+                opacity: 1;
+                visibility: visible;
+                #{$align-direction}: 100%;
+
+                &.push-opposite {
+                    #{$align-direction}: auto;
+                    #{$align-opposite-direction}: 100%;
+                }
             }
         }
 
-        &.is-open > #{$flyout-class} {
-            opacity: 1;
-            visibility: visible;
-            left: 100%;
-
-            &.push-left {
-                left: auto;
-                right: 100%;
-            }
-        }
+        @include clear-fix;
     }
 
-    @include clear-fix;
-}
-
-#{$flyout-class-heading} {
-    padding: $small-padding;
-    line-height: 100%;
-    display: block;
-    text-decoration: none;
+    #{$flyout-class-heading} {
+        padding: $small-padding;
+        line-height: 100%;
+        display: block;
+        text-decoration: none;
+    }
 }

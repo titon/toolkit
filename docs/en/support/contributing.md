@@ -30,7 +30,7 @@ the following guidelines must be followed.
 * If fixing a bug, must reference an existing issue
 * If adding new functionality, must include code snippets or examples for testing
 * Code changes must not include other changes outside the scope of the initial issue
-* Must follow the [JS conventions](../development/js/conventions.md) and [CSS conventions](../development/css/bem.md)
+* Must follow the [JS conventions](../development/js/conventions.md) and [CSS conventions](../development/bem.md)
 
 ## Contributors ##
 

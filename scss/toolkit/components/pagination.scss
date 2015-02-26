@@ -6,101 +6,125 @@
 
 @import "../common";
 
-#{$pagination-class} {
-    margin: $margin 0;
+@include export("pagination") {
+    #{$pagination-class} {
+        margin: $margin 0;
 
-    ol {
-        @include reset-list;
-        @include clear-fix;
+        ol {
+            @include reset-list;
+            @include clear-fix;
 
-        > li {
-            position: relative;
-            float: left;
-            margin-right: $padding / 2;
+            > li {
+                position: relative;
+                float: $align-direction;
+                margin-#{$align-opposite-direction}: $padding / 2;
 
-            > a {
-                display: block;
-            }
+                > a {
+                    display: block;
+                }
 
-            &.is-active {
-                z-index: 1;
+                &.is-active {
+                    z-index: 1;
+                }
             }
         }
     }
-}
 
-//-------------------- Modifiers --------------------//
+    //-------------------- Modifiers --------------------//
 
-@if index($pagination-modifiers, "grouped") {
-    #{$pagination-class-modifier-grouped} {
-        ol > li {
-            margin: 0;
-
-            &:hover,
-            > a:hover { z-index: 1; }
-
-            > a {
+    @if index($pagination-modifiers, "grouped") {
+        #{$pagination-class-modifier-grouped} {
+            ol > li {
                 margin: 0;
-                border-radius: 0;
-            }
-        }
 
-        //----- Effects -----//
+                &:hover,
+                > a:hover { z-index: 1; }
 
-        &#{$shape-round-class} ol {
-            border-radius: $round;
-
-            > li:first-child > a {
-                border-top-left-radius: $round;
-                border-bottom-left-radius: $round;
-            }
-
-            > li:last-child > a {
-                border-top-right-radius: $round;
-                border-bottom-right-radius: $round;
-            }
-        }
-
-        @if index($pagination-effects, "oval") {
-            &#{$shape-oval-class} ol {
-                border-radius: #{$oval-x} / #{$oval-y};
-
-                > li:first-child a {
-                    border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
-                }
-
-                > li:last-child a {
-                    border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                > a {
+                    margin: 0;
+                    border-radius: 0;
                 }
             }
-        }
 
-        @if index($pagination-effects, "pill") {
-            &#{$shape-pill-class} ol {
-                border-radius: $pill;
+            //----- Effects -----//
 
-                > li:first-child a {
-                    border-top-left-radius: $pill;
-                    border-bottom-left-radius: $pill;
+            &#{$shape-round-class} ol {
+                border-radius: $round;
+
+                > li:first-child > a {
+                    border-top-#{$align-direction}-radius: $round;
+                    border-bottom-#{$align-direction}-radius: $round;
                 }
 
-                > li:last-child a {
-                    border-top-right-radius: $pill;
-                    border-bottom-right-radius: $pill;
+                > li:last-child > a {
+                    border-top-#{$align-opposite-direction}-radius: $round;
+                    border-bottom-#{$align-opposite-direction}-radius: $round;
                 }
             }
-        }
 
-        @if index($pagination-effects, "skew") {
-            &#{$shape-skew-class} ol {
-                border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
+            @if index($pagination-effects, "oval") {
+                &#{$shape-oval-class} ol {
+                    border-radius: #{$oval-x} / #{$oval-y};
 
-                > li:first-child a {
-                    border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
+                    @if $text-direction == rtl {
+                        > li:first-child a {
+                            border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                        }
+
+                        > li:last-child a {
+                            border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
+                        }
+
+                    } @else {
+                        > li:first-child a {
+                            border-radius: #{$oval-x} 0 0 #{$oval-x} / #{$oval-y} 0 0 #{$oval-y};
+                        }
+
+                        > li:last-child a {
+                            border-radius: 0 #{$oval-x} #{$oval-x} 0 / 0 #{$oval-y} #{$oval-y} 0;
+                        }
+                    }
                 }
+            }
 
-                > li:last-child a {
-                    border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+            @if index($pagination-effects, "pill") {
+                &#{$shape-pill-class} ol {
+                    border-radius: $pill;
+
+                    > li:first-child a {
+                        border-top-#{$align-direction}-radius: $pill;
+                        border-bottom-#{$align-direction}-radius: $pill;
+                    }
+
+                    > li:last-child a {
+                        border-top-#{$align-opposite-direction}-radius: $pill;
+                        border-bottom-#{$align-opposite-direction}-radius: $pill;
+                    }
+                }
+            }
+
+            @if index($pagination-effects, "skew") {
+                &#{$shape-skew-class} ol {
+                    border-radius: #{$skew-x $skew-x} 0 0 / #{$skew-y $skew-y} 0 0;
+
+                    @if $text-direction == rtl {
+                        > li:first-child a {
+                            border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+                        }
+
+                        > li:last-child a {
+                            border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
+                        }
+
+                    } @else {
+                        > li:first-child a {
+                            border-radius: #{$skew-x} 0 0 0 / #{$skew-y} 0 0 0;
+                        }
+
+                        > li:last-child a {
+                            border-radius: 0 #{$skew-x} 0 0 / 0 #{$skew-y} 0 0;
+                        }
+                    }
                 }
             }
         }

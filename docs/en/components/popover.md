@@ -143,6 +143,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The popover markup. The <code>data-popover-*</code> attributes are required.</td>
         </tr>
         <tr>
+            <td>wrapperClass</td>
+            <td>string</td>
+            <td>popovers</td>
+            <td>The class name to set on the composite wrapper.</td>
+        </tr>
+        <tr>
             <td>xOffset</td>
             <td>int</td>
             <td>0</td>
@@ -164,31 +170,6 @@ Inherits all events from the [parent Component](component.md#events) and the [To
 ## Properties ##
 
 Inherits all properties from the [parent Component](component.md#properties) and the [Tooltip component](tooltip.md#properties).
-
-<table class="table is-striped data-table">
-    <thead>
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Found With</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>elementBody</td>
-            <td>element</td>
-            <td>The element used for content.</td>
-            <td>[data-popover-content]</td>
-        </tr>
-        <tr>
-            <td>elementHead</td>
-            <td>element</td>
-            <td>The element used for titles.</td>
-            <td>[data-popover-header]</td>
-        </tr>
-    </tbody>
-</table>
 
 ## Methods ##
 

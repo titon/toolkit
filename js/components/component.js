@@ -8,32 +8,27 @@ define([
     'jquery',
     '../base',
     '../extensions/aria',
+    '../extensions/cache',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
 ], function($, Toolkit) {
 
+/**
+ * Class for elements already embedded in the page.
+ */
 Toolkit.Component = Toolkit.Base.extend({
     name: 'Component',
-    version: '2.0.0',
+    version: '2.1.0',
 
-    /** Whether the element was created automatically or not. */
-    created: false,
-
-    /** The target element. Either created through a template, or embedded in the DOM. */
+    /** The target element. Either the embedded element, or the current element in the composite layer. */
     element: null,
 
-    /** Collection of elements related to the component. */
-    elements: [],
-
-    /** The namespace to find children elements in. */
+    /** The namespace to find child elements in. */
     namespace: '',
 
     /** The element that activated the component. */
     node: null,
-
-    /** Collection of nodes. */
-    nodes: [],
 
     /**
      * A basic constructor that sets an element and its options.
@@ -42,73 +37,8 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Object} [options]
      */
     constructor: function(element, options) {
-        this.element = this.setElement(element);
-        this.options = this.setOptions(options, this.element);
-    },
-
-    /**
-     * Create an element from the `template` or `templateFrom` option.
-     *
-     * @returns {jQuery}
-     */
-    createElement: function() {
-        var template, options = this.options;
-
-        // Use another element as the template
-        if (options.templateFrom) {
-            template = $(options.templateFrom);
-        }
-
-        // From a string
-        if ((!template || !template.length) && options.template) {
-            template = $(options.template).hide().addClass('hide').appendTo('body');
-        }
-
-        if (!template) {
-            throw new Error('Failed to create template element');
-        }
-
-        // Add a class name
-        if (options.className) {
-            template.addClass(options.className);
-        }
-
-        // Enable animations
-        if (options.animation) {
-            template.addClass(options.animation);
-        }
-
-        // Set a flag so we know if the element was created or embedded
-        this.created = true;
-
-        return template.attr('id', this.id());
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    destroy: function() {
-
-        // Remove cached plugin instances
-        var key = this.keyName;
-
-        if (this.nodes && this.nodes.length) {
-            this.nodes.removeData('toolkit.' + key);
-
-            delete Toolkit.cache[key + ':' + this.nodes.selector];
-
-        } else if (this.element && this.element.length) {
-            this.element.removeData('toolkit.' + key);
-        }
-
-        // Trigger destructors
-        Toolkit.Base.prototype.destroy.call(this);
-
-        // Remove element and state only if it was created
-        if (this.created) {
-            this.hide();
-            this.element.remove();
-        }
+        this.setElement(element);
+        this.setOptions(options, this.element);
     },
 
     /**
@@ -126,11 +56,11 @@ Toolkit.Component = Toolkit.Base.extend({
             event.context = this;
 
         // Trigger event on the element and the node
-        if (element && element.length) {
+        if (element) {
             element.trigger(event, args || []);
         }
 
-        if (node && node.length) {
+        if (node) {
             node.trigger(event, args || []);
         }
     },
@@ -310,6 +240,16 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Render a template and return a jQuery element.
+     *
+     * @param {String|Function} template
+     * @returns {jQuery}
+     */
+    render: function(template) {
+        return $(Toolkit.buildTemplate(template));
+    },
+
+    /**
      * Request data from a URL and handle all the possible scenarios.
      *
      * @param {Object} options
@@ -355,7 +295,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @returns {jQuery}
      */
     setElement: function(element) {
-        element = $(element);
+        this.element = element = $(element);
 
         // Find a namespace
         this.namespace = element.data(this.keyName) || '';
@@ -395,6 +335,8 @@ Toolkit.Component = Toolkit.Base.extend({
             opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
         }
 
+        this.options = opts;
+
         return opts;
     },
 
@@ -413,6 +355,15 @@ Toolkit.Component = Toolkit.Base.extend({
         this.element.reveal();
 
         this.fireEvent('shown');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        if (this.element) {
+            this.element.removeData('toolkit.' + this.keyName);
+        }
     },
 
     /**
@@ -490,6 +441,180 @@ Toolkit.Component = Toolkit.Base.extend({
         e.preventDefault();
 
         this.show(e.currentTarget);
+    }
+
+}, {
+    ajax: {},
+    context: null,
+    className: ''
+});
+
+/**
+ * Class for elements that are rendered through templates.
+ */
+Toolkit.TemplateComponent = Toolkit.Component.extend({
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(options) {
+        options = options || this.options;
+
+        // Create template
+        var template = $(options.templateFrom);
+
+        if (!template.length) {
+            template = this.render(options.template);
+        }
+
+        if (!template.length) {
+            throw new Error('Failed to render template');
+        }
+
+        // Add a class name
+        if (options.className) {
+            template.addClass(options.className);
+        }
+
+        // Add animation class
+        if (options.animation) {
+            template.addClass(options.animation);
+        }
+
+        return template
+            .attr('id', this.id())
+            .conceal(true) // Add hide class
+            .hide() // Set display to none
+            .appendTo('body');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        Toolkit.Component.prototype.doDestroy.call(this);
+
+        this.element.remove();
+    }
+
+}, {
+    template: '',
+    templateFrom: ''
+});
+
+/**
+ * Class for managing multiple elements that are rendered through templates.
+ */
+Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
+
+    /** Cache of elements related to the component. */
+    elements: {},
+
+    /** Collection of nodes. */
+    nodes: null,
+
+    /** The container that holds each individual dynamic element. */
+    wrapper: null,
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {jQuery} node
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(node, options) {
+        options = this.inheritOptions(options || this.options, node);
+
+        // Create template
+        var template = Toolkit.TemplateComponent.prototype.createElement.call(this, options);
+
+        // Move to wrapper
+        if (this.wrapper) {
+            template.appendTo(this.wrapper);
+        }
+
+        var id = node.data('toolkit.cid');
+
+        return template
+            .attr('id', this.id(id))
+            .data('toolkit.cid', id);
+    },
+
+    /**
+     * Create the elements wrapper.
+     *
+     * @return {jQuery}
+     */
+    createWrapper: function() {
+        var options = this.options;
+
+        return this.wrapper = this.render(options.wrapperTemplate)
+            .addClass(Toolkit.buildTemplate(options.wrapperClass))
+            .attr('id', this.id('wrapper'))
+            .appendTo('body');
+    },
+
+    /**
+     * Hide all the cached and built elements.
+     */
+    hideElements: function() {
+        $.each(this.elements, function(i, el) {
+            $(el).conceal();
+        });
+    },
+
+    /**
+     * Attempt to find and return an element by a unique composite ID.
+     * Each element is unique per node. If the element does not exist, create it.
+     *
+     * @param {jQuery} node
+     * @param {Function} [callback]   - Callback to trigger once an element is created
+     * @returns {jQuery}
+     */
+    loadElement: function(node, callback) {
+        var elements = this.elements,
+            el,
+            id = $(node).cache('toolkit.cid', function() {
+                return Math.random().toString(32).substr(2);
+            });
+
+        if (elements[id]) {
+            el = elements[id];
+        } else {
+            el = elements[id] = this.createElement(node);
+
+            if ($.type(callback) === 'function') {
+                callback.call(this, el);
+            }
+        }
+
+        return this.element = el;
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        var key = this.keyName;
+
+        // Remove instances
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + key);
+
+            delete Toolkit.cache[key + ':' + this.nodes.selector];
+        }
+
+        // Hide elements
+        this.hideElements();
+
+        // Remove wrapper
+        if (this.wrapper) {
+            this.wrapper.remove();
+        }
     },
 
     /**
@@ -500,9 +625,18 @@ Toolkit.Component = Toolkit.Base.extend({
      */
     onShowToggle: function(e) {
         var node = $(e.currentTarget),
-            isNode = (this.node && node[0] === this.node[0]);
+            element,
+            isNode = (this.node && this.node.is(node)),
+            cid = node.data('toolkit.cid');
 
-        if (this.element && this.element.is(':shown')) {
+        // Set the current element based on the nodes composite ID
+        if (cid && this.elements[cid]) {
+            element = this.elements[cid];
+        } else {
+            element = this.element;
+        }
+
+        if (element && element.is(':shown')) {
 
             // Touch devices should pass through on second click
             if (Toolkit.isTouch) {
@@ -533,11 +667,8 @@ Toolkit.Component = Toolkit.Base.extend({
     }
 
 }, {
-    ajax: {},
-    context: null,
-    className: '',
-    template: '',
-    templateFrom: ''
+    wrapperClass: '',
+    wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
 
 return Toolkit;
