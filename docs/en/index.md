@@ -8,7 +8,6 @@ Setup
 
 Plugins
 * [Components](components/index.md)
-* [Behaviors](behaviors/index.md)
 
 Development
 * [JavaScript](development/js/index.md)

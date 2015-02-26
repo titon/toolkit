@@ -24,6 +24,7 @@ toolkit/
 ├── demo/
 ├── dist/
 ├── docs/
+├── gulp/
 ├── js/
 ├── lib/
 ├── scss/
@@ -32,10 +33,11 @@ toolkit/
 
 The Toolkit repository is grouped logically into folders depending on the type of file or its purpose.
 
-* The `build` folder contains custom Gulp plugins as well as being the target location for Gulp builds
+* The `build` folder is the target location for Gulp builds.
 * The `demo` folder contains files that are used for testing plugins locally.
 * The `dist` folder contains files for use in production environments.
 * The `docs` folder contains documentation for using Toolkit (you're reading it).
+* The `gulp` folder contains custom Gulp plugins used in the build process.
 * The `js`, `scss` and `lib` folders contain source files for Sass and JavaScript which can be used for direct integration into projects.
 * The `tests` folder contains all our unit tests.
 
