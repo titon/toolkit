@@ -15,6 +15,9 @@ var pkg = require('./package.json'),
     uglify = require('gulp-uglify'),
     prefixer = require('gulp-autoprefixer'),
     compartment = require('compartment'),
+
+    eslint = require('gulp-eslint'),
+    babel = require('gulp-babel'),
     options = gutil.env,
     banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage.replace('http://', '') %> */\n";
 
@@ -107,6 +110,15 @@ gulp.task('js', function() {
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath));
+});
+
+gulp.task('es6', function() {
+    return gulp.src('./js-es6/**/*.js')
+        //.pipe(eslint())
+        //.pipe(eslint.format())
+        //.pipe(eslint.failOnError())
+        .pipe(babel())
+        .pipe(gulp.dest('./build-es6/'))
 });
 
 gulp.task('test', function() {

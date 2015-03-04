@@ -40,6 +40,9 @@
         "gulp-autoprefixer": "~1",
         "gulp-jshint": "~1",
         "gulp-uglify": "~1",
-        "gulp-header": "~1"
+        "gulp-header": "~1",
+
+        "gulp-babel": "*",
+        "gulp-eslint": "*"
     }
 }
