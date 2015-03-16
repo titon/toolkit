@@ -2,8 +2,12 @@
 
 Older versions can be found in the documentation changelogs.
 
-## 2.1.0 ##
+## 2.1.1 ##
+* Components
+    * Grid
+        * Updated gutter to use adjacent CSS selectors instead of `:last-child`
 
+## 2.1.0 ##
 * Added the Flex component which supports flexbox based grids and layouts
 * Added right-to-left (RTL) support for all CSS and JS components
 * Added Travis CI integration for automatic build and testing
