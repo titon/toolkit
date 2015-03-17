@@ -39,6 +39,41 @@ export default class Plugin {
     }
 
     /**
+     * Emit an event and notify all listeners, as well as print debug information
+     * if enabled. If a primary element is set, also trigger a DOM event.
+     *
+     * @param {string} event
+     * @param {array} [args]
+     */
+    emit(event, args = []) {
+        let debug = this.options.debug || Toolkit.debug,
+            element = this.element,
+            listeners = this.listeners[event];
+
+        // Log debug information
+        if (debug) {
+            console.log(this.name + '#' + this.constructor.uid, new Date().getMilliseconds(), event, args);
+
+            if (debug === 'verbose') {
+                console.dir(this);
+            }
+        }
+
+        // Notify plugin listeners
+        if (listeners) {
+            listeners.forEach(listener => listener.apply(this, args));
+        }
+
+        // Notify DOM listeners
+        // IE<=9 do not support CustomEvent
+        if (element && window.CustomEvent) {
+            element.dispatchEvent(new CustomEvent(event + '.toolkit.' + this.getAttributeName(), {
+                detail: { context: this }
+            }));
+        }
+    }
+
+    /**
      * Enable the plugin and bind any events.
      */
     enable() {
@@ -47,6 +82,15 @@ export default class Plugin {
         }
 
         this.enabled = true;
+    }
+
+    /**
+     * Return the plugin name as an HTML attribute compatible name.
+     *
+     * @returns {string}
+     */
+    getAttributeName() {
+        return this.name.charAt(0).toLowerCase() + this.name.slice(1);
     }
 
     /**
@@ -69,7 +113,9 @@ export default class Plugin {
      * @param {object} options
      */
     initialize(selector, options = {}) {
-        this.selector = selector;
+        this.constructor.uid += 1; // Increase UID
+        this.selector = selector; // Save selector
+
         this.initOptions(options);
         this.initElement(selector);
         this.initProperties();
@@ -109,12 +155,14 @@ export default class Plugin {
      *      name {string}       Name of the plugin. Should match the `Toolkit.Name` declaration.
      *      version {string}    Current or last modified version of the plugin.
      *      cache {object}      Cached AJAX requests or data.
+     *      listeners {object}  Event listeners to emit.
      *      enabled {bool}      Whether or not the plugin is enabled (events are bound).
      */
     initProperties() {
         this.name = 'Plugin';
         this.version = '3.0.0';
         this.cache = {};
+        this.listeners = {};
         this.enabled = false;
     }
 
@@ -134,9 +182,53 @@ export default class Plugin {
         }
 
         this.emit('mounting');
-        // TODO
+        // TODO - insert element into DOM
         this.emit('mounted');
         this.mounted = true;
+    }
+
+    /**
+     * Subscribe to an event using a defined callback function.
+     * The callback can either be a function or an array of functions.
+     *
+     * @param {string} event
+     * @param {array|function} callbacks
+     */
+    on(event, callbacks) {
+        if (!Array.isArray(callbacks)) {
+            callbacks = [callbacks];
+        }
+
+        callbacks.forEach(callback => {
+            let list = this.listeners[event] || [];
+                list.push(callback);
+
+            this.listeners[event] = list;
+        });
+    }
+
+    /**
+     * Unsubscribe from an event in which the callback matches a defined listener.
+     * If no callback is passed, unsubscribe all listeners.
+     *
+     * @param {string} event
+     * @param {function} [callback]
+     */
+    off(event, callback) {
+        if (!callback) {
+            delete this.listeners[event];
+            return;
+        }
+
+        let listeners = this.listeners[event];
+
+        if (listeners) {
+            listeners.forEach((listener, i) => {
+                if (listener === callback) {
+                    listeners = listeners.splice(i, 1);
+                }
+            });
+        }
     }
 
     /**
@@ -199,7 +291,14 @@ export default class Plugin {
             });
         }
 
-        // TODO - set hooks
+        // Auto-subscribe listeners that start with `on`
+        Object.keys(options).forEach(key => {
+            if (key.match(/^on[A-Z]/)) {
+                this.on(key.substr(2).toLowerCase(), options[key]);
+                delete options[key];
+            }
+        });
+
         // TODO - option groups
 
         this.options = options;
@@ -214,14 +313,12 @@ export default class Plugin {
         }
 
         this.emit('unmounting');
-        // TODO
+        // TODO - remove element from DOM
         this.emit('unmounted');
         this.mounted = false;
     }
 
 }
-
-Plugin.uid = 0;
 
 Plugin.options = {
     cache: true,

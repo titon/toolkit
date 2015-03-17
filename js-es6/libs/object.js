@@ -19,7 +19,7 @@ export function is(object) {
 
 /**
  * Merge multiple objects into a base object. If 2 values collide and they are both objects,
- * attempt to recursively merge the object, else overwrite the bases value.
+ * attempt to recursively merge the object, else overwrite the base value.
  *
  * @param {object} base
  * @param {object} objects
@@ -28,8 +28,8 @@ export function is(object) {
 export function merge(base, ...objects) {
     objects.forEach(object => {
         Object.keys(object).forEach(key => {
-            var baseValue = typeof base[key],
-                newValue = typeof object[key];
+            var baseValue = base[key],
+                newValue = object[key];
 
             // Merge if both values are objects
             if (is(baseValue) && is(newValue)) {
