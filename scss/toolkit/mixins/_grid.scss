@@ -22,8 +22,8 @@
     float: $align-direction;
 
     @if $gutter {
-        margin-#{$align-opposite-direction}: gutter($width, $gutter);
-
-        &:last-child { margin-#{$align-opposite-direction}: 0; }
+        & + & {
+            margin-#{$align-direction}: gutter($width, $gutter);
+        }
     }
 }

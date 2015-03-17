@@ -25,6 +25,7 @@
         max-width: 100%;
         z-index: 2;
         transition: transform $offCanvas-transition, padding $offCanvas-transition;
+        transform: translate(0, 0);
     }
 
     #{$offCanvas-class-wrapper} {
@@ -37,17 +38,17 @@
     #{$offCanvas-class-modifier-left} {
         left: 0;
         width: $offCanvas-left-width;
-        transform: translate3d(-100%, 0, 0);
+        transform: translate(-100%, 0);
 
-        &.show { transform: translate3d(0, 0, 0) !important; }
+        &.show { transform: translate(0, 0) !important; }
     }
 
     #{$offCanvas-class-modifier-right} {
         right: 0;
         width: $offCanvas-right-width;
-        transform: translate3d(100%, 0, 0);
+        transform: translate(100%, 0);
 
-        &.show { transform: translate3d(0, 0, 0) !important; }
+        &.show { transform: translate(0, 0) !important; }
     }
 
     //-------------------- Animations --------------------//
@@ -62,28 +63,28 @@
 
         @if index($offCanvas-animations, "push-reveal") {
             &.push-reveal {
-                #{$offCanvas-class-modifier-left} { transform: translate3d(-50%, 0, 0); }
-                #{$offCanvas-class-modifier-right} { transform: translate3d(50%, 0, 0); }
+                #{$offCanvas-class-modifier-left} { transform: translate(-50%, 0); }
+                #{$offCanvas-class-modifier-right} { transform: translate(50%, 0); }
             }
         }
 
         @if index($offCanvas-animations, "reverse-push") {
             &.reverse-push {
-                #{$offCanvas-class-modifier-left} { transform: translate3d(50%, 0, 0); }
-                #{$offCanvas-class-modifier-right} { transform: translate3d(-50%, 0, 0); }
+                #{$offCanvas-class-modifier-left} { transform: translate(50%, 0); }
+                #{$offCanvas-class-modifier-right} { transform: translate(-50%, 0); }
             }
         }
 
         @if index($offCanvas-animations, "reveal") {
             &.reveal {
-                #{$offCanvas-class} { transform: translate3d(0, 0, 0); }
+                #{$offCanvas-class} { transform: translate(0, 0); }
             }
         }
 
         @if index($offCanvas-animations, "push-down") {
             &.push-down {
                 #{$offCanvas-class-modifier-left},
-                #{$offCanvas-class-modifier-right} { transform: translate3d(0, -100%, 0); }
+                #{$offCanvas-class-modifier-right} { transform: translate(0, -100%); }
             }
         }
 
@@ -99,13 +100,13 @@
             &.reveal {
                 &.move-left {
                     #{$offCanvas-class-content} {
-                        transform: translate3d(-$offCanvas-right-width, 0, 0);
+                        transform: translate(-$offCanvas-right-width, 0);
                     }
                 }
 
                 &.move-right {
                     #{$offCanvas-class-content} {
-                        transform: translate3d($offCanvas-left-width, 0, 0);
+                        transform: translate($offCanvas-left-width, 0);
                     }
                 }
             }
@@ -152,13 +153,13 @@
                 &.reveal {
                     &.move-left {
                         #{$offCanvas-class-content} {
-                            transform: translate3d(-$offCanvas-right-width-mobile, 0, 0);
+                            transform: translate(-$offCanvas-right-width-mobile, 0);
                         }
                     }
 
                     &.move-right {
                         #{$offCanvas-class-content} {
-                            transform: translate3d($offCanvas-left-width-mobile, 0, 0);
+                            transform: translate($offCanvas-left-width-mobile, 0);
                         }
                     }
                 }

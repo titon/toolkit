@@ -2,7 +2,15 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.1 ##
+* Components
+    * Grid
+        * Updated gutter to use adjacent CSS selectors instead of `:last-child`
+    * OffCanvas
+        * Changed `translate3d()` to `translate()` to add basic support for IE9
+
 ## 2.1.0 ##
+This minor release includes flexbox functionality, RTL integration, improved BEM support, and much more.
 
 * Added the Flex component which supports flexbox based grids and layouts
 * Added right-to-left (RTL) support for all CSS and JS components
