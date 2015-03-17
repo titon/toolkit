@@ -8,6 +8,7 @@
 
 import * as dom from 'libs/dom';
 import * as obj from 'libs/object';
+import delegate from 'libs/event';
 
 export default class Plugin {
     constructor(selector, options = {}) {
@@ -17,7 +18,52 @@ export default class Plugin {
     }
 
     /**
-     * Destroy the plugin by disabling events, removing elements, and deleting the instance.
+     * Loop through the event bindings and attach events to the specified selector in the correct context.
+     * Take into account window, document, and delegation.
+     *
+     * @param {string} type
+     */
+    bindEvents(type) {
+        let event,
+            context,
+            callback,
+            selector,
+            method = (type === 'on') ? 'addEventListener' : 'removeEventListener';
+
+        this.binds.forEach(bind => {
+            event = bind[0];
+            context = bind[1];
+            selector = bind[2];
+            callback = bind[3];
+
+            // Determine the correct context
+            if (context === 'window') {
+                context = window;
+            } else if (context === 'document') {
+                context = document;
+            } else {
+                context = this[context];
+            }
+
+            // Alter custom event names
+            if (event === 'ready') {
+                event = 'DOMContentLoaded';
+            }
+
+            // Delegated events
+            if (selector) {
+                context[method](event, delegate(selector, callback));
+
+            // Regular events
+            } else {
+                context[method](event, callback);
+            }
+        });
+    }
+
+    /**
+     * Destroy the plugin by unbinding events, removing elements, and deleting the instance.
+     * The custom `shutdown()` method should be called first so that sub-classes can clean up.
      */
     destroy() {
         this.emit('destroying');
@@ -32,7 +78,7 @@ export default class Plugin {
      */
     disable() {
         if (this.enabled) {
-            this.unbindEvents();
+            this.bindEvents('off');
         }
 
         this.enabled = false;
@@ -78,7 +124,7 @@ export default class Plugin {
      */
     enable() {
         if (!this.enabled) {
-            this.bindEvents();
+            this.bindEvents('on');
         }
 
         this.enabled = true;
@@ -154,6 +200,7 @@ export default class Plugin {
      *
      *      name {string}       Name of the plugin. Should match the `Toolkit.Name` declaration.
      *      version {string}    Current or last modified version of the plugin.
+     *      binds {array}       Mapping of DOM event bindings.
      *      cache {object}      Cached AJAX requests or data.
      *      listeners {object}  Event listeners to emit.
      *      enabled {bool}      Whether or not the plugin is enabled (events are bound).
@@ -161,6 +208,7 @@ export default class Plugin {
     initProperties() {
         this.name = 'Plugin';
         this.version = '3.0.0';
+        this.binds = [];
         this.cache = {};
         this.listeners = {};
         this.enabled = false;
@@ -243,6 +291,41 @@ export default class Plugin {
      * This method should be implemented in sub-classes to set the initial state.
      */
     startup() {
+    }
+
+    /**
+     * Set a mapping of DOM events to bind to the primary element. The function
+     * can either be a string for a name of a method on the current plugin,
+     * or a literal function.
+     *
+     * Bindings support the following formats:
+     *
+     * - event context func
+     * - event context selector func
+     *
+     * The selector is optional and is used for delegation.
+     *
+     * @param {object} binds
+     */
+    setBinds(binds) {
+        let bindings = [];
+
+        Object.keys(binds).forEach(key => {
+            let [event, context, selector] = key
+                    .replace('{mode}', this.options.mode)
+                    .replace('{selector}', this.selector)
+                    .split(' ', 3),
+                callback = binds[key];
+
+            // Find and bind the function
+            if (typeof callback === 'string') {
+                callback = this[callback].bind(this);
+            }
+
+            bindings.push([event, context, selector, callback]);
+        });
+
+        this.binds = bindings;
     }
 
     /**
