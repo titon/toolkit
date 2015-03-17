@@ -4,10 +4,20 @@
  * @link        http://titon.io
  */
 
+'use strict';
+
 export function find(query, context) {
     if (query.charAt(0) === '#') {
         return document.getElementById(query);
     }
 
     return (context || document).querySelectorAll(query);
+}
+
+export function isElement(element) {
+    if ('HTMLElement' in window) {
+        return (element instanceof HTMLElement);
+    }
+
+    return (element.nodeName && element.nodeType && element.nodeType === 1);
 }

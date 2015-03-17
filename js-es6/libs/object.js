@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+'use strict';
+
 /**
  * Verify that a value is an actual object, and is not an instance of the object types,
  * like Array, Date, etc.
@@ -20,7 +22,7 @@ export function is(object) {
  * attempt to recursively merge the object, else overwrite the bases value.
  *
  * @param {object} base
- * @param {object} ...objects
+ * @param {object} objects
  * @returns {object}
  */
 export function merge(base, ...objects) {

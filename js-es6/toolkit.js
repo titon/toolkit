@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-import { isTouch, isRetina, isRTL } from "flags";
-import Plugin from "plugin";
+import { isTouch, isRetina, isRTL } from 'flags';
+import Plugin from 'plugin';
 
 let Toolkit = {
 
