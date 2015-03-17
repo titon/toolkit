@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.0 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.1.1 | BSD-3 License | titon.io */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -2396,7 +2396,10 @@ kbd {
   max-width: 100%;
   z-index: 2;
   transition: -webkit-transform 0.5s, padding 0.5s;
-  transition: transform 0.5s, padding 0.5s; }
+  transition: transform 0.5s, padding 0.5s;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0); }
 
 .canvas {
   position: relative;
@@ -2405,47 +2408,59 @@ kbd {
 .off-canvas--left {
   left: 0;
   width: 20%;
-  -webkit-transform: translate3d(-100%, 0, 0);
-          transform: translate3d(-100%, 0, 0); }
+  -webkit-transform: translate(-100%, 0);
+      -ms-transform: translate(-100%, 0);
+          transform: translate(-100%, 0); }
   .off-canvas--left.show {
-    -webkit-transform: translate3d(0, 0, 0) !important;
-            transform: translate3d(0, 0, 0) !important; }
+    -webkit-transform: translate(0, 0) !important;
+        -ms-transform: translate(0, 0) !important;
+            transform: translate(0, 0) !important; }
 
 .off-canvas--right {
   right: 0;
   width: 20%;
-  -webkit-transform: translate3d(100%, 0, 0);
-          transform: translate3d(100%, 0, 0); }
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0); }
   .off-canvas--right.show {
-    -webkit-transform: translate3d(0, 0, 0) !important;
-            transform: translate3d(0, 0, 0) !important; }
+    -webkit-transform: translate(0, 0) !important;
+        -ms-transform: translate(0, 0) !important;
+            transform: translate(0, 0) !important; }
 
 .canvas.on-top .off-canvas, .canvas.squish .off-canvas {
   z-index: 3; }
 .canvas.push-reveal .off-canvas--left {
-  -webkit-transform: translate3d(-50%, 0, 0);
-          transform: translate3d(-50%, 0, 0); }
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0); }
 .canvas.push-reveal .off-canvas--right {
-  -webkit-transform: translate3d(50%, 0, 0);
-          transform: translate3d(50%, 0, 0); }
+  -webkit-transform: translate(50%, 0);
+      -ms-transform: translate(50%, 0);
+          transform: translate(50%, 0); }
 .canvas.reverse-push .off-canvas--left {
-  -webkit-transform: translate3d(50%, 0, 0);
-          transform: translate3d(50%, 0, 0); }
+  -webkit-transform: translate(50%, 0);
+      -ms-transform: translate(50%, 0);
+          transform: translate(50%, 0); }
 .canvas.reverse-push .off-canvas--right {
-  -webkit-transform: translate3d(-50%, 0, 0);
-          transform: translate3d(-50%, 0, 0); }
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0); }
 .canvas.reveal .off-canvas {
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0); }
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0); }
 .canvas.push-down .off-canvas--left, .canvas.push-down .off-canvas--right {
-  -webkit-transform: translate3d(0, -100%, 0);
-          transform: translate3d(0, -100%, 0); }
+  -webkit-transform: translate(0, -100%);
+      -ms-transform: translate(0, -100%);
+          transform: translate(0, -100%); }
 .canvas.push.move-left .on-canvas, .canvas.push-reveal.move-left .on-canvas, .canvas.push-down.move-left .on-canvas, .canvas.reverse-push.move-left .on-canvas, .canvas.reveal.move-left .on-canvas {
-  -webkit-transform: translate3d(-20%, 0, 0);
-          transform: translate3d(-20%, 0, 0); }
+  -webkit-transform: translate(-20%, 0);
+      -ms-transform: translate(-20%, 0);
+          transform: translate(-20%, 0); }
 .canvas.push.move-right .on-canvas, .canvas.push-reveal.move-right .on-canvas, .canvas.push-down.move-right .on-canvas, .canvas.reverse-push.move-right .on-canvas, .canvas.reveal.move-right .on-canvas {
-  -webkit-transform: translate3d(20%, 0, 0);
-          transform: translate3d(20%, 0, 0); }
+  -webkit-transform: translate(20%, 0);
+      -ms-transform: translate(20%, 0);
+          transform: translate(20%, 0); }
 .canvas.squish.move-left .on-canvas {
   padding-right: 20%; }
 .canvas.squish.move-right .on-canvas {
@@ -2459,11 +2474,13 @@ kbd {
     width: 90%; }
 
   .canvas.push.move-left .on-canvas, .canvas.push-reveal.move-left .on-canvas, .canvas.push-down.move-left .on-canvas, .canvas.reverse-push.move-left .on-canvas, .canvas.reveal.move-left .on-canvas {
-    -webkit-transform: translate3d(-90%, 0, 0);
-            transform: translate3d(-90%, 0, 0); }
+    -webkit-transform: translate(-90%, 0);
+        -ms-transform: translate(-90%, 0);
+            transform: translate(-90%, 0); }
   .canvas.push.move-right .on-canvas, .canvas.push-reveal.move-right .on-canvas, .canvas.push-down.move-right .on-canvas, .canvas.reverse-push.move-right .on-canvas, .canvas.reveal.move-right .on-canvas {
-    -webkit-transform: translate3d(90%, 0, 0);
-            transform: translate3d(90%, 0, 0); }
+    -webkit-transform: translate(90%, 0);
+        -ms-transform: translate(90%, 0);
+            transform: translate(90%, 0); }
  }
 
 /**
