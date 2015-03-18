@@ -114,9 +114,8 @@ gulp.task('js', function() {
 
 gulp.task('es6', function() {
     return gulp.src('./js-es6/**/*.js')
-        //.pipe(eslint())
-        //.pipe(eslint.format())
-        //.pipe(eslint.failOnError())
+        .pipe(eslint())
+        .pipe(eslint.format())
         .pipe(babel())
         .pipe(gulp.dest('./build-es6/'))
 });

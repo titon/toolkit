@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+'use strict';
+
 import { isTouch, isRetina, isRTL } from 'flags';
 import Plugin from 'plugin';
 

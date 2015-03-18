@@ -4,11 +4,15 @@
  * @link        http://titon.io
  */
 
-// Does the device support retina display
-export var isRetina = (window.devicePixelRatio > 1);
+'use strict';
 
-// Is the HTML document currently set to RTL mode
-export var isRTL = (document.documentElement.dir === 'rtl');
+export var
 
-// Does the device support touch controls
-export var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    // Does the device support retina display
+    isRetina = (window.devicePixelRatio > 1),
+
+    // Is the HTML document currently set to RTL mode
+    isRTL = (document.documentElement.dir === 'rtl'),
+
+    // Does the device support touch controls
+    isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);

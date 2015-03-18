@@ -6,9 +6,13 @@
 
 'use strict';
 
-export var body = document.body;
+export var
 
-export var head = document.head;
+    // The document <body> element
+    body = document.body,
+
+    // The document <head> element
+    head = document.head;
 
 /**
  * Check to see if an element is within the current DOM.
@@ -37,11 +41,11 @@ export function find(query, context) {
 /**
  * Return an element by ID. This method will return a single element.
  *
- * @param {string} id
+ * @param {string} query
  * @returns {HTMLElement}
  */
-export function id(id) {
-    return document.getElementById(id);
+export function id(query) {
+    return document.getElementById(query);
 }
 
 /**

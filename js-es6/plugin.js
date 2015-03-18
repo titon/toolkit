@@ -92,7 +92,7 @@ export default class Plugin {
             listeners = this.listeners[event];
 
         // Log debug information
-        if (debug) {
+        if (debug && window.console) {
             console.log(this.name + '#' + this.constructor.uid, new Date().getMilliseconds(), event, args);
 
             if (debug === 'verbose') {
@@ -108,7 +108,7 @@ export default class Plugin {
         // Notify DOM listeners
         // IE<=9 do not support CustomEvent
         if (element && window.CustomEvent) {
-            element.dispatchEvent(new CustomEvent(event + '.toolkit.' + this.getAttributeName(), {
+            element.dispatchEvent(new CustomEvent(event + '.toolkit.' + this.name.toLowerCase(), {
                 detail: {
                     context: this,
                     arguments: args
@@ -126,15 +126,6 @@ export default class Plugin {
         }
 
         this.enabled = true;
-    }
-
-    /**
-     * Return the plugin name as an HTML attribute compatible name.
-     *
-     * @returns {string}
-     */
-    getAttributeName() {
-        return this.name.charAt(0).toLowerCase() + this.name.slice(1);
     }
 
     /**
