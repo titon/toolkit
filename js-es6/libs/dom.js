@@ -6,14 +6,50 @@
 
 'use strict';
 
-export function find(query, context) {
-    if (query.charAt(0) === '#') {
-        return document.getElementById(query);
-    }
+export var body = document.body;
 
-    return (context || document).querySelectorAll(query);
+export var head = document.head;
+
+/**
+ * Check to see if an element is within the current DOM.
+ *
+ * @param {Node} element
+ * @returns {boolean}
+ */
+export function contains(element) {
+    return (element === body) ? false : body.contains(element);
 }
 
+/**
+ * Find an element or a collection of elements using a CSS selector.
+ * This method will return an array of elements.
+ *
+ * @param {string} query
+ * @param {Node} [context]
+ * @returns {HTMLElement[]}
+ */
+export function find(query, context) {
+    context = context || document;
+
+    return Array.prototype.slice.call(context.querySelectorAll(query));
+}
+
+/**
+ * Return an element by ID. This method will return a single element.
+ *
+ * @param {string} id
+ * @returns {HTMLElement}
+ */
+export function id(id) {
+    return document.getElementById(id);
+}
+
+/**
+ * Check to see if a value is an element, usually one that extends `HTMLElement`.
+ *
+ * @param {*} element
+ * @returns {boolean}
+ */
 export function isElement(element) {
     if ('HTMLElement' in window) {
         return (element instanceof HTMLElement);

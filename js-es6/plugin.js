@@ -45,11 +45,6 @@ export default class Plugin {
                 context = this[context];
             }
 
-            // Alter custom event names
-            if (event === 'ready') {
-                event = 'DOMContentLoaded';
-            }
-
             // Delegated events
             if (selector) {
                 context[method](event, delegate(selector, callback));
@@ -114,7 +109,10 @@ export default class Plugin {
         // IE<=9 do not support CustomEvent
         if (element && window.CustomEvent) {
             element.dispatchEvent(new CustomEvent(event + '.toolkit.' + this.getAttributeName(), {
-                detail: { context: this }
+                detail: {
+                    context: this,
+                    arguments: args
+                }
             }));
         }
     }
@@ -191,7 +189,7 @@ export default class Plugin {
      * @param {string} selector
      */
     initElement(selector) {
-        this.setElement(dom.find(selector));
+        this.setElement(dom.id(selector));
     }
 
     /**
@@ -225,13 +223,18 @@ export default class Plugin {
      * Mount (insert) the primary element into the DOM.
      */
     mount() {
-        if (this.mounted) {
-            return; // Already mounted
+        var element = this.element;
+
+        if (this.mounted || !element || dom.contains(element)) {
+            return;
         }
 
         this.emit('mounting');
-        // TODO - insert element into DOM
+
+        dom.body.appendChild(element);
+
         this.emit('mounted');
+
         this.mounted = true;
     }
 
@@ -300,8 +303,7 @@ export default class Plugin {
      *
      * Bindings support the following formats:
      *
-     * - event context func
-     * - event context selector func
+     *      EVENT CONTEXT[ DELEGATE]: FUNC
      *
      * The selector is optional and is used for delegation.
      *
@@ -320,6 +322,11 @@ export default class Plugin {
             // Find and bind the function
             if (typeof callback === 'string') {
                 callback = this[callback].bind(this);
+            }
+
+            // Alter custom event names
+            if (event === 'ready') {
+                event = 'DOMContentLoaded';
             }
 
             bindings.push([event, context, selector, callback]);
@@ -391,13 +398,18 @@ export default class Plugin {
      * Unmount (remove) the primary element from the DOM.
      */
     unmount() {
-        if (!this.mounted) {
-            return; // Most likely embedded
+        var element = this.element;
+
+        if (!this.mounted || (element && !dom.contains(element))) {
+            return;
         }
 
         this.emit('unmounting');
-        // TODO - remove element from DOM
+
+        element.parentNode.removeChild(element);
+
         this.emit('unmounted');
+
         this.mounted = false;
     }
 
