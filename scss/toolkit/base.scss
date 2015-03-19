@@ -7,7 +7,9 @@
 @import "common";
 
 // Use border-box for everything
-*, *::after, *::before { box-sizing: border-box; }
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+html { box-sizing: border-box; }
+*, *::after, *::before { box-sizing: inherit; }
 
 // RTL
 *[dir="rtl"], .rtl { direction: rtl; unicode-bidi: embed; }
