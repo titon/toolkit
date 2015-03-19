@@ -14,6 +14,14 @@ export var
     // The document <head> element
     head = document.head;
 
+export function aria(element, key, value) {
+    // TODO
+}
+
+export function conceal(element, dontHide) {
+    // TODO
+}
+
 /**
  * Check to see if an element is within the current DOM.
  *
@@ -60,4 +68,22 @@ export function isElement(element) {
     }
 
     return (element.nodeName && element.nodeType && element.nodeType === 1);
+}
+
+/**
+ * Check if the element is visible. Is used for CSS animations and transitions.
+ *
+ * @param {HTMLElement} element
+ * @returns {boolean}
+ */
+export function isVisible(element) {
+    return (element.style.visibility !== 'hidden');
+}
+
+export function positionTo(element, position, relativeTo, baseOffset, isMouse) {
+    // TODO
+}
+
+export function reveal(element, dontShow) {
+    // TODO
 }

@@ -10,9 +10,31 @@
  * TODO
  *
  * @param {string} selector
- * @param {function} callback
+ * @param {function} func
  * @returns {function}
  */
-export function delegate(selector, callback) {
+export function delegate(selector, func) {
     return function() {};
+}
+
+/**
+ * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
+ *
+ * @param {HTMLElement} element
+ * @param {function} func
+ * @returns {HTMLElement}
+ */
+export function transitionEnd(element, func) {
+    var event = 'transitionend',
+        duration = element.style.transitionDuration;
+
+    element.addEventListener(event, func);
+
+    // No transition defined so trigger callback immediately
+    if (duration === '0s' || typeof duration === 'undefined') {
+        element.dispatchEvent(new TransitionEvent(event));
+        element.removeEventListener(event, func);
+    }
+
+    return element;
 }

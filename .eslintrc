@@ -24,6 +24,7 @@
         "es6": true
     },
     "globals": {
-        "Toolkit": true
+        "Toolkit": true,
+        "TransitionEvent": true
     }
 }
