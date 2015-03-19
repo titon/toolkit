@@ -8,17 +8,6 @@
 
 let data = {};
 
-export function cache(key, value) {
-    var data = get(key),
-        type = typeof data;
-
-    if (type !== 'undefined' && type !== 'null') {
-        return data;
-    }
-
-    return set(key, value);
-}
-
 export function get(key) {
     return data[key];
 }
@@ -32,11 +21,22 @@ export function remove(key) {
 }
 
 export function set(key, value) {
+    data[key] = value;
+
+    return value;
+}
+
+export function cache(key, value) {
+    var currentValue = get(key),
+        type = typeof currentValue;
+
+    if (type !== 'undefined' && type !== 'null') {
+        return currentValue;
+    }
+
     if (typeof value === 'function') {
         value = value.call();
     }
 
-    data[key] = value;
-
-    return value;
+    return set(key, value);
 }

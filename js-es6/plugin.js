@@ -185,22 +185,30 @@ export default class Plugin {
 
     /**
      * Initialize the class properties by setting to defaults that should be
-     * usable by sub-classes. The following properties are set.
-     *
-     *      name {string}       Name of the plugin. Should match the `Toolkit.Name` declaration.
-     *      version {string}    Current or last modified version of the plugin.
-     *      binds {array}       Mapping of DOM event bindings.
-     *      cache {object}      Cached AJAX requests or data.
-     *      listeners {object}  Event listeners to emit.
-     *      enabled {bool}      Whether or not the plugin is enabled (events are bound).
+     * usable by sub-classes.
      */
     initProperties() {
-        this.name = 'Plugin';
-        this.version = '3.0.0';
+        // Map of DOM event bindings.
         this.binds = [];
+
+        // Map of cached AJAX requests or data.
         this.cache = {};
-        this.listeners = {};
+
+        // Whether or not the plugin is enabled (events are bound).
         this.enabled = false;
+
+        // Map of event listeners to emit.
+        this.listeners = {};
+
+        // Name of the plugin. Should match the `Toolkit.<Name>` declaration.
+        this.name = 'Plugin';
+
+        // Current and previous state of the plugin. Must be modified with `setState()`.
+        this.state = {};
+        this.previousState = {};
+
+        // Current and last modified version of the plugin.
+        this.version = '3.0.0';
     }
 
     /**
@@ -214,7 +222,7 @@ export default class Plugin {
      * Mount (insert) the primary element into the DOM.
      */
     mount() {
-        var element = this.element;
+        let element = this.element;
 
         if (this.mounted || !element || dom.contains(element)) {
             return;
@@ -234,7 +242,7 @@ export default class Plugin {
      * The callback can either be a function or an array of functions.
      *
      * @param {string} event
-     * @param {array|function} callbacks
+     * @param {function|function[]} callbacks
      */
     on(event, callbacks) {
         if (!Array.isArray(callbacks)) {
@@ -288,6 +296,13 @@ export default class Plugin {
     }
 
     /**
+     * Method ot be called when the state has changed and the DOM needs to be updated.
+     * This method should be implemented in sub-classes and *must* be the only method that mutates the DOM.
+     */
+    render() {
+    }
+
+    /**
      * Set a mapping of DOM events to bind to the primary element. The function
      * can either be a string for a name of a method on the current plugin,
      * or a literal function.
@@ -303,7 +318,7 @@ export default class Plugin {
     setBinds(binds) {
         let bindings = [];
 
-        Object.keys(binds).forEach(key => {
+        obj.forEach(binds, key => {
             let [event, context, selector] = key
                     .replace('{mode}', this.options.mode)
                     .replace('{selector}', this.selector)
@@ -340,7 +355,7 @@ export default class Plugin {
     /**
      * Set a collection of elements to use within the plugin.
      *
-     * @param {array} elements
+     * @param {HTMLElement[]} elements
      */
     setElements(elements) {
         if (Array.isArray(elements)) {
@@ -363,7 +378,7 @@ export default class Plugin {
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
-            Object.keys(options.responsive).forEach(key => {
+            obj.forEach(options.responsive, key => {
                 let respOptions = options.responsive[key];
 
                 if (matchMedia(respOptions.breakpoint).matches) {
@@ -373,7 +388,7 @@ export default class Plugin {
         }
 
         // Auto-subscribe listeners that start with `on`
-        Object.keys(options).forEach(key => {
+        obj.forEach(options, key => {
             if (key.match(/^on[A-Z]/)) {
                 this.on(key.substr(2).toLowerCase(), options[key]);
                 delete options[key];
@@ -386,10 +401,69 @@ export default class Plugin {
     }
 
     /**
+     * A plugin should only represent a single state at any given time.
+     * To modify the state, this method can be used, which accepts an object of values,
+     * or a function that returns an object.
+     *
+     * The object passed (the possible new state), will then be compared against
+     * the previous state using a diffing algorithm. If there are no changes,
+     * nothing will occur.
+     *
+     * If there are changes, `changed` and `changed:*` events will be emitted,
+     * the new state will be set, and the `render()` method will be called.
+     *
+     * @param {object|function} state
+     */
+    setState(state) {
+        let currentState = this.state,
+            changed = false,
+            diff = {};
+
+        // If state is a function, extract the object
+        if (typeof state === 'function') {
+            state = state.call(this);
+        }
+
+        // Exit early if not an object
+        if (!obj.is(state)) {
+            return;
+        }
+
+        // Determine if the state has changed by diffing:
+        // - Doesn't exist in the current state
+        // - Doesn't match the current state
+        obj.forEach(state, key => {
+            if (!(key in currentState) || state[key] !== currentState[key]) {
+                diff[key] = state[key];
+                changed = true;
+            }
+        });
+
+        // Exit early if no changes
+        if (!changed) {
+            return;
+        }
+
+        // Emit change events
+        this.emit('changed', [currentState, state, diff]);
+
+        obj.forEach(diff, key => {
+            this.emit('changed:' + key, [currentState[key] || null, diff[key]]);
+        });
+
+        // Set the new state and preserve the old one
+        this.previousState = currentState;
+        this.state = obj.merge({}, currentState, diff);
+
+        // Render the changes and update the DOM
+        this.render();
+    }
+
+    /**
      * Unmount (remove) the primary element from the DOM.
      */
     unmount() {
-        var element = this.element;
+        let element = this.element;
 
         if (!this.mounted || (element && !dom.contains(element))) {
             return;
