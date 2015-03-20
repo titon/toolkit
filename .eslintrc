@@ -16,7 +16,6 @@
         "func-style": [2, "declaration"],
         "quotes": [1, "single"],
         "no-nested-ternary": 1,
-        "one-var": 1,
         "semi": [2, "always"]
     },
     "env": {

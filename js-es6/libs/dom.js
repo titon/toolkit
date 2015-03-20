@@ -6,20 +6,97 @@
 
 'use strict';
 
-export var
+import * as obj from 'object';
+import * as util from 'util';
 
-    // The document <body> element
-    body = document.body,
+// The document <body> element
+export var body = document.body;
 
-    // The document <head> element
-    head = document.head;
+// The document <head> element
+export var head = document.head;
 
-export function aria(element, key, value) {
-    // TODO
-}
 
-export function conceal(element, dontHide) {
-    // TODO
+let setAria = util.setter((key, value) => {
+    if (value === true) {
+        value = 'true';
+    } else if (value === false) {
+        value = 'false';
+    }
+
+    this.setAttribute('aria-' + key, value);
+});
+
+let setAttr = util.setter((key, value) => {
+    this.setAttribute(key, value);
+});
+
+class ElementChain {
+    constructor(element) {
+        this.elements = Array.isArray(element) ? element : [element];
+    }
+
+    addClass(className) {
+        return this.map(element => element.classList.add(className));
+    }
+
+    aria(key, value) {
+        if (!Toolkit.aria) {
+            return this;
+        }
+
+        if (key === 'toggled') {
+            key = { expanded: value, selected: value };
+        }
+
+        return this.map(element => setAria(element, key, value));
+    }
+
+    attr(key, value) {
+        return this.map(element => setAttr(element, key, value));
+    }
+
+    conceal(dontHide) {
+        if (this.hasClass('show') && !dontHide) {
+            ///this.transitionend(function() {
+            //    $(this).hide();
+            //});
+            // TODO
+        }
+
+        return this
+            .removeClass('show')
+            .addClass('hide')
+            .aria('hidden', true);
+    }
+
+    hasClass(className) {
+        return this.elements.some(element => element.classList.contains(className));
+    }
+
+    map(callback) {
+        this.elements.forEach(callback);
+
+        return this;
+    }
+
+    removeClass(className) {
+        return this.map(element => element.classList.remove(className));
+    }
+
+    reveal(dontShow) {
+        if (!dontShow) {
+            this.map(element => element.style.display = '');
+        }
+
+        // We must place in a timeout or transitions do not occur
+        setTimeout(() => {
+            this.removeClass('hide')
+                .addClass('show')
+                .aria('hidden', false);
+        }, 1);
+
+        return this;
+    }
 }
 
 /**
@@ -30,6 +107,10 @@ export function conceal(element, dontHide) {
  */
 export function contains(element) {
     return (element === body) ? false : body.contains(element);
+}
+
+export function chain(element) {
+    return new ElementChain(element);
 }
 
 /**
@@ -81,9 +162,5 @@ export function isVisible(element) {
 }
 
 export function positionTo(element, position, relativeTo, baseOffset, isMouse) {
-    // TODO
-}
-
-export function reveal(element, dontShow) {
     // TODO
 }
