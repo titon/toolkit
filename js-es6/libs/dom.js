@@ -19,9 +19,10 @@ export var head = document.head;
  *
  * @param {HTMLElement} element
  * @param {function} func
+ * @param {*} context
  * @returns {HTMLElement}
  */
-export function batch(element, func) {
+export function batch(element, func, context) {
     let parent = element.parentNode,
         next = element.nextSibling;
 
@@ -34,7 +35,7 @@ export function batch(element, func) {
     parent.removeChild(element);
 
     // Execute callback
-    func.call(element);
+    func.call(context || element, element);
 
     // Re-attach in the DOM
     parent.insertBefore(element, next);

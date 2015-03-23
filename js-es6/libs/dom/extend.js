@@ -51,13 +51,13 @@ function removeClass(className) {
  * @param {boolean} [dontHide]
  * @returns {HTMLElement}
  */
-function conceal(dontHide) {
-    if (this.hasClass('show') && !dontHide) {
+function conceal() { //dontHide) {
+    //if (this.hasClass('show') && !dontHide) {
         ///this.transitionend(function() {
         //    $(this).hide();
         //});
         // TODO
-    }
+    //}
 
     return this
         .removeClass('show')
@@ -122,6 +122,22 @@ function setAria(key, value) {
 let multiSetAria = setter(setAria);
 
 /**
+ * Set a style attribute directly on an element. This will not auto-format
+ * the property or value.
+ *
+ * @param {string} key
+ * @param {*} value
+ * @returns {HTMLElement}
+ */
+function setStyle(key, value) {
+    this.style[key] = value;
+
+    return this;
+}
+
+let multiSetStyle = setter(setStyle);
+
+/**
  * Will extend an element directly with new methods and functionality.
  * This *will not* extend the prototype, so will be much safer in most, if not all of cases.
  *
@@ -142,6 +158,8 @@ export default function extend(element) {
     element.setAria = multiSetAria.bind(element);
     element.setAttribute = chain(element.setAttribute).bind(element);
     element.setAttributes = setter(element.setAttribute).bind(element);
+    element.setStyle = setStyle.bind(element);
+    element.setStyles = multiSetStyle.bind(element);
     element.extendedByToolkit = true;
 
     return element;

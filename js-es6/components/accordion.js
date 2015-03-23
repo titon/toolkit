@@ -7,7 +7,7 @@
 'use strict';
 
 import EmbeddedComponent from '../embedded-component';
-import * as dom from '../libs/dom';
+import { batch, find, isVisible } from '../libs/dom';
 import debounce from '../libs/function';
 
 export default class Accordion extends EmbeddedComponent {
@@ -22,10 +22,10 @@ export default class Accordion extends EmbeddedComponent {
         this.version = '3.0.0';
 
         // Collection of header elements.
-        this.headers = dom.find(this.ns('header'), this.element);
+        this.headers = find(this.ns('header'), this.element);
 
         // Collection of section elements.
-        this.sections = dom.find(this.ns('section'), this.element);
+        this.sections = find(this.ns('section'), this.element);
     }
 
     /**
@@ -42,33 +42,35 @@ export default class Accordion extends EmbeddedComponent {
      * {@inheritdoc}
      */
     startup() {
-        this.element.setAttribute('role', 'tablist');
+        batch(this.element, (element) => {
+            element.setAttribute('role', 'tablist');
 
-        // Set default ARIA and attributes for all headers
-        this.headers.forEach((header, index) => {
-            dom.chain(header)
-                .attr({
-                    'data-accordion-index': index,
-                    role: 'tab',
-                    id: this.id('header', index)
-                })
-                .aria({
-                    controls: this.id('section', index),
-                    selected: false,
-                    expanded: false
-                });
-        });
+            // Set default ARIA and attributes for all headers
+            this.headers.forEach((header, index) => {
+                header
+                    .setAttributes({
+                        'data-accordion-index': index,
+                        role: 'tab',
+                        id: this.id('header', index)
+                    })
+                    .setAria({
+                        controls: this.id('section', index),
+                        selected: false,
+                        expanded: false
+                    });
+            });
 
-        // Set default ARIA and attributes for all sections
-        this.sections.forEach((section, index) => {
-            dom.chain(section)
-                .attr({
-                    role: 'tabpanel',
-                    id: this.id('section', index)
-                })
-                .aria('labelledby', this.id('header', index))
-                .conceal();
-        });
+            // Set default ARIA and attributes for all sections
+            this.sections.forEach((section, index) => {
+                section
+                    .setAttributes({
+                        role: 'tabpanel',
+                        id: this.id('section', index)
+                    })
+                    .setAria('labelledby', this.id('header', index))
+                    .conceal();
+            });
+        }, this);
 
         // Calculate and cache heights of each section
         this.calculate();
@@ -83,13 +85,19 @@ export default class Accordion extends EmbeddedComponent {
      * {@inheritdoc}
      */
     shutdown() {
-        dom.chain(this.headers)
-            .addClass('is-active')
-            .attr('toggled', true);
+        batch(this.element, () => {
+            this.headers.forEach(header => {
+                header
+                    .addClass('is-active')
+                    .setAria('toggled', true);
+            });
 
-        dom.chain(this.sections)
-            .attr('style', '')
-            .reveal();
+            this.sections.forEach(section => {
+                section
+                    .setAttribute('style', '')
+                    .reveal();
+            });
+        }, this);
     }
 
     /**
@@ -109,23 +117,14 @@ export default class Accordion extends EmbeddedComponent {
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
-            if (dom.isVisible(section) && this.node) {
-                section.style.maxHeight = 0;
+            if (isVisible(section) && this.node) {
 
-                dom.chain(section).conceal(true);
-
-                dom.chain(header)
-                    .aria('toggled', false)
-                    .removeClass('is-active');
+                section.setStyle('maxHeight', 0).conceal(true);
+                header.setAria('toggled', false).removeClass('is-active');
 
             } else {
-                section.style.maxHeight = height;
-
-                dom.chain(section).reveal(true);
-
-                dom.chain(header)
-                    .aria('toggled', true)
-                    .addClass('is-active');
+                section.setStyle('maxHeight', height).reveal(true);
+                header.setAria('toggled', true).addClass('is-active');
             }
 
         // Only one open at a time
@@ -136,21 +135,25 @@ export default class Accordion extends EmbeddedComponent {
                 return;
             }
 
-            dom.chain(this.sections)
-                .map(section => section.style.maxHeight = 0)
-                .conceal(true);
+            batch(this.element, () => {
+                // Toggle heights of sections
+                this.sections.forEach(sec => {
+                    if (sec === section) {
+                        sec.setStyle('maxHeight', height).reveal(true);
+                    } else {
+                        sec.setStyle('maxHeight', 0).conceal(true);
+                    }
+                });
 
-            dom.chain(section)
-                .map(section => section.style.maxHeight = height)
-                .reveal(true);
-
-            dom.chain(this.headers)
-                .aria('toggled', false)
-                .removeClass('is-active');
-
-            dom.chain(header)
-                .aria('toggled', true)
-                .addClass('is-active');
+                // Toggle header active state
+                this.headers.forEach(head => {
+                    if (head === header) {
+                        head.setAria('toggled', true).addClass('is-active');
+                    } else {
+                        head.setAria('toggled', false).removeClass('is-active');
+                    }
+                });
+            }, this);
         }
 
         this.node = header;
@@ -170,15 +173,14 @@ export default class Accordion extends EmbeddedComponent {
         }
 
         this.sections.forEach((section) => {
-            let classList = section.classList,
-                className = classList.contains('hide') ? 'hide' : 'show',
+            let className = section.hasClass('hide') ? 'hide' : 'show',
                 maxHeight = section.style.maxHeight;
 
             // Make section visible
-            classList.add('no-transition');
-            classList.remove(className);
-
-            section.style.maxHeight = '';
+            section
+                .addClass('no-transition')
+                .removeClass(className)
+                .setStyle('maxHeight', '');
 
             // Get the height
             let height = callback.call(this, section);
@@ -187,14 +189,10 @@ export default class Accordion extends EmbeddedComponent {
             section.setAttribute('data-accordion-height', height);
 
             // Set section back to previous state
-            if (className === 'show') {
-                section.style.maxHeight = height;
-            } else {
-                section.style.maxHeight = maxHeight;
-            }
-
-            classList.add(className);
-            classList.remove('no-transition');
+            section
+                .setStyle('maxHeight', (className === 'show') ? height : maxHeight)
+                .addClass(className)
+                .removeClass('no-transition');
         });
     }
 
