@@ -6,7 +6,6 @@
 
 'use strict';
 
-import * as obj from 'object';
 import extend from 'dom/extend';
 
 // The document <body> element

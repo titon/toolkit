@@ -6,7 +6,7 @@
 
 'use strict';
 
-import * as obj from 'object';
+import { forOwn, isObject } from 'object';
 
 /**
  * Bound a number between a min and max range.
@@ -77,8 +77,8 @@ export function setter(func) {
     return (key, value) => {
         let self = this;
 
-        if (obj.is(key)) {
-            obj.forEach(key, (k) => func.call(self, k, key[k]));
+        if (isObject(key)) {
+            forOwn(key, (k) => func.call(self, k, key[k]));
 
         } else if (key) {
             func.call(self, key, value);

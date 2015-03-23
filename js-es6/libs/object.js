@@ -13,7 +13,7 @@
  * @param {object} object
  * @param {function} func
  */
-export function forEach(object, func) {
+export function forOwn(object, func) {
     Object.keys(object).forEach(func);
 }
 
@@ -24,7 +24,7 @@ export function forEach(object, func) {
  * @param {*} object
  * @returns {boolean}
  */
-export function is(object) {
+export function isObject(object) {
     return (Object.prototype.toString.call(object) === '[object Object]');
 }
 
@@ -43,7 +43,7 @@ export function merge(base, ...objects) {
                 newValue = object[key];
 
             // Merge if both values are objects
-            if (is(baseValue) && is(newValue)) {
+            if (isObject(baseValue) && isObject(newValue)) {
                 base[key] = merge({}, baseValue, newValue);
 
             // Overwrite from newer

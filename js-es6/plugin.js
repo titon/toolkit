@@ -7,7 +7,7 @@
 'use strict';
 
 import * as dom from 'libs/dom';
-import * as obj from 'libs/object';
+import { forOwn, isObject, merge } from 'libs/object';
 import delegate from 'libs/event';
 
 export default class Plugin {
@@ -166,7 +166,7 @@ export default class Plugin {
      * @param {object} options
      */
     initOptions(options = {}) {
-        this.options = obj.merge({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
+        this.options = merge({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
         this.setOptions(options);
     }
 
@@ -318,7 +318,7 @@ export default class Plugin {
     setBinds(binds) {
         let bindings = [];
 
-        obj.forEach(binds, key => {
+        forOwn(binds, key => {
             let [event, context, selector] = key
                     .replace('{mode}', this.options.mode)
                     .replace('{selector}', this.selector)
@@ -374,21 +374,21 @@ export default class Plugin {
      * @param {object} options
      */
     setOptions(options) {
-        options = obj.merge(this.options, options);
+        options = merge(this.options, options);
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
-            obj.forEach(options.responsive, key => {
+            forOwn(options.responsive, key => {
                 let respOptions = options.responsive[key];
 
                 if (matchMedia(respOptions.breakpoint).matches) {
-                    obj.merge(options, respOptions);
+                    merge(options, respOptions);
                 }
             });
         }
 
         // Auto-subscribe listeners that start with `on`
-        obj.forEach(options, key => {
+        forOwn(options, key => {
             if (key.match(/^on[A-Z]/)) {
                 this.on(key.substr(2).toLowerCase(), options[key]);
                 delete options[key];
@@ -425,14 +425,14 @@ export default class Plugin {
         }
 
         // Exit early if not an object
-        if (!obj.is(state)) {
+        if (isObject(state)) {
             return;
         }
 
         // Determine if the state has changed by diffing:
         // - Doesn't exist in the current state
         // - Doesn't match the current state
-        obj.forEach(state, key => {
+        forOwn(state, key => {
             if (!(key in currentState) || state[key] !== currentState[key]) {
                 diff[key] = state[key];
                 changed = true;
@@ -447,13 +447,13 @@ export default class Plugin {
         // Emit change events
         this.emit('changed', [currentState, state, diff]);
 
-        obj.forEach(diff, key => {
+        forOwn(diff, key => {
             this.emit('changed:' + key, [currentState[key] || null, diff[key]]);
         });
 
         // Set the new state and preserve the old one
         this.previousState = currentState;
-        this.state = obj.merge({}, currentState, diff);
+        this.state = merge({}, currentState, diff);
 
         // Render the changes and update the DOM
         this.render();
