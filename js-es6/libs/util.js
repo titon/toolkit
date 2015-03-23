@@ -40,8 +40,8 @@ export function chain(func) {
     return () => {
         let response = func.apply(this, arguments);
 
-        return response === undefined ? this : response;
-    }
+        return (typeof response === 'undefined') ? this : response;
+    };
 }
 
 /**

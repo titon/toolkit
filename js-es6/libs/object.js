@@ -38,7 +38,7 @@ export function isObject(object) {
  */
 export function merge(base, ...objects) {
     objects.forEach(object => {
-        forEach(object, key => {
+        forOwn(object, key => {
             var baseValue = base[key],
                 newValue = object[key];
 

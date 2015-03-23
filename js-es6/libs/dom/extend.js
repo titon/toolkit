@@ -14,11 +14,11 @@ import { chain, getter, setter } from '../util';
  * @param {string} className
  * @returns {HTMLElement}
  */
-let addClass = (className) => {
+function addClass(className) {
     this.classList.add(className);
 
     return this;
-};
+}
 
 /**
  * Verify that a class exists on an element.
@@ -26,11 +26,11 @@ let addClass = (className) => {
  * @param {string} className
  * @returns {HTMLElement}
  */
-let hasClass = (className) => {
+function hasClass(className) {
     this.classList.contains(className);
 
     return this;
-};
+}
 
 /**
  * Remove a class from an element.
@@ -38,11 +38,11 @@ let hasClass = (className) => {
  * @param {string} className
  * @returns {HTMLElement}
  */
-let removeClass = (className) => {
+function removeClass(className) {
     this.classList.remove(className);
 
     return this;
-};
+}
 
 /**
  * Conceal the element by applying the hide class.
@@ -51,7 +51,7 @@ let removeClass = (className) => {
  * @param {boolean} [dontHide]
  * @returns {HTMLElement}
  */
-let conceal = (dontHide) => {
+function conceal(dontHide) {
     if (this.hasClass('show') && !dontHide) {
         ///this.transitionend(function() {
         //    $(this).hide();
@@ -63,7 +63,7 @@ let conceal = (dontHide) => {
         .removeClass('show')
         .addClass('hide')
         .setAria('hidden', true);
-};
+}
 
 /**
  * Reveal the element by applying the show class.
@@ -72,7 +72,7 @@ let conceal = (dontHide) => {
  * @param {boolean} [dontShow]
  * @returns {HTMLElement}
  */
-let reveal = (dontShow) => {
+function reveal(dontShow) {
     if (!dontShow) {
         this.style.display = '';
     }
@@ -85,7 +85,7 @@ let reveal = (dontShow) => {
     }, 1);
 
     return this;
-};
+}
 
 /**
  * Return a value, or a list of values, for the defined ARIA attributes.
@@ -93,7 +93,11 @@ let reveal = (dontShow) => {
  * @param {string|string[]} key
  * @returns {string|string[]}
  */
-let getAria = getter((key) => this.getAttribute('aria-' + key));
+function getAria(key) {
+    return this.getAttribute('aria-' + key);
+}
+
+let multiGetAria = getter(getAria);
 
 /**
  * Set a value, or a mapping of values, for a defined ARIA attribute.
@@ -103,7 +107,7 @@ let getAria = getter((key) => this.getAttribute('aria-' + key));
  * @param {*} value
  * @returns {HTMLElement}
  */
-let setAria = setter((key, value) => {
+function setAria(key, value) {
     if (!Toolkit.aria) {
         return this;
     }
@@ -113,7 +117,9 @@ let setAria = setter((key, value) => {
     }
 
     return this.setAttribute('aria-' + key, String(value));
-});
+}
+
+let multiSetAria = setter(setAria);
 
 /**
  * Will extend an element directly with new methods and functionality.
@@ -132,8 +138,8 @@ export default function extend(element) {
     element.removeClass = removeClass.bind(element);
     element.conceal = conceal.bind(element);
     element.reveal = reveal.bind(element);
-    element.getAria = getAria.bind(element);
-    element.setAria = setAria.bind(element);
+    element.getAria = multiGetAria.bind(element);
+    element.setAria = multiSetAria.bind(element);
     element.setAttribute = chain(element.setAttribute).bind(element);
     element.setAttributes = setter(element.setAttribute).bind(element);
     element.extendedByToolkit = true;
