@@ -6,6 +6,7 @@
 
 'use strict';
 
+import transitionEnd from '../event';
 import { chain, getter, setter } from '../util';
 
 /**
@@ -51,13 +52,10 @@ function removeClass(className) {
  * @param {boolean} [dontHide]
  * @returns {HTMLElement}
  */
-function conceal() { //dontHide) {
-    //if (this.hasClass('show') && !dontHide) {
-        ///this.transitionend(function() {
-        //    $(this).hide();
-        //});
-        // TODO
-    //}
+function conceal(dontHide) {
+    if (this.hasClass('show') && !dontHide) {
+        transitionEnd(this, () => this.setStyle('display', 'none'));
+    }
 
     return this
         .removeClass('show')
@@ -74,7 +72,7 @@ function conceal() { //dontHide) {
  */
 function reveal(dontShow) {
     if (!dontShow) {
-        this.style.display = '';
+        this.setStyle('display', '');
     }
 
     // We must place in a timeout or transitions do not occur
@@ -86,18 +84,6 @@ function reveal(dontShow) {
 
     return this;
 }
-
-/**
- * Return a value, or a list of values, for the defined ARIA attributes.
- *
- * @param {string|string[]} key
- * @returns {string|string[]}
- */
-function getAria(key) {
-    return this.getAttribute('aria-' + key);
-}
-
-let multiGetAria = getter(getAria);
 
 /**
  * Set a value, or a mapping of values, for a defined ARIA attribute.
@@ -154,7 +140,6 @@ export default function extend(element) {
     element.removeClass = removeClass.bind(element);
     element.conceal = conceal.bind(element);
     element.reveal = reveal.bind(element);
-    element.getAria = multiGetAria.bind(element);
     element.setAria = multiSetAria.bind(element);
     element.setAttribute = chain(element.setAttribute).bind(element);
     element.setAttributes = setter(element.setAttribute).bind(element);

@@ -8,6 +8,6 @@
 
 import Component from 'component';
 
-export default class CompositeComponent extends Component {
+export default class ContainerComponent extends Component {
 
 }

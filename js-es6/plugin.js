@@ -6,7 +6,7 @@
 
 'use strict';
 
-import * as dom from 'libs/dom';
+import { id, isElement, contains as inDOM } from 'libs/dom';
 import { forOwn, isObject, merge } from 'libs/object';
 import delegate from 'libs/event';
 
@@ -180,7 +180,7 @@ export default class Plugin {
      * @param {string} selector
      */
     initElement(selector) {
-        this.setElement(dom.id(selector));
+        this.setElement(id(selector));
     }
 
     /**
@@ -224,13 +224,13 @@ export default class Plugin {
     mount() {
         let element = this.element;
 
-        if (this.mounted || !element || dom.contains(element)) {
+        if (this.mounted || !element || inDOM(element)) {
             return;
         }
 
         this.emit('mounting');
 
-        dom.body.appendChild(element);
+        document.body.appendChild(element);
 
         this.emit('mounted');
 
@@ -347,7 +347,7 @@ export default class Plugin {
      * @param {HTMLElement} element
      */
     setElement(element) {
-        if (dom.isElement(element)) {
+        if (isElement(element)) {
             this.element = element;
         }
     }
@@ -465,7 +465,7 @@ export default class Plugin {
     unmount() {
         let element = this.element;
 
-        if (!this.mounted || (element && !dom.contains(element))) {
+        if (!this.mounted || (element && !inDOM(element))) {
             return;
         }
 

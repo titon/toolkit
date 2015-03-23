@@ -61,11 +61,8 @@ export function contains(element) {
  * @param {Node} [context]
  * @returns {HTMLElement[]}
  */
-export function find(query, context) {
-    context = context || document;
-
-    return Array.prototype.slice.call(context.querySelectorAll(query))
-        .map(() => extend(this));
+export function find(query, context = document) {
+    return Array.of(context.querySelectorAll(query)).map(element => extend(element));
 }
 
 /**
@@ -85,11 +82,9 @@ export function id(query) {
  * @returns {boolean}
  */
 export function isElement(element) {
-    if ('HTMLElement' in window) {
-        return (element instanceof HTMLElement);
-    }
-
-    return (element.nodeName && element.nodeType && element.nodeType === 1);
+    return ('HTMLElement' in window)
+        ? (element instanceof HTMLElement)
+        : (element.nodeName && element.nodeType && element.nodeType === 1);
 }
 
 /**
