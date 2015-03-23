@@ -31,21 +31,36 @@ export function bound(value, max, min) {
 }
 
 /**
- * Overload a getter method to accept an array that returns a set of data.
+ * Overload a method and make it chainable if it is not already.
  *
- * @param {function} callback
+ * @param {function} func
  * @returns {function}
  */
-export function getter(callback) {
-    return (context, key) => {
-        let value = {};
+export function chain(func) {
+    return () => {
+        let response = func.apply(this, arguments);
+
+        return response === undefined ? this : response;
+    }
+}
+
+/**
+ * Overload a getter method to accept an array that returns a set of data.
+ *
+ * @param {function} func
+ * @returns {function}
+ */
+export function getter(func) {
+    return (key) => {
+        let value = {},
+            self = this;
 
         if (Array.isArray(key)) {
             key.forEach(k => {
-                value[k] = callback.call(context, k);
+                value[k] = func.call(self, k);
             });
         } else {
-            value = callback.call(context, key);
+            value = func.call(self, key);
         }
 
         return value;
@@ -55,16 +70,18 @@ export function getter(callback) {
 /**
  * Overload a setter method with key value arguments to accept an object of key values.
  *
- * @param {function} callback
+ * @param {function} func
  * @returns {function}
  */
-export function setter(callback) {
-    return (context, key, value) => {
+export function setter(func) {
+    return (key, value) => {
+        let self = this;
+
         if (obj.is(key)) {
-            obj.forEach(key, (k) => callback.call(context, k, key[k]));
+            obj.forEach(key, (k) => func.call(self, k, key[k]));
 
         } else if (key) {
-            callback.call(context, key, value);
+            func.call(self, key, value);
         }
 
         return this;

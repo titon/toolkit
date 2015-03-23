@@ -7,7 +7,7 @@
 'use strict';
 
 import * as obj from 'object';
-import * as util from 'util';
+import extend from 'dom/extend';
 
 // The document <body> element
 export var body = document.body;
@@ -15,88 +15,32 @@ export var body = document.body;
 // The document <head> element
 export var head = document.head;
 
+/**
+ * Batch multiple mutations of an element to limit the reflow and repaint.
+ *
+ * @param {HTMLElement} element
+ * @param {function} func
+ * @returns {HTMLElement}
+ */
+export function batch(element, func) {
+    let parent = element.parentNode,
+        next = element.nextSibling;
 
-let setAria = util.setter((key, value) => {
-    if (value === true) {
-        value = 'true';
-    } else if (value === false) {
-        value = 'false';
+    // Exit if no parent
+    if (!parent) {
+        return element;
     }
 
-    this.setAttribute('aria-' + key, value);
-});
+    // Detach from the DOM
+    parent.removeChild(element);
 
-let setAttr = util.setter((key, value) => {
-    this.setAttribute(key, value);
-});
+    // Execute callback
+    func.call(element);
 
-class ElementChain {
-    constructor(element) {
-        this.elements = Array.isArray(element) ? element : [element];
-    }
+    // Re-attach in the DOM
+    parent.insertBefore(element, next);
 
-    addClass(className) {
-        return this.map(element => element.classList.add(className));
-    }
-
-    aria(key, value) {
-        if (!Toolkit.aria) {
-            return this;
-        }
-
-        if (key === 'toggled') {
-            key = { expanded: value, selected: value };
-        }
-
-        return this.map(element => setAria(element, key, value));
-    }
-
-    attr(key, value) {
-        return this.map(element => setAttr(element, key, value));
-    }
-
-    conceal(dontHide) {
-        if (this.hasClass('show') && !dontHide) {
-            ///this.transitionend(function() {
-            //    $(this).hide();
-            //});
-            // TODO
-        }
-
-        return this
-            .removeClass('show')
-            .addClass('hide')
-            .aria('hidden', true);
-    }
-
-    hasClass(className) {
-        return this.elements.some(element => element.classList.contains(className));
-    }
-
-    map(callback) {
-        this.elements.forEach(callback);
-
-        return this;
-    }
-
-    removeClass(className) {
-        return this.map(element => element.classList.remove(className));
-    }
-
-    reveal(dontShow) {
-        if (!dontShow) {
-            this.map(element => element.style.display = '');
-        }
-
-        // We must place in a timeout or transitions do not occur
-        setTimeout(() => {
-            this.removeClass('hide')
-                .addClass('show')
-                .aria('hidden', false);
-        }, 1);
-
-        return this;
-    }
+    return element;
 }
 
 /**
@@ -107,10 +51,6 @@ class ElementChain {
  */
 export function contains(element) {
     return (element === body) ? false : body.contains(element);
-}
-
-export function chain(element) {
-    return new ElementChain(element);
 }
 
 /**
@@ -124,7 +64,8 @@ export function chain(element) {
 export function find(query, context) {
     context = context || document;
 
-    return Array.prototype.slice.call(context.querySelectorAll(query));
+    return Array.prototype.slice.call(context.querySelectorAll(query))
+        .map(() => extend(this));
 }
 
 /**
@@ -134,7 +75,7 @@ export function find(query, context) {
  * @returns {HTMLElement}
  */
 export function id(query) {
-    return document.getElementById(query);
+    return extend(document.getElementById(query));
 }
 
 /**

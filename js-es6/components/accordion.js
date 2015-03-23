@@ -170,21 +170,21 @@ export default class Accordion extends EmbeddedComponent {
         }
 
         this.sections.forEach((section) => {
-            let chain = dom.chain(section),
-                className = chain.hasClass('hide') ? 'hide' : 'show',
-                maxHeight = section.style.maxHeight,
-                height = 0;
+            let classList = section.classList,
+                className = classList.contains('hide') ? 'hide' : 'show',
+                maxHeight = section.style.maxHeight;
 
             // Make section visible
-            chain.addClass('no-transition').removeClass(className);
+            classList.add('no-transition');
+            classList.remove(className);
 
             section.style.maxHeight = '';
 
             // Get the height
-            height = callback.call(this, section);
+            let height = callback.call(this, section);
 
             // Cache the height
-            chain.attr('data-accordion-height', height);
+            section.setAttribute('data-accordion-height', height);
 
             // Set section back to previous state
             if (className === 'show') {
@@ -193,7 +193,8 @@ export default class Accordion extends EmbeddedComponent {
                 section.style.maxHeight = maxHeight;
             }
 
-            chain.addClass(className).removeClass('no-transition');
+            classList.add(className);
+            classList.remove('no-transition');
         });
     }
 
