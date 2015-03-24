@@ -45,14 +45,12 @@ export default class Plugin {
                 context = this[context];
             }
 
-            // Delegated events
+            // Apply event delegation
             if (selector) {
-                context[method](event, delegate(selector, callback));
-
-            // Regular events
-            } else {
-                context[method](event, callback);
+                callback = delegate(selector, callback);
             }
+
+            context[method](event, callback);
         });
     }
 
@@ -425,7 +423,7 @@ export default class Plugin {
         }
 
         // Exit early if not an object
-        if (isObject(state)) {
+        if (!isObject(state)) {
             return;
         }
 

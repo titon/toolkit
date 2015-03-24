@@ -9,6 +9,13 @@
 let data = {};
 
 /**
+ * Empty the cache and remove all items.
+ */
+export function flush() {
+    data = {};
+}
+
+/**
  * Retrieve an item from the cache or return null.
  *
  * @param {string} key
@@ -60,11 +67,10 @@ export function set(key, value) {
  * @param {*} [value]
  * @returns {*}
  */
-export default function cache(key, value) {
-    var currentValue = get(key),
-        type = typeof currentValue;
+export function cache(key, value) {
+    var currentValue = get(key);
 
-    if (type !== 'undefined' && type !== 'null') {
+    if (currentValue !== null) {
         return currentValue;
     }
 

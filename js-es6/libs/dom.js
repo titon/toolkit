@@ -8,12 +8,6 @@
 
 import extend from 'dom/extend';
 
-// The document <body> element
-export var body = document.body;
-
-// The document <head> element
-export var head = document.head;
-
 /**
  * Batch multiple mutations of an element to limit the reflow and repaint.
  *
