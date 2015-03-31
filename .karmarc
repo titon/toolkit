@@ -1,0 +1,46 @@
+module.exports = function(config) {
+    config.set({
+        basePath: '',
+
+        frameworks: ['jasmine', 'requirejs'],
+
+        files: [
+            { pattern: 'js-es6/**/*.js', included: false },
+            { pattern: 'tests-es6/**/*-test.js', included: false },
+            'tests-es6/runner.js'
+        ],
+
+        exclude: [],
+
+        preprocessors: {
+            'js-es6/**/*.js': ['babel'],
+            'tests-es6/**/*.js': ['babel']
+        },
+
+        reporters: ['progress'],
+
+        port: 9876,
+
+        colors: true,
+
+        logLevel: config.LOG_INFO,
+
+        autoWatch: false,
+
+        browsers: ['Chrome'], //, 'Firefox', 'Safari', 'IE'],
+
+        singleRun: false,
+
+        babelPreprocessor: {
+            options: {
+                sourceMap: 'inline'
+            },
+            filename: function(file) {
+                return file.originalPath.replace(/\.js$/, '.es5.js');
+            },
+            sourceFileName: function(file) {
+                return file.originalPath;
+            }
+        }
+    });
+};

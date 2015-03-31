@@ -44,6 +44,8 @@ export function batch(element, func, context) {
  * @returns {boolean}
  */
 export function contains(element) {
+    let body = document.body;
+
     return (element === body) ? false : body.contains(element);
 }
 

@@ -16,6 +16,8 @@ var pkg = require('./package.json'),
     prefixer = require('gulp-autoprefixer'),
     compartment = require('compartment'),
 
+
+    karma = require('karma').server,
     eslint = require('gulp-eslint'),
     babel = require('gulp-babel'),
     options = gutil.env,
@@ -120,11 +122,16 @@ gulp.task('es6', function() {
         .pipe(gulp.dest('./build-es6/'))
 });
 
-gulp.task('test', function() {
-    return gulp.src('./tests/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(pjs({ reporter: 'dot' }));
+gulp.task('test', function(done) {
+    karma.start({
+        configFile: __dirname + '/.karmarc',
+        singleRun: true
+    }, done);
+
+    //return gulp.src('./tests/**/*.js')
+    //    .pipe(jshint())
+    //    .pipe(jshint.reporter('default'))
+    //    .pipe(pjs({ reporter: 'dot' }));
 });
 
 gulp.task('docs', function() {

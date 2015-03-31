@@ -30,22 +30,22 @@
         "gulp-minify-css": "~0",
         "gulp-autoprefixer": "~1",
         "gulp-header": "~1",
+
+        "babel-eslint": "~2.0",
         "gulp-babel": "~4.0",
         "gulp-eslint": "~0.7",
-        "babel-eslint": "~2.0",
-        "babel-jest": "~4.0",
-        "jest-cli": "~0.4",
+
+        "karma": "~0.12",
+        "karma-cli": "~0.0",
+        "karma-jasmine": "~0.3",
+        "karma-requirejs": "~0.2",
+        "karma-ie-launcher": "*",
+        "karma-safari-launcher": "*",
+        "karma-chrome-launcher": "*",
+        "karma-firefox-launcher": "*",
+        "karma-babel-preprocessor": "*",
+
         "compartment": "~0",
         "node-sass": "~1"
-    },
-    "scripts": {
-        "test": "jest"
-    },
-    "jest": {
-        "scriptPreprocessor": "./node_modules/babel-jest",
-        "testFileExtensions": ["js"],
-        "testPathDirs": ["js-es6/"],
-        "moduleFileExtensions": ["js", "json"],
-        "globals": {}
     }
 }

@@ -1,22 +1,20 @@
 'use strict';
 
-jest.dontMock('../cache');
+import Cache from '../../js-es6/libs/cache';
 
-var Cache = require('../cache');
-
-describe('libs/cache', function() {
-    describe('get()', function() {
-        it('should return `null` if no item is found', function() {
+describe('libs/cache', () => {
+    describe('get()', () => {
+        it('should return `null` if no item is found', () => {
             expect(Cache.get('foo')).toBeNull();
         });
 
-        it('should return a value if an item exists', function() {
+        it('should return a value if an item exists', () => {
             Cache.set('foo', 123);
 
             expect(Cache.get('foo')).toBe(123);
         });
 
-        it('should return falsey values if an item exists', function() {
+        it('should return falsey values if an item exists', () => {
             Cache.set('foo', false);
 
             expect(Cache.get('foo')).toBe(false);
@@ -31,29 +29,29 @@ describe('libs/cache', function() {
         });
     });
 
-    describe('set()', function() {
-        it('should set a value by key', function() {
+    describe('set()', () => {
+        it('should set a value by key', () => {
             Cache.set('bar', true);
 
             expect(Cache.get('bar')).toBe(true);
         });
 
-        it('should overwrite a previous value', function() {
+        it('should overwrite a previous value', () => {
             Cache.set('bar', false);
 
             expect(Cache.get('bar')).toBe(false);
         });
     });
 
-    describe('has()', function() {
-        it('should verify if an item exists', function() {
+    describe('has()', () => {
+        it('should verify if an item exists', () => {
             expect(Cache.has('foo')).toBe(true);
             expect(Cache.has('baz')).toBe(false);
         });
     });
 
-    describe('remove()', function() {
-        it('should remove an item by key', function() {
+    describe('remove()', () => {
+        it('should remove an item by key', () => {
             Cache.set('qux', [1]);
 
             expect(Cache.get('qux')).toEqual([1]);
@@ -64,8 +62,8 @@ describe('libs/cache', function() {
         });
     });
 
-    describe('flush()', function() {
-        it('should remove all items', function() {
+    describe('flush()', () => {
+        it('should remove all items', () => {
             expect(Cache.has('foo')).toBe(true);
             expect(Cache.has('bar')).toBe(true);
 
@@ -76,53 +74,53 @@ describe('libs/cache', function() {
         });
     });
 
-    describe('cache()', function() {
-        beforeEach(function() {
+    describe('cache()', () => {
+        beforeEach(() => {
             Cache.flush();
         });
 
-        it('should set a value if it doesn\'t exist', function() {
+        it('should set a value if it doesn\'t exist', () => {
             expect(Cache.get('foo')).toBeNull();
 
-            Cache.cache('foo', 'bar');
+            Cache('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
         });
 
-        it('should return the same value if it does exist', function() {
-            Cache.cache('foo', 'bar');
+        it('should return the same value if it does exist', () => {
+            Cache('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
 
-            Cache.cache('foo', 'baz');
+            Cache('foo', 'baz');
 
             expect(Cache.get('foo')).toBe('bar');
         });
 
-        it('should set and return empty values (except nulls)', function() {
-            Cache.cache('foo', false);
+        it('should set and return empty values (except nulls)', () => {
+            Cache('foo', false);
 
             expect(Cache.get('foo')).toBe(false);
 
-            Cache.cache('foo', true);
+            Cache('foo', true);
 
             expect(Cache.get('foo')).toBe(false);
         });
 
-        it('should allow nulls to be overwritten', function() {
-            Cache.cache('foo', null);
+        it('should allow nulls to be overwritten', () => {
+            Cache('foo', null);
 
             expect(Cache.get('foo')).toBe(null);
 
-            Cache.cache('foo', 'bar');
+            Cache('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
         });
 
-        it('should cache a value based on the return of a callback', function() {
+        it('should cache a value based on the return of a callback', () => {
             expect(Cache.get('foo')).toBeNull();
 
-            Cache.cache('foo', function() {
+            Cache('foo', () => {
                 return 5 * 5;
             });
 
