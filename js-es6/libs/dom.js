@@ -6,7 +6,7 @@
 
 'use strict';
 
-import extend from 'dom/extend';
+import extend from './dom/extend';
 
 /**
  * Batch multiple mutations of an element to limit the reflow and repaint.

@@ -67,7 +67,7 @@ export function set(key, value) {
  * @param {*} [value]
  * @returns {*}
  */
-export function cache(key, value) {
+export default function cache(key, value) {
     var currentValue = get(key);
 
     if (currentValue !== null) {

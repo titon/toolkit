@@ -6,9 +6,9 @@
 
 'use strict';
 
-import { id, isElement, contains as inDOM } from 'libs/dom';
-import { forOwn, isObject, merge } from 'libs/object';
-import delegate from 'libs/event';
+import { id, isElement, contains as inDOM } from './libs/dom';
+import { forOwn, isObject, merge } from './libs/object';
+import delegate from './libs/event';
 
 export default class Plugin {
     constructor(selector, options = {}) {

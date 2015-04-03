@@ -6,7 +6,7 @@
 
 'use strict';
 
-import Component from 'component';
+import Component from './component';
 
 export default class EmbeddedComponent extends Component {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import Cache from '../../js-es6/libs/cache';
+import * as Cache from 'js-es6/libs/cache';
 
 describe('libs/cache', () => {
     describe('get()', () => {
@@ -82,37 +82,37 @@ describe('libs/cache', () => {
         it('should set a value if it doesn\'t exist', () => {
             expect(Cache.get('foo')).toBeNull();
 
-            Cache('foo', 'bar');
+            Cache.default('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
         });
 
         it('should return the same value if it does exist', () => {
-            Cache('foo', 'bar');
+            Cache.default('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
 
-            Cache('foo', 'baz');
+            Cache.default('foo', 'baz');
 
             expect(Cache.get('foo')).toBe('bar');
         });
 
         it('should set and return empty values (except nulls)', () => {
-            Cache('foo', false);
+            Cache.default('foo', false);
 
             expect(Cache.get('foo')).toBe(false);
 
-            Cache('foo', true);
+            Cache.default('foo', true);
 
             expect(Cache.get('foo')).toBe(false);
         });
 
         it('should allow nulls to be overwritten', () => {
-            Cache('foo', null);
+            Cache.default('foo', null);
 
             expect(Cache.get('foo')).toBe(null);
 
-            Cache('foo', 'bar');
+            Cache.default('foo', 'bar');
 
             expect(Cache.get('foo')).toBe('bar');
         });
@@ -120,7 +120,7 @@ describe('libs/cache', () => {
         it('should cache a value based on the return of a callback', () => {
             expect(Cache.get('foo')).toBeNull();
 
-            Cache('foo', () => {
+            Cache.default('foo', () => {
                 return 5 * 5;
             });
 

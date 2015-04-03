@@ -1,18 +1,35 @@
-var allTestFiles = [];
-var TEST_REGEXP = /(spec|test)\.js$/i;
+(function(karma) {
+    'use strict';
 
-var pathToModule = function(path) {
-    return path.replace(/^\/base\//, '').replace(/\.js$/, '');
-};
+    // Disable Karma from running tests immediately
+    karma.loaded = function() {};
 
-Object.keys(window.__karma__.files).forEach(function(file) {
-    if (TEST_REGEXP.test(file)) {
-        allTestFiles.push(pathToModule(file));
-    }
-});
+    // Karma places all files in a base folder
+    System.baseURL = '/base/';
 
-require.config({
-    baseUrl: '/base/js',
-    deps: allTestFiles,
-    callback: window.__karma__.start
-});
+    // Use Babel for transpilation
+    System.transpiler = 'babel';
+
+    // Loop over each test file and import it
+    var TEST_REGEXP = /-test\.js$/i,
+        files = [],
+        started = false;
+
+    Object.keys(karma.files).forEach(function (file) {
+        if (TEST_REGEXP.test(file)) {
+            files.push(file.replace('/base/', '').replace('.js', ''));
+        }
+    });
+
+    // Run the tests
+    Promise
+        .all(files.map(function (module) {
+            return System.import(module);
+        }))
+        .then(function () {
+            if (!started) {
+                karma.start();
+                started = true;
+            }
+        });
+})(__karma__);

@@ -2,20 +2,19 @@ module.exports = function(config) {
     config.set({
         basePath: '',
 
-        frameworks: ['jasmine', 'requirejs'],
+        frameworks: ['jasmine'],
 
         files: [
+            'node_modules/gulp-babel/node_modules/babel-core/browser.js',
+            'node_modules/es6-module-loader/dist/es6-module-loader.js',
+            'tests-es6/runner.js',
             { pattern: 'js-es6/**/*.js', included: false },
             { pattern: 'tests-es6/**/*-test.js', included: false },
-            'tests-es6/runner.js'
         ],
 
         exclude: [],
 
-        preprocessors: {
-            'js-es6/**/*.js': ['babel'],
-            'tests-es6/**/*.js': ['babel']
-        },
+        preprocessors: {},
 
         reporters: ['progress'],
 
@@ -29,18 +28,6 @@ module.exports = function(config) {
 
         browsers: ['Chrome'], //, 'Firefox', 'Safari', 'IE'],
 
-        singleRun: false,
-
-        babelPreprocessor: {
-            options: {
-                sourceMap: 'inline'
-            },
-            filename: function(file) {
-                return file.originalPath.replace(/\.js$/, '.es5.js');
-            },
-            sourceFileName: function(file) {
-                return file.originalPath;
-            }
-        }
+        singleRun: true
     });
 };

@@ -2,7 +2,6 @@
 
 var pkg = require('./package.json'),
     rjs = require('./gulp/requirejs'),
-    pjs = require('./gulp/phantomjs'),
     sass = require('./gulp/sass'),
     toc = require('./gulp/toc'),
     gulp = require('gulp'),
@@ -11,7 +10,6 @@ var pkg = require('./package.json'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     minify = require('gulp-minify-css'),
-    jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     prefixer = require('gulp-autoprefixer'),
     compartment = require('compartment'),
@@ -124,14 +122,8 @@ gulp.task('es6', function() {
 
 gulp.task('test', function(done) {
     karma.start({
-        configFile: __dirname + '/.karmarc',
-        singleRun: true
+        configFile: __dirname + '/.karmarc'
     }, done);
-
-    //return gulp.src('./tests/**/*.js')
-    //    .pipe(jshint())
-    //    .pipe(jshint.reporter('default'))
-    //    .pipe(pjs({ reporter: 'dot' }));
 });
 
 gulp.task('docs', function() {

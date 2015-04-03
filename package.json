@@ -36,16 +36,14 @@
         "gulp-eslint": "~0.7",
 
         "karma": "~0.12",
-        "karma-cli": "~0.0",
         "karma-jasmine": "~0.3",
-        "karma-requirejs": "~0.2",
         "karma-ie-launcher": "*",
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
-        "karma-babel-preprocessor": "*",
 
         "compartment": "~0",
-        "node-sass": "~1"
+        "node-sass": "~1",
+        "es6-module-loader": "~0.16"
     }
 }

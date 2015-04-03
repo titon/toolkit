@@ -6,7 +6,7 @@
 
 'use strict';
 
-import { forOwn, isObject } from 'object';
+import { forOwn, isObject } from './object';
 
 /**
  * Bound a number between a min and max range.
