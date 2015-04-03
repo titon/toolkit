@@ -15,18 +15,20 @@
         files = [],
         started = false;
 
-    Object.keys(karma.files).forEach(function (file) {
+    Object.keys(karma.files).forEach(function(file) {
         if (TEST_REGEXP.test(file)) {
-            files.push(file.replace('/base/', '').replace('.js', ''));
+            files.push(file
+                .replace('/base/', '')
+                .replace('.js', ''));
         }
     });
 
     // Run the tests
     Promise
-        .all(files.map(function (module) {
+        .all(files.map(function(module) {
             return System.import(module);
         }))
-        .then(function () {
+        .then(function() {
             if (!started) {
                 karma.start();
                 started = true;
