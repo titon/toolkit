@@ -2,6 +2,11 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.2 ##
+* Components
+    * Grid
+        * Fixed an issue where `.end` capping would not work correctly on collapsed columns
+
 ## 2.1.1 ##
 * Components
     * Grid

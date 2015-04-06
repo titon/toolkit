@@ -48,10 +48,4 @@
             }
         }
     }
-
-    // End capping
-    #{$grid-class-column}#{$grid-class-end} {
-        margin-#{$align-opposite-direction}: 0 !important;
-        float: $align-opposite-direction !important;
-    }
 }
