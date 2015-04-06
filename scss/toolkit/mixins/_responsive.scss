@@ -99,7 +99,7 @@
 
 // Within 2 ranges
 @mixin in-range($range) {
-    @if type-of($range) != 'list' {
+    @if type-of($range) != "list" {
         @warn "in-range() requires a list with a min and max value";
     }
 
