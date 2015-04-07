@@ -24,6 +24,17 @@ $modules-exported: () !global;
     $modules-excluded: ();
 }
 
+//-------------------- Text Direction --------------------//
+
+$text-direction: ltr !default;
+$align-direction: left;
+$align-opposite-direction: right;
+
+@if ($text-direction == rtl) {
+    $align-direction: right;
+    $align-opposite-direction: left;
+}
+
 //-------------------- Colors --------------------//
 
 $gray-lightest: #fbfbfb !default;
@@ -46,17 +57,6 @@ $default-transition: .3s !default;
 
 $bem-element-separator: "-" !default;
 $bem-modifier-separator: "--" !default;
-
-//-------------------- Text Direction --------------------//
-
-$text-direction: ltr !default;
-$align-direction: left;
-$align-opposite-direction: right;
-
-@if ($text-direction == rtl) {
-    $align-direction: right;
-    $align-opposite-direction: left;
-}
 
 //-------------------- Spacing --------------------//
 
