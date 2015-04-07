@@ -30,7 +30,7 @@
             }
         }
 
-        @include is-small() {
+        @include is-small {
             width: 70px;
 
             #{$switch-class-bar} {
@@ -47,7 +47,7 @@
             }
         }
 
-        @include is-large() {
+        @include is-large {
             width: 130px;
 
             #{$switch-class-bar} {

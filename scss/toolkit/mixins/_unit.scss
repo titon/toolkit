@@ -8,14 +8,14 @@
 @function to-pixel($from) {
     $from-unit: unit($from);
 
-    @if $from-unit == 'px' {
+    @if $from-unit == "px" {
         @return $from;
 
-    } @else if $from-unit == '%' or $from-unit == 'em' or $from-unit == 'rem' {
+    } @else if $from-unit == "%" or $from-unit == "em" or $from-unit == "rem" {
         @return (strip-unit($from) * $base-size);
 
     } @else {
-        @warn 'Unknown pixel conversion unit type.';
+        @warn "Unknown pixel conversion unit type.";
     }
 
     @return $from;
@@ -25,14 +25,14 @@
 @function to-percent($from) {
     $from-unit: unit($from);
 
-    @if $from-unit == '%' {
+    @if $from-unit == "%" {
         @return $from;
 
-    } @else if $from-unit == 'px' or $from-unit == 'em' or $from-unit == 'rem' {
+    } @else if $from-unit == "px" or $from-unit == "em" or $from-unit == "rem" {
         @return percentage((to-pixel($from) / $base-size) / 100);
 
     } @else {
-        @warn 'Unknown percentage conversion unit type.';
+        @warn "Unknown percentage conversion unit type.";
     }
 
     @return $from;
@@ -42,14 +42,14 @@
 @function to-rem($from) {
     $from-unit: unit($from);
 
-    @if $from-unit == 'rem' {
+    @if $from-unit == "rem" {
         @return $from;
 
-    } @else if $from-unit == 'px' or $from-unit == '%' or $from-unit == 'em' {
+    } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "em" {
         @return (to-pixel($from) / $base-size) * 1rem;
 
     } @else {
-        @warn 'Unknown rem conversion unit type.';
+        @warn "Unknown rem conversion unit type.";
     }
 
     @return $from;
@@ -59,14 +59,14 @@
 @function to-em($from) {
     $from-unit: unit($from);
 
-    @if $from-unit == 'em' {
+    @if $from-unit == "em" {
         @return $from;
 
-    } @else if $from-unit == 'px' or $from-unit == '%' or $from-unit == 'rem' {
+    } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "rem" {
         @return (to-pixel($from) / $base-size) * 1em;
 
     } @else {
-        @warn 'Unknown em conversion unit type.';
+        @warn "Unknown em conversion unit type.";
     }
 
     @return $from;

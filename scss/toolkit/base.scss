@@ -30,7 +30,6 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 // Display
 .shown { display: block; }
 .hidden { display: none; }
-.no-scroll { overflow: hidden !important; }
 .no-transition { transition: none !important; }
 
 .fluid {
@@ -60,6 +59,15 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
         clip: auto;
     }
 }
+
+// Disable Scrolling
+.no-scroll { overflow: hidden !important; }
+
+// #111 - https://github.com/titon/toolkit/issues/111
+// Mobile devices require a fixed positioning for this to work correctly.
+// This is a janky hack but there's really no better solution, as we don't want to use JS.
+// Furthermore, this will cause the page to jump to the top, no fix for that either.
+.touch body.no-scroll { position: fixed; }
 
 // Layout
 .vertical-center {
@@ -106,7 +114,7 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 
 // Bullets
 .bullets {
-    @include reset-list();
+    @include reset-list;
     line-height: 100%;
 
     li {

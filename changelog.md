@@ -2,6 +2,14 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.2 ##
+* Updated NPM packages and improved Gulp workflow
+* Components
+    * Grid
+        * Fixed an issue where `.end` capping would not work correctly on collapsed columns
+    * Modal, OffCanvas, Showcase
+        * Fixed an issue where `stopScroll` would not work on mobile devices
+
 ## 2.1.1 ##
 * Components
     * Grid

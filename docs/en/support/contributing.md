@@ -15,8 +15,6 @@ with the following information included.
 
 ### Known Issues ###
 
-* [Firefox #625289](https://bugzilla.mozilla.org/show_bug.cgi?id=625289) -
-    Adding `.no-scroll` (overflow hidden) on a parent element breaks transitions on child elements
 * [Android #19827](https://code.google.com/p/android/issues/detail?id=19827) -
     Touch `touchend` events are not triggered unless `preventDefault()` is called during `touchstart` or `touchmove` *(Temporarily patched)*
 

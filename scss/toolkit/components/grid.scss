@@ -9,12 +9,12 @@
 @include export("grid") {
     // Row wrapper
     #{$grid-class} {
-        @include grid-row();
+        @include grid-row;
     }
 
     // These should be the same for all sizes
     #{$grid-class-column}[class*="span-"] {
-        @include grid-column();
+        @include grid-column;
     }
 
     // Global Push and pull classes
@@ -47,11 +47,5 @@
                 }
             }
         }
-    }
-
-    // End capping
-    #{$grid-class-column}#{$grid-class-end} {
-        margin-#{$align-opposite-direction}: 0 !important;
-        float: $align-opposite-direction !important;
     }
 }

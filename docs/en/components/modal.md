@@ -30,10 +30,6 @@ Or we can trigger the modal by passing in the node to read from.
 $('.js-modal').toolkit('modal', 'show', $('#add-category')); // Loads /categories/add
 ```
 
-<div class="notice is-info">
-    Really tall modals fail to scroll in Chrome when <code>stopScroll</code> is true.
-</div>
-
 ### Dynamic Content Loading ###
 
 Briefly mentioned above, modals use a form of dynamic content loading. This allows the body of the modal to be 
@@ -255,7 +251,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>stopScroll</td>
             <td>bool</td>
             <td>true</td>
-            <td>Whether to remove the scrollbar on the window while the modal is open.</td>
+            <td>
+                Whether to remove the scrollbar on the window while the modal is open.
+                Requires <code>html.touch</code> for mobile devices to function properly.
+            </td>
         </tr>
         <tr>
             <td>template</td>

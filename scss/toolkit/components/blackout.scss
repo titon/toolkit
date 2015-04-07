@@ -8,7 +8,7 @@
 
 @include export("blackout") {
     #{$blackout-class} {
-        @include full-screen();
+        @include full-screen;
         z-index: $blackout-zindex;
         opacity: 0;
         visibility: hidden;
