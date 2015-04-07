@@ -264,7 +264,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>stopScroll</td>
             <td>bool</td>
             <td>true</td>
-            <td>Whether to remove the scrollbar on the window while the sidebar is open.</td>
+            <td>
+                Whether to remove the scrollbar on the window while the sidebar is open.
+                Requires <code>html.touch</code> for mobile devices to function properly.
+            </td>
         </tr>
         <tr>
             <td>swipe</td>

@@ -169,7 +169,10 @@ Inherits all options from the [parent Component](component.md#options).
             <td>stopScroll</td>
             <td>bool</td>
             <td>true</td>
-            <td>Whether to remove the scrollbar on the window while the showcase is open.</td>
+            <td>
+                Whether to remove the scrollbar on the window while the showcase is open.
+                Requires <code>html.touch</code> for mobile devices to function properly.
+            </td>
         </tr>
         <tr>
             <td>template</td>
