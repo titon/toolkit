@@ -26,4 +26,13 @@
             margin-#{$align-direction}: gutter($width, $gutter);
         }
     }
+
+    // End capping
+    &#{$grid-class-end} {
+        @if $gutter {
+            margin-#{$align-opposite-direction}: 0 !important;
+        }
+
+        float: $align-opposite-direction !important;
+    }
 }

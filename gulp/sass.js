@@ -20,23 +20,23 @@ module.exports = function(options) {
             sourceMap: false,
             success: function(response) {
                 gutil.log("\t" + gutil.colors.blue(inputPath
-                    .replace(file.cwd, '') // Remove base folder from path
-                    .replace(/\\/g, '/') // Fix Windows paths
-                    .replace('/scss/', '') // And the scss folder for normalize
-                    .replace('toolkit/', '') // And the toolkit folder for everything else
+                    .replace(file.cwd, '')      // Remove base folder from path
+                    .replace(/\\/g, '/')        // Fix Windows paths
+                    .replace('/scss/', '')      // And the scss folder for normalize
+                    .replace('toolkit/', '')    // And the toolkit folder for everything else
                     .replace('.scss', '')));
 
                 // Read the temp file contents
                 self.push(new gutil.File({
                     base: file.base,
                     path: outputPath,
-                    contents: new buffer.Buffer(response)
+                    contents: new buffer.Buffer(response.css)
                 }));
 
                 done();
             },
             error: function(error) {
-                throw new gutil.PluginError(PLUGIN_NAME, error);
+                throw new gutil.PluginError(PLUGIN_NAME, error.message);
             }
         });
     });

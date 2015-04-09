@@ -12,6 +12,8 @@ var pkg = require('./package.json'),
     minify = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     prefixer = require('gulp-autoprefixer'),
+    plumber = require('gulp-plumber'),
+    notify = require('gulp-notify'),
     compartment = require('compartment'),
 
 
@@ -20,6 +22,18 @@ var pkg = require('./package.json'),
     babel = require('gulp-babel'),
     options = gutil.env,
     banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage.replace('http://', '') %> */\n";
+
+/**
+ * Notification helpers.
+ */
+
+function success(message) {
+    return notify({ title: 'Titon Toolkit - Success', message: message, onLast: true });
+}
+
+function failure() {
+    return { errorHandler: notify.onError({ title: 'Titon Toolkit - Failure', message: '<%= error.message %>' }) };
+}
 
 /**
  * Determine which plugins we should package.
@@ -73,11 +87,12 @@ var jsPaths = graph.getPaths('js'),
 
 gulp.task('css', function() {
     return gulp.src(cssPaths)
+        .pipe(plumber(failure()))
 
         // Unminified
         .pipe(sass({ style: 'expanded' }))
         .pipe(concat('toolkit.css'))
-        .pipe(prefixer('last 3 versions'))
+        .pipe(prefixer({ browsers: ['last 3 versions'] }))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(rename(function(path) {
             if (options.rtl) {
@@ -89,11 +104,13 @@ gulp.task('css', function() {
         // Minified
         .pipe(minify({ advanced: false }))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(buildPath));
+        .pipe(gulp.dest(buildPath))
+        .pipe(success('CSS compiled...'));
 });
 
 gulp.task('js', function() {
     return rjs(jsPaths, { version: pkg.version })
+        .pipe(plumber(failure()))
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
 
@@ -109,7 +126,8 @@ gulp.task('js', function() {
             }
         }))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(buildPath));
+        .pipe(gulp.dest(buildPath))
+        .pipe(success('JavaScript compiled...'));
 });
 
 gulp.task('es6', function() {
@@ -128,6 +146,7 @@ gulp.task('test', function(done) {
 
 gulp.task('docs', function() {
     return gulp.src('./docs/*')
+        .pipe(plumber(failure()))
         .pipe(toc());
 });
 
