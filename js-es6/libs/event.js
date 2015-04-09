@@ -6,6 +6,8 @@
 
 'use strict';
 
+import '../polyfills/element/matches';
+
 /**
  * Wrap a function that delegates the execution until the target element matches a selector.
  *
@@ -14,13 +16,13 @@
  * @returns {function}
  */
 export function delegate(selector, func) {
-    return e => {
-        let target = e.target;
+    return function(event) {
+        let target = event.target;
 
-        while (target) {
+        while (target && target !== document) {
             if (target.matches(selector)) {
-                e.delegatedTarget = target;
-                func.apply(this, arguments);
+                event.delegatedTarget = target;
+                func(event);
                 break;
             }
 
@@ -36,11 +38,13 @@ export function delegate(selector, func) {
  * @returns {function}
  */
 export function once(func) {
-    return e => {
-        e.target.removeEventListener(e.type, func);
+    var listener = function(event) {
+        event.target.removeEventListener(event.type, listener);
 
-        func.apply(this, arguments);
+        func(event);
     };
+
+    return listener;
 }
 
 /**
@@ -53,11 +57,13 @@ export function once(func) {
 export function transitionEnd(element, func) {
     let duration = element.style.transitionDuration;
 
-    element.addEventListener('transitionend', once(func));
-
     // No transition defined so trigger callback immediately
     if (duration === '0s' || typeof duration === 'undefined') {
-        element.dispatchEvent(new TransitionEvent('transitionend'));
+        func.call();
+
+    // Bind a listener once
+    } else {
+        element.addEventListener('transitionend', once(func));
     }
 
     return element;

@@ -16,7 +16,7 @@
 export function debounce(func, threshold = 150) {
     let timeout;
 
-    return () => {
+    return function() {
         let self = this,
             args = arguments;
 
@@ -39,7 +39,7 @@ export function debounce(func, threshold = 150) {
 export function throttle(func, delay = 150) {
     let throttled = false;
 
-    return () => {
+    return function() {
         let self = this,
             args = arguments;
 

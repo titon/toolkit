@@ -13,7 +13,7 @@
 
         "brace-style": [2, "1tbs"],
         "consistent-this": [2, "self"],
-        "func-style": [2, "declaration"],
+        "func-style": 0,
         "quotes": [1, "single"],
         "no-nested-ternary": 1,
         "semi": [2, "always"]

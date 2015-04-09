@@ -68,6 +68,7 @@
 
         "compartment": "~0.2",
         "node-sass": "~2.1",
-        "es6-module-loader": "~0.16"
+        "es6-module-loader": "~0.16",
+        "core-js": "~0.8"
     }
 }
