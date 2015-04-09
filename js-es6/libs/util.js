@@ -37,7 +37,7 @@ export function bound(value, max, min) {
  * @returns {function}
  */
 export function chain(func) {
-    return () => {
+    return function() {
         let response = func.apply(this, arguments);
 
         return (typeof response === 'undefined') ? this : response;
@@ -51,14 +51,13 @@ export function chain(func) {
  * @returns {function}
  */
 export function getter(func) {
-    return (key) => {
+    return function(key) {
         let value = {},
             self = this;
 
         if (Array.isArray(key)) {
-            key.forEach(k => {
-                value[k] = func.call(self, k);
-            });
+            key.forEach(k => value[k] = func.call(self, k));
+
         } else {
             value = func.call(self, key);
         }
@@ -74,7 +73,7 @@ export function getter(func) {
  * @returns {function}
  */
 export function setter(func) {
-    return (key, value) => {
+    return function(key, value) {
         let self = this;
 
         if (isObject(key)) {

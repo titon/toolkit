@@ -130,15 +130,19 @@ gulp.task('js', function() {
         .pipe(success('JavaScript compiled...'));
 });
 
-gulp.task('es6', function() {
-    return gulp.src('./js-es6/**/*.js')
+gulp.task('lint', function() {
+    return gulp.src(['./js-es6/**/*.js', './tests-es6/**/*.js'])
         .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(babel())
-        .pipe(gulp.dest('./build-es6/'))
+        .pipe(eslint.format());
 });
 
-gulp.task('test', function(done) {
+gulp.task('es6', ['lint'], function() {
+    return gulp.src('./js-es6/**/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('./build-es6/'));
+});
+
+gulp.task('test', ['lint'], function(done) {
     karma.start({
         configFile: __dirname + '/.karmarc'
     }, done);

@@ -26,6 +26,8 @@ describe('libs/object', () => {
 
     describe('isObject()', () => {
         it('should return true if an object', () => {
+            /*eslint no-new-object: 0*/
+
             expect(Obj.isObject({})).toBe(true);
             expect(Obj.isObject(new Object())).toBe(true);
 

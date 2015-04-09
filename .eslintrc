@@ -4,7 +4,7 @@
         "no-throw-literal": 2,
         "no-console": 0,
         "radix": 1,
-        "wrap-iife": 1,
+        "wrap-iife": [2, "inside"],
         "yoda": [0, "never"],
 
         "strict": [2, "global"],
@@ -20,10 +20,12 @@
     },
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jasmine": true
     },
     "globals": {
         "Toolkit": true,
-        "TransitionEvent": true
+        "TransitionEvent": true,
+        "__karma__": true
     }
 }

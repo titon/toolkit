@@ -1,6 +1,6 @@
-(function(karma) {
-    'use strict';
+'use strict';
 
+(function(karma) {
     // Disable Karma from running tests immediately
     karma.loaded = function() {};
 
