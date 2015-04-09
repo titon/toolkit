@@ -1,13 +1,13 @@
 'use strict';
 
-import * as Func from 'js-es6/libs/function';
+import { debounce, throttle } from 'js-es6/libs/function';
 
 describe('libs/function', () => {
     describe('debounce()', () => {
         it('should trigger the callback once the duration is up', (done) => {
             let count = 1;
 
-            Func.debounce(() => count += 1)();
+            debounce(() => count += 1)();
 
             expect(count).toBe(1);
 
@@ -22,7 +22,7 @@ describe('libs/function', () => {
         it('should delay callback execution to specific intervals', (done) => {
             let count = 1,
                 start = Date.now(),
-                callback = Func.throttle(() => count += 1, 100);
+                callback = throttle(() => count += 1, 100);
 
             // Runs about 14 times
             var timer = setInterval(() => {

@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Obj from 'js-es6/libs/object';
+import { forOwn, isObject, merge } from 'js-es6/libs/object';
 
 describe('libs/object', () => {
     describe('forOwn()', () => {
@@ -13,7 +13,7 @@ describe('libs/object', () => {
                     qux: [null]
                 };
 
-            Obj.forOwn(base, key => values.push(base[key]));
+            forOwn(base, key => values.push(base[key]));
 
             expect(values).toEqual([
                 'abc',
@@ -28,11 +28,11 @@ describe('libs/object', () => {
         it('should return true if an object', () => {
             /*eslint no-new-object: 0*/
 
-            expect(Obj.isObject({})).toBe(true);
-            expect(Obj.isObject(new Object())).toBe(true);
+            expect(isObject({})).toBe(true);
+            expect(isObject(new Object())).toBe(true);
 
-            expect(Obj.isObject([])).toBe(false);
-            expect(Obj.isObject('')).toBe(false);
+            expect(isObject([])).toBe(false);
+            expect(isObject('')).toBe(false);
         });
     });
 
@@ -40,7 +40,7 @@ describe('libs/object', () => {
         it('should copy members into the base', () => {
             let base = { foo: 123 };
 
-            Obj.merge(base, {
+            merge(base, {
                 foo: 456,
                 bar: 'abc'
             });
@@ -54,7 +54,7 @@ describe('libs/object', () => {
         it('should copy members from multiple sources', () => {
             let base = { foo: 123 };
 
-            Obj.merge(base, { bar: 'abc' }, { baz: true });
+            merge(base, { bar: 'abc' }, { baz: true });
 
             expect(base).toEqual({
                 foo: 123,
@@ -67,7 +67,7 @@ describe('libs/object', () => {
             let source1 = { foo: 123 },
                 source2 = { foo: 456, bar: 'abc' };
 
-            let base = Obj.merge({}, source1, source2);
+            let base = merge({}, source1, source2);
 
             expect(base).toEqual({
                 foo: 456,
@@ -87,7 +87,7 @@ describe('libs/object', () => {
         it('should overwrite from multiple sources', () => {
             let base = { foo: 123 };
 
-            Obj.merge(base, { foo: 456 }, { foo: 789 });
+            merge(base, { foo: 456 }, { foo: 789 });
 
             expect(base).toEqual({
                 foo: 789
@@ -103,7 +103,7 @@ describe('libs/object', () => {
                 }
             };
 
-            Obj.merge(base, {
+            merge(base, {
                 bar: {
                     qux: [7, 8, 9]
                 }

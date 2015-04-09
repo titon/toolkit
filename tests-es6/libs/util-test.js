@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Util from 'js-es6/libs/util';
+import { bound, chain, getter, setter } from 'js-es6/libs/util';
 
 class ChainStub {
     noReturn() {}
@@ -29,18 +29,18 @@ class GetSetStub {
 describe('libs/util', () => {
     describe('bound()', () => {
         it('should return the same number if between bounds', () => {
-            expect(Util.bound(10, 15, 5)).toBe(10);
+            expect(bound(10, 15, 5)).toBe(10);
         });
 
         it('should return the minimum if greater than or equal to the maximum', () => {
-            expect(Util.bound(20, 15, 5)).toBe(5);
-            expect(Util.bound(15, 15, 5)).toBe(5);
+            expect(bound(20, 15, 5)).toBe(5);
+            expect(bound(15, 15, 5)).toBe(5);
         });
 
         it('should return the maximum - 1 when less than the minimum', () => {
-            expect(Util.bound(1, 15, 5)).toBe(14);
-            expect(Util.bound(4, 15, 5)).toBe(14);
-            expect(Util.bound(5, 15, 5)).toBe(5);
+            expect(bound(1, 15, 5)).toBe(14);
+            expect(bound(4, 15, 5)).toBe(14);
+            expect(bound(5, 15, 5)).toBe(5);
         });
     });
 
@@ -55,8 +55,8 @@ describe('libs/util', () => {
         });
 
         it('should return the same instance if the function has no return', () => {
-            chainObj.noReturn = Util.chain(chainObj.noReturn);
-            chainObj.hasReturn = Util.chain(chainObj.hasReturn);
+            chainObj.noReturn = chain(chainObj.noReturn);
+            chainObj.hasReturn = chain(chainObj.hasReturn);
 
             expect(chainObj.noReturn()).toBe(chainObj);
             expect(chainObj.hasReturn()).toBe(chainObj);
@@ -72,7 +72,7 @@ describe('libs/util', () => {
                 bar: 'abc',
                 baz: true
             });
-            getterObj.get = Util.getter(getterObj.get);
+            getterObj.get = getter(getterObj.get);
         });
 
         it('should return a value defined by key', () => {
@@ -100,7 +100,7 @@ describe('libs/util', () => {
                 bar: 'abc',
                 baz: true
             });
-            setterObj.set = Util.setter(setterObj.set);
+            setterObj.set = setter(setterObj.set);
         });
 
         it('should set a value defined by key', () => {
