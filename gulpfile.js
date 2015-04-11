@@ -139,6 +139,7 @@ gulp.task('lint', function() {
 gulp.task('es6', ['lint'], function() {
     return gulp.src('./js-es6/**/*.js')
         .pipe(babel())
+        //.pipe(concat('toolkit-bundle.js'))
         .pipe(gulp.dest('./build-es6/'));
 });
 

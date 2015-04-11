@@ -11,6 +11,37 @@ import { forOwn, isObject, merge } from './libs/object';
 import delegate from './libs/event';
 
 export default class Plugin {
+    // Map of DOM event bindings.
+    binds = [];
+
+    // Map of cached AJAX requests or data.
+    cache = {};
+
+    // Whether or not the plugin is enabled (events are bound).
+    enabled = false;
+
+    // Map of event listeners to emit.
+    listeners = {};
+
+    // Name of the plugin. Should match the `Toolkit.<Name>` declaration.
+    name = 'Plugin';
+
+    // The CSS selector bound to the plugin.
+    selector = '';
+
+    // Current and previous state of the plugin. Must be modified with `setState()`.
+    state = {};
+    previousState = {};
+
+    // Current and last modified version of the plugin.
+    version = '3.0.0';
+
+    /**
+     * Bootstrap the plugin.
+     *
+     * @param {string} selector
+     * @param {object} options
+     */
     constructor(selector, options = {}) {
         this.initialize(selector, options);
         this.enable();
@@ -186,27 +217,6 @@ export default class Plugin {
      * usable by sub-classes.
      */
     initProperties() {
-        // Map of DOM event bindings.
-        this.binds = [];
-
-        // Map of cached AJAX requests or data.
-        this.cache = {};
-
-        // Whether or not the plugin is enabled (events are bound).
-        this.enabled = false;
-
-        // Map of event listeners to emit.
-        this.listeners = {};
-
-        // Name of the plugin. Should match the `Toolkit.<Name>` declaration.
-        this.name = 'Plugin';
-
-        // Current and previous state of the plugin. Must be modified with `setState()`.
-        this.state = {};
-        this.previousState = {};
-
-        // Current and last modified version of the plugin.
-        this.version = '3.0.0';
     }
 
     /**

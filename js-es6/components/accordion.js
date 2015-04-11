@@ -11,20 +11,20 @@ import { batch, find, isVisible } from '../libs/dom';
 import debounce from '../libs/function';
 
 export default class Accordion extends EmbeddedComponent {
+    name = 'Accordion';
+    version = '3.0.0';
+
+    // Collection of header elements.
+    headers = [];
+
+    // Collection of section elements.
+    sections = [];
 
     /**
      * {@inheritdoc}
      */
     initProperties() {
-        super.initProperties();
-
-        this.name = 'Accordion';
-        this.version = '3.0.0';
-
-        // Collection of header elements.
         this.headers = find(this.ns('header'), this.element);
-
-        // Collection of section elements.
         this.sections = find(this.ns('section'), this.element);
     }
 
