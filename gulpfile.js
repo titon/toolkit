@@ -1,7 +1,7 @@
 'use strict';
 
 var pkg = require('./package.json'),
-    rjs = require('./gulp/requirejs'),
+    bundler = require('./gulp/bundler'),
     sass = require('./gulp/sass'),
     toc = require('./gulp/toc'),
     gulp = require('gulp'),
@@ -108,7 +108,7 @@ gulp.task('css', function() {
         .pipe(success('CSS compiled...'));
 });
 
-gulp.task('js', function() {
+/*gulp.task('js', function() {
     return rjs(jsPaths, { version: pkg.version })
         .pipe(plumber(failure()))
         .pipe(jshint())
@@ -128,7 +128,7 @@ gulp.task('js', function() {
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath))
         .pipe(success('JavaScript compiled...'));
-});
+});*/
 
 gulp.task('lint', function() {
     return gulp.src(['./js-es6/**/*.js', './tests-es6/**/*.js'])
@@ -139,7 +139,6 @@ gulp.task('lint', function() {
 gulp.task('es6', ['lint'], function() {
     return gulp.src('./js-es6/**/*.js')
         .pipe(babel())
-        //.pipe(concat('toolkit-bundle.js'))
         .pipe(gulp.dest('./build-es6/'));
 });
 
