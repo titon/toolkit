@@ -51,13 +51,13 @@ export default class Container {
     }
 
     /**
-     * Return a list of methods to copy to the `Collection` prototype.
+     * Return a list of chainable methods to copy to the `Collection` prototype.
      *
      * @returns {string[]}
      */
     static getCollectionMethods() {
         return [
-            'addClass', 'hasClass', 'removeClass', 'conceal', 'reveal', 'write',
+            'addClass', 'hasClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
             'setAria', 'setArias', 'setAttribute', 'setAttributes', 'setStyle', 'setStyles'
         ];
     }
@@ -97,7 +97,7 @@ export default class Container {
                     element.classList.remove(value);
                 break;
                 case 'attributes':
-                    forOwn(value, element.setAttribute);
+                    forOwn(value, (k, v) => element.setAttribute(k, v));
                 break;
                 case 'styles':
                     forOwn(value, (k, v) => element.style[k] = v);
@@ -109,6 +109,23 @@ export default class Container {
         this.resetQueue();
 
         return this;
+    }
+
+    /**
+     * Read information from the current element using a callback function.
+     * The method will also return a promise that can be used for chained reads and writes.
+     *
+     * @returns {Promise}
+     */
+    read(func) {
+        return new Promise((resolve, reject) => {
+            try {
+                func.call(this);
+                resolve(this);
+            } catch (e) {
+                reject(this);
+            }
+        });
     }
 
     /**
@@ -241,13 +258,21 @@ export default class Container {
     }
 
     /**
-     * Write the current queue to the rendering loop using `requestAnimationFrame`.
+     * Process the current queue by batching all DOM mutations in the rendering loop using `requestAnimationFrame`.
+     * The method will also return a promise that can be used for chained reads and writes.
      *
-     * @returns {Container}
+     * @returns {Promise}
      */
     write() {
-        requestAnimationFrame(this.processQueue);
-
-        return this;
+        return new Promise((resolve, reject) => {
+            requestAnimationFrame(() => {
+                try {
+                    this.processQueue();
+                    resolve(this);
+                } catch (e) {
+                    reject(this);
+                }
+            });
+        });
     }
 }

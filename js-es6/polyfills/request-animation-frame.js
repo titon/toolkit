@@ -11,7 +11,7 @@ if (!window.requestAnimationFrame) {
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
-        function (func) {
+        function(func) {
             return setTimeout(func, 1000 / 60);
         };
 }

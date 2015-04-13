@@ -31,8 +31,8 @@ export default class Collection {
 
 Container.getCollectionMethods().forEach(method => {
     Collection.prototype[method] = function() {
-        this.elements.forEach(element => element[method].apply(element, arguments));
+        let response = this.elements.forEach(element => element[method].apply(element, arguments));
 
-        return this;
+        return (response instanceof Container) ? this : response;
     }
 });
