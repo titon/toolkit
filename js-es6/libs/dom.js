@@ -6,7 +6,8 @@
 
 'use strict';
 
-import extend from './dom/extend';
+import Collection from './dom/collection';
+import Container from './dom/container';
 
 /**
  * Batch multiple mutations of an element to limit the reflow and repaint.
@@ -55,20 +56,20 @@ export function contains(element) {
  *
  * @param {string} query
  * @param {Node} [context]
- * @returns {HTMLElement[]}
+ * @returns {Collection}
  */
 export function find(query, context = document) {
-    return Array.of(context.querySelectorAll(query)).map(element => extend(element));
+    return new Collection(Array.of(context.querySelectorAll(query)));
 }
 
 /**
  * Return an element by ID. This method will return a single element.
  *
  * @param {string} query
- * @returns {HTMLElement}
+ * @returns {Container}
  */
 export function id(query) {
-    return extend(document.getElementById(query));
+    return new Container(document.getElementById(query));
 }
 
 /**

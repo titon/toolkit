@@ -26,3 +26,4 @@ All releases will contain bug fixing and polishing for current features.
 
 ### Misc ###
 * Take Google fundamentals into consideration - https://developers.google.com/web/fundamentals/
+* https://medium.com/javascript-scene/the-dao-of-immutability-9f91a70c88cd

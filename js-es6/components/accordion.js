@@ -14,11 +14,11 @@ export default class Accordion extends EmbeddedComponent {
     name = 'Accordion';
     version = '3.0.0';
 
-    // Collection of header elements.
-    headers = [];
+    // Container of header elements.
+    headers = null;
 
-    // Collection of section elements.
-    sections = [];
+    // Container of section elements.
+    sections = null;
 
     /**
      * {@inheritdoc}
@@ -42,35 +42,37 @@ export default class Accordion extends EmbeddedComponent {
      * {@inheritdoc}
      */
     startup() {
-        batch(this.element, (element) => {
-            element.setAttribute('role', 'tablist');
+        this.element
+            .setAttribute('role', 'tablist')
+            .write();
 
-            // Set default ARIA and attributes for all headers
-            this.headers.forEach((header, index) => {
-                header
-                    .setAttributes({
-                        'data-accordion-index': index,
-                        role: 'tab',
-                        id: this.id('header', index)
-                    })
-                    .setAria({
-                        controls: this.id('section', index),
-                        selected: false,
-                        expanded: false
-                    });
-            });
+        // Set default ARIA and attributes for all headers
+        this.headers.each((header, index) => {
+            header
+                .setAttributes({
+                    'data-accordion-index': index,
+                    role: 'tab',
+                    id: this.id('header', index)
+                })
+                .setArias({
+                    controls: this.id('section', index),
+                    selected: false,
+                    expanded: false
+                })
+                .write();
+        });
 
-            // Set default ARIA and attributes for all sections
-            this.sections.forEach((section, index) => {
-                section
-                    .setAttributes({
-                        role: 'tabpanel',
-                        id: this.id('section', index)
-                    })
-                    .setAria('labelledby', this.id('header', index))
-                    .conceal();
-            });
-        }, this);
+        // Set default ARIA and attributes for all sections
+        this.sections.each((section, index) => {
+            section
+                .setAttributes({
+                    role: 'tabpanel',
+                    id: this.id('section', index)
+                })
+                .setAria('labelledby', this.id('header', index))
+                .conceal()
+                .write();
+        });
 
         // Calculate and cache heights of each section
         this.calculate();
@@ -85,19 +87,15 @@ export default class Accordion extends EmbeddedComponent {
      * {@inheritdoc}
      */
     shutdown() {
-        batch(this.element, () => {
-            this.headers.forEach(header => {
-                header
-                    .addClass('is-active')
-                    .setAria('toggled', true);
-            });
+        this.headers
+            .addClass('is-active')
+            .setAria('toggled', true)
+            .write();
 
-            this.sections.forEach(section => {
-                section
-                    .setAttribute('style', '')
-                    .reveal();
-            });
-        }, this);
+        this.sections
+            .setAttribute('style', '')
+            .reveal()
+            .write();
     }
 
     /**
@@ -127,6 +125,9 @@ export default class Accordion extends EmbeddedComponent {
                 header.setAria('toggled', true).addClass('is-active');
             }
 
+            section.write();
+            header.write();
+
         // Only one open at a time
         } else {
 
@@ -135,25 +136,27 @@ export default class Accordion extends EmbeddedComponent {
                 return;
             }
 
-            batch(this.element, () => {
-                // Toggle heights of sections
-                this.sections.forEach(sec => {
-                    if (sec === section) {
-                        sec.setStyle('maxHeight', height).reveal(true);
-                    } else {
-                        sec.setStyle('maxHeight', 0).conceal(true);
-                    }
-                });
+            // Toggle heights of sections
+            this.sections.each(sec => {
+                if (sec === section) {
+                    sec.setStyle('maxHeight', height).reveal(true);
+                } else {
+                    sec.setStyle('maxHeight', 0).conceal(true);
+                }
 
-                // Toggle header active state
-                this.headers.forEach(head => {
-                    if (head === header) {
-                        head.setAria('toggled', true).addClass('is-active');
-                    } else {
-                        head.setAria('toggled', false).removeClass('is-active');
-                    }
-                });
-            }, this);
+                sec.write();
+            });
+
+            // Toggle header active state
+            this.headers.each(head => {
+                if (head === header) {
+                    head.setAria('toggled', true).addClass('is-active');
+                } else {
+                    head.setAria('toggled', false).removeClass('is-active');
+                }
+
+                head.write();
+            });
         }
 
         this.node = header;
@@ -172,27 +175,27 @@ export default class Accordion extends EmbeddedComponent {
             callback = (section) => section.offsetHeight;
         }
 
-        this.sections.forEach((section) => {
+        this.sections.each(section => {
             let className = section.hasClass('hide') ? 'hide' : 'show',
-                maxHeight = section.style.maxHeight;
+                maxHeight = section.element.style.maxHeight;
 
             // Make section visible
             section
                 .addClass('no-transition')
                 .removeClass(className)
-                .setStyle('maxHeight', '');
+                .setStyle('maxHeight', '')
+                .write();
 
             // Get the height
             let height = callback.call(this, section);
 
-            // Cache the height
-            section.setAttribute('data-accordion-height', height);
-
-            // Set section back to previous state
+            // Cache the height and set section back to previous state
             section
+                .setAttribute('data-accordion-height', height)
                 .setStyle('maxHeight', (className === 'show') ? height : maxHeight)
                 .addClass(className)
-                .removeClass('no-transition');
+                .removeClass('no-transition')
+                .write();
         });
     }
 

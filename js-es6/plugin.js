@@ -352,23 +352,10 @@ export default class Plugin {
     /**
      * Set the primary element to use within the plugin.
      *
-     * @param {HTMLElement} element
+     * @param {Container} element
      */
     setElement(element) {
-        if (isElement(element)) {
-            this.element = element;
-        }
-    }
-
-    /**
-     * Set a collection of elements to use within the plugin.
-     *
-     * @param {HTMLElement[]} elements
-     */
-    setElements(elements) {
-        if (Array.isArray(elements)) {
-            this.elements = elements; // We'll assume they are `HTMLElement`s
-        }
+        this.element = element;
     }
 
     /**
