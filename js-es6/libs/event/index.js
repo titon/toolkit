@@ -6,8 +6,6 @@
 
 'use strict';
 
-import delegate from './delegate';
-import once from './once';
-import transitionEnd from './transitionEnd';
-
-export { delegate, once, transitionEnd };
+export delegate from './delegate';
+export once from './once';
+export transitionEnd from './transitionEnd';

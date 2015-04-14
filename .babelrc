@@ -1,5 +1,5 @@
 {
     "loose": ["es6.properties.computed", "es6.modules"],
-    "optional": ["es7.classProperties"],
-    "modules": "ignore"
+    "optional": ["es7.classProperties", "es7.exportExtensions"],
+    "modules": "common"
 }

@@ -6,8 +6,6 @@
 
 'use strict';
 
-import forOwn from './forOwn';
-import isObject from './isObject';
-import merge from './merge';
-
-export { forOwn, isObject, merge };
+export forOwn from './forOwn';
+export isObject from './isObject';
+export merge from './merge';

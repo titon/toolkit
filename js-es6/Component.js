@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Plugin from 'Plugin';
 
 export default class Component extends Plugin {
@@ -24,3 +25,5 @@ export default class Component extends Plugin {
     }*/
 
 }
+
+Toolkit.Component = Component;

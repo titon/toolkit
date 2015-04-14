@@ -52,5 +52,5 @@ Container.getCollectionMethods().forEach(method => {
         let response = this.elements.forEach(element => element[method].apply(element, arguments));
 
         return (response instanceof Container) ? this : response;
-    }
+    };
 });

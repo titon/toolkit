@@ -6,7 +6,5 @@
 
 'use strict';
 
-import cache from './cache';
-import Storage from './Storage';
-
-export { cache, Storage };
+export cache from './cache';
+export Storage from './Storage';

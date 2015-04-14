@@ -6,8 +6,11 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Component from 'Component';
 
 export default class EmbeddedComponent extends Component {
 
 }
+
+Toolkit.EmbeddedComponent = EmbeddedComponent;

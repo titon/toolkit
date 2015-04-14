@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Container from './Container';
+
 /**
  * Check to see if an element is within the current DOM.
  *

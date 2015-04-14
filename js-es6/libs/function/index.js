@@ -6,7 +6,5 @@
 
 'use strict';
 
-import debounce from './debounce';
-import throttle from './throttle';
-
-export { debounce, throttle };
+export debounce from './debounce';
+export throttle from './throttle';

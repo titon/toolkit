@@ -6,15 +6,15 @@
 
 'use strict';
 
-import batch from './batch';
-import Collection from './Collection';
-import Container from './Container';
-import contains from './contains';
-import find from './find';
-import id from './id';
-import isElement from './isElement';
-import isVisible from './isVisible';
-import positionTo from './isVisible';
+export batch from './batch';
+export Collection from './Collection';
+export Container from './Container';
+export contains from './contains';
+export find from './find';
+export id from './id';
+export isElement from './isElement';
+export isVisible from './isVisible';
+export positionTo from './isVisible';
 
 
 

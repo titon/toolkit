@@ -8,6 +8,7 @@
 
 import EmbeddedComponent from '../EmbeddedComponent';
 import find from '../libs/dom/find';
+import isVisible from '../libs/dom/isVisible';
 import debounce from '../libs/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {

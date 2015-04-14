@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import id from 'libs/dom/id';
 import contains from 'libs/dom/contains';
 import { forOwn, isObject, merge } from 'libs/object/index';
@@ -480,3 +481,5 @@ Plugin.options = {
     cache: true,
     debug: false
 };
+
+Toolkit.Plugin = Plugin;

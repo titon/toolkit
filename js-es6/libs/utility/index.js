@@ -6,9 +6,8 @@
 
 'use strict';
 
-import bound from './bound';
-import chain from './chain';
-import getter from './getter';
-import setter from './setter';
-
-export { bound, chain, getter, setter };
+export bem from './bem';
+export bound from './bound';
+export chain from './chain';
+export getter from './getter';
+export setter from './setter';
