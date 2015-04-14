@@ -6,8 +6,7 @@
 
 'use strict';
 
-import Component from './component';
+import cache from './cache';
+import Storage from './Storage';
 
-export default class ContainerComponent extends Component {
-
-}
+export { cache, Storage };

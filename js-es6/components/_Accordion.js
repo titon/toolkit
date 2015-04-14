@@ -6,9 +6,9 @@
 
 'use strict';
 
-import EmbeddedComponent from '../embedded-component';
-import { batch, find, isVisible } from '../libs/dom';
-import debounce from '../libs/function';
+import EmbeddedComponent from '../EmbeddedComponent';
+import find from '../libs/dom/find';
+import debounce from '../libs/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {
     name = 'Accordion';

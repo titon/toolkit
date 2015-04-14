@@ -6,27 +6,8 @@
 
 'use strict';
 
-/**
- * Helper function for looping over an object.
- * Since this is an object, we must loop over the keys to efficiently iterate.
- *
- * @param {object} object
- * @param {function} func
- */
-export function forOwn(object, func) {
-    Object.keys(object).forEach(func);
-}
-
-/**
- * Verify that a value is an actual object, and is not an instance of the object types,
- * like Array, Date, etc.
- *
- * @param {*} object
- * @returns {boolean}
- */
-export function isObject(object) {
-    return (Object.prototype.toString.call(object) === '[object Object]');
-}
+import forOwn from './forOwn';
+import isObject from './isObject';
 
 /**
  * Merge multiple objects into a base object. If 2 values collide and they are both objects,
@@ -36,7 +17,7 @@ export function isObject(object) {
  * @param {object} objects
  * @returns {object}
  */
-export function merge(base, ...objects) {
+export default function merge(base, ...objects) {
     objects.forEach(object => {
         forOwn(object, key => {
             var baseValue = base[key],

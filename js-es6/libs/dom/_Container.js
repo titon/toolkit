@@ -6,15 +6,27 @@
 
 'use strict';
 
-import { transitionEnd } from '../event';
-import { forOwn } from '../object';
-import '../../polyfills/request-animation-frame';
+import transitionEnd from '../event/transitionEnd';
+import forOwn from '../object/forOwn';
+import 'polyfills/requestAnimationFrame';
 
+/**
+ * A class that wraps an element to provide new functionality.
+ * Uses a queueing system that batches multiple DOM mutations at an interval.
+ */
 export default class Container {
+
+    // The DOM element.
     element = null;
 
+    // Mapping of mutations to process.
     queue = {};
 
+    /**
+     * Store the DOM element.
+     *
+     * @param {HTMLElement} element
+     */
     constructor(element) {
         this.element = element;
         this.resetQueue();
@@ -66,7 +78,7 @@ export default class Container {
      * Verify that a class exists on the element.
      *
      * @param {string} className
-     * @returns {Container}
+     * @returns {boolean}
      */
     hasClass(className) {
         return this.element.classList.contains(className);
@@ -84,7 +96,7 @@ export default class Container {
 
         // Exit early if no element
         if (!element) {
-            throw new Error('No element in container to process queue for');
+            throw new Error('No element in container. Cannot process queue.');
         }
 
         // Loop over each mutation and process

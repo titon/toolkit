@@ -6,7 +6,7 @@
 
 'use strict';
 
-import Component from './component';
+import Component from 'Component';
 
 export default class RenderedComponent extends Component {
 

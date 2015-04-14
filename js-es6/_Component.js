@@ -6,7 +6,7 @@
 
 'use strict';
 
-import Plugin from './plugin';
+import Plugin from 'Plugin';
 
 export default class Component extends Plugin {
 

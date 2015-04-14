@@ -6,8 +6,8 @@
 
 'use strict';
 
-import { isTouch, isRetina, isRTL } from './flags';
-import Plugin from './plugin';
+import { isTouch, isRetina, isRTL } from 'flags';
+import Plugin from 'Plugin';
 
 let Toolkit = {
 

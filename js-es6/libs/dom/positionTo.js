@@ -6,94 +6,6 @@
 
 'use strict';
 
-import Collection from './dom/collection';
-import Container from './dom/container';
-
-/**
- * Batch multiple mutations of an element to limit the reflow and repaint.
- *
- * @param {HTMLElement} element
- * @param {function} func
- * @param {*} context
- * @returns {HTMLElement}
- */
-export function batch(element, func, context) {
-    let parent = element.parentNode,
-        next = element.nextSibling;
-
-    // Exit if no parent
-    if (!parent) {
-        return element;
-    }
-
-    // Detach from the DOM
-    parent.removeChild(element);
-
-    // Execute callback
-    func.call(context || element, element);
-
-    // Re-attach in the DOM
-    parent.insertBefore(element, next);
-
-    return element;
-}
-
-/**
- * Check to see if an element is within the current DOM.
- *
- * @param {Node} element
- * @returns {boolean}
- */
-export function contains(element) {
-    let body = document.body;
-
-    return (element === body) ? false : body.contains(element);
-}
-
-/**
- * Find an element or a collection of elements using a CSS selector.
- * This method will return an array of elements.
- *
- * @param {string} query
- * @param {Node} [context]
- * @returns {Collection}
- */
-export function find(query, context = document) {
-    return new Collection(Array.of(context.querySelectorAll(query)));
-}
-
-/**
- * Return an element by ID. This method will return a single element.
- *
- * @param {string} query
- * @returns {Container}
- */
-export function id(query) {
-    return new Container(document.getElementById(query));
-}
-
-/**
- * Check to see if a value is an element, usually one that extends `HTMLElement`.
- *
- * @param {*} element
- * @returns {boolean}
- */
-export function isElement(element) {
-    return ('HTMLElement' in window)
-        ? (element instanceof HTMLElement)
-        : (element.nodeName && element.nodeType && element.nodeType === 1);
-}
-
-/**
- * Check if the element is visible. Is used for CSS animations and transitions.
- *
- * @param {HTMLElement} element
- * @returns {boolean}
- */
-export function isVisible(element) {
-    return (element.style.visibility !== 'hidden');
-}
-
 /**
  * Position the element relative to another element in the document, or to the mouse cursor.
  * Determine the offsets through the `relativeTo` argument, which can be an event, or an element.
@@ -107,7 +19,7 @@ export function isVisible(element) {
  * @param {object} [baseOffset]
  * @returns {HTMLElement}
  */
-export function positionTo(element, position, relativeTo, isMouse, baseOffset) {
+export default function positionTo(element, position, relativeTo, isMouse, baseOffset) {
     if (!position) {
         return element;
     }

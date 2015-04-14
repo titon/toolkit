@@ -13,7 +13,7 @@
  * @param {number} [threshold]
  * @returns {function}
  */
-export function debounce(func, threshold = 150) {
+export default function debounce(func, threshold = 150) {
     let timeout;
 
     return function() {
@@ -26,30 +26,5 @@ export function debounce(func, threshold = 150) {
             timeout = null;
             func.apply(self, args);
         }, threshold);
-    };
-}
-
-/**
- * Throttle the execution of a function so it triggers at every delay interval.
- *
- * @param {function} func
- * @param {number} [delay]
- * @returns {function}
- */
-export function throttle(func, delay = 150) {
-    let throttled = false;
-
-    return function() {
-        let self = this,
-            args = arguments;
-
-        if (!throttled) {
-            throttled = true;
-
-            setTimeout(() => {
-                func.apply(self, args);
-                throttled = false;
-            }, delay);
-        }
     };
 }

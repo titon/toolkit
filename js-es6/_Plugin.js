@@ -6,9 +6,10 @@
 
 'use strict';
 
-import { id, isElement, contains as inDOM } from './libs/dom';
-import { forOwn, isObject, merge } from './libs/object';
-import delegate from './libs/event';
+import id from 'libs/dom/id';
+import contains from 'libs/dom/contains';
+import { forOwn, isObject, merge } from 'libs/object/index';
+import delegate from 'libs/event/delegate';
 
 export default class Plugin {
     // Map of DOM event bindings.
@@ -232,7 +233,7 @@ export default class Plugin {
     mount() {
         let element = this.element;
 
-        if (this.mounted || !element || inDOM(element)) {
+        if (this.mounted || !element || contains(element)) {
             return;
         }
 
@@ -460,7 +461,7 @@ export default class Plugin {
     unmount() {
         let element = this.element;
 
-        if (!this.mounted || (element && !inDOM(element))) {
+        if (!this.mounted || (element && !contains(element))) {
             return;
         }
 

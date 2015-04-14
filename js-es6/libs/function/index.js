@@ -6,8 +6,7 @@
 
 'use strict';
 
-import Component from './component';
+import debounce from './debounce';
+import throttle from './throttle';
 
-export default class EmbeddedComponent extends Component {
-
-}
+export { debounce, throttle };
