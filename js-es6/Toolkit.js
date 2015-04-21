@@ -6,7 +6,7 @@
 
 'use strict';
 
-import { isTouch, isRetina, isRTL } from 'flags';
+import { isTouch, isRetina, isRTL } from 'libs/flags';
 
 class Toolkit {
 
@@ -44,4 +44,4 @@ class Toolkit {
     isRTL = isRTL;
 }
 
-export default new Toolkit();
+export default window.Toolkit = new Toolkit();

@@ -22,6 +22,12 @@ export default class Container {
     // Mapping of mutations to process.
     queue = {};
 
+    // Batched reads are occurring.
+    reading = false;
+
+    // Batched writes are occurring.
+    writing = false;
+
     /**
      * Store the DOM element.
      *
@@ -127,17 +133,36 @@ export default class Container {
      * Read information from the current element using a callback function.
      * The method will also return a promise that can be used for chained reads and writes.
      *
+     * @param {function} func
      * @returns {Promise}
      */
     read(func) {
-        return new Promise((resolve, reject) => {
-            try {
-                func.call(this);
-                resolve(this);
-            } catch (e) {
-                reject(this);
-            }
+        if (this.reading) {
+            return null; // Don't allow nested read calls
+        }
+
+        let promise = new Promise((resolve, reject) => {
+            requestAnimationFrame(() => {
+                try {
+                    this.reading = true;
+                    func.call(this);
+                    this.reading = false;
+
+                    resolve(this);
+                } catch (e) {
+                    reject(this);
+                }
+            });
         });
+
+        // Add a custom `write()` method that calls `then()` automatically
+        promise.write = (func) => {
+            promise.then(() => {
+                this.write(func);
+            });
+        };
+
+        return promise;
     }
 
     /**
@@ -273,10 +298,22 @@ export default class Container {
      * Process the current queue by batching all DOM mutations in the rendering loop using `requestAnimationFrame`.
      * The method will also return a promise that can be used for chained reads and writes.
      *
+     * @param {function} [func]
      * @returns {Promise}
      */
-    write() {
-        return new Promise((resolve, reject) => {
+    write(func) {
+        if (this.writing) {
+            return null; // Don't allow nested write calls
+        }
+
+        // Batched writes are optional
+        if (typeof func === 'function') {
+            this.writing = true;
+            func.call(this);
+            this.writing = false;
+        }
+
+        let promise = new Promise((resolve, reject) => {
             requestAnimationFrame(() => {
                 try {
                     this.processQueue();
@@ -286,5 +323,14 @@ export default class Container {
                 }
             });
         });
+
+        // Add a custom `read()` method that calls `then()` automatically
+        promise.read = (func) => {
+            promise.then(() => {
+                this.read(func);
+            });
+        };
+
+        return promise;
     }
 }

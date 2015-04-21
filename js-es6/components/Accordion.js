@@ -6,10 +6,11 @@
 
 'use strict';
 
-import EmbeddedComponent from '../EmbeddedComponent';
-import find from '../libs/dom/find';
-import isVisible from '../libs/dom/isVisible';
-import debounce from '../libs/function/debounce';
+import Toolkit from 'Toolkit';
+import EmbeddedComponent from 'EmbeddedComponent';
+import find from 'libs/dom/find';
+import isVisible from 'libs/dom/isVisible';
+import debounce from 'libs/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {
     name = 'Accordion';
@@ -177,7 +178,7 @@ export default class Accordion extends EmbeddedComponent {
         }
 
         this.sections.each(section => {
-            let className = section.hasClass('hide') ? 'hide' : 'show',
+            var className = section.hasClass('hide') ? 'hide' : 'show',
                 maxHeight = section.element.style.maxHeight;
 
             // Make section visible
@@ -185,18 +186,18 @@ export default class Accordion extends EmbeddedComponent {
                 .addClass('no-transition')
                 .removeClass(className)
                 .setStyle('maxHeight', '')
-                .write();
+                .write()
+                .then(function() {
+                    let height = callback.call(this, section);
 
-            // Get the height
-            let height = callback.call(this, section);
-
-            // Cache the height and set section back to previous state
-            section
-                .setAttribute('data-accordion-height', height)
-                .setStyle('maxHeight', (className === 'show') ? height : maxHeight)
-                .addClass(className)
-                .removeClass('no-transition')
-                .write();
+                    // Cache the height and set section back to previous state
+                    section
+                        .setAttribute('data-accordion-height', height)
+                        .setStyle('maxHeight', (className === 'show') ? height : maxHeight)
+                        .addClass(className)
+                        .removeClass('no-transition')
+                        .write();
+                });
         });
     }
 
@@ -221,3 +222,5 @@ Accordion.options = {
     multiple: false,
     collapsible: false
 };
+
+Toolkit.Accordion = Accordion;
