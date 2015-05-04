@@ -124,7 +124,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
         this.addEvents([
             ['keyup', 'input', 'onLookup'],
             ['keydown', 'input', 'onCycle'],
-            ['clickout', 'element', 'hide']
+            ['clickout', 'element', 'hide'],
+            ['resize', 'window', $.debounce(this.onHide.bind(this))]
         ]);
 
         this.initialize();

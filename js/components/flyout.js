@@ -43,7 +43,10 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         this.createWrapper();
 
         if (options.mode === 'click') {
-            this.addEvent('click', 'document', 'onShowToggle', '{selector}');
+            this.addEvents([
+                ['click', 'document', 'onShowToggle', '{selector}'],
+                ['resize', 'window', $.debounce(this.onHide.bind(this))]
+            ]);
         } else {
             this.addEvents([
                 ['mouseenter', 'document', 'onShowToggle', '{selector}'],
