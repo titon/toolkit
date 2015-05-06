@@ -11,7 +11,7 @@ define([
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
-    version: '2.0.0',
+    version: '2.1.3',
 
     /**
      * Initialize the popover.

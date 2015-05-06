@@ -26,8 +26,6 @@
             cursor: not-allowed;
         }
 
-        &:focus { outline: none; }
-
         //----- Effects -----//
 
         @if index($button-effects, "oval") {

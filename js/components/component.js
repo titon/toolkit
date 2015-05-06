@@ -367,6 +367,15 @@ Toolkit.Component = Toolkit.Base.extend({
     },
 
     /**
+     * Event handler for events that should hide the element if it is visible.
+     */
+    onHide: function() {
+        if (this.element.is(':shown')) {
+            this.hide();
+        }
+    },
+
+    /**
      * Event handler for AJAX `before` events when called through `requestData()`.
      *
      * @param {jQuery.ajax} xhr

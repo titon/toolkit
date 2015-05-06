@@ -6,7 +6,7 @@
     \/_/   \/_____/ \/_____/ \/_____/ \/_/\/_/ \/_/   \/_/
 ```
 
-# Titon Toolkit v2.1.2 #
+# Titon Toolkit v2.1.3 #
 [![Project Titon](https://img.shields.io/badge/project-titon-82667d.svg?style=flat)](http://titon.io)
 [![Build Status](https://img.shields.io/travis/titon/toolkit.svg?style=flat)](https://travis-ci.org/titon/toolkit)
 [![NPM Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)

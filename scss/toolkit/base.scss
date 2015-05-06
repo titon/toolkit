@@ -32,13 +32,7 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 .hidden { display: none; }
 .no-transition { transition: none !important; }
 
-.fluid {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-}
-
+// Accessibility
 .sr-only {
     position: absolute;
     width: 1px;
@@ -79,7 +73,7 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 
 .clear-fix { @include clear-fix; }
 
-// Styles
+// States
 #{$shape-round-class} { border-radius: $round; }
 .is-draggable { cursor: move; }
 .is-dragging { cursor: grabbing; }
@@ -103,7 +97,7 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 .caret-left { border-right-color: inherit; }
 .caret-right { border-left-color: inherit; }
 
-//, Characters
+// Characters
 .x {
     @include reset-inline-block;
     font: bold 1.5rem/1rem Arial, sans-serif;
@@ -156,4 +150,29 @@ bdo[dir="rtl"] { direction: rtl; unicode-bidi: bidi-override; }
 // Sizes
 @for $i from 1 through 12 {
     .span-#{$i} { width: grid-span($i, 12); }
+}
+
+// Fluid
+.fluid {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.fluid-media {
+    @extend .fluid;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+
+    iframe,
+    object,
+    embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }

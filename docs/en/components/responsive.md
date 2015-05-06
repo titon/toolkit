@@ -8,15 +8,6 @@ For easier mobile and tablet development, a handful of utility classes are avail
 for showing and hiding content based on media queries and breakpoints.
 These classes should be used to complement a layout, not for structuring it.
 
-On top of the responsive classes mentioned above (and displayed below), a `.fluid`
-class can be applied to `img`, `video`, `canvas`, and other block elements.
-This fluid class will apply a `max-width` of 100% with auto-scaling heights.
-Very useful for responsive designs!
-
-```html
-<img src="/img/large.png" class="fluid" alt="">
-```
-
 ### Display Classes ###
 
 Use these for toggling content based on the viewport width.

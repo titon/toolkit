@@ -12,7 +12,7 @@ define([
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /** Current URL to generate a flyout menu for. */
     url: '',
@@ -43,7 +43,10 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         this.createWrapper();
 
         if (options.mode === 'click') {
-            this.addEvent('click', 'document', 'onShowToggle', '{selector}');
+            this.addEvents([
+                ['click', 'document', 'onShowToggle', '{selector}'],
+                ['resize', 'window', $.debounce(this.onHide.bind(this))]
+            ]);
         } else {
             this.addEvents([
                 ['mouseenter', 'document', 'onShowToggle', '{selector}'],

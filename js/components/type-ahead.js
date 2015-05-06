@@ -14,7 +14,7 @@ define([
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
-    version: '2.0.0',
+    version: '2.1.3',
 
     /** Current index in the drop menu while cycling. */
     index: -1,
@@ -124,7 +124,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
         this.addEvents([
             ['keyup', 'input', 'onLookup'],
             ['keydown', 'input', 'onCycle'],
-            ['clickout', 'element', 'hide']
+            ['clickout', 'element', 'hide'],
+            ['resize', 'window', $.debounce(this.onHide.bind(this))]
         ]);
 
         this.initialize();

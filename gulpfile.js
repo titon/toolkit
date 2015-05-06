@@ -143,7 +143,7 @@ gulp.task('docs', function() {
 
 gulp.task('default', ['js', 'css']);
 
-gulp.task('watch', function() {
+gulp.task('watch', ['js', 'css'], function() {
     gulp.watch('./js/**/*.js', ['js']);
     gulp.watch('./scss/**/*.scss', ['css']);
 });
