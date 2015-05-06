@@ -14,7 +14,7 @@ define([
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /**
      * Initialize the tooltip.

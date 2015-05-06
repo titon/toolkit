@@ -12,7 +12,7 @@ define([
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /** Current URL to generate a flyout menu for. */
     url: '',

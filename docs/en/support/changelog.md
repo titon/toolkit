@@ -1,5 +1,12 @@
 # Changelog #
 
+## 2.1.3 ##
+* Added responsive and fluid media support with the `.fluid-media` class
+* Removed `outline: none` styles to encourage browser default focus outlines
+* Components
+    * Flyout, Popover, Tooltip, TypeAhead
+        * Will now automatically hide when the window is resized
+
 ## 2.1.2 ##
 * Updated NPM packages and improved Gulp workflow
 * Components

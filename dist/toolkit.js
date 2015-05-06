@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.2 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.1.3 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -64,10 +64,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.1.2',
+    version: '2.1.3',
 
     /** Build date hash. */
-    build: 'i87xmb8d',
+    build: 'i9bz04n6',
 
     /** CSS namespace. */
     namespace: '',
@@ -1018,6 +1018,15 @@ Toolkit.Component = Toolkit.Base.extend({
     doDestroy: function() {
         if (this.element) {
             this.element.removeData('toolkit.' + this.keyName);
+        }
+    },
+
+    /**
+     * Event handler for events that should hide the element if it is visible.
+     */
+    onHide: function() {
+        if (this.element.is(':shown')) {
+            this.hide();
         }
     },
 
@@ -2663,7 +2672,7 @@ Toolkit.createPlugin('drop', function(options) {
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /** Current URL to generate a flyout menu for. */
     url: '',
@@ -2694,7 +2703,10 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         this.createWrapper();
 
         if (options.mode === 'click') {
-            this.addEvent('click', 'document', 'onShowToggle', '{selector}');
+            this.addEvents([
+                ['click', 'document', 'onShowToggle', '{selector}'],
+                ['resize', 'window', $.debounce(this.onHide.bind(this))]
+            ]);
         } else {
             this.addEvents([
                 ['mouseenter', 'document', 'onShowToggle', '{selector}'],
@@ -5257,7 +5269,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /**
      * Initialize the tooltip.
@@ -5280,7 +5292,10 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
         }
 
         // Initialize events
-        this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
+        this.addEvents([
+            ['{mode}', 'document', 'onShowToggle', '{selector}'],
+            ['resize', 'window', $.debounce(this.onHide.bind(this))]
+        ]);
 
         if (options.mode === 'click') {
             this.addEvent('clickout', 'document', 'hide');
@@ -5401,6 +5416,21 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     /**
      * {@inheritdoc}
      */
+    onHide: function() {
+        if (!this.node) {
+            return;
+        }
+
+        var element = this.loadElement(this.node);
+
+        if (element.is(':shown')) {
+            this.hide();
+        }
+    },
+
+    /**
+     * {@inheritdoc}
+     */
     onRequestBefore: function(xhr) {
         Toolkit.Component.prototype.onRequestBefore.call(this, xhr);
 
@@ -5441,7 +5471,7 @@ Toolkit.createPlugin('tooltip', function(options) {
 
 Toolkit.Popover = Toolkit.Tooltip.extend({
     name: 'Popover',
-    version: '2.0.0',
+    version: '2.1.3',
 
     /**
      * Initialize the popover.
@@ -6471,7 +6501,7 @@ Toolkit.createPlugin('toast', function(options) {
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
-    version: '2.0.0',
+    version: '2.1.3',
 
     /** Current index in the drop menu while cycling. */
     index: -1,
@@ -6581,7 +6611,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
         this.addEvents([
             ['keyup', 'input', 'onLookup'],
             ['keydown', 'input', 'onCycle'],
-            ['clickout', 'element', 'hide']
+            ['clickout', 'element', 'hide'],
+            ['resize', 'window', $.debounce(this.onHide.bind(this))]
         ]);
 
         this.initialize();

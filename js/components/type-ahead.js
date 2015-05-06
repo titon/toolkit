@@ -14,7 +14,7 @@ define([
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
-    version: '2.0.0',
+    version: '2.1.3',
 
     /** Current index in the drop menu while cycling. */
     index: -1,
