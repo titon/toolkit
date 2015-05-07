@@ -17,7 +17,7 @@ import Toolkit from 'Toolkit';
  * @returns {String}
  */
 export default function bem(block, element, modifier) {
-    let seps = Toolkit.bemSeparators;
+    let seps = bem.separators;
 
     if (element) {
         block += seps[0] + element;
@@ -29,5 +29,10 @@ export default function bem(block, element, modifier) {
 
     return Toolkit.namespace + block;
 }
+
+/**
+ * BEM class name separators.
+ */
+bem.separators = ['-', '--'];
 
 Toolkit.bem = bem;

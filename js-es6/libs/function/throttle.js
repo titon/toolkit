@@ -16,6 +16,10 @@
 export default function throttle(func, delay = 150) {
     let throttled = false;
 
+    if (!delay) {
+        return func;
+    }
+
     return function() {
         let self = this,
             args = arguments;

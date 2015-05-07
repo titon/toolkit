@@ -6,7 +6,7 @@
 
 'use strict';
 
-import Storage from './storage';
+import Storage from './Storage';
 
 // Use a shared cache
 const internalCache = new Storage();

@@ -31,9 +31,6 @@ class Toolkit {
         error: 'An error has occurred!'
     };
 
-    /** BEM class name separators. */
-    bemSeparators = ['-', '--'];
-
     /** Detect touch devices. */
     isTouch = isTouch;
 

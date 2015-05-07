@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 module.exports = function(config) {
     config.set({
         basePath: '',
@@ -30,4 +32,7 @@ module.exports = function(config) {
 
         singleRun: true
     });
+
+    // Pass along Babel options
+    config.client.babelOptions = JSON.parse(fs.readFileSync('./.babelrc', 'utf8'));
 };

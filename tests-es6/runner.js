@@ -5,21 +5,25 @@
     karma.loaded = function() {};
 
     // Karma places all files in a base folder
-    System.baseURL = '/base/';
+    System.baseURL = '/base/js-es6/';
+
+    // Define an alternate path for tests
+    System.paths['tests-es6/*'] = '/base/tests-es6/*.js';
 
     // Use Babel for transpilation
     System.transpiler = 'babel';
 
+    // Set the Babel configuration
+    System.babelOptions = karma.config.babelOptions;
+
     // Loop over each test file and import it
     var TEST_REGEXP = /-test\.js$/i,
-        files = [],
-        started = false;
+        started = false,
+        files = [];
 
     Object.keys(karma.files).forEach(function(file) {
         if (TEST_REGEXP.test(file)) {
-            files.push(file
-                .replace('/base/', '')
-                .replace('.js', ''));
+            files.push(file.replace('/base/', '').replace('.js', ''));
         }
     });
 

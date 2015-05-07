@@ -1,23 +1,8 @@
 'use strict';
 
-import { debounce, throttle } from 'js-es6/libs/function';
+import throttle from 'libs/function/throttle';
 
-describe('libs/function', () => {
-    describe('debounce()', () => {
-        it('should trigger the callback once the duration is up', (done) => {
-            let count = 1;
-
-            debounce(() => count += 1)();
-
-            expect(count).toBe(1);
-
-            setTimeout(() => {
-                expect(count).toBe(2);
-                done();
-            }, 160);
-        });
-    });
-
+describe('libs/function/throttle', () => {
     describe('throttle()', () => {
         it('should delay callback execution to specific intervals', (done) => {
             let count = 1,
@@ -37,6 +22,15 @@ describe('libs/function', () => {
                 expect(count).toBe(8);
                 done();
             }, 1800);
+        });
+
+        it('should return the same function if no delay', () => {
+            let base = () => {},
+                func1 = throttle(base, 0),
+                func2 = throttle(base);
+
+            expect(func1).toEqual(base);
+            expect(func2).not.toEqual(base);
         });
     });
 });

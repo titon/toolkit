@@ -16,6 +16,10 @@
 export default function debounce(func, threshold = 150) {
     let timeout;
 
+    if (!threshold) {
+        return func;
+    }
+
     return function() {
         let self = this,
             args = arguments;
