@@ -1,5 +1,5 @@
 {
-    "version": "2.1.2",
+    "version": "2.1.3",
     "name": "toolkit",
     "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
     "keywords": [
@@ -12,10 +12,10 @@
     "author": ["Miles Johnson"],
     "main": [
         "dist/toolkit.css",
-        "dist/toolkit-rtl.css",
-        "dist/toolkit.js",
         "dist/toolkit.min.css",
+        "dist/toolkit-rtl.css",
         "dist/toolkit-rtl.min.css",
+        "dist/toolkit.js",
         "dist/toolkit.min.js"
     ],
     "ignore": [

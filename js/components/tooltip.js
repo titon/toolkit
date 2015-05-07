@@ -14,7 +14,7 @@ define([
 
 Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
     name: 'Tooltip',
-    version: '2.1.0',
+    version: '2.1.3',
 
     /**
      * Initialize the tooltip.
@@ -37,7 +37,10 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
         }
 
         // Initialize events
-        this.addEvent('{mode}', 'document', 'onShowToggle', '{selector}');
+        this.addEvents([
+            ['{mode}', 'document', 'onShowToggle', '{selector}'],
+            ['resize', 'window', $.debounce(this.onHide.bind(this))]
+        ]);
 
         if (options.mode === 'click') {
             this.addEvent('clickout', 'document', 'hide');
@@ -153,6 +156,21 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
             left: options.xOffset,
             top: options.yOffset
         }, true);
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    onHide: function() {
+        if (!this.node) {
+            return;
+        }
+
+        var element = this.loadElement(this.node);
+
+        if (element.is(':shown')) {
+            this.hide();
+        }
     },
 
     /**
