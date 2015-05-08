@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import Container from './Container';
+import Element from './Element';
 
 /**
  * Check to see if an element is within the current DOM.
@@ -13,14 +13,14 @@ import Container from './Container';
  * @param {Node} element
  * @returns {boolean}
  */
-export default function contains(element) {
+export default function inDOM(element) {
     let body = document.body;
 
-    if (element instanceof Container) {
+    if (element instanceof Element) {
         element = element.element;
     }
 
     return (element === body) ? false : body.contains(element);
 }
 
-Toolkit.inDOM = contains;
+Toolkit.inDOM = inDOM;

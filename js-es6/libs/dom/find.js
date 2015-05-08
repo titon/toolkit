@@ -7,6 +7,8 @@
 import Toolkit from 'Toolkit';
 import Collection from './Collection';
 
+const slice = Array.prototype.slice;
+
 /**
  * Find an element or a collection of elements using a CSS selector.
  * This method will return an array of elements.
@@ -16,7 +18,7 @@ import Collection from './Collection';
  * @returns {Collection}
  */
 export default function find(query, context = document) {
-    return new Collection(Array.of(context.querySelectorAll(query)));
+    return new Collection(slice.call(context.querySelectorAll(query)));
 }
 
 Toolkit.find = find;

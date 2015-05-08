@@ -7,7 +7,7 @@
         "wrap-iife": [2, "inside"],
         "yoda": [0, "never"],
 
-        "strict": [2, "global"],
+        "strict": 0,
         "global-strict": 0,
         "no-undefined": 2,
 

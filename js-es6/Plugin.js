@@ -352,7 +352,7 @@ export default class Plugin {
     /**
      * Set the primary element to use within the plugin.
      *
-     * @param {Container} element
+     * @param {Element} element
      */
     setElement(element) {
         this.element = element;

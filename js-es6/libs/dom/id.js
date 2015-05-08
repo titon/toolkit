@@ -5,16 +5,18 @@
  */
 
 import Toolkit from 'Toolkit';
-import Container from './Container';
+import Element from './Element';
 
 /**
  * Return an element by ID. This method will return a single element.
  *
  * @param {string} query
- * @returns {Container}
+ * @returns {Element}
  */
 export default function id(query) {
-    return new Container(document.getElementById(query));
+    let element = document.getElementById(query);
+
+    return element ? new Element(element) : null;
 }
 
-Toolkit.id = id;
+Toolkit.findID = id;

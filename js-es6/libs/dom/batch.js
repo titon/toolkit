@@ -30,7 +30,11 @@ export default function batch(element, func, context) {
     func.call(context || element, element);
 
     // Re-attach in the DOM
-    parent.insertBefore(element, next);
+    if (next) {
+        parent.insertBefore(element, next);
+    } else {
+        parent.appendChild(element);
+    }
 
     return element;
 }

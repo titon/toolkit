@@ -6,10 +6,10 @@
 
 export batch from './batch';
 export Collection from './Collection';
-export Container from './Container';
-export contains from './contains';
+export Element from './Element';
 export find from './find';
 export id from './id';
+export inDOM from './inDOM';
 export isElement from './isElement';
 export isVisible from './isVisible';
 export positionTo from './positionTo';

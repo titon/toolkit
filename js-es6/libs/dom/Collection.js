@@ -5,10 +5,12 @@
  */
 
 import Toolkit from 'Toolkit';
-import Container from './Container';
+import Element from './Element';
+
+// TODO - test
 
 /**
- * A class that handles a collection of `Container` elements.
+ * A class that handles a collection of `Element` elements.
  */
 export default class Collection {
 
@@ -19,12 +21,12 @@ export default class Collection {
     elements = [];
 
     /**
-     * Store an array of elements and wrap each one with a `Container` class.
+     * Store an array of elements and wrap each one with a `Element` class.
      *
      * @param {HTMLElement[]} elements
      */
     constructor(elements) {
-        this.elements = elements.map(element => new Container(element));
+        this.elements = elements.map(element => new Element(element));
         this.length = elements.length;
     }
 
@@ -44,14 +46,14 @@ export default class Collection {
 }
 
 /**
- * Inherit methods from the `Container`.
+ * Inherit methods from the `Element`.
  */
-Container.getCollectionMethods().forEach(method => {
+Element.getCollectionMethods().forEach(method => {
     Collection.prototype[method] = function() {
         let response = this.elements.forEach(element => element[method].apply(element, arguments));
 
-        return (response instanceof Container) ? this : response;
+        return (response instanceof Element) ? this : response;
     };
 });
 
-Toolkit.Collection = Collection;
+Toolkit.ElementCollection = Collection;

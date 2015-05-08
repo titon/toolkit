@@ -9,11 +9,13 @@ import transitionEnd from '../event/transitionEnd';
 import forOwn from '../object/forOwn';
 import 'polyfills/requestAnimationFrame';
 
+// TODO - test
+
 /**
  * A class that wraps an element to provide new functionality.
  * Uses a queueing system that batches multiple DOM mutations at an interval.
  */
-export default class Container {
+export default class Element {
 
     // The DOM element.
     element = null;
@@ -41,7 +43,7 @@ export default class Container {
      * Add a class to the element.
      *
      * @param {string} className
-     * @returns {Container}
+     * @returns {Element}
      */
     addClass(className) {
         this.queue.addClass = className;
@@ -54,7 +56,7 @@ export default class Container {
      * Should be used to trigger transitions and animations.
      *
      * @param {boolean} [dontHide]
-     * @returns {Container}
+     * @returns {Element}
      */
     conceal(dontHide) {
         if (this.hasClass('show') && !dontHide) {
@@ -93,7 +95,7 @@ export default class Container {
      * Process the current container queue by looping over every element in the collection
      * and mutating it based on the items in the queue.
      *
-     * @returns {Container}
+     * @returns {Element}
      */
     processQueue() {
         let queue = this.queue,
@@ -168,7 +170,7 @@ export default class Container {
      * Remove a class from the element.
      *
      * @param {string} className
-     * @returns {Container}
+     * @returns {Element}
      */
     removeClass(className) {
         this.queue.removeClass = className;
@@ -179,7 +181,7 @@ export default class Container {
     /**
      * Reset the current queue.
      *
-     * @returns {Container}
+     * @returns {Element}
      */
     resetQueue() {
         this.queue = {
@@ -195,7 +197,7 @@ export default class Container {
      * Should be used to trigger transitions and animations.
      *
      * @param {boolean} [dontShow]
-     * @returns {Container}
+     * @returns {Element}
      */
     reveal(dontShow) {
         if (!dontShow) {
@@ -214,7 +216,7 @@ export default class Container {
      *
      * @param {string} key
      * @param {*} value
-     * @returns {Container}
+     * @returns {Element}
      */
     setAria(key, value) {
         if (!Toolkit.aria) {
@@ -235,7 +237,7 @@ export default class Container {
      * Set multiple ARIA attributes.
      *
      * @param {object} keys
-     * @returns {Container}
+     * @returns {Element}
      */
     setArias(keys) {
         forOwn(keys, this.setAria);
@@ -248,7 +250,7 @@ export default class Container {
      *
      * @param {string} attribute
      * @param {*} value
-     * @returns {Container}
+     * @returns {Element}
      */
     setAttribute(attribute, value) {
         this.queue.attributes[attribute] = value;
@@ -260,7 +262,7 @@ export default class Container {
      * Set multiple HTML/DOM attributes.
      *
      * @param {object} attributes
-     * @returns {Container}
+     * @returns {Element}
      */
     setAttributes(attributes) {
         forOwn(attributes, this.setAttribute);
@@ -273,7 +275,7 @@ export default class Container {
      *
      * @param {string} property
      * @param {*} value
-     * @returns {Container}
+     * @returns {Element}
      */
     setStyle(property, value) {
         this.queue.styles[property] = value;
@@ -285,7 +287,7 @@ export default class Container {
      * Set multiple CSS properties.
      *
      * @param {object} properties
-     * @returns {Container}
+     * @returns {Element}
      */
     setStyles(properties) {
         forOwn(properties, this.setStyle);
@@ -334,4 +336,4 @@ export default class Container {
     }
 }
 
-Toolkit.Container = Container;
+Toolkit.Element = Element;
