@@ -9,6 +9,9 @@ import Component from 'Component';
 
 export default class EmbeddedComponent extends Component {
 
+    // The element being wrapped by the plugin.
+    element = null;
+
 }
 
 Toolkit.EmbeddedComponent = EmbeddedComponent;

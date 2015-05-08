@@ -6,26 +6,35 @@
 
 import Toolkit from 'Toolkit';
 import EmbeddedComponent from 'EmbeddedComponent';
-import find from 'libs/dom/find';
-import isVisible from 'libs/dom/isVisible';
 import debounce from 'libs/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {
     name = 'Accordion';
     version = '3.0.0';
 
-    // Container of header elements.
+    // Collection of header elements.
     headers = null;
 
-    // Container of section elements.
+    // Collection of section elements.
     sections = null;
+
+    /**
+     * Initialize the plugin.
+     *
+     * @param {string} selector
+     * @param {object} [options]
+     */
+    constructor(selector, options) {
+        super();
+        this.initialize(selector, options);
+    }
 
     /**
      * {@inheritdoc}
      */
     initProperties() {
-        this.headers = find(this.ns('header'), this.element);
-        this.sections = find(this.ns('section'), this.element);
+        this.headers = this.element.find(this.ns('header'));
+        this.sections = this.element.find(this.ns('section'));
     }
 
     /**
@@ -99,7 +108,7 @@ export default class Accordion extends EmbeddedComponent {
     }
 
     /**
-     * Render the accordion according to the current state by revealing the section and header at the index.
+     * Render the accordion according to the current state by revealing the section and header at the defined index.
      * Take into account multiple and collapsible sections.
      */
     render() {
@@ -115,8 +124,7 @@ export default class Accordion extends EmbeddedComponent {
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
-            if (isVisible(section) && this.node) {
-
+            if (section.isVisible() && this.node) {
                 section.setStyle('maxHeight', 0).conceal(true);
                 header.setAria('toggled', false).removeClass('is-active');
 
@@ -208,7 +216,7 @@ export default class Accordion extends EmbeddedComponent {
         e.preventDefault();
 
         this.setState({
-            index: e.currentTarget.getAttribute('data-accordion-index')
+            index: parseInt(e.currentTarget.getAttribute('data-accordion-index'), 10)
         });
     }
 

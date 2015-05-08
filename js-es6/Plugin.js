@@ -6,11 +6,12 @@
 
 import Toolkit from 'Toolkit';
 import id from 'libs/dom/id';
-import contains from 'libs/dom/contains';
+import inDOM from 'libs/dom/inDOM';
 import { forOwn, isObject, merge } from 'libs/object/index';
-import delegate from 'libs/event/delegate';
+import delegate from 'libs/event/delegate'
 
 export default class Plugin {
+
     // Map of DOM event bindings.
     binds = [];
 
@@ -26,6 +27,9 @@ export default class Plugin {
     // Name of the plugin. Should match the `Toolkit.<Name>` declaration.
     name = 'Plugin';
 
+    // Unique configurable options for the plugin.
+    options = {};
+
     // The CSS selector bound to the plugin.
     selector = '';
 
@@ -37,15 +41,10 @@ export default class Plugin {
     version = '3.0.0';
 
     /**
-     * Bootstrap the plugin.
-     *
-     * @param {string} selector
-     * @param {object} options
+     * Generate a unique ID for this instance.
      */
-    constructor(selector, options = {}) {
-        this.initialize(selector, options);
-        this.enable();
-        this.startup();
+    constructor() {
+        this.constructor.uid += 1; // Increase UID
     }
 
     /**
@@ -171,20 +170,26 @@ export default class Plugin {
      * correct order: options -> element(s) -> properties -> event bindings.
      *
      * The order is important as methods will require members from
-     * the previous method to be initialized. This order *should not* change.
+     * the previous method to be initialized. This order *must not* change.
      *
      * @param {string} selector
-     * @param {object} options
+     * @param {object} [options]
      */
-    initialize(selector, options = {}) {
-        this.constructor.uid += 1; // Increase UID
-        this.selector = selector; // Save selector
+    initialize(selector, options) {
+        this.selector = selector;
 
+        // Initialize the class
         this.initOptions(options);
         this.initElement(selector);
         this.initProperties();
         this.initBinds();
         this.emit('init');
+
+        // Enable the class and bind events
+        this.enable();
+
+        // Startup child class
+        this.startup();
     }
 
     /**
@@ -194,7 +199,7 @@ export default class Plugin {
      *
      * @param {object} options
      */
-    initOptions(options = {}) {
+    initOptions(options) {
         this.options = merge({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
         this.setOptions(options);
     }
@@ -232,7 +237,7 @@ export default class Plugin {
     mount() {
         let element = this.element;
 
-        if (this.mounted || !element || contains(element)) {
+        if (this.mounted || !element || inDOM(element)) {
             return;
         }
 
@@ -369,7 +374,7 @@ export default class Plugin {
      * @param {object} options
      */
     setOptions(options) {
-        options = merge(this.options, options);
+        options = merge(this.options, options || {});
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
@@ -440,10 +445,10 @@ export default class Plugin {
         }
 
         // Emit change events
-        this.emit('changed', [currentState, state, diff]);
+        this.emit('changed', [diff, state, currentState]);
 
         forOwn(diff, key => {
-            this.emit('changed:' + key, [currentState[key] || null, diff[key]]);
+            this.emit('changed:' + key, [diff[key], currentState[key] || null]);
         });
 
         // Set the new state and preserve the old one
@@ -460,7 +465,7 @@ export default class Plugin {
     unmount() {
         let element = this.element;
 
-        if (!this.mounted || (element && !contains(element))) {
+        if (!this.mounted || (element && !inDOM(element))) {
             return;
         }
 

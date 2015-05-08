@@ -6,6 +6,7 @@
 
 import Toolkit from 'Toolkit';
 import transitionEnd from '../event/transitionEnd';
+import find from './find';
 import forOwn from '../object/forOwn';
 import 'polyfills/requestAnimationFrame';
 
@@ -70,6 +71,13 @@ export default class Element {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    find(query) {
+        return find(query, this.element);
+    }
+
+    /**
      * Return a list of chainable methods to copy to the `Collection` prototype.
      *
      * @returns {string[]}
@@ -89,6 +97,15 @@ export default class Element {
      */
     hasClass(className) {
         return this.element.classList.contains(className);
+    }
+
+    /**
+     * Check if the element is visible. Is used for CSS animations and transitions.
+     *
+     * @returns {boolean}
+     */
+    isVisible() {
+        return (this.element.style.visibility !== 'hidden');
     }
 
     /**
