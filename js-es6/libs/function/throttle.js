@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Throttle the execution of a function so it triggers at every delay interval.
  *
@@ -34,3 +36,5 @@ export default function throttle(func, delay = 150) {
         }
     };
 }
+
+Toolkit.throttle = throttle;

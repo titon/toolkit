@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import forOwn from '../object/forOwn';
 import isObject from '../object/isObject';
 
@@ -29,3 +30,5 @@ export default function setter(func) {
         return this;
     };
 }
+
+Toolkit.setter = setter;

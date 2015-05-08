@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import transitionEnd from '../event/transitionEnd';
 import forOwn from '../object/forOwn';
 import 'polyfills/requestAnimationFrame';
@@ -334,3 +335,5 @@ export default class Container {
         return promise;
     }
 }
+
+Toolkit.Container = Container;

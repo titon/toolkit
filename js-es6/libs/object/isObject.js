@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Verify that a value is an actual object, and is not an instance of the object types,
  * like Array, Date, etc.
@@ -16,3 +18,5 @@
 export default function isObject(object) {
     return (Object.prototype.toString.call(object) === '[object Object]');
 }
+
+Toolkit.isObject = isObject;

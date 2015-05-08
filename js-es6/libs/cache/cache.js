@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Storage from './Storage';
 
 // Use a shared cache
@@ -32,3 +33,5 @@ export default function cache(key, value = null) {
 
     return internalCache.set(key, value);
 }
+
+Toolkit.cache = cache;

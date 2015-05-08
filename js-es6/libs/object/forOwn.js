@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Helper function for looping over an object.
  * Since this is an object, we must loop over the keys to efficiently iterate.
@@ -16,3 +18,5 @@
 export default function forOwn(object, func) {
     Object.keys(object).forEach(func);
 }
+
+Toolkit.forOwn = forOwn;

@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Position the element relative to another element in the document, or to the mouse cursor.
  * Determine the offsets through the `relativeTo` argument, which can be an event, or an element.
@@ -114,3 +116,5 @@ export default function positionTo(element, position, relativeTo, isMouse, baseO
 
     return element;
 }
+
+Toolkit.positionTo = positionTo;

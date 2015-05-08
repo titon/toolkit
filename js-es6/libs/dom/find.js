@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Collection from './Collection';
 
 /**
@@ -19,3 +20,5 @@ import Collection from './Collection';
 export default function find(query, context = document) {
     return new Collection(Array.of(context.querySelectorAll(query)));
 }
+
+Toolkit.find = find;

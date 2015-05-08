@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Check if the element is visible. Is used for CSS animations and transitions.
  *
@@ -15,3 +17,5 @@
 export default function isVisible(element) {
     return (element.style.visibility !== 'hidden');
 }
+
+Toolkit.isVisible = isVisible;

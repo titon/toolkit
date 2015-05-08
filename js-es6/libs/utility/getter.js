@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Overload a getter method to accept an array that returns a set of data.
  *
@@ -27,3 +29,5 @@ export default function getter(func) {
         return value;
     };
 }
+
+Toolkit.getter = getter;

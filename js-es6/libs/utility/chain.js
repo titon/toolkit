@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Overload a method and make it chainable if it is not already.
  *
@@ -19,3 +21,5 @@ export default function chain(func) {
         return (typeof response === 'undefined') ? this : response;
     };
 }
+
+Toolkit.chain = chain;

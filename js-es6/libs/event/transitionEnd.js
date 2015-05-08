@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import once from './once';
 
 /**
@@ -29,3 +30,5 @@ export default function transitionEnd(element, func) {
 
     return element;
 }
+
+Toolkit.transitionEnd = transitionEnd;

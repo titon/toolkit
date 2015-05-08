@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Container from './Container';
 
 /**
@@ -23,3 +24,5 @@ export default function contains(element) {
 
     return (element === body) ? false : body.contains(element);
 }
+
+Toolkit.inDOM = contains;

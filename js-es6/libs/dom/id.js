@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Container from './Container';
 
 /**
@@ -17,3 +18,5 @@ import Container from './Container';
 export default function id(query) {
     return new Container(document.getElementById(query));
 }
+
+Toolkit.id = id;

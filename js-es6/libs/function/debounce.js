@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * Delays the execution of a function till the duration has completed.
  *
@@ -32,3 +34,5 @@ export default function debounce(func, threshold = 150) {
         }, threshold);
     };
 }
+
+Toolkit.debounce = debounce;

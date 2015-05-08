@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import forOwn from './forOwn';
 import isObject from './isObject';
 
@@ -36,3 +37,5 @@ export default function merge(base, ...objects) {
 
     return base;
 }
+
+Toolkit.merge = merge;

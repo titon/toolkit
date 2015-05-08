@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import Container from './Container';
 
 /**
@@ -54,3 +55,5 @@ Container.getCollectionMethods().forEach(method => {
         return (response instanceof Container) ? this : response;
     };
 });
+
+Toolkit.Collection = Collection;

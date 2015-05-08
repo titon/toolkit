@@ -14,7 +14,7 @@ export find from './find';
 export id from './id';
 export isElement from './isElement';
 export isVisible from './isVisible';
-export positionTo from './isVisible';
+export positionTo from './positionTo';
 
 
 

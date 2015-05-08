@@ -6,6 +6,8 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
+
 /**
  * A simple class for getting, setting, and removing a cache of data.
  */
@@ -70,3 +72,5 @@ export default class Storage {
         return value;
     }
 }
+
+Toolkit.Storage = Storage;

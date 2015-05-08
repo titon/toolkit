@@ -6,6 +6,7 @@
 
 'use strict';
 
+import Toolkit from 'Toolkit';
 import 'polyfills/element/matches';
 
 /**
@@ -30,3 +31,5 @@ export default function delegate(selector, func) {
         }
     };
 }
+
+Toolkit.delegate = delegate;
