@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 import Toolkit from 'Toolkit';
 import transitionEnd from '../event/transitionEnd';
 import forOwn from '../object/forOwn';

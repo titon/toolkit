@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export forOwn from './forOwn';
 export isObject from './isObject';
 export merge from './merge';

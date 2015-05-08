@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 if (!window.requestAnimationFrame) {
     window.requestAnimationFrame =
         window.webkitRequestAnimationFrame ||

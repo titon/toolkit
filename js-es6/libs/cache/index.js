@@ -4,7 +4,5 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export cache from './cache';
 export Storage from './Storage';

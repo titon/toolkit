@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export batch from './batch';
 export Collection from './Collection';
 export Container from './Container';

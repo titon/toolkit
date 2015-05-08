@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export var
 
     // Does the device support retina display

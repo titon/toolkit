@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export bem from './bem';
 export bound from './bound';
 export chain from './chain';

@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 (function(proto) {
     proto.matches =
         proto.matches ||

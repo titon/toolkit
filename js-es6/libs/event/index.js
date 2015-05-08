@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export delegate from './delegate';
 export once from './once';
 export transitionEnd from './transitionEnd';

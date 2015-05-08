@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 import { isTouch, isRetina, isRTL } from 'libs/flags';
 
 class Toolkit {

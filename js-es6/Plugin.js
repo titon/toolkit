@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 import Toolkit from 'Toolkit';
 import id from 'libs/dom/id';
 import contains from 'libs/dom/contains';

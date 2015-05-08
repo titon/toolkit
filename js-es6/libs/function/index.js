@@ -4,7 +4,5 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 export debounce from './debounce';
 export throttle from './throttle';

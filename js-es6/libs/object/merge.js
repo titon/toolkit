@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-'use strict';
-
 import Toolkit from 'Toolkit';
 import forOwn from './forOwn';
 import isObject from './isObject';
