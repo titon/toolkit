@@ -18,7 +18,13 @@ module.exports = function(options) {
             outputStyle: options.style,
             sourceComments: false,
             sourceMap: false,
-            success: function(response) {
+            indentedSyntax: true
+        }, function(error, response) {
+            if (error) {
+                throw new gutil.PluginError(PLUGIN_NAME,
+                    error.message + ' [' + error.file + ':' + error.line + ':' + error.column + ']');
+
+            } else {
                 gutil.log("\t" + gutil.colors.blue(inputPath
                     .replace(file.cwd, '')      // Remove base folder from path
                     .replace(/\\/g, '/')        // Fix Windows paths
@@ -34,9 +40,6 @@ module.exports = function(options) {
                 }));
 
                 done();
-            },
-            error: function(error) {
-                throw new gutil.PluginError(PLUGIN_NAME, error.message);
             }
         });
     });

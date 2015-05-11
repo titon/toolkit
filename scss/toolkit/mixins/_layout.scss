@@ -5,7 +5,7 @@
     // Module is excluded, so do nothing
     @if (index($modules-excluded, $module) != null) {
 
-        // Module hasn't been exported yet, so export it and log usage
+    // Module hasn't been exported yet, so export it and log usage
     } @else if (index($modules-exported, $module) == null) {
         $modules-exported: append($modules-exported, $module) !global;
 
@@ -75,11 +75,11 @@
     $selectors: ();
 
     @if $self {
-        $selectors: $selectors, unquote("&" + $size);
+        $selectors: append($selectors, unquote("&" + $size), "comma");
     }
 
     @if $parent {
-        $selectors: $selectors, unquote($size + " &");
+        $selectors: append($selectors, unquote($size + " &"), "comma");
     }
 
     #{$selectors} {
