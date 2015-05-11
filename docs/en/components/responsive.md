@@ -4,9 +4,7 @@ Responsive classes for mobile, tablet and desktop resolutions.
 
 ## Usage ##
 
-For easier mobile and tablet development, a handful of utility classes are available
-for showing and hiding content based on media queries and breakpoints.
-These classes should be used to complement a layout, not for structuring it.
+For easier mobile and tablet development, a handful of utility classes are available for showing and hiding content based on media queries and breakpoints. These classes should be used to complement a layout, not for structuring it.
 
 ### Display Classes ###
 
@@ -111,8 +109,7 @@ Use these for toggling content based on the viewport width.
 </table>
 
 <div class="notice is-info">
-    The breakpoints for these responsive display classes
-    can be altered through the <code>$breakpoint-range-*</code> Sass variables.
+    The breakpoints for these responsive display classes can be altered through the <code>$breakpoint-range-*</code> Sass variables.
 </div>
 
 ### Orientation Classes ###

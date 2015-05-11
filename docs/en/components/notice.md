@@ -4,8 +4,7 @@ Notification boxes for displaying informational, error, warning, or success mess
 
 ## Usage ##
 
-A notice provides contextual messages for specific types of actions &mdash; usually as a flash message.
-Notices work best when paired with the global info, success, warning, and error state classes.
+A notice provides contextual messages for specific types of actions &mdash; usually as a flash message. Notices work best when paired with the global info, success, warning, and error state classes.
 
 ```html
 <div class="notice">
@@ -30,8 +29,7 @@ Notices work best when paired with the global info, success, warning, and error 
 ```
 
 <div class="notice is-warning">
-    All state classes will require styling.
-    The classes simply exist for semantic and structuring reasons.
+    All state classes will require styling. The classes simply exist for semantic and structuring reasons.
 </div>
 
 ### Custom Markup ###
@@ -67,14 +65,12 @@ Make a notice dismissable by placing a close button.
 ```
 
 <div class="notice is-warning">
-    The JavaScript for closing notices will need to be custom written.
-    Toolkit does not provide any functionality for this.
+    The JavaScript for closing notices will need to be custom written. Toolkit does not provide any functionality for this.
 </div>
 
 ## ARIA ##
 
-The `alert` or `status` role is required when supporting ARIA.
-[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role)
+The `alert` or `status` role is required when supporting ARIA. [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role)
 
 ```html
 <div class="notice is-info" role="status">...</div>

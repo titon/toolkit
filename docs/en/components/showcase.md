@@ -4,8 +4,7 @@ Lightbox styled image gallery with optional categorization.
 
 ## Usage ##
 
-A showcase can be used for displaying higher quality or larger scaled images than what can be placed in the page.
-Showcases support single viewing, multiple viewing through categorization, and optional captions.
+A showcase can be used for displaying higher quality or larger scaled images than what can be placed in the page. Showcases support single viewing, multiple viewing through categorization, and optional captions.
 
 The showcase component must be initialized on an element that will trigger the display of the showcases, for example.
 
@@ -19,13 +18,11 @@ The showcase component must be initialized on an element that will trigger the d
 $('.js-showcase').showcase();
 ```
 
-When the target is clicked, the value of `getImage` (defaults to `href`) will be used as the image URL,
-and the value of `getTitle` (defaults to `title`) will be used as the caption.
+When the target is clicked, the value of `getImage` (defaults to `href`) will be used as the image URL, and the value of `getTitle` (defaults to `title`) will be used as the caption.
 
 ### Category Grouping ###
 
-To display multiple images that can be cycled through, a category must be defined.
-This category will group all images into the same showcase.
+To display multiple images that can be cycled through, a category must be defined. This category will group all images into the same showcase.
 
 ```html
 <a href="/img/large-1.png" class="js-showcase" title="1st image" data-showcase="category">

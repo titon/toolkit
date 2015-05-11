@@ -4,12 +4,9 @@ Organizes multiple sections of content into toggleable tabs.
 
 ## Usage ##
 
-The tab component is primarily used in the display of multiple sections of content,
-with only a single section open at any time, all toggled through a navigation of tabbed links.
+The tab component is primarily used in the display of multiple sections of content, with only a single section open at any time, all toggled through a navigation of tabbed links.
 
-The tabs that make up the component should be wrapped in a `.tab-nav` (with `data-tab-nav`) and structured with
-a `ul` list. The sections that associate to tabs should be created with `.tab-section` and `data-tab-section`.
-Both of which can be wrapped by a `.tabs` element.
+The tabs that make up the component should be wrapped in a `.tab-nav` (with `data-tab-nav`) and structured with a `ul` list. The sections that associate to tabs should be created with `.tab-section` and `data-tab-section`. Both of which can be wrapped by a `.tabs` element.
 
 ```html
 <div class="tabs" data-tab>
@@ -34,8 +31,7 @@ $('.tabs').tab();
 ```
 
 <div class="notice is-info">
-    The <code>data-tab-*</code> attributes are required so that the JavaScript layer
-    can find or bind elements in the DOM.
+    The <code>data-tab-*</code> attributes are required so that the JavaScript layer can find or bind elements in the DOM.
 </div>
 
 <div class="notice is-info">
@@ -43,20 +39,16 @@ $('.tabs').tab();
 </div>
 
 <div class="notice is-info">
-    The markup for tabs can be customized and re-arranged extensively.
-    The only requirements are the inclusion of tab data attributes.
+    The markup for tabs can be customized and re-arranged extensively. The only requirements are the inclusion of tab data attributes.
 </div>
 
 <div class="notice is-warning">
-    The <code>href</code> of every tab does <b>not</b> point to a section ID.
-    For every tab, there needs to be an associated section in the markup, even if it's empty.
-    The order and index in the collection determines association.
+    The <code>href</code> of every tab does <b>not</b> point to a section ID. For every tab, there needs to be an associated section in the markup, even if it's empty. The order and index in the collection determines association.
 </div>
 
 ### Horizontal Tabs ###
 
-To display tabs horizontally alongside sections, and to update all navigation items to a vertical layout,
-use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.md).
+To display tabs horizontally alongside sections, and to update all navigation items to a vertical layout, use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.md).
 
 ```html
 <div class="tabs tabs--horizontal grid">
@@ -78,8 +70,7 @@ use `.tabs--horizontal`. We suggest pairing this with the [Grid component](grid.
 
 ### Persist State ###
 
-There are 2 ways to persist the open section between requests.
-The first, which also takes highest priority, is through cookies.
+There are 2 ways to persist the open section between requests. The first, which also takes highest priority, is through cookies.
 
 ```javascript
 $('.tabs').tab({
@@ -92,9 +83,7 @@ $('.tabs').tab({
     When using cookies, a <code>$.cookie()</code> method needs to exist on the jQuery object.
 </div>
 
-The second is through the hash fragment in the URL.
-We can either update the hash manually when a tab is clicked,
-or disable `preventDefault` and set the `href` to IDs.
+The second is through the hash fragment in the URL. We can either update the hash manually when a tab is clicked, or disable `preventDefault` and set the `href` to IDs.
 
 ```javascript
 $('.tabs').tab({
@@ -126,8 +115,7 @@ Loading in sections through AJAX is extremely easy, simple set the `href` on the
 ```
 
 <div class="notice is-warning">
-    Be sure to create empty sections to insert the response into,
-    as the component does not automatically create them!
+    Be sure to create empty sections to insert the response into, as the component does not automatically create them!
 </div>
 
 ### Notes ###
@@ -137,8 +125,7 @@ Loading in sections through AJAX is extremely easy, simple set the `href` on the
 
 ## ARIA ##
 
-The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <div class="tabs">

@@ -4,9 +4,7 @@ Monitors an input field and triggers a lookup of data to render in a clickable m
 
 ## Usage ##
 
-A type ahead (also known as an autocomplete) attempts to predict and suggest a list of
-items based on the current input from a user. The data used to generate suggestions
-can be packaged in multiple ways, as well as be sorted and grouped.
+A type ahead (also known as an autocomplete) attempts to predict and suggest a list of items based on the current input from a user. The data used to generate suggestions can be packaged in multiple ways, as well as be sorted and grouped.
 
 A type ahead component must be initialized on an input field, so that key press events can be monitored.
 
@@ -19,14 +17,12 @@ $('#input').typeAhead();
 ```
 
 <div class="notice is-warning">
-    A data source must be defined to query against.
-    Continue reading for more information on data sources.
+    A data source must be defined to query against. Continue reading for more information on data sources.
 </div>
 
 ### Data Source ###
 
-There are 3 ways to retrieve data for the lookup system.
-The first is through a literal array, which will be used as the data.
+There are 3 ways to retrieve data for the lookup system. The first is through a literal array, which will be used as the data.
 
 ```javascript
 $('#input').typeAhead({
@@ -50,9 +46,7 @@ $('#input').typeAhead({
 });
 ```
 
-The third is through a string, which should point to a URL to query against.
-This URL will be requested on every lookup unless `prefetch` is enabled.
-More information on prefetching can be found in the next chapter.
+The third is through a string, which should point to a URL to query against. This URL will be requested on every lookup unless `prefetch` is enabled. More information on pre-fetching can be found in the next chapter.
 
 ```javascript
 $('#input').typeAhead({
@@ -61,15 +55,12 @@ $('#input').typeAhead({
 ```
 
 <div class="notice is-info">
-    When using the remote HTTP request approach, we suggest that sorting,
-    matching, and filtering be done on the remote end,
-    and <code>sorter</code> and <code>matcher</code> be set to <code>false</code> on the front end.
+    When using the remote HTTP request approach, we suggest that sorting, matching, and filtering be done on the remote end, and <code>sorter</code> and <code>matcher</code> be set to <code>false</code> on the front end.
 </div>
 
 #### Category Grouping ####
 
-Items can be grouped and rendered into categories by defining the `category`
-field in the data set.
+Items can be grouped and rendered into categories by defining the `category` field in the data set.
 
 ```javascript
 return [
@@ -82,9 +73,7 @@ return [
 
 #### Data Structure ####
 
-The following fields are available for each item in the data set.
-Custom fields can also be defined and used within `builder` callbacks,
-and when an item is selected.
+The following fields are available for each item in the data set. Custom fields can also be defined and used within `builder` callbacks, and when an item is selected.
 
 <table class="table is-striped data-table">
     <thead>
@@ -119,9 +108,7 @@ and when an item is selected.
 
 ### Prefetching ###
 
-When `prefetch` is enabled, data will be fetched and processed on initialization,
-which will prevent additional HTTP requests for every lookup.
-Fetching will use the `source` option as the URL to request, and the JSON response as the data.
+When `prefetch` is enabled, data will be fetched and processed on initialization, which will prevent additional HTTP requests for every lookup. Fetching will use the `source` option as the URL to request, and the JSON response as the data.
 
 ```javascript
 $('#input').typeAhead({
@@ -132,9 +119,7 @@ $('#input').typeAhead({
 
 ### Shadow Text ###
 
-The shadow text feature will display the title behind the input field,
-for the first item in the data set if it matches the current term.
-For a better understanding of how this works, take a look at Google search.
+The shadow text feature will display the title behind the input field, for the first item in the data set if it matches the current term. For a better understanding of how this works, take a look at Google search.
 
 ```javascript
 $('#input').typeAhead({
@@ -155,9 +140,7 @@ When enabled, the input markup will be changed to the following.
 
 ### Sorters, Matchers & Builders ###
 
-Custom sorter, matcher, and builder functions can be defined to modify and
-hook into the type ahead process. If no function is defined, it will fall back
-to the class implementation.
+Custom sorter, matcher, and builder functions can be defined to modify and hook into the type ahead process. If no function is defined, it will fall back to the class implementation.
 
 The sorter receives an array of items, and should return the array sorted.
 
@@ -201,8 +184,7 @@ $('#input').typeAhead({
 </div>
 
 <div class="notice is-info">
-    If <code>false</code> is defined for an option, no callback or fallback will be used.
-    This is useful for data sets that are processed remotely.
+    If <code>false</code> is defined for an option, no callback or fallback will be used. This is useful for data sets that are processed remotely.
 </div>
 
 ### Notes ###
@@ -211,8 +193,7 @@ $('#input').typeAhead({
 
 ## ARIA ##
 
-The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `combobox`, `listbox`, and `option` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <input type="text" id="input" class="input" name="term" role="combobox" aria-autocomplete="off">

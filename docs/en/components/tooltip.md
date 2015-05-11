@@ -18,16 +18,13 @@ The tooltip will display either through a click, or a hover, depending on the co
 
 ### Dynamic Content Loading ###
 
-Tooltips use a form of dynamic content loading. This allows the body of the tooltip to be 
-loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
+Tooltips use a form of dynamic content loading. This allows the body of the tooltip to be loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
 
 * [Learn more about dynamic content loading.](../development/js/usage.md#dynamic-content-loading)
 
 ### Titles & Content ###
 
-The titles and content within the tooltip can be customized through the `getTitle` and `getContent`
-options respectively. The values to use will either be extracted from the defined HTML
-attribute, or through a callback function.
+The titles and content within the tooltip can be customized through the `getTitle` and `getContent` options respectively. The values to use will either be extracted from the defined HTML attribute, or through a callback function.
 
 ```html
 <button type="button" class="js-tooltip" title="Tooltip Title" data-tooltip="/help/text">AJAX</button>
@@ -38,16 +35,13 @@ These values use the dynamic content loading mentioned above.
 
 #### Manual Updates ####
 
-To programmatically update the tooltip with JavaScript, the `show()` method on the tooltip instance
-can be used. When calling `show()`, an element can be passed as the 1st argument to position the tooltip
-relative to. If no element is passed, the last element hovered will be used. The 2nd argument is the custom content.
+To programmatically update the tooltip with JavaScript, the `show()` method on the tooltip instance can be used. When calling `show()`, an element can be passed as the 1st argument to position the tooltip relative to. If no element is passed, the last element hovered will be used. The 2nd argument is the custom content.
 
 ```javascript
 $('#button').toolkit('tooltip', 'show', [null, 'Custom content']);
 ```
 
-If we want to update the node and then trigger the tooltip, something like the following can be used.
-This example assumes that `getContent` is set to `data-tooltip`.
+If we want to update the node and then trigger the tooltip, something like the following can be used. This example assumes that `getContent` is set to `data-tooltip`.
 
 ```javascript
 var node = $('#button');
@@ -72,8 +66,7 @@ $('.js-tooltip').tooltip({
 
 ## ARIA ##
 
-The `tooltip` role and the appropriate `aria-*` attributes are required when supporting ARIA.
-[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_tooltip_role)
+The `tooltip` role and the appropriate `aria-*` attributes are required when supporting ARIA. [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_tooltip_role)
 
 ```html
 <div class="tooltip" role="tooltip">

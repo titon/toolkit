@@ -1,10 +1,8 @@
 # Competitor Comparison #
 
-The following charts provide a comparison of Toolkit to other popular front-end libraries.
-The charts demonstrate what features and plugins are implemented by each vendor.
+The following charts provide a comparison of Toolkit to other popular front-end libraries. The charts demonstrate what features and plugins are implemented by each vendor.
 
-A green cell in the chart denotes support for that item, while red denotes no support.
-If a cell is blue, than either partial support is provided, or the plugin has a different name.
+A green cell in the chart denotes support for that item, while red denotes no support. If a cell is blue, than either partial support is provided, or the plugin has a different name.
 
 The following libraries are being compared:
 
@@ -13,8 +11,7 @@ The following libraries are being compared:
 * Semantic UI 0.19.3
 
 <div class="notice is-warning">
-    Please submit a pull request or contact us if any information in this chart is incorrect.
-    We will update accordingly.
+    Please submit a pull request or contact us if any information in this chart is incorrect. We will update accordingly.
 </div>
 
 ## Sizes ##

@@ -1,8 +1,6 @@
 # Mixins #
 
-Mixins are a powerful Sass feature that allow for modularity and re-use of code.
-Toolkit comes bundled with a handful of mixins that solve everyday problems like grid building,
-style resets, and media query management.
+Mixins are a powerful Sass feature that allow for modularity and re-use of code. Toolkit comes bundled with a handful of mixins that solve everyday problems like grid building, style resets, and media query management.
 
 ## Layout ##
 

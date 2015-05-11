@@ -4,8 +4,7 @@ Classes for input fields and form structuring.
 
 ## Usage ##
 
-When building forms, all input fields, select menus, and textareas should use the `.input` class.
-This class will style, align and position elements uniformly within a form.
+When building forms, all input fields, select menus, and textareas should use the `.input` class. This class will style, align and position elements uniformly within a form.
 
 ```html
 <!-- Inputs -->
@@ -21,8 +20,7 @@ This class will style, align and position elements uniformly within a form.
 
 All types of `input` are supported, including the latest HTML5 variants.
 
-Inputs should be paired with `.field` for structuring, and `.field-label` for association.
-Both of which are required for horizontal and inline forms (more on this below).
+Inputs should be paired with `.field` for structuring, and `.field-label` for association. Both of which are required for horizontal and inline forms (more on this below).
 
 ```html
 <div class="field">
@@ -31,8 +29,7 @@ Both of which are required for horizontal and inline forms (more on this below).
 </div>
 ```
 
-Alternatively, you can wrap all your inputs in a `.fields` list.
-We suggest using this approach for most use cases.
+Alternatively, you can wrap all your inputs in a `.fields` list. We suggest using this approach for most use cases.
 
 ```html
 <ul class="fields">
@@ -47,14 +44,12 @@ We suggest using this approach for most use cases.
 ```
 
 <div class="notice is-error">
-    As a side effect in styling selects in WebKit browsers,
-    their arrow will be missing and will have to manually be fixed.
+    As a side effect in styling selects in WebKit browsers, their arrow will be missing and will have to manually be fixed.
 </div>
 
 ### Radios & Checkboxes ###
 
-When working with radios and checkboxes, we suggest wrapping the input in a label
-with either a `.input-checkbox` or `.input-radio` class.
+When working with radios and checkboxes, we suggest wrapping the input in a label with either a `.input-checkbox` or `.input-radio` class.
 
 ```html
 <label class="input-radio" for="radio">
@@ -70,16 +65,14 @@ with either a `.input-checkbox` or `.input-radio` class.
 
 ### States ###
 
-Add the `disabled` attribute to an input to prevent user modification,
-or add the `readonly` attribute to mark an input as read only.
+Add the `disabled` attribute to an input to prevent user modification, or add the `readonly` attribute to mark an input as read only.
 
 ```html
 <input class="input" type="text" name="username" disabled>
 <input class="input" type="email" name="email" readonly>
 ```
 
-To represent success or error states during validation,
-add the `.is-success` and `.is-error` classes to the parent `.field` or `li`.
+To represent success or error states during validation, add the `.is-success` and `.is-error` classes to the parent `.field` or `li`.
 
 ```html
 <div class="field is-error">
@@ -87,8 +80,7 @@ add the `.is-success` and `.is-error` classes to the parent `.field` or `li`.
 </div>
 ```
 
-When a field is required before submission, add the `.is-required`
-class to the parent `.field` or `li`, and add the `required` attribute to the input.
+When a field is required before submission, add the `.is-required` class to the parent `.field` or `li`, and add the `required` attribute to the input.
 
 ```html
 <div class="field is-required">
@@ -99,8 +91,7 @@ class to the parent `.field` or `li`, and add the `required` attribute to the in
 
 ### Sizes ###
 
-To increase the font size and padding of an input, add a `.small` or `.large`
-class to the `.input`, `.input-radio`, `.input-checkbox`, or `.input-static` element.
+To increase the font size and padding of an input, add a `.small` or `.large` class to the `.input`, `.input-radio`, `.input-checkbox`, or `.input-static` element.
 
 ```html
 <input class="input small" type="email" name="email">
@@ -110,13 +101,11 @@ class to the `.input`, `.input-radio`, `.input-checkbox`, or `.input-static` ele
 <div class="input-static large">...</div>
 ```
 
-The size class can also be applied to a parent `.field` or `li`, which will cascade
-down to all inputs within it.
+The size class can also be applied to a parent `.field` or `li`, which will cascade down to all inputs within it.
 
 ### Convenience Elements ###
 
-When we need to use plain text instead of an input field,
-while maintaining the same dimensions and spacing, a static input can be used.
+When we need to use plain text instead of an input field, while maintaining the same dimensions and spacing, a static input can be used.
 
 ```html
 <div class="field">
@@ -155,8 +144,7 @@ No extra styles or classes are required by basic forms, simply go ahead and use 
 
 ### Fieldsets & Legends ###
 
-Fieldsets and legends can be used to group fields. If a fieldset exists without a legend,
-the `.no-legend` class can be used to reset its styles.
+Fieldsets and legends can be used to group fields. If a fieldset exists without a legend, the `.no-legend` class can be used to reset its styles.
 
 ```html
 <form>
@@ -173,9 +161,7 @@ the `.no-legend` class can be used to reset its styles.
 
 ### Horizontal Forms ###
 
-Stacking inputs and labels horizontally instead of vertically will require the [Grid component](grid.md).
-Adding `.form--horizontal` to a form will update `.field`s behavior to that of a grid row,
-so no need for `.grid`. We can then insert grid `.col` classes for structuring.
+Stacking inputs and labels horizontally instead of vertically will require the [Grid component](grid.md). Adding `.form--horizontal` to a form will update `.field`s behavior to that of a grid row, so no need for `.grid`. We can then insert grid `.col` classes for structuring.
 
 ```html
 <form class="form--horizontal">
@@ -203,8 +189,7 @@ so no need for `.grid`. We can then insert grid `.col` classes for structuring.
 
 ### Inline Forms ###
 
-Adding `.form--inline` to a form will update all `.field`, `.field-label`,
-and `.form-actions` elements to inline block with proper margins.
+Adding `.form--inline` to a form will update all `.field`, `.field-label`, and `.form-actions` elements to inline block with proper margins.
 
 ```html
 <form class="form--inline">
@@ -214,10 +199,7 @@ and `.form-actions` elements to inline block with proper margins.
 
 ## ARIA ##
 
-If you are using semantically correct tags like `form`, `label`, and `input`,
-then implementing ARIA is not required. If you are *not* using them,
-then the following [MDN article on ARIA forms](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/forms/Basic_form_hints)
-may be helpful.
+If you are using semantically correct tags like `form`, `label`, and `input`, then implementing ARIA is not required. If you are *not* using them, then the following [MDN article on ARIA forms](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/forms/Basic_form_hints) may be helpful.
 
 ## Variables ##
 

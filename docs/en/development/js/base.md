@@ -8,11 +8,9 @@ Understanding the base class may require prior knowledge of Toolkit's [class sys
 
 ### Options ###
 
-Extensibility of classes can be achieved through customizable options.
-Each class has a different set of options and these options can be used to alter functionality.
+Extensibility of classes can be achieved through customizable options. Each class has a different set of options and these options can be used to alter functionality.
 
-Options can be set globally by modifying the static `options` object on the class.
-These options will need to be modified *before* a class is initialized.
+Options can be set globally by modifying the static `options` object on the class. These options will need to be modified *before* a class is initialized.
 
 ```javascript
 // Single option
@@ -26,8 +24,7 @@ $.extend(Toolkit.Tooltip.options, {
 });
 ```
 
-Options can also be set on a per instance basis when initializing a class.
-These options will inherit and override the global options.
+Options can also be set on a per instance basis when initializing a class. These options will inherit and override the global options.
 
 ```javascript
 $('.js-tooltip').tooltip({
@@ -37,12 +34,9 @@ $('.js-tooltip').tooltip({
 
 #### Responsive Options ####
 
-For situations where class options need to change depending on the size of the device, the `responsive` option
-can be used (this option can be used by *all* classes). This option should define an object of settings,
-with each setting having a `breakpoint` to compare against and the custom options to override with.
+For situations where class options need to change depending on the size of the device, the `responsive` option can be used (this option can be used by *all* classes). This option should define an object of settings, with each setting having a `breakpoint` to compare against and the custom options to override with.
 
-For example, our carousel should have different item counts depending on device size.
-The default options will apply to all devices not found in the breakpoints.
+For example, our carousel should have different item counts depending on device size. The default options will apply to all devices not found in the breakpoints.
 
 ```javascript
 $('.carousel').carousel({
@@ -61,13 +55,11 @@ $('.carousel').carousel({
 ```
 
 <div class="notice is-info">
-    Breakpoint detection uses the built in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia()</a> function.
-    All breakpoint definitions should follow the media query specification.
+    Breakpoint detection uses the built in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia()</a> function. All breakpoint definitions should follow the media query specification.
 </div>
 
 <div class="notice is-warning">
-    Breakpoint detection only triggers on the initial page load and will not trigger if you resize your browser
-    manually by resizing the OS window.
+    Breakpoint detection only triggers on the initial page load and will not trigger if you resize your browser manually by resizing the OS window.
 </div>
 
 <div class="notice is-error">
@@ -76,10 +68,7 @@ $('.carousel').carousel({
 
 ### Hooks ###
 
-Similar to native DOM events, the class layer has a system for dispatching callbacks at specific events called hooks.
-The difference between DOM events and hooks is that hooks are set as options through the class constructor
-or manually added through the `addHook()` and `addHooks()` methods. When setting through options, any option that begins with `on`,
-is named after an event, and defines an anonymous function, is considered a hook.
+Similar to native DOM events, the class layer has a system for dispatching callbacks at specific events called hooks. The difference between DOM events and hooks is that hooks are set as options through the class constructor or manually added through the `addHook()` and `addHooks()` methods. When setting through options, any option that begins with `on`, is named after an event, and defines an anonymous function, is considered a hook.
 
 Now anytime `fireEvent()` is called, all attached hooks will also be triggered.
 

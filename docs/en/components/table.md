@@ -4,9 +4,7 @@ Provides styles for tables and their common use cases.
 
 ## Usage ##
 
-The table component removes the overhead of table styling and structuring,
-by collapsing borders, fine-tuning cell spacing, and adding modifiers for common use cases.
-To make use of this functionality, add `.table` to a `table` tag.
+The table component removes the overhead of table styling and structuring, by collapsing borders, fine-tuning cell spacing, and adding modifiers for common use cases. To make use of this functionality, add `.table` to a `table` tag.
 
 ```html
 <table class="table">
@@ -28,8 +26,7 @@ To make use of this functionality, add `.table` to a `table` tag.
 </table>
 ```
 
-When using the table component, all rows must be wrapped in a `thead` or `tbody`,
-and proper placement of `td`s and `th`s are required.
+When using the table component, all rows must be wrapped in a `thead` or `tbody`, and proper placement of `td`s and `th`s are required.
 
 ### Modifiers ###
 
@@ -61,8 +58,7 @@ Add a `.small` or `.large` class to the `table` to alter the padding of all cell
 
 ### Sortable Headers ###
 
-Add an `.is-sortable` class to the `table` to enable sortable headers.
-All columns in a `thead` will need to be wrapped in an `a` or `span`.
+Add an `.is-sortable` class to the `table` to enable sortable headers. All columns in a `thead` will need to be wrapped in an `a` or `span`.
 
 ```html
 <table class="table is-striped is-sortable">
@@ -108,8 +104,7 @@ Add a `.table-divider` to a `tbody tr` to separate rows.
 
 ### Responsive Tables ###
 
-Support responsive design by wrapping all `.table`s in `.table-responsive`, which allows
-tables to scroll horizontally when bleeding out of the viewport or their container.
+Support responsive design by wrapping all `.table`s in `.table-responsive`, which allows tables to scroll horizontally when bleeding out of the viewport or their container.
 
 ```html
 <div class="table-responsive">

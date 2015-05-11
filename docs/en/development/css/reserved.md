@@ -1,7 +1,6 @@
 # Reserved Classes #
 
-We try to avoid declaring global class names, but usually it can't be helped.
-Just be weary of the following classes while building an application.
+We try to avoid declaring global class names, but usually it can't be helped. Just be weary of the following classes while building an application.
 
 The following classes are reserved by Toolkit:
 
@@ -17,9 +16,7 @@ The following classes are reserved by Toolkit:
 * State classes: `.is-*`, `.has-*`, `.no-*`, and many more
 * Grid and flex components: `.col`, `.end`, `.region`, `.block`
 
-Some classes make use of [Sass variables](../sass/variables.md) for altering their names.
-This was implemented to avoid collisions of common class names and integration with legacy applications.
-Continue reading for more information on these variables.
+Some classes make use of [Sass variables](../sass/variables.md) for altering their names. This was implemented to avoid collisions of common class names and integration with legacy applications. Continue reading for more information on these variables.
 
 ## Namespacing Classes ##
 

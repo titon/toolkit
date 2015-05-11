@@ -34,9 +34,7 @@ Icons can also be inserted within the divider.
 
 ### Styling ###
 
-Dividers make use of `::before` and `::after` pseudo elements for their border effect.
-When the divider has content, the pseudos are shifted to the side to create a gap for the content.
-The pseudos should be modified when styling the divider.
+Dividers make use of `::before` and `::after` pseudo elements for their border effect. When the divider has content, the pseudos are shifted to the side to create a gap for the content. The pseudos should be modified when styling the divider.
 
 ```css
 .divider::before,

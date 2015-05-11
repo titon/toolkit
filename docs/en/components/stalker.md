@@ -4,9 +4,7 @@ Monitors the scroll of an element and notifies a target when a marker is reached
 
 ## Usage ##
 
-A stalker can automatically update a target based on the position of the scrollbar
-and the monitoring of markers within the page. This is especially useful for navigation
-items that need to update based on the content currently in view. Take the following for example.
+A stalker can automatically update a target based on the position of the scrollbar and the monitoring of markers within the page. This is especially useful for navigation items that need to update based on the content currently in view. Take the following for example.
 
 ```html
 <div class="wrapper">
@@ -24,8 +22,7 @@ items that need to update based on the content currently in view. Take the follo
 </div>
 ```
 
-What we want to do is update the navigation items when an article is scrolled into view.
-We can instantiate a stalker using the targets in the navigation, and the markers in the articles list.
+What we want to do is update the navigation items when an article is scrolled into view. We can instantiate a stalker using the targets in the navigation, and the markers in the articles list.
 
 ```javascript
 $('body').stalker({
@@ -34,13 +31,11 @@ $('body').stalker({
 });
 ```
 
-Markers and targets will be matched based on the value of the `targetBy` and `markBy` options.
-By default this matches the ID of the marker against the href of the target.
+Markers and targets will be matched based on the value of the `targetBy` and `markBy` options. By default this matches the ID of the marker against the href of the target.
 
 ### Overflow Containers ###
 
-A stalker can also monitor an element that has overflow `auto`.
-Simply pass the overflown element as the constructor.
+A stalker can also monitor an element that has overflow `auto`. Simply pass the overflown element as the constructor.
 
 ```javascript
 $('#overflown').stalker({

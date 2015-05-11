@@ -4,8 +4,7 @@ Divides content into multiple pages through a list of numerical links.
 
 ## Usage ##
 
-The pagination markup makes use of `nav` and `ol` elements for semantic structuring.
-Each link within the pagination should point to a specific page for the list of results.
+The pagination markup makes use of `nav` and `ol` elements for semantic structuring. Each link within the pagination should point to a specific page for the list of results.
 
 ```html
 <nav class="pagination">
@@ -17,18 +16,15 @@ Each link within the pagination should point to a specific page for the list of 
 </nav>
 ```
 
-The links in the pagination can be placed wherever and however we please.
-Require next and previous links? Add them. What about first and last links? Add them also.
+The links in the pagination can be placed wherever and however we please. Require next and previous links? Add them. What about first and last links? Add them also.
 
 <div class="notice is-info">
-    In the example above, we are using a <code>.button</code>.
-    This is not required by pagination, but can be used for quick mocking.
+    In the example above, we are using a <code>.button</code>. This is not required by pagination, but can be used for quick mocking.
 </div>
 
 ### Grouped Links ###
 
-By default, all links in a pagination list will be spaced out evenly.
-To group all links into a single solid bar, use the `.pagination--grouped` modifier.
+By default, all links in a pagination list will be spaced out evenly. To group all links into a single solid bar, use the `.pagination--grouped` modifier.
 
 ```html
 <nav class="pagination pagination--grouped">
@@ -45,8 +41,7 @@ Grouped paginations can also make use of certain effects, like `.round`, `.pill`
 ```
 
 <div class="notice is-warning">
-    All effects (excluding round) are disabled by default.
-    Modify the <code>$pagination-effects</code> Sass variable to enable them.
+    All effects (excluding round) are disabled by default. Modify the <code>$pagination-effects</code> Sass variable to enable them.
 </div>
 
 ### Notes ###

@@ -4,9 +4,7 @@ Group input fields with addons by collapsing spacing in between.
 
 ## Usage ##
 
-Like the [button group](button-group.md), the input group allows for grouping of elements.
-The input group supports grouping of input fields (that implement `.input`), buttons, button groups,
-and addons. Addons are elements that can be used as the first, middle, or last element of a grouping.
+Like the [button group](button-group.md), the input group allows for grouping of elements. The input group supports grouping of input fields (that implement `.input`), buttons, button groups, and addons. Addons are elements that can be used as the first, middle, or last element of a grouping.
 
 For example, we can place an addon as the first element to indicate currency.
 
@@ -39,8 +37,7 @@ And lastly, it can be used as the last element.
 
 ### Sizes ###
 
-Adding `.small` or `.large` to the `.input-group` will resize the inner inputs, addons, and
-buttons accordingly.
+Adding `.small` or `.large` to the `.input-group` will resize the inner inputs, addons, and buttons accordingly.
 
 ```html
 <div class="input-group small">
@@ -51,9 +48,7 @@ buttons accordingly.
 
 ### Button Integration ###
 
-Alongside input fields, buttons and button groups can be placed within an input group.
-This allows for awesome functionality, like paired inputs and submit buttons, or segmented
-buttons with a drop menu of actions.
+Alongside input fields, buttons and button groups can be placed within an input group. This allows for awesome functionality, like paired inputs and submit buttons, or segmented buttons with a drop menu of actions.
 
 ```html
 <div class="input-group">
@@ -77,9 +72,7 @@ buttons with a drop menu of actions.
 ```
 
 <div class="notice is-warning">
-    When grouping <code>.button</code>s and <code>.button-group</code>s,
-    a fixed height may need to be applied as line heights, paddings, and font sizes
-    differ between browsers, which makes it rather complicated to align correctly.
+    When grouping <code>.button</code>s and <code>.button-group</code>s, a fixed height may need to be applied as line heights, padding, and font sizes differ between browsers, which makes it rather complicated to align correctly.
 </div>
 
 ## Variables ##

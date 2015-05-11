@@ -4,10 +4,7 @@ Replaces selects, checkboxes, and radios with custom elements.
 
 ## Usage ##
 
-The input component is unique in the fact that it's 4 components bundled together.
-It provides the `Input` class that replaces all selects, checkboxes, and radios in a form.
-It also provides the `InputCheckbox`, `InputRadio`, and `InputSelect` classes
-that replace their respective individual element.
+The input component is unique in the fact that it's 4 components bundled together. It provides the `Input` class that replaces all selects, checkboxes, and radios in a form. It also provides the `InputCheckbox`, `InputRadio`, and `InputSelect` classes that replace their respective individual element.
 
 To replace all selects, checkboxes, and radios in a form, call `input()` on the form.
 
@@ -15,8 +12,7 @@ To replace all selects, checkboxes, and radios in a form, call `input()` on the 
 $('form').input();
 ```
 
-By default this will replace all elements it can find within the form.
-To filter which elements can be replaced, specific options can be passed in.
+By default this will replace all elements it can find within the form. To filter which elements can be replaced, specific options can be passed in.
 
 ```javascript
 $('form').input({
@@ -28,8 +24,7 @@ $('form').input({
 
 ### Checkboxes & Radios ###
 
-To replace an individual checkbox or radio, instead of replacing all
-like mentioned above, use `inputCheckbox()` and `inputRadio()`.
+To replace an individual checkbox or radio, instead of replacing all like mentioned above, use `inputCheckbox()` and `inputRadio()`.
 
 ```javascript
 $('#checkbox').inputCheckbox();
@@ -56,9 +51,7 @@ All checkboxes and radios will be replaced with the following markup.
 </div>
 ```
 
-No JavaScript is used for toggling the checked state,
-as `:checked` on the original input is used.
-To style this state, the following CSS can be used.
+No JavaScript is used for toggling the checked state, as `:checked` on the original input is used. To style this state, the following CSS can be used.
 
 ```css
 .custom-input input:checked + .radio { ... }
@@ -98,8 +91,7 @@ All selects will be replaced with the following markup.
 
 #### Labels & Descriptions ####
 
-The native selects are rather restrictive on what they can do, and how they can be customized.
-Because of this, a custom title, label, and description system has been implemented.
+The native selects are rather restrictive on what they can do, and how they can be customized. Because of this, a custom title, label, and description system has been implemented.
 
 To display a default label in multi-selects when no items are selected, use `getDefaultLabel`.
 
@@ -109,8 +101,7 @@ To display a default label in multi-selects when no items are selected, use `get
 </select>
 ```
 
-To display a custom label when an option is selected, use `getOptionLabel`.
-To include an optional description below the label, use `getDescription`.
+To display a custom label when an option is selected, use `getOptionLabel`. To include an optional description below the label, use `getDescription`.
 
 ```html
 <option value="1" title="USA">United States</option>

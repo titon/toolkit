@@ -4,8 +4,7 @@ Conceal an element by masking its content with a transparent overlay.
 
 ## Usage ##
 
-A mask can be used for in-between loading states, like waiting for an AJAX request, to conceal the contents of an element.
-The mask element is appended and positioned absolutely within the target.
+A mask can be used for in-between loading states, like waiting for an AJAX request, to conceal the contents of an element. The mask element is appended and positioned absolutely within the target.
 
 The mask component must be initialized on the element, the target, that we want to conceal.
 
@@ -13,8 +12,7 @@ The mask component must be initialized on the element, the target, that we want 
 $('.js-mask-target').mask();
 ```
 
-The mask will not be shown until `show()` or `toggle()` is called on the mask object.
-The mask object can be retrieved by calling `toolkit('mask')` on the target collection.
+The mask will not be shown until `show()` or `toggle()` is called on the mask object. The mask object can be retrieved by calling `toolkit('mask')` on the target collection.
 
 ```javascript
 $('.js-mask-target').toolkit('mask', 'toggle');
@@ -30,8 +28,7 @@ $('.js-mask-target').toolkit('mask', 'toggle');
 
 ### Custom Masks ###
 
-If we want to customize the markup found within a mask, we can manually place the mask element within the target.
-This custom mask will be used instead of creating a new mask.
+If we want to customize the markup found within a mask, we can manually place the mask element within the target. This custom mask will be used instead of creating a new mask.
 
 ```html
 <div class="article js-mask-target">
@@ -46,14 +43,12 @@ This custom mask will be used instead of creating a new mask.
 ```
 
 <div class="notice is-info">
-    The <code>data-mask-*</code> attributes are required so that the JavaScript layer
-    can find or bind elements in the DOM.
+    The <code>data-mask-*</code> attributes are required so that the JavaScript layer can find or bind elements in the DOM.
 </div>
 
 ### Automatic Toggling ###
 
-Instead of toggling the display manually through the mask object, we can bind a click event to a button or element
-that triggers the toggle by defining the `selector` option.
+Instead of toggling the display manually through the mask object, we can bind a click event to a button or element that triggers the toggle by defining the `selector` option.
 
 ```javascript
 $('.js-mask-target').mask({

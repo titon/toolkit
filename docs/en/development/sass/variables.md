@@ -1,8 +1,6 @@
 # Variables #
 
-Toolkit provides many variables for adjusting and modifying functionality within the Sass layer &mdash;
-it *does not* provide variables for property styling.
-This can and should be achieved by writing Sass (or CSS) after installing Toolkit.
+Toolkit provides many variables for adjusting and modifying functionality within the Sass layer &mdash; it *does not* provide variables for property styling. This can and should be achieved by writing Sass (or CSS) after installing Toolkit.
 
 ## Class Naming ##
 

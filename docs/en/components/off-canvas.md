@@ -4,11 +4,9 @@ Contextual sidebars positioned outside the viewport until activated.
 
 ## Usage ##
 
-Off canvas provides a mechanism for positioning contextual sidebars outside of the viewport (on the left or right),
-which can then be slid into view when activated. Supporting off canvas sidebars is relatively easy.
+Off canvas provides a mechanism for positioning contextual sidebars outside of the viewport (on the left or right), which can then be slid into view when activated. Supporting off canvas sidebars is relatively easy.
 
-The first thing we need to do is place a `.canvas` wrapper within the `body`, and within that an `.on-canvas`
-element where all site content should reside. Lastly, we place the `.off-canvas` sidebars within the wrapper.
+The first thing we need to do is place a `.canvas` wrapper within the `body`, and within that an `.on-canvas` element where all site content should reside. Lastly, we place the `.off-canvas` sidebars within the wrapper.
 
 ```html
 <body>
@@ -61,16 +59,14 @@ $('#left-sidebar').toolkit('offCanvas', 'toggle');
 
 ### Multiple Sidebars ###
 
-Supporting left and right sidebars is extremely easy. Simply duplicate the markup and JavaScript
-for each side.
+Supporting left and right sidebars is extremely easy. Simply duplicate the markup and JavaScript for each side.
 
 ```html
 <aside class="off-canvas off-canvas--left" id="left-sidebar" data-offcanvas-sidebar="left">...</aside>
 <aside class="off-canvas off-canvas--right" id="right-sidebar" data-offcanvas-sidebar="right">...</aside>
 ```
 
-The component also supports multiple sidebars on the same side.
-However, be weary of this approach and the animations being used as it might run into weirdness.
+The component also supports multiple sidebars on the same side. However, be weary of this approach and the animations being used as it might run into weirdness.
 
 ```html
 <aside class="off-canvas off-canvas--left" id="primary-sidebar" data-offcanvas-sidebar="left">...</aside>
@@ -79,8 +75,7 @@ However, be weary of this approach and the animations being used as it might run
 
 ### Animations ###
 
-There are 7 types of animations that can be used for displaying a sidebar,
-each with their own unique presentation.
+There are 7 types of animations that can be used for displaying a sidebar, each with their own unique presentation.
 
 * `push` - Pushes the content off the screen to make room for the sidebar.
 * `push-reveal` - A combination of the push and reveal animation.

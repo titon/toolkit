@@ -4,8 +4,7 @@ A progress bar. It shows the progress of something.
 
 ## Usage ##
 
-Provide visual feedback on the progress of an action by utilizing simple progress bars.
-The width of a progress bar should be defined inline using a `width` style property.
+Provide visual feedback on the progress of an action by utilizing simple progress bars. The width of a progress bar should be defined inline using a `width` style property.
 
 ```html
 <div class="progress">
@@ -15,8 +14,7 @@ The width of a progress bar should be defined inline using a `width` style prope
 </div>
 ```
 
-The label within a progress bar is optional, but when present, will be centered within the bar.
-Applying a `min-width` on the progress bar will ensure visibility at small widths.
+The label within a progress bar is optional, but when present, will be centered within the bar. Applying a `min-width` on the progress bar will ensure visibility at small widths.
 
 ### Sizes ###
 
@@ -61,8 +59,7 @@ Provide contextual feedback on the type of progress by using the global state cl
 ```
 
 <div class="notice is-warning">
-    All state classes will require styling.
-    The classes simply exist for semantic and structuring reasons.
+    All state classes will require styling. The classes simply exist for semantic and structuring reasons.
 </div>
 
 ### Stacked Bars ###
@@ -78,8 +75,7 @@ Place multiple bars within a `.progress` to stack them horizontally.
 
 ## ARIA ##
 
-The `progressbar` role and the appropriate `aria-*` attributes are required when supporting ARIA.
-[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role)
+The `progressbar` role and the appropriate `aria-*` attributes are required when supporting ARIA. [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role)
 
 ```html
 <div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">

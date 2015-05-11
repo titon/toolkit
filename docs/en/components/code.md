@@ -4,8 +4,7 @@ Styles for code related HTML tags.
 
 ## Usage ##
 
-The code component is extremely lightweight and simple, as all it does is style native code related HTML tags.
-Font, padding, and display are modified for `pre`, `code`, `kbd`, and `var` tags.
+The code component is extremely lightweight and simple, as all it does is style native code related HTML tags. Font, padding, and display are modified for `pre`, `code`, `kbd`, and `var` tags.
 
 ### Scrollable Blocks ###
 

@@ -4,9 +4,7 @@ Pin an element within the bounds of its parent and follow the position of the sc
 
 ## Usage ##
 
-Pinning an element to stay within the viewport or within a parent, during a resize or scroll,
-is especially handy for side navigations, or top bar menus. Simply initialize a pin on the
-element we want pinned.
+Pinning an element to stay within the viewport or within a parent, during a resize or scroll, is especially handy for side navigation, or top bar menus. Simply initialize a pin on the element we want pinned.
 
 ```javascript
 $('.pin').pin();
@@ -14,8 +12,7 @@ $('.pin').pin();
 
 ### Animations ###
 
-By default, no animations are set on the pinned element. This will cause choppiness while scrolling
-unless the `throttle` is lowered. To solve this, set an animation, either `sticky` or `slide`.
+By default, no animations are set on the pinned element. This will cause choppiness while scrolling unless the `throttle` is lowered. To solve this, set an animation, either `sticky` or `slide`.
 
 ```javascript
 $('.pin').pin({
@@ -23,8 +20,7 @@ $('.pin').pin({
 });
 ```
 
-A slide animation will slowly animate to the new coordinates. A sticky animation will do the same,
-but will "bounce" before animating.
+A slide animation will slowly animate to the new coordinates. A sticky animation will do the same, but will "bounce" before animating.
 
 <div class="notice is-info">
     The <code>.pin</code> class is required for animations to work correctly.
@@ -32,8 +28,7 @@ but will "bounce" before animating.
 
 ### Bounding Container ###
 
-A pinned element will be bound within its parent element, which means it wont overflow outside the parent.
-To change the container, set the `context` option.
+A pinned element will be bound within its parent element, which means it wont overflow outside the parent. To change the container, set the `context` option.
 
 ```javascript
 $('.pin').pin({

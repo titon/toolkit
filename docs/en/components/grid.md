@@ -4,15 +4,11 @@ Fluid grid with multiple column support. Supports different responsive sizes for
 
 ## Usage ##
 
-Toolkit is bundled with a robust, responsive, mobile first, fluid based, 12 column grid system that
-conveniently collapses and scales based on the device or viewport.
+Toolkit is bundled with a robust, responsive, mobile first, fluid based, 12 column grid system that conveniently collapses and scales based on the device or viewport.
 
-To begin, a grid consists of a `.grid` which wraps a collection of columns.
-Each column requires a `.col` and either a `.span-*` or one of the responsive column classes
-(more information below). There are 12 span classes which originate from the [base CSS](../development/css/base.md).
+To begin, a grid consists of a `.grid` which wraps a collection of columns. Each column requires a `.col` and either a `.span-*` or one of the responsive column classes (more information below). There are 12 span classes which originate from the [base CSS](../development/css/base.md).
 
-When placing columns, the number of columns should equal the max amount allowed in the grid.
-For example, the `.span-*` should equate to 12, where as responsive columns could have different caps.
+When placing columns, the number of columns should equal the max amount allowed in the grid. For example, the `.span-*` should equate to 12, where as responsive columns could have different caps.
 
 ```html
 <!-- 12 columns -->
@@ -53,8 +49,7 @@ For example, the `.span-*` should equate to 12, where as responsive columns coul
 ```
 
 <div class="notice is-info">
-    A <code>.span-*</code> provides consistent widths
-    for all devices and viewports, and never collapses because of breakpoints.
+    A <code>.span-*</code> provides consistent widths for all devices and viewports, and never collapses because of breakpoints.
 </div>
 
 <div class="notice is-info">
@@ -63,9 +58,7 @@ For example, the `.span-*` should equate to 12, where as responsive columns coul
 
 ### Push & Pull ###
 
-Move columns to the left or to the right by using `.push-*` and `.pull-*` classes.
-Pushing a column will increase the `left` offset, while pulling will increase the `right` offset.
-Each push or pull increment is equal to a single column.
+Move columns to the left or to the right by using `.push-*` and `.pull-*` classes. Pushing a column will increase the `left` offset, while pulling will increase the `right` offset. Each push or pull increment is equal to a single column.
 
 ```html
 <div class="grid">
@@ -85,14 +78,12 @@ Pushing and pulling can also be used to reverse the column order.
 ```
 
 <div class="notice is-info">
-    Responsive columns will have their own push and pull classes.
-    Continue reading for more information on these.
+    Responsive columns will have their own push and pull classes. Continue reading for more information on these.
 </div>
 
 ### Nesting Grids ###
 
-Grids can be nested within each other, with each having their own set of columns.
-Be sure that all columns add up to the max amount of columns.
+Grids can be nested within each other, with each having their own set of columns. Be sure that all columns add up to the max amount of columns.
 
 ```html
 <div class="grid">
@@ -111,10 +102,7 @@ Be sure that all columns add up to the max amount of columns.
 
 ### Responsive Columns ###
 
-On top of providing `.span-*` columns that work the same on all viewports,
-Toolkit comes bundled with a responsive based grid. Responsive grids are designed in such a way that
-certain columns only activate within specific breakpoints. If the viewport is outside of that breakpoint,
-columns will collapse to their standard block display at 100% width, which is perfect for small mobile devices.
+On top of providing `.span-*` columns that work the same on all viewports, Toolkit comes bundled with a responsive based grid. Responsive grids are designed in such a way that certain columns only activate within specific breakpoints. If the viewport is outside of that breakpoint, columns will collapse to their standard block display at 100% width, which is perfect for small mobile devices.
 
 ```html
 <div class="grid">
@@ -203,9 +191,7 @@ Extra small is designed for mobile devices with low resolution screens. Small is
 
 ### Custom Sizes ###
 
-Want to customize the grid sizes and their breakpoints? Well it couldn't be easier.
-Simply set the `$grid-sizes` map with your new settings. Each key in the map is the name of the size,
-and the value is a list with the column count and the breakpoint range list.
+Want to customize the grid sizes and their breakpoints? Well it couldn't be easier. Simply set the `$grid-sizes` map with your new settings. Each key in the map is the name of the size, and the value is a list with the column count and the breakpoint range list.
 
 Let's recreate the common mobile, tablet, and desktop sizes.
 
@@ -217,12 +203,10 @@ $grid-sizes: (
 );
 ```
 
-Alternatively, you could modify the `$breakpoint-range-*` variables to alter the breakpoints as the Grid
-inherits these values.
+Alternatively, you could modify the `$breakpoint-range-*` variables to alter the breakpoints as the Grid inherits these values.
 
 <div class="notice is-info">
-    Null values can be used in the breakpoint range to create an open ended range in either direction.
-    This should only be used on the first and last items in the map.
+    Null values can be used in the breakpoint range to create an open ended range in either direction. This should only be used on the first and last items in the map.
 </div>
 
 ### End Capping ###
@@ -235,8 +219,7 @@ To float a column to the right and collapse its margin, add `.end` to the column
 
 ### Extending Styles ###
 
-Instead of placing `.grid` and `.col` classes all over the source code, we can extend them with Sass.
-This requires either the Compass extension to be installed, or the Toolkit CSS in the lookup path.
+Instead of placing `.grid` and `.col` classes all over the source code, we can extend them with Sass. This requires either the Compass extension to be installed, or the Toolkit CSS in the lookup path.
 
 ```scss
 .wrapper {

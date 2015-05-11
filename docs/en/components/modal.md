@@ -14,11 +14,9 @@ The modal component must be initialized on an element that will trigger the disp
 $('.js-modal').modal();
 ```
 
-The value of the `getContent` option (falls back to `href` attribute) determines the URL to request for modal content.
-Once a request completes, the AJAX response will be inserted into the `data-modal-content` element.
+The value of the `getContent` option (falls back to `href` attribute) determines the URL to request for modal content. Once a request completes, the AJAX response will be inserted into the `data-modal-content` element.
 
-To insert non-AJAX content into a modal, the `getContent` value can point to an ID in the page, like so `#some-id`.
-We can also set the content directly through the modal instance.
+To insert non-AJAX content into a modal, the `getContent` value can point to an ID in the page, like so `#some-id`. We can also set the content directly through the modal instance.
 
 ```javascript
 $('.js-modal').toolkit('modal', 'show', [$('#add-category'), 'This will be inserted into the modal.']);
@@ -32,8 +30,7 @@ $('.js-modal').toolkit('modal', 'show', $('#add-category')); // Loads /categorie
 
 ### Dynamic Content Loading ###
 
-Briefly mentioned above, modals use a form of dynamic content loading. This allows the body of the modal to be 
-loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
+Briefly mentioned above, modals use a form of dynamic content loading. This allows the body of the modal to be loaded dynamically from multiple sources, either from an AJAX request, an element, or a literal value.
 
 * [Learn more about dynamic content loading.](../development/js/usage.md#dynamic-content-loading)
 
@@ -46,14 +43,11 @@ $('.js-modal-1').modal();
 $('.js-modal-2').modal();
 ```
 
-Activating the modal uses event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere
-will open it. This even applies to elements loaded in via AJAX, like within the body of another modal.
+Activating the modal uses event delegation, so placing `.js-modal-1` and `.js-modal-2` anywhere will open it. This even applies to elements loaded in via AJAX, like within the body of another modal.
 
 ### Form Submitting ###
 
-How useful would a modal be if it didn't support forms? Rather useless.
-Using forms in modals is rather simple, simply place the `form` tag and a `data-modal-submit`
-attribute on the element that should trigger form submission.
+How useful would a modal be if it didn't support forms? Rather useless. Using forms in modals is rather simple, simply place the `form` tag and a `data-modal-submit` attribute on the element that should trigger form submission.
 
 ```html
 <form action="/url/to/post/to" method="post">
@@ -63,13 +57,10 @@ attribute on the element that should trigger form submission.
 </form>
 ```
 
-Once submitted, the `action` and `method` from the `form` tag will be used as the URL to submit to.
-If the AJAX response is HTML, then the response will replace the content in the current modal.
-If the AJAX response is non-HTML, then continue reading.
+Once submitted, the `action` and `method` from the `form` tag will be used as the URL to submit to. If the AJAX response is HTML, then the response will replace the content in the current modal. If the AJAX response is non-HTML, then continue reading.
 
 <div class="notice is-info">
-    File uploading is possible through modal forms if the browser supports the <code>FormData</code> API.
-    This is automatically detected and enabled.
+    File uploading is possible through modal forms if the browser supports the <code>FormData</code> API. This is automatically detected and enabled.
 </div>
 
 <div class="notice is-error">
@@ -78,13 +69,9 @@ If the AJAX response is non-HTML, then continue reading.
 
 ### Non-HTML Responses ###
 
-If an AJAX request returns a non-HTML response, say JSON or XML, the modal will not be shown.
-Instead of `position()` being called on the instance, `process()` will be called,
-which will fire the `process` event.
+If an AJAX request returns a non-HTML response, say JSON or XML, the modal will not be shown. Instead of `position()` being called on the instance, `process()` will be called, which will fire the `process` event.
 
-The `process()` method can also trigger a callback automatically if the response is JSON.
-Simply return an index in the JSON response with the key `callback` and the value the name
-of the function to call. For example, if the JSON response was.
+The `process()` method can also trigger a callback automatically if the response is JSON. Simply return an index in the JSON response with the key `callback` and the value the name of the function to call. For example, if the JSON response was.
 
 ```json
 {"callback":"console.log","data":{}}
@@ -100,11 +87,9 @@ Then the `console.log` function will be triggered with the response passed as th
 
 ## ARIA ##
 
-The `dialog` role and the appropriate `aria-*` attributes are required when supporting ARIA.
-[Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role)
+The `dialog` role and the appropriate `aria-*` attributes are required when supporting ARIA. [Learn more about this role.](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role)
 
-All required ARIA attributes will be automatically added to the component when initialized,
-which will generate the following markup.
+All required ARIA attributes will be automatically added to the component when initialized, which will generate the following markup.
 
 ```html
 <div class="modal" role="dialog" aria-labelledby="toolkit-modal-1-title" aria-describedby="toolkit-modal-1-content">
@@ -112,8 +97,7 @@ which will generate the following markup.
 </div>
 ```
 
-The only requirement for fully supporting ARIA is adding the appropriate IDs to the content being inserted into the modal.
-We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, where `#` represents the modal unique ID.
+The only requirement for fully supporting ARIA is adding the appropriate IDs to the content being inserted into the modal. We would need to add `toolkit-modal-#-title` and `toolkit-modal-#-content`, where `#` represents the modal unique ID.
 
 ```html
 <div class="modal-head" id="toolkit-modal-1-title">
