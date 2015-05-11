@@ -2,7 +2,15 @@
 
 The following are steps for tagging a new release. These steps are for internal use only.
 
-## 1) Testing ##
+## 1) Versioning ##
+
+* Update version numbers in the following files: `bower.json`, `package.json`, `readme.md`, `toolkit.gemspec`, `version.md`
+* Update `version` property for JavaScript plugins that have been modified
+* Update `manifest.json`
+    * Add new components with `version` field
+    * Update dependencies
+
+## 2) Testing ##
 
 * Enable all Sass effects, modifiers, animations, and modules in `_common.scss`
 * Update Normalize CSS
@@ -11,14 +19,6 @@ The following are steps for tagging a new release. These steps are for internal 
     * Regression testing and issue fixing for all components
 * Run `gulp --rtl`
     * Regression testing for RTL support
-
-## 2) Versioning ##
-
-* Update version numbers in the following files: `bower.json`, `package.json`, `readme.md`, `toolkit.gemspec`, `version.md`
-* Update `version` property for JavaScript plugins that have been modified
-* Update `manifest.json`
-    * Add new components with `version` field
-    * Update dependencies
 
 ## 3) Building ##
 
