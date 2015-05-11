@@ -29,13 +29,13 @@ In the Toolkit world, we opted to use single dashes `-` for separating blocks an
 
 To change the separators between each BEM class part, modify the `$bem-element-separator` (defaults to `-`) or the `$bem-modifier-separator` (defaults to `--`). Once Sass re-compiles, all Toolkit class names will use the new naming convention. 
 
-```sass
+```scss
 $bem-element-separator: "__";
 ```
 
 Furthermore, Toolkit provides a `bem()` function for generating BEM compatible CSS class names. This function accepts an argument for each part -- the block, element, and modifier.
 
-```sass
+```scss
 bem("foo") // foo
 bem("foo", "bar") // foo__bar
 bem("foo", "bar", "baz") // foo__bar--baz
@@ -44,7 +44,7 @@ bem("foo", "", "baz") // foo--baz
 
 Passing the function to `class-name()` will automatically prepend a class `.` and the `$namespace`.
 
-```sass
+```scss
 $namespace: "tk-";
 
 class-name(bem("foo")) // .tk-foo

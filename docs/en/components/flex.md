@@ -283,7 +283,7 @@ The ordering of blocks can also be responsive through the use of responsive orde
 
 The difference between flex and grid is that flex does *not* automatically stack blocks as columns in mobile devices. This will require manual intervention and can be achieved using `flex-direction`.
 
-```sass
+```scss
 // Stack blocks vertically for devices with less than 640px resolution
 @media only screen and (max-width: 640px) {
     .region { flex-direction: column; }

@@ -43,10 +43,6 @@ $('.off-canvas').offCanvas();
     Mobile specific sidebars are supported through CSS media queries and Sass variables.
 </div>
 
-<div class="notice is-error">
-    Off Canvas does not work in IE9.
-</div>
-
 ### Toggle Sidebars ###
 
 When initializing a component, a `selector` option can be defined that will be bound with click toggle events.

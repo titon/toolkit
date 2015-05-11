@@ -79,7 +79,7 @@ Or when an element is being dragged, the `.is-draggable` and `.is-dragging` clas
 
 ## Carets ##
 
-Carets are tiny directional arrows used by many components, like [Input](input.md) selects, [Drops](drop.md), and [Flyouts](flyout.md). They make use of border styles to create their arrow effect. The following carets exist: `.caret-up`, `.caret-right`, `.caret-down`, and `.caret-left`.
+Carets are tiny directional arrows used by many components, like [Input](../../components/input.md) selects, [Drops](../../components/drop.md), and [Flyouts](../../components/flyout.md). They make use of border styles to create their arrow effect. The following carets exist: `.caret-up`, `.caret-right`, `.caret-down`, and `.caret-left`.
 
 ```html
 <a href="#">View More <span class="caret-right"></span></a>
@@ -106,7 +106,7 @@ A character is just that, a character. The only currently supported character is
 
 ## Bullets ##
 
-Bullets are an inline horizontal list that use tiny circles as indicators. A bullet list is used in the [Carousel](carousel.md) and [Showcase](showcase.md) for indicating the number of items in the component.
+Bullets are an inline horizontal list that use tiny circles as indicators. A bullet list is used in the [Carousel](../../components/carousel.md) and [Showcase](../../components/showcase.md) for indicating the number of items in the component.
 
 ```html
 <ol class="bullets">
@@ -118,7 +118,7 @@ Bullets are an inline horizontal list that use tiny circles as indicators. A bul
 
 ## Sizes ##
 
-A `.span-*` class can be used to force a percentage based width on an element. There are 12 spans, with the lowest span equating to 8.3% and the highest span equating to 100%. These spans are handy when controlling input sizes, or building columns with the [Grid component](grid.md).
+A `.span-*` class can be used to force a percentage based width on an element. There are 12 spans, with the lowest span equating to 8.3% and the highest span equating to 100%. These spans are handy when controlling input sizes, or building columns with the [Grid component](../../components/grid.md).
 
 ```html
 <input type="text" class="input span-6" name="name">
@@ -126,7 +126,7 @@ A `.span-*` class can be used to force a percentage based width on an element. T
 
 ## RTL ##
 
-Adding `dir="rtl"` or `.rtl` to an element will enable RTL reading mode. We suggest adding this attribute to the base `<html>` tag. [Learn more about RTL languages.](../../development/rtl.md)
+Adding `dir="rtl"` or `.rtl` to an element will enable RTL reading mode. We suggest adding this attribute to the base `<html>` tag. [Learn more about RTL languages.](../rtl.md)
 
 ```html
 <html lang="ar" dir="rtl">

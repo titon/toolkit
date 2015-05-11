@@ -10,7 +10,7 @@ Enabling a namespace is as easy as setting a variable.
 
 The `$namespace` variable can be defined to support namespacing within the CSS and Sass layer. This value will be prepended to *most* class names, excluding the ones found in the [reserved list](css/reserved.md).
 
-```sass
+```scss
 $namespace: "tk-";
 ```
 
