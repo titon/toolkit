@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 import isVisible from 'libs/dom/isVisible';
 
@@ -19,3 +19,4 @@ describe('libs/dom/isVisible', () => {
         });
     });
 });
+*/

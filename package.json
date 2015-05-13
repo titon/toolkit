@@ -51,13 +51,14 @@
         "gulp-util": "~3.0",
         "gulp-rename": "~1.2",
         "gulp-concat": "~2.5",
-        "gulp-minify-css": "~1.0",
-        "gulp-autoprefixer": "~2.1",
+        "gulp-minify-css": "~1.1",
+        "gulp-autoprefixer": "~2.2",
         "gulp-header": "~1.2",
+        "gulp-plumber": "~1.0",
 
-        "babel-eslint": "~2.0",
-        "gulp-babel": "~5.0",
-        "gulp-eslint": "~0.7",
+        "babel-eslint": "~3.1",
+        "gulp-babel": "~5.1",
+        "gulp-eslint": "~0.12",
 
         "karma": "~0.12",
         "karma-jasmine": "~0.3",
@@ -67,10 +68,9 @@
         "karma-firefox-launcher": "*",
 
         "compartment": "~0.2",
-        "node-sass": "~3.0",
+        "node-sass": "~3.1",
         "es6-module-loader": "~0.16",
-        "core-js": "~0.8",
-        "systemjs-builder": "0.10",
-        "gulp-plumber": "~1.0"
+        "core-js": "~0.9",
+        "systemjs-builder": "~0.10"
     }
 }

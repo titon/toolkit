@@ -8,7 +8,7 @@ import Toolkit from 'Toolkit';
 import id from 'libs/dom/id';
 import inDOM from 'libs/dom/inDOM';
 import { forOwn, isObject, merge } from 'libs/object/index';
-import delegate from 'libs/event/delegate'
+import delegate from 'libs/event/delegate';
 
 export default class Plugin {
 

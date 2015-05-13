@@ -174,9 +174,9 @@ export default class Element {
         });
 
         // Add a custom `write()` method that calls `then()` automatically
-        promise.write = (func) => {
+        promise.write = (writer) => {
             promise.then(() => {
-                this.write(func);
+                this.write(writer);
             });
         };
 
@@ -343,9 +343,9 @@ export default class Element {
         });
 
         // Add a custom `read()` method that calls `then()` automatically
-        promise.read = (func) => {
+        promise.read = (reader) => {
             promise.then(() => {
-                this.read(func);
+                this.read(reader);
             });
         };
 
