@@ -4,8 +4,7 @@ Hierarchical sitemap through nested menus.
 
 ## Usage ##
 
-Generation of flyout menus require a nested JSON structure of pages found within a website,
-usually akin to a sitemap. Each item in the data set requires a title, an optional URL, and a list of children.
+Generation of flyout menus require a nested JSON structure of pages found within a website, usually akin to a sitemap. Each item in the data set requires a title, an optional URL, and a list of children.
 
 ```javascript
 {
@@ -26,17 +25,13 @@ usually akin to a sitemap. Each item in the data set requires a title, an option
 }
 ```
 
-The top level object will always be the root index or home page, while all other pages will be nested within `children`.
-For the flyout to function correctly, the data set is required during initialization. This can be accomplished by
-providing a URL that returns a JSON response as the 1st argument. Options are passed as the 2nd argument.
+The top level object will always be the root index or home page, while all other pages will be nested within `children`. For the flyout to function correctly, the data set is required during initialization. This can be accomplished by providing a URL that returns a JSON response as the 1st argument. Options are passed as the 2nd argument.
 
 ```javascript
 $('.js-flyout a').flyout('/sitemap');
 ```
 
-The flyout component must be initialized on an element that returns a target URL. This URL determines the list of items
-to display in the flyout menu by looking through the data set listed above. A great use case for flyouts is binding
-them to links within a breadcrumb.
+The flyout component must be initialized on an element that returns a target URL. This URL determines the list of items to display in the flyout menu by looking through the data set listed above. A great use case for flyouts is binding them to links within a breadcrumb.
 
 ```html
 <nav class="breadcrumb js-flyout">
@@ -48,9 +43,7 @@ them to links within a breadcrumb.
 </nav>
 ```
 
-Now anytime we hover (or click depending on configuration) an anchor link within the breadcrumb, a flyout menu
-will appear for all items found within that URL. If we use the example data above, hovering over Home will display
-a menu with News and Users, while hovering over Users will display all items within its `children`, so on and so forth.
+Now anytime we hover (or click depending on configuration) an anchor link within the breadcrumb, a flyout menu will appear for all items found within that URL. If we use the example data above, hovering over Home will display a menu with News and Users, while hovering over Users will display all items within its `children`, so on and so forth.
 
 ### Headers ###
 
@@ -125,8 +118,7 @@ The following fields are available for each item in the data set.
 
 ## ARIA ##
 
-The `menu` and `menuitem` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `menu` and `menuitem` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 <div class="notice is-info">
     The JavaScript component will automatically map all ARIA attributes.

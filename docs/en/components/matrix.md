@@ -4,12 +4,9 @@ Arranges multiple elements of variable sizes into a uniform grid with exact spac
 
 ## Usage ##
 
-A matrix is a type of grid that re-arranges items into an optimal position based on vertical and
-horizontal space &mdash; also known as a masonry grid. The matrix takes into account gutter spacing,
-inline images, multiple spanning columns, and much more.
+A matrix is a type of grid that re-arranges items into an optimal position based on vertical and horizontal space &mdash; also known as a masonry grid. The matrix takes into account gutter spacing, inline images, multiple spanning columns, and much more.
 
-To begin, the matrix markup requires an unordered list. Each item in the list can use custom
-markup, but will require a fixed width (defined by the `width` option).
+To begin, the matrix markup requires an unordered list. Each item in the list can use custom markup, but will require a fixed width (defined by the `width` option).
 
 ```html
 <ul class="matrix">
@@ -26,15 +23,13 @@ $('.matrix').matrix();
 
 ### Adding & Removing Items ###
 
-To add or remove items after the matrix has rendered, we can use `append()`, `prepend()`, and `remove()`.
-But first, we need to fetch the instantiated matrix object.
+To add or remove items after the matrix has rendered, we can use `append()`, `prepend()`, and `remove()`. But first, we need to fetch the instantiated matrix object.
 
 ```javascript
 var matrix = $('.matrix').toolkit('matrix');
 ```
 
-When adding items to the matrix, the element being added must be an `li`,
-or a jQuery object representing an `li`.
+When adding items to the matrix, the element being added must be an `li`, or a jQuery object representing an `li`.
 
 ```javascript
 var li = document.createElement('li');
@@ -59,9 +54,7 @@ matrix.refresh();
 
 ### Fluid Images ###
 
-When columns are rendered, their widths may fluctuate a few pixels to scale accordingly.
-Because of this, fixed width images may render incorrectly, or just look off.
-We suggest adding `.fluid` from the [base CSS](../development/css/base.md) to all inline images.
+When columns are rendered, their widths may fluctuate a few pixels to scale accordingly. Because of this, fixed width images may render incorrectly, or just look off. We suggest adding `.fluid` from the [base CSS](../development/css/base.md) to all inline images.
 
 ```html
 <li>

@@ -4,11 +4,7 @@ Cycles through items using a slide or fade animation.
 
 ## Usage ##
 
-Manual implementation of the carousel markup is required, as there is no
-automatic generation of elements in the JavaScript layer. The reasoning behind this is simple.
-It allows elements within the carousel to be added or removed easily,
-without having to alter options in JavaScript, or define overrides in CSS.
-The following markup can be used for basic carousel functionality.
+Manual implementation of the carousel markup is required, as there is no automatic generation of elements in the JavaScript layer. The reasoning behind this is simple. It allows elements within the carousel to be added or removed easily, without having to alter options in JavaScript, or define overrides in CSS. The following markup can be used for basic carousel functionality.
 
 ```html
 <div class="carousel" data-carousel>
@@ -34,11 +30,7 @@ The following markup can be used for basic carousel functionality.
 </div>
 ```
 
-If we don't want next and previous arrows, don't add the markup for it.
-If we don't want the tab list, don't add the markup for it.
-If we want additional elements, we can freely add them! So on and so forth.
-The only elements that are required, are the `.carousel` wrapper,
-and the `.carousel-items` list.
+If we don't want next and previous arrows, don't add the markup for it. If we don't want the tab list, don't add the markup for it. If we want additional elements, we can freely add them! So on and so forth. The only elements that are required, are the `.carousel` wrapper, and the `.carousel-items` list.
 
 Once the markup is in place, a carousel can be initialized.
 
@@ -47,14 +39,12 @@ $('.carousel').carousel();
 ```
 
 <div class="notice is-info">
-    The <code>data-carousel-*</code> attributes are required so that the JavaScript layer
-    can find or bind elements in the DOM.
+    The <code>data-carousel-*</code> attributes are required so that the JavaScript layer can find or bind elements in the DOM.
 </div>
 
 ### Cycle Animation ###
 
-There are 3 kinds of animation, `slide` (default), `slide-up`, and `fade`.
-The type of animation must be passed as an option when the carousel is initialized.
+There are 3 kinds of animation, `slide` (default), `slide-up`, and `fade`. The type of animation must be passed as an option when the carousel is initialized.
 
 ```javascript
 $('.carousel').carousel({
@@ -62,18 +52,15 @@ $('.carousel').carousel({
 });
 ```
 
-The `.carousel` element will receive a class with the animation name.
-This allows for styling based on the type of animation used.
+The `.carousel` element will receive a class with the animation name. This allows for styling based on the type of animation used.
 
 <div class="notice is-error">
-    Toolkit makes use of CSS3 transitions for animation, which older browsers do not support.
-    Instead of animations in these browsers, an immediate show or hide will occur.
+    Toolkit makes use of CSS3 transitions for animation, which older browsers do not support. Instead of animations in these browsers, an immediate show or hide will occur.
 </div>
 
 ### Aspect Ratios ###
 
-By default the carousel is designed for a 4:3 aspect ratio.
-To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
+By default the carousel is designed for a 4:3 aspect ratio. To use a 16:9 aspect ratio, the `.carousel--wide` modifier can be used.
 
 ```html
 <div class="carousel carousel--wide">
@@ -89,18 +76,13 @@ To use a 1:1 (square) aspect ratio, the `.carousel--square` modifier can be used
 <div>
 ```
 
-To use a custom aspect ratio, or to use a fixed height, modify the `padding-bottom`
-on `.carousel-items`. For example, the 4:3 has a bottom padding of 75%,
-while the 16:9 has a value of 56.25%, and the 1:1 has a value of 100%.
-This technique allows for automatic height scaling based on the width of the carousel.
+To use a custom aspect ratio, or to use a fixed height, modify the `padding-bottom` on `.carousel-items`. For example, the 4:3 has a bottom padding of 75%, while the 16:9 has a value of 56.25%, and the 1:1 has a value of 100%. This technique allows for automatic height scaling based on the width of the carousel.
 
 ### Scrolling Mechanisms ###
 
-There are 3 types of scrolling offered by the carousel: infinite scrolling (default),
-looped scrolling, and one-way scrolling.
+There are 3 types of scrolling offered by the carousel: infinite scrolling (default), looped scrolling, and one-way scrolling.
 
-Infinite scrolling will allow the next and previous buttons to continuously cycle
-through all items without a visual break. This can be toggled through the `infinite` option (default true).
+Infinite scrolling will allow the next and previous buttons to continuously cycle through all items without a visual break. This can be toggled through the `infinite` option (default true).
 
 ```javascript
 $('.carousel').carousel({
@@ -108,8 +90,7 @@ $('.carousel').carousel({
 });
 ```
 
-Looped scrolling will rewind the items to the beginning of the list when the last item is reached,
-and vice versa. This can be toggled through the `loop` option (default true).
+Looped scrolling will rewind the items to the beginning of the list when the last item is reached, and vice versa. This can be toggled through the `loop` option (default true).
 
 ```javascript
 $('.carousel').carousel({
@@ -118,8 +99,7 @@ $('.carousel').carousel({
 });
 ```
 
-One-way scrolling will stop cycling when the first or last item is reached.
-This is the fallback option when both `infinite` and `loop` are disabled.
+One-way scrolling will stop cycling when the first or last item is reached. This is the fallback option when both `infinite` and `loop` are disabled.
 
 ```javascript
 $('.carousel').carousel({
@@ -130,8 +110,7 @@ $('.carousel').carousel({
 
 ### Multiple Items ###
 
-Modify the `itemsToShow` option to display multiple items at a single time in the carousel viewport.
-This option will automatically calculate the correct widths and percentages and apply them to the list items.
+Modify the `itemsToShow` option to display multiple items at a single time in the carousel viewport. This option will automatically calculate the correct widths and percentages and apply them to the list items.
 
 ```javascript
 $('.carousel').carousel({
@@ -150,9 +129,7 @@ $('.carousel').carousel({
 
 ### Responsive Support ###
 
-The carousel was designed with responsiveness in mind by utilizing percentages and a fluid structure.
-We suggest using inline images within each carousel item, sized to the correct aspect ratio (above).
-The carousel will take care of everything else.
+The carousel was designed with responsiveness in mind by utilizing percentages and a fluid structure. We suggest using inline images within each carousel item, sized to the correct aspect ratio (above). The carousel will take care of everything else.
 
 ### Notes ###
 
@@ -163,8 +140,7 @@ The carousel will take care of everything else.
 
 ## ARIA ##
 
-The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <div class="carousel">

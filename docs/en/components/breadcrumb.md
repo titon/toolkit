@@ -4,8 +4,7 @@ Navigation for hierarchical trails.
 
 ## Usage ##
 
-The breadcrumb markup makes use of `nav`, `ul`, and `ol` elements for semantic structuring.
-Within each list item is a link and an optional caret. The caret in the last item will be hidden automatically.
+The breadcrumb markup makes use of `nav`, `ul`, and `ol` elements for semantic structuring. Within each list item is a link and an optional caret. The caret in the last item will be hidden automatically.
 
 ```html
 <nav class="breadcrumb">

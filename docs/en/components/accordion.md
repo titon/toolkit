@@ -4,10 +4,7 @@ Allows collapsing and expanding of multiple sections of content.
 
 ## Usage ##
 
-An accordion must be structured using an unordered or ordered list.
-Every item in the list should have an accompanying header and section with associated data attributes.
-The header will be bound with a click event that toggles the display of its sibling section,
-while also closing other sections (can be changed through options).
+An accordion must be structured using an unordered or ordered list. Every item in the list should have an accompanying header and section with associated data attributes. The header will be bound with a click event that toggles the display of its sibling section, while also closing other sections (can be changed through options).
 
 ```html
 <ul class="accordion" data-accordion> 
@@ -37,8 +34,7 @@ $('.accordion').accordion();
 ```
 
 <div class="notice is-info">
-    The <code>data-accordion-*</code> attributes are required so that the JavaScript layer
-    can find or bind elements in the DOM.
+    The <code>data-accordion-*</code> attributes are required so that the JavaScript layer can find or bind elements in the DOM.
 </div>
 
 <div class="notice is-info">
@@ -46,8 +42,7 @@ $('.accordion').accordion();
 </div>
 
 <div class="notice is-warning">
-    The <code>.accordion-section</code> class is required for slide animations.
-    Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.
+    The <code>.accordion-section</code> class is required for slide animations. Applying padding to this element will break the slide logic, so style <code>.accordion-body</code> instead.
 </div>
 
 ### Notes ###
@@ -58,8 +53,7 @@ $('.accordion').accordion();
 
 ## ARIA ##
 
-The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `tab`, `tablist`, and `tabpanel` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <ul class="accordion" role="tablist">

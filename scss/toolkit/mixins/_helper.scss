@@ -19,9 +19,9 @@
         }
 
         @if $inherit {
-            $selectors: $selectors, unquote("&" + $class);
+            $selectors: append($selectors, unquote("&" + $class), "comma");
         } @else {
-            $selectors: $selectors, unquote($class);
+            $selectors: append($selectors, unquote($class), "comma");
         }
     }
 

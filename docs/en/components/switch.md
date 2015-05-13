@@ -4,8 +4,7 @@ Binary switch for on and off states.
 
 ## Usage ##
 
-A switch is a replacement for standard checkboxes where a binary choice is represented with a visual on or off state.
-To enable switches, wrap all checkboxes with the following markup.
+A switch is a replacement for standard checkboxes where a binary choice is represented with a visual on or off state. To enable switches, wrap all checkboxes with the following markup.
 
 ```html
 <label class="switch" for="checkbox">
@@ -45,14 +44,12 @@ To add labels for the on and off states, specific data attributes on `.switch-ba
 ```
 
 <div class="notice is-info">
-    Labels are rendered using <code>attr()</code> with <code>::before</code> (on state)
-    and <code>::after</code> (off state) pseudo elements.
+    Labels are rendered using <code>attr()</code> with <code>::before</code> (on state) and <code>::after</code> (off state) pseudo elements.
 </div>
 
 ### Stacked Labels ###
 
-By default, the inactive label is hidden by the sliding toggle.
-To place labels on top of the toggle, add the `.switch--stacked` modifier to `.switch`.
+By default, the inactive label is hidden by the sliding toggle. To place labels on top of the toggle, add the `.switch--stacked` modifier to `.switch`.
 
 ```html
 <label class="switch switch--stacked">

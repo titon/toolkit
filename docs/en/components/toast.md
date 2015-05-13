@@ -4,10 +4,7 @@ Provides feedback about an operation through a timed popup.
 
 ## Usage ##
 
-Toasts are an excellent way of providing feedback, or grabbing a users attention,
-for operations or actions that they have committed on the website.
-Toasts are also optional, and will disappear after a duration as to not interrupt
-their browsing experience.
+Toasts are an excellent way of providing feedback, or grabbing a users attention, for operations or actions that they have committed on the website. Toasts are also optional, and will disappear after a duration as to not interrupt their browsing experience.
 
 To begin, a toast container needs to be initialized on the `body`.
 
@@ -15,13 +12,11 @@ To begin, a toast container needs to be initialized on the `body`.
 $('body').toast();
 ```
 
-Now that the container exists, we need to populate it with actual toasts.
-Since toasts represent actions, they cannot be automated and will need to be created manually.
+Now that the container exists, we need to populate it with actual toasts. Since toasts represent actions, they cannot be automated and will need to be created manually.
 
 ### Creating Toasts ###
 
-Trigger the `create()` method on the toast instance to create a toast.
-This will display a popup within the container for a timed duration.
+Trigger the `create()` method on the toast instance to create a toast. This will display a popup within the container for a timed duration.
 
 ```javascript
 $('body').toolkit('toast', 'create', 'This will be the toast message!');
@@ -31,15 +26,12 @@ $('body').toolkit('toast').create('This will be the toast message!');
 ```
 
 <div class="notice is-info">
-    HTML can also be passed as the content,
-    allowing for very complex and unique toasts to be displayed.
+    HTML can also be passed as the content, allowing for very complex and unique toasts to be displayed.
 </div>
 
 ### Dismissable Toasts ###
 
-For situations where a toast needs to be displayed permanently until dismissed,
-an object of options can be passed as the 2nd argument to `create()` that disables the duration.
-A click event will also need to be bound to the toast to remove it.
+For situations where a toast needs to be displayed permanently until dismissed, an object of options can be passed as the 2nd argument to `create()` that disables the duration. A click event will also need to be bound to the toast to remove it.
 
 ```javascript
 // Grab the toast instance
@@ -58,8 +50,7 @@ toast.create(link, { duration: 0 });
 
 ## ARIA ##
 
-The `log` role on the container, and the `note` role on the toast,
-and the appropriate `aria-*` attributes are required when supporting ARIA.
+The `log` role on the container, and the `note` role on the toast, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <aside class="toasts" role="log">

@@ -1,5 +1,9 @@
 # Changelog #
 
+## 2.1.4 ##
+* Updated to node-sass 3.0 and libsass 3.2 to solve the "invalid selector after" errors
+* Updated and fixed minor documentation issues
+
 ## 2.1.3 ##
 * Added responsive and fluid media support with the `.fluid-media` class
 * Removed `outline: none` styles to encourage browser default focus outlines

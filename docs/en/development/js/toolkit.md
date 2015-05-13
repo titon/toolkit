@@ -1,16 +1,10 @@
 # Toolkit Object #
 
-The global `Toolkit` object is used extensively by and created for the plugin system.
-It defines global options, localized messages, feature detection, and device support.
-It also acts as a namespace for plugins by housing a top level name to avoid global conflicts.
-Each plugin class definition can be found on the `Toolkit` object, for example,
-the accordion class is found under `Toolkit.Accordion`.
+The global `Toolkit` object is used extensively by and created for the plugin system. It defines global options, localized messages, feature detection, and device support. It also acts as a namespace for plugins by housing a top level name to avoid global conflicts. Each plugin class definition can be found on the `Toolkit` object, for example, the accordion class is found under `Toolkit.Accordion`.
 
 ## Debugging ##
 
-Debugging problems and solving issues can always be a headache, and because of this,
-Toolkit provides an easy low-level debugging system. When the debugger is enabled,
-all events triggered through `fireEvent()` will be logged to the console.
+Debugging problems and solving issues can always be a headache, and because of this, Toolkit provides an easy low-level debugging system. When the debugger is enabled, all events triggered through `fireEvent()` will be logged to the console.
 
 There are 2 ways to enable debugging. First, globally.
 
@@ -30,8 +24,7 @@ $('.carousel').carousel({ debug: true });
 
 ## Locale Messages ##
 
-The following messages are used within AJAX calls and are found under `Toolkit.messages`.
-They are represented as an object allowing for easy localization, and can be modified similar to an options object.
+The following messages are used within AJAX calls and are found under `Toolkit.messages`. They are represented as an object allowing for easy localization, and can be modified similar to an options object.
 
 <table class="table is-striped data-table">
     <thead>
@@ -64,8 +57,7 @@ $.extend(Toolkit.messages, {
 
 ## Feature Flags ##
 
-The following flags are used for feature detection within plugins.
-Each flag can be found on the `Toolkit` object.
+The following flags are used for feature detection within plugins. Each flag can be found on the `Toolkit` object.
 
 <table class="table is-striped data-table">
     <thead>

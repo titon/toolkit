@@ -20,9 +20,7 @@ Buttons can be grouped using a `div`, `ul`, or `ol`.
 </ul>
 ```
 
-The most common use case for button groups is creating split buttons.
-A split button is a grouping of 2 buttons, one of which is an action, and the other opens a menu.
-More information on drop menus can be found below.
+The most common use case for button groups is creating split buttons. A split button is a grouping of 2 buttons, one of which is an action, and the other opens a menu. More information on drop menus can be found below.
 
 ```html
 <div class="button-group">
@@ -52,8 +50,7 @@ Like size classes, all shape classes can be applied to the group, this includes 
 ```
 
 <div class="notice is-warning">
-    All effects (excluding round) are disabled by default.
-    Modify the <code>$buttonGroup-effects</code> Sass variable to enable them.
+    All effects (excluding round) are disabled by default. Modify the <code>$buttonGroup-effects</code> Sass variable to enable them.
 </div>
 
 ### Vertical Stacking ###
@@ -68,8 +65,7 @@ To stack buttons vertically instead of horizontally, we can use the `.button-gro
 
 ### Justified Alignment ###
 
-To span the button group the width of the parent, and equally scale all buttons within,
-we can add the `.button-group--justified` modifier.
+To span the button group the width of the parent, and equally scale all buttons within, we can add the `.button-group--justified` modifier.
 
 ```html
 <div class="button-group button-group--justified">
@@ -78,14 +74,12 @@ we can add the `.button-group--justified` modifier.
 ```
 
 <div class="notice is-warning">
-    Some browsers do not support <code>table-cell</code> display on <code>button</code> tags.
-    Use <code>a</code> tags when using the justified modifier.
+    Some browsers do not support <code>table-cell</code> display on <code>button</code> tags. Use <code>a</code> tags when using the justified modifier.
 </div>
 
 ### Drop Integration ###
 
-We can integrate dropdowns, dropups, droplefts, and droprights via the [Drop component](drop.md),
-simply by placing a drop menu within the button group element.
+We can integrate dropdowns, dropups, droplefts, and droprights via the [Drop component](drop.md), simply by placing a drop menu within the button group element.
 
 ```html
 <div class="button-group">
@@ -98,8 +92,7 @@ simply by placing a drop menu within the button group element.
 </div>
 ```
 
-The previous example will open a menu left aligned and below all buttons within the group.
-If we want the menu to open up below the button that triggered it, we must use a list for the button group.
+The previous example will open a menu left aligned and below all buttons within the group. If we want the menu to open up below the button that triggered it, we must use a list for the button group.
 
 ```html
 <ul class="button-group">
@@ -115,8 +108,7 @@ If we want the menu to open up below the button that triggered it, we must use a
 ```
 
 <div class="notice is-info">
-    For drop menus to work, they must be initialized in the JavaScript layer.
-    Implementation of the Drop component may differ.
+    For drop menus to work, they must be initialized in the JavaScript layer. Implementation of the Drop component may differ.
 </div>
 
 ## ARIA ##

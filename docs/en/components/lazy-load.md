@@ -4,14 +4,9 @@ Defer loading of images and elements until they scroll into view.
 
 ## Usage ##
 
-The lazy load component makes it easy to defer loading of an image until it scrolls into view
-&mdash; which applies to inline and background images. This is especially useful in reducing the
-amount of HTTP requests in a given page.
+The lazy load component makes it easy to defer loading of an image until it scrolls into view &mdash; which applies to inline and background images. This is especially useful in reducing the amount of HTTP requests in a given page.
 
-The difference between this component, and other libraries, is that lazy loading is applied
-to a parent wrapper. There are 2 reasons for this, the first is that it allows deferred loading
-of background images (ones defined in CSS), and the second is bulk loading of `img`s within the
-element. Simply place a `.lazy-load` (or the value of `lazyClass`) class on the element we want to monitor.
+The difference between this component, and other libraries, is that lazy loading is applied to a parent wrapper. There are 2 reasons for this, the first is that it allows deferred loading of background images (ones defined in CSS), and the second is bulk loading of `img`s within the element. Simply place a `.lazy-load` (or the value of `lazyClass`) class on the element we want to monitor.
 
 ```html
 <div class="item lazy-load">
@@ -33,14 +28,12 @@ $('#overflown').lazyLoad();
 ```
 
 <div class="notice is-info">
-    Lazy loading should be initialized without DOM ready, but after lazy elements have been declared,
-    so that images don't flicker.
+    Lazy loading should be initialized without DOM ready, but after lazy elements have been declared, so that images don't flicker.
 </div>
 
 ### Retina Support ###
 
-To display a higher quality image for retina/HD displays, use `data-src-retina`.
-If no retina equivalent is found, it will fallback to `data-src`.
+To display a higher quality image for retina/HD displays, use `data-src-retina`. If no retina equivalent is found, it will fallback to `data-src`.
 
 ```html
 <div class="item lazy-load">
@@ -50,8 +43,7 @@ If no retina equivalent is found, it will fallback to `data-src`.
 
 ### Scrolling Threshold ###
 
-When no threshold is set, images will immediately load when they appear on screen.
-Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport.
+When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport.
 
 ```javascript
 $('body').lazyLoad({
@@ -61,9 +53,7 @@ $('body').lazyLoad({
 
 ### Flicker Prevention ###
 
-By default, all inline images will be collapsed before being loaded. Because of this, a flicker or
-element shift may occur once the image is loaded. To prevent this, define a width and height for the image,
-either inline or through CSS. We may also define the `src` attribute with a transparent fill-in image.
+By default, all inline images will be collapsed before being loaded. Because of this, a flicker or element shift may occur once the image is loaded. To prevent this, define a width and height for the image, either inline or through CSS. We may also define the `src` attribute with a transparent fill-in image.
 
 ```html
 <img src="/img/fake-image.png" data-src="/img/real-image.png" width="250" height="100">

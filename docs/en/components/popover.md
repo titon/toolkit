@@ -15,8 +15,7 @@ $('.js-popover').popover();
 ```
 
 <div class="notice is-info">
-    The Popover component requires the Tooltip component, and will inherit all functionality from it.
-    Jump over to the Tooltip documentation for more information on how to use this component.
+    The Popover component requires the Tooltip component, and will inherit all functionality from it. Jump over to the Tooltip documentation for more information on how to use this component.
 </div>
 
 ## Variables ##

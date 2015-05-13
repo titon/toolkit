@@ -49,7 +49,7 @@ Will be changed to (note the `-rtl` in the file name).
 
 If using Sass directly, or through a Compass extension, simply change the `$text-direction` variable to `rtl`. This will reverse all relevant CSS properties.
 
-```sass
+```scss
 $text-direction: rtl;
 ```
 

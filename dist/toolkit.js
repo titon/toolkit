@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.3 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.1.4 | BSD-3 License | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -64,10 +64,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.1.3',
+    version: '2.1.4',
 
     /** Build date hash. */
-    build: 'i9bz04n6',
+    build: 'i9khhf7j',
 
     /** CSS namespace. */
     namespace: '',

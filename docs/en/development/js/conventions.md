@@ -1,7 +1,6 @@
 # Conventions #
 
-While the Sass & CSS layers use the BEM naming convention, the JavaScript layer adheres to the following conventions.
-These conventions should be abided by when submitting pull requests.
+While the Sass & CSS layers use the BEM naming convention, the JavaScript layer adheres to the following conventions. These conventions should be adhered to when submitting pull requests.
 
 Classes
 * Should be in capitalized camel case form: `FooBar`

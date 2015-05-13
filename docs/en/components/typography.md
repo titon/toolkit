@@ -4,9 +4,7 @@ Variable font scaling and text styling for headers, paragraphs, lists, and other
 
 ## Usage ##
 
-The typography component provides a base font size (14px) and line height (1.25em) on the `html` tag,
-which in turn allows for consistent `rem` font scaling. These values can be changed through
-`$base-size` and `$base-line-height` variables, or by overriding the `html` tag.
+The typography component provides a base font size (14px) and line height (1.25em) on the `html` tag, which in turn allows for consistent `rem` font scaling. These values can be changed through `$base-size` and `$base-line-height` variables, or by overriding the `html` tag.
 
 ```css
 html {
@@ -17,9 +15,7 @@ html {
 
 ### Headings ###
 
-All `h1` through `h6` headings have been styled for consistent presentation.
-This includes removing padding and margin, and re-scaling based on `rem`.
-These values can be changed through `$h1-size`, `$h2-size`, etc, variables.
+All `h1` through `h6` headings have been styled for consistent presentation. This includes removing padding and margin, and re-scaling based on `rem`. These values can be changed through `$h1-size`, `$h2-size`, etc, variables.
 
 <table class="table is-striped data-table">
     <thead>
@@ -65,8 +61,7 @@ These values can be changed through `$h1-size`, `$h2-size`, etc, variables.
 
 ### Paragraphs & Lists ###
 
-Both paragraphs and lists have been modified with a consistent margin,
-which can be altered through the `$margin` variable.
+Both paragraphs and lists have been modified with a consistent margin, which can be altered through the `$margin` variable.
 
 ### Blockquotes ###
 

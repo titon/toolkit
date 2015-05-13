@@ -4,9 +4,7 @@ A contextual menu that is dropped down (or up, left, right) and displayed relati
 
 ## Usage ##
 
-Drop menus can be placed anywhere using a `div` with a nested list, or using the list itself as the wrapper.
-Each drop will require a `.drop` class and one of the directional modifiers listed below.
-For the drop to function correctly, the parent will require relative positioning.
+Drop menus can be placed anywhere using a `div` with a nested list, or using the list itself as the wrapper. Each drop will require a `.drop` class and one of the directional modifiers listed below. For the drop to function correctly, the parent will require relative positioning.
 
 ```html
 <div class="drop drop--down" data-drop-menu>
@@ -20,8 +18,7 @@ For the drop to function correctly, the parent will require relative positioning
 </ul>
 ```
 
-The drop component must be initialized on an element that targets a menu to display, either through
-an attribute, or using a callback function. Refer to the `getTarget` option below.
+The drop component must be initialized on an element that targets a menu to display, either through an attribute, or using a callback function. Refer to the `getTarget` option below.
 
 ```html
 <div class="button-group">
@@ -56,8 +53,7 @@ Dropdowns, dropups, droplefts, and droprights are all supported through their re
 
 ### Nesting ###
 
-Drops can be nested by inserting a drop menu within an `li` and applying a `.has-children` class.
-An optional `.caret-right` can be placed within an anchor link to designate children.
+Drops can be nested by inserting a drop menu within an `li` and applying a `.has-children` class. An optional `.caret-right` can be placed within an anchor link to designate children.
 
 ```html
 <ul class="drop drop--left" data-drop-menu>
@@ -101,8 +97,7 @@ And a header can be used for naming groups.
 
 ### Alignment ###
 
-To align the drop menu against the opposite edge, add a `.reverse-align` class.
-Reverse alignment works for both horizontal and vertical menus.
+To align the drop menu against the opposite edge, add a `.reverse-align` class. Reverse alignment works for both horizontal and vertical menus.
 
 ```html
 <ul class="drop drop--down reverse-align" data-drop-menu>
@@ -116,8 +111,7 @@ Reverse alignment works for both horizontal and vertical menus.
 
 ## ARIA ##
 
-The `menu`, and `menuitem` roles, and the appropriate `aria-*`
-attributes are required when supporting ARIA.
+The `menu`, and `menuitem` roles, and the appropriate `aria-*` attributes are required when supporting ARIA.
 
 ```html
 <ul class="drop drop--down" role="menu" id="menu" data-drop-menu>
@@ -133,8 +127,7 @@ attributes are required when supporting ARIA.
 </ul>
 ```
 
-The element that opens the drop menu will need the `aria-haspopup` and `aria-controls`
-(relates to drop target ID) attributes.
+The element that opens the drop menu will need the `aria-haspopup` and `aria-controls` (relates to drop target ID) attributes.
 
 ```html
 <button class="button js-drop" type="button" data-drop="#menu" aria-controls="menu" aria-haspopup="true">

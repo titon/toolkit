@@ -4,12 +4,7 @@ Blacks out the viewport while other components are being displayed.
 
 ## Usage ##
 
-The blackout is a special kind of component in which a single instance should only exist.
-The implementation behind this is for situations where multiple components need to open a blackout at
-the same time (multiple modals, etc), but not display multiple overlapping blackout elements.
-A single blackout instance solves this problem by recording a count of how many times it has been opened,
-and decreases that count each time it is closed. The blackout element is shown on the 1st count, and
-hidden once the count reaches 0.
+The blackout is a special kind of component in which a single instance should only exist. The implementation behind this is for situations where multiple components need to open a blackout at the same time (multiple modals, etc), but not display multiple overlapping blackout elements. A single blackout instance solves this problem by recording a count of how many times it has been opened, and decreases that count each time it is closed. The blackout element is shown on the 1st count, and hidden once the count reaches 0.
 
 The blackout instance can be retrieved using the `instance()` method.
 
@@ -19,8 +14,7 @@ var blackout = Toolkit.Blackout.instance();
 ```
 
 <div class="notice is-info">
-    For the most part, the blackout should rarely be interacted with manually.
-    Components that integrate the blackout will handle situations accordingly.
+    For the most part, the blackout should rarely be interacted with manually. Components that integrate the blackout will handle situations accordingly.
 </div>
 
 ## Variables ##

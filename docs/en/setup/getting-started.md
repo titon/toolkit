@@ -1,7 +1,6 @@
 # Getting Started #
 
-Before we dive into Toolkit, there are some important concepts and conventions that will be necessary to learn.
-Let's quickly setup a new project with Toolkit and discuss these concepts along the way.
+Before we dive into Toolkit, there are some important concepts and conventions that will be necessary to learn. Let's quickly setup a new project with Toolkit and discuss these concepts along the way.
 
 ## Downloading Toolkit ##
 
@@ -11,8 +10,7 @@ Of course the first thing we need to do is acquire the Toolkit files. Let's begi
 [sudo] git clone git@github.com:titon/toolkit.git
 ```
 
-Besides git, there are multiple ways to download Toolkit.
-[Jump to the installation documentation for more approaches](installing.md).
+Besides git, there are multiple ways to download Toolkit. [Jump to the installation documentation for more approaches](installing.md).
 
 ## Project Structure ##
 
@@ -43,15 +41,16 @@ The Toolkit repository is grouped logically into folders depending on the type o
 
 ### Distribution Files ###
 
-Files found in the `dist` folder are minified and unminified files ready for production.
-These files are also available through [Bower](http://bower.io). These files include *all* plugins.
+Files found in the `dist` folder are minified and unminified files ready for production. These files are also available through [Bower](http://bower.io). These files include *all* plugins but not all features.
 
 ```
 toolkit/
 └── dist/
     ├── toolkit.css
+    ├── toolkit-rtl.css
     ├── toolkit.js
     ├── toolkit.min.css
+    ├── toolkit-rtl.min.css
     └── toolkit.min.js
 ```
 
@@ -59,8 +58,7 @@ Simply include the files in your application to gain all of Toolkit's functional
 
 ### Source Files ###
 
-Source files are found in the `js`, `scss`, and `lib` folders.
-This is where all development and engineering is focused. These files will later be processed for distribution.
+Source files are found in the `js`, `scss`, and `lib` folders. This is where all development and engineering is focused. These files will later be processed for distribution.
 
 ```
 toolkit/
@@ -87,8 +85,7 @@ Files are organized into folders that represent specific functionality.
 
 ## Boilerplate Template ##
 
-Now that we have our assets, let's create the HTML template.
-We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://html5boilerplate.com/) as a foundation.
+Now that we have our assets, let's create the HTML template. We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://html5boilerplate.com/) as a foundation.
 
 ```html
 <!DOCTYPE html>
@@ -109,9 +106,7 @@ We'll go ahead and use a lightweight version of the [HTML5 Boilerplate](http://h
 </html>
 ```
 
-You'll notice that we placed `toolkit.min.css` before `style.min.css`.
-This allows for helper classes and plugin styles to be inherited first.
-Placing project specific styles after Toolkit allows customization and themeing of plugins.
+You'll notice that we placed `toolkit.min.css` before `style.min.css`. This allows for helper classes and plugin styles to be inherited first. Placing project specific styles after Toolkit allows customization and themeing of plugins.
 
 Let's test our JavaScript plugins by placing the following code within the `<body>` tags.
 
@@ -125,8 +120,7 @@ Let's test our JavaScript plugins by placing the following code within the `<bod
 </script>
 ```
 
-Now comes the fun part, testing the code. Open up the previously created HTML file and hover your mouse over the button in the page.
-If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
+Now comes the fun part, testing the code. Open up the previously created HTML file and hover your mouse over the button in the page. If all goes well, you shall see a contextual tooltip appear relative to the button. Awesome right?
 
 <div class="notice is-warning">
     If no styles have been defined yet, the button and tooltip plugins will use default styles, which look rather bland.

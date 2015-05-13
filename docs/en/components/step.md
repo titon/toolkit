@@ -4,8 +4,7 @@ Navigation grouped into consecutive steps.
 
 ## Usage ##
 
-The stepped navigation makes use of `nav` and `ol` elements for semantic structuring.
-Each item in the list represents a single step out of multiple consecutive steps.
+The stepped navigation makes use of `nav` and `ol` elements for semantic structuring. Each item in the list represents a single step out of multiple consecutive steps.
 
 ```html
 <nav class="steps">
