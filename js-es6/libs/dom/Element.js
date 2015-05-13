@@ -10,8 +10,6 @@ import find from './find';
 import forOwn from '../object/forOwn';
 import 'polyfills/requestAnimationFrame';
 
-// TODO - test
-
 /**
  * A class that wraps an element to provide new functionality.
  * Uses a queueing system that batches multiple DOM mutations at an interval.
@@ -135,6 +133,9 @@ export default class Element {
                 case 'attributes':
                     forOwn(value, (k, v) => element.setAttribute(k, v));
                 break;
+                case 'properties':
+                    forOwn(value, (k, v) => element[k] = v);
+                break;
                 case 'styles':
                     forOwn(value, (k, v) => element.style[k] = v);
                 break;
@@ -203,6 +204,7 @@ export default class Element {
     resetQueue() {
         this.queue = {
             attributes: {},
+            properties: {},
             styles: {}
         };
 
@@ -247,7 +249,7 @@ export default class Element {
             });
         }
 
-        return this.setAttribute('aria-' + key, String(value));
+        return this.setAttribute('aria-' + key, value);
     }
 
     /**
@@ -257,7 +259,7 @@ export default class Element {
      * @returns {Element}
      */
     setArias(keys) {
-        forOwn(keys, this.setAria);
+        forOwn(keys, this.setAria.bind(this));
 
         return this;
     }
@@ -270,7 +272,7 @@ export default class Element {
      * @returns {Element}
      */
     setAttribute(attribute, value) {
-        this.queue.attributes[attribute] = value;
+        this.queue.attributes[attribute] = String(value);
 
         return this;
     }
@@ -282,7 +284,32 @@ export default class Element {
      * @returns {Element}
      */
     setAttributes(attributes) {
-        forOwn(attributes, this.setAttribute);
+        forOwn(attributes, this.setAttribute.bind(this));
+
+        return this;
+    }
+
+    /**
+     * Set a value for a DOM property.
+     *
+     * @param {string} property
+     * @param {*} value
+     * @returns {Element}
+     */
+    setProperty(property, value) {
+        this.queue.properties[property] = value;
+
+        return this;
+    }
+
+    /**
+     * Set multiple DOM properties.
+     *
+     * @param {object} properties
+     * @returns {Element}
+     */
+    setProperties(properties) {
+        forOwn(properties, this.setProperty.bind(this));
 
         return this;
     }
@@ -307,7 +334,7 @@ export default class Element {
      * @returns {Element}
      */
     setStyles(properties) {
-        forOwn(properties, this.setStyle);
+        forOwn(properties, this.setStyle.bind(this));
 
         return this;
     }

@@ -6,14 +6,11 @@ import id from 'libs/dom/id';
 describe('libs/dom/id', () => {
     describe('id()', () => {
         it('should return a container for an element defined by an ID', () => {
-            let element = document.createElement('div');
-                element.id = 'foo';
-
-            document.body.appendChild(element);
+            let element = createElement('div', { id: 'foo' });
 
             expect(id('foo')).toEqual(new Element(element));
 
-            document.body.removeChild(element);
+            element.cleanup();
         });
 
         it('should return null if no element is found', () => {

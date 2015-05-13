@@ -8,15 +8,14 @@ describe('libs/dom/find', () => {
         let element;
 
         beforeEach(() => {
-            element = document.createElement('ul');
-            element.id = 'list';
-            element.innerHTML = '<li>A</li><li>B</li><li>C</li>';
-
-            document.body.appendChild(element);
+            element = createElement('ul', {
+                id: 'list',
+                html: '<li>A</li><li>B</li><li>C</li>'
+            });
         });
 
         afterEach(() => {
-            document.body.removeChild(element);
+            element.cleanup();
         });
 
         it('should return a `Collection` of `Element`s', () => {

@@ -4,6 +4,12 @@
     // Disable Karma from running tests immediately
     karma.loaded = function() {};
 
+    // Create a sandbox element
+    var sandbox = document.createElement('div');
+        sandbox.id = 'sandbox';
+
+    document.body.appendChild(sandbox);
+
     // Karma places all files in a base folder
     System.baseURL = '/base/js-es6/';
 

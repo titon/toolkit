@@ -7,14 +7,13 @@ describe('libs/dom/batch', () => {
         let element;
 
         beforeEach(() => {
-            element = document.createElement('ul');
-            element.innerHTML = '<li>A</li><li>B</li><li>C</li>';
-
-            document.body.appendChild(element);
+            element = createElement('ul', {
+                html: '<li>A</li><li>B</li><li>C</li>'
+            });
         });
 
         afterEach(() => {
-            document.body.removeChild(element);
+            element.cleanup();
         });
 
         it('should batch changes to a single element', () => {

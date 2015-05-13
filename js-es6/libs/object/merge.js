@@ -18,9 +18,8 @@ import isObject from './isObject';
  */
 export default function merge(base, ...objects) {
     objects.forEach(object => {
-        forOwn(object, key => {
-            var baseValue = base[key],
-                newValue = object[key];
+        forOwn(object, (key, newValue) => {
+            var baseValue = base[key];
 
             // Merge if both values are objects
             if (isObject(baseValue) && isObject(newValue)) {

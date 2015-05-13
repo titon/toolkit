@@ -14,7 +14,11 @@ import Toolkit from 'Toolkit';
  * @param {function} func
  */
 export default function forOwn(object, func) {
-    Object.keys(object).forEach(func);
+    let keys = Object.keys(object);
+
+    for (let i = 0; i < keys.length; i++) {
+        func(keys[i], object[keys[i]]);
+    }
 }
 
 Toolkit.forOwn = forOwn;

@@ -26,6 +26,9 @@
     "globals": {
         "Toolkit": true,
         "TransitionEvent": true,
-        "__karma__": true
+        "__karma__": true,
+
+        "createElement": true,
+        "processInThread": true
     }
 }

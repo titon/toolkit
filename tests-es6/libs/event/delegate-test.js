@@ -9,16 +9,13 @@ describe('libs/event/delegate', () => {
         beforeEach(() => {
             count = 0;
 
-            element = document.createElement('div');
-            element.innerHTML = '<span id="a" class="foo"></span>' +
-                '<span id="b"></span>' +
-                '<span id="c" class="foo"></span>';
-
-            document.body.appendChild(element);
+            element = createElement('div', {
+                html: '<span id="a" class="foo"></span><span id="b"></span><span id="c" class="foo"></span>'
+            });
         });
 
         afterEach(() => {
-            document.body.removeChild(element);
+            element.cleanup();
         });
 
         it('should trigger the function if the selector was clicked', () => {

@@ -9,15 +9,13 @@ describe('libs/event/once', () => {
         beforeEach(() => {
             count = 0;
 
-            element = document.createElement('div');
+            element = createElement('div');
             element.addEventListener('foo', once(() => count++));
             element.addEventListener('bar', once((e) => count = e.detail.count));
-
-            document.body.appendChild(element);
         });
 
         afterEach(() => {
-            document.body.removeChild(element);
+            element.cleanup();
         });
 
         it('should only trigger the event listener once', () => {

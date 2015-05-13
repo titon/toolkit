@@ -13,7 +13,7 @@ describe('libs/object/forOwn', () => {
                     qux: [null]
                 };
 
-            forOwn(base, key => values.push(base[key]));
+            forOwn(base, (key, value) => values.push(value));
 
             expect(values).toEqual([
                 'abc',

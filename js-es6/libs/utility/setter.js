@@ -19,7 +19,7 @@ export default function setter(func) {
         let self = this;
 
         if (isObject(key)) {
-            forOwn(key, k => func.call(self, k, key[k]));
+            forOwn(key, (k, v) => func.call(self, k, v));
 
         } else if (key) {
             func.call(self, key, value);

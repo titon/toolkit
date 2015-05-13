@@ -331,12 +331,11 @@ export default class Plugin {
     setBinds(binds) {
         let bindings = [];
 
-        forOwn(binds, key => {
+        forOwn(binds, (key, callback) => {
             let [event, context, selector] = key
                     .replace('{mode}', this.options.mode)
                     .replace('{selector}', this.selector)
-                    .split(' ', 3),
-                callback = binds[key];
+                    .split(' ', 3);
 
             // Find and bind the function
             if (typeof callback === 'string') {
@@ -378,9 +377,7 @@ export default class Plugin {
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
-            forOwn(options.responsive, key => {
-                let respOptions = options.responsive[key];
-
+            forOwn(options.responsive, (key, respOptions) => {
                 if (matchMedia(respOptions.breakpoint).matches) {
                     merge(options, respOptions);
                 }
@@ -388,9 +385,9 @@ export default class Plugin {
         }
 
         // Auto-subscribe listeners that start with `on`
-        forOwn(options, key => {
+        forOwn(options, (key, value) => {
             if (key.match(/^on[A-Z]/)) {
-                this.on(key.substr(2).toLowerCase(), options[key]);
+                this.on(key.substr(2).toLowerCase(), value);
                 delete options[key];
             }
         });
@@ -432,9 +429,9 @@ export default class Plugin {
         // Determine if the state has changed by diffing:
         // - Doesn't exist in the current state
         // - Doesn't match the current state
-        forOwn(state, key => {
-            if (!(key in currentState) || state[key] !== currentState[key]) {
-                diff[key] = state[key];
+        forOwn(state, (key, value) => {
+            if (!(key in currentState) || value !== currentState[key]) {
+                diff[key] = value;
                 changed = true;
             }
         });
