@@ -39,7 +39,57 @@ describe('libs/dom/Element', () => {
     });
 
     describe('conceal()', () => {
-        // TODO
+        it('should remove the `show` class and add the `hide` class', (done) => {
+            element.className = 'show';
+
+            expect(obj.hasClass('show')).toBe(true);
+            expect(obj.hasClass('hide')).toBe(false);
+
+            obj.conceal()
+                .write()
+                .then(() => {
+                    expect(obj.hasClass('show')).toBe(false);
+                    expect(obj.hasClass('hide')).toBe(true);
+                    done();
+                });
+        });
+
+        it('should toggle the `hidden` ARIA attribute', (done) => {
+            expect(element.getAttribute('aria-hidden')).toBe(null);
+
+            obj.conceal()
+                .write()
+                .then(() => {
+                    expect(element.getAttribute('aria-hidden')).toBe('true');
+                    done();
+                });
+        });
+
+        it('should set to display none when transition is complete', (done) => {
+            element.className = 'show';
+
+            expect(element.style.display).toBe('');
+
+            obj.conceal()
+                .write()
+                .then(() => {
+                    expect(element.style.display).toBe('none');
+                    done();
+                });
+        });
+
+        it('should not set to display none if argument is true', (done) => {
+            element.className = 'show';
+
+            expect(element.style.display).toBe('');
+
+            obj.conceal(true)
+                .write()
+                .then(() => {
+                    expect(element.style.display).toBe('');
+                    done();
+                });
+        });
     });
 
     describe('find()', () => {
@@ -71,11 +121,166 @@ describe('libs/dom/Element', () => {
     });
 
     describe('processQueue()', () => {
-        // TODO
+        it('should throw an error if no element set', () => {
+            let tempObj = new Element();
+
+            expect(() => tempObj.processQueue()).toThrow(new Error('No element in container. Cannot process queue.'));
+        });
+
+        it('should add a class', () => {
+            element.className = 'foo';
+
+            expect(element.className).toBe('foo');
+
+            obj.addClass('bar').processQueue();
+
+            expect(element.className).toBe('foo bar');
+        });
+
+        it('should remove a class', () => {
+            element.className = 'foo bar';
+
+            expect(element.className).toBe('foo bar');
+
+            obj.removeClass('foo').processQueue();
+
+            expect(element.className).toBe('bar');
+        });
+
+        it('should set attributes', () => {
+            expect(element.getAttribute('id')).toBe(null);
+            expect(element.getAttribute('lang')).toBe(null);
+            expect(element.getAttribute('role')).toBe(null);
+
+            obj.setAttribute('id', 'foo').setAttributes({
+                lang: 'en',
+                role: 'main'
+            }).processQueue();
+
+            expect(element.getAttribute('id')).toBe('foo');
+            expect(element.getAttribute('lang')).toBe('en');
+            expect(element.getAttribute('role')).toBe('main');
+        });
+
+        it('should set properties', () => {
+            expect(element.hidden).toBe(false);
+            expect(element.tabIndex).toBe(-1);
+
+            obj.setProperty('hidden', true).setProperties({
+                tabIndex: 5
+            }).processQueue();
+
+            expect(element.hidden).toBe(true);
+            expect(element.tabIndex).toBe(5);
+        });
+
+        it('should set styles', () => {
+            expect(element.style.backgroundColor).toBe('');
+            expect(element.style.boxShadow).toBe('');
+            expect(element.style.height).toBe('');
+            expect(element.style.borderWidth).toBe('');
+
+            obj.setStyle('backgroundColor', '#000').setStyles({
+                boxShadow: '5px 5px #fff',
+                height: '100px',
+                borderWidth: '1px'
+            }).processQueue();
+
+            expect(element.style.backgroundColor).toBe('rgb(0, 0, 0)');
+            expect(element.style.boxShadow).toBe('rgb(255, 255, 255) 5px 5px');
+            expect(element.style.height).toBe('100px');
+            expect(element.style.borderWidth).toBe('1px');
+        });
+
+        it('should reset the queue once processed', () => {
+            obj
+                .addClass('bar')
+                .setAria('hidden', true)
+                .setAttribute('id', 'foo')
+                .setProperty('hidden', false)
+                .setStyle('color', 'red');
+
+            expect(obj.queue).toEqual({
+                attributes: {
+                    'aria-hidden': 'true',
+                    id: 'foo'
+                },
+                properties: {
+                    hidden: false
+                },
+                styles: {
+                    color: 'red'
+                },
+                addClass: 'bar'
+            });
+
+            obj.processQueue();
+
+            expect(obj.queue).toEqual({
+                attributes: {},
+                properties: {},
+                styles: {}
+            });
+        });
     });
 
     describe('read()', () => {
-        // TODO
+        it('should read values in the next frame through a callback function', (done) => {
+            var value = 0;
+
+            obj.read(function() {
+                value = 1;
+            }).then(() => {
+                expect(value).toBe(1);
+                done();
+            });
+        });
+
+        it('should not allow nested callbacks', (done) => {
+            var value = 0;
+
+            obj.read(function() {
+                value = 1;
+
+                this.read(function() {
+                    value = 2;
+                });
+            }).then(() => {
+                expect(value).toBe(1);
+                done();
+            });
+        });
+
+        it('should reject if an exception is thrown', (done) => {
+            obj.read(function() {
+                throw new Error('Oops');
+            }).then(
+                () => {
+                    expect(true).toBe(false);
+                    done();
+                },
+                () => {
+                    expect(true).toBe(true);
+                    done();
+                });
+        });
+
+        it('should allow for writing after reading', (done) => {
+            let height = 0, baseHeight = element.offsetHeight;
+
+            obj.read((el) => {
+                height = el.offsetHeight;
+            }).write(() => {
+                height = height * 2;
+                obj.setStyle('height', height + 'px');
+            });
+
+            setTimeout(() => {
+                expect(element.style.height).toBe(height + 'px');
+                expect(height > baseHeight).toBeTruthy();
+                done();
+            }, 300);
+        });
     });
 
     describe('removeClass()', () => {
@@ -115,7 +320,60 @@ describe('libs/dom/Element', () => {
     });
 
     describe('reveal()', () => {
-        // TODO
+        it('should remove the `hide` class and add the `show` class', (done) => {
+            element.className = 'hide';
+            element.style.display = 'none';
+
+            expect(obj.hasClass('show')).toBe(false);
+            expect(obj.hasClass('hide')).toBe(true);
+
+            obj.reveal()
+                .write()
+                .then(() => {
+                    expect(obj.hasClass('show')).toBe(true);
+                    expect(obj.hasClass('hide')).toBe(false);
+                    done();
+                });
+        });
+
+        it('should toggle the `hidden` ARIA attribute', (done) => {
+            expect(element.getAttribute('aria-hidden')).toBe(null);
+
+            obj.reveal()
+                .write()
+                .then(() => {
+                    expect(element.getAttribute('aria-hidden')).toBe('false');
+                    done();
+                });
+        });
+
+        it('should set to display block before the transition starts', (done) => {
+            element.className = 'hide';
+            element.style.display = 'none';
+
+            expect(element.style.display).toBe('none');
+
+            obj.reveal()
+                .write()
+                .then(() => {
+                    expect(element.style.display).toBe('');
+                    done();
+                });
+        });
+
+        it('should not set to display block if argument is true', (done) => {
+            element.className = 'hide';
+            element.style.display = 'none';
+
+            expect(element.style.display).toBe('none');
+
+            obj.reveal(true)
+                .write()
+                .then(() => {
+                    expect(element.style.display).toBe('none');
+                    done();
+                });
+        });
     });
 
     describe('setAria()', () => {
@@ -281,6 +539,73 @@ describe('libs/dom/Element', () => {
     });
 
     describe('write()', () => {
-        // TODO
+        it('should apply mutations in the next frame', (done) => {
+            obj.addClass('foo');
+
+            expect(element.className).toBe('');
+
+            obj.write()
+                .then(() => {
+                    expect(element.className).toBe('foo');
+                    done();
+                });
+        });
+
+        it('should allow mutations to be set through a callback function', (done) => {
+            obj.write(function() {
+                this.addClass('foo');
+            }).then(() => {
+                expect(element.className).toBe('foo');
+                done();
+            });
+        });
+
+        it('should not allow nested callbacks', (done) => {
+            obj.write(function() {
+                this.addClass('foo').write(function() {
+                    this.addClass('bar');
+                });
+            }).then(() => {
+                expect(element.className).toBe('foo');
+                done();
+            });
+        });
+
+        it('should pass the `Element` instance through the promise as an argument', (done) => {
+            obj.addClass('foo').write().then((objArg) => {
+                expect(objArg).toEqual(obj);
+                done();
+            });
+        });
+
+        it('should reject if an exception is thrown', (done) => {
+            let tempObj = new Element();
+
+            tempObj.addClass('foo').write().then(
+                () => {
+                    expect(true).toBe(false);
+                    done();
+                },
+                () => {
+                    expect(true).toBe(true);
+                    done();
+                });
+        });
+
+        it('should allow for reading after writing', (done) => {
+            var className = element.className;
+
+            expect(className).toBe('');
+
+            obj.addClass('foo')
+                .write()
+                .read(function() {
+                    className = this.element.className;
+                })
+                    .then(() => {
+                        expect(className).toBe('foo');
+                        done();
+                    });
+        });
     });
 });

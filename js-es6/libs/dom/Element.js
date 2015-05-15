@@ -59,7 +59,7 @@ export default class Element {
      */
     conceal(dontHide) {
         if (this.hasClass('show') && !dontHide) {
-            transitionEnd(this, () => this.setStyle('display', 'none').write());
+            transitionEnd(this.element, () => this.element.style.display = 'none');
         }
 
         return this
@@ -164,7 +164,7 @@ export default class Element {
             requestAnimationFrame(() => {
                 try {
                     this.reading = true;
-                    func.call(this);
+                    func.call(this, this.element);
                     this.reading = false;
 
                     resolve(this);
@@ -176,8 +176,8 @@ export default class Element {
 
         // Add a custom `write()` method that calls `then()` automatically
         promise.write = (writer) => {
-            promise.then(() => {
-                this.write(writer);
+            return promise.then(() => {
+                return this.write(writer);
             });
         };
 
@@ -212,7 +212,7 @@ export default class Element {
     }
 
     /**
-     * Reveal the element by applying the show class.
+     * Reveal the element by applying the `show` class.
      * Should be used to trigger transitions and animations.
      *
      * @param {boolean} [dontShow]
@@ -371,8 +371,8 @@ export default class Element {
 
         // Add a custom `read()` method that calls `then()` automatically
         promise.read = (reader) => {
-            promise.then(() => {
-                this.read(reader);
+            return promise.then(() => {
+                return this.read(reader);
             });
         };
 

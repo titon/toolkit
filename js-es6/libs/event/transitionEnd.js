@@ -18,7 +18,7 @@ export default function transitionEnd(element, func) {
     let duration = element.style.transitionDuration;
 
     // No transition defined so trigger callback immediately
-    if (duration === '0s' || typeof duration === 'undefined') {
+    if (!duration || duration === '0s' || typeof duration === 'undefined') {
         func();
 
     // Bind a listener once
