@@ -7,17 +7,15 @@
 import Toolkit from 'Toolkit';
 import Element from './Element';
 
-// TODO - test
-
 /**
- * A class that handles a collection of `Element` elements.
+ * A class that handles a collection of `Element` items.
  */
 export default class Collection {
 
     // Total number of elements in the collection.
     length = 0;
 
-    // Array of elements (containers).
+    // Array of elements.
     elements = [];
 
     /**
@@ -25,7 +23,7 @@ export default class Collection {
      *
      * @param {HTMLElement[]} elements
      */
-    constructor(elements) {
+    constructor(elements = []) {
         this.elements = elements.map(element => new Element(element));
         this.length = elements.length;
     }
@@ -50,9 +48,7 @@ export default class Collection {
  */
 Element.getCollectionMethods().forEach(method => {
     Collection.prototype[method] = function() {
-        let response = this.elements.forEach(element => element[method].apply(element, arguments));
-
-        return (response instanceof Element) ? this : response;
+        return this.each(element => element[method].apply(element, arguments));
     };
 });
 

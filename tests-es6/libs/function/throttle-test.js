@@ -19,7 +19,7 @@ describe('libs/function/throttle', () => {
             }, 75);
 
             setTimeout(() => {
-                expect(count).toBe(8);
+                expect(count).toBe(7);
                 done();
             }, 1800);
         });

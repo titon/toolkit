@@ -12,7 +12,7 @@ import 'polyfills/requestAnimationFrame';
 
 /**
  * A class that wraps an element to provide new functionality.
- * Uses a queueing system that batches multiple DOM mutations at an interval.
+ * It utilizes a queueing system that batches multiple DOM mutations during an animation render frame.
  */
 export default class Element {
 
@@ -82,8 +82,9 @@ export default class Element {
      */
     static getCollectionMethods() {
         return [
-            'addClass', 'hasClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
-            'setAria', 'setArias', 'setAttribute', 'setAttributes', 'setStyle', 'setStyles'
+            'addClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
+            'setAria', 'setArias', 'setAttribute', 'setAttributes',
+            'setProperty', 'setProperties', 'setStyle', 'setStyles'
         ];
     }
 
