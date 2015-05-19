@@ -4,13 +4,26 @@
  * @link        http://titon.io
  */
 
-export var
+// Is the device in landscape mode
+export var landscape = (window.innerWidth > window.innerHeight);
 
-    // Does the device support retina display
-    isRetina = (window.devicePixelRatio > 1),
+// Is the device in portrait mode
+export var portrait = !landscape;
 
-    // Is the HTML document currently set to RTL mode
-    isRTL = (document.documentElement.dir === 'rtl'),
+// Does the device support retina display
+export var retina = (window.devicePixelRatio > 1);
 
-    // Does the device support touch controls
-    isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+// Is the HTML document currently set to RTL mode
+export var rtl = (document.documentElement.dir === 'rtl');
+
+// Does the device support touch controls
+export var touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+// Export all as an object
+export default {
+    landscape,
+    portrait,
+    retina,
+    rtl,
+    touch
+};

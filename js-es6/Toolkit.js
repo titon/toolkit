@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import { isTouch, isRetina, isRTL } from 'libs/flags';
+import flags from 'libs/flags';
 
 class Toolkit {
 
@@ -29,14 +29,8 @@ class Toolkit {
         error: 'An error has occurred!'
     };
 
-    /** Detect touch devices. */
-    isTouch = isTouch;
-
-    /** Detect retina displays. */
-    isRetina = isRetina;
-
-    /** Detect right-to-left support. */
-    isRTL = isRTL;
+    /** Runtime flags. */
+    flags = flags;
 }
 
 export default window.Toolkit = new Toolkit();
