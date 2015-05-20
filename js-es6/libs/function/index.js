@@ -4,5 +4,5 @@
  * @link        http://titon.io
  */
 
-export debounce from './debounce';
-export throttle from './throttle';
+export debounce from 'libs/function/debounce';
+export throttle from 'libs/function/throttle';

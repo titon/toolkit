@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import once from './once';
+import once from 'libs/event/once';
 
 /**
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.

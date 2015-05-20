@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import Collection from './Collection';
+import Collection from 'libs/dom/Collection';
 
 const slice = Array.prototype.slice;
 

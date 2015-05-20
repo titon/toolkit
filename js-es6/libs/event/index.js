@@ -4,6 +4,6 @@
  * @link        http://titon.io
  */
 
-export delegate from './delegate';
-export once from './once';
-export transitionEnd from './transitionEnd';
+export delegate from 'libs/event/delegate';
+export once from 'libs/event/once';
+export transitionEnd from 'libs/event/transitionEnd';

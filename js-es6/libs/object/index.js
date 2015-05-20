@@ -4,6 +4,6 @@
  * @link        http://titon.io
  */
 
-export forOwn from './forOwn';
-export isObject from './isObject';
-export merge from './merge';
+export forOwn from 'libs/object/forOwn';
+export isObject from 'libs/object/isObject';
+export merge from 'libs/object/merge';

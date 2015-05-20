@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import Element from './Element';
+import Element from 'libs/dom/Element';
 
 /**
  * Return an element by ID. This method will return a single element.

@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import Storage from './Storage';
+import Storage from 'libs/cache/Storage';
 
 // Use a shared cache
 const internalCache = new Storage();

@@ -5,9 +5,9 @@
  */
 
 import Toolkit from 'Toolkit';
-import transitionEnd from '../event/transitionEnd';
-import find from './find';
-import forOwn from '../object/forOwn';
+import transitionEnd from 'libs/event/transitionEnd';
+import find from 'libs/dom/find';
+import forOwn from 'libs/object/forOwn';
 import 'polyfills/requestAnimationFrame';
 
 /**
@@ -73,19 +73,6 @@ export default class Element {
      */
     find(query) {
         return find(query, this.element);
-    }
-
-    /**
-     * Return a list of chainable methods to copy to the `Collection` prototype.
-     *
-     * @returns {string[]}
-     */
-    static getCollectionMethods() {
-        return [
-            'addClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
-            'setAria', 'setArias', 'setAttribute', 'setAttributes',
-            'setProperty', 'setProperties', 'setStyle', 'setStyles'
-        ];
     }
 
     /**
@@ -380,5 +367,18 @@ export default class Element {
         return promise;
     }
 }
+
+/**
+ * Return a list of chainable methods to copy to the `Collection` prototype.
+ *
+ * @returns {string[]}
+ */
+Element.getCollectionMethods = function() {
+    return [
+        'addClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
+        'setAria', 'setArias', 'setAttribute', 'setAttributes',
+        'setProperty', 'setProperties', 'setStyle', 'setStyles'
+    ];
+};
 
 Toolkit.Element = Element;

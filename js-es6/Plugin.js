@@ -12,39 +12,42 @@ import delegate from 'libs/event/delegate';
 
 export default class Plugin {
 
-    // Map of DOM event bindings.
+    /** Map of DOM event bindings. */
     binds = [];
 
-    // Map of cached AJAX requests or data.
+    /** Map of cached AJAX requests or data. */
     cache = {};
 
-    // Whether or not the plugin is enabled (events are bound).
+    /** Whether or not the plugin is enabled (events are bound). */
     enabled = false;
 
-    // Map of event listeners to emit.
+    /** Unique ID of this instance. */
+    id = 0;
+
+    /** Map of event listeners to emit. */
     listeners = {};
 
-    // Name of the plugin. Should match the `Toolkit.<Name>` declaration.
+    /** Name of the plugin. Should match the `Toolkit.<Name>` declaration. */
     name = 'Plugin';
 
-    // Unique configurable options for the plugin.
+    /** Unique configurable options for the plugin. */
     options = {};
 
-    // The CSS selector bound to the plugin.
+    /** The CSS selector bound to the plugin. */
     selector = '';
 
-    // Current and previous state of the plugin. Must be modified with `setState()`.
+    /** Current and previous state of the plugin. Must be modified with `setState()`. */
     state = {};
     previousState = {};
 
-    // Current and last modified version of the plugin.
+    /** Current and last modified version of the plugin. */
     version = '3.0.0';
 
     /**
      * Generate a unique ID for this instance.
      */
     constructor() {
-        this.constructor.uid += 1; // Increase UID
+        this.id = (this.constructor.uid += 1); // Increase UID
     }
 
     /**
@@ -476,6 +479,8 @@ export default class Plugin {
     }
 
 }
+
+Plugin.uid = 0;
 
 Plugin.options = {
     cache: true,

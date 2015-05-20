@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-export bem from './bem';
-export bound from './bound';
-export chain from './chain';
-export getter from './getter';
-export setter from './setter';
+export bem from 'libs/utility/bem';
+export bound from 'libs/utility/bound';
+export chain from 'libs/utility/chain';
+export getter from 'libs/utility/getter';
+export setter from 'libs/utility/setter';

@@ -4,14 +4,14 @@
  * @link        http://titon.io
  */
 
-export batch from './batch';
-export Collection from './Collection';
-export Element from './Element';
-export find from './find';
-export id from './id';
-export inDOM from './inDOM';
-export isElement from './isElement';
-export positionTo from './positionTo';
+export batch from 'libs/dom/batch';
+export Collection from 'libs/dom/Collection';
+export Element from 'libs/dom/Element';
+export find from 'libs/dom/find';
+export id from 'libs/dom/id';
+export inDOM from 'libs/dom/inDOM';
+export isElement from 'libs/dom/isElement';
+export positionTo from 'libs/dom/positionTo';
 
 
 

@@ -5,8 +5,8 @@
  */
 
 import Toolkit from 'Toolkit';
-import forOwn from './forOwn';
-import isObject from './isObject';
+import forOwn from 'libs/object/forOwn';
+import isObject from 'libs/object/isObject';
 
 /**
  * Merge multiple objects into a base object. If 2 values collide and they are both objects,

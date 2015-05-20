@@ -43,5 +43,6 @@
                 karma.start();
                 started = true;
             }
-        });
+        })
+        .catch(console.log.bind(console));
 })(__karma__);

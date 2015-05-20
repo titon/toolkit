@@ -5,7 +5,7 @@
  */
 
 import Toolkit from 'Toolkit';
-import Element from './Element';
+import Element from 'libs/dom/Element';
 
 /**
  * Check to see if an element is within the current DOM.

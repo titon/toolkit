@@ -4,5 +4,5 @@
  * @link        http://titon.io
  */
 
-export cache from './cache';
-export Storage from './Storage';
+export cache from 'libs/cache/cache';
+export Storage from 'libs/cache/Storage';

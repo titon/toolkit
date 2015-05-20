@@ -5,8 +5,8 @@
  */
 
 import Toolkit from 'Toolkit';
-import forOwn from '../object/forOwn';
-import isObject from '../object/isObject';
+import forOwn from 'libs/object/forOwn';
+import isObject from 'libs/object/isObject';
 
 /**
  * Overload a setter method with key value arguments to accept an object of key values.
