@@ -15,7 +15,7 @@
     },
     "bugs": "https://github.com/titon/toolkit/issues",
     "repository": "github:titon/toolkit",
-    "main": "js/main.js",
+    "main": "js/index.js",
     "dependencies": {
         "jquery": "~2.1"
     },
