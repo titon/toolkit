@@ -7,11 +7,9 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/rtl',
-    '../flags/touch',
     './component',
     '../extensions/shown-selector'
-], function($, Toolkit, isRTL, isTouch) {
+], function($, Toolkit) {
 
 Toolkit.Flyout = Toolkit.CompositeComponent.extend({
     name: 'Flyout',
@@ -37,7 +35,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
      * @param {Object} [options]
      */
     constructor: function(nodes, url, options) {
-        if (isTouch) {
+        if (Toolkit.isTouch) {
             return; // Flyouts shouldn't be usable on touch devices
         }
 
@@ -153,7 +151,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
         }
 
         // Change position for RTL
-        if (isRTL) {
+        if (Toolkit.isRTL) {
             x = $(window).width() - coords.left - node.outerWidth();
             dir = 'right';
         }
@@ -283,7 +281,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 
                     // Add icon
                     $('<span/>')
-                        .addClass(child.icon || (isRTL ? 'caret-left' : 'caret-right'))
+                        .addClass(child.icon || (Toolkit.isRTL ? 'caret-left' : 'caret-right'))
                         .prependTo(tag);
 
                 } else {
@@ -406,7 +404,7 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
             oppositeClass = 'push-opposite';
 
         // Display menu horizontally on opposite side if it spills out of viewport
-        if (isRTL) {
+        if (Toolkit.isRTL) {
             if ((parentOffset.left - menu.outerWidth()) < 0) {
                 menu.addClass(oppositeClass);
             } else {

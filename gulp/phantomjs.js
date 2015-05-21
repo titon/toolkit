@@ -2,7 +2,7 @@ const PLUGIN_NAME = 'toolkit-phantomjs';
 
 var gutil = require('gulp-util'),
     through = require('through2'),
-    spawn = require('child_process').spawn
+    spawn = require('child_process').spawn;
 
 module.exports = function(options) {
     gutil.log(gutil.colors.yellow('Running PhantomJS...'));

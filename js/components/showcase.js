@@ -7,14 +7,13 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/touch',
     './component',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit, isTouch) {
+], function($, Toolkit) {
 
 Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
@@ -440,7 +439,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     blackout: true,
     stopScroll: true,
     clickout: true,
-    swipe: isTouch,
+    swipe: Toolkit.isTouch,
     gutter: 50,
     getCategory: 'data-showcase',
     getImage: 'href',

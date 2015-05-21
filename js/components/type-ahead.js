@@ -7,12 +7,11 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/rtl',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit, isRTL) {
+], function($, Toolkit) {
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
@@ -239,7 +238,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         this.element
             .css('top', iPos.top + this.input.outerHeight())
-            .css(isRTL ? 'right' : 'left', iPos.left)
+            .css(Toolkit.isRTL ? 'right' : 'left', iPos.left)
             .reveal();
 
         this.input.aria('expanded', true);

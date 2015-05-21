@@ -7,10 +7,9 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/touch',
     './component',
     '../events/swipe'
-], function($, Toolkit, isTouch) {
+], function($, Toolkit) {
 
 Toolkit.OffCanvas = Toolkit.Component.extend({
     name: 'OffCanvas',
@@ -47,7 +46,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
         var animation = options.animation;
 
         // Touch devices cannot use squish
-        if (isTouch && animation === 'squish') {
+        if (Toolkit.isTouch && animation === 'squish') {
             options.animation = animation = 'push';
         }
 
@@ -227,7 +226,7 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
     openOnLoad: false,
     hideOthers: true,
     stopScroll: true,
-    swipe: isTouch
+    swipe: Toolkit.isTouch
 });
 
 Toolkit.createPlugin('offCanvas', function(options) {

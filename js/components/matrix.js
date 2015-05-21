@@ -7,12 +7,11 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/rtl',
     './component',
     '../extensions/cache',
     '../extensions/debounce',
     '../events/horizontal-resize'
-], function($, Toolkit, isRTL) {
+], function($, Toolkit) {
 
 Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
@@ -356,7 +355,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 }, {
     width: 200,
     gutter: 20,
-    rtl: isRTL,
+    rtl: Toolkit.isRTL,
     defer: true
 });
 

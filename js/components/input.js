@@ -7,12 +7,11 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/touch',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit, isTouch) {
+], function($, Toolkit) {
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
@@ -630,7 +629,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     }
 
 }, {
-    native: isTouch,
+    native: Toolkit.isTouch,
     multipleFormat: 'count', // count, list
     countMessage: '{count} of {total} selected',
     listLimit: 3,

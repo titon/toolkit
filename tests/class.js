@@ -1,10 +1,10 @@
 define([
     'jquery',
     '../js/class'
-], function($, Toolkit) {
+], function($, Class) {
 
 describe('Toolkit.Class', function() {
-    var Parent = Toolkit.Class.extend({
+    var Parent = Class.extend({
         name: 'Parent',
         array: [1, 2, 3],
         object: { foo: 'bar' },

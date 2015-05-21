@@ -28,7 +28,7 @@ define(function(require) {
 
     // Run the tests
     require([
-        'tests/core',
+        'tests/toolkit',
         'tests/class',
         'tests/base',
         'tests/events',

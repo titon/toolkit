@@ -129,7 +129,6 @@ gulp.task('js', function() {
 
 gulp.task('test', function() {
     return gulp.src('./tests/**/*.js')
-        .pipe(plumber(failure()))
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(pjs({ reporter: 'dot' }));

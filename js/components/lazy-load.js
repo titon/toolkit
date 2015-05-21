@@ -7,10 +7,9 @@
 define([
     'jquery',
     '../toolkit',
-    '../flags/retina',
     './component',
     '../extensions/throttle'
-], function($, Toolkit, isRetina) {
+], function($, Toolkit) {
 
 Toolkit.LazyLoad = Toolkit.Component.extend({
     name: 'LazyLoad',
@@ -159,7 +158,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
         node.find('img').each(function() {
             var image = $(this), src;
 
-            if (isRetina) {
+            if (Toolkit.isRetina) {
                 src = image.data('src-retina');
             }
 
