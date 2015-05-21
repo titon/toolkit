@@ -1,6 +1,6 @@
 define([
     'jquery',
-    '../js/core'
+    '../js/toolkit'
 ], function($, Toolkit) {
 
 describe('Toolkit', function() {

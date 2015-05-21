@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component'
 ], function($, Toolkit) {
 
@@ -140,5 +141,5 @@ Toolkit.Blackout.instance = function(options) {
     return blackout = new Toolkit.Blackout(options);
 };
 
-return Toolkit;
+return Toolkit.Blackout;
 });

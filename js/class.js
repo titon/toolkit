@@ -6,7 +6,7 @@
 
 define([
     'jquery',
-    './core'
+    './toolkit'
 ], function($, Toolkit) {
 
 // Empty class to extend from
@@ -91,5 +91,5 @@ Toolkit.Class.extend = function(properties, options) {
     return Class;
 };
 
-return Toolkit;
+return Toolkit.Class;
 });

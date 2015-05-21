@@ -1,8 +1,8 @@
-/*! Titon Toolkit v2.1.4 | BSD-3 License | titon.io */
+/*! Titon Toolkit v2.1.5 | BSD-3-Clause | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
-    // It also allows the files to be included externally in other projects;
+    // It also allows the files to be included externally in other projects
 
 // Does the device support touch controls
 var isTouch = !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch));
@@ -64,10 +64,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.1.4',
+    version: '2.1.5',
 
     /** Build date hash. */
-    build: 'i9khhf7j',
+    build: 'i9ysq0m8',
 
     /** CSS namespace. */
     namespace: '',
@@ -7108,6 +7108,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
+    // An empty file that includes all flags into the Toolkit scope.
+    // It does not return a value.
 
 /**
  * An event that triggers when a vertical browser window resize occurs.
@@ -7137,7 +7139,9 @@ $.event.special.verticalresize = (function() {
         }
     };
 })();
-    // An empty file that includes all event and extension dependencies.
-    // This should make these always available, even if the build is customized.;
+    // An empty file that includes all events into the jQuery scope.
+    // It does not return a value.
+    // An empty file that includes all extensions into the jQuery scope.
+    // It does not return a value.
 
 })(jQuery, window, document);

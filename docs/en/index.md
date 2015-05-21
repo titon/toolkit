@@ -3,6 +3,7 @@
 Setup
 * [Getting Started](setup/getting-started.md)
 * [Installing](setup/installing.md)
+* [Tool Integration](setup/tool-integration.md)
 * [Custom Builds](setup/custom-builds.md)
 * [Interactive Demos](setup/demos.md)
 

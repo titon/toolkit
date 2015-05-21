@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/cache',
     '../extensions/debounce',
@@ -362,5 +363,5 @@ Toolkit.createPlugin('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });
 
-return Toolkit;
+return Toolkit.Matrix;
 });

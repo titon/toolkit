@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     '../base',
     '../extensions/aria',
     '../extensions/cache',
@@ -680,5 +681,5 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
     wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
 
-return Toolkit;
+return Toolkit.Component;
 });

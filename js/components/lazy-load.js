@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/throttle'
 ], function($, Toolkit) {
@@ -214,5 +215,5 @@ Toolkit.createPlugin('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });
 
-return Toolkit;
+return Toolkit.LazyLoad;
 });

@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../extensions/shown-selector'
@@ -139,5 +140,5 @@ Toolkit.createPlugin('drop', function(options) {
     return new Toolkit.Drop(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Drop;
 });

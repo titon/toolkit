@@ -1,6 +1,6 @@
 # License #
 
-Toolkit makes use of the [BSD-3 license](http://opensource.org/licenses/BSD-3-Clause).
+Toolkit makes use of the [BSD 3-Clause license](http://opensource.org/licenses/BSD-3-Clause).
 
 ```
 Copyright (c) 2010-2015, The Titon Project, Miles Johnson.

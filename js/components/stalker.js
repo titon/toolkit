@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/throttle'
 ], function($, Toolkit) {
@@ -203,5 +204,5 @@ Toolkit.createPlugin('stalker', function(options) {
     return new Toolkit.Stalker(this, options);
 });
 
-return Toolkit;
+return Toolkit.Stalker;
 });

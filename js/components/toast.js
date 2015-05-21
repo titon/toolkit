@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/transitionend'
 ], function($, Toolkit) {
@@ -117,5 +118,5 @@ Toolkit.createPlugin('toast', function(options) {
     return new Toolkit.Toast(this, options);
 });
 
-return Toolkit;
+return Toolkit.Toast;
 });

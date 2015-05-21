@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    './toolkit',
     './class'
 ], function($, Toolkit) {
 
@@ -284,5 +285,5 @@ Toolkit.Base = Toolkit.Class.extend({
     debug: false
 });
 
-return Toolkit;
+return Toolkit.Base;
 });

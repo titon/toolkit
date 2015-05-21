@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/swipe'
 ], function($, Toolkit) {
@@ -232,5 +233,5 @@ Toolkit.createPlugin('offCanvas', function(options) {
     return new Toolkit.OffCanvas(this, options);
 });
 
-return Toolkit;
+return Toolkit.OffCanvas;
 });

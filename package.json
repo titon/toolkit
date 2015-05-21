@@ -1,5 +1,5 @@
 {
-    "version": "2.1.4",
+    "version": "2.1.5",
     "name": "titon-toolkit",
     "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
     "keywords": [
@@ -7,23 +7,19 @@
         "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile", "behavior"
     ],
     "copyright": "Copyright 2010-2015, The Titon Project",
+    "license": "BSD-3-Clause",
     "homepage": "http://titon.io",
-    "licenses": [
-        {
-            "type": "BSD-3",
-            "url": "https://github.com/titon/toolkit/blob/master/license.md"
-        }
-    ],
     "author": {
         "name": "Miles Johnson",
         "url": "http://milesj.me"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/titon/toolkit"
+    "bugs": "https://github.com/titon/toolkit/issues",
+    "repository": "github:titon/toolkit",
+    "main": "js/index.js",
+    "dependencies": {
+        "jquery": "~2.1"
     },
     "devDependencies": {
-        "jquery": "~2.1",
         "compartment": "~0.2",
         "requirejs": "~2.1",
         "through2": "~0.6",
@@ -31,13 +27,13 @@
         "mocha-phantomjs": "~3.5",
         "phantomjs": "~1.9",
         "chai": "~2.3",
-        "node-sass": "~3.0",
+        "node-sass": "~3.1",
         "gulp": "~3.8",
         "gulp-util": "~3.0",
         "gulp-rename": "~1.2",
         "gulp-concat": "~2.5",
         "gulp-minify-css": "~1.1",
-        "gulp-autoprefixer": "~2.2",
+        "gulp-autoprefixer": "~2.3",
         "gulp-jshint": "~1.10",
         "gulp-uglify": "~1.2",
         "gulp-header": "~1.2",
