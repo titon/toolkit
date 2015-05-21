@@ -6,11 +6,13 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/touch',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit) {
+], function($, Toolkit, isTouch) {
 
 Toolkit.Input = Toolkit.Component.extend({
     name: 'Input',
@@ -628,7 +630,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     }
 
 }, {
-    native: Toolkit.isTouch,
+    native: isTouch,
     multipleFormat: 'count', // count, list
     countMessage: '{count} of {total} selected',
     listLimit: 3,
@@ -672,5 +674,5 @@ Toolkit.createPlugin('inputSelect', function(options) {
     return new Toolkit.InputSelect(this, options);
 });
 
-return Toolkit;
+return Toolkit.Input;
 });

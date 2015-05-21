@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/bound',
     '../extensions/shown-selector',
@@ -193,5 +194,5 @@ Toolkit.createPlugin('accordion', function(options) {
     return new Toolkit.Accordion(this, options);
 });
 
-return Toolkit;
+return Toolkit.Accordion;
 });

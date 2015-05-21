@@ -10,8 +10,10 @@ module.exports = function(paths, options) {
 
     var stream = through.obj();
 
-    // Include the API in the build
-    paths.push('api');
+    // Include the API in the build regardless of what plugins are filtered
+    paths.push('flags/index.js');
+    paths.push('events/index.js');
+    paths.push('extensions/index.js');
 
     rjs.optimize({
         out: function(response) {
@@ -36,9 +38,9 @@ module.exports = function(paths, options) {
 
             contents = lines.join("\n").trim(); // Remove wrapping white space
             contents = contents.replace(/^define\([^{]*?\{\n/, ''); // Remove opening define() statement
-            contents = contents.replace(/\n{1,2}(return [a-zA-Z]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
+            contents = contents.replace(/\n{1,2}(return [a-zA-Z\.]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
 
-            if (module === 'core') {
+            if (module === 'toolkit') {
                 contents = contents.replace('%version%', options.version); // Add version
                 contents = contents.replace('%build%', Date.now().toString(36)); // Add unique build hash
             }

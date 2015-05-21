@@ -6,13 +6,15 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/touch',
     '../base',
     '../extensions/aria',
     '../extensions/cache',
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
-], function($, Toolkit) {
+], function($, Toolkit, isTouch) {
 
 /**
  * Class for elements already embedded in the page.
@@ -332,7 +334,7 @@ Toolkit.Component = Toolkit.Base.extend({
 
         // Convert hover to mouseenter
         if (opts.mode && opts.mode === 'hover') {
-            opts.mode = Toolkit.isTouch ? 'click' : 'mouseenter';
+            opts.mode = isTouch ? 'click' : 'mouseenter';
         }
 
         this.options = opts;
@@ -648,7 +650,7 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
         if (element && element.is(':shown')) {
 
             // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
+            if (isTouch) {
                 if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
                     e.preventDefault();
                 }
@@ -680,5 +682,5 @@ Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
     wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
 
-return Toolkit;
+return Toolkit.Component;
 });

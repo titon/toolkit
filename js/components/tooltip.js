@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../extensions/position-to',
@@ -214,5 +215,5 @@ Toolkit.createPlugin('tooltip', function(options) {
     return new Toolkit.Tooltip(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Tooltip;
 });

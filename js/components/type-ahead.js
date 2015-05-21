@@ -6,11 +6,13 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/rtl',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit) {
+], function($, Toolkit, isRTL) {
 
 Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
     name: 'TypeAhead',
@@ -237,7 +239,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 
         this.element
             .css('top', iPos.top + this.input.outerHeight())
-            .css(Toolkit.isRTL ? 'right' : 'left', iPos.left)
+            .css(isRTL ? 'right' : 'left', iPos.left)
             .reveal();
 
         this.input.aria('expanded', true);
@@ -622,5 +624,5 @@ Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
 
-return Toolkit;
+return Toolkit.TypeAhead;
 });

@@ -6,13 +6,15 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/touch',
     './component',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit) {
+], function($, Toolkit, isTouch) {
 
 Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     name: 'Showcase',
@@ -438,7 +440,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
     blackout: true,
     stopScroll: true,
     clickout: true,
-    swipe: Toolkit.isTouch,
+    swipe: isTouch,
     gutter: 50,
     getCategory: 'data-showcase',
     getImage: 'href',
@@ -461,5 +463,5 @@ Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Showcase;
 });

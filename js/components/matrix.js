@@ -6,11 +6,13 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/rtl',
     './component',
     '../extensions/cache',
     '../extensions/debounce',
     '../events/horizontal-resize'
-], function($, Toolkit) {
+], function($, Toolkit, isRTL) {
 
 Toolkit.Matrix = Toolkit.Component.extend({
     name: 'Matrix',
@@ -354,7 +356,7 @@ Toolkit.Matrix = Toolkit.Component.extend({
 }, {
     width: 200,
     gutter: 20,
-    rtl: Toolkit.isRTL,
+    rtl: isRTL,
     defer: true
 });
 
@@ -362,5 +364,5 @@ Toolkit.createPlugin('matrix', function(options) {
     return new Toolkit.Matrix(this, options);
 });
 
-return Toolkit;
+return Toolkit.Matrix;
 });

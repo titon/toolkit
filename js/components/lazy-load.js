@@ -6,9 +6,11 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/retina',
     './component',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, isRetina) {
 
 Toolkit.LazyLoad = Toolkit.Component.extend({
     name: 'LazyLoad',
@@ -157,7 +159,7 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
         node.find('img').each(function() {
             var image = $(this), src;
 
-            if (Toolkit.isRetina) {
+            if (isRetina) {
                 src = image.data('src-retina');
             }
 
@@ -214,5 +216,5 @@ Toolkit.createPlugin('lazyLoad', function(options) {
     return new Toolkit.LazyLoad(this, options);
 });
 
-return Toolkit;
+return Toolkit.LazyLoad;
 });

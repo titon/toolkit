@@ -6,11 +6,14 @@
 
 define([
     'jquery',
+    '../toolkit',
+    '../flags/rtl',
+    '../flags/touch',
     './component',
     '../events/swipe',
     '../extensions/transitionend',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, isRTL, isTouch) {
 
 Toolkit.Carousel = Toolkit.Component.extend({
     name: 'Carousel',
@@ -578,8 +581,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     infinite: true,
     loop: true,
     reverse: false,
-    rtl: Toolkit.isRTL,
-    swipe: Toolkit.isTouch,
+    rtl: isRTL,
+    swipe: isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0
@@ -589,5 +592,5 @@ Toolkit.createPlugin('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });
 
-return Toolkit;
+return Toolkit.Carousel;
 });
