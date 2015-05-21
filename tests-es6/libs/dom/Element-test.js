@@ -1,6 +1,6 @@
 'use strict';
 
-import Collection from 'libs/dom/Collection';
+//import Collection from 'libs/dom/Collection';
 import Element from 'libs/dom/Element';
 import 'polyfills/requestAnimationFrame';
 
@@ -92,13 +92,13 @@ describe('libs/dom/Element', () => {
         });
     });
 
-    describe('find()', () => {
+    /*describe('find()', () => {
         it('should find elements within the context of the element', () => {
             expect(obj.find('span')).toEqual(new Collection([
                 element.childNodes[1]
             ]));
         });
-    });
+    });*/
 
     describe('hasClass()', () => {
         it('should return `true` when the element has a specific class', () => {

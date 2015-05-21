@@ -21,9 +21,6 @@ export default class Plugin {
     /** Whether or not the plugin is enabled (events are bound). */
     enabled = false;
 
-    /** Unique ID of this instance. */
-    id = 0;
-
     /** Map of event listeners to emit. */
     listeners = {};
 
@@ -40,6 +37,9 @@ export default class Plugin {
     state = {};
     previousState = {};
 
+    /** Unique ID of this instance. */
+    uid = 0;
+
     /** Current and last modified version of the plugin. */
     version = '3.0.0';
 
@@ -47,7 +47,7 @@ export default class Plugin {
      * Generate a unique ID for this instance.
      */
     constructor() {
-        this.id = (this.constructor.uid += 1); // Increase UID
+        this.uid = this.constructor.count += 1; // Increase UID
     }
 
     /**
@@ -480,7 +480,7 @@ export default class Plugin {
 
 }
 
-Plugin.uid = 0;
+Plugin.count = 0;
 
 Plugin.options = {
     cache: true,

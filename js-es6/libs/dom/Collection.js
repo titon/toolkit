@@ -43,16 +43,13 @@ export default class Collection {
     }
 }
 
-console.log(Element);
-console.log(Element.getCollectionMethods());
-
 /**
  * Inherit methods from the `Element`.
  */
-/*Element.getCollectionMethods().forEach(method => {
+Element.getCollectionMethods().forEach(method => {
     Collection.prototype[method] = function() {
         return this.each(element => element[method].apply(element, arguments));
     };
-});*/
+});
 
 Toolkit.ElementCollection = Collection;
