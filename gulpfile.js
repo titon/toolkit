@@ -18,7 +18,7 @@ var pkg = require('./package.json'),
     notify = require('gulp-notify'),
     compartment = require('compartment'),
     options = gutil.env,
-    banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.licenses[0].type %> License | <%= pkg.homepage.replace('http://', '') %> */\n";
+    banner = "/*! Titon Toolkit v<%= pkg.version %> | <%= pkg.license %> | <%= pkg.homepage.replace('http://', '') %> */\n";
 
 /**
  * Notification helpers.

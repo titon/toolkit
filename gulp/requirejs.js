@@ -28,6 +28,7 @@ module.exports = function(paths, options) {
         include: paths,
         optimize: 'none',
         useStrict: true,
+        skipSemiColonInsertion: true,
         wrap: {
             start: "(function($, window, document) {\n'use strict';\n",
             end: "\n})(jQuery, window, document);"
@@ -38,7 +39,7 @@ module.exports = function(paths, options) {
 
             contents = lines.join("\n").trim(); // Remove wrapping white space
             contents = contents.replace(/^define\([^{]*?\{\n/, ''); // Remove opening define() statement
-            contents = contents.replace(/\n{1,2}(return [a-zA-Z\.]+;\n)?\}\);$/, ''); // Remove closing statement and optional return
+            contents = contents.replace(/\n{1,2}(?:return [a-zA-Z\.]+;\n)?\}\);\n?$/, ''); // Remove closing statement and optional return
 
             if (module === 'toolkit') {
                 contents = contents.replace('%version%', options.version); // Add version
