@@ -1,5 +1,10 @@
 # Changelog #
 
+## 2.1.5 ##
+* Added docs for integration with build tools and task runners
+* Added main/index support to all JavaScript source folders and to NPM
+* Fixed an issue where certain JavaScript AMD modules were not returning the correct value
+
 ## 2.1.4 ##
 * Updated to node-sass 3.0 and libsass 3.2 to solve the "invalid selector after" errors
 * Updated and fixed minor documentation issues

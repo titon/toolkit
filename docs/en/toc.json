@@ -62,6 +62,7 @@
                     "title": "Tool Integration",
                     "url": "/setup/tool-integration",
                     "order": 3,
+                    "new": true,
                     "chapters": [
                         {
                             "title": "Sass",
@@ -2356,6 +2357,10 @@
                     "url": "/support/changelog",
                     "order": 4,
                     "chapters": [
+                        {
+                            "title": "2.1.5",
+                            "url": "/support/changelog#no-215"
+                        },
                         {
                             "title": "2.1.4",
                             "url": "/support/changelog#no-214"
