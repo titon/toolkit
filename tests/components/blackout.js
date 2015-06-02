@@ -1,14 +1,14 @@
 define([
     'jquery',
     '../../js/components/blackout'
-], function($, Toolkit) {
+], function($, Blackout) {
 
 describe('Toolkit.Blackout', function() {
     var element,
         blackout;
 
     before(function() {
-        blackout = Toolkit.Blackout.instance();
+        blackout = Blackout.instance();
         element = blackout.element;
     });
 

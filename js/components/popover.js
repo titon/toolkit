@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './tooltip'
 ], function($, Toolkit) {
 
@@ -47,5 +48,5 @@ Toolkit.createPlugin('popover', function(options) {
     return new Toolkit.Popover(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Popover;
 });

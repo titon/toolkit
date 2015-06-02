@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../events/swipe',
@@ -461,5 +462,5 @@ Toolkit.createPlugin('showcase', function(options) {
     return new Toolkit.Showcase(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Showcase;
 });

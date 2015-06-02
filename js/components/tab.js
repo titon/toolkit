@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/bound',
     '../extensions/shown-selector'
@@ -256,5 +257,5 @@ Toolkit.createPlugin('tab', function(options) {
     return new Toolkit.Tab(this, options);
 });
 
-return Toolkit;
+return Toolkit.Tab;
 });

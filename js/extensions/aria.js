@@ -6,7 +6,7 @@
 
 define([
     'jquery',
-    '../core'
+    '../toolkit'
 ], function($, Toolkit) {
 
 /**

@@ -37,42 +37,6 @@ From the project root, run `bower install` to download the package(s). Once down
 <script src="/bower_components/toolkit/dist/toolkit.min.js"></script>
 ```
 
-## Sass & Compass ##
-
-If you prefer to use the source Sass files directly in a project, this can easily be done through the Toolkit [Compass extension](http://compass-style.org/help/tutorials/extensions/). This approach requires Ruby, Ruby Gems, Sass, and Compass to be installed.
-
-```bash
-gem install sass
-gem install compass
-```
-
-Install the Toolkit gem.
-
-```bash
-gem install titon-toolkit
-```
-
-Require Toolkit at the top of the Compass `config.rb` file. [Learn more about Compass configuration](http://compass-style.org/help/tutorials/configuration-reference/).
-
-```ruby
-require 'titon-toolkit'
-```
-
-Once the gems are installed and Compass is configured, the Toolkit `scss` files can be imported. The available paths for import must be relative to the Toolkit [scss directory](https://github.com/titon/toolkit/tree/master/scss). For example:
-
-```scss
-// Import all variables, mixins and functions
-@import "toolkit/common";
-
-// Import the CSS for the tooltip component
-@import "toolkit/components/tooltip";
-
-// Import the CSS for all components
-@import "toolkit";
-```
-
-For more information on Sass integration, jump to the [Sass development documentation](../development/sass.md).
-
 ## NPM ##
 
 Lastly, Toolkit comes bundled as a [Node.js](https://npmjs.org/) package. Simply add `titon-toolkit` as a dependency within your project's `package.json`.

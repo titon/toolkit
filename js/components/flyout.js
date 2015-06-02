@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/shown-selector'
 ], function($, Toolkit) {
@@ -453,5 +454,5 @@ Toolkit.createPlugin('flyout', function(url, options) {
     return new Toolkit.Flyout(this, url, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Flyout;
 });

@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../extensions/shown-selector'
@@ -239,5 +240,5 @@ Toolkit.createPlugin('modal', function(options) {
     return new Toolkit.Modal(this, options);
 }, true);
 
-return Toolkit;
+return Toolkit.Modal;
 });

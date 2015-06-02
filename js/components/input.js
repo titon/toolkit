@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
@@ -672,5 +673,5 @@ Toolkit.createPlugin('inputSelect', function(options) {
     return new Toolkit.InputSelect(this, options);
 });
 
-return Toolkit;
+return Toolkit.Input;
 });

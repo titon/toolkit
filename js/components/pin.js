@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/throttle'
 ], function($, Toolkit) {
@@ -214,5 +215,5 @@ Toolkit.createPlugin('pin', function(options) {
     return new Toolkit.Pin(this, options);
 });
 
-return Toolkit;
+return Toolkit.Pin;
 });

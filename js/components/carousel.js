@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/swipe',
     '../extensions/transitionend',
@@ -589,5 +590,5 @@ Toolkit.createPlugin('carousel', function(options) {
     return new Toolkit.Carousel(this, options);
 });
 
-return Toolkit;
+return Toolkit.Carousel;
 });

@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../events/clickout',
     '../extensions/shown-selector',
@@ -622,5 +623,5 @@ Toolkit.createPlugin('typeAhead', function(options) {
     return new Toolkit.TypeAhead(this, options);
 });
 
-return Toolkit;
+return Toolkit.TypeAhead;
 });

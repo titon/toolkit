@@ -1,13 +1,13 @@
 define([
     'jquery',
     '../js/base'
-], function($, Toolkit) {
+], function($, BaseClass) {
 
 describe('Toolkit.Base', function() {
     var base, undef;
 
     beforeEach(function() {
-        base = new Toolkit.Base();
+        base = new BaseClass();
     });
 
     describe('addEvent()', function() {
@@ -84,7 +84,7 @@ describe('Toolkit.Base', function() {
     });
 
     describe('destroy()', function() {
-        var Base = Toolkit.Base.extend({
+        var Base = BaseClass.extend({
             enabled: true,
             destructor: function() {
                 this.destroyed = true;

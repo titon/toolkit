@@ -6,6 +6,7 @@
 
 define([
     'jquery',
+    '../toolkit',
     './component',
     '../extensions/shown-selector'
 ], function($, Toolkit) {
@@ -154,5 +155,5 @@ Toolkit.createPlugin('mask', function(options) {
     return new Toolkit.Mask(this, options);
 });
 
-return Toolkit;
+return Toolkit.Mask;
 });
