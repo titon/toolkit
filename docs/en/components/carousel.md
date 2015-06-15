@@ -267,6 +267,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The time in milliseconds when each cycle occurs.</td>
         </tr>
         <tr>
+            <td>gutter</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The margin size between each item.</td>
+        </tr>
+        <tr>
             <td>infinite</td>
             <td>bool</td>
             <td>true</td>
@@ -301,6 +307,12 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>Toolkit.isRTL</td>
             <td>Will reverse the carousel for right-to-left languages.</td>
+        </tr>
+        <tr>
+            <td>size</td>
+            <td>int</td>
+            <td>0</td>
+            <td>The width or height of each item. If 0, will automatically calculate.</td>
         </tr>
         <tr>
             <td>stopOnHover</td>

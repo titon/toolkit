@@ -6,6 +6,7 @@ Older versions can be found in the documentation changelogs.
 * Components
     * Carousel
         * Added a `gutter` option to provide spacing between items
+        * Added a `size` option to manually control the width/height of each item
 
 ## 2.1.5 ##
 * Added docs for integration with build tools and task runners

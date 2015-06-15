@@ -172,19 +172,19 @@ Toolkit.Carousel = Toolkit.Component.extend({
 
         var dimension = this._dimension, // height or width
             gutter = options.gutter,
-            itemWidth = (this.element[dimension]() / options.itemsToShow);
+            size = options.size || (this.element[dimension]() / options.itemsToShow);
 
-        this._size = itemWidth;
+        this._size = size;
 
         // Set the item width and fit the proper amount based on itemCount
-        var items = this.items.css(dimension, itemWidth - gutter);
+        var items = this.items.css(dimension, size - gutter);
 
         if (gutter > 0) {
             items.css('margin-' + (dimension === 'width' ? 'right' : 'bottom'), gutter);
         }
 
         // Set the wrapper width based on the outer wrapper and item count
-        this.container.css(dimension, itemWidth * this.items.length);
+        this.container.css(dimension, size * this.items.length);
     },
 
     /**
@@ -591,7 +591,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     itemsToShow: 1,
     itemsToCycle: 1,
     defaultIndex: 0,
-    gutter: 0
+    gutter: 0,
+    size: 0
 });
 
 Toolkit.createPlugin('carousel', function(options) {
