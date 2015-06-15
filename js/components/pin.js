@@ -21,17 +21,20 @@ Toolkit.Pin = Toolkit.Component.extend({
     /** Outer height of the element. */
     elementHeight: null,
 
-    /** The initial top value to reset to. */
+    /** The top offset value in the DOM. */
     elementTop: 0,
 
     /** Inner height of the parent element. */
     parentHeight: null,
 
-    /** The top value of the parent to compare against. */
+    /** The top offset value of the parent in the DOM. */
     parentTop: null,
 
     /** Whether the element is currently pinned or not. */
     pinned: false,
+
+    /** The element top value defined in the CSS. */
+    initialTop: 0,
 
     /** The width and height of the viewport. Will update on resize. */
     viewport: {},
@@ -51,7 +54,11 @@ Toolkit.Pin = Toolkit.Component.extend({
             .attr('role', 'complementary')
             .addClass(options.animation);
 
-        this.elementTop = parseInt(element.css('top'), 10);
+        // Determine before calculations
+        var initialTop = element.css('top');
+
+        this.initialTop = (initialTop === 'auto') ? 0 : parseInt(initialTop, 10);
+        this.elementTop = element.offset().top;
 
         // Initialize events
         var throttle = options.throttle;
@@ -81,14 +88,15 @@ Toolkit.Pin = Toolkit.Component.extend({
     calculate: function() {
         var win = $(window),
             options = this.options,
-            parent = options.context ? this.element.parents(options.context) : this.element.parent();
+            element = this.element,
+            parent = options.context ? element.parents(options.context) : element.parent();
 
         this.viewport = {
             width: win.width(),
             height: win.height()
         };
 
-        this.elementHeight = this.element.outerHeight(true); // Include margin
+        this.elementHeight = element.outerHeight(true); // Include margin
         this.parentHeight = parent.height(); // Exclude padding
         this.parentTop = parent.offset().top;
 
@@ -98,7 +106,7 @@ Toolkit.Pin = Toolkit.Component.extend({
 
         // Enable pin if the parent is larger than the child
         } else {
-            this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
+            this.active = (element.is(':visible') && this.parentHeight > this.elementHeight);
         }
     },
 
@@ -120,13 +128,14 @@ Toolkit.Pin = Toolkit.Component.extend({
             eTop = this.elementTop,
             pHeight = this.parentHeight,
             pTop = this.parentTop,
+            cssTop = this.initialTop,
             scrollTop = $(window).scrollTop(),
             pos = {},
             x = options.xOffset,
             y = 0;
 
         // Scroll is above the parent, remove pin inline styles
-        if (scrollTop < pTop) {
+        if (scrollTop < pTop || scrollTop === 0) {
             if (this.pinned) {
                 this.unpin();
             }
@@ -146,7 +155,7 @@ Toolkit.Pin = Toolkit.Component.extend({
                 pos.position = 'absolute';
                 pos.bottom = 0;
 
-            } else {
+            } else if (scrollTop >= eTop) {
                 y = options.yOffset;
 
                 pos.position = 'fixed';
@@ -165,8 +174,8 @@ Toolkit.Pin = Toolkit.Component.extend({
             }
 
             // Don't go lower than default top
-            if (eTop && y < eTop) {
-                y = eTop;
+            if (cssTop && y < cssTop) {
+                y = cssTop;
             }
         }
 

@@ -224,7 +224,7 @@ Inherits all properties from the [parent Component](component.md#properties).
         <tr>
             <td>elementTop</td>
             <td>int</td>
-            <td>The initial top value of the pinned element.</td>
+            <td>The initial top offset value of the element.</td>
         </tr>
         <tr>
             <td>parentHeight</td>
@@ -234,12 +234,17 @@ Inherits all properties from the [parent Component](component.md#properties).
         <tr>
             <td>parentTop</td>
             <td>int</td>
-            <td>The initial top value of the parent element.</td>
+            <td>The initial top offset value of the parent element.</td>
         </tr>
         <tr>
             <td>pinned</td>
             <td>bool</td>
             <td>Whether the element is positioned or not.</td>
+        </tr>
+        <tr>
+            <td>initialTop</td>
+            <td>int</td>
+            <td>The CSS top value of the element.</td>
         </tr>
         <tr>
             <td>viewport</td>
