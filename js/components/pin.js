@@ -9,9 +9,9 @@ define([
     '../toolkit',
     './component',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Pin = Toolkit.Component.extend({
+var Pin = Toolkit.Pin = Component.extend({
     name: 'Pin',
     version: '2.0.0',
 
@@ -237,8 +237,8 @@ Toolkit.Pin = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('pin', function(options) {
-    return new Toolkit.Pin(this, options);
+    return new Pin(this, options);
 });
 
-return Toolkit.Pin;
+return Pin;
 });

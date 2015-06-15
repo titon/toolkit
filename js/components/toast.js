@@ -7,11 +7,11 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './composite-component',
     '../extensions/transitionend'
-], function($, Toolkit) {
+], function($, Toolkit, CompositeComponent) {
 
-Toolkit.Toast = Toolkit.CompositeComponent.extend({
+var Toast = Toolkit.Toast = CompositeComponent.extend({
     name: 'Toast',
     version: '2.1.0',
 
@@ -115,8 +115,8 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('toast', function(options) {
-    return new Toolkit.Toast(this, options);
+    return new Toast(this, options);
 });
 
-return Toolkit.Toast;
+return Toast;
 });

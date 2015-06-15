@@ -3,6 +3,7 @@
 Older versions can be found in the documentation changelogs.
 
 ## 2.1.6 ##
+* Further improved AMD loading by splitting child components into their own files
 * Components
     * Carousel
         * Added a `gutter` option to provide spacing between items
@@ -13,7 +14,7 @@ Older versions can be found in the documentation changelogs.
         * Added an `unpin()` method that resets state
         * Reworked the `elementTop` property to be the top offset value on page load and added `initialTop` to be the CSS defined top value
         * Fixed a bug where `initialTop` would be set to `NaN`
-        * Fixed a bug where elements to be pinned were at the very top would pin immediately
+        * Fixed a bug where elements at the very top would pin immediately instead of waiting for scroll
         * Fixed a bug regarding scroll top and `fixed` elements
 
 ## 2.1.5 ##

@@ -8,9 +8,9 @@ define([
     'jquery',
     '../toolkit',
     './tooltip'
-], function($, Toolkit) {
+], function($, Toolkit, Tooltip) {
 
-Toolkit.Popover = Toolkit.Tooltip.extend({
+var Popover = Toolkit.Popover = Tooltip.extend({
     name: 'Popover',
     version: '2.1.3',
 
@@ -25,7 +25,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
         options.mode = 'click'; // Click only
         options.follow = false; // Disable mouse follow
 
-        Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
+        Tooltip.prototype.constructor.call(this, nodes, options);
     }
 
 }, {
@@ -45,8 +45,8 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 });
 
 Toolkit.createPlugin('popover', function(options) {
-    return new Toolkit.Popover(this, options);
+    return new Popover(this, options);
 }, true);
 
-return Toolkit.Popover;
+return Popover;
 });

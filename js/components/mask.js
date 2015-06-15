@@ -9,9 +9,9 @@ define([
     '../toolkit',
     './component',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Mask = Toolkit.Component.extend({
+var Mask = Toolkit.Mask = Component.extend({
     name: 'Mask',
     version: '2.0.0',
 
@@ -152,8 +152,8 @@ Toolkit.Mask = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('mask', function(options) {
-    return new Toolkit.Mask(this, options);
+    return new Mask(this, options);
 });
 
-return Toolkit.Mask;
+return Mask;
 });

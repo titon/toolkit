@@ -13,12 +13,9 @@ define([
     '../extensions/conceal',
     '../extensions/reveal',
     '../extensions/toolkit'
-], function($, Toolkit) {
+], function($, Toolkit, Base) {
 
-/**
- * Class for elements already embedded in the page.
- */
-Toolkit.Component = Toolkit.Base.extend({
+var Component = Toolkit.Component = Base.extend({
     name: 'Component',
     version: '2.1.0',
 
@@ -49,7 +46,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Array} [args]
      */
     fireEvent: function(type, args) {
-        Toolkit.Base.prototype.fireEvent.call(this, type, args);
+        Base.prototype.fireEvent.call(this, type, args);
 
         var element = this.element,
             node = this.node,
@@ -324,7 +321,7 @@ Toolkit.Component = Toolkit.Base.extend({
             }
         }
 
-        var opts = Toolkit.Base.prototype.setOptions.call(this, options);
+        var opts = Base.prototype.setOptions.call(this, options);
 
         // Inherit options from element data attributes
         if (inheritFrom) {
@@ -459,227 +456,5 @@ Toolkit.Component = Toolkit.Base.extend({
     className: ''
 });
 
-/**
- * Class for elements that are rendered through templates.
- */
-Toolkit.TemplateComponent = Toolkit.Component.extend({
-
-    /**
-     * Create an element from the `template` or `templateFrom` options.
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
-     */
-    createElement: function(options) {
-        options = options || this.options;
-
-        // Create template
-        var template = $(options.templateFrom);
-
-        if (!template.length) {
-            template = this.render(options.template);
-        }
-
-        if (!template.length) {
-            throw new Error('Failed to render template');
-        }
-
-        // Add a class name
-        if (options.className) {
-            template.addClass(options.className);
-        }
-
-        // Add animation class
-        if (options.animation) {
-            template.addClass(options.animation);
-        }
-
-        return template
-            .attr('id', this.id())
-            .conceal(true) // Add hide class
-            .hide() // Set display to none
-            .appendTo('body');
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    doDestroy: function() {
-        Toolkit.Component.prototype.doDestroy.call(this);
-
-        this.element.remove();
-    }
-
-}, {
-    template: '',
-    templateFrom: ''
-});
-
-/**
- * Class for managing multiple elements that are rendered through templates.
- */
-Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
-
-    /** Cache of elements related to the component. */
-    elements: {},
-
-    /** Collection of nodes. */
-    nodes: null,
-
-    /** The container that holds each individual dynamic element. */
-    wrapper: null,
-
-    /**
-     * Create an element from the `template` or `templateFrom` options.
-     *
-     * @param {jQuery} node
-     * @param {Object} [options]
-     * @returns {jQuery}
-     */
-    createElement: function(node, options) {
-        options = this.inheritOptions(options || this.options, node);
-
-        // Create template
-        var template = Toolkit.TemplateComponent.prototype.createElement.call(this, options);
-
-        // Move to wrapper
-        if (this.wrapper) {
-            template.appendTo(this.wrapper);
-        }
-
-        var id = node.data('toolkit.cid');
-
-        return template
-            .attr('id', this.id(id))
-            .data('toolkit.cid', id);
-    },
-
-    /**
-     * Create the elements wrapper.
-     *
-     * @return {jQuery}
-     */
-    createWrapper: function() {
-        var options = this.options;
-
-        return this.wrapper = this.render(options.wrapperTemplate)
-            .addClass(Toolkit.buildTemplate(options.wrapperClass))
-            .attr('id', this.id('wrapper'))
-            .appendTo('body');
-    },
-
-    /**
-     * Hide all the cached and built elements.
-     */
-    hideElements: function() {
-        $.each(this.elements, function(i, el) {
-            $(el).conceal();
-        });
-    },
-
-    /**
-     * Attempt to find and return an element by a unique composite ID.
-     * Each element is unique per node. If the element does not exist, create it.
-     *
-     * @param {jQuery} node
-     * @param {Function} [callback]   - Callback to trigger once an element is created
-     * @returns {jQuery}
-     */
-    loadElement: function(node, callback) {
-        var elements = this.elements,
-            el,
-            id = $(node).cache('toolkit.cid', function() {
-                return Math.random().toString(32).substr(2);
-            });
-
-        if (elements[id]) {
-            el = elements[id];
-        } else {
-            el = elements[id] = this.createElement(node);
-
-            if ($.type(callback) === 'function') {
-                callback.call(this, el);
-            }
-        }
-
-        return this.element = el;
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    doDestroy: function() {
-        var key = this.keyName;
-
-        // Remove instances
-        if (this.nodes) {
-            this.nodes.removeData('toolkit.' + key);
-
-            delete Toolkit.cache[key + ':' + this.nodes.selector];
-        }
-
-        // Hide elements
-        this.hideElements();
-
-        // Remove wrapper
-        if (this.wrapper) {
-            this.wrapper.remove();
-        }
-    },
-
-    /**
-     * Event handler for toggling an element through click or hover events.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-        var node = $(e.currentTarget),
-            element,
-            isNode = (this.node && this.node.is(node)),
-            cid = node.data('toolkit.cid');
-
-        // Set the current element based on the nodes composite ID
-        if (cid && this.elements[cid]) {
-            element = this.elements[cid];
-        } else {
-            element = this.element;
-        }
-
-        if (element && element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            if (isNode) {
-                // Second click should close it
-                if (this.options.mode === 'click') {
-                    this.hide();
-                }
-
-                // Exit if the same node so it doesn't re-open
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
-    }
-
-}, {
-    wrapperClass: '',
-    wrapperTemplate: '<div class="toolkit-plugin"></div>'
-});
-
-return Toolkit.Component;
+return Component;
 });

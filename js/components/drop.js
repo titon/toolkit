@@ -7,12 +7,12 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './composite-component',
     '../events/clickout',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, CompositeComponent) {
 
-Toolkit.Drop = Toolkit.CompositeComponent.extend({
+var Drop = Toolkit.Drop = CompositeComponent.extend({
     name: 'Drop',
     version: '2.1.0',
 
@@ -137,8 +137,8 @@ Toolkit.Drop = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('drop', function(options) {
-    return new Toolkit.Drop(this, options);
+    return new Drop(this, options);
 }, true);
 
-return Toolkit.Drop;
+return Drop;
 });

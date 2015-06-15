@@ -11,9 +11,9 @@ define([
     '../events/swipe',
     '../extensions/transitionend',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Carousel = Toolkit.Component.extend({
+var Carousel = Toolkit.Carousel = Component.extend({
     name: 'Carousel',
     version: '2.1.0',
 
@@ -596,8 +596,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('carousel', function(options) {
-    return new Toolkit.Carousel(this, options);
+    return new Carousel(this, options);
 });
 
-return Toolkit.Carousel;
+return Carousel;
 });

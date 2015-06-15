@@ -7,11 +7,11 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './composite-component',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, CompositeComponent) {
 
-Toolkit.Flyout = Toolkit.CompositeComponent.extend({
+var Flyout = Toolkit.Flyout = CompositeComponent.extend({
     name: 'Flyout',
     version: '2.1.3',
 
@@ -451,8 +451,8 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('flyout', function(url, options) {
-    return new Toolkit.Flyout(this, url, options);
+    return new Flyout(this, url, options);
 }, true);
 
-return Toolkit.Flyout;
+return Flyout;
 });

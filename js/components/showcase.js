@@ -7,15 +7,16 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './template-component',
+    './blackout',
     '../events/clickout',
     '../events/swipe',
     '../extensions/bound',
     '../extensions/shown-selector',
     '../extensions/transitionend'
-], function($, Toolkit) {
+], function($, Toolkit, TemplateComponent, Blackout) {
 
-Toolkit.Showcase = Toolkit.TemplateComponent.extend({
+var Showcase = Toolkit.Showcase = TemplateComponent.extend({
     name: 'Showcase',
     version: '2.1.0',
 
@@ -66,7 +67,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 
         // Blackout element if enabled
         if (options.blackout) {
-            this.blackout = Toolkit.Blackout.instance();
+            this.blackout = Blackout.instance();
         }
 
         // Initialize events
@@ -459,8 +460,8 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('showcase', function(options) {
-    return new Toolkit.Showcase(this, options);
+    return new Showcase(this, options);
 }, true);
 
-return Toolkit.Showcase;
+return Showcase;
 });
