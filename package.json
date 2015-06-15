@@ -54,7 +54,7 @@
 
         "babel-eslint": "~3.1",
         "gulp-babel": "~5.1",
-        "gulp-eslint": "~0.12",
+        "gulp-eslint": "~0.13",
 
         "karma": "~0.12",
         "karma-jasmine": "~0.3",
@@ -65,8 +65,8 @@
 
         "compartment": "~0.2",
         "node-sass": "~3.1",
-        "es6-module-loader": "~0.16",
+        "es6-module-loader": "~0.17",
         "core-js": "~0.9",
-        "systemjs-builder": "~0.10"
+        "systemjs-builder": "~0.11"
     }
 }

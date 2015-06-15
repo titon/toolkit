@@ -8,7 +8,7 @@ module.exports = function(config) {
 
         files: [
             'node_modules/gulp-babel/node_modules/babel-core/browser.js',
-            'node_modules/es6-module-loader/dist/es6-module-loader.js',
+            'node_modules/es6-module-loader/dist/es6-module-loader-dev.js',
             'tests-es6/helpers.js',
             'tests-es6/runner.js',
             { pattern: 'js-es6/**/*.js', included: false },

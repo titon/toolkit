@@ -312,7 +312,7 @@ export default class Plugin {
     }
 
     /**
-     * Method ot be called when the state has changed and the DOM needs to be updated.
+     * Method to be called when the state has changed and the DOM needs to be updated.
      * This method should be implemented in sub-classes and *must* be the only method that mutates the DOM.
      */
     render() {
