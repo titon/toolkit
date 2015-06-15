@@ -2,6 +2,11 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.6 ##
+* Components
+    * Carousel
+        * Added a `gutter` option to provide spacing between items
+
 ## 2.1.5 ##
 * Added docs for integration with build tools and task runners
 * Added main/index support to all JavaScript source folders and to NPM

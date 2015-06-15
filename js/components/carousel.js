@@ -164,20 +164,27 @@ Toolkit.Carousel = Toolkit.Component.extend({
      * Calculate the widths or heights for the items, the wrapper, and the cycle.
      */
     calculate: function() {
-        if (this.options.animation === 'fade') {
+        var options = this.options;
+
+        if (options.animation === 'fade') {
             return;
         }
 
         var dimension = this._dimension, // height or width
-            size;
+            gutter = options.gutter,
+            itemWidth = (this.element[dimension]() / options.itemsToShow);
 
-        this._size = size = this.element[dimension]() / this.options.itemsToShow;
+        this._size = itemWidth;
 
         // Set the item width and fit the proper amount based on itemCount
-        var items = this.items.css(dimension, size);
+        var items = this.items.css(dimension, itemWidth - gutter);
+
+        if (gutter > 0) {
+            items.css('margin-' + (dimension === 'width' ? 'right' : 'bottom'), gutter);
+        }
 
         // Set the wrapper width based on the outer wrapper and item count
-        this.container.css(dimension, size * items.length);
+        this.container.css(dimension, itemWidth * this.items.length);
     },
 
     /**
@@ -583,7 +590,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     swipe: Toolkit.isTouch,
     itemsToShow: 1,
     itemsToCycle: 1,
-    defaultIndex: 0
+    defaultIndex: 0,
+    gutter: 0
 });
 
 Toolkit.createPlugin('carousel', function(options) {
