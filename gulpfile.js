@@ -87,7 +87,7 @@ gulp.task('css', function() {
         .pipe(plumber(failure()))
 
         // Unminified
-        .pipe(sass({ style: 'nested' }))
+        .pipe(sass({ style: 'expanded' }))
         .pipe(concat('toolkit.css'))
         .pipe(prefixer({ browsers: ['last 3 versions'] }))
         .pipe(header(banner, { pkg: pkg }))
