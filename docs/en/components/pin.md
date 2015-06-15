@@ -176,6 +176,11 @@ Inherits all events from the [parent Component](component.md#events).
     </thead>
     <tbody>
         <tr>
+            <td>pinned</td>
+            <td></td>
+            <td>Triggered when the element is positioned.</td>
+        </tr>
+        <tr>
             <td>resize</td>
             <td></td>
             <td>Triggered when the page is resized, and after calculations have been executed.</td>
@@ -184,6 +189,11 @@ Inherits all events from the [parent Component](component.md#events).
             <td>scroll</td>
             <td></td>
             <td>Triggered when the page is scrolled, and after the pin has been positioned.</td>
+        </tr>
+        <tr>
+            <td>unpinned</td>
+            <td></td>
+            <td>Triggered when the element is reset to its original state.</td>
         </tr>
     </tbody>
 </table>
@@ -227,6 +237,11 @@ Inherits all properties from the [parent Component](component.md#properties).
             <td>The initial top value of the parent element.</td>
         </tr>
         <tr>
+            <td>pinned</td>
+            <td>bool</td>
+            <td>Whether the element is positioned or not.</td>
+        </tr>
+        <tr>
             <td>viewport</td>
             <td>object</td>
             <td>The current width and height of the viewport (window object).</td>
@@ -255,7 +270,13 @@ Inherits all methods from the [parent Component](component.md#methods).
         <tr>
             <td>pin()</td>
             <td>
-                Pin the element based on the current parent and element dimensions, and the position of the scroll.
+                Pin the element based on the current parent and element dimensions and the position of the scroll.
+            </td>
+        </tr>
+        <tr>
+            <td>unpin()</td>
+            <td>
+               Unpin the element and reset position to its original state.
             </td>
         </tr>
     </tbody>

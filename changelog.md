@@ -7,6 +7,10 @@ Older versions can be found in the documentation changelogs.
     * Carousel
         * Added a `gutter` option to provide spacing between items
         * Added a `size` option to manually control the width/height of each item
+    * Pin
+        * Added `pinned` and `unpinned` events
+        * Added a `pinned` boolean property
+        * Added an `unpin()` method that resets state
 
 ## 2.1.5 ##
 * Added docs for integration with build tools and task runners

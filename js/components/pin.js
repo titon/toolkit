@@ -30,6 +30,9 @@ Toolkit.Pin = Toolkit.Component.extend({
     /** The top value of the parent to compare against. */
     parentTop: null,
 
+    /** Whether the element is currently pinned or not. */
+    pinned: false,
+
     /** The width and height of the viewport. Will update on resize. */
     viewport: {},
 
@@ -69,11 +72,7 @@ Toolkit.Pin = Toolkit.Component.extend({
         this.active = false;
 
         // Need to be in a timeout or they won't be removed
-        setTimeout(function() {
-            this.element
-                .removeAttr('style')
-                .removeClass('is-pinned');
-        }.bind(this), 15);
+        setTimeout(this.unpin.bind(this), 15);
     },
 
     /**
@@ -128,9 +127,9 @@ Toolkit.Pin = Toolkit.Component.extend({
 
         // Scroll is above the parent, remove pin inline styles
         if (scrollTop < pTop) {
-            this.element
-                .removeAttr('style')
-                .removeClass('is-pinned');
+            if (this.pinned) {
+                this.unpin();
+            }
 
             return;
         }
@@ -177,6 +176,23 @@ Toolkit.Pin = Toolkit.Component.extend({
         this.element
             .css(pos)
             .addClass('is-pinned');
+
+        this.pinned = true;
+
+        this.fireEvent('pinned');
+    },
+
+    /**
+     * Reset the element to its original state.
+     */
+    unpin: function() {
+        this.element
+            .removeAttr('style')
+            .removeClass('is-pinned');
+
+        this.pinned = false;
+
+        this.fireEvent('unpinned');
     },
 
     /**
