@@ -6,8 +6,7 @@ Older versions can be found in the documentation changelogs.
 * Further improved AMD loading by splitting child components into their own files
 * Components
     * Carousel
-        * Added a `gutter` option to provide spacing between items
-        * Added a `size` option to manually control the width/height of each item
+        * BREAKING CHANGE: The process to determine the size (width or height) to cycle width has been completely redone. The new process will now take into account margins (to allow for gutters) and sizes to be explicitly set with CSS. Because of this change, the `itemsToShow` value will only aid in the calculation process, but will not actually change the display of the items, this should be done with CSS.
     * Pin
         * Added `pinned` and `unpinned` events
         * Added a `pinned` boolean property

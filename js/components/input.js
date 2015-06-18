@@ -10,5 +10,6 @@ define([
     './input-radio',
     './input-select'
 ], function(Input) {
+
 return Input;
 });

@@ -127,6 +127,10 @@ $('.carousel').carousel({
 });
 ```
 
+<div class="notice is-warning">
+    These options simply ease the calculation process. The sizes of the items will still need to be set manually with CSS.
+</div>
+
 ### Responsive Support ###
 
 The carousel was designed with responsiveness in mind by utilizing percentages and a fluid structure. We suggest using inline images within each carousel item, sized to the correct aspect ratio (above). The carousel will take care of everything else.
@@ -267,12 +271,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>The time in milliseconds when each cycle occurs.</td>
         </tr>
         <tr>
-            <td>gutter</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The margin size between each item.</td>
-        </tr>
-        <tr>
             <td>infinite</td>
             <td>bool</td>
             <td>true</td>
@@ -288,7 +286,7 @@ Inherits all options from the [parent Component](component.md#options).
             <td>itemsToShow</td>
             <td>int</td>
             <td>1</td>
-            <td>The number of items to display in the carousel at the same time.</td>
+            <td>The number of items to display in the carousel at the same time. The actual item widths will need to be set with CSS.</td>
         </tr>
         <tr>
             <td>loop</td>
@@ -307,12 +305,6 @@ Inherits all options from the [parent Component](component.md#options).
             <td>bool</td>
             <td>Toolkit.isRTL</td>
             <td>Will reverse the carousel for right-to-left languages.</td>
-        </tr>
-        <tr>
-            <td>size</td>
-            <td>int</td>
-            <td>0</td>
-            <td>The width or height of each item. If 0, will automatically calculate.</td>
         </tr>
         <tr>
             <td>stopOnHover</td>
