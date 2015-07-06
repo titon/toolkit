@@ -13,7 +13,7 @@ define([
 
 var Pin = Toolkit.Pin = Component.extend({
     name: 'Pin',
-    version: '2.0.0',
+    version: '2.1.6',
 
     /** Will the element be pinned? */
     active: true,

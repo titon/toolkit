@@ -1,5 +1,19 @@
 # Changelog #
 
+## 2.1.6 ##
+* Further improved AMD loading by splitting child components into their own files
+* Components
+    * Carousel
+        * BREAKING CHANGE: The process to determine the size (width or height) to cycle with has been completely refactored. The new process will now take into account margins (to allow for gutters) and sizes to be explicitly set with CSS. Because of this change, the `itemsToShow` value will only aid in the calculation process, but will not actually change the display of the items, this should be done with CSS.
+    * Pin
+        * Added `pinned` and `unpinned` events
+        * Added a `pinned` boolean property
+        * Added an `unpin()` method that resets state
+        * Reworked the `elementTop` property to be the top offset value on page load and added `initialTop` to be the CSS defined top value
+        * Fixed a bug where `initialTop` would be set to `NaN`
+        * Fixed a bug where elements at the very top would pin immediately instead of waiting for scroll
+        * Fixed a bug regarding scroll top and `fixed` elements
+
 ## 2.1.5 ##
 * Added docs for integration with build tools and task runners
 * Added main/index support to all JavaScript source folders and to NPM
