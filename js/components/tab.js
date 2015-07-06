@@ -10,9 +10,9 @@ define([
     './component',
     '../extensions/bound',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Tab = Toolkit.Component.extend({
+var Tab = Toolkit.Tab = Component.extend({
     name: 'Tab',
     version: '2.0.0',
 
@@ -254,8 +254,8 @@ Toolkit.Tab = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('tab', function(options) {
-    return new Toolkit.Tab(this, options);
+    return new Tab(this, options);
 });
 
-return Toolkit.Tab;
+return Tab;
 });

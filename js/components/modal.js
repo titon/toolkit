@@ -7,12 +7,13 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './template-component',
+    './blackout',
     '../events/clickout',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, TemplateComponent, Blackout) {
 
-Toolkit.Modal = Toolkit.TemplateComponent.extend({
+var Modal = Toolkit.Modal = TemplateComponent.extend({
     name: 'Modal',
     version: '2.1.0',
 
@@ -40,7 +41,7 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
 
         // Setup blackout
         if (options.blackout) {
-            this.blackout = Toolkit.Blackout.instance();
+            this.blackout = Blackout.instance();
         }
 
         // Initialize events
@@ -237,8 +238,8 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('modal', function(options) {
-    return new Toolkit.Modal(this, options);
+    return new Modal(this, options);
 }, true);
 
-return Toolkit.Modal;
+return Modal;
 });

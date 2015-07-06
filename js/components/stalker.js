@@ -9,9 +9,9 @@ define([
     '../toolkit',
     './component',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Stalker = Toolkit.Component.extend({
+var Stalker = Toolkit.Stalker = Component.extend({
     name: 'Stalker',
     version: '2.0.0',
 
@@ -201,8 +201,8 @@ Toolkit.Stalker = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('stalker', function(options) {
-    return new Toolkit.Stalker(this, options);
+    return new Stalker(this, options);
 });
 
-return Toolkit.Stalker;
+return Stalker;
 });

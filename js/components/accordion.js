@@ -11,9 +11,9 @@ define([
     '../extensions/bound',
     '../extensions/shown-selector',
     '../events/horizontal-resize'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Accordion = Toolkit.Component.extend({
+var Accordion = Toolkit.Accordion = Component.extend({
     name: 'Accordion',
     version: '2.0.0',
 
@@ -191,8 +191,8 @@ Toolkit.Accordion = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('accordion', function(options) {
-    return new Toolkit.Accordion(this, options);
+    return new Accordion(this, options);
 });
 
-return Toolkit.Accordion;
+return Accordion;
 });

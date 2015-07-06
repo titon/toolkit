@@ -11,11 +11,11 @@ define([
     '../events/swipe',
     '../extensions/transitionend',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Carousel = Toolkit.Component.extend({
+var Carousel = Toolkit.Carousel = Component.extend({
     name: 'Carousel',
-    version: '2.1.0',
+    version: '2.1.6',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -44,8 +44,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     /** The position (left, right, or top) to modify for cycling. */
     _position: '',
 
-    /** The size to cycle with. */
-    _size: 0,
+    /** The size (width/height, margin) of each item. */
+    _sizes: [],
 
     /** The index to reset to while infinite scrolling. */
     _resetTo: null,
@@ -169,15 +169,35 @@ Toolkit.Carousel = Toolkit.Component.extend({
         }
 
         var dimension = this._dimension, // height or width
-            size;
+            containerSize = 0,
+            sizes = [];
 
-        this._size = size = this.element[dimension]() / this.options.itemsToShow;
+        this.items.each(function() {
+            var item = $(this),
+                size = item[dimension](),
+                marginStart = parseInt(item.css('margin-' + (dimension === 'width' ? 'left' : 'top')), 10),
+                marginEnd = parseInt(item.css('margin-' + (dimension === 'width' ? 'right' : 'bottom')), 10),
+                totalSize = size + marginStart + marginEnd;
 
-        // Set the item width and fit the proper amount based on itemCount
-        var items = this.items.css(dimension, size);
+            containerSize += totalSize;
 
-        // Set the wrapper width based on the outer wrapper and item count
-        this.container.css(dimension, size * items.length);
+            sizes.push({
+                size: size,
+                totalSize: totalSize,
+                marginStart: marginStart,
+                marginEnd: marginEnd,
+                clone: item.hasClass('is-cloned')
+            });
+
+            // Set the size of the item explicitly
+            item.css(dimension, size);
+        });
+
+        // Store the sizes
+        this._sizes = sizes;
+
+        // Set the container width/height
+        this.container.css(dimension, containerSize);
     },
 
     /**
@@ -218,7 +238,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         } else {
             this.container
                 .transitionend(this._afterCycle.bind(this))
-                .css(this._position, -(cloneIndex * this._size));
+                .css(this._position, -this._getSizeSum(cloneIndex));
         }
 
         // Store the index
@@ -294,7 +314,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         if (resetTo !== null) {
             container
                 .addClass('no-transition')
-                .css(this._position, -(resetTo * this._size));
+                .css(this._position, -this._getSizeSum(resetTo));
 
             this._updateItems(resetTo);
             this._resetTo = null;
@@ -441,6 +461,25 @@ Toolkit.Carousel = Toolkit.Component.extend({
     },
 
     /**
+     * Calculate the size to cycle width based on the sum of all items up to but not including the defined index.
+     *
+     * @param {Number} index    - Includes the clone index
+     * @returns {Number}
+     * @private
+     */
+    _getSizeSum: function(index) {
+        var sum = 0;
+
+        $.each(this._sizes, function(i, value) {
+            if (i < index) {
+                sum += value.totalSize;
+            }
+        });
+
+        return sum;
+    },
+
+    /**
      * Setup the carousel state to introspecting property values and resetting options.
      *
      * @private
@@ -458,10 +497,9 @@ Toolkit.Carousel = Toolkit.Component.extend({
         if (animation === 'fade') {
             options.itemsToShow = options.itemsToCycle = 1;
             options.infinite = false;
-        }
 
         // Determine the dimension and position based on animation
-        if (animation === 'slide-up') {
+        } else if (animation === 'slide-up') {
             this._dimension = 'height';
             this._position = 'top';
 
@@ -587,8 +625,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('carousel', function(options) {
-    return new Toolkit.Carousel(this, options);
+    return new Carousel(this, options);
 });
 
-return Toolkit.Carousel;
+return Carousel;
 });

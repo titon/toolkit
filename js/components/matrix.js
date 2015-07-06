@@ -11,9 +11,9 @@ define([
     '../extensions/cache',
     '../extensions/debounce',
     '../events/horizontal-resize'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.Matrix = Toolkit.Component.extend({
+var Matrix = Toolkit.Matrix = Component.extend({
     name: 'Matrix',
     version: '2.0.0',
 
@@ -360,8 +360,8 @@ Toolkit.Matrix = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('matrix', function(options) {
-    return new Toolkit.Matrix(this, options);
+    return new Matrix(this, options);
 });
 
-return Toolkit.Matrix;
+return Matrix;
 });

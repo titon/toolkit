@@ -10,7 +10,7 @@ define([
 ], function($, Toolkit) {
 
 // Empty class to extend from
-Toolkit.Class = function() {};
+var Class = Toolkit.Class = function() {};
 
 // Flag to determine if a constructor is initializing
 var constructing = false;
@@ -22,7 +22,7 @@ var constructing = false;
  * @param {Object} options
  * @returns {Function}
  */
-Toolkit.Class.extend = function(properties, options) {
+Class.extend = function(properties, options) {
     constructing = true;
     var prototype = new this();
     constructing = false;
@@ -91,5 +91,5 @@ Toolkit.Class.extend = function(properties, options) {
     return Class;
 };
 
-return Toolkit.Class;
+return Class;
 });
