@@ -6,7 +6,7 @@
 
 import Toolkit from 'Toolkit';
 import transitionEnd from 'libs/event/transitionEnd';
-import forOwn from 'libs/object/forOwn';
+import forOwn from 'lodash/object/forOwn';
 import 'polyfills/requestAnimationFrame';
 
 /**
@@ -115,7 +115,7 @@ export default class Element {
         }
 
         // Loop over each mutation and process
-        forOwn(queue, (key, value) => {
+        forOwn(queue, (value, key) => {
             switch (key) {
                 case 'addClass':
                     element.classList.add(value);
@@ -124,13 +124,13 @@ export default class Element {
                     element.classList.remove(value);
                 break;
                 case 'attributes':
-                    forOwn(value, (k, v) => element.setAttribute(k, v));
+                    forOwn(value, (v, k) => element.setAttribute(k, v));
                 break;
                 case 'properties':
-                    forOwn(value, (k, v) => element[k] = v);
+                    forOwn(value, (v, k) => element[k] = v);
                 break;
                 case 'styles':
-                    forOwn(value, (k, v) => element.style[k] = v);
+                    forOwn(value, (v, k) => element.style[k] = v);
                 break;
             }
         });
@@ -252,7 +252,7 @@ export default class Element {
      * @returns {Element}
      */
     setArias(keys) {
-        forOwn(keys, this.setAria.bind(this));
+        forOwn(keys, (value, key) => this.setAria(key, value));
 
         return this;
     }
@@ -277,7 +277,7 @@ export default class Element {
      * @returns {Element}
      */
     setAttributes(attributes) {
-        forOwn(attributes, this.setAttribute.bind(this));
+        forOwn(attributes, (value, key) => this.setAttribute(key, value));
 
         return this;
     }
@@ -302,7 +302,7 @@ export default class Element {
      * @returns {Element}
      */
     setProperties(properties) {
-        forOwn(properties, this.setProperty.bind(this));
+        forOwn(properties, (value, key) => this.setProperty(key, value));
 
         return this;
     }
@@ -327,7 +327,7 @@ export default class Element {
      * @returns {Element}
      */
     setStyles(properties) {
-        forOwn(properties, this.setStyle.bind(this));
+        forOwn(properties, (value, key) => this.setStyle(key, value));
 
         return this;
     }

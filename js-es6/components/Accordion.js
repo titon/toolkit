@@ -6,7 +6,7 @@
 
 import Toolkit from 'Toolkit';
 import EmbeddedComponent from 'EmbeddedComponent';
-import debounce from 'libs/function/debounce';
+import debounce from 'lodash/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {
     name = 'Accordion';
@@ -42,7 +42,7 @@ export default class Accordion extends EmbeddedComponent {
      */
     initBinds() {
         this.setBinds({
-            'horizontalresize window': debounce(this.calculate),
+            'horizontalresize window': debounce(this.calculate, 150),
             ['{mode} element ' + this.ns('header')]: 'onShow'
         });
     }

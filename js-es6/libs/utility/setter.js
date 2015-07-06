@@ -5,8 +5,8 @@
  */
 
 import Toolkit from 'Toolkit';
-import forOwn from 'libs/object/forOwn';
-import isObject from 'libs/object/isObject';
+import forOwn from 'lodash/object/forOwn';
+import isPlainObject from 'lodash/lang/isPlainObject';
 
 /**
  * Overload a setter method with key value arguments to accept an object of key values.
@@ -18,8 +18,8 @@ export default function setter(func) {
     return function(key, value) {
         let self = this;
 
-        if (isObject(key)) {
-            forOwn(key, (k, v) => func.call(self, k, v));
+        if (isPlainObject(key)) {
+            forOwn(key, (v, k) => func.call(self, k, v));
 
         } else if (key) {
             func.call(self, key, value);

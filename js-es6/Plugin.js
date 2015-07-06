@@ -7,7 +7,9 @@
 import Toolkit from 'Toolkit';
 import id from 'libs/dom/id';
 import inDOM from 'libs/dom/inDOM';
-import { forOwn, isObject, merge } from 'libs/object/index';
+import assign from 'lodash/object/assign';
+import forOwn from 'lodash/object/forOwn';
+import isPlainObject from 'lodash/lang/isPlainObject';
 import delegate from 'libs/event/delegate';
 
 export default class Plugin {
@@ -203,7 +205,7 @@ export default class Plugin {
      * @param {object} options
      */
     initOptions(options) {
-        this.options = merge({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
+        this.options = assign({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
         this.setOptions(options);
     }
 
@@ -334,7 +336,7 @@ export default class Plugin {
     setBinds(binds) {
         let bindings = [];
 
-        forOwn(binds, (key, callback) => {
+        forOwn(binds, (callback, key) => {
             let [event, context, selector] = key
                     .replace('{mode}', this.options.mode)
                     .replace('{selector}', this.selector)
@@ -376,19 +378,19 @@ export default class Plugin {
      * @param {object} options
      */
     setOptions(options) {
-        options = merge(this.options, options || {});
+        options = assign(this.options, options || {});
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
-            forOwn(options.responsive, (key, respOptions) => {
+            forOwn(options.responsive, respOptions => {
                 if (matchMedia(respOptions.breakpoint).matches) {
-                    merge(options, respOptions);
+                    assign(options, respOptions);
                 }
             });
         }
 
         // Auto-subscribe listeners that start with `on`
-        forOwn(options, (key, value) => {
+        forOwn(options, (value, key) => {
             if (key.match(/^on[A-Z]/)) {
                 this.on(key.substr(2).toLowerCase(), value);
                 delete options[key];
@@ -425,14 +427,14 @@ export default class Plugin {
         }
 
         // Exit early if not an object
-        if (!isObject(state)) {
+        if (!isPlainObject(state)) {
             return;
         }
 
         // Determine if the state has changed by diffing:
         // - Doesn't exist in the current state
         // - Doesn't match the current state
-        forOwn(state, (key, value) => {
+        forOwn(state, (value, key) => {
             if (!(key in currentState) || value !== currentState[key]) {
                 diff[key] = value;
                 changed = true;
@@ -447,13 +449,13 @@ export default class Plugin {
         // Emit change events
         this.emit('changed', [diff, state, currentState]);
 
-        forOwn(diff, key => {
+        forOwn(diff, (value, key) => {
             this.emit('changed:' + key, [diff[key], currentState[key] || null]);
         });
 
         // Set the new state and preserve the old one
         this.previousState = currentState;
-        this.state = merge({}, currentState, diff);
+        this.state = assign({}, currentState, diff);
 
         // Render the changes and update the DOM
         this.render();
