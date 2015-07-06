@@ -6,7 +6,7 @@ Older versions can be found in the documentation changelogs.
 * Further improved AMD loading by splitting child components into their own files
 * Components
     * Carousel
-        * BREAKING CHANGE: The process to determine the size (width or height) to cycle width has been completely redone. The new process will now take into account margins (to allow for gutters) and sizes to be explicitly set with CSS. Because of this change, the `itemsToShow` value will only aid in the calculation process, but will not actually change the display of the items, this should be done with CSS.
+        * BREAKING CHANGE: The process to determine the size (width or height) to cycle with has been completely refactored. The new process will now take into account margins (to allow for gutters) and sizes to be explicitly set with CSS. Because of this change, the `itemsToShow` value will only aid in the calculation process, but will not actually change the display of the items, this should be done with CSS.
     * Pin
         * Added `pinned` and `unpinned` events
         * Added a `pinned` boolean property
