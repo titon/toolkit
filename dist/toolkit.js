@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.5 | BSD-3-Clause | titon.io */
+/*! Titon Toolkit v2.1.6 | BSD-3-Clause | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -64,10 +64,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.1.5',
+    version: '2.1.6',
 
     /** Build date hash. */
-    build: 'i9ysq0m8',
+    build: 'ibs9772x',
 
     /** CSS namespace. */
     namespace: '',
@@ -187,7 +187,7 @@ var Toolkit = {
 window.Toolkit = Toolkit;
 
 // Empty class to extend from
-Toolkit.Class = function() {};
+var Class = Toolkit.Class = function() {};
 
 // Flag to determine if a constructor is initializing
 var constructing = false;
@@ -199,7 +199,7 @@ var constructing = false;
  * @param {Object} options
  * @returns {Function}
  */
-Toolkit.Class.extend = function(properties, options) {
+Class.extend = function(properties, options) {
     constructing = true;
     var prototype = new this();
     constructing = false;
@@ -268,7 +268,7 @@ Toolkit.Class.extend = function(properties, options) {
     return Class;
 };
 
-Toolkit.Base = Toolkit.Class.extend({
+var Base = Toolkit.Base = Class.extend({
 
     /** Name of the plugin. Must match the object declaration. */
     name: 'Base',
@@ -669,12 +669,9 @@ $.fn.toolkit = function(plugin, method, args) {
     return instance;
 };
 
-/**
- * Class for elements already embedded in the page.
- */
-Toolkit.Component = Toolkit.Base.extend({
+var Component = Toolkit.Component = Base.extend({
     name: 'Component',
-    version: '2.1.0',
+    version: '2.1.6',
 
     /** The target element. Either the embedded element, or the current element in the composite layer. */
     element: null,
@@ -703,7 +700,7 @@ Toolkit.Component = Toolkit.Base.extend({
      * @param {Array} [args]
      */
     fireEvent: function(type, args) {
-        Toolkit.Base.prototype.fireEvent.call(this, type, args);
+        Base.prototype.fireEvent.call(this, type, args);
 
         var element = this.element,
             node = this.node,
@@ -978,7 +975,7 @@ Toolkit.Component = Toolkit.Base.extend({
             }
         }
 
-        var opts = Toolkit.Base.prototype.setOptions.call(this, options);
+        var opts = Base.prototype.setOptions.call(this, options);
 
         // Inherit options from element data attributes
         if (inheritFrom) {
@@ -1114,228 +1111,6 @@ Toolkit.Component = Toolkit.Base.extend({
 });
 
 /**
- * Class for elements that are rendered through templates.
- */
-Toolkit.TemplateComponent = Toolkit.Component.extend({
-
-    /**
-     * Create an element from the `template` or `templateFrom` options.
-     *
-     * @param {Object} [options]
-     * @returns {jQuery}
-     */
-    createElement: function(options) {
-        options = options || this.options;
-
-        // Create template
-        var template = $(options.templateFrom);
-
-        if (!template.length) {
-            template = this.render(options.template);
-        }
-
-        if (!template.length) {
-            throw new Error('Failed to render template');
-        }
-
-        // Add a class name
-        if (options.className) {
-            template.addClass(options.className);
-        }
-
-        // Add animation class
-        if (options.animation) {
-            template.addClass(options.animation);
-        }
-
-        return template
-            .attr('id', this.id())
-            .conceal(true) // Add hide class
-            .hide() // Set display to none
-            .appendTo('body');
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    doDestroy: function() {
-        Toolkit.Component.prototype.doDestroy.call(this);
-
-        this.element.remove();
-    }
-
-}, {
-    template: '',
-    templateFrom: ''
-});
-
-/**
- * Class for managing multiple elements that are rendered through templates.
- */
-Toolkit.CompositeComponent = Toolkit.TemplateComponent.extend({
-
-    /** Cache of elements related to the component. */
-    elements: {},
-
-    /** Collection of nodes. */
-    nodes: null,
-
-    /** The container that holds each individual dynamic element. */
-    wrapper: null,
-
-    /**
-     * Create an element from the `template` or `templateFrom` options.
-     *
-     * @param {jQuery} node
-     * @param {Object} [options]
-     * @returns {jQuery}
-     */
-    createElement: function(node, options) {
-        options = this.inheritOptions(options || this.options, node);
-
-        // Create template
-        var template = Toolkit.TemplateComponent.prototype.createElement.call(this, options);
-
-        // Move to wrapper
-        if (this.wrapper) {
-            template.appendTo(this.wrapper);
-        }
-
-        var id = node.data('toolkit.cid');
-
-        return template
-            .attr('id', this.id(id))
-            .data('toolkit.cid', id);
-    },
-
-    /**
-     * Create the elements wrapper.
-     *
-     * @return {jQuery}
-     */
-    createWrapper: function() {
-        var options = this.options;
-
-        return this.wrapper = this.render(options.wrapperTemplate)
-            .addClass(Toolkit.buildTemplate(options.wrapperClass))
-            .attr('id', this.id('wrapper'))
-            .appendTo('body');
-    },
-
-    /**
-     * Hide all the cached and built elements.
-     */
-    hideElements: function() {
-        $.each(this.elements, function(i, el) {
-            $(el).conceal();
-        });
-    },
-
-    /**
-     * Attempt to find and return an element by a unique composite ID.
-     * Each element is unique per node. If the element does not exist, create it.
-     *
-     * @param {jQuery} node
-     * @param {Function} [callback]   - Callback to trigger once an element is created
-     * @returns {jQuery}
-     */
-    loadElement: function(node, callback) {
-        var elements = this.elements,
-            el,
-            id = $(node).cache('toolkit.cid', function() {
-                return Math.random().toString(32).substr(2);
-            });
-
-        if (elements[id]) {
-            el = elements[id];
-        } else {
-            el = elements[id] = this.createElement(node);
-
-            if ($.type(callback) === 'function') {
-                callback.call(this, el);
-            }
-        }
-
-        return this.element = el;
-    },
-
-    /**
-     * {@inheritdoc}
-     */
-    doDestroy: function() {
-        var key = this.keyName;
-
-        // Remove instances
-        if (this.nodes) {
-            this.nodes.removeData('toolkit.' + key);
-
-            delete Toolkit.cache[key + ':' + this.nodes.selector];
-        }
-
-        // Hide elements
-        this.hideElements();
-
-        // Remove wrapper
-        if (this.wrapper) {
-            this.wrapper.remove();
-        }
-    },
-
-    /**
-     * Event handler for toggling an element through click or hover events.
-     *
-     * @param {jQuery.Event} e
-     * @private
-     */
-    onShowToggle: function(e) {
-        var node = $(e.currentTarget),
-            element,
-            isNode = (this.node && this.node.is(node)),
-            cid = node.data('toolkit.cid');
-
-        // Set the current element based on the nodes composite ID
-        if (cid && this.elements[cid]) {
-            element = this.elements[cid];
-        } else {
-            element = this.element;
-        }
-
-        if (element && element.is(':shown')) {
-
-            // Touch devices should pass through on second click
-            if (Toolkit.isTouch) {
-                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
-                    e.preventDefault();
-                }
-
-            // Non-touch devices
-            } else {
-                e.preventDefault();
-            }
-
-            if (isNode) {
-                // Second click should close it
-                if (this.options.mode === 'click') {
-                    this.hide();
-                }
-
-                // Exit if the same node so it doesn't re-open
-                return;
-            }
-
-        } else {
-            e.preventDefault();
-        }
-
-        this.show(node);
-    }
-
-}, {
-    wrapperClass: '',
-    wrapperTemplate: '<div class="toolkit-plugin"></div>'
-});
-
-/**
  * Bound a number between a min and max range.
  * If the number is greater than or equal to the max, reset to min (or 0).
  * If the number is less than the min, reset to the max - 1.
@@ -1396,7 +1171,7 @@ $.event.special.horizontalresize = (function() {
     };
 })();
 
-Toolkit.Accordion = Toolkit.Component.extend({
+var Accordion = Toolkit.Accordion = Component.extend({
     name: 'Accordion',
     version: '2.0.0',
 
@@ -1574,13 +1349,66 @@ Toolkit.Accordion = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('accordion', function(options) {
-    return new Toolkit.Accordion(this, options);
+    return new Accordion(this, options);
+});
+
+var TemplateComponent = Toolkit.TemplateComponent = Component.extend({
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(options) {
+        options = options || this.options;
+
+        // Create template
+        var template = $(options.templateFrom);
+
+        if (!template.length) {
+            template = this.render(options.template);
+        }
+
+        if (!template.length) {
+            throw new Error('Failed to render template');
+        }
+
+        // Add a class name
+        if (options.className) {
+            template.addClass(options.className);
+        }
+
+        // Add animation class
+        if (options.animation) {
+            template.addClass(options.animation);
+        }
+
+        return template
+            .attr('id', this.id())
+            .conceal(true) // Add hide class
+            .hide() // Set display to none
+            .appendTo('body');
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        Component.prototype.doDestroy.call(this);
+
+        this.element.remove();
+    }
+
+}, {
+    template: '',
+    templateFrom: ''
 });
 
 /** Has the blackout been created already? */
-var blackout = null;
+var blackoutInstance = null;
 
-Toolkit.Blackout = Toolkit.TemplateComponent.extend({
+var Blackout = Toolkit.Blackout = TemplateComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
@@ -1619,7 +1447,7 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
      */
     destructor: function() {
         this.element.remove();
-        blackout = null;
+        blackoutInstance = null;
     },
 
     /**
@@ -1700,12 +1528,12 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
  * @param {Object} [options]
  * @returns {Toolkit.Blackout}
  */
-Toolkit.Blackout.instance = function(options) {
-    if (blackout) {
-        return blackout;
+Blackout.instance = function(options) {
+    if (blackoutInstance) {
+        return blackoutInstance;
     }
 
-    return blackout = new Toolkit.Blackout(options);
+    return blackoutInstance = new Blackout(options);
 };
 
 /**
@@ -1894,9 +1722,9 @@ $.throttle = function(func, delay) {
     };
 };
 
-Toolkit.Carousel = Toolkit.Component.extend({
+var Carousel = Toolkit.Carousel = Component.extend({
     name: 'Carousel',
-    version: '2.1.0',
+    version: '2.1.6',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -1925,8 +1753,8 @@ Toolkit.Carousel = Toolkit.Component.extend({
     /** The position (left, right, or top) to modify for cycling. */
     _position: '',
 
-    /** The size to cycle with. */
-    _size: 0,
+    /** The size (width/height, margin) of each item. */
+    _sizes: [],
 
     /** The index to reset to while infinite scrolling. */
     _resetTo: null,
@@ -2050,15 +1878,35 @@ Toolkit.Carousel = Toolkit.Component.extend({
         }
 
         var dimension = this._dimension, // height or width
-            size;
+            containerSize = 0,
+            sizes = [];
 
-        this._size = size = this.element[dimension]() / this.options.itemsToShow;
+        this.items.each(function() {
+            var item = $(this),
+                size = item[dimension](),
+                marginStart = parseInt(item.css('margin-' + (dimension === 'width' ? 'left' : 'top')), 10),
+                marginEnd = parseInt(item.css('margin-' + (dimension === 'width' ? 'right' : 'bottom')), 10),
+                totalSize = size + marginStart + marginEnd;
 
-        // Set the item width and fit the proper amount based on itemCount
-        var items = this.items.css(dimension, size);
+            containerSize += totalSize;
 
-        // Set the wrapper width based on the outer wrapper and item count
-        this.container.css(dimension, size * items.length);
+            sizes.push({
+                size: size,
+                totalSize: totalSize,
+                marginStart: marginStart,
+                marginEnd: marginEnd,
+                clone: item.hasClass('is-cloned')
+            });
+
+            // Set the size of the item explicitly
+            item.css(dimension, size);
+        });
+
+        // Store the sizes
+        this._sizes = sizes;
+
+        // Set the container width/height
+        this.container.css(dimension, containerSize);
     },
 
     /**
@@ -2099,7 +1947,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         } else {
             this.container
                 .transitionend(this._afterCycle.bind(this))
-                .css(this._position, -(cloneIndex * this._size));
+                .css(this._position, -this._getSizeSum(cloneIndex));
         }
 
         // Store the index
@@ -2175,7 +2023,7 @@ Toolkit.Carousel = Toolkit.Component.extend({
         if (resetTo !== null) {
             container
                 .addClass('no-transition')
-                .css(this._position, -(resetTo * this._size));
+                .css(this._position, -this._getSizeSum(resetTo));
 
             this._updateItems(resetTo);
             this._resetTo = null;
@@ -2322,6 +2170,25 @@ Toolkit.Carousel = Toolkit.Component.extend({
     },
 
     /**
+     * Calculate the size to cycle width based on the sum of all items up to but not including the defined index.
+     *
+     * @param {Number} index    - Includes the clone index
+     * @returns {Number}
+     * @private
+     */
+    _getSizeSum: function(index) {
+        var sum = 0;
+
+        $.each(this._sizes, function(i, value) {
+            if (i < index) {
+                sum += value.totalSize;
+            }
+        });
+
+        return sum;
+    },
+
+    /**
      * Setup the carousel state to introspecting property values and resetting options.
      *
      * @private
@@ -2339,10 +2206,9 @@ Toolkit.Carousel = Toolkit.Component.extend({
         if (animation === 'fade') {
             options.itemsToShow = options.itemsToCycle = 1;
             options.infinite = false;
-        }
 
         // Determine the dimension and position based on animation
-        if (animation === 'slide-up') {
+        } else if (animation === 'slide-up') {
             this._dimension = 'height';
             this._position = 'top';
 
@@ -2468,7 +2334,170 @@ Toolkit.Carousel = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('carousel', function(options) {
-    return new Toolkit.Carousel(this, options);
+    return new Carousel(this, options);
+});
+
+var CompositeComponent = Toolkit.CompositeComponent = TemplateComponent.extend({
+
+    /** Cache of elements related to the component. */
+    elements: {},
+
+    /** Collection of nodes. */
+    nodes: null,
+
+    /** The container that holds each individual dynamic element. */
+    wrapper: null,
+
+    /**
+     * Create an element from the `template` or `templateFrom` options.
+     *
+     * @param {jQuery} node
+     * @param {Object} [options]
+     * @returns {jQuery}
+     */
+    createElement: function(node, options) {
+        options = this.inheritOptions(options || this.options, node);
+
+        // Create template
+        var template = TemplateComponent.prototype.createElement.call(this, options);
+
+        // Move to wrapper
+        if (this.wrapper) {
+            template.appendTo(this.wrapper);
+        }
+
+        var id = node.data('toolkit.cid');
+
+        return template
+            .attr('id', this.id(id))
+            .data('toolkit.cid', id);
+    },
+
+    /**
+     * Create the elements wrapper.
+     *
+     * @return {jQuery}
+     */
+    createWrapper: function() {
+        var options = this.options;
+
+        return this.wrapper = this.render(options.wrapperTemplate)
+            .addClass(Toolkit.buildTemplate(options.wrapperClass))
+            .attr('id', this.id('wrapper'))
+            .appendTo('body');
+    },
+
+    /**
+     * Hide all the cached and built elements.
+     */
+    hideElements: function() {
+        $.each(this.elements, function(i, el) {
+            $(el).conceal();
+        });
+    },
+
+    /**
+     * Attempt to find and return an element by a unique composite ID.
+     * Each element is unique per node. If the element does not exist, create it.
+     *
+     * @param {jQuery} node
+     * @param {Function} [callback]   - Callback to trigger once an element is created
+     * @returns {jQuery}
+     */
+    loadElement: function(node, callback) {
+        var elements = this.elements,
+            el,
+            id = $(node).cache('toolkit.cid', function() {
+                return Math.random().toString(32).substr(2);
+            });
+
+        if (elements[id]) {
+            el = elements[id];
+        } else {
+            el = elements[id] = this.createElement(node);
+
+            if ($.type(callback) === 'function') {
+                callback.call(this, el);
+            }
+        }
+
+        return this.element = el;
+    },
+
+    /**
+     * {@inheritdoc}
+     */
+    doDestroy: function() {
+        var key = this.keyName;
+
+        // Remove instances
+        if (this.nodes) {
+            this.nodes.removeData('toolkit.' + key);
+
+            delete Toolkit.cache[key + ':' + this.nodes.selector];
+        }
+
+        // Hide elements
+        this.hideElements();
+
+        // Remove wrapper
+        if (this.wrapper) {
+            this.wrapper.remove();
+        }
+    },
+
+    /**
+     * Event handler for toggling an element through click or hover events.
+     *
+     * @param {jQuery.Event} e
+     * @private
+     */
+    onShowToggle: function(e) {
+        var node = $(e.currentTarget),
+            element,
+            isNode = (this.node && this.node.is(node)),
+            cid = node.data('toolkit.cid');
+
+        // Set the current element based on the nodes composite ID
+        if (cid && this.elements[cid]) {
+            element = this.elements[cid];
+        } else {
+            element = this.element;
+        }
+
+        if (element && element.is(':shown')) {
+
+            // Touch devices should pass through on second click
+            if (Toolkit.isTouch) {
+                if (!isNode || this.node.prop('tagName').toLowerCase() !== 'a') {
+                    e.preventDefault();
+                }
+
+                // Non-touch devices
+            } else {
+                e.preventDefault();
+            }
+
+            if (isNode) {
+                // Second click should close it
+                if (this.options.mode === 'click') {
+                    this.hide();
+                }
+
+                // Exit if the same node so it doesn't re-open
+                return;
+            }
+
+        } else {
+            e.preventDefault();
+        }
+
+        this.show(node);
+    }
+
+}, {
+    wrapperClass: '',
+    wrapperTemplate: '<div class="toolkit-plugin"></div>'
 });
 
 /**
@@ -2542,7 +2571,7 @@ $.event.special.clickout = (function() {
     };
 })();
 
-Toolkit.Drop = Toolkit.CompositeComponent.extend({
+var Drop = Toolkit.Drop = CompositeComponent.extend({
     name: 'Drop',
     version: '2.1.0',
 
@@ -2667,10 +2696,10 @@ Toolkit.Drop = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('drop', function(options) {
-    return new Toolkit.Drop(this, options);
+    return new Drop(this, options);
 }, true);
 
-Toolkit.Flyout = Toolkit.CompositeComponent.extend({
+var Flyout = Toolkit.Flyout = CompositeComponent.extend({
     name: 'Flyout',
     version: '2.1.3',
 
@@ -3110,19 +3139,10 @@ Toolkit.Flyout = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('flyout', function(url, options) {
-    return new Toolkit.Flyout(this, url, options);
+    return new Flyout(this, url, options);
 }, true);
 
-/**
- * Return the markup of the element in the collection as a string.
- *
- * @returns {String}
- */
-$.fn.toString = function() {
-    return this.prop('outerHTML');
-};
-
-Toolkit.Input = Toolkit.Component.extend({
+var Input = Toolkit.Input = Component.extend({
     name: 'Input',
     version: '2.1.0',
 
@@ -3235,11 +3255,11 @@ Toolkit.Input = Toolkit.Component.extend({
     }
 });
 
-/**
- * Wraps a checkbox with a custom input.
- * Uses a label for checkbox toggling so no JavaScript events are required.
- */
-Toolkit.InputCheckbox = Toolkit.Input.extend({
+Toolkit.createPlugin('input', function(options) {
+    return new Input(this, options);
+});
+
+var InputCheckbox = Toolkit.InputCheckbox = Input.extend({
     name: 'InputCheckbox',
     version: '2.1.0',
 
@@ -3269,11 +3289,11 @@ Toolkit.InputCheckbox = Toolkit.Input.extend({
     }
 });
 
-/**
- * Wraps a radio with a custom input.
- * Uses a label for radio toggling so no JavaScript events are required.
- */
-Toolkit.InputRadio = Toolkit.Input.extend({
+Toolkit.createPlugin('inputCheckbox', function(options) {
+    return new InputCheckbox(this, options);
+});
+
+var InputRadio = Toolkit.InputRadio = Input.extend({
     name: 'InputRadio',
     version: '2.1.0',
 
@@ -3303,11 +3323,20 @@ Toolkit.InputRadio = Toolkit.Input.extend({
     }
 });
 
+Toolkit.createPlugin('inputRadio', function(options) {
+    return new InputRadio(this, options);
+});
+
 /**
- * Wraps a select dropdown with a custom input.
- * Supports native or custom dropdowns.
+ * Return the markup of the element in the collection as a string.
+ *
+ * @returns {String}
  */
-Toolkit.InputSelect = Toolkit.Input.extend({
+$.fn.toString = function() {
+    return this.prop('outerHTML');
+};
+
+var InputSelect = Toolkit.InputSelect = Input.extend({
     name: 'InputSelect',
     version: '2.1.0',
 
@@ -3574,7 +3603,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
                 $(this)
                     .aria('selected', true)
                     .parent()
-                        .addClass(activeClass);
+                    .addClass(activeClass);
 
                 self.hide();
                 self.index = index;
@@ -3647,13 +3676,13 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             if (!label.length && title) {
                 label = title;
 
-            // Display a counter for label
+                // Display a counter for label
             } else if (format === 'count') {
                 label = opts.countMessage
                     .replace('{count}', count)
                     .replace('{total}', options.length);
 
-            // Display options as a list for label
+                // Display options as a list for label
             } else if (format === 'list') {
                 var limit = opts.listLimit;
 
@@ -3670,7 +3699,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         // Set the label
         select.parent()
             .find(this.ns('label', 'select'))
-                .text(label);
+            .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
     },
@@ -3701,13 +3730,13 @@ Toolkit.InputSelect = Toolkit.Input.extend({
             case 13: // enter
             case 27: // esc
                 this.hide();
-            return;
+                return;
             case 38: // up
                 index = this._loop(index, -1, options);
-            break;
+                break;
             case 40: // down
                 index = this._loop(index, 1, options);
-            break;
+                break;
         }
 
         options.prop('selected', false);
@@ -3752,7 +3781,7 @@ Toolkit.InputSelect = Toolkit.Input.extend({
         return '<div class="' + bem('select') + '" data-select>' +
             '<div class="' + bem('select', 'arrow') + '" data-select-arrow></div>' +
             '<div class="' + bem('select', 'label') + '" data-select-label></div>' +
-        '</div>';
+            '</div>';
     },
     arrowTemplate: '<span class="caret-down"></span>',
     optionsTemplate: function(bem) {
@@ -3766,23 +3795,12 @@ Toolkit.InputSelect = Toolkit.Input.extend({
     }
 });
 
-Toolkit.createPlugin('input', function(options) {
-    return new Toolkit.Input(this, options);
-});
-
-Toolkit.createPlugin('inputRadio', function(options) {
-    return new Toolkit.InputRadio(this, options);
-});
-
-Toolkit.createPlugin('inputCheckbox', function(options) {
-    return new Toolkit.InputCheckbox(this, options);
-});
-
 Toolkit.createPlugin('inputSelect', function(options) {
-    return new Toolkit.InputSelect(this, options);
+    return new InputSelect(this, options);
 });
 
-Toolkit.LazyLoad = Toolkit.Component.extend({
+
+var LazyLoad = Toolkit.LazyLoad = Component.extend({
     name: 'LazyLoad',
     version: '2.1.0',
 
@@ -3983,10 +4001,10 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('lazyLoad', function(options) {
-    return new Toolkit.LazyLoad(this, options);
+    return new LazyLoad(this, options);
 });
 
-Toolkit.Mask = Toolkit.Component.extend({
+var Mask = Toolkit.Mask = Component.extend({
     name: 'Mask',
     version: '2.0.0',
 
@@ -4127,7 +4145,7 @@ Toolkit.Mask = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('mask', function(options) {
-    return new Toolkit.Mask(this, options);
+    return new Mask(this, options);
 });
 
 /**
@@ -4153,7 +4171,7 @@ $.debounce = function(func, threshold) {
     };
 };
 
-Toolkit.Matrix = Toolkit.Component.extend({
+var Matrix = Toolkit.Matrix = Component.extend({
     name: 'Matrix',
     version: '2.0.0',
 
@@ -4500,10 +4518,10 @@ Toolkit.Matrix = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('matrix', function(options) {
-    return new Toolkit.Matrix(this, options);
+    return new Matrix(this, options);
 });
 
-Toolkit.Modal = Toolkit.TemplateComponent.extend({
+var Modal = Toolkit.Modal = TemplateComponent.extend({
     name: 'Modal',
     version: '2.1.0',
 
@@ -4531,7 +4549,7 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
 
         // Setup blackout
         if (options.blackout) {
-            this.blackout = Toolkit.Blackout.instance();
+            this.blackout = Blackout.instance();
         }
 
         // Initialize events
@@ -4728,10 +4746,10 @@ Toolkit.Modal = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('modal', function(options) {
-    return new Toolkit.Modal(this, options);
+    return new Modal(this, options);
 }, true);
 
-Toolkit.OffCanvas = Toolkit.Component.extend({
+var OffCanvas = Toolkit.OffCanvas = Component.extend({
     name: 'OffCanvas',
     version: '2.0.0',
 
@@ -4950,12 +4968,12 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('offCanvas', function(options) {
-    return new Toolkit.OffCanvas(this, options);
+    return new OffCanvas(this, options);
 });
 
-Toolkit.Pin = Toolkit.Component.extend({
+var Pin = Toolkit.Pin = Component.extend({
     name: 'Pin',
-    version: '2.0.0',
+    version: '2.1.6',
 
     /** Will the element be pinned? */
     active: true,
@@ -4963,14 +4981,20 @@ Toolkit.Pin = Toolkit.Component.extend({
     /** Outer height of the element. */
     elementHeight: null,
 
-    /** The initial top value to reset to. */
+    /** The top offset value in the DOM. */
     elementTop: 0,
 
     /** Inner height of the parent element. */
     parentHeight: null,
 
-    /** The top value of the parent to compare against. */
+    /** The top offset value of the parent in the DOM. */
     parentTop: null,
+
+    /** Whether the element is currently pinned or not. */
+    pinned: false,
+
+    /** The element top value defined in the CSS. */
+    initialTop: 0,
 
     /** The width and height of the viewport. Will update on resize. */
     viewport: {},
@@ -4990,7 +5014,11 @@ Toolkit.Pin = Toolkit.Component.extend({
             .attr('role', 'complementary')
             .addClass(options.animation);
 
-        this.elementTop = parseInt(element.css('top'), 10);
+        // Determine before calculations
+        var initialTop = element.css('top');
+
+        this.initialTop = (initialTop === 'auto') ? 0 : parseInt(initialTop, 10);
+        this.elementTop = element.offset().top;
 
         // Initialize events
         var throttle = options.throttle;
@@ -5011,11 +5039,7 @@ Toolkit.Pin = Toolkit.Component.extend({
         this.active = false;
 
         // Need to be in a timeout or they won't be removed
-        setTimeout(function() {
-            this.element
-                .removeAttr('style')
-                .removeClass('is-pinned');
-        }.bind(this), 15);
+        setTimeout(this.unpin.bind(this), 15);
     },
 
     /**
@@ -5024,14 +5048,15 @@ Toolkit.Pin = Toolkit.Component.extend({
     calculate: function() {
         var win = $(window),
             options = this.options,
-            parent = options.context ? this.element.parents(options.context) : this.element.parent();
+            element = this.element,
+            parent = options.context ? element.parents(options.context) : element.parent();
 
         this.viewport = {
             width: win.width(),
             height: win.height()
         };
 
-        this.elementHeight = this.element.outerHeight(true); // Include margin
+        this.elementHeight = element.outerHeight(true); // Include margin
         this.parentHeight = parent.height(); // Exclude padding
         this.parentTop = parent.offset().top;
 
@@ -5041,7 +5066,7 @@ Toolkit.Pin = Toolkit.Component.extend({
 
         // Enable pin if the parent is larger than the child
         } else {
-            this.active = (this.element.is(':visible') && this.parentHeight > this.elementHeight);
+            this.active = (element.is(':visible') && this.parentHeight > this.elementHeight);
         }
     },
 
@@ -5063,16 +5088,17 @@ Toolkit.Pin = Toolkit.Component.extend({
             eTop = this.elementTop,
             pHeight = this.parentHeight,
             pTop = this.parentTop,
+            cssTop = this.initialTop,
             scrollTop = $(window).scrollTop(),
             pos = {},
             x = options.xOffset,
             y = 0;
 
         // Scroll is above the parent, remove pin inline styles
-        if (scrollTop < pTop) {
-            this.element
-                .removeAttr('style')
-                .removeClass('is-pinned');
+        if (scrollTop < pTop || scrollTop === 0) {
+            if (this.pinned) {
+                this.unpin();
+            }
 
             return;
         }
@@ -5089,7 +5115,7 @@ Toolkit.Pin = Toolkit.Component.extend({
                 pos.position = 'absolute';
                 pos.bottom = 0;
 
-            } else {
+            } else if (scrollTop >= eTop) {
                 y = options.yOffset;
 
                 pos.position = 'fixed';
@@ -5108,8 +5134,8 @@ Toolkit.Pin = Toolkit.Component.extend({
             }
 
             // Don't go lower than default top
-            if (eTop && y < eTop) {
-                y = eTop;
+            if (cssTop && y < cssTop) {
+                y = cssTop;
             }
         }
 
@@ -5119,6 +5145,23 @@ Toolkit.Pin = Toolkit.Component.extend({
         this.element
             .css(pos)
             .addClass('is-pinned');
+
+        this.pinned = true;
+
+        this.fireEvent('pinned');
+    },
+
+    /**
+     * Reset the element to its original state.
+     */
+    unpin: function() {
+        this.element
+            .removeAttr('style')
+            .removeClass('is-pinned');
+
+        this.pinned = false;
+
+        this.fireEvent('unpinned');
     },
 
     /**
@@ -5154,7 +5197,7 @@ Toolkit.Pin = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('pin', function(options) {
-    return new Toolkit.Pin(this, options);
+    return new Pin(this, options);
 });
 
 /**
@@ -5267,7 +5310,7 @@ $.fn.positionTo = function(position, relativeTo, baseOffset, isMouse) {
     });
 };
 
-Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
+var Tooltip = Toolkit.Tooltip = CompositeComponent.extend({
     name: 'Tooltip',
     version: '2.1.3',
 
@@ -5432,7 +5475,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
      * {@inheritdoc}
      */
     onRequestBefore: function(xhr) {
-        Toolkit.Component.prototype.onRequestBefore.call(this, xhr);
+        CompositeComponent.prototype.onRequestBefore.call(this, xhr);
 
         if (this.options.showLoading) {
             this.position(Toolkit.messages.loading);
@@ -5466,10 +5509,10 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('tooltip', function(options) {
-    return new Toolkit.Tooltip(this, options);
+    return new Tooltip(this, options);
 }, true);
 
-Toolkit.Popover = Toolkit.Tooltip.extend({
+var Popover = Toolkit.Popover = Tooltip.extend({
     name: 'Popover',
     version: '2.1.3',
 
@@ -5484,7 +5527,7 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
         options.mode = 'click'; // Click only
         options.follow = false; // Disable mouse follow
 
-        Toolkit.Tooltip.prototype.constructor.call(this, nodes, options);
+        Tooltip.prototype.constructor.call(this, nodes, options);
     }
 
 }, {
@@ -5504,10 +5547,10 @@ Toolkit.Popover = Toolkit.Tooltip.extend({
 });
 
 Toolkit.createPlugin('popover', function(options) {
-    return new Toolkit.Popover(this, options);
+    return new Popover(this, options);
 }, true);
 
-Toolkit.Showcase = Toolkit.TemplateComponent.extend({
+var Showcase = Toolkit.Showcase = TemplateComponent.extend({
     name: 'Showcase',
     version: '2.1.0',
 
@@ -5558,7 +5601,7 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 
         // Blackout element if enabled
         if (options.blackout) {
-            this.blackout = Toolkit.Blackout.instance();
+            this.blackout = Blackout.instance();
         }
 
         // Initialize events
@@ -5951,10 +5994,10 @@ Toolkit.Showcase = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('showcase', function(options) {
-    return new Toolkit.Showcase(this, options);
+    return new Showcase(this, options);
 }, true);
 
-Toolkit.Stalker = Toolkit.Component.extend({
+var Stalker = Toolkit.Stalker = Component.extend({
     name: 'Stalker',
     version: '2.0.0',
 
@@ -6144,10 +6187,10 @@ Toolkit.Stalker = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('stalker', function(options) {
-    return new Toolkit.Stalker(this, options);
+    return new Stalker(this, options);
 });
 
-Toolkit.Tab = Toolkit.Component.extend({
+var Tab = Toolkit.Tab = Component.extend({
     name: 'Tab',
     version: '2.0.0',
 
@@ -6389,10 +6432,10 @@ Toolkit.Tab = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('tab', function(options) {
-    return new Toolkit.Tab(this, options);
+    return new Tab(this, options);
 });
 
-Toolkit.Toast = Toolkit.CompositeComponent.extend({
+var Toast = Toolkit.Toast = CompositeComponent.extend({
     name: 'Toast',
     version: '2.1.0',
 
@@ -6496,10 +6539,10 @@ Toolkit.Toast = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('toast', function(options) {
-    return new Toolkit.Toast(this, options);
+    return new Toast(this, options);
 });
 
-Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
+var TypeAhead = Toolkit.TypeAhead = TemplateComponent.extend({
     name: 'TypeAhead',
     version: '2.1.3',
 
@@ -7106,7 +7149,7 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('typeAhead', function(options) {
-    return new Toolkit.TypeAhead(this, options);
+    return new TypeAhead(this, options);
 });
     // An empty file that includes all flags into the Toolkit scope.
     // It does not return a value.

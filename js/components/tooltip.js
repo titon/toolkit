@@ -7,13 +7,13 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './composite-component',
     '../events/clickout',
     '../extensions/position-to',
     '../extensions/shown-selector'
-], function($, Toolkit) {
+], function($, Toolkit, CompositeComponent) {
 
-Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
+var Tooltip = Toolkit.Tooltip = CompositeComponent.extend({
     name: 'Tooltip',
     version: '2.1.3',
 
@@ -178,7 +178,7 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
      * {@inheritdoc}
      */
     onRequestBefore: function(xhr) {
-        Toolkit.Component.prototype.onRequestBefore.call(this, xhr);
+        CompositeComponent.prototype.onRequestBefore.call(this, xhr);
 
         if (this.options.showLoading) {
             this.position(Toolkit.messages.loading);
@@ -212,8 +212,8 @@ Toolkit.Tooltip = Toolkit.CompositeComponent.extend({
 });
 
 Toolkit.createPlugin('tooltip', function(options) {
-    return new Toolkit.Tooltip(this, options);
+    return new Tooltip(this, options);
 }, true);
 
-return Toolkit.Tooltip;
+return Tooltip;
 });

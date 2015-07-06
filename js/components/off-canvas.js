@@ -9,9 +9,9 @@ define([
     '../toolkit',
     './component',
     '../events/swipe'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.OffCanvas = Toolkit.Component.extend({
+var OffCanvas = Toolkit.OffCanvas = Component.extend({
     name: 'OffCanvas',
     version: '2.0.0',
 
@@ -230,8 +230,8 @@ Toolkit.OffCanvas = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('offCanvas', function(options) {
-    return new Toolkit.OffCanvas(this, options);
+    return new OffCanvas(this, options);
 });
 
-return Toolkit.OffCanvas;
+return OffCanvas;
 });

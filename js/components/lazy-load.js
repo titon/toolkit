@@ -9,9 +9,9 @@ define([
     '../toolkit',
     './component',
     '../extensions/throttle'
-], function($, Toolkit) {
+], function($, Toolkit, Component) {
 
-Toolkit.LazyLoad = Toolkit.Component.extend({
+var LazyLoad = Toolkit.LazyLoad = Component.extend({
     name: 'LazyLoad',
     version: '2.1.0',
 
@@ -212,8 +212,8 @@ Toolkit.LazyLoad = Toolkit.Component.extend({
 });
 
 Toolkit.createPlugin('lazyLoad', function(options) {
-    return new Toolkit.LazyLoad(this, options);
+    return new LazyLoad(this, options);
 });
 
-return Toolkit.LazyLoad;
+return LazyLoad;
 });

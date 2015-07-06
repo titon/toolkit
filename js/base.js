@@ -8,9 +8,9 @@ define([
     'jquery',
     './toolkit',
     './class'
-], function($, Toolkit) {
+], function($, Toolkit, Class) {
 
-Toolkit.Base = Toolkit.Class.extend({
+var Base = Toolkit.Base = Class.extend({
 
     /** Name of the plugin. Must match the object declaration. */
     name: 'Base',
@@ -285,5 +285,5 @@ Toolkit.Base = Toolkit.Class.extend({
     debug: false
 });
 
-return Toolkit.Base;
+return Base;
 });

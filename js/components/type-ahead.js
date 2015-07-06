@@ -7,13 +7,13 @@
 define([
     'jquery',
     '../toolkit',
-    './component',
+    './template-component',
     '../events/clickout',
     '../extensions/shown-selector',
     '../extensions/to-string'
-], function($, Toolkit) {
+], function($, Toolkit, TemplateComponent) {
 
-Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
+var TypeAhead = Toolkit.TypeAhead = TemplateComponent.extend({
     name: 'TypeAhead',
     version: '2.1.3',
 
@@ -620,8 +620,8 @@ Toolkit.TypeAhead = Toolkit.TemplateComponent.extend({
 });
 
 Toolkit.createPlugin('typeAhead', function(options) {
-    return new Toolkit.TypeAhead(this, options);
+    return new TypeAhead(this, options);
 });
 
-return Toolkit.TypeAhead;
+return TypeAhead;
 });

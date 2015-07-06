@@ -7,13 +7,13 @@
 define([
     'jquery',
     '../toolkit',
-    './component'
-], function($, Toolkit) {
+    './template-component'
+], function($, Toolkit, TemplateComponent) {
 
 /** Has the blackout been created already? */
-var blackout = null;
+var blackoutInstance = null;
 
-Toolkit.Blackout = Toolkit.TemplateComponent.extend({
+var Blackout = Toolkit.Blackout = TemplateComponent.extend({
     name: 'Blackout',
     version: '2.0.0',
 
@@ -52,7 +52,7 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
      */
     destructor: function() {
         this.element.remove();
-        blackout = null;
+        blackoutInstance = null;
     },
 
     /**
@@ -133,13 +133,13 @@ Toolkit.Blackout = Toolkit.TemplateComponent.extend({
  * @param {Object} [options]
  * @returns {Toolkit.Blackout}
  */
-Toolkit.Blackout.instance = function(options) {
-    if (blackout) {
-        return blackout;
+Blackout.instance = function(options) {
+    if (blackoutInstance) {
+        return blackoutInstance;
     }
 
-    return blackout = new Toolkit.Blackout(options);
+    return blackoutInstance = new Blackout(options);
 };
 
-return Toolkit.Blackout;
+return Blackout;
 });
