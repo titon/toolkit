@@ -2,11 +2,30 @@
 
 import Plugin from 'Plugin';
 
+class ChildPlugin extends Plugin {
+    name = 'Child';
+    getDefaultOptions() {
+        return ChildPlugin.options;
+    }
+}
+
+ChildPlugin.options = {
+    child: true,
+    cache: false
+};
+
 describe('Plugin', () => {
-    let obj;
+    let obj, element;
 
     beforeEach(() => {
         obj = new Plugin();
+        element = null;
+    });
+
+    afterEach(() => {
+        if (element && element.cleanup) {
+            element.cleanup();
+        }
     });
 
     describe('constructor()', () => {
@@ -108,28 +127,98 @@ describe('Plugin', () => {
         });
     });
 
-    describe('initialize()', () => {
-        // TODO
-    });
-
     describe('initOptions()', () => {
-        // TODO
+        it('should inherit static options', () => {
+            expect(obj.options).toEqual({});
+
+            obj.initOptions();
+
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false
+            });
+        });
+
+        it('should merge with custom options', () => {
+            expect(obj.options).toEqual({});
+
+            obj.initOptions({
+                cache: false,
+                foo: 'bar'
+            });
+
+            expect(obj.options).toEqual({
+                cache: false,
+                debug: false,
+                foo: 'bar'
+            });
+        });
+
+        it('should merge and inherit parent options', () => {
+            let obj2 = new ChildPlugin();
+
+            expect(obj2.options).toEqual({});
+
+            obj2.initOptions({
+                foo: 'bar'
+            });
+
+            expect(obj2.options).toEqual({
+                child: true,
+                cache: false,
+                debug: false,
+                foo: 'bar'
+            });
+        });
     });
 
     describe('initElement()', () => {
-        // TODO
-    });
-
-    describe('initProperties()', () => {
-        // TODO
-    });
-
-    describe('initBinds()', () => {
-        // TODO
+        it('should throw an error', () => {
+            expect(() => obj.initElement('#foo')).toThrow(new Error('No element defined. Please use the `#foo` selector.'));
+        });
     });
 
     describe('mount()', () => {
-        // TODO
+        it('should not mount if no element defined', () => {
+            expect(obj.mounted).toBe(false);
+
+            obj.mount();
+
+            expect(obj.mounted).toBe(false);
+        });
+
+        it('should mount the element', () => {
+            element = document.createElement('div');
+            obj.element = element;
+
+            expect(obj.mounted).toBe(false);
+
+            obj.mount();
+
+            expect(obj.mounted).toBe(true);
+            expect(element.parentNode).toEqual(document.body);
+        });
+
+        it('should not mount if already mounted', () => {
+            let count = 0;
+
+            element = document.createElement('div');
+
+            obj.element = element;
+            obj.on('mounted', () => count++);
+
+            expect(obj.mounted).toBe(false);
+
+            obj.mount();
+
+            expect(obj.mounted).toBe(true);
+            expect(count).toBe(1);
+
+            obj.mount();
+
+            expect(obj.mounted).toBe(true);
+            expect(count).toBe(1);
+        });
     });
 
     describe('on()', () => {

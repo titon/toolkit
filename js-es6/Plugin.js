@@ -25,6 +25,9 @@ export default class Plugin {
     /** Map of event listeners to emit. */
     listeners = {};
 
+    /** Whether or not the plugin is mounted in the DOM. */
+    mounted = false;
+
     /** Name of the plugin. Should match the `Toolkit.<Name>` declaration. */
     name = 'Plugin';
 
@@ -166,7 +169,7 @@ export default class Plugin {
      * @returns {object}
      */
     getDefaultOptions() {
-        return this.constructor.options;
+        return Plugin.options;
     }
 
     /**
@@ -201,10 +204,19 @@ export default class Plugin {
      * parent, the static options from the current class, and
      * finally merging with a custom set of options passed as an argument.
      *
-     * @param {object} options
+     * @param {object} [options]
      */
     initOptions(options) {
-        this.options = assign({}, super.getDefaultOptions() || {}, this.getDefaultOptions());
+        let parentOptions = {},
+            parent = Object.getPrototypeOf(this.constructor);
+
+        // I have yet to find a *real* way to check if a class has a `super`.
+        // Since we can't actually use `super.getDefaultOptions()` here.
+        if (typeof parent.prototype !== 'undefined') {
+            parentOptions = parent.prototype.getDefaultOptions.call(null, options);
+        }
+
+        this.options = assign({}, parentOptions, this.getDefaultOptions());
         this.setOptions(options);
     }
 
