@@ -10,34 +10,24 @@
 
     document.body.appendChild(sandbox);
 
-    // Define paths
-    System.paths['tests-es6/*'] = '/base/tests-es6/*';
-    System.paths['*'] = '/base/js-es6/*';
-
-    // Use Babel for transpilation
-    System.transpiler = 'babel';
-
-    // Set the Babel configuration
-    System.babelOptions = karma.config.babelOptions;
-
-    // Custom hook to append extension
-    var normalize = System.normalize;
-
-    System.normalize = function(name, parentName, parentAddress) {
-        if (name !== 'babel' && name.substr(-3) !== '.js') {
-            name += '.js';
-        }
-
-        return normalize.call(this, name, parentName, parentAddress);
-    };
+    // Configure SystemJS
+    System.config({
+        paths: {
+            'lodash/*': '/base/node_modules/lodash/*',
+            'tests-es6/*': '/base/tests-es6/*',
+            '*': '/base/js-es6/*'
+        },
+        transpiler: 'babel',
+        babelOptions: karma.config.babelOptions,
+        defaultJSExtensions: true
+    });
 
     // Loop over each test file and import it
-    var TEST_REGEXP = /-test\.js$/i,
-        started = false,
+    var started = false,
         files = [];
 
     Object.keys(karma.files).forEach(function(file) {
-        if (TEST_REGEXP.test(file)) {
+        if (file.match(/-test\.js$/i)) {
             files.push(file.replace('/base/', ''));
         }
     });

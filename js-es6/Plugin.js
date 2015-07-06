@@ -5,7 +5,6 @@
  */
 
 import Toolkit from 'Toolkit';
-import id from 'libs/dom/id';
 import inDOM from 'libs/dom/inDOM';
 import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
@@ -219,7 +218,7 @@ export default class Plugin {
      * @param {string} selector
      */
     initElement(selector) {
-        this.setElement(id(selector));
+        throw new Error(`No element defined. Please use the \`${selector}\` selector.`);
     }
 
     /**

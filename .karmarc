@@ -8,11 +8,13 @@ module.exports = function(config) {
 
         files: [
             'node_modules/gulp-babel/node_modules/babel-core/browser.js',
-            'node_modules/es6-module-loader/dist/es6-module-loader-dev.js',
+            'node_modules/systemjs/dist/system.js',
+            'node_modules/systemjs/dist/system-polyfills.js',
             'tests-es6/helpers.js',
             'tests-es6/runner.js',
             { pattern: 'js-es6/**/*.js', included: false },
             { pattern: 'tests-es6/**/*-test.js', included: false },
+            { pattern: 'node_modules/lodash/**/*.js', included: false },
         ],
 
         exclude: [],

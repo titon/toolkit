@@ -42,7 +42,7 @@
 
         "compartment": "~0.2",
         "node-sass": "~3.2",
-        "es6-module-loader": "~0.17",
+        "systemjs": "~0.18",
         "systemjs-builder": "~0.12",
         "lodash": "~3.10"
     }
