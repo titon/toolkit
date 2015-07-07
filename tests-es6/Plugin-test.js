@@ -18,7 +18,7 @@ describe('Plugin', () => {
     let obj, element;
 
     beforeEach(() => {
-        obj = new Plugin();
+        obj = new Plugin('', {}, false);
         element = null;
     });
 
@@ -140,54 +140,6 @@ describe('Plugin', () => {
             expect(obj.getDefaultOptions()).toEqual({
                 cache: true,
                 debug: false
-            });
-        });
-    });
-
-    describe('initOptions()', () => {
-        it('should inherit static options', () => {
-            expect(obj.options).toEqual({
-                cache: true,
-                debug: false
-            }); // From constructor
-        });
-
-        it('should merge with custom options', () => {
-            expect(obj.options).toEqual({
-                cache: true,
-                debug: false
-            });
-
-            obj.initOptions({
-                cache: false,
-                foo: 'bar'
-            });
-
-            expect(obj.options).toEqual({
-                cache: false,
-                debug: false,
-                foo: 'bar'
-            });
-        });
-
-        it('should merge and inherit parent options', () => {
-            let obj2 = new ChildPlugin();
-
-            expect(obj2.options).toEqual({
-                cache: false,
-                debug: false,
-                child: true
-            });
-
-            obj2.initOptions({
-                foo: 'bar'
-            });
-
-            expect(obj2.options).toEqual({
-                child: true,
-                cache: false,
-                debug: false,
-                foo: 'bar'
             });
         });
     });
@@ -405,6 +357,54 @@ describe('Plugin', () => {
 
     describe('setState()', () => {
         // TODO
+    });
+
+    describe('setupOptions()', () => {
+        it('should inherit static options', () => {
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false
+            }); // From constructor
+        });
+
+        it('should merge with custom options', () => {
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false
+            });
+
+            obj.setupOptions({
+                cache: false,
+                foo: 'bar'
+            });
+
+            expect(obj.options).toEqual({
+                cache: false,
+                debug: false,
+                foo: 'bar'
+            });
+        });
+
+        it('should merge and inherit parent options', () => {
+            let obj2 = new ChildPlugin();
+
+            expect(obj2.options).toEqual({
+                cache: false,
+                debug: false,
+                child: true
+            });
+
+            obj2.setupOptions({
+                foo: 'bar'
+            });
+
+            expect(obj2.options).toEqual({
+                child: true,
+                cache: false,
+                debug: false,
+                foo: 'bar'
+            });
+        });
     });
 
     describe('unmount()', () => {

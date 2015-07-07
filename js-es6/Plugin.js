@@ -58,16 +58,22 @@ export default class Plugin {
      *
      * @param {string} selector
      * @param {object} [options]
+     * @param {boolean} [init]
      */
-    constructor(selector, options) {
+    constructor(selector, options, init = true) {
         this.uid = this.constructor.count += 1; // Increase UID
         this.selector = selector;
 
-        // Initialize the class
-        this.initOptions(options);
-        this.initElement(selector);
-        this.initProperties();
-        this.initBinds();
+        // Setup the class
+        this.setupOptions(options);
+        this.setupElement(selector);
+        this.setupProperties();
+        this.setupBinds();
+
+        // Automatic initialization
+        if (init) {
+            this.initialize();
+        }
     }
 
     /**
@@ -205,54 +211,6 @@ export default class Plugin {
     }
 
     /**
-     * Initialize the customizable options by inheriting options from the
-     * parent, the static options from the current class, and
-     * finally merging with a custom set of options passed as an argument.
-     *
-     * @param {object} [options]
-     */
-    initOptions(options) {
-        let parentOptions = {},
-            parent = Object.getPrototypeOf(this.constructor);
-
-        // I have yet to find a *real* way to check if a class has a `super`.
-        // Since we can't actually use `super.getDefaultOptions()` here.
-        if (typeof parent.prototype !== 'undefined') {
-            parentOptions = parent.prototype.getDefaultOptions.call(null, options);
-        }
-
-        this.options = assign({}, parentOptions, this.getDefaultOptions());
-        this.setOptions(options);
-    }
-
-    /**
-     * Initialize the primary element(s) by attempting to find it in the DOM
-     * using the selector passed from the constructor.
-     *
-     * This method should be implemented by sub-classes.
-     *
-     * @param {string} selector
-     */
-    initElement(selector) {
-        if (selector) {
-            console.warn(`No element defined for ${this.name}. Please use the \`${selector}\` selector.`);
-        }
-    }
-
-    /**
-     * Initialize dynamic class properties.
-     */
-    initProperties() {
-    }
-
-    /**
-     * Initialize DOM event bindings. By default, this sets no binds,
-     * as binds should be unique per sub-class.
-     */
-    initBinds() {
-    }
-
-    /**
      * Mount (insert) the primary element into the DOM if it has not been already.
      */
     mount() {
@@ -338,7 +296,7 @@ export default class Plugin {
      *
      * Bindings support the following formats:
      *
-     *      EVENT CONTEXT[ DELEGATE]: FUNC
+     *      EVENT CONTEXT[ DELEGATE]: FUNC | [FUNC, FUNC]
      *
      * The selector is optional and is used for delegation.
      *
@@ -470,6 +428,54 @@ export default class Plugin {
 
         // Render the changes and update the DOM
         this.render();
+    }
+
+    /**
+     * Setup DOM event bindings using `setBinds()`. By default, this sets no binds,
+     * as binds should be unique per sub-class.
+     */
+    setupBinds() {
+    }
+
+    /**
+     * Setup the primary element(s) by attempting to find it in the DOM
+     * using the selector passed from the constructor. Once found, use `setElement()`.
+     *
+     * This method should be implemented by sub-classes.
+     *
+     * @param {string} selector
+     */
+    setupElement(selector) {
+        if (selector) {
+            console.warn(`No element defined for ${this.name}. Please use the \`${selector}\` selector.`);
+        }
+    }
+
+    /**
+     * Setup the customizable options by inheriting options from the
+     * parent, the static options from the current class, and
+     * finally merging with a custom set of options passed as an argument.
+     *
+     * @param {object} [options]
+     */
+    setupOptions(options) {
+        let parentOptions = {},
+            parent = Object.getPrototypeOf(this.constructor);
+
+        // I have yet to find a *real* way to check if a class has a `super`.
+        // Since we can't actually use `super.getDefaultOptions()` here.
+        if (typeof parent.prototype !== 'undefined') {
+            parentOptions = parent.prototype.getDefaultOptions.call(null, options);
+        }
+
+        this.options = assign({}, parentOptions, this.getDefaultOptions());
+        this.setOptions(options);
+    }
+
+    /**
+     * Setup dynamic class properties.
+     */
+    setupProperties() {
     }
 
     /**

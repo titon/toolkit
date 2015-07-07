@@ -19,20 +19,9 @@ export default class Accordion extends EmbeddedComponent {
     sections = null;
 
     /**
-     * Initialize the plugin.
-     *
-     * @param {string} selector
-     * @param {object} [options]
-     */
-    constructor(selector, options) {
-        super(selector, options);
-        this.initialize();
-    }
-
-    /**
      * {@inheritdoc}
      */
-    initProperties() {
+    setupProperties() {
         this.headers = this.element.find(this.ns('header'));
         this.sections = this.element.find(this.ns('section'));
     }
@@ -40,7 +29,7 @@ export default class Accordion extends EmbeddedComponent {
     /**
      * {@inheritdoc}
      */
-    initBinds() {
+    setupBinds() {
         this.setBinds({
             'horizontalresize window': debounce(this.calculate, 150),
             ['{mode} element ' + this.ns('header')]: 'onShow'
