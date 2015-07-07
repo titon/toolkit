@@ -356,7 +356,146 @@ describe('Plugin', () => {
     });
 
     describe('setState()', () => {
-        // TODO
+        it('should allow functions to be passed', () => {
+            expect(obj.state).toEqual({});
+
+            obj.setState(function() {
+                return { foo: 'bar' };
+            });
+
+            expect(obj.state).toEqual({
+                foo: 'bar'
+            });
+
+            obj.setState(function(oldState) {
+                return { foo: oldState.foo + 'baz' };
+            });
+
+            expect(obj.state).toEqual({
+                foo: 'barbaz'
+            });
+        });
+
+        it('should not allow non-object values', () => {
+            expect(obj.state).toEqual({});
+
+            obj.setState('foo');
+
+            expect(obj.state).toEqual({});
+
+            obj.setState(123);
+
+            expect(obj.state).toEqual({});
+
+            obj.setState(true);
+
+            expect(obj.state).toEqual({});
+        });
+
+        it('should not emit `changed` events if no value changed', () => {
+            let count = 0;
+
+            obj.state = { foo: 'bar' };
+            obj.on('changed', () => count++);
+
+            expect(count).toBe(0);
+
+            obj.setState({ foo: 'bar' });
+
+            expect(count).toBe(0);
+        });
+
+        it('should pass current, new, and diff state to `changed` event', () => {
+            let diffState, oldState, newState;
+
+            obj.state = {
+                foo: 123,
+                bar: 'abc'
+            };
+
+            obj.on('changed', (diff, newObj, oldObj) => {
+                diffState = diff;
+                newState = newObj;
+                oldState = oldObj;
+            });
+
+            obj.setState({
+                foo: 123,
+                bar: 'xyz',
+                baz: true
+            });
+
+            expect(diffState).toEqual({
+                bar: 'xyz',
+                baz: true
+            });
+
+            expect(oldState).toEqual({
+                foo: 123,
+                bar: 'abc'
+            });
+
+            expect(newState).toEqual({
+                foo: 123,
+                bar: 'xyz',
+                baz: true
+            });
+        });
+
+        it('should pass current and new state to `changed:*` event', () => {
+            let oldState, newState;
+
+            obj.state = {
+                foo: 123,
+                bar: 'abc'
+            };
+
+            obj.on('changed:foo', (newValue, oldValue) => {
+                newState = newValue;
+                oldState = oldValue;
+            });
+
+            obj.setState({
+                foo: 456
+            });
+
+            expect(oldState).toBe(123);
+            expect(newState).toBe(456);
+        });
+
+        it('should update the `previousState` and `state` class properties', () => {
+            obj.state = {
+                foo: 123,
+                bar: 'abc',
+                baz: true
+            };
+
+            expect(obj.previousState).toEqual({});
+
+            expect(obj.state).toEqual({
+                foo: 123,
+                bar: 'abc',
+                baz: true
+            });
+
+            obj.setState({
+                foo: 456,
+                qux: []
+            });
+
+            expect(obj.previousState).toEqual({
+                foo: 123,
+                bar: 'abc',
+                baz: true
+            });
+
+            expect(obj.state).toEqual({
+                foo: 456,
+                bar: 'abc',
+                baz: true,
+                qux: []
+            });
+        });
     });
 
     describe('setupOptions()', () => {

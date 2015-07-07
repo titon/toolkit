@@ -30,7 +30,7 @@ export default class Plugin {
     /** Whether or not the plugin is mounted in the DOM. */
     mounted = false;
 
-    /** Name of the plugin. Should match the `Toolkit.<Name>` declaration. */
+    /** Name of the plugin. Should match the class name declaration. */
     name = 'Plugin';
 
     /** Unique configurable options for the plugin. */
@@ -143,7 +143,7 @@ export default class Plugin {
      * if enabled. If a primary element is set, also trigger a DOM event.
      *
      * @param {string} event
-     * @param {array} [args]
+     * @param {Array} [args]
      */
     emit(event, args = []) {
         let debug = this.options.debug || Toolkit.debug,
@@ -249,7 +249,7 @@ export default class Plugin {
      * If no callback is passed, unsubscribe all listeners.
      *
      * @param {string} event
-     * @param {function} [callback]
+     * @param {Function} [callback]
      */
     off(event, callback) {
         if (!callback) {
@@ -392,7 +392,7 @@ export default class Plugin {
 
         // If state is a function, extract the object
         if (typeof state === 'function') {
-            state = state.call(this);
+            state = state.call(this, currentState);
         }
 
         // Exit early if not an object
