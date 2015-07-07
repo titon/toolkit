@@ -20,10 +20,12 @@ export var rtl = (document.documentElement.dir === 'rtl');
 export var touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 // Export all as an object
-export default {
+var flags = {
     landscape,
     portrait,
     retina,
     rtl,
     touch
 };
+
+export default flags;

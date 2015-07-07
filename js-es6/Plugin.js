@@ -10,6 +10,14 @@ import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
 import delegate from 'libs/event/delegate';
 
+let uidCounts = {
+    inc(name) {
+        let value = this[name] || 0;
+
+        return this[name] = value += 1;
+    }
+};
+
 export default class Plugin {
 
     /** Map of DOM event bindings. */
@@ -61,7 +69,6 @@ export default class Plugin {
      * @param {boolean} [init]
      */
     constructor(selector, options, init = true) {
-        this.uid = this.constructor.count += 1; // Increase UID
         this.selector = selector;
 
         // Setup the class
@@ -69,6 +76,9 @@ export default class Plugin {
         this.setupElement(selector);
         this.setupProperties();
         this.setupBinds();
+
+        // Increase UID
+        this.uid = uidCounts.inc(this.name);
 
         // Automatic initialization
         if (init) {
@@ -498,8 +508,6 @@ export default class Plugin {
     }
 
 }
-
-Plugin.count = 0;
 
 Plugin.options = {
     cache: true,

@@ -13,10 +13,14 @@ import Element from 'libs/dom/Element';
  * @param {string} query
  * @returns {Element}
  */
-export default function id(query) {
+export default function findID(query) {
+    if (query[0] === '#') {
+        query = query.substr(1);
+    }
+
     let element = document.getElementById(query);
 
     return element ? new Element(element) : null;
 }
 
-Toolkit.findID = id;
+Toolkit.findID = findID;

@@ -1,20 +1,21 @@
 'use strict';
 
 import Element from 'libs/dom/Element';
-import id from 'libs/dom/id';
+import findID from 'libs/dom/findID';
 
-describe('libs/dom/id', () => {
-    describe('id()', () => {
+describe('libs/dom/findID', () => {
+    describe('findID()', () => {
         it('should return a container for an element defined by an ID', () => {
             let element = createElement('div', { id: 'foo' });
 
-            expect(id('foo')).toEqual(new Element(element));
+            expect(findID('foo')).toEqual(new Element(element));
+            expect(findID('#foo')).toEqual(new Element(element));
 
             element.cleanup();
         });
 
         it('should return null if no element is found', () => {
-            expect(id('bar')).toBeNull();
+            expect(findID('bar')).toBeNull();
         });
     });
 });

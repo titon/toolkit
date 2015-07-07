@@ -9,20 +9,27 @@ import EmbeddedComponent from 'EmbeddedComponent';
 import debounce from 'lodash/function/debounce';
 
 export default class Accordion extends EmbeddedComponent {
-    name = 'Accordion';
-    version = '3.0.0';
 
-    // Collection of header elements.
-    headers = null;
-
-    // Collection of section elements.
-    sections = null;
+    /**
+     * {@inheritdoc}
+     */
+    getDefaultOptions() {
+        return Accordion.options;
+    }
 
     /**
      * {@inheritdoc}
      */
     setupProperties() {
+        super.setupProperties();
+
+        this.name = 'Accordion';
+        this.version = '3.0.0';
+
+        /** Collection of header elements. */
         this.headers = this.element.find(this.ns('header'));
+
+        /** Collection of section elements. */
         this.sections = this.element.find(this.ns('section'));
     }
 
@@ -31,8 +38,8 @@ export default class Accordion extends EmbeddedComponent {
      */
     setupBinds() {
         this.setBinds({
-            'horizontalresize window': debounce(this.calculate, 150),
-            ['{mode} element ' + this.ns('header')]: 'onShow'
+            'horizontalresize window': debounce(this.calculate.bind(this), 150),
+            ['{mode} element ' + this.buildNamespace('header')]: 'onShow'
         });
     }
 

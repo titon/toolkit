@@ -8,7 +8,7 @@
  *
  * @param {string} tag
  * @param {object} [attributes]
- * @param {bool} [mount]
+ * @param {boolean} [mount]
  * @returns {HTMLElement}
  */
 function createElement(tag, attributes, mount) {

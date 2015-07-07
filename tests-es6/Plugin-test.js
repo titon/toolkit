@@ -30,14 +30,11 @@ describe('Plugin', () => {
 
     describe('constructor()', () => {
         it('should increase the count/UID for each instance', () => {
-            expect(Plugin.count).toBe(1); // Increased from beforeEach()
-
             let obj1 = new Plugin(),
                 obj2 = new Plugin();
 
             expect(obj1.uid).toBe(2);
             expect(obj2.uid).toBe(3);
-            expect(Plugin.count).toBe(3);
         });
 
         it('should set class properties', () => {
