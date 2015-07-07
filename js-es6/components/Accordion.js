@@ -25,8 +25,8 @@ export default class Accordion extends EmbeddedComponent {
      * @param {object} [options]
      */
     constructor(selector, options) {
-        super();
-        this.initialize(selector, options);
+        super(selector, options);
+        this.initialize();
     }
 
     /**

@@ -5,7 +5,6 @@
  */
 
 import Toolkit from 'Toolkit';
-import inDOM from 'libs/dom/inDOM';
 import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
@@ -18,6 +17,9 @@ export default class Plugin {
 
     /** Map of cached AJAX requests or data. */
     cache = {};
+
+    /** The element bound to the plugin. */
+    element = null;
 
     /** Whether or not the plugin is enabled (events are bound). */
     enabled = false;
@@ -48,10 +50,24 @@ export default class Plugin {
     version = '3.0.0';
 
     /**
-     * Generate a unique ID for this instance.
+     * Handles the initialization of the plugin by setting up members in the
+     * correct order: options -> element(s) -> properties -> event bindings.
+     *
+     * The order is important as methods will require members from
+     * the previous method to be initialized. This order *must not* change.
+     *
+     * @param {string} selector
+     * @param {object} [options]
      */
-    constructor() {
+    constructor(selector, options) {
         this.uid = this.constructor.count += 1; // Increase UID
+        this.selector = selector;
+
+        // Initialize the class
+        this.initOptions(options);
+        this.initElement(selector);
+        this.initProperties();
+        this.initBinds();
     }
 
     /**
@@ -94,6 +110,8 @@ export default class Plugin {
     /**
      * Destroy the plugin by unbinding events, removing elements, and deleting the instance.
      * The custom `shutdown()` method should be called first so that sub-classes can clean up.
+     *
+     * This method is the opposite of `initialize()`.
      */
     destroy() {
         this.emit('destroying');
@@ -128,7 +146,7 @@ export default class Plugin {
 
         // Log debug information
         if (debug && window.console) {
-            console.log(this.name + '#' + this.constructor.uid, new Date().getMilliseconds(), event, args);
+            console.log(this.name + '#' + this.uid, new Date().getMilliseconds(), event, args);
 
             if (debug === 'verbose') {
                 console.dir(this);
@@ -173,30 +191,17 @@ export default class Plugin {
     }
 
     /**
-     * Handles the initialization of the plugin by setting up members in the
-     * correct order: options -> element(s) -> properties -> event bindings.
+     * Further initialize the plugin by mounting the element (if not mounted already),
+     * binding DOM events, and triggering the custom `startup()` method.
      *
-     * The order is important as methods will require members from
-     * the previous method to be initialized. This order *must not* change.
-     *
-     * @param {string} selector
-     * @param {object} [options]
+     * This method is the opposite of `destroy()`.
      */
-    initialize(selector, options) {
-        this.selector = selector;
-
-        // Initialize the class
-        this.initOptions(options);
-        this.initElement(selector);
-        this.initProperties();
-        this.initBinds();
-        this.emit('init');
-
-        // Enable the class and bind events
+    initialize() {
+        this.emit('initializing');
+        this.mount();
         this.enable();
-
-        // Startup child class
         this.startup();
+        this.emit('initialized');
     }
 
     /**
@@ -224,36 +229,36 @@ export default class Plugin {
      * Initialize the primary element(s) by attempting to find it in the DOM
      * using the selector passed from the constructor.
      *
-     * This method should be overridden for elements that are rendered
-     * from templates.
+     * This method should be implemented by sub-classes.
      *
      * @param {string} selector
      */
     initElement(selector) {
-        throw new Error(`No element defined. Please use the \`${selector}\` selector.`);
+        if (selector) {
+            console.warn(`No element defined for ${this.name}. Please use the \`${selector}\` selector.`);
+        }
     }
 
     /**
-     * Initialize the class properties by setting to defaults that should be
-     * usable by sub-classes.
+     * Initialize dynamic class properties.
      */
     initProperties() {
     }
 
     /**
-     * Initialize the DOM event bindings. By default, this sets no binds,
+     * Initialize DOM event bindings. By default, this sets no binds,
      * as binds should be unique per sub-class.
      */
     initBinds() {
     }
 
     /**
-     * Mount (insert) the primary element into the DOM.
+     * Mount (insert) the primary element into the DOM if it has not been already.
      */
     mount() {
         let element = this.element;
 
-        if (this.mounted || !element || inDOM(element)) {
+        if (this.mounted || !element || element.parentNode) {
             return;
         }
 
@@ -278,12 +283,7 @@ export default class Plugin {
             callbacks = [callbacks];
         }
 
-        callbacks.forEach(callback => {
-            let list = this.listeners[event] || [];
-                list.push(callback);
-
-            this.listeners[event] = list;
-        });
+        this.listeners[event] = (this.listeners[event] || []).concat(callbacks);
     }
 
     /**
@@ -363,7 +363,7 @@ export default class Plugin {
                 event = 'DOMContentLoaded';
             }
 
-            bindings.push([event, context, selector, callback]);
+            bindings.push([event, context, selector || '', callback]);
         });
 
         this.binds = bindings;
@@ -478,7 +478,7 @@ export default class Plugin {
     unmount() {
         let element = this.element;
 
-        if (!this.mounted || (element && !inDOM(element))) {
+        if (!this.mounted || !element || !element.parentNode) {
             return;
         }
 

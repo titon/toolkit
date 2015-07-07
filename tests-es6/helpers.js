@@ -8,9 +8,10 @@
  *
  * @param {string} tag
  * @param {object} [attributes]
+ * @param {bool} [mount]
  * @returns {HTMLElement}
  */
-function createElement(tag, attributes) {
+function createElement(tag, attributes, mount) {
     var element = document.createElement(tag),
         sandbox = document.getElementById('sandbox');
 
@@ -49,11 +50,15 @@ function createElement(tag, attributes) {
 
     // Add a cleanup function
     element.cleanup = function() {
-        sandbox.removeChild(element);
+        if (element.parentNode) {
+            element.parentNode.removeChild(element);
+        }
     };
 
     // Add to the sandbox
-    sandbox.appendChild(element);
+    if (mount !== false) {
+        sandbox.appendChild(element);
+    }
 
     return element;
 }

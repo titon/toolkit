@@ -46,12 +46,29 @@ describe('Plugin', () => {
         });
     });
 
-    describe('bindEvents()', () => {
-        // TODO
-    });
-
     describe('destroy()', () => {
-        // TODO
+        it('should disable the plugin', () => {
+            obj.enabled = true;
+
+            expect(obj.enabled).toBe(true);
+
+            obj.destroy();
+
+            expect(obj.enabled).toBe(false);
+        });
+
+        it('should unmount the element', () => {
+            element = createElement('div');
+
+            obj.element = element;
+            obj.mounted = true;
+
+            expect(obj.mounted).toBe(true);
+
+            obj.destroy();
+
+            expect(obj.mounted).toBe(false);
+        });
     });
 
     describe('disable()', () => {
@@ -129,18 +146,17 @@ describe('Plugin', () => {
 
     describe('initOptions()', () => {
         it('should inherit static options', () => {
-            expect(obj.options).toEqual({});
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false
+            }); // From constructor
+        });
 
-            obj.initOptions();
-
+        it('should merge with custom options', () => {
             expect(obj.options).toEqual({
                 cache: true,
                 debug: false
             });
-        });
-
-        it('should merge with custom options', () => {
-            expect(obj.options).toEqual({});
 
             obj.initOptions({
                 cache: false,
@@ -157,7 +173,11 @@ describe('Plugin', () => {
         it('should merge and inherit parent options', () => {
             let obj2 = new ChildPlugin();
 
-            expect(obj2.options).toEqual({});
+            expect(obj2.options).toEqual({
+                cache: false,
+                debug: false,
+                child: true
+            });
 
             obj2.initOptions({
                 foo: 'bar'
@@ -172,12 +192,6 @@ describe('Plugin', () => {
         });
     });
 
-    describe('initElement()', () => {
-        it('should throw an error', () => {
-            expect(() => obj.initElement('#foo')).toThrow(new Error('No element defined. Please use the `#foo` selector.'));
-        });
-    });
-
     describe('mount()', () => {
         it('should not mount if no element defined', () => {
             expect(obj.mounted).toBe(false);
@@ -187,8 +201,19 @@ describe('Plugin', () => {
             expect(obj.mounted).toBe(false);
         });
 
+        it('should not mount if the element already has a parent', () => {
+            element = createElement('div'); // Sandbox
+            obj.element = element;
+
+            expect(obj.mounted).toBe(false);
+
+            obj.mount();
+
+            expect(obj.mounted).toBe(false);
+        });
+
         it('should mount the element', () => {
-            element = document.createElement('div');
+            element = createElement('div', {}, false);
             obj.element = element;
 
             expect(obj.mounted).toBe(false);
@@ -202,7 +227,7 @@ describe('Plugin', () => {
         it('should not mount if already mounted', () => {
             let count = 0;
 
-            element = document.createElement('div');
+            element = createElement('div', {}, false);
 
             obj.element = element;
             obj.on('mounted', () => count++);
@@ -222,23 +247,160 @@ describe('Plugin', () => {
     });
 
     describe('on()', () => {
-        // TODO
+        it('should add a listener', () => {
+            let fn1 = function() {};
+
+            expect(obj.listeners.foo).toBeUndefined();
+
+            obj.on('foo', fn1);
+
+            expect(obj.listeners.foo).toEqual([fn1]);
+        });
+
+        it('should add multiple listeners', () => {
+            let fn1 = function() {},
+                fn2 = function() {},
+                fn3 = function() {};
+
+            expect(obj.listeners.foo).toBeUndefined();
+
+            obj.on('foo', fn1);
+
+            expect(obj.listeners.foo).toEqual([fn1]);
+
+            obj.on('foo', [fn2, fn3]);
+
+            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+        });
     });
 
     describe('off()', () => {
-        // TODO
+        it('should remove a matching listener', () => {
+            let fn1 = function() {},
+                fn2 = function() {},
+                fn3 = function() {};
+
+            obj.on('foo', [fn1, fn2, fn3]);
+
+            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+
+            obj.off('foo', fn2);
+
+            expect(obj.listeners.foo).toEqual([fn1, fn3]);
+        });
+
+        it('should remove all listeners if no match is passed', () => {
+            let fn1 = function() {},
+                fn2 = function() {},
+                fn3 = function() {};
+
+            obj.on('foo', [fn1, fn2, fn3]);
+
+            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+
+            obj.off('foo');
+
+            expect(obj.listeners.foo).toBeUndefined();
+        });
     });
 
     describe('setBinds()', () => {
-        // TODO
+        it('should parse out context, selector, and event', () => {
+            let fn = function() {};
+
+            obj.setBinds({
+                'click element': 'startup',
+                'click container [data-selector]': fn
+            });
+
+            expect(obj.binds).toEqual([
+                ['click', 'element', '', obj.binds[0][3]],
+                ['click', 'container', '[data-selector]', fn]
+            ]);
+        });
+
+        it('should replace tokens', () => {
+            let fn = function() {};
+
+            obj.options.mode = 'click';
+            obj.selector = '.foo';
+
+            obj.setBinds({
+                '{mode} element {selector}': fn
+            });
+
+            expect(obj.binds).toEqual([
+                ['click', 'element', '.foo', fn]
+            ]);
+        });
+
+        it('should convert string callbacks to a function', () => {
+            obj.setBinds({
+                'click element': 'startup'
+            });
+
+            expect(typeof obj.binds[0][3]).toBe('function');
+        });
+
+        it('should rename specific event names', () => {
+            let fn = function() {};
+
+            obj.setBinds({
+                'ready document': fn
+            });
+
+            expect(obj.binds).toEqual([
+                ['DOMContentLoaded', 'document', '', fn]
+            ]);
+        });
     });
 
     describe('setElement()', () => {
-        // TODO
+        it('should set the element', () => {
+            element = createElement('div');
+
+            expect(obj.element).toBe(null);
+
+            obj.setElement(element);
+
+            expect(obj.element).toEqual(element);
+        });
     });
 
     describe('setOptions()', () => {
-        // TODO
+        it('should merge with the previous options', () => {
+            obj.options = { foo: 1 };
+
+            obj.setOptions({
+                bar: 2,
+                baz: 3
+            });
+
+            expect(obj.options).toEqual({
+                foo: 1,
+                bar: 2,
+                baz: 3
+            });
+        });
+
+        it('should auto-subscribe listeners that start with `on`', () => {
+            let fn = function() {};
+
+            expect(obj.listeners.init).toBeUndefined();
+
+            obj.setOptions({
+                onInit: fn,
+                foo: 'bar'
+            });
+
+            expect(obj.listeners.init).toEqual([fn]);
+
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false,
+                foo: 'bar'
+            });
+        });
     });
 
     describe('setState()', () => {
@@ -246,6 +408,62 @@ describe('Plugin', () => {
     });
 
     describe('unmount()', () => {
-        // TODO
+        it('should not unmount if no element defined', () => {
+            expect(obj.mounted).toBe(false);
+
+            obj.unmount();
+
+            expect(obj.mounted).toBe(false);
+        });
+
+        it('should not unmount if no parent element', () => {
+            element = createElement('div', {}, false);
+
+            obj.element = element;
+            obj.mounted = true;
+
+            expect(obj.mounted).toBe(true);
+
+            obj.unmount();
+
+            expect(obj.mounted).toBe(true);
+        });
+
+        it('should unmount the element', () => {
+            element = createElement('div');
+
+            obj.element = element;
+            obj.mounted = true;
+
+            expect(obj.mounted).toBe(true);
+
+            obj.unmount();
+
+            expect(obj.mounted).toBe(false);
+            expect(element.parentNode).toBe(null);
+        });
+
+        it('should not unmount if already unmounted', () => {
+            let count = 0;
+
+            element = createElement('div');
+
+            obj.element = element;
+            obj.mounted = true;
+
+            obj.on('unmounted', () => count++);
+
+            expect(obj.mounted).toBe(true);
+
+            obj.unmount();
+
+            expect(obj.mounted).toBe(false);
+            expect(count).toBe(1);
+
+            obj.unmount();
+
+            expect(obj.mounted).toBe(false);
+            expect(count).toBe(1);
+        });
     });
 });
