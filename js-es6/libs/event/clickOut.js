@@ -5,24 +5,18 @@
  */
 
 import Toolkit from 'Toolkit';
-import ClickOut from 'events/ClickOut';
+import clickOutInstance from 'events/instances/clickOut';
 
 /**
- * Wrap a function that monitors click out events by appending the element to be monitored
- * to the global ClickOut handler.
+ * Add the element to the list of elements to be monitored for click outs.
+ * Return the original handler so that it may be called later on.
  *
  * @param {HTMLElement|HTMLElement[]} element
  * @param {function} func
  * @returns {function}
  */
 export default function clickOut(element, func) {
-    if (Array.isArray(element)) {
-        element.forEach(el => {
-            ClickOut.elements.add(el);
-        });
-    } else {
-        ClickOut.elements.add(element);
-    }
+    clickOutInstance.monitor(element);
 
     return func;
 }

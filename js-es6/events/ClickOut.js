@@ -7,16 +7,35 @@
 import Event from 'events/Event';
 import { isTouch } from 'libs/flags';
 
-class ClickOut extends Event {
+export default class ClickOut extends Event {
 
     /**
-     * Bind a global `click` (or `touchend` on touch devices) to monitor for click outs.
+     * Bind a global `click` (or `touchend` on touch devices) event to monitor for click outs.
      */
     constructor() {
         super(document);
 
         this.elements = new Set();
-        this.context.addEventListener(isTouch ? 'touchend' : 'click', this.handle.bind(this));
+
+        // Event handlers
+        this.handler = this.handle.bind(this);
+
+        // Bind default events
+        this.enable();
+    }
+
+    /**
+     * Unbind events.
+     */
+    disable() {
+        this.context.removeEventListener(isTouch ? 'touchend' : 'click', this.handler);
+    }
+
+    /**
+     * Bind events.
+     */
+    enable() {
+        this.context.addEventListener(isTouch ? 'touchend' : 'click', this.handler);
     }
 
     /**
@@ -36,6 +55,18 @@ class ClickOut extends Event {
             }
         });
     }
-}
 
-export default new ClickOut();
+    /**
+     * Add an element to the list to be monitored.
+     *
+     * @param {HTMLElement|HTMLElement[]} element
+     */
+    monitor(element) {
+        if (Array.isArray(element)) {
+            element.forEach(el => this.elements.add(el));
+
+        } else {
+            this.elements.add(element);
+        }
+    }
+}

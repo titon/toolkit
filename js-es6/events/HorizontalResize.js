@@ -5,18 +5,40 @@
  */
 
 import Event from 'events/Event';
+import assign from 'lodash/object/assign';
 import debounce from 'lodash/function/debounce';
 
-class HorizontalResize extends Event {
+export default class HorizontalResize extends Event {
 
     /**
      * Bind a global `resize` event handler.
      */
-    constructor() {
-        super();
+    constructor(context, options = {}) {
+        super(context, assign({
+            delay: 100 // The delay before firing the handler
+        }, options));
 
-        this.lastWidth = 0;
-        this.context.addEventListener('resize', debounce(this.handle.bind(this), 100));
+        this.lastSize = 0;
+
+        // Event handlers
+        this.handler = debounce(this.handle.bind(this), this.options.delay);
+
+        // Bind default events
+        this.enable();
+    }
+
+    /**
+     * Unbind events.
+     */
+    disable() {
+        this.context.removeEventListener('resize', this.handler);
+    }
+
+    /**
+     * Bind events.
+     */
+    enable() {
+        this.context.addEventListener('resize', this.handler);
     }
 
     /**
@@ -26,10 +48,10 @@ class HorizontalResize extends Event {
      */
     handle(e) {
         let currentWidth = e.currentTarget.innerWidth,
-            lastWidth = this.lastWidth;
+            lastWidth = this.lastSize;
 
         if (currentWidth !== lastWidth) {
-            this.lastWidth = currentWidth;
+            this.lastSize = currentWidth;
 
             this.dispatch('horizontalresize', {
                 lastWidth: lastWidth,
@@ -38,5 +60,3 @@ class HorizontalResize extends Event {
         }
     }
 }
-
-export default new HorizontalResize();

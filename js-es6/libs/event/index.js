@@ -7,4 +7,5 @@
 export clickOut from 'libs/event/clickOut';
 export delegate from 'libs/event/delegate';
 export once from 'libs/event/once';
+export swipe from 'libs/event/swipe';
 export transitionEnd from 'libs/event/transitionEnd';

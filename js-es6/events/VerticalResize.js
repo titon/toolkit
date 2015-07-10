@@ -4,20 +4,9 @@
  * @link        http://titon.io
  */
 
-import Event from 'events/Event';
-import debounce from 'lodash/function/debounce';
+import HorizontalResize from 'events/HorizontalResize';
 
-class VerticalResize extends Event {
-
-    /**
-     * Bind a global `resize` event handler.
-     */
-    constructor() {
-        super();
-
-        this.lastHeight = 0;
-        this.context.addEventListener('resize', debounce(this.handle.bind(this), 100));
-    }
+export default class VerticalResize extends HorizontalResize {
 
     /**
      * If the window height has changed, dispatch a `verticalresize` event.
@@ -26,10 +15,10 @@ class VerticalResize extends Event {
      */
     handle(e) {
         let currentHeight = e.currentTarget.innerHeight,
-            lastHeight = this.lastHeight;
+            lastHeight = this.lastSize;
 
         if (currentHeight !== lastHeight) {
-            this.lastHeight = currentHeight;
+            this.lastSize = currentHeight;
 
             this.dispatch('verticalresize', {
                 lastHeight: lastHeight,
@@ -38,5 +27,3 @@ class VerticalResize extends Event {
         }
     }
 }
-
-export default new VerticalResize();
