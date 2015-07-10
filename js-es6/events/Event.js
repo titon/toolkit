@@ -10,9 +10,11 @@ export default class Event {
      * Store the context in which to bind events. Defaults to `window`.
      *
      * @param {*} context
+     * @param {object} options
      */
-    constructor(context) {
+    constructor(context, options = {}) {
         this.context = context || window;
+        this.options = options;
     }
 
     /**
