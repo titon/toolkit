@@ -5,12 +5,25 @@
  */
 
 export default class Event {
+
+    /**
+     * Store the context in which to bind events. Defaults to `window`.
+     *
+     * @param {*} context
+     */
     constructor(context) {
         this.context = context || window;
     }
 
-    dispatch(event, detail = {}) {
-        this.context.dispatchEvent(new CustomEvent(event, {
+    /**
+     * Dispatch a custom event in the defined context.
+     *
+     * @param {string} event
+     * @param {object} detail
+     * @param {*} context
+     */
+    dispatch(event, detail = {}, context = null) {
+        (context || this.context).dispatchEvent(new CustomEvent(event, {
             detail: detail
         }));
     }

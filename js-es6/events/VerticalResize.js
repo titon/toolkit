@@ -8,13 +8,22 @@ import Event from 'events/Event';
 import debounce from 'lodash/function/debounce';
 
 class VerticalResize extends Event {
-    constructor(context) {
-        super(context);
+
+    /**
+     * Bind a global `resize` event handler.
+     */
+    constructor() {
+        super();
 
         this.lastHeight = 0;
         this.context.addEventListener('resize', debounce(this.handle.bind(this), 100));
     }
 
+    /**
+     * If the window height has changed, dispatch a `verticalresize` event.
+     *
+     * @param {Event} e
+     */
     handle(e) {
         let currentHeight = e.currentTarget.innerHeight,
             lastHeight = this.lastHeight;
@@ -30,7 +39,4 @@ class VerticalResize extends Event {
     }
 }
 
-// Set on window by default
-const windowVerticalResize = new VerticalResize();
-
-export default VerticalResize;
+export default new VerticalResize();
