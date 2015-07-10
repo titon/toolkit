@@ -5,27 +5,27 @@
  */
 
 // Is the device in landscape mode
-export var landscape = (window.innerWidth > window.innerHeight);
+export var isLandscape = (window.innerWidth > window.innerHeight);
 
 // Is the device in portrait mode
-export var portrait = !landscape;
+export var isPortrait = !isLandscape;
 
 // Does the device support retina display
-export var retina = (window.devicePixelRatio > 1);
+export var isRetina = (window.devicePixelRatio > 1);
 
 // Is the HTML document currently set to RTL mode
-export var rtl = (document.documentElement.dir === 'rtl');
+export var isRTL = (document.documentElement.dir === 'rtl');
 
 // Does the device support touch controls
-export var touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+export var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 // Export all as an object
 var flags = {
-    landscape,
-    portrait,
-    retina,
-    rtl,
-    touch
+    landscape: isLandscape,
+    portrait: isPortrait,
+    retina: isRetina,
+    rtl: isRTL,
+    touch: isTouch
 };
 
 export default flags;
