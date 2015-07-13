@@ -171,7 +171,7 @@ var Stalker = Toolkit.Stalker = Component.extend({
 
             var offset = offsets[index],
                 top = offset.top - threshold,
-                bot = offset.top + marker.height() + threshold;
+                bot = offset.top + marker.height() - threshold;
 
             // Scroll is within the marker
             if (
