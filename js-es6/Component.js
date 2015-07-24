@@ -6,9 +6,7 @@
 
 import Toolkit from 'Toolkit';
 import Plugin from 'Plugin';
-
-let componentAttrNameProp = Symbol('attributeName'),
-    componentCssNameProp = Symbol('cssClassName');
+import memoize from 'decorators/memoize';
 
 export default class Component extends Plugin {
 
@@ -35,8 +33,9 @@ export default class Component extends Plugin {
      *
      * @returns {string}
      */
+    @memoize
     getAttributeName() {
-        return this[componentAttrNameProp] || (this[componentAttrNameProp] = this.name.toLowerCase());
+        return this.name.toLowerCase();
     }
 
     /**
@@ -45,10 +44,11 @@ export default class Component extends Plugin {
      *
      * @returns {string}
      */
+    @memoize
     getCssClassName() {
-        return this[componentCssNameProp] || (this[componentCssNameProp] = this.name.replace(/[A-Z]/g, function(match) {
+        return this.name.replace(/[A-Z]/g, function(match) {
             return ('-' + match.charAt(0).toLowerCase());
-        }).slice(1));
+        }).slice(1);
     }
 
 }

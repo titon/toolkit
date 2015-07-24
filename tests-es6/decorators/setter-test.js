@@ -1,6 +1,6 @@
 'use strict';
 
-import setter from 'libs/utility/setter';
+import setter from 'decorators/setter';
 
 class SetterStub {
     constructor(data) {
@@ -13,12 +13,13 @@ class SetterStub {
         return (typeof value === 'undefined') ? null : value;
     }
 
+    @setter
     set(key, value) {
         this.data[key] = value;
     }
 }
 
-describe('libs/utility/setter', () => {
+describe('decorators/setter', () => {
     describe('setter()', () => {
         let obj;
 
@@ -28,8 +29,6 @@ describe('libs/utility/setter', () => {
                 bar: 'abc',
                 baz: true
             });
-
-            obj.set = setter(obj.set);
         });
 
         it('should set a value defined by key', () => {

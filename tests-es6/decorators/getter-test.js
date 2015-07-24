@@ -1,12 +1,13 @@
 'use strict';
 
-import getter from 'libs/utility/getter';
+import getter from 'decorators/getter';
 
 class GetterStub {
     constructor(data) {
         this.data = data;
     }
 
+    @getter
     get(key) {
         let value = this.data[key];
 
@@ -14,7 +15,7 @@ class GetterStub {
     }
 }
 
-describe('libs/utility/getter', () => {
+describe('decorators/getter', () => {
     describe('getter()', () => {
         let obj;
 
@@ -24,8 +25,6 @@ describe('libs/utility/getter', () => {
                 bar: 'abc',
                 baz: true
             });
-
-            obj.get = getter(obj.get);
         });
 
         it('should return a value defined by key', () => {
