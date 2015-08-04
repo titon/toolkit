@@ -1,0 +1,163 @@
+// Variables that should only be used by Toolkit
+$toolkit-internal-align-direction: "left";
+$toolkit-internal-align-opposite-direction: "right";
+$toolkit-internal-modules-exported: () !global;
+
+/**
+ * TOOLKIT SETTINGS
+ *
+ * Configuration related to Toolkit itself. These settings are primarily used for
+ * controlling the look and feel of the final output.
+ */
+
+$toolkit: (
+    "namespace": "", // Without "."
+    "text-direction": "ltr", // Either "ltr" or "rtl"
+    "excluded-modules": (),
+    "element-separator": "-",
+    "modifier-separator": "--",
+    "base-font-size": 14px,
+) !default;
+
+// Swap text direction if RTL
+@if map-get($toolkit, "text-direction") == "rtl" {
+    $toolkit-internal-align-direction: "right";
+    $toolkit-internal-align-opposite-direction: "left";
+}
+
+/**
+ * FEATURE FLAGS
+ *
+ * Flags can be used to enable or disable specific features within Toolkit.
+ * If a feature is disabled, it will not be rendered in the output.
+ */
+
+$toolkit-feature-flags: (
+    "small-size": true,
+    "large-size": true,
+    "all-effects": false,
+    "all-modifiers": false,
+    "all-animations": false,
+    "all-modules": false,
+) !default;
+
+// Enable all modules, including excluded modules
+@if map-get($toolkit-feature-flags, "all-modules") == true {
+    $toolkit-internal-modules-exported: ();
+}
+
+/**
+ * GLOBAL SETTINGS
+ *
+ * Configuration for all global related settings, like global class names.
+ */
+
+$toolkit-global: (
+    "size-small-class": ".small",
+    "size-large-class": ".large",
+    "shape-round-class": ".round",
+    "shape-oval-class": ".oval",
+    "shape-pill-class": ".pill",
+    "shape-skew-class": ".skew",
+) !default;
+
+/**
+ * THEME & COLORS
+ *
+ * @todo
+ */
+
+$toolkit-theme-style: (
+    "background-color": #fff,
+    "foreground-color": #2d2d2d,
+    "gray-lightest": #fbfbfb,
+    "gray-light": #f8f8f8,
+    "gray": #f5f5f5,
+    "gray-dark": #e5e5e5,
+    "gray-darkest": #c2c2c2,
+    "default": #929497,
+    "default-light": #d0d2d3,
+    "default-dark": #404041,
+    "info": #45c5eb,
+    "info-light": #dbf1fa,
+    "info-dark": #4067ab,
+    "warning": #fcd04b,
+    "warning-light": #ffebb5,
+    "warning-dark": #c87e00,
+    "success": #97cb6f,
+    "success-light": #e7f2dd,
+    "success-dark": #226b36,
+    "error": #f06060,
+    "error-light": #fdc5c1,
+    "error-dark": #b10e0e,
+) !default;
+
+/**
+ * LAYOUT STRUCTURE
+ *
+ * @todo
+ */
+
+$toolkit-theme-layout: (
+    "line-height": 1.25,
+    "opacity": .5,
+    "opacity-disabled": .5,
+    "transition": .3s,
+    "padding": .75rem,
+    "margin": 1.25rem,
+    "small-font-size": .7rem,
+    "small-padding": .5rem,
+    "medium-font-size": 1rem,
+    "medium-padding": .75rem,
+    "large-font-size": 1.3rem,
+    "large-padding": 1rem,
+) !default;
+
+/**
+ * Z-INDEX
+ *
+ * A mapping of all plugins and their z-index value. This map makes it easy
+ * to layer and stack appropriately.
+ *
+ *  1) Modal and Showcase should be higher than Blackout
+ *  2) Tooltip and Popover should be higher than Modals in case they exist within them
+ *  3) Off Canvas should be the lowest so everything can display above it
+ */
+
+$toolkit-zindex: (
+    "blackout": 600,
+    "drop": 500,
+    "flyout": 500,
+    "mask": 500,
+    "modal": 610,
+    "off-canvas": 250,
+    "popover": 700,
+    "showcase": 610,
+    "toast": 500,
+    "tooltip": 700,
+    "type-ahead": 500,
+) !default;
+
+/**
+ * BREAKPOINT RANGES
+ *
+ * A mapping of media query aliases to pixel based breakpoint ranges (defined as a list).
+ * These ranges are used extensively to provide integrate responive design support.
+ */
+
+$toolkit-breapoints: (
+    "xsmall": (null, 640px),
+    "small": (641px, 960px),
+    "medium": (961px, 1280px),
+    "large": (1281px, 1680px),
+    "xlarge": (1681px, null),
+) !default;
+
+//-------------------- Imports --------------------//
+
+@import "mixins/unit";
+@import "mixins/layout";
+@import "mixins/grid";
+@import "mixins/flex";
+@import "mixins/responsive";
+@import "mixins/components";

@@ -1,0 +1,24 @@
+$toolkit-temp-button-class: map-get($toolkit-button, "class");
+
+@mixin button-group-first-child {
+    > li:first-child #{$toolkit-temp-button-class},
+    > #{$toolkit-temp-button-class}:first-child {
+        @content;
+    }
+}
+
+@mixin button-group-last-child {
+    > li:last-child #{$toolkit-temp-button-class},
+    > #{$toolkit-temp-button-class}:last-child {
+        @content;
+    }
+}
+
+@mixin responsive-display-block($class) {
+    #{$class} { display: block !important; }
+    table#{$class} { display: table !important; }
+    tr#{$class} { display: table-row !important; }
+    td#{$class},
+    th#{$class} { display: table-cell !important; }
+    li#{$class} { display: list-item !important; }
+}

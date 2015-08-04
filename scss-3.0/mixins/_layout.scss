@@ -1,0 +1,121 @@
+// Export a component into the compiled output only once
+// Also check to see if it has been excluded from the output all together
+@mixin export($module) {
+    // Module is excluded, so do nothing
+    @if (index(map-get($toolkit, "excluded-modules"), $module) != null) {
+
+    // Module hasn't been exported yet, so export it and log usage
+    } @else if (index($toolkit-internal-modules-exported, $module) == null) {
+        $toolkit-internal-modules-exported: append($toolkit-internal-modules-exported, $module) !global;
+
+        @content;
+    }
+}
+
+// Container clear fix for floats
+@mixin clear-fix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// Reset an inline-block element to defaults
+@mixin reset-inline-block {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+// Reset a list and remove default styles
+@mixin reset-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+// Position an element to take up the whole screen
+@mixin full-screen($position: fixed) {
+    @if ($position != "") {
+        position: $position;
+    }
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+// Align an element in the center of another element
+@mixin position-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Global small size
+@mixin size-small {
+    font-size: map-get($toolkit-theme-layout, "small-font-size");
+    padding: map-get($toolkit-theme-layout, "small-padding");
+}
+
+// Global medium size (the default size)
+@mixin size-medium {
+    font-size: map-get($toolkit-theme-layout, "medium-font-size");
+    padding: map-get($toolkit-theme-layout, "medium-padding");
+}
+
+// Global large size
+@mixin size-large {
+    font-size: map-get($toolkit-theme-layout, "large-font-size");
+    padding: map-get($toolkit-theme-layout, "large-padding");
+}
+
+// Generate a self selector or parent selector for assigning size classes
+@mixin is-size($size, $self: true, $parent: false) {
+    $selectors: ();
+
+    @if $self {
+        $selectors: append($selectors, unquote("&" + $size), "comma");
+    }
+
+    @if $parent {
+        $selectors: append($selectors, unquote($size + " &"), "comma");
+    }
+
+    #{$selectors} {
+        @content;
+    }
+}
+
+// Render small size if enabled
+@mixin is-size-small($self: true, $parent: false) {
+    @if map-get($toolkit-feature-flags, "small-size") {
+        @include is-size(map-get($toolkit-global, "size-small-class"), $self, $parent) {
+            @content;
+        }
+    }
+}
+
+// Render large size if enabled
+@mixin is-size-large($self: true, $parent: false) {
+    @if map-get($toolkit-feature-flags, "large-size") {
+        @include is-size(map-get($toolkit-global, "size-large-class"), $self, $parent) {
+            @content;
+        }
+    }
+}
+
+// Generate code blocks for LTR and RTL styles.
+@mixin ltr() {
+    &[dir="ltr"] {
+        @content;
+    }
+}
+
+@mixin rtl() {
+    &[dir="rtl"] {
+        @content;
+    }
+}

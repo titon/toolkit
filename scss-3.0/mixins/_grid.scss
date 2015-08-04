@@ -1,0 +1,36 @@
+
+// Calculate the width of an individual grid column.
+// Take into account max widths and gutters.
+@function grid-span($n, $columns, $width: $grid-width, $gutter: $grid-gutter) {
+    @return span-width($n, $columns, $width, $gutter);
+}
+
+// Styles for the grid row containing the columns.
+@mixin grid-row($width: $grid-width) {
+    width: $width;
+    max-width: $width;
+
+    @include clear-fix;
+}
+
+// Styles for the individual grid column.
+@mixin grid-column($width: $grid-width, $gutter: $grid-gutter) {
+    position: relative;
+    min-height: 1px;
+    float: $align-direction;
+
+    @if $gutter {
+        & + & {
+            margin-#{$align-direction}: gutter($width, $gutter);
+        }
+    }
+
+    // End capping
+    &#{$grid-class-end} {
+        @if $gutter {
+            margin-#{$align-opposite-direction}: 0 !important;
+        }
+
+        float: $align-opposite-direction !important;
+    }
+}
