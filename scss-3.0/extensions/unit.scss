@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-$toolkit-temp-base-size: setting("base-font-size");
-
 /**
  * Remove the unit and return the integer.
  *
@@ -27,7 +25,7 @@ $toolkit-temp-base-size: setting("base-font-size");
         @return $from;
 
     } @else if $from-unit == "%" or $from-unit == "em" or $from-unit == "rem" {
-        @return (strip-unit($from) * $toolkit-temp-base-size);
+        @return (strip-unit($from) * setting("base-font-size"));
 
     } @else {
         @warn "Unknown pixel conversion unit type.";
@@ -48,7 +46,7 @@ $toolkit-temp-base-size: setting("base-font-size");
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "em" or $from-unit == "rem" {
-        @return percentage((to-pixel($from) / $toolkit-temp-base-size) / 100);
+        @return percentage((to-pixel($from) / setting("base-font-size")) / 100);
 
     } @else {
         @warn "Unknown percentage conversion unit type.";
@@ -69,7 +67,7 @@ $toolkit-temp-base-size: setting("base-font-size");
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "em" {
-        @return (to-pixel($from) / $toolkit-temp-base-size) * 1rem;
+        @return (to-pixel($from) / setting("base-font-size")) * 1rem;
 
     } @else {
         @warn "Unknown rem conversion unit type.";
@@ -90,7 +88,7 @@ $toolkit-temp-base-size: setting("base-font-size");
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "rem" {
-        @return (to-pixel($from) / $toolkit-temp-base-size) * 1em;
+        @return (to-pixel($from) / setting("base-font-size")) * 1em;
 
     } @else {
         @warn "Unknown em conversion unit type.";

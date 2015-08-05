@@ -51,14 +51,14 @@
  * Return the current bi-directional alignment based on the `text-direction` setting.
  */
 @function bidi-alignment() {
-    @return if(setting("text-direction") == "rtl", "right", "left");
+    @return if(setting("text-direction") == rtl, right, left);
 }
 
 /**
  * Return the opposite bi-directional alignment based on the `text-direction` setting.
  */
 @function bidi-opposite-alignment() {
-    @return if(setting("text-direction") == "rtl", "left", "right");
+    @return if(setting("text-direction") == rtl, left, right);
 }
 
 /**

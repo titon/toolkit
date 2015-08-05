@@ -11,7 +11,7 @@ $flex-width: 100% !default;
 $flex-gutter: false !default;
 
 // Alias look-ups for flexbox alignments.
-$flex-align-map: (
+$flex-alignment-map: (
     top: flex-start,
     bottom: flex-end,
     left: flex-start,
@@ -51,7 +51,7 @@ $flex-align-map: (
  * @param string [$align]
  */
 @mixin flex-region-align($align: left) {
-    justify-content: map-get($flex-align-map, $align);
+    justify-content: map-get($flex-alignment-map, $align);
 }
 
 /**
@@ -99,7 +99,7 @@ $flex-align-map: (
  * @param string [$align]
  */
 @mixin flex-block-align($align: left) {
-    align-self: map-get($flex-align-map, $align);
+    align-self: map-get($flex-alignment-map, $align);
 }
 
 /**

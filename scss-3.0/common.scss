@@ -16,7 +16,7 @@
 
 $toolkit: (
     "namespace": "", // Without "."
-    "text-direction": "ltr", // Either "ltr" or "rtl"
+    "text-direction": ltr, // Either "ltr" or "rtl"
     "exclude-modules": (),
     "element-separator": "-",
     "modifier-separator": "--",
