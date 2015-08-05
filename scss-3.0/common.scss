@@ -187,6 +187,18 @@ $toolkit-divider: (
     "class": bem("divider"),
 ) !default;
 
+$toolkit-drop: (
+    "class": bem("drop"),
+    "class-divider": bem("drop", "divider"),
+    "class-heading": bem("drop", "heading"),
+    "class-modifier-down": bem("drop", "", "down"),
+    "class-modifier-up": bem("drop", "", "up"),
+    "class-modifier-left": bem("drop", "", "left"),
+    "class-modifier-right": bem("drop", "", "right"),
+    "modifiers": ("down", "up", "left", "right"),
+    "transition": theme-setting("transition"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";
