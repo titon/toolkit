@@ -183,6 +183,10 @@ $toolkit-carousel: (
     "transition": 1s,
 ) !default;
 
+$toolkit-divider: (
+    "class": bem("divider"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";

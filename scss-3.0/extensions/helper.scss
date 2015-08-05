@@ -141,13 +141,15 @@
  * @param string $modifier
  * @param string [$element-separator]
  * @param string [$modifier-separator]
+ * @param string [$prefix]
  */
 @function bem(
     $block: "",
     $element: "",
     $modifier: "",
     $element-separator: setting("element-separator"),
-    $modifier-separator: setting("modifier-separator")
+    $modifier-separator: setting("modifier-separator"),
+    $prefix: setting("namespace")
 ) {
     $name: $block;
 
@@ -159,7 +161,7 @@
         $name: $name + $modifier-separator + $modifier;
     }
 
-    @return class-name($name);
+    @return class-name($name, $prefix);
 }
 
 /**
