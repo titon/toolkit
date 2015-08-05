@@ -44,6 +44,10 @@
         "node-sass": "~3.2",
         "systemjs": "~0.18",
         "systemjs-builder": "~0.12",
-        "lodash": "~3.10"
+        "lodash": "~3.10",
+
+        "through2": "*",
+        "gulp-uglify": "*",
+        "gulp-notify": "*"
     }
 }

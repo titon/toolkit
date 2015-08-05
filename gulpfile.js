@@ -47,7 +47,7 @@ var graph = new compartment();
     graph.loadManifest('./manifest.json');
     graph.addTypes({
         js: '', // Handled by RequireJS
-        css: './scss/toolkit/'
+        css: './scss-3.0/'
     });
 
 var toPackage = [],

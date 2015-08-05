@@ -86,6 +86,15 @@ $toolkit-settings-theme: (
     "medium-padding": .75rem,
     "large-font-size": 1.3rem,
     "large-padding": 1rem,
+    "round-radius": .2rem,
+    "pill-radius": 2rem,
+    "oval-radius": 7rem / 2.75rem,
+    "oval-x-radius": 7rem,
+    "oval-y-radius": 2.75rem,
+    "skew-radius": 1rem 3rem,
+    "skew-reverse-radius": 3rem 1rem,
+    "skew-x-radius": 1rem,
+    "skew-y-radius": 3rem,
 ) !default;
 
 /**
@@ -143,7 +152,13 @@ $toolkit-global: (
     "end-class": ".end",
 ) !default;
 
-//-------------------- Imports --------------------//
+//------------------------------ Components ------------------------------//
+
+$toolkit-button: (
+    "class": ".button"
+) !default;
+
+//------------------------------ Imports ------------------------------//
 
 @import "mixins/unit";
 @import "mixins/layout";

@@ -5,7 +5,7 @@
         "category": "layout",
         "priority": -1,
         "source": {
-            "css": ["../normalize.scss"]
+            "css": ["normalize.scss"]
         }
     },
 
