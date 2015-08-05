@@ -144,7 +144,7 @@ $toolkit-global: (
 ) !default;
 
 $toolkit-accordion: (
-    "class": class-name("accordion"),
+    "class": bem("accordion"),
     "class-header": bem("accordion", "header"),
     "class-section": bem("accordion", "section"),
     "class-body": bem("accordion", "body"),
@@ -152,11 +152,11 @@ $toolkit-accordion: (
 ) !default;
 
 $toolkit-breadcrumb: (
-    "class": class-name("breadcrumb"),
+    "class": bem("breadcrumb"),
 ) !default;
 
 $toolkit-button: (
-    "class": class-name("button"),
+    "class": bem("button"),
     "class-modifier-gloss": bem("button", "", "gloss"),
     "class-modifier-reflect": bem("button", "", "reflect"),
     "class-modifier-glare": bem("button", "", "glare"),
@@ -166,11 +166,21 @@ $toolkit-button: (
 ) !default;
 
 $toolkit-button-group: (
-    "class": class-name("button-group"),
+    "class": bem("button-group"),
     "class-modifier-vertical": bem("button-group", "", "vertical"),
     "class-modifier-justified": bem("button-group", "", "justified"),
     "modifiers": ("justified"),
     "effects": (),
+) !default;
+
+$toolkit-carousel: (
+    "class": bem("carousel"),
+    "class-items": bem("carousel", "items"),
+    "class-tabs": bem("carousel", "tabs"),
+    "class-next": bem("carousel", "next"),
+    "class-prev": bem("carousel", "prev"),
+    "opacity": theme-setting("opacity"),
+    "transition": 1s,
 ) !default;
 
 //------------------------------ Imports ------------------------------//
