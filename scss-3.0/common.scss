@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-@import "mixins/helper";
+@import "extensions/helper";
 
 //------------------------------ Settings ------------------------------//
 
@@ -132,12 +132,6 @@ $toolkit-settings-breakpoints: (
 
 //------------------------------ Components & Behaviors ------------------------------//
 
-/**
- * GLOBAL PLUGINS
- *
- * Configure global settings for plugins (components and behaviors), like global class names.
- */
-
 $toolkit-global: (
     "size-small-class": ".small",
     "size-large-class": ".large",
@@ -148,10 +142,6 @@ $toolkit-global: (
     "end-class": ".end",
 ) !default;
 
-/**
- * ACCORDION
- */
-
 $toolkit-accordion: (
     "class": class-name("accordion"),
     "class-header": bem("accordion", "header"),
@@ -160,17 +150,9 @@ $toolkit-accordion: (
     "transition": theme-setting("transition"),
 ) !default;
 
-/**
- * BREADCRUMB
- */
-
 $toolkit-breadcrumb: (
     "class": class-name("breadcrumb")
 ) !default;
-
-/**
- * BUTTON
- */
 
 $toolkit-button: (
     "class": ".button"
@@ -178,9 +160,9 @@ $toolkit-button: (
 
 //------------------------------ Imports ------------------------------//
 
-@import "mixins/unit";
-@import "mixins/layout";
-@import "mixins/grid";
-@import "mixins/flexbox";
-@import "mixins/responsive";
-@import "mixins/components";
+@import "extensions/unit";
+@import "extensions/layout";
+@import "extensions/grid";
+@import "extensions/flexbox";
+@import "extensions/responsive";
+@import "extensions/components";
