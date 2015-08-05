@@ -2,45 +2,57 @@ const PLUGIN_NAME = 'toolkit-sass';
 
 var gutil = require('gulp-util'),
     through = require('through2'),
+    buffer = require('buffer'),
     sass = require('node-sass'),
-    buffer = require('buffer');
+    path = require('path'),
+    fs = require('fs');
 
-module.exports = function(options) {
+module.exports = function(paths, options) {
     gutil.log(gutil.colors.yellow('Transpiling CSS...'));
 
-    return through.obj(function(file, enc, done) {
-        var self = this,
-            inputPath = file.path,
-            outputPath = inputPath.replace('.scss', '.css');
+    var data = ['@charset "UTF-8";', '@import "common";'],
+        stream = through.obj(),
+        includePath = path.normalize(__dirname + '/../scss-3.0/');
 
-        sass.render({
-            file: inputPath,
-            outputStyle: options.style,
-            sourceComments: false,
-            sourceMap: false,
-            indentedSyntax: true
-        }, function(error, response) {
-            if (error) {
-                throw new gutil.PluginError(PLUGIN_NAME,
-                    error.message + ' [' + error.file + ':' + error.line + ':' + error.column + ']');
+    // Generate a fake inline Sass file to use for rendering
+    paths.forEach(function(path) {
+        if (fs.existsSync(includePath + path)) {
+            path = path.replace(/\\/g, '/').replace('.scss', '');
 
-            } else {
-                gutil.log("\t" + gutil.colors.blue(inputPath
-                    .replace(file.cwd, '')      // Remove base folder from path
-                    .replace(/\\/g, '/')        // Fix Windows paths
-                    .replace('/scss/', '')      // And the scss folder for normalize
-                    .replace('toolkit/', '')    // And the toolkit folder for everything else
-                    .replace('.scss', '')));
+            gutil.log("\t" + gutil.colors.blue(path));
 
-                // Read the temp file contents
-                self.push(new gutil.File({
-                    base: file.base,
-                    path: outputPath,
-                    contents: new buffer.Buffer(response.css)
-                }));
-
-                done();
-            }
-        });
+            data.push('@import "' + path + '";');
+        }
     });
+
+    // Render the Sass file and pipe its output
+    sass.render({
+        data: data.join("\n"),
+        includePaths: [includePath],
+        outputStyle: options.style,
+        sourceComments: false,
+        sourceMap: false,
+        indentWidth: 4
+    }, function(error, response) {
+        if (error) {
+            throw new gutil.PluginError(PLUGIN_NAME,
+                error.message + ' [' + error.file + ':' + error.line + ':' + error.column + ']');
+
+        } else {
+            var contents = response.css.toString();
+                contents = contents.replace(/\/\*\*([\s\S]+?)\*\/\n/g, ''); // Replace docblocks
+                contents = contents.replace(/\/\*[^!]([^*]+)\*\//g, ''); // Replace block comments
+                contents = contents.replace(/ {4}\n/g, ''); // Replace empty lines
+                contents = contents.replace(/\n{3,}/g, "\n\n"); // Replace multi-lines
+
+            stream.write(new gutil.File({
+                path: 'toolkit.css',
+                contents: new buffer.Buffer(contents.trim())
+            }));
+
+            stream.end();
+        }
+    });
+
+    return stream;
 };

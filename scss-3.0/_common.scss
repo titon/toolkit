@@ -1,4 +1,12 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
 @import "mixins/helper";
+
+//------------------------------ Settings ------------------------------//
 
 /**
  * TOOLKIT SETTINGS
@@ -122,6 +130,8 @@ $toolkit-settings-breakpoints: (
     "xlarge": (1681px, null),
 ) !default;
 
+//------------------------------ Components & Behaviors ------------------------------//
+
 /**
  * GLOBAL PLUGINS
  *
@@ -138,7 +148,9 @@ $toolkit-global: (
     "end-class": ".end",
 ) !default;
 
-//------------------------------ Components ------------------------------//
+/**
+ * ACCORDION
+ */
 
 $toolkit-accordion: (
     "class": class-name("accordion"),
@@ -148,9 +160,17 @@ $toolkit-accordion: (
     "transition": theme-setting("transition"),
 ) !default;
 
+/**
+ * BREADCRUMB
+ */
+
 $toolkit-breadcrumb: (
     "class": class-name("breadcrumb")
 ) !default;
+
+/**
+ * BUTTON
+ */
 
 $toolkit-button: (
     "class": ".button"

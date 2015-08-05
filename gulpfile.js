@@ -47,7 +47,7 @@ var graph = new compartment();
     graph.loadManifest('./manifest.json');
     graph.addTypes({
         js: '', // Handled by RequireJS
-        css: './scss-3.0/'
+        css: ''
     });
 
 var toPackage = [],
@@ -91,6 +91,27 @@ gulp.task('css', function() {
         // Unminified
         .pipe(sass({ style: 'expanded' }))
         .pipe(concat('toolkit.css'))
+        .pipe(prefixer({ browsers: ['last 3 versions'] }))
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(rename(function(path) {
+            if (options.rtl) {
+                path.basename += '-rtl';
+            }
+        }))
+        .pipe(gulp.dest(buildPath))
+
+        // Minified
+        .pipe(minify({ advanced: false }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(buildPath))
+        .pipe(success('CSS compiled...'));
+});
+
+gulp.task('css2', function() {
+    return sass(cssPaths, { style: 'expanded' })
+        .pipe(plumber(failure()))
+
+        // Unminified
         .pipe(prefixer({ browsers: ['last 3 versions'] }))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(rename(function(path) {
