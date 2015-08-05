@@ -82,7 +82,7 @@ $toolkit-settings-theme: (
     "large-padding": 1rem,
     "round-radius": .2rem,
     "pill-radius": 2rem,
-    "oval-radius": 7rem / 2.75rem,
+    "oval-radius": unquote("7rem / 2.75rem"),
     "oval-x-radius": 7rem,
     "oval-y-radius": 2.75rem,
     "skew-radius": 1rem 3rem,
@@ -151,11 +151,17 @@ $toolkit-accordion: (
 ) !default;
 
 $toolkit-breadcrumb: (
-    "class": class-name("breadcrumb")
+    "class": class-name("breadcrumb"),
 ) !default;
 
 $toolkit-button: (
-    "class": ".button"
+    "class": class-name("button"),
+    "class-modifier-gloss": bem("button", "", "gloss"),
+    "class-modifier-reflect": bem("button", "", "reflect"),
+    "class-modifier-glare": bem("button", "", "glare"),
+    "class-modifier-popout": bem("button", "", "popout"),
+    "modifiers": (),
+    "effects": ()
 ) !default;
 
 //------------------------------ Imports ------------------------------//
