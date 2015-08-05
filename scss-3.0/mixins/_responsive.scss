@@ -63,7 +63,7 @@
  * Maximum width cascading media query for the xsmall breakpoint.
  */
 @mixin if-xsmall() {
-    @include if-max(nth(map-get($toolkit-settings-breakpoints, "xsmall"), 2)) {
+    @include if-max(breakpoint-setting("xsmall", 2)) {
         @content;
     }
 }
@@ -72,7 +72,7 @@
  * Minimum width cascading media query for the small breakpoint.
  */
 @mixin if-small() {
-    @include if-min(nth(map-get($toolkit-settings-breakpoints, "small"), 1)) {
+    @include if-min(breakpoint-setting("small", 1)) {
         @content;
     }
 }
@@ -81,7 +81,7 @@
  * Minimum width cascading media query for the medium breakpoint.
  */
 @mixin if-medium() {
-    @include if-min(nth(map-get($toolkit-settings-breakpoints, "medium"), 1)) {
+    @include if-min(breakpoint-setting("medium", 1)) {
         @content;
     }
 }
@@ -90,7 +90,7 @@
  * Minimum width cascading media query for the large breakpoint.
  */
 @mixin if-large() {
-    @include if-min(nth(map-get($toolkit-settings-breakpoints, "large"), 1)) {
+    @include if-min(breakpoint-setting("large", 1)) {
         @content;
     }
 }
@@ -99,7 +99,7 @@
  * Minimum width cascading media query for the xlarge breakpoint.
  */
 @mixin if-xlarge() {
-    @include if-min(nth(map-get($toolkit-settings-breakpoints, "xlarge"), 1)) {
+    @include if-min(breakpoint-setting("xlarge", 1)) {
         @content;
     }
 }
@@ -138,7 +138,7 @@
  * A media query block that includes styles between a range of two xsmall breakpoints.
  */
 @mixin in-xsmall {
-    @include in-range(map-get($toolkit-settings-breakpoints, "xsmall")) {
+    @include in-range(breakpoint-setting("xsmall")) {
         @content;
     }
 }
@@ -147,7 +147,7 @@
  * A media query block that includes styles between a range of two small breakpoints.
  */
 @mixin in-small {
-    @include in-range(map-get($toolkit-settings-breakpoints, "small")) {
+    @include in-range(breakpoint-setting("small")) {
         @content;
     }
 }
@@ -156,7 +156,7 @@
  * A media query block that includes styles between a range of two medium breakpoints.
  */
 @mixin in-medium {
-    @include in-range(map-get($toolkit-settings-breakpoints, "medium")) {
+    @include in-range(breakpoint-setting("medium")) {
         @content;
     }
 }
@@ -165,7 +165,7 @@
  * A media query block that includes styles between a range of two large breakpoints.
  */
 @mixin in-large {
-    @include in-range(map-get($toolkit-settings-breakpoints, "large")) {
+    @include in-range(breakpoint-setting("large")) {
         @content;
     }
 }
@@ -174,7 +174,7 @@
  * A media query block that includes styles between a range of two xlarge breakpoints.
  */
 @mixin in-xlarge {
-    @include in-range(map-get($toolkit-settings-breakpoints, "xlarge")) {
+    @include in-range(breakpoint-setting("xlarge")) {
         @content;
     }
 }

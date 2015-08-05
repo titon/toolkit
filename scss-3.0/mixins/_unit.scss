@@ -1,4 +1,4 @@
-$toolkit-temp-base-size: map-get($toolkit, "base-font-size");
+$toolkit-temp-base-size: setting("base-font-size");
 
 /**
  * Remove the unit and return the integer.

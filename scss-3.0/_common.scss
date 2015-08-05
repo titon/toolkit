@@ -1,3 +1,5 @@
+@import "mixins/helper";
+
 // Variables that should only be used by Toolkit
 $toolkit-internal-align-direction: "left";
 $toolkit-internal-align-opposite-direction: "right";
@@ -19,7 +21,7 @@ $toolkit: (
 ) !default;
 
 // Swap text direction if RTL
-@if map-get($toolkit, "text-direction") == "rtl" {
+@if setting("text-direction") == "rtl" {
     $toolkit-internal-align-direction: "right";
     $toolkit-internal-align-opposite-direction: "left";
 }
@@ -41,7 +43,7 @@ $toolkit-settings-flags: (
 ) !default;
 
 // Enable all modules, including excluded modules
-@if map-get($toolkit-settings-flags, "all-modules") == true {
+@if is-feature-enabled("all-modules") {
     $toolkit-internal-modules-exported: ();
 }
 
@@ -153,6 +155,16 @@ $toolkit-global: (
 ) !default;
 
 //------------------------------ Components ------------------------------//
+
+$toolkit-accordion: (
+    "class": class-name("accordion"),
+    "class-header": bem("accordion", "header"),
+    "class-section": bem("accordion", "section"),
+    "class-body": bem("accordion", "body"),
+    "transition": theme-setting("transition"),
+) !default;
+
+
 
 $toolkit-button: (
     "class": ".button"

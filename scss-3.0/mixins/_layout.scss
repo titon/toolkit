@@ -6,7 +6,7 @@
  */
 @mixin export($module) {
     // Module is excluded, so do nothing
-    @if (index(map-get($toolkit, "excluded-modules"), $module) != null) {
+    @if (index(setting("excluded-modules"), $module) != null) {
 
     // Module hasn't been exported yet, so export it and log usage
     } @else if (index($toolkit-internal-modules-exported, $module) == null) {
@@ -74,24 +74,24 @@
  * Render small font sizes and padding.
  */
 @mixin size-small {
-    font-size: map-get($toolkit-settings-theme, "small-font-size");
-    padding: map-get($toolkit-settings-theme, "small-padding");
+    font-size: theme-setting("small-font-size");
+    padding: theme-setting("small-padding");
 }
 
 /**
  * Render medium font sizes and padding (default size).
  */
 @mixin size-medium {
-    font-size: map-get($toolkit-settings-theme, "medium-font-size");
-    padding: map-get($toolkit-settings-theme, "medium-padding");
+    font-size: theme-setting("medium-font-size");
+    padding: theme-setting("medium-padding");
 }
 
 /**
  * Render large font sizes and padding.
  */
 @mixin size-large {
-    font-size: map-get($toolkit-settings-theme, "large-font-size");
-    padding: map-get($toolkit-settings-theme, "large-padding");
+    font-size: theme-setting("large-font-size");
+    padding: theme-setting("large-padding");
 }
 
 /**
@@ -123,7 +123,7 @@
  * @param bool [$parent] - Apply to parent
  */
 @mixin is-size-small($self: true, $parent: false) {
-    @if map-get($toolkit-settings-flags, "small-size") {
+    @if is-feature-enabled("small-size") {
         @include is-size(map-get($toolkit-global, "size-small-class"), $self, $parent) {
             @content;
         }
@@ -137,7 +137,7 @@
  * @param bool [$parent] - Apply to parent
  */
 @mixin is-size-large($self: true, $parent: false) {
-    @if map-get($toolkit-settings-flags, "large-size") {
+    @if is-feature-enabled("large-size") {
         @include is-size(map-get($toolkit-global, "size-large-class"), $self, $parent) {
             @content;
         }

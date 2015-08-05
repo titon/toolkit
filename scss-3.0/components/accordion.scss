@@ -1,0 +1,34 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@import "../common";
+
+@include export("accordion") {
+    #{map-get($toolkit-accordion, "class")} {
+        @include reset-list;
+    }
+
+    #{map-get($toolkit-accordion, "class-header")} {
+        padding: theme-setting("padding");
+        cursor: pointer;
+    }
+
+    #{map-get($toolkit-accordion, "class-body")} {
+        padding: theme-setting("padding");
+    }
+
+    // Section is used for animations, do not style it!
+    #{map-get($toolkit-accordion, "class-section")} {
+        overflow: hidden;
+        position: relative;
+        transition: all map-get($toolkit-accordion, "transition") ease-in-out;
+
+        // Don't include on base styles
+        &.hide {
+            max-height: 0;
+        }
+    }
+}
