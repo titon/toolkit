@@ -4,14 +4,22 @@
  * @link        http://titon.io
  */
 
-$toolkit-temp-button-class: map-get($toolkit-button, "class");
+/**
+ * Target the direct children of a button group, the li or button.
+ */
+@mixin button-group-children {
+    > li,
+    > #{map-get($toolkit-button, "class")} {
+        @content;
+    }
+}
 
 /**
  * Target the first button within a button group.
  */
 @mixin button-group-first-child {
-    > li:first-child #{$toolkit-temp-button-class},
-    > #{$toolkit-temp-button-class}:first-child {
+    > li:first-child #{map-get($toolkit-button, "class")},
+    > #{map-get($toolkit-button, "class")}:first-child {
         @content;
     }
 }
@@ -20,8 +28,8 @@ $toolkit-temp-button-class: map-get($toolkit-button, "class");
  * Target the last button within a button group.
  */
 @mixin button-group-last-child {
-    > li:last-child #{$toolkit-temp-button-class},
-    > #{$toolkit-temp-button-class}:last-child {
+    > li:last-child #{map-get($toolkit-button, "class")},
+    > #{map-get($toolkit-button, "class")}:last-child {
         @content;
     }
 }

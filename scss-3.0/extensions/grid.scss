@@ -52,7 +52,7 @@ $grid-gutter: false !default;
     }
 
     // End capping
-    &#{map-get($toolkit-global, "end-class")} {
+    &#{map-get($toolkit-global, "class-end")} {
         float: bidi-opposite-alignment() !important;
 
         @if $gutter {

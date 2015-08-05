@@ -33,10 +33,11 @@ $toolkit: (
 $toolkit-settings-flags: (
     "small-size": true,
     "large-size": true,
-    "all-effects": false,
-    "all-modifiers": false,
-    "all-animations": false,
-    "all-modules": false,
+    // Temporarily enabled for dev
+    "all-effects": true,
+    "all-modifiers": true,
+    "all-animations": true,
+    "all-modules": true,
 ) !default;
 
 /**
@@ -133,13 +134,13 @@ $toolkit-settings-breakpoints: (
 //------------------------------ Components & Behaviors ------------------------------//
 
 $toolkit-global: (
-    "size-small-class": ".small",
-    "size-large-class": ".large",
-    "shape-round-class": ".round",
-    "shape-oval-class": ".oval",
-    "shape-pill-class": ".pill",
-    "shape-skew-class": ".skew",
-    "end-class": ".end",
+    "class-small": ".small",
+    "class-large": ".large",
+    "class-round": ".round",
+    "class-oval": ".oval",
+    "class-pill": ".pill",
+    "class-skew": ".skew",
+    "class-end": ".end",
 ) !default;
 
 $toolkit-accordion: (
@@ -161,7 +162,15 @@ $toolkit-button: (
     "class-modifier-glare": bem("button", "", "glare"),
     "class-modifier-popout": bem("button", "", "popout"),
     "modifiers": (),
-    "effects": ()
+    "effects": (),
+) !default;
+
+$toolkit-button-group: (
+    "class": class-name("button-group"),
+    "class-modifier-vertical": bem("button-group", "", "vertical"),
+    "class-modifier-justified": bem("button-group", "", "justified"),
+    "modifiers": ("justified"),
+    "effects": (),
 ) !default;
 
 //------------------------------ Imports ------------------------------//

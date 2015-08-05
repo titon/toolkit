@@ -133,7 +133,7 @@ $toolkit-internal-modules-exported: () !global;
  */
 @mixin is-size-small($self: true, $parent: false) {
     @if is-feature-enabled("small-size") {
-        @include is-size(map-get($toolkit-global, "size-small-class"), $self, $parent) {
+        @include is-size(map-get($toolkit-global, "class-small"), $self, $parent) {
             @content;
         }
     }
@@ -147,7 +147,7 @@ $toolkit-internal-modules-exported: () !global;
  */
 @mixin is-size-large($self: true, $parent: false) {
     @if is-feature-enabled("large-size") {
-        @include is-size(map-get($toolkit-global, "size-large-class"), $self, $parent) {
+        @include is-size(map-get($toolkit-global, "class-large"), $self, $parent) {
             @content;
         }
     }

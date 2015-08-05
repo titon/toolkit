@@ -26,20 +26,26 @@
 
         //----- Effects -----//
 
+        @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "round")) {
+            &#{map-get($toolkit-global, "class-round")} {
+                border-radius: theme-setting("round-radius");
+            }
+        }
+
         @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "oval")) {
-            &#{map-get($toolkit-global, "shape-oval-class")} {
+            &#{map-get($toolkit-global, "class-oval")} {
                 border-radius: theme-setting("oval-radius");
             }
         }
 
         @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "pill")) {
-            &#{map-get($toolkit-global, "shape-pill-class")} {
+            &#{map-get($toolkit-global, "class-pill")} {
                 border-radius: theme-setting("pill-radius");
             }
         }
 
         @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "skew")) {
-            &#{map-get($toolkit-global, "shape-skew-class")} {
+            &#{map-get($toolkit-global, "class-skew")} {
                 border-radius: #{theme-setting("skew-radius")} 0 0 / #{theme-setting("skew-reverse-radius")} 0 0;
             }
         }
@@ -62,14 +68,16 @@
 
             //----- Effects -----//
 
-            &#{map-get($toolkit-global, "shape-round-class")}::after {
-                border-radius: .2rem .2rem 2rem 2rem / .5rem .5rem 1rem 1rem;
-                width: 98%;
-                left: 1.5%;
+            @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "round")) {
+                &#{map-get($toolkit-global, "class-round")}::after {
+                    border-radius: .2rem .2rem 2rem 2rem / .5rem .5rem 1rem 1rem;
+                    width: 98%;
+                    left: 1.5%;
+                }
             }
 
             @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "oval")) {
-                &#{map-get($toolkit-global, "shape-oval-class")}::after {
+                &#{map-get($toolkit-global, "class-oval")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 5rem 5rem 4rem 4rem / 1.5rem 1.5rem 1.5rem 1.5rem;
@@ -77,7 +85,7 @@
             }
 
             @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "pill")) {
-                &#{map-get($toolkit-global, "shape-pill-class")}::after {
+                &#{map-get($toolkit-global, "class-pill")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;
@@ -85,7 +93,7 @@
             }
 
             @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "skew")) {
-                &#{map-get($toolkit-global, "shape-skew-class")}::after {
+                &#{map-get($toolkit-global, "class-skew")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem;
