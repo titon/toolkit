@@ -1,5 +1,8 @@
 $toolkit-temp-button-class: map-get($toolkit-button, "class");
 
+/**
+ * Target the first button within a button group.
+ */
 @mixin button-group-first-child {
     > li:first-child #{$toolkit-temp-button-class},
     > #{$toolkit-temp-button-class}:first-child {
@@ -7,6 +10,9 @@ $toolkit-temp-button-class: map-get($toolkit-button, "class");
     }
 }
 
+/**
+ * Target the last button within a button group.
+ */
 @mixin button-group-last-child {
     > li:last-child #{$toolkit-temp-button-class},
     > #{$toolkit-temp-button-class}:last-child {
@@ -14,6 +20,11 @@ $toolkit-temp-button-class: map-get($toolkit-button, "class");
     }
 }
 
+/**
+ * Generate show/hide display classes for a specific class.
+ *
+ * @param string $class
+ */
 @mixin responsive-display-block($class) {
     #{$class} { display: block !important; }
     table#{$class} { display: table !important; }

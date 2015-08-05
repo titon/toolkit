@@ -1,9 +1,19 @@
-// Remove the unit and return the integer
+$toolkit-temp-base-size: map-get($toolkit, "base-font-size");
+
+/**
+ * Remove the unit and return the integer.
+ *
+ * @param int|string $value
+ */
 @function strip-unit($value) {
     @return ($value / ($value * 0 + 1));
 }
 
-// Convert a unit value to a pixel while using $base-size as the reference
+/**
+ * Convert a unit value to a pixel while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
 @function to-pixel($from) {
     $from-unit: unit($from);
 
@@ -11,7 +21,7 @@
         @return $from;
 
     } @else if $from-unit == "%" or $from-unit == "em" or $from-unit == "rem" {
-        @return (strip-unit($from) * map-get($toolkit, "base-font-size"));
+        @return (strip-unit($from) * $toolkit-temp-base-size);
 
     } @else {
         @warn "Unknown pixel conversion unit type.";
@@ -20,7 +30,11 @@
     @return $from;
 }
 
-// Convert a unit value to a percentage while using $base-size as the reference
+/**
+ * Convert a unit value to a percentage while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
 @function to-percent($from) {
     $from-unit: unit($from);
 
@@ -28,7 +42,7 @@
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "em" or $from-unit == "rem" {
-        @return percentage((to-pixel($from) / map-get($toolkit, "base-font-size")) / 100);
+        @return percentage((to-pixel($from) / $toolkit-temp-base-size) / 100);
 
     } @else {
         @warn "Unknown percentage conversion unit type.";
@@ -37,7 +51,11 @@
     @return $from;
 }
 
-// Convert a unit value to a rem unit while using $base-size as the reference
+/**
+ * Convert a unit value to a rem unit while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
 @function to-rem($from) {
     $from-unit: unit($from);
 
@@ -45,7 +63,7 @@
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "em" {
-        @return (to-pixel($from) / map-get($toolkit, "base-font-size")) * 1rem;
+        @return (to-pixel($from) / $toolkit-temp-base-size) * 1rem;
 
     } @else {
         @warn "Unknown rem conversion unit type.";
@@ -54,7 +72,11 @@
     @return $from;
 }
 
-// Convert a unit value to an em unit while using $base-size as the reference
+/**
+ * Convert a unit value to an em unit while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
 @function to-em($from) {
     $from-unit: unit($from);
 
@@ -62,7 +84,7 @@
         @return $from;
 
     } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "rem" {
-        @return (to-pixel($from) / map-get($toolkit, "base-font-size")) * 1em;
+        @return (to-pixel($from) / $toolkit-temp-base-size) * 1em;
 
     } @else {
         @warn "Unknown em conversion unit type.";

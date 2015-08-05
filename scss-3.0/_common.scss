@@ -6,8 +6,7 @@ $toolkit-internal-modules-exported: () !global;
 /**
  * TOOLKIT SETTINGS
  *
- * Configuration related to Toolkit itself. These settings are primarily used for
- * controlling the look and feel of the final output.
+ * Configure Toolkit itself, by customizing the final generated output.
  */
 
 $toolkit: (
@@ -29,10 +28,10 @@ $toolkit: (
  * FEATURE FLAGS
  *
  * Flags can be used to enable or disable specific features within Toolkit.
- * If a feature is disabled, it will not be rendered in the output.
+ * If a feature is disabled, it will not be compiled in the output.
  */
 
-$toolkit-feature-flags: (
+$toolkit-settings-flags: (
     "small-size": true,
     "large-size": true,
     "all-effects": false,
@@ -42,32 +41,17 @@ $toolkit-feature-flags: (
 ) !default;
 
 // Enable all modules, including excluded modules
-@if map-get($toolkit-feature-flags, "all-modules") == true {
+@if map-get($toolkit-settings-flags, "all-modules") == true {
     $toolkit-internal-modules-exported: ();
 }
 
 /**
- * GLOBAL SETTINGS
+ * THEME STYLES
  *
- * Configuration for all global related settings, like global class names.
+ * Customize the default layout and structural styles as well as state and theme colors.
  */
 
-$toolkit-global: (
-    "size-small-class": ".small",
-    "size-large-class": ".large",
-    "shape-round-class": ".round",
-    "shape-oval-class": ".oval",
-    "shape-pill-class": ".pill",
-    "shape-skew-class": ".skew",
-) !default;
-
-/**
- * THEME & COLORS
- *
- * @todo
- */
-
-$toolkit-theme-style: (
+$toolkit-settings-theme: (
     "background-color": #fff,
     "foreground-color": #2d2d2d,
     "gray-lightest": #fbfbfb,
@@ -90,15 +74,6 @@ $toolkit-theme-style: (
     "error": #f06060,
     "error-light": #fdc5c1,
     "error-dark": #b10e0e,
-) !default;
-
-/**
- * LAYOUT STRUCTURE
- *
- * @todo
- */
-
-$toolkit-theme-layout: (
     "line-height": 1.25,
     "opacity": .5,
     "opacity-disabled": .5,
@@ -116,15 +91,14 @@ $toolkit-theme-layout: (
 /**
  * Z-INDEX
  *
- * A mapping of all plugins and their z-index value. This map makes it easy
- * to layer and stack appropriately.
+ * A mapping of plugins and their z-index value, to easily layer and stack appropriately.
  *
  *  1) Modal and Showcase should be higher than Blackout
  *  2) Tooltip and Popover should be higher than Modals in case they exist within them
  *  3) Off Canvas should be the lowest so everything can display above it
  */
 
-$toolkit-zindex: (
+$toolkit-settings-zindex: (
     "blackout": 600,
     "drop": 500,
     "flyout": 500,
@@ -142,10 +116,10 @@ $toolkit-zindex: (
  * BREAKPOINT RANGES
  *
  * A mapping of media query aliases to pixel based breakpoint ranges (defined as a list).
- * These ranges are used extensively to provide integrate responive design support.
+ * These ranges are used extensively to provide integrated responsive design support.
  */
 
-$toolkit-breapoints: (
+$toolkit-settings-breakpoints: (
     "xsmall": (null, 640px),
     "small": (641px, 960px),
     "medium": (961px, 1280px),
@@ -153,11 +127,27 @@ $toolkit-breapoints: (
     "xlarge": (1681px, null),
 ) !default;
 
+/**
+ * GLOBAL PLUGINS
+ *
+ * Configure global settings for plugins (components and behaviors), like global class names.
+ */
+
+$toolkit-global: (
+    "size-small-class": ".small",
+    "size-large-class": ".large",
+    "shape-round-class": ".round",
+    "shape-oval-class": ".oval",
+    "shape-pill-class": ".pill",
+    "shape-skew-class": ".skew",
+    "end-class": ".end",
+) !default;
+
 //-------------------- Imports --------------------//
 
 @import "mixins/unit";
 @import "mixins/layout";
 @import "mixins/grid";
-@import "mixins/flex";
+@import "mixins/flexbox";
 @import "mixins/responsive";
 @import "mixins/components";

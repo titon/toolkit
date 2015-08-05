@@ -1,14 +1,27 @@
-// Black transparent background
+/**
+ * Return a transparent black CSS color.
+ *
+ * @param int $opacity
+ */
 @function black($opacity){
     @return rgba(0, 0, 0, $opacity);
 }
 
-// White transparent background
+/**
+ * Return a transparent white CSS color.
+ *
+ * @param int $opacity
+ */
 @function white($opacity){
     @return rgba(255, 255, 255, $opacity);
 }
 
-// Take a list of classes and generate a selector list
+/**
+ * Take a list of classes and generate a selector list.
+ *
+ * @param list $classes
+ * @param bool [$inherit] - Apply classes to the wrapping selector
+ */
 @function join-classes($classes, $inherit: true) {
     $selectors: ();
 
@@ -27,12 +40,22 @@
     @return $selectors;
 }
 
-// Remove the first selector character (#, ., etc) from the class name or ID
+/**
+ * Remove the first selector character (#, .) from the class name or ID.
+ *
+ * @param string $selector
+ */
 @function remove-selector($selector) {
     @return str-slice($selector, 2, str-length($selector));
 }
 
-// Generate a class name and apply an optional prefix
+/**
+ * Generate a class name and apply an optional prefix.
+ *
+ * @param string $class
+ * @param string [$prefix]
+ * @param string [$selector]
+ */
 @function class-name($class, $prefix: map-get($toolkit, "namespace"), $selector: ".") {
     $name: $class;
 
@@ -47,7 +70,15 @@
     @return $selector + $name;
 }
 
-// Format a class name into the BEM format
+/**
+ * Build a class name in the BEM specification.
+ *
+ * @param string $block
+ * @param string $element
+ * @param string $modifier
+ * @param string [$element-separator]
+ * @param string [$modifier-separator]
+ */
 @function bem(
     $block: "",
     $element: "",
@@ -68,14 +99,24 @@
     @return $name;
 }
 
-// Calculate the gutter spacing as a percentage.
-// Use the max width of the grid to calculate against.
+/**
+ * Calculate the gutter spacing as a percentage. Use the max width of the grid to calculate against.
+ *
+ * @param int $width - The max width of the container
+ * @param int $gutter - The space between each cell
+ */
 @function gutter($width, $gutter) {
     @return if($gutter, ((to-pixel($gutter) / to-pixel($width)) * 100 * 1%), 0%);
 }
 
-// Calculate the width of an individual element within a row.
-// Take into account max widths and gutters.
+/**
+ * Calculate the width of an individual element within a row. Take into account max widths and gutters.
+ *
+ * @param int $n - The current column
+ * @param int $columns - The total number of columns
+ * @param int $width - The max width of the container
+ * @param int $gutter - The spacing in between each block
+ */
 @function span-width($n, $columns, $width, $gutter) {
     $row-width: 100%;
     $gutter-width: 0%;

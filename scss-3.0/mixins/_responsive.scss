@@ -1,102 +1,117 @@
-// Media query for minimum resolution
+/**
+ * Media query for minimum resolution.
+ *
+ * @param string $min
+ */
 @mixin if-min($min) {
     @media only screen and (min-width: $min) {
         @content;
     }
 }
 
-// Media query for maximum resolution
+/**
+ * Media query for maximum resolution.
+ *
+ * @param string $min
+ */
 @mixin if-max($max) {
     @media only screen and (max-width: $max) {
         @content;
     }
 }
 
-// Media query for between minimum and maximum resolution
+/**
+ * Media query for between minimum and maximum resolution.
+ *
+ * @param string $min
+ * @param string $max
+ */
 @mixin if-min-max($min, $max) {
     @media only screen and (min-width: $min) and (max-width: $max) {
         @content;
     }
 }
 
-// Media query for landscape orientation detection
+/**
+ * Media query for landscape orientation detection.
+ */
 @mixin if-landscape {
     @media only screen and (orientation: landscape) {
         @content;
     }
 }
 
-// Media query for portrait orientation detection
+/**
+ * Media query for portrait orientation detection.
+ */
 @mixin if-portrait {
     @media only screen and (orientation: portrait) {
         @content;
     }
 }
 
-// Media query for retina / HD displays
+/**
+ * Media query for retina / HD displays.
+ */
 @mixin if-retina {
     @media only screen and (min-device-pixel-ratio: 2) {
         @content;
     }
 }
 
-// Either support desktop-first or mobile-first responsive pattern
-@mixin do-responsive($desktop, $mobile) {
-    @if $responsive-design == "desktop" {
-        @if $desktop {
-            @include if-max($desktop) {
-                @content;
-            }
-        } @else {
-            @content;
-        }
-    } @else {
-        @if $mobile {
-            @include if-min($mobile) {
-                @content;
-            }
-        } @else {
-            @content;
-        }
-    }
-}
-
-//-------------------- Breakpoints --------------------//
-
-@mixin if-xlarge() {
-    @include do-responsive(nth($breakpoint-range-xlarge, 2), nth($breakpoint-range-xlarge, 1)) {
-        @content;
-    }
-}
-
-@mixin if-large() {
-    @include do-responsive(nth($breakpoint-range-large, 2), nth($breakpoint-range-large, 1)) {
-        @content;
-    }
-}
-
-@mixin if-medium() {
-    @include do-responsive(nth($breakpoint-range-medium, 2), nth($breakpoint-range-medium, 1)) {
-        @content;
-    }
-}
-
-@mixin if-small() {
-    @include do-responsive(nth($breakpoint-range-small, 2), nth($breakpoint-range-small, 1)) {
-        @content;
-    }
-}
-
+/**
+ * Maximum width cascading media query for the xsmall breakpoint.
+ */
 @mixin if-xsmall() {
-    @include do-responsive(nth($breakpoint-range-xsmall, 2), nth($breakpoint-range-xsmall, 1)) {
+    @include if-max(nth(map-get($toolkit-settings-breakpoints, "xsmall"), 2)) {
         @content;
     }
 }
 
-// Within 2 ranges
+/**
+ * Minimum width cascading media query for the small breakpoint.
+ */
+@mixin if-small() {
+    @include if-min(nth(map-get($toolkit-settings-breakpoints, "small"), 1)) {
+        @content;
+    }
+}
+
+/**
+ * Minimum width cascading media query for the medium breakpoint.
+ */
+@mixin if-medium() {
+    @include if-min(nth(map-get($toolkit-settings-breakpoints, "medium"), 1)) {
+        @content;
+    }
+}
+
+/**
+ * Minimum width cascading media query for the large breakpoint.
+ */
+@mixin if-large() {
+    @include if-min(nth(map-get($toolkit-settings-breakpoints, "large"), 1)) {
+        @content;
+    }
+}
+
+/**
+ * Minimum width cascading media query for the xlarge breakpoint.
+ */
+@mixin if-xlarge() {
+    @include if-min(nth(map-get($toolkit-settings-breakpoints, "xlarge"), 1)) {
+        @content;
+    }
+}
+
+/**
+ * Generate either a `min-width`, `max-width`, or a combination of both for a range of breakpoints.
+ *
+ * @param list $range
+ */
 @mixin in-range($range) {
     @if type-of($range) != "list" {
-        @warn "in-range() requires a list with a min and max value";
+        @warn "in-range() requires a list with a min and max value.";
     }
 
     $min: nth($range, 1);
@@ -119,32 +134,47 @@
     }
 }
 
-@mixin in-xlarge {
-    @include in-range($breakpoint-range-xlarge) {
-        @content;
-    }
-}
-
-@mixin in-large {
-    @include in-range($breakpoint-range-large) {
-        @content;
-    }
-}
-
-@mixin in-medium {
-    @include in-range($breakpoint-range-medium) {
-        @content;
-    }
-}
-
-@mixin in-small {
-    @include in-range($breakpoint-range-small) {
-        @content;
-    }
-}
-
+/**
+ * A media query block that includes styles between a range of two xsmall breakpoints.
+ */
 @mixin in-xsmall {
-    @include in-range($breakpoint-range-xsmall) {
+    @include in-range(map-get($toolkit-settings-breakpoints, "xsmall")) {
+        @content;
+    }
+}
+
+/**
+ * A media query block that includes styles between a range of two small breakpoints.
+ */
+@mixin in-small {
+    @include in-range(map-get($toolkit-settings-breakpoints, "small")) {
+        @content;
+    }
+}
+
+/**
+ * A media query block that includes styles between a range of two medium breakpoints.
+ */
+@mixin in-medium {
+    @include in-range(map-get($toolkit-settings-breakpoints, "medium")) {
+        @content;
+    }
+}
+
+/**
+ * A media query block that includes styles between a range of two large breakpoints.
+ */
+@mixin in-large {
+    @include in-range(map-get($toolkit-settings-breakpoints, "large")) {
+        @content;
+    }
+}
+
+/**
+ * A media query block that includes styles between a range of two xlarge breakpoints.
+ */
+@mixin in-xlarge {
+    @include in-range(map-get($toolkit-settings-breakpoints, "xlarge")) {
         @content;
     }
 }

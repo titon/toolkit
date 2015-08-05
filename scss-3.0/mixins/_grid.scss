@@ -1,11 +1,26 @@
+// Default grid width.
+$grid-width: 100% !default;
 
-// Calculate the width of an individual grid column.
-// Take into account max widths and gutters.
+// Default grid gutter size.
+$grid-gutter: false !default;
+
+/**
+ * Calculate the width of an individual grid column. Take into account max widths and gutters.
+ *
+ * @param int $n - The current column
+ * @param int $columns - The total number of columns
+ * @param int [$width] - The max width of the grid container
+ * @param int [$gutter] - The spacing in between each column
+ */
 @function grid-span($n, $columns, $width: $grid-width, $gutter: $grid-gutter) {
     @return span-width($n, $columns, $width, $gutter);
 }
 
-// Styles for the grid row containing the columns.
+/**
+ * Styles for the grid row containing the columns.
+ *
+ * @param int [$width] - The max width of the grid container
+ */
 @mixin grid-row($width: $grid-width) {
     width: $width;
     max-width: $width;
@@ -13,24 +28,29 @@
     @include clear-fix;
 }
 
-// Styles for the individual grid column.
+/**
+ * Styles for the individual grid column.
+ *
+ * @param int [$width] - The max width of the grid container
+ * @param int [$gutter] - The spacing in between each column
+ */
 @mixin grid-column($width: $grid-width, $gutter: $grid-gutter) {
     position: relative;
     min-height: 1px;
-    float: $align-direction;
+    float: $toolkit-internal-align-direction;
 
     @if $gutter {
         & + & {
-            margin-#{$align-direction}: gutter($width, $gutter);
+            margin-#{$toolkit-internal-align-direction}: gutter($width, $gutter);
         }
     }
 
     // End capping
-    &#{$grid-class-end} {
-        @if $gutter {
-            margin-#{$align-opposite-direction}: 0 !important;
-        }
+    &#{map-get($toolkit-global, "end-class")} {
+        float: $toolkit-internal-align-opposite-direction !important;
 
-        float: $align-opposite-direction !important;
+        @if $gutter {
+            margin-#{$toolkit-internal-align-opposite-direction}: 0 !important;
+        }
     }
 }

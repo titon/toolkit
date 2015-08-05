@@ -1,5 +1,9 @@
-// Export a component into the compiled output only once
-// Also check to see if it has been excluded from the output all together
+/**
+ * Compile a component into the final output only once.
+ * Also check to see if it has been excluded from the output all together.
+ *
+ * @param string $module
+ */
 @mixin export($module) {
     // Module is excluded, so do nothing
     @if (index(map-get($toolkit, "excluded-modules"), $module) != null) {
@@ -12,7 +16,9 @@
     }
 }
 
-// Container clear fix for floats
+/**
+ * Clear all floats within the container.
+ */
 @mixin clear-fix {
     &::after {
         content: "";
@@ -21,21 +27,29 @@
     }
 }
 
-// Reset an inline-block element to defaults
+/**
+ * Reset an inline-block element to defaults.
+ */
 @mixin reset-inline-block {
     display: inline-block;
     position: relative;
     vertical-align: middle;
 }
 
-// Reset a list and remove default styles
+/**
+ * Reset a list and remove default styles.
+ */
 @mixin reset-list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-// Position an element to take up the whole screen
+/**
+ * Position an element to take up the whole screen.
+ *
+ * @param string [$fixed]
+ */
 @mixin full-screen($position: fixed) {
     @if ($position != "") {
         position: $position;
@@ -46,7 +60,9 @@
     width: 100%;
 }
 
-// Align an element in the center of another element
+/**
+ * Align an element in the center of another element using position absolute.
+ */
 @mixin position-center {
     position: absolute;
     left: 50%;
@@ -54,25 +70,36 @@
     transform: translate(-50%, -50%);
 }
 
-// Global small size
+/**
+ * Render small font sizes and padding.
+ */
 @mixin size-small {
-    font-size: map-get($toolkit-theme-layout, "small-font-size");
-    padding: map-get($toolkit-theme-layout, "small-padding");
+    font-size: map-get($toolkit-settings-theme, "small-font-size");
+    padding: map-get($toolkit-settings-theme, "small-padding");
 }
 
-// Global medium size (the default size)
+/**
+ * Render medium font sizes and padding (default size).
+ */
 @mixin size-medium {
-    font-size: map-get($toolkit-theme-layout, "medium-font-size");
-    padding: map-get($toolkit-theme-layout, "medium-padding");
+    font-size: map-get($toolkit-settings-theme, "medium-font-size");
+    padding: map-get($toolkit-settings-theme, "medium-padding");
 }
 
-// Global large size
+/**
+ * Render large font sizes and padding.
+ */
 @mixin size-large {
-    font-size: map-get($toolkit-theme-layout, "large-font-size");
-    padding: map-get($toolkit-theme-layout, "large-padding");
+    font-size: map-get($toolkit-settings-theme, "large-font-size");
+    padding: map-get($toolkit-settings-theme, "large-padding");
 }
 
-// Generate a self selector or parent selector for assigning size classes
+/**
+ * Generate a self selector or parent selector for assigning size classes
+
+ * @param bool [$self] - Apply to self
+ * @param bool [$parent] - Apply to parent
+ */
 @mixin is-size($size, $self: true, $parent: false) {
     $selectors: ();
 
@@ -89,31 +116,46 @@
     }
 }
 
-// Render small size if enabled
+/**
+ * Include content for the small size if enabled in the feature flags.
+ *
+ * @param bool [$self] - Apply to self
+ * @param bool [$parent] - Apply to parent
+ */
 @mixin is-size-small($self: true, $parent: false) {
-    @if map-get($toolkit-feature-flags, "small-size") {
+    @if map-get($toolkit-settings-flags, "small-size") {
         @include is-size(map-get($toolkit-global, "size-small-class"), $self, $parent) {
             @content;
         }
     }
 }
 
-// Render large size if enabled
+/**
+ * Include content for the large size if enabled in the feature flags.
+ *
+ * @param bool [$self] - Apply to self
+ * @param bool [$parent] - Apply to parent
+ */
 @mixin is-size-large($self: true, $parent: false) {
-    @if map-get($toolkit-feature-flags, "large-size") {
+    @if map-get($toolkit-settings-flags, "large-size") {
         @include is-size(map-get($toolkit-global, "size-large-class"), $self, $parent) {
             @content;
         }
     }
 }
 
-// Generate code blocks for LTR and RTL styles.
+/**
+ * Include content for LTR elements.
+ */
 @mixin ltr() {
     &[dir="ltr"] {
         @content;
     }
 }
 
+/**
+ * Include content for RTL elements.
+ */
 @mixin rtl() {
     &[dir="rtl"] {
         @content;
