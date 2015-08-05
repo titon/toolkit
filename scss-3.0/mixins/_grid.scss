@@ -37,20 +37,20 @@ $grid-gutter: false !default;
 @mixin grid-column($width: $grid-width, $gutter: $grid-gutter) {
     position: relative;
     min-height: 1px;
-    float: $toolkit-internal-align-direction;
+    float: bidi-alignment();
 
     @if $gutter {
         & + & {
-            margin-#{$toolkit-internal-align-direction}: gutter($width, $gutter);
+            margin-#{bidi-alignment()}: gutter($width, $gutter);
         }
     }
 
     // End capping
     &#{map-get($toolkit-global, "end-class")} {
-        float: $toolkit-internal-align-opposite-direction !important;
+        float: bidi-opposite-alignment() !important;
 
         @if $gutter {
-            margin-#{$toolkit-internal-align-opposite-direction}: 0 !important;
+            margin-#{bidi-opposite-alignment()}: 0 !important;
         }
     }
 }

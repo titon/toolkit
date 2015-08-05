@@ -38,7 +38,21 @@
  * @param string $feature
  */
 @function is-feature-enabled($feature) {
-    @return map-get($toolkit-settings-flags, $feature) == true;
+    @return (map-get($toolkit-settings-flags, $feature) == true);
+}
+
+/**
+ * Return the current bi-directional alignment based on the `text-direction` setting.
+ */
+@function bidi-alignment() {
+    @return if(setting("text-direction") == "rtl", "right", "left");
+}
+
+/**
+ * Return the opposite bi-directional alignment based on the `text-direction` setting.
+ */
+@function bidi-opposite-alignment() {
+    @return if(setting("text-direction") == "rtl", "left", "right");
 }
 
 /**
@@ -69,7 +83,7 @@
     $selectors: ();
 
     @each $class in $classes {
-        @if str-index($class, ".") != 0 {
+        @if (str-index($class, ".") != 0) {
             $class: "." + $class;
         }
 
@@ -102,11 +116,11 @@
 @function class-name($class, $prefix: setting("namespace"), $selector: ".") {
     $name: $class;
 
-    @if str_slice($class, 1, 1) == $selector {
+    @if (str_slice($class, 1, 1) == $selector) {
         $name: remove-selector($name);
     }
 
-    @if $prefix != "" {
+    @if ($prefix != "") {
         $name: $prefix + $name;
     }
 
@@ -131,11 +145,11 @@
 ) {
     $name: $block;
 
-    @if $element != "" {
+    @if ($element != "") {
         $name: $name + $element-separator + $element;
     }
 
-    @if $modifier != "" {
+    @if ($modifier != "") {
         $name: $name + $modifier-separator + $modifier;
     }
 
@@ -174,7 +188,7 @@
     $span-width: ($row-width / $columns) * $n;
 
     // If a gutter is set, increase the column width to fill in the missing gaps
-    @if $gutter and $n > 1 {
+    @if ($gutter and $n > 1) {
         $span-width: $span-width + (($n - 1) * $gutter-width);
     }
 

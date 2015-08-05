@@ -54,7 +54,7 @@ $flex-align-map: (
  * @param string [$orientation]
  */
 @mixin flex-region-orientation($orientation: horizontal) {
-    @if $orientation == vertical {
+    @if ($orientation == vertical) {
         flex-direction: column;
     } @else {
         flex-direction: row;

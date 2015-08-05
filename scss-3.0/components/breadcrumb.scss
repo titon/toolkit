@@ -1,0 +1,58 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("breadcrumb") {
+    #{map-get($toolkit-breadcrumb, "class")} {
+        ul, ol {
+            @include reset-list;
+            display: flex;
+        }
+
+        li {
+            position: relative;
+
+            &:last-child {
+                .caret {
+                    display: none;
+                }
+            }
+        }
+
+        a {
+            @include size-medium;
+            display: block;
+            line-height: 1;
+            padding-#{bidi-opposite-alignment()}: 0;
+
+            .caret {
+                margin-#{bidi-alignment()}: theme-setting("medium-padding");
+                position: relative;
+            }
+        }
+
+        @include is-size-small {
+            a {
+                @include size-small;
+                padding-#{bidi-opposite-alignment()}: 0;
+
+                .caret {
+                    margin-#{bidi-alignment()}: theme-setting("small-padding");
+                }
+            }
+        }
+
+        @include is-size-large {
+            a {
+                @include size-large;
+                padding-#{bidi-opposite-alignment()}: 0;
+
+                .caret {
+                    margin-#{bidi-alignment()}: theme-setting("large-padding");
+                }
+            }
+        }
+    }
+}

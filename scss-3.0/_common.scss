@@ -1,10 +1,5 @@
 @import "mixins/helper";
 
-// Variables that should only be used by Toolkit
-$toolkit-internal-align-direction: "left";
-$toolkit-internal-align-opposite-direction: "right";
-$toolkit-internal-modules-exported: () !global;
-
 /**
  * TOOLKIT SETTINGS
  *
@@ -14,17 +9,11 @@ $toolkit-internal-modules-exported: () !global;
 $toolkit: (
     "namespace": "", // Without "."
     "text-direction": "ltr", // Either "ltr" or "rtl"
-    "excluded-modules": (),
+    "exclude-modules": (),
     "element-separator": "-",
     "modifier-separator": "--",
     "base-font-size": 14px,
 ) !default;
-
-// Swap text direction if RTL
-@if setting("text-direction") == "rtl" {
-    $toolkit-internal-align-direction: "right";
-    $toolkit-internal-align-opposite-direction: "left";
-}
 
 /**
  * FEATURE FLAGS
@@ -41,11 +30,6 @@ $toolkit-settings-flags: (
     "all-animations": false,
     "all-modules": false,
 ) !default;
-
-// Enable all modules, including excluded modules
-@if is-feature-enabled("all-modules") {
-    $toolkit-internal-modules-exported: ();
-}
 
 /**
  * THEME STYLES
@@ -164,7 +148,9 @@ $toolkit-accordion: (
     "transition": theme-setting("transition"),
 ) !default;
 
-
+$toolkit-breadcrumb: (
+    "class": class-name("breadcrumb")
+) !default;
 
 $toolkit-button: (
     "class": ".button"

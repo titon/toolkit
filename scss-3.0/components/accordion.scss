@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-@import "../common";
-
 @include export("accordion") {
     #{map-get($toolkit-accordion, "class")} {
         @include reset-list;
