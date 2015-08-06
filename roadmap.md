@@ -30,3 +30,6 @@ All releases will contain bug fixing and polishing for current features.
 * http://jankfree.org/
 
 http://dibaiee.ir/autocomplete-predict-trie/
+
+Component - Modules that require a specific element structure in the DOM, or an element structure that is rendered automatically.
+Behavior - Modules that add unique passive behavioral functionality to an element or elements.

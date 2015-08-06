@@ -277,6 +277,18 @@ $toolkit-matrix: (
     "transition": theme-setting("transition"),
 ) !default;
 
+$toolkit-modal: (
+    "class": bem("modal"),
+    "class-close": bem("modal", "close"),
+    "class-outer": bem("modal", "outer"),
+    "class-inner": bem("modal", "inner"),
+    "class-head": bem("modal", "head"),
+    "class-body": bem("modal", "body"),
+    "class-foot": bem("modal", "foot"),
+    "animations": ("fade", "from-above", "from-below"), // fade, from-above, from-below, slide-in-top, slide-in-right, slide-in-bottom, slide-in-left
+    "transition": theme-setting("transition"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
