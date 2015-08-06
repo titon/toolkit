@@ -180,6 +180,7 @@ $toolkit-carousel: (
     "class-tabs": bem("carousel", "tabs"),
     "class-next": bem("carousel", "next"),
     "class-prev": bem("carousel", "prev"),
+    "animations": ("slide", "fade"), // slide, fade
     "opacity": theme-setting("opacity"),
     "transition": 1s,
 ) !default;

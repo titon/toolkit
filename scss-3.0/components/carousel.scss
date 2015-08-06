@@ -5,6 +5,8 @@
  */
 
 @include export("carousel") {
+    $toolkit-temp-carousel-animations: map-get($toolkit-carousel, "animations");
+
     #{map-get($toolkit-carousel, "class")} {
         position: relative;
         max-width: 100%;
@@ -27,30 +29,34 @@
 
     //-------------------- Animations --------------------//
 
-    #{map-get($toolkit-carousel, "class")}.slide {
-        #{map-get($toolkit-carousel, "class-items")} {
-            > ul {
-                display: flex;
+    @if (is-feature-enabled("all-animations") or index($toolkit-temp-carousel-animations, "slide")) {
+        #{map-get($toolkit-carousel, "class")}.slide {
+            #{map-get($toolkit-carousel, "class-items")} {
+                > ul {
+                    display: flex;
+                }
             }
         }
     }
 
-    #{map-get($toolkit-carousel, "class")}.fade {
-        #{map-get($toolkit-carousel, "class-items")} {
-            > ul {
-                position: relative;
+    @if (is-feature-enabled("all-animations") or index($toolkit-temp-carousel-animations, "fade")) {
+        #{map-get($toolkit-carousel, "class")}.fade {
+            #{map-get($toolkit-carousel, "class-items")} {
+                > ul {
+                    position: relative;
 
-                > li {
-                    position: absolute;
-                    visibility: hidden;
-                    top: 0;
-                    left: 0;
-                    opacity: 0;
-                    z-index: 1;
-                    transition: opacity map-get($toolkit-carousel, "transition"), visibility map-get($toolkit-carousel, "transition");
+                    > li {
+                        position: absolute;
+                        visibility: hidden;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                        z-index: 1;
+                        transition: opacity map-get($toolkit-carousel, "transition"), visibility map-get($toolkit-carousel, "transition");
 
-                    &.show {
-                        z-index: 5;
+                        &.show {
+                            z-index: 5;
+                        }
                     }
                 }
             }
