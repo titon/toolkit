@@ -249,6 +249,21 @@ $toolkit-lazy-load: (
     "transition": theme-setting("transition")
 ) !default;
 
+$toolkit-loader: (
+    "class": bem("loader"),
+    "class-message": bem("loader", "message"),
+    "class-spinner": bem("loader", "spinner"),
+    "class-modifier-bar-wave": bem("loader", "", "bar-wave"),
+    "class-modifier-bubble-wave": bem("loader", "", "bubble-wave"),
+    "class-modifier-bubble-spinner": bem("loader", "", "bubble-spinner"),
+    "modifiers": ("bar-wave"), // bar-wave, bubble-wave, bubble-spinner
+    "color": #000,
+    "wave-count": 5,
+    "bar-width": 0.65rem,
+    "bar-height": 2.5rem,
+    "bubble-size": 1.5rem,
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";
