@@ -162,16 +162,16 @@ $toolkit-button: (
     "class-modifier-reflect": bem("button", "", "reflect"),
     "class-modifier-glare": bem("button", "", "glare"),
     "class-modifier-popout": bem("button", "", "popout"),
-    "modifiers": (),
-    "effects": (),
+    "modifiers": (), // gloss, reflect, glare, popout
+    "effects": (), // round, oval, pill, skew
 ) !default;
 
 $toolkit-button-group: (
     "class": bem("button-group"),
     "class-modifier-vertical": bem("button-group", "", "vertical"),
     "class-modifier-justified": bem("button-group", "", "justified"),
-    "modifiers": ("justified"),
-    "effects": (),
+    "modifiers": ("justified"), // justified, vertical
+    "effects": (), // round, pill, skew
 ) !default;
 
 $toolkit-carousel: (
@@ -196,7 +196,7 @@ $toolkit-drop: (
     "class-modifier-up": bem("drop", "", "up"),
     "class-modifier-left": bem("drop", "", "left"),
     "class-modifier-right": bem("drop", "", "right"),
-    "modifiers": ("down", "up", "left", "right"),
+    "modifiers": ("down", "up", "left", "right"), // down, up, left, right
     "transition": theme-setting("transition"),
 ) !default;
 
@@ -207,7 +207,7 @@ $toolkit-flex: (
     "class-modifier-wrap": bem("region", "", "wrap"),
     "class-modifier-horizontal": bem("region", "", "horizontal"),
     "class-modifier-vertical": bem("region", "", "vertical"),
-    "modifiers": ("horizontal", "vertical", "wrap", "grid"),
+    "modifiers": ("wrap", "grid"), // horizontal, vertical, wrap, grid
     "width": 100%,
     "gutter": false,
     "grid-gutter": 1rem,
@@ -232,6 +232,16 @@ $toolkit-grid: (
         "medium": (12, breakpoint-setting("medium", 1), breakpoint-setting("medium", 2)),
         "large": (12, breakpoint-setting("large", 1), null), // Leave open ended
     )
+) !default;
+
+$toolkit-label: (
+    "class": bem("label"),
+    "class-modifier-badge": bem("label", "", "badge"),
+    "class-modifier-ribbon-left": bem("label", "", "ribbon-left"),
+    "class-modifier-ribbon-right": bem("label", "", "ribbon-right"),
+    "class-modifier-arrow-left": bem("label", "", "arrow-left"),
+    "class-modifier-arrow-right": bem("label", "", "arrow-right"),
+    "modifiers": ("badge"), // badge, ribbon-left, ribbon-right, arrow-left, arrow-right
 ) !default;
 
 //------------------------------ Imports ------------------------------//
