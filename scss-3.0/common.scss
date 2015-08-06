@@ -290,6 +290,12 @@ $toolkit-modal: (
     "transition": theme-setting("transition"),
 ) !default;
 
+$toolkit-notice: (
+    "class": bem("notice"),
+    "class-close": bem("notice", "close"),
+    "class-title": bem("notice", "title"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
