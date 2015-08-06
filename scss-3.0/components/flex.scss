@@ -58,7 +58,7 @@
     @each $size, $options in map-get($toolkit-flex, "sizes") {
         $size-columns: nth($options, 1);
 
-        @include in-range(nth($options, 2)) {
+        @include in-range( (nth($options, 2), nth($options, 3)) ) {
             @for $i from 1 through $size-columns {
                 #{map-get($toolkit-flex, "class-block")}.#{$size}-#{$i} {
                     flex-basis: flex-span($i, $size-columns, $toolkit-temp-flex-width, map-get($toolkit-flex, "gutter"));

@@ -236,9 +236,9 @@ bdo[dir="rtl"] {
 
 //------------------------------ Span Sizes ------------------------------//
 
-@for $i from 1 through 12 {
+@for $i from 1 through map-get($toolkit-global, "span-count") {
     .span-#{$i} {
-        width: span-width($i, 12, 100%, false);
+        width: span-width($i, map-get($toolkit-global, "span-count"), 100%, false);
     }
 }
 

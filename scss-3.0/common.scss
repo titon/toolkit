@@ -141,6 +141,7 @@ $toolkit-global: (
     "class-pill": ".pill",
     "class-skew": ".skew",
     "class-end": ".end",
+    "span-count": 12
 ) !default;
 
 $toolkit-accordion: (
@@ -212,10 +213,24 @@ $toolkit-flex: (
     "grid-gutter": 1rem,
     "order-count": 6,
     "sizes": (
-        "xsmall": (6, breakpoint-setting("xsmall")),
-        "small": (12, breakpoint-setting("small")),
-        "medium": (12, breakpoint-setting("medium")),
-        "large": (12, (breakpoint-setting("large", 1), null)), // Leave open ended
+        "xsmall": (6, breakpoint-setting("xsmall", 1), breakpoint-setting("xsmall", 2)),
+        "small": (12, breakpoint-setting("small", 1), breakpoint-setting("small", 2)),
+        "medium": (12, breakpoint-setting("medium", 1), breakpoint-setting("medium", 2)),
+        "large": (12, breakpoint-setting("large", 1), null), // Leave open ended
+    )
+) !default;
+
+$toolkit-grid: (
+    "class-row": bem("grid"),
+    "class-column": bem("col"),
+    "width": 100%,
+    "gutter": false,
+    "push-pull": true,
+    "sizes": (
+        "xsmall": (6, breakpoint-setting("xsmall", 1), breakpoint-setting("xsmall", 2)),
+        "small": (12, breakpoint-setting("small", 1), breakpoint-setting("small", 2)),
+        "medium": (12, breakpoint-setting("medium", 1), breakpoint-setting("medium", 2)),
+        "large": (12, breakpoint-setting("large", 1), null), // Leave open ended
     )
 ) !default;
 
