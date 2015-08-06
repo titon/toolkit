@@ -264,6 +264,14 @@ $toolkit-loader: (
     "bubble-size": 1.5rem,
 ) !default;
 
+$toolkit-mask: (
+    "class": bem("mask"),
+    "class-message": bem("mask", "message"),
+    "class-target": ".is-maskable",
+    "opacity": .85,
+    "transition": theme-setting("transition"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";

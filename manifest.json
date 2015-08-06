@@ -265,13 +265,13 @@
     "mask": {
         "name": "Mask",
         "description": "Conceal an element by masking its content with a transparent overlay.",
-        "category": "component",
+        "category": "behavior",
         "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/mask.scss"],
-            "js": ["components/mask.js"]
+            "css": ["behaviors/mask.scss"],
+            "js": ["behaviors/mask.js"]
         },
         "version": "1.1.0"
     },
