@@ -272,6 +272,11 @@ $toolkit-mask: (
     "transition": theme-setting("transition"),
 ) !default;
 
+$toolkit-matrix: (
+    "class": bem("matrix"),
+    "transition": theme-setting("transition"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";
