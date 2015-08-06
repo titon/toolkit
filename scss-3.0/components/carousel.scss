@@ -19,7 +19,7 @@
         overflow: hidden;
 
         > ul {
-            @include reset-list;
+            @extend %placeholder-list;
             position: relative;
             transition: all map-get($toolkit-carousel, "transition");
         }

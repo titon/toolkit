@@ -1,0 +1,50 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+/**
+ * Clear all floats within the container.
+ */
+%placeholder-clear-fix {
+    @include clear-fix;
+}
+
+/**
+ * Reset an inline-block element to defaults.
+ */
+%placeholder-inline-block {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+/**
+ * Reset a list and remove default styles.
+ */
+%placeholder-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/**
+ * Position an element to take up the whole screen.
+ */
+%placeholder-full-screen {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/**
+ * Align an element in the center of another element using position absolute.
+ */
+%placeholder-position-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

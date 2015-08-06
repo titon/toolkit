@@ -142,7 +142,7 @@ bdo[dir="rtl"] {
 .caret-down,
 .caret-left,
 .caret-right {
-    @include reset-inline-block;
+    @extend %placeholder-inline-block;
     border: 5px solid transparent;
     content: "";
     height: 0;
@@ -170,7 +170,7 @@ bdo[dir="rtl"] {
 //------------------------------ Characters ------------------------------//
 
 .x {
-    @include reset-inline-block;
+    @extend %placeholder-inline-block;
     font: bold 1.5rem Arial, sans-serif;
     text-transform: uppercase;
     line-height: 1;
@@ -183,7 +183,7 @@ bdo[dir="rtl"] {
 //------------------------------ Bullets ------------------------------//
 
 .bullets {
-    @include reset-list;
+    @extend %placeholder-list;
     line-height: 1;
 
     li {
@@ -217,7 +217,7 @@ bdo[dir="rtl"] {
 //------------------------------ Sorter ------------------------------//
 
 .sorter {
-    @include reset-inline-block;
+    @extend %placeholder-inline-block;
     max-width: 10px;
     line-height: 5px;
     top: -1px;

@@ -6,7 +6,8 @@
 
 @include export("mask") {
     #{map-get($toolkit-mask, "class")} {
-        @include full-screen(absolute);
+        @extend %placeholder-full-screen;
+        position: absolute;
         z-index: map-get($toolkit-settings-zindex, "mask");
         opacity: 0;
         visibility: hidden;

@@ -6,7 +6,8 @@
 
 @include export("matrix") {
     #{map-get($toolkit-matrix, "class")} {
-        @include reset-list;
+        @extend %placeholder-list;
+        @extend %placeholder-clear-fix;
         position: relative;
 
         > li {
@@ -19,7 +20,5 @@
         &.no-columns > li {
             position: relative !important;
         }
-
-        @include clear-fix;
     }
 }

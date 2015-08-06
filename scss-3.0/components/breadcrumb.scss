@@ -7,7 +7,7 @@
 @include export("breadcrumb") {
     #{map-get($toolkit-breadcrumb, "class")} {
         ul, ol {
-            @include reset-list;
+            @extend %placeholder-list;
             display: flex;
         }
 
@@ -20,6 +20,8 @@
                 }
             }
         }
+
+        //----- Sizes -----//
 
         a {
             @include size-medium;

@@ -8,7 +8,7 @@
     $toolkit-temp-drop-modifiers: map-get($toolkit-drop, "modifiers");
 
     #{map-get($toolkit-drop, "class")} {
-        @include reset-list;
+        @extend %placeholder-list;
         position: absolute;
         top: 100%;
         left: 0;
@@ -29,7 +29,7 @@
 
         ul,
         ol {
-            @include reset-list;
+            @extend %placeholder-list;
         }
 
         li {

@@ -6,7 +6,7 @@
 
 @include export("accordion") {
     #{map-get($toolkit-accordion, "class")} {
-        @include reset-list;
+        @extend %placeholder-list;
     }
 
     #{map-get($toolkit-accordion, "class-header")} {

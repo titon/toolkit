@@ -11,7 +11,7 @@
     $toolkit-temp-loader-modifiers: map-get($toolkit-loader, "modifiers");
 
     #{map-get($toolkit-loader, "class")} {
-        @include reset-inline-block;
+        @extend %placeholder-inline-block;
         margin: 0 auto;
         text-align: center;
 

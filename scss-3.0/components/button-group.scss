@@ -9,9 +9,8 @@
     $toolkit-temp-button-group-modifiers: map-get($toolkit-button-group, "modifiers");
 
     #{map-get($toolkit-button-group, "class")} {
-        @include reset-list;
-        position: relative;
-        vertical-align: middle;
+        @extend %placeholder-inline-block;
+        @extend %placeholder-list;
         white-space: nowrap;
         display: flex;
 
@@ -26,7 +25,6 @@
 
         > li {
             position: relative;
-            list-style: none;
 
             > #{map-get($toolkit-button, "class")} {
                 display: block;

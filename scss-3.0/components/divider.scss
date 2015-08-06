@@ -11,10 +11,8 @@
 
         &::before,
         &::after {
+            @extend %placeholder-inline-block;
             content: "";
-            display: inline-block;
-            vertical-align: middle;
-            position: relative;
             width: 100%;
             border-top: 1px solid black(.1);
             border-bottom: 1px solid white(.75);

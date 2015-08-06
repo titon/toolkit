@@ -8,7 +8,7 @@
     $toolkit-temp-label-modifiers: map-get($toolkit-label, "modifiers");
 
     #{map-get($toolkit-label, "class")} {
-        @include reset-inline-block;
+        @extend %placeholder-inline-block;
         font-size: .7rem;
         line-height: 1;
         background: theme-setting("gray-dark");
