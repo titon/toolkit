@@ -199,6 +199,26 @@ $toolkit-drop: (
     "transition": theme-setting("transition"),
 ) !default;
 
+$toolkit-flex: (
+    "class-region": bem("region"),
+    "class-block": bem("block"),
+    "class-modifier-grid": bem("region", "", "grid"),
+    "class-modifier-wrap": bem("region", "", "wrap"),
+    "class-modifier-horizontal": bem("region", "", "horizontal"),
+    "class-modifier-vertical": bem("region", "", "vertical"),
+    "modifiers": ("horizontal", "vertical", "wrap", "grid"),
+    "width": 100%,
+    "gutter": false,
+    "grid-gutter": 1rem,
+    "order-count": 6,
+    "sizes": (
+        "xsmall": (6, breakpoint-setting("xsmall")),
+        "small": (12, breakpoint-setting("small")),
+        "medium": (12, breakpoint-setting("medium")),
+        "large": (12, (breakpoint-setting("large", 1), null)), // Leave open ended
+    )
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";
