@@ -296,6 +296,17 @@ $toolkit-notice: (
     "class-title": bem("notice", "title"),
 ) !default;
 
+$toolkit-off-canvas: (
+    "class": bem("off-canvas"),
+    "class-content": bem("on-canvas"),
+    "class-wrapper": bem("canvas"),
+    "class-modifier-left": bem("off-canvas", "", "left"),
+    "class-modifier-right": bem("off-canvas", "", "right"),
+    "animations": ("push", "on-top", "squish"), // push, push-reveal, push-down, reverse-push, reveal, on-top, squish
+    "width": 25rem,
+    "transition": .5s,
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
