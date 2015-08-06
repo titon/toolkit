@@ -51,7 +51,7 @@ var graph = new compartment();
     });
 
 var toPackage = [],
-    categories = ['layout', 'component'];
+    categories = ['layout', 'component', 'behavior'];
 
 if (options.plugins) {
     toPackage = options.plugins.split(',');

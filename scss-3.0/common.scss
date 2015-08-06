@@ -244,6 +244,11 @@ $toolkit-label: (
     "modifiers": ("badge"), // badge, ribbon-left, ribbon-right, arrow-left, arrow-right
 ) !default;
 
+$toolkit-lazy-load: (
+    "class": bem("lazy-load"),
+    "transition": theme-setting("transition")
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/unit";

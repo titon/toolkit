@@ -241,13 +241,13 @@
     "lazyLoad": {
         "name": "Lazy Load",
         "description": "Defer loading of images and elements until they scroll into view.",
-        "category": "component",
+        "category": "behavior",
         "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/lazy-load.scss"],
-            "js": ["components/lazy-load.js"]
+            "css": ["behaviors/lazy-load.scss"],
+            "js": ["behaviors/lazy-load.js"]
         }
     },
     "loader": {
