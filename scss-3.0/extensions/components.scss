@@ -39,7 +39,7 @@
  *
  * @param string $class
  */
-@mixin responsive-display-block($class) {
+@mixin responsive-display($class) {
     #{$class} { display: block !important; }
     table#{$class} { display: table !important; }
     tr#{$class} { display: table-row !important; }

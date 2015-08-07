@@ -79,11 +79,11 @@
     "responsive": {
         "name": "Responsive",
         "description": "Responsive classes for mobile, tablet and desktop resolutions.",
-        "category": "component",
+        "category": "behavior",
         "type": "layout",
         "priority": 100,
         "source": {
-            "css": ["components/responsive.scss"]
+            "css": ["behaviors/responsive.scss"]
         }
     },
 
