@@ -1,0 +1,69 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("progress") {
+    $toolkit-temp-progress-effects: map-get($toolkit-progress, "effects");
+
+    #{map-get($toolkit-progress, "class")} {
+        overflow: hidden;
+        position: relative;
+        display: flex;
+
+        //----- Effects ------//
+
+        @if (is-feature-enabled("all-effects") or index($toolkit-temp-progress-effects, "round")) {
+            &#{map-get($toolkit-global, "class-round")} {
+                border-radius: theme-setting("round-radius");
+
+                #{map-get($toolkit-progress, "class-bar")}:first-child {
+                    border-top-#{bidi-alignment()}-radius: theme-setting("round-radius");
+                    border-bottom-#{bidi-alignment()}-radius: theme-setting("round-radius");
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-effects") or index($toolkit-temp-progress-effects, "pill")) {
+            &#{map-get($toolkit-global, "class-pill")} {
+                border-radius: theme-setting("pill-radius");
+
+                #{map-get($toolkit-progress, "class-bar")}:first-child {
+                    border-top-#{bidi-alignment()}-radius: theme-setting("pill-radius");
+                    border-bottom-#{bidi-alignment()}-radius: theme-setting("pill-radius");
+                }
+            }
+        }
+    }
+
+    #{map-get($toolkit-progress, "class-bar")} {
+        height: 1.5rem;
+        line-height: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        font-size: theme-setting("medium-font-size");
+        transition: width map-get($toolkit-progress, "transition"), background map-get($toolkit-progress, "transition");
+    }
+
+    //----- Sizes ------//
+
+    #{map-get($toolkit-progress, "class")} {
+        @include is-size-small {
+            #{map-get($toolkit-progress, "class-bar")} {
+                height: 1rem;
+                line-height: 1rem;
+                font-size: theme-setting("small-font-size");
+            }
+        }
+
+        @include is-size-large {
+            #{map-get($toolkit-progress, "class-bar")} {
+                height: 2rem;
+                line-height: 2rem;
+                font-size: theme-setting("large-font-size");
+            }
+        }
+    }
+}

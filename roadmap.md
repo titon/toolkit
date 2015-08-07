@@ -31,5 +31,5 @@ All releases will contain bug fixing and polishing for current features.
 
 http://dibaiee.ir/autocomplete-predict-trie/
 
-Component - Modules that require a specific element structure in the DOM, or an element structure that is rendered automatically.
-Behavior - Modules that add unique passive behavioral functionality to an element or elements.
+Component - Modules that require a specific element structure in the DOM, or an element structure that is rendered automatically. A component is usually a thing (a noun), like a button.
+Behavior - Modules that add unique passive behavioral functionality to an element or elements. A behavior is usually an action (a verb), like mask or pin.

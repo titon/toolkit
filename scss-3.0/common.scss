@@ -319,6 +319,13 @@ $toolkit-pin: (
     "transition": .2s,
 ) !default;
 
+$toolkit-progress: (
+    "class": bem("progress"),
+    "class-bar": bem("progress", "bar"),
+    "transition": .5s,
+    "effects": ("round", "pill"), // round, pill
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
