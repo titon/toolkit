@@ -326,6 +326,11 @@ $toolkit-progress: (
     "effects": ("round", "pill"), // round, pill
 ) !default;
 
+$toolkit-step: (
+    "class": bem("step"),
+    "class-wrapper": bem("steps"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
