@@ -307,6 +307,13 @@ $toolkit-off-canvas: (
     "transition": .5s,
 ) !default;
 
+$toolkit-pagination: (
+    "class": bem("pagination"),
+    "class-modifier-grouped": bem("pagination", "", "grouped"),
+    "modifiers": ("grouped"),
+    "effects": (), // oval, pill, skew
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";
