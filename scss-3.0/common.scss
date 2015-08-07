@@ -314,6 +314,11 @@ $toolkit-pagination: (
     "effects": (), // oval, pill, skew
 ) !default;
 
+$toolkit-pin: (
+    "class": bem("pin"),
+    "transition": .2s,
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";

@@ -337,13 +337,13 @@
     "pin": {
         "name": "Pin",
         "description": "Pin an element within the bounds of its parent and follow the position of the scroll.",
-        "category": "component",
+        "category": "behavior",
         "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
-            "css": ["components/pin.scss"],
-            "js": ["components/pin.js"]
+            "css": ["behaviors/pin.scss"],
+            "js": ["behaviors/pin.js"]
         }
     },
     "popover": {
