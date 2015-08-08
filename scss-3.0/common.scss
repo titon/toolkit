@@ -38,6 +38,7 @@ $toolkit-settings-flags: (
     "all-modifiers": true,
     "all-animations": true,
     "all-modules": true,
+    "all-positions": true
 ) !default;
 
 /**
@@ -351,6 +352,14 @@ $toolkit-table: (
     "class": bem("table"),
     "class-divider": bem("table", "divider"),
     "class-responsive": bem("table", "responsive"),
+) !default;
+
+$toolkit-toast: (
+    "class": bem("toast"),
+    "class-wrapper": bem("toasts"),
+    "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
+    "positions": ("bottom-left", "bottom-right"), // top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right
+    "transition": theme-setting("transition"),
 ) !default;
 
 //------------------------------ Imports ------------------------------//
