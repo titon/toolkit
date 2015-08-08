@@ -1,16 +1,4 @@
 {
-    "normalize": {
-        "name": "Normalize",
-        "description": "Normalizes styles and elements between browsers.",
-        "category": "layout",
-        "priority": -1,
-        "source": {
-            "css": ["normalize.scss"]
-        }
-    },
-
-
-
     "base": {
         "name": "Base",
         "description": "Defines styles and helper classes for CSS, and a robust component system for JavaScript.",
