@@ -38,7 +38,7 @@ $toolkit-settings-flags: (
     "all-modifiers": true,
     "all-animations": true,
     "all-modules": true,
-    "all-positions": true
+    "all-positions": true,
 ) !default;
 
 /**
@@ -320,6 +320,14 @@ $toolkit-pin: (
     "transition": .2s,
 ) !default;
 
+$toolkit-popover: (
+    "class": bem("popover"),
+    "class-arrow": bem("popover", "arrow"),
+    "animations": ("fade"), // fade, from-above, from-below, flip-rotate
+    "arrow-width": 8,
+    "transition": .15s,
+) !default;
+
 $toolkit-progress: (
     "class": bem("progress"),
     "class-bar": bem("progress", "bar"),
@@ -360,6 +368,14 @@ $toolkit-toast: (
     "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
     "positions": ("bottom-left", "bottom-right"), // top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right
     "transition": theme-setting("transition"),
+) !default;
+
+$toolkit-tooltip: (
+    "class": bem("tooltip"),
+    "class-arrow": bem("tooltip", "arrow"),
+    "animations": ("fade"), // fade, from-above, from-below, flip-rotate
+    "arrow-width": 6,
+    "transition": .15s,
 ) !default;
 
 //------------------------------ Imports ------------------------------//

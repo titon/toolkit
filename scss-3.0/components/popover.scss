@@ -1,0 +1,104 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("popover") {
+    $toolkit-temp-popover-arrow-width: map-get($toolkit-popover, "arrow-width");
+    $toolkit-temp-popover-arrow-width-double: ($toolkit-temp-popover-arrow-width * 2);
+    $toolkit-temp-popover-arrow-width-shadow: ($toolkit-temp-popover-arrow-width - 2);
+    $toolkit-temp-popover-animations: map-get($toolkit-popover, "animations");
+
+    #{map-get($toolkit-popover, "class")} {
+        z-index: map-get($toolkit-settings-zindex, "popover");
+        max-width: 300px;
+        transition: all map-get($toolkit-popover, "transition");
+    }
+
+    #{map-get($toolkit-popover, "class-arrow")} {
+        border: #{$toolkit-temp-popover-arrow-width}px solid transparent;
+
+        &::after {
+            border: #{$toolkit-temp-popover-arrow-width-shadow}px solid transparent;
+            top: -#{$toolkit-temp-popover-arrow-width-shadow}px;
+            left: -#{$toolkit-temp-popover-arrow-width-shadow}px;
+        }
+    }
+
+    //-------------------- Positions --------------------//
+
+    #{map-get($toolkit-popover, "class")} {
+        &.center-left #{map-get($toolkit-popover, "class-arrow")},
+        &.center-right #{map-get($toolkit-popover, "class-arrow")} {
+            top: 50%;
+            margin-top: -#{$toolkit-temp-popover-arrow-width}px;
+        }
+
+        &.center-left #{map-get($toolkit-popover, "class-arrow")} {
+            border-left-color: #000;
+            right: -#{$toolkit-temp-popover-arrow-width-double}px;
+        }
+
+        &.center-right #{map-get($toolkit-popover, "class-arrow")} {
+            border-right-color: #000;
+            left: -#{$toolkit-temp-popover-arrow-width-double}px;
+        }
+
+        &.top-center #{map-get($toolkit-popover, "class-arrow")},
+        &.bottom-center #{map-get($toolkit-popover, "class-arrow")} {
+            left: 50%;
+            margin-left: -#{$toolkit-temp-popover-arrow-width}px;
+        }
+
+        &.top-center #{map-get($toolkit-popover, "class-arrow")} {
+            border-top-color: #000;
+            bottom: -#{$toolkit-temp-popover-arrow-width-double}px;
+        }
+
+        &.bottom-center #{map-get($toolkit-popover, "class-arrow")} {
+            border-bottom-color: #000;
+            top: -#{$toolkit-temp-popover-arrow-width-double}px;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{map-get($toolkit-popover, "class")} {
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-popover-animations, "fade")) {
+            &.fade {
+                opacity: 0;
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-popover-animations, "from-above")) {
+            &.from-above {
+                transform: scale(1.2);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-popover-animations, "from-below")) {
+            &.from-below {
+                transform: scale(0.8);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-popover-animations, "flip-rotate")) {
+            &.flip-rotate {
+                transform: rotate(-15deg);
+
+                &.show {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+}

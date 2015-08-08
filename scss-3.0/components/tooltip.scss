@@ -1,0 +1,111 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("tooltip") {
+    $toolkit-temp-tooltip-arrow-width: map-get($toolkit-tooltip, "arrow-width");
+    $toolkit-temp-tooltip-arrow-width-double: ($toolkit-temp-tooltip-arrow-width * 2);
+    $toolkit-temp-tooltip-animations: map-get($toolkit-tooltip, "animations");
+
+    #{map-get($toolkit-tooltip, "class")},
+    #{map-get($toolkit-popover, "class")} {
+        @extend %placeholder-position-absolute;
+        border: 0;
+        z-index: map-get($toolkit-settings-zindex, "tooltip");
+        max-width: 200px;
+        visibility: hidden;
+        transition: all map-get($toolkit-tooltip, "transition");
+    }
+
+    #{map-get($toolkit-tooltip, "class-arrow")},
+    #{map-get($toolkit-popover, "class-arrow")} {
+        width: 0;
+        height: 0;
+        border: #{$toolkit-temp-tooltip-arrow-width}px solid transparent;
+        position: absolute;
+
+        &::after {
+            content: "";
+            border: #{($toolkit-temp-tooltip-arrow-width - 2)}px solid transparent;
+            position: absolute;
+        }
+    }
+
+    //-------------------- Positions --------------------//
+
+    #{map-get($toolkit-tooltip, "class")} {
+        &.center-left #{map-get($toolkit-tooltip, "class-arrow")},
+        &.center-right #{map-get($toolkit-tooltip, "class-arrow")} {
+            top: 50%;
+            margin-top: -#{$toolkit-temp-tooltip-arrow-width}px;
+        }
+
+        &.center-left #{map-get($toolkit-tooltip, "class-arrow")} {
+            border-left-color: #000;
+            right: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.center-right #{map-get($toolkit-tooltip, "class-arrow")} {
+            border-right-color: #000;
+            left: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.top-center #{map-get($toolkit-tooltip, "class-arrow")},
+        &.bottom-center #{map-get($toolkit-tooltip, "class-arrow")} {
+            left: 50%;
+            margin-left: -#{$toolkit-temp-tooltip-arrow-width}px;
+        }
+
+        &.top-center #{map-get($toolkit-tooltip, "class-arrow")} {
+            border-top-color: #000;
+            bottom: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.bottom-center #{map-get($toolkit-tooltip, "class-arrow")} {
+            border-bottom-color: #000;
+            top: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{map-get($toolkit-tooltip, "class")} {
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "fade")) {
+            &.fade {
+                opacity: 0;
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "from-above")) {
+            &.from-above {
+                transform: scale(1.2);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "from-below")) {
+            &.from-below {
+                transform: scale(0.8);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "flip-rotate")) {
+            &.flip-rotate {
+                transform: rotate(-15deg);
+
+                &.show {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+}

@@ -40,6 +40,15 @@
 }
 
 /**
+ * Position an element using default absolute settings.
+ */
+%placeholder-position-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/**
  * Align an element in the center of another element using position absolute.
  */
 %placeholder-position-center {

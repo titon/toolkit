@@ -46,10 +46,8 @@
                     position: relative;
 
                     > li {
-                        position: absolute;
+                        @extend %placeholder-position-absolute;
                         visibility: hidden;
-                        top: 0;
-                        left: 0;
                         opacity: 0;
                         z-index: 1;
                         transition: opacity map-get($toolkit-carousel, "transition"), visibility map-get($toolkit-carousel, "transition");
