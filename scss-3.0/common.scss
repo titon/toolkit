@@ -347,6 +347,12 @@ $toolkit-tab: (
     "class-section": bem("tab", "section")
 ) !default;
 
+$toolkit-table: (
+    "class": bem("table"),
+    "class-divider": bem("table", "divider"),
+    "class-responsive": bem("table", "responsive"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";

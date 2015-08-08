@@ -1,0 +1,108 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("table") {
+    #{map-get($toolkit-table, "class")} {
+        width: 100%;
+        background: theme-setting("gray-lightest");
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: theme-setting("padding");
+            border: 1px solid theme-setting("gray-dark");
+        }
+
+        // Move headings to bottom
+        thead th {
+            vertical-align: bottom;
+        }
+
+        // Allow for multiple tbody's
+        tbody + tbody {
+            border-top-width: 2px;
+        }
+
+        // Row colors
+        thead tr,
+        tfoot tr {
+            background: theme-setting("gray-dark");
+
+            th {
+                border-color: theme-setting("gray-darkest");
+            }
+        }
+
+        // Divider
+        tbody tr#{map-get($toolkit-table, "class-divider")} {
+            background: theme-setting("gray-dark");
+        }
+    }
+
+    #{map-get($toolkit-table, "class-responsive")} {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    //-------------------- States --------------------//
+
+    #{map-get($toolkit-table, "class")} {
+        &.is-striped tbody tr {
+            background: theme-setting("gray");
+
+            &:nth-child(odd) {
+                background: theme-setting("gray-lightest");
+            }
+        }
+
+        &.is-sortable thead th {
+            padding: 0;
+
+            > a,
+            > span {
+                padding: theme-setting("padding");
+                display: block;
+            }
+        }
+
+        &.has-hover tbody tr:not(#{map-get($toolkit-table, "class-divider")}):hover {
+            background: #fff;
+        }
+    }
+
+    //-------------------- Sizes --------------------//
+
+    #{map-get($toolkit-table, "class")} {
+        @include is-size-small {
+            th,
+            td {
+                padding: theme-setting("small-padding");
+            }
+
+            &.is-sortable thead th {
+                > a,
+                > span {
+                    padding: theme-setting("small-padding");
+                }
+            }
+        }
+
+        @include is-size-large {
+            th,
+            td {
+                padding: theme-setting("large-padding");
+            }
+
+            &.is-sortable thead th {
+                > a,
+                > span {
+                    padding: theme-setting("large-padding");
+                }
+            }
+        }
+    }
+}
