@@ -47,3 +47,26 @@
     th#{$class} { display: table-cell !important; }
     li#{$class} { display: list-item !important; }
 }
+
+/**
+ * Generate a checked state for the switch toggle.
+ */
+@mixin switch-checked-bar() {
+    #{map-get($toolkit-switch, "class")} {
+        input:checked + #{map-get($toolkit-switch, "class-bar")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a disabled state for the switch toggle.
+ */
+@mixin switch-disabled-bar() {
+    #{map-get($toolkit-switch, "class")} {
+        input[disabled] + #{map-get($toolkit-switch, "class-bar")} {
+            @content;
+        }
+    }
+}
+

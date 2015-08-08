@@ -331,6 +331,16 @@ $toolkit-step: (
     "class-wrapper": bem("steps"),
 ) !default;
 
+$toolkit-switch: (
+    "class": bem("switch"),
+    "class-bar": bem("switch", "bar"),
+    "class-toggle": bem("switch", "toggle"),
+    "class-modifier-stacked": bem("switch", "", "stacked"),
+    "modifiers": ("stacked"), // stacked
+    "effects": ("round", "pill"), // round, pill
+    "transition": theme-setting("transition"),
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";

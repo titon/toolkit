@@ -122,7 +122,7 @@ gulp.task('css2', function() {
         .pipe(gulp.dest(buildPath))
 
         // Minified
-        .pipe(minify({ advanced: false }))
+        .pipe(minify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(buildPath))
         .pipe(success('CSS compiled...'));
