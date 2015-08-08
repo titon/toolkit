@@ -341,6 +341,12 @@ $toolkit-switch: (
     "transition": theme-setting("transition"),
 ) !default;
 
+$toolkit-tab: (
+    "class": bem("tabs"),
+    "class-nav": bem("tab", "nav"),
+    "class-section": bem("tab", "section")
+) !default;
+
 //------------------------------ Imports ------------------------------//
 
 @import "extensions/mixins";

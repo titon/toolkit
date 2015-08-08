@@ -1,0 +1,20 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("tab") {
+    #{map-get($toolkit-tab, "class-nav")} {
+        > ul,
+        > ol {
+            @extend %placeholder-list;
+            display: flex;
+        }
+    }
+
+    // Add display none on sections since visibility property takes up DOM space
+    #{map-get($toolkit-tab, "class-section")}.hide {
+        display: none;
+    }
+}
