@@ -55,7 +55,7 @@ var Pin = Toolkit.Pin = Component.extend({
             .addClass(options.animation);
 
         // Determine before calculations
-        var initialTop = element.css('top');
+        var initialTop = element[0].style.top; // jQuery sometimes returns auto
 
         this.initialTop = (initialTop === 'auto') ? 0 : parseInt(initialTop, 10);
         this.elementTop = element.offset().top;
