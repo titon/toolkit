@@ -117,6 +117,19 @@ describe('Toolkit.Tooltip', function() {
             }, 10);
         });
 
+        it('should allow custom content element', function(done) {
+            var content = document.createElement('div');
+                content.innerHTML = 'Foo';
+
+            tooltip.show(node, content);
+
+            setTimeout(function() {
+                expect(element.find('[data-tooltip-content]')[0].children[0]).to.equal(content);
+
+                done();
+            }, 10);
+        });
+
         it('should set the `position` and `className` runtime classes', function(done) {
             tooltip.show(node);
 

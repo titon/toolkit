@@ -115,33 +115,37 @@ var Component = Toolkit.Component = Base.extend({
      * Attempt to load content from different formats and set it using `position()`.
      * If the content is an element ID (#hash), fetch the inner contents from the element.
      * If the content is a string that looks like an absolute URL, fetch the content using an AJAX request.
-     * If the content is a literal string, set it directly.
+     * If the content is a literal string or an element, set it directly.
      *
-     * @param {String} content
+     * @param {String|HTMLElement} content
      * @param {Object} [params]
      */
     loadContent: function(content, params) {
-        var ajax = false;
+        var cacheKey = content;
 
-        // Load content from an element matching ID
-        if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-            content = $(content).html();
+        if (typeof content === 'string') {
 
-        // Load content from an AJAX request
-        // Matches http://, https://, /url, and many others
-        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
-            ajax = true;
+            // Load content from an element matching ID
+            if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+                if (this.cache[cacheKey]) {
+                    content = this.cache[cacheKey];
+                } else {
+                    content = this.cache[cacheKey] = $(content).html();
+                }
+
+            // Load content from an AJAX request
+            // Matches http://, https://, /url, and many others
+            } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
+                if (this.cache[cacheKey]) {
+                    content = this.cache[cacheKey];
+                } else {
+                    this.requestData(content, params);
+                    return;
+                }
+            }
         }
 
-        if (this.cache[content]) {
-            this.position(this.cache[content]);
-
-        } else if (ajax) {
-            this.requestData(content, params);
-
-        } else {
-            this.position(content);
-        }
+        this.position(content);
     },
 
     /**
