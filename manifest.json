@@ -37,7 +37,7 @@
     },
     "responsive": {
         "name": "Responsive",
-        "description": "Responsive classes for mobile, tablet and desktop resolutions.",
+        "description": "Responsive classes for mobile, tablet, and desktop resolutions.",
         "category": "layout",
         "priority": 100,
         "source": {
@@ -51,7 +51,6 @@
         "name": "Accordion",
         "description": "Allows collapsing and expanding of multiple sections of content.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -63,7 +62,6 @@
         "name": "Blackout",
         "description": "Blacks out the viewport while other components are being displayed.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base", "loader"],
         "source": {
@@ -75,7 +73,6 @@
         "name": "Breadcrumb",
         "description": "Navigation for hierarchical trails.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -86,7 +83,6 @@
         "name": "Button",
         "description": "A typical button. You click it.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -97,7 +93,6 @@
         "name": "Button Group",
         "description": "Groups multiple buttons by collapsing spacing in between to visually mimic a single button.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base", "button"],
         "source": {
@@ -108,7 +103,6 @@
         "name": "Carousel",
         "description": "Cycles through items using a slide or fade animation.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -120,7 +114,6 @@
         "name": "Divider",
         "description": "Separates sections of content.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "source": {
             "css": ["components/divider.scss"]
@@ -131,7 +124,6 @@
         "name": "Drop",
         "description": "A contextual menu that is dropped down (or up, left, right) and displayed relative a target element.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -143,7 +135,6 @@
         "name": "Flex",
         "description": "Flexbox based grid and layout. Responsive support through different block sizes.",
         "category": "component",
-        "type": "layout",
         "priority": 5,
         "require": ["base"],
         "source": {
@@ -155,7 +146,6 @@
         "name": "Flyout",
         "description": "Hierarchical sitemap through nested menus.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -167,7 +157,6 @@
         "name": "Grid",
         "description": "Fluid float based grid with multiple column support. Responsive support through different column sizes.",
         "category": "component",
-        "type": "layout",
         "priority": 6,
         "require": ["base"],
         "source": {
@@ -178,7 +167,6 @@
         "name": "Icon",
         "description": "Image sprite map support with optional rotation.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": [],
         "source": {
@@ -189,7 +177,6 @@
         "name": "Input",
         "description": "Replaces selects, checkboxes, and radios with custom elements.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base", "drop"],
         "source": {
@@ -201,7 +188,6 @@
         "name": "Input Group",
         "description": "Group input fields with addons by collapsing spacing in between.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base", "form"],
         "source": {
@@ -212,7 +198,6 @@
         "name": "Label",
         "description": "Labels and badges for simplistic information.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -223,7 +208,6 @@
         "name": "Lazy Load",
         "description": "Defer loading of images and elements until they scroll into view.",
         "category": "behavior",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -235,7 +219,6 @@
         "name": "Loader",
         "description": "Animated Loaders and spinners used for processing and loading states.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -247,7 +230,6 @@
         "name": "Mask",
         "description": "Conceal an element by masking its content with a transparent overlay.",
         "category": "behavior",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -260,7 +242,6 @@
         "name": "Matrix",
         "description": "Arranges multiple elements of variable sizes into a uniform grid with exact spacing in between.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -272,7 +253,6 @@
         "name": "Modal",
         "description": "An informational window displayed above content and utilized for workflow interactions.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
@@ -284,7 +264,6 @@
         "name": "Notice",
         "description": "Notification boxes for displaying informational, error, warning, or success messages.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -295,7 +274,6 @@
         "name": "Off Canvas",
         "description": "Contextual sidebars positioned outside the viewport until activated.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -308,7 +286,6 @@
         "name": "Pagination",
         "description": "Divides content into multiple pages through a list of numerical links.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -319,7 +296,6 @@
         "name": "Pin",
         "description": "Pin an element within the bounds of its parent and follow the position of the scroll.",
         "category": "behavior",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -331,7 +307,6 @@
         "name": "Popover",
         "description": "Contextual popup to display relative to a target element.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base", "tooltip"],
         "source": {
@@ -343,7 +318,6 @@
         "name": "Progress",
         "description": "A progress bar. It shows the progress of something.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -354,7 +328,6 @@
         "name": "Showcase",
         "description": "Lightbox styled image gallery with optional categorization.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base", "blackout"],
         "source": {
@@ -366,7 +339,6 @@
         "name": "Stalker",
         "description": "Monitors the scroll of an element and notifies a target when a marker is reached.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -377,7 +349,6 @@
         "name": "Step",
         "description": "Navigation grouped into consecutive steps.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -389,7 +360,6 @@
         "name": "Switch",
         "description": "Binary switch for on and off states.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -401,7 +371,6 @@
         "name": "Table",
         "description": "Provides styles for tables and their common use cases.",
         "category": "component",
-        "type": "element",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -412,7 +381,6 @@
         "name": "Tab",
         "description": "Organizes multiple sections of content into toggleable tabs.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -424,7 +392,6 @@
         "name": "Toast",
         "description": "Provides feedback about an operation through a timed popup.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -437,7 +404,6 @@
         "name": "Tooltip",
         "description": "Contextual box displayed relative to a target element while hovering.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {
@@ -449,7 +415,6 @@
         "name": "Type Ahead",
         "description": "Monitors an input field and triggers a lookup of data to render in a clickable menu.",
         "category": "component",
-        "type": "module",
         "priority": 10,
         "require": ["base"],
         "source": {

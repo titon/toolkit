@@ -23,7 +23,7 @@
 
     pre {
         padding: theme-setting("padding");
-        margin: theme-setting("margin") 0 0 0;
+        margin: theme-setting("margin") 0;
         background: theme-setting("gray-light");
         border: 1px solid theme-setting("gray-dark");
         text-align: bidi-alignment();
@@ -37,11 +37,11 @@
         code {
             padding: 0;
             margin: 0;
+            border: 0;
             color: inherit;
             font: inherit;
             white-space: pre-wrap;
             background: transparent;
-            border: none;
             display: block;
         }
 

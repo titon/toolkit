@@ -4,264 +4,264 @@
  * @link        http://titon.io
  */
 
-//------------------------------ Box Sizing ------------------------------//
-
-html {
-    box-sizing: border-box;
-    font-size: setting("base-font-size");
-    line-height: theme-setting("line-height");
-}
-
-*,
-*::after,
-*::before {
-    box-sizing: inherit;
-}
-
-//------------------------------ RTL Support ------------------------------//
-
-[dir="rtl"] {
-    direction: rtl;
-    unicode-bidi: embed;
-}
-
-bdo[dir="rtl"] {
-    direction: rtl;
-    unicode-bidi: bidi-override;
-}
-
-//------------------------------ Alignment ------------------------------//
-
-.align-left {
-    text-align: left;
-}
-
-.align-center {
-    text-align: center;
-}
-
-.align-right {
-    text-align: right;
-}
-
-.align-justify {
-    text-align: justify;
-}
-
-.float-left {
-    float: left;
-}
-
-.float-right {
-    float: right;
-}
-
-.float-none {
-    float: none;
-}
-
-//------------------------------ Animations & Transitions ------------------------------//
-
-.show {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.hide {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-//------------------------------ Display ------------------------------//
-
-.shown {
-    display: block;
-}
-
-.hidden {
-    display: none;
-}
-
-//------------------------------ States ------------------------------//
-
-.no-transition {
-    transition: none !important;
-}
-
-.no-scroll {
-    overflow: hidden !important;
-}
-
-// #111 - https://github.com/titon/toolkit/issues/111
-// Mobile devices require a fixed positioning for this to work correctly.
-// This is a janky hack but there's really no better solution, as we don't want to use JS.
-// Furthermore, this will cause the page to jump to the top, no fix for that either.
-.touch body.no-scroll {
-    position: fixed;
-}
-
-.is-draggable {
-    cursor: move;
-}
-
-.is-dragging {
-    cursor: grabbing;
-}
-
-.is-disabled,
-[disabled] {
-    cursor: not-allowed !important;
-}
-
-//------------------------------ Accessibility ------------------------------//
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    border: 0;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-
-    &.is-focusable:active,
-    &.is-focusable:focus {
-        position: static;
-        width: auto;
-        height: auto;
-        margin: 0;
-        overflow: visible;
-        clip: auto;
-    }
-}
-
-//------------------------------ Carets ------------------------------//
-
-.caret-up,
-.caret-down,
-.caret-left,
-.caret-right {
-    @extend %placeholder-inline-block;
-    border: 5px solid transparent;
-    content: "";
-    height: 0;
-    width: 0;
-}
-
-.caret-up {
-    border-bottom-color: inherit;
-    top: -2px;
-}
-
-.caret-down {
-    border-top-color: inherit;
-    bottom: -2px;
-}
-
-.caret-left {
-    border-right-color: inherit;
-}
-
-.caret-right {
-    border-left-color: inherit;
-}
-
-//------------------------------ Characters ------------------------------//
-
-.x {
-    @extend %placeholder-inline-block;
-    font: bold 1.5rem Arial, sans-serif;
-    text-transform: uppercase;
-    line-height: 1;
-
-    &::before {
-        content: "\00D7"; // times
-    }
-}
-
-//------------------------------ Bullets ------------------------------//
-
-.bullets {
-    @extend %placeholder-list;
-    line-height: 1;
-
-    li {
-        display: inline-block;
-        margin: 0 .25rem;
+@include export("base") {
+    html {
+        box-sizing: border-box;
+        font-size: setting("base-font-size");
+        line-height: theme-setting("line-height");
     }
 
-    a {
-        display: inline-block;
-        border: 3px solid #fff;
-        height: 10px;
-        width: 10px;
-        border-radius: 50%;
-        opacity: theme-setting("opacity");
-
-        &:hover {
-            opacity: 1;
-            border-width: 2px;
-        }
-
-        &.is-active {
-            background: #fff;
-        }
+    *,
+    *::after,
+    *::before {
+        box-sizing: inherit;
     }
 
-    &:empty {
+    //------------------------------ RTL Support ------------------------------//
+
+    [dir="rtl"] {
+        direction: rtl;
+        unicode-bidi: embed;
+    }
+
+    bdo[dir="rtl"] {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+    }
+
+    //------------------------------ Alignment ------------------------------//
+
+    .align-left {
+        text-align: left;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    .align-right {
+        text-align: right;
+    }
+
+    .align-justify {
+        text-align: justify;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .float-none {
+        float: none;
+    }
+
+    //------------------------------ Animations & Transitions ------------------------------//
+
+    .show {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .hide {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    //------------------------------ Display ------------------------------//
+
+    .shown {
+        display: block;
+    }
+
+    .hidden {
         display: none;
     }
-}
 
-//------------------------------ Sorter ------------------------------//
+    //------------------------------ States ------------------------------//
 
-.sorter {
-    @extend %placeholder-inline-block;
-    max-width: 10px;
-    line-height: 5px;
-    top: -1px;
-    margin: 0 .25rem;
+    .no-transition {
+        transition: none !important;
+    }
+
+    .no-scroll {
+        overflow: hidden !important;
+    }
+
+    // #111 - https://github.com/titon/toolkit/issues/111
+    // Mobile devices require a fixed positioning for this to work correctly.
+    // This is a janky hack but there's really no better solution, as we don't want to use JS.
+    // Furthermore, this will cause the page to jump to the top, no fix for that either.
+    .touch body.no-scroll {
+        position: fixed;
+    }
+
+    .is-draggable {
+        cursor: move;
+    }
+
+    .is-dragging {
+        cursor: grabbing;
+    }
+
+    .is-disabled,
+    [disabled] {
+        cursor: not-allowed !important;
+    }
+
+    //------------------------------ Accessibility ------------------------------//
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        border: 0;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+
+        &.is-focusable:active,
+        &.is-focusable:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            clip: auto;
+        }
+    }
+
+    //------------------------------ Carets ------------------------------//
 
     .caret-up,
+    .caret-down,
+    .caret-left,
+    .caret-right {
+        @extend %placeholder-inline-block;
+        border: 5px solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+    }
+
+    .caret-up {
+        border-bottom-color: inherit;
+        top: -2px;
+    }
+
     .caret-down {
-        opacity: .25;
+        border-top-color: inherit;
+        bottom: -2px;
     }
 
-    &.desc .caret-up,
-    &.asc .caret-down {
-        opacity: 1;
+    .caret-left {
+        border-right-color: inherit;
     }
-}
 
-//------------------------------ Span Sizes ------------------------------//
-
-@for $i from 1 through map-get($toolkit-global, "span-count") {
-    .span-#{$i} {
-        width: span-width($i, map-get($toolkit-global, "span-count"), 100%, false);
+    .caret-right {
+        border-left-color: inherit;
     }
-}
 
-//------------------------------ Fluid Media ------------------------------//
+    //------------------------------ Characters ------------------------------//
 
-.fluid {
-    display: block;
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-}
+    .x {
+        @extend %placeholder-inline-block;
+        font: bold 1.5rem Arial, sans-serif;
+        text-transform: uppercase;
+        line-height: 1;
 
-.fluid-media {
-    @extend .fluid;
-    position: relative;
-    padding-bottom: 56.25%; // 16:9
-    height: 0;
+        &::before {
+            content: "\00D7"; // times
+        }
+    }
 
-    iframe,
-    object,
-    embed {
-        @extend %placeholder-position-absolute;
+    //------------------------------ Bullets ------------------------------//
+
+    .bullets {
+        @extend %placeholder-list;
+        line-height: 1;
+
+        li {
+            display: inline-block;
+            margin: 0 .25rem;
+        }
+
+        a {
+            display: inline-block;
+            border: 3px solid #fff;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            opacity: theme-setting("opacity");
+
+            &:hover {
+                opacity: 1;
+                border-width: 2px;
+            }
+
+            &.is-active {
+                background: #fff;
+            }
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    //------------------------------ Sorter ------------------------------//
+
+    .sorter {
+        @extend %placeholder-inline-block;
+        max-width: 10px;
+        line-height: 5px;
+        top: -1px;
+        margin: 0 .25rem;
+
+        .caret-up,
+        .caret-down {
+            opacity: .25;
+        }
+
+        &.desc .caret-up,
+        &.asc .caret-down {
+            opacity: 1;
+        }
+    }
+
+    //------------------------------ Span Sizes ------------------------------//
+
+    @for $i from 1 through map-get($toolkit-global, "span-count") {
+        .span-#{$i} {
+            width: span-width($i, map-get($toolkit-global, "span-count"), 100%, false);
+        }
+    }
+
+    //------------------------------ Fluid Media ------------------------------//
+
+    .fluid {
+        display: block;
+        max-width: 100%;
         width: 100%;
-        height: 100%;
+        height: auto;
+    }
+
+    .fluid-media {
+        @extend .fluid;
+        position: relative;
+        padding-bottom: 56.25%; // 16:9
+        height: 0;
+
+        iframe,
+        object,
+        embed {
+            @extend %placeholder-position-absolute;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
