@@ -1,0 +1,64 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("typography") {
+    h1 { font-size: map-get($toolkit-typography, "h1-font-size"); }
+    h2 { font-size: map-get($toolkit-typography, "h2-font-size"); }
+    h3 { font-size: map-get($toolkit-typography, "h3-font-size"); }
+    h4 { font-size: map-get($toolkit-typography, "h4-font-size"); }
+    h5 { font-size: map-get($toolkit-typography, "h5-font-size"); }
+    h6 { font-size: map-get($toolkit-typography, "h6-font-size"); }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        font-weight: normal;
+    }
+
+    p {
+        margin: theme-setting("margin") 0 0 0;
+    }
+
+    ul, ol {
+        margin: theme-setting("margin") 0 0 0;
+
+        ul, ol {
+            margin: 0;
+        }
+    }
+
+    hr {
+        margin: theme-setting("margin") 0;
+    }
+
+    blockquote {
+        margin: theme-setting("margin");
+        padding: 0 theme-setting("padding");
+
+        cite {
+            display: block;
+            font-size: theme-setting("small-font-size");
+
+            &::before {
+                content: "\2014 \00A0"; // em dash
+            }
+        }
+    }
+
+    mark {
+        display: inline-block;
+        background: theme-setting("gray-dark");
+        border-radius: theme-setting("round-radius");
+        padding: 0 .3em;
+    }
+
+    .text-muted { color: theme-setting("default"); }
+    .text-info { color: darken(theme-setting("info"), 15%); }
+    .text-error { color: darken(theme-setting("error"), 15%); }
+    .text-warning { color: darken(theme-setting("warning"), 15%); }
+    .text-success { color: darken(theme-setting("success"), 15%); }
+}

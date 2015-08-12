@@ -69,9 +69,9 @@ if (options.plugins) {
 }
 
 // Include normalize first
-if (options.normalize || !('normalize' in options)) {
+/*if (options.normalize || !('normalize' in options)) {
     toPackage.unshift('normalize');
-}
+}*/
 
 // Build the chain and generate all the paths we will need.
 graph.buildChain(toPackage, categories);

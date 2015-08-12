@@ -5,27 +5,22 @@
         "category": "layout",
         "priority": 1,
         "source": {
-            "css": ["base.scss"]
+            "css": ["layout/base.scss"]
         }
     },
-
-
-
     "typography": {
         "name": "Typography",
         "description": "Variable font scaling and text styling for headers, paragraphs, lists, and other text based elements.",
-        "category": "component",
-        "type": "layout",
+        "category": "layout",
         "priority": 2,
         "source": {
-            "css": ["components/typography.scss"]
+            "css": ["layout/typography.scss"]
         }
     },
     "form": {
         "name": "Form",
         "description": "Classes for input fields and form structuring.",
-        "category": "component",
-        "type": "layout",
+        "category": "layout",
         "priority": 3,
         "source": {
             "css": ["components/form.scss"]
@@ -34,44 +29,19 @@
     "code": {
         "name": "Code",
         "description": "Styles for code related HTML tags.",
-        "category": "component",
-        "type": "layout",
+        "category": "layout",
         "priority": 4,
         "source": {
-            "css": ["components/code.scss"]
-        }
-    },
-    "flex": {
-        "name": "Flex",
-        "description": "Flexbox based grid and layout. Responsive support through different block sizes.",
-        "category": "component",
-        "type": "layout",
-        "priority": 5,
-        "require": ["base"],
-        "source": {
-            "css": ["components/flex.scss"]
-        },
-        "version": "2.1.0"
-    },
-    "grid": {
-        "name": "Grid",
-        "description": "Fluid float based grid with multiple column support. Responsive support through different column sizes.",
-        "category": "component",
-        "type": "layout",
-        "priority": 6,
-        "require": ["base"],
-        "source": {
-            "css": ["components/grid.scss"]
+            "css": ["layout/code.scss"]
         }
     },
     "responsive": {
         "name": "Responsive",
         "description": "Responsive classes for mobile, tablet and desktop resolutions.",
-        "category": "behavior",
-        "type": "layout",
+        "category": "layout",
         "priority": 100,
         "source": {
-            "css": ["behaviors/responsive.scss"]
+            "css": ["layout/responsive.scss"]
         }
     },
 
@@ -169,6 +139,18 @@
             "js": ["components/drop.js"]
         }
     },
+    "flex": {
+        "name": "Flex",
+        "description": "Flexbox based grid and layout. Responsive support through different block sizes.",
+        "category": "component",
+        "type": "layout",
+        "priority": 5,
+        "require": ["base"],
+        "source": {
+            "css": ["components/flex.scss"]
+        },
+        "version": "2.1.0"
+    },
     "flyout": {
         "name": "Flyout",
         "description": "Hierarchical sitemap through nested menus.",
@@ -179,6 +161,17 @@
         "source": {
             "css": ["components/flyout.scss"],
             "js": ["components/flyout.js"]
+        }
+    },
+    "grid": {
+        "name": "Grid",
+        "description": "Fluid float based grid with multiple column support. Responsive support through different column sizes.",
+        "category": "component",
+        "type": "layout",
+        "priority": 6,
+        "require": ["base"],
+        "source": {
+            "css": ["components/grid.scss"]
         }
     },
     "icon": {
