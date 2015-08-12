@@ -222,6 +222,19 @@ $toolkit-flex: (
     )
 ) !default;
 
+$toolkit-form: (
+    "class": bem("form"),
+    "class-actions": bem("form", "actions"),
+    "class-fields": bem("fields"),
+    "class-field": bem("field"),
+    "class-field-help": bem("field", "help"),
+    "class-field-label": bem("field", "label"),
+    "class-field-column": bem("field", "col"),
+    "class-modifier-inline": bem("form", "", "inline"),
+    "class-modifier-horizontal": bem("form", "", "horizontal"),
+    "modifiers": ("inline", "horizontal"), // inline, horizontal
+) !default;
+
 $toolkit-grid: (
     "class-row": bem("grid"),
     "class-column": bem("col"),

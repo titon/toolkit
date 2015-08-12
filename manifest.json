@@ -17,15 +17,6 @@
             "css": ["layout/typography.scss"]
         }
     },
-    "form": {
-        "name": "Form",
-        "description": "Classes for input fields and form structuring.",
-        "category": "layout",
-        "priority": 3,
-        "source": {
-            "css": ["components/form.scss"]
-        }
-    },
     "code": {
         "name": "Code",
         "description": "Styles for code related HTML tags.",
@@ -151,6 +142,15 @@
         "source": {
             "css": ["components/flyout.scss"],
             "js": ["components/flyout.js"]
+        }
+    },
+    "form": {
+        "name": "Form",
+        "description": "Vertical, horizontal, and inline form field structuring.",
+        "category": "component",
+        "priority": 10,
+        "source": {
+            "css": ["components/form.scss"]
         }
     },
     "grid": {

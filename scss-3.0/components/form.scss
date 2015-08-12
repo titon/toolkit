@@ -1,0 +1,124 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("form") {
+    $toolkit-temp-form-modifiers: map-get($toolkit-form, "modifiers");
+
+    fieldset {
+        padding: theme-setting("padding") 0;
+        margin: 0;
+        border: 0;
+        border-top: 1px solid theme-setting("gray-dark");
+
+        &.no-legend {
+            border: 0;
+            padding: 0;
+        }
+    }
+
+    legend {
+        font-size: 1.3rem;
+        padding: 0 theme-setting("padding");
+    }
+
+    select[multiple],
+    select[size] {
+        height: auto;
+    }
+
+    input[type="search"] {
+        -webkit-appearance: none;
+    }
+
+    // Required values to match browser restrictions
+    label {
+        font-size: inherit;
+        line-height: normal;
+    }
+
+    //-------------------- Fields, Labels --------------------//
+
+    #{map-get($toolkit-form, "class-fields")} {
+        @extend %placeholder-list;
+    }
+
+    #{map-get($toolkit-form, "class-field")},
+    #{map-get($toolkit-form, "class-fields")} > li {
+        margin-bottom: theme-setting("margin");
+    }
+
+    #{map-get($toolkit-form, "class-field-label")} {
+        display: block;
+        vertical-align: middle;
+        margin-bottom: .5em;
+    }
+
+    #{map-get($toolkit-form, "class-field-help")} {
+        margin-top: .5em;
+        font-size: theme-setting("small-font-size");
+    }
+
+    #{map-get($toolkit-form, "class-actions")} {
+        text-align: center;
+    }
+
+    //-------------------- Modifiers --------------------//
+
+    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-form-modifiers, "horizontal")) {
+        #{map-get($toolkit-form, "class-modifier-horizontal")} {
+            #{map-get($toolkit-form, "class-field")},
+            #{map-get($toolkit-form, "class-fields")} > li {
+                display: flex;
+            }
+
+            #{map-get($toolkit-form, "class-field-label")} {
+                text-align: bidi-opposite-alignment();
+                border: 1px solid transparent; // Matches input sizes
+                padding-top: theme-setting("medium-padding");
+            }
+
+            #{map-get($toolkit-form, "class-field-column")} {
+                padding-#{bidi-alignment()}: theme-setting("margin");
+                text-align: bidi-alignment();
+                flex-grow: 1;
+            }
+        }
+    }
+
+    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-form-modifiers, "inline")) {
+        #{map-get($toolkit-form, "class-modifier-inline")} {
+            margin-bottom: -(theme-setting("margin") / 2);
+
+            #{map-get($toolkit-form, "class-field")},
+            #{map-get($toolkit-form, "class-fields")} > li,
+            #{map-get($toolkit-form, "class-field-label")},
+            #{map-get($toolkit-form, "class-actions")},
+            fieldset {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: normal;
+                margin-#{bidi-opposite-alignment()}: theme-setting("margin");
+                margin-bottom: theme-setting("margin") / 2;
+            }
+
+            fieldset {
+                border: 0;
+                margin: 0;
+                padding: 0;
+            }
+
+            #{map-get($toolkit-form, "class-field-label")} {
+                margin: 0;
+                margin-#{bidi-opposite-alignment()}: (theme-setting("margin") / 2);
+            }
+
+            legend,
+            #{map-get($toolkit-form, "class-field-help")} {
+                display: none;
+            }
+        }
+    }
+}
