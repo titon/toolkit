@@ -13,7 +13,7 @@ define([
 
 var Stalker = Toolkit.Stalker = Component.extend({
     name: 'Stalker',
-    version: '2.0.0',
+    version: '2.1.7',
 
     /** Container to monitor scroll events on. */
     container: $(window),

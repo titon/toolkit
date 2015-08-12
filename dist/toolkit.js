@@ -1,4 +1,4 @@
-/*! Titon Toolkit v2.1.6 | BSD-3-Clause | titon.io */
+/*! Titon Toolkit v2.1.7 | BSD-3-Clause | titon.io */
 (function($, window, document) {
 'use strict';
     // Include an empty jQuery file so that we can setup local dependencies
@@ -64,10 +64,10 @@ $.fn.cache = function(key, value) {
 var Toolkit = {
 
     /** Current version. */
-    version: '2.1.6',
+    version: '2.1.7',
 
     /** Build date hash. */
-    build: 'ibs9772x',
+    build: 'id9cug2s',
 
     /** CSS namespace. */
     namespace: '',
@@ -769,33 +769,37 @@ var Component = Toolkit.Component = Base.extend({
      * Attempt to load content from different formats and set it using `position()`.
      * If the content is an element ID (#hash), fetch the inner contents from the element.
      * If the content is a string that looks like an absolute URL, fetch the content using an AJAX request.
-     * If the content is a literal string, set it directly.
+     * If the content is a literal string or an element, set it directly.
      *
-     * @param {String} content
+     * @param {String|HTMLElement} content
      * @param {Object} [params]
      */
     loadContent: function(content, params) {
-        var ajax = false;
+        var cacheKey = content;
 
-        // Load content from an element matching ID
-        if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
-            content = $(content).html();
+        if (typeof content === 'string') {
 
-        // Load content from an AJAX request
-        // Matches http://, https://, /url, and many others
-        } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
-            ajax = true;
+            // Load content from an element matching ID
+            if (content.match(/^#[a-z0-9_\-\.:]+$/i)) {
+                if (this.cache[cacheKey]) {
+                    content = this.cache[cacheKey];
+                } else {
+                    content = this.cache[cacheKey] = $(content).html();
+                }
+
+            // Load content from an AJAX request
+            // Matches http://, https://, /url, and many others
+            } else if (content.match(/^([a-z]+:)?\/\//) || content.match(/^\/[\w\-\.\/]+/i)) {
+                if (this.cache[cacheKey]) {
+                    content = this.cache[cacheKey];
+                } else {
+                    this.requestData(content, params);
+                    return;
+                }
+            }
         }
 
-        if (this.cache[content]) {
-            this.position(this.cache[content]);
-
-        } else if (ajax) {
-            this.requestData(content, params);
-
-        } else {
-            this.position(content);
-        }
+        this.position(content);
     },
 
     /**
@@ -1724,7 +1728,7 @@ $.throttle = function(func, delay) {
 
 var Carousel = Toolkit.Carousel = Component.extend({
     name: 'Carousel',
-    version: '2.1.6',
+    version: '2.1.7',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -1881,8 +1885,10 @@ var Carousel = Toolkit.Carousel = Component.extend({
             containerSize = 0,
             sizes = [];
 
+        this.container.removeAttr('style');
+
         this.items.each(function() {
-            var item = $(this),
+            var item = $(this).removeAttr('style'),
                 size = item[dimension](),
                 marginStart = parseInt(item.css('margin-' + (dimension === 'width' ? 'left' : 'top')), 10),
                 marginEnd = parseInt(item.css('margin-' + (dimension === 'width' ? 'right' : 'bottom')), 10),
@@ -4973,7 +4979,7 @@ Toolkit.createPlugin('offCanvas', function(options) {
 
 var Pin = Toolkit.Pin = Component.extend({
     name: 'Pin',
-    version: '2.1.6',
+    version: '2.1.7',
 
     /** Will the element be pinned? */
     active: true,
@@ -5015,7 +5021,7 @@ var Pin = Toolkit.Pin = Component.extend({
             .addClass(options.animation);
 
         // Determine before calculations
-        var initialTop = element.css('top');
+        var initialTop = element[0].style.top; // jQuery sometimes returns auto
 
         this.initialTop = (initialTop === 'auto') ? 0 : parseInt(initialTop, 10);
         this.elementTop = element.offset().top;
@@ -5999,7 +6005,7 @@ Toolkit.createPlugin('showcase', function(options) {
 
 var Stalker = Toolkit.Stalker = Component.extend({
     name: 'Stalker',
-    version: '2.0.0',
+    version: '2.1.7',
 
     /** Container to monitor scroll events on. */
     container: $(window),
@@ -6157,7 +6163,7 @@ var Stalker = Toolkit.Stalker = Component.extend({
 
             var offset = offsets[index],
                 top = offset.top - threshold,
-                bot = offset.top + marker.height() + threshold;
+                bot = offset.top + marker.height() - threshold;
 
             // Scroll is within the marker
             if (
