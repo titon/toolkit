@@ -249,6 +249,12 @@ $toolkit-grid: (
     )
 ) !default;
 
+$toolkit-input: (
+    "class": bem("input"),
+    "class-static": bem("input", "static"),
+    "class-choice": bem("input", "choice"),
+) !default;
+
 $toolkit-input-group: (
     "class": bem("input-group"),
     "class-addon": bem("input-group", "addon"),

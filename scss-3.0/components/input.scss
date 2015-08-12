@@ -1,0 +1,94 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("input") {
+    #{map-get($toolkit-input, "class")},
+    #{map-get($toolkit-input, "class-static")},
+    #{map-get($toolkit-input, "class-choice")} {
+        @extend %placeholder-inline-block;
+        line-height: normal;
+        border: 1px solid theme-setting("gray-dark");
+        border-radius: 0;
+        -webkit-appearance: none; // Remove inner shadow on iOS
+
+        //----- Sizes -----//
+
+        @include size-medium;
+        @include is-size-small { @include size-small; }
+        @include is-size-large { @include size-large; }
+    }
+
+    #{map-get($toolkit-input, "class")} {
+        background: theme-setting("gray-lightest");
+        border-radius: theme-setting("round-radius");
+        transition: all theme-setting("transition");
+
+        &:hover {
+            border-color: theme-setting("gray-darkest");
+        }
+
+        &:focus {
+            border-color: theme-setting("info");
+        }
+
+        &[readonly] {
+            color: theme-setting("gray-darkest");
+            border: 1px solid theme-setting("gray-dark");
+        }
+
+        &.is-disabled,
+        &[disabled],
+        option[disabled],
+        optgroup[disabled] {
+            color: theme-setting("gray-darkest");
+            border-color: theme-setting("gray");
+        }
+    }
+
+    #{map-get($toolkit-input, "class-static")} {
+        background: transparent;
+        border-color: transparent;
+        padding-#{bidi-alignment()}: 0 !important;
+        padding-#{bidi-opposite-alignment()}: 0 !important;
+    }
+
+    #{map-get($toolkit-input, "class-choice")} {
+        padding-#{bidi-alignment()}: 0 !important;
+        padding-#{bidi-opposite-alignment()}: 0 !important;
+        border: 0;
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+            margin-#{bidi-opposite-alignment()}: .5rem;
+        }
+
+        &.is-disabled {
+            color: theme-setting("gray-darkest");
+        }
+    }
+
+    select#{map-get($toolkit-input, "class")} {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &[multiple] {
+            max-height: 500px;
+        }
+
+        &::-ms-expand {
+            display: none;
+        }
+    }
+
+    textarea#{map-get($toolkit-input, "class")} {
+        line-height: 1.35;
+        min-height: 150px;
+    }
+}

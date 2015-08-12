@@ -175,13 +175,12 @@
     },
     "input": {
         "name": "Input",
-        "description": "Replaces selects, checkboxes, and radios with custom elements.",
+        "description": "Input, textarea, select, radio, and checkbox layout structuring.",
         "category": "component",
         "priority": 10,
-        "require": ["base", "drop"],
+        "require": ["base"],
         "source": {
-            "css": ["components/input.scss"],
-            "js": ["components/input.js"]
+            "css": ["components/input.scss"]
         }
     },
     "inputGroup": {
