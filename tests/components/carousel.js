@@ -94,7 +94,6 @@ describe('Toolkit.Carousel', function() {
             var size = carousel._sizes[0].size;
 
             expect(carousel.container.css('width')).to.equal((size * 5) + 'px');
-            expect(carousel.container.css('left')).to.equal('0px');
             expect(carousel.items.eq(0).css('width')).to.equal(size + 'px');
         });
     });
@@ -279,10 +278,7 @@ describe('Toolkit.Carousel: infinite', function() {
 
             var size = carousel._sizes[0].size;
 
-            // Include clones in height. Top is negative to hide the leading clones.
             expect(carousel.container.css('height')).to.equal((size * 7) + 'px');
-            expect(carousel.container.css('top')).to.equal('-' + size + 'px');
-
             expect(carousel.items.eq(0).css('height')).to.equal(size + 'px');
         });
     });

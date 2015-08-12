@@ -25,8 +25,8 @@ describe('Toolkit.Pin', function() {
             expect(element.hasClass('sticky')).to.be.true;
         });
 
-        it('should extract the default top value', function() {
-            expect(pin.elementTop).to.equal(15);
+        it('should extract the initial top value', function() {
+            expect(pin.initialTop).to.equal(15);
         });
     });
 

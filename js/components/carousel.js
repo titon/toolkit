@@ -15,7 +15,7 @@ define([
 
 var Carousel = Toolkit.Carousel = Component.extend({
     name: 'Carousel',
-    version: '2.1.6',
+    version: '2.1.7',
 
     /** Is the carousel currently animating? */
     animating: false,
@@ -172,8 +172,10 @@ var Carousel = Toolkit.Carousel = Component.extend({
             containerSize = 0,
             sizes = [];
 
+        this.container.removeAttr('style');
+
         this.items.each(function() {
-            var item = $(this),
+            var item = $(this).removeAttr('style'),
                 size = item[dimension](),
                 marginStart = parseInt(item.css('margin-' + (dimension === 'width' ? 'left' : 'top')), 10),
                 marginEnd = parseInt(item.css('margin-' + (dimension === 'width' ? 'right' : 'bottom')), 10),

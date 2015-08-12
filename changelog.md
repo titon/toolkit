@@ -2,6 +2,16 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.7 ##
+* Updated the `.span-*` classes to no longer be coupled with the grid component
+* Components
+    * Component
+        * Updated `loadContent()` to accept elements as well as strings
+    * Carousel
+        * Fixed a bug where re-calculations would fail because of the previously set widths or heights
+    * Stalker
+        * Fixed a bug where the bottom threshold was being calculated incorrectly
+
 ## 2.1.6 ##
 * Further improved AMD loading by splitting child components into their own files
 * Components

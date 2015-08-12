@@ -66,9 +66,10 @@ This does not work on relative URLs. All absolute domain URLs will require a pre
 
 ### Literal Content ###
 
-If the content does not match a DOM ID or a URL, then the content will be set literally.
+If the content does not match a DOM ID or a URL, then the content will be set literally. This will accept either a string or an element.
 
 ```javascript
 component.loadContent('Foobar'); // Foobar
 component.loadContent(data); // The value of the data variable.
+component.loadContent(document.createElement('div'));
 ```
