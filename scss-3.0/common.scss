@@ -384,6 +384,15 @@ $toolkit-tooltip: (
     "transition": .15s,
 ) !default;
 
+$toolkit-type-ahead: (
+    "class": bem("type-ahead"),
+    "class-heading": bem("type-ahead", "heading"),
+    "class-highlight": bem("type-ahead", "highlight"),
+    "class-description": bem("type-ahead", "desc"),
+    "class-shadow": bem("type-ahead", "shadow"),
+    "transition": theme-setting("transition"),
+) !default;
+
 $toolkit-typography: (
     "h1-font-size": 3rem,
     "h2-font-size": 2.5rem,

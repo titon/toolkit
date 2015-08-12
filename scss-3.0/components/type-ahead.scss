@@ -1,0 +1,61 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("type-ahead") {
+    #{map-get($toolkit-type-ahead, "class")} {
+        @extend %placeholder-position-absolute;
+        z-index: map-get($toolkit-settings-zindex, "type-ahead");
+        opacity: 0;
+        visibility: hidden;
+        transition: all map-get($toolkit-type-ahead, "transition");
+
+        // Fixes issues where menu does not display in iOS
+        // Kind of hacky? Other solutions?
+        -webkit-backface-visibility: hidden;
+
+        ul {
+            @extend %placeholder-list;
+            min-width: 200px;
+        }
+
+        a {
+            padding: theme-setting("small-padding");
+            line-height: 1;
+            display: block;
+        }
+    }
+
+    #{map-get($toolkit-type-ahead, "class-heading")} {
+        padding: theme-setting("small-padding");
+        line-height: 1;
+        display: block;
+    }
+
+    #{map-get($toolkit-type-ahead, "class-highlight")} {
+        background: #fff;
+        padding: 0;
+    }
+
+    #{map-get($toolkit-type-ahead, "class-description")} {
+        display: block;
+        font-size: .7rem;
+    }
+
+    #{map-get($toolkit-type-ahead, "class-shadow")} {
+        position: relative;
+
+        .is-shadow {
+            color: gray;
+            z-index: 1;
+        }
+
+        .not-shadow {
+            @extend %placeholder-position-absolute;
+            background: transparent;
+            z-index: 2;
+        }
+    }
+}
