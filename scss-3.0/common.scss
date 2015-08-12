@@ -236,6 +236,12 @@ $toolkit-grid: (
     )
 ) !default;
 
+$toolkit-input-group: (
+    "class": bem("input-group"),
+    "class-addon": bem("input-group", "addon"),
+    "effects": ("round") // round
+) !default;
+
 $toolkit-label: (
     "class": bem("label"),
     "class-modifier-badge": bem("label", "", "badge"),
