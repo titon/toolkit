@@ -222,6 +222,12 @@ $toolkit-flex: (
     )
 ) !default;
 
+$toolkit-flyout: (
+    "class": bem("flyout"),
+    "class-heading": bem("flyout", "heading"),
+    "transition": theme-setting("transition"),
+) !default;
+
 $toolkit-form: (
     "class": bem("form"),
     "class-actions": bem("form", "actions"),

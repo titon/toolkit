@@ -1,0 +1,77 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("flyout") {
+    #{map-get($toolkit-flyout, "class")} {
+        @extend %placeholder-position-absolute;
+        z-index: map-get($toolkit-settings-zindex, "flyout");
+        opacity: 0;
+        visibility: hidden;
+        transition: all map-get($toolkit-flyout, "transition");
+        display: flex;
+        flex-wrap: nowrap;
+
+        // Nested flyouts
+        #{map-get($toolkit-flyout, "class")} {
+            #{bidi-alignment()}: 90%;
+
+            // Reverse menu to left side in case it goes outside the viewport
+            // Will be set automatically from the JavaScript layer
+            &.push-opposite {
+                #{bidi-alignment()}: auto;
+                #{bidi-opposite-alignment()}: 90%;
+            }
+        }
+
+        a {
+            padding: theme-setting("small-padding");
+            line-height: 1;
+            display: block;
+            text-decoration: none;
+
+            .caret-right,
+            .caret-left {
+                display: none;
+            }
+        }
+
+        ul {
+            @extend %placeholder-list;
+            width: 15rem;
+        }
+
+        li {
+            position: relative;
+
+            // Display caret arrow
+            &.has-children > a {
+                .caret-right,
+                .caret-left {
+                    float: bidi-opposite-alignment();
+                    display: inline-block;
+                }
+            }
+
+            // Display sub-menu
+            &.is-open > #{map-get($toolkit-flyout, "class")} {
+                opacity: 1;
+                visibility: visible;
+                #{bidi-alignment()}: 100%;
+
+                &.push-opposite {
+                    #{bidi-alignment()}: auto;
+                    #{bidi-opposite-alignment()}: 100%;
+                }
+            }
+        }
+    }
+
+    #{map-get($toolkit-flyout, "class-heading")} {
+        padding: theme-setting("small-padding");
+        line-height: 1;
+        display: block;
+    }
+}
