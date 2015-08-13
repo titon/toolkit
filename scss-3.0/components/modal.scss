@@ -11,8 +11,9 @@
         @extend %placeholder-full-screen;
         opacity: 0;
         visibility: hidden;
-        z-index: map-get($toolkit-settings-zindex, "modal");
         overflow: auto;
+        z-index: map-get($toolkit-settings-zindex, "modal");
+        background: black(map-get($toolkit-modal, "opacity"));
         transition: opacity map-get($toolkit-modal, "transition"), visibility map-get($toolkit-modal, "transition");
         -webkit-overflow-scrolling: touch;
 
