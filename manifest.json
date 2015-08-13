@@ -49,17 +49,6 @@
             "js": ["components/accordion.js"]
         }
     },
-    "blackout": {
-        "name": "Blackout",
-        "description": "Blacks out the viewport while other components are being displayed.",
-        "category": "component",
-        "priority": 10,
-        "require": ["base", "loader"],
-        "source": {
-            "css": ["components/blackout.scss"],
-            "js": ["components/blackout.js"]
-        }
-    },
     "breadcrumb": {
         "name": "Breadcrumb",
         "description": "Navigation for hierarchical trails.",
@@ -149,6 +138,7 @@
         "description": "Vertical, horizontal, and inline form field structuring.",
         "category": "component",
         "priority": 10,
+        "require": ["base"],
         "source": {
             "css": ["components/form.scss"]
         }
@@ -161,16 +151,6 @@
         "require": ["base"],
         "source": {
             "css": ["components/grid.scss"]
-        }
-    },
-    "icon": {
-        "name": "Icon",
-        "description": "Image sprite map support with optional rotation.",
-        "category": "component",
-        "priority": 10,
-        "require": [],
-        "source": {
-            "css": ["components/icon.scss"]
         }
     },
     "input": {
@@ -253,7 +233,7 @@
         "description": "An informational window displayed above content and utilized for workflow interactions.",
         "category": "component",
         "priority": 10,
-        "require": ["base", "blackout"],
+        "require": ["base"],
         "source": {
             "css": ["components/modal.scss"],
             "js": ["components/modal.js"]
@@ -328,7 +308,7 @@
         "description": "Lightbox styled image gallery with optional categorization.",
         "category": "component",
         "priority": 10,
-        "require": ["base", "blackout"],
+        "require": ["base"],
         "source": {
             "css": ["components/showcase.scss"],
             "js": ["components/showcase.js"]
