@@ -1,0 +1,36 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("checkbox") {
+    #{map-get($toolkit-checkbox, "class-toggle")} {
+        @extend %placeholder-inline-block;
+        background: theme-setting("gray-lightest");
+        border: 1px solid theme-setting("gray-dark");
+        width: 1rem;
+        height: 1rem;
+        line-height: 1;
+    }
+
+    #{map-get($toolkit-checkbox, "class")} {
+        @extend %placeholder-inline-block;
+
+        input {
+            display: none;
+        }
+    }
+
+    // Style when the checkbox is checked
+    @include checkbox-checked-toggle {
+        border-color: theme-setting("info");
+        background: theme-setting("info-light");
+    }
+
+    // Style when input is disabled
+    @include checkbox-disabled-toggle {
+        cursor: not-allowed;
+        border-color: theme-setting("gray");
+    }
+}

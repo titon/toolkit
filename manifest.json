@@ -90,6 +90,16 @@
             "js": ["components/carousel.js"]
         }
     },
+    "checkbox": {
+        "name": "Checkbox",
+        "description": "Custom checkbox input elements.",
+        "category": "component",
+        "priority": 10,
+        "require": ["base"],
+        "source": {
+            "css": ["components/checkbox.scss"]
+        }
+    },
     "divider": {
         "name": "Divider",
         "description": "Separates sections of content.",
@@ -301,6 +311,16 @@
         "require": ["base"],
         "source": {
             "css": ["components/progress.scss"]
+        }
+    },
+    "radio": {
+        "name": "Radio",
+        "description": "Custom radio input elements.",
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "checkbox"],
+        "source": {
+            "css": ["components/radio.scss"]
         }
     },
     "showcase": {

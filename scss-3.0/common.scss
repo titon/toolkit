@@ -186,6 +186,11 @@ $toolkit-carousel: (
     "transition": 1s,
 ) !default;
 
+$toolkit-checkbox: (
+    "class": bem("checkbox"),
+    "class-toggle": bem("checkbox", "toggle"),
+) !default;
+
 $toolkit-divider: (
     "class": bem("divider"),
 ) !default;
@@ -365,6 +370,11 @@ $toolkit-progress: (
     "class-bar": bem("progress", "bar"),
     "transition": .5s,
     "effects": ("round", "pill"), // round, pill
+) !default;
+
+$toolkit-radio: (
+    "class": bem("radio"),
+    "class-toggle": bem("radio", "toggle"),
 ) !default;
 
 $toolkit-step: (

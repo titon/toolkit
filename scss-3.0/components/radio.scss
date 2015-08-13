@@ -1,0 +1,32 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("radio") {
+    #{map-get($toolkit-radio, "class-toggle")} {
+        @extend #{map-get($toolkit-checkbox, "class-toggle")};
+        border-radius: 50%;
+    }
+
+    #{map-get($toolkit-radio, "class")} {
+        @extend %placeholder-inline-block;
+
+        input {
+            display: none;
+        }
+    }
+
+    // Style when the radio is checked
+    @include radio-checked-toggle {
+        border-color: theme-setting("info");
+        background: theme-setting("info-light");
+    }
+
+    // Style when input is disabled
+    @include radio-disabled-toggle {
+        cursor: not-allowed;
+        border-color: theme-setting("gray");
+    }
+}

@@ -35,6 +35,50 @@
 }
 
 /**
+ * Generate a checked state for the custom checkbox toggle.
+ */
+@mixin checkbox-checked-toggle() {
+    #{map-get($toolkit-checkbox, "class")} {
+        input:checked + #{map-get($toolkit-checkbox, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a disabled state for the custom checkbox toggle.
+ */
+@mixin checkbox-disabled-toggle() {
+    #{map-get($toolkit-checkbox, "class")} {
+        input[disabled] + #{map-get($toolkit-checkbox, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a checked state for the custom radio toggle.
+ */
+@mixin radio-checked-toggle() {
+    #{map-get($toolkit-radio, "class")} {
+        input:checked + #{map-get($toolkit-radio, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a disabled state for the custom radio toggle.
+ */
+@mixin radio-disabled-toggle() {
+    #{map-get($toolkit-radio, "class")} {
+        input[disabled] + #{map-get($toolkit-radio, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
  * Generate show/hide display classes for a specific class.
  *
  * @param string $class

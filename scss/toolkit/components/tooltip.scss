@@ -55,8 +55,7 @@
         }
     }
 
-    #{$tooltip-class-arrow},
-    #{$popover-class-arrow} {
+    #{$tooltip-class-arrow} {
         width: 0;
         height: 0;
         border: #{$tooltip-arrow-width}px solid transparent;
