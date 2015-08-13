@@ -23,13 +23,13 @@
     }
 
     // Style when the checkbox is checked
-    @include checkbox-checked-toggle {
+    @include checkbox-checked-state {
         border-color: theme-setting("info");
         background: theme-setting("info-light");
     }
 
     // Style when input is disabled
-    @include checkbox-disabled-toggle {
+    @include checkbox-disabled-state {
         cursor: not-allowed;
         border-color: theme-setting("gray");
     }

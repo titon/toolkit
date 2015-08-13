@@ -1,0 +1,91 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("select") {
+    #{map-get($toolkit-select, "class-toggle")} {
+        @extend %placeholder-inline-block;
+        cursor: pointer;
+        background: theme-setting("gray-lightest");
+        border: 1px solid theme-setting("gray-dark");
+        border-radius: theme-setting("round-radius");
+        white-space: nowrap;
+        line-height: 1;
+        z-index: 3;
+        display: flex;
+        @include size-medium;
+    }
+
+    #{map-get($toolkit-select, "class-label")} {
+        flex-grow: 1;
+    }
+
+    #{map-get($toolkit-select, "class-arrow")} {
+        .caret-down {
+            border-top-color: #000;
+        }
+    }
+
+    #{map-get($toolkit-select, "class-options")} {
+        max-height: 300px;
+        overflow: auto;
+        z-index: 5;
+
+        li.is-disabled {
+            > a,
+            > a:hover {
+                background: none;
+                color: theme-setting("gray-darkest");
+                cursor: default;
+                pointer-events: none;
+            }
+        }
+
+        &.hide-selected {
+            li.is-active {
+                display: none !important;
+            }
+        }
+
+        &.hide-first {
+            li:first-child:not(#{map-get($toolkit-drop, "class-heading")}) {
+                display: none !important;
+            }
+        }
+    }
+
+    // Position the real select over the custom one
+    #{map-get($toolkit-select, "class")} {
+        @extend %placeholder-inline-block;
+
+        select {
+            @extend %placeholder-position-absolute;
+            z-index: 5;
+            opacity: 0;
+            width: 100%;
+        }
+    }
+
+    // Style when the select is hovered
+    @include select-hover-state {
+        border-color: theme-setting("gray-darkest");
+    }
+
+    // Style when the select is focused
+    @include select-focus-state {
+        border-color: theme-setting("info");
+    }
+
+    // Style when select is disabled
+    @include select-disabled-state {
+        cursor: not-allowed;
+        color: theme-setting("gray-darkest");
+        border-color: theme-setting("gray");
+
+        #{map-get($toolkit-select, "class-arrow")} {
+            opacity: theme-setting("opacity");
+        }
+    }
+}

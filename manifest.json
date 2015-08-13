@@ -323,6 +323,16 @@
             "css": ["components/radio.scss"]
         }
     },
+    "select": {
+        "name": "Select",
+        "description": "Custom select input elements.",
+        "category": "component",
+        "priority": 10,
+        "require": ["base", "drop"],
+        "source": {
+            "css": ["components/select.scss"]
+        }
+    },
     "showcase": {
         "name": "Showcase",
         "description": "Lightbox styled image gallery with optional categorization.",

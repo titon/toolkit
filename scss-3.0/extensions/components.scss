@@ -37,7 +37,7 @@
 /**
  * Generate a checked state for the custom checkbox toggle.
  */
-@mixin checkbox-checked-toggle() {
+@mixin checkbox-checked-state() {
     #{map-get($toolkit-checkbox, "class")} {
         input:checked + #{map-get($toolkit-checkbox, "class-toggle")} {
             @content;
@@ -48,7 +48,7 @@
 /**
  * Generate a disabled state for the custom checkbox toggle.
  */
-@mixin checkbox-disabled-toggle() {
+@mixin checkbox-disabled-state() {
     #{map-get($toolkit-checkbox, "class")} {
         input[disabled] + #{map-get($toolkit-checkbox, "class-toggle")} {
             @content;
@@ -59,7 +59,7 @@
 /**
  * Generate a checked state for the custom radio toggle.
  */
-@mixin radio-checked-toggle() {
+@mixin radio-checked-state() {
     #{map-get($toolkit-radio, "class")} {
         input:checked + #{map-get($toolkit-radio, "class-toggle")} {
             @content;
@@ -70,7 +70,7 @@
 /**
  * Generate a disabled state for the custom radio toggle.
  */
-@mixin radio-disabled-toggle() {
+@mixin radio-disabled-state() {
     #{map-get($toolkit-radio, "class")} {
         input[disabled] + #{map-get($toolkit-radio, "class-toggle")} {
             @content;
@@ -93,9 +93,42 @@
 }
 
 /**
+ * Generate a hover state for the custom select toggle.
+ */
+@mixin select-hover-state() {
+    #{map-get($toolkit-select, "class")} {
+        select:hover + #{map-get($toolkit-select, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a focus state for the custom select toggle.
+ */
+@mixin select-focus-state() {
+    #{map-get($toolkit-select, "class")} {
+        select:focus + #{map-get($toolkit-select, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
+ * Generate a disabled state for the custom select toggle.
+ */
+@mixin select-disabled-state() {
+    #{map-get($toolkit-select, "class")} {
+        select[disabled] + #{map-get($toolkit-select, "class-toggle")} {
+            @content;
+        }
+    }
+}
+
+/**
  * Generate a checked state for the switch toggle.
  */
-@mixin switch-checked-bar() {
+@mixin switch-checked-state() {
     #{map-get($toolkit-switch, "class")} {
         input:checked + #{map-get($toolkit-switch, "class-bar")} {
             @content;
@@ -106,7 +139,7 @@
 /**
  * Generate a disabled state for the switch toggle.
  */
-@mixin switch-disabled-bar() {
+@mixin switch-disabled-state() {
     #{map-get($toolkit-switch, "class")} {
         input[disabled] + #{map-get($toolkit-switch, "class-bar")} {
             @content;

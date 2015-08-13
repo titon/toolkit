@@ -120,7 +120,7 @@
 
     //-------------------- States --------------------//
 
-    @include switch-checked-bar {
+    @include switch-checked-state {
         #{map-get($toolkit-switch, "class-toggle")} {
             left: 50%;
         }

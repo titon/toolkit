@@ -19,13 +19,13 @@
     }
 
     // Style when the radio is checked
-    @include radio-checked-toggle {
+    @include radio-checked-state {
         border-color: theme-setting("info");
         background: theme-setting("info-light");
     }
 
     // Style when input is disabled
-    @include radio-disabled-toggle {
+    @include radio-disabled-state {
         cursor: not-allowed;
         border-color: theme-setting("gray");
     }

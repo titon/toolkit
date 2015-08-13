@@ -377,6 +377,14 @@ $toolkit-radio: (
     "class-toggle": bem("radio", "toggle"),
 ) !default;
 
+$toolkit-select: (
+    "class": bem("select"),
+    "class-toggle": bem("select", "toggle"),
+    "class-label": bem("select", "label"),
+    "class-arrow": bem("select", "arrow"),
+    "class-options": bem("select", "options"),
+) !default;
+
 $toolkit-step: (
     "class": bem("step"),
     "class-wrapper": bem("steps"),
