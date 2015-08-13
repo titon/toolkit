@@ -34,15 +34,15 @@
             border-color: theme-setting("info");
         }
 
-        &[readonly] {
+        &:read-only {
             color: theme-setting("gray-darkest");
             border: 1px solid theme-setting("gray-dark");
         }
 
         &.is-disabled,
-        &[disabled],
-        option[disabled],
-        optgroup[disabled] {
+        &:disabled,
+        option:disabled,
+        optgroup:disabled {
             color: theme-setting("gray-darkest");
             border-color: theme-setting("gray");
         }

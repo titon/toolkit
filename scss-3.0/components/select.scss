@@ -69,17 +69,17 @@
     }
 
     // Style when the select is hovered
-    @include select-hover-state {
+    @include select-state(hover) {
         border-color: theme-setting("gray-darkest");
     }
 
     // Style when the select is focused
-    @include select-focus-state {
+    @include select-state(focus) {
         border-color: theme-setting("info");
     }
 
     // Style when select is disabled
-    @include select-disabled-state {
+    @include select-state(disabled) {
         cursor: not-allowed;
         color: theme-setting("gray-darkest");
         border-color: theme-setting("gray");

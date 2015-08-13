@@ -108,7 +108,7 @@
     }
 
     .is-disabled,
-    [disabled] {
+    :disabled {
         cursor: not-allowed !important;
     }
 
