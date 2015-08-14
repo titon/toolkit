@@ -22,14 +22,11 @@
     #{map-get($toolkit-input, "class")} {
         background: theme-setting("bg-light");
         border: 1px solid theme-setting("border-accent");
-        border-radius: theme-setting("round-radius");
-        transition: all theme-setting("transition");
 
         &.is-disabled,
         &:disabled,
         option:disabled,
         optgroup:disabled {
-            color: theme-setting("secondary-dark");
             border-color: lighten(theme-setting("border-accent"), 10%);
         }
     }
@@ -52,10 +49,6 @@
             position: relative;
             top: -2px;
             margin-#{bidi-opposite-alignment()}: .5rem;
-        }
-
-        &.is-disabled {
-            color: theme-setting("secondary-dark");
         }
     }
 

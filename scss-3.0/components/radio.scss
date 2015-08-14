@@ -12,21 +12,11 @@
 
     #{map-get($toolkit-radio, "class")} {
         @extend %placeholder-inline-block;
+        background: theme-setting("bg-light");
+        border: 1px solid theme-setting("border-accent");
 
         input {
             display: none;
         }
-    }
-
-    // Style when the radio is checked
-    @include radio-state(checked) {
-        border-color: theme-setting("info");
-        background: theme-setting("info-light");
-    }
-
-    // Style when input is disabled
-    @include radio-state(disabled) {
-        cursor: not-allowed;
-        border-color: theme-setting("gray");
     }
 }

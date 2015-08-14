@@ -21,16 +21,4 @@
             display: none;
         }
     }
-
-    // Style when the checkbox is checked
-    @include checkbox-state(checked) {
-        border-color: theme-setting("info");
-        background: theme-setting("info-light");
-    }
-
-    // Style when input is disabled
-    @include checkbox-state(disabled) {
-        cursor: not-allowed;
-        border-color: theme-setting("gray");
-    }
 }
