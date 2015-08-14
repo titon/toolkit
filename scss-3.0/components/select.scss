@@ -8,8 +8,8 @@
     #{map-get($toolkit-select, "class-toggle")} {
         @extend %placeholder-inline-block;
         cursor: pointer;
-        background: theme-setting("gray-lightest");
-        border: 1px solid theme-setting("gray-dark");
+        background: theme-setting("bg-light");
+        border: 1px solid theme-setting("border-accent");
         border-radius: theme-setting("round-radius");
         white-space: nowrap;
         line-height: 1;
@@ -37,7 +37,7 @@
             > a,
             > a:hover {
                 background: none;
-                color: theme-setting("gray-darkest");
+                color: theme-setting("secondary-dark");
                 cursor: default;
                 pointer-events: none;
             }
@@ -68,21 +68,11 @@
         }
     }
 
-    // Style when the select is hovered
-    @include select-state(hover) {
-        border-color: theme-setting("gray-darkest");
-    }
-
-    // Style when the select is focused
-    @include select-state(focus) {
-        border-color: theme-setting("info");
-    }
-
     // Style when select is disabled
     @include select-state(disabled) {
         cursor: not-allowed;
-        color: theme-setting("gray-darkest");
-        border-color: theme-setting("gray");
+        color: theme-setting("secondary-dark");
+        border-color: lighten(theme-setting("border-accent"), 10%);
 
         #{map-get($toolkit-select, "class-arrow")} {
             opacity: theme-setting("opacity");

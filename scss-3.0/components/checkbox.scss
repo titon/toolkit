@@ -7,8 +7,8 @@
 @include export("checkbox") {
     #{map-get($toolkit-checkbox, "class-toggle")} {
         @extend %placeholder-inline-block;
-        background: theme-setting("gray-lightest");
-        border: 1px solid theme-setting("gray-dark");
+        background: theme-setting("bg-light");
+        border: 1px solid theme-setting("border-accent");
         width: 1rem;
         height: 1rem;
         line-height: 1;

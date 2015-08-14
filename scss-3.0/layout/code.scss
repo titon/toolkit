@@ -24,8 +24,8 @@
     pre {
         padding: theme-setting("padding");
         margin: theme-setting("margin") 0;
-        background: theme-setting("gray-light");
-        border: 1px solid theme-setting("gray-dark");
+        background: theme-setting("bg-light");
+        border: 1px solid theme-setting("border-accent");
         text-align: bidi-alignment();
         direction: setting("text-direction");
         white-space: pre;
@@ -54,9 +54,8 @@
     kbd {
         background: #fff;
         position: relative;
-        border: 1px solid theme-setting("gray-dark");
-        border-top-color: theme-setting("gray-dark");
-        box-shadow: 0 2px 0 1px theme-setting("gray-darkest");
+        border: 1px solid theme-setting("border-accent");
+        box-shadow: 0 2px 0 1px darken(theme-setting("border-accent"), 10%);
         top: -3px;
     }
 }

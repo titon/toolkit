@@ -10,8 +10,6 @@
     #{map-get($toolkit-input, "class-choice")} {
         @extend %placeholder-inline-block;
         line-height: normal;
-        border: 1px solid theme-setting("gray-dark");
-        border-radius: 0;
         -webkit-appearance: none; // Remove inner shadow on iOS
 
         //----- Sizes -----//
@@ -22,29 +20,17 @@
     }
 
     #{map-get($toolkit-input, "class")} {
-        background: theme-setting("gray-lightest");
+        background: theme-setting("bg-light");
+        border: 1px solid theme-setting("border-accent");
         border-radius: theme-setting("round-radius");
         transition: all theme-setting("transition");
-
-        &:hover {
-            border-color: theme-setting("gray-darkest");
-        }
-
-        &:focus {
-            border-color: theme-setting("info");
-        }
-
-        &:read-only {
-            color: theme-setting("gray-darkest");
-            border: 1px solid theme-setting("gray-dark");
-        }
 
         &.is-disabled,
         &:disabled,
         option:disabled,
         optgroup:disabled {
-            color: theme-setting("gray-darkest");
-            border-color: theme-setting("gray");
+            color: theme-setting("secondary-dark");
+            border-color: lighten(theme-setting("border-accent"), 10%);
         }
     }
 
@@ -69,7 +55,7 @@
         }
 
         &.is-disabled {
-            color: theme-setting("gray-darkest");
+            color: theme-setting("secondary-dark");
         }
     }
 

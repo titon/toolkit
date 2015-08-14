@@ -65,7 +65,7 @@
 
     #{map-get($toolkit-drop, "class-divider")} {
         margin: (theme-setting("margin") / 2) 0;
-        border-top: 1px solid theme-setting("gray-dark");
+        border-top: 1px solid theme-setting("border-accent");
     }
 
     #{map-get($toolkit-drop, "class-heading")} {

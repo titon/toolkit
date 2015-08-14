@@ -51,14 +51,15 @@
 
     mark {
         display: inline-block;
-        background: theme-setting("gray-dark");
+        background: theme-setting("bg-light");
         border-radius: theme-setting("round-radius");
         padding: 0 .3em;
     }
 
-    .text-muted { color: theme-setting("default"); }
-    .text-info { color: darken(theme-setting("info"), 15%); }
-    .text-error { color: darken(theme-setting("error"), 15%); }
-    .text-warning { color: darken(theme-setting("warning"), 15%); }
-    .text-success { color: darken(theme-setting("success"), 15%); }
+    .text-muted { color: theme-setting("secondary-dark"); }
+    .text-info { color: theme-setting("info-dark"); }
+    .text-error { color: theme-setting("error-dark"); }
+    .text-warning { color: theme-setting("warning-dark"); }
+    .text-success { color: theme-setting("success-dark"); }
+    .text-debug { color: theme-setting("debug-dark"); }
 }

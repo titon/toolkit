@@ -11,7 +11,7 @@
         @extend %placeholder-inline-block;
         font-size: .7rem;
         line-height: 1;
-        background: theme-setting("gray-dark");
+        background: theme-setting("bg-light");
         padding: .275rem .425rem;
         text-transform: uppercase;
         border-radius: 2px;
@@ -60,7 +60,7 @@
                 top: 0;
                 right: 100%;
                 border: .65rem solid transparent;
-                border-right-color: theme-setting("gray-dark");
+                border-right-color: theme-setting("border-accent");
             }
 
             @include is-size-small {
@@ -88,7 +88,7 @@
                 top: 0;
                 left: 100%;
                 border: .65rem solid transparent;
-                border-left-color: theme-setting("gray-dark");
+                border-left-color: theme-setting("border-accent");
             }
 
             @include is-size-small {
@@ -116,7 +116,7 @@
                 border: 1em solid transparent;
                 border-top-width: 0 !important;
                 border-left-width: 0 !important;
-                border-right-color: theme-setting("gray-darkest");
+                border-right-color: theme-setting("border-accent");
             }
         }
     }
@@ -132,7 +132,7 @@
                 border: 1em solid transparent;
                 border-top-width: 0 !important;
                 border-right-width: 0 !important;
-                border-left-color: theme-setting("gray-darkest");
+                border-left-color: theme-setting("border-accent");
             }
         }
     }
