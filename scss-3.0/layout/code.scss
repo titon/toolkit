@@ -24,8 +24,8 @@
     pre {
         padding: theme-setting("padding");
         margin: theme-setting("margin") 0;
-        background: theme-setting("bg-light");
-        border: 1px solid theme-setting("border-accent");
+        background: #fff;
+        border: 1px solid theme-setting("bg-light");
         text-align: bidi-alignment();
         direction: setting("text-direction");
         white-space: pre;
@@ -55,7 +55,7 @@
         background: #fff;
         position: relative;
         border: 1px solid theme-setting("border-accent");
-        box-shadow: 0 2px 0 1px darken(theme-setting("border-accent"), 10%);
+        box-shadow: 0 2px 0 1px theme-setting("border-accent");
         top: -3px;
     }
 }
