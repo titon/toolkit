@@ -8,13 +8,12 @@
     #{map-get($toolkit-input-group, "class-addon")} {
         @extend %placeholder-inline-block;
         @include size-medium;
+        background: theme-setting("bg-light");
     }
 
     #{map-get($toolkit-input-group, "class")} {
-        display: flex;
+        display: inline-flex;
         vertical-align: middle;
-        white-space: nowrap;
-        flex-wrap: nowrap;
 
         > * {
             flex-grow: 1;

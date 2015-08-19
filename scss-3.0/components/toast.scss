@@ -94,6 +94,7 @@
         transition: all map-get($toolkit-toast, "transition");
         opacity: 0;
         visibility: hidden;
+        background: #fff;
     }
 
     //-------------------- Animations --------------------//

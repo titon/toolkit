@@ -18,6 +18,7 @@
         > span {
             display: inline-block;
             margin: 0 2px;
+            background: #fff;
         }
     }
 
@@ -39,7 +40,6 @@
 
         #{map-get($toolkit-loader, "class-modifier-bar-wave")} {
             > span {
-                background: map-get($toolkit-loader, "color");
                 height: map-get($toolkit-loader, "bar-height");
                 width: map-get($toolkit-loader, "bar-width");
                 animation: bar-wave 1.2s infinite ease-in-out;
@@ -71,7 +71,6 @@
 
         #{map-get($toolkit-loader, "class-modifier-bubble-wave")} {
             > span {
-                background: map-get($toolkit-loader, "color");
                 width: map-get($toolkit-loader, "bubble-size");
                 height: map-get($toolkit-loader, "bubble-size");
                 border-radius: 100%;
@@ -107,7 +106,7 @@
                 margin: 0 auto;
 
                 > span {
-                    background: map-get($toolkit-loader, "color");
+                    background: #fff;
                     width: 14px;
                     height: 14px;
                     position: absolute;

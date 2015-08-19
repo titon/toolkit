@@ -8,7 +8,7 @@
     #{map-get($toolkit-breadcrumb, "class")} {
         ul, ol {
             @extend %placeholder-list;
-            display: flex;
+            display: inline-flex;
         }
 
         li {

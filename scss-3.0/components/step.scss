@@ -14,7 +14,10 @@
         display: block;
         line-height: 3em;
         height: 3em;
-        flex-grow: 1;
+
+        &.is-complete {
+            background: #fff;
+        }
 
         // Golden ratio? Seems to work for all font sizes in *most* browsers
         &::after {
@@ -25,12 +28,17 @@
             position: absolute;
             z-index: 2;
             content: "";
-            transform: if(setting("text-direction") == rtl, rotate(315deg), rotate(135deg));
+            transform: if(setting("text-direction") == rtl, rotate(315deg), rotate(-45deg));
+            background: inherit;
+            border-#{bidi-opposite-alignment()}: 1px solid theme-setting("bg-light");
+            border-bottom: 1px solid theme-setting("bg-light");
         }
     }
 
     #{map-get($toolkit-step, "class-wrapper")} {
         font-size: theme-setting("medium-font-size");
+        background: theme-setting("bg-light");
+        display: inline-block;
 
         ol {
             @extend %placeholder-list;

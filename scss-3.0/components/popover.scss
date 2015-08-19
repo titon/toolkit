@@ -36,12 +36,12 @@
         }
 
         &.center-left #{map-get($toolkit-popover, "class-arrow")} {
-            border-left-color: #000;
+            border-left-color: #fff;
             right: -#{$toolkit-temp-popover-arrow-width-double}px;
         }
 
         &.center-right #{map-get($toolkit-popover, "class-arrow")} {
-            border-right-color: #000;
+            border-right-color: #fff;
             left: -#{$toolkit-temp-popover-arrow-width-double}px;
         }
 
@@ -52,12 +52,12 @@
         }
 
         &.top-center #{map-get($toolkit-popover, "class-arrow")} {
-            border-top-color: #000;
+            border-top-color: #fff;
             bottom: -#{$toolkit-temp-popover-arrow-width-double}px;
         }
 
         &.bottom-center #{map-get($toolkit-popover, "class-arrow")} {
-            border-bottom-color: #000;
+            border-bottom-color: #fff;
             top: -#{$toolkit-temp-popover-arrow-width-double}px;
         }
     }

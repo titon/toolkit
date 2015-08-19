@@ -13,11 +13,13 @@
         top: 100%;
         left: 0;
         width: 200px;
-        line-height: 100%;
+        line-height: 1;
         z-index: map-get($toolkit-settings-zindex, "drop");
         opacity: 0;
         visibility: hidden;
         transition: all map-get($toolkit-drop, "transition");
+        background: #fff;
+        text-align: left;
 
         // Nested
         #{map-get($toolkit-drop, "class")} {
@@ -36,6 +38,9 @@
             position: relative;
 
             > a {
+                padding: theme-setting("small-padding");
+                display: block;
+
                 .caret-right,
                 .caret-left {
                     float: bidi-opposite-alignment();
@@ -65,7 +70,7 @@
 
     #{map-get($toolkit-drop, "class-divider")} {
         margin: (theme-setting("margin") / 2) 0;
-        border-top: 1px solid theme-setting("border-accent");
+        border-top: 1px solid theme-setting("bg-light");
     }
 
     #{map-get($toolkit-drop, "class-heading")} {

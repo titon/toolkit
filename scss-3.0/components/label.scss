@@ -17,6 +17,7 @@
         white-space: nowrap;
         top: -1px;
         letter-spacing: 1px;
+        background: #fff;
 
         @include is-size-small {
             font-size: .6rem;
@@ -59,7 +60,7 @@
                 top: 0;
                 right: 100%;
                 border: .65rem solid transparent;
-                border-right-color: theme-setting("border-accent");
+                border-right-color: #fff;
             }
 
             @include is-size-small {
@@ -87,7 +88,7 @@
                 top: 0;
                 left: 100%;
                 border: .65rem solid transparent;
-                border-left-color: theme-setting("border-accent");
+                border-left-color: #fff;
             }
 
             @include is-size-small {
@@ -115,7 +116,7 @@
                 border: 1em solid transparent;
                 border-top-width: 0 !important;
                 border-left-width: 0 !important;
-                border-right-color: theme-setting("border-accent");
+                border-right-color: theme-setting("bg-light");
             }
         }
     }
@@ -131,7 +132,7 @@
                 border: 1em solid transparent;
                 border-top-width: 0 !important;
                 border-right-width: 0 !important;
-                border-left-color: theme-setting("border-accent");
+                border-left-color: theme-setting("bg-light");
             }
         }
     }

@@ -9,6 +9,7 @@
     #{map-get($toolkit-input, "class-static")},
     #{map-get($toolkit-input, "class-choice")} {
         @extend %placeholder-inline-block;
+        border: 0;
         line-height: normal;
         -webkit-appearance: none; // Remove inner shadow on iOS
 
@@ -20,8 +21,7 @@
     }
 
     #{map-get($toolkit-input, "class")} {
-        background: theme-setting("bg-light");
-        border: 1px solid theme-setting("border-accent");
+        background: #fff;
 
         &.is-disabled,
         &:disabled,
@@ -33,7 +33,6 @@
 
     #{map-get($toolkit-input, "class-static")} {
         background: transparent;
-        border-color: transparent;
         padding-#{bidi-alignment()}: 0 !important;
         padding-#{bidi-opposite-alignment()}: 0 !important;
     }
@@ -41,7 +40,6 @@
     #{map-get($toolkit-input, "class-choice")} {
         padding-#{bidi-alignment()}: 0 !important;
         padding-#{bidi-opposite-alignment()}: 0 !important;
-        border: 0;
 
         input[type="checkbox"],
         input[type="radio"] {

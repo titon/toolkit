@@ -13,6 +13,10 @@
         font-size: 0;
         width: 7rem;
         cursor: pointer;
+
+        input {
+            display: none;
+        }
     }
 
     #{map-get($toolkit-switch, "class-bar")} {
@@ -21,6 +25,7 @@
         font-size: theme-setting("medium-font-size");
         transition: background map-get($toolkit-switch, "transition");
         text-align: left;
+        background: theme-setting("bg-light");
 
         &::before,
         &::after {
@@ -74,6 +79,7 @@
         left: 0;
         user-select: none;
         transition: left map-get($toolkit-switch, "transition");
+        background: #fff;
 
         &::before {
             content: "\00A0"; // NBSP

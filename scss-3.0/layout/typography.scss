@@ -19,13 +19,11 @@
         font-weight: normal;
     }
 
-    p {
-        margin: theme-setting("margin") 0 0 0;
+    p, ul, ol {
+        margin: theme-setting("margin") 0;
     }
 
     ul, ol {
-        margin: theme-setting("margin") 0 0 0;
-
         ul, ol {
             margin: 0;
         }

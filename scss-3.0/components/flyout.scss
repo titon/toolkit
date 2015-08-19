@@ -13,9 +13,12 @@
         transition: all map-get($toolkit-flyout, "transition");
         display: flex;
         flex-wrap: nowrap;
+        background: #fff;
+        line-height: 1;
 
         // Nested flyouts
         #{map-get($toolkit-flyout, "class")} {
+            top: 0;
             #{bidi-alignment()}: 90%;
 
             // Reverse menu to left side in case it goes outside the viewport
@@ -28,9 +31,7 @@
 
         a {
             padding: theme-setting("small-padding");
-            line-height: 1;
             display: block;
-            text-decoration: none;
 
             .caret-right,
             .caret-left {
@@ -71,7 +72,6 @@
 
     #{map-get($toolkit-flyout, "class-heading")} {
         padding: theme-setting("small-padding");
-        line-height: 1;
         display: block;
     }
 }

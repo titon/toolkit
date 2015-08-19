@@ -11,7 +11,7 @@
     #{map-get($toolkit-pagination, "class")} {
         ol {
             @extend %placeholder-list;
-            display: flex;
+            display: inline-flex;
 
             > li {
                 position: relative;

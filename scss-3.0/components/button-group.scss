@@ -12,7 +12,7 @@
         @extend %placeholder-inline-block;
         @extend %placeholder-list;
         white-space: nowrap;
-        display: flex;
+        display: inline-flex;
 
         @include button-group-children {
             border-radius: 0;
@@ -186,7 +186,7 @@
     @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-button-group-modifiers, "justified")) {
         #{map-get($toolkit-button-group, "class-modifier-justified")} {
             width: 100%;
-            max-width: 100%;
+            display: flex;
 
             @include button-group-children {
                 flex-grow: 1;
