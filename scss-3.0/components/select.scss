@@ -28,7 +28,7 @@
     }
 
     #{map-get($toolkit-select, "class-options")} {
-        max-height: 300px;
+        max-height: 25rem;
         overflow: auto;
         z-index: 5;
 

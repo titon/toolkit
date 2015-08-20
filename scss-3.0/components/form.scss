@@ -8,7 +8,7 @@
     $toolkit-temp-form-modifiers: map-get($toolkit-form, "modifiers");
 
     fieldset {
-        padding: (theme-setting("padding") * 2) 0 theme-setting("padding") 0;
+        padding: (theme-setting("medium-padding") * 2) 0 theme-setting("medium-padding") 0;
         margin: 0;
         border: 0;
         border-top: 1px solid theme-setting("bg-light");
@@ -20,8 +20,8 @@
     }
 
     legend {
-        font-size: 1.3rem;
-        padding-#{bidi-opposite-alignment()}: theme-setting("padding");
+        font-size: theme-setting("large-font-size");
+        padding-#{bidi-opposite-alignment()}: theme-setting("medium-padding");
     }
 
     select[multiple],

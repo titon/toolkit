@@ -14,10 +14,11 @@
         @extend %placeholder-position-absolute;
         border: 0;
         z-index: map-get($toolkit-settings-zindex, "tooltip");
-        max-width: 200px;
+        max-width: 15rem;
         visibility: hidden;
         transition: all map-get($toolkit-tooltip, "transition");
         background: #fff;
+        padding: theme-setting("small-padding");
     }
 
     #{map-get($toolkit-tooltip, "class-arrow")},

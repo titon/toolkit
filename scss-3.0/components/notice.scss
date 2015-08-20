@@ -7,7 +7,7 @@
 @include export("notice") {
     #{map-get($toolkit-notice, "class")} {
         margin: theme-setting("margin") 0;
-        padding: theme-setting("padding");
+        padding: theme-setting("medium-padding");
 
         hr {
             border: 0;
@@ -23,7 +23,7 @@
         float: bidi-opposite-alignment();
         margin-#{bidi-alignment()}: theme-setting("margin");
         line-height: 1;
-        padding: 5px;
+        padding: theme-setting("small-padding");
         background: none;
         border: 0;
 

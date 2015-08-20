@@ -11,6 +11,8 @@
         opacity: 0;
         visibility: hidden;
         transition: all map-get($toolkit-type-ahead, "transition");
+        background: #fff;
+        width: 15rem;
 
         // Fixes issues where menu does not display in iOS
         // Kind of hacky? Other solutions?
@@ -18,19 +20,16 @@
 
         ul {
             @extend %placeholder-list;
-            min-width: 200px;
         }
 
         a {
-            padding: theme-setting("small-padding");
-            line-height: 1;
+            padding: theme-setting("medium-padding");
             display: block;
         }
     }
 
     #{map-get($toolkit-type-ahead, "class-heading")} {
-        padding: theme-setting("small-padding");
-        line-height: 1;
+        padding: theme-setting("medium-padding");
         display: block;
     }
 
@@ -41,7 +40,7 @@
 
     #{map-get($toolkit-type-ahead, "class-description")} {
         display: block;
-        font-size: .7rem;
+        font-size: theme-setting("small-font-size");
     }
 
     #{map-get($toolkit-type-ahead, "class-shadow")} {

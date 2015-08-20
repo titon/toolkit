@@ -30,7 +30,7 @@
         }
 
         a {
-            padding: theme-setting("small-padding");
+            padding: theme-setting("medium-padding");
             display: block;
 
             .caret-right,
@@ -71,7 +71,7 @@
     }
 
     #{map-get($toolkit-flyout, "class-heading")} {
-        padding: theme-setting("small-padding");
+        padding: theme-setting("medium-padding");
         display: block;
     }
 }

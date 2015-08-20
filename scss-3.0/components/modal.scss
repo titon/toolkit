@@ -28,11 +28,11 @@
         position: absolute;
         background: none;
         border: 0;
-        top: theme-setting("padding");
-        #{bidi-opposite-alignment()}: theme-setting("padding");
+        top: theme-setting("medium-padding");
+        #{bidi-opposite-alignment()}: theme-setting("medium-padding");
         line-height: 1;
         opacity: theme-setting("opacity");
-        padding: 5px;
+        padding: theme-setting("small-padding");
 
         &:hover {
             opacity: 1;
@@ -52,7 +52,7 @@
     #{map-get($toolkit-modal, "class-head")},
     #{map-get($toolkit-modal, "class-body")},
     #{map-get($toolkit-modal, "class-foot")} {
-        padding: theme-setting("padding");
+        padding: theme-setting("medium-padding");
     }
 
     //-------------------- Modifiers --------------------//

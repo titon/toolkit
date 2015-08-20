@@ -22,7 +22,7 @@
     }
 
     pre {
-        padding: theme-setting("padding");
+        padding: theme-setting("medium-padding");
         margin: theme-setting("margin") 0;
         background: #fff;
         border: 1px solid theme-setting("bg-light");
@@ -46,7 +46,7 @@
         }
 
         &.is-scrollable {
-            max-height: 350px;
+            max-height: 30rem;
             overflow-y: auto;
         }
     }

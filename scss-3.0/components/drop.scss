@@ -12,7 +12,7 @@
         position: absolute;
         top: 100%;
         left: 0;
-        width: 200px;
+        width: 15rem;
         line-height: 1;
         z-index: map-get($toolkit-settings-zindex, "drop");
         opacity: 0;
@@ -38,7 +38,7 @@
             position: relative;
 
             > a {
-                padding: theme-setting("small-padding");
+                padding: theme-setting("medium-padding");
                 display: block;
 
                 .caret-right,
@@ -74,7 +74,7 @@
     }
 
     #{map-get($toolkit-drop, "class-heading")} {
-        padding: theme-setting("small-padding");
+        padding: theme-setting("medium-padding");
     }
 
     //-------------------- Modifiers --------------------//

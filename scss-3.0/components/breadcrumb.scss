@@ -21,39 +21,26 @@
             }
         }
 
-        //----- Sizes -----//
-
         a {
             @include size-medium;
-            display: block;
-            line-height: 1;
-            padding-#{bidi-opposite-alignment()}: 0;
-
-            .caret {
-                margin-#{bidi-alignment()}: theme-setting("medium-padding");
-                position: relative;
-            }
+            display: inline-block;
         }
+
+        .caret {
+            vertical-align: middle;
+        }
+
+        //----- Sizes -----//
 
         @include is-size-small {
             a {
                 @include size-small;
-                padding-#{bidi-opposite-alignment()}: 0;
-
-                .caret {
-                    margin-#{bidi-alignment()}: theme-setting("small-padding");
-                }
             }
         }
 
         @include is-size-large {
             a {
                 @include size-large;
-                padding-#{bidi-opposite-alignment()}: 0;
-
-                .caret {
-                    margin-#{bidi-alignment()}: theme-setting("large-padding");
-                }
             }
         }
     }

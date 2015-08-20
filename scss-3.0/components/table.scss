@@ -7,13 +7,13 @@
 @include export("table") {
     #{map-get($toolkit-table, "class")} {
         width: 100%;
-        background: theme-setting("bg-light");
+        background: theme-setting("bg-lightest");
         border-collapse: collapse;
 
         th,
         td {
-            padding: theme-setting("padding");
-            border: 1px solid theme-setting("border-accent");
+            padding: theme-setting("medium-padding");
+            border: 1px solid theme-setting("bg-light");
         }
 
         // Move headings to bottom
@@ -29,12 +29,12 @@
         // Row colors
         thead tr,
         tfoot tr {
-            background: theme-setting("bg-dark");
+            background: theme-setting("bg-light");
         }
 
         // Divider
         tbody tr#{map-get($toolkit-table, "class-divider")} {
-            background: theme-setting("bg-lightest");
+            background: theme-setting("bg-light");
         }
     }
 
@@ -48,10 +48,8 @@
 
     #{map-get($toolkit-table, "class")} {
         &.is-striped tbody tr {
-            background: theme-setting("bg-light");
-
-            &:nth-child(odd) {
-                background: theme-setting("bg-lighter");
+            &:nth-child(even) {
+                background: lighten(theme-setting("bg-lightest"), 1.5%);
             }
         }
 
@@ -60,7 +58,7 @@
 
             > a,
             > span {
-                padding: theme-setting("padding");
+                padding: theme-setting("medium-padding");
                 display: block;
             }
         }

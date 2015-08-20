@@ -10,7 +10,7 @@
 
     #{map-get($toolkit-toast, "class-wrapper")} {
         position: fixed;
-        padding: theme-setting("margin");
+        margin: theme-setting("margin");
         width: 20%;
         z-index: map-get($toolkit-settings-zindex, "toast");
 
@@ -95,6 +95,7 @@
         opacity: 0;
         visibility: hidden;
         background: #fff;
+        padding: theme-setting("medium-padding");
     }
 
     //-------------------- Animations --------------------//
