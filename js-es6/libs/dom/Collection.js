@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Element from 'libs/dom/Element';
 
 /**
@@ -51,5 +50,3 @@ Element.getCollectionMethods().forEach(method => {
         return this.each(element => element[method].apply(element, arguments));
     };
 });
-
-Toolkit.ElementCollection = Collection;

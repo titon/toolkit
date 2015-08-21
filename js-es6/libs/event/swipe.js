@@ -24,5 +24,4 @@ export default function swipe(element, func, options = {}) {
     return func;
 }
 
-
 Toolkit.swipe = swipe;

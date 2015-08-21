@@ -21,5 +21,4 @@ export default function clickOut(element, func) {
     return func;
 }
 
-
 Toolkit.clickOut = clickOut;

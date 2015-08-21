@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Element from 'libs/dom/Element';
 
 /**
@@ -22,5 +21,3 @@ export default function findID(query) {
 
     return element ? new Element(element) : null;
 }
-
-Toolkit.findID = findID;

@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-
 /**
  * Bound a number between a min and max range.
  * If the number is greater than or equal to the max, reset to min (or 0).
@@ -27,5 +25,3 @@ export default function bound(value, max, min) {
 
     return value;
 }
-
-Toolkit.bound = bound;

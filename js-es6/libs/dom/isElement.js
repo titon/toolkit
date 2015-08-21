@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-
 /**
  * Check to see if a value is an element, usually one that extends `HTMLElement`.
  *
@@ -17,5 +15,3 @@ export default function isElement(element) {
         ? (element instanceof HTMLElement)
         : (element.nodeName && element.nodeType && element.nodeType === 1);
 }
-
-Toolkit.isElement = isElement;

@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Collection from 'libs/dom/Collection';
 
 const slice = Array.prototype.slice;
@@ -20,5 +19,3 @@ const slice = Array.prototype.slice;
 export default function find(query, context = document) {
     return new Collection(slice.call(context.querySelectorAll(query)));
 }
-
-Toolkit.find = find;

@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Element from 'libs/dom/Element';
 
 /**
@@ -22,5 +21,3 @@ export default function inDOM(element) {
 
     return (element === body) ? false : body.contains(element);
 }
-
-Toolkit.inDOM = inDOM;

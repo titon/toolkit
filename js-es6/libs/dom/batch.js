@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-
 /**
  * Batch multiple mutations of an element to limit the reflow and repaint.
  *
@@ -38,5 +36,3 @@ export default function batch(element, func, context) {
 
     return element;
 }
-
-Toolkit.batch = batch;

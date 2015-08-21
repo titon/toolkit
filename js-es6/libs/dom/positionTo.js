@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-
 // TODO - test
 
 /**
@@ -116,5 +114,3 @@ export default function positionTo(element, position, relativeTo, isMouse, baseO
 
     return element;
 }
-
-Toolkit.positionTo = positionTo;
