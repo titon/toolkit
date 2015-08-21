@@ -46,9 +46,7 @@ export default class Component extends Module {
      */
     @memoize
     getCssClassName() {
-        return this.name.replace(/[A-Z]/g, function(match) {
-            return ('-' + match.charAt(0).toLowerCase());
-        }).slice(1);
+        return this.name.replace(/[A-Z]/g, match => ('-' + match.charAt(0).toLowerCase()).slice(1));
     }
 
 }

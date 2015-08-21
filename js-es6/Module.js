@@ -9,14 +9,7 @@ import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
 import delegate from 'libs/event/delegate';
-
-let uidCounts = {
-    inc(name) {
-        let value = this[name] || 0;
-
-        return this[name] = value += 1;
-    }
-};
+import uid from 'libs/uid';
 
 export default class Module {
 
@@ -78,7 +71,7 @@ export default class Module {
         this.setupBinds();
 
         // Increase UID
-        this.uid = uidCounts.inc(this.name);
+        this.uid = uid(this.name);
 
         // Automatic initialization
         if (init) {
@@ -121,20 +114,6 @@ export default class Module {
 
             context[method](event, callback);
         });
-    }
-
-    /**
-     * Destroy the module by unbinding events, removing elements, and deleting the instance.
-     * The custom `shutdown()` method should be called first so that sub-classes can clean up.
-     *
-     * This method is the opposite of `initialize()`.
-     */
-    destroy() {
-        this.emit('destroying');
-        this.shutdown();
-        this.disable();
-        this.unmount();
-        this.emit('destroyed');
     }
 
     /**
@@ -198,6 +177,20 @@ export default class Module {
     }
 
     /**
+     * Destroy the module by unbinding events, removing elements, and deleting the instance.
+     * The custom `shutdown()` method should be called first so that sub-classes can clean up.
+     *
+     * This method is the opposite of `initialize()`.
+     */
+    finalize() {
+        this.emit('finalizing');
+        this.shutdown();
+        this.disable();
+        this.unmount();
+        this.emit('finalized');
+    }
+
+    /**
      * Return the static options defined on the class declaration.
      *
      * @returns {object}
@@ -210,7 +203,7 @@ export default class Module {
      * Further initialize the module by mounting the element (if not mounted already),
      * binding DOM events, and triggering the custom `startup()` method.
      *
-     * This method is the opposite of `destroy()`.
+     * This method is the opposite of `finalize()`.
      */
     initialize() {
         this.emit('initializing');
@@ -231,12 +224,19 @@ export default class Module {
         }
 
         this.emit('mounting');
-
-        document.body.appendChild(element);
-
+        this.mountTo(element);
         this.emit('mounted');
 
         this.mounted = true;
+    }
+
+    /**
+     * Abstract method that does the actual DOM insertion. This allows for easy overrides.
+     *
+     * @param {HTMLElement} element
+     */
+    mountTo(element) {
+        document.body.appendChild(element);
     }
 
     /**
@@ -317,9 +317,9 @@ export default class Module {
 
         forOwn(binds, (callback, key) => {
             let [event, context, selector] = key
-                    .replace('{mode}', this.options.mode)
-                    .replace('{selector}', this.selector)
-                    .split(' ', 3);
+                .replace('{mode}', this.options.mode)
+                .replace('{selector}', this.selector)
+                .split(' ', 3);
 
             // Find and bind the function
             if (typeof callback === 'string') {
@@ -499,12 +499,19 @@ export default class Module {
         }
 
         this.emit('unmounting');
-
-        element.parentNode.removeChild(element);
-
+        this.unmountFrom(element);
         this.emit('unmounted');
 
         this.mounted = false;
+    }
+
+    /**
+     * Abstract method that does the actual DOM removal. This allows for easy overrides.
+     *
+     * @param {HTMLElement} element
+     */
+    unmountFrom(element) {
+        element.parentNode.removeChild(element);
     }
 
 }
