@@ -13,8 +13,12 @@
         }
     }
 
-    // Add display none on sections since visibility property takes up DOM space
-    #{map-get($toolkit-tab, "class-section")}.hide {
-        display: none;
+    #{map-get($toolkit-tab, "class-section")} {
+        padding: theme-setting("medium-padding");
+
+        // Add display none on sections since visibility property takes up DOM space
+        &.hide {
+            display: none;
+        }
     }
 }

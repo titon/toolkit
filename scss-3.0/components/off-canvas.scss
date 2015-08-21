@@ -20,6 +20,7 @@
         visibility: hidden;
         transition: all map-get($toolkit-off-canvas, "transition");
         -webkit-overflow-scrolling: touch;
+        background: #fff;
     }
 
     #{map-get($toolkit-off-canvas, "class-content")} {

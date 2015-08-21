@@ -21,11 +21,13 @@
 
     p, ul, ol {
         margin: theme-setting("margin") 0;
-    }
 
-    ul, ol {
-        ul, ol {
-            margin: 0;
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
