@@ -11,10 +11,10 @@ import Element from 'libs/dom/Element';
  */
 export default class Collection {
 
-    // Total number of elements in the collection.
+    /** Total number of elements in the collection. */
     length = 0;
 
-    // Array of elements.
+    /** Array of elements. */
     elements = [];
 
     /**

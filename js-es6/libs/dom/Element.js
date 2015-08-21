@@ -7,6 +7,7 @@
 import transitionEnd from 'libs/event/transitionEnd';
 import forOwn from 'lodash/object/forOwn';
 import 'polyfills/requestAnimationFrame';
+import 'polyfills/cancelAnimationFrame';
 
 /**
  * A class that wraps an element to provide new functionality.
@@ -14,16 +15,19 @@ import 'polyfills/requestAnimationFrame';
  */
 export default class Element {
 
-    // The DOM element.
+    /** The DOM element. */
     element = null;
 
-    // Mapping of mutations to process.
+    /** Mapping of mutations to process. */
     queue = {};
 
-    // Batched reads are occurring.
+    /** Batched reads are occurring. */
     reading = false;
 
-    // Batched writes are occurring.
+    /** Timer to catch all mutations before being processed. */
+    timer = {};
+
+    /** Batched writes are occurring. */
     writing = false;
 
     /**
@@ -44,6 +48,7 @@ export default class Element {
      */
     addClass(className) {
         this.queue.addClass = className;
+        this.startQueue();
 
         return this;
     }
@@ -110,7 +115,7 @@ export default class Element {
 
         // Exit early if no element
         if (!element) {
-            throw new Error('No element in container. Cannot process queue.');
+            throw new Error('No element detected. Cannot process queue.');
         }
 
         // Loop over each mutation and process
@@ -167,7 +172,7 @@ export default class Element {
         });
 
         // Add a custom `write()` method that calls `then()` automatically
-        promise.write = (writer) => {
+        promise.write = writer => {
             return promise.then(() => {
                 return this.write(writer);
             });
@@ -184,6 +189,7 @@ export default class Element {
      */
     removeClass(className) {
         this.queue.removeClass = className;
+        this.startQueue();
 
         return this;
     }
@@ -199,6 +205,8 @@ export default class Element {
             properties: {},
             styles: {}
         };
+
+        cancelAnimationFrame(this.timer);
 
         return this;
     }
@@ -265,6 +273,7 @@ export default class Element {
      */
     setAttribute(attribute, value) {
         this.queue.attributes[attribute] = String(value);
+        this.startQueue();
 
         return this;
     }
@@ -290,6 +299,7 @@ export default class Element {
      */
     setProperty(property, value) {
         this.queue.properties[property] = value;
+        this.startQueue();
 
         return this;
     }
@@ -315,6 +325,7 @@ export default class Element {
      */
     setStyle(property, value) {
         this.queue.styles[property] = value;
+        this.startQueue();
 
         return this;
     }
@@ -332,7 +343,21 @@ export default class Element {
     }
 
     /**
-     * Process the current queue by batching all DOM mutations in the rendering loop using `requestAnimationFrame`.
+     * Start the queue by setting a future process task using `requestAnimationFrame`.
+     * This method is called automatically from all mutators, and is used as an automatic batching system.
+     *
+     * @returns {Element}
+     */
+    startQueue() {
+        cancelAnimationFrame(this.timer);
+
+        this.timer = requestAnimationFrame(this.processQueue.bind(this));
+
+        return this;
+    }
+
+    /**
+     * Manually process the current queue by batching all DOM mutations in the rendering loop using `requestAnimationFrame`.
      * The method will also return a promise that can be used for chained reads and writes.
      *
      * @param {function} [func]
@@ -342,6 +367,9 @@ export default class Element {
         if (this.writing) {
             return null; // Don't allow nested write calls
         }
+
+        // Cancel automatic writes
+        cancelAnimationFrame(this.timer);
 
         // Batched writes are optional
         if (typeof func === 'function') {
@@ -362,7 +390,7 @@ export default class Element {
         });
 
         // Add a custom `read()` method that calls `then()` automatically
-        promise.read = (reader) => {
+        promise.read = reader => {
             return promise.then(() => {
                 return this.read(reader);
             });
