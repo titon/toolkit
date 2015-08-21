@@ -35,9 +35,9 @@ function failure() {
 }
 
 /**
- * Determine which plugins we should package.
+ * Determine which modules we should package.
  *
- * The --plugins parameter can be used to filter down plugins
+ * The --modules parameter can be used to filter down modules
  * The --[no-]normalize parameter will include or exclude normalize.css from the output
  * The --dist parameter will determine which folder to build to: build, or dist
  * The --rtl parameter will append a `-rtl` to the CSS filename
@@ -53,8 +53,8 @@ var graph = new compartment();
 var toPackage = [],
     categories = ['layout', 'component', 'behavior'];
 
-if (options.plugins) {
-    toPackage = options.plugins.split(',');
+if (options.modules) {
+    toPackage = options.modules.split(',');
 
 } else {
     Object.keys(graph.manifest).forEach(function(key) {

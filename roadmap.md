@@ -9,7 +9,7 @@ All releases will contain bug fixing and polishing for current features.
 * Integrate a template rendering layer instead of using DOM manipulation. Possibly with ES6 template strings.
 * Integrate Webpack as a build system.
 * Add Less support (possibly through a Sass -> Less converter?)
-* Add behaviors as a new plugin type.
+* Add behaviors as a new module type.
 
 ### Future ###
 * Support web components - http://w3c.github.io/webcomponents/explainer/

@@ -7,7 +7,7 @@ Setup
 * [Custom Builds](setup/custom-builds.md)
 * [Interactive Demos](setup/demos.md)
 
-Plugins
+Modules
 * [Components](components/index.md)
 
 Development

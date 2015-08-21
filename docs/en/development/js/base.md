@@ -135,17 +135,17 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
         <tr>
             <td>init</td>
             <td></td>
-            <td>Triggered after a plugin has initialized.</td>
+            <td>Triggered after a module has initialized.</td>
         </tr>
         <tr>
             <td>destroying</td>
             <td></td>
-            <td>Triggered before a plugin is destroyed.</td>
+            <td>Triggered before a module is destroyed.</td>
         </tr>
         <tr>
             <td>destroyed</td>
             <td></td>
-            <td>Triggered after a plugin is destroyed.</td>
+            <td>Triggered after a module is destroyed.</td>
         </tr>
     </tbody>
 </table>
@@ -166,7 +166,7 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             <td>boolean</td>
             <td>
                 Whether the instance is currently enabled or not.
-                Disabled plugins will not trigger events or functionality.
+                Disabled modules will not trigger events or functionality.
                 Can be toggled through <code>enable()</code> and <code>disable()</code> methods.
             </td>
         </tr>
@@ -189,7 +189,7 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
             <td>uid</td>
             <td>int</td>
             <td>
-                A unique identifier for the plugin instance.
+                A unique identifier for the module instance.
                 The value correlates to the number of instances in the page.
             </td>
         </tr>
@@ -214,16 +214,16 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
         <tr>
             <td>addEvent(string:event, string:context, string|func:callback[, string:selector])</td>
             <td>
-                Add an event that will be bound during <code>bindEvents()</code>. 
-                The context should be the name of a class property, or the document, or the window. 
-                The callback should be the name of a class function, or a function itself. 
+                Add an event that will be bound during <code>bindEvents()</code>.
+                The context should be the name of a class property, or the document, or the window.
+                The callback should be the name of a class function, or a function itself.
                 The selector can optionally be defined to apply delegation.
             </td>
         </tr>
         <tr>
             <td>addEvents(array:events)</td>
             <td>
-                Add multiple events. Each item in the array should be an array with 3-4 items, 
+                Add multiple events. Each item in the array should be an array with 3-4 items,
                 with each index representing an argument of <code>addEvent()</code>.
             </td>
         </tr>
@@ -241,15 +241,15 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
         </tr>
         <tr>
             <td>destroy()</td>
-            <td>Disable the plugin, unbind events, remove elements, and delete the instance.</td>
+            <td>Disable the module, unbind events, remove elements, and delete the instance.</td>
         </tr>
         <tr>
             <td>disable()</td>
-            <td>Disable the plugin and unbind events.</td>
+            <td>Disable the module and unbind events.</td>
         </tr>
         <tr>
             <td>enable()</td>
-            <td>Enable the plugin and bind events.</td>
+            <td>Enable the module and bind events.</td>
         </tr>
         <tr>
             <td>fireEvent(string:type[, array:args])</td>
@@ -273,7 +273,7 @@ $('.carousel').toolkit('carousel').addHook('init', function() {
         <tr>
             <td>setOptions(object:options)</td>
             <td>
-                Set the options unique for the current plugin instance.
+                Set the options unique for the current module instance.
                 Will also apply any responsive options and automatically add hooks.
             </td>
         </tr>

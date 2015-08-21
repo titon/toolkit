@@ -1,6 +1,6 @@
 # JavaScript #
 
-* [Using Plugins](usage.md)
+* [Using Modules](usage.md)
 * [Toolkit Object](toolkit.md)
 * [Class System](class.md)
     * [Base Class](base.md)

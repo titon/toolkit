@@ -18,7 +18,7 @@ let uidCounts = {
     }
 };
 
-export default class Plugin {
+export default class Module {
 
     /** Map of DOM event bindings. */
     binds = [];
@@ -26,39 +26,39 @@ export default class Plugin {
     /** Map of cached AJAX requests or data. */
     cache = {};
 
-    /** The element bound to the plugin. */
+    /** The element bound to the module. */
     element = null;
 
-    /** Whether or not the plugin is enabled (events are bound). */
+    /** Whether or not the module is enabled (events are bound). */
     enabled = false;
 
     /** Map of event listeners to emit. */
     listeners = {};
 
-    /** Whether or not the plugin is mounted in the DOM. */
+    /** Whether or not the module is mounted in the DOM. */
     mounted = false;
 
-    /** Name of the plugin. Should match the class name declaration. */
-    name = 'Plugin';
+    /** Name of the module. Should match the class name declaration. */
+    name = 'Module';
 
-    /** Unique configurable options for the plugin. */
+    /** Unique configurable options for the module. */
     options = {};
 
-    /** The CSS selector bound to the plugin. */
+    /** The CSS selector bound to the module. */
     selector = '';
 
-    /** Current and previous state of the plugin. Must be modified with `setState()`. */
+    /** Current and previous state of the module. Must be modified with `setState()`. */
     state = {};
     previousState = {};
 
     /** Unique ID of this instance. */
     uid = 0;
 
-    /** Current and last modified version of the plugin. */
+    /** Current and last modified version of the module. */
     version = '3.0.0';
 
     /**
-     * Handles the initialization of the plugin by setting up members in the
+     * Handles the initialization of the module by setting up members in the
      * correct order: options -> element(s) -> properties -> event bindings.
      *
      * The order is important as methods will require members from
@@ -124,7 +124,7 @@ export default class Plugin {
     }
 
     /**
-     * Destroy the plugin by unbinding events, removing elements, and deleting the instance.
+     * Destroy the module by unbinding events, removing elements, and deleting the instance.
      * The custom `shutdown()` method should be called first so that sub-classes can clean up.
      *
      * This method is the opposite of `initialize()`.
@@ -138,7 +138,7 @@ export default class Plugin {
     }
 
     /**
-     * Disable the plugin and unbind any events.
+     * Disable the module and unbind any events.
      */
     disable() {
         if (this.enabled) {
@@ -169,7 +169,7 @@ export default class Plugin {
             }
         }
 
-        // Notify plugin listeners
+        // Notify module listeners
         if (listeners) {
             listeners.forEach(listener => listener.apply(this, args));
         }
@@ -187,7 +187,7 @@ export default class Plugin {
     }
 
     /**
-     * Enable the plugin and bind any events.
+     * Enable the module and bind any events.
      */
     enable() {
         if (!this.enabled) {
@@ -203,11 +203,11 @@ export default class Plugin {
      * @returns {object}
      */
     getDefaultOptions() {
-        return Plugin.options;
+        return Module.options;
     }
 
     /**
-     * Further initialize the plugin by mounting the element (if not mounted already),
+     * Further initialize the module by mounting the element (if not mounted already),
      * binding DOM events, and triggering the custom `startup()` method.
      *
      * This method is the opposite of `destroy()`.
@@ -279,14 +279,14 @@ export default class Plugin {
     }
 
     /**
-     * Method to be called when the plugin is destroyed and or removed from the DOM.
+     * Method to be called when the module is destroyed and or removed from the DOM.
      * This method should be implemented in sub-classes to clean up and reset any state.
      */
     shutdown() {
     }
 
     /**
-     * Method to be called when the plugin is instantiated and needs to be bootstrapped.
+     * Method to be called when the module is instantiated and needs to be bootstrapped.
      * This method should be implemented in sub-classes to set the initial state.
      */
     startup() {
@@ -301,7 +301,7 @@ export default class Plugin {
 
     /**
      * Set a mapping of DOM events to bind to the primary element. The function
-     * can either be a string for a name of a method on the current plugin,
+     * can either be a string for a name of a method on the current module,
      * or a literal function.
      *
      * Bindings support the following formats:
@@ -338,7 +338,7 @@ export default class Plugin {
     }
 
     /**
-     * Set the primary element to use within the plugin.
+     * Set the primary element to use within the module.
      *
      * @param {Element} element
      */
@@ -382,7 +382,7 @@ export default class Plugin {
     }
 
     /**
-     * A plugin should only represent a single state at any given time.
+     * A module should only represent a single state at any given time.
      * To modify the state, this method can be used, which accepts an object of values,
      * or a function that returns an object.
      *
@@ -509,9 +509,9 @@ export default class Plugin {
 
 }
 
-Plugin.options = {
+Module.options = {
     cache: true,
     debug: false
 };
 
-Toolkit.Plugin = Plugin;
+Toolkit.Module = Module;

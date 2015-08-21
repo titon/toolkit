@@ -5,7 +5,7 @@ The following are steps for tagging a new release. These steps are for internal 
 ## 1) Versioning ##
 
 * Update version numbers in the following files: `bower.json`, `package.json`, `readme.md`, `toolkit.gemspec`, `version.md`
-* Update `version` property for JavaScript plugins that have been modified
+* Update `version` property for JavaScript modules that have been modified
 * Update `manifest.json`
     * Add new components with `version` field
     * Update dependencies

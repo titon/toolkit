@@ -111,7 +111,7 @@ $toolkit-settings-theme: (
 /**
  * Z-INDEX
  *
- * A mapping of plugins and their z-index value, to easily layer and stack appropriately.
+ * A mapping of modules and their z-index value, to easily layer and stack appropriately.
  *
  *  1) Modal and Showcase should be higher than Blackout
  *  2) Tooltip and Popover should be higher than Modals in case they exist within them

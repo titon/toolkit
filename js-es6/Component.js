@@ -5,10 +5,10 @@
  */
 
 import Toolkit from 'Toolkit';
-import Plugin from 'Plugin';
+import Module from 'Module';
 import memoize from 'decorators/memoize';
 
-export default class Component extends Plugin {
+export default class Component extends Module {
 
     /**
      * {@inheritdoc}
@@ -29,7 +29,7 @@ export default class Component extends Plugin {
     }
 
     /**
-     * Return the plugin name as a valid HTML attribute name.
+     * Return the module name as a valid HTML attribute name.
      *
      * @returns {string}
      */
@@ -39,7 +39,7 @@ export default class Component extends Plugin {
     }
 
     /**
-     * Return the plugin name as a valid CSS class name.
+     * Return the module name as a valid CSS class name.
      * Will convert upper case characters to lower case dashes.
      *
      * @returns {string}

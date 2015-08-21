@@ -30,12 +30,12 @@ export default class EmbeddedComponent extends Component {
     setupProperties() {
         this.name = 'EmbeddedComponent';
 
-        /** The element namespace to uniquely identify nested plugins. */
+        /** The element namespace to uniquely identify nested modules. */
         this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || '';
     }
 
     /**
-     * Generate a valid HTML data attribute CSS selector based on the current plugin name and namespace.
+     * Generate a valid HTML data attribute CSS selector based on the current module name and namespace.
      *
      * @param {string} [element]
      * @param {string} [block]

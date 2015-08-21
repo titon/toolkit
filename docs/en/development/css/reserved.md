@@ -20,4 +20,4 @@ Some classes make use of [Sass variables](../sass/variables.md) for altering the
 
 ## Namespacing Classes ##
 
-Toolkit supports the prefixing of *ALL* plugins [with CSS namespacing](../namespace.md).
+Toolkit supports the prefixing of *ALL* modules [with CSS namespacing](../namespace.md).

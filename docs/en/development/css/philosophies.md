@@ -22,6 +22,6 @@ To ensure proper viewport rendering and touch capabilities on mobile devices, ad
 
 ## Fluid & Responsiveness ##
 
-Being mobile friendly and being responsive go hand in hand. To further support this philosophy, all plugins (especially the grid) make use of fluid layouts, ala percentages for widths. This allows plugins to scale and reposition automatically based on the device viewport &mdash; which in turn, reduces the codebase.
+Being mobile friendly and being responsive go hand in hand. To further support this philosophy, all modules (especially the grid) make use of fluid layouts, ala percentages for widths. This allows modules to scale and reposition automatically based on the device viewport &mdash; which in turn, reduces the codebase.
 
 Responsive websites require media query support within the browser &mdash; [the following browsers are supported](../../support/compatibility.md).

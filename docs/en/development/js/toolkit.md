@@ -1,6 +1,6 @@
 # Toolkit Object #
 
-The global `Toolkit` object is used extensively by and created for the plugin system. It defines global options, localized messages, feature detection, and device support. It also acts as a namespace for plugins by housing a top level name to avoid global conflicts. Each plugin class definition can be found on the `Toolkit` object, for example, the accordion class is found under `Toolkit.Accordion`.
+The global `Toolkit` object is used extensively by and created for the module system. It defines global options, localized messages, feature detection, and device support. It also acts as a namespace for modules by housing a top level name to avoid global conflicts. Each module class definition can be found on the `Toolkit` object, for example, the accordion class is found under `Toolkit.Accordion`.
 
 ## Debugging ##
 
@@ -12,7 +12,7 @@ There are 2 ways to enable debugging. First, globally.
 Toolkit.debug = true;
 ```
 
-Or passed individually to a plugin.
+Or passed individually to a module.
 
 ```javascript
 $('.carousel').carousel({ debug: true });
@@ -57,7 +57,7 @@ $.extend(Toolkit.messages, {
 
 ## Feature Flags ##
 
-The following flags are used for feature detection within plugins. Each flag can be found on the `Toolkit` object.
+The following flags are used for feature detection within modules. Each flag can be found on the `Toolkit` object.
 
 <table class="table is-striped data-table">
     <thead>
@@ -127,8 +127,8 @@ The following methods are available on the `Toolkit` object.
         <tr>
             <td>createPlugin(string:name[, func:callback[, bool:collection]])</td>
             <td>
-                Define a new jQuery plugin using the callback as a factory.
-                If the plugin is meant for multiple elements at once, pass true as the 3rd argument.
+                Define a new jQuery module using the callback as a factory.
+                If the module is meant for multiple elements at once, pass true as the 3rd argument.
             </td>
         </tr>
     </tbody>

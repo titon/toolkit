@@ -1,7 +1,7 @@
 # Development #
 
 JavaScript
-* [Using Plugins](js/usage.md)
+* [Using Modules](js/usage.md)
 * [Toolkit Object](js/toolkit.md)
 * [Class System](js/class.md)
     * [Base Class](js/base.md)

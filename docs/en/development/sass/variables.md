@@ -86,17 +86,17 @@ Toolkit provides many variables for adjusting and modifying functionality within
         <tr>
             <td>$enable-all-effects</td>
             <td>false</td>
-            <td>Enable all effects for all plugins and include in CSS output.</td>
+            <td>Enable all effects for all modules and include in CSS output.</td>
         </tr>
         <tr>
             <td>$enable-all-modifiers</td>
             <td>false</td>
-            <td>Enable all modifiers for all plugins and include in CSS output.</td>
+            <td>Enable all modifiers for all modules and include in CSS output.</td>
         </tr>
         <tr>
             <td>$enable-all-animations</td>
             <td>false</td>
-            <td>Enable all animations for all plugins and include in CSS output.</td>
+            <td>Enable all animations for all modules and include in CSS output.</td>
         </tr>
     </tbody>
 </table>

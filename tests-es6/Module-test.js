@@ -1,24 +1,24 @@
 'use strict';
 
-import Plugin from 'Plugin';
+import Module from 'Module';
 
-class ChildPlugin extends Plugin {
+class ChildModule extends Module {
     name = 'Child';
     getDefaultOptions() {
-        return ChildPlugin.options;
+        return ChildModule.options;
     }
 }
 
-ChildPlugin.options = {
+ChildModule.options = {
     child: true,
     cache: false
 };
 
-describe('Plugin', () => {
+describe('Module', () => {
     let obj, element;
 
     beforeEach(() => {
-        obj = new Plugin('', {}, false);
+        obj = new Module('', {}, false);
         element = null;
     });
 
@@ -30,21 +30,21 @@ describe('Plugin', () => {
 
     describe('constructor()', () => {
         it('should increase the count/UID for each instance', () => {
-            let obj1 = new Plugin(),
-                obj2 = new Plugin();
+            let obj1 = new Module(),
+                obj2 = new Module();
 
             expect(obj1.uid).toBe(2);
             expect(obj2.uid).toBe(3);
         });
 
         it('should set class properties', () => {
-            expect(obj.name).toBe('Plugin');
+            expect(obj.name).toBe('Module');
             expect(obj.enabled).toBe(false);
         });
     });
 
     describe('destroy()', () => {
-        it('should disable the plugin', () => {
+        it('should disable the module', () => {
             obj.enabled = true;
 
             expect(obj.enabled).toBe(true);
@@ -69,7 +69,7 @@ describe('Plugin', () => {
     });
 
     describe('disable()', () => {
-        it('should disable the plugin', () => {
+        it('should disable the module', () => {
             obj.enabled = true;
 
             expect(obj.enabled).toBe(true);
@@ -106,7 +106,7 @@ describe('Plugin', () => {
             let context, args;
 
             obj.element = createElement('div');
-            obj.element.addEventListener('foo.toolkit.plugin', e => {
+            obj.element.addEventListener('foo.toolkit.module', e => {
                 context = e.detail.context;
                 args = e.detail.arguments;
                 expected.push(5 * args[0]);
@@ -123,7 +123,7 @@ describe('Plugin', () => {
     });
 
     describe('enable()', () => {
-        it('should enable the plugin', () => {
+        it('should enable the module', () => {
             expect(obj.enabled).toBe(false);
 
             obj.enable();
@@ -522,7 +522,7 @@ describe('Plugin', () => {
         });
 
         it('should merge and inherit parent options', () => {
-            let obj2 = new ChildPlugin();
+            let obj2 = new ChildModule();
 
             expect(obj2.options).toEqual({
                 cache: false,

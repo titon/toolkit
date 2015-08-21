@@ -63,7 +63,7 @@ Inherits all options from the [Base class](../development/js/base.md#options).
         <tr>
             <td>wrapperTemplate</td>
             <td>string</td>
-            <td>&lt;div class="toolkit-plugin"&gt;&lt;/div&gt;</td>
+            <td>&lt;div class="toolkit-module"&gt;&lt;/div&gt;</td>
             <td>The HTML used to create the wrapper element.</td>
         </tr>
     </tbody>
@@ -202,8 +202,8 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
             <td>loadContent(string:content[, object:params])</td>
             <td>
                 Attempts to load content and then <code>position()</code> it.
-                If the content is a URL, request it. If the content is an ID, fetch it. 
-                If the content is a literal string, use it. 
+                If the content is a URL, request it. If the content is an ID, fetch it.
+                If the content is a literal string, use it.
                 Params will be passed as a 2nd argument to <code>requestData()</code>.
             </td>
         </tr>
@@ -291,7 +291,7 @@ Inherits all methods from the [Base class](../development/js/base.md#methods).
         <tr>
             <td>loadElement(element:node[, func:callback])</td>
             <td>
-                Find and return an element that is tied to the node. If no element exists, create it, 
+                Find and return an element that is tied to the node. If no element exists, create it,
                 assign a unique ID, and cache it. An optional callback can be defined to modify the element when it's created.
             </td>
         </tr>
