@@ -24,7 +24,7 @@
         position: relative;
         font-size: theme-setting("medium-font-size");
         transition: background map-get($toolkit-switch, "transition");
-        text-align: left;
+        text-align: #{bidi-alignment()};
         background: theme-setting("bg-light");
 
         &::before,
@@ -38,14 +38,14 @@
         }
 
         &::before {
-            left: 0;
+            #{bidi-alignment()}: 0;
             opacity: 0;
-            content: attr(data-switch-on);
+            content: attr(data-switch-off);
         }
 
         &::after {
-            right: 0;
-            content: attr(data-switch-off);
+            #{bidi-opposite-alignment()}: 0;
+            content: attr(data-switch-on);
         }
 
         //----- Effects -----//
@@ -76,9 +76,9 @@
         padding: theme-setting("medium-padding");
         width: 50%;
         z-index: 2;
-        left: 0;
+        #{bidi-alignment()}: 0;
         user-select: none;
-        transition: left map-get($toolkit-switch, "transition");
+        transition: #{bidi-alignment()} map-get($toolkit-switch, "transition");
         background: #fff;
 
         &::before {
@@ -128,7 +128,7 @@
 
     @include switch-state(checked) {
         #{map-get($toolkit-switch, "class-toggle")} {
-            left: 50%;
+            #{bidi-alignment()}: 50%;
         }
 
         &::before {

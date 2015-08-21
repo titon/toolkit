@@ -28,7 +28,7 @@
             position: absolute;
             z-index: 2;
             content: "";
-            transform: if(setting("text-direction") == rtl, rotate(315deg), rotate(-45deg));
+            transform: if(setting("text-direction") == rtl, rotate(45deg), rotate(-45deg));
             background: inherit;
             border-#{bidi-opposite-alignment()}: 1px solid theme-setting("bg-light");
             border-bottom: 1px solid theme-setting("bg-light");
