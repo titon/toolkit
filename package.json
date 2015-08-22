@@ -20,7 +20,11 @@
         "lodash": "~3.10"
     },
     "scripts": {
-        "build:css": "node toolkit css"
+        "lint": "node toolkit lint",
+        "lint:js": "node toolkit lint:js",
+        "build": "node toolkit build",
+        "build:js": "node toolkit build:js",
+        "build:css": "node toolkit build:css"
     },
     "devDependencies": {
         "gulp": "~3.9",
@@ -54,10 +58,12 @@
 
 
 
-
+        "chalk": "~1.1",
 
         "node-sass": "~3.2",
         "clean-css": "~3.3",
-        "autoprefixer-core": "~5.2"
+        "autoprefixer-core": "~5.2",
+
+        "eslint": "~1.2"
     }
 }

@@ -1,5 +1,7 @@
 'use strict';
 
+var log = require('./log');
+
 module.exports = function(options) {
     var pkg = options.package,
         banner = [
@@ -9,7 +11,9 @@ module.exports = function(options) {
         ];
 
     return function(content) {
-        content = banner.join(' | ') + "\n\n" + content;
+        log('Prepending banner...');
+
+        content = banner.join(' | ') + '\n\n' + content;
 
         return content;
     };

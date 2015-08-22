@@ -7,27 +7,31 @@ var fs = require('fs'),
     prefixer = require('autoprefixer-core'),
     cleanCss = require('clean-css'),
     // Tasks
+    log = require('./log'),
     writeTo = require('./write-to'),
     prependBanner = require('./prepend-banner');
 
 module.exports = function(paths, options) {
     return new Promise(function(resolve, reject) {
-        var data = ['@charset "UTF-8";', '@import "common";'],
-            includePath = path.resolve(options.cssPath);
+        log.title('build:css');
 
         // Generate a fake inline Sass file to use for rendering
+        log('Bundling modules...');
+
+        var data = ['@charset "UTF-8";', '@import "common";'];
+
         paths.forEach(function(path) {
-            path = path.replace(/\\/g, '/').replace('.scss', '');
+            data.push('@import "' + path.replace('.scss', '') + '";');
 
-            data.push('@import "' + path + '";');
-
-            console.log("\t" + path);
+            log(path, 1, 1);
         });
 
         // Render the Sass file
+        log('Rendering Sass...', 0, 1);
+
         sass.render({
-            data: data.join("\n"),
-            includePaths: [includePath],
+            data: data.join('\n'),
+            includePaths: [options.cssPath],
             outputStyle: 'expanded',
             sourceComments: false,
             sourceMap: false,
@@ -43,16 +47,19 @@ module.exports = function(paths, options) {
 
     // Clean up the output
     .then(function(css) {
+        log('Trimming output...');
+
         css = css.replace(/\/\*\*([\s\S]+?)\*\/\n/g, ''); // Replace docblocks
         css = css.replace(/\/\*[^!]([^*]+)\*\//g, ''); // Replace block comments
         css = css.replace(/ {4}\n/g, ''); // Replace empty lines
-        css = css.replace(/\n{3,}/g, "\n\n"); // Replace multi-lines
+        css = css.replace(/\n{3,}/g, '\n\n'); // Replace multi-lines
 
         return css;
     })
 
     // Apply prefixes using autoprefixer
     .then(function(css) {
+        log('Applying prefixes...');
 
         // Autoprefixer throws warnings for not using PostCSS
         // Make it shut up, for shame
@@ -77,6 +84,8 @@ module.exports = function(paths, options) {
 
     // Minify the CSS
     .then(function(css) {
+        log('Minifying CSS...');
+
         return new cleanCss({
             advanced: true,
             debug: options.debug,
@@ -85,5 +94,10 @@ module.exports = function(paths, options) {
     })
 
     // Save the minified file
-    .then(writeTo('toolkit.min.css', options));
+    .then(writeTo('toolkit.min.css', options))
+
+    // Finish task
+    .then(function() {
+        log.success('CSS compiled');
+    });
 };

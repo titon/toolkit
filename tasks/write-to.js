@@ -1,7 +1,10 @@
 'use strict';
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    chalk = require('chalk'),
+    // Tasks
+    log = require('./log');
 
 module.exports = function(filename, options) {
     return function(content) {
@@ -13,6 +16,8 @@ module.exports = function(filename, options) {
             filename = filename.replace('toolkit', 'toolkit-rtl');
         }
 
+        log('Saving ' + chalk.gray(filename));
+
         return new Promise(function(resolve, reject) {
             fs.open(path.join(buildPath, filename), 'w', 666, function(error, file) {
                 if (error) {
@@ -20,7 +25,7 @@ module.exports = function(filename, options) {
                     return;
                 }
 
-                fs.write(file, content, 0, 'UTF-8', function(error) {
+                fs.write(file, content, 0, 'utf8', function(error) {
                     if (error) {
                         reject(error);
                     } else {
