@@ -6,10 +6,10 @@ var fs = require('fs'),
     sass = require('node-sass'),
     prefixer = require('autoprefixer-core'),
     cleanCss = require('clean-css'),
-    // Tasks
-    log = require('./log'),
-    writeTo = require('./write-to'),
-    prependBanner = require('./prepend-banner');
+    // Helpers
+    log = require('./helpers/log'),
+    writeTo = require('./helpers/write-to'),
+    prependBanner = require('./helpers/prepend-banner');
 
 module.exports = function(paths, options) {
     return new Promise(function(resolve, reject) {

@@ -5,10 +5,10 @@ var fs = require('fs'),
     chalk = require('chalk'),
     // Processes
     eslint = require('eslint'),
-    // Tasks
-    log = require('./log');
+    // Helpers
+    log = require('./helpers/log');
 
-module.exports = function(options) {
+module.exports = function(paths, options) {
     return new Promise(function(resolve) {
         log.title('lint:js');
         log('Loading ESLint configuration...');
@@ -19,11 +19,7 @@ module.exports = function(options) {
 
         log('Linting files...');
 
-        resolve(engine.executeOnFiles([
-            options.jsPath,
-            options.testPath,
-            options.taskPath
-        ]));
+        resolve(engine.executeOnFiles(paths));
     })
 
     // Display the report

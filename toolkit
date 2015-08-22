@@ -23,8 +23,14 @@ var options = {
 };
 
 Promise.all([
-    buildCss(['components/button-group.scss'], options),
-    lintJs(options),
+    buildCss([
+        'components/button-group.scss'
+    ], options),
+    lintJs([
+        options.jsPath,
+        options.testPath,
+        options.taskPath
+   ], options),
 ])
     .catch(function(error) {
         console.log('error', error);

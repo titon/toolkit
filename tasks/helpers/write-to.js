@@ -3,7 +3,7 @@
 var fs = require('fs'),
     path = require('path'),
     chalk = require('chalk'),
-    // Tasks
+    // Helpers
     log = require('./log');
 
 module.exports = function(filename, options) {
