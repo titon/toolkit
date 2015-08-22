@@ -55,22 +55,6 @@ grunt.initConfig({
 grunt.registerTask('default', ['sass']);
 ```
 
-### Compass ###
-
-Integrate Toolkit using a [Compass extension](http://compass-style.org/help/tutorials/extensions/). This approach requires Ruby, Ruby Gems, Sass, and Compass to be installed.
-
-```bash
-gem install sass
-gem install compass
-gem install titon-toolkit
-```
-
-Once installed, require Toolkit at the top of the Compass `config.rb` file. [Learn more about Compass configuration](http://compass-style.org/help/tutorials/configuration-reference/).
-
-```ruby
-require 'titon-toolkit'
-```
-
 ## JavaScript ##
 
 Furthermore, integrating Toolkit into your JavaScript layer will allow for the direct importing of Toolkit's JS files. Toolkit uses AMD styled module definitions but should work if an agnostic module loader is used, something like the following.

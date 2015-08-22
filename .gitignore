@@ -6,7 +6,5 @@ node_modules/
 build/
 build-es6/
 npm-debug.log
-*.gem
-Gemfile.lock
 
 !.gitkeep

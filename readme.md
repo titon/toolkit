@@ -11,8 +11,6 @@
 [![Build Status](https://img.shields.io/travis/titon/toolkit.svg?style=flat)](https://travis-ci.org/titon/toolkit)
 [![NPM Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
 [![Total Downloads](https://img.shields.io/npm/dm/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
-[![Gem Version](https://img.shields.io/gem/v/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
-[![Total Downloads](https://img.shields.io/gem/dt/titon-toolkit.svg?style=flat)](https://rubygems.org/gems/titon-toolkit)
 [![Bower Version](https://img.shields.io/bower/v/toolkit.svg?style=flat)](http://bower.io/search/?q=toolkit)
 [![License](https://img.shields.io/packagist/l/titon/toolkit.svg?style=flat)](https://github.com/titon/toolkit/blob/master/license.md)
 

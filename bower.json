@@ -28,7 +28,6 @@
         "lib/",
         "tests/",
         "*.json",
-        "gulpfile.js",
-        "toolkit.gemspec"
+        "gulpfile.js"
     ]
 }
