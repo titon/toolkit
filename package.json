@@ -19,6 +19,9 @@
     "peerDependencies": {
         "lodash": "~3.10"
     },
+    "scripts": {
+        "build:css": "node toolkit css"
+    },
     "devDependencies": {
         "gulp": "~3.9",
         "gulp-util": "~3.0",
@@ -41,13 +44,20 @@
         "karma-firefox-launcher": "*",
 
         "compartment": "~0.2",
-        "node-sass": "~3.2",
         "systemjs": "~0.18",
         "systemjs-builder": "~0.12",
         "lodash": "~3.10",
 
         "through2": "*",
         "gulp-uglify": "*",
-        "gulp-notify": "*"
+        "gulp-notify": "*",
+
+
+
+
+
+        "node-sass": "~3.2",
+        "clean-css": "~3.3",
+        "autoprefixer-core": "~5.2"
     }
 }

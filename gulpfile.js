@@ -107,27 +107,6 @@ gulp.task('css', function() {
         .pipe(success('CSS compiled...'));
 });
 
-gulp.task('css2', function() {
-    return sass(cssPaths, { style: 'expanded' })
-        .pipe(plumber(failure()))
-
-        // Unminified
-        .pipe(prefixer({ browsers: ['last 3 versions'] }))
-        .pipe(header(banner, { pkg: pkg }))
-        .pipe(rename(function(path) {
-            if (options.rtl) {
-                path.basename += '-rtl';
-            }
-        }))
-        .pipe(gulp.dest(buildPath))
-
-        // Minified
-        .pipe(minify())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(buildPath))
-        .pipe(success('CSS compiled...'));
-});
-
 /*gulp.task('js', function() {
     return rjs(jsPaths, { version: pkg.version })
         .pipe(plumber(failure()))

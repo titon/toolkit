@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var css = require('./tasks/build-css');
+
+var options = {
+    package: require('./package.json'),
+    manifest: require('./manifest.json'),
+
+    // Paths
+    jsPath: './js-es6',
+    cssPath: './scss-3.0',
+    rootPath: '.',
+    testPath: './tests-es6',
+    buildPath: './build',
+
+    // Flags
+    debug: false,
+    rtl: false
+};
+
+css(['components/button-group.scss'], options)
+    .then(function(css) {
+        console.log('built!');
+    })
+    .catch(function(error) {
+        console.log('error', error);
+    });
