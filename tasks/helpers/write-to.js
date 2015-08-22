@@ -8,18 +8,18 @@ var fs = require('fs'),
 
 module.exports = function(filename, options) {
     return function(content) {
-        // Resolve absolute build path
-        var buildPath = path.resolve(options.buildPath);
-
         // Rename if RTL is enabled
         if (options.rtl) {
-            filename = filename.replace('toolkit', 'toolkit-rtl');
+            var parts = filename.split('.');
+                parts[0] += '-rtl';
+
+            filename = parts.join('.');
         }
 
         log('Saving ' + chalk.gray(filename));
 
         return new Promise(function(resolve, reject) {
-            fs.open(path.join(buildPath, filename), 'w', 666, function(error, file) {
+            fs.open(path.join(options.buildPath, filename), 'w', 666, function(error, file) {
                 if (error) {
                     reject(error);
                     return;

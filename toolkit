@@ -3,6 +3,7 @@
 'use strict';
 
 var lintJs = require('./tasks/lint-js'),
+    buildJs = require('./tasks/build-js'),
     buildCss = require('./tasks/build-css');
 
 var options = {
@@ -22,7 +23,14 @@ var options = {
     rtl: false
 };
 
-Promise.all([
+buildJs([
+    'components/Accordion.js',
+    'events/Swipe.js'
+], options).catch(function(error) {
+                   console.log('error', error);
+               });
+
+/*Promise.all([
     buildCss([
         'components/button-group.scss'
     ], options),
@@ -35,3 +43,4 @@ Promise.all([
     .catch(function(error) {
         console.log('error', error);
     });
+*/

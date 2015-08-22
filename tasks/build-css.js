@@ -17,17 +17,18 @@ module.exports = function(paths, options) {
 
         // Generate a fake inline Sass file to use for rendering
         log('Bundling modules...');
+        log('');
 
         var data = ['@charset "UTF-8";', '@import "common";'];
 
         paths.forEach(function(path) {
             data.push('@import "' + path.replace('.scss', '') + '";');
 
-            log(path, 1, 1);
+            log(path, 1);
         });
 
         // Render the Sass file
-        log('Rendering Sass...', 0, 1);
+        log('Transpiling Sass...', 0, 1);
 
         sass.render({
             data: data.join('\n'),
@@ -62,7 +63,6 @@ module.exports = function(paths, options) {
         log('Applying prefixes...');
 
         // Autoprefixer throws warnings for not using PostCSS
-        // Make it shut up, for shame
         var warn = console.warn;
         console.warn = function() {};
 
