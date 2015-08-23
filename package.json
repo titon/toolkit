@@ -41,6 +41,7 @@
         "systemjs": "~0.18",
         "systemjs-builder": "~0.13",
         "uglify-js": "~2.4",
+        "dependency-tree": "~3.1",
 
         "karma": "~0.13",
         "karma-jasmine": "~0.3",

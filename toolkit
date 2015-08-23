@@ -3,7 +3,7 @@
 'use strict';
 
 var lintJs = require('./tasks/lint-js'),
-    buildJs = require('./tasks/build-js'),
+    buildJs = require('./tasks/build-js2'),
     buildCss = require('./tasks/build-css');
 
 var options = {

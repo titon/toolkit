@@ -2,5 +2,6 @@
     "loose": ["es6.properties.computed", "es6.modules"],
     "optional": ["es7.classProperties", "es7.exportExtensions", "es7.decorators"],
     "modules": "ignore",
-    "sourceMaps": false
+    "sourceMaps": false,
+    "blacklist": ["useStrict"]
 }

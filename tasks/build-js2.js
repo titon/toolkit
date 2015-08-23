@@ -3,7 +3,7 @@
 var fs = require('fs'),
     path = require('path'),
     // Processes
-    Builder = require('systemjs-builder'),
+    depTree = require('dependency-tree'),
     babel = require('babel-core'),
     uglify = require('uglify-js'),
     // Helpers
@@ -13,53 +13,24 @@ var fs = require('fs'),
 
 module.exports = function(paths, options) {
     var babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8'));
-    var builder = new Builder(options.jsPath, {
-        paths: {
-            'lodash/*': './node_modules/lodash/*',
-        },
-        transpiler: 'babel',
-        babelOptions: babelOptions,
-        defaultJSExtensions: true,
-        sourceMaps: false
-    });
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
         log.title('build:js');
         log('Bundling modules...');
         log('');
 
-        var bundle = [];
+        var tree = {};
 
-        paths.forEach(function(path) {
-            bundle.push(builder.trace(path));
+        paths.forEach(function(module) {
+            depTree.toList(path.join(options.jsPath, module), options.jsPath).forEach(function(item) {
+                tree[item] = true;
+            });
 
-            log(path, 1);
+            log(module, 1);
         });
 
         log('');
-
-        return Promise.all(bundle)
-            .then(function(trees) {
-                resolve(trees);
-            })
-            .catch(function(error) {
-                reject(error);
-            });
-    })
-
-    // Calculate all the different trees and combine them into one
-    .then(function(trees) {
-        log('Calcuating dependency tree...');
-
-        var masterTree = {};
-
-        trees.forEach(function(tree) {
-            Object.keys(tree).reverse().forEach(function(key) {
-                masterTree[key] = masterTree[key] || tree[key] || null;
-            });
-        });
-
-        return masterTree;
+        resolve(Object.keys(tree));
     })
 
     // Compile the code to Babel and combine
@@ -70,8 +41,8 @@ module.exports = function(paths, options) {
 
         babelOptions.externalHelpers = 'global';
 
-        Object.keys(tree).forEach(function(dep) {
-            var depPath = path.join(options.jsPath, dep);
+        tree.forEach(function(dep) {
+            var depPath = dep; //path.join(options.jsPath, dep);
 
             if (dep.indexOf('lodash') === 0) {
                 depPath = path.join(options.rootPath, 'node_modules', dep);
@@ -83,11 +54,23 @@ module.exports = function(paths, options) {
         return source.join('\n\n');
     })
 
+    // Clean up the output
+    .then(function(js) {
+        log('Trimming output...');
+
+        js = js.replace(/\/\*\*([\s\S]+?)\*\/(\n|$)/g, ''); // Replace docblocks
+        js = js.replace(/\/\*[^!]([^*]+)\*\//g, ''); // Replace block comments
+        js = js.replace(/ {4}\n/g, ''); // Replace empty lines
+        js = js.replace(/\n{3,}/g, '\n\n'); // Replace multi-lines
+
+        return js;
+    })
+
     // Wrap content with an IIFE
     .then(function(js) {
         log('Wrapping output...');
 
-        return '(function(window, document) {\n' + js + '\n})(window, document);'
+        return '(function(window, document) {\n\'use strict\';\n' + js + '\n})(window, document);'
     })
 
     // Prepend the banner
