@@ -16,10 +16,25 @@ module.exports = function(paths, options) {
         log.title('build:css');
 
         // Generate a fake inline Sass file to use for rendering
+        var data = ['@charset "UTF-8";', '@import "common";'];
+
+        // Prepend namespace
+        if (options.namespace) {
+            log('Prepending namespace...');
+
+            data.push('$toolkit: map-merge($toolkit, ("namespace": "' + options.namespace + '"));');
+        }
+
+        // Enable RTL mode
+        if (options.rtl) {
+            log('Enabling RTL mode...');
+
+            data.push('$toolkit: map-merge($toolkit, ("text-direction": rtl));');
+        }
+
+        // Import selected modules
         log('Bundling modules...');
         log('');
-
-        var data = ['@charset "UTF-8";', '@import "common";'];
 
         paths.forEach(function(path) {
             data.push('@import "' + path.replace('.scss', '') + '";');
@@ -32,7 +47,7 @@ module.exports = function(paths, options) {
 
         sass.render({
             data: data.join('\n'),
-            includePaths: [options.cssPath],
+            includePaths: [options.css],
             outputStyle: 'expanded',
             sourceComments: false,
             sourceMap: false,

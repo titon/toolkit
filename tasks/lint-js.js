@@ -14,7 +14,7 @@ module.exports = function(paths, options) {
         log('Loading ESLint configuration...');
 
         var engine = new eslint.CLIEngine({
-            configFile: path.join(options.rootPath, '.eslintrc')
+            configFile: path.join(process.cwd(), '.eslintrc')
         });
 
         log('Linting files...');

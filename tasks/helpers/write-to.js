@@ -19,7 +19,7 @@ module.exports = function(filename, options) {
         log('Saving ' + chalk.gray(filename));
 
         return new Promise(function(resolve, reject) {
-            fs.open(path.join(options.buildPath, filename), 'w', 666, function(error, file) {
+            fs.open(path.join(options.out, filename), 'w', 666, function(error, file) {
                 if (error) {
                     reject(error);
                     return;

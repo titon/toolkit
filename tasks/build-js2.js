@@ -22,7 +22,7 @@ module.exports = function(paths, options) {
         var tree = {};
 
         paths.forEach(function(module) {
-            depTree.toList(path.join(options.jsPath, module), options.jsPath).forEach(function(item) {
+            depTree.toList(path.join(options.js, module), options.js).forEach(function(item) {
                 tree[item] = true;
             });
 
@@ -45,7 +45,7 @@ module.exports = function(paths, options) {
             var depPath = dep; //path.join(options.jsPath, dep);
 
             if (dep.indexOf('lodash') === 0) {
-                depPath = path.join(options.rootPath, 'node_modules', dep);
+                depPath = path.join(process.cwd(), 'node_modules', dep);
             }
 
             source.push( babel.transformFileSync(depPath, babelOptions).code );
@@ -70,7 +70,7 @@ module.exports = function(paths, options) {
     .then(function(js) {
         log('Wrapping output...');
 
-        return '(function(window, document) {\n\'use strict\';\n' + js + '\n})(window, document);'
+        return '(function(window, document) {\n\'use strict\';\n' + js + '\n})(window, document);';
     })
 
     // Prepend the banner

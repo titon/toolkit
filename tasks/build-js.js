@@ -87,7 +87,7 @@ module.exports = function(paths, options) {
     .then(function(js) {
         log('Wrapping output...');
 
-        return '(function(window, document) {\n' + js + '\n})(window, document);'
+        return '(function(window, document) {\n' + js + '\n})(window, document);';
     })
 
     // Prepend the banner
