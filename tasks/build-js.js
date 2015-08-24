@@ -62,7 +62,14 @@ module.exports = function(command) {
 
         // Import each dependency
         tree.forEach(function(dep) {
-            source.push( babel.transformFileSync(dep, babelOptions).code );
+            var output = babel.transformFileSync(dep, babelOptions).code.trim();
+
+            if (dep.indexOf('Toolkit.js') >= 0) {
+                output = output.replace('%version%', options.package.version); // Add version
+                output = output.replace('%build%', Date.now().toString(36)); // Add unique build hash
+            }
+
+            source.push(output);
         });
 
         return source.join('\n\n');

@@ -29,6 +29,7 @@ function task() {
     };
 }
 
+// Prepare command line tool
 toolkit.package = project;
 toolkit.manifest = manifest;
 toolkit
@@ -36,9 +37,9 @@ toolkit
     .option('-j, --js <path>', 'JavaScript source path', './js-es6')
     .option('-c, --css <path>', 'CSS source path', './scss-3.0')
     .option('-o, --out <path>', 'Output build path', './build')
-    .option('--namespace <value>', 'Namespace to prepend to all CSS classnames')
     .option('--rtl', 'Enable right-to-left mode', false)
     .option('--debug', 'Enable debug mode', false)
+    .option('--namespace <value>', 'Namespace to prepend to all CSS classnames')
     .option('--modules <list>', 'Filter which modules to include in the output', function(value) {
         return value.split(',');
     }, Object.keys(manifest));
