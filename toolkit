@@ -10,14 +10,22 @@ var fs = require('fs'),
     // Tasks & Helpers
     log = require('./tasks/helpers/log'),
     lintJs = require('./tasks/lint-js'),
+    testJs = require('./tasks/test-js'),
     buildJs = require('./tasks/build-js'),
     buildCss = require('./tasks/build-css'),
     generateGraph = require('./tasks/helpers/generateGraph'),
     promise = null;
 
-function task(action) {
+function task() {
+    var actions = arguments,
+        promises = [];
+
     return function() {
-        promise = action.apply(null, arguments);
+        for (var i = 0; i < actions.length; i++) {
+            promises.push(actions[i].apply(null, arguments));
+        }
+
+        promise = Promise.all(promises);
     };
 }
 
@@ -25,7 +33,6 @@ toolkit.package = project;
 toolkit.manifest = manifest;
 toolkit
     .version(project.version)
-    .description(project.description)
     .option('-j, --js <path>', 'JavaScript source path', './js-es6')
     .option('-c, --css <path>', 'CSS source path', './scss-3.0')
     .option('-o, --out <path>', 'Output build path', './build')
@@ -37,34 +44,19 @@ toolkit
     }, Object.keys(manifest));
 
 toolkit
-    .command('lint')
-    .description('Lint both JavaScript and CSS files')
-    .action(function() {
-        promise = Promise.all([
-            lintJs([toolkit.js], toolkit)
-        ]);
-    });
+    .command('lint:js')
+    .description('Lint JavaScript files using ESLint')
+    .action(task(lintJs));
 
 toolkit
-    .command('lint:js')
-    .description('Lint JavaScript source and test files')
-    .action(function() {
-        promise = lintJs([
-            toolkit.js,
-            toolkit.js.replace('js', 'tests'),
-            './tasks'
-        ], toolkit);
-    });
+    .command('test:js')
+    .description('Test JavaScript files using Karma')
+    .action(task(testJs));
 
 toolkit
     .command('build')
     .description('Transpile both JavaScript and CSS files')
-    .action(function() {
-        promise = Promise.all([
-            buildJs([], toolkit),
-            buildCss([], toolkit)
-        ]);
-    });
+    .action(task(buildCss, buildJs));
 
 toolkit
     .command('build:js')
@@ -81,6 +73,16 @@ toolkit.parse(process.argv);
 
 // Display help menu if no command provided
 if (!toolkit.args.length) {
+    console.log([
+        '  ______   ______   ______   __       __  __   __   ______',
+        ' /\\__  _\\ /\\  __ \\ /\\  __ \\ /\\ \\     /\\ \\/ /_ /\\ \\ /\\__  _\\',
+        ' \\/_/\\ \\/ \\ \\ \\/\\ \\\\ \\ \\/\\ \\\\ \\ \\____\\ \\  _  \\\\ \\ \\\\/_/\\ \\/',
+        '    \\ \\_\\  \\ \\_____\\\\ \\_____\\\\ \\_____\\\\ \\_\\ \\_\\\\ \\_\\  \\ \\_\\',
+        '     \\/_/   \\/_____/ \\/_____/ \\/_____/ \\/_/\\/_/ \\/_/   \\/_/',
+        '',
+        '  Titon Toolkit v' + project.version
+    ].join('\n'));
+
     toolkit.help();
 }
 
@@ -88,7 +90,6 @@ if (!toolkit.args.length) {
 if (promise instanceof Promise) {
     promise
         .then(function() {
-            console.log('DONE');
             process.exit(0);
         })
         .catch(function(error) {

@@ -7,7 +7,7 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         files: [
-            'node_modules/gulp-babel/node_modules/babel-core/browser.js',
+            'node_modules/babel-core/browser.min.js',
             'node_modules/systemjs/dist/system.js',
             'node_modules/systemjs/dist/system-polyfills.js',
             'tests-es6/helpers.js',
