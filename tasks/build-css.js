@@ -5,17 +5,24 @@ var fs = require('fs'),
     // Processes
     sass = require('node-sass'),
     prefixer = require('autoprefixer-core'),
-    cleanCss = require('clean-css'),
+    CleanCSS = require('clean-css'),
     // Helpers
     log = require('./helpers/log'),
-    writeTo = require('./helpers/write-to'),
-    prependBanner = require('./helpers/prepend-banner');
+    writeTo = require('./helpers/writeTo'),
+    prependBanner = require('./helpers/prependBanner'),
+    generateGraph = require('./helpers/generateGraph');
 
-module.exports = function(paths, options) {
-    return new Promise(function(resolve, reject) {
+module.exports = function(command) {
+    var options = command.parent;
+
+    return new Promise(function(resolve) {
         log.title('build:css');
 
-        // Generate a fake inline Sass file to use for rendering
+        resolve(generateGraph('css', options))
+    })
+
+    // Bundle modules
+    .then(function(paths) {
         var data = ['@charset "UTF-8";', '@import "common";'];
 
         // Prepend namespace
@@ -36,28 +43,38 @@ module.exports = function(paths, options) {
         log('Bundling modules...');
         log('');
 
-        paths.forEach(function(path) {
-            data.push('@import "' + path.replace('.scss', '') + '";');
+        paths.forEach(function(value) {
+            if (fs.existsSync(path.join(options.css, value))) {
+                data.push('@import "' + value.replace('.scss', '') + '";');
 
-            log(path, 1);
+                log(value, 1);
+            }
         });
 
-        // Render the Sass file
-        log('Transpiling Sass...', 0, 1);
+        log('');
 
-        sass.render({
-            data: data.join('\n'),
-            includePaths: [options.css],
-            outputStyle: 'expanded',
-            sourceComments: false,
-            sourceMap: false,
-            indentWidth: 4
-        }, function(error, response) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(response.css.toString());
-            }
+        return data.join('\n');
+    })
+
+    // Render the Sass file
+    .then(function(scss) {
+        log('Transpiling Sass...');
+
+        return new Promise(function(resolve, reject) {
+            sass.render({
+                data: scss,
+                includePaths: [options.css],
+                outputStyle: 'expanded',
+                sourceComments: false,
+                sourceMap: false,
+                indentWidth: 4
+            }, function(error, response) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(response.css.toString());
+                }
+            });
         });
     })
 
@@ -101,7 +118,7 @@ module.exports = function(paths, options) {
     .then(function(css) {
         log('Minifying CSS...');
 
-        return new cleanCss({
+        return new CleanCSS({
             advanced: true,
             debug: options.debug,
             keepSpecialComments: 1
@@ -112,7 +129,9 @@ module.exports = function(paths, options) {
     .then(writeTo('toolkit.min.css', options))
 
     // Finish task
-    .then(function() {
+    .then(function(css) {
         log.success('CSS compiled');
+
+        return css;
     });
 };

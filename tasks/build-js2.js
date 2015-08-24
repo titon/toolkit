@@ -8,8 +8,8 @@ var fs = require('fs'),
     uglify = require('uglify-js'),
     // Helpers
     log = require('./helpers/log'),
-    writeTo = require('./helpers/write-to'),
-    prependBanner = require('./helpers/prepend-banner');
+    writeTo = require('./helpers/writeTo'),
+    prependBanner = require('./helpers/prependBanner');
 
 module.exports = function(paths, options) {
     var babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8'));

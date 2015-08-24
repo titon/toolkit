@@ -46,7 +46,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/accordion.scss"],
-            "js": ["components/accordion.js"]
+            "js": ["components/Accordion.js"]
         }
     },
     "breadcrumb": {
@@ -69,7 +69,7 @@
             "css": ["components/button.scss"]
         }
     },
-    "buttonGroup": {
+    "button-group": {
         "name": "Button Group",
         "description": "Groups multiple buttons by collapsing spacing in between to visually mimic a single button.",
         "category": "component",
@@ -87,7 +87,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/carousel.scss"],
-            "js": ["components/carousel.js"]
+            "js": ["components/Carousel.js"]
         }
     },
     "checkbox": {
@@ -118,7 +118,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/drop.scss"],
-            "js": ["components/drop.js"]
+            "js": ["components/Drop.js"]
         }
     },
     "flex": {
@@ -140,7 +140,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/flyout.scss"],
-            "js": ["components/flyout.js"]
+            "js": ["components/Flyout.js"]
         }
     },
     "form": {
@@ -173,7 +173,7 @@
             "css": ["components/input.scss"]
         }
     },
-    "inputGroup": {
+    "input-group": {
         "name": "Input Group",
         "description": "Group input fields with addons by collapsing spacing in between.",
         "category": "component",
@@ -193,7 +193,7 @@
             "css": ["components/label.scss"]
         }
     },
-    "lazyLoad": {
+    "lazy-load": {
         "name": "Lazy Load",
         "description": "Defer loading of images and elements until they scroll into view.",
         "category": "behavior",
@@ -201,7 +201,7 @@
         "require": ["base"],
         "source": {
             "css": ["behaviors/lazy-load.scss"],
-            "js": ["behaviors/lazy-load.js"]
+            "js": ["behaviors/LazyLoad.js"]
         }
     },
     "loader": {
@@ -223,7 +223,7 @@
         "require": ["base"],
         "source": {
             "css": ["behaviors/mask.scss"],
-            "js": ["behaviors/mask.js"]
+            "js": ["behaviors/Mask.js"]
         },
         "version": "1.1.0"
     },
@@ -235,7 +235,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/matrix.scss"],
-            "js": ["components/matrix.js"]
+            "js": ["components/Matrix.js"]
         }
     },
     "modal": {
@@ -246,7 +246,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/modal.scss"],
-            "js": ["components/modal.js"]
+            "js": ["components/Modal.js"]
         }
     },
     "notice": {
@@ -259,7 +259,7 @@
             "css": ["components/notice.scss"]
         }
     },
-    "offCanvas": {
+    "off-canvas": {
         "name": "Off Canvas",
         "description": "Contextual sidebars positioned outside the viewport until activated.",
         "category": "component",
@@ -267,7 +267,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/off-canvas.scss"],
-            "js": ["components/off-canvas.js"]
+            "js": ["components/OffCanvas.js"]
         },
         "version": "1.4.0"
     },
@@ -289,7 +289,7 @@
         "require": ["base"],
         "source": {
             "css": ["behaviors/pin.scss"],
-            "js": ["behaviors/pin.js"]
+            "js": ["behaviors/Pin.js"]
         }
     },
     "popover": {
@@ -300,7 +300,7 @@
         "require": ["base", "tooltip"],
         "source": {
             "css": ["components/popover.scss"],
-            "js": ["components/popover.js"]
+            "js": ["components/Popover.js"]
         }
     },
     "progress": {
@@ -341,7 +341,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/showcase.scss"],
-            "js": ["components/showcase.js"]
+            "js": ["components/Showcase.js"]
         }
     },
     "stalker": {
@@ -351,7 +351,7 @@
         "priority": 10,
         "require": ["base"],
         "source": {
-            "js": ["components/stalker.js"]
+            "js": ["components/Stalker.js"]
         }
     },
     "step": {
@@ -394,7 +394,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/tab.scss"],
-            "js": ["components/tab.js"]
+            "js": ["components/Tab.js"]
         }
     },
     "toast": {
@@ -405,7 +405,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/toast.scss"],
-            "js": ["components/toast.js"]
+            "js": ["components/Toast.js"]
         },
         "version": "1.4.0"
     },
@@ -417,10 +417,10 @@
         "require": ["base"],
         "source": {
             "css": ["components/tooltip.scss"],
-            "js": ["components/tooltip.js"]
+            "js": ["components/Tooltip.js"]
         }
     },
-    "typeAhead": {
+    "type-ahead": {
         "name": "Type Ahead",
         "description": "Monitors an input field and triggers a lookup of data to render in a clickable menu.",
         "category": "component",
@@ -428,7 +428,7 @@
         "require": ["base"],
         "source": {
             "css": ["components/type-ahead.scss"],
-            "js": ["components/type-ahead.js"]
+            "js": ["components/TypeAhead.js"]
         }
     }
 }

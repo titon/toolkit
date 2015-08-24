@@ -12,7 +12,14 @@ var fs = require('fs'),
     lintJs = require('./tasks/lint-js'),
     buildJs = require('./tasks/build-js2'),
     buildCss = require('./tasks/build-css'),
-    promise;
+    generateGraph = require('./tasks/helpers/generateGraph'),
+    promise = null;
+
+function task(action) {
+    return function() {
+        promise = action.apply(null, arguments);
+    };
+}
 
 toolkit.package = project;
 toolkit.manifest = manifest;
@@ -27,7 +34,7 @@ toolkit
     .option('--debug', 'Enable debug mode', false)
     .option('--modules <list>', 'Filter which modules to include in the output', function(value) {
         return value.split(',');
-    }, []);
+    }, Object.keys(manifest));
 
 toolkit
     .command('lint')
@@ -63,21 +70,15 @@ toolkit
     .command('build:js')
     .description('Transpile ES6 JavaScript to ES5')
     .action(function() {
-        promise = buildJs([
-            'components/Accordion.js',
-            'events/Swipe.js'
-        ], toolkit);
+        promise = buildJs(generateGraph('js', toolkit), toolkit);
     });
 
 toolkit
     .command('build:css')
     .description('Transpile Sass to CSS')
-    .action(function() {
-        promise = buildCss([
-            'components/button-group.scss'
-        ], toolkit);
-    });
+    .action(task(buildCss));
 
+// Execute command
 toolkit.parse(process.argv);
 
 // Display help menu if no command provided
