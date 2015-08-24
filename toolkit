@@ -10,7 +10,7 @@ var fs = require('fs'),
     // Tasks & Helpers
     log = require('./tasks/helpers/log'),
     lintJs = require('./tasks/lint-js'),
-    buildJs = require('./tasks/build-js2'),
+    buildJs = require('./tasks/build-js'),
     buildCss = require('./tasks/build-css'),
     generateGraph = require('./tasks/helpers/generateGraph'),
     promise = null;
@@ -69,9 +69,7 @@ toolkit
 toolkit
     .command('build:js')
     .description('Transpile ES6 JavaScript to ES5')
-    .action(function() {
-        promise = buildJs(generateGraph('js', toolkit), toolkit);
-    });
+    .action(task(buildJs));
 
 toolkit
     .command('build:css')

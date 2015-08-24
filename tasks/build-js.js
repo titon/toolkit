@@ -3,91 +3,84 @@
 var fs = require('fs'),
     path = require('path'),
     // Processes
-    Builder = require('systemjs-builder'),
+    depTree = require('dependency-tree'),
     babel = require('babel-core'),
     uglify = require('uglify-js'),
     // Helpers
     log = require('./helpers/log'),
-    writeTo = require('./helpers/write-to'),
-    prependBanner = require('./helpers/prepend-banner');
+    writeTo = require('./helpers/writeTo'),
+    cleanOutput = require('./helpers/cleanOutput'),
+    prependBanner = require('./helpers/prependBanner'),
+    generateGraph = require('./helpers/generateGraph');
 
-module.exports = function(paths, options) {
-    var babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8'));
-    var builder = new Builder(options.jsPath, {
-        paths: {
-            'lodash/*': './node_modules/lodash/*',
-        },
-        transpiler: 'babel',
-        babelOptions: babelOptions,
-        defaultJSExtensions: true,
-        sourceMaps: false
-    });
+module.exports = function(command) {
+    var babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8')),
+        options = command.parent;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
         log.title('build:js');
+
+        resolve(generateGraph('js', options))
+    })
+
+    // Bundle modules
+    .then(function(paths) {
         log('Bundling modules...');
         log('');
 
-        var bundle = [];
+        var tree = {};
 
-        paths.forEach(function(path) {
-            bundle.push(builder.trace(path));
+        paths.forEach(function(module) {
+            var absPath = path.join(options.js, module);
 
-            log(path, 1);
+            if (fs.existsSync(absPath)) {
+                depTree.toList(absPath, options.js).forEach(function(item) {
+                    tree[item] = true;
+                });
+
+                log(module, 1);
+            }
         });
 
         log('');
 
-        return Promise.all(bundle)
-            .then(function(trees) {
-                resolve(trees);
-            })
-            .catch(function(error) {
-                reject(error);
-            });
-    })
-
-    // Calculate all the different trees and combine them into one
-    .then(function(trees) {
-        log('Calcuating dependency tree...');
-
-        var masterTree = {};
-
-        trees.forEach(function(tree) {
-            Object.keys(tree).reverse().forEach(function(key) {
-                masterTree[key] = masterTree[key] || tree[key] || null;
-            });
-        });
-
-        return masterTree;
+        return Object.keys(tree);
     })
 
     // Compile the code to Babel and combine
     .then(function(tree) {
         log('Transpiling Babel...');
 
-        var source = [];
-
         babelOptions.externalHelpers = 'global';
 
-        Object.keys(tree).forEach(function(dep) {
-            var depPath = path.join(options.jsPath, dep);
+        // Import the Babel helpers
+        var source = [
+            'var global = {};',
+            fs.readFileSync('node_modules/babel-core/external-helpers.js'),
+            'var babelHelpers = global.babelHelpers;',
+        ];
 
-            if (dep.indexOf('lodash') === 0) {
-                depPath = path.join(options.rootPath, 'node_modules', dep);
-            }
-
-            source.push( babel.transformFileSync(depPath, babelOptions).code );
+        // Import each dependency
+        tree.forEach(function(dep) {
+            source.push( babel.transformFileSync(dep, babelOptions).code );
         });
 
         return source.join('\n\n');
     })
 
+    // Clean up the output
+    .then(cleanOutput(options))
+
     // Wrap content with an IIFE
     .then(function(js) {
         log('Wrapping output...');
 
-        return '(function(window, document) {\n' + js + '\n})(window, document);';
+        return [
+            '(function(window, document) {',
+            '"use strict";',
+            js,
+            '})(window, document);'
+        ].join('\n');
     })
 
     // Prepend the banner
@@ -117,7 +110,9 @@ module.exports = function(paths, options) {
     .then(writeTo('toolkit.min.js', options))
 
     // Finish task
-    .then(function() {
+    .then(function(js) {
         log.success('JavaScript compiled');
+
+        return js;
     });
 };

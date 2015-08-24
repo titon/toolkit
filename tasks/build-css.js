@@ -9,6 +9,7 @@ var fs = require('fs'),
     // Helpers
     log = require('./helpers/log'),
     writeTo = require('./helpers/writeTo'),
+    cleanOutput = require('./helpers/cleanOutput'),
     prependBanner = require('./helpers/prependBanner'),
     generateGraph = require('./helpers/generateGraph');
 
@@ -43,11 +44,11 @@ module.exports = function(command) {
         log('Bundling modules...');
         log('');
 
-        paths.forEach(function(value) {
-            if (fs.existsSync(path.join(options.css, value))) {
-                data.push('@import "' + value.replace('.scss', '') + '";');
+        paths.forEach(function(module) {
+            if (fs.existsSync(path.join(options.css, module))) {
+                data.push('@import "' + module.replace('.scss', '') + '";');
 
-                log(value, 1);
+                log(module, 1);
             }
         });
 
@@ -79,16 +80,7 @@ module.exports = function(command) {
     })
 
     // Clean up the output
-    .then(function(css) {
-        log('Trimming output...');
-
-        css = css.replace(/\/\*\*([\s\S]+?)\*\/\n/g, ''); // Replace docblocks
-        css = css.replace(/\/\*[^!]([^*]+)\*\//g, ''); // Replace block comments
-        css = css.replace(/ {4}\n/g, ''); // Replace empty lines
-        css = css.replace(/\n{3,}/g, '\n\n'); // Replace multi-lines
-
-        return css;
-    })
+    .then(cleanOutput(options))
 
     // Apply prefixes using autoprefixer
     .then(function(css) {
