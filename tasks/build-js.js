@@ -20,7 +20,7 @@ module.exports = function(command) {
     return new Promise(function(resolve) {
         log.title('build:js');
 
-        resolve(generateGraph('js', options))
+        resolve(generateGraph('js', options));
     })
 
     // Bundle modules

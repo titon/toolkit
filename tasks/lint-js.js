@@ -8,7 +8,9 @@ var fs = require('fs'),
     // Helpers
     log = require('./helpers/log');
 
-module.exports = function(paths, options) {
+module.exports = function(command) {
+    var options = command.parent;
+
     return new Promise(function(resolve) {
         log.title('lint:js');
         log('Loading ESLint configuration...');
@@ -19,7 +21,11 @@ module.exports = function(paths, options) {
 
         log('Linting files...');
 
-        resolve(engine.executeOnFiles(paths));
+        resolve(engine.executeOnFiles([
+            options.js,
+            options.js.replace('js', 'tests'),
+            './tasks'
+        ]));
     })
 
     // Display the report

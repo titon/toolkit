@@ -3,7 +3,7 @@
 var log = require('./log'),
     Compartment = require('compartment');
 
-module.exports = function(type, options) {
+module.exports = function generateGraph(type, options) {
     log('Generating dependency graph...');
 
     var graph = new Compartment();

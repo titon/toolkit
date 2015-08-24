@@ -2,7 +2,7 @@
 
 var log = require('./log');
 
-module.exports = function(options) {
+module.exports = function prependBanner(options) {
     var pkg = options.package,
         banner = [
             '/*! Titon Toolkit v' + pkg.version,

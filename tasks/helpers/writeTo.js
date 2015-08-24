@@ -6,7 +6,7 @@ var fs = require('fs'),
     // Helpers
     log = require('./log');
 
-module.exports = function(filename, options) {
+module.exports = function writeTo(filename, options) {
     return function(content) {
         // Rename if RTL is enabled
         if (options.rtl) {

@@ -2,7 +2,7 @@
 
 var log = require('./log');
 
-module.exports = function(options) {
+module.exports = function cleanOutput(options) {
     return function(content) {
         log('Cleaning output...');
 
