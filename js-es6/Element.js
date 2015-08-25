@@ -26,7 +26,7 @@ export default class Element {
     reading = false;
 
     /** Timer to catch all mutations before being processed. */
-    timer = {};
+    timer = 0;
 
     /** Batched writes are occurring. */
     writing = false;
@@ -73,7 +73,7 @@ export default class Element {
     }
 
     /**
-     * Return a list of chainable methods to copy to the `Collection` prototype.
+     * Return a list of chainable methods to copy to the `ElementCollection` prototype.
      *
      * @returns {string[]}
      */

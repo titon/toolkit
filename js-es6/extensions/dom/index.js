@@ -5,8 +5,6 @@
  */
 
 export batch from 'extensions/dom/batch';
-export Collection from 'extensions/dom/Collection';
-export Element from 'extensions/dom/Element';
 export find from 'extensions/dom/find';
 export findID from 'extensions/dom/findID';
 export inDOM from 'extensions/dom/inDOM';

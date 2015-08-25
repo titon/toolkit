@@ -4,12 +4,12 @@
  * @link        http://titon.io
  */
 
-import Element from 'extensions/dom/Element';
+import Element from 'Element';
 
 /**
  * A class that handles a collection of `Element` items.
  */
-export default class Collection {
+export default class ElementCollection {
 
     /** Total number of elements in the collection. */
     length = 0;
@@ -31,7 +31,7 @@ export default class Collection {
      * Loop over every element and call trigger the callback function.
      *
      * @param {function} func
-     * @returns {Collection}
+     * @returns {ElementCollection}
      */
     each(func) {
         for (let i = 0, l = this.length; i < l; i++) {
@@ -46,7 +46,7 @@ export default class Collection {
  * Inherit methods from the `Element`.
  */
 Element.getCollectionMethods().forEach(method => {
-    Collection.prototype[method] = function() {
+    ElementCollection.prototype[method] = function() {
         return this.each(element => element[method].apply(element, arguments));
     };
 });

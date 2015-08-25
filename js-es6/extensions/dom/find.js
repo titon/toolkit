@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Collection from 'extensions/dom/Collection';
+import ElementCollection from 'ElementCollection';
 
 const slice = Array.prototype.slice;
 
@@ -14,8 +14,8 @@ const slice = Array.prototype.slice;
  *
  * @param {string} query
  * @param {Node} [context]
- * @returns {Collection}
+ * @returns {ElementCollection}
  */
 export default function find(query, context = document) {
-    return new Collection(slice.call(context.querySelectorAll(query)));
+    return new ElementCollection(slice.call(context.querySelectorAll(query)));
 }

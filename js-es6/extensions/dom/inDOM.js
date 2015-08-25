@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Element from 'extensions/dom/Element';
+import Element from 'Element';
 
 /**
  * Check to see if an element is within the current DOM.

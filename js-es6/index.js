@@ -6,6 +6,8 @@
 
 import Titon from 'Titon';
 import Module from 'Module';
+import Element from 'Element';
+import ElementCollection from 'ElementCollection';
 
 import Component from 'Component';
 import EmbeddedComponent from 'EmbeddedComponent';
@@ -19,8 +21,6 @@ import ClickOut from 'events/ClickOut';
 import HorizontalResize from 'events/HorizontalResize';
 import VerticalResize from 'events/VerticalResize';
 
-import Collection from 'extensions/dom/Collection';
-import Element from 'extensions/dom/Element';
 import once from 'extensions/event/once';
 import swipe from 'extensions/event/swipe';
 import delegate from 'extensions/event/delegate';
@@ -29,6 +29,8 @@ import transitionEnd from 'extensions/event/transitionEnd';
 import bem from 'extensions/utility/bem';
 
 Titon.Module = Module;
+Titon.Element = Element;
+Titon.ElementCollection = ElementCollection;
 
 // Behaviors
 
@@ -52,6 +54,4 @@ Titon.HorizontalResize = HorizontalResize;
 Titon.VerticalResize = VerticalResize;
 
 // Other
-Titon.Element = Element;
-Titon.ElementCollection = Collection;
 Titon.bem = bem;
