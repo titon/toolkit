@@ -520,5 +520,3 @@ Module.options = {
     cache: true,
     debug: false
 };
-
-Toolkit.Module = Module;

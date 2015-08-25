@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import EmbeddedComponent from 'EmbeddedComponent';
 import debounce from 'lodash/function/debounce';
 
@@ -209,5 +208,3 @@ Accordion.options = {
     multiple: false,
     collapsible: false
 };
-
-Toolkit.Accordion = Accordion;

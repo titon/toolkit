@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Module from 'Module';
 import memoize from 'decorators/memoize';
 
@@ -50,5 +49,3 @@ export default class Component extends Module {
     }
 
 }
-
-Toolkit.Component = Component;

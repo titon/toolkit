@@ -16,7 +16,7 @@ module.exports = function generateGraph(type, options) {
     });
 
     // Build the chain and generate all the paths we will need
-    graph.buildChain(options.modules);
+    graph.buildChain(options.modules || Object.keys(graph.manifest));
 
     return graph.getPaths(type);
 };

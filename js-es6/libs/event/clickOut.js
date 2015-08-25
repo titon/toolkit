@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import clickOutInstance from 'events/instances/clickOut';
 
 /**
@@ -20,5 +19,3 @@ export default function clickOut(element, func) {
 
     return func;
 }
-
-Toolkit.clickOut = clickOut;

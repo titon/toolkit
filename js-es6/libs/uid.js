@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-const history = {};
+const UIDhistory = {};
 
 /**
  * Keeps a history of UID counts by name. If a name does not exist, create it and increment.
@@ -13,7 +13,7 @@ const history = {};
  * @returns {number}
  */
 export default function uid(name) {
-    let value = history[name] || 0;
+    let value = UIDhistory[name] || 0;
 
-    return history[name] = value += 1;
+    return UIDhistory[name] = value += 1;
 }

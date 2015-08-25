@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import once from 'libs/event/once';
 
 /**
@@ -28,5 +27,3 @@ export default function transitionEnd(element, func) {
 
     return element;
 }
-
-Toolkit.transitionEnd = transitionEnd;

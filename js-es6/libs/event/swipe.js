@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Swipe from 'events/Swipe';
 
 /**
@@ -23,5 +22,3 @@ export default function swipe(element, func, options = {}) {
 
     return func;
 }
-
-Toolkit.swipe = swipe;

@@ -32,5 +32,3 @@ export default function bem(block, element, modifier) {
  * BEM class name separators.
  */
 bem.separators = ['-', '--'];
-
-Toolkit.bem = bem;

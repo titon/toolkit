@@ -42,7 +42,7 @@ toolkit
     .option('--namespace <value>', 'Namespace to prepend to all CSS classnames')
     .option('--modules <list>', 'Filter which modules to include in the output', function(value) {
         return value.split(',');
-    }, Object.keys(manifest));
+    }, []);
 
 toolkit
     .command('lint:js')
@@ -57,7 +57,7 @@ toolkit
 toolkit
     .command('build')
     .description('Transpile both JavaScript and CSS files')
-    .action(task(buildCss, buildJs));
+    .action(task(buildJs, buildCss));
 
 toolkit
     .command('build:js')

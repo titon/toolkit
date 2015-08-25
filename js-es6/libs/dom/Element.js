@@ -4,6 +4,7 @@
  * @link        http://titon.io
  */
 
+import Toolkit from 'Toolkit';
 import transitionEnd from 'libs/event/transitionEnd';
 import forOwn from 'lodash/object/forOwn';
 import 'polyfills/requestAnimationFrame';

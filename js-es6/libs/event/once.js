@@ -4,8 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-
 /**
  * Wrap a function that will only be triggered once when set as an event listener.
  *
@@ -21,5 +19,3 @@ export default function once(func) {
 
     return listener;
 }
-
-Toolkit.once = once;

@@ -42,7 +42,6 @@ module.exports = function(command) {
 
         // Import selected modules
         log('Bundling modules...');
-        log('');
 
         paths.forEach(function(module) {
             if (fs.existsSync(path.join(options.css, module))) {
@@ -51,8 +50,6 @@ module.exports = function(command) {
                 log(module, 1);
             }
         });
-
-        log('');
 
         return data.join('\n');
     })

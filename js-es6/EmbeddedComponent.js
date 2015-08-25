@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
 import Component from 'Component';
 import Element from 'libs/dom/Element';
 import findID from 'libs/dom/findID';
@@ -56,5 +55,3 @@ export default class EmbeddedComponent extends Component {
     }
 
 }
-
-Toolkit.EmbeddedComponent = EmbeddedComponent;

@@ -6,31 +6,31 @@
 
 import flags from 'libs/flags';
 
-class Toolkit {
+let Toolkit = window.Toolkit = {
 
     /** Current version. */
-    version = '%version%';
+    version: '%version%',
 
     /** Build date hash. */
-    build = '%build%';
+    build: '%build%',
 
     /** CSS namespace. */
-    namespace = '';
+    namespace: '',
 
     /** ARIA support. */
-    aria = true;
+    aria: true,
 
     /** Global debugging. */
-    debug = false;
+    debug: false,
 
     /** Localization messages. */
-    messages = {
+    messages: {
         loading: 'Loading...',
         error: 'An error has occurred!'
-    };
+    },
 
     /** Runtime flags. */
-    flags = flags;
-}
+    flags: flags
+};
 
-export default window.Toolkit = new Toolkit();
+export default Toolkit;

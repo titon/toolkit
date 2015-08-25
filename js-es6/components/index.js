@@ -4,8 +4,4 @@
  * @link        http://titon.io
  */
 
-import Component from 'Component';
-
-export default class RenderedComponent extends Component {
-
-}
+export Accordion from 'components/Accordion';

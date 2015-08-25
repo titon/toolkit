@@ -20,13 +20,18 @@ module.exports = function(command) {
     return new Promise(function(resolve) {
         log.title('build:js');
 
-        resolve(generateGraph('js', options));
+        if (options.modules.length) {
+            resolve(generateGraph('js', options));
+
+        // If no modules selected, pull in the index file
+        } else {
+            resolve(['index.js']);
+        }
     })
 
     // Bundle modules
     .then(function(paths) {
         log('Bundling modules...');
-        log('');
 
         var tree = {};
 
@@ -41,8 +46,6 @@ module.exports = function(command) {
                 log(module, 1);
             }
         });
-
-        log('');
 
         return Object.keys(tree);
     })
