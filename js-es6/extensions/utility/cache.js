@@ -4,10 +4,7 @@
  * @link        http://titon.io
  */
 
-import Storage from 'extensions/cache/Storage';
-
-// Use a shared cache
-const internalCache = new Storage();
+const internalCache = new Map();
 
 /**
  * Set data if the key does not exist, else return the current value.
@@ -19,6 +16,10 @@ const internalCache = new Storage();
  */
 export default function cache(key, value = null) {
     var currentValue = internalCache.get(key);
+
+    if (typeof currentValue === 'undefined') {
+        currentValue = null;
+    }
 
     if (currentValue !== null || value === null) {
         return currentValue;

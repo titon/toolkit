@@ -6,4 +6,5 @@
 
 export bem from 'extensions/utility/bem';
 export bound from 'extensions/utility/bound';
+export cache from 'extensions/utility/cache';
 export chain from 'extensions/utility/chain';
