@@ -43,13 +43,13 @@ describe('Module', () => {
         });
     });
 
-    describe('destroy()', () => {
+    describe('finalize()', () => {
         it('should disable the module', () => {
             obj.enabled = true;
 
             expect(obj.enabled).toBe(true);
 
-            obj.destroy();
+            obj.finalize();
 
             expect(obj.enabled).toBe(false);
         });
@@ -62,7 +62,7 @@ describe('Module', () => {
 
             expect(obj.mounted).toBe(true);
 
-            obj.destroy();
+            obj.finalize();
 
             expect(obj.mounted).toBe(false);
         });

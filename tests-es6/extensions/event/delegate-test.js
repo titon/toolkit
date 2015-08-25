@@ -1,8 +1,8 @@
 'use strict';
 
-import delegate from 'libs/event/delegate';
+import delegate from 'extensions/event/delegate';
 
-describe('libs/event/delegate', () => {
+describe('extensions/event/delegate', () => {
     describe('delegate()', () => {
         var count, element;
 

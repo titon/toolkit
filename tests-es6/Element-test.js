@@ -1,10 +1,10 @@
 'use strict';
 
 import Titon from 'Titon';
-import Element from 'libs/dom/Element';
+import Element from 'Element';
 import 'polyfills/requestAnimationFrame';
 
-describe('libs/dom/Element', () => {
+describe('Element', () => {
     let element, obj;
 
     beforeEach(() => {
@@ -124,7 +124,7 @@ describe('libs/dom/Element', () => {
         it('should throw an error if no element set', () => {
             let tempObj = new Element();
 
-            expect(() => tempObj.processQueue()).toThrow(new Error('No element in container. Cannot process queue.'));
+            expect(() => tempObj.processQueue()).toThrow(new Error('No element detected. Cannot process queue.'));
         });
 
         it('should add a class', () => {

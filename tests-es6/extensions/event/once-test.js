@@ -1,8 +1,8 @@
 'use strict';
 
-import once from 'libs/event/once';
+import once from 'extensions/event/once';
 
-describe('libs/event/once', () => {
+describe('extensions/event/once', () => {
     describe('once()', () => {
         let count, element;
 

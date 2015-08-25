@@ -1,8 +1,8 @@
 'use strict';
 
-import bound from 'libs/utility/bound';
+import bound from 'extensions/utility/bound';
 
-describe('libs/utility/bound', () => {
+describe('extensions/utility/bound', () => {
     describe('bound()', () => {
         it('should return the same number if between bounds', () => {
             expect(bound(10, 15, 5)).toBe(10);

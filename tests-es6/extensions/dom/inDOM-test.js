@@ -1,9 +1,9 @@
 'use strict';
 
-import Element from 'libs/dom/Element';
-import inDOM from 'libs/dom/inDOM';
+import Element from 'Element';
+import inDOM from 'extensions/dom/inDOM';
 
-describe('libs/dom/inDOM', () => {
+describe('extensions/dom/inDOM', () => {
     describe('inDOM()', () => {
         it('should return `true` if the element is found within the document', () => {
             let element = document.createElement('div');

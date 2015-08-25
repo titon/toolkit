@@ -1,9 +1,9 @@
 'use strict';
 
-import Element from 'libs/dom/Element';
-import findID from 'libs/dom/findID';
+import Element from 'Element';
+import findID from 'extensions/dom/findID';
 
-describe('libs/dom/findID', () => {
+describe('extensions/dom/findID', () => {
     describe('findID()', () => {
         it('should return a container for an element defined by an ID', () => {
             let element = createElement('div', { id: 'foo' });

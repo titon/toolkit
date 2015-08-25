@@ -1,8 +1,8 @@
 'use strict';
 
-import batch from 'libs/dom/batch';
+import batch from 'extensions/dom/batch';
 
-describe('libs/dom/batch', () => {
+describe('extensions/dom/batch', () => {
     describe('batch()', () => {
         let element;
 

@@ -1,10 +1,10 @@
 'use strict';
 
-import Collection from 'libs/dom/Collection';
-import Element from 'libs/dom/Element';
-import find from 'libs/dom/find';
+import Element from 'Element';
+import ElementCollection from 'ElementCollection';
+import find from 'extensions/dom/find';
 
-describe('libs/dom/Collection', () => {
+describe('ElementCollection', () => {
     let element, obj;
 
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe('libs/dom/Collection', () => {
 
     describe('constructor()', () => {
         it('should convert all elements to `Element` classes', () => {
-            let coll = new Collection();
+            let coll = new ElementCollection();
                 coll.length = 5;
                 coll.elements = [
                     new Element(element.childNodes[0]),
@@ -55,7 +55,7 @@ describe('libs/dom/Collection', () => {
     });
 
     describe('getCollectionMethods()', () => {
-        it('should apply `Element` methods to all items through the `Collection`', () => {
+        it('should apply `Element` methods to all items through the `ElementCollection`', () => {
             expect(obj.elements[0].queue.addClass).toBeUndefined();
             expect(obj.elements[2].queue.addClass).toBeUndefined();
             expect(obj.elements[4].queue.addClass).toBeUndefined();

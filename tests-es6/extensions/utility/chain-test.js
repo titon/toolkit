@@ -1,6 +1,6 @@
 'use strict';
 
-import chain from 'libs/utility/chain';
+import chain from 'extensions/utility/chain';
 
 class ChainStub {
     noReturn() {}
@@ -9,7 +9,7 @@ class ChainStub {
     }
 }
 
-describe('libs/utility/chain', () => {
+describe('extensions/utility/chain', () => {
     describe('chain()', () => {
         let obj;
 

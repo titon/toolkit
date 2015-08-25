@@ -1,9 +1,9 @@
 'use strict';
 
-import transitionEnd from 'libs/event/transitionEnd';
+import transitionEnd from 'extensions/event/transitionEnd';
 import 'polyfills/requestAnimationFrame';
 
-describe('libs/event/transitionEnd', () => {
+describe('extensions/event/transitionEnd', () => {
     describe('transitionEnd()', () => {
         let transitioned, element;
 

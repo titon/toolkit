@@ -1,8 +1,8 @@
 'use strict';
 
-import cache from 'libs/cache/cache';
+import cache from 'extensions/cache/cache';
 
-describe('libs/cache/cache', () => {
+describe('extensions/cache/cache', () => {
     describe('cache()', () => {
         it('should set a value if it doesn\'t exist', () => {
             expect(cache('foo')).toBeNull();

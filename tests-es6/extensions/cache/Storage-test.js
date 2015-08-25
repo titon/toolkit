@@ -1,8 +1,8 @@
 'use strict';
 
-import Storage from 'libs/cache/Storage';
+import Storage from 'extensions/cache/Storage';
 
-describe('libs/cache/Storage', () => {
+describe('extensions/cache/Storage', () => {
     let obj;
 
     beforeEach(() => {

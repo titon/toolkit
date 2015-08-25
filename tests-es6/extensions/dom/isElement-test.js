@@ -1,8 +1,8 @@
 'use strict';
 
-import isElement from 'libs/dom/isElement';
+import isElement from 'extensions/dom/isElement';
 
-describe('libs/dom/isElement', () => {
+describe('extensions/dom/isElement', () => {
     describe('isElement()', () => {
         it('should return `true` if a value is an element', () => {
             expect(isElement(document.createElement('div'))).toBe(true);

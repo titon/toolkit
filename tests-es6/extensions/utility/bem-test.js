@@ -1,9 +1,9 @@
 'use strict';
 
 import Titon from 'Titon';
-import bem from 'libs/utility/bem';
+import bem from 'extensions/utility/bem';
 
-describe('libs/utility/bem', () => {
+describe('extensions/utility/bem', () => {
     describe('bem()', () => {
         it('should generate a class name', () => {
             expect(bem('foo')).toBe('foo');
