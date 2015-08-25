@@ -5,9 +5,9 @@
  */
 
 @include export("label") {
-    $toolkit-temp-label-modifiers: map-get($toolkit-label, "modifiers");
+    $titon-temp-label-modifiers: map-get($titon-label, "modifiers");
 
-    #{map-get($toolkit-label, "class")} {
+    #{map-get($titon-label, "class")} {
         @extend %placeholder-inline-block;
         font-size: .7rem;
         line-height: 1;
@@ -43,14 +43,14 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-label-modifiers, "badge")) {
-        #{map-get($toolkit-label, "class-modifier-badge")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "badge")) {
+        #{map-get($titon-label, "class-modifier-badge")} {
             border-radius: 1rem;
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-label-modifiers, "arrow-left")) {
-        #{map-get($toolkit-label, "class-modifier-arrow-left")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "arrow-left")) {
+        #{map-get($titon-label, "class-modifier-arrow-left")} {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
             padding-left: 2px;
@@ -77,8 +77,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-label-modifiers, "arrow-right")) {
-        #{map-get($toolkit-label, "class-modifier-arrow-right")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "arrow-right")) {
+        #{map-get($titon-label, "class-modifier-arrow-right")} {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             padding-right: 2px;
@@ -105,8 +105,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-label-modifiers, "ribbon-left")) {
-        #{map-get($toolkit-label, "class-modifier-ribbon-left")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "ribbon-left")) {
+        #{map-get($titon-label, "class-modifier-ribbon-left")} {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
 
@@ -121,8 +121,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-label-modifiers, "ribbon-right")) {
-        #{map-get($toolkit-label, "class-modifier-ribbon-right")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-label-modifiers, "ribbon-right")) {
+        #{map-get($titon-label, "class-modifier-ribbon-right")} {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
 

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Element from 'libs/dom/Element';
+import Element from 'extensions/dom/Element';
 
 /**
  * Return an element by ID. This method will return a single element.

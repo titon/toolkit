@@ -8,9 +8,9 @@
 // http://tobiasahlin.com/spinkit/
 
 @include export("loader") {
-    $toolkit-temp-loader-modifiers: map-get($toolkit-loader, "modifiers");
+    $titon-temp-loader-modifiers: map-get($titon-loader, "modifiers");
 
-    #{map-get($toolkit-loader, "class")} {
+    #{map-get($titon-loader, "class")} {
         @extend %placeholder-inline-block;
         margin: 0 auto;
         text-align: center;
@@ -22,13 +22,13 @@
         }
     }
 
-    #{map-get($toolkit-loader, "class-message")} {
+    #{map-get($titon-loader, "class-message")} {
         margin-top: 1rem;
     }
 
     //-------------------- Bar Wave --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-loader-modifiers, "bar-wave")) {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bar-wave")) {
         @keyframes bar-wave {
             0%, 50%, 100% {
                 transform: scaleY(1.0);
@@ -38,20 +38,20 @@
             }
         }
 
-        #{map-get($toolkit-loader, "class-modifier-bar-wave")} {
+        #{map-get($titon-loader, "class-modifier-bar-wave")} {
             > span {
-                height: map-get($toolkit-loader, "bar-height");
-                width: map-get($toolkit-loader, "bar-width");
+                height: map-get($titon-loader, "bar-height");
+                width: map-get($titon-loader, "bar-width");
                 animation: bar-wave 1.2s infinite ease-in-out;
 
-                @for $i from 2 through map-get($toolkit-loader, "wave-count") {
+                @for $i from 2 through map-get($titon-loader, "wave-count") {
                     &:nth-child(#{$i}) {
                         animation-delay: -#{(1.3 - ($i * 0.1))}s;
                     }
                 }
             }
 
-            #{map-get($toolkit-loader, "class-message")} {
+            #{map-get($titon-loader, "class-message")} {
                 margin-top: 1.5rem;
             }
         }
@@ -59,7 +59,7 @@
 
     //-------------------- Bubble Wave --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-loader-modifiers, "bubble-wave")) {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bubble-wave")) {
         @keyframes bubble-wave {
             0%, 80%, 100% {
                 transform: scale(0.0);
@@ -69,15 +69,15 @@
             }
         }
 
-        #{map-get($toolkit-loader, "class-modifier-bubble-wave")} {
+        #{map-get($titon-loader, "class-modifier-bubble-wave")} {
             > span {
-                width: map-get($toolkit-loader, "bubble-size");
-                height: map-get($toolkit-loader, "bubble-size");
+                width: map-get($titon-loader, "bubble-size");
+                height: map-get($titon-loader, "bubble-size");
                 border-radius: 100%;
                 animation: bubble-wave 1.5s infinite ease-in-out;
                 animation-fill-mode: both;
 
-                @for $i from 2 through map-get($toolkit-loader, "wave-count") {
+                @for $i from 2 through map-get($titon-loader, "wave-count") {
                     &:nth-child(#{$i}) {
                         animation-delay: -#{(1.6 - ($i * 0.1))}s;
                     }
@@ -88,7 +88,7 @@
 
     //-------------------- Bubble Spinner --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-loader-modifiers, "bubble-spinner")) {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-loader-modifiers, "bubble-spinner")) {
         @keyframes bubble-spinner {
             0%, 80%, 100% {
                 transform: scale(0.0);
@@ -98,8 +98,8 @@
             }
         }
 
-        #{map-get($toolkit-loader, "class-modifier-bubble-spinner")} {
-            #{map-get($toolkit-loader, "class-spinner")} {
+        #{map-get($titon-loader, "class-modifier-bubble-spinner")} {
+            #{map-get($titon-loader, "class-spinner")} {
                 width: 100px;
                 height: 100px;
                 position: relative;

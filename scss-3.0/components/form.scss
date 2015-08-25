@@ -5,7 +5,7 @@
  */
 
 @include export("form") {
-    $toolkit-temp-form-modifiers: map-get($toolkit-form, "modifiers");
+    $titon-temp-form-modifiers: map-get($titon-form, "modifiers");
 
     fieldset {
         padding: (theme-setting("medium-padding") * 2) 0 theme-setting("medium-padding") 0;
@@ -41,45 +41,45 @@
 
     //-------------------- Fields, Labels --------------------//
 
-    #{map-get($toolkit-form, "class-fields")} {
+    #{map-get($titon-form, "class-fields")} {
         @extend %placeholder-list;
     }
 
-    #{map-get($toolkit-form, "class-field")},
-    #{map-get($toolkit-form, "class-fields")} > li {
+    #{map-get($titon-form, "class-field")},
+    #{map-get($titon-form, "class-fields")} > li {
         margin-bottom: theme-setting("margin");
     }
 
-    #{map-get($toolkit-form, "class-field-label")} {
+    #{map-get($titon-form, "class-field-label")} {
         display: block;
         vertical-align: middle;
         margin-bottom: .5em;
     }
 
-    #{map-get($toolkit-form, "class-field-help")} {
+    #{map-get($titon-form, "class-field-help")} {
         margin-top: .5em;
         font-size: theme-setting("small-font-size");
     }
 
-    #{map-get($toolkit-form, "class-actions")} {
+    #{map-get($titon-form, "class-actions")} {
         text-align: center;
     }
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-form-modifiers, "horizontal")) {
-        #{map-get($toolkit-form, "class-modifier-horizontal")} {
-            #{map-get($toolkit-form, "class-field")},
-            #{map-get($toolkit-form, "class-fields")} > li {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-form-modifiers, "horizontal")) {
+        #{map-get($titon-form, "class-modifier-horizontal")} {
+            #{map-get($titon-form, "class-field")},
+            #{map-get($titon-form, "class-fields")} > li {
                 display: flex;
             }
 
-            #{map-get($toolkit-form, "class-field-label")} {
+            #{map-get($titon-form, "class-field-label")} {
                 text-align: bidi-opposite-alignment();
                 padding-top: theme-setting("medium-padding");
             }
 
-            #{map-get($toolkit-form, "class-field-column")} {
+            #{map-get($titon-form, "class-field-column")} {
                 padding-#{bidi-alignment()}: theme-setting("margin");
                 text-align: bidi-alignment();
                 flex-grow: 1;
@@ -87,14 +87,14 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-form-modifiers, "inline")) {
-        #{map-get($toolkit-form, "class-modifier-inline")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-form-modifiers, "inline")) {
+        #{map-get($titon-form, "class-modifier-inline")} {
             margin-bottom: -(theme-setting("margin") / 2);
 
-            #{map-get($toolkit-form, "class-field")},
-            #{map-get($toolkit-form, "class-fields")} > li,
-            #{map-get($toolkit-form, "class-field-label")},
-            #{map-get($toolkit-form, "class-actions")},
+            #{map-get($titon-form, "class-field")},
+            #{map-get($titon-form, "class-fields")} > li,
+            #{map-get($titon-form, "class-field-label")},
+            #{map-get($titon-form, "class-actions")},
             fieldset {
                 display: inline-block;
                 vertical-align: middle;
@@ -109,13 +109,13 @@
                 padding: 0;
             }
 
-            #{map-get($toolkit-form, "class-field-label")} {
+            #{map-get($titon-form, "class-field-label")} {
                 margin: 0;
                 margin-#{bidi-opposite-alignment()}: (theme-setting("margin") / 2);
             }
 
             legend,
-            #{map-get($toolkit-form, "class-field-help")} {
+            #{map-get($titon-form, "class-field-help")} {
                 display: none;
             }
         }

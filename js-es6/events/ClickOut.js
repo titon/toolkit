@@ -5,7 +5,7 @@
  */
 
 import Event from 'events/Event';
-import { isTouch } from 'libs/flags';
+import { isTouch } from 'extensions/flags';
 
 export default class ClickOut extends Event {
 

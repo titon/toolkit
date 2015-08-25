@@ -4,5 +4,6 @@
  * @link        http://titon.io
  */
 
-export cache from 'libs/cache/cache';
-export Storage from 'libs/cache/Storage';
+export bem from 'extensions/utility/bem';
+export bound from 'extensions/utility/bound';
+export chain from 'extensions/utility/chain';

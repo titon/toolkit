@@ -5,13 +5,13 @@
  */
 
 @include export("input-group") {
-    #{map-get($toolkit-input-group, "class-addon")} {
+    #{map-get($titon-input-group, "class-addon")} {
         @extend %placeholder-inline-block;
         @include size-medium;
         background: theme-setting("bg-light");
     }
 
-    #{map-get($toolkit-input-group, "class")} {
+    #{map-get($titon-input-group, "class")} {
         display: inline-flex;
         vertical-align: middle;
 
@@ -29,21 +29,21 @@
         //----- Sizes -----//
 
         @include is-size-small(true, false) {
-            #{map-get($toolkit-input-group, "class-addon")} {
+            #{map-get($titon-input-group, "class-addon")} {
                 @include size-small;
             }
         }
 
         @include is-size-large(true, false) {
-            #{map-get($toolkit-input-group, "class-addon")} {
+            #{map-get($titon-input-group, "class-addon")} {
                 @include size-large;
             }
         }
 
         //----- Effects -----//
 
-        @if (is-feature-enabled("all-effects") or index(map-get($toolkit-input-group, "effects"), "round")) {
-            &#{map-get($toolkit-global, "class-round")} {
+        @if (is-feature-enabled("all-effects") or index(map-get($titon-input-group, "effects"), "round")) {
+            &#{map-get($titon-global, "class-round")} {
                 > *:first-child {
                     border-top-#{bidi-alignment()}-radius: theme-setting("round-radius");
                     border-bottom-#{bidi-alignment()}-radius: theme-setting("round-radius");

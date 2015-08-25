@@ -5,31 +5,31 @@
  */
 
 /**
- * Return the value of a setting from the primary `$toolkit` map.
+ * Return the value of a setting from the primary `$titon` map.
  *
  * @param string $key
  */
 @function setting($key) {
-    @return map-get($toolkit, $key);
+    @return map-get($titon, $key);
 }
 
 /**
- * Return the value of a theme setting from the `$toolkit-settings-theme` map.
+ * Return the value of a theme setting from the `$titon-settings-theme` map.
  *
  * @param string $key
  */
 @function theme-setting($key) {
-    @return map-get($toolkit-settings-theme, $key);
+    @return map-get($titon-settings-theme, $key);
 }
 
 /**
- * Return the range of a breakpoint setting from the `$toolkit-settings-breakpoints` map.
+ * Return the range of a breakpoint setting from the `$titon-settings-breakpoints` map.
  * If the second argument is defined, the index in the range will be returned.
  *
  * @param string $key
  */
 @function breakpoint-setting($key, $index: null) {
-    $breakpoint: map-get($toolkit-settings-breakpoints, $key);
+    $breakpoint: map-get($titon-settings-breakpoints, $key);
 
     @if $index {
         @return nth($breakpoint, $index);
@@ -44,7 +44,7 @@
  * @param string $feature
  */
 @function is-feature-enabled($feature) {
-    @return (map-get($toolkit-settings-flags, $feature) == true);
+    @return (map-get($titon-settings-flags, $feature) == true);
 }
 
 /**

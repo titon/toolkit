@@ -5,10 +5,10 @@
  */
 
 @include export("button") {
-    $toolkit-temp-button-effects: map-get($toolkit-button, "effects");
-    $toolkit-temp-button-modifiers: map-get($toolkit-button, "modifiers");
+    $titon-temp-button-effects: map-get($titon-button, "effects");
+    $titon-temp-button-modifiers: map-get($titon-button, "modifiers");
 
-    #{map-get($toolkit-button, "class")} {
+    #{map-get($titon-button, "class")} {
         @extend %placeholder-inline-block;
         border: 0;
         margin: 0;
@@ -28,26 +28,26 @@
 
         //----- Effects -----//
 
-        @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "round")) {
-            &#{map-get($toolkit-global, "class-round")} {
+        @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "round")) {
+            &#{map-get($titon-global, "class-round")} {
                 border-radius: theme-setting("round-radius");
             }
         }
 
-        @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "oval")) {
-            &#{map-get($toolkit-global, "class-oval")} {
+        @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "oval")) {
+            &#{map-get($titon-global, "class-oval")} {
                 border-radius: theme-setting("oval-radius");
             }
         }
 
-        @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "pill")) {
-            &#{map-get($toolkit-global, "class-pill")} {
+        @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "pill")) {
+            &#{map-get($titon-global, "class-pill")} {
                 border-radius: theme-setting("pill-radius");
             }
         }
 
-        @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "skew")) {
-            &#{map-get($toolkit-global, "class-skew")} {
+        @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "skew")) {
+            &#{map-get($titon-global, "class-skew")} {
                 border-radius: #{theme-setting("skew-radius")} 0 0 / #{theme-setting("skew-reverse-radius")} 0 0;
             }
         }
@@ -55,8 +55,8 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-button-modifiers, "gloss")) {
-        #{map-get($toolkit-button, "class-modifier-gloss")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-modifiers, "gloss")) {
+        #{map-get($titon-button, "class-modifier-gloss")} {
             &::after {
                 content: "";
                 position: absolute;
@@ -70,32 +70,32 @@
 
             //----- Effects -----//
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "round")) {
-                &#{map-get($toolkit-global, "class-round")}::after {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "round")) {
+                &#{map-get($titon-global, "class-round")}::after {
                     border-radius: .2rem .2rem 2rem 2rem / .5rem .5rem 1rem 1rem;
                     width: 98%;
                     left: 1.5%;
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "oval")) {
-                &#{map-get($toolkit-global, "class-oval")}::after {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "oval")) {
+                &#{map-get($titon-global, "class-oval")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 5rem 5rem 4rem 4rem / 1.5rem 1.5rem 1.5rem 1.5rem;
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "pill")) {
-                &#{map-get($toolkit-global, "class-pill")}::after {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "pill")) {
+                &#{map-get($titon-global, "class-pill")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 1rem 1rem 2rem 2rem / 1rem 1rem 1rem 1rem;
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-button-effects, "skew")) {
-                &#{map-get($toolkit-global, "class-skew")}::after {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-button-effects, "skew")) {
+                &#{map-get($titon-global, "class-skew")}::after {
                     width: 90%;
                     left: 5.5%;
                     border-radius: 1rem 1rem 3rem 3rem / 1rem 1rem 2rem 2rem;
@@ -104,8 +104,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-button-modifiers, "reflect")) {
-        #{map-get($toolkit-button, "class-modifier-reflect")}::after {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-modifiers, "reflect")) {
+        #{map-get($titon-button, "class-modifier-reflect")}::after {
             content: "";
             position: absolute;
             width: 100%;
@@ -116,8 +116,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-button-modifiers, "glare")) {
-        #{map-get($toolkit-button, "class-modifier-glare")}::after {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-modifiers, "glare")) {
+        #{map-get($titon-button, "class-modifier-glare")}::after {
             content: "";
             position: absolute;
             width: 100%;
@@ -128,8 +128,8 @@
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-button-modifiers, "popout")) {
-        #{map-get($toolkit-button, "class-modifier-popout")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-modifiers, "popout")) {
+        #{map-get($titon-button, "class-modifier-popout")} {
             box-shadow: 0 6px 0 0 black(.25) !important;
             top: -3px;
 

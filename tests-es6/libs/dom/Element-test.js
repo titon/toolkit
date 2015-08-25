@@ -1,6 +1,6 @@
 'use strict';
 
-//import Collection from 'libs/dom/Collection';
+import Titon from 'Titon';
 import Element from 'libs/dom/Element';
 import 'polyfills/requestAnimationFrame';
 
@@ -412,14 +412,14 @@ describe('libs/dom/Element', () => {
             expect(obj.queue.attributes['aria-expanded']).toBe('true');
         });
 
-        it('should not set if `Toolkit.aria` is `false`', () => {
-            Toolkit.aria = false;
+        it('should not set if `Titon.aria` is `false`', () => {
+            Titon.aria = false;
 
             obj.setAria('live', 'off');
 
             expect(obj.queue.attributes['aria-live']).not.toBeDefined();
 
-            Toolkit.aria = true;
+            Titon.aria = true;
 
             obj.setAria('live', 'off');
 

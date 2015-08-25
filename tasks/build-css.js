@@ -30,14 +30,14 @@ module.exports = function(command) {
         if (options.namespace) {
             log('Prepending namespace...');
 
-            data.push('$toolkit: map-merge($toolkit, ("namespace": "' + options.namespace + '"));');
+            data.push('$titon: map-merge($titon, ("namespace": "' + options.namespace + '"));');
         }
 
         // Enable RTL mode
         if (options.rtl) {
             log('Enabling RTL mode...');
 
-            data.push('$toolkit: map-merge($toolkit, ("text-direction": rtl));');
+            data.push('$titon: map-merge($titon, ("text-direction": rtl));');
         }
 
         // Import selected modules
@@ -101,7 +101,7 @@ module.exports = function(command) {
     .then(prependBanner(options))
 
     // Save the unminified file
-    .then(writeTo('toolkit.css', options))
+    .then(writeTo('titon.css', options))
 
     // Minify the CSS
     .then(function(css) {
@@ -115,7 +115,7 @@ module.exports = function(command) {
     })
 
     // Save the minified file
-    .then(writeTo('toolkit.min.css', options))
+    .then(writeTo('titon.min.css', options))
 
     // Finish task
     .then(function(css) {

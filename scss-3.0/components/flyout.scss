@@ -5,19 +5,19 @@
  */
 
 @include export("flyout") {
-    #{map-get($toolkit-flyout, "class")} {
+    #{map-get($titon-flyout, "class")} {
         @extend %placeholder-position-absolute;
-        z-index: map-get($toolkit-settings-zindex, "flyout");
+        z-index: map-get($titon-settings-zindex, "flyout");
         opacity: 0;
         visibility: hidden;
-        transition: all map-get($toolkit-flyout, "transition");
+        transition: all map-get($titon-flyout, "transition");
         display: flex;
         flex-wrap: nowrap;
         background: #fff;
         line-height: 1;
 
         // Nested flyouts
-        #{map-get($toolkit-flyout, "class")} {
+        #{map-get($titon-flyout, "class")} {
             top: 0;
             #{bidi-alignment()}: 90%;
 
@@ -57,7 +57,7 @@
             }
 
             // Display sub-menu
-            &.is-open > #{map-get($toolkit-flyout, "class")} {
+            &.is-open > #{map-get($titon-flyout, "class")} {
                 opacity: 1;
                 visibility: visible;
                 #{bidi-alignment()}: 100%;
@@ -70,7 +70,7 @@
         }
     }
 
-    #{map-get($toolkit-flyout, "class-heading")} {
+    #{map-get($titon-flyout, "class-heading")} {
         padding: theme-setting("medium-padding");
         display: block;
     }

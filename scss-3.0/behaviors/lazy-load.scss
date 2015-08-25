@@ -5,8 +5,8 @@
  */
 
 @include export("lazy-load") {
-    #{map-get($toolkit-lazy-load, "class")} {
+    #{map-get($titon-lazy-load, "class")} {
         background-image: none !important;
-        transition: background map-get($toolkit-lazy-load, "transition");
+        transition: background map-get($titon-lazy-load, "transition");
     }
 }

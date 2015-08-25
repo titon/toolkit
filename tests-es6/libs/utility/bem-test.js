@@ -1,6 +1,6 @@
 'use strict';
 
-import Toolkit from 'Toolkit';
+import Titon from 'Titon';
 import bem from 'libs/utility/bem';
 
 describe('libs/utility/bem', () => {
@@ -24,11 +24,11 @@ describe('libs/utility/bem', () => {
         });
 
         it('should prepend the `namespace`', () => {
-            Toolkit.namespace = 'tk-';
+            Titon.namespace = 'tk-';
 
             expect(bem('foo', 'bar')).toBe('tk-foo-bar');
 
-            Toolkit.namespace = '';
+            Titon.namespace = '';
         });
     });
 });

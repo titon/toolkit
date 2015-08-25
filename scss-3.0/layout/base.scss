@@ -235,9 +235,9 @@
 
     //------------------------------ Span Sizes ------------------------------//
 
-    @for $i from 1 through map-get($toolkit-global, "span-count") {
+    @for $i from 1 through map-get($titon-global, "span-count") {
         .span-#{$i} {
-            width: span-width($i, map-get($toolkit-global, "span-count"), 100%, false);
+            width: span-width($i, map-get($titon-global, "span-count"), 100%, false);
         }
     }
 

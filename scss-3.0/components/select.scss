@@ -5,7 +5,7 @@
  */
 
 @include export("select") {
-    #{map-get($toolkit-select, "class-toggle")} {
+    #{map-get($titon-select, "class-toggle")} {
         @extend %placeholder-inline-block;
         cursor: pointer;
         background: theme-setting("bg-light");
@@ -17,17 +17,17 @@
         @include size-medium;
     }
 
-    #{map-get($toolkit-select, "class-label")} {
+    #{map-get($titon-select, "class-label")} {
         flex-grow: 1;
     }
 
-    #{map-get($toolkit-select, "class-arrow")} {
+    #{map-get($titon-select, "class-arrow")} {
         .caret-down {
             border-top-color: #000;
         }
     }
 
-    #{map-get($toolkit-select, "class-options")} {
+    #{map-get($titon-select, "class-options")} {
         max-height: 25rem;
         overflow: auto;
         z-index: 5;
@@ -49,14 +49,14 @@
         }
 
         &.hide-first {
-            li:first-child:not(#{map-get($toolkit-drop, "class-heading")}) {
+            li:first-child:not(#{map-get($titon-drop, "class-heading")}) {
                 display: none !important;
             }
         }
     }
 
     // Position the real select over the custom one
-    #{map-get($toolkit-select, "class")} {
+    #{map-get($titon-select, "class")} {
         @extend %placeholder-inline-block;
 
         select {

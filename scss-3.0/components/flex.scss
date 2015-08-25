@@ -5,12 +5,12 @@
  */
 
 @include export("flex") {
-    $toolkit-temp-flex-modifiers: map-get($toolkit-flex, "modifiers");
-    $toolkit-temp-flex-width: map-get($toolkit-flex, "width");
-    $toolkit-temp-flex-grid-gutter: map-get($toolkit-flex, "grid-gutter");
+    $titon-temp-flex-modifiers: map-get($titon-flex, "modifiers");
+    $titon-temp-flex-width: map-get($titon-flex, "width");
+    $titon-temp-flex-grid-gutter: map-get($titon-flex, "grid-gutter");
 
-    #{map-get($toolkit-flex, "class-region")} {
-        @include flex-region($toolkit-temp-flex-width);
+    #{map-get($titon-flex, "class-region")} {
+        @include flex-region($titon-temp-flex-width);
 
         // Alignment
         &.flow-top,
@@ -27,7 +27,7 @@
         }
     }
 
-    #{map-get($toolkit-flex, "class-block")} {
+    #{map-get($titon-flex, "class-block")} {
         @include flex-block;
         @include flex-block-order;
 
@@ -48,25 +48,25 @@
     }
 
     // Global ordering
-    @for $i from 1 through map-get($toolkit-flex, "order-count") {
+    @for $i from 1 through map-get($titon-flex, "order-count") {
         .order-#{$i} {
             @include flex-block-order($i);
         }
     }
 
     // Responsive sizes
-    @each $size, $options in map-get($toolkit-flex, "sizes") {
+    @each $size, $options in map-get($titon-flex, "sizes") {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {
             @for $i from 1 through $size-columns {
-                #{map-get($toolkit-flex, "class-block")}.#{$size}-#{$i} {
-                    flex-basis: flex-span($i, $size-columns, $toolkit-temp-flex-width, map-get($toolkit-flex, "gutter"));
+                #{map-get($titon-flex, "class-block")}.#{$size}-#{$i} {
+                    flex-basis: flex-span($i, $size-columns, $titon-temp-flex-width, map-get($titon-flex, "gutter"));
                 }
             }
 
             // Responsive ordering
-            @for $i from 1 through map-get($toolkit-flex, "order-count") {
+            @for $i from 1 through map-get($titon-flex, "order-count") {
                 .#{$size}-order-#{$i} {
                     @include flex-block-order($i);
                 }
@@ -77,41 +77,41 @@
     //-------------------- Modifiers --------------------//
 
     // Generate a grid of blocks with equal spacing between
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-flex-modifiers, "grid")) {
-        #{map-get($toolkit-flex, "class-modifier-grid")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "grid")) {
+        #{map-get($titon-flex, "class-modifier-grid")} {
             flex-flow: row wrap;
             justify-content: flex-start;
             align-content: flex-start;
             max-width: none;
 
-            @if $toolkit-temp-flex-grid-gutter {
-                margin-top: -$toolkit-temp-flex-grid-gutter;
-                margin-left: -$toolkit-temp-flex-grid-gutter;
+            @if $titon-temp-flex-grid-gutter {
+                margin-top: -$titon-temp-flex-grid-gutter;
+                margin-left: -$titon-temp-flex-grid-gutter;
 
-                > #{map-get($toolkit-flex, "class-block")} {
-                    margin-top: $toolkit-temp-flex-grid-gutter;
-                    margin-left: $toolkit-temp-flex-grid-gutter;
+                > #{map-get($titon-flex, "class-block")} {
+                    margin-top: $titon-temp-flex-grid-gutter;
+                    margin-left: $titon-temp-flex-grid-gutter;
                 }
             }
         }
     }
 
     // Display blocks vertically or horizontally regardless of orientation
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-flex-modifiers, "horizontal")) {
-        #{map-get($toolkit-flex, "class-modifier-horizontal")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "horizontal")) {
+        #{map-get($titon-flex, "class-modifier-horizontal")} {
             @include flex-region-orientation(horizontal);
         }
     }
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-flex-modifiers, "vertical")) {
-        #{map-get($toolkit-flex, "class-modifier-vertical")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "vertical")) {
+        #{map-get($titon-flex, "class-modifier-vertical")} {
             @include flex-region-orientation(vertical);
         }
     }
 
     // Wrap blocks onto the next line instead of trying to squish into 1 line
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-flex-modifiers, "wrap")) {
-        #{map-get($toolkit-flex, "class-modifier-wrap")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-flex-modifiers, "wrap")) {
+        #{map-get($titon-flex, "class-modifier-wrap")} {
             @include flex-region-wrap;
         }
     }

@@ -5,82 +5,82 @@
  */
 
 @include export("tooltip") {
-    $toolkit-temp-tooltip-arrow-width: map-get($toolkit-tooltip, "arrow-width");
-    $toolkit-temp-tooltip-arrow-width-double: ($toolkit-temp-tooltip-arrow-width * 2);
-    $toolkit-temp-tooltip-animations: map-get($toolkit-tooltip, "animations");
+    $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
+    $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
+    $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
 
-    #{map-get($toolkit-tooltip, "class")},
-    #{map-get($toolkit-popover, "class")} {
+    #{map-get($titon-tooltip, "class")},
+    #{map-get($titon-popover, "class")} {
         @extend %placeholder-position-absolute;
         border: 0;
-        z-index: map-get($toolkit-settings-zindex, "tooltip");
+        z-index: map-get($titon-settings-zindex, "tooltip");
         max-width: 15rem;
         visibility: hidden;
-        transition: all map-get($toolkit-tooltip, "transition");
+        transition: all map-get($titon-tooltip, "transition");
         background: #fff;
         padding: theme-setting("small-padding");
     }
 
-    #{map-get($toolkit-tooltip, "class-arrow")},
-    #{map-get($toolkit-popover, "class-arrow")} {
+    #{map-get($titon-tooltip, "class-arrow")},
+    #{map-get($titon-popover, "class-arrow")} {
         width: 0;
         height: 0;
-        border: #{$toolkit-temp-tooltip-arrow-width}px solid transparent;
+        border: #{$titon-temp-tooltip-arrow-width}px solid transparent;
         position: absolute;
 
         &::after {
             content: "";
-            border: #{($toolkit-temp-tooltip-arrow-width - 2)}px solid transparent;
+            border: #{($titon-temp-tooltip-arrow-width - 2)}px solid transparent;
             position: absolute;
         }
     }
 
     //-------------------- Positions --------------------//
 
-    #{map-get($toolkit-tooltip, "class")} {
-        &.center-left #{map-get($toolkit-tooltip, "class-arrow")},
-        &.center-right #{map-get($toolkit-tooltip, "class-arrow")} {
+    #{map-get($titon-tooltip, "class")} {
+        &.center-left #{map-get($titon-tooltip, "class-arrow")},
+        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
             top: 50%;
-            margin-top: -#{$toolkit-temp-tooltip-arrow-width}px;
+            margin-top: -#{$titon-temp-tooltip-arrow-width}px;
         }
 
-        &.center-left #{map-get($toolkit-tooltip, "class-arrow")} {
+        &.center-left #{map-get($titon-tooltip, "class-arrow")} {
             border-left-color: #fff;
-            right: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+            right: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
-        &.center-right #{map-get($toolkit-tooltip, "class-arrow")} {
+        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
             border-right-color: #fff;
-            left: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+            left: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
-        &.top-center #{map-get($toolkit-tooltip, "class-arrow")},
-        &.bottom-center #{map-get($toolkit-tooltip, "class-arrow")} {
+        &.top-center #{map-get($titon-tooltip, "class-arrow")},
+        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
             left: 50%;
-            margin-left: -#{$toolkit-temp-tooltip-arrow-width}px;
+            margin-left: -#{$titon-temp-tooltip-arrow-width}px;
         }
 
-        &.top-center #{map-get($toolkit-tooltip, "class-arrow")} {
+        &.top-center #{map-get($titon-tooltip, "class-arrow")} {
             border-top-color: #fff;
-            bottom: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+            bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
 
-        &.bottom-center #{map-get($toolkit-tooltip, "class-arrow")} {
+        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
             border-bottom-color: #fff;
-            top: -#{$toolkit-temp-tooltip-arrow-width-double}px;
+            top: -#{$titon-temp-tooltip-arrow-width-double}px;
         }
     }
 
     //-------------------- Animations --------------------//
 
-    #{map-get($toolkit-tooltip, "class")} {
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "fade")) {
+    #{map-get($titon-tooltip, "class")} {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "fade")) {
             &.fade {
                 opacity: 0;
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "from-above")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-above")) {
             &.from-above {
                 transform: scale(1.2);
 
@@ -90,7 +90,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "from-below")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-below")) {
             &.from-below {
                 transform: scale(0.8);
 
@@ -100,7 +100,7 @@
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-tooltip-animations, "flip-rotate")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "flip-rotate")) {
             &.flip-rotate {
                 transform: rotate(-15deg);
 

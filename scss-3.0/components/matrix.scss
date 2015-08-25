@@ -5,7 +5,7 @@
  */
 
 @include export("matrix") {
-    #{map-get($toolkit-matrix, "class")} {
+    #{map-get($titon-matrix, "class")} {
         @extend %placeholder-list;
         @extend %placeholder-clear-fix;
         position: relative;
@@ -14,7 +14,7 @@
             float: bidi-alignment();
             margin: 0;
             padding: 0;
-            transition: all map-get($toolkit-matrix, "transition");
+            transition: all map-get($titon-matrix, "transition");
         }
 
         &.no-columns > li {

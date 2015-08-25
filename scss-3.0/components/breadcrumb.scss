@@ -5,7 +5,7 @@
  */
 
 @include export("breadcrumb") {
-    #{map-get($toolkit-breadcrumb, "class")} {
+    #{map-get($titon-breadcrumb, "class")} {
         ul, ol {
             @extend %placeholder-list;
             display: inline-flex;

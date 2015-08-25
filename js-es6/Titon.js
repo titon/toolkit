@@ -4,9 +4,9 @@
  * @link        http://titon.io
  */
 
-import flags from 'libs/flags';
+import flags from 'extensions/flags';
 
-let Toolkit = window.Toolkit = {
+let Titon = window.Titon = {
 
     /** Current version. */
     version: '%version%',
@@ -33,4 +33,4 @@ let Toolkit = window.Toolkit = {
     flags: flags
 };
 
-export default Toolkit;
+export default Titon;

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Collection from 'libs/dom/Collection';
+import Collection from 'extensions/dom/Collection';
 
 const slice = Array.prototype.slice;
 

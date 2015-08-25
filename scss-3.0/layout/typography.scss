@@ -5,12 +5,12 @@
  */
 
 @include export("typography") {
-    h1 { font-size: map-get($toolkit-typography, "h1-font-size"); }
-    h2 { font-size: map-get($toolkit-typography, "h2-font-size"); }
-    h3 { font-size: map-get($toolkit-typography, "h3-font-size"); }
-    h4 { font-size: map-get($toolkit-typography, "h4-font-size"); }
-    h5 { font-size: map-get($toolkit-typography, "h5-font-size"); }
-    h6 { font-size: map-get($toolkit-typography, "h6-font-size"); }
+    h1 { font-size: map-get($titon-typography, "h1-font-size"); }
+    h2 { font-size: map-get($titon-typography, "h2-font-size"); }
+    h3 { font-size: map-get($titon-typography, "h3-font-size"); }
+    h4 { font-size: map-get($titon-typography, "h4-font-size"); }
+    h5 { font-size: map-get($titon-typography, "h5-font-size"); }
+    h6 { font-size: map-get($titon-typography, "h6-font-size"); }
 
     h1, h2, h3, h4, h5, h6 {
         margin: 0;

@@ -5,7 +5,7 @@
  */
 
 @include export("notice") {
-    #{map-get($toolkit-notice, "class")} {
+    #{map-get($titon-notice, "class")} {
         margin: theme-setting("margin") 0;
         padding: theme-setting("medium-padding");
 
@@ -19,7 +19,7 @@
         }
     }
 
-    #{map-get($toolkit-notice, "class-close")} {
+    #{map-get($titon-notice, "class-close")} {
         float: bidi-opposite-alignment();
         margin-#{bidi-alignment()}: theme-setting("margin");
         line-height: 1;
@@ -32,7 +32,7 @@
         }
     }
 
-    #{map-get($toolkit-notice, "class-title")} {
+    #{map-get($titon-notice, "class-title")} {
         margin: 0 0 (theme-setting("margin") / 2) 0;
     }
 }

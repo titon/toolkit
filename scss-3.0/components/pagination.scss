@@ -5,10 +5,10 @@
  */
 
 @include export("pagination") {
-    $toolkit-temp-pagination-effects: map-get($toolkit-pagination, "effects");
-    $toolkit-temp-pagination-modifiers: map-get($toolkit-pagination, "modifiers");
+    $titon-temp-pagination-effects: map-get($titon-pagination, "effects");
+    $titon-temp-pagination-modifiers: map-get($titon-pagination, "modifiers");
 
-    #{map-get($toolkit-pagination, "class")} {
+    #{map-get($titon-pagination, "class")} {
         ol {
             @extend %placeholder-list;
             display: inline-flex;
@@ -26,8 +26,8 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($toolkit-temp-pagination-modifiers, "grouped")) {
-        #{map-get($toolkit-pagination, "class-modifier-grouped")} {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-pagination-modifiers, "grouped")) {
+        #{map-get($titon-pagination, "class-modifier-grouped")} {
             ol {
                 > li {
                     flex-grow: 1;
@@ -48,8 +48,8 @@
 
             //----- Effects -----//
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-pagination-effects, "round")) {
-                &#{map-get($toolkit-global, "class-round")} ol {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-pagination-effects, "round")) {
+                &#{map-get($titon-global, "class-round")} ol {
                     border-radius: theme-setting("round-radius");
 
                     > li:first-child > a {
@@ -64,8 +64,8 @@
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-pagination-effects, "oval")) {
-                &#{map-get($toolkit-global, "class-oval")} ol {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-pagination-effects, "oval")) {
+                &#{map-get($titon-global, "class-oval")} ol {
                     border-radius: theme-setting("oval-radius");
 
                     @if (setting("text-direction") == rtl) {
@@ -89,8 +89,8 @@
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-pagination-effects, "pill")) {
-                &#{map-get($toolkit-global, "class-pill")} ol {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-pagination-effects, "pill")) {
+                &#{map-get($titon-global, "class-pill")} ol {
                     border-radius: theme-setting("pill-radius");
 
                     > li:first-child a {
@@ -105,8 +105,8 @@
                 }
             }
 
-            @if (is-feature-enabled("all-effects") or index($toolkit-temp-pagination-effects, "skew")) {
-                &#{map-get($toolkit-global, "class-skew")} ol {
+            @if (is-feature-enabled("all-effects") or index($titon-temp-pagination-effects, "skew")) {
+                &#{map-get($titon-global, "class-skew")} ol {
                     border-radius: #{theme-setting("skew-x-radius") theme-setting("skew-x-radius")} 0 0 / #{theme-setting("skew-y-radius") theme-setting("skew-y-radius")} 0 0;
 
                     @if (setting("text-direction") == rtl) {

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
+import Titon from 'Titon';
 import Module from 'Module';
 
 import Component from 'Component';
@@ -19,39 +19,39 @@ import ClickOut from 'events/ClickOut';
 import HorizontalResize from 'events/HorizontalResize';
 import VerticalResize from 'events/VerticalResize';
 
-import Collection from 'libs/dom/Collection';
-import Element from 'libs/dom/Element';
-import once from 'libs/event/once';
-import swipe from 'libs/event/swipe';
-import delegate from 'libs/event/delegate';
-import clickOut from 'libs/event/clickOut';
-import transitionEnd from 'libs/event/transitionEnd';
-import bem from 'libs/utility/bem';
+import Collection from 'extensions/dom/Collection';
+import Element from 'extensions/dom/Element';
+import once from 'extensions/event/once';
+import swipe from 'extensions/event/swipe';
+import delegate from 'extensions/event/delegate';
+import clickOut from 'extensions/event/clickOut';
+import transitionEnd from 'extensions/event/transitionEnd';
+import bem from 'extensions/utility/bem';
 
-Toolkit.Module = Module;
+Titon.Module = Module;
 
 // Behaviors
 
 // Components
-Toolkit.Component = Component;
-Toolkit.EmbeddedComponent = EmbeddedComponent;
-Toolkit.RenderedComponent = RenderedComponent;
-Toolkit.ContainerComponent = ContainerComponent;
-Toolkit.Accordion = Accordion;
+Titon.Component = Component;
+Titon.EmbeddedComponent = EmbeddedComponent;
+Titon.RenderedComponent = RenderedComponent;
+Titon.ContainerComponent = ContainerComponent;
+Titon.Accordion = Accordion;
 
 // Events
-Toolkit.Event = Event;
-Toolkit.Event.once = once;
-Toolkit.Event.swipe = swipe;
-Toolkit.Event.delegate = delegate;
-Toolkit.Event.clickOut = clickOut;
-Toolkit.Event.transitionEnd = transitionEnd;
-Toolkit.Swipe = Swipe;
-Toolkit.ClickOut = ClickOut;
-Toolkit.HorizontalResize = HorizontalResize;
-Toolkit.VerticalResize = VerticalResize;
+Titon.Event = Event;
+Titon.Event.once = once;
+Titon.Event.swipe = swipe;
+Titon.Event.delegate = delegate;
+Titon.Event.clickOut = clickOut;
+Titon.Event.transitionEnd = transitionEnd;
+Titon.Swipe = Swipe;
+Titon.ClickOut = ClickOut;
+Titon.HorizontalResize = HorizontalResize;
+Titon.VerticalResize = VerticalResize;
 
 // Other
-Toolkit.Element = Element;
-Toolkit.ElementCollection = Collection;
-Toolkit.bem = bem;
+Titon.Element = Element;
+Titon.ElementCollection = Collection;
+Titon.bem = bem;

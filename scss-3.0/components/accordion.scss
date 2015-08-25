@@ -5,24 +5,24 @@
  */
 
 @include export("accordion") {
-    #{map-get($toolkit-accordion, "class")} {
+    #{map-get($titon-accordion, "class")} {
         @extend %placeholder-list;
     }
 
-    #{map-get($toolkit-accordion, "class-header")} {
+    #{map-get($titon-accordion, "class-header")} {
         padding: theme-setting("medium-padding");
         cursor: pointer;
     }
 
-    #{map-get($toolkit-accordion, "class-body")} {
+    #{map-get($titon-accordion, "class-body")} {
         padding: theme-setting("medium-padding");
     }
 
     // Section is used for animations, do not style it!
-    #{map-get($toolkit-accordion, "class-section")} {
+    #{map-get($titon-accordion, "class-section")} {
         overflow: hidden;
         position: relative;
-        transition: all map-get($toolkit-accordion, "transition") ease-in-out;
+        transition: all map-get($titon-accordion, "transition") ease-in-out;
 
         // Don't include on base styles
         &.hide {

@@ -5,8 +5,8 @@
  */
 
 import Component from 'Component';
-import Element from 'libs/dom/Element';
-import findID from 'libs/dom/findID';
+import Element from 'extensions/dom/Element';
+import findID from 'extensions/dom/findID';
 
 export default class EmbeddedComponent extends Component {
 

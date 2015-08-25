@@ -5,23 +5,23 @@
  */
 
 @include export("grid") {
-    $toolkit-temp-grid-width: map-get($toolkit-grid, "width");
-    $toolkit-temp-grid-gutter: map-get($toolkit-grid, "gutter");
+    $titon-temp-grid-width: map-get($titon-grid, "width");
+    $titon-temp-grid-gutter: map-get($titon-grid, "gutter");
 
     // Row wrapper
-    #{map-get($toolkit-grid, "class-row")} {
-        @include grid-row($toolkit-temp-grid-width);
+    #{map-get($titon-grid, "class-row")} {
+        @include grid-row($titon-temp-grid-width);
     }
 
     // These should be the same for all sizes
-    #{map-get($toolkit-grid, "class-column")}[class*="span-"] {
-        @include grid-column($toolkit-temp-grid-width, $toolkit-temp-grid-gutter);
+    #{map-get($titon-grid, "class-column")}[class*="span-"] {
+        @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
     }
 
     // Global Push and pull classes
-    @if map-get($toolkit-grid, "push-pull") {
-        @for $i from 1 through map-get($toolkit-global, "span-count") {
-            $span: grid-span($i, map-get($toolkit-global, "span-count"), $toolkit-temp-grid-width, $toolkit-temp-grid-gutter);
+    @if map-get($titon-grid, "push-pull") {
+        @for $i from 1 through map-get($titon-global, "span-count") {
+            $span: grid-span($i, map-get($titon-global, "span-count"), $titon-temp-grid-width, $titon-temp-grid-gutter);
 
             .push-#{$i} {
                 #{bidi-alignment()}: $span;
@@ -34,22 +34,22 @@
     }
 
     // Responsive sizes
-    @each $size, $options in map-get($toolkit-grid, "sizes") {
+    @each $size, $options in map-get($titon-grid, "sizes") {
         $size-columns: nth($options, 1);
 
         @include in-range( (nth($options, 2), nth($options, 3)) ) {
-            #{map-get($toolkit-grid, "class-column")}[class*="#{$size}-"] {
-                @include grid-column($toolkit-temp-grid-width, $toolkit-temp-grid-gutter);
+            #{map-get($titon-grid, "class-column")}[class*="#{$size}-"] {
+                @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
             }
 
             @for $i from 1 through $size-columns {
-                $span: grid-span($i, $size-columns, $toolkit-temp-grid-width, $toolkit-temp-grid-gutter);
+                $span: grid-span($i, $size-columns, $titon-temp-grid-width, $titon-temp-grid-gutter);
 
-                #{map-get($toolkit-grid, "class-column")}.#{$size}-#{$i} {
+                #{map-get($titon-grid, "class-column")}.#{$size}-#{$i} {
                     width: $span;
                 }
 
-                @if map-get($toolkit-grid, "push-pull") {
+                @if map-get($titon-grid, "push-pull") {
                     .#{$size}-push-#{$i} {
                         #{bidi-alignment()}: $span;
                     }

@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
-import transitionEnd from 'libs/event/transitionEnd';
+import Titon from 'Titon';
+import transitionEnd from 'extensions/event/transitionEnd';
 import forOwn from 'lodash/object/forOwn';
 import 'polyfills/requestAnimationFrame';
 import 'polyfills/cancelAnimationFrame';
@@ -239,7 +239,7 @@ export default class Element {
      * @returns {Element}
      */
     setAria(key, value) {
-        if (!Toolkit.aria) {
+        if (!Titon.aria) {
             return this;
         }
 

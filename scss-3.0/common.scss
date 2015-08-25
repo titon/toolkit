@@ -9,12 +9,12 @@
 //------------------------------ Settings ------------------------------//
 
 /**
- * TOOLKIT SETTINGS
+ * TITON TOOLKIT SETTINGS
  *
  * Configure Toolkit itself, by customizing the final generated output.
  */
 
-$toolkit: (
+$titon: (
     "namespace": "", // Without "."
     "text-direction": ltr, // Either "ltr" or "rtl"
     "exclude-modules": ("flex"),
@@ -30,7 +30,7 @@ $toolkit: (
  * If a feature is disabled, it will not be compiled in the output.
  */
 
-$toolkit-settings-flags: (
+$titon-settings-flags: (
     "small-size": true,
     "large-size": true,
     // Temporarily enabled for dev
@@ -47,7 +47,7 @@ $toolkit-settings-flags: (
  * Customize the default layout and structural styles as well as state and theme colors.
  */
 
-$toolkit-settings-theme: (
+$titon-settings-theme: (
 
     // Structure colors
     "fg-light": #889097,
@@ -118,7 +118,7 @@ $toolkit-settings-theme: (
  *  3) Off Canvas should be the lowest so everything can display above it
  */
 
-$toolkit-settings-zindex: (
+$titon-settings-zindex: (
     "blackout": 600,
     "drop": 500,
     "flyout": 500,
@@ -139,7 +139,7 @@ $toolkit-settings-zindex: (
  * These ranges are used extensively to provide integrated responsive design support.
  */
 
-$toolkit-settings-breakpoints: (
+$titon-settings-breakpoints: (
     "xsmall": (null, 640px),
     "small": (641px, 960px),
     "medium": (961px, 1280px),
@@ -149,7 +149,7 @@ $toolkit-settings-breakpoints: (
 
 //------------------------------ Components & Behaviors ------------------------------//
 
-$toolkit-global: (
+$titon-global: (
     "class-small": ".small",
     "class-large": ".large",
     "class-round": ".round",
@@ -160,7 +160,7 @@ $toolkit-global: (
     "span-count": 12
 ) !default;
 
-$toolkit-accordion: (
+$titon-accordion: (
     "class": bem("accordion"),
     "class-header": bem("accordion", "header"),
     "class-section": bem("accordion", "section"),
@@ -168,11 +168,11 @@ $toolkit-accordion: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-breadcrumb: (
+$titon-breadcrumb: (
     "class": bem("breadcrumb"),
 ) !default;
 
-$toolkit-button: (
+$titon-button: (
     "class": bem("button"),
     "class-modifier-gloss": bem("button", "", "gloss"),
     "class-modifier-reflect": bem("button", "", "reflect"),
@@ -182,7 +182,7 @@ $toolkit-button: (
     "effects": (), // round, oval, pill, skew
 ) !default;
 
-$toolkit-button-group: (
+$titon-button-group: (
     "class": bem("button-group"),
     "class-modifier-vertical": bem("button-group", "", "vertical"),
     "class-modifier-justified": bem("button-group", "", "justified"),
@@ -190,7 +190,7 @@ $toolkit-button-group: (
     "effects": (), // round, pill, skew
 ) !default;
 
-$toolkit-carousel: (
+$titon-carousel: (
     "class": bem("carousel"),
     "class-items": bem("carousel", "items"),
     "class-tabs": bem("carousel", "tabs"),
@@ -201,16 +201,16 @@ $toolkit-carousel: (
     "transition": 1s,
 ) !default;
 
-$toolkit-checkbox: (
+$titon-checkbox: (
     "class": bem("checkbox"),
     "class-toggle": bem("checkbox", "toggle"),
 ) !default;
 
-$toolkit-divider: (
+$titon-divider: (
     "class": bem("divider"),
 ) !default;
 
-$toolkit-drop: (
+$titon-drop: (
     "class": bem("drop"),
     "class-divider": bem("drop", "divider"),
     "class-heading": bem("drop", "heading"),
@@ -222,7 +222,7 @@ $toolkit-drop: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-flex: (
+$titon-flex: (
     "class-region": bem("region"),
     "class-block": bem("block"),
     "class-modifier-grid": bem("region", "", "grid"),
@@ -242,13 +242,13 @@ $toolkit-flex: (
     )
 ) !default;
 
-$toolkit-flyout: (
+$titon-flyout: (
     "class": bem("flyout"),
     "class-heading": bem("flyout", "heading"),
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-form: (
+$titon-form: (
     "class": bem("form"),
     "class-actions": bem("form", "actions"),
     "class-fields": bem("fields"),
@@ -261,7 +261,7 @@ $toolkit-form: (
     "modifiers": ("inline", "horizontal"), // inline, horizontal
 ) !default;
 
-$toolkit-grid: (
+$titon-grid: (
     "class-row": bem("grid"),
     "class-column": bem("col"),
     "width": 100%,
@@ -275,19 +275,19 @@ $toolkit-grid: (
     )
 ) !default;
 
-$toolkit-input: (
+$titon-input: (
     "class": bem("input"),
     "class-static": bem("input", "static"),
     "class-choice": bem("input", "choice"),
 ) !default;
 
-$toolkit-input-group: (
+$titon-input-group: (
     "class": bem("input-group"),
     "class-addon": bem("input-group", "addon"),
     "effects": ("round") // round
 ) !default;
 
-$toolkit-label: (
+$titon-label: (
     "class": bem("label"),
     "class-modifier-badge": bem("label", "", "badge"),
     "class-modifier-ribbon-left": bem("label", "", "ribbon-left"),
@@ -297,12 +297,12 @@ $toolkit-label: (
     "modifiers": ("badge"), // badge, ribbon-left, ribbon-right, arrow-left, arrow-right
 ) !default;
 
-$toolkit-lazy-load: (
+$titon-lazy-load: (
     "class": bem("lazy-load"),
     "transition": theme-setting("transition")
 ) !default;
 
-$toolkit-loader: (
+$titon-loader: (
     "class": bem("loader"),
     "class-message": bem("loader", "message"),
     "class-spinner": bem("loader", "spinner"),
@@ -316,7 +316,7 @@ $toolkit-loader: (
     "bubble-size": 1.5rem,
 ) !default;
 
-$toolkit-mask: (
+$titon-mask: (
     "class": bem("mask"),
     "class-message": bem("mask", "message"),
     "class-target": ".is-maskable",
@@ -324,12 +324,12 @@ $toolkit-mask: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-matrix: (
+$titon-matrix: (
     "class": bem("matrix"),
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-modal: (
+$titon-modal: (
     "class": bem("modal"),
     "class-close": bem("modal", "close"),
     "class-outer": bem("modal", "outer"),
@@ -342,13 +342,13 @@ $toolkit-modal: (
     "opacity": .85,
 ) !default;
 
-$toolkit-notice: (
+$titon-notice: (
     "class": bem("notice"),
     "class-close": bem("notice", "close"),
     "class-title": bem("notice", "title"),
 ) !default;
 
-$toolkit-off-canvas: (
+$titon-off-canvas: (
     "class": bem("off-canvas"),
     "class-content": bem("on-canvas"),
     "class-wrapper": bem("canvas"),
@@ -359,19 +359,19 @@ $toolkit-off-canvas: (
     "transition": .5s,
 ) !default;
 
-$toolkit-pagination: (
+$titon-pagination: (
     "class": bem("pagination"),
     "class-modifier-grouped": bem("pagination", "", "grouped"),
     "modifiers": ("grouped"),
     "effects": (), // oval, pill, skew
 ) !default;
 
-$toolkit-pin: (
+$titon-pin: (
     "class": bem("pin"),
     "transition": .2s,
 ) !default;
 
-$toolkit-popover: (
+$titon-popover: (
     "class": bem("popover"),
     "class-arrow": bem("popover", "arrow"),
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
@@ -379,19 +379,19 @@ $toolkit-popover: (
     "transition": .15s,
 ) !default;
 
-$toolkit-progress: (
+$titon-progress: (
     "class": bem("progress"),
     "class-bar": bem("progress", "bar"),
     "transition": .5s,
     "effects": ("round", "pill"), // round, pill
 ) !default;
 
-$toolkit-radio: (
+$titon-radio: (
     "class": bem("radio"),
     "class-toggle": bem("radio", "toggle"),
 ) !default;
 
-$toolkit-select: (
+$titon-select: (
     "class": bem("select"),
     "class-toggle": bem("select", "toggle"),
     "class-label": bem("select", "label"),
@@ -399,12 +399,12 @@ $toolkit-select: (
     "class-options": bem("select", "options"),
 ) !default;
 
-$toolkit-step: (
+$titon-step: (
     "class": bem("step"),
     "class-wrapper": bem("steps"),
 ) !default;
 
-$toolkit-switch: (
+$titon-switch: (
     "class": bem("switch"),
     "class-bar": bem("switch", "bar"),
     "class-toggle": bem("switch", "toggle"),
@@ -414,19 +414,19 @@ $toolkit-switch: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-tab: (
+$titon-tab: (
     "class": bem("tabs"),
     "class-nav": bem("tab", "nav"),
     "class-section": bem("tab", "section")
 ) !default;
 
-$toolkit-table: (
+$titon-table: (
     "class": bem("table"),
     "class-divider": bem("table", "divider"),
     "class-responsive": bem("table", "responsive"),
 ) !default;
 
-$toolkit-toast: (
+$titon-toast: (
     "class": bem("toast"),
     "class-wrapper": bem("toasts"),
     "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
@@ -434,7 +434,7 @@ $toolkit-toast: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-tooltip: (
+$titon-tooltip: (
     "class": bem("tooltip"),
     "class-arrow": bem("tooltip", "arrow"),
     "animations": ("fade"), // fade, from-above, from-below, flip-rotate
@@ -442,7 +442,7 @@ $toolkit-tooltip: (
     "transition": .15s,
 ) !default;
 
-$toolkit-type-ahead: (
+$titon-type-ahead: (
     "class": bem("type-ahead"),
     "class-heading": bem("type-ahead", "heading"),
     "class-highlight": bem("type-ahead", "highlight"),
@@ -451,7 +451,7 @@ $toolkit-type-ahead: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$toolkit-typography: (
+$titon-typography: (
     "h1-font-size": 3rem,
     "h2-font-size": 2.5rem,
     "h3-font-size": 2.1rem,

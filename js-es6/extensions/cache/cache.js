@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Storage from 'libs/cache/Storage';
+import Storage from 'extensions/cache/Storage';
 
 // Use a shared cache
 const internalCache = new Storage();

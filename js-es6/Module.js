@@ -4,12 +4,12 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
+import Titon from 'Titon';
 import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
-import delegate from 'libs/event/delegate';
-import uid from 'libs/uid';
+import delegate from 'extensions/event/delegate';
+import uid from 'extensions/uid';
 
 export default class Module {
 
@@ -135,7 +135,7 @@ export default class Module {
      * @param {Array} [args]
      */
     emit(event, args = []) {
-        let debug = this.options.debug || Toolkit.debug,
+        let debug = this.options.debug || Titon.debug,
             element = this.element,
             listeners = this.listeners[event];
 
@@ -156,7 +156,7 @@ export default class Module {
         // Notify DOM listeners
         // IE<=9 do not support CustomEvent
         if (element && window.CustomEvent) {
-            element.dispatchEvent(new CustomEvent(event + '.toolkit.' + this.name.toLowerCase(), {
+            element.dispatchEvent(new CustomEvent(event + '.titon.' + this.name.toLowerCase(), {
                 detail: {
                     context: this,
                     arguments: args

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import once from 'libs/event/once';
+import once from 'extensions/event/once';
 
 /**
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.

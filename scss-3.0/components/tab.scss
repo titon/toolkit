@@ -5,7 +5,7 @@
  */
 
 @include export("tab") {
-    #{map-get($toolkit-tab, "class-nav")} {
+    #{map-get($titon-tab, "class-nav")} {
         > ul,
         > ol {
             @extend %placeholder-list;
@@ -13,7 +13,7 @@
         }
     }
 
-    #{map-get($toolkit-tab, "class-section")} {
+    #{map-get($titon-tab, "class-section")} {
         padding: theme-setting("medium-padding");
 
         // Add display none on sections since visibility property takes up DOM space

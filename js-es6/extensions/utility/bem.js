@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Toolkit from 'Toolkit';
+import Titon from 'Titon';
 
 /**
  * Generate a BEM (block-element-modifier) valid CSS class name.
@@ -25,7 +25,7 @@ export default function bem(block, element, modifier) {
         block += seps[1] + modifier;
     }
 
-    return Toolkit.namespace + block;
+    return Titon.namespace + block;
 }
 
 /**

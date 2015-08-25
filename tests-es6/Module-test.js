@@ -106,7 +106,7 @@ describe('Module', () => {
             let context, args;
 
             obj.element = createElement('div');
-            obj.element.addEventListener('foo.toolkit.module', e => {
+            obj.element.addEventListener('foo.titon.module', e => {
                 context = e.detail.context;
                 args = e.detail.arguments;
                 expected.push(5 * args[0]);

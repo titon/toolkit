@@ -5,12 +5,12 @@
  */
 
 @include export("type-ahead") {
-    #{map-get($toolkit-type-ahead, "class")} {
+    #{map-get($titon-type-ahead, "class")} {
         @extend %placeholder-position-absolute;
-        z-index: map-get($toolkit-settings-zindex, "type-ahead");
+        z-index: map-get($titon-settings-zindex, "type-ahead");
         opacity: 0;
         visibility: hidden;
-        transition: all map-get($toolkit-type-ahead, "transition");
+        transition: all map-get($titon-type-ahead, "transition");
         background: #fff;
         width: 15rem;
 
@@ -28,22 +28,22 @@
         }
     }
 
-    #{map-get($toolkit-type-ahead, "class-heading")} {
+    #{map-get($titon-type-ahead, "class-heading")} {
         padding: theme-setting("medium-padding");
         display: block;
     }
 
-    #{map-get($toolkit-type-ahead, "class-highlight")} {
+    #{map-get($titon-type-ahead, "class-highlight")} {
         background: #fff;
         padding: 0;
     }
 
-    #{map-get($toolkit-type-ahead, "class-description")} {
+    #{map-get($titon-type-ahead, "class-description")} {
         display: block;
         font-size: theme-setting("small-font-size");
     }
 
-    #{map-get($toolkit-type-ahead, "class-shadow")} {
+    #{map-get($titon-type-ahead, "class-shadow")} {
         position: relative;
 
         .is-shadow {

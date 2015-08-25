@@ -9,7 +9,7 @@
  */
 @mixin button-group-children {
     > li,
-    > #{map-get($toolkit-button, "class")} {
+    > #{map-get($titon-button, "class")} {
         @content;
     }
 }
@@ -18,8 +18,8 @@
  * Target the first button within a button group.
  */
 @mixin button-group-first-child {
-    > li:first-child #{map-get($toolkit-button, "class")},
-    > #{map-get($toolkit-button, "class")}:first-child {
+    > li:first-child #{map-get($titon-button, "class")},
+    > #{map-get($titon-button, "class")}:first-child {
         @content;
     }
 }
@@ -28,8 +28,8 @@
  * Target the last button within a button group.
  */
 @mixin button-group-last-child {
-    > li:last-child #{map-get($toolkit-button, "class")},
-    > #{map-get($toolkit-button, "class")}:last-child {
+    > li:last-child #{map-get($titon-button, "class")},
+    > #{map-get($titon-button, "class")}:last-child {
         @content;
     }
 }
@@ -40,8 +40,8 @@
  * @param string $pseudo
  */
 @mixin checkbox-state($pseudo) {
-    #{map-get($toolkit-checkbox, "class")} {
-        input:#{$pseudo} + #{map-get($toolkit-checkbox, "class-toggle")} {
+    #{map-get($titon-checkbox, "class")} {
+        input:#{$pseudo} + #{map-get($titon-checkbox, "class-toggle")} {
             @content;
         }
     }
@@ -53,8 +53,8 @@
  * @param string $pseudo
  */
 @mixin radio-state($pseudo) {
-    #{map-get($toolkit-radio, "class")} {
-        input:#{$pseudo} + #{map-get($toolkit-radio, "class-toggle")} {
+    #{map-get($titon-radio, "class")} {
+        input:#{$pseudo} + #{map-get($titon-radio, "class-toggle")} {
             @content;
         }
     }
@@ -80,8 +80,8 @@
  * @param string $pseudo
  */
 @mixin select-state($pseudo) {
-    #{map-get($toolkit-select, "class")} {
-        select:#{$pseudo} + #{map-get($toolkit-select, "class-toggle")} {
+    #{map-get($titon-select, "class")} {
+        select:#{$pseudo} + #{map-get($titon-select, "class-toggle")} {
             @content;
         }
     }
@@ -93,8 +93,8 @@
  * @param string $pseudo
  */
 @mixin switch-state($pseudo) {
-    #{map-get($toolkit-switch, "class")} {
-        input:#{$pseudo} + #{map-get($toolkit-switch, "class-bar")} {
+    #{map-get($titon-switch, "class")} {
+        input:#{$pseudo} + #{map-get($titon-switch, "class-bar")} {
             @content;
         }
     }

@@ -22,7 +22,7 @@ export default class Component extends Module {
      * @returns {string}
      */
     buildID(...params) {
-        params.unshift('toolkit', this.getCssClassName(), this.uid);
+        params.unshift('titon', this.getCssClassName(), this.uid);
 
         return params.join('-');
     }

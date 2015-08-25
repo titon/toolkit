@@ -5,7 +5,7 @@
  */
 
 @include export("table") {
-    #{map-get($toolkit-table, "class")} {
+    #{map-get($titon-table, "class")} {
         width: 100%;
         background: theme-setting("bg-lightest");
         border-collapse: collapse;
@@ -33,12 +33,12 @@
         }
 
         // Divider
-        tbody tr#{map-get($toolkit-table, "class-divider")} {
+        tbody tr#{map-get($titon-table, "class-divider")} {
             background: theme-setting("bg-light");
         }
     }
 
-    #{map-get($toolkit-table, "class-responsive")} {
+    #{map-get($titon-table, "class-responsive")} {
         width: 100%;
         max-width: 100%;
         overflow-x: auto;
@@ -46,7 +46,7 @@
 
     //-------------------- States --------------------//
 
-    #{map-get($toolkit-table, "class")} {
+    #{map-get($titon-table, "class")} {
         &.is-striped tbody tr {
             &:nth-child(even) {
                 background: lighten(theme-setting("bg-lightest"), 1.5%);
@@ -63,14 +63,14 @@
             }
         }
 
-        &.has-hover tbody tr:not(#{map-get($toolkit-table, "class-divider")}):hover {
+        &.has-hover tbody tr:not(#{map-get($titon-table, "class-divider")}):hover {
             background: #fff;
         }
     }
 
     //-------------------- Sizes --------------------//
 
-    #{map-get($toolkit-table, "class")} {
+    #{map-get($titon-table, "class")} {
         @include is-size-small {
             th,
             td {

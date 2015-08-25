@@ -5,41 +5,41 @@
  */
 
 @include export("off-canvas") {
-    $toolkit-temp-off-canvas-width: map-get($toolkit-off-canvas, "width");
-    $toolkit-temp-off-canvas-animations: map-get($toolkit-off-canvas, "animations");
+    $titon-temp-off-canvas-width: map-get($titon-off-canvas, "width");
+    $titon-temp-off-canvas-animations: map-get($titon-off-canvas, "animations");
 
-    #{map-get($toolkit-off-canvas, "class")} {
+    #{map-get($titon-off-canvas, "class")} {
         position: fixed;
         overflow: auto;
         top: 0;
-        width: $toolkit-temp-off-canvas-width;
+        width: $titon-temp-off-canvas-width;
         max-width: 90%;
         height: 100%;
         z-index: 1;
         opacity: 0;
         visibility: hidden;
-        transition: all map-get($toolkit-off-canvas, "transition");
+        transition: all map-get($titon-off-canvas, "transition");
         -webkit-overflow-scrolling: touch;
         background: #fff;
     }
 
-    #{map-get($toolkit-off-canvas, "class-content")} {
+    #{map-get($titon-off-canvas, "class-content")} {
         position: relative;
         width: 100%;
         max-width: 100%;
         z-index: 2;
-        transition: all map-get($toolkit-off-canvas, "transition");
+        transition: all map-get($titon-off-canvas, "transition");
         transform: translate(0, 0);
     }
 
-    #{map-get($toolkit-off-canvas, "class-wrapper")} {
+    #{map-get($titon-off-canvas, "class-wrapper")} {
         position: relative;
         overflow-x: hidden;
     }
 
     //-------------------- Modifiers --------------------//
 
-    #{map-get($toolkit-off-canvas, "class-modifier-left")} {
+    #{map-get($titon-off-canvas, "class-modifier-left")} {
         left: 0;
         transform: translate(-100%, 0);
 
@@ -48,7 +48,7 @@
         }
     }
 
-    #{map-get($toolkit-off-canvas, "class-modifier-right")} {
+    #{map-get($titon-off-canvas, "class-modifier-right")} {
         right: 0;
         transform: translate(100%, 0);
 
@@ -59,63 +59,63 @@
 
     //-------------------- Animations --------------------//
 
-    #{map-get($toolkit-off-canvas, "class-wrapper")} {
-        @if (is-feature-enabled("all-animations") or (index($toolkit-temp-off-canvas-animations, "on-top") or index($toolkit-temp-off-canvas-animations, "squish"))) {
+    #{map-get($titon-off-canvas, "class-wrapper")} {
+        @if (is-feature-enabled("all-animations") or (index($titon-temp-off-canvas-animations, "on-top") or index($titon-temp-off-canvas-animations, "squish"))) {
             &.on-top,
             &.squish {
-                #{map-get($toolkit-off-canvas, "class")} {
+                #{map-get($titon-off-canvas, "class")} {
                     z-index: 3;
                 }
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-off-canvas-animations, "push-reveal")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-reveal")) {
             &.push-reveal {
-                #{map-get($toolkit-off-canvas, "class-modifier-left")} {
-                    transform: translate(-$toolkit-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-modifier-left")} {
+                    transform: translate(-$titon-temp-off-canvas-width, 0);
                 }
 
-                #{map-get($toolkit-off-canvas, "class-modifier-right")} {
-                    transform: translate($toolkit-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
+                    transform: translate($titon-temp-off-canvas-width, 0);
                 }
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-off-canvas-animations, "reverse-push")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reverse-push")) {
             &.reverse-push {
-                #{map-get($toolkit-off-canvas, "class-modifier-left")} {
-                    transform: translate($toolkit-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-modifier-left")} {
+                    transform: translate($titon-temp-off-canvas-width, 0);
                 }
 
-                #{map-get($toolkit-off-canvas, "class-modifier-right")} {
-                    transform: translate(-$toolkit-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
+                    transform: translate(-$titon-temp-off-canvas-width, 0);
                 }
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-off-canvas-animations, "reveal")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reveal")) {
             &.reveal {
-                #{map-get($toolkit-off-canvas, "class")} {
+                #{map-get($titon-off-canvas, "class")} {
                     transform: translate(0, 0);
                 }
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-off-canvas-animations, "push-down")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-down")) {
             &.push-down {
-                #{map-get($toolkit-off-canvas, "class-modifier-left")},
-                #{map-get($toolkit-off-canvas, "class-modifier-right")} {
+                #{map-get($titon-off-canvas, "class-modifier-left")},
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
                     transform: translate(0, -100%);
                 }
             }
         }
 
         @if (is-feature-enabled("all-animations") or (
-            index($toolkit-temp-off-canvas-animations, "push") or
-            index($toolkit-temp-off-canvas-animations, "push-reveal") or
-            index($toolkit-temp-off-canvas-animations, "push-down") or
-            index($toolkit-temp-off-canvas-animations, "reverse-push") or
-            index($toolkit-temp-off-canvas-animations, "reveal")
+            index($titon-temp-off-canvas-animations, "push") or
+            index($titon-temp-off-canvas-animations, "push-reveal") or
+            index($titon-temp-off-canvas-animations, "push-down") or
+            index($titon-temp-off-canvas-animations, "reverse-push") or
+            index($titon-temp-off-canvas-animations, "reveal")
         )){
             &.push,
             &.push-reveal,
@@ -123,30 +123,30 @@
             &.reverse-push,
             &.reveal {
                 &.move-left {
-                    #{map-get($toolkit-off-canvas, "class-content")} {
-                        transform: translate(-$toolkit-temp-off-canvas-width, 0);
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        transform: translate(-$titon-temp-off-canvas-width, 0);
                     }
                 }
 
                 &.move-right {
-                    #{map-get($toolkit-off-canvas, "class-content")} {
-                        transform: translate($toolkit-temp-off-canvas-width, 0);
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        transform: translate($titon-temp-off-canvas-width, 0);
                     }
                 }
             }
         }
 
-        @if (is-feature-enabled("all-animations") or index($toolkit-temp-off-canvas-animations, "squish")) {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "squish")) {
             &.squish {
                 &.move-left {
-                    #{map-get($toolkit-off-canvas, "class-content")} {
-                        padding-right: $toolkit-temp-off-canvas-width;
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        padding-right: $titon-temp-off-canvas-width;
                     }
                 }
 
                 &.move-right {
-                    #{map-get($toolkit-off-canvas, "class-content")} {
-                        padding-left: $toolkit-temp-off-canvas-width;
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        padding-left: $titon-temp-off-canvas-width;
                     }
                 }
             }

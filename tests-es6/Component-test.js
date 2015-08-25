@@ -11,12 +11,12 @@ describe('Component', () => {
 
     describe('buildID()', () => {
         it('should generate a unique ID', () => {
-            expect(obj.buildID()).toBe('toolkit-component-1');
+            expect(obj.buildID()).toBe('titon-component-1');
         });
 
         it('should append optional arguments to the ID', () => {
-            expect(obj.buildID('a')).toBe('toolkit-component-2-a');
-            expect(obj.buildID('a', 'b', 'c')).toBe('toolkit-component-2-a-b-c');
+            expect(obj.buildID('a')).toBe('titon-component-2-a');
+            expect(obj.buildID('a', 'b', 'c')).toBe('titon-component-2-a-b-c');
         });
     });
 

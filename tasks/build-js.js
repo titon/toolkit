@@ -67,7 +67,7 @@ module.exports = function(command) {
         tree.forEach(function(dep) {
             var output = babel.transformFileSync(dep, babelOptions).code.trim();
 
-            if (dep.indexOf('Toolkit.js') >= 0) {
+            if (dep.indexOf('Titon.js') >= 0) {
                 output = output.replace('%version%', options.package.version); // Add version
                 output = output.replace('%build%', Date.now().toString(36)); // Add unique build hash
             }
@@ -97,7 +97,7 @@ module.exports = function(command) {
     .then(prependBanner(options))
 
     // Save the unminified file
-    .then(writeTo('toolkit.js', options))
+    .then(writeTo('titon.js', options))
 
     // Minify the JS
     .then(function(js) {
@@ -117,7 +117,7 @@ module.exports = function(command) {
     })
 
     // Save the minified file
-    .then(writeTo('toolkit.min.js', options))
+    .then(writeTo('titon.min.js', options))
 
     // Finish task
     .then(function(js) {
