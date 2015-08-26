@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports = function(config) {
     config.set({
-        basePath: '',
+        basePath: '.',
 
         frameworks: ['jasmine'],
 
@@ -31,7 +31,7 @@ module.exports = function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome'], //, 'Firefox', 'Safari', 'IE'],
+        browsers: ['Chrome', 'Firefox', (process.platform === 'win32' ? 'IE' : 'Safari')],
 
         singleRun: true
     });

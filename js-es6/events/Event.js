@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import 'polyfills/CustomEvent';
+
 export default class Event {
 
     /**

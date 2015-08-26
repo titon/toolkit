@@ -71,22 +71,23 @@ export default class Swipe extends Event {
     }
 
     /**
-     * Bind the start, stop, and cancel events.
-     */
-    disable() {
-        this.context.addEventListener(startEvent, this.startHandler);
-        this.context.addEventListener(stopEvent, this.stopHandler);
-        this.context.addEventListener('touchcancel', this.cleanupHandler);
-    }
-
-    /**
      * Unbind the start, stop, and cancel events.
      */
-    enable() {
+    disable() {
         this.context.removeEventListener(moveEvent, this.moveHandler);
         this.context.removeEventListener(startEvent, this.startHandler);
         this.context.removeEventListener(stopEvent, this.stopHandler);
         this.context.removeEventListener('touchcancel', this.cleanupHandler);
+    }
+
+    /**
+     * Bind the start, stop, and cancel events.
+     */
+    enable() {
+        this.context.addEventListener(moveEvent, this.moveHandler);
+        this.context.addEventListener(startEvent, this.startHandler);
+        this.context.addEventListener(stopEvent, this.stopHandler);
+        this.context.addEventListener('touchcancel', this.cleanupHandler);
     }
 
     /**

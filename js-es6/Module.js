@@ -10,6 +10,7 @@ import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
 import delegate from 'extensions/event/delegate';
 import uid from 'extensions/uid';
+import 'polyfills/CustomEvent';
 
 export default class Module {
 
@@ -154,7 +155,6 @@ export default class Module {
         }
 
         // Notify DOM listeners
-        // IE<=9 do not support CustomEvent
         if (element && window.CustomEvent) {
             element.dispatchEvent(new CustomEvent(event + '.titon.' + this.name.toLowerCase(), {
                 detail: {

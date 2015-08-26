@@ -26,10 +26,10 @@ export default class Accordion extends EmbeddedComponent {
         this.version = '3.0.0';
 
         /** Collection of header elements. */
-        this.headers = this.element.find(this.buildNamespace('header'));
+        this.headers = this.element.find(this.formatNamespace('header'));
 
         /** Collection of section elements. */
-        this.sections = this.element.find(this.buildNamespace('section'));
+        this.sections = this.element.find(this.formatNamespace('section'));
     }
 
     /**
@@ -38,7 +38,7 @@ export default class Accordion extends EmbeddedComponent {
     setupBinds() {
         this.setBinds({
             'horizontalresize window': debounce(this.calculate.bind(this), 150),
-            ['{mode} element ' + this.buildNamespace('header')]: 'onClickHeader'
+            ['{mode} element ' + this.formatNamespace('header')]: 'onClickHeader'
         });
     }
 
@@ -54,10 +54,10 @@ export default class Accordion extends EmbeddedComponent {
                 .setAttributes({
                     'data-accordion-index': index,
                     role: 'tab',
-                    id: this.buildID('header', index)
+                    id: this.formatID('header', index)
                 })
                 .setArias({
-                    controls: this.buildID('section', index),
+                    controls: this.formatID('section', index),
                     selected: false,
                     expanded: false
                 });
@@ -68,9 +68,9 @@ export default class Accordion extends EmbeddedComponent {
             section
                 .setAttributes({
                     role: 'tabpanel',
-                    id: this.buildID('section', index)
+                    id: this.formatID('section', index)
                 })
-                .setAria('labelledby', this.buildID('header', index))
+                .setAria('labelledby', this.formatID('header', index))
                 .conceal();
         });
 

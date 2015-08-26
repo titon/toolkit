@@ -40,7 +40,7 @@ export default class EmbeddedComponent extends Component {
      * @param {string} [block]
      * @returns {string}
      */
-    buildNamespace(element, block) {
+    formatNamespace(element, block) {
         var selector = 'data-' + (block || this.getAttributeName());
 
         if (element) {

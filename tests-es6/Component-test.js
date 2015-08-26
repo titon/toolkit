@@ -9,14 +9,14 @@ describe('Component', () => {
         obj = new Component('', {}, false);
     });
 
-    describe('buildID()', () => {
+    describe('formatID()', () => {
         it('should generate a unique ID', () => {
-            expect(obj.buildID()).toBe('titon-component-1');
+            expect(obj.formatID()).toBe('titon-component-1');
         });
 
         it('should append optional arguments to the ID', () => {
-            expect(obj.buildID('a')).toBe('titon-component-2-a');
-            expect(obj.buildID('a', 'b', 'c')).toBe('titon-component-2-a-b-c');
+            expect(obj.formatID('a')).toBe('titon-component-2-a');
+            expect(obj.formatID('a', 'b', 'c')).toBe('titon-component-2-a-b-c');
         });
     });
 

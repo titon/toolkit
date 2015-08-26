@@ -21,7 +21,7 @@ export default class Component extends Module {
      *
      * @returns {string}
      */
-    buildID(...params) {
+    formatID(...params) {
         params.unshift('titon', this.getCssClassName(), this.uid);
 
         return params.join('-');

@@ -164,7 +164,7 @@ describe('Element', () => {
 
         it('should set properties', () => {
             expect(element.hidden).toBe(false);
-            expect(element.tabIndex).toBe(-1);
+            expect(element.tabIndex).not.toBe(5);
 
             obj.setProperty('hidden', true).setProperties({
                 tabIndex: 5
@@ -181,13 +181,13 @@ describe('Element', () => {
             expect(element.style.borderWidth).toBe('');
 
             obj.setStyle('backgroundColor', '#000').setStyles({
-                boxShadow: '5px 5px #fff',
+                display: 'inline',
                 height: '100px',
                 borderWidth: '1px'
             }).processQueue();
 
             expect(element.style.backgroundColor).toBe('rgb(0, 0, 0)');
-            expect(element.style.boxShadow).toBe('rgb(255, 255, 255) 5px 5px');
+            expect(element.style.display).toBe('inline');
             expect(element.style.height).toBe('100px');
             expect(element.style.borderWidth).toBe('1px');
         });
