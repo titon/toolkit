@@ -284,6 +284,35 @@ export default class Module {
     }
 
     /**
+     * Handle and process JSON responses by automatically triggering a `callback` function.
+     *
+     * @param {object} json
+     */
+    processJSON(json) {
+        if (json.callback) {
+            var namespaces = json.callback.split('.'),
+                func = window,
+                context = func;
+
+            namespaces.forEach(namespace => {
+                context = func;
+                func = func[namespace];
+            });
+
+            func.call(context, json);
+        }
+
+        this.emit('process.json', [json]);
+    }
+
+    /**
+     * Method to be called when the state has changed and the DOM needs to be updated.
+     * This method should be implemented in sub-classes and *must* be the only method that mutates the DOM.
+     */
+    render() {
+    }
+
+    /**
      * Method to be called when the module is destroyed and or removed from the DOM.
      * This method should be implemented in sub-classes to clean up and reset any state.
      */
@@ -295,13 +324,6 @@ export default class Module {
      * This method should be implemented in sub-classes to set the initial state.
      */
     startup() {
-    }
-
-    /**
-     * Method to be called when the state has changed and the DOM needs to be updated.
-     * This method should be implemented in sub-classes and *must* be the only method that mutates the DOM.
-     */
-    render() {
     }
 
     /**
