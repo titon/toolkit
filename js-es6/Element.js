@@ -58,11 +58,11 @@ export default class Element {
      * Conceal the element by applying the `hide` class.
      * Should be used to trigger transitions and animations.
      *
-     * @param {boolean} [dontHide]
+     * @param {boolean} [hide]
      * @returns {Element}
      */
-    conceal(dontHide) {
-        if (this.hasClass('show') && !dontHide) {
+    conceal(hide = true) {
+        if (this.hasClass('show') && hide) {
             transitionEnd(this.element, () => this.element.style.display = 'none');
         }
 
@@ -73,6 +73,26 @@ export default class Element {
     }
 
     /**
+     * Return the value of an HTML attribute.
+     *
+     * @param {string} key
+     * @returns {*}
+     */
+    getAttribute(key) {
+        return this.element.getAttribute(key);
+    }
+
+    /**
+     * Return an array of multiple values for each key defined.
+     *
+     * @param {string[]} keys
+     * @return {*[]}
+     */
+    getAttributes(keys) {
+        return keys.map(key => this.getAttribute(key));
+    }
+
+    /**
      * Return a list of chainable methods to copy to the `ElementCollection` prototype.
      *
      * @returns {string[]}
@@ -80,6 +100,7 @@ export default class Element {
     static getCollectionMethods() {
         return [
             'addClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
+            'getAttribute', 'getAttributes',
             'setAria', 'setArias', 'setAttribute', 'setAttributes',
             'setProperty', 'setProperties', 'setStyle', 'setStyles'
         ];
@@ -216,11 +237,11 @@ export default class Element {
      * Reveal the element by applying the `show` class.
      * Should be used to trigger transitions and animations.
      *
-     * @param {boolean} [dontShow]
+     * @param {boolean} [show]
      * @returns {Element}
      */
-    reveal(dontShow) {
-        if (!dontShow) {
+    reveal(show = true) {
+        if (show) {
             this.setStyle('display', '');
         }
 
@@ -266,7 +287,7 @@ export default class Element {
     }
 
     /**
-     * Set a value for an HTML/DOM attribute.
+     * Set a value for an HTML attribute.
      *
      * @param {string} attribute
      * @param {*} value
@@ -280,7 +301,7 @@ export default class Element {
     }
 
     /**
-     * Set multiple HTML/DOM attributes.
+     * Set multiple HTML attributes.
      *
      * @param {object} attributes
      * @returns {Element}

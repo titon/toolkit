@@ -5,10 +5,13 @@
  */
 
 import Titon from 'Titon';
+import Element from 'Element';
 import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
 import delegate from 'extensions/event/delegate';
+import isElement from 'extensions/dom/isElement';
+import findID from 'extensions/dom/findID';
 import uid from 'extensions/uid';
 import 'polyfills/CustomEvent';
 
@@ -58,16 +61,18 @@ export default class Module {
      * The order is important as methods will require members from
      * the previous method to be initialized. This order *must not* change.
      *
-     * @param {string} selector
+     * @param {string|HTMLElement} element
      * @param {object} [options]
      * @param {boolean} [init]
      */
-    constructor(selector, options, init = true) {
-        this.selector = selector;
+    constructor(element, options, init = true) {
+        if (typeof element === 'string') {
+            this.selector = element;
+        }
 
         // Setup the class
         this.setupOptions(options);
-        this.setupElement(selector);
+        this.setupElement(element);
         this.setupProperties();
         this.setupBinds();
 
@@ -340,10 +345,19 @@ export default class Module {
     /**
      * Set the primary element to use within the module.
      *
-     * @param {Element} element
+     * @param {HTMLElement|Element} element
      */
     setElement(element) {
-        this.element = element;
+        if (isElement(element)) {
+            element = new Element(element);
+        }
+
+        if (element instanceof Element) {
+            this.element = element;
+
+        } else {
+            console.warn(`Invalid element for ${this.name}. Must be an instance of Titon \`Element\` or a DOM \`HTMLElement\`.`);
+        }
     }
 
     /**
@@ -375,8 +389,6 @@ export default class Module {
                 delete options[key];
             }
         });
-
-        // TODO - option groups
 
         this.options = options;
     }
@@ -449,15 +461,23 @@ export default class Module {
 
     /**
      * Setup the primary element(s) by attempting to find it in the DOM
-     * using the selector passed from the constructor. Once found, use `setElement()`.
+     * using the selector passed from the constructor, or an element directly.
+     * Once found, use `setElement()`.
      *
      * This method should be implemented by sub-classes.
      *
-     * @param {string} selector
+     * @param {string|HTMLElement|Element} element
      */
-    setupElement(selector) {
-        if (selector) {
-            console.warn(`No element defined for ${this.name}. Please use the \`${selector}\` selector.`);
+    setupElement(element) {
+        if (typeof element === 'string') {
+            element = findID(element); // Attempt to find it
+        }
+
+        if (element) {
+            this.setElement(element);
+
+        } else {
+            console.warn(`Element could not be found for ${this.name}.`);
         }
     }
 

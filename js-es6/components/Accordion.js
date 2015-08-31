@@ -105,20 +105,20 @@ export default class Accordion extends EmbeddedComponent {
             options = this.options,
             header = this.headers[index],
             section = this.sections[index],
-            height = parseInt(section.data('accordion-height'), 10),
+            height = parseFloat(section.getAttribute('data-accordion-height')) + 'px',
             isNode = (this.node === header);
 
-        this.fireEvent('showing', [section, header, this.previousState.index]);
+        this.fireEvent('showing', [section, header, index, this.previousState.index]);
 
         // Allow simultaneous open and closed sections
         // Or allow the same section to collapse
         if (options.mode === 'click' && (options.multiple || options.collapsible && isNode)) {
             if (section.isVisible() && this.node) {
-                section.setStyle('maxHeight', 0).conceal(true);
+                section.setStyle('maxHeight', 0).conceal(false);
                 header.setAria('toggled', false).removeClass('is-active');
 
             } else {
-                section.setStyle('maxHeight', height).reveal(true);
+                section.setStyle('maxHeight', height).reveal(false);
                 header.setAria('toggled', true).addClass('is-active');
             }
 
@@ -135,7 +135,7 @@ export default class Accordion extends EmbeddedComponent {
                 if (sec === section) {
                     sec.setStyle('maxHeight', height).reveal(true);
                 } else {
-                    sec.setStyle('maxHeight', 0).conceal(true);
+                    sec.setStyle('maxHeight', '0px').conceal(true);
                 }
             });
 

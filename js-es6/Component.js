@@ -10,13 +10,6 @@ import memoize from 'decorators/memoize';
 export default class Component extends Module {
 
     /**
-     * {@inheritdoc}
-     */
-    setupProperties() {
-        this.name = 'Component';
-    }
-
-    /**
      * Generate a unique HTML ID based on the passed parameters.
      *
      * @returns {string}
@@ -48,4 +41,17 @@ export default class Component extends Module {
         return this.name.replace(/[A-Z]/g, match => '-' + match.toLowerCase()).slice(1);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    setupProperties() {
+        this.name = 'Component';
+    }
+
 }
+
+Component.options = {
+    ajax: {},
+    context: null,
+    className: ''
+};

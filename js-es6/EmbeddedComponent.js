@@ -5,33 +5,10 @@
  */
 
 import Component from 'Component';
-import Element from 'Element';
-import findID from 'extensions/dom/findID';
+import assign from 'lodash/object/assign';
+import forOwn from 'lodash/object/forOwn';
 
 export default class EmbeddedComponent extends Component {
-
-    /**
-     * {@inheritdoc}
-     */
-    setupElement(selector) {
-        let element = findID(selector);
-
-        if (element instanceof Element) {
-            this.setElement(element);
-        } else {
-            console.warn(`Element \`${selector}\` could not be found for ${this.name}.`);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    setupProperties() {
-        this.name = 'EmbeddedComponent';
-
-        /** The element namespace to uniquely identify nested modules. */
-        this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || '';
-    }
 
     /**
      * Generate a valid HTML data attribute CSS selector based on the current module name and namespace.
@@ -52,6 +29,63 @@ export default class EmbeddedComponent extends Component {
         }
 
         return '[' + selector + ']';
+    }
+
+    /**
+     * Inherit option overrides from the primary element's data attributes.
+     * If a `group` attribute is defined, attempt to inherit any options defined for that group.
+     *
+     * @returns {Object}
+     */
+    inheritOptions() {
+        let options = this.options,
+            overrides = {};
+
+        forOwn(this.getDefaultOptions(), (value, key) => {
+            if (key === 'context' || key === 'template') {
+                return;
+            }
+
+            let attrValue = this.element.getAttribute('data-' + this.getAttributeName() + '-' + key);
+
+            if (typeof attrValue !== 'undefined') {
+                overrides[key] = attrValue;
+            }
+        });
+
+        // Inherit overridden options
+        assign(options, overrides);
+
+        // Inherit options if a group has been defined
+        let group = overrides.group;
+
+        if (group && options.groups[group]) {
+            assign(options, options.groups[group]);
+        }
+
+        this.options = options;
+    }
+
+    /**
+     * Once the element has been set, we can attempt to inherit any data attributes as options.
+     *
+     * @param {HTMLElement|Element} element
+     */
+    setElement(element) {
+        super.setElement(element);
+
+        // Inherit options from attributes as they are entered manually in the DOM
+        this.inheritOptions();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    setupProperties() {
+        this.name = 'EmbeddedComponent';
+
+        /** The element namespace to uniquely identify nested modules. */
+        this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || '';
     }
 
 }
