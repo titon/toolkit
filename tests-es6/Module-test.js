@@ -1,5 +1,6 @@
 'use strict';
 
+import Titon from 'Titon';
 import Module from 'Module';
 import Element from 'Element';
 
@@ -46,7 +47,7 @@ describe('Module', () => {
             expect(obj.element.element).toEqual(element);
         });
 
-        it('should allow elements directly', () => {
+        it('should allow elements to be set directly', () => {
             let obj = new Module(element, {}, false);
 
             expect(obj.selector).toBe('');
@@ -54,34 +55,9 @@ describe('Module', () => {
         });
     });
 
-    describe('finalize()', () => {
-        it('should disable the module', () => {
-            obj.enabled = true;
-
-            expect(obj.enabled).toBe(true);
-
-            obj.finalize();
-
-            expect(obj.enabled).toBe(false);
-        });
-
-        it('should unmount the element', () => {
-            obj.mounted = true;
-
-            expect(obj.mounted).toBe(true);
-
-            obj.finalize();
-
-            expect(obj.mounted).toBe(false);
-        });
-    });
-
     describe('disable()', () => {
         it('should disable the module', () => {
             obj.enabled = true;
-
-            expect(obj.enabled).toBe(true);
-
             obj.disable();
 
             expect(obj.enabled).toBe(false);
@@ -111,7 +87,8 @@ describe('Module', () => {
         });
 
         it('should trigger a custom DOM event from the element', () => {
-            let context, args;
+            let context = null,
+                args = [];
 
             obj.element = new Element(createElement('div'));
             obj.element.element.addEventListener('foo.titon.module', e => {
@@ -135,6 +112,22 @@ describe('Module', () => {
             obj.enable();
 
             expect(obj.enabled).toBe(true);
+        });
+    });
+
+    describe('finalize()', () => {
+        it('should disable the module', () => {
+            obj.enabled = true;
+            obj.finalize();
+
+            expect(obj.enabled).toBe(false);
+        });
+
+        it('should unmount the element', () => {
+            obj.mounted = true;
+            obj.finalize();
+
+            expect(obj.mounted).toBe(false);
         });
     });
 
@@ -202,55 +195,55 @@ describe('Module', () => {
 
     describe('on()', () => {
         it('should add a listener', () => {
-            let fn1 = function() {};
+            let func1 = function() {};
 
             expect(obj.listeners.foo).toBeUndefined();
 
-            obj.on('foo', fn1);
+            obj.on('foo', func1);
 
-            expect(obj.listeners.foo).toEqual([fn1]);
+            expect(obj.listeners.foo).toEqual([func1]);
         });
 
         it('should add multiple listeners', () => {
-            let fn1 = function() {},
-                fn2 = function() {},
-                fn3 = function() {};
+            let func1 = function() {},
+                func2 = function() {},
+                func3 = function() {};
 
             expect(obj.listeners.foo).toBeUndefined();
 
-            obj.on('foo', fn1);
+            obj.on('foo', func1);
 
-            expect(obj.listeners.foo).toEqual([fn1]);
+            expect(obj.listeners.foo).toEqual([func1]);
 
-            obj.on('foo', [fn2, fn3]);
+            obj.on('foo', [func2, func3]);
 
-            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+            expect(obj.listeners.foo).toEqual([func1, func2, func3]);
         });
     });
 
     describe('off()', () => {
         it('should remove a matching listener', () => {
-            let fn1 = function() {},
-                fn2 = function() {},
-                fn3 = function() {};
+            let func1 = function() {},
+                func2 = function() {},
+                func3 = function() {};
 
-            obj.on('foo', [fn1, fn2, fn3]);
+            obj.on('foo', [func1, func2, func3]);
 
-            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+            expect(obj.listeners.foo).toEqual([func1, func2, func3]);
 
-            obj.off('foo', fn2);
+            obj.off('foo', func2);
 
-            expect(obj.listeners.foo).toEqual([fn1, fn3]);
+            expect(obj.listeners.foo).toEqual([func1, func3]);
         });
 
         it('should remove all listeners if no match is passed', () => {
-            let fn1 = function() {},
-                fn2 = function() {},
-                fn3 = function() {};
+            let func1 = function() {},
+                func2 = function() {},
+                func3 = function() {};
 
-            obj.on('foo', [fn1, fn2, fn3]);
+            obj.on('foo', [func1, func2, func3]);
 
-            expect(obj.listeners.foo).toEqual([fn1, fn2, fn3]);
+            expect(obj.listeners.foo).toEqual([func1, func2, func3]);
 
             obj.off('foo');
 
@@ -258,33 +251,51 @@ describe('Module', () => {
         });
     });
 
+    describe('processJSON()', function() {
+        it('should trigger a function if `callback` is defined', function() {
+            let count = 0;
+
+            window.Titon.testProcess = function() {
+                count = 5;
+            };
+
+            obj.processJSON({ foo: 'bar' });
+
+            expect(count).toBe(0);
+
+            obj.processJSON({ foo: 'bar', callback: 'Titon.testProcess' });
+
+            expect(count).toBe(5);
+        });
+    });
+
     describe('setBinds()', () => {
         it('should parse out context, selector, and event', () => {
-            let fn = function() {};
+            let func = function() {};
 
             obj.setBinds({
                 'click element': 'startup',
-                'click container [data-selector]': fn
+                'click container [data-selector]': func
             });
 
             expect(obj.binds).toEqual([
                 ['click', 'element', '', obj.binds[0][3]],
-                ['click', 'container', '[data-selector]', fn]
+                ['click', 'container', '[data-selector]', func]
             ]);
         });
 
         it('should replace tokens', () => {
-            let fn = function() {};
+            let func = function() {};
 
             obj.options.mode = 'click';
             obj.selector = '.foo';
 
             obj.setBinds({
-                '{mode} element {selector}': fn
+                '{mode} element {selector}': func
             });
 
             expect(obj.binds).toEqual([
-                ['click', 'element', '.foo', fn]
+                ['click', 'element', '.foo', func]
             ]);
         });
 
@@ -297,14 +308,14 @@ describe('Module', () => {
         });
 
         it('should rename specific event names', () => {
-            let fn = function() {};
+            let func = function() {};
 
             obj.setBinds({
-                'ready document': fn
+                'ready document': func
             });
 
             expect(obj.binds).toEqual([
-                ['DOMContentLoaded', 'document', '', fn]
+                ['DOMContentLoaded', 'document', '', func]
             ]);
         });
     });
@@ -352,16 +363,16 @@ describe('Module', () => {
         });
 
         it('should auto-subscribe listeners that start with `on`', () => {
-            let fn = function() {};
+            let func = function() {};
 
             expect(obj.listeners.init).toBeUndefined();
 
             obj.setOptions({
-                onInit: fn,
+                onInit: func,
                 foo: 'bar'
             });
 
-            expect(obj.listeners.init).toEqual([fn]);
+            expect(obj.listeners.init).toEqual([func]);
 
             expect(obj.options).toEqual({
                 cache: true,
@@ -422,7 +433,9 @@ describe('Module', () => {
         });
 
         it('should pass current, new, and diff state to `changed` event', () => {
-            let diffState, oldState, newState;
+            let diffState = null,
+                oldState = null,
+                newState = null;
 
             obj.state = {
                 foo: 123,
@@ -459,7 +472,8 @@ describe('Module', () => {
         });
 
         it('should pass current and new state to `changed:*` event', () => {
-            let oldState, newState;
+            let oldState = null,
+                newState = null;
 
             obj.state = {
                 foo: 123,
@@ -512,6 +526,28 @@ describe('Module', () => {
                 qux: []
             });
         });
+
+        it('should allow a key and value to be set through arguments', () => {
+            expect(obj.state).toEqual({});
+
+            obj.setState('foo', 'bar');
+
+            expect(obj.state).toEqual({
+                foo: 'bar'
+            });
+        });
+    });
+
+    describe('setupElement()', () => {
+        it('should query the DOM for the element if a selector is passed', () => {
+            obj.setupElement('#sandbox');
+
+            expect(obj.element).toEqual(new Element(document.getElementById('sandbox')));
+        });
+
+        it('should throw a warning if no element is found', () => {
+            expect(() => obj.setupElement('#missing-element')).toThrow(new Error('Element could not be found for Module.'));
+        });
     });
 
     describe('setupOptions()', () => {
@@ -556,6 +592,23 @@ describe('Module', () => {
             expect(obj2.options).toEqual({
                 child: true,
                 cache: false,
+                debug: false,
+                foo: 'bar'
+            });
+        });
+
+        it('should keep a reference to the original base options', () => {
+            obj.setupOptions({
+                foo: 'bar'
+            });
+
+            expect(obj.baseOptions).toEqual({
+                cache: true,
+                debug: false
+            });
+
+            expect(obj.options).toEqual({
+                cache: true,
                 debug: false,
                 foo: 'bar'
             });

@@ -104,7 +104,6 @@ export default class Element {
     static getCollectionMethods() {
         return [
             'addClass', 'removeClass', 'conceal', 'reveal', 'read', 'write',
-            'getAttribute', 'getAttributes',
             'setAria', 'setArias', 'setAttribute', 'setAttributes',
             'setProperty', 'setProperties', 'setStyle', 'setStyles'
         ];

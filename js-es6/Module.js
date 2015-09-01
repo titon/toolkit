@@ -13,6 +13,7 @@ import delegate from 'extensions/event/delegate';
 import isElement from 'extensions/dom/isElement';
 import findID from 'extensions/dom/findID';
 import uid from 'extensions/uid';
+import { isTouch } from 'extensions/flags';
 import 'polyfills/CustomEvent';
 
 export default class Module {
@@ -40,8 +41,9 @@ export default class Module {
 
     /** Unique configurable options for the module. */
     options = {};
+    baseOptions = {};
 
-    /** The CSS selector bound to the module. */
+    /** The CSS selector used to find the primary element. */
     selector = '';
 
     /** Current and previous state of the module. Must be modified with `setState()`. */
@@ -142,7 +144,6 @@ export default class Module {
      */
     emit(event, args = []) {
         let debug = this.options.debug || Titon.debug,
-            element = this.element.element, // The raw DOM element
             listeners = this.listeners[event];
 
         // Log debug information
@@ -160,14 +161,12 @@ export default class Module {
         }
 
         // Notify DOM listeners
-        if (element && window.CustomEvent) {
-            element.dispatchEvent(new CustomEvent(event + '.titon.' + this.name.toLowerCase(), {
-                detail: {
-                    context: this,
-                    arguments: args
-                }
-            }));
-        }
+        this.element.element.dispatchEvent(new CustomEvent(event + '.titon.' + this.name.toLowerCase(), {
+            detail: {
+                context: this,
+                arguments: args
+            }
+        }));
     }
 
     /**
@@ -340,11 +339,16 @@ export default class Module {
      * @param {object} binds
      */
     setBinds(binds) {
-        let bindings = [];
+        let bindings = [],
+            mode = this.options.mode;
+
+        if (mode === 'hover') {
+            mode = isTouch ? 'click' : 'mouseenter';
+        }
 
         forOwn(binds, (callback, key) => {
             let [event, context, selector] = key
-                .replace('{mode}', this.options.mode)
+                .replace('{mode}', mode)
                 .replace('{selector}', this.selector)
                 .split(' ', 3);
 
@@ -388,12 +392,12 @@ export default class Module {
      *
      * - Merge with and inherit parent options
      * - Merge responsive options if the breakpoint matches
-     * - Merge grouped options if the group matches
+     * - Bind listeners for options that start with "on"
      *
      * @param {object} options
      */
     setOptions(options) {
-        options = assign(this.options, options || {});
+        options = assign({}, this.options, options || {});
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
@@ -427,9 +431,18 @@ export default class Module {
      * If there are changes, `changed` and `changed:*` events will be emitted,
      * the new state will be set, and the `render()` method will be called.
      *
-     * @param {object|function} state
+     * @param {string|object|function} state
+     * @param {*} [value]
      */
-    setState(state) {
+    setState(state, value) {
+        if (typeof value !== 'undefined') {
+            this.setState({
+                [state]: value
+            });
+
+            return;
+        }
+
         let currentState = this.state,
             changed = false,
             diff = {};
@@ -520,7 +533,7 @@ export default class Module {
             parentOptions = parent.prototype.getDefaultOptions.call(null, options);
         }
 
-        this.options = assign({}, parentOptions, this.getDefaultOptions());
+        this.options = this.baseOptions = assign({}, parentOptions, this.getDefaultOptions());
         this.setOptions(options);
     }
 
@@ -559,6 +572,6 @@ export default class Module {
 }
 
 Module.options = {
-    cache: true,
-    debug: false
+    cache: true,        // Whether to cache AJAX requests or not
+    debug: false        // Whether to debug events or not
 };

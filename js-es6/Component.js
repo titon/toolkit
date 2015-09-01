@@ -15,9 +15,7 @@ export default class Component extends Module {
      * @returns {string}
      */
     formatID(...params) {
-        params.unshift('titon', this.getCssClassName(), this.uid);
-
-        return params.join('-');
+        return ['titon', this.getCssClassName(), this.uid].concat(params).join('-');
     }
 
     /**
@@ -32,13 +30,20 @@ export default class Component extends Module {
 
     /**
      * Return the module name as a valid CSS class name.
-     * Will convert upper case characters to lower case dashes.
+     * Will convert upper case characters to lower case prefixed with dashes.
      *
      * @returns {string}
      */
     @memoize
     getCssClassName() {
         return this.name.replace(/[A-Z]/g, match => '-' + match.toLowerCase()).slice(1);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    getDefaultOptions() {
+        return Component.options;
     }
 
     /**
@@ -51,7 +56,7 @@ export default class Component extends Module {
 }
 
 Component.options = {
-    ajax: {},
-    context: null,
-    className: ''
+    ajax: {},           // Settings to apply to AJAX requests
+    context: null,      // The context in which to query the DOM
+    className: ''       // Class name to append to the primary element
 };
