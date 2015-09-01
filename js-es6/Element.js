@@ -79,7 +79,7 @@ export default class Element {
      * @returns {*}
      */
     getAttribute(key) {
-        return this.element.getAttribute(key);
+        return this.element.getAttribute(key.toLowerCase());
     }
 
     /**

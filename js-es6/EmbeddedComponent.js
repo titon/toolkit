@@ -7,6 +7,7 @@
 import Component from 'Component';
 import assign from 'lodash/object/assign';
 import forOwn from 'lodash/object/forOwn';
+import cast from 'extensions/utility/cast';
 
 export default class EmbeddedComponent extends Component {
 
@@ -39,25 +40,17 @@ export default class EmbeddedComponent extends Component {
      */
     inheritOptions() {
         let options = this.options,
-            overrides = {};
+            attrPrefix = 'data-' + this.getAttributeName() + '-',
+            attrValue;
 
-        forOwn(this.getDefaultOptions(), (value, key) => {
-            if (key === 'context' || key === 'template') {
-                return;
-            }
-
-            let attrValue = this.element.getAttribute('data-' + this.getAttributeName() + '-' + key);
-
-            if (typeof attrValue !== 'undefined') {
-                overrides[key] = attrValue;
+        forOwn(this.baseOptions, (value, key) => {
+            if (attrValue = this.element.getAttribute(attrPrefix + key)) {
+                options[key] = cast(attrValue);
             }
         });
 
-        // Inherit overridden options
-        assign(options, overrides);
-
         // Inherit options if a group has been defined
-        let group = overrides.group;
+        let group = this.element.getAttribute(attrPrefix + 'group');
 
         if (group && options.groups[group]) {
             assign(options, options.groups[group]);
@@ -87,5 +80,4 @@ export default class EmbeddedComponent extends Component {
         /** The element namespace to uniquely identify nested modules. */
         this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || '';
     }
-
 }

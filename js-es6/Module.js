@@ -382,7 +382,7 @@ export default class Module {
             this.element = element;
 
         } else {
-            console.warn(`Invalid element for ${this.name}. Must be an instance of Titon \`Element\` or a DOM \`HTMLElement\`.`);
+            console.warn('Invalid element. Must be an instance of Titon `Element` or a DOM `HTMLElement`.');
         }
     }
 
@@ -397,7 +397,7 @@ export default class Module {
      * @param {object} options
      */
     setOptions(options) {
-        options = assign({}, this.options, options || {});
+        options = assign({}, this.baseOptions, options || {});
 
         // Inherit options based on responsive media queries
         if (options.responsive && window.matchMedia) {
@@ -512,7 +512,7 @@ export default class Module {
             this.setElement(element);
 
         } else {
-            console.warn(`Element could not be found for ${this.name}.`);
+            console.warn('Element could not be found.');
         }
     }
 
@@ -524,16 +524,16 @@ export default class Module {
      * @param {object} [options]
      */
     setupOptions(options) {
-        let parentOptions = {},
-            parent = Object.getPrototypeOf(this.constructor);
+        let baseOptions = {},
+            parent = this.constructor;
 
-        // I have yet to find a *real* way to check if a class has a `super`.
-        // Since we can't actually use `super.getDefaultOptions()` here.
-        if (typeof parent.prototype !== 'undefined') {
-            parentOptions = parent.prototype.getDefaultOptions.call(null, options);
+        // Loop through each parent and merge in their options
+        while (parent && typeof parent.prototype !== 'undefined') {
+            baseOptions = assign({}, parent.prototype.getDefaultOptions(), baseOptions);
+            parent = Object.getPrototypeOf(parent);
         }
 
-        this.options = this.baseOptions = assign({}, parentOptions, this.getDefaultOptions());
+        this.baseOptions = baseOptions;
         this.setOptions(options);
     }
 

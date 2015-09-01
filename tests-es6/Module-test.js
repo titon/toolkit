@@ -338,7 +338,7 @@ describe('Module', () => {
         });
 
         it('should throw `Error`s if invalid types are passed', () => {
-            let error = 'Invalid element for Module. Must be an instance of Titon `Element` or a DOM `HTMLElement`.';
+            let error = 'Invalid element. Must be an instance of Titon `Element` or a DOM `HTMLElement`.';
 
             expect(() => obj.setElement('')).toThrow(new Error(error));
             expect(() => obj.setElement(123)).toThrow(new Error(error));
@@ -347,8 +347,8 @@ describe('Module', () => {
     });
 
     describe('setOptions()', () => {
-        it('should merge with the previous options', () => {
-            obj.options = { foo: 1 };
+        it('should merge with the base options', () => {
+            obj.baseOptions = { foo: 1 };
 
             obj.setOptions({
                 bar: 2,
@@ -546,7 +546,7 @@ describe('Module', () => {
         });
 
         it('should throw a warning if no element is found', () => {
-            expect(() => obj.setupElement('#missing-element')).toThrow(new Error('Element could not be found for Module.'));
+            expect(() => obj.setupElement('#missing-element')).toThrow(new Error('Element could not be found.'));
         });
     });
 

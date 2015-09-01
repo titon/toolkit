@@ -5,7 +5,6 @@
  */
 
 import Module from 'Module';
-import memoize from 'decorators/memoize';
 
 export default class Component extends Module {
 
@@ -23,7 +22,6 @@ export default class Component extends Module {
      *
      * @returns {string}
      */
-    @memoize
     getAttributeName() {
         return this.name.toLowerCase();
     }
@@ -34,7 +32,6 @@ export default class Component extends Module {
      *
      * @returns {string}
      */
-    @memoize
     getCssClassName() {
         return this.name.replace(/[A-Z]/g, match => '-' + match.toLowerCase()).slice(1);
     }
