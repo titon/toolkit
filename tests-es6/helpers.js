@@ -2,11 +2,12 @@
 
 'use strict';
 
+var createdElements = {},
+    oldWarn = console.warn;
+
 /**
  * Convert `console.warn()` calls to errors so that we can unit test properly.
  */
-var oldWarn = console.warn;
-
 console.warn = function(message) {
     throw new Error(message);
 };
@@ -22,7 +23,8 @@ console.warn = function(message) {
  */
 function createElement(tag, attributes, mount) {
     var element = document.createElement(tag),
-        sandbox = document.getElementById('sandbox');
+        sandbox = document.getElementById('sandbox'),
+        hash = Date.now();
 
     // Add attributes
     Object.keys(attributes || {}).forEach(function(key) {
@@ -57,19 +59,36 @@ function createElement(tag, attributes, mount) {
         }
     });
 
-    // Add a cleanup function
-    element.cleanup = function() {
-        if (element.parentNode) {
-            element.parentNode.removeChild(element);
-        }
-    };
-
     // Add to the sandbox
     if (mount !== false) {
         sandbox.appendChild(element);
     }
 
+    // Add a cleanup function
+    element.hash = hash;
+    element.cleanup = function() {
+        if (element.parentNode) {
+            element.parentNode.removeChild(element);
+        }
+
+        delete createdElements[element.hash];
+    };
+
+    // Store the history
+    createdElements[hash] = element;
+
     return element;
+}
+
+/**
+ * Cleanup and remove all elements that were created for testing purposes.
+ */
+function cleanupElements() {
+    Object.keys(createdElements).forEach(function(hash) {
+        createdElements[hash].cleanup();
+    });
+
+    createdElements = {};
 }
 
 /**
