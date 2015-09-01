@@ -3,6 +3,15 @@
 'use strict';
 
 /**
+ * Convert `console.warn()` calls to errors so that we can unit test properly.
+ */
+var oldWarn = console.warn;
+
+console.warn = function(message) {
+    throw new Error(message);
+};
+
+/**
  * Create an element an append it to the sandbox. This element will be created before every test,
  * and cleaned up after every test.
  *

@@ -83,13 +83,17 @@ export default class Element {
     }
 
     /**
-     * Return an array of multiple values for each key defined.
+     * Return an object of key value pairs for each key defined.
      *
      * @param {string[]} keys
-     * @return {*[]}
+     * @return {object}
      */
     getAttributes(keys) {
-        return keys.map(key => this.getAttribute(key));
+        let object = {};
+
+        keys.forEach(key => object[key] = this.getAttribute(key));
+
+        return object;
     }
 
     /**

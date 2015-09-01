@@ -6,7 +6,7 @@ describe('Component', () => {
     let obj;
 
     beforeEach(() => {
-        obj = new Component('', {}, false);
+        obj = new Component('#sandbox', {}, false);
     });
 
     describe('formatID()', () => {

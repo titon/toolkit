@@ -1,9 +1,10 @@
 'use strict';
 
 import Module from 'Module';
+import Element from 'Element';
 
 class ChildModule extends Module {
-    name = 'Child';
+    name = 'ChildModule';
     getDefaultOptions() {
         return ChildModule.options;
     }
@@ -18,20 +19,19 @@ describe('Module', () => {
     let obj, element;
 
     beforeEach(() => {
-        obj = new Module('', {}, false);
-        element = null;
+        element = createElement('div', { id: 'module-test' });
+        obj = new Module('#module-test', {}, false);
     });
 
     afterEach(() => {
-        if (element && element.cleanup) {
-            element.cleanup();
-        }
+        element.cleanup();
+        obj = null;
     });
 
     describe('constructor()', () => {
         it('should increase the count/UID for each instance', () => {
-            let obj1 = new Module(),
-                obj2 = new Module();
+            let obj1 = new Module('#module-test', {}, false),
+                obj2 = new Module('#module-test', {}, false);
 
             expect(obj1.uid).toBe(2);
             expect(obj2.uid).toBe(3);
@@ -40,6 +40,18 @@ describe('Module', () => {
         it('should set class properties', () => {
             expect(obj.name).toBe('Module');
             expect(obj.enabled).toBe(false);
+        });
+
+        it('should set the selector used', () => {
+            expect(obj.selector).toBe('#module-test');
+            expect(obj.element.element).toEqual(element);
+        });
+
+        it('should allow elements directly', () => {
+            let obj = new Module(element, {}, false);
+
+            expect(obj.selector).toBe('');
+            expect(obj.element.element).toEqual(element);
         });
     });
 
@@ -55,9 +67,6 @@ describe('Module', () => {
         });
 
         it('should unmount the element', () => {
-            element = createElement('div');
-
-            obj.element = element;
             obj.mounted = true;
 
             expect(obj.mounted).toBe(true);
@@ -105,8 +114,8 @@ describe('Module', () => {
         it('should trigger a custom DOM event from the element', () => {
             let context, args;
 
-            obj.element = createElement('div');
-            obj.element.addEventListener('foo.titon.module', e => {
+            obj.element = new Element(createElement('div'));
+            obj.element.element.addEventListener('foo.titon.module', e => {
                 context = e.detail.context;
                 args = e.detail.arguments;
                 expected.push(5 * args[0]);
@@ -118,7 +127,7 @@ describe('Module', () => {
             expect(context).toEqual(obj);
             expect(args).toEqual([5]);
 
-            obj.element.cleanup();
+            obj.element.element.cleanup();
         });
     });
 
@@ -143,42 +152,50 @@ describe('Module', () => {
 
     describe('mount()', () => {
         it('should not mount if no element defined', () => {
-            expect(obj.mounted).toBe(false);
-
+            obj.mounted = false;
+            obj.element = null;
             obj.mount();
 
             expect(obj.mounted).toBe(false);
         });
 
         it('should not mount if the element already has a parent', () => {
-            element = createElement('div'); // Sandbox
-            obj.element = element;
+            let el = createElement('div'); // Sandbox
+
+            obj.mounted = false;
+            obj.element = new Element(el);
 
             expect(obj.mounted).toBe(false);
 
             obj.mount();
 
             expect(obj.mounted).toBe(false);
+
+            el.cleanup();
         });
 
         it('should mount the element', () => {
-            element = createElement('div', {}, false);
-            obj.element = element;
+            let el = createElement('div', {}, false);
+
+            obj.mounted = false;
+            obj.element = new Element(el);
 
             expect(obj.mounted).toBe(false);
 
             obj.mount();
 
             expect(obj.mounted).toBe(true);
-            expect(element.parentNode).toEqual(document.body);
+            expect(el.parentNode).toEqual(document.body);
+
+            el.cleanup();
         });
 
         it('should not mount if already mounted', () => {
-            let count = 0;
+            let count = 0,
+                el = createElement('div', {}, false);
 
-            element = createElement('div', {}, false);
-
-            obj.element = element;
+            obj.mounted = false;
+            obj.element = new Element(el);
             obj.on('mounted', () => count++);
 
             expect(obj.mounted).toBe(false);
@@ -192,6 +209,8 @@ describe('Module', () => {
 
             expect(obj.mounted).toBe(true);
             expect(count).toBe(1);
+
+            el.cleanup();
         });
     });
 
@@ -305,14 +324,33 @@ describe('Module', () => {
     });
 
     describe('setElement()', () => {
-        it('should set the element', () => {
-            element = createElement('div');
+        it('should set the element and wrap with `Element`', () => {
+            let el = createElement('div');
 
-            expect(obj.element).toBe(null);
+            obj.setElement(el);
 
-            obj.setElement(element);
+            expect(obj.element).toEqual(new Element(el));
 
-            expect(obj.element).toEqual(element);
+            el.cleanup();
+        });
+
+        it('should allow `Element` objects to be set directly', () => {
+            let el = createElement('div'),
+                objElement = new Element(el);
+
+            obj.setElement(objElement);
+
+            expect(obj.element).toEqual(objElement);
+
+            el.cleanup();
+        });
+
+        it('should throw `Error`s if invalid types are passed', () => {
+            let error = 'Invalid element for Module. Must be an instance of Titon `Element` or a DOM `HTMLElement`.';
+
+            expect(() => obj.setElement('')).toThrow(new Error(error));
+            expect(() => obj.setElement(123)).toThrow(new Error(error));
+            expect(() => obj.setElement(true)).toThrow(new Error(error));
         });
     });
 
@@ -522,7 +560,7 @@ describe('Module', () => {
         });
 
         it('should merge and inherit parent options', () => {
-            let obj2 = new ChildModule();
+            let obj2 = new ChildModule('#module-test', {}, false);
 
             expect(obj2.options).toEqual({
                 cache: false,
@@ -545,47 +583,50 @@ describe('Module', () => {
 
     describe('unmount()', () => {
         it('should not unmount if no element defined', () => {
-            expect(obj.mounted).toBe(false);
-
+            obj.mounted = false;
+            obj.element = null;
             obj.unmount();
 
             expect(obj.mounted).toBe(false);
         });
 
         it('should not unmount if no parent element', () => {
-            element = createElement('div', {}, false);
+            let el = createElement('div', {}, false);
 
-            obj.element = element;
             obj.mounted = true;
+            obj.element = new Element(el);
 
             expect(obj.mounted).toBe(true);
 
             obj.unmount();
 
             expect(obj.mounted).toBe(true);
+
+            el.cleanup();
         });
 
         it('should unmount the element', () => {
-            element = createElement('div');
+            let el = createElement('div');
 
-            obj.element = element;
             obj.mounted = true;
+            obj.element = new Element(el);
 
             expect(obj.mounted).toBe(true);
 
             obj.unmount();
 
             expect(obj.mounted).toBe(false);
-            expect(element.parentNode).toBe(null);
+            expect(el.parentNode).toBe(null);
+
+            el.cleanup();
         });
 
         it('should not unmount if already unmounted', () => {
-            let count = 0;
+            let count = 0,
+                el = createElement('div');
 
-            element = createElement('div');
-
-            obj.element = element;
             obj.mounted = true;
+            obj.element = new Element(el);
 
             obj.on('unmounted', () => count++);
 
@@ -600,6 +641,8 @@ describe('Module', () => {
 
             expect(obj.mounted).toBe(false);
             expect(count).toBe(1);
+
+            el.cleanup();
         });
     });
 });

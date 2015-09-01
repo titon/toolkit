@@ -142,7 +142,7 @@ export default class Module {
      */
     emit(event, args = []) {
         let debug = this.options.debug || Titon.debug,
-            element = this.element,
+            element = this.element.element, // The raw DOM element
             listeners = this.listeners[event];
 
         // Log debug information
@@ -224,12 +224,12 @@ export default class Module {
     mount() {
         let element = this.element;
 
-        if (this.mounted || !element || element.parentNode) {
+        if (this.mounted || !element || element.element.parentNode) {
             return;
         }
 
         this.emit('mounting');
-        this.mountTo(element);
+        this.mountTo(element.element);
         this.emit('mounted');
 
         this.mounted = true;
@@ -536,12 +536,12 @@ export default class Module {
     unmount() {
         let element = this.element;
 
-        if (!this.mounted || !element || !element.parentNode) {
+        if (!this.mounted || !element || !element.element.parentNode) {
             return;
         }
 
         this.emit('unmounting');
-        this.unmountFrom(element);
+        this.unmountFrom(element.element);
         this.emit('unmounted');
 
         this.mounted = false;

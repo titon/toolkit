@@ -78,12 +78,12 @@ describe('Element', () => {
                 });
         });
 
-        it('should not set to display none if argument is true', (done) => {
+        it('should not set to display none if argument is `false`', (done) => {
             element.className = 'show';
 
             expect(element.style.display).toBe('');
 
-            obj.conceal(true)
+            obj.conceal(false)
                 .write()
                 .then(() => {
                     expect(element.style.display).toBe('');
@@ -99,6 +99,34 @@ describe('Element', () => {
             ]));
         });
     });*/
+
+    describe('getAttribute()', () => {
+        it('should return the value of an HTML attribute', () => {
+            expect(obj.getAttribute('id')).toBeNull();
+            expect(obj.getAttribute('data-foo')).toBeNull();
+
+            element.setAttribute('id', 'el');
+            element.setAttribute('data-foo', 'bar');
+
+            expect(obj.getAttribute('id')).toBe('el');
+            expect(obj.getAttribute('data-foo')).toBe('bar');
+        });
+    });
+
+    describe('getAttributes()', () => {
+        it('should return an object of key value pairs', () => {
+            element.setAttribute('id', 'bar');
+            element.setAttribute('data-foo', 123);
+            element.setAttribute('aria-hidden', 'true');
+
+            expect(obj.getAttributes(['id', 'data-foo', 'aria-hidden', 'missing'])).toEqual({
+                id: 'bar',
+                'data-foo': '123',
+                'aria-hidden': 'true',
+                missing: null
+            });
+        });
+    });
 
     describe('hasClass()', () => {
         it('should return `true` when the element has a specific class', () => {
@@ -361,13 +389,13 @@ describe('Element', () => {
                 });
         });
 
-        it('should not set to display block if argument is true', (done) => {
+        it('should not set to display block if argument is `false`', (done) => {
             element.className = 'hide';
             element.style.display = 'none';
 
             expect(element.style.display).toBe('none');
 
-            obj.reveal(true)
+            obj.reveal(false)
                 .write()
                 .then(() => {
                     expect(element.style.display).toBe('none');
