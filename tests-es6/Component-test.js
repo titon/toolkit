@@ -9,14 +9,26 @@ describe('Component', () => {
         obj = new Component('#sandbox', {}, false);
     });
 
+    describe('constructor()', () => {
+        it('should merge options from the parent', () => {
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false,
+                ajax: {},
+                context: null,
+                className: ''
+            });
+        });
+    });
+
     describe('formatID()', () => {
         it('should generate a unique ID', () => {
-            expect(obj.formatID()).toBe('titon-component-1');
+            expect(obj.formatID()).toBe('titon-component-2');
         });
 
         it('should append optional arguments to the ID', () => {
-            expect(obj.formatID('a')).toBe('titon-component-2-a');
-            expect(obj.formatID('a', 'b', 'c')).toBe('titon-component-2-a-b-c');
+            expect(obj.formatID('a')).toBe('titon-component-3-a');
+            expect(obj.formatID('a', 'b', 'c')).toBe('titon-component-3-a-b-c');
         });
     });
 
@@ -25,9 +37,6 @@ describe('Component', () => {
             obj.name = 'AttrComponent';
 
             expect(obj.getAttributeName()).toBe('attrcomponent');
-
-            // Test symbol caching
-            expect(obj.getAttributeName()).toBe('attrcomponent');
         });
     });
 
@@ -35,9 +44,6 @@ describe('Component', () => {
         it('should return a CSS compatible class name', () => {
             obj.name = 'CssComponent';
 
-            expect(obj.getCssClassName()).toBe('css-component');
-
-            // Test symbol caching
             expect(obj.getCssClassName()).toBe('css-component');
         });
     });

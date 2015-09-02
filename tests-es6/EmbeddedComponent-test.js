@@ -13,6 +13,19 @@ describe('EmbeddedComponent', () => {
         cleanupElements();
     });
 
+    describe('constructor()', () => {
+        it('should merge options from the parent', () => {
+            expect(obj.options).toEqual({
+                cache: true,
+                debug: false,
+                ajax: {},
+                context: null,
+                className: '',
+                namespace: ''
+            });
+        });
+    });
+
     describe('formatNamespace()', () => {
         it('should generate a namespace selector', () => {
             expect(obj.formatNamespace()).toBe('[data-embeddedcomponent]');
@@ -31,7 +44,8 @@ describe('EmbeddedComponent', () => {
                 debug: false,
                 ajax: {},
                 context: null,
-                className: ''
+                className: '',
+                namespace: ''
             });
 
             obj.setElement(createElement('div', {
@@ -44,7 +58,8 @@ describe('EmbeddedComponent', () => {
                 debug: true,
                 ajax: {},
                 context: null,
-                className: 'foo'
+                className: 'foo',
+                namespace: ''
             });
         });
 
@@ -70,6 +85,7 @@ describe('EmbeddedComponent', () => {
                 ajax: {},
                 context: null,
                 className: 'bar',
+                namespace: '',
                 groups: obj.baseOptions.groups,
                 bar: 123
             });

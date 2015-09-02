@@ -33,6 +33,13 @@ export default class EmbeddedComponent extends Component {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    getDefaultOptions() {
+        return EmbeddedComponent.options;
+    }
+
+    /**
      * Inherit option overrides from the primary element's data attributes.
      * If a `group` attribute is defined, attempt to inherit any options defined for that group.
      *
@@ -78,6 +85,10 @@ export default class EmbeddedComponent extends Component {
         this.name = 'EmbeddedComponent';
 
         /** The element namespace to uniquely identify nested modules. */
-        this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || '';
+        this.namespace = this.element.getAttribute('data-' + this.getAttributeName()) || this.options.namespace;
     }
 }
+
+EmbeddedComponent.options = {
+    namespace: ''   // The fallback namespace if the data attribute approach is not used
+};
