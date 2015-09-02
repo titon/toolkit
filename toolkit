@@ -4,6 +4,7 @@
 
 var fs = require('fs'),
     path = require('path'),
+    chalk = require('chalk'),
     toolkit = require('commander'),
     project = require('./package.json'),
     manifest = require('./manifest.json'),
@@ -39,7 +40,7 @@ toolkit
     .option('-o, --out <path>', 'Output build path', './build')
     .option('--rtl', 'Enable right-to-left mode', false)
     .option('--debug', 'Enable debug mode', false)
-    .option('--namespace <value>', 'Namespace to prepend to all CSS classnames')
+    .option('--namespace <value>', 'Namespace to prepend to all CSS class names')
     .option('--modules <list>', 'Filter which modules to include in the output', function(value) {
         return value.split(',');
     }, []);
@@ -94,7 +95,7 @@ if (promise instanceof Promise) {
             process.exit(0);
         })
         .catch(function(error) {
-            console.error(error.message);
+            console.log(chalk.white.bgRed(error.message || error));
             process.exit(1);
         });
 }
