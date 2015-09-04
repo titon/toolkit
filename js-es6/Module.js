@@ -15,6 +15,7 @@ import findID from 'extensions/dom/findID';
 import uid from 'extensions/uid';
 import { isTouch } from 'extensions/flags';
 import 'polyfills/CustomEvent';
+import 'polyfills/performance/now';
 
 export default class Module {
 
@@ -148,7 +149,7 @@ export default class Module {
 
         // Log debug information
         if (debug && window.console) {
-            console.log(this.name + '#' + this.uid, new Date().getMilliseconds(), event, args);
+            console.log(this.name + '#' + this.uid, performance.now(), event, args);
 
             if (debug === 'verbose') {
                 console.dir(this);
