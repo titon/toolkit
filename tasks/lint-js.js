@@ -12,7 +12,7 @@ module.exports = function(command) {
     var options = command.parent;
 
     return new Promise(function(resolve) {
-        log.title('lint:js');
+        log.title('titon:lint');
         log('Loading ESLint configuration...');
 
         var engine = new eslint.CLIEngine({

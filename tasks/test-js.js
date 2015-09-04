@@ -8,7 +8,7 @@ var path = require('path'),
 
 module.exports = function(command) {
     return new Promise(function(resolve) {
-        log.title('test:js');
+        log.title('titon:test');
         log('Loading Karma configuration...');
         log('Running tests...');
 

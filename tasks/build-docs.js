@@ -51,7 +51,7 @@ module.exports = function(command) {
     var options = command.parent,
         locales = ['en'];
 
-    log.title('build:docs');
+    log.title('titon:docs');
     log('Generating ' + chalk.gray(locales.join(', ')) + ' table of contents...');
 
     return Promise.all(locales.map(function(locale) {
@@ -190,6 +190,7 @@ module.exports = function(command) {
                         x2 = a.title,
                         y2 = b.title;
 
+                    /* eslint no-nested-ternary:0 */
                     return ((x < y) ? -1 : ((x > y) ? 1 : x2.localeCompare(y2)));
                 });
 

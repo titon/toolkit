@@ -17,7 +17,7 @@ module.exports = function(command) {
     var options = command.parent;
 
     return new Promise(function(resolve) {
-        log.title('build:css');
+        log.title('titon:css');
 
         resolve(generateGraph('css', options));
     })

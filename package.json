@@ -15,22 +15,32 @@
     },
     "bugs": "https://github.com/titon/toolkit/issues",
     "repository": "github:titon/toolkit",
+
     "main": "js/index.js",
-    "peerDependencies": {
-        "lodash": "~3.10"
+    "bin": {
+        "titon": "./titon"
     },
     "scripts": {
-        "test:js": "node toolkit test:js",
-        "lint:js": "node toolkit lint:js",
-        "build": "node toolkit build",
-        "build:js": "node toolkit build:js",
-        "build:css": "node toolkit build:css"
+        "start": "node titon",
+        "lint": "node titon lint",
+        "test": "node titon test",
+        "build": "node titon build",
+        "js": "node titon js",
+        "css": "node titon css",
+        "docs": "node titon docs",
+
+        "prebuild": "node titon lint"
+    },
+
+    "peerDependencies": {
+        "lodash": "~3.10"
     },
     "devDependencies": {
         "commander": "~2.8",
         "compartment": "~0.2",
         "lodash": "~3.10",
         "chalk": "~1.1",
+        "directory-tree": "~0.1",
 
         "node-sass": "~3.3",
         "clean-css": "~3.4",

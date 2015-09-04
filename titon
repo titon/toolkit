@@ -47,12 +47,12 @@ toolkit
     }, []);
 
 toolkit
-    .command('lint:js')
+    .command('lint')
     .description('Lint JavaScript files using ESLint')
     .action(task(lintJs));
 
 toolkit
-    .command('test:js')
+    .command('test')
     .description('Test JavaScript files using Karma')
     .action(task(testJs));
 
@@ -62,17 +62,17 @@ toolkit
     .action(task(buildJs, buildCss));
 
 toolkit
-    .command('build:js')
+    .command('js')
     .description('Transpile ES6 JavaScript to ES5')
     .action(task(buildJs));
 
 toolkit
-    .command('build:css')
+    .command('css')
     .description('Transpile Sass to CSS')
     .action(task(buildCss));
 
 toolkit
-    .command('build:docs')
+    .command('docs')
     .description('Generate the documentation table of contents')
     .action(task(buildDocs));
 
@@ -101,7 +101,7 @@ if (promise instanceof Promise) {
             process.exit(0);
         })
         .catch(function(error) {
-            console.log(chalk.white.bgRed(error.stack));
+            log.stack(error);
             process.exit(1);
         });
 }

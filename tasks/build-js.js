@@ -18,7 +18,7 @@ module.exports = function(command) {
         options = command.parent;
 
     return new Promise(function(resolve) {
-        log.title('build:js');
+        log.title('titon:js');
 
         if (options.modules.length) {
             resolve(generateGraph('js', options));
