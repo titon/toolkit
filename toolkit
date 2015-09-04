@@ -14,6 +14,7 @@ var fs = require('fs'),
     testJs = require('./tasks/test-js'),
     buildJs = require('./tasks/build-js'),
     buildCss = require('./tasks/build-css'),
+    buildDocs = require('./tasks/build-docs'),
     generateGraph = require('./tasks/helpers/generateGraph'),
     promise = null;
 
@@ -70,6 +71,11 @@ toolkit
     .description('Transpile Sass to CSS')
     .action(task(buildCss));
 
+toolkit
+    .command('build:docs')
+    .description('Generate the documentation table of contents')
+    .action(task(buildDocs));
+
 // Execute command
 toolkit.parse(process.argv);
 
@@ -95,7 +101,7 @@ if (promise instanceof Promise) {
             process.exit(0);
         })
         .catch(function(error) {
-            console.log(chalk.white.bgRed(error.message || error));
+            console.log(chalk.white.bgRed(error.stack));
             process.exit(1);
         });
 }

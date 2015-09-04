@@ -1,510 +1,524 @@
 {
     "title": "Documentation",
     "url": "/",
+    "path": "/index.md",
     "order": 50,
     "children": [
         {
             "title": "Setup",
             "url": "/setup",
+            "path": "/setup/index.md",
             "order": 1,
             "children": [
                 {
                     "title": "Getting Started",
                     "url": "/setup/getting-started",
+                    "path": "/setup/getting-started.md",
                     "order": 1,
                     "chapters": [
                         {
                             "title": "Downloading Toolkit",
-                            "url": "/setup/getting-started#downloading-toolkit"
+                            "hash": "#downloading-toolkit"
                         },
                         {
                             "title": "Project Structure",
-                            "url": "/setup/getting-started#project-structure"
+                            "hash": "#project-structure"
                         },
                         {
                             "title": "  Distribution Files",
-                            "url": "/setup/getting-started#distribution-files"
+                            "hash": "#distribution-files"
                         },
                         {
                             "title": "  Source Files",
-                            "url": "/setup/getting-started#source-files"
+                            "hash": "#source-files"
                         },
                         {
                             "title": "Boilerplate Template",
-                            "url": "/setup/getting-started#boilerplate-template"
+                            "hash": "#boilerplate-template"
                         }
                     ]
                 },
                 {
                     "title": "Installing",
                     "url": "/setup/installing",
+                    "path": "/setup/installing.md",
                     "order": 2,
                     "chapters": [
                         {
                             "title": "Download",
-                            "url": "/setup/installing#download"
+                            "hash": "#download"
                         },
                         {
                             "title": "Git Clone",
-                            "url": "/setup/installing#git-clone"
+                            "hash": "#git-clone"
                         },
                         {
                             "title": "Bower",
-                            "url": "/setup/installing#bower"
+                            "hash": "#bower"
                         },
                         {
                             "title": "NPM",
-                            "url": "/setup/installing#npm"
+                            "hash": "#npm"
                         }
                     ]
                 },
                 {
                     "title": "Tool Integration",
                     "url": "/setup/tool-integration",
+                    "path": "/setup/tool-integration.md",
                     "order": 3,
-                    "new": true,
                     "chapters": [
                         {
                             "title": "Sass",
-                            "url": "/setup/tool-integration#sass"
+                            "hash": "#sass"
                         },
                         {
                             "title": "  Gulp",
-                            "url": "/setup/tool-integration#gulp"
+                            "hash": "#gulp"
                         },
                         {
                             "title": "  Grunt",
-                            "url": "/setup/tool-integration#grunt"
-                        },
-                        {
-                            "title": "  Compass",
-                            "url": "/setup/tool-integration#compass"
+                            "hash": "#grunt"
                         },
                         {
                             "title": "JavaScript",
-                            "url": "/setup/tool-integration#javascript"
+                            "hash": "#javascript"
                         },
                         {
                             "title": "  Webpack",
-                            "url": "/setup/tool-integration#webpack"
+                            "hash": "#webpack"
                         },
                         {
                             "title": "  RequireJS",
-                            "url": "/setup/tool-integration#requirejs"
+                            "hash": "#requirejs"
                         }
                     ]
                 },
                 {
                     "title": "Custom Builds",
                     "url": "/setup/custom-builds",
+                    "path": "/setup/custom-builds.md",
                     "order": 4,
                     "chapters": [
                         {
                             "title": "Requirements",
-                            "url": "/setup/custom-builds#requirements"
+                            "hash": "#requirements"
                         },
                         {
-                            "title": "Choosing Plugins",
-                            "url": "/setup/custom-builds#choosing-plugins"
+                            "title": "Choosing Modules",
+                            "hash": "#choosing-modules"
                         },
                         {
                             "title": "Normalize Integration",
-                            "url": "/setup/custom-builds#normalize-integration"
+                            "hash": "#normalize-integration"
                         },
                         {
                             "title": "Right-To-Left Support",
-                            "url": "/setup/custom-builds#right-to-left-support"
+                            "hash": "#right-to-left-support"
                         },
                         {
                             "title": "Combining Options",
-                            "url": "/setup/custom-builds#combining-options"
+                            "hash": "#combining-options"
                         }
                     ]
                 },
                 {
                     "title": "Interactive Demos",
                     "url": "/setup/demos",
-                    "order": 5,
-                    "chapters": []
+                    "path": "/setup/demos.md",
+                    "order": 5
                 }
             ]
         },
         {
             "title": "Development",
             "url": "/development",
+            "path": "/development/index.md",
             "order": 2,
             "children": [
                 {
                     "title": "JavaScript",
                     "url": "/development/js",
+                    "path": "/development/js/index.md",
                     "order": 1,
                     "children": [
                         {
-                            "title": "Using Plugins",
+                            "title": "Using Modules",
                             "url": "/development/js/usage",
+                            "path": "/development/js/usage.md",
                             "order": 1,
                             "chapters": [
                                 {
                                     "title": "Accessing Instances",
-                                    "url": "/development/js/usage#accessing-instances"
+                                    "hash": "#accessing-instances"
                                 },
                                 {
                                     "title": "Triggering Methods",
-                                    "url": "/development/js/usage#triggering-methods"
+                                    "hash": "#triggering-methods"
                                 },
                                 {
                                     "title": "Dynamic Content Loading",
-                                    "url": "/development/js/usage#dynamic-content-loading"
+                                    "hash": "#dynamic-content-loading"
                                 },
                                 {
                                     "title": "  DOM Loading",
-                                    "url": "/development/js/usage#dom-loading"
+                                    "hash": "#dom-loading"
                                 },
                                 {
                                     "title": "  AJAX Loading",
-                                    "url": "/development/js/usage#ajax-loading"
+                                    "hash": "#ajax-loading"
                                 },
                                 {
                                     "title": "  Literal Content",
-                                    "url": "/development/js/usage#literal-content"
+                                    "hash": "#literal-content"
                                 }
                             ]
                         },
                         {
                             "title": "Toolkit Object",
                             "url": "/development/js/toolkit",
+                            "path": "/development/js/toolkit.md",
                             "order": 2,
                             "chapters": [
                                 {
                                     "title": "Debugging",
-                                    "url": "/development/js/toolkit#debugging"
+                                    "hash": "#debugging"
                                 },
                                 {
                                     "title": "Locale Messages",
-                                    "url": "/development/js/toolkit#locale-messages"
+                                    "hash": "#locale-messages"
                                 },
                                 {
                                     "title": "Feature Flags",
-                                    "url": "/development/js/toolkit#feature-flags"
+                                    "hash": "#feature-flags"
                                 },
                                 {
                                     "title": "Methods",
-                                    "url": "/development/js/toolkit#methods"
+                                    "hash": "#methods"
                                 }
                             ]
                         },
                         {
                             "title": "Class System",
                             "url": "/development/js/class",
+                            "path": "/development/js/class.md",
                             "order": 3,
                             "chapters": [
                                 {
                                     "title": "Creating A Class",
-                                    "url": "/development/js/class#creating-a-class"
+                                    "hash": "#creating-a-class"
                                 },
                                 {
                                     "title": "  Extending Classes",
-                                    "url": "/development/js/class#extending-classes"
+                                    "hash": "#extending-classes"
                                 },
                                 {
                                     "title": "Custom Constructors and Destructors",
-                                    "url": "/development/js/class#custom-constructors-and-destructors"
+                                    "hash": "#custom-constructors-and-destructors"
                                 },
                                 {
                                     "title": "  Prototype Override",
-                                    "url": "/development/js/class#prototype-override"
+                                    "hash": "#prototype-override"
                                 },
                                 {
                                     "title": "Super Methods",
-                                    "url": "/development/js/class#super-methods"
+                                    "hash": "#super-methods"
                                 },
                                 {
                                     "title": "Static Options",
-                                    "url": "/development/js/class#static-options"
+                                    "hash": "#static-options"
                                 }
                             ]
                         },
                         {
                             "title": "Base Class",
                             "url": "/development/js/base",
+                            "path": "/development/js/base.md",
                             "order": 4,
                             "chapters": [
                                 {
                                     "title": "Usage",
-                                    "url": "/development/js/base#usage"
+                                    "hash": "#usage"
                                 },
                                 {
                                     "title": "  Options",
-                                    "url": "/development/js/base#options"
+                                    "hash": "#options"
                                 },
                                 {
                                     "title": "    Responsive Options",
-                                    "url": "/development/js/base#responsive-options"
+                                    "hash": "#responsive-options"
                                 },
                                 {
                                     "title": "  Hooks",
-                                    "url": "/development/js/base#hooks"
+                                    "hash": "#hooks"
                                 },
                                 {
                                     "title": "Options",
-                                    "url": "/development/js/base#options"
+                                    "hash": "#options"
                                 },
                                 {
                                     "title": "Events",
-                                    "url": "/development/js/base#events"
+                                    "hash": "#events"
                                 },
                                 {
                                     "title": "Properties",
-                                    "url": "/development/js/base#properties"
+                                    "hash": "#properties"
                                 },
                                 {
                                     "title": "Methods",
-                                    "url": "/development/js/base#methods"
+                                    "hash": "#methods"
                                 }
                             ]
                         },
                         {
                             "title": "Component System",
                             "url": "/development/js/component",
+                            "path": "/development/js/component.md",
                             "order": 5,
                             "chapters": [
                                 {
                                     "title": "Templates",
-                                    "url": "/development/js/component#templates"
+                                    "hash": "#templates"
                                 },
                                 {
                                     "title": "  Lazy-loaded Templates",
-                                    "url": "/development/js/component#lazy-loaded-templates"
+                                    "hash": "#lazy-loaded-templates"
                                 },
                                 {
                                     "title": "  Elements As Templates",
-                                    "url": "/development/js/component#elements-as-templates"
+                                    "hash": "#elements-as-templates"
                                 },
                                 {
                                     "title": "Options",
-                                    "url": "/development/js/component#options"
+                                    "hash": "#options"
                                 },
                                 {
                                     "title": "  Data Attribute Options",
-                                    "url": "/development/js/component#data-attribute-options"
+                                    "hash": "#data-attribute-options"
                                 },
                                 {
                                     "title": "  Option Groups",
-                                    "url": "/development/js/component#option-groups"
+                                    "hash": "#option-groups"
                                 },
                                 {
                                     "title": "Events",
-                                    "url": "/development/js/component#events"
+                                    "hash": "#events"
                                 },
                                 {
                                     "title": "  Namespaced Events",
-                                    "url": "/development/js/component#namespaced-events"
+                                    "hash": "#namespaced-events"
                                 },
                                 {
                                     "title": "Namespaces",
-                                    "url": "/development/js/component#namespaces"
+                                    "hash": "#namespaces"
                                 }
                             ]
                         },
                         {
                             "title": "Conflict Resolution",
                             "url": "/development/js/no-conflict",
-                            "order": 6,
-                            "chapters": []
+                            "path": "/development/js/no-conflict.md",
+                            "order": 6
                         },
                         {
                             "title": "Extensions",
                             "url": "/development/js/extensions",
+                            "path": "/development/js/extensions.md",
                             "order": 7,
                             "chapters": [
                                 {
                                     "title": "Methods",
-                                    "url": "/development/js/extensions#methods"
+                                    "hash": "#methods"
                                 },
                                 {
                                     "title": "  toolkit()",
-                                    "url": "/development/js/extensions#toolkit"
+                                    "hash": "#toolkit"
                                 },
                                 {
                                     "title": "  reveal()",
-                                    "url": "/development/js/extensions#reveal"
+                                    "hash": "#reveal"
                                 },
                                 {
                                     "title": "  conceal()",
-                                    "url": "/development/js/extensions#conceal"
+                                    "hash": "#conceal"
                                 },
                                 {
                                     "title": "  positionTo()",
-                                    "url": "/development/js/extensions#positionto"
+                                    "hash": "#positionto"
                                 },
                                 {
                                     "title": "  cache()",
-                                    "url": "/development/js/extensions#cache"
+                                    "hash": "#cache"
                                 },
                                 {
                                     "title": "  aria()",
-                                    "url": "/development/js/extensions#aria"
+                                    "hash": "#aria"
                                 },
                                 {
                                     "title": "  transitionend()",
-                                    "url": "/development/js/extensions#transitionend"
+                                    "hash": "#transitionend"
                                 },
                                 {
                                     "title": "  toString()",
-                                    "url": "/development/js/extensions#tostring"
+                                    "hash": "#tostring"
                                 },
                                 {
                                     "title": "Selectors",
-                                    "url": "/development/js/extensions#selectors"
+                                    "hash": "#selectors"
                                 },
                                 {
                                     "title": "  :shown",
-                                    "url": "/development/js/extensions#shown"
+                                    "hash": "#shown"
                                 },
                                 {
                                     "title": "Functions",
-                                    "url": "/development/js/extensions#functions"
+                                    "hash": "#functions"
                                 },
                                 {
                                     "title": "  debounce()",
-                                    "url": "/development/js/extensions#debounce"
+                                    "hash": "#debounce"
                                 },
                                 {
                                     "title": "  throttle()",
-                                    "url": "/development/js/extensions#throttle"
+                                    "hash": "#throttle"
                                 },
                                 {
                                     "title": "  bound()",
-                                    "url": "/development/js/extensions#bound"
+                                    "hash": "#bound"
                                 },
                                 {
                                     "title": "Events",
-                                    "url": "/development/js/extensions#events"
+                                    "hash": "#events"
                                 },
                                 {
                                     "title": "  clickout",
-                                    "url": "/development/js/extensions#clickout"
+                                    "hash": "#clickout"
                                 },
                                 {
                                     "title": "  swipe",
-                                    "url": "/development/js/extensions#swipe"
+                                    "hash": "#swipe"
                                 },
                                 {
                                     "title": "  horizontalresize",
-                                    "url": "/development/js/extensions#horizontalresize"
+                                    "hash": "#horizontalresize"
                                 },
                                 {
                                     "title": "  verticalresize",
-                                    "url": "/development/js/extensions#verticalresize"
+                                    "hash": "#verticalresize"
                                 }
                             ]
                         },
                         {
                             "title": "Conventions",
                             "url": "/development/js/conventions",
-                            "order": 8,
-                            "chapters": []
+                            "path": "/development/js/conventions.md",
+                            "order": 8
                         }
                     ]
                 },
                 {
                     "title": "CSS",
                     "url": "/development/css",
+                    "path": "/development/css/index.md",
                     "order": 2,
                     "children": [
                         {
                             "title": "Base Styles",
                             "url": "/development/css/base",
+                            "path": "/development/css/base.md",
                             "order": 1,
                             "chapters": [
                                 {
                                     "title": "Alignment",
-                                    "url": "/development/css/base#alignment"
+                                    "hash": "#alignment"
                                 },
                                 {
                                     "title": "Animation",
-                                    "url": "/development/css/base#animation"
+                                    "hash": "#animation"
                                 },
                                 {
                                     "title": "Display",
-                                    "url": "/development/css/base#display"
+                                    "hash": "#display"
                                 },
                                 {
                                     "title": "Layout",
-                                    "url": "/development/css/base#layout"
+                                    "hash": "#layout"
                                 },
                                 {
                                     "title": "States",
-                                    "url": "/development/css/base#states"
+                                    "hash": "#states"
                                 },
                                 {
                                     "title": "Carets",
-                                    "url": "/development/css/base#carets"
+                                    "hash": "#carets"
                                 },
                                 {
                                     "title": "Sorter",
-                                    "url": "/development/css/base#sorter"
+                                    "hash": "#sorter"
                                 },
                                 {
                                     "title": "Characters",
-                                    "url": "/development/css/base#characters"
+                                    "hash": "#characters"
                                 },
                                 {
                                     "title": "Bullets",
-                                    "url": "/development/css/base#bullets"
+                                    "hash": "#bullets"
                                 },
                                 {
                                     "title": "Sizes",
-                                    "url": "/development/css/base#sizes"
+                                    "hash": "#sizes"
                                 },
                                 {
                                     "title": "RTL",
-                                    "url": "/development/css/base#rtl"
+                                    "hash": "#rtl"
                                 },
                                 {
                                     "title": "Fluid Media",
-                                    "url": "/development/css/base#fluid-media"
+                                    "hash": "#fluid-media"
                                 }
                             ]
                         },
                         {
                             "title": "Philosophies",
                             "url": "/development/css/philosophies",
+                            "path": "/development/css/philosophies.md",
                             "order": 2,
                             "chapters": [
                                 {
                                     "title": "Normalize Integration",
-                                    "url": "/development/css/philosophies#normalize-integration"
+                                    "hash": "#normalize-integration"
                                 },
                                 {
                                     "title": "Mobile First",
-                                    "url": "/development/css/philosophies#mobile-first"
+                                    "hash": "#mobile-first"
                                 },
                                 {
                                     "title": "Fluid and Responsiveness",
-                                    "url": "/development/css/philosophies#fluid-and-responsiveness"
+                                    "hash": "#fluid-and-responsiveness"
                                 }
                             ]
                         },
                         {
                             "title": "Vendor Prefixing",
                             "url": "/development/css/prefixing",
+                            "path": "/development/css/prefixing.md",
                             "order": 3,
                             "chapters": [
                                 {
                                     "title": "External Integration",
-                                    "url": "/development/css/prefixing#external-integration"
+                                    "hash": "#external-integration"
                                 }
                             ]
                         },
                         {
                             "title": "Reserved Classes",
                             "url": "/development/css/reserved",
+                            "path": "/development/css/reserved.md",
                             "order": 4,
                             "chapters": [
                                 {
                                     "title": "Namespacing Classes",
-                                    "url": "/development/css/reserved#namespacing-classes"
+                                    "hash": "#namespacing-classes"
                                 }
                             ]
                         }
@@ -513,101 +527,106 @@
                 {
                     "title": "Sass",
                     "url": "/development/sass",
+                    "path": "/development/sass/index.md",
                     "order": 3,
                     "children": [
                         {
                             "title": "Usage",
                             "url": "/development/sass/usage",
+                            "path": "/development/sass/usage.md",
                             "order": 1,
                             "chapters": [
                                 {
                                     "title": "Unit Conversion",
-                                    "url": "/development/sass/usage#unit-conversion"
+                                    "hash": "#unit-conversion"
                                 },
                                 {
                                     "title": "Media Queries and Responsiveness",
-                                    "url": "/development/sass/usage#media-queries-and-responsiveness"
+                                    "hash": "#media-queries-and-responsiveness"
                                 },
                                 {
                                     "title": "Grid Building",
-                                    "url": "/development/sass/usage#grid-building"
+                                    "hash": "#grid-building"
                                 }
                             ]
                         },
                         {
                             "title": "Variables",
                             "url": "/development/sass/variables",
+                            "path": "/development/sass/variables.md",
                             "order": 2,
                             "chapters": [
                                 {
                                     "title": "Class Naming",
-                                    "url": "/development/sass/variables#class-naming"
+                                    "hash": "#class-naming"
                                 },
                                 {
                                     "title": "Feature Enabling",
-                                    "url": "/development/sass/variables#feature-enabling"
+                                    "hash": "#feature-enabling"
                                 },
                                 {
                                     "title": "Sizing and Spacing",
-                                    "url": "/development/sass/variables#sizing-and-spacing"
+                                    "hash": "#sizing-and-spacing"
                                 },
                                 {
                                     "title": "Border Styles",
-                                    "url": "/development/sass/variables#border-styles"
+                                    "hash": "#border-styles"
                                 },
                                 {
                                     "title": "State Colors",
-                                    "url": "/development/sass/variables#state-colors"
+                                    "hash": "#state-colors"
                                 },
                                 {
                                     "title": "Responsive Breakpoints",
-                                    "url": "/development/sass/variables#responsive-breakpoints"
+                                    "hash": "#responsive-breakpoints"
                                 }
                             ]
                         },
                         {
                             "title": "Mixins",
                             "url": "/development/sass/mixins",
+                            "path": "/development/sass/mixins.md",
                             "order": 3,
                             "chapters": [
                                 {
                                     "title": "Layout",
-                                    "url": "/development/sass/mixins#layout"
+                                    "hash": "#layout"
                                 },
                                 {
                                     "title": "Responsive",
-                                    "url": "/development/sass/mixins#responsive"
+                                    "hash": "#responsive"
                                 },
                                 {
                                     "title": "Flexbox",
-                                    "url": "/development/sass/mixins#flexbox"
+                                    "hash": "#flexbox"
                                 },
                                 {
                                     "title": "Grids",
-                                    "url": "/development/sass/mixins#grids"
+                                    "hash": "#grids"
                                 }
                             ]
                         },
                         {
                             "title": "Functions",
                             "url": "/development/sass/functions",
+                            "path": "/development/sass/functions.md",
                             "order": 4,
                             "chapters": [
                                 {
                                     "title": "Utility",
-                                    "url": "/development/sass/functions#utility"
+                                    "hash": "#utility"
                                 },
                                 {
                                     "title": "Flexbox",
-                                    "url": "/development/sass/functions#flexbox"
+                                    "hash": "#flexbox"
                                 },
                                 {
                                     "title": "Grids",
-                                    "url": "/development/sass/functions#grids"
+                                    "hash": "#grids"
                                 },
                                 {
                                     "title": "Type Conversion",
-                                    "url": "/development/sass/functions#type-conversion"
+                                    "hash": "#type-conversion"
                                 }
                             ]
                         }
@@ -616,84 +635,88 @@
                 {
                     "title": "ARIA Support",
                     "url": "/development/aria",
-                    "order": 100,
+                    "path": "/development/aria.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Using",
-                            "url": "/development/aria#using"
+                            "hash": "#using"
                         },
                         {
                             "title": "Disabling",
-                            "url": "/development/aria#disabling"
+                            "hash": "#disabling"
                         }
                     ]
                 },
                 {
                     "title": "BEM CSS Classes",
                     "url": "/development/bem",
-                    "order": 100,
+                    "path": "/development/bem.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Customizing Separators",
-                            "url": "/development/bem#customizing-separators"
+                            "hash": "#customizing-separators"
                         },
                         {
                             "title": "  In Sass",
-                            "url": "/development/bem#in-sass"
+                            "hash": "#in-sass"
                         },
                         {
                             "title": "  In JavaScript",
-                            "url": "/development/bem#in-javascript"
+                            "hash": "#in-javascript"
                         }
                     ]
                 },
                 {
                     "title": "CSS Namespacing",
                     "url": "/development/namespace",
-                    "order": 100,
+                    "path": "/development/namespace.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Customizing",
-                            "url": "/development/namespace#customizing"
+                            "hash": "#customizing"
                         },
                         {
                             "title": "  In Sass",
-                            "url": "/development/namespace#in-sass"
+                            "hash": "#in-sass"
                         },
                         {
                             "title": "  In JavaScript",
-                            "url": "/development/namespace#in-javascript"
+                            "hash": "#in-javascript"
                         }
                     ]
                 },
                 {
                     "title": "RTL Support",
                     "url": "/development/rtl",
-                    "order": 100,
+                    "path": "/development/rtl.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Direction Attribute",
-                            "url": "/development/rtl#direction-attribute"
+                            "hash": "#direction-attribute"
                         },
                         {
                             "title": "Language Attribute",
-                            "url": "/development/rtl#language-attribute"
+                            "hash": "#language-attribute"
                         },
                         {
                             "title": "Integrating CSS",
-                            "url": "/development/rtl#integrating-css"
+                            "hash": "#integrating-css"
                         },
                         {
                             "title": "  Distribution",
-                            "url": "/development/rtl#distribution"
+                            "hash": "#distribution"
                         },
                         {
                             "title": "  Sass",
-                            "url": "/development/rtl#sass"
+                            "hash": "#sass"
                         },
                         {
                             "title": "Integrating JavaScript",
-                            "url": "/development/rtl#integrating-javascript"
+                            "hash": "#integrating-javascript"
                         }
                     ]
                 }
@@ -702,1887 +725,1958 @@
         {
             "title": "Components",
             "url": "/components",
+            "path": "/components/index.md",
             "order": 3,
             "children": [
                 {
                     "title": "Component",
                     "url": "/components/component",
+                    "path": "/components/component.md",
                     "order": 1,
                     "chapters": [
                         {
                             "title": "Options",
-                            "url": "/components/component#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/component#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/component#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/component#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Accordion",
                     "url": "/components/accordion",
-                    "order": 100,
+                    "path": "/components/accordion.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/accordion#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/accordion#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/accordion#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/accordion#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/accordion#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/accordion#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/accordion#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/accordion#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Blackout",
                     "url": "/components/blackout",
-                    "order": 100,
+                    "path": "/components/blackout.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/blackout#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/blackout#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/blackout#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/blackout#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/blackout#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/blackout#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Breadcrumb",
                     "url": "/components/breadcrumb",
-                    "order": 100,
+                    "path": "/components/breadcrumb.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/breadcrumb#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/breadcrumb#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/breadcrumb#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/breadcrumb#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Button",
                     "url": "/components/button",
-                    "order": 100,
+                    "path": "/components/button.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/button#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/button#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Shapes",
-                            "url": "/components/button#shapes"
+                            "hash": "#shapes"
                         },
                         {
                             "title": "  States",
-                            "url": "/components/button#states"
+                            "hash": "#states"
                         },
                         {
                             "title": "  Modifiers",
-                            "url": "/components/button#modifiers"
+                            "hash": "#modifiers"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/button#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/button#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Button Group",
                     "url": "/components/button-group",
-                    "order": 100,
+                    "path": "/components/button-group.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/button-group#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/button-group#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Shapes",
-                            "url": "/components/button-group#shapes"
+                            "hash": "#shapes"
                         },
                         {
                             "title": "  Vertical Stacking",
-                            "url": "/components/button-group#vertical-stacking"
+                            "hash": "#vertical-stacking"
                         },
                         {
                             "title": "  Justified Alignment",
-                            "url": "/components/button-group#justified-alignment"
+                            "hash": "#justified-alignment"
                         },
                         {
                             "title": "  Drop Integration",
-                            "url": "/components/button-group#drop-integration"
+                            "hash": "#drop-integration"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/button-group#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/button-group#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Carousel",
                     "url": "/components/carousel",
-                    "order": 100,
+                    "path": "/components/carousel.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/carousel#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Cycle Animation",
-                            "url": "/components/carousel#cycle-animation"
+                            "hash": "#cycle-animation"
                         },
                         {
                             "title": "  Aspect Ratios",
-                            "url": "/components/carousel#aspect-ratios"
+                            "hash": "#aspect-ratios"
                         },
                         {
                             "title": "  Scrolling Mechanisms",
-                            "url": "/components/carousel#scrolling-mechanisms"
+                            "hash": "#scrolling-mechanisms"
                         },
                         {
                             "title": "  Multiple Items",
-                            "url": "/components/carousel#multiple-items"
+                            "hash": "#multiple-items"
                         },
                         {
                             "title": "  Responsive Support",
-                            "url": "/components/carousel#responsive-support"
+                            "hash": "#responsive-support"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/carousel#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/carousel#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/carousel#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/carousel#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/carousel#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/carousel#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/carousel#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Code",
                     "url": "/components/code",
-                    "order": 100,
+                    "path": "/components/code.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/code#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Scrollable Blocks",
-                            "url": "/components/code#scrollable-blocks"
+                            "hash": "#scrollable-blocks"
                         }
                     ]
                 },
                 {
                     "title": "Divider",
                     "url": "/components/divider",
-                    "order": 100,
+                    "path": "/components/divider.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/divider#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Styling",
-                            "url": "/components/divider#styling"
+                            "hash": "#styling"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/divider#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/divider#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Drop",
                     "url": "/components/drop",
-                    "order": 100,
+                    "path": "/components/drop.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/drop#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Positioning",
-                            "url": "/components/drop#positioning"
+                            "hash": "#positioning"
                         },
                         {
                             "title": "  Nesting",
-                            "url": "/components/drop#nesting"
+                            "hash": "#nesting"
                         },
                         {
                             "title": "  Headers and Dividers",
-                            "url": "/components/drop#headers-and-dividers"
+                            "hash": "#headers-and-dividers"
                         },
                         {
                             "title": "  Alignment",
-                            "url": "/components/drop#alignment"
+                            "hash": "#alignment"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/drop#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/drop#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/drop#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/drop#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/drop#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/drop#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/drop#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Flex",
                     "url": "/components/flex",
-                    "order": 100,
+                    "path": "/components/flex.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/flex#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Alignment",
-                            "url": "/components/flex#alignment"
+                            "hash": "#alignment"
                         },
                         {
                             "title": "    Block Overrides",
-                            "url": "/components/flex#block-overrides"
+                            "hash": "#block-overrides"
                         },
                         {
                             "title": "  Shrinking and Growing",
-                            "url": "/components/flex#shrinking-and-growing"
+                            "hash": "#shrinking-and-growing"
                         },
                         {
                             "title": "  Ordering",
-                            "url": "/components/flex#ordering"
+                            "hash": "#ordering"
                         },
                         {
                             "title": "  Wrapping",
-                            "url": "/components/flex#wrapping"
+                            "hash": "#wrapping"
                         },
                         {
                             "title": "  Nesting",
-                            "url": "/components/flex#nesting"
+                            "hash": "#nesting"
                         },
                         {
                             "title": "  Horizontal and Vertical",
-                            "url": "/components/flex#horizontal-and-vertical"
+                            "hash": "#horizontal-and-vertical"
                         },
                         {
                             "title": "  Grids",
-                            "url": "/components/flex#grids"
+                            "hash": "#grids"
                         },
                         {
                             "title": "  Responsive Blocks",
-                            "url": "/components/flex#responsive-blocks"
+                            "hash": "#responsive-blocks"
                         },
                         {
                             "title": "    Size Chart",
-                            "url": "/components/flex#size-chart"
+                            "hash": "#size-chart"
                         },
                         {
                             "title": "    Ordering",
-                            "url": "/components/flex#ordering"
+                            "hash": "#ordering"
                         },
                         {
                             "title": "    Mobile Row Collapsing",
-                            "url": "/components/flex#mobile-row-collapsing"
+                            "hash": "#mobile-row-collapsing"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/flex#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/flex#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Flyout",
                     "url": "/components/flyout",
-                    "order": 100,
+                    "path": "/components/flyout.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/flyout#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Headers",
-                            "url": "/components/flyout#headers"
+                            "hash": "#headers"
                         },
                         {
                             "title": "  Data Structure",
-                            "url": "/components/flyout#data-structure"
+                            "hash": "#data-structure"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/flyout#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/flyout#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/flyout#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/flyout#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/flyout#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/flyout#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/flyout#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Form",
                     "url": "/components/form",
-                    "order": 100,
+                    "path": "/components/form.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/form#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Radios and Checkboxes",
-                            "url": "/components/form#radios-and-checkboxes"
+                            "hash": "#radios-and-checkboxes"
                         },
                         {
                             "title": "  States",
-                            "url": "/components/form#states"
+                            "hash": "#states"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/form#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Convenience Elements",
-                            "url": "/components/form#convenience-elements"
+                            "hash": "#convenience-elements"
                         },
                         {
                             "title": "Forms",
-                            "url": "/components/form#forms"
+                            "hash": "#forms"
                         },
                         {
                             "title": "  Fieldsets and Legends",
-                            "url": "/components/form#fieldsets-and-legends"
+                            "hash": "#fieldsets-and-legends"
                         },
                         {
                             "title": "  Horizontal Forms",
-                            "url": "/components/form#horizontal-forms"
+                            "hash": "#horizontal-forms"
                         },
                         {
                             "title": "  Inline Forms",
-                            "url": "/components/form#inline-forms"
+                            "hash": "#inline-forms"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/form#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/form#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Grid",
                     "url": "/components/grid",
-                    "order": 100,
+                    "path": "/components/grid.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/grid#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Push and Pull",
-                            "url": "/components/grid#push-and-pull"
+                            "hash": "#push-and-pull"
                         },
                         {
                             "title": "  Nesting Grids",
-                            "url": "/components/grid#nesting-grids"
+                            "hash": "#nesting-grids"
                         },
                         {
                             "title": "  Responsive Columns",
-                            "url": "/components/grid#responsive-columns"
+                            "hash": "#responsive-columns"
                         },
                         {
                             "title": "    Size Chart",
-                            "url": "/components/grid#size-chart"
+                            "hash": "#size-chart"
                         },
                         {
                             "title": "  Custom Sizes",
-                            "url": "/components/grid#custom-sizes"
+                            "hash": "#custom-sizes"
                         },
                         {
                             "title": "  End Capping",
-                            "url": "/components/grid#end-capping"
+                            "hash": "#end-capping"
                         },
                         {
                             "title": "  Extending Styles",
-                            "url": "/components/grid#extending-styles"
+                            "hash": "#extending-styles"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/grid#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/grid#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Icon",
                     "url": "/components/icon",
-                    "order": 100,
+                    "path": "/components/icon.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/icon#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/icon#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Mapping",
-                            "url": "/components/icon#mapping"
+                            "hash": "#mapping"
                         },
                         {
                             "title": "  Rotation",
-                            "url": "/components/icon#rotation"
+                            "hash": "#rotation"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/icon#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Input",
                     "url": "/components/input",
-                    "order": 100,
+                    "path": "/components/input.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/input#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Checkboxes and Radios",
-                            "url": "/components/input#checkboxes-and-radios"
+                            "hash": "#checkboxes-and-radios"
                         },
                         {
                             "title": "  Selects",
-                            "url": "/components/input#selects"
+                            "hash": "#selects"
                         },
                         {
                             "title": "    Labels and Descriptions",
-                            "url": "/components/input#labels-and-descriptions"
+                            "hash": "#labels-and-descriptions"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/input#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/input#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/input#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/input#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/input#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/input#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/input#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Input Group",
                     "url": "/components/input-group",
-                    "order": 100,
+                    "path": "/components/input-group.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/input-group#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/input-group#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Button Integration",
-                            "url": "/components/input-group#button-integration"
+                            "hash": "#button-integration"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/input-group#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Label",
                     "url": "/components/label",
-                    "order": 100,
+                    "path": "/components/label.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/label#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Badges",
-                            "url": "/components/label#badges"
+                            "hash": "#badges"
                         },
                         {
                             "title": "  Arrows",
-                            "url": "/components/label#arrows"
+                            "hash": "#arrows"
                         },
                         {
                             "title": "  Ribbons",
-                            "url": "/components/label#ribbons"
+                            "hash": "#ribbons"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/label#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/label#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Lazy Load",
                     "url": "/components/lazy-load",
-                    "order": 100,
+                    "path": "/components/lazy-load.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/lazy-load#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Retina Support",
-                            "url": "/components/lazy-load#retina-support"
+                            "hash": "#retina-support"
                         },
                         {
                             "title": "  Scrolling Threshold",
-                            "url": "/components/lazy-load#scrolling-threshold"
+                            "hash": "#scrolling-threshold"
                         },
                         {
                             "title": "  Flicker Prevention",
-                            "url": "/components/lazy-load#flicker-prevention"
+                            "hash": "#flicker-prevention"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/lazy-load#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/lazy-load#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/lazy-load#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/lazy-load#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/lazy-load#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/lazy-load#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Loader",
                     "url": "/components/loader",
-                    "order": 100,
+                    "path": "/components/loader.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/loader#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Waves",
-                            "url": "/components/loader#waves"
+                            "hash": "#waves"
                         },
                         {
                             "title": "  Spinners",
-                            "url": "/components/loader#spinners"
+                            "hash": "#spinners"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/loader#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Mask",
                     "url": "/components/mask",
-                    "order": 100,
+                    "path": "/components/mask.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/mask#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Custom Masks",
-                            "url": "/components/mask#custom-masks"
+                            "hash": "#custom-masks"
                         },
                         {
                             "title": "  Automatic Toggling",
-                            "url": "/components/mask#automatic-toggling"
+                            "hash": "#automatic-toggling"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/mask#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/mask#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/mask#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/mask#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/mask#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/mask#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Matrix",
                     "url": "/components/matrix",
-                    "order": 100,
+                    "path": "/components/matrix.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/matrix#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Adding and Removing Items",
-                            "url": "/components/matrix#adding-and-removing-items"
+                            "hash": "#adding-and-removing-items"
                         },
                         {
                             "title": "  Fluid Images",
-                            "url": "/components/matrix#fluid-images"
+                            "hash": "#fluid-images"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/matrix#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/matrix#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/matrix#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/matrix#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/matrix#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/matrix#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Modal",
                     "url": "/components/modal",
-                    "order": 100,
+                    "path": "/components/modal.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/modal#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Dynamic Content Loading",
-                            "url": "/components/modal#dynamic-content-loading"
+                            "hash": "#dynamic-content-loading"
                         },
                         {
                             "title": "  Multiple Modals",
-                            "url": "/components/modal#multiple-modals"
+                            "hash": "#multiple-modals"
                         },
                         {
                             "title": "  Form Submitting",
-                            "url": "/components/modal#form-submitting"
+                            "hash": "#form-submitting"
                         },
                         {
                             "title": "  Non-HTML Responses",
-                            "url": "/components/modal#non-html-responses"
+                            "hash": "#non-html-responses"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/modal#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/modal#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/modal#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/modal#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/modal#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/modal#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/modal#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Notice",
                     "url": "/components/notice",
-                    "order": 100,
+                    "path": "/components/notice.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/notice#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Custom Markup",
-                            "url": "/components/notice#custom-markup"
+                            "hash": "#custom-markup"
                         },
                         {
                             "title": "  Closing Notices",
-                            "url": "/components/notice#closing-notices"
+                            "hash": "#closing-notices"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/notice#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/notice#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Off Canvas",
                     "url": "/components/off-canvas",
-                    "order": 100,
+                    "path": "/components/off-canvas.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/off-canvas#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Toggle Sidebars",
-                            "url": "/components/off-canvas#toggle-sidebars"
+                            "hash": "#toggle-sidebars"
                         },
                         {
                             "title": "  Multiple Sidebars",
-                            "url": "/components/off-canvas#multiple-sidebars"
+                            "hash": "#multiple-sidebars"
                         },
                         {
                             "title": "  Animations",
-                            "url": "/components/off-canvas#animations"
+                            "hash": "#animations"
                         },
                         {
                             "title": "  Open On Load",
-                            "url": "/components/off-canvas#open-on-load"
+                            "hash": "#open-on-load"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/off-canvas#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/off-canvas#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/off-canvas#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/off-canvas#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/off-canvas#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/off-canvas#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/off-canvas#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Pagination",
                     "url": "/components/pagination",
-                    "order": 100,
+                    "path": "/components/pagination.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/pagination#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Grouped Links",
-                            "url": "/components/pagination#grouped-links"
+                            "hash": "#grouped-links"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/pagination#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/pagination#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/pagination#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Pin",
                     "url": "/components/pin",
-                    "order": 100,
+                    "path": "/components/pin.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/pin#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Animations",
-                            "url": "/components/pin#animations"
+                            "hash": "#animations"
                         },
                         {
                             "title": "  Bounding Container",
-                            "url": "/components/pin#bounding-container"
+                            "hash": "#bounding-container"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/pin#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/pin#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/pin#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/pin#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/pin#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/pin#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/pin#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Popover",
                     "url": "/components/popover",
-                    "order": 100,
+                    "path": "/components/popover.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/popover#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/popover#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/popover#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/popover#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/popover#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/popover#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Progress",
                     "url": "/components/progress",
-                    "order": 100,
+                    "path": "/components/progress.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/progress#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/progress#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Shapes",
-                            "url": "/components/progress#shapes"
+                            "hash": "#shapes"
                         },
                         {
                             "title": "  States",
-                            "url": "/components/progress#states"
+                            "hash": "#states"
                         },
                         {
                             "title": "  Stacked Bars",
-                            "url": "/components/progress#stacked-bars"
+                            "hash": "#stacked-bars"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/progress#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/progress#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Responsive",
                     "url": "/components/responsive",
-                    "order": 100,
+                    "path": "/components/responsive.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/responsive#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Display Classes",
-                            "url": "/components/responsive#display-classes"
+                            "hash": "#display-classes"
                         },
                         {
                             "title": "  Orientation Classes",
-                            "url": "/components/responsive#orientation-classes"
+                            "hash": "#orientation-classes"
                         },
                         {
                             "title": "  Retina Classes",
-                            "url": "/components/responsive#retina-classes"
+                            "hash": "#retina-classes"
                         },
                         {
                             "title": "  Print Classes",
-                            "url": "/components/responsive#print-classes"
+                            "hash": "#print-classes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/responsive#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Showcase",
                     "url": "/components/showcase",
-                    "order": 100,
+                    "path": "/components/showcase.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/showcase#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Category Grouping",
-                            "url": "/components/showcase#category-grouping"
+                            "hash": "#category-grouping"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/showcase#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/showcase#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/showcase#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/showcase#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/showcase#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/showcase#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Stalker",
                     "url": "/components/stalker",
-                    "order": 100,
+                    "path": "/components/stalker.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/stalker#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Overflow Containers",
-                            "url": "/components/stalker#overflow-containers"
+                            "hash": "#overflow-containers"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/stalker#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/stalker#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/stalker#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/stalker#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/stalker#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Step",
                     "url": "/components/step",
-                    "order": 100,
+                    "path": "/components/step.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/step#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Completed Steps",
-                            "url": "/components/step#completed-steps"
+                            "hash": "#completed-steps"
                         },
                         {
                             "title": "  Linking Steps",
-                            "url": "/components/step#linking-steps"
+                            "hash": "#linking-steps"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/step#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/step#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/step#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/step#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Switch",
                     "url": "/components/switch",
-                    "order": 100,
+                    "path": "/components/switch.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/switch#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Disabled Switch",
-                            "url": "/components/switch#disabled-switch"
+                            "hash": "#disabled-switch"
                         },
                         {
                             "title": "  Custom Labels",
-                            "url": "/components/switch#custom-labels"
+                            "hash": "#custom-labels"
                         },
                         {
                             "title": "  Stacked Labels",
-                            "url": "/components/switch#stacked-labels"
+                            "hash": "#stacked-labels"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/switch#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Shapes",
-                            "url": "/components/switch#shapes"
+                            "hash": "#shapes"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/switch#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/switch#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Tab",
                     "url": "/components/tab",
-                    "order": 100,
+                    "path": "/components/tab.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/tab#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Horizontal Tabs",
-                            "url": "/components/tab#horizontal-tabs"
+                            "hash": "#horizontal-tabs"
                         },
                         {
                             "title": "  Persist State",
-                            "url": "/components/tab#persist-state"
+                            "hash": "#persist-state"
                         },
                         {
                             "title": "  AJAX Loading",
-                            "url": "/components/tab#ajax-loading"
+                            "hash": "#ajax-loading"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/tab#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/tab#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/tab#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/tab#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/tab#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/tab#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/tab#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Table",
                     "url": "/components/table",
-                    "order": 100,
+                    "path": "/components/table.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/table#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Modifiers",
-                            "url": "/components/table#modifiers"
+                            "hash": "#modifiers"
                         },
                         {
                             "title": "  Sizes",
-                            "url": "/components/table#sizes"
+                            "hash": "#sizes"
                         },
                         {
                             "title": "  Sortable Headers",
-                            "url": "/components/table#sortable-headers"
+                            "hash": "#sortable-headers"
                         },
                         {
                             "title": "  Dividers",
-                            "url": "/components/table#dividers"
+                            "hash": "#dividers"
                         },
                         {
                             "title": "  Responsive Tables",
-                            "url": "/components/table#responsive-tables"
+                            "hash": "#responsive-tables"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/table#variables"
+                            "hash": "#variables"
                         }
                     ]
                 },
                 {
                     "title": "Toast",
                     "url": "/components/toast",
-                    "order": 100,
+                    "path": "/components/toast.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/toast#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Creating Toasts",
-                            "url": "/components/toast#creating-toasts"
+                            "hash": "#creating-toasts"
                         },
                         {
                             "title": "  Dismissable Toasts",
-                            "url": "/components/toast#dismissable-toasts"
+                            "hash": "#dismissable-toasts"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/toast#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/toast#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/toast#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/toast#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/toast#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/toast#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Tooltip",
                     "url": "/components/tooltip",
-                    "order": 100,
+                    "path": "/components/tooltip.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/tooltip#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Dynamic Content Loading",
-                            "url": "/components/tooltip#dynamic-content-loading"
+                            "hash": "#dynamic-content-loading"
                         },
                         {
                             "title": "  Titles and Content",
-                            "url": "/components/tooltip#titles-and-content"
+                            "hash": "#titles-and-content"
                         },
                         {
                             "title": "    Manual Updates",
-                            "url": "/components/tooltip#manual-updates"
+                            "hash": "#manual-updates"
                         },
                         {
                             "title": "  Mouse Following",
-                            "url": "/components/tooltip#mouse-following"
+                            "hash": "#mouse-following"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/tooltip#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/tooltip#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/tooltip#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/tooltip#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/tooltip#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/tooltip#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/tooltip#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Type Ahead",
                     "url": "/components/type-ahead",
-                    "order": 100,
+                    "path": "/components/type-ahead.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/type-ahead#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Data Source",
-                            "url": "/components/type-ahead#data-source"
+                            "hash": "#data-source"
                         },
                         {
                             "title": "    Category Grouping",
-                            "url": "/components/type-ahead#category-grouping"
+                            "hash": "#category-grouping"
                         },
                         {
                             "title": "    Data Structure",
-                            "url": "/components/type-ahead#data-structure"
+                            "hash": "#data-structure"
                         },
                         {
                             "title": "  Prefetching",
-                            "url": "/components/type-ahead#prefetching"
+                            "hash": "#prefetching"
                         },
                         {
                             "title": "  Shadow Text",
-                            "url": "/components/type-ahead#shadow-text"
+                            "hash": "#shadow-text"
                         },
                         {
                             "title": "  Sorters, Matchers and Builders",
-                            "url": "/components/type-ahead#sorters-matchers-and-builders"
+                            "hash": "#sorters-matchers-and-builders"
                         },
                         {
                             "title": "  Notes",
-                            "url": "/components/type-ahead#notes"
+                            "hash": "#notes"
                         },
                         {
                             "title": "ARIA",
-                            "url": "/components/type-ahead#aria"
+                            "hash": "#aria"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/type-ahead#variables"
+                            "hash": "#variables"
                         },
                         {
                             "title": "Options",
-                            "url": "/components/type-ahead#options"
+                            "hash": "#options"
                         },
                         {
                             "title": "Events",
-                            "url": "/components/type-ahead#events"
+                            "hash": "#events"
                         },
                         {
                             "title": "Properties",
-                            "url": "/components/type-ahead#properties"
+                            "hash": "#properties"
                         },
                         {
                             "title": "Methods",
-                            "url": "/components/type-ahead#methods"
+                            "hash": "#methods"
                         }
                     ]
                 },
                 {
                     "title": "Typography",
                     "url": "/components/typography",
-                    "order": 100,
+                    "path": "/components/typography.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Usage",
-                            "url": "/components/typography#usage"
+                            "hash": "#usage"
                         },
                         {
                             "title": "  Headings",
-                            "url": "/components/typography#headings"
+                            "hash": "#headings"
                         },
                         {
                             "title": "  Paragraphs and Lists",
-                            "url": "/components/typography#paragraphs-and-lists"
+                            "hash": "#paragraphs-and-lists"
                         },
                         {
                             "title": "  Blockquotes",
-                            "url": "/components/typography#blockquotes"
+                            "hash": "#blockquotes"
                         },
                         {
                             "title": "  Contextual Copy",
-                            "url": "/components/typography#contextual-copy"
+                            "hash": "#contextual-copy"
                         },
                         {
                             "title": "Variables",
-                            "url": "/components/typography#variables"
+                            "hash": "#variables"
                         }
                     ]
+                }
+            ],
+            "chapters": [
+                {
+                    "title": "  Layout",
+                    "hash": "#layout"
+                },
+                {
+                    "title": "  Elements",
+                    "hash": "#elements"
+                },
+                {
+                    "title": "  Modules",
+                    "hash": "#modules"
                 }
             ]
         },
         {
             "title": "Support",
             "url": "/support",
+            "path": "/support/index.md",
             "order": 4,
             "children": [
                 {
                     "title": "Browser Compatibility",
                     "url": "/support/compatibility",
+                    "path": "/support/compatibility.md",
                     "order": 1,
                     "chapters": [
                         {
                             "title": "Supported Browsers",
-                            "url": "/support/compatibility#supported-browsers"
+                            "hash": "#supported-browsers"
                         },
                         {
                             "title": "Internet Explorer 9",
-                            "url": "/support/compatibility#internet-explorer-9"
+                            "hash": "#internet-explorer-9"
                         },
                         {
                             "title": "Internet Explorer 8",
-                            "url": "/support/compatibility#internet-explorer-8"
+                            "hash": "#internet-explorer-8"
                         },
                         {
                             "title": "Compatibility Mode",
-                            "url": "/support/compatibility#compatibility-mode"
+                            "hash": "#compatibility-mode"
                         }
                     ]
                 },
                 {
                     "title": "Competitor Comparison",
                     "url": "/support/comparison",
+                    "path": "/support/comparison.md",
                     "order": 2,
                     "chapters": [
                         {
                             "title": "Sizes",
-                            "url": "/support/comparison#sizes"
+                            "hash": "#sizes"
                         },
                         {
-                            "title": "Plugins",
-                            "url": "/support/comparison#plugins"
+                            "title": "Modules",
+                            "hash": "#modules"
                         },
                         {
                             "title": "Features",
-                            "url": "/support/comparison#features"
+                            "hash": "#features"
                         }
                     ]
                 },
                 {
                     "title": "Contributing",
                     "url": "/support/contributing",
+                    "path": "/support/contributing.md",
                     "order": 3,
                     "chapters": [
                         {
                             "title": "Reporting A Bug",
-                            "url": "/support/contributing#reporting-a-bug"
+                            "hash": "#reporting-a-bug"
                         },
                         {
                             "title": "  Known Issues",
-                            "url": "/support/contributing#known-issues"
+                            "hash": "#known-issues"
                         },
                         {
                             "title": "Submitting A Pull Request",
-                            "url": "/support/contributing#submitting-a-pull-request"
+                            "hash": "#submitting-a-pull-request"
                         },
                         {
                             "title": "Contributors",
-                            "url": "/support/contributing#contributors"
+                            "hash": "#contributors"
                         }
                     ]
                 },
                 {
                     "title": "Changelog",
                     "url": "/support/changelog",
+                    "path": "/support/changelog.md",
                     "order": 4,
                     "chapters": [
                         {
+                            "title": "2.1.7",
+                            "hash": "#no-217"
+                        },
+                        {
+                            "title": "2.1.6",
+                            "hash": "#no-216"
+                        },
+                        {
                             "title": "2.1.5",
-                            "url": "/support/changelog#no-215"
+                            "hash": "#no-215"
                         },
                         {
                             "title": "2.1.4",
-                            "url": "/support/changelog#no-214"
+                            "hash": "#no-214"
                         },
                         {
                             "title": "2.1.3",
-                            "url": "/support/changelog#no-213"
+                            "hash": "#no-213"
                         },
                         {
                             "title": "2.1.2",
-                            "url": "/support/changelog#no-212"
+                            "hash": "#no-212"
                         },
                         {
                             "title": "2.1.1",
-                            "url": "/support/changelog#no-211"
+                            "hash": "#no-211"
                         },
                         {
                             "title": "2.1.0",
-                            "url": "/support/changelog#no-210"
+                            "hash": "#no-210"
                         },
                         {
                             "title": "2.0.2",
-                            "url": "/support/changelog#no-202"
+                            "hash": "#no-202"
                         },
                         {
                             "title": "2.0.1",
-                            "url": "/support/changelog#no-201"
+                            "hash": "#no-201"
                         },
                         {
                             "title": "2.0.0",
-                            "url": "/support/changelog#no-200"
+                            "hash": "#no-200"
                         },
                         {
                             "title": "1.5.3",
-                            "url": "/support/changelog#no-153"
+                            "hash": "#no-153"
                         },
                         {
                             "title": "1.5.2",
-                            "url": "/support/changelog#no-152"
+                            "hash": "#no-152"
                         },
                         {
                             "title": "1.5.1",
-                            "url": "/support/changelog#no-151"
+                            "hash": "#no-151"
                         },
                         {
                             "title": "1.5.0",
-                            "url": "/support/changelog#no-150"
+                            "hash": "#no-150"
                         },
                         {
                             "title": "1.4.1",
-                            "url": "/support/changelog#no-141"
+                            "hash": "#no-141"
                         },
                         {
                             "title": "1.4.0",
-                            "url": "/support/changelog#no-140"
+                            "hash": "#no-140"
                         },
                         {
                             "title": "1.3.2",
-                            "url": "/support/changelog#no-132"
+                            "hash": "#no-132"
                         },
                         {
                             "title": "1.3.1",
-                            "url": "/support/changelog#no-131"
+                            "hash": "#no-131"
                         },
                         {
                             "title": "1.3.0",
-                            "url": "/support/changelog#no-130"
+                            "hash": "#no-130"
                         },
                         {
                             "title": "1.2.2",
-                            "url": "/support/changelog#no-122"
+                            "hash": "#no-122"
                         },
                         {
                             "title": "1.2.1",
-                            "url": "/support/changelog#no-121"
+                            "hash": "#no-121"
                         },
                         {
                             "title": "1.2.0",
-                            "url": "/support/changelog#no-120"
+                            "hash": "#no-120"
                         },
                         {
                             "title": "1.1.0",
-                            "url": "/support/changelog#no-110"
+                            "hash": "#no-110"
                         },
                         {
                             "title": "1.0.5",
-                            "url": "/support/changelog#no-105"
+                            "hash": "#no-105"
                         },
                         {
                             "title": "1.0.4",
-                            "url": "/support/changelog#no-104"
+                            "hash": "#no-104"
                         },
                         {
                             "title": "1.0.3",
-                            "url": "/support/changelog#no-103"
+                            "hash": "#no-103"
                         },
                         {
                             "title": "1.0.2",
-                            "url": "/support/changelog#no-102"
+                            "hash": "#no-102"
                         },
                         {
                             "title": "1.0.1",
-                            "url": "/support/changelog#no-101"
+                            "hash": "#no-101"
                         },
                         {
                             "title": "1.0.0",
-                            "url": "/support/changelog#no-100"
+                            "hash": "#no-100"
                         }
                     ]
                 },
                 {
                     "title": "License",
                     "url": "/support/license",
-                    "order": 5,
-                    "chapters": []
+                    "path": "/support/license.md",
+                    "order": 5
                 }
             ]
         },
         {
             "title": "Releases",
             "url": "/releases",
+            "path": "/releases/index.md",
             "order": 5,
             "children": [
                 {
                     "title": "2.0 Release",
                     "url": "/releases/2.0",
-                    "order": 100,
+                    "path": "/releases/2.0.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Unsupported and dropped features",
-                            "url": "/releases/2.0#unsupported-and-dropped-features"
+                            "hash": "#unsupported-and-dropped-features"
                         },
                         {
                             "title": "Improved tooling",
-                            "url": "/releases/2.0#improved-tooling"
+                            "hash": "#improved-tooling"
                         },
                         {
                             "title": "Testing suite",
-                            "url": "/releases/2.0#testing-suite"
+                            "hash": "#testing-suite"
                         },
                         {
                             "title": "Themeless",
-                            "url": "/releases/2.0#themeless"
+                            "hash": "#themeless"
                         },
                         {
                             "title": "Customizable class names",
-                            "url": "/releases/2.0#customizable-class-names"
+                            "hash": "#customizable-class-names"
                         },
                         {
                             "title": "Decoupled CSS and JS",
-                            "url": "/releases/2.0#decoupled-css-and-js"
+                            "hash": "#decoupled-css-and-js"
                         },
                         {
                             "title": "Automatic class prefixing",
-                            "url": "/releases/2.0#automatic-class-prefixing"
+                            "hash": "#automatic-class-prefixing"
                         },
                         {
                             "title": "Component namespacing",
-                            "url": "/releases/2.0#component-namespacing"
+                            "hash": "#component-namespacing"
                         },
                         {
                             "title": "Option groups",
-                            "url": "/releases/2.0#option-groups"
+                            "hash": "#option-groups"
                         },
                         {
                             "title": "Robust class layer",
-                            "url": "/releases/2.0#robust-class-layer"
+                            "hash": "#robust-class-layer"
                         },
                         {
                             "title": "Hook into components",
-                            "url": "/releases/2.0#hook-into-components"
+                            "hash": "#hook-into-components"
                         },
                         {
                             "title": "New DOM events",
-                            "url": "/releases/2.0#new-dom-events"
+                            "hash": "#new-dom-events"
                         },
                         {
                             "title": "Integrated debugging",
-                            "url": "/releases/2.0#integrated-debugging"
+                            "hash": "#integrated-debugging"
                         },
                         {
                             "title": "Easier templating",
-                            "url": "/releases/2.0#easier-templating"
+                            "hash": "#easier-templating"
                         },
                         {
                             "title": "Updated grid breakpoints",
-                            "url": "/releases/2.0#updated-grid-breakpoints"
+                            "hash": "#updated-grid-breakpoints"
                         },
                         {
                             "title": "Changelog",
-                            "url": "/releases/2.0#changelog"
+                            "hash": "#changelog"
                         }
                     ]
                 },
                 {
                     "title": "2.1 Release",
                     "url": "/releases/2.1",
-                    "order": 100,
+                    "path": "/releases/2.1.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Flexbox support",
-                            "url": "/releases/2.1#flexbox-support"
+                            "hash": "#flexbox-support"
                         },
                         {
                             "title": "RTL support",
-                            "url": "/releases/2.1#rtl-support"
+                            "hash": "#rtl-support"
                         },
                         {
                             "title": "Component class split",
-                            "url": "/releases/2.1#component-class-split"
+                            "hash": "#component-class-split"
                         },
                         {
                             "title": "Updated CSS namespacing",
-                            "url": "/releases/2.1#updated-css-namespacing"
+                            "hash": "#updated-css-namespacing"
                         },
                         {
                             "title": "Integrated BEM naming",
-                            "url": "/releases/2.1#integrated-bem-naming"
+                            "hash": "#integrated-bem-naming"
                         },
                         {
                             "title": "Lazy-loaded templates",
-                            "url": "/releases/2.1#lazy-loaded-templates"
+                            "hash": "#lazy-loaded-templates"
                         }
                     ]
                 }
@@ -2591,143 +2685,146 @@
         {
             "title": "Migrations",
             "url": "/migrations",
+            "path": "/migrations/index.md",
             "order": 6,
             "children": [
                 {
                     "title": "Migrating to 2.0",
                     "url": "/migrations/2.0",
-                    "order": 100,
+                    "path": "/migrations/2.0.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Sass",
-                            "url": "/migrations/2.0#sass"
+                            "hash": "#sass"
                         },
                         {
                             "title": "JavaScript",
-                            "url": "/migrations/2.0#javascript"
+                            "hash": "#javascript"
                         },
                         {
                             "title": "Components",
-                            "url": "/migrations/2.0#components"
+                            "hash": "#components"
                         },
                         {
                             "title": "  Accordion",
-                            "url": "/migrations/2.0#accordion"
+                            "hash": "#accordion"
                         },
                         {
                             "title": "  Blackout",
-                            "url": "/migrations/2.0#blackout"
+                            "hash": "#blackout"
                         },
                         {
                             "title": "  Carousel",
-                            "url": "/migrations/2.0#carousel"
+                            "hash": "#carousel"
                         },
                         {
                             "title": "  Divider",
-                            "url": "/migrations/2.0#divider"
+                            "hash": "#divider"
                         },
                         {
                             "title": "  Drop",
-                            "url": "/migrations/2.0#drop"
+                            "hash": "#drop"
                         },
                         {
                             "title": "  Grid",
-                            "url": "/migrations/2.0#grid"
+                            "hash": "#grid"
                         },
                         {
                             "title": "  Input",
-                            "url": "/migrations/2.0#input"
+                            "hash": "#input"
                         },
                         {
                             "title": "  Lazy Load",
-                            "url": "/migrations/2.0#lazy-load"
+                            "hash": "#lazy-load"
                         },
                         {
                             "title": "  Mask",
-                            "url": "/migrations/2.0#mask"
+                            "hash": "#mask"
                         },
                         {
                             "title": "  Matrix",
-                            "url": "/migrations/2.0#matrix"
+                            "hash": "#matrix"
                         },
                         {
                             "title": "  Off Canvas",
-                            "url": "/migrations/2.0#off-canvas"
+                            "hash": "#off-canvas"
                         },
                         {
                             "title": "  Pagination",
-                            "url": "/migrations/2.0#pagination"
+                            "hash": "#pagination"
                         },
                         {
                             "title": "  Pin",
-                            "url": "/migrations/2.0#pin"
+                            "hash": "#pin"
                         },
                         {
                             "title": "  Responsive",
-                            "url": "/migrations/2.0#responsive"
+                            "hash": "#responsive"
                         },
                         {
                             "title": "  Showcase",
-                            "url": "/migrations/2.0#showcase"
+                            "hash": "#showcase"
                         },
                         {
                             "title": "  Stalker",
-                            "url": "/migrations/2.0#stalker"
+                            "hash": "#stalker"
                         },
                         {
                             "title": "  Switch",
-                            "url": "/migrations/2.0#switch"
+                            "hash": "#switch"
                         },
                         {
                             "title": "  Tab",
-                            "url": "/migrations/2.0#tab"
+                            "hash": "#tab"
                         },
                         {
                             "title": "  Type Ahead",
-                            "url": "/migrations/2.0#type-ahead"
+                            "hash": "#type-ahead"
                         }
                     ]
                 },
                 {
                     "title": "Migrating to 2.1",
                     "url": "/migrations/2.1",
-                    "order": 100,
+                    "path": "/migrations/2.1.md",
+                    "order": 50,
                     "chapters": [
                         {
                             "title": "Sass",
-                            "url": "/migrations/2.1#sass"
+                            "hash": "#sass"
                         },
                         {
                             "title": "JavaScript",
-                            "url": "/migrations/2.1#javascript"
+                            "hash": "#javascript"
                         },
                         {
                             "title": "Components",
-                            "url": "/migrations/2.1#components"
+                            "hash": "#components"
                         },
                         {
                             "title": "  Drop",
-                            "url": "/migrations/2.1#drop"
+                            "hash": "#drop"
                         },
                         {
                             "title": "  Flyout",
-                            "url": "/migrations/2.1#flyout"
+                            "hash": "#flyout"
                         },
                         {
                             "title": "  Lazy Load",
-                            "url": "/migrations/2.1#lazy-load"
+                            "hash": "#lazy-load"
                         },
                         {
                             "title": "  Popover",
-                            "url": "/migrations/2.1#popover"
+                            "hash": "#popover"
                         },
                         {
                             "title": "  Toast",
-                            "url": "/migrations/2.1#toast"
+                            "hash": "#toast"
                         },
                         {
                             "title": "  Tooltip",
-                            "url": "/migrations/2.1#tooltip"
+                            "hash": "#tooltip"
                         }
                     ]
                 }
