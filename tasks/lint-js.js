@@ -22,8 +22,8 @@ module.exports = function(command) {
         log('Linting files...');
 
         resolve(engine.executeOnFiles([
-            options.js,
-            options.js.replace('js', 'tests'),
+            options.jsSource,
+            options.jsSource.replace('js', 'tests'),
             './tasks'
         ]));
     })

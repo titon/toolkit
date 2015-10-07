@@ -1,0 +1,7 @@
+{
+    "map": {
+        "*": {
+            "lodash": "./node_modules/lodash/"
+        }
+    }
+}

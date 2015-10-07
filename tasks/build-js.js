@@ -36,10 +36,14 @@ module.exports = function(command) {
         var tree = {};
 
         paths.forEach(function(module) {
-            var absPath = path.join(options.js, module);
+            var absPath = path.join(options.jsSource, module);
 
             if (fs.existsSync(absPath)) {
-                depTree.toList(absPath, options.js).forEach(function(item) {
+                depTree.toList({
+                    filename: absPath,
+                    root: options.jsSource,
+                    config: './help/tasks/config/paths.json'
+                }) .forEach(function(item) {
                     tree[item] = true;
                 });
 

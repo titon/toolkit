@@ -4,7 +4,8 @@ var fs = require('fs'),
     path = require('path'),
     // Processes
     sass = require('node-sass'),
-    prefixer = require('autoprefixer-core'),
+    postCSS = require('autoprefixer/node_modules/postcss'),
+    prefixer = require('autoprefixer'),
     CleanCSS = require('clean-css'),
     // Helpers
     log = require('./helpers/log'),
@@ -44,7 +45,7 @@ module.exports = function(command) {
         log('Bundling modules...');
 
         paths.forEach(function(module) {
-            if (fs.existsSync(path.join(options.css, module))) {
+            if (fs.existsSync(path.join(options.cssSource, module))) {
                 data.push('@import "' + module.replace('.scss', '') + '";');
 
                 log(module, 1);
@@ -61,7 +62,7 @@ module.exports = function(command) {
         return new Promise(function(resolve, reject) {
             sass.render({
                 data: scss,
-                includePaths: [options.css],
+                includePaths: [options.cssSource],
                 outputStyle: 'expanded',
                 sourceComments: false,
                 sourceMap: false,
@@ -83,13 +84,8 @@ module.exports = function(command) {
     .then(function(css) {
         log('Applying prefixes...');
 
-        // Autoprefixer throws warnings for not using PostCSS
-        var warn = console.warn;
-        console.warn = function() {};
-
-        return prefixer({ browsers: ['last 3 versions'] }).process(css)
+        return postCSS([ prefixer({ browsers: ['last 3 versions'] }) ]).process(css)
             .then(function(response) {
-                console.warn = warn;
                 return response.css;
             })
             .catch(function(error) {
