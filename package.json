@@ -36,21 +36,23 @@
         "lodash": "~3.10"
     },
     "devDependencies": {
-        "commander": "~2.8",
+        "commander": "~2.9",
         "compartment": "~0.2",
         "lodash": "~3.10",
         "chalk": "~1.1",
         "directory-tree": "~0.1",
 
-        "node-sass": "~3.3",
+        "node-sass": "~3.4",
         "clean-css": "~3.4",
         "autoprefixer": "~6.0",
 
-        "eslint": "~1.6",
+        "react": "~0.14",
+        "react-dom": "~0.14",
+        "eslint": "~1.8",
         "babel-eslint": "~4.1",
-        "babel-core": "~5.8",
+        "babel-core": "~6.0",
         "systemjs": "~0.19",
-        "uglify-js": "~2.4",
+        "uglify-js": "~2.5",
         "dependency-tree": "~4.0",
 
         "karma": "~0.13",
@@ -58,6 +60,7 @@
         "karma-ie-launcher": "*",
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
-        "karma-firefox-launcher": "*"
+        "karma-firefox-launcher": "*",
+        "jasmine-core": "~2.3"
     }
 }
