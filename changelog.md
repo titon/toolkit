@@ -2,6 +2,9 @@
 
 Older versions can be found in the documentation changelogs.
 
+## 2.1.8 ##
+* Fixed an issue with libsass ~3.4 failing to transpile.
+
 ## 2.1.7 ##
 * Updated the `.span-*` classes to no longer be coupled with the grid component
 * Components
