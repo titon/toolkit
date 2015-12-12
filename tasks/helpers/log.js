@@ -1,11 +1,41 @@
+/* eslint no-console: 0 */
+
 'use strict';
 
 var chalk = require('chalk');
 
+/**
+ * Pad a string with a character on either the left or right.
+ *
+ * @param {String} string
+ * @param {Number} length
+ * @param {String} char
+ * @param {Boolean} left
+ * @returns {String}
+ */
+function pad(string, length, char, left) {
+    while (string.length < length) {
+        if (left) {
+            string = char + string;
+        } else {
+            string += char;
+        }
+    }
+
+    return string;
+}
+
+/**
+ * Write a message to the console.
+ *
+ * @param {String} message
+ * @param {Number} [tabCount]
+ * @param {Number} [lineCount]
+ */
 function log(message, tabCount, lineCount) {
-    var tabIndent = '',
+    let tabIndent = '',
         date = new Date(),
-        timestamp = [date.getHours(), date.getMinutes(), + date.getSeconds()].map(function(time) {
+        timestamp = [date.getHours(), date.getMinutes(), date.getSeconds()].map(function(time) {
             return pad(String(time), 2, '0', true);
         });
 
@@ -19,11 +49,7 @@ function log(message, tabCount, lineCount) {
         lineCount--;
     }
 
-    console.log(
-        '[' + chalk.gray(timestamp.join(':')) + '] ' +
-        tabIndent +
-        message
-    );
+    console.log('[' + chalk.gray(timestamp.join(':')) + '] ' + tabIndent + message);
 }
 
 log.title = function(message) {
@@ -47,7 +73,7 @@ log.success = function(message, tabCount, lineCount) {
 };
 
 log.stack = function(error) {
-    var lines = [],
+    let lines = [],
         message = '',
         maxLength = 0;
 
@@ -76,17 +102,5 @@ log.stack = function(error) {
 
     console.log(chalk.bgRed(pad('', maxLength, ' ')));
 };
-
-function pad(string, length, char, left) {
-    while (string.length < length) {
-        if (left) {
-            string = char + string;
-        } else {
-            string += char;
-        }
-    }
-
-    return string;
-}
 
 module.exports = log;

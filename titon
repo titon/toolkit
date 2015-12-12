@@ -36,7 +36,7 @@ toolkit.package = project;
 toolkit.manifest = manifest;
 toolkit
     .version(project.version)
-    .option('-j, --js-source <path>', 'JavaScript source path', './js-es6')
+    .option('-j, --js-source <path>', 'JavaScript source path', './js-3.0')
     .option('-c, --css-source <path>', 'CSS source path', './scss-3.0')
     .option('-o, --out <path>', 'Output build path', './build')
     .option('--rtl', 'Enable right-to-left mode', false)

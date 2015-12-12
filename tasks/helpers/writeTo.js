@@ -10,8 +10,9 @@ module.exports = function writeTo(filename, options) {
     return function(content) {
         // Rename if RTL is enabled
         if (options.rtl) {
-            var parts = filename.split('.');
-                parts[0] += '-rtl';
+            let parts = filename.split('.');
+
+            parts[0] += '-rtl';
 
             filename = parts.join('.');
         }
@@ -25,9 +26,9 @@ module.exports = function writeTo(filename, options) {
                     return;
                 }
 
-                fs.write(file, content, 0, 'utf8', function(error) {
-                    if (error) {
-                        reject(error);
+                fs.write(file, content, 0, 'utf8', function(writeError) {
+                    if (writeError) {
+                        reject(writeError);
                     } else {
                         resolve(content);
                     }

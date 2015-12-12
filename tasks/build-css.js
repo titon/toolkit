@@ -4,7 +4,7 @@ var fs = require('fs'),
     path = require('path'),
     // Processes
     sass = require('node-sass'),
-    postCSS = require('autoprefixer/node_modules/postcss'),
+    postCSS = require('postcss'),
     prefixer = require('autoprefixer'),
     CleanCSS = require('clean-css'),
     // Helpers
@@ -15,7 +15,7 @@ var fs = require('fs'),
     generateGraph = require('./helpers/generateGraph');
 
 module.exports = function(command) {
-    var options = command.parent;
+    let options = command.parent;
 
     return new Promise(function(resolve) {
         log.title('titon:css');
@@ -25,7 +25,7 @@ module.exports = function(command) {
 
     // Bundle modules
     .then(function(paths) {
-        var data = ['@charset "UTF-8";', '@import "common";'];
+        let data = ['@charset "UTF-8";', '@import "common";'];
 
         // Prepend namespace
         if (options.namespace) {
@@ -84,7 +84,9 @@ module.exports = function(command) {
     .then(function(css) {
         log('Applying prefixes...');
 
-        return postCSS([ prefixer({ browsers: ['last 3 versions'] }) ]).process(css)
+        return postCSS([
+            prefixer({ browsers: ['last 3 versions'] })
+        ]).process(css)
             .then(function(response) {
                 return response.css;
             })

@@ -1,14 +1,13 @@
 'use strict';
 
 var fs = require('fs'),
-    path = require('path'),
     chalk = require('chalk'),
     tree = require('directory-tree').directoryTree,
     // Helpers
     log = require('./helpers/log');
 
 // Handles the ordering of files
-var ORDER_MAP = {
+const ORDER_MAP = {
     '/setup': 1,
     '/setup/getting-started': 1,
     '/setup/installing': 2,
@@ -48,8 +47,7 @@ var ORDER_MAP = {
 };
 
 module.exports = function(command) {
-    var options = command.parent,
-        locales = ['en'];
+    let locales = ['en'];
 
     log.title('titon:docs');
     log('Generating ' + chalk.gray(locales.join(', ')) + ' table of contents...');
@@ -64,27 +62,24 @@ module.exports = function(command) {
     .then(function(trees) {
         log('Calcuating directory tree...');
 
-        var buildTree = function(node) {
-            var path = '/' + node.path.replace(/\\/g, '/'),
+        let buildTree = function(node) {
+            let path = '/' + node.path.replace(/\\/g, '/'),
                 url = path.replace('.md', ''),
                 children = [],
                 parentNode = {
                     title: node.name,
-                    url: url,
-                    path: path,
+                    url,
+                    path,
                     order: ORDER_MAP[url] || 50
                 };
 
             // Rebuild children
             if (node.children && node.children.length) {
                 node.children.forEach(function(child) {
-                    var childNode = buildTree(child);
+                    let childNode = buildTree(child);
 
                     // Index file is used as the parent
-                    if (
-                        parentNode.url + '/index.md' === childNode.path ||
-                        parentNode.url === '/' && childNode.path === '/index.md'
-                    ) {
+                    if (parentNode.url + '/index.md' === childNode.path || parentNode.url === '/' && childNode.path === '/index.md') {
                         parentNode.path = childNode.path;
 
                     } else {
@@ -102,8 +97,9 @@ module.exports = function(command) {
         };
 
         return trees.map(function(node) {
-            var rootNode = buildTree(node);
-                rootNode.locale = node.name;
+            let rootNode = buildTree(node);
+
+            rootNode.locale = node.name;
 
             return rootNode;
         });
@@ -113,16 +109,16 @@ module.exports = function(command) {
     .then(function(trees) {
         log('Extracting markdown content...');
 
-        var parseFile = function(node, basePath) {
-            var lines = fs.readFileSync(basePath + node.path, 'utf8').split('\n'),
+        let parseFile = function(node, basePath) {
+            let lines = fs.readFileSync(basePath + node.path, 'utf8').split('\n'),
                 chapters = [];
 
             // Walk through and extract chapters
             lines.forEach(function(line) {
-                var matches = line.match(/^(#{1,})/);
+                let matches = line.match(/^(#{1,})/);
 
                 if (matches && matches.length) {
-                    var header = line.replace(/#/g, '').replace('&', 'and').trim(),
+                    let header = line.replace(/#/g, '').replace('&', 'and').trim(),
                         size = matches[0].length,
                         indent = '';
 
@@ -144,7 +140,7 @@ module.exports = function(command) {
                         }
 
                         // Generate an HTML fragment
-                        var hash = header.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-_]+/ig, '');
+                        let hash = header.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-_]+/ig, '');
 
                         if (hash.charAt(0).match(/^\d$/)) {
                             hash = 'no-' + hash;
@@ -182,10 +178,10 @@ module.exports = function(command) {
     .then(function(trees) {
         log('Ordering documentation...');
 
-        var sortTree = function(node) {
+        let sortTree = function(node) {
             if (node.children && node.children.length) {
                 node.children.sort(function(a, b) {
-                    var x = a.order,
+                    let x = a.order,
                         y = b.order,
                         x2 = a.title,
                         y2 = b.title;
@@ -211,7 +207,7 @@ module.exports = function(command) {
     // Write the trees to a JSON file
     .then(function(trees) {
         return trees.map(function(node) {
-            var toc = node.locale + '/toc.json';
+            let toc = node.locale + '/toc.json';
 
             log('Saving ' + chalk.gray(toc));
 

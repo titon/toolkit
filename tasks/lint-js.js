@@ -1,7 +1,6 @@
 'use strict';
 
-var fs = require('fs'),
-    path = require('path'),
+var path = require('path'),
     chalk = require('chalk'),
     // Processes
     eslint = require('eslint'),
@@ -9,13 +8,13 @@ var fs = require('fs'),
     log = require('./helpers/log');
 
 module.exports = function(command) {
-    var options = command.parent;
+    let options = command.parent;
 
     return new Promise(function(resolve) {
         log.title('titon:lint');
         log('Loading ESLint configuration...');
 
-        var engine = new eslint.CLIEngine({
+        let engine = new eslint.CLIEngine({
             configFile: path.join(process.cwd(), '.eslintrc')
         });
 
@@ -51,7 +50,7 @@ module.exports = function(command) {
             log(result.filePath, 1, 1);
 
             result.messages.forEach(function(message) {
-                var meta = message.line + ':' + message.column + ' ' + message.ruleId,
+                let meta = message.line + ':' + message.column + ' ' + message.ruleId,
                     msg = message.message;
 
                 if (message.severity === 2) {

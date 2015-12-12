@@ -14,7 +14,7 @@ var fs = require('fs'),
     generateGraph = require('./helpers/generateGraph');
 
 module.exports = function(command) {
-    var babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8')),
+    let babelOptions = JSON.parse(fs.readFileSync('.babelrc', 'utf8')),
         options = command.parent;
 
     return new Promise(function(resolve) {
@@ -33,17 +33,17 @@ module.exports = function(command) {
     .then(function(paths) {
         log('Bundling modules...');
 
-        var tree = {};
+        let tree = {};
 
         paths.forEach(function(module) {
-            var absPath = path.join(options.jsSource, module);
+            let absPath = path.join(options.jsSource, module);
 
             if (fs.existsSync(absPath)) {
                 depTree.toList({
                     filename: absPath,
                     root: options.jsSource,
                     config: './help/tasks/config/paths.json'
-                }) .forEach(function(item) {
+                }).forEach(function(item) {
                     tree[item] = true;
                 });
 
@@ -61,15 +61,15 @@ module.exports = function(command) {
         babelOptions.externalHelpers = 'global';
 
         // Import the Babel helpers
-        var source = [
-            'var global = {};',
+        let source = [
+            'let global = {};',
             fs.readFileSync('node_modules/babel-core/external-helpers.js'),
-            'var babelHelpers = global.babelHelpers;',
+            'let babelHelpers = global.babelHelpers;'
         ];
 
         // Import each dependency
         tree.forEach(function(dep) {
-            var output = babel.transformFileSync(dep, babelOptions).code.trim();
+            let output = babel.transformFileSync(dep, babelOptions).code.trim();
 
             if (dep.indexOf('Titon.js') >= 0) {
                 output = output.replace('%version%', options.package.version); // Add version
@@ -115,7 +115,7 @@ module.exports = function(command) {
                 comments: /titon/i
             },
             compress: {
-                unsafe: true,
+                unsafe: true
             }
         }).code;
     })

@@ -6,8 +6,9 @@ var log = require('./log'),
 module.exports = function generateGraph(type, options) {
     log('Generating dependency graph...');
 
-    var graph = new Compartment();
-        graph.manifest = options.manifest;
+    let graph = new Compartment();
+
+    graph.manifest = options.manifest;
 
     // Add the file types to graph
     graph.addTypes({
