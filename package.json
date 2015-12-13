@@ -44,15 +44,15 @@
 
         "node-sass": "~3.4",
         "clean-css": "~3.4",
-        "autoprefixer": "~6.0",
+        "autoprefixer": "~6.1",
 
         "react": "~0.14",
         "react-dom": "~0.14",
-        "eslint": "~1.8",
+        "eslint": "~1.10",
         "babel-eslint": "~4.1",
-        "babel-core": "~6.0",
+        "babel-core": "~6.3",
         "systemjs": "~0.19",
-        "uglify-js": "~2.5",
+        "uglify-js": "~2.6",
         "dependency-tree": "~4.0",
 
         "karma": "~0.13",
@@ -61,6 +61,6 @@
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
-        "jasmine-core": "~2.3"
+        "jasmine-core": "~2.4"
     }
 }
