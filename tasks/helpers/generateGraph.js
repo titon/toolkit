@@ -1,3 +1,5 @@
+/* eslint strict: 0, no-var: 0 */
+
 'use strict';
 
 var log = require('./log'),
