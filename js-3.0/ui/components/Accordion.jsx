@@ -1,7 +1,8 @@
 import React from 'react';
 import Component from './Component.jsx';
-import generateUID from '../../extensions/utility/generateUID2';
-import validateChildrenPropType from '../../extensions/utility/validateChildrenPropType';
+import generateUID from '../../ext/utility/generateUID';
+import childrenOfType from '../../ext/prop-types/childrenOfType';
+import funcCollection from '../../ext/prop-types/funcCollection';
 import debounce from 'lodash/function/debounce';
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -9,6 +10,8 @@ import debounce from 'lodash/function/debounce';
 export class AccordionHeader extends Component {
     render() {
         let isActive = (this.props.index === this.props.currentIndex);
+
+        console.log('AccordionHeader', this.context);
 
         return (
             <header role="tab"
@@ -26,6 +29,11 @@ export class AccordionHeader extends Component {
         );
     }
 }
+
+AccordionHeader.contextTypes = {
+    uid: React.PropTypes.string,
+    currentIndex: React.PropTypes.number
+};
 
 AccordionHeader.defaultProps = {
     className: 'accordion-header',
@@ -47,6 +55,8 @@ export class AccordionSection extends Component {
     render() {
         let isActive = (this.props.index === this.props.currentIndex);
 
+        console.log('AccordionSection', this.context);
+
         return (
             <section role="tabpanel"
                 id={this.formatID('accordion-section')}
@@ -63,6 +73,11 @@ export class AccordionSection extends Component {
         );
     }
 }
+
+AccordionSection.contextTypes = {
+    uid: React.PropTypes.string,
+    currentIndex: React.PropTypes.number
+};
 
 AccordionSection.defaultProps = {
     className: 'accordion-section',
@@ -188,25 +203,49 @@ export default class Accordion extends Component {
         console.log('componentWillReceiveProps', nextProps);
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate(nextProps, nextState) {
         console.log('shouldComponentUpdate', arguments);
-        return true;
+
+        return (nextState.index !== this.state.index);
     }
 
-    componentWillUpdate() {
+    componentWillUpdate(nextProps, nextState) {
         console.log('componentWillUpdate', arguments);
+
+        this.emitEvent('showing', [nextState.index, this.state.index]);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         console.log('componentDidUpdate', arguments);
+
+        this.emitEvent('shown', [this.state.index, prevState.index]);
+    }
+
+    getChildContext() {
+        return {
+            uid: this.uid,
+            currentIndex: this.state.index
+        };
+    }
+
+    showItem(index) {
+        let total = React.Children.count(this.props.children);
+
+        if (index < 0) {
+            index = 0;
+        } else if (index >= total) {
+            index = total - 1;
+        }
+
+        this.setState({
+            index: index
+        });
     }
 
     onClickHeader(index, e) {
         e.preventDefault();
 
-        this.setState({
-            index: index
-        });
+        this.showItem(index);
     }
 
     onHorizontalResize(e) {
@@ -214,19 +253,28 @@ export default class Accordion extends Component {
     }
 }
 
+Accordion.childContextTypes = {
+    uid: React.PropTypes.string,
+    currentIndex: React.PropTypes.number
+};
+
 Accordion.defaultProps = {
     className: 'accordion',
     defaultIndex: 0,
     multiple: false,
-    collapsible: false
+    collapsible: false,
+    onShowing: null,
+    onShown: null
 };
 
 Accordion.propTypes = {
-    children: validateChildrenPropType(AccordionItem),
+    children: childrenOfType(AccordionItem),
     className: React.PropTypes.string,
     defaultIndex: React.PropTypes.number,
     multiple: React.PropTypes.bool,
-    collapsible: React.PropTypes.bool
+    collapsible: React.PropTypes.bool,
+    onShowing: funcCollection(),
+    onShown: funcCollection()
 };
 
 Accordion.Header = AccordionHeader;

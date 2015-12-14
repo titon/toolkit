@@ -1,6 +1,6 @@
 import React from 'react';
 import Titon from 'Titon';
-import classBuilder from 'extensions/utility/classBuilder';
+import classBuilder from 'ext/utility/classBuilder';
 
 export default class Carousel extends React.Component {
     constructor() {

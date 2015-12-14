@@ -1,31 +1,38 @@
 import React from 'react';
 import Titon from '../../Titon';
-import classBuilder from '../../extensions/utility/classBuilder';
+import classBuilder from '../../ext/utility/classBuilder';
 
 export default class Component extends React.Component {
-    formatClass(className, params) {
-        let classes = [];
+    emitEvent(event, args) {
+        let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
+            listeners = this.props[propName];
 
-        if (Titon.options.autoNamespace) {
-            classes.push(Titon.options.namespace + className);
-        } else {
-            classes.push(className);
+        if (!listeners) {
+            return;
+        } else if (!Array.isArray(listeners)) {
+            listeners = [listeners];
         }
 
-        classes.push(classBuilder(params));
-
-        return classes.join(' ').trim();
+        listeners.forEach(func => func.apply(this, args));
     }
 
-    formatID(componentName) {
+    formatClass(className, params) {
+        if (Titon.options.autoNamespace) {
+            className = Titon.options.namespace + className;
+        }
+
+        return [className, classBuilder(params)].join(' ').trim();
+    }
+
+    formatID(idName) {
         let id = ['titon'],
-            uid = this.props.uid || this.uid;
+            uid = this.context.uid || this.uid;
 
         if (typeof uid !== 'undefined') {
             id.push(uid);
         }
 
-        id.push(componentName);
+        id.push(idName);
 
         if (typeof this.props.index !== 'undefined') {
             id.push(this.props.index);

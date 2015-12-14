@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import flags from './extensions/flags';
+import flags from './ext/flags';
 
 let Titon = window.Titon = {
 
