@@ -24,7 +24,7 @@ module.exports = function(command) {
 
         resolve(engine.executeOnFiles([
             options.jsSource,
-            options.jsSource.replace('js', 'tests'),
+            //options.jsSource.replace('js', 'tests'),
             './tasks'
         ]));
     })

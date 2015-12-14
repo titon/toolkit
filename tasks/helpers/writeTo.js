@@ -22,19 +22,12 @@ module.exports = function writeTo(filename, options) {
         log('Saving ' + chalk.gray(filename));
 
         return new Promise(function(resolve, reject) {
-            fs.open(path.join(options.out, filename), 'w', 666, function(error, file) {
+            fs.writeFile(path.join(options.out, filename), content, function(error) {
                 if (error) {
                     reject(error);
-                    return;
+                } else {
+                    resolve(content);
                 }
-
-                fs.write(file, content, 0, 'utf8', function(writeError) {
-                    if (writeError) {
-                        reject(writeError);
-                    } else {
-                        resolve(content);
-                    }
-                });
             });
         });
     };

@@ -29,7 +29,9 @@
         "css": "node titon css",
         "docs": "node titon docs",
 
-        "prebuild": "node titon lint"
+        "prebuild": "node titon lint",
+
+        "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js -t [ babelify --presets [ es2015 react ] ]"
     },
 
     "peerDependencies": {
@@ -51,6 +53,9 @@
         "eslint": "~1.10",
         "babel-eslint": "~4.1",
         "babel-core": "~6.3",
+        "babel-preset-es2015": "*",
+        "babel-preset-react": "*",
+        "babel-preset-stage-1": "*",
         "systemjs": "~0.19",
         "uglify-js": "~2.6",
         "dependency-tree": "~4.0",
@@ -61,6 +66,9 @@
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
-        "jasmine-core": "~2.4"
+        "jasmine-core": "~2.4",
+
+        "browserify": "*",
+        "babelify": "*"
     }
 }
