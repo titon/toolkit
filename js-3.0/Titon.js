@@ -15,18 +15,10 @@ let Titon = window.Titon = {
     build: '%build%',
 
     options: {
-        namespace: '',
-        autoNamespace: true
+        namespace: '',          /** CSS namespace. */
+        autoNamespace: true,
+        debug: false,           /** Global debugging. */
     },
-
-    /** CSS namespace. */
-    namespace: '',
-
-    /** ARIA support. */
-    aria: true,
-
-    /** Global debugging. */
-    debug: false,
 
     /** Localization messages. */
     messages: {

@@ -12,8 +12,10 @@ import collectionOf from '../../ext/prop-types/collectionOf';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
-    currentIndex: PropTypes.number,
-    showItemCallback: PropTypes.func
+    hideItem: PropTypes.func,
+    showItem: PropTypes.func,
+    isItemCollapsible: PropTypes.func,
+    isItemActive: PropTypes.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -25,15 +27,16 @@ class AccordionHeader extends Component {
      * @returns {JSX}
      */
     render() {
-        let isActive = (this.props.index === this.context.currentIndex);
+        let index = this.props.index,
+            isActive = this.context.isItemActive(index);
 
         return (
             <header role="tab"
-                id={this.formatID('accordion-header', this.props.index)}
+                id={this.formatID('accordion-header', index)}
                 className={this.formatClass(this.props.className, {
                     'is-active': isActive
                 })}
-                aria-controls={this.formatID('accordion-section', this.props.index)}
+                aria-controls={this.formatID('accordion-section', index)}
                 aria-selected={isActive}
                 aria-expanded={isActive}
                 onClick={this.onClick.bind(this)}>
@@ -47,7 +50,14 @@ class AccordionHeader extends Component {
      * Update the index on the parent component when clicked.
      */
     onClick() {
-        this.context.showItemCallback(this.props.index);
+        let index = this.props.index,
+            context = this.context;
+
+        if (context.isItemCollapsible(index)) {
+            context.hideItem(index);
+        } else {
+            context.showItem(index);
+        }
     }
 }
 
@@ -62,14 +72,15 @@ class AccordionSection extends Component {
      * @returns {JSX}
      */
     render() {
-        let isActive = (this.props.index === this.context.currentIndex);
+        let index = this.props.index,
+            isActive = this.context.isItemActive(index);
 
         return (
             <SlideCollapse visible={isActive}>
                 <section role="tabpanel"
-                    id={this.formatID('accordion-section', this.props.index)}
+                    id={this.formatID('accordion-section', index)}
                     className={this.formatClass(this.props.className)}
-                    aria-labelledby={this.formatID('accordion-header', this.props.index)}
+                    aria-labelledby={this.formatID('accordion-header', index)}
                     aria-hidden={!isActive}
                     aria-expanded={isActive}>
 
@@ -119,8 +130,8 @@ AccordionItem.defaultProps = {
 };
 
 AccordionItem.propTypes = {
-    index: PropTypes.number,
-    header: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    header: PropTypes.node.isRequired,
     headerClassName: PropTypes.string,
     sectionClassName: PropTypes.string
 };
@@ -132,7 +143,7 @@ export default class Accordion extends Component {
         super();
 
         this.state = {
-            index: 0
+            indices: []
         };
     }
 
@@ -147,8 +158,7 @@ export default class Accordion extends Component {
                 id={this.formatID('accordion')}
                 className={this.formatClass(this.props.className)}
                 aria-live="off"
-                aria-multiselectable={this.props.multiple}
-                aria-activedescendant={this.formatID('accordion-header', this.state.index)}>
+                aria-multiselectable={this.props.multiple}>
 
                 {this.props.children}
             </ul>
@@ -169,7 +179,7 @@ export default class Accordion extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('showing', [nextState.index, this.state.index]);
+        this.emitEvent('showing', [nextState.indices, this.state.indices]);
     }
 
     /**
@@ -179,7 +189,7 @@ export default class Accordion extends Component {
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('shown', [this.state.index, prevState.index]);
+        this.emitEvent('shown', [this.state.indices, prevState.indices]);
     }
 
     /**
@@ -190,7 +200,7 @@ export default class Accordion extends Component {
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.index !== this.state.index);
+        return (this.props.multiple || nextState.indices[0] !== this.state.indices[0]);
     }
 
     /**
@@ -201,9 +211,22 @@ export default class Accordion extends Component {
     getChildContext() {
         return {
             uid: this.uid,
-            currentIndex: this.state.index,
-            showItemCallback: this.showItem.bind(this)
+            hideItem: this.hideItem.bind(this),
+            showItem: this.showItem.bind(this),
+            isItemCollapsible: this.isItemCollapsible.bind(this),
+            isItemActive: this.isItemActive.bind(this)
         };
+    }
+
+    /**
+     * Conceal an item by removing its index from the active state.
+     *
+     * @param {Number} index
+     */
+    hideItem(index) {
+        this.setState({
+            indices: this.state.indices.filter(value => value !== index)
+        });
     }
 
     /**
@@ -220,21 +243,36 @@ export default class Accordion extends Component {
             index = total - 1;
         }
 
+        // Use concat or we lose the previous state
+        if (this.props.multiple) {
+            index = this.state.indices.concat([index]);
+        } else {
+            index = [index];
+        }
+
         this.setState({
-            index: index
+            indices: index
         });
     }
 
     /**
-     * TODO
+     * Returns true if the item at the specified index can be collapsed.
      *
-     * @param index
-     * @returns {boolean}
+     * @param {Number} index
+     * @returns {Boolean}
+     */
+    isItemCollapsible(index) {
+        return ((this.props.multiple || this.props.collapsible) && this.isItemActive(index));
+    }
+
+    /**
+     * Returns true if the item at the specified index is active based on the current indices.
+     *
+     * @param {Number} index
+     * @returns {Boolean}
      */
     isItemActive(index) {
-        if (this.props.multiple || this.props.collapsible && index === this.state.index) {
-            return true;
-        }
+        return (this.state.indices.indexOf(index) >= 0);
     }
 }
 

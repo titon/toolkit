@@ -8,6 +8,7 @@ import React from 'react';
 import Titon from '../../Titon';
 import classBuilder from '../../ext/utility/classBuilder';
 import generateUID from '../../ext/utility/generateUID';
+import '../../polyfills/performance/now';
 
 export default class Component extends React.Component {
     constructor() {
@@ -18,9 +19,24 @@ export default class Component extends React.Component {
         this.version = '3.0.0';
     }
 
+    /**
+     * Emit an event and notify all listeners, as well as print debug information if enabled.
+     *
+     * @param {String} event
+     * @param {Array} [args]
+     */
     emitEvent(event, args) {
         let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
-            listeners = this.props[propName];
+            listeners = this.props[propName],
+            debug = this.props.debug || Titon.options.debug;
+
+        if (debug && window.console) {
+            console.log(this.constructor.name + '#' + this.uid, performance.now().toFixed(3), event, ...args);
+
+            if (debug === 'verbose') {
+                console.dir(this);
+            }
+        }
 
         if (!listeners) {
             return;
@@ -31,6 +47,14 @@ export default class Component extends React.Component {
         listeners.forEach(func => func.apply(this, args));
     }
 
+    /**
+     * Generate a unique HTML class name based on the passed parameters.
+     * Append the CSS namespace if applicable.
+     *
+     * @param {String} className
+     * @param {*} [params]
+     * @returns {String}
+     */
     formatClass(className, params) {
         if (Titon.options.autoNamespace) {
             className = Titon.options.namespace + className;
@@ -39,6 +63,12 @@ export default class Component extends React.Component {
         return classBuilder(className, params);
     }
 
+    /**
+     * Generate a unique HTML ID based on the passed parameters.
+     *
+     * @param {*} params
+     * @returns {String}
+     */
     formatID(...params) {
         let id = ['titon'],
             uid = this.context.uid || this.uid;
@@ -47,8 +77,6 @@ export default class Component extends React.Component {
             id.push(uid);
         }
 
-        id = id.concat(params);
-
-        return id.join('-').trim();
+        return id.concat(params).join('-').trim();
     }
 }

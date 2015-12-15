@@ -10,7 +10,7 @@
  * If the param is an object, loop through each key and
  * include the class name if the value is truthy.
  *
- * @param {Array} params
+ * @param {*} params
  * @returns {String}
  */
 export default function classBuilder(...params) {
