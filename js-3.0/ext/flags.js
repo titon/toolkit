@@ -1,31 +1,33 @@
 /**
- * @copyright   2010-2015, The Titon Project
+ * @copyright   2010-2016, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
 
-// Is the device in landscape mode
-export var isLandscape = (window.innerWidth > window.innerHeight);
+export let
 
-// Is the device in portrait mode
-export var isPortrait = !isLandscape;
+    // Is the device in landscape mode
+    isLandscape = (window.innerWidth > window.innerHeight),
 
-// Does the device support retina display
-export var isRetina = (window.devicePixelRatio > 1);
+    // Is the device in portrait mode
+    isPortrait = !isLandscape,
 
-// Is the HTML document currently set to RTL mode
-export var isRTL = (document.documentElement.dir === 'rtl');
+    // Does the device support retina display
+    isRetina = (window.devicePixelRatio > 1),
 
-// Does the device support touch controls
-export var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    // Is the HTML document currently set to RTL mode
+    isRTL = (document.documentElement.dir === 'rtl'),
 
-// Export all as an object
-var flags = {
-    landscape: isLandscape,
-    portrait: isPortrait,
-    retina: isRetina,
-    rtl: isRTL,
-    touch: isTouch
-};
+    // Does the device support touch controls
+    isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0),
+
+    // Export all as an object
+    flags = {
+        landscape: isLandscape,
+        portrait: isPortrait,
+        retina: isRetina,
+        rtl: isRTL,
+        touch: isTouch
+    };
 
 export default flags;

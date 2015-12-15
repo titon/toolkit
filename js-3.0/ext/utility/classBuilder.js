@@ -1,13 +1,38 @@
-export default function classBuilder(classes) {
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+/**
+ * Generate a valid class name based on a list of parameters.
+ * If the param is a string, use directly as a class name.
+ * If the param is an object, loop through each key and
+ * include the class name if the value is truthy.
+ *
+ * @param {Array} params
+ * @returns {String}
+ */
+export default function classBuilder(...params) {
+    /* eslint default-case: 0 */
+
     let className = [];
 
-    if (classes) {
-        Object.keys(classes).forEach(key => {
-            if (classes[key]) {
-                className.push(key);
-            }
-        });
-    }
+    params.forEach(param => {
+        switch (typeof param) {
+            case 'object':
+                Object.keys(param).forEach(key => {
+                    if (param[key]) {
+                        className.push(key);
+                    }
+                });
+                break;
 
-    return className.join(' ');
+            case 'string':
+                className.push(param);
+                break;
+        }
+    });
+
+    return className.join(' ').trim();
 }

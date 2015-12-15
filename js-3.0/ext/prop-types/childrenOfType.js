@@ -1,4 +1,10 @@
-import React from 'react';
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+import { Children } from 'react';
 
 /**
  * A function that will validate that all children of a component are of a specific type.
@@ -8,7 +14,7 @@ import React from 'react';
  */
 export default function childrenOfType(instance) {
     return function(props, propName, componentName) {
-        React.Children.forEach(props[propName], function(child) {
+        Children.forEach(props[propName], function(child) {
             if (child.type !== instance) {
                 throw new Error('`' + componentName + '` only accepts children of type `' + instance.name + '`.');
             }

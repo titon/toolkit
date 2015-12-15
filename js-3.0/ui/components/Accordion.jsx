@@ -1,120 +1,108 @@
-import React from 'react';
-import Component from './Component.jsx';
-import generateUID from '../../ext/utility/generateUID';
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+import React, { Children, PropTypes } from 'react';
+import Component from './Component';
+import SlideCollapse from '../transitions/SlideCollapse';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
-import funcCollection from '../../ext/prop-types/funcCollection';
-import debounce from 'lodash/function/debounce';
+import collectionOf from '../../ext/prop-types/collectionOf';
+
+const CONTEXT_TYPES = {
+    uid: PropTypes.string,
+    currentIndex: PropTypes.number,
+    showItemCallback: PropTypes.func
+};
 
 /*----------------------------------------------------------------------------------------------------*/
 
-export class AccordionHeader extends Component {
+class AccordionHeader extends Component {
+    /**
+     * Render the accordion item header tab and set the relevant active state.
+     *
+     * @returns {JSX}
+     */
     render() {
-        let isActive = (this.props.index === this.props.currentIndex);
-
-        console.log('AccordionHeader', this.context);
+        let isActive = (this.props.index === this.context.currentIndex);
 
         return (
             <header role="tab"
-                id={this.formatID('accordion-header')}
+                id={this.formatID('accordion-header', this.props.index)}
                 className={this.formatClass(this.props.className, {
                     'is-active': isActive
                 })}
-                aria-controls={this.formatID('accordion-section')}
+                aria-controls={this.formatID('accordion-section', this.props.index)}
                 aria-selected={isActive}
                 aria-expanded={isActive}
-                onClick={this.props.onClick}>
+                onClick={this.onClick.bind(this)}>
 
                 {this.props.children}
             </header>
         );
     }
+
+    /**
+     * Update the index on the parent component when clicked.
+     */
+    onClick() {
+        this.context.showItemCallback(this.props.index);
+    }
 }
 
-AccordionHeader.contextTypes = {
-    uid: React.PropTypes.string,
-    currentIndex: React.PropTypes.number
-};
-
-AccordionHeader.defaultProps = {
-    className: 'accordion-header',
-    index: -1,
-    currentIndex: 0,
-    onClick: null
-};
-
-AccordionHeader.propTypes = {
-    className: React.PropTypes.string,
-    index: React.PropTypes.number,
-    currentIndex: React.PropTypes.number,
-    onClick: React.PropTypes.func.isRequired
-};
+AccordionHeader.contextTypes = CONTEXT_TYPES;
 
 /*----------------------------------------------------------------------------------------------------*/
 
-export class AccordionSection extends Component {
+class AccordionSection extends Component {
+    /**
+     * Render the accordion item section content and wrap with a collapsible slide transition.
+     *
+     * @returns {JSX}
+     */
     render() {
-        let isActive = (this.props.index === this.props.currentIndex);
-
-        console.log('AccordionSection', this.context);
+        let isActive = (this.props.index === this.context.currentIndex);
 
         return (
-            <section role="tabpanel"
-                id={this.formatID('accordion-section')}
-                className={this.formatClass(this.props.className, {
-                    show: isActive,
-                    hide: !isActive
-                })}
-                aria-labelledby={this.formatID('accordion-header')}>
+            <SlideCollapse visible={isActive}>
+                <section role="tabpanel"
+                    id={this.formatID('accordion-section', this.props.index)}
+                    className={this.formatClass(this.props.className)}
+                    aria-labelledby={this.formatID('accordion-header', this.props.index)}
+                    aria-hidden={!isActive}
+                    aria-expanded={isActive}>
 
-                <div className={this.formatClass(this.props.bodyClassName)}>
                     {this.props.children}
-                </div>
-            </section>
+                </section>
+            </SlideCollapse>
         );
     }
 }
 
-AccordionSection.contextTypes = {
-    uid: React.PropTypes.string,
-    currentIndex: React.PropTypes.number
-};
-
-AccordionSection.defaultProps = {
-    className: 'accordion-section',
-    bodyClassName: 'accordion-body',
-    index: -1,
-    currentIndex: 0
-};
-
-AccordionSection.propTypes = {
-    className: React.PropTypes.string,
-    bodyClassName: React.PropTypes.string,
-    index: React.PropTypes.number,
-    currentIndex: React.PropTypes.number
-};
+AccordionSection.contextTypes = CONTEXT_TYPES;
 
 /*----------------------------------------------------------------------------------------------------*/
 
 export class AccordionItem extends Component {
+    /**
+     * Render the accordion item and pass all relevant props to the sub-children.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
             <li>
                 <AccordionHeader
                     className={this.props.headerClassName}
-                    uid={this.props.uid}
-                    index={this.props.index}
-                    currentIndex={this.props.currentIndex}
-                    onClick={this.props.onClickHeader}>
+                    index={this.props.index}>
 
                     {this.props.header}
                 </AccordionHeader>
 
                 <AccordionSection
                     className={this.props.sectionClassName}
-                    bodyClassName={this.props.bodyClassName}
-                    uid={this.props.uid}
-                    index={this.props.index}
-                    currentIndex={this.props.currentIndex}>
+                    index={this.props.index}>
 
                     {this.props.children}
                 </AccordionSection>
@@ -124,25 +112,17 @@ export class AccordionItem extends Component {
 }
 
 AccordionItem.defaultProps = {
-    uid: '',
     index: -1,
-    currentIndex: 0,
     header: '',
     headerClassName: 'accordion-header',
-    sectionClassName: 'accordion-section',
-    bodyClassName: 'accordion-body',
-    onClickHeader: null
+    sectionClassName: 'accordion-section'
 };
 
 AccordionItem.propTypes = {
-    uid: React.PropTypes.string,
-    index: React.PropTypes.number,
-    currentIndex: React.PropTypes.number,
-    header: React.PropTypes.node,
-    headerClassName: React.PropTypes.string,
-    sectionClassName: React.PropTypes.string,
-    bodyClassName: React.PropTypes.string,
-    onClickHeader: React.PropTypes.func
+    index: PropTypes.number,
+    header: PropTypes.node,
+    headerClassName: PropTypes.string,
+    sectionClassName: PropTypes.string
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -151,85 +131,88 @@ export default class Accordion extends Component {
     constructor() {
         super();
 
-        this.version = '3.0.0';
-        this.uid = generateUID();
         this.state = {
             index: 0
         };
-
-        this.onHorizontalResize = this.onHorizontalResize.bind(this);
     }
 
+    /**
+     * Render the wrapping accordion element.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(this.props.className)}>
+                className={this.formatClass(this.props.className)}
+                aria-live="off"
+                aria-multiselectable={this.props.multiple}
+                aria-activedescendant={this.formatID('accordion-header', this.state.index)}>
 
-                {React.Children.map(this.props.children, function(child, index) {
-                    return React.cloneElement(child, {
-                        ref: 'item-' + index,
-                        uid: this.uid,
-                        index: index,
-                        currentIndex: this.state.index,
-                        onClickHeader: this.onClickHeader.bind(this, index)
-                    });
-                }, this)}
+                {this.props.children}
             </ul>
         );
     }
 
-    componentDidMount() {
-        console.log('componentDidMount', arguments);
-    }
-
+    /**
+     * Set the default index before mounting.
+     */
     componentWillMount() {
-        console.log('componentWillMount', arguments, this);
-
-        this.setState({
-            index: this.props.defaultIndex
-        });
-
-        window.addEventListener('resize', debounce(this.onHorizontalResize, 150));
+        this.showItem(this.props.defaultIndex);
     }
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount', arguments);
-
-        window.removeEventListener('resize', debounce(this.onHorizontalResize, 150));
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps', nextProps);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate', arguments);
-
-        return (nextState.index !== this.state.index);
-    }
-
+    /**
+     * Emit `showing` event before rendering.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     */
     componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate', arguments);
-
         this.emitEvent('showing', [nextState.index, this.state.index]);
     }
 
+    /**
+     * Emit `shown` event after rendering.
+     *
+     * @param {Object} prevProps
+     * @param {Object} prevState
+     */
     componentDidUpdate(prevProps, prevState) {
-        console.log('componentDidUpdate', arguments);
-
         this.emitEvent('shown', [this.state.index, prevState.index]);
     }
 
+    /**
+     * Only update if item indices are different.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     * @returns {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        return (nextState.index !== this.state.index);
+    }
+
+    /**
+     * Define a context that is passed to all children.
+     *
+     * @returns {Object}
+     */
     getChildContext() {
         return {
             uid: this.uid,
-            currentIndex: this.state.index
+            currentIndex: this.state.index,
+            showItemCallback: this.showItem.bind(this)
         };
     }
 
+    /**
+     * Reveal the item at the defined index, and collapse all other items.
+     *
+     * @param {Number} index
+     */
     showItem(index) {
-        let total = React.Children.count(this.props.children);
+        let total = Children.count(this.props.children);
 
         if (index < 0) {
             index = 0;
@@ -242,21 +225,20 @@ export default class Accordion extends Component {
         });
     }
 
-    onClickHeader(index, e) {
-        e.preventDefault();
-
-        this.showItem(index);
-    }
-
-    onHorizontalResize(e) {
-        console.log('onHorizontalResize', e);
+    /**
+     * TODO
+     *
+     * @param index
+     * @returns {boolean}
+     */
+    isItemActive(index) {
+        if (this.props.multiple || this.props.collapsible && index === this.state.index) {
+            return true;
+        }
     }
 }
 
-Accordion.childContextTypes = {
-    uid: React.PropTypes.string,
-    currentIndex: React.PropTypes.number
-};
+Accordion.childContextTypes = CONTEXT_TYPES;
 
 Accordion.defaultProps = {
     className: 'accordion',
@@ -269,14 +251,12 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
     children: childrenOfType(AccordionItem),
-    className: React.PropTypes.string,
-    defaultIndex: React.PropTypes.number,
-    multiple: React.PropTypes.bool,
-    collapsible: React.PropTypes.bool,
-    onShowing: funcCollection(),
-    onShown: funcCollection()
+    className: PropTypes.string,
+    defaultIndex: PropTypes.number,
+    multiple: PropTypes.bool,
+    collapsible: PropTypes.bool,
+    onShowing: collectionOf(PropTypes.func),
+    onShown: collectionOf(PropTypes.func)
 };
 
-Accordion.Header = AccordionHeader;
-Accordion.Section = AccordionSection;
 Accordion.Item = AccordionItem;

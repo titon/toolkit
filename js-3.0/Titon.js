@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2015, The Titon Project
+ * @copyright   2010-2016, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -35,7 +35,7 @@ let Titon = window.Titon = {
     },
 
     /** Runtime flags. */
-    flags: flags
+    flags
 };
 
 export default Titon;

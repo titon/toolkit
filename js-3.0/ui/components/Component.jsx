@@ -1,8 +1,23 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
 import React from 'react';
 import Titon from '../../Titon';
 import classBuilder from '../../ext/utility/classBuilder';
+import generateUID from '../../ext/utility/generateUID';
 
 export default class Component extends React.Component {
+    constructor() {
+        super();
+
+        this.uid = generateUID();
+        this.state = {};
+        this.version = '3.0.0';
+    }
+
     emitEvent(event, args) {
         let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
             listeners = this.props[propName];
@@ -21,10 +36,10 @@ export default class Component extends React.Component {
             className = Titon.options.namespace + className;
         }
 
-        return [className, classBuilder(params)].join(' ').trim();
+        return classBuilder(className, params);
     }
 
-    formatID(idName) {
+    formatID(...params) {
         let id = ['titon'],
             uid = this.context.uid || this.uid;
 
@@ -32,11 +47,7 @@ export default class Component extends React.Component {
             id.push(uid);
         }
 
-        id.push(idName);
-
-        if (typeof this.props.index !== 'undefined') {
-            id.push(this.props.index);
-        }
+        id = id.concat(params);
 
         return id.join('-').trim();
     }

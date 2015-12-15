@@ -31,7 +31,7 @@
 
         "prebuild": "node titon lint",
 
-        "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js -t [ babelify --presets [ es2015 react ] ]"
+        "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
     },
 
     "peerDependencies": {
