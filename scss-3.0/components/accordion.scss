@@ -19,13 +19,5 @@
     }
 }
 
-.transition.slide-vertical {
-    overflow-y: hidden;
-    position: relative;
-    max-height: 0;
-    transition: all map-get($titon-accordion, "transition") ease-in-out;
-
-    &.show {
-        max-height: 100%;
-    }
-}
+// TEMPORARY
+@import "../transitions/slide-collapse";

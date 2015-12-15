@@ -1,17 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import Component from './Component';
 
-export default class Button extends React.Component {
+export default class Button extends Component {
     constructor() {
         super();
-
-        this.state = {
-            disabled: false,
-            pressed: false
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-
     }
 
     render() {
@@ -33,10 +25,10 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-    url: React.PropTypes.string,
-    size: React.PropTypes.oneOf(['small', 'large']),
-    shape: React.PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),
-    state: React.PropTypes.oneOf(['info', 'success', 'warning', 'error', 'debug']),
-    modifier: React.PropTypes.oneOf(['gloss', 'reflect', 'glare', 'popout']),
-    disabled: React.PropTypes.bool
+    url: PropTypes.string,
+    size: PropTypes.oneOf(['small', 'large']),
+    shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),
+    state: PropTypes.oneOf(['info', 'success', 'warning', 'error', 'debug']),
+    modifier: PropTypes.oneOf(['gloss', 'reflect', 'glare', 'popout']),
+    disabled: PropTypes.bool
 };

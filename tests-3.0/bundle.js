@@ -19,6 +19,7 @@ var Titon = window.Titon = {
     /** Build date hash. */
     build: '%build%',
 
+    /** Configurable options. */
     options: {
         namespace: '', /** CSS namespace. */
         autoNamespace: true,
@@ -60,7 +61,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Accordion2.default,
-    { defaultIndex: 3, multiple: true, collapsible: true, debug: 'verbose' },
+    { defaultIndex: 3, multiple: true, collapsible: true, debug: true },
     _react2.default.createElement(
         _Accordion2.default.Item,
         { header: 'Header #1', key: '0', index: 0 },
@@ -901,6 +902,8 @@ var _debounce2 = _interopRequireDefault(_debounce);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -920,7 +923,7 @@ var SlideCollapse = (function (_React$Component) {
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SlideCollapse).call(this));
 
         _this.state = {
-            maxHeight: -1
+            size: -1
         };
 
         _this.onResizeHandler = (0, _debounce2.default)(_this.onResize.bind(_this), 100);
@@ -929,7 +932,7 @@ var SlideCollapse = (function (_React$Component) {
 
     /**
      * Render the wrapper that triggers slide collapse transitions.
-     * Requires a literal height of the element to work correctly.
+     * Requires a literal size of the element to work correctly.
      *
      * @returns {JSX}
      */
@@ -940,11 +943,9 @@ var SlideCollapse = (function (_React$Component) {
             var style = {},
                 className = (0, _classBuilder2.default)('transition', 'slide-' + this.props.direction, { 'show': this.props.visible });
 
-            // Don't force a max height on the initial render
-            if (this.state.maxHeight >= 0 && this.props.visible) {
-                style = {
-                    maxHeight: this.state.maxHeight
-                };
+            // Don't force a max on the initial render
+            if (this.state.size >= 0 && this.props.visible) {
+                style = _defineProperty({}, this.props.direction === 'vertical' ? 'maxHeight' : 'maxWidth', this.state.size);
             }
 
             return _react2.default.createElement(
@@ -955,35 +956,36 @@ var SlideCollapse = (function (_React$Component) {
         }
 
         /**
-         * Calculate the height of the element by cloning it, forcing a ma height,
-         * appending the element to the current DOM, saving the height,
+         * Calculate the width or height of the element by cloning it, forcing a size,
+         * appending the element to the current DOM, saving the size,
          * and finally removing the clone.
          */
 
     }, {
-        key: 'calculateHeight',
-        value: function calculateHeight() {
+        key: 'calculateSize',
+        value: function calculateSize() {
             var node = _reactDom2.default.findDOMNode(this).cloneNode(true),
                 body = document.body;
 
             node.style.maxHeight = '100%';
+            node.style.maxWidth = '100%';
             body.appendChild(node);
 
             this.setState({
-                maxHeight: node.offsetHeight
+                size: this.props.direction === 'vertical' ? node.offsetHeight : node.offsetWidth
             });
 
             body.removeChild(node);
         }
 
         /**
-         * Once mounted, calculate the raw height of the element.
+         * Once mounted, calculate the raw width or height of the element.
          */
 
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.calculateHeight();
+            this.calculateSize();
         }
 
         /**
@@ -1007,13 +1009,13 @@ var SlideCollapse = (function (_React$Component) {
         }
 
         /**
-         * When the browser is resized, re-calculate the element height.
+         * When the browser is resized, re-calculate the element width or height.
          */
 
     }, {
         key: 'onResize',
         value: function onResize() {
-            this.calculateHeight();
+            this.calculateSize();
         }
     }]);
 

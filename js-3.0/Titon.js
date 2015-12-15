@@ -14,6 +14,7 @@ let Titon = window.Titon = {
     /** Build date hash. */
     build: '%build%',
 
+    /** Configurable options. */
     options: {
         namespace: '',          /** CSS namespace. */
         autoNamespace: true,

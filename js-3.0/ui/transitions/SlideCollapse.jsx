@@ -14,7 +14,7 @@ export default class SlideCollapse extends React.Component {
         super();
 
         this.state = {
-            maxHeight: -1
+            size: -1
         };
 
         this.onResizeHandler = debounce(this.onResize.bind(this), 100);
@@ -22,7 +22,7 @@ export default class SlideCollapse extends React.Component {
 
     /**
      * Render the wrapper that triggers slide collapse transitions.
-     * Requires a literal height of the element to work correctly.
+     * Requires a literal size of the element to work correctly.
      *
      * @returns {JSX}
      */
@@ -34,10 +34,10 @@ export default class SlideCollapse extends React.Component {
                 { 'show': this.props.visible }
             );
 
-        // Don't force a max height on the initial render
-        if (this.state.maxHeight >= 0 && this.props.visible) {
+        // Don't force a max on the initial render
+        if (this.state.size >= 0 && this.props.visible) {
             style = {
-                maxHeight: this.state.maxHeight
+                [(this.props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
             };
         }
 
@@ -49,29 +49,30 @@ export default class SlideCollapse extends React.Component {
     }
 
     /**
-     * Calculate the height of the element by cloning it, forcing a ma height,
-     * appending the element to the current DOM, saving the height,
+     * Calculate the width or height of the element by cloning it, forcing a size,
+     * appending the element to the current DOM, saving the size,
      * and finally removing the clone.
      */
-    calculateHeight() {
+    calculateSize() {
         let node = ReactDOM.findDOMNode(this).cloneNode(true),
             body = document.body;
 
+        node.style.maxWidth = '100%';
         node.style.maxHeight = '100%';
         body.appendChild(node);
 
         this.setState({
-            maxHeight: node.offsetHeight
+            size: (this.props.direction === 'vertical') ? node.offsetHeight : node.offsetWidth
         });
 
         body.removeChild(node);
     }
 
     /**
-     * Once mounted, calculate the raw height of the element.
+     * Once mounted, calculate the raw width or height of the element.
      */
     componentDidMount() {
-        this.calculateHeight();
+        this.calculateSize();
     }
 
     /**
@@ -89,10 +90,10 @@ export default class SlideCollapse extends React.Component {
     }
 
     /**
-     * When the browser is resized, re-calculate the element height.
+     * When the browser is resized, re-calculate the element width or height.
      */
     onResize() {
-        this.calculateHeight();
+        this.calculateSize();
     }
 }
 
