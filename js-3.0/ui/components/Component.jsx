@@ -55,12 +55,16 @@ export default class Component extends React.Component {
      * @param {*} [params]
      * @returns {String}
      */
-    formatClass(className, params) {
+    formatClass(className, ...params) {
         if (Titon.options.autoNamespace) {
             className = Titon.options.namespace + className;
         }
 
-        return classBuilder(className, params);
+        // A special prop that's automatically set for any component
+        // This allows components to use uniquely identifying class names
+        params.push(this.props.component);
+
+        return classBuilder(className, ...params);
     }
 
     /**
@@ -70,13 +74,6 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatID(...params) {
-        let id = ['titon'],
-            uid = this.context.uid || this.uid;
-
-        if (typeof uid !== 'undefined') {
-            id.push(uid);
-        }
-
-        return id.concat(params).join('-').trim();
+        return ['titon', this.context.uid || this.uid, ...params].join('-').trim();
     }
 }

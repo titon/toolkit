@@ -29,7 +29,9 @@ export default function classBuilder(...params) {
                 break;
 
             case 'string':
-                className.push(param);
+                if (param) {
+                    className.push(param);
+                }
                 break;
         }
     });

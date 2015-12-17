@@ -195,15 +195,13 @@ export default class Accordion extends Component {
      * @returns {JSX}
      */
     render() {
-        let className = this.formatClass(this.props.className, {
-            'is-multiple': this.props.multiple,
-            'is-collapsible': this.props.collapsible
-        });
-
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={className}
+                className={this.formatClass(this.props.className, {
+                    'is-multiple': this.props.multiple,
+                    'is-collapsible': this.props.collapsible
+                })}
                 aria-live="off"
                 aria-multiselectable={this.props.multiple}>
 

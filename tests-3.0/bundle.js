@@ -21,11 +21,11 @@ var Titon = window.Titon = {
 
     /** Configurable options. */
     options: {
-        namespace: '', /** CSS namespace. */
-        autoNamespace: true,
-        debug: false },
+        namespace: '', // CSS class namespace
+        autoNamespace: true, // Automatically prefix namespace to classes
+        debug: false // Global debugging
+    },
 
-    /** Global debugging. */
     /** Localization messages. */
     messages: {
         loading: 'Loading...',
@@ -53,7 +53,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Accordion = require('./ui/components/Accordion.jsx');
+var _Accordion = require('./ui/components/Accordion');
 
 var _Accordion2 = _interopRequireDefault(_Accordion);
 
@@ -61,7 +61,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Accordion2.default,
-    { defaultIndex: [0, 3], multiple: true, collapsible: true, debug: false },
+    { defaultIndex: [0, 2], component: 'feature-list', multiple: true, collapsible: true, debug: false },
     _react2.default.createElement(
         _Accordion2.default.Item,
         { header: 'Header #1', key: '0', index: 0 },
@@ -134,7 +134,7 @@ _reactDom2.default.render(_react2.default.createElement(
     )
 ), document.getElementById('app'));
 
-},{"./ui/components/Accordion.jsx":9,"react":176,"react-dom":47}],3:[function(require,module,exports){
+},{"./ui/components/Accordion":9,"react":176,"react-dom":47}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -273,7 +273,9 @@ function classBuilder() {
                 break;
 
             case 'string':
-                className.push(param);
+                if (param) {
+                    className.push(param);
+                }
                 break;
         }
     });
@@ -603,16 +605,14 @@ var Accordion = (function (_Component4) {
     _createClass(Accordion, [{
         key: 'render',
         value: function render() {
-            var className = this.formatClass(this.props.className, {
-                'is-multiple': this.props.multiple,
-                'is-collapsible': this.props.collapsible
-            });
-
             return _react2.default.createElement(
                 'ul',
                 { role: 'tablist',
                     id: this.formatID('accordion'),
-                    className: className,
+                    className: this.formatClass(this.props.className, {
+                        'is-multiple': this.props.multiple,
+                        'is-collapsible': this.props.collapsible
+                    }),
                     'aria-live': 'off',
                     'aria-multiselectable': this.props.multiple },
                 this.props.children
@@ -891,12 +891,21 @@ var Component = (function (_React$Component) {
 
     }, {
         key: 'formatClass',
-        value: function formatClass(className, params) {
+        value: function formatClass(className) {
             if (_Titon2.default.options.autoNamespace) {
                 className = _Titon2.default.options.namespace + className;
             }
 
-            return (0, _classBuilder2.default)(className, params);
+            // A special prop that's automatically set for any component
+            // This allows components to use uniquely identifying class names
+
+            for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                params[_key - 1] = arguments[_key];
+            }
+
+            params.push(this.props.component);
+
+            return _classBuilder2.default.apply(undefined, [className].concat(params));
         }
 
         /**
@@ -909,18 +918,11 @@ var Component = (function (_React$Component) {
     }, {
         key: 'formatID',
         value: function formatID() {
-            var id = ['titon'],
-                uid = this.context.uid || this.uid;
-
-            if (typeof uid !== 'undefined') {
-                id.push(uid);
+            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                params[_key2] = arguments[_key2];
             }
 
-            for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-                params[_key] = arguments[_key];
-            }
-
-            return id.concat(params).join('-').trim();
+            return ['titon', this.context.uid || this.uid].concat(params).join('-').trim();
         }
     }]);
 
