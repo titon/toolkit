@@ -28,17 +28,18 @@ class AccordionHeader extends Component {
      */
     render() {
         let index = this.props.index,
-            isActive = this.context.isItemActive(index);
+            active = this.props.active;
 
         return (
             <header role="tab"
                 id={this.formatID('accordion-header', index)}
                 className={this.formatClass(this.props.className, {
-                    'is-active': isActive
+                    'is-active': active
                 })}
                 aria-controls={this.formatID('accordion-section', index)}
-                aria-selected={isActive}
-                aria-expanded={isActive}
+                aria-selected={active}
+                aria-expanded={active}
+                tabIndex={index}
                 onClick={this.onClick.bind(this)}>
 
                 {this.props.children}
@@ -73,16 +74,18 @@ class AccordionSection extends Component {
      */
     render() {
         let index = this.props.index,
-            isActive = this.context.isItemActive(index);
+            expanded = this.props.expanded;
 
         return (
-            <SlideCollapse visible={isActive}>
+            <SlideCollapse expanded={expanded}>
                 <section role="tabpanel"
                     id={this.formatID('accordion-section', index)}
-                    className={this.formatClass(this.props.className)}
+                    className={this.formatClass(this.props.className, {
+                        'is-expanded': expanded
+                    })}
                     aria-labelledby={this.formatID('accordion-header', index)}
-                    aria-hidden={!isActive}
-                    aria-expanded={isActive}>
+                    aria-hidden={!expanded}
+                    aria-expanded={expanded}>
 
                     {this.props.children}
                 </section>
@@ -96,6 +99,14 @@ AccordionSection.contextTypes = CONTEXT_TYPES;
 /*----------------------------------------------------------------------------------------------------*/
 
 export class AccordionItem extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            active: false
+        };
+    }
+
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
      *
@@ -106,21 +117,52 @@ export class AccordionItem extends Component {
             <li>
                 <AccordionHeader
                     className={this.props.headerClassName}
-                    index={this.props.index}>
+                    index={this.props.index}
+                    active={this.state.active}>
 
                     {this.props.header}
                 </AccordionHeader>
 
                 <AccordionSection
                     className={this.props.sectionClassName}
-                    index={this.props.index}>
+                    index={this.props.index}
+                    expanded={this.state.active}>
 
                     {this.props.children}
                 </AccordionSection>
             </li>
         );
     }
+
+    /**
+     * Check to see if this specific accordion item should be active.
+     */
+    checkIsActive() {
+        let active = this.context.isItemActive(this.props.index);
+
+        if (active !== this.state.active) {
+            this.setState({
+                active: active
+            });
+        }
+    }
+
+    /**
+     * Check before mounting.
+     */
+    componentWillMount() {
+        this.checkIsActive();
+    }
+
+    /**
+     * Check before an update.
+     */
+    componentWillUpdate() {
+        this.checkIsActive();
+    }
 }
+
+AccordionItem.contextTypes = CONTEXT_TYPES;
 
 AccordionItem.defaultProps = {
     index: -1,
@@ -153,10 +195,15 @@ export default class Accordion extends Component {
      * @returns {JSX}
      */
     render() {
+        let className = this.formatClass(this.props.className, {
+            'is-multiple': this.props.multiple,
+            'is-collapsible': this.props.collapsible
+        });
+
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(this.props.className)}
+                className={className}
                 aria-live="off"
                 aria-multiselectable={this.props.multiple}>
 
@@ -232,26 +279,25 @@ export default class Accordion extends Component {
     /**
      * Reveal the item at the defined index, and collapse all other items.
      *
-     * @param {Number} index
+     * @param {Number|Number[]} index
      */
     showItem(index) {
-        let total = Children.count(this.props.children);
+        let multiple = this.props.multiple,
+            indices = multiple ? this.state.indices : [],
+            total = Children.count(this.props.children);
 
-        if (index < 0) {
-            index = 0;
-        } else if (index >= total) {
-            index = total - 1;
-        }
-
-        // Use concat or we lose the previous state
-        if (this.props.multiple) {
-            index = this.state.indices.concat([index]);
+        if (Array.isArray(index)) {
+            if (!multiple) {
+                index = [index[0]];
+            }
         } else {
             index = [index];
         }
 
+        // Use concat or we lose the previous state
+        // Also filter out any invalid indices
         this.setState({
-            indices: index
+            indices: indices.concat(index).filter(i => (i >= 0 && i < total))
         });
     }
 
@@ -290,7 +336,7 @@ Accordion.defaultProps = {
 Accordion.propTypes = {
     children: childrenOfType(AccordionItem),
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
+    defaultIndex: collectionOf(PropTypes.number),
     multiple: PropTypes.bool,
     collapsible: PropTypes.bool,
     onShowing: collectionOf(PropTypes.func),

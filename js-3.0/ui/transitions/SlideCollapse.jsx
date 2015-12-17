@@ -30,12 +30,13 @@ export default class SlideCollapse extends React.Component {
         let style = {},
             className = classBuilder(
                 'transition',
-                'slide-' + this.props.direction,
-                { 'show': this.props.visible }
+                'slide-collapse',
+                'slide-collapse--' + this.props.direction,
+                { 'show': this.props.expanded }
             );
 
         // Don't force a max on the initial render
-        if (this.state.size >= 0 && this.props.visible) {
+        if (this.state.size >= 0 && this.props.expanded) {
             style = {
                 [(this.props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
             };
@@ -99,10 +100,10 @@ export default class SlideCollapse extends React.Component {
 
 SlideCollapse.defaultProps = {
     direction: 'vertical',
-    visible: true
+    expanded: true
 };
 
 SlideCollapse.propTypes = {
     direction: PropTypes.oneOf(['vertical', 'horizontal']),
-    visible: PropTypes.bool.isRequired
+    expanded: PropTypes.bool.isRequired
 };

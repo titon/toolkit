@@ -61,7 +61,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Accordion2.default,
-    { defaultIndex: 3, multiple: true, collapsible: true, debug: true },
+    { defaultIndex: [0, 3], multiple: true, collapsible: true, debug: false },
     _react2.default.createElement(
         _Accordion2.default.Item,
         { header: 'Header #1', key: '0', index: 0 },
@@ -387,18 +387,19 @@ var AccordionHeader = (function (_Component) {
          */
         value: function render() {
             var index = this.props.index,
-                isActive = this.context.isItemActive(index);
+                active = this.props.active;
 
             return _react2.default.createElement(
                 'header',
                 { role: 'tab',
                     id: this.formatID('accordion-header', index),
                     className: this.formatClass(this.props.className, {
-                        'is-active': isActive
+                        'is-active': active
                     }),
                     'aria-controls': this.formatID('accordion-section', index),
-                    'aria-selected': isActive,
-                    'aria-expanded': isActive,
+                    'aria-selected': active,
+                    'aria-expanded': active,
+                    tabIndex: index,
                     onClick: this.onClick.bind(this) },
                 this.props.children
             );
@@ -448,19 +449,21 @@ var AccordionSection = (function (_Component2) {
          */
         value: function render() {
             var index = this.props.index,
-                isActive = this.context.isItemActive(index);
+                expanded = this.props.expanded;
 
             return _react2.default.createElement(
                 _SlideCollapse2.default,
-                { visible: isActive },
+                { expanded: expanded },
                 _react2.default.createElement(
                     'section',
                     { role: 'tabpanel',
                         id: this.formatID('accordion-section', index),
-                        className: this.formatClass(this.props.className),
+                        className: this.formatClass(this.props.className, {
+                            'is-expanded': expanded
+                        }),
                         'aria-labelledby': this.formatID('accordion-header', index),
-                        'aria-hidden': !isActive,
-                        'aria-expanded': isActive },
+                        'aria-hidden': !expanded,
+                        'aria-expanded': expanded },
                     this.props.children
                 )
             );
@@ -480,17 +483,22 @@ var AccordionItem = exports.AccordionItem = (function (_Component3) {
     function AccordionItem() {
         _classCallCheck(this, AccordionItem);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItem).apply(this, arguments));
+        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItem).call(this));
+
+        _this3.state = {
+            active: false
+        };
+        return _this3;
     }
+
+    /**
+     * Render the accordion item and pass all relevant props to the sub-children.
+     *
+     * @returns {JSX}
+     */
 
     _createClass(AccordionItem, [{
         key: 'render',
-
-        /**
-         * Render the accordion item and pass all relevant props to the sub-children.
-         *
-         * @returns {JSX}
-         */
         value: function render() {
             return _react2.default.createElement(
                 'li',
@@ -499,22 +507,62 @@ var AccordionItem = exports.AccordionItem = (function (_Component3) {
                     AccordionHeader,
                     {
                         className: this.props.headerClassName,
-                        index: this.props.index },
+                        index: this.props.index,
+                        active: this.state.active },
                     this.props.header
                 ),
                 _react2.default.createElement(
                     AccordionSection,
                     {
                         className: this.props.sectionClassName,
-                        index: this.props.index },
+                        index: this.props.index,
+                        expanded: this.state.active },
                     this.props.children
                 )
             );
+        }
+
+        /**
+         * Check to see if this specific accordion item should be active.
+         */
+
+    }, {
+        key: 'checkIsActive',
+        value: function checkIsActive() {
+            var active = this.context.isItemActive(this.props.index);
+
+            if (active !== this.state.active) {
+                this.setState({
+                    active: active
+                });
+            }
+        }
+
+        /**
+         * Check before mounting.
+         */
+
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.checkIsActive();
+        }
+
+        /**
+         * Check before an update.
+         */
+
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate() {
+            this.checkIsActive();
         }
     }]);
 
     return AccordionItem;
 })(_Component6.default);
+
+AccordionItem.contextTypes = CONTEXT_TYPES;
 
 AccordionItem.defaultProps = {
     index: -1,
@@ -555,11 +603,16 @@ var Accordion = (function (_Component4) {
     _createClass(Accordion, [{
         key: 'render',
         value: function render() {
+            var className = this.formatClass(this.props.className, {
+                'is-multiple': this.props.multiple,
+                'is-collapsible': this.props.collapsible
+            });
+
             return _react2.default.createElement(
                 'ul',
                 { role: 'tablist',
                     id: this.formatID('accordion'),
-                    className: this.formatClass(this.props.className),
+                    className: className,
                     'aria-live': 'off',
                     'aria-multiselectable': this.props.multiple },
                 this.props.children
@@ -653,29 +706,30 @@ var Accordion = (function (_Component4) {
         /**
          * Reveal the item at the defined index, and collapse all other items.
          *
-         * @param {Number} index
+         * @param {Number|Number[]} index
          */
 
     }, {
         key: 'showItem',
         value: function showItem(index) {
-            var total = _react.Children.count(this.props.children);
+            var multiple = this.props.multiple,
+                indices = multiple ? this.state.indices : [],
+                total = _react.Children.count(this.props.children);
 
-            if (index < 0) {
-                index = 0;
-            } else if (index >= total) {
-                index = total - 1;
-            }
-
-            // Use concat or we lose the previous state
-            if (this.props.multiple) {
-                index = this.state.indices.concat([index]);
+            if (Array.isArray(index)) {
+                if (!multiple) {
+                    index = [index[0]];
+                }
             } else {
                 index = [index];
             }
 
+            // Use concat or we lose the previous state
+            // Also filter out any invalid indices
             this.setState({
-                indices: index
+                indices: indices.concat(index).filter(function (i) {
+                    return i >= 0 && i < total;
+                })
             });
         }
 
@@ -725,7 +779,7 @@ Accordion.defaultProps = {
 Accordion.propTypes = {
     children: (0, _childrenOfType2.default)(AccordionItem),
     className: _react.PropTypes.string,
-    defaultIndex: _react.PropTypes.number,
+    defaultIndex: (0, _collectionOf2.default)(_react.PropTypes.number),
     multiple: _react.PropTypes.bool,
     collapsible: _react.PropTypes.bool,
     onShowing: (0, _collectionOf2.default)(_react.PropTypes.func),
@@ -941,10 +995,10 @@ var SlideCollapse = (function (_React$Component) {
         key: 'render',
         value: function render() {
             var style = {},
-                className = (0, _classBuilder2.default)('transition', 'slide-' + this.props.direction, { 'show': this.props.visible });
+                className = (0, _classBuilder2.default)('transition', 'slide-collapse', 'slide-collapse--' + this.props.direction, { 'show': this.props.expanded });
 
             // Don't force a max on the initial render
-            if (this.state.size >= 0 && this.props.visible) {
+            if (this.state.size >= 0 && this.props.expanded) {
                 style = _defineProperty({}, this.props.direction === 'vertical' ? 'maxHeight' : 'maxWidth', this.state.size);
             }
 
@@ -967,8 +1021,8 @@ var SlideCollapse = (function (_React$Component) {
             var node = _reactDom2.default.findDOMNode(this).cloneNode(true),
                 body = document.body;
 
-            node.style.maxHeight = '100%';
             node.style.maxWidth = '100%';
+            node.style.maxHeight = '100%';
             body.appendChild(node);
 
             this.setState({
@@ -1026,12 +1080,12 @@ exports.default = SlideCollapse;
 
 SlideCollapse.defaultProps = {
     direction: 'vertical',
-    visible: true
+    expanded: true
 };
 
 SlideCollapse.propTypes = {
     direction: _react.PropTypes.oneOf(['vertical', 'horizontal']),
-    visible: _react.PropTypes.bool.isRequired
+    expanded: _react.PropTypes.bool.isRequired
 };
 
 },{"../../ext/utility/classBuilder":6,"lodash/function/debounce":40,"react":176,"react-dom":47}],12:[function(require,module,exports){

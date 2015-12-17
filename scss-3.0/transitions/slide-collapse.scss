@@ -1,24 +1,22 @@
-
-.transition.slide-vertical,
-.transition.slide-horizontal {
+.transition.slide-collapse {
     position: relative;
     transition: all .3s ease-in-out;
-}
 
-.transition.slide-vertical {
-    overflow-y: hidden;
-    max-height: 0;
+    &.slide-collapse--vertical {
+        overflow-y: hidden;
+        max-height: 0;
 
-    &.show {
-        max-height: 100%;
+        &.show {
+            max-height: 100%;
+        }
     }
-}
 
-.transition.slide-horizontal {
-    overflow-x: hidden;
-    max-width: 0;
+    &.slide-collapse--horizontal {
+        overflow-x: hidden;
+        max-width: 0;
 
-    &.show {
-        max-width: 100%;
+        &.show {
+            max-width: 100%;
+        }
     }
 }
