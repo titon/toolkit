@@ -73,6 +73,9 @@ export default class Carousel extends Component {
             index: -1,
             stopped: false
         };
+
+        this.generateUID();
+        this.autoBind();
     }
 
     render() {

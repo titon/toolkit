@@ -187,6 +187,9 @@ export default class Accordion extends Component {
         this.state = {
             indices: []
         };
+
+        this.generateUID();
+        this.autoBind('hideItem', 'showItem', 'isItemActive', 'isItemCollapsible');
     }
 
     /**
@@ -256,10 +259,10 @@ export default class Accordion extends Component {
     getChildContext() {
         return {
             uid: this.uid,
-            hideItem: this.hideItem.bind(this),
-            showItem: this.showItem.bind(this),
-            isItemCollapsible: this.isItemCollapsible.bind(this),
-            isItemActive: this.isItemActive.bind(this)
+            hideItem: this.hideItem,
+            showItem: this.showItem,
+            isItemCollapsible: this.isItemCollapsible,
+            isItemActive: this.isItemActive
         };
     }
 

@@ -14,9 +14,27 @@ export default class Component extends React.Component {
     constructor() {
         super();
 
-        this.uid = generateUID();
         this.state = {};
         this.version = '3.0.0';
+    }
+
+    /**
+     * Re-bind the context for every supplied method.
+     * Will automatically bind all methods that start with "on",
+     * assuming they are event handlers.
+     *
+     * @param {...} methods
+     */
+    autoBind(...methods) {
+        // Automatically inject all methods that start with "on"
+        methods = methods.concat(
+            Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(prop => {
+                return (prop.substr(0, 2) === 'on' && typeof this[prop] === 'function');
+            })
+        );
+
+        // Bind the functions
+        methods.forEach(method => this[method] = this[method].bind(this));
     }
 
     /**
@@ -25,7 +43,7 @@ export default class Component extends React.Component {
      * @param {String} event
      * @param {Array} [args]
      */
-    emitEvent(event, args) {
+    emitEvent(event, args = []) {
         let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
             listeners = this.props[propName],
             debug = this.props.debug || Titon.options.debug;
@@ -52,7 +70,7 @@ export default class Component extends React.Component {
      * Append the CSS namespace if applicable.
      *
      * @param {String} className
-     * @param {*} [params]
+     * @param {...} [params]
      * @returns {String}
      */
     formatClass(className, ...params) {
@@ -66,10 +84,17 @@ export default class Component extends React.Component {
     /**
      * Generate a unique HTML ID based on the passed parameters.
      *
-     * @param {*} params
+     * @param {...} params
      * @returns {String}
      */
     formatID(...params) {
         return ['titon', this.context.uid || this.uid, ...params].join('-').trim();
+    }
+
+    /**
+     * Generate a unique identifier for this instance.
+     */
+    generateUID() {
+        this.uid = generateUID();
     }
 }

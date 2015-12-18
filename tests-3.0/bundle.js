@@ -63,50 +63,87 @@ var _Carousel2 = _interopRequireDefault(_Carousel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(
-    _Carousel2.default,
-    { next: 'Next', prev: 'Previous', component: 'slideshow' },
+_reactDom2.default.render(
+/*<Carousel next="Next" prev="Previous" component="slideshow">
+    <Carousel.Item index={0}>Foo</Carousel.Item>
+    <Carousel.Item index={1}>Bar</Carousel.Item>
+    <Carousel.Item index={2}>Baz</Carousel.Item>
+</Carousel>*/
+
+_react2.default.createElement(
+    _Accordion2.default,
+    { defaultIndex: [0, 2], component: 'feature-list', multiple: true, collapsible: true, debug: false },
     _react2.default.createElement(
-        _Carousel2.default.Item,
-        { index: 0 },
-        'Foo'
+        _Accordion2.default.Item,
+        { header: 'Header #1', key: '0', index: 0 },
+        _react2.default.createElement(
+            'p',
+            null,
+            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
+        )
     ),
     _react2.default.createElement(
-        _Carousel2.default.Item,
-        { index: 1 },
-        'Bar'
+        _Accordion2.default.Item,
+        { header: 'Header #2', key: '1', index: 1 },
+        _react2.default.createElement(
+            'p',
+            null,
+            'Sed non sem tempor, feugiat risus at, dignissim ipsum. Ut efficitur lacus non sem laoreet tincidunt. Proin porttitor placerat massa, eu varius libero elementum ac. Donec a ligula ullamcorper, pulvinar leo vel, vestibulum magna. Aliquam et tempus tortor.'
+        ),
+        _react2.default.createElement(
+            'ul',
+            null,
+            _react2.default.createElement(
+                'li',
+                null,
+                'Nulla leo nulla, porta in tortor in.'
+            ),
+            _react2.default.createElement(
+                'li',
+                null,
+                'Cras sed finibus felis.'
+            ),
+            _react2.default.createElement(
+                'li',
+                null,
+                'Nulla purus turpis, lobortis at viverra id.'
+            )
+        )
     ),
     _react2.default.createElement(
-        _Carousel2.default.Item,
-        { index: 2 },
-        'Baz'
+        _Accordion2.default.Item,
+        { header: 'Header #3', key: '2', index: 2 },
+        _react2.default.createElement(
+            'p',
+            null,
+            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
+        )
+    ),
+    _react2.default.createElement(
+        _Accordion2.default.Item,
+        { header: 'Header #4', key: '3', index: 3 },
+        _react2.default.createElement(
+            'p',
+            null,
+            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
+        )
     )
-)
-/*
-<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
-    <Accordion.Item header="Header #1" key="0" index={0}>
-        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
-         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
-    </Accordion.Item>
-     <Accordion.Item header="Header #2" key="1" index={1}>
-        <p>Sed non sem tempor, feugiat risus at, dignissim ipsum. Ut efficitur lacus non sem laoreet tincidunt. Proin porttitor placerat massa, eu varius libero elementum ac. Donec a ligula ullamcorper, pulvinar leo vel, vestibulum magna. Aliquam et tempus tortor.</p>
-         <ul>
-            <li>Nulla leo nulla, porta in tortor in.</li>
-            <li>Cras sed finibus felis.</li>
-            <li>Nulla purus turpis, lobortis at viverra id.</li>
-        </ul>
-    </Accordion.Item>
-     <Accordion.Item header="Header #3" key="2" index={2}>
-        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
-         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
-    </Accordion.Item>
-     <Accordion.Item header="Header #4" key="3" index={3}>
-        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
-         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
-    </Accordion.Item>
-</Accordion>,
-*/
-, document.getElementById('app'));
+), document.getElementById('app'));
 
 },{"./ui/components/Accordion":9,"./ui/components/Carousel":10,"react":177,"react-dom":48}],3:[function(require,module,exports){
 'use strict';
@@ -567,6 +604,9 @@ var Accordion = (function (_Component4) {
         _this4.state = {
             indices: []
         };
+
+        _this4.generateUID();
+        _this4.autoBind('hideItem', 'showItem', 'isItemActive', 'isItemCollapsible');
         return _this4;
     }
 
@@ -654,10 +694,10 @@ var Accordion = (function (_Component4) {
         value: function getChildContext() {
             return {
                 uid: this.uid,
-                hideItem: this.hideItem.bind(this),
-                showItem: this.showItem.bind(this),
-                isItemCollapsible: this.isItemCollapsible.bind(this),
-                isItemActive: this.isItemActive.bind(this)
+                hideItem: this.hideItem,
+                showItem: this.showItem,
+                isItemCollapsible: this.isItemCollapsible,
+                isItemActive: this.isItemActive
             };
         }
 
@@ -795,8 +835,6 @@ var _collectionOf2 = _interopRequireDefault(_collectionOf);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -898,6 +936,9 @@ var Carousel = (function (_Component3) {
             index: -1,
             stopped: false
         };
+
+        _this3.generateUID();
+        _this3.autoBind();
         return _this3;
     }
 
@@ -937,7 +978,7 @@ var Carousel = (function (_Component3) {
                     'button',
                     { type: 'button', role: 'button',
                         className: this.formatClass(props.prevClassName),
-                        onClick: this.onClickPrevious.bind(this) },
+                        onClick: this.onClickPrev.bind(this) },
                     props.prev
                 ),
                 _react2.default.createElement(
@@ -980,6 +1021,16 @@ var Carousel = (function (_Component3) {
             };
         }
     }, {
+        key: 'next',
+        value: function next() {
+            this.showItem(this.state.index + this.props.itemsToCycle);
+        }
+    }, {
+        key: 'prev',
+        value: function prev() {
+            this.showItem(this.state.index - this.props.itemsToCycle);
+        }
+    }, {
         key: 'showItem',
         value: function showItem(index) {}
     }, {
@@ -1008,17 +1059,30 @@ var Carousel = (function (_Component3) {
     }, {
         key: 'onClickNext',
         value: function onClickNext() {
-            this.showItem(this.state.index + this.props.itemsToCycle);
+            this.next();
         }
     }, {
-        key: 'onClickPrevious',
-        value: function onClickPrevious() {
-            this.showItem(this.state.index - this.props.itemsToCycle);
+        key: 'onClickPrev',
+        value: function onClickPrev() {
+            this.prev();
         }
     }, {
         key: 'onKeyDown',
         value: function onKeyDown(e) {
-            console.log(e, typeof e === 'undefined' ? 'undefined' : _typeof(e));
+            switch (e.key) {
+                case 'ArrowLeft':
+                    this.prev();break;
+                case 'ArrowUp':
+                    this.jump(0);break;
+                case 'ArrowRight':
+                    this.next();break;
+                case 'ArrowDown':
+                    this.jump(-1);break;
+                default:
+                    return;
+            }
+
+            e.preventDefault();
         }
     }]);
 
@@ -1097,9 +1161,9 @@ var _classBuilder = require('../../ext/utility/classBuilder');
 
 var _classBuilder2 = _interopRequireDefault(_classBuilder);
 
-var _generateUID = require('../../ext/utility/generateUID');
+var _generateUID2 = require('../../ext/utility/generateUID');
 
-var _generateUID2 = _interopRequireDefault(_generateUID);
+var _generateUID3 = _interopRequireDefault(_generateUID2);
 
 require('../../polyfills/performance/now');
 
@@ -1125,23 +1189,50 @@ var Component = (function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Component).call(this));
 
-        _this.uid = (0, _generateUID2.default)();
         _this.state = {};
         _this.version = '3.0.0';
         return _this;
     }
 
     /**
-     * Emit an event and notify all listeners, as well as print debug information if enabled.
+     * Re-bind the context for every supplied method.
+     * Will automatically bind all methods that start with "on",
+     * assuming they are event handlers.
      *
-     * @param {String} event
-     * @param {Array} [args]
+     * @param {...} methods
      */
 
     _createClass(Component, [{
+        key: 'autoBind',
+        value: function autoBind() {
+            var _this2 = this;
+
+            for (var _len = arguments.length, methods = Array(_len), _key = 0; _key < _len; _key++) {
+                methods[_key] = arguments[_key];
+            }
+
+            // Automatically inject all methods that start with "on"
+            methods = methods.concat(Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(function (prop) {
+                return prop.substr(0, 2) === 'on' && typeof _this2[prop] === 'function';
+            }));
+
+            // Bind the functions
+            methods.forEach(function (method) {
+                return _this2[method] = _this2[method].bind(_this2);
+            });
+        }
+
+        /**
+         * Emit an event and notify all listeners, as well as print debug information if enabled.
+         *
+         * @param {String} event
+         * @param {Array} [args]
+         */
+
+    }, {
         key: 'emitEvent',
         value: function emitEvent(event, args) {
-            var _this2 = this;
+            var _this3 = this;
 
             var propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
                 listeners = this.props[propName],
@@ -1164,7 +1255,7 @@ var Component = (function (_React$Component) {
             }
 
             listeners.forEach(function (func) {
-                return func.apply(_this2, args);
+                return func.apply(_this3, args);
             });
         }
 
@@ -1184,8 +1275,8 @@ var Component = (function (_React$Component) {
                 className = _Titon2.default.options.namespace + className;
             }
 
-            for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-                params[_key - 1] = arguments[_key];
+            for (var _len2 = arguments.length, params = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+                params[_key2 - 1] = arguments[_key2];
             }
 
             return _classBuilder2.default.apply(undefined, [className].concat(params));
@@ -1201,11 +1292,21 @@ var Component = (function (_React$Component) {
     }, {
         key: 'formatID',
         value: function formatID() {
-            for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-                params[_key2] = arguments[_key2];
+            for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+                params[_key3] = arguments[_key3];
             }
 
             return ['titon', this.context.uid || this.uid].concat(params).join('-').trim();
+        }
+
+        /**
+         * Generate a unique identifier for this instance.
+         */
+
+    }, {
+        key: 'generateUID',
+        value: function generateUID() {
+            this.uid = (0, _generateUID3.default)();
         }
     }]);
 
