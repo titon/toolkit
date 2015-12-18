@@ -63,87 +63,50 @@ var _Carousel2 = _interopRequireDefault(_Carousel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(
-/*<Carousel next="Next" prev="Previous" component="slideshow">
-    <Carousel.Item index={0}>Foo</Carousel.Item>
-    <Carousel.Item index={1}>Bar</Carousel.Item>
-    <Carousel.Item index={2}>Baz</Carousel.Item>
-</Carousel>*/
-
-_react2.default.createElement(
-    _Accordion2.default,
-    { defaultIndex: [0, 2], component: 'feature-list', multiple: true, collapsible: true, debug: false },
+_reactDom2.default.render(_react2.default.createElement(
+    _Carousel2.default,
+    { next: 'Next', prev: 'Previous', component: 'slideshow' },
     _react2.default.createElement(
-        _Accordion2.default.Item,
-        { header: 'Header #1', key: '0', index: 0 },
-        _react2.default.createElement(
-            'p',
-            null,
-            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
-        ),
-        _react2.default.createElement(
-            'p',
-            null,
-            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
-        )
+        _Carousel2.default.Item,
+        { index: 0 },
+        'Foo'
     ),
     _react2.default.createElement(
-        _Accordion2.default.Item,
-        { header: 'Header #2', key: '1', index: 1 },
-        _react2.default.createElement(
-            'p',
-            null,
-            'Sed non sem tempor, feugiat risus at, dignissim ipsum. Ut efficitur lacus non sem laoreet tincidunt. Proin porttitor placerat massa, eu varius libero elementum ac. Donec a ligula ullamcorper, pulvinar leo vel, vestibulum magna. Aliquam et tempus tortor.'
-        ),
-        _react2.default.createElement(
-            'ul',
-            null,
-            _react2.default.createElement(
-                'li',
-                null,
-                'Nulla leo nulla, porta in tortor in.'
-            ),
-            _react2.default.createElement(
-                'li',
-                null,
-                'Cras sed finibus felis.'
-            ),
-            _react2.default.createElement(
-                'li',
-                null,
-                'Nulla purus turpis, lobortis at viverra id.'
-            )
-        )
+        _Carousel2.default.Item,
+        { index: 1 },
+        'Bar'
     ),
     _react2.default.createElement(
-        _Accordion2.default.Item,
-        { header: 'Header #3', key: '2', index: 2 },
-        _react2.default.createElement(
-            'p',
-            null,
-            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
-        ),
-        _react2.default.createElement(
-            'p',
-            null,
-            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
-        )
-    ),
-    _react2.default.createElement(
-        _Accordion2.default.Item,
-        { header: 'Header #4', key: '3', index: 3 },
-        _react2.default.createElement(
-            'p',
-            null,
-            'Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. '
-        ),
-        _react2.default.createElement(
-            'p',
-            null,
-            'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.'
-        )
+        _Carousel2.default.Item,
+        { index: 2 },
+        'Baz'
     )
-), document.getElementById('app'));
+)
+
+/*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
+    <Accordion.Item header="Header #1" key="0" index={0}>
+        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
+         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
+    </Accordion.Item>
+     <Accordion.Item header="Header #2" key="1" index={1}>
+        <p>Sed non sem tempor, feugiat risus at, dignissim ipsum. Ut efficitur lacus non sem laoreet tincidunt. Proin porttitor placerat massa, eu varius libero elementum ac. Donec a ligula ullamcorper, pulvinar leo vel, vestibulum magna. Aliquam et tempus tortor.</p>
+         <ul>
+            <li>Nulla leo nulla, porta in tortor in.</li>
+            <li>Cras sed finibus felis.</li>
+            <li>Nulla purus turpis, lobortis at viverra id.</li>
+        </ul>
+    </Accordion.Item>
+     <Accordion.Item header="Header #3" key="2" index={2}>
+        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
+         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
+    </Accordion.Item>
+     <Accordion.Item header="Header #4" key="3" index={3}>
+        <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
+         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
+    </Accordion.Item>
+</Accordion>*/
+
+, document.getElementById('app'));
 
 },{"./ui/components/Accordion":9,"./ui/components/Carousel":10,"react":177,"react-dom":48}],3:[function(require,module,exports){
 'use strict';
@@ -932,13 +895,14 @@ var Carousel = (function (_Component3) {
 
         var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this));
 
+        _this3.timer = null;
         _this3.state = {
             index: -1,
             stopped: false
         };
 
         _this3.generateUID();
-        _this3.autoBind();
+        _this3.autoBind('renderTab');
         return _this3;
     }
 
@@ -955,7 +919,7 @@ var Carousel = (function (_Component3) {
                         'is-stopped': this.state.stopped
                     }),
                     'aria-live': props.autoCycle ? 'assertive' : 'off',
-                    onKeyDown: this.onKeyDown.bind(this) },
+                    onKeyDown: this.onKeyDown },
                 _react2.default.createElement(
                     'div',
                     { className: this.formatClass(props.itemsClassName) },
@@ -971,21 +935,21 @@ var Carousel = (function (_Component3) {
                     _react2.default.createElement(
                         'ol',
                         null,
-                        _react.Children.map(props.children, this.renderTab.bind(this))
+                        _react.Children.map(props.children, this.renderTab)
                     )
                 ),
                 _react2.default.createElement(
                     'button',
                     { type: 'button', role: 'button',
                         className: this.formatClass(props.prevClassName),
-                        onClick: this.onClickPrev.bind(this) },
+                        onClick: this.onClickPrev },
                     props.prev
                 ),
                 _react2.default.createElement(
                     'button',
                     { type: 'button', role: 'button',
                         className: this.formatClass(props.nextClassName),
-                        onClick: this.onClickNext.bind(this) },
+                        onClick: this.onClickNext },
                     props.next
                 )
             );
@@ -1004,7 +968,24 @@ var Carousel = (function (_Component3) {
         value: function componentWillMount() {
             this.showItem(this.props.defaultIndex);
 
-            window.addEventListener('keydown', this.onKeyDown.bind(this));
+            window.addEventListener('keydown', this.onKeyDown);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            clearInterval(this.timer);
+
+            window.removeEventListener('keydown', this.onKeyDown);
+        }
+    }, {
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(nextProps, nextState) {
+            return nextState.index !== this.state.index;
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            console.log(this.state);
         }
 
         /**
@@ -1021,21 +1002,42 @@ var Carousel = (function (_Component3) {
             };
         }
     }, {
-        key: 'next',
-        value: function next() {
+        key: 'nextItem',
+        value: function nextItem() {
             this.showItem(this.state.index + this.props.itemsToCycle);
         }
     }, {
-        key: 'prev',
-        value: function prev() {
+        key: 'prevItem',
+        value: function prevItem() {
             this.showItem(this.state.index - this.props.itemsToCycle);
         }
     }, {
         key: 'showItem',
-        value: function showItem(index) {}
+        value: function showItem(index) {
+            var total = _react.Children.count(this.props.children);
+
+            if (index < 0) {
+                index = total + index;
+            } else if (index >= total) {
+                index = 0;
+            }
+
+            this.resetCycle();
+            this.setState({
+                index: index
+            });
+        }
     }, {
-        key: 'start',
-        value: function start() {
+        key: 'resetCycle',
+        value: function resetCycle() {
+            if (this.props.autoCycle) {
+                clearInterval(this.timer);
+                this.timer = setInterval(this.onCycle, this.props.duration);
+            }
+        }
+    }, {
+        key: 'startCycle',
+        value: function startCycle() {
             this.setState({
                 stopped: false
             });
@@ -1043,13 +1045,26 @@ var Carousel = (function (_Component3) {
             this.emitEvent('start');
         }
     }, {
-        key: 'stop',
-        value: function stop() {
+        key: 'stopCycle',
+        value: function stopCycle() {
             this.setState({
                 stopped: true
             });
 
             this.emitEvent('stop');
+        }
+    }, {
+        key: 'onCycle',
+        value: function onCycle() {
+            if (this.state.stopped) {
+                return;
+            }
+
+            if (this.props.reverse) {
+                this.prevItem();
+            } else {
+                this.nextItem();
+            }
         }
     }, {
         key: 'onClickTab',
@@ -1059,25 +1074,25 @@ var Carousel = (function (_Component3) {
     }, {
         key: 'onClickNext',
         value: function onClickNext() {
-            this.next();
+            this.nextItem();
         }
     }, {
         key: 'onClickPrev',
         value: function onClickPrev() {
-            this.prev();
+            this.prevItem();
         }
     }, {
         key: 'onKeyDown',
         value: function onKeyDown(e) {
             switch (e.key) {
                 case 'ArrowLeft':
-                    this.prev();break;
+                    this.prevItem();break;
                 case 'ArrowUp':
-                    this.jump(0);break;
+                    this.showItem(0);break;
                 case 'ArrowRight':
-                    this.next();break;
+                    this.nextItem();break;
                 case 'ArrowDown':
-                    this.jump(-1);break;
+                    this.showItem(-1);break;
                 default:
                     return;
             }
@@ -1231,8 +1246,10 @@ var Component = (function (_React$Component) {
 
     }, {
         key: 'emitEvent',
-        value: function emitEvent(event, args) {
+        value: function emitEvent(event) {
             var _this3 = this;
+
+            var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
             var propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
                 listeners = this.props[propName],
@@ -1264,7 +1281,7 @@ var Component = (function (_React$Component) {
          * Append the CSS namespace if applicable.
          *
          * @param {String} className
-         * @param {*} [params]
+         * @param {...} [params]
          * @returns {String}
          */
 
@@ -1285,7 +1302,7 @@ var Component = (function (_React$Component) {
         /**
          * Generate a unique HTML ID based on the passed parameters.
          *
-         * @param {*} params
+         * @param {...} params
          * @returns {String}
          */
 

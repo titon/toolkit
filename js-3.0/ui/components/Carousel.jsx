@@ -69,13 +69,14 @@ export default class Carousel extends Component {
     constructor() {
         super();
 
+        this.timer = null;
         this.state = {
             index: -1,
             stopped: false
         };
 
         this.generateUID();
-        this.autoBind();
+        this.autoBind('renderTab');
     }
 
     render() {
@@ -88,7 +89,7 @@ export default class Carousel extends Component {
                     'is-stopped': this.state.stopped
                 })}
                 aria-live={props.autoCycle ? 'assertive' : 'off'}
-                onKeyDown={this.onKeyDown.bind(this)}>
+                onKeyDown={this.onKeyDown}>
 
                 <div className={this.formatClass(props.itemsClassName)}>
                     <ol>
@@ -98,19 +99,19 @@ export default class Carousel extends Component {
 
                 <nav className={this.formatClass(props.tabsClassName)}>
                     <ol>
-                        {Children.map(props.children, this.renderTab.bind(this))}
+                        {Children.map(props.children, this.renderTab)}
                     </ol>
                 </nav>
 
                 <button type="button" role="button"
                     className={this.formatClass(props.prevClassName)}
-                    onClick={this.onClickPrev.bind(this)}>
+                    onClick={this.onClickPrev}>
                     {props.prev}
                 </button>
 
                 <button type="button" role="button"
                     className={this.formatClass(props.nextClassName)}
-                    onClick={this.onClickNext.bind(this)}>
+                    onClick={this.onClickNext}>
                     {props.next}
                 </button>
             </div>
@@ -130,7 +131,21 @@ export default class Carousel extends Component {
     componentWillMount() {
         this.showItem(this.props.defaultIndex);
 
-        window.addEventListener('keydown', this.onKeyDown.bind(this));
+        window.addEventListener('keydown', this.onKeyDown);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+
+        window.removeEventListener('keydown', this.onKeyDown);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (nextState.index !== this.state.index);
+    }
+
+    componentDidUpdate() {
+        console.log(this.state);
     }
 
     /**
@@ -144,19 +159,38 @@ export default class Carousel extends Component {
         };
     }
 
-    next() {
+    nextItem() {
         this.showItem(this.state.index + this.props.itemsToCycle);
     }
 
-    prev() {
+    prevItem() {
         this.showItem(this.state.index - this.props.itemsToCycle);
     }
 
     showItem(index) {
+        let total = Children.count(this.props.children);
 
+        if (index < 0) {
+            index = total + index;
+        } else if (index >= total) {
+            index = 0;
+        }
+
+        this.resetCycle();
+        this.setState({
+            index: index
+        });
     }
 
-    start() {
+    resetCycle() {
+        clearInterval(this.timer);
+
+        if (this.props.autoCycle) {
+            this.timer = setInterval(this.onCycle, this.props.duration);
+        }
+    }
+
+    startCycle() {
         this.setState({
             stopped: false
         });
@@ -164,7 +198,7 @@ export default class Carousel extends Component {
         this.emitEvent('start');
     }
 
-    stop() {
+    stopCycle() {
         this.setState({
             stopped: true
         });
@@ -172,24 +206,36 @@ export default class Carousel extends Component {
         this.emitEvent('stop');
     }
 
+    onCycle() {
+        if (this.state.stopped) {
+            return;
+        }
+
+        if (this.props.reverse) {
+            this.prevItem();
+        } else {
+            this.nextItem();
+        }
+    }
+
     onClickTab(index) {
         this.showItem(index);
     }
 
     onClickNext() {
-        this.next();
+        this.nextItem();
     }
 
     onClickPrev() {
-        this.prev();
+        this.prevItem();
     }
 
     onKeyDown(e) {
         switch (e.key) {
-            case 'ArrowLeft':   this.prev(); break;
-            case 'ArrowUp':     this.jump(0); break;
-            case 'ArrowRight':  this.next(); break;
-            case 'ArrowDown':   this.jump(-1); break;
+            case 'ArrowLeft':   this.prevItem(); break;
+            case 'ArrowUp':     this.showItem(0); break;
+            case 'ArrowRight':  this.nextItem(); break;
+            case 'ArrowDown':   this.showItem(-1); break;
             default: return;
         }
 
