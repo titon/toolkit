@@ -198,7 +198,7 @@ export default class Accordion extends Component {
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(this.props.className, {
+                className={this.formatClass(this.props.className, this.props.component, {
                     'is-multiple': this.props.multiple,
                     'is-collapsible': this.props.collapsible
                 })}
@@ -333,6 +333,7 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
     children: childrenOfType(AccordionItem),
+    component: PropTypes.string,
     className: PropTypes.string,
     defaultIndex: collectionOf(PropTypes.number),
     multiple: PropTypes.bool,

@@ -20,7 +20,7 @@
     #{map-get($titon-carousel, "class-items")} {
         overflow: hidden;
 
-        > ul {
+        > ol {
             @extend %placeholder-list;
             position: relative;
             transition: all map-get($titon-carousel, "transition");
@@ -42,7 +42,7 @@
     @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "fade")) {
         #{map-get($titon-carousel, "class")}.fade {
             #{map-get($titon-carousel, "class-items")} {
-                > ul {
+                > ol {
                     position: relative;
 
                     > li {

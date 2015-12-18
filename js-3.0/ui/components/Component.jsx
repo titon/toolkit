@@ -60,10 +60,6 @@ export default class Component extends React.Component {
             className = Titon.options.namespace + className;
         }
 
-        // A special prop that's automatically set for any component
-        // This allows components to use uniquely identifying class names
-        params.push(this.props.component);
-
         return classBuilder(className, ...params);
     }
 
