@@ -32,8 +32,14 @@
     @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "slide")) {
         #{map-get($titon-carousel, "class")}.slide {
             #{map-get($titon-carousel, "class-items")} {
-                > ul {
+                > ol {
                     display: flex;
+                    flex-wrap: nowrap;
+                    transform: translateX(0);
+
+                    > li {
+                        flex: 0 0 auto;
+                    }
                 }
             }
         }

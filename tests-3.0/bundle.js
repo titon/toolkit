@@ -65,7 +65,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Carousel2.default,
-    { next: 'Next', prev: 'Previous', component: 'slideshow' },
+    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true },
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 0 },
@@ -780,6 +780,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _Titon = require('../../Titon');
 
 var _Titon2 = _interopRequireDefault(_Titon);
@@ -795,6 +799,10 @@ var _childrenOfType2 = _interopRequireDefault(_childrenOfType);
 var _collectionOf = require('../../ext/prop-types/collectionOf');
 
 var _collectionOf2 = _interopRequireDefault(_collectionOf);
+
+var _debounce = require('lodash/function/debounce');
+
+var _debounce2 = _interopRequireDefault(_debounce);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -898,18 +906,23 @@ var Carousel = (function (_Component3) {
         _this3.timer = null;
         _this3.state = {
             index: -1,
-            stopped: false
+            stopped: false,
+            dimension: '',
+            position: '',
+            sizes: []
         };
 
         _this3.generateUID();
         _this3.autoBind('renderTab');
+        _this3.onResize = (0, _debounce2.default)(_this3.onResize, 50);
         return _this3;
     }
 
     _createClass(Carousel, [{
         key: 'render',
         value: function render() {
-            var props = this.props;
+            var props = this.props,
+                state = this.state;
 
             return _react2.default.createElement(
                 'div',
@@ -919,13 +932,15 @@ var Carousel = (function (_Component3) {
                         'is-stopped': this.state.stopped
                     }),
                     'aria-live': props.autoCycle ? 'assertive' : 'off',
-                    onKeyDown: this.onKeyDown },
+                    onKeyDown: this.onKeyDown,
+                    onMouseEnter: this.onMouseEnter,
+                    onMouseLeave: this.onMouseLeave },
                 _react2.default.createElement(
                     'div',
                     { className: this.formatClass(props.itemsClassName) },
                     _react2.default.createElement(
                         'ol',
-                        null,
+                        { style: { transform: 'translateX(-' + this.getTranslateOffset(state.index) + 'px)' } },
                         props.children
                     )
                 ),
@@ -963,29 +978,135 @@ var Carousel = (function (_Component3) {
                 className: this.props.tabClassName,
                 onClick: this.onClickTab.bind(this, index) });
         }
+
+        /**
+         * Before mounting, validate and correct specific props,
+         * and setup the initial state.
+         */
+
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var props = this.props;
+
+            // Cycling more than the children amount causes unexpected issues
+            // TODO
+            if (props.perCycle > _react.Children.count(props.children)) {
+                props.perCycle = _react.Children.count(props.children);
+            }
+
+            // Fade animations can only display 1 at a time
+            switch (this.props.animation) {
+                case 'fade':
+                    props.perCycle = 1;
+                    props.infinite = false;
+                    break;
+
+                case 'slide-up':
+                    this.setState({
+                        dimension: 'height',
+                        position: 'top'
+                    });
+                    break;
+
+                case 'slide':
+                    this.setState({
+                        dimension: 'width',
+                        position: props.rtl ? 'right' : 'left'
+                    });
+                    break;
+            }
+
+            // Set the default index
             this.showItem(this.props.defaultIndex);
 
+            // Bind non-react events
             window.addEventListener('keydown', this.onKeyDown);
+            window.addEventListener('resize', this.onResize);
         }
+
+        /**
+         * Remove events when unmounting.
+         */
+
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             clearInterval(this.timer);
 
             window.removeEventListener('keydown', this.onKeyDown);
+            window.removeEventListener('resize', this.onResize);
         }
+
+        /**
+         * Emit `cycling` event before rendering.
+         *
+         * @param {Object} nextProps
+         * @param {Object} nextState
+         */
+
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate(nextProps, nextState) {
+            this.emitEvent('cycling', [nextState.index, this.state.index]);
+        }
+
+        /**
+         * Calculate dimensions once mounted.
+         */
+
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.calculateSizes();
+        }
+
+        /**
+         * Emit `cycled` event after rendering.
+         *
+         * @param {Object} prevProps
+         * @param {Object} prevState
+         */
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            this.emitEvent('cycled', [this.state.index, prevState.index]);
+        }
+
+        /**
+         * Only update if item indices are different.
+         *
+         * @param {Object} nextProps
+         * @param {Object} nextState
+         * @returns {Boolean}
+         */
+
     }, {
         key: 'shouldComponentUpdate',
         value: function shouldComponentUpdate(nextProps, nextState) {
             return nextState.index !== this.state.index;
         }
+
+        /**
+         * Calculate the width or height of each item to use for the transition animation.
+         */
+
     }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            console.log(this.state);
+        key: 'calculateSizes',
+        value: function calculateSizes() {
+            var _this4 = this;
+
+            var sizes = Array.from(_reactDom2.default.findDOMNode(this).querySelectorAll('.' + this.props.itemsClassName + ' > ol > li'), function (child) {
+                return {
+                    size: _this4.state.dimension === 'height' ? child.clientHeight : child.clientWidth,
+                    clone: child.classList.contains('is-cloned')
+                };
+            });
+
+            this.setState({
+                sizes: sizes
+            });
         }
 
         /**
@@ -1001,16 +1122,68 @@ var Carousel = (function (_Component3) {
                 uid: this.uid
             };
         }
+
+        /**
+         * Calculate the size to cycle width based on the sum of all items up to but not including the defined index.
+         *
+         * @param {Number} index    - Includes the clone index
+         * @returns {Number}
+         */
+
+    }, {
+        key: 'getTranslateOffset',
+        value: function getTranslateOffset(index) {
+            var sum = 0;
+
+            this.state.sizes.forEach(function (value, i) {
+                if (i < index) {
+                    sum += value.size;
+                }
+            });
+
+            return sum;
+        }
+
+        /**
+         * Cycle to the next item.
+         */
+
     }, {
         key: 'nextItem',
         value: function nextItem() {
-            this.showItem(this.state.index + this.props.itemsToCycle);
+            this.showItem(this.state.index + this.props.perCycle);
         }
+
+        /**
+         * Cycle to the previous item.
+         */
+
     }, {
         key: 'prevItem',
         value: function prevItem() {
-            this.showItem(this.state.index - this.props.itemsToCycle);
+            this.showItem(this.state.index - this.props.perCycle);
         }
+
+        /**
+         * Reset the automatic cycle timer.
+         */
+
+    }, {
+        key: 'resetCycle',
+        value: function resetCycle() {
+            clearInterval(this.timer);
+
+            if (this.props.autoCycle) {
+                this.timer = setInterval(this.onCycle, this.props.duration);
+            }
+        }
+
+        /**
+         * Cycle to the item at the specified index.
+         *
+         * @param {Number} index
+         */
+
     }, {
         key: 'showItem',
         value: function showItem(index) {
@@ -1027,14 +1200,11 @@ var Carousel = (function (_Component3) {
                 index: index
             });
         }
-    }, {
-        key: 'resetCycle',
-        value: function resetCycle() {
-            if (this.props.autoCycle) {
-                clearInterval(this.timer);
-                this.timer = setInterval(this.onCycle, this.props.duration);
-            }
-        }
+
+        /**
+         * Start the automatic cycle timer.
+         */
+
     }, {
         key: 'startCycle',
         value: function startCycle() {
@@ -1044,6 +1214,11 @@ var Carousel = (function (_Component3) {
 
             this.emitEvent('start');
         }
+
+        /**
+         * Stop the automatic cycle timer.
+         */
+
     }, {
         key: 'stopCycle',
         value: function stopCycle() {
@@ -1053,6 +1228,11 @@ var Carousel = (function (_Component3) {
 
             this.emitEvent('stop');
         }
+
+        /**
+         * Handles the automatic cycle timer.
+         */
+
     }, {
         key: 'onCycle',
         value: function onCycle() {
@@ -1066,21 +1246,45 @@ var Carousel = (function (_Component3) {
                 this.nextItem();
             }
         }
+
+        /**
+         * Handles clicking the tab buttons.
+         *
+         * @param {Number} index
+         */
+
     }, {
         key: 'onClickTab',
         value: function onClickTab(index) {
             this.showItem(index);
         }
+
+        /**
+         * Handles clicking the next button.
+         */
+
     }, {
         key: 'onClickNext',
         value: function onClickNext() {
             this.nextItem();
         }
+
+        /**
+         * Handles clicking the previous button.
+         */
+
     }, {
         key: 'onClickPrev',
         value: function onClickPrev() {
             this.prevItem();
         }
+
+        /**
+         * Cycle between items based on the arrow key pressed.
+         *
+         * @param {SyntheticEvent} e
+         */
+
     }, {
         key: 'onKeyDown',
         value: function onKeyDown(e) {
@@ -1098,6 +1302,40 @@ var Carousel = (function (_Component3) {
             }
 
             e.preventDefault();
+        }
+
+        /**
+         * Stop the cycle when entering the carousel.
+         */
+
+    }, {
+        key: 'onMouseEnter',
+        value: function onMouseEnter() {
+            if (this.props.stopOnHover) {
+                this.stopCycle();
+            }
+        }
+
+        /**
+         * Start the cycle when exiting the carousel.
+         */
+
+    }, {
+        key: 'onMouseLeave',
+        value: function onMouseLeave() {
+            if (this.props.stopOnHover) {
+                this.startCycle();
+            }
+        }
+
+        /**
+         * Re-calculate dimensions in case the element size has changed.
+         */
+
+    }, {
+        key: 'onResize',
+        value: function onResize() {
+            this.calculateSizes();
         }
     }]);
 
@@ -1117,16 +1355,15 @@ Carousel.defaultProps = {
     nextClassName: 'carousel-next',
     animation: 'slide',
     duration: 5000,
+    perCycle: 1,
+    defaultIndex: 0,
     autoCycle: true,
     stopOnHover: true,
     infinite: true,
     loop: true,
     reverse: false,
     rtl: _Titon2.default.flags.rtl,
-    swipe: _Titon2.default.flags.touch,
-    itemsToShow: 1,
-    itemsToCycle: 1,
-    defaultIndex: 0
+    swipe: _Titon2.default.flags.touch
 };
 
 Carousel.propTypes = {
@@ -1134,6 +1371,7 @@ Carousel.propTypes = {
     component: _react.PropTypes.string,
     className: _react.PropTypes.string,
     itemsClassName: _react.PropTypes.string,
+    tabClassName: _react.PropTypes.string,
     tabsClassName: _react.PropTypes.string,
     prevClassName: _react.PropTypes.string,
     nextClassName: _react.PropTypes.string,
@@ -1141,21 +1379,20 @@ Carousel.propTypes = {
     next: _react.PropTypes.node,
     animation: _react.PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: _react.PropTypes.number,
+    perCycle: _react.PropTypes.number,
+    defaultIndex: _react.PropTypes.number,
     autoCycle: _react.PropTypes.bool,
     stopOnHover: _react.PropTypes.bool,
     infinite: _react.PropTypes.bool,
     loop: _react.PropTypes.bool,
     reverse: _react.PropTypes.bool,
     rtl: _react.PropTypes.bool,
-    swipe: _react.PropTypes.bool,
-    itemsToShow: _react.PropTypes.number,
-    itemsToCycle: _react.PropTypes.number,
-    defaultIndex: _react.PropTypes.number
+    swipe: _react.PropTypes.bool
 };
 
 Carousel.Item = CarouselItem;
 
-},{"../../Titon":1,"../../ext/prop-types/childrenOfType":4,"../../ext/prop-types/collectionOf":5,"./Component":11,"react":177}],11:[function(require,module,exports){
+},{"../../Titon":1,"../../ext/prop-types/childrenOfType":4,"../../ext/prop-types/collectionOf":5,"./Component":11,"lodash/function/debounce":41,"react":177,"react-dom":48}],11:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();

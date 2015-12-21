@@ -4,7 +4,7 @@ import Accordion from './ui/components/Accordion';
 import Carousel from './ui/components/Carousel';
 
 ReactDOM.render(
-    <Carousel next="Next" prev="Previous" component="slideshow">
+    <Carousel next="Next" prev="Previous" component="slideshow" debug={true}>
         <Carousel.Item index={0}>Foo</Carousel.Item>
         <Carousel.Item index={1}>Bar</Carousel.Item>
         <Carousel.Item index={2}>Baz</Carousel.Item>
