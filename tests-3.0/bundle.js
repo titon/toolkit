@@ -65,21 +65,51 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Carousel2.default,
-    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true },
+    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true, perCycle: 1, loop: false, infinite: false },
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 0 },
-        'Foo'
+        '0'
     ),
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 1 },
-        'Bar'
+        '1'
     ),
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 2 },
-        'Baz'
+        '2'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 3 },
+        '3'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 4 },
+        '4'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 5 },
+        '5'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 6 },
+        '6'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 7 },
+        '7'
+    ),
+    _react2.default.createElement(
+        _Carousel2.default.Item,
+        { index: 8 },
+        '8'
     )
 )
 
@@ -905,11 +935,11 @@ var Carousel = (function (_Component3) {
 
         _this3.timer = null;
         _this3.state = {
-            index: -1,
+            index: 0,
             stopped: false,
             dimension: '',
-            position: '',
-            sizes: []
+            sizes: [],
+            visible: 1
         };
 
         _this3.generateUID();
@@ -929,7 +959,9 @@ var Carousel = (function (_Component3) {
                 { role: 'tablist',
                     id: this.formatID('carousel'),
                     className: this.formatClass(props.className, props.animation, props.component, {
-                        'is-stopped': this.state.stopped
+                        'is-stopped': this.state.stopped,
+                        'no-next': !props.loop && this.isAtLast(),
+                        'no-prev': !props.loop && this.isAtFirst()
                     }),
                     'aria-live': props.autoCycle ? 'assertive' : 'off',
                     onKeyDown: this.onKeyDown,
@@ -940,7 +972,7 @@ var Carousel = (function (_Component3) {
                     { className: this.formatClass(props.itemsClassName) },
                     _react2.default.createElement(
                         'ol',
-                        { style: { transform: 'translateX(-' + this.getTranslateOffset(state.index) + 'px)' } },
+                        { style: { transform: this.getTranslateOffset(state.index) } },
                         props.children
                     )
                 ),
@@ -1004,15 +1036,13 @@ var Carousel = (function (_Component3) {
 
                 case 'slide-up':
                     this.setState({
-                        dimension: 'height',
-                        position: 'top'
+                        dimension: 'height'
                     });
                     break;
 
                 case 'slide':
                     this.setState({
-                        dimension: 'width',
-                        position: props.rtl ? 'right' : 'left'
+                        dimension: 'width'
                     });
                     break;
             }
@@ -1075,20 +1105,6 @@ var Carousel = (function (_Component3) {
         }
 
         /**
-         * Only update if item indices are different.
-         *
-         * @param {Object} nextProps
-         * @param {Object} nextState
-         * @returns {Boolean}
-         */
-
-    }, {
-        key: 'shouldComponentUpdate',
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return nextState.index !== this.state.index;
-        }
-
-        /**
          * Calculate the width or height of each item to use for the transition animation.
          */
 
@@ -1097,15 +1113,22 @@ var Carousel = (function (_Component3) {
         value: function calculateSizes() {
             var _this4 = this;
 
-            var sizes = Array.from(_reactDom2.default.findDOMNode(this).querySelectorAll('.' + this.props.itemsClassName + ' > ol > li'), function (child) {
+            var wrapper = _reactDom2.default.findDOMNode(this),
+                visible = 1,
+                sizes = Array.from(wrapper.querySelectorAll('.' + this.props.itemsClassName + ' > ol > li'), function (child) {
                 return {
                     size: _this4.state.dimension === 'height' ? child.clientHeight : child.clientWidth,
                     clone: child.classList.contains('is-cloned')
                 };
             });
 
+            if (sizes.length) {
+                visible = Math.round(wrapper.clientWidth / sizes[0].size);
+            }
+
             this.setState({
-                sizes: sizes
+                sizes: sizes,
+                visible: visible
             });
         }
 
@@ -1124,15 +1147,76 @@ var Carousel = (function (_Component3) {
         }
 
         /**
-         * Calculate the size to cycle width based on the sum of all items up to but not including the defined index.
+         * Returns the first index that can be cycled to, while taking cloned items into account.
+         *
+         * @returns {Number}
+         */
+
+    }, {
+        key: 'getFirstIndex',
+        value: function getFirstIndex() {
+            return 0;
+        }
+
+        /**
+         * Returns the last index that can be cycled to, while taking visible item counts, 
+         * and cloned item indices into account.
+         * 
+         * @returns {Number}
+         */
+
+    }, {
+        key: 'getLastIndex',
+        value: function getLastIndex() {
+            return _react.Children.count(this.props.children) - this.state.visible;
+        }
+
+        /**
+         * Determine the new index to cycle to while taking in account all props and settings.
+         *
+         * @param {Number} index
+         * @returns {Number}
+         */
+
+    }, {
+        key: 'getNewIndex',
+        value: function getNewIndex(index) {
+            var currentIndex = this.state.index,
+                lastIndex = this.getLastIndex(),
+                firstIndex = this.getFirstIndex();
+
+            if (this.props.infinite) {
+                // TODO
+
+            } else {
+
+                    // If cycle passes the last visible item
+                    if (index > lastIndex) {
+                        index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
+
+                        // If cycle proceeds the first visible item
+                    } else if (index < firstIndex) {
+                            index = this.props.loop ? lastIndex + index + 1 : firstIndex;
+                        }
+                }
+
+            return index;
+        }
+
+        /**
+         * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
          *
          * @param {Number} index    - Includes the clone index
-         * @returns {Number}
+         * @returns {String}
          */
 
     }, {
         key: 'getTranslateOffset',
         value: function getTranslateOffset(index) {
+            if (this.props.animation === 'fade') {
+                return 'translate(0, 0);';
+            }
+
             var sum = 0;
 
             this.state.sizes.forEach(function (value, i) {
@@ -1141,7 +1225,35 @@ var Carousel = (function (_Component3) {
                 }
             });
 
-            return sum;
+            if (this.props.animation === 'slide-up') {
+                return 'translateY(-' + sum + 'px)';
+            }
+
+            return 'translateX(-' + sum + 'px)';
+        }
+
+        /**
+         * Returns true if the current item is the first index.
+         *
+         * @returns {Boolean}
+         */
+
+    }, {
+        key: 'isAtFirst',
+        value: function isAtFirst() {
+            return this.state.index === this.getFirstIndex();
+        }
+
+        /**
+         * Returns true if the current item is the last index.
+         *
+         * @returns {Boolean}
+         */
+
+    }, {
+        key: 'isAtLast',
+        value: function isAtLast() {
+            return this.state.index === this.getLastIndex();
         }
 
         /**
@@ -1187,15 +1299,15 @@ var Carousel = (function (_Component3) {
     }, {
         key: 'showItem',
         value: function showItem(index) {
-            var total = _react.Children.count(this.props.children);
-
-            if (index < 0) {
-                index = total + index;
-            } else if (index >= total) {
-                index = 0;
-            }
+            index = this.getNewIndex(index);
 
             this.resetCycle();
+
+            // Break out early if the same index
+            if (this.state.index === index) {
+                return;
+            }
+
             this.setState({
                 index: index
             });
@@ -1296,7 +1408,7 @@ var Carousel = (function (_Component3) {
                 case 'ArrowRight':
                     this.nextItem();break;
                 case 'ArrowDown':
-                    this.showItem(-1);break;
+                    this.showItem(1000);break;
                 default:
                     return;
             }
@@ -1362,7 +1474,6 @@ Carousel.defaultProps = {
     infinite: true,
     loop: true,
     reverse: false,
-    rtl: _Titon2.default.flags.rtl,
     swipe: _Titon2.default.flags.touch
 };
 
@@ -1386,7 +1497,6 @@ Carousel.propTypes = {
     infinite: _react.PropTypes.bool,
     loop: _react.PropTypes.bool,
     reverse: _react.PropTypes.bool,
-    rtl: _react.PropTypes.bool,
     swipe: _react.PropTypes.bool
 };
 

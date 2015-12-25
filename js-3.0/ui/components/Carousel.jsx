@@ -73,11 +73,11 @@ export default class Carousel extends Component {
 
         this.timer = null;
         this.state = {
-            index: -1,
+            index: 0,
             stopped: false,
             dimension: '',
-            position: '',
-            sizes: []
+            sizes: [],
+            visible: 1
         };
 
         this.generateUID();
@@ -93,7 +93,9 @@ export default class Carousel extends Component {
             <div role="tablist"
                 id={this.formatID('carousel')}
                 className={this.formatClass(props.className, props.animation, props.component, {
-                    'is-stopped': this.state.stopped
+                    'is-stopped': this.state.stopped,
+                    'no-next': (!props.loop && this.isAtLast()),
+                    'no-prev': (!props.loop && this.isAtFirst())
                 })}
                 aria-live={props.autoCycle ? 'assertive' : 'off'}
                 onKeyDown={this.onKeyDown}
@@ -101,7 +103,7 @@ export default class Carousel extends Component {
                 onMouseLeave={this.onMouseLeave}>
 
                 <div className={this.formatClass(props.itemsClassName)}>
-                    <ol style={{ transform: `translateX(-${this.getTranslateOffset(state.index)}px)` }}>
+                    <ol style={{ transform: this.getTranslateOffset(state.index) }}>
                         {props.children}
                     </ol>
                 </div>
@@ -159,15 +161,13 @@ export default class Carousel extends Component {
 
             case 'slide-up':
                 this.setState({
-                    dimension: 'height',
-                    position: 'top'
+                    dimension: 'height'
                 });
                 break;
 
             case 'slide':
                 this.setState({
-                    dimension: 'width',
-                    position: props.rtl ? 'right' : 'left'
+                    dimension: 'width'
                 });
                 break;
         }
@@ -218,29 +218,25 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Only update if item indices are different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.index !== this.state.index);
-    }
-
-    /**
      * Calculate the width or height of each item to use for the transition animation.
      */
     calculateSizes() {
-        let sizes = Array.from(ReactDOM.findDOMNode(this).querySelectorAll(`.${this.props.itemsClassName} > ol > li`), child => {
-            return {
-                size: (this.state.dimension === 'height') ? child.clientHeight : child.clientWidth,
-                clone: child.classList.contains('is-cloned')
-            };
-        });
+        let wrapper = ReactDOM.findDOMNode(this),
+            visible = 1,
+            sizes = Array.from(wrapper.querySelectorAll(`.${this.props.itemsClassName} > ol > li`), child => {
+                return {
+                    size: (this.state.dimension === 'height') ? child.clientHeight : child.clientWidth,
+                    clone: child.classList.contains('is-cloned')
+                };
+            });
+
+        if (sizes.length) {
+            visible = Math.round(wrapper.clientWidth / sizes[0].size);
+        }
 
         this.setState({
-            sizes: sizes
+            sizes,
+            visible
         });
     }
 
@@ -256,12 +252,64 @@ export default class Carousel extends Component {
     }
 
     /**
+     * Returns the first index that can be cycled to, while taking cloned items into account.
+     *
+     * @returns {Number}
+     */
+    getFirstIndex() {
+        return 0;
+    }
+
+    /**
+     * Returns the last index that can be cycled to, while taking visible item counts
+     * and cloned item indices into account.
+     *
+     * @returns {Number}
+     */
+    getLastIndex() {
+        return (Children.count(this.props.children) - this.state.visible);
+    }
+
+    /**
+     * Determine the new index to cycle to while taking in account all props and settings.
+     *
+     * @param {Number} index
+     * @returns {Number}
+     */
+    getNewIndex(index) {
+        let currentIndex = this.state.index,
+            lastIndex = this.getLastIndex(),
+            firstIndex = this.getFirstIndex();
+
+        if (this.props.infinite) {
+            // TODO
+
+        } else {
+
+            // If cycle passes the last visible item
+            if (index > lastIndex) {
+                index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
+
+            // If cycle proceeds the first visible item
+            } else if (index < firstIndex) {
+                index = this.props.loop ? lastIndex + index + 1 : firstIndex;
+            }
+        }
+
+        return index;
+    }
+
+    /**
      * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
      *
      * @param {Number} index    - Includes the clone index
-     * @returns {Number}
+     * @returns {String}
      */
     getTranslateOffset(index) {
+        if (this.props.animation === 'fade') {
+            return 'translate(0, 0);';
+        }
+
         let sum = 0;
 
         this.state.sizes.forEach((value, i) => {
@@ -270,7 +318,29 @@ export default class Carousel extends Component {
             }
         });
 
-        return sum;
+        if (this.props.animation === 'slide-up') {
+            return `translateY(-${sum}px)`;
+        }
+
+        return `translateX(-${sum}px)`;
+    }
+
+    /**
+     * Returns true if the current item is the first index.
+     *
+     * @returns {Boolean}
+     */
+    isAtFirst() {
+        return (this.state.index === this.getFirstIndex());
+    }
+
+    /**
+     * Returns true if the current item is the last index.
+     *
+     * @returns {Boolean}
+     */
+    isAtLast() {
+        return (this.state.index === this.getLastIndex());
     }
 
     /**
@@ -304,15 +374,15 @@ export default class Carousel extends Component {
      * @param {Number} index
      */
     showItem(index) {
-        let total = Children.count(this.props.children);
-
-        if (index < 0) {
-            index = total + index;
-        } else if (index >= total) {
-            index = 0;
-        }
+        index = this.getNewIndex(index);
 
         this.resetCycle();
+
+        // Break out early if the same index
+        if (this.state.index === index) {
+            return;
+        }
+
         this.setState({
             index: index
         });
@@ -439,7 +509,6 @@ Carousel.defaultProps = {
     infinite: true,
     loop: true,
     reverse: false,
-    rtl: Titon.flags.rtl,
     swipe: Titon.flags.touch
 };
 
@@ -463,7 +532,6 @@ Carousel.propTypes = {
     infinite: PropTypes.bool,
     loop: PropTypes.bool,
     reverse: PropTypes.bool,
-    rtl: PropTypes.bool,
     swipe: PropTypes.bool
 };
 

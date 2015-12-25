@@ -45,12 +45,20 @@
         }
     }
 
+    @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "slide-up")) {
+        #{map-get($titon-carousel, "class")}.slide-up {
+            #{map-get($titon-carousel, "class-items")} {
+                > ol {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+
     @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "fade")) {
         #{map-get($titon-carousel, "class")}.fade {
             #{map-get($titon-carousel, "class-items")} {
                 > ol {
-                    position: relative;
-
                     > li {
                         @extend %placeholder-position-absolute;
                         visibility: hidden;

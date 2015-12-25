@@ -130,7 +130,7 @@
         $name: $prefix + $name;
     }
 
-    @return $selector + $name;
+    @return unquote($selector + $name);
 }
 
 /**
