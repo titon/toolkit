@@ -14,17 +14,24 @@ import inChildRange from '../../ext/prop-types/inChildRange';
 import debounce from 'lodash/function/debounce';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string
+    uid: PropTypes.string,
+    isItemActive: PropTypes.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
 
 export class CarouselItem extends Component {
     render() {
+        let index = this.props.index,
+            active = this.context.isItemActive(index);
+
         return (
             <li role="tabpanel"
-                id={this.formatID('carousel-item', this.props.index)}
-                aria-hidden={false}>
+                id={this.formatID('carousel-item', index)}
+                className={this.formatClass(this.props.className, {
+                    'is-active': active
+                })}
+                aria-hidden={!active}>
 
                 {this.props.children}
             </li>
@@ -35,10 +42,12 @@ export class CarouselItem extends Component {
 CarouselItem.contextTypes = CONTEXT_TYPES;
 
 CarouselItem.defaultProps = {
+    className: 'carousel-item',
     index: -1
 };
 
 CarouselItem.propTypes = {
+    className: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired
 };
 
@@ -46,16 +55,19 @@ CarouselItem.propTypes = {
 
 export class CarouselTab extends Component {
     render() {
-        let index = this.props.index;
+        let index = this.props.index,
+            active = this.context.isItemActive(index);
 
         return (
             <li>
                 <button type="button" role="tab"
                     id={this.formatID('carousel-tab', index)}
-                    className={this.formatClass(this.props.className)}
+                    className={this.formatClass(this.props.className, {
+                        'is-active': active
+                    })}
                     aria-controls={this.formatID('carousel-item', index)}
-                    aria-selected={false}
-                    aria-expanded={false}
+                    aria-selected={active}
+                    aria-expanded={active}
                     tabIndex={index}
                     onClick={this.props.onClick}>
                 </button>
@@ -82,7 +94,7 @@ export default class Carousel extends Component {
         };
 
         this.generateUID();
-        this.autoBind('renderTab');
+        this.autoBind('renderTab', 'isItemActive');
         this.onResize = debounce(this.onResize, 50);
     }
 
@@ -234,7 +246,8 @@ export default class Carousel extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid
+            uid: this.uid,
+            isItemActive: this.isItemActive
         };
     }
 
@@ -328,6 +341,19 @@ export default class Carousel extends Component {
      */
     isAtLast() {
         return (this.state.index === this.getLastIndex());
+    }
+
+    /**
+     * Returns true if the item at the specified index is active based
+     * on the state index and how many visible items to display.
+     *
+     * @param {Number} index
+     * @returns {Boolean}
+     */
+    isItemActive(index) {
+        let currentIndex = this.state.index;
+
+        return (index >= currentIndex && index <= (currentIndex + this.state.visible - 1));
     }
 
     /**

@@ -65,7 +65,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Carousel2.default,
-    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true, perCycle: 3, loop: true, infinite: false },
+    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true, perCycle: 2, loop: true, infinite: false },
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 0 },
@@ -889,7 +889,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 var CONTEXT_TYPES = {
-    uid: _react.PropTypes.string
+    uid: _react.PropTypes.string,
+    isItemActive: _react.PropTypes.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -906,11 +907,17 @@ var CarouselItem = exports.CarouselItem = (function (_Component) {
     _createClass(CarouselItem, [{
         key: 'render',
         value: function render() {
+            var index = this.props.index,
+                active = this.context.isItemActive(index);
+
             return _react2.default.createElement(
                 'li',
                 { role: 'tabpanel',
-                    id: this.formatID('carousel-item', this.props.index),
-                    'aria-hidden': false },
+                    id: this.formatID('carousel-item', index),
+                    className: this.formatClass(this.props.className, {
+                        'is-active': active
+                    }),
+                    'aria-hidden': !active },
                 this.props.children
             );
         }
@@ -922,10 +929,12 @@ var CarouselItem = exports.CarouselItem = (function (_Component) {
 CarouselItem.contextTypes = CONTEXT_TYPES;
 
 CarouselItem.defaultProps = {
+    className: 'carousel-item',
     index: -1
 };
 
 CarouselItem.propTypes = {
+    className: _react.PropTypes.string.isRequired,
     index: _react.PropTypes.number.isRequired
 };
 
@@ -943,17 +952,20 @@ var CarouselTab = exports.CarouselTab = (function (_Component2) {
     _createClass(CarouselTab, [{
         key: 'render',
         value: function render() {
-            var index = this.props.index;
+            var index = this.props.index,
+                active = this.context.isItemActive(index);
 
             return _react2.default.createElement(
                 'li',
                 null,
                 _react2.default.createElement('button', { type: 'button', role: 'tab',
                     id: this.formatID('carousel-tab', index),
-                    className: this.formatClass(this.props.className),
+                    className: this.formatClass(this.props.className, {
+                        'is-active': active
+                    }),
                     'aria-controls': this.formatID('carousel-item', index),
-                    'aria-selected': false,
-                    'aria-expanded': false,
+                    'aria-selected': active,
+                    'aria-expanded': active,
                     tabIndex: index,
                     onClick: this.props.onClick })
             );
@@ -985,7 +997,7 @@ var Carousel = (function (_Component3) {
         };
 
         _this3.generateUID();
-        _this3.autoBind('renderTab');
+        _this3.autoBind('renderTab', 'isItemActive');
         _this3.onResize = (0, _debounce2.default)(_this3.onResize, 50);
         return _this3;
     }
@@ -1061,20 +1073,7 @@ var Carousel = (function (_Component3) {
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
-            var total = _react.Children.count(this.props.children);
-
-            // Cycling more than the children amount causes unexpected issues
-            if (this.props.perCycle > total) {
-                this.props.perCycle = total;
-            }
-
-            // Fade animations can only display 1 at a time
             switch (this.props.animation) {
-                case 'fade':
-                    this.props.perCycle = 1;
-                    this.props.infinite = false;
-                    break;
-
                 case 'slide-up':
                     this.setState({
                         dimension: 'height'
@@ -1183,7 +1182,8 @@ var Carousel = (function (_Component3) {
         key: 'getChildContext',
         value: function getChildContext() {
             return {
-                uid: this.uid
+                uid: this.uid,
+                isItemActive: this.isItemActive
             };
         }
 
@@ -1295,6 +1295,22 @@ var Carousel = (function (_Component3) {
         key: 'isAtLast',
         value: function isAtLast() {
             return this.state.index === this.getLastIndex();
+        }
+
+        /**
+         * Returns true if the item at the specified index is active based
+         * on the state index and how many visible items to display.
+         *
+         * @param {Number} index
+         * @returns {Boolean}
+         */
+
+    }, {
+        key: 'isItemActive',
+        value: function isItemActive(index) {
+            var currentIndex = this.state.index;
+
+            return index >= currentIndex && index <= currentIndex + this.state.visible - 1;
         }
 
         /**
