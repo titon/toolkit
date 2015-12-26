@@ -4,16 +4,26 @@ import Accordion from './ui/components/Accordion';
 import Carousel from './ui/components/Carousel';
 
 ReactDOM.render(
-    <Carousel next="Next" prev="Previous" component="slideshow" animation="fade" debug={true} perCycle={1} loop={false} infinite={false}>
-        <Carousel.Item index={0}>0</Carousel.Item>
-        <Carousel.Item index={1}>1</Carousel.Item>
-        <Carousel.Item index={2}>2</Carousel.Item>
-        <Carousel.Item index={3}>3</Carousel.Item>
-        <Carousel.Item index={4}>4</Carousel.Item>
-        <Carousel.Item index={5}>5</Carousel.Item>
-        <Carousel.Item index={6}>6</Carousel.Item>
-        <Carousel.Item index={7}>7</Carousel.Item>
-        <Carousel.Item index={8}>8</Carousel.Item>
+    <Carousel next="Next" prev="Previous" component="slideshow" animation="slide" debug={true} perCycle={1} loop={false} infinite={false}>
+        <Carousel.ItemList>
+            <Carousel.Item index={0}>0</Carousel.Item>
+            <Carousel.Item index={1}>1</Carousel.Item>
+            <Carousel.Item index={2}>2</Carousel.Item>
+            <Carousel.Item index={3}>3</Carousel.Item>
+            <Carousel.Item index={4}>4</Carousel.Item>
+            <Carousel.Item index={5}>5</Carousel.Item>
+            <Carousel.Item index={6}>6</Carousel.Item>
+            <Carousel.Item index={7}>7</Carousel.Item>
+            <Carousel.Item index={8}>8</Carousel.Item>
+            <Carousel.Item index={9}>9</Carousel.Item>
+        </Carousel.ItemList>
+
+        <Carousel.TabList />
+
+        <Carousel.Next>Next</Carousel.Next>
+        <Carousel.Prev>Prev</Carousel.Prev>
+        <Carousel.Start>Start</Carousel.Start>
+        <Carousel.Stop>Stop</Carousel.Stop>
     </Carousel>
 
     /*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>

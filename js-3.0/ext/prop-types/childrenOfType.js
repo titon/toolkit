@@ -9,15 +9,17 @@ import { Children } from 'react';
 /**
  * A function that will validate that all children of a component are of a specific type.
  *
- * @param {Class} instance
+ * @param {...} types
  * @returns {Function}
  */
-export default function childrenOfType(instance) {
+export default function childrenOfType(...types) {
+    let instances = new WeakSet(types);
+
     return function(props, propName, componentName) {
         try {
-            Children.forEach(props[propName], function (child) {
-                if (child.type !== instance) {
-                    throw new Error('`' + componentName + '` only accepts children of type `' + instance.name + '`.');
+            Children.forEach(props[propName], function(child) {
+                if (!instances.has(child.type)) {
+                    throw new Error('`' + componentName + '` does not allow children of type `' + child.type.name + '`.');
                 }
             });
         } catch (e) {

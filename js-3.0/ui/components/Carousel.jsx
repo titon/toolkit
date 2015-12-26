@@ -15,12 +15,20 @@ import debounce from 'lodash/function/debounce';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
-    isItemActive: PropTypes.func
+    childCount: PropTypes.number,
+    index: PropTypes.number,
+    isItemActive: PropTypes.func,
+    nextItem: PropTypes.func,
+    prevItem: PropTypes.func,
+    showItem: PropTypes.func,
+    startCycle: PropTypes.func,
+    stopCycle: PropTypes.func,
+    translateOffset: PropTypes.string
 };
 
 /*----------------------------------------------------------------------------------------------------*/
 
-export class CarouselItem extends Component {
+export class Item extends Component {
     render() {
         let index = this.props.index,
             active = this.context.isItemActive(index);
@@ -39,21 +47,46 @@ export class CarouselItem extends Component {
     }
 }
 
-CarouselItem.contextTypes = CONTEXT_TYPES;
+Item.contextTypes = CONTEXT_TYPES;
 
-CarouselItem.defaultProps = {
+Item.defaultProps = {
     className: 'carousel-item',
     index: -1
 };
 
-CarouselItem.propTypes = {
-    className: PropTypes.string.isRequired,
+Item.propTypes = {
+    className: PropTypes.string,
     index: PropTypes.number.isRequired
 };
 
 /*----------------------------------------------------------------------------------------------------*/
 
-export class CarouselTab extends Component {
+export class ItemList extends Component {
+    render() {
+        return (
+            <div className={this.formatClass(this.props.className)} data-carousel-items>
+                <ol style={{ transform: this.context.translateOffset }}>
+                    {this.props.children}
+                </ol>
+            </div>
+        );
+    }
+}
+
+ItemList.contextTypes = CONTEXT_TYPES;
+
+ItemList.defaultProps = {
+    className: 'carousel-items'
+};
+
+ItemList.propTypes = {
+    children: childrenOfType(Item),
+    className: PropTypes.string
+};
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class Tab extends Component {
     render() {
         let index = this.props.index,
             active = this.context.isItemActive(index);
@@ -69,14 +102,183 @@ export class CarouselTab extends Component {
                     aria-selected={active}
                     aria-expanded={active}
                     tabIndex={index}
-                    onClick={this.props.onClick}>
+                    onClick={this.onClick.bind(this)}>
                 </button>
             </li>
         );
     }
+
+    /**
+     * Handles clicking the tab buttons.
+     */
+    onClick() {
+        this.context.showItem(this.props.index);
+    }
 }
 
-CarouselTab.contextTypes = CONTEXT_TYPES;
+Tab.contextTypes = CONTEXT_TYPES;
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class TabList extends Component {
+    render() {
+        let children = [];
+
+        for (let i = 0; i < this.context.childCount; i++) {
+            children.push(
+                <Tab
+                    index={i}
+                    key={'tab-' + i}
+                    className={this.props.tabClassName} />
+            );
+        }
+
+        return (
+            <nav className={this.formatClass(this.props.className)} data-carousel-tabs>
+                <ol>
+                    {children}
+                </ol>
+            </nav>
+        );
+    }
+}
+
+TabList.contextTypes = CONTEXT_TYPES;
+
+TabList.defaultProps = {
+    className: 'carousel-tabs',
+    tabClassName: 'carousel-tab'
+};
+
+TabList.propTypes = {
+    children: childrenOfType(Tab),
+    className: PropTypes.string,
+    tabClassName: PropTypes.string
+};
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class PrevButton extends Component {
+    render() {
+        return (
+            <button type="button" role="button"
+                className={this.formatClass(this.props.className)}
+                onClick={this.onClick.bind(this)}>
+                {this.props.children}
+            </button>
+        );
+    }
+
+    /**
+     * Handles clicking the previous button.
+     */
+    onClick() {
+        this.context.prevItem();
+    }
+}
+
+PrevButton.contextTypes = CONTEXT_TYPES;
+
+PrevButton.defaultProps = {
+    className: 'carousel-prev'
+};
+
+PrevButton.propTypes = {
+    className: PropTypes.string
+};
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class NextButton extends Component {
+    render() {
+        return (
+            <button type="button" role="button"
+                className={this.formatClass(this.props.className)}
+                onClick={this.onClick.bind(this)}>
+                {this.props.children}
+            </button>
+        );
+    }
+
+    /**
+     * Handles clicking the next button.
+     */
+    onClick() {
+        this.context.nextItem();
+    }
+}
+
+NextButton.contextTypes = CONTEXT_TYPES;
+
+NextButton.defaultProps = {
+    className: 'carousel-next'
+};
+
+NextButton.propTypes = {
+    className: PropTypes.string
+};
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class StartButton extends Component {
+    render() {
+        return (
+            <button type="button" role="button"
+                className={this.formatClass(this.props.className)}
+                onClick={this.onClick.bind(this)}>
+                {this.props.children}
+            </button>
+        );
+    }
+
+    /**
+     * Handles clicking the start button.
+     */
+    onClick() {
+        this.context.startCycle();
+    }
+}
+
+StartButton.contextTypes = CONTEXT_TYPES;
+
+StartButton.defaultProps = {
+    className: 'carousel-start'
+};
+
+StartButton.propTypes = {
+    className: PropTypes.string
+};
+
+/*----------------------------------------------------------------------------------------------------*/
+
+export class StopButton extends Component {
+    render() {
+        return (
+            <button type="button" role="button"
+                className={this.formatClass(this.props.className)}
+                onClick={this.onClick.bind(this)}>
+                {this.props.children}
+            </button>
+        );
+    }
+
+    /**
+     * Handles clicking the stop button.
+     */
+    onClick() {
+        this.context.stopCycle();
+    }
+}
+
+StopButton.contextTypes = CONTEXT_TYPES;
+
+StopButton.defaultProps = {
+    className: 'carousel-stop'
+};
+
+StopButton.propTypes = {
+    className: PropTypes.string
+};
 
 /*----------------------------------------------------------------------------------------------------*/
 
@@ -94,13 +296,12 @@ export default class Carousel extends Component {
         };
 
         this.generateUID();
-        this.autoBind('renderTab', 'isItemActive');
+        this.autoBind('isItemActive', 'nextItem', 'prevItem', 'showItem', 'startCycle', 'stopCycle');
         this.onResize = debounce(this.onResize, 50);
     }
 
     render() {
-        let props = this.props,
-            state = this.state;
+        let props = this.props;
 
         return (
             <div role="tablist"
@@ -115,40 +316,8 @@ export default class Carousel extends Component {
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}>
 
-                <div className={this.formatClass(props.itemsClassName)}>
-                    <ol style={{ transform: this.getTranslateOffset(state.index) }}>
-                        {props.children}
-                    </ol>
-                </div>
-
-                <nav className={this.formatClass(props.tabsClassName)}>
-                    <ol>
-                        {Children.map(props.children, this.renderTab)}
-                    </ol>
-                </nav>
-
-                <button type="button" role="button"
-                    className={this.formatClass(props.prevClassName)}
-                    onClick={this.onClickPrev}>
-                    {props.prev}
-                </button>
-
-                <button type="button" role="button"
-                    className={this.formatClass(props.nextClassName)}
-                    onClick={this.onClickNext}>
-                    {props.next}
-                </button>
+                {props.children}
             </div>
-        );
-    }
-
-    renderTab(child, index) {
-        return (
-            <CarouselTab
-                index={index}
-                key={'tab-' + index}
-                className={this.props.tabClassName}
-                onClick={this.onClickTab.bind(this, index)} />
         );
     }
 
@@ -226,7 +395,7 @@ export default class Carousel extends Component {
 
         let wrapper = ReactDOM.findDOMNode(this),
             visible = 1,
-            sizes = Array.from(wrapper.querySelectorAll(`.${this.props.itemsClassName} > ol > li`), child => {
+            sizes = Array.from(wrapper.querySelectorAll(`div[data-carousel-items] > ol > li`), child => {
                 return {
                     size: child[this.state.dimension],
                     clone: child.classList.contains('is-cloned')
@@ -244,6 +413,27 @@ export default class Carousel extends Component {
     }
 
     /**
+     * Counts the number of children found within the `ItemList` child component.
+     *
+     * @returns {Number}
+     */
+    countChildren() {
+        if (this.childCount) {
+            return this.childCount;
+        }
+
+        let count = 0;
+
+        Children.forEach(this.props.children, child => {
+            if (child.type === ItemList) {
+                count = Children.count(child.props.children);
+            }
+        });
+
+        return this.childCount = count;
+    }
+
+    /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
@@ -251,7 +441,15 @@ export default class Carousel extends Component {
     getChildContext() {
         return {
             uid: this.uid,
-            isItemActive: this.isItemActive
+            childCount: this.countChildren(),
+            index: this.state.index,
+            isItemActive: this.isItemActive,
+            nextItem: this.nextItem,
+            prevItem: this.prevItem,
+            showItem: this.showItem,
+            startCycle: this.startCycle,
+            stopCycle: this.stopCycle,
+            translateOffset: this.getTranslateOffset(this.state.index)
         };
     }
 
@@ -271,35 +469,7 @@ export default class Carousel extends Component {
      * @returns {Number}
      */
     getLastIndex() {
-        return (Children.count(this.props.children) - this.state.visible);
-    }
-
-    /**
-     * Determine the new index to cycle to while taking in account all props and settings.
-     *
-     * @param {Number} index
-     * @returns {Number}
-     */
-    getNewIndex(index) {
-        let currentIndex = this.state.index,
-            lastIndex = this.getLastIndex(),
-            firstIndex = this.getFirstIndex();
-
-        if (this.props.infinite) {
-            // TODO
-
-        } else {
-            // If cycle exceeds the last visible item
-            if (index > lastIndex) {
-                index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
-
-            // If cycle proceeds the first visible item
-            } else if (index < firstIndex) {
-                index = this.props.loop ? lastIndex + index + 1 : firstIndex;
-            }
-        }
-
-        return index;
+        return (this.countChildren() - this.state.visible);
     }
 
     /**
@@ -390,12 +560,27 @@ export default class Carousel extends Component {
      * @param {Number} index
      */
     showItem(index) {
-        index = this.getNewIndex(index);
+        let currentIndex = this.state.index,
+            lastIndex = this.getLastIndex(),
+            firstIndex = this.getFirstIndex();
 
+        if (this.props.infinite) {
+            // TODO
+
+        } else {
+            if (index > lastIndex) {
+                index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
+
+            } else if (index < firstIndex) {
+                index = this.props.loop ? lastIndex + index + 1 : firstIndex;
+            }
+        }
+
+        // Reset timer
         this.resetCycle();
 
         // Break out early if the same index
-        if (this.state.index === index) {
+        if (currentIndex === index) {
             return;
         }
 
@@ -439,29 +624,6 @@ export default class Carousel extends Component {
         } else {
             this.nextItem();
         }
-    }
-
-    /**
-     * Handles clicking the tab buttons.
-     *
-     * @param {Number} index
-     */
-    onClickTab(index) {
-        this.showItem(index);
-    }
-
-    /**
-     * Handles clicking the next button.
-     */
-    onClickNext() {
-        this.nextItem();
-    }
-
-    /**
-     * Handles clicking the previous button.
-     */
-    onClickPrev() {
-        this.prevItem();
     }
 
     /**
@@ -511,11 +673,6 @@ Carousel.childContextTypes = CONTEXT_TYPES;
 
 Carousel.defaultProps = {
     className: 'carousel',
-    itemsClassName: 'carousel-items',
-    tabClassName: 'carousel-tab',
-    tabsClassName: 'carousel-tabs',
-    prevClassName: 'carousel-prev',
-    nextClassName: 'carousel-next',
     animation: 'slide',
     duration: 5000,
     perCycle: 1,
@@ -529,20 +686,13 @@ Carousel.defaultProps = {
 };
 
 Carousel.propTypes = {
-    children: childrenOfType(CarouselItem),
+    children: childrenOfType(ItemList, TabList, NextButton, PrevButton, StartButton, StopButton),
     component: PropTypes.string,
     className: PropTypes.string,
-    itemsClassName: PropTypes.string,
-    tabClassName: PropTypes.string,
-    tabsClassName: PropTypes.string,
-    prevClassName: PropTypes.string,
-    nextClassName: PropTypes.string,
-    prev: PropTypes.node,
-    next: PropTypes.node,
     animation: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: PropTypes.number,
-    perCycle: inChildRange,
-    defaultIndex: inChildRange,
+    perCycle: PropTypes.number,
+    defaultIndex: PropTypes.number,
     autoCycle: PropTypes.bool,
     stopOnHover: PropTypes.bool,
     infinite: PropTypes.bool,
@@ -551,4 +701,10 @@ Carousel.propTypes = {
     swipe: PropTypes.bool
 };
 
-Carousel.Item = CarouselItem;
+Carousel.ItemList = ItemList;
+Carousel.Item = Item;
+Carousel.Next = NextButton;
+Carousel.Prev = PrevButton;
+Carousel.TabList = TabList;
+Carousel.Start = StartButton;
+Carousel.Stop = StopButton;
