@@ -6,6 +6,7 @@
 
 import React from 'react';
 import Titon from '../../Titon';
+import bem from '../../ext/utility/bem';
 import classBuilder from '../../ext/utility/classBuilder';
 import generateUID from '../../ext/utility/generateUID';
 import '../../polyfills/performance/now';
@@ -74,11 +75,7 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatClass(className, ...params) {
-        if (Titon.options.autoNamespace) {
-            className = Titon.options.namespace + className;
-        }
-
-        return classBuilder(className, ...params);
+        return classBuilder(bem(className), ...params);
     }
 
     /**

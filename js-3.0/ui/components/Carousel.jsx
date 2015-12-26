@@ -8,6 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Titon from '../../Titon';
 import Component from './Component';
+import bem from '../../ext/utility/bem';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
 import inChildRange from '../../ext/prop-types/inChildRange';
@@ -306,12 +307,12 @@ export default class Carousel extends Component {
         return (
             <div role="tablist"
                 id={this.formatID('carousel')}
-                className={this.formatClass(props.className, props.animation, props.component, {
+                className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
                     'is-stopped': this.state.stopped,
                     'no-next': (!props.loop && this.isAtLast()),
                     'no-prev': (!props.loop && this.isAtFirst())
                 })}
-                aria-live={props.autoCycle ? 'assertive' : 'off'}
+                aria-live={props.autoStart ? 'assertive' : 'off'}
                 onKeyDown={this.onKeyDown}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}>
@@ -326,22 +327,17 @@ export default class Carousel extends Component {
      * and setup the initial state.
      */
     componentWillMount() {
-        switch (this.props.animation) {
-            case 'slide-up':
-                this.setState({
-                    dimension: 'clientHeight'
-                });
-                break;
-
-            case 'slide':
-                this.setState({
-                    dimension: 'clientWidth'
-                });
-                break;
-        }
+        this.setState({
+            dimension: (this.props.modifier === 'slide-up') ? 'clientHeight' : 'clientWidth'
+        });
 
         // Set the default index
         this.showItem(this.props.defaultIndex);
+
+        // Start the cycle
+        if (this.props.autoStart) {
+            this.startCycle();
+        }
 
         // Bind non-react events
         window.addEventListener('keydown', this.onKeyDown);
@@ -386,10 +382,10 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Calculate the width or height of each item to use for the transition animation.
+     * Calculate the width or height of each item to use for the transition modifier.
      */
     calculateSizes() {
-        if (this.props.animation === 'fade') {
+        if (this.props.modifier === 'fade') {
             return;
         }
 
@@ -479,7 +475,7 @@ export default class Carousel extends Component {
      * @returns {String}
      */
     getTranslateOffset(index) {
-        if (this.props.animation === 'fade') {
+        if (this.props.modifier === 'fade') {
             return 'none';
         }
 
@@ -491,7 +487,7 @@ export default class Carousel extends Component {
             }
         });
 
-        if (this.props.animation === 'slide-up') {
+        if (this.props.modifier === 'slide-up') {
             return `translateY(-${sum}px)`;
         }
 
@@ -549,7 +545,7 @@ export default class Carousel extends Component {
     resetCycle() {
         clearInterval(this.timer);
 
-        if (this.props.autoCycle) {
+        if (this.props.autoStart) {
             this.timer = setInterval(this.onCycle, this.props.duration);
         }
     }
@@ -593,6 +589,8 @@ export default class Carousel extends Component {
      * Start the automatic cycle timer.
      */
     startCycle() {
+        this.timer = setInterval(this.onCycle, this.props.duration);
+
         this.setState({
             stopped: false
         });
@@ -604,6 +602,8 @@ export default class Carousel extends Component {
      * Stop the automatic cycle timer.
      */
     stopCycle() {
+        clearInterval(this.timer);
+
         this.setState({
             stopped: true
         });
@@ -672,12 +672,13 @@ export default class Carousel extends Component {
 Carousel.childContextTypes = CONTEXT_TYPES;
 
 Carousel.defaultProps = {
+    component: '',
     className: 'carousel',
-    animation: 'slide',
+    modifier: 'slide',
     duration: 5000,
     perCycle: 1,
     defaultIndex: 0,
-    autoCycle: true,
+    autoStart: true,
     stopOnHover: true,
     infinite: true,
     loop: true,
@@ -689,11 +690,11 @@ Carousel.propTypes = {
     children: childrenOfType(ItemList, TabList, NextButton, PrevButton, StartButton, StopButton),
     component: PropTypes.string,
     className: PropTypes.string,
-    animation: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
+    modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: PropTypes.number,
     perCycle: PropTypes.number,
     defaultIndex: PropTypes.number,
-    autoCycle: PropTypes.bool,
+    autoStart: PropTypes.bool,
     stopOnHover: PropTypes.bool,
     infinite: PropTypes.bool,
     loop: PropTypes.bool,

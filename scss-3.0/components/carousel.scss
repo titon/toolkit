@@ -5,7 +5,7 @@
  */
 
 @include export("carousel") {
-    $titon-temp-carousel-animations: map-get($titon-carousel, "animations");
+    $titon-temp-carousel-modifiers: map-get($titon-carousel, "modifiers");
 
     #{map-get($titon-carousel, "class")} {
         position: relative;
@@ -28,17 +28,19 @@
             display: flex;
             width: 100%;
             height: 100%;
-
-            > li {
-                flex: 0 0 auto;
-            }
         }
+    }
+
+    #{map-get($titon-carousel, "class-item")} {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 100%;
     }
 
     //-------------------- Animations --------------------//
 
-    @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "slide")) {
-        #{map-get($titon-carousel, "class")}.slide {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-carousel-modifiers, "slide")) {
+        #{map-get($titon-carousel, "class-modifier-slide")} {
             #{map-get($titon-carousel, "class-items")} {
                 > ol {
                     flex-wrap: nowrap;
@@ -48,40 +50,36 @@
         }
     }
 
-    @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "slide-up")) {
-        #{map-get($titon-carousel, "class")}.slide-up {
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-carousel-modifiers, "slide-up")) {
+        #{map-get($titon-carousel, "class-modifier-slide-up")} {
             #{map-get($titon-carousel, "class-items")} {
                 > ol {
                     flex-direction: column;
                     transform: translateY(0);
-
-                    > li {
-                        height: 100%;
-                    }
                 }
+            }
+
+            #{map-get($titon-carousel, "class-item")} {
+                height: 100%;
             }
         }
     }
 
-    @if (is-feature-enabled("all-animations") or index($titon-temp-carousel-animations, "fade")) {
-        #{map-get($titon-carousel, "class")}.fade {
-            #{map-get($titon-carousel, "class-items")} {
-                > ol {
-                    > li {
-                        @extend %placeholder-position-absolute;
-                        width: 100%;
-                        height: 100%;
-                        visibility: hidden;
-                        opacity: 0;
-                        z-index: 1;
-                        transition: opacity map-get($titon-carousel, "transition"), visibility map-get($titon-carousel, "transition");
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-carousel-modifiers, "fade")) {
+        #{map-get($titon-carousel, "class-modifier-fade")} {
+            #{map-get($titon-carousel, "class-item")} {
+                @extend %placeholder-position-absolute;
+                width: 100%;
+                height: 100%;
+                visibility: hidden;
+                opacity: 0;
+                z-index: 1;
+                transition: opacity map-get($titon-carousel, "transition"), visibility map-get($titon-carousel, "transition");
 
-                        &.is-active {
-                            z-index: 5;
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
+                &.is-active {
+                    z-index: 5;
+                    visibility: visible;
+                    opacity: 1;
                 }
             }
         }

@@ -16,9 +16,11 @@ let Titon = window.Titon = {
 
     /** Configurable options. */
     options: {
-        namespace: '',          // CSS class namespace
-        autoNamespace: true,    // Automatically prefix namespace to classes
-        debug: false            // Global debugging
+        elementSeparator: '-',      // BEM element separator
+        modifierSeparator: '--',    // BEM modifier separator
+        namespace: '',              // CSS class namespace
+        autoNamespace: true,        // Automatically prefix namespace to classes
+        debug: false                // Global debugging
     },
 
     /** Localization messages. */

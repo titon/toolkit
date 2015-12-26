@@ -192,11 +192,16 @@ $titon-button-group: (
 
 $titon-carousel: (
     "class": bem("carousel"),
+    "class-item": bem("carousel", "item"),
     "class-items": bem("carousel", "items"),
+    "class-tab": bem("carousel", "tab"),
     "class-tabs": bem("carousel", "tabs"),
     "class-next": bem("carousel", "next"),
     "class-prev": bem("carousel", "prev"),
-    "animations": ("slide", "fade"), // slide, fade
+    "class-modifier-slide": bem("carousel", "", "slide"),
+    "class-modifier-slide-up": bem("carousel", "", "slide-up"),
+    "class-modifier-fade": bem("carousel", "", "fade"),
+    "modifiers": ("slide", "slide-up", "fade"), // slide, slide-up, fade
     "opacity": theme-setting("opacity"),
     "transition": 1s,
 ) !default;
