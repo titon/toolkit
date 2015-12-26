@@ -20,17 +20,19 @@
         .slideshow {
             width: 800px;
             height: 450px;
-            padding: 20px;
         }
 
         .slideshow {
             background: #ccc;
         }
 
-        .slideshow .carousel-items > ol > li {
-            flex: 0 0 auto;
-            width: 50%;
+        .slideshow.slide .carousel-items > ol > li {
+            width: 100%;
             height: 100%;
+        }
+
+        .slideshow.slide-up .carousel-items > ol > li {
+            height: 50%;
         }
 
         .carousel-next {

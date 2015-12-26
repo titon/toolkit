@@ -65,7 +65,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(
     _Carousel2.default,
-    { next: 'Next', prev: 'Previous', component: 'slideshow', debug: true, perCycle: 2, loop: true, infinite: false },
+    { next: 'Next', prev: 'Previous', component: 'slideshow', animation: 'slide-up', debug: true, perCycle: 2, loop: false, infinite: false },
     _react2.default.createElement(
         _Carousel2.default.Item,
         { index: 0 },
@@ -1076,13 +1076,13 @@ var Carousel = (function (_Component3) {
             switch (this.props.animation) {
                 case 'slide-up':
                     this.setState({
-                        dimension: 'height'
+                        dimension: 'clientHeight'
                     });
                     break;
 
                 case 'slide':
                     this.setState({
-                        dimension: 'width'
+                        dimension: 'clientWidth'
                     });
                     break;
             }
@@ -1157,13 +1157,13 @@ var Carousel = (function (_Component3) {
                 visible = 1,
                 sizes = Array.from(wrapper.querySelectorAll('.' + this.props.itemsClassName + ' > ol > li'), function (child) {
                 return {
-                    size: _this4.state.dimension === 'height' ? child.clientHeight : child.clientWidth,
+                    size: child[_this4.state.dimension],
                     clone: child.classList.contains('is-cloned')
                 };
             });
 
             if (sizes.length) {
-                visible = Math.round(wrapper.clientWidth / sizes[0].size);
+                visible = Math.round(wrapper[this.state.dimension] / sizes[0].size);
             }
 
             this.setState({
@@ -1230,8 +1230,7 @@ var Carousel = (function (_Component3) {
                 // TODO
 
             } else {
-
-                    // If cycle passes the last visible item
+                    // If cycle exceeds the last visible item
                     if (index > lastIndex) {
                         index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
 
@@ -1461,11 +1460,11 @@ var Carousel = (function (_Component3) {
                 case 'ArrowLeft':
                     this.prevItem();break;
                 case 'ArrowUp':
-                    this.showItem(0);break;
+                    this.showItem(this.getFirstIndex());break;
                 case 'ArrowRight':
                     this.nextItem();break;
                 case 'ArrowDown':
-                    this.showItem(-1);break;
+                    this.showItem(this.getLastIndex());break;
                 default:
                     return;
             }

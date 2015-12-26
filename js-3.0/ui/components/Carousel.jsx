@@ -160,13 +160,13 @@ export default class Carousel extends Component {
         switch (this.props.animation) {
             case 'slide-up':
                 this.setState({
-                    dimension: 'height'
+                    dimension: 'clientHeight'
                 });
                 break;
 
             case 'slide':
                 this.setState({
-                    dimension: 'width'
+                    dimension: 'clientWidth'
                 });
                 break;
         }
@@ -224,13 +224,13 @@ export default class Carousel extends Component {
             visible = 1,
             sizes = Array.from(wrapper.querySelectorAll(`.${this.props.itemsClassName} > ol > li`), child => {
                 return {
-                    size: (this.state.dimension === 'height') ? child.clientHeight : child.clientWidth,
+                    size: child[this.state.dimension],
                     clone: child.classList.contains('is-cloned')
                 };
             });
 
         if (sizes.length) {
-            visible = Math.round(wrapper.clientWidth / sizes[0].size);
+            visible = Math.round(wrapper[this.state.dimension] / sizes[0].size);
         }
 
         this.setState({
@@ -285,8 +285,7 @@ export default class Carousel extends Component {
             // TODO
 
         } else {
-
-            // If cycle passes the last visible item
+            // If cycle exceeds the last visible item
             if (index > lastIndex) {
                 index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
 
@@ -469,9 +468,9 @@ export default class Carousel extends Component {
     onKeyDown(e) {
         switch (e.key) {
             case 'ArrowLeft':   this.prevItem(); break;
-            case 'ArrowUp':     this.showItem(0); break;
+            case 'ArrowUp':     this.showItem(this.getFirstIndex()); break;
             case 'ArrowRight':  this.nextItem(); break;
-            case 'ArrowDown':   this.showItem(-1); break;
+            case 'ArrowDown':   this.showItem(this.getLastIndex()); break;
             default: return;
         }
 

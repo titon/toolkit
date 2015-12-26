@@ -19,11 +19,19 @@
 
     #{map-get($titon-carousel, "class-items")} {
         overflow: hidden;
+        height: 100%;
 
         > ol {
             @extend %placeholder-list;
             position: relative;
             transition: all map-get($titon-carousel, "transition");
+            display: flex;
+            width: 100%;
+            height: 100%;
+
+            > li {
+                flex: 0 0 auto;
+            }
         }
     }
 
@@ -33,13 +41,8 @@
         #{map-get($titon-carousel, "class")}.slide {
             #{map-get($titon-carousel, "class-items")} {
                 > ol {
-                    display: flex;
                     flex-wrap: nowrap;
                     transform: translateX(0);
-
-                    > li {
-                        flex: 0 0 auto;
-                    }
                 }
             }
         }
@@ -49,7 +52,12 @@
         #{map-get($titon-carousel, "class")}.slide-up {
             #{map-get($titon-carousel, "class-items")} {
                 > ol {
+                    flex-direction: column;
                     transform: translateY(0);
+
+                    > li {
+                        height: 100%;
+                    }
                 }
             }
         }
