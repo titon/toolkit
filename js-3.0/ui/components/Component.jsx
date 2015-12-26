@@ -9,7 +9,7 @@ import Titon from '../../Titon';
 import bem from '../../ext/utility/bem';
 import classBuilder from '../../ext/utility/classBuilder';
 import generateUID from '../../ext/utility/generateUID';
-import '../../polyfills/performance/now';
+import '../../poly/performance/now';
 
 export default class Component extends React.Component {
     constructor() {
