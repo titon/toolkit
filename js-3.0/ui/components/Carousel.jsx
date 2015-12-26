@@ -10,6 +10,7 @@ import Titon from '../../Titon';
 import Component from './Component';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
+import inChildRange from '../../ext/prop-types/inChildRange';
 import debounce from 'lodash/function/debounce';
 
 const CONTEXT_TYPES = {
@@ -144,21 +145,7 @@ export default class Carousel extends Component {
      * and setup the initial state.
      */
     componentWillMount() {
-        var props = this.props;
-
-        // Cycling more than the children amount causes unexpected issues
-        // TODO
-        if (props.perCycle > Children.count(props.children)) {
-            props.perCycle = Children.count(props.children);
-        }
-
-        // Fade animations can only display 1 at a time
         switch (this.props.animation) {
-            case 'fade':
-                props.perCycle = 1;
-                props.infinite = false;
-                break;
-
             case 'slide-up':
                 this.setState({
                     dimension: 'height'
@@ -525,8 +512,8 @@ Carousel.propTypes = {
     next: PropTypes.node,
     animation: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: PropTypes.number,
-    perCycle: PropTypes.number,
-    defaultIndex: PropTypes.number,
+    perCycle: inChildRange,
+    defaultIndex: inChildRange,
     autoCycle: PropTypes.bool,
     stopOnHover: PropTypes.bool,
     infinite: PropTypes.bool,

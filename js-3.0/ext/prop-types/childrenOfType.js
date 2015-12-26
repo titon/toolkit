@@ -14,10 +14,14 @@ import { Children } from 'react';
  */
 export default function childrenOfType(instance) {
     return function(props, propName, componentName) {
-        Children.forEach(props[propName], function(child) {
-            if (child.type !== instance) {
-                throw new Error('`' + componentName + '` only accepts children of type `' + instance.name + '`.');
-            }
-        });
+        try {
+            Children.forEach(props[propName], function (child) {
+                if (child.type !== instance) {
+                    throw new Error('`' + componentName + '` only accepts children of type `' + instance.name + '`.');
+                }
+            });
+        } catch (e) {
+            return e;
+        }
     };
 }
