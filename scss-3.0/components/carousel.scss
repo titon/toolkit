@@ -69,13 +69,17 @@
                 > ol {
                     > li {
                         @extend %placeholder-position-absolute;
+                        width: 100%;
+                        height: 100%;
                         visibility: hidden;
                         opacity: 0;
                         z-index: 1;
                         transition: opacity map-get($titon-carousel, "transition"), visibility map-get($titon-carousel, "transition");
 
-                        &.show {
+                        &.is-active {
                             z-index: 5;
+                            visibility: visible;
+                            opacity: 1;
                         }
                     }
                 }

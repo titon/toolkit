@@ -220,6 +220,10 @@ export default class Carousel extends Component {
      * Calculate the width or height of each item to use for the transition animation.
      */
     calculateSizes() {
+        if (this.props.animation === 'fade') {
+            return;
+        }
+
         let wrapper = ReactDOM.findDOMNode(this),
             visible = 1,
             sizes = Array.from(wrapper.querySelectorAll(`.${this.props.itemsClassName} > ol > li`), child => {
@@ -306,7 +310,7 @@ export default class Carousel extends Component {
      */
     getTranslateOffset(index) {
         if (this.props.animation === 'fade') {
-            return 'translate(0, 0);';
+            return 'none';
         }
 
         let sum = 0;
