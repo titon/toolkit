@@ -15,12 +15,12 @@ import inChildRange from '../../ext/prop-types/inChildRange';
 import debounce from 'lodash/function/debounce';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
-    childCount: PropTypes.number,
     index: PropTypes.number,
     isItemActive: PropTypes.func,
+    itemCount: PropTypes.number,
     nextItem: PropTypes.func,
     prevItem: PropTypes.func,
+    uid: PropTypes.string,
     showItem: PropTypes.func,
     startCycle: PropTypes.func,
     stopCycle: PropTypes.func,
@@ -125,7 +125,7 @@ export class TabList extends Component {
     render() {
         let children = [];
 
-        for (let i = 0; i < this.context.childCount; i++) {
+        for (let i = 0; i < this.context.itemCount; i++) {
             children.push(
                 <Tab
                     index={i}
@@ -413,9 +413,9 @@ export default class Carousel extends Component {
      *
      * @returns {Number}
      */
-    countChildren() {
-        if (this.childCount) {
-            return this.childCount;
+    countItems() {
+        if (this.itemCount) {
+            return this.itemCount;
         }
 
         let count = 0;
@@ -426,7 +426,7 @@ export default class Carousel extends Component {
             }
         });
 
-        return this.childCount = count;
+        return this.itemCount = count;
     }
 
     /**
@@ -436,12 +436,12 @@ export default class Carousel extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
-            childCount: this.countChildren(),
             index: this.state.index,
             isItemActive: this.isItemActive,
+            itemCount: this.countItems(),
             nextItem: this.nextItem,
             prevItem: this.prevItem,
+            uid: this.uid,
             showItem: this.showItem,
             startCycle: this.startCycle,
             stopCycle: this.stopCycle,
@@ -465,7 +465,7 @@ export default class Carousel extends Component {
      * @returns {Number}
      */
     getLastIndex() {
-        return (this.countChildren() - this.state.visible);
+        return (this.countItems() - this.state.visible);
     }
 
     /**
@@ -647,7 +647,7 @@ export default class Carousel extends Component {
      * Stop the cycle when entering the carousel.
      */
     onMouseEnter() {
-        if (this.props.stopOnHover) {
+        if (this.props.pauseOnHover) {
             this.stopCycle();
         }
     }
@@ -656,7 +656,7 @@ export default class Carousel extends Component {
      * Start the cycle when exiting the carousel.
      */
     onMouseLeave() {
-        if (this.props.stopOnHover) {
+        if (this.props.pauseOnHover) {
             this.startCycle();
         }
     }
@@ -679,7 +679,7 @@ Carousel.defaultProps = {
     perCycle: 1,
     defaultIndex: 0,
     autoStart: true,
-    stopOnHover: true,
+    pauseOnHover: true,
     infinite: true,
     loop: true,
     reverse: false,
@@ -687,7 +687,6 @@ Carousel.defaultProps = {
 };
 
 Carousel.propTypes = {
-    children: childrenOfType(ItemList, TabList, NextButton, PrevButton, StartButton, StopButton),
     component: PropTypes.string,
     className: PropTypes.string,
     modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
@@ -695,7 +694,7 @@ Carousel.propTypes = {
     perCycle: PropTypes.number,
     defaultIndex: PropTypes.number,
     autoStart: PropTypes.bool,
-    stopOnHover: PropTypes.bool,
+    pauseOnHover: PropTypes.bool,
     infinite: PropTypes.bool,
     loop: PropTypes.bool,
     reverse: PropTypes.bool,
@@ -704,8 +703,8 @@ Carousel.propTypes = {
 
 Carousel.ItemList = ItemList;
 Carousel.Item = Item;
-Carousel.Next = NextButton;
-Carousel.Prev = PrevButton;
+Carousel.NextButton = NextButton;
+Carousel.PrevButton = PrevButton;
 Carousel.TabList = TabList;
-Carousel.Start = StartButton;
-Carousel.Stop = StopButton;
+Carousel.StartButton = StartButton;
+Carousel.StopButton = StopButton;

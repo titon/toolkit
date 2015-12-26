@@ -17,7 +17,7 @@ export default class SlideCollapse extends React.Component {
             size: -1
         };
 
-        this.onResizeHandler = debounce(this.onResize.bind(this), 100);
+        this.onResize = debounce(this.onResize.bind(this), 100);
     }
 
     /**
@@ -80,14 +80,14 @@ export default class SlideCollapse extends React.Component {
      * Bind events.
      */
     componentWillMount() {
-        window.addEventListener('resize', this.onResizeHandler);
+        window.addEventListener('resize', this.onResize);
     }
 
     /**
      * Unbind events.
      */
     componentWillUnmount() {
-        window.removeEventListener('resize', this.onResizeHandler);
+        window.removeEventListener('resize', this.onResize);
     }
 
     /**

@@ -4,7 +4,7 @@ import Accordion from './ui/components/Accordion';
 import Carousel from './ui/components/Carousel';
 
 ReactDOM.render(
-    <Carousel next="Next" prev="Previous" component="slideshow" animation="slide" debug={true} perCycle={1} loop={false} infinite={false} stopOnHover={false}>
+    <Carousel next="Next" prev="Previous" component="slideshow" modifier="slide" debug={true} perCycle={1} loop={false} infinite={false} pauseOnHover={false}>
         <Carousel.ItemList>
             <Carousel.Item index={0}>0</Carousel.Item>
             <Carousel.Item index={1}>1</Carousel.Item>
@@ -20,10 +20,10 @@ ReactDOM.render(
 
         <Carousel.TabList />
 
-        <Carousel.Next>Next</Carousel.Next>
-        <Carousel.Prev>Prev</Carousel.Prev>
-        <Carousel.Start>Start</Carousel.Start>
-        <Carousel.Stop>Stop</Carousel.Stop>
+        <Carousel.NextButton>Next</Carousel.NextButton>
+        <Carousel.PrevButton>Prev</Carousel.PrevButton>
+        <Carousel.StartButton>Start</Carousel.StartButton>
+        <Carousel.StopButton>Stop</Carousel.StopButton>
     </Carousel>
 
     /*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
