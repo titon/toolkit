@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import bem from '../../ext/utility/bem';
 import classBuilder from '../../ext/utility/classBuilder';
 import debounce from 'lodash/function/debounce';
 
@@ -30,8 +31,8 @@ export default class SlideCollapse extends React.Component {
         let style = {},
             className = classBuilder(
                 'transition',
-                'slide-collapse',
-                'slide-collapse--' + this.props.direction,
+                bem('slide', 'collapse'),
+                bem('slide', 'collapse', this.props.direction),
                 { 'show': this.props.expanded }
             );
 

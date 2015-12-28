@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import Accordion from './ui/components/Accordion';
 import Carousel from './ui/components/Carousel';
 
+function fn1() {console.log(1);}
+function fn2() {console.log(2);}
+function fn3() {console.log(3);}
+
 ReactDOM.render(
     <Carousel next="Next" prev="Previous" component="slideshow" modifier="slide" debug={true} perCycle={1} loop={false} infinite={false} pauseOnHover={false}>
-        <Carousel.ItemList>
+        <Carousel.ItemList swipe={true} onSwipeRight={fn1} onSwipeLeft={[fn2, fn3]}>
             <Carousel.Item index={0}>0</Carousel.Item>
             <Carousel.Item index={1}>1</Carousel.Item>
             <Carousel.Item index={2}>2</Carousel.Item>

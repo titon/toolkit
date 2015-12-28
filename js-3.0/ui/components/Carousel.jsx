@@ -7,24 +7,30 @@
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Titon from '../../Titon';
-import Component from './Component';
+import Component from '../Component';
+import Swipe from '../events/Swipe';
 import bem from '../../ext/utility/bem';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
-import inChildRange from '../../ext/prop-types/inChildRange';
 import debounce from 'lodash/function/debounce';
 
 const CONTEXT_TYPES = {
-    index: PropTypes.number,
-    isItemActive: PropTypes.func,
+    uid: PropTypes.string,
+    modifier: PropTypes.string,
+
+    currentIndex: PropTypes.number,
+    activeIndices: PropTypes.array,
+    firstIndex: PropTypes.number,
+    lastIndex: PropTypes.number,
     itemCount: PropTypes.number,
+    visibleCount: PropTypes.number,
+
+    isItemActive: PropTypes.func,
     nextItem: PropTypes.func,
     prevItem: PropTypes.func,
-    uid: PropTypes.string,
     showItem: PropTypes.func,
     startCycle: PropTypes.func,
-    stopCycle: PropTypes.func,
-    translateOffset: PropTypes.string
+    stopCycle: PropTypes.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -64,25 +70,93 @@ Item.propTypes = {
 
 export class ItemList extends Component {
     render() {
+        let props = this.props,
+            swipeProps = {};
+
+        // Handle swipe configuration
+        if (typeof props.swipe === 'object') {
+            swipeProps = props.swipe;
+            swipeProps.enabled = true;
+        } else {
+            swipeProps.enabled = props.swipe;
+        }
+
+        // Explicitly define certain props
+        swipeProps.tagName = 'div';
+        swipeProps.className = this.formatClass(props.className);
+        swipeProps.onSwipe = [];
+        swipeProps.onSwipeUp = [];
+        swipeProps.onSwipeRight = [this.context.nextItem];
+        swipeProps.onSwipeDown = [];
+        swipeProps.onSwipeLeft = [this.context.prevItem];
+
+        // Inherit on swipe events
+        ['onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft'].forEach(key => {
+            if (Array.isArray(props[key])) {
+                swipeProps[key] = swipeProps[key].concat(props[key]);
+            } else if (props[key]) {
+                swipeProps[key].push(props[key]);
+            }
+        });
+
         return (
-            <div className={this.formatClass(this.props.className)} data-carousel-items>
-                <ol style={{ transform: this.context.translateOffset }}>
-                    {this.props.children}
+            <Swipe {...swipeProps}>
+                <ol style={{ transform: this.getTranslateOffset() }}>
+                    {props.children}
                 </ol>
-            </div>
+            </Swipe>
         );
+    }
+
+    /**
+     * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
+     *
+     * @returns {String}
+     */
+    getTranslateOffset() {
+        let context = this.context;
+
+        if (context.modifier === 'fade') {
+            return 'none';
+        }
+
+        let sum = 0;
+
+        /*this.state.sizes.forEach((value, i) => {
+            if (i < index) {
+                sum += value.size;
+            }
+        });*/
+
+        if (context.modifier === 'slide-up') {
+            return `translateY(-${sum}px)`;
+        }
+
+        return `translateX(-${sum}px)`;
     }
 }
 
 ItemList.contextTypes = CONTEXT_TYPES;
 
 ItemList.defaultProps = {
-    className: 'carousel-items'
+    className: 'carousel-items',
+    swipe: Titon.flags.touch,
+    onSwipe: null,
+    onSwipeUp: null,
+    onSwipeRight: null,
+    onSwipeDown: null,
+    onSwipeLeft: null
 };
 
 ItemList.propTypes = {
     children: childrenOfType(Item),
-    className: PropTypes.string
+    className: PropTypes.string,
+    swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+    onSwipe: collectionOf(PropTypes.func),
+    onSwipeUp: collectionOf(PropTypes.func),
+    onSwipeRight: collectionOf(PropTypes.func),
+    onSwipeDown: collectionOf(PropTypes.func),
+    onSwipeLeft: collectionOf(PropTypes.func)
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -436,16 +510,22 @@ export default class Carousel extends Component {
      */
     getChildContext() {
         return {
-            index: this.state.index,
-            isItemActive: this.isItemActive,
+            uid: this.uid,
+            modifier: this.props.modifier,
+
+            currentIndex: this.state.index,
+            activeIndices: [],
+            firstIndex: this.getFirstIndex(),
+            lastIndex: this.getLastIndex(),
             itemCount: this.countItems(),
+            visibleCount: this.state.visible,
+
+            isItemActive: this.isItemActive,
             nextItem: this.nextItem,
             prevItem: this.prevItem,
-            uid: this.uid,
             showItem: this.showItem,
             startCycle: this.startCycle,
-            stopCycle: this.stopCycle,
-            translateOffset: this.getTranslateOffset(this.state.index)
+            stopCycle: this.stopCycle
         };
     }
 
@@ -466,32 +546,6 @@ export default class Carousel extends Component {
      */
     getLastIndex() {
         return (this.countItems() - this.state.visible);
-    }
-
-    /**
-     * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
-     *
-     * @param {Number} index    - Includes the clone index
-     * @returns {String}
-     */
-    getTranslateOffset(index) {
-        if (this.props.modifier === 'fade') {
-            return 'none';
-        }
-
-        let sum = 0;
-
-        this.state.sizes.forEach((value, i) => {
-            if (i < index) {
-                sum += value.size;
-            }
-        });
-
-        if (this.props.modifier === 'slide-up') {
-            return `translateY(-${sum}px)`;
-        }
-
-        return `translateX(-${sum}px)`;
     }
 
     /**
@@ -682,8 +736,7 @@ Carousel.defaultProps = {
     pauseOnHover: true,
     infinite: true,
     loop: true,
-    reverse: false,
-    swipe: Titon.flags.touch
+    reverse: false
 };
 
 Carousel.propTypes = {
@@ -697,8 +750,7 @@ Carousel.propTypes = {
     pauseOnHover: PropTypes.bool,
     infinite: PropTypes.bool,
     loop: PropTypes.bool,
-    reverse: PropTypes.bool,
-    swipe: PropTypes.bool
+    reverse: PropTypes.bool
 };
 
 Carousel.ItemList = ItemList;

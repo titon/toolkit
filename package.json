@@ -31,7 +31,7 @@
 
         "prebuild": "node titon lint",
 
-        "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
+        "watch": "watchify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
     },
 
     "peerDependencies": {
@@ -67,8 +67,10 @@
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
         "jasmine-core": "~2.4",
+        "enzyme": "~1.2",
 
         "browserify": "*",
-        "babelify": "*"
+        "babelify": "*",
+        "watchify": "*"
     }
 }

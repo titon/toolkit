@@ -5,7 +5,7 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from './Component';
+import Component from '../Component';
 import SlideCollapse from '../transitions/SlideCollapse';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
