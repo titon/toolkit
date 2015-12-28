@@ -82,8 +82,8 @@ export class ItemList extends Component {
         }
 
         // Explicitly define certain props
-        swipeProps.tagName = 'div';
-        swipeProps.className = this.formatClass(props.className);
+        swipeProps.tagName = 'ol';
+        swipeProps.style = { transform: this.getTranslateOffset() };
         swipeProps.onSwipe = [];
         swipeProps.onSwipeUp = [];
         swipeProps.onSwipeRight = [this.context.nextItem];
@@ -100,11 +100,11 @@ export class ItemList extends Component {
         });
 
         return (
-            <Swipe {...swipeProps}>
-                <ol style={{ transform: this.getTranslateOffset() }}>
+            <div className={this.formatClass(props.className)} data-carousel-items>
+                <Swipe {...swipeProps}>
                     {props.children}
-                </ol>
-            </Swipe>
+                </Swipe>
+            </div>
         );
     }
 
@@ -114,25 +114,33 @@ export class ItemList extends Component {
      * @returns {String}
      */
     getTranslateOffset() {
-        let context = this.context;
+        let modifier = this.context.modifier;
 
-        if (context.modifier === 'fade') {
+        if (modifier === 'fade') {
             return 'none';
         }
 
-        let sum = 0;
+        let x = 0,
+            y = 0,
+            z = 0;
+
+        if (modifier === 'slide-up') {
+            y = this.context.currentIndex * 100;
+        } else {
+            x = this.context.currentIndex * 100;
+        }
 
         /*this.state.sizes.forEach((value, i) => {
             if (i < index) {
-                sum += value.size;
+                if (modifier === 'slide-up') {
+                    y += value.size;
+                } else {
+                    x += value.size;
+                }
             }
         });*/
 
-        if (context.modifier === 'slide-up') {
-            return `translateY(-${sum}px)`;
-        }
-
-        return `translateX(-${sum}px)`;
+        return `translate3d(-${x}%, -${y}%, ${z})`;
     }
 }
 

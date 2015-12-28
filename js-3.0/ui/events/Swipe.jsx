@@ -37,6 +37,7 @@ export default class Swipe extends Component {
 
         return React.createElement(props.tagName, {
             className: this.formatClass(className, props.className),
+            style: props.style || {},
             onTouchStart: (enabled && touch) ? this.onStart : null,
             onTouchEnd: (enabled && touch) ? this.onStop : null,
             onTouchMove: (enabled && touch) ? this.onMove : null,
@@ -48,12 +49,56 @@ export default class Swipe extends Component {
     }
 
     /**
+     * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
+     *
+     * TODO: Add support for non-px and percentages, maybe?
+     *
+     * @param {Element} element
+     * @returns {{x: Number, y: Number, z: Number}}
+     */
+    extractTranslateOffsets(element) {
+        let transform = element.style.transform,
+            offsets = {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            match = [];
+
+        // Extract X, Y, or Z
+        match = transform.match(/translate(Z|X|Y)\(([-\d]+)px\)/);
+
+        if (match) {
+            offsets[match[1].toLowerCase()] += parseInt(match[2]);
+        }
+
+        // Extract X and Y
+        match = transform.match(/translate\(([-\d]+)px, ([-\d]+)px\)/);
+
+        if (match) {
+            offsets.x += parseInt(match[1]);
+            offsets.y += parseInt(match[2]);
+        }
+
+        // Extract X, Y, and Z
+        match = transform.match(/translate3d\(([-\d]+)px, ([-\d]+)px, ([-\d]+)px\)/);
+
+        if (match) {
+            offsets.x += parseInt(match[1]);
+            offsets.y += parseInt(match[2]);
+            offsets.z += parseInt(match[3]);
+        }
+
+        return offsets;
+    }
+
+    /**
      * Return the page coordinates from the current event.
      *
      * @param {Event} e
      * @returns {{time: Number, x: Number, y: Number}}
      */
-    extractCoordinates(e) {
+    packageCoordinates(e) {
         let data = e.changedTouches ? e.changedTouches[0] : e;
 
         return {
@@ -100,7 +145,7 @@ export default class Swipe extends Component {
             return;
         }
 
-        let to = this.extractCoordinates(e),
+        let to = this.packageCoordinates(e),
             start = this.state.startCoords;
 
         // Trigger `preventDefault()` if `x` is larger than `y` (scrolling horizontally).
@@ -128,8 +173,8 @@ export default class Swipe extends Component {
         }
 
         this.setState({
-            originalTarget: e.target,
-            startCoords: this.extractCoordinates(e),
+            originalTarget: e.currentTarget,
+            startCoords: this.packageCoordinates(e),
             swiping: true
         });
     }
@@ -144,7 +189,7 @@ export default class Swipe extends Component {
      */
     onStop(e) {
         let start = this.state.startCoords,
-            stop = this.extractCoordinates(e);
+            stop = this.packageCoordinates(e);
 
         if (!start || !stop) {
             return;
