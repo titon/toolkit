@@ -65,11 +65,11 @@ export default class Swipe extends Component {
             },
             match = [];
 
-        // Extract X, Y, or Z
-        match = transform.match(/translate(Z|X|Y)\(([-\d]+)px\)/);
+        // Extract X
+        match = transform.match(/translate\(([-\d]+)px)/);
 
         if (match) {
-            offsets[match[1].toLowerCase()] += parseInt(match[2]);
+            offsets.x += parseInt(match[1]);
         }
 
         // Extract X and Y
@@ -78,6 +78,13 @@ export default class Swipe extends Component {
         if (match) {
             offsets.x += parseInt(match[1]);
             offsets.y += parseInt(match[2]);
+        }
+
+        // Extract X, Y, or Z
+        match = transform.match(/translate(Z|X|Y)\(([-\d]+)px\)/);
+
+        if (match) {
+            offsets[match[1].toLowerCase()] += parseInt(match[2]);
         }
 
         // Extract X, Y, and Z

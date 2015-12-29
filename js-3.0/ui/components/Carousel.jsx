@@ -114,33 +114,18 @@ export class ItemList extends Component {
      * @returns {String}
      */
     getTranslateOffset() {
-        let modifier = this.context.modifier;
+        let context = this.context,
+            modifier = context.modifier;
 
         if (modifier === 'fade') {
             return 'none';
         }
 
-        let x = 0,
-            y = 0,
-            z = 0;
+        let offset = context.currentIndex * (100 / context.visibleCount),
+            x = (modifier === 'slide') ? -offset : 0,
+            y = (modifier === 'slide-up') ? -offset: 0;
 
-        if (modifier === 'slide-up') {
-            y = this.context.currentIndex * 100;
-        } else {
-            x = this.context.currentIndex * 100;
-        }
-
-        /*this.state.sizes.forEach((value, i) => {
-            if (i < index) {
-                if (modifier === 'slide-up') {
-                    y += value.size;
-                } else {
-                    x += value.size;
-                }
-            }
-        });*/
-
-        return `translate3d(-${x}%, -${y}%, ${z})`;
+        return `translate3d(${x}%, ${y}%, 0)`;
     }
 }
 
@@ -372,9 +357,7 @@ export default class Carousel extends Component {
         this.timer = null;
         this.state = {
             index: 0,
-            stopped: false,
-            dimension: '',
-            sizes: [],
+            stopped: true,
             visible: 1
         };
 
@@ -383,6 +366,11 @@ export default class Carousel extends Component {
         this.onResize = debounce(this.onResize, 50);
     }
 
+    /**
+     * Render the wrapping carousel element.
+     *
+     * @returns {JSX}
+     */
     render() {
         let props = this.props;
 
@@ -409,17 +397,8 @@ export default class Carousel extends Component {
      * and setup the initial state.
      */
     componentWillMount() {
-        this.setState({
-            dimension: (this.props.modifier === 'slide-up') ? 'clientHeight' : 'clientWidth'
-        });
-
         // Set the default index
         this.showItem(this.props.defaultIndex);
-
-        // Start the cycle
-        if (this.props.autoStart) {
-            this.startCycle();
-        }
 
         // Bind non-react events
         window.addEventListener('keydown', this.onKeyDown);
@@ -430,7 +409,7 @@ export default class Carousel extends Component {
      * Remove events when unmounting.
      */
     componentWillUnmount() {
-        clearInterval(this.timer);
+        clearTimeout(this.timer);
 
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('resize', this.onResize);
@@ -443,14 +422,16 @@ export default class Carousel extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('cycling', [nextState.index, this.state.index]);
+        if (nextState.index !== this.state.index) {
+            this.emitEvent('cycling', [nextState.index, this.state.index]);
+        }
     }
 
     /**
      * Calculate dimensions once mounted.
      */
     componentDidMount() {
-        this.calculateSizes();
+        this.calculateVisibleItems();
     }
 
     /**
@@ -460,32 +441,28 @@ export default class Carousel extends Component {
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('cycled', [this.state.index, prevState.index]);
+        if (prevState.index !== this.state.index) {
+            this.emitEvent('cycled', [this.state.index, prevState.index]);
+        }
     }
 
     /**
-     * Calculate the width or height of each item to use for the transition modifier.
+     * Calculate the number of items that are visible at the same time.
      */
-    calculateSizes() {
-        if (this.props.modifier === 'fade') {
-            return;
-        }
+    calculateVisibleItems() {
+        let visible = 1;
 
-        let wrapper = ReactDOM.findDOMNode(this),
-            visible = 1,
-            sizes = Array.from(wrapper.querySelectorAll(`div[data-carousel-items] > ol > li`), child => {
-                return {
-                    size: child[this.state.dimension],
-                    clone: child.classList.contains('is-cloned')
-                };
-            });
+        if (this.props.modifier !== 'fade') {
+            let wrapper = ReactDOM.findDOMNode(this),
+                dimension = (this.props.modifier === 'slide-up') ? 'offsetHeight' : 'offsetWidth',
+                child = wrapper.querySelector(`div[data-carousel-items] > ol > li`);
 
-        if (sizes.length) {
-            visible = Math.round(wrapper[this.state.dimension] / sizes[0].size);
+            if (child) {
+                visible = Math.round(wrapper[dimension] / child[dimension]);
+            }
         }
 
         this.setState({
-            sizes,
             visible
         });
     }
@@ -605,11 +582,8 @@ export default class Carousel extends Component {
      * Reset the automatic cycle timer.
      */
     resetCycle() {
-        clearInterval(this.timer);
-
-        if (this.props.autoStart) {
-            this.timer = setInterval(this.onCycle, this.props.duration);
-        }
+        this.stopCycle();
+        this.startCycle();
     }
 
     /**
@@ -620,22 +594,29 @@ export default class Carousel extends Component {
     showItem(index) {
         let currentIndex = this.state.index,
             lastIndex = this.getLastIndex(),
-            firstIndex = this.getFirstIndex();
+            firstIndex = this.getFirstIndex(),
+            loop = this.props.loop;
 
         if (this.props.infinite) {
             // TODO
 
         } else {
             if (index > lastIndex) {
-                index = this.props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
+                index = loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
 
             } else if (index < firstIndex) {
-                index = this.props.loop ? lastIndex + index + 1 : firstIndex;
+                index = loop ? lastIndex + index + 1 : firstIndex;
             }
         }
 
-        // Reset timer
-        this.resetCycle();
+        // Stop the cycle if on the last item
+        if (!loop && index === lastIndex) {
+            this.stopCycle();
+
+        // Reset the cycle timer
+        } else if (this.props.autoStart) {
+            this.resetCycle();
+        }
 
         // Break out early if the same index
         if (currentIndex === index) {
@@ -651,7 +632,11 @@ export default class Carousel extends Component {
      * Start the automatic cycle timer.
      */
     startCycle() {
-        this.timer = setInterval(this.onCycle, this.props.duration);
+        if (!this.state.stopped) {
+            return;
+        }
+
+        this.timer = setTimeout(this.onCycle, this.props.duration);
 
         this.setState({
             stopped: false
@@ -664,7 +649,11 @@ export default class Carousel extends Component {
      * Stop the automatic cycle timer.
      */
     stopCycle() {
-        clearInterval(this.timer);
+        if (this.state.stopped) {
+            return;
+        }
+
+        clearTimeout(this.timer);
 
         this.setState({
             stopped: true
@@ -727,7 +716,7 @@ export default class Carousel extends Component {
      * Re-calculate dimensions in case the element size has changed.
      */
     onResize() {
-        this.calculateSizes();
+        this.calculateVisibleItems();
     }
 }
 
