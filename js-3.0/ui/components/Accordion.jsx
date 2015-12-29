@@ -9,6 +9,7 @@ import Component from '../Component';
 import SlideCollapse from '../transitions/SlideCollapse';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
+import tabIndex from '../../ext/utility/tabIndex';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
@@ -39,7 +40,7 @@ class AccordionHeader extends Component {
                 aria-controls={this.formatID('accordion-section', index)}
                 aria-selected={active}
                 aria-expanded={active}
-                tabIndex={index}
+                tabIndex={tabIndex(this)}
                 onClick={this.onClick.bind(this)}>
 
                 {this.props.children}

@@ -6,25 +6,24 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Titon from '../../Titon';
 import Component from '../Component';
 import Swipe from '../events/Swipe';
+import { touch } from '../../ext/flags';
 import bem from '../../ext/utility/bem';
 import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
 import debounce from 'lodash/function/debounce';
+import tabIndex from '../../ext/utility/tabIndex';
 
 export const CONTEXT_TYPES = {
     uid: PropTypes.string,
     modifier: PropTypes.string,
-
     currentIndex: PropTypes.number,
     activeIndices: PropTypes.array,
     firstIndex: PropTypes.number,
     lastIndex: PropTypes.number,
     itemCount: PropTypes.number,
     visibleCount: PropTypes.number,
-
     isItemActive: PropTypes.func,
     nextItem: PropTypes.func,
     prevItem: PropTypes.func,
@@ -117,7 +116,7 @@ ItemList.contextTypes = CONTEXT_TYPES;
 
 ItemList.defaultProps = {
     className: 'carousel-items',
-    swipe: Titon.flags.touch,
+    swipe: touch,
     onSwipe: null,
     onSwipeUp: null,
     onSwipeRight: null,
@@ -153,7 +152,7 @@ export class Tab extends Component {
                     aria-controls={this.formatID('carousel-item', index)}
                     aria-selected={active}
                     aria-expanded={active}
-                    tabIndex={index}
+                    tabIndex={tabIndex(this)}
                     onClick={this.onClick.bind(this)}>
                 </button>
             </li>

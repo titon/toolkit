@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-export let
+export const
 
     // Is the device in landscape mode
     landscape = (window.innerWidth > window.innerHeight),
