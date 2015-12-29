@@ -57,43 +57,37 @@ export default class Swipe extends Component {
      * @returns {{x: Number, y: Number, z: Number}}
      */
     extractTranslateOffsets(element) {
-        let transform = element.style.transform,
+        let match = element.style.transform.match(/translate(Z|X|Y|3d)?\(([,a-z%\-\d\s]+)\)/),
+            mapping = ['x', 'y', 'z'],
             offsets = {
                 x: 0,
+                xUnit: '',
                 y: 0,
-                z: 0
-            },
-            match = [];
+                yUnit: '',
+                z: 0,
+                zUnit: ''
+            };
 
-        // Extract X
-        match = transform.match(/translate\(([-\d]+)px)/);
-
-        if (match) {
-            offsets.x += parseInt(match[1]);
+        if (!match) {
+            return offsets;
         }
 
-        // Extract X and Y
-        match = transform.match(/translate\(([-\d]+)px, ([-\d]+)px\)/);
+        switch (match[1]) {
+            case 'X':
+                offsets.x += parseFloat(match[2]);
+                break;
 
-        if (match) {
-            offsets.x += parseInt(match[1]);
-            offsets.y += parseInt(match[2]);
-        }
+            case 'Y':
+                offsets.y += parseFloat(match[2]);
+                break;
 
-        // Extract X, Y, or Z
-        match = transform.match(/translate(Z|X|Y)\(([-\d]+)px\)/);
+            case 'Z':
+                offsets.z += parseFloat(match[2]);
+                break;
 
-        if (match) {
-            offsets[match[1].toLowerCase()] += parseInt(match[2]);
-        }
-
-        // Extract X, Y, and Z
-        match = transform.match(/translate3d\(([-\d]+)px, ([-\d]+)px, ([-\d]+)px\)/);
-
-        if (match) {
-            offsets.x += parseInt(match[1]);
-            offsets.y += parseInt(match[2]);
-            offsets.z += parseInt(match[3]);
+            default:
+                match[2].split(',').forEach((value, i) => offsets[mapping[i]] += parseFloat(value.trim()));
+                break;
         }
 
         return offsets;

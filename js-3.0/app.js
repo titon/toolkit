@@ -8,7 +8,7 @@ function fn2() {console.log(2);}
 function fn3() {console.log(3);}
 
 ReactDOM.render(
-    <Carousel next="Next" prev="Previous" component="slideshow" modifier="slide" debug={true} perCycle={1} loop={false} infinite={false} pauseOnHover={false}>
+    <Carousel next="Next" prev="Previous" component="slideshow" modifier="slide" debug={true} perCycle={2} loop={false} infinite={false} pauseOnHover={false}>
         <Carousel.ItemList swipe={true} onSwipeRight={fn1} onSwipeLeft={[fn2, fn3]}>
             <Carousel.Item index={0}>0</Carousel.Item>
             <Carousel.Item index={1}>1</Carousel.Item>
@@ -19,7 +19,6 @@ ReactDOM.render(
             <Carousel.Item index={6}>6</Carousel.Item>
             <Carousel.Item index={7}>7</Carousel.Item>
             <Carousel.Item index={8}>8</Carousel.Item>
-            <Carousel.Item index={9}>9</Carousel.Item>
         </Carousel.ItemList>
 
         <Carousel.TabList />

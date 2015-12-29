@@ -14,7 +14,7 @@ import childrenOfType from '../../ext/prop-types/childrenOfType';
 import collectionOf from '../../ext/prop-types/collectionOf';
 import debounce from 'lodash/function/debounce';
 
-const CONTEXT_TYPES = {
+export const CONTEXT_TYPES = {
     uid: PropTypes.string,
     modifier: PropTypes.string,
 
@@ -70,39 +70,23 @@ Item.propTypes = {
 
 export class ItemList extends Component {
     render() {
-        let props = this.props,
-            swipeProps = {};
-
-        // Handle swipe configuration
-        if (typeof props.swipe === 'object') {
-            swipeProps = props.swipe;
-            swipeProps.enabled = true;
-        } else {
-            swipeProps.enabled = props.swipe;
-        }
+        let context = this.context,
+            props = this.generateNestedProps(this.props, 'swipe');
 
         // Explicitly define certain props
-        swipeProps.tagName = 'ol';
-        swipeProps.style = { transform: this.getTranslateOffset() };
-        swipeProps.onSwipe = [];
-        swipeProps.onSwipeUp = [];
-        swipeProps.onSwipeRight = [this.context.nextItem];
-        swipeProps.onSwipeDown = [];
-        swipeProps.onSwipeLeft = [this.context.prevItem];
+        props.tagName = 'ol';
+        props.style = { transform: this.getTranslateOffset() };
 
-        // Inherit on swipe events
-        ['onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft'].forEach(key => {
-            if (Array.isArray(props[key])) {
-                swipeProps[key] = swipeProps[key].concat(props[key]);
-            } else if (props[key]) {
-                swipeProps[key].push(props[key]);
-            }
-        });
+        // Trigger our listeners first
+        props.onSwipeUp.unshift(context.nextItem);
+        props.onSwipeRight.unshift(context.prevItem);
+        props.onSwipeDown.unshift(context.prevItem);
+        props.onSwipeLeft.unshift(context.nextItem);
 
         return (
-            <div className={this.formatClass(props.className)} data-carousel-items>
-                <Swipe {...swipeProps}>
-                    {props.children}
+            <div className={this.formatClass(this.props.className)} data-carousel-items>
+                <Swipe {...props}>
+                    {this.props.children}
                 </Swipe>
             </div>
         );
@@ -489,6 +473,23 @@ export default class Carousel extends Component {
     }
 
     /**
+     * Return an array of all item indices that are currently active and visible.
+     *
+     * @returns {Number[]}
+     */
+    getActiveIndices() {
+        let currentIndex = this.state.index,
+            visibleCount = this.state.visible,
+            active = [];
+
+        for (let i = 0; i < visibleCount; i++) {
+            active.push(currentIndex + i);
+        }
+
+        return active;
+    }
+
+    /**
      * Define a context that is passed to all children.
      *
      * @returns {Object}
@@ -499,7 +500,7 @@ export default class Carousel extends Component {
             modifier: this.props.modifier,
 
             currentIndex: this.state.index,
-            activeIndices: [],
+            activeIndices: this.getActiveIndices(),
             firstIndex: this.getFirstIndex(),
             lastIndex: this.getLastIndex(),
             itemCount: this.countItems(),
@@ -615,7 +616,7 @@ export default class Carousel extends Component {
 
         // Reset the cycle timer
         } else if (this.props.autoStart) {
-            this.resetCycle();
+            this.startCycle();
         }
 
         // Break out early if the same index
@@ -632,9 +633,7 @@ export default class Carousel extends Component {
      * Start the automatic cycle timer.
      */
     startCycle() {
-        if (!this.state.stopped) {
-            return;
-        }
+        clearTimeout(this.timer);
 
         this.timer = setTimeout(this.onCycle, this.props.duration);
 
@@ -649,10 +648,6 @@ export default class Carousel extends Component {
      * Stop the automatic cycle timer.
      */
     stopCycle() {
-        if (this.state.stopped) {
-            return;
-        }
-
         clearTimeout(this.timer);
 
         this.setState({
@@ -733,7 +728,11 @@ Carousel.defaultProps = {
     pauseOnHover: true,
     infinite: true,
     loop: true,
-    reverse: false
+    reverse: false,
+    onCycling: null,
+    onCycled: null,
+    onStart: null,
+    onStop: null
 };
 
 Carousel.propTypes = {
@@ -747,7 +746,11 @@ Carousel.propTypes = {
     pauseOnHover: PropTypes.bool,
     infinite: PropTypes.bool,
     loop: PropTypes.bool,
-    reverse: PropTypes.bool
+    reverse: PropTypes.bool,
+    onCycling: collectionOf(PropTypes.func),
+    onCycled: collectionOf(PropTypes.func),
+    onStart: collectionOf(PropTypes.func),
+    onStop: collectionOf(PropTypes.func)
 };
 
 Carousel.ItemList = ItemList;

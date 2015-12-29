@@ -6,6 +6,7 @@
 
 import React from 'react';
 import Titon from '../Titon';
+import assign from 'lodash/object/assign';
 import bem from '../ext/utility/bem';
 import classBuilder from '../ext/utility/classBuilder';
 import generateUID from '../ext/utility/generateUID';
@@ -93,5 +94,48 @@ export default class Component extends React.Component {
      */
     generateUID() {
         this.uid = generateUID();
+    }
+
+    /**
+     * Generate a new set of properties based on a specific property from the initial property set.
+     * If the value is this property is an object, merge it in, else assume it's a boolean.
+     *
+     * @param {Object} props
+     * @param {String} propName
+     * @param {Boolean} [inheritListeners]
+     * @returns {Object}
+     */
+    generateNestedProps(props, propName, inheritListeners = true) {
+        let obj = {};
+
+        // Merge nested object
+        if (typeof props[propName] === 'object') {
+            assign(obj, props[propName]);
+            obj.enabled = true;
+        } else {
+            obj.enabled = Boolean(props[propName]);
+        }
+
+        // Inherit event listeners
+        if (inheritListeners) {
+            Object.keys(props).forEach(key => {
+                if (key.substr(0, 2) !== 'on') {
+                    return;
+                }
+
+                if (!obj[key]) {
+                    obj[key] = [];
+                }
+
+                if (Array.isArray(props[key])) {
+                    obj[key] = obj[key].concat(props[key]);
+
+                } else if (props[key]) {
+                    obj[key].push(props[key]);
+                }
+            });
+        }
+
+        return obj;
     }
 }
