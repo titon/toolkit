@@ -24,6 +24,8 @@ export const CONTEXT_TYPES = {
     lastIndex: PropTypes.number,
     itemCount: PropTypes.number,
     visibleCount: PropTypes.number,
+    clonedCount: PropTypes.number,
+    afterAnimation: PropTypes.func,
     isItemActive: PropTypes.func,
     nextItem: PropTypes.func,
     prevItem: PropTypes.func,
@@ -68,13 +70,23 @@ Item.propTypes = {
 /*----------------------------------------------------------------------------------------------------*/
 
 export class ItemList extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            index: -1, // The previous index
+            phase: 0,
+            translate: ''
+        }
+    }
+
     render() {
         let context = this.context,
             props = this.generateNestedProps(this.props, 'swipe');
 
         // Explicitly define certain props
         props.tagName = 'ol';
-        props.style = { transform: this.getTranslateOffset() };
+        props.style = { transform: this.getTranslateOffset(context.visibleCount) };
 
         // Trigger our listeners first
         props.onSwipeUp.unshift(context.nextItem);
@@ -85,18 +97,104 @@ export class ItemList extends Component {
         return (
             <div className={this.formatClass(this.props.className)} data-carousel-items>
                 <Swipe {...props}>
-                    {this.props.children}
+                    {this.renderChildren()}
                 </Swipe>
             </div>
         );
     }
 
     /**
+     * Render the items into the carousel item list.
+     *
+     * TODO
+     *
+     * @returns {Array}
+     */
+    renderChildren() {
+        let children = Children.toArray(this.props.children),
+            visibleChildren = [],
+            context = this.context,
+            itemCount = context.itemCount,
+            clonedCount = context.clonedCount,
+            perSide = clonedCount / 2;
+
+        /*if (clonedCount && children.length >= clonedCount) {
+            let firstItems = children.slice(0, perSide),
+                lastItems = children.slice(-perSide),
+                clone = child => {
+                    return React.cloneElement(child, {
+                        clone: true,
+                        key: child.key + '-clone'
+                    });
+                };
+
+            children.push(...firstItems.map(clone));
+            children.unshift(...lastItems.map(clone));
+        }*/
+
+        if (clonedCount && children.length >= clonedCount) {
+            let startIndex = context.currentIndex - perSide,
+                endIndex = context.currentIndex + context.visibleCount + perSide;
+
+            // Extract from the end
+            if (startIndex < 0) {
+                visibleChildren.push(...children.slice(startIndex));
+                startIndex = 0;
+            }
+
+            // Extract normally
+            visibleChildren.push(...children.slice(startIndex, endIndex));
+
+            // Extract from the beginning
+            if (endIndex >= itemCount) {
+                visibleChildren.push(...children.slice(0, (endIndex - itemCount)));
+            }
+
+        } else {
+            visibleChildren = children;
+        }
+
+        return visibleChildren;
+    }
+
+    /**
+     * Bind a `transitionend` listener to the list container.
+     */
+    componentDidMount() {
+        ReactDOM.findDOMNode(this).children[0]
+            .addEventListener('transitionend', this.onTransitionEnd.bind(this));
+    }
+
+    /**
+     * Once the parent component has updated, we must re-render this component with the new children.
+     * To do this, we must disable transitions temporarily.
+     *
+     * @param {Object} prevProps
+     * @param {Object} prevState
+     * @param {Object} prevContext
+     */
+    componentDidUpdate(prevProps, prevState, prevContext) {
+        /*
+        let nextContext = this.context;
+
+        // Parent index has changed, start phase 1
+        if (prevState.index !== prevContext.currentIndex || nextContext.currentIndex !== prevContext.currentIndex) {
+            this.setState({
+                index: nextContext.currentIndex,
+                phase: 1,
+                translate: this.getTranslateOffset(nextContext.visibleCount)
+            })
+        }
+        */
+    }
+
+    /**
      * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
      *
+     * @param {Number} index
      * @returns {String}
      */
-    getTranslateOffset() {
+    getTranslateOffset(index) {
         let context = this.context,
             modifier = context.modifier;
 
@@ -104,11 +202,23 @@ export class ItemList extends Component {
             return 'none';
         }
 
-        let offset = context.currentIndex * (100 / context.visibleCount),
+        let offset = index * (100 / context.visibleCount),
             x = (modifier === 'slide') ? -offset : 0,
             y = (modifier === 'slide-up') ? -offset: 0;
 
         return `translate3d(${x}%, ${y}%, 0)`;
+    }
+
+    /**
+     * Callback to trigger once the containers animation finishes.
+     * Emit `cycled` event after transitioning.
+     *
+     * @param {TransitionEvent} e
+     */
+    onTransitionEnd(e) {
+        if (e.propertyName === 'transform') {
+            this.context.afterAnimation();
+        }
     }
 }
 
@@ -341,11 +451,13 @@ export default class Carousel extends Component {
         this.state = {
             index: 0,
             stopped: true,
-            visible: 1
+            animating: false,
+            visible: 1,
+            cloned: 0
         };
 
         this.generateUID();
-        this.autoBind('isItemActive', 'nextItem', 'prevItem', 'showItem', 'startCycle', 'stopCycle');
+        this.autoBind('afterAnimation', 'isItemActive', 'nextItem', 'prevItem', 'showItem', 'startCycle', 'stopCycle');
         this.onResize = debounce(this.onResize, 50);
     }
 
@@ -362,6 +474,7 @@ export default class Carousel extends Component {
                 id={this.formatID('carousel')}
                 className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
                     'is-stopped': this.state.stopped,
+                    'is-animating': this.state.animating,
                     'no-next': (!props.loop && this.isAtLast()),
                     'no-prev': (!props.loop && this.isAtFirst())
                 })}
@@ -399,18 +512,6 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Emit `cycling` event before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.index !== this.state.index) {
-            this.emitEvent('cycling', [nextState.index, this.state.index]);
-        }
-    }
-
-    /**
      * Calculate dimensions once mounted.
      */
     componentDidMount() {
@@ -418,22 +519,45 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Emit `cycled` event after rendering.
+     * Emit `cycling` event after rendering.
      *
      * @param {Object} prevProps
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
         if (prevState.index !== this.state.index) {
-            this.emitEvent('cycled', [this.state.index, prevState.index]);
+            this.beforeAnimation();
+
+            // FIXME: Temporary
+            this.afterAnimation();
         }
+    }
+
+    /**
+     * Functionality to trigger after the cycle animation occurs.
+     * We must set the `animating` state to false or we get locked in.
+     */
+    afterAnimation() {
+        this.setState({
+            animating: false
+        });
+
+        this.emitEvent('cycled', [this.state.index]);
+    }
+
+    /**
+     * Functionality to trigger before the cycle animation occurs.
+     */
+    beforeAnimation() {
+        this.emitEvent('cycling', [this.state.index]);
     }
 
     /**
      * Calculate the number of items that are visible at the same time.
      */
     calculateVisibleItems() {
-        let visible = 1;
+        let visible = 1,
+            cloned = 0;
 
         if (this.props.modifier !== 'fade') {
             let wrapper = ReactDOM.findDOMNode(this),
@@ -445,8 +569,13 @@ export default class Carousel extends Component {
             }
         }
 
+        if (this.props.infinite) {
+            cloned = visible * 2;
+        }
+
         this.setState({
-            visible
+            visible,
+            cloned
         });
     }
 
@@ -497,14 +626,14 @@ export default class Carousel extends Component {
         return {
             uid: this.uid,
             modifier: this.props.modifier,
-
             currentIndex: this.state.index,
             activeIndices: this.getActiveIndices(),
             firstIndex: this.getFirstIndex(),
             lastIndex: this.getLastIndex(),
             itemCount: this.countItems(),
             visibleCount: this.state.visible,
-
+            clonedCount: this.state.cloned,
+            afterAnimation: this.afterAnimation,
             isItemActive: this.isItemActive,
             nextItem: this.nextItem,
             prevItem: this.prevItem,
@@ -592,13 +721,23 @@ export default class Carousel extends Component {
      * @param {Number} index
      */
     showItem(index) {
+        if (this.state.animating) {
+            return;
+        }
+
         let currentIndex = this.state.index,
             lastIndex = this.getLastIndex(),
             firstIndex = this.getFirstIndex(),
+            itemCount = this.countItems(),
             loop = this.props.loop;
 
         if (this.props.infinite) {
-            // TODO
+            if (index >= itemCount) {
+                index = firstIndex + (index - itemCount);
+
+            } else if (index < firstIndex) {
+                index = itemCount + index;
+            }
 
         } else {
             if (index > lastIndex) {
@@ -624,7 +763,8 @@ export default class Carousel extends Component {
         }
 
         this.setState({
-            index: index
+            index: index,
+            animating: true
         });
     }
 
