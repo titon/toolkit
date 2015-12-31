@@ -13,6 +13,7 @@ import tabIndex from '../../ext/utility/tabIndex';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
+    activeIndices: PropTypes.arrayOf(PropTypes.number),
     hideItem: PropTypes.func,
     showItem: PropTypes.func,
     isItemCollapsible: PropTypes.func,
@@ -60,6 +61,8 @@ class AccordionHeader extends Component {
         } else {
             context.showItem(index);
         }
+
+        this.emitEvent('click', [index]);
     }
 }
 
@@ -100,66 +103,35 @@ AccordionSection.contextTypes = CONTEXT_TYPES;
 /*----------------------------------------------------------------------------------------------------*/
 
 export class AccordionItem extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            active: false
-        };
-    }
-
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
      *
      * @returns {JSX}
      */
     render() {
+        let props = this.props,
+            active = this.context.isItemActive(props.index);
+
         return (
             <li>
                 <AccordionHeader
-                    className={this.props.headerClassName}
-                    index={this.props.index}
-                    active={this.state.active}>
+                    className={props.headerClassName}
+                    index={props.index}
+                    active={active}
+                    onClick={props.onClick}>
 
-                    {this.props.header}
+                    {props.header}
                 </AccordionHeader>
 
                 <AccordionSection
-                    className={this.props.sectionClassName}
-                    index={this.props.index}
-                    expanded={this.state.active}>
+                    className={props.sectionClassName}
+                    index={props.index}
+                    expanded={active}>
 
-                    {this.props.children}
+                    {props.children}
                 </AccordionSection>
             </li>
         );
-    }
-
-    /**
-     * Check to see if this specific accordion item should be active.
-     */
-    checkIsActive() {
-        let active = this.context.isItemActive(this.props.index);
-
-        if (active !== this.state.active) {
-            this.setState({
-                active: active
-            });
-        }
-    }
-
-    /**
-     * Check before mounting.
-     */
-    componentWillMount() {
-        this.checkIsActive();
-    }
-
-    /**
-     * Check before an update.
-     */
-    componentWillUpdate() {
-        this.checkIsActive();
     }
 }
 
@@ -169,14 +141,16 @@ AccordionItem.defaultProps = {
     index: -1,
     header: '',
     headerClassName: 'accordion-header',
-    sectionClassName: 'accordion-section'
+    sectionClassName: 'accordion-section',
+    onClick: null
 };
 
 AccordionItem.propTypes = {
     index: PropTypes.number.isRequired,
     header: PropTypes.node.isRequired,
     headerClassName: PropTypes.string,
-    sectionClassName: PropTypes.string
+    sectionClassName: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -260,6 +234,7 @@ export default class Accordion extends Component {
     getChildContext() {
         return {
             uid: this.uid,
+            activeIndices: this.state.indices,
             hideItem: this.hideItem,
             showItem: this.showItem,
             isItemCollapsible: this.isItemCollapsible,
@@ -296,7 +271,7 @@ export default class Accordion extends Component {
             index = [index];
         }
 
-        // Use concat or we lose the previous state
+        // Use concat or we lose the previous state because of references
         // Also filter out any invalid indices
         this.setState({
             indices: indices.concat(index).filter(i => (i >= 0 && i < total))
@@ -339,11 +314,11 @@ Accordion.propTypes = {
     children: childrenOfType(AccordionItem),
     component: PropTypes.string,
     className: PropTypes.string,
-    defaultIndex: collectionOf(PropTypes.number),
+    defaultIndex: collectionOf.number,
     multiple: PropTypes.bool,
     collapsible: PropTypes.bool,
-    onShowing: collectionOf(PropTypes.func),
-    onShown: collectionOf(PropTypes.func)
+    onShowing: collectionOf.func,
+    onShown: collectionOf.func
 };
 
 Accordion.Item = AccordionItem;

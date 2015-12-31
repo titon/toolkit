@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import Accordion from './ui/components/Accordion';
 import Carousel from './ui/components/Carousel';
 
+const log = function() {
+    console.log(...arguments);
+};
+
 ReactDOM.render(
     <Carousel
         component="slideshow" modifier="slide"
         debug={true} perCycle={1} loop={true}
         infinite={true} autoStart={false} pauseOnHover={false}>
 
-        <Carousel.ItemList swipe={{ distance: 100 }}>
+        <Carousel.ItemList swipe={true} onSwipe={log} onSwipeRight={log}>
             <Carousel.Item index={0}>0</Carousel.Item>
             <Carousel.Item index={1}>1</Carousel.Item>
             <Carousel.Item index={2}>2</Carousel.Item>
@@ -21,12 +25,12 @@ ReactDOM.render(
             <Carousel.Item index={8}>8</Carousel.Item>
         </Carousel.ItemList>
 
-        <Carousel.TabList />
+        <Carousel.TabList onClick={log} />
 
-        <Carousel.NextButton>Next</Carousel.NextButton>
-        <Carousel.PrevButton>Prev</Carousel.PrevButton>
-        <Carousel.StartButton>Start</Carousel.StartButton>
-        <Carousel.StopButton>Stop</Carousel.StopButton>
+        <Carousel.NextButton onClick={log}>Next</Carousel.NextButton>
+        <Carousel.PrevButton onClick={log}>Prev</Carousel.PrevButton>
+        <Carousel.StartButton onClick={log}>Start</Carousel.StartButton>
+        <Carousel.StopButton onClick={log}>Stop</Carousel.StopButton>
     </Carousel>
 
     /*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>

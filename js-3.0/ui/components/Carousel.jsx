@@ -19,7 +19,7 @@ export const CONTEXT_TYPES = {
     uid: PropTypes.string,
     modifier: PropTypes.string,
     currentIndex: PropTypes.number,
-    activeIndices: PropTypes.array,
+    activeIndices: PropTypes.arrayOf(PropTypes.number),
     firstIndex: PropTypes.number,
     lastIndex: PropTypes.number,
     itemCount: PropTypes.number,
@@ -238,16 +238,16 @@ ItemList.propTypes = {
     children: childrenOfType(Item),
     className: PropTypes.string,
     swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-    onSwipe: collectionOf(PropTypes.func),
-    onSwipeUp: collectionOf(PropTypes.func),
-    onSwipeRight: collectionOf(PropTypes.func),
-    onSwipeDown: collectionOf(PropTypes.func),
-    onSwipeLeft: collectionOf(PropTypes.func)
+    onSwipe: collectionOf.func,
+    onSwipeUp: collectionOf.func,
+    onSwipeRight: collectionOf.func,
+    onSwipeDown: collectionOf.func,
+    onSwipeLeft: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
 
-export class Tab extends Component {
+class Tab extends Component {
     render() {
         let index = this.props.index,
             active = this.context.isItemActive(index);
@@ -274,6 +274,7 @@ export class Tab extends Component {
      */
     onClick() {
         this.context.showItem(this.props.index);
+        this.emitEvent('click', [this.props.index]);
     }
 }
 
@@ -290,7 +291,8 @@ export class TabList extends Component {
                 <Tab
                     index={i}
                     key={'tab-' + i}
-                    className={this.props.tabClassName} />
+                    className={this.props.tabClassName}
+                    onClick={this.props.onClick} />
             );
         }
 
@@ -308,13 +310,15 @@ TabList.contextTypes = CONTEXT_TYPES;
 
 TabList.defaultProps = {
     className: 'carousel-tabs',
-    tabClassName: 'carousel-tab'
+    tabClassName: 'carousel-tab',
+    onClick: null
 };
 
 TabList.propTypes = {
     children: childrenOfType(Tab),
     className: PropTypes.string,
-    tabClassName: PropTypes.string
+    tabClassName: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -335,17 +339,20 @@ export class PrevButton extends Component {
      */
     onClick() {
         this.context.prevItem();
+        this.emitEvent('click');
     }
 }
 
 PrevButton.contextTypes = CONTEXT_TYPES;
 
 PrevButton.defaultProps = {
-    className: 'carousel-prev'
+    className: 'carousel-prev',
+    onClick: null
 };
 
 PrevButton.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -366,17 +373,20 @@ export class NextButton extends Component {
      */
     onClick() {
         this.context.nextItem();
+        this.emitEvent('click');
     }
 }
 
 NextButton.contextTypes = CONTEXT_TYPES;
 
 NextButton.defaultProps = {
-    className: 'carousel-next'
+    className: 'carousel-next',
+    onClick: null
 };
 
 NextButton.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -397,17 +407,20 @@ export class StartButton extends Component {
      */
     onClick() {
         this.context.startCycle();
+        this.emitEvent('click');
     }
 }
 
 StartButton.contextTypes = CONTEXT_TYPES;
 
 StartButton.defaultProps = {
-    className: 'carousel-start'
+    className: 'carousel-start',
+    onClick: null
 };
 
 StartButton.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -428,17 +441,20 @@ export class StopButton extends Component {
      */
     onClick() {
         this.context.stopCycle();
+        this.emitEvent('click');
     }
 }
 
 StopButton.contextTypes = CONTEXT_TYPES;
 
 StopButton.defaultProps = {
-    className: 'carousel-stop'
+    className: 'carousel-stop',
+    onClick: null
 };
 
 StopButton.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: collectionOf.func
 };
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -886,10 +902,10 @@ Carousel.propTypes = {
     infinite: PropTypes.bool,
     loop: PropTypes.bool,
     reverse: PropTypes.bool,
-    onCycling: collectionOf(PropTypes.func),
-    onCycled: collectionOf(PropTypes.func),
-    onStart: collectionOf(PropTypes.func),
-    onStop: collectionOf(PropTypes.func)
+    onCycling: collectionOf.func,
+    onCycled: collectionOf.func,
+    onStart: collectionOf.func,
+    onStop: collectionOf.func
 };
 
 Carousel.ItemList = ItemList;

@@ -64,6 +64,8 @@ export default class Component extends React.Component {
             listeners = [listeners];
         }
 
+        args.unshift(new TitonEvent(this.constructor.name, this.getUID(), event));
+
         listeners.forEach(func => func.apply(this, args));
     }
 
@@ -86,7 +88,7 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatID(...params) {
-        return ['titon', this.context.uid || this.uid, ...params].join('-').trim();
+        return ['titon', this.getUID(), ...params].join('-').trim();
     }
 
     /**
@@ -102,10 +104,10 @@ export default class Component extends React.Component {
      *
      * @param {Object} props
      * @param {String} propName
-     * @param {Boolean} [inheritListeners]
+     * @param {Boolean} [copyListeners]
      * @returns {Object}
      */
-    generateNestedProps(props, propName, inheritListeners = true) {
+    generateNestedProps(props, propName, copyListeners = true) {
         let obj = {};
 
         // Merge nested object
@@ -117,7 +119,7 @@ export default class Component extends React.Component {
         }
 
         // Inherit event listeners
-        if (inheritListeners) {
+        if (copyListeners) {
             Object.keys(props).forEach(key => {
                 if (key.substr(0, 2) !== 'on') {
                     return;
@@ -137,5 +139,24 @@ export default class Component extends React.Component {
         }
 
         return obj;
+    }
+
+    /**
+     * Return the UID for the current component.
+     * The UID could either be inherited from the parent, or generate per instance.
+     *
+     * @returns {String}
+     */
+    getUID() {
+        return this.context.uid || this.uid;
+    }
+}
+
+class TitonEvent {
+    constructor(name, uid, event) {
+        this.uid = uid;
+        this.type = event;
+        this.component = name;
+        this.timestamp = Date.now();
     }
 }

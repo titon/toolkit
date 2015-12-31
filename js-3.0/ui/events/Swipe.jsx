@@ -214,7 +214,7 @@ export default class Swipe extends Component {
 
             let args = [this.state.originalTarget, start, stop];
 
-            this.emitEvent('swipe', [direction, ...args]);
+            this.emitEvent('swipe', [direction.toLowerCase(), ...args]);
             this.emitEvent('swipe' + direction, args);
         }
 
@@ -243,9 +243,9 @@ Swipe.propTypes = {
     duration: PropTypes.number,
     distance: PropTypes.number,
     restraint: PropTypes.number,
-    onSwipe: collectionOf(PropTypes.func),
-    onSwipeUp: collectionOf(PropTypes.func),
-    onSwipeRight: collectionOf(PropTypes.func),
-    onSwipeDown: collectionOf(PropTypes.func),
-    onSwipeLeft: collectionOf(PropTypes.func)
+    onSwipe: collectionOf.func,
+    onSwipeUp: collectionOf.func,
+    onSwipeRight: collectionOf.func,
+    onSwipeDown: collectionOf.func,
+    onSwipeLeft: collectionOf.func
 };
