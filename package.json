@@ -16,10 +16,7 @@
     "bugs": "https://github.com/titon/toolkit/issues",
     "repository": "github:titon/toolkit",
 
-    "main": "js/index.js",
-    "bin": {
-        "titon": "./titon"
-    },
+    "main": "src/index.js",
     "scripts": {
         "env": "env",
 
@@ -41,10 +38,6 @@
         "lodash": "~3.10"
     },
     "devDependencies": {
-        "commander": "~2.9",
-        "compartment": "~0.2",
-        "lodash": "~3.10",
-        "chalk": "~1.1",
         "directory-tree": "~0.1",
 
         "node-sass": "~3.4",
@@ -61,7 +54,7 @@
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
         "uglify-js": "~2.6",
-        "dependency-tree": "~4.0",
+        "lodash": "~3.10",
 
         "karma": "~0.13",
         "karma-jasmine": "~0.3",
