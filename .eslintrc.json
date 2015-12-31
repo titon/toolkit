@@ -16,7 +16,6 @@
         "TransitionEvent": true,
         "__karma__": true,
 
-        "createElement": true,
         "processInThread": true
     },
     "rules": {

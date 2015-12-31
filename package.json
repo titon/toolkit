@@ -21,20 +21,14 @@
         "titon": "./titon"
     },
     "scripts": {
-        "start": "node titon",
-        "lint": "node titon lint",
-        "test": "node titon test",
-        "build": "node titon build",
-        "js": "node titon js",
-        "css": "node titon css",
-        "docs": "node titon docs",
-
-        "prebuild": "node titon lint",
-
-        "watch": "watchify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
+        "watch": "watchify ./js-3.0/app.js -o ./build/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]",
+        "lint": "eslint --config ./.eslintrc.json --ext .js,.jsx ./js-3.0 ./tests-3.0",
+        "test": "karma start ./.karmarc.js"
     },
 
     "peerDependencies": {
+        "react": "~0.14",
+        "react-dom": "~0.14",
         "lodash": "~3.10"
     },
     "devDependencies": {
@@ -46,17 +40,17 @@
 
         "node-sass": "~3.4",
         "clean-css": "~3.4",
-        "autoprefixer": "~6.1",
+        "autoprefixer": "~6.2",
 
         "react": "~0.14",
         "react-dom": "~0.14",
+        "react-addons-test-utils": "~0.14",
         "eslint": "~1.10",
         "babel-eslint": "~4.1",
         "babel-core": "~6.3",
         "babel-preset-es2015": "*",
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
-        "systemjs": "~0.19",
         "uglify-js": "~2.6",
         "dependency-tree": "~4.0",
 
@@ -66,9 +60,9 @@
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
+        "karma-browserify": "*",
         "jasmine-core": "~2.4",
         "enzyme": "~1.2",
-
         "browserify": "*",
         "babelify": "*",
         "watchify": "*"
