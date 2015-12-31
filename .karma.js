@@ -36,7 +36,7 @@ module.exports = function(config) {
             debug: true,
             extensions: ['.js', '.jsx'],
             ignoreMissing: true,
-            transform: [ ['babelify', require('./.babelrc.json')] ]
+            transform: [ ['babelify', require('./.babel.json')] ]
         }
     });
 };
