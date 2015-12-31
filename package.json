@@ -29,7 +29,9 @@
         "watch:css": "",
 
         "lint": "eslint --config ./.eslint.json --ext .js,.jsx ./js-3.0 ./tests-3.0",
-        "test": "karma start ./.karma.js"
+        "test": "karma start ./.karma.js",
+
+        "publish": "babel --presets es2015,react --out-dir ./dist ./js-3.0"
     },
 
     "peerDependencies": {
@@ -50,6 +52,7 @@
         "eslint": "~1.10",
         "babel-eslint": "~4.1",
         "babel-core": "~6.3",
+        "babel-cli": "~6.3",
         "babel-preset-es2015": "*",
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
