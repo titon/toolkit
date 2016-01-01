@@ -1,0 +1,51 @@
+/**
+ * @copyright   2010-2015, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@charset "UTF-8";
+
+// This file is purely for testing as it includes the entire CSS library.
+
+@import "common";
+@import "style/layout/base";
+@import "style/layout/typography";
+@import "style/layout/code";
+@import "ui/behaviors/lazy-load/style";
+@import "ui/behaviors/mask/style";
+@import "ui/behaviors/pin/style";
+@import "ui/components/flex";
+@import "ui/components/grid";
+@import "ui/components/accordion/style";
+@import "ui/components/breadcrumb";
+@import "ui/components/button/style";
+@import "ui/components/button-group";
+@import "ui/components/carousel/style";
+@import "ui/components/checkbox";
+@import "ui/components/divider";
+@import "ui/components/drop";
+@import "ui/components/flyout";
+@import "ui/components/form";
+@import "ui/components/input";
+@import "ui/components/input-group";
+@import "ui/components/label";
+@import "ui/components/loader";
+@import "ui/components/matrix";
+@import "ui/components/modal";
+@import "ui/components/notice";
+@import "ui/components/off-canvas";
+@import "ui/components/pagination";
+@import "ui/components/tooltip";
+@import "ui/components/popover";
+@import "ui/components/progress";
+@import "ui/components/radio";
+@import "ui/components/select";
+@import "ui/components/step";
+@import "ui/components/switch";
+@import "ui/components/tab";
+@import "ui/components/table";
+@import "ui/components/toast";
+@import "ui/components/type-ahead";
+@import "ui/transitions/slide-collapse/style";
+@import "style/layout/responsive";

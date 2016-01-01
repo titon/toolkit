@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-@import "extensions/functions";
+@import "style/helpers/functions";
 
 //------------------------------ Settings ------------------------------//
 
@@ -467,9 +467,9 @@ $titon-typography: (
 
 //------------------------------ Imports ------------------------------//
 
-@import "extensions/mixins";
-@import "extensions/grid";
-@import "extensions/flexbox";
-@import "extensions/responsive";
-@import "extensions/components";
-@import "extensions/placeholders";
+@import "style/helpers/mixins";
+@import "style/helpers/grid";
+@import "style/helpers/flexbox";
+@import "style/helpers/responsive";
+@import "style/helpers/components";
+@import "style/helpers/placeholders";

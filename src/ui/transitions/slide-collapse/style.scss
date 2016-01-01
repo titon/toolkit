@@ -1,6 +1,8 @@
-.transition.slide-collapse {
-    position: relative;
-    transition: all .3s ease-in-out;
+.transition {
+    &.slide-collapse {
+        position: relative;
+        transition: all .3s ease-in-out;
+    }
 
     &.slide-collapse--vertical {
         overflow-y: hidden;
