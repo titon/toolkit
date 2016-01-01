@@ -11,7 +11,7 @@ import Component from '../../Component';
 import Header from './Header';
 import Section from './Section';
 import collectionOf from '../../../ext/prop-types/collectionOf';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
     /**
@@ -51,8 +51,6 @@ Item.contextTypes = CONTEXT_TYPES;
 Item.defaultProps = {
     index: -1,
     header: '',
-    headerClassName: 'accordion-header',
-    sectionClassName: 'accordion-section',
     onClick: null
 };
 

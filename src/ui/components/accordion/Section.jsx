@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import SlideCollapse from '../../transitions/slide-collapse';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {
     /**

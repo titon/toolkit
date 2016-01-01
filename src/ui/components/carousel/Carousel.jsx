@@ -11,7 +11,7 @@ import ItemList from './ItemList';
 import bem from '../../../ext/utility/bem';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import debounce from 'lodash/function/debounce';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Carousel extends Component {
     constructor() {

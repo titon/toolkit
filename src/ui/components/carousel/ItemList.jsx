@@ -11,7 +11,7 @@ import Item from './Item';
 import Swipe from '../../events/Swipe';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 import { touch } from '../../../ext/flags';
 
 export default class ItemList extends Component {

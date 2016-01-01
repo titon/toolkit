@@ -9,7 +9,7 @@ import Component from '../../Component';
 import Item from './Item';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {
     constructor() {

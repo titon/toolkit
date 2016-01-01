@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 
-export const CONTEXT_TYPES = {
+export default {
     uid: PropTypes.string,
     activeIndices: PropTypes.arrayOf(PropTypes.number),
     hideItem: PropTypes.func,

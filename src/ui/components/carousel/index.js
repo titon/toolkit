@@ -12,7 +12,7 @@ import Start from './Start';
 import Stop from './Stop';
 import Next from './Next';
 import Prev from './Prev';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 Carousel.Item = Item;
 Carousel.ItemList = ItemList;

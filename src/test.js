@@ -10,7 +10,7 @@ const log = function() {
 };
 
 ReactDOM.render(
-    <Carousel
+    /*<Carousel
         component="slideshow" modifier="slide"
         debug={true} perCycle={1} loop={true}
         infinite={true} autoStart={false} pauseOnHover={false}>
@@ -33,9 +33,9 @@ ReactDOM.render(
         <Carousel.Prev onClick={log}>Prev</Carousel.Prev>
         <Carousel.Start onClick={log}>Start</Carousel.Start>
         <Carousel.Stop onClick={log}>Stop</Carousel.Stop>
-    </Carousel>
+    </Carousel>*/
 
-    /*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
+    <Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
         <Accordion.Item header="Header #1" key="0" index={0} onClick={log}>
             <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
 
@@ -63,7 +63,7 @@ ReactDOM.render(
 
             <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
         </Accordion.Item>
-    </Accordion>*/
+    </Accordion>
     ,
     document.getElementById('app')
 );

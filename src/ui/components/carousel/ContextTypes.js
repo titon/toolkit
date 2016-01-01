@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 
-export const CONTEXT_TYPES = {
+export default {
     uid: PropTypes.string,
     modifier: PropTypes.string,
     currentIndex: PropTypes.number,

@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Tab from './Tab';
 import collectionOf from '../../../ext/prop-types/collectionOf';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class TabList extends Component {
     render() {
@@ -38,7 +38,6 @@ TabList.contextTypes = CONTEXT_TYPES;
 
 TabList.defaultProps = {
     className: 'carousel-tabs',
-    tabClassName: 'carousel-tab',
     onClick: null
 };
 

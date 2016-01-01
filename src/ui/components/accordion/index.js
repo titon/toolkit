@@ -6,7 +6,7 @@
 
 import Accordion from './Accordion';
 import Item from './Item';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 Accordion.Item = Item;
 

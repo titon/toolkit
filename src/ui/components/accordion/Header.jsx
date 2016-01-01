@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import tabIndex from '../../../ext/utility/tabIndex';
-import { CONTEXT_TYPES } from './ContextTypes';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Header extends Component {
     /**
