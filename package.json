@@ -20,20 +20,22 @@
     "scripts": {
         "env": "env",
 
+        "js": "browserify --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/test.js > ./build/titon.js",
+        "js:lint": "eslint --config ./.eslint.json --ext .js,.jsx ./src",
+        "js:watch": "watchify ./src/test.js -o ./build/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ]",
+
         "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/test.scss ./build/titon.css",
+        "css:lint": "sass-lint --config ./.scsslint.yml",
+        "css:watch": "",
         "css:prefix": "postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
 
         "build": "npm run build:js && npm run build:css",
-        "build:js": "browserify --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/test.js > ./build/titon.js",
+        "build:js": "npm run js",
         "build:css": "npm run css && npm run css:prefix",
 
-        "watch": "npm run watch:js && npm run watch:css",
-        "watch:js": "watchify ./src/test.js -o ./build/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ]",
-        "watch:css": "",
-
-        "lint": "eslint --config ./.eslint.json --ext .js,.jsx ./src",
         "test": "karma start ./.karma.js",
-
+        "lint": "npm run js:lint && npm run css:lint",
+        "watch": "npm run js:watch && npm run css:watch",
         "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./src"
     },
 
@@ -48,6 +50,7 @@
         "node-sass": "~3.4",
         "autoprefixer": "~6.2",
         "postcss-cli": "~2.3",
+        "sass-lint": "~1.4",
 
         "react": "~0.14",
         "react-dom": "~0.14",
