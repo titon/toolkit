@@ -50,6 +50,7 @@
         "react-dom": "~0.14",
         "react-addons-test-utils": "~0.14",
         "eslint": "~1.10",
+        "eslint-plugin-react": "~3.13",
         "babel-eslint": "~4.1",
         "babel-core": "~6.3",
         "babel-cli": "~6.3",

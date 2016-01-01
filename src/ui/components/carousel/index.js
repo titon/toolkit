@@ -7,7 +7,6 @@
 import Carousel from './Carousel';
 import Item from './Item';
 import ItemList from './ItemList';
-import Tab from './Tab';
 import TabList from './TabList';
 import Start from './Start';
 import Stop from './Stop';

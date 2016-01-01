@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint callback-return: 0 */
+
 import '../../poly/element/matches';
 
 /**

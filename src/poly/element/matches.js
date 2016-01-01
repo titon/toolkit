@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint operator-linebreak: 0 */
+
 (function(proto) {
     proto.matches =
         proto.matches ||
@@ -12,4 +14,4 @@
         proto.mozMatchesSelector ||
         proto.msMatchesSelector ||
         proto.oMatchesSelector;
-})(Element.prototype);
+}(Element.prototype));

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import SlideCollapse from '../../transitions/slide-collapse';
 import { CONTEXT_TYPES } from './ContextTypes';
@@ -38,3 +38,16 @@ export default class Section extends Component {
 }
 
 Section.contextTypes = CONTEXT_TYPES;
+
+Section.defaultProps = {
+    className: 'accordion-section',
+    expanded: false,
+    index: -1
+};
+
+Section.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    expanded: PropTypes.bool.isRequired,
+    index: PropTypes.number
+};

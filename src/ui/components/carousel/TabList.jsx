@@ -25,7 +25,7 @@ export default class TabList extends Component {
         }
 
         return (
-            <nav className={this.formatClass(this.props.className)} data-carousel-tabs>
+            <nav className={this.formatClass(this.props.className)} data-carousel-tabs={true}>
                 <ol>
                     {children}
                 </ol>

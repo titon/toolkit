@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint no-var: 0 */
+
 /**
  * Wrap a function that will only be triggered once when set as an event listener.
  *

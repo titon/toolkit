@@ -22,84 +22,7 @@ export default class ItemList extends Component {
             index: -1, // The previous index
             phase: 0,
             translate: ''
-        }
-    }
-
-    render() {
-        let context = this.context,
-            props = this.generateNestedProps(this.props, 'swipe');
-
-        // Explicitly define certain props
-        props.tagName = 'ol';
-        props.style = { transform: this.getTranslateOffset(context.visibleCount) };
-
-        // Trigger our listeners first
-        props.onSwipeUp.unshift(context.nextItem);
-        props.onSwipeRight.unshift(context.prevItem);
-        props.onSwipeDown.unshift(context.prevItem);
-        props.onSwipeLeft.unshift(context.nextItem);
-
-        return (
-            <div className={this.formatClass(this.props.className)} data-carousel-items>
-                <Swipe {...props}>
-                    {this.renderChildren()}
-                </Swipe>
-            </div>
-        );
-    }
-
-    /**
-     * Render the items into the carousel item list.
-     *
-     * TODO
-     *
-     * @returns {Array}
-     */
-    renderChildren() {
-        let children = Children.toArray(this.props.children),
-            visibleChildren = [],
-            context = this.context,
-            itemCount = context.itemCount,
-            clonedCount = context.clonedCount,
-            perSide = clonedCount / 2;
-
-        /*if (clonedCount && children.length >= clonedCount) {
-         let firstItems = children.slice(0, perSide),
-         lastItems = children.slice(-perSide),
-         clone = child => {
-         return React.cloneElement(child, {
-         clone: true,
-         key: child.key + '-clone'
-         });
-         };
-
-         children.push(...firstItems.map(clone));
-         children.unshift(...lastItems.map(clone));
-         }*/
-
-        if (clonedCount && children.length >= clonedCount) {
-            let startIndex = context.currentIndex - perSide,
-                endIndex = context.currentIndex + context.visibleCount + perSide;
-
-            // Extract from the end
-            if (startIndex < 0) {
-                visibleChildren.push(...children.slice(startIndex));
-                startIndex = 0;
-            }
-
-            // Extract normally
-            visibleChildren.push(...children.slice(startIndex, endIndex));
-
-            // Extract from the beginning
-            if (endIndex >= itemCount) {
-                visibleChildren.push(...children.slice(0, (endIndex - itemCount)));
-            }
-
-        } else {
-            visibleChildren = children;
-        }
-
-        return visibleChildren;
+        };
     }
 
     /**
@@ -140,18 +63,12 @@ export default class ItemList extends Component {
      * @returns {String}
      */
     getTranslateOffset(index) {
-        let context = this.context,
-            modifier = context.modifier;
-
-        if (modifier === 'fade') {
-            return 'none';
-        }
-
-        let offset = index * (100 / context.visibleCount),
+        let modifier = this.context.modifier,
+            offset = index * (100 / this.context.visibleCount),
             x = (modifier === 'slide') ? -offset : 0,
-            y = (modifier === 'slide-up') ? -offset: 0;
+            y = (modifier === 'slide-up') ? -offset : 0;
 
-        return `translate3d(${x}%, ${y}%, 0)`;
+        return (modifier === 'fade') ? 'none' : `translate3d(${x}%, ${y}%, 0)`;
     }
 
     /**
@@ -164,6 +81,85 @@ export default class ItemList extends Component {
         if (e.propertyName === 'transform') {
             this.context.afterAnimation();
         }
+    }
+
+    /**
+     * Render the items into the carousel item list.
+     *
+     * TODO
+     *
+     * @returns {Array}
+     */
+    renderChildren() {
+        let children = Children.toArray(this.props.children),
+            visibleChildren = [],
+            context = this.context,
+            itemCount = context.itemCount,
+            clonedCount = context.clonedCount,
+            perSide = clonedCount / 2;
+
+        /*
+         if (clonedCount && children.length >= clonedCount) {
+         let firstItems = children.slice(0, perSide),
+         lastItems = children.slice(-perSide),
+         clone = child => {
+         return React.cloneElement(child, {
+         clone: true,
+         key: child.key + '-clone'
+         });
+         };
+
+         children.push(...firstItems.map(clone));
+         children.unshift(...lastItems.map(clone));
+         }
+         */
+
+        if (clonedCount && children.length >= clonedCount) {
+            let startIndex = context.currentIndex - perSide,
+                endIndex = context.currentIndex + context.visibleCount + perSide;
+
+            // Extract from the end
+            if (startIndex < 0) {
+                visibleChildren.push(...children.slice(startIndex));
+                startIndex = 0;
+            }
+
+            // Extract normally
+            visibleChildren.push(...children.slice(startIndex, endIndex));
+
+            // Extract from the beginning
+            if (endIndex >= itemCount) {
+                visibleChildren.push(...children.slice(0, (endIndex - itemCount)));
+            }
+
+        } else {
+            visibleChildren = children;
+        }
+
+        return visibleChildren;
+    }
+
+    render() {
+        let context = this.context,
+            props = this.generateNestedProps(this.props, 'swipe');
+
+        // Explicitly define certain props
+        props.tagName = 'ol';
+        props.style = { transform: this.getTranslateOffset(context.visibleCount) };
+
+        // Trigger our listeners first
+        props.onSwipeUp.unshift(context.nextItem);
+        props.onSwipeRight.unshift(context.prevItem);
+        props.onSwipeDown.unshift(context.prevItem);
+        props.onSwipeLeft.unshift(context.nextItem);
+
+        return (
+            <div className={this.formatClass(this.props.className)} data-carousel-items={true}>
+                <Swipe {...props}>
+                    {this.renderChildren()}
+                </Swipe>
+            </div>
+        );
     }
 }
 

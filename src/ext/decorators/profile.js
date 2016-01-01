@@ -4,7 +4,9 @@
  * @link        http://titon.io
  */
 
-import 'polyfills/performance/now';
+/* eslint no-console: 0 */
+
+import '../../poly/performance/now';
 
 /**
  * The `profile` decorator can be used for profiling the time it took to execute a specific method.

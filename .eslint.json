@@ -2,8 +2,10 @@
     "root": true,
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
+    "plugins": ["react"],
     "ecmaFeatures": {
-        "modules": true
+        "modules": true,
+        "jsx": true
     },
     "env": {
         "es6": true,
@@ -96,7 +98,7 @@
         "no-undef": [1, { "typeof": true }],
         "no-undef-init": 1,
         "no-undefined": 2,
-        "no-unused-vars": [1, { "vars": "local", "args": "none" }],
+        "no-unused-vars": [1, { "vars": "local", "args": "none", "varsIgnorePattern": "React" }],
         "no-use-before-define": [1, "nofunc"],
 
         // Node.js
@@ -118,14 +120,14 @@
         "comma-spacing": [2, { "before": false, "after": true }],
         "comma-style": [2, "last"],
         "computed-property-spacing": [2, "never"],
-        "consistent-this": [2, "context"],
+        "consistent-this": [2, "self"],
         "eol-last": 2,
         "func-names": 0,
         "func-style": 0,
-        "id-length": [2, { "min": 1, "max": 20, "properties": "never", "exceptions": ["x", "i", "j", "e"] }],
+        "id-length": [2, { "min": 1, "max": 30, "properties": "never", "exceptions": ["x", "i", "j", "e"] }],
         "id-match": 0,
         "indent": [2, 4, { "SwitchCase": 1 }],
-        "jsx-quotes": 0,
+        "jsx-quotes": [2, "prefer-double"],
         "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
         "linebreak-style": [2, "unix"],
         "lines-around-comment": [2, { "allowBlockStart": true, "allowBlockEnd": false, "allowObjectEnd": false }],
@@ -194,6 +196,42 @@
         "max-params": [2, 4],
         "max-statements": 0,
         "no-bitwise": 0,
-        "no-plusplus": 0
+        "no-plusplus": 0,
+
+        // React, JSX
+        "react/display-name": 0,
+        "react/forbid-prop-types": 0,
+        "react/jsx-boolean-value": [2, "always"],
+        "react/jsx-closing-bracket-location": [2, { "nonEmpty": "after-props", "selfClosing": "after-props" }],
+        "react/jsx-curly-spacing": [2, "never"],
+        "react/jsx-handler-names": [2, { "eventHandlerPrefix": "on", "eventHandlerPropPrefix": "on" }],
+        "react/jsx-indent-props": [2, 4],
+        "react/jsx-key": 2,
+        "react/jsx-max-props-per-line": [2, { "maximum": 2 }],
+        "react/jsx-no-bind": 0,
+        "react/jsx-no-duplicate-props": 2,
+        "react/jsx-no-literals": 0,
+        "react/jsx-no-undef": 2,
+        "react/jsx-pascal-case": 2,
+        "react/jsx-sort-prop-types": 0,
+        "react/jsx-sort-props": 0,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/no-deprecated": 2,
+        "react/no-did-mount-set-state": 2,
+        "react/no-did-update-set-state": 2,
+        "react/no-direct-mutation-state": 2,
+        "react/no-is-mounted": 2,
+        "react/no-multi-comp": 2,
+        "react/no-set-state": 0,
+        "react/no-string-refs": 0,
+        "react/no-unknown-property": 2,
+        "react/prefer-es6-class": [2, "always"],
+        "react/prop-types": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/require-extension": 0,
+        "react/self-closing-comp": 2,
+        "react/sort-comp": 2,
+        "react/wrap-multilines": 2
     }
 }

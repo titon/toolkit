@@ -14,7 +14,9 @@ export default class Button extends Component {
 
     render() {
         return (
-            <button type="button" role="button" className="button">
+            <button
+                type="button" role="button"
+                className="button">
                 {this.props.children}
             </button>
         );
@@ -31,6 +33,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+    children: PropTypes.node,
     url: PropTypes.string,
     size: PropTypes.oneOf(['small', 'large']),
     shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),

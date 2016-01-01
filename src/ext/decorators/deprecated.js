@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint no-console: 0 */
+
 /**
  * The `deprecated` decorator will mark a function as deprecated and will output a
  * console warning anytime the function is called.

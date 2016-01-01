@@ -32,30 +32,29 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Render the wrapping carousel element.
+     * Define a context that is passed to all children.
      *
-     * @returns {JSX}
+     * @returns {Object}
      */
-    render() {
-        let props = this.props;
-
-        return (
-            <div role="tablist"
-                id={this.formatID('carousel')}
-                className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
-                    'is-stopped': this.state.stopped,
-                    'is-animating': this.state.animating,
-                    'no-next': (!props.loop && this.isAtLast()),
-                    'no-prev': (!props.loop && this.isAtFirst())
-                })}
-                aria-live={props.autoStart ? 'assertive' : 'off'}
-                onKeyDown={this.onKeyDown}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}>
-
-                {props.children}
-            </div>
-        );
+    getChildContext() {
+        return {
+            uid: this.uid,
+            modifier: this.props.modifier,
+            currentIndex: this.state.index,
+            activeIndices: this.getActiveIndices(),
+            firstIndex: this.getFirstIndex(),
+            lastIndex: this.getLastIndex(),
+            itemCount: this.countItems(),
+            visibleCount: this.state.visible,
+            clonedCount: this.state.cloned,
+            afterAnimation: this.afterAnimation,
+            isItemActive: this.isItemActive,
+            nextItem: this.nextItem,
+            prevItem: this.prevItem,
+            showItem: this.showItem,
+            startCycle: this.startCycle,
+            stopCycle: this.stopCycle
+        };
     }
 
     /**
@@ -69,16 +68,6 @@ export default class Carousel extends Component {
         // Bind non-react events
         window.addEventListener('keydown', this.onKeyDown);
         window.addEventListener('resize', this.onResize);
-    }
-
-    /**
-     * Remove events when unmounting.
-     */
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-
-        window.removeEventListener('keydown', this.onKeyDown);
-        window.removeEventListener('resize', this.onResize);
     }
 
     /**
@@ -101,6 +90,16 @@ export default class Carousel extends Component {
             // FIXME: Temporary
             this.afterAnimation();
         }
+    }
+
+    /**
+     * Remove events when unmounting.
+     */
+    componentWillUnmount() {
+        clearTimeout(this.timer);
+
+        window.removeEventListener('keydown', this.onKeyDown);
+        window.removeEventListener('resize', this.onResize);
     }
 
     /**
@@ -188,32 +187,6 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
-    getChildContext() {
-        return {
-            uid: this.uid,
-            modifier: this.props.modifier,
-            currentIndex: this.state.index,
-            activeIndices: this.getActiveIndices(),
-            firstIndex: this.getFirstIndex(),
-            lastIndex: this.getLastIndex(),
-            itemCount: this.countItems(),
-            visibleCount: this.state.visible,
-            clonedCount: this.state.cloned,
-            afterAnimation: this.afterAnimation,
-            isItemActive: this.isItemActive,
-            nextItem: this.nextItem,
-            prevItem: this.prevItem,
-            showItem: this.showItem,
-            startCycle: this.startCycle,
-            stopCycle: this.stopCycle
-        };
-    }
-
-    /**
      * Returns the first index that can be cycled to, while taking cloned items into account.
      *
      * @returns {Number}
@@ -291,6 +264,8 @@ export default class Carousel extends Component {
      * @param {Number} index
      */
     showItem(index) {
+        /* eslint no-lonely-if: 0 */
+
         if (this.state.animating) {
             return;
         }
@@ -333,7 +308,7 @@ export default class Carousel extends Component {
         }
 
         this.setState({
-            index: index,
+            index,
             animating: true
         });
     }
@@ -388,11 +363,24 @@ export default class Carousel extends Component {
      */
     onKeyDown(e) {
         switch (e.key) {
-            case 'ArrowLeft':   this.prevItem(); break;
-            case 'ArrowUp':     this.showItem(this.getFirstIndex()); break;
-            case 'ArrowRight':  this.nextItem(); break;
-            case 'ArrowDown':   this.showItem(this.getLastIndex()); break;
-            default: return;
+            case 'ArrowLeft':
+                this.prevItem();
+                break;
+
+            case 'ArrowUp':
+                this.showItem(this.getFirstIndex());
+                break;
+
+            case 'ArrowRight':
+                this.nextItem();
+                break;
+
+            case 'ArrowDown':
+                this.showItem(this.getLastIndex());
+                break;
+
+            default:
+                return;
         }
 
         e.preventDefault();
@@ -422,6 +410,33 @@ export default class Carousel extends Component {
     onResize() {
         this.calculateVisibleItems();
     }
+
+    /**
+     * Render the wrapping carousel element.
+     *
+     * @returns {JSX}
+     */
+    render() {
+        let props = this.props;
+
+        return (
+            <div role="tablist"
+                id={this.formatID('carousel')}
+                className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
+                    'is-stopped': this.state.stopped,
+                    'is-animating': this.state.animating,
+                    'no-next': (!props.loop && this.isAtLast()),
+                    'no-prev': (!props.loop && this.isAtFirst())
+                })}
+                aria-live={props.autoStart ? 'assertive' : 'off'}
+                onKeyDown={this.onKeyDown}
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}>
+
+                {props.children}
+            </div>
+        );
+    }
 }
 
 Carousel.childContextTypes = CONTEXT_TYPES;
@@ -445,6 +460,7 @@ Carousel.defaultProps = {
 };
 
 Carousel.propTypes = {
+    children: PropTypes.node,
     component: PropTypes.string,
     className: PropTypes.string,
     modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),

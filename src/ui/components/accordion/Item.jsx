@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint react/jsx-handler-names: 0 */
+
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Header from './Header';

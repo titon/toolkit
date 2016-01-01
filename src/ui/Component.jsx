@@ -4,15 +4,34 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Titon from '../Titon';
-import assign from '../../node_modules/lodash/object/assign';
+import assign from 'lodash/object/assign';
 import bem from '../ext/utility/bem';
 import classBuilder from '../ext/utility/classBuilder';
 import generateUID from '../ext/utility/generateUID';
 import '../poly/performance/now';
 
+class TitonEvent {
+    /**
+     * A fake event object that is passed to listeneres within `Component`.
+     *
+     * @param {String} name
+     * @param {String} uid
+     * @param {String} event
+     */
+    constructor(name, uid, event) {
+        this.uid = uid;
+        this.type = event;
+        this.component = name;
+        this.timestamp = Date.now();
+    }
+}
+
 export default class Component extends React.Component {
+    /**
+     * Set the default state and version.
+     */
     constructor() {
         super();
 
@@ -24,8 +43,6 @@ export default class Component extends React.Component {
      * Re-bind the context for every supplied method.
      * Will automatically bind all methods that start with "on",
      * assuming they are event handlers.
-     *
-     * @param {...} methods
      */
     autoBind(...methods) {
         // Automatically inject all methods that start with "on"
@@ -46,6 +63,8 @@ export default class Component extends React.Component {
      * @param {Array} [args]
      */
     emitEvent(event, args = []) {
+        /* eslint no-console: 0 */
+
         let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
             listeners = this.props[propName],
             debug = this.props.debug || Titon.options.debug;
@@ -74,7 +93,6 @@ export default class Component extends React.Component {
      * Append the CSS namespace if applicable.
      *
      * @param {String} className
-     * @param {...} [params]
      * @returns {String}
      */
     formatClass(className, ...params) {
@@ -84,7 +102,6 @@ export default class Component extends React.Component {
     /**
      * Generate a unique HTML ID based on the passed parameters.
      *
-     * @param {...} params
      * @returns {String}
      */
     formatID(...params) {
@@ -152,11 +169,10 @@ export default class Component extends React.Component {
     }
 }
 
-class TitonEvent {
-    constructor(name, uid, event) {
-        this.uid = uid;
-        this.type = event;
-        this.component = name;
-        this.timestamp = Date.now();
-    }
-}
+Component.defaultProps = {
+    debug: false
+};
+
+Component.propTypes = {
+    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+};

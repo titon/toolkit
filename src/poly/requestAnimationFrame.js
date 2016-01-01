@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint operator-linebreak: 0 */
+
 if (!window.requestAnimationFrame) {
     window.requestAnimationFrame =
         window.webkitRequestAnimationFrame ||

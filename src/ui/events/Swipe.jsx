@@ -26,29 +26,6 @@ export default class Swipe extends Component {
     }
 
     /**
-     * Render the wrapper that binds mouse and touch events.
-     *
-     * @returns {JSX}
-     */
-    render() {
-        let props = this.props,
-            enabled = props.enabled,
-            className = enabled ? bem('event', '', 'swipe') : '';
-
-        return React.createElement(props.tagName, {
-            className: this.formatClass(className, props.className),
-            style: props.style || {},
-            onTouchStart: (enabled && touch) ? this.onStart : null,
-            onTouchEnd: (enabled && touch) ? this.onStop : null,
-            onTouchMove: (enabled && touch) ? this.onMove : null,
-            onTouchCancel: (enabled && touch) ? this.onCancel : null,
-            onMouseDown: (enabled && !touch) ? this.onStart : null,
-            onMouseUp: (enabled && !touch) ? this.onStop : null,
-            onMouseMove: (enabled && !touch) ? this.onMove : null
-        }, props.children);
-    }
-
-    /**
      * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
      *
      * TODO: Add support for non-px and percentages, maybe?
@@ -140,6 +117,8 @@ export default class Swipe extends Component {
      * Using `touchcancel` is also rather unpredictable, as described here:
      *
      * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
+     *
+     * @param {Event} e
      */
     onMove(e) {
         if (!this.state.swiping) {
@@ -190,16 +169,18 @@ export default class Swipe extends Component {
      */
     onStop(e) {
         let start = this.state.startCoords,
-            stop = this.packageCoordinates(e);
+            stop = this.packageCoordinates(e),
+            props = this.props,
+            x = 0,
+            y = 0,
+            direction = '';
 
         if (!start || !stop) {
             return;
         }
 
-        let props = this.props,
-            x = stop.x - start.x,
-            y = stop.y - start.y,
-            direction;
+        x = stop.x - start.x;
+        y = stop.y - start.y;
 
         if ((stop.time - start.time) <= props.duration) {
             if (abs(x) >= props.distance && abs(y) <= props.restraint) {
@@ -219,6 +200,29 @@ export default class Swipe extends Component {
         }
 
         this.resetState();
+    }
+
+    /**
+     * Render the wrapper that binds mouse and touch events.
+     *
+     * @returns {JSX}
+     */
+    render() {
+        let props = this.props,
+            enabled = props.enabled,
+            className = enabled ? bem('event', '', 'swipe') : '';
+
+        return React.createElement(props.tagName, {
+            className: this.formatClass(className, props.className),
+            style: props.style || {},
+            onTouchStart: (enabled && touch) ? this.onStart : null,
+            onTouchEnd: (enabled && touch) ? this.onStop : null,
+            onTouchMove: (enabled && touch) ? this.onMove : null,
+            onTouchCancel: (enabled && touch) ? this.onCancel : null,
+            onMouseDown: (enabled && !touch) ? this.onStart : null,
+            onMouseUp: (enabled && !touch) ? this.onStop : null,
+            onMouseMove: (enabled && !touch) ? this.onMove : null
+        }, props.children);
     }
 }
 

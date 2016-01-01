@@ -4,8 +4,8 @@
  * @link        http://titon.io
  */
 
-import forOwn from '../../../node_modules/lodash/object/forOwn';
-import isPlainObject from '../../../node_modules/lodash/lang/isPlainObject';
+import forOwn from 'lodash/object/forOwn';
+import isPlainObject from 'lodash/lang/isPlainObject';
 
 /**
  * The `setter` decorator will overload a setter method with key and value argument to

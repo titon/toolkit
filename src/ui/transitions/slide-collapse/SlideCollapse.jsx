@@ -22,32 +22,24 @@ export default class SlideCollapse extends Component {
     }
 
     /**
-     * Render the wrapper that triggers slide collapse transitions.
-     * Requires a literal size of the element to work correctly.
-     *
-     * @returns {JSX}
+     * Bind events.
      */
-    render() {
-        let style = {},
-            className = this.formatClass(
-                'transition',
-                bem('slide', 'collapse'),
-                bem('slide', 'collapse', this.props.direction),
-                { 'is-expanded': this.props.expanded }
-            );
+    componentWillMount() {
+        window.addEventListener('resize', this.onResize);
+    }
 
-        // Don't force a max on the initial render
-        if (this.state.size >= 0 && this.props.expanded) {
-            style = {
-                [(this.props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
-            };
-        }
+    /**
+     * Once mounted, calculate the raw width or height of the element.
+     */
+    componentDidMount() {
+        this.calculateSize();
+    }
 
-        return (
-            <div className={className} style={style}>
-                {this.props.children}
-            </div>
-        );
+    /**
+     * Unbind events.
+     */
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize);
     }
 
     /**
@@ -71,31 +63,40 @@ export default class SlideCollapse extends Component {
     }
 
     /**
-     * Once mounted, calculate the raw width or height of the element.
-     */
-    componentDidMount() {
-        this.calculateSize();
-    }
-
-    /**
-     * Bind events.
-     */
-    componentWillMount() {
-        window.addEventListener('resize', this.onResize);
-    }
-
-    /**
-     * Unbind events.
-     */
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize);
-    }
-
-    /**
      * When the browser is resized, re-calculate the element width or height.
      */
     onResize() {
         this.calculateSize();
+    }
+
+    /**
+     * Render the wrapper that triggers slide collapse transitions.
+     * Requires a literal size of the element to work correctly.
+     *
+     * @returns {JSX}
+     */
+    render() {
+        let style = {},
+            className = this.formatClass(
+                'transition',
+                bem('slide', 'collapse'),
+                bem('slide', 'collapse', this.props.direction),
+                { 'is-expanded': this.props.expanded }
+            );
+
+        // Don't force a max on the initial render
+        if (this.state.size >= 0 && this.props.expanded) {
+            style = {
+                [(this.props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
+            };
+        }
+
+        return (
+            <div className={className}
+                style={style}>
+                {this.props.children}
+            </div>
+        );
     }
 }
 
@@ -105,6 +106,7 @@ SlideCollapse.defaultProps = {
 };
 
 SlideCollapse.propTypes = {
+    children: PropTypes.node,
     direction: PropTypes.oneOf(['vertical', 'horizontal']),
     expanded: PropTypes.bool.isRequired
 };

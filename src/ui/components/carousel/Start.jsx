@@ -10,22 +10,23 @@ import collectionOf from '../../../ext/prop-types/collectionOf';
 import { CONTEXT_TYPES } from './ContextTypes';
 
 export default class Start extends Component {
-    render() {
-        return (
-            <button type="button" role="button"
-                className={this.formatClass(this.props.className)}
-                onClick={this.onClick.bind(this)}>
-                {this.props.children}
-            </button>
-        );
-    }
-
     /**
      * Handles clicking the start button.
      */
     onClick() {
         this.context.startCycle();
         this.emitEvent('click');
+    }
+
+    render() {
+        return (
+            <button
+                type="button" role="button"
+                className={this.formatClass(this.props.className)}
+                onClick={this.onClick.bind(this)}>
+                {this.props.children}
+            </button>
+        );
     }
 }
 
@@ -37,6 +38,7 @@ Start.defaultProps = {
 };
 
 Start.propTypes = {
+    children: PropTypes.node,
     className: PropTypes.string,
     onClick: collectionOf.func
 };

@@ -35,6 +35,7 @@ Item.defaultProps = {
 };
 
 Item.propTypes = {
+    children: PropTypes.node,
     className: PropTypes.string,
     index: PropTypes.number.isRequired
 };

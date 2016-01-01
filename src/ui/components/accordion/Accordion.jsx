@@ -24,24 +24,19 @@ export default class Accordion extends Component {
     }
 
     /**
-     * Render the wrapping accordion element.
+     * Define a context that is passed to all children.
      *
-     * @returns {JSX}
+     * @returns {Object}
      */
-    render() {
-        return (
-            <ul role="tablist"
-                id={this.formatID('accordion')}
-                className={this.formatClass(this.props.className, this.props.component, {
-                    'is-multiple': this.props.multiple,
-                    'is-collapsible': this.props.collapsible
-                })}
-                aria-live="off"
-                aria-multiselectable={this.props.multiple}>
-
-                {this.props.children}
-            </ul>
-        );
+    getChildContext() {
+        return {
+            uid: this.uid,
+            activeIndices: this.state.indices,
+            hideItem: this.hideItem,
+            showItem: this.showItem,
+            isItemCollapsible: this.isItemCollapsible,
+            isItemActive: this.isItemActive
+        };
     }
 
     /**
@@ -49,6 +44,17 @@ export default class Accordion extends Component {
      */
     componentWillMount() {
         this.showItem(this.props.defaultIndex);
+    }
+
+    /**
+     * Only update if item indices are different.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     * @returns {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.props.multiple || nextState.indices[0] !== this.state.indices[0]);
     }
 
     /**
@@ -69,33 +75,6 @@ export default class Accordion extends Component {
      */
     componentDidUpdate(prevProps, prevState) {
         this.emitEvent('shown', [this.state.indices, prevState.indices]);
-    }
-
-    /**
-     * Only update if item indices are different.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.multiple || nextState.indices[0] !== this.state.indices[0]);
-    }
-
-    /**
-     * Define a context that is passed to all children.
-     *
-     * @returns {Object}
-     */
-    getChildContext() {
-        return {
-            uid: this.uid,
-            activeIndices: this.state.indices,
-            hideItem: this.hideItem,
-            showItem: this.showItem,
-            isItemCollapsible: this.isItemCollapsible,
-            isItemActive: this.isItemActive
-        };
     }
 
     /**
@@ -152,6 +131,27 @@ export default class Accordion extends Component {
      */
     isItemActive(index) {
         return (this.state.indices.indexOf(index) >= 0);
+    }
+
+    /**
+     * Render the wrapping accordion element.
+     *
+     * @returns {JSX}
+     */
+    render() {
+        return (
+            <ul role="tablist"
+                id={this.formatID('accordion')}
+                className={this.formatClass(this.props.className, this.props.component, {
+                    'is-multiple': this.props.multiple,
+                    'is-collapsible': this.props.collapsible
+                })}
+                aria-live="off"
+                aria-multiselectable={this.props.multiple}>
+
+                {this.props.children}
+            </ul>
+        );
     }
 }
 

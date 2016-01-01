@@ -4,12 +4,29 @@
  * @link        http://titon.io
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import collectionOf from '../../../ext/prop-types/collectionOf';
 import tabIndex from '../../../ext/utility/tabIndex';
 import { CONTEXT_TYPES } from './ContextTypes';
 
 export default class Header extends Component {
+    /**
+     * Update the index on the parent component when clicked.
+     */
+    onClick() {
+        let index = this.props.index,
+            context = this.context;
+
+        if (context.isItemCollapsible(index)) {
+            context.hideItem(index);
+        } else {
+            context.showItem(index);
+        }
+
+        this.emitEvent('click', [index]);
+    }
+
     /**
      * Render the accordion item header tab and set the relevant active state.
      *
@@ -35,22 +52,21 @@ export default class Header extends Component {
             </header>
         );
     }
-
-    /**
-     * Update the index on the parent component when clicked.
-     */
-    onClick() {
-        let index = this.props.index,
-            context = this.context;
-
-        if (context.isItemCollapsible(index)) {
-            context.hideItem(index);
-        } else {
-            context.showItem(index);
-        }
-
-        this.emitEvent('click', [index]);
-    }
 }
 
 Header.contextTypes = CONTEXT_TYPES;
+
+Header.defaultProps = {
+    className: 'accordion-header',
+    active: false,
+    index: -1,
+    onClick: null
+};
+
+Header.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    active: PropTypes.bool.isRequired,
+    index: PropTypes.number,
+    onClick: collectionOf.func
+};

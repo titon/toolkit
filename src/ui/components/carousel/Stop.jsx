@@ -10,6 +10,14 @@ import collectionOf from '../../../ext/prop-types/collectionOf';
 import { CONTEXT_TYPES } from './ContextTypes';
 
 export default class Stop extends Component {
+    /**
+     * Handles clicking the stop button.
+     */
+    onClick() {
+        this.context.stopCycle();
+        this.emitEvent('click');
+    }
+
     render() {
         return (
             <button type="button" role="button"
@@ -18,14 +26,6 @@ export default class Stop extends Component {
                 {this.props.children}
             </button>
         );
-    }
-
-    /**
-     * Handles clicking the stop button.
-     */
-    onClick() {
-        this.context.stopCycle();
-        this.emitEvent('click');
     }
 }
 
@@ -37,6 +37,7 @@ Stop.defaultProps = {
 };
 
 Stop.propTypes = {
+    children: PropTypes.node,
     className: PropTypes.string,
     onClick: collectionOf.func
 };
