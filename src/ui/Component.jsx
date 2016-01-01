@@ -14,7 +14,7 @@ import '../poly/performance/now';
 
 class TitonEvent {
     /**
-     * A fake event object that is passed to listeneres within `Component`.
+     * A fake event object that is passed to listeners within `Component`.
      *
      * @param {String} name
      * @param {String} uid
@@ -70,7 +70,7 @@ export default class Component extends React.Component {
             debug = this.props.debug || Titon.options.debug;
 
         if (debug && window.console) {
-            console.log(this.constructor.name + '#' + this.uid, performance.now().toFixed(3), event, ...args);
+            console.log(this.constructor.name + '#' + this.getUID(), performance.now().toFixed(3), event, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);

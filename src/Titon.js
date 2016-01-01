@@ -6,7 +6,7 @@
 
 import flags from './ext/flags';
 
-const Titon = window.Titon = {
+const Titon = {
 
     /** Current version. */
     version: '%version%',
@@ -32,5 +32,7 @@ const Titon = window.Titon = {
     /** Runtime flags. */
     flags
 };
+
+window.Titon = Titon;
 
 export default Titon;

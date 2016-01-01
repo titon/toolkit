@@ -147,7 +147,7 @@ $titon-settings-breakpoints: (
     "xlarge": (1681px, null),
 ) !default;
 
-//------------------------------ Components & Behaviors ------------------------------//
+//------------------------------ Components ------------------------------//
 
 $titon-global: (
     "class-small": ".small",
@@ -157,6 +157,7 @@ $titon-global: (
     "class-pill": ".pill",
     "class-skew": ".skew",
     "class-end": ".end",
+    "class-transition": bem("transition"),
     "span-count": 12
 ) !default;
 
@@ -164,7 +165,6 @@ $titon-accordion: (
     "class": bem("accordion"),
     "class-header": bem("accordion", "header"),
     "class-section": bem("accordion", "section"),
-    "class-body": bem("accordion", "body"),
     "transition": theme-setting("transition"),
 ) !default;
 
@@ -463,6 +463,16 @@ $titon-typography: (
     "h4-font-size": 1.8rem,
     "h5-font-size": 1.5rem,
     "h6-font-size": 1.2rem,
+) !default;
+
+//------------------------------ Transitions ------------------------------//
+
+$titon-slide-collapse: (
+    "class": bem("slide-collapse"),
+    "class-modifier-vertical": bem("slide-collapse", "", "vertical"),
+    "class-modifier-horizontal": bem("slide-collapse", "", "horizontal"),
+    "modifiers": ("vertical", "horizontal"),
+    "transition": theme-setting("transition"),
 ) !default;
 
 //------------------------------ Imports ------------------------------//

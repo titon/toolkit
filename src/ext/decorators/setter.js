@@ -4,7 +4,6 @@
  * @link        http://titon.io
  */
 
-import forOwn from 'lodash/object/forOwn';
 import isPlainObject from 'lodash/lang/isPlainObject';
 
 /**
@@ -25,7 +24,7 @@ export default function setter(target, name, descriptor) {
 
     descriptor.value = function(key, value) {
         if (isPlainObject(key)) {
-            forOwn(key, (v, k) => func.call(this, k, v));
+            Object.keys(key).forEach(k => func.call(this, k, key[k]));
 
         } else if (key) {
             func.call(this, key, value);

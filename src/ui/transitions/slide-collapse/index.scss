@@ -4,27 +4,33 @@
  * @link        http://titon.io
  */
 
-.transition {
-    &.slide-collapse {
-        position: relative;
-        transition: all .3s ease-in-out;
-    }
-
-    &.slide-collapse--vertical {
-        overflow-y: hidden;
-        max-height: 0;
-
-        &.is-expanded {
-            max-height: 100%;
+@include export("slide-collapse") {
+    #{map-get($titon-global, "class-transition")} {
+        &#{map-get($titon-slide-collapse, "class")} {
+            position: relative;
+            transition: all map-get($titon-slide-collapse, "transition") ease-in-out;
         }
-    }
 
-    &.slide-collapse--horizontal {
-        overflow-x: hidden;
-        max-width: 0;
+        @if (is-feature-enabled("all-modifiers") or index(map-get($titon-slide-collapse, "modifiers"), "vertical")) {
+            &#{map-get($titon-slide-collapse, "class-modifier-vertical")} {
+                overflow-y: hidden;
+                max-height: 0;
 
-        &.is-expanded {
-            max-width: 100%;
+                &.is-expanded {
+                    max-height: 100%;
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-modifiers") or index(map-get($titon-slide-collapse, "modifiers"), "horizontal")) {
+            &#{map-get($titon-slide-collapse, "class-modifier-horizontal")} {
+                overflow-x: hidden;
+                max-width: 0;
+
+                &.is-expanded {
+                    max-width: 100%;
+                }
+            }
         }
     }
 }
