@@ -16,13 +16,12 @@
     "bugs": "https://github.com/titon/toolkit/issues",
     "repository": "github:titon/toolkit",
 
-    "main": "src/index.js",
     "scripts": {
         "env": "env",
 
-        "js": "browserify --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/test.js > ./build/titon.js",
-        "js:lint": "eslint --config ./.eslint.json --ext .js,.jsx ./src",
-        "js:watch": "watchify ./src/test.js -o ./build/titon.js --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ]",
+        "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/test.js > ./build/titon.js",
+        "js:lint": "eslint --config ./.eslint.json ./src",
+        "js:watch": "watchify ./src/test.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] ]",
 
         "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/test.scss ./build/titon.css",
         "css:lint": "sass-lint --config ./.scsslint.yml",

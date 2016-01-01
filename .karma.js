@@ -34,7 +34,6 @@ module.exports = function(config) {
 
         browserify: {
             debug: true,
-            extensions: ['.js', '.jsx'],
             ignoreMissing: true,
             transform: [ ['babelify', require('./.babel.json')] ]
         }
