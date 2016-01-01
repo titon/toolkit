@@ -5,17 +5,17 @@ module.exports = function(config) {
         frameworks: ['jasmine', 'browserify'],
 
         files: [
-            'tests-3.0/helpers.js',
-            'tests-3.0/**/*-test.js'
+            'tests/helpers.js',
+            'tests/**/*-test.js'
         ],
 
         exclude: [
-            'js-3.0/app.js'
+            'src/app.js'
         ],
 
         preprocessors: {
-            'js-3.0/**/*.js': ['browserify'],
-            'tests-3.0/**/*-test.js': ['browserify']
+            'src/**/*.js': ['browserify'],
+            'tests/**/*-test.js': ['browserify']
         },
 
         reporters: ['progress'],
