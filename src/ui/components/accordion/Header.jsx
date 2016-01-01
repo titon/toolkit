@@ -1,0 +1,56 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+import React from 'react';
+import Component from '../../Component';
+import tabIndex from '../../../ext/utility/tabIndex';
+import { CONTEXT_TYPES } from './ContextTypes';
+
+export default class Header extends Component {
+    /**
+     * Render the accordion item header tab and set the relevant active state.
+     *
+     * @returns {JSX}
+     */
+    render() {
+        let index = this.props.index,
+            active = this.props.active;
+
+        return (
+            <header role="tab"
+                id={this.formatID('accordion-header', index)}
+                className={this.formatClass(this.props.className, {
+                    'is-active': active
+                })}
+                aria-controls={this.formatID('accordion-section', index)}
+                aria-selected={active}
+                aria-expanded={active}
+                tabIndex={tabIndex(this)}
+                onClick={this.onClick.bind(this)}>
+
+                {this.props.children}
+            </header>
+        );
+    }
+
+    /**
+     * Update the index on the parent component when clicked.
+     */
+    onClick() {
+        let index = this.props.index,
+            context = this.context;
+
+        if (context.isItemCollapsible(index)) {
+            context.hideItem(index);
+        } else {
+            context.showItem(index);
+        }
+
+        this.emitEvent('click', [index]);
+    }
+}
+
+Header.contextTypes = CONTEXT_TYPES;

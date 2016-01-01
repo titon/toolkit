@@ -6,11 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import bem from '../../ext/utility/bem';
-import classBuilder from '../../ext/utility/classBuilder';
+import Component from '../../Component';
+import bem from '../../../ext/utility/bem';
 import debounce from 'lodash/function/debounce';
 
-export default class SlideCollapse extends React.Component {
+export default class SlideCollapse extends Component {
     constructor() {
         super();
 
@@ -29,11 +29,11 @@ export default class SlideCollapse extends React.Component {
      */
     render() {
         let style = {},
-            className = classBuilder(
+            className = this.formatClass(
                 'transition',
                 bem('slide', 'collapse'),
                 bem('slide', 'collapse', this.props.direction),
-                { 'show': this.props.expanded }
+                { 'is-expanded': this.props.expanded }
             );
 
         // Don't force a max on the initial render

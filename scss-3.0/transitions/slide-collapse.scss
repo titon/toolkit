@@ -6,7 +6,7 @@
         overflow-y: hidden;
         max-height: 0;
 
-        &.show {
+        &.is-expanded {
             max-height: 100%;
         }
     }
@@ -15,7 +15,7 @@
         overflow-x: hidden;
         max-width: 0;
 
-        &.show {
+        &.is-expanded {
             max-width: 100%;
         }
     }

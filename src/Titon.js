@@ -6,7 +6,7 @@
 
 import flags from './ext/flags';
 
-let Titon = window.Titon = {
+const Titon = window.Titon = {
 
     /** Current version. */
     version: '%version%',

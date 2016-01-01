@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Titon from '../Titon';
-import assign from 'lodash/object/assign';
+import assign from '../../node_modules/lodash/object/assign';
 import bem from '../ext/utility/bem';
 import classBuilder from '../ext/utility/classBuilder';
 import generateUID from '../ext/utility/generateUID';

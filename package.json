@@ -21,17 +21,17 @@
         "env": "env",
 
         "build": "npm run build:js && npm run build:css",
-        "build:js": "browserify --extension=jsx -t [ babelify --presets [ es2015 react ] ] ./js-3.0/app.js > ./build/titon.js",
+        "build:js": "browserify --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/app.js > ./build/titon.js",
         "build:css": "node-sass --indent-width 4 --output-style expanded --source-map ./build ./scss-3.0/titon.scss ./build/titon.css && postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
 
         "watch": "npm run watch:js && npm run watch:css",
-        "watch:js": "watchify ./js-3.0/app.js -o ./build/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]",
+        "watch:js": "watchify ./js-3.0/app.js -o ./build/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react stage-1 ] ]",
         "watch:css": "",
 
-        "lint": "eslint --config ./.eslint.json --ext .js,.jsx ./js-3.0 ./tests-3.0",
+        "lint": "eslint --config ./.eslint.json --ext .js,.jsx ./src",
         "test": "karma start ./.karma.js",
 
-        "publish": "babel --presets es2015,react --out-dir ./dist ./js-3.0"
+        "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./js-3.0"
     },
 
     "peerDependencies": {

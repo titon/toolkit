@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Accordion from './ui/components/Accordion';
-import Carousel from './ui/components/Carousel';
+import Accordion from './ui/components/accordion';
+import Carousel from './ui/components/carousel';
 
 const log = function() {
     console.log(...arguments);
@@ -27,14 +27,14 @@ ReactDOM.render(
 
         <Carousel.TabList onClick={log} />
 
-        <Carousel.NextButton onClick={log}>Next</Carousel.NextButton>
-        <Carousel.PrevButton onClick={log}>Prev</Carousel.PrevButton>
-        <Carousel.StartButton onClick={log}>Start</Carousel.StartButton>
-        <Carousel.StopButton onClick={log}>Stop</Carousel.StopButton>
+        <Carousel.Next onClick={log}>Next</Carousel.Next>
+        <Carousel.Prev onClick={log}>Prev</Carousel.Prev>
+        <Carousel.Start onClick={log}>Start</Carousel.Start>
+        <Carousel.Stop onClick={log}>Stop</Carousel.Stop>
     </Carousel>
 
     /*<Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>
-        <Accordion.Item header="Header #1" key="0" index={0}>
+        <Accordion.Item header="Header #1" key="0" index={0} onClick={log}>
             <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
 
             <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
