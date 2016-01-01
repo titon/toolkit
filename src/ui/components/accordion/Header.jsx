@@ -37,7 +37,8 @@ export default class Header extends Component {
             active = this.props.active;
 
         return (
-            <header role="tab"
+            <header
+                role="tab"
                 id={this.formatID('accordion-header', index)}
                 className={this.formatClass(this.props.className, {
                     'is-active': active

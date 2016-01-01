@@ -92,8 +92,7 @@ export default class SlideCollapse extends Component {
         }
 
         return (
-            <div className={className}
-                style={style}>
+            <div className={className} style={style}>
                 {this.props.children}
             </div>
         );

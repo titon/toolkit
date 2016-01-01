@@ -18,6 +18,11 @@ export default class Next extends Component {
         this.emitEvent('click');
     }
 
+    /**
+     * Render a button that cycles to the next item.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
             <button

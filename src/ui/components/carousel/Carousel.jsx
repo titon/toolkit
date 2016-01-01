@@ -154,10 +154,6 @@ export default class Carousel extends Component {
      * @returns {Number}
      */
     countItems() {
-        if (this.itemCount) {
-            return this.itemCount;
-        }
-
         let count = 0;
 
         Children.forEach(this.props.children, child => {
@@ -166,7 +162,7 @@ export default class Carousel extends Component {
             }
         });
 
-        return this.itemCount = count;
+        return count;
     }
 
     /**
@@ -420,7 +416,8 @@ export default class Carousel extends Component {
         let props = this.props;
 
         return (
-            <div role="tablist"
+            <div
+                role="tablist"
                 id={this.formatID('carousel')}
                 className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
                     'is-stopped': this.state.stopped,

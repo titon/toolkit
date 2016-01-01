@@ -143,10 +143,6 @@ export default class ItemList extends Component {
         let context = this.context,
             props = this.generateNestedProps(this.props, 'swipe');
 
-        // Explicitly define certain props
-        props.tagName = 'ol';
-        props.style = { transform: this.getTranslateOffset(context.visibleCount) };
-
         // Trigger our listeners first
         props.onSwipeUp.unshift(context.nextItem);
         props.onSwipeRight.unshift(context.prevItem);
@@ -156,7 +152,9 @@ export default class ItemList extends Component {
         return (
             <div className={this.formatClass(this.props.className)} data-carousel-items={true}>
                 <Swipe {...props}>
-                    {this.renderChildren()}
+                    <ol style={{ transform: this.getTranslateOffset(context.visibleCount) }}>
+                        {this.renderChildren()}
+                    </ol>
                 </Swipe>
             </div>
         );

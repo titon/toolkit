@@ -11,6 +11,11 @@ import collectionOf from '../../../ext/prop-types/collectionOf';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class TabList extends Component {
+    /**
+     * Render a list of tabs that can be clicked on to jump to specific items.
+     *
+     * @returns {JSX}
+     */
     render() {
         let children = [];
 

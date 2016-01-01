@@ -18,6 +18,11 @@ export default class Start extends Component {
         this.emitEvent('click');
     }
 
+    /**
+     * Render a button that starts the automatic cycle.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
             <button

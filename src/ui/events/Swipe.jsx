@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
 import { touch } from '../../ext/flags';
 import bem from '../../ext/utility/bem';
@@ -203,33 +203,44 @@ export default class Swipe extends Component {
     }
 
     /**
-     * Render the wrapper that binds mouse and touch events.
+     * Rendering requires a single child, that will be cloned and modified
+     * by passing custom touch and swipe events.
      *
      * @returns {JSX}
      */
     render() {
-        let props = this.props,
-            enabled = props.enabled,
-            className = enabled ? bem('event', '', 'swipe') : '';
+        let child = Children.only(this.props.children),
+            props = {
+                className: this.formatClass(this.props.className)
+            };
 
-        return React.createElement(props.tagName, {
-            className: this.formatClass(className, props.className),
-            style: props.style || {},
-            onTouchStart: (enabled && touch) ? this.onStart : null,
-            onTouchEnd: (enabled && touch) ? this.onStop : null,
-            onTouchMove: (enabled && touch) ? this.onMove : null,
-            onTouchCancel: (enabled && touch) ? this.onCancel : null,
-            onMouseDown: (enabled && !touch) ? this.onStart : null,
-            onMouseUp: (enabled && !touch) ? this.onStop : null,
-            onMouseMove: (enabled && !touch) ? this.onMove : null
-        }, props.children);
+        // Overwrite any previous touch or mouse events
+        if (this.props.enabled) {
+            if (touch) {
+                props.onTouchStart = this.onStart;
+                props.onTouchEnd = this.onStop;
+                props.onTouchMove = this.onMove;
+                props.onTouchCancel = this.onCancel;
+            } else {
+                props.onMouseDown = this.onStart;
+                props.onMouseUp = this.onStop;
+                props.onMouseMove = this.onMove;
+            }
+        }
+
+        // Append the events class name
+        if (child.props.className) {
+            props.className += ' ' + child.props.className;
+        }
+
+        return React.cloneElement(child, props);
     }
 }
 
 Swipe.defaultProps = {
     enabled: true,
-    tagName: 'div',
-    className: '',
+    draggable: true,
+    className: 'event-swipe',
     duration: 1000,     // Maximum time in milliseconds to travel
     distance: 50,       // Minimum distance required to travel
     restraint: 75,      // Maximum distance to travel in the opposite direction
@@ -242,7 +253,7 @@ Swipe.defaultProps = {
 
 Swipe.propTypes = {
     enabled: PropTypes.bool.isRequired,
-    tagName: PropTypes.string,
+    draggable: PropTypes.bool,
     className: PropTypes.string,
     duration: PropTypes.number,
     distance: PropTypes.number,

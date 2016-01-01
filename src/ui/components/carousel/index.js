@@ -14,6 +14,7 @@ import Next from './Next';
 import Prev from './Prev';
 import CONTEXT_TYPES from './ContextTypes';
 
+Carousel.CONTEXT_TYPES = CONTEXT_TYPES;
 Carousel.Item = Item;
 Carousel.ItemList = ItemList;
 Carousel.TabList = TabList;

@@ -18,6 +18,11 @@ export default class Prev extends Component {
         this.emitEvent('click');
     }
 
+    /**
+     * Render a button that cycles to the previous item.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
             <button

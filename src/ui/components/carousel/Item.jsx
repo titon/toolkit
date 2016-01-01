@@ -9,6 +9,11 @@ import Component from '../../Component';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+    /**
+     * Render the individual list item.
+     *
+     * @returns {JSX}
+     */
     render() {
         let index = this.props.index,
             active = this.context.isItemActive(index);
@@ -30,8 +35,7 @@ export default class Item extends Component {
 Item.contextTypes = CONTEXT_TYPES;
 
 Item.defaultProps = {
-    className: 'carousel-item',
-    index: -1
+    className: 'carousel-item'
 };
 
 Item.propTypes = {

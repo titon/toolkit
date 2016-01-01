@@ -18,6 +18,11 @@ export default class Tab extends Component {
         this.emitEvent('click', [this.props.index]);
     }
 
+    /**
+     * Render a button that cycles to a specific item.
+     *
+     * @returns {JSX}
+     */
     render() {
         let index = this.props.index,
             active = this.context.isItemActive(index);
@@ -35,6 +40,7 @@ export default class Tab extends Component {
                     aria-expanded={active}
                     tabIndex={tabIndex(this)}
                     onClick={this.onClick.bind(this)}>
+                    <span />
                 </button>
             </li>
         );
@@ -44,11 +50,10 @@ export default class Tab extends Component {
 Tab.contextTypes = CONTEXT_TYPES;
 
 Tab.defaultProps = {
-    index: -1,
     className: 'carousel-tab'
 };
 
 Tab.propTypes = {
-    index: PropTypes.number.isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    index: PropTypes.number.isRequired
 };

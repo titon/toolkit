@@ -18,9 +18,15 @@ export default class Stop extends Component {
         this.emitEvent('click');
     }
 
+    /**
+     * Render a button that stops the cycle.
+     *
+     * @returns {JSX}
+     */
     render() {
         return (
-            <button type="button" role="button"
+            <button
+                type="button" role="button"
                 className={this.formatClass(this.props.className)}
                 onClick={this.onClick.bind(this)}>
                 {this.props.children}

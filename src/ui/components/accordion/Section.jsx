@@ -21,7 +21,8 @@ export default class Section extends Component {
 
         return (
             <SlideCollapse expanded={expanded}>
-                <section role="tabpanel"
+                <section
+                    role="tabpanel"
                     id={this.formatID('accordion-section', index)}
                     className={this.formatClass(this.props.className, {
                         'is-expanded': expanded
