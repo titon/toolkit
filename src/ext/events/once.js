@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2015, The Titon Project
+ * @copyright   2010-2016, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -9,8 +9,8 @@
 /**
  * Wrap a function that will only be triggered once when set as an event listener.
  *
- * @param {function} func
- * @returns {function}
+ * @param {Function} func
+ * @returns {Function}
  */
 export default function once(func) {
     var listener = function(event) {

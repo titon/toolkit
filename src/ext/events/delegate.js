@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2015, The Titon Project
+ * @copyright   2010-2016, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -11,9 +11,9 @@ import '../../poly/element/matches';
 /**
  * Wrap a function that delegates the execution until the target element matches a selector.
  *
- * @param {string} selector
- * @param {function} func
- * @returns {function}
+ * @param {String} selector
+ * @param {Function} func
+ * @returns {Function}
  */
 export default function delegate(selector, func) {
     return function(event) {

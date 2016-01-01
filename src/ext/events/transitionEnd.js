@@ -1,5 +1,5 @@
 /**
- * @copyright   2010-2015, The Titon Project
+ * @copyright   2010-2016, The Titon Project
  * @license     http://opensource.org/licenses/BSD-3-Clause
  * @link        http://titon.io
  */
@@ -12,7 +12,7 @@ import once from './once';
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
  *
  * @param {HTMLElement} element
- * @param {function} func
+ * @param {Function} func
  * @returns {HTMLElement}
  */
 export default function transitionEnd(element, func) {
