@@ -17,7 +17,7 @@ To ensure support and adoption on a wide array of devices, Toolkit follows a mob
 To ensure proper viewport rendering and touch capabilities on mobile devices, add the appropriate viewport meta tag to `<head>`.
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
 ## Fluid & Responsiveness ##
