@@ -6,16 +6,19 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import collectionOf from '../../../ext/prop-types/collectionOf';
 import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Tab extends Component {
     /**
      * Handles clicking the tab buttons.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         this.context.showItem(this.props.index);
-        this.emitEvent('click', [this.props.index]);
+        this.handleEvent('click', e);
     }
 
     /**
@@ -55,5 +58,6 @@ Tab.defaultProps = {
 
 Tab.propTypes = {
     className: PropTypes.string,
-    index: PropTypes.number.isRequired
+    index: PropTypes.number.isRequired,
+    onClick: collectionOf.func
 };

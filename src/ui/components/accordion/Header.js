@@ -13,8 +13,10 @@ import CONTEXT_TYPES from './ContextTypes';
 export default class Header extends Component {
     /**
      * Update the index on the parent component when clicked.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         let index = this.props.index,
             context = this.context;
 
@@ -24,7 +26,7 @@ export default class Header extends Component {
             context.showItem(index);
         }
 
-        this.emitEvent('click', [index]);
+        this.handleEvent('click', e);
     }
 
     /**

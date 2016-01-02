@@ -12,10 +12,12 @@ import CONTEXT_TYPES from './ContextTypes';
 export default class Start extends Component {
     /**
      * Handles clicking the start button.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         this.context.startCycle();
-        this.emitEvent('click');
+        this.handleEvent('click', e);
     }
 
     /**
@@ -38,8 +40,7 @@ export default class Start extends Component {
 Start.contextTypes = CONTEXT_TYPES;
 
 Start.defaultProps = {
-    className: 'carousel-start',
-    onClick: null
+    className: 'carousel-start'
 };
 
 Start.propTypes = {

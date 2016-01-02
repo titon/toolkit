@@ -12,10 +12,12 @@ import CONTEXT_TYPES from './ContextTypes';
 export default class Prev extends Component {
     /**
      * Handles clicking the previous button.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         this.context.prevItem();
-        this.emitEvent('click');
+        this.handleEvent('click', e);
     }
 
     /**
@@ -38,8 +40,7 @@ export default class Prev extends Component {
 Prev.contextTypes = CONTEXT_TYPES;
 
 Prev.defaultProps = {
-    className: 'carousel-prev',
-    onClick: null
+    className: 'carousel-prev'
 };
 
 Prev.propTypes = {

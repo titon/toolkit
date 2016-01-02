@@ -355,7 +355,7 @@ export default class Carousel extends Component {
     /**
      * Cycle between items based on the arrow key pressed.
      *
-     * @param {Event} e
+     * @param {SyntheticKeyboardEvent} e
      */
     onKeyDown(e) {
         switch (e.key) {
@@ -449,11 +449,7 @@ Carousel.defaultProps = {
     pauseOnHover: true,
     infinite: true,
     loop: true,
-    reverse: false,
-    onCycling: null,
-    onCycled: null,
-    onStart: null,
-    onStop: null
+    reverse: false
 };
 
 Carousel.propTypes = {

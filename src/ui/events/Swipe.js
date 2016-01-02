@@ -17,7 +17,6 @@ export default class Swipe extends Component {
 
         this.state = {
             swiping: false,
-            originalTarget: null,
             startCoords: null
         };
 
@@ -72,7 +71,7 @@ export default class Swipe extends Component {
     /**
      * Return the page coordinates from the current event.
      *
-     * @param {Event} e
+     * @param {SyntheticTouchEvent} e
      * @returns {{time: Number, x: Number, y: Number}}
      */
     packageCoordinates(e) {
@@ -91,7 +90,6 @@ export default class Swipe extends Component {
     resetState() {
         this.setState({
             swiping: false,
-            originalTarget: null,
             startCoords: null
         });
     }
@@ -117,7 +115,7 @@ export default class Swipe extends Component {
      *
      * http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/
      *
-     * @param {Event} e
+     * @param {SyntheticEvent} e
      */
     onMove(e) {
         if (!this.state.swiping) {
@@ -137,7 +135,7 @@ export default class Swipe extends Component {
     /**
      * Start the swipe process by logging the original target and coordinates.
      *
-     * @param {Event} e
+     * @param {SyntheticEvent} e
      */
     onStart(e) {
         // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc).
@@ -152,7 +150,6 @@ export default class Swipe extends Component {
         }
 
         this.setState({
-            originalTarget: e.currentTarget,
             startCoords: this.packageCoordinates(e),
             swiping: true
         });
@@ -164,7 +161,7 @@ export default class Swipe extends Component {
      *
      * If everything went smoothly, dispatch the `swipe` and direction specific swipe events.
      *
-     * @param {Event} e
+     * @param {SyntheticEvent} e
      */
     onStop(e) {
         let start = this.state.startCoords,
@@ -192,10 +189,16 @@ export default class Swipe extends Component {
                 return;
             }
 
-            let args = [this.state.originalTarget, start, stop];
+            // Set details for event
+            e.detail = {
+                swipe: true,
+                direction: direction.toLowerCase(),
+                start,
+                stop
+            };
 
-            this.emitEvent('swipe', [direction.toLowerCase(), ...args]);
-            this.emitEvent('swipe' + direction, args);
+            this.handleEvent('swipe', e);
+            this.handleEvent('swipe' + direction, e);
         }
 
         this.resetState();
@@ -237,24 +240,19 @@ export default class Swipe extends Component {
 }
 
 Swipe.defaultProps = {
+    className: 'event-swipe',
     enabled: true,
     draggable: true,
-    className: 'event-swipe',
-    duration: 1000,     // Maximum time in milliseconds to travel
-    distance: 50,       // Minimum distance required to travel
-    restraint: 75,      // Maximum distance to travel in the opposite direction
-    onSwipe: null,
-    onSwipeUp: null,
-    onSwipeRight: null,
-    onSwipeDown: null,
-    onSwipeLeft: null
+    duration: 1000,             // Maximum time in milliseconds to travel
+    distance: 50,               // Minimum distance required to travel
+    restraint: 75               // Maximum distance to travel in the opposite direction
 };
 
 Swipe.propTypes = {
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
     enabled: PropTypes.bool.isRequired,
     draggable: PropTypes.bool,
-    className: PropTypes.string,
     duration: PropTypes.number,
     distance: PropTypes.number,
     restraint: PropTypes.number,

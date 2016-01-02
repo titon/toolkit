@@ -141,7 +141,9 @@ export default class ItemList extends Component {
 
     render() {
         let context = this.context,
-            props = this.generateNestedProps(this.props, 'swipe');
+            props = this.generateNestedProps(this.props, 'swipe', [
+                'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft'
+            ]);
 
         // Trigger our listeners first
         props.onSwipeUp.unshift(context.nextItem);
@@ -165,12 +167,7 @@ ItemList.contextTypes = CONTEXT_TYPES;
 
 ItemList.defaultProps = {
     className: 'carousel-items',
-    swipe: touch,
-    onSwipe: null,
-    onSwipeUp: null,
-    onSwipeRight: null,
-    onSwipeDown: null,
-    onSwipeLeft: null
+    swipe: touch
 };
 
 ItemList.propTypes = {

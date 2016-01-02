@@ -12,10 +12,12 @@ import CONTEXT_TYPES from './ContextTypes';
 export default class Stop extends Component {
     /**
      * Handles clicking the stop button.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         this.context.stopCycle();
-        this.emitEvent('click');
+        this.handleEvent('click', e);
     }
 
     /**
@@ -38,8 +40,7 @@ export default class Stop extends Component {
 Stop.contextTypes = CONTEXT_TYPES;
 
 Stop.defaultProps = {
-    className: 'carousel-stop',
-    onClick: null
+    className: 'carousel-stop'
 };
 
 Stop.propTypes = {

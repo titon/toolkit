@@ -6,8 +6,18 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import collectionOf from '../../../ext/prop-types/collectionOf';
 
 export default class Item extends Component {
+    /**
+     * Handle the click event.
+     *
+     * @param {SyntheticEvent} e
+     */
+    onClick(e) {
+        this.handleEvent('click', e);
+    }
+
     /**
      * Render the breadcrumb item link.
      *
@@ -18,7 +28,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={props.url} onClick={props.onClick}>
+                <a href={props.url} onClick={this.onClick.bind(this)}>
                     {props.children}
                     <span className="caret">{props.caret}</span>
                 </a>
@@ -28,13 +38,12 @@ export default class Item extends Component {
 }
 
 Item.defaultProps = {
-    caret: '/',
-    onClick: null
+    caret: '/'
 };
 
 Item.propTypes = {
     children: PropTypes.node.isRequired,
     url: PropTypes.string.isRequired,
     caret: PropTypes.node,
-    onClick: PropTypes.func
+    onClick: collectionOf.func
 };

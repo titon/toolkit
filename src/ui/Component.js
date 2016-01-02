@@ -57,39 +57,34 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Emit an event and notify all listeners, as well as print debug information if enabled.
+     * Emit a custom event and notify all listeners defined on the property of the same name.
+     * If the `debug` property is enabled, print out some helpful information.
      *
-     * @param {String} event
+     * This *must not* be used for native DOM events, use `handleEvent()` instead.
+     *
+     * @param {String} type
      * @param {Array} [args]
      */
-    emitEvent(event, args = []) {
-        /* eslint no-console: 0 */
-
-        let propName = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
-            listeners = this.props[propName],
-            debug = this.props.debug || Titon.options.debug;
+    emitEvent(type, args = []) {
+        let debug = this.props.debug || Titon.options.debug;
 
         if (debug && window.console) {
-            console.log(this.constructor.name + '#' + this.getUID(), performance.now().toFixed(3), event, ...args);
+            /* eslint no-console: 0 */
+
+            console.log(this.constructor.name + '#' + this.getUID(), performance.now().toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);
             }
         }
 
-        if (!listeners) {
-            return;
-        } else if (!Array.isArray(listeners)) {
-            listeners = [listeners];
-        }
+        args.unshift(new TitonEvent(this.constructor.name, this.getUID(), type));
 
-        args.unshift(new TitonEvent(this.constructor.name, this.getUID(), event));
-
-        listeners.forEach(func => func.apply(this, args));
+        this.notifyEventListeners(type, args);
     }
 
     /**
-     * Generate a unique HTML class name based on the passed parameters.
+     * Format a unique HTML class name based on the passed parameters.
      * Append the CSS namespace if applicable.
      *
      * @param {String} className
@@ -100,7 +95,7 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Generate a unique HTML ID based on the passed parameters.
+     * Format a unique HTML ID based on the passed parameters.
      *
      * @returns {String}
      */
@@ -121,10 +116,10 @@ export default class Component extends React.Component {
      *
      * @param {Object} props
      * @param {String} propName
-     * @param {Boolean} [copyListeners]
+     * @param {String[]} [listeners]
      * @returns {Object}
      */
-    generateNestedProps(props, propName, copyListeners = true) {
+    generateNestedProps(props, propName, listeners = []) {
         let obj = {};
 
         // Merge nested object
@@ -136,24 +131,18 @@ export default class Component extends React.Component {
         }
 
         // Inherit event listeners
-        if (copyListeners) {
-            Object.keys(props).forEach(key => {
-                if (key.substr(0, 2) !== 'on') {
-                    return;
-                }
+        listeners.forEach(key => {
+            if (!obj[key]) {
+                obj[key] = [];
+            }
 
-                if (!obj[key]) {
-                    obj[key] = [];
-                }
+            if (Array.isArray(props[key])) {
+                obj[key] = obj[key].concat(props[key]);
 
-                if (Array.isArray(props[key])) {
-                    obj[key] = obj[key].concat(props[key]);
-
-                } else if (props[key]) {
-                    obj[key].push(props[key]);
-                }
-            });
-        }
+            } else if (props[key]) {
+                obj[key].push(props[key]);
+            }
+        });
 
         return obj;
     }
@@ -166,6 +155,38 @@ export default class Component extends React.Component {
      */
     getUID() {
         return this.context.uid || this.uid;
+    }
+
+    /**
+     * Handle a native/synthetic DOM event and notify all listeners defined on the property of the same name.
+     *
+     * @param {String} type
+     * @param {SyntheticEvent} event
+     */
+    handleEvent(type, event) {
+        this.notifyEventListeners(type, [event]);
+    }
+
+    /**
+     * Execute a function, or an array of functions, with the defined arguments, for the specified property.
+     *
+     * @param {String} propName
+     * @param {Array} args
+     */
+    notifyEventListeners(propName, args = []) {
+        if (propName.substr(0, 2) !== 'on') {
+            propName = 'on' + propName.charAt(0).toUpperCase() + propName.substr(1);
+        }
+
+        let listeners = this.props[propName];
+
+        if (!listeners) {
+            return;
+        } else if (!Array.isArray(listeners)) {
+            listeners = [listeners];
+        }
+
+        listeners.forEach(func => func(...args));
     }
 }
 

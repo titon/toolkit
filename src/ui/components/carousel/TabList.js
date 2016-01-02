@@ -42,8 +42,7 @@ export default class TabList extends Component {
 TabList.contextTypes = CONTEXT_TYPES;
 
 TabList.defaultProps = {
-    className: 'carousel-tabs',
-    onClick: null
+    className: 'carousel-tabs'
 };
 
 TabList.propTypes = {

@@ -12,10 +12,12 @@ import CONTEXT_TYPES from './ContextTypes';
 export default class Next extends Component {
     /**
      * Handles clicking the next button.
+     *
+     * @param {SyntheticEvent} e
      */
-    onClick() {
+    onClick(e) {
         this.context.nextItem();
-        this.emitEvent('click');
+        this.handleEvent('click', e);
     }
 
     /**
@@ -38,8 +40,7 @@ export default class Next extends Component {
 Next.contextTypes = CONTEXT_TYPES;
 
 Next.defaultProps = {
-    className: 'carousel-next',
-    onClick: null
+    className: 'carousel-next'
 };
 
 Next.propTypes = {
