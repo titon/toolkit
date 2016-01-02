@@ -99,3 +99,30 @@ function createElement(tag, attributes, mount) {
 function processInThread(func) {
     setTimeout(func, 0);
 }
+
+/**
+ * Parts of React log messages to the console instead of throwing errors,
+ * so we should temporarily intercept these messages and throw errors instead.
+ *
+ * @param {Function} func
+ * @param {String} [type]
+ * @returns {Function}
+ */
+function throwConsoleMessage(func, type) {
+    type = type || 'error';
+
+    return function() {
+        let old = console[type],
+            error = null;
+
+        console[type] = message => error = new Error(message);
+
+        func();
+
+        console[type] = old;
+
+        if (error instanceof Error) {
+            throw error;
+        }
+    };
+}

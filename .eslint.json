@@ -19,7 +19,8 @@
         "__karma__": true,
 
         "createElement": true,
-        "processInThread": true
+        "processInThread": true,
+        "throwConsoleMessage": true
     },
     "rules": {
         // Possible Errors

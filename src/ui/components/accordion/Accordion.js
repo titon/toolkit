@@ -161,9 +161,7 @@ Accordion.defaultProps = {
     className: 'accordion',
     defaultIndex: 0,
     multiple: false,
-    collapsible: false,
-    onShowing: null,
-    onShown: null
+    collapsible: false
 };
 
 Accordion.propTypes = {

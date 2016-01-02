@@ -58,16 +58,13 @@ export default class Header extends Component {
 Header.contextTypes = CONTEXT_TYPES;
 
 Header.defaultProps = {
-    className: 'accordion-header',
-    active: false,
-    index: -1,
-    onClick: null
+    className: 'accordion-header'
 };
 
 Header.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     active: PropTypes.bool.isRequired,
-    index: PropTypes.number,
+    index: PropTypes.number.isRequired,
     onClick: collectionOf.func
 };

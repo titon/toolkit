@@ -48,12 +48,6 @@ export default class Item extends Component {
 
 Item.contextTypes = CONTEXT_TYPES;
 
-Item.defaultProps = {
-    index: -1,
-    header: '',
-    onClick: null
-};
-
 Item.propTypes = {
     index: PropTypes.number.isRequired,
     header: PropTypes.node.isRequired,

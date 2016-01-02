@@ -41,14 +41,12 @@ export default class Section extends Component {
 Section.contextTypes = CONTEXT_TYPES;
 
 Section.defaultProps = {
-    className: 'accordion-section',
-    expanded: false,
-    index: -1
+    className: 'accordion-section'
 };
 
 Section.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     expanded: PropTypes.bool.isRequired,
-    index: PropTypes.number
+    index: PropTypes.number.isRequired
 };

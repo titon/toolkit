@@ -18,7 +18,7 @@ export default function childrenOfType(...types) {
         try {
             Children.forEach(props[propName], function(child) {
                 if (!instances.has(child.type)) {
-                    throw new Error('`' + componentName + '` does not allow children of type `' + child.type.name + '`.');
+                    throw new Error(`\`${componentName}\` does not allow children of type \`${(typeof child.type === 'function') ? child.type.name : child.type}\`.`);
                 }
             });
         } catch (e) {
