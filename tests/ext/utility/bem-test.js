@@ -1,34 +1,32 @@
-'use strict';
+import Titon from '../../../src/Titon';
+import bem from '../../../src/ext/utility/bem';
 
-import Titon from 'Titon';
-import bem from 'extensions/utility/bem';
+describe('ext/utility/bem()', () => {
+    it('should generate a class name', () => {
+        expect(bem('foo')).toBe('foo');
+        expect(bem('foo', 'bar')).toBe('foo-bar');
+        expect(bem('foo', 'bar', 'baz')).toBe('foo-bar--baz');
+        expect(bem('foo', '', 'baz')).toBe('foo--baz');
+    });
 
-describe('extensions/utility/bem', () => {
-    describe('bem()', () => {
-        it('should generate a class name', () => {
-            expect(bem('foo')).toBe('foo');
-            expect(bem('foo', 'bar')).toBe('foo-bar');
-            expect(bem('foo', 'bar', 'baz')).toBe('foo-bar--baz');
-            expect(bem('foo', '', 'baz')).toBe('foo--baz');
-        });
+    it('should be able to customize separators', () => {
+        Titon.options.elementSeparator = '__';
+        Titon.options.modifierSeparator = '---';
 
-        it('should be able to customize separators', () => {
-            bem.separators = ['__', '---'];
+        expect(bem('foo')).toBe('foo');
+        expect(bem('foo', 'bar')).toBe('foo__bar');
+        expect(bem('foo', 'bar', 'baz')).toBe('foo__bar---baz');
+        expect(bem('foo', '', 'baz')).toBe('foo---baz');
 
-            expect(bem('foo')).toBe('foo');
-            expect(bem('foo', 'bar')).toBe('foo__bar');
-            expect(bem('foo', 'bar', 'baz')).toBe('foo__bar---baz');
-            expect(bem('foo', '', 'baz')).toBe('foo---baz');
+        Titon.options.elementSeparator = '-';
+        Titon.options.modifierSeparator = '--';
+    });
 
-            bem.separators = ['-', '--'];
-        });
+    it('should prepend the `namespace`', () => {
+        Titon.options.namespace = 'tk-';
 
-        it('should prepend the `namespace`', () => {
-            Titon.namespace = 'tk-';
+        expect(bem('foo', 'bar')).toBe('tk-foo-bar');
 
-            expect(bem('foo', 'bar')).toBe('tk-foo-bar');
-
-            Titon.namespace = '';
-        });
+        Titon.options.namespace = '';
     });
 });

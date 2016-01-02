@@ -1,6 +1,4 @@
-'use strict';
-
-import memoize from 'decorators/memoize';
+import memoize from '../../../src/ext/decorators/memoize';
 
 class MemoizeStub {
     @memoize
@@ -14,27 +12,25 @@ class MemoizeStub {
     }
 }
 
-describe('decorators/memoize', () => {
-    describe('memoize()', () => {
-        let obj;
+describe('ext/decorators/memoize', () => {
+    let obj = null;
 
-        beforeEach(() => {
-            obj = new MemoizeStub();
-        });
+    beforeEach(() => {
+        obj = new MemoizeStub();
+    });
 
-        it('should cache the result of a function', done => {
-            let now = (new Date()).toUTCString();
+    it('should cache the result of a function', done => {
+        let now = (new Date()).toUTCString();
 
+        expect(obj.method()).toBe(now);
+
+        setTimeout(function() {
             expect(obj.method()).toBe(now);
+            done();
+        }, 150);
+    });
 
-            setTimeout(function() {
-                expect(obj.method()).toBe(now);
-                done();
-            }, 150);
-        });
-
-        it('should throw an error if arguments are used', () => {
-            expect(() => obj.methodWithArgs(1, 2)).toThrow(new SyntaxError('The memoize() decorator does not support arguments for methodWithArgs().'));
-        });
+    it('should throw an error if arguments are used', () => {
+        expect(() => obj.methodWithArgs(1, 2)).toThrow(new SyntaxError('The memoize() decorator does not support arguments for methodWithArgs().'));
     });
 });

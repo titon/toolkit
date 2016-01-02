@@ -8,6 +8,25 @@
 
 import once from './once';
 
+export const EVENT_NAME = (() => {
+    let prefixes = 'transition WebkitTransition MozTransition OTransition msTransition'.split(' '),
+        prefix = 'transition',
+        style = document.createElement('div').style,
+        map = {
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd otransitionend'
+        };
+
+    for (let i = 0; i < prefixes.length; i++) {
+        if (prefixes[i] in style) {
+            prefix = prefixes[i];
+            break;
+        }
+    }
+
+    return map[prefix] || 'transitionend';
+})();
+
 /**
  * Set a `transitionend` event. If the element has no transition set, trigger the callback immediately.
  *
@@ -24,7 +43,7 @@ export default function transitionEnd(element, func) {
 
     // Bind a listener once
     } else {
-        element.addEventListener('transitionend', once(func));
+        element.addEventListener(EVENT_NAME, once(func));
     }
 
     return element;

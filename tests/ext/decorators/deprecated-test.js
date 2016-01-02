@@ -1,6 +1,6 @@
-'use strict';
+/* eslint no-console: 0 */
 
-import deprecated from 'decorators/deprecated';
+import deprecated from '../../../src/ext/decorators/deprecated';
 
 class DeprecatedStub {
     constructor() {
@@ -21,33 +21,32 @@ class DeprecatedStub {
     }
 }
 
-describe('decorators/deprecated', () => {
-    describe('deprecated()', () => {
-        it('should wrap `get`, `set`, and `value` descriptors', () => {
-            let warn = console.warn,
-                obj = new DeprecatedStub(),
-                messages = [];
+describe('ext/decorators/deprecated()', () => {
+    it('should wrap `get`, `set`, and `value` descriptors', () => {
+        let warn = console.warn,
+            obj = new DeprecatedStub(),
+            messages = [],
+            value = null;
 
-            // Override `console.warn()`
-            console.warn = function (message) {
-                messages.push(message);
-            };
+        // Override `console.warn()` temporarily
+        console.warn = function(message) {
+            messages.push(message);
+        };
 
-            expect(obj.value).toBe(null);
+        expect(obj.value).toBe(null);
 
-            obj.method();
-            obj.setter = 123;
-            let value = obj.getter;
+        obj.method();
+        obj.setter = 123;
+        value = obj.getter;
 
-            expect(value).toBe(123);
-            expect(messages).toEqual([
-                'method() is deprecated. method',
-                'setter() is deprecated. setter',
-                'getter() is deprecated. getter'
-            ]);
+        expect(value).toBe(123);
+        expect(messages).toEqual([
+            'method() is deprecated. method',
+            'setter() is deprecated. setter',
+            'getter() is deprecated. getter'
+        ]);
 
-            // Reset `console.warn()`
-            console.warn = warn;
-        });
+        // Reset `console.warn()`
+        console.warn = warn;
     });
 });

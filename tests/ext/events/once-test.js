@@ -1,41 +1,38 @@
-'use strict';
+import once from '../../../src/ext/events/once';
 
-import once from 'extensions/event/once';
+describe('ext/events/once()', () => {
+    let count = 0,
+        element = null;
 
-describe('extensions/event/once', () => {
-    describe('once()', () => {
-        let count, element;
+    beforeEach(() => {
+        count = 0;
 
-        beforeEach(() => {
-            count = 0;
+        element = createElement('div');
+        element.addEventListener('foo', once(() => count++));
+        element.addEventListener('bar', once(e => count = e.detail.count));
+    });
 
-            element = createElement('div');
-            element.addEventListener('foo', once(() => count++));
-            element.addEventListener('bar', once((e) => count = e.detail.count));
-        });
+    afterEach(() => {
+        element.cleanup();
+    });
 
-        afterEach(() => {
-            element.cleanup();
-        });
+    it('should only trigger the event listener once', () => {
+        expect(count).toBe(0);
 
-        it('should only trigger the event listener once', () => {
-            expect(count).toBe(0);
+        element.dispatchEvent(new CustomEvent('foo'));
+        element.dispatchEvent(new CustomEvent('foo'));
+        element.dispatchEvent(new CustomEvent('foo'));
 
-            element.dispatchEvent(new CustomEvent('foo'));
-            element.dispatchEvent(new CustomEvent('foo'));
-            element.dispatchEvent(new CustomEvent('foo'));
+        expect(count).toBe(1);
+    });
 
-            expect(count).toBe(1);
-        });
+    it('should pass the event to the original function', () => {
+        expect(count).toBe(0);
 
-        it('should pass the event to the original function', () => {
-            expect(count).toBe(0);
+        element.dispatchEvent(new CustomEvent('bar', { detail: { count: 5 } }));
+        element.dispatchEvent(new CustomEvent('bar', { detail: { count: 10 } }));
+        element.dispatchEvent(new CustomEvent('bar', { detail: { count: 15 } }));
 
-            element.dispatchEvent(new CustomEvent('bar', { detail: { count: 5 }}));
-            element.dispatchEvent(new CustomEvent('bar', { detail: { count: 10 }}));
-            element.dispatchEvent(new CustomEvent('bar', { detail: { count: 15 }}));
-
-            expect(count).toBe(5);
-        });
+        expect(count).toBe(5);
     });
 });

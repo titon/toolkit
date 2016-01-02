@@ -1,6 +1,4 @@
-'use strict';
-
-import setter from 'decorators/setter';
+import setter from '../../../src/ext/decorators/setter';
 
 class SetterStub {
     constructor(data) {
@@ -19,37 +17,35 @@ class SetterStub {
     }
 }
 
-describe('decorators/setter', () => {
-    describe('setter()', () => {
-        let obj;
+describe('ext/decorators/setter()', () => {
+    let obj = null;
 
-        beforeEach(() => {
-            obj = new SetterStub({
-                foo: 123,
-                bar: 'abc',
-                baz: true
-            });
+    beforeEach(() => {
+        obj = new SetterStub({
+            foo: 123,
+            bar: 'abc',
+            baz: true
+        });
+    });
+
+    it('should set a value defined by key', () => {
+        expect(obj.get('foo')).toBe(123);
+
+        obj.set('foo', 456);
+
+        expect(obj.get('foo')).toBe(456);
+    });
+
+    it('should set multiple values if the key is an object', () => {
+        expect(obj.get('bar')).toBe('abc');
+        expect(obj.get('qux')).toBe(null);
+
+        obj.set({
+            bar: 'xyz',
+            qux: [1, 2, 3]
         });
 
-        it('should set a value defined by key', () => {
-            expect(obj.get('foo')).toBe(123);
-
-            obj.set('foo', 456);
-
-            expect(obj.get('foo')).toBe(456);
-        });
-
-        it('should set multiple values if the key is an object', () => {
-            expect(obj.get('bar')).toBe('abc');
-            expect(obj.get('qux')).toBe(null);
-
-            obj.set({
-                bar: 'xyz',
-                qux: [1, 2, 3]
-            });
-
-            expect(obj.get('bar')).toBe('xyz');
-            expect(obj.get('qux')).toEqual([1, 2, 3]);
-        });
+        expect(obj.get('bar')).toBe('xyz');
+        expect(obj.get('qux')).toEqual([1, 2, 3]);
     });
 });

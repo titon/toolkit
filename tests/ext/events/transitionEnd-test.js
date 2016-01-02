@@ -1,53 +1,51 @@
-'use strict';
+import transitionEnd from '../../../src/ext/events/transitionEnd';
+import '../../../src/poly/requestAnimationFrame';
 
-import transitionEnd from 'extensions/event/transitionEnd';
-import 'polyfills/requestAnimationFrame';
+describe('ext/events/transitionEnd()', () => {
+    let transitioned = false,
+        element = null;
 
-describe('extensions/event/transitionEnd', () => {
-    describe('transitionEnd()', () => {
-        let transitioned, element;
+    beforeEach(() => {
+        transitioned = false;
 
-        beforeEach(() => {
-            transitioned = false;
+        element = createElement('div', { css: { color: 'black' } });
+        element.style.setProperty('transition', 'background 150ms', 'important');
+    });
 
-            element = createElement('div', {
-                css: { backgroundColor: 'black' }
-            });
-            element.style.setProperty('transition', 'background 150ms', 'important');
+    afterEach(() => {
+        element.cleanup();
+    });
+
+    /*
+    it('should trigger the function when the transition is complete', (done) => {
+        expect(transitioned).toBe(false);
+
+        element = transitionEnd(element, () => {
+            transitioned = true;
         });
 
-        afterEach(() => {
-            element.cleanup();
+        processInThread(() => {
+            element.style.color = 'red';
         });
 
-        /* TODO - This seems to work sometimes, but not always. Why!?
-        it('should trigger the function when the transition is complete', (done) => {
-            expect(transitioned).toBe(false);
+        expect(transitioned).toBe(false);
 
-            element = transitionEnd(element, () => transitioned = true);
-
-            processInThread(() => {
-                element.style.backgroundColor = 'red';
-            });
-
-            expect(transitioned).toBe(false);
-
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    expect(transitioned).toBe(true);
-                    done();
-                }, 300);
-            });
-        });*/
-
-        it('should trigger the function immediately if no transition exists', () => {
-            expect(transitioned).toBe(false);
-
-            element.style.setProperty('transition', 'background 0s', 'important');
-
-            transitionEnd(element, () => transitioned = true);
-
-            expect(transitioned).toBe(true);
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                expect(transitioned).toBe(true);
+                done();
+            }, 400);
         });
+    });
+    */
+
+    it('should trigger the function immediately if no transition exists', () => {
+        expect(transitioned).toBe(false);
+
+        element.style.setProperty('transition', 'color 0s', 'important');
+
+        transitionEnd(element, () => transitioned = true);
+
+        expect(transitioned).toBe(true);
     });
 });

@@ -20,7 +20,7 @@
         "env": "env",
 
         "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] ] ./src/test.js > ./build/titon.js",
-        "js:lint": "eslint --config ./.eslint.json ./src",
+        "js:lint": "eslint --config ./.eslint.json ./src ./tests",
         "js:watch": "watchify ./src/test.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] ]",
 
         "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/test.scss ./build/titon.css",
@@ -62,6 +62,7 @@
         "babel-preset-es2015": "*",
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
+        "babel-plugin-transform-decorators-legacy": "*",
         "uglify-js": "~2.6",
         "lodash": "~3.10",
 
