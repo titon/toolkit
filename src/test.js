@@ -5,13 +5,20 @@ import ReactDOM from 'react-dom';
 import Titon from './Titon';
 import Accordion from './ui/components/accordion';
 import Carousel from './ui/components/carousel';
+import Breadcrumb from './ui/components/breadcrumb';
 
 const log = function() {
     console.log(...arguments);
 };
 
 ReactDOM.render(
-    <Carousel
+    <Breadcrumb size="large">
+        <Breadcrumb.Item url="/foo">Foo</Breadcrumb.Item>
+        <Breadcrumb.Item url="/bar">Bar</Breadcrumb.Item>
+        <Breadcrumb.Item url="/baz">Baz</Breadcrumb.Item>
+    </Breadcrumb>
+
+    /*<Carousel
         component="slideshow" modifier="slide"
         debug={true} perCycle={1} loop={true}
         infinite={true} autoStart={false} pauseOnHover={false}>
@@ -34,7 +41,7 @@ ReactDOM.render(
         <Carousel.Prev onClick={log}>Prev</Carousel.Prev>
         <Carousel.Start onClick={log}>Start</Carousel.Start>
         <Carousel.Stop onClick={log}>Stop</Carousel.Stop>
-    </Carousel>
+    </Carousel>*/
 
     /*
     <Accordion defaultIndex={[0, 2]} component="feature-list" multiple={true} collapsible={true} debug={false}>

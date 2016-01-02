@@ -6,9 +6,8 @@
 
 import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
-import { touch } from '../../ext/flags';
-import bem from '../../ext/utility/bem';
 import collectionOf from '../../ext/prop-types/collectionOf';
+import { touch } from '../../ext/flags';
 
 const abs = Math.abs;
 
@@ -252,6 +251,7 @@ Swipe.defaultProps = {
 };
 
 Swipe.propTypes = {
+    children: PropTypes.node.isRequired,
     enabled: PropTypes.bool.isRequired,
     draggable: PropTypes.bool,
     className: PropTypes.string,
