@@ -14,11 +14,9 @@ import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {
     constructor() {
-        super();
-
-        this.state = {
+        super({
             indices: []
-        };
+        });
 
         this.generateUID();
     }

@@ -10,6 +10,7 @@ import SlideCollapse from '../../transitions/slide-collapse';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {
+
     /**
      * Render the accordion item section content and wrap with a collapsible slide transition.
      *

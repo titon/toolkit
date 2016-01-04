@@ -11,6 +11,7 @@ import collectionOf from '../../../ext/prop-types/collectionOf';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Prev extends Component {
+
     /**
      * Handles clicking the previous button.
      *

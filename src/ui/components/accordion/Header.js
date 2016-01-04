@@ -12,6 +12,7 @@ import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Header extends Component {
+
     /**
      * Update the index on the parent component when clicked.
      *

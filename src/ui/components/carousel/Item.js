@@ -9,6 +9,7 @@ import Component from '../../Component';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+
     /**
      * Render the individual list item.
      *

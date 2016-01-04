@@ -73,7 +73,7 @@ describe('ext/decorators/autoBind()', () => {
         let obj = new AutoBindMethodStub();
 
         processInThread(() => {
-            obj.withBindAndArgs.call(obj, 'foo', 123);
+            obj.withBindAndArgs('foo', 123);
         });
 
         setTimeout(() => {

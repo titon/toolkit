@@ -15,12 +15,10 @@ const abs = Math.abs;
 @autoBind
 export default class Swipe extends Component {
     constructor() {
-        super();
-
-        this.state = {
+        super({
             swiping: false,
             startCoords: null
-        };
+        });
     }
 
     /**

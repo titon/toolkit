@@ -12,6 +12,7 @@ import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Tab extends Component {
+
     /**
      * Handles clicking the tab buttons.
      *

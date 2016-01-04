@@ -14,6 +14,7 @@ import collectionOf from '../../../ext/prop-types/collectionOf';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
      *

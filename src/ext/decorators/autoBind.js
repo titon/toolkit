@@ -19,8 +19,6 @@ import getValueFunc from './helpers/getValueFunc';
 function bindMethod(target, name, descriptor) {
     let func = getValueFunc('autoBind', descriptor);
 
-    console.log(target, this);
-
     return {
         enumerable: false,
         configurable: true,

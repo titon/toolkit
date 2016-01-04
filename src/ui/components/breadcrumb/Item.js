@@ -10,6 +10,7 @@ import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 
 export default class Item extends Component {
+
     /**
      * Handle the click event.
      *

@@ -17,17 +17,15 @@ import CONTEXT_TYPES from './ContextTypes';
 @autoBind
 export default class Carousel extends Component {
     constructor() {
-        super();
-
-        this.timer = null;
-        this.state = {
+        super({
             index: 0,
             stopped: true,
             animating: false,
             visible: 1,
             cloned: 0
-        };
+        });
 
+        this.timer = null;
         this.generateUID();
     }
 

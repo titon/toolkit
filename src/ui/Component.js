@@ -29,13 +29,10 @@ class TitonEvent {
 }
 
 export default class Component extends React.Component {
-    /**
-     * Set the default state and version.
-     */
-    constructor() {
+    constructor(state = {}) {
         super();
 
-        this.state = {};
+        this.state = state;
         this.version = '3.0.0';
     }
 
