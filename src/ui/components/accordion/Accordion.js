@@ -7,6 +7,7 @@
 import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
+import autoBind from '../../../ext/decorators/autoBind';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import CONTEXT_TYPES from './ContextTypes';
@@ -20,7 +21,6 @@ export default class Accordion extends Component {
         };
 
         this.generateUID();
-        this.autoBind('hideItem', 'showItem', 'isItemActive', 'isItemCollapsible');
     }
 
     /**
@@ -82,6 +82,7 @@ export default class Accordion extends Component {
      *
      * @param {Number} index
      */
+    @autoBind
     hideItem(index) {
         this.setState({
             indices: this.state.indices.filter(value => value !== index)
@@ -93,6 +94,7 @@ export default class Accordion extends Component {
      *
      * @param {Number|Number[]} index
      */
+    @autoBind
     showItem(index) {
         let multiple = this.props.multiple,
             indices = multiple ? this.state.indices : [],
@@ -119,6 +121,7 @@ export default class Accordion extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
+    @autoBind
     isItemCollapsible(index) {
         return ((this.props.multiple || this.props.collapsible) && this.isItemActive(index));
     }
@@ -129,6 +132,7 @@ export default class Accordion extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
+    @autoBind
     isItemActive(index) {
         return (this.state.indices.indexOf(index) >= 0);
     }

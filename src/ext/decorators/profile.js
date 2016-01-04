@@ -6,6 +6,7 @@
 
 /* eslint no-console: 0 */
 
+import checkIsMethod from './helpers/checkIsMethod';
 import '../../poly/performance/now';
 
 /**
@@ -18,6 +19,8 @@ import '../../poly/performance/now';
  * @returns {Object}
  */
 export default function profile(target, name, descriptor) {
+    checkIsMethod('profile', arguments);
+
     ['get', 'set', 'value'].forEach(method => {
         if (typeof descriptor[method] === 'function') {
             let oldMethod = descriptor[method];

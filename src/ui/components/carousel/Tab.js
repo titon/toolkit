@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
@@ -16,6 +17,7 @@ export default class Tab extends Component {
      *
      * @param {SyntheticEvent} e
      */
+    @autoBind
     onClick(e) {
         this.context.showItem(this.props.index);
         this.handleEvent('click', e);
@@ -42,7 +44,7 @@ export default class Tab extends Component {
                     aria-selected={active}
                     aria-expanded={active}
                     tabIndex={tabIndex(this)}
-                    onClick={this.onClick.bind(this)}>
+                    onClick={this.onClick}>
                     <span />
                 </button>
             </li>

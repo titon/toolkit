@@ -40,23 +40,6 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Re-bind the context for every supplied method.
-     * Will automatically bind all methods that start with "on",
-     * assuming they are event handlers.
-     */
-    autoBind(...methods) {
-        // Automatically inject all methods that start with "on"
-        methods = methods.concat(
-            Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(prop => {
-                return (prop.substr(0, 2) === 'on' && typeof this[prop] === 'function');
-            })
-        );
-
-        // Bind the functions
-        methods.forEach(method => this[method] = this[method].bind(this));
-    }
-
-    /**
      * Emit a custom event and notify all listeners defined on the property of the same name.
      * If the `debug` property is enabled, print out some helpful information.
      *

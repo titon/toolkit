@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 
 export default class Item extends Component {
@@ -14,6 +15,7 @@ export default class Item extends Component {
      *
      * @param {SyntheticEvent} e
      */
+    @autoBind
     onClick(e) {
         this.handleEvent('click', e);
     }
@@ -28,7 +30,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={props.url} onClick={this.onClick.bind(this)}>
+                <a href={props.url} onClick={this.onClick}>
                     {props.children}
                     <span className="caret">{props.caret}</span>
                 </a>

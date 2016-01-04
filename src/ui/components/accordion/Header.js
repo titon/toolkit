@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
@@ -16,6 +17,7 @@ export default class Header extends Component {
      *
      * @param {SyntheticEvent} e
      */
+    @autoBind
     onClick(e) {
         let index = this.props.index,
             context = this.context;
@@ -49,7 +51,7 @@ export default class Header extends Component {
                 aria-selected={active}
                 aria-expanded={active}
                 tabIndex={tabIndex(this)}
-                onClick={this.onClick.bind(this)}>
+                onClick={this.onClick}>
 
                 {this.props.children}
             </header>

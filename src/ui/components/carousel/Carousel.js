@@ -8,11 +8,13 @@ import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import ItemList from './ItemList';
+import autoBind from '../../../ext/decorators/autoBind';
 import bem from '../../../ext/utility/bem';
 import collectionOf from '../../../ext/prop-types/collectionOf';
-import debounce from 'lodash/function/debounce';
+import debounce from '../../../ext/decorators/debounce';
 import CONTEXT_TYPES from './ContextTypes';
 
+@autoBind
 export default class Carousel extends Component {
     constructor() {
         super();
@@ -27,8 +29,6 @@ export default class Carousel extends Component {
         };
 
         this.generateUID();
-        this.autoBind('afterAnimation', 'isItemActive', 'nextItem', 'prevItem', 'showItem', 'startCycle', 'stopCycle');
-        this.onResize = debounce(this.onResize, 50);
     }
 
     /**
@@ -106,6 +106,7 @@ export default class Carousel extends Component {
      * Functionality to trigger after the cycle animation occurs.
      * We must set the `animating` state to false or we get locked in.
      */
+    @autoBind
     afterAnimation() {
         this.setState({
             animating: false
@@ -226,6 +227,7 @@ export default class Carousel extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
+    @autoBind
     isItemActive(index) {
         let currentIndex = this.state.index;
 
@@ -235,6 +237,7 @@ export default class Carousel extends Component {
     /**
      * Cycle to the next item.
      */
+    @autoBind
     nextItem() {
         this.showItem(this.state.index + this.props.perCycle);
     }
@@ -242,6 +245,7 @@ export default class Carousel extends Component {
     /**
      * Cycle to the previous item.
      */
+    @autoBind
     prevItem() {
         this.showItem(this.state.index - this.props.perCycle);
     }
@@ -259,6 +263,7 @@ export default class Carousel extends Component {
      *
      * @param {Number} index
      */
+    @autoBind
     showItem(index) {
         /* eslint no-lonely-if: 0 */
 
@@ -312,6 +317,7 @@ export default class Carousel extends Component {
     /**
      * Start the automatic cycle timer.
      */
+    @autoBind
     startCycle() {
         clearTimeout(this.timer);
 
@@ -327,6 +333,7 @@ export default class Carousel extends Component {
     /**
      * Stop the automatic cycle timer.
      */
+    @autoBind
     stopCycle() {
         clearTimeout(this.timer);
 
@@ -403,6 +410,7 @@ export default class Carousel extends Component {
     /**
      * Re-calculate dimensions in case the element size has changed.
      */
+    @debounce(100)
     onResize() {
         this.calculateVisibleItems();
     }

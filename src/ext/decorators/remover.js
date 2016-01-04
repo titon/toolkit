@@ -4,6 +4,9 @@
  * @link        http://titon.io
  */
 
+import checkIsMethod from './helpers/checkIsMethod';
+import getValueFunc from './helpers/getValueFunc';
+
 /**
  * The `remover` decorator will overload a remover method to accept an array of keys
  * that removes multiple keys from an object / collection.
@@ -14,11 +17,9 @@
  * @returns {Object}
  */
 export default function remover(target, name, descriptor) {
-    let func = descriptor.value;
+    checkIsMethod('remover', arguments);
 
-    if (typeof func !== 'function') {
-        throw new SyntaxError('Only functions can be used as removers.');
-    }
+    let func = getValueFunc('remover', descriptor);
 
     descriptor.value = function(key) {
         if (Array.isArray(key)) {

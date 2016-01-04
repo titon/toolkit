@@ -6,11 +6,13 @@
 
 import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
+import autoBind from '../../ext/decorators/autoBind';
 import collectionOf from '../../ext/prop-types/collectionOf';
 import { touch } from '../../ext/flags';
 
 const abs = Math.abs;
 
+@autoBind
 export default class Swipe extends Component {
     constructor() {
         super();
@@ -19,8 +21,6 @@ export default class Swipe extends Component {
             swiping: false,
             startCoords: null
         };
-
-        this.autoBind();
     }
 
     /**

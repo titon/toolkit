@@ -13,9 +13,9 @@ const log = function(e, ...args) {
 
 ReactDOM.render(
     /*<Breadcrumb size="large">
-        <Breadcrumb.Item url="/foo">Foo</Breadcrumb.Item>
-        <Breadcrumb.Item url="/bar">Bar</Breadcrumb.Item>
-        <Breadcrumb.Item url="/baz">Baz</Breadcrumb.Item>
+        <Breadcrumb.Item url="#" onClick={log}>Foo</Breadcrumb.Item>
+        <Breadcrumb.Item url="#" onClick={log}>Bar</Breadcrumb.Item>
+        <Breadcrumb.Item url="#" onClick={log}>Baz</Breadcrumb.Item>
     </Breadcrumb>*/
 
     <Carousel

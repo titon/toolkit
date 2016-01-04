@@ -6,14 +6,17 @@ A quick guideline and checklist for implementing Toolkit library items.
 
 Imports at the top of each module should be grouped using the rules listed below, with each group being ordered alphabetically. All module paths should be relative unless explicitly imported from an NPM module.
 
-* React
-    * `Children` and `PropTypes` should be dereferenced
-* ReactDOM
-* Enzyme
-    * `shallow`, `mount`, and `render` should be dereferenced
-* Components
-* Functions
-* Constants
+* Named Imports
+    * React
+        * `Children` and `PropTypes` should be dereferenced
+    * ReactDOM
+    * Enzyme
+        * `shallow`, `mount`, and `render` should be dereferenced
+    * Components
+    * Functions, Decorators
+    * Constants
+* Wildcard Imports
+* Nameless Imports
 
 ## 2) Components ##
 

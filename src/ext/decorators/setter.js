@@ -4,7 +4,9 @@
  * @link        http://titon.io
  */
 
+import checkIsMethod from './helpers/checkIsMethod';
 import isPlainObject from 'lodash/lang/isPlainObject';
+import getValueFunc from './helpers/getValueFunc';
 
 /**
  * The `setter` decorator will overload a setter method with key and value argument to
@@ -16,11 +18,9 @@ import isPlainObject from 'lodash/lang/isPlainObject';
  * @returns {Object}
  */
 export default function setter(target, name, descriptor) {
-    let func = descriptor.value;
+    checkIsMethod('setter', arguments);
 
-    if (typeof func !== 'function') {
-        throw new SyntaxError('Only functions can be used as setters.');
-    }
+    let func = getValueFunc('setter', descriptor);
 
     descriptor.value = function(key, value) {
         if (isPlainObject(key)) {

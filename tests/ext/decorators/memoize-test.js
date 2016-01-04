@@ -23,14 +23,21 @@ describe('ext/decorators/memoize', () => {
         let now = (new Date()).toUTCString();
 
         expect(obj.method()).toBe(now);
+        expect(obj.method()).toBe(now);
 
         setTimeout(function() {
+            expect(obj.method()).toBe(now);
             expect(obj.method()).toBe(now);
             done();
         }, 150);
     });
 
-    it('should throw an error if arguments are used', () => {
-        expect(() => obj.methodWithArgs(1, 2)).toThrow(new SyntaxError('The memoize() decorator does not support arguments for methodWithArgs().'));
+    it('should cache functions with arguments', done => {
+        expect(obj.methodWithArgs(5, 5)).toBe(10);
+
+        setTimeout(function() {
+            expect(obj.methodWithArgs(5, 5)).toBe(10);
+            done();
+        }, 150);
     });
 });

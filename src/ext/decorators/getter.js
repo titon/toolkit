@@ -4,6 +4,9 @@
  * @link        http://titon.io
  */
 
+import checkIsMethod from './helpers/checkIsMethod';
+import getValueFunc from './helpers/getValueFunc';
+
 /**
  * The `getter` decorator will overload a getter method to accept an array of keys
  * that returns an object of key value pairs.
@@ -14,11 +17,9 @@
  * @returns {Object}
  */
 export default function getter(target, name, descriptor) {
-    let func = descriptor.value;
+    checkIsMethod('getter', arguments);
 
-    if (typeof func !== 'function') {
-        throw new SyntaxError('Only functions can be used as getters.');
-    }
+    let func = getValueFunc('getter', descriptor);
 
     descriptor.value = function(key) {
         let value = {};

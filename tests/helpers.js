@@ -5,7 +5,6 @@
 /**
  * Generate a sandbox for certain unit tests.
  */
-
 var app = document.createElement('div');
     app.id = 'app';
 
@@ -14,16 +13,6 @@ var sandbox = document.createElement('div');
 
 document.body.appendChild(app);
 document.body.appendChild(sandbox);
-
-/**
- * Convert `console.warn()` calls to errors so that we can unit test properly.
- */
-/*var oldWarn = console.warn;
-
-console.warn = function(message) {
-    throw new Error(message);
-};*/
-
 
 /**
  * Create an element an append it to the sandbox. This element will be created before every test,

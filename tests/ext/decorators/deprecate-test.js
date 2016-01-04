@@ -1,27 +1,27 @@
 /* eslint no-console: 0 */
 
-import deprecated from '../../../src/ext/decorators/deprecated';
+import deprecate from '../../../src/ext/decorators/deprecate';
 
 class DeprecatedStub {
     constructor() {
         this.value = null;
     }
 
-    @deprecated('method')
+    @deprecate('method')
     method() {}
 
-    @deprecated('getter')
+    @deprecate('getter')
     get getter() {
         return this.value;
     }
 
-    @deprecated('setter')
+    @deprecate('setter')
     set setter(value) {
         this.value = value;
     }
 }
 
-describe('ext/decorators/deprecated()', () => {
+describe('ext/decorators/deprecate()', () => {
     it('should wrap `get`, `set`, and `value` descriptors', () => {
         let warn = console.warn,
             obj = new DeprecatedStub(),
@@ -41,9 +41,9 @@ describe('ext/decorators/deprecated()', () => {
 
         expect(value).toBe(123);
         expect(messages).toEqual([
-            'method() is deprecated. method',
-            'setter() is deprecated. setter',
-            'getter() is deprecated. getter'
+            'DeprecatedStub#method() is deprecated. method',
+            'DeprecatedStub#setter() is deprecated. setter',
+            'DeprecatedStub#getter() is deprecated. getter'
         ]);
 
         // Reset `console.warn()`

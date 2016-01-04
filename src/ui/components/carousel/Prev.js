@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -15,6 +16,7 @@ export default class Prev extends Component {
      *
      * @param {SyntheticEvent} e
      */
+    @autoBind
     onClick(e) {
         this.context.prevItem();
         this.handleEvent('click', e);
@@ -30,7 +32,7 @@ export default class Prev extends Component {
             <button
                 type="button" role="button"
                 className={this.formatClass(this.props.className)}
-                onClick={this.onClick.bind(this)}>
+                onClick={this.onClick}>
                 {this.props.children}
             </button>
         );

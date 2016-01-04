@@ -7,9 +7,11 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
+import autoBind from '../../../ext/decorators/autoBind';
 import bem from '../../../ext/utility/bem';
-import debounce from 'lodash/function/debounce';
+import debounce from '../../../ext/decorators/debounce';
 
+@autoBind
 export default class SlideCollapse extends Component {
     constructor() {
         super();
@@ -17,8 +19,6 @@ export default class SlideCollapse extends Component {
         this.state = {
             size: -1
         };
-
-        this.onResize = debounce(this.onResize.bind(this), 100);
     }
 
     /**
@@ -65,6 +65,7 @@ export default class SlideCollapse extends Component {
     /**
      * When the browser is resized, re-calculate the element width or height.
      */
+    @debounce(100)
     onResize() {
         this.calculateSize();
     }
