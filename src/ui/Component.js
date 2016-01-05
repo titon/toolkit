@@ -5,10 +5,10 @@
  */
 
 import React, { PropTypes } from 'react';
+import ClassBuilder from '../ext/utility/ClassBuild';
 import Titon from '../Titon';
 import assign from 'lodash/object/assign';
 import bem from '../ext/utility/bem';
-import classBuilder from '../ext/utility/classBuilder';
 import generateUID from '../ext/utility/generateUID';
 import '../poly/performance/now';
 
@@ -65,13 +65,36 @@ export default class Component extends React.Component {
 
     /**
      * Format a unique HTML class name based on the passed parameters.
-     * Append the CSS namespace if applicable.
+     * The primary class name passed will automatically be namespaced,
+     * while all other classes will not.
      *
-     * @param {String} className
+     * @param {String|Array} className
+     * @param {Array} [params]
      * @returns {String}
      */
     formatClass(className, ...params) {
-        return classBuilder(bem(className), ...params);
+        let builder = new ClassBuilder();
+
+        // Prepend the namespace
+        className = bem(className);
+
+        if (Titon.options.autoNamespace) {
+            className = Titon.options.namespace + className;
+        }
+
+        builder.add(className);
+
+        // Append additional classes
+        params.forEach(param => {
+            if (typeof param === 'string' || Array.isArray(param)) {
+                builder.add(param);
+
+            } else if (typeof param === 'object') {
+                builder.map(param);
+            }
+        });
+
+        return builder.toString();
     }
 
     /**

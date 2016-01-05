@@ -425,7 +425,7 @@ export default class Carousel extends Component {
             <div
                 role="tablist"
                 id={this.formatID('carousel')}
-                className={this.formatClass(props.className, bem(props.className, '', props.modifier), props.component, {
+                className={this.formatClass(props.className, [props.className, '', props.modifier], props.component, {
                     'is-stopped': this.state.stopped,
                     'is-animating': this.state.animating,
                     'no-next': (!props.loop && this.isAtLast()),

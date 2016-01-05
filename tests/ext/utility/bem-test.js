@@ -9,6 +9,13 @@ describe('ext/utility/bem()', () => {
         expect(bem('foo', '', 'baz')).toBe('foo--baz');
     });
 
+    it('should generate a class name using arrays', () => {
+        expect(bem(['foo'])).toBe('foo');
+        expect(bem(['foo', 'bar'])).toBe('foo-bar');
+        expect(bem(['foo', 'bar', 'baz'])).toBe('foo-bar--baz');
+        expect(bem(['foo', '', 'baz'])).toBe('foo--baz');
+    });
+
     it('should be able to customize separators', () => {
         Titon.options.elementSeparator = '__';
         Titon.options.modifierSeparator = '---';
@@ -20,13 +27,5 @@ describe('ext/utility/bem()', () => {
 
         Titon.options.elementSeparator = '-';
         Titon.options.modifierSeparator = '--';
-    });
-
-    it('should prepend the `namespace`', () => {
-        Titon.options.namespace = 'tk-';
-
-        expect(bem('foo', 'bar')).toBe('tk-foo-bar');
-
-        Titon.options.namespace = '';
     });
 });

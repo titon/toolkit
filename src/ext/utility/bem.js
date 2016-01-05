@@ -9,22 +9,22 @@ import Titon from '../../Titon';
 /**
  * Generate a BEM (block-element-modifier) valid CSS class name.
  *
- * @param {String} block
+ * @param {String|Array} block
  * @param {String} [element]
  * @param {String} [modifier]
  * @returns {String}
  */
 export default function bem(block, element = '', modifier = '') {
+    if (Array.isArray(block)) {
+        return bem(...block);
+    }
+
     if (element) {
         block += Titon.options.elementSeparator + element;
     }
 
     if (modifier) {
         block += Titon.options.modifierSeparator + modifier;
-    }
-
-    if (Titon.options.autoNamespace) {
-        block = Titon.options.namespace + block;
     }
 
     return block;

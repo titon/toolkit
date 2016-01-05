@@ -42,7 +42,7 @@ export default class Breadcrumb extends Component {
 
 Breadcrumb.defaultProps = {
     className: 'breadcrumb',
-    label: 'Breadcrumb Navigation'
+    label: 'Navigation'
 };
 
 Breadcrumb.propTypes = {
