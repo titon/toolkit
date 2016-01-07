@@ -11,6 +11,7 @@ import Item from './Item';
 import Swipe from '../../events/Swipe';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 import { touch } from '../../../ext/flags';
 
@@ -170,7 +171,7 @@ ItemList.defaultProps = {
 
 ItemList.propTypes = {
     children: childrenOfType(Item),
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     onSwipe: collectionOf.func,
     onSwipeUp: collectionOf.func,

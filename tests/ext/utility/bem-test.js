@@ -16,6 +16,13 @@ describe('ext/utility/bem()', () => {
         expect(bem(['foo', '', 'baz'])).toBe('foo--baz');
     });
 
+    it('should generate a class name using objects', () => {
+        expect(bem({ block: 'foo' })).toBe('foo');
+        expect(bem({ block: 'foo', element: 'bar' })).toBe('foo-bar');
+        expect(bem({ block: 'foo', element: 'bar', modifier: 'baz' })).toBe('foo-bar--baz');
+        expect(bem({ block: 'foo', element: '', modifier: 'baz' })).toBe('foo--baz');
+    });
+
     it('should be able to customize separators', () => {
         Titon.options.elementSeparator = '__';
         Titon.options.modifierSeparator = '---';

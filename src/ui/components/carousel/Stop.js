@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Stop extends Component {
@@ -48,6 +49,6 @@ Stop.defaultProps = {
 
 Stop.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     onClick: collectionOf.func
 };

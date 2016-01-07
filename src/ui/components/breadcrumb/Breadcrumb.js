@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 
 export default class Breadcrumb extends Component {
     constructor() {
@@ -47,7 +48,8 @@ Breadcrumb.defaultProps = {
 
 Breadcrumb.propTypes = {
     children: childrenOfType(Item),
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
+    uniqueClassName: cssClassName,
     label: PropTypes.string,
     size: PropTypes.oneOf(['small', 'large'])
 };

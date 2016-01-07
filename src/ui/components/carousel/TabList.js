@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Tab from './Tab';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class TabList extends Component {
@@ -47,7 +48,7 @@ TabList.defaultProps = {
 };
 
 TabList.propTypes = {
-    className: PropTypes.string,
-    tabClassName: PropTypes.string,
+    className: cssClassName.isRequired,
+    tabClassName: cssClassName,
     onClick: collectionOf.func
 };

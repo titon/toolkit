@@ -68,21 +68,16 @@ export default class Component extends React.Component {
      * The primary class name passed will automatically be namespaced,
      * while all other classes will not.
      *
-     * @param {String|Array} className
-     * @param {Array} [params]
+     * @param {String|Array|Object} className
      * @returns {String}
      */
     formatClass(className, ...params) {
-        let builder = new ClassBuilder();
-
-        // Prepend the namespace
-        className = bem(className);
-
-        if (Titon.options.autoNamespace) {
-            className = Titon.options.namespace + className;
+        if (!className) {
+            return '';
         }
 
-        builder.add(className);
+        let namespace = Titon.options.autoNamespace ? Titon.options.namespace : '',
+            builder = new ClassBuilder(className, namespace);
 
         // Append additional classes
         params.forEach(param => {
@@ -90,9 +85,19 @@ export default class Component extends React.Component {
                 builder.add(param);
 
             } else if (typeof param === 'object') {
-                builder.map(param);
+                if (param.block) {
+                    builder.add(param);
+
+                } else {
+                    builder.map(param);
+                }
             }
         });
+
+        // A special edge case here that should only apply to top-level components
+        if (typeof this.props.uniqueClassName !== 'undefined') {
+            builder.add(this.props.uniqueClassName, '', '', false);
+        }
 
         return builder.toString();
     }

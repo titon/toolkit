@@ -8,6 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
 import autoBind from '../../ext/decorators/autoBind';
 import collectionOf from '../../ext/prop-types/collectionOf';
+import cssClassName from '../../ext/prop-types/cssClassName';
 import { touch } from '../../ext/flags';
 
 const abs = Math.abs;
@@ -211,7 +212,9 @@ export default class Swipe extends Component {
     render() {
         let child = Children.only(this.props.children),
             props = {
-                className: this.formatClass(this.props.className)
+                className: this.formatClass(this.props.className, {
+                    'is-swiping': this.state.swiping
+                })
             };
 
         // Overwrite any previous touch or mouse events
@@ -238,7 +241,7 @@ export default class Swipe extends Component {
 }
 
 Swipe.defaultProps = {
-    className: 'event-swipe',
+    className: ['event', 'swipe'],
     enabled: true,
     draggable: true,
     duration: 1000,             // Maximum time in milliseconds to travel
@@ -248,7 +251,7 @@ Swipe.defaultProps = {
 
 Swipe.propTypes = {
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     enabled: PropTypes.bool.isRequired,
     draggable: PropTypes.bool,
     duration: PropTypes.number,

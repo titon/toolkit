@@ -11,6 +11,7 @@ import ItemList from './ItemList';
 import autoBind from '../../../ext/decorators/autoBind';
 import bem from '../../../ext/utility/bem';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import debounce from '../../../ext/decorators/debounce';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -425,7 +426,8 @@ export default class Carousel extends Component {
             <div
                 role="tablist"
                 id={this.formatID('carousel')}
-                className={this.formatClass(props.className, [props.className, '', props.modifier], props.component, {
+                className={this.formatClass(props.className, {
+                    ['@' + props.modifier]: true,
                     'is-stopped': this.state.stopped,
                     'is-animating': this.state.animating,
                     'no-next': (!props.loop && this.isAtLast()),
@@ -445,7 +447,6 @@ export default class Carousel extends Component {
 Carousel.childContextTypes = CONTEXT_TYPES;
 
 Carousel.defaultProps = {
-    component: '',
     className: 'carousel',
     modifier: 'slide',
     duration: 5000,
@@ -460,8 +461,8 @@ Carousel.defaultProps = {
 
 Carousel.propTypes = {
     children: PropTypes.node,
-    component: PropTypes.string,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
+    uniqueClassName: cssClassName,
     modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: PropTypes.number,
     perCycle: PropTypes.number,

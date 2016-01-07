@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
@@ -16,18 +17,19 @@ export default class Item extends Component {
      * @returns {JSX}
      */
     render() {
-        let index = this.props.index,
+        let props = this.props,
+            index = props.index,
             active = this.context.isItemActive(index);
 
         return (
             <li role="tabpanel"
                 id={this.formatID('carousel-item', index)}
-                className={this.formatClass(this.props.className, {
+                className={this.formatClass(props.className, {
                     'is-active': active
                 })}
                 aria-hidden={!active}>
 
-                {this.props.children}
+                {props.children}
             </li>
         );
     }
@@ -41,6 +43,6 @@ Item.defaultProps = {
 
 Item.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     index: PropTypes.number.isRequired
 };

@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import autoBind from '../../../ext/decorators/autoBind';
-import bem from '../../../ext/utility/bem';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import debounce from '../../../ext/decorators/debounce';
 
 @autoBind
@@ -76,35 +76,36 @@ export default class SlideCollapse extends Component {
      */
     render() {
         let style = {},
-            className = this.formatClass(
-                'transition',
-                bem('slide', 'collapse'),
-                bem('slide', 'collapse', this.props.direction),
-                { 'is-expanded': this.props.expanded }
-            );
+            props = this.props,
+            className = this.formatClass(props.className, 'transition', {
+                ['@' + props.direction]: true,
+                'is-expanded': props.expanded
+            });
 
         // Don't force a max on the initial render
-        if (this.state.size >= 0 && this.props.expanded) {
+        if (this.state.size >= 0 && props.expanded) {
             style = {
-                [(this.props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
+                [(props.direction === 'vertical') ? 'maxHeight' : 'maxWidth']: this.state.size
             };
         }
 
         return (
             <div className={className} style={style}>
-                {this.props.children}
+                {props.children}
             </div>
         );
     }
 }
 
 SlideCollapse.defaultProps = {
+    className: ['slide', 'collapse'],
     direction: 'vertical',
     expanded: true
 };
 
 SlideCollapse.propTypes = {
     children: PropTypes.node,
+    className: cssClassName.isRequired,
     direction: PropTypes.oneOf(['vertical', 'horizontal']),
     expanded: PropTypes.bool.isRequired
 };
