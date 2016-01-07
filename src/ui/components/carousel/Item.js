@@ -38,7 +38,7 @@ export default class Item extends Component {
 Item.contextTypes = CONTEXT_TYPES;
 
 Item.defaultProps = {
-    className: 'carousel-item'
+    className: ['carousel', 'item']
 };
 
 Item.propTypes = {

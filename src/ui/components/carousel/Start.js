@@ -44,7 +44,7 @@ export default class Start extends Component {
 Start.contextTypes = CONTEXT_TYPES;
 
 Start.defaultProps = {
-    className: 'carousel-start'
+    className: ['carousel', 'start']
 };
 
 Start.propTypes = {

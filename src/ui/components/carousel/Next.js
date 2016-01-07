@@ -44,7 +44,7 @@ export default class Next extends Component {
 Next.contextTypes = CONTEXT_TYPES;
 
 Next.defaultProps = {
-    className: 'carousel-next'
+    className: ['carousel', 'next']
 };
 
 Next.propTypes = {

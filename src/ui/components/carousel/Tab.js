@@ -57,7 +57,7 @@ export default class Tab extends Component {
 Tab.contextTypes = CONTEXT_TYPES;
 
 Tab.defaultProps = {
-    className: 'carousel-tab'
+    className: ['carousel', 'tab']
 };
 
 Tab.propTypes = {

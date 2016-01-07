@@ -44,7 +44,7 @@ export default class Stop extends Component {
 Stop.contextTypes = CONTEXT_TYPES;
 
 Stop.defaultProps = {
-    className: 'carousel-stop'
+    className: ['carousel', 'stop']
 };
 
 Stop.propTypes = {

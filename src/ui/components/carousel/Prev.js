@@ -44,7 +44,7 @@ export default class Prev extends Component {
 Prev.contextTypes = CONTEXT_TYPES;
 
 Prev.defaultProps = {
-    className: 'carousel-prev'
+    className: ['carousel', 'prev']
 };
 
 Prev.propTypes = {

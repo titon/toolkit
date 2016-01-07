@@ -164,7 +164,7 @@ export default class ItemList extends Component {
 ItemList.contextTypes = CONTEXT_TYPES;
 
 ItemList.defaultProps = {
-    className: 'carousel-items',
+    className: ['carousel', 'items'],
     swipe: TOUCH
 };
 
