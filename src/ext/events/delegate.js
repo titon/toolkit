@@ -6,7 +6,7 @@
 
 /* eslint callback-return: 0 */
 
-import '../../poly/element/matches';
+import '../polyfills/element/matches';
 
 /**
  * Wrap a function that delegates the execution until the target element matches a selector.

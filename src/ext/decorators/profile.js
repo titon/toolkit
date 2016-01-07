@@ -7,7 +7,7 @@
 /* eslint no-console: 0 */
 
 import checkIsMethod from './helpers/checkIsMethod';
-import '../../poly/performance/now';
+import '../polyfills/performance/now';
 
 /**
  * The `profile` decorator can be used for profiling the time it took to execute a specific method.
