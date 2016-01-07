@@ -19,7 +19,7 @@ export default class Prev extends Component {
      * @param {SyntheticEvent} e
      */
     @autoBind
-    onClick(e) {
+    handleOnClick(e) {
         this.context.prevItem();
         this.handleEvent('click', e);
     }
@@ -34,7 +34,7 @@ export default class Prev extends Component {
             <button
                 type="button" role="button"
                 className={this.formatClass(this.props.className)}
-                onClick={this.onClick}>
+                onClick={this.handleOnClick}>
                 {this.props.children}
             </button>
         );

@@ -31,7 +31,7 @@ export default class ItemList extends Component {
      */
     componentDidMount() {
         ReactDOM.findDOMNode(this).children[0]
-            .addEventListener('transitionend', this.onTransitionEnd.bind(this));
+            .addEventListener('transitionend', this.handleOnTransitionEnd.bind(this));
     }
 
     /**
@@ -78,7 +78,7 @@ export default class ItemList extends Component {
      *
      * @param {TransitionEvent} e
      */
-    onTransitionEnd(e) {
+    handleOnTransitionEnd(e) {
         if (e.propertyName === 'transform') {
             this.context.afterAnimation();
         }

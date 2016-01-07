@@ -25,7 +25,7 @@ export default class SlideCollapse extends Component {
      * Bind events.
      */
     componentWillMount() {
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener('resize', this.handleOnResize);
     }
 
     /**
@@ -39,7 +39,7 @@ export default class SlideCollapse extends Component {
      * Unbind events.
      */
     componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener('resize', this.handleOnResize);
     }
 
     /**
@@ -66,7 +66,7 @@ export default class SlideCollapse extends Component {
      * When the browser is resized, re-calculate the element width or height.
      */
     @debounce(100)
-    onResize() {
+    handleOnResize() {
         this.calculateSize();
     }
 

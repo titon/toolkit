@@ -18,7 +18,7 @@ export default class Item extends Component {
      * @param {SyntheticEvent} e
      */
     @autoBind
-    onClick(e) {
+    handleOnClick(e) {
         this.handleEvent('click', e);
     }
 
@@ -32,7 +32,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={props.url} onClick={this.onClick}
+                <a href={props.url} onClick={this.handleOnClick}
                     className={this.formatClass(props.className)}>
                     {props.children}
                     <span className="caret">{props.caret}</span>

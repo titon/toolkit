@@ -20,7 +20,7 @@ export default class Tab extends Component {
      * @param {SyntheticEvent} e
      */
     @autoBind
-    onClick(e) {
+    handleOnClick(e) {
         this.context.showItem(this.props.index);
         this.handleEvent('click', e);
     }
@@ -46,7 +46,7 @@ export default class Tab extends Component {
                     aria-selected={active}
                     aria-expanded={active}
                     tabIndex={tabIndex(this)}
-                    onClick={this.onClick}>
+                    onClick={this.handleOnClick}>
                     <span />
                 </button>
             </li>

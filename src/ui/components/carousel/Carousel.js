@@ -65,8 +65,8 @@ export default class Carousel extends Component {
         this.showItem(this.props.defaultIndex);
 
         // Bind non-react events
-        window.addEventListener('keydown', this.onKeyDown);
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener('keydown', this.handleOnKeyDown);
+        window.addEventListener('resize', this.handleOnResize);
     }
 
     /**
@@ -97,8 +97,8 @@ export default class Carousel extends Component {
     componentWillUnmount() {
         clearTimeout(this.timer);
 
-        window.removeEventListener('keydown', this.onKeyDown);
-        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener('keydown', this.handleOnKeyDown);
+        window.removeEventListener('resize', this.handleOnResize);
     }
 
     /**
@@ -199,6 +199,77 @@ export default class Carousel extends Component {
      */
     getLastIndex() {
         return (this.countItems() - this.state.visible);
+    }
+
+    /**
+     * Handles the automatic cycle timer.
+     */
+    handleOnCycle() {
+        if (this.state.stopped) {
+            return;
+        }
+
+        if (this.props.reverse) {
+            this.prevItem();
+        } else {
+            this.nextItem();
+        }
+    }
+
+    /**
+     * Cycle between items based on the arrow key pressed.
+     *
+     * @param {SyntheticKeyboardEvent} e
+     */
+    handleOnKeyDown(e) {
+        switch (e.key) {
+            case 'ArrowLeft':
+                this.prevItem();
+                break;
+
+            case 'ArrowUp':
+                this.showItem(this.getFirstIndex());
+                break;
+
+            case 'ArrowRight':
+                this.nextItem();
+                break;
+
+            case 'ArrowDown':
+                this.showItem(this.getLastIndex());
+                break;
+
+            default:
+                return;
+        }
+
+        e.preventDefault();
+    }
+
+    /**
+     * Stop the cycle when entering the carousel.
+     */
+    handleOnMouseEnter() {
+        if (this.props.pauseOnHover) {
+            this.stopCycle();
+        }
+    }
+
+    /**
+     * Start the cycle when exiting the carousel.
+     */
+    handleOnMouseLeave() {
+        if (this.props.pauseOnHover) {
+            this.startCycle();
+        }
+    }
+
+    /**
+     * Re-calculate dimensions in case the element size has changed.
+     */
+    @debounce(100)
+    handleOnResize() {
+        this.calculateVisibleItems();
     }
 
     /**
@@ -320,7 +391,7 @@ export default class Carousel extends Component {
     startCycle() {
         clearTimeout(this.timer);
 
-        this.timer = setTimeout(this.onCycle, this.props.duration);
+        this.timer = setTimeout(this.handleOnCycle, this.props.duration);
 
         this.setState({
             stopped: false
@@ -344,77 +415,6 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Handles the automatic cycle timer.
-     */
-    onCycle() {
-        if (this.state.stopped) {
-            return;
-        }
-
-        if (this.props.reverse) {
-            this.prevItem();
-        } else {
-            this.nextItem();
-        }
-    }
-
-    /**
-     * Cycle between items based on the arrow key pressed.
-     *
-     * @param {SyntheticKeyboardEvent} e
-     */
-    onKeyDown(e) {
-        switch (e.key) {
-            case 'ArrowLeft':
-                this.prevItem();
-                break;
-
-            case 'ArrowUp':
-                this.showItem(this.getFirstIndex());
-                break;
-
-            case 'ArrowRight':
-                this.nextItem();
-                break;
-
-            case 'ArrowDown':
-                this.showItem(this.getLastIndex());
-                break;
-
-            default:
-                return;
-        }
-
-        e.preventDefault();
-    }
-
-    /**
-     * Stop the cycle when entering the carousel.
-     */
-    onMouseEnter() {
-        if (this.props.pauseOnHover) {
-            this.stopCycle();
-        }
-    }
-
-    /**
-     * Start the cycle when exiting the carousel.
-     */
-    onMouseLeave() {
-        if (this.props.pauseOnHover) {
-            this.startCycle();
-        }
-    }
-
-    /**
-     * Re-calculate dimensions in case the element size has changed.
-     */
-    @debounce(100)
-    onResize() {
-        this.calculateVisibleItems();
-    }
-
-    /**
      * Render the wrapping carousel element.
      *
      * @returns {JSX}
@@ -434,9 +434,9 @@ export default class Carousel extends Component {
                     'no-prev': (!props.loop && this.isAtFirst())
                 })}
                 aria-live={props.autoStart ? 'assertive' : 'off'}
-                onKeyDown={this.onKeyDown}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}>
+                onKeyDown={this.handleOnKeyDown}
+                onMouseEnter={this.handleOnMouseEnter}
+                onMouseLeave={this.handleOnMouseLeave}>
 
                 {props.children}
             </div>

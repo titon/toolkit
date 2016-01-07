@@ -21,7 +21,7 @@ Imports at the top of each module should be grouped using the rules listed below
 
 ## 2) Components ##
 
-* Event handler methods must begin with `on`.
+* Event handler methods must begin with `handleOn`.
 * Event listener properties must begin with `on`, so that they can be triggered through `emitEvent()` or `handleEvent()`.
 * Must have a `className` property which allows the CSS class name to be customized.
 * Must not touch the DOM unless highly necessary.

@@ -98,7 +98,7 @@ export default class Swipe extends Component {
     /**
      * Reset the state when `touchcancel` is triggered.
      */
-    onCancel() {
+    handleOnCancel() {
         this.resetState();
     }
 
@@ -118,7 +118,7 @@ export default class Swipe extends Component {
      *
      * @param {SyntheticEvent} e
      */
-    onMove(e) {
+    handleOnMove(e) {
         if (!this.state.swiping) {
             return;
         }
@@ -138,7 +138,7 @@ export default class Swipe extends Component {
      *
      * @param {SyntheticEvent} e
      */
-    onStart(e) {
+    handleOnStart(e) {
         // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc).
         // So only do it on an `img` element so it cannot be dragged.
         if (!TOUCH && e.target.tagName.toLowerCase() === 'img') {
@@ -164,7 +164,7 @@ export default class Swipe extends Component {
      *
      * @param {SyntheticEvent} e
      */
-    onStop(e) {
+    handleOnStop(e) {
         let start = this.state.startCoords,
             stop = this.packageCoordinates(e),
             props = this.props,
@@ -222,14 +222,14 @@ export default class Swipe extends Component {
         // Overwrite any previous touch or mouse events
         if (this.props.enabled) {
             if (TOUCH) {
-                props.onTouchStart = this.onStart;
-                props.onTouchEnd = this.onStop;
-                props.onTouchMove = this.onMove;
-                props.onTouchCancel = this.onCancel;
+                props.onTouchStart = this.handleOnStart;
+                props.onTouchEnd = this.handleOnStop;
+                props.onTouchMove = this.handleOnMove;
+                props.onTouchCancel = this.handleOnCancel;
             } else {
-                props.onMouseDown = this.onStart;
-                props.onMouseUp = this.onStop;
-                props.onMouseMove = this.onMove;
+                props.onMouseDown = this.handleOnStart;
+                props.onMouseUp = this.handleOnStop;
+                props.onMouseMove = this.handleOnMove;
             }
         }
 

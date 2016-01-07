@@ -19,7 +19,7 @@ export default class Start extends Component {
      * @param {SyntheticEvent} e
      */
     @autoBind
-    onClick(e) {
+    handleOnClick(e) {
         this.context.startCycle();
         this.handleEvent('click', e);
     }
@@ -34,7 +34,7 @@ export default class Start extends Component {
             <button
                 type="button" role="button"
                 className={this.formatClass(this.props.className)}
-                onClick={this.onClick}>
+                onClick={this.handleOnClick}>
                 {this.props.children}
             </button>
         );

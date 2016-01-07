@@ -20,7 +20,7 @@ export default class Header extends Component {
      * @param {SyntheticEvent} e
      */
     @autoBind
-    onClick(e) {
+    handleOnClick(e) {
         let index = this.props.index,
             context = this.context;
 
@@ -54,7 +54,7 @@ export default class Header extends Component {
                 aria-selected={active}
                 aria-expanded={active}
                 tabIndex={tabIndex(this)}
-                onClick={this.onClick}>
+                onClick={this.handleOnClick}>
 
                 {props.children}
             </header>
