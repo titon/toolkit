@@ -5,9 +5,10 @@
  */
 
 import React, { PropTypes } from 'react';
-import ClassBuilder from '../ext/utility/ClassBuild';
 import Titon from '../Titon';
+import ClassBuilder from '../ext/utility/ClassBuild';
 import assign from 'lodash/object/assign';
+import cssClassName from '../ext/prop-types/cssClassName';
 import generateUID from '../ext/utility/generateUID';
 import '../poly/performance/now';
 
@@ -202,5 +203,6 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
-    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    uniqueClassName: cssClassName
 };

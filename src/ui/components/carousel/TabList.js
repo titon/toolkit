@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Component from '../../Component';
 import Tab from './Tab';
 import collectionOf from '../../../ext/prop-types/collectionOf';
