@@ -6,9 +6,9 @@
 
 import React, { PropTypes } from 'react';
 import Titon from '../Titon';
+import ClassBuilder from '../ext/utility/ClassBuild';
 import assign from 'lodash/object/assign';
-import bem from '../ext/utility/bem';
-import classBuilder from '../ext/utility/classBuilder';
+import cssClassName from '../ext/prop-types/cssClassName';
 import generateUID from '../ext/utility/generateUID';
 import '../poly/performance/now';
 
@@ -65,13 +65,41 @@ export default class Component extends React.Component {
 
     /**
      * Format a unique HTML class name based on the passed parameters.
-     * Append the CSS namespace if applicable.
+     * The primary class name passed will automatically be namespaced,
+     * while all other classes will not.
      *
-     * @param {String} className
+     * @param {String|Array|Object} className
      * @returns {String}
      */
     formatClass(className, ...params) {
-        return classBuilder(bem(className), ...params);
+        if (!className) {
+            return '';
+        }
+
+        let namespace = Titon.options.autoNamespace ? Titon.options.namespace : '',
+            builder = new ClassBuilder(className, namespace);
+
+        // Append additional classes
+        params.forEach(param => {
+            if (typeof param === 'string' || Array.isArray(param)) {
+                builder.add(param);
+
+            } else if (typeof param === 'object') {
+                if (param.block) {
+                    builder.add(param);
+
+                } else {
+                    builder.map(param);
+                }
+            }
+        });
+
+        // A special edge case here that should only apply to top-level components
+        if (typeof this.props.uniqueClassName !== 'undefined') {
+            builder.add(this.props.uniqueClassName, '', '', false);
+        }
+
+        return builder.toString();
     }
 
     /**
@@ -175,5 +203,6 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
-    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    uniqueClassName: cssClassName
 };

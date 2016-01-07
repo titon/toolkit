@@ -10,7 +10,7 @@ import { PropTypes } from 'react';
  * A function that will validate that a prop is either a single type, or an array of type.
  *
  * @param {Function} propType
- * @returns {Function}
+ * @returns {React.PropTypes.oneOfType}
  */
 function collectionOf(propType) {
     return PropTypes.oneOfType([propType, PropTypes.arrayOf(propType)]);

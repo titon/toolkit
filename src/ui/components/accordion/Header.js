@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import tabIndex from '../../../ext/utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -38,14 +39,15 @@ export default class Header extends Component {
      * @returns {JSX}
      */
     render() {
-        let index = this.props.index,
-            active = this.props.active;
+        let props = this.props,
+            index = props.index,
+            active = props.active;
 
         return (
             <header
                 role="tab"
                 id={this.formatID('accordion-header', index)}
-                className={this.formatClass(this.props.className, {
+                className={this.formatClass(props.className, {
                     'is-active': active
                 })}
                 aria-controls={this.formatID('accordion-section', index)}
@@ -54,7 +56,7 @@ export default class Header extends Component {
                 tabIndex={tabIndex(this)}
                 onClick={this.onClick}>
 
-                {this.props.children}
+                {props.children}
             </header>
         );
     }
@@ -68,7 +70,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     active: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     onClick: collectionOf.func

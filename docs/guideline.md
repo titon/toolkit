@@ -12,7 +12,8 @@ Imports at the top of each module should be grouped using the rules listed below
     * ReactDOM
     * Enzyme
         * `shallow`, `mount`, and `render` should be dereferenced
-    * Components
+    * Titon
+    * Classes, Components
     * Functions, Decorators
     * Constants
 * Wildcard Imports

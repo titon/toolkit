@@ -11,6 +11,7 @@ import Component from '../../Component';
 import Header from './Header';
 import Section from './Section';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
@@ -52,7 +53,7 @@ Item.contextTypes = CONTEXT_TYPES;
 Item.propTypes = {
     index: PropTypes.number.isRequired,
     header: PropTypes.node.isRequired,
-    headerClassName: PropTypes.string,
-    sectionClassName: PropTypes.string,
+    headerClassName: cssClassName,
+    sectionClassName: cssClassName,
     onClick: collectionOf.func
 };

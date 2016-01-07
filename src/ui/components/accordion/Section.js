@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import SlideCollapse from '../../transitions/slide-collapse';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {
@@ -17,22 +18,23 @@ export default class Section extends Component {
      * @returns {JSX}
      */
     render() {
-        let index = this.props.index,
-            expanded = this.props.expanded;
+        let props = this.props,
+            index = props.index,
+            expanded = props.expanded;
 
         return (
             <SlideCollapse expanded={expanded}>
                 <section
                     role="tabpanel"
                     id={this.formatID('accordion-section', index)}
-                    className={this.formatClass(this.props.className, {
+                    className={this.formatClass(props.className, {
                         'is-expanded': expanded
                     })}
                     aria-labelledby={this.formatID('accordion-header', index)}
                     aria-hidden={!expanded}
                     aria-expanded={expanded}>
 
-                    {this.props.children}
+                    {props.children}
                 </section>
             </SlideCollapse>
         );
@@ -47,7 +49,7 @@ Section.defaultProps = {
 
 Section.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
     expanded: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired
 };

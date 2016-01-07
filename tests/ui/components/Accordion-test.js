@@ -93,7 +93,7 @@ describe('ui/components/Accordion', () => {
 
     describe('render()', () => {
         it('should set a custom class', () => {
-            let wrapper = mount(<Accordion component="foo" />),
+            let wrapper = mount(<Accordion uniqueClassName="foo" />),
                 element = wrapper.find('.accordion');
 
             expect(element.hasClass('accordion')).toBe(true);

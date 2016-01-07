@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 
 export default class Button extends Component {
     constructor() {
@@ -24,6 +25,7 @@ export default class Button extends Component {
 }
 
 Button.defaultProps = {
+    className: 'button',
     url: '',
     size: '',
     shape: '',
@@ -34,6 +36,8 @@ Button.defaultProps = {
 
 Button.propTypes = {
     children: PropTypes.node,
+    className: cssClassName.isRequired,
+    uniqueClassName: cssClassName,
     url: PropTypes.string,
     size: PropTypes.oneOf(['small', 'large']),
     shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),

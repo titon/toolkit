@@ -10,6 +10,7 @@ import Item from './Item';
 import autoBind from '../../../ext/decorators/autoBind';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
+import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {
@@ -141,17 +142,19 @@ export default class Accordion extends Component {
      * @returns {JSX}
      */
     render() {
+        let props = this.props;
+
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(this.props.className, this.props.component, {
-                    'is-multiple': this.props.multiple,
-                    'is-collapsible': this.props.collapsible
+                className={this.formatClass(props.className, {
+                    'is-multiple': props.multiple,
+                    'is-collapsible': props.collapsible
                 })}
                 aria-live="off"
-                aria-multiselectable={this.props.multiple}>
+                aria-multiselectable={props.multiple}>
 
-                {this.props.children}
+                {props.children}
             </ul>
         );
     }
@@ -168,8 +171,8 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
     children: childrenOfType(Item),
-    component: PropTypes.string,
-    className: PropTypes.string,
+    className: cssClassName.isRequired,
+    uniqueClassName: cssClassName,
     defaultIndex: collectionOf.number,
     multiple: PropTypes.bool,
     collapsible: PropTypes.bool,
