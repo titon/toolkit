@@ -15,6 +15,8 @@ const CONTEXT_TYPES = {
     lastIndex: PropTypes.number,
     itemCount: PropTypes.number,
     visibleCount: PropTypes.number,
+    infiniteScroll: PropTypes.bool,
+    loopedScroll: PropTypes.bool,
     afterAnimation: PropTypes.func,
     isItemActive: PropTypes.func,
     nextItem: PropTypes.func,

@@ -21,8 +21,8 @@ ReactDOM.render(
 
         <Carousel
             uniqueClassName="slideshow" modifier="slide"
-            toCycle={1} toShow={2}
-            loop={true} infinite={true}
+            toCycle={1} toShow={1}
+            loop={false} infinite={false}
             autoStart={false} pauseOnHover={false}>
 
             <Carousel.ItemList swipe={true} onSwipe={log} onSwipeRight={log}>

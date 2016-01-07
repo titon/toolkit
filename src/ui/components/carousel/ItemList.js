@@ -23,7 +23,8 @@ export default class ItemList extends Component {
         this.state = {
             fromIndex: 0,
             toIndex: 0,
-            translate: 'none'
+            translate: 'none',
+            reset: false
         };
     }
 
@@ -42,9 +43,13 @@ export default class ItemList extends Component {
      * @param {Object} nextContext
      */
     componentWillReceiveProps(nextProps, nextContext) {
+        console.log('componentWillReceiveProps', nextContext);
+
         this.setState({
-            fromIndex: this.state.toIndex,
-            toIndex: nextContext.currentIndex
+            fromIndex: this.state.toIndex, // Previous index is the from
+            toIndex: nextContext.currentIndex,
+            translate: this.getTranslateOffset(nextContext.currentIndex),
+            reset: nextContext.infiniteScroll
         });
     }
 
@@ -57,18 +62,7 @@ export default class ItemList extends Component {
      * @param {Object} prevContext
      */
     componentDidUpdate(prevProps, prevState, prevContext) {
-        /*
-         let nextContext = this.context;
 
-         // Parent index has changed, start phase 1
-         if (prevState.index !== prevContext.currentIndex || nextContext.currentIndex !== prevContext.currentIndex) {
-         this.setState({
-         index: nextContext.currentIndex,
-         phase: 1,
-         translate: this.getTranslateOffset(nextContext.visibleCount)
-         })
-         }
-         */
     }
 
     /**
@@ -112,6 +106,11 @@ export default class ItemList extends Component {
             itemCount = context.itemCount,
             perSide = context.visibleCount;
 
+        // We can simply use all children if we don't have to support infinite scrolling
+        if (!context.infiniteScroll) {
+            return children;
+        }
+
         if (children.length) {
             let startIndex = context.currentIndex - perSide,
                 endIndex = context.currentIndex + context.visibleCount + perSide;
@@ -145,14 +144,18 @@ export default class ItemList extends Component {
 
         // Trigger our listeners first
         props.onSwipeUp.unshift(context.nextItem);
-        props.onSwipeRight.unshift(context.prevItem);
-        props.onSwipeDown.unshift(context.prevItem);
         props.onSwipeLeft.unshift(context.nextItem);
+        props.onSwipeDown.unshift(context.prevItem);
+        props.onSwipeRight.unshift(context.prevItem);
+
+        console.log('CHILD RENDER');
 
         return (
-            <div className={this.formatClass(this.props.className)}>
+            <div className={this.formatClass(this.props.className, {
+                    'no-transition': this.state.reset
+                })}>
                 <Swipe {...props}>
-                    <ol style={{ transform: this.getTranslateOffset(context.visibleCount) }}>
+                    <ol style={{ transform: this.state.translate }}>
                         {this.renderChildren()}
                     </ol>
                 </Swipe>

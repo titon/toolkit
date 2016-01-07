@@ -138,6 +138,10 @@ export default class Component extends React.Component {
             obj.enabled = Boolean(props[propName]);
         }
 
+        if (!obj.enabled) {
+            return obj;
+        }
+
         // Inherit event listeners
         listeners.forEach(key => {
             if (!obj[key]) {

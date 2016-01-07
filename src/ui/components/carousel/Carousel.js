@@ -41,6 +41,8 @@ export default class Carousel extends Component {
             lastIndex: this.getLastIndex(),
             itemCount: this.countItems(),
             visibleCount: this.props.toShow,
+            infiniteScroll: this.props.infinite,
+            loopedScroll: this.props.loop,
             afterAnimation: this.afterAnimation,
             isItemActive: this.isItemActive,
             nextItem: this.nextItem,
