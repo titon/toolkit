@@ -8,7 +8,7 @@ import Carousel from './ui/components/carousel';
 import Breadcrumb from './ui/components/breadcrumb';
 
 const log = function(e, ...args) {
-    console.log(e.constructor.name, e.type, e.detail, e, args);
+    // console.log(e.constructor.name, e.type, e.detail, e, args);
 };
 
 ReactDOM.render(
@@ -21,8 +21,9 @@ ReactDOM.render(
 
         <Carousel
             uniqueClassName="slideshow" modifier="slide"
-            debug={true} perCycle={1} loop={true}
-            infinite={true} autoStart={false} pauseOnHover={false}>
+            toCycle={1} toShow={2}
+            loop={true} infinite={true}
+            autoStart={false} pauseOnHover={false}>
 
             <Carousel.ItemList swipe={true} onSwipe={log} onSwipeRight={log}>
                 <Carousel.Item index={0}>0</Carousel.Item>

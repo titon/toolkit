@@ -11,10 +11,8 @@ import ItemList from './ItemList';
 import autoBind from '../../../ext/decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
-import debounce from '../../../ext/decorators/debounce';
 import CONTEXT_TYPES from './ContextTypes';
 
-@autoBind
 export default class Carousel extends Component {
     constructor() {
         super();
@@ -23,9 +21,7 @@ export default class Carousel extends Component {
         this.state = {
             index: 0,
             stopped: true,
-            animating: false,
-            visible: 1,
-            cloned: 0
+            animating: false
         };
         this.generateUID();
     }
@@ -44,8 +40,7 @@ export default class Carousel extends Component {
             firstIndex: this.getFirstIndex(),
             lastIndex: this.getLastIndex(),
             itemCount: this.countItems(),
-            visibleCount: this.state.visible,
-            clonedCount: this.state.cloned,
+            visibleCount: this.props.toShow,
             afterAnimation: this.afterAnimation,
             isItemActive: this.isItemActive,
             nextItem: this.nextItem,
@@ -57,53 +52,42 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Before mounting, validate and correct specific props,
-     * and setup the initial state.
+     * Set the default index and bind events before mounting.
      */
     componentWillMount() {
-        // Set the default index
         this.showItem(this.props.defaultIndex);
 
-        // Bind non-react events
         window.addEventListener('keydown', this.handleOnKeyDown);
-        window.addEventListener('resize', this.handleOnResize);
     }
 
     /**
-     * Calculate dimensions once mounted.
-     */
-    componentDidMount() {
-        this.calculateVisibleItems();
-    }
-
-    /**
-     * Emit `cycling` event after rendering.
+     * Start the transition animation after rendering,
+     * but before children have updated.
      *
-     * @param {Object} prevProps
-     * @param {Object} prevState
+     * @param {Object} nextProps
+     * @param {Object} nextState
      */
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.index !== this.state.index) {
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.index !== this.state.index) {
             this.beforeAnimation();
-
-            // FIXME: Temporary
-            this.afterAnimation();
         }
     }
 
     /**
-     * Remove events when unmounting.
+     * Remove events and timers when unmounting.
      */
     componentWillUnmount() {
         clearTimeout(this.timer);
 
         window.removeEventListener('keydown', this.handleOnKeyDown);
-        window.removeEventListener('resize', this.handleOnResize);
     }
 
     /**
      * Functionality to trigger after the cycle animation occurs.
-     * We must set the `animating` state to false or we get locked in.
+     * We must set the `animating` state to false or we get locked in
+     * an unusable state.
+     *
+     * This *should* be handled by a child component, like `ItemList`.
      */
     @autoBind
     afterAnimation() {
@@ -116,36 +100,12 @@ export default class Carousel extends Component {
 
     /**
      * Functionality to trigger before the cycle animation occurs.
+     *
+     * Do not set the `animation` state here as it causes 2 renders
+     * and because `componentWillUpdate()` does not allow state changes.
      */
     beforeAnimation() {
         this.emitEvent('cycling', [this.state.index]);
-    }
-
-    /**
-     * Calculate the number of items that are visible at the same time.
-     */
-    calculateVisibleItems() {
-        let visible = 1,
-            cloned = 0;
-
-        if (this.props.modifier !== 'fade') {
-            let wrapper = ReactDOM.findDOMNode(this),
-                dimension = (this.props.modifier === 'slide-up') ? 'offsetHeight' : 'offsetWidth',
-                child = wrapper.querySelector(`div[data-carousel-items] > ol > li`);
-
-            if (child) {
-                visible = Math.round(wrapper[dimension] / child[dimension]);
-            }
-        }
-
-        if (this.props.infinite) {
-            cloned = visible * 2;
-        }
-
-        this.setState({
-            visible,
-            cloned
-        });
     }
 
     /**
@@ -154,13 +114,16 @@ export default class Carousel extends Component {
      * @returns {Number}
      */
     countItems() {
-        let count = 0;
+        let count = 0,
+            children = Children.toArray(this.props.children);
 
-        Children.forEach(this.props.children, child => {
-            if (child.type === ItemList) {
-                count = Children.count(child.props.children);
+        // Use a for loop so that we can break out
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].type === ItemList) {
+                count = Children.count(children[i].props.children);
+                break;
             }
-        });
+        }
 
         return count;
     }
@@ -172,7 +135,7 @@ export default class Carousel extends Component {
      */
     getActiveIndices() {
         let currentIndex = this.state.index,
-            visibleCount = this.state.visible,
+            visibleCount = this.props.toShow,
             active = [];
 
         for (let i = 0; i < visibleCount; i++) {
@@ -183,7 +146,7 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Returns the first index that can be cycled to, while taking cloned items into account.
+     * Returns the first index that can be cycled to.
      *
      * @returns {Number}
      */
@@ -192,18 +155,18 @@ export default class Carousel extends Component {
     }
 
     /**
-     * Returns the last index that can be cycled to, while taking visible item counts
-     * and cloned item indices into account.
+     * Returns the last index that can be cycled to.
      *
      * @returns {Number}
      */
     getLastIndex() {
-        return (this.countItems() - this.state.visible);
+        return (this.countItems() - this.props.toShow);
     }
 
     /**
      * Handles the automatic cycle timer.
      */
+    @autoBind
     handleOnCycle() {
         if (this.state.stopped) {
             return;
@@ -221,6 +184,7 @@ export default class Carousel extends Component {
      *
      * @param {SyntheticKeyboardEvent} e
      */
+    @autoBind
     handleOnKeyDown(e) {
         switch (e.key) {
             case 'ArrowLeft':
@@ -249,6 +213,7 @@ export default class Carousel extends Component {
     /**
      * Stop the cycle when entering the carousel.
      */
+    @autoBind
     handleOnMouseEnter() {
         if (this.props.pauseOnHover) {
             this.stopCycle();
@@ -258,18 +223,11 @@ export default class Carousel extends Component {
     /**
      * Start the cycle when exiting the carousel.
      */
+    @autoBind
     handleOnMouseLeave() {
         if (this.props.pauseOnHover) {
             this.startCycle();
         }
-    }
-
-    /**
-     * Re-calculate dimensions in case the element size has changed.
-     */
-    @debounce(100)
-    handleOnResize() {
-        this.calculateVisibleItems();
     }
 
     /**
@@ -301,7 +259,7 @@ export default class Carousel extends Component {
     isItemActive(index) {
         let currentIndex = this.state.index;
 
-        return (index >= currentIndex && index <= (currentIndex + this.state.visible - 1));
+        return (index >= currentIndex && index <= (currentIndex + this.props.toShow - 1));
     }
 
     /**
@@ -309,7 +267,7 @@ export default class Carousel extends Component {
      */
     @autoBind
     nextItem() {
-        this.showItem(this.state.index + this.props.perCycle);
+        this.showItem(this.state.index + this.props.toCycle);
     }
 
     /**
@@ -317,7 +275,7 @@ export default class Carousel extends Component {
      */
     @autoBind
     prevItem() {
-        this.showItem(this.state.index - this.props.perCycle);
+        this.showItem(this.state.index - this.props.toCycle);
     }
 
     /**
@@ -341,13 +299,13 @@ export default class Carousel extends Component {
             return;
         }
 
-        let currentIndex = this.state.index,
+        let props = this.props,
+            currentIndex = this.state.index,
             lastIndex = this.getLastIndex(),
             firstIndex = this.getFirstIndex(),
-            itemCount = this.countItems(),
-            loop = this.props.loop;
+            itemCount = this.countItems();
 
-        if (this.props.infinite) {
+        if (props.infinite) {
             if (index >= itemCount) {
                 index = firstIndex + (index - itemCount);
 
@@ -357,19 +315,19 @@ export default class Carousel extends Component {
 
         } else {
             if (index > lastIndex) {
-                index = loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
+                index = props.loop ? firstIndex + (index - lastIndex - 1) : lastIndex;
 
             } else if (index < firstIndex) {
-                index = loop ? lastIndex + index + 1 : firstIndex;
+                index = props.loop ? lastIndex + index + 1 : firstIndex;
             }
         }
 
         // Stop the cycle if on the last item
-        if (!loop && index === lastIndex) {
+        if (!props.loop && index === lastIndex) {
             this.stopCycle();
 
             // Reset the cycle timer
-        } else if (this.props.autoStart) {
+        } else if (props.autoStart) {
             this.startCycle();
         }
 
@@ -434,7 +392,6 @@ export default class Carousel extends Component {
                     'no-prev': (!props.loop && this.isAtFirst())
                 })}
                 aria-live={props.autoStart ? 'assertive' : 'off'}
-                onKeyDown={this.handleOnKeyDown}
                 onMouseEnter={this.handleOnMouseEnter}
                 onMouseLeave={this.handleOnMouseLeave}>
 
@@ -450,7 +407,8 @@ Carousel.defaultProps = {
     className: 'carousel',
     modifier: 'slide',
     duration: 5000,
-    perCycle: 1,
+    toCycle: 1,
+    toShow: 1,
     defaultIndex: 0,
     autoStart: true,
     pauseOnHover: true,
@@ -465,7 +423,8 @@ Carousel.propTypes = {
     uniqueClassName: cssClassName,
     modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
     duration: PropTypes.number,
-    perCycle: PropTypes.number,
+    toCycle: PropTypes.number,
+    toShow: PropTypes.number,
     defaultIndex: PropTypes.number,
     autoStart: PropTypes.bool,
     pauseOnHover: PropTypes.bool,

@@ -30,6 +30,7 @@ Imports at the top of each module should be grouped using the rules listed below
 The following apply to top-level parent components.
 
 * Must use contexts that are passed to each child.
+    * Must have a `uid` field.
 * Must have a `component` property that is appended as a CSS class name.
 * Must have an ID on the generated HTML element. Can easily be achieved with `Component.formatID()`.
 

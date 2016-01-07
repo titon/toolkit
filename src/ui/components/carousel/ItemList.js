@@ -13,6 +13,7 @@ import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
+import { EVENT_NAME } from '../../../ext/events/transitionEnd';
 import { TOUCH } from '../../../ext/flags';
 
 export default class ItemList extends Component {
@@ -20,9 +21,9 @@ export default class ItemList extends Component {
         super();
 
         this.state = {
-            index: -1, // The previous index
-            phase: 0,
-            translate: ''
+            fromIndex: 0,
+            toIndex: 0,
+            translate: 'none'
         };
     }
 
@@ -31,7 +32,20 @@ export default class ItemList extends Component {
      */
     componentDidMount() {
         ReactDOM.findDOMNode(this).children[0]
-            .addEventListener('transitionend', this.handleOnTransitionEnd.bind(this));
+            .addEventListener(EVENT_NAME, this.handleOnTransitionEnd.bind(this));
+    }
+
+    /**
+     * When receiving a new index, determine what indices to transition from and to.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextContext
+     */
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            fromIndex: this.state.toIndex,
+            toIndex: nextContext.currentIndex
+        });
     }
 
     /**
@@ -96,26 +110,9 @@ export default class ItemList extends Component {
             visibleChildren = [],
             context = this.context,
             itemCount = context.itemCount,
-            clonedCount = context.clonedCount,
-            perSide = clonedCount / 2;
+            perSide = context.visibleCount;
 
-        /*
-         if (clonedCount && children.length >= clonedCount) {
-         let firstItems = children.slice(0, perSide),
-         lastItems = children.slice(-perSide),
-         clone = child => {
-         return React.cloneElement(child, {
-         clone: true,
-         key: child.key + '-clone'
-         });
-         };
-
-         children.push(...firstItems.map(clone));
-         children.unshift(...lastItems.map(clone));
-         }
-         */
-
-        if (clonedCount && children.length >= clonedCount) {
+        if (children.length) {
             let startIndex = context.currentIndex - perSide,
                 endIndex = context.currentIndex + context.visibleCount + perSide;
 
@@ -153,7 +150,7 @@ export default class ItemList extends Component {
         props.onSwipeLeft.unshift(context.nextItem);
 
         return (
-            <div className={this.formatClass(this.props.className)} data-carousel-items={true}>
+            <div className={this.formatClass(this.props.className)}>
                 <Swipe {...props}>
                     <ol style={{ transform: this.getTranslateOffset(context.visibleCount) }}>
                         {this.renderChildren()}
