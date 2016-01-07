@@ -14,9 +14,11 @@ import debounce from '../../../ext/decorators/debounce';
 @autoBind
 export default class SlideCollapse extends Component {
     constructor() {
-        super({
+        super();
+
+        this.state = {
             size: -1
-        });
+        };
     }
 
     /**

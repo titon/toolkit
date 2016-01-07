@@ -17,11 +17,13 @@ import { TOUCH } from '../../../ext/flags';
 
 export default class ItemList extends Component {
     constructor() {
-        super({
+        super();
+
+        this.state = {
             index: -1, // The previous index
             phase: 0,
             translate: ''
-        });
+        };
     }
 
     /**

@@ -51,6 +51,13 @@ import formatBEM from './formatBEM';
  *
  */
 export default class ClassBuilder {
+
+    /**
+     * Setup the primary class and prefix.
+     *
+     * @param {String} primaryClass     Primary class to utilizie with modifiers
+     * @param {String} prefix           Prefix to prepend to all classes
+     */
     constructor(primaryClass, prefix = '') {
         if (!primaryClass) {
             throw new Error('`ClassBuilder` requires a primary class name.');
