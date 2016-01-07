@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Titon from '../Titon';
-import ClassBuilder from '../ext/utility/ClassBuild';
+import ClassBuilder from '../ext/utility/ClassBuilder';
 import assign from 'lodash/object/assign';
 import cssClassName from '../ext/prop-types/cssClassName';
 import generateUID from '../ext/utility/generateUID';
