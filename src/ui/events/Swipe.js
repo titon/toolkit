@@ -9,7 +9,7 @@ import Component from '../Component';
 import autoBind from '../../ext/decorators/autoBind';
 import collectionOf from '../../ext/prop-types/collectionOf';
 import cssClassName from '../../ext/prop-types/cssClassName';
-import { touch } from '../../ext/flags';
+import { TOUCH } from '../../ext/flags';
 
 const abs = Math.abs;
 
@@ -139,7 +139,7 @@ export default class Swipe extends Component {
     onStart(e) {
         // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc).
         // So only do it on an `img` element so it cannot be dragged.
-        if (!touch && e.target.tagName.toLowerCase() === 'img') {
+        if (!TOUCH && e.target.tagName.toLowerCase() === 'img') {
             e.preventDefault();
         }
 
@@ -219,7 +219,7 @@ export default class Swipe extends Component {
 
         // Overwrite any previous touch or mouse events
         if (this.props.enabled) {
-            if (touch) {
+            if (TOUCH) {
                 props.onTouchStart = this.onStart;
                 props.onTouchEnd = this.onStop;
                 props.onTouchMove = this.onMove;

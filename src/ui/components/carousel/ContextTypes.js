@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 
-export default {
+const CONTEXT_TYPES = {
     uid: PropTypes.string,
     modifier: PropTypes.string,
     currentIndex: PropTypes.number,
@@ -24,3 +24,5 @@ export default {
     startCycle: PropTypes.func,
     stopCycle: PropTypes.func
 };
+
+export default CONTEXT_TYPES;

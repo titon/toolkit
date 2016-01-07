@@ -6,7 +6,7 @@
 
 import { PropTypes } from 'react';
 
-export default {
+const CONTEXT_TYPES = {
     uid: PropTypes.string,
     activeIndices: PropTypes.arrayOf(PropTypes.number),
     hideItem: PropTypes.func,
@@ -14,3 +14,5 @@ export default {
     isItemCollapsible: PropTypes.func,
     isItemActive: PropTypes.func
 };
+
+export default CONTEXT_TYPES;

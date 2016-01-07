@@ -13,7 +13,7 @@ import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
-import { touch } from '../../../ext/flags';
+import { TOUCH } from '../../../ext/flags';
 
 export default class ItemList extends Component {
     constructor() {
@@ -166,7 +166,7 @@ ItemList.contextTypes = CONTEXT_TYPES;
 
 ItemList.defaultProps = {
     className: 'carousel-items',
-    swipe: touch
+    swipe: TOUCH
 };
 
 ItemList.propTypes = {
