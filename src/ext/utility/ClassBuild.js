@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import bem from '../utility/bem';
+import formatBEM from './formatBEM';
 
 /**
  * The `ClassBuilder` is a proper mechanism for building a list of possible
@@ -67,7 +67,7 @@ export default class ClassBuilder {
     /**
      * Add a secondary BEM compatible class name.
      *
-     * @param {String|Array} block
+     * @param {String|Array|Object} block
      * @param {String} [element]
      * @param {String} [modifier]
      * @param {Boolean} [prefix]
@@ -75,7 +75,7 @@ export default class ClassBuilder {
      */
     add(block, element = '', modifier = '', prefix = true) {
         this.classes.push(
-            (prefix ? this.prefix : '') + bem(block, element, modifier)
+            (prefix ? this.prefix : '') + formatBEM(block, element, modifier)
         );
 
         return this;
@@ -112,7 +112,7 @@ export default class ClassBuilder {
      */
     mod(modifier) {
         // Primary should already be prefixed so don't do it again
-        this.classes.push(bem(this.primaryClass, '', modifier));
+        this.classes.push(formatBEM(this.primaryClass, '', modifier));
 
         return this;
     }

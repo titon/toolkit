@@ -12,27 +12,27 @@ import Titon from '../../Titon';
  *
  * With strings:
  *
- *      bem('block', 'element', 'modifier');
+ *      formatBEM('block', 'element', 'modifier');
  *
  * With arrays:
  *
- *      bem(['block', 'element', 'modifier']);
+ *      formatBEM(['block', 'element', 'modifier']);
  *
  * With objects:
  *
- *      bem({ block: 'block', element: 'element', modifier: 'modifier' });
+ *      formatBEM({ block: 'block', element: 'element', modifier: 'modifier' });
  *
  * @param {String|Array|Object} block
  * @param {String} [element]
  * @param {String} [modifier]
  * @returns {String}
  */
-export default function bem(block, element = '', modifier = '') {
+export default function formatBEM(block, element = '', modifier = '') {
     if (Array.isArray(block)) {
-        return bem(...block);
+        return formatBEM(...block);
 
     } else if (typeof block === 'object') {
-        return bem(block.block, block.element, block.modifier);
+        return formatBEM(block.block, block.element, block.modifier);
     }
 
     if (element) {

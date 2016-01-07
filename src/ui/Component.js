@@ -8,7 +8,6 @@ import React, { PropTypes } from 'react';
 import ClassBuilder from '../ext/utility/ClassBuild';
 import Titon from '../Titon';
 import assign from 'lodash/object/assign';
-import bem from '../ext/utility/bem';
 import generateUID from '../ext/utility/generateUID';
 import '../poly/performance/now';
 
