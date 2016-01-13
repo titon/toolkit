@@ -4,14 +4,14 @@
  * @link        http://titon.io
  */
 
-/* eslint react/jsx-handler-names: 0 */
+/* eslints react/jsx-handler-names: 0 */
 
 import React, { PropTypes } from 'react';
-import Component from '../../../Component';
+import Component from '../../Component';
 import Header from './Header';
 import Section from './Section';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {

@@ -6,11 +6,11 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../../Component';
+import Component from '../../Component';
 import ItemList from './ItemList';
-import autoBind from '../../../decorators/autoBind';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import autoBind from '../../decorators/autoBind';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Carousel extends Component {

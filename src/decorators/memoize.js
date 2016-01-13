@@ -6,7 +6,7 @@
 
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import memoizer from '../../node_modules/lodash/function/memoize';
+import memoizer from 'lodash/function/memoize';
 
 /**
  * The `memoize` decorator will cache the result of a function/method and return that same value

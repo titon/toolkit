@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import Titon from '../../Titon';
+import Titon from '../Titon';
 
 /**
  * Generate a BEM (block-element-modifier) valid CSS class name.

@@ -5,12 +5,12 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../../Component';
+import Component from '../../Component';
 import Item from './Item';
-import autoBind from '../../../decorators/autoBind';
-import childrenOfType from '../../../ext/prop-types/childrenOfType';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import autoBind from '../../decorators/autoBind';
+import childrenOfType from '../../prop-types/childrenOfType';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {

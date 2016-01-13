@@ -5,10 +5,10 @@
  */
 
 import React from 'react';
-import Component from '../../../Component';
+import Component from '../../Component';
 import Tab from './Tab';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class TabList extends Component {

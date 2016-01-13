@@ -5,11 +5,11 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../../Component';
-import autoBind from '../../../decorators/autoBind';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
-import tabIndex from '../../../ext/utility/tabIndex';
+import Component from '../../Component';
+import autoBind from '../../decorators/autoBind';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
+import tabIndex from '../../utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Header extends Component {

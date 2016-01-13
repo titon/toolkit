@@ -6,15 +6,15 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../../Component';
+import Component from '../../Component';
 import Item from './Item';
-import Swipe from '../../../events/Swipe';
-import autoBind from '../../../decorators/autoBind';
-import childrenOfType from '../../../ext/prop-types/childrenOfType';
-import collectionOf from '../../../ext/prop-types/collectionOf';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import Swipe from '../../events/Swipe';
+import autoBind from '../../decorators/autoBind';
+import childrenOfType from '../../prop-types/childrenOfType';
+import collectionOf from '../../prop-types/collectionOf';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
-import { TOUCH } from '../../../ext/flags';
+import { TOUCH } from '../../flags';
 
 export default class ItemList extends Component {
     constructor() {

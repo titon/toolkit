@@ -5,9 +5,9 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../../Component';
+import Component from '../../Component';
 import SlideCollapse from '../../transitions/slide-collapse';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {

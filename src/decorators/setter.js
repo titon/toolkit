@@ -5,7 +5,7 @@
  */
 
 import checkIsMethod from './helpers/checkIsMethod';
-import isPlainObject from '../../node_modules/lodash/lang/isPlainObject';
+import isPlainObject from 'lodash/lang/isPlainObject';
 import getValueFunc from './helpers/getValueFunc';
 
 /**

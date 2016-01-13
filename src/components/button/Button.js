@@ -5,8 +5,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../../Component';
-import cssClassName from '../../../ext/prop-types/cssClassName';
+import Component from '../../Component';
+import cssClassName from '../../prop-types/cssClassName';
 
 export default class Button extends Component {
     constructor() {

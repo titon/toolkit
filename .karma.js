@@ -10,7 +10,7 @@ module.exports = function(config) {
         ],
 
         exclude: [
-            'src/app.js'
+            'src/testing/*.js'
         ],
 
         preprocessors: {
