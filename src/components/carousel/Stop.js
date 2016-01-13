@@ -5,27 +5,27 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../../../Component';
 import autoBind from '../../../decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
-export default class Next extends Component {
+export default class Stop extends Component {
 
     /**
-     * Handles clicking the next button.
+     * Handles clicking the stop button.
      *
      * @param {SyntheticEvent} e
      */
     @autoBind
     handleOnClick(e) {
-        this.context.nextItem();
+        this.context.stopCycle();
         this.handleEvent('click', e);
     }
 
     /**
-     * Render a button that cycles to the next item.
+     * Render a button that stops the cycle.
      *
      * @returns {JSX}
      */
@@ -41,13 +41,13 @@ export default class Next extends Component {
     }
 }
 
-Next.contextTypes = CONTEXT_TYPES;
+Stop.contextTypes = CONTEXT_TYPES;
 
-Next.defaultProps = {
-    className: ['carousel', 'next']
+Stop.defaultProps = {
+    className: ['carousel', 'stop']
 };
 
-Next.propTypes = {
+Stop.propTypes = {
     children: PropTypes.node,
     className: cssClassName.isRequired,
     onClick: collectionOf.func

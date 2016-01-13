@@ -5,7 +5,7 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
+import Component from '../../../Component';
 import Item from './Item';
 import autoBind from '../../../decorators/autoBind';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';

@@ -6,7 +6,7 @@
 
 import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../Component';
+import Component from '../../../Component';
 import Item from './Item';
 import Swipe from '../../../events/Swipe';
 import autoBind from '../../../decorators/autoBind';

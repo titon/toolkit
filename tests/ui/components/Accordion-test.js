@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Accordion from '../../../src/ui/components/accordion';
+import Accordion from '../../../src/components/accordion';
 
 describe('ui/components/Accordion', () => {
     describe('componentWillMount()', () => {

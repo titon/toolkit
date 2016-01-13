@@ -3,9 +3,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Titon from './Titon';
-import Accordion from './ui/components/accordion';
-import Carousel from './ui/components/carousel';
-import Breadcrumb from './ui/components/breadcrumb';
+import Accordion from 'components/accordion';
+import Carousel from 'components/carousel';
+import Breadcrumb from 'components/breadcrumb';
 
 const log = function(e, ...args) {
     // console.log(e.constructor.name, e.type, e.detail, e, args);

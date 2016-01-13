@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Component from '../../Component';
+import Component from '../../../Component';
 import autoBind from '../../../decorators/autoBind';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import debounce from '../../../decorators/debounce';
