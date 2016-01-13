@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import suppressConsole from '../../../src/decorators/suppressConsole';
+import suppressConsole from '../../src/decorators/suppressConsole';
 
 class SuppressConsoleStub {
     @suppressConsole
@@ -24,7 +24,7 @@ class SuppressConsoleStub {
     }
 }
 
-describe('ext/decorators/suppressConsole()', () => {
+describe('decorators/suppressConsole()', () => {
     it('should suppress and log all console messages', () => {
         let obj = new SuppressConsoleStub();
 

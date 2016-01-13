@@ -1,4 +1,4 @@
-import remover from '../../../src/decorators/remover';
+import remover from '../../src/decorators/remover';
 
 class RemoverStub {
     constructor(data) {
@@ -11,7 +11,7 @@ class RemoverStub {
     }
 }
 
-describe('ext/decorators/remover()', () => {
+describe('decorators/remover()', () => {
     let obj = null;
 
     beforeEach(() => {

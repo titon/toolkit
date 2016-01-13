@@ -1,4 +1,4 @@
-import suppressErrors from '../../../src/decorators/suppressErrors';
+import suppressErrors from '../../src/decorators/suppressErrors';
 
 class SuppressErrorsStub {
     uncaught() {
@@ -11,7 +11,7 @@ class SuppressErrorsStub {
     }
 }
 
-describe('ext/decorators/suppressErrors()', () => {
+describe('decorators/suppressErrors()', () => {
     it('should suppress and log all console messages', () => {
         let obj = new SuppressErrorsStub();
 

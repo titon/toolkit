@@ -8,6 +8,8 @@ import checkIsEvent from './helpers/checkIsEvent';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
 
+let onceCache = new WeakMap();
+
 /**
  * The `once` decorator will wrap a method and only execute it once.
  * This decorator is similar to `memoize`, but will also remove an event listener
@@ -22,22 +24,22 @@ export default function once(target, name, descriptor) {
     checkIsMethod('once', arguments);
 
     let func = getValueFunc('once', descriptor),
-        called = false,
         response = null,
         handler = function(event) {
-            if (called) {
-                return response;
+            if (onceCache.has(this)) {
+                return onceCache.get(this);
             }
 
             // Execute the original function and store its response
             response = func.apply(this, arguments);
-            called = true;
+            onceCache.set(this, response);
 
             // If we are dealing with an event
             // Let's attempt to remove the event listener
             try {
                 checkIsEvent('once', event);
                 event.target.removeEventListener(event.type, handler);
+                onceCache.remove(this);
             } catch (e) {}
 
             return response;

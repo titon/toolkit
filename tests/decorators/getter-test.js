@@ -1,4 +1,4 @@
-import getter from '../../../src/decorators/getter';
+import getter from '../../src/decorators/getter';
 
 class GetterStub {
     constructor(data) {
@@ -13,7 +13,7 @@ class GetterStub {
     }
 }
 
-describe('ext/decorators/getter()', () => {
+describe('decorators/getter()', () => {
     let obj = null;
 
     beforeEach(() => {

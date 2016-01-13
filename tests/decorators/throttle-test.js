@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: 0 */
 
-import throttle from '../../../src/decorators/throttle';
+import throttle from '../../src/decorators/throttle';
 
 class ThrottleStub {
     constructor() {
@@ -18,7 +18,7 @@ class ThrottleStub {
     }
 }
 
-describe('ext/decorators/throttle()', () => {
+describe('decorators/throttle()', () => {
     it('should delay the execution of throttled functions', done => {
         let obj = new ThrottleStub(),
             t1 = setInterval(obj.withThrottle.bind(obj), 10),

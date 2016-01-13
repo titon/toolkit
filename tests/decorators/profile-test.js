@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import profile from '../../../src/decorators/profile';
+import profile from '../../src/decorators/profile';
 
 class ProfileStub {
     constructor() {
@@ -21,7 +21,7 @@ class ProfileStub {
     }
 }
 
-describe('ext/decorators/profile()', () => {
+describe('decorators/profile()', () => {
     it('should wrap `get`, `set`, and `value` descriptors', () => {
         let info = console.info,
             obj = new ProfileStub(),

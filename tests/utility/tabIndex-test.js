@@ -1,6 +1,6 @@
-import tabIndex from '../../../src/utility/tabIndex';
+import tabIndex from '../../src/utility/tabIndex';
 
-describe('ext/utility/tabIndex()', () => {
+describe('utility/tabIndex()', () => {
     it('should increment the index each call', () => {
         let obj1 = {},
             obj2 = {};

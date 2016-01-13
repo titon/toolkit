@@ -1,7 +1,7 @@
-import Titon from '../../../src/Titon';
-import formatBEM from '../../../src/utility/formatBEM';
+import Titon from '../../src/Titon';
+import formatBEM from '../../src/utility/formatBEM';
 
-describe('ext/utility/formatBEM()', () => {
+describe('utility/formatBEM()', () => {
     it('should generate a class name', () => {
         expect(formatBEM('foo')).toBe('foo');
         expect(formatBEM('foo', 'bar')).toBe('foo-bar');

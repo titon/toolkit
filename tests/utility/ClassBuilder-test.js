@@ -1,8 +1,8 @@
 /* eslint max-nested-callbacks: 0 */
 
-import ClassBuilder from '../../../src/utility/ClassBuilder';
+import ClassBuilder from '../../src/utility/ClassBuilder';
 
-describe('ext/utility/ClassBuilder', () => {
+describe('utility/ClassBuilder', () => {
     describe('constructor()', () => {
         it('should require a primary class', () => {
             expect(() => new ClassBuilder()).toThrowError('`ClassBuilder` requires a primary class name.');

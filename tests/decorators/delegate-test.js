@@ -1,12 +1,27 @@
-import delegate from '../../../src/ext/events/delegate';
+import delegate from '../../src/decorators/delegate';
 
-describe('ext/events/delegate()', () => {
-    let count = 0,
+class DelegateStub {
+    constructor() {
+        this.count = 0;
+    }
+
+    @delegate('.foo')
+    handleClass() {
+        this.count++;
+    }
+
+    @delegate('#b')
+    handleID() {
+        this.count++;
+    }
+}
+
+describe('decorators/delegate()', () => {
+    let obj = null,
         element = null;
 
     beforeEach(() => {
-        count = 0;
-
+        obj = new DelegateStub();
         element = createElement('div', {
             html: '<span id="a" class="foo"></span><span id="b"></span><span id="c" class="foo"></span>'
         });
@@ -17,26 +32,26 @@ describe('ext/events/delegate()', () => {
     });
 
     it('should trigger the function if the selector was clicked', () => {
-        element.addEventListener('click', delegate('.foo', () => count++));
+        element.addEventListener('click', obj.handleClass.bind(obj));
 
-        expect(count).toBe(0);
+        expect(obj.count).toBe(0);
 
         for (let i = 0; i < element.children.length; i++) {
             element.children[i].click();
         }
 
-        expect(count).toBe(2);
+        expect(obj.count).toBe(2);
     });
 
     it('should trigger if the selector is an ID', () => {
-        element.addEventListener('click', delegate('#b', () => count++));
+        element.addEventListener('click', obj.handleID.bind(obj));
 
-        expect(count).toBe(0);
+        expect(obj.count).toBe(0);
 
         for (let i = 0; i < element.children.length; i++) {
             element.children[i].click();
         }
 
-        expect(count).toBe(1);
+        expect(obj.count).toBe(1);
     });
 });

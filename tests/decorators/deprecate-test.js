@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import deprecate from '../../../src/decorators/deprecate';
+import deprecate from '../../src/decorators/deprecate';
 
 class DeprecatedStub {
     constructor() {
@@ -21,7 +21,7 @@ class DeprecatedStub {
     }
 }
 
-describe('ext/decorators/deprecate()', () => {
+describe('decorators/deprecate()', () => {
     it('should wrap `get`, `set`, and `value` descriptors', () => {
         let warn = console.warn,
             obj = new DeprecatedStub(),

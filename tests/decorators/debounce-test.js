@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: 0 */
 
-import debounce from '../../../src/decorators/debounce';
+import debounce from '../../src/decorators/debounce';
 
 class DebounceStub {
     constructor() {
@@ -18,7 +18,7 @@ class DebounceStub {
     }
 }
 
-describe('ext/decorators/debounce()', () => {
+describe('decorators/debounce()', () => {
     it('should delay the execution of debounced functions', done => {
         let obj = new DebounceStub(),
             t1 = setInterval(obj.withDebounce.bind(obj), 10),

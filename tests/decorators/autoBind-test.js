@@ -1,4 +1,4 @@
-import autoBind from '../../../src/decorators/autoBind';
+import autoBind from '../../src/decorators/autoBind';
 
 class AutoBindMethodStub {
     constructor() {
@@ -42,7 +42,7 @@ class AutoBindClassStub {
     }
 }
 
-describe('ext/decorators/autoBind()', () => {
+describe('decorators/autoBind()', () => {
     it('should automatically set the context', done => {
         let obj = new AutoBindMethodStub();
 

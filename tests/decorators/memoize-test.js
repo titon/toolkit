@@ -1,4 +1,4 @@
-import memoize from '../../../src/decorators/memoize';
+import memoize from '../../src/decorators/memoize';
 
 class MemoizeStub {
     @memoize
@@ -12,7 +12,7 @@ class MemoizeStub {
     }
 }
 
-describe('ext/decorators/memoize', () => {
+describe('decorators/memoize', () => {
     let obj = null;
 
     beforeEach(() => {

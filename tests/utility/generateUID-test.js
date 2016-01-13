@@ -1,6 +1,6 @@
-import generateUID from '../../../src/utility/generateUID';
+import generateUID from '../../src/utility/generateUID';
 
-describe('ext/utility/generateUID()', () => {
+describe('utility/generateUID()', () => {
     it('should generate a random character string', () => {
         expect(generateUID()).toMatch(/^[a-z0-9]{5,8}$/);
     });

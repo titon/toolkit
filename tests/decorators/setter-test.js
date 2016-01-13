@@ -1,4 +1,4 @@
-import setter from '../../../src/decorators/setter';
+import setter from '../../src/decorators/setter';
 
 class SetterStub {
     constructor(data) {
@@ -17,7 +17,7 @@ class SetterStub {
     }
 }
 
-describe('ext/decorators/setter()', () => {
+describe('decorators/setter()', () => {
     let obj = null;
 
     beforeEach(() => {
