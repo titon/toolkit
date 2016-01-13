@@ -6,10 +6,10 @@
 
 import React, { PropTypes } from 'react';
 import Titon from 'Titon';
-import ClassBuilder from 'ext/utility/ClassBuilder';
+import ClassBuilder from 'utility/ClassBuilder';
 import assign from '../node_modules/lodash/object/assign';
 import cssClassName from 'prop-types/cssClassName';
-import generateUID from 'ext/utility/generateUID';
+import generateUID from 'utility/generateUID';
 import 'polyfills/Performance.now.js';
 
 class TitonEvent {

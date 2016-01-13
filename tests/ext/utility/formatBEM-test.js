@@ -1,5 +1,5 @@
 import Titon from '../../../src/Titon';
-import formatBEM from '../../../src/ext/utility/formatBEM';
+import formatBEM from '../../../src/utility/formatBEM';
 
 describe('ext/utility/formatBEM()', () => {
     it('should generate a class name', () => {

@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: 0 */
 
-import ClassBuilder from '../../../src/ext/utility/ClassBuilder';
+import ClassBuilder from '../../../src/utility/ClassBuilder';
 
 describe('ext/utility/ClassBuilder', () => {
     describe('constructor()', () => {

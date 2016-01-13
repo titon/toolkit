@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import flags from './ext/flags';
+import flags from './flags';
 
 const Titon = {
 

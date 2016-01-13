@@ -1,4 +1,4 @@
-import tabIndex from '../../../src/ext/utility/tabIndex';
+import tabIndex from '../../../src/utility/tabIndex';
 
 describe('ext/utility/tabIndex()', () => {
     it('should increment the index each call', () => {
