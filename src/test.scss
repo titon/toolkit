@@ -9,9 +9,9 @@
 // This file is purely for testing as it includes the entire CSS library.
 
 @import "titon";
-@import "style/layout/base";
-@import "style/layout/typography";
-@import "style/layout/code";
+@import "styles/layout/base";
+@import "styles/layout/typography";
+@import "styles/layout/code";
 @import "components/flex";
 @import "components/grid";
 @import "components/accordion";
@@ -48,4 +48,4 @@
 @import "components/toast";
 @import "components/type-ahead";
 @import "transitions/slide-collapse";
-@import "style/layout/responsive";
+@import "styles/layout/responsive";

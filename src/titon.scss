@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-@import "style/helpers/functions";
+@import "styles/helpers/functions";
 
 //------------------------------ Settings ------------------------------//
 
@@ -477,9 +477,9 @@ $titon-slide-collapse: (
 
 //------------------------------ Imports ------------------------------//
 
-@import "style/helpers/mixins";
-@import "style/helpers/grid";
-@import "style/helpers/flexbox";
-@import "style/helpers/responsive";
-@import "style/helpers/components";
-@import "style/helpers/placeholders";
+@import "styles/helpers/mixins";
+@import "styles/helpers/grid";
+@import "styles/helpers/flexbox";
+@import "styles/helpers/responsive";
+@import "styles/helpers/components";
+@import "styles/helpers/placeholders";
