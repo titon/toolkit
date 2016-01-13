@@ -9,11 +9,11 @@ import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import Item from './Item';
 import Swipe from '../../events/Swipe';
+import autoBind from '../../../ext/decorators/autoBind';
 import childrenOfType from '../../../ext/prop-types/childrenOfType';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
-import { EVENT_NAME } from '../../../ext/events/transitionEnd';
 import { TOUCH } from '../../../ext/flags';
 
 export default class ItemList extends Component {
@@ -24,16 +24,20 @@ export default class ItemList extends Component {
             fromIndex: 0,
             toIndex: 0,
             translate: 'none',
-            reset: false
+            reset: false,
+            phase: 'initialRender'
         };
     }
 
     /**
-     * Bind a `transitionend` listener to the list container.
+     * Calculate the initial transform translate offset before rendering.
      */
-    componentDidMount() {
-        ReactDOM.findDOMNode(this).children[0]
-            .addEventListener(EVENT_NAME, this.handleOnTransitionEnd.bind(this));
+    componentWillMount() {
+        console.log('componentWillMount');
+
+        this.setState({
+            translate: this.getTranslateOffset()
+        });
     }
 
     /**
@@ -43,14 +47,31 @@ export default class ItemList extends Component {
      * @param {Object} nextContext
      */
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log('componentWillReceiveProps', nextContext);
+        console.log('componentWillReceiveProps'); //, nextContext);
 
-        this.setState({
-            fromIndex: this.state.toIndex, // Previous index is the from
-            toIndex: nextContext.currentIndex,
-            translate: this.getTranslateOffset(nextContext.currentIndex),
-            reset: nextContext.infiniteScroll
-        });
+        // Phase 1) Rebuild the children before the transition starts
+        if (nextContext.currentIndex !== this.state.toIndex) {
+            console.log('PHASE', 'beforeTransition', nextContext.currentIndex);
+
+            this.setState({
+                fromIndex: this.state.toIndex, // Previous index is now the from
+                toIndex: nextContext.currentIndex,
+                translate: 'none',
+                reset: false,
+                phase: 'beforeTransition'
+            });
+
+        // Phase 3) Rebuild the children after the transition finishes
+        } else if (nextContext.currentIndex === this.state.toIndex && this.state.phase === 'startTransition') {
+            console.log('PHASE', 'afterTransition');
+
+            this.setState({
+                fromIndex: this.state.toIndex,
+                translate: 'none',
+                reset: true,
+                phase: 'afterTransition'
+            });
+        }
     }
 
     /**
@@ -62,22 +83,49 @@ export default class ItemList extends Component {
      * @param {Object} prevContext
      */
     componentDidUpdate(prevProps, prevState, prevContext) {
+        console.log('componentDidUpdate');
 
+        // Phase 2) Start the transition by setting a new translate offset
+        if (this.state.phase === 'beforeTransition') {
+            console.log('PHASE', 'startTransition', this.state.toIndex);
+
+            this.setState({
+                translate: this.getTranslateOffset(),
+                phase: 'startTransition'
+            });
+        }
     }
 
     /**
      * Calculate the size to cycle with based on the sum of all items up to but not including the defined index.
      *
-     * @param {Number} index
      * @returns {String}
      */
-    getTranslateOffset(index) {
-        let modifier = this.context.modifier,
-            offset = index * (100 / this.context.visibleCount),
+    getTranslateOffset() {
+        let index = 0,
+            fromIndex = this.state.fromIndex,
+            toIndex = this.state.toIndex,
+            modifier = this.context.modifier;
+
+        if (modifier === 'fade') {
+            return 'none';
+        }
+
+        if (toIndex > fromIndex) {
+            index = toIndex - fromIndex;
+
+        } else if (toIndex < fromIndex) {
+            index = this.context.itemCount - fromIndex + toIndex;
+
+        } else {
+            index = toIndex;
+        }
+
+        let offset = index * (100 / this.context.visibleCount),
             x = (modifier === 'slide') ? -offset : 0,
             y = (modifier === 'slide-up') ? -offset : 0;
 
-        return (modifier === 'fade') ? 'none' : `translate3d(${x}%, ${y}%, 0)`;
+        return `translate3d(${x}%, ${y}%, 0)`;
     }
 
     /**
@@ -86,6 +134,7 @@ export default class ItemList extends Component {
      *
      * @param {TransitionEvent} e
      */
+    @autoBind
     handleOnTransitionEnd(e) {
         if (e.propertyName === 'transform') {
             this.context.afterAnimation();
@@ -93,42 +142,28 @@ export default class ItemList extends Component {
     }
 
     /**
-     * Render the items into the carousel item list.
+     * Render a specific range of items into the carousel item list.
      *
-     * TODO
-     *
-     * @returns {Array}
+     * @returns {*[]}
      */
     renderChildren() {
         let children = Children.toArray(this.props.children),
             visibleChildren = [],
-            context = this.context,
-            itemCount = context.itemCount,
-            perSide = context.visibleCount;
+            fromIndex = this.state.fromIndex,
+            toIndex = this.state.toIndex + this.context.visibleCount;
 
-        // We can simply use all children if we don't have to support infinite scrolling
-        if (!context.infiniteScroll) {
-            return children;
-        }
+        console.log('RENDER CHILDREN', fromIndex, toIndex);
 
-        if (children.length) {
-            let startIndex = context.currentIndex - perSide,
-                endIndex = context.currentIndex + context.visibleCount + perSide;
+        // From beginning to end: 2 - 9
+        if (toIndex > fromIndex) {
+            visibleChildren.push(...children.slice(fromIndex, toIndex + 1));
 
-            // Extract from the end
-            if (startIndex < 0) {
-                visibleChildren.push(...children.slice(startIndex));
-                startIndex = 0;
-            }
+        // From end that loops around to the beginning: 6 - 1
+        } else if (toIndex < fromIndex) {
+            visibleChildren.push(...children.slice(fromIndex));
+            visibleChildren.push(...children.slice(0, toIndex + 1));
 
-            // Extract normally
-            visibleChildren.push(...children.slice(startIndex, endIndex));
-
-            // Extract from the beginning
-            if (endIndex >= itemCount) {
-                visibleChildren.push(...children.slice(0, (endIndex - itemCount)));
-            }
-
+        // How did this happen?
         } else {
             visibleChildren = children;
         }
@@ -136,6 +171,11 @@ export default class ItemList extends Component {
         return visibleChildren;
     }
 
+    /**
+     * Render the item list and attach swipe and transition functionality to the `ol` tag.
+     *
+     * @returns {JSX}
+     */
     render() {
         let context = this.context,
             props = this.generateNestedProps(this.props, 'swipe', [
@@ -148,14 +188,12 @@ export default class ItemList extends Component {
         props.onSwipeDown.unshift(context.prevItem);
         props.onSwipeRight.unshift(context.prevItem);
 
-        console.log('CHILD RENDER');
-
         return (
-            <div className={this.formatClass(this.props.className, {
-                    'no-transition': this.state.reset
-                })}>
+            <div className={this.formatClass(this.props.className)}>
                 <Swipe {...props}>
-                    <ol style={{ transform: this.state.translate }}>
+                    <ol style={{ transform: this.state.translate }}
+                        className={this.state.reset ? 'no-transition' : ''}
+                        onTransitionEnd={this.handleOnTransitionEnd}>
                         {this.renderChildren()}
                     </ol>
                 </Swipe>
