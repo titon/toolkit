@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Titon from './Titon';
+import Titon from './../Titon';
 import Accordion from 'components/accordion';
 import Carousel from 'components/carousel';
 import Breadcrumb from 'components/breadcrumb';

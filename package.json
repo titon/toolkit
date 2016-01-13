@@ -23,7 +23,7 @@
         "js:lint": "eslint --config ./.eslint.json ./src ./tests",
         "js:watch": "watchify ./src/test.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ]",
 
-        "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/test.scss ./build/titon.css",
+        "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/testing/style.scss ./build/titon.css",
         "css:lint": "sass-lint --config ./.scsslint.yml",
         "css:watch": "",
         "css:prefix": "postcss --use autoprefixer --config ./.postcss.json --output ./build/titon.css ./build/titon.css",
