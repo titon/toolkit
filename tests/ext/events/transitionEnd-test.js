@@ -1,5 +1,5 @@
 import transitionEnd from '../../../src/ext/events/transitionEnd';
-import '../../../src/ext/polyfills/requestAnimationFrame';
+import '../../../src/polyfills/requestAnimationFrame';
 
 describe('ext/events/transitionEnd()', () => {
     let transitioned = false,

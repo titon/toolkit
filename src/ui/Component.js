@@ -10,7 +10,7 @@ import ClassBuilder from '../ext/utility/ClassBuilder';
 import assign from 'lodash/object/assign';
 import cssClassName from '../ext/prop-types/cssClassName';
 import generateUID from '../ext/utility/generateUID';
-import '../ext/polyfills/performance/now';
+import '../polyfills/Performance.now.js';
 
 class TitonEvent {
     /**
