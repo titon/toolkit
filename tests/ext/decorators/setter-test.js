@@ -1,4 +1,4 @@
-import setter from '../../../src/ext/decorators/setter';
+import setter from '../../../src/decorators/setter';
 
 class SetterStub {
     constructor(data) {

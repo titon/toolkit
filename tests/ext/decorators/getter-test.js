@@ -1,4 +1,4 @@
-import getter from '../../../src/ext/decorators/getter';
+import getter from '../../../src/decorators/getter';
 
 class GetterStub {
     constructor(data) {

@@ -6,7 +6,7 @@
 
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
-import throttler from 'lodash/function/throttle';
+import throttler from '../../node_modules/lodash/function/throttle';
 
 /**
  * The `throttle` decorator will wrap a function with Lo-dash's `throttle` function,

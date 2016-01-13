@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import autoBind from '../../../ext/decorators/autoBind';
+import autoBind from '../../../decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import tabIndex from '../../../ext/utility/tabIndex';

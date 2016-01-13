@@ -1,4 +1,4 @@
-import autoBind from '../../../src/ext/decorators/autoBind';
+import autoBind from '../../../src/decorators/autoBind';
 
 class AutoBindMethodStub {
     constructor() {

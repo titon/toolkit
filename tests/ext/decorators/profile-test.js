@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import profile from '../../../src/ext/decorators/profile';
+import profile from '../../../src/decorators/profile';
 
 class ProfileStub {
     constructor() {

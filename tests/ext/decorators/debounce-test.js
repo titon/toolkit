@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: 0 */
 
-import debounce from '../../../src/ext/decorators/debounce';
+import debounce from '../../../src/decorators/debounce';
 
 class DebounceStub {
     constructor() {

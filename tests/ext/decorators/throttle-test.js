@@ -1,6 +1,6 @@
 /* eslint max-nested-callbacks: 0 */
 
-import throttle from '../../../src/ext/decorators/throttle';
+import throttle from '../../../src/decorators/throttle';
 
 class ThrottleStub {
     constructor() {

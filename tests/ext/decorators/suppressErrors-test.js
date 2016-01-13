@@ -1,4 +1,4 @@
-import suppressErrors from '../../../src/ext/decorators/suppressErrors';
+import suppressErrors from '../../../src/decorators/suppressErrors';
 
 class SuppressErrorsStub {
     uncaught() {

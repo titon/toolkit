@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import deprecate from '../../../src/ext/decorators/deprecate';
+import deprecate from '../../../src/decorators/deprecate';
 
 class DeprecatedStub {
     constructor() {

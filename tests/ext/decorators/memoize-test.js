@@ -1,4 +1,4 @@
-import memoize from '../../../src/ext/decorators/memoize';
+import memoize from '../../../src/decorators/memoize';
 
 class MemoizeStub {
     @memoize

@@ -8,7 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import ItemList from './ItemList';
-import autoBind from '../../../ext/decorators/autoBind';
+import autoBind from '../../../decorators/autoBind';
 import collectionOf from '../../../ext/prop-types/collectionOf';
 import cssClassName from '../../../ext/prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';

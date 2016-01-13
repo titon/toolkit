@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import suppressConsole from '../../../src/ext/decorators/suppressConsole';
+import suppressConsole from '../../../src/decorators/suppressConsole';
 
 class SuppressConsoleStub {
     @suppressConsole

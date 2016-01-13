@@ -1,4 +1,4 @@
-import remover from '../../../src/ext/decorators/remover';
+import remover from '../../../src/decorators/remover';
 
 class RemoverStub {
     constructor(data) {
