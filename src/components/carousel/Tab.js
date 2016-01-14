@@ -24,7 +24,7 @@ export default class Tab extends Component {
         index: PropTypes.number.isRequired,
         onClick: collectionOf.func
     };
-    
+
     /**
      * Handles clicking the tab buttons.
      *

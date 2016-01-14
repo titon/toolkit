@@ -9,7 +9,6 @@
  *
  * @param {String} name
  * @param {*} event
- * @returns {Boolean}
  */
 export default function checkIsEvent(name, event) {
     if (!(event && (event instanceof Event || event.type && event.target && event.preventDefault))) {

@@ -23,7 +23,7 @@ export default class Start extends Component {
         className: cssClassName.isRequired,
         onClick: collectionOf.func
     };
-    
+
     /**
      * Handles clicking the start button.
      *

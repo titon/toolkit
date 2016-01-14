@@ -25,16 +25,16 @@ export default function delegate(selector) {
         descriptor.value = function(event) {
             checkIsEvent('delegate', event);
 
-            let target = event.target;
+            let eventTarget = event.target;
 
-            while (target && target !== document) {
-                if (target.matches(selector)) {
-                    event.delegatedTarget = target;
+            while (eventTarget && eventTarget !== document) {
+                if (eventTarget.matches(selector)) {
+                    event.delegatedTarget = eventTarget;
                     func.call(this, event);
                     break;
                 }
 
-                target = target.parentNode;
+                eventTarget = eventTarget.parentNode;
             }
         };
 

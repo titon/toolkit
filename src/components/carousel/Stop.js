@@ -23,7 +23,7 @@ export default class Stop extends Component {
         className: cssClassName.isRequired,
         onClick: collectionOf.func
     };
-    
+
     /**
      * Handles clicking the stop button.
      *

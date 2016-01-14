@@ -233,7 +233,26 @@
         "react/react-in-jsx-scope": 2,
         "react/require-extension": 0,
         "react/self-closing-comp": 2,
-        "react/sort-comp": 2,
+        "react/sort-comp": [2, {
+            "groups": {
+                "lifecycle": [
+                    "contextTypes",
+                    "childContextTypes",
+                    "defaultProps",
+                    "propTypes",
+                    "state",
+                    "constructor",
+                    "getChildContext",
+                    "componentWillMount",
+                    "componentDidMount",
+                    "componentWillReceiveProps",
+                    "shouldComponentUpdate",
+                    "componentWillUpdate",
+                    "componentDidUpdate",
+                    "componentWillUnmount"
+                ]
+            }
+        }],
         "react/wrap-multilines": 2
     }
 }

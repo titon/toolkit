@@ -23,7 +23,7 @@ export default class TabList extends Component {
         tabClassName: cssClassName,
         onClick: collectionOf.func
     };
-    
+
     /**
      * Render a list of tabs that can be clicked on to jump to specific items.
      *

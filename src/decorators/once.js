@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+/* eslint no-invalid-this: 0, no-empty: 0 */
+
 import checkIsEvent from './helpers/checkIsEvent';
 import checkIsMethod from './helpers/checkIsMethod';
 import getValueFunc from './helpers/getValueFunc';
