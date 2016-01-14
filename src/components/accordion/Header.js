@@ -13,6 +13,19 @@ import tabIndex from '../../utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Header extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: ['accordion', 'header']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        active: PropTypes.bool.isRequired,
+        index: PropTypes.number.isRequired,
+        onClick: collectionOf.func
+    };
 
     /**
      * Update the index on the parent component when clicked.
@@ -61,17 +74,3 @@ export default class Header extends Component {
         );
     }
 }
-
-Header.contextTypes = CONTEXT_TYPES;
-
-Header.defaultProps = {
-    className: ['accordion', 'header']
-};
-
-Header.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    active: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
-    onClick: collectionOf.func
-};

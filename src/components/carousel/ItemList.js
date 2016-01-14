@@ -17,17 +17,31 @@ import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
 
 export default class ItemList extends Component {
-    constructor() {
-        super();
+    static contextTypes = CONTEXT_TYPES;
 
-        this.state = {
-            fromIndex: 0,
-            toIndex: 0,
-            translate: 'none',
-            reset: false,
-            phase: 'initialRender'
-        };
-    }
+    static defaultProps = {
+        className: ['carousel', 'items'],
+        swipe: TOUCH
+    };
+
+    static propTypes = {
+        children: childrenOfType(Item),
+        className: cssClassName.isRequired,
+        swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        onSwipe: collectionOf.func,
+        onSwipeUp: collectionOf.func,
+        onSwipeRight: collectionOf.func,
+        onSwipeDown: collectionOf.func,
+        onSwipeLeft: collectionOf.func
+    };
+
+    state = {
+        fromIndex: 0,
+        toIndex: 0,
+        translate: 'none',
+        reset: false,
+        phase: 'initialRender'
+    };
 
     /**
      * Calculate the initial transform translate offset before rendering.
@@ -201,21 +215,3 @@ export default class ItemList extends Component {
         );
     }
 }
-
-ItemList.contextTypes = CONTEXT_TYPES;
-
-ItemList.defaultProps = {
-    className: ['carousel', 'items'],
-    swipe: TOUCH
-};
-
-ItemList.propTypes = {
-    children: childrenOfType(Item),
-    className: cssClassName.isRequired,
-    swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-    onSwipe: collectionOf.func,
-    onSwipeUp: collectionOf.func,
-    onSwipeRight: collectionOf.func,
-    onSwipeDown: collectionOf.func,
-    onSwipeLeft: collectionOf.func
-};

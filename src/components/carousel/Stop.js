@@ -12,7 +12,18 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Stop extends Component {
+    static contextTypes = CONTEXT_TYPES;
 
+    static defaultProps = {
+        className: ['carousel', 'stop']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        onClick: collectionOf.func
+    };
+    
     /**
      * Handles clicking the stop button.
      *
@@ -40,15 +51,3 @@ export default class Stop extends Component {
         );
     }
 }
-
-Stop.contextTypes = CONTEXT_TYPES;
-
-Stop.defaultProps = {
-    className: ['carousel', 'stop']
-};
-
-Stop.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    onClick: collectionOf.func
-};

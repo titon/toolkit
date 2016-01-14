@@ -11,6 +11,17 @@ import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
 
 export default class Item extends Component {
+    static defaultProps = {
+        caret: '/'
+    };
+
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+        className: cssClassName,
+        url: PropTypes.string.isRequired,
+        caret: PropTypes.node,
+        onClick: collectionOf.func
+    };
 
     /**
      * Handle the click event.
@@ -41,15 +52,3 @@ export default class Item extends Component {
         );
     }
 }
-
-Item.defaultProps = {
-    caret: '/'
-};
-
-Item.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: cssClassName,
-    url: PropTypes.string.isRequired,
-    caret: PropTypes.node,
-    onClick: collectionOf.func
-};

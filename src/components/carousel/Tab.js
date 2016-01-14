@@ -13,7 +13,18 @@ import tabIndex from '../../utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Tab extends Component {
+    static contextTypes = CONTEXT_TYPES;
 
+    static defaultProps = {
+        className: ['carousel', 'tab']
+    };
+
+    static propTypes = {
+        className: cssClassName.isRequired,
+        index: PropTypes.number.isRequired,
+        onClick: collectionOf.func
+    };
+    
     /**
      * Handles clicking the tab buttons.
      *
@@ -53,15 +64,3 @@ export default class Tab extends Component {
         );
     }
 }
-
-Tab.contextTypes = CONTEXT_TYPES;
-
-Tab.defaultProps = {
-    className: ['carousel', 'tab']
-};
-
-Tab.propTypes = {
-    className: cssClassName.isRequired,
-    index: PropTypes.number.isRequired,
-    onClick: collectionOf.func
-};

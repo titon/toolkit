@@ -12,6 +12,17 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Prev extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: ['carousel', 'prev']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        onClick: collectionOf.func
+    };
 
     /**
      * Handles clicking the previous button.
@@ -40,15 +51,3 @@ export default class Prev extends Component {
         );
     }
 }
-
-Prev.contextTypes = CONTEXT_TYPES;
-
-Prev.defaultProps = {
-    className: ['carousel', 'prev']
-};
-
-Prev.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    onClick: collectionOf.func
-};

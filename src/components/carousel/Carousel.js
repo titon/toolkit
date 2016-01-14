@@ -14,15 +14,55 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Carousel extends Component {
+    static childContextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: 'carousel',
+        modifier: 'slide',
+        duration: 5000,
+        toCycle: 1,
+        toShow: 1,
+        defaultIndex: 0,
+        autoStart: true,
+        pauseOnHover: true,
+        infinite: true,
+        loop: true,
+        reverse: false
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        uniqueClassName: cssClassName,
+        modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
+        duration: PropTypes.number,
+        toCycle: PropTypes.number,
+        toShow: PropTypes.number,
+        defaultIndex: PropTypes.number,
+        autoStart: PropTypes.bool,
+        pauseOnHover: PropTypes.bool,
+        infinite: PropTypes.bool,
+        loop: PropTypes.bool,
+        reverse: PropTypes.bool,
+        onCycling: collectionOf.func,
+        onCycled: collectionOf.func,
+        onStart: collectionOf.func,
+        onStop: collectionOf.func
+    };
+
+    state = {
+        index: 0,
+        stopped: true,
+        animating: false
+    };
+
+    /**
+     * Generate a UID.
+     */
     constructor() {
         super();
 
         this.timer = null;
-        this.state = {
-            index: 0,
-            stopped: true,
-            animating: false
-        };
         this.generateUID();
     }
 
@@ -402,39 +442,3 @@ export default class Carousel extends Component {
         );
     }
 }
-
-Carousel.childContextTypes = CONTEXT_TYPES;
-
-Carousel.defaultProps = {
-    className: 'carousel',
-    modifier: 'slide',
-    duration: 5000,
-    toCycle: 1,
-    toShow: 1,
-    defaultIndex: 0,
-    autoStart: true,
-    pauseOnHover: true,
-    infinite: true,
-    loop: true,
-    reverse: false
-};
-
-Carousel.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    uniqueClassName: cssClassName,
-    modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
-    duration: PropTypes.number,
-    toCycle: PropTypes.number,
-    toShow: PropTypes.number,
-    defaultIndex: PropTypes.number,
-    autoStart: PropTypes.bool,
-    pauseOnHover: PropTypes.bool,
-    infinite: PropTypes.bool,
-    loop: PropTypes.bool,
-    reverse: PropTypes.bool,
-    onCycling: collectionOf.func,
-    onCycled: collectionOf.func,
-    onStart: collectionOf.func,
-    onStop: collectionOf.func
-};

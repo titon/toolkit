@@ -11,6 +11,22 @@ import childrenOfType from '../../prop-types/childrenOfType';
 import cssClassName from '../../prop-types/cssClassName';
 
 export default class Breadcrumb extends Component {
+    static defaultProps = {
+        className: 'breadcrumb',
+        label: 'Navigation'
+    };
+
+    static propTypes = {
+        children: childrenOfType(Item),
+        className: cssClassName.isRequired,
+        uniqueClassName: cssClassName,
+        label: PropTypes.string,
+        size: PropTypes.oneOf(['small', 'large'])
+    };
+
+    /**
+     * Generate a UID.
+     */
     constructor() {
         super();
 
@@ -40,16 +56,3 @@ export default class Breadcrumb extends Component {
         );
     }
 }
-
-Breadcrumb.defaultProps = {
-    className: 'breadcrumb',
-    label: 'Navigation'
-};
-
-Breadcrumb.propTypes = {
-    children: childrenOfType(Item),
-    className: cssClassName.isRequired,
-    uniqueClassName: cssClassName,
-    label: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'large'])
-};

@@ -10,6 +10,17 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: ['carousel', 'item']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        index: PropTypes.number.isRequired
+    };
 
     /**
      * Render the individual list item.
@@ -34,15 +45,3 @@ export default class Item extends Component {
         );
     }
 }
-
-Item.contextTypes = CONTEXT_TYPES;
-
-Item.defaultProps = {
-    className: ['carousel', 'item']
-};
-
-Item.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    index: PropTypes.number.isRequired
-};

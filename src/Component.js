@@ -29,12 +29,17 @@ class TitonEvent {
 }
 
 export default class Component extends React.Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        debug: false
+    };
 
-        this.state = {};
-        this.version = '3.0.0';
-    }
+    static propTypes = {
+        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        uniqueClassName: cssClassName
+    };
+
+    state = {};
+    version = '3.0.0';
 
     /**
      * Emit a custom event and notify all listeners defined on the property of the same name.
@@ -201,12 +206,3 @@ export default class Component extends React.Component {
         listeners.forEach(func => func(...args));
     }
 }
-
-Component.defaultProps = {
-    debug: false
-};
-
-Component.propTypes = {
-    debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    uniqueClassName: cssClassName
-};

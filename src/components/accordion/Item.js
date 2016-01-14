@@ -15,6 +15,15 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static propTypes = {
+        index: PropTypes.number.isRequired,
+        header: PropTypes.node.isRequired,
+        headerClassName: cssClassName,
+        sectionClassName: cssClassName,
+        onClick: collectionOf.func
+    };
 
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
@@ -47,13 +56,3 @@ export default class Item extends Component {
         );
     }
 }
-
-Item.contextTypes = CONTEXT_TYPES;
-
-Item.propTypes = {
-    index: PropTypes.number.isRequired,
-    header: PropTypes.node.isRequired,
-    headerClassName: cssClassName,
-    sectionClassName: cssClassName,
-    onClick: collectionOf.func
-};

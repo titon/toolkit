@@ -12,7 +12,18 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class TabList extends Component {
+    static contextTypes = CONTEXT_TYPES;
 
+    static defaultProps = {
+        className: ['carousel', 'tabs']
+    };
+
+    static propTypes = {
+        className: cssClassName.isRequired,
+        tabClassName: cssClassName,
+        onClick: collectionOf.func
+    };
+    
     /**
      * Render a list of tabs that can be clicked on to jump to specific items.
      *
@@ -40,15 +51,3 @@ export default class TabList extends Component {
         );
     }
 }
-
-TabList.contextTypes = CONTEXT_TYPES;
-
-TabList.defaultProps = {
-    className: ['carousel', 'tabs']
-};
-
-TabList.propTypes = {
-    className: cssClassName.isRequired,
-    tabClassName: cssClassName,
-    onClick: collectionOf.func
-};

@@ -13,13 +13,22 @@ import debounce from '../../decorators/debounce';
 
 @autoBind
 export default class SlideCollapse extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        className: ['slide', 'collapse'],
+        direction: 'vertical',
+        expanded: true
+    };
 
-        this.state = {
-            size: -1
-        };
-    }
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        direction: PropTypes.oneOf(['vertical', 'horizontal']),
+        expanded: PropTypes.bool.isRequired
+    };
+
+    state = {
+        size: -1
+    };
 
     /**
      * Bind events.
@@ -98,16 +107,3 @@ export default class SlideCollapse extends Component {
         );
     }
 }
-
-SlideCollapse.defaultProps = {
-    className: ['slide', 'collapse'],
-    direction: 'vertical',
-    expanded: true
-};
-
-SlideCollapse.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    direction: PropTypes.oneOf(['vertical', 'horizontal']),
-    expanded: PropTypes.bool.isRequired
-};

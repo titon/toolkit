@@ -12,7 +12,18 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Start extends Component {
+    static contextTypes = CONTEXT_TYPES;
 
+    static defaultProps = {
+        className: ['carousel', 'start']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        onClick: collectionOf.func
+    };
+    
     /**
      * Handles clicking the start button.
      *
@@ -40,15 +51,3 @@ export default class Start extends Component {
         );
     }
 }
-
-Start.contextTypes = CONTEXT_TYPES;
-
-Start.defaultProps = {
-    className: ['carousel', 'start']
-};
-
-Start.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    onClick: collectionOf.func
-};

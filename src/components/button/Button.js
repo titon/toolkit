@@ -9,9 +9,27 @@ import Component from '../../Component';
 import cssClassName from '../../prop-types/cssClassName';
 
 export default class Button extends Component {
-    constructor() {
-        super();
-    }
+    static defaultProps = {
+        className: 'button',
+        url: '',
+        size: '',
+        shape: '',
+        state: '',
+        modifier: '',
+        disabled: false
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        uniqueClassName: cssClassName,
+        url: PropTypes.string,
+        size: PropTypes.oneOf(['small', 'large']),
+        shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),
+        state: PropTypes.oneOf(['info', 'success', 'warning', 'error', 'debug']),
+        modifier: PropTypes.oneOf(['gloss', 'reflect', 'glare', 'popout']),
+        disabled: PropTypes.bool
+    };
 
     render() {
         return (
@@ -23,25 +41,3 @@ export default class Button extends Component {
         );
     }
 }
-
-Button.defaultProps = {
-    className: 'button',
-    url: '',
-    size: '',
-    shape: '',
-    state: '',
-    modifier: '',
-    disabled: false
-};
-
-Button.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    uniqueClassName: cssClassName,
-    url: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'large']),
-    shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),
-    state: PropTypes.oneOf(['info', 'success', 'warning', 'error', 'debug']),
-    modifier: PropTypes.oneOf(['gloss', 'reflect', 'glare', 'popout']),
-    disabled: PropTypes.bool
-};

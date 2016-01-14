@@ -11,6 +11,18 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: ['accordion', 'section']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        expanded: PropTypes.bool.isRequired,
+        index: PropTypes.number.isRequired
+    };
 
     /**
      * Render the accordion item section content and wrap with a collapsible slide transition.
@@ -40,16 +52,3 @@ export default class Section extends Component {
         );
     }
 }
-
-Section.contextTypes = CONTEXT_TYPES;
-
-Section.defaultProps = {
-    className: ['accordion', 'section']
-};
-
-Section.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    expanded: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired
-};

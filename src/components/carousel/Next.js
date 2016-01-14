@@ -12,6 +12,17 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Next extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: ['carousel', 'next']
+    };
+
+    static propTypes = {
+        children: PropTypes.node,
+        className: cssClassName.isRequired,
+        onClick: collectionOf.func
+    };
 
     /**
      * Handles clicking the next button.
@@ -40,15 +51,3 @@ export default class Next extends Component {
         );
     }
 }
-
-Next.contextTypes = CONTEXT_TYPES;
-
-Next.defaultProps = {
-    className: ['carousel', 'next']
-};
-
-Next.propTypes = {
-    children: PropTypes.node,
-    className: cssClassName.isRequired,
-    onClick: collectionOf.func
-};

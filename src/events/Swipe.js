@@ -15,14 +15,34 @@ const abs = Math.abs;
 
 @autoBind
 export default class Swipe extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        className: ['event', 'swipe'],
+        enabled: true,
+        draggable: true,
+        duration: 1000,             // Maximum time in milliseconds to travel
+        distance: 50,               // Minimum distance required to travel
+        restraint: 75               // Maximum distance to travel in the opposite direction
+    };
 
-        this.state = {
-            swiping: false,
-            startCoords: null
-        };
-    }
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+        className: cssClassName.isRequired,
+        enabled: PropTypes.bool.isRequired,
+        draggable: PropTypes.bool,
+        duration: PropTypes.number,
+        distance: PropTypes.number,
+        restraint: PropTypes.number,
+        onSwipe: collectionOf.func,
+        onSwipeUp: collectionOf.func,
+        onSwipeRight: collectionOf.func,
+        onSwipeDown: collectionOf.func,
+        onSwipeLeft: collectionOf.func
+    };
+
+    state = {
+        swiping: false,
+        startCoords: null
+    };
 
     /**
      * Extract the X, Y, and Z vaues from the elements `transform: translate` properties.
@@ -241,27 +261,3 @@ export default class Swipe extends Component {
         return React.cloneElement(child, props);
     }
 }
-
-Swipe.defaultProps = {
-    className: ['event', 'swipe'],
-    enabled: true,
-    draggable: true,
-    duration: 1000,             // Maximum time in milliseconds to travel
-    distance: 50,               // Minimum distance required to travel
-    restraint: 75               // Maximum distance to travel in the opposite direction
-};
-
-Swipe.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: cssClassName.isRequired,
-    enabled: PropTypes.bool.isRequired,
-    draggable: PropTypes.bool,
-    duration: PropTypes.number,
-    distance: PropTypes.number,
-    restraint: PropTypes.number,
-    onSwipe: collectionOf.func,
-    onSwipeUp: collectionOf.func,
-    onSwipeRight: collectionOf.func,
-    onSwipeDown: collectionOf.func,
-    onSwipeLeft: collectionOf.func
-};

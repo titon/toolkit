@@ -14,12 +14,36 @@ import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {
+    static childContextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        className: 'accordion',
+        defaultIndex: 0,
+        multiple: false,
+        collapsible: false
+    };
+
+    static propTypes = {
+        children: childrenOfType(Item),
+        className: cssClassName.isRequired,
+        uniqueClassName: cssClassName,
+        defaultIndex: collectionOf.number,
+        multiple: PropTypes.bool,
+        collapsible: PropTypes.bool,
+        onShowing: collectionOf.func,
+        onShown: collectionOf.func
+    };
+
+    state = {
+        indices: []
+    };
+
+    /**
+     * Generate a UID.
+     */
     constructor() {
         super();
 
-        this.state = {
-            indices: []
-        };
         this.generateUID();
     }
 
@@ -160,23 +184,3 @@ export default class Accordion extends Component {
         );
     }
 }
-
-Accordion.childContextTypes = CONTEXT_TYPES;
-
-Accordion.defaultProps = {
-    className: 'accordion',
-    defaultIndex: 0,
-    multiple: false,
-    collapsible: false
-};
-
-Accordion.propTypes = {
-    children: childrenOfType(Item),
-    className: cssClassName.isRequired,
-    uniqueClassName: cssClassName,
-    defaultIndex: collectionOf.number,
-    multiple: PropTypes.bool,
-    collapsible: PropTypes.bool,
-    onShowing: collectionOf.func,
-    onShown: collectionOf.func
-};
