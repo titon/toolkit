@@ -1,0 +1,15 @@
+# Remove everything but the source folder and read mes
+build/
+dist/
+docs/
+js/
+scss/
+tests/
+.*
+bower.json
+composer.json
+manifest.json
+npm-debug.log
+roadmap.json
+sache.json
+version.md
