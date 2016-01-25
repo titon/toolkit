@@ -38,7 +38,8 @@ export default class Item extends Component {
                 className={this.formatClass(props.className, {
                     'is-active': active
                 })}
-                aria-hidden={!active}>
+                aria-hidden={!active}
+                {...this.inheritNativeProps(props)}>
 
                 {props.children}
             </li>

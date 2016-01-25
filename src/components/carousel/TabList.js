@@ -30,20 +30,24 @@ export default class TabList extends Component {
      * @returns {JSX}
      */
     render() {
-        let children = [];
+        let children = [],
+            props = this.props;
 
         for (let i = 0; i < this.context.itemCount; i++) {
             children.push(
                 <Tab
                     index={i}
                     key={'tab-' + i}
-                    className={this.props.tabClassName}
-                    onClick={this.props.onClick} />
+                    className={props.tabClassName}
+                    onClick={props.onClick} />
             );
         }
 
         return (
-            <nav className={this.formatClass(this.props.className)}>
+            <nav
+                className={this.formatClass(props.className)}
+                {...this.inheritNativeProps(props)}>
+
                 <ol>
                     {children}
                 </ol>

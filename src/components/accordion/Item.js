@@ -18,11 +18,12 @@ export default class Item extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
+        children: PropTypes.node,
         index: PropTypes.number.isRequired,
         header: PropTypes.node.isRequired,
         headerClassName: cssClassName,
         sectionClassName: cssClassName,
-        onClick: collectionOf.func
+        onClickHeader: collectionOf.func
     };
 
     /**
@@ -35,12 +36,12 @@ export default class Item extends Component {
             active = this.context.isItemActive(props.index);
 
         return (
-            <li>
+            <li {...this.inheritNativeProps(props)}>
                 <Header
                     className={props.headerClassName}
                     index={props.index}
                     active={active}
-                    onClick={props.onClick}>
+                    onClick={props.onClickHeader}>
 
                     {props.header}
                 </Header>

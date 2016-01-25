@@ -45,7 +45,9 @@ export default class Stop extends Component {
             <button
                 type="button" role="button"
                 className={this.formatClass(this.props.className)}
-                onClick={this.handleOnClick}>
+                onClick={this.handleOnClick}
+                {...this.inheritNativeProps(this.props)}>
+
                 {this.props.children}
             </button>
         );

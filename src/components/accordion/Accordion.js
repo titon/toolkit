@@ -177,7 +177,8 @@ export default class Accordion extends Component {
                     'is-collapsible': props.collapsible
                 })}
                 aria-live="off"
-                aria-multiselectable={props.multiple}>
+                aria-multiselectable={props.multiple}
+                {...this.inheritNativeProps(props)}>
 
                 {props.children}
             </ul>

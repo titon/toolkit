@@ -10,6 +10,7 @@ import ClassBuilder from './utility/ClassBuilder';
 import assign from 'lodash/object/assign';
 import cssClassName from './prop-types/cssClassName';
 import generateUID from './utility/generateUID';
+import omit from 'lodash/object/omit';
 import './polyfills/Performance.now.js';
 
 class TitonEvent {
@@ -182,6 +183,17 @@ export default class Component extends React.Component {
      */
     handleEvent(type, event) {
         this.notifyEventListeners(type, [event]);
+    }
+
+    /**
+     * Inherit all native props that should be passed through to the DOM element,
+     * by omitting all props whose key exists in the prop types.
+     *
+     * @param {Object} props
+     * @returns {Object}
+     */
+    inheritNativeProps(props) {
+        return omit(props, Object.keys(this.constructor.propTypes));
     }
 
     /**

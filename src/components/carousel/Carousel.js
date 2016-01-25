@@ -435,7 +435,8 @@ export default class Carousel extends Component {
                 })}
                 aria-live={props.autoStart ? 'assertive' : 'off'}
                 onMouseEnter={this.handleOnMouseEnter}
-                onMouseLeave={this.handleOnMouseLeave}>
+                onMouseLeave={this.handleOnMouseLeave}
+                {...this.inheritNativeProps(props)}>
 
                 {props.children}
             </div>

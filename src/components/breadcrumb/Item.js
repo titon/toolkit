@@ -6,8 +6,6 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import autoBind from '../../decorators/autoBind';
-import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
 
 export default class Item extends Component {
@@ -19,19 +17,8 @@ export default class Item extends Component {
         children: PropTypes.node.isRequired,
         className: cssClassName,
         url: PropTypes.string.isRequired,
-        caret: PropTypes.node,
-        onClick: collectionOf.func
+        caret: PropTypes.node
     };
-
-    /**
-     * Handle the click event.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @autoBind
-    handleOnClick(e) {
-        this.handleEvent('click', e);
-    }
 
     /**
      * Render the breadcrumb item link.
@@ -43,8 +30,10 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={props.url} onClick={this.handleOnClick}
-                    className={this.formatClass(props.className)}>
+                <a href={props.url}
+                    className={this.formatClass(props.className)}
+                    {...this.inheritNativeProps(props)}>
+
                     {props.children}
                     <span className="caret">{props.caret}</span>
                 </a>

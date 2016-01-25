@@ -45,10 +45,12 @@ export default class Breadcrumb extends Component {
             <nav
                 id={this.formatID('breadcrumb')}
                 className={this.formatClass(props.className, {
-                    [props.size]: Boolean(props.size)
+                    ['@' + props.size]: Boolean(props.size)
                 })}
                 role="navigation"
-                aria-label={props.label}>
+                aria-label={props.label}
+                {...this.inheritNativeProps(props)}>
+
                 <ol>
                     {props.children}
                 </ol>
