@@ -1030,8 +1030,9 @@ var Carousel = (function (_Component3) {
     }, {
         key: 'resetCycle',
         value: function resetCycle() {
+            clearInterval(this.timer);
+
             if (this.props.autoCycle) {
-                clearInterval(this.timer);
                 this.timer = setInterval(this.onCycle, this.props.duration);
             }
         }

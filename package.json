@@ -1,74 +1,87 @@
 {
-    "version": "2.1.7",
-    "name": "titon-toolkit",
-    "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
-    "keywords": [
-        "titon", "toolkit", "css", "sass", "scss", "jquery", "javascript", "ui", "interface",
-        "framework", "bootstrap", "modular", "component", "responsive", "fluid", "mobile", "behavior"
-    ],
-    "copyright": "Copyright 2010-2015, The Titon Project",
-    "license": "BSD-3-Clause",
-    "homepage": "http://titon.io",
-    "author": {
-        "name": "Miles Johnson",
-        "url": "http://milesj.me"
-    },
-    "bugs": "https://github.com/titon/toolkit/issues",
-    "repository": "github:titon/toolkit",
-
-    "main": "js/index.js",
-    "bin": {
-        "titon": "./titon"
-    },
-    "scripts": {
-        "start": "node titon",
-        "lint": "node titon lint",
-        "test": "node titon test",
-        "build": "node titon build",
-        "js": "node titon js",
-        "css": "node titon css",
-        "docs": "node titon docs",
-
-        "prebuild": "node titon lint",
-
-        "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
-    },
-
-    "peerDependencies": {
-        "lodash": "~3.10"
-    },
-    "devDependencies": {
-        "commander": "~2.9",
-        "compartment": "~0.2",
-        "lodash": "~3.10",
-        "chalk": "~1.1",
-        "directory-tree": "~0.1",
-
-        "node-sass": "~3.4",
-        "clean-css": "~3.4",
-        "autoprefixer": "~6.1",
-
-        "react": "~0.14",
-        "react-dom": "~0.14",
-        "eslint": "~1.10",
-        "babel-eslint": "~4.1",
-        "babel-core": "~6.3",
-        "babel-preset-es2015": "*",
-        "babel-preset-react": "*",
-        "babel-preset-stage-1": "*",
-        "systemjs": "~0.19",
-        "uglify-js": "~2.6",
-        "dependency-tree": "~4.0",
-
-        "karma": "~0.13",
-        "karma-jasmine": "~0.3",
-        "karma-ie-launcher": "*",
-        "karma-safari-launcher": "*",
-        "karma-chrome-launcher": "*",
-        "karma-firefox-launcher": "*",
-        "jasmine-core": "~2.4",
-
-        "browserify": "*",
-        "babelify": "*"
-    }
+  "version": "2.1.7",
+  "name": "titon-toolkit",
+  "description": "A collection of extensible front-end UI components and behaviors for the responsive and mobile web.",
+  "keywords": [
+    "titon",
+    "toolkit",
+    "css",
+    "sass",
+    "scss",
+    "jquery",
+    "javascript",
+    "ui",
+    "interface",
+    "framework",
+    "bootstrap",
+    "modular",
+    "component",
+    "responsive",
+    "fluid",
+    "mobile",
+    "behavior"
+  ],
+  "copyright": "Copyright 2010-2015, The Titon Project",
+  "license": "BSD-3-Clause",
+  "homepage": "http://titon.io",
+  "author": {
+    "name": "Miles Johnson",
+    "url": "http://milesj.me"
+  },
+  "bugs": "https://github.com/titon/toolkit/issues",
+  "repository": "github:titon/toolkit",
+  "main": "js/index.js",
+  "bin": {
+    "titon": "./titon"
+  },
+  "scripts": {
+    "start": "node titon",
+    "lint": "node titon lint",
+    "test": "node titon test",
+    "build": "node titon build",
+    "js": "node titon js",
+    "css": "node titon css",
+    "docs": "node titon docs",
+    "prebuild": "node titon lint",
+    "make": "browserify ./js-3.0/app.js -o ./tests-3.0/bundle.js --extension=jsx -t [ babelify --presets [ es2015 react ] ]"
+  },
+  "peerDependencies": {
+    "lodash": "~3.10"
+  },
+  "devDependencies": {
+    "commander": "~2.9",
+    "compartment": "~0.2",
+    "lodash": "~3.10",
+    "chalk": "~1.1",
+    "directory-tree": "~0.1",
+    "node-sass": "~3.4",
+    "clean-css": "~3.4",
+    "autoprefixer": "~6.1",
+    "react": "~0.14",
+    "react-dom": "~0.14",
+    "eslint": "~1.10",
+    "babel-eslint": "~4.1",
+    "babel-core": "~6.3",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-1": "*",
+    "systemjs": "~0.19",
+    "uglify-js": "~2.6",
+    "dependency-tree": "~4.0",
+    "karma": "~0.13",
+    "karma-jasmine": "~0.3",
+    "karma-ie-launcher": "*",
+    "karma-safari-launcher": "*",
+    "karma-chrome-launcher": "*",
+    "karma-firefox-launcher": "*",
+    "jasmine-core": "~2.4",
+    "browserify": "*",
+    "babelify": "*"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  }
 }
