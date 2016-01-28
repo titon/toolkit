@@ -1,0 +1,59 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("input-group") {
+    #{map-get($titon-input-group, "class-addon")} {
+        @extend %placeholder-inline-block;
+        @include size-medium;
+        background: theme-setting("bg-light");
+    }
+
+    #{map-get($titon-input-group, "class")} {
+        display: inline-flex;
+        vertical-align: middle;
+
+        > * {
+            flex-grow: 1;
+            position: relative;
+            border-radius: 0;
+            white-space: nowrap;
+            height: auto;
+
+            &:hover { z-index: 1; }
+            &:focus { z-index: 2; }
+        }
+
+        //----- Sizes -----//
+
+        @include is-size-small(true, false) {
+            #{map-get($titon-input-group, "class-addon")} {
+                @include size-small;
+            }
+        }
+
+        @include is-size-large(true, false) {
+            #{map-get($titon-input-group, "class-addon")} {
+                @include size-large;
+            }
+        }
+
+        //----- Effects -----//
+
+        @if (is-feature-enabled("all-effects") or index(map-get($titon-input-group, "effects"), "round")) {
+            &#{map-get($titon-global, "class-round")} {
+                > *:first-child {
+                    border-top-#{bidi-alignment()}-radius: theme-setting("round-radius");
+                    border-bottom-#{bidi-alignment()}-radius: theme-setting("round-radius");
+                }
+
+                > *:last-child {
+                    border-top-#{bidi-opposite-alignment()}-radius: theme-setting("round-radius");
+                    border-bottom-#{bidi-opposite-alignment()}-radius: theme-setting("round-radius");
+                }
+            }
+        }
+    }
+}

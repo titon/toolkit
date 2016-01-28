@@ -1,0 +1,64 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("grid") {
+    $titon-temp-grid-width: map-get($titon-grid, "width");
+    $titon-temp-grid-gutter: map-get($titon-grid, "gutter");
+
+    // Row wrapper
+    #{map-get($titon-grid, "class-row")} {
+        @include grid-row($titon-temp-grid-width);
+    }
+
+    // These should be the same for all sizes
+    #{map-get($titon-grid, "class-column")}[class*="span-"] {
+        @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
+    }
+
+    // Global Push and pull classes
+    @if map-get($titon-grid, "push-pull") {
+        @for $i from 1 through map-get($titon-global, "span-count") {
+            $span: grid-span($i, map-get($titon-global, "span-count"), $titon-temp-grid-width, $titon-temp-grid-gutter);
+
+            .push-#{$i} {
+                #{bidi-alignment()}: $span;
+            }
+
+            .pull-#{$i} {
+                #{bidi-opposite-alignment()}: $span;
+            }
+        }
+    }
+
+    // Responsive sizes
+    @each $size, $options in map-get($titon-grid, "sizes") {
+        $size-columns: nth($options, 1);
+
+        @include in-range( (nth($options, 2), nth($options, 3)) ) {
+            #{map-get($titon-grid, "class-column")}[class*="#{$size}-"] {
+                @include grid-column($titon-temp-grid-width, $titon-temp-grid-gutter);
+            }
+
+            @for $i from 1 through $size-columns {
+                $span: grid-span($i, $size-columns, $titon-temp-grid-width, $titon-temp-grid-gutter);
+
+                #{map-get($titon-grid, "class-column")}.#{$size}-#{$i} {
+                    width: $span;
+                }
+
+                @if map-get($titon-grid, "push-pull") {
+                    .#{$size}-push-#{$i} {
+                        #{bidi-alignment()}: $span;
+                    }
+
+                    .#{$size}-pull-#{$i} {
+                        #{bidi-opposite-alignment()}: $span;
+                    }
+                }
+            }
+        }
+    }
+}

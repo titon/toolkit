@@ -1,0 +1,24 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("matrix") {
+    #{map-get($titon-matrix, "class")} {
+        @extend %placeholder-list;
+        @extend %placeholder-clear-fix;
+        position: relative;
+
+        > li {
+            float: bidi-alignment();
+            margin: 0;
+            padding: 0;
+            transition: all map-get($titon-matrix, "transition");
+        }
+
+        &.no-columns > li {
+            position: relative !important;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("pin") {
+    $titon-temp-pin-transition: map-get($titon-pin, "transition");
+
+    #{map-get($titon-pin, "class")} {
+        position: absolute;
+
+        &.sticky {
+            transition: top ($titon-temp-pin-transition * 2) ease-in-out, right $titon-temp-pin-transition ease-in-out, left $titon-temp-pin-transition ease-in-out;
+        }
+
+        &.slide {
+            transition: top $titon-temp-pin-transition linear, right $titon-temp-pin-transition linear, left $titon-temp-pin-transition linear;
+        }
+    }
+}

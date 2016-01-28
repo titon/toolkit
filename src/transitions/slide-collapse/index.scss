@@ -1,0 +1,36 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("slide-collapse") {
+    #{map-get($titon-global, "class-transition")} {
+        &#{map-get($titon-slide-collapse, "class")} {
+            position: relative;
+            transition: all map-get($titon-slide-collapse, "transition") ease-in-out;
+        }
+
+        @if (is-feature-enabled("all-modifiers") or index(map-get($titon-slide-collapse, "modifiers"), "vertical")) {
+            &#{map-get($titon-slide-collapse, "class-modifier-vertical")} {
+                overflow-y: hidden;
+                max-height: 0;
+
+                &.is-expanded {
+                    max-height: 100%;
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-modifiers") or index(map-get($titon-slide-collapse, "modifiers"), "horizontal")) {
+            &#{map-get($titon-slide-collapse, "class-modifier-horizontal")} {
+                overflow-x: hidden;
+                max-width: 0;
+
+                &.is-expanded {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

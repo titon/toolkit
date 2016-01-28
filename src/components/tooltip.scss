@@ -1,0 +1,113 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("tooltip") {
+    $titon-temp-tooltip-arrow-width: map-get($titon-tooltip, "arrow-width");
+    $titon-temp-tooltip-arrow-width-double: ($titon-temp-tooltip-arrow-width * 2);
+    $titon-temp-tooltip-animations: map-get($titon-tooltip, "animations");
+
+    #{map-get($titon-tooltip, "class")},
+    #{map-get($titon-popover, "class")} {
+        @extend %placeholder-position-absolute;
+        border: 0;
+        z-index: map-get($titon-settings-zindex, "tooltip");
+        max-width: 15rem;
+        visibility: hidden;
+        transition: all map-get($titon-tooltip, "transition");
+        background: #fff;
+        padding: theme-setting("small-padding");
+    }
+
+    #{map-get($titon-tooltip, "class-arrow")},
+    #{map-get($titon-popover, "class-arrow")} {
+        width: 0;
+        height: 0;
+        border: #{$titon-temp-tooltip-arrow-width}px solid transparent;
+        position: absolute;
+
+        &::after {
+            content: "";
+            border: #{($titon-temp-tooltip-arrow-width - 2)}px solid transparent;
+            position: absolute;
+        }
+    }
+
+    //-------------------- Positions --------------------//
+
+    #{map-get($titon-tooltip, "class")} {
+        &.center-left #{map-get($titon-tooltip, "class-arrow")},
+        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
+            top: 50%;
+            margin-top: -#{$titon-temp-tooltip-arrow-width}px;
+        }
+
+        &.center-left #{map-get($titon-tooltip, "class-arrow")} {
+            border-left-color: #fff;
+            right: -#{$titon-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.center-right #{map-get($titon-tooltip, "class-arrow")} {
+            border-right-color: #fff;
+            left: -#{$titon-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.top-center #{map-get($titon-tooltip, "class-arrow")},
+        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
+            left: 50%;
+            margin-left: -#{$titon-temp-tooltip-arrow-width}px;
+        }
+
+        &.top-center #{map-get($titon-tooltip, "class-arrow")} {
+            border-top-color: #fff;
+            bottom: -#{$titon-temp-tooltip-arrow-width-double}px;
+        }
+
+        &.bottom-center #{map-get($titon-tooltip, "class-arrow")} {
+            border-bottom-color: #fff;
+            top: -#{$titon-temp-tooltip-arrow-width-double}px;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{map-get($titon-tooltip, "class")} {
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "fade")) {
+            &.fade {
+                opacity: 0;
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-above")) {
+            &.from-above {
+                transform: scale(1.2);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "from-below")) {
+            &.from-below {
+                transform: scale(0.8);
+
+                &.show {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-tooltip-animations, "flip-rotate")) {
+            &.flip-rotate {
+                transform: rotate(-15deg);
+
+                &.show {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+}

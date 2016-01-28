@@ -1,0 +1,24 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("tab") {
+    #{map-get($titon-tab, "class-nav")} {
+        > ul,
+        > ol {
+            @extend %placeholder-list;
+            display: flex;
+        }
+    }
+
+    #{map-get($titon-tab, "class-section")} {
+        padding: theme-setting("medium-padding");
+
+        // Add display none on sections since visibility property takes up DOM space
+        &.hide {
+            display: none;
+        }
+    }
+}

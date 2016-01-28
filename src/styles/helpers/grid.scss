@@ -1,0 +1,62 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+// Default grid width.
+$grid-width: 100% !default;
+
+// Default grid gutter size.
+$grid-gutter: false !default;
+
+/**
+ * Calculate the width of an individual grid column. Take into account max widths and gutters.
+ *
+ * @param int $n - The current column
+ * @param int $columns - The total number of columns
+ * @param int [$width] - The max width of the grid container
+ * @param int [$gutter] - The spacing in between each column
+ */
+@function grid-span($n, $columns, $width: $grid-width, $gutter: $grid-gutter) {
+    @return span-width($n, $columns, $width, $gutter);
+}
+
+/**
+ * Styles for the grid row containing the columns.
+ *
+ * @param int [$width] - The max width of the grid container
+ */
+@mixin grid-row($width: $grid-width) {
+    width: $width;
+    max-width: $width;
+
+    @extend %placeholder-clear-fix;
+}
+
+/**
+ * Styles for the individual grid column.
+ *
+ * @param int [$width] - The max width of the grid container
+ * @param int [$gutter] - The spacing in between each column
+ */
+@mixin grid-column($width: $grid-width, $gutter: $grid-gutter) {
+    position: relative;
+    min-height: 1px;
+    float: bidi-alignment();
+
+    @if $gutter {
+        & + & {
+            margin-#{bidi-alignment()}: gutter($width, $gutter);
+        }
+    }
+
+    // End capping
+    &#{map-get($titon-global, "class-end")} {
+        float: bidi-opposite-alignment() !important;
+
+        @if $gutter {
+            margin-#{bidi-opposite-alignment()}: 0 !important;
+        }
+    }
+}

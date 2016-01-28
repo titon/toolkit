@@ -1,0 +1,297 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+/**
+ * Return the value of a setting from the primary `$titon` map.
+ *
+ * @param string $key
+ */
+@function setting($key) {
+    @return map-get($titon, $key);
+}
+
+/**
+ * Return the value of a theme setting from the `$titon-settings-theme` map.
+ *
+ * @param string $key
+ */
+@function theme-setting($key) {
+    @return map-get($titon-settings-theme, $key);
+}
+
+/**
+ * Return the range of a breakpoint setting from the `$titon-settings-breakpoints` map.
+ * If the second argument is defined, the index in the range will be returned.
+ *
+ * @param string $key
+ */
+@function breakpoint-setting($key, $index: null) {
+    $breakpoint: map-get($titon-settings-breakpoints, $key);
+
+    @if $index {
+        @return nth($breakpoint, $index);
+    }
+
+    @return $breakpoint;
+}
+
+/**
+ * Check if a feature flag is enabled.
+ *
+ * @param string $feature
+ */
+@function is-feature-enabled($feature) {
+    @return (map-get($titon-settings-flags, $feature) == true);
+}
+
+/**
+ * Return the current bi-directional alignment based on the `text-direction` setting.
+ */
+@function bidi-alignment() {
+    @return if(setting("text-direction") == rtl, right, left);
+}
+
+/**
+ * Return the opposite bi-directional alignment based on the `text-direction` setting.
+ */
+@function bidi-opposite-alignment() {
+    @return if(setting("text-direction") == rtl, left, right);
+}
+
+/**
+ * Return a transparent black CSS color.
+ *
+ * @param int $opacity
+ */
+@function black($opacity){
+    @return rgba(0, 0, 0, $opacity);
+}
+
+/**
+ * Return a transparent white CSS color.
+ *
+ * @param int $opacity
+ */
+@function white($opacity){
+    @return rgba(255, 255, 255, $opacity);
+}
+
+/**
+ * Take a list of classes and generate a selector list.
+ *
+ * @param list $classes
+ * @param bool [$inherit] - Apply classes to the wrapping selector
+ */
+@function join-classes($classes, $inherit: true) {
+    $selectors: ();
+
+    @each $class in $classes {
+        @if (str-index($class, ".") != 0) {
+            $class: "." + $class;
+        }
+
+        @if $inherit {
+            $selectors: append($selectors, unquote("&" + $class), "comma");
+        } @else {
+            $selectors: append($selectors, unquote($class), "comma");
+        }
+    }
+
+    @return $selectors;
+}
+
+/**
+ * Remove the first selector character (#, .) from the class name or ID.
+ *
+ * @param string $selector
+ */
+@function remove-selector($selector) {
+    @return str-slice($selector, 2, str-length($selector));
+}
+
+/**
+ * Generate a class name and apply an optional prefix.
+ *
+ * @param string $class
+ * @param string [$prefix]
+ * @param string [$selector]
+ */
+@function class-name($class, $prefix: setting("namespace"), $selector: ".") {
+    $name: $class;
+
+    @if (str_slice($class, 1, 1) == $selector) {
+        $name: remove-selector($name);
+    }
+
+    @if ($prefix != "") {
+        $name: $prefix + $name;
+    }
+
+    @return unquote($selector + $name);
+}
+
+/**
+ * Build a class name in the BEM specification.
+ *
+ * @param string $block
+ * @param string $element
+ * @param string $modifier
+ * @param string [$element-separator]
+ * @param string [$modifier-separator]
+ * @param string [$prefix]
+ */
+@function bem(
+    $block: "",
+    $element: "",
+    $modifier: "",
+    $element-separator: setting("element-separator"),
+    $modifier-separator: setting("modifier-separator"),
+    $prefix: setting("namespace")
+) {
+    $name: $block;
+
+    @if ($element != "") {
+        $name: $name + $element-separator + $element;
+    }
+
+    @if ($modifier != "") {
+        $name: $name + $modifier-separator + $modifier;
+    }
+
+    @return class-name($name, $prefix);
+}
+
+/**
+ * Calculate the gutter spacing as a percentage. Use the max width of the grid to calculate against.
+ *
+ * @param int $width - The max width of the container
+ * @param int $gutter - The space between each cell
+ */
+@function gutter($width, $gutter) {
+    @return if($gutter, ((to-pixel($gutter) / to-pixel($width)) * 100 * 1%), 0%);
+}
+
+/**
+ * Calculate the width of an individual element within a row. Take into account max widths and gutters.
+ *
+ * @param int $n - The current column
+ * @param int $columns - The total number of columns
+ * @param int $width - The max width of the container
+ * @param int $gutter - The spacing in between each block
+ */
+@function span-width($n, $columns, $width, $gutter) {
+    $row-width: 100%;
+    $gutter-width: 0%;
+
+    // If a gutter is set, remove width based on the sum of the gutter columns
+    @if $gutter {
+        $gutter-width: gutter($width, $gutter);
+        $row-width: $row-width - ($gutter-width * ($columns - 1));
+    }
+
+    // The column width should span a division of the total width
+    $span-width: ($row-width / $columns) * $n;
+
+    // If a gutter is set, increase the column width to fill in the missing gaps
+    @if ($gutter and $n > 1) {
+        $span-width: $span-width + (($n - 1) * $gutter-width);
+    }
+
+    @return $span-width;
+}
+
+/**
+ * Remove the unit and return the integer.
+ *
+ * @param int|string $value
+ */
+@function strip-unit($value) {
+    @return ($value / ($value * 0 + 1));
+}
+
+/**
+ * Convert a unit value to a pixel while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
+@function to-pixel($from) {
+    $from-unit: unit($from);
+
+    @if $from-unit == "px" {
+        @return $from;
+
+    } @else if $from-unit == "%" or $from-unit == "em" or $from-unit == "rem" {
+        @return (strip-unit($from) * setting("base-font-size"));
+
+    } @else {
+        @warn "Unknown pixel conversion unit type.";
+    }
+
+    @return $from;
+}
+
+/**
+ * Convert a unit value to a percentage while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
+@function to-percent($from) {
+    $from-unit: unit($from);
+
+    @if $from-unit == "%" {
+        @return $from;
+
+    } @else if $from-unit == "px" or $from-unit == "em" or $from-unit == "rem" {
+        @return percentage((to-pixel($from) / setting("base-font-size")) / 100);
+
+    } @else {
+        @warn "Unknown percentage conversion unit type.";
+    }
+
+    @return $from;
+}
+
+/**
+ * Convert a unit value to a rem unit while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
+@function to-rem($from) {
+    $from-unit: unit($from);
+
+    @if $from-unit == "rem" {
+        @return $from;
+
+    } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "em" {
+        @return (to-pixel($from) / setting("base-font-size")) * 1rem;
+
+    } @else {
+        @warn "Unknown rem conversion unit type.";
+    }
+
+    @return $from;
+}
+
+/**
+ * Convert a unit value to an em unit while using `base-font-size` as the reference.
+ *
+ * @param int|string $from
+ */
+@function to-em($from) {
+    $from-unit: unit($from);
+
+    @if $from-unit == "em" {
+        @return $from;
+
+    } @else if $from-unit == "px" or $from-unit == "%" or $from-unit == "rem" {
+        @return (to-pixel($from) / setting("base-font-size")) * 1em;
+
+    } @else {
+        @warn "Unknown em conversion unit type.";
+    }
+
+    @return $from;
+}

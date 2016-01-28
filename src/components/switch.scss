@@ -1,0 +1,156 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("switch") {
+    $titon-temp-switch-effects: map-get($titon-switch, "effects");
+    $titon-temp-switch-modifiers: map-get($titon-switch, "modifiers");
+
+    #{map-get($titon-switch, "class")} {
+        @extend %placeholder-inline-block;
+        font-size: 0;
+        width: 7rem;
+        cursor: pointer;
+
+        input {
+            display: none;
+        }
+    }
+
+    #{map-get($titon-switch, "class-bar")} {
+        display: block;
+        position: relative;
+        font-size: theme-setting("medium-font-size");
+        transition: background map-get($titon-switch, "transition");
+        text-align: #{bidi-alignment()};
+        background: theme-setting("bg-light");
+
+        &::before,
+        &::after {
+            position: absolute;
+            padding: theme-setting("medium-padding");
+            top: 0;
+            opacity: 1;
+            z-index: 1;
+            transition: opacity map-get($titon-switch, "transition");
+        }
+
+        &::before {
+            #{bidi-alignment()}: 0;
+            opacity: 0;
+            content: attr(data-switch-off);
+        }
+
+        &::after {
+            #{bidi-opposite-alignment()}: 0;
+            content: attr(data-switch-on);
+        }
+
+        //----- Effects -----//
+
+        @if (is-feature-enabled("all-effects") or index($titon-temp-switch-effects, "round")) {
+            &#{map-get($titon-global, "class-round")} {
+                border-radius: theme-setting("round-radius");
+
+                #{map-get($titon-switch, "class-toggle")} {
+                    border-radius: theme-setting("round-radius");
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-effects") or index($titon-temp-switch-effects, "pill")) {
+            &#{map-get($titon-global, "class-pill")} {
+                border-radius: theme-setting("pill-radius");
+
+                #{map-get($titon-switch, "class-toggle")} {
+                    border-radius: theme-setting("pill-radius");
+                }
+            }
+        }
+    }
+
+    #{map-get($titon-switch, "class-toggle")} {
+        @extend %placeholder-inline-block;
+        padding: theme-setting("medium-padding");
+        width: 50%;
+        z-index: 2;
+        #{bidi-alignment()}: 0;
+        user-select: none;
+        transition: #{bidi-alignment()} map-get($titon-switch, "transition");
+        background: #fff;
+
+        &::before {
+            content: "\00A0"; // NBSP
+        }
+    }
+
+    //-------------------- Sizes --------------------//
+
+    #{map-get($titon-switch, "class")} {
+        @include is-size-small {
+            width: 5rem;
+
+            #{map-get($titon-switch, "class-bar")} {
+                font-size: theme-setting("small-font-size");
+
+                &::before,
+                &::after {
+                    padding: theme-setting("small-padding");
+                }
+            }
+
+            #{map-get($titon-switch, "class-toggle")} {
+                padding: theme-setting("small-padding");
+            }
+        }
+
+        @include is-size-large {
+            width: 9rem;
+
+            #{map-get($titon-switch, "class-bar")} {
+                font-size: theme-setting("large-font-size");
+
+                &::before,
+                &::after {
+                    padding: theme-setting("large-padding");
+                }
+            }
+
+            #{map-get($titon-switch, "class-toggle")} {
+                padding: theme-setting("large-padding");
+            }
+        }
+    }
+
+    //-------------------- States --------------------//
+
+    @include switch-state(checked) {
+        #{map-get($titon-switch, "class-toggle")} {
+            #{bidi-alignment()}: 50%;
+        }
+
+        &::before {
+            opacity: 1;
+        }
+
+        &::after {
+            opacity: 0;
+        }
+    }
+
+    //-------------------- Modifiers --------------------//
+
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-switch-modifiers, "stacked")) {
+        #{map-get($titon-switch, "class-modifier-stacked")} {
+            #{map-get($titon-switch, "class-bar")} {
+                &::before,
+                &::after {
+                    z-index: 3;
+                    opacity: 1 !important;
+                }
+            }
+        }
+    }
+}

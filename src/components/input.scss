@@ -1,0 +1,71 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("input") {
+    #{map-get($titon-input, "class")},
+    #{map-get($titon-input, "class-static")},
+    #{map-get($titon-input, "class-choice")} {
+        @extend %placeholder-inline-block;
+        border: 0;
+        line-height: normal;
+        -webkit-appearance: none; // Remove inner shadow on iOS
+
+        //----- Sizes -----//
+
+        @include size-medium;
+        @include is-size-small { @include size-small; }
+        @include is-size-large { @include size-large; }
+    }
+
+    #{map-get($titon-input, "class")} {
+        background: #fff;
+
+        &.is-disabled,
+        &:disabled,
+        option:disabled,
+        optgroup:disabled {
+            border-color: lighten(theme-setting("border-accent"), 10%);
+        }
+    }
+
+    #{map-get($titon-input, "class-static")} {
+        background: transparent;
+        padding-#{bidi-alignment()}: 0 !important;
+        padding-#{bidi-opposite-alignment()}: 0 !important;
+    }
+
+    #{map-get($titon-input, "class-choice")} {
+        padding-#{bidi-alignment()}: 0 !important;
+        padding-#{bidi-opposite-alignment()}: 0 !important;
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+            margin-#{bidi-opposite-alignment()}: .5rem;
+        }
+    }
+
+    select#{map-get($titon-input, "class")} {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &[multiple] {
+            max-height: 45rem;
+        }
+
+        &::-ms-expand {
+            display: none;
+        }
+    }
+
+    textarea#{map-get($titon-input, "class")} {
+        line-height: 1.35;
+        min-height: 10rem;
+    }
+}

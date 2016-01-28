@@ -1,0 +1,61 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("code") {
+    code,
+    var,
+    kbd,
+    pre {
+        font: normal .8rem/115% Consolas, Monaco, "Andale Mono", monospace;
+    }
+
+    code,
+    var,
+    kbd {
+        display: inline-block;
+        background: theme-setting("bg-light");
+        border-radius: theme-setting("round-radius");
+        padding: .2em .4em;
+    }
+
+    pre {
+        padding: theme-setting("medium-padding");
+        margin: theme-setting("margin") 0;
+        background: #fff;
+        border: 1px solid theme-setting("bg-light");
+        text-align: bidi-alignment();
+        direction: setting("text-direction");
+        white-space: pre;
+        word-spacing: normal;
+        font-size: .9rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+
+        code {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            color: inherit;
+            font: inherit;
+            white-space: pre-wrap;
+            background: transparent;
+            display: block;
+        }
+
+        &.is-scrollable {
+            max-height: 30rem;
+            overflow-y: auto;
+        }
+    }
+
+    kbd {
+        background: #fff;
+        position: relative;
+        border: 1px solid theme-setting("border-accent");
+        box-shadow: 0 2px 0 1px theme-setting("border-accent");
+        top: -3px;
+    }
+}

@@ -1,0 +1,155 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("off-canvas") {
+    $titon-temp-off-canvas-width: map-get($titon-off-canvas, "width");
+    $titon-temp-off-canvas-animations: map-get($titon-off-canvas, "animations");
+
+    #{map-get($titon-off-canvas, "class")} {
+        position: fixed;
+        overflow: auto;
+        top: 0;
+        width: $titon-temp-off-canvas-width;
+        max-width: 90%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        visibility: hidden;
+        transition: all map-get($titon-off-canvas, "transition");
+        -webkit-overflow-scrolling: touch;
+        background: #fff;
+    }
+
+    #{map-get($titon-off-canvas, "class-content")} {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        z-index: 2;
+        transition: all map-get($titon-off-canvas, "transition");
+        transform: translate(0, 0);
+    }
+
+    #{map-get($titon-off-canvas, "class-wrapper")} {
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    //-------------------- Modifiers --------------------//
+
+    #{map-get($titon-off-canvas, "class-modifier-left")} {
+        left: 0;
+        transform: translate(-100%, 0);
+
+        &.show {
+            transform: translate(0, 0) !important;
+        }
+    }
+
+    #{map-get($titon-off-canvas, "class-modifier-right")} {
+        right: 0;
+        transform: translate(100%, 0);
+
+        &.show {
+            transform: translate(0, 0) !important;
+        }
+    }
+
+    //-------------------- Animations --------------------//
+
+    #{map-get($titon-off-canvas, "class-wrapper")} {
+        @if (is-feature-enabled("all-animations") or (index($titon-temp-off-canvas-animations, "on-top") or index($titon-temp-off-canvas-animations, "squish"))) {
+            &.on-top,
+            &.squish {
+                #{map-get($titon-off-canvas, "class")} {
+                    z-index: 3;
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-reveal")) {
+            &.push-reveal {
+                #{map-get($titon-off-canvas, "class-modifier-left")} {
+                    transform: translate(-$titon-temp-off-canvas-width, 0);
+                }
+
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
+                    transform: translate($titon-temp-off-canvas-width, 0);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reverse-push")) {
+            &.reverse-push {
+                #{map-get($titon-off-canvas, "class-modifier-left")} {
+                    transform: translate($titon-temp-off-canvas-width, 0);
+                }
+
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
+                    transform: translate(-$titon-temp-off-canvas-width, 0);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reveal")) {
+            &.reveal {
+                #{map-get($titon-off-canvas, "class")} {
+                    transform: translate(0, 0);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-down")) {
+            &.push-down {
+                #{map-get($titon-off-canvas, "class-modifier-left")},
+                #{map-get($titon-off-canvas, "class-modifier-right")} {
+                    transform: translate(0, -100%);
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or (
+            index($titon-temp-off-canvas-animations, "push") or
+            index($titon-temp-off-canvas-animations, "push-reveal") or
+            index($titon-temp-off-canvas-animations, "push-down") or
+            index($titon-temp-off-canvas-animations, "reverse-push") or
+            index($titon-temp-off-canvas-animations, "reveal")
+        )){
+            &.push,
+            &.push-reveal,
+            &.push-down,
+            &.reverse-push,
+            &.reveal {
+                &.move-left {
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        transform: translate(-$titon-temp-off-canvas-width, 0);
+                    }
+                }
+
+                &.move-right {
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        transform: translate($titon-temp-off-canvas-width, 0);
+                    }
+                }
+            }
+        }
+
+        @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "squish")) {
+            &.squish {
+                &.move-left {
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        padding-right: $titon-temp-off-canvas-width;
+                    }
+                }
+
+                &.move-right {
+                    #{map-get($titon-off-canvas, "class-content")} {
+                        padding-left: $titon-temp-off-canvas-width;
+                    }
+                }
+            }
+        }
+    }
+}
