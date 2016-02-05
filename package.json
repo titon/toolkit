@@ -41,30 +41,30 @@
     "peerDependencies": {
         "react": "~0.14",
         "react-dom": "~0.14",
-        "lodash": "~3.10"
+        "lodash": "~4.2"
     },
     "devDependencies": {
         "directory-tree": "~0.1",
 
         "node-sass": "~3.4",
-        "autoprefixer": "~6.2",
-        "postcss-cli": "~2.3",
-        "sass-lint": "~1.4",
+        "autoprefixer": "~6.3",
+        "postcss-cli": "~2.5",
+        "sass-lint": "~1.5",
 
         "react": "~0.14",
         "react-dom": "~0.14",
         "react-addons-test-utils": "~0.14",
         "eslint": "~1.10",
-        "eslint-plugin-react": "~3.13",
+        "eslint-plugin-react": "~3.16",
         "babel-eslint": "~4.1",
-        "babel-core": "~6.3",
-        "babel-cli": "~6.3",
+        "babel-core": "~6.4",
+        "babel-cli": "~6.4",
         "babel-preset-es2015": "*",
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
         "babel-plugin-transform-decorators-legacy": "*",
         "uglify-js": "~2.6",
-        "lodash": "~3.10",
+        "lodash": "~4.2",
 
         "karma": "~0.13",
         "karma-jasmine": "~0.3",
@@ -72,11 +72,11 @@
         "karma-safari-launcher": "*",
         "karma-chrome-launcher": "*",
         "karma-firefox-launcher": "*",
-        "karma-browserify": "*",
+        "karma-browserify": "~5.0",
         "jasmine-core": "~2.4",
-        "enzyme": "~1.2",
-        "browserify": "*",
-        "babelify": "*",
-        "watchify": "*"
+        "enzyme": "~1.5",
+        "browserify": "~13.0",
+        "babelify": "~7.2",
+        "watchify": "~3.7"
     }
 }

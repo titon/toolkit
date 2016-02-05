@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import SlideCollapse from '../../transitions/slide-collapse';
+import SlideCollapse from '../../transitions/SlideCollapse';
 import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
 
