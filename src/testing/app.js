@@ -6,13 +6,44 @@ import Titon from '../Titon';
 import Accordion from '../components/accordion';
 import Carousel from '../components/carousel';
 import Breadcrumb from '../components/breadcrumb';
+import Drop from '../components/Drop';
 
 const log = function(e, ...args) {
-    // console.log(e.constructor.name, e.type, e.detail, e, args);
+    console.log(e.constructor.name, e.type, e.detail, e, args);
 };
 
 ReactDOM.render(
-    <div>
+    <div style={{ position: 'relative' }}>
+        <Drop>
+            <Drop.Toggle>
+                <button type="button" className="button" onClick={log}>OPEN MENU</button>
+            </Drop.Toggle>
+
+            <Drop.Menu>
+                <Drop.Header>Foo</Drop.Header>
+                <Drop.Item>
+                    <Drop.Link href="/">1</Drop.Link>
+                </Drop.Item>
+                <Drop.Item>2</Drop.Item>
+                <Drop.Item>
+                    3
+
+                    <Drop.Menu nested={true}>
+                        <Drop.Item>3.1</Drop.Item>
+                        <Drop.Item>3.2</Drop.Item>
+                        <Drop.Item>3.3</Drop.Item>
+                    </Drop.Menu>
+                </Drop.Item>
+
+                <Drop.Divider />
+
+                <Drop.Header>Bar</Drop.Header>
+                <Drop.Item>4</Drop.Item>
+                <Drop.Item>5</Drop.Item>
+            </Drop.Menu>
+        </Drop>
+
+        {/*
         <Breadcrumb uniqueClassName="navigation" size="large">
             <Breadcrumb.Item url="#" onClick={log} className="foo-a">Foo</Breadcrumb.Item>
             <Breadcrumb.Item url="#" onClick={log} className={['foo', 'b']}>Bar</Breadcrumb.Item>
@@ -77,6 +108,7 @@ ReactDOM.render(
                 <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi fermentum congue lectus, at imperdiet odio dictum sit amet.</p>
             </Accordion.Item>
         </Accordion>
+        */}
     </div>
     ,
     document.getElementById('app')

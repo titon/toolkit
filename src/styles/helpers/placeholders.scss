@@ -5,6 +5,14 @@
  */
 
 /**
+ * Active state for showing transitions.
+ */
+%placeholder-show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/**
  * Clear all floats within the container.
  */
 %placeholder-clear-fix {

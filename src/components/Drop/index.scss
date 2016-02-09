@@ -8,7 +8,6 @@
     $titon-temp-drop-modifiers: map-get($titon-drop, "modifiers");
 
     #{map-get($titon-drop, "class")} {
-        @extend %placeholder-list;
         position: absolute;
         top: 100%;
         left: 0;
@@ -21,6 +20,11 @@
         background: #fff;
         text-align: #{bidi-alignment()};
 
+        // Active
+        &.is-open {
+            @extend %placeholder-show;
+        }
+
         // Nested
         #{map-get($titon-drop, "class")} {
             display: block;
@@ -29,8 +33,7 @@
             z-index: map-get($titon-settings-zindex, "drop") + 1;
         }
 
-        ul,
-        ol {
+        ul {
             @extend %placeholder-list;
         }
 
@@ -73,7 +76,7 @@
         border-top: 1px solid theme-setting("bg-light");
     }
 
-    #{map-get($titon-drop, "class-heading")} {
+    #{map-get($titon-drop, "class-header")} {
         padding: theme-setting("medium-padding");
     }
 

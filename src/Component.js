@@ -193,7 +193,7 @@ export default class Component extends React.Component {
      * @returns {Object}
      */
     inheritNativeProps(props) {
-        return omit(props, Object.keys(this.constructor.propTypes));
+        return omit(props, ['children', ...Object.keys(this.constructor.propTypes)]);
     }
 
     /**
@@ -216,5 +216,20 @@ export default class Component extends React.Component {
         }
 
         listeners.forEach(func => func(...args));
+    }
+
+    /**
+     * Wrap a set of handlers to be executed consecutively.
+     *
+     * @returns {Function}
+     */
+    wrapHandlers(...handlers) {
+        return function(...args) {
+            handlers.forEach(handler => {
+                if (typeof handler === 'function') {
+                    handler(...args);
+                }
+            });
+        };
     }
 }
