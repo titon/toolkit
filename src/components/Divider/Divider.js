@@ -28,8 +28,12 @@ export default class Divider extends Component {
         let props = this.props;
 
         return (
-            <div className={this.formatClass(props.className)} role="separator">
-                <span>{this.props.children}</span>
+            <div
+                role="separator"
+                className={this.formatClass(props.className)}
+                {...this.inheritNativeProps(props)}>
+
+                <span>{props.children}</span>
             </div>
         );
     }

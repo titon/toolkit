@@ -16,7 +16,6 @@ export default class Item extends Component {
     static propTypes = {
         children: PropTypes.node.isRequired,
         className: cssClassName,
-        url: PropTypes.string.isRequired,
         caret: PropTypes.node
     };
 
@@ -30,8 +29,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a href={props.url}
-                    className={this.formatClass(props.className)}
+                <a className={this.formatClass(props.className)}
                     {...this.inheritNativeProps(props)}>
 
                     {props.children}

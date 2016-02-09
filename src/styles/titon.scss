@@ -218,7 +218,7 @@ $titon-divider: (
 $titon-drop: (
     "class": bem("drop"),
     "class-divider": bem("drop", "divider"),
-    "class-heading": bem("drop", "heading"),
+    "class-header": bem("drop", "header"),
     "class-modifier-down": bem("drop", "", "down"),
     "class-modifier-up": bem("drop", "", "up"),
     "class-modifier-left": bem("drop", "", "left"),
