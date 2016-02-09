@@ -7,11 +7,11 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import cssClassName from '../../prop-types/cssClassName';
 import debounce from '../../decorators/debounce';
 
-@autoBind
+@bind
 export default class SlideCollapse extends Component {
     static defaultProps = {
         className: ['slide', 'collapse'],

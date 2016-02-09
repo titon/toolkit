@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import Item from './Item';
 import Swipe from '../../events/Swipe';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import childrenOfType from '../../prop-types/childrenOfType';
 import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
@@ -148,7 +148,7 @@ export default class ItemList extends Component {
      *
      * @param {TransitionEvent} e
      */
-    @autoBind
+    @bind
     handleOnTransitionEnd(e) {
         if (e.propertyName === 'transform') {
             this.context.afterAnimation();

@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
@@ -29,7 +29,7 @@ export default class Start extends Component {
      *
      * @param {SyntheticEvent} e
      */
-    @autoBind
+    @bind
     handleOnClick(e) {
         this.context.startCycle();
         this.handleEvent('click', e);

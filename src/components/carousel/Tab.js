@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
 import tabIndex from '../../utility/tabIndex';
@@ -30,7 +30,7 @@ export default class Tab extends Component {
      *
      * @param {SyntheticEvent} e
      */
-    @autoBind
+    @bind
     handleOnClick(e) {
         this.context.showItem(this.props.index);
         this.handleEvent('click', e);

@@ -1,17 +1,17 @@
-import autoBind from '../../src/decorators/autoBind';
+import bind from '../../src/decorators/bind';
 
-class AutoBindMethodStub {
+class BindMethodStub {
     constructor() {
         this.with = false;
         this.without = false;
     }
 
-    @autoBind
+    @bind
     withBind() {
         this.with = true;
     }
 
-    @autoBind
+    @bind
     withBindAndArgs(...args) {
         this.with = args;
     }
@@ -21,8 +21,8 @@ class AutoBindMethodStub {
     }
 }
 
-@autoBind
-class AutoBindClassStub {
+@bind
+class BindClassStub {
     constructor() {
         this.called = [];
     }
@@ -42,9 +42,9 @@ class AutoBindClassStub {
     }
 }
 
-describe('decorators/autoBind()', () => {
+describe('decorators/bind()', () => {
     it('should automatically set the context', done => {
-        let obj = new AutoBindMethodStub();
+        let obj = new BindMethodStub();
 
         processInThread(obj.withoutBind);
         processInThread(obj.withBind);
@@ -57,8 +57,8 @@ describe('decorators/autoBind()', () => {
     });
 
     it('should not modify other objects', done => {
-        let obj1 = new AutoBindMethodStub(),
-            obj2 = new AutoBindMethodStub();
+        let obj1 = new BindMethodStub(),
+            obj2 = new BindMethodStub();
 
         processInThread(obj1.withBind);
 
@@ -70,7 +70,7 @@ describe('decorators/autoBind()', () => {
     });
 
     it('should pass along arguments', done => {
-        let obj = new AutoBindMethodStub();
+        let obj = new BindMethodStub();
 
         processInThread(() => {
             obj.withBindAndArgs('foo', 123);
@@ -83,7 +83,7 @@ describe('decorators/autoBind()', () => {
     });
 
     it('should automatic set the context for class methods that start with "on" or "handle"', done => {
-        let obj = new AutoBindClassStub();
+        let obj = new BindClassStub();
 
         processInThread(obj.method);
         processInThread(obj.onMethod);
@@ -101,8 +101,8 @@ describe('decorators/autoBind()', () => {
     });
 
     it('should not modify other objects when using on the class', done => {
-        let obj1 = new AutoBindClassStub(),
-            obj2 = new AutoBindClassStub();
+        let obj1 = new BindClassStub(),
+            obj2 = new BindClassStub();
 
         processInThread(obj1.onMethod);
         processInThread(obj2.handleMethod);

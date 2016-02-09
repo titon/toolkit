@@ -6,14 +6,14 @@
 
 import React, { Children, PropTypes } from 'react';
 import Component from '../Component';
-import autoBind from '../decorators/autoBind';
+import bind from '../decorators/bind';
 import collectionOf from '../prop-types/collectionOf';
 import cssClassName from '../prop-types/cssClassName';
 import { TOUCH } from '../flags';
 
 const abs = Math.abs;
 
-@autoBind
+@bind
 export default class Swipe extends Component {
     static defaultProps = {
         className: ['event', 'swipe'],

@@ -17,7 +17,7 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Object}
  */
 function bindMethod(target, name, descriptor) {
-    let func = getValueFunc('autoBind', descriptor);
+    let func = getValueFunc('bind', descriptor);
 
     return {
         enumerable: false,
@@ -75,6 +75,6 @@ function bindClass(target) {
  *
  * @returns {Object}
  */
-export default function autoBind() {
+export default function bind() {
     return decorate(bindClass, bindMethod, arguments);
 }

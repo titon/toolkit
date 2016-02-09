@@ -6,7 +6,7 @@
 
 import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Toggle extends Component {
@@ -19,7 +19,7 @@ export default class Toggle extends Component {
     /**
      * Handle the display of the menu through toggling.
      */
-    @autoBind
+    @bind
     handleOnClick() {
         let context = this.context;
 

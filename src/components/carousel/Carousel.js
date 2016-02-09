@@ -8,7 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import ItemList from './ItemList';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
 import CONTEXT_TYPES from './ContextTypes';
@@ -131,7 +131,7 @@ export default class Carousel extends Component {
      *
      * This *should* be handled by a child component, like `ItemList`.
      */
-    @autoBind
+    @bind
     afterAnimation() {
         this.setState({
             animating: false
@@ -208,7 +208,7 @@ export default class Carousel extends Component {
     /**
      * Handles the automatic cycle timer.
      */
-    @autoBind
+    @bind
     handleOnCycle() {
         if (this.state.stopped) {
             return;
@@ -226,7 +226,7 @@ export default class Carousel extends Component {
      *
      * @param {SyntheticKeyboardEvent} e
      */
-    @autoBind
+    @bind
     handleOnKeyDown(e) {
         switch (e.key) {
             case 'ArrowLeft':
@@ -255,7 +255,7 @@ export default class Carousel extends Component {
     /**
      * Stop the cycle when entering the carousel.
      */
-    @autoBind
+    @bind
     handleOnMouseEnter() {
         if (this.props.pauseOnHover) {
             this.stopCycle();
@@ -265,7 +265,7 @@ export default class Carousel extends Component {
     /**
      * Start the cycle when exiting the carousel.
      */
-    @autoBind
+    @bind
     handleOnMouseLeave() {
         if (this.props.pauseOnHover) {
             this.startCycle();
@@ -297,7 +297,7 @@ export default class Carousel extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
-    @autoBind
+    @bind
     isItemActive(index) {
         let currentIndex = this.state.index;
 
@@ -307,7 +307,7 @@ export default class Carousel extends Component {
     /**
      * Cycle to the next item.
      */
-    @autoBind
+    @bind
     nextItem() {
         this.showItem(this.state.index + this.props.toCycle);
     }
@@ -315,7 +315,7 @@ export default class Carousel extends Component {
     /**
      * Cycle to the previous item.
      */
-    @autoBind
+    @bind
     prevItem() {
         this.showItem(this.state.index - this.props.toCycle);
     }
@@ -333,7 +333,7 @@ export default class Carousel extends Component {
      *
      * @param {Number} index
      */
-    @autoBind
+    @bind
     showItem(index) {
         /* eslint no-lonely-if: 0 */
 
@@ -387,7 +387,7 @@ export default class Carousel extends Component {
     /**
      * Start the automatic cycle timer.
      */
-    @autoBind
+    @bind
     startCycle() {
         clearTimeout(this.timer);
 
@@ -403,7 +403,7 @@ export default class Carousel extends Component {
     /**
      * Stop the automatic cycle timer.
      */
-    @autoBind
+    @bind
     stopCycle() {
         clearTimeout(this.timer);
 

@@ -7,7 +7,7 @@
 import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import childrenOfType from '../../prop-types/childrenOfType';
 import collectionOf from '../../prop-types/collectionOf';
 import cssClassName from '../../prop-types/cssClassName';
@@ -106,7 +106,7 @@ export default class Accordion extends Component {
      *
      * @param {Number} index
      */
-    @autoBind
+    @bind
     hideItem(index) {
         this.setState({
             indices: this.state.indices.filter(value => value !== index)
@@ -118,7 +118,7 @@ export default class Accordion extends Component {
      *
      * @param {Number|Number[]} index
      */
-    @autoBind
+    @bind
     showItem(index) {
         let multiple = this.props.multiple,
             indices = multiple ? this.state.indices : [],
@@ -145,7 +145,7 @@ export default class Accordion extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
-    @autoBind
+    @bind
     isItemCollapsible(index) {
         return ((this.props.multiple || this.props.collapsible) && this.isItemActive(index));
     }
@@ -156,7 +156,7 @@ export default class Accordion extends Component {
      * @param {Number} index
      * @returns {Boolean}
      */
-    @autoBind
+    @bind
     isItemActive(index) {
         return (this.state.indices.indexOf(index) >= 0);
     }

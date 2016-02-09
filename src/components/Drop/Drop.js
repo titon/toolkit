@@ -8,7 +8,7 @@ import React from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
-import autoBind from '../../decorators/autoBind';
+import bind from '../../decorators/bind';
 import childrenOfType from '../../prop-types/childrenOfType';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -49,7 +49,7 @@ export default class Drop extends Component {
     /**
      * Hide the menu by setting the state to closed.
      */
-    @autoBind
+    @bind
     hideMenu() {
         this.setState({
             opened: false
@@ -59,7 +59,7 @@ export default class Drop extends Component {
     /**
      * Show the menu by setting the state to opened.
      */
-    @autoBind
+    @bind
     showMenu() {
         this.setState({
             opened: true
