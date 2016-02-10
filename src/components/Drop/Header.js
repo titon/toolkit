@@ -7,8 +7,11 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import cssClassName from '../../prop-types/cssClassName';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Header extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
     static defaultProps = {
         className: ['drop', 'header']
     };

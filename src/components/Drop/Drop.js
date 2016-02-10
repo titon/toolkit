@@ -59,13 +59,6 @@ export default class Drop extends Component {
     }
 
     /**
-     * Unbind handlers when unmounting.
-     */
-    componentWillUnmount() {
-        window.removeEventListener('click', this.handleOnClickOut);
-    }
-
-    /**
      * Only update if the open state is different.
      *
      * @param {Object} nextProps
@@ -88,6 +81,13 @@ export default class Drop extends Component {
      */
     componentDidUpdate() {
         this.emitEvent(this.state.opened ? 'shown' : 'hidden');
+    }
+
+    /**
+     * Unbind handlers when unmounting.
+     */
+    componentWillUnmount() {
+        window.removeEventListener('click', this.handleOnClickOut);
     }
 
     /**

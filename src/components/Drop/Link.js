@@ -6,8 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Link extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
     static propTypes = {
         children: PropTypes.node
     };

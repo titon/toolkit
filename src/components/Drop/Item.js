@@ -8,8 +8,11 @@ import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
 import cssClassName from '../../prop-types/cssClassName';
+import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
     static defaultProps = {
         className: ['drop', 'item']
     };
