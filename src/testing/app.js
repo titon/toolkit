@@ -8,6 +8,8 @@ import Carousel from '../components/carousel';
 import Breadcrumb from '../components/breadcrumb';
 import Drop from '../components/Drop';
 
+Titon.options.debug = true;
+
 const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
 };

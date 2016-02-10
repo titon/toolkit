@@ -31,7 +31,7 @@ The following apply to top-level parent components.
 
 * Must use contexts that are passed to each child.
     * Must have a `uid` field.
-* Must have a `component` property that is appended as a CSS class name.
+* Must have a `uniqueClassName` property that is appended as a CSS class name.
 * Must have an ID on the generated HTML element. Can easily be achieved with `Component.formatID()`.
 
 ## 3) File Structure ##
