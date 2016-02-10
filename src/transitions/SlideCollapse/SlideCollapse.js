@@ -11,7 +11,6 @@ import bind from '../../decorators/bind';
 import cssClassName from '../../prop-types/cssClassName';
 import debounce from '../../decorators/debounce';
 
-@bind
 export default class SlideCollapse extends Component {
     static defaultProps = {
         className: ['slide', 'collapse'],
@@ -74,6 +73,7 @@ export default class SlideCollapse extends Component {
     /**
      * When the browser is resized, re-calculate the element width or height.
      */
+    @bind
     @debounce(100)
     handleOnResize() {
         this.calculateSize();

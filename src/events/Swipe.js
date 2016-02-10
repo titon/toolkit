@@ -18,7 +18,7 @@ export default class Swipe extends Component {
     static defaultProps = {
         className: ['event', 'swipe'],
         enabled: true,
-        draggable: true,
+        draggable: true,            // TODO
         duration: 1000,             // Maximum time in milliseconds to travel
         distance: 50,               // Minimum distance required to travel
         restraint: 75               // Maximum distance to travel in the opposite direction
