@@ -7,6 +7,7 @@ import Accordion from '../components/accordion';
 import Carousel from '../components/carousel';
 import Breadcrumb from '../components/breadcrumb';
 import Drop from '../components/Drop';
+import OffCanvas from '../components/OffCanvas';
 
 Titon.options.debug = true;
 
@@ -16,6 +17,21 @@ const log = function(e, ...args) {
 
 ReactDOM.render(
     <div style={{ position: 'relative' }}>
+        <OffCanvas swipe={true} animation="squish">
+            <OffCanvas.MainContent>
+                FOO
+            </OffCanvas.MainContent>
+
+            <OffCanvas.Sidebar side="left">
+                LEFT
+            </OffCanvas.Sidebar>
+
+            <OffCanvas.Sidebar side="right">
+                RIGHT
+            </OffCanvas.Sidebar>
+        </OffCanvas>
+
+        {/*
         <Drop>
             <Drop.Toggle>
                 <button type="button" className="button" onClick={log}>OPEN MENU</button>
@@ -45,7 +61,6 @@ ReactDOM.render(
             </Drop.Menu>
         </Drop>
 
-        {/*
         <Breadcrumb uniqueClassName="navigation" size="large">
             <Breadcrumb.Item url="#" onClick={log} className="foo-a">Foo</Breadcrumb.Item>
             <Breadcrumb.Item url="#" onClick={log} className={['foo', 'b']}>Bar</Breadcrumb.Item>

@@ -9,6 +9,11 @@
     $titon-temp-off-canvas-animations: map-get($titon-off-canvas, "animations");
 
     #{map-get($titon-off-canvas, "class")} {
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    #{map-get($titon-off-canvas, "class-sidebar")} {
         position: fixed;
         overflow: auto;
         top: 0;
@@ -21,6 +26,11 @@
         transition: all map-get($titon-off-canvas, "transition");
         -webkit-overflow-scrolling: touch;
         background: #fff;
+        will-change: transform;
+
+        &.is-expanded {
+            @extend %placeholder-show;
+        }
     }
 
     #{map-get($titon-off-canvas, "class-content")} {
@@ -29,41 +39,36 @@
         max-width: 100%;
         z-index: 2;
         transition: all map-get($titon-off-canvas, "transition");
-        transform: translate(0, 0);
-    }
-
-    #{map-get($titon-off-canvas, "class-wrapper")} {
-        position: relative;
-        overflow-x: hidden;
+        will-change: transform;
     }
 
     //-------------------- Modifiers --------------------//
 
-    #{map-get($titon-off-canvas, "class-modifier-left")} {
+    #{map-get($titon-off-canvas, "class-sidebar-modifier-left")} {
         left: 0;
-        transform: translate(-100%, 0);
+        transform: translate3d(-100%, 0);
 
-        &.show {
-            transform: translate(0, 0) !important;
+        &.is-expanded {
+            transform: translate3d(0, 0) !important;
         }
     }
 
-    #{map-get($titon-off-canvas, "class-modifier-right")} {
+    #{map-get($titon-off-canvas, "class-sidebar-modifier-right")} {
         right: 0;
-        transform: translate(100%, 0);
+        transform: translate3d(100%, 0);
 
-        &.show {
-            transform: translate(0, 0) !important;
+        &.is-expanded {
+            transform: translate3d(0, 0) !important;
         }
     }
 
     //-------------------- Animations --------------------//
 
-    #{map-get($titon-off-canvas, "class-wrapper")} {
+    #{map-get($titon-off-canvas, "class")} {
         @if (is-feature-enabled("all-animations") or (index($titon-temp-off-canvas-animations, "on-top") or index($titon-temp-off-canvas-animations, "squish"))) {
             &.on-top,
             &.squish {
-                #{map-get($titon-off-canvas, "class")} {
+                #{map-get($titon-off-canvas, "class-sidebar")} {
                     z-index: 3;
                 }
             }
@@ -71,41 +76,41 @@
 
         @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-reveal")) {
             &.push-reveal {
-                #{map-get($titon-off-canvas, "class-modifier-left")} {
-                    transform: translate(-$titon-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-left")} {
+                    transform: translate3d(-$titon-temp-off-canvas-width, 0);
                 }
 
-                #{map-get($titon-off-canvas, "class-modifier-right")} {
-                    transform: translate($titon-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-right")} {
+                    transform: translate3d($titon-temp-off-canvas-width, 0);
                 }
             }
         }
 
         @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reverse-push")) {
             &.reverse-push {
-                #{map-get($titon-off-canvas, "class-modifier-left")} {
-                    transform: translate($titon-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-left")} {
+                    transform: translate3d($titon-temp-off-canvas-width, 0);
                 }
 
-                #{map-get($titon-off-canvas, "class-modifier-right")} {
-                    transform: translate(-$titon-temp-off-canvas-width, 0);
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-right")} {
+                    transform: translate3d(-$titon-temp-off-canvas-width, 0);
                 }
             }
         }
 
         @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "reveal")) {
             &.reveal {
-                #{map-get($titon-off-canvas, "class")} {
-                    transform: translate(0, 0);
+                #{map-get($titon-off-canvas, "class-sidebar")} {
+                    transform: translate3d(0, 0);
                 }
             }
         }
 
         @if (is-feature-enabled("all-animations") or index($titon-temp-off-canvas-animations, "push-down")) {
             &.push-down {
-                #{map-get($titon-off-canvas, "class-modifier-left")},
-                #{map-get($titon-off-canvas, "class-modifier-right")} {
-                    transform: translate(0, -100%);
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-left")},
+                #{map-get($titon-off-canvas, "class-sidebar-modifier-right")} {
+                    transform: translate3d(0, -100%);
                 }
             }
         }
@@ -124,13 +129,13 @@
             &.reveal {
                 &.move-left {
                     #{map-get($titon-off-canvas, "class-content")} {
-                        transform: translate(-$titon-temp-off-canvas-width, 0);
+                        transform: translate3d(-$titon-temp-off-canvas-width, 0);
                     }
                 }
 
                 &.move-right {
                     #{map-get($titon-off-canvas, "class-content")} {
-                        transform: translate($titon-temp-off-canvas-width, 0);
+                        transform: translate3d($titon-temp-off-canvas-width, 0);
                     }
                 }
             }

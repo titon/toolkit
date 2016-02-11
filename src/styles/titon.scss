@@ -355,10 +355,10 @@ $titon-notice: (
 
 $titon-off-canvas: (
     "class": bem("off-canvas"),
-    "class-content": bem("on-canvas"),
-    "class-wrapper": bem("canvas"),
-    "class-modifier-left": bem("off-canvas", "", "left"),
-    "class-modifier-right": bem("off-canvas", "", "right"),
+    "class-content": bem("off-canvas", "content"),
+    "class-sidebar": bem("off-canvas", "sidebar"),
+    "class-sidebar-modifier-left": bem("off-canvas", "sidebar", "left"),
+    "class-sidebar-modifier-right": bem("off-canvas", "sidebar", "right"),
     "animations": ("push", "on-top", "squish"), // push, push-reveal, push-down, reverse-push, reveal, on-top, squish
     "width": 25rem,
     "transition": .5s,
