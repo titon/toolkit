@@ -22,8 +22,8 @@ export default class OffCanvas extends Component {
     static defaultProps = {
         className: ['off-canvas'],
         animation: 'push',
+        multiple: true,
         showOnLoad: false,
-        multiple: true, // TODO
         stopScroll: true,
         swipe: TOUCH
     };
@@ -36,8 +36,8 @@ export default class OffCanvas extends Component {
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
         ]),
-        showOnLoad: PropTypes.bool,
         multiple: PropTypes.bool,
+        showOnLoad: PropTypes.bool,
         stopScroll: PropTypes.bool,
         swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
     };
@@ -57,10 +57,7 @@ export default class OffCanvas extends Component {
         this.generateUID();
 
         // Only a select few animations can support showing all sidebars on page load
-        if (
-            props.showOnLoad && props.multiple &&
-            props.animation !== 'on-top' && props.animation !== 'squish')
-        {
+        if (props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish') {
             throw new Error('Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.');
         }
     }
@@ -81,16 +78,11 @@ export default class OffCanvas extends Component {
     }
 
     /**
-     * Show all sidebars while mounting if `showOnLoad` is true.
+     * Manage sidebars and scrollbars before mounting.
      */
     componentWillMount() {
-        if (this.props.showOnLoad) {
-            Children.forEach(this.props.children, child => {
-                if (child.type === Sidebar && child.props.side) {
-                    this.state.sides.add(child.props.side);
-                }
-            });
-        }
+        this.showOnLoad();
+        this.toggleScrolling();
     }
 
     /**
@@ -105,19 +97,10 @@ export default class OffCanvas extends Component {
     }
 
     /**
-     * Either enable or disable scrolling based on the `stopScroll` prop.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
+     * Manage sidebars and scrollbars after updating.
      */
-    componentWillUpdate(nextProps, nextState) {
-        if (this.props.stopScroll) {
-            if (nextState.sides.size) {
-                DocumentState.disableScrolling();
-            } else {
-                DocumentState.enableScrolling();
-            }
-        }
+    componentDidUpdate() {
+        this.toggleScrolling();
     }
 
     /**
@@ -148,20 +131,24 @@ export default class OffCanvas extends Component {
     }
 
     /**
-     * Reveal a sidebar by adding the `side` to the active list.
+     * Reveal a sidebar by adding the side to the active list.
      *
      * @param {String} side
      */
     @bind
     showSide(side) {
-        let sides = new Set(this.state.sides);
+        let sides = new Set(this.state.sides),
+            single = (this.props.multiple === false);
 
-        if (sides.has('left') && side === 'right') {
+        // If the left side is open, and we swipe right, go back to the content
+        if (single && sides.has('left') && side === 'right') {
             sides.delete('left');
 
-        } else if (sides.has('right') && side === 'left') {
+        // If the right side is open, and we swipe left, go back to the content
+        } else if (single && sides.has('right') && side === 'left') {
             sides.delete('right');
 
+        // No sidebars are open, so show one
         } else {
             sides.add(side);
         }
@@ -172,6 +159,41 @@ export default class OffCanvas extends Component {
     }
 
     /**
+     * Show all sidebar(s) on page load.
+     */
+    showOnLoad() {
+        let props = this.props;
+
+        if (props.showOnLoad) {
+            let children = Children.toArray(props.children),
+                multiple = props.multiple,
+                count = 0;
+
+            for (let child of children) {
+
+                // Only show the first sidebar if multiple is false
+                if (!multiple && count) {
+                    break;
+                }
+
+                if (child.type === Sidebar && child.props.side) {
+                    this.state.sides.add(child.props.side);
+                    count++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Toggle document scrollbars on and off.
+     */
+    toggleScrolling() {
+        if (this.props.stopScroll) {
+            DocumentState.toggleScrolling(this.state.sides.size === 0);
+        }
+    }
+
+    /**
      * Handles all `swipe` events by toggling the display of sidebars
      * based on the direction of the swipe.
      *
@@ -179,7 +201,17 @@ export default class OffCanvas extends Component {
      */
     @bind
     handleOnSwipe(e) {
-        this.showSide(e.detail.direction === 'right' ? 'left' : 'right');
+        let side = e.target.getAttribute('data-offcanvas-sidebar'),
+            direction = e.detail.direction;
+
+        // Hide the sidebar if we swipe in the same direction as itself
+        if (side && side === direction) {
+            this.hideSide(side);
+
+        // Else show the opposite sidebar if swiping on the content
+        } else {
+            this.showSide(direction === 'right' ? 'left' : 'right');
+        }
     }
 
     /**

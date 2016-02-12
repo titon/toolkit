@@ -42,6 +42,20 @@ class DocumentState {
         return Object.freeze(assign({}, state));
     }
 
+    /**
+     * Enable document scrolling if the condition evaluates to true,
+     * else disable scrolling.
+     *
+     * @param {Boolean} condition
+     */
+    toggleScrolling(condition) {
+        if (condition) {
+            this.enableScrolling();
+        } else {
+            this.disableScrolling();
+        }
+    }
+
 }
 
 export default new DocumentState();

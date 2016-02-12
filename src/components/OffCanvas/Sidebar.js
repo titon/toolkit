@@ -41,6 +41,7 @@ export default class Sidebar extends Component {
     constructor(props, context) {
         super();
 
+        /* eslint react/no-direct-mutation-state: 0 */
         this.state.expanded = context.isSideActive(props.side);
     }
 
@@ -99,6 +100,7 @@ export default class Sidebar extends Component {
                 })}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}
+                data-offcanvas-sidebar={props.side}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}
