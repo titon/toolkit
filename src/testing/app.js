@@ -17,7 +17,7 @@ const log = function(e, ...args) {
 
 ReactDOM.render(
     <div style={{ position: 'relative' }}>
-        <OffCanvas swipe={true} animation="squish">
+        <OffCanvas swipe={true} showOnLoad={true} animation="squish">
             <OffCanvas.MainContent>
                 FOO
             </OffCanvas.MainContent>

@@ -4,8 +4,9 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
+import DocumentState from '../../machines/DocumentState';
 import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 import Swipe from '../../events/Swipe';
@@ -21,7 +22,8 @@ export default class OffCanvas extends Component {
     static defaultProps = {
         className: ['off-canvas'],
         animation: 'push',
-        openOnLoad: false,
+        showOnLoad: false,
+        multiple: true, // TODO
         stopScroll: true,
         swipe: TOUCH
     };
@@ -34,22 +36,33 @@ export default class OffCanvas extends Component {
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
         ]),
-        openOnLoad: PropTypes.bool,
+        showOnLoad: PropTypes.bool,
+        multiple: PropTypes.bool,
         stopScroll: PropTypes.bool,
         swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
     };
 
     state = {
-        sides: new Set() // Use a set so we can support multiple sidebars at some point
+        sides: new Set()
     };
 
     /**
-     * Generate a UID.
+     * Generate a UID and validate props.
+     *
+     * @param {Object} props
      */
-    constructor() {
+    constructor(props) {
         super();
 
         this.generateUID();
+
+        // Only a select few animations can support showing all sidebars on page load
+        if (
+            props.showOnLoad && props.multiple &&
+            props.animation !== 'on-top' && props.animation !== 'squish')
+        {
+            throw new Error('Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.');
+        }
     }
 
     /**
@@ -68,6 +81,19 @@ export default class OffCanvas extends Component {
     }
 
     /**
+     * Show all sidebars while mounting if `showOnLoad` is true.
+     */
+    componentWillMount() {
+        if (this.props.showOnLoad) {
+            Children.forEach(this.props.children, child => {
+                if (child.type === Sidebar && child.props.side) {
+                    this.state.sides.add(child.props.side);
+                }
+            });
+        }
+    }
+
+    /**
      * Only update if the active sides change.
      *
      * @param {Object} nextProps
@@ -76,6 +102,22 @@ export default class OffCanvas extends Component {
      */
     shouldComponentUpdate(nextProps, nextState) {
         return (nextState.sides !== this.state.sides);
+    }
+
+    /**
+     * Either enable or disable scrolling based on the `stopScroll` prop.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     */
+    componentWillUpdate(nextProps, nextState) {
+        if (this.props.stopScroll) {
+            if (nextState.sides.size) {
+                DocumentState.disableScrolling();
+            } else {
+                DocumentState.enableScrolling();
+            }
+        }
     }
 
     /**
@@ -151,7 +193,6 @@ export default class OffCanvas extends Component {
                 'onSwipe', 'onSwipeUp', 'onSwipeRight', 'onSwipeDown', 'onSwipeLeft'
             ]);
 
-        // Trigger our listeners first
         swipeProps.onSwipeLeft.unshift(this.handleOnSwipe);
         swipeProps.onSwipeRight.unshift(this.handleOnSwipe);
 

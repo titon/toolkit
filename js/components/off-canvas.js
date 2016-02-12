@@ -41,80 +41,12 @@ var OffCanvas = Toolkit.OffCanvas = Component.extend({
      */
     constructor: function(element, options) {
 
-        // Initialize events
-        this.addEvents([
-            ['ready', 'document', 'onReady'],
-            ['resize', 'window', 'onResize']
-        ]);
-
         if (options.selector) {
             this.addEvent('click', 'document', 'toggle', options.selector);
         }
 
     },
 
-    /**
-     * Hide the sidebar and reset the container.
-     */
-    hide: function() {
-        if (this.options.stopScroll) {
-            $('body').removeClass('no-scroll');
-        }
-    },
-
-    /**
-     * Show the sidebar and squish the container to make room for the sidebar.
-     * If hideOthers is true, hide other open sidebars.
-     */
-    show: function() {
-        var options = this.options;
-
-        if (options.stopScroll) {
-            $('body').addClass('no-scroll');
-        }
-
-    },
-
-    /**
-     * Toggle between show and hide states.
-     */
-    toggle: function() {
-        if (this.element.hasClass('is-expanded')) {
-            this.hide();
-        } else {
-            this.show();
-        }
-    },
-
-    /**
-     * On page load, immediately display the sidebar.
-     * Remove transitions from the sidebar and container so there is no page jumping.
-     * Also disable `hideOthers` so multiple sidebars can be displayed on load.
-     *
-     * @private
-     */
-    onReady: function() {
-        if (!this.options.openOnLoad || this._loaded) {
-            return;
-        }
-
-        var sidebar = this.element,
-            inner = this.primary,
-            transClass = 'no-transition';
-
-        sidebar.addClass(transClass);
-        inner.addClass(transClass);
-
-        this.show();
-
-        // Transitions will still occur unless we place in a timeout
-        setTimeout(function() {
-            sidebar.removeClass(transClass);
-            inner.removeClass(transClass);
-        }, 15); // IE needs a minimum of 15
-
-        this._loaded = true;
-    },
 
 }, {
     selector: '',

@@ -14,15 +14,14 @@ export default class Sidebar extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['off-canvas', 'sidebar'],
-        side: 'left'
+        className: ['off-canvas', 'sidebar']
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClassName.isRequired,
         uniqueClassName: cssClassName,
-        side: PropTypes.oneOf(['left', 'right']),
+        side: PropTypes.oneOf(['left', 'right']).isRequired,
         onHiding: collectionOf.func,
         onHidden: collectionOf.func,
         onShowing: collectionOf.func,
@@ -32,6 +31,18 @@ export default class Sidebar extends Component {
     state = {
         expanded: false
     };
+
+    /**
+     * Verify the `expanded` state.
+     *
+     * @param {Object} props
+     * @param {Object} context
+     */
+    constructor(props, context) {
+        super();
+
+        this.state.expanded = context.isSideActive(props.side);
+    }
 
     /**
      * Determine whether the sidebar is expanded or not.
@@ -83,8 +94,7 @@ export default class Sidebar extends Component {
             <aside
                 role="complementary"
                 className={this.formatClass(props.className, {
-                    '@left': (props.side === 'left'),
-                    '@right': (props.side === 'right'),
+                    ['@' + props.side]: true,
                     'is-expanded': expanded
                 })}
                 aria-hidden={!expanded}
