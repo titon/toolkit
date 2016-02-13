@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import invariant from './invariant';
+
 /**
  * Wrap a set of functions with a closure allowing them to be executed consecutively.
  *
@@ -13,11 +15,12 @@
 export default function wrapFunctions(...funcs) {
     return function(...args) {
         funcs.forEach(func => {
-            if (typeof func === 'function') {
-                func(...args);
-            } else {
-                throw new Error('Value passed to `wrapFunctions()` was not a function.');
-            }
+            invariant(
+                (typeof func === 'function'),
+                'Value passed to `wrapFunctions()` was not a function.'
+            );
+
+            func(...args);
         });
     };
 }

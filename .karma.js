@@ -35,7 +35,10 @@ module.exports = function(config) {
         browserify: {
             debug: true,
             ignoreMissing: true,
-            transform: [ ['babelify', require('./.babel.json')] ]
+            transform: [
+                ['babelify', require('./.babel.json')],
+                ['envify', { NODE_ENV: 'development' }]
+            ]
         }
     });
 };

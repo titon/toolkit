@@ -20,12 +20,12 @@ export const RTL = (document.documentElement.dir === 'rtl');
 export const TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 // Export all as an object
-const flags = {
+const flags = Object.freeze({
     landscape: LANDSCAPE,
     portrait: PORTRAIT,
     retina: RETINA,
     rtl: RTL,
     touch: TOUCH
-};
+});
 
 export default flags;

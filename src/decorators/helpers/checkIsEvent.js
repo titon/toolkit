@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import invariant from '../../utility/invariant';
+
 /**
  * Verifies that an object provided is a DOM event.
  *
@@ -11,7 +13,8 @@
  * @param {*} event
  */
 export default function checkIsEvent(name, event) {
-    if (!(event && (event instanceof Event || event.type && event.target && event.preventDefault))) {
-        throw new SyntaxError(`Only event handlers can use @${name}.`);
-    }
+    invariant(
+        (event && (event instanceof Event || event.type && event.target && event.preventDefault)),
+        'Only event handlers can use @%s.', name
+    );
 }

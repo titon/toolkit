@@ -13,7 +13,7 @@ import { PropTypes, Children } from 'react';
  * @param {Object} props
  * @param {String} propName
  * @param {String} componentName
- * @returns {Error|null}
+ * @returns {?Error}
  */
 export default function inChildRange(props, propName, componentName) {
     let value = props[propName],

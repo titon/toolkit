@@ -19,9 +19,9 @@
     "scripts": {
         "env": "env",
 
-        "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] ./src/testing/app.js > ./build/titon.js",
+        "js": "browserify -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ] ./src/testing/app.js > ./build/titon.js",
         "js:lint": "eslint --config ./.eslint.json --ignore-path ./.eslintignore ./src",
-        "js:watch": "watchify ./src/testing/app.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ]",
+        "js:watch": "watchify ./src/testing/app.js -o ./build/titon.js -t [ babelify --presets [ es2015 react stage-1 ] --plugins [ transform-decorators-legacy ] ] -t [ envify --NODE_ENV development ]",
 
         "css": "node-sass --indent-width 4 --output-style expanded --source-map ./build --importer ./build/tasks/import-scss-index.js ./src/testing/style.scss ./build/titon.css",
         "css:lint": "sass-lint --config ./.scsslint.yml",
@@ -77,6 +77,7 @@
         "enzyme": "~1.5",
         "browserify": "~13.0",
         "babelify": "~7.2",
-        "watchify": "~3.7"
+        "watchify": "~3.7",
+        "envify": "~3.4"
     }
 }

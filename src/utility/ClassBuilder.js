@@ -5,6 +5,7 @@
  */
 
 import formatBEM from './formatBEM';
+import invariant from './invariant';
 
 /**
  * The `ClassBuilder` is a proper mechanism for building a list of possible
@@ -59,9 +60,7 @@ export default class ClassBuilder {
      * @param {String} prefix           Prefix to prepend to all classes
      */
     constructor(primaryClass, prefix = '') {
-        if (!primaryClass) {
-            throw new Error('`ClassBuilder` requires a primary class name.');
-        }
+        invariant(primaryClass, '`%s` requires a primary class name.', this.constructor.name);
 
         this.prefix = prefix;
         this.classes = [];

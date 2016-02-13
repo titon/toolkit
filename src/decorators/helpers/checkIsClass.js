@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import invariant from '../../utility/invariant';
+
 /**
  * Verifies that a decorator is only applied to a class.
  *
@@ -11,7 +13,8 @@
  * @param {Arguments} args
  */
 export default function checkIsClass(name, args) {
-    if (args.length !== 1 || typeof args[0] !== 'function') {
-        throw new SyntaxError(`Only classes are supported by @${name}.`);
-    }
+    invariant(
+        (args.length === 1 && typeof args[0] === 'function'),
+        'Only classes are supported by @%s.', name
+    );
 }

@@ -13,6 +13,7 @@ import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
 import childrenOfType from '../../prop-types/childrenOfType';
 import cssClassName from '../../prop-types/cssClassName';
+import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
 
@@ -57,9 +58,10 @@ export default class OffCanvas extends Component {
         this.generateUID();
 
         // Only a select few animations can support showing all sidebars on page load
-        if (props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish') {
-            throw new Error('Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.');
-        }
+        invariant(
+            !(props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish'),
+            'Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.'
+        );
     }
 
     /**

@@ -4,6 +4,8 @@
  * @link        http://titon.io
  */
 
+import invariant from '../../utility/invariant';
+
 /**
  * Returns the `value` function from the descriptor, or throws an error otherwise.
  *
@@ -14,9 +16,10 @@
 export default function getValueFunc(name, descriptor) {
     let func = descriptor.value;
 
-    if (typeof func !== 'function') {
-        throw new SyntaxError(`Only functions can be used by @${name}.`);
-    }
+    invariant(
+        (typeof func === 'function'),
+        'Only functions can be used by @%s.', name
+    );
 
     return func;
 }

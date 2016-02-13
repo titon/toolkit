@@ -5,6 +5,7 @@
  */
 
 import { Children } from 'react';
+import invariant from '../utility/invariant';
 
 /**
  * A function that will validate that all children of a component are of a specific type.
@@ -18,9 +19,12 @@ export default function childrenOfType(...types) {
     return function(props, propName, componentName) {
         try {
             Children.forEach(props[propName], function(child) {
-                if (!instances.has(child.type)) {
-                    throw new Error(`\`${componentName}\` does not allow children of type \`${(typeof child.type === 'function') ? child.type.name : child.type}\`.`);
-                }
+                invariant(
+                    instances.has(child.type),
+                    '`%s` does not allow children of type `%s`.',
+                    componentName,
+                    (typeof child.type === 'function') ? child.type.name : child.type
+                );
             });
         } catch (e) {
             return e;
