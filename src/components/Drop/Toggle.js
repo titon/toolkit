@@ -33,20 +33,14 @@ export default class Toggle extends Component {
     /**
      * Render the child and wrap any `onClick` event handler.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
-        let element = Children.only(this.props.children),
-            className = element.props.className || '',
-            opened = this.context.opened;
+        let opened = this.context.opened;
 
-        if (opened) {
-            className += ' is-active';
-        }
-
-        return React.cloneElement(element, {
-            className,
-            onClick: this.wrapHandlers(element.props.onClick, this.handleOnClick),
+        return this.transferToChild(this.props.children, {
+            className: opened ? 'is-active' : '',
+            onClick: this.handleOnClick,
             'aria-controls': this.formatID('drop-menu'),
             'aria-haspopup': true,
             'aria-expanded': opened,

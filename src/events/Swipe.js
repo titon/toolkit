@@ -229,17 +229,15 @@ export default class Swipe extends Component {
      * Rendering requires a single child, that will be cloned and modified
      * by passing custom touch and swipe events.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
-        let child = Children.only(this.props.children),
-            props = {
+        let props = {
                 className: this.formatClass(this.props.className, {
                     'is-swiping': this.state.swiping
                 })
             };
 
-        // Overwrite any previous touch or mouse events
         if (this.props.enabled) {
             if (TOUCH) {
                 props.onTouchStart = this.handleOnStart;
@@ -253,11 +251,6 @@ export default class Swipe extends Component {
             }
         }
 
-        // Append the events class name
-        if (child.props.className) {
-            props.className += ' ' + child.props.className;
-        }
-
-        return React.cloneElement(child, props);
+        return this.transferToChild(this.props.children, props);
     }
 }

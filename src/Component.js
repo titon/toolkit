@@ -4,30 +4,15 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Titon from './Titon';
 import ClassBuilder from './utility/ClassBuilder';
 import assign from 'lodash/assign';
 import cssClassName from './prop-types/cssClassName';
 import generateUID from './utility/generateUID';
 import omit from 'lodash/omit';
+import wrapFunctions from './utility/wrapFunctions';
 import './polyfills/Performance.now.js';
-
-class TitonEvent {
-    /**
-     * A fake event object that is passed to listeners within `Component`.
-     *
-     * @param {String} name
-     * @param {String} uid
-     * @param {String} event
-     */
-    constructor(name, uid, event) {
-        this.uid = uid;
-        this.type = event;
-        this.component = name;
-        this.timestamp = Date.now();
-    }
-}
 
 export default class Component extends React.Component {
     static defaultProps = {
@@ -43,28 +28,35 @@ export default class Component extends React.Component {
     version = '3.0.0';
 
     /**
-     * Emit a custom event and notify all listeners defined on the property of the same name.
-     * If the `debug` property is enabled, print out some helpful information.
+     * Emit a custom event and notify all listeners defined on the prop of the same name.
+     * If the `debug` property is enabled, print out helpful information.
      *
      * This *must not* be used for native DOM events, use `handleEvent()` instead.
      *
      * @param {String} type
-     * @param {Array} [args]
+     * @param {*[]} [args]
      */
     emitEvent(type, args = []) {
-        let debug = this.props.debug || Titon.options.debug;
+        let debug = this.props.debug || Titon.options.debug,
+            name = this.constructor.name,
+            uid = this.getUID();
 
         if (debug && window.console) {
             /* eslint no-console: 0 */
 
-            console.log(this.constructor.name + '#' + this.getUID(), performance.now().toFixed(3), type, ...args);
+            console.log(name + '#' + uid, performance.now().toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);
             }
         }
 
-        args.unshift(new TitonEvent(this.constructor.name, this.getUID(), type));
+        args.unshift({
+            uid,
+            type,
+            component: name,
+            timestamp: Date.now()
+        });
 
         this.notifyEventListeners(type, args);
     }
@@ -75,6 +67,7 @@ export default class Component extends React.Component {
      * while all other classes will not.
      *
      * @param {String|Array|Object} className
+     * @param {...String|Array|Object} params
      * @returns {String}
      */
     formatClass(className, ...params) {
@@ -111,6 +104,7 @@ export default class Component extends React.Component {
     /**
      * Format a unique HTML ID based on the passed parameters.
      *
+     * @param {...String} params
      * @returns {String}
      */
     formatID(...params) {
@@ -200,7 +194,7 @@ export default class Component extends React.Component {
      * Execute a function, or an array of functions, with the defined arguments, for the specified property.
      *
      * @param {String} propName
-     * @param {Array} args
+     * @param {*[]} args
      */
     notifyEventListeners(propName, args = []) {
         if (propName.substr(0, 2) !== 'on') {
@@ -219,17 +213,38 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Wrap a set of handlers to be executed consecutively.
+     * Transfer all custom props to the first and only child of the current component.
+     * This functionality allows for easy composition and wrapping of components.
      *
-     * @returns {Function}
+     * @param {ReactElement|ReactElement[]} children
+     * @param {Object} props
+     * @returns {ReactElement}
      */
-    wrapHandlers(...handlers) {
-        return function(...args) {
-            handlers.forEach(handler => {
-                if (typeof handler === 'function') {
-                    handler(...args);
+    transferToChild(children, props) {
+        let child = Children.only(children),
+            mergedProps = {};
+
+        Object.keys(props).forEach(key => {
+            let newValue = props[key],
+                oldValue = child.props[key],
+                mergedValue = newValue;
+
+            // If a value exists on both ends, handle accordingly
+            if (oldValue && newValue) {
+
+                // Event handlers should be wrapped
+                if (key.match(/^on[A-Z]/)) {
+                    mergedValue = wrapFunctions(newValue, oldValue);
+
+                // Append the new class name
+                } else if (key === 'className' || key === 'uniqueClassName') {
+                    mergedValue = oldValue + ' ' + newValue;
                 }
-            });
-        };
+            }
+
+            mergedProps[key] = mergedValue;
+        });
+
+        return React.cloneElement(child, mergedProps);
     }
 }
