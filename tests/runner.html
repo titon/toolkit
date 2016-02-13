@@ -7,9 +7,15 @@
     <title>Titon Toolkit - Unit Tests</title>
     <link rel="stylesheet" href="../build/titon.css">
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+            height: 100%;
+        }
+
+        #app {
+            display: flex;
+            height: 100%;
         }
 
         /* Remove transitions as it makes it much easier to test
@@ -21,6 +27,11 @@
             transition: none !important;
         }
         */
+
+        .off-canvas-content,
+        .off-canvas-sidebar {
+            padding: 2rem;
+        }
 
         .slideshow {
             width: 800px;

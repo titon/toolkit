@@ -9,11 +9,13 @@
     $titon-temp-off-canvas-animations: map-get($titon-off-canvas, "animations");
 
     #{map-get($titon-off-canvas, "class")} {
-        position: relative;
         overflow-x: hidden;
+        display: flex;
+        height: 100%; // html, body, and parent wrapper all require 100% as well
     }
 
     #{map-get($titon-off-canvas, "class-sidebar")} {
+        flex: none;
         position: fixed;
         overflow: auto;
         top: 0;
@@ -24,9 +26,9 @@
         opacity: 0;
         visibility: hidden;
         transition: all map-get($titon-off-canvas, "transition");
-        -webkit-overflow-scrolling: touch;
         background: #fff;
         will-change: transform;
+        -webkit-overflow-scrolling: touch;
 
         &.is-expanded {
             @extend %placeholder-show;
@@ -34,8 +36,7 @@
     }
 
     #{map-get($titon-off-canvas, "class-content")} {
-        position: relative;
-        width: 100%;
+        flex: none;
         max-width: 100%;
         z-index: 2;
         transition: all map-get($titon-off-canvas, "transition");
