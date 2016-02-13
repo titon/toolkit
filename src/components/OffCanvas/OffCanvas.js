@@ -217,7 +217,7 @@ export default class OffCanvas extends Component {
     /**
      * Render the off canvas container.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

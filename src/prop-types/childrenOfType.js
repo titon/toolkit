@@ -9,6 +9,7 @@ import { Children } from 'react';
 /**
  * A function that will validate that all children of a component are of a specific type.
  *
+ * @param {...*} types
  * @returns {Function}
  */
 export default function childrenOfType(...types) {

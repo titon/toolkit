@@ -23,7 +23,7 @@ export default class Divider extends Component {
     /**
      * Render the drop item divider.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

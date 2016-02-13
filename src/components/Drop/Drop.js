@@ -126,7 +126,7 @@ export default class Drop extends Component {
     /**
      * Render the drop container.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         return (

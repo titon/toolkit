@@ -38,7 +38,7 @@ export default class Stop extends Component {
     /**
      * Render a button that stops the cycle.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         return (

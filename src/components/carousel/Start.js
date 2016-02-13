@@ -38,7 +38,7 @@ export default class Start extends Component {
     /**
      * Render a button that starts the automatic cycle.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         return (

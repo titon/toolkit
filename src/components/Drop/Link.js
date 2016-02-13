@@ -18,7 +18,7 @@ export default class Link extends Component {
     /**
      * Render the drop link.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

@@ -83,7 +83,7 @@ export default class SlideCollapse extends Component {
      * Render the wrapper that triggers slide collapse transitions.
      * Requires a literal size of the element to work correctly.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let style = {},

@@ -49,7 +49,7 @@ export default class Header extends Component {
     /**
      * Render the accordion item header tab and set the relevant active state.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

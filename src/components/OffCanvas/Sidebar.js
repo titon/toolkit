@@ -85,7 +85,7 @@ export default class Sidebar extends Component {
     /**
      * Render the off canvas sidebar.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

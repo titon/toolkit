@@ -25,7 +25,7 @@ export default class Item extends Component {
     /**
      * Render the individual list item.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

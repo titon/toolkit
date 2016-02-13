@@ -92,7 +92,7 @@ export default class Swipe extends Component {
     /**
      * Return the page coordinates from the current event.
      *
-     * @param {SyntheticTouchEvent} e
+     * @param {SyntheticEvent|SyntheticTouchEvent} e
      * @returns {{time: Number, x: Number, y: Number}}
      */
     packageCoordinates(e) {

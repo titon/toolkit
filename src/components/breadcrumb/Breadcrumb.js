@@ -36,7 +36,7 @@ export default class Breadcrumb extends Component {
     /**
      * Render the breadcrumb list.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

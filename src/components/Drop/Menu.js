@@ -34,7 +34,7 @@ export default class Menu extends Component {
     /**
      * Render the drop menu.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

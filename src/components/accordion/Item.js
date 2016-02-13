@@ -29,7 +29,7 @@ export default class Item extends Component {
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

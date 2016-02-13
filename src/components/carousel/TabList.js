@@ -27,7 +27,7 @@ export default class TabList extends Component {
     /**
      * Render a list of tabs that can be clicked on to jump to specific items.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let children = [],

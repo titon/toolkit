@@ -25,7 +25,7 @@ export default class Item extends Component {
     /**
      * Render the drop item.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

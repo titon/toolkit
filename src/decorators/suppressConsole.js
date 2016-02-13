@@ -15,7 +15,9 @@ const shimConsole = (() => {
     let shim = {};
 
     // Use a fixed list of names as `console` is different between node and the browser
-    ['log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile', 'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd'].forEach(name => shim[name] = preserveLog(name));
+    ['log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile', 'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd'].forEach(name => {
+        shim[name] = preserveLog(name);
+    });
 
     return shim;
 })();

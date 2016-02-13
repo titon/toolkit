@@ -25,7 +25,7 @@ export default class MainContent extends Component {
     /**
      * Render the off canvas main content.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

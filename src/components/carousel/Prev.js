@@ -38,7 +38,7 @@ export default class Prev extends Component {
     /**
      * Render a button that cycles to the previous item.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         return (

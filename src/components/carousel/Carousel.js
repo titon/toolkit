@@ -417,7 +417,7 @@ export default class Carousel extends Component {
     /**
      * Render the wrapping carousel element.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

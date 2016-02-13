@@ -27,7 +27,7 @@ export default class Section extends Component {
     /**
      * Render the accordion item section content and wrap with a collapsible slide transition.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props,

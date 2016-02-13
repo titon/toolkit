@@ -38,7 +38,7 @@ export default class Next extends Component {
     /**
      * Render a button that cycles to the next item.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         return (

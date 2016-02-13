@@ -188,7 +188,7 @@ export default class ItemList extends Component {
     /**
      * Render the item list and attach swipe and transition functionality to the `ol` tag.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let context = this.context,

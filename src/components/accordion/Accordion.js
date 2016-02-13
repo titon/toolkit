@@ -164,7 +164,7 @@ export default class Accordion extends Component {
     /**
      * Render the wrapping accordion element.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;

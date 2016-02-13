@@ -39,7 +39,7 @@ export default class Tab extends Component {
     /**
      * Render a button that cycles to a specific item.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let index = this.props.index,

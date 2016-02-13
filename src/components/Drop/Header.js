@@ -24,7 +24,7 @@ export default class Header extends Component {
     /**
      * Render the drop item header.
      *
-     * @returns {JSX}
+     * @returns {ReactElement}
      */
     render() {
         let props = this.props;
