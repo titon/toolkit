@@ -15,10 +15,8 @@ import invariant from './invariant';
 export default function wrapFunctions(...funcs) {
     return function(...args) {
         funcs.forEach(func => {
-            invariant(
-                (typeof func === 'function'),
-                'Value passed to `wrapFunctions()` was not a function.'
-            );
+            invariant((typeof func === 'function'),
+                'Value passed to `wrapFunctions()` was not a function.');
 
             func(...args);
         });

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-import React, { Children, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../decorators/bind';
 import collectionOf from '../prop-types/collectionOf';
@@ -233,10 +233,10 @@ export default class Swipe extends Component {
      */
     render() {
         let props = {
-                className: this.formatClass(this.props.className, {
-                    'is-swiping': this.state.swiping
-                })
-            };
+            className: this.formatClass(this.props.className, {
+                'is-swiping': this.state.swiping
+            })
+        };
 
         if (this.props.enabled) {
             if (TOUCH) {

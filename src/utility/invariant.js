@@ -21,14 +21,14 @@ const ENV = process.env.NODE_ENV || 'production';
  * @param {String} message
  * @param {...String} params
  */
-export default function invariant(condition, message, ...params) {
+export default function invariant(condition, message = '', ...params) {
     let error = null,
         index = 0;
 
     if (condition) {
         return;
 
-    } else if (!message) {
+    } else if (message === '') {
         error = new Error('`invariant()` requires an error message.');
 
     } else {

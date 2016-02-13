@@ -68,7 +68,7 @@
         "no-new": 2,
         "no-octal-escape": 1,
         "no-param-reassign": 0,
-        "no-process-env": 2,
+        "no-process-env": 0,
         "no-proto": 2,
         "no-redeclare": 1,
         "no-return-assign": 0,

@@ -16,10 +16,8 @@ import invariant from '../../utility/invariant';
 export default function getValueFunc(name, descriptor) {
     let func = descriptor.value;
 
-    invariant(
-        (typeof func === 'function'),
-        'Only functions can be used by @%s.', name
-    );
+    invariant((typeof func === 'function'),
+        'Only functions can be used by @%s.', name);
 
     return func;
 }

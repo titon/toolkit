@@ -13,8 +13,6 @@ import invariant from '../../utility/invariant';
  * @param {*} event
  */
 export default function checkIsEvent(name, event) {
-    invariant(
-        (event && (event instanceof Event || event.type && event.target && event.preventDefault)),
-        'Only event handlers can use @%s.', name
-    );
+    invariant((event && (event instanceof Event || event.type && event.target && event.preventDefault)),
+        'Only event handlers can use @%s.', name);
 }

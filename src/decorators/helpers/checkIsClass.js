@@ -13,8 +13,6 @@ import invariant from '../../utility/invariant';
  * @param {Arguments} args
  */
 export default function checkIsClass(name, args) {
-    invariant(
-        (args.length === 1 && typeof args[0] === 'function'),
-        'Only classes are supported by @%s.', name
-    );
+    invariant((args.length === 1 && typeof args[0] === 'function'),
+        'Only classes are supported by @%s.', name);
 }

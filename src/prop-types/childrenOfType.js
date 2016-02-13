@@ -19,12 +19,9 @@ export default function childrenOfType(...types) {
     return function(props, propName, componentName) {
         try {
             Children.forEach(props[propName], function(child) {
-                invariant(
-                    instances.has(child.type),
-                    '`%s` does not allow children of type `%s`.',
-                    componentName,
-                    (typeof child.type === 'function') ? child.type.name : child.type
-                );
+                invariant(instances.has(child.type),
+                    '`%s` does not allow children of type `%s`.', componentName,
+                    (typeof child.type === 'function') ? child.type.name : child.type);
             });
         } catch (e) {
             return e;

@@ -16,14 +16,23 @@ const Titon = Object.freeze({
 
     /** Configurable options. */
     options: {
-        elementSeparator: '-',      // BEM element separator
-        modifierSeparator: '--',    // BEM modifier separator
+        // BEM element separator
+        elementSeparator: '-',
 
-        namespace: '',              // CSS class namespace
-        autoNamespace: true,        // Automatically prefix namespace to classes
+        // BEM modifier separator
+        modifierSeparator: '--',
 
-        debug: false,               // Global debugging
-        logger: function() {}       // Logger function that handles invariants
+        // CSS class namespace
+        namespace: '',
+
+        // Automatically prefix namespace to classes
+        autoNamespace: true,
+
+        // Global debugging
+        debug: false,
+
+        // Logger function that handles invariants
+        logger() {}
     },
 
     /** Localization messages. */

@@ -58,10 +58,8 @@ export default class OffCanvas extends Component {
         this.generateUID();
 
         // Only a select few animations can support showing all sidebars on page load
-        invariant(
-            !(props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish'),
-            'Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.'
-        );
+        invariant(!(props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish'),
+            'Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.');
     }
 
     /**

@@ -87,11 +87,7 @@ export default class SlideCollapse extends Component {
      */
     render() {
         let style = {},
-            props = this.props,
-            className = this.formatClass(props.className, 'transition', {
-                ['@' + props.direction]: true,
-                'is-expanded': props.expanded
-            });
+            props = this.props;
 
         // Don't force a max on the initial render
         if (this.state.size >= 0 && props.expanded) {
@@ -102,8 +98,11 @@ export default class SlideCollapse extends Component {
 
         return (
             <div
-                className={className}
                 style={style}
+                className={this.formatClass(props.className, 'transition', {
+                    ['@' + props.direction]: true,
+                    'is-expanded': props.expanded
+                })}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}
