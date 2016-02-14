@@ -30,15 +30,15 @@ export default class Toggle extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let opened = this.context.opened;
+        let expanded = this.context.expanded;
 
         return this.transferToChild(this.props.children, {
             onClick: this.handleOnClick,
-            className: opened ? 'is-active' : '',
+            className: expanded ? 'is-active' : '',
             'aria-controls': this.formatID('drop-menu'),
             'aria-haspopup': true,
-            'aria-expanded': opened,
-            'aria-selected': opened
+            'aria-expanded': expanded,
+            'aria-selected': expanded
         });
     }
 

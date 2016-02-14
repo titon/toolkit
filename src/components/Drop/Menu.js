@@ -50,7 +50,7 @@ export default class Menu extends Component {
                     ['@left']: (modifier === 'left'),
                     ['@right']: (modifier === 'right'),
                     'reverse-align': props.reverse,
-                    'is-open': (!props.nested && this.context.opened)
+                    'is-expanded': (!props.nested && this.context.expanded)
                 })}
                 {...this.inheritNativeProps(props)}>
 

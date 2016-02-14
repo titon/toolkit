@@ -25,7 +25,7 @@ export default class Drop extends Component {
     };
 
     state = {
-        opened: false
+        expanded: false
     };
 
     /**
@@ -45,7 +45,7 @@ export default class Drop extends Component {
     getChildContext() {
         return {
             uid: this.uid,
-            opened: this.state.opened,
+            expanded: this.state.expanded,
             hideMenu: this.hideMenu,
             showMenu: this.showMenu,
             toggleMenu: this.toggleMenu
@@ -60,28 +60,28 @@ export default class Drop extends Component {
     }
 
     /**
-     * Only update if the open state is different.
+     * Only update if the `expanded` state is different.
      *
      * @param {Object} nextProps
      * @param {Object} nextState
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.opened !== this.state.opened);
+        return (nextState.expanded !== this.state.expanded);
     }
 
     /**
      * Emit `showing` or `hiding` events before rendering.
      */
     componentWillUpdate() {
-        this.emitEvent(this.state.opened ? 'hiding' : 'showing');
+        this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
     }
 
     /**
      * Emit `shown` or `hidden` events after rendering.
      */
     componentDidUpdate() {
-        this.emitEvent(this.state.opened ? 'shown' : 'hidden');
+        this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
     }
 
     /**
@@ -99,7 +99,7 @@ export default class Drop extends Component {
      */
     @bind
     handleOnClickOut(e) {
-        if (this.state.opened && !this.refs.container.contains(e.target)) {
+        if (this.state.expanded && !this.refs.container.contains(e.target)) {
             this.hideMenu();
         }
     }
@@ -110,7 +110,7 @@ export default class Drop extends Component {
     @bind
     hideMenu() {
         this.setState({
-            opened: false
+            expanded: false
         });
     }
 
@@ -120,7 +120,7 @@ export default class Drop extends Component {
     @bind
     showMenu() {
         this.setState({
-            opened: true
+            expanded: true
         });
     }
 
@@ -129,7 +129,7 @@ export default class Drop extends Component {
      */
     @bind
     toggleMenu() {
-        if (this.state.opened) {
+        if (this.state.expanded) {
             this.hideMenu();
         } else {
             this.showMenu();

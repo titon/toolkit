@@ -8,7 +8,7 @@ import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
-    opened: PropTypes.bool,
+    expanded: PropTypes.bool,
     hideMenu: PropTypes.func,
     showMenu: PropTypes.func,
     toggleMenu: PropTypes.func

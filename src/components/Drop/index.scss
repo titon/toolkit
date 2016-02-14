@@ -21,7 +21,7 @@
         text-align: #{bidi-alignment()};
 
         // Active
-        &.is-open {
+        &.is-expanded {
             @extend %placeholder-show;
         }
 

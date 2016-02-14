@@ -171,4 +171,4 @@ const offCanvasMarkup = (
     </OffCanvas>
 );
 
-ReactDOM.render(maskMarkup, document.getElementById('app'));
+ReactDOM.render(dropMarkup, document.getElementById('app'));
