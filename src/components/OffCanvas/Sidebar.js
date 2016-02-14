@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
         super();
 
         /* eslint react/no-direct-mutation-state: 0 */
-        this.state.expanded = context.isSideActive(props.side);
+        this.state.expanded = context.isSidebarActive(props.side);
     }
 
     /**
@@ -53,7 +53,7 @@ export default class Sidebar extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.isSideActive(nextProps.side)
+            expanded: nextContext.isSidebarActive(nextProps.side)
         });
     }
 

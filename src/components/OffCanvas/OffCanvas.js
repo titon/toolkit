@@ -71,9 +71,10 @@ export default class OffCanvas extends Component {
         return {
             uid: this.uid,
             activeSides: Array.from(this.state.sides),
-            isSideActive: this.isSideActive,
-            hideSide: this.hideSide,
-            showSide: this.showSide
+            isSidebarActive: this.isSidebarActive,
+            hideSidebar: this.hideSidebar,
+            showSidebar: this.showSidebar,
+            toggleSidebar: this.toggleSidebar
         };
     }
 
@@ -109,7 +110,7 @@ export default class OffCanvas extends Component {
      * @param {String} side
      */
     @bind
-    hideSide(side) {
+    hideSidebar(side) {
         let sides = new Set(this.state.sides);
 
         sides.delete(side);
@@ -126,7 +127,7 @@ export default class OffCanvas extends Component {
      * @returns {Boolean}
      */
     @bind
-    isSideActive(side) {
+    isSidebarActive(side) {
         return this.state.sides.has(side);
     }
 
@@ -136,7 +137,7 @@ export default class OffCanvas extends Component {
      * @param {String} side
      */
     @bind
-    showSide(side) {
+    showSidebar(side) {
         let sides = new Set(this.state.sides),
             single = (this.props.multiple === false);
 
@@ -176,6 +177,7 @@ export default class OffCanvas extends Component {
                     break;
                 }
 
+                // Safe to mutate state directly here
                 if (child.type === Sidebar && child.props.side) {
                     this.state.sides.add(child.props.side);
                     count++;
@@ -194,6 +196,20 @@ export default class OffCanvas extends Component {
     }
 
     /**
+     * Toggle the active state of the defined sidebar.
+     *
+     * @param {String} side
+     */
+    @bind
+    toggleSidebar(side) {
+        if (this.isSidebarActive(side)) {
+            this.hideSidebar(side);
+        } else {
+            this.showSidebar(side);
+        }
+    }
+
+    /**
      * Handles all `swipe` events by toggling the display of sidebars
      * based on the direction of the swipe.
      *
@@ -206,11 +222,11 @@ export default class OffCanvas extends Component {
 
         // Hide the sidebar if we swipe in the same direction as itself
         if (side && side === direction) {
-            this.hideSide(side);
+            this.hideSidebar(side);
 
         // Else show the opposite sidebar if swiping on the content
         } else {
-            this.showSide(direction === 'right' ? 'left' : 'right');
+            this.showSidebar(direction === 'right' ? 'left' : 'right');
         }
     }
 
@@ -234,8 +250,8 @@ export default class OffCanvas extends Component {
                     id={this.formatID('off-canvas')}
                     className={this.formatClass(props.className, {
                         [props.animation]: true,
-                        'move-left': this.isSideActive('right'),
-                        'move-right': this.isSideActive('left')
+                        'move-left': this.isSidebarActive('right'),
+                        'move-right': this.isSidebarActive('left')
                     })}
                     {...this.inheritNativeProps(props)}>
 

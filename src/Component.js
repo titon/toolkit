@@ -217,10 +217,10 @@ export default class Component extends React.Component {
      * This functionality allows for easy composition and wrapping of components.
      *
      * @param {ReactElement|ReactElement[]} children
-     * @param {Object} props
+     * @param {Object} [props]
      * @returns {ReactElement}
      */
-    transferToChild(children, props) {
+    transferToChild(children, props = {}) {
         let child = Children.only(children),
             mergedProps = {};
 

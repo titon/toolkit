@@ -9,9 +9,10 @@ import { PropTypes } from 'react';
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
     activeSides: PropTypes.arrayOf(PropTypes.oneOf(['left', 'right'])),
-    isSideActive: PropTypes.func,
-    hideSide: PropTypes.func,
-    showSide: PropTypes.func
+    isSidebarActive: PropTypes.func,
+    hideSidebar: PropTypes.func,
+    showSidebar: PropTypes.func,
+    toggleSidebar: PropTypes.func
 };
 
 export default CONTEXT_TYPES;
