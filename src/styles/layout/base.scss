@@ -135,6 +135,27 @@
         }
     }
 
+    //------------------------------ Blackout ------------------------------//
+
+    .blackout {
+        @extend %placeholder-full-screen;
+        position: fixed;
+        visibility: hidden;
+        opacity: 0;
+        color: #fff;
+        z-index: map-get($titon-settings-zindex, "blackout");
+        background: black(map-get($titon-blackout, "opacity"));
+        transition: all map-get($titon-blackout, "transition");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        &.is-expanded {
+            @extend %placeholder-show;
+        }
+    }
+
     //------------------------------ Carets ------------------------------//
 
     .caret-up,

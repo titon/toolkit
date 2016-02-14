@@ -172,6 +172,11 @@ $titon-breadcrumb: (
     "class": bem("breadcrumb"),
 ) !default;
 
+$titon-blackout: (
+    "opacity": 0.85,
+    "transition": theme-setting("transition"),
+) !default;
+
 $titon-button: (
     "class": bem("button"),
     "class-modifier-gloss": bem("button", "", "gloss"),
