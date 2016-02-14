@@ -13,27 +13,26 @@ export default class Toggle extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static propTypes = {
-        children: PropTypes.node,
-        side: PropTypes.oneOf(['left', 'right']).isRequired
+        children: PropTypes.node
     };
 
     /**
-     * Handle the display of which off canvas sidebar to toggle.
+     * Handlers for toggling the display of the mask overlay.
      */
     @bind
     handleOnClick() {
-        this.context.toggleSidebar(this.props.side);
+        this.context.toggleOverlay();
     }
 
     /**
-     * Render the child and wrap any `onClick` event handler.
+     * Render the child and wrap any `onClick` event handlers.
      *
      * @returns {ReactElement}
      */
     render() {
         return this.transferToChild(this.props.children, {
             onClick: this.handleOnClick,
-            className: this.context.isSidebarActive(this.props.side) ? 'is-active' : ''
+            className: this.context.expanded ? 'is-active' : ''
         });
     }
 }

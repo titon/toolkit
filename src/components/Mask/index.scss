@@ -5,7 +5,16 @@
  */
 
 @include export("mask") {
-    #{map-get($titon-mask, "class")} {
+    #{map-get($titon-mask, "class-target")} {
+        overflow: hidden;
+        position: relative;
+
+        // Fixes issues where mask does not display in iOS
+        // Kind of hacky? Other solutions?
+        -webkit-backface-visibility: hidden;
+    }
+
+    #{map-get($titon-mask, "class-overlay")} {
         @extend %placeholder-full-screen;
         position: absolute;
         z-index: map-get($titon-settings-zindex, "mask");
@@ -18,21 +27,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
+        padding: theme-setting("large-padding");
 
-    #{map-get($titon-mask, "class-message")} {
-        max-width: 80%;
-
-        &:empty {
-            display: none;
+        &.is-expanded {
+            @extend %placeholder-show;
         }
-    }
 
-    #{map-get($titon-mask, "class-target")} {
-        overflow: hidden;
-
-        // Fixes issues where mask does not display in iOS
-        // Kind of hacky? Other solutions?
-        -webkit-backface-visibility: hidden;
+        &.is-collapsible {
+            cursor: pointer;
+        }
     }
 }

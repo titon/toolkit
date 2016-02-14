@@ -33,8 +33,8 @@ export default class Toggle extends Component {
         let opened = this.context.opened;
 
         return this.transferToChild(this.props.children, {
-            className: opened ? 'is-active' : '',
             onClick: this.handleOnClick,
+            className: opened ? 'is-active' : '',
             'aria-controls': this.formatID('drop-menu'),
             'aria-haspopup': true,
             'aria-expanded': opened,

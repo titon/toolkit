@@ -323,8 +323,8 @@ $titon-loader: (
 
 $titon-mask: (
     "class": bem("mask"),
-    "class-message": bem("mask", "message"),
-    "class-target": ".is-maskable",
+    "class-target": bem("mask", "target"),
+    "class-overlay": bem("mask", "overlay"),
     "opacity": .9,
     "transition": theme-setting("transition"),
 ) !default;

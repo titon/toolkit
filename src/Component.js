@@ -226,12 +226,14 @@ export default class Component extends React.Component {
 
         Object.keys(props).forEach(key => {
             let newValue = props[key],
+                newType = typeof newValue,
                 oldValue = child.props[key],
+                oldType = typeof oldValue,
                 mergedValue = null;
 
             // If a value exists on both ends, handle accordingly
             // We need to do `typeof` checks so that we don't type juggle incorrectly
-            if (typeof oldValue !== 'undefined' && typeof newValue !== 'undefined') {
+            if (oldType !== 'undefined' && newType !== 'undefined') {
 
                 // Event handlers should be wrapped
                 if (key.match(/^on[A-Z]/)) {
@@ -241,6 +243,9 @@ export default class Component extends React.Component {
                 } else if (key === 'className' || key === 'uniqueClassName') {
                     mergedValue = oldValue + ' ' + newValue;
                 }
+
+            } else if (oldType === 'undefined' && newType !== 'undefined') {
+                mergedValue = newValue;
             }
 
             if (mergedValue !== null) {
