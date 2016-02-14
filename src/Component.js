@@ -227,10 +227,11 @@ export default class Component extends React.Component {
         Object.keys(props).forEach(key => {
             let newValue = props[key],
                 oldValue = child.props[key],
-                mergedValue = newValue;
+                mergedValue = null;
 
             // If a value exists on both ends, handle accordingly
-            if (oldValue && newValue) {
+            // We need to do `typeof` checks so that we don't type juggle incorrectly
+            if (typeof oldValue !== 'undefined' && typeof newValue !== 'undefined') {
 
                 // Event handlers should be wrapped
                 if (key.match(/^on[A-Z]/)) {
@@ -242,7 +243,9 @@ export default class Component extends React.Component {
                 }
             }
 
-            mergedProps[key] = mergedValue;
+            if (mergedValue !== null) {
+                mergedProps[key] = mergedValue;
+            }
         });
 
         return React.cloneElement(child, mergedProps);

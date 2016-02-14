@@ -21,13 +21,7 @@ export default class Toggle extends Component {
      */
     @bind
     handleOnClick() {
-        let context = this.context;
-
-        if (context.opened) {
-            context.hideMenu();
-        } else {
-            context.showMenu();
-        }
+        this.context.toggleMenu();
     }
 
     /**

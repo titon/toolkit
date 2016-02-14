@@ -10,7 +10,8 @@ const CONTEXT_TYPES = {
     uid: PropTypes.string,
     opened: PropTypes.bool,
     hideMenu: PropTypes.func,
-    showMenu: PropTypes.func
+    showMenu: PropTypes.func,
+    toggleMenu: PropTypes.func
 };
 
 export default CONTEXT_TYPES;

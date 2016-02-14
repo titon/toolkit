@@ -47,7 +47,8 @@ export default class Drop extends Component {
             uid: this.uid,
             opened: this.state.opened,
             hideMenu: this.hideMenu,
-            showMenu: this.showMenu
+            showMenu: this.showMenu,
+            toggleMenu: this.toggleMenu
         };
     }
 
@@ -121,6 +122,18 @@ export default class Drop extends Component {
         this.setState({
             opened: true
         });
+    }
+
+    /**
+     * Toggle the open state of the menu.
+     */
+    @bind
+    toggleMenu() {
+        if (this.state.opened) {
+            this.hideMenu();
+        } else {
+            this.showMenu();
+        }
     }
 
     /**
