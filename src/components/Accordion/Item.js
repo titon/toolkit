@@ -23,8 +23,66 @@ export default class Item extends Component {
         header: PropTypes.node.isRequired,
         headerClassName: cssClassName,
         sectionClassName: cssClassName,
-        onClickHeader: collectionOf.func
+        onClickHeader: collectionOf.func,
+        onHiding: collectionOf.func,
+        onHidden: collectionOf.func,
+        onShowing: collectionOf.func,
+        onShown: collectionOf.func
     };
+
+    state = {
+        expanded: false
+    };
+
+    /**
+     * Verify the `expanded` state.
+     *
+     * @param {Object} props
+     * @param {Object} context
+     */
+    constructor(props, context) {
+        super();
+
+        /* eslint react/no-direct-mutation-state: 0 */
+        this.state.expanded = context.isItemActive(props.index);
+    }
+
+    /**
+     * Determine whether the section is expanded or not.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextContext
+     */
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            expanded: nextContext.isItemActive(nextProps.index)
+        });
+    }
+
+    /**
+     * Only update if the expanded state is different.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     * @returns {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        return (nextState.expanded !== this.state.expanded);
+    }
+
+    /**
+     * Emit `showing` or `hiding` events before rendering.
+     */
+    componentWillUpdate() {
+        this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+    }
+
+    /**
+     * Emit `shown` or `hidden` events after rendering.
+     */
+    componentDidUpdate() {
+        this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+    }
 
     /**
      * Render the accordion item and pass all relevant props to the sub-children.
@@ -33,14 +91,14 @@ export default class Item extends Component {
      */
     render() {
         let props = this.props,
-            active = this.context.isItemActive(props.index);
+            expanded = this.state.expanded;
 
         return (
             <li {...this.inheritNativeProps(props)}>
                 <Header
                     className={props.headerClassName}
                     index={props.index}
-                    active={active}
+                    active={expanded}
                     onClick={props.onClickHeader}>
 
                     {props.header}
@@ -49,7 +107,7 @@ export default class Item extends Component {
                 <Section
                     className={props.sectionClassName}
                     index={props.index}
-                    expanded={active}>
+                    expanded={expanded}>
 
                     {props.children}
                 </Section>

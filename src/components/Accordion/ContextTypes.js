@@ -11,6 +11,7 @@ const CONTEXT_TYPES = {
     activeIndices: PropTypes.arrayOf(PropTypes.number),
     hideItem: PropTypes.func,
     showItem: PropTypes.func,
+    toggleItem: PropTypes.func,
     isItemCollapsible: PropTypes.func,
     isItemActive: PropTypes.func
 };

@@ -19,7 +19,7 @@ const log = function(e, ...args) {
 const accordionMarkup = (
     <Accordion
         uniqueClassName="feature-list" defaultIndex={[0, 2]}
-        multiple={true} collapsible={true} debug={false}>
+        multiple={false} collapsible={false} debug={false}>
 
         <Accordion.Item header="Header #1" key="0" index={0} onClick={log}>
             <p>Phasellus viverra convallis ex sit amet convallis. Sed accumsan dignissim massa, eu volutpat tellus semper at. Quisque non lectus sit amet lectus consectetur tincidunt nec in sem. Fusce lobortis blandit turpis, vel vestibulum nulla egestas vitae. Vivamus quis orci vitae odio elementum facilisis. Vestibulum suscipit quam in dictum ullamcorper. Sed lectus quam, faucibus id pellentesque nec, suscipit at elit. </p>
@@ -171,4 +171,4 @@ const offCanvasMarkup = (
     </OffCanvas>
 );
 
-ReactDOM.render(dropMarkup, document.getElementById('app'));
+ReactDOM.render(accordionMarkup, document.getElementById('app'));

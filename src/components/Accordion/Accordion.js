@@ -29,13 +29,11 @@ export default class Accordion extends Component {
         uniqueClassName: cssClassName,
         defaultIndex: collectionOf.number,
         multiple: PropTypes.bool,
-        collapsible: PropTypes.bool,
-        onShowing: collectionOf.func,
-        onShown: collectionOf.func
+        collapsible: PropTypes.bool
     };
 
     state = {
-        indices: []
+        indices: new Set()
     };
 
     /**
@@ -55,9 +53,10 @@ export default class Accordion extends Component {
     getChildContext() {
         return {
             uid: this.uid,
-            activeIndices: this.state.indices,
+            activeIndices: Array.from(this.state.indices),
             hideItem: this.hideItem,
             showItem: this.showItem,
+            toggleItem: this.toggleItem,
             isItemCollapsible: this.isItemCollapsible,
             isItemActive: this.isItemActive
         };
@@ -78,64 +77,26 @@ export default class Accordion extends Component {
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.multiple || nextState.indices[0] !== this.state.indices[0]);
-    }
-
-    /**
-     * Emit `showing` event before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
-    componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('showing', [nextState.indices, this.state.indices]);
-    }
-
-    /**
-     * Emit `shown` event after rendering.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
-    componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('shown', [this.state.indices, prevState.indices]);
+        return (this.props.multiple || nextState.indices !== this.state.indices);
     }
 
     /**
      * Conceal an item by removing its index from the active state.
      *
-     * @param {Number} index
-     */
-    @bind
-    hideItem(index) {
-        this.setState({
-            indices: this.state.indices.filter(value => value !== index)
-        });
-    }
-
-    /**
-     * Reveal the item at the defined index, and collapse all other items.
-     *
      * @param {Number|Number[]} index
      */
     @bind
-    showItem(index) {
-        let multiple = this.props.multiple,
-            indices = multiple ? this.state.indices : [],
-            total = Children.count(this.props.children);
+    hideItem(index) {
+        let indices = new Set(this.state.indices);
 
-        if (Array.isArray(index)) {
-            if (!multiple) {
-                index = [index[0]];
-            }
-        } else {
+        if (!Array.isArray(index)) {
             index = [index];
         }
 
-        // Use concat or we lose the previous state because of references
-        // Also filter out any invalid indices
+        index.forEach(i => indices.delete(i));
+
         this.setState({
-            indices: indices.concat(index).filter(i => (i >= 0 && i < total))
+            indices
         });
     }
 
@@ -158,7 +119,51 @@ export default class Accordion extends Component {
      */
     @bind
     isItemActive(index) {
-        return (this.state.indices.indexOf(index) >= 0);
+        return (this.state.indices.has(index));
+    }
+
+    /**
+     * Reveal the item at the defined index, and collapse all other items.
+     *
+     * @param {Number|Number[]} index
+     */
+    @bind
+    showItem(index) {
+        let multiple = this.props.multiple,
+            indices = new Set(multiple ? this.state.indices : []),
+            total = Children.count(this.props.children);
+
+        if (Array.isArray(index)) {
+            if (!multiple) {
+                index = [index[0]];
+            }
+        } else {
+            index = [index];
+        }
+
+        index.forEach(i => {
+            if (i >= 0 && i < total) {
+                indices.add(i);
+            }
+        });
+
+        this.setState({
+            indices
+        });
+    }
+
+    /**
+     * Toggle the display state of a specific index.
+     *
+     * @param {Number|Number[]} index
+     */
+    @bind
+    toggleItem(index) {
+        if (this.isItemCollapsible(index)) {
+            this.hideItem(index);
+        } else {
+            this.showItem(index);
+        }
     }
 
     /**

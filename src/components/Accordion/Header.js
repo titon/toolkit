@@ -34,14 +34,7 @@ export default class Header extends Component {
      */
     @bind
     handleOnClick(e) {
-        let index = this.props.index,
-            context = this.context;
-
-        if (context.isItemCollapsible(index)) {
-            context.hideItem(index);
-        } else {
-            context.showItem(index);
-        }
+        this.context.toggleItem(this.props.index);
 
         this.handleEvent('click', e);
     }
