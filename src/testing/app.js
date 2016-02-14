@@ -9,6 +9,7 @@ import Carousel from '../components/carousel';
 import Drop from '../components/Drop';
 import Mask from '../components/Mask';
 import OffCanvas from '../components/OffCanvas';
+import Progress from '../components/Progress';
 
 Titon.options.debug = true;
 
@@ -171,4 +172,17 @@ const offCanvasMarkup = (
     </OffCanvas>
 );
 
-ReactDOM.render(breadcrumbMarkup, document.getElementById('app'));
+const progressMarkup = (
+    <div style={{ width: '100%' }}>
+        <Progress now={75}>
+            <Progress.Bar percent={75} />
+        </Progress>
+
+        <Progress now={61} size="large">
+            <Progress.Bar percent={12} state="error" />
+            <Progress.Bar percent={49} state="success" />
+        </Progress>
+    </div>
+);
+
+ReactDOM.render(progressMarkup, document.getElementById('app'));

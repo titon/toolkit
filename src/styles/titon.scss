@@ -392,8 +392,7 @@ $titon-popover: (
 $titon-progress: (
     "class": bem("progress"),
     "class-bar": bem("progress", "bar"),
-    "transition": .5s,
-    "effects": ("round", "pill"), // round, pill
+    "transition": .5s
 ) !default;
 
 $titon-radio: (

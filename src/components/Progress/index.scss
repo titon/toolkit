@@ -5,37 +5,11 @@
  */
 
 @include export("progress") {
-    $titon-temp-progress-effects: map-get($titon-progress, "effects");
-
     #{map-get($titon-progress, "class")} {
         overflow: hidden;
         position: relative;
         display: flex;
         background: theme-setting("bg-light");
-
-        //----- Effects ------//
-
-        @if (is-feature-enabled("all-effects") or index($titon-temp-progress-effects, "round")) {
-            &#{map-get($titon-global, "class-round")} {
-                border-radius: theme-setting("round-radius");
-
-                #{map-get($titon-progress, "class-bar")}:first-child {
-                    border-top-#{bidi-alignment()}-radius: theme-setting("round-radius");
-                    border-bottom-#{bidi-alignment()}-radius: theme-setting("round-radius");
-                }
-            }
-        }
-
-        @if (is-feature-enabled("all-effects") or index($titon-temp-progress-effects, "pill")) {
-            &#{map-get($titon-global, "class-pill")} {
-                border-radius: theme-setting("pill-radius");
-
-                #{map-get($titon-progress, "class-bar")}:first-child {
-                    border-top-#{bidi-alignment()}-radius: theme-setting("pill-radius");
-                    border-bottom-#{bidi-alignment()}-radius: theme-setting("pill-radius");
-                }
-            }
-        }
     }
 
     #{map-get($titon-progress, "class-bar")} {

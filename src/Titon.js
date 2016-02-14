@@ -32,7 +32,10 @@ const Titon = Object.freeze({
         debug: false,
 
         // Logger function that handles invariants
-        logger() {}
+        logger() {},
+
+        // Style states
+        states: ['info', 'debug', 'warning', 'error', 'success']
     },
 
     /** Localization messages. */
