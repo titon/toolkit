@@ -54,9 +54,9 @@ const accordionMarkup = (
 
 const breadcrumbMarkup = (
     <Breadcrumb uniqueClassName="navigation" size="large">
-        <Breadcrumb.Item url="#" onClick={log} className="foo-a">Foo</Breadcrumb.Item>
-        <Breadcrumb.Item url="#" onClick={log} className={['foo', 'b']}>Bar</Breadcrumb.Item>
-        <Breadcrumb.Item url="#" onClick={log} className={{ block: 'foo', element: 'c' }}>Baz</Breadcrumb.Item>
+        <Breadcrumb.Item href="#" onClick={log}>Foo</Breadcrumb.Item>
+        <Breadcrumb.Item href="#" onClick={log}>Bar</Breadcrumb.Item>
+        <Breadcrumb.Item href="#" onClick={log}>Baz</Breadcrumb.Item>
     </Breadcrumb>
 );
 
@@ -171,4 +171,4 @@ const offCanvasMarkup = (
     </OffCanvas>
 );
 
-ReactDOM.render(accordionMarkup, document.getElementById('app'));
+ReactDOM.render(breadcrumbMarkup, document.getElementById('app'));

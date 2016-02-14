@@ -6,7 +6,6 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
 
 export default class Item extends Component {
     static defaultProps = {
@@ -15,7 +14,6 @@ export default class Item extends Component {
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClassName,
         caret: PropTypes.node
     };
 
@@ -29,8 +27,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a className={this.formatClass(props.className)}
-                    {...this.inheritNativeProps(props)}>
+                <a {...this.inheritNativeProps(props)}>
 
                     {props.children}
                     <span className="caret">{props.caret}</span>
