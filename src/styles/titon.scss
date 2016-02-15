@@ -272,7 +272,7 @@ $titon-form: (
 ) !default;
 
 $titon-grid: (
-    "class-row": bem("grid"),
+    "class-row": bem("row"),
     "class-column": bem("col"),
     "width": 100%,
     "gutter": false,

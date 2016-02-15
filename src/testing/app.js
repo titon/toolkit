@@ -8,6 +8,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
+import { Row, Col } from '../components/Grid';
 import Mask from '../components/Mask';
 import OffCanvas from '../components/OffCanvas';
 import Progress from '../components/Progress';
@@ -136,6 +137,77 @@ const dropMarkup = (
     </div>
 );
 
+const gridMarkup = (
+    <div style={{ width: '100%' }}>
+        <Row>
+            <Col span={3}>
+                Left
+
+                <Row>
+                    <Col large={4} medium={3} small={6} xsmall={1}>
+                        Large: 33.3%<br />
+                        Medium: 25%<br />
+                        Small: 50%<br />
+                        Extra Small: 16.6%
+                    </Col>
+
+                    <Col large={4} medium={6} small={6} xsmall={1}>
+                        Large: 33.3%<br />
+                        Medium: 50%<br />
+                        Small: 50%<br />
+                        Extra Small: 16.6%
+                    </Col>
+
+                    <Col large={4} medium={3} xsmall={4} uniqueClassName="hide-small">
+                        Large: 33.3%<br />
+                        Medium: 25%<br />
+                        Small: hidden<br />
+                        Extra Small: 66.6%
+                    </Col>
+                </Row>
+            </Col>
+            <Col span={6}>
+                Center
+
+                <Row>
+                    <Col span={4}>4</Col>
+                    <Col span={4} push={4} end={true}>4, push-4</Col>
+                </Row>
+
+                <Row>
+                    <Col span={6}>6</Col>
+                    <Col span={1} pull={1}>1, pull-1</Col>
+                </Row>
+            </Col>
+            <Col span={3}>
+                Right
+
+                <Row>
+                    <Col large={4} medium={3} small={2} xsmall={4}>
+                        Large: 33.3%<br />
+                        Medium: 25%<br />
+                        Small: 16.6%<br />
+                        Extra Small: 66.6%
+                    </Col>
+
+                    <Col large={6} largePush={2} medium={3} mediumPush={3} small={4} smallPush={3} xsmall={1} xsmallPush={1}>
+                        Large: 50%, 16.6% push<br />
+                        Medium: 25%, 25% push<br />
+                        Small: 33.3%, 25% push<br />
+                        Extra Small: 16.6%, 16.6% push
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
+
+        <Row>
+            <Col>1</Col>
+            <Col>2</Col>
+            <Col>3</Col>
+        </Row>
+    </div>
+);
+
 const maskMarkup = (
     <Mask>
         <p>
@@ -207,4 +279,4 @@ const radioMarkup = (
     </div>
 );
 
-ReactDOM.render(radioMarkup, document.getElementById('app'));
+ReactDOM.render(gridMarkup, document.getElementById('app'));
