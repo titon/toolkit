@@ -8,47 +8,54 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import cssClassName from '../../prop-types/cssClassName';
-import invariant from '../../utility/invariant';
+import CONTEXT_TYPES from './ContextTypes';
 
-export default class Checkbox extends Component {
+export default class Radio extends Component {
+    static contextTypes = CONTEXT_TYPES;
+
     static defaultProps = {
-        className: 'checkbox',
-        toggleClassName: ['checkbox', 'toggle'],
+        className: 'radio',
+        toggleClassName: ['radio', 'toggle'],
         disabled: false,
-        required: false,
-        multiple: false,
-        defaultChecked: false
+        required: false
     };
 
     static propTypes = {
         className: cssClassName.isRequired,
         toggleClassName: cssClassName.isRequired,
         uniqueClassName: cssClassName,
-        name: PropTypes.string.isRequired,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
-        multiple: PropTypes.bool,
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        defaultChecked: PropTypes.bool
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
     };
 
     /**
-     * Validate props.
+     * Setup state.
      *
      * @param {Object} props
+     * @param {Object} context
      */
-    constructor(props) {
+    constructor(props, context) {
         super();
-
-        if (props.multiple) {
-            invariant(Boolean(props.defaultValue), 'A value is required when using `multiple` checkboxes.');
-        }
 
         // Build the state here instead of using ES7 properties
         this.state = {
-            value: props.defaultValue || 1,
-            checked: props.defaultChecked
+            value: props.value,
+            checked: (context.checkedValue === props.value)
         };
+    }
+
+    /**
+     * Update the state based on the context of when a radio is changed.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextContext
+     */
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            value: nextProps.value,
+            checked: (nextContext.checkedValue === nextProps.value)
+        });
     }
 
     /**
@@ -56,30 +63,24 @@ export default class Checkbox extends Component {
      */
     @bind
     handleOnChange() {
-        this.setState({
-            checked: !this.state.checked
-        });
+        this.context.selectValue(this.state.value);
     }
 
     /**
-     * Render the custom checkbox.
+     * Render the custom radio.
      *
      * @returns {ReactElement}
      */
     render() {
         let props = this.props,
             state = this.state,
-            name = props.name,
-            id = name;
-
-        if (props.multiple) {
-            name += '[]';
-            id += '-' + state.value;
-        }
+            value = state.value,
+            name = this.context.inputName,
+            id = name + '-' + value;
 
         return (
             <span
-                id={this.formatID('checkbox', id)}
+                id={this.formatID('radio', id)}
                 className={this.formatClass(props.className, {
                     'is-checked': state.checked,
                     'is-disabled': props.disabled,
@@ -92,8 +93,8 @@ export default class Checkbox extends Component {
                 <input
                     id={id}
                     name={name}
-                    type="checkbox"
-                    value={state.value}
+                    type="radio"
+                    value={value}
                     checked={state.checked}
                     disabled={props.disabled}
                     required={props.required}

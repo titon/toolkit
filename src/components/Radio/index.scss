@@ -5,18 +5,12 @@
  */
 
 @include export("radio") {
+    #{map-get($titon-radio, "class")} {
+        @extend #{map-get($titon-checkbox, "class")};
+    }
+
     #{map-get($titon-radio, "class-toggle")} {
         @extend #{map-get($titon-checkbox, "class-toggle")};
         border-radius: 50%;
-    }
-
-    #{map-get($titon-radio, "class")} {
-        @extend %placeholder-inline-block;
-        background: theme-setting("bg-light");
-        border: 1px solid theme-setting("border-accent");
-
-        input {
-            display: none;
-        }
     }
 }

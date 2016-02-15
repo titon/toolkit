@@ -11,6 +11,7 @@ import Drop from '../components/Drop';
 import Mask from '../components/Mask';
 import OffCanvas from '../components/OffCanvas';
 import Progress from '../components/Progress';
+import Radio from '../components/Radio';
 
 Titon.options.debug = true;
 
@@ -95,7 +96,7 @@ const checkboxMarkup = (
         <Checkbox name="foo" />
         <Checkbox name="bar" disabled={true} />
         <Checkbox name="baz" multiple={true} defaultValue="1" />
-        <Checkbox name="baz" multiple={true} defaultValue="2" />
+        <Checkbox name="baz" multiple={true} defaultValue="2" defaultChecked={true} />
         <Checkbox name="baz" multiple={true} defaultValue="3" />
     </div>
 );
@@ -196,4 +197,14 @@ const progressMarkup = (
     </div>
 );
 
-ReactDOM.render(checkboxMarkup, document.getElementById('app'));
+const radioMarkup = (
+    <div>
+        <Radio.Group name="color">
+            <Radio value="red" />
+            <Radio value="green" />
+            <Radio value="blue" />
+        </Radio.Group>
+    </div>
+);
+
+ReactDOM.render(radioMarkup, document.getElementById('app'));
