@@ -5,6 +5,14 @@
  */
 
 @include export("checkbox") {
+    #{map-get($titon-checkbox, "class")} {
+        @extend %placeholder-inline-block;
+
+        input {
+            display: none;
+        }
+    }
+
     #{map-get($titon-checkbox, "class-toggle")} {
         @extend %placeholder-inline-block;
         background: theme-setting("bg-light");
@@ -12,13 +20,5 @@
         width: 1rem;
         height: 1rem;
         line-height: 1;
-    }
-
-    #{map-get($titon-checkbox, "class")} {
-        @extend %placeholder-inline-block;
-
-        input {
-            display: none;
-        }
     }
 }

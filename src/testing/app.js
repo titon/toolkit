@@ -3,9 +3,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Titon from '../Titon';
-import Accordion from '../components/accordion';
-import Breadcrumb from '../components/breadcrumb';
+import Accordion from '../components/Accordion';
+import Breadcrumb from '../components/Breadcrumb';
 import Carousel from '../components/carousel';
+import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
 import Mask from '../components/Mask';
 import OffCanvas from '../components/OffCanvas';
@@ -87,6 +88,16 @@ const carouselMarkup = (
         <Carousel.Start onClick={log}>Start</Carousel.Start>
         <Carousel.Stop onClick={log}>Stop</Carousel.Stop>
     </Carousel>
+);
+
+const checkboxMarkup = (
+    <div>
+        <Checkbox name="foo" />
+        <Checkbox name="bar" disabled={true} />
+        <Checkbox name="baz" multiple={true} defaultValue="1" />
+        <Checkbox name="baz" multiple={true} defaultValue="2" />
+        <Checkbox name="baz" multiple={true} defaultValue="3" />
+    </div>
 );
 
 const dropMarkup = (
@@ -185,4 +196,4 @@ const progressMarkup = (
     </div>
 );
 
-ReactDOM.render(progressMarkup, document.getElementById('app'));
+ReactDOM.render(checkboxMarkup, document.getElementById('app'));
