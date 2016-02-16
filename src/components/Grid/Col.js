@@ -11,6 +11,7 @@ import inNumberRange from '../../prop-types/inNumberRange';
 
 const span6 = inNumberRange(1, 6);
 const span12 = inNumberRange(1, 12);
+const span18 = inNumberRange(1, 18);
 
 export default class Col extends Component {
     static defaultProps = {
@@ -38,6 +39,9 @@ export default class Col extends Component {
         large: span12,
         largePush: span12,
         largePull: span12,
+        xlarge: span18,
+        xlargePush: span18,
+        xlargePull: span18,
         end: PropTypes.bool
     };
 
@@ -57,7 +61,7 @@ export default class Col extends Component {
                 if (key === 'end') {
                     classes.end = true; // Must be last
 
-                } else if (!key.match(/child|class/i)) {
+                } else if (!key.match(/children|className/i)) {
                     classes[key.replace('P', '-p') + '-' + span] = true;
                 }
             }
