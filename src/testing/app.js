@@ -8,6 +8,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
+import { Region, Block } from '../components/Flex';
 import { Row, Col } from '../components/Grid';
 import Mask from '../components/Mask';
 import OffCanvas from '../components/OffCanvas';
@@ -134,6 +135,41 @@ const dropMarkup = (
                 </Drop.Menu>
             </Drop>
         </div>
+    </div>
+);
+
+const flexMarkup = (
+    <div style={{ width: '100%' }}>
+        <Region flow="center" orientation="vertical">
+            <Block shrink={1} grow={0}>
+                1<br />
+                Grow: 0<br />
+                Shrink: 1
+            </Block>
+            <Block self="top" span={3}>
+                2
+            </Block>
+            <Block order={2}>
+                3<br />
+                Order: 2
+            </Block>
+            <Block grow={3} self="baseline" medium={1}>
+                4<br />
+                Grow: 3
+            </Block>
+            <Block order={1} large={10}>
+                5<br />
+                Order: 1
+            </Block>
+            <Block order={3} grow={2}>
+                6<br />
+                Grow: 2<br />
+                Order: 3
+            </Block>
+            <Block>
+                7
+            </Block>
+        </Region>
     </div>
 );
 
@@ -279,4 +315,4 @@ const radioMarkup = (
     </div>
 );
 
-ReactDOM.render(gridMarkup, document.getElementById('app'));
+ReactDOM.render(flexMarkup, document.getElementById('app'));

@@ -39,19 +39,6 @@
         &.self-center { @include flex-block-align(center); }
         &.self-baseline { @include flex-block-align(baseline); }
         &.self-stretch { @include flex-block-align(stretch); }
-
-        // Resizing
-        &.grow { flex-grow: 1; }
-        &.no-grow { flex-grow: 0; }
-        &.shrink { flex-shrink: 1; }
-        &.no-shrink { flex-shrink: 0; }
-    }
-
-    // Global ordering
-    @for $i from 1 through map-get($titon-flex, "order-count") {
-        .order-#{$i} {
-            @include flex-block-order($i);
-        }
     }
 
     // Responsive sizes
@@ -62,13 +49,6 @@
             @for $i from 1 through $size-columns {
                 #{map-get($titon-flex, "class-block")}.#{$size}-#{$i} {
                     flex-basis: flex-span($i, $size-columns, $titon-temp-flex-width, map-get($titon-flex, "gutter"));
-                }
-            }
-
-            // Responsive ordering
-            @for $i from 1 through map-get($titon-flex, "order-count") {
-                .#{$size}-order-#{$i} {
-                    @include flex-block-order($i);
                 }
             }
         }
