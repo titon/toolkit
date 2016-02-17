@@ -9,18 +9,23 @@
 
     #{map-get($titon-modal, "class")} {
         @extend %placeholder-full-screen;
+        position: fixed;
         opacity: 0;
         visibility: hidden;
         overflow: auto;
         z-index: map-get($titon-settings-zindex, "modal");
-        background: black(map-get($titon-modal, "opacity"));
         transition: opacity map-get($titon-modal, "transition"), visibility map-get($titon-modal, "transition");
+        will-change: transform;
         -webkit-overflow-scrolling: touch;
 
         &.is-loading {
             #{map-get($titon-modal, "class-close")} {
                 display: none;
             }
+        }
+
+        &.is-expanded {
+            @extend %placeholder-show;
         }
     }
 

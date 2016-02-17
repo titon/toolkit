@@ -348,7 +348,6 @@ $titon-modal: (
     "class-foot": bem("modal", "foot"),
     "animations": ("fade", "from-above", "from-below"), // fade, from-above, from-below, slide-in-top, slide-in-right, slide-in-bottom, slide-in-left
     "transition": theme-setting("transition"),
-    "opacity": .85,
 ) !default;
 
 $titon-notice: (

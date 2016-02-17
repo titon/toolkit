@@ -7,15 +7,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Titon from '../Titon';
-import assign from 'lodash/assign';
 import bind from '../decorators/bind';
 import once from '../decorators/once';
 
 const body = document.body;
 const blackout = document.createElement('div');
 const state = {
-    scrollable: true,
-    blackened: false
+    lockedScrolls: 0,
+    openedBlackouts: 0
 };
 
 class DocumentState {
@@ -33,12 +32,11 @@ class DocumentState {
      * Disable document scrolling by adding a class to the body.
      */
     disableScrolling() {
-        if (!state.scrollable) {
-            return;
+        if (state.lockedScrolls === 0) {
+            body.classList.add('no-scroll');
         }
 
-        body.classList.add('no-scroll');
-        state.scrollable = false;
+        state.lockedScrolls++;
     }
 
     /**
@@ -52,12 +50,15 @@ class DocumentState {
      * Enable document scrolling by removing a class to the body.
      */
     enableScrolling() {
-        if (state.scrollable) {
+        if (!state.lockedScrolls) {
             return;
         }
 
-        body.classList.remove('no-scroll');
-        state.scrollable = true;
+        state.lockedScrolls--;
+
+        if (state.lockedScrolls === 0) {
+            body.classList.remove('no-scroll');
+        }
     }
 
     /**
@@ -66,7 +67,10 @@ class DocumentState {
      * @returns {Object}
      */
     getState() {
-        return Object.freeze(assign({}, state));
+        return {
+            scrollable: (state.lockedScrolls === 0),
+            blackened: (state.openedBlackouts > 0)
+        };
     }
 
     /**
@@ -82,24 +86,25 @@ class DocumentState {
      * Hide the blackout and remove the inner content.
      */
     hideBlackout() {
-        if (!state.blackened) {
+        if (!state.openedBlackouts) {
             return;
         }
 
-        blackout.addEventListener('transitionend', this.handleOnBlackoutHide);
-        blackout.classList.remove('is-expanded');
-        state.blackened = false;
+        state.openedBlackouts--;
+
+        if (state.openedBlackouts === 0) {
+            blackout.addEventListener('transitionend', this.handleOnBlackoutHide);
+            blackout.classList.remove('is-expanded');
+        }
     }
 
     /**
      * Show the blackout and inject markup within (for loading states, etc).
      * The markup can be a string, an HTML element, or a React element.
      *
-     * @param {String|HTMLElement|ReactElement} content
+     * @param {String|HTMLElement|ReactElement} [content]
      */
     showBlackout(content) {
-        // Do not check `blackened` so that the content can be changed
-
         // Convert React elements to generic markup strings
         // As we should not support additional virtual DOMs
         if (React.isValidElement(content)) {
@@ -114,17 +119,20 @@ class DocumentState {
             blackout.appendChild(content);
         }
 
-        blackout.classList.add('is-expanded');
-        state.blackened = true;
+        if (state.openedBlackouts === 0) {
+            blackout.classList.add('is-expanded');
+        }
+
+        state.openedBlackouts++;
     }
 
     /**
      * Show the blackout if the condition evaluates to true, else hide it.
      *
      * @param {Boolean} condition
-     * @param {String|HTMLElement|ReactElement} content
+     * @param {String|HTMLElement|ReactElement} [content]
      */
-    toggleBlackout(condition, content) {
+    toggleBlackout(condition, content = '') {
         if (condition) {
             this.showBlackout(content);
         } else {

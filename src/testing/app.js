@@ -11,11 +11,14 @@ import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import { Row, Col } from '../components/Grid';
 import Mask from '../components/Mask';
+import Modal from '../components/Modal';
 import OffCanvas from '../components/OffCanvas';
 import Progress from '../components/Progress';
 import Radio from '../components/Radio';
 
 Titon.options.debug = true;
+
+const modalFactory = new Modal.Factory();
 
 const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
@@ -264,6 +267,21 @@ const maskMarkup = (
     </Mask>
 );
 
+const modalMarkup = (
+    <button type="button" role="button" className="button" onClick={function() {
+        modalFactory.addElement(
+            <Modal factory={modalFactory}>
+                <Modal.Head>Modal Title</Modal.Head>
+                <Modal.Body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.
+                </Modal.Body>
+            </Modal>
+        );
+    }}>
+        Open Modal
+    </button>
+);
+
 const offCanvasMarkup = (
     <OffCanvas swipe={true} showOnLoad={true} animation="squish" multiple={true}>
         <OffCanvas.MainContent>
@@ -315,4 +333,9 @@ const radioMarkup = (
     </div>
 );
 
-ReactDOM.render(flexMarkup, document.getElementById('app'));
+ReactDOM.render((
+    <div style={{ width: '100%' }}>
+        {modalMarkup}
+        <Modal.Container factory={modalFactory} />
+    </div>
+), document.getElementById('app'));
