@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
+import Spacer from './Spacer';
 import bind from '../../decorators/bind';
 import cssClassName from '../../prop-types/cssClassName';
 import collectionOf from '../../prop-types/collectionOf';
@@ -18,32 +19,37 @@ export default class Pagination extends Component {
     static defaultProps = {
         className: 'pagination',
         currentPage: 1,
-        toShow: 10,
         showControls: false,
+        edges: 5,
+        format: 'around',
         grouped: false,
         first: 'First',
         last: 'Last',
         prev: 'Prev',
         next: 'Next',
-        label: 'Pagination'
+        label: 'Pagination',
+        spacer: '...'
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClassName.isRequired,
         itemClassName: cssClassName,
+        spacerClassName: cssClassName,
         uniqueClassName: cssClassName,
         totalPages: PropTypes.number.isRequired,
         currentPage: PropTypes.number,
-        url: PropTypes.string.isRequired,
-        toShow: PropTypes.number,
         showControls: PropTypes.bool,
+        url: PropTypes.string.isRequired,
+        edges: PropTypes.number,
+        format: PropTypes.oneOf(['around', 'spaced']),
         grouped: PropTypes.bool,
         first: PropTypes.node,
         last: PropTypes.node,
         prev: PropTypes.node,
         next: PropTypes.node,
         label: PropTypes.string,
+        spacer: PropTypes.string,
         onPaging: collectionOf.func,
         onPaged: collectionOf.func
     };
@@ -125,6 +131,32 @@ export default class Pagination extends Component {
     }
 
     /**
+     * Create an `Item` with the defined page number.
+     *
+     * @param {Number} page
+     * @returns {ReactElement}
+     */
+    createItem(page) {
+        return (
+            <Item key={page} page={page} className={this.props.itemClassName}/>
+        );
+    }
+
+    /**
+     * Create a `Spacer` with the defined spacer content.
+     *
+     * @param {String} key
+     * @returns {ReactElement}
+     */
+    createSpacer(key) {
+        return (
+            <Spacer key={key} className={this.props.spacerClassName}>
+                {this.props.spacer}
+            </Spacer>
+        );
+    }
+
+    /**
      * Go to a specific page by updating the state.
      *
      * @param {Number} page
@@ -153,6 +185,105 @@ export default class Pagination extends Component {
     }
 
     /**
+     * Render a list of items based on the defined format.
+     *
+     * @returns {Spacer[]|Item[]}
+     */
+    renderItems() {
+        let { totalPages, edges, format } = this.props,
+            page = this.state.page,
+            items = [],
+            start = 1,
+            stop = totalPages,
+            i = 0;
+
+        switch (format) {
+
+            // There should be `edge` items on each side of the current page
+            case 'around':
+            default:
+                if (totalPages < (edges * 2)) {
+                    break;
+                }
+
+                start = page - edges;
+                stop = page + edges;
+
+                // Fix the differences
+                while (start < 1) {
+                    start++;
+                    stop++;
+                }
+
+                while (stop > totalPages) {
+                    start--;
+                    stop--;
+                }
+
+                break;
+
+            // There should be `edge` items in the middle, with ellipsis spacers on each side
+            case 'spaced':
+                let half = Math.floor(edges / 2);
+
+                if (totalPages < (edges + ((half + 1) * 2))) {
+                    break;
+                }
+
+                // Items on the left side, a single spacer on the right
+                if (page < (edges + half)) {
+                    for (i = 1; i <= (edges + half); i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                    items.push(this.createSpacer('right'));
+
+                    for (i = (totalPages - half + 1); i <= totalPages; i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                // Items on the right side, a single spacer on the left
+                } else if (page > (totalPages - half - edges)) {
+                    for (i = 1; i <= half; i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                    items.push(this.createSpacer('left'));
+
+                    for (i = (totalPages - half - edges + 1); i <= totalPages; i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                // Items in the middle, spacers on each side
+                } else {
+                    for (i = 1; i <= half; i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                    items.push(this.createSpacer('left'));
+
+                    for (i = (page - half); i <= (page + half); i++) {
+                        items.push(this.createItem(i));
+                    }
+
+                    items.push(this.createSpacer('right'));
+
+                    for (i = (totalPages - half + 1); i <= totalPages; i++) {
+                        items.push(this.createItem(i));
+                    }
+                }
+
+                return items;
+        }
+
+        for (i = start; i <= stop; i++) {
+            items.push(this.createItem(i));
+        }
+
+        return items;
+    }
+
+    /**
      * Render the pagination list.
      *
      * @returns {ReactElement}
@@ -160,13 +291,8 @@ export default class Pagination extends Component {
     render() {
         /* eslint react/jsx-max-props-per-line: 0 */
 
-        let { first, last, next, prev, itemClassName, showControls, ...props } = this.props,
+        let { first, last, next, prev, totalPages, itemClassName, showControls, ...props } = this.props,
             page = this.state.page,
-            toShow = Math.round(props.toShow / 2),
-            lastPage = props.totalPages,
-            startPage = page - toShow,
-            stopPage = page + toShow,
-            diff = 0,
             items = [];
 
         // Prepend first and previous
@@ -187,24 +313,10 @@ export default class Pagination extends Component {
         }
 
         // Generate the list of items
-        if (startPage < 1) {
-            diff = Math.abs(startPage) + 1;
-
-        } else if (stopPage > lastPage) {
-            diff = -(stopPage - lastPage);
-        }
-
-        startPage += diff;
-        stopPage += diff;
-
-        for (let i = startPage; i <= stopPage; i++) {
-            items.push(
-                <Item key={i} page={i} className={itemClassName} />
-            );
-        }
+        items = items.concat(this.renderItems());
 
         // Append next and last
-        if (next && (page < lastPage || showControls)) {
+        if (next && (page < totalPages || showControls)) {
             items.push(
                 <Item key="next" page={page + 1} className={itemClassName}>
                     {next}
@@ -212,9 +324,9 @@ export default class Pagination extends Component {
             );
         }
 
-        if (last && (page < lastPage || showControls)) {
+        if (last && (page < totalPages || showControls)) {
             items.push(
-                <Item key="last" page={lastPage} className={itemClassName}>
+                <Item key="last" page={totalPages} className={itemClassName}>
                     {last}
                 </Item>
             );
@@ -223,6 +335,7 @@ export default class Pagination extends Component {
         return (
             <nav
                 role="navigation"
+                id={this.formatID('pagination')}
                 className={this.formatClass(props.className, {
                     '@grouped': props.grouped
                 })}

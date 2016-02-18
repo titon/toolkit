@@ -370,6 +370,7 @@ $titon-off-canvas: (
 $titon-pagination: (
     "class": bem("pagination"),
     "class-item": bem("pagination", "item"),
+    "class-spacer": bem("pagination", "spacer"),
     "class-modifier-grouped": bem("pagination", "", "grouped"),
     "modifiers": ("grouped"),
 ) !default;

@@ -313,8 +313,13 @@ const offCanvasMarkup = (
 
 const paginationMarkup = (
     <div>
-        <Pagination currentPage={13} totalPages={33} url="?page={{page}}" />
-        <Pagination totalPages={8} url="?page={{page}}" grouped={true} />
+        <Pagination totalPages={33} url="?page={{page}}" />
+        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} />
+        <Pagination totalPages={8} url="?page={{page}}" showControls={true} />
+
+        <Pagination totalPages={33} url="?page={{page}}" format="spaced" />
+        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} format="spaced" />
+        <Pagination totalPages={8} url="?page={{page}}" showControls={true} format="spaced" />
     </div>
 );
 

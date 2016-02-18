@@ -48,7 +48,7 @@ export default class Item extends Component {
         return (
             <li
                 className={this.formatClass(props.className, {
-                    'is-active': (context.currentPage === page),
+                    'is-active': (key.match(/\d/) && context.currentPage === page),
                     'is-first': (key === 'first'),
                     'is-last': (key === 'last'),
                     'is-prev': (key === 'prev'),

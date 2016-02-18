@@ -14,16 +14,14 @@
         }
     }
 
-    #{map-get($titon-pagination, "class-item")} {
+    #{map-get($titon-pagination, "class-item")},
+    #{map-get($titon-pagination, "class-spacer")} {
         position: relative;
-        margin-#{bidi-opposite-alignment()}: theme-setting("margin") / 2;
 
-        > a {
-            display: block;
-        }
-
-        &:last-child {
-            margin-#{bidi-opposite-alignment()}: 0;
+        a,
+        span {
+            display: inline-block;
+            padding: theme-setting("medium-padding");
         }
     }
 
@@ -34,11 +32,10 @@
             #{map-get($titon-pagination, "class-item")} {
                 flex-grow: 1;
                 z-index: 0;
-                margin: 0;
 
+                a:hover,
                 &:hover,
-                &.is-active,
-                > a:hover {
+                &.is-active {
                     z-index: 1;
                 }
             }
