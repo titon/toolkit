@@ -13,6 +13,7 @@ import { Row, Col } from '../components/Grid';
 import Mask from '../components/Mask';
 import Modal from '../components/Modal';
 import OffCanvas from '../components/OffCanvas';
+import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
 import Radio from '../components/Radio';
 
@@ -310,6 +311,13 @@ const offCanvasMarkup = (
     </OffCanvas>
 );
 
+const paginationMarkup = (
+    <div>
+        <Pagination currentPage={13} totalPages={33} url="?page={{page}}" />
+        <Pagination totalPages={8} url="?page={{page}}" grouped={true} />
+    </div>
+);
+
 const progressMarkup = (
     <div style={{ width: '100%' }}>
         <Progress now={75}>
@@ -335,7 +343,7 @@ const radioMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {modalMarkup}
+        {paginationMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

@@ -369,9 +369,9 @@ $titon-off-canvas: (
 
 $titon-pagination: (
     "class": bem("pagination"),
+    "class-item": bem("pagination", "item"),
     "class-modifier-grouped": bem("pagination", "", "grouped"),
     "modifiers": ("grouped"),
-    "effects": (), // oval, pill, skew
 ) !default;
 
 $titon-pin: (
