@@ -418,7 +418,6 @@ $titon-switch: (
     "class-toggle": bem("switch", "toggle"),
     "class-modifier-stacked": bem("switch", "", "stacked"),
     "modifiers": ("stacked"), // stacked
-    "effects": ("round", "pill"), // round, pill
     "transition": theme-setting("transition"),
 ) !default;
 

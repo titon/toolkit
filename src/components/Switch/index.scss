@@ -5,9 +5,6 @@
  */
 
 @include export("switch") {
-    $titon-temp-switch-effects: map-get($titon-switch, "effects");
-    $titon-temp-switch-modifiers: map-get($titon-switch, "modifiers");
-
     #{map-get($titon-switch, "class")} {
         @extend %placeholder-inline-block;
         font-size: 0;
@@ -40,34 +37,12 @@
         &::before {
             #{bidi-alignment()}: 0;
             opacity: 0;
-            content: attr(data-switch-off);
+            content: attr(data-switch-on);
         }
 
         &::after {
             #{bidi-opposite-alignment()}: 0;
-            content: attr(data-switch-on);
-        }
-
-        //----- Effects -----//
-
-        @if (is-feature-enabled("all-effects") or index($titon-temp-switch-effects, "round")) {
-            &#{map-get($titon-global, "class-round")} {
-                border-radius: theme-setting("round-radius");
-
-                #{map-get($titon-switch, "class-toggle")} {
-                    border-radius: theme-setting("round-radius");
-                }
-            }
-        }
-
-        @if (is-feature-enabled("all-effects") or index($titon-temp-switch-effects, "pill")) {
-            &#{map-get($titon-global, "class-pill")} {
-                border-radius: theme-setting("pill-radius");
-
-                #{map-get($titon-switch, "class-toggle")} {
-                    border-radius: theme-setting("pill-radius");
-                }
-            }
+            content: attr(data-switch-off);
         }
     }
 
@@ -83,44 +58,6 @@
 
         &::before {
             content: "\00A0"; // NBSP
-        }
-    }
-
-    //-------------------- Sizes --------------------//
-
-    #{map-get($titon-switch, "class")} {
-        @include is-size-small {
-            width: 5rem;
-
-            #{map-get($titon-switch, "class-bar")} {
-                font-size: theme-setting("small-font-size");
-
-                &::before,
-                &::after {
-                    padding: theme-setting("small-padding");
-                }
-            }
-
-            #{map-get($titon-switch, "class-toggle")} {
-                padding: theme-setting("small-padding");
-            }
-        }
-
-        @include is-size-large {
-            width: 9rem;
-
-            #{map-get($titon-switch, "class-bar")} {
-                font-size: theme-setting("large-font-size");
-
-                &::before,
-                &::after {
-                    padding: theme-setting("large-padding");
-                }
-            }
-
-            #{map-get($titon-switch, "class-toggle")} {
-                padding: theme-setting("large-padding");
-            }
         }
     }
 
@@ -142,7 +79,7 @@
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-switch-modifiers, "stacked")) {
+    @if (is-feature-enabled("all-modifiers") or index(map-get($titon-switch, "modifiers"), "stacked")) {
         #{map-get($titon-switch, "class-modifier-stacked")} {
             #{map-get($titon-switch, "class-bar")} {
                 &::before,

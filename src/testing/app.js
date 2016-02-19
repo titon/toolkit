@@ -17,6 +17,7 @@ import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
 import Radio from '../components/Radio';
 import Step from '../components/Step';
+import Switch from '../components/Switch';
 
 Titon.options.debug = true;
 
@@ -366,9 +367,18 @@ const stepMarkup = (
     </div>
 );
 
+const switchMarkup = (
+    <div>
+        <Switch name="foo" />
+        <Switch name="bar" disabled={true} />
+        <Switch name="baz" labelOn="On" labelOff="Off" />
+        <Switch name="qux" labelOn="Yes" labelOff="No" stacked={true} defaultChecked={true} />
+    </div>
+);
+
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {paginationMarkup}
+        {switchMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

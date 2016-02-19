@@ -108,7 +108,10 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     formatID(...params) {
-        return ['titon', this.getUID(), ...params].join('-').trim().replace(/\-{2,}/g, '-');
+        return ['titon', this.getUID(), ...params]
+            .join('-')
+            .trim()
+            .replace('--', '-');
     }
 
     /**
