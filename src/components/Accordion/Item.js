@@ -94,7 +94,7 @@ export default class Item extends Component {
             expanded = this.state.expanded;
 
         return (
-            <li {...this.inheritNativeProps(props)}>
+            <li>
                 <Header
                     className={props.headerClassName}
                     index={props.index}
@@ -107,7 +107,8 @@ export default class Item extends Component {
                 <Section
                     className={props.sectionClassName}
                     index={props.index}
-                    expanded={expanded}>
+                    expanded={expanded}
+                    {...this.inheritNativeProps(props)}>
 
                     {props.children}
                 </Section>
