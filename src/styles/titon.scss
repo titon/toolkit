@@ -409,7 +409,7 @@ $titon-select: (
 
 $titon-step: (
     "class": bem("step"),
-    "class-wrapper": bem("steps"),
+    "class-item": bem("step", "item"),
 ) !default;
 
 $titon-switch: (
@@ -436,7 +436,7 @@ $titon-table: (
 
 $titon-toast: (
     "class": bem("toast"),
-    "class-wrapper": bem("toasts"),
+    "class-container": bem("toasts"),
     "animations": ("fade", "slide-up", "slide-down", "slide-left", "slide-right"), // fade, slide-up, slide-down, slide-left, slide-right
     "positions": ("bottom-left", "bottom-right"), // top-left, top-center, top-right, center-left, center-right, bottom-left, bottom-center, bottom-right
     "transition": theme-setting("transition"),

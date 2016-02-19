@@ -16,6 +16,7 @@ import OffCanvas from '../components/OffCanvas';
 import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
 import Radio from '../components/Radio';
+import Step from '../components/Step';
 
 Titon.options.debug = true;
 
@@ -346,9 +347,26 @@ const radioMarkup = (
     </div>
 );
 
+const stepMarkup = (
+    <div>
+        <Step>
+            <Step.Item complete={true} onClick={log}>Cart</Step.Item>
+            <Step.Item complete={true}>Checkout</Step.Item>
+            <Step.Item>Payment</Step.Item>
+            <Step.Item>Review</Step.Item>
+        </Step>
+
+        <br />
+
+        <Step>
+            <Step.Item>One Step</Step.Item>
+        </Step>
+    </div>
+);
+
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {paginationMarkup}
+        {stepMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
