@@ -6,12 +6,8 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
-import inNumberRange from '../../prop-types/inNumberRange';
-
-const span6 = inNumberRange(1, 6);
-const span12 = inNumberRange(1, 12);
-const span18 = inNumberRange(1, 18);
+import cssClass from '../../prop-types/cssClass';
+import range from '../../prop-types/range';
 
 export default class Col extends Component {
     static defaultProps = {
@@ -20,28 +16,28 @@ export default class Col extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
 
         // This is ugly, a better way?
-        span: span12,
-        push: span12,
-        pull: span12,
-        xsmall: span6,
-        xsmallPush: span6,
-        xsmallPull: span6,
-        small: span12,
-        smallPush: span12,
-        smallPull: span12,
-        medium: span12,
-        mediumPush: span12,
-        mediumPull: span12,
-        large: span12,
-        largePush: span12,
-        largePull: span12,
-        xlarge: span18,
-        xlargePush: span18,
-        xlargePull: span18,
+        span: range.span12,
+        push: range.span12,
+        pull: range.span12,
+        xsmall: range.span6,
+        xsmallPush: range.span6,
+        xsmallPull: range.span6,
+        small: range.span12,
+        smallPush: range.span12,
+        smallPull: range.span12,
+        medium: range.span12,
+        mediumPush: range.span12,
+        mediumPull: range.span12,
+        large: range.span12,
+        largePush: range.span12,
+        largePull: range.span12,
+        xlarge: range.span18,
+        xlargePush: range.span18,
+        xlargePull: range.span18,
         end: PropTypes.bool
     };
 

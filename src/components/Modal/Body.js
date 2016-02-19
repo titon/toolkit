@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Body extends Component {
@@ -18,7 +18,7 @@ export default class Body extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired
+        className: cssClass.isRequired
     };
 
     /**

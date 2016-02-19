@@ -6,8 +6,8 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
-import oneOfState from '../../prop-types/oneOfState';
+import cssClass from '../../prop-types/cssClass';
+import states from '../../prop-types/states';
 
 export default class Bar extends Component {
     static defaultProps = {
@@ -15,9 +15,9 @@ export default class Bar extends Component {
     };
 
     static propTypes = {
-        className: cssClassName.isRequired,
+        className: cssClass.isRequired,
         percent: PropTypes.number.isRequired,
-        state: oneOfState
+        state: states
     };
 
     /**

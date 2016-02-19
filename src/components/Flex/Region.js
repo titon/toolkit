@@ -7,8 +7,8 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Block from './Block';
-import childrenOfType from '../../prop-types/childrenOfType';
-import cssClassName from '../../prop-types/cssClassName';
+import children from '../../prop-types/children';
+import cssClass from '../../prop-types/cssClass';
 
 export default class Region extends Component {
     static defaultProps = {
@@ -16,9 +16,9 @@ export default class Region extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(Block),
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        children: children(Block),
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         wrap: PropTypes.bool,
         grid: PropTypes.bool,
         flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),

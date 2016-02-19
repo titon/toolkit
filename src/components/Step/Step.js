@@ -7,8 +7,8 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
-import childrenOfType from '../../prop-types/childrenOfType';
-import cssClassName from '../../prop-types/cssClassName';
+import children from '../../prop-types/children';
+import cssClass from '../../prop-types/cssClass';
 
 export default class Step extends Component {
     static defaultProps = {
@@ -17,9 +17,9 @@ export default class Step extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(Item),
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        children: children(Item),
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         label: PropTypes.string
     };
 

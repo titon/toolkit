@@ -11,7 +11,7 @@
  * @param {Number} max
  * @returns {Function}
  */
-export default function inNumberRange(min, max) {
+function range(min, max) {
     return function(props, propName, componentName) {
         let value = props[propName];
 
@@ -20,3 +20,10 @@ export default function inNumberRange(min, max) {
         }
     };
 }
+
+// Presets
+range.span6 = range(1, 6);
+range.span12 = range(1, 12);
+range.span18 = range(1, 18);
+
+export default range;

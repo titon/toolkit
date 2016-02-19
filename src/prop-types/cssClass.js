@@ -9,8 +9,10 @@ import { PropTypes } from 'react';
 /**
  * A validator that accepts a valid CSS class name, in 1 of 3 formats.
  * Either supports a literal string, or an array or object for BEM structuring.
+ *
+ * @returns {React.PropTypes.oneOfType}
  */
-const propType = PropTypes.oneOfType([
+export default PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.shape({
@@ -19,8 +21,3 @@ const propType = PropTypes.oneOfType([
         modifier: PropTypes.string
     })
 ]);
-
-/**
- * @returns {React.PropTypes.oneOfType}
- */
-export default propType;

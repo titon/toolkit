@@ -8,9 +8,9 @@ import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Item from './Item';
 import bind from '../../decorators/bind';
-import childrenOfType from '../../prop-types/childrenOfType';
-import collectionOf from '../../prop-types/collectionOf';
-import cssClassName from '../../prop-types/cssClassName';
+import children from '../../prop-types/children';
+import collection from '../../prop-types/collection';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Accordion extends Component {
@@ -24,10 +24,10 @@ export default class Accordion extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(Item),
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
-        defaultIndex: collectionOf.number,
+        children: children(Item),
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
+        defaultIndex: collection.number,
         multiple: PropTypes.bool,
         collapsible: PropTypes.bool
     };

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
 
 export default class Checkbox extends Component {
@@ -21,9 +21,9 @@ export default class Checkbox extends Component {
     };
 
     static propTypes = {
-        className: cssClassName.isRequired,
-        toggleClassName: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        toggleClassName: cssClass.isRequired,
+        uniqueClassName: cssClass,
         name: PropTypes.string.isRequired,
         disabled: PropTypes.bool,
         required: PropTypes.bool,

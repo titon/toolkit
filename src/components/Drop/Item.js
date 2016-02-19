@@ -7,7 +7,7 @@
 import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import Menu from './Menu';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Item extends Component {
@@ -19,7 +19,7 @@ export default class Item extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired
+        className: cssClass.isRequired
     };
 
     /**

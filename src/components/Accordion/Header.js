@@ -7,8 +7,8 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import collectionOf from '../../prop-types/collectionOf';
-import cssClassName from '../../prop-types/cssClassName';
+import collection from '../../prop-types/collection';
+import cssClass from '../../prop-types/cssClass';
 import tabIndex from '../../utility/tabIndex';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -21,10 +21,10 @@ export default class Header extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
+        className: cssClass.isRequired,
         active: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired,
-        onClick: collectionOf.func
+        onClick: collection.func
     };
 
     /**

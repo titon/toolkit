@@ -9,8 +9,8 @@ import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import ItemList from './ItemList';
 import bind from '../../decorators/bind';
-import collectionOf from '../../prop-types/collectionOf';
-import cssClassName from '../../prop-types/cssClassName';
+import collection from '../../prop-types/collection';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Carousel extends Component {
@@ -32,8 +32,8 @@ export default class Carousel extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
         duration: PropTypes.number,
         toCycle: PropTypes.number,
@@ -44,10 +44,10 @@ export default class Carousel extends Component {
         infinite: PropTypes.bool,
         loop: PropTypes.bool,
         reverse: PropTypes.bool,
-        onCycling: collectionOf.func,
-        onCycled: collectionOf.func,
-        onStart: collectionOf.func,
-        onStop: collectionOf.func
+        onCycling: collection.func,
+        onCycled: collection.func,
+        onStart: collection.func,
+        onStop: collection.func
     };
 
     state = {

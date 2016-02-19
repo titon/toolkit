@@ -9,8 +9,8 @@ import Component from '../../Component';
 import Item from './Item';
 import Spacer from './Spacer';
 import bind from '../../decorators/bind';
-import cssClassName from '../../prop-types/cssClassName';
-import collectionOf from '../../prop-types/collectionOf';
+import cssClass from '../../prop-types/cssClass';
+import collection from '../../prop-types/collection';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Pagination extends Component {
@@ -33,10 +33,10 @@ export default class Pagination extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        itemClassName: cssClassName,
-        spacerClassName: cssClassName,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        itemClassName: cssClass,
+        spacerClassName: cssClass,
+        uniqueClassName: cssClass,
         totalPages: PropTypes.number.isRequired,
         currentPage: PropTypes.number,
         showControls: PropTypes.bool,
@@ -50,8 +50,8 @@ export default class Pagination extends Component {
         next: PropTypes.node,
         label: PropTypes.string,
         spacer: PropTypes.string,
-        onPaging: collectionOf.func,
-        onPaged: collectionOf.func
+        onPaging: collection.func,
+        onPaged: collection.func
     };
 
     /**

@@ -6,12 +6,8 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
-import inNumberRange from '../../prop-types/inNumberRange';
-
-const span6 = inNumberRange(1, 6);
-const span12 = inNumberRange(1, 12);
-const span18 = inNumberRange(1, 18);
+import cssClass from '../../prop-types/cssClass';
+import range from '../../prop-types/range';
 
 export default class Block extends Component {
     static defaultProps = {
@@ -20,18 +16,18 @@ export default class Block extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         order: PropTypes.number,
         grow: PropTypes.number,
         shrink: PropTypes.number,
         self: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'baseline', 'stretch']),
-        span: span12,
-        xsmall: span6,
-        small: span12,
-        medium: span12,
-        large: span12,
-        xlarge: span18
+        span: range.span12,
+        xsmall: range.span6,
+        small: range.span12,
+        medium: range.span12,
+        large: range.span12,
+        xlarge: range.span18
     };
 
     /**

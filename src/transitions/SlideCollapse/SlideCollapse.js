@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import debounce from '../../decorators/debounce';
 
 export default class SlideCollapse extends Component {
@@ -20,7 +20,7 @@ export default class SlideCollapse extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
+        className: cssClass.isRequired,
         direction: PropTypes.oneOf(['vertical', 'horizontal']),
         expanded: PropTypes.bool.isRequired
     };

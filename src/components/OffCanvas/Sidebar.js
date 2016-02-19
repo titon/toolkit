@@ -6,8 +6,8 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
-import collectionOf from '../../prop-types/collectionOf';
+import cssClass from '../../prop-types/cssClass';
+import collection from '../../prop-types/collection';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Sidebar extends Component {
@@ -19,13 +19,13 @@ export default class Sidebar extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         side: PropTypes.oneOf(['left', 'right']).isRequired,
-        onHiding: collectionOf.func,
-        onHidden: collectionOf.func,
-        onShowing: collectionOf.func,
-        onShown: collectionOf.func
+        onHiding: collection.func,
+        onHidden: collection.func,
+        onShowing: collection.func,
+        onShown: collection.func
     };
 
     state = {

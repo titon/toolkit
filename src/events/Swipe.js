@@ -7,8 +7,8 @@
 import React, { PropTypes } from 'react';
 import Component from '../Component';
 import bind from '../decorators/bind';
-import collectionOf from '../prop-types/collectionOf';
-import cssClassName from '../prop-types/cssClassName';
+import collection from '../prop-types/collection';
+import cssClass from '../prop-types/cssClass';
 import { TOUCH } from '../flags';
 
 const abs = Math.abs;
@@ -26,17 +26,17 @@ export default class Swipe extends Component {
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClassName.isRequired,
+        className: cssClass.isRequired,
         enabled: PropTypes.bool.isRequired,
         draggable: PropTypes.bool,
         duration: PropTypes.number,
         distance: PropTypes.number,
         restraint: PropTypes.number,
-        onSwipe: collectionOf.func,
-        onSwipeUp: collectionOf.func,
-        onSwipeRight: collectionOf.func,
-        onSwipeDown: collectionOf.func,
-        onSwipeLeft: collectionOf.func
+        onSwipe: collection.func,
+        onSwipeUp: collection.func,
+        onSwipeRight: collection.func,
+        onSwipeDown: collection.func,
+        onSwipeLeft: collection.func
     };
 
     state = {

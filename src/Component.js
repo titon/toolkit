@@ -8,7 +8,7 @@ import React, { Children, PropTypes } from 'react';
 import Titon from './Titon';
 import ClassBuilder from './utility/ClassBuilder';
 import assign from 'lodash/assign';
-import cssClassName from './prop-types/cssClassName';
+import cssClass from './prop-types/cssClass';
 import generateUID from './utility/generateUID';
 import omit from 'lodash/omit';
 import wrapFunctions from './utility/wrapFunctions';
@@ -21,7 +21,7 @@ export default class Component extends React.Component {
 
     static propTypes = {
         debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-        uniqueClassName: cssClassName
+        uniqueClassName: cssClass
     };
 
     state = {};

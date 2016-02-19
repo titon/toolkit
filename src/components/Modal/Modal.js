@@ -12,9 +12,9 @@ import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';
 import bind from '../../decorators/bind';
-import childrenOfType from '../../prop-types/childrenOfType';
-import cssClassName from '../../prop-types/cssClassName';
-import collectionOf from '../../prop-types/collectionOf';
+import children from '../../prop-types/children';
+import cssClass from '../../prop-types/cssClass';
+import collection from '../../prop-types/collection';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Modal extends Component {
@@ -35,13 +35,13 @@ export default class Modal extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(Body, Head, Foot),
+        children: children(Body, Head, Foot),
         factory: PropTypes.instanceOf(Factory).isRequired,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
-        outerClassName: cssClassName.isRequired,
-        innerClassName: cssClassName.isRequired,
-        closeClassName: cssClassName.isRequired,
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
+        outerClassName: cssClass.isRequired,
+        innerClassName: cssClass.isRequired,
+        closeClassName: cssClass.isRequired,
         close: PropTypes.node,
         animation: PropTypes.oneOf([
             'fade', 'from-above', 'from-below', 'slide-in-top',
@@ -52,10 +52,10 @@ export default class Modal extends Component {
         fullScreen: PropTypes.bool,
         stopScroll: PropTypes.bool,
         loading: PropTypes.bool,
-        onHiding: collectionOf.func,
-        onHidden: collectionOf.func,
-        onShowing: collectionOf.func,
-        onShown: collectionOf.func
+        onHiding: collection.func,
+        onHidden: collection.func,
+        onShowing: collection.func,
+        onShown: collection.func
     };
 
     /**

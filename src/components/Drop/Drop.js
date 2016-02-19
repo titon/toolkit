@@ -9,19 +9,19 @@ import Component from '../../Component';
 import Menu from './Menu';
 import Toggle from './Toggle';
 import bind from '../../decorators/bind';
-import childrenOfType from '../../prop-types/childrenOfType';
-import collectionOf from '../../prop-types/collectionOf';
+import children from '../../prop-types/children';
+import collection from '../../prop-types/collection';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Drop extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static propTypes = {
-        children: childrenOfType(Menu, Toggle),
-        onHiding: collectionOf.func,
-        onHidden: collectionOf.func,
-        onShowing: collectionOf.func,
-        onShown: collectionOf.func
+        children: children(Menu, Toggle),
+        onHiding: collection.func,
+        onHidden: collection.func,
+        onShowing: collection.func,
+        onShown: collection.func
     };
 
     state = {

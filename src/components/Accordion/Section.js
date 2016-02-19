@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import SlideCollapse from '../../transitions/SlideCollapse';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Section extends Component {
@@ -19,7 +19,7 @@ export default class Section extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
+        className: cssClass.isRequired,
         expanded: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired
     };

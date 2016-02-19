@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 
 export default class Divider extends Component {
     static defaultProps = {
@@ -15,8 +15,8 @@ export default class Divider extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass
     };
 
     /**

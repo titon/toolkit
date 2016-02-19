@@ -8,12 +8,9 @@ import { PropTypes } from 'react';
 import Titon from '../Titon';
 
 /**
- * A validator that checks for a specific state in the list of supported sates.
- */
-const propType = PropTypes.oneOf(Titon.options.states);
-
-/**
+ * A validator that checks for a specific state in the list of supported states.
+ *
  * @returns {React.PropTypes.oneOf}
  */
-export default propType;
+export default PropTypes.oneOf(Titon.options.states);
 

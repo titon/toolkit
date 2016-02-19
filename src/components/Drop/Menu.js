@@ -9,8 +9,8 @@ import Component from '../../Component';
 import Divider from './Divider';
 import Header from './Header';
 import Item from './Item';
-import childrenOfType from '../../prop-types/childrenOfType';
-import cssClassName from '../../prop-types/cssClassName';
+import children from '../../prop-types/children';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Menu extends Component {
@@ -23,9 +23,9 @@ export default class Menu extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(Divider, Header, Item),
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        children: children(Divider, Header, Item),
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         modifier: PropTypes.oneOf(['up', 'down', 'left', 'right']),
         reverse: PropTypes.bool,
         nested: PropTypes.bool

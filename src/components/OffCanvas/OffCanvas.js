@@ -11,8 +11,8 @@ import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 import Swipe from '../../events/Swipe';
 import bind from '../../decorators/bind';
-import childrenOfType from '../../prop-types/childrenOfType';
-import cssClassName from '../../prop-types/cssClassName';
+import children from '../../prop-types/children';
+import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
@@ -30,9 +30,9 @@ export default class OffCanvas extends Component {
     };
 
     static propTypes = {
-        children: childrenOfType(MainContent, Sidebar),
-        className: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        children: children(MainContent, Sidebar),
+        className: cssClass.isRequired,
+        uniqueClassName: cssClass,
         animation: PropTypes.oneOf([
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
@@ -166,11 +166,11 @@ export default class OffCanvas extends Component {
         let props = this.props;
 
         if (props.showOnLoad) {
-            let children = Children.toArray(props.children),
+            let childlings = Children.toArray(props.children),
                 multiple = props.multiple,
                 count = 0;
 
-            for (let child of children) {
+            for (let child of childlings) {
 
                 // Only show the first sidebar if multiple is false
                 if (!multiple && count) {

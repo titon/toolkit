@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../Component';
-import cssClassName from '../prop-types/cssClassName';
+import cssClass from '../prop-types/cssClass';
 
 /**
  * Create an anonymous container component that manages elements provided by the defined factory.
@@ -22,7 +22,7 @@ export default function createContainer(factory, className) {
         };
 
         static propTypes = {
-            className: cssClassName.isRequired,
+            className: cssClass.isRequired,
             factory: PropTypes.instanceOf(factory).isRequired
         };
 

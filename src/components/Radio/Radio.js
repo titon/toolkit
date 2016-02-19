@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import cssClassName from '../../prop-types/cssClassName';
+import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Radio extends Component {
@@ -21,9 +21,9 @@ export default class Radio extends Component {
     };
 
     static propTypes = {
-        className: cssClassName.isRequired,
-        toggleClassName: cssClassName.isRequired,
-        uniqueClassName: cssClassName,
+        className: cssClass.isRequired,
+        toggleClassName: cssClass.isRequired,
+        uniqueClassName: cssClass,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
