@@ -18,11 +18,11 @@ import cssClass from '../prop-types/cssClass';
 export default function createContainer(factory, className) {
     return class extends Component {
         static defaultProps = {
-            className
+            elementClassName: className
         };
 
         static propTypes = {
-            className: cssClass.isRequired,
+            elementClassName: cssClass.isRequired,
             factory: PropTypes.instanceOf(factory).isRequired
         };
 
@@ -56,7 +56,7 @@ export default function createContainer(factory, className) {
 
             return (
                 <div
-                    className={this.formatClass(props.className, {
+                    className={this.formatClass(props.elementClassName, {
                         'has-children': (children.length > 0)
                     })}
                     {...this.inheritNativeProps(props)}>

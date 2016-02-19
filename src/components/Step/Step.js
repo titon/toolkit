@@ -12,14 +12,14 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Step extends Component {
     static defaultProps = {
-        className: 'step',
+        elementClassName: 'step',
         label: 'Stepped Navigation'
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         label: PropTypes.string
     };
 
@@ -34,7 +34,7 @@ export default class Step extends Component {
         return (
             <nav
                 role="navigation"
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 aria-label={props.label}
                 {...this.inheritNativeProps(props)}>
 

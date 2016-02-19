@@ -15,13 +15,14 @@ export default class Overlay extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['mask', 'overlay'],
+        elementClassName: ['mask', 'overlay'],
         collapsible: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         collapsible: PropTypes.bool,
         onHiding: collection.func,
         onHidden: collection.func,
@@ -96,7 +97,7 @@ export default class Overlay extends Component {
         return (
             <div
                 id={this.formatID('mask-overlay')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-expanded': expanded,
                     'is-collapsible': props.collapsible
                 })}

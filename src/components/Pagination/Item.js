@@ -14,12 +14,12 @@ export default class Item extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['pagination', 'item']
+        elementClassName: ['pagination', 'item']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        elementClassName: cssClass.isRequired,
         page: PropTypes.number.isRequired
     };
 
@@ -48,7 +48,7 @@ export default class Item extends Component {
         return (
             <li>
                 <a href={context.url.replace('{{page}}', page)}
-                    className={this.formatClass(props.className, {
+                    className={this.formatClass(props.elementClassName, {
                         'is-active': (key.match(/\d/) && context.currentPage === page),
                         'is-first': (key === 'first'),
                         'is-last': (key === 'last'),

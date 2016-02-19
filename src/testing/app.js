@@ -29,7 +29,7 @@ const log = function(e, ...args) {
 
 const accordionMarkup = (
     <Accordion
-        uniqueClassName="feature-list" defaultIndex={[0, 2]}
+        className="feature-list" defaultIndex={[0, 2]}
         multiple={false} collapsible={false} debug={false}>
 
         <Accordion.Item header="Header #1" key="0" index={0} onClick={log}>
@@ -64,7 +64,7 @@ const accordionMarkup = (
 
 
 const breadcrumbMarkup = (
-    <Breadcrumb uniqueClassName="navigation">
+    <Breadcrumb className="navigation">
         <Breadcrumb.Item href="#" onClick={log}>Foo</Breadcrumb.Item>
         <Breadcrumb.Item href="#" onClick={log}>Bar</Breadcrumb.Item>
         <Breadcrumb.Item href="#" onClick={log}>Baz</Breadcrumb.Item>
@@ -73,7 +73,7 @@ const breadcrumbMarkup = (
 
 const carouselMarkup = (
     <Carousel
-        uniqueClassName="slideshow" modifier="slide"
+        className="slideshow" modifier="slide"
         toCycle={1} toShow={1}
         loop={false} infinite={false}
         autoStart={false} pauseOnHover={false}>
@@ -200,7 +200,7 @@ const gridMarkup = (
                         Extra Small: 16.6%
                     </Col>
 
-                    <Col large={4} medium={3} xsmall={4} uniqueClassName="hide-small">
+                    <Col large={4} medium={3} xsmall={4} className="hide-small">
                         Large: 33.3%<br />
                         Medium: 25%<br />
                         Small: hidden<br />

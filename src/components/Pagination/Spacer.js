@@ -13,12 +13,12 @@ export default class Spacer extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['pagination', 'spacer']
+        elementClassName: ['pagination', 'spacer']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -31,7 +31,7 @@ export default class Spacer extends Component {
 
         return (
             <li>
-                <span className={this.formatClass(props.className)}>
+                <span className={this.formatClass(props.elementClassName)}>
                     {props.children}
                 </span>
             </li>

@@ -14,12 +14,13 @@ export default class Item extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['drop', 'item']
+        elementClassName: ['drop', 'item']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -34,7 +35,7 @@ export default class Item extends Component {
 
         return (
             <li
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'has-children': nested
                 })}
                 aria-haspopup={nested}

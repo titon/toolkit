@@ -11,11 +11,12 @@ import states from '../../prop-types/states';
 
 export default class Bar extends Component {
     static defaultProps = {
-        className: ['progress', 'bar']
+        elementClassName: ['progress', 'bar']
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         percent: PropTypes.number.isRequired,
         state: states
     };
@@ -30,7 +31,7 @@ export default class Bar extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     ['is-' + props.state]: Boolean(props.state)
                 })}
                 style={{ width: props.percent + '%' }}

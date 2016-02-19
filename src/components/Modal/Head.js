@@ -13,12 +13,13 @@ export default class Head extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['modal', 'head']
+        elementClassName: ['modal', 'head']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -32,7 +33,7 @@ export default class Head extends Component {
         return (
             <div
                 id={this.formatID('modal-title')}
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

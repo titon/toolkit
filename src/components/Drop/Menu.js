@@ -17,15 +17,15 @@ export default class Menu extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'drop',
+        elementClassName: 'drop',
         modifier: 'down',
         nested: false
     };
 
     static propTypes = {
         children: children(Divider, Header, Item),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         modifier: PropTypes.oneOf(['up', 'down', 'left', 'right']),
         reverse: PropTypes.bool,
         nested: PropTypes.bool
@@ -44,7 +44,7 @@ export default class Menu extends Component {
             <div
                 role="menu"
                 id={props.nested ? null : this.formatID('drop-menu')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     ['@up']: (modifier === 'up'),
                     ['@down']: (modifier === 'down'),
                     ['@left']: (modifier === 'left'),

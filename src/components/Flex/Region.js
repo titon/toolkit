@@ -12,13 +12,13 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Region extends Component {
     static defaultProps = {
-        className: 'region'
+        elementClassName: 'region'
     };
 
     static propTypes = {
         children: children(Block),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         wrap: PropTypes.bool,
         grid: PropTypes.bool,
         flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
@@ -35,7 +35,7 @@ export default class Region extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     '@wrap': props.wrap,
                     '@grid': props.grid,
                     ['@' + props.orientation]: Boolean(props.orientation),

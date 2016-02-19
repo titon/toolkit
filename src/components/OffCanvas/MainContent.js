@@ -13,13 +13,13 @@ export default class MainContent extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['off-canvas', 'content']
+        elementClassName: ['off-canvas', 'content']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -33,7 +33,7 @@ export default class MainContent extends Component {
         return (
             <main
                 role="main"
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

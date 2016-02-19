@@ -21,7 +21,7 @@ export default class Modal extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'modal',
+        elementClassName: 'modal',
         outerClassName: ['modal', 'outer'],
         innerClassName: ['modal', 'inner'],
         closeClassName: ['modal', 'close'],
@@ -35,10 +35,10 @@ export default class Modal extends Component {
     };
 
     static propTypes = {
-        children: children(Body, Head, Foot),
         factory: PropTypes.instanceOf(Factory).isRequired,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        children: children(Body, Head, Foot),
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         outerClassName: cssClass.isRequired,
         innerClassName: cssClass.isRequired,
         closeClassName: cssClass.isRequired,
@@ -176,7 +176,7 @@ export default class Modal extends Component {
             <div
                 role="dialog"
                 id={this.formatID('modal')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-expanded': true,
                     'is-fullscreen': props.fullScreen,
                     'is-loading': props.loading,
@@ -194,13 +194,14 @@ export default class Modal extends Component {
                         {props.children}
                     </div>
 
-                    {props.closeable &&
+                    {props.closeable && (
                         <button
                             type="button" role="button"
                             className={this.formatClass(props.closeClassName)}
                             onClick={this.hideModal}>
                             {props.close}
-                        </button>}
+                        </button>
+                    )}
                 </div>
             </div>
         );

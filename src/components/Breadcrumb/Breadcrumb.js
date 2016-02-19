@@ -12,14 +12,14 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Breadcrumb extends Component {
     static defaultProps = {
-        className: 'breadcrumb',
+        elementClassName: 'breadcrumb',
         label: 'Navigation'
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         label: PropTypes.string
     };
 
@@ -44,7 +44,7 @@ export default class Breadcrumb extends Component {
             <nav
                 role="navigation"
                 id={this.formatID('breadcrumb')}
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 aria-label={props.label}
                 {...this.inheritNativeProps(props)}>
 

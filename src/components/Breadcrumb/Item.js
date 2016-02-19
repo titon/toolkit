@@ -10,13 +10,14 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Item extends Component {
     static defaultProps = {
-        className: ['breadcrumb', 'item'],
+        elementClassName: ['breadcrumb', 'item'],
         caret: '/'
     };
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         caret: PropTypes.node
     };
 
@@ -30,7 +31,7 @@ export default class Item extends Component {
 
         return (
             <li>
-                <a className={this.formatClass(props.className)}
+                <a className={this.formatClass(props.elementClassName, props.className)}
                     {...this.inheritNativeProps(props)}>
                     {props.children}
                     <span className="caret">{props.caret}</span>

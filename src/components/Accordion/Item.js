@@ -19,6 +19,7 @@ export default class Item extends Component {
 
     static propTypes = {
         children: PropTypes.node,
+        className: PropTypes.string,
         index: PropTypes.number.isRequired,
         header: PropTypes.node.isRequired,
         headerClassName: cssClass,
@@ -94,7 +95,7 @@ export default class Item extends Component {
             expanded = this.state.expanded;
 
         return (
-            <li>
+            <li className={props.className}>
                 <Header
                     className={props.headerClassName}
                     index={props.index}

@@ -13,11 +13,12 @@ export default class Divider extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['drop', 'divider']
+        elementClassName: ['drop', 'divider']
     };
 
     static propTypes = {
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -31,7 +32,7 @@ export default class Divider extends Component {
         return (
             <li
                 role="separator"
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)} />
         );
     }

@@ -21,7 +21,7 @@ export default class OffCanvas extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['off-canvas'],
+        elementClassName: ['off-canvas'],
         animation: 'push',
         multiple: true,
         showOnLoad: false,
@@ -31,8 +31,8 @@ export default class OffCanvas extends Component {
 
     static propTypes = {
         children: children(MainContent, Sidebar),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         animation: PropTypes.oneOf([
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
@@ -248,7 +248,7 @@ export default class OffCanvas extends Component {
             <Swipe {...swipeProps}>
                 <div
                     id={this.formatID('off-canvas')}
-                    className={this.formatClass(props.className, {
+                    className={this.formatClass(props.elementClassName, props.className, {
                         [props.animation]: true,
                         'move-left': this.isSidebarActive('right'),
                         'move-right': this.isSidebarActive('left')

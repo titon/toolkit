@@ -17,7 +17,7 @@ export default class Pagination extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'pagination',
+        elementClassName: 'pagination',
         currentPage: 1,
         showControls: false,
         edges: 5,
@@ -32,10 +32,10 @@ export default class Pagination extends Component {
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         itemClassName: cssClass,
         spacerClassName: cssClass,
-        uniqueClassName: cssClass,
         totalPages: PropTypes.number.isRequired,
         currentPage: PropTypes.number,
         showControls: PropTypes.bool,
@@ -335,7 +335,7 @@ export default class Pagination extends Component {
             <nav
                 role="navigation"
                 id={this.formatID('pagination')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     '@grouped': props.grouped
                 })}
                 aria-label={props.label}

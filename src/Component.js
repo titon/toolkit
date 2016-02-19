@@ -8,7 +8,6 @@ import React, { Children, PropTypes } from 'react';
 import Titon from './Titon';
 import ClassBuilder from './utility/ClassBuilder';
 import assign from 'lodash/assign';
-import cssClass from './prop-types/cssClass';
 import generateUID from './utility/generateUID';
 import omit from 'lodash/omit';
 import wrapFunctions from './utility/wrapFunctions';
@@ -20,8 +19,7 @@ export default class Component extends React.Component {
     };
 
     static propTypes = {
-        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-        uniqueClassName: cssClass
+        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
     };
 
     state = {};
@@ -92,11 +90,6 @@ export default class Component extends React.Component {
                 }
             }
         });
-
-        // A special edge case here that should only apply to top-level components
-        if (typeof this.props.uniqueClassName !== 'undefined') {
-            builder.add(this.props.uniqueClassName, '', '', false);
-        }
 
         return builder.toString();
     }
@@ -243,7 +236,7 @@ export default class Component extends React.Component {
                     mergedValue = wrapFunctions(newValue, oldValue);
 
                 // Append the new class name
-                } else if (key === 'className' || key === 'uniqueClassName') {
+                } else if (key === 'className' || key.match(/^[a-zA-Z]ClassName$/)) {
                     mergedValue = oldValue + ' ' + newValue;
                 }
 

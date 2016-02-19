@@ -16,7 +16,7 @@ const abs = Math.abs;
 @bind
 export default class Swipe extends Component {
     static defaultProps = {
-        className: ['event', 'swipe'],
+        elementClassName: ['event', 'swipe'],
         enabled: true,
         draggable: true,            // TODO
         duration: 1000,             // Maximum time in milliseconds to travel
@@ -26,7 +26,8 @@ export default class Swipe extends Component {
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         enabled: PropTypes.bool.isRequired,
         draggable: PropTypes.bool,
         duration: PropTypes.number,
@@ -232,25 +233,26 @@ export default class Swipe extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = {
-            className: this.formatClass(this.props.className, {
-                'is-swiping': this.state.swiping
-            })
-        };
+        let props = this.props,
+            swipeProps = {
+                className: this.formatClass(props.elementClassName, props.className, {
+                    'is-swiping': this.state.swiping
+                })
+            };
 
-        if (this.props.enabled) {
+        if (props.enabled) {
             if (TOUCH) {
-                props.onTouchStart = this.handleOnStart;
-                props.onTouchEnd = this.handleOnStop;
-                props.onTouchMove = this.handleOnMove;
-                props.onTouchCancel = this.handleOnCancel;
+                swipeProps.onTouchStart = this.handleOnStart;
+                swipeProps.onTouchEnd = this.handleOnStop;
+                swipeProps.onTouchMove = this.handleOnMove;
+                swipeProps.onTouchCancel = this.handleOnCancel;
             } else {
-                props.onMouseDown = this.handleOnStart;
-                props.onMouseUp = this.handleOnStop;
-                props.onMouseMove = this.handleOnMove;
+                swipeProps.onMouseDown = this.handleOnStart;
+                swipeProps.onMouseUp = this.handleOnStop;
+                swipeProps.onMouseMove = this.handleOnMove;
             }
         }
 
-        return this.transferToChild(this.props.children, props);
+        return this.transferToChild(props.children, swipeProps);
     }
 }

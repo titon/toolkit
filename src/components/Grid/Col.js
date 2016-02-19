@@ -11,13 +11,13 @@ import range from '../../prop-types/range';
 
 export default class Col extends Component {
     static defaultProps = {
-        className: 'col'
+        elementClassName: 'col'
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
 
         // This is ugly, a better way?
         span: range.span12,
@@ -65,7 +65,7 @@ export default class Col extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className, classes)}
+                className={this.formatClass(props.elementClassName, props.className, classes)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

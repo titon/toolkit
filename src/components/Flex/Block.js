@@ -11,13 +11,13 @@ import range from '../../prop-types/range';
 
 export default class Block extends Component {
     static defaultProps = {
-        className: 'block'
+        elementClassName: 'block'
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         order: PropTypes.number,
         grow: PropTypes.number,
         shrink: PropTypes.number,
@@ -52,7 +52,7 @@ export default class Block extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className, classes)}
+                className={this.formatClass(props.elementClassName, props.className, classes)}
                 style={{
                     order: (typeof order === 'number' && order >= 0) ? order : null,
                     flexGrow: (typeof grow === 'number' && grow >= 0) ? grow : null,

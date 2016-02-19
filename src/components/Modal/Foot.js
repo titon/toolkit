@@ -13,12 +13,13 @@ export default class Foot extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['modal', 'foot']
+        elementClassName: ['modal', 'foot']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -31,7 +32,7 @@ export default class Foot extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

@@ -12,7 +12,7 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Progress extends Component {
     static defaultProps = {
-        className: 'progress',
+        elementClassName: 'progress',
         max: 100,
         min: 0,
         now: 0
@@ -20,8 +20,8 @@ export default class Progress extends Component {
 
     static propTypes = {
         children: children(Bar),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         max: PropTypes.number,
         min: PropTypes.number,
         now: PropTypes.number
@@ -40,7 +40,7 @@ export default class Progress extends Component {
         return (
             <div
                 role="progressbar"
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 aria-valuemin={min}
                 aria-valuemax={max}
                 aria-valuenow={Math.min(Math.max(props.now, min), max)}

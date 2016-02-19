@@ -13,12 +13,13 @@ export default class Item extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['carousel', 'item']
+        elementClassName: ['carousel', 'item']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired
     };
 
@@ -35,7 +36,7 @@ export default class Item extends Component {
         return (
             <li role="tabpanel"
                 id={this.formatID('carousel-item', index)}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-active': active
                 })}
                 aria-hidden={!active}

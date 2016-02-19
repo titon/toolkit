@@ -14,12 +14,12 @@ export default class Group extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['radio', 'group']
+        elementClassName: ['radio', 'group']
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired,
         defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     };
@@ -84,7 +84,7 @@ export default class Group extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

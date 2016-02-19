@@ -20,13 +20,14 @@ export default class ItemList extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['carousel', 'items'],
+        elementClassName: ['carousel', 'items'],
         swipe: TOUCH
     };
 
     static propTypes = {
         children: children(Item),
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         swipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onSwipe: collection.func,
         onSwipeUp: collection.func,
@@ -203,7 +204,7 @@ export default class ItemList extends Component {
         props.onSwipeRight.unshift(context.prevItem);
 
         return (
-            <div className={this.formatClass(this.props.className)}>
+            <div className={this.formatClass(this.props.elementClassName, this.props.className)}>
                 <Swipe {...props}>
                     <ol style={{ transform: this.state.translate }}
                         className={this.state.reset ? 'no-transition' : ''}

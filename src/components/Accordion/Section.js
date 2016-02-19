@@ -14,12 +14,12 @@ export default class Section extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['accordion', 'section']
+        elementClassName: ['accordion', 'section']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        elementClassName: cssClass.isRequired,
         expanded: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired
     };
@@ -39,7 +39,7 @@ export default class Section extends Component {
                 <section
                     role="tabpanel"
                     id={this.formatID('accordion-section', index)}
-                    className={this.formatClass(props.className, {
+                    className={this.formatClass(props.elementClassName, {
                         'is-expanded': expanded
                     })}
                     aria-labelledby={this.formatID('accordion-header', index)}

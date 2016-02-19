@@ -15,12 +15,13 @@ export default class Next extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['carousel', 'next']
+        elementClassName: ['carousel', 'next']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         onClick: collection.func
     };
 
@@ -41,14 +42,16 @@ export default class Next extends Component {
      * @returns {ReactElement}
      */
     render() {
+        let props = this.props;
+
         return (
             <button
                 type="button" role="button"
-                className={this.formatClass(this.props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 onClick={this.handleOnClick}
-                {...this.inheritNativeProps(this.props)}>
+                {...this.inheritNativeProps(props)}>
 
-                {this.props.children}
+                {props.children}
             </button>
         );
     }

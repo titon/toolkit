@@ -13,12 +13,13 @@ export default class Target extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['mask', 'target']
+        elementClassName: ['mask', 'target']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     state = {
@@ -60,7 +61,7 @@ export default class Target extends Component {
         return (
             <div
                 id={this.formatID('mask-target')}
-                className={this.formatClass(this.props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-masked': expanded
                 })}
                 aria-controls={this.formatID('mask-overlay')}

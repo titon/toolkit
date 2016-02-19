@@ -15,11 +15,12 @@ export default class TabList extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['carousel', 'tabs']
+        elementClassName: ['carousel', 'tabs']
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         tabClassName: cssClass,
         onClick: collection.func
     };
@@ -45,7 +46,7 @@ export default class TabList extends Component {
 
         return (
             <nav
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 <ol>

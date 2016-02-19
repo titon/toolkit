@@ -14,16 +14,16 @@ export default class Radio extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'radio',
+        elementClassName: 'radio',
         toggleClassName: ['radio', 'toggle'],
         disabled: false,
         required: false
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         toggleClassName: cssClass.isRequired,
-        uniqueClassName: cssClass,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
@@ -81,7 +81,7 @@ export default class Radio extends Component {
         return (
             <span
                 id={this.formatID('radio', id)}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-checked': state.checked,
                     'is-disabled': props.disabled,
                     'is-required': props.required

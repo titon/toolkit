@@ -10,13 +10,13 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Divider extends Component {
     static defaultProps = {
-        className: 'divider'
+        elementClassName: 'divider'
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -30,7 +30,7 @@ export default class Divider extends Component {
         return (
             <div
                 role="separator"
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 <span>{props.children}</span>

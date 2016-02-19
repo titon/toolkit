@@ -10,14 +10,14 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Item extends Component {
     static defaultProps = {
-        className: ['step', 'item'],
+        elementClassName: ['step', 'item'],
         complete: false
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         complete: PropTypes.bool
     };
 
@@ -33,7 +33,7 @@ export default class Item extends Component {
             <li>
                 <button
                     type="button" role="button"
-                    className={this.formatClass(props.className, {
+                    className={this.formatClass(props.elementClassName, props.className, {
                         'is-complete': props.complete
                     })}
                     {...this.inheritNativeProps(props)}>

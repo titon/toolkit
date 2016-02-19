@@ -17,7 +17,7 @@ export default class Carousel extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'carousel',
+        elementClassName: 'carousel',
         modifier: 'slide',
         duration: 5000,
         toCycle: 1,
@@ -32,8 +32,8 @@ export default class Carousel extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
         duration: PropTypes.number,
         toCycle: PropTypes.number,
@@ -426,7 +426,7 @@ export default class Carousel extends Component {
             <div
                 role="tablist"
                 id={this.formatID('carousel')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     ['@' + props.modifier]: true,
                     'is-stopped': this.state.stopped,
                     'is-animating': this.state.animating,

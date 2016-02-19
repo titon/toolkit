@@ -12,13 +12,13 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Row extends Component {
     static defaultProps = {
-        className: 'row'
+        elementClassName: 'row'
     };
 
     static propTypes = {
         children: children(Col),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -31,7 +31,7 @@ export default class Row extends Component {
 
         return (
             <div
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

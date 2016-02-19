@@ -11,9 +11,9 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Switch extends Component {
     static defaultProps = {
-        className: 'switch',
-        barClassName: ['switch', 'bar'],
+        elementClassName: 'switch',
         toggleClassName: ['switch', 'toggle'],
+        barClassName: ['switch', 'bar'],
         stacked: false,
         disabled: false,
         required: false,
@@ -21,9 +21,10 @@ export default class Switch extends Component {
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         toggleClassName: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        barClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired,
         stacked: PropTypes.bool,
         disabled: PropTypes.bool,
@@ -71,7 +72,7 @@ export default class Switch extends Component {
         return (
             <span
                 id={this.formatID('switch', name)}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     '@stacked': props.stacked,
                     'is-checked': state.checked,
                     'is-disabled': props.disabled,

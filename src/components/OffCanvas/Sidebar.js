@@ -14,13 +14,13 @@ export default class Sidebar extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['off-canvas', 'sidebar']
+        elementClassName: ['off-canvas', 'sidebar']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         side: PropTypes.oneOf(['left', 'right']).isRequired,
         onHiding: collection.func,
         onHidden: collection.func,
@@ -94,7 +94,7 @@ export default class Sidebar extends Component {
         return (
             <aside
                 role="complementary"
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     ['@' + props.side]: true,
                     'is-expanded': expanded
                 })}

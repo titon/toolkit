@@ -16,11 +16,11 @@ export default class Tab extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['carousel', 'tab']
+        elementClassName: ['carousel', 'tab']
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
         onClick: collection.func
     };
@@ -50,7 +50,7 @@ export default class Tab extends Component {
                 <button
                     type="button" role="tab"
                     id={this.formatID('carousel-tab', index)}
-                    className={this.formatClass(this.props.className, {
+                    className={this.formatClass(this.props.elementClassName, {
                         'is-active': active
                     })}
                     aria-controls={this.formatID('carousel-item', index)}

@@ -10,7 +10,7 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Button extends Component {
     static defaultProps = {
-        className: 'button',
+        elementClassName: 'button',
         url: '',
         size: '',
         shape: '',
@@ -21,8 +21,8 @@ export default class Button extends Component {
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         url: PropTypes.string,
         size: PropTypes.oneOf(['small', 'large']),
         shape: PropTypes.oneOf(['round', 'oval', 'pill', 'skew']),

@@ -16,12 +16,12 @@ export default class Header extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['accordion', 'header']
+        elementClassName: ['accordion', 'header']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
+        elementClassName: cssClass.isRequired,
         active: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired,
         onClick: collection.func
@@ -53,7 +53,7 @@ export default class Header extends Component {
             <header
                 role="tab"
                 id={this.formatID('accordion-header', index)}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, {
                     'is-active': active
                 })}
                 aria-controls={this.formatID('accordion-section', index)}

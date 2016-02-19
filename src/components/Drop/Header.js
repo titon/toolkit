@@ -13,12 +13,13 @@ export default class Header extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: ['drop', 'header']
+        elementClassName: ['drop', 'header']
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     /**
@@ -31,7 +32,7 @@ export default class Header extends Component {
 
         return (
             <li
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

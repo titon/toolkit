@@ -14,13 +14,13 @@ export default class Mask extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'mask'
+        elementClassName: 'mask'
     };
 
     static propTypes = {
         children: PropTypes.node,
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass
+        className: cssClass,
+        elementClassName: cssClass.isRequired
     };
 
     state = {
@@ -105,7 +105,7 @@ export default class Mask extends Component {
         return (
             <div
                 id={this.formatID('mask')}
-                className={this.formatClass(props.className)}
+                className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}

@@ -12,7 +12,7 @@ import invariant from '../../utility/invariant';
 
 export default class Checkbox extends Component {
     static defaultProps = {
-        className: 'checkbox',
+        elementClassName: 'checkbox',
         toggleClassName: ['checkbox', 'toggle'],
         disabled: false,
         required: false,
@@ -21,9 +21,9 @@ export default class Checkbox extends Component {
     };
 
     static propTypes = {
-        className: cssClass.isRequired,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         toggleClassName: cssClass.isRequired,
-        uniqueClassName: cssClass,
         name: PropTypes.string.isRequired,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
@@ -80,7 +80,7 @@ export default class Checkbox extends Component {
         return (
             <span
                 id={this.formatID('checkbox', id)}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-checked': state.checked,
                     'is-disabled': props.disabled,
                     'is-required': props.required

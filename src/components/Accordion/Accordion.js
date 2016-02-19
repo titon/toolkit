@@ -17,7 +17,7 @@ export default class Accordion extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        className: 'accordion',
+        elementClassName: 'accordion',
         defaultIndex: 0,
         multiple: false,
         collapsible: false
@@ -25,8 +25,8 @@ export default class Accordion extends Component {
 
     static propTypes = {
         children: children(Item),
-        className: cssClass.isRequired,
-        uniqueClassName: cssClass,
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         defaultIndex: collection.number,
         multiple: PropTypes.bool,
         collapsible: PropTypes.bool
@@ -177,7 +177,7 @@ export default class Accordion extends Component {
         return (
             <ul role="tablist"
                 id={this.formatID('accordion')}
-                className={this.formatClass(props.className, {
+                className={this.formatClass(props.elementClassName, props.className, {
                     'is-multiple': props.multiple,
                     'is-collapsible': props.collapsible
                 })}
