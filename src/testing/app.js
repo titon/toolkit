@@ -64,7 +64,7 @@ const accordionMarkup = (
 
 
 const breadcrumbMarkup = (
-    <Breadcrumb uniqueClassName="navigation" size="large">
+    <Breadcrumb uniqueClassName="navigation">
         <Breadcrumb.Item href="#" onClick={log}>Foo</Breadcrumb.Item>
         <Breadcrumb.Item href="#" onClick={log}>Bar</Breadcrumb.Item>
         <Breadcrumb.Item href="#" onClick={log}>Baz</Breadcrumb.Item>
@@ -333,7 +333,7 @@ const progressMarkup = (
             <Progress.Bar percent={75} />
         </Progress>
 
-        <Progress now={61} size="large">
+        <Progress now={61}>
             <Progress.Bar percent={12} state="error" />
             <Progress.Bar percent={49} state="success" />
         </Progress>

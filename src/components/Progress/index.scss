@@ -22,24 +22,4 @@
         transition: width map-get($titon-progress, "transition"), background map-get($titon-progress, "transition");
         background: #fff;
     }
-
-    //----- Sizes ------//
-
-    #{map-get($titon-progress, "class")} {
-        @include is-size-small {
-            #{map-get($titon-progress, "class-bar")} {
-                height: 1rem;
-                line-height: 1rem;
-                font-size: theme-setting("small-font-size");
-            }
-        }
-
-        @include is-size-large {
-            #{map-get($titon-progress, "class-bar")} {
-                height: 2rem;
-                line-height: 2rem;
-                font-size: theme-setting("large-font-size");
-            }
-        }
-    }
 }

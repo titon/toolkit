@@ -8,7 +8,7 @@
     #{map-get($titon-breadcrumb, "class")} {
         ol {
             @extend %placeholder-list;
-            display: inline-flex;
+            display: flex;
         }
 
         li {
@@ -20,28 +20,14 @@
                 }
             }
         }
+    }
 
-        a {
-            @include size-medium;
-            display: inline-block;
-        }
+    #{map-get($titon-breadcrumb, "class-item")} {
+        @include size-medium;
+        display: inline-block;
 
         .caret {
             vertical-align: middle;
-        }
-
-        //----- Sizes -----//
-
-        @include is-size-small {
-            a {
-                @include size-small;
-            }
-        }
-
-        @include is-size-large {
-            a {
-                @include size-large;
-            }
         }
     }
 }

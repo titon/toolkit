@@ -67,36 +67,4 @@
             background: #fff;
         }
     }
-
-    //-------------------- Sizes --------------------//
-
-    #{map-get($titon-table, "class")} {
-        @include is-size-small {
-            th,
-            td {
-                padding: theme-setting("small-padding");
-            }
-
-            &.is-sortable thead th {
-                > a,
-                > span {
-                    padding: theme-setting("small-padding");
-                }
-            }
-        }
-
-        @include is-size-large {
-            th,
-            td {
-                padding: theme-setting("large-padding");
-            }
-
-            &.is-sortable thead th {
-                > a,
-                > span {
-                    padding: theme-setting("large-padding");
-                }
-            }
-        }
-    }
 }

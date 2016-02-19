@@ -7,7 +7,6 @@
 @include export("switch") {
     #{map-get($titon-switch, "class")} {
         @extend %placeholder-inline-block;
-        font-size: 0;
         width: 7rem;
         cursor: pointer;
 

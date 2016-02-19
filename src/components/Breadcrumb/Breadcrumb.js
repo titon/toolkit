@@ -20,8 +20,7 @@ export default class Breadcrumb extends Component {
         children: children(Item),
         className: cssClass.isRequired,
         uniqueClassName: cssClass,
-        label: PropTypes.string,
-        size: PropTypes.oneOf(['small', 'large'])
+        label: PropTypes.string
     };
 
     /**
@@ -43,11 +42,9 @@ export default class Breadcrumb extends Component {
 
         return (
             <nav
-                id={this.formatID('breadcrumb')}
-                className={this.formatClass(props.className, {
-                    ['@' + props.size]: Boolean(props.size)
-                })}
                 role="navigation"
+                id={this.formatID('breadcrumb')}
+                className={this.formatClass(props.className)}
                 aria-label={props.label}
                 {...this.inheritNativeProps(props)}>
 

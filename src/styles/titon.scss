@@ -170,6 +170,7 @@ $titon-accordion: (
 
 $titon-breadcrumb: (
     "class": bem("breadcrumb"),
+    "class-item": bem("breadcrumb", "item"),
 ) !default;
 
 $titon-blackout: (

@@ -22,7 +22,6 @@ export default class Progress extends Component {
         children: children(Bar),
         className: cssClass.isRequired,
         uniqueClassName: cssClass,
-        size: PropTypes.oneOf(['small', 'large']),
         max: PropTypes.number,
         min: PropTypes.number,
         now: PropTypes.number
@@ -41,9 +40,7 @@ export default class Progress extends Component {
         return (
             <div
                 role="progressbar"
-                className={this.formatClass(props.className, {
-                    ['@' + props.size]: Boolean(props.size)
-                })}
+                className={this.formatClass(props.className)}
                 aria-valuemin={min}
                 aria-valuemax={max}
                 aria-valuenow={Math.min(Math.max(props.now, min), max)}

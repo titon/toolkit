@@ -32,7 +32,6 @@ export default class Pagination extends Component {
     };
 
     static propTypes = {
-        children: PropTypes.node,
         className: cssClass.isRequired,
         itemClassName: cssClass,
         spacerClassName: cssClass,
@@ -345,8 +344,6 @@ export default class Pagination extends Component {
                 <ol>
                     {items}
                 </ol>
-
-                {props.children}
             </nav>
         );
     }
