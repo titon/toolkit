@@ -314,12 +314,14 @@ const offCanvasMarkup = (
 
 const paginationMarkup = (
     <div>
-        <Pagination totalPages={33} url="?page={{page}}" />
-        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} />
-        <Pagination totalPages={8} url="?page={{page}}" showControls={true} />
+        <Pagination totalPages={33} url="?page={{page}}" /> <br />
+        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} /> <br />
+        <Pagination totalPages={8} url="?page={{page}}" showControls={true} /> <br />
 
-        <Pagination totalPages={33} url="?page={{page}}" format="spaced" />
-        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} format="spaced" />
+        <br />
+
+        <Pagination totalPages={33} url="?page={{page}}" format="spaced" /> <br />
+        <Pagination totalPages={33} url="?page={{page}}" currentPage={17} format="spaced" /> <br />
         <Pagination totalPages={8} url="?page={{page}}" showControls={true} format="spaced" />
     </div>
 );
@@ -366,7 +368,7 @@ const stepMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {stepMarkup}
+        {paginationMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

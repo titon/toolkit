@@ -46,16 +46,17 @@ export default class Item extends Component {
             key = this._reactInternalInstance._currentElement.key; // TODO Change?
 
         return (
-            <li
-                className={this.formatClass(props.className, {
-                    'is-active': (key.match(/\d/) && context.currentPage === page),
-                    'is-first': (key === 'first'),
-                    'is-last': (key === 'last'),
-                    'is-prev': (key === 'prev'),
-                    'is-next': (key === 'next')
-                })}>
+            <li>
+                <a href={context.url.replace('{{page}}', page)}
+                    className={this.formatClass(props.className, {
+                        'is-active': (key.match(/\d/) && context.currentPage === page),
+                        'is-first': (key === 'first'),
+                        'is-last': (key === 'last'),
+                        'is-prev': (key === 'prev'),
+                        'is-next': (key === 'next')
+                    })}
+                    onClick={this.handleOnClick}>
 
-                <a href={context.url.replace('{{page}}', page)} onClick={this.handleOnClick}>
                     {props.children || page}
                 </a>
             </li>

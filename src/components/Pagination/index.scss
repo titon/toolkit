@@ -5,35 +5,30 @@
  */
 
 @include export("pagination") {
-    $titon-temp-pagination-modifiers: map-get($titon-pagination, "modifiers");
-
     #{map-get($titon-pagination, "class")} {
+        display: inline-block;
+
         ol {
             @extend %placeholder-list;
-            display: inline-flex;
+            display: flex;
         }
     }
 
     #{map-get($titon-pagination, "class-item")},
     #{map-get($titon-pagination, "class-spacer")} {
         position: relative;
-
-        a,
-        span {
-            display: inline-block;
-            padding: theme-setting("medium-padding");
-        }
+        display: inline-block;
+        padding: theme-setting("medium-padding");
     }
 
     //-------------------- Modifiers --------------------//
 
-    @if (is-feature-enabled("all-modifiers") or index($titon-temp-pagination-modifiers, "grouped")) {
+    @if (is-feature-enabled("all-modifiers") or index(map-get($titon-pagination, "modifiers"), "grouped")) {
         #{map-get($titon-pagination, "class-modifier-grouped")} {
             #{map-get($titon-pagination, "class-item")} {
                 flex-grow: 1;
                 z-index: 0;
 
-                a:hover,
                 &:hover,
                 &.is-active {
                     z-index: 1;

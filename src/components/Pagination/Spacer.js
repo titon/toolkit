@@ -30,8 +30,10 @@ export default class Spacer extends Component {
         let props = this.props;
 
         return (
-            <li className={this.formatClass(props.className)}>
-                <span>{props.children}</span>
+            <li>
+                <span className={this.formatClass(props.className)}>
+                    {props.children}
+                </span>
             </li>
         );
     }
