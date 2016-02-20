@@ -48,6 +48,8 @@ const Titon = Object.freeze({
     flags
 });
 
-window.Titon = Titon;
+if (window) {
+    window.Titon = Titon;
+}
 
 export default Titon;
