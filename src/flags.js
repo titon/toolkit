@@ -4,28 +4,40 @@
  * @link        http://titon.io
  */
 
-// Is the device in landscape mode
+import { ENV } from './constants';
+
+// Is the device in landscape mode?
 export const LANDSCAPE = (window.innerWidth > window.innerHeight);
 
-// Is the device in portrait mode
+// Or is the device in portrait mode?
 export const PORTRAIT = !LANDSCAPE;
 
-// Does the device support retina display
+// Does the device support retina display?
 export const RETINA = (window.devicePixelRatio > 1);
 
-// Is the HTML document currently set to RTL mode
-export const RTL = (document.documentElement.dir === 'rtl');
-
-// Does the device support touch controls
+// Does the device support touch controls?
 export const TOUCH = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-// Export all as an object
-const flags = Object.freeze({
+// Is the HTML document currently set to RTL mode?
+export const RTL = (document.documentElement.dir === 'rtl');
+
+// Or is it set to LTR mode?
+export const LTR = !RTL;
+
+// Is the environment development?
+export const DEV = (ENV === 'development' || ENV === 'develop' || ENV === 'dev');
+
+// Or is the environment production?
+export const PROD = (ENV === 'production' || ENV === 'prod');
+
+// Export as an object
+export default Object.freeze({
     landscape: LANDSCAPE,
     portrait: PORTRAIT,
     retina: RETINA,
+    touch: TOUCH,
     rtl: RTL,
-    touch: TOUCH
+    ltr: LTR,
+    dev: DEV,
+    prop: PROD
 });
-
-export default flags;

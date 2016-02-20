@@ -5,8 +5,7 @@
  */
 
 import Titon from '../Titon';
-
-const ENV = process.env.NODE_ENV || 'production';
+import { DEV, PROD } from '../flags';
 
 /**
  * Asserts that a condition is true or throws an error otherwise.
@@ -39,11 +38,11 @@ export default function invariant(condition, message = '', ...params) {
     error.framesToPop = 1;
 
     // Log the error in production
-    if (ENV === 'production') {
+    if (PROD) {
         Titon.options.logger(error);
 
     // Throw the error in development
-    } else {
+    } else if (DEV) {
         throw error;
     }
 }
