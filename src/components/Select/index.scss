@@ -5,6 +5,24 @@
  */
 
 @include export("select") {
+    #{map-get($titon-select, "class")} {
+        @extend %placeholder-inline-block;
+
+        select {
+            @extend %placeholder-position-absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        // Position the real select over the custom one
+        &.is-native {
+            select {
+                z-index: 5;
+            }
+        }
+    }
+
     #{map-get($titon-select, "class-toggle")} {
         @extend %placeholder-inline-block;
         cursor: pointer;
@@ -14,14 +32,16 @@
         line-height: 1;
         z-index: 3;
         display: flex;
-        @include size-medium;
     }
 
     #{map-get($titon-select, "class-label")} {
+        @include size-medium;
         flex-grow: 1;
     }
 
     #{map-get($titon-select, "class-arrow")} {
+        @include size-medium;
+
         .caret-down {
             border-top-color: #000;
         }
@@ -52,18 +72,6 @@
             li:first-child:not(#{map-get($titon-drop, "class-heading")}) {
                 display: none !important;
             }
-        }
-    }
-
-    // Position the real select over the custom one
-    #{map-get($titon-select, "class")} {
-        @extend %placeholder-inline-block;
-
-        select {
-            @extend %placeholder-position-absolute;
-            z-index: 5;
-            opacity: 0;
-            width: 100%;
         }
     }
 }

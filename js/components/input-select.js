@@ -42,12 +42,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
             return;
         }
 
-        // Wrapping element
-        this.wrapper = this._buildWrapper();
-
-        // Button element to open the drop menu
-        this.input = this._buildButton();
-
         // Initialize events
         this.addEvent('change', 'element', 'onChange');
 
@@ -110,25 +104,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
         this.dropdown.reveal();
 
         this.fireEvent('shown');
-    },
-
-    /**
-     * Build the element to represent the select button with label and arrow.
-     *
-     * @returns {jQuery}
-     */
-    _buildButton: function() {
-        var options = this.options,
-            button = this.render(options.selectTemplate)
-                .find(this.ns('arrow', 'select')).html(this.render(options.arrowTemplate)).end()
-                .find(this.ns('label', 'select')).html(Toolkit.messages.loading).end()
-                .css('min-width', this.element.width())
-                .insertAfter(this.element);
-
-        // Update the height of the native select input
-        this.element.css('min-height', button.outerHeight());
-
-        return button;
     },
 
     /**
@@ -453,23 +428,7 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
     hideSelected: false,
     getDefaultLabel: 'title',
     getOptionLabel: 'title',
-    getDescription: 'data-description',
-    selectTemplate: function(bem) {
-        return '<div class="' + bem('select') + '" data-select>' +
-            '<div class="' + bem('select', 'arrow') + '" data-select-arrow></div>' +
-            '<div class="' + bem('select', 'label') + '" data-select-label></div>' +
-            '</div>';
-    },
-    arrowTemplate: '<span class="caret-down"></span>',
-    optionsTemplate: function(bem) {
-        return '<div class="' + bem('drop') + ' ' + bem('drop', '', 'down') + ' ' + bem('select', 'options') + '" data-select-options></div>';
-    },
-    headingTemplate: function(bem) {
-        return '<li class="' + bem('drop', 'heading') + '"></li>';
-    },
-    descTemplate: function(bem) {
-        return '<span class="' + bem('drop', 'desc') + '"></span>';
-    }
+    getDescription: 'data-description'
 });
 
 Toolkit.createPlugin('inputSelect', function(options) {

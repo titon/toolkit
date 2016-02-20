@@ -33,7 +33,7 @@ export default class Checkbox extends Component {
     };
 
     /**
-     * Validate props.
+     * Validate props and setup state.
      *
      * @param {Object} props
      */
@@ -44,7 +44,6 @@ export default class Checkbox extends Component {
             invariant(Boolean(props.defaultValue), 'A value is required when using `multiple` checkboxes.');
         }
 
-        // Build the state here instead of using ES7 properties
         this.state = {
             value: props.defaultValue || 1,
             checked: props.defaultChecked

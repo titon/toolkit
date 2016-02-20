@@ -16,6 +16,7 @@ import OffCanvas from '../components/OffCanvas';
 import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
 import Radio from '../components/Radio';
+import Select from '../components/Select';
 import Step from '../components/Step';
 import Switch from '../components/Switch';
 
@@ -350,6 +351,29 @@ const radioMarkup = (
     </div>
 );
 
+const selectMarkup = (
+    <div>
+        <Select name="foo" options={{
+            'One Piece': {
+                0: 'Luffy',
+                1: 'Zoro',
+                2: 'Sanji',
+                3: 'Franky',
+                4: 'Chopper',
+                5: 'Brook',
+                6: 'Nami',
+                7: 'Usopp',
+                8: 'Nico Robin'
+            },
+            'Naruto': {
+                9: 'Naruto',
+                10: 'Sasuke',
+                11: 'Sakura'
+            }
+        }} native={true} />
+    </div>
+);
+
 const stepMarkup = (
     <div>
         <Step>
@@ -378,7 +402,7 @@ const switchMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {switchMarkup}
+        {selectMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
