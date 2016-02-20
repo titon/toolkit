@@ -6,7 +6,7 @@
     \/_/   \/_____/ \/_____/ \/_____/ \/_/\/_/ \/_/   \/_/
 ```
 
-# Titon Toolkit v2.1.7 #
+# Titon Toolkit v3.0.0 (IN DEVELOPMENT) #
 [![Project Titon](https://img.shields.io/badge/project-titon-82667d.svg?style=flat)](http://titon.io)
 [![Build Status](https://img.shields.io/travis/titon/toolkit.svg?style=flat)](https://travis-ci.org/titon/toolkit)
 [![NPM Version](https://img.shields.io/npm/v/titon-toolkit.svg?style=flat)](https://npmjs.com/package/titon-toolkit)
@@ -14,9 +14,9 @@
 [![Bower Version](https://img.shields.io/bower/v/toolkit.svg?style=flat)](http://bower.io/search/?q=toolkit)
 [![License](https://img.shields.io/packagist/l/titon/toolkit.svg?style=flat)](https://github.com/titon/toolkit/blob/master/license.md)
 
-Titon Toolkit is a collection of very powerful user interface components, behaviors, and utility classes for the responsive, mobile, and modern web. Each component represents encapsulated HTML, CSS, and JavaScript functionality for role specific page elements.
+Titon Toolkit is a collection of very powerful user interface components built on [React](https://facebook.github.io/react/). Components in Titon follow the [presentational paradigm](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0), which provide full control of how, where, and why components are rendered. Functionality within a component, like jumping to the next slide in a carousel, or toggling a menu, is possible through [contexts](https://facebook.github.io/react/docs/context.html) -- a type of public API.
 
-Toolkit makes use of the latest and greatest technology. This includes HTML5 for semantics, CSS3 for animations and styles, Sass for CSS pre-processing, Gulp for task and package management, and powerful new browser APIs for the JavaScript layer.
+## Previous Version 2.1.7 ##
 
 * [Release Notes - 2.1](https://github.com/titon/toolkit/blob/master/docs/en/releases/2.1.md)
 * [Migration Guide - 2.1](https://github.com/titon/toolkit/blob/master/docs/en/migrations/2.1.md)
