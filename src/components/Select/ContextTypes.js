@@ -5,12 +5,15 @@
  */
 
 import { PropTypes } from 'react';
+import SelectPropTypes from './PropTypes';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
     inputName: PropTypes.string,
-    checkedValue: PropTypes.string,
-    selectValue: PropTypes.func
+    options: SelectPropTypes.optionList,
+    selectedValues: PropTypes.arrayOf(PropTypes.string),
+    selectValue: PropTypes.func,
+    multiple: PropTypes.bool
 };
 
 export default CONTEXT_TYPES;

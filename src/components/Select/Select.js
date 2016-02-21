@@ -11,9 +11,12 @@ import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
+import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
 
 export default class Select extends Component {
+    static childContextTypes = CONTEXT_TYPES;
+
     static defaultProps = {
         elementClassName: 'select',
         toggleClassName: ['select', 'toggle'],
@@ -48,7 +51,9 @@ export default class Select extends Component {
         listLimit: PropTypes.number,
         arrow: PropTypes.node,
         defaultLabel: PropTypes.string,
-        defaultValue: collection.string
+        defaultValue: collection.string,
+        onChanging: collection.func,
+        onChanged: collection.func
     };
 
     /**
@@ -69,6 +74,24 @@ export default class Select extends Component {
         };
 
         this.generateUID();
+    }
+
+    /**
+     * Define a context that is passed to all children.
+     *
+     * @returns {Object}
+     */
+    getChildContext() {
+        let { name, options, multiple } = this.props;
+
+        return {
+            uid: this.uid,
+            inputName: name,
+            options,
+            selectedValues: this.state.values,
+            selectValue: this.selectValue,
+            multiple
+        };
     }
 
     /**
@@ -143,7 +166,8 @@ export default class Select extends Component {
     getSelectedLabel() {
         let { values, options } = this.state,
             props = this.props,
-            label = [];
+            label = [],
+            count = 0;
 
         if (!values.length) {
             return props.defaultLabel;
@@ -154,10 +178,9 @@ export default class Select extends Component {
 
             if (typeof option !== 'undefined') {
                 label.push(option.label || option.title);
+                count++;
             }
         });
-
-        let count = label.length;
 
         switch (props.multipleFormat) {
             case 'count':
@@ -179,6 +202,18 @@ export default class Select extends Component {
     }
 
     /**
+     * Select a value or list of values.
+     *
+     * @param {String|String[]} values
+     */
+    @bind
+    selectValue(values) {
+        this.setState({
+            values: Array.isArray(values) ? values : [values]
+        });
+    }
+
+    /**
      * Handler that selects a new value.
      *
      * @param {SyntheticEvent} e
@@ -187,13 +222,10 @@ export default class Select extends Component {
     handleOnChange(e) {
         let values = [];
 
-        Array.from(e.target.selectedOptions).forEach(option => {
-            values.push(option.value);
-        });
+        Array.from(e.target.selectedOptions)
+            .forEach(option => values.push(option.value));
 
-        this.setState({
-            values
-        });
+        this.selectValue(values);
     }
 
     /**
@@ -236,7 +268,7 @@ export default class Select extends Component {
     }
 
     /**
-     * Render the custom select with option dropdown menu.
+     * Render the custom select.
      *
      * @returns {ReactElement}
      */
@@ -244,15 +276,19 @@ export default class Select extends Component {
         let { name, native, multiple, ...props } = this.props,
             state = this.state,
             selected = state.values,
-            id = name;
+            id = name,
+            classProps = {
+                'is-native': native,
+                'is-disabled': props.disabled,
+                'is-required': props.required
+            };
 
         return (
             <span
                 id={this.formatID('select', id)}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    'is-native': native,
-                    'is-multiple': multiple
-                })}
+                    '@multiple': multiple
+                }, classProps)}
                 aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
 
@@ -270,7 +306,7 @@ export default class Select extends Component {
 
                 <label
                     htmlFor={id}
-                    className={this.formatClass(props.toggleClassName)}>
+                    className={this.formatClass(props.toggleClassName, classProps)}>
 
                     <span className={this.formatClass(props.labelClassName)}>
                         {this.getSelectedLabel()}

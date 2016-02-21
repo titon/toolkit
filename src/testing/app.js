@@ -358,7 +358,8 @@ const selectOptions = [
             {
                 value: '0',
                 title: 'Luffy',
-                label: 'Luffy SENPAI'
+                label: 'Luffy SENPAI',
+                description: 'Pirate King'
             }, {
                 value: '1',
                 title: 'Zoro'
@@ -382,7 +383,8 @@ const selectOptions = [
         options: [
             {
                 value: 'naruto',
-                title: 'Naruto'
+                title: 'Naruto',
+                description: 'Hokage'
             }, {
                 value: 'sasuke',
                 title: 'Sasuke'
@@ -400,7 +402,9 @@ const selectMarkup = (
 
         <br />
 
-        <Select name="bar" multiple={true} native={false} defaultValue={['naruto', '1', '6', '4']} options={selectOptions} />
+        <Select name="bar" multiple={true} native={false} defaultValue={['naruto', '1', '6', '4']} options={selectOptions}>
+            <Select.Menu />
+        </Select>
     </div>
 );
 

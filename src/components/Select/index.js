@@ -4,4 +4,14 @@
  * @link        http://titon.io
  */
 
-export default from './Select';
+import Select from './Select';
+import Menu from './Menu';
+import PropTypes from './PropTypes';
+import CONTEXT_TYPES from './ContextTypes';
+
+Select.CONTEXT_TYPES = CONTEXT_TYPES;
+Select.PropTypes = PropTypes;
+Select.Menu = Menu;
+
+export { Menu, PropTypes, CONTEXT_TYPES };
+export default Select;
