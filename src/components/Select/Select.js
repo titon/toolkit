@@ -6,7 +6,9 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import SelectPropTypes from './PropTypes';
 import bind from '../../decorators/bind';
+import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import { TOUCH } from '../../flags';
 
@@ -19,7 +21,8 @@ export default class Select extends Component {
         native: TOUCH,
         disabled: false,
         required: false,
-        arrow: <span className="caret-down" />
+        arrow: <span className="caret-down" />,
+        defaultLabel: 'Select An Option'
     };
 
     static propTypes = {
@@ -29,60 +32,88 @@ export default class Select extends Component {
         labelClassName: cssClass.isRequired,
         arrowClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired,
-        options: PropTypes.object.isRequired,
+        options: SelectPropTypes.optionList.isRequired,
         native: PropTypes.bool,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
         arrow: PropTypes.node,
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        defaultLabel: PropTypes.string,
+        defaultValue: collection.string
     };
 
-    /* eslint react/sort-comp: 0 */
-    options = {};
-
     /**
-     * Map options and setup state.
+     * Map options, values, and setup state.
      *
      * @param {Object} props
      */
     constructor(props) {
         super();
 
-        this.extractOptions(props.options);
-
         this.state = {
-            value: props.defaultValue || null,
-            label: this.options[props.defaultValue] || ''
+            values: this.extractValues(props.defaultValue),
+            options: this.extractOptions(props.options),
+            label: props.defaultLabel
         };
-
-        this.generateUID();
     }
 
     /**
      * Extract the list of options (and nested optgroups) and map them to a key and label.
      *
-     * @param {Object} options
+     * @param {Object[]} options
+     * @returns {Object}
      */
     extractOptions(options) {
-        Object.keys(options).forEach(value => {
-            let label = options[value];
+        let map = {};
 
+        options.forEach(option => {
             // Optgroup
-            if (typeof label === 'object') {
-                this.extractOptions(label);
+            if (option.options) {
+                option.options.forEach(child => {
+                    map[child.value] = child;
+                });
 
             // Option
             } else {
-                this.options[value] = label;
+                map[option.value] = option;
             }
         });
+
+        return map;
+    }
+
+    /**
+     * Extract a value, or list of values, and return the default set.
+     *
+     * @param {*|*[]} defaultValue
+     * @returns {Set}
+     */
+    extractValues(defaultValue) {
+        let value = [];
+
+        if (Array.isArray(defaultValue)) {
+            value = defaultValue;
+
+        } else if (defaultValue) {
+            value.push(defaultValue);
+        }
+
+        return new Set(value);
     }
 
     /**
      * Handler that selects a new value.
+     *
+     * @param {SyntheticEvent} e
      */
     @bind
     handleOnChange(e) {
+        let value = e.target.value,
+            option = this.state.options[value] || {};
+
+        this.setState({
+            values: new Set([value]),
+            label: option.label || option.title || this.props.defaultLabel
+        });
     }
 
     /**
@@ -94,21 +125,29 @@ export default class Select extends Component {
     renderOptions(options) {
         let elements = [];
 
-        Object.keys(options).forEach(value => {
-            let label = options[value];
-
+        options.forEach(option => {
             // Optgroup
-            if (typeof label === 'object') {
+            if (option.options) {
                 elements.push(
-                    <optgroup key={value} label={value}>
-                        {this.renderOptions(label)}
+                    <optgroup
+                        key={option.title}
+                        label={option.title}
+                        disabled={option.disabled}>
+
+                        {this.renderOptions(option.options)}
                     </optgroup>
                 );
 
             // Option
             } else {
                 elements.push(
-                    <option key={value} value={value}>{label}</option>
+                    <option
+                        key={option.value}
+                        value={option.value}
+                        disabled={option.disabled}>
+
+                        {option.title}
+                    </option>
                 );
             }
         });
@@ -123,6 +162,8 @@ export default class Select extends Component {
      */
     render() {
         let { name, native, ...props } = this.props,
+            state = this.state,
+            selected = Array.from(state.values),
             id = name;
 
         return (
@@ -137,6 +178,7 @@ export default class Select extends Component {
                 <select
                     id={id}
                     name={name}
+                    defaultValue={selected[0]}
                     disabled={props.disabled}
                     required={props.required}
                     onChange={this.handleOnChange}>
@@ -149,7 +191,7 @@ export default class Select extends Component {
                     className={this.formatClass(props.toggleClassName)}>
 
                     <span className={this.formatClass(props.labelClassName)}>
-                        TODO
+                        {state.label}
                     </span>
 
                     <span className={this.formatClass(props.arrowClassName)}>

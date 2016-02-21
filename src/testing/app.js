@@ -351,26 +351,43 @@ const radioMarkup = (
     </div>
 );
 
+const selectOptions = [
+    {
+        title: 'One Piece',
+        options: [
+            {
+                value: '0',
+                title: 'Luffy',
+                label: 'Luffy SENPAI'
+            }, {
+                value: '1',
+                title: 'Zoro'
+            }, {
+                value: '3',
+                title: 'Sanji',
+                disabled: true
+            }
+        ]
+    }, {
+        title: 'Naruto',
+        options: [
+            {
+                value: 'naruto',
+                title: 'Naruto'
+            }, {
+                value: 'sasuke',
+                title: 'Sasuke'
+            }, {
+                value: 'sakura',
+                title: 'Sakura'
+            }
+        ]
+    }
+];
+
 const selectMarkup = (
     <div>
-        <Select name="foo" options={{
-            'One Piece': {
-                0: 'Luffy',
-                1: 'Zoro',
-                2: 'Sanji',
-                3: 'Franky',
-                4: 'Chopper',
-                5: 'Brook',
-                6: 'Nami',
-                7: 'Usopp',
-                8: 'Nico Robin'
-            },
-            'Naruto': {
-                9: 'Naruto',
-                10: 'Sasuke',
-                11: 'Sakura'
-            }
-        }} native={true} />
+        <Select name="foo" native={true} defaultValue={['naruto', '1']} options={selectOptions} />
     </div>
 );
 

@@ -314,7 +314,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
         options.each(function() {
             if (this.selected) {
                 selected.push( this );
-                label.push( self.readValue(this, opts.getOptionLabel) || this.textContent );
             }
         });
 
@@ -347,11 +346,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
         } else {
             label = label.join(', ');
         }
-
-        // Set the label
-        select.parent()
-            .find(this.ns('label', 'select'))
-            .text(label);
 
         this.fireEvent('change', [select.val(), selected]);
     },
