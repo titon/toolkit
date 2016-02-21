@@ -21,12 +21,13 @@ export default class Radio extends Component {
     };
 
     static propTypes = {
+        children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
         toggleClassName: cssClass.isRequired,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+        value: PropTypes.string.isRequired
     };
 
     /**
@@ -38,7 +39,6 @@ export default class Radio extends Component {
     constructor(props, context) {
         super();
 
-        // Build the state here instead of using ES7 properties
         this.state = {
             value: props.value,
             checked: (context.checkedValue === props.value)
@@ -76,16 +76,17 @@ export default class Radio extends Component {
             state = this.state,
             value = state.value,
             name = this.context.inputName,
-            id = name + '-' + value;
+            id = name + '-' + value,
+            classProps = {
+                'is-checked': state.checked,
+                'is-disabled': props.disabled,
+                'is-required': props.required
+            };
 
         return (
             <span
                 id={this.formatID('radio', id)}
-                className={this.formatClass(props.elementClassName, props.className, {
-                    'is-checked': state.checked,
-                    'is-disabled': props.disabled,
-                    'is-required': props.required
-                })}
+                className={this.formatClass(props.elementClassName, props.className, classProps)}
                 aria-checked={state.checked}
                 aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
@@ -102,7 +103,9 @@ export default class Radio extends Component {
 
                 <label
                     htmlFor={id}
-                    className={this.formatClass(props.toggleClassName)} />
+                    className={this.formatClass(props.toggleClassName, classProps)} />
+
+                {props.children}
             </span>
         );
     }

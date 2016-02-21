@@ -7,6 +7,7 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
+    uid: PropTypes.string,
     inputName: PropTypes.string,
     checkedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     selectValue: PropTypes.func

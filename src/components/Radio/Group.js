@@ -14,14 +14,15 @@ export default class Group extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: ['radio', 'group']
+        elementClassName: ['radio', 'group'],
+        defaultChecked: ''
     };
 
     static propTypes = {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired,
-        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        defaultChecked: PropTypes.string
     };
 
     /**
@@ -32,10 +33,11 @@ export default class Group extends Component {
     constructor(props) {
         super();
 
-        // Build the state here instead of using ES7 properties
         this.state = {
-            value: props.defaultChecked || ''
+            value: props.defaultChecked
         };
+
+        this.generateUID();
     }
 
     /**
@@ -45,6 +47,7 @@ export default class Group extends Component {
      */
     getChildContext() {
         return {
+            uid: this.uid,
             inputName: this.props.name,
             checkedValue: this.state.value,
             selectValue: this.selectValue
@@ -65,7 +68,7 @@ export default class Group extends Component {
     /**
      * Select a value to mark a radio as checked.
      *
-     * @param {String|Number} value
+     * @param {String} value
      */
     @bind
     selectValue(value) {
@@ -84,6 +87,7 @@ export default class Group extends Component {
 
         return (
             <div
+                id={this.formatID('radio-group')}
                 className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
