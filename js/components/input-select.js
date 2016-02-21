@@ -17,15 +17,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
     name: 'InputSelect',
     version: '2.1.0',
 
-    /** The custom drop element. */
-    dropdown: null,
-
-    /** Current option index when cycling with keyboard. */
-    index: 0,
-
-    /** Is the select a multiple choice? */
-    multiple: false,
-
     /**
      * Initialize the select.
      *
@@ -33,17 +24,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
      * @param {Object} [options]
      */
     constructor: function(select, options) {
-        this.element = select = $(select);
-        options = this.setOptions(options, select);
-        this.multiple = select.prop('multiple');
-
-        // Multiple selects must use native controls
-        if (this.multiple && options.native) {
-            return;
-        }
-
-        // Initialize events
-        this.addEvent('change', 'element', 'onChange');
 
         if (!options.native) {
             this.addEvents([
@@ -63,11 +43,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
             // So place it below .custom-input
             this.element.css('z-index', 1);
         }
-
-        this.initialize();
-
-        // Trigger change immediately to update the label
-        this.element.change();
     },
 
     /**
@@ -297,60 +272,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
     },
 
     /**
-     * Event handler for select option changing.
-     *
-     * @private
-     * @param {jQuery.Event} e
-     */
-    onChange: function(e) {
-        var select = $(e.target),
-            options = select.find('option'),
-            opts = this.options,
-            selected = [],
-            label = [],
-            self = this;
-
-        // Fetch label from selected option
-        options.each(function() {
-            if (this.selected) {
-                selected.push( this );
-            }
-        });
-
-        // Reformat label if needed
-        if (this.multiple) {
-            var title = this.readValue(select, opts.getDefaultLabel),
-                format = opts.multipleFormat,
-                count = label.length;
-
-            // Use default title if nothing selected
-            if (!label.length && title) {
-                label = title;
-
-                // Display a counter for label
-            } else if (format === 'count') {
-                label = opts.countMessage
-                    .replace('{count}', count)
-                    .replace('{total}', options.length);
-
-                // Display options as a list for label
-            } else if (format === 'list') {
-                var limit = opts.listLimit;
-
-                label = label.splice(0, limit).join(', ');
-
-                if (limit < count) {
-                    label += ' ...';
-                }
-            }
-        } else {
-            label = label.join(', ');
-        }
-
-        this.fireEvent('change', [select.val(), selected]);
-    },
-
-    /**
      * Event handler for cycling through options with up and down keys.
      *
      * @private
@@ -395,34 +316,10 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
         this.element.change();
     },
 
-    /**
-     * Event handler for toggling custom dropdown display.
-     *
-     * @private
-     */
-    onToggle: function() {
-        if (this.element.prop('disabled')) {
-            return;
-        }
-
-        if (this.dropdown.is(':shown')) {
-            this.hide();
-        } else {
-            this.show();
-        }
-    }
-
 }, {
-    native: Toolkit.isTouch,
-    multipleFormat: 'count', // count, list
-    countMessage: '{count} of {total} selected',
-    listLimit: 3,
     hideOpened: true,
     hideFirst: false,
-    hideSelected: false,
-    getDefaultLabel: 'title',
-    getOptionLabel: 'title',
-    getDescription: 'data-description'
+    hideSelected: false
 });
 
 Toolkit.createPlugin('inputSelect', function(options) {

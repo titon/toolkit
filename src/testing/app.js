@@ -366,6 +366,15 @@ const selectOptions = [
                 value: '3',
                 title: 'Sanji',
                 disabled: true
+            }, {
+                value: '4',
+                title: 'Franky'
+            }, {
+                value: '5',
+                title: 'Brook'
+            }, {
+                value: '6',
+                title: 'Nico Robin'
             }
         ]
     }, {
@@ -388,6 +397,10 @@ const selectOptions = [
 const selectMarkup = (
     <div>
         <Select name="foo" native={true} defaultValue={['naruto', '1']} options={selectOptions} />
+
+        <br />
+
+        <Select name="bar" multiple={true} native={false} defaultValue={['naruto', '1', '6', '4']} options={selectOptions} />
     </div>
 );
 
