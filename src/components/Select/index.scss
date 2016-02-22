@@ -18,6 +18,8 @@
         &.is-native {
             select {
                 z-index: 5;
+                height: 100%;
+                cursor: pointer;
             }
         }
     }
@@ -33,44 +35,61 @@
         display: flex;
     }
 
-    #{map-get($titon-select, "class-label")} {
+    #{map-get($titon-select, "class-label")},
+    #{map-get($titon-select, "class-arrow")} {
         @include size-medium;
+    }
+
+    #{map-get($titon-select, "class-label")} {
         flex-grow: 1;
     }
 
-    #{map-get($titon-select, "class-arrow")} {
-        @include size-medium;
+    //-------------------- Menu --------------------//
 
-        .caret-down {
-            border-top-color: #000;
-        }
-    }
+    @if map-get($titon-select, "dropdown-menu") {
+        #{map-get($titon-select, "class-menu")} {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            min-width: 15rem;
+            max-height: 25rem;
+            overflow: auto;
+            z-index: map-get($titon-settings-zindex, "drop");
+            opacity: 0;
+            visibility: hidden;
+            transition: all map-get($titon-select, "transition");
 
-    #{map-get($titon-select, "class-options")} {
-        max-height: 25rem;
-        overflow: auto;
-        z-index: 5;
+            ol {
+                @extend %placeholder-list;
+            }
 
-        li.is-disabled {
-            > a,
-            > a:hover {
-                background: none;
-                color: theme-setting("secondary-dark");
-                cursor: default;
-                pointer-events: none;
+            // Active
+            &.is-expanded {
+                @extend %placeholder-show;
+            }
+
+            // States
+            &.hide-selected {
+                .is-selected {
+                    display: none !important;
+                }
             }
         }
 
-        &.hide-selected {
-            li.is-active {
-                display: none !important;
-            }
+        #{map-get($titon-select, "class-group")},
+        #{map-get($titon-select, "class-option")} {
+            display: block;
+            padding: theme-setting("small-padding");
         }
 
-        &.hide-first {
-            li:first-child:not(#{map-get($titon-drop, "class-heading")}) {
-                display: none !important;
-            }
+        #{map-get($titon-select, "class-option")} {
+            cursor: pointer;
+        }
+
+        #{map-get($titon-select, "class-option-desc")} {
+            display: block;
+            font-size: theme-setting("small-font-size");
         }
     }
 }

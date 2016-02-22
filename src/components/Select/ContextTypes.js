@@ -9,11 +9,15 @@ import SelectPropTypes from './PropTypes';
 
 const CONTEXT_TYPES = {
     uid: PropTypes.string,
+    multiple: PropTypes.bool,
+    expanded: PropTypes.bool,
     inputName: PropTypes.string,
     options: SelectPropTypes.optionList,
     selectedValues: PropTypes.arrayOf(PropTypes.string),
     selectValue: PropTypes.func,
-    multiple: PropTypes.bool
+    hideMenu: PropTypes.func,
+    showMenu: PropTypes.func,
+    toggleMenu: PropTypes.func
 };
 
 export default CONTEXT_TYPES;

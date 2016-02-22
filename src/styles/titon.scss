@@ -405,7 +405,15 @@ $titon-select: (
     "class-toggle": bem("select", "toggle"),
     "class-label": bem("select", "label"),
     "class-arrow": bem("select", "arrow"),
-    "class-options": bem("select", "options"),
+    "class-menu": bem("select", "menu"),
+    "class-group": bem("select", "group"),
+    "class-option": bem("select", "option"),
+    "class-option-label": bem("select", "option-label"),
+    "class-option-desc": bem("select", "option-desc"),
+    "class-modifier-multiple": bem("select", "", "multiple"),
+    "modifiers": ("multiple"), // multiple
+    "transition": theme-setting("transition"),
+    "dropdown-menu": true
 ) !default;
 
 $titon-step: (

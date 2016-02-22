@@ -353,44 +353,44 @@ const radioMarkup = (
 
 const selectOptions = [
     {
-        title: 'One Piece',
+        label: 'One Piece',
         options: [
             {
                 value: '0',
-                title: 'Luffy',
-                label: 'Luffy SENPAI',
+                label: 'Luffy',
+                selectedLabel: 'Luffy SENPAI',
                 description: 'Pirate King'
             }, {
                 value: '1',
-                title: 'Zoro'
+                label: 'Zoro'
             }, {
                 value: '3',
-                title: 'Sanji',
+                label: 'Sanji',
                 disabled: true
             }, {
                 value: '4',
-                title: 'Franky'
+                label: 'Franky'
             }, {
                 value: '5',
-                title: 'Brook'
+                label: 'Brook'
             }, {
                 value: '6',
-                title: 'Nico Robin'
+                label: 'Nico Robin'
             }
         ]
     }, {
-        title: 'Naruto',
+        label: 'Naruto',
         options: [
             {
                 value: 'naruto',
-                title: 'Naruto',
+                label: 'Naruto',
                 description: 'Hokage'
             }, {
                 value: 'sasuke',
-                title: 'Sasuke'
+                label: 'Sasuke'
             }, {
                 value: 'sakura',
-                title: 'Sakura'
+                label: 'Sakura'
             }
         ]
     }
@@ -398,11 +398,22 @@ const selectOptions = [
 
 const selectMarkup = (
     <div>
-        <Select name="foo" native={true} defaultValue={['naruto', '1']} options={selectOptions} />
+        Native Menu:
+        <Select name="foo" native={true} defaultValue="sasuke" options={selectOptions}>
+            <div>This should not render because `native` is true.</div>
+        </Select>
 
-        <br />
+        <br /><br />
 
-        <Select name="bar" multiple={true} native={false} defaultValue={['naruto', '1', '6', '4']} options={selectOptions}>
+        Custom Menu:
+        <Select name="bar" multiple={false} options={selectOptions}>
+            <Select.Menu />
+        </Select>
+
+        <br /><br />
+
+        Custom Menu, Multiple:
+        <Select name="bar" multiple={true} defaultValue={['naruto', '4']} options={selectOptions}>
             <Select.Menu />
         </Select>
     </div>

@@ -13,8 +13,8 @@ import { PropTypes } from 'react';
  */
 export const option = PropTypes.shape({
     value: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    label: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    selectedLabel: PropTypes.string,
     description: PropTypes.string,
     disabled: PropTypes.bool
 });
@@ -24,8 +24,8 @@ export const option = PropTypes.shape({
  *
  * @returns {React.PropTypes.shape}
  */
-export const optgroup = PropTypes.shape({
-    title: PropTypes.string.isRequired,
+export const optionGroup = PropTypes.shape({
+    label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(option).isRequired,
     disabled: PropTypes.bool
 });
@@ -36,11 +36,11 @@ export const optgroup = PropTypes.shape({
  * @returns {React.PropTypes.arrayOf}
  */
 export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
-    option, optgroup
+    option, optionGroup
 ]));
 
 export default {
     option,
     optionList,
-    optgroup
+    optionGroup
 };

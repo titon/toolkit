@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
@@ -14,23 +15,25 @@ export default class Menu extends Component {
 
     static defaultProps = {
         elementClassName: ['select', 'menu'],
-        optionClassName: ['select', 'menu-option'],
-        groupClassName: ['select', 'menu-group'],
-        titleClassName: ['select', 'menu-title'],
-        descClassName: ['select', 'menu-desc'],
-        hideFirst: false,
+        groupClassName: ['select', 'group'],
+        optionClassName: ['select', 'option'],
+        labelClassName: ['select', 'option-label'],
+        descClassName: ['select', 'option-desc'],
         hideSelected: false
     };
 
     static propTypes = {
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        optionClassName: cssClass.isRequired,
         groupClassName: cssClass.isRequired,
-        titleClassName: cssClass.isRequired,
+        optionClassName: cssClass.isRequired,
+        labelClassName: cssClass.isRequired,
         descClassName: cssClass.isRequired,
-        hideFirst: PropTypes.bool,
-        hideSelected: PropTypes.bool
+        hideSelected: PropTypes.bool,
+        onHiding: collection.func,
+        onHidden: collection.func,
+        onShowing: collection.func,
+        onShown: collection.func
     };
 
     /**
@@ -43,7 +46,7 @@ export default class Menu extends Component {
         super();
 
         this.state = {
-            expanded: false,
+            expanded: context.expanded,
             values: new Set(context.selectedValues)
         };
     }
@@ -56,19 +59,44 @@ export default class Menu extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
+            expanded: nextContext.expanded,
             values: new Set(nextContext.selectedValues)
         });
     }
 
     /**
-     * Only update if the selected values change.
+     * Only update if the selected values or expanded state change.
      *
      * @param {Object} nextProps
      * @param {Object} nextState
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.values !== this.state.values);
+        return (nextState.values !== this.state.values || nextState.expanded !== this.state.expanded);
+    }
+
+    /**
+     * Emit `showing` or `hiding` events before rendering.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     */
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.expanded !== this.state.expanded) {
+            this.emitEvent(this.state.expanded ? 'hiding' : 'showing');
+        }
+    }
+
+    /**
+     * Emit `shown` or `hidden` events after rendering.
+     *
+     * @param {Object} prevProps
+     * @param {Object} prevState
+     */
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.expanded !== this.state.expanded) {
+            this.emitEvent(this.state.expanded ? 'shown' : 'hidden');
+        }
     }
 
     /**
@@ -83,21 +111,22 @@ export default class Menu extends Component {
             selected = this.state.values.has(option.value);
 
         return (
-            <li key={option.value}
-                role="option"
-                className={this.formatClass(props.optionClassName, {
-                    'is-disabled': disabled,
-                    'is-selected': selected
-                })}
-                aria-disabled={disabled}
-                aria-selected={selected}
-                onClick={disabled ? null : this.selectValue.bind(this, option.value)}>
+            <li key={option.value}>
+                <a role="option"
+                    className={this.formatClass(props.optionClassName, {
+                        'is-disabled': disabled,
+                        'is-selected': selected
+                    })}
+                    aria-disabled={disabled}
+                    aria-selected={selected}
+                    onClick={disabled ? null : this.selectValue.bind(this, option.value)}>
 
-                <span className={this.formatClass(props.titleClassName)}>{option.title}</span>
+                    <span className={this.formatClass(props.labelClassName)}>{option.label}</span>
 
-                {option.description && (
-                    <span className={this.formatClass(props.descClassName)}>{option.description}</span>
-                )}
+                    {option.description && (
+                        <span className={this.formatClass(props.descClassName)}>{option.description}</span>
+                    )}
+                </a>
             </li>
         );
     }
@@ -110,13 +139,15 @@ export default class Menu extends Component {
      */
     createOptGroup(group) {
         return (
-            <li key={group.title}
-                className={this.formatClass(this.props.groupClassName, {
-                    'is-disabled': group.disabled
-                })}
-                aria-disabled={group.disabled}>
+            <li key={group.label}>
+                <span
+                    className={this.formatClass(this.props.groupClassName, {
+                        'is-disabled': group.disabled
+                    })}
+                    aria-disabled={group.disabled}>
 
-                {group.title}
+                    {group.label}
+                </span>
             </li>
         );
     }
@@ -143,6 +174,8 @@ export default class Menu extends Component {
         } else {
             values.clear();
             values.add(value);
+
+            context.hideMenu();
         }
 
         context.selectValue(Array.from(values));
@@ -183,15 +216,14 @@ export default class Menu extends Component {
     render() {
         let props = this.props,
             context = this.context,
-            expanded = false;
+            expanded = this.state.expanded;
 
         return (
             <div
                 role="listbox"
-                id={this.formatID('select-menu')}
+                id={this.formatID('select', context.inputName, 'menu')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     '@multiple': context.multiple,
-                    'hide-first': props.hideFirst,
                     'hide-selected': (props.hideSelected && !context.multiple),
                     'is-expanded': expanded
                 })}

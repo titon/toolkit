@@ -29,7 +29,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
             this.addEvents([
                 ['blur', 'element', 'hide'],
                 ['clickout', 'dropdown', 'hide'],
-                ['click', 'input', 'onToggle']
             ]);
 
             if (!this.multiple) {
@@ -43,42 +42,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
             // So place it below .custom-input
             this.element.css('z-index', 1);
         }
-    },
-
-    /**
-     * Hide the dropdown and remove active states.
-     */
-    hide: function() {
-        if (!this.dropdown.is(':shown')) {
-            return; // Vastly speeds up rendering time since click/out events aren't running
-        }
-
-        this.fireEvent('hiding');
-
-        this.input.removeClass('is-active');
-
-        this.dropdown.conceal();
-
-        this.fireEvent('hidden');
-    },
-
-    /**
-     * Show the dropdown and apply active states.
-     */
-    show: function() {
-        this.fireEvent('showing');
-
-        if (this.options.hideOpened) {
-            $(this.ns('options', 'select')).each(function() {
-                $(this).siblings('select').toolkit('inputSelect', 'hide');
-            });
-        }
-
-        this.input.addClass('is-active');
-
-        this.dropdown.reveal();
-
-        this.fireEvent('shown');
     },
 
     /**
@@ -155,9 +118,6 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
     },
 
 }, {
-    hideOpened: true,
-    hideFirst: false,
-    hideSelected: false
 });
 
 Toolkit.createPlugin('inputSelect', function(options) {

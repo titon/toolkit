@@ -85,7 +85,7 @@ export default class Checkbox extends Component {
         }
 
         return (
-            <span
+            <div
                 id={this.formatID('checkbox', id)}
                 className={this.formatClass(props.elementClassName, props.className, classProps)}
                 aria-checked={state.checked}
@@ -107,7 +107,7 @@ export default class Checkbox extends Component {
                     className={this.formatClass(props.toggleClassName, classProps)} />
 
                 {props.children}
-            </span>
+            </div>
         );
     }
 }

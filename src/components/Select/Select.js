@@ -30,7 +30,8 @@ export default class Select extends Component {
         countMessage: '{count} of {total} selected',
         listLimit: 3,
         arrow: <span className="caret-down" />,
-        defaultLabel: 'Select An Option'
+        defaultLabel: 'Select An Option',
+        defaultValue: []
     };
 
     static propTypes = {
@@ -70,7 +71,8 @@ export default class Select extends Component {
 
         this.state = {
             values: this.extractValues(props.defaultValue, props.multiple),
-            options: this.extractOptions(props.options)
+            options: this.extractOptions(props.options),
+            expanded: false
         };
 
         this.generateUID();
@@ -86,32 +88,16 @@ export default class Select extends Component {
 
         return {
             uid: this.uid,
+            multiple,
+            expanded: this.state.expanded,
             inputName: name,
             options,
             selectedValues: this.state.values,
             selectValue: this.selectValue,
-            multiple
+            hideMenu: this.hideMenu,
+            showMenu: this.showMenu,
+            toggleMenu: this.toggleMenu
         };
-    }
-
-    /**
-     * Emit `changing` events before rendering.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     */
-    componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('changing', [nextState.values, this.state.values]);
-    }
-
-    /**
-     * Emit `changed` events before rendering.
-     *
-     * @param {Object} prevProps
-     * @param {Object} prevState
-     */
-    componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('changed', [this.state.values, prevState.values]);
     }
 
     /**
@@ -177,7 +163,7 @@ export default class Select extends Component {
             let option = options[value];
 
             if (typeof option !== 'undefined') {
-                label.push(option.label || option.title);
+                label.push(option.selectedLabel || option.label);
                 count++;
             }
         });
@@ -202,15 +188,54 @@ export default class Select extends Component {
     }
 
     /**
+     * Hide the menu by setting the state to closed.
+     */
+    @bind
+    hideMenu() {
+        this.setState({
+            expanded: false
+        });
+    }
+
+    /**
      * Select a value or list of values.
      *
      * @param {String|String[]} values
      */
     @bind
     selectValue(values) {
+        let oldValues = this.state.values,
+            newValues = Array.isArray(values) ? values : [values];
+
+        this.emitEvent('changing', [newValues, oldValues]);
+
         this.setState({
-            values: Array.isArray(values) ? values : [values]
+            values: newValues
         });
+
+        this.emitEvent('changed', [newValues, oldValues]);
+    }
+
+    /**
+     * Show the menu by setting the state to opened.
+     */
+    @bind
+    showMenu() {
+        this.setState({
+            expanded: true
+        });
+    }
+
+    /**
+     * Toggle the open state of the menu.
+     */
+    @bind
+    toggleMenu() {
+        if (this.state.expanded) {
+            this.hideMenu();
+        } else {
+            this.showMenu();
+        }
     }
 
     /**
@@ -229,6 +254,14 @@ export default class Select extends Component {
     }
 
     /**
+     * Handler that toggles the display of the menu.
+     */
+    @bind
+    handleOnClickLabel() {
+        this.toggleMenu();
+    }
+
+    /**
      * Render the list of options as `<option>` and `<optgroup>` elements.
      *
      * @param {Object} options
@@ -242,8 +275,8 @@ export default class Select extends Component {
             if (option.options) {
                 elements.push(
                     <optgroup
-                        key={option.title}
-                        label={option.title}
+                        key={option.label}
+                        label={option.label}
                         disabled={option.disabled}>
 
                         {this.renderOptions(option.options)}
@@ -258,7 +291,7 @@ export default class Select extends Component {
                         value={option.value}
                         disabled={option.disabled}>
 
-                        {option.title}
+                        {option.label}
                     </option>
                 );
             }
@@ -273,40 +306,44 @@ export default class Select extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let { name, native, multiple, ...props } = this.props,
-            state = this.state,
-            selected = state.values,
+        let { name, native, multiple, disabled, ...props } = this.props,
+            { values, expanded } = this.state,
             id = name,
             classProps = {
                 'is-native': native,
-                'is-disabled': props.disabled,
-                'is-required': props.required
+                'is-disabled': disabled,
+                'is-required': props.required,
+                'is-active': expanded
             };
 
         return (
-            <span
+            <div
                 id={this.formatID('select', id)}
                 className={this.formatClass(props.elementClassName, props.className, {
                     '@multiple': multiple
                 }, classProps)}
-                aria-disabled={props.disabled}
+                aria-disabled={disabled}
                 {...this.inheritNativeProps(props)}>
 
                 <select
                     id={id}
                     name={name}
-                    value={multiple ? selected : selected[0]}
-                    disabled={props.disabled}
+                    value={multiple ? values : values[0]}
+                    disabled={disabled}
                     required={props.required}
                     multiple={multiple}
-                    onChange={this.handleOnChange}>
+                    onChange={disabled ? null : this.handleOnChange}>
 
                     {this.renderOptions(props.options)}
                 </select>
 
                 <label
                     htmlFor={id}
-                    className={this.formatClass(props.toggleClassName, classProps)}>
+                    className={this.formatClass(props.toggleClassName, classProps)}
+                    onClick={disabled ? null : this.handleOnClickLabel}
+                    aria-controls={native ? null : this.formatID('select', id, 'menu')}
+                    aria-haspopup={native ? null : true}
+                    aria-expanded={native ? null : expanded}>
 
                     <span className={this.formatClass(props.labelClassName)}>
                         {this.getSelectedLabel()}
@@ -317,8 +354,8 @@ export default class Select extends Component {
                     </span>
                 </label>
 
-                {props.children}
-            </span>
+                {native ? null : props.children}
+            </div>
         );
     }
 }
