@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
+import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 
 export default class Checkbox extends Component {
@@ -72,7 +73,7 @@ export default class Checkbox extends Component {
         let props = this.props,
             state = this.state,
             name = props.name,
-            id = name,
+            id = formatInputName(name),
             classProps = {
                 'is-checked': state.checked,
                 'is-disabled': props.disabled,

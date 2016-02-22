@@ -221,7 +221,7 @@ export default class Menu extends Component {
         return (
             <div
                 role="listbox"
-                id={this.formatID('select', context.inputName, 'menu')}
+                id={this.formatID('select', context.inputID, 'menu')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     '@multiple': context.multiple,
                     'hide-selected': (props.hideSelected && !context.multiple),

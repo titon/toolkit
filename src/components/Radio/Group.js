@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
+import formatInputName from '../../utility/formatInputName';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Group extends Component {
@@ -46,9 +47,12 @@ export default class Group extends Component {
      * @returns {Object}
      */
     getChildContext() {
+        let name = this.props.name;
+
         return {
             uid: this.uid,
-            inputName: this.props.name,
+            inputID: formatInputName(name),
+            inputName: name,
             checkedValue: this.state.value,
             selectValue: this.selectValue
         };

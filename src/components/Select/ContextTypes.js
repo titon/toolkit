@@ -11,6 +11,7 @@ const CONTEXT_TYPES = {
     uid: PropTypes.string,
     multiple: PropTypes.bool,
     expanded: PropTypes.bool,
+    inputID: PropTypes.string,
     inputName: PropTypes.string,
     options: SelectPropTypes.optionList,
     selectedValues: PropTypes.arrayOf(PropTypes.string),

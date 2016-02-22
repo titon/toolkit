@@ -76,7 +76,7 @@ export default class Radio extends Component {
             state = this.state,
             value = state.value,
             name = this.context.inputName,
-            id = name + '-' + value,
+            id = this.context.inputID + '-' + value,
             classProps = {
                 'is-checked': state.checked,
                 'is-disabled': props.disabled,

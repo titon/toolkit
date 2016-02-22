@@ -10,6 +10,7 @@ import SelectPropTypes from './PropTypes';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
+import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
 import isOutsideElement from '../../utility/isOutsideElement';
 import CONTEXT_TYPES from './ContextTypes';
@@ -91,6 +92,7 @@ export default class Select extends Component {
             uid: this.uid,
             multiple,
             expanded: this.state.expanded,
+            inputID: formatInputName(name),
             inputName: name,
             options,
             selectedValues: this.state.values,
@@ -379,7 +381,7 @@ export default class Select extends Component {
     render() {
         let { name, native, multiple, disabled, required, ...props } = this.props,
             { values, expanded } = this.state,
-            id = name,
+            id = formatInputName(name),
             classProps = {
                 'is-native': native,
                 'is-disabled': disabled,
