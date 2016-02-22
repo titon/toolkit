@@ -413,7 +413,7 @@ const selectMarkup = (
         <br /><br />
 
         Custom Menu, Multiple:
-        <Select name="bar" multiple={true} defaultValue={['naruto', '4']} options={selectOptions}>
+        <Select name="qux" multiple={true} defaultValue={['naruto', '4']} options={selectOptions}>
             <Select.Menu />
         </Select>
     </div>

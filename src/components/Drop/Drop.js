@@ -11,6 +11,7 @@ import Toggle from './Toggle';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
+import isOutsideElement from '../../utility/isOutsideElement';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Drop extends Component {
@@ -99,7 +100,7 @@ export default class Drop extends Component {
      */
     @bind
     handleOnClickOut(e) {
-        if (this.state.expanded && !this.refs.container.contains(e.target)) {
+        if (this.state.expanded && isOutsideElement(this.refs.container, e.target)) {
             this.hideMenu();
         }
     }

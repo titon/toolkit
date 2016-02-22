@@ -227,6 +227,7 @@ export default class Menu extends Component {
                     'hide-selected': (props.hideSelected && !context.multiple),
                     'is-expanded': expanded
                 })}
+                tabIndex="-1"
                 aria-multiselectable={context.multiple}
                 aria-hidden={!expanded}
                 aria-expanded={expanded}

@@ -4,13 +4,14 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 import Component from '../../Component';
 import SelectPropTypes from './PropTypes';
 import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import invariant from '../../utility/invariant';
+import isOutsideElement from '../../utility/isOutsideElement';
 import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
 
@@ -101,6 +102,20 @@ export default class Select extends Component {
     }
 
     /**
+     * Bind handlers before mounting.
+     */
+    componentWillMount() {
+        window.addEventListener('click', this.handleOnClickOut);
+    }
+
+    /**
+     * Unbind handlers when unmounting.
+     */
+    componentWillUnmount() {
+        window.removeEventListener('click', this.handleOnClickOut);
+    }
+
+    /**
      * Extract the list of options (and nested optgroups) and map them to a key and label.
      *
      * @param {Object[]} options
@@ -188,6 +203,17 @@ export default class Select extends Component {
     }
 
     /**
+     * Returns true if a custom drop down menu is being used.
+     *
+     * @returns {Boolean}
+     */
+    hasMenu() {
+        let { native, children } = this.props;
+
+        return (!native && Children.count(children));
+    }
+
+    /**
      * Hide the menu by setting the state to closed.
      */
     @bind
@@ -231,10 +257,24 @@ export default class Select extends Component {
      */
     @bind
     toggleMenu() {
+        if (this.props.disabled || !this.hasMenu()) {
+            return;
+        }
+
         if (this.state.expanded) {
             this.hideMenu();
         } else {
             this.showMenu();
+        }
+    }
+
+    /**
+     * Handler that closes the menu when focus is lost.
+     */
+    @bind
+    handleOnBlur() {
+        if (!this.props.disabled && this.state.expanded && this.hasMenu()) {
+            this.hideMenu();
         }
     }
 
@@ -245,6 +285,10 @@ export default class Select extends Component {
      */
     @bind
     handleOnChange(e) {
+        if (this.props.disabled) {
+            return;
+        }
+
         let values = [];
 
         Array.from(e.target.selectedOptions)
@@ -259,6 +303,33 @@ export default class Select extends Component {
     @bind
     handleOnClickLabel() {
         this.toggleMenu();
+    }
+
+    /**
+     * Handler that hides the menu if clicked outside the menu element.
+     *
+     * @param {SyntheticEvent} e
+     */
+    @bind
+    handleOnClickOut(e) {
+        /* eslint operator-linebreak: 0 */
+
+        if (
+            !this.props.disabled && this.state.expanded &&
+            this.hasMenu() && isOutsideElement(this.refs.container, e.target)
+        ) {
+            this.hideMenu();
+        }
+    }
+
+    /**
+     * Handler that shows the menu when the select is focused.
+     */
+    @bind
+    handleOnFocus() {
+        if (!this.props.disabled && !this.state.expanded && this.hasMenu()) {
+            this.showMenu();
+        }
     }
 
     /**
@@ -306,22 +377,23 @@ export default class Select extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let { name, native, multiple, disabled, ...props } = this.props,
+        let { name, native, multiple, disabled, required, ...props } = this.props,
             { values, expanded } = this.state,
             id = name,
             classProps = {
                 'is-native': native,
                 'is-disabled': disabled,
-                'is-required': props.required,
+                'is-required': required,
                 'is-active': expanded
             };
 
         return (
             <div
+                ref="container"
                 id={this.formatID('select', id)}
-                className={this.formatClass(props.elementClassName, props.className, {
+                className={this.formatClass(props.elementClassName, props.className, classProps, {
                     '@multiple': multiple
-                }, classProps)}
+                })}
                 aria-disabled={disabled}
                 {...this.inheritNativeProps(props)}>
 
@@ -330,17 +402,18 @@ export default class Select extends Component {
                     name={name}
                     value={multiple ? values : values[0]}
                     disabled={disabled}
-                    required={props.required}
+                    required={required}
                     multiple={multiple}
-                    onChange={disabled ? null : this.handleOnChange}>
+                    onChange={this.handleOnChange}
+                    onFocus={this.handleOnFocus}
+                    onBlur={this.handleOnBlur}>
 
                     {this.renderOptions(props.options)}
                 </select>
 
-                <label
-                    htmlFor={id}
+                <div
                     className={this.formatClass(props.toggleClassName, classProps)}
-                    onClick={disabled ? null : this.handleOnClickLabel}
+                    onClick={this.handleOnClickLabel}
                     aria-controls={native ? null : this.formatID('select', id, 'menu')}
                     aria-haspopup={native ? null : true}
                     aria-expanded={native ? null : expanded}>
@@ -352,7 +425,7 @@ export default class Select extends Component {
                     <span className={this.formatClass(props.arrowClassName)}>
                         {props.arrow}
                     </span>
-                </label>
+                </div>
 
                 {native ? null : props.children}
             </div>

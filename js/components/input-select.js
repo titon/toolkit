@@ -26,21 +26,9 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
     constructor: function(select, options) {
 
         if (!options.native) {
-            this.addEvents([
-                ['blur', 'element', 'hide'],
-                ['clickout', 'dropdown', 'hide'],
-            ]);
-
             if (!this.multiple) {
                 this.addEvent('keydown', 'window', 'onCycle');
             }
-
-            // Build custom dropdown when not in native
-            this.dropdown = this._buildDropdown();
-
-            // Cant hide/invisible the real select or we lose focus/blur
-            // So place it below .custom-input
-            this.element.css('z-index', 1);
         }
     },
 
@@ -119,10 +107,4 @@ var InputSelect = Toolkit.InputSelect = Input.extend({
 
 }, {
 });
-
-Toolkit.createPlugin('inputSelect', function(options) {
-    return new InputSelect(this, options);
-});
-
-return InputSelect;
 });
