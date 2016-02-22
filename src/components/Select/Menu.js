@@ -6,9 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
+import '../../polyfills/Object.values';
 
 export default class Menu extends Component {
     static contextTypes = CONTEXT_TYPES;
@@ -46,9 +48,18 @@ export default class Menu extends Component {
         super();
 
         this.state = {
+            index: -1,
+            highlighted: '',
             expanded: context.expanded,
             values: new Set(context.selectedValues)
         };
+    }
+
+    /**
+     * Bind events before mounting.
+     */
+    componentWillMount() {
+        window.addEventListener('keydown', this.handleOnKeyDown);
     }
 
     /**
@@ -62,17 +73,6 @@ export default class Menu extends Component {
             expanded: nextContext.expanded,
             values: new Set(nextContext.selectedValues)
         });
-    }
-
-    /**
-     * Only update if the selected values or expanded state change.
-     *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @returns {Boolean}
-     */
-    shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.values !== this.state.values || nextState.expanded !== this.state.expanded);
     }
 
     /**
@@ -100,6 +100,13 @@ export default class Menu extends Component {
     }
 
     /**
+     * Remove events when unmounting.
+     */
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleOnKeyDown);
+    }
+
+    /**
      * Create an option element with the defined settings.
      *
      * @param {Object} option
@@ -115,7 +122,8 @@ export default class Menu extends Component {
                 <a role="option"
                     className={this.formatClass(props.optionClassName, {
                         'is-disabled': disabled,
-                        'is-selected': selected
+                        'is-selected': selected,
+                        'is-highlighted': (this.state.highlighted === option.value)
                     })}
                     aria-disabled={disabled}
                     aria-selected={selected}
@@ -179,6 +187,67 @@ export default class Menu extends Component {
         }
 
         context.selectValue(Array.from(values));
+    }
+
+    /**
+     * Handler that cycles through the menu options when a specific key is pressed.
+     * If `ArrowUp` or `ArrowDown` is pressed, it will highlight the next or previous option.
+     * If `Enter` is pressed, the value will be selected, else if `Escape` is pressed,
+     * the menu and state will be closed.
+     *
+     * @param {SyntheticEvent} e
+     */
+    @bind
+    handleOnKeyDown(e) {
+        if (!this.state.expanded || ['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) === -1) {
+            return;
+        }
+
+        e.preventDefault();
+
+        let context = this.context,
+            options = Object.values(context.mappedOptions),
+            index = this.state.index;
+
+        switch (e.key) {
+            case 'Escape':
+                this.setState({
+                    highlighted: '',
+                    index: -1
+                });
+
+                context.hideMenu();
+                break;
+
+            case 'Enter':
+                if (index >= 0) {
+                    this.selectValue(options[index].value);
+                }
+                break;
+
+            case 'ArrowUp':
+            case 'ArrowDown':
+            default:
+                let step = (e.key === 'ArrowUp') ? -1 : 1;
+
+                index += step;
+
+                while ((typeof options[index] === 'undefined') || options[index].disabled) {
+                    index += step;
+
+                    if (index >= options.length) {
+                        index = 0;
+                    } else if (index < 0) {
+                        index = options.length - 1;
+                    }
+                }
+
+                this.setState({
+                    highlighted: options[index].value,
+                    index
+                });
+                break;
+        }
     }
 
     /**

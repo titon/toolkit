@@ -86,16 +86,18 @@ export default class Select extends Component {
      * @returns {Object}
      */
     getChildContext() {
-        let { name, options, multiple } = this.props;
+        let { name, options, multiple } = this.props,
+            state = this.state;
 
         return {
             uid: this.uid,
             multiple,
-            expanded: this.state.expanded,
+            expanded: state.expanded,
             inputID: formatInputName(name),
             inputName: name,
             options,
-            selectedValues: this.state.values,
+            mappedOptions: state.options,
+            selectedValues: state.values,
             selectValue: this.selectValue,
             hideMenu: this.hideMenu,
             showMenu: this.showMenu,

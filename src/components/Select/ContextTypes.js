@@ -14,6 +14,7 @@ const CONTEXT_TYPES = {
     inputID: PropTypes.string,
     inputName: PropTypes.string,
     options: SelectPropTypes.optionList,
+    mappedOptions: PropTypes.objectOf(SelectPropTypes.option),
     selectedValues: PropTypes.arrayOf(PropTypes.string),
     selectValue: PropTypes.func,
     hideMenu: PropTypes.func,
