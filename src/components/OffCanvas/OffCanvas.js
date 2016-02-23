@@ -21,7 +21,7 @@ export default class OffCanvas extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: ['off-canvas'],
+        elementClassName: 'off-canvas',
         animation: 'push',
         multiple: true,
         showOnLoad: false,
