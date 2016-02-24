@@ -308,8 +308,8 @@ $titon-label: (
 ) !default;
 
 $titon-lazy-load: (
-    "class": bem("lazy-load"),
-    "transition": theme-setting("transition")
+    "class-bg": bem("lazy-load", "bg"),
+    "class-image": bem("lazy-load", "image")
 ) !default;
 
 $titon-loader: (

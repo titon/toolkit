@@ -13,8 +13,8 @@ import throttle from '../../decorators/throttle';
 
 export default class LazyLoad extends Component {
     static defaultProps = {
-        threshold: 150,
-        delay: 10000
+        threshold: 200,
+        delay: 0
     };
 
     static propTypes = {
@@ -62,7 +62,6 @@ export default class LazyLoad extends Component {
         }
 
         this.calculateElement();
-        this.attemptToLoad();
     }
 
     /**
@@ -86,6 +85,10 @@ export default class LazyLoad extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.state.loaded && !prevState.loaded) {
             this.emitEvent('loaded');
+
+        // Attempt to load anytime the state changes
+        } else {
+            this.attemptToLoad();
         }
     }
 
@@ -117,8 +120,8 @@ export default class LazyLoad extends Component {
         this.setState({
             elementTop: element.offsetTop,
             elementLeft: element.offsetLeft,
-            elementWidth: element.outerWidth,
-            elementHeight: element.outerHeight
+            elementWidth: element.offsetWidth,
+            elementHeight: element.offsetHeight
         });
     }
 
@@ -198,20 +201,19 @@ export default class LazyLoad extends Component {
     /**
      * Handler that re-calculates the element and viewport when the browser is resized.
      */
-    @debounce(150)
     @bind
+    @debounce(150)
     handleOnResize() {
         this.calculateElement();
         this.calculateViewport();
-        this.attemptToLoad();
     }
 
     /**
      * Handler that checks if the element is within the viewport and loads it.
      */
-    @throttle(50)
     @bind
+    @throttle(50)
     handleOnScroll() {
-        this.attemptToLoad();
+        this.calculateViewport();
     }
 }

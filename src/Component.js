@@ -42,7 +42,7 @@ export default class Component extends React.Component {
         if (debug && window.console) {
             /* eslint no-console: 0 */
 
-            console.log(name + '#' + uid, performance.now().toFixed(3), type, ...args);
+            console.log(name + (uid ? `#${uid}` : ''), performance.now().toFixed(3), type, ...args);
 
             if (debug === 'verbose') {
                 console.dir(this);

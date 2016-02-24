@@ -5,8 +5,11 @@
  */
 
 @include export("lazy-load") {
-    #{map-get($titon-lazy-load, "class")} {
+    #{map-get($titon-lazy-load, "class-bg")} {
         background-image: none !important;
-        transition: background map-get($titon-lazy-load, "transition");
+    }
+
+    #{map-get($titon-lazy-load, "class-image")} {
+        display: inline-block; // Required to calculate dimensions
     }
 }

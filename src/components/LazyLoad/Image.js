@@ -11,9 +11,9 @@ import { RETINA } from '../../flags';
 
 export default class Image extends LazyLoad {
     static defaultProps = {
-        elementClassName: 'lazy-load',
-        threshold: 150,
-        delay: 10000
+        elementClassName: ['lazy-load', 'image'],
+        cacheBust: false,
+        ...LazyLoad.defaultProps
     };
 
     static propTypes = {
@@ -21,10 +21,39 @@ export default class Image extends LazyLoad {
         elementClassName: cssClass.isRequired,
         src: PropTypes.string.isRequired,
         retinaSrc: PropTypes.string,
-        fillSrc: PropTypes.string,
-        threshold: PropTypes.number,
-        delay: PropTypes.number
+        filler: PropTypes.string,
+        cacheBust: PropTypes.bool,
+        ...LazyLoad.propTypes
     };
+
+    /**
+     * Determine the correct image source path based on the loaded state,
+     * whether the browser supports retina, and the default source and filler images.
+     *
+     * If `cacheBust` is enabled, a query string param will be appended
+     * with the current timestamp.
+     *
+     * @returns {String}
+     */
+    getSourcePath() {
+        let { src, retinaSrc, filler, cacheBust } = this.props,
+            sourcePath = filler || '';
+
+        if (this.state.loaded) {
+            sourcePath = (RETINA ? retinaSrc : '') || src;
+
+            // Append a query string to bust the cache
+            if (cacheBust) {
+                let url = new URL(sourcePath);
+
+                url.search += (url.search.charAt(0) === '?' ? '&' : '?') + 'now=' + Date.now();
+
+                sourcePath = String(url);
+            }
+        }
+
+        return sourcePath;
+    }
 
     /**
      * Render the lazy loaded image.
@@ -32,20 +61,16 @@ export default class Image extends LazyLoad {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
-            loaded = this.state.loaded,
-            src = props.fillSrc;
-
-        if (loaded) {
-            src = (RETINA ? props.retinaSrc : '') || props.src;
-        }
+        let props = this.props;
 
         return (
-            <img alt=""
-                src={src || ''}
-                className={this.formatClass(props.className, {
-                    [props.elementClassName]: !loaded,
-                    'is-loaded': loaded
+            <img
+                alt=""
+                ref="element"
+                src={this.getSourcePath()}
+                className={this.formatClass(props.elementClassName, props.className, {
+                    'is-loaded': this.state.loaded,
+                    'is-retina': (RETINA && props.retinaSrc)
                 })}
                 {...this.inheritNativeProps(props)} />
         );

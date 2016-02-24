@@ -10,6 +10,7 @@ import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import { Row, Col } from '../components/Grid';
+import { Background, Image } from '../components/LazyLoad';
 import Mask from '../components/Mask';
 import Modal from '../components/Modal';
 import OffCanvas from '../components/OffCanvas';
@@ -251,6 +252,26 @@ const gridMarkup = (
     </div>
 );
 
+const lazyLoadMarkup = (
+    <div>
+        <div style={{ height: 1000 }} />
+
+        <Image
+            src="http://lorempixel.com/300/300/animals/?foo"
+            alt="KITTIES"
+            width="300" height="300"
+            cacheBust={true} />
+
+        <div style={{ height: 1000 }} />
+
+        <Image
+            src="http://lorempixel.com/300/300/animals/"
+            retinaSrc="http://lorempixel.com/600/600/animals/"
+            alt="FLOOFS"
+            width="300" height="300" />
+    </div>
+);
+
 const maskMarkup = (
     <Mask>
         <p>
@@ -447,7 +468,7 @@ const switchMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {selectMarkup}
+        {lazyLoadMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
