@@ -262,6 +262,16 @@ const lazyLoadMarkup = (
             width="300" height="300"
             cacheBust={true} />
 
+        <Background>
+            <div style={{
+                background: 'url(http://lorempixel.com/300/300/animals/?bar) no-repeat',
+                width: 300,
+                height: 300
+            }}>
+                Bar
+            </div>
+        </Background>
+
         <div style={{ height: 1000 }} />
 
         <Image
@@ -269,6 +279,17 @@ const lazyLoadMarkup = (
             retinaSrc="http://lorempixel.com/600/600/animals/"
             alt="FLOOFS"
             width="300" height="300" />
+
+        <Background>
+            <div className="bar" style={{
+                background: 'url(http://lorempixel.com/600/600/animals/) no-repeat',
+                backgroundSize: 'cover',
+                width: 300,
+                height: 300
+            }}>
+                Bar
+            </div>
+        </Background>
     </div>
 );
 

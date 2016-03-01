@@ -6,7 +6,9 @@
 
 @include export("lazy-load") {
     #{map-get($titon-lazy-load, "class-bg")} {
-        background-image: none !important;
+        &:not(.is-loaded) {
+            background-image: none !important;
+        }
     }
 
     #{map-get($titon-lazy-load, "class-image")} {

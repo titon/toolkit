@@ -4,50 +4,34 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import LazyLoad from './LazyLoad';
 import cssClass from '../../prop-types/cssClass';
-import { RETINA } from '../../flags';
 
 export default class Background extends LazyLoad {
     static defaultProps = {
-        elementClassName: 'lazy-load',
-        threshold: 150,
-        delay: 10000
+        elementClassName: ['lazy-load', 'bg'],
+        ...LazyLoad.defaultProps
     };
 
     static propTypes = {
-        className: cssClass,
         elementClassName: cssClass.isRequired,
-        src: PropTypes.string.isRequired,
-        retinaSrc: PropTypes.string,
-        fillSrc: PropTypes.string,
-        threshold: PropTypes.number,
-        delay: PropTypes.number
+        ...LazyLoad.propTypes
     };
 
     /**
-     * Render the lazy loaded image.
+     * Render the lazy loaded element.
      *
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
-            loaded = this.state.loaded,
-            src = props.fillSrc;
+        let props = this.props;
 
-        if (loaded) {
-            src = (RETINA ? props.retinaSrc : '') || props.src;
-        }
-
-        return (
-            <img alt=""
-                src={src || ''}
-                className={this.formatClass(props.className, {
-                    [props.elementClassName]: !loaded,
-                    'is-loaded': loaded
-                })}
-                {...this.inheritNativeProps(props)} />
-        );
+        return this.transferToChild(props.children, {
+            ref: 'element',
+            className: this.formatClass(props.elementClassName, {
+                'is-loaded': this.state.loaded
+            })
+        });
     }
 }
