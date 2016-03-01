@@ -19,7 +19,8 @@ export default class Component extends React.Component {
     };
 
     static propTypes = {
-        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+        debug: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        uid: PropTypes.string
     };
 
     state = {};
@@ -109,9 +110,15 @@ export default class Component extends React.Component {
 
     /**
      * Generate a unique identifier for this instance.
+     * The UID is lazy-loaded using the objects prototype `toString()` method.
+     * This allows the `uid` prop to be used if needed.
      */
     generateUID() {
-        this.uid = generateUID();
+        this.uid = {
+            toString: () => {
+                return this.uid = this.props.uid || generateUID();
+            }
+        };
     }
 
     /**
@@ -159,10 +166,12 @@ export default class Component extends React.Component {
      * Return the UID for the current component.
      * The UID could either be inherited from the parent, or generate per instance.
      *
+     * Cast the UID to a string to force the lazy-load.
+     *
      * @returns {String}
      */
     getUID() {
-        return this.context.uid || this.uid;
+        return String(this.context.uid || this.uid);
     }
 
     /**

@@ -73,7 +73,7 @@ export default class Carousel extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             modifier: this.props.modifier,
             currentIndex: this.state.index,
             activeIndices: this.getActiveIndices(),

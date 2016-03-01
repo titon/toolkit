@@ -90,7 +90,7 @@ export default class Select extends Component {
             state = this.state;
 
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             multiple,
             expanded: state.expanded,
             inputID: formatInputName(name),

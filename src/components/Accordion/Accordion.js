@@ -52,7 +52,7 @@ export default class Accordion extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             activeIndices: Array.from(this.state.indices),
             hideItem: this.hideItem,
             showItem: this.showItem,

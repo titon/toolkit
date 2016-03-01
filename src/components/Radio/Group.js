@@ -50,7 +50,7 @@ export default class Group extends Component {
         let name = this.props.name;
 
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             inputID: formatInputName(name),
             inputName: name,
             checkedValue: this.state.value,

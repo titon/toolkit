@@ -55,7 +55,7 @@ export default class Tabs extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             activeIndex: this.state.index,
             hideSection: this.hideSection,
             showSection: this.showSection,

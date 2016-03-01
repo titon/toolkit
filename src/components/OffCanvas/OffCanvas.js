@@ -69,7 +69,7 @@ export default class OffCanvas extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             activeSides: Array.from(this.state.sides),
             isSidebarActive: this.isSidebarActive,
             hideSidebar: this.hideSidebar,

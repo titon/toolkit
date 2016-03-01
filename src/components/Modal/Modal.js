@@ -74,7 +74,7 @@ export default class Modal extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             factory: this.props.factory,
             hideModal: this.hideModal
         };

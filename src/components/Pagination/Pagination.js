@@ -75,7 +75,7 @@ export default class Pagination extends Component {
      */
     getChildContext() {
         return {
-            uid: this.uid,
+            uid: this.getUID(),
             url: this.props.url,
             currentPage: this.state.page,
             totalPages: this.props.totalPages,
