@@ -430,10 +430,11 @@ $titon-switch: (
     "transition": theme-setting("transition"),
 ) !default;
 
-$titon-tab: (
+$titon-tabs: (
     "class": bem("tabs"),
-    "class-nav": bem("tab", "nav"),
-    "class-section": bem("tab", "section")
+    "class-tab": bem("tabs", "tab"),
+    "class-nav": bem("tabs", "nav"),
+    "class-section": bem("tabs", "section")
 ) !default;
 
 $titon-table: (

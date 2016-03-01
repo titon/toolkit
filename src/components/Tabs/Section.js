@@ -4,27 +4,23 @@
  * @link        http://titon.io
  */
 
-/* eslints react/jsx-handler-names: 0 */
-
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import Header from './Header';
-import Section from './Section';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
 
-export default class Item extends Component {
+export default class Section extends Component {
     static contextTypes = CONTEXT_TYPES;
+
+    static defaultProps = {
+        elementClassName: ['tabs', 'section']
+    };
 
     static propTypes = {
         children: PropTypes.node,
-        className: PropTypes.string,
+        elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
-        header: PropTypes.node.isRequired,
-        headerClassName: cssClass,
-        sectionClassName: cssClass,
-        onClickHeader: collection.func,
         onHiding: collection.func,
         onHidden: collection.func,
         onShowing: collection.func,
@@ -41,7 +37,7 @@ export default class Item extends Component {
         super();
 
         this.state = {
-            expanded: context.isItemActive(props.index)
+            expanded: context.isSectionActive(props.index)
         };
     }
 
@@ -53,7 +49,7 @@ export default class Item extends Component {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            expanded: nextContext.isItemActive(nextProps.index)
+            expanded: nextContext.isSectionActive(nextProps.index)
         });
     }
 
@@ -83,34 +79,29 @@ export default class Item extends Component {
     }
 
     /**
-     * Render the accordion item and pass all relevant props to the sub-children.
+     * Render the tabs section content.
      *
      * @returns {ReactElement}
      */
     render() {
         let props = this.props,
-            expanded = this.state.expanded;
+            index = props.index,
+            expanded = props.expanded;
 
         return (
-            <li className={props.className}>
-                <Header
-                    className={props.headerClassName}
-                    index={props.index}
-                    active={expanded}
-                    onClick={props.onClickHeader}>
+            <section
+                role="tabpanel"
+                id={this.formatID('tabs-section', index)}
+                className={this.formatClass(props.elementClassName, {
+                    'is-expanded': expanded
+                })}
+                aria-labelledby={this.formatID('tabs-tab', index)}
+                aria-hidden={!expanded}
+                aria-expanded={expanded}
+                {...this.inheritNativeProps(props)}>
 
-                    {props.header}
-                </Header>
-
-                <Section
-                    className={props.sectionClassName}
-                    index={props.index}
-                    expanded={expanded}
-                    {...this.inheritNativeProps(props)}>
-
-                    {props.children}
-                </Section>
-            </li>
+                {props.children}
+            </section>
         );
     }
 }

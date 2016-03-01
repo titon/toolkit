@@ -4,20 +4,19 @@
  * @link        http://titon.io
  */
 
-@include export("tab") {
-    #{map-get($titon-tab, "class-nav")} {
-        > ul,
+@include export("tabs") {
+    #{map-get($titon-tabs, "class-nav")} {
         > ol {
             @extend %placeholder-list;
             display: flex;
         }
     }
 
-    #{map-get($titon-tab, "class-section")} {
+    #{map-get($titon-tabs, "class-section")} {
         padding: theme-setting("medium-padding");
 
         // Add display none on sections since visibility property takes up DOM space
-        &.hide {
+        &:not(.is-expanded) {
             display: none;
         }
     }

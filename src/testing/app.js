@@ -20,6 +20,7 @@ import Radio from '../components/Radio';
 import Select from '../components/Select';
 import Steps from '../components/Steps';
 import Switch from '../components/Switch';
+import Tabs from '../components/Tabs';
 
 Titon.options.debug = true;
 
@@ -487,9 +488,23 @@ const switchMarkup = (
     </div>
 );
 
+const tabsMarkup = (
+    <Tabs uid="wtf">
+        <Tabs.Nav>
+            <Tabs.Tab index={0}>Foo</Tabs.Tab>
+            <Tabs.Tab index={1}>Bar</Tabs.Tab>
+            <Tabs.Tab index={2}>Baz</Tabs.Tab>
+        </Tabs.Nav>
+
+        <Tabs.Section index={0}>Foo</Tabs.Section>
+        <Tabs.Section index={1}>Bar</Tabs.Section>
+        <Tabs.Section index={2}>Baz</Tabs.Section>
+    </Tabs>
+);
+
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {stepsMarkup}
+        {tabsMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
