@@ -416,9 +416,9 @@ $titon-select: (
     "dropdown-menu": true
 ) !default;
 
-$titon-step: (
-    "class": bem("step"),
-    "class-item": bem("step", "item"),
+$titon-steps: (
+    "class": bem("steps"),
+    "class-item": bem("steps", "item"),
 ) !default;
 
 $titon-switch: (

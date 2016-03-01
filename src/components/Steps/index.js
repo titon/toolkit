@@ -4,10 +4,10 @@
  * @link        http://titon.io
  */
 
-import Step from './Step';
+import Steps from './Steps';
 import Item from './Item';
 
-Step.Item = Item;
+Steps.Item = Item;
 
 export { Item };
-export default Step;
+export default Steps;

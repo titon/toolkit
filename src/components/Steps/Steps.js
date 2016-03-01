@@ -6,23 +6,25 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import Item from './Item';
+import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
 
-export default class Item extends Component {
+export default class Steps extends Component {
     static defaultProps = {
-        elementClassName: ['step', 'item'],
-        complete: false
+        elementClassName: 'steps',
+        label: 'Stepped Navigation'
     };
 
     static propTypes = {
-        children: PropTypes.node,
+        children: children(Item),
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        complete: PropTypes.bool
+        label: PropTypes.string
     };
 
     /**
-     * Render the step item.
+     * Render the steps wrapper.
      *
      * @returns {ReactElement}
      */
@@ -30,17 +32,16 @@ export default class Item extends Component {
         let props = this.props;
 
         return (
-            <li>
-                <button
-                    type="button" role="button"
-                    className={this.formatClass(props.elementClassName, props.className, {
-                        'is-complete': props.complete
-                    })}
-                    {...this.inheritNativeProps(props)}>
+            <nav
+                role="navigation"
+                className={this.formatClass(props.elementClassName, props.className)}
+                aria-label={props.label}
+                {...this.inheritNativeProps(props)}>
 
+                <ol>
                     {props.children}
-                </button>
-            </li>
+                </ol>
+            </nav>
         );
     }
 }
