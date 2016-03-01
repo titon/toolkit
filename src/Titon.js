@@ -35,7 +35,10 @@ const Titon = Object.freeze({
         logger() {},
 
         // Style states
-        states: ['info', 'debug', 'warning', 'error', 'success']
+        states: ['info', 'debug', 'warning', 'error', 'success'],
+
+        // Prefix prepended to every cookie
+        cookiePrefix: 'titon.'
     },
 
     /** Localization messages. */

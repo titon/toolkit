@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
+import CookieJar from '../../machines/CookieJar';
 import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
@@ -69,7 +70,24 @@ export default class Tabs extends Component {
      * Set the default index before mounting.
      */
     componentWillMount() {
-        this.showSection(this.props.defaultIndex);
+        let props = this.props,
+            index = null;
+
+        // Persist the state through a cookie or fragment
+        if (props.persistState) {
+            index = CookieJar.get('tabs.' + this.getUID());
+
+            if (index === null && props.loadFragment && location.hash) {
+                // TODO
+            }
+        }
+
+        // Fallback to the default index
+        if (index === null) {
+            index = props.defaultIndex;
+        }
+
+        this.showSection(index);
     }
 
     /**
@@ -84,13 +102,30 @@ export default class Tabs extends Component {
     }
 
     /**
+     * Persist the state through a cookie.
+     */
+    componentDidUpdate() {
+        let props = this.props;
+
+        if (props.persistState) {
+            CookieJar.add('tabs.' + this.getUID(), props.index, {
+                expires: props.cookieDuration
+            });
+        }
+    }
+
+    /**
      * Conceal a section by removing its index from the active state.
      *
      * @param {Number} index
      */
     @bind
     hideSection(index) {
-
+        if (this.state.index === index) {
+            this.setState({
+                index: -1
+            });
+        }
     }
 
     /**
@@ -122,7 +157,9 @@ export default class Tabs extends Component {
      */
     @bind
     showSection(index) {
-
+        this.setState({
+            index
+        });
     }
 
     /**

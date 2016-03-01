@@ -91,7 +91,7 @@ export default class Tab extends Component {
                 <button
                     type="button" role="tab"
                     id={this.formatID('tabs-tab', index)}
-                    class={this.formatClass(props.elementClassName, props.className, {
+                    className={this.formatClass(props.elementClassName, props.className, {
                         'is-active': active
                     })}
                     aria-controls={this.formatID('tabs-section', index)}
