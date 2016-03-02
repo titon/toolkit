@@ -154,6 +154,14 @@ class DocumentState {
         }
     }
 
+    /**
+     * Update the hash in the address bar without causing a page jump.
+     *
+     * @param {String} hash
+     */
+    updateFragment(hash) {
+        history.replaceState({ fragment: hash }, document.title, '#' + hash);
+    }
 }
 
 export default new DocumentState();

@@ -13,37 +13,6 @@ class CookieJar {
     raw = false;
 
     /**
-     * Add a cookie by writing to the document.
-     *
-     * @param {String} key
-     * @param {*} value
-     * @param {Object} [options]
-     */
-    add(key, value, options = {}) {
-
-        // Convert to JSON if not primitive
-        if (typeof value === 'object') {
-            value = JSON.stringify(value);
-        }
-
-        // Add days to current timestamp if a number
-        if (typeof options.expires === 'number') {
-            options.expires = new Date().setHours(options.expires * 24);
-        }
-
-        /* eslint no-multi-spaces: 0 */
-        cookies[key] = [
-            this.encode(Titon.options.cookiePrefix + key), '=', this.encode(value),
-            options.expires ? '; expires=' + options.expires.toUTCString() : '',
-            options.path    ? '; path=' + options.path : '',
-            options.domain  ? '; domain=' + options.domain : '',
-            options.secure  ? '; secure' : ''
-        ].join('');
-
-        document.cookie = cookies[key];
-    }
-
-    /**
      * Decode an encoded value, or return the raw value.
      *
      * @param {String} value
@@ -116,6 +85,41 @@ class CookieJar {
         options.expires = -1;
 
         this.add(key, '[removed]', options);
+    }
+
+    /**
+     * Set a cookie by writing to the document.
+     *
+     * @param {String} key
+     * @param {*} value
+     * @param {Object} [options]
+     */
+    set(key, value, options = {}) {
+
+        // Convert to JSON if not primitive
+        if (typeof value === 'object') {
+            value = JSON.stringify(value);
+        }
+
+        // Add days to current timestamp if a number
+        if (typeof options.expires === 'number') {
+            let date = new Date();
+
+            date.setHours(options.expires * 24);
+
+            options.expires = date;
+        }
+
+        /* eslint no-multi-spaces: 0 */
+        cookies[key] = [
+            this.encode(Titon.options.cookiePrefix + key), '=', this.encode(value),
+            options.expires ? '; expires=' + options.expires.toUTCString() : '',
+            options.path    ? '; path=' + options.path : '',
+            options.domain  ? '; domain=' + options.domain : '',
+            options.secure  ? '; secure' : ''
+        ].join('');
+
+        document.cookie = cookies[key];
     }
 }
 

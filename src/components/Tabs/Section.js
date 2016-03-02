@@ -86,7 +86,7 @@ export default class Section extends Component {
     render() {
         let props = this.props,
             index = props.index,
-            expanded = props.expanded;
+            expanded = this.state.expanded;
 
         return (
             <section

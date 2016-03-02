@@ -489,7 +489,11 @@ const switchMarkup = (
 );
 
 const tabsMarkup = (
-    <Tabs uid="wtf">
+    <Tabs uid="a" persistState={true} useCookie={false} collapsible={true} fragments={[
+        { hash: 'foo', index: 0 },
+        { hash: 'bar', index: 1 },
+        { hash: 'baz', index: 2 }
+    ]}>
         <Tabs.Nav>
             <Tabs.Tab index={0}>Foo</Tabs.Tab>
             <Tabs.Tab index={1}>Bar</Tabs.Tab>
@@ -498,7 +502,21 @@ const tabsMarkup = (
 
         <Tabs.Section index={0}>Foo</Tabs.Section>
         <Tabs.Section index={1}>Bar</Tabs.Section>
-        <Tabs.Section index={2}>Baz</Tabs.Section>
+        <Tabs.Section index={2}>
+            Baz
+
+            <Tabs uid="b" persistState={false}>
+                <Tabs.Nav>
+                    <Tabs.Tab index={0}>Foo</Tabs.Tab>
+                    <Tabs.Tab index={1}>Bar</Tabs.Tab>
+                    <Tabs.Tab index={2}>Baz</Tabs.Tab>
+                </Tabs.Nav>
+
+                <Tabs.Section index={0}>Foo</Tabs.Section>
+                <Tabs.Section index={1}>Bar</Tabs.Section>
+                <Tabs.Section index={2}>Baz</Tabs.Section>
+            </Tabs>
+        </Tabs.Section>
     </Tabs>
 );
 

@@ -7,11 +7,12 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import CookieJar from '../../machines/CookieJar';
+import DocumentState from '../../machines/DocumentState';
 import bind from '../../decorators/bind';
-import children from '../../prop-types/children';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
+import '../../polyfills/Array.find';
 
 export default class Tabs extends Component {
     static childContextTypes = CONTEXT_TYPES;
@@ -21,7 +22,9 @@ export default class Tabs extends Component {
         defaultIndex: 0,
         collapsible: false,
         persistState: false,
-        loadFragment: true,
+        useFragment: true,
+        useCookie: true,
+        fragments: [],
         cookieDuration: 30
     };
 
@@ -32,7 +35,12 @@ export default class Tabs extends Component {
         defaultIndex: collection.number,
         collapsible: PropTypes.bool,
         persistState: PropTypes.bool,
-        loadFragment: PropTypes.bool,
+        useFragment: PropTypes.bool,
+        useCookie: PropTypes.bool,
+        fragments: PropTypes.arrayOf(PropTypes.shape({
+            index: PropTypes.number,
+            hash: PropTypes.string
+        })),
         cookieDuration: PropTypes.number
     };
 
@@ -75,10 +83,19 @@ export default class Tabs extends Component {
 
         // Persist the state through a cookie or fragment
         if (props.persistState) {
-            index = CookieJar.get('tabs.' + this.getUID());
 
-            if (index === null && props.loadFragment && location.hash) {
-                // TODO
+            // Load from a cookie
+            if (props.useCookie) {
+                index = CookieJar.get('tabs.' + this.getUID());
+            }
+
+            // Load from the fragment
+            if (index === null && props.useFragment && location.hash) {
+                let fragment = props.fragments.find(frag => frag.hash === location.hash.substr(1));
+
+                if (fragment) {
+                    index = fragment.index;
+                }
             }
         }
 
@@ -87,7 +104,8 @@ export default class Tabs extends Component {
             index = props.defaultIndex;
         }
 
-        this.showSection(index);
+        // Cast to number since cookies return strings
+        this.showSection(Number(index));
     }
 
     /**
@@ -105,12 +123,23 @@ export default class Tabs extends Component {
      * Persist the state through a cookie.
      */
     componentDidUpdate() {
-        let props = this.props;
+        let props = this.props,
+            index = this.state.index;
 
         if (props.persistState) {
-            CookieJar.add('tabs.' + this.getUID(), props.index, {
-                expires: props.cookieDuration
-            });
+            if (props.useCookie) {
+                CookieJar.set('tabs.' + this.getUID(), index, {
+                    expires: props.cookieDuration
+                });
+            }
+
+            if (props.useFragment) {
+                let fragment = props.fragments.find(frag => frag.index === index);
+
+                if (fragment) {
+                    DocumentState.updateFragment(fragment.hash);
+                }
+            }
         }
     }
 

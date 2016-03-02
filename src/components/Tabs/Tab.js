@@ -24,6 +24,7 @@ export default class Tab extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
+        fragment: PropTypes.string,
         onClick: collection.func
     };
 
