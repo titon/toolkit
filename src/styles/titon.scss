@@ -265,10 +265,8 @@ $titon-form: (
     "class-field": bem("field"),
     "class-field-help": bem("field", "help"),
     "class-field-label": bem("field", "label"),
-    "class-field-column": bem("field", "col"),
     "class-modifier-inline": bem("form", "", "inline"),
-    "class-modifier-horizontal": bem("form", "", "horizontal"),
-    "modifiers": ("inline", "horizontal"), // inline, horizontal
+    "modifiers": ("inline"), // inline
 ) !default;
 
 $titon-grid: (

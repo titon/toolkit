@@ -42,7 +42,8 @@ export default class Spinner extends Component {
             <div
                 className={this.formatClass(props.elementClassName, props.className, {
                     [`@${props.type}-spinner`]: true
-                })}>
+                })}
+                {...this.inheritNativeProps(props)}>
 
                 <div className={this.formatClass(props.spinnerClassName)}>
                     {spinners}

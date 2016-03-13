@@ -8,19 +8,19 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
 
-export default class Message extends Component {
+export default class ActionBar extends Component {
     static defaultProps = {
-        elementClassName: ['loader', 'message']
+        elementClassName: ['form', 'actions']
     };
 
     static propTypes = {
-        children: PropTypes.node.isRequired,
+        children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired
     };
 
     /**
-     * Render the message within a loader.
+     * Render the form action bar.
      *
      * @returns {ReactElement}
      */

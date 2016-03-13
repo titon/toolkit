@@ -1,0 +1,77 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("form") {
+    $titon-temp-form-modifiers: map-get($titon-form, "modifiers");
+
+    select[multiple],
+    select[size] {
+        height: auto;
+    }
+
+    input[type="search"] {
+        -webkit-appearance: none;
+    }
+
+    // Required values to match browser restrictions
+    label {
+        font-size: inherit;
+        line-height: normal;
+    }
+
+    //-------------------- Fields, Labels --------------------//
+
+    #{map-get($titon-form, "class-fields")} {
+        @extend %placeholder-list;
+
+        > li + li {
+            margin-top: theme-setting("margin");
+        }
+    }
+
+    #{map-get($titon-form, "class-field-label")} {
+        display: block;
+        vertical-align: middle;
+        margin-bottom: .5em;
+    }
+
+    #{map-get($titon-form, "class-field-help")} {
+        margin-top: .5em;
+        font-size: theme-setting("small-font-size");
+    }
+
+    #{map-get($titon-form, "class-actions")} {
+        text-align: center;
+    }
+
+    //-------------------- Modifiers --------------------//
+
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-form-modifiers, "inline")) {
+        #{map-get($titon-form, "class-modifier-inline")} {
+            #{map-get($titon-form, "class-fields")},
+            #{map-get($titon-form, "class-fields")} > li,
+            #{map-get($titon-form, "class-field-label")},
+            #{map-get($titon-form, "class-actions")} {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: normal;
+                margin: 0;
+            }
+
+            #{map-get($titon-form, "class-fields")} > li {
+                margin-#{bidi-opposite-alignment()}: theme-setting("margin");
+            }
+
+            #{map-get($titon-form, "class-field-label")} {
+                margin-#{bidi-opposite-alignment()}: (theme-setting("margin") / 2);
+            }
+
+            #{map-get($titon-form, "class-field-help")} {
+                display: none;
+            }
+        }
+    }
+}

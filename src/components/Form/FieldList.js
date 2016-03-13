@@ -4,23 +4,25 @@
  * @link        http://titon.io
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Component from '../../Component';
+import Field from './Field';
+import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
 
-export default class Message extends Component {
+export default class FieldList extends Component {
     static defaultProps = {
-        elementClassName: ['loader', 'message']
+        elementClassName: 'fields'
     };
 
     static propTypes = {
-        children: PropTypes.node.isRequired,
+        children: children(Field),
         className: cssClass,
         elementClassName: cssClass.isRequired
     };
 
     /**
-     * Render the message within a loader.
+     * Render the form field list wrapper.
      *
      * @returns {ReactElement}
      */
@@ -28,12 +30,12 @@ export default class Message extends Component {
         let props = this.props;
 
         return (
-            <div
+            <ol
                 className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
                 {props.children}
-            </div>
+            </ol>
         );
     }
 }

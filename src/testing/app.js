@@ -9,6 +9,7 @@ import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
+import Form from '../components/Form';
 import { Row, Col } from '../components/Grid';
 import { Background, Image } from '../components/LazyLoad';
 import { Message, Spinner, Wave } from '../components/Loader';
@@ -180,6 +181,42 @@ const flexMarkup = (
                 7
             </Block>
         </Region>
+    </div>
+);
+
+const formMarkup = (
+    <div>
+        <Form action="/">
+            <Form.FieldList>
+                <Form.Field inputID="foo" label="Foo" help="250 characters remaining">
+                    <input type="text" id="foo" name="foo" />
+                </Form.Field>
+
+                <Form.Field inputID="bar" label="Bar" required={true}>
+                    <input type="text" id="bar" name="bar" />
+                </Form.Field>
+            </Form.FieldList>
+
+            <Form.ActionBar>
+                <button type="submit">Submit</button>
+            </Form.ActionBar>
+        </Form>
+
+        <Form action="/" inline={true}>
+            <Form.FieldList>
+                <Form.Field inputID="foo" label="Foo" help="250 characters remaining">
+                    <input type="text" id="foo" name="foo" />
+                </Form.Field>
+
+                <Form.Field inputID="bar" label="Bar" required={true}>
+                    <input type="text" id="bar" name="bar" />
+                </Form.Field>
+            </Form.FieldList>
+
+            <Form.ActionBar>
+                <button type="submit">Submit</button>
+            </Form.ActionBar>
+        </Form>
     </div>
 );
 
@@ -543,7 +580,7 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {loaderMarkup}
+        {formMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

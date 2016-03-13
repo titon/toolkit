@@ -6,48 +6,46 @@
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
-import Message from './Message';
-import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
 
-export default class Wave extends Component {
+export default class Form extends Component {
     static defaultProps = {
-        elementClassName: 'loader',
-        type: 'bar',
-        count: 5
+        elementClassName: 'form',
+        method: 'get',
+        multipart: false,
+        inline: false
     };
 
     static propTypes = {
-        children: children(Message),
+        children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        type: PropTypes.oneOf(['bar', 'bubble']),
-        count: PropTypes.number
+        action: PropTypes.string.isRequired,
+        method: PropTypes.oneOf(['get', 'post', 'put']),
+        multipart: PropTypes.bool,
+        inline: PropTypes.bool
     };
 
     /**
-     * Render the wave loader and generate a count of waves.
+     * Render the form wrapper.
      *
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props,
-            waves = [];
-
-        for (let i = 0; i < props.count; i++) {
-            waves.push(<span key={i} />);
-        }
+        let props = this.props;
 
         return (
-            <div
+            <form
+                action={props.action}
+                method={props.method}
+                encType={props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    [`@${props.type}-wave`]: true
+                    '@inline': props.inline
                 })}
                 {...this.inheritNativeProps(props)}>
 
-                {waves}
                 {props.children}
-            </div>
+            </form>
         );
     }
 }

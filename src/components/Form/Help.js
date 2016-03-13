@@ -8,19 +8,20 @@ import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import cssClass from '../../prop-types/cssClass';
 
-export default class Message extends Component {
+export default class Help extends Component {
     static defaultProps = {
-        elementClassName: ['loader', 'message']
+        elementClassName: ['field', 'help']
     };
 
     static propTypes = {
-        children: PropTypes.node.isRequired,
+        children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired
+        elementClassName: cssClass.isRequired,
+        inputID: PropTypes.string
     };
 
     /**
-     * Render the message within a loader.
+     * Render the form field help block.
      *
      * @returns {ReactElement}
      */
@@ -29,6 +30,7 @@ export default class Message extends Component {
 
         return (
             <div
+                id={props.inputID ? (props.inputID + '-help') : null}
                 className={this.formatClass(props.elementClassName, props.className)}
                 {...this.inheritNativeProps(props)}>
 
