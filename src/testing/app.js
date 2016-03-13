@@ -11,6 +11,7 @@ import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import { Row, Col } from '../components/Grid';
 import { Background, Image } from '../components/LazyLoad';
+import { Message, Spinner, Wave } from '../components/Loader';
 import Mask from '../components/Mask';
 import Modal from '../components/Modal';
 import OffCanvas from '../components/OffCanvas';
@@ -294,6 +295,26 @@ const lazyLoadMarkup = (
     </div>
 );
 
+const loaderMarkup = (
+    <div style={{ padding: 20 }}>
+        <Wave />
+        <Wave count={3} className="loader-foo">
+            <Message>Loading...</Message>
+        </Wave>
+        <Wave type="bubble" />
+        <Wave type="bubble" count={3}>
+            <Message>Finding...</Message>
+        </Wave>
+
+        <br /><br />
+
+        <Spinner />
+        <Spinner>
+            <Message>Searching...</Message>
+        </Spinner>
+    </div>
+);
+
 const maskMarkup = (
     <Mask>
         <p>
@@ -522,7 +543,7 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {tabsMarkup}
+        {loaderMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

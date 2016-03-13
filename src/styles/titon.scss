@@ -321,9 +321,10 @@ $titon-loader: (
     "class-modifier-bubble-spinner": bem("loader", "", "bubble-spinner"),
     "modifiers": ("bar-wave"), // bar-wave, bubble-wave, bubble-spinner
     "wave-count": 5,
-    "bar-width": 0.65rem,
-    "bar-height": 2.5rem,
-    "bubble-size": 1.5rem,
+    "bar-width": 0.3rem,
+    "bar-height": 1rem,
+    "bubble-size": .75rem,
+    "spinner-delay": 0.15
 ) !default;
 
 $titon-mask: (
