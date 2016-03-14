@@ -115,9 +115,7 @@ export default class Component extends React.Component {
      */
     generateUID() {
         this.uid = {
-            toString: () => {
-                return this.uid = this.props.uid || generateUID();
-            }
+            toString: () => this.uid = this.props.uid || generateUID()
         };
     }
 
@@ -171,7 +169,7 @@ export default class Component extends React.Component {
      * @returns {String}
      */
     getUID() {
-        return String(this.context.uid || this.uid);
+        return String(this.context.uid || this.uid || '');
     }
 
     /**

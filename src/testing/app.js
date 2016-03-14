@@ -11,6 +11,7 @@ import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import Form from '../components/Form';
 import { Row, Col } from '../components/Grid';
+import Input from '../components/Input';
 import { Background, Image } from '../components/LazyLoad';
 import { Message, Spinner, Wave } from '../components/Loader';
 import Mask from '../components/Mask';
@@ -288,6 +289,19 @@ const gridMarkup = (
             <Col>2</Col>
             <Col>3</Col>
         </Row>
+    </div>
+);
+
+const inputMarkup = (
+    <div>
+        <Input.Static>Name</Input.Static>
+        <Input name="foo" uid="foo" placeholder="Name" defaultValue="Miles" />
+        <Input name="foo-email" type="email" placeholder="Email" />
+        <Input name="foo-file" type="file" />
+
+        <br />
+
+        <Input.Textarea name="qux" uid="qux" />
     </div>
 );
 
@@ -580,7 +594,7 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {formMarkup}
+        {inputMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
