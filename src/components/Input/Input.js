@@ -10,12 +10,14 @@ import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
+import invariant from '../../utility/invariant';
 
 export default class Input extends Component {
     static defaultProps = {
         elementClassName: 'input',
         type: 'text',
-        defaultValue: ''
+        defaultValue: '',
+        defaultChecked: false
     };
 
     static propTypes = {
@@ -25,7 +27,9 @@ export default class Input extends Component {
         name: PropTypes.string.isRequired,
         type: PropTypes.string,
         size: PropTypes.oneOf(['small', 'large']),
+        multiple: PropTypes.bool,
         defaultValue: PropTypes.string,
+        defaultChecked: PropTypes.oneOfType(PropTypes.string, PropTypes.bool),
         onChanging: collection.func,
         onChanged: collection.func
     };
@@ -38,8 +42,32 @@ export default class Input extends Component {
     constructor(props) {
         super();
 
+        let defaultValue = props.defaultValue,
+            defaultChecked = props.defaultChecked;
+
+        switch (props.type) {
+            case 'checkbox':
+                if (props.multiple) {
+                    invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
+                } else {
+                    defaultValue = defaultValue || '1';
+                }
+                break;
+
+            case 'radio':
+                invariant(defaultValue, 'A default value is required when using radios.');
+
+                if (typeof defaultChecked === 'string') {
+                    defaultChecked = (defaultValue === defaultChecked);
+                }
+                break;
+
+            default:
+        }
+
         this.state = {
-            value: props.defaultValue
+            value: defaultValue,
+            checked: Boolean(defaultChecked)
         };
 
         this.generateUID();
@@ -53,7 +81,7 @@ export default class Input extends Component {
      * @returns {Boolean}
      */
     shouldComponentUpdate(nextProps, nextState) {
-        return (nextState.value !== this.state.value);
+        return (nextState.value !== this.state.value || nextState.checked !== this.state.checked);
     }
 
     /**
@@ -63,7 +91,9 @@ export default class Input extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        this.emitEvent('changing', [nextState.value, this.state.value]);
+        let args = this.isChoiceType() ? [nextState.checked] : [nextState.value, this.state.value];
+
+        this.emitEvent('changing', args);
     }
 
     /**
@@ -73,7 +103,9 @@ export default class Input extends Component {
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
-        this.emitEvent('changed', [this.state.value, prevState.value]);
+        let args = this.isChoiceType() ? [this.state.checked] : [this.state.value, prevState.value];
+
+        this.emitEvent('changed', args);
     }
 
     /**
@@ -85,35 +117,72 @@ export default class Input extends Component {
      */
     gatherProps() {
         let props = this.props,
-            componentName = this.constructor.name.toLowerCase();
+            state = this.state,
+            componentName = this.constructor.name.toLowerCase(),
+            inputProps = {
+                id: props.id || formatInputName(props.name),
+                name: props.name,
+                value: state.value,
+                className: this.formatClass(props.elementClassName, props.className, {
+                    ['@' + props.size]: Boolean(props.size),
+                    ['@' + componentName]: (componentName !== 'input'),
+                    'is-checked': Boolean(state.checked),
+                    'is-multiple': Boolean(props.multiple),
+                    'is-required': Boolean(props.required),
+                    'is-disabled': Boolean(props.disabled),
+                    'is-read-only': Boolean(props.readOnly)
+                }),
+                onChange: this.handleOnChange,
+                ...this.inheritNativeProps(props)
+            };
 
-        return {
-            id: props.id || formatInputName(props.name),
-            name: props.name,
-            type: (componentName === 'input') ? props.type : null,
-            value: this.state.value,
-            className: this.formatClass(props.elementClassName, props.className, {
-                ['@' + props.size]: Boolean(props.size),
-                ['@' + componentName]: (componentName !== 'input'),
-                'is-checked': Boolean(props.checked),
-                'is-multiple': Boolean(props.multiple),
-                'is-required': Boolean(props.required),
-                'is-disabled': Boolean(props.disabled),
-                'is-read-only': Boolean(props.readOnly)
-            }),
-            onChange: this.handleOnChange,
-            ...this.inheritNativeProps(props)
-        };
+        // Add checked and multiple support
+        if (this.isChoiceType()) {
+            inputProps.checked = state.checked;
+
+            if (!props.id && (props.multiple || props.type === 'radio')) {
+                inputProps.id += '-' + state.value;
+            }
+        }
+
+        // Only include the type on input elements
+        if (componentName === 'input') {
+            inputProps.type = props.type;
+        }
+
+        return inputProps;
     }
 
     /**
-     * Handler that updates the input value.
+     * Return true if the input element is a radio or checkbox.
+     *
+     * @returns {Boolean}
+     */
+    isChoiceType() {
+        let { type } = this.props;
+
+        return (type === 'checkbox' || type === 'radio');
+    }
+
+    /**
+     * Handler that updates the input value or checked state.
      */
     @bind
     handleOnChange(e) {
-        this.setState({
-            value: e.target.value
-        });
+        let newState = {};
+
+        switch (this.props.type) {
+            case 'checkbox':
+            case 'radio':
+                newState.checked = !this.state.checked;
+                break;
+
+            default:
+                newState.value = e.target.value;
+                break;
+        }
+
+        this.setState(newState);
     }
 
     /**

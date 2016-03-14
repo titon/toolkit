@@ -301,6 +301,15 @@ const inputMarkup = (
 
         <br />
 
+        <Input name="bar" type="checkbox" />
+        <Input name="bar-multi[]" type="checkbox" multiple defaultValue="a" />
+        <Input name="bar-multi[]" type="checkbox" multiple defaultValue="b" defaultChecked={true} />
+        <Input name="baz" type="radio" defaultValue="a" defaultChecked="c" />
+        <Input name="baz" type="radio" defaultValue="b" defaultChecked="c" />
+        <Input name="baz" type="radio" defaultValue="c" defaultChecked="c" />
+
+        <br />
+
         <Input.Textarea name="qux" uid="qux" />
     </div>
 );
