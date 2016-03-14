@@ -339,7 +339,7 @@ export default class Select extends Component {
     /**
      * Render the list of options as `<option>` and `<optgroup>` elements.
      *
-     * @param {Object} options
+     * @param {Object[]} options
      * @returns {ReactElement[]}
      */
     renderOptions(options) {

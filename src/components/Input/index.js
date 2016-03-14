@@ -9,7 +9,9 @@ import Choice from './Choice';
 import Select from './Select';
 import Static from './Static';
 import Textarea from './Textarea';
+import PropTypes from './PropTypes';
 
+Input.PropTypes = PropTypes;
 Input.Choice = Choice;
 Input.Select = Select;
 Input.Static = Static;

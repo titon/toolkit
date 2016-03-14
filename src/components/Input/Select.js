@@ -1,0 +1,92 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+import React from 'react';
+import Input from './Input';
+import InputPropTypes from './PropTypes';
+import bind from '../../decorators/bind';
+import collection from '../../prop-types/collection';
+
+export default class Select extends Input {
+    static defaultProps = {
+        ...Input.defaultProps,
+        defaultValue: []
+    };
+
+    static propTypes = {
+        ...Input.propTypes,
+        options: InputPropTypes.optionList.isRequired,
+        defaultValue: collection.string
+    };
+
+    /**
+     * Handler that updates the selected state.
+     */
+    @bind
+    handleOnChange(e) {
+        let newState = {};
+
+        if (this.props.multiple) {
+            newState.value = Array.from(e.target.selectedOptions).map(option => option.value);
+        } else {
+            newState.value = e.target.value;
+        }
+
+        this.setState(newState);
+    }
+
+    /**
+     * Render the list of options as `<option>` and `<optgroup>` elements.
+     *
+     * @param {Object[]} options
+     * @returns {ReactElement[]}
+     */
+    renderOptions(options) {
+        let elements = [];
+
+        options.forEach(option => {
+            // Optgroup
+            if (option.options) {
+                elements.push(
+                    <optgroup
+                        key={option.label}
+                        label={option.label}
+                        disabled={option.disabled}>
+
+                        {this.renderOptions(option.options)}
+                    </optgroup>
+                );
+
+            // Option
+            } else {
+                elements.push(
+                    <option
+                        key={option.value}
+                        value={option.value}
+                        disabled={option.disabled}>
+
+                        {option.label}
+                    </option>
+                );
+            }
+        });
+
+        return elements;
+    }
+
+    /**
+     * Render the select drop down and generate a list of options.
+     *
+     * @returns {ReactElement}
+     */
+    render() {
+        return (
+            <select {...this.gatherProps()}>
+                {this.renderOptions(this.props.options)}
+            </select>
+        );
+    }
+}

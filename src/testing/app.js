@@ -33,6 +33,51 @@ const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
 };
 
+const selectOptions = [
+    {
+        label: 'One Piece',
+        options: [
+            {
+                value: '0',
+                label: 'Luffy',
+                selectedLabel: 'Luffy SENPAI',
+                description: 'Pirate King'
+            }, {
+                value: '1',
+                label: 'Zoro'
+            }, {
+                value: '3',
+                label: 'Sanji',
+                disabled: true
+            }, {
+                value: '4',
+                label: 'Franky'
+            }, {
+                value: '5',
+                label: 'Brook'
+            }, {
+                value: '6',
+                label: 'Nico Robin'
+            }
+          ]
+    }, {
+        label: 'Naruto',
+        options: [
+            {
+                value: 'naruto',
+                label: 'Naruto',
+                description: 'Hokage'
+            }, {
+                value: 'sasuke',
+                label: 'Sasuke'
+            }, {
+                value: 'sakura',
+                label: 'Sakura'
+            }
+        ]
+    }
+];
+
 const accordionMarkup = (
     <Accordion
         className="feature-list" defaultIndex={[0, 2]}
@@ -310,6 +355,11 @@ const inputMarkup = (
 
         <br />
 
+        <Input.Select name="oof" options={selectOptions} />
+        <Input.Select name="oof-multi" options={selectOptions} multiple={true} defaultValue={['1', 'sasuke']} />
+
+        <br />
+
         <Input.Textarea name="qux" uid="qux" />
     </div>
 );
@@ -474,51 +524,6 @@ const radioMarkup = (
         </Radio.Group>
     </div>
 );
-
-const selectOptions = [
-    {
-        label: 'One Piece',
-        options: [
-            {
-                value: '0',
-                label: 'Luffy',
-                selectedLabel: 'Luffy SENPAI',
-                description: 'Pirate King'
-            }, {
-                value: '1',
-                label: 'Zoro'
-            }, {
-                value: '3',
-                label: 'Sanji',
-                disabled: true
-            }, {
-                value: '4',
-                label: 'Franky'
-            }, {
-                value: '5',
-                label: 'Brook'
-            }, {
-                value: '6',
-                label: 'Nico Robin'
-            }
-        ]
-    }, {
-        label: 'Naruto',
-        options: [
-            {
-                value: 'naruto',
-                label: 'Naruto',
-                description: 'Hokage'
-            }, {
-                value: 'sasuke',
-                label: 'Sasuke'
-            }, {
-                value: 'sakura',
-                label: 'Sakura'
-            }
-        ]
-    }
-];
 
 const selectMarkup = (
     <div>

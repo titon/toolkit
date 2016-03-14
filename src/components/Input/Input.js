@@ -16,8 +16,9 @@ export default class Input extends Component {
     static defaultProps = {
         elementClassName: 'input',
         type: 'text',
-        defaultValue: '',
-        defaultChecked: false
+        multiple: false,
+        defaultChecked: false,
+        defaultValue: ''
     };
 
     static propTypes = {
@@ -28,8 +29,8 @@ export default class Input extends Component {
         type: PropTypes.string,
         size: PropTypes.oneOf(['small', 'large']),
         multiple: PropTypes.bool,
+        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
         defaultValue: PropTypes.string,
-        defaultChecked: PropTypes.oneOfType(PropTypes.string, PropTypes.bool),
         onChanging: collection.func,
         onChanged: collection.func
     };
@@ -43,26 +44,32 @@ export default class Input extends Component {
         super();
 
         let defaultValue = props.defaultValue,
-            defaultChecked = props.defaultChecked;
+            defaultChecked = props.defaultChecked,
+            componentName = this.constructor.name.toLowerCase();
 
-        switch (props.type) {
-            case 'checkbox':
-                if (props.multiple) {
-                    invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
-                } else {
-                    defaultValue = defaultValue || '1';
-                }
-                break;
+        // Select
+        if (componentName === 'select') {
+            if (props.multiple) {
+                defaultValue = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+            } else {
+                defaultValue = String(defaultValue);
+            }
 
-            case 'radio':
-                invariant(defaultValue, 'A default value is required when using radios.');
+        // Checkbox
+        } else if (props.type === 'checkbox') {
+            if (props.multiple) {
+                invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
+            } else {
+                defaultValue = defaultValue || '1';
+            }
 
-                if (typeof defaultChecked === 'string') {
-                    defaultChecked = (defaultValue === defaultChecked);
-                }
-                break;
+        // Radio
+        } else if (props.type === 'radio') {
+            invariant(defaultValue, 'A default value is required when using radios.');
 
-            default:
+            if (typeof defaultChecked === 'string') {
+                defaultChecked = (defaultValue === defaultChecked);
+            }
         }
 
         this.state = {
@@ -74,7 +81,7 @@ export default class Input extends Component {
     }
 
     /**
-     * Only update if the value of the input changes.
+     * Only update if the value of the state changes.
      *
      * @param {Object} nextProps
      * @param {Object} nextState
@@ -91,7 +98,7 @@ export default class Input extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        let args = this.isChoiceType() ? [nextState.checked] : [nextState.value, this.state.value];
+        let args = this.isChoiceType() ? [nextState.checked, nextState.value] : [nextState.value, this.state.value];
 
         this.emitEvent('changing', args);
     }
@@ -103,7 +110,8 @@ export default class Input extends Component {
      * @param {Object} prevState
      */
     componentDidUpdate(prevProps, prevState) {
-        let args = this.isChoiceType() ? [this.state.checked] : [this.state.value, prevState.value];
+        let state = this.state,
+            args = this.isChoiceType() ? [state.checked, state.value] : [state.value, prevState.value];
 
         this.emitEvent('changed', args);
     }
@@ -123,8 +131,10 @@ export default class Input extends Component {
                 id: props.id || formatInputName(props.name),
                 name: props.name,
                 value: state.value,
+                multiple: props.multiple,
                 className: this.formatClass(props.elementClassName, props.className, {
                     ['@' + props.size]: Boolean(props.size),
+                    ['@' + props.type]: (componentName === 'input'),
                     ['@' + componentName]: (componentName !== 'input'),
                     'is-checked': Boolean(state.checked),
                     'is-multiple': Boolean(props.multiple),
@@ -171,15 +181,10 @@ export default class Input extends Component {
     handleOnChange(e) {
         let newState = {};
 
-        switch (this.props.type) {
-            case 'checkbox':
-            case 'radio':
-                newState.checked = !this.state.checked;
-                break;
-
-            default:
-                newState.value = e.target.value;
-                break;
+        if (this.isChoiceType()) {
+            newState.checked = !this.state.checked;
+        } else {
+            newState.value = e.target.value;
         }
 
         this.setState(newState);
