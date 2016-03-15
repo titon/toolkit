@@ -338,7 +338,7 @@ const gridMarkup = (
 );
 
 const inputMarkup = (
-    <div>
+    <form action="" method="post">
         <Input.Static>Name</Input.Static>
         <Input name="foo" uid="foo" placeholder="Name" defaultValue="Miles" />
         <Input name="foo-email" type="email" placeholder="Email" />
@@ -361,7 +361,11 @@ const inputMarkup = (
         <br />
 
         <Input.Textarea name="qux" uid="qux" />
-    </div>
+
+        <br />
+
+        <button type="submit">Submit</button>
+    </form>
 );
 
 const lazyLoadMarkup = (

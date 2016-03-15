@@ -7,32 +7,24 @@
 import React, { PropTypes } from 'react';
 import Component from '../../Component';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
+import { defaultProps, propTypes } from './PropTypes';
 
 export default class Input extends Component {
     static defaultProps = {
+        ...defaultProps,
         elementClassName: 'input',
-        type: 'text',
-        multiple: false,
-        defaultChecked: false,
-        defaultValue: ''
+        type: 'text'
     };
 
     static propTypes = {
+        ...propTypes,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        id: PropTypes.string,
-        name: PropTypes.string.isRequired,
         type: PropTypes.string,
-        size: PropTypes.oneOf(['small', 'large']),
-        multiple: PropTypes.bool,
-        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-        defaultValue: PropTypes.string,
-        onChanging: collection.func,
-        onChanged: collection.func
+        size: PropTypes.oneOf(['small', 'large'])
     };
 
     /**
@@ -56,7 +48,7 @@ export default class Input extends Component {
             }
 
         // Checkbox
-        } else if (props.type === 'checkbox') {
+        } else if (componentName === 'checkbox' || props.type === 'checkbox') {
             if (props.multiple) {
                 invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
             } else {
@@ -64,7 +56,7 @@ export default class Input extends Component {
             }
 
         // Radio
-        } else if (props.type === 'radio') {
+        } else if (componentName === 'radio' || props.type === 'radio') {
             invariant(defaultValue, 'A default value is required when using radios.');
 
             if (typeof defaultChecked === 'string') {
@@ -73,6 +65,7 @@ export default class Input extends Component {
         }
 
         this.state = {
+            type: (componentName === 'input') ? props.type : componentName,
             value: defaultValue,
             checked: Boolean(defaultChecked)
         };
@@ -98,7 +91,9 @@ export default class Input extends Component {
      * @param {Object} nextState
      */
     componentWillUpdate(nextProps, nextState) {
-        let args = this.isChoiceType() ? [nextState.checked, nextState.value] : [nextState.value, this.state.value];
+        let args = this.isChoiceType()
+            ? [nextState.checked, nextState.value]
+            : [nextState.value, this.state.value];
 
         this.emitEvent('changing', args);
     }
@@ -111,7 +106,9 @@ export default class Input extends Component {
      */
     componentDidUpdate(prevProps, prevState) {
         let state = this.state,
-            args = this.isChoiceType() ? [state.checked, state.value] : [state.value, prevState.value];
+            args = this.isChoiceType()
+                ? [state.checked, state.value]
+                : [state.value, prevState.value];
 
         this.emitEvent('changed', args);
     }
@@ -121,46 +118,81 @@ export default class Input extends Component {
      * We only need to define a few hard requirements for props,
      * as all other props can be passed through natively.
      *
+     * @param {Boolean} native
      * @returns {Object}
      */
-    gatherProps() {
+    gatherProps(native = true) {
         let props = this.props,
             state = this.state,
-            componentName = this.constructor.name.toLowerCase(),
             inputProps = {
                 id: props.id || formatInputName(props.name),
                 name: props.name,
                 value: state.value,
-                multiple: props.multiple,
-                className: this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.size]: Boolean(props.size),
-                    ['@' + props.type]: (componentName === 'input'),
-                    ['@' + componentName]: (componentName !== 'input'),
-                    'is-checked': Boolean(state.checked),
-                    'is-multiple': Boolean(props.multiple),
-                    'is-required': Boolean(props.required),
-                    'is-disabled': Boolean(props.disabled),
-                    'is-read-only': Boolean(props.readOnly)
-                }),
-                onChange: this.handleOnChange,
-                ...this.inheritNativeProps(props)
+                disabled: props.disabled,
+                required: props.required,
+                readOnly: props.readOnly,
+                onChange: this.handleOnChange
             };
 
-        // Add checked and multiple support
-        if (this.isChoiceType()) {
-            inputProps.checked = state.checked;
-
-            if (!props.id && (props.multiple || props.type === 'radio')) {
-                inputProps.id += '-' + state.value;
-            }
+        // Native elements inherit more base functionality
+        // Custom elements define their own classes and props
+        if (native) {
+            inputProps = {
+                ...inputProps,
+                className: this.formatClass(props.elementClassName, props.className, {
+                    ['@' + props.size]: Boolean(props.size),
+                    ['@' + state.type]: true,
+                    ...this.gatherStateClasses()
+                }),
+                ...this.inheritNativeProps(props)
+            };
         }
 
-        // Only include the type on input elements
-        if (componentName === 'input') {
-            inputProps.type = props.type;
+        switch (state.type) {
+            // Add specific props and append a value to the ID
+            case 'checkbox':
+            case 'radio':
+                inputProps.type = state.type;
+                inputProps.checked = state.checked;
+                inputProps.multiple = props.multiple;
+
+                if (!props.id && (props.multiple || state.type === 'radio')) {
+                    inputProps.id += '-' + state.value;
+                }
+                break;
+
+            // These aren't native HTML inputs but we need to catch them
+            case 'select':
+                inputProps.multiple = props.multiple;
+                break;
+
+            case 'textarea':
+                break;
+
+            // Only include the type on true input elements
+            default:
+                inputProps.type = props.type;
+                break;
         }
 
         return inputProps;
+    }
+
+    /**
+     * Gather a list of possible CSS class names based on the standard input HTML attributes.
+     *
+     * @returns {Object}
+     */
+    gatherStateClasses() {
+        let props = this.props;
+
+        return {
+            'is-checked': this.state.checked,
+            'is-multiple': props.multiple,
+            'is-required': props.required,
+            'is-disabled': props.disabled,
+            'is-read-only': props.readOnly
+        };
     }
 
     /**
@@ -169,9 +201,7 @@ export default class Input extends Component {
      * @returns {Boolean}
      */
     isChoiceType() {
-        let { type } = this.props;
-
-        return (type === 'checkbox' || type === 'radio');
+        return (this.state.type === 'checkbox' || this.state.type === 'radio');
     }
 
     /**

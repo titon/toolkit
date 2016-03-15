@@ -5,6 +5,29 @@
  */
 
 import { PropTypes } from 'react';
+import collection from '../../prop-types/collection';
+
+export const defaultProps = {
+    defaultChecked: false,
+    defaultValue: '',
+    disabled: false,
+    multiple: false,
+    readOnly: false,
+    required: false
+};
+
+export const propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
+    multiple: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    onChanging: collection.func,
+    onChanged: collection.func
+};
 
 /**
  * A validator for an option within a select input list.

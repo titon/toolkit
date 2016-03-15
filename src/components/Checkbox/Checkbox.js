@@ -5,64 +5,24 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
-import bind from '../../decorators/bind';
+import Input from '../Input/Input';
 import cssClass from '../../prop-types/cssClass';
-import formatInputName from '../../utility/formatInputName';
-import invariant from '../../utility/invariant';
+import { defaultProps, propTypes } from '../Input/PropTypes';
 
-export default class Checkbox extends Component {
+export default class Checkbox extends Input {
     static defaultProps = {
+        ...defaultProps,
         elementClassName: 'checkbox',
-        toggleClassName: ['checkbox', 'toggle'],
-        disabled: false,
-        required: false,
-        multiple: false,
-        defaultChecked: false
+        toggleClassName: ['checkbox', 'toggle']
     };
 
     static propTypes = {
+        ...propTypes,
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        toggleClassName: cssClass.isRequired,
-        name: PropTypes.string.isRequired,
-        disabled: PropTypes.bool,
-        required: PropTypes.bool,
-        multiple: PropTypes.bool,
-        defaultValue: PropTypes.string,
-        defaultChecked: PropTypes.bool
+        toggleClassName: cssClass.isRequired
     };
-
-    /**
-     * Validate props and setup state.
-     *
-     * @param {Object} props
-     */
-    constructor(props) {
-        super();
-
-        if (props.multiple) {
-            invariant(Boolean(props.defaultValue), 'A value is required when using `multiple` checkboxes.');
-        }
-
-        this.state = {
-            value: props.defaultValue || '1',
-            checked: props.defaultChecked
-        };
-
-        this.generateUID();
-    }
-
-    /**
-     * Handler that toggles the checked state when the toggle is clicked.
-     */
-    @bind
-    handleOnChange() {
-        this.setState({
-            checked: !this.state.checked
-        });
-    }
 
     /**
      * Render the custom checkbox.
@@ -71,41 +31,22 @@ export default class Checkbox extends Component {
      */
     render() {
         let props = this.props,
-            state = this.state,
-            name = props.name,
-            id = formatInputName(name),
-            classProps = {
-                'is-checked': state.checked,
-                'is-disabled': props.disabled,
-                'is-required': props.required
-            };
-
-        if (props.multiple) {
-            name += '[]';
-            id += '-' + state.value;
-        }
+            inputProps = this.gatherProps(false),
+            stateClasses = this.gatherStateClasses();
 
         return (
             <div
-                id={this.formatID('checkbox', id)}
-                className={this.formatClass(props.elementClassName, props.className, classProps)}
-                aria-checked={state.checked}
+                id={this.formatID('checkbox', inputProps.id)}
+                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
 
-                <input
-                    id={id}
-                    name={name}
-                    type="checkbox"
-                    value={state.value}
-                    checked={state.checked}
-                    disabled={props.disabled}
-                    required={props.required}
-                    onChange={this.handleOnChange} />
+                <input {...inputProps} />
 
                 <label
-                    htmlFor={id}
-                    className={this.formatClass(props.toggleClassName, classProps)} />
+                    htmlFor={inputProps.id}
+                    className={this.formatClass(props.toggleClassName, stateClasses)} />
 
                 {props.children}
             </div>
