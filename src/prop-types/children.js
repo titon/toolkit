@@ -26,5 +26,7 @@ export default function children(...types) {
         } catch (e) {
             return e;
         }
+
+        return true;
     };
 }

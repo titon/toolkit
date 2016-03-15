@@ -18,6 +18,8 @@ function range(min, max) {
         if (value < min || value > max) {
             return new Error(`\`${componentName}\` requires a number between ${min} and ${max}.`);
         }
+
+        return true;
     };
 }
 

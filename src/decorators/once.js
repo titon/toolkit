@@ -26,28 +26,33 @@ export default function once(target, name, descriptor) {
     checkIsMethod('once', arguments);
 
     let func = getValueFunc('once', descriptor),
-        response = null,
-        handler = function(event) {
-            if (onceCache.has(this)) {
-                return onceCache.get(this);
-            }
+        response = null;
 
-            // Execute the original function and store its response
-            response = func.apply(this, arguments);
-            onceCache.set(this, response);
+    /**
+     * @param {Event} event
+     * @returns {*}
+     */
+    function onceHandler(event) {
+        if (onceCache.has(this)) {
+            return onceCache.get(this);
+        }
 
-            // If we are dealing with an event
-            // Let's attempt to remove the event listener
-            try {
-                checkIsEvent('once', event);
-                event.target.removeEventListener(event.type, handler);
-                onceCache.remove(this);
-            } catch (e) {}
+        // Execute the original function and store its response
+        response = func.apply(this, arguments);
+        onceCache.set(this, response);
 
-            return response;
-        };
+        // If we are dealing with an event
+        // Let's attempt to remove the event listener
+        try {
+            checkIsEvent('once', event);
+            event.target.removeEventListener(event.type, onceHandler);
+            onceCache.remove(this);
+        } catch (e) {}
 
-    descriptor.value = handler;
+        return response;
+    }
+
+    descriptor.value = onceHandler;
 
     return descriptor;
 }
