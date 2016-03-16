@@ -68,7 +68,8 @@ class CookieJar {
             documentCookies.split(';').forEach(cookie => {
                 let [key, value] = cookie.split('=', 2);
 
-                cookies[this.decode(key).replace(Titon.options.cookiePrefix, '')] = this.decode(value);
+                key = this.decode(key).replace(Titon.options.cookiePrefix, '');
+                cookies[key] = this.decode(value);
             });
         }
 

@@ -18,30 +18,30 @@ export default class Tabs extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'tabs',
-        defaultIndex: 0,
         collapsible: false,
+        cookieDuration: 30,
+        defaultIndex: 0,
+        elementClassName: 'tabs',
+        fragments: [],
         persistState: false,
         useFragment: true,
-        useCookie: true,
-        fragments: [],
-        cookieDuration: 30
+        useCookie: true
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        defaultIndex: collection.number,
         collapsible: PropTypes.bool,
-        persistState: PropTypes.bool,
-        useFragment: PropTypes.bool,
-        useCookie: PropTypes.bool,
+        cookieDuration: PropTypes.number,
+        defaultIndex: collection.number,
+        elementClassName: cssClass.isRequired,
         fragments: PropTypes.arrayOf(PropTypes.shape({
             index: PropTypes.number,
             hash: PropTypes.string
         })),
-        cookieDuration: PropTypes.number
+        persistState: PropTypes.bool,
+        useCookie: PropTypes.bool,
+        useFragment: PropTypes.bool
     };
 
     state = {

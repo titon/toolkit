@@ -16,26 +16,26 @@ export default class Menu extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
+        descClassName: ['select', 'option-desc'],
         elementClassName: ['select', 'menu'],
         groupClassName: ['select', 'group'],
-        optionClassName: ['select', 'option'],
+        hideSelected: false,
         labelClassName: ['select', 'option-label'],
-        descClassName: ['select', 'option-desc'],
-        hideSelected: false
+        optionClassName: ['select', 'option']
     };
 
     static propTypes = {
         className: cssClass,
+        descClassName: cssClass.isRequired,
         elementClassName: cssClass.isRequired,
         groupClassName: cssClass.isRequired,
-        optionClassName: cssClass.isRequired,
-        labelClassName: cssClass.isRequired,
-        descClassName: cssClass.isRequired,
         hideSelected: PropTypes.bool,
-        onHiding: collection.func,
+        labelClassName: cssClass.isRequired,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
-        onShown: collection.func
+        onShown: collection.func,
+        optionClassName: cssClass.isRequired
     };
 
     /**
@@ -129,10 +129,14 @@ export default class Menu extends Component {
                     aria-selected={selected}
                     onClick={disabled ? null : this.selectValue.bind(this, option.value)}>
 
-                    <span className={this.formatClass(props.labelClassName)}>{option.label}</span>
+                    <span className={this.formatClass(props.labelClassName)}>
+                        {option.label}
+                    </span>
 
                     {option.description && (
-                        <span className={this.formatClass(props.descClassName)}>{option.description}</span>
+                        <span className={this.formatClass(props.descClassName)}>
+                            {option.description}
+                        </span>
                     )}
                 </a>
             </li>
@@ -199,7 +203,10 @@ export default class Menu extends Component {
      */
     @bind
     handleOnKeyDown(e) {
-        if (!this.state.expanded || ['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) === -1) {
+        if (
+          !this.state.expanded ||
+          ['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) === -1
+        ) {
             return;
         }
 

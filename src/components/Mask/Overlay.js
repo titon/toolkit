@@ -15,17 +15,17 @@ export default class Overlay extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: ['mask', 'overlay'],
-        collapsible: false
+        collapsible: false,
+        elementClassName: ['mask', 'overlay']
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
         collapsible: PropTypes.bool,
-        onHiding: collection.func,
+        elementClassName: cssClass.isRequired,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
         onShown: collection.func
     };

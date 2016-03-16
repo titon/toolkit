@@ -11,28 +11,28 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Switch extends Component {
     static defaultProps = {
-        elementClassName: 'switch',
-        toggleClassName: ['switch', 'toggle'],
         barClassName: ['switch', 'bar'],
-        stacked: false,
+        defaultChecked: false,
         disabled: false,
+        elementClassName: 'switch',
         required: false,
-        defaultChecked: false
+        stacked: false,
+        toggleClassName: ['switch', 'toggle']
     };
 
     static propTypes = {
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        toggleClassName: cssClass.isRequired,
         barClassName: cssClass.isRequired,
-        name: PropTypes.string.isRequired,
-        stacked: PropTypes.bool,
-        disabled: PropTypes.bool,
-        required: PropTypes.bool,
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        className: cssClass,
         defaultChecked: PropTypes.bool,
+        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        disabled: PropTypes.bool,
+        elementClassName: cssClass.isRequired,
+        labelOff: PropTypes.string,
         labelOn: PropTypes.string,
-        labelOff: PropTypes.string
+        name: PropTypes.string.isRequired,
+        required: PropTypes.bool,
+        stacked: PropTypes.bool,
+        toggleClassName: cssClass.isRequired
     };
 
     /**

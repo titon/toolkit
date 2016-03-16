@@ -21,8 +21,8 @@ export default class OffCanvas extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'off-canvas',
         animation: 'push',
+        elementClassName: 'off-canvas',
         multiple: true,
         showOnLoad: false,
         stopScroll: true,
@@ -30,13 +30,13 @@ export default class OffCanvas extends Component {
     };
 
     static propTypes = {
-        children: children(MainContent, Sidebar),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
         animation: PropTypes.oneOf([
             'push', 'push-reveal', 'push-down', 'reverse-push',
             'reveal', 'on-top', 'squish'
         ]),
+        children: children(MainContent, Sidebar),
+        className: cssClass,
+        elementClassName: cssClass.isRequired,
         multiple: PropTypes.bool,
         showOnLoad: PropTypes.bool,
         stopScroll: PropTypes.bool,
@@ -58,8 +58,11 @@ export default class OffCanvas extends Component {
         this.generateUID();
 
         // Only a select few animations can support showing all sidebars on page load
-        invariant(!(props.showOnLoad && props.multiple && props.animation !== 'on-top' && props.animation !== 'squish'),
-            'Only `on-top` and `squish` animations are supported for `showOnLoad` when `multiple` sidebars are enabled.');
+        let { showOnLoad, multiple, animation } = props;
+
+        invariant(!(showOnLoad && multiple && animation !== 'on-top' && animation !== 'squish'),
+            'Only `on-top` and `squish` animations are supported ' +
+            'for `showOnLoad` when `multiple` sidebars are enabled.');
     }
 
     /**

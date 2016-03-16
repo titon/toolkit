@@ -63,7 +63,11 @@ function bindClass(target) {
 
     Object.getOwnPropertyNames(proto).forEach(name => {
         if (name.match(/^(on|handle)[A-Z]/)) {
-            Object.defineProperty(proto, name, bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name)));
+            Object.defineProperty(
+              proto,
+              name,
+              bindMethod(proto, name, Object.getOwnPropertyDescriptor(proto, name))
+            );
         }
     });
 

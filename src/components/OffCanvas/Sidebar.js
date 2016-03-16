@@ -21,11 +21,11 @@ export default class Sidebar extends Component {
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        side: PropTypes.oneOf(['left', 'right']).isRequired,
-        onHiding: collection.func,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
-        onShown: collection.func
+        onShown: collection.func,
+        side: PropTypes.oneOf(['left', 'right']).isRequired
     };
 
     state = {

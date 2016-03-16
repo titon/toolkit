@@ -10,15 +10,15 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Item extends Component {
     static defaultProps = {
-        elementClassName: ['steps', 'item'],
-        complete: false
+        complete: false,
+        elementClassName: ['steps', 'item']
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        complete: PropTypes.bool
+        complete: PropTypes.bool,
+        elementClassName: cssClass.isRequired
     };
 
     /**

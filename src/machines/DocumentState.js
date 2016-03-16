@@ -24,7 +24,12 @@ class DocumentState {
      */
     constructor() {
         blackout.id = 'titon-blackout';
-        blackout.className = (Titon.options.autoNamespace ? Titon.options.namespace : '') + 'blackout';
+        blackout.className = 'blackout';
+
+        if (Titon.options.autoNamespace) {
+            blackout.className = Titon.options.namespace + blackout.className;
+        }
+
         body.appendChild(blackout);
     }
 

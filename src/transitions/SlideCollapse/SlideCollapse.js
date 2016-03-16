@@ -13,16 +13,16 @@ import debounce from '../../decorators/debounce';
 
 export default class SlideCollapse extends Component {
     static defaultProps = {
-        elementClassName: ['slide', 'collapse'],
         direction: 'vertical',
+        elementClassName: ['slide', 'collapse'],
         expanded: true
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
         direction: PropTypes.oneOf(['vertical', 'horizontal']),
+        elementClassName: cssClass.isRequired,
         expanded: PropTypes.bool.isRequired
     };
 

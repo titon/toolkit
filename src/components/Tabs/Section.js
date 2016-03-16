@@ -21,8 +21,8 @@ export default class Section extends Component {
         children: PropTypes.node,
         elementClassName: cssClass.isRequired,
         index: PropTypes.number.isRequired,
-        onHiding: collection.func,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
         onShown: collection.func
     };

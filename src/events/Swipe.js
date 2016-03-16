@@ -16,12 +16,12 @@ const abs = Math.abs;
 @bind
 export default class Swipe extends Component {
     static defaultProps = {
-        elementClassName: ['event', 'swipe'],
-        enabled: true,
-        // Maximum time in milliseconds to travel
-        duration: 1000,
         // Minimum distance required to travel
         distance: 50,
+        // Maximum time in milliseconds to travel
+        duration: 1000,
+        elementClassName: ['event', 'swipe'],
+        enabled: true,
         // Maximum distance to travel in the opposite direction
         restraint: 75
     };
@@ -29,16 +29,16 @@ export default class Swipe extends Component {
     static propTypes = {
         children: PropTypes.node.isRequired,
         className: cssClass,
+        distance: PropTypes.number,
+        duration: PropTypes.number,
         elementClassName: cssClass.isRequired,
         enabled: PropTypes.bool.isRequired,
-        duration: PropTypes.number,
-        distance: PropTypes.number,
-        restraint: PropTypes.number,
         onSwipe: collection.func,
-        onSwipeUp: collection.func,
-        onSwipeRight: collection.func,
         onSwipeDown: collection.func,
-        onSwipeLeft: collection.func
+        onSwipeLeft: collection.func,
+        onSwipeRight: collection.func,
+        onSwipeUp: collection.func,
+        restraint: PropTypes.number
     };
 
     state = {
@@ -84,7 +84,9 @@ export default class Swipe extends Component {
                 break;
 
             default:
-                match[2].split(',').forEach((value, i) => offsets[mapping[i]] += parseFloat(value.trim()));
+                match[2].split(',').forEach((value, i) => {
+                    offsets[mapping[i]] += parseFloat(value.trim());
+                });
                 break;
         }
 
@@ -161,7 +163,7 @@ export default class Swipe extends Component {
      * @param {SyntheticEvent} e
      */
     handleOnStart(e) {
-        // Calling `preventDefault()` on start will disable clicking of elements (links, inputs, etc).
+        // Calling `preventDefault()` will disable clicking of elements (links, inputs, etc).
         // So only do it on an `img` element so it cannot be dragged.
         if (!TOUCH && e.target.tagName.toLowerCase() === 'img') {
             e.preventDefault();

@@ -17,40 +17,40 @@ export default class Pagination extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'pagination',
         currentPage: 1,
-        showControls: false,
         edges: 5,
+        elementClassName: 'pagination',
+        first: 'First',
         format: 'around',
         grouped: false,
-        first: 'First',
-        last: 'Last',
-        prev: 'Prev',
-        next: 'Next',
         label: 'Pagination',
+        last: 'Last',
+        next: 'Next',
+        prev: 'Prev',
+        showControls: false,
         spacer: '...'
     };
 
     static propTypes = {
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        itemClassName: cssClass,
-        spacerClassName: cssClass,
-        totalPages: PropTypes.number.isRequired,
         currentPage: PropTypes.number,
-        showControls: PropTypes.bool,
-        url: PropTypes.string.isRequired,
         edges: PropTypes.number,
+        elementClassName: cssClass.isRequired,
+        first: PropTypes.node,
         format: PropTypes.oneOf(['around', 'spaced']),
         grouped: PropTypes.bool,
-        first: PropTypes.node,
-        last: PropTypes.node,
-        prev: PropTypes.node,
-        next: PropTypes.node,
+        itemClassName: cssClass,
         label: PropTypes.string,
-        spacer: PropTypes.string,
+        last: PropTypes.node,
+        next: PropTypes.node,
+        onPaged: collection.func,
         onPaging: collection.func,
-        onPaged: collection.func
+        prev: PropTypes.node,
+        showControls: PropTypes.bool,
+        spacer: PropTypes.string,
+        spacerClassName: cssClass,
+        totalPages: PropTypes.number.isRequired,
+        url: PropTypes.string.isRequired
     };
 
     /**
@@ -137,7 +137,10 @@ export default class Pagination extends Component {
      */
     createItem(page) {
         return (
-            <Item key={page} page={page} className={this.props.itemClassName} />
+            <Item
+                key={page}
+                page={page}
+                className={this.props.itemClassName} />
         );
     }
 
@@ -289,16 +292,21 @@ export default class Pagination extends Component {
      * @returns {ReactElement}
      */
     render() {
-        /* eslint react/jsx-max-props-per-line: 0 */
-
-        let { first, last, next, prev, totalPages, itemClassName, showControls, ...props } = this.props,
+        let {
+                first, last, next, prev,
+                totalPages, itemClassName, showControls,
+                ...props
+            } = this.props,
             page = this.state.page,
             items = [];
 
         // Prepend first and previous
         if (first && (page > 1 || showControls)) {
             items.push(
-                <Item key="first" page={1} className={itemClassName}>
+                <Item
+                    key="first"
+                    page={1}
+                    className={itemClassName}>
                     {first}
                 </Item>
             );
@@ -306,7 +314,10 @@ export default class Pagination extends Component {
 
         if (prev && (page > 1 || showControls)) {
             items.push(
-                <Item key="prev" page={page - 1} className={itemClassName}>
+                <Item
+                    key="prev"
+                    page={page - 1}
+                    className={itemClassName}>
                     {prev}
                 </Item>
             );
@@ -318,7 +329,10 @@ export default class Pagination extends Component {
         // Append next and last
         if (next && (page < totalPages || showControls)) {
             items.push(
-                <Item key="next" page={page + 1} className={itemClassName}>
+                <Item
+                    key="next"
+                    page={page + 1}
+                    className={itemClassName}>
                     {next}
                 </Item>
             );
@@ -326,7 +340,10 @@ export default class Pagination extends Component {
 
         if (last && (page < totalPages || showControls)) {
             items.push(
-                <Item key="last" page={totalPages} className={itemClassName}>
+                <Item
+                    key="last"
+                    page={totalPages}
+                    className={itemClassName}>
                     {last}
                 </Item>
             );

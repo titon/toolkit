@@ -20,20 +20,20 @@ export default class Select extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'select',
-        toggleClassName: ['select', 'toggle'],
-        labelClassName: ['select', 'label'],
+        arrow: <span className="caret-down" />,
         arrowClassName: ['select', 'arrow'],
-        native: TOUCH,
+        countMessage: '{count} of {total} selected',
+        defaultLabel: 'Select An Option',
+        defaultValue: [],
         disabled: false,
-        required: false,
+        elementClassName: 'select',
+        labelClassName: ['select', 'label'],
+        listLimit: 3,
         multiple: false,
         multipleFormat: 'list',
-        countMessage: '{count} of {total} selected',
-        listLimit: 3,
-        arrow: <span className="caret-down" />,
-        defaultLabel: 'Select An Option',
-        defaultValue: []
+        native: TOUCH,
+        required: false,
+        toggleClassName: ['select', 'toggle']
     };
 
     static propTypes = {
@@ -68,7 +68,8 @@ export default class Select extends Component {
         super();
 
         if (props.multiple) {
-            invariant(!props.native && !TOUCH, 'Selects using `multiple` cannot use `native` controls on non-touch devices.');
+            invariant(!props.native && !TOUCH,
+              'Selects using `multiple` cannot use `native` controls on non-touch devices.');
         }
 
         this.state = {

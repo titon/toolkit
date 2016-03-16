@@ -14,19 +14,19 @@ export default class Radio extends Component {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'radio',
-        toggleClassName: ['radio', 'toggle'],
         disabled: false,
-        required: false
+        elementClassName: 'radio',
+        required: false,
+        toggleClassName: ['radio', 'toggle']
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        toggleClassName: cssClass.isRequired,
         disabled: PropTypes.bool,
+        elementClassName: cssClass.isRequired,
         required: PropTypes.bool,
+        toggleClassName: cssClass.isRequired,
         value: PropTypes.string.isRequired
     };
 

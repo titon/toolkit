@@ -84,7 +84,8 @@ export default function createFactory(contract) {
             let name = this.contract;
 
             invariant(React.isValidElement(element) && element.type.name === name,
-                'Value passed to `%sFactory` must be an instance of `%s` and inherit from `ReactElement`.',
+                'Value passed to `%sFactory` must be an instance ' +
+                'of `%s` and inherit from `ReactElement`.',
                 name, name);
         }
     };

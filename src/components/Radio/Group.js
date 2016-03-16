@@ -15,15 +15,15 @@ export default class Group extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: ['radio', 'group'],
-        defaultChecked: ''
+        defaultChecked: '',
+        elementClassName: ['radio', 'group']
     };
 
     static propTypes = {
         className: cssClass,
+        defaultChecked: PropTypes.string,
         elementClassName: cssClass.isRequired,
-        name: PropTypes.string.isRequired,
-        defaultChecked: PropTypes.string
+        name: PropTypes.string.isRequired
     };
 
     /**
