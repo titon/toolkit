@@ -17,12 +17,12 @@ import '../polyfills/Element.matches.js';
  * @returns {Function}
  */
 export default function delegate(selector) {
-    return function(target, name, descriptor) {
+    return function delegateDecorator(target, name, descriptor) {
         checkIsMethod('delegate', arguments);
 
         let func = getValueFunc('delegate', descriptor);
 
-        descriptor.value = function(event) {
+        descriptor.value = function delegateValue(event) {
             checkIsEvent('delegate', event);
 
             let eventTarget = event.target;

@@ -25,7 +25,7 @@ export default function profile(target, name, descriptor) {
         if (typeof descriptor[method] === 'function') {
             let oldMethod = descriptor[method];
 
-            descriptor[method] = function() {
+            descriptor[method] = function profileDescriptor() {
                 let start = performance.now(),
                     result = oldMethod.apply(this, arguments),
                     stop = performance.now();

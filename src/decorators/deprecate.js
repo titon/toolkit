@@ -16,14 +16,14 @@ import checkIsMethod from './helpers/checkIsMethod';
  * @returns {Function}
  */
 export default function deprecate(message = '') {
-    return function(target, name, descriptor) {
+    return function deprecateDecorator(target, name, descriptor) {
         checkIsMethod('deprecated', arguments);
 
         ['get', 'set', 'value'].forEach(method => {
             if (typeof descriptor[method] === 'function') {
                 let oldMethod = descriptor[method];
 
-                descriptor[method] = function() {
+                descriptor[method] = function deprecateDescriptor() {
                     console.warn(`${target.constructor.name}#${name}() is deprecated. ${message}`);
 
                     return oldMethod.apply(this, arguments);

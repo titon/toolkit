@@ -16,7 +16,7 @@ import getValueFunc from './helpers/getValueFunc';
  * @returns {Function}
  */
 export default function debounce(wait = 150) {
-    return function(target, name, descriptor) {
+    return function debounceDecorator(target, name, descriptor) {
         checkIsMethod('debounce', arguments);
 
         descriptor.value = debouncer(getValueFunc('debounce', descriptor), wait);

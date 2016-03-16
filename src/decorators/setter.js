@@ -22,7 +22,7 @@ export default function setter(target, name, descriptor) {
 
     let func = getValueFunc('setter', descriptor);
 
-    descriptor.value = function(key, value) {
+    descriptor.value = function setterValue(key, value) {
         if (isPlainObject(key)) {
             Object.keys(key).forEach(k => func.call(this, k, key[k]));
 

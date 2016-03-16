@@ -21,7 +21,7 @@ export default function remover(target, name, descriptor) {
 
     let func = getValueFunc('remover', descriptor);
 
-    descriptor.value = function(key) {
+    descriptor.value = function removerValue(key) {
         if (Array.isArray(key)) {
             key.forEach(k => func.call(this, k));
 

@@ -6,7 +6,7 @@
 
 /* eslint operator-linebreak: 0 */
 
-(function(proto) {
+(proto => {
     proto.matches =
         proto.matches ||
         proto.matchesSelector ||
@@ -14,4 +14,4 @@
         proto.mozMatchesSelector ||
         proto.msMatchesSelector ||
         proto.oMatchesSelector;
-}(Element.prototype));
+})(Element.prototype);

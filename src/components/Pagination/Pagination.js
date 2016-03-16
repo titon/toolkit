@@ -137,7 +137,7 @@ export default class Pagination extends Component {
      */
     createItem(page) {
         return (
-            <Item key={page} page={page} className={this.props.itemClassName}/>
+            <Item key={page} page={page} className={this.props.itemClassName} />
         );
     }
 
@@ -194,6 +194,7 @@ export default class Pagination extends Component {
             items = [],
             start = 1,
             stop = totalPages,
+            half = 0,
             i = 0;
 
         switch (format) {
@@ -223,7 +224,7 @@ export default class Pagination extends Component {
 
             // There should be `edge` items in the middle, with ellipsis spacers on each side
             case 'spaced':
-                let half = Math.floor(edges / 2);
+                half = Math.floor(edges / 2);
 
                 if (totalPages < (edges + ((half + 1) * 2))) {
                     break;

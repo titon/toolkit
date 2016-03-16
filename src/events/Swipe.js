@@ -18,10 +18,12 @@ export default class Swipe extends Component {
     static defaultProps = {
         elementClassName: ['event', 'swipe'],
         enabled: true,
-        draggable: true,            // TODO
-        duration: 1000,             // Maximum time in milliseconds to travel
-        distance: 50,               // Minimum distance required to travel
-        restraint: 75               // Maximum distance to travel in the opposite direction
+        // Maximum time in milliseconds to travel
+        duration: 1000,
+        // Minimum distance required to travel
+        distance: 50,
+        // Maximum distance to travel in the opposite direction
+        restraint: 75
     };
 
     static propTypes = {
@@ -29,7 +31,6 @@ export default class Swipe extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         enabled: PropTypes.bool.isRequired,
-        draggable: PropTypes.bool,
         duration: PropTypes.number,
         distance: PropTypes.number,
         restraint: PropTypes.number,

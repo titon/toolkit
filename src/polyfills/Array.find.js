@@ -7,7 +7,7 @@
 /* eslint no-extend-native: 0, no-undefined: 0 */
 
 if (!Array.prototype.find) {
-    Array.prototype.find = function(predicate, context) {
+    Array.prototype.find = function arrayFind(predicate, context) {
         if (this === null) {
             throw new TypeError('`Array.prototype.find` called on null or undefined.');
 

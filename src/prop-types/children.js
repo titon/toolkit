@@ -16,9 +16,9 @@ import invariant from '../utility/invariant';
 export default function children(...types) {
     let instances = new WeakSet(types);
 
-    return function(props, propName, componentName) {
+    return function childrenPropType(props, propName, componentName) {
         try {
-            Children.forEach(props[propName], function(child) {
+            Children.forEach(props[propName], child => {
                 invariant(instances.has(child.type),
                     '`%s` does not allow children of type `%s`.', componentName,
                     (typeof child.type === 'function') ? child.type.name : child.type);

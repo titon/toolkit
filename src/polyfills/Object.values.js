@@ -5,7 +5,7 @@
  */
 
 if (!Object.values) {
-    Object.values = function(obj) {
+    Object.values = function objectValues(obj) {
         let values = [];
 
         for (let key in obj) {

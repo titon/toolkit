@@ -11,7 +11,7 @@ if (!window.cancelAnimationFrame) {
         window.webkitCancelAnimationFrame ||
         window.mozCancelAnimationFrame ||
         window.msCancelAnimationFrame ||
-        function(id) {
+        function cancelAnimationFrame(id) {
             clearTimeout(id);
         };
 }

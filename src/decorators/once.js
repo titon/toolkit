@@ -32,7 +32,7 @@ export default function once(target, name, descriptor) {
      * @param {Event} event
      * @returns {*}
      */
-    function onceHandler(event) {
+    function onceDecorator(event) {
         if (onceCache.has(this)) {
             return onceCache.get(this);
         }
@@ -45,14 +45,14 @@ export default function once(target, name, descriptor) {
         // Let's attempt to remove the event listener
         try {
             checkIsEvent('once', event);
-            event.target.removeEventListener(event.type, onceHandler);
+            event.target.removeEventListener(event.type, onceDecorator);
             onceCache.remove(this);
         } catch (e) {}
 
         return response;
     }
 
-    descriptor.value = onceHandler;
+    descriptor.value = onceDecorator;
 
     return descriptor;
 }

@@ -54,8 +54,9 @@ export default class Col extends Component {
             let span = props[key];
 
             if (span) {
+                // Must be last on `classes`
                 if (key === 'end') {
-                    classes.end = true; // Must be last
+                    classes.end = true;
 
                 } else if (!key.match(/children|className/i)) {
                     classes[key.replace('P', '-p') + '-' + span] = true;

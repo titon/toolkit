@@ -172,7 +172,9 @@ export default class Select extends Component {
         let { values, options } = this.state,
             props = this.props,
             label = [],
-            count = 0;
+            count = 0,
+            limit = props.listLimit,
+            message = '';
 
         if (!values.length) {
             return props.defaultLabel;
@@ -195,8 +197,8 @@ export default class Select extends Component {
 
             case 'list':
             default:
-                let limit = props.listLimit,
-                    message = label.slice(0, limit).join(', ');
+                limit = props.listLimit;
+                message = label.slice(0, limit).join(', ');
 
                 if (limit < count) {
                     message += ' ...';

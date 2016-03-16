@@ -43,7 +43,8 @@ export default class Item extends Component {
     render() {
         let { page, ...props } = this.props,
             context = this.context,
-            key = this._reactInternalInstance._currentElement.key; // TODO Change?
+            // TODO Change?
+            key = this._reactInternalInstance._currentElement.key;
 
         return (
             <li>

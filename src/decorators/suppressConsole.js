@@ -15,7 +15,11 @@ const shimConsole = (() => {
     let shim = {};
 
     // Use a fixed list of names as `console` is different between node and the browser
-    ['log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile', 'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd'].forEach(name => {
+    [
+        'log', 'info', 'warn', 'error', 'exception', 'debug', 'table', 'trace', 'dir', 'dirxml',
+        'group', 'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'timeStamp', 'profile',
+        'profileEnd', 'assert', 'count', 'clear', 'markTimeline', 'timeline', 'timelineEnd'
+    ].forEach(name => {
         shim[name] = preserveLog(name);
     });
 
@@ -29,7 +33,7 @@ const shimConsole = (() => {
  * @returns {Function}
  */
 function preserveLog(name) {
-    return function(...args) {
+    return function preserveLogHandler(...args) {
         suppressedLogs.push({
             type: name,
             args
@@ -51,7 +55,7 @@ function suppressConsole(target, name, descriptor) {
 
     let func = getValueFunc('suppressConsole', descriptor);
 
-    descriptor.value = function() {
+    descriptor.value = function suppressConsoleValue() {
         console = shimConsole;
 
         let response = func.call(this, arguments);

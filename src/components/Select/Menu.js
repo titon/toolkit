@@ -207,7 +207,8 @@ export default class Menu extends Component {
 
         let context = this.context,
             options = Object.values(context.mappedOptions),
-            index = this.state.index;
+            index = this.state.index,
+            step = 0;
 
         switch (e.key) {
             case 'Escape':
@@ -228,8 +229,7 @@ export default class Menu extends Component {
             case 'ArrowUp':
             case 'ArrowDown':
             default:
-                let step = (e.key === 'ArrowUp') ? -1 : 1;
-
+                step = (e.key === 'ArrowUp') ? -1 : 1;
                 index += step;
 
                 while ((typeof options[index] === 'undefined') || options[index].disabled) {

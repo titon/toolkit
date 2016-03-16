@@ -21,7 +21,7 @@ export default function getter(target, name, descriptor) {
 
     let func = getValueFunc('getter', descriptor);
 
-    descriptor.value = function(key) {
+    descriptor.value = function getterValue(key) {
         let value = {};
 
         if (Array.isArray(key)) {

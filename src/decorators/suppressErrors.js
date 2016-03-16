@@ -21,7 +21,7 @@ export default function suppressErrors(target, name, descriptor) {
 
     let func = getValueFunc('suppressErrors', descriptor);
 
-    descriptor.value = function() {
+    descriptor.value = function suppressErrorsValue() {
         try {
             return func.call(this, arguments);
         } catch (e) {

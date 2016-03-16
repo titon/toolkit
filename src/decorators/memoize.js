@@ -20,7 +20,7 @@ import memoizer from 'lodash/memoize';
 export default function memoize(target, name, descriptor) {
     checkIsMethod('memoize', arguments);
 
-    descriptor.value = memoizer(getValueFunc('memoize', descriptor), function(...args) {
+    descriptor.value = memoizer(getValueFunc('memoize', descriptor), function memoizeValue(...args) {
         return JSON.stringify(args);
     });
 

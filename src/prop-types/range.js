@@ -12,7 +12,7 @@
  * @returns {Function}
  */
 function range(min, max) {
-    return function(props, propName, componentName) {
+    return function rangePropType(props, propName, componentName) {
         let value = props[propName];
 
         if (value < min || value > max) {
