@@ -7,6 +7,11 @@
 import { PropTypes } from 'react';
 import collection from '../../prop-types/collection';
 
+/**
+ * Common default props between Input components.
+ *
+ * @type {Object}
+ */
 export const defaultProps = {
     defaultChecked: false,
     defaultValue: '',
@@ -16,17 +21,22 @@ export const defaultProps = {
     required: false
 };
 
+/**
+ * Common prop types between Input components.
+ *
+ * @type {Object}
+ */
 export const propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string.isRequired,
     defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
+    id: PropTypes.string,
     multiple: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    onChanged: collection.func,
     onChanging: collection.func,
-    onChanged: collection.func
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool
 };
 
 /**
@@ -35,9 +45,9 @@ export const propTypes = {
  * @returns {React.PropTypes.shape}
  */
 export const option = PropTypes.shape({
+    disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    disabled: PropTypes.bool
+    value: PropTypes.string.isRequired
 });
 
 /**
@@ -46,9 +56,9 @@ export const option = PropTypes.shape({
  * @returns {React.PropTypes.shape}
  */
 export const optionGroup = PropTypes.shape({
+    disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(option).isRequired,
-    disabled: PropTypes.bool
+    options: PropTypes.arrayOf(option).isRequired
 });
 
 /**
@@ -59,9 +69,3 @@ export const optionGroup = PropTypes.shape({
 export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
     option, optionGroup
 ]));
-
-export default {
-    option,
-    optionList,
-    optionGroup
-};

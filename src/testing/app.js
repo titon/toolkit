@@ -341,6 +341,10 @@ const inputMarkup = (
     <form action="" method="post">
         <Input.Static>Name</Input.Static>
         <Input name="foo" uid="foo" placeholder="Name" defaultValue="Miles" />
+        <Input.Choice inputID="tos">
+          <Input type="checkbox" name="tos" id="tos" />
+          I agree to the terms of service.
+        </Input.Choice>
         <Input name="foo-email" type="email" placeholder="Email" />
         <Input name="foo-file" type="file" />
 

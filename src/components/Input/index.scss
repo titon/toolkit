@@ -28,9 +28,8 @@
     #{map-get($titon-input, "class-choice")} {
         input[type="checkbox"],
         input[type="radio"] {
-            vertical-align: middle;
-            position: relative;
-            top: -2px;
+            padding: 0;
+            margin: 0;
             margin-#{bidi-opposite-alignment()}: .5rem;
         }
     }
