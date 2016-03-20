@@ -19,7 +19,7 @@ function range(min, max) {
             return new Error(`\`${componentName}\` requires a number between ${min} and ${max}.`);
         }
 
-        return true;
+        return null;
     };
 }
 

@@ -27,6 +27,6 @@ export default function children(...types) {
             return e;
         }
 
-        return true;
+        return null;
     };
 }
