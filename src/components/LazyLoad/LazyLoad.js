@@ -13,13 +13,13 @@ import throttle from '../../decorators/throttle';
 
 export default class LazyLoad extends Component {
     static defaultProps = {
-        threshold: 200,
-        delay: 0
+        delay: 0,
+        threshold: 200
     };
 
     static propTypes = {
-        threshold: PropTypes.number,
-        delay: PropTypes.number
+        delay: PropTypes.number,
+        threshold: PropTypes.number
     };
 
     /**

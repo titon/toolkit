@@ -19,10 +19,10 @@ export default class Region extends Component {
         children: children(Block),
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        wrap: PropTypes.bool,
-        grid: PropTypes.bool,
         flow: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'between', 'around']),
-        orientation: PropTypes.oneOf(['horizontal', 'vertical'])
+        grid: PropTypes.bool,
+        orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+        wrap: PropTypes.bool
     };
 
     /**

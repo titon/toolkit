@@ -13,19 +13,19 @@ import cssClass from '../../prop-types/cssClass';
 export default class Field extends Component {
     static defaultProps = {
         elementClassName: 'field',
-        required: false,
-        invalid: false
+        invalid: false,
+        required: false
     };
 
     static propTypes = {
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        inputID: PropTypes.string,
-        label: PropTypes.node,
         help: PropTypes.node,
-        required: PropTypes.bool,
-        invalid: PropTypes.bool
+        inputID: PropTypes.string,
+        invalid: PropTypes.bool,
+        label: PropTypes.node,
+        required: PropTypes.bool
     };
 
     /**

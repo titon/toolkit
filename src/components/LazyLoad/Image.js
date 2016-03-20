@@ -11,19 +11,19 @@ import { RETINA } from '../../flags';
 
 export default class Image extends LazyLoad {
     static defaultProps = {
-        elementClassName: ['lazy-load', 'image'],
+        ...LazyLoad.defaultProps,
         cacheBust: false,
-        ...LazyLoad.defaultProps
+        elementClassName: ['lazy-load', 'image']
     };
 
     static propTypes = {
+        ...LazyLoad.propTypes,
+        cacheBust: PropTypes.bool,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        src: PropTypes.string.isRequired,
-        retinaSrc: PropTypes.string,
         filler: PropTypes.string,
-        cacheBust: PropTypes.bool,
-        ...LazyLoad.propTypes
+        retinaSrc: PropTypes.string,
+        src: PropTypes.string.isRequired
     };
 
     /**

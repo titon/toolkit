@@ -173,7 +173,8 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Handle a native/synthetic DOM event and notify all listeners defined on the property of the same name.
+     * Handle a native / synthetic DOM event and notify all listeners
+     * defined on the property of the same name.
      *
      * @param {String} type
      * @param {SyntheticEvent} event
@@ -194,7 +195,8 @@ export default class Component extends React.Component {
     }
 
     /**
-     * Execute a function, or an array of functions, with the defined arguments, for the specified property.
+     * Execute a function, or an array of functions, with the defined arguments,
+     * for the specified property.
      *
      * @param {String} propName
      * @param {*[]} args

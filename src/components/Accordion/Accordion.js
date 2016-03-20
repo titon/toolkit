@@ -17,19 +17,19 @@ export default class Accordion extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'accordion',
+        collapsible: false,
         defaultIndex: 0,
-        multiple: false,
-        collapsible: false
+        elementClassName: 'accordion',
+        multiple: false
     };
 
     static propTypes = {
         children: children(Item),
         className: cssClass,
-        elementClassName: cssClass.isRequired,
+        collapsible: PropTypes.bool,
         defaultIndex: collection.number,
-        multiple: PropTypes.bool,
-        collapsible: PropTypes.bool
+        elementClassName: cssClass.isRequired,
+        multiple: PropTypes.bool
     };
 
     state = {

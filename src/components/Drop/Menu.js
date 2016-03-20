@@ -27,8 +27,8 @@ export default class Menu extends Component {
         className: cssClass,
         elementClassName: cssClass.isRequired,
         modifier: PropTypes.oneOf(['up', 'down', 'left', 'right']),
-        reverse: PropTypes.bool,
-        nested: PropTypes.bool
+        nested: PropTypes.bool,
+        reverse: PropTypes.bool
     };
 
     /**

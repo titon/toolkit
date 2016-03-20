@@ -11,19 +11,19 @@ import cssClass from '../../prop-types/cssClass';
 export default class Form extends Component {
     static defaultProps = {
         elementClassName: 'form',
+        inline: false,
         method: 'get',
-        multipart: false,
-        inline: false
+        multipart: false
     };
 
     static propTypes = {
+        action: PropTypes.string.isRequired,
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        action: PropTypes.string.isRequired,
+        inline: PropTypes.bool,
         method: PropTypes.oneOf(['get', 'post', 'put']),
-        multipart: PropTypes.bool,
-        inline: PropTypes.bool
+        multipart: PropTypes.bool
     };
 
     /**
@@ -32,13 +32,14 @@ export default class Form extends Component {
      * @returns {ReactElement}
      */
     render() {
-        let props = this.props;
+        let props = this.props,
+            encType = props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
 
         return (
             <form
                 action={props.action}
                 method={props.method}
-                encType={props.multipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}
+                encType={encType}
                 className={this.formatClass(props.elementClassName, props.className, {
                     '@inline': props.inline
                 })}

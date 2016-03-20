@@ -18,16 +18,16 @@ export default class Block extends Component {
         children: PropTypes.node,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        order: PropTypes.number,
         grow: PropTypes.number,
-        shrink: PropTypes.number,
-        self: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'baseline', 'stretch']),
-        span: range.span12,
-        xsmall: range.span6,
-        small: range.span12,
-        medium: range.span12,
         large: range.span12,
-        xlarge: range.span18
+        medium: range.span12,
+        order: PropTypes.number,
+        self: PropTypes.oneOf(['top', 'left', 'bottom', 'right', 'center', 'baseline', 'stretch']),
+        shrink: PropTypes.number,
+        small: range.span12,
+        span: range.span12,
+        xlarge: range.span18,
+        xsmall: range.span6
     };
 
     /**

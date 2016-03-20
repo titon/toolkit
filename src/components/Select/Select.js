@@ -37,26 +37,26 @@ export default class Select extends Component {
     };
 
     static propTypes = {
+        arrow: PropTypes.node,
+        arrowClassName: cssClass.isRequired,
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        toggleClassName: cssClass.isRequired,
-        labelClassName: cssClass.isRequired,
-        arrowClassName: cssClass.isRequired,
-        name: PropTypes.string.isRequired,
-        options: SelectPropTypes.optionList.isRequired,
-        native: PropTypes.bool,
-        disabled: PropTypes.bool,
-        required: PropTypes.bool,
-        multiple: PropTypes.bool,
-        multipleFormat: PropTypes.oneOf(['count', 'list']),
         countMessage: PropTypes.string,
-        listLimit: PropTypes.number,
-        arrow: PropTypes.node,
         defaultLabel: PropTypes.string,
         defaultValue: collection.string,
+        disabled: PropTypes.bool,
+        elementClassName: cssClass.isRequired,
+        labelClassName: cssClass.isRequired,
+        listLimit: PropTypes.number,
+        multiple: PropTypes.bool,
+        multipleFormat: PropTypes.oneOf(['count', 'list']),
+        name: PropTypes.string.isRequired,
+        native: PropTypes.bool,
+        onChanged: collection.func,
         onChanging: collection.func,
-        onChanged: collection.func
+        options: SelectPropTypes.optionList.isRequired,
+        required: PropTypes.bool,
+        toggleClassName: cssClass.isRequired
     };
 
     /**

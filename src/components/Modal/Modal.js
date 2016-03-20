@@ -21,41 +21,41 @@ export default class Modal extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'modal',
-        outerClassName: ['modal', 'outer'],
-        innerClassName: ['modal', 'inner'],
-        closeClassName: ['modal', 'close'],
-        close: <span className="x" />,
         animation: 'fade',
         blackOut: true,
+        close: <span className="x" />,
         closeable: true,
+        closeClassName: ['modal', 'close'],
+        elementClassName: 'modal',
         fullScreen: false,
-        stopScroll: true,
-        loading: false
+        innerClassName: ['modal', 'inner'],
+        loading: false,
+        outerClassName: ['modal', 'outer'],
+        stopScroll: true
     };
 
     static propTypes = {
-        factory: PropTypes.instanceOf(Factory).isRequired,
-        children: children(Body, Head, Foot),
-        className: cssClass,
-        elementClassName: cssClass.isRequired,
-        outerClassName: cssClass.isRequired,
-        innerClassName: cssClass.isRequired,
-        closeClassName: cssClass.isRequired,
-        close: PropTypes.node,
         animation: PropTypes.oneOf([
             'fade', 'from-above', 'from-below', 'slide-in-top',
             'slide-in-bottom', 'slide-in-left', 'slide-in-right'
         ]),
         blackOut: PropTypes.bool,
+        children: children(Body, Head, Foot),
+        className: cssClass,
+        close: PropTypes.node,
+        closeClassName: cssClass.isRequired,
         closeable: PropTypes.bool,
+        elementClassName: cssClass.isRequired,
+        factory: PropTypes.instanceOf(Factory).isRequired,
         fullScreen: PropTypes.bool,
-        stopScroll: PropTypes.bool,
+        innerClassName: cssClass.isRequired,
         loading: PropTypes.bool,
-        onHiding: collection.func,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
-        onShown: collection.func
+        onShown: collection.func,
+        outerClassName: cssClass.isRequired,
+        stopScroll: PropTypes.bool
     };
 
     /**

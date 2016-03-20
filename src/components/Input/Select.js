@@ -18,8 +18,8 @@ export default class Select extends Input {
 
     static propTypes = {
         ...Input.propTypes,
-        options: optionList.isRequired,
-        defaultValue: collection.string
+        defaultValue: collection.string,
+        options: optionList.isRequired
     };
 
     /**

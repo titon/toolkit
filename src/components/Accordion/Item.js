@@ -20,15 +20,15 @@ export default class Item extends Component {
     static propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
-        index: PropTypes.number.isRequired,
         header: PropTypes.node.isRequired,
         headerClassName: cssClass,
-        sectionClassName: cssClass,
+        index: PropTypes.number.isRequired,
         onClickHeader: collection.func,
-        onHiding: collection.func,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
-        onShown: collection.func
+        onShown: collection.func,
+        sectionClassName: cssClass
     };
 
     /**

@@ -23,8 +23,8 @@ export default class Input extends Component {
         ...propTypes,
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        type: PropTypes.string,
-        size: PropTypes.oneOf(['small', 'large'])
+        size: PropTypes.oneOf(['small', 'large']),
+        type: PropTypes.string
     };
 
     /**
@@ -50,7 +50,8 @@ export default class Input extends Component {
         // Checkbox
         } else if (componentName === 'checkbox' || props.type === 'checkbox') {
             if (props.multiple) {
-                invariant(defaultValue, 'A default value is required when using `multiple` checkboxes.');
+                invariant(defaultValue,
+                    'A default value is required when using `multiple` checkboxes.');
             } else {
                 defaultValue = defaultValue || '1';
             }

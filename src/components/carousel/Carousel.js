@@ -17,43 +17,43 @@ export default class Carousel extends Component {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        elementClassName: 'carousel',
-        modifier: 'slide',
-        duration: 5000,
-        toCycle: 1,
-        toShow: 1,
-        defaultIndex: 0,
         autoStart: true,
-        pauseOnHover: true,
+        defaultIndex: 0,
+        duration: 5000,
+        elementClassName: 'carousel',
         infinite: true,
         loop: true,
-        reverse: false
+        modifier: 'slide',
+        pauseOnHover: true,
+        reverse: false,
+        toCycle: 1,
+        toShow: 1
     };
 
     static propTypes = {
+        autoStart: PropTypes.bool,
         children: PropTypes.node,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
-        duration: PropTypes.number,
-        toCycle: PropTypes.number,
-        toShow: PropTypes.number,
         defaultIndex: PropTypes.number,
-        autoStart: PropTypes.bool,
-        pauseOnHover: PropTypes.bool,
+        duration: PropTypes.number,
+        elementClassName: cssClass.isRequired,
         infinite: PropTypes.bool,
         loop: PropTypes.bool,
-        reverse: PropTypes.bool,
-        onCycling: collection.func,
+        modifier: PropTypes.oneOf(['slide', 'slide-up', 'fade']),
         onCycled: collection.func,
+        onCycling: collection.func,
         onStart: collection.func,
-        onStop: collection.func
+        onStop: collection.func,
+        pauseOnHover: PropTypes.bool,
+        reverse: PropTypes.bool,
+        toCycle: PropTypes.number,
+        toShow: PropTypes.number
     };
 
     state = {
+        animating: false,
         index: 0,
-        stopped: true,
-        animating: false
+        stopped: true
     };
 
     /**

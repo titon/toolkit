@@ -19,8 +19,8 @@ export default class Drop extends Component {
 
     static propTypes = {
         children: children(Menu, Toggle),
-        onHiding: collection.func,
         onHidden: collection.func,
+        onHiding: collection.func,
         onShowing: collection.func,
         onShown: collection.func
     };

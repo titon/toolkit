@@ -21,8 +21,8 @@ export default class TabList extends Component {
     static propTypes = {
         className: cssClass,
         elementClassName: cssClass.isRequired,
-        tabClassName: cssClass,
-        onClick: collection.func
+        onClick: collection.func,
+        tabClassName: cssClass
     };
 
     /**

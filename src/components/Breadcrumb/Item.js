@@ -10,15 +10,15 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Item extends Component {
     static defaultProps = {
-        elementClassName: ['breadcrumb', 'item'],
-        caret: '/'
+        caret: '/',
+        elementClassName: ['breadcrumb', 'item']
     };
 
     static propTypes = {
+        caret: PropTypes.node,
         children: PropTypes.node.isRequired,
         className: cssClass,
-        elementClassName: cssClass.isRequired,
-        caret: PropTypes.node
+        elementClassName: cssClass.isRequired
     };
 
     /**

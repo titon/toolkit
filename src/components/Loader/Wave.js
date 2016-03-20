@@ -12,17 +12,17 @@ import cssClass from '../../prop-types/cssClass';
 
 export default class Wave extends Component {
     static defaultProps = {
+        count: 5,
         elementClassName: 'loader',
-        type: 'bar',
-        count: 5
+        type: 'bar'
     };
 
     static propTypes = {
         children: children(Message),
         className: cssClass,
+        count: PropTypes.number,
         elementClassName: cssClass.isRequired,
-        type: PropTypes.oneOf(['bar', 'bubble']),
-        count: PropTypes.number
+        type: PropTypes.oneOf(['bar', 'bubble'])
     };
 
     /**

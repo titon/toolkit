@@ -20,9 +20,9 @@ export default class Header extends Component {
     };
 
     static propTypes = {
+        active: PropTypes.bool.isRequired,
         children: PropTypes.node,
         elementClassName: cssClass.isRequired,
-        active: PropTypes.bool.isRequired,
         index: PropTypes.number.isRequired,
         onClick: collection.func
     };
