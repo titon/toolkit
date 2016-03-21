@@ -5,61 +5,71 @@
  */
 
 import React, { PropTypes } from 'react';
-import Component from '../../Component';
+import Input from '../Input/Input';
 import bind from '../../decorators/bind';
 import cssClass from '../../prop-types/cssClass';
+import { defaultProps, propTypes } from '../Input/PropTypes';
 import CONTEXT_TYPES from './ContextTypes';
 
-export default class Radio extends Component {
+export default class Radio extends Input {
     static contextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
-        disabled: false,
+        ...defaultProps,
         elementClassName: 'radio',
-        required: false,
         toggleClassName: ['radio', 'toggle']
     };
 
     static propTypes = {
+        ...propTypes,
         children: PropTypes.node,
         className: cssClass,
-        disabled: PropTypes.bool,
+        defaultValue: PropTypes.string.isRequired,
         elementClassName: cssClass.isRequired,
-        required: PropTypes.bool,
-        toggleClassName: cssClass.isRequired,
-        value: PropTypes.string.isRequired
+        name: PropTypes.string,
+        toggleClassName: cssClass.isRequired
     };
 
     /**
-     * Setup state.
+     * Verify checked state using the context.
      *
      * @param {Object} props
      * @param {Object} context
      */
     constructor(props, context) {
-        super();
+        super(props);
 
-        this.state = {
-            value: props.value,
-            checked: (context.checkedValue === props.value)
-        };
+        if (context.checkedValue === props.defaultValue) {
+            this.state.checked = true;
+        }
     }
 
     /**
-     * Update the state based on the context of when a radio is changed.
+     * Update the state based on the context of when a radio in the group has changed.
      *
      * @param {Object} nextProps
      * @param {Object} nextContext
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            value: nextProps.value,
             checked: (nextContext.checkedValue === nextProps.value)
         });
     }
 
     /**
-     * Handler that toggles the checked state when the toggle is clicked.
+     * Only update if the value of the state changes.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     * @param {Object} nextContext
+     * @returns {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return (nextContext.checkedValue !== this.state.value);
+    }
+
+    /**
+     * Handler that selects a value within the current radio group.
      */
     @bind
     handleOnChange() {
@@ -73,37 +83,26 @@ export default class Radio extends Component {
      */
     render() {
         let props = this.props,
-            state = this.state,
-            value = state.value,
-            name = this.context.inputName,
-            id = this.context.inputID + '-' + value,
-            classProps = {
-                'is-checked': state.checked,
-                'is-disabled': props.disabled,
-                'is-required': props.required
-            };
+            inputProps = this.gatherProps(false),
+            stateClasses = this.gatherStateClasses();
+
+        // We need to reset these values as we can't pass them through the constructor
+        inputProps.name = this.context.inputName;
+        inputProps.id = this.context.inputID + '-' + props.defaultValue;
 
         return (
             <div
-                id={this.formatID('radio', id)}
-                className={this.formatClass(props.elementClassName, props.className, classProps)}
-                aria-checked={state.checked}
+                id={this.formatID('radio', inputProps.id)}
+                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                aria-checked={this.state.checked}
                 aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
 
-                <input
-                    id={id}
-                    name={name}
-                    type="radio"
-                    value={value}
-                    checked={state.checked}
-                    disabled={props.disabled}
-                    required={props.required}
-                    onChange={this.handleOnChange} />
+                <input {...inputProps} />
 
                 <label
-                    htmlFor={id}
-                    className={this.formatClass(props.toggleClassName, classProps)} />
+                    htmlFor={inputProps.id}
+                    className={this.formatClass(props.toggleClassName, stateClasses)} />
 
                 {props.children}
             </div>

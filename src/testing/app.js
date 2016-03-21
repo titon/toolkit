@@ -525,10 +525,10 @@ const progressMarkup = (
 
 const radioMarkup = (
     <div>
-        <Radio.Group name="color">
-            <Radio value="red" />
-            <Radio value="green" />
-            <Radio value="blue" />
+        <Radio.Group name="color" defaultChecked="green">
+            <Radio defaultValue="red" />
+            <Radio defaultValue="green" />
+            <Radio defaultValue="blue" />
         </Radio.Group>
     </div>
 );
@@ -616,7 +616,7 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {inputMarkup}
+        {radioMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));
