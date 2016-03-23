@@ -38,7 +38,7 @@
         "publish": "babel --presets es2015,react,stage-1 --out-dir ./dist ./src"
     },
 
-    "peerDependencies": {
+    "dependencies": {
         "react": "~0.14",
         "react-dom": "~0.14",
         "lodash": "~4.6"
@@ -47,12 +47,10 @@
         "directory-tree": "~0.1",
 
         "node-sass": "~3.4",
+        "sass-lint": "~1.5",
         "autoprefixer": "~6.3",
         "postcss-cli": "~2.5",
-        "sass-lint": "~1.5",
 
-        "react": "~0.14",
-        "react-dom": "~0.14",
         "react-addons-test-utils": "~0.14",
         "eslint": "~2.4",
         "eslint-plugin-react": "~4.2",
@@ -63,7 +61,6 @@
         "babel-preset-react": "*",
         "babel-preset-stage-1": "*",
         "babel-plugin-transform-decorators-legacy": "*",
-        "lodash": "~4.6",
 
         "karma": "~0.13",
         "karma-jasmine": "~0.3",
