@@ -2,7 +2,7 @@
     "root": true,
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
-    "plugins": ["react"],
+    "plugins": ["react", "sorting"],
     "parserOptions": {
         "ecmaVersion": 7,
         "ecmaFeatures": {
@@ -33,7 +33,7 @@
         // Best Practices
         "accessor-pairs": 0,
         "block-scoped-var": 2,
-        "complexity": [1, 20],
+        "complexity": [2, 20],
         "consistent-return": 2,
         "curly": 2,
         "default-case": 2,
@@ -50,7 +50,7 @@
         "no-eval": 2,
         "no-extend-native": [2, { "exceptions": ["String", "Math"] }],
         "no-extra-bind": 2,
-        "no-fallthrough": 1,
+        "no-fallthrough": 2,
         "no-floating-decimal": 2,
         "no-implicit-coercion": 2,
         "no-implied-eval": 2,
@@ -111,7 +111,7 @@
         "no-path-concat": 2,
         "no-process-exit": 2,
         "no-restricted-modules": 0,
-        "no-sync": 1,
+        "no-sync": 2,
 
         // Style Syntax
         "array-bracket-spacing": [2, "never"],
@@ -123,7 +123,7 @@
         "computed-property-spacing": [2, "never"],
         "consistent-this": [2, "self"],
         "eol-last": 2,
-        "func-names": 1,
+        "func-names": 2,
         "func-style": [2, "declaration"],
         "id-length": [2, { "min": 2, "max": 30, "properties": "never", "exceptions": ["x", "y", "i", "j", "e", "k", "v"] }],
         "id-match": 0,
@@ -137,9 +137,9 @@
         "new-cap": 2,
         "new-parens": 2,
         "newline-after-var": [2, "always"],
-        "no-array-constructor": 1,
+        "no-array-constructor": 2,
         "no-continue": 0,
-        "no-inline-comments": 1,
+        "no-inline-comments": 2,
         "no-lonely-if": 2,
         "no-mixed-spaces-and-tabs": 2,
         "no-multiple-empty-lines": [2, { "max": 2 }],
@@ -150,7 +150,7 @@
         "no-spaced-func": 2,
         "no-ternary": 0,
         "no-trailing-spaces": 2,
-        "no-underscore-dangle": [1, { "allow": ["_currentElement", "_reactInternalInstance"] }],
+        "no-underscore-dangle": [2, { "allow": ["_currentElement", "_reactInternalInstance"] }],
         "no-unneeded-ternary": 2,
         "object-curly-spacing": [2, "always"],
         "one-var": [2, { "var": "always", "let": "always", "const": "never" }],
@@ -169,7 +169,7 @@
         "space-infix-ops": 2,
         "space-unary-ops": 2,
         "spaced-comment": [2, "always"],
-        "wrap-regex": 1,
+        "wrap-regex": 2,
 
         // ES6
         "arrow-parens": [2, "as-needed"],
@@ -191,7 +191,7 @@
 
         // Legacy
         "max-depth": [2, 3],
-        "max-len": [1, 100],
+        "max-len": [2, 100],
         "max-params": [2, 4],
         "max-statements": 0,
         "no-bitwise": 0,
@@ -207,7 +207,7 @@
         "react/jsx-indent-props": [2, 4],
         "react/jsx-key": 2,
         "react/jsx-max-props-per-line": [2, { "maximum": 2 }],
-        "react/jsx-no-bind": 1,
+        "react/jsx-no-bind": 2,
         "react/jsx-no-duplicate-props": 2,
         "react/jsx-no-literals": 0,
         "react/jsx-no-undef": 2,
@@ -226,7 +226,7 @@
         "react/no-string-refs": 0,
         "react/no-unknown-property": 2,
         "react/prefer-es6-class": [2, "always"],
-        "react/prefer-stateless-function": 1,
+        "react/prefer-stateless-function": 2,
         "react/prop-types": 2,
         "react/react-in-jsx-scope": 2,
         "react/require-extension": 0,
@@ -251,7 +251,10 @@
                 ]
             }
         }],
-        "react/sort-prop-types": 1,
-        "react/wrap-multilines": 2
+        "react/sort-prop-types": 2,
+        "react/wrap-multilines": 2,
+
+        // Plugins
+        "sorting/sort-object-props": [1, { "ignoreCase": false, "ignoreMethods": false }]
     }
 }
