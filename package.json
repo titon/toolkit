@@ -39,8 +39,8 @@
     },
 
     "dependencies": {
-        "react": "~0.14",
-        "react-dom": "~0.14",
+        "react": "15.0.0-rc.2",
+        "react-dom": "15.0.0-rc.2",
         "lodash": "~4.6"
     },
     "devDependencies": {
@@ -51,7 +51,7 @@
         "autoprefixer": "~6.3",
         "postcss-cli": "~2.5",
 
-        "react-addons-test-utils": "~0.14",
+        "react-addons-test-utils": "15.0.0-rc.2",
         "eslint": "~2.4",
         "eslint-plugin-react": "~4.2",
         "babel-eslint": "6.0.0-beta.6",
