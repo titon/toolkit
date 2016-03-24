@@ -52,20 +52,17 @@ export default class Radio extends Input {
      */
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            checked: (nextContext.checkedValue === nextProps.value)
+            checked: (nextContext.checkedValue === this.state.value)
         });
     }
 
     /**
-     * Only update if the value of the state changes.
+     * We need to always update as were part of a group.
      *
-     * @param {Object} nextProps
-     * @param {Object} nextState
-     * @param {Object} nextContext
      * @returns {Boolean}
      */
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return (nextContext.checkedValue !== this.state.value);
+    shouldComponentUpdate() {
+        return true;
     }
 
     /**
