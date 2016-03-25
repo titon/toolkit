@@ -24,8 +24,8 @@ export default class Tabs extends Component {
         elementClassName: 'tabs',
         fragments: [],
         persistState: false,
-        useFragment: true,
-        useCookie: true
+        useCookie: true,
+        useFragment: true
     };
 
     static propTypes = {
@@ -36,8 +36,8 @@ export default class Tabs extends Component {
         defaultIndex: collection.number,
         elementClassName: cssClass.isRequired,
         fragments: PropTypes.arrayOf(PropTypes.shape({
-            index: PropTypes.number,
-            hash: PropTypes.string
+            hash: PropTypes.string,
+            index: PropTypes.number
         })),
         persistState: PropTypes.bool,
         useCookie: PropTypes.bool,
@@ -64,13 +64,13 @@ export default class Tabs extends Component {
      */
     getChildContext() {
         return {
-            uid: this.getUID(),
             activeIndex: this.state.index,
             hideSection: this.hideSection,
+            isSectionActive: this.isSectionActive,
+            isSectionCollapsible: this.isSectionCollapsible,
             showSection: this.showSection,
             toggleSection: this.toggleSection,
-            isSectionCollapsible: this.isSectionCollapsible,
-            isSectionActive: this.isSectionActive
+            uid: this.getUID()
         };
     }
 

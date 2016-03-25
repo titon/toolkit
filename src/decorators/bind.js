@@ -20,8 +20,8 @@ function bindMethod(target, name, descriptor) {
     let func = getValueFunc('bind', descriptor);
 
     return {
-        enumerable: false,
         configurable: true,
+        enumerable: false,
         get() {
             // This happens if someone accesses the property directly on the prototype
             // Thanks to jayphelps/core-decorators.js for the snippet

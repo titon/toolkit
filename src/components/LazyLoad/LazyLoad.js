@@ -30,15 +30,15 @@ export default class LazyLoad extends Component {
 
         this.timer = 0;
         this.state = {
-            loaded: false,
-            elementTop: 0,
-            elementLeft: 0,
-            elementWidth: 0,
             elementHeight: 0,
-            viewportWidth: window.innerWidth,
-            viewportHeight: window.innerHeight,
+            elementLeft: 0,
+            elementTop: 0,
+            elementWidth: 0,
+            loaded: false,
             scrollX: window.pageXOffset,
-            scrollY: window.pageYOffset
+            scrollY: window.pageYOffset,
+            viewportHeight: window.innerHeight,
+            viewportWidth: window.innerWidth
         };
     }
 
@@ -118,10 +118,10 @@ export default class LazyLoad extends Component {
         invariant(typeof element !== 'undefined', 'An `element` ref must be defined.');
 
         this.setState({
-            elementTop: element.offsetTop,
+            elementHeight: element.offsetHeight,
             elementLeft: element.offsetLeft,
-            elementWidth: element.offsetWidth,
-            elementHeight: element.offsetHeight
+            elementTop: element.offsetTop,
+            elementWidth: element.offsetWidth
         });
     }
 
@@ -130,10 +130,10 @@ export default class LazyLoad extends Component {
      */
     calculateViewport() {
         this.setState({
-            viewportWidth: window.innerWidth,
-            viewportHeight: window.innerHeight,
             scrollX: window.pageXOffset,
-            scrollY: window.pageYOffset
+            scrollY: window.pageYOffset,
+            viewportHeight: window.innerHeight,
+            viewportWidth: window.innerWidth
         });
     }
 

@@ -7,11 +7,11 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
     expanded: PropTypes.bool,
     hideOverlay: PropTypes.func,
     showOverlay: PropTypes.func,
-    toggleOverlay: PropTypes.func
+    toggleOverlay: PropTypes.func,
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

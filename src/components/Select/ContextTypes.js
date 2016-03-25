@@ -8,18 +8,18 @@ import { PropTypes } from 'react';
 import SelectPropTypes from './PropTypes';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
-    multiple: PropTypes.bool,
     expanded: PropTypes.bool,
+    hideMenu: PropTypes.func,
     inputID: PropTypes.string,
     inputName: PropTypes.string,
-    options: SelectPropTypes.optionList,
     mappedOptions: PropTypes.objectOf(SelectPropTypes.option),
+    multiple: PropTypes.bool,
+    options: SelectPropTypes.optionList,
     selectedValues: PropTypes.arrayOf(PropTypes.string),
     selectValue: PropTypes.func,
-    hideMenu: PropTypes.func,
     showMenu: PropTypes.func,
-    toggleMenu: PropTypes.func
+    toggleMenu: PropTypes.func,
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

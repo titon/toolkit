@@ -32,12 +32,12 @@ export const PROD = (ENV === 'production' || ENV === 'prod');
 
 // Export as an object
 export default Object.freeze({
-    landscape: LANDSCAPE,
-    portrait: PORTRAIT,
-    retina: RETINA,
-    touch: TOUCH,
-    rtl: RTL,
-    ltr: LTR,
     dev: DEV,
-    prop: PROD
+    landscape: LANDSCAPE,
+    ltr: LTR,
+    portrait: PORTRAIT,
+    prop: PROD,
+    retina: RETINA,
+    rtl: RTL,
+    touch: TOUCH
 });

@@ -50,11 +50,11 @@ export default class Group extends Component {
         let name = this.props.name;
 
         return {
-            uid: this.getUID(),
+            checkedValue: this.state.value,
             inputID: formatInputName(name),
             inputName: name,
-            checkedValue: this.state.value,
-            selectValue: this.selectValue
+            selectValue: this.selectValue,
+            uid: this.getUID()
         };
     }
 

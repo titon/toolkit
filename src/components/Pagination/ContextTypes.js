@@ -7,13 +7,13 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
-    url: PropTypes.string,
     currentPage: PropTypes.number,
-    totalPages: PropTypes.number,
     goToPage: PropTypes.func,
+    nextPage: PropTypes.func,
     prevPage: PropTypes.func,
-    nextPage: PropTypes.func
+    totalPages: PropTypes.number,
+    uid: PropTypes.string,
+    url: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

@@ -4,7 +4,7 @@
  * @link        http://titon.io
  */
 
-/* eslint react/sort-prop-types: 0 */
+/* eslint react/sort-prop-types: 0, sorting/sort-object-props: 0 */
 
 import React, { PropTypes } from 'react';
 import Component from '../../Component';

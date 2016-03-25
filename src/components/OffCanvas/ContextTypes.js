@@ -7,12 +7,12 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
     activeSides: PropTypes.arrayOf(PropTypes.oneOf(['left', 'right'])),
-    isSidebarActive: PropTypes.func,
     hideSidebar: PropTypes.func,
+    isSidebarActive: PropTypes.func,
     showSidebar: PropTypes.func,
-    toggleSidebar: PropTypes.func
+    toggleSidebar: PropTypes.func,
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

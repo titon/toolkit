@@ -43,11 +43,11 @@ export default class Mask extends Component {
      */
     getChildContext() {
         return {
-            uid: this.getUID(),
             expanded: this.state.expanded,
             hideOverlay: this.hideOverlay,
             showOverlay: this.showOverlay,
-            toggleOverlay: this.toggleOverlay
+            toggleOverlay: this.toggleOverlay,
+            uid: this.getUID()
         };
     }
 

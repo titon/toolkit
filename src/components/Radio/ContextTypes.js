@@ -7,11 +7,11 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
+    checkedValue: PropTypes.string,
     inputID: PropTypes.string,
     inputName: PropTypes.string,
-    checkedValue: PropTypes.string,
-    selectValue: PropTypes.func
+    selectValue: PropTypes.func,
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

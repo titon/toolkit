@@ -48,9 +48,9 @@ export default class Menu extends Component {
         super();
 
         this.state = {
-            index: -1,
-            highlighted: '',
             expanded: context.expanded,
+            highlighted: '',
+            index: -1,
             values: new Set(context.selectedValues)
         };
     }
@@ -122,8 +122,8 @@ export default class Menu extends Component {
                 <a role="option"
                     className={this.formatClass(props.optionClassName, {
                         'is-disabled': disabled,
-                        'is-selected': selected,
-                        'is-highlighted': (this.state.highlighted === option.value)
+                        'is-highlighted': (this.state.highlighted === option.value),
+                        'is-selected': selected
                     })}
                     aria-disabled={disabled}
                     aria-selected={selected}

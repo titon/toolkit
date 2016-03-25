@@ -52,13 +52,13 @@ export default class Accordion extends Component {
      */
     getChildContext() {
         return {
-            uid: this.getUID(),
             activeIndices: Array.from(this.state.indices),
             hideItem: this.hideItem,
+            isItemActive: this.isItemActive,
+            isItemCollapsible: this.isItemCollapsible,
             showItem: this.showItem,
             toggleItem: this.toggleItem,
-            isItemCollapsible: this.isItemCollapsible,
-            isItemActive: this.isItemActive
+            uid: this.getUID()
         };
     }
 
@@ -178,8 +178,8 @@ export default class Accordion extends Component {
             <ul role="tablist"
                 id={this.formatID('accordion')}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    'is-multiple': props.multiple,
-                    'is-collapsible': props.collapsible
+                    'is-collapsible': props.collapsible,
+                    'is-multiple': props.multiple
                 })}
                 aria-live="off"
                 aria-multiselectable={props.multiple}

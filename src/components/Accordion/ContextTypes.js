@@ -7,13 +7,13 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
     activeIndices: PropTypes.arrayOf(PropTypes.number),
     hideItem: PropTypes.func,
+    isItemActive: PropTypes.func,
+    isItemCollapsible: PropTypes.func,
     showItem: PropTypes.func,
     toggleItem: PropTypes.func,
-    isItemCollapsible: PropTypes.func,
-    isItemActive: PropTypes.func
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

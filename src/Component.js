@@ -51,10 +51,10 @@ export default class Component extends React.Component {
         }
 
         args.unshift({
-            uid,
-            type,
             component: name,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            type,
+            uid
         });
 
         this.notifyEventListeners(type, args);

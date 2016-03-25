@@ -8,9 +8,9 @@ import { PropTypes } from 'react';
 import Factory from './Factory';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
     factory: PropTypes.instanceOf(Factory),
-    hideModal: PropTypes.func
+    hideModal: PropTypes.func,
+    uid: PropTypes.string
 };
 
 export default CONTEXT_TYPES;

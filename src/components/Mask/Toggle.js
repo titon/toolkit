@@ -31,8 +31,8 @@ export default class Toggle extends Component {
      */
     render() {
         return this.transferToChild(this.props.children, {
-            onClick: this.handleOnClick,
-            className: this.context.expanded ? 'is-active' : ''
+            className: this.context.expanded ? 'is-active' : '',
+            onClick: this.handleOnClick
         });
     }
 }

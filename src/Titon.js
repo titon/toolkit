@@ -8,16 +8,34 @@ import flags from './flags';
 
 const Titon = Object.freeze({
 
-    /** Current version. */
-    version: '%version%',
-
     /** Build date hash. */
     build: '%build%',
 
+    /** Runtime flags. */
+    flags,
+
+    /** Localization messages. */
+    messages: {
+        error: 'An error has occurred!',
+        loading: 'Loading...'
+    },
+
     /** Configurable options. */
     options: {
+        // Automatically prefix namespace to classes
+        autoNamespace: true,
+
+        // Prefix prepended to every cookie
+        cookiePrefix: 'titon.',
+
+        // Global debugging
+        debug: false,
+
         // BEM element separator
         elementSeparator: '-',
+
+        // Logger function that handles invariants
+        logger() {},
 
         // BEM modifier separator
         modifierSeparator: '--',
@@ -25,30 +43,12 @@ const Titon = Object.freeze({
         // CSS class namespace
         namespace: '',
 
-        // Automatically prefix namespace to classes
-        autoNamespace: true,
-
-        // Global debugging
-        debug: false,
-
-        // Logger function that handles invariants
-        logger() {},
-
         // Style states
-        states: ['info', 'debug', 'warning', 'error', 'success'],
-
-        // Prefix prepended to every cookie
-        cookiePrefix: 'titon.'
+        states: ['info', 'debug', 'warning', 'error', 'success']
     },
 
-    /** Localization messages. */
-    messages: {
-        loading: 'Loading...',
-        error: 'An error has occurred!'
-    },
-
-    /** Runtime flags. */
-    flags
+    /** Current version. */
+    version: '%version%'
 });
 
 if (window) {

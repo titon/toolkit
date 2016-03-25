@@ -32,8 +32,8 @@ export default class Toggle extends Component {
      */
     render() {
         return this.transferToChild(this.props.children, {
-            onClick: this.handleOnClick,
-            className: this.context.isSidebarActive(this.props.side) ? 'is-active' : ''
+            className: this.context.isSidebarActive(this.props.side) ? 'is-active' : '',
+            onClick: this.handleOnClick
         });
     }
 }

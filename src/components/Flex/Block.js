@@ -54,9 +54,9 @@ export default class Block extends Component {
             <div
                 className={this.formatClass(props.elementClassName, props.className, classes)}
                 style={{
-                    order: (typeof order === 'number' && order >= 0) ? order : null,
                     flexGrow: (typeof grow === 'number' && grow >= 0) ? grow : null,
-                    flexShrink: (typeof shrink === 'number' && shrink >= 0) ? shrink : null
+                    flexShrink: (typeof shrink === 'number' && shrink >= 0) ? shrink : null,
+                    order: (typeof order === 'number' && order >= 0) ? order : null
                 }}
                 {...this.inheritNativeProps(props)}>
 

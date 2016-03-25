@@ -40,8 +40,8 @@ export default class Field extends Component {
             <li>
                 <div
                     className={this.formatClass(props.elementClassName, props.className, {
-                        'is-required': props.required,
-                        'is-invalid': props.invalid
+                        'is-invalid': props.invalid,
+                        'is-required': props.required
                     })}
                     {...this.inheritNativeProps(props)}>
 

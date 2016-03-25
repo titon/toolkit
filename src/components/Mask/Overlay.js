@@ -98,8 +98,8 @@ export default class Overlay extends Component {
             <div
                 id={this.formatID('mask-overlay')}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    'is-expanded': expanded,
-                    'is-collapsible': props.collapsible
+                    'is-collapsible': props.collapsible,
+                    'is-expanded': expanded
                 })}
                 onClick={this.handleOnClick}
                 aria-hidden={!expanded}

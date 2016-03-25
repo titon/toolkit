@@ -36,8 +36,8 @@ export default class Region extends Component {
         return (
             <div
                 className={this.formatClass(props.elementClassName, props.className, {
-                    '@wrap': props.wrap,
                     '@grid': props.grid,
+                    '@wrap': props.wrap,
                     ['@' + props.orientation]: Boolean(props.orientation),
                     ['flow-' + props.flow]: Boolean(props.flow)
                 })}

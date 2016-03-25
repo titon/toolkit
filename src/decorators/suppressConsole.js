@@ -35,8 +35,8 @@ const shimConsole = (() => {
 function preserveLog(name) {
     return function preserveLogHandler(...args) {
         suppressedLogs.push({
-            type: name,
-            args
+            args,
+            type: name
         });
     };
 }

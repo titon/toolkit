@@ -44,7 +44,7 @@ export const propTypes = {
  *
  * @returns {React.PropTypes.shape}
  */
-export const option = PropTypes.shape({
+export const optionShape = PropTypes.shape({
     disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
@@ -55,10 +55,10 @@ export const option = PropTypes.shape({
  *
  * @returns {React.PropTypes.shape}
  */
-export const optionGroup = PropTypes.shape({
+export const optionGroupShape = PropTypes.shape({
     disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(option).isRequired
+    options: PropTypes.arrayOf(optionShape).isRequired
 });
 
 /**
@@ -67,5 +67,5 @@ export const optionGroup = PropTypes.shape({
  * @returns {React.PropTypes.arrayOf}
  */
 export const optionList = PropTypes.arrayOf(PropTypes.oneOfType([
-    option, optionGroup
+    optionShape, optionGroupShape
 ]));

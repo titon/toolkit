@@ -66,9 +66,9 @@ export default class Input extends Component {
         }
 
         this.state = {
+            checked: Boolean(defaultChecked),
             type: (componentName === 'input') ? props.type : componentName,
-            value: defaultValue,
-            checked: Boolean(defaultChecked)
+            value: defaultValue
         };
 
         this.generateUID();
@@ -126,13 +126,13 @@ export default class Input extends Component {
         let props = this.props,
             state = this.state,
             inputProps = {
+                disabled: props.disabled,
                 id: props.id || formatInputName(props.name),
                 name: props.name,
-                value: state.value,
-                disabled: props.disabled,
-                required: props.required,
+                onChange: this.handleOnChange,
                 readOnly: props.readOnly,
-                onChange: this.handleOnChange
+                required: props.required,
+                value: state.value
             };
 
         // Native elements inherit more base functionality
@@ -189,10 +189,10 @@ export default class Input extends Component {
 
         return {
             'is-checked': this.state.checked,
-            'is-multiple': props.multiple,
-            'is-required': props.required,
             'is-disabled': props.disabled,
-            'is-read-only': props.readOnly
+            'is-multiple': props.multiple,
+            'is-read-only': props.readOnly,
+            'is-required': props.required
         };
     }
 

@@ -73,9 +73,9 @@ export default class Select extends Component {
         }
 
         this.state = {
-            values: this.extractValues(props.defaultValue, props.multiple),
+            expanded: false,
             options: this.extractOptions(props.options),
-            expanded: false
+            values: this.extractValues(props.defaultValue, props.multiple)
         };
 
         this.generateUID();
@@ -91,18 +91,18 @@ export default class Select extends Component {
             state = this.state;
 
         return {
-            uid: this.getUID(),
-            multiple,
             expanded: state.expanded,
+            hideMenu: this.hideMenu,
             inputID: formatInputName(name),
             inputName: name,
-            options,
             mappedOptions: state.options,
+            multiple,
+            options,
             selectedValues: state.values,
             selectValue: this.selectValue,
-            hideMenu: this.hideMenu,
             showMenu: this.showMenu,
-            toggleMenu: this.toggleMenu
+            toggleMenu: this.toggleMenu,
+            uid: this.getUID()
         };
     }
 

@@ -42,8 +42,8 @@ export default class Swipe extends Component {
     };
 
     state = {
-        swiping: false,
-        startCoords: null
+        startCoords: null,
+        swiping: false
     };
 
     /**
@@ -114,8 +114,8 @@ export default class Swipe extends Component {
      */
     resetState() {
         this.setState({
-            swiping: false,
-            startCoords: null
+            startCoords: null,
+            swiping: false
         });
     }
 
@@ -216,10 +216,10 @@ export default class Swipe extends Component {
 
             // Set details for event
             e.detail = {
-                swipe: true,
                 direction: direction.toLowerCase(),
                 start,
-                stop
+                stop,
+                swipe: true
             };
 
             this.handleEvent('swipe', e);

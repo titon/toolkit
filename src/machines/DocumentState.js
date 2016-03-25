@@ -73,8 +73,8 @@ class DocumentState {
      */
     getState() {
         return {
-            scrollable: (state.lockedScrolls === 0),
-            blackened: (state.openedBlackouts > 0)
+            blackened: (state.openedBlackouts > 0),
+            scrollable: (state.lockedScrolls === 0)
         };
     }
 

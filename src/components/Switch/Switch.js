@@ -44,8 +44,8 @@ export default class Switch extends Component {
         super();
 
         this.state = {
-            value: props.defaultValue || 1,
-            checked: props.defaultChecked
+            checked: props.defaultChecked,
+            value: props.defaultValue || 1
         };
     }
 

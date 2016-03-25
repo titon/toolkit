@@ -45,12 +45,12 @@ export default class Menu extends Component {
                 role="menu"
                 id={props.nested ? null : this.formatID('drop-menu')}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    ['@up']: (modifier === 'up'),
                     ['@down']: (modifier === 'down'),
                     ['@left']: (modifier === 'left'),
                     ['@right']: (modifier === 'right'),
-                    'reverse-align': props.reverse,
-                    'is-expanded': (!props.nested && this.context.expanded)
+                    ['@up']: (modifier === 'up'),
+                    'is-expanded': (!props.nested && this.context.expanded),
+                    'reverse-align': props.reverse
                 })}
                 {...this.inheritNativeProps(props)}>
 

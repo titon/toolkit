@@ -53,8 +53,8 @@ export default class Item extends Component {
                         'is-active': (key.match(/\d/) && context.currentPage === page),
                         'is-first': (key === 'first'),
                         'is-last': (key === 'last'),
-                        'is-prev': (key === 'prev'),
-                        'is-next': (key === 'next')
+                        'is-next': (key === 'next'),
+                        'is-prev': (key === 'prev')
                     })}
                     onClick={this.handleOnClick}>
 

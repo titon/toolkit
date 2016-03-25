@@ -28,10 +28,10 @@ export default class Background extends LazyLoad {
         let props = this.props;
 
         return this.transferToChild(props.children, {
-            ref: 'element',
             className: this.formatClass(props.elementClassName, {
                 'is-loaded': this.state.loaded
-            })
+            }),
+            ref: 'element'
         });
     }
 }
