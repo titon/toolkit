@@ -251,7 +251,7 @@
                 ]
             }
         }],
-        "react/sort-prop-types": 2,
+        "react/sort-prop-types": 0,
         "react/wrap-multilines": 2,
 
         // Plugins

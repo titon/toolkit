@@ -7,23 +7,23 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    uid: PropTypes.string,
-    modifier: PropTypes.string,
-    currentIndex: PropTypes.number,
     activeIndices: PropTypes.arrayOf(PropTypes.number),
-    firstIndex: PropTypes.number,
-    lastIndex: PropTypes.number,
-    itemCount: PropTypes.number,
-    visibleCount: PropTypes.number,
-    infiniteScroll: PropTypes.bool,
-    loopedScroll: PropTypes.bool,
     afterAnimation: PropTypes.func,
+    currentIndex: PropTypes.number,
+    firstIndex: PropTypes.number,
+    infiniteScroll: PropTypes.bool,
     isItemActive: PropTypes.func,
+    itemCount: PropTypes.number,
+    lastIndex: PropTypes.number,
+    loopedScroll: PropTypes.bool,
+    modifier: PropTypes.string,
     nextItem: PropTypes.func,
     prevItem: PropTypes.func,
     showItem: PropTypes.func,
     startCycle: PropTypes.func,
-    stopCycle: PropTypes.func
+    stopCycle: PropTypes.func,
+    uid: PropTypes.string,
+    visibleCount: PropTypes.number
 };
 
 export default CONTEXT_TYPES;

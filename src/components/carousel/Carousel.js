@@ -73,23 +73,23 @@ export default class Carousel extends Component {
      */
     getChildContext() {
         return {
-            uid: this.getUID(),
-            modifier: this.props.modifier,
-            currentIndex: this.state.index,
             activeIndices: this.getActiveIndices(),
-            firstIndex: this.getFirstIndex(),
-            lastIndex: this.getLastIndex(),
-            itemCount: this.countItems(),
-            visibleCount: this.props.toShow,
-            infiniteScroll: this.props.infinite,
-            loopedScroll: this.props.loop,
             afterAnimation: this.afterAnimation,
+            currentIndex: this.state.index,
+            firstIndex: this.getFirstIndex(),
+            infiniteScroll: this.props.infinite,
             isItemActive: this.isItemActive,
+            itemCount: this.countItems(),
+            lastIndex: this.getLastIndex(),
+            loopedScroll: this.props.loop,
+            modifier: this.props.modifier,
             nextItem: this.nextItem,
             prevItem: this.prevItem,
             showItem: this.showItem,
             startCycle: this.startCycle,
-            stopCycle: this.stopCycle
+            stopCycle: this.stopCycle,
+            uid: this.getUID(),
+            visibleCount: this.props.toShow
         };
     }
 
@@ -379,8 +379,8 @@ export default class Carousel extends Component {
         }
 
         this.setState({
-            index,
-            animating: true
+            animating: true,
+            index
         });
     }
 
@@ -428,8 +428,8 @@ export default class Carousel extends Component {
                 id={this.formatID('carousel')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     ['@' + props.modifier]: true,
-                    'is-stopped': this.state.stopped,
                     'is-animating': this.state.animating,
+                    'is-stopped': this.state.stopped,
                     'no-next': (!props.loop && this.isAtLast()),
                     'no-prev': (!props.loop && this.isAtFirst())
                 })}
