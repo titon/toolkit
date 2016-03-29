@@ -26,13 +26,13 @@ export default class Select extends Input {
      * Handler that updates the selected state.
      */
     @bind
-    handleOnChange(e) {
+    handleOnChange({ target }) {
         let newState = {};
 
         if (this.props.multiple) {
-            newState.value = Array.from(e.target.selectedOptions).map(option => option.value);
+            newState.value = Array.from(target.selectedOptions).map(option => option.value);
         } else {
-            newState.value = e.target.value;
+            newState.value = target.value;
         }
 
         this.setState(newState);

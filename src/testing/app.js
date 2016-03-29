@@ -30,7 +30,7 @@ Titon.options.debug = true;
 const modalFactory = new Modal.Factory();
 
 const log = function(e, ...args) {
-    // console.log(e.constructor.name, e.type, e.detail, e, args);
+    console.log(e.constructor.name, e.type, e.detail, e, args);
 };
 
 const selectOptions = [
@@ -616,7 +616,7 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {radioMarkup}
+        {selectMarkup}
         <Modal.Container factory={modalFactory} />
     </div>
 ), document.getElementById('app'));

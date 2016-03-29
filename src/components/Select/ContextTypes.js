@@ -5,18 +5,18 @@
  */
 
 import { PropTypes } from 'react';
-import SelectPropTypes from './PropTypes';
+import { optionShape, optionList } from '../Input/PropTypes';
 
 const CONTEXT_TYPES = {
     expanded: PropTypes.bool,
     hideMenu: PropTypes.func,
     inputID: PropTypes.string,
     inputName: PropTypes.string,
-    mappedOptions: PropTypes.objectOf(SelectPropTypes.option),
+    mappedOptions: PropTypes.objectOf(optionShape),
     multiple: PropTypes.bool,
-    options: SelectPropTypes.optionList,
-    selectedValues: PropTypes.arrayOf(PropTypes.string),
+    options: optionList,
     selectValue: PropTypes.func,
+    selectedValues: PropTypes.arrayOf(PropTypes.string),
     showMenu: PropTypes.func,
     toggleMenu: PropTypes.func,
     uid: PropTypes.string

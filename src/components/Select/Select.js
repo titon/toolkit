@@ -5,10 +5,8 @@
  */
 
 import React, { Children, PropTypes } from 'react';
-import Component from '../../Component';
-import SelectPropTypes from './PropTypes';
+import { default as InputSelect } from '../Input/Select';
 import bind from '../../decorators/bind';
-import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
@@ -16,46 +14,34 @@ import isOutsideElement from '../../utility/isOutsideElement';
 import CONTEXT_TYPES from './ContextTypes';
 import { TOUCH } from '../../flags';
 
-export default class Select extends Component {
+export default class Select extends InputSelect {
     static childContextTypes = CONTEXT_TYPES;
 
     static defaultProps = {
+        ...InputSelect.defaultProps,
         arrow: <span className="caret-down" />,
         arrowClassName: ['select', 'arrow'],
         countMessage: '{count} of {total} selected',
         defaultLabel: 'Select An Option',
-        defaultValue: [],
-        disabled: false,
         elementClassName: 'select',
         labelClassName: ['select', 'label'],
         listLimit: 3,
-        multiple: false,
         multipleFormat: 'list',
         native: TOUCH,
-        required: false,
         toggleClassName: ['select', 'toggle']
     };
 
     static propTypes = {
+        ...InputSelect.propTypes,
         arrow: PropTypes.node,
         arrowClassName: cssClass.isRequired,
         children: PropTypes.node,
-        className: cssClass,
         countMessage: PropTypes.string,
         defaultLabel: PropTypes.string,
-        defaultValue: collection.string,
-        disabled: PropTypes.bool,
-        elementClassName: cssClass.isRequired,
         labelClassName: cssClass.isRequired,
         listLimit: PropTypes.number,
-        multiple: PropTypes.bool,
         multipleFormat: PropTypes.oneOf(['count', 'list']),
-        name: PropTypes.string.isRequired,
         native: PropTypes.bool,
-        onChanged: collection.func,
-        onChanging: collection.func,
-        options: SelectPropTypes.optionList.isRequired,
-        required: PropTypes.bool,
         toggleClassName: cssClass.isRequired
     };
 
@@ -65,7 +51,7 @@ export default class Select extends Component {
      * @param {Object} props
      */
     constructor(props) {
-        super();
+        super(props);
 
         if (props.multiple) {
             invariant(!props.native && !TOUCH,
@@ -73,9 +59,10 @@ export default class Select extends Component {
         }
 
         this.state = {
+            ...this.state,
             expanded: false,
             options: this.extractOptions(props.options),
-            values: this.extractValues(props.defaultValue, props.multiple)
+            value: this.extractValues(props.defaultValue, props.multiple)
         };
 
         this.generateUID();
@@ -98,8 +85,8 @@ export default class Select extends Component {
             mappedOptions: state.options,
             multiple,
             options,
-            selectedValues: state.values,
             selectValue: this.selectValue,
+            selectedValues: this.extractValues(state.value, true),
             showMenu: this.showMenu,
             toggleMenu: this.toggleMenu,
             uid: this.getUID()
@@ -148,15 +135,15 @@ export default class Select extends Component {
     /**
      * Extract a value, or list of values, and return the default set.
      *
-     * @param {String|String[]} defaultValue
+     * @param {String|String[]} value
      * @param {Boolean} multiple
-     * @returns {String[]}
+     * @returns {String|String[]}
      */
-    extractValues(defaultValue, multiple) {
-        let values = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+    extractValues(value, multiple) {
+        let values = Array.isArray(value) ? value : [value];
 
         if (!multiple) {
-            values = values.slice(0, 1);
+            return values[0] || '';
         }
 
         return values;
@@ -170,19 +157,23 @@ export default class Select extends Component {
      * @returns {String}
      */
     getSelectedLabel() {
-        let { values, options } = this.state,
+        let { value, options } = this.state,
             props = this.props,
             label = [],
             count = 0,
             limit = props.listLimit,
             message = '';
 
-        if (!values.length) {
+        if (!value.length) {
             return props.defaultLabel;
         }
 
-        values.forEach(value => {
-            let option = options[value];
+        if (!Array.isArray(value)) {
+            value = [value];
+        }
+
+        value.forEach(val => {
+            let option = options[val];
 
             if (typeof option !== 'undefined') {
                 label.push(option.selectedLabel || option.label);
@@ -196,9 +187,7 @@ export default class Select extends Component {
                     .replace('{count}', count)
                     .replace('{total}', Object.keys(options).length);
 
-            case 'list':
             default:
-                limit = props.listLimit;
                 message = label.slice(0, limit).join(', ');
 
                 if (limit < count) {
@@ -233,20 +222,13 @@ export default class Select extends Component {
     /**
      * Select a value or list of values.
      *
-     * @param {String|String[]} values
+     * @param {String|String[]} value
      */
     @bind
-    selectValue(values) {
-        let oldValues = this.state.values,
-            newValues = Array.isArray(values) ? values : [values];
-
-        this.emitEvent('changing', [newValues, oldValues]);
-
+    selectValue(value) {
         this.setState({
-            values: newValues
+            value: this.extractValues(value, this.props.multiple)
         });
-
-        this.emitEvent('changed', [newValues, oldValues]);
     }
 
     /**
@@ -286,25 +268,6 @@ export default class Select extends Component {
     }
 
     /**
-     * Handler that selects a new value.
-     *
-     * @param {SyntheticEvent} e
-     */
-    @bind
-    handleOnChange(e) {
-        if (this.props.disabled) {
-            return;
-        }
-
-        let values = [];
-
-        Array.from(e.target.selectedOptions)
-            .forEach(option => values.push(option.value));
-
-        this.selectValue(values);
-    }
-
-    /**
      * Handler that toggles the display of the menu.
      */
     @bind
@@ -340,78 +303,29 @@ export default class Select extends Component {
     }
 
     /**
-     * Render the list of options as `<option>` and `<optgroup>` elements.
-     *
-     * @param {Object[]} options
-     * @returns {ReactElement[]}
-     */
-    renderOptions(options) {
-        let elements = [];
-
-        options.forEach(option => {
-            // Optgroup
-            if (option.options) {
-                elements.push(
-                    <optgroup
-                        key={option.label}
-                        label={option.label}
-                        disabled={option.disabled}>
-
-                        {this.renderOptions(option.options)}
-                    </optgroup>
-                );
-
-            // Option
-            } else {
-                elements.push(
-                    <option
-                        key={option.value}
-                        value={option.value}
-                        disabled={option.disabled}>
-
-                        {option.label}
-                    </option>
-                );
-            }
-        });
-
-        return elements;
-    }
-
-    /**
      * Render the custom select.
      *
      * @returns {ReactElement}
      */
     render() {
-        let { name, native, multiple, disabled, required, ...props } = this.props,
-            { values, expanded } = this.state,
-            id = formatInputName(name),
-            classProps = {
-                'is-native': native,
-                'is-disabled': disabled,
-                'is-required': required,
-                'is-active': expanded
-            };
+        let { native, ...props } = this.props,
+            { expanded } = this.state,
+            inputProps = this.gatherProps(false),
+            stateClasses = this.gatherStateClasses();
+
+        // Add another state class
+        stateClasses['is-native'] = native;
 
         return (
             <div
                 ref="container"
-                id={this.formatID('select', id)}
-                className={this.formatClass(props.elementClassName, props.className, classProps, {
-                    '@multiple': multiple
-                })}
-                aria-disabled={disabled}
+                id={this.formatID('select', inputProps.id)}
+                className={this.formatClass(props.elementClassName, props.className, stateClasses)}
+                aria-disabled={props.disabled}
                 {...this.inheritNativeProps(props)}>
 
                 <select
-                    id={id}
-                    name={name}
-                    value={multiple ? values : values[0]}
-                    disabled={disabled}
-                    required={required}
-                    multiple={multiple}
-                    onChange={this.handleOnChange}
+                    {...inputProps}
                     onFocus={this.handleOnFocus}
                     onBlur={this.handleOnBlur}>
 
@@ -419,9 +333,9 @@ export default class Select extends Component {
                 </select>
 
                 <div
-                    className={this.formatClass(props.toggleClassName, classProps)}
+                    className={this.formatClass(props.toggleClassName, stateClasses)}
                     onClick={this.handleOnClickLabel}
-                    aria-controls={native ? null : this.formatID('select', id, 'menu')}
+                    aria-controls={native ? null : this.formatID('select-menu', inputProps.id)}
                     aria-haspopup={native ? null : true}
                     aria-expanded={native ? null : expanded}>
 
