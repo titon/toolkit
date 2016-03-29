@@ -10,6 +10,7 @@ import bind from '../../decorators/bind';
 import collection from '../../prop-types/collection';
 import cssClass from '../../prop-types/cssClass';
 import CONTEXT_TYPES from './ContextTypes';
+import '../../polyfills/Array.includes';
 import '../../polyfills/Object.values';
 
 export default class Menu extends Component {
@@ -119,7 +120,8 @@ export default class Menu extends Component {
 
         return (
             <li key={option.value}>
-                <a role="option"
+                <a
+                    role="option"
                     className={this.formatClass(props.optionClassName, {
                         'is-disabled': disabled,
                         'is-highlighted': (this.state.highlighted === option.value),
@@ -203,10 +205,7 @@ export default class Menu extends Component {
      */
     @bind
     handleOnKeyDown(e) {
-        if (
-          !this.state.expanded ||
-          ['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) === -1
-        ) {
+        if (!this.state.expanded || !['ArrowUp', 'ArrowDown', 'Escape', 'Enter'].includes(e.key)) {
             return;
         }
 
@@ -297,11 +296,11 @@ export default class Menu extends Component {
         return (
             <div
                 role="listbox"
-                id={this.formatID('select', context.inputID, 'menu')}
+                id={this.formatID('select-menu', context.inputID)}
                 className={this.formatClass(props.elementClassName, props.className, {
-                    '@multiple': context.multiple,
                     'hide-selected': (props.hideSelected && !context.multiple),
-                    'is-expanded': expanded
+                    'is-expanded': expanded,
+                    'is-multiple': context.multiple
                 })}
                 tabIndex="-1"
                 aria-multiselectable={context.multiple}

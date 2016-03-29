@@ -6,7 +6,9 @@
 
 import React, { Children, PropTypes } from 'react';
 import { default as InputSelect } from '../Input/Select';
+import Menu from './Menu';
 import bind from '../../decorators/bind';
+import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
 import formatInputName from '../../utility/formatInputName';
 import invariant from '../../utility/invariant';
@@ -35,7 +37,7 @@ export default class Select extends InputSelect {
         ...InputSelect.propTypes,
         arrow: PropTypes.node,
         arrowClassName: cssClass.isRequired,
-        children: PropTypes.node,
+        children: children(Menu),
         countMessage: PropTypes.string,
         defaultLabel: PropTypes.string,
         labelClassName: cssClass.isRequired,
@@ -98,6 +100,41 @@ export default class Select extends InputSelect {
      */
     componentWillMount() {
         window.addEventListener('click', this.handleOnClickOut);
+    }
+
+    /**
+     * Always return true as we need to update the dropdown menu.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     * @returns {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.hasMenu() ? true : super.shouldComponentUpdate(nextProps, nextState);
+    }
+
+    /**
+     * Only trigger `changing` events when appropriate.
+     *
+     * @param {Object} nextProps
+     * @param {Object} nextState
+     */
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.value !== this.state.value) {
+            super.componentWillUpdate(nextProps, nextState);
+        }
+    }
+
+    /**
+     * Only trigger `changed` events when appropriate.
+     *
+     * @param {Object} prevProps
+     * @param {Object} prevState
+     */
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.value !== this.state.value) {
+            super.componentDidUpdate(prevProps, prevState);
+        }
     }
 
     /**
@@ -204,9 +241,7 @@ export default class Select extends InputSelect {
      * @returns {Boolean}
      */
     hasMenu() {
-        let { native, children } = this.props;
-
-        return (!native && Children.count(children));
+        return (Children.count(this.props.children) > 0);
     }
 
     /**
@@ -335,7 +370,7 @@ export default class Select extends InputSelect {
                 <div
                     className={this.formatClass(props.toggleClassName, stateClasses)}
                     onClick={this.handleOnClickLabel}
-                    aria-controls={native ? null : this.formatID('select-menu', inputProps.id)}
+                    aria-controls={native ? null : this.formatID('select-toggle', inputProps.id)}
                     aria-haspopup={native ? null : true}
                     aria-expanded={native ? null : expanded}>
 

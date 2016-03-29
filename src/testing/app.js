@@ -536,9 +536,7 @@ const radioMarkup = (
 const selectMarkup = (
     <div>
         Native Menu:
-        <Select name="foo" native={true} defaultValue="sasuke" options={selectOptions}>
-            <div>This should not render because `native` is true.</div>
-        </Select>
+        <Select name="foo" native={true} defaultValue="sasuke" options={selectOptions} />
 
         <br /><br />
 
