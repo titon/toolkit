@@ -5,23 +5,15 @@
  */
 
 import ClassBuilder from './ClassBuilder';
-import createContainer from './createContainer';
-import createFactory from './createFactory';
 import formatBEM from './formatBEM';
 import generateUID from './generateUID';
 import invariant from './invariant';
 import tabIndex from './tabIndex';
 import wrapFunctions from './wrapFunctions';
 
-export {
-    ClassBuilder, createContainer, createFactory, formatBEM,
-    generateUID, invariant, tabIndex, wrapFunctions
-};
-
+export { ClassBuilder, formatBEM, generateUID, invariant, tabIndex, wrapFunctions };
 export default {
     ClassBuilder,
-    createContainer,
-    createFactory,
     formatBEM,
     generateUID,
     invariant,

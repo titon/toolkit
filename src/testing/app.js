@@ -10,6 +10,7 @@ import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
 import { Region, Block } from '../components/Flex';
 import Form from '../components/Form';
+import Gateway from '../components/Gateway';
 import { Row, Col } from '../components/Grid';
 import Input from '../components/Input';
 import { Background, Image } from '../components/LazyLoad';
@@ -26,8 +27,6 @@ import Switch from '../components/Switch';
 import Tabs from '../components/Tabs';
 
 Titon.options.debug = true;
-
-const modalFactory = new Modal.Factory();
 
 const log = function(e, ...args) {
     console.log(e.constructor.name, e.type, e.detail, e, args);
@@ -77,6 +76,16 @@ const selectOptions = [
         ]
     }
 ];
+
+function GateButton({ children, onClick }, context) {
+    return (
+        <button type="button" role="button" className="button" onClick={() => onClick(context)}>
+            {children}
+        </button>
+    );
+}
+
+GateButton.contextTypes = Gateway.CONTEXT_TYPES;
 
 const accordionMarkup = (
     <Accordion
@@ -453,19 +462,29 @@ const maskMarkup = (
     </Mask>
 );
 
+const modalInstance = (
+    <Modal key="foo" gateName="modal">
+        <Modal.Head>Modal Title</Modal.Head>
+        <Modal.Body>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.
+        </Modal.Body>
+    </Modal>
+);
+
 const modalMarkup = (
-    <button type="button" role="button" className="button" onClick={function() {
-        modalFactory.addElement(
-            <Modal factory={modalFactory}>
-                <Modal.Head>Modal Title</Modal.Head>
-                <Modal.Body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet nisi in lectus euismod cursus. Nulla facilisi. Nullam gravida eget nunc vel volutpat. Ut interdum dapibus lacus sed volutpat. Quisque rhoncus, turpis id faucibus sodales, lorem justo pulvinar nibh, ut interdum sapien mi vitae velit. Nam vestibulum elit luctus ante tempor, ut bibendum mauris molestie. Vestibulum at pellentesque nulla. Pellentesque ex neque, ullamcorper sit amet lacus vel, tincidunt posuere est. Pellentesque mollis quis diam ut iaculis. Etiam scelerisque lacus vitae mi placerat fringilla. Sed eget augue eu sem pellentesque consectetur. Integer in justo risus. Nullam pellentesque magna sit amet metus aliquam volutpat non vitae lectus. Duis dignissim velit et justo pellentesque placerat. Ut vel sodales sapien. Nam sit amet luctus tellus.
-                </Modal.Body>
-            </Modal>
-        );
-    }}>
-        Open Modal
-    </button>
+    <div>
+        <GateButton onClick={context => {
+            context.warpIn('modal', modalInstance);
+        }}>
+            Open Modal
+        </GateButton>
+
+        <GateButton onClick={context => {
+            context.warpOut('modal', modalInstance);
+        }}>
+            Close Modal
+        </GateButton>
+    </div>
 );
 
 const offCanvasMarkup = (
@@ -614,7 +633,9 @@ const tabsMarkup = (
 
 ReactDOM.render((
     <div style={{ width: '100%' }}>
-        {selectMarkup}
-        <Modal.Container factory={modalFactory} />
+        <Gateway>
+            {modalMarkup}
+            <Modal.Gate name="modal" />
+        </Gateway>
     </div>
 ), document.getElementById('app'));

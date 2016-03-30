@@ -7,8 +7,9 @@
 import { PropTypes } from 'react';
 
 const CONTEXT_TYPES = {
-    hideModal: PropTypes.func,
-    uid: PropTypes.string
+    registerGate: PropTypes.func,
+    warpIn: PropTypes.func,
+    warpOut: PropTypes.func
 };
 
 export default CONTEXT_TYPES;

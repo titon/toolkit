@@ -8,16 +8,14 @@ import Modal from './Modal';
 import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';
-import Factory from './Factory';
-import Container from './Container';
+import Gate from './Gate';
 import CONTEXT_TYPES from './ContextTypes';
 
 Modal.CONTEXT_TYPES = CONTEXT_TYPES;
 Modal.Body = Body;
 Modal.Head = Head;
 Modal.Foot = Foot;
-Modal.Factory = Factory;
-Modal.Container = Container;
+Modal.Gate = Gate;
 
-export { Body, Head, Foot, Factory, Container, CONTEXT_TYPES };
+export { Body, Head, Foot, Gate, CONTEXT_TYPES };
 export default Modal;

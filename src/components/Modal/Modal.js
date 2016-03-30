@@ -7,7 +7,6 @@
 import React, { PropTypes } from 'react';
 import DocumentState from '../../machines/DocumentState';
 import Component from '../../Component';
-import Factory from './Factory';
 import Body from './Body';
 import Head from './Head';
 import Foot from './Foot';
@@ -19,6 +18,10 @@ import CONTEXT_TYPES from './ContextTypes';
 
 export default class Modal extends Component {
     static childContextTypes = CONTEXT_TYPES;
+
+    static contextTypes = {
+        warpOut: PropTypes.func
+    };
 
     static defaultProps = {
         animation: 'fade',
@@ -46,8 +49,8 @@ export default class Modal extends Component {
         closeClassName: cssClass.isRequired,
         closeable: PropTypes.bool,
         elementClassName: cssClass.isRequired,
-        factory: PropTypes.instanceOf(Factory).isRequired,
         fullScreen: PropTypes.bool,
+        gateName: PropTypes.string.isRequired,
         innerClassName: cssClass.isRequired,
         loading: PropTypes.bool,
         onHidden: collection.func,
@@ -74,7 +77,6 @@ export default class Modal extends Component {
      */
     getChildContext() {
         return {
-            factory: this.props.factory,
             hideModal: this.hideModal,
             uid: this.getUID()
         };
@@ -131,11 +133,19 @@ export default class Modal extends Component {
     }
 
     /**
-     * Conceal the modal by removing its instance from the factory.
+     * Conceal the modal by removing its instance from the gateway.
      */
     @bind
     hideModal() {
-        this.props.factory.remove(this);
+        this.context.warpOut(this.props.gateName, this._reactInternalInstance._currentElement);
+    }
+
+    /**
+     * Handler for clicking the close button.
+     */
+    @bind
+    handleOnClick() {
+        this.hideModal();
     }
 
     /**
@@ -170,8 +180,6 @@ export default class Modal extends Component {
     render() {
         let props = this.props;
 
-        /* eslint operator-linebreak: 0, react/jsx-handler-names: 0 */
-
         return (
             <div
                 role="dialog"
@@ -198,7 +206,7 @@ export default class Modal extends Component {
                         <button
                             type="button" role="button"
                             className={this.formatClass(props.closeClassName)}
-                            onClick={this.hideModal}>
+                            onClick={this.handleOnClick}>
                             {props.close}
                         </button>
                     )}
