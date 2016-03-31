@@ -14,6 +14,7 @@ import bind from '../../decorators/bind';
 import children from '../../prop-types/children';
 import cssClass from '../../prop-types/cssClass';
 import collection from '../../prop-types/collection';
+import invariant from '../../utility/invariant';
 import CONTEXT_TYPES from './ContextTypes';
 
 export default class Modal extends Component {
@@ -24,7 +25,6 @@ export default class Modal extends Component {
     };
 
     static defaultProps = {
-        animation: 'fade',
         blackOut: true,
         close: <span className="x" />,
         closeClassName: ['modal', 'close'],
@@ -32,16 +32,11 @@ export default class Modal extends Component {
         elementClassName: 'modal',
         fullScreen: false,
         innerClassName: ['modal', 'inner'],
-        loading: false,
         outerClassName: ['modal', 'outer'],
         stopScroll: true
     };
 
     static propTypes = {
-        animation: PropTypes.oneOf([
-            'fade', 'from-above', 'from-below', 'slide-in-top',
-            'slide-in-bottom', 'slide-in-left', 'slide-in-right'
-        ]),
         blackOut: PropTypes.bool,
         children: children(Body, Head, Foot),
         className: cssClass,
@@ -52,7 +47,6 @@ export default class Modal extends Component {
         fullScreen: PropTypes.bool,
         gateName: PropTypes.string.isRequired,
         innerClassName: cssClass.isRequired,
-        loading: PropTypes.bool,
         onHidden: collection.func,
         onHiding: collection.func,
         onShowing: collection.func,
@@ -63,9 +57,15 @@ export default class Modal extends Component {
 
     /**
      * Generate a UID.
+     *
+     * @param {Object} props
+     * @param {Object} context
      */
-    constructor() {
+    constructor(props, context) {
         super();
+
+        invariant(typeof context.warpOut !== 'undefined',
+            'A `Modal` must be instantiated within a `Gateway`.');
 
         this.generateUID();
     }
@@ -90,42 +90,45 @@ export default class Modal extends Component {
      * and locking the scroll, based on the defined props.
      */
     componentWillMount() {
-        let props = this.props;
+        let { closeable, blackOut, stopScroll } = this.props;
 
         this.emitEvent('showing');
 
-        if (props.closeable) {
+        if (closeable) {
             window.addEventListener('keydown', this.handleOnKeyDown);
         }
 
-        if (props.blackOut) {
+        if (blackOut) {
             DocumentState.showBlackout();
         }
 
-        if (props.stopScroll) {
+        if (stopScroll) {
             DocumentState.disableScrolling();
         }
 
         this.emitEvent('shown');
+
+        // TODO somehow trigger the expanded state after a mount?
+        // Would be nice to have a small animation or something.
     }
 
     /**
      * Reverse the logic that was initialized during mounting.
      */
     componentWillUnmount() {
-        let props = this.props;
+        let { closeable, blackOut, stopScroll } = this.props;
 
         this.emitEvent('hiding');
 
-        if (props.closeable) {
+        if (closeable) {
             window.removeEventListener('keydown', this.handleOnKeyDown);
         }
 
-        if (props.blackOut) {
+        if (blackOut) {
             DocumentState.hideBlackout();
         }
 
-        if (props.stopScroll) {
+        if (stopScroll) {
             DocumentState.enableScrolling();
         }
 
@@ -133,7 +136,7 @@ export default class Modal extends Component {
     }
 
     /**
-     * Conceal the modal by removing its instance from the gateway.
+     * Conceal the modal by removing its element from the gateway.
      */
     @bind
     hideModal() {
@@ -186,9 +189,7 @@ export default class Modal extends Component {
                 id={this.formatID('modal')}
                 className={this.formatClass(props.elementClassName, props.className, {
                     'is-expanded': true,
-                    'is-fullscreen': props.fullScreen,
-                    'is-loading': props.loading,
-                    [props.animation]: true
+                    'is-fullscreen': props.fullScreen
                 })}
                 aria-labelledby={this.formatID('modal-title')}
                 aria-describedby={this.formatID('modal-content')}

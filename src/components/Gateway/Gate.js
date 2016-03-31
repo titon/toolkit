@@ -24,6 +24,7 @@ export default class Gate extends Component {
         className: cssClass,
         contract: PropTypes.func.isRequired,
         elementClassName: cssClass.isRequired,
+        gateClassName: cssClass.isRequired,
         name: PropTypes.string.isRequired
     };
 
@@ -88,6 +89,17 @@ export default class Gate extends Component {
     }
 
     /**
+     * Method for rendering the children within the gate.
+     * This allows for sub-classes to implement custom functionality.
+     *
+     * @param {ReactElement[]} children
+     * @returns {ReactElement[]}
+     */
+    renderChildren(children) {
+        return children;
+    }
+
+    /**
      * Render the gateway and its children.
      *
      * @returns {ReactElement}
@@ -97,12 +109,14 @@ export default class Gate extends Component {
 
         return (
             <div
-                className={this.formatClass(props.elementClassName, props.className, {
-                    ['@' + props.name]: true
-                })}
+                className={this.formatClass(
+                    props.elementClassName,
+                    props.className,
+                    props.gateClassName
+                )}
                 {...this.inheritNativeProps(props)}>
 
-                {this.state.children}
+                {this.renderChildren(this.state.children)}
             </div>
         );
     }
