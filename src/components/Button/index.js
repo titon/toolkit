@@ -4,4 +4,8 @@
  * @link        http://titon.io
  */
 
-export default from './Button';
+import Button from './Button';
+import Link from './Link';
+
+export { Button, Link };
+export default Button;

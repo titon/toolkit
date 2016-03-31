@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Titon from '../Titon';
 import Accordion from '../components/Accordion';
 import Breadcrumb from '../components/Breadcrumb';
+import { Button, Link } from '../components/Button';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
@@ -129,6 +130,16 @@ const breadcrumbMarkup = (
         <Breadcrumb.Item href="#" onClick={log}>Bar</Breadcrumb.Item>
         <Breadcrumb.Item href="#" onClick={log}>Baz</Breadcrumb.Item>
     </Breadcrumb>
+);
+
+const buttonMarkup = (
+    <div>
+        <Button primary>Foo</Button>
+        <Button small state="error">Bar</Button>
+        <Button large href="#">Baz</Button>
+        <Button disabled state="warning">Qux</Button>
+        <Link href="/foo">Anchor</Link>
+    </div>
 );
 
 const carouselMarkup = (
@@ -634,7 +645,7 @@ const tabsMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {modalMarkup}
+            {buttonMarkup}
             <Modal.Gate name="modal" />
         </Gateway>
     </div>

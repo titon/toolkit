@@ -180,12 +180,6 @@ $titon-blackout: (
 
 $titon-button: (
     "class": bem("button"),
-    "class-modifier-gloss": bem("button", "", "gloss"),
-    "class-modifier-reflect": bem("button", "", "reflect"),
-    "class-modifier-glare": bem("button", "", "glare"),
-    "class-modifier-popout": bem("button", "", "popout"),
-    "modifiers": (), // gloss, reflect, glare, popout
-    "effects": (), // round, oval, pill, skew
 ) !default;
 
 $titon-button-group: (
