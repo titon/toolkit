@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import Titon from '../Titon';
 import Accordion from '../components/Accordion';
 import Breadcrumb from '../components/Breadcrumb';
-import { Button, Link } from '../components/Button';
+import Button, { Link } from '../components/Button';
+import ButtonGroup from '../components/ButtonGroup';
 import Carousel from '../components/carousel';
 import Checkbox from '../components/Checkbox';
 import Drop from '../components/Drop';
@@ -139,6 +140,42 @@ const buttonMarkup = (
         <Button large href="#">Baz</Button>
         <Button disabled state="warning">Qux</Button>
         <Link href="/foo">Anchor</Link>
+    </div>
+);
+
+const buttonGroupMarkup = (
+    <div>
+        <ButtonGroup>
+            <Button>Foo</Button>
+            <Button>Bar</Button>
+            <Button>Baz</Button>
+        </ButtonGroup>
+
+        <br />
+
+        <ButtonGroup justified>
+            <Button>Foo</Button>
+            <Drop>
+                <Drop.Toggle>
+                    <Button>Bar</Button>
+                </Drop.Toggle>
+
+                <Drop.Menu>
+                    <Drop.Item>1</Drop.Item>
+                    <Drop.Item>2</Drop.Item>
+                    <Drop.Item>3</Drop.Item>
+                </Drop.Menu>
+            </Drop>
+            <Button>Baz</Button>
+        </ButtonGroup>
+
+        <br />
+
+        <ButtonGroup vertical>
+            <Button>Foo</Button>
+            <Button>Bar Bar</Button>
+            <Button>Baz</Button>
+        </ButtonGroup>
     </div>
 );
 
@@ -645,7 +682,7 @@ const tabsMarkup = (
 ReactDOM.render((
     <div style={{ width: '100%' }}>
         <Gateway>
-            {buttonMarkup}
+            {buttonGroupMarkup}
             <Modal.Gate name="modal" />
         </Gateway>
     </div>

@@ -1,0 +1,53 @@
+/**
+ * @copyright   2010-2016, The Titon Project
+ * @license     http://opensource.org/licenses/BSD-3-Clause
+ * @link        http://titon.io
+ */
+
+@include export("button-group") {
+    $titon-temp-button-group-modifiers: map-get($titon-button-group, "modifiers");
+
+    #{map-get($titon-button-group, "class")} {
+        @extend %placeholder-list;
+        white-space: nowrap;
+        display: inline-flex;
+        vertical-align: middle;
+
+        > li {
+            position: relative;
+
+            &:hover {
+                z-index: 1;
+            }
+        }
+
+        #{map-get($titon-button, "class")} {
+            display: block;
+            width: 100%;
+        }
+
+        // Space out groups
+        & + & {
+            margin-#{bidi-alignment()}: theme-setting("margin");
+        }
+    }
+
+    //-------------------- Modifiers --------------------//
+
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-group-modifiers, "vertical")) {
+        #{map-get($titon-button-group, "class-modifier-vertical")} {
+            flex-direction: column;
+        }
+    }
+
+    @if (is-feature-enabled("all-modifiers") or index($titon-temp-button-group-modifiers, "justified")) {
+        #{map-get($titon-button-group, "class-modifier-justified")} {
+            width: 100%;
+            display: flex;
+
+            > li {
+                flex-grow: 1;
+            }
+        }
+    }
+}

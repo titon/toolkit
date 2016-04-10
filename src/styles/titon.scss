@@ -187,7 +187,6 @@ $titon-button-group: (
     "class-modifier-vertical": bem("button-group", "", "vertical"),
     "class-modifier-justified": bem("button-group", "", "justified"),
     "modifiers": ("justified"), // justified, vertical
-    "effects": (), // round, pill, skew
 ) !default;
 
 $titon-carousel: (

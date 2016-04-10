@@ -5,36 +5,6 @@
  */
 
 /**
- * Target the direct children of a button group, the li or button.
- */
-@mixin button-group-children {
-    > li,
-    > #{map-get($titon-button, "class")} {
-        @content;
-    }
-}
-
-/**
- * Target the first button within a button group.
- */
-@mixin button-group-first-child {
-    > li:first-child #{map-get($titon-button, "class")},
-    > #{map-get($titon-button, "class")}:first-child {
-        @content;
-    }
-}
-
-/**
- * Target the last button within a button group.
- */
-@mixin button-group-last-child {
-    > li:last-child #{map-get($titon-button, "class")},
-    > #{map-get($titon-button, "class")}:last-child {
-        @content;
-    }
-}
-
-/**
  * Generate a specific state for the custom checkbox toggle.
  *
  * @param string $pseudo
